@@ -298,9 +298,6 @@ sub checkAllControlValueAction
     $self->{json} = { success => $value  };
 }
 
-
-
-
 # prints a HTML response to enable the 'Save changes' web element
 # don't p[ritn any other HTML if you use this
 sub _responseToEnableChangesMenuElement
