@@ -135,15 +135,13 @@ sub _zentyalVersion
 # qa_updates_archive conf key has higher precedence
 sub _archive
 {
-    if ( EBox::Config::configkey('qa_updates_archive') ) {
+    if (EBox::Config::configkey('qa_updates_archive')) {
         return EBox::Config::configkey('qa_updates_archive');
     } else {
-        my $ubuntuVersion = _ubuntuVersion();
         my $zentyalVersion = _zentyalVersion();
 
         return "zentyal-qa-$zentyalVersion";
     }
-
 }
 
 # Get the suite of archives to set preferences
