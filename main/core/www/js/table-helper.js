@@ -1119,13 +1119,7 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
 };
 
 Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
-    var tableBody = jQuery('#' + tableName + '_tbody'),
-        oldOrder = [];
-    var getOrder = function() {
-         return  tableBody.children('tr').map(function() {
-                         return this.id ? this.id : null;
-         }).get();
-    };
+    var tableBody = jQuery('#' + tableName + '_tbody');
     tableBody.sortable({
         elements: 'tr',
         cancel: '.readOnly',
@@ -1138,10 +1132,11 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
             });
             return ui;
         },
-        start: function() {  oldOrder = getOrder(); },
         update: function(event, ui) {
             var movedId = ui.item.attr('id');
-            var newOrder = getOrder();
+            var newOrder = tableBody.children('tr').map(function() {
+                         return this.id ? this.id : null;
+            }).get();
             Zentyal.TableHelper.changeOrder(url, tableName, directory, movedId, newOrder);
         }
     });
