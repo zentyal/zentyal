@@ -48,10 +48,6 @@ foreach my $component (@{$components}) {
 % @selectOptions = sort { $a->{printableValue} cmp $b->{printableValue} } @selectOptions;
 % my $defaultComponent = (sort { $a->printableName() cmp $b->printableName() } @{$components})[0];
 
-<!-- XXX check if we can remove those js includes -->
-<script type="text/javascript" src="/data/js/jquery.js">//</script>
-<script type="text/javascript" src="/data/js/common.js">//</script>
-
 <br>
 <!-- Error loading from a selection will lay on here -->
 <div id="<% qq{errorSelectData_$compName} | h %>">
