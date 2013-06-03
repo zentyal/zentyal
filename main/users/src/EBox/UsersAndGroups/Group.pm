@@ -400,7 +400,7 @@ sub create
     my @attr = (
         'cn'          => $group,
         'gidNumber'   => $gid,
-        'objectclass' => ['posixGroup', 'zentyalGroup'],
+        'objectclass' => ['posixGroup', 'zentyalDistributionGroup'],
     );
     push (@attr, 'description' => $comment) if ($comment);
 

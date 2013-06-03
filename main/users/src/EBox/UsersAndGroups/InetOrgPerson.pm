@@ -230,9 +230,9 @@ sub _groups
     my $filter;
     my $dn = $self->dn();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
+        $filter = "(&(objectclass=zentyalDistributionGroup)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
+        $filter = "(&(objectclass=zentyalDistributionGroup)(member=$dn))";
     }
 
     my %attrs = (

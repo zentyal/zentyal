@@ -484,7 +484,7 @@ sub create
     try {
         $user->{dn} = $dn;
         shift @_;
-        $entry = @{$self->SUPER::create($user, %params)};
+        $entry = $self->SUPER::create($user, %params);
 
         my $anyObjectClass = any($entry->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
@@ -510,17 +510,6 @@ sub create
         # add or delete attributes.
         unless ($system) {
             $users->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
-        }
-
-        my $result = $entry->update($self->_ldap->{ldap});
-        if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(
-                    message => __('Error on user LDAP entry creation:'),
-                    result => $result,
-                    opArgs => $self->entryOpChangesInUpdate($entry),
-                   );
-            };
         }
 
         $res = new EBox::UsersAndGroups::User(dn => $dn);

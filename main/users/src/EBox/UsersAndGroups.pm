@@ -999,7 +999,7 @@ sub groups
 
     my %args = (
         base => $self->ldap->dn(),
-        filter => 'objectclass=zentyalGroup',
+        filter => 'objectclass=zentyalDistributionGroup',
         scope => 'sub',
     );
 
