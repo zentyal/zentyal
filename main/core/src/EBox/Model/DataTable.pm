@@ -2871,7 +2871,7 @@ sub _paramsToJSON
 #     string - holding a javascript funcion
 sub actionClickedJS
 {
-    my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
+    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
 
     unless (($action eq 'del') or ($action eq 'clone')) {
         throw EBox::Exceptions::External("Wrong action $action");
@@ -2895,7 +2895,7 @@ sub actionClickedJS
                     $tablename,
                     $action,
                     $editId,
-                    $direction,
+                    '',
                     $table->{'confdir'},
                     $page,
                     $extraParamsJS);

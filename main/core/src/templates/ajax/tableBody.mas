@@ -717,7 +717,6 @@ $page
               onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
-                              '',
                               $page)
                        %>"
           />
@@ -758,7 +757,6 @@ $page
               onClick="<%
                           $model->actionClickedJS('clone',
                              $row->{id},
-                              '',
                               $page)
                        %>"
           />

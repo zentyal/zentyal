@@ -372,10 +372,7 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsA
 
   if ( action == 'del' ) {
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
-  }  else if ( action == 'move' ) {
-    Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table);
   }
-
 };
 
 Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {

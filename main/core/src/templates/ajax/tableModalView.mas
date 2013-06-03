@@ -548,7 +548,6 @@ $selectCallerId
               onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
-                            '' ,
                             $page,
                             1,
                             selectCallerId => $selectCallerId
@@ -595,7 +594,6 @@ $selectCallerId
               onClick="<%
                           $model->actionClickedJS('clone',
                              $row->{id},
-                             '',
                              $page,
                              1,
                              selectCallerId => $selectCallerId)
