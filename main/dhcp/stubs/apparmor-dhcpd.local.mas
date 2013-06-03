@@ -8,6 +8,8 @@
 # This profile has been modified by Zentyal Server to provide Dynamic
 # DNS feature
 
+   network packet raw,
+
   # For dynamic DNS (Zentyal)
   /etc/dhcp/ddns-keys/** r,
 
