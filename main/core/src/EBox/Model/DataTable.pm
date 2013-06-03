@@ -2877,7 +2877,7 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
+    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
@@ -2895,7 +2895,6 @@ sub actionClickedJS
                     $tablename,
                     $action,
                     $editId,
-                    '',
                     $table->{'confdir'},
                     $page,
                     $extraParamsJS);

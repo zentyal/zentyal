@@ -321,17 +321,16 @@ Parameters:
     table - the table's name
     action - the action to do (move, del)
     rowId  - the affected row identifier
-    paramsAction - an string with the parameters related to the
-                   action E.g.: param1=value1&param2=value2 *(Optional)*
     directory - the GConf directory where table is stored
+    page        -
+    extraParams - an string with the parameters related to the
+                   action E.g.: param1=value1&param2=value2 *(Optional)*
+
 
 */
-Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsAction, directory, page, extraParams) {
+Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  directory, page, extraParams) {
     var params = '&action=' + action + '&id=' + rowId;
 
-    if ( paramsAction !== '' ) {
-        params += '&' + paramsAction;
-    }
     if ( page != undefined ) {
         params += '&page=' + page;
     }
