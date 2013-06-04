@@ -2565,7 +2565,7 @@ sub automaticRemoveMsg
 #
 # Returns:
 #
-#    int - page size
+#    int page size or '_all' for 'All pages' option
 sub pageSize
 {
     my ($self) = @_;
@@ -2578,6 +2578,21 @@ sub pageSize
 
     return $self->defaultPageSize();
 }
+
+# Method: pageSizeIntValue
+#
+#  return the exact maximum number of rows which should be displayed in each
+#  page
+sub pageSizeIntValue
+{
+    my ($self) = @_;
+    my $pageSize = $self->pageSize();
+    if ($pageSize eq '_all') {
+        return 2147483647; # POSIX MAX INT
+    }
+    return $pageSize;
+}
+
 
 # Method: defaultPageSize
 #
@@ -2596,7 +2611,7 @@ sub defaultPageSize
         return $table->{'pageSize'};
     }
 
-    # fallback to defautl value of 10
+    # fallback to default value of 10
     return 10;
 }
 

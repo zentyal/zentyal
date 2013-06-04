@@ -93,9 +93,7 @@ if ($action eq 'view') {
     $showEditForm = 1;
 }
 
-my $pageSize = $model->pageSize();
-$pageSize or
-    $pageSize = 10;
+my $pageSize = $model->pageSizeIntValue();
 
 my $requestArgs = $m->request_args();
 my $selectCallerId  = $requestArgs->{selectCallerId};
@@ -302,7 +300,6 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
    model => $model,
    page => $page,
    tpages => POSIX::ceil($matches / $pageSize) - 1,
-   pageSize => $pageSize
 &>
     </td>
     </tr>
