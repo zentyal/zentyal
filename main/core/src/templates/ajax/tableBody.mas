@@ -189,13 +189,16 @@ if ($checkAllProperty) {
       if ($displayRows > $pageSize) { next; };
         $row = $model->row($ids[$idx]);
       }
+      my $addRowMoveHandle;
       my @trClass = qw(border);
       if ($row->readOnly) {
           push @trClass, 'readOnly';
+      } elsif ($movableRows) {
+         push @trClass, 'movableRow';
+         $addRowMoveHandle = 1;
       }
 </%perl>
       <tr class='border' id="<% $row->id() %>">
-
 %      foreach my $td (@{$row->elements()})      {
 <%perl>
           next unless ($td->HTMLViewer());
@@ -207,6 +210,10 @@ if ($checkAllProperty) {
           }
 </%perl>
         <td class='tcenter'>
+%          if ($addRowMoveHandle) {
+           <span class='moveRowHandle'></span>
+%              $addRowMoveHandle = 0;
+%         }
           <&
             $td->HTMLViewer(),
              @viewerParams

@@ -1117,8 +1117,8 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
 Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
     var tableBody = jQuery('#' + tableName + '_tbody');
     tableBody.sortable({
-        elements: 'tr',
-        cancel: '.readOnly',
+        elements: '.movableRow',
+        handle: '.moveRowHandle',
         containment: 'parent',
         tolerance: 'pointer',
         delay: 100,
