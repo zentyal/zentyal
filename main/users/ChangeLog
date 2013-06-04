@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed password change in user corner when using samba
 	+ Changed reload action to force-reload for nscd init.d daemon
 3.0.19
 	+ Fixed error message when trying to add a user above the edition maximum
