@@ -41,8 +41,8 @@ Function: stripe
 */
 Zentyal.stripe = function (selector, evenClass, oddClass) {
     var collection = jQuery(selector);
-    collection.find('tbody tr:nth-child(even)').addClass(evenClass);
-    collection.find('tbody tr:nth-child(odd)').addClass(oddClass);
+    collection.find('tbody tr:nth-child(even)').removeClass(oddClass).addClass(evenClass);
+    collection.find('tbody tr:nth-child(odd)').removeClass(evenClass).addClass(oddClass);
 };
 
 //** Zentyal.LetfMenu namespace **\\

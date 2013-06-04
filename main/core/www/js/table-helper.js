@@ -1134,6 +1134,7 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
                          return this.id ? this.id : null;
             }).get();
             Zentyal.TableHelper.changeOrder(url, tableName, directory, movedId, newOrder);
+            Zentyal.stripe('#' + tableName, 'even', 'odd');
         }
     });
 };

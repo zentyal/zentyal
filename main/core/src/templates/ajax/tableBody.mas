@@ -211,7 +211,7 @@ if ($checkAllProperty) {
 </%perl>
         <td class='tcenter'>
 %          if ($addRowMoveHandle) {
-           <span class='moveRowHandle'></span>
+           <span class='moveRowHandle'><img src='/data/images/bg.gif' /></span>
 %              $addRowMoveHandle = 0;
 %         }
           <&
