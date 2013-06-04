@@ -101,6 +101,42 @@ sub _tree
     throw EBox::Exceptions::NotImplemented('_tree');
 }
 
+# Method: rootNodes
+#
+#    Return the top-level nodes of the tree
+#
+#    This needs to be overrided and implemented on each model
+#
+# Returns:
+#
+#    list of hashes ref with the attributes of each root node
+#
+sub rootNodes
+{
+    throw EBox::Exceptions::NotImplemented('rootNodes');
+}
+
+# Method: childNodes
+#
+#    Return the child nodes of a given parent node
+#
+#    This needs to be overrided on each model except in
+#    the case of a plain tree with only root nodes, but
+#    in that case is probably better to be using a DataTable
+#
+# Parameters:
+#
+#    parent - string with the id of the parent node
+#
+# Returns:
+#
+#    list of hashes ref with the attributes of each child node
+#
+sub childNodes
+{
+    return [];
+}
+
 # Method: modelName
 #
 #    Return the model name which is set by the key 'treeName' when

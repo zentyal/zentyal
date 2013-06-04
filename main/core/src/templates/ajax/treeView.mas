@@ -33,18 +33,19 @@ jQuery(function () {
   jQuery("#tree1").jstree({
 	"json_data" : {
 		"data" : [
+% foreach my $node (@{$model->rootNodes()}) {
+%   my $id = $node->{id};
+%   my @children;
+%   foreach my $child (@{$model->childNodes($id)}) {
+%       push (@children, "\"$child->{printableName}\"");
+%   }
 			{
-              "data" : "Foo",
-              "metadata" : { id : 23 },
-              "children" : [ "Bar1", "Bar2" ]
+              "data" : "<% $node->{printableName} %>",
+              "metadata" : { id : "<% $id %>" },
+              "children" : [ <% join (',', @children) %> ]
             },
-            {  "attr" : { "id" : "li.node.id1" },
-			   "data" : {
-				    "title" : "Baz",
-				    "attr" : { "href" : "#" }
-			   }
-			}
-		],
+% }
+		]
 	},
 	"plugins" : [ "themes", "json_data", "ui" ]
   });
