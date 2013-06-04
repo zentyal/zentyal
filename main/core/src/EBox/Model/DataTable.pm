@@ -35,6 +35,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Types::Boolean;
+use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
@@ -2569,9 +2570,13 @@ sub pageSize
 {
     my ($self) = @_;
 
-    # if the user has selected a page size return it
-    if (exists $self->{'pageSize'} ) {
-        return $self->{'pageSize'};
+    # # if the user has selected a page size return it
+    # if (exists $self->{'pageSize'} ) {
+    #     return $self->{'pageSize'};
+    # }
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get('pageSize');
+    if ($pageSize) {
+        return $pageSize;
     }
 
     return $self->defaultPageSize();
@@ -2626,7 +2631,8 @@ sub setPageSize
                                            )
     }
 
-    $self->{'pageSize'} = $rows;
+    EBox::WebAdmin::UserConfiguration::set('pageSize', $rows);
+ #   $self->{'pageSize'} = $rows;
 }
 
 # Method: changeViewJS

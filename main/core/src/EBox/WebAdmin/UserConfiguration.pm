@@ -20,22 +20,44 @@ package EBox::WebAdmin::UserConfiguration;
 
 use Apache2::RequestUtil;
 use EBox::Exceptions::Internal;
+use EBox::Config::Redis;
 
-sub _user
+sub user
 {
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
     if (not defined $user) {
-        throw EBox::Exceptions::Internal("Cannot determine user logged in Zentyal");
+
     }
     return $user;
 }
 
 sub _baseDir
 {
-    my $user = _user();
+    my ($user) = @_;
     return "/state/webadmin_users/$user/";
 }
 
+sub get
+{
+    my ($key) = @_;
+    my $user = user();
+    if (not $user) {
+        return undef;
+    }
+    my $fullKey = _baseDir($user) . $key;
+    return EBox::Config::Redis::instance()->get($fullKey);
+}
+
+sub set
+{
+    my ($key, $value) = @_;
+    my $user = user();
+    if (not $user) {
+        throw EBox::Exceptions::Internal("Cannot se a use configuration value without a user logged in Zentyal");
+    }
+    my $fullKey = _baseDir($user) . $key;
+    EBox::Config::Redis::instance()->set($fullKey, $value);
+}
 
 1;
