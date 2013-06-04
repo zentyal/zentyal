@@ -828,8 +828,7 @@ Parameters:
         modelName - the model name to distinguish among hiddenDiv tags XXX not used. Remove?
 
 */
-Zentyal.TableHelper.restoreHidden  = function (elementId, modelName)
-{
+Zentyal.TableHelper.restoreHidden  = function (elementId, modelName) {
     if (savedElements[elementId] !== null) {
         jQuery('#' + elementId).html(savedElements[elementId]);
     } else {

@@ -18,7 +18,8 @@ if (!('Zentyal' in  window)) {
 
             return nsObject;
         },
-        LeftMenu: {}
+        LeftMenu: {},
+        MenuSearch: {}
     };
 }
 
@@ -120,8 +121,6 @@ Zentyal.toggleWithToggler = function(name) {
 };
 
 // Zentya.MenuSearch namespace
-Zentyal.namespace('MenuSearch');
-
 Zentyal.MenuSearch.hideMenuEntry = function(id) {
     var i;
     while((i=id.lastIndexOf('_'))  != 4) {
