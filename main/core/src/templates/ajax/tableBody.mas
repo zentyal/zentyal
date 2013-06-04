@@ -161,7 +161,7 @@ if ($checkAllProperty) {
    filter     => $filter,
 &>
 
-<table class='<%  $table->{'class'}  %>'>
+<table id='<% $tableName %>'  class='<%  $table->{'class'}  %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
                    actions   => ((defined $withoutActions) ? not  $withoutActions: 1),
@@ -243,13 +243,16 @@ if ($checkAllProperty) {
     </tbody>
 </table>
 
-% if ($movableRows) {
+
 <script>
 jQuery(function() {
+     Zentyal.stripe('#<% $tableName %>', 'even', 'odd');
+% if ($movableRows) {
      <% $model->setSortableTableJS() %>
+% }
 });
 </script>
-% }
+
 
 <table class="bDataTable">
     <tr>
