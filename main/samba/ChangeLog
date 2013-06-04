@@ -1,5 +1,3 @@
-HEAD
-	+ Do not try to startService in LDB connect when running from user corner
 3.0.19
 	+ Fix id mapping for users and groups added by the s4sync daemon
 3.0.18
