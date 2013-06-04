@@ -32,10 +32,13 @@ sub user
     return $user;
 }
 
-sub _baseDir
+sub _fullKey
 {
-    my ($user) = @_;
-    return "/state/webadmin_users/$user/";
+    my ($user, $key) = @_;
+    my $fullKey =  "/state/webadmin_users/$user";
+    $fullKey .= $key;
+    $fullKey =~ s{//+}{/}g;
+    return $fullKey;
 }
 
 sub get
@@ -45,7 +48,7 @@ sub get
     if (not $user) {
         return undef;
     }
-    my $fullKey = _baseDir($user) . $key;
+    my $fullKey = _fullKey($user, $key);
     return EBox::Config::Redis::instance()->get($fullKey);
 }
 
@@ -56,7 +59,7 @@ sub set
     if (not $user) {
         throw EBox::Exceptions::Internal("Cannot se a use configuration value without a user logged in Zentyal");
     }
-    my $fullKey = _baseDir($user) . $key;
+    my $fullKey  = _fullKey($user, $key);
     EBox::Config::Redis::instance()->set($fullKey, $value);
 }
 
