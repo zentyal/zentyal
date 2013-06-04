@@ -1,4 +1,4 @@
-HEAD
+3.0.20
 	+ Fixed password change in user corner when using samba
 	+ Changed reload action to force-reload for nscd init.d daemon
 3.0.19
