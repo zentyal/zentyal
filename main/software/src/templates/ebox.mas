@@ -563,7 +563,7 @@ jQuery(function() {
    jQuery('#basic').hide();
 % }
   jQuery('#updateBox, #deleteBox').hide();
-  Zentyal.stripe('dataTable', 'even', 'odd');
+  Zentyal.stripe('.dataTable', 'even', 'odd');
 });
 </script>
 
