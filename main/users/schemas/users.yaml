@@ -5,6 +5,7 @@ enabledepends:
     - ntp
 
 models:
+    - ManageUsers
     - Mode
     - Users
     - Groups

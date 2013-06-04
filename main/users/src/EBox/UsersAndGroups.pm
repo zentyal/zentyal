@@ -1368,6 +1368,8 @@ sub menu
 
     if ($self->configured()) {
         if ($self->editableMode()) {
+            $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Tree/ManageUsers',
+                                              'text' => __('TreeView (WIP)'), order => 9));
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
                                               'text' => __('Users'), order => 10));
             $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',

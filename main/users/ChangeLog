@@ -1,3 +1,5 @@
+HEAD
+	+ New TreeView to manage users, groups and OUs
 3.1.1
 	+ Fixed error message when trying to add a user above the edition maximum
 	+ Migrated SOAP services to use Nginx for SSL.
