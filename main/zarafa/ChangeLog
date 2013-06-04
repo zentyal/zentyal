@@ -1,4 +1,7 @@
-3.1
+HEAD
+	+ Updated zarafa-contact LDAP schema so we don't require uidNumber.
+	+ Use EntryUUID field as unique ID for users, contacts and groups.
+3.1.0
 	+ Removed 3.0.X migration code
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1
