@@ -1026,6 +1026,52 @@ sub groups
     return \@groups;
 }
 
+# Method: securityGroups
+#
+#       Returns an array containing all the security groups
+#
+#   Parameters:
+#       system - show system groups (default: false)
+#
+# Returns:
+#
+#       array - holding the groups as EBox::UsersAndGroups::Group objects
+#
+sub securityGroups
+{
+    my ($self, $system) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => '(&(objectclass=zentyalDistributionGroup)(objectclass=posixGroup))',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @groups = ();
+    foreach my $entry ($result->entries())
+    {
+        my $group = new EBox::UsersAndGroups::Group(entry => $entry);
+
+        # Include system users?
+        next if (not $system and $group->system());
+
+        push (@groups, $group);
+    }
+    # sort grups by name
+    @groups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @groups;
+
+    return \@groups;
+}
+
 sub multipleOusEnabled
 {
     return EBox::Config::configkey('multiple_ous');

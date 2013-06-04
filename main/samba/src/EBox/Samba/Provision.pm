@@ -1062,10 +1062,15 @@ sub provisionADC
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $users = $usersModule->users();
+        my $contacts = $usersModule->contacts();
         my $groups = $usersModule->groups();
         foreach my $zentyalUser (@{$users}) {
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
+        }
+        foreach my $zentyalContact (@{$contacts}) {
+            $zentyalContact->setIgnoredModules(['samba']);
+            $zentyalContact->deleteObject();
         }
         foreach my $zentyalGroup (@{$groups}) {
             $zentyalGroup->setIgnoredModules(['samba']);

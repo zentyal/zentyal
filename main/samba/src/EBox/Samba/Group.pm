@@ -35,7 +35,14 @@ use EBox::Samba::Contact;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
-use constant MAXGROUPLENGTH => 128;
+use constant MAXGROUPLENGTH     => 128;
+use constant GROUPTYPESYSTEM    => 0x00000001;
+use constant GROUPTYPEGLOBAL    => 0x00000002;
+use constant GROUPTYPELOCAL     => 0x00000004;
+use constant GROUPTYPEUNIVERSAL => 0x00000008;
+use constant GROUPTYPEAPPBASIC  => 0x00000010;
+use constant GROUPTYPEAPPQUERY  => 0x00000020;
+use constant GROUPTYPESECURITY  => 0x80000000;
 
 use base 'EBox::Samba::LdbObject';
 
@@ -188,30 +195,33 @@ sub setupGidMapping
 # Parameters:
 #
 #   group - group name
-#   comment - comment's group
-#   system - boolan: if true it adds the group as system group,
-#   otherwise as normal group
+#   description - group's description
+#   security - whether is a security group by default is true.
 #   ignoreMods - ldap modules to be ignored on addUser notify
 #   ignoreSlaves - slaves to be ignored on addUser notify
 #
 sub create
 {
-    my ($self, $samAccountName, $params) = @_;
+    my ($self, $name, $params) = @_;
 
     # TODO Is the group added to the default OU?
     my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$samAccountName,CN=Users,$baseDn";
+    my $dn = "CN=$name,CN=Users,$baseDn";
 
-    $self->_checkAccountName($samAccountName, MAXGROUPLENGTH);
-    $self->_checkAccountNotExists($samAccountName);
+    $self->_checkAccountName($name, MAXGROUPLENGTH);
+    $self->_checkAccountNotExists($name);
 
-    my $usersModule = EBox::Global->modInstance('users');
-    my $realm = $usersModule->kerberosRealm();
+    # TODO: We may want to support more than global groups!
+    my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
     push ($attr, objectClass    => ['top', 'group', 'posixGroup']);
-    push ($attr, sAMAccountName    => "$samAccountName");
-    push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
+    push ($attr, sAMAccountName    => "$name");
     push ($attr, description       => $params->{description}) if defined $params->{description};
+    if (not defined $params->{security} or $params->{security}) {
+        push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
+        $groupType |= GROUPTYPESECURITY;
+    }
+    push ($attr, groupType         => $groupType);
 
     # Add the entry
     my $result = $self->_ldap->add($dn, { attr => $attr });
@@ -244,6 +254,9 @@ sub addToZentyal
         $self->set('gidNumber', $gidNumber);
         $self->setupGidMapping($gidNumber);
     }
+
+    $optParams{security} = $self->security();
+
     $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
 
@@ -266,6 +279,7 @@ sub updateZentyal
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
     $zentyalGroup->setIgnoredModules(['samba']);
+    $zentyalGroup->setSecurity($self->security, 1)
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 
@@ -357,6 +371,13 @@ sub _checkAccountName
                 'advice' =>  __('Windows group names cannot be only spaces, numbers and dots'),
            );
     }
+}
+
+sub security
+{
+    my ($self) = @_;
+
+    return $self->get('groupType') & GROUPTYPESECURITY;
 }
 
 1;

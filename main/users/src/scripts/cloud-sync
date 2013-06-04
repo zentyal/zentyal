@@ -192,7 +192,10 @@ for my $rgroup (@{$rgroups}) {
 
 for my $group (@{$lgroups}) {
     my $name = $group->name();
-    if (not $rgroupnames->{$name}) {
+    if (not $group->security()) {
+        # FIXME: We must support distribution groups on cloud!
+        EBox::info("Local distribution group $name not synced...");
+    } elsif (not $rgroupnames->{$name}) {
         EBox::info("Local group $name not present in remote, removing...");
         $group->setIgnoredSlaves(IGNORE);
         $group->deleteObject();

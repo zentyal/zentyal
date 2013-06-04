@@ -229,7 +229,7 @@ sub _groups
 
     my @filteredGroups = ();
     for my $group (@groups) {
-        push (@filteredGroups, $group) if ($group->get('gidNumber') >= EBox::UsersAndGroups::Group->MINGID);
+        push (@filteredGroups, $group) if ($group->system());
     }
     return \@filteredGroups;
 }
@@ -474,6 +474,13 @@ sub create
 
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
+    if (not $group->security()) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('default group'),
+            'value' => $group->name(),
+            'advice' => __('Default group must be a security group.'),
+        );
+    }
     my $gid = $group->get('gidNumber');
 
     my $realm = $users->kerberosRealm();

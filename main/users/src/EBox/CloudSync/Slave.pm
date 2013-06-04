@@ -101,6 +101,8 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
+    return if (not $group->security());
+
     my $users = EBox::Global->modInstance('users');
     return if ($group->baseDn() ne $users->groupsDn());
 
@@ -120,9 +122,12 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
+    return if (not $group->security());
+
     my $users = EBox::Global->modInstance('users');
     return if ($group->baseDn() ne $users->groupsDn());
 
+    # FIXME: We should sync contacts too!
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
         name        => $group->name(),

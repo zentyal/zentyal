@@ -133,7 +133,7 @@ sub _populateGroups
 
         my @groups;
         push (@groups, { value => '__USERS__', printableValue => __('All users') });
-        foreach my $group (@{$userMod->groups()}) {
+        foreach my $group (@{$userMod->securityGroups()}) {
             my $name = $group->name();
             push (@groups, { value => $name, printableValue => $name });
         }
