@@ -791,7 +791,7 @@ sub reloadNSCD
 {
     if ( -f '/etc/init.d/nscd' ) {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
+            EBox::Sudo::root('/etc/init.d/nscd force-reload');
         } otherwise {};
    }
 }
