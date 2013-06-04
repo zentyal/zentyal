@@ -23,7 +23,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::EBackup;
 use EBox::EBackup::Password;
-use EBox::EBackup::Subscribed;
 use Error qw(:try);
 
 my %subByMode;
@@ -52,34 +51,6 @@ sub clean
     $ebackup->_lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup --force');
-        # Delete orphaned metadata
-        my $settingsModel = $ebackup->model('RemoteSettings');
-        my $method = $settingsModel->row()->valueByName('method');
-        if ($method eq 'cloud') {
-            EBox::EBackup::Subscribed::deleteOrphanMetadata($ebackup->remoteStatus());
-        }
-    } finally {
-        $ebackup->_unlock();
-    };
-}
-
-sub deleteAll
-{
-    my ($ebackup) = @_;
-    my $settingsModel = $ebackup->model('RemoteSettings');
-    my $method = $settingsModel->row()->valueByName('method');
-    if ($method ne 'cloud') {
-        die __('This option is only available when cloud method is enabled');
-    }
-
-    $ebackup->_lock() ;
-    try {
-        EBox::EBackup::Subscribed::deleteAll();
-        # regenerate collection status so we don't get false information in the
-        # UI
-        $ebackup->waitForUpdateStatusInBackground();
-        $ebackup->remoteGenerateStatusCache();
-        $ebackup->remoteGenerateListFile();
     } finally {
         $ebackup->_unlock();
     };

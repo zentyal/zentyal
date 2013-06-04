@@ -31,7 +31,6 @@ use File::Basename;
 use EBox::FileSystem;
 use Filesys::Df;
 use EBox::DBEngineFactory;
-use EBox::EBackup::Subscribed;
 use EBox::EBackup::Password;
 
 use MIME::Base64;
@@ -52,6 +51,8 @@ use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
 use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
+use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server-fingerprints';
+
 
 # Constructor: _create
 #
@@ -270,19 +271,19 @@ sub lastBackupDate
 # Arguments:
 #
 #       type - full or incremental
+#       urlParams -
 #
 # Returns:
 #
 #   String contaning the arguments for duplicy
 sub remoteArguments
 {
-    my ($self, $type, $urlParams, %extraParams) = @_;
+    my ($self, $type, $urlParams) = @_;
     defined $urlParams or
         $urlParams = {};
-    my $toCloud = $extraParams{toCloud};
 
     my $volSize = $self->_volSize();
-    my $fileArgs = $self->remoteFileSelectionArguments($toCloud);
+    my $fileArgs = $self->remoteFileSelectionArguments();
     my $cmd =  DUPLICITY_WRAPPER .  " $type " .
             "--volsize $volSize " .
             "$fileArgs " .
@@ -295,6 +296,11 @@ sub extraDataDir
     return EBox::Config::home() . 'extra-backup-data';
 }
 
+# Method: dumpExtraData
+#
+#    dumps into an always-backuped directory extra data regardless of the
+#    includes or the excludes. Now the extra dumped data is only a configuration backup
+#
 sub dumpExtraData
 {
     my ($self, $readOnlyGlobal) = @_;
@@ -306,11 +312,10 @@ sub dumpExtraData
         throw EBox::Exceptions::Internal("Cannot create directory $extraDataDir. $!");
     if (not -w $extraDataDir) {
         EBox::error("Cannot write in extra backup data directory $extraDataDir");
-        return;
+        return [];
     }
 
     my $global = EBox::Global->getInstance($readOnlyGlobal);
-
     try {
         my $filename = 'confbackup.tar';
         my $bakFile = EBox::Backup->backupDir() . "/$filename";
@@ -347,12 +352,8 @@ sub includedConfigBackupPath
 
 sub remoteFileSelectionArguments
 {
-    my ($self, $toCloud) = @_;
+    my ($self) = @_;
     my $args = '';
-    if ($toCloud) {
-        # exclude configuration backup it will be stored as idependent file
-        $args .= ' --exclude='. $self->includedConfigBackupPath() . ' ';
-    }
     # Include configuration backup
     $args .= ' --include=' . $self->extraDataDir . ' ';
 
@@ -826,36 +827,14 @@ sub _setConf
         return;
     }
 
-    # Store password
     my $model = $self->model('RemoteSettings');
 
-    my $usingCloud =  $model->row()->valueByName('method') eq 'cloud';
-    my $cloudCredentials;
+    # Store password
+    my $pass = $model->row()->valueByName('password');
+    defined $pass or
+        $pass = '';
+    EBox::EBackup::Password::setPasswdFile($pass);
 
-    if ($usingCloud) {
-        try {
-            $cloudCredentials = EBox::EBackup::Subscribed::credentials();
-            if ($cloudCredentials) {
-                EBox::EBackup::Subscribed::createStructure();
-            }
-        } catch EBox::Exceptions::NotConnected with {
-            my ($ex) = @_;
-            EBox::error("Could not get Cloud backup credentials: $ex");
-        };
-    }
-
-    my $pass;
-    if (not $usingCloud) {
-        $pass = $model->row()->valueByName('password');
-        defined $pass or
-            $pass = '';
-        EBox::EBackup::Password::setPasswdFile($pass);
-    } elsif ($cloudCredentials) {
-        $pass = $cloudCredentials->{password};
-        EBox::EBackup::Password::setPasswdFile($pass);
-    } else {
-        EBox::error("No new backup connection password found, using old one");
-    }
 
     my $symPass = $model->row->valueByName('encryption');
     $self->$symPass = '' unless (defined($symPass));
@@ -867,10 +846,7 @@ sub _setConf
         $self->removeRemoteBackupCron();
     }
 
-    if ((not $usingCloud) or $cloudCredentials) {
-        $self->_syncRemoteCachesInBackground;
-    }
-
+    $self->_syncRemoteCachesInBackground;
 }
 
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
@@ -965,7 +941,7 @@ sub _remoteUrl
 
     if ($sshKnownHosts) {
         $url .= ' --ssh-options="-oUserKnownHostsFile='
-            . EBox::EBackup::Subscribed::FINGERPRINT_FILE . '"';
+            . FINGERPRINT_FILE . '"';
     }
 
     if (not %forceParams) {

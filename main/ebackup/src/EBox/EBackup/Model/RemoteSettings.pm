@@ -36,7 +36,6 @@ use EBox::Types::Union;
 use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
-use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
 use File::Basename;
 use Error qw(:try);
@@ -542,15 +541,6 @@ sub _gpgKeys
 
     return \@keys;
 }
-
-#sub _message
-#{
-#    return __sx('Choosing {brand} method you will use the {ohref}{service} service{ch}.  Ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster?  Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} to enable the service.',
-#                brand => __s('Zentyal Cloud'), service => __s('Zentyal Disaster Recovery'),
-#                ohs => '<a href="' . SB_URL . '" target="_blank">',
-#                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-#                ohref => '<a href="' . URL . '" target="_blank">', ch => '</a>');
-#}
 
 sub _deadline
 {

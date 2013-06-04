@@ -95,8 +95,6 @@ sub _getStorageUsage
 
     try {
         $self->{storage} = $ebackup->storageUsage();
-    } catch EBox::Exceptions::NotConnected with {
-        $badConnection = 'cloud';
     } catch EBox::Exceptions::Command with {
         my $ex = shift @_;
         my $error = $ex->error();

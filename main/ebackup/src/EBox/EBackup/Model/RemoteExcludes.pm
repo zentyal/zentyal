@@ -30,7 +30,6 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
-use EBox::EBackup::Subscribed;
 use EBox::Exceptions::NotConnected;
 use EBox::FileSystem;
 use Error qw(:try);
