@@ -1,3 +1,5 @@
+HEAD
+	+ Remove deprecated backup domain methods
 3.1.1
 	+ Fixed error message when trying to add a user above the edition maximum
 	+ Migrated SOAP services to use Nginx for SSL.

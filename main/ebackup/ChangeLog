@@ -1,3 +1,5 @@
+HEAD
+	+ Removed code for deprecated cloud method and backup domains
 3.1
 	+ Remove unused Size and Message Types
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

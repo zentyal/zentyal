@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated backup domains related from logs module
 	+ Added EBox::Types::URI type
 	+ Added saveReload method to use reload instead of restart to
 	  reduce service downtime. Use with care and programatically
