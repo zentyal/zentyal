@@ -299,8 +299,6 @@ sub dumpExtraData
 {
     my ($self, $readOnlyGlobal) = @_;
 
-    my @domainsDumped;
-
     my $extraDataDir = $self->extraDataDir();
     EBox::Sudo::root("rm -rf $extraDataDir");
     system "mkdir -p $extraDataDir" ;
@@ -312,11 +310,6 @@ sub dumpExtraData
     }
 
     my $global = EBox::Global->getInstance($readOnlyGlobal);
-
-    # create backup domain files
-    my @enabledBackupDomains = keys %{ $self->_enabledBackupDomains()  };
-    File::Slurp::write_file($self->enabledDomainsListPath(),
-                            join ',', @enabledBackupDomains);
 
     try {
         my $filename = 'confbackup.tar';
@@ -334,38 +327,10 @@ sub dumpExtraData
         }
 
         EBox::Sudo::command("mv $bakFile $extraDataDir");
-
-        push @domainsDumped, 'configuration';
     } otherwise {
         my $ex = shift;
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     };
-
-    my %enabled = %{ $self->_enabledBackupDomains() };
-
-    foreach my $mod (@{ $global->modInstances() }) {
-        if ($mod->can('dumpExtraBackupData')) {
-            try {
-                my $dumped = $mod->dumpExtraBackupData($extraDataDir, %enabled);
-                if ($dumped) {
-                    push @domainsDumped, @{ $dumped };
-                }
-            } otherwise {
-                EBox::error("Error dumping extra backup data for module " .
-                             $mod->name .
-                            '. The backup will continue but you could not be able to restore all parts of your system');
-            };
-        }
-    }
-
-    return \@domainsDumped;
-}
-
-sub enabledDomainsListPath
-{
-    my ($self) = @_;
-    my $path = $self->extraDataDir() .  '/enabled-domains.csv';
-    return $path;
 }
 
 # Method: includedConfigBackupPath
@@ -379,173 +344,6 @@ sub includedConfigBackupPath
     return $path;
 }
 
-# Method: availableBackupDomains
-#
-# Parameters: modNames - names of modules to look for backup domains (Default:
-# all installed modules)
-#
-# Returns:
-#
-#    hash reference whose backup domain name as key and backup
-#      domain attributes as values
-sub availableBackupDomains
-{
-    my ($self, $modNames) = @_;
-    my %backupDomains = ();
-
-    my $global = EBox::Global->getInstance();
-    if (not defined $modNames) {
-        $modNames = $global->modNames();
-    }
-
-    foreach my $name (@{ $modNames }) {
-        my $mod = $global->modInstance($name);
-        # the mod shouldnt to exist when we supply a list of modules
-        defined $mod or
-            next;
-        if ($mod->isa('EBox::Module::Service')) {
-            $mod->configured() or
-                next;
-        }
-
-        if ($mod->can('backupDomains')) {
-            my @modBackupDomains = $mod->backupDomains();
-            while (my ($name, $attrs) = splice( @modBackupDomains, 0, 2)) {
-                $backupDomains{$name} = $attrs;
-                $backupDomains{$name}->{enabled} = $mod->configured();
-            }
-
-            # the same domain can be provided by different modules this is
-            # intentional to allow than more of one module for each backup
-            # domain  but assure that their $attr valeus are identical or you can
-            # run into trouble
-        }
-    }
-
-    # special filesIncludes ebackup domain
-    $backupDomains{filesIncludes} = {
-        enabled => 1,
-        printableName => __('All files in backup'),
-        description   => __(q{All files included in the backup}),
-    };
-
-    return \%backupDomains;
-}
-
-sub selectableBackupDomains
-{
-    my ($self, $modNames) = @_;
-    my $backupDomains = $self->availableBackupDomains($modNames);
-
-    # remove non-selectable domains
-    delete $backupDomains->{filesIncludes};
-
-    return $backupDomains;
-}
-
-sub _enabledBackupDomains
-{
-    my ($self, $filesIncludesDomain) = @_;
-    defined $filesIncludesDomain or
-        $filesIncludesDomain = 1;
-
-    my $domainsModel = $self->model('BackupDomains');
-    my $enabled =  $domainsModel->enabled();
-
-    if ($filesIncludesDomain) {
-        my $excludesModel =$self->model('RemoteExcludes');
-        $enabled->{filesIncludes} = $excludesModel->hasIncludes();
-    }
-
-    return $enabled;
-}
-
-sub backupDomainsFileSelectionsRowPrefix
-{
-    return 'ds';
-}
-
-sub _rawModulesBackupDomainsFileSelections
-{
-    my ($self, %enabled) = @_;
-
-    if (not keys %enabled) {
-        %enabled = %{ $self->_enabledBackupDomains(0) };
-    }
-
-    if (not keys %enabled) {
-        return [];
-    }
-
-    my $mods = EBox::Global->getInstance()->modInstances();
-    my @domainSelections = ();
-    foreach my $mod (@{ $mods }) {
-        if ($mod->can('backupDomainsFileSelection')) {
-            my $bds = $mod->backupDomainsFileSelection(%enabled);
-            $bds->{mod} = $mod->{name};
-            push @domainSelections, $bds;
-        }
-    }
-
-    @domainSelections = sort {
-                       my $pA = exists $a->{priority} ?
-                                       $a->{priority} : 1;
-                       my $pB = exists $b->{priority} ?
-                                       $b->{priority} : 1;
-                       $pA <=> $pB
-                     } @domainSelections ;
-    return \@domainSelections;
-}
-
-# Method: modulesBackupDomainsFileSelections
-#
-#  Returns:
-#   list with all file selections for the enabled backup domains in the system
-
-sub modulesBackupDomainsFileSelections
-{
-    my ($self, %enabled) = @_;
-    my @domainSelections = @{ $self->_rawModulesBackupDomainsFileSelections(%enabled) };
-
-    my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
-    my @selections;
-    foreach my $ds (@domainSelections) {
-        foreach my $type (qw(include)) {
-            my $typeList = $type . 's';
-            if ($ds->{$typeList}) {
-                foreach my $value (@{ $ds->{$typeList} }) {
-                        my $encodedValue = encode_base64($value, '');
-                        $encodedValue =~ s/=/eq/g;
-                        $encodedValue =~ s/\+/ad/g;
-                        $encodedValue =~ s{/}{sl}g;
-
-                        my $id =  $prefix .  '_' .
-                            $ds->{mod} . '_' . $type . '_' .$encodedValue;
-                        push @selections, {
-                                           id   => $id,
-                                           type => $type,
-                                           value => $value };
-                }
-            }
-        }
-    }
-
-    return \@selections;
-}
-
-sub _backupDomainsFileSelectionArguments
-{
-    my ($self) = @_;
-
-    my @selections = @{ $self->modulesBackupDomainsFileSelections };
-
-    my $args = '';
-    foreach my $selection (@selections) {
-        $args .= '--' . $selection->{type} . ' ' . $selection->{value} . ' ';
-    }
-
-    return $args;
-}
 
 sub remoteFileSelectionArguments
 {
@@ -560,11 +358,8 @@ sub remoteFileSelectionArguments
 
     $args .= $self->_autoExcludesArguments();
 
-    # high level selection arguments
-    $args .= $self->_backupDomainsFileSelectionArguments();
-
     my $excludesModel = $self->model('RemoteExcludes');
-    $args .= $excludesModel->fileSelectionArguments(domainSelections => 0);
+    $args .= $excludesModel->fileSelectionArguments();
     return $args;
 }
 

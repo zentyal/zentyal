@@ -151,17 +151,6 @@ sub viewCustomizer
                 }
             });
 
-# Disabled Disaster Recovery message
-#    try {
-#        my $disasterAddon = EBox::EBackup::Subscribed->isSubscribed();
-#        if (not $disasterAddon ) {
-#            $customizer->setPermanentMessage(_message(), 'ad');
-#        }
-#    } catch EBox::Exceptions::NotConnected with {
-#        my ($ex) = @_;
-#        $customizer->setPermanentMessage("$ex", 'warning');
-#    };
-
     return $customizer;
 }
 
