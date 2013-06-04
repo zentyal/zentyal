@@ -201,7 +201,7 @@ Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
     filterText = jQuery.trim(filterText).toLowerCase();
     if (filterText === '') {
         tableTr.show();
-        Zentyal.stripe('dataTable', 'even', 'odd');
+        Zentyal.stripe('.dataTable', 'even', 'odd');
         return;
     }
 

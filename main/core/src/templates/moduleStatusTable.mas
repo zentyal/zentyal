@@ -47,7 +47,7 @@ jQuery(function() {
     jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
 
-    Zentyal.stripe('dataTable', 'even', 'odd');
+    Zentyal.stripe('.dataTable', 'even', 'odd');
 });
 </script>
 <br/>
