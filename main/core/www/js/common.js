@@ -104,8 +104,7 @@ Zentyal.LeftMenu._close = function(name, menuAnchor) {
 };
 
 // XXX used only in the not-tottaly implemented data table sections feature
-function toggleWithToggler(name)
-{
+Zentyal.toggleWithToggler = function(name) {
     var togglername = name + '_toggler';
     var element = jQuery(name);
     if (element.hasClass('minBox')) {
@@ -118,4 +117,4 @@ function toggleWithToggler(name)
         element.addClass('minBox');
     }
     element.hide('blind');
-}
+};
