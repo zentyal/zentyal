@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo '<testsuites>
+<testsuite failures="0" errors="0" time="0" tests="1" name="No tests execution in branch 2.2 and 2.0">
+<testcase time="0.0181598663330078" name="No tests"/>
+<system-out>Not tests execution in branch 2.2 and 2.0</system-out>
+<system-err/>
+</testsuite>
+</testsuites>'
+
+exit 0
