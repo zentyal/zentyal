@@ -107,7 +107,7 @@ sub _table
                  fieldName => 'clientToClient',
                  printableName => __('Allow client-to-client connections'),
                  editable => 1,
-                 defaultValue => 0,
+                 defaultValue => 1,
                  help => __('Enable it to allow client machines of this VPN ' .
                             'to see each other')
                  ),
