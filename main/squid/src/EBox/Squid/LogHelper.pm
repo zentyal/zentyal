@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 eBox Technologies S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,7 +24,7 @@ use EBox::Config;
 use EBox::Gettext;
 use POSIX qw(strftime);
 
-use constant SQUIDLOGFILE => '/var/log/squid3/access.log';
+use constant SQUIDLOGFILE => '/var/log/squid3/external-access.log';
 use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
 sub new
