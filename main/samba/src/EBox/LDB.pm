@@ -28,6 +28,7 @@ use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
+use EBox::Config;
 
 use Net::LDAP;
 use Net::LDAP::Control;
@@ -176,7 +177,13 @@ sub safeConnect
     };
 
     my $samba = EBox::Global->modInstance('samba');
-    $samba->_startService() unless $samba->isRunning();
+
+    # If samba is not running, we only try to start the service if we have
+    # permissions to do EBox::Sudo::root, this avoid crashes when this
+    # code is executed from the usercorner
+    if ((getpwuid ($<) eq EBox::Config::user()) and not $samba->isRunning()) {
+        $samba->_startService();
+    }
 
     my $error = undef;
     my $lastError = undef;
