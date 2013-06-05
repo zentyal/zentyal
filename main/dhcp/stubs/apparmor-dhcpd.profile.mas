@@ -19,6 +19,7 @@
 
   network inet raw,
   network packet packet,
+  network packet raw,
 
   /etc/hosts.allow r,
   /etc/hosts.deny r,
@@ -56,7 +57,7 @@
   # For dynamic DNS (Zentyal)
   <% $keysFile %> r,
 % }
-  
+
   # For allowing custom tweaking (Zentyal)
   <% $confDir %>* r,
 }
