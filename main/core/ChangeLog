@@ -1,4 +1,6 @@
 HEAD
+	+ Enable and/or conifgure module dependencies automatically in
+	  Module Status page
 	+ Adapted CGIs to new modal dialogs
 	+ Ported graphs from flotr.js to flot.js
 	+ Ported JS code to jQuery and jQuery-ui
