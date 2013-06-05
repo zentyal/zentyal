@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Asterisk;
+
 use base qw(EBox::Module::Service EBox::LdapModule
             EBox::UserCorner::Provider EBox::LogObserver);
 
@@ -203,6 +204,21 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate asterisk ldap tree
+    EBox::Sudo::root('/usr/share/zentyal-asterisk/asterisk-ldap update');
 }
 
 # Method: _daemons

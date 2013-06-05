@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NTP::Test;
-# Description:
-#
 use strict;
 use warnings;
 
+package EBox::NTP::Test;
+
 use base 'EBox::Test::Class';
+
+# Description:
+#
+
 use Test::More;
 use Test::Exception;
 use Test::Differences;
-
 
 use File::Slurp;
 
@@ -32,14 +34,13 @@ use EBox::Test ':all';
 
 sub setModuleGlobalConf : Test(startup)
 {
-    EBox::Global::TestStub::setAllEBoxModules('ntp' => 'EBox::NTP');
+    EBox::Global::TestStub::setAllModules('ntp' => 'EBox::NTP');
 }
 
 sub _useAndCreationTest : Test
 {
     checkModuleInstantiation('ntp', 'EBox::NTP');
 }
-
 
 sub setAndGetServersDeviantTest : Test(20)
 {
@@ -80,7 +81,6 @@ sub setAndGetServersDeviantTest : Test(20)
     }
 }
 
-
 sub setAndGetServersTest : Test(16)
 {
     my @cases = (
@@ -96,7 +96,6 @@ sub setAndGetServersTest : Test(16)
 		 ['192.168.3.4', 'ntp.macaco.org', '10.45.21.23'],
 	    );
 
-
     my $ntp = EBox::Global->modInstance('ntp');
 
     foreach my $case_r (@cases) {
@@ -107,8 +106,5 @@ sub setAndGetServersTest : Test(16)
 	eq_or_diff \@actualServers, \@expectedServers, 'Checking that servers are stored and retrieved normally';
     }
 }
-
-
-
 
 1;

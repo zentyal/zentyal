@@ -50,8 +50,7 @@ Depends: python,
          libcups2,
          zlib1g,
          libmagic1, libpcre3, libclamav6,
-         ${misc:Depends},
-         ${perl:Depends},
+         ${misc:Depends}
 Replaces: samba4-common-bin, ldb-tools, tdb-tools
 Breaks: samba4-common-bin, ldb-tools, tdb-tools
 Description: SMB/CIFS file, NT domain and active directory server (version 4)
@@ -62,3 +61,18 @@ Description: SMB/CIFS file, NT domain and active directory server (version 4)
  .
  This is a special bundled build, that means that it includes a lot of
  libraries (which are normally provided by the system) to cut down dependencies.
+
+Package: samba4-dbg
+Architecture: any
+Section: debug
+Priority: extra
+Depends: samba4 (= ${binary:Version}), ${misc:Depends}
+Description: Samba debugging symbols
+ Samba is an implementation of the SMB/CIFS protocol for Unix systems,
+ providing support for cross-platform file sharing with Microsoft Windows, OS X,
+ and other Unix systems.  Samba can also function as a domain controller
+ or member server in both NT4-style and Active Directory domains.
+ .
+ This package provides debugging information for the software in the
+ Samba suite. Install it to get a better backtrace in the event of a
+ crash.

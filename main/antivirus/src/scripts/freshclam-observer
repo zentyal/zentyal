@@ -17,27 +17,17 @@ my ($event, $extraParam) = _getParams();
 _writeEventFile($event, $extraParam);
 
 
-
-
-
 sub _writeEventFile
 {
   my ($event, $extraParam) = @_;
 
-  # prepare state file permissions
-  my $statefile = EBox::AntiVirus->freshclamStateFile();
-  system ("touch $statefile");
-  system("chmod 0644 $statefile");
-
-
   EBox::AntiVirus->notifyFreshclamEvent($event, $extraParam);
 }
-
 
 sub _getParams
 {
   my $event = _event();
-  
+
   my $extraParam = undef;
   if ($event eq 'outdated') {
     $extraParam = _newVersion();
@@ -54,7 +44,6 @@ sub _event
   if  ($isValidEvent) {
     return $cliEvent;
   }
-
 
   die ("Not a valid freshclam event: $cliEvent");
 }
@@ -78,7 +67,5 @@ sub _checkUser
     die "Only " . ALLOWED_USER . " is allowed to run this script";
   }
 }
-
-
 
 1;

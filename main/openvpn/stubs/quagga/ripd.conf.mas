@@ -8,6 +8,7 @@ Params:
   redistribute   - Boolean indicating if redistributing connected routes or not
   insecurePasswd - Boolean indicating if allow VTY shell connections using a
                    password or not
+
   debug - add to log output debug statements
 </%doc>
 <%args>
@@ -18,19 +19,17 @@ $debug => 0
 </%args>
 
 % if ($insecurePasswd) {
-hostname ebox
+hostname zentyal
 password ripd
 enable password ripd
 % }
 
-
-%   foreach my $iface (@ifaces) {
+% foreach my $iface (@ifaces) {
 %      if ($insecurePasswd or (not $iface->{passwd})) {
          <& .noAuthIface, iface => $iface  &>
 %      } else {
         <& .iface, iface => $iface  &>
 %      }
-
 % }
 
 router rip
@@ -39,8 +38,8 @@ version 2
 network <% $iface->{ifaceName} %>
 % }
 % foreach my $iface (@ifaces) {
-distribute-list private in  <% $iface->{ifaceName} %>
-distribute-list private out <% $iface->{ifaceName} %>
+distribute-list allowAll in  <% $iface->{ifaceName} %>
+distribute-list <% $iface->{ifaceName} . 'ACL' %>  out <% $iface->{ifaceName} %>
 % }
 % if ($redistribute) {
 redistribute connected
@@ -54,10 +53,17 @@ debug rip zebra
 % }
 
 log file /var/log/quagga/ripd.log
-access-list private permit 10.0.0.0/8
-access-list private permit 172.16.0.0/12
-access-list private permit 192.168.0.0/16
-access-list private deny any
+
+
+access-list allowAll permit any
+% foreach my $iface (@ifaces) {
+%  my $aclName = $iface->{ifaceName} . 'ACL';
+%  foreach my $net_r (@{ $iface->{redistributeNets}} ) {
+access-list <% $aclName %> permit <% $net_r->[0] %>/<% $net_r->[1] %>
+%  }
+access-list <% $aclName %> deny any
+% }
+
 
 <%def .noAuthIface>
 <%args>

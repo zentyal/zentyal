@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Virt::Model::SystemSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::Virt::Model::SystemSettings
 #
 #       Form to set the System Settings for a Virtual Machine.
 #
-
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Select;
@@ -71,6 +71,12 @@ sub _populateArchitectures
     return sub {$self->parentModule()->architectureTypes()};
 }
 
+sub _hideArchitectureSelector
+{
+    my ($self) = @_;
+    return $self->parentModule()->usingVBox();
+}
+
 # Method: _table
 #
 # Overrides:
@@ -97,6 +103,7 @@ sub _table
                                fieldName     => 'arch',
                                printableName => __('Architecture'),
                                populate      => $self->_populateArchitectures,
+                               hidden        => $self->_hideArchitectureSelector,
                                editable      => 1,
                               ),
        new EBox::Types::Int(

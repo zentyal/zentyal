@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Config::Redis;
 
 use 5.010001;
-use strict;
-use warnings;
 
 use Redis;
 use EBox::Config;
@@ -144,7 +145,6 @@ sub get
 
     return $cache{$key};
 }
-
 
 # Method: delete_dir
 #
@@ -511,7 +511,6 @@ sub _respawn
     # EBox::info("$$ Respawning the redis connection");
 }
 
-
 # Initialize redis daemon if it's not running
 sub _initRedis
 {
@@ -532,7 +531,6 @@ sub _initRedis
         EBox::Sudo::silentRoot('start ebox.redis && sleep 1');
     }
 }
-
 
 # Method: writeConfigFile
 #
@@ -576,7 +574,6 @@ sub stopRedis
     EBox::Service::manage('ebox.redis', 'stop');
 }
 
-
 # Returns redis server password
 sub _passwd
 {
@@ -586,7 +583,6 @@ sub _passwd
     return read_file($home . REDIS_PASS) or
         throw EBox::Exceptions::External('Could not open passwd file');
 }
-
 
 # Returns redis server port
 sub _port
@@ -604,7 +600,6 @@ sub _port
     return undef;
 }
 
-
 sub _home
 {
     my ($self, $user) = @_;
@@ -613,7 +608,6 @@ sub _home
     my ($name,$passwd,$uid,$gid,$quota,$comment,$gcos,$dir,$shell,$expire) = getpwnam($user);
     return $dir;
 }
-
 
 # Returns current user name
 sub _user

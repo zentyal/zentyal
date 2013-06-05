@@ -1,0 +1,205 @@
+#!/usr/bin/perl
+# Copyright (C) 2012-2013 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+use warnings;
+use strict;
+
+use File::Basename;
+use Getopt::Long;
+
+my $ZENTYAL_GIT_CLONE = $ENV{ZENTYAL_GIT_CLONE};
+my $BASE_UBUNTU_RELEASE = 'quantal';
+my $update = 0;
+my $installdeps = 0;
+GetOptions("path=s"  => \$ZENTYAL_GIT_CLONE,
+           "release=s"  => \$BASE_UBUNTU_RELEASE,
+           "update" => \$update,
+           "installdeps" => \$installdeps);
+
+my ($pattern) = @ARGV;
+
+my $SRCDIR = "$ZENTYAL_GIT_CLONE/main";
+my $TESTDIR = "$ZENTYAL_GIT_CLONE/test";
+
+if ($installdeps) {
+    installdeps();
+    _create_system_stuff();
+    exit $?;
+}
+
+if ((not -d $TESTDIR) or ($update)) {
+    setup();
+}
+
+check();
+
+exit 0;
+
+sub check
+{
+    chdir ($TESTDIR);
+
+    my $nameregex = '*.pm';
+    if ($pattern) {
+        $nameregex = "*$pattern*.pm";
+    }
+
+    my @files = `find . -wholename "$nameregex"`;
+    foreach my $file (@files) {
+        next if filter($file);
+
+        #my $class = _class_from_file($file);
+        #eval "use $class";
+        system ("perl -c $file");
+        if ($? != 0) {
+            print "FAILED: $file\n";
+            print "$@\n";
+            exit 1;
+        }
+    }
+}
+
+sub _class_from_file
+{
+    my $arg = shift;
+
+    $arg =~ s{^\./}{};
+    $arg =~ s{/}{::}g;
+    $arg =~ s/\.pm$//;
+
+    return $arg;
+}
+sub setup
+{
+    system ("mkdir -p $TESTDIR");
+
+    my @lines = `find $SRCDIR -name *.pm|xargs grep -H "^package .*;"`;
+    foreach my $line (@lines) {
+        my ($file, $package) = $line =~ /(.*):package (.*);/;
+
+        $package =~ s/::/\//g;
+        my $destpath = "$TESTDIR/$package";
+        my $destdir = dirname($destpath);
+        my $name = basename($file);
+
+        _mkdir($destdir);
+        symlink ($file, "$destdir/$name");
+    }
+}
+
+sub installdeps
+{
+    chdir ($SRCDIR);
+
+    my @deps;
+
+    my %blacklist;
+    if ($BASE_UBUNTU_RELEASE eq 'quantal') {
+        # XXX: these packages doesn't exist in quantal
+        %blacklist = ('libapache2-mod-perl' => 1,
+                      'libtime-piece-perl' => 1);
+    } else {
+        # XXX: these packages doesn't exist in precise
+        %blacklist = ('libapache2-mod-perl' => 1,
+                      'libtime-piece-perl' => 1);
+    }
+
+    my @lines = `find . -name control|xargs grep perl`;
+    foreach my $line (@lines) {
+        my @candidates = split (',', $line);
+        @candidates = grep { /lib.+-perl/ } @candidates;
+        foreach my $candidate (@candidates) {
+            my ($package) = $candidate =~ /.*(lib.+-perl).*/;
+            next if ($blacklist{$package});
+            if ($package) {
+                push (@deps, $package);
+            }
+        }
+    }
+
+    system ("sudo apt-get install -y --no-install-recommends @deps");
+}
+
+sub filter
+{
+    my ($src) = @_;
+
+    if (($src =~ m{/t/}) or
+        ($src =~ m{Test}) or
+        ($src =~ m{/Fake\.pm$}) or
+        ($src =~ m{/External\.pm$}) or
+        ($src =~ m{/SysvolSync\.pm$}) or
+        ($src =~ m{/Config\.pm$}) or
+        ($src =~ m{/EventDaemon\.pm$}) or
+        ($src =~ m{/Logout/}) or
+        ($src =~ m{/Notificate\.pm$}) or
+        ($src =~ m{/Certificates\.pm$})) {
+        return 1;
+    }
+
+    return 0;
+}
+
+sub _create_system_stuff
+{
+    chdir ($SRCDIR);
+
+    unless (getpwnam ('ebox')) {
+        system ("sudo addgroup --system ebox");
+        system ("sudo adduser --system --home /var/lib/zentyal --disabled-password --ingroup ebox ebox");
+        system ("sudo adduser ebox adm");
+    }
+
+    unless (-f '/etc/zentyal/zentyal.conf') {
+        system ("sudo mkdir /etc/zentyal");
+        system ("sudo cp common/conf/zentyal.conf /etc/zentyal/");
+    }
+
+    unless (-f '/var/lib/zentyal/conf/eboxlog.conf') {
+        system ("sudo mkdir -p /var/lib/zentyal/conf");
+        system ("sudo cp common/extra/eboxlog.conf /var/lib/zentyal/conf/");
+    }
+
+    unless (-f '/var/lib/zentyal/conf/captiveportal-log.conf') {
+        system ("sudo mkdir -p /var/lib/zentyal/conf");
+        system ("sudo cp captiveportal/extra/captiveportal-log.conf /var/lib/zentyal/conf/");
+    }
+
+    unless (-d '/var/log/zentyal') {
+        system ("sudo mkdir /var/log/zentyal");
+        system ("sudo chmod 750 /var/log/zentyal");
+        system ("chown ebox:adm /var/log/zentyal");
+    }
+
+    unless (-d '/var/log/zentyal-captiveportal') {
+        system ("sudo mkdir /var/log/zentyal-captiveportal");
+        system ("sudo chmod 777 /var/log/zentyal-captiveportal");
+    }
+
+    unless (-d '/var/lib/zentyal/tmp') {
+        system ("sudo mkdir -p /var/lib/zentyal/tmp");
+        system ("chown ebox:adm /var/lib/zentyal/tmp");
+    }
+}
+
+sub _mkdir
+{
+    my $path = shift;
+
+    my @dirs;
+    my @path = split /\//, $path;
+    map { push @dirs, $_; mkdir join('/', @dirs), 0777 } @path;
+}

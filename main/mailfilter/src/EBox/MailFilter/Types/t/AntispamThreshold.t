@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,14 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
 use strict;
 use warnings;
 
 use Test::More tests => 10;
 
 use EBox::TestStubs;
-
 
 use lib '../../../..';
 
@@ -50,10 +48,7 @@ my @validCases = (
                    positive => 1,
                    value => 1,
                   ],
-
-                  
-                 );
-
+);
 
 my @deviantCases = (
                     # bad values when positive option
@@ -72,10 +67,7 @@ my @deviantCases = (
                     [
                      value => -5000
                     ],
-                   );
-
-
-
+);
 
 foreach my $case_r (@validCases) {
     my @params = @{ $case_r };
@@ -85,7 +77,6 @@ foreach my $case_r (@validCases) {
                                 @params,
                                 "Checking instance creation with valid parameters and value"
                                );
-
 }
 
 foreach my $case_r (@deviantCases) {
@@ -96,10 +87,6 @@ foreach my $case_r (@deviantCases) {
 "Checking instance creation raises error when called with invalid parameters and value"
                                  );
 }
-
-
-
-
 
 
 1;

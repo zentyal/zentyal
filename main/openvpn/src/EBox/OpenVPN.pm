@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free softwa re; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN;
+
 use base qw(
              EBox::Module::Service
              EBox::NetworkObserver
@@ -620,7 +621,7 @@ sub checkNewDaemonName
             );
         }
 
-    }elsif ($daemonType eq 'client') {
+    } elsif ($daemonType eq 'client') {
         my $servers = $self->model('Servers');
         if ($servers->serverExists($name)) {
             throw EBox::Exceptions::External(
@@ -630,7 +631,7 @@ sub checkNewDaemonName
                 )
             );
         }
-    }else {
+    } else {
         throw EBox::Exceptions::Internal("Bad daemon type: $daemonType");
     }
 
@@ -826,7 +827,6 @@ sub CAIsReady
     return $ready;
 }
 
-
 sub _daemons
 {
     my ($self) = @_;
@@ -922,6 +922,8 @@ sub _writeRIPDaemonConf
     defined $quaggaUser
       or throw EBox::Exceptions::Internal('No quagga user found in the system');
 
+    my $debug = EBox::Config::boolean('debug');
+
     my $fileAttrs = {
                      uid  => $quaggaUid,
                      gid  => $quaggaGid,
@@ -932,14 +934,17 @@ sub _writeRIPDaemonConf
                          $fileAttrs);
     $self->writeConfFile("$confDir/daemons", '/openvpn/quagga/daemons.mas', [],
                          $fileAttrs);
-    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas', [],
+    $self->writeConfFile("$confDir/zebra.conf", '/openvpn/quagga/zebra.conf.mas',
+                         [
+                             debug => $debug
+                         ],
                          $fileAttrs);
 
     my @ripdConfParams = (
                           ifaces       => $ifaces,
                           redistribute => $redistribute,
                           insecurePasswd => _insecureRipPasswd(),
-                          debug          => EBox::Config::boolean('debug'),
+                          debug          => $debug,
                          );
     $self->writeConfFile("$confDir/ripd.conf", '/openvpn/quagga/ripd.conf.mas',
                          \@ripdConfParams, $fileAttrs);
@@ -1030,7 +1035,6 @@ sub staticIfaceAddressChanged
     my ($self, @params) = @_;
     return $self->_anyDaemonReturnsTrue('staticIfaceAddressChanged', @params);
 }
-
 
 # common listeners helpers..
 
@@ -1258,7 +1262,6 @@ sub deleteClient
     $clients->removeRow($id, 1);
 }
 
-
 # Method: menu
 #
 #       Overrides <EBox::Module::menu> method.
@@ -1295,8 +1298,8 @@ sub menu
 sub refreshIfaceInfoCache
 {
     my ($self) = @_;
-    my $apache = EBox::Global->getInstance()->modInstance('apache');
-    $apache->setAsChanged(1);
+    my $webAdmin = EBox::Global->getInstance()->modInstance('webadmin');
+    $webAdmin->setAsChanged(1);
 }
 
 sub openVPNWidget
@@ -1399,7 +1402,6 @@ sub _backupClientCertificatesDir
     return $dir .'/clientCertificates';
 }
 
-
 sub dumpConfig
 {
     my ($self, $dir) = @_;
@@ -1454,12 +1456,10 @@ sub removeRSClients
         $_ =~ m/^$prefix/
     } $self->clientsNames();
 
-
     foreach my $name (@names) {
         $self->deleteClient($name);
     }
 }
-
 
 # log observer stuff
 

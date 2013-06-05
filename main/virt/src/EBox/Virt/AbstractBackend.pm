@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Virt::AbstractBackend;
-
 use strict;
 use warnings;
+
+package EBox::Virt::AbstractBackend;
 
 use EBox::Exceptions::NotImplemented;
 
@@ -125,21 +125,9 @@ sub startVMCommand
 # Parameters:
 #
 #   name    - virtual machine name
+#   force   - force hard power off
 #
 sub shutdownVMCommand
-{
-    throw EBox::Exceptions::NotImplemented();
-}
-
-# Method: shutdownVM
-#
-#   Shuts down a virtual machine.
-#
-# Parameters:
-#
-#   name    - virtual machine name
-#
-sub shutdownVM
 {
     throw EBox::Exceptions::NotImplemented();
 }
@@ -307,8 +295,6 @@ sub allowsNoneIface
     throw EBox::Exceptions::NotImplemented();
 }
 
-
-
 # Method: listVMs
 #
 #   Returns the list of names of found VMs referenced
@@ -345,7 +331,6 @@ sub manageScript
 {
     throw EBox::Exceptions::NotImplemented();
 }
-
 
 # Method: writeConf
 #
@@ -400,6 +385,19 @@ sub daemons
 sub attachedDevices
 {
     return 0;
+}
+
+# Method: runningVMCommand
+#
+#   Only used for libvirt for the upstart and manage.sh scripts.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub runningVMCommand
+{
+    return undef;
 }
 
 1;

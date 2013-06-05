@@ -29,7 +29,6 @@ sub setupFakes
     EBox::TestStub::fake();
 }
 
-
 # count as 3 tests
 sub cloneTest
 {
@@ -39,7 +38,6 @@ sub cloneTest
     lives_ok {
         $clone = $instance->clone();
     } 'cloning instance';
-
 
     is_deeply $instance, $clone,
         'checking tht data is the same in original and clone';
@@ -102,7 +100,6 @@ sub _createTest
         $testName = "Creation of $class";
     }
 
-
     my $failed = 0;
 
     my %params = @p;
@@ -126,7 +123,6 @@ sub _createTest
 
     $failed and
         return $instance;
-
 
     try {
         unless ($noSetCheck) {

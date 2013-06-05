@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -30,6 +30,7 @@ use warnings;
 #      interface
 #
 package EBox::TrafficShaping;
+
 use base qw(EBox::Module::Service EBox::NetworkObserver);
 
 ######################################
@@ -92,7 +93,6 @@ sub _create
     return $self;
   }
 
-
 sub startUp
 {
     my ($self) = @_;
@@ -105,7 +105,6 @@ sub startUp
 
     $self->{'started'} = 1;
 }
-
 
 # Method: actions
 #
@@ -138,7 +137,6 @@ sub isRunning
     my ($self) = @_;
     return $self->isEnabled();
 }
-
 
 # Method: _setConf
 #
@@ -179,7 +177,6 @@ sub _setConf
         }
     }
 }
-
 
 # Method: _enforceServiceState
 #
@@ -223,7 +220,6 @@ sub _enforceServiceState
     # Start l7 daemons
     $self->_startService();
 }
-
 
 sub _resetInterfacesChains
 {
@@ -269,7 +265,6 @@ sub _daemons
     return \@daemons;
 }
 
-
 # Method: _stopService
 #
 #     Call every time the module is stopped
@@ -297,7 +292,6 @@ sub _stopService
         $self->{tc}->reset($iface);
     }
 }
-
 
 # Method: summary
 #
@@ -329,7 +323,6 @@ sub menu # (root)
     $root->add($folder);
 }
 
-
 # Method: configDir
 #
 #       Returns config dir path for this module, if it does not exists it will be created
@@ -346,7 +339,6 @@ sub confDir
 
     return CONF_DIR;
 }
-
 
 sub ifaceIsShapeable
 {
@@ -647,7 +639,6 @@ sub ifaceMethodChanged
     return 0;
 }
 
-
 # Method: ifaceExternalChanged
 #
 # Implements:
@@ -702,7 +693,6 @@ sub changeIfaceExternalProperty # (iface, external)
     my ($self, $iface, $external) = @_;
     $self->_deleteIface($iface);
 }
-
 
 # Method: freeIface
 #
@@ -958,7 +948,6 @@ sub _buildGConfRules # (iface, regenConfig)
     my ($self, $iface, $regenConfig) = @_;
 
     my $model = $self->ruleModel($iface);
-
 
     foreach my $ruleRef (@{$model->rulesForIface($iface)}) {
         # transofrmations needed for the ubilder
@@ -1261,7 +1250,6 @@ sub _buildObjToObj
     }
 }
 
-
 sub _addressFromObjectMember
 {
     my ($member) = @_;
@@ -1287,8 +1275,6 @@ sub _addressFromObjectMember
     return $address;
 }
 
-
-
 # Update a rule from the builder taking arguments from GConf
 sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 {
@@ -1307,7 +1293,6 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
                         testing        => $test,
                        );
 }
-
 
 ###
 # Naming convention helper functions
@@ -1353,7 +1338,6 @@ sub _mapRuleToClassId # (ruleId)
         return undef;
     }
 }
-
 
 ###################################
 # Iptables related functions
@@ -1465,13 +1449,11 @@ sub _realIfaces
     return \@ifaces;
 }
 
-
 # Load L7 userspace kernel module
 sub _loadL7Module
 {
     EBox::Sudo::root('modprobe ' . L7_MODULE . ' || true');
 }
-
 
 # Method: l7FilterEnabled
 #
@@ -1502,7 +1484,7 @@ sub ifaceUniqueId
 {
     my ($self, $iface) = @_;
 
-    my  $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
     my $id = 0;
     foreach my $if ( @{$network->ifaces()} ) {
         if ( $iface eq $if ) {

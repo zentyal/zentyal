@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Module::Config;
+
 use base 'EBox::Module::Base';
 
 use EBox::Config;
@@ -27,7 +28,7 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
-use Test::Deep qw(eq_deeply);
+use Test::Deep::NoTest qw(eq_deeply);
 
 sub _create
 {
@@ -39,7 +40,12 @@ sub _create
         $self->{ro} = 1;
     }
     bless($self, $class);
-    $self->{redis} = EBox::Config::Redis->instance();
+    my $redis = delete $opts{redis};
+    if ($redis) {
+        $self->{redis} = EBox::Config::Redis->instance(customRedis => $redis);
+    } else {
+        $self->{redis} = EBox::Config::Redis->instance();
+    }
     unless (defined($self->{redis})) {
         throw EBox::Exceptions::Internal("Error getting Redis client");
     }
@@ -157,6 +163,7 @@ sub _load_redis_from_file
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
+
     $self->_dump_to_file($dir);
     # dump also state, it will not be restored as default
     $self->_dump_state_to_file($dir);
@@ -225,8 +232,6 @@ sub _saveConfig
         throw EBox::Exceptions::Internal("tried to save a read-only"
                                          . " module: " . $self->name() . "\n");
     }
-
-    $self->_dump_to_file();
 
     $self->modelsSaveConfig();
 
@@ -541,11 +546,12 @@ sub get_hash
 #
 # Parameters:
 #
-#       key -
+#       key - string with the key
+#       value - default value to be returned if the key does not exist
 #
 # Returns:
 #
-#   Returns a <Gnome2::Gconf2::value>
+#   value of the key or defaultValue if specified and key does not exist
 #
 sub get
 {
@@ -773,7 +779,6 @@ sub _addFileToList
 #    $self->_removeFilesFromList($dir);
 #}
 
-
 # FIXME: reimplement this
 #sub _clearFilesToRemoveLists
 #{
@@ -891,7 +896,6 @@ sub backupFilesInArchive
         return;
 
     my $archive = $self->_filesArchive($dir);
-
 
     my $firstFile  = shift @filesToBackup;
     my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";

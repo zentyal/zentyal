@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::MailFilter::Model::FilterDetails;
+
 use base 'EBox::Logs::Model::Details';
 
 #
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Int;
@@ -33,9 +34,6 @@ sub new
 
     return $self;
 }
-
-
-
 
 sub dbFields
 {
@@ -64,7 +62,6 @@ sub dbFields
            }
 
 }
-
 
 sub _table
 {
@@ -109,8 +106,6 @@ sub _table
 
                     ];
 
-
-
     my $dataTable =
         {
             'tableName' =>__PACKAGE__->tableName(),
@@ -130,7 +125,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'mailfilter_smtp_traffic';
@@ -141,11 +135,9 @@ sub tableName
     return 'FilterDetails';
 }
 
-
 sub timePeriodModelPath
 {
     return 'FilterReportOptions';
 }
-
 
 1;

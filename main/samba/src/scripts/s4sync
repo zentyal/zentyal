@@ -1,10 +1,27 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2012-2013 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 use EBox;
+use EBox::Config;
 use EBox::Global;
+use Error qw(:try);
 
 use Time::gmtime;
 use File::Slurp;
@@ -56,12 +73,22 @@ while (1) {
             my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
-                $sambaUsers{$sambaUserName}->updateZentyal();
+                try {
+                    $sambaUsers{$sambaUserName}->updateZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
+                };
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
-            if ($sambaUsers{$sambaUserName}->isAccountEnabled()) {
-                $sambaUsers{$sambaUserName}->addToZentyal();
+            if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
+                try {
+                    $sambaUsers{$sambaUserName}->addToZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
+                };
             }
         }
     }
@@ -82,11 +109,21 @@ while (1) {
             my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
-                $sambaGroups{$sambaGroupName}->updateZentyal();
+                try {
+                    $sambaGroups{$sambaGroupName}->updateZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
+                };
             }
             delete $zentyalGroups{$sambaGroupName};
         } else {
-            $sambaGroups{$sambaGroupName}->addToZentyal();
+            try {
+                $sambaGroups{$sambaGroupName}->addToZentyal();
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
+            };
         }
     }
 

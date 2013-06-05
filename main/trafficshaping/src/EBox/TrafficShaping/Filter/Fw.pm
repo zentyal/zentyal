@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::TrafficShaping::Filter::Fw;
-
 use strict;
 use warnings;
+
+package EBox::TrafficShaping::Filter::Fw;
 
 use EBox::Global;
 use EBox::Exceptions::MissingArgument;
@@ -423,7 +423,6 @@ sub dumpIptablesCommands
             my $serviceMod = EBox::Global->modInstance('services');
             $ipTablesRule->setService($serviceMod->serviceId('any'));
 
-
             my $iface = $self->{parent}->getInterface();
 
             my $trafficshaping = EBox::Global->modInstance('trafficshaping');
@@ -457,12 +456,9 @@ sub dumpIptablesCommands
             push(@ipTablesCommands, @{$ipTablesRule->strings()});
         }
 
-
-
         if ($l7Rule) {
 #            push(@ipTablesCommands, $self->_extraL7Commands($ipTablesRule));
         }
-
 
     }
     # FIXME Comment out because it messes up with multipath marks
@@ -501,7 +497,6 @@ sub _extraL7Commands
 
     return @cmds;
 }
-
 
 # Method: dumpProtocols
 #

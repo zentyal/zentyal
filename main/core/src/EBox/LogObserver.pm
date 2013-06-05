@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,10 +19,10 @@
 #       daemon or servide must inherit from this class and implement
 #       the given interface
 #
-package EBox::LogObserver;
-
 use strict;
 use warnings;
+
+package EBox::LogObserver;
 
 use Perl6::Junction qw(any);
 
@@ -68,6 +68,11 @@ sub enableLog
 #        - titles: A hash ref with the table fields and theirs user read
 #               translation.
 #        - order: An array with table fields ordered.
+#        - timecol: The timestamp column to perform date filtering
+#        - eventcol : The column which stores the events related to the row
+#        - events: Hash ref containing the possible event choices, the key
+#                  is the stored value in the DB and the value is the i18ned name for that event
+#        - filter: Array ref of the field names that can perform filtering
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)
@@ -101,7 +106,7 @@ sub enableLog
 #            The drfault is a column called count which autoincrements one unit
 #            each time
 #
-#       - filter: refrence to a method used to filter out rows, the method will
+#       - filter: reference to a method used to filter out rows, the method will
 #                 be supplied to a reference to a hash with the row values and
 #                 if it returns false the row would be excluded
 #       - quote: hash ref which signals which columns should be quoted
@@ -192,7 +197,6 @@ sub reportUrls
       my $index = $tableInfo->{tablename};
       my $rawUrl = "/Logs/Index?selected=$index&refresh=1";
 
-
       if (not $tableInfo->{consolidate}) {
           push @urls, { domain => $tableInfo->{name},  raw => $rawUrl, };
           next;
@@ -200,13 +204,10 @@ sub reportUrls
 
       my @consolidateTables = keys %{ $tableInfo->{consolidate} };
 
-
       my @reportComposites = grep {
           ((ref $_) =~ /Report$/) and
               ($self->_compositeUsesDbTable($_, \@consolidateTables) )
       } @{ $self->composites };
-
-
 
       (ref $self) =~  m/::(.*?)$/;;
       my $urlModName= $1;
@@ -234,13 +235,10 @@ sub reportUrls
 
       }
 
-
-
   }
 
     return \@urls;
 }
-
 
 sub _compositeUsesDbTable
 {

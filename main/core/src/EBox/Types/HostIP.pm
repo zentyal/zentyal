@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #      A specialised text type to represent an host IP address, that
 #      is, those IP addresses whose netmask is equal to 32
 #
-package EBox::Types::HostIP;
-
 use strict;
 use warnings;
+
+package EBox::Types::HostIP;
 
 use base 'EBox::Types::Text';
 

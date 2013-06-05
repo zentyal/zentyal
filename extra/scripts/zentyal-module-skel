@@ -1,0 +1,306 @@
+#!/bin/bash
+
+if [ $# -lt 2 ]
+then
+    echo -e "Usage: $0 <modulename> <directory>\n"
+    echo "Example:"
+    echo -e "\t$0 MyModule mymodule\n"
+    echo "WARNING: directory name must be equal to module name in lowercase"
+    exit 1
+fi
+
+MODULENAME=$1
+DESTDIR=$2
+DIST=precise
+
+PKGNAME=$(basename $DESTDIR)
+
+mkdir -p $DESTDIR/schemas
+mkdir -p $DESTDIR/src/EBox/$MODULENAME/Model
+mkdir -p $DESTDIR/stubs
+mkdir -p $DESTDIR/src/scripts
+mkdir -p $DESTDIR/debian/$DIST
+
+cat >$DESTDIR/schemas/$PKGNAME.yaml <<EOF
+class: EBox::$MODULENAME
+
+models:
+    - Settings
+EOF
+
+
+cat >$DESTDIR/src/EBox/$MODULENAME.pm <<EOF
+package EBox::$MODULENAME;
+
+use base qw(EBox::Module::Service);
+
+use strict;
+use warnings;
+
+use EBox::Global;
+use EBox::Gettext;
+use EBox::Sudo;
+
+my \$CONFFILE = '/tmp/FIXME.conf';
+
+# Method: _create
+#
+# Overrides:
+#
+#       <Ebox::Module::Base::_create>
+#
+sub _create
+{
+    my \$class = shift;
+
+    my \$self = \$class->SUPER::_create(
+        name => '$PKGNAME',
+        printableName => __('$MODULENAME'),
+        @_
+    );
+
+    bless (\$self, \$class);
+
+    return \$self;
+}
+
+# Method: menu
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
+sub menu
+{
+    my (\$self, \$root) = @_;
+
+    my \$item = new EBox::Menu::Item(
+        url => '$MODULENAME/View/Settings',
+        text => \$self->printableName(),
+        separator => 'Core',
+        order => 1
+    );
+
+    \$root->add(\$item);
+}
+
+# Method: _daemons
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    my \$daemons = [
+# FIXME: here you can list the daemons to be managed by the module
+#        for upstart daemons only the 'name' attribute is needed
+#
+#        {
+#            name => 'service',
+#            type => 'init.d',
+#            pidfiles => ['/var/run/service.pid']
+#        },
+    ];
+
+    return \$daemons;
+}
+
+# Method: _setConf
+#
+# Overrides:
+#
+#       <EBox::Module::Base::_setConf>
+#
+sub _setConf
+{
+    my (\$self) = @_;
+
+    my \$settings = \$self->model('Settings');
+    my \$booleanValue = \$settings->value('booleanField');
+    my \$textValue = \$settings->value('textField');
+
+    my @params = (
+        boolean => \$booleanValue,
+        text => \$textValue,
+    );
+
+    \$self->writeConfFile(
+        \$CONFFILE,
+        "$PKGNAME/service.conf.mas",
+        \@params,
+        { uid => '0', gid => '0', mode => '644' }
+    );
+}
+
+1;
+EOF
+
+
+cat >$DESTDIR/src/EBox/$MODULENAME/Model/Settings.pm <<EOF
+package EBox::$MODULENAME::Model::Settings;
+
+use base 'EBox::Model::DataForm';
+
+use strict;
+use warnings;
+
+use EBox::Gettext;
+
+use EBox::Types::Text;
+use EBox::Types::Boolean;
+
+# Method: _table
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::_table>
+#
+sub _table
+{
+    my (\$self) = @_;
+
+    my @fields = (
+        new EBox::Types::Boolean(
+            fieldName => 'booleanField',
+            printableName => __('Example boolean field'),
+            editable => 1,
+            help => __('This field is an example.'),
+        ),
+        new EBox::Types::Text(
+            fieldName => 'textField',
+            printableName => __('Example text field'),
+            editable => 1,
+            size => '8',
+            help => __('This field is another example.'),
+        ),
+    );
+
+    my \$dataTable =
+    {
+        tableName => 'Settings',
+        printableTableName => __('Settings'),
+        pageTitle => \$self->parentModule()->printableName(),
+        defaultActions => [ 'editField' ],
+        modelDomain => '$MODULENAME',
+        tableDescription => \@fields,
+        help => __('This is the help of the model'),
+    };
+
+    return \$dataTable;
+}
+
+1;
+EOF
+
+cat >$DESTDIR/src/scripts/enable-module <<EOF
+#!/bin/bash
+
+set -e
+
+### Actions to be executed when enabling the module ###
+
+exit 0
+EOF
+
+cat >$DESTDIR/src/scripts/initial-setup <<EOF
+#!/bin/bash
+
+set -e
+
+### Actions to be executed when installing the module for the first time ###
+
+exit 0
+EOF
+
+
+cat >$DESTDIR/stubs/service.conf.mas <<EOF
+<%args>
+    \$boolean
+    \$text
+</%args>
+
+boolean = <% \$boolean %>
+text = "<% \$text %>"
+EOF
+
+
+cat >$DESTDIR/debian/$DIST/zentyal-$PKGNAME.postrm <<EOF
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "\$1" in
+    remove)
+        dpkg-trigger --no-await zentyal-core
+    ;;
+    purge)
+        /usr/share/zentyal/purge-module $PKGNAME
+    ;;
+esac
+
+exit 0
+EOF
+
+cat >$DESTDIR/debian/$DIST/zentyal-$PKGNAME.postinst <<EOF
+#!/bin/bash
+
+set -e
+
+#DEBHELPER#
+
+case "\$1" in
+    configure)
+        /usr/share/zentyal/initial-setup $PKGNAME \$2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0
+EOF
+
+
+cat >$DESTDIR/debian/$DIST/rules <<EOF
+#!/usr/bin/make -f
+
+include /usr/share/zbuildtools/1/rules/zentyal.mk
+EOF
+
+cat >$DESTDIR/debian/$DIST/changelog <<EOF
+zentyal-$PKGNAME (3.0) precise; urgency=low
+
+  * New upstream release
+
+ -- YOURNAME <youremail@yourdomain>  Fri, 25 Jan 2013 02:53:07 +0100
+EOF
+
+cat >$DESTDIR/debian/$DIST/control <<EOF
+Source: zentyal-$PKGNAME
+Section: web
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 7.0.0), cdbs
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+
+Package: zentyal-$PKGNAME
+Architecture: all
+Depends: zentyal-core (>= 3.0), \${misc:Depends}
+Description: Zentyal - $MODULENAME module
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ FIXME: description goes here.
+EOF
+
+cat >$DESTDIR/ChangeLog <<EOF
+3.0
+	+ Initial release
+EOF
+
+echo 7 > $DESTDIR/debian/$DIST/compat

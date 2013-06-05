@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Controller::Modal;
-
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientRawBase';
+package EBox::CGI::Controller::Modal;
 
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -37,7 +36,6 @@ sub new # (cgi=?)
 
     my $self = $class->SUPER::new(@_);
     $self->{'tableModel'} = $tableModel;
-
 
     bless($self, $class);
     return  $self;
@@ -138,7 +136,6 @@ sub editField
 
 }
 
-
 sub editBoolean
 {
     my $self = shift;
@@ -229,7 +226,6 @@ sub refreshTable
     $self->{'params'} = \@params;
 }
 
-
 sub cancelAdd
 {
     my ($self, $model) = @_;
@@ -319,6 +315,5 @@ sub _process
     }
 
 }
-
 
 1;

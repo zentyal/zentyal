@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,10 +19,10 @@
 #   by <EBox::Model::Composite> and <EBox::Model::DataTable>.
 #
 
-package EBox::Model::Component;
-
 use strict;
 use warnings;
+
+package EBox::Model::Component;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -47,7 +47,6 @@ sub parentModule
 
     return $self->{'confmodule'};
 }
-
 
 # Method: global
 #
@@ -82,8 +81,6 @@ sub modelGetter
         return $modelInstance;
     };
 }
-
-
 
 # Method: pageTitle
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo;
+
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
@@ -96,7 +97,6 @@ sub menu
                                     'text' => __('Module Status'),
                                     'separator' => 'Core',
                                     'order' => 20));
-
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
                                         'text' => __('System'),
@@ -189,7 +189,6 @@ sub hostDomain
     return $domain;
 }
 
-
 # we override aroundRestoreconfig to restore also state data (for the widget)
 sub aroundRestoreConfig
 {
@@ -198,7 +197,6 @@ sub aroundRestoreConfig
     $self->_load_state_from_file($dir);
     $self->setReloadPageAfterSavingChanges(0);
 }
-
 
 sub setReloadPageAfterSavingChanges
 {

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,7 +32,6 @@ use lib '../..';
 
 diag ( 'Starting EBox::TrafficShaping test' );
 
-
 BEGIN {
   use_ok ( 'EBox::TrafficShaping' )
     or die;
@@ -43,10 +42,8 @@ EBox::init();
 my $ts;
 lives_ok {
   $ts = EBox::Global->modInstance( 'trafficshaping' );
-}
-  'Getting a traffic shaping instance';
+} 'Getting a traffic shaping instance';
 
 lives_ok {
   $ts->restartService();
-}
-  'Regeneration config';
+} 'Regeneration config';

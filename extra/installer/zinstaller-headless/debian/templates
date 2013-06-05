@@ -1,0 +1,10 @@
+Template: debian-installer/zinstaller-headless/title
+Type: text
+_Description: Remote Administration only
+
+Template: zinstaller-headless/question
+Type: boolean
+_Description: Do you want to proceed installation without graphical environment?
+ If you answer yes, graphical environment will not be installed and
+ Zentyal will only be available remotely.
+

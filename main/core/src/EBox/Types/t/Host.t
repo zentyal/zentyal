@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,50 +27,45 @@ EBox::Types::TestHelper::setupFakes();
 my @validHostNames = (
                      'macaco.monos.org',
                      'gorilla',
-                      'baboon5.monos.org',
-
-                    );
+                     'baboon5.monos.org',
+);
 
 my @invalidHostNames = (
                         'badhost_.monos.com',
-                       );
-
+);
 
 my @validHostAddresses = (
-                              '198.23.100.12',
-                               '10.0.4.3',
-                         );
+                          '198.23.100.12',
+                          '10.0.4.3',
+);
 
 my @invalidHostAddresses = (
-                                  '198.23.423.12',
-                           );
-
-
+                            '198.23.423.12',
+);
 
 sub newTest  # 7 checks
-    {
-        foreach my $host (@validHostNames, @validHostAddresses) {
-            EBox::Types::TestHelper::createOk(
-                                        'EBox::Types::Host',
-                                        fieldName => 'test',
-                                        value     => $host,
-                                        printableName => 'Host valid test',
-                                        "Checking instance creation with valid host $host"
-                                       );
-        }
+{
+    foreach my $host (@validHostNames, @validHostAddresses) {
+        EBox::Types::TestHelper::createOk(
+                                    'EBox::Types::Host',
+                                    fieldName => 'test',
+                                    value     => $host,
+                                    printableName => 'Host valid test',
+                                    "Checking instance creation with valid host $host"
+                                   );
+    }
 
 
-        foreach my $host (@invalidHostNames, @invalidHostAddresses) {
-            EBox::Types::TestHelper::createFail(
-                                          'EBox::Types::Host',
-                                          fieldName => 'test',
-                                          printableName => 'Host invalid test',
-                                          value => $host,
-                                          "Checking instance creation raises error when called with invalid host $host"
-                                         );
-        }
+    foreach my $host (@invalidHostNames, @invalidHostAddresses) {
+        EBox::Types::TestHelper::createFail(
+                                      'EBox::Types::Host',
+                                      fieldName => 'test',
+                                      printableName => 'Host invalid test',
+                                      value => $host,
+                                      "Checking instance creation raises error when called with invalid host $host"
+                                     );
+    }
 }
-
 
 sub cmpTest # 5 tests
 {
@@ -115,7 +110,6 @@ sub cmpTest # 5 tests
     }
 }
 
-
 sub _createHost
 {
     my ($value) = @_;
@@ -130,6 +124,5 @@ sub _createHost
 
 newTest();
 cmpTest();
-
 
 1;

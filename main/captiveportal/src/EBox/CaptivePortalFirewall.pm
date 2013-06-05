@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,16 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::CaptivePortalFirewall;
 use strict;
 use warnings;
+
+package EBox::CaptivePortalFirewall;
 
 use base 'EBox::FirewallHelper';
 
 use EBox::Global;
 use EBox::Config;
-use EBox::Firewall;
 use EBox::Gettext;
 
 sub new
@@ -35,10 +34,15 @@ sub new
     $self->{network} = $global->modInstance('network');
     $self->{captiveportal} = $global->modInstance('captiveportal');
 
+    $self->{httpCapturePort} = undef;
+    my  $squid = $global->modInstance('squid');
+    if ($squid and $squid->transproxy()) {
+        $self->{httpCapturePort} = $squid->port();
+    }
+
     bless($self, $class);
     return $self;
 }
-
 
 sub chains
 {
@@ -47,7 +51,6 @@ sub chains
         'filter' => ['icaptive', 'fcaptive']
     };
 }
-
 
 sub prerouting
 {
@@ -68,8 +71,8 @@ sub prerouting
 
         push(@rules, @{$self->_usersRules('captive')});
         push @rules, map {
-            $_->{rule} = $input . ' ' . $_->{rule};
-            ($_)
+            my $rule = $input . ' ' . $_->{rule};
+            ($rule)
         } @exRules;
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
@@ -77,7 +80,6 @@ sub prerouting
     }
     return \@rules;
 }
-
 
 sub postrouting
 {
@@ -101,7 +103,6 @@ sub postrouting
     return \@rules;
 }
 
-
 sub input
 {
     my ($self) = @_;
@@ -110,6 +111,8 @@ sub input
     my $port = $self->{captiveportal}->httpPort();
     my $captiveport = $self->{captiveportal}->httpsPort();
     my $ifaces = $self->{captiveportal}->ifaces();
+
+    push(@rules, @{$self->_exceptionsRules('icaptive')});
 
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
@@ -139,7 +142,6 @@ sub input
     return \@rules;
 }
 
-
 sub forward
 {
     my ($self) = @_;
@@ -159,8 +161,8 @@ sub forward
 
         push(@rules, @{$self->_usersRules('fcaptive')});
         push @rules, map {
-            $_->{rule} = $input . ' ' . $_->{rule};
-            ($_)
+            my $rule = $input . ' ' . $_->{rule};
+            ($rule)
         } @exRules;
         # Allow DNS
         $r = "$input -p tcp --dport 53 -j ACCEPT";
@@ -175,7 +177,6 @@ sub forward
     }
     return \@rules;
 }
-
 
 # create logged users rules on firewall restart
 sub _usersRules
@@ -197,7 +198,7 @@ sub _exceptionsRules
 
     my @rules = map {
         { 'rule' => $_, 'chain' => $chain }
-    } @{  $self->{captiveportal}->exceptionsFirewallRules() };
+    } @{  $self->{captiveportal}->exceptionsFirewallRules($chain) };
 
     return \@rules;
 }

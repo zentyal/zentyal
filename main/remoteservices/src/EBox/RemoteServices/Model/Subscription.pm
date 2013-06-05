@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -30,10 +30,10 @@
 #     - Zentyal subscribed. After the registration
 #
 
-package EBox::RemoteServices::Model::Subscription;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::Subscription;
 
 use base 'EBox::Model::DataForm';
 
@@ -154,9 +154,9 @@ sub setTypedRow
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
-    # Mark the apache module as changed as well
-    my $apacheMod = EBox::Global->modInstance('apache');
-    $apacheMod->setAsChanged();
+    # Mark the webadmin module as changed as well
+    my $webadminMod = EBox::Global->modInstance('webadmin');
+    $webadminMod->setAsChanged();
 
     # Reload table
     $self->reloadTable();
@@ -328,6 +328,8 @@ sub _table
     ($hostname) = split( /\./, $hostname); # Remove the latest part of
                                            # the hostname to make it a
                                            # valid subdomain name
+    $hostname =~ s/_//g; # Remove underscores as they are not valid
+                         # subdomain values although they are valid hostnames
 
     my $subscribed = $self->eBoxSubscribed();
 
@@ -373,7 +375,6 @@ sub _table
                                      volatile      => 1,
                                      storer        => \&_emptyFunc));
     }
-
 
     my ($actionName, $printableTableName);
     my ($customActions, $defaultActions) = ([], []);
@@ -532,7 +533,6 @@ sub _manageSquid
     }
 }
 
-
 sub _configureAndEnable
 {
     my ($self, $mod) = @_;
@@ -613,7 +613,6 @@ sub _modListToHumanStr
     $str = $str . __(' and ') . $last . __(' modules');
     return $str;
 }
-
 
 # Dump the module actions string
 sub _actionsStr

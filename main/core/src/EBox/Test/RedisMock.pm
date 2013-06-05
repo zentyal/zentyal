@@ -15,7 +15,6 @@
 
 use warnings;
 use strict;
-no strict 'refs';
 
 package EBox::Test::RedisMock;
 
@@ -29,6 +28,7 @@ sub new
     $self->{queue} = [];
 
     bless ($self, $class);
+    return $self;
 }
 
 sub set
@@ -75,6 +75,21 @@ sub del
     }
 }
 
+sub keys
+{
+    my ($self, $pattern) = @_;
+
+    if ($pattern =~ /\*$/) {
+        chop ($pattern);
+    }
+    if ($pattern =~ /\/$/) {
+        chop ($pattern);
+    }
+
+    my @filtered = grep { /^$pattern/ } keys %{$self->{keys}};
+    return \@filtered;
+}
+
 sub __send_command
 {
     my ($self, $command, @args) = @_;
@@ -115,6 +130,10 @@ sub exec
     $self->{queue} = [];
 
     return 1;
+}
+
+sub commit
+{
 }
 
 sub discard

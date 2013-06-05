@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::VDomainsLdap;
+
 use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
 
 use EBox::Sudo;
@@ -329,7 +330,7 @@ sub spamAccount
     my ($self, $vdomain) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('spam');
-    return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
+    return $self->_hasAccount($vdomain, $dn);
 }
 
 # Method: hamAccount
@@ -344,7 +345,7 @@ sub hamAccount
     my ($self, $vdomain) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('ham');
-    return $self->_hasAccount($vdomain, new EBox::UsersAndGroups::User(dn => $dn));
+    return $self->_hasAccount($vdomain, $dn);
 }
 
 sub learnAccountsExists
@@ -360,7 +361,6 @@ sub learnAccountsExists
 
     return 0;
 }
-
 
 # Method: learnAccounts
 #
@@ -389,7 +389,11 @@ sub learnAccounts
 
 sub _hasAccount
 {
-    my ($self, $vdomain, $user) = @_;
+    my ($self, $vdomain, $userDN) = @_;
+    my $user= new EBox::UsersAndGroups::User(dn => $userDN);
+    if (not $user->exists()) {
+        return 0;
+    }
 
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();

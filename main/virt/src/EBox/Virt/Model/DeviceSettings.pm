@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,16 +19,18 @@ use warnings;
 #      Table with the network interfaces of the Virtual Machine
 #
 package EBox::Virt::Model::DeviceSettings;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Sudo;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Int;
 use EBox::View::Customizer;
 use EBox::Exceptions::External;
-
+use File::Basename;
 use Filesys::Df;
 
 use constant HDDS_DIR => '/var/lib/zentyal';
@@ -47,10 +49,11 @@ sub _populateDriveTypes
 
 sub _populateDiskAction
 {
+    my ($model) = @_;
     return [
-            { value => 'create', printableValue => __('Create a new disk') },
-            { value => 'use', printableValue => __('Use a existing image file') },
-    ];
+        { value => 'create', printableValue => __('Create a new disk') },
+        { value => 'use', printableValue => __('Use a existing image file') },
+       ];
 }
 
 # Method: _table
@@ -82,12 +85,21 @@ sub _table
                              optional      => 1,
                              optionalLabel => 0,
                             ),
+       new EBox::Types::Boolean(
+                             fieldName     => 'useDevice',
+                             printableName => __('Use host CD drive'),
+                             editable      => 1,
+                             optional      => 1,
+                             optionalLabel => 0,
+                             hiddenOnViewer => 1,
+                            ),
        new EBox::Types::Text(
                              fieldName     => 'path',
                              printableName => __('Path'),
                              editable      => 1,
                              optional      => 1,
                              optionalLabel => 0,
+                             hiddenOnViewer => 1,
                             ),
        new EBox::Types::Int(
                             fieldName      => 'size',
@@ -159,21 +171,28 @@ sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
 
-    my $type = exists $changedFields->{type} ? $changedFields->{type}->value() :
-                                               $allFields->{type}->value();
-    my $path = exists $changedFields->{path} ? $changedFields->{path}->value() :
-                                               $allFields->{path}->value();
+    $self->_checkNumberOfDevices();
+
+    my $type =  $allFields->{type}->value();
+    my $path = $allFields->{path}->value();
+    my $ownId = $allFields->{id};
+
     if ($type eq 'cd') {
-        $self->_checkDevicePath($path, 0, __('ISO image'));
-        unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
-            throw EBox::Exceptions::External(
+        my $useDevice = $allFields->{useDevice}->value();
+        if ($useDevice) {
+            $self->_checkOnlyOneCDDeviceFile($ownId);
+            $self->_checkCDDeviceFile();
+        } else {
+            $self->_checkDevicePath($path, 0, __('ISO image'));
+            unless (_checkFileOutput($path, qr/ISO 9660 CD-ROM filesystem/)) {
+                throw EBox::Exceptions::External(
                     __x('The CD disk image {img} should be in ISO format',
                         img => $path)
                    );
-       }
+            }
+        }
     } else {
-        my $disk_action = exists $changedFields->{disk_action} ? $changedFields->{disk_action}->value() :
-                                                                 $allFields->{disk_action}->value();
+        my $disk_action =  $allFields->{disk_action}->value();
         if ($disk_action eq 'use') {
             $self->_checkDevicePath($path, 1, __('Hard disk image'));
             my @qcow2Re = (
@@ -186,7 +205,7 @@ sub validateTypedRow
                         img => $path)
                 );
             }
-        } else {
+        } elsif ($disk_action eq 'create') {
             my $name = exists $changedFields->{name} ? $changedFields->{name}->value() :
                                                        $allFields->{name}->value();
             unless ($name) {
@@ -206,15 +225,23 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__('You cannot modify an already created disk. ' .
                                                     'You need to delete it and add a new one if you want to change the size.'));
             }
+        } else {
+            throw EBox::Exceptions::Internal("Invalid action for hard disk $disk_action");
         }
     }
+}
+
+sub _checkNumberOfDevices
+{
+    my ($self) = @_;
+    my $numHDs = 0;
+    my $numCDs = 0;
+
     my @devices = @{$self->ids()};
     if (EBox::Config::boolean('use_ide_disks') and (@devices == 4)) {
         throw EBox::Exceptions::External(__x('A maximum of {num} IDE drives are allowed', num => MAX_IDE_NUM));
     }
 
-    my $numCDs = 0;
-    my $numHDs = 0;
     foreach my $id (@devices) {
         my $row = $self->row($id);
 
@@ -231,6 +258,34 @@ sub validateTypedRow
                 throw EBox::Exceptions::External(__x('A maximum of {num} Hard Disk drives are allowed', num => MAX_SCSI_NUM));
             }
         }
+    }
+}
+
+sub CDDeviceFile
+{
+    return '/dev/cdrom';
+}
+
+sub _checkOnlyOneCDDeviceFile
+{
+    my ($self, $ownId) = @_;
+    foreach my $id (@{ $self->ids() }) {
+        if ($ownId and ($ownId eq $id)) {
+            next;
+        }
+        my $row = $self->row($id);
+        my $type = $row->elementByName('type')->value();
+        if (($type eq 'cd') and $row->valueByName('useDevice')) {
+            throw EBox::Exceptions::External(__('Only one CD connected to a host drive is supported'))
+        }
+    }
+}
+
+sub _checkCDDeviceFile
+{
+    my $file = CDDeviceFile();
+    if (not -e $file) {
+        throw EBox::Exceptions::External(__x('Device file for CD "{f}" does not exists', f => $file));
     }
 }
 
@@ -259,7 +314,6 @@ sub _checkHdName
     }
 
 }
-
 sub _checkDevicePath
 {
     my ($self, $path, $rw, $name) = @_;
@@ -268,7 +322,7 @@ sub _checkDevicePath
                                              name => lcfirst $name
                                             ));
     }
-    unless ($path =~ m{^[\d\w/.\\]+$}) {
+    unless ($path =~ m{^[\d\w/.\\_-]+$}) {
         throw EBox::Exceptions::InvalidData(
             data => $path,
             value => $name,
@@ -294,7 +348,6 @@ sub _checkDevicePath
         }
     }
 }
-
 
 sub deletedRowNotify
 {
@@ -330,24 +383,30 @@ sub viewCustomizer
 
     $customizer->setHTMLTitle([]);
 
+    my @onlyCd = ( 'useDevice', 'path' );
+    my @onlyHd = ( 'disk_action', 'name', 'size' );
     $customizer->setOnChangeActions(
             {
               type =>
                 {
-                  'cd' => { show => [ 'path' ], hide => [ 'disk_action', 'name', 'size' ] },
-                  'hd' => { show  => [ 'disk_action', 'name', 'size' ], hide => [ 'path' ] },
+                  'cd' => { show => \@onlyCd,  hide => \@onlyHd },
+                  'hd' => { show  => \@onlyHd, hide =>\@onlyCd },
+
                 },
               disk_action =>
                 {
                   'create' => { show => [ 'name', 'size' ], hide => [ 'path' ] },
                   'use' => { show  => [ 'path' ], hide => [ 'name', 'size' ] },
                 },
+              useDevice =>  {
+                   on  => { hide => ['path']  },
+                   off => { show => ['path' ]},
+               },
             });
 
     $customizer->setInitHTMLStateOrder(['type', 'disk_action']);
 
     return $customizer;
 }
-
 
 1;

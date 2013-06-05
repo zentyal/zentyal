@@ -18,7 +18,6 @@ my $ldap = EBox::Ldap->instance();
 ok $ldap->ldapCon, 'test conexion before restarting ldap';
 
 foreach (2 .. TESTS) {
-$ldap->_pauseAndExecute(cmds => ["ls /"]);
-ok $ldap->ldapCon, 'test conexion after calling _pauseAndExecute thus restarting ldap';
+    $ldap->_pauseAndExecute(cmds => ["ls /"]);
+    ok $ldap->ldapCon, 'test conexion after calling _pauseAndExecute thus restarting ldap';
 }
-

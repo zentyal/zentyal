@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::UserCorner;
+
 use base qw(EBox::Module::Service);
 
 use EBox::Config;
@@ -130,15 +131,6 @@ sub initialSetup
         $fw->saveConfigRecursive();
 
         $self->setPort($port);
-    }
-
-    if (EBox::Util::Version::compare($version, '3.0.5') < 0) {
-        my $journalDir = journalDir();
-        my $oldJournalDir = EBox::UserCorner::usercornerdir() . 'userjournal';
-        if ((-d $oldJournalDir) and not (-d $journalDir)) {
-            # fix wrong path
-            EBox::Sudo::root("mv '$oldJournalDir' '$journalDir'");
-        }
     }
 
     # Execute initial-setup script

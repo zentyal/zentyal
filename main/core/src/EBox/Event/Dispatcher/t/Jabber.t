@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,45 +17,37 @@
 
 # A module to test Event::Dispatcher::Jabber module
 
+use Test::More skip_all => 'FIXME';
 use Test::More tests => 4;
 use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 
-use lib ('../../../..', '../../../../../../../common/libebox/src');
+use lib ('../../../..');
 
-use EBox;
-use EBox::Event;
-use EBox::Global;
+use EBox::Global::TestStub;
+EBox::Global::TestStub::fake();
 
 BEGIN {
-    diag ( 'Starting EBox::Event::Dispatcher::Jabber test' );
-    use_ok ( 'EBox::Event::Dispatcher::Jabber' )
-      or die;
+    diag ('Starting EBox::Event::Dispatcher::Jabber test');
+    use_ok ( 'EBox::Event::Dispatcher::Jabber' ) or die;
 }
-
-use EBox::TestStub;
-EBox::TestStub::fake();
 
 my $jabberDispatcher;
 my $event;
-lives_ok
-  {
-      $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
-      $event = new EBox::Event(
-                               message => 'test event',
-                               level   => 'info',
-                               source  => 'unit test',
-                              );
-  } 'Creating the jabber dispatcher and the event to send';
 
-lives_ok
-  {
-      $jabberDispatcher->enable()
-  } 'Enabling the jabber dispatcher';
+lives_ok {
+   $jabberDispatcher = new EBox::Event::Dispatcher::Jabber();
+   $event = new EBox::Event(
+                            message => 'test event',
+                            level   => 'info',
+                            source  => 'unit test',
+                           );
+} 'Creating the jabber dispatcher and the event to send';
 
-ok ( $jabberDispatcher->send($event),
-     'Sending test event to the admin');
+lives_ok { $jabberDispatcher->enable() } 'Enabling the jabber dispatcher';
+
+ok ($jabberDispatcher->send($event), 'Sending test event to the admin');
 
 1;
 

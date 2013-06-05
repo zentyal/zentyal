@@ -1,3 +1,35 @@
+HEAD
+	+ Use external squid log file to retrieve HTTP proxy requests
+	+ Added Auth and Cache Exceptions for non-transparent mode
+	  which allow to bypass Squid + Dansguardian auth
+	+ Added CUPS and ftp to SSL_ports
+	+ Avoid warning in AccessRules validateTypedRow
+3.1.1
+	+ Squid time ACLs have independient ids, this fixes several issues
+	  with combinations of time, dates and long acls
+	+ Do not repeat Squid ACL declarations
+	+ Changed HTTP keytab permission in order to avoid krb5_kt_add_entry errors
+3.1
+	+ Removed 3.0.X migration code
+	+ Implemented _daemonsToDisable()
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.9
+	+ Change the kerberos service from squid to http. Zarafa and Squid must
+	  share the service principal.
+	+ Disable DC reverse DNS lookup for msktutil commands
+	+ Explicitly set the DC for msktutil command when updating the keytab
+3.0.8
+	+ Regenerate Kerberos keytab on LDAP reprovision
+3.0.7
+	+ Fixed bug which returned the list of users of a profile inside
+	  another list
+	+ Authenticate against external AD for Enterprise editions
+3.0.6
+	+ Avoid to request authorization again when 'deny unknown domain'
+	  option is set in filter profile
+	+ Access rules for the same source can have different time
+	  periods if they dont overlap
 3.0.5
 	+ Reload dansguardian configuration in log rotation instead of
 	  restarting the full module

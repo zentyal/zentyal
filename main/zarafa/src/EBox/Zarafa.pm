@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Zarafa;
-
 use strict;
 use warnings;
+
+package EBox::Zarafa;
 
 use feature qw(switch);
 
@@ -172,8 +172,8 @@ sub kerberosServicePrincipals
 {
     my ($self) = @_;
 
-    my $data = { service    => 'zarafa',
-                 principals => [ 'ZARAFA' ],
+    my $data = { service    => 'http',
+                 principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
                  keytabUser => 'www-data' };
     return $data;
@@ -212,6 +212,21 @@ sub initialSetup
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
     }
+}
+
+# Method: reprovisionLDAP
+#
+# Overrides:
+#
+#      <EBox::LdapModule::reprovisionLDAP>
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+
+    $self->SUPER::reprovisionLDAP();
+
+    # regenerate kerberos keytab
+    $self->kerberosCreatePrincipals();
 }
 
 sub _serviceRules

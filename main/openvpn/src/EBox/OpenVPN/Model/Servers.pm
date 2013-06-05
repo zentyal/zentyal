@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::OpenVPN::Model::Servers;
 
 use base qw(EBox::Model::DataTable EBox::OpenVPN::Model::InterfaceTable);
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -33,7 +32,6 @@ use EBox::NetWrappers;
 
 use EBox::OpenVPN::Server;
 
-#use EBox::OpenVPN::Model::ServerConfiguration;
 use List::Util; # first
 
 use constant START_ADDRESS_PREFIX => '192.168.';
@@ -41,13 +39,9 @@ use constant FROM_RANGE => 160;
 use constant TO_RANGE => 200;
 use constant PORTS => (1194, 11194 .. 11234);
 
-
-# Group: Public and protected methods
-
 sub new
 {
     my $class = shift;
-    my %parms = @_;
 
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
@@ -123,7 +117,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 sub name
 {
@@ -208,7 +201,6 @@ sub servers
 
 }
 
-
 sub server
 {
     my ($self, $name) = @_;
@@ -221,7 +213,6 @@ sub server
 
     return EBox::OpenVPN::Server->new($row);
 }
-
 
 sub serverExists
 {
@@ -279,7 +270,6 @@ sub _validateService
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-
     if ( not exists $params_r->{service} ) {
         return;
     }
@@ -303,7 +293,6 @@ sub _validateService
                 );
     }
 }
-
 
 sub _validateName
 {
@@ -384,7 +373,7 @@ sub _configureVPN
     my ($self, $row) = @_;
 
     # Configure network
-    my $networkMod = EBox::Global->modInstance('network');
+    my $networkMod = $self->global()->modInstance('network');
     my @addresses;
     for my $iface (@{$networkMod->allIfaces()}) {
         my $address = $networkMod->ifaceAddress($iface);
@@ -432,48 +421,8 @@ sub _configureVPN
     }
 
     # Advertise local networks
-    my $global  = EBox::Global->getInstance();
-    my $objMod = $global->modInstance('objects');
     my $advertise = $row->subModel('advertisedNetworks');
-    my $objects = $objMod->objects();
-    for my $iface (@{$networkMod->InternalIfaces()}) {
-        next unless ($networkMod->ifaceMethod($iface) eq 'static');
-        for my $ifaceAddress (@{$networkMod->ifaceAddresses($iface)}) {
-            my $netAddress = EBox::NetWrappers::ip_network(
-                                $ifaceAddress->{address},
-                                $ifaceAddress->{netmask},
-                             );
-            my $mask = EBox::NetWrappers::bits_from_mask($ifaceAddress->{netmask});
-            my $objName = "openVPN-$iface-$netAddress-$mask";
-
-            my $id = undef;
-
-            # Check if object already exist
-            for my $obj (@{$objects}) {
-                if ($obj->{'name'} eq $objName) {
-                    $id = $obj->{'id'};
-                }
-            }
-
-            # Add the object if if does not exist
-            if ( not defined $id ) {
-                $id = $objMod->addObject(
-                    name     => $objName,
-                    members  => [{
-                                    name             => "$netAddress-$mask",
-                                    address_selected => 'ipaddr',
-                                    address          => 'ipaddr',
-                                    ipaddr_ip        => $netAddress,
-                                    ipaddr_mask      => $mask,
-                                },],
-                    readOnly => 1,
-                );
-            }
-
-            # Add the object to the list of advertised objects
-            $advertise->add(object => $id);
-        }
-    }
+    $advertise->populateWithInternalNetworks();
 }
 
 1;

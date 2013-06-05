@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,12 +19,12 @@
 # using the local mail server.
 #
 
+use strict;
+use warnings;
+
 package EBox::Event::Dispatcher::Mail;
 
 use base 'EBox::Event::Dispatcher::Abstract';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;

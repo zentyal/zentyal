@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Model::LocalApps;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -32,7 +32,7 @@ use EBox::Types::Text;
 use EBox::Types::Action;
 
 use EBox::Exceptions::Internal;
-use EBox::Apache;
+use EBox::WebAdmin;
 
 sub new
 {
@@ -85,7 +85,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub _doInstall
 {
     my ($self, $action, $id, %params) = @_;
@@ -119,7 +118,7 @@ sub _doInstall
         # Needed here because the code in the script takes some seconds to execute
         $ltsp->st_set_string('work', 'install');
 
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         exec('sudo /usr/share/zentyal-ltsp/install-local-applications '
              . "$arch $fat \"$applications\"");
     }

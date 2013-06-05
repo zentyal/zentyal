@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,13 +18,12 @@
 #   FIXME
 #
 
-package EBox::L7Protocols;
-
 use strict;
 use warnings;
 
-use base qw(EBox::Module::Config);
+package EBox::L7Protocols;
 
+use base qw(EBox::Module::Config);
 
 use EBox::Validate qw( :all );
 use EBox::Global;
@@ -42,7 +41,6 @@ use constant PROTOCOL_DIRS => ('/etc/l7-protocols/protocols',
                                '/etc/l7-protocols/extra');
 use constant INITIAL_GROUPS => qw(streaming_audio remote_access mail
                                   streaming_video chat voip game p2p);
-
 
 sub _create
 {

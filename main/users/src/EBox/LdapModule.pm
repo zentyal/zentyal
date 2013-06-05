@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::LdapModule;
-
 use strict;
 use warnings;
+
+package EBox::LdapModule;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -27,24 +26,24 @@ use Error qw(:try);
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _ldapModImplementation
 #
-#	All modules using any of the functions in LdapUserBase.pm
-#	should override this method to return the implementation
-#	of that interface.
+#   All modules using any of the functions in LdapUserBase.pm
+#   should override this method to return the implementation
+#   of that interface.
 #
 # Returns:
 #
-#	An object implementing EBox::LdapUserBase
+#       An object implementing EBox::LdapUserBase
 sub _ldapModImplementation
 {
-	throw EBox::Exceptions::NotImplemented();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 # Method: ldap
@@ -195,7 +194,6 @@ sub _addIndex
     $self->_addIndexDirectory($ldap, $attribute);
 }
 
-
 sub _addIndexDirectory
 {
     my ($self, $ldap, $attribute) = @_;
@@ -233,11 +231,10 @@ sub _addIndexDirectory
     }
 }
 
-
-#   Method: performLDAPActions
+# Method: performLDAPActions
 #
-#      adds the schemas, acls and local attributes specified in the
-#      LdapUserImplementation
+#  adds the schemas, acls and local attributes specified in the
+#  LdapUserImplementation
 #
 # Parameters:
 #          attribute - string with the attribute name
@@ -261,20 +258,32 @@ sub performLDAPActions
     }
 }
 
+# Method: reprovisionLDAP
+#
+#   reprovision LDAP setup for the module. This should install schemas, create
+#   initial tree, etc
+#
+#   It default implementation just calls performLDAPActions
+sub reprovisionLDAP
+{
+    my ($self) = @_;
+    $self->performLDAPActions();
+}
+
 # Method: slaveSetup
 #
 #  this is called when the slave setup. The slave setup is done when saving
 #  changes so this is normally used to modify LDAP or other tasks which don't
 #  change configuration.
 #
-#  The default implementation perform the initial LDAP actions
+#  The default implementation just calls reprovisionLDAP
 #
 # For changing configuration before the save changes we will use the
 # preSlaveSetup methos which currently is only called for module mail
 sub slaveSetup
 {
     my ($self) = @_;
-    $self->performLDAPActions();
+    $self->resetLDAPConf();
 }
 
 # Method: preSlaveSetup
@@ -305,6 +314,5 @@ sub slaveSetupWarning
     my ($self, $master) = @_;
     return undef;
 }
-
 
 1;

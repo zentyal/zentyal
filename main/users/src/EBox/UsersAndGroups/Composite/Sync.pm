@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2011 eBox Technologies S.L.
+# Copyright (C) 2010-2011 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,12 +15,12 @@
 
 # Class: EBox::UsersAndGroups::Composite::Sync;
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Composite::Sync;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -56,7 +56,6 @@ sub menuFolder
 {
     return 'UsersAndGroups';
 }
-
 
 # Method: precondition
 #

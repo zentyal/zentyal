@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,10 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-package EBox::Objects;
-
 use strict;
 use warnings;
+
+package EBox::Objects;
 
 use base qw(EBox::Module::Config);
 
@@ -256,52 +256,49 @@ sub removeObjectForce # (object)
 
 # Method: addObject
 #
-#   Add object to the objects table. Note this method must exist
-#   because we must provide an easy way to migrate old objects module
-#   to this new one.
+#   Add object to the objects table.
 #
 # Parameters:
 #
 #   (NAMED)
-#
 #   id         - object's id *(optional*). It will be generated automatically
 #                if none is passed
-#
 #   name       - object's name
-#
 #   members    - array ref containing the following hash ref in each value:
 #
 #                name        - member's name
-#                ipaddr_ip   - member's ipaddr
-#                ipaddr_mask - member's mask
-#                macaddr     - member's mac address *(optional)*
+#                address_selected - type of address, can be:
+#                                'ipaddr', 'iprange' (default: ipdaddr)
 #
-#   readOnly   - boolean, set the row unremovable from the UI *(optional)*
+#                ipaddr  parameters:
+#                   ipaddr_ip   - member's ipaddr
+#                   ipaddr_mask - member's mask
+#                   macaddr     - member's mac address *(optional)*
 #
-# Example:
+#               iprange parameters:
+#                   iprange_begin - begin of the range
+#                   iprange_end   - end of range
+#
+#   readOnly   - the service can't be deleted or modified *(optional)*
+#
+#   Example:
 #
 #       name => 'administration',
 #       members => [
 #                   { 'name'         => 'accounting',
+#                     'address_selected' => 'ipaddr',
 #                     'ipaddr_ip'    => '192.168.1.3',
 #                     'ipaddr_mask'  => '32',
 #                     'macaddr'      => '00:00:00:FA:BA:DA'
 #                   }
 #                  ]
+
 sub addObject
 {
     my ($self, %params) = @_;
 
     return $self->model('ObjectTable')->addObject(%params);
 }
-
-# add( name => 'administration',
-#      members => [
-#                  { name    => 'accounting',
-#                    ipaddr  => '192.168.1.3/32',
-#                    macaddr => '00:00:00:FA:BA:DA'
-#                  },
-#                 ]
 
 # Method: menu
 #

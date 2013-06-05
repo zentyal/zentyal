@@ -1,4 +1,24 @@
 HEAD
+	+ More descriptive names for the windows types of virtual machines
+	+ Do not stop VNC proxies before VMs are stopped
+	+ Always try to shutdown VMs first and then destroy after 30 seconds
+	+ Fix Qemu keymap detection when having UTF-8 environment
+3.1
+	+ Removed 3.0.X migration code
+	+ Depend on zentyal-core 3.1
+3.0.5
+	+ Reload the page after saving changes if a VM has been modified
+	+ Added calls to generate VM stop alerts on module stop
+	+ Added calls to methods to generate alerts on VM start/stop
+3.0.4
+	+ Use shutdown command instead of halt in Windows systems
+	+ Allow to use host CD drive
+	+ Add VNC bar height to calculate VNC viewer frame height
+	+ Use 'tablet' device type for pointing device on Windows machines
+	  to avoid cursor offset
+	+ Allow '_' and '-' in devices paths
+3.0.3
+	+ Added missing architectureTypes method to VBox backend
 	+ Forced MAC prefix to workaround libvirt bug
 3.0.2
 	+ Operating System type can now be specified on each VM

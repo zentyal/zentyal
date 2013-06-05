@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,16 +31,12 @@ EBox::Types::TestHelper::setupFakes();
 my %validNetworks = (
                      '192.168.45.0' => 24,
                      '40.24.3.128' => 25,
-                     
-                    );
+);
 
 my %invalidNetworks = (
                        '192.168.45.1' => 24,
-                     '40.24.3.129' => 25,
-                      );
-
-
-
+                       '40.24.3.129' => 25,
+);
 
 while (my ($ip, $mask) = each %validNetworks) {
     EBox::Types::TestHelper::createOk(
@@ -49,10 +45,8 @@ while (my ($ip, $mask) = each %validNetworks) {
                                 ip   => $ip,
                                 mask => $mask,
                                 "Checking instance creation with valid parameters ip => $ip, mask => $mask"
-                               );
-
+    );
 }
-
 
 while (my ($ip, $mask) = each %invalidNetworks) {
     EBox::Types::TestHelper::createFail(
@@ -65,25 +59,22 @@ while (my ($ip, $mask) = each %invalidNetworks) {
                                  );
 }
 
-
 sub _create
 {
     my %params = @_;
-    
+
     my $ipn = EBox::Types::IPNetwork->new(
                                           %params
                                          );
-    
+
     my $ipParamName   = $ipn->fieldName() . '_ip';
     my $maskParamName = $ipn->fieldName() . '_mask';
-    
+
     $ipn->setMemValue({
                        $ipParamName    => $params{ip},
                        $maskParamName => $params{mask},
                       });
 }
-
-
 
 
 1;

@@ -1,3 +1,39 @@
+HEAD
+	+ Fixed password change in user corner when using samba
+	+ Changed reload action to force-reload for nscd init.d daemon
+3.1.1
+	+ Fixed error message when trying to add a user above the edition maximum
+	+ Migrated SOAP services to use Nginx for SSL.
+3.1
+	+ Updated to reflect the Apache -> WebAdmin rename.
+	+ Removed 3.0.X migration code
+	+ Added Pre-Depends on slapd to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.18
+	+ Check for already existent service principals before create them.
+	  Required because squid and zarafa share the HTTP SPN
+3.0.17
+	+ Migration to remove leftover need_reprovision key in redis ro
+	+ Retrieve global instance correctly in UsersSync
+3.0.16
+	+ Assure that we don't have a phantom need_reprovision key in
+	  read-only tree
+	+ Check for maximum number of users depending on the edition
+	+ More frequent polling in EBox::Ldap::safeConnect() and
+	  more explicit error when it fails
+3.0.15
+	+ Always mark as changed if it needs LDAP reprovision
+	+ Fixed member removal operation for groups
+3.0.14
+	+ Tentative workaround against home directory chown bug
+	+ Slave setup refactored to reuse common code with reprovision
+	+ Reprovision LDAP for all LDAP based modules
+	+ Don't try to update samba password in user corner when samba is
+	  not configured
+	+ Add operation arguments on LDAP error whenever is possible
+	+ EBox::UsersAndGroups::User::create() allows now an internal attribute
+	+ Users marked as internal are not displayed on the interface
+	+ New realUsers() method to filter only non-internal ones
 3.0.13
 	+ Search in user table now is standard instead of filter only for uid
 	+ A bit more explicit text for EBox::Exceptions::LDAP

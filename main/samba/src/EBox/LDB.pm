@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::LDB;
-
 use strict;
 use warnings;
+
+package EBox::LDB;
 
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
@@ -27,6 +27,7 @@ use EBox::Samba::DNS::Zone;
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Gettext;
 
 use Net::LDAP;
 use Net::LDAP::Control;
@@ -38,8 +39,9 @@ use File::Slurp;
 use File::Temp qw(:seekable);
 use Error qw( :try );
 use Perl6::Junction qw(any);
+use Time::HiRes;
 
-use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi";
+use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -80,10 +82,16 @@ sub _new_instance
     my @sidsTmp = grep(/^\s*S-/, @lines);
     my @sids = map { s/\n//; $_; } @sidsTmp;
 
+    my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
+    @lines = read_file($ignoredGroupsFile);
+    chomp (@lines);
+    my %ignoredGroups = map { $_ => 1 } @lines;
+
     my $self = {};
     $self->{ldb} = undef;
     $self->{idamp} = undef;
     $self->{ignoredSids} = \@sids;
+    $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
 }
@@ -161,32 +169,33 @@ sub safeConnect
 {
     my ($self) = @_;
 
-    my $retries = 6;
-    my $ldb = undef;
-
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    while (not $ldb = Net::LDAP->new(LDAPI) and $retries--) {
-        my $samba = EBox::Global->modInstance('samba');
-        unless ($samba->isRunning()) {
-            EBox::debug("Samba daemon was stopped, starting it");
-            $samba->_startService();
-            sleep (5);
-            next;
+    my $samba = EBox::Global->modInstance('samba');
+    $samba->_startService() unless $samba->isRunning();
+
+    my $error = undef;
+    my $lastError = undef;
+    my $maxTries = 300;
+    for (my $try=1; $try<=$maxTries; $try++) {
+        my $ldb = Net::LDAP->new(LDAPI);
+        if (defined $ldb) {
+            my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
+            if (defined $dse) {
+                return $ldb;
+            }
         }
-        EBox::warn("Couldn't connect to samba LDAP server: $@, retrying");
-        sleep (5);
+        $error = $@;
+        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)")   if (($try == 1) or (($try % 100) == 0));
+        Time::HiRes::sleep(0.1);
     }
 
-    unless ($ldb) {
-        throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to samba LDAP server");
-    }
-
-    return $ldb;
+    throw EBox::Exceptions::External(
+        __x(q|FATAL: Could not connect to samba LDAP server: {error}|,
+            error => $error));
 }
 
 # Method: dn
@@ -448,9 +457,9 @@ sub ldapUsersToLdb
     my $users = $usersModule->users();
     foreach my $user (@{$users}) {
         my $dn = $user->dn();
+        my $samAccountName = $user->get('uid');
         EBox::debug("Loading user $dn");
         try {
-            my $samAccountName = $user->get('uid');
             my $params = {
                 uidNumber    => scalar ($user->get('uidNumber')),
                 sn           => scalar ($user->get('sn')),
@@ -459,6 +468,11 @@ sub ldapUsersToLdb
                 kerberosKeys => $user->kerberosKeys(),
             };
             EBox::Samba::User->create($samAccountName, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("User $dn already in Samba database");
+            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+            $sambaUser->setCredentials($user->kerberosKeys());
+            EBox::debug("Password updated for user $dn");
         } otherwise {
             my $error = shift;
             EBox::error("Error loading user '$dn': $error");
@@ -484,6 +498,8 @@ sub ldapGroupsToLdb
                 description => scalar ($group->get('description')),
             };
             $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Group $dn already in Samba database");
         } otherwise {
             my $error = shift;
             EBox::error("Error loading group '$dn': $error");
@@ -528,7 +544,7 @@ sub ldapServicePrincipalsToLdb
                 my $baseDn = $usersModule->ldap->dn();
                 my $realm = $usersModule->kerberosRealm();
                 my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
-                my $user = new EBox::UsersAndGroups::User(dn => $dn);
+                my $user = new EBox::UsersAndGroups::User(dn => $dn, internal => 1);
                 # If the user does not exists the module has not been enabled yet
                 next unless ($user->exists());
 
@@ -599,6 +615,9 @@ sub groups
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
+
+        next if (exists $self->{ignoredGroups}->{$entry->get_value('samAccountName')});
+
         my $group = new EBox::Samba::Group(entry => $entry);
 
         my $skip = 0;
@@ -610,6 +629,7 @@ sub groups
 
         push (@{$list}, $group);
     }
+
     return $list;
 }
 

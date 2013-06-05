@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,9 @@
 #
 #   From to configure a Zentyal master to provide users to this server
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Model::Master;
 
 use base 'EBox::Model::DataForm';
@@ -29,10 +32,6 @@ use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
 use EBox::View::Customizer;
-
-use strict;
-use warnings;
-
 
 use constant VIEW_CUSTOMIZER => {
     none     => { hide => [ 'host', 'port', 'password' ] },
@@ -72,7 +71,6 @@ sub _table
     # TODO make all this elements non-editable after change
     # (add a destroy button, to unregister from the master)
 
-
     my $master_options = [
         { value => 'none', printableValue => __('None') },
         { value => 'zentyal', printableValue => __('Other Zentyal Server') },
@@ -81,7 +79,7 @@ sub _table
 
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        if ($rs->usersSyncAvailable()) {
+        if ($rs->usersSyncAvailable('force')) {
             push ($master_options,
                 { value => 'cloud', printableValue  => __('Zentyal Cloud') }
             );
@@ -147,8 +145,6 @@ sub viewCustomizer
     $customizer->setOnChangeActions( { master => VIEW_CUSTOMIZER } );
     return $customizer;
 }
-
-
 
 sub _locked
 {
@@ -216,6 +212,14 @@ sub validateTypedRow
                 slave => $users->kerberosRealm()
             ));
         }
+
+         my $realUsers = $users->realUsers('without_admin');
+         $realUsers = scalar(@{$realUsers});
+         if ( $realUsers > $rs->maxCloudUsers('force') ) {
+            my $max = $rs->maxCloudUsers();
+            my $current = $realUsers;
+            throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current} users created.', current => $current, max => $max));
+         }
     }
 
     my @ldapMods = grep {
@@ -239,7 +243,6 @@ sub validateTypedRow
             }
         }
 
-
         if ($warnMsg) {
             throw EBox::Exceptions::DataInUse($warnMsg);
         }
@@ -249,9 +252,9 @@ sub validateTypedRow
         $mod->preSlaveSetup($master);
     }
 
-    # set apache as changed
-    my $apache = EBox::Global->modInstance('apache');
-    $apache->setAsChanged();
+    # set webAdmin as changed
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
+    $webAdminMod->setAsChanged();
 }
 
 sub _checkSamba

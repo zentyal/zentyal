@@ -1,6 +1,4 @@
-#!/usr/bin/perl -w
-
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +15,7 @@
 
 # A module to test EBox::Event::Dispatcher::RSS module
 
+use Test::More skip_all => 'FIXME';
 use Test::More tests => 4;
 use Test::Exception;
 use Test::Deep;
@@ -24,9 +23,7 @@ use Data::Dumper;
 
 use lib ('../../../..', '../../../../../../../common/libebox/src');
 
-use EBox;
-use EBox::Event;
-use EBox::Global;
+use EBox::Global::TestStub;
 
 BEGIN {
     diag ( 'Starting EBox::Event::Dispatcher::RSS test' );
@@ -34,27 +31,23 @@ BEGIN {
       or die;
 }
 
-EBox::init();
+EBox::Global::TestStub::fake();
 
 my $rssDispatcher;
 my $event;
-lives_ok
-  {
-      $rssDispatcher = new EBox::Event::Dispatcher::RSS();
-      $event = new EBox::Event(
-                               message => 'test event',
-                               level   => 'info',
-                               source  => 'unit test',
-                              );
-  } 'Creating the RSS dispatcher and the event to send';
+lives_ok {
+    $rssDispatcher = new EBox::Event::Dispatcher::RSS();
+    $event = new EBox::Event(
+                             message => 'test event',
+                             level   => 'info',
+                             source  => 'unit test',
+                            );
+} 'Creating the RSS dispatcher and the event to send';
 
-lives_ok
-  {
+lives_ok {
       $rssDispatcher->enable()
-  } 'Enabling the RSS dispatcher';
+} 'Enabling the RSS dispatcher';
 
-ok ( $rssDispatcher->send($event),
-     'Sending test event to the admin');
+ok ($rssDispatcher->send($event), 'Sending test event to the admin');
 
 1;
-

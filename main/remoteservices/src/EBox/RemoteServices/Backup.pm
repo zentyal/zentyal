@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,12 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Backup;
-use base 'EBox::RemoteServices::Cred';
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Backup;
+
+use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;
 use Error qw(:try);
@@ -67,7 +67,6 @@ sub prepareMakeRemoteBackup
     $name or throw EBox::Exceptions::MissingArgument('name');
     defined $description or $description = '';
 
-
     my @backupOptions = (
         description => $description,
         remoteBackup => $name,
@@ -105,7 +104,6 @@ sub makeRemoteBackup
 
     $self->sendRemoteBackup($archive, $name, $description, $automatic);
 }
-
 
 # Method: sendRemoteBackup
 #
@@ -158,7 +156,6 @@ sub restoreRemoteBackup
         }
     };
 }
-
 
 sub prepareRestoreRemoteBackup
 {
@@ -255,6 +252,39 @@ sub remoteBackupInfo
     return  $allBackups->{$name};
 }
 
+# Method: latestRemoteConfBackup
+#
+#      Get the latest remote configuration backup
+#
+# Parameters:
+#
+#      force - Boolean indicating to get the information from Zentyal Remote
+#
+# Returns:
+#
+#      String - the date in RFC 2822 format
+#
+#      'unknown' - if the data is not available
+#
+sub latestRemoteConfBackup
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless (defined($force));
+
+    my ($latest, $bakList) = ('unknown', {});
+    if ($force or (not -r $self->_metainfoFile())) {
+        $bakList = $self->listRemoteBackups();
+    } else {
+        $bakList = $self->_metainfoFromCache();
+    }
+    my @sortedBakList = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %{$bakList};
+    if ( @sortedBakList > 0 ) {
+        $latest = $sortedBakList[0]->{Date};
+    }
+    return $latest;
+}
+
 # Group: Private methods
 
 sub _metainfoFromServer
@@ -297,9 +327,26 @@ sub _metainfoFromServer
     return $metainfo;
 }
 
+sub _metainfoDir
+{
+    return EBox::Config::conf() . '/remoteservices/conf-backup';
+}
+
+sub _createMetainfoDirIfNotExists
+{
+    my $dir = _metainfoDir();
+    if (not -d $dir) {
+        if (-e $dir) {
+            throw EBox::Exceptions::Internal("PAth $dir exists but is not a directory");
+        } else {
+            system "mkdir -p $dir";
+        }
+    }
+}
+
 sub _metainfoFile
 {
-    return EBox::Config::tmp() . '/backup-service-metainfo';
+    return _metainfoDir() . '/backup-service-metainfo';
 }
 
 sub _metainfoFromCache
@@ -321,12 +368,13 @@ sub _setMetainfoCache
 
     my $file = $self->_metainfoFile();
     my $metainfoDump = Dumper($metainfo);
+    $self->_createMetainfoDirIfNotExists();
     return File::Slurp::write_file($file, $metainfoDump);
 }
 
 sub _metainfoFootprintFile
 {
-    return EBox::Config::tmp() . '/backup-service-metainfo.footprint';
+    return _metainfoDir() . '/backup-service-metainfo.footprint';
 }
 
 sub _metainfoFootprint
@@ -346,8 +394,8 @@ sub _setMetainfoFootprint
     my ($self, $footprint) = @_;
 
     my $file = $self->_metainfoFootprintFile();
+    $self->_createMetainfoDirIfNotExists();
     return File::Slurp::write_file($file, $footprint);
-
 }
 
 sub _pushConfBackup
@@ -441,7 +489,6 @@ sub _pullConfBackup
         return $outFile;
     }
 }
-
 
 sub _pullAllMetaConfBackup
 {

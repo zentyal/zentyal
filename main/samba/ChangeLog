@@ -1,8 +1,43 @@
 HEAD
+	+ Fix id mapping for users and groups added by the s4sync daemon
+3.1.2
+	+ Fix hostname change when having Samba installed: was trying to create
+	  again Administrator user, now we just update the credentials, ignore
+	  existing groups
+3.1.1
+	+ Fixed wrong setting of state in EBox::Samba::Provision
+3.1
+	+ Replace /home/samba/.provisioned file with a key in redis state
+	+ Depend on zentyal-core 3.1
+3.0.17
+	+ New join_vista_with_guest_shares option in /etc/zentyal/samba.conf to
+	  allow join of Windows Vista machines if guest shares are enabled
+	+ New sync_disabled_users option in /etc/zentyal/samba.conf to sync
+	  users with a disabled account in s4sync
+	+ Removed 3.0.X migration code
+	+ New s4sync-groups.ignore file to avoid sync internal groups to LDAP
+	+ Allow to set "disable_fullaudit" config key in /etc/zentyal/samba.conf
+	  to fully disable recording of samba VFS operations in the system log
+	+ Added Pre-Depends on samba4 to avoid problems with upgrades
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+3.0.16
+	+ Workaround with retries for the chown __USERS__ bug
+	+ Hide sync with cloud options in shares list if remoteservices
+	  is not installed
+	+ Setup filesystem now writes a valid fstab file even if the filesystem
+	  does not have any mount option
+	+ Remove idmap_ldb:use_rf2307 option unnecessary with Samba 4.0.5
+	+ Clearer error messages when EBox::LDB::safeConnect fails
+	+ Raise exception if during the provision either the domain
+	  administrator user or the domain administrator group are
+	  incorrectly mapped
+	+ Adapted firewallCaptivePortalExceptions method to API change
+	+ Mark kerberos principal users as internal to be properly filtered
+	+ Delete .provisioned file when purging zentyal-samba
 	+ Avoid not numeric warning in hash size comparation during provision
 	+ Allow user names composed only of digits
 	+ Do not add firewall rules to loopback interface
-	+ Improve checks when upgrading from 3.0.11 to 3.0.12
+	+ Improve checks when upgrading from 3.0.11
 3.0.15
 	+ Better check for the incompatibility of Samba with master/slave
 	+ Samba can now be reprovisioned if the hostname or domain changes

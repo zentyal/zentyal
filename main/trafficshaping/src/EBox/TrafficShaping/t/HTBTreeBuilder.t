@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -32,7 +32,7 @@ diag ( 'Starting tc HTB tree structure test' );
 BEGIN {
   use_ok( 'EBox::TrafficShaping::TreeBuilder::HTB' )
     or die;
-  use_ok( 'EBox::TrafficShaping' ) 
+  use_ok( 'EBox::TrafficShaping' )
     or die;
 }
 
@@ -68,13 +68,14 @@ my ($childNode) = $tcTree->root()->children();
 my $childValue = $childNode->value();
 
 isa_ok($childValue, 'EBox::TrafficShaping::Class');
-cmp_deeply($childValue->getIdentifier(),
+cmp_deeply(
+       $childValue->getIdentifier(),
 	   {
 	    major => 1,
 	    minor => 1,
 	   },
 	   'Correct identifier'
-	  );
+);
 
 my ($leafNode) = $childNode->children();
 my $leafValue = $leafNode->value();
@@ -90,7 +91,7 @@ cmp_deeply(
 	    minor => 0,
 	   },
 	   'Checking leaf qdisc identifier'
-	  );
+);
 
 # Add another rule
 lives_ok { $builder->buildRule( protocol       => "tcp",
@@ -99,8 +100,7 @@ lives_ok { $builder->buildRule( protocol       => "tcp",
 				limitedRate    => 0,
 				priority       => 2,
 			 );
-	 }
-  'Adding a new rule';
+} 'Adding a new rule';
 
 # Add an impossible rule
 throws_ok { $builder->buildRule( protocol       => "tcp",

@@ -1,3 +1,15 @@
+zbuildtools (9) precise; urgency=low
+
+  * Simplified installation of *.pm files for Zentyal 3.1 with uniform paths
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 04 May 2013 21:56:01 +0200
+
+zbuildtools (8) precise; urgency=low
+
+  * Added a missing dependency on devscripts package.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 12 April 2013 11:59:12 +0200
+
 zbuildtools (7) precise; urgency=low
 
   * zentyal-package now increases package version when last one is HEAD

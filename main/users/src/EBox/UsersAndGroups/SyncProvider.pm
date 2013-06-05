@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,14 +23,12 @@
 #   To act as master, common methods (create, modify and delete) should
 #   be used on users and group objects.
 #
-package EBox::UsersAndGroups::SyncProvider;
-
 use strict;
 use warnings;
 
+package EBox::UsersAndGroups::SyncProvider;
 
 use EBox::Exceptions::NotImplemented;
-
 
 # Method: slaves
 #
@@ -44,7 +42,6 @@ sub slaves
 {
     throw EBox::Exceptions::NotImplemented();
 }
-
 
 # Method: allowUserChanges
 #

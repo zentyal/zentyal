@@ -1,0 +1,4 @@
+class: 'EBox::WebAdmin'
+models:
+    - Language
+    - AdminPort

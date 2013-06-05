@@ -1,0 +1,10 @@
+--- a/source3/modules/zavs_core.h
++++ b/source3/modules/zavs_core.h
+@@ -7,6 +7,6 @@
+ void zavs_close_handler(vfs_handle_struct *handle, files_struct *fsp);
+ 
+ bool skip_file(vfs_handle_struct *handle, files_struct *fsp, const char *filepath);
+-void build_filepath();
++void build_filepath(void);
+ 
+ #endif

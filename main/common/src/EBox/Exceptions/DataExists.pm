@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,27 +22,40 @@ use warnings;
 package EBox::Exceptions::DataExists;
 
 use base 'EBox::Exceptions::External';
+
 use EBox::Gettext;
 
-sub new # (data=>string,  value=>string)
+# Method: new
+#
+#  Parameters:
+#    text - localized error text to be shown
+#    data - Localized name for the repeated value, it will be used to build a
+#           error text if text parameter is not given
+#    value - Repeated value, it will be used to build  error text
+#            if text parameter is not given
+#
+sub new
 {
     my $class = shift;
     my %opts = @_;
 
-
+    my $text = delete $opts{text};
     my $data = delete $opts{data};
     my $value = delete $opts{value};
 
-    my $error = __x("{data} {value} already exists.", data => $data,
+    if (not $text) {
+        $text = __x("{data} {value} already exists.", data => $data,
                              value => $value);
+    }
 
     local $Error::Depth = $Error::Depth + 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;
-    my $self = $class->SUPER::new($error, @_);
+    my $self = $class->SUPER::new($text, @_);
     $Log::Log4perl::caller_depth--;
     bless ($self, $class);
     return $self;
 }
+
 1;

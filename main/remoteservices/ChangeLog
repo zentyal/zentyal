@@ -1,4 +1,43 @@
 HEAD
+	+ Custom QA archive can be set at qa_updates_archive configuration
+	  key
+	+ Custom QA repository can be set at qa_updates_repo configuration
+	  key
+	+ RESTClient can now set the URI endpoint programatically
+	+ Added pullStatus SOAP server method to get the job result via
+	  polling
+3.1.1
+	+ Cloud-prof installation is now smoothly as it is tried at first
+	  and during 10 times during 5 minutes
+	+ Migrated SOAP services to use Nginx for SSL.
+3.1
+	+ Updated to reflect the Apache -> WebAdmin rename.
+	+ Removed 3.0.X migration code
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.20
+	+ Changed location of remote backup metainfo files to preserve cache
+	  after reboot
+3.0.19
+	+ Implemented maxUsers() and maxCloudUsers() methods
+	+ Default control panel URL points to remote.zentyal.com now
+3.0.18
+	+ Consolidate and send report data using a new daemon
+	  zentyal.reporterd
+	+ Randomise when reload-bundle and subs-level are sent
+	+ Added users module checks for SB:
+	  - No more than 25 users having none or cloud as master
+	  - Zentyal server slaves are forbidden
+3.0.17
+	+ Use cache to retrieve latest configuration backup date in
+	  dashboard
+3.0.16
+	+ Added setSecurityUpdatesLastTime method to abstract how to set
+	  the latest performed security update
+3.0.15
+	+ Get capabilities for files and users sync from the API
+	+ Be very strict with the server name while subscribing. Only
+	  [A-Za-z0-9-]+ are accepted
 	+ Restore configuration without subscription now works smoothly
 	+ Proper CA file deletion when unsubscribing
 	+ Try to remove include and CA when unsubscribing separately

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,6 +21,9 @@
 # Inherits from <EBox::Firewall::Model::BaseRuleTable> to fetch
 # the field description
 #
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::InternalToEBoxRuleTable;
 
 use EBox::Global;
@@ -35,9 +38,6 @@ use EBox::Types::InverseMatchSelect;
 use EBox::Types::IPAddr;
 use EBox::Types::InverseMatchUnion;
 use EBox::Sudo;
-
-use strict;
-use warnings;
 
 use base qw(EBox::Firewall::Model::BaseRuleTable) ;
 

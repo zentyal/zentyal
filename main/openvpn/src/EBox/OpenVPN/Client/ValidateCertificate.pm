@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::Client::ValidateCertificate;
-#
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Client::ValidateCertificate;
 
 use EBox::Sudo qw(root);
 use EBox::Config;
@@ -62,7 +62,6 @@ sub check
                        )
                                         );
 
-
   _verifyCaCert($caPath);
   _verifyCert($certPath);
   _verifyPrivKey($privKeyPath);
@@ -70,8 +69,6 @@ sub check
   _verifyCertWithCa($certPath, $caPath);
   _verifyCertWithPrivKey($certPath, $privKeyPath);
 }
-
-
 
 sub _verifyCaCert
 {
@@ -84,7 +81,6 @@ sub _verifyCaCert
 				    );
   }
 }
-
 
 sub _verifyCert
 {
@@ -100,7 +96,6 @@ sub _verifyCert
 				    );
   };
 }
-
 
 sub _verifyPrivKey {
   my ($privKeyPath) = @_;
@@ -158,15 +153,12 @@ sub _verifyCertWithPrivKey
   };
 }
 
-
-
 sub _opensslVerify
 {
   my (@params) = @_;
   my $cmd =  OPENSSL_PATH . ' verify ' . "@params";
 
   my $output_r = EBox::Sudo::root($cmd);
-
 
   my $lastLine = $output_r->[-1];
   defined $lastLine or return 0;

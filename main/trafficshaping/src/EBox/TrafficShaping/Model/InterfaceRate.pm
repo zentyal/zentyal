@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,17 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::TrafficShaping::Model::InterfaceRate;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 
 use EBox::Types::Int;
 use EBox::Types::Text;
-
-use strict;
-use warnings;
 
 use constant DEFAULT_KB => 16384;
 
@@ -52,28 +52,25 @@ sub syncRows
 
     my $anyChange = 0;
 
-    my %storedIfaces;
-    for my $id (@{$currentIds}) {
+    foreach my $id (@{$currentIds}) {
         my $row = $self->row($id);
         next unless ($row);
         my $iface = $row->valueByName('interface');
-        if (not exists $currentIfaces{$iface} or exists $storedIfaces{$iface}) {
+        if (not exists $currentIfaces{$iface}) {
             $self->removeRow($id, 1);
             $anyChange = 1;
         } else {
-            $storedIfaces{$iface} = 1;
+            delete $currentIfaces{$iface};
         }
     }
 
-    for my $iface (keys %currentIfaces) {
-        unless (exists $storedIfaces{$iface}) {
-            $anyChange = 1;
-            $self->addRow(
-                interface => $iface,
-                upload => DEFAULT_KB,
-                download => DEFAULT_KB
-            );
-        }
+    foreach my $iface (keys %currentIfaces) {
+        $anyChange = 1;
+        $self->addRow(
+            interface => $iface,
+            upload => DEFAULT_KB,
+            download => DEFAULT_KB
+           );
     }
 
     return $anyChange;
@@ -152,7 +149,15 @@ sub precondition
 #
 sub preconditionFailMsg
 {
-    return __('You need at least one internal interface and one external interface');
+
+    return __x('Traffic Shaping is applied when Zentyal is acting as '
+                   . 'a gateway.'
+                   . q{ To achieve so, you'd need, at least, one internal and one external interface.}
+                   . ' Check your interface '
+                   . 'configuration to match, at '
+                   . '{openhref}Network->Interfaces{closehref}',
+               openhref  => '<a href="/Network/Ifaces">',
+               closehref => '</a>');
 }
 
 1;

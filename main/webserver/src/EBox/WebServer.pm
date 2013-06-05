@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::WebServer;
+
 use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
@@ -535,7 +536,6 @@ sub _setVHosts
             };
         }
 
-
     }
 
     # Remove not used old dirs
@@ -552,18 +552,33 @@ sub _createSiteDirs
     # Create the user-conf subdir if required
     my $userConfDir = SITES_AVAILABLE_DIR . 'user-' . VHOST_PREFIX
         . $vHostName;
-    unless ( -d $userConfDir ) {
+    if (EBox::Sudo::fileTest('-e', $userConfDir)) {
+        if (not EBox::Sudo::fileTest('-d', $userConfDir)) {
+            throw EBox::Exceptions::External(
+                  __x('{dir} should be a directory for virtual host configuration. Please, move or remove it',
+                      dir => $userConfDir
+                     )
+            );
+        }
+    } else {
         EBox::Sudo::root("mkdir -m 755 $userConfDir");
     }
 
     # Create the directory content if it is not already
     my $dir = EBox::WebServer::PlatformPath::VDocumentRoot()
         . '/' . $vHostName;
-    unless ( -d $dir ) {
+    if (EBox::Sudo::fileTest('-e', $dir)) {
+        if (not EBox::Sudo::fileTest('-d', $dir)) {
+            throw EBox::Exceptions::External(
+                  __x('{dir} should be a directory for virtual host document root. Please, move or remove it',
+                      dir => $dir
+                     )
+            );
+        }
+    } else {
         EBox::Sudo::root("mkdir -p -m 755 $dir");
     }
 }
-
 
 # Return current Zentyal available sites from actual dir
 sub _availableSites

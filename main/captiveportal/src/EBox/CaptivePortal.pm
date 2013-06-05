@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal;
+
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LdapModule
@@ -84,7 +85,6 @@ sub menu
                                     'order' => 226));
 }
 
-
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -98,7 +98,6 @@ sub enableActions
     # Execute enable-module script
     $self->SUPER::enableActions();
 }
-
 
 sub _setConf
 {
@@ -142,7 +141,6 @@ sub _setConf
     $self->_writePeriodFile();
 }
 
-
 sub _writeCSS
 {
     my ($self) = @_;
@@ -161,7 +159,6 @@ sub _writeCSS
                                              [ %params ],
                                              { mode => '0644' });
 }
-
 
 sub _daemons
 {
@@ -189,7 +186,6 @@ sub _daemons
 #{
 #}
 
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -206,7 +202,6 @@ sub _ldapModImplementation
     my ($self) = @_;
     return $self->{cpldap};
 }
-
 
 # Function: usesPort
 #
@@ -227,7 +222,6 @@ sub usesPort # (protocol, port, iface)
     return undef;
 }
 
-
 # Function: httpPort
 #
 #   Returns the port where captive portal HTTP redirection resides
@@ -238,7 +232,6 @@ sub httpPort
     my $settings = $self->model('Settings');
     return $settings->http_portValue(),
 }
-
 
 # Function: httpsPort
 #
@@ -257,7 +250,6 @@ sub expirationTime
     my $settings = $self->model('Settings');
     return $settings->expirationValue(),
 }
-
 
 # Function: ifaces
 #
@@ -278,9 +270,7 @@ sub ifaces
     return \@ifaces;
 }
 
-
 # Session manage methods:
-
 
 # Function: currentUsers
 #
@@ -307,7 +297,6 @@ sub currentUsers
     return $model->currentUsers();
 }
 
-
 # method: userFirewallRule
 #
 #   Parameters:
@@ -327,25 +316,30 @@ sub userFirewallRule
     return "-s $ip $macSrc -m comment --comment 'user:$name' -j RETURN";
 }
 
-
 sub exceptionsFirewallRules
 {
-    my ($self) = @_;
+    my ($self, $chain) = @_;
     my @rules;
 
     my $exceptionsModel = $self->model('Exceptions');
-    push @rules, @{ $exceptionsModel->firewallRules() };
+    push @rules, @{ $exceptionsModel->firewallRules($chain) };
 
     my $global = $self->global();
     foreach my $mod (@{ $global->modInstances()}) {
         if ($mod->can('firewallCaptivePortalExceptions')) {
-            push @rules, @{ $mod->firewallCaptivePortalExceptions()  };
+            push @rules, @{ $mod->firewallCaptivePortalExceptions($chain)  };
         }
     }
 
     return \@rules;
 }
 
+sub exceptionsPreroutingFirewallRules
+{
+    my ($self) = @_;
+    my $exceptionsModel = $self->model('Exceptions');
+    return $exceptionsModel->firewallPreroutingRules();
+}
 
 # Function: sessionExpired
 #
@@ -360,7 +354,6 @@ sub sessionExpired
 
     return time() > ($time + $self->expirationTime() + 30);
 }
-
 
 # Function: quotaExceeded
 #
@@ -391,7 +384,6 @@ sub quotaExceeded
     # check quota
     return $bwusage > $quota;
 }
-
 
 # Function: removeSession
 #
@@ -425,7 +417,6 @@ sub _bwmonitor {
     my $bwmonitor = EBox::Global->modInstance('bwmonitor');
     return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
-
 
 sub eventWatchers
 {

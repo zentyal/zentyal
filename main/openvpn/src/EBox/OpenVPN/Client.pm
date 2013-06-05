@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use warnings;
 
 # Description: Class for modelling each of the OpenVPN servers
 package EBox::OpenVPN::Client;
+
 use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Validate qw(checkPort checkAbsoluteFilePath checkHost);
@@ -341,8 +342,6 @@ sub checkServer
     }
 }
 
-
-
 # Method: servers
 #
 #   Get the servers to which the client will try to connect
@@ -415,14 +414,38 @@ sub ripDaemon
 {
     my ($self) = @_;
 
-    # internal client don't need to push routes to the server
-    (not $self->internal)
-      or return undef;
+    if (not $self->isEnabled()) {
+        return undef;
+    }
 
-    $self->isEnabled() or return undef;
+    if ($self->internal) {
+        # internal client don't need to push routes to the server
+        return undef;
+    }
 
-    my $iface = $self->ifaceWithRipPasswd();
-    return { iface => $iface, redistribute => 1 };
+    my @advertisedNets = @{ $self->advertisedNets() };
+    if (not @advertisedNets) {
+        # no routes to advertise, RIP daemon is not needed
+        return undef;
+    }
+
+    my $iface = $self->ifaceWithRipPasswd(\@advertisedNets);
+    return { iface => $iface,
+             redistribute => 1,
+            };
+}
+
+# Method: advertisedNets
+#
+#  gets the nets which will be advertised to the server as reachable thought the client
+#
+# Returns: a reference of a list of references to a lists containing the net
+#          address and netmask pair
+sub advertisedNets
+{
+    my ($self) = @_;
+    my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
+    return  $advertisedNetsModel->networks();
 }
 
 sub ifaceMethodChanged
@@ -491,7 +514,6 @@ sub staticIfaceAddressChanged
     return undef;
 }
 
-
 sub _availableIfaces
 {
     my ($self) = @_;
@@ -543,7 +565,6 @@ sub summary
 sub backupCertificates
 {
     my ($self, $dir) = @_;
-
 
     my $d = "$dir/" . $self->name;
     EBox::FileSystem::makePrivateDir($d);

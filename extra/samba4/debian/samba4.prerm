@@ -56,7 +56,7 @@ if [ "x$1" != xupgrade ]; then
     update-alternatives --remove samba_kcc /usr/sbin/samba_kcc
     update-alternatives --remove samba_spnupdate /usr/sbin/samba_spnupdate
     update-alternatives --remove samba_upgradedns /usr/sbin/samba_upgradedns
-    update-alternatives --remove samba_upgradeprovision /usr/sbin/samba_upgradeprovision
+    #update-alternatives --remove samba_upgradeprovision /usr/sbin/samba_upgradeprovision
     update-alternatives --remove smbd /usr/sbin/smbd
     update-alternatives --remove swat /usr/sbin/swat
     update-alternatives --remove winbindd /usr/sbin/winbindd

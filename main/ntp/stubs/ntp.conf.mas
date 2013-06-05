@@ -11,14 +11,18 @@ statsdir /var/log/ntpstats/
 
 % if ($synchronized eq 'yes') {
 %   foreach my $server (@servers) {
-server <% $server %>
+server <% $server %> iburst
+restrict <% $server %> mask 255.255.255.255 nomodify notrap nopeer noquery
 %	}
 % }
+
 % if ($active eq 'yes') {
 server 127.127.1.0
 % }
 fudge 127.127.1.0 stratum 13
 
-restrict default kod notrap nomodify nopeer noquery
+restrict default kod notrap nomodify nopeer noquery mssntp
 
 restrict 127.0.0.1 nomodify
+
+ntpsigndsocket /opt/samba4/var/lib/ntp_signd/

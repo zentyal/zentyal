@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,12 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
+
 package EBox::Model::DataTable;
 
 use base 'EBox::Model::Component';
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Global;
@@ -90,7 +90,6 @@ sub table
 
     return $self->{'table'};
 }
-
 
 sub _setupTable
 {
@@ -221,7 +220,6 @@ sub name
     return $self->modelName();
 }
 
-
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
 {
@@ -293,7 +291,6 @@ sub printableIndex
   #throw EBox::Exceptions::MethodDeprecated();
   return '';
 }
-
 
 # Method: precondition
 #
@@ -393,7 +390,6 @@ sub customFilter
 
     return $self->{'table'}->{'customFilter'};
 }
-
 
 # Method: isEnablePropertySet
 #
@@ -543,7 +539,6 @@ sub optionsFromForeignModel
     return \@options;
 }
 
-
 # Method: selectOptions
 #
 #    Override this method to return your select options
@@ -666,7 +661,6 @@ sub validateRowRemoval
 {
 
 }
-
 
 # Method: addedRowNotify
 #
@@ -879,7 +873,6 @@ sub addTypedRow
     unless ($optParams{noValidateRow}) {
         $self->validateTypedRow('add', $paramsRef, $paramsRef);
     }
-
 
     # Check if the new row is unique, only if needed
     if ($checkRowUnique) {
@@ -1670,7 +1663,10 @@ sub setDirectory
     }
 
     my $olddir = $self->{'confdir'};
-    return if ($dir eq $olddir);
+    if (defined $olddir and ($dir eq $olddir)) {
+        # no changes
+        return;
+    }
 
     $self->{'confdir'} = $dir;
     $self->{'directory'} = "$dir/keys";
@@ -1768,7 +1764,6 @@ sub directory
 
     return $self->{'confdir'};
 }
-
 
 # Method: menuNamespace
 #
@@ -2006,7 +2001,6 @@ sub popMessage
     return $msg;
 }
 
-
 # Method: setMessage
 #
 #     Set the message to show the user
@@ -2174,7 +2168,7 @@ sub find
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, undef, 'printableValue')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2197,7 +2191,7 @@ sub find
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAll('default' => 1);
 #
 # Returns:
 #
@@ -2207,6 +2201,7 @@ sub find
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub findAll
 {
     my ($self, $fieldName, $value) = @_;
@@ -2215,7 +2210,7 @@ sub findAll
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'printableValue')};
 
     return \@matched;
 }
@@ -2233,7 +2228,7 @@ sub findAll
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findValue('default' => 1);
 #
 # Returns:
 #
@@ -2249,11 +2244,39 @@ sub findValue
 {
     my ($self, $fieldName, $value) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
-    }
+    $self->findValueMultipleFields({ $fieldName => $value });
+}
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+# Method: findValueMultipleFields
+#
+#    Return the first row that matches the value of the given
+#    fields against the data returned by the method value()
+#
+#    If you want to match against printable value use
+#    <EBox::Model::DataTable::find>
+# Parameters:
+#
+#     fields     - hash ref with the fields and values to look for
+#
+#     Example:
+#
+#     findValueMultipleFields({'default' => 1});
+#
+# Returns:
+#
+#     <EBox::Model::Row> - the matched row
+#
+#     undef if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findValueMultipleFields
+{
+    my ($self, $fields) = @_;
+
+    my @matched = @{$self->_find($fields, undef, 'value')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2267,7 +2290,7 @@ sub findValue
 #    Return all the rows that match the value of the given
 #    field against the data returned by the method value()
 #
-#    If you want to match against value use
+#    If you want to match against printable value use
 #    <EBox::Model::DataTable::find>
 #
 #
@@ -2277,7 +2300,7 @@ sub findValue
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAllValue('default' => 1);
 #
 # Returns:
 #
@@ -2297,7 +2320,7 @@ sub findAllValue
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'value')};
 
     return \@matched;
 }
@@ -2334,11 +2357,12 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+    my $values = { $fieldName => $value };
+    my @matched = @{$self->_find($values, undef, 'value')};
     if (@matched) {
         return $matched[0];
     } else {
-        @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+        @matched = @{$self->_find($values, undef, 'printableValue')};
         return @matched ? $matched[0] : undef;
     }
 }
@@ -2560,7 +2584,6 @@ sub Viewer
     return '/ajax/tableBody.mas';
 }
 
-
 sub modalViewer
 {
     my ($self, $showTable) = @_;
@@ -2611,7 +2634,6 @@ sub pageSize
     return $self->defaultPageSize();
 }
 
-
 # Method: defaultPageSize
 #
 #     Return the default number of rows per page. This value must be defined in
@@ -2632,7 +2654,6 @@ sub defaultPageSize
     # fallback to defautl value of 10
     return 10;
 }
-
 
 # Method: setPageSize
 #
@@ -2734,7 +2755,6 @@ sub modalChangeViewJS
 
     my $extraParamsJS = _paramsToJSON(%args);
 
-
     my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
 
     my $table = $self->table();
@@ -2776,7 +2796,6 @@ sub modalCancelAddJS
     $js.= '});';
     return $js;
 }
-
 
 # Method: addNewRowJS
 #
@@ -2838,7 +2857,6 @@ sub modalAddNewRowJS
                     $extraParamsJS);
 }
 
-
 # Method: changeRowJS
 #
 #     Return the javascript function for changeRow
@@ -2893,7 +2911,6 @@ sub _paramsToJSON
     $paramString .= '}';
     return $paramString;
 }
-
 
 # Method: actionClicked
 #
@@ -3210,14 +3227,14 @@ sub _volatile
 #
 #    (PRIVATE)
 #
-#    Used by find and findAll to find rows in a table
+#    Used by find* methods to find rows in a table matching the given fields values
 #
 # Parameters:
 #
 #    (POSITIONAL)
 #
-#    fieldName  - the name of the field to match
-#    value      - value we want to match
+#    values     - hash ref with the fields and values to look for
+#
 #    allMatches - 1 or undef to tell the method to return just the
 #                 first match or all of them
 #
@@ -3229,7 +3246,7 @@ sub _volatile
 #
 # Example:
 #
-#     _find('default',  1, undef, 'printableValue');
+#     _find({'default' => 1}, undef, 'printableValue');
 #
 # Returns:
 #
@@ -3238,11 +3255,18 @@ sub _volatile
 #
 sub _find
 {
-    my ($self, $fieldName, $value, $allMatches, $kind, $nosync) = @_;
+    my ($self, $values, $allMatches, $kind, $nosync) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
+    unless (defined ($values) and (ref ($values) eq 'HASH')) {
+        throw EBox::Exceptions::MissingArgument("Missing values or invalid hash ref");
     }
+
+    my @fields = keys (%{$values});
+
+    unless (@fields) {
+        throw EBox::Exceptions::InvalidData("No fields/values provided");
+    }
+
     my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
@@ -3252,20 +3276,27 @@ sub _find
     my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        if (defined ($element)) {
-            my $eValue;
-            if ($kind eq 'printableValue') {
-                $eValue = $element->printableValue();
-            } else {
-                $eValue = $element->value();
-            }
-            if ((defined $eValue) and ($eValue eq $value)) {
-                if ($allMatches) {
-                    push (@matched, $id);
+        my $matches = 0;
+        foreach my $field (@fields) {
+            my $element = $row->elementByName($field);
+            if (defined ($element)) {
+                my $eValue;
+                if ($kind eq 'printableValue') {
+                    $eValue = $element->printableValue();
                 } else {
-                    return [ $id ];
+                    $eValue = $element->value();
                 }
+                if ((defined $eValue) and ($eValue eq $values->{$field})) {
+                    $matches++;
+                }
+            }
+        }
+
+        if ($matches == @fields) {
+            if ($allMatches) {
+                push (@matched, $id);
+            } else {
+                return [ $id ];
             }
         }
     }
@@ -3282,7 +3313,7 @@ sub _checkFieldIsUnique
     }
     my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
+        @{$self->_find({ $newData->fieldName() => $printableValue }, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(
@@ -3556,7 +3587,6 @@ sub adaptRowFilter
     return $compiled;
 }
 
-
 # Set the default controller to that actions which do not have a
 # custom controller
 sub _setControllers
@@ -3781,7 +3811,6 @@ sub _autoloadSet
         $self->_autoloadActionSubModel('set', $methodName, $paramsRef);
     }
 }
-
 
 #############################################################
 # Protected helper methods to help autoload helper functions
@@ -4435,7 +4464,6 @@ sub _rollbackTransaction
 
     $self->parentModule()->{redis}->rollback();
 }
-
 
 # Method: clone
 #

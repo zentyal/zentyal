@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,12 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
-use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+
+use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 use EBox::Config;
 use EBox::Gettext;
@@ -28,8 +28,14 @@ use Error qw(:try);
 
 sub bundleFilename
 {
-    my ($class, $serverName) = @_;
-    return EBox::Config::downloads() . "$serverName-EBoxToEBox.tar.gz";
+    my ($class, $serverName, $cn) = @_;
+
+    my $filename= "$serverName-ZentyalToZentyal";
+    if ($cn) {
+        $filename .= "-$cn";
+    }
+    $filename .= '.tar.gz';
+    return EBox::Config::downloads() . $filename;
 }
 
 sub createBundleCmds
@@ -136,7 +142,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     $class->_checkBundleContents($tmpDir);
 
-
     my @initParams;
     try {
         push @initParams, $class->_serverConfigurationFromFile($tmpDir);
@@ -157,7 +162,6 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
     return @initParams;
 }
-
 
 sub _checkBundleContents
 {
@@ -191,14 +195,12 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Missing
                                         );
     }
 
-
 }
 
 sub _serverConfigurationFromFile
 {
     my ($class, $tmpDir) = @_;
     my $file = $class->serverConfigurationFile($tmpDir);
-
 
     my $contents = read_file($file);
     my %conf = split ',', $contents;

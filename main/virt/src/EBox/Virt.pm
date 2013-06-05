@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Virt;
+
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
@@ -44,7 +45,6 @@ use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 
 my $UPSTART_PATH = '/etc/init/';
 my $WWW_PATH = EBox::Config::www();
-
 
 sub _create
 {
@@ -82,12 +82,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ($version) {
-        if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
-            eval "use EBox::Virt::Migration";
-            EBox::Virt::Migration->migrateOS($self);
-        }
-    } else {
+    unless ($version) {
         # Create default service only if installing the first time
         my $services = EBox::Global->modInstance('services');
 
@@ -150,6 +145,16 @@ sub _preSetConf
                 my $name = $vm->valueByName('name');
                 if ($self->vmRunning($name)) {
                     $self->stopVM($name);
+
+                    # Send stop event for not autostarted VMs on module disable
+                    my $autostarted = $vm->valueByName('autostart');
+                    if ($disabled and not $autostarted) {
+                        my $roGlobal  = EBox::Global->getInstance(1);
+                        if ( $roGlobal->modExists('cloud-prof') ) {
+                            my $cloudProf = $roGlobal->modInstance('cloud-prof');
+                            $cloudProf->zentyalVMStopAlert($name);
+                        }
+                    }
                 }
             }
         }
@@ -230,7 +235,6 @@ sub _setConf
     chmod (0600, VNC_PASSWD_FILE);
 }
 
-
 sub updateFirewallService
 {
     my ($self) = @_;
@@ -307,15 +311,15 @@ sub _manageVM
 {
     my ($self, $name, $action) = @_;
 
+    my $manageScript = $self->manageScript($name);
+    $manageScript = shell_quote($manageScript);
+    EBox::Sudo::root("$manageScript $action");
+
     my $vncDaemon = $self->vncDaemon($name);
     my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
     if ($action ne $currentStatus) {
         EBox::Service::manage($vncDaemon, $action);
     }
-
-    my $manageScript = $self->manageScript($name);
-    $manageScript = shell_quote($manageScript);
-    EBox::Sudo::root("$manageScript $action");
 }
 
 sub pauseVM
@@ -357,7 +361,6 @@ sub allowsNoneIface
     my ($self) = @_;
     return $self->{backend}->allowsNoneIface();
 }
-
 
 sub manageScript
 {
@@ -503,23 +506,22 @@ sub _setDevicesConf
     $self->_cleanupDeletedDisks();
 
     $backend->initDeviceNumbers();
+
     my $devices = $settings->componentByName('DeviceSettings');
     foreach my $deviceId (@{$devices->enabledRows()}) {
         my $device = $devices->row($deviceId);
         my $file;
         my $type = $device->valueByName('type');
-        my $disk_action;
-        if ($type eq 'hd') {
-            $disk_action = $device->valueByName('disk_action');
-        }
 
-        if (defined ($disk_action) and ($disk_action eq 'create')) {
+        if (($type eq 'hd') and ($device->valueByName('disk_action') eq 'create')) {
             my $disk_name = $device->valueByName('name');
             my $size = $device->valueByName('size');
             $file = $backend->diskFile($disk_name, $name);
             unless (-f $file) {
                 $backend->createDisk(file => $file, size => $size);
             }
+        } elsif (($type eq 'cd') and $device->valueByName('useDevice')) {
+            $file = $devices->CDDeviceFile();
         } else {
             $file = $device->valueByName('path');
         }
@@ -536,12 +538,14 @@ sub _writeMachineConf
 
     my $start = $backend->startVMCommand(name => $name, port => $vncport, pass => $vncpass);
     my $stop = $backend->shutdownVMCommand($name);
+    my $forceStop = $backend->shutdownVMCommand($name, 1);
+    my $running = $backend->runningVMCommand($name);
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
             '/virt/upstart.mas',
-            [ startCmd => $start, stopCmd => $stop, user => $self->{vmUser} ],
+            [ startCmd => $start, stopCmd => $stop, forceStopCmd => $forceStop, runningCmd => $running, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,15 +16,15 @@
 package EBox::Event::Watcher::EBackup;
 
 # Class: EBox::Event::Watcher::EBackup;
+
+use base 'EBox::Event::Watcher::Base';
 #
 # This class is a watcher which checks the data backup status
 #
-use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
 use EBox::Global;
 use EBox::Gettext;
-
 
 # Group: Public methods
 
@@ -95,7 +95,6 @@ sub run
 {
 }
 
-
 # Group: Protected methods
 
 # Method: _name
@@ -112,7 +111,6 @@ sub _name
 {
     return __('Backup');
 }
-
 
 # Method: _description
 #

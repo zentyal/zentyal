@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -54,12 +54,12 @@ isa_ok($tcTree, 'Tree');
 cmp_ok($tcTree->height(), '==', 1, 'Only 1 level tree');
 $rootValue = $tcTree->root()->value();
 isa_ok($rootValue, 'EBox::TrafficShaping::QDisc::Root');
-my $qd = $rootValue->getQueueDiscipline(); 
+my $qd = $rootValue->getQueueDiscipline();
 isa_ok($qd, 'EBox::TrafficShaping::QueueDiscipline::PFIFO_FAST');
 
 # Dump tc commands
 my @commands;
-lives_ok { @commands = @{$builder->dumpTcCommands()} } 
+lives_ok { @commands = @{$builder->dumpTcCommands()} }
   'Dumping tc commands';
 
 diag("tc commands " . Dumper(\@commands));
@@ -69,7 +69,4 @@ lives_ok { @commands = @{$builder->dumpIptablesCommands()} }
     'Dumping iptables commands';
 
 diag("iptables commands: " . Dumper(\@commands));
-
-
-
 

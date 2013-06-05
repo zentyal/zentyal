@@ -1,4 +1,4 @@
-# Copyright 2010-2012 eBox Technologies S.L.
+# Copyright 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,21 +12,15 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
-
-# Class: EBox::Zarafa::Model::ZarafaUser
-#
-#   TODO: Document class
-#
-
-package EBox::Zarafa::Model::ZarafaUser;
-
-use EBox::Gettext;
-use EBox::Types::Boolean;
-
 use strict;
 use warnings;
 
+package EBox::Zarafa::Model::ZarafaUser;
+
 use base 'EBox::Model::DataForm';
+
+use EBox::Gettext;
+use EBox::Types::Boolean;
 
 sub new
 {
@@ -53,7 +47,7 @@ sub _table
         new EBox::Types::Boolean(
             'fieldName' => 'contact',
             'printableName' => __('Groupware Contact'),
-            'help' => __('Enable contact in the addressbook even if account is disabled.'),
+            'help' => __('Enable contact in the addressbook even if it has not Zarafa account.'),
             'editable' => 1,
             'defaultValue' => 1
         ),

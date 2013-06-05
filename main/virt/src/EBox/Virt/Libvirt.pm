@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,13 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::Virt::Libvirt;
 
 use base 'EBox::Virt::AbstractBackend';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Sudo;
@@ -161,6 +160,21 @@ sub vmPaused
     return ($self->_state($name) eq 'paused');
 }
 
+# Method: runningVMCommand
+#
+#   Only used for libvirt for the upstart and manage.sh scripts.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub runningVMCommand
+{
+    my ($self, $name) = @_;
+
+    return "$VIRTCMD domstate $name | grep -q ^running";
+}
+
 sub _state
 {
     my ($self, $name) = @_;
@@ -257,21 +271,6 @@ sub startVMCommand
     return $cmd;
 }
 
-# Method: shutdownVM
-#
-#   Shuts down a virtual machine.
-#
-# Parameters:
-#
-#   name    - virtual machine name
-#
-sub shutdownVM
-{
-    my ($self, $name) = @_;
-
-    _run($self->shutdownVMCommand($name));
-}
-
 # Method: shutdownVMCommand
 #
 #   Command to shut down a virtual machine.
@@ -279,6 +278,7 @@ sub shutdownVM
 # Parameters:
 #
 #   name    - virtual machine name
+#   force   - force hard power off
 #
 # Returns:
 #
@@ -286,15 +286,15 @@ sub shutdownVM
 #
 sub shutdownVMCommand
 {
-    my ($self, $name) = @_;
+    my ($self, $name, $force) = @_;
 
-    # FIXME: "shutdown" only works when a SO with acpi enabled is running
-    # is there any way to detect this? In the meanwhile the only possibility
-    # seems to be use "destroy"
-    #my $cmd = "$VIRTCMD shutdown $name";
-    my $cmd = "$VIRTCMD destroy $name";
-
-    $self->{vmConf}->{$name}->{stopCmd} = $cmd;
+    my $action = $force ? 'destroy' : 'shutdown';
+    my $cmd = "$VIRTCMD $action $name";
+    if ($force) {
+        $self->{vmConf}->{$name}->{forceStopCmd} = $cmd;
+    } else {
+        $self->{vmConf}->{$name}->{stopCmd} = $cmd;
+    }
 
     return $cmd;
 }
@@ -507,11 +507,22 @@ sub _busUsedByVm
     return $busByOS{$os};
 }
 
+sub _mouseUsedByOs
+{
+    my ($self, $os) = @_;
+
+    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
+        return 'tablet';
+    } else {
+        return 'mouse';
+    }
+}
+
 sub systemTypes
 {
     return [
-        { value => 'new_windows', printableValue =>  __('Windows Vista or newer') },
-        { value => 'old_windows', printableValue =>  __('Windows 2003 or older') },
+        { value => 'new_windows', printableValue =>  __('Windows Vista | Windows 2008 or newer') },
+        { value => 'old_windows', printableValue =>  __('Windows XP | Windows 2003 or older') },
         { value => 'linux',       printableValue =>  __('Linux') },
         { value => 'other',       printableValue =>  __('Other') },
     ];
@@ -586,6 +597,8 @@ sub writeConf
             '/virt/manage.sh.mas',
             [ startCmd => $vmConf->{startCmd},
               stopCmd => $vmConf->{stopCmd},
+              forceStopCmd => $vmConf->{forceStopCmd},
+              runningCmd => $self->runningVMCommand($name),
               user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0755' }
     );
@@ -596,7 +609,6 @@ sub writeConf
     if (@devices and ($devices[0]->{type} eq 'cdrom')) {
         $bootDev = 'cdrom';
     }
-
 
     my $os = $vmConf->{os};
     EBox::Module::Base::writeConfFileNoCheck(
@@ -614,6 +626,7 @@ sub writeConf
          vncpass => $vmConf->{password},
          keymap => _vncKeymap(),
          boot => $bootDev,
+         mouse => $self->_mouseUsedByOs($os),
         ],
         { uid => 0, gid => 0, mode => '0644' }
     );
@@ -678,7 +691,8 @@ sub _vncKeymap
     } else {
         # Autodetect if not defined
         if ($ENV{LANG}) {
-            my ($lang1, $lang2) = split(/_/, $ENV{LANG});
+            my ($lang, $enc) = split(/\./, $ENV{LANG});
+            my ($lang1, $lang2) = split(/_/, $lang);
             if ($lang1) {
                 if ($lang2) {
                     $keymap = "$lang1-" . lc($lang2);
@@ -708,7 +722,6 @@ sub ifaces
     @ifaces = grep { $network->ifaceIsBridge($_) } @ifaces;
     return @ifaces;
 }
-
 
 sub allowsNoneIface
 {

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Exceptions::Lock;
 use Error qw(:try);
 
 EBox::init();
@@ -33,11 +34,17 @@ EBox::debug("iface: $iface") if $iface;
 EBox::debug("ppp_iface: $ppp_iface") if $ppp_iface;
 EBox::debug("ppp_addr: $ppp_addr") if $ppp_addr;
 
-try {
-    $network->setRealPPPIface($iface, $ppp_iface, $ppp_addr);
-    $network->regenGateways();
-} otherwise {
-    EBox::error("Call to setRealPPPIface for $iface failed");
-} finally {
-    exit;
-};
+for my $tries (1 .. 10) {
+    try {
+        $network->setRealPPPIface($iface, $ppp_iface, $ppp_addr);
+        $network->regenGateways();
+        exit 0;
+    } catch EBox::Exceptions::Lock with {
+        sleep 5;
+    } otherwise {
+        EBox::error("Call to setRealPPPIface for $iface failed");
+        exit 1;
+    };
+}
+
+exit 0;

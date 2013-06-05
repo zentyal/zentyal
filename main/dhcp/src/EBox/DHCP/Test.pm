@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,25 +13,26 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::DHCP::Test;
-use base 'EBox::Test::Class';
-# Description:
 use strict;
 use warnings;
+
+package EBox::DHCP::Test;
+
+use base 'EBox::Test::Class';
+
+# Description:
 
 use Test::More;
 use Test::Exception;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Test::MockObject::Extends;
 use Test::Differences;
 use lib '../..';
 
-
 my $nStaticIfacesReturnValue = 1; # this controls the output of EBox::DHCP::nStaticIfaces
-
 
 sub _moduleInstantiationTest : Test
 {
@@ -43,22 +44,18 @@ sub _moduleInstantiationTest : Test
 			       );
 }
 
-
-
-
-sub setDHCPEBoxModule : Test(setup)
+sub setDHCPModule : Test(setup)
 {
-  EBox::Global::TestStub::setEBoxModule('dhcp' => 'EBox::DHCP');
+  EBox::Global::TestStub::setModule('dhcp' => 'EBox::DHCP');
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/dhcp/active', 0);
   EBox::Module::Config::TestStub::setEntry('/ebox/modules/global/modules/dhcp/depends', ['network']);
 
 }
 
-sub clearEBoxModules : Test(teardown)
+sub clearModules : Test(teardown)
 {
-  EBox::Global::TestStub::setAllEBoxModules();
+  EBox::Global::TestStub::setAllModules();
 }
-
 
 sub setServiceTest : Test(6)
 {
@@ -84,7 +81,6 @@ sub ifaceMethodChangedTest : Test(32)
     ['trunk',  'static'], ['trunk', 'dhcp'], ['trunk', 'notset' ], ['trunk', 'trunk'],
 			    );
 
-
   my $dhcp = EBox::Global->modInstance('dhcp');
   ok !$dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp inactive server allows a harmless change in network interface IP method' foreach @harmlessChanges;
   ok !$dhcp->ifaceMethodChanged('eth0', @{ $_ }), 'Testing if dhcp inactive server allows a  change in network interface IP method' foreach @problematicChanges;
@@ -108,10 +104,10 @@ sub staticRoutes : Test(2)
 			    '192.168.30.0/24'    => { network => '192.168.4.0', netmask => '255.0.0.0', gateway => '192.168.30.15' },
 			   );
 
-  fakeEBoxModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
-  fakeEBoxModule(name => 'titiNoStaticRoutes');
-  fakeEBoxModule(name => 'mandrillNoStaticRoutes');
+  fakeModule(name => 'macacoStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@macacoStaticRoutes]  }  ]);
+  fakeModule(name => 'gibonStaticRoutes', isa => ['EBox::DHCP::StaticRouteProvider'], subs => [ staticRoutes => sub { return [@gibonStaticRoutes]  }  ]);
+  fakeModule(name => 'titiNoStaticRoutes');
+  fakeModule(name => 'mandrillNoStaticRoutes');
 
   my $dhcp = EBox::Global->modInstance('dhcp');
   my $staticRoutes_r;
@@ -124,6 +120,5 @@ sub staticRoutes : Test(2)
   lives_ok { $staticRoutes_r = $dhcp->staticRoutes()  } 'Calling staticRoutes';
   eq_or_diff $staticRoutes_r, \%expectedRoutes, 'Checking staticRoutes result';
 }
-
 
 1;

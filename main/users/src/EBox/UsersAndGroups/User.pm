@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,6 +23,7 @@ use warnings;
 #
 
 package EBox::UsersAndGroups::User;
+
 use base 'EBox::UsersAndGroups::LdapObject';
 
 use EBox::Config;
@@ -117,7 +118,6 @@ sub fullname
     return $self->get('cn');
 }
 
-
 sub firstname
 {
     my ($self) = @_;
@@ -146,6 +146,14 @@ sub comment
 {
     my ($self) = @_;
     return $self->get('description');
+}
+
+sub internal
+{
+    my ($self) = @_;
+
+    my $title = $self->get('title');
+    return (defined ($title) and ($title eq 'internal'));
 }
 
 # Catch some of the set ops which need special actions
@@ -357,7 +365,6 @@ sub _groups
     return \@groups;
 }
 
-
 # Method: system
 #
 #   Return 1 if this is a system user, 0 if not
@@ -368,7 +375,6 @@ sub system
 
     return ($self->get('uidNumber') < MINUID);
 }
-
 
 sub _checkQuota
 {
@@ -531,6 +537,23 @@ sub create
                                            );
     }
 
+    my $real_users = $users->realUsers('without_admin');
+
+    my $max_users = 0;
+    if (EBox::Global->modExists('remoteservices')) {
+        my $rs = EBox::Global->modInstance('remoteservices');
+        $max_users = $rs->maxUsers();
+    }
+
+    if ($max_users) {
+        if ( scalar(@{$real_users}) > $max_users ) {
+            throw EBox::Exceptions::External(
+                    __sx('Please note that the maximum number of users for your edition is {max} '
+                        . 'and you currently have {nUsers}',
+                        max => $max_users, nUsers => scalar(@{$real_users})));
+        }
+    }
+
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
@@ -630,6 +653,10 @@ sub create
 
     push (@attr, 'description' => $user->{comment}) if ($user->{comment});
 
+    if ($params{internal}) {
+        push (@attr, 'title' => 'internal') if ($params{internal});
+    }
+
     my $res = undef;
     my $entry = undef;
     try {
@@ -644,9 +671,13 @@ sub create
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-                throw EBox::Exceptions::LDAP(result => $result);
-            }
-        }
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on user LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $self->entryOpChangesInUpdate($entry),
+                   );
+            };
+    }
 
         $res = new EBox::UsersAndGroups::User(dn => $dn);
 
@@ -721,7 +752,6 @@ sub _checkUserName
     if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
         return undef;
     }
-
 
     # windows user names cannot end with a  period
     if ($name =~ m/\.$/) {

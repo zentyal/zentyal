@@ -1,7 +1,14 @@
-HEAD
+3.1
+	+ Set debug = yes by default for the development series
+	+ Remove "use GD" workaround in EBox::init()
+	+ Added a function to get the destination address of a Point-to-Point
+	  interface.
+	+ Added isRangeOverlappingWithRange, isValidRange and isIPInRange
+	  functions to EBox::Validate for better handling of IP ranges.
+3.0.7
+	+ More flexibility for printable message in EBox::Exceptions::DataExists
 	+ Use silentRoot in EBox:FileSystem::dirIsEmpty to avoid log
 	  exception error
-	+ Fixed EBox::Config::TestStub
 	+ EBox::NetWrappers::_ifaceShowAddress now works for peer-to-peer addresses
 3.0.6
 	+ Added EBox::Validate::checkRegex function

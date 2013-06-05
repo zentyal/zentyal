@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -100,12 +100,12 @@ sub formSubmitted
     } elsif ( $selectedAllowed eq 'allowedAll' ) {
         push( @ips, 'all');
     }
-    my $apacheMod = EBox::Global->modInstance('apache');
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
     my $rssFilePath =  EBox::Event::Dispatcher::RSS::RSSFilePath();
     my $dynamicWWWPath = EBox::Config::dynamicwww();
     $rssFilePath =~ s:$dynamicWWWPath:/dynamic-data/:;
     if ( @ips > 0 ) {
-        $apacheMod->setRestrictedResource($rssFilePath, \@ips, 'location');
+        $webAdminMod->setRestrictedResource($rssFilePath, \@ips, 'location');
     }
 }
 
@@ -213,7 +213,6 @@ sub setLinkToRSS
     $rssPath =~ s:$dynamicWWWPath::;
     return '/dynamic-data/' . $rssPath;
 }
-
 
 # Group: Private methods
 

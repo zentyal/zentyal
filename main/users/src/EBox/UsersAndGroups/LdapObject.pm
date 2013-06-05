@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,6 +29,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
+use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
@@ -147,7 +148,6 @@ sub add
     $self->save() unless $lazy;
 }
 
-
 # Method: delete
 #
 #   Delete all values from an attribute
@@ -196,7 +196,6 @@ sub deleteObject
     $self->save();
 }
 
-
 # Method: remove
 #
 #   Remove a value from the given attribute, or the whole
@@ -226,7 +225,6 @@ sub remove
     }
 }
 
-
 # Method: save
 #
 #   Store all pending lazy operations (if any)
@@ -237,14 +235,35 @@ sub remove
 sub save
 {
     my ($self) = @_;
+    my $entry= $self->_entry;
 
-    my $result = $self->_entry->update($self->_ldap->{ldap});
+    my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
             throw EBox::Exceptions::LDAP( message => __('There was an error updating LDAP:'),
-                                          result =>   $result);
+                                          result =>   $result,
+                                          opArgs   => $self->entryOpChangesInUpdate($entry),
+                                         );
         }
     }
+}
+
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
+sub entryOpChangesInUpdate
+{
+    my ($self, $entry) = @_;
+    local $Data::Dumper::Terse = 1;
+    my @changes = $entry->changes();
+    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
+    return $args;
 }
 
 # Method: dn
@@ -269,7 +288,6 @@ sub baseDn
     my ($trash, $basedn) = split(/,/, $self->dn(), 2);
     return $basedn;
 }
-
 
 # Method: _entry
 #
@@ -315,14 +333,12 @@ sub clearCache
     $self->{entry} = undef;
 }
 
-
 sub _ldap
 {
     my ($self) = @_;
 
     return EBox::Global->modInstance('users')->ldap();
 }
-
 
 # Method: as_ldif
 #

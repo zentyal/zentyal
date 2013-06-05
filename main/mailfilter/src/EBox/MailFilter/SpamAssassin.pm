@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-package EBox::MailFilter::SpamAssassin;
-
 use strict;
 use warnings;
 
+package EBox::MailFilter::SpamAssassin;
 
 use Perl6::Junction qw(any all);
 use File::Slurp qw(read_file write_file);
@@ -29,15 +28,10 @@ use EBox::MailFilter::VDomainsLdap;
 use Error qw(:try);
 
 use constant {
-  SA_SERVICE          => 'ebox.spamd',
   SA_LEARN_SERVICE    => 'ebox.learnspamd',
-
   SA_CONF_FILE       => '/etc/spamassassin/local.cf',
-
   SA_PASSWD_FILE     => '/var/lib/zentyal/conf/sa-mysql.passwd',
-
   CONF_USER          => 'amavis',
-
   BAYES_DB_USER      => 'amavis',
 };
 
@@ -49,7 +43,7 @@ sub new
     $self->{vdomains} = new EBox::MailFilter::VDomainsLdap();
 
     bless $self, $class;
-    return $self;
+   return $self;
 }
 
 sub usedFiles
@@ -64,14 +58,11 @@ sub usedFiles
            );
 }
 
-
 sub _vdomains
 {
     my ($self) = @_;
     return $self->{vdomains};
 }
-
-
 
 sub _confAttr
 {
@@ -85,15 +76,18 @@ sub _confAttr
     return $self->{configuration}->$attr();
 }
 
+sub _learnServiceEnabled
+{
+    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
+    my $saLearnService = $vdomainsLdap->learnAccountsExists;
+    return $saLearnService;
+}
 
 sub _manageServices
 {
     my ($self, $action) = @_;
-    EBox::Service::manage(SA_SERVICE, $action);
 
-    my $vdomainsLdap = EBox::MailFilter::VDomainsLdap->new();
-    my $saLearnService = $vdomainsLdap->learnAccountsExists;
-    if (not $saLearnService) {
+    if (not $self->_learnServiceEnabled()) {
         $action = 'stop';
     }
     EBox::Service::manage(SA_LEARN_SERVICE, $action);
@@ -114,7 +108,6 @@ sub doDaemon
     }
 }
 
-
 sub stopService
 {
     my ($self) = @_;
@@ -122,9 +115,6 @@ sub stopService
         $self->_manageServices('stop');
     }
 }
-
-
-
 
 #
 # Method: isEnabled
@@ -143,9 +133,6 @@ sub isEnabled
     return $mailfilter->antispamNeeded();
 }
 
-
-
-
 sub setVDomainService
 {
     my ($self, $vdomain, $service) = @_;
@@ -154,7 +141,6 @@ sub setVDomainService
     $vdomainsLdap->checkVDomainExists($vdomain);
     $vdomainsLdap->setAntispam($vdomain, $service);
 }
-
 
 sub vdomainService
 {
@@ -167,9 +153,12 @@ sub vdomainService
 
 sub isRunning
 {
-    return EBox::Service::running(SA_SERVICE);
+    my ($self)= @_;
+    if ($self->_learnServiceEnabled) {
+        return EBox::Service::running(SA_LEARN_SERVICE);
+    }
+    return 1;
 }
-
 
 sub writeConf
 {
@@ -212,8 +201,6 @@ sub bayes
     return $self->_confAttr('bayes');
 }
 
-
-
 #
 # Method: autolearn
 #
@@ -228,8 +215,6 @@ sub autolearn
     my ($self) = @_;
     return $self->_confAttr('autolearn');
 }
-
-
 
 #
 # Method: autolearnHamThreshold
@@ -247,7 +232,6 @@ sub autolearnHamThreshold
   return $self->_confAttr('autolearnHamThreshold');
 }
 
-
 #
 # Method: autolearnSpamThreshold
 #
@@ -263,8 +247,6 @@ sub autolearnSpamThreshold
   my ($self) = @_;
   return $self->_confAttr('autolearnSpamThreshold');
 }
-
-
 
 #
 # Method: autoWhitelist
@@ -303,7 +285,6 @@ sub spamSubjectTag
         }
     }
 
-
     return $subjectTag;
 }
 
@@ -330,7 +311,6 @@ sub setVDomainSpamThreshold
 
     $self->_vdomains->setSpamThreshold($domain, $value);
 }
-
 
 sub _checkSpamThreshold
 {
@@ -363,20 +343,17 @@ sub dbPath
     return EBox::Config::home() . '/.spamassassin';
 }
 
-
 sub confUser
 {
     my ($self) = @_;
     return CONF_USER;
 }
 
-
 sub bayesPath
 {
     my ($self) = @_;
     return $self->dbPath . '/bayes';
 }
-
 
 # this assume that the input is reeadable by the ebox user
 sub learn
@@ -397,7 +374,6 @@ sub learn
                                     );
   }
 
-
   my $username =  $params{username};
   if ($username =~ m/@/) {
       # XXX and what about alias?
@@ -411,17 +387,12 @@ __x('Accounts from the domain {d} cannot train the bayesian filter',
       }
   }
 
-
-
   my $typeArg  = $params{isSpam} ? '--spam' : '--ham';
   my $input = $params{input};
 
   my $cmd =  q{su } . BAYES_DB_USER . qq{ -c 'sa-learn $typeArg  $input'};
   EBox::Sudo::root($cmd);
 }
-
-
-
 
 # Method: whitelist
 #
@@ -437,7 +408,6 @@ sub whitelist
   return $acl->whitelist();
 }
 
-
 # Method: whitelistForAmavisConf
 #
 #  Returns:
@@ -447,8 +417,6 @@ sub whitelistForAmavisConf
   my ($self) = @_;
   return $self->_aclForAmavisConf('whitelist');
 }
-
-
 
 # amavis.conf uses distinct format than ldap to store domain in his ACLs..
 sub _aclForAmavisConf
@@ -466,8 +434,6 @@ sub _aclForAmavisConf
   return \@mangledList;
 }
 
-
-
 # Method: whitelistforSpamassassin
 #
 #  Returns:
@@ -478,7 +444,6 @@ sub whitelistForSpamassassin
   return $self->_aclForSpamassassin('whitelist');
 }
 
-
 # Method: blacklistforSpamassassin
 #
 #  Returns:
@@ -488,7 +453,6 @@ sub blacklistForSpamassassin
   my ($self) = @_;
   return $self->_aclForSpamassassin('blacklist');
 }
-
 
 sub _aclForSpamassassin
 {
@@ -543,8 +507,6 @@ sub blacklistForAmavisConf
   return $self->_aclForAmavisConf('blacklist');
 }
 
-
-
 sub vdomainBlacklist
 {
   my ($self, $vdomain) = @_;
@@ -558,7 +520,6 @@ sub setVDomainBlacklist
 
   return $self->_vdomains->setBlacklist($vdomain, $senderList_r);
 }
-
 
 sub trustedNetworks
 {
@@ -596,7 +557,6 @@ sub setVDomainHamAccount
     my ($self, $vdomain, $active) = @_;
     $self->_vdomains->setHamAccount($vdomain, $active);
 }
-
 
 sub aclChanged
 {

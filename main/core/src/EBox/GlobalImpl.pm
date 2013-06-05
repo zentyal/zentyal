@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::GlobalImpl;
-
 use strict;
 use warnings;
+
+package EBox::GlobalImpl;
 
 use base qw(EBox::Module::Config Apache::Singleton::Process);
 
@@ -55,7 +54,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo apache events global logs audit);
+use constant CORE_MODULES => qw(sysinfo webadmin events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;
@@ -337,7 +336,6 @@ sub unsaved
     return undef;
 }
 
-
 sub prepareRevokeAllModules
 {
     my ($self) = @_;
@@ -610,7 +608,7 @@ sub saveAllModules
 
     my $apache = 0;
     foreach my $name (@mods) {
-        if ($name eq 'apache') {
+        if ($name eq 'webadmin') {
             $apache = 1;
             next;
         }
@@ -653,11 +651,11 @@ sub saveAllModules
         EBox::info("Saving configuration: apache");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
-                                       modName => 'apache'));
+                                       modName => 'webadmin'));
             $progress->notifyTick();
         }
 
-        my $mod = EBox::GlobalImpl->modInstance($ro, 'apache');
+        my $mod = EBox::GlobalImpl->modInstance($ro, 'webadmin');
         try {
             $mod->save();
         }  catch EBox::Exceptions::External with {
@@ -665,8 +663,8 @@ sub saveAllModules
             $ex->throw();
         } otherwise {
             my $ex = shift;
-            EBox::error("Failed to save changes in module apache: $ex");
-            $failed .= "apache ";
+            EBox::error("Failed to save changes in module webadmin: $ex");
+            $failed .= "webadmin ";
         };
     }
 
@@ -822,7 +820,6 @@ sub modInstancesOfType
     return \@array;
 }
 
-
 # Method: modInstance
 #
 #       Build an instance of a module. Can be called as a class method or as an
@@ -877,7 +874,6 @@ sub modInstance
     $instances->{$name} = $classname->_create(ro => $ro);
     return $instances->{$name};
 }
-
 
 # Method: logger
 #
@@ -962,7 +958,6 @@ sub modRevDepends
     return \@revdeps;
 }
 
-
 # Name: sortModulesByDependencies
 #
 #  Sort a list of modules objects by its dependencies. The dependencies are get
@@ -1034,8 +1029,9 @@ sub sortModulesByDependencies
 #      these events:
 #
 #      - After finishing saving changes using <saveAllModules> call
-#      - After a modification in LDAP in users module is present and at
+#      - After a modification in LDAP if users module is present and at
 #      least configured
+#      - After a change in any file under the zentyal configuration files directory
 #
 # Returns:
 #
@@ -1061,7 +1057,36 @@ sub lastModificationTime
         }
     }
 
+    my $lastFileStamp = $self->configFilesLastModificationTime();
+    if ( $lastFileStamp > $lastStamp ) {
+        $lastStamp = $lastFileStamp;
+    }
+
     return $lastStamp;
+}
+
+# Method: configFilesLastModificationTime
+#
+#  return the last modification time of the configuration files
+#
+#  Limitation:
+#    - it is assummed that all configuration files are readable by the zentyal user
+sub configFilesLastModificationTime
+{
+    my ($self) = @_;
+    my $lastTimestamp = 0;
+
+    my $confDir = EBox::Config::etc();
+    my $findCommand = "find $confDir | xargs stat -c'%Y'";
+    my @mtimes = `$findCommand`;
+    foreach my $mtime (@mtimes) {
+        chomp $mtime;
+        if ($mtime > $lastTimestamp) {
+            $lastTimestamp = $mtime;
+        }
+    }
+
+    return $lastTimestamp;
 }
 
 # Method: first

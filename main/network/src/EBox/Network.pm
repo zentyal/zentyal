@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Network;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored
@@ -69,6 +70,36 @@ use File::Slurp;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
+
+# Group: Public methods
+
+# Method: localGatewayIP
+#
+#       Return the local IP address that may be used as the gateway for the given IP or undef if Zentyal is not
+#       directly connected with the given IP.
+#
+# Parameters:
+#
+#       ip - String the IP address for the client that will use the returning IP address as gateway.
+#
+# Returns:
+#
+#       String - Zentyal's IP address that would act as the gateway. undef if not reachable.
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing
+#
+sub localGatewayIP
+{
+    my ($self, $ip) = @_;
+
+    $ip or throw EBox::Exceptions::MissingArgument('ip');
+
+    my $iface = $self->gatewayReachable($ip);
+    return undef unless ($iface);
+    return $self->ifaceAddress($iface);
+}
 
 sub _create
 {
@@ -201,7 +232,6 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
-    # TODO: Migration to remove zentyal-network cron tab and obsolete tables
 }
 
 # Method: enableActions
@@ -254,36 +284,6 @@ sub eventWatchers
     return [ 'Gateways' ];
 }
 
-
-# Method: IPAddressExists
-#
-#   Returns true if the given IP address belongs to a statically configured
-#   network interface
-#
-# Parameters:
-#
-#       ip - ip adddress to check
-#
-# Returns:
-#
-#       EBox::Module instance
-#
-sub IPAddressExists
-{
-    my ($self, $ip) = @_;
-    my @ifaces = @{$self->allIfaces()};
-
-    foreach my $iface (@ifaces) {
-        unless ($self->ifaceMethod($iface) eq 'static') {
-            next;
-        }
-        if ($self->ifaceAddress($iface) eq $ip) {
-            return 1;
-        }
-    }
-    return undef;
-}
-
 # Method: ExternalIfaces
 #
 #   Returns  a list of all external interfaces
@@ -305,6 +305,31 @@ sub ExternalIfaces
         }
     }
     return \@array;
+}
+
+# Method: externalIpAddresses
+#
+#   Returs a list of external IP addresses
+#
+# Returns:
+#
+#   array ref - Holding the external IP's
+#
+sub externalIpAddresses
+{
+    my ($self) = @_;
+
+    my $ips = [];
+
+    my $externalInterfaces = $self->ExternalIfaces();
+    foreach my $interface (@{$externalInterfaces}) {
+        foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
+            next unless (defined $interfaceInfo);
+            push @{$ips}, $interfaceInfo->{address};
+        }
+    }
+
+    return $ips;
 }
 
 # Method: InternalIfaces
@@ -437,7 +462,6 @@ sub ifaceIsBridge # (interface)
     }
 }
 
-
 # Method: ifaceOnConfig
 #
 #   Checks if a given iface is configured
@@ -460,6 +484,58 @@ sub ifaceOnConfig
     }
 
     return defined($self->get_hash('interfaces')->{$name}->{method});
+}
+
+# Method: netInitRange
+#
+#   Return the initial host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   String - containing the initial range
+#
+sub netInitRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $network = ip_network($address, $netmask);
+    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
+    my $init_range = $first . "." . ($last + 1);
+
+    return $init_range;
+}
+
+# Method: netEndRange
+#
+#   Return the final host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   string - containing the final range
+#
+sub netEndRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $broadcast = ip_broadcast($address, $netmask);
+    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
+    my $end_range = $first . "." . ($last - 1);
+
+    return $end_range;
 }
 
 sub _ignoreIface
@@ -659,6 +735,39 @@ sub ifaceAddresses
         }
     }
     return \@array;
+}
+
+# Method: ifaceByAddress
+#
+# given a IP address it returns the interface which has it local address
+# or undef if it is nothing. Loopback interface is also acknowledged
+#
+#  Parameters:
+#    address - IP address
+#
+#  Limitations:
+#    only checks interfaces managed by the network module, with the exception
+#    of loopback
+sub ifaceByAddress
+{
+    my ($self, $address) = @_;
+    EBox::Validate::checkIP($address) or
+          throw EBox::Exceptions::External(__('Argument must be a IP address'));
+
+    foreach my $iface (@{ $self->allIfaces() }) {
+        my @addrs = @{ $self->ifaceAddresses($iface) };
+        foreach my $addr_r (@addrs) {
+            if ($addr_r->{address}  eq $address) {
+                return $iface;
+            }
+        }
+    }
+
+    if ($address =~ m/^127\.*/) {
+        return 'lo';
+    }
+
+    return undef;
 }
 
 # Method: vifacesConf
@@ -901,11 +1010,16 @@ sub setViface
     checkIPNetmask($address, $netmask, __('IP address'), __('Netmask'));
     checkVifaceName($iface, $viface, __('Virtual interface name'));
 
-    if ($self->IPAddressExists($address)) {
+    my $ifaceSameAddress = $self->ifaceByAddress($address);
+    if ($ifaceSameAddress) {
         throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+            text => __x("Address {ip} is already in use by interface {iface}",
+                ip => $address,
+                iface => $ifaceSameAddress
+               )
+           );
     }
+
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
@@ -1289,11 +1403,16 @@ sub setIfaceStatic
         $self->_trunkIfaceIsUsed($name);
     }
 
-    if ((!defined($oldaddr) or ($oldaddr ne $address)) and
-        $self->IPAddressExists($address)) {
-        throw EBox::Exceptions::DataExists(
-                    'data' => __('IP address'),
-                    'value' => $address);
+    if ((!defined($oldaddr) or ($oldaddr ne $address))) {
+        my $ifaceSameAddress = $self->ifaceByAddress($address);
+        if ($ifaceSameAddress) {
+            throw EBox::Exceptions::DataExists(
+                text => __x(
+                    'The IP {ip} is already assigned to interface {iface}',
+                    ip => $address,
+                    iface => $ifaceSameAddress,
+                   ));
+        }
     }
 
     if ($oldm eq any('dhcp', 'ppp')) {
@@ -1396,7 +1515,6 @@ sub _checkStatic # (iface, force)
     }
 }
 
-
 # check that no IP are in the same network
 # limitation: we could only check against the current
 # value of dynamic addresses
@@ -1454,7 +1572,6 @@ sub setIfacePPP
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
 
-
     my $oldm = $self->ifaceMethod($name);
     my $olduser = $self->ifacePPPUser($name);
     my $oldpass = $self->ifacePPPPass($name);
@@ -1493,7 +1610,6 @@ sub setIfacePPP
             }
         }
     }
-
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(
@@ -1564,7 +1680,6 @@ sub setIfaceTrunk # (iface, force)
     } elsif ($oldm eq 'bridged') {
         $self->BridgedCleanUp($name);
     }
-
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -1653,7 +1768,6 @@ sub setIfaceBridged
                                                  value => "br$bridge");
     }
 
-
     my $oldm = $self->ifaceMethod($name);
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -1665,7 +1779,6 @@ sub setIfaceBridged
     } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
         $self->BridgedCleanUp($name);
     }
-
 
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
@@ -1820,7 +1933,6 @@ sub vlanExists # (vlanID)
     return exists $self->get_hash('vlans')->{$vlan};
 }
 
-
 # Method: ifaceVlans
 #
 #   Returns information about every vlan that exists on the given trunk
@@ -1907,7 +2019,6 @@ sub _removeBridge # (id)
     $self->_removeIface("br$id");
 }
 
-
 # Method: _removeEmptyBridges
 #
 # Removes bridges which has no bridged interfaces
@@ -1928,7 +2039,6 @@ sub _removeEmptyBridges
         $self->_removeBridge($bridge);
     }
 }
-
 
 # Method: bridges
 #
@@ -2603,42 +2713,6 @@ sub _generateDNSConfig
 {
     my ($self) = @_;
 
-    # Set localhost as primary nameserver if the module is enabled.
-    # This works because DNS module modChange network in enableService
-    if (EBox::Global->modExists('dns')) {
-        my $dns = EBox::Global->modInstance('dns');
-        my $resolver = $self->model('DNSResolver');
-        my $ids = $resolver->ids();
-        my $firstId = $ids->[0];
-        my $firstRow = $resolver->row($firstId);
-        if ($dns->isEnabled()) {
-            my $add = 1;
-            if (defined ($firstRow)) {
-                if ($firstRow->valueByName('nameserver') ne '127.0.0.1') {
-                    # Remove local resolver if it exists
-                    foreach my $id (@{$ids}) {
-                        if ($resolver->row($id)->valueByName('nameserver') eq '127.0.0.1') {
-                            $resolver->removeRow($id);
-                        }
-                    }
-                } else {
-                    $add = 0;
-                }
-            }
-            if ($add) {
-                # Now add in the first place
-                $resolver->table->{'insertPosition'} = 'front';
-                $resolver->addRow((nameserver => '127.0.0.1', readOnly => 1));
-                $resolver->table->{'insertPosition'} = 'back';
-            }
-        } else {
-            # If we have added it before remove when module is disabled.
-            if (defined ($firstRow) and ($firstRow->valueByName('nameserver') eq '127.0.0.1') and $firstRow->readOnly()) {
-                $resolver->removeRow($firstId);
-            }
-        }
-    }
-
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     $self->writeConfFile(RESOLV_FILE,
                          'network/resolv.conf.mas',
@@ -2831,6 +2905,10 @@ sub _generatePPPConfig
 
     my $usepeerdns = scalar (@{$self->nameservers()}) == 0;
 
+    # clear up PPP provide files
+    my $clearCmd = 'rm -f ' . PPP_PROVIDER_FILE . '*';
+    EBox::Sudo::root($clearCmd);
+
     foreach my $iface (@{$self->pppIfaces()}) {
         my $user = $self->ifacePPPUser($iface);
         my $pass = $self->ifacePPPPass($iface);
@@ -2934,7 +3012,7 @@ sub _removeRoutes
     my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
         my $network = $currentRoute->{network};
-        if (not $network =~ m{/}) {
+        unless (($network =~ m{/}) or ($network eq 'default')) {
             # add /32 mask to ips without it so we can compare same format
             $network .= '/32';
         }
@@ -3040,7 +3118,7 @@ sub _multigwRoutes
         my $net = $self->ifaceNetwork($iface);
         my $address = $self->ifaceAddress($iface);
         unless ($address) {
-            EBox::error("Interface $iface used by gateway " .
+            EBox::warn("Interface $iface used by gateway " .
                             $router ->{name} . " has not address." .
                         " Not adding multi-gateway rules for this gateway.");
             next;
@@ -3295,7 +3373,6 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState();
 }
 
-
 # Method:  restoreConfig
 #
 #   Restore its configuration from the backup file.
@@ -3314,7 +3391,6 @@ sub restoreConfig
 
     $self->SUPER::restoreConfig();
 }
-
 
 sub _stopService
 {
@@ -4023,8 +4099,6 @@ sub _defaultGwAndIface
         return (undef, undef);
     }
 }
-
-
 
 # Method: gatewaysWithMac
 #

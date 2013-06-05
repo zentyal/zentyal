@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,9 +24,9 @@ use warnings;
 #      since it may be considered as a base module as logs. It manages
 #      the EventDaemon.
 package EBox::Events;
+
 use base qw(EBox::Module::Service EBox::LogObserver
             EBox::Events::WatcherProvider EBox::Events::DispatcherProvider);
-
 
 use EBox::DBEngineFactory;
 use EBox::Config;
@@ -45,9 +45,11 @@ use EBox::Global;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
 use EBox::Service;
+use EBox::Util::Event qw(:constants);
 
 # Core modules
 use Data::Dumper;
+#use File::Temp qw(tempfile);
 use Error qw(:try);
 
 # Constants:
@@ -60,7 +62,6 @@ use constant ENABLED_DISPATCHERS_DIR => CONF_DIR . 'DispatcherEnabled/';
 use constant ENABLED_WATCHERS_DIR    => CONF_DIR . 'WatcherEnabled/';
 use constant CONF_DISPATCHER_MODEL_PREFIX => 'EBox::Events::Model::Dispatcher::';
 use constant CONF_WATCHER_MODEL_PREFIX => 'EBox::Events::Model::Watcher::';
-use constant EVENTS_FIFO             => EBox::Config::tmp() . 'events-fifo';
 
 # Group: Protected methods
 
@@ -89,22 +90,31 @@ sub _create
     return $self;
 }
 
-
 sub _daemons
 {
-    return [ { 'name' => SERVICE } ];
+    return [
+        {
+            'name' => SERVICE,
+            'precondition' => \&_watchersEnabled,
+        }
+    ];
 }
 
-sub _enforceServiceState
+sub _preSetConf
 {
     my ($self) = @_;
 
-    # Check for admin dumbness, it can throw an exception
-    if ($self->_nothingEnabled()) {
-        $self->_stopService();
-        return;
+    # This is needed because EventDaemon instances global as readonly
+    # so syncRows is never called there, this avoids the need of the
+    # user having to visit the models on the Zentyal interface, so
+    # the events module can work out of the box with the default
+    # configuration (log dispatcher enabled and also events log
+    # if logs module is enabled)
+    unless ($self->isReadOnly()) {
+        $self->model('ConfigureWatchers')->ids();
+        $self->model('ConfigureDispatchers')->ids();
+        $self->saveConfig();
     }
-    $self->SUPER::_enforceServiceState();
 }
 
 # Group: Public methods
@@ -215,8 +225,6 @@ sub reportGraphModel
     return $self->{EventsGraphModel};
 }
 
-
-
 sub reportOptionsModel
 {
     my ( $self ) = @_;
@@ -251,7 +259,6 @@ sub models
     return $self->SUPER::models();
 }
 
-
 # Method: isRunning
 #
 # Overrides:
@@ -276,7 +283,6 @@ sub isEnabledDispatcher
     $self->model('ConfigureDispatchers')->isEnabledDispatcher($dispatcher);
 }
 
-
 sub enableWatcher
 {
     my ($self, $watcher, $enabled) = @_;
@@ -288,7 +294,6 @@ sub isEnabledWatcher
     my ($self, $watcher) = @_;
     $self->model('ConfigureWatchers')->isEnabledWatcher($watcher);
 }
-
 
 # Method: sendEvent
 #
@@ -377,34 +382,24 @@ sub sendEvent
 
 # Group: Private methods
 
-# Check either if at least one watcher and one dispatcher are enabled or the
-# logs are enabled
-sub _nothingEnabled
+# Check either if there are enabled watchers
+sub _watchersEnabled
 {
     my ($self) = @_;
 
     if ($self->_logIsEnabled()) {
-        return undef;
+        return 1;
     }
 
-    my $eventModel = $self->model('ConfigureWatchers');
-    my $dispatcherModel = $self->model('ConfigureDispatchers');
-
-    my $match = $eventModel->find(enabled => 1);
-    unless (defined ($match)) {
+    my $match = $self->model('ConfigureWatchers')->find(enabled => 1);
+    if (defined ($match)) {
+        return 1;
+    } else {
         EBox::warn('No event watchers have been enabled');
-        return 1;
     }
 
-    $match = $dispatcherModel->find(enabled => 1);
-    unless (defined ($match)) {
-        EBox::warn('No event dispatchers have been enabled');
-        return 1;
-    }
-
-    return undef;
+    return 0;
 }
-
 
 # Method: _logIsEnabled
 #

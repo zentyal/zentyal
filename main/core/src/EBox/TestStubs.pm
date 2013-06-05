@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,8 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::TestStubs;
 use base 'Exporter';
+
 # package: EBox::TestStubs
 #
 #  this package is the global facade to all zentyal-base test stubs
@@ -22,8 +26,6 @@ use base 'Exporter';
 # warning:
 # do NOT confuse with EBox::TestStub (this package is the teststub for the -package- EBox)
 #
-use strict;
-use warnings;
 
 use Test::MockObject::Extends;
 
@@ -33,12 +35,11 @@ use EBox::Config::TestStub;
 use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
+use EBox::Test::RedisMock;
 
-
-our @EXPORT_OK = qw(activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys);
+our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
-#
 # Function: activateTestStubs
 #
 #   Some of the parts of eBox need to be replaced with tests stubs for
@@ -64,37 +65,34 @@ sub activateTestStubs
 {
     my %params = @_;
     my @components = qw(EBox Sudo Config ModuleConfig Global NetWrappers); # they will be faked in this order
+
     # set default parameters
     foreach my $stub (@components) {
       my $fakeSwitch = "fake$stub";
       $params{$fakeSwitch} = 1   if (!exists $params{$fakeSwitch});
       $params{$stub}       = []  if (!exists $params{$stub});
-
     }
 
     my %fakeByComponent = (
-			   'EBox'        => \&EBox::TestStub::fake,
-			   'Sudo'        => \&EBox::Sudo::TestStub::fake,
-			   'Config'      => \&EBox::Config::TestStub::fake,
-			   'ModuleConfig' => \&EBox::Module::Config::TestStub::fake,
-			   'Global'      => \&EBox::Global::TestStub::fake,
-			   'NetWrappers' => \&EBox::NetWrappers::TestStub::fake,
-			  );
-
+               'EBox'        => \&EBox::TestStub::fake,
+               'Sudo'        => \&EBox::Sudo::TestStub::fake,
+               'Config'      => \&EBox::Config::TestStub::fake,
+               'ModuleConfig' => \&EBox::Module::Config::TestStub::fake,
+               'Global'      => \&EBox::Global::TestStub::fake,
+               'NetWrappers' => \&EBox::NetWrappers::TestStub::fake,
+    );
 
     foreach my $comp (@components) {
-      my $fakeSub_r = $fakeByComponent{$comp};
-      defined $comp or throw EBox::Exceptions::Internal("No fake sub supplied for $comp");
-      my $fakeSwitch = "fake$comp";
-      if ($params{$fakeSwitch}) {
-	my $fakeParams = $params{$comp};
-	$fakeSub_r->(@{ $fakeParams  });
-      }
+        my $fakeSub_r = $fakeByComponent{$comp};
+        defined $comp or throw EBox::Exceptions::Internal("No fake sub supplied for $comp");
+        my $fakeSwitch = "fake$comp";
+        if ($params{$fakeSwitch}) {
+            my $fakeParams = $params{$comp};
+            $fakeSub_r->(@{ $fakeParams  });
+        }
     }
 }
 
-
-#
 # Function: setConfig
 #
 #    Set EBox config keys. (Currently stored in redis)
@@ -106,20 +104,19 @@ sub activateTestStubs
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#	setConfig(); # clear the current configuration
+#   setConfig(); # clear the current configuration
 #       setConfig(
-# 		  '/ebox/modules/openvpn/user'  => $UID,
-# 		  '/ebox/modules/openvpn/group' =>  $gids[0],
-# 		  '/ebox/modules/openvpn/conf_dir' => $confDir,
-# 		  '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
+#         '/ebox/modules/openvpn/user'  => $UID,
+#         '/ebox/modules/openvpn/group' =>  $gids[0],
+#         '/ebox/modules/openvpn/conf_dir' => $confDir,
+#         '/ebox/modules/openvpn/dh' => "$confDir/dh1024.pem",
 #                ); # set some keys
 #
 sub setConfig
 {
-  return EBox::Module::Config::TestStub::setConfig(@_);
+    return EBox::Module::Config::TestStub::setConfig(@_);
 }
 
-#
 # Function: setConfigKey
 #
 #    set a EBox config key and his value. (Currently stored in redis)
@@ -134,14 +131,13 @@ sub setConfig
 #       setConfigKey( '/ebox/modules/openvpn/user'  => $UID)
 sub setConfigKey
 {
-  return EBox::Module::Config::TestStub::setEntry(@_);
+    return EBox::Module::Config::TestStub::setEntry(@_);
 }
 
-#
-# Function: setEBoxModule
+# Function: setModule
 #
 #   Register an eBox module in eBox configuration. This is not needed
-#   for modules created with fakeEBoxModule
+#   for modules created with fakeModule
 #
 # Parameters:
 #   $name     - the module name
@@ -151,13 +147,17 @@ sub setConfigKey
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#    setEBoxModule('openvpn' => 'EBox::OpenVPN');
-sub setEBoxModule
+#    setModule('openvpn' => 'EBox::OpenVPN');
+sub setModule
 {
-  return EBox::Global::TestStub::setEBoxModule(@_);
+    EBox::Global::TestStub::setModule(@_);
 }
 
-#
+sub unsetModules
+{
+    EBox::Global::TestStub::clear();
+}
+
 # Function: setEBoxConfigKeys
 #
 #   Set the keys and values of configuration values accessed via
@@ -177,12 +177,10 @@ sub setEBoxModule
 #    setEboxConfigKeys(locale => 'es', group => 'ebox', css => '/var/www/css', lang => 'cat')
 sub setEBoxConfigKeys
 {
-  return EBox::Config::TestStub::setConfigKeys(@_);
+    return EBox::Config::TestStub::setConfigKeys(@_);
 }
 
-
-#
-# Function: fakeEBoxModule
+# Function: fakeModule
 #
 #    Create on the fly fake eBox modules
 #
@@ -198,62 +196,54 @@ sub setEBoxConfigKeys
 #       of each sub. (optional)
 #       initializer - a initializer sub for the module. The module
 #       constructor will call this sub passing itself as first
-#       parameter. (optional)
+#       parameter. (optional, is not used if you provide a custom _create method)
 #
 #
 # Prerequisites:
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
-#	fakeEBoxModule(name => 'idleModule');
-#       fakeEBoxModules(
+#   fakeModule(name => 'idleModule');
+#       fakeModules(
 #                name => 'macaco', package => 'EBox::Macaco',
 #                subs => [ sayHello => sub { print 'hi'  }  ],
 #       );
 #
-sub fakeEBoxModule
+sub fakeModule
 {
-  my %params = @_;
-  exists $params{name} or throw EBox::Exceptions::Internal('fakeEBoxModule: lacks name paramater');
+    my %params = @_;
+    my $modName = $params{name};
+    $modName or throw EBox::Exceptions::Internal('fakeModule: lacks name paramater');
+    my $modPackage = exists $params{package} ? $params{package} :  'EBox::' . ucfirst $modName;
+    my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
+    my %subs =  exists $params{subs} ? @{ $params{subs} } : ();
 
+    my @isa = ('EBox::Module::Config');
+    if (exists $params{isa} ) {
+        my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
+        push @isa,  @extraIsa;
+    }
 
-  exists $params{package} or $params{package} =  'EBox::' . ucfirst $params{name};
+    my $createIsaCode = 'package ' . $modPackage . "; use base qw(@isa);";
+    eval $createIsaCode;
+    die "When creating ISA array $@" if  $@;
 
-  my @isa = ('EBox::Module::Config');
-  if (exists $params{isa} ) {
-    my @extraIsa = ref $params{isa} ? @{ $params{isa} }  : ($params{isa});
-    push @isa,  @extraIsa;
-  }
+    # add default methods if not supplied by the user
+    if (not $subs{_create}) {
+        $subs{_create} =  sub {
+            my $self = EBox::Module::Config->_create(name => $modName,
+                                                     redis => EBox::Test::RedisMock->new());
+            bless $self, $modPackage;
 
-  my $createIsaCode =  'package ' . $params{package} . "; use base qw(@isa);";
-  eval $createIsaCode;
-  die "When creating ISA array $@" if  $@;
+            $self = $initializerSub->($self);
+            return $self;
+        }
+    }
 
+    Test::MockObject->fake_module($modPackage,  %subs,);
 
-
-
-  my $initializerSub = exists $params{initializer} ? $params{initializer} : sub { my ($self) = @_; return $self};
-
-
-
-
-  Test::MockObject->fake_module($params{package},
-				_create => sub {
-				  my $self = EBox::Module::Config->_create(name => $params{name});
-				  bless $self, $params{package};
-				  $self = $initializerSub->($self);
-				  return $self;
-				},
-				@{ $params{subs} }
-			       );
-
-
-
-  EBox::Global::TestStub::setEBoxModule($params{name} => $params{package});
+    setModule($modName, $modPackage);
 }
 
-
-
-#
 # Function: setFakeIfaces
 #
 #    Set fake computer network interfaces. This ifaces will used by
@@ -274,43 +264,41 @@ sub fakeEBoxModule
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage examples:
 #   my @fakeIfaces = (
-# 		    'eth0' => {
-# 			        up => 1,
-# 			        address => {
-# 					    '192.168.3.4' => '255.255.255.0',
-# 					    },
-# 			       mac_address => '00:EE:11:CC:CE:8D',
+#           'eth0' => {
+#                   up => 1,
+#                   address => {
+#                       '192.168.3.4' => '255.255.255.0',
+#                       },
+#                  mac_address => '00:EE:11:CC:CE:8D',
 #
-# 			      },
-# 		    'eth1' => {
-# 			        up => 1,
-# 			        address => {
-# 					    '192.168.45.4' => '255.255.255.0',
-# 					    '10.0.0.7'     => '255.0.0.0',
-# 					    },
-# 			       mac_address => '00:11:11:CC:CE:8D',
+#                 },
+#           'eth1' => {
+#                   up => 1,
+#                   address => {
+#                       '192.168.45.4' => '255.255.255.0',
+#                       '10.0.0.7'     => '255.0.0.0',
+#                       },
+#                  mac_address => '00:11:11:CC:CE:8D',
 #
-# 			      },
-# 		    'eth2' => {
-# 			        up => 0,
-# 			        address => {
-# 					    '142.120.45.4' => '255.255.255.0',
-# 					    '44.0.0.7'     => '255.0.0.0',
-# 					    },
-# 			       mac_address => '00:11:11:CC:AA:8D',
-# 			      },
+#                 },
+#           'eth2' => {
+#                   up => 0,
+#                   address => {
+#                       '142.120.45.4' => '255.255.255.0',
+#                       '44.0.0.7'     => '255.0.0.0',
+#                       },
+#                  mac_address => '00:11:11:CC:AA:8D',
+#                 },
 #
-# 		   );
+#          );
 #
 #   EBox::TestStubs::setFakeIfaces(@fakeIfaces);
 sub setFakeIfaces
 {
-  my $params_r = { @_ };
-  EBox::NetWrappers::TestStub::setFakeIfaces($params_r);
+    my $params_r = { @_ };
+    EBox::NetWrappers::TestStub::setFakeIfaces($params_r);
 }
 
-
-#
 # Function: setFakeRoutes
 #
 #   Set fake computer network routes. This fake routes will used by
@@ -323,16 +311,16 @@ sub setFakeIfaces
 #      activateEBoxTestStubs must be called to be able to use this function
 # Usage example:
 #  my @routes = (
-#		'192.168.45.0' => '0.0.0.0',
-#		'0.0.0.0'      => '10.0.1.100',
-#		'10.0.0.0'     => '192.168.45.123',
-#	       );
+#       '192.168.45.0' => '0.0.0.0',
+#       '0.0.0.0'      => '10.0.1.100',
+#       '10.0.0.0'     => '192.168.45.123',
+#          );
 #
 #  EBox::TestStubs::setFakeRoutes(@routes);
 sub setFakeRoutes
 {
-  my $params_r = { @_ };
-  EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
+    my $params_r = { @_ };
+    EBox::NetWrappers::TestStub::setFakeRoutes($params_r);
 }
 
 1;

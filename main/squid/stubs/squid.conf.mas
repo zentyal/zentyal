@@ -16,14 +16,19 @@
     $principal
     $realm
     $dn
-
+    @noAuthDomains
     @rules
     %filterProfiles
+
+    $authModeExternalAD => undef
+    $adPrincipal => undef
+    $adDC => undef
+    $adAclTTL => 3600
 </%args>
 <%shared>
-our $anyPrefix = 'any~src~';
 our $objectPrefix = 'obj~';
 our $groupPrefix = 'grp~';
+our $adPrefix = 'ad~';
 our $timeDaysPrefix = 'timeDays~';
 our $timeHoursPrefix = 'timeHours~';
 our $maxAclNameLength = 31;
@@ -32,24 +37,29 @@ our %longAclNames = ();
 <%perl>
 sub _timeAclsInPolicy
 {
-   my ($policy, @ids) = @_;
-   @ids = grep { defined ($_) } @ids;
-   if ($policy->{any}) {
-       unshift @ids, $anyPrefix . $policy->{number};
-   }
-
-   my $id = join '~', @ids;
-
+   my ($policy) = @_;
    my $acls = '';
    if ($policy->{timeDays}) {
-      $acls = _aclName($timeDaysPrefix . $id);
+      $acls = _aclForDays($policy->{timeDays});
       $acls .= ' ';
    }
    if ($policy->{timeHours}) {
-       $acls .= _aclName($timeHoursPrefix . $id);
+       $acls .= _aclForHours($policy->{timeHours});
    }
 
    return $acls;
+}
+
+sub _aclForHours
+{
+    my ($hours) = @_;
+    return _aclName($timeHoursPrefix . $hours);
+}
+
+sub _aclForDays
+{
+    my ($days) = @_;
+    return _aclName($timeDaysPrefix . $days);
 }
 
 # needed because space scape doesnt work in acl names
@@ -86,46 +96,77 @@ sub _printSplitAcl
         $m->print("$acl @membersInAcl\n")
    }
 }
-</%perl>
-<%def .rulesACLs>
-<%args>
-    @rules
-    $realm
-</%args>
-% foreach my $rule (@rules) {
-%   if ($rule->{any}) {
-       <& .timeACLs, rule => $rule, id => $anyPrefix . $rule->{number} &>
-%      next;
-%   }
-<%perl>
-   my $object = $rule->{object};
-   my $group = $rule->{group};
-   my ($src, $aclName);
-   if ($object) {
-       $src = $object;
-       $aclName = $objectPrefix . $object;
-   } else {
-       $src = $group;
-       $aclName = $groupPrefix . $group;
-   }
-   $aclName = _aclName($aclName);
 
-   if ($object) {
-       my $acl = "acl $aclName src";
-       _printSplitAcl($acl, $rule->{addresses});
-   } else {
-       # escape user names
-       my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
-       if ($realm) {
-           @users = map { $_ . '@' . $realm } @users;
+sub _rulesACLs
+{
+  my %args = @_;
+  my @rules = @{ $args{rules} };
+  my $realm = $args{realm};
+  my %seenACL;
+
+  foreach my $rule (@rules) {
+    my $object = $rule->{object};
+    my $group = $rule->{group};
+    my $adDN = $rule->{adDN};
+    my ($src, $aclName);
+    if ($rule->{any}) {
+        # for any object rule, there is not specific acl
+    } elsif ($object) {
+        $src = $object;
+        $aclName = $objectPrefix . $object;
+    } elsif ($group) {
+        $src = $group;
+        $aclName = $groupPrefix . $group;
+    } elsif ($adDN) {
+        $src = $adDN;
+        $aclName = $adPrefix . $adDN;
+    } else  {
+        next;
+    }
+
+    if ($aclName) {
+        $aclName = _aclName($aclName);
+        if ($seenACL{$aclName}) {
+            # dont print again the ACL, but we cotinue to be able to get time ACLs
+            # which will be different bztime  overlapping ACLs are not allowed
+        } elsif ($object) {
+            my $acl = "acl $aclName src";
+            _printSplitAcl($acl, $rule->{addresses});
+        } elsif ($group) {
+            # escape user names
+            my @users = map { $_ =~ s{ }{\\ }g; $_ } @{$rule->{users}};
+            if ($realm) {
+            @users = map { $_ . '@' . $realm } @users;
+        }
+            my $acl = "acl $aclName proxy_auth";
+            _printSplitAcl($acl, \@users);
+        } elsif ($adDN) {
+            my $acl = "acl $aclName external InetGroup";
+            _printSplitAcl($acl, [ $adDN ]);
+        }  else {
+            next;
+        }
+        $seenACL{$aclName} = 1;
+    }
+
+    if ($rule->{timeDays}) {
+       my $aclName = _aclForDays($rule->{timeDays});
+       if (not $seenACL{$aclName}) {
+           $m->print("acl $aclName time " . $rule->{timeDays} . "\n");
+           $seenACL{$aclName}= 1;
        }
-       my $acl = "acl $aclName proxy_auth";
-       _printSplitAcl($acl, \@users);
-   }
+    }
+    if ($rule->{timeHours}) {
+        my $aclName = _aclForHours($rule->{timeHours});
+       if (not $seenACL{$aclName}) {
+           $m->print("acl $aclName time " . $rule->{timeHours} . "\n");
+           $seenACL{$aclName} = 1;
+       }
+    }
+  }
+}
 </%perl>
-   <& .timeACLs, rule => $rule, id => $src &>
-% }
-</%def>
+
 
 <%def .rulesAccess>
 <%args>
@@ -134,27 +175,27 @@ sub _printSplitAcl
 </%args>
 % foreach my $rule (@rules) {
 <%perl>
-   my $object = $rule->{'object'};
-   my $objectAcl;
-   if ($rule->{any}) {
-       $objectAcl = 'all';
-   } elsif ($object) {
-       $objectAcl = $objectPrefix . $object;
-   } else {
-       $objectAcl = '';
-   }
+    my $aclName;
+    my $object = $rule->{'object'};
+    if ($rule->{any}) {
+        $aclName = 'all';
+    } elsif ($object) {
+        $aclName = $objectPrefix . $object;
+    }
 
-   my $group = $rule->{'group'};
-   my $groupAcl;
-   if ($group) {
-      $groupAcl = $groupPrefix . $group;
-  } else {
-      $groupAcl = '';
-  }
+    my $group = $rule->{'group'};
+    if ($group) {
+        $aclName = $groupPrefix . $group;
+    }
 
-   my $acl = $groupAcl ? $groupAcl : $objectAcl;
-   $acl = _aclName($acl);
-   my $timeAcls = _timeAclsInPolicy($rule, $object, $group);
+    my $adDN = $rule->{adDN};
+    if ($adDN) {
+        $aclName = $adPrefix . $adDN;
+    }
+
+    my $acl = _aclName($aclName);
+
+   my $timeAcls = _timeAclsInPolicy($rule);
    my $policy = $rule->{'policy'};
    if ($policy eq 'profile') {
       my $rulesStubs = $profilesRulesStubs{$rule->{profile}};
@@ -181,18 +222,6 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % }
 </%def>
 
-<%def .timeACLs>
-<%args>
-    $rule
-    $id
-</%args>
-% if ($rule->{timeDays}) {
-acl <% _aclName($timeDaysPrefix . $id) %> time <% $rule->{timeDays} %>
-% }
-% if ($rule->{timeHours}) {
-acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
-% }
-</%def>
 % #################################################################################################
 % my $transKey = '';
 % if ($transparent) {
@@ -205,6 +234,7 @@ acl <% _aclName($timeHoursPrefix . $id) %> time <% $rule->{timeHours} %>
 http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
+
 visible_hostname (frontal)<% $hostfqdn %>
 coredump_dir /var/spool/squid3
 cache_effective_user proxy
@@ -214,6 +244,16 @@ cache_log /var/log/squid3/cache.log
 cache_store_log /var/log/squid3/store.log
 
 pid_filename /var/run/squid3.pid
+
+% unless ($transparent) {
+%   my $authId = 1;
+%   foreach my $domain (@noAuthDomains) {
+acl noAuth<% $authId %> dstdomain <% $domain %>
+http_access allow all noAuth<% $authId %>
+always_direct allow noAuth<% $authId %>
+%       $authId++;
+%   }
+% }
 
 % if ($filter) {
 cache_peer localhost parent 3129 0 no-query proxy-only login=*:nopassword
@@ -257,11 +297,29 @@ always_direct allow to_localhost
 # force clients to use squid-external
 never_direct allow all
 
-<& .rulesACLs, rules => [ @rules ], realm => $realm &>
+% if ($authModeExternalAD) {
+##
+## Authorization
+##
+external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+    --strip-realm \
+    --host "<% $adDC %>" \
+    --keytab /etc/squid3/HTTP.keytab \
+    --principal <% $adPrincipal %>
+% }
 
+##
+## ACLs from model rules
+##
+% _rulesACLs(rules => \@rules, realm => $realm );
+##
+## Access
+##
 <& .rulesAccess, rules => \@rules, profilesRulesStubs => $filterProfiles{rulesStubs} &>
 
-# default policy
+##
+## Default policy
+##
 # All acces denied by default if no other allow rule matchs
 http_access deny all
 # reply access allowed if not denied before

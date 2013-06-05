@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-package EBox::Firewall::Model::PacketTrafficGraph;
-use base 'EBox::Logs::Model::Graph';
-#
 use strict;
 use warnings;
 
+package EBox::Firewall::Model::PacketTrafficGraph;
+
+use base 'EBox::Logs::Model::Graph';
+
 use EBox::Gettext;
-
-
 
 use Error qw(:try);
 
@@ -36,7 +34,6 @@ sub new
     return $self;
 
 }
-
 
 sub dbTableName
 {
@@ -52,22 +49,14 @@ sub dbFields
                       printableName => __('packets dropped'),
                      },
 
-
            }
 
 }
-
-
 
 sub altText
 {
     return __('Firewall packet traffic chart');
 }
-
-
-
-
-
 
 # Method: _table
 #
@@ -102,21 +91,13 @@ sub _table
                                }
                   };
 
-
   return $dataTable;
 }
-
-
-
-
 
 sub tableName
 {
     return 'PacketTrafficGraph';
 }
-
-
-
 
 sub timePeriod
 {
@@ -128,6 +109,5 @@ sub timePeriod
     return $row->valueByName('timePeriod');
 
 }
-
 
 1;

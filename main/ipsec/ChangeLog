@@ -1,4 +1,15 @@
-HEAD
+3.1.2
+	+ Fixed the connection validation form so the enable / disable checkbox
+	  works.
+	+ Block the connection enabling if the tunnel configuration does not pass
+	  validation.
+3.1.1
+	+ Fixed bug in Users model when zentyal-samba is not installed
+3.1
+	+ Added support for IPsec/L2TP
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.2
 	+ Disabled connection names with spaces
 3.0.1
 	+ Removed inappropiate local subnet checks

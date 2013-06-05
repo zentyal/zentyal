@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,11 +38,10 @@
 #       - 'printableValueHash' => hash ref containing the fields and
 #          their printable value
 
-package EBox::Model::Row;
-
-
 use strict;
 use warnings;
+
+package EBox::Model::Row;
 
 use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
@@ -50,7 +49,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
-
 
 # Dependencies
 
@@ -88,7 +86,6 @@ sub new
     }
     $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
-
 
     bless ( $self, $class);
 
@@ -299,7 +296,6 @@ sub configModule
     return $self->{confmodule};
 }
 
-
 # Method: addElement
 #
 #   Add an element to the row
@@ -355,12 +351,14 @@ sub elementExists
         throw EBox::Exceptions::MissingArgument('element');
     }
 
-    return 1 if (exists $self->{valueHash}->{$element});
-
-    # this is only for EBox::Types::Union selected subtype
-    for my $value (@{$self->{values}}) {
-        next unless  ($value->isa('EBox::Types::Union'));
-        return 1 if ($value->selectedType() eq $element);
+    if (exists $self->{valueHash}->{$element}) {
+        return 1;
+    } else {
+        # this is only for EBox::Types::Union selected subtype
+        for my $value (@{$self->{values}}) {
+            next unless  ($value->isa('EBox::Types::Union'));
+            return 1 if ($value->selectedType() eq $element);
+        }
     }
 
     return undef;
@@ -389,7 +387,9 @@ sub elementByName
         throw EBox::Exceptions::MissingArgument('element');
     }
 
-    unless (exists $self->{valueHash}->{$element}) {
+    if (exists $self->{valueHash}->{$element}) {
+        return $self->{valueHash}->{$element};
+    } else {
         for my $value (@{$self->{values}}) {
             next unless  ($value->isa('EBox::Types::Union'));
             if ($value->selectedType() eq $element) {
@@ -399,11 +399,10 @@ sub elementByName
                 return undef if ($type->fieldName() eq $element);
             }
         }
-        throw EBox::Exceptions::DataNotFound( data => 'element',
-                value => $element);
     }
 
-    return $self->{valueHash}->{$element};
+    throw EBox::Exceptions::DataNotFound( data => 'element',
+                                          value => $element);
 }
 
 # Method: elementByIndex
@@ -530,7 +529,6 @@ sub size
 
     return scalar(@{$self->{'values'}});
 }
-
 
 # Method: store
 #

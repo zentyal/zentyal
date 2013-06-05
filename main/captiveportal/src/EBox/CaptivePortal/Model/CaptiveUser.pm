@@ -1,4 +1,4 @@
-# Copyright 2012 eBox Technologies S.L.
+# Copyright 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,14 +19,14 @@
 #   user quotas
 #
 
+use strict;
+use warnings;
+
 package EBox::CaptivePortal::Model::CaptiveUser;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Int;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataForm';
 
@@ -82,7 +82,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub formSubmitted
 {
     my ($self) = @_;
@@ -98,6 +97,5 @@ sub formSubmitted
         }
     }
 }
-
 
 1;

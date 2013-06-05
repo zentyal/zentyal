@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,13 +15,14 @@
 
 package EBox::Exceptions::Protocol;
 
+use base 'EBox::Exceptions::Base';
+
 # Class: EBox::Exceptions::Protocol
 #
 #     An exception launched when the TCP/IP protocol has failed in
 #     some way. For instance, a connection cannot be made.
 #
 
-use base 'EBox::Exceptions::Base';
 use EBox::Gettext;
 
 # Group: Public methods

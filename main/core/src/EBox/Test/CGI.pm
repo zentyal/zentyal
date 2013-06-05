@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Test::CGI;
-# Description:
-#
 use strict;
 use warnings;
 
+package EBox::Test::CGI;
+
 use base 'Exporter';
+
 our @EXPORT_OK   = qw(runCgi setCgiParams cgiErrorOk cgiErrorNotOk  checkCgiError checkMasonParameters muteHtmlOutput);
 our %EXPORT_TAGS = (all => \@EXPORT_OK  );
 
@@ -36,16 +36,14 @@ sub runCgi
     $cgi->run();
 }
 
-
 sub setCgiParams
 {
     my ($cgi, %params) = @_;
 
     while (my ($paramName, $paramValue) = each %params) {
-	my $query = $cgi->{cgi};
-	$query->param( $paramName =>  $paramValue);
+        my $query = $cgi->{cgi};
+        $query->param( $paramName =>  $paramValue);
     }
-
 }
 
 # there are 3 subs to check error because i am not sure what style/name is better
@@ -65,15 +63,14 @@ sub cgiErrorNotOk
     $Test->ok($errorNotFound, $name);
 }
 
-
 sub checkCgiError
 {
     my ($cgi, $wantError, $name) = @_;
     if ($wantError) {
-	cgiErrorOk($cgi, $name);
+        cgiErrorOk($cgi, $name);
     }
     else {
-	cgiErrorNotOk($cgi, $name);
+        cgiErrorNotOk($cgi, $name);
     }
 }
 
@@ -83,21 +80,16 @@ sub _errorInCgi
     return defined ($cgi->{error}) or defined ($cgi->{olderror});
 }
 
-
 sub muteHtmlOutput
 {
-  my ($class) = @_;
+    my ($class) = @_;
 
-  my $mutePrintHtmlCode = "no warnings; package $class; sub _print {}; ";
-  eval $mutePrintHtmlCode;
-  if ($@) {
-    die "Error when overriding _printHtml with a muted version: $@";
-  }
-
+    my $mutePrintHtmlCode = "no warnings; package $class; sub _print {}; ";
+    eval $mutePrintHtmlCode;
+    if ($@) {
+        die "Error when overriding _printHtml with a muted version: $@";
+    }
 }
-
-
-
 
 sub checkMasonParameters
 {
@@ -108,12 +100,11 @@ sub checkMasonParameters
 
     my $testName = exists $params{testName} ? $params{testName} : 'Checking mason parameters';
 
-   # we convert to hash to eliminate order issues
+    # we convert to hash to eliminate order issues
     my $masonParameters = $cgi->{params};
     my $params = defined $masonParameters ?  { @{ $masonParameters } } : {};
 
     eq_or_diff $params, $wantedParameters, $testName;
 }
-
 
 1;

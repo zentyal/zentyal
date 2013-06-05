@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -14,16 +14,16 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::Test;
+
 use base 'Exporter';
-#
+
 # package: EBox::Test
 #
 #  Contains specifically-ebox checks and helper.
 #
 # deprecated:
-#     activateEBoxTestStubs fakeEBoxModule setConfig setConfigKeys
+#     activateEBoxTestStubs fakeModule setConfig setConfigKeys
 #     this was moved to EBox::TestStub
-
 
 use Test::More;
 use Test::Builder;
@@ -34,10 +34,8 @@ use Params::Validate;
 our @EXPORT_OK = ('checkModuleInstantiation', @deprecatedSubs);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );
 
-
 my $Test = Test::Builder->new;
 
-#
 # Function: checkModuleInstantiation
 #
 #    Checks we can use the module package correctly (like Test::More::use_ok) and that we can instantiate correctly using the methods from EBox::Global.
@@ -56,7 +54,7 @@ sub checkModuleInstantiation
     my ($moduleName, $modulePackage) = @_;
     validate_pos(@_, 1, 1);
 
-    eval  "use  $modulePackage";
+    eval "use $modulePackage";
     if ($@) {
         $Test->ok(0, "$modulePackage failed to load: $@");
         return;
@@ -70,8 +68,7 @@ sub checkModuleInstantiation
 
     try {
         $instance = $global->modInstance($moduleName);
-    }
-    otherwise {
+    } otherwise {
         $modInstanceError = 1;;
     };
 
@@ -84,17 +81,12 @@ sub checkModuleInstantiation
 
     if ($refType eq $modulePackage) {
         $Test->ok(1, "$moduleName instantiated correctly");
-    }
-    elsif (defined $refType) {
+    } elsif (defined $refType) {
         $Test->ok(0, "The instance returned of $moduleName is not of type $modulePackage instead is a $refType");
-    }
-    else {
+    } else {
         $Test->ok(0, "The instance returned of $moduleName is not a blessed reference");
     }
-
 }
-
-
 
 sub checkModels
 {
@@ -104,22 +96,18 @@ sub checkModels
     foreach my $name (@modelsNames) {
         try {
             $mod->model($name);
-        }
-        otherwise {
+        } otherwise {
             push @failedModels, $name;
         };
     }
 
-
     my $modName = $mod->name();
     if (@failedModels) {
         $Test->ok(0, "Module $modName failed when loading the models: @failedModels");
-    }
-    else {
+    } else {
         $Test->ok(1, "Module $modName loaded the models");
     }
 }
-
 
 sub checkComposites
 {
@@ -129,22 +117,17 @@ sub checkComposites
     foreach my $name (@compositesNames) {
         try {
             $mod->composite($name);
-        }
-        otherwise {
+        } otherwise {
             push @failedComposites, $name;
         };
     }
 
-
     my $modName = $mod->name();
     if (@failedComposites) {
         $Test->ok(0, "Module $modName failed when loading the composites: @failedComposites");
-    }
-    else {
+    } else {
         $Test->ok(1, "Module $modName loaded the composites");
     }
 }
-
-
 
 1;

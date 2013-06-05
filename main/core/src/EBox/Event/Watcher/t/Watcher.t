@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,20 +22,18 @@ use Test::Exception;
 use Test::Deep;
 use Data::Dumper;
 
-use EBox;
-use EBox::Event;
-use EBox::Global;
-
-my $watcherName;
+use EBox::Global::TestStub;
 
 BEGIN {
-    $watcherName = $ARGV[0];
+    my $defaultWatcherName = 'State';
+
+    $watcherName = $ARGV[0] || $defaultWatcherName;
     diag ( "Starting EBox::Event::Watcher::$watcherName test" );
     use_ok ( "EBox::Event::Watcher::$watcherName" )
       or die;
 }
 
-EBox::init();
+EBox::Global::TestStub::fake();
 
 my $watcherClassName = "EBox::Event::Watcher::$watcherName";
 my $watcher = new $watcherClassName();

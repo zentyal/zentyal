@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups;
+
 use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::SysInfo::Observer
@@ -44,6 +45,7 @@ use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::LDAP;
 use EBox::SyncFolders::Folder;
+use EBox::Util::Version;
 
 use Digest::SHA;
 use Digest::MD5;
@@ -415,9 +417,9 @@ sub enableActions
     $self->masterConf->confSOAPService();
     $self->masterConf->setupMaster();
 
-    # mark apache as changed to avoid problems with getpwent calls, it needs
+    # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
-    EBox::Global->modInstance('apache')->setAsChanged();
+    EBox::Global->modInstance('webadmin')->setAsChanged();
 }
 
 sub enableService
@@ -432,7 +434,6 @@ sub enableService
         $self->_setConf(1);
     }
 }
-
 
 # Load LDAP from config + data files
 sub _loadLDAP
@@ -467,7 +468,6 @@ sub _loadLDAP
     EBox::debug('done');
 }
 
-
 # Generate, store in the given file and return a password
 sub _genPassword
 {
@@ -481,7 +481,6 @@ sub _genPassword
     return $pass;
 }
 
-
 # Method: wizardPages
 #
 #   Override EBox::Module::Base::wizardPages
@@ -491,7 +490,6 @@ sub wizardPages
     my ($self) = @_;
     return [{ page => '/UsersAndGroups/Wizard/Users', order => 300 }];
 }
-
 
 # Method: _setConf
 #
@@ -503,6 +501,9 @@ sub _setConf
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
+        # workaround  a orphan need_reprovision on read-only
+        my $roKey = 'users/ro/need_reprovision';
+        $self->redis->unset($roKey);
         $self->reprovision();
     }
 
@@ -683,7 +684,6 @@ sub groupsDn
     return GROUPSDN . "," . $dn;
 }
 
-
 # Method: groupDn
 #
 #    Returns the dn for a given group. The group doesn't have to exist
@@ -739,8 +739,6 @@ sub userDn
     return $dn;
 }
 
-
-
 # Init a new user (home and permissions)
 sub initUser
 {
@@ -758,13 +756,32 @@ sub initUser
             my $group = DEFAULTGROUP;
             push(@cmds, "mkdir -p `dirname $qhome`");
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
-            push(@cmds, "chown -R $quser:$group $qhome");
+            EBox::Sudo::root(@cmds);
+
+            # FIXME: workaroung against mysterious chown bug
+            my $chownCmd = "chown -R $quser:$group $qhome";
+            my $chownTries = 10;
+            foreach my $cnt (1 .. $chownTries) {
+                my $chownOk = 0;
+                try {
+                    EBox::Sudo::root($chownCmd);
+                    $chownOk = 1;
+                } otherwise {
+                    my ($ex) = @_;
+                    if ($cnt < $chownTries) {
+                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
+                        sleep 1;
+                    } else {
+                        $ex->throw();
+                    }
+                };
+                last if $chownOk;
+            };
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
-            push(@cmds, "chmod $perms $qhome");
-
-            EBox::Sudo::root(@cmds);
+            my $chmod = "chmod $perms $qhome";
+            EBox::Sudo::root($chmod);
         }
     }
 }
@@ -774,7 +791,7 @@ sub reloadNSCD
 {
     if ( -f '/etc/init.d/nscd' ) {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
+            EBox::Sudo::root('/etc/init.d/nscd force-reload');
         } otherwise {};
    }
 }
@@ -862,6 +879,32 @@ sub users
     return \@users;
 }
 
+# Method: realUsers
+#
+#       Returns an array containing all the non-internal users
+#
+# Parameters:
+#
+#       withoutAdmin - filter Samba 'Administrator' user (default: false)
+#
+# Returns:
+#
+#       array ref - holding the users. Each user is represented by a
+#       EBox::UsersAndGroups::User object
+#
+sub realUsers
+{
+    my ($self, $withoutAdmin) = @_;
+
+    my @users = grep { not $_->internal() } @{$self->users()};
+
+    if ($withoutAdmin) {
+        @users = grep { $_->name() ne 'Administrator' } @users;
+    }
+
+    return \@users;
+}
+
 # Method: group
 #
 # Returns the object which represents a give group. Raises a exception if
@@ -943,7 +986,6 @@ sub groups
     return \@groups;
 }
 
-
 sub multipleOusEnabled
 {
     return EBox::Config::configkey('multiple_ous');
@@ -981,7 +1023,6 @@ sub ous
     return \@ous;
 }
 
-
 # Method: _modsLdapUserbase
 #
 # Returns modules implementing LDAP user base interface
@@ -1018,7 +1059,6 @@ sub _modsLdapUserBase
     return \@modules;
 }
 
-
 # Method: allSlaves
 #
 # Returns all slaves from LDAP Sync Provider
@@ -1041,7 +1081,6 @@ sub allSlaves
 
     return \@modules;
 }
-
 
 # Method: notifyModsPreLdapUserBase
 #
@@ -1070,7 +1109,6 @@ sub notifyModsPreLdapUserBase
         $mod->$method(@{$args});
     }
 }
-
 
 # Method: notifyModsLdapUserBase
 #
@@ -1130,7 +1168,6 @@ sub notifyModsLdapUserBase
         $slave->sync($signal, $args);
     }
 }
-
 
 # Method: initialSlaveSync
 #
@@ -1385,7 +1422,6 @@ sub userMenu
                                     'text' => __('Password')));
 }
 
-
 # Method: syncJournalDir
 #
 #   Returns the path holding sync pending actions for
@@ -1413,7 +1449,6 @@ sub syncJournalDir
     return $dir;
 }
 
-
 # LdapModule implementation
 sub _ldapModImplementation
 {
@@ -1421,6 +1456,17 @@ sub _ldapModImplementation
 }
 
 # SyncProvider implementation
+
+# Method: slaves
+#
+#    Get the slaves for this server
+#
+# Returns:
+#
+#    array ref - containing the slaves for this server. Zentyal server slaves are
+#                <EBox::UsersSync::Slave> instances and Zentyal Cloud slave is
+#                a <EBox::CloudSync::Slave> instance.
+#
 sub slaves
 {
     my ($self) = @_;
@@ -1445,7 +1491,6 @@ sub slaves
     return \@slaves;
 }
 
-
 # Method: master
 #
 #   Return configured master as string, undef in none
@@ -1459,7 +1504,6 @@ sub master
     return $row->elementByName('master')->value();
 }
 
-
 # SyncProvider implementation
 sub allowUserChanges
 {
@@ -1467,8 +1511,6 @@ sub allowUserChanges
 
     return (not $self->masterConf->isSlave());
 }
-
-
 
 # Master-Slave UsersSync object
 sub masterConf
@@ -1629,7 +1671,6 @@ sub _removePasswds
   unlink $tmpFile;
 }
 
-
 # Method: authUser
 #
 #   try to authenticate the given user with the given password
@@ -1649,7 +1690,6 @@ sub authUser
     return $authorized;
 }
 
-
 sub listSchemas
 {
     my ($self, $ldap) = @_;
@@ -1664,7 +1704,6 @@ sub listSchemas
     my @schemas = map { $_->get_value('cn') } $result->entries();
     return \@schemas;
 }
-
 
 sub mode
 {
@@ -1703,7 +1742,6 @@ sub newUserUidNumber
     return EBox::UsersAndGroups::User->_newUserUidNumber($system);
 }
 
-
 ######################################
 ##  SysInfo observer implementation ##
 ######################################
@@ -1719,7 +1757,9 @@ sub hostDomainChanged
 
     if ($self->configured()) {
         $self->set('need_reprovision', 1);
-        EBox::Global->modInstance('apache')->setAsChanged();
+        $self->setAsChanged(1); # for compability with machines with phantom
+                                # need_reprovision in read-only tree
+        EBox::Global->modInstance('webadmin')->setAsChanged();
     }
 }
 
@@ -1749,6 +1789,7 @@ sub reprovision
     my ($self) = @_;
 
     return unless $self->configured();
+    EBox::info("Reprovisioning LDAP");
 
     my @removeHomeCmds;
     foreach my $home (map { $_->home() } @{$self->users()}) {
@@ -1761,6 +1802,26 @@ sub reprovision
     $self->_manageService('start');
 
     $self->enableActions();
+
+    # LDAP module has lost its schemas and LDAP config after the reprovision
+    my $global = $self->global();
+    my @mods = @{ $global->sortModulesByDependencies($global->modInstances(), 'depends' ) };
+    foreach my $mod (@mods) {
+        if (not $mod->isa('EBox::LdapModule')) {
+            next;
+        } elsif ($mod->name() eq $self->name()) {
+            # dont reconfigure itself
+            next;
+        } elsif (not $mod->configured()) {
+            next;
+        }
+        $mod->reprovisionLDAP();
+    }
+}
+
+sub reprovisionLDAP
+{
+    throw EBox::Exceptions::Internal("This method should not be called in user module");
 }
 
 # Implement EBox::SyncFolders::Provider interface
@@ -1795,6 +1856,5 @@ sub _facilitiesForDiskUsage
         $usersPrintableName   => [ $usersPath ],
     };
 }
-
 
 1;

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,19 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NetWrappers::TestStub;
-# Description:
-#
 use strict;
 use warnings;
+
+package EBox::NetWrappers::TestStub;
+
+# Description:
+#
+
 use Test::MockObject;
 use EBox::NetWrappers;
 
 my %fakeIfaces;
 my %fakeRoutes;
-
 
 sub fake
 {
@@ -47,7 +49,6 @@ sub unfake
   $@ and die "Error reloading EBox::NetWrappers: $@";
 }
 
-
 sub setFakeIfaces
 {
   my ($fakeIfaces_r) = @_;
@@ -59,19 +60,16 @@ sub fakeIfaces
   return \%fakeIfaces;
 }
 
-
 sub setFakeRoutes
 {
   my ($fakeRoutes_r) = @_;
   %fakeRoutes = %{$fakeRoutes_r};
 }
 
-
 sub fakeRoutes
 {
   return \%fakeRoutes;
 }
-
 
 # fake methods:
 sub iface_exists
@@ -90,8 +88,6 @@ sub iface_is_up
   my ($iface) = @_;
   return _ifacePropierty($iface, 'up');
 }
-
-
 
 sub iface_mac_address
 {
@@ -112,7 +108,6 @@ sub iface_addresses_with_netmask
   return _ifacePropierty($iface, 'address');
 }
 
-
 sub _ifacePropierty
 {
   my ($iface, $propierty) = @_;
@@ -130,7 +125,6 @@ sub _ifacePropierty
   return $fakeIfaces{$iface}->{$propierty};
 }
 
-
 sub list_routes
 {
   my @routes;
@@ -139,7 +133,6 @@ sub list_routes
   }
   return @routes;
 }
-
 
 sub route_is_up
 {
@@ -153,6 +146,5 @@ sub route_is_up
 
   return undef;
 }
-
 
 1;

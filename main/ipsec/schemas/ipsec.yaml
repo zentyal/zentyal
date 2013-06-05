@@ -5,13 +5,17 @@ depends:
 
 models:
     - Connections
-    - ConfGeneral
+    - SettingsIPsec
+    - SettingsL2TP
     - ConfPhase1
     - ConfPhase2
+    - RangeTable
+    - UsersFile
+    - Users
 
 composites:
-    Conf: [ConfGeneral, Auth]
+    IPsecConf: [SettingsIPsec, Auth]
+    IPsecL2TPConf: [GeneralL2TPSettings, UsersSettings]
+    GeneralL2TPSettings: [SettingsL2TP, RangeTable]
     Auth: [ConfPhase1, ConfPhase2]
-
-foreign:
-    Connections: [Conf]
+    UsersSettings: [Users, UsersFile]

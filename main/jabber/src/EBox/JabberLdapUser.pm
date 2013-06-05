@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::JabberLdapUser;
 
 use base qw(EBox::LdapUserBase);
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;
@@ -146,7 +146,6 @@ sub getJabberAdmins
     return \@admins;
 }
 
-
 sub _addUser
 {
    my ($self, $user, $password) = @_;
@@ -157,7 +156,6 @@ sub _addUser
    my $model = $self->{jabber}->model('JabberUser');
    $self->setHasAccount($user, $model->enabledValue());
 }
-
 
 sub _delUserWarning
 {

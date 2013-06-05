@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::Server::Test;
-
-# Description:
 use strict;
 use warnings;
 
+package EBox::OpenVPN::Server::Test;
+
 use base qw(EBox::Test::Class);
+# Description:
 
 use EBox::Test;
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Test::More;
 use Test::Exception;
@@ -51,7 +51,7 @@ sub fakeCA : Test(startup)
 
 sub fakeFirewall
 {
-    fakeEBoxModule(
+    fakeModule(
         name => 'firewall',
         package => 'EBox::Firewall',
         subs => [
@@ -96,7 +96,7 @@ sub setUpConfiguration : Test(setup)
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    fakeEBoxModule(
+    fakeModule(
         name => 'openvpn',
         package => 'EBox::OpenVPN',
         subs => [
@@ -119,7 +119,7 @@ sub clearConfiguration : Test(teardown)
 
 sub setUpCertificates : Test(setup)
 {
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     my $ca    = EBox::Global->modInstance('ca');
     my @certificates = (
@@ -628,7 +628,6 @@ sub setServiceTest : Test(56)
 		     );
   $ca->setInitialState(\@certificates);
 
-
   diag 'Setting server to use a inexistent certificate';
   $server->setConfString('inexistent');
   $self->_checkSetServiceWithBadStatus($server, 'using a inexistent certificate');
@@ -641,8 +640,6 @@ sub setServiceTest : Test(56)
   $server->setConfString('revoked');
   $self->_checkSetServiceWithBadStatus($server, 'using a revoked certificate');
 }
-
-
 
 sub _checkSetServiceWithBadStatus
 {
@@ -660,7 +657,5 @@ sub _checkSetServiceWithBadStatus
     }
   }
 }
-
-
 
 1;

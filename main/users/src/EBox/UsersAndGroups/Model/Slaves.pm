@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2008-2011 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,7 @@ use warnings;
 #   This a class holds the list of registered slave machines
 #
 package EBox::UsersAndGroups::Model::Slaves;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;

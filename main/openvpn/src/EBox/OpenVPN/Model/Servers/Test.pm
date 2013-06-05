@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,15 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::Model::Servers::Test;
-use base 'EBox::Test::Class';
-#
-
 use strict;
 use warnings;
 
+package EBox::OpenVPN::Model::Servers::Test;
+
+use base 'EBox::Test::Class';
+
 use EBox::Test;
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 use EBox::Network;
 
 use Test::More;
@@ -34,10 +34,7 @@ use lib '../../../..';
 use EBox::OpenVPN;
 use EBox::CA::TestStub;
 
-
 use EBox::OpenVPN::Model::Servers;
-
-
 
 sub testDir
 {
@@ -48,7 +45,6 @@ sub fakeCA : Test(startup)
 {
   EBox::CA::TestStub::fake();
 }
-
 
 sub setupCertificates : Test(setup)
 {
@@ -80,14 +76,13 @@ sub setupCertificates : Test(setup)
   $ca->setInitialState(\@certificates);
 }
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
 
     $self->{openvpnModInstance} = EBox::OpenVPN->_create();
 
-    fakeEBoxModule(
+    fakeModule(
                    name => 'openvpn',
                    package => 'EBox::OpenVPN',
                    subs => [
@@ -96,7 +91,7 @@ sub setUpConfiguration : Test(setup)
                             },
                            ],
                   );
-    fakeEBoxModule(
+    fakeModule(
                    name => 'network',
                    package => 'EBox::Network',
                    subs => [
@@ -106,13 +101,9 @@ sub setUpConfiguration : Test(setup)
                            ],
                   );
 
-
-     EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
-
-
+     EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
 }
-
 
 sub clearConfiguration : Test(teardown)
 {
@@ -125,13 +116,11 @@ sub clearCertificates : Test(teardown)
     $ca->destroyCA();
 }
 
-
 sub _confDir
 {
     my ($self) = @_;
     return $self->testDir() . "/config";
 }
-
 
 sub _newServers
 {
@@ -142,10 +131,7 @@ sub _newServers
                       directory   => 'Servers'
                                                          );
 
-
 }
-
-
 
 sub ifaceNumbersTest : Test(2)
 {
@@ -163,7 +149,6 @@ sub ifaceNumbersTest : Test(2)
     lives_ok {
         $servers->initializeInterfaces
     } 'calling method for initializing interface numbers';
-
 
     my $numbersOk = 1;
     my %numbers;
@@ -190,8 +175,6 @@ sub ifaceNumbersTest : Test(2)
     ok $numbersOk,  "All server have unique interface numbers assigned";
 
 }
-
-
 
 1;
 

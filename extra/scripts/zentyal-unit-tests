@@ -1,0 +1,80 @@
+#!/bin/bash
+
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc"
+
+ADDITIONAL_ARGS=""
+EXTRA_ARGS="-j4"
+MODULES_WITH_TESTS="common core samba ebackup firewall antivirus remoteservices ips"
+
+while getopts ":vjs" opt; do
+    case $opt in
+    v)
+        VERBOSE="yes"
+        ADDITIONAL_ARGS="-v"
+        shift $((OPTIND-1))
+        ;;
+    j)
+        JUNIT="yes"
+        shift $((OPTIND-1))
+        ;;
+    s)
+        #We execute the tests in a single job without parallelization
+        EXTRA_ARGS=""
+        shift $((OPTIND-1))
+        ;;
+    esac
+done
+
+MISSINGLIBS=""
+
+# TODO: Improve this
+for i in $PERLLIBS
+do
+    pkg="lib$i-perl"
+    if ! dpkg -s $pkg >/dev/null 2>&1
+    then
+        MISSINGLIBS="$MISSINGLIBS $pkg"
+    fi
+done
+
+if [ -n "$MISSINGLIBS" ]
+then
+    echo -e "The following packages are not installed:\n $MISSINGLIBS"
+    echo -e "Installing them..."
+    export DEBIAN_FRONTEND=noninteractive
+    sudo -E apt-get install -y --force-yes --no-install-recommends $MISSINGLIBS >/dev/null 2>&1
+fi
+
+# FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package
+INCLUDES=$(find . -name src|grep -v captiveportal|sed 's/.\//-I /'|xargs)
+
+# Create the modules directory
+CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
+rm -f $CONF_DIR/*
+export ZENTYAL_MODULES_SCHEMAS
+
+test -d $CONF_DIR || mkdir $CONF_DIR
+find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
+
+COMMON_ARGS="$EXTRA_ARGS -r --timer"
+
+if [ "$@" == "ALL" ]
+then
+    MODULES=$MODULES_WITH_TESTS
+else
+    MODULES=$@
+fi
+
+if [ "$JUNIT" == "yes" ]
+then
+    PROVE="prove $COMMON_ARGS --formatter=TAP::Formatter::JUnit $INCLUDES $MODULES"
+else
+    PROVE="prove $COMMON_ARGS $ADDITIONAL_ARGS $INCLUDES $MODULES"
+fi
+
+if [ "$VERBOSE" == "yes" ]
+then
+    $PROVE
+else
+    $PROVE 2>/dev/null
+fi

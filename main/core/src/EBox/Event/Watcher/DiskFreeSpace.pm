@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,14 +15,14 @@
 
 package EBox::Event::Watcher::DiskFreeSpace;
 
+use base 'EBox::Event::Watcher::Base';
+
 # Class: EBox::Event::Watcher::DiskFreeSpace
 #
 #   This class is a watcher which checks if a partition has no free
 #   space left. The measure is done in percentages which is
 #   configurable by the user.
 #
-
-use base 'EBox::Event::Watcher::Base';
 
 use EBox::Event;
 use EBox::Event::Watcher::Base;
@@ -35,10 +35,8 @@ use Filesys::Df;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 
-
 use constant SPACE_THRESHOLD => 1024; # a file system is considered full with it has
                                   # less than this space (in  1K blocks) free
-
 
 # Group: Public methods
 
@@ -78,7 +76,6 @@ sub ConfigurationMethod
 {
     return 'model';
 }
-
 
 # Method: ConfigureModel
 #
@@ -218,7 +215,6 @@ sub _eventKey
 
     return "event_fired/partition_full/$fs";
 }
-
 
 sub _filesysToMonitor
 {

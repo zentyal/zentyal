@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,6 +22,7 @@ use warnings;
 #   virtual host table which basically contains virtual hosts information.
 #
 package EBox::WebServer::Model::VHostTable;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -115,7 +116,6 @@ sub validateTypedRow
         }
     }
 }
-
 
 # XXX IPs for vhost removed until we change
 # the DNS module to add all IPs only for the required kerberos domain
@@ -272,7 +272,6 @@ sub _populateSSLsupport
                   );
     return \@options;
 }
-
 
 # Method: _table
 #

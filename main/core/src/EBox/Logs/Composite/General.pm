@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,12 +20,12 @@
 #   <EBox::Events::Model::ConfigurationComposite> and
 #   <EBox::Common::Model::EnableFrom> inside a tabbed layout.
 
+use strict;
+use warnings;
+
 package EBox::Logs::Composite::General;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

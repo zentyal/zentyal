@@ -23,7 +23,7 @@ mkdir $BUILD_DIR/indices
 
 for i in autobuild build_cd.sh generate_extras.sh setup-base-cd-image.sh extract-core-deps.sh \
          regen_iso.sh list-duplicated.sh list-not-installed.sh replace-debs-ppa.sh \
-         set-debug.sh zenbuntu-desktop zinstaller-remote data images
+         set-debug.sh zenbuntu-core zenbuntu-desktop zinstaller-remote zinstaller-headless data images
 do
     ln -s $cwd/$i $BUILD_DIR/$i
 done
@@ -40,7 +40,17 @@ do
     then
         ln -f $cwd/$UBUNTU_ISO_NAME-$arch.iso $BUILD_DIR/
     fi
+
+    if [ -d $EXTRAS_CUSTOM_DIR_BASE-$arch ]
+    then
+        cp -r $EXTRAS_CUSTOM_DIR_BASE-$arch $BUILD_DIR
+    fi
 done
+
+if [ -d $EXTRAS_CUSTOM_DIR_BASE-all ]
+then
+    cp -r $EXTRAS_CUSTOM_DIR_BASE-all $BUILD_DIR
+fi
 
 cp -r $cwd/$CUSTOM_DIR_BASE $BUILD_DIR/
 

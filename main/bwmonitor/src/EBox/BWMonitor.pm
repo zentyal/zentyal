@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::BWMonitor;
-
 use strict;
 use warnings;
+
+package EBox::BWMonitor;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
@@ -67,7 +67,6 @@ sub menu
     $root->add($folder);
 }
 
-
 # Method: addUserIP
 #
 #   Match an user with the given IP. Until further notice
@@ -90,7 +89,6 @@ sub addUserIP
     $self->setAsChanged(0) unless ($changed);
 }
 
-
 # Method: removeUserIP
 #
 #   Ends a previously created match between user and IP if it exists
@@ -112,7 +110,6 @@ sub removeUserIP
         $self->setAsChanged(0) unless ($changed);
     }
 }
-
 
 # Method: userBWUsage
 #
@@ -151,7 +148,6 @@ sub userExtBWUsage
         return 0;
     }
 }
-
 
 # Method: allUsersBWUsage
 #
@@ -264,7 +260,6 @@ sub _managedDaemons
     return \@daemons;
 }
 
-
 # Override _enforceServiceState to stop disabled daemons
 sub _enforceServiceState
 {
@@ -276,7 +271,6 @@ sub _enforceServiceState
     $self->_startService() if($self->isEnabled());
 }
 
-
 # Stop all daemons (also interfaces disabled in the GUI)
 sub _stopService
 {
@@ -285,7 +279,6 @@ sub _stopService
         $self->_stopDaemon({ name => $name});
     }
 }
-
 
 # Function: ifaces
 #
@@ -297,8 +290,6 @@ sub ifaces
     my $model = $self->model('Interfaces');
     return $model->enabledInterfaces();
 }
-
-
 
 # Group: Implement LogHelper interface
 sub tableInfo
@@ -337,13 +328,11 @@ sub tableInfo
     }];
 }
 
-
 sub logHelper
 {
     my ($self) = @_;
     return $self;
 }
-
 
 # Method: logFiles
 #
@@ -392,7 +381,6 @@ sub processLine
 
     # Parse log line
     my $data = { $line =~ /([A-Z_]+)=([0-9.]+)+/g };
-
 
     my ($sec,$min,$hour,$mday,$mon,$year) = (localtime($data->{TIMESTAMP}))[0..5];
     ($mon,$year) = ($mon+1,$year+1900);

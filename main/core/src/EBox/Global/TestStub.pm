@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,96 +12,77 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Global::TestStub;
-# Description:
-#
 use strict;
 use warnings;
 
+package EBox::Global::TestStub;
+
 use Test::MockObject;
+use File::Slurp;
 use Params::Validate;
 use EBox::Global;
-use EBox::Module::Config::TestStub;
+use EBox::TestStub;
+use EBox::Config::TestStub;
+use EBox::Test::RedisMock;
 
+my $moduleDir = "/tmp/zentyal-modules-test-$$/";
 
-my %modulesInfo;
-
-sub setAllEBoxModules
+sub setModule
 {
-  my (%modulesByName) = @_;
+    my ($name, $package, @depends) = @_;
 
-  while (my ($name, $module)  = each %modulesByName) {
-      setEBoxModule($name, $module);
-  }
+    my $yaml = "class: $package\n";
+    if (@depends) {
+        $yaml .= "depends:\n";
+        foreach my $dep (@depends) {
+            $yaml .= "    - $dep\n";
+        }
+    }
 
-}
+    EBox::Config::TestStub::fake(modules => $moduleDir);
+    system ("mkdir -p $moduleDir");
 
-sub setEBoxModule
-{
-    my ($name, $class, $depends) = @_;
-    validate_pos(@_ ,1, 1, 0);
-
-    defined $depends or
-        $depends = [];
-
-
-    $modulesInfo{$name} = {
-        class => $class,
-        depends => $depends,
-        changed => 0,
-       };
-
-
-
+    write_file("${moduleDir}${name}.yaml", $yaml);
 }
 
 sub clear
 {
-    %modulesInfo = ();
+    system ("rm -rf $moduleDir");
 }
 
-sub _fakedReadModInfo
+sub setAllModules
 {
-    my ($name) = @_;
+    my (%modulesByName) = @_;
 
-    if (exists $modulesInfo{$name}) {
-        return $modulesInfo{$name};
+    while (my ($name, $module) = each %modulesByName) {
+        setModule($name, $module);
     }
-
-    return undef;
 }
 
-
-sub  _fakedWriteModInfo
-{
-    my ($self, $name, $info) = @_;
-
-    $modulesInfo{$name} = $info;
-}
-
-
-sub _fakedModNames
-{
-    return [keys %modulesInfo];
-}
-
+# Procedure: fake
+#
+#     Fake Global class using a RedisMock
+#
+#     The installed modules are the ones available in schemas
+#     directory passed in ZENTYAL_MODULES_SCHEMAS environment variable
+#
 sub fake
 {
-    EBox::Module::Config::TestStub::fake(); # needed by some method, like changed
-                                         # state of modules
-    Test::MockObject->fake_module('EBox::Global',
-                                  readModInfo => \&_fakedReadModInfo,
-                                  modNames     => \&_fakedModNames,
-                              );
+    my $tmpConfDir = '/tmp/zentyal-test-conf/';
+    system ("rm -rf $tmpConfDir");
+    mkdir ("mkdir $tmpConfDir");
 
-
+    EBox::TestStub::fake();
+    EBox::Config::TestStub::fake(modules => $ENV{ZENTYAL_MODULES_SCHEMAS}, conf => $tmpConfDir, user => 'nobody');
+    EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
+    *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
+    # dont run scripts from zentyal directories
+    *EBox::GlobalImpl::_runExecFromDir = sub {};
 }
 
 # only for interface completion
 sub unfake
 {
 }
-
 
 1;

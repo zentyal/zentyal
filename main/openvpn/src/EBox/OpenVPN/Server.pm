@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use warnings;
 
 # Description: Class for modelling each of the OpenVPN servers
 package EBox::OpenVPN::Server;
+
 use base qw(EBox::OpenVPN::Daemon);
 
 use EBox::Global;
@@ -331,9 +332,17 @@ sub subnetNetmask
 #
 # Returns:
 #  whether connection is allowed between clients though the VPN or not
+#
+# Note:
+#   tunnels always allow client to client connections
 sub clientToClient
 {
     my ($self) = @_;
+
+    if ($self->pullRoutes) {
+        return 1;
+    }
+
     return $self->_configAttr('clientToClient');
 }
 
@@ -348,18 +357,28 @@ sub tlsRemote
     return $tlsRemote ? $tlsRemote : undef;
 }
 
-
-
 # Method: pullRoutes
 #
 # Returns:
 #
-#    Boolean - whether the server may pull routes from client or not
+#    boolean - whether the server may pull routes from client or not
 #
 sub pullRoutes
 {
     my ($self) = @_;
     return $self->_configAttr('pullRoutes');
+}
+
+# Method: rejectRoutes
+#
+# Returns:
+#
+#    boolean - whether the server will reject routes pushed by its Zentyal clients
+#
+sub rejectRoutes
+{
+    my ($self) = @_;
+    return $self->_configAttr('rejectRoutes');
 }
 
 sub ripDaemon
@@ -371,6 +390,10 @@ sub ripDaemon
 
     $self->pullRoutes()
       or return undef;
+
+    if ($self->rejectRoutes()) {
+        return undef;
+    }
 
     my $iface = $self->ifaceWithRipPasswd();
     return { iface => $iface };
@@ -401,7 +424,6 @@ sub ippFile
     return __PACKAGE__->_ippFileForDaemon($confDir, $self->name());
 }
 
-
 sub confFileParams
 {
     my ($self, %params) = @_;
@@ -431,14 +453,12 @@ sub confFileParams
         push @templateParams, ($param => $value);
     }
 
-
     push @templateParams, (ippFile => $self->ippFile($confDir));
 
     # local parameter needs special mapping from iface -> ip
     push @templateParams, $self->_confFileLocalParam();
 
-    my @advertisedNets =  $self->advertisedNets();
-    push @templateParams, ( advertisedNets => \@advertisedNets);
+    push @templateParams, ( advertisedNets => $self->advertisedNets());
 
     return \@templateParams;
 }
@@ -535,51 +555,14 @@ sub _allIfacesAreInternal
 #
 #  gets the nets which will be advertised to client as reachable thought the server
 #
-# Returns:
-#  a list of references to a lists containing the net address and netmask pair
+# Returns: a reference of a list of references to a lists containing the net
+#          address and netmask pair
 sub advertisedNets
 {
     my ($self) = @_;
-
-    my @nets;
-
-    my $global  = EBox::Global->getInstance();
-    my $objMod = $global->modInstance('objects');
-    my $serverConfModel = $self->{row}->subModel('configuration');
-    my $vpn = $serverConfModel->row()->elementByName('vpn')->printableValue();
     my $advertisedNetsModel = $self->{row}->subModel('advertisedNetworks');
-    for my $rowID (@{$advertisedNetsModel->ids()}) {
-        my $row = $advertisedNetsModel->row($rowID);
-        my $objId = $row->valueByName('object');
-        my $mbs   = $objMod->objectMembers($objId);
-
-        foreach my $member (@{$mbs}) {
-            # use only IP address member type
-            if ($member->{type} ne 'ipaddr') {
-                next;
-            }
-
-            my $network = EBox::NetWrappers::to_network_with_mask(
-                $member->{ip},
-                EBox::NetWrappers::mask_from_bits($member->{mask})
-            );
-
-            # Advertised network address == VPN network address
-            if ($network eq $vpn) {
-                next;
-            }
-
-            # Add the member to the list of advertised networks
-            push(@nets,[$member->{ip},
-                        EBox::NetWrappers::mask_from_bits($member->{mask})]
-            );
-        }
-    }
-
-    return @nets;
+    return  $advertisedNetsModel->networks();
 }
-
-
 
 sub createDirectories
 {
@@ -666,7 +649,6 @@ sub clientBundle
     return $class->clientBundle(%params);
 }
 
-
 sub backupFiles
 {
     my ($self, $dir) = @_;
@@ -712,7 +694,6 @@ sub restoreFiles
     # in EBox::Backup
     EBox::Sudo::root("chown -R root.root $serverConfigDir/*");
 }
-
 
 sub certificateRevoked # (commonName, isCACert)
 {

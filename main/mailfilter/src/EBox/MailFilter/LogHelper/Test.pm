@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::LogHelper::Test;
-
 use strict;
 use warnings;
+
+package EBox::MailFilter::LogHelper::Test;
 
 use base 'EBox::Test::Class';
 
@@ -37,10 +37,8 @@ use EBox::MailFilter::LogHelper;
 use constant SMTP_FILTER_TABLE => 'message_filter';
 use constant MAIL_LOG => '/var/log/mail.log';
 
-
 use constant POP_PROXY_TABLE   => 'pop_proxy_filter';
 use constant SYS_LOG => '/var/log/syslog';
-
 
 #  this class can be split in one specif class and a base tst class for
 # loghelper test classess.
@@ -50,7 +48,6 @@ sub dumpInsertedData
     return 0;
 }
 
-
 my $_tablename;
 
 sub tablename
@@ -58,14 +55,12 @@ sub tablename
     return $_tablename;
 }
 
-
 sub setTableName
 {
   my ($name) = @_;
   $_tablename = $name;
 
 }
-
 
 my %_notNullsByTable = (
                         'message_filter' => [ qw( event action date
@@ -76,9 +71,6 @@ my %_notNullsByTable = (
                                              ],
                        );
 
-
-
-
 sub tableNotNullFields
 {
   my ($self, $table) = @_;
@@ -86,16 +78,13 @@ sub tableNotNullFields
     die "Unknown table $table";
   }
 
-
   return $_notNullsByTable{$table};
 }
-
 
 sub logHelper
 {
     return new EBox::MailFilter::LogHelper();
 }
-
 
 sub newFakeDBEngine
 {
@@ -109,7 +98,6 @@ sub newFakeDBEngine
     return $dbengine;
 }
 
-
 sub checkInsert
 {
     my ($self, $dbengine, $expectedData) = @_;
@@ -122,8 +110,6 @@ sub checkInsert
     }
 
     is $insertCalls, 1, 'Checking  insert was called and was called only one time';
-
-
 
     my $table = delete $dbengine->{insertedTable};
     is $table, $self->tablename,
@@ -148,7 +134,6 @@ sub checkInsert
         pass "All NOT-NULL fields don't contain NULLs";
     }
 
-
     if ($expectedData) {
         is_deeply $data, $expectedData,
             'checking if inserted data is correct';
@@ -156,7 +141,6 @@ sub checkInsert
 
     $dbengine->clear();
 }
-
 
 sub testProcessLine
 {
@@ -182,7 +166,6 @@ sub testProcessLine
     }
 
 }
-
 
 sub smtpFilterLogTest : Test(65)
 {
@@ -237,7 +220,6 @@ sub smtpFilterLogTest : Test(65)
                                   },
                  },
 
-
                  {
                   name => 'Virus detected, discard policy',
                   lines => [
@@ -252,7 +234,6 @@ sub smtpFilterLogTest : Test(65)
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
-
 
                  {
                   name => 'Virus detected, pass policy',
@@ -303,7 +284,6 @@ sub smtpFilterLogTest : Test(65)
                   lines => [
                             'Aug 27 06:00:52 intrepid amavis[16114]: (16114-01) Blocked BANNED (multipart/mixed | application/x-msdos-program,.exe,.exe-ms,putty.exe), <spam@zentyal.org> -> <macaco@monos.org>, Hits: -, tag=0, tag2=2, kill=2, L/Y/0/0'
 
-
                            ],
                   expectedData => {
                                    event => 'BANNED',
@@ -343,7 +323,6 @@ sub smtpFilterLogTest : Test(65)
                                    to_address   => 'macaco@monos.org',
                                   },
                  },
-
 
                  {
                   name => 'Bad header with pass policy',
@@ -393,15 +372,10 @@ sub smtpFilterLogTest : Test(65)
                                   },
                  },
 
-
-
-
                 );
-
 
     $self->testProcessLine(SMTP_FILTER_TABLE, MAIL_LOG, \@cases);
 }
-
 
 sub _currentYear
 {
@@ -409,7 +383,6 @@ sub _currentYear
     $year += 1900;
     return $year;
 }
-
 
 sub popProxyLogTest : Test(25)
 {
@@ -436,7 +409,6 @@ q{Oct 30 11:26:46 ebox011101 p3scan[25124]: Session done (Clean Exit). Mails: 0 
                       spam   => 0,
 
                       clientConn => '192.168.9.1',
-
 
                       date => "$year-Oct-30 11:26:46",
                      },
@@ -467,7 +439,6 @@ q{Oct 30 11:25:33 ebox011101 p3scan[25070]: Session done (Clean Exit). Mails: 1 
                       spam   => 0,
 
                       clientConn => '192.168.9.1',
-
 
                       date => "$year-Oct-30 11:25:33",
                      },
@@ -500,7 +471,6 @@ q{Oct 30 11:24:25 ebox011101 p3scan[24992]: Session done (Clean Exit). Mails: 2 
 
                       clientConn => '192.168.9.1',
 
-
                       date => "$year-Oct-30 11:24:25",
                      },
                },
@@ -529,7 +499,6 @@ q{Oct 30 11:34:31 ebox011101 p3scan[26596]: Session done (Clean Exit). Mails: 1 
                       spam   => 1,
 
                       clientConn => '192.168.9.1',
-
 
                       date => "$year-Oct-30 11:34:31",
                      },

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Ldap;
-
 use strict;
 use warnings;
+
+package EBox::Ldap;
 
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
@@ -38,6 +37,7 @@ use Error qw(:try);
 use File::Slurp qw(read_file write_file);
 use Apache2::RequestUtil;
 use POSIX;
+use Time::HiRes;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
 use constant LDAP          => "ldap://127.0.0.1";
@@ -135,7 +135,6 @@ sub ldapCon
     return $self->{ldap};
 }
 
-
 # Method: anonymousLdapCon
 #
 #       returns a LDAP connection without any binding
@@ -153,7 +152,6 @@ sub anonymousLdapCon
     my $ldap = EBox::Ldap::safeConnect(LDAPI);
     return $ldap;
 }
-
 
 # Method: getPassword
 #
@@ -424,21 +422,24 @@ sub delObjectclass # (dn, objectclass);
     my ($self, $dn, $objectclass) = @_;
 
     my $schema = $self->ldapCon->schema();
-    my $msg = $self->search(
-            { base => $dn, scope => 'base',
-            filter => "(objectclass=$objectclass)"
-            });
-    _errorOnLdap($msg);
+    my $searchArgs = {
+        base => $dn,
+        scope => 'base',
+        filter => "(objectclass=$objectclass)"
+       };
+    my $msg = $self->search($searchArgs);
+    _errorOnLdap($msg, $searchArgs);
     return unless ($msg->entries > 0);
 
     my %attrexist = map {$_ => 1} $msg->pop_entry->attributes;
-
-    $msg = $self->search(
-            { base => $dn, scope => 'base',
-            attrs => ['objectClass'],
-            filter => '(objectclass=*)'
-            });
-    _errorOnLdap($msg);
+    my $attrSearchArgs = {
+        base => $dn,
+        scope => 'base',
+        attrs => ['objectClass'],
+        filter => '(objectclass=*)'
+       };
+    $msg = $self->search($attrSearchArgs);
+    _errorOnLdap($msg, $attrSearchArgs);
     my %attrs;
     for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
         # get objectclass attributes
@@ -457,7 +458,6 @@ sub delObjectclass # (dn, objectclass);
         $_->{name}
     }  ($schema->must($objectclass), $schema->may($objectclass));
 
-
     my %attr2del;
     for my $attr (@objectAttrs) {
         # Skip if the attribute belongs to another objectclass
@@ -469,13 +469,15 @@ sub delObjectclass # (dn, objectclass);
 
     my $result;
     if (%attr2del) {
+        my $deleteArgs = [ objectclass => $objectclass, %attr2del ];
         $result = $self->modify($dn, { changes =>
-                [delete =>[ objectclass => $objectclass, %attr2del ] ] });
-        _errorOnLdap($msg);
+                [delete => $deleteArgs] });
+        _errorOnLdap($msg, $deleteArgs);
     } else {
+        my $deleteArgs = [ objectclass => $objectclass ];
         $result = $self->modify($dn, { changes =>
-                [delete =>[ objectclass => $objectclass ] ] });
-        _errorOnLdap($msg);
+                [delete => $deleteArgs] });
+        _errorOnLdap($msg, $deleteArgs);
     }
     return $result;
 }
@@ -584,7 +586,6 @@ sub getAttribute # (dn, attribute);
     return $result->entry(0)->get_value($attribute);
 }
 
-
 # Method: isObjectClass
 #
 #      check if a object is member of a given objectclass
@@ -598,7 +599,6 @@ sub getAttribute # (dn, attribute);
 sub isObjectClass
 {
     my ($self, $dn, $objectClass) = @_;
-
 
     my %attrs = (
             base   => $dn,
@@ -692,7 +692,7 @@ sub _errorOnLdap
     my ($result, $args) = @_;
 
     if ($result->is_error){
-        throw EBox::Exceptions::LDAP(result => $result);
+        throw EBox::Exceptions::LDAP(result => $result, opArgs => $args);
     }
 }
 
@@ -712,7 +712,6 @@ sub start
     return  $self->refreshLdap();
 }
 
-
 sub refreshLdap
 {
     my ($self) = @_;
@@ -720,7 +719,6 @@ sub refreshLdap
     $self->{ldap} = undef;
     return $self;
 }
-
 
 sub ldifFile
 {
@@ -814,26 +812,38 @@ sub _slapcatCmd
 sub safeConnect
 {
     my ($ldapurl) = @_;
-    my $retries = 4;
     my $ldap;
 
     local $SIG{PIPE};
     $SIG{PIPE} = sub {
        EBox::warn('SIGPIPE received connecting to LDAP');
     };
+
+    my $reconnect;
+    my $connError = undef;
+    my $retries = 50;
     while (not $ldap = Net::LDAP->new($ldapurl) and $retries--) {
+        if ((not defined $connError) or ($connError ne $@)) {
+            $connError = $@;
+            EBox::error("Couldn't connect to LDAP server $ldapurl: $connError. Retrying");
+        }
+
+        $reconnect = 1;
+
         my $users = EBox::Global->modInstance('users');
         $users->_manageService('start');
-        EBox::error("Couldn't connect to LDAP server $ldapurl, retrying");
-        sleep(1);
+
+        Time::HiRes::sleep(0.1);
     }
 
-    unless ($ldap) {
+    if (not $ldap) {
         throw EBox::Exceptions::External(
-            "FATAL: Couldn't connect to LDAP server: $ldapurl");
-    }
-
-    if ($retries < 3) {
+            __x(q|FATAL: Couldn't connect to LDAP server {url}: {error}|,
+                url => $ldapurl,
+                error => $connError
+               )
+           );
+    } elsif ($reconnect) {
         EBox::info('LDAP reconnect successful');
     }
 
@@ -864,16 +874,15 @@ sub changeUserPassword
         # Update the password using the LDAP extension will update the kerberos keys also
         # if the smbk5pwd module and its overlay are loaded
         require Net::LDAP::Extension::SetPassword;
-
         my $mesg = $self->{ldap}->set_password(user => $dn,
                                                oldpasswd => $oldPasswd,
                                                newpasswd => $newPasswd);
-        _errorOnLdap($mesg);
+        _errorOnLdap($mesg, $dn);
     } else {
         my $mesg = $self->{ldap}->modify( $dn,
                         changes => [ delete => [ userPassword => $oldPasswd ],
                         add     => [ userPassword => $newPasswd ] ]);
-        _errorOnLdap($mesg);
+        _errorOnLdap($mesg, $dn);
     }
 }
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NTP;
-
 use strict;
 use warnings;
+
+package EBox::NTP;
 
 use base qw(EBox::Module::Service);
 
@@ -42,6 +42,30 @@ sub _create
     return $self;
 }
 
+# Method: appArmorProfiles
+#
+#   Overrides to set the own AppArmor profile
+#
+# Overrides:
+#
+#   <EBox::Module::Base::appArmorProfiles>
+#
+sub appArmorProfiles
+{
+    my ($self) = @_;
+
+    EBox::info('Setting NTP apparmor profile');
+    my @params = ();
+    return [
+            {
+                'binary' => 'usr.sbin.ntpd',
+                'local'  => 1,
+                'file'   => 'ntp/apparmor-ntpd.local.mas',
+                'params' => \@params,
+            }
+           ];
+}
+
 sub isRunning
 {
     my ($self) = @_;
@@ -58,15 +82,19 @@ sub isRunning
 sub actions
 {
     return [
-    {
-        'action' => __('Remove ntp init script link and networking hooks (if-up.d and dhclient)'),
-        'reason' => __('Zentyal will take care of starting and stopping ' .
-                        'the services.'),
-        'module' => 'ntp'
-    }
+        {
+            'action' => __('Remove ntp init script link and networking hooks (if-up.d and dhclient)'),
+            'reason' => __('Zentyal will take care of starting and stopping ' .
+                            'the services.'),
+            'module' => 'ntp'
+        },
+        {
+            'action' => __('Override ntpd apparmor profile'),
+            'reason' => __('To allow samba clients to synchronize clock with ntp server'),
+            'module' => 'ntp',
+        },
     ];
 }
-
 
 # Method: usedFiles
 #
@@ -146,9 +174,22 @@ sub _preSetConf
     } otherwise {};
 }
 
+#  Method: _daemons
+#
+#   Overrides <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     return [ { name => 'ebox.ntpd' } ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { name => 'ntp', type => 'init.d' } ];
 }
 
 # Method: synchronized

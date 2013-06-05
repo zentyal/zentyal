@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::GeneralSettings;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Global;
@@ -55,7 +56,7 @@ sub _table
           new EBox::Types::Boolean(
                   fieldName => 'kerberos',
                   printableName => __('Enable Single Sign-On (Kerberos)'),
-                  editable => 1,
+                  editable => \&_kerberosEnabled,
                   defaultValue => 0,
               ),
           new EBox::Types::Boolean(
@@ -160,6 +161,26 @@ sub validateTypedRow
     }
 }
 
+# Method: row
+#
+#   Overrided to enable the kerberos authentication when using
+#   external AD authentication
+#
+sub row
+{
+    my ($self) = @_;
+
+    my $row = $self->SUPER::row();
+    my $mode = $self->parentModule->authenticationMode();
+    if ($mode eq $self->parentModule->AUTH_MODE_EXTERNAL_AD()) {
+        my $elem = $row->elementByName('kerberos');
+        unless ($elem->value()) {
+            $elem->setValue(1);
+        }
+    }
+    return $row;
+}
+
 sub _checkPortAvailable
 {
     my ($self, $port) = @_;
@@ -194,6 +215,15 @@ sub _commercialMsg
 sub _sslSupportNotAvailable
 {
     return system('ldd /usr/sbin/squid3 | grep -q libssl') != 0;
+}
+
+sub _kerberosEnabled
+{
+    my $mod = EBox::Global->modInstance('squid');
+    my $mode = $mod->authenticationMode();
+
+    return 0 if ($mode eq $mod->AUTH_MODE_EXTERNAL_AD());
+    return 1;
 }
 
 1;

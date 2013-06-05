@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,12 +15,12 @@
 
 # Class: EBox::UsersAndGroups::Composite::UserTemplate
 
+use strict;
+use warnings;
+
 package EBox::UsersAndGroups::Composite::UserTemplate;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Global;

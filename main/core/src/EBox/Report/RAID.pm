@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,17 +13,16 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Report::RAID;
-
 use strict;
 use warnings;
+
+package EBox::Report::RAID;
 
 use EBox;
 use EBox::Sudo;
 
 use File::Slurp qw(read_file);
 use Error qw(:try);
-
 
 use constant PROC_MDSTAT => '/proc/mdstat';
 # see t/testdata fpr examples of mdstat files
@@ -330,7 +329,6 @@ sub _processDeviceSection
         $deviceInfo{operation} = 'none';
     }
 
-
     return [$device => \%deviceInfo];
 }
 
@@ -349,7 +347,6 @@ sub _processDeviceMainLine
 
     return %deviceInfo;
 }
-
 
 sub _processDeviceArrayLine
 {
@@ -460,7 +457,6 @@ sub _processRaidDevicesTags
 
     return (raidDevices => \%devices);
 }
-
 
 sub _processDeviceBitmapLine
 {

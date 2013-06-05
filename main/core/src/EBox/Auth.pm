@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,10 +12,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Auth;
+
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
@@ -137,7 +139,7 @@ sub authen_cred  # (request, $user, password, fromCC)
 
     # If there's a script session opened, give it priority to the
     # Web interface session
-    if ( $self->_actionScriptSession() ){
+    if ($self->_actionScriptSession()) {
         EBox::warn('Failed login since a script session is opened');
         $r->subprocess_env(LoginReason => 'Script active');
         return;
@@ -169,7 +171,6 @@ sub authen_cred  # (request, $user, password, fromCC)
     return $sid;
 }
 
-
 # Method: authen_ses_key
 #
 #       Overriden method from <Apache2::AuthCookie>.
@@ -182,11 +183,11 @@ sub authen_ses_key  # (request, session_key)
 
     my $expired =  _timeExpired($lastime);
 
-    if ( $self->_actionScriptSession() ) {
+    if ($self->_actionScriptSession()) {
         $r->subprocess_env(LoginReason => 'Script active');
         _savesession(undef);
     }
-    elsif ( ($session_key eq $sid) and (!$expired) ) {
+    elsif (($session_key eq $sid) and (!$expired)) {
         my $audit = EBox::Global->modInstance('audit');
         $audit->setUsername($user);
 
@@ -242,18 +243,6 @@ sub loginCC
         }
         return EBox::CGI::Run->run('/Login/Index', 'EBox');
     }
-}
-
-# XXX not sure if this will be useful, if not remove
-sub alreadyLogged
-{
-    my ($self) = @_;
-    my ($sid, $lastime, $user) = _currentSessionId();
-
-    return 0 if !defined $sid;
-    return 0 if _timeExpired($lastime);
-
-    return 1;
 }
 
 # Method: logout
@@ -337,7 +326,7 @@ sub _actionScriptSession
     # The script session filehandle
     my $scriptSessionFile;
 
-    unless ( -e EBox::Config->scriptSession() ){
+    unless (-e EBox::Config->scriptSession()) {
         return undef;
     }
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -35,7 +35,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-$ref->{version} = '3.0';
+$ref->{version} = '3.1';
 $ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
@@ -169,7 +169,6 @@ sub user
     return $user;
 }
 
-
 sub gids
 {
     my $user = user();
@@ -183,7 +182,6 @@ sub uid
     my $uid = getpwnam(user());
     return $uid;
 }
-
 
 sub group
 {
@@ -264,7 +262,6 @@ sub passwd
 {
     return $ref->{localstatedir} . 'lib/zentyal/conf/ebox.passwd';
 }
-
 
 # Method: sessionid
 #

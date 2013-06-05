@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,11 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::Sudo;
-
 use strict;
 use warnings;
+
+package EBox::Sudo;
 
 use EBox::Config;
 use EBox::Exceptions::Internal;
@@ -46,7 +45,6 @@ BEGIN {
 	$VERSION = EBox::Config::version;
 }
 
-
 use Readonly;
 Readonly::Scalar our $SUDO_PATH   => '/usr/bin/sudo -p sudo:'; # our declaration eases testing
 Readonly::Scalar our $STDERR_FILE =>  EBox::Config::tmp() . 'stderr';
@@ -68,7 +66,7 @@ sub system
 
     my $sudocmd = "$SUDO_PATH /bin/sh -c '$cmd' 2> $STDERR_FILE";
 
-    system ($sudocmd);
+    CORE::system($sudocmd);
 }
 
 # Procedure: command
@@ -224,7 +222,6 @@ sub _rootError
     if ($exitValue == 1 ) {	# may be a sudo-program error
         my $errorText =  join "\n", @{$error};
 
-
         if ($errorText =~ m/^sudo:/m) {
             throw EBox::Exceptions::Sudo::Wrapper("$sudocmd raised the following sudo error: $errorText");
         } elsif ($errorText =~ m/is not in the sudoers file/m) {
@@ -289,7 +286,6 @@ sub sudo # (command, user)
     }
 }
 
-
 # Procedure: stat
 #   stat a file as root user and returns the information as File::stat object
 #
@@ -333,7 +329,6 @@ sub stat
     return $statObject;
 }
 
-
 # XXX maybe this should be constants..
 my $MAJOR_MASK  = 03777400;
 my $MAJOR_SHIFT = 0000010;
@@ -346,8 +341,6 @@ sub _makeRdev
     my $rdev =  (($major << $MAJOR_SHIFT) & $MAJOR_MASK) | (($minor << $MINOR_SHIFT) & $MINOR_MASK);
     return $rdev;
 }
-
-
 
 my $anyFileTestPredicate = Perl6::Junction::any(qw(-b -c -d -e -f -g -G  -h  -k -L -O -p -r -s -S -t -u -w -x) );
 

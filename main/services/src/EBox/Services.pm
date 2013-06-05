@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,10 +19,10 @@
 #       protocols and ports.
 #
 
-package EBox::Services;
-
 use strict;
 use warnings;
+
+package EBox::Services;
 
 use base qw(EBox::Module::Config);
 
@@ -73,11 +73,11 @@ sub _defaultServices
 {
     my ($self) = @_;
 
-    my $apachePort;
+    my $webAdminPort;
     try {
-        $apachePort = $self->global()->modInstance('apache')->port();
+        $webAdminPort = $self->global()->modInstance('webadmin')->port();
     } otherwise {
-        $apachePort = 443;
+        $webAdminPort = 443;
     };
 
     return [
@@ -110,7 +110,7 @@ sub _defaultServices
          'printableName' => __('Zentyal Administration'),
          'description' => __('Zentyal Administration Web Server'),
          'protocol' => 'tcp',
-         'destinationPort' => $apachePort,
+         'destinationPort' => $webAdminPort,
          'internal' => 1,
         },
         {
@@ -127,6 +127,14 @@ sub _defaultServices
          'description' => __('HyperText Transport Protocol'),
          'protocol' => 'tcp',
          'destinationPort' => '80',
+         'internal' => 0,
+        },
+        {
+         'name' => 'HTTPS',
+         'printableName' => 'HTTPS',
+         'description' => __('HyperText Transport Protocol over SSL'),
+         'protocol' => 'tcp',
+         'destinationPort' => '443',
          'internal' => 0,
         },
     ];
@@ -589,7 +597,6 @@ sub serviceId
 
     return $row->id();
 }
-
 
 # Method: menu
 #

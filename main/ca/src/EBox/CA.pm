@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CA;
-
 use strict;
 use warnings;
+
+package EBox::CA;
 
 use base qw(EBox::Module::Service);
 
@@ -395,17 +395,6 @@ sub initialSetup
 
     unless (-d P12DIR) {
         mkdir (P12DIR, PRIVATEDIRMODE)
-    }
-
-    if (not $version) {
-        # no migration neeeded
-        return;
-    }
-    # migration from zentyal-ca 3.0 to 3.0.1
-    # force regeneration of service certificates
-    if (EBox::Util::Version::compare($version, '3.0.1') < 0) {
-        $self->{redis}->delete_dir('ca/ro/Certificates');
-        $self->{redis}->delete_dir('ca/conf/Certificates');
     }
 }
 
@@ -1006,7 +995,6 @@ sub generateCRL
     symlink ( CRLDIR . $date . "-crl.pem", LASTESTCRL );
 }
 
-
 # Method: listCertificates
 #
 #       List the certificates that are ready on the system sorted
@@ -1217,7 +1205,6 @@ sub getCACertificateMetadata
 
     return $CACert;
 }
-
 
 # Method: getKeys
 #
@@ -1889,7 +1876,6 @@ sub _checkCertificateFieldsCharacters
                     countryName stateName localityName
                     organizationName organizationNameUnit);
 
-
     foreach my $field (@fieldsToCheck) {
         if (exists $args{$field}) {
             my $value = $args{$field};
@@ -2219,7 +2205,6 @@ sub _signSelfSignRequest # (userReqFile, days?, userCertFile,
     return $output if ($retVal eq "ERROR");
     return undef;
 }
-
 
 # Taken the OpenSSL command (req, x509, rsa...)
 # and add to the args the common arguments to all openssl commands

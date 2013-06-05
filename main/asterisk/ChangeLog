@@ -1,4 +1,10 @@
-HEAD
+3.1
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.2
+	+ Added AstMD5secret LDAP attribute to ACL
+	+ Fixed LDAP reprovision
+	+ Forbid to add meeting until the module is configured
 	+ When a user extensions modification is attempted, check
 	  extension number before removing any data from LDAP
 3.0.1

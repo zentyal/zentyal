@@ -1,3 +1,78 @@
+HEAD
+	+ Added EBox::Types::URI type
+	+ Added saveReload method to use reload instead of restart to
+	  reduce service downtime. Use with care and programatically
+	+ Added findValueMultipleFields() to DataTable and refactor _find()
+	  to allow search by multiple fields
+	+ Fixed disk usage report for logs component
+3.1.1
+	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
+	+ Restart all the core daemons instead of only apache after logrotate
+	+ Fixed graph template so it could be feed with data using decimal
+	  comma, it will convert it to a JS array without problems
+	+ Fixed regression parsing ModalController urls
+	+ Fixed regression non-model CGIs with aliases
+	+ Added a way to retrieve all Models inside a Composite and its children.
+	+ Increased the size limit for file uploads.
+	+ Implemented a way to include configuration files for Nginx so the SOAP
+	  services are able to use Nginx for SSL.
+3.1
+	+ Improved the message shown when there are no changes pending to save on
+	  logout.
+	+ Use the X-Forwarded-Proto header for redirects construction.
+	+ Added nginx as the public HTTP server of Zentyal.
+	+ Renamed 'Apache' module to 'WebAdmin' module. If you need to restart the
+	  web administration you must use 'service zentyal webadmin restart'.
+	+ Set trac milestone for reported bugs to 3.1.X
+	+ CGIs are now EBox::Module::CGI::* instead of EBox::CGI::Module::*
+	+ Daemons are now disabled when configuring a module, so Zentyal can
+	  manage them directly instead of being autostarted by the system
+	+ EBox::Model::DataForm::formSubmitted called even where there is no
+	  previous row
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on mysql-server metapackage instead of mysql-server-5.5
+	+ Depend on zentyal-common 3.1
+3.0.20
+	+ Check against inexistent path in EBox::Util::SHM::subkeys
+	+ Silent diff in EBox::Types::File::isEqualTo
+	+ Print correctly UTF8 characters from configuration backup description
+	+ When host name is changed, update /etc/hostname
+	+ Proper link to remote in configuration backup page
+3.0.19
+	+ Removed full restore option for restore-backup tool and
+	  EBox:Backup relevant methods
+	+ Optimise loading Test::Deep::NoTest to avoid test environment creation
+	+ Use EBox::Module::Base::writeConfFileNoCheck to write apache
+	  configuration file
+	+ Log events after dispatching them in the EventDaemon and catch exception
+	  to avoid crashes when mysql is already stopped
+	+ Emit events on zentyal start and stop
+	+ Refactor some events-related code
+	+ Changed MB_widedialog CSS class to use all width available in
+	  the screen
+	+ Fixed a broken link to SysInfo/Composite/General when activating the
+	  WebServer module.
+3.0.18
+	+ Pass model instance when invoking EBox::Types::Select populate function
+	+ Improve dynamic editable property detection for framework types
+	+ Override _validateReferer method in Desktop services CGI
+	+ Don't abort configuration backup when we get a error retrieving the
+	  partition table information
+	+ In EBox:Model::Row, refactored elementExists and
+	  elementByName to make them to have similiar code structure
+	+ Improvement in test help classes and added test fakes for
+	  EBox::Model::Manager and EBox::Util::SHMLock
+	+ Prevented unuseful warning in
+	  EBox::Model::DataTable::setDirectory when the old directory is undef
+	+ Fixed unit tests under EBox/Model/t, backup configuration tests and
+	  some others
+	+ Remove unused method EBox::Auth::alreadyLogged()
+	+ Apache::setRestrictedResource updates properly if already exists
+	+ Global and Module::Config allow to set redis instance to ease testing
+	+ Now EBox::GlobalImpl::lastModificationTime also checks
+	  modification time of configuration files
+	+ Rows in events models are now synced before running EventDaemon
+	+ Better way of checking if event daemon is needed
 3.0.17
 	+ Allow numeric zero as search filter
 	+ When filtering rows don't match agains link urls or hidden values

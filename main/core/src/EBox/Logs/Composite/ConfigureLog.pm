@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,12 +15,12 @@
 
 # Class: EBox::Logs::Composite::ConfigureLog
 
+use strict;
+use warnings;
+
 package EBox::Logs::Composite::ConfigureLog;
 
 use base 'EBox::Model::Composite';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 

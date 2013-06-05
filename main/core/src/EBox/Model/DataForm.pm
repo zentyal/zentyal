@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 package EBox::Model::DataForm;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
@@ -76,7 +77,6 @@ sub _ids
 {
     return [ $ROW_ID ];
 }
-
 
 # Method: setValue
 #
@@ -192,7 +192,6 @@ sub _rowStored
     my $rowDir = $self->{directory} . "/$ROW_ID";
     return defined $self->{'confmodule'}->get($rowDir);
 }
-
 
 # Method: moveUp
 #
@@ -431,7 +430,6 @@ sub order
     throw EBox::Exceptions::Internal('It has no sense order in an one-rowed table');
 }
 
-
 # Method: sortedBy
 #
 #       Return the field name which is used by model to sort rows when
@@ -547,6 +545,20 @@ sub automaticRemoveMsg
                br      => '<br>');
 }
 
+# Method: addedRowNotify
+#
+#  In some cases this is called instead of updateRowNotify/formSubmitted, so we overload
+#  so all updates go to formSubmitted
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, @params) = @_;
+    $self->formSubmitted(@params);
+}
 
 # Method: updatedRowNotify
 #
@@ -568,7 +580,13 @@ sub updatedRowNotify
 #
 # Parameters:
 #
-#      oldRow - <EBox::Model::Row> containing the old row
+#   row - <EBox::Model::Row> row containing fields and values of the
+#         updated row
+#
+#   oldRow - <EBox::Model::Row> row containing fields and values of the updated
+#            row before modification. Maybe undef it it was not previous row
+#
+#   force - boolean indicating whether the delete is forced or not
 #
 sub formSubmitted
 {
@@ -700,7 +718,6 @@ sub _defaultRow
     }
     return $row;
 }
-
 
 # Method: clone
 #

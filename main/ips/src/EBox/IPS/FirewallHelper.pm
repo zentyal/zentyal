@@ -1,4 +1,4 @@
-# Copyright (C) 2013 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::IPS::FirewallHelper;
-
 use strict;
 use warnings;
+
+package EBox::IPS::FirewallHelper;
 
 use base 'EBox::FirewallHelper';
 
@@ -41,9 +41,10 @@ sub _ifaceRules
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
+    my $qNum = $ips->nfQueueNum();
 
     foreach my $iface (@{$ips->enabledIfaces()}) {
-        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE");
+        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE --queue-num $qNum");
     }
 
     return \@rules;

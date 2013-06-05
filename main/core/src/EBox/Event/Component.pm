@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #  This class incorporates those methods which are common for event
 #  architecture components: watchers and dispatchers
 #
-package EBox::Event::Component;
-
 use strict;
 use warnings;
+
+package EBox::Event::Component;
 
 use EBox::Exceptions::MissingArgument;
 
@@ -135,7 +135,6 @@ sub EditableByUser
 {
     return 1;
 }
-
 
 # Group: Protected methods
 

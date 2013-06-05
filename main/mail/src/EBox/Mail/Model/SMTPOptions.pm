@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-
-package EBox::Mail::Model::SMTPOptions;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Mail::Model::SMTPOptions;
+
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -41,7 +40,6 @@ use EBox::Exceptions::External;
 
 use constant MAX_MSG_SIZE                          => '100';
 
-
 sub new
 {
     my $class = shift @_ ;
@@ -51,7 +49,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -255,8 +252,6 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
 
@@ -290,7 +285,6 @@ sub maxMsgSize
     return $size;
 }
 
-
 # Method: maiboxQuota
 #
 #   get the default maximum size for an account's mailbox.
@@ -311,7 +305,6 @@ sub mailboxQuota
     return $size;
 }
 
-
 sub expirationForDeleted
 {
     my ($self) = @_;
@@ -323,7 +316,6 @@ sub expirationForSpam
     my ($self) = @_;
     return $self->_expiration('spamExpire', 'neverExpireSpam');
 }
-
 
 sub _expiration
 {
@@ -350,7 +342,6 @@ sub validateTypedRow
     }
 }
 
-
 sub _validateSmarthost
 {
     my ($self, $changedFields) = @_;
@@ -375,8 +366,6 @@ sub _validateSmarthost
 
 }
 
-
-
 sub _validateMailname
 {
     my ($self, $mailname) = @_;
@@ -394,7 +383,6 @@ sub _validateMailname
     $mail->checkMailname($value);
 }
 
-
 sub customMailname
 {
     my ($self) = @_;
@@ -408,7 +396,6 @@ sub customMailname
     return $mailname->subtype()->value();
 }
 
-
 sub postmasterAddress
 {
     my ($self) = @_;
@@ -419,7 +406,6 @@ sub postmasterAddress
 
     return $postmaster->subtype()->value();
 }
-
 
 # Method: viewCustomizer
 #

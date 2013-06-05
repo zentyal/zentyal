@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Model::TrafficDetails;
-use base 'EBox::Logs::Model::Details';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Model::TrafficDetails;
+
+use base 'EBox::Logs::Model::Details';
 
 use EBox::Gettext;
 
@@ -109,7 +110,6 @@ sub _table
     return $dataTable;
 }
 
-
 sub dbTableName
 {
     return 'squid_traffic';
@@ -120,12 +120,10 @@ sub tableName
     return 'TrafficDetails';
 }
 
-
 sub timePeriodModelPath
 {
     return 'TrafficReportOptions';
 }
-
 
 # the user should not be take in accout in the 'all' row
 sub _noAggregateFields

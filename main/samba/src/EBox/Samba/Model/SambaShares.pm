@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,6 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 # Class: EBox::Samba::Model::SambaShares
 #
@@ -21,9 +23,6 @@
 package EBox::Samba::Model::SambaShares;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use Cwd 'abs_path';
 use String::ShellQuote;
@@ -47,10 +46,6 @@ use constant GUEST_DEFAULT_USER => 'nobody';
 use constant GUEST_DEFAULT_GROUP => '__USERS__';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
-
-# Dependencies
-
-# Group: Public methods
 
 # Constructor: new
 #
@@ -92,8 +87,6 @@ sub updatedRowNotify
         $global->modChange('cloud-prof');
     }
 }
-
-# Group: Protected methods
 
 # Method: _table
 #
@@ -437,7 +430,7 @@ sub _hideSyncOption
         return (not $rs->filesSyncAvailable() or _syncAllShares());
     }
 
-    return _syncAllShares();
+    return 1;
 }
 
 sub _syncAllShares
@@ -445,7 +438,6 @@ sub _syncAllShares
     my $samba = EBox::Global->modInstance('samba');
     return $samba->model('SyncShares')->syncValue();
 }
-
 
 sub _pathHelp
 {

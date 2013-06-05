@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Mail::Test;
-use base 'EBox::Test::Class';
-# Description:
 use strict;
 use warnings;
 
+package EBox::Mail::Test;
+
+use base 'EBox::Test::Class';
+
+# Description:
 
 use File::Slurp::Tree;
 use Test::More;
@@ -27,12 +29,11 @@ use Test::Differences;
 use Test::MockObject;
 use EBox::Global;
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
+use EBox::TestStubs qw(fakeModule);
 
 use Perl6::Junction qw(all any);
 
 use EBox::NetWrappers::TestStub;
-
 
 use lib '../..';
 
@@ -40,7 +41,6 @@ sub testDir
 {
     return  '/tmp/ebox.mail.test';
 }
-
 
 sub cleanTestDir : Test(startup)
 {
@@ -51,11 +51,9 @@ sub cleanTestDir : Test(startup)
   mkdir $dir;
 }
 
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
-
 
     my @config = (
                   '/ebox/modules/mail/active'  => 1,
@@ -64,9 +62,9 @@ sub setUpConfiguration : Test(setup)
                   );
 
     EBox::Module::Config::TestStub::setConfig(@config);
-    EBox::Global::TestStub::setEBoxModule('mail' => 'EBox::Mail');
+    EBox::Global::TestStub::setModule('mail' => 'EBox::Mail');
 
-    EBox::TestStubs::fakeEBoxModule(name => 'firewall',
+    EBox::TestStubs::fakeModule(name => 'firewall',
                                     subs => [
                                              availablePort => sub {
                                                return 1
@@ -74,7 +72,6 @@ sub setUpConfiguration : Test(setup)
                                              ]
                                    );
  }
-
 
 # we fake this to returns that always are one interface. (this is for the
 # setIpFilter method)
@@ -85,7 +82,6 @@ sub fakeGetIfacesForAddress
                                );
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Config::TestStub::setConfig();
@@ -95,7 +91,6 @@ sub _moduleTest : Test(4)
 {
     checkModuleInstantiation('mail', 'EBox::Mail');
     use_ok 'EBox::Mail::FilterProvider';
-
 
   my $mail = EBox::Global->modInstance('mail');
     EBox::Test::checkModels($mail,
@@ -111,7 +106,6 @@ sub _moduleTest : Test(4)
 
                            );
 }
-
 
 sub extendedRestoreTest : Test(7)
 {
@@ -132,7 +126,6 @@ sub extendedRestoreTest : Test(7)
   mkdir $_ foreach (@backupDirs);
   lives_ok { $mail->extendedBackup( dir => $self->testDir )  } 'Running extendedBackup with empty mailboxes';
 
-
   # creating new files in the dirss to be restored
   system "touch $_/shouldNotBeHereAfterRestore" foreach @backupDirs;
 
@@ -146,7 +139,6 @@ sub extendedRestoreTest : Test(7)
       ok 0, "$d must exist";
     }
   }
-
 
   # setup backup dirs
 
@@ -196,7 +188,6 @@ sub extendedRestoreTest : Test(7)
   spew_tree($varDir => $beforeBackup );
   lives_ok { $mail->extendedBackup( dir => $self->testDir )  } 'Running extendedBackup';
 
-
   # setup restore dirs
   spew_tree($varDir => $afterBackup );
   lives_ok { $mail->extendedRestore( dir => $self->testDir )  } 'Running extendedRestore';
@@ -204,11 +195,6 @@ sub extendedRestoreTest : Test(7)
   my $afterRestore = slurp_tree($varDir);
   is_deeply $afterRestore, $beforeBackup, 'Checking restored mail archives';
 }
-
-
-
-
-
 
 sub _fakeStorageMailDirs
 {
@@ -218,8 +204,6 @@ sub _fakeStorageMailDirs
                                 _storageMailDirs => sub { return @dirs }
                                );
 }
-
-
 
 # fake methods needed for the test..
 {

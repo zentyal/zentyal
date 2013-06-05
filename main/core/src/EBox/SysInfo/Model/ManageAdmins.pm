@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,6 +19,7 @@ use warnings;
 #   This model is used to configure the administrator user account
 #
 package EBox::SysInfo::Model::ManageAdmins;
+
 use base 'EBox::Model::DataTable';
 
 use Error qw(:try);
@@ -51,7 +52,6 @@ sub _table
                                                minLength     => 6,
                                                help => __('Your password must be at least 6 characters long.')));
 
-
     my $dataTable =
     {
         'tableName' => 'ManageAdmins',
@@ -65,7 +65,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 sub ids
 {

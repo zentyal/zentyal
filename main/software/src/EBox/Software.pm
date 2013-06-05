@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Software;
+
 use base qw(EBox::Module::Config);
 
 use EBox;
@@ -125,7 +126,6 @@ sub listBrokenPkgs
     }
     return \@list;
 }
-
 
 # Method: installPkgs
 #
@@ -335,7 +335,6 @@ sub listPackageInstallDepends
     return $self->_packageDepends('install', $packages);
 }
 
-
 # Method: listPackageDescription
 #
 #   Returns a list of short descriptions of each package in the list.
@@ -507,7 +506,6 @@ sub isInstalled
         return 0;
     }
 }
-
 
 # Method: getAutomaticUpdates
 #
@@ -984,7 +982,6 @@ sub QAUpdates
     return $self->get_bool('qa_updates');
 }
 
-
 sub _setConf
 {
     my ($self) = @_;
@@ -1004,19 +1001,17 @@ sub _setAptPreferences
     }
 
     my $preferences =  '/etc/apt/preferences';
-    my $preferencesBak  = $preferences . '.ebox.bak';
-    my $preferencesFromCCBak = $preferences . '.zentyal.fromzc';
+    my $preferencesBak = $preferences . '.zentyal.fromzc';
     my $preferencesDirFile = '/etc/apt/preferences.d/01zentyal';
 
     if ($enabled ) {
-        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesFromCCBak);
+        my $existsCC = EBox::Sudo::fileTest('-e', $preferencesBak);
         if (not $existsCC) {
             EBox::error('Could not find apt preferences file from Zentyal Cloud, letting APT preferences untouched');
             return;
         }
-        EBox::Sudo::root("cp '$preferencesFromCCBak' '$preferencesDirFile'",
-                         "chmod 0644 '$preferencesDirFile'",
-                        );
+        EBox::Sudo::root("cp '$preferencesBak' '$preferencesDirFile'",
+                         "chmod 0644 '$preferencesDirFile'");
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
@@ -1048,7 +1043,6 @@ sub _installCronFile
         ]
        );
 }
-
 
 # Method: firstTimeMenu
 #
@@ -1090,7 +1084,6 @@ sub firstTimeMenu
     print "</ul></div>\n";
 }
 
-
 # Method: _printMenuItem
 #
 #   Print a menu item for the firstTimeMenu
@@ -1119,8 +1112,7 @@ sub _printMenuItem
 # Is it QA the exclusive source?
 sub _QAExclusive
 {
-    my $exclusiveSource =  EBox::Config::configkey('qa_updates_exclusive_source');
-    return (lc($exclusiveSource) eq 'true');
+    return EBox::Config::boolean('qa_updates_exclusive_source');
 }
 
 sub _cache

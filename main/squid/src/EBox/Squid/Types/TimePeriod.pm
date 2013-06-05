@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,15 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Squid::Types::TimePeriod;
-use base 'EBox::Types::Abstract';
-
 use strict;
 use warnings;
+
+package EBox::Squid::Types::TimePeriod;
+
+use base 'EBox::Types::Abstract';
 
 use EBox::Gettext;
 
 use Perl6::Junction qw(all);
+use Time::Piece;
 
 my @days = qw(monday tuesday wednesday thursday friday saturday sunday);
 use constant ALL_DAYS => 'MTWHFAS';
@@ -37,7 +39,6 @@ my %daysToLetters = (
                      saturday  => 'A',
                      sunday    => 'S',
                     );
-
 
 my %daysToPrintableLetters = (
                      monday    => __('M'),
@@ -280,6 +281,30 @@ sub to
     return $self->{to};
 }
 
+# Method: fromAsTimePiece
+#
+#   Return the "from" hour as Time::Piece object
+#
+sub fromAsTimePiece
+{
+    my ($self) = @_;
+    my $from = $self->from();
+    $from or $from = '00:00';
+    return Time::Piece->strptime($from, '%H:%M');
+}
+
+# Method: toAsTimePiece
+#
+#   Return the "to" hour as Time::Piece object
+#
+sub toAsTimePiece
+{
+    my ($self) = @_;
+    my $to = $self->to();
+    $to or $to = '23:59';
+    return Time::Piece->strptime($to, '%H:%M');
+}
+
 sub monday
 {
     my ($self) = @_;
@@ -408,7 +433,6 @@ sub _hoursParamsAreValid
     #   to add the missing minutes field
     my ($fromHours, $fromMinutes) = split ':', $params->{$name . '_from'};
     my ($toHours, $toMinutes)     = split ':', $params->{$name . '_to'};
-
 
     if ($fromHours > $toHours) {
         throw EBox::Exceptions::External(
@@ -549,6 +573,34 @@ sub _normalizeTime
     $newTime    .= ':';
     $newTime    .= sprintf("%02d", $mn);
     return $newTime;
+}
+
+# Method: overlaps
+#
+#   return wether the time period overlaps with another
+#
+#  Parameters
+#      other - other timeperiod
+sub overlaps
+{
+    my ($self, $other) = @_;
+    if ($self->isAllTime() or $other->isAllTime()) {
+        return 1;
+    }
+
+    my $fromA = $self->fromAsTimePiece();
+    my $toA  =  $self->toAsTimePiece() ;
+    my $fromB = $other->fromAsTimePiece();
+    my $toB =  $other->toAsTimePiece();
+    foreach my $wday (@days) {
+        if ($self->$wday() and $other->$wday()) {
+            if (($fromA <= $toB) and ($fromB <= $toA)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
 }
 
 1;

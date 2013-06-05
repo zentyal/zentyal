@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox::Test;
-use base 'EBox::Test::Class';
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox::Test;
+
+use base 'EBox::Test::Class';
 
 use lib '../../../../..';
 
@@ -30,8 +31,7 @@ use EBox::Global;
 use EBox::OpenVPN;
 
 use EBox::Test qw(checkModuleInstantiation);
-use EBox::TestStubs qw(fakeEBoxModule);
-
+use EBox::TestStubs qw(fakeModule);
 
 use File::Basename;
 use File::Slurp qw(read_file write_file);
@@ -47,7 +47,6 @@ sub testDir
   return "/tmp/ebox$$.test";
 }
 
-
 sub createTestDir : Test(setup)
 {
   my ($self) = @_;
@@ -61,7 +60,6 @@ sub removeTestDir #: Test(teardown)
   my $d = $self->testDir();
   system "rm -rf $d";
 }
-
 
 sub fakeTmpDir : Test(setup)
 {
@@ -85,7 +83,7 @@ sub fakeCA : Test(startup)
   my $clientCertPath = "$dir/clientCert.crt";
   my $clientCertKeyPath = "$dir/clientCert.key";
 
-  EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+  EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
   my $ca = EBox::Global->modInstance('ca');
   my @fakeCertificates = (
@@ -106,7 +104,6 @@ sub fakeCA : Test(startup)
 			  },
 			 );
   $ca->setInitialState(\@fakeCertificates);
-
 
   write_file($caPath, 'caCertificate');
   write_file($clientCertPath, 'certificate');
@@ -130,13 +127,12 @@ sub setUpConfiguration : Test(setup)
 
     EBox::Module::Service::TestStub::setConfig(@config);
 
-    EBox::Global::TestStub::setEBoxModule('openvpn' => 'EBox::OpenVPN');
-    EBox::Global::TestStub::setEBoxModule('ca' => 'EBox::CA');
+    EBox::Global::TestStub::setModule('openvpn' => 'EBox::OpenVPN');
+    EBox::Global::TestStub::setModule('ca' => 'EBox::CA');
 
     EBox::OpenVPN::Test::fakeInterfaces();
     EBox::OpenVPN::Test::fakeFirewall();
     EBox::OpenVPN::Test::fakeNetworkModule();
-
 
     my $openvpn = EBox::Global->modInstance('openvpn');
 
@@ -154,12 +150,10 @@ sub setUpConfiguration : Test(setup)
     $self->{server} = $server;
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Service::TestStub::setConfig();
 }
-
 
 sub createBundleTest : Test(11)
 {
@@ -180,7 +174,6 @@ sub createBundleTest : Test(11)
        addresses         => $addresses,
 										    );
   } 'checking bundle creation';
-
 
   my %paramsFromBundle;
   lives_ok {
@@ -204,8 +197,5 @@ sub createBundleTest : Test(11)
     is read_file($path), $certParam, 'checking contents of file in the bundle';
   }
 }
-
-
-
 
 1;

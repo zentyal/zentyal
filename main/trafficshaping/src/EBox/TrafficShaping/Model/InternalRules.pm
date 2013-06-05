@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,10 +22,10 @@
 #   <EBox::TrafficShaping> module itself.
 #
 
-package EBox::TrafficShaping::Model::InternalRules;
-
 use strict;
 use warnings;
+
+package EBox::TrafficShaping::Model::InternalRules;
 
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 
@@ -65,7 +65,5 @@ sub allIfacesForRuleTable
     my $ifaces =   $network->InternalIfaces();
     return $ifaces;
 }
-
-
 
 1;

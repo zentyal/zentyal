@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,12 +22,12 @@
 #   It subclasses <EBox::Model::DataTable>
 #
 
+use strict;
+use warnings;
+
 package EBox::Test::Model;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Types::Boolean;
@@ -45,19 +45,6 @@ use EBox::Types::Service;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
-
-sub new
-  {
-      my $class = shift;
-      my %params = @_;
-
-      my $self = $class->SUPER::new(@_);
-      bless($self, $class);
-
-      $self->{runtimeIndex} = $params{runtimeIndex};
-
-      return $self;
-  }
 
 # Method:  _table
 #
@@ -313,22 +300,6 @@ sub _table
     return $dataTable;
 }
 
-# Method: index
-#
-# Overrides:
-#
-#      <EBox::Model::DataTable::index>
-#
-sub index
-{
-
-    my ($self) = @_;
-
-    return $self->{runtimeIndex} if ( defined ( $self->{runtimeIndex} ));
-    return '';
-
-}
-
 # Callback functions:
 
 # Function: compulsoryOptionsCallback
@@ -342,15 +313,13 @@ sub index
 #                 - printableValue
 #
 sub compulsoryOptionsCallback
-  {
-
-      return [
-              { value => 'a', printableValue => 'A' },
-              { value => 'b', printableValue => 'B' },
-              { value => 'c', printableValue => 'C' },
-             ];
-
-  }
+{
+    return [
+        { value => 'a', printableValue => 'A' },
+        { value => 'b', printableValue => 'B' },
+        { value => 'c', printableValue => 'C' },
+    ];
+}
 
 # Function: optionalOptionsCallback
 #
@@ -363,15 +332,13 @@ sub compulsoryOptionsCallback
 #                 - printableValue
 #
 sub optionalOptionsCallback
-  {
-
-      return [
-              { value => '1', printableValue => 1 },
-              { value => '2', printableValue => 2 },
-              { value => '5', printableValue => 5 },
-             ];
-
-  }
+{
+    return [
+        { value => '1', printableValue => 1 },
+        { value => '2', printableValue => 2 },
+        { value => '5', printableValue => 5 },
+    ];
+}
 
 # Function: objectModelCallback
 #
@@ -382,14 +349,12 @@ sub optionalOptionsCallback
 #     <EBox::Model::DataTable> - the object model
 #
 sub objectModelCallback
-  {
-
-      if ( EBox::Global->modExists('objects') ) {
-          return EBox::Global->modInstance('objects')->models()->[0];
-      } else {
-          return undef;
-      }
-
-  }
+{
+    if (EBox::Global->modExists('objects')) {
+        return EBox::Global->modInstance('objects')->models()->[0];
+    } else {
+        return undef;
+    }
+}
 
 1;

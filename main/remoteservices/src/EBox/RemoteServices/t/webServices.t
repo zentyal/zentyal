@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 #
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,11 +15,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package main;
-
-
 use warnings;
 use strict;
+
+use Test::More skip_all => 'FIXME';
 
 ###############
 # Dependencies
@@ -29,13 +28,10 @@ use File::Slurp;
 use Data::Dumper;
 use English "-no_match_vars";
 
+use EBox;
 use EBox::RemoteServices::Backup;
 
-
-use EBox;
-
 EBox::init();
-
 
 my $backupServ = EBox::RemoteServices::Backup->new();
 
