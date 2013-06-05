@@ -156,19 +156,12 @@ sub disableModDepends
 
     my @deps = ();
     foreach my $mod (@{$global->modInstancesOfType('EBox::Module::Service')}) {
-        if ($name eq any @{$mod->enableModDependsRecursive()}) {
+        if ($name eq any @{$mod->enableModDepends()}) {
             push @deps, $mod;
         }
     }
-
-    # in disable order
-    push @deps, $self;
-    @deps = map {
-        my $modName = $_->name();
-        ($modName ne $name) ? ($modName) : ($name);
-    } reverse @{ $global->sortModulesEnableModDepends(\@deps)  };
-
-    return \@deps;
+    my @names = map { $_->name } @deps;
+    return \@names;
 }
 
 # Method: enableModDepends
@@ -595,9 +588,10 @@ sub enableService
 
     unless ($status) {
         # Disable all modules that depends on us
+        my $global = $self->global();
         my $revDepends = $self->disableModDepends();
         foreach my $depName (@{$revDepends}) {
-            my $instance = $self->global()->modInstance($depName);
+            my $instance = $global->modInstance($depName);
             $instance->enableService(0);
         }
     }

@@ -53,14 +53,13 @@ sub _process
         my $mod = $global->modInstance($_);
         $mod->isa('EBox::Module::Service') ? ($mod) : ();
     } @{ $module->enableModDependsRecursive() };
-    use Data::Dumper;
-    EBox::debug(Dumper(@depModules));
+
     foreach my $dep (@depModules) {
         try {
             if (not $dep->configured()) {
                 $dep->configureModule();
             } elsif (not $dep->isEnabled()) {
-                $dep->setEnabled(1);
+                $dep->enableService(1);
             }
         } otherwise {
             my ($excep) = @_;

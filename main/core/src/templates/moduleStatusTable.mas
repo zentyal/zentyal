@@ -8,9 +8,10 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <div id='modulesStatus'>
 <script type="text/javascript">
+"use strict";
 function sendStatus(name, enable)
 {
-    var params = 'module=' + name + '&enable=' + enable;
+    var params = 'module=' + name + '&enable=' + (enable ? '1' : '0');
     jQuery.ajax({
         url: '/ServiceModule/StatusController',
         type: 'post',
@@ -19,7 +20,6 @@ function sendStatus(name, enable)
           jQuery('#modulesStatus').html(response);
         }
     });
-
 }
 
 function configureModule(module, title)
@@ -41,18 +41,16 @@ function configureModule(module, title)
 
 jQuery(function() {
 %# Enable changes button if needded
-% my $className;
 % unless (defined($hasChanged) and $hasChanged eq 'notset') {
-%   $className =  ($hasChanged) ? 'changed' : 'notChanged';
+%   my $className =  ($hasChanged) ? 'changed' : 'notChanged';
     jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
-
-    Zentyal.stripe('.dataTable', 'even', 'odd');
+    Zentyal.stripe('#statusTable', 'even', 'odd');
 });
 </script>
 <br/>
 <form id="statusForm">
-    <table class='dataTable'>
+<table id='statusTable' class='dataTable'>
 <thead>
     <tr>
         <th class='tleft'><% __('Module') %></th>
@@ -60,6 +58,7 @@ jQuery(function() {
         <th class='thOptions'><% __('Status') %></th>
     </tr>
 </thead>
+<tbody>
 % for my $mod (@modules) {
 %   my $name = $mod->{'name'};
 %   my $printableName = $mod->{'printableName'};
@@ -74,19 +73,7 @@ jQuery(function() {
         <% join(', ', @{$mod->{'printableDepends'}}) %>
         </td>
         <td class='tcenter' id="<% $name %>_status">
-<%doc>
-# XXX
-%   if (not $depends) {
-           <& /input/checkbox.mas,
-                'name' => $name,
-                'id' => $name,
-                'value' => undef,
-                'disabled' => 1
-            &>
-%   } els
-
-</%doc>
-% if (not $configured) {
+%   if (not $configured) {
 %       my $title = __x("Configure module: {module}", module => $name );
            <& /input/checkbox.mas,
                 'name' => $name,
@@ -106,6 +93,7 @@ jQuery(function() {
         </td>
     </tr>
 % }
+  </tbody>
   </table>
 </form>
 </div>
