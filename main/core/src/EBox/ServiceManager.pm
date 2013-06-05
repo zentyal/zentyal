@@ -148,36 +148,6 @@ sub dependencyEnabled
 
     return 1;
 }
-
-# Method: enableServices
-#
-#   Enable/disable module services
-#
-# Parameters:
-#
-#   Hash containing the services and its required status
-#
-#   Example:
-#
-#   { 'network' => 1, 'samba' => undef }
-sub enableServices
-{
-    my ($self, $services) = @_;
-
-    my $global = $self->{'confmodule'};
-
-    # XXX order by enableDeps here ?
-    for my $mod (keys %{$services}) {
-        my $modInstance = $global->modInstance($mod);
-        unless (defined $modInstance) {
-            EBox::debug("$mod can't be instanced");
-            next;
-        }
-        next unless ($modInstance->isa(CLASS));
-        $modInstance->enableService($services->{$mod});
-    }
-}
-
 # Method: enableAllModules
 #
 #       This method enables all modules implementing

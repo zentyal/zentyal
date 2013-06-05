@@ -83,25 +83,6 @@ sub _process
 
 }
 
-sub enableModDependsRecursive
-{
-    my ($global, $modInstance) = @_;
-    my %depends;
-    my @toCheck = @{ $modInstance->enableModDepends() };
-    for (my $i=0; $i < @toCheck; $i++) {
-        my $modName = $toCheck[$i];
-        if (exists $depends{$modName}) {
-            next;
-        }
-        my $mod = $global->modInstance($modName);
-        $mod->isa('EBox::Module::Service') or next;
-        $depends{$modName}  = 1;
-        push @toCheck, @{ $mod->enableModDepends() };
-    }
-
-    return [keys %depends];
-}
-
 sub _print
 {
     my $self = shift;

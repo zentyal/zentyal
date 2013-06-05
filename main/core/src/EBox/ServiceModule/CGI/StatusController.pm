@@ -42,32 +42,27 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->_requireParam('module');
+    $self->_requireParam('enable');
+
     my $global = EBox::Global->getInstance();
+    my $modName = $self->param('module');
+    my $enable  = $self->param('enable');
 
-    my %modules;
-    for my $mod (@{$self->params()}) {
-        my @params = $self->param($mod);
-        my $enabled = undef;
-        if (@params > 1) {
-            $enabled = 1;
-        }
-        $modules{$mod} = $enabled;
-    }
-
-    # enable dependencies of all modules to enable
-    my @modNames = keys %modules;
-    foreach my $modName (@modNames) {
-        if (not $modules{$modName}) {
-            next;
-        }
-        foreach my $dep ( @{ $global->modInstance($modName)->enableModDependsRecursive()}) {
-            $modules{$dep} = 1;
+    if ($enable) {
+        # enable dependencies of all modules to enable, if the module is disabled
+        # the setService module take cares of that
+        my @deps = @{ $global->modInstance($modName)->enableModDependsRecursive()};
+        foreach my $name (@deps) {
+            $global->modInstance($name)->enableService(1);
         }
     }
 
-    my $manager = new EBox::ServiceManager();
-    $manager->enableServices(\%modules);
+    my $mod = $global->modInstance($modName);
+    $mod->enableService($enable);
 
+    # answer
+    my $manager = EBox::ServiceManager->new();
     my $modules = $manager->moduleStatus();
     my @params;
     push @params, (modules => $modules,

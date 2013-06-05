@@ -8,9 +8,9 @@ use EBox::Gettext;
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <div id='modulesStatus'>
 <script type="text/javascript">
-function sendStatus()
+function sendStatus(name, enable)
 {
-    var params = jQuery('#statusForm').serialize();
+    var params = 'module=' + name + '&enable=' + enable;
     jQuery.ajax({
         url: '/ServiceModule/StatusController',
         type: 'post',
@@ -100,7 +100,7 @@ jQuery(function() {
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
-                'onChange' => qq{sendStatus(); Zentyal.TableHelper.setLoading('${name}_status'); }
+                'onChange' => qq{sendStatus('$name', this.checked); Zentyal.TableHelper.setLoading('${name}_status'); }
             &>
 %   }
         </td>

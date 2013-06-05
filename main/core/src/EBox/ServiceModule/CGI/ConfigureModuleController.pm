@@ -55,7 +55,6 @@ sub _process
     } @{ $module->enableModDependsRecursive() };
     use Data::Dumper;
     EBox::debug(Dumper(@depModules));
-    @depModules = @{ $global->sortModulesEnableModDepends(\@depModules) };
     foreach my $dep (@depModules) {
         try {
             if (not $dep->configured()) {

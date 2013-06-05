@@ -144,24 +144,31 @@ sub disableActions
 #   For example: the firewall module has to be disabled together with the
 #                network module.
 #
-#   By default it returns the modules established in the enabledepends list
-#   in the module YAML file. Override the method if you need something more
-#   specific, e.g., having a dynamic list.
-#
 # Returns:
 #
-#    array ref containing the instances of modules.
+#    array ref containing the  modules names
 #
 sub disableModDepends
 {
     my ($self) = @_;
+    my $name = $self->name();
+    my $global = $self->global;
 
-    my $deps = [];
-    foreach my $mod (@{$self->global->modInstancesOfType('EBox::Module::Service')}) {
-        push (@{$deps}, $mod)
-            if ($self->name() eq any @{$mod->info->{enabledepends}});
+    my @deps = ();
+    foreach my $mod (@{$global->modInstancesOfType('EBox::Module::Service')}) {
+        if ($name eq any @{$mod->enableModDependsRecursive()}) {
+            push @deps, $mod;
+        }
     }
-    return $deps;
+
+    # in disable order
+    push @deps, $self;
+    @deps = map {
+        my $modName = $_->name();
+        ($modName ne $name) ? ($modName) : ($name);
+    } reverse @{ $global->sortModulesEnableModDepends(\@deps)  };
+
+    return \@deps;
 }
 
 # Method: enableModDepends
@@ -210,9 +217,15 @@ sub enableModDependsRecursive
         }
         my $mod = $global->modInstance($modName);
         $mod->isa('EBox::Module::Service') or next;
-        $depends{$modName}  = 1;
+        $depends{$modName}  = $mod;
         push @toCheck, @{ $mod->enableModDepends() };
     }
+
+    my $name = $self->name();
+    my @depNames = map {
+        my $modName = $_->name();
+        ($modName ne $name) ? ($modName) : ();
+    } @{ $global->sortModulesEnableModDepends([$self, values %depends]) };
 
     return [keys %depends];
 }
@@ -575,16 +588,17 @@ sub enableService
     # Otherwise, we have to disable ourself and all modules depending on us
     if ($status) {
         foreach my $mod (@{$self->enableModDepends()}) {
-            my $instance = $self->global->modInstance($mod);
+            my $instance = $self->global()->modInstance($mod);
             $status = ($status and $instance->isEnabled());
         }
     }
 
     unless ($status) {
-        # Disable all modules that depend on us
-        my $mods = $self->disableModDepends();
-        foreach my $mod (@{$mods}) {
-            $mod->enableService(0);
+        # Disable all modules that depends on us
+        my $revDepends = $self->disableModDepends();
+        foreach my $depName (@{$revDepends}) {
+            my $instance = $self->global()->modInstance($depName);
+            $instance->enableService(0);
         }
     }
 

@@ -17,7 +17,7 @@ use Data::Dumper;
 <% __('Enabling this module and its dependencies will cause Zentyal to perform the actions and file modifications listed below. You must explicitly accept these changes to enable the module.') %>
 </p>
 <p>
-<% __x('The following modules will also been enabled: {deps}', deps => join ', ', @depsToEnable) %>
+<% __x('The following modules will also be enabled: {deps}', deps => join ', ', @depsToEnable) %>
 </p>
 % }
 </div>
