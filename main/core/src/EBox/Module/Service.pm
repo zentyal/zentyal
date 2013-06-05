@@ -180,7 +180,7 @@ sub disableModDepends
 #
 # Returns:
 #
-#    array ref containing the dependencies.
+#    - array ref containing the dependencies names.
 #
 #    Example:
 #
@@ -197,6 +197,13 @@ sub enableModDepends
     }
 }
 
+# Method: enableModDependsRecursive
+#
+#   This method works like enableModDepends but its recurse in all module dependencies
+#
+# Returns:
+#
+#    - list reference with the dependencies names
 sub enableModDependsRecursive
 {
     my ($self) = @_;
