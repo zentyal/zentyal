@@ -12,15 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-#
+
 #   This class is used to coordinate all the available models and composites
 #   along Zentyal. It allows us to do things like specifiying relations
 #   amongst different models.
-#
 
-#
 package EBox::Model::Manager;
 
 use EBox;
@@ -44,7 +43,6 @@ sub _new
     my $self = {};
 
     $self->{models} = {};
-    $self->{trees} = {};
     $self->{composites} = {};
     $self->{foreign} = {};
 
@@ -73,7 +71,7 @@ sub _new
 #
 sub instance
 {
-    unless(defined($_instance)) {
+    unless (defined ($_instance)) {
         $_instance = EBox::Model::Manager->_new();
     }
 
@@ -173,8 +171,6 @@ sub component
         return $self->model($path, $readonly);
     } elsif ($self->_compositeExists($path)) {
         return $self->composite($path, $readonly);
-    } elsif ($self->_treeExists($path)) {
-        return $self->tree($path, $readonly);
     } else {
         throw EBox::Exceptions::Internal("Component $path does not exist");
     }
@@ -188,7 +184,7 @@ sub componentExists
 {
     my ($self, $path) = @_;
 
-    return ($self->_modelExists($path) or $self->_compositeExists($path) or $self->_treeExists($path));
+    return ($self->_modelExists($path) or $self->_compositeExists($path));
 }
 
 sub models
@@ -196,13 +192,6 @@ sub models
     my ($self, $module) = @_;
 
     return $self->_components('model', $module);
-}
-
-sub trees
-{
-    my ($self, $module) = @_;
-
-    return $self->_components('tree', $module);
 }
 
 sub composites
