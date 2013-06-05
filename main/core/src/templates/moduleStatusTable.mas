@@ -74,6 +74,8 @@ jQuery(function() {
         <% join(', ', @{$mod->{'printableDepends'}}) %>
         </td>
         <td class='tcenter' id="<% $name %>_status">
+<%doc>
+# XXX
 %   if (not $depends) {
            <& /input/checkbox.mas,
                 'name' => $name,
@@ -81,7 +83,10 @@ jQuery(function() {
                 'value' => undef,
                 'disabled' => 1
             &>
-%   } elsif (not $configured) {
+%   } els
+
+</%doc>
+% if (not $configured) {
 %       my $title = __x("Configure module: {module}", module => $name );
            <& /input/checkbox.mas,
                 'name' => $name,

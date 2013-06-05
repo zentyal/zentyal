@@ -197,6 +197,27 @@ sub enableModDepends
     }
 }
 
+sub enableModDependsRecursive
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my %depends;
+    my @toCheck = @{ $self->enableModDepends() };
+    for (my $i=0; $i < @toCheck; $i++) {
+        my $modName = $toCheck[$i];
+        if (exists $depends{$modName}) {
+            next;
+        }
+        my $mod = $global->modInstance($modName);
+        $mod->isa('EBox::Module::Service') or next;
+        $depends{$modName}  = 1;
+        push @toCheck, @{ $mod->enableModDepends() };
+    }
+
+    return [keys %depends];
+}
+
+
 # Method: bootDepends
 #
 #   This method is used to declare which modules need to have its

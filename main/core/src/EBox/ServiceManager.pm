@@ -166,6 +166,7 @@ sub enableServices
 
     my $global = $self->{'confmodule'};
 
+    # XXX order by enableDeps here ?
     for my $mod (keys %{$services}) {
         my $modInstance = $global->modInstance($mod);
         unless (defined $modInstance) {

@@ -28,8 +28,7 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-## arguments:
-## 	title [required]
+
 sub new
 {
     my $class = shift;
@@ -43,6 +42,7 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    my $global = EBox::Global->getInstance();
 
     my %modules;
     for my $mod (@{$self->params()}) {
@@ -52,6 +52,17 @@ sub _process
             $enabled = 1;
         }
         $modules{$mod} = $enabled;
+    }
+
+    # enable dependencies of all modules to enable
+    my @modNames = keys %modules;
+    foreach my $modName (@modNames) {
+        if (not $modules{$modName}) {
+            next;
+        }
+        foreach my $dep ( @{ $global->modInstance($modName)->enableModDependsRecursive()}) {
+            $modules{$dep} = 1;
+        }
     }
 
     my $manager = new EBox::ServiceManager();
