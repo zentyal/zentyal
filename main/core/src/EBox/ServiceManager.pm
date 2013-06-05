@@ -137,7 +137,7 @@ sub dependencyEnabled
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
         my $instance = $global->modInstance($mod);
         unless (defined($instance)) {
-            EBox::debug("$mod can't be instanced");
+            EBox::warn("$mod can't be instanced");
             next;
         }
 
