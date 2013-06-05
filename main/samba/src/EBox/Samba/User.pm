@@ -43,7 +43,7 @@ use Error qw(:try);
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::SecurityPrincipal';
 
 sub new
 {

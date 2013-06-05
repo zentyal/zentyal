@@ -1,5 +1,3 @@
-#!/usr/bin/perl
-
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -37,17 +35,13 @@ use Error qw(:try);
 #
 #   Instance an object readed from LDB.
 #
-#   Parameters:
+# Parameters:
 #
 #      dn - Full dn for the entry
 #  or
 #      ldif - Net::LDAP::LDIF for the entry
 #  or
 #      entry - Net::LDAP entry
-#  or
-#      samAccountName
-#  or
-#      SID
 #
 sub new
 {
@@ -56,10 +50,8 @@ sub new
     my $self = {};
     bless ($self, $class);
 
-    unless ($params{entry} or $params{dn} or
-            $params{ldif} or $params{samAccountName} or
-            $params{sid}) {
-        throw EBox::Exceptions::MissingArgument('entry|dn|ldif|samAccountName|sid');
+    unless ($params{entry} or $params{dn} or $params{ldif}) {
+        throw EBox::Exceptions::MissingArgument('Constructor argument');
     }
 
     if ($params{entry}) {
@@ -69,10 +61,6 @@ sub new
         $self->{entry} = $ldif->read_entry();
     } elsif ($params{dn}) {
         $self->{dn} = $params{dn};
-    } elsif ($params{samAccountName}) {
-        $self->{samAccountName} = $params{samAccountName};
-    } elsif ($params{sid}) {
-        $self->{sid} = $params{sid};
     }
 
     return $self;
@@ -284,7 +272,7 @@ sub baseDn
 
 # Method: _entry
 #
-#   Return Net::LDAP::Entry entry for the user
+#   Return Net::LDAP::Entry entry for the object
 #
 sub _entry
 {
@@ -298,22 +286,6 @@ sub _entry
                 base => $basedn,
                 filter => $filter,
                 scope => 'one',
-                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-            };
-            $result = $self->_ldap->search($attrs);
-        } elsif (defined $self->{samAccountName}) {
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(samAccountName=$self->{samAccountName})",
-                scope => 'sub',
-                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-            };
-            $result = $self->_ldap->search($attrs);
-        } elsif (defined $self->{sid}) {
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(objectSid=$self->{sid})",
-                scope => 'sub',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
@@ -354,60 +326,6 @@ sub as_ldif
     return $self->_entry->ldif(change => 0);
 }
 
-sub sid
-{
-    my ($self) = @_;
-
-    my $sid = $self->get('objectSid');
-    my $sidString = $self->_sidToString($sid);
-    return $sidString;
-}
-
-sub _sidToString
-{
-    my ($self, $sid) = @_;
-
-    return undef
-        unless unpack("C", substr($sid, 0, 1)) == 1;
-
-    return undef
-        unless length($sid) == 8 + 4 * unpack("C", substr($sid, 1, 1));
-
-    my $sid_str = "S-1-";
-
-    $sid_str .= (unpack("C", substr($sid, 7, 1)) +
-                (unpack("C", substr($sid, 6, 1)) << 8) +
-                (unpack("C", substr($sid, 5, 1)) << 16) +
-                (unpack("C", substr($sid, 4, 1)) << 24));
-
-    for my $loop (0 .. unpack("C", substr($sid, 1, 1)) - 1) {
-        $sid_str .= "-" . unpack("I", substr($sid, 4 * $loop + 8, 4));
-    }
-
-    return $sid_str;
-}
-
-sub _stringToSid
-{
-    my ($self, $sidString) = @_;
-
-    return undef
-        unless uc(substr($sidString, 0, 4)) eq "S-1-";
-
-    my ($auth_id, @sub_auth_id) = split(/-/, substr($sidString, 4));
-
-    my $sid = pack("C4", 1, $#sub_auth_id + 1, 0, 0);
-
-    $sid .= pack("C4", ($auth_id & 0xff000000) >> 24, ($auth_id &0x00ff0000) >> 16,
-            ($auth_id & 0x0000ff00) >> 8, $auth_id &0x000000ff);
-
-    for my $loop (0 .. $#sub_auth_id) {
-        $sid .= pack("I", $sub_auth_id[$loop]);
-    }
-
-    return $sid;
-}
-
 sub _guidToString
 {
     my ($self, $guid) = @_;
@@ -439,47 +357,6 @@ sub _stringToGuid
            pack("C", hex $10) . pack("C", hex $11);
 }
 
-sub _checkAccountName
-{
-    my ($self, $name, $maxLength) = @_;
-
-    my $advice = undef;
-
-    if ($name =~ m/\.$/) {
-        $advice = __('Windows account names cannot end with a dot');
-    } elsif ($name =~ m/^-/) {
-        $advice = __('Windows account names cannot start with a dash');
-    } elsif (not $name =~ /^[a-zA-Z\d\s_\-\.]+$/) {
-        $advice = __('To avoid problems, the account name should ' .
-                     'consist only of letters, digits, underscores, ' .
-                      'spaces, periods, and dashes'
-               );
-    } elsif (length ($name) > $maxLength) {
-        $advice = __x("Account name must not be longer than {maxLength} characters",
-                       maxLength => $maxLength);
-    }
-
-    if ($advice) {
-        throw EBox::Exceptions::InvalidData(
-                'data' => __('account name'),
-                'value' => $name,
-                'advice' => $advice);
-    }
-}
-
-sub _checkAccountNotExists
-{
-    my ($self, $samAccountName) = @_;
-
-    my $obj = new EBox::Samba::LdbObject(samAccountName => $samAccountName);
-    if ($obj->exists()) {
-        my $dn = $obj->dn();
-        throw EBox::Exceptions::DataExists(
-            'data' => __('Account name'),
-            'value' => "$samAccountName ($dn)");
-    }
-}
-
 sub setCritical
 {
     my ($self, $critical, $lazy) = @_;
@@ -509,16 +386,6 @@ sub setViewInAdvancedOnly
         type => '1.3.6.1.4.1.4203.666.5.12',
         critical => 0 );
     $self->save($relaxOidControl) unless $lazy;
-}
-
-sub getXidNumberFromRID
-{
-    my ($self) = @_;
-
-    my $sid = $self->sid();
-    my $rid = (split (/-/, $sid))[7];
-
-    return $rid + 50000;
 }
 
 1;

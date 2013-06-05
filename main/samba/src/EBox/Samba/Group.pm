@@ -12,13 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
+
 # Class: EBox::Samba::Group
 #
 #   Samba group, stored in samba LDAP
 #
-
 package EBox::Samba::Group;
 
 use EBox::Global;
@@ -37,7 +38,7 @@ use Error qw(:try);
 
 use constant MAXGROUPLENGTH => 128;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::SecurityPrincipal';
 
 sub new
 {

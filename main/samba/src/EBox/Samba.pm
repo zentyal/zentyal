@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::UsersAndGroups;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
+use EBox::Samba::GPO;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
@@ -975,10 +976,17 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Office',
-                                    'order' => 540));
+    my $folder = new EBox::Menu::Folder(name      => 'Samba',
+                                        text      => $self->printableName(),
+                                        separator => 'Office',
+                                        order     => 540);
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
+                                      text  => __('General'),
+                                      order => 10));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
+                                      text  => __('Group Policy Objects'),
+                                      order => 20));
+    $root->add($folder);
 }
 
 # Method: administratorPassword
@@ -1979,6 +1987,34 @@ sub hostDomainChangedDone
     $value = 'ZENTYAL-DOMAIN' unless defined $value;
     $value = uc ($value);
     $settings->setValue('workgroup', $value);
+}
+
+# Method: gpos
+#
+#   Returns the Domain GPOs
+#
+# Returns:
+#
+#   Array ref containing instances of EBox::Samba::GPO
+#
+sub gpos
+{
+    my ($self) = @_;
+
+    my $gpos = [];
+    my $defaultNC = $self->ldb->dn();
+    my $params = {
+        base => "CN=Policies,CN=System,$defaultNC",
+        scope => 'one',
+        filter => '(objectClass=GroupPolicyContainer)',
+        attrs => ['*']
+    };
+    my $result = $self->ldb->search($params);
+    foreach my $entry ($result->entries()) {
+        push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
+    }
+
+    return $gpos;
 }
 
 1;

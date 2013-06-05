@@ -421,7 +421,9 @@ sub domainSID
     my $msg = $self->search($params);
     if ($msg->count() == 1) {
         my $entry = $msg->entry(0);
-        my $object = new EBox::Samba::LdbObject(entry => $entry);
+        # The object is not a SecurityPrincipal but a SamDomainBase. As we only query
+        # for the sid, it works.
+        my $object = new EBox::Samba::SecurityPrincipal(entry => $entry);
         return $object->sid();
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
