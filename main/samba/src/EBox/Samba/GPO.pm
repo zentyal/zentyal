@@ -55,6 +55,7 @@ sub _entry
 #       1 - User configuration settings disabled
 #       2 - Computer configuration settings disabled
 #       3 - All settings disabled
+#
 sub status
 {
     my ($self) = @_;
@@ -63,6 +64,10 @@ sub status
     return ($flags & 0x11);
 }
 
+# Method: statusString
+#
+#   Returns the GPO status string representation
+#
 sub statusString
 {
     my ($self) = @_;

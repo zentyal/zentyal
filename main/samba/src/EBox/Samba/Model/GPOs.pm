@@ -69,25 +69,17 @@ sub _table
     ];
 
     my $dataTable = {
-                     tableName           => 'GPOs',
-                     printableTableName  => __('Group Policy Objects'),
-                     defaultController   => '/Samba/Controller/GPO',
-                     defaultActions      => ['changeView'],
-                     tableDescription    => $tableDesc,
-                     menuNamespace       => 'Samba/GPOs',
-                     printableRowName    => __('Group Policy Object'),
-                     sortedBy            => 'name',
-                     withoutActions      => 1,
+        tableName           => 'GPOs',
+        printableTableName  => __('Group Policy Objects'),
+        defaultActions      => ['changeView'],
+        tableDescription    => $tableDesc,
+        printableRowName    => __('Group Policy Object'),
+        sortedBy            => 'name',
+        withoutActions      => 1,
+        modelDomain         => 'Samba',
+    };
 
-                     #modelDomain         => 'Samba',
-                     #class               => 'dataTable',
-                     #help                => __('List of Group Policy Objects'),
-                     #enableProperty      => 1,
-                     #defaultEnabledValue => 1,
-                     #orderedBy           => 'name',
-                    };
-
-      return $dataTable;
+    return $dataTable;
 }
 
 # Method: ids
