@@ -1,3 +1,5 @@
+HEAD
+	+ Make manage administrators table resilent against invalid users
 3.0.21
 	+ Added EBox::Types::URI type
 	+ Added saveReload method to use reload instead of restart to
