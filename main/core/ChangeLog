@@ -1,4 +1,6 @@
 HEAD
+	+ Added EBox::Model::Base as base for DataTable and the new TreeView
+	+ Adapted EBox::CGI::Run for the new TreeView models
 	+ Adapted CGIs to new modal dialogs
 	+ Ported graphs from flotr.js to flot.js
 	+ Ported JS code to jQuery and jQuery-ui
