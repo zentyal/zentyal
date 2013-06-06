@@ -1,4 +1,5 @@
 HEAD
+	+ Make manage administrators table resilent against invalid users
 	+ Remove deprecated backup domains related from logs module
 	+ Added EBox::Types::URI type
 	+ Added saveReload method to use reload instead of restart to
