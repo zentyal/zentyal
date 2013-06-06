@@ -25,6 +25,47 @@ package EBox::UsersAndGroups::Contact;
 
 use base 'EBox::UsersAndGroups::InetOrgPerson';
 
+# Method: save
+#
+#   Saves the contact changes.
+#
+sub save
+{
+    my ($self) = @_;
+
+    my $changetype = $self->_entry->changetype();
+
+    my $hasCoreChanges = $self->{core_changed};
+
+    shift @_;
+    $self->SUPER::save(@_);
+
+    if ($changetype ne 'delete') {
+        if ($hasCoreChanges) {
+
+            my $users = EBox::Global->modInstance('users');
+            $users->notifyModsLdapUserBase('modifyContact', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
+        }
+    }
+}
+
+# Method: deleteObject
+#
+#   Delete the contact
+#
+sub deleteObject
+{
+    my ($self) = @_;
+
+    # Notify contact deletion to modules
+    my $users = EBox::Global->modInstance('users');
+    $users->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+
+    # Call super implementation
+    shift @_;
+    $self->SUPER::deleteObject(@_);
+}
+
 # Method: create
 #
 #       Adds a new contact
@@ -74,9 +115,45 @@ sub create
         $contact->{dn} .= ',' . $users->usersDn();
     }
 
-    shift @_;
-    $self->SUPER::create($contact, %params);
-    return new EBox::UsersAndGroups::Contact(dn => $contact->{dn});
+    my $res;
+    my $entry;
+    try {
+        shift @_;
+        $entry = $self->SUPER::create($contact, %params);
+
+        # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
+        $users->notifyModsPreLdapUserBase('preAddContact', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+
+        $res = new EBox::UsersAndGroups::Contact(dn => $contact->{dn});
+
+        # Call modules initialization
+        $users->notifyModsLdapUserBase('addContact', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+    } otherwise {
+        my ($error) = @_;
+
+        EBox::error($error);
+
+        # A notified module has thrown an exception. Delete the object from LDAP
+        # Call to parent implementation to avoid notifying modules about deletion
+        # TODO Ideally we should notify the modules for beginTransaction,
+        #      commitTransaction and rollbackTransaction. This will allow modules to
+        #      make some cleanup if the transaction is aborted
+        if (defined $res and $res->exists()) {
+            $users->notifyModsLdapUserBase('addContactFailed', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+            $res->SUPER::deleteObject(@_);
+        } else {
+            $users->notifyModsPreLdapUserBase('preAddContactFailed', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+        }
+        $res = undef;
+        $entry = undef;
+        throw $error;
+    }
+
+    if ($res->{core_changed}) {
+        $res->save();
+    }
+
+    return $res;
 }
 
 1;

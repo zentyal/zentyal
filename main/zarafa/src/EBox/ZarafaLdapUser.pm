@@ -261,27 +261,38 @@ sub _addUser
 
 }
 
+sub _addContact
+{
+    my ($self, $contact) = @_;
+
+    unless ($self->{zarafa}->configured()) {
+        return;
+    }
+
+    $self->setHasContact($contact, 1);
+}
+
 sub hasContact
 {
-    my ($self, $user) = @_;
-    return 'zarafa-contact' eq any($user->get('objectClass'));
+    my ($self, $person) = @_;
+    return 'zarafa-contact' eq any($person->get('objectClass'));
 }
 
 sub setHasContact
 {
-    my ($self, $user, $contact) = @_;
+    my ($self, $person, $contact) = @_;
 
-    if ($self->hasAccount($user)) {
+    if ($self->hasAccount($person)) {
         # nothing to do here
         return;
     }
 
-    my $alreadyContact = $self->hasContact($user);
+    my $alreadyContact = $self->hasContact($person);
     if ($alreadyContact and not $contact) {
-        $user->remove('objectClass', 'zarafa-contact');
+        $person->remove('objectClass', 'zarafa-contact');
     }
     elsif (not $alreadyContact and $contact) {
-        $user->add('objectClass', 'zarafa-contact');
+        $person->add('objectClass', 'zarafa-contact');
     }
 
     return 0;

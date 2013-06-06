@@ -112,7 +112,6 @@ sub updateZentyal
     my $surName = $self->get('sn');
     my $displayName = $self->get('displayName');
     my $description = $self->get('description');
-    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
