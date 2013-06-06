@@ -1,5 +1,10 @@
 HEAD
 	+ Updated to use the new security group concept.
+	+ Use external squid log file to retrieve HTTP proxy requests
+	+ Added Auth and Cache Exceptions for non-transparent mode
+	  which allow to bypass Squid + Dansguardian auth
+	+ Added CUPS and ftp to SSL_ports
+	+ Avoid warning in AccessRules validateTypedRow
 3.1.1
 	+ Squid time ACLs have independient ids, this fixes several issues
 	  with combinations of time, dates and long acls

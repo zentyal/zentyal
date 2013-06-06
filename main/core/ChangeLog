@@ -1,6 +1,14 @@
 HEAD
 	+ Fixed DataTable row removal from the UI with 100% volatile models with
 	  'ids' method overriden.
+	+ Make manage administrators table resilent against invalid users
+	+ Remove deprecated backup domains related from logs module
+	+ Added EBox::Types::URI type
+	+ Added saveReload method to use reload instead of restart to
+	  reduce service downtime. Use with care and programatically
+	+ Added findValueMultipleFields() to DataTable and refactor _find()
+	  to allow search by multiple fields
+	+ Fixed disk usage report for logs component
 3.1.1
 	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
 	+ Restart all the core daemons instead of only apache after logrotate

@@ -889,7 +889,7 @@ sub reloadNSCD
 {
     if ( -f '/etc/init.d/nscd' ) {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd reload');
+            EBox::Sudo::root('/etc/init.d/nscd force-reload');
         } otherwise {};
    }
 }
@@ -1741,23 +1741,6 @@ sub _usersInEtcPasswd
     }
 
     return \@users;
-}
-
-sub backupDomains
-{
-    my $name = 'homes';
-    my %attrs  = (
-                  printableName => __('Home directories'),
-                  description   => __(q{User and groups home directoreies; anything under /home}),
-                  order         => 300,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    return { includes => ['/home']   };
 }
 
 sub restoreDependencies

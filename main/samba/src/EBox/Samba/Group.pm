@@ -252,11 +252,11 @@ sub addToZentyal
         $gidNumber = $self->getXidNumberFromRID();
         $optParams{gidNumber} = $gidNumber;
         $self->set('gidNumber', $gidNumber);
-        $self->setupGidMapping($gidNumber);
     }
+    $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $gid");
+    $self->setupGidMapping($gidNumber);
 
     $optParams{security} = $self->security();
-
     $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
 

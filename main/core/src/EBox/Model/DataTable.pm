@@ -2168,7 +2168,7 @@ sub find
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, undef, 'printableValue')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2191,7 +2191,7 @@ sub find
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAll('default' => 1);
 #
 # Returns:
 #
@@ -2201,6 +2201,7 @@ sub find
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub findAll
 {
     my ($self, $fieldName, $value) = @_;
@@ -2209,7 +2210,7 @@ sub findAll
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'printableValue')};
 
     return \@matched;
 }
@@ -2227,7 +2228,7 @@ sub findAll
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findValue('default' => 1);
 #
 # Returns:
 #
@@ -2243,11 +2244,39 @@ sub findValue
 {
     my ($self, $fieldName, $value) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
-    }
+    $self->findValueMultipleFields({ $fieldName => $value });
+}
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+# Method: findValueMultipleFields
+#
+#    Return the first row that matches the value of the given
+#    fields against the data returned by the method value()
+#
+#    If you want to match against printable value use
+#    <EBox::Model::DataTable::find>
+# Parameters:
+#
+#     fields     - hash ref with the fields and values to look for
+#
+#     Example:
+#
+#     findValueMultipleFields({'default' => 1});
+#
+# Returns:
+#
+#     <EBox::Model::Row> - the matched row
+#
+#     undef if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findValueMultipleFields
+{
+    my ($self, $fields) = @_;
+
+    my @matched = @{$self->_find($fields, undef, 'value')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2261,7 +2290,7 @@ sub findValue
 #    Return all the rows that match the value of the given
 #    field against the data returned by the method value()
 #
-#    If you want to match against value use
+#    If you want to match against printable value use
 #    <EBox::Model::DataTable::find>
 #
 #
@@ -2271,7 +2300,7 @@ sub findValue
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAllValue('default' => 1);
 #
 # Returns:
 #
@@ -2291,7 +2320,7 @@ sub findAllValue
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'value')};
 
     return \@matched;
 }
@@ -2328,11 +2357,12 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+    my $values = { $fieldName => $value };
+    my @matched = @{$self->_find($values, undef, 'value')};
     if (@matched) {
         return $matched[0];
     } else {
-        @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+        @matched = @{$self->_find($values, undef, 'printableValue')};
         return @matched ? $matched[0] : undef;
     }
 }
@@ -3197,14 +3227,14 @@ sub _volatile
 #
 #    (PRIVATE)
 #
-#    Used by find and findAll to find rows in a table
+#    Used by find* methods to find rows in a table matching the given fields values
 #
 # Parameters:
 #
 #    (POSITIONAL)
 #
-#    fieldName  - the name of the field to match
-#    value      - value we want to match
+#    values     - hash ref with the fields and values to look for
+#
 #    allMatches - 1 or undef to tell the method to return just the
 #                 first match or all of them
 #
@@ -3216,7 +3246,7 @@ sub _volatile
 #
 # Example:
 #
-#     _find('default',  1, undef, 'printableValue');
+#     _find({'default' => 1}, undef, 'printableValue');
 #
 # Returns:
 #
@@ -3225,11 +3255,18 @@ sub _volatile
 #
 sub _find
 {
-    my ($self, $fieldName, $value, $allMatches, $kind, $nosync) = @_;
+    my ($self, $values, $allMatches, $kind, $nosync) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
+    unless (defined ($values) and (ref ($values) eq 'HASH')) {
+        throw EBox::Exceptions::MissingArgument("Missing values or invalid hash ref");
     }
+
+    my @fields = keys (%{$values});
+
+    unless (@fields) {
+        throw EBox::Exceptions::InvalidData("No fields/values provided");
+    }
+
     my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
@@ -3239,20 +3276,27 @@ sub _find
     my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        if (defined ($element)) {
-            my $eValue;
-            if ($kind eq 'printableValue') {
-                $eValue = $element->printableValue();
-            } else {
-                $eValue = $element->value();
-            }
-            if ((defined $eValue) and ($eValue eq $value)) {
-                if ($allMatches) {
-                    push (@matched, $id);
+        my $matches = 0;
+        foreach my $field (@fields) {
+            my $element = $row->elementByName($field);
+            if (defined ($element)) {
+                my $eValue;
+                if ($kind eq 'printableValue') {
+                    $eValue = $element->printableValue();
                 } else {
-                    return [ $id ];
+                    $eValue = $element->value();
                 }
+                if ((defined $eValue) and ($eValue eq $values->{$field})) {
+                    $matches++;
+                }
+            }
+        }
+
+        if ($matches == @fields) {
+            if ($allMatches) {
+                push (@matched, $id);
+            } else {
+                return [ $id ];
             }
         }
     }
@@ -3269,7 +3313,7 @@ sub _checkFieldIsUnique
     }
     my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
+        @{$self->_find({ $newData->fieldName() => $printableValue }, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(

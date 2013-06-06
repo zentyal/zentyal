@@ -1,3 +1,5 @@
+HEAD
+	+ Remove deprecated backup domains methods
 3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed no longer required explicit disabling of apache2 init script
