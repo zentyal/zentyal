@@ -1,5 +1,5 @@
-main_color: "#A6C733"
-secondary_color: "#A3BD5B"
+main_color: "#69BE28"
+secondary_color: "rgba(105, 190, 40, 0.3)"
 third_color: "#BBDF39"
 
 # login.css
@@ -18,11 +18,11 @@ remote_svcs_hover_bg_color: "#CCE86C"
 
 footer_custom_style: "text-align: center;"
 
-data_table_border_color: "#D6DBBE"
-data_table_inner_border_color: "#658037"
-data_table_color: "#D8DAC1"
-data_table_bg_color: "#EFF4DD"
-data_table_bg_even: "#ecf5da"
+data_table_border_color: "#69BE28"
+data_table_inner_border_color: "#eee"
+data_table_color: "#000"
+data_table_bg_color: "#fff"
+data_table_bg_even: "#fff"
 data_table_bg_highlight: "#FFC200"
 data_table_bg_highlight_hover: "#F2A349"
 
@@ -33,8 +33,8 @@ a_notchanged_hover_color: "#CBF23E"
 
 dashboard_thead_bg_color: "#808000"
 
-progress_bar_bg_color: "#e4f88e"
-progress_bar_fg_color: "#bbdf39"
+progress_bar_bg_color: "#69BE28"
+progress_bar_fg_color: "#white"
 
 # tooltips
 help_color:      "#484554"
