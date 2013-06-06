@@ -65,7 +65,7 @@ sub _userNodes
 
     foreach my $user (@{$self->parentModule()->realUsers()}) {
         my $id = $user->dn();
-        my $printableName = $user->cn();
+        my $printableName = $user->fullname();
 
         push (@nodes, { id => $id, printableName => $printableName });
     }
@@ -79,9 +79,9 @@ sub _groupNodes
 
     my @nodes;
 
-    foreach my $user (@{$self->parentModule()->groups()}) {
-        my $id = $user->dn();
-        my $printableName = $user->cn();
+    foreach my $group (@{$self->parentModule()->groups()}) {
+        my $id = $group->dn();
+        my $printableName = $group->name();
 
         push (@nodes, { id => $id, printableName => $printableName });
     }
