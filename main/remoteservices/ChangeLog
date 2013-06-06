@@ -1,4 +1,5 @@
 HEAD
+	+ Remove deprecated backup domain report in ebackup reporter
 	+ Custom QA archive can be set at qa_updates_archive configuration
 	  key
 	+ Custom QA repository can be set at qa_updates_repo configuration

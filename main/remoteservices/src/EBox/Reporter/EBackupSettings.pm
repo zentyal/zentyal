@@ -86,7 +86,6 @@ sub _consolidate
     my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
 
     my $res = {};
-    $res->{backup_domains} = $ebackup->model('BackupDomains')->report();
     my $settings = $ebackup->model('RemoteSettings')->report();
     foreach my $k (keys(%{$settings})) {
         $res->{$k} = $settings->{$k};

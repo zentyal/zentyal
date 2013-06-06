@@ -1631,32 +1631,6 @@ sub restoreConfig
 
 }
 
-# backup stuff
-
-sub backupDomains
-{
-    my $name = 'mailboxes';
-    my %attrs  = (
-                  printableName => __('Mailboxes'),
-                  description   => __(q{Mail messages from users and group alias}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{mailboxes}) {
-        my $selection = {
-                          includes => [ $self->_storageMailDirs() ],
-                         };
-        return $selection;
-    }
-
-    return {};
-}
-
 sub _storageMailDirs
 {
     return  (qw(/var/mail /var/vmail));
