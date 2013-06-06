@@ -29,19 +29,20 @@ Zentyal.escapeSelector = function(selector) {
 /*
 Function: stripe
 
-  Applies a styles class to tr elements childs of a CSS class; the class applied will be different
-  for odd and even elements
+  Applies a styles class to tbody > tr elements childs of the elements of a jQuery collection;
+  the class applied will be different   for odd and even elements
 
   For example, it is usde to give distinct colort to even and odd rows in tables
 
   Parameters:
-     theclass - css class which will vontain a tbody and tr to apply style
+     selector - jQuery selector which will contain a tbody and tr to apply style
      evenClass - css class to apply to even tr
      oddClass - css class to apply to odd tr
 */
-Zentyal.stripe = function (theclass, evenClass, oddClass) {
-    jQuery('.' + theclass + ' tbody tr:nth-child(even)').addClass(evenClass);
-    jQuery('.' + theclass + ' tbody tr:nth-child(odd)').addClass(oddClass);
+Zentyal.stripe = function (selector, evenClass, oddClass) {
+    var collection = jQuery(selector);
+    collection.find('tbody tr:nth-child(even)').addClass(evenClass);
+    collection.find('tbody tr:nth-child(odd)').addClass(oddClass);
 };
 
 //** Zentyal.LetfMenu namespace **\\

@@ -48,12 +48,12 @@ sub _process
       $partition = $partitions[0];
     }
 
-    my $chartUrl       = EBox::Report::DiskUsage::chart($partition);
+    my $chartDataset = EBox::Report::DiskUsage::fsDataset($partition);
 
     my @templateParams = (
                   partition     => $partition,
                   partitionAttr => $fileSystems->{$partition},
-                  chartUrl => $chartUrl,
+                  dataset => $chartDataset,
                   partitions    => \@partitions,
                  );
 
