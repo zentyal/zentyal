@@ -253,8 +253,106 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1.1') <= 0) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.2
+#
+#  * Migrate current OpenLDAP schema to the new one in 3.2
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    my $ldap = $self->ldap;
+
+    # LDAP Backup.
+    my $backupDir = EBox::Config::conf . "backup-users-upgrade-to-32-" . time();
+    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
+    $self->dumpConfig($backupDir);
+
+    # Load the new Zentyal LDAP schema tree.
+    try {
+        $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif')
+    } otherwise {
+        my ($error) = @_;
+
+        EBox::error("Reverting LDAP changes");
+        $self->restoreConfig($backupDir);
+        throw $error;
+    }
+
+    my %args = (
+        base => $ldap->dn(),
+        filter => '(objectclass=zentyal-group)',
+        scope => 'sub',
+    );
+
+    my $result = $ldap->search(\%args);
+
+    # Migrate all objects using the old object schema to use the new one.
+    foreach my $entry ($result->entries) {
+        try {
+            $ldap->modify($entry, {changes => [add => [objectClass => 'zentyal-distribution-group']]});
+            $ldap->modify($entry, {changes => [delete => [objectclass => 'zentyal-group']] });
+        } otherwise {
+            my ($error) = @_;
+
+            EBox::error("Reverting LDAP changes");
+            $self->restoreConfig($backupDir);
+            throw $error;
+        }
+    }
+
+    # We removed the zentyal-group object, we refresh the objects in the old schema location:
+    my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
+
+    my %args = (
+        base => 'cn=schema,cn=config',
+        filter => "(objectClass=olcSchemaConfig)",
+        scope => 'sub',
+    );
+
+    my $result = $ldap->search(\%args);
+
+    for my $entry ($result->entries) {
+        if($entry->get_value('cn') =~ m/rfc2307bis/) {
+            EBox::info("Migrating " . $entry->dn() . " schema");
+            my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
+            defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
+
+            if (not $ldif->eof()) {
+                my $newEntry = $ldif->read_entry();
+                if ($ldif->error()) {
+                    throw EBox::Exceptions::Internal(
+                        "Can't load LDIF file: $newSchema");
+                }
+                $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
+                my $updateResult = $entry->update($ldap->ldapCon());
+                if ($updateResult->is_error()) {
+                    EBox::error($updateResult->error());
+                    EBox::error("Reverting LDAP changes");
+                    $self->restoreConfig($backupDir);
+                    throw EBox::Exceptions::Internal(
+                        "Found and error while updating LDAP schema!");
+                }
+                if (not $ldif->eof()) {
+                    EBox::error("Found unexpected entries in $newSchema");
+                    EBox::error("Reverting LDAP changes");
+                    $self->restoreConfig($backupDir);
+                    throw EBox::Exceptions::Internal(
+                        "Found and error while updating LDAP schema!");
+                }
+                $ldif->done();
+            }
+        }
+    }
 }
 
 sub setupKerberos
