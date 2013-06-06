@@ -106,6 +106,10 @@ sub modelFromUrl
 
     my ($model, $namespace, $type) = _parseModelUrl($url);
     return undef unless ($model and $namespace);
+    # FIXME!
+    if ($namespace eq 'UsersAndGroups') {
+        $namespace = 'Users';
+    }
     my $path = lc ($namespace) . "/$model";
     return _instanceComponent($path, $type);
 }
@@ -233,6 +237,10 @@ sub _instanceModelCGI
     return undef unless ($modelName and $namespace and $type);
 
     my $manager = EBox::Model::Manager->instance();
+    # FIXME!
+    if ($namespace eq 'UsersAndGroups') {
+        $namespace = 'Users';
+    }
     my $path = lc ($namespace) . "/$modelName";
     return undef unless $manager->componentExists($path);
 
