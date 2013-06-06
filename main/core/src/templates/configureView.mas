@@ -11,7 +11,7 @@ use EBox::Gettext;
 <div class='note'>
 % if (@depsToEnable) {
 <p>
-<% __x('Enabling this module also will be enable its dependecies: {deps}', deps => join ', ', @depsToEnable) %>
+<% __x('Enabling this module will also enable its dependecies: {deps}', deps => join ', ', @depsToEnable) %>
 </p>
 % }
 % if (@actions or @files) {
