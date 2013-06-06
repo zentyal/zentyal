@@ -45,28 +45,17 @@ sub _process
     $self->_requireParam('module');
     $self->_requireParam('enable');
 
-    my $global = EBox::Global->getInstance();
     my $modName = $self->param('module');
     my $enable  = $self->param('enable');
-
-    if ($enable) {
-        # enable dependencies of all modules to enable, if the module is disabled
-        # the setService module take cares of that
-        my @deps = @{ $global->modInstance($modName)->enableModDependsRecursive()};
-        foreach my $name (@deps) {
-            $global->modInstance($name)->enableService(1);
-        }
-    }
-
-    my $mod = $global->modInstance($modName);
-    $mod->enableService($enable);
-
-    # answer
     my $manager = EBox::ServiceManager->new();
+
+    $manager->enableService($modName, $enable);
+
+    # CGI response
     my $modules = $manager->moduleStatus();
     my @params;
     push @params, (modules => $modules,
-                   hasChanged => EBox::Global->getInstance()->unsaved());
+                   hasChanged =>  EBox::Global->getInstance()->unsaved());
 
     $self->{params} = \@params;
 }
