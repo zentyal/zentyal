@@ -17,9 +17,9 @@ use EBox::Gettext;
 % if (@actions or @files) {
 <p>
 %  if (@depsToEnable) {
-<% __('Enabling the modules will make some modifications to the system.') %>
+<% __(q{The modules' enable process will make some modifications to the system.}) %>
 % } else {
-<% __('Enbaling the module will make some modifications to the  system.') %>
+<% __('Enabling the module will make some modifications to the system.') %>
 % }
 <% __x('{ohref}Click here to see the details{chref}',
        ohref => q{<a id='seeDetails' href='#'>},
