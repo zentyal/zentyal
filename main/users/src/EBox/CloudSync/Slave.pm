@@ -101,7 +101,7 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
-    return if (not $group->security());
+    return if (not $group->isSecurityGroup());
 
     my $users = EBox::Global->modInstance('users');
     return if ($group->baseDn() ne $users->groupsDn());
@@ -122,7 +122,7 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    return if (not $group->security());
+    return if (not $group->isSecurityGroup());
 
     my $users = EBox::Global->modInstance('users');
     return if ($group->baseDn() ne $users->groupsDn());

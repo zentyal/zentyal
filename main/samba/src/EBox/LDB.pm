@@ -527,7 +527,7 @@ sub ldapGroupsToLdb
             my %params = ();
 
             push (%params, description => scalar ($group->get('description')));
-            if $group->security() {
+            if $group->isSecurityGroup() {
                 push (%params, gidNumber => scalar ($group->get('gidNumber')));
                 push (%params, security => 1);
             };

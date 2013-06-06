@@ -256,7 +256,7 @@ sub addToZentyal
     $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $gid");
     $self->setupGidMapping($gidNumber);
 
-    $optParams{security} = $self->security();
+    $optParams{security} = $self->isSecurityGroup();
     $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
 
@@ -279,7 +279,7 @@ sub updateZentyal
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
     $zentyalGroup->setIgnoredModules(['samba']);
-    $zentyalGroup->setSecurity($self->security, 1)
+    $zentyalGroup->setSecurity($self->isSecurityGroup, 1)
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 
@@ -373,7 +373,11 @@ sub _checkAccountName
     }
 }
 
-sub security
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+sub isSecurityGroup
 {
     my ($self) = @_;
 

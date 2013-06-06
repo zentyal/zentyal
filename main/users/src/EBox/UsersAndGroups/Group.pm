@@ -584,7 +584,11 @@ sub _checkGroupName
     return 1;
 }
 
-sub security
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+sub isSecurityGroup
 {
     my ($self) = @_;
 
@@ -597,7 +601,7 @@ sub system
 {
     my ($self) = @_;
 
-    if ($self->security()) {
+    if ($self->isSecurityGroup()) {
         return ($self->get('gidNumber') < MINGID);
     } else {
         # System groups are only valid with security groups.

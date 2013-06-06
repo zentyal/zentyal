@@ -474,7 +474,7 @@ sub create
 
     my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
     my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
-    if (not $group->security()) {
+    if (not $group->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('default group'),
             'value' => $group->name(),
