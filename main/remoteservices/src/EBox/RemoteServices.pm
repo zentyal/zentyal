@@ -1662,6 +1662,7 @@ sub _setProxyRedirections
     } else {
         # Do nothing if include is already removed
         try {
+            unlink($confFile) if (-f $confFile);
             $apacheMod->removeInclude($confFile);
         } catch EBox::Exceptions::Internal with { ; };
     }
