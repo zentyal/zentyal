@@ -1,5 +1,6 @@
 HEAD
 	+ Added support for Contacts handling.
+3.1.2
 	+ Remove deprecated backup domain methods
 	+ Fixed password change in user corner when using samba
 	+ Changed reload action to force-reload for nscd init.d daemon

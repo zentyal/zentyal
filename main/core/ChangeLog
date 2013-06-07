@@ -1,6 +1,7 @@
 HEAD
 	+ Fixed DataTable row removal from the UI with 100% volatile models with
 	  'ids' method overriden.
+3.1.2
 	+ Make manage administrators table resilent against invalid users
 	+ Remove deprecated backup domains related from logs module
 	+ Added EBox::Types::URI type
