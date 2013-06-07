@@ -27,8 +27,6 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-## arguments:
-##	title [required]
 sub new
 {
     my $class = shift;
@@ -41,16 +39,48 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
     my $mod = $self->param('module');
-    my $modInstance = EBox::Global->modInstance($mod);
+    my $modInstance = $global->modInstance($mod);
+    my %files   = map {
+         ($_->{file} => $_)
+    }   @{ $modInstance->usedFiles};
+    my @actions = @{ $modInstance->actions()  };
 
-    my @params;
-    push (@params, (files => $modInstance->usedFiles(),
-                    actions => $modInstance->actions(),
-                    module => $mod));
+    my @depsToEnable;
+    my @modDeps = @{ $modInstance->enableModDependsRecursive()  };
+    foreach my $depName (@modDeps) {
+        my $depMod = $global->modInstance($depName);
+        $depMod->isa('EBox::Module::Service') or next;
 
-    $self->{params} = \@params;
+        if ($depMod->isEnabled()) {
+            next;
+        }
+        push @depsToEnable, $depMod->printableName();
+
+        foreach my $usedFile (@{ $depMod->usedFiles()  }) {
+            if ($files{$usedFile->{file}}) {
+                my $file = $files{$usedFile->{file}};
+                $file->{module} .= ' ' . $usedFile->{module};
+                $file->{reason} .= "\n" . $usedFile->{reason};
+            } else {
+                $files{$usedFile->{file}} = $usedFile;
+            }
+        }
+
+        push @actions, @{ $depMod->actions() };
+
+    }
+
+    my @params = (files => [values %files],
+                  actions => \@actions,
+                  module => $mod,
+                  depsToEnable => \@depsToEnable,
+                 );
+   $self->{params} = \@params;
+
 }
 
 sub _print

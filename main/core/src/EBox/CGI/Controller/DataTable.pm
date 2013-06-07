@@ -159,29 +159,6 @@ sub addRow
     return $id;
 }
 
-sub moveRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    $self->_requireParam('dir');
-
-    my $id = $self->unsafeParam('id');
-    my $dir = $self->param('dir');
-
-    my $before = $model->_rowOrder($id);
-    if ($dir eq 'up') {
-        $model->moveUp($id);
-    } else {
-        $model->moveDown($id);
-    }
-    my $after = $model->_rowOrder($id);
-
-    $self->_auditLog('move', $self->_getAuditId($id), $before, $after);
-}
-
 sub removeRow
 {
     my $self = shift;
@@ -409,13 +386,6 @@ sub delAction
     $self->refreshTable();
 }
 
-sub moveAction
-{
-    my ($self) = @_;
-    $self->moveRow();
-    $self->refreshTable();
-}
-
 sub changeAddAction
 {
     my ($self) = @_;
@@ -497,6 +467,24 @@ sub confirmationDialogAction
         message => $msg,
         title => $title
        };
+}
+
+sub setPositionAction
+{
+    my ($self, %params) = @_;
+    my $model = $params{model};
+
+    $self->{json} = { success => 0};
+    my $id     = $self->param('id');
+    my $prevId = $self->param('prevId');
+    (not $prevId) and $prevId = undef;
+    my $nextId = $self->param('nextId');
+    (not $nextId) and $nextId = undef;
+
+    my $res = $model->moveRowRelative($id, $prevId, $nextId);
+    $self->_auditLog('move', $self->_getAuditId($id), $res->[0], $res->[1]);
+
+    $self->{json}->{success} = 1;
 }
 
 # Group: Protected methods

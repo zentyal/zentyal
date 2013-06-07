@@ -375,7 +375,7 @@ sub modelsUsingId
 #
 #   model -  model name, with module path, where the action took place
 #   action - string represting the action:
-#	     [ add, del, edit, moveUp, moveDown ]
+#	     [ add, del, edit ]
 #
 #   row  - <EBox::Model::Row> row modified
 #

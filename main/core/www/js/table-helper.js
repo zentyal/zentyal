@@ -321,17 +321,16 @@ Parameters:
     table - the table's name
     action - the action to do (move, del)
     rowId  - the affected row identifier
-    paramsAction - an string with the parameters related to the
-                   action E.g.: param1=value1&param2=value2 *(Optional)*
     directory - the GConf directory where table is stored
+    page        -
+    extraParams - an string with the parameters related to the
+                   action E.g.: param1=value1&param2=value2 *(Optional)*
+
 
 */
-Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsAction, directory, page, extraParams) {
+Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  directory, page, extraParams) {
     var params = '&action=' + action + '&id=' + rowId;
 
-    if ( paramsAction !== '' ) {
-        params += '&' + paramsAction;
-    }
     if ( page != undefined ) {
         params += '&page=' + page;
     }
@@ -372,10 +371,7 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId, paramsA
 
   if ( action == 'del' ) {
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
-  }  else if ( action == 'move' ) {
-    Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table);
   }
-
 };
 
 Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {
@@ -832,8 +828,7 @@ Parameters:
         modelName - the model name to distinguish among hiddenDiv tags XXX not used. Remove?
 
 */
-Zentyal.TableHelper.restoreHidden  = function (elementId, modelName)
-{
+Zentyal.TableHelper.restoreHidden  = function (elementId, modelName) {
     if (savedElements[elementId] !== null) {
         jQuery('#' + elementId).html(savedElements[elementId]);
     } else {
@@ -1116,4 +1111,59 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
             }
         }
     });
+};
+
+Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
+    var tableBody = jQuery('#' + tableName + '_tbody');
+    tableBody.sortable({
+        elements: '.movableRow',
+        handle: '.moveRowHandle',
+        containment: 'parent',
+        tolerance: 'pointer',
+        delay: 100,
+        helper: function(e, ui) {
+            ui.children().each(function() {
+                jQuery(this).width(jQuery(this).width());
+            });
+            return ui;
+        },
+        update: function(event, ui) {
+            var movedId = ui.item.attr('id');
+            var newOrder = tableBody.children('tr').map(function() {
+                         return this.id ? this.id : null;
+            }).get();
+            Zentyal.TableHelper.changeOrder(url, tableName, directory, movedId, newOrder);
+            Zentyal.stripe('#' + tableName, 'even', 'odd');
+        }
+    });
+};
+
+Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order) {
+    var data;
+    var prevId = 0, nextId = 0;
+
+    for (var i=0; i < order.length; i++) {
+        if (order[i] === movedId) {
+            if ((i-1) >= 0) {
+                prevId = order[i-1];
+            }
+            if ((i+1) < order.length) {
+                nextId = order[i+1];
+            }
+        }
+    }
+
+    if ((prevId === null) && (nextId === null)) {
+        // no real change
+        return;
+    }
+
+    data = 'action=setPosition&tablename=' + table + '&directory=' + directory;
+    data += '&id=' + movedId;
+    data += '&prevId=' + prevId;
+    data += '&nextId=' + nextId;
+    jQuery.ajax({
+       url: url,
+       data: data
+   });
 };

@@ -146,7 +146,7 @@ Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title
     packages = jQuery('#' + container + ' :checked').map(function() {
          return 'pkg-' + this.getAttribute('data-pkg');
     }).get();
-    Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup);
+    Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);
 };
 
 Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {

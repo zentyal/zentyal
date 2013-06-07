@@ -76,25 +76,6 @@ sub addRow
     $model->addRow($self->getParams());
 }
 
-sub moveRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    $self->_requireParam('dir');
-
-    my $id = $self->param('id');
-    my $dir = $self->param('dir');
-
-    if ($dir eq 'up') {
-        $model->moveUp($id);
-    } else {
-        $model->moveDown($id);
-    }
-}
-
 sub removeRow
 {
     my $self = shift;
@@ -273,9 +254,6 @@ sub _process
         $self->refreshTable(1, $action);
     } elsif ($action eq 'del') {
         $self->removeRow();
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'move') {
-        $self->moveRow();
         $self->refreshTable(1, $action);
    } elsif ($action eq 'changeAdd') {
         my $showTable = not $firstShow;

@@ -446,7 +446,7 @@ sub modifiedModules
 
     my $sorted;
     if ( $from eq 'enable' ) {
-        $sorted = sortModulesEnableModDepends(\@mods);
+        $sorted = __PACKAGE__->sortModulesEnableModDepends(\@mods);
     } else {
         $sorted = __PACKAGE__->sortModulesByDependencies(\@mods, 'depends');
     }
@@ -458,8 +458,8 @@ sub modifiedModules
 
 sub sortModulesEnableModDepends
 {
-    my ($mods) = @_;
-    return __PACKAGE__->sortModulesByDependencies(
+    my ($self, $mods) = @_;
+    return $self->sortModulesByDependencies(
         $mods,
         'enableModDepends'
        );

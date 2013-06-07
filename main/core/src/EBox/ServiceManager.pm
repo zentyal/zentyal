@@ -56,6 +56,32 @@ sub new
     return $self;
 }
 
+# Method: enableService
+#
+#   set service for a module, taking care of enabling or disabling its dependencies
+#
+# Parameters
+#
+#       modName -  module name
+#       status    - true to enable, false to disable
+#
+sub enableService
+{
+    my ($self, $modName, $status) = @_;
+    my $global = EBox::Global->getInstance();
+    if ($status) {
+        # enable dependencies of all modules to enable, if the module is disabled
+        # the setService module take cares of that
+        my @deps = @{ $global->modInstance($modName)->enableModDependsRecursive()};
+        foreach my $name (@deps) {
+            $global->modInstance($name)->enableService(1);
+        }
+    }
+
+    my $mod = $global->modInstance($modName);
+    $mod->enableService($status);
+}
+
 # Method: moduleStatus
 #
 #   It returns the status for all modules which implement the interface CLASS
@@ -137,7 +163,7 @@ sub dependencyEnabled
     for my $mod (@{$global->modInstance($module)->enableModDepends()}) {
         my $instance = $global->modInstance($mod);
         unless (defined($instance)) {
-            EBox::debug("$mod can't be instanced");
+            EBox::warn("$mod can't be instanced");
             next;
         }
 
@@ -148,35 +174,6 @@ sub dependencyEnabled
 
     return 1;
 }
-
-# Method: enableServices
-#
-#   Enable/disable module services
-#
-# Parameters:
-#
-#   Hash containing the services and its required status
-#
-#   Example:
-#
-#   { 'network' => 1, 'samba' => undef }
-sub enableServices
-{
-    my ($self, $services) = @_;
-
-    my $global = $self->{'confmodule'};
-
-    for my $mod (keys %{$services}) {
-        my $modInstance = $global->modInstance($mod);
-        unless (defined $modInstance) {
-            EBox::debug("$mod can't be instanced");
-            next;
-        }
-        next unless ($modInstance->isa(CLASS));
-        $modInstance->enableService($services->{$mod});
-    }
-}
-
 # Method: enableAllModules
 #
 #       This method enables all modules implementing

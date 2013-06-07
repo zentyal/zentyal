@@ -18,7 +18,8 @@ if (!('Zentyal' in  window)) {
 
             return nsObject;
         },
-        LeftMenu: {}
+        LeftMenu: {},
+        MenuSearch: {}
     };
 }
 
@@ -41,8 +42,8 @@ Function: stripe
 */
 Zentyal.stripe = function (selector, evenClass, oddClass) {
     var collection = jQuery(selector);
-    collection.find('tbody tr:nth-child(even)').addClass(evenClass);
-    collection.find('tbody tr:nth-child(odd)').addClass(oddClass);
+    collection.find('tbody tr:nth-child(even)').removeClass(oddClass).addClass(evenClass);
+    collection.find('tbody tr:nth-child(odd)').removeClass(evenClass).addClass(oddClass);
 };
 
 //** Zentyal.LetfMenu namespace **\\
@@ -104,8 +105,7 @@ Zentyal.LeftMenu._close = function(name, menuAnchor) {
 };
 
 // XXX used only in the not-tottaly implemented data table sections feature
-function toggleWithToggler(name)
-{
+Zentyal.toggleWithToggler = function(name) {
     var togglername = name + '_toggler';
     var element = jQuery(name);
     if (element.hasClass('minBox')) {
@@ -118,4 +118,65 @@ function toggleWithToggler(name)
         element.addClass('minBox');
     }
     element.hide('blind');
-}
+};
+
+// Zentya.MenuSearch namespace
+Zentyal.MenuSearch.hideMenuEntry = function(id) {
+    var i;
+    while((i=id.lastIndexOf('_'))  != 4) {
+        jQuery('#' + id).hide();
+        id = id.substr(0,i);
+    }
+    jQuery('#' + id).hide();
+};
+
+Zentyal.MenuSearch.showMenuEntry = function (id) {
+    var i;
+    while((i=id.lastIndexOf('_'))  != 4) {
+        jQuery('#' + id).show();
+        id = id.substr(0,i);
+    }
+    jQuery('#' + id).show();
+};
+
+Zentyal.MenuSearch.showAllMenuEntries = function() {
+    jQuery('li[id^=menu_]').each(function(index, domElem) {
+        var elem = jQuery(domElem);
+        if (elem.attr('id').lastIndexOf('_')  == 4) {
+            elem.show();
+        } else {
+            elem.hide();
+        }
+    });
+};
+
+Zentyal.MenuSearch.updateMenu = function(results) {
+     jQuery('li[id^=menu_]').each(function(index, elem) {
+            jQuery(elem).hide();
+     });
+     jQuery.each(results,function(index, e) {
+          //show it even if it's already in old_results in case we have
+          //hidden it through a parent menu
+         Zentyal.MenuSearch.showMenuEntry(e);
+    });
+};
+
+Zentyal.MenuSearch.filterMenu = function(event) {
+    var text = jQuery(event.target).val();
+    text = text.toLowerCase();
+    if(text.length >= 3) {
+        var url = '/Menu?search=' + text;
+        jQuery.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+                Zentyal.MenuSearch.updateMenu(response);
+            }
+        });
+    } else {
+        Zentyal.MenuSearch.showAllMenuEntries();
+    }
+
+};
+

@@ -247,7 +247,7 @@ sub _viewConsoleClicked
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-   return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, load: function () { } )}); return false",
+   return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, load: function () { } }); return false",
 }
 
 sub _acquirePaused
