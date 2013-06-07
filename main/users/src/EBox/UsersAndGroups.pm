@@ -253,7 +253,7 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    if (defined($version) and EBox::Util::Version::compare($version, '3.1.1') <= 0) {
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1.2') <= 0) {
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
