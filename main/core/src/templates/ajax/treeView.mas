@@ -47,7 +47,14 @@ jQuery(function () {
 % }
 		]
 	},
-	"plugins" : [ "themes", "json_data", "ui" ]
+    "types" : {
+         "types" : {
+             "user" : { "icon" : { "image" : "/data/images/treeview/user.png" } },
+             "group" : { "icon" : { "image" : "/data/images/treeview/group.png" } },
+             "contact" : { "icon" : { "image" : "/data/images/treeview/contact.png" } }
+         }
+    },
+	"plugins" : [ "themes", "json_data", "ui", "types" ]
   });
 
 });
