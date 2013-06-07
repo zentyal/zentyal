@@ -1,0 +1,22 @@
+<%doc>
+  This template is intended to set up a proxy SSL redirection based on
+  remoteservices_redirection.conf file
+</%doc>
+<%args>
+   %redirections
+</%args>
+Include /etc/apache2/mods-available/proxy.load
+Include /etc/apache2/mods-available/proxy_http.load
+
+<IfModule mod_proxy.c>
+   ProxyRequests Off
+   ProxyVia      On
+
+<IfModule mod_rewrite.c>
+% while ( my ($url, $target) = each %redirections) {
+   RewriteCond %{HTTP:Via}    .
+   RewriteCond %{HTTP_COOKIE} Auth_EBox
+   RewriteRule /<% $url %>(.*) <% $target %>$1 [P,L]
+% }
+</IfModule>
+</IfModule>
