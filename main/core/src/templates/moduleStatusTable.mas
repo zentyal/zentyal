@@ -29,8 +29,6 @@ function configureModule(module, title)
         modCheckbox.prop('checked', false);
         Zentyal.Dialog.showURL('/ServiceModule/ConfigureView', {
                    title: title,
-                   width: 600,
-                   height: 400,
                    data: 'module=' + module,
                    load: function() {
                         jQuery('#accept', this).focus();
