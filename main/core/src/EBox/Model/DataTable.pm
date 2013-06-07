@@ -35,6 +35,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Types::Boolean;
+use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
@@ -2564,18 +2565,34 @@ sub automaticRemoveMsg
 #
 # Returns:
 #
-#    int - page size
+#    int page size or '_all' for 'All pages' option
 sub pageSize
 {
     my ($self) = @_;
 
     # if the user has selected a page size return it
-    if (exists $self->{'pageSize'} ) {
-        return $self->{'pageSize'};
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
+    if ($pageSize) {
+        return $pageSize;
     }
 
     return $self->defaultPageSize();
 }
+
+# Method: pageSizeIntValue
+#
+#  return the exact maximum number of rows which should be displayed in each
+#  page
+sub pageSizeIntValue
+{
+    my ($self) = @_;
+    my $pageSize = $self->pageSize();
+    if ($pageSize eq '_all') {
+        return 2147483647; # POSIX MAX INT
+    }
+    return $pageSize;
+}
+
 
 # Method: defaultPageSize
 #
@@ -2594,7 +2611,7 @@ sub defaultPageSize
         return $table->{'pageSize'};
     }
 
-    # fallback to defautl value of 10
+    # fallback to default value of 10
     return 10;
 }
 
@@ -2626,7 +2643,7 @@ sub setPageSize
                                            )
     }
 
-    $self->{'pageSize'} = $rows;
+    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS
