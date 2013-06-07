@@ -168,9 +168,6 @@ sub authen_cred  # (request, $user, password, fromCC)
     my $sid = $md5->hexdigest();
     _savesession($sid, $user);
 
-    my $global = EBox::Global->getInstance();
-    $global->revokeAllModules();
-
     return $sid;
 }
 
