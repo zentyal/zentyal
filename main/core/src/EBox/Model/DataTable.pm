@@ -1004,7 +1004,8 @@ sub _selectOptions
 
 # Method: moveRowRelative
 #
-#  Moves the row to the position between other two rows
+#  Moves the row to the position specified either by the previous row or the
+#  next one. If both positions are suppiled the previous row has priority
 #
 #  Parameters:
 #     id - id of row to move
@@ -1014,8 +1015,6 @@ sub _selectOptions
 #    Returns:
 #       - list reference contianing the old row position and the new one
 #
-#  Warning: it is assummed that if both prevId and nextId are supplied, then they
-#  must not have rows between them
 sub moveRowRelative
 {
     my ($self, $id, $prevId, $nextId) = @_;
