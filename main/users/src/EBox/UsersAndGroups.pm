@@ -15,14 +15,14 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups;
+package EBox::Users;
 
 use base qw(EBox::Module::Service
             EBox::LdapModule
             EBox::SysInfo::Observer
             EBox::UserCorner::Provider
             EBox::SyncFolders::Provider
-            EBox::UsersAndGroups::SyncProvider
+            EBox::Users::SyncProvider
             EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -35,10 +35,10 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
-use EBox::UsersAndGroups::Slave;
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
-use EBox::UsersAndGroups::OU;
+use EBox::Users::Slave;
+use EBox::Users::User;
+use EBox::Users::Group;
+use EBox::Users::OU;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
@@ -395,7 +395,7 @@ sub enableActions
     $self->_setConf(1);
 
     # Create default group
-    EBox::UsersAndGroups::Group->create(DEFAULTGROUP, 'All users', 1);
+    EBox::Users::Group->create(DEFAULTGROUP, 'All users', 1);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
@@ -488,7 +488,7 @@ sub _genPassword
 sub wizardPages
 {
     my ($self) = @_;
-    return [{ page => '/UsersAndGroups/Wizard/Users', order => 300 }];
+    return [{ page => '/Users/Wizard/Users', order => 300 }];
 }
 
 # Method: _setConf
@@ -556,7 +556,7 @@ sub _setConf
     $self->masterConf->confSOAPService();
 
     # commit slaves removal
-    EBox::UsersAndGroups::Slave->commitRemovals($self->global());
+    EBox::Users::Slave->commitRemovals($self->global());
 
     # Get the FQDN
     my $realm = $self->kerberosRealm();
@@ -579,7 +579,7 @@ sub revokeConfig
 {
    my ($self) = @_;
    $self->SUPER::revokeConfig();
-   EBox::UsersAndGroups::Slave->revokeRemovals($self->global());
+   EBox::Users::Slave->revokeRemovals($self->global());
 }
 
 sub kerberosRealm
@@ -629,7 +629,7 @@ sub editableMode
     foreach my $name (@names) {
         my $mod = EBox::Global->modInstance($name);
 
-        if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
+        if ($mod->isa('EBox::Users::SyncProvider')) {
             return 0 unless ($mod->allowUserChanges());
         }
     }
@@ -805,12 +805,12 @@ sub reloadNSCD
 #      username
 #
 #  Returns:
-#    the instance of EBox::UsersAndGroups::User for the given user
+#    the instance of EBox::Users::User for the given user
 sub user
 {
     my ($self, $username) = @_;
     my $dn = $self->userDn($username);
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = new EBox::Users::User(dn => $dn);
     if (not $user->exists()) {
         throw EBox::Exceptions::DataNotFound(data => __('user'), value => $username);
     }
@@ -827,7 +827,7 @@ sub userExists
 {
     my ($self, $username) = @_;
     my $dn = $self->userDn($username);
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = new EBox::Users::User(dn => $dn);
     return $user->exists();
 }
 
@@ -841,7 +841,7 @@ sub userExists
 # Returns:
 #
 #       array ref - holding the users. Each user is represented by a
-#       EBox::UsersAndGroups::User object
+#       EBox::Users::User object
 #
 sub users
 {
@@ -860,7 +860,7 @@ sub users
     my @users = ();
     foreach my $entry ($result->entries)
     {
-        my $user = new EBox::UsersAndGroups::User(entry => $entry);
+        my $user = new EBox::Users::User(entry => $entry);
 
         # Include system users?
         next if (not $system and $user->system());
@@ -890,7 +890,7 @@ sub users
 # Returns:
 #
 #       array ref - holding the users. Each user is represented by a
-#       EBox::UsersAndGroups::User object
+#       EBox::Users::User object
 #
 sub realUsers
 {
@@ -914,12 +914,12 @@ sub realUsers
 #      groupname
 #
 #  Returns:
-#    the instance of EBox::UsersAndGroups::Group for the group
+#    the instance of EBox::Users::Group for the group
 sub group
 {
     my ($self, $groupname) = @_;
     my $dn = $self->groupDn($groupname);
-    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    my $group = new EBox::Users::Group(dn => $dn);
     if (not $group->exists()) {
         throw EBox::Exceptions::DataNotFound(data => __('group'), value => $groupname);
     }
@@ -936,7 +936,7 @@ sub groupExists
 {
     my ($self, $groupname) = @_;
     my $dn = $self->groupDn($groupname);
-    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    my $group = new EBox::Users::Group(dn => $dn);
     return $group->exists();
 }
 
@@ -949,7 +949,7 @@ sub groupExists
 #
 # Returns:
 #
-#       array - holding the groups as EBox::UsersAndGroups::Group objects
+#       array - holding the groups as EBox::Users::Group objects
 #
 sub groups
 {
@@ -968,7 +968,7 @@ sub groups
     my @groups = ();
     foreach my $entry ($result->entries())
     {
-        my $group = new EBox::UsersAndGroups::Group(entry => $entry);
+        my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
         next if (not $system and $group->system());
@@ -1016,7 +1016,7 @@ sub ous
     my @ous = ();
     foreach my $entry ($result->entries())
     {
-        my $ou = new EBox::UsersAndGroups::OU(entry => $entry);
+        my $ou = new EBox::Users::OU(entry => $entry);
         push (@ous, $ou);
     }
 
@@ -1074,7 +1074,7 @@ sub allSlaves
     foreach my $name (@names) {
         my $mod = EBox::Global->modInstance($name);
 
-        if ($mod->isa('EBox::UsersAndGroups::SyncProvider')) {
+        if ($mod->isa('EBox::Users::SyncProvider')) {
             push (@modules, @{$mod->slaves()});
         }
     }
@@ -1154,7 +1154,7 @@ sub notifyModsLdapUserBase
 
         my $time = time();
         my ($fh, $filename) = tempfile("$time-$signal-XXXX", DIR => $dir);
-        EBox::UsersAndGroups::Slave->writeActionInfo($fh, $signal, $args);
+        EBox::Users::Slave->writeActionInfo($fh, $signal, $args);
         $fh->close();
         return;
     }
@@ -1361,16 +1361,16 @@ sub menu
     my $separator = 'Office';
     my $order = 510;
 
-    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+    my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'text' => $self->printableName(),
                                         'separator' => $separator,
                                         'order' => $order);
 
     if ($self->configured()) {
         if ($self->editableMode()) {
-            $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Users',
+            $folder->add(new EBox::Menu::Item('url' => 'Users/Users',
                                               'text' => __('Users'), order => 10));
-            $folder->add(new EBox::Menu::Item('url' => 'UsersAndGroups/Groups',
+            $folder->add(new EBox::Menu::Item('url' => 'Users/Groups',
                                               'text' => __('Groups'), order => 20));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
                                               'text' => __('User Template'), order => 30));
@@ -1722,7 +1722,7 @@ sub newUserUidNumber
 {
     my ($self, $system) = @_;
 
-    return EBox::UsersAndGroups::User->_newUserUidNumber($system);
+    return EBox::Users::User->_newUserUidNumber($system);
 }
 
 ######################################

@@ -3,7 +3,7 @@
 use strict;
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::Users;
 
 EBox::init();
 

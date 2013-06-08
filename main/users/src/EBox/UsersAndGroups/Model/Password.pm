@@ -15,18 +15,18 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::Model::Password
+# Class: EBox::Users::Model::Password
 #
 #   Class for change password model in user corner
 #
 
-package EBox::UsersAndGroups::Model::Password;
+package EBox::Users::Model::Password;
 
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use EBox::UsersAndGroups::Types::Password;
+use EBox::Users::Types::Password;
 
 use File::Temp qw/tempfile/;
 use Encode;
@@ -52,14 +52,14 @@ sub _table
 {
     my @tableHead =
     (
-        new EBox::UsersAndGroups::Types::Password(
+        new EBox::Users::Types::Password(
             'fieldName' => 'pass1',
             'printableName' => __('New password'),
             'size' => '8',
             'unique' => 1,
             'editable' => 1
         ),
-        new EBox::UsersAndGroups::Types::Password(
+        new EBox::Users::Types::Password(
             'fieldName' => 'pass2',
             'printableName' => __('Re-type new password'),
             'size' => '8',
@@ -165,7 +165,7 @@ sub setTypedRow
     my $pass = $auth->{pass};
 
     # Check we can instance the zentyal user
-    my $zentyalUser = new EBox::UsersAndGroups::User(uid => $user);
+    my $zentyalUser = new EBox::Users::User(uid => $user);
     unless ($zentyalUser->exists()) {
         throw EBox::Exceptions::External(__x('User {x} not found in LDAP database'),
             x => $user);

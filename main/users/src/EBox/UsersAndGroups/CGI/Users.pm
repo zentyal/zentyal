@@ -15,12 +15,12 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::Users;
+package EBox::Users::CGI::Users;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Gettext;
 
 sub new {

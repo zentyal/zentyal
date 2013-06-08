@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 # LDAP schema
 use constant SCHEMAS => ('/etc/ldap/schema/amavis.schema',
@@ -390,7 +390,7 @@ sub learnAccounts
 sub _hasAccount
 {
     my ($self, $vdomain, $userDN) = @_;
-    my $user= new EBox::UsersAndGroups::User(dn => $userDN);
+    my $user= new EBox::Users::User(dn => $userDN);
     if (not $user->exists()) {
         return 0;
     }
@@ -426,7 +426,7 @@ sub setSpamAccount
     my ($self, $vdomain, $active) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('spam');
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = new EBox::Users::User(dn => $dn);
     $self->_setAccount($vdomain, $user, $active);
 }
 
@@ -435,7 +435,7 @@ sub setHamAccount
     my ($self, $vdomain, $active) = @_;
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->userDn('ham');
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = new EBox::Users::User(dn => $dn);
     $self->_setAccount($vdomain, $user, $active);
 }
 

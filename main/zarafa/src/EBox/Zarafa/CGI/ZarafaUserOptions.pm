@@ -43,11 +43,11 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{redirect} = "Users/User?user=$user";
 
     $self->keepParam('user');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
 
     if ($self->param('active') eq 'yes') {
         if ($zarafaldap->hasAccount($user)) {

@@ -17,20 +17,20 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::User
+# Class: EBox::Users::User
 #
 #   Zentyal user, stored in LDAP
 #
 
-package EBox::UsersAndGroups::User;
+package EBox::Users::User;
 
-use base 'EBox::UsersAndGroups::LdapObject';
+use base 'EBox::Users::LdapObject';
 
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::Group;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -296,7 +296,7 @@ sub removeGroup
 #
 #   Returns:
 #
-#       array ref of EBox::UsersAndGroups::Group objects
+#       array ref of EBox::Users::Group objects
 #
 sub groups
 {
@@ -315,7 +315,7 @@ sub groups
 #
 #   Returns:
 #
-#       array ref of EBox::UsersAndGroups::Group objects
+#       array ref of EBox::Users::Group objects
 #
 sub groupsNotIn
 {
@@ -350,9 +350,9 @@ sub _groups
         foreach my $entry ($result->entries())
         {
             if (not $system) {
-                next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
+                next if ($entry->get_value('gidNumber') < EBox::Users::Group->MINGID);
             }
-            push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
+            push (@groups, new EBox::Users::Group(entry => $entry));
         }
         # sort grups by name
         @groups = sort {
@@ -577,7 +577,7 @@ sub create
     }
 
     # Verify user exists
-    if (new EBox::UsersAndGroups::User(dn => $dn)->exists()) {
+    if (new EBox::Users::User(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
     }
@@ -615,8 +615,8 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-    my $defaultGroupDN = $users->groupDn(EBox::UsersAndGroups->DEFAULTGROUP);
-    my $group = new EBox::UsersAndGroups::Group(dn => $defaultGroupDN);
+    my $defaultGroupDN = $users->groupDn(EBox::Users->DEFAULTGROUP);
+    my $group = new EBox::Users::Group(dn => $defaultGroupDN);
     my $gid = $group->get('gidNumber');
 
     # If fullname is not specified we build it with
@@ -684,7 +684,7 @@ sub create
             };
     }
 
-        $res = new EBox::UsersAndGroups::User(dn => $dn);
+        $res = new EBox::Users::User(dn => $dn);
 
         # Set the user password and kerberos keys
         if (defined $passwd) {
@@ -754,7 +754,7 @@ sub _checkName
 sub _checkUserName
  {
      my ($name) = @_;
-    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
+    if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }
 

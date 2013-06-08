@@ -14,13 +14,13 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
-# Class: EBox::UsersAndGroups::Slave
+# Class: EBox::Users::Slave
 #
 #    These methods will be called when a user or group is added,
 #    modified or deleted. They can be implemented in order to sync
 #    that changes to other machines (master provider).
 #
-package EBox::UsersAndGroups::Slave;
+package EBox::Users::Slave;
 
 use base 'EBox::LdapUserBase';
 
@@ -32,9 +32,9 @@ use File::Temp qw/tempfile/;
 use Time::HiRes qw(gettimeofday);
 use JSON::XS;
 use File::Slurp;
-use EBox::UsersAndGroups::LdapObject;
-use EBox::UsersAndGroups::Group;
-use EBox::UsersAndGroups::User;
+use EBox::Users::LdapObject;
+use EBox::Users::Group;
+use EBox::Users::User;
 
 use constant PENDING_REMOVAL_KEY => 'slaves_to_remove';
 
@@ -107,7 +107,7 @@ sub writeActionInfo
     my @params;
     foreach my $arg (@{$args}) {
         if (ref($arg) =~ /::/) {
-            if ($arg->isa('EBox::UsersAndGroups::LdapObject')) {
+            if ($arg->isa('EBox::Users::LdapObject')) {
                 my @lines = split(/\n/, $arg->as_ldif());
                 $arg = {
                     class => ref($arg),
@@ -227,7 +227,7 @@ sub commitRemovals
             next;
         }
 
-        my $slave = new EBox::UsersAndGroups::Slave(name => $id);
+        my $slave = new EBox::Users::Slave(name => $id);
         $slave->removeDirectory();
     }
     $users->set_state($state);

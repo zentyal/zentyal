@@ -16,9 +16,9 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::Users;
+package EBox::Users::Model::Users;
 
-# Class: EBox::UsersAndGroups::Model::Users
+# Class: EBox::Users::Model::Users
 #
 #       This a class used as a proxy for the users stored in LDAP.
 #       It is meant to improve the user experience when managing users,
@@ -75,7 +75,7 @@ sub _table
         'defaultController' => '/Users/Controller/Users',
         'defaultActions' => ['changeView'],
         'tableDescription' => \@tableHead,
-        'menuNamespace' => 'UsersAndGroups/Users',
+        'menuNamespace' => 'Users/Users',
         'printableRowName' => __('user'),
         'sortedBy' => 'name',
         'withoutActions' => 1,
@@ -135,7 +135,7 @@ sub preconditionFailMsg
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no users at the moment. You may want to add some in the {openhref}master{closehref}.',
-                       openhref => "<a href='https://$master/zentyal/UsersAndGroups/Users'>",
+                       openhref => "<a href='https://$master/zentyal/Users/Users'>",
                        closehref => '</a>');
         } elsif ($mode eq 'ad-slave') {
             return __('Zentyal is configured as Windows AD slave and there are no users at the moment. If there are users in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
@@ -153,7 +153,7 @@ sub noUsersMsg
 
     return __x('There are no users for the organizational unit: {ou}<p>{ao}See users for all organizational units{ac}',
                 ou => $filterOU,
-                ao => q{<a href='/UsersAndGroups/Users'>},
+                ao => q{<a href='/Users/Users'>},
                 ac => q{</a>}
                );
 }
@@ -194,11 +194,11 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $user = new EBox::UsersAndGroups::User(dn => $id);
+    my $user = new EBox::Users::User(dn => $id);
     if ($user->exists()) {
         my $full = $user->get('cn');
         my $userName = $user->get('uid');
-        my $link = "/UsersAndGroups/User?user=$id";
+        my $link = "/Users/User?user=$id";
         my $row = $self->_setValueRow(
             name => $userName,
             fullname => $full,

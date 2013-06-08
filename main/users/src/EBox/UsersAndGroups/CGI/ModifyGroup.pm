@@ -16,13 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::ModifyGroup;
+package EBox::Users::CGI::ModifyGroup;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -42,12 +42,12 @@ sub _process
     $self->_requireParam('groupname', __('group name'));
     my $group = $self->unsafeParam('groupname');
 
-    $self->{errorchain} = "UsersAndGroups/Group";
+    $self->{errorchain} = "Users/Group";
 
     $self->cgi()->param(-name=>'group', -value=>$group);
     $self->keepParam('group');
 
-    my $group = new EBox::UsersAndGroups::Group(dn => $group);
+    my $group = new EBox::Users::Group(dn => $group);
 
     $self->_requireParamAllowEmpty('comment', __('comment'));
     my $comment = $self->unsafeParam('comment');
@@ -57,7 +57,7 @@ sub _process
         $group->delete('description');
     }
 
-    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
+    $self->{redirect} = 'Users/Group?group=' . $group->dn();
 }
 
 1;

@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Composite::UserTemplate
+# Class: EBox::Users::Composite::UserTemplate
 
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Composite::UserTemplate;
+package EBox::Users::Composite::UserTemplate;
 
 use base 'EBox::Model::Composite';
 
@@ -75,7 +75,7 @@ sub pageTitle
 
 sub menuFolder
 {
-    return 'UsersAndGroups';
+    return 'Users';
 }
 
 1;

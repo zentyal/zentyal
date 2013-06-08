@@ -13,7 +13,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Model::AccountSettings
+# Class: EBox::Users::Model::AccountSettings
 #
 #   This model is used to configure the default settings of the user accounts
 #
@@ -21,7 +21,7 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::AccountSettings;
+package EBox::Users::Model::AccountSettings;
 
 use base 'EBox::Model::DataForm';
 

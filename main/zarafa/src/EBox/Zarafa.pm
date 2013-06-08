@@ -726,7 +726,7 @@ sub _addVMailDomainOU
     my $ldapconf = $ldap->ldapConf;
     my $dn =  "ou=$vdomain," . $users->usersDn();
 
-    my $group = new EBox::UsersAndGroups::OU(dn => $dn);
+    my $group = new EBox::Users::OU(dn => $dn);
     return if $group->exists();
 
     $group->create($dn);

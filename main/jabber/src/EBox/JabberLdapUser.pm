@@ -24,8 +24,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
+use EBox::Users;
+use EBox::Users::User;
 use EBox::Model::Manager;
 
 sub new
@@ -140,7 +140,7 @@ sub getJabberAdmins
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {
-        push (@admins, new EBox::UsersAndGroups::User(entry => $entry));
+        push (@admins, new EBox::Users::User(entry => $entry));
     }
 
     return \@admins;

@@ -17,11 +17,11 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::LdapObject;
+package EBox::Users::LdapObject;
 
 use EBox::Config;
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;

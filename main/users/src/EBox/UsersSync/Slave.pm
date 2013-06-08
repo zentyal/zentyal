@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::UsersSync::Slave;
 
-use base 'EBox::UsersAndGroups::Slave';
+use base 'EBox::Users::Slave';
 
 # Dir containing certificates for this master
 use constant SSL_DIR => EBox::Config::conf() . 'ssl/';

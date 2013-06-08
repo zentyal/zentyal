@@ -16,14 +16,14 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::DelGroupFromUser;
+package EBox::Users::CGI::DelGroupFromUser;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::User;
+use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
@@ -41,9 +41,9 @@ sub _process
 
     $self->_requireParam('user' , __('user'));
     my $user = $self->unsafeParam('user');
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
 
-    $self->{errorchain} = "UsersAndGroups/User";
+    $self->{errorchain} = "Users/User";
     $self->keepParam('user');
 
     $self->_requireParam('delgroup', __('group'));
@@ -51,11 +51,11 @@ sub _process
     my @groups = $self->unsafeParam('delgroup');
 
     foreach my $dn (@groups){
-        my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+        my $group = new EBox::Users::Group(dn => $dn);
         $user->removeGroup($group);
     }
 
-    $self->{redirect} = 'UsersAndGroups/User?user=' . $user->dn();
+    $self->{redirect} = 'Users/User?user=' . $user->dn();
 }
 
 1;

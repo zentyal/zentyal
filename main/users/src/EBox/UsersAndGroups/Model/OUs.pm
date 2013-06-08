@@ -16,9 +16,9 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::OUs;
+package EBox::Users::Model::OUs;
 
-# Class: EBox::UsersAndGroups::Model::OUs
+# Class: EBox::Users::Model::OUs
 #
 #       This a class used as a proxy for the OUs present in LDAP.
 #
@@ -30,7 +30,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use EBox::Types::Text;
-use EBox::UsersAndGroups::OU;
+use EBox::Users::OU;
 
 use base 'EBox::Model::DataTable';
 
@@ -162,7 +162,7 @@ sub removeRow
                 );
     }
 
-    new EBox::UsersAndGroups::OU(dn => $id)->deleteObject();
+    new EBox::Users::OU(dn => $id)->deleteObject();
 
     $self->setMessage(__x('OU {ou} removed', ou => $id));
 }
@@ -180,7 +180,7 @@ sub addTypedRow
     # Check compulsory fields
     $self->_checkCompulsoryFields($params_r);
 
-    EBox::UsersAndGroups::OU->create($params_r->{dn}->value());
+    EBox::Users::OU->create($params_r->{dn}->value());
 
     $self->setMessage(__('OU added'));
 

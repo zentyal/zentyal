@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::CaptivePortal::LdapUser;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 ## arguments:
 ##	title [required]
@@ -42,11 +42,11 @@ sub _process($) {
 
 	$self->_requireParam('user', __('user'));
 	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+	$self->{redirect} = "Users/User?user=$user";
 
 	$self->keepParam('user');
 
-    my $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $user);
 
     my $overridden = not ($self->param('CaptiveUser_defaultQuota_selected') eq
                      'defaultQuota_default');

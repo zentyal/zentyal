@@ -26,8 +26,8 @@ use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::User;
 use EBox::Samba::Group;
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 use EBox::Gettext;
 
 use base qw(EBox::LdapUserBase);

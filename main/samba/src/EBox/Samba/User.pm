@@ -30,8 +30,8 @@ use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
 
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
@@ -105,7 +105,7 @@ sub groups
 #
 # Returns:
 #
-#   array ref of EBox::UsersAndGroups::Group objects
+#   array ref of EBox::Users::Group objects
 #
 sub groupsNotIn
 {
@@ -314,7 +314,7 @@ sub createRoamingProfileDirectory
     # Create the directory if it does not exist
     my $samba = EBox::Global->modInstance('samba');
     my $path  = EBox::Samba::PROFILES_DIR() . "/$samAccountName";
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $group = EBox::Users::DEFAULTGROUP();
 
     my @cmds = ();
     # Create the directory if it does not exist
@@ -476,7 +476,7 @@ sub addToZentyal
     $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
     $self->setupUidMapping($uidNumber);
 
-    $zentyalUser = EBox::UsersAndGroups::User->create($params, 0, %optParams);
+    $zentyalUser = EBox::Users::User->create($params, 0, %optParams);
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");
 
@@ -503,7 +503,7 @@ sub updateZentyal
     $gn = '-' unless defined $gn;
     $sn = '-' unless defined $sn;
     my $cn = "$gn $sn";
-    $zentyalUser = new EBox::UsersAndGroups::User(uid => $uid);
+    $zentyalUser = new EBox::Users::User(uid => $uid);
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
 

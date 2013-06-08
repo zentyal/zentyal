@@ -5,7 +5,7 @@ my $sysinfo = EBox::Global->modInstance('sysinfo');
 my $hostDomain = $sysinfo->hostDomain();
 </%init>
 <h3><% __('Users and Groups') %></h3>
-<form method="post" action="./UsersAndGroups/Wizard/Users" style="text-align: center">
+<form method="post" action="./Users/Wizard/Users" style="text-align: center">
         <div>
             <img src="/data/software/images/users.png" />
         </div>
