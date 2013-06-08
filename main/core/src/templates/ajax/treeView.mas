@@ -29,7 +29,9 @@ jQuery(function () {
 
   jQuery.jstree._themes = "/data/css/jstree-themes/";
 
-  jQuery("#tree1").jstree({
+  var treeComponent = jQuery("#tree1");
+
+  treeComponent.jstree({
 	"json_data" : {
 		"data" : [
 % foreach my $node (@{$model->rootNodes()}) {
@@ -55,6 +57,11 @@ jQuery(function () {
 	"plugins" : [ "themes", "json_data", "ui", "types" ]
   });
 
+  // FIXME: probably this should not be the default behaviour
+  //        but for testing purposes is better this way until finished
+  treeComponent.on('loaded.jstree', function () {
+    treeComponent.jstree('open_all');
+  });
 });
 </script>
 
