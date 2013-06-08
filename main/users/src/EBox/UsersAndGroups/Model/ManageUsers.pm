@@ -67,7 +67,7 @@ sub _userNodes
         my $id = $user->dn();
         my $printableName = $user->fullname();
 
-        push (@nodes, { id => $id, printableName => $printableName });
+        push (@nodes, { id => $id, printableName => $printableName, type => 'user' });
     }
 
     return \@nodes;
@@ -83,7 +83,7 @@ sub _groupNodes
         my $id = $group->dn();
         my $printableName = $group->name();
 
-        push (@nodes, { id => $id, printableName => $printableName });
+        push (@nodes, { id => $id, printableName => $printableName, type => 'group' });
     }
 
     return \@nodes;

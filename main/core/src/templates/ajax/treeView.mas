@@ -25,7 +25,6 @@
 <div id="tree1" />
 
 <script>
-// FIXME: this does not work because header with jquery includes is not properly printed
 jQuery(function () {
 
   jQuery.jstree._themes = "/data/css/jstree-themes/";
@@ -37,16 +36,18 @@ jQuery(function () {
 %   my $id = $node->{id};
 %   my @children;
 %   foreach my $child (@{$model->childNodes($id)}) {
-%       push (@children, "\"$child->{printableName}\"");
+%       push (@children, "{ \"data\": \"$child->{printableName}\", \"attr\": { \"rel\": \"$child->{type}\" } }");
 %   }
 			{
               "data" : "<% $node->{printableName} %>",
-              "metadata" : { id : "<% $id %>" },
+              "attr" : { "rel": "<% $node->{type} %>" },
+              "metadata" : { "id": "<% $id %>" },
               "children" : [ <% join (',', @children) %> ]
             },
 % }
 		]
 	},
+    //FIXME: unhardcode icons (getting them from $treeModel->nodeIcons() or something like that)
     "types" : {
          "types" : {
              "user" : { "icon" : { "image" : "/data/images/treeview/user.png" } },
