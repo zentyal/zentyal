@@ -374,18 +374,18 @@
     text-decoration: underline;
     color: <% $secondary_color %>;
 }
-.dataTable tbody tr { 
+.dataTable tbody tr {
     background: white;
     border-bottom: 2px solid <% $data_table_inner_border_color %>;
 }
 .dataTable tbody tr:hover{
     background-color: whitesmoke;
 }
-.dataTable tr.even { 
-    background: <% $data_table_bg_even %>; 
+.dataTable tr.even {
+    background: <% $data_table_bg_even %>;
 }
-.dataTable tr.highlight { 
-    background: <% $data_table_bg_highlight %>; 
+.dataTable tr.highlight {
+    background: <% $data_table_bg_highlight %>;
     border-color: white;
 }
 .pagination_n{
@@ -624,7 +624,7 @@ body {
     overflow-y: scroll;
     min-width: 960px;
     max-width: 1200px;
-    width: 98%;    
+    width: 98%;
     margin: 0px auto;
     padding:0;
     color: #000000;
@@ -1877,8 +1877,8 @@ float:left;
     font-weight: bold;
     color: #666;
 }
-#popx:hover { 
-    color: #333; 
+#popx:hover {
+    color: #333;
 }
 .tip {
     padding: 15px 15px 15px 50px;
@@ -1908,4 +1908,8 @@ div[aria-describedby="load_in_dialog"]{
 }
 #VNC_screen{
     width: 100% !important;
+}
+
+.treeView {
+    height: 480px;
 }
