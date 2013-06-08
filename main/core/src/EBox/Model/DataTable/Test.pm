@@ -174,7 +174,7 @@ sub tableTest  : Test(6)
             $tableFromModel = $dataTable->table();
         } "checking first call to table method with: $caseName";
 
-        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fileds were inserted by first time setup';
+        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fields were inserted by first time setup';
     }
 }
 
@@ -309,58 +309,143 @@ sub addRowTest  : Test(25)
        'Checking data table size after the additions';
 }
 
-# XXX TODO:
-# deviant test up and down in no-prderer table
-# straight test of moving up and down
-sub moveRowsTest : Test(8)
+sub moveRowsTest : Test(21)
 {
     my ($self) = @_;
 
     my $tableDescription = _tableDescription4fields();
     $tableDescription->{order}   = 1;
+    $tableDescription->{insertPosition} = 'back';
 
     my $dataTable = $self->_newDataTable($tableDescription);
-    $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
+    my @cases = (
+        {
+            desc => 'Move first to normal position',
+            args => ['a', 'c', 'd'],
+            expected => {
+                    'a' => 2,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move first to last position',
+            args => ['a', 'e', undef],
+            expected => {
+                    'a' => 4,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 3,
+               }
+        },
+        {
+            desc => 'Move normal to first',
+            args => ['d', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 0,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to normal',
+            args => ['b', 'd', 'e'],
+            expected => {
+                    'a' => 0,
+                    'b' => 3,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to end',
+            args => ['d', 'e', undef],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 4,
+                    'e' => 3,
+               }
+        },
 
-    my @tableRows = (
-            [ uniqueField => 'wasFirstAtTheBegin', regularField => 'regular' ],
-            [ uniqueField => 'wasSecondAtTheBegin', regularField => 'regular', ],
-            );
-    foreach (@tableRows) {
-        $dataTable->add(@{$_});
+        {
+            desc => 'Move end to first',
+            args => ['e', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 0,
+               }
+        },
+        {
+            desc => 'Move end to normal',
+            args => ['e', 'b', 'c'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 2,
+               }
+        },
+
+        {
+            desc => 'Move normal to same position',
+            args => ['c', 'b', 'd'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+    );
+
+    foreach my $case (@cases) {
+        _moveRowTestTableSetup($dataTable);
+        lives_ok {
+            $dataTable->moveRowRelative(@{ $case->{args}  });
+        } 'Moving row case: ' . $case->{desc};
+
+        my %newOrder = $dataTable->_orderHash();
+        is_deeply \%newOrder, $case->{expected},
+              'checking that the order after the move is correct';
     }
 
-    my @order = @{ $dataTable->order() };
+    my @invalidArgumens = (
+        ['b', 'b', 'c'],
+        ['a', undef, 'a'],
+        ['c', 'd', 'd'],
+       );
+    foreach my $args (@invalidArgumens) {
+        my @args = @{ $args };
+        throws_ok {
+            $dataTable->moveRowRelative(@args);
+        } 'EBox::Exceptions::MissingArgument', "Checking call to moveRowRelative with invalid arguments @args";
+    }
+}
 
-    my $upperRow = $order[0];
-    my $lowerRow = $order[1];
 
-    $dataTable->moveUp($upperRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving up the upper row has not changed the order';
-    ok ((not $dataTable->called('movedUpRowNotify')),
-            'Checking that movedUpRowNotify has not been triggered');
-    $dataTable->clear();
+sub _moveRowTestTableSetup
+{
+    my ($dataTable) = @_;
+    $dataTable->removeAll(1);
+    foreach my $id ('a', 'b', 'c', 'd', 'e') {
+        my @fields = (id => $id, uniqueField => "unique $id", regularField => "regular $id");
 
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving down the  lower row has not changed the order';
-    ok ((not $dataTable->called('movedDownRowNotify')),
-            'Checking that movedDownRowNotify has not been triggered');
-    $dataTable->clear();
-
-    my @reverseOrder = reverse @order;
-    $dataTable->moveUp($lowerRow);
-    is_deeply $dataTable->order, \@reverseOrder,
-              'checking that lower row was moved up';
-    ok ($dataTable->called('movedUpRowNotify'), 'Checking that movedUpRowNotify has been triggered');
-    $dataTable->clear();
-
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that upper row was moved down';
-    ok ($dataTable->called('movedDownRowNotify'), 'Checking that movedDownRowNotify has been triggered');
-    $dataTable->clear();
+        $dataTable->addRow(@fields);
+    }
+    return $dataTable;
 }
 
 sub removeAllTest : Test(3)

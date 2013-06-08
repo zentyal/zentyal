@@ -1020,7 +1020,17 @@ sub moveRowRelative
 {
     my ($self, $id, $prevId, $nextId) = @_;
     if ((not $prevId) and (not $nextId)) {
-        throw EBox::Exceptions::Internal("No changes were supplied");
+        throw EBox::Exceptions::MissingArgument("No changes were supplied");
+    }
+    if ($prevId) {
+        if (($id eq $prevId)) {
+            throw EBox::Exceptions::MissingArgument("id and prevId must be different ids (both were '$id')");
+        } elsif ($nextId and ($prevId eq $nextId)) {
+            throw EBox::Exceptions::MissingArgument("nextId and prevId must be different ids (both were '$nextId')");
+        }
+    }
+    if ($nextId and ($id eq $nextId)) {
+        throw EBox::Exceptions::MissingArgument("id and nextId must be different ids (both were '$id')");
     }
 
     my $oldPos = $self->removeIdFromOrder($id);
@@ -1029,7 +1039,7 @@ sub moveRowRelative
 
     if (defined $prevId) {
          $newPos = $self->idPosition($prevId) + 1;
-     } else {
+     } elsif (defined $nextId) {
          $newPos = $self->idPosition($nextId);
      }
 
