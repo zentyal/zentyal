@@ -47,14 +47,11 @@ jQuery(function () {
 % }
 		]
 	},
-    //FIXME: unhardcode icons (getting them from $treeModel->nodeIcons() or something like that)
-    "types" : {
-         "types" : {
-             "user" : { "icon" : { "image" : "/data/images/treeview/user.png" } },
-             "group" : { "icon" : { "image" : "/data/images/treeview/group.png" } },
-             "contact" : { "icon" : { "image" : "/data/images/treeview/contact.png" } }
-         }
-    },
+% my @types;
+% foreach my $type (@{$model->nodeTypes()}) {
+%   push (@types, "\"$type\": { \"icon\": { \"image\": \"/data/images/treeview/$type.png\" } }");
+% }
+    "types" : { "types" : { <% join (',', @types) %> } },
 	"plugins" : [ "themes", "json_data", "ui", "types" ]
   });
 

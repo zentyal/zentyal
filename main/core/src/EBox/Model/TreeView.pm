@@ -137,6 +137,22 @@ sub childNodes
     return [];
 }
 
+# Method: nodeTypes
+#
+#    Return the different types a tree can have
+#
+#    This can be used to set different icons for each
+#    type under /data/images/treeview/$type.png
+#
+# Returns:
+#
+#    list ref of strings
+#
+sub nodeTypes
+{
+    return [];
+}
+
 # Method: modelName
 #
 #    Return the model name which is set by the key 'treeName' when

@@ -57,6 +57,11 @@ sub childNodes
     }
 }
 
+sub nodeTypes
+{
+    return [ 'user', 'group' ];
+}
+
 sub _userNodes
 {
     my ($self) = @_;
