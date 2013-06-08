@@ -16,14 +16,14 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::Del;
+package EBox::Users::CGI::Del;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::User;
+use EBox::Users::Group;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -70,31 +70,31 @@ sub _process
         $self->_requireParam('object', __('object type'));
             my $object = $self->param('object');
         if ($object eq 'user') {
-            $self->{redirect} = "UsersAndGroups/User?user=$name";
+            $self->{redirect} = "Users/User?user=$name";
         } else {
-            $self->{redirect} = "UsersAndGroups/Group?group=$name";
+            $self->{redirect} = "Users/Group?group=$name";
         }
     } elsif ($self->param('deluserforce')) { # Delete user
         $deluser = 1;
     } elsif ($self->param('delgroupforce')) {
         $delgroup = 1;
     } elsif ($self->unsafeParam('deluser')) {
-        my $user = new EBox::UsersAndGroups::User(dn => $name);
+        my $user = new EBox::Users::User(dn => $name);
         $deluser = not $self->_warnUser('user', $user);
     } elsif ($self->unsafeParam('delgroup')) {
-        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+        my $group = new EBox::Users::Group(dn => $name);
         $delgroup = not $self->_warnUser('group', $group);
     }
 
     if ($deluser) {
-        my $user = new EBox::UsersAndGroups::User(dn => $name);
+        my $user = new EBox::Users::User(dn => $name);
         $user->deleteObject();
-        $self->{chain} = "UsersAndGroups/Users";
+        $self->{chain} = "Users/Users";
         $self->{msg} = __('User removed successfully');
     } elsif ($delgroup) {
-        my $group = new EBox::UsersAndGroups::Group(dn => $name);
+        my $group = new EBox::Users::Group(dn => $name);
         $group->deleteObject();
-        $self->{chain} = "UsersAndGroups/Groups";
+        $self->{chain} = "Users/Groups";
         $self->{msg} = __('Group removed successfully');
     }
 }

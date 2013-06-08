@@ -16,13 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::Group;
+package EBox::Users::CGI::Group;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
@@ -45,7 +45,7 @@ sub _process
     $self->_requireParam('group', __('group'));
 
     my $group       = $self->unsafeParam('group');
-    $group          = new EBox::UsersAndGroups::Group(dn => $group);
+    $group          = new EBox::Users::Group(dn => $group);
     my $grpusers    = $group->users();
     my $remainusers = $group->usersNotIn();
     my $components  = $usersandgroups->allGroupAddOns($group);
@@ -62,7 +62,7 @@ sub _process
         $self->{crumbs} = [
             {
                 title => __('Groups'),
-                link => '/UsersAndGroups/Groups'
+                link => '/Users/Groups'
             },
             {
                 title => $group->name(),

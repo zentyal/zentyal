@@ -13,14 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Model::Master
+# Class: EBox::Users::Model::Master
 #
 #   From to configure a Zentyal master to provide users to this server
 
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::Master;
+package EBox::Users::Model::Master;
 
 use base 'EBox::Model::DataForm';
 

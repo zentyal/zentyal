@@ -13,14 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Model::Mode
+# Class: EBox::Users::Model::Mode
 #
 # This class contains the options needed to enable the usersandgroups module.
 
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::LdapInfo;
+package EBox::Users::Model::LdapInfo;
 
 use base 'EBox::Model::DataForm::ReadOnly';
 
@@ -80,7 +80,7 @@ sub _table
 
 sub menuFolder
 {
-    return 'UsersAndGroups';
+    return 'Users';
 }
 
 # Method: _content

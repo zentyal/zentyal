@@ -15,12 +15,12 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::AddUser;
+package EBox::Users::CGI::AddUser;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -29,7 +29,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
     bless($self, $class);
-    $self->{errorchain} = 'UsersAndGroups/Users';
+    $self->{errorchain} = 'Users/Users';
     return $self;
 }
 
@@ -69,15 +69,15 @@ sub _process
         $user->{ou} = $self->unsafeParam('ou');
     }
 
-    my $newUser = EBox::UsersAndGroups::User->create($user, 0);
+    my $newUser = EBox::Users::User->create($user, 0);
     if ($user->{'group'}) {
-        $newUser->addGroup(new EBox::UsersAndGroups::Group(dn => $user->{'group'}));
+        $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
     }
 
     if ($self->param('addAndEdit')) {
-            $self->{redirect} = "UsersAndGroups/User?user=" . $newUser->dn();
+            $self->{redirect} = "Users/User?user=" . $newUser->dn();
     } else {
-            $self->{redirect} = "UsersAndGroups/Users";
+            $self->{redirect} = "Users/Users";
     }
 }
 

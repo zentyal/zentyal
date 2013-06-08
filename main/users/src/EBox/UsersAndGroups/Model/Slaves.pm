@@ -15,11 +15,11 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::Model::Slaves
+# Class: EBox::Users::Model::Slaves
 #
 #   This a class holds the list of registered slave machines
 #
-package EBox::UsersAndGroups::Model::Slaves;
+package EBox::Users::Model::Slaves;
 
 use base 'EBox::Model::DataTable';
 
@@ -28,8 +28,8 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::Group;
-use EBox::UsersAndGroups::Slave;
+use EBox::Users::Group;
+use EBox::Users::Slave;
 
 use EBox::Types::Host;
 use EBox::Types::Port;
@@ -78,7 +78,7 @@ sub _table
 sub deletedRowNotify
 {
     my ($self, $row) = @_;
-    EBox::UsersAndGroups::Slave->addRemoval($row->id());
+    EBox::Users::Slave->addRemoval($row->id());
 }
 
 1;

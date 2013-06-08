@@ -16,13 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::ModifyUser;
+package EBox::Users::CGI::ModifyUser;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
+use EBox::Users;
+use EBox::Users::User;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
@@ -30,7 +30,7 @@ sub new {
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
 
-    $self->{errorchain} = "UsersAndGroups/Users";
+    $self->{errorchain} = "Users/Users";
     bless($self, $class);
     return $self;
 }
@@ -45,9 +45,9 @@ sub _process($) {
 
     # retrieve user object
     my $user = $self->unsafeParam('user');
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
 
-    $self->{errorchain} = "UsersAndGroups/User";
+    $self->{errorchain} = "Users/User";
     $self->keepParam('user');
 
     $user->set('quota', $self->param('quota'), 1);
@@ -94,7 +94,7 @@ sub _process($) {
 
     $user->save();
 
-    $self->{redirect} = 'UsersAndGroups/User?user=' . $user->dn();
+    $self->{redirect} = 'Users/User?user=' . $user->dn();
 }
 
 1;

@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Composite::Sync;
+# Class: EBox::Users::Composite::Sync;
 
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Composite::Sync;
+package EBox::Users::Composite::Sync;
 
 use base 'EBox::Model::Composite';
 
@@ -54,7 +54,7 @@ sub pageTitle
 
 sub menuFolder
 {
-    return 'UsersAndGroups';
+    return 'Users';
 }
 
 # Method: precondition

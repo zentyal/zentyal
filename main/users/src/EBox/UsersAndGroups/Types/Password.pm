@@ -13,14 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::Types::Password;
+# Class: EBox::Users::Types::Password;
 #
 #   TODO
 #
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Types::Password;
+package EBox::Users::Types::Password;
 
 use base 'EBox::Types::Password';
 

@@ -16,13 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::AddGroup;
+package EBox::Users::CGI::AddGroup;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Group;
+use EBox::Users;
+use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
@@ -30,7 +30,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
     bless($self, $class);
-    $self->{errorchain} = 'UsersAndGroups/Groups';
+    $self->{errorchain} = 'Users/Groups';
     return $self;
 }
 
@@ -45,12 +45,12 @@ sub _process($)
     my $groupname = $self->param('groupname');
     my $comment = $self->unsafeParam('comment');
 
-    my $group = EBox::UsersAndGroups::Group->create($groupname, $comment);
+    my $group = EBox::Users::Group->create($groupname, $comment);
 
     if ($self->param('addAndEdit')) {
-        $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
+        $self->{redirect} = 'Users/Group?group=' . $group->dn();
     } else {
-        $self->{redirect} = "UsersAndGroups/Groups";
+        $self->{redirect} = "Users/Groups";
     }
 }
 

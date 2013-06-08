@@ -46,9 +46,9 @@ isa_ok EBox::CGI::Run::_instanceModelCGI('SysInfo/View/Halt'), 'EBox::CGI::View:
 my $users = EBox::Global->modInstance('users');
 my $manager = EBox::Model::Manager->instance();
 ok $manager->_modelExists('users/ManageUsers'), 'tree model exists';
-isa_ok $users->model('ManageUsers'), 'EBox::UsersAndGroups::Model::ManageUsers', 'tree model has correct type';
-isa_ok EBox::CGI::Run::modelFromUrl('UsersAndGroups/Tree/ManageUsers'), 'EBox::UsersAndGroups::Model::ManageUsers', 'instance tree from url';
-isa_ok EBox::CGI::Run::_instanceModelCGI('UsersAndGroups/Tree/ManageUsers'), 'EBox::CGI::View::Tree', 'instance tree viewer';
+isa_ok $users->model('ManageUsers'), 'EBox::Users::Model::ManageUsers', 'tree model has correct type';
+isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/ManageUsers'), 'EBox::Users::Model::ManageUsers', 'instance tree from url';
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/ManageUsers'), 'EBox::CGI::View::Tree', 'instance tree viewer';
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';

@@ -15,7 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::UsersAndGroups::OU
+# Class: EBox::Users::OU
 #
 #   Organizational Unit, stored in LDAP
 #
@@ -23,16 +23,16 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::OU;
+package EBox::Users::OU;
 
 use EBox::Global;
-use EBox::UsersAndGroups;
+use EBox::Users;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
-use base 'EBox::UsersAndGroups::LdapObject';
+use base 'EBox::Users::LdapObject';
 
 sub new
 {
@@ -56,7 +56,7 @@ sub create
     );
     my $r = $self->_ldap->add($dn, \%args);
 
-    my $res = new EBox::UsersAndGroups::OU(dn => $dn);
+    my $res = new EBox::Users::OU(dn => $dn);
     return $res;
 }
 

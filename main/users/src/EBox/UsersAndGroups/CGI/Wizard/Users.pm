@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::Wizard::Users;
+package EBox::Users::CGI::Wizard::Users;
 
 use base 'EBox::CGI::WizardPage';
 

@@ -16,9 +16,9 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::Groups;
+package EBox::Users::Model::Groups;
 
-# Class: EBox::UsersAndGroups::Model::Groups
+# Class: EBox::Users::Model::Groups
 #
 #       This a class used as a proxy for the groups stored in LDAP.
 #       It is meant to improve the user experience when managing groups,
@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Model::Row;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::Group;
 
 use EBox::Types::Text;
 use EBox::Types::Link;
@@ -76,7 +76,7 @@ sub _table
         'defaultController' => '/Users/Controller/Groups',
         'defaultActions' => ['changeView'],
         'tableDescription' => \@tableHead,
-        'menuNamespace' => 'UsersAndGroups/Groups',
+        'menuNamespace' => 'Users/Groups',
         'help' => '',
         'printableRowName' => __('group'),
         'sortedBy' => 'name',
@@ -132,7 +132,7 @@ sub preconditionFailMsg
         } elsif ($mode eq 'slave') {
             my $master = $users->model('Mode')->remoteValue();
             return __x('Zentyal is configured as slave and there are no groups at the moment. You may want to add some in the {openhref}master{closehref}.',
-                       openhref => "<a href='https://$master/zentyal/UsersAndGroups/Groups'>",
+                       openhref => "<a href='https://$master/zentyal/Users/Groups'>",
                        closehref => '</a>');
         } elsif ($mode eq 'ad-slave') {
             return __('Zentyal is configured as Windows AD slave and there are no groups at the moment. If there are groups in your Domain Controller, maybe the synchronization process has failed or has not finished yet.');
@@ -167,11 +167,11 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $group = new EBox::UsersAndGroups::Group(dn => $id);
+    my $group = new EBox::Users::Group(dn => $id);
 
     my $desc = $group->get('description');
     my $name = $group->get('cn');
-    my $link = "/UsersAndGroups/Group?group=" . $group->dn();
+    my $link = "/Users/Group?group=" . $group->dn();
     my $row = $self->_setValueRow(
                     name => $name,
                     description => defined($desc) ? $desc : '-',

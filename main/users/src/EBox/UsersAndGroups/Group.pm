@@ -14,19 +14,19 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 use strict;
 use warnings;
-# Class: EBox::UsersAndGroups::Group
+# Class: EBox::Users::Group
 #
 #   Zentyal group, stored in LDAP
 #
-package EBox::UsersAndGroups::Group;
+package EBox::Users::Group;
 
-use base 'EBox::UsersAndGroups::LdapObject';
+use base 'EBox::Users::LdapObject';
 
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
+use EBox::Users;
+use EBox::Users::User;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -159,14 +159,14 @@ sub removeMember
 #
 # Returns:
 #
-#   arrary ref of members (EBox::UsersAndGroups::User)
+#   arrary ref of members (EBox::Users::User)
 #
 sub users
 {
     my ($self, $system) = @_;
 
     my @members = $self->get('member');
-    @members = map { new EBox::UsersAndGroups::User(dn => $_) } @members;
+    @members = map { new EBox::Users::User(dn => $_) } @members;
 
     unless ($system) {
         @members = grep { not $_->system() } @members;
@@ -188,7 +188,7 @@ sub users
 #
 #   Returns:
 #
-#       array ref of EBox::UsersAndGroups::Group objects
+#       array ref of EBox::Users::Group objects
 #
 sub usersNotIn
 {
@@ -203,7 +203,7 @@ sub usersNotIn
     my $result = $self->_ldap->search(\%attrs);
 
     my @users = map {
-            EBox::UsersAndGroups::User->new(entry => $_)
+            EBox::Users::User->new(entry => $_)
         } $result->entries();
 
     unless ($system) {
@@ -379,7 +379,7 @@ sub create
     }
 
     # Verify group exists
-    if (new EBox::UsersAndGroups::Group(dn => $dn)->exists()) {
+    if (new EBox::Users::Group(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
             'value' => $group);
@@ -426,7 +426,7 @@ sub create
             }
         }
 
-        $res = new EBox::UsersAndGroups::Group(dn => $dn);
+        $res = new EBox::Users::Group(dn => $dn);
         unless ($system) {
             $users->reloadNSCD();
 
@@ -460,7 +460,7 @@ sub create
 sub _checkGroupName
 {
     my ($name)= @_;
-    if (not EBox::UsersAndGroups::checkNameLimitations($name)) {
+    if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }
 

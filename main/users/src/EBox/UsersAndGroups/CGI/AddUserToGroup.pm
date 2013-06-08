@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::CGI::AddUserToGroup;
+package EBox::Users::CGI::AddUserToGroup;
 
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
@@ -40,18 +40,18 @@ sub _process
 
     $self->_requireParam('group' , __('group'));
     my $group = $self->unsafeParam('group');
-    $self->{errorchain} = "UsersAndGroups/Group";
+    $self->{errorchain} = "Users/Group";
     $self->keepParam('group');
 
     $self->_requireParam('adduser', __('user'));
     my @users = $self->unsafeParam('adduser');
 
-    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    $group = new EBox::Users::Group(dn => $group);
     foreach my $us (@users){
-        $group->addMember(new EBox::UsersAndGroups::User(dn => $us));
+        $group->addMember(new EBox::Users::User(dn => $us));
     }
 
-    $self->{redirect} = 'UsersAndGroups/Group?group=' . $group->dn();
+    $self->{redirect} = 'Users/Group?group=' . $group->dn();
 }
 
 1;

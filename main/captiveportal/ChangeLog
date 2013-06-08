@@ -1,4 +1,5 @@
 HEAD
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 	+ Ported JS code to jQuery
 3.1.1
 	+ Added missing use sentence to Users Model

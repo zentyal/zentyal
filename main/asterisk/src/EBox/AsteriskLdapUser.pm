@@ -27,8 +27,8 @@ use base qw(EBox::LdapUserBase);
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
+use EBox::Users;
+use EBox::Users::User;
 use EBox::Asterisk::Extensions;
 use EBox::Model::Manager;
 
@@ -482,7 +482,7 @@ sub asteriskUsersInQueue
 
     my @asteriskusers;
     foreach my $entry ($result->entries()) {
-        push (@asteriskusers, new EBox::UsersAndGroups::User(entry => $entry));
+        push (@asteriskusers, new EBox::Users::User(entry => $entry));
     }
 
     return @asteriskusers;

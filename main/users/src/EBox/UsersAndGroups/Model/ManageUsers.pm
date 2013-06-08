@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::UsersAndGroups::Model::ManageUsers;
+package EBox::Users::Model::ManageUsers;
 
 use base 'EBox::Model::TreeView';
 
@@ -28,7 +28,7 @@ sub _tree
 
     return {
         treeName => 'ManageUsers',
-        modelDomain => 'UsersAndGroups',
+        modelDomain => 'Users',
         pageTitle => __('Users and Groups'),
         help =>  __('FIXME'),
     };

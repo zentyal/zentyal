@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -42,14 +42,14 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=".$user;
+    $self->{redirect} = "Users/User?user=".$user;
 
     $self->_requireParam('mail', __('user mail'));
     my $usermail = $self->param('mail');
 
     $self->keepParam('user');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
     $mail->{musers}->delUserAccount($user, $usermail);
 }
 

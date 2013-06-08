@@ -15,18 +15,18 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::Model::Password
+# Class: EBox::Users::Model::Password
 #
 #   Class for change password model in user corner
 #
 
-package EBox::UsersAndGroups::Model::Password;
+package EBox::Users::Model::Password;
 
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use EBox::UsersAndGroups::Types::Password;
+use EBox::Users::Types::Password;
 
 use Apache2::RequestUtil;
 use File::Temp qw/tempfile/;
@@ -50,14 +50,14 @@ sub _table
 {
     my @tableHead =
     (
-        new EBox::UsersAndGroups::Types::Password(
+        new EBox::Users::Types::Password(
             'fieldName' => 'pass1',
             'printableName' => __('New password'),
             'size' => '8',
             'unique' => 1,
             'editable' => 1
         ),
-        new EBox::UsersAndGroups::Types::Password(
+        new EBox::Users::Types::Password(
             'fieldName' => 'pass2',
             'printableName' => __('Re-type new password'),
             'size' => '8',
@@ -88,7 +88,7 @@ sub setTypedRow
     my $r = Apache2::RequestUtil->request;
     my $user = $r->user;
 
-    $user = new EBox::UsersAndGroups::User(uid => $user);
+    $user = new EBox::Users::User(uid => $user);
 
     if ($pass1->cmp($pass2) != 0) {
         throw EBox::Exceptions::External(__('Passwords do not match.'));

@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::SambaLdapUser;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Samba::User;
@@ -43,12 +43,12 @@ sub _group
 
     $self->_requireParam('group', __('group'));
     my $group = $self->unsafeParam('group');
-    $self->{redirect} = "UsersAndGroups/Group?group=$group";
-    $self->{errorchain} =  "UsersAndGroups/Group";
+    $self->{redirect} = "Users/Group?group=$group";
+    $self->{errorchain} =  "Users/Group";
 
     $self->keepParam('group');
 
-    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    $group = new EBox::Users::Group(dn => $group);
 
     $self->_requireParamAllowEmpty('sharename', __('share name'));
     my $name =  $self->param('sharename');
@@ -68,12 +68,12 @@ sub _user
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
-    $self->{errorchain} = "UsersAndGroups/User";
+    $self->{redirect} = "Users/User?user=$user";
+    $self->{errorchain} = "Users/User";
 
     $self->keepParam('user');
 
-    my $zentyalUser = new EBox::UsersAndGroups::User(dn => $user);
+    my $zentyalUser = new EBox::Users::User(dn => $user);
     my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
     my $accountEnabled = $self->param('accountEnabled');
     if ($accountEnabled eq 'yes') {
