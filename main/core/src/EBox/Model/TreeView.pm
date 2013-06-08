@@ -324,6 +324,21 @@ sub _mainController
     return $defAction;
 }
 
+# Method: pageTitle
+#
+#       Get the i18ned name of the page where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->tree()->{'pageTitle'};
+}
+
 # Method: keywords
 #
 # Overrides:

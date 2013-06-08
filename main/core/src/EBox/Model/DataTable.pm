@@ -1594,6 +1594,21 @@ sub printableModelName
     return $self->table()->{'printableTableName'};
 }
 
+# Method: pageTitle
+#
+#       Get the i18ned name of the page where the model is contained, if any
+#
+# Returns:
+#
+#   string
+#
+sub pageTitle
+{
+    my ($self) = @_;
+
+    return $self->table()->{'pageTitle'};
+}
+
 # Method: directory
 #
 #        Get the current directory. This method is handy to manage
