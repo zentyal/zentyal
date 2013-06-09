@@ -986,11 +986,6 @@ sub groups
     return \@groups;
 }
 
-sub multipleOusEnabled
-{
-    return EBox::Config::configkey('multiple_ous');
-}
-
 # Method: ous
 #
 #       Returns an array containing all the OUs
@@ -1388,11 +1383,9 @@ sub menu
                                               'text' => __('User Template'), order => 30));
         }
 
-        if (EBox::Config::configkey('multiple_ous')) {
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/View/OUs',
-                        'text' => __('Organizational Units'), order => 25));
-        }
+        $folder->add(new EBox::Menu::Item(
+                    'url' => 'Users/View/OUs',
+                    'text' => __('Organizational Units'), order => 25));
 
         $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Sync',

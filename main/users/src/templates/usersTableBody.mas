@@ -17,17 +17,8 @@ $model
 $filter => undef
 </%args>
 <%init>
-my $userMod =$model->parentModule();
-my $ouEnabled = $userMod->multipleOusEnabled();
+my $userMod = $model->parentModule();
 </%init>
-% if (not $ouEnabled) {
-<& PARENT:topToolbar,
-    tableName => $tableName,
-    model => $model,
-    filter => $filter,
-&>
-% return;
-% }
 <table class="bDataTable">
     <tr>
         <td>

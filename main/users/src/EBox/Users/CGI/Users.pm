@@ -23,16 +23,18 @@ use EBox::Global;
 use EBox::Users;
 use EBox::Gettext;
 
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Users'),
-            'template' => '/users/users.mas',
-            @_);
+                                  'template' => '/users/users.mas',
+                                  @_);
     bless($self, $class);
     return $self;
 }
 
-sub _process($) {
+sub _process
+{
     my ($self) = @_;
     my $users = EBox::Global->modInstance('users');
 
@@ -42,19 +44,17 @@ sub _process($) {
         push(@args, 'groups' => $users->groups());
         push(@args, 'users' => $users->users());
 
-        if ($users->multipleOusEnabled) {
-            push(@args, 'ous' => $users->ous());
+        push(@args, 'ous' => $users->ous());
 
-            my $ou = $self->unsafeParam('filterOU');
-            if ((defined $ou) and ($ou eq '_all')) {
-                $ou = undef;
-            }
-
-            EBox::debug("setOUFilterAction: $ou");
-            my $usersModel =  $users->model('Users');
-            $usersModel->setFilterOU($ou);
-            push @args, (usersModel => $usersModel);
+        my $ou = $self->unsafeParam('filterOU');
+        if ((defined $ou) and ($ou eq '_all')) {
+            $ou = undef;
         }
+
+        EBox::debug("setOUFilterAction: $ou");
+        my $usersModel = $users->model('Users');
+        $usersModel->setFilterOU($ou);
+        push @args, (usersModel => $usersModel);
     } else {
         $self->setTemplate('/notConfigured.mas');
         push(@args, 'module' => __('Users'));

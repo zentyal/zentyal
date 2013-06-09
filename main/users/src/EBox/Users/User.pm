@@ -511,9 +511,9 @@ sub passwordHashes
 #   system - boolean: if true it adds the user as system user, otherwise as
 #                     normal user
 #   params hash (all optional):
-#      uidNumber - user UID number
-#      ou (multiple_ous enabled only)
-#      ignoreMods - modules that should not be notified about the user creation
+#      uidNumber    - user UID number
+#      ou           - organizational unit
+#      ignoreMods   - modules that should not be notified about the user creation
 #      ignoreSlaves - slaves that should not be notified about the user creation
 #
 # Returns:
@@ -557,11 +557,10 @@ sub create
     # Is the user added to the default OU?
     my $isDefaultOU = 1;
     my $dn;
-    if (EBox::Config::configkey('multiple_ous') and $user->{ou}) {
+    if ($user->{ou}) {
         $dn = 'uid=' . $user->{user} . ',' . $user->{ou};
         $isDefaultOU = ($user->{ou} eq $users->usersDn());
-    }
-    else {
+    } else {
         $dn = $users->userDn($user->{'user'});
     }
 

@@ -215,15 +215,14 @@ sub row
 sub setFilterOU
 {
     my ($self, $filter) = @_;
+
     $self->{filterOU} = $filter;
 }
 
 sub filterOU
 {
     my ($self) = @_;
-    if (not $self->parentModule()->multipleOusEnabled()) {
-        return undef;
-    }
+
     return $self->{filterOU};
 }
 

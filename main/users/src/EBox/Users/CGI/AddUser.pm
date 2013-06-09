@@ -65,9 +65,7 @@ sub _process
          throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
-    if (EBox::Config::configkey('multiple_ous')) {
-        $user->{ou} = $self->unsafeParam('ou');
-    }
+    $user->{ou} = $self->unsafeParam('ou');
 
     my $newUser = EBox::Users::User->create($user, 0);
     if ($user->{'group'}) {
