@@ -21,6 +21,7 @@ package EBox::Users::Model::ManageUsers;
 use base 'EBox::Model::TreeView';
 
 use EBox::Gettext;
+use EBox::Types::Action;
 
 sub _tree
 {
@@ -30,6 +31,7 @@ sub _tree
         treeName => 'ManageUsers',
         modelDomain => 'Users',
         pageTitle => __('Users and Groups'),
+        defaultActions => [ 'add', 'edit', 'delete' ],
         help =>  __('FIXME'),
     };
 }
@@ -38,60 +40,47 @@ sub rootNodes
 {
     my ($self) = @_;
 
-    return [
-        { id => 'users', printableName => __('Users') },
-        { id => 'groups', printableName => __('Groups') },
-    ];
+    my @nodes;
+
+    foreach my $ou (@{$self->parentModule()->ous()}) {
+        my $dn = $ou->dn();
+        my ($name) = $dn =~ /^ou=([^,]+),/;
+        push (@nodes, { id => $dn, printableName => $name });
+    }
+
+    return \@nodes;
 }
 
 sub childNodes
 {
     my ($self, $parent) = @_;
 
-    if ($parent eq 'users') {
-        return $self->_userNodes();
-    } elsif ($parent eq 'groups') {
-        return $self->_groupNodes();
-    } else {
-        return [];
+    my @nodes;
+
+    foreach my $object (@{$self->parentModule()->ouObjects($parent)}) {
+        my $id = $object->dn();
+        my $printableName;
+        my $type;
+
+        if ($object->isa('EBox::Users::User')) {
+            $type = 'user';
+            $printableName = $object->fullname();
+        } elsif ($object->isa('EBox::Users::Group')) {
+            $type = 'group';
+            $printableName = $object->name();
+        } else {
+            next;
+        }
+
+        push (@nodes, { id => $id, printableName => $printableName, type => $type });
     }
+
+    return \@nodes;
 }
 
 sub nodeTypes
 {
     return [ 'user', 'group' ];
-}
-
-sub _userNodes
-{
-    my ($self) = @_;
-
-    my @nodes;
-
-    foreach my $user (@{$self->parentModule()->realUsers()}) {
-        my $id = $user->dn();
-        my $printableName = $user->fullname();
-
-        push (@nodes, { id => $id, printableName => $printableName, type => 'user' });
-    }
-
-    return \@nodes;
-}
-
-sub _groupNodes
-{
-    my ($self) = @_;
-
-    my @nodes;
-
-    foreach my $group (@{$self->parentModule()->groups()}) {
-        my $id = $group->dn();
-        my $printableName = $group->name();
-
-        push (@nodes, { id => $id, printableName => $printableName, type => 'group' });
-    }
-
-    return \@nodes;
 }
 
 1;

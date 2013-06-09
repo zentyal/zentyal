@@ -250,7 +250,23 @@ sub modelDomain
 {
     my ($self) = @_;
 
-    return $self->{'tree'}->{'modelDomain'};
+    return $self->tree()->{'modelDomain'};
+}
+
+sub defaultActions
+{
+    my ($self) = @_;
+
+    return $self->tree()->{'defaultActions'};
+}
+
+sub defaultActionLabels
+{
+    return {
+        'add' => __('Add'),
+        'delete' => __('Delete'),
+        'edit' => __('Edit'),
+    };
 }
 
 # Method: _HTTPUrlView
@@ -318,8 +334,7 @@ sub _mainController
     if ( (not defined ( $defAction )) and defined ( $self->modelDomain() )) {
         # If it is not a defaultController, we try to guess it from
         # the model domain and its name
-        $defAction = '/' . $self->modelDomain() . '/Controller/' .
-            $self->{'tree'}->{'treeName'};
+        $defAction = '/' . $self->modelDomain() . '/Controller/' .  $self->{'tree'}->{'treeName'};
     }
     return $defAction;
 }

@@ -22,7 +22,12 @@
 </div>
 %  }
 
-<div id="tree1" />
+% my $actionLabels = $model->defaultActionLabels();
+% foreach my $action (@{$model->defaultActions()}) {
+<button id="<% $action %>" class="actionButton" type="button"><% $actionLabels->{$action} %></button>
+% }
+
+<div id="tree1" class="treeView"/>
 
 <script>
 jQuery(function () {
@@ -38,12 +43,12 @@ jQuery(function () {
 %   my $id = $node->{id};
 %   my @children;
 %   foreach my $child (@{$model->childNodes($id)}) {
-%       push (@children, "{ \"data\": \"$child->{printableName}\", \"attr\": { \"rel\": \"$child->{type}\" } }");
+%       my $childId = $child->{id};
+%       push (@children, "{ \"data\": \"$child->{printableName}\", \"attr\": { \"rel\": \"$child->{type}\", \"id\": \"$childId\" } }");
 %   }
 			{
               "data" : "<% $node->{printableName} %>",
-              "attr" : { "rel": "<% $node->{type} %>" },
-              "metadata" : { "id": "<% $id %>" },
+              "attr" : { "rel": "<% $node->{type} %>", "id": "<% $id %>" },
               "children" : [ <% join (',', @children) %> ]
             },
 % }
@@ -62,6 +67,15 @@ jQuery(function () {
   treeComponent.on('loaded.jstree', function () {
     treeComponent.jstree('open_all');
   });
+
+  jQuery(".actionButton").each(function() {
+    jQuery(this).click(function() {
+        var actionId = jQuery(this).attr('id');
+        var selectedNodeId = treeComponent.jstree('get_selected').attr('id');
+        alert("ACTION CLICKED: " + actionId + " " + selectedNodeId);
+    });
+  });
+
 });
 </script>
 

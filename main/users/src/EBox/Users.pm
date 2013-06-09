@@ -1018,6 +1018,57 @@ sub ous
     return \@ous;
 }
 
+# Method: ouObjects
+#
+#       Returns the objects of a given OU
+#
+# Parameters:
+#       ou - DN of the Organizational Unit to be used as search base
+#
+# Returns:
+#
+#       array ref - holding the LdapObjects belonging to the given OU
+#
+sub ouObjects
+{
+    my ($self, $ou) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my %args = (
+        base => $ou,
+        # TODO: include other objects: contacts, computers, ...
+        filter => '(|(objectclass=posixAccount)(objectclass=zentyalGroup))',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @objects;
+
+    foreach my $entry ($result->entries)
+    {
+        # FIXME: replace with better checks!
+        if ($entry->exists('uid')) {
+            push (@objects, new EBox::Users::User(entry => $entry));
+        } elsif ($entry->exists('gidNumber')) {
+            push (@objects, new EBox::Users::Group(entry => $entry));
+        } else {
+            EBox::warn("Unexpected entry found: FIXME");
+        }
+    }
+
+    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
+    @objects = sort {
+            my $aValue = $a->dn();
+            my $bValue = $b->dn();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @objects;
+
+    return \@objects;
+}
+
 # Method: _modsLdapUserbase
 #
 # Returns modules implementing LDAP user base interface
