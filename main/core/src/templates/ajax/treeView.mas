@@ -80,6 +80,13 @@ jQuery(function () {
         var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
         if (nodeType in <% encode_json(\%typesHash) %>) {
             alert("ACTION CLICKED: " + actionId + " " + selectedNodeId + " (" + nodeType + ")");
+            jQuery.ajax({ url: '<% $model->modelDomain() %>/TreeController',
+                          type: 'post',
+                          data: 'action=' + actionId + '&hasChanged=0',
+                          success: function(t) {
+                              alert("SUCCESS!!");
+                          }
+            });
         }
     });
   });

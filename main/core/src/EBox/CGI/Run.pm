@@ -174,7 +174,7 @@ sub _parseModelUrl
         $namespace = $module->name();
     }
 
-    if ($type eq any(qw(Composite View Controller ModalController Tree))) {
+    if ($type eq any(qw(Composite View Controller ModalController Tree TreeController))) {
         return ($model, $namespace, $type, $action);
     }
 
@@ -248,6 +248,8 @@ sub _instanceModelCGI
             $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
         } elsif ($type eq 'ModalController') {
             $cgi = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace);
+        } elsif ($type eq 'TreeController') {
+            $cgi = EBox::CGI::Controller::TreeView->new('model' => $model, 'namespace' => $namespace);
         } elsif ($type eq 'Composite') {
             if (defined ($action)) {
                 $cgi = new EBox::CGI::Controller::Composite(composite => $model,

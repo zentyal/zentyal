@@ -30,24 +30,43 @@ sub new
 {
     my $class = shift;
     my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
+    my $model = delete $params{'model'};
     my $template;
-    if (defined ($tableModel)) {
-        $template = $tableModel->Viewer();
+    if (defined ($model)) {
+        $template = $model->Viewer();
     }
 
     my $self = $class->SUPER::new('template' => $template, @_);
-    $self->{'tableModel'} = $tableModel;
+    $self->{'model'} = $model;
     bless ($self, $class);
 
     return $self;
 }
 
-sub viewAction
-{
-    my ($self, %params) = @_;
+use Data::Dumper; #FIXME
 
-    $self->{template} = $params{model}->Viewer();
+sub addNode
+{
+    my ($self) = @_;
+
+    EBox::info("FIXME: implement add node");
+    EBox::info(Dumper($self->getParams()));
+}
+
+sub deleteNode
+{
+    my ($self) = @_;
+
+    EBox::info("FIXME: implement delete node");
+    EBox::info(Dumper($self->getParams()));
+}
+
+sub editNode
+{
+    my ($self) = @_;
+
+    EBox::info("FIXME: implement edit node");
+    EBox::info(Dumper($self->getParams()));
 }
 
 # Group: Protected methods
@@ -58,26 +77,34 @@ sub _process
 
     $self->_requireParam('action');
     my $action = $self->param('action');
-    $self->{'action'} = $action;
+    $self->{action} = $action;
 
-    my $model = $self->{'tableModel'};
+    my $model = $self->{'model'};
+
+    if ($action eq 'add') {
+        $self->addNode();
+    } elsif ($action eq 'delete') {
+        $self->deleteNode();
+    } elsif ($action eq 'edit') {
+        $self->editNode();
+    }
+
+    $self->{'params'} = $self->masonParameters();
 }
 
-# TODO: Move this function to the proper place
-sub _printRedirect
+# Method: masonParameters
+#
+#      Overrides <EBox::CGI::ClientBase::masonParameters>
+#
+sub masonParameters
 {
-    my $self = shift;
-    my $url = $self->_redirect();
-    return unless (defined($url));
-    print "<script>window.location.href='$url'</script>";
-}
+    my ($self) = @_;
 
-sub _print
-{
-    my $self = shift;
-    $self->SUPER::_print();
-    unless ($self->{json}) {
-        $self->_printRedirect;
+    if ($self->{action} eq 'changeView') {
+        my $global = EBox::Global->getInstance();
+        return [ model => $self->{model}, hasChanged => $global->unsaved() ];
+    } else {
+        return [];
     }
 }
 
