@@ -1,6 +1,10 @@
 <%args>
   $model
 </%args>
+<%init>
+  use JSON::XS;
+  my %typesHash = map { $_ => 1 } @{$model->nodeTypes()};
+</%init>
 
 <& .pageTitle, title => $model->pageTitle() &>
 
@@ -71,8 +75,12 @@ jQuery(function () {
   jQuery(".actionButton").each(function() {
     jQuery(this).click(function() {
         var actionId = jQuery(this).attr('id');
-        var selectedNodeId = treeComponent.jstree('get_selected').attr('id');
-        alert("ACTION CLICKED: " + actionId + " " + selectedNodeId);
+        var selectedNode = treeComponent.jstree('get_selected');
+        var selectedNodeId = selectedNode.attr('id');
+        var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
+        if (nodeType in <% encode_json(\%typesHash) %>) {
+            alert("ACTION CLICKED: " + actionId + " " + selectedNodeId + " (" + nodeType + ")");
+        }
     });
   });
 
