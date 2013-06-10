@@ -220,6 +220,33 @@ sub DefaultEnableDir
     return 0;
 }
 
+# Method: message
+#
+#	Allows us to introduce some conditionals when showing the message
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::message>
+#
+#
+sub message
+{
+    my ($self, $action) = @_;
+    if ($action eq 'update') {
+        my $userstatus = $self->value('enableDir');
+        if ($userstatus)  {
+                return __("Configuration Settings saved. <br>  Remember that in order to have UserDir working, you should create the " . PUBLIC_DIR . "
+         folder, and to provide www-data execution permissions over the involved /home/user folders ");
+;
+        }
+
+    }
+    return $self->SUPER::message($action);
+}
+
+
+
+
 # Group: Protected methods
 
 # Method: _table

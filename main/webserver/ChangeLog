@@ -1,3 +1,6 @@
+HEAD
+	+ Added GUI warning when enabling UserDir , telling about the need of
+	 creating the public_html dir and of giving permissions to www-data
 3.1.1
 	+ Remove deprecated backup domains methods
 3.1
