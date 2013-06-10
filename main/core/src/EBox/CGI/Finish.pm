@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::CGI::Finish;
 
-use base qw(EBox::CGI::ClientRawBase EBox::CGI::ProgressClient);
+use base qw(EBox::CGI::ClientPopupBase EBox::CGI::ProgressClient);
 
 use EBox::Config;
 use EBox::Global;
@@ -141,10 +141,5 @@ sub _disabledModules
     return \@modules;
 }
 
-sub _print
-{
-    my ($self) = @_;
-    $self->_printPopup();
-}
 
 1;
