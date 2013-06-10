@@ -31,6 +31,8 @@ Zentyal.Dialog.showURL = function(url, params) {
     dialogParams = {
         resizable: false,
         modal: true,
+        minWidth: 500,
+        position: {my: 'top+100', at: 'top'},
         create: function (event, ui) {
             Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
         },
