@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,34 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::Logout::CGI::Index;
-use base 'EBox::CGI::ClientPopupBase';
+package EBox::CGI::ClientPopupBase;
+use base 'EBox::CGI::ClientRawBase';
 
-use EBox::Global;
-use EBox::Gettext;
-
-sub new
-{
-    my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Logout'),
-                                  'template' => '/logout/index.mas',
-                                  @_);
-    bless($self, $class);
-    return $self;
-}
-
-sub _process
+sub _print
 {
     my ($self) = @_;
-    my $global = EBox::Global->getInstance();
-    if ($global->unsaved) {
-        $self->{params} = ['unsaved' => 'yes'];
-    }
-}
-
-sub _loggedIn
-{
-    return 1;
+    $self->_printPopup();
 }
 
 1;

@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::ServiceModule::CGI::ConfigureView;
 
-use base 'EBox::CGI::ClientRawBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 #   This class is used to list the actions and file modifications
 #   that Zentyal needs to do to enable the module
@@ -81,12 +81,6 @@ sub _process
                  );
    $self->{params} = \@params;
 
-}
-
-sub _print
-{
-    my $self = shift;
-    return $self->_printPopup();
 }
 
 1;
