@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Logout::CGI::Index;
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -37,9 +37,7 @@ sub _process
     my ($self) = @_;
     my $global = EBox::Global->getInstance();
     if ($global->unsaved) {
-        my @array = ();
-        push(@array, 'unsaved' => 'yes');
-        $self->{params} = \@array;
+        $self->{params} = ['unsaved' => 'yes'];
     }
 }
 
@@ -47,5 +45,12 @@ sub _loggedIn
 {
     return 1;
 }
+
+sub _print
+{
+    my ($self) = @_;
+    $self->_printPopup();
+}
+
 
 1;
