@@ -623,14 +623,14 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 body {
     overflow-y: scroll;
     min-width: 960px;
-    max-width: 1200px;
+    max-width: 1500px;
     width: 98%;    
     margin: 0px auto;
     padding:0;
     color: #000000;
     font-size: 11px;
     font-family: Verdana, sans-serif;
-    background-color: #f5f5f5;
+    background-color: #eee;
     behavior: url(/data/js/csshover.htc);
 }
 
@@ -1906,6 +1906,21 @@ div[aria-describedby="load_in_dialog"]{
     min-height: 600px;
     width: 100%;
 }
-#VNC_screen{
-    width: 100% !important;
+
+.moveRowHandle {
+    background: url("/data/images/row-handler.gif") no-repeat scroll center center transparent;
+    cursor: move;
+    display: none;
+    float: left;
+    height: 30px;
+    margin-top: -7px;
+    position: absolute;
+    width: 20px;
+}
+
+tr:hover .moveRowHandle{
+    display: block;
+}
+.ui-sortable-helper{
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
 }
