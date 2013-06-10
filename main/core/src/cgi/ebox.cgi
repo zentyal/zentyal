@@ -17,12 +17,12 @@
 use strict;
 use warnings;
 
-use CGI::Emulate::PSGI
+use CGI::Emulate::PSGI;
 use EBox::Gettext;
 use Error qw(:try);
 use POSIX qw(:signal_h);
 
-my $app = CGI::Emulate::PSGI->handler(run);
+my $app = CGI::Emulate::PSGI->handler(\&run);
 
 sub run
 {
