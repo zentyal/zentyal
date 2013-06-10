@@ -38,7 +38,7 @@ Include /etc/apache2/mods-available/proxy_http.load
    RewriteCond %{REQUEST_URI} <% $pattern_or %>
 %         $i++;
 %      }
-   RewriteRule /<% $redir->{url} %>(.*) <% $redir->{target} %>$1 [P,L]
+   RewriteRule /(.*) <% $redir->{target} %>/$1 [P,L]
 %   }
 
 % }
