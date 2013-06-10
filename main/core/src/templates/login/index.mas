@@ -38,42 +38,38 @@ function checkBrowser() {
 <div id="login">
   <img src="<% $image_login_logo %>" alt="<% $alt_logo %>" id="logo"/>
 %           if ($title) {
-                <center>
-                    <h2 style="color: #333"><% $title %></h2>
-                </center>
+                  <h2><% $title %></h2>
 %           }
 %           if (length($reason)) {
                 <div id='reason'><% $reason %></div>
 %           }
-   <form name='login'   action='/LOGIN' method='post'>
-              
-
-            <div class="warning" id="capsWarning" style="display: none">
+  <div class="warning" id="capsWarning" style="display: none">
                 <% __('Warning: Caps Lock is enabled')%>
-            </div>
-            <div class="warning" id="ieWarning" style="display: none">
+  </div>
+  <div class="warning" id="ieWarning" style="display: none">
                 <% __x('Warning: Unfortunately Internet Explorer is not yet supported on Zentyal. Please use {url} instead.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
-            </div>
-            <div class="warning" id="ffWarning" style="display: none">
+  </div>
+  <div class="warning" id="ffWarning" style="display: none">
                 <% __x('Warning: You are using a browser which is not {url}, the only one officially supported. Please, take into consideration that you might face some issues while navigating on Zentyal UI.', url => '<a href="http://getfirefox.com">Firefox</a>')%>
-            </div>
-            <label class="labeltd"><% __('Username') %>:</label>
+  </div>
+   <form name='login'   action='/LOGIN' method='post'>
+            <label class="labeltd"><% __('Username') %></label>
             <input  class='inputTextLogin' type='text'
                     name='credential_0'
                     id='credential_0'
-                    size='14' />
-            <label class="labeltd"><% __('Password') %>:</label>
+                    size='14'
+                    placeholder='<% __('Username') %>' />
+            <label class="labeltd"><% __('Password') %></label>
             <input class='inputTextLogin' type='password'
                     name='credential_1'
                     id='credential_1'
-                    size='14' />
-                <input type='hidden' name='destination'
+                    size='14'
+                    placeholder='<% __('Password') %>' />
+            <input type='hidden' name='destination'
                     value='<% $destination %>' />
-                <input class='inputButton' type='submit'
+            <input class='inputButton' type='submit'
                     id='loginButton'
                     value="<% __('Enter') %>"/>
-
-
     </form>
 </div>
 <div id="footer"><% $created_by_footer %></div>

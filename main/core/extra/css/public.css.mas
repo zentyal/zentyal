@@ -1896,7 +1896,7 @@ float:left;
     opacity: 0.5;
 }
 /* VM iframe */
-div[aria-describedby="load_in_dialog"]{
+.VMConsole{
     width: 80% !important;
     top: 50px !important;
 }
