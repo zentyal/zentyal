@@ -13,22 +13,11 @@ use EBox::Gettext;
    <% __('Do you really want to close the session?') %>
 </div>
 % }
-<form action='/Logout/Logout'>
-<table><tbody>
+<form action='/Logout/Logout' style="margin-top:20px;">
 % if ($unsaved eq 'yes'){
-<tr>
-   <td> <% __('Discard current changes') %> </td>
-   <td><& /input/checkbox.mas, name=> 'revokeConfig' &> </td>
-</tr>
+<div> <% __('Discard current changes') %> <& /input/checkbox.mas, name=> 'revokeConfig' &><div>
 % }
-<tr>
-  <td>
-   <& /input/submit.mas, name=> 'logoutSubmit', class => 'big', value =>  __('Exit session') &>
-  </td>
-  <td>
-   <input type='button' name='cancel' class='big' value='<% __('Cancel') %>' onClick='Zentyal.Dialog.close(); return false'/>
-   </td>
-</tr>
-</tbody></table>
+  <div style="float: left; margin: 15px 0;"> <& /input/submit.mas, name=> 'logoutSubmit', class => 'big', value =>  __('Exit session') &>
+   <input type='button' name='cancel' style='margin-left:10px;' class='big' value='<% __('Cancel') %>' onClick='Zentyal.Dialog.close(); return false'/></div>
 </form>
 
