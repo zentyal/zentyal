@@ -18,13 +18,12 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 Zentyal.Dialog.showURL = function(url, params) {
     var i,
         dialogParams,
-        dialogParamsAllowed = ['title', 'width', 'height'],
-        id;
+    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass'];
     if (params === undefined) {
         params = {};
     }
 
-    var existentDialog = jQuery('#load_in_dialog');
+    var existentDialog = jQuery('#' + Zentyal.Dialog.DEFAULT_ID);
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
         return;
@@ -49,18 +48,11 @@ Zentyal.Dialog.showURL = function(url, params) {
         }
     }
 
-    if ('id' in params) {
-        id = params.id;
-    } else {
-        id = Zentyal.Dialog.DEFAULT_ID;
-    }
 
-    jQuery('<div id="' + id + '"></div>').dialog(dialogParams);
+
+    jQuery('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
 
-Zentyal.Dialog.close = function(id) {
-    if (id === undefined) {
-        id =  Zentyal.Dialog.DEFAULT_ID;
-    }
-    jQuery('#' + id).dialog('close');
+Zentyal.Dialog.close = function() {
+    jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };
