@@ -43,30 +43,25 @@ sub new
     return $self;
 }
 
-use Data::Dumper; #FIXME
-
 sub addNode
 {
     my ($self) = @_;
 
-    EBox::info("FIXME: implement add node");
-    EBox::info(Dumper($self->getParams()));
+    EBox::info("FIXME: implement add node, params: $self->{type} $self->{id}");
 }
 
 sub deleteNode
 {
     my ($self) = @_;
 
-    EBox::info("FIXME: implement delete node");
-    EBox::info(Dumper($self->getParams()));
+    EBox::info("FIXME: implement delete node, params: $self->{type} $self->{id}");
 }
 
 sub editNode
 {
     my ($self) = @_;
 
-    EBox::info("FIXME: implement edit node");
-    EBox::info(Dumper($self->getParams()));
+    EBox::info("FIXME: implement edit node, params: $self->{type} $self->{id}");
 }
 
 # Group: Protected methods
@@ -79,7 +74,13 @@ sub _process
     my $action = $self->param('action');
     $self->{action} = $action;
 
-    my $model = $self->{'model'};
+    $self->_requireParam('type');
+    my $type = $self->param('type');
+    $self->{type} = $type;
+
+    $self->_requireParam('id');
+    my $id = $self->unsafeParam('id');
+    $self->{id} = $id;
 
     if ($action eq 'add') {
         $self->addNode();
@@ -100,12 +101,7 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    if ($self->{action} eq 'changeView') {
-        my $global = EBox::Global->getInstance();
-        return [ model => $self->{model}, hasChanged => $global->unsaved() ];
-    } else {
-        return [];
-    }
+    return [ model => $self->{model} ];
 }
 
 1;

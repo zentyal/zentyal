@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 22;
+use Test::More tests => 24;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -49,6 +49,9 @@ ok $manager->_modelExists('users/ManageUsers'), 'tree model exists';
 isa_ok $users->model('ManageUsers'), 'EBox::Users::Model::ManageUsers', 'tree model has correct type';
 isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/ManageUsers'), 'EBox::Users::Model::ManageUsers', 'instance tree from url';
 isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/ManageUsers'), 'EBox::CGI::View::Tree', 'instance tree viewer';
+
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Controller/Users'), 'EBox::CGI::Controller::DataTable', 'instance datatable controller';
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/TreeController/ManageUsers'), 'EBox::CGI::Controller::TreeView', 'instance treeview controller';
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';

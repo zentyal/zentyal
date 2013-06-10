@@ -24,6 +24,7 @@ use EBox::Model::Manager;
 use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
 use EBox::CGI::Controller::Modal;
+use EBox::CGI::Controller::TreeView;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
