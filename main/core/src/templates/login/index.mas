@@ -57,14 +57,12 @@ function checkBrowser() {
             <input  class='inputTextLogin' type='text'
                     name='credential_0'
                     id='credential_0'
-                    size='14'
-                    placeholder='<% __('Username') %>' />
+                    size='14' />
             <label class="labeltd"><% __('Password') %></label>
             <input class='inputTextLogin' type='password'
                     name='credential_1'
                     id='credential_1'
-                    size='14'
-                    placeholder='<% __('Password') %>' />
+                    size='14' />
             <input type='hidden' name='destination'
                     value='<% $destination %>' />
             <input class='inputButton' type='submit'
