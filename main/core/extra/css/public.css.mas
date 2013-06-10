@@ -1910,16 +1910,17 @@ div[aria-describedby="load_in_dialog"]{
 .moveRowHandle {
     background: url("/data/images/row-handler.gif") no-repeat scroll center center transparent;
     cursor: move;
-    display: none;
     float: left;
     height: 30px;
     margin-top: -7px;
     position: absolute;
     width: 20px;
+    opacity: 0.2;
+    display: block;
 }
 
 tr:hover .moveRowHandle{
-    display: block;
+    opacity: 1;
 }
 .ui-sortable-helper{
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
