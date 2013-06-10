@@ -8,9 +8,8 @@
     my $tableName = $model->table()->{'tableName'};
     my @sizeOptions;
 
-    my @sizes = (10, 15, 20, 30, 50, 100, 200, 500);
     my $defaultSize = $model->defaultPageSize();
-
+    my @sizes = (50, 100, 200, 500);
     # if  default size isn't in size options add it
     my $defaultSizeIncluded = grep { $_ == $defaultSize  } @sizes;
     if ( not $defaultSizeIncluded) {
@@ -24,6 +23,10 @@
                             'printableValue' => $size
                         });
     }
+    push (@sizeOptions, {
+        'value' => '_all',
+        'printableValue' => __('View all'),
+     });
 </%init>
 <%perl>
     my $pageSizeId = $tableName . '_pageSizeId';

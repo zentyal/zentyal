@@ -1,4 +1,7 @@
 HEAD
+	+ Remember page size options per users, added 'View all' page size option
+	+ Added storage of options per user
+	+ Enhanced UI style: dialogs, progress bars, carousel, colors and images
 	+ Enable and/or conifgure module dependencies automatically in
 	  Module Status page
 	+ Adapted CGIs to new modal dialogs

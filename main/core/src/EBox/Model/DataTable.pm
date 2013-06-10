@@ -35,6 +35,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Types::Boolean;
+use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
@@ -1003,7 +1004,8 @@ sub _selectOptions
 
 # Method: moveRowRelative
 #
-#  Moves the row to the position between other two rows
+#  Moves the row to the position specified either by the previous row or the
+#  next one. If both positions are suppiled the previous row has priority
 #
 #  Parameters:
 #     id - id of row to move
@@ -1013,13 +1015,21 @@ sub _selectOptions
 #    Returns:
 #       - list reference contianing the old row position and the new one
 #
-#  Warning: it is assummed that if both prevId and nextId are supplied, then they
-#  must not have rows between them
 sub moveRowRelative
 {
     my ($self, $id, $prevId, $nextId) = @_;
     if ((not $prevId) and (not $nextId)) {
-        throw EBox::Exceptions::Internal("No changes were supplied");
+        throw EBox::Exceptions::MissingArgument("No changes were supplied");
+    }
+    if ($prevId) {
+        if (($id eq $prevId)) {
+            throw EBox::Exceptions::MissingArgument("id and prevId must be different ids (both were '$id')");
+        } elsif ($nextId and ($prevId eq $nextId)) {
+            throw EBox::Exceptions::MissingArgument("nextId and prevId must be different ids (both were '$nextId')");
+        }
+    }
+    if ($nextId and ($id eq $nextId)) {
+        throw EBox::Exceptions::MissingArgument("id and nextId must be different ids (both were '$id')");
     }
 
     my $oldPos = $self->removeIdFromOrder($id);
@@ -1028,7 +1038,7 @@ sub moveRowRelative
 
     if (defined $prevId) {
          $newPos = $self->idPosition($prevId) + 1;
-     } else {
+     } elsif (defined $nextId) {
          $newPos = $self->idPosition($nextId);
      }
 
@@ -2564,18 +2574,34 @@ sub automaticRemoveMsg
 #
 # Returns:
 #
-#    int - page size
+#    int page size or '_all' for 'All pages' option
 sub pageSize
 {
     my ($self) = @_;
 
     # if the user has selected a page size return it
-    if (exists $self->{'pageSize'} ) {
-        return $self->{'pageSize'};
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
+    if ($pageSize) {
+        return $pageSize;
     }
 
     return $self->defaultPageSize();
 }
+
+# Method: pageSizeIntValue
+#
+#  return the exact maximum number of rows which should be displayed in each
+#  page
+sub pageSizeIntValue
+{
+    my ($self) = @_;
+    my $pageSize = $self->pageSize();
+    if ($pageSize eq '_all') {
+        return 2147483647; # POSIX MAX INT
+    }
+    return $pageSize;
+}
+
 
 # Method: defaultPageSize
 #
@@ -2594,7 +2620,7 @@ sub defaultPageSize
         return $table->{'pageSize'};
     }
 
-    # fallback to defautl value of 10
+    # fallback to default value of 10
     return 10;
 }
 
@@ -2626,7 +2652,7 @@ sub setPageSize
                                            )
     }
 
-    $self->{'pageSize'} = $rows;
+    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS

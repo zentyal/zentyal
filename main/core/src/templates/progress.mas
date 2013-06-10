@@ -45,16 +45,6 @@ unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
 }
 
-# Old styling for progress bar, I left it as reference
-# my $barStyle ='';
-# my $progresValueStyle ='';
-# my $percentMargin;
-# if ($inModalbox) {
-#     $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
-#     $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
-#     $percentMargin = 245;
-# }
-
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
 
@@ -147,6 +137,7 @@ background: #666 url('/data/images/black-texture.png');
   -moz-border-radius: 0px 23px 23px 0px;
   border-radius: 0px 23px 23px 0px;
 }
+
 .carousel-control.right {
   left: auto;
   text-align: right;
@@ -267,7 +258,24 @@ jQuery( function() {
                         <% $showNotesOnFinish ? 'true' : 'false' %>
   );
 % if (@slides) {
-        jQuery('#carousel').carousel();
+   jQuery('#carousel').carousel();
+   jQuery('#carouselLeft').prop('disabled', true);
+   jQuery('#carousel').on('slid', '', function() {
+      var left = false, right = false;
+      var carouselContents = jQuery('#carouselContents');
+      if (carouselContents.find('.item:last').hasClass('active')) {
+           left = true;
+           jQuery('#carousel').carousel('pause');
+      } else if (carouselContents.find('.item:first').hasClass('active')) {
+           right = true;
+      } else {
+          left = true;
+          right = true;
+      }
+      jQuery('#carouselLeft').prop('disabled', !left);
+      jQuery('#carouselRight').prop('disabled', !right);
+   });
+
 % }
 });
 </script>
@@ -301,7 +309,7 @@ $onclick
 @slides
 </%args>
 <div id="carousel" class="carousel_slide">
-     <div class="carousel-inner">
+     <div id='carouselContents' class="carousel-inner">
 % my $first = 1;
 % foreach my $slide (@slides) {
 %    if ($first) {
@@ -314,7 +322,7 @@ $onclick
        </div>
 % }
     </div>
-    <a class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
-    <a class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
+    <a id='carouselLeft' class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
+    <a id='carouselRight' class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
 </div>
 </%def>
