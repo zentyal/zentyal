@@ -1,4 +1,7 @@
 HEAD
+	+ Give support to custom proxied redirections to provide local HTTP
+	  servers from Zentyal Remote using
+	  /etc/zentyal/remoteservices_redirections.yaml
 	+ Custom QA archive can be set at qa_updates_archive configuration
 	  key
 3.0.21
