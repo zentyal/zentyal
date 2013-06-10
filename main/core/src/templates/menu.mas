@@ -3,96 +3,6 @@
 $current => 'none'
 $currentUrl => ''
 </%args>
-<script type="text/javascript">
-//<![CDATA[
-var old_results = null;
-
-function hideMenuEntry(id) {
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $(id).style.display='none';
-        id = id.substr(0,i);
-    }
-    $(id).hide();
-}
-
-function showMenuEntry(id) {
-    while((i=id.lastIndexOf('_'))  != 4) {
-        $(id).style.display='inline';
-        id = id.substr(0,i);
-    }
-    $(id).show();
-}
-
-function showAllMenuEntries() {
-    var menu_entries = $$('li[id^=menu_]');
-    menu_entries.each(function(e) {
-        if(e.id.lastIndexOf('_')  == 4) {
-            e.show();
-        } else {
-            e.hide();
-        }
-    });
-}
-
-function updateMenu(results) {
-    if(old_results == null) {
-        var menu_entries = $$('li[id^=menu_]');
-        menu_entries.each(function(e) {
-            e.hide();
-        });
-        results.each(function(e) {
-            showMenuEntry(e);
-        });
-    } else {
-        old_results.each(function(e) {
-            if(results.indexOf(e) == -1) {
-                hideMenuEntry(e);
-            }
-        });
-        results.each(function(e) {
-            //show it even if it's already in old_results in case we have
-            //hidden it through a parent menu
-            showMenuEntry(e);
-        });
-    }
-    old_results = results;
-}
-
-function filterMenu(event) {
-    var element = event.element();
-    if(element.id == 'menusearch') {
-        if(event.keyCode == 13) {
-            if((old_results != null) && (old_results.length == 1)) {
-                var elem = $(old_results[0]).getElementsBySelector('a')[0];
-                if(elem.hasClassName('navc')) {
-                    window.location = elem.href;
-                } else {
-                    elem.onclick();
-                }
-            }
-        } else {
-            var text = element.value;
-            text = text.toLowerCase();
-            if(text.length >= 3) {
-                var url = '/Menu?search=' + text;
-                new Ajax.Request(url, {
-                      method: 'get',
-                        onSuccess: function(transport) {
-                            var results = transport.responseJSON;
-                            updateMenu(results);
-                        }
-                });
-            } else {
-                old_results = null;
-                showAllMenuEntries();
-            }
-        }
-    }
-}
-
-document.onkeyup = filterMenu;
-//]]>
-</script>
 <div id='menu'>
     <ul id='nav'>
         <li>
@@ -102,3 +12,6 @@ document.onkeyup = filterMenu;
         <% $item->html($current, $currentUrl) %>
 % }
 </ul></div>
+<script type="text/javascript">
+jQuery('#menusearch').keyup(Zentyal.MenuSearch.filterMenu);
+</script>

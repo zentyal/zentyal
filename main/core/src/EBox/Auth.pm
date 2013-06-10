@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::Auth;
-
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
@@ -167,9 +165,6 @@ sub authen_cred  # (request, $user, password, fromCC)
     $md5->add($rndStr);
     my $sid = $md5->hexdigest();
     _savesession($sid, $user);
-
-    my $global = EBox::Global->getInstance();
-    $global->revokeAllModules();
 
     return $sid;
 }

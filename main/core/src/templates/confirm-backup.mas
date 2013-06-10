@@ -16,26 +16,26 @@ my $onclickSubmit = '';
 my $onclickCancel = '';
 if ($popup) {
     my $title;
-    my $url = '/SysInfo/Backup?';
-    $url .= "$action=1";
+    my $url = '/SysInfo/Backup';
+    my $data = "$action=1";
 
     if ($action eq any(qw(restoreFromId  restoreFromFile))) {
         $title = __x('Restore backup: {desc}',
                     desc => $backup->{description});
         if ($action eq 'restoreFromId') {
-            $url .= '&id=' . $backup->{id};
+            $data .= '&id=' . $backup->{id};
         } elsif ($action eq 'restoreFromFile') {
-            $url .= '&backupfile=' . uri_escape($backup->{file});
+            $data .= '&backupfile=' . uri_escape($backup->{file});
         }
-        $url .= "&popup=1";
-        $onclickSubmit = qq{onclick="Modalbox.show('$url', {title:'$title', transitions: false}); return false"};
+        $data .= "&popup=1";
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url', {title:'$title', data:'$data'}); return false"};
     } elsif ($action eq 'delete') {
-        $url .= '&id=' . $backup->{id};
-        $onclickSubmit = qq(onclick="Modalbox.hide(); window.location='$url'; return false");
+        $data .= '&id=' . $backup->{id};
+        $onclickSubmit = qq(onclick="Zentyal.Dialog.close(); window.location='$url?$data'; return false");
     }
 
 
-    $onclickCancel = qq{onclick="Modalbox.hide(); return false"};
+    $onclickCancel = qq{onclick="Zentyal.Dialog.close(); return false"};
 }
 </%init>
 

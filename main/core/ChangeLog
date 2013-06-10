@@ -1,3 +1,16 @@
+HEAD
+	+ Enhanced UI styles: dialogs, progress bars, carousel, colors and images
+	+ Rows of tables can now be moved using drag & drop
+	+ Added logout dialog with option of discarding changes
+	+ Remember page size options per users, added 'View all' page size option
+	+ Added storage of options per user
+	+ Enable and/or conifgure module dependencies automatically in
+	  Module Status page
+	+ Adapted CGIs to new modal dialogs
+	+ Ported graphs from flotr.js to flot.js
+	+ Ported JS code to jQuery and jQuery-ui
+	+ Removed Modalbox.js, table_orderer.js and carousel.js
+	+ Left menu keyword search is now case insensitive
 3.1.2
 	+ Make manage administrators table resilent against invalid users
 	+ Remove deprecated backup domains related from logs module
