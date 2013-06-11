@@ -86,11 +86,11 @@ sub _entry
         } else {
             $self->{entry} = $self->SUPER::_entry();
         }
+        return undef unless defined $self->{entry};
 
-        my $entry = $self->_entry();
-        my @objectClasses = $entry->get('objectClass');
+        my @objectClasses = $self->{entry}->get_value('objectClass');
         unless (grep (/GroupPolicyContainer/i, @objectClasses)) {
-            my $dn = $entry->dn();
+            my $dn = $self->{entry}->dn();
             throw EBox::Exceptions::Internal("Object '$dn' is not a Group Policy Container");
         }
     }
