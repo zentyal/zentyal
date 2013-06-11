@@ -977,12 +977,6 @@ sub maxUsers
         $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
     }
 
-    # Cloud
-    my $max_cloud = $self->maxCloudUsers($force);
-    if (($max_cloud and $max_cloud < $max_users) or ($max_users == 0)) {
-        $max_users = $max_cloud;
-    }
-
     return $max_users;
 }
 
