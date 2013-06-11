@@ -1,3 +1,5 @@
+HEAD
+	+ Disable drag & drop on tables with only one row
 3.1.4
 	+ Don't allow to move read-only rows
 	+ Better prefix for user configuration redis keys
