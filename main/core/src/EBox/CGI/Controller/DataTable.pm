@@ -485,6 +485,7 @@ sub setPositionAction
     $self->_auditLog('move', $self->_getAuditId($id), $res->[0], $res->[1]);
 
     $self->{json}->{success} = 1;
+    $self->{json}->{unsavedModules} = EBox::Global->getInstance()->unsaved() ? 1 : 0;
 }
 
 # Group: Protected methods
