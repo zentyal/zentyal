@@ -4,26 +4,86 @@ use warnings;
 package EBox::Samba::AuthKrbHelper;
 
 use EBox;
+use EBox::Global;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Internal;
 
 use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
 
+# Method: new
+#
+#   Instance a new helper, getting the ticket for the specified principal.
+#   The principal can be specified by name and optional realm, or with
+#   and object SID.
+#
+# Parameters:
+#
+#   principal - The name of the principal
+#   SID - The SID of the principal to get the ticket for
+#   RID - The relative domain ID of the principal to get the ticket for
+#   realm (optional) - The realm the principal belong to
+#
 sub new
 {
     my ($class, %params) = @_;
 
-    unless ($params{principal}) {
-        throw EBox::Exceptions::MissingArgument('principal');
-    }
-    unless ($params{realm}) {
-        throw EBox::Exceptions::MissingArgument('realm');
+    my $principal = undef;
+    my $realm = undef;
+    if ($params{SID}) {
+        my $samba = EBox::Global->modInstance('samba');
+        my $ldb = $samba->ldb();
+        my $result = $ldb->search({base => $ldb->dn(),
+                                   scope => 'sub',
+                                   filter => "(objectSID=$params{SID})",
+                                   attrs => ['samAccountName']});
+        my $count = $result->count();
+        if ($count != 1) {
+            throw EBox::Exceptions::Internal("The specified domain SID " .
+                "has returned $count results, expected one");
+        }
+        my $entry = $result->entry(0);
+        $principal = $entry->get_value('samAccountName');
+    } elsif (length $params{RID}) {
+        my $samba = EBox::Global->modInstance('samba');
+        my $ldb = $samba->ldb();
+        my $sid = $ldb->domainSID() . '-' . $params{RID};
+        my $result = $ldb->search({base => $ldb->dn(),
+                                   scope => 'sub',
+                                   filter => "(objectSID=$sid)",
+                                   attrs => ['samAccountName']});
+        my $count = $result->count();
+        if ($count != 1) {
+            throw EBox::Exceptions::Internal("The specified domain RID " .
+                "has returned $count results, expected one");
+        }
+        my $entry = $result->entry(0);
+        $principal = $entry->get_value('samAccountName');
+    } elsif (length $params{principal}) {
+        $principal = $params{principal};
+    } else {
+        throw EBox::Exceptions::MissingArgument('principal | SID | RID');
     }
 
-    my ($targetPrincipal, $targetRealm) = split(/@/, $params{principal});
-    if (length $targetRealm and $targetRealm ne $params{realm}) {
-        my $error = "The specified principal realm ($targetRealm) does not match specified realm ($params{realm})";
+    if (length $params{realm}) {
+        $realm = $params{realm};
+    } else {
+        my $samba = EBox::Global->modInstance('samba');
+        my $gs = $samba->model('GeneralSettings');
+        $realm = $gs->value('realm');
+    }
+
+    unless (length $principal) {
+        throw EBox::Exceptions::Internal("Empty principal name");
+    }
+
+    unless (length $realm) {
+        throw EBox::Exceptions::Internal("Empty realm");
+    }
+
+    my ($targetPrincipal, $targetRealm) = split(/@/, $principal);
+    if (length $targetRealm and $targetRealm ne $realm) {
+        my $error = "The specified principal realm ($targetRealm) does not match specified realm ($realm)";
         throw EBox::Exceptions::MissingArgument($error);
     }
 
@@ -33,7 +93,7 @@ sub new
 
     my $self = {};
     $self->{principal} = $targetPrincipal;
-    $self->{realm} = $params{realm};
+    $self->{realm} = $realm;
     $self->{password} = $params{password};
     $self->{keytab} = EBox::Config::conf() . 'samba.keytab';
     bless ($self, $class);
@@ -182,6 +242,17 @@ sub checkTicket
     }
 
     return 0;
+}
+
+# Method: principal
+#
+#   Return the name of the principal for which we hold tickets
+#
+sub principal
+{
+    my ($self) = @_;
+
+    return $self->{principal};
 }
 
 1;
