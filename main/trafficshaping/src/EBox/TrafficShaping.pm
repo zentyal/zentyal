@@ -365,6 +365,7 @@ sub ifaceIsShapeable
 # Parameters:
 #
 #       interface      - interface under the rule is given
+#       filterType     - type of the filter used (fw or u32)
 #
 #       service - String the service identifier stored at
 #       zentyal-services module containing the inet protocol and source
@@ -408,6 +409,8 @@ sub checkRule
 
     throw EBox::Exceptions::MissingArgument( __('Interface') )
       unless defined( $ruleParams{interface} );
+    throw EBox::Exceptions::MissingArgument( __('filterType') )
+      unless defined( $ruleParams{filterType} );
 
     if (not $self->ifaceIsShapeable($ruleParams{interface})) {
         throw EBox::Exceptions::External(__x('Iface {if} cannot be traffic shaped',
@@ -958,16 +961,18 @@ sub _buildGConfRules # (iface, regenConfig)
         # get identifier for builder
         my $id = delete $ruleRef->{ruleId};
         $ruleRef->{identifier} = $self->_nextMap($id);
-        # Source and destination
-        foreach my $targetName (qw(source destination)) {
-            my $target = delete $ruleRef->{$targetName};
-            if ( $target->isa('EBox::Types::Union::Text')) {
-                $target = undef;
-            } elsif ( $target->isa('EBox::Types::Select')) {
-                # An object
-                $target = $target->value();
+        if ($ruleRef->{filterType} eq 'fw') {
+            # Source and destination
+            foreach my $targetName (qw(source destination)) {
+                my $target = delete $ruleRef->{$targetName};
+                if ( $target->isa('EBox::Types::Union::Text')) {
+                    $target = undef;
+                } elsif ( $target->isa('EBox::Types::Select')) {
+                    # An object
+                    $target = $target->value();
+                }
+                $ruleRef->{$targetName}  = $target;
             }
-            $ruleRef->{$targetName}  = $target;
         }
         # Rates
         # Transform from conf to camelCase and set if they're null
@@ -1019,16 +1024,6 @@ sub _createBuilders
         }
     }
 
-    my $smallPacketModel = $self->model('SmallPacketPriorization');
-    if ($smallPacketModel->ack) {
-    }
-    if ($smallPacketModel->syn) {
-    }
-    if ($smallPacketModel->fin) {
-    }
-    if ($smallPacketModel->rst) {
-    }
-
     # write configuration files
     $self->_setConf();
 }
@@ -1058,56 +1053,57 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
     my $htbBuilder = $self->{builders}->{$iface};
 
     if ( $htbBuilder->isa('EBox::TrafficShaping::TreeBuilder::HTB')) {
-        my $src = undef;
-        my $srcObj = undef;
-        my $objs = $self->{'objects'};
-        if ( ( defined ( $rule_ref->{source} )
-               and $rule_ref->{source} ne '' ) and
-             ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
-               $rule_ref->{source}->isa('EBox::Types::MACAddr'))
-           ) {
-            $src = $rule_ref->{source};
-            $srcObj = undef;
-        } elsif ( ( not defined ( $rule_ref->{source} ))
-                  or $rule_ref->{source}->isa('EBox::Types::Union::Text')) {
-            $src = undef;
-            $srcObj = undef;
-        } else {
-            # If an object is provided no source is needed to set a rule but
-            # then attaching filters according to members of this object
-            $src = undef;
-            $srcObj =  $rule_ref->{source};
-            return unless (@{$objs->objectAddresses($srcObj)});
-        }
+        if ($rule_ref->{filterType} eq 'fw') {
+            my $src = undef;
+            my $srcObj = undef;
+            my $objs = $self->{'objects'};
+            if ( ( defined ( $rule_ref->{source} )
+                   and $rule_ref->{source} ne '' ) and
+                 ( $rule_ref->{source}->isa('EBox::Types::IPAddr') or
+                   $rule_ref->{source}->isa('EBox::Types::MACAddr'))
+               ) {
+                $src = $rule_ref->{source};
+                $srcObj = undef;
+            } elsif ( ( not defined ( $rule_ref->{source} ))
+                      or $rule_ref->{source}->isa('EBox::Types::Union::Text')) {
+                $src = undef;
+                $srcObj = undef;
+            } else {
+                # If an object is provided no source is needed to set a rule but
+                # then attaching filters according to members of this object
+                $src = undef;
+                $srcObj =  $rule_ref->{source};
+                return unless (@{$objs->objectAddresses($srcObj)});
+            }
 
-        # The same related to destination
-        my $dst = undef;
-        my $dstObj = undef;
-        if ((defined ( $rule_ref->{destination} ) and
-               $rule_ref->{destination} ne '' ) and
-             ($rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
-            $dst = $rule_ref->{destination};
-            $dstObj = undef;
-        } elsif (not defined ( $rule_ref->{destination})
-                  or ($rule_ref->{destination}->isa('EBox::Types::Union::Text'))) {
-            $dst = undef;
-            $dstObj = undef;
-        } else {
-            # If an object is provided no source is needed to set a rule but
-            # then attaching filters according to members of this object
-            $dst = undef;
-            $dstObj =  $rule_ref->{destination} ;
-            return unless (@{$objs->objectAddresses($dstObj)});
-        }
+            # The same related to destination
+            my $dst = undef;
+            my $dstObj = undef;
+            if ((defined ( $rule_ref->{destination} ) and
+                   $rule_ref->{destination} ne '' ) and
+                 ($rule_ref->{destination}->isa('EBox::Types::IPAddr'))) {
+                $dst = $rule_ref->{destination};
+                $dstObj = undef;
+            } elsif (not defined ( $rule_ref->{destination})
+                      or ($rule_ref->{destination}->isa('EBox::Types::Union::Text'))) {
+                $dst = undef;
+                $dstObj = undef;
+            } else {
+                # If an object is provided no source is needed to set a rule but
+                # then attaching filters according to members of this object
+                $dst = undef;
+                $dstObj =  $rule_ref->{destination} ;
+                return unless (@{$objs->objectAddresses($dstObj)});
+            }
 
-        # Set a filter with objects if src or dst are not objects
-        my $service = undef;
-        $service = $rule_ref->{service}; # unless ( $srcObj or $dstObj );
+            # Set a filter with objects if src or dst are not objects
+            my $service = undef;
+            $service = $rule_ref->{service}; # unless ( $srcObj or $dstObj );
 
-        # Only to dump enabled rules, however testing adding new rules
-        # is done, no matter if the rule is enabled or not
-        if ( $rule_ref->{enabled} or $test ) {
-            $htbBuilder->buildRule(
+            # Only to dump enabled rules, however testing adding new rules
+            # is done, no matter if the rule is enabled or not
+            if ( $rule_ref->{enabled} or $test ) {
+                $htbBuilder->buildRule(
                                    service        => $service,
                                    source         => $src,
                                    destination    => $dst,
@@ -1117,13 +1113,13 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                                    identifier     => $rule_ref->{identifier},
                                    testing        => $test,
                                   );
-        }
-        # If an object is provided, attach filters to every member to the
-        # flow object id
-        # Only if not testing
-        if ( not $test ) {
-            if ( $srcObj and not $dstObj) {
-                $self->_buildObjMembers( treeBuilder  => $htbBuilder,
+            }
+            # If an object is provided, attach filters to every member to the
+            # flow object id
+            # Only if not testing
+            if ( not $test ) {
+                if ( $srcObj and not $dstObj) {
+                    $self->_buildObjMembers( treeBuilder  => $htbBuilder,
                                          what         => 'source',
                                          objectName   => $rule_ref->{source},
                                          ruleRelated  => $rule_ref->{identifier},
@@ -1131,8 +1127,8 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                                          where        => $rule_ref->{destination},
                                          rulePriority => $rule_ref->{priority},
                                        );
-            } elsif ( $dstObj and not $srcObj ) {
-                $self->_buildObjMembers(
+                } elsif ( $dstObj and not $srcObj ) {
+                    $self->_buildObjMembers(
                                         treeBuilder  => $htbBuilder,
                                         what         => 'destination',
                                         objectName   => $rule_ref->{destination},
@@ -1141,16 +1137,25 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                                         where        => $rule_ref->{source},
                                         rulePriority => $rule_ref->{priority},
                                        );
-            } elsif ( $dstObj and $srcObj ) {
-                # We have to build whole station
-                $self->_buildObjToObj( treeBuilder  => $htbBuilder,
-                                       srcObject    => $rule_ref->{source},
-                                       dstObject    => $rule_ref->{destination},
-                                       ruleRelated  => $rule_ref->{identifier},
-                                       serviceAssoc => $rule_ref->{service},
-                                       rulePriority => $rule_ref->{priority},
-                                     );
+                } elsif ( $dstObj and $srcObj ) {
+                    # We have to build whole station
+                    $self->_buildObjToObj( treeBuilder  => $htbBuilder,
+                                           srcObject    => $rule_ref->{source},
+                                           dstObject    => $rule_ref->{destination},
+                                           ruleRelated  => $rule_ref->{identifier},
+                                           serviceAssoc => $rule_ref->{service},
+                                           rulePriority => $rule_ref->{priority},
+                                         );
+                }
             }
+        } elsif ($rule_ref->{filterType} eq 'u32') {
+            $htbBuilder->addFilter(
+                leafClassId => $rule_ref->{identifier},
+                filterType  => $rule_ref->{filterType},
+                priority    => $rule_ref->{priority},
+            );
+        } else {
+            throw EBox::Exceptions::Internal("Unknown filter type: $rule_ref->{filterType}");
         }
     } else {
         throw EBox::Exceptions::Internal('Tree builder which is not HTB ' .
@@ -1203,13 +1208,14 @@ sub _buildObjMembers
             $dstAddr = $addressObject;
         }
         $treeBuilder->addFilter(
-                                leafClassId => $ruleRelated,
-                                priority    => $rulePriority,
-                                srcAddr     => $srcAddr,
-                                dstAddr     => $dstAddr,
-                                service     => $serviceAssoc,
-                                id          => $filterId,
-                               );
+            leafClassId => $ruleRelated,
+            filterType  => 'fw',
+            priority    => $rulePriority,
+            srcAddr     => $srcAddr,
+            dstAddr     => $dstAddr,
+            service     => $serviceAssoc,
+            id          => $filterId,
+        );
         $filterId++;
         # If there's a MAC address and what != source not to add since
         # it has no sense
@@ -1251,13 +1257,14 @@ sub _buildObjToObj
         foreach my $dstMember (@{$dstMembers_ref}) {
             my $dstAddr = _addressFromObjectMember($dstMember);
             $args{treeBuilder}->addFilter(
-                                      leafClassId => $args{ruleRelated},
-                                      priority    => $args{rulePriority},
-                                      srcAddr     => $srcAddr,
-                                      dstAddr     => $dstAddr,
-                                      service     => $args{serviceAssoc},
-                                      id          => $filterId,
-                                         );
+                leafClassId => $args{ruleRelated},
+                filterType  => 'fw',
+                priority    => $args{rulePriority},
+                srcAddr     => $srcAddr,
+                dstAddr     => $dstAddr,
+                service     => $args{serviceAssoc},
+                id          => $filterId,
+            );
             $filterId++;
 
         }
@@ -1296,16 +1303,30 @@ sub _updateRule # (iface, ruleId, ruleParams_ref?, test?)
 
     my $minorNumber = $self->_mapRuleToClassId($ruleId);
     # Update the rule stating the same leaf class id (If test not do)
-    $self->{builders}->{$iface}->updateRule(
-                        identifier     => $minorNumber,
-                        service        => $ruleParams_ref->{service},
-                        source         => $ruleParams_ref->{source},
-                        destination    => $ruleParams_ref->{destination},
-                        guaranteedRate => $ruleParams_ref->{guaranteedRate},
-                        limitedRate    => $ruleParams_ref->{limitedRate},
-                        priority       => $ruleParams_ref->{priority},
-                        testing        => $test,
-                       );
+    if ($ruleParams_ref->{filterType} eq 'fw') {
+        $self->{builders}->{$iface}->updateRule(
+            identifier     => $minorNumber,
+            filterType     => $ruleParams_ref->{filterType},
+            service        => $ruleParams_ref->{service},
+            source         => $ruleParams_ref->{source},
+            destination    => $ruleParams_ref->{destination},
+            guaranteedRate => $ruleParams_ref->{guaranteedRate},
+            limitedRate    => $ruleParams_ref->{limitedRate},
+            priority       => $ruleParams_ref->{priority},
+            testing        => $test,
+        );
+    } elsif ($ruleParams_ref->{filterType} eq 'u32') {
+        $self->{builders}->{$iface}->updateRule(
+            identifier     => $minorNumber,
+            filterType     => $ruleParams_ref->{filterType},
+            guaranteedRate => $ruleParams_ref->{guaranteedRate},
+            limitedRate    => $ruleParams_ref->{limitedRate},
+            priority       => $ruleParams_ref->{priority},
+            testing        => $test,
+        );
+    } else {
+        throw EBox::Exceptions::Internal("Unknown filter type: $ruleParams_ref->{filterType}");
+    }
 }
 
 ###

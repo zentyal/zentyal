@@ -40,6 +40,7 @@ use Perl6::Junction qw(any);
 #       - rootHandle - handle from root qdisc
 #       - classId    - class id
 #   parent - parent where filter is attached to (it's a <EBox::TrafficShaping::QDisc>)
+#   matchList - The list of u32 match rules.
 #   protocol - Only ip it's gonna be supported *(Optional)*
 #   prio - Filter priority. If several filters are attached to the same qdisc, they're asked in priority sections.
 #       Lower number, higher priority. *(Optional)*
@@ -63,29 +64,31 @@ sub new
 
     my $self = $class->SUPER::new(%args);
 
-    throw EBox::Exceptions::MissingArgument('matchType') unless defined $args{matchType};
-    throw EBox::Exceptions::MissingArgument('matchPattern') unless defined $args{matchPattern};
-    throw EBox::Exceptions::MissingArgument('matchMask') unless defined $args{matchMask};
-    throw EBox::Exceptions::MissingArgument('matchOffset') unless defined $args{matchOffset};
+    throw EBox::Exceptions::MissingArgument('matchList') unless defined $args{matchList};
 
-    if ($args{matchType} ne any(@{$value})) {
-        throw EBox::Exceptions::InvalidData(data => 'matchType');
-    }
-    if (not looks_like_number($args{matchPattern})) {
-        throw EBox::Exceptions::InvalidData(data => 'matchPattern');
-    }
-    if (not looks_like_number($args{matchMask})) {
-        throw EBox::Exceptions::InvalidData(data => 'matchMask');
-    }
-    if (not looks_like_number($args{matchOffset})) {
-        throw EBox::Exceptions::InvalidData(data => 'matchOffset');
-    }
+    my @matchList = @{$args{matchList}};
+    throw EBox::Exceptions::InvalidData('matchList') unless $#matchList > 0;
 
-    self->{matchType} = $args{matchType};
-    self->{matchPattern} = $args{matchPattern};
-    self->{matchMask} = $args{matchMask};
-    self->{matchOffset} = $args{matchOffset};
-    self->{matchNextHdrOffset} = $args{matchNextHdrOffset};
+    for $match ($args{matchList}) {
+        throw EBox::Exceptions::InvalidData('matchType') unless defined $match{matchType};
+        throw EBox::Exceptions::InvalidData('matchPattern') unless defined $match{matchPattern};
+        throw EBox::Exceptions::InvalidData('matchMask') unless defined $match{matchMask};
+        throw EBox::Exceptions::InvalidData('matchOffset') unless defined $match{matchOffset};
+
+        if ($match{matchType} ne any(('u32', 'u16', 'u8'))) {
+            throw EBox::Exceptions::InvalidData(data => 'matchType');
+        }
+        if (not looks_like_number($match{matchPattern})) {
+            throw EBox::Exceptions::InvalidData(data => 'matchPattern');
+        }
+        if (not looks_like_number($match{matchMask})) {
+            throw EBox::Exceptions::InvalidData(data => 'matchMask');
+        }
+        if (not looks_like_number($match{matchOffset})) {
+            throw EBox::Exceptions::InvalidData(data => 'matchOffset');
+        }
+
+    $self->{matchList} = $args{matchList};
 
     bless($self, $class);
     return $self;
@@ -133,23 +136,26 @@ sub dumpTcCommand
 
     my $tcCommand = $self->SUPER::dumpTcCommand()
 
-    given ($self->{matchType}) {
-        when ('u32') {
-            $tcCommand .= sprintf("match u32 0x%08X 0x%08X ", $self->{matchPattern}, $self->{matchMask});
-        }
-        when ('u16') {
-            $tcCommand .= sprintf("match u16 0x%04X 0x%04X ", $self->{matchPattern}, $self->{matchMask});
-        }
-        when ('u8') {
-            $tcCommand .= sprintf("match u8 0x%02X 0x%02X ", $self->{matchPattern}, $self->{matchMask});
-        }
-    }
-    if ($self->{matchNextHdrOffset}) {
-        $tcCommand .= "at nexthdr+" . $self->{matchOffsetfilter} . " ";
-    } else {
-        $tcCommand .= "at " . $self->{matchOffsetfilter} . " ";
-    }
+    for $match ($self->{matchList}) {
 
+        given ($match->{matchType}) {
+            when ('u32') {
+                $tcCommand .= sprintf("match u32 0x%08X 0x%08X ", $match->{matchPattern}, $match->{matchMask});
+            }
+            when ('u16') {
+                $tcCommand .= sprintf("match u16 0x%04X 0x%04X ", $match->{matchPattern}, $match->{matchMask});
+            }
+            when ('u8') {
+                $tcCommand .= sprintf("match u8 0x%02X 0x%02X ", $match->{matchPattern}, $match->{matchMask});
+            }
+        }
+
+        if ($match->{matchNextHdrOffset}) {
+            $tcCommand .= "at nexthdr+" . $match->{matchOffsetfilter} . " ";
+        } else {
+            $tcCommand .= "at " . $match->{matchOffsetfilter} . " ";
+        }
+    }
     return $tcCommand;
 }
 
