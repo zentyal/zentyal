@@ -576,8 +576,7 @@ $selectCallerId
           />
 %      }
 
-%      if ($actions->{'clone'})
-%      {
+%      if ($actions->{'clone'}) {
           <input class='inputButton'
               <%
                 $disabled
@@ -596,6 +595,7 @@ $selectCallerId
                              selectCallerId => $selectCallerId)
                        %>"
           />
+%     }
         </td>
 </%method>
 
