@@ -184,7 +184,7 @@ sub deleteValues
 #
 sub deleteObject
 {
-    my ($self, $attr, $lazy) = @_;
+    my ($self) = @_;
 
     # Refuse to delete critical system objects
     my $isCritical = $self->get('isCriticalSystemObject');
