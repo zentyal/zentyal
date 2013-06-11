@@ -1,4 +1,4 @@
-HEAD
+3.1.4
 	+ Don't allow to move read-only rows
 	+ Better prefix for user configuration redis keys
 	+ Hide disabled carousel buttons, fix modal template, refresh
