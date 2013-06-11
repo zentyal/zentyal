@@ -1,4 +1,4 @@
-HEAD
+3.1.1
 	+ Ported JS to jQuery and flot
 	+ Fixed graph template so it could be feed with data using decimal
 	 comma, it will convert it to a JS array without problems
