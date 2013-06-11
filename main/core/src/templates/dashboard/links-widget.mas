@@ -10,28 +10,25 @@ $softwarePackage => 0
  }
  my $BOOK_URL = "https://store.zentyal.com/book-admin-$lang.html?utm_source=zentyal&utm_medium=dashboard&utm_campaign=book_$lang";
 </%init>
+% unless ($rsPackage and $softwarePackage) {
 <script type="text/javascript">
 function installRS(title) {
-       var url= '/Software/InstallPkgs?';
-       url += 'install=yes';
-       url += '&' +  'pkg-zentyal-remoteservices=yes';
-       url += '&popup=1';
+       var url= '/Software/InstallPkgs';
+       var data = 'install=yes';
+       data += '&' +  'pkg-zentyal-remoteservices=yes';
+       data += '&popup=1';
 
-      Modalbox.show(url, {
-                           'title': title,
-                           'transitions': false,
-                            'afterHide': function() { window.location.reload();  }
+      Zentyal.Dialog.showURL(url, {
+                           title: title,
+                           close: function() { window.location.reload();  }
                          });
-
 }
+
 function installSoftware(title, html) {
-      Modalbox.show(html, {
-                           'title': title,
-                           'transitions': false,
-                            'afterHide': function() { window.location.reload();  }
-                         });
+   jQuery(html).first().dialog({ title: title });
 }
 </script>
+% }
 <div class="linksBlock">
     <div class="linksTitle"><% __s('Community') %></div>
     <ul>
@@ -96,8 +93,8 @@ my $howtoInstall = __sx('{op}You need to install some missing packages to regist
     op => '<p>',
     cp => '</p>',
     br => '<br>',
-    opre => '<pre>',
-    cpre => '</pre>',
+    opre => '<code>',
+    cpre => '</code>',
   );
 </%perl>
 <a target="_blank" href="#"

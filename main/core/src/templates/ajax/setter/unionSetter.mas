@@ -21,7 +21,7 @@ foreach my $type (@{$data->subtypes()}) {
        'value'       => $data->selectedType(),
        'options'     => \@options,
        'id'          => "$id",
-       'onchange'    => qq{showSelected(this);},
+       'onchange'    => qq{Zentyal.TableHelper.showSelected(this);},
        'disabled'    => $disabled
   &>
   <span id="selectValues_<% $id %>">

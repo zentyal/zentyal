@@ -1,4 +1,6 @@
-HEAD
+3.1.3
+	+ Ported JS code to jQuery
+3.1.2
 	+ Remove deprecated backup domain report in ebackup reporter
 	+ Custom QA archive can be set at qa_updates_archive configuration
 	  key

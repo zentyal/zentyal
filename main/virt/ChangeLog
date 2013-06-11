@@ -1,4 +1,6 @@
-HEAD
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
 	+ Remove deprecated backup domains methods
 	+ More descriptive names for the windows types of virtual machines
 	+ Do not stop VNC proxies before VMs are stopped

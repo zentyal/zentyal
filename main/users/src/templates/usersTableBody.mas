@@ -69,7 +69,7 @@ my $filterJS = q{var newUrl = '/UsersAndGroups/Users?filterOU=' + this.value;   
       options => \@options,
       name => 'OUFIlter',
       value => $filterOU,
-      onChange => "setLoading('$loadingId');
+      onChange => "Zentyal.TableHelper.setLoading('$loadingId');
                $filterJS;
                return false"
   &>

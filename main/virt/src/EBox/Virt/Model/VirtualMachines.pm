@@ -247,7 +247,7 @@ sub _viewConsoleClicked
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true,}); return false",
+   return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, dialogClass: 'VMConsole' }); return false",
 }
 
 sub _acquirePaused

@@ -74,7 +74,7 @@ sub html
         $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
         $html .= "<a title='$text' href='' class='$aClass' ";
-        $html .= "onclick=\"showMenu('menu$name', this);return false;\"";
+        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu$name', this);return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";
@@ -95,7 +95,7 @@ sub html
       # JS call to set the correct variables
         $html .= <<"END_JS"
 <script type="text/javascript">
-    showMenu('$menuClass', \$('$id'));
+    Zentyal.LeftMenu.showMenu('$menuClass', jQuery('#$id'));
 </script>
 END_JS
     }

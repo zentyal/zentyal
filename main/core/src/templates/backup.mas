@@ -60,13 +60,13 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var description= \$('backup_description').value;
+     var description= jQuery('#backup_description').val();
      var title = '$backupTitle: ' + description;
-     var url = '/SysInfo/Backup?';
-     url += '&description='  +  escape(description);
-     url += '&backup=1&popup=1'
+     var url = '/SysInfo/Backup';
+     var data = 'description='  +  escape(description);
+     data += '&backup=1&popup=1'
 
-     Modalbox.show(url, {title: title, transitions: false});
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
      return false
 ENDJS
 </%perl>
@@ -89,26 +89,26 @@ my $id = 'backupfile';
 my $loadingId = $id . '_loading';
 my $formId    = $id . '_form';
 my $onChange = << "JS_END";
-var fileUpload = new EBox.FileUpload(
+var fileUpload = new Zentyal.FileUpload(
    { formId :   '$formId',
-     onStart :    function() { setLoading('$loadingId'); },
-     onComplete : function()  { setDone('$loadingId') ; },
+     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();
-\$('restoreFromFile').disabled = false;
 return res;
 JS_END
 
 my $title = __('Restore');
 my $uploadLocation = EBox::Config::tmp() . 'path';
 my $onClickJs =<< "ENDJS" ;
+     var url = '/SysInfo/ConfirmBackup'
+     var data ='restoreFromFile=1';
      var backupfile = '$uploadLocation';
-     var url = '/SysInfo/ConfirmBackup?restoreFromFile=1';
-     url += '&backupfile=' + escape(backupfile);
-     url += '&alreadyUploaded=1&popup=1';
+     data += '&backupfile=' + escape(backupfile);
+     data += '&alreadyUploaded=1&popup=1';
 
-     Modalbox.show(url, {title: '$title', transitions: false});
+     Zentyal.Dialog.showURL(url, {title: '$title ', data: data});
      return false;
 ENDJS
 </%init>
@@ -196,7 +196,18 @@ my %printableTypeById = (
                 </tr>
         </thead>
         <tbody>
-%               foreach my $backup (@backups) {
+%       foreach my $backup (@backups) {
+                <%perl>
+                my $url = '/SysInfo/ConfirmBackup';
+
+                my $restoreData = 'id=' . $backup->{'id'} . '&';
+                $restoreData .= 'restoreFromId=1&popup=1';
+                my $restoreJS = "Zentyal.Dialog.showURL('$url', {title: '$modalTitle', data: '$restoreData'}); return false";
+
+                my $deleteData = 'id=' . $backup->{'id'};
+                $deleteData .= '&delete=1&popup=1';
+                my $deleteJS = "Zentyal.Dialog.showURL('$url', {title: '$deleteTitle', data: '$deleteData'}); return false";
+                </%perl>
                 <tr class='border'>
 
                                 <td class="tleft">
@@ -210,11 +221,6 @@ my %printableTypeById = (
                                 </td>
                                 <td width="%14">
                                 <form method='POST' action='ConfirmBackup'>
-                                        <%perl>
-                                           my $restoreUrl = '/SysInfo/ConfirmBackup?';
-                                           $restoreUrl .= 'id=' . $backup->{'id'} . '&';
-                                           $restoreUrl .= 'restoreFromId=1&popup=1';
-                                        </%perl>
                                         <input type='hidden'
                                                 name='id'
                                                 value="<% $backup->{'id'} %>"/>
@@ -223,7 +229,7 @@ my %printableTypeById = (
                                                 value="Restore"
                                                 title="<% $restoreTitle %>"
                                                 alt="<% $restoreAlt %>"
-                                                onclick="Modalbox.show('<% $restoreUrl %>',  {title:'<% $modalTitle %>', transitions: false}); return false"
+                                                onclick="<% $restoreJS %>"
                                          />
                                         <img src='/data/images/sep.gif' alt='-'/>
                                         <input type='image' name='download'
@@ -232,23 +238,18 @@ my %printableTypeById = (
                                                 title="<% $downloadTitle %>"
                                                 alt="<% $downloadTitle %>"/>
                                         <img src='/data/images/sep.gif' alt='-'/>
-                                        <%perl>
-                                           my $deleteUrl = '/SysInfo/ConfirmBackup?';
-                                           $deleteUrl .= 'id=' . $backup->{'id'};
-                                           $deleteUrl .= '&delete=1&popup=1';
-                                        </%perl>
                                         <input type='image' name='delete'
                                                 src='/data/images/delete.gif'
                                                 value="Delete"
                                                 title="<% $deleteTitle %>"
                                                 alt="<% $deleteTitle %>"
-                                                onclick="Modalbox.show('<% $deleteUrl %>',  {title:'<% $deleteTitle %>', transitions: false}); return false"
+                                                onclick="<% $deleteJS %>"
                                         />
                 </form>
                                 </td>
 
                 </tr>
-%               }
+%       }
         </tbody>
 </table>
 <br />

@@ -5,54 +5,50 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
+<script type="text/javascript" src="/data/js/table-helper.js">//</script>
+<div id='modulesStatus'>
 <script type="text/javascript">
-function sendStatus()
+"use strict";
+function sendStatus(name, enable)
 {
-    var pars = Form.serialize('statusForm');
-
-	var MyAjax = new Ajax.Updater( 'statusTable',
-		'/ServiceModule/StatusController',
-		{
-			method: 'post',
-			parameters: pars,
-			asyncrhonous: true,
-			evalScripts: true
-		});
+    var params = 'module=' + name + '&enable=' + (enable ? '1' : '0');
+    jQuery.ajax({
+        url: '/ServiceModule/StatusController',
+        type: 'post',
+        data: params,
+        success: function (response) {
+          jQuery('#modulesStatus').html(response);
+        }
+    });
 }
 
 function configureModule(module, title)
 {
-    if ($(module).checked) {
-        $(module).checked = false;
-        Modalbox.show('/ServiceModule/ConfigureView?module=' + module,
-                  {title: title,
-                   width: 600,
-                   height: 400,
-                   afterLoad: function() {
-                        $('accept').focus();
+    var modCheckbox = jQuery('#' + module);
+    if (modCheckbox.prop('checked')) {
+        modCheckbox.prop('checked', false);
+        Zentyal.Dialog.showURL('/ServiceModule/ConfigureView', {
+                   title: title,
+                   data: 'module=' + module,
+                   load: function() {
+                        jQuery('#accept', this).focus();
                     }
-
-                   });
+        });
     }
 }
 
-% my $className;
+jQuery(function() {
+%# Enable changes button if needded
 % unless (defined($hasChanged) and $hasChanged eq 'notset') {
-%   if ($hasChanged) {
-%       $className = 'changed';
-%   } else {
-%       $className = 'notChanged'
-%   }
-$('changes_menu').className = '<% $className %>';
+%   my $className =  ($hasChanged) ? 'changed' : 'notChanged';
+    jQuery('#changes_menu').removeClass().addClass('<% $className %>');
 % }
-
-stripe('dataTable', 'even', 'odd');
-
+    Zentyal.stripe('#statusTable', 'even', 'odd');
+});
 </script>
 <br/>
 <form id="statusForm">
-    <table class='dataTable'>
+<table id='statusTable' class='dataTable'>
 <thead>
     <tr>
         <th class='tleft'><% __('Module') %></th>
@@ -60,6 +56,7 @@ stripe('dataTable', 'even', 'odd');
         <th class='thOptions'><% __('Status') %></th>
     </tr>
 </thead>
+<tbody>
 % for my $mod (@modules) {
 %   my $name = $mod->{'name'};
 %   my $printableName = $mod->{'printableName'};
@@ -74,14 +71,7 @@ stripe('dataTable', 'even', 'odd');
         <% join(', ', @{$mod->{'printableDepends'}}) %>
         </td>
         <td class='tcenter' id="<% $name %>_status">
-%   if (not $depends) {
-           <& /input/checkbox.mas,
-                'name' => $name,
-                'id' => $name,
-                'value' => undef,
-                'disabled' => 1
-            &>
-%   } elsif (not $configured) {
+%   if (not $configured) {
 %       my $title = __x("Configure module: {module}", module => $name );
            <& /input/checkbox.mas,
                 'name' => $name,
@@ -95,10 +85,13 @@ stripe('dataTable', 'even', 'odd');
                 'name' => $name,
                 'id' => $name,
                 'value' => $status,
-                'onChange' => qq{sendStatus(); setLoading('${name}_status'); }
+                'onChange' => qq{sendStatus('$name', this.checked); Zentyal.TableHelper.setLoading('${name}_status'); }
             &>
 %   }
         </td>
     </tr>
 % }
-    </table></form>
+  </tbody>
+  </table>
+</form>
+</div>

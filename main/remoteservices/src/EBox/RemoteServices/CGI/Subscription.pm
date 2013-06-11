@@ -103,9 +103,9 @@ sub showSubscriptionProgress
         nextStepUrl  => '#',
        );
 
-    my $nextStepUrlOnclick = "Modalbox.hide(); window.location.reload(); return false";
+    my $nextStepUrlOnclick = "Zentyal.Dialog.close(); window.location.reload(); return false";
     if ( $self->param('wizard' ) ) {
-        $nextStepUrlOnclick = "Modalbox.hide(); window.location = '/RemoteServices/Composite/General'; return false";
+        $nextStepUrlOnclick = "Zentyal.Dialog.close(); window.location = '/RemoteServices/Composite/General'; return false";
     }
 
     push(@params, @popupProgressParams);

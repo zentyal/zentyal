@@ -467,7 +467,7 @@ sub widgets
     my ($self) = @_;
 
     return {
-        'cc_connection' => {
+        'ccConnection' => {
             'title'   => __('Your Zentyal Server Account'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,

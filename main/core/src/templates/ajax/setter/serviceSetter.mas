@@ -33,6 +33,6 @@ $disabled => undef
 </span>
 
 <script type="text/javascript">
-  showPort('<% $id %>_protocol', '<% $id %>_portText',
+  Zentyal.TableHelper.showPort('<% $id %>_protocol', '<% $id %>_portText',
             <% $data->protocolsJS() %>);
 </script>

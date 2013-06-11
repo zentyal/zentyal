@@ -47,7 +47,7 @@ use EBox::NetWrappers qw(:all);
             </span>
         </td>
         <td>
-            <select name='method' onChange='methodChanged(this)'>
+            <select name='method' id='method'>
 % if ($iface->{'method'} eq 'static') {
                 <option selected value='static'><% __('Static') %></option>
 % } else {
@@ -370,50 +370,26 @@ use EBox::NetWrappers qw(:all);
 % }
 </div>
 
-<script type="text/javascript"><!--
-function methodChanged(select) {
-    selected = select.options[select.selectedIndex].value;
+<script type="text/javascript">
+jQuery('#method').change(function(event) {
+    var selected = jQuery(event.target).val();
 
-    if (selected == 'static' || selected == 'dhcp' ||
-        selected == 'ppp' || selected == 'bridged') {
-        if ( $('external') ) $('external').show();
+    if (selected === 'static' || selected === 'dhcp' ||
+        selected === 'ppp' || selected === 'bridged') {
+        jQuery('#external').show();
     } else {
-        if ( $('external') ) $('external').hide();
+        jQuery('#external').hide();
     }
 
-    if (selected == 'static') {
-        $('ipaddr').show();
-        $('netmask').show();
-        $('virtual').show();
-    } else {
-        $('ipaddr').hide();
-        $('netmask').hide();
-        $('virtual').hide();
-    }
+    jQuery('#ipaddr').toggle(selected === 'static');
+    jQuery('#netmask').toggle(selected === 'static');
+    jQuery('#virtual').toggle(selected === 'static');
 
-    if (selected == 'trunk') {
-        $('trunk').show();
-    } else {
-        $('trunk').hide();
-    }
+    jQuery('#trunk').toggle(selected === 'trunk');
 
-    if (selected == 'bridged') {
-        $('bridged').show();
-    } else {
-        $('bridged').hide();
-    }
+    jQuery('#bridged').toggle(selected === 'bridged');
 
-    if (selected == 'ppp') {
-        $('ppp_user').show();
-        $('ppp_pass').show();
-    } else {
-        $('ppp_user').hide();
-        $('ppp_pass').hide();
-    }
-}
-
-var methodSelects = document.getElementsByName('method');
-for (var i = 0; i< methodSelects.length; i++)
-    methodChanged(methodSelects[i]);
-
-//--></script>
+    jQuery('#ppp_user').toggle(selected === 'ppp');
+    jQuery('#ppp_pass').toggle(selected === 'ppp');
+ }).change();
+</script>

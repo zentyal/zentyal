@@ -163,7 +163,6 @@ sub _load_redis_from_file
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
-
     $self->_dump_to_file($dir);
     # dump also state, it will not be restored as default
     $self->_dump_state_to_file($dir);
