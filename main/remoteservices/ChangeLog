@@ -1,4 +1,5 @@
 HEAD
+	+ maxUsers method does not take maxCloudUsers into account
 	+ Custom QA archive can be set at qa_updates_archive configuration
 	  key
 3.0.21
