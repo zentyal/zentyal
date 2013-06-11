@@ -179,4 +179,45 @@ sub removeRow
     $self->setMessage(__x('GPO {gpo} removed', gpo => $gpoName));
 }
 
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+
+    my $gpo = new EBox::Samba::GPO(dn => $id);
+    unless ($gpo->exists()) {
+        throw EBox::Exceptions::External(__x('GPO {dn} not found', dn => $id));
+    }
+
+    my $gpoName = $gpo->get('displayName');
+    my $oldRow = $self->row($id);
+    my $allHashElements = $oldRow->hashElements();
+    $self->validateTypedRow('update', $paramsRef, $allHashElements);
+
+    my $newDisplayName = $paramsRef->{name}->printableValue();
+    my $newStatus = $paramsRef->{status}->value();
+    $gpo->set('displayName', $newDisplayName, 1);
+    $gpo->setStatus($newStatus, 1);
+
+    # replace old values with setted ones
+    $allHashElements->{name} = $newDisplayName;
+    $allHashElements->{status} = $newStatus;
+
+    $gpo->save();
+
+    $self->setMessage(__x('GPO {gpo} updated', gpo => $gpoName));
+}
+
+# Method: _checkRowExist
+#
+#   Override <EBox::Model::DataTable::_checkRowExist> as DataTable try to
+#   check if a row exists checking the existance of the conf directory
+#
+sub _checkRowExist
+{
+    my ($self, $id) = @_;
+
+    my $gpo = new EBox::Samba::GPO(dn => $id);
+    return $gpo->exists();
+}
+
 1;
