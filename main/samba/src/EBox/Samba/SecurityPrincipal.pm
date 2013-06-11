@@ -39,6 +39,11 @@ sub new
 {
     my ($class, %params) = @_;
 
+    unless ($params{entry} or $params{dn} or $params{ldif} or
+            $params{samAccountName} or $params{sid}) {
+        throw EBox::Exceptions::MissingArgument('Constructor argument');
+    }
+
     my $self = {};
     if ($params{samAccountName}) {
         $self->{samAccountName} = $params{samAccountName};

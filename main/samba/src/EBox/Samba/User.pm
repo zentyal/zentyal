@@ -47,9 +47,8 @@ use base 'EBox::Samba::SecurityPrincipal';
 
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
     bless ($self, $class);
     return $self;
 }

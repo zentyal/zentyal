@@ -48,12 +48,6 @@ sub new
     my ($class, %params) = @_;
 
     my $self = {};
-    bless ($self, $class);
-
-    unless ($params{entry} or $params{dn} or $params{ldif}) {
-        throw EBox::Exceptions::MissingArgument('Constructor argument');
-    }
-
     if ($params{entry}) {
         $self->{entry} = $params{entry};
     } elsif ($params{ldif}) {
@@ -63,6 +57,7 @@ sub new
         $self->{dn} = $params{dn};
     }
 
+    bless ($self, $class);
     return $self;
 }
 
