@@ -211,6 +211,10 @@ sub _enforceServiceState
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
+            EBox::debug('About to execute:');
+            for my $command (@{$tcCommands_ref}) {
+                EBox::debug($command);
+            }
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
             # Execute iptables commands
             $self->_executeIptablesCmds($ipTablesCommands_ref);
@@ -1013,6 +1017,16 @@ sub _createBuilders
             # For now, if no user_rules are given, use DefaultTreeBuilder
             $self->_createTree($iface, "default");
         }
+    }
+
+    my $smallPacketModel = $self->model('SmallPacketPriorization');
+    if ($smallPacketModel->ack) {
+    }
+    if ($smallPacketModel->syn) {
+    }
+    if ($smallPacketModel->fin) {
+    }
+    if ($smallPacketModel->rst) {
     }
 
     # write configuration files

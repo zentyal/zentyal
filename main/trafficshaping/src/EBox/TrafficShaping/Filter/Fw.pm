@@ -321,7 +321,7 @@ sub _extraL7Commands
 {
     my ($self, $rule) = @_;
 
-    my  $network = EBox::Global->modInstance('network');
+    my $network = EBox::Global->modInstance('network');
     my $iface = $self->{parent}->getInterface();
     my @ifaces;
     if ($network->ifaceIsExternal($network->etherIface($iface))) {

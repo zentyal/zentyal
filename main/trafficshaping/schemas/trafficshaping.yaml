@@ -13,9 +13,10 @@ models:
     - InternalRules
     - ExternalRules
     - InterfaceRate
+    - SmallPacketPriorization
 
 composites:
-    Rules: [InternalRules, ExternalRules]
+    Rules: [SmallPacketPriorization, InternalRules, ExternalRules]
 
 modeldepends:
     InternalRules:
