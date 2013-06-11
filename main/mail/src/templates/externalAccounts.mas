@@ -34,7 +34,7 @@ my %printableName = (
 <& .addAccount, params => $params &>
 <a href='#' class='addNew'
    name='add'
-         onClick='jQuery(this).hide(); jQuery("#add_external_account").show();return false'>
+         onClick='$(this).hide(); $("#add_external_account").show();return false'>
     <% __('Add new') %>
   </a>
 % if (@externalAccounts){

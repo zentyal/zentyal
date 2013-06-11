@@ -95,7 +95,7 @@ sub html
       # JS call to set the correct variables
         $html .= <<"END_JS"
 <script type="text/javascript">
-    Zentyal.LeftMenu.showMenu('$menuClass', jQuery('#$id'));
+    Zentyal.LeftMenu.showMenu('$menuClass', $('#$id'));
 </script>
 END_JS
     }

@@ -61,7 +61,7 @@ var track_formatter = function(obj) {
 }
 
 var previousPoint;
-jQuery.plot(
+$.plot(
     '#' + Zentyal.escapeSelector('<% $id %>'), [
 % my $first = $series[0]->{'data'};
 % foreach my $set (@series) {
@@ -112,14 +112,14 @@ jQuery.plot(
     }
 );
 
-jQuery('#' + Zentyal.escapeSelector('<% $id %>')).on('plothover',  function (event, pos, item) {
+$('#' + Zentyal.escapeSelector('<% $id %>')).on('plothover',  function (event, pos, item) {
          if ( item ) {
             if (previousPoint !== item.datapoint ) {
                previousPoint = item.datapoint;
 
-               jQuery("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+               $("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
                var text = track_formatter(pos);
-               jQuery('<div id="tooltip_<% $id %>">' + text + '</div>').css({
+               $('<div id="tooltip_<% $id %>">' + text + '</div>').css({
                     top: pos.y + 5,
                     left: pos.x + 5,
                     border: '1px solid #0087A5',
@@ -131,7 +131,7 @@ jQuery('#' + Zentyal.escapeSelector('<% $id %>')).on('plothover',  function (eve
                }).appendTo(event.target);
            }
          } else {
-            jQuery("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+            $("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
             previousPoint = null;
          }
 });

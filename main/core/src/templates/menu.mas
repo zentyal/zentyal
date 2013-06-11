@@ -13,5 +13,5 @@ $currentUrl => ''
 % }
 </ul></div>
 <script type="text/javascript">
-jQuery('#menusearch').keyup(Zentyal.MenuSearch.filterMenu);
+$('#menusearch').keyup(Zentyal.MenuSearch.filterMenu);
 </script>

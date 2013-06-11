@@ -304,7 +304,7 @@ sub _responseToEnableChangesMenuElement
 {
     my ($self) = @_;
     $self->_header();
-    print 'jQuery("#changes_menu").removeClass().addClass("changed")';
+    print '$("#changes_menu").removeClass().addClass("changed")';
 }
 
 sub customAction

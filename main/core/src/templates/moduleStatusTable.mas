@@ -12,36 +12,36 @@ use EBox::Gettext;
 function sendStatus(name, enable)
 {
     var params = 'module=' + name + '&enable=' + (enable ? '1' : '0');
-    jQuery.ajax({
+    $.ajax({
         url: '/ServiceModule/StatusController',
         type: 'post',
         data: params,
         success: function (response) {
-          jQuery('#modulesStatus').html(response);
+          $('#modulesStatus').html(response);
         }
     });
 }
 
 function configureModule(module, title)
 {
-    var modCheckbox = jQuery('#' + module);
+    var modCheckbox = $('#' + module);
     if (modCheckbox.prop('checked')) {
         modCheckbox.prop('checked', false);
         Zentyal.Dialog.showURL('/ServiceModule/ConfigureView', {
                    title: title,
                    data: 'module=' + module,
                    load: function() {
-                        jQuery('#accept', this).focus();
+                        $('#accept', this).focus();
                     }
         });
     }
 }
 
-jQuery(function() {
+$(function() {
 %# Enable changes button if needded
 % unless (defined($hasChanged) and $hasChanged eq 'notset') {
 %   my $className =  ($hasChanged) ? 'changed' : 'notChanged';
-    jQuery('#changes_menu').removeClass().addClass('<% $className %>');
+    $('#changes_menu').removeClass().addClass('<% $className %>');
 % }
     Zentyal.stripe('#statusTable', 'even', 'odd');
 });

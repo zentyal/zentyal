@@ -1,3 +1,5 @@
+HEAD
+	+ Removed no longer necessary jQuery noConflict()
 3.1.1
 	+ Ported JS code to jQuery, extracted lot of it to .js file
 3.1

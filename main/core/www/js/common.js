@@ -1,6 +1,5 @@
 // Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
 "use strict";
-jQuery.noConflict();
 
 if (!('Zentyal' in  window)) {
     window.Zentyal = {
@@ -41,7 +40,7 @@ Function: stripe
      oddClass - css class to apply to odd tr
 */
 Zentyal.stripe = function (selector, evenClass, oddClass) {
-    var collection = jQuery(selector);
+    var collection = $(selector);
     collection.find('tbody tr:nth-child(even)').removeClass(oddClass).addClass(evenClass);
     collection.find('tbody tr:nth-child(odd)').removeClass(evenClass).addClass(oddClass);
 };
@@ -61,7 +60,7 @@ Parameters:
    menuAnchor - DOM object of the clicked menu anchor
 */
 Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
-  menuAnchor = jQuery(menuAnchor);
+  menuAnchor = $(menuAnchor);
   var open = false;
   if (Zentyal.LeftMenu.menuShown === name) {
       Zentyal.LeftMenu.menuShown = '';
@@ -87,7 +86,7 @@ Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
 };
 
 Zentyal.LeftMenu._open = function(name, menuAnchor) {
-    jQuery('.' + name).each(function(index, e) {
+    $('.' + name).each(function(index, e) {
             e.style.display = 'inline';
                             }
                       );
@@ -96,7 +95,7 @@ Zentyal.LeftMenu._open = function(name, menuAnchor) {
 };
 
 Zentyal.LeftMenu._close = function(name, menuAnchor) {
-  jQuery('.' + name).each(function(index, e) {
+  $('.' + name).each(function(index, e) {
       e.style.display = 'none';
                              }
                     );
@@ -107,7 +106,7 @@ Zentyal.LeftMenu._close = function(name, menuAnchor) {
 // XXX used only in the not-tottaly implemented data table sections feature
 Zentyal.toggleWithToggler = function(name) {
     var togglername = name + '_toggler';
-    var element = jQuery(name);
+    var element = $(name);
     if (element.hasClass('minBox')) {
         element.removeClass('minBox');
         element.addClass('maxBox');
@@ -124,24 +123,24 @@ Zentyal.toggleWithToggler = function(name) {
 Zentyal.MenuSearch.hideMenuEntry = function(id) {
     var i;
     while((i=id.lastIndexOf('_'))  != 4) {
-        jQuery('#' + id).hide();
+        $('#' + id).hide();
         id = id.substr(0,i);
     }
-    jQuery('#' + id).hide();
+    $('#' + id).hide();
 };
 
 Zentyal.MenuSearch.showMenuEntry = function (id) {
     var i;
     while((i=id.lastIndexOf('_'))  != 4) {
-        jQuery('#' + id).show();
+        $('#' + id).show();
         id = id.substr(0,i);
     }
-    jQuery('#' + id).show();
+    $('#' + id).show();
 };
 
 Zentyal.MenuSearch.showAllMenuEntries = function() {
-    jQuery('li[id^=menu_]').each(function(index, domElem) {
-        var elem = jQuery(domElem);
+    $('li[id^=menu_]').each(function(index, domElem) {
+        var elem = $(domElem);
         if (elem.attr('id').lastIndexOf('_')  == 4) {
             elem.show();
         } else {
@@ -151,10 +150,10 @@ Zentyal.MenuSearch.showAllMenuEntries = function() {
 };
 
 Zentyal.MenuSearch.updateMenu = function(results) {
-     jQuery('li[id^=menu_]').each(function(index, elem) {
-            jQuery(elem).hide();
+     $('li[id^=menu_]').each(function(index, elem) {
+            $(elem).hide();
      });
-     jQuery.each(results,function(index, e) {
+     $.each(results,function(index, e) {
           //show it even if it's already in old_results in case we have
           //hidden it through a parent menu
          Zentyal.MenuSearch.showMenuEntry(e);
@@ -162,11 +161,11 @@ Zentyal.MenuSearch.updateMenu = function(results) {
 };
 
 Zentyal.MenuSearch.filterMenu = function(event) {
-    var text = jQuery(event.target).val();
+    var text = $(event.target).val();
     text = text.toLowerCase();
     if(text.length >= 3) {
         var url = '/Menu?search=' + text;
-        jQuery.ajax({
+        $.ajax({
             url: url,
             type: 'get',
             dataType: 'json',

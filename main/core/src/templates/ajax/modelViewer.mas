@@ -389,7 +389,7 @@ if ($hasChanged) {
   $className = 'notChanged';
 }
 </%perl>
-jQuery('#changes_menu').removeClass().addClass('<% $className %>');
+$('#changes_menu').removeClass().addClass('<% $className %>');
 </script>
 </%method>
 
