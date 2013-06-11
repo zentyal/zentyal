@@ -28,13 +28,11 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-## arguments:
-##	title [required]
 sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new('title' => __('Module Status Configuration'),
-                                  'template' => '/moduleStatus.mas', @_);
+                                  'template' => '/moduleStatusTable.mas', @_);
 
     bless($self, $class);
     return $self;

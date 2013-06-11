@@ -1,4 +1,9 @@
 HEAD
+	+ Ported JS code to jQuery
+3.1.2
+	+ Remove deprecated backup domain report in ebackup reporter
+	+ Custom QA archive can be set at qa_updates_archive configuration
+	  key
 	+ Custom QA repository can be set at qa_updates_repo configuration
 	  key
 	+ RESTClient can now set the URI endpoint programatically

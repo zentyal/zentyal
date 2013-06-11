@@ -16,8 +16,8 @@ use strict;
 use warnings;
 
 package EBox::SysInfo::CGI::Backup;
-
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
+
 
 use Error qw(:try);
 use EBox::Config;
@@ -233,7 +233,7 @@ my @popupProgressParams = (
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlOnclick => "Modalbox.hide(); window.location='/SysInfo/Backup?selected=local'; return false",
+        nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location='/SysInfo/Backup?selected=local'; return false",
 );
 
 sub _showBackupProgress

@@ -675,45 +675,6 @@ sub usingVBox
     return $self->{backend}->isa('EBox::Virt::VBox');
 }
 
-sub backupDomains
-{
-    my $name = 'machines';
-    my %attrs  = (
-                  printableName => __('Virtual Machines'),
-                  description   => __(q{Disk images of the virtual machines}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-
-    return {} unless $enabled{machines};
-
-    my @files;
-    my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        my $settings = $vm->subModel('settings');
-        my $devices = $settings->componentByName('DeviceSettings');
-        foreach my $deviceId (@{$devices->enabledRows()}) {
-            my $device = $devices->row($deviceId);
-            my $file = $device->valueByName('path');
-            unless ($file) {
-                my $disk_name = $device->valueByName('name');
-                next unless ($disk_name);
-                $file = $self->{backend}->diskFile($disk_name, $name);
-            }
-            push (@files, $file);
-        }
-    }
-
-    return { includes => \@files };
-}
-
 sub _facilitiesForDiskUsage
 {
     my ($self) = @_;

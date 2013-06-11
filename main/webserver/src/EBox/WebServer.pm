@@ -794,34 +794,6 @@ sub restoreConfig
     EBox::Sudo::root("cp -a $sitesBackDir/* " . SITES_AVAILABLE_DIR);
 }
 
-sub backupDomains
-{
-    my $name = 'webserver';
-    my %attrs  = (
-                  printableName => __('Web server hosted files'),
-                  description => __(q{Virtual hosts data}),
-                  order => 300,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{webserver}) {
-        my $selection = {
-                          includes => [
-                    EBox::WebServer::PlatformPath::DocumentRoot(),
-                    EBox::WebServer::PlatformPath::VDocumentRoot(),
-                                      ],
-                         };
-        return $selection;
-    }
-
-    return {};
-}
-
 # Implement EBox::SyncFolders::Provider interface
 sub syncFolders
 {

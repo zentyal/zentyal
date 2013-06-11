@@ -28,11 +28,11 @@ use Error qw(:try);
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_,
+    my $class = shift;
+    my $self = $class->SUPER::new(@_,
                                   'template' => '/dashboard/widgetcontent.mas');
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 # Method: requiredParameters
@@ -59,7 +59,9 @@ sub masonParameters
     my $modname = $self->param('module');
     my $widgetname = $self->param('widget');
     my $module = $global->modInstance($modname);
+    $module or throw EBox::Exceptions::Internal("Invalid module: $module");
     my $widget = $module->widget($widgetname);
+    $widget or throw EBox::Exceptions::Internal("Invalid widget: $widget");
 
     my @params = ();
     push(@params, 'widget' => $widget);

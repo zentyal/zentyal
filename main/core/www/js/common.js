@@ -1,139 +1,182 @@
 // Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
+"use strict";
+jQuery.noConflict();
 
-var menuShown = '';
-var menuShownAnchor = null;
+if (!('Zentyal' in  window)) {
+    window.Zentyal = {
+        namespace: function(ns) {
+            var parts = ns.split("."),
+            nsObject = this,
+            i, len;
 
-function showMenu(name, menuAnchor){
+            for (i=0, len=parts.length; i < len; i++) {
+                if (!nsObject[parts[i]]) {
+                    nsObject[parts[i]] = {};
+                }
+                nsObject = nsObject[parts[i]];
+            }
+
+            return nsObject;
+        },
+        LeftMenu: {},
+        MenuSearch: {}
+    };
+}
+
+Zentyal.escapeSelector = function(selector) {
+    return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
+};
+
+/*
+Function: stripe
+
+  Applies a styles class to tbody > tr elements childs of the elements of a jQuery collection;
+  the class applied will be different   for odd and even elements
+
+  For example, it is usde to give distinct colort to even and odd rows in tables
+
+  Parameters:
+     selector - jQuery selector which will contain a tbody and tr to apply style
+     evenClass - css class to apply to even tr
+     oddClass - css class to apply to odd tr
+*/
+Zentyal.stripe = function (selector, evenClass, oddClass) {
+    var collection = jQuery(selector);
+    collection.find('tbody tr:nth-child(even)').removeClass(oddClass).addClass(evenClass);
+    collection.find('tbody tr:nth-child(odd)').removeClass(evenClass).addClass(oddClass);
+};
+
+//** Zentyal.LetfMenu namespace **\\
+
+Zentyal.LeftMenu.menuShown = '';
+Zentyal.LeftMenu.menuShownAnchor = null;
+
+/*
+function: showMenu
+
+Open or closes the relevan section of the left menu
+
+Parameters:
+   name - name of the selected section
+   menuAnchor - DOM object of the clicked menu anchor
+*/
+Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
+  menuAnchor = jQuery(menuAnchor);
   var open = false;
-  if (menuShown === name) {
-      menuShown = '';
-      menuShownAnchor = null;
-      _closeLeftMenu(name, menuAnchor);
+  if (Zentyal.LeftMenu.menuShown === name) {
+      Zentyal.LeftMenu.menuShown = '';
+      Zentyal.LeftMenu.menuShownAnchor = null;
+      Zentyal.LeftMenu._close(name, menuAnchor);
 
-  } else if (menuShown === '') {
-    if (menuAnchor.hasClassName('despleg')) {
-      _closeLeftMenu(name, menuAnchor);
+  } else if (Zentyal.LeftMenu.menuShown === '') {
+    if (menuAnchor.hasClass('despleg')) {
+      Zentyal.LeftMenu._close(name, menuAnchor);
     } else {
       open = true;
     }
   } else {
      open = true;
-     _closeLeftMenu(menuShown, menuShownAnchor);
+     Zentyal.LeftMenu._close(Zentyal.LeftMenu.menuShown, Zentyal.LeftMenu.menuShownAnchor);
   }
 
   if (open){
-      menuShown = name;
-      menuShownAnchor = menuAnchor;
-      _openLeftMenu(name, menuAnchor);
+      Zentyal.LeftMenu.menuShown = name;
+      Zentyal.LeftMenu.menuShownAnchor = menuAnchor;
+      Zentyal.LeftMenu._open(name, menuAnchor);
   }
-}
+};
 
-function _openLeftMenu(name, menuAnchor)
-{
-  $$('.' + name).each(function(e) {
-                                  e.style.display = 'inline';
+Zentyal.LeftMenu._open = function(name, menuAnchor) {
+    jQuery('.' + name).each(function(index, e) {
+            e.style.display = 'inline';
                             }
                       );
-  menuAnchor.addClassName('despleg');
-  menuAnchor.removeClassName('navarrow');
-}
+    menuAnchor.addClass('despleg');
+    menuAnchor.removeClass('navarrow');
+};
 
+Zentyal.LeftMenu._close = function(name, menuAnchor) {
+  jQuery('.' + name).each(function(index, e) {
+      e.style.display = 'none';
+                             }
+                    );
+  menuAnchor.addClass('navarrow');
+  menuAnchor.removeClass('despleg');
+};
 
-function _closeLeftMenu(name, menuAnchor)
-{
-  $$('.' + name).each(function(e) {
-                                     e.style.display = 'none';
-                                 }
-                     );
-  menuAnchor.addClassName('navarrow');
-  menuAnchor.removeClassName('despleg');
-}
-
-/*
- */
-function stripe(theclass,evenClass,oddClass) {
-    $$('.' + theclass + ' tbody tr:nth-child(even)').each(function(tr) {
-        tr.addClassName(evenClass);
-    });
-    $$('.' + theclass + ' tbody tr:nth-child(odd)').each(function(tr) {
-        tr.addClassName(oddClass);
-    });
-}
-
-/*
-Function: selectDefault
-
-        Given a select identifier determine
-        whether user has select default option or not.
-
-Parameters:
-
-    selectId - select identifier
-
-Returns:
-
-        true - if user has selected the default value
-    false - otherwise
-
-*/
-function selectDefault (selectId) {
-
-  if ( $(selectId).selectedIndex == 0 ) {
-    return true;
-  }
-  else {
-    return false;
-  }
-
-}
-
-/*
-Function: hide
-
-        Hide an element
-
-Parameters:
-
-        elementId - the node to show or hide
-
-*/
-function hide(elementId)
-{
-  Element.addClassName(elementId, 'hidden');
-}
-
-/*
-Function: show
-
-        Show an element
-
-Parameters:
-
-        elementId - the node to show or hide
-
-*/
-function show(elementId)
-{
-  Element.removeClassName(elementId, 'hidden');
-}
-
-function toggleClass(name, class1, class2)
-{
-    var element = $(name);
-    if (element.hasClassName(class1)) {
-        element.removeClassName(class1);
-        element.addClassName(class2);
-    } else if (element.hasClassName(class2)) {
-        element.removeClassName(class2);
-        element.addClassName(class1);
-    } else {
-        element.addClassName(class1);
-    }
-}
-
-function toggleWithToggler(name)
-{
+// XXX used only in the not-tottaly implemented data table sections feature
+Zentyal.toggleWithToggler = function(name) {
     var togglername = name + '_toggler';
-    toggleClass(togglername, 'minBox', 'maxBox');
-    Effect.toggle(name, 'blind', {duration: 0.5});
-}
+    var element = jQuery(name);
+    if (element.hasClass('minBox')) {
+        element.removeClass('minBox');
+        element.addClass('maxBox');
+    } else if (element.hasClass('maxBox')) {
+        element.removeClass('maxBox');
+        element.addClass('minBox');
+    } else {
+        element.addClass('minBox');
+    }
+    element.hide('blind');
+};
+
+// Zentya.MenuSearch namespace
+Zentyal.MenuSearch.hideMenuEntry = function(id) {
+    var i;
+    while((i=id.lastIndexOf('_'))  != 4) {
+        jQuery('#' + id).hide();
+        id = id.substr(0,i);
+    }
+    jQuery('#' + id).hide();
+};
+
+Zentyal.MenuSearch.showMenuEntry = function (id) {
+    var i;
+    while((i=id.lastIndexOf('_'))  != 4) {
+        jQuery('#' + id).show();
+        id = id.substr(0,i);
+    }
+    jQuery('#' + id).show();
+};
+
+Zentyal.MenuSearch.showAllMenuEntries = function() {
+    jQuery('li[id^=menu_]').each(function(index, domElem) {
+        var elem = jQuery(domElem);
+        if (elem.attr('id').lastIndexOf('_')  == 4) {
+            elem.show();
+        } else {
+            elem.hide();
+        }
+    });
+};
+
+Zentyal.MenuSearch.updateMenu = function(results) {
+     jQuery('li[id^=menu_]').each(function(index, elem) {
+            jQuery(elem).hide();
+     });
+     jQuery.each(results,function(index, e) {
+          //show it even if it's already in old_results in case we have
+          //hidden it through a parent menu
+         Zentyal.MenuSearch.showMenuEntry(e);
+    });
+};
+
+Zentyal.MenuSearch.filterMenu = function(event) {
+    var text = jQuery(event.target).val();
+    text = text.toLowerCase();
+    if(text.length >= 3) {
+        var url = '/Menu?search=' + text;
+        jQuery.ajax({
+            url: url,
+            type: 'get',
+            dataType: 'json',
+            success: function(response) {
+                Zentyal.MenuSearch.updateMenu(response);
+            }
+        });
+    } else {
+        Zentyal.MenuSearch.showAllMenuEntries();
+    }
+
+};
+
