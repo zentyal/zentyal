@@ -1,4 +1,6 @@
 HEAD
+	+ Several fixes: hide disabled carousel buttons, fix modal template, refresh
+	  changes button when moving rows, remove unusded parameter in Zentyal.DataTable.changeRow
 	+ Enhanced UI styles: dialogs, progress bars, carousel, colors and images
 	+ Rows of tables can now be moved using drag & drop
 	+ Added logout dialog with option of discarding changes
