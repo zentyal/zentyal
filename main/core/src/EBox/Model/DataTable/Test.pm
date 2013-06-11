@@ -15,8 +15,6 @@
 use strict;
 use warnings;
 
-use lib '../../..';
-
 package EBox::Model::DataTable::Test;
 
 use base 'EBox::Test::Class';
@@ -857,7 +855,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(6)
+sub findTest : Test(10)
 {
     my ($self) = @_;
 
@@ -865,12 +863,23 @@ sub findTest : Test(6)
 
     my $fieldName = 'uniqueField';
     my $fieldValue = 'populatedRow2';
+    my $field2Name = 'regularField';
+    my $field2Value = 'regular';
+    my $fieldValue2 = 'populatedRow1';
 
     my $row;
 
     dies_ok {
         $dataTable->find('inexistentField' => 'b');
     } 'checking that find() with a inexistent field fails' ;
+
+    throws_ok {
+        $dataTable->findValueMultipleFields({});
+    } 'EBox::Exceptions::InvalidData', 'thrown exception when no fields is searched on multiple';
+
+    throws_ok {
+        $dataTable->findValue();
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on single';
 
     $row = $dataTable->find($fieldName => 'inexistent');
     ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
@@ -887,11 +896,21 @@ sub findTest : Test(6)
 
     my $idfound = $dataTable->findId($fieldName => $fieldValue);
     is $idfound, $row->id(),
-       'checking return value of findId metthod';
+       'checking return value of findId method';
 
     my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
     is $valueFound->id(), $row->id(),
        'checking return value of findValue method';
+
+    $valueFound = $dataTable->findValueMultipleFields({$fieldName => $fieldValue,
+                                                       $field2Name => $field2Value});
+    is $valueFound->id(), $row->id(),
+       'checking return value of findValueMultipleFields method';
+
+    my $anotherRow = $dataTable->findValueMultipleFields({$fieldName => $fieldValue2,
+                                                          $field2Name => $field2Value});
+    isnt $anotherRow->id(), $row->id(),
+       'checking return value of findMultipleFields is another row';
 }
 
 sub _newDataTable
@@ -966,6 +985,10 @@ sub _populateDataTable
             [
                 uniqueField => 'populatedRow3', regularField => 'regular',
                 optionalField => 'noDefaultText'
+            ],
+            [
+                uniqueField => 'populatedRow4', regularField => 'regular',
+                optionalField => 'undef'
             ],
     );
 

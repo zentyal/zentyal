@@ -49,6 +49,9 @@ sub manage # (daemon,action)
         EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
         EBox::Sudo::root("/sbin/start '$daemon'");
     }
+    elsif ( $action eq 'reload') {
+        EBox::Sudo::root("/sbin/reload '$daemon'") if (running($daemon));
+    }
     else {
         throw EBox::Exceptions::Internal("Bad argument: $action");
     }

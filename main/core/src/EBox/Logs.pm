@@ -40,7 +40,7 @@ use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
-use constant PG_DATA_DIR           => '/var/lib/postgres';
+use constant MYSQL_ZENTYAL_DATA_DIR           => '/var/lib/mysql/zentyal';
 
 #       EBox::Module::Service interface
 #
@@ -322,51 +322,6 @@ sub getLogDomains
     return \%logdomains;
 }
 
-sub backupDomains
-{
-    my $name = 'logs';
-    my %attrs  = (
-                  printableName => __('Logs'),
-                  description   => __(q{Zentyal Server logs database}),
-                  extraDataDump => 1,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub dumpExtraBackupData
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my @domainsDumped;
-    if ($backupDomains{logs} ) {
-        my $logsDir = $dir . '/logs';
-        if (not -d $logsDir) {
-            mkdir $logsDir or
-                throw EBox::Exceptions::Internal("Cannot create $logsDir: $!");
-        }
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        my $dumpFileBasename = "eboxlogs";
-
-        $dbengine->backupDB($logsDir, $dumpFileBasename);
-        push @domainsDumped, 'logs';
-    }
-
-    return \@domainsDumped;
-}
-
-sub dumpExtraBackupDataSize
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my $size = 0;
-    if ($backupDomains{logs} ) {
-         $size += EBox::FileSystem::dirDiskUsage($dir);
-    }
-
-    return $size;
-}
-
 sub _checkValidDate # (date)
 {
     my ($datestr) = @_;
@@ -405,6 +360,8 @@ sub _checkValidDate # (date)
 #       pagesize - Int the page's size to return the result
 #
 #       page - Int the page to search for results
+#
+#       timecol - String the timestamp column to perform date filters
 #
 #       filters - hash ref a list of filters indexed by name which
 #       contains the value of the given filter (normally a
@@ -780,10 +737,6 @@ sub _restoreEnabledLogsModules
 # Overrides:
 #  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
 #
-# Warning:
-#   this implies thhat all postgresql data are log, if someday other kind of
-#   data is added to the database we will to change this (and maybe overriding
-#   EBox::Report::DiskUsageProivider::diskUsage will be needed)
 sub _facilitiesForDiskUsage
 {
   my ($self) = @_;
@@ -791,7 +744,7 @@ sub _facilitiesForDiskUsage
   my $printableName = __('Log messages');
 
   return {
-          $printableName => [ PG_DATA_DIR ],
+          $printableName => [ MYSQL_ZENTYAL_DATA_DIR ],
          };
 }
 

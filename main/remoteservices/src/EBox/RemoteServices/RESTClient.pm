@@ -83,6 +83,7 @@ sub new {
     my $key = 'rs_api';
     # TODO: Use cloudDomain when available
     $self->{server} = 'https://' . EBox::Config::configkey($key);
+    $self->{uri}    = new URI($self->{server});
 
     return $self;
 }
@@ -99,12 +100,61 @@ sub new {
 #
 #   <EBox::Exceptions::InvalidData> - thrown if the server is not a valid.
 #
-sub setServer {
+sub setServer
+{
     my ($self, $server) = @_;
 
     EBox::Validate::checkHost($server, "RESTClient Server");
 
-    $self->{server} = 'https://' . $server;
+    $self->{uri}->host($server);
+    $self->{server} = $self->{uri}->as_string();
+}
+
+# Method: setPort
+#
+#   Set the server port the RESTClient must connect to
+#
+# Parameters:
+#
+#   port - Int the network port
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidData> - thrown if the port is not a valid.
+#
+sub setPort
+{
+    my ($self, $port) = @_;
+
+    EBox::Validate::checkPort($port, "RESTClient server port");
+
+    $self->{uri}->port($port);
+    $self->{server} = $self->{uri}->as_string();
+}
+
+# Method: setScheme
+#
+#   Set the server scheme where the RESTClient must connect to
+#
+# Parameters:
+#
+#   scheme - String it can be https or http
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::InvalidData> - thrown if the port is not a valid.
+#
+sub setScheme
+{
+    my ($self, $scheme) = @_;
+
+    unless ( $scheme eq 'http' or $scheme eq 'https' ) {
+        throw EBox::Exceptions::InvalidData(data => 'scheme', value => $scheme,
+                                            advice => 'https or http');
+    }
+
+    $self->{uri}->scheme($scheme);
+    $self->{server} = $self->{uri}->as_string();
 }
 
 # Method: GET

@@ -2,6 +2,10 @@ HEAD
 	+ New TreeView to manage users, groups and OUs
 	+ Configuration key multiple_ous removed as this is now enabled by default
 	+ Renamed namespace from UsersAndGroups to Users
+3.1.2
+	+ Remove deprecated backup domain methods
+	+ Fixed password change in user corner when using samba
+	+ Changed reload action to force-reload for nscd init.d daemon
 3.1.1
 	+ Fixed error message when trying to add a user above the edition maximum
 	+ Migrated SOAP services to use Nginx for SSL.

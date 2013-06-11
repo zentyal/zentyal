@@ -3,6 +3,8 @@ jQuery.noConflict();
 
 Zentyal.namespace('Dialog');
 
+Zentyal.Dialog.DEFAULT_ID = 'load_in_dialog';
+
 Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
     var data = (params.data !== undefined) ? params.data : [];
     dialog.html('<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>');
@@ -14,13 +16,14 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 };
 
 Zentyal.Dialog.showURL = function(url, params) {
-    var i, dialogParams,
-        dialogParamsAllowed = ['title', 'width', 'height'];
+    var i,
+        dialogParams,
+    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass'];
     if (params === undefined) {
         params = {};
     }
 
-    var existentDialog = jQuery('#load_in_dialog');
+    var existentDialog = jQuery('#' + Zentyal.Dialog.DEFAULT_ID);
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
         return;
@@ -28,6 +31,8 @@ Zentyal.Dialog.showURL = function(url, params) {
     dialogParams = {
         resizable: false,
         modal: true,
+        minWidth: 500,
+        position: {my: 'top+100', at: 'top'},
         create: function (event, ui) {
             Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
         },
@@ -46,9 +51,10 @@ Zentyal.Dialog.showURL = function(url, params) {
     }
 
 
-    jQuery('<div id="load_in_dialog"></div>').dialog(dialogParams);
+
+    jQuery('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
 
 Zentyal.Dialog.close = function() {
-    jQuery('#load_in_dialog').dialog('close');
+    jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };

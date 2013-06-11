@@ -1,5 +1,7 @@
 HEAD
 	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1.1
+	+ Removed deprecated backup domain methods
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1

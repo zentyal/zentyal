@@ -1,11 +1,12 @@
 #!/bin/bash
 
-PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc"
 
 ADDITIONAL_ARGS=""
-MODULES_WITH_TESTS="common core samba ebackup firewall remoteservices antivirus"
+EXTRA_ARGS="-j4"
+MODULES_WITH_TESTS="common core samba ebackup firewall antivirus remoteservices ips"
 
-while getopts ":vj" opt; do
+while getopts ":vjs" opt; do
     case $opt in
     v)
         VERBOSE="yes"
@@ -14,6 +15,11 @@ while getopts ":vj" opt; do
         ;;
     j)
         JUNIT="yes"
+        shift $((OPTIND-1))
+        ;;
+    s)
+        #We execute the tests in a single job without parallelization
+        EXTRA_ARGS=""
         shift $((OPTIND-1))
         ;;
     esac
@@ -50,7 +56,7 @@ export ZENTYAL_MODULES_SCHEMAS
 test -d $CONF_DIR || mkdir $CONF_DIR
 find . -wholename '*schemas/*.yaml' -exec cp {} $CONF_DIR \;
 
-COMMON_ARGS="-j4 -r --timer"
+COMMON_ARGS="$EXTRA_ARGS -r --timer"
 
 if [ "$@" == "ALL" ]
 then

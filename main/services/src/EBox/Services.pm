@@ -129,6 +129,14 @@ sub _defaultServices
          'destinationPort' => '80',
          'internal' => 0,
         },
+        {
+         'name' => 'HTTPS',
+         'printableName' => 'HTTPS',
+         'description' => __('HyperText Transport Protocol over SSL'),
+         'protocol' => 'tcp',
+         'destinationPort' => '443',
+         'internal' => 0,
+        },
     ];
 }
 

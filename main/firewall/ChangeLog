@@ -1,3 +1,6 @@
+3.1.1
+	+ Set file location for redirect rule logging
+	+ Use zentyal-firewall prefix in redirects log
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1

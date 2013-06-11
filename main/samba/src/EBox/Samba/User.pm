@@ -472,8 +472,10 @@ sub addToZentyal
         $uidNumber = $self->getXidNumberFromRID();
         $optParams{uidNumber} = $uidNumber;
         $self->set('uidNumber', $uidNumber);
-        $self->setupUidMapping($uidNumber);
     }
+    $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
+    $self->setupUidMapping($uidNumber);
+
     $zentyalUser = EBox::Users::User->create($params, 0, %optParams);
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Error addding samba user '$uid' to Zentyal");

@@ -1,5 +1,8 @@
 HEAD
 	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1.3
+	+ Removed deprecated backup domains implementation
+	+ Fix id mapping for users and groups added by the s4sync daemon
 3.1.2
 	+ Fix hostname change when having Samba installed: was trying to create
 	  again Administrator user, now we just update the credentials, ignore
