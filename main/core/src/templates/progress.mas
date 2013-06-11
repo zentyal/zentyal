@@ -194,6 +194,9 @@ background: #666 url('/data/images/black-texture.png');
 .carousel-caption p {
   margin-bottom: 0;
 }
+.carousel-control.carouselControlDisabled {
+  display: none !important;
+}
 </style>
 % }
 
@@ -258,22 +261,30 @@ jQuery( function() {
                         <% $showNotesOnFinish ? 'true' : 'false' %>
   );
 % if (@slides) {
+   var disableClass = 'carouselControlDisabled';
    jQuery('#carousel').carousel();
-   jQuery('#carouselLeft').prop('disabled', true);
+   jQuery('#carouselLeft').prop('disabled', true).addClass(disableClass);
    jQuery('#carousel').on('slid', '', function() {
-      var left = false, right = false;
+      var toEnable ='', toDisable ='',
+          leftId = '#carouselLeft', rightId = '#carouselRight';
       var carouselContents = jQuery('#carouselContents');
       if (carouselContents.find('.item:last').hasClass('active')) {
-           left = true;
+            toEnable = leftId;
+            toDisable= rightId;
            jQuery('#carousel').carousel('pause');
       } else if (carouselContents.find('.item:first').hasClass('active')) {
+           toEnable= rightId;
+           toDisable = leftId
            right = true;
       } else {
-          left = true;
-          right = true;
+          toEnable = leftId +  ', ' + rightId;
       }
-      jQuery('#carouselLeft').prop('disabled', !left);
-      jQuery('#carouselRight').prop('disabled', !right);
+
+      if (toDisable) {
+         jQuery(toDisable).prop('disabled', true).addClass(disableClass);
+      }
+
+      jQuery(toEnable).prop('disabled', false).removeClass(disableClass);
    });
 
 % }

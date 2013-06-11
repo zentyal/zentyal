@@ -144,7 +144,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
         }
         Zentyal.stripe('.dataTable', 'even', 'odd');
         if (!wantJSON) {
-//            Modalbox.resizeToContent();
             return;
         }
 
@@ -156,7 +155,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             }
             Zentyal.TableHelper.setError(table, error);
             Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-//            Modalbox.resizeToContent();
             return;
         }
 
@@ -189,14 +187,12 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             } else {
                 Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
                 Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-//                Modalbox.resizeToContent();
                }
             return;
         }
 
         //sucesss and not next page
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-//        Modalbox.resizeToContent();
     };
     var complete = function () {
         Zentyal.TableHelper.completedAjaxRequest();
@@ -206,7 +202,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             jQuery('#error_' + table).html(jqxhr.responseText).show();
         }
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-//        Modalbox.resizeToContent();
     };
 
    jQuery.ajax({
@@ -259,7 +254,7 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
-Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, resizeModalbox, extraParams) {
+Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, extraParams) {
     var params = '&action=edit&tablename=' + table;
     params +=  '&directory='  + directory + '&id=' + id + '&';
     if ( page != undefined ) params += '&page=' + page;
@@ -284,16 +279,10 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
     var failure = function(response) {
         jQuery('#error_' + table).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-        if (resizeModalbox) {
-//            Modalbox.resizeToContent();
-        }
     };
     var complete = function(response) {
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        if (resizeModalbox) {
-//            Modalbox.resizeToContent();
-        }
     };
 
     jQuery.ajax({
@@ -552,7 +541,6 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
           else if ( action == 'changeEdit' ) {
               Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
           }
-//          Modalbox.resizeToContent();
       };
       var complete = function() {
           // Highlight the element
@@ -565,7 +553,6 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
               Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
           }
           Zentyal.TableHelper.completedAjaxRequest();
-  //        Modalbox.resizeToContent();
       };
 
       jQuery.ajax({
@@ -1163,7 +1150,18 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
     data += '&prevId=' + prevId;
     data += '&nextId=' + nextId;
     jQuery.ajax({
-       url: url,
-       data: data
+        url: url,
+        data: data,
+        dataType: 'json',
+        success: function (response) {
+            if (('unsavedModules' in response) && response.unsavedModules ) {
+                Zentyal.TableHelper.setSaveChangesButton(1);
+            }
+        }
    });
+};
+
+Zentyal.TableHelper.setSaveChangesButton = function(changed) {
+    var className = changed ?  'changed' : 'notChanged';
+    jQuery('#changes_menu').removeClass().addClass(className);
 };
