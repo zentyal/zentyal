@@ -1,4 +1,5 @@
 HEAD
+	+ Better prefix for user configuration redis keys
 	+ Hide disabled carousel buttons, fix modal template, refresh
 	+ Fixed modal dialog template
 	+ Mark save changes button as changed when moving rows
