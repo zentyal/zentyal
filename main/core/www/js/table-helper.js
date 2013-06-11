@@ -254,7 +254,7 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
-// XXX inDialog is onmly used by modal dialogs, put it inside extraParams
+// XXX inDialog is only used by modal dialogs, put it inside extraParams
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, inDialog, extraParams) {
     var params = '&action=edit&tablename=' + table;
     params +=  '&directory='  + directory + '&id=' + id + '&';
