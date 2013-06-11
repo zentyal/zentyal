@@ -24,7 +24,10 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
-use EBox::Types::Link;
+use EBox::Types::HasMany;
+use EBox::Types::Select;
+use EBox::Exceptions::UnwillingToPerform;
+use EBox::Samba::GPO;
 
 # Constructor: new
 #
@@ -60,22 +63,28 @@ sub _table
 
     my $tableDesc = [
         new EBox::Types::Text(fieldName     => 'name',
-                              printableName => __('Name')),
-        new EBox::Types::Text(fieldName     => 'status',
-                              printableName => __('Status')),
-        new EBox::Types::Link(fieldName     => 'edit',
-                              printableName => __('Edit')),
-
+                              printableName => __('Name'),
+                              unique        => 1,
+                              editable      => 1),
+        new EBox::Types::Select(fieldName     => 'status',
+                                printableName => __('Status'),
+                                editable      => 1,
+                                populate      => \&_populateStatus),
+        new EBox::Types::HasMany(fieldName  => 'edit',
+                                 printableName => __('GPO Editor'),
+                                 foreignModel => 'samba/GPO',
+                                 foreignModelIsComposite => 1,
+                                 view => '/Samba/Composite/GPO',
+                                 backView => '/Samba/View/GPOs')
     ];
 
     my $dataTable = {
+        pageTitle           => __('Group Policy Objects'),
         tableName           => 'GPOs',
-        printableTableName  => __('Group Policy Objects'),
-        defaultActions      => ['changeView'],
+        defaultActions      => ['add', 'del', 'editField', 'changeView'],
         tableDescription    => $tableDesc,
         printableRowName    => __('Group Policy Object'),
         sortedBy            => 'name',
-        withoutActions      => 1,
         modelDomain         => 'Samba',
     };
 
@@ -114,19 +123,124 @@ sub row
     my $gpo = new EBox::Samba::GPO(dn => $id);
     if ($gpo->exists()) {
         my $displayName = $gpo->get('displayName');
-        my $link = "/Samba/GPO?gpo=$id";
-        my $status = $gpo->statusString();
+        my $status = $gpo->status();
         my $row = $self->_setValueRow(
             name => $displayName,
             status => $status,
-            edit => $link,
         );
         $row->setId($id);
-        $row->setReadOnly(1);
+        if ($gpo->get('isCriticalSystemObject')) {
+            # Cache the attribute in the row to disallow row
+            # deletion
+            $row->{isCriticalSystemObject} = 1;
+        }
         return $row;
     } else {
         throw EBox::Exceptions::Internal("GPO $id does not exist");
     }
+}
+
+sub _populateStatus
+{
+    my $status = [];
+    push (@{$status}, {value => EBox::Samba::GPO::STATUS_ENABLED, printableValue => __('Enabled')});
+    push (@{$status}, {value => EBox::Samba::GPO::STATUS_USER_CONF_DISABLED, printableValue => __('User configuration disabled')});
+    push (@{$status}, {value => EBox::Samba::GPO::STATUS_COMPUTER_CONF_DISABLED, printableValue => __('Computer configuration disabled')});
+    push (@{$status}, {value => EBox::Samba::GPO::STATUS_ALL_DISABLED, printableValue => __('All settings disabled')});
+    return $status;
+}
+
+# Method: addTypedRow
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::addTypedRow>
+#
+sub addTypedRow
+{
+    my ($self, $params_r, %optParams) = @_;
+
+    # validate row to add
+    $self->validateTypedRow('add', $params_r, $params_r);
+
+    my $name = $params_r->{name}->value();
+    my $status = $params_r->{status}->value();
+
+    my $gpo = EBox::Samba::GPO->create($name, $status);
+    $self->setMessage(__('GPO successfully created'));
+
+    # Return the ID of the added row
+    return $gpo->dn();
+}
+
+# Method: removeRow
+#
+#   Override not to allow to remove critical system objects
+#
+# Overrides:
+#
+#   <EBox::Exceptions::DataTable::removeRow>
+#
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    unless (defined $id) {
+        throw EBox::Exceptions::MissingArgument('Missing row identifier to remove');
+    }
+
+    my $row = $self->row($id);
+    my $gpoName = $row->getPrintableValue('name');
+    if (not defined $row) {
+        throw EBox::Exceptions::Internal("Row with id '$id' does not exist, so it cannot be removed");
+    }
+
+    if ($row->{isCriticalSystemObject}) {
+        throw EBox::Exceptions::UnwillingToPerform(
+            reason => __x('The object {x} is a system critical object.',
+                          x => $row->id()));
+    }
+
+    my $gpo = new EBox::Samba::GPO(dn => $id);
+    $gpo->deleteObject();
+    $self->setMessage(__x('GPO {name} removed', name => $gpoName));
+}
+
+
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+
+    my $gpo = new EBox::Samba::GPO(dn => $id);
+    unless ($gpo->exists()) {
+        throw EBox::Exceptions::External(__x('GPO {dn} not found', dn => $id));
+    }
+
+    my $oldRow = $self->row($id);
+    my $allHashElements = $oldRow->hashElements();
+    $self->validateTypedRow('update', $paramsRef, $allHashElements);
+
+    my $newDisplayName = $paramsRef->{name}->printableValue();
+    my $newStatus = $paramsRef->{status}->value();
+    $gpo->set('displayName', $newDisplayName, 1);
+    $gpo->setStatus($newStatus, 1);
+
+    # replace old values with setted ones
+    $allHashElements->{name} = $newDisplayName;
+    $allHashElements->{status} = $newStatus;
+
+    $gpo->save();
+}
+
+# Method: _checkRowExist
+#
+#   Override <EBox::Model::DataTable::_checkRowExist> as DataTable try to
+#   check if a row exists checking the existance of the conf directory
+#
+sub _checkRowExist
+{
+    my ($self, $id) = @_;
+    return 1;
 }
 
 1;

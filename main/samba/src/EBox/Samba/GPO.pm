@@ -27,6 +27,38 @@ use base 'EBox::Samba::LdbObject';
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use Perl6::Junction qw(any);
+use Data::UUID;
+use Filesys::SmbClient;
+use EBox::Samba::AuthKrbHelper;
+
+use constant STATUS_ENABLED                 => 0x00;
+use constant STATUS_USER_CONF_DISABLED      => 0x01;
+use constant STATUS_COMPUTER_CONF_DISABLED  => 0x02;
+use constant STATUS_ALL_DISABLED            => 0x03;
+
+# Method: new
+#
+#   Class constructor
+#
+# Parameters:
+#
+#      displayName
+#
+sub new
+{
+    my ($class, %params) = @_;
+
+    my $self = {};
+    if ($params{displayName}) {
+        $self->{displayName} = $params{displayName};
+    } else {
+        $self = $class->SUPER::new(%params);
+    }
+    bless ($self, $class);
+
+    return $self;
+}
+
 
 # Method: _entry
 #
@@ -37,7 +69,25 @@ sub _entry
     my ($self) = @_;
 
     unless ($self->{entry}) {
-        my $entry = $self->SUPER::_entry();
+        if (defined $self->{displayName}) {
+            my $attrs = {
+                base => $self->_ldap->dn(),
+                filter => "(&(objectClass=GroupPolicyContainer)(diplayName=$self->{displayName}))",
+                scope => 'sub',
+                attrs => ['*'],
+            };
+            my $result = $self->_ldap->search($attrs);
+            if ($result->count() > 1) {
+                throw EBox::Exceptions::Internal(
+                    __x('Found {count} results for, expected only one.',
+                        count => $result->count()));
+            }
+            $self->{entry} = $result->entry(0);
+        } else {
+            $self->{entry} = $self->SUPER::_entry();
+        }
+
+        my $entry = $self->_entry();
         my @objectClasses = $entry->get('objectClass');
         unless (grep (/GroupPolicyContainer/i, @objectClasses)) {
             my $dn = $entry->dn();
@@ -46,6 +96,47 @@ sub _entry
     }
 
     return $self->{entry};
+}
+
+# Method: deleteObject
+#
+#   Deletes this object from the LDAP and remove GPT files
+#
+# Overrides:
+#
+#   EBox::Samba::LdbObject::deleteObject
+#
+sub deleteObject
+{
+    my ($self) = @_;
+
+    my $gpoName = $self->get('name');
+    unless (length $gpoName) {
+        throw EBox::Exceptions::Internal("Could not get the GPO name");
+    }
+
+    my $defaultNC = $self->_ldap->dn();
+    my $dnsDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $defaultNC)));
+    unless (length $dnsDomain) {
+        throw EBox::Exceptions::Internal("Could not get the DNS domain name");
+    }
+
+    # Grab a kerberos ticket for domain administrator
+    my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
+
+    # Remove GPC from LDAP
+    $self->SUPER::deleteObject();
+
+    # Remove GTP from sysvol
+    my $smb = new Filesys::SmbClient(username => $krbHelper->principal(),
+                                     flags => SMB_CTX_FLAG_USE_KERBEROS,
+                                     debug => 0)
+        or throw EBox::Exceptions::Internal("Could not connect to smb server: $!");
+    $smb->rmdir_recurse("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName")
+        or throw EBox::Exceptions::Internal("Could not remove GPO from sysvol: $!");
+
+    # Destroy kerberos ticket
+    $krbHelper->destroy();
 }
 
 # Method: status
@@ -60,33 +151,81 @@ sub status
 {
     my ($self) = @_;
 
-    my $flags = $self->get('status');
-    return ($flags & 0x11);
+    my $flags = $self->get('flags');
+    return ($flags & 0x03);
 }
 
-# Method: statusString
+# Method: setStatus
 #
-#   Returns the GPO status string representation
+#   Set GPO status
 #
-sub statusString
+sub setStatus
 {
-    my ($self) = @_;
+    my ($self, $status, $lazy) = @_;
 
-    my $status = $self->status();
-    if ($status == 0) {
-        return __('Enabled');
-    }
-    if ($status == 1) {
-        return __('User configuration disabled');
-    }
-    if ($status == 2) {
-        return __('Computer configuration disabled');
-    }
-    if ($status == 3) {
-        return __('All settings disabled');
+    my $flags = ($status & 0x03);
+    $self->set('flags', $flags, $lazy);
+}
+
+# Method: create
+#
+#   Creates a new GPO
+#
+sub create
+{
+    my ($self, $displayName, $status) = @_;
+
+    my $ug = new Data::UUID();
+    my $gpoName = uc('{' . $ug->create_str() . '}');
+    my $versionNumber = 0;
+
+    # Get dns domain
+    my $defaultNC = $self->_ldap->dn();
+    my $dnsDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $defaultNC)));
+    unless (length $dnsDomain) {
+        throw EBox::Exceptions::Internal("Could not get the DNS domain name");
     }
 
-    throw EBox::Exceptions::Internal('Unknown GPO status');
+    # Grab a kerberos ticket for domain administrator
+    my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
+
+    # Create GPT in sysvol
+    my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
+    my $smb = new Filesys::SmbClient(username => $krbHelper->principal(),
+                                     flags => SMB_CTX_FLAG_USE_KERBEROS,
+                                     debug => 0)
+        or throw EBox::Exceptions::Internal("Error connecting: $!");
+    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName",'0666')
+        or throw EBox::Exceptions::Internal("Error mkdir: $!");
+    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/User",'0666')
+        or throw EBox::Exceptions::Internal("Error mkdir: $!");
+    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/Machine",'0666')
+        or throw EBox::Exceptions::Internal("Error mkdir: $!");
+    my $fd = $smb->open(">smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/GPT.INI", 0666)
+        or throw EBox::Exceptions::Internal("Can't create file: $!");
+    $smb->write($fd, $gptContent)
+        or throw EBox::Exceptions::Internal("Can't write file: $!");
+    $smb->close($fd);
+
+    # Destroy kerberos ticket
+    $krbHelper->destroy();
+
+    # Create the GPC (Group Policy Container)
+    my $gpoPath = "\\\\$dnsDomain\\sysvol\\$dnsDomain\\Policies\\$gpoName";
+
+    my $dn = "CN=$gpoName,CN=Policies,CN=System,$defaultNC";
+    my $attrs = [];
+    push (@{$attrs}, objectClass => ['groupPolicyContainer']);
+    push (@{$attrs}, displayName => $displayName);
+    push (@{$attrs}, flags => $status);
+    push (@{$attrs}, versionNumber => $versionNumber);
+    push (@{$attrs}, gPCFunctionalityVersion => 2);
+    push (@{$attrs}, gPCFileSysPath => $gpoPath);
+    my $result = $self->_ldap->add($dn, { attr => $attrs });
+
+    my $createdGPO = new EBox::Samba::GPO(dn => $dn);
+
+    return $createdGPO;
 }
 
 1;
