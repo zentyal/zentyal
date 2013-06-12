@@ -141,34 +141,6 @@ sub new
     return $self;
 }
 
-# Method: equals
-#
-#       Check equality between an object and this
-#
-# Parameters:
-#
-#       object - the object to compare
-#
-# Returns:
-#
-#       true - if the object is the same
-#       false - otherwise
-#
-# Exceptions:
-#
-#       <EBox::Exceptions::InvalidType> - if object is not the correct type
-#
-sub equals # (object)
-{
-    my ($self, $object) = @_;
-
-    throw EBox::Exceptions::InvalidType('object', 'EBox::TrafficShaping::Filter::Fw')
-        unless $object->isa('EBox::TrafficShaping::Filter::Fw');
-
-    return $object->getIdentifier() == $self->getIdentifier();
-
-}
-
 # Method: dumpIptablesCommands
 #
 #       Dump iptables commands needed to run to make the filter ready

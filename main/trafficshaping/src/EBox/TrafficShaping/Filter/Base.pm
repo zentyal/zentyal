@@ -109,7 +109,12 @@ sub new
 #
 sub equals # (object)
 {
-    return undef;
+    my ($self, $object) = @_;
+
+    throw EBox::Exceptions::InvalidType(
+        'object', 'EBox::TrafficShaping::Filter::Base') unless $object->isa('EBox::TrafficShaping::Filter::Base');
+
+    return $object->getIdentifier() == $self->getIdentifier();
 }
 
 # Method: getIdentifier

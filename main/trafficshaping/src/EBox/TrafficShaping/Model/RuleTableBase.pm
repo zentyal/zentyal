@@ -130,7 +130,9 @@ sub validateTypedRow
         $reactivated = $changedParams->{enabled}->value();
     }
 
-    if ($params->{filterType} eq 'fw') {
+    my %targets;
+    my $filterType = $params->{filterType}->value();
+    if ($filterType eq 'fw') {
 
         # Check objects have members
         my $objMod = $self->global()->modInstance('objects');
@@ -165,7 +167,6 @@ sub validateTypedRow
 
         # Transform objects (Select type) to object identifier to satisfy
         # checkRule API
-        my %targets;
         foreach my $target (qw(source destination)) {
             if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
                 $targets{$target} = $params->{$target}->value();
@@ -186,7 +187,7 @@ sub validateTypedRow
     foreach my $ifCheck (@ifacesToCheck) {
         my @ruleArgs = ();
         push (@ruleArgs, interface      => $ifCheck);
-        push (@ruleArgs, filterType     => $params->{filterType});
+        push (@ruleArgs, filterType     => $filterType);
         push (@ruleArgs, priority       => $params->{priority}->value());
         push (@ruleArgs, guaranteedRate => $params->{guaranteed_rate}->value());
         push (@ruleArgs, limitedRate    => $params->{limited_rate}->value());
@@ -194,7 +195,7 @@ sub validateTypedRow
         push (@ruleArgs, enabled        => $params->{enabled});
         push (@ruleArgs, reactivated    => $reactivated);
 
-        if ($params->{filterType} eq 'fw') {
+        if ($filterType eq 'fw') {
             push (@ruleArgs, service        => $params->{service}->value());
             push (@ruleArgs, source         => $targets{source});
             push (@ruleArgs, destination    => $targets{destination});
@@ -606,23 +607,27 @@ sub rulesForIface
         if (($rowIface ne $iface) and ($rowIface ne ALL_IFACES) ) {
             next;
         }
+        my $filterType = $row->elementByName('filterType')->value();
 
-        my $ruleRef =
-          {
-           ruleId      => $id,
-           service     => $row->elementByName('service'),
-           source      => $row->elementByName('source')->subtype(),
-           destination => $row->elementByName('destination')->subtype(),
-           priority    => $row->valueByName('priority'),
-           guaranteed_rate => $row->valueByName('guaranteed_rate'),
-           limited_rate => $row->valueByName('limited_rate'),
-           enabled     => $row->valueByName('enabled'),
-          };
+        my $ruleRef = {
+            ruleId      => $id,
+            filterType  => $filterType,
+            priority    => $row->valueByName('priority'),
+            guaranteed_rate => $row->valueByName('guaranteed_rate'),
+            limited_rate => $row->valueByName('limited_rate'),
+            enabled     => $row->valueByName('enabled'),
+        };
+
+        if ($filterType eq 'fw') {
+            $ruleRef->{service} = $row->elementByName('service');
+            $ruleRef->{source} = $row->elementByName('source')->subtype();
+            $ruleRef->{destination} = $row->elementByName('destination')->subtype();
+        }
+
         push ( @rules, $ruleRef );
     }
 
     return \@rules;
-
 }
 
 # it seems that higher numbers are lowest priority

@@ -211,10 +211,6 @@ sub _enforceServiceState
             my $ipTablesCommands_ref = $self->{builders}->{$iface}->dumpIptablesCommands();
             # Execute tc commands
             $self->{tc}->reset($iface);            # First, deleting everything was there
-            EBox::debug('About to execute:');
-            for my $command (@{$tcCommands_ref}) {
-                EBox::debug($command);
-            }
             $self->{tc}->execute($tcCommands_ref); # Second, execute them!
             # Execute iptables commands
             $self->_executeIptablesCmds($ipTablesCommands_ref);
@@ -957,7 +953,7 @@ sub _buildGConfRules # (iface, regenConfig)
     my $model = $self->ruleModel($iface);
 
     foreach my $ruleRef (@{$model->rulesForIface($iface)}) {
-        # transofrmations needed for the ubilder
+        # transformations needed for the builder
         # get identifier for builder
         my $id = delete $ruleRef->{ruleId};
         $ruleRef->{identifier} = $self->_nextMap($id);
@@ -986,10 +982,8 @@ sub _buildGConfRules # (iface, regenConfig)
         if (not $regenConfig) {
             $ruleRef->{enabled} = 1;
         }
-
         $self->_buildANewRule( $iface, $ruleRef, undef );
     }
-
 }
 
 # Create builders and they are stored in builders
@@ -1104,15 +1098,16 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
             # is done, no matter if the rule is enabled or not
             if ( $rule_ref->{enabled} or $test ) {
                 $htbBuilder->buildRule(
-                                   service        => $service,
-                                   source         => $src,
-                                   destination    => $dst,
-                                   guaranteedRate => $rule_ref->{guaranteedRate},
-                                   limitedRate    => $rule_ref->{limitedRate},
-                                   priority       => $rule_ref->{priority},
-                                   identifier     => $rule_ref->{identifier},
-                                   testing        => $test,
-                                  );
+                    filterType     => $rule_ref->{filterType},
+                    service        => $service,
+                    source         => $src,
+                    destination    => $dst,
+                    guaranteedRate => $rule_ref->{guaranteedRate},
+                    limitedRate    => $rule_ref->{limitedRate},
+                    priority       => $rule_ref->{priority},
+                    identifier     => $rule_ref->{identifier},
+                    testing        => $test,
+                );
             }
             # If an object is provided, attach filters to every member to the
             # flow object id
@@ -1149,11 +1144,25 @@ sub _buildANewRule # ($iface, $rule_ref, $test?)
                 }
             }
         } elsif ($rule_ref->{filterType} eq 'u32') {
-            $htbBuilder->addFilter(
-                leafClassId => $rule_ref->{identifier},
-                filterType  => $rule_ref->{filterType},
-                priority    => $rule_ref->{priority},
-            );
+            if ($rule_ref->{enabled} or $test) {
+                $htbBuilder->buildRule(
+                    filterType     => $rule_ref->{filterType},
+                    guaranteedRate => $rule_ref->{guaranteedRate},
+                    limitedRate    => $rule_ref->{limitedRate},
+                    priority       => $rule_ref->{priority},
+                    identifier     => $rule_ref->{identifier},
+                    testing        => $test,
+                );
+            }
+
+            # Only if not testing, we attach the u32 filter to the flow object id
+            if (not $test) {
+                $htbBuilder->addFilter(
+                    leafClassId => $rule_ref->{identifier},
+                    filterType  => $rule_ref->{filterType},
+                    priority    => $rule_ref->{priority},
+                );
+            }
         } else {
             throw EBox::Exceptions::Internal("Unknown filter type: $rule_ref->{filterType}");
         }

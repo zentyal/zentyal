@@ -26,7 +26,8 @@ use EBox::Exceptions::MissingArgument;
 
 use feature 'switch';
 use Scalar::Util qw(looks_like_number);
-use Perl6::Junction qw(any);
+
+my @MATCHTYPES = qw(u32 u16 u8 ip);
 
 # Constructor: new
 #
@@ -69,56 +70,25 @@ sub new
     my @matchList = @{$args{matchList}};
     throw EBox::Exceptions::InvalidData('matchList') unless $#matchList > 0;
 
-    for $match ($args{matchList}) {
-        throw EBox::Exceptions::InvalidData('matchType') unless defined $match{matchType};
-        throw EBox::Exceptions::InvalidData('matchPattern') unless defined $match{matchPattern};
-        throw EBox::Exceptions::InvalidData('matchMask') unless defined $match{matchMask};
-        throw EBox::Exceptions::InvalidData('matchOffset') unless defined $match{matchOffset};
-
-        if ($match{matchType} ne any(('u32', 'u16', 'u8'))) {
+    for my $match (@matchList) {
+        throw EBox::Exceptions::InvalidData('matchType') unless defined $match->{matchType};
+        throw EBox::Exceptions::InvalidData('matchPattern') unless (
+            defined $match->{matchPattern} and looks_like_number($match->{matchPattern}));
+        throw EBox::Exceptions::InvalidData('matchMask') unless (
+            defined $match->{matchMask} and looks_like_number($match->{matchMask}));
+        if (not grep { $_ eq $match->{matchType} } @MATCHTYPES) {
             throw EBox::Exceptions::InvalidData(data => 'matchType');
         }
-        if (not looks_like_number($match{matchPattern})) {
-            throw EBox::Exceptions::InvalidData(data => 'matchPattern');
+        if ($match->{matchType} ne 'ip') {
+            throw EBox::Exceptions::InvalidData('matchOffset') unless defined $match->{matchOffset};
+            throw EBox::Exceptions::InvalidData(data => 'matchOffset') unless looks_like_number($match->{matchOffset});
         }
-        if (not looks_like_number($match{matchMask})) {
-            throw EBox::Exceptions::InvalidData(data => 'matchMask');
-        }
-        if (not looks_like_number($match{matchOffset})) {
-            throw EBox::Exceptions::InvalidData(data => 'matchOffset');
-        }
+    }
 
     $self->{matchList} = $args{matchList};
 
     bless($self, $class);
     return $self;
-}
-
-# Method: equals
-#
-#   Check equality between an object and this
-#
-# Parameters:
-#
-#   object - the object to compare
-#
-# Returns:
-#
-#   true - if the object is the same
-#   false - otherwise
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::InvalidType> - if object is not the correct type
-#
-sub equals # (object)
-{
-    my ($self, $object) = @_;
-
-    throw EBox::Exceptions::InvalidType(
-        'object', 'EBox::TrafficShaping::Filter::U32') unless $object->isa('EBox::TrafficShaping::Filter::U32');
-
-    return $object->getIdentifier() == $self->getIdentifier();
 }
 
 # Method: dumpTcCommand
@@ -134,9 +104,9 @@ sub dumpTcCommand
 {
     my ($self) = @_;
 
-    my $tcCommand = $self->SUPER::dumpTcCommand()
+    my $tcCommand = $self->SUPER::dumpTcCommand();
 
-    for $match ($self->{matchList}) {
+    for my $match (@{$self->{matchList}}) {
 
         given ($match->{matchType}) {
             when ('u32') {
@@ -148,12 +118,17 @@ sub dumpTcCommand
             when ('u8') {
                 $tcCommand .= sprintf("match u8 0x%02X 0x%02X ", $match->{matchPattern}, $match->{matchMask});
             }
+            when ('ip') {
+                $tcCommand .= sprintf("match ip protocol %d 0x%02X ", $match->{matchPattern}, $match->{matchMask});
+            }
         }
 
-        if ($match->{matchNextHdrOffset}) {
-            $tcCommand .= "at nexthdr+" . $match->{matchOffsetfilter} . " ";
-        } else {
-            $tcCommand .= "at " . $match->{matchOffsetfilter} . " ";
+        if ($match->{matchType} ne 'ip') {
+            if ($match->{matchNextHdrOffset}) {
+                $tcCommand .= "at nexthdr+" . $match->{matchOffset} . " ";
+            } else {
+                $tcCommand .= "at " . $match->{matchOffset} . " ";
+            }
         }
     }
     return $tcCommand;

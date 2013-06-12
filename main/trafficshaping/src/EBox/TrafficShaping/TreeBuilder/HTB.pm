@@ -27,6 +27,7 @@ use EBox::TrafficShaping::Class;
 use EBox::TrafficShaping::QDisc::Base;
 use EBox::TrafficShaping::QDisc::Root;
 use EBox::TrafficShaping::Filter::Fw;
+use EBox::TrafficShaping::Filter::U32;
 use EBox::TrafficShaping::QueueDiscipline::HTB;
 use EBox::TrafficShaping::QueueDiscipline::SFQ;
 
@@ -328,15 +329,14 @@ sub buildRule
         # Filter to the new class attached to the root qdisc
         my $rootQDisc = $self->{treeRoot}->value();
 
-        my @filters = @{$self->_u32SmallPackagesFilters(
-            flowId => {
-                rootHandle => 1,
-                classId    => $classId
-            },
-            parent    => $rootQDisc,
-        )};
+        my $flowId = {
+            rootHandle => 1,
+            classId    => $classId
+        };
 
-        for $filter (@filters) {
+        my @filters = @{$self->_u32SmallPackagesFilters($flowId, $rootQDisc)};
+
+        for my $filter (@filters) {
             # Attach filter to the root qdisc
             $rootQDisc->attachFilter($filter);
         }
@@ -627,8 +627,8 @@ sub findLeafClassId
 #
 # Exceptions:
 #
-#    <EBox::Exceptions::MissingArguments> - throw if any of the parameters
-#                                           is missing
+#    <EBox::Exceptions::MissingArgument> - throw if any of the parameters
+#                                          is missing
 #
 sub addFilter
 {
@@ -681,16 +681,13 @@ sub addFilter
           $rootQDisc->attachFilter ( $filter );
         }
     } elsif ($filterType eq 'u32') {
-        my @filters = @{$self->_u32SmallPackagesFilters(
-            identifier => $id,
-            flowId => {
-                rootHandle => 1,
-                classId    => $leafClassId->{minor}
-            },
-            parent    => $rootQDisc,
-        )};
+        my $flowId = {
+            rootHandle => 1,
+            classId    => $leafClassId->{minor}
+        };
+        my @filters = @{$self->_u32SmallPackagesFilters($flowId, $rootQDisc)};
 
-        for $filter (@filters) {
+        for my $filter (@filters) {
             # Attach filter to the root qdisc
             $rootQDisc->attachFilter($filter);
         }
@@ -1148,23 +1145,24 @@ sub _findFilterFromClass # (leafClassId)
 
 sub _u32SmallPackagesFilters
 {
-    my ($self, $identifier, $flowId, $parent) = @_;
+    my ($self, $flowId, $parent) = @_;
 
     my @filters = ();
 
     # Package size <= 64 bytes
-    my %packageSizeMatch = (
+    my $packageSizeMatch = {
         matchType => 'u16',
         matchPattern => 0x0,
         matchMask => 0xffc0,
         matchOffset => 2,
-    );
+    };
+
     # IP Protocol Match
-    my %ipProtocolMatch = (
+    my $ipProtocolMatch = {
         matchType => 'ip',
         matchPattern => 6,
         matchMask => 0xff,
-    )
+    };
 
     my @flags = (
         0x10, # ACK
@@ -1173,9 +1171,9 @@ sub _u32SmallPackagesFilters
         0x04, # RST
     );
 
-    my $id = $identifier;
-    for $flag (@flags) {
-        my @matchList = (\%ipProtocolMatch, \%packageSizeMatch);
+    my $id = $flowId->{classId};
+    for my $flag (@flags) {
+        my @matchList = ($ipProtocolMatch, $packageSizeMatch);
         push (@matchList, {
             matchType => 'u8',
             matchPattern => $flag,
@@ -1188,7 +1186,7 @@ sub _u32SmallPackagesFilters
             flowId => $flowId,
             parent => $parent,
             matchList => \@matchList,
-        );
+        ));
         $id++;
     }
 
