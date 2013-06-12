@@ -38,7 +38,7 @@ use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
 #use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
 use constant AUTH_AD_USER_KEY   => 'auth_ad_bind_user';
 use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
-use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+
 use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
 use constant AUTH_MODE_INTERNAL    => 'internal';
@@ -84,12 +84,16 @@ sub dcHostname
     return $dc;
 }
 
+sub hostSamAccountName
+{
+    my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
+    return uc($sysinfo->hostName()) . '$';
+}
 
 sub connectWithKerberos
 {
     my ($self, $keytab) = @_;
-    my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
+    my $hostSamAccountName = $self->hostSamAccountName();
 
     EBox::info("Connecting to AD LDAP");
     my $dc = $self->dcHostname();
@@ -234,9 +238,6 @@ sub ldapConn
                 x => $dc));
     }
     $pinger->close();
-
-
-
 
     # Check the host realm match the AD realm. Required by kerberos.
 #    my $defaultNC = $self->_adDefaultNamingContext($dc);
@@ -393,7 +394,7 @@ sub initKeyTabs
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $bindPwd = $self->bindPwd();
     # Check the Zentyal computer account
-    my $hostSamAccountName = uc($sysinfo->hostName()) . '$';
+    my $hostSamAccountName = $self->hostSamAccountName();
     my $hostFQDN = $sysinfo->fqdn();
     my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
 
