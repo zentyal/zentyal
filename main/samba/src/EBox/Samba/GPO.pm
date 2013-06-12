@@ -124,6 +124,8 @@ sub deleteObject
     # Grab a kerberos ticket for domain administrator
     my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
 
+    # TODO: Remove all links to this GPO in the domain
+
     # Remove GPC from LDAP
     $self->SUPER::deleteObject();
 

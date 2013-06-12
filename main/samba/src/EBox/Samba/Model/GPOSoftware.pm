@@ -25,6 +25,8 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use File::LibMagic;
+use Error qw(:try);
 
 # Method: _table
 #
@@ -38,19 +40,26 @@ sub _table
 
     my $tableDesc = [
         new EBox::Types::Text(fieldName     => 'name',
-                              printableName => __('Name')),
+                              printableName => __('Name'),
+                              optional      => 1,
+                              hiddenOnSetter => 1),
         new EBox::Types::Text(fieldName     => 'version',
-                              printableName => __('Version')),
+                              printableName => __('Version'),
+                              optional      => 1,
+                              hiddenOnSetter => 1),
         new EBox::Types::Text(fieldName     => 'state',
-                              printableName => __('Deployment State')),
+                              printableName => __('Deployment State'),
+                              optional      => 1,
+                              hiddenOnSetter => 1),
         new EBox::Types::Text(fieldName     => 'source',
-                              printableName => __('Source'))
+                              printableName => __('Source MSI package path'),
+                              editable      => 1),
     ];
 
     my $dataTable = {
         tableName           => 'GPOSoftware',
         printableTableName  => __('Software Installation'),
-        defaultActions      => ['add', 'delete', 'changeView'],
+        defaultActions      => ['add', 'del', 'edit', 'changeView'],
         tableDescription    => $tableDesc,
         printableRowName    => __('software package'),
         sortedBy            => 'name',
@@ -59,6 +68,75 @@ sub _table
     };
 
     return $dataTable;
+}
+
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $file = $row->valueByName('source');
+    try {
+        my $flm = new File::LibMagic();
+        my $description = $flm->describe_filename($file);
+        EBox::info(Dumper($description));
+#    my $author = $row->elementByName('service');
+#    $service->setValue(0);
+#    $row->store();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error($error);
+    };
+}
+
+# Method: precondition
+#
+#   Check samba is configured and provisioned
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    my $samba = $self->parentModule();
+    unless ($samba->configured()) {
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
+    }
+    unless ($samba->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+    }
+    unless (scalar @{$samba->shares()} >= 1) {
+        $self->{preconditionFail} = 'noShares';
+    }
+
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#   Show the precondition failure message
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notConfigured') {
+        return __('You must enable the module in the module ' .
+                'status section in order to use it.');
+    }
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __('The domain has not been created yet.');
+    }
+    if ($self->{preconditionFail} eq 'noShares') {
+        return __('No shares');
+    }
 }
 
 1;
