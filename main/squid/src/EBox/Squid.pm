@@ -87,9 +87,7 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
-use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
-
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
@@ -636,9 +634,11 @@ sub _writeSquidConf
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $dc = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
+        # XXX
+        my $externalAD = EBox::LDAP::ExternalAD->instance();
+        my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
-        my $adPrincipal = uc ($sysinfo->hostName()) . '$';
+        my $adPrincipal = $externalAD->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
