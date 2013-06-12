@@ -60,14 +60,6 @@ sub ldap
     return $self->{ldap};
 }
 
-sub masterLdap
-{
-    my ($self) = @_;
-
-    $self->ldap->ldapCon();
-    return $self->ldap->{ldap};
-}
-
 # Method: _loadSchema
 #
 #      loads an LDAP schema from an LDIF file
