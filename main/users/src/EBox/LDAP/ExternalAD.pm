@@ -43,7 +43,6 @@ use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
-use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
 
 use constant USERS_ZCONF_FILE => '/etc/zentyal/users.conf';
 
@@ -85,6 +84,10 @@ sub dcHostname
     return $dc;
 }
 
+sub keytabs
+{
+
+}
 
 sub connectWithKerberos
 {
@@ -95,7 +98,7 @@ sub connectWithKerberos
     EBox::info("Connecting to AD LDAP");
     my $dc = $self->dcHostname();
 
-    my $ccache = EBox::Config::tmp() . $keytab . '-ad.ccache';
+    my $ccache = EBox::Config::tmp() . $keytab . '.ccache';
     $ENV{KRB5CCNAME} = $ccache;
 
     # Get credentials for computer account
@@ -332,19 +335,9 @@ sub _setAuthenticationModeAD
     # my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
 
     # Check the Zentyal computer account
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
-    my $hostFound = undef;
-    my $result = $ad->search(base => "CN=Computers,$defaultNC",
-                          scope => 'sub',
-                          filter => '(objectClass=computer)',
-                          attrs => ['samAccountName']);
-    foreach my $entry ($result->entries()) {
-        my $entrySamAccountName = $entry->get_value('samAccountName');
-        if (uc $entrySamAccountName eq uc $hostSamAccountName) {
-            $hostFound = 1;
-            last;
-        }
-    }
+    my $hostSamAccountName = uc($sysinfo->hostName()) . '$';
+    my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
+
 
     # Extract keytab for squid
     try {
@@ -364,33 +357,45 @@ sub _setAuthenticationModeAD
         }
 
         my $computerName = uc ($sysinfo->hostName());
-        my $keytabTempPath = EBox::Config::tmp() . 'HTTP.keytab';
-        if ($hostFound) {
-            my @cmds;
-            EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
-            EBox::Sudo::root("chown ebox $keytabTempPath");
-            EBox::Sudo::root("chmod 660 $keytabTempPath" );
 
-            # Update keytab
-            my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
-            EBox::Sudo::command($cmd);
-            # Move keytab to the correct place
-            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
-        } else {
-            # Create the account and extract keytab to temporary directory
-            EBox::Sudo::command("rm -f $keytabTempPath");
-            my $cmd = "msktutil -N -c -b 'CN=COMPUTERS' -s 'HTTP/$hostFQDN' " .
-                      "-k '$keytabTempPath' --computer-name '$computerName' " .
-                      "--upn 'HTTP/$hostFQDN' --server '$dc' --user-creds-only " .
-                      "--verbose";
-            EBox::Sudo::command($cmd);
+
+
+        my @servicesPrincipals = @{ $self->externalServicesPrincipals };
+        foreach my $servPrincipal (@servicesPrincipals) {
+            my $keytab     = $servPrincipal->{keytab};
+            my $keytabUser = $servPrincipal->{keytabUser};
+            my $service    = $servPrincipal->{service};
+            my $keytabTempPath = EBox::Config::tmp() . "$service.keytab";
+            if ($hostFound) {
+                EBox::Sudo::root("cp '$keytab' '$keytabTempPath'");
+                EBox::Sudo::root("chown ebox '$keytabTempPath'");
+                EBox::Sudo::root("chmod 660 '$keytabTempPath'" );
+
+                # Update keytab
+                my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
+                EBox::Sudo::command($cmd);
+            } else {
+                my $upn = "zentyalServices/$hostFQDN";
+                my @principals = @{ $servPrincipal->{principals} };
+                # Create the account and extract keytab to temporary directory
+                EBox::Sudo::command("rm -f '$keytabTempPath'");
+
+                foreach my $principal (@principals) {
+                    my $cmd = "msktutil -N -c -b 'CN=COMPUTERS' -s '$principal/$hostFQDN' " .
+                        "-k '$keytabTempPath' --computer-name '$computerName' " .
+                            "--upn '$upn' --server '$dc' --user-creds-only " .
+                            "--verbose";
+                    EBox::Sudo::command($cmd);
+                }
+
+                # reflect that the host account was created
+                $hostFound = 1;
+            }
 
             # Move keytab to the correct place
-            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
-        }
-        if (EBox::Sudo::fileTest('-f', KEYTAB_FILE)) {
-            EBox::Sudo::root("chown root:proxy " . KEYTAB_FILE);
-            EBox::Sudo::root("chmod 440 " . KEYTAB_FILE);
+            EBox::Sudo::root("mv '$keytabTempPath' '$keytab'");
+            EBox::Sudo::root("chown root:$keytabUser '$keytab'");
+            EBox::Sudo::root("chmod 440 '$keytab'");
         }
     } otherwise {
         my ($error) = @_;
@@ -403,6 +408,23 @@ sub _setAuthenticationModeAD
             EBox::error("kdestroy: " . kerror());
         }
     };
+}
+
+
+sub _hostInAD
+{
+    my ($ad, $defaultNC, $hostSamAccountName) = @_;
+    my $result = $ad->search(base => "CN=Computers,$defaultNC",
+                          scope => 'sub',
+                          filter => '(objectClass=computer)',
+                          attrs => ['samAccountName']);
+    foreach my $entry ($result->entries()) {
+        my $entrySamAccountName = $entry->get_value('samAccountName');
+        if (uc $entrySamAccountName eq uc $hostSamAccountName) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 # Method: _adCheckClockSkew
@@ -467,6 +489,16 @@ sub _adDefaultNamingContext
     return $defaultNC;
 }
 
+sub externalServicesPrincipals
+{
+    my ($self) = @_;
+    # XXX implemnt, returning squid for now
+    my @servicesPrincipals;
+    my $squid = EBox::Global->modInstance('squid');
+    push @servicesPrincipals, $squid->kerberosServicePrincipals();
+    return \@servicesPrincipals;
+
+}
 
 
 1;
