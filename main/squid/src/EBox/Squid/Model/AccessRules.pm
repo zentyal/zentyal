@@ -37,9 +37,6 @@ use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 
-# Method: _table
-#
-#
 sub _table
 {
     my ($self) = @_;
@@ -146,7 +143,6 @@ sub _populateGroups
 sub _adLdap
 {
     my ($self) = @_;
-
 
     unless (defined $self->{adLdap}) {
         my $squid = $self->parentModule();
