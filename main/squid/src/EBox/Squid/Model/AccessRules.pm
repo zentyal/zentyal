@@ -30,10 +30,10 @@ use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
 use EBox::LDAP::ExternalAD;
 
+
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Authen::SASL qw(Perl);
-use Authen::Krb5::Easy qw(kinit kdestroy kerror kcheck);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
 
@@ -147,59 +147,12 @@ sub _adLdap
 {
     my ($self) = @_;
 
+
     unless (defined $self->{adLdap}) {
-    my $squid = $self->parentModule();
-    my $keytab = $squid->KEYTAB_FILE();
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
+        my $squid = $self->parentModule();
+        my $keytab = $squid->KEYTAB_FILE();
 
-    EBox::info("Connecting to AD LDAP");
-    my $confFile = $squid->SQUID_ZCONF_FILE();
-    my $dcKey = $squid->AUTH_AD_DC_KEY();
-    my $dc = EBox::Config::configkeyFromFile($dcKey, $confFile);
-
-    my $ccache = EBox::Config::tmp() . 'squid-ad.ccache';
-    $ENV{KRB5CCNAME} = $ccache;
-
-    # Get credentials for computer account
-    my $ok = kinit($keytab, $hostSamAccountName);
-    unless (defined $ok and $ok == 1) {
-        throw EBox::Exceptions::External(
-            __x("Unable to get kerberos ticket to bind to LDAP: {x}",
-                x => kerror()));
-    }
-
-    # Set up a SASL object
-    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
-    unless ($sasl) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup SASL object: {x}",
-                x => $@));
-    }
-
-    # Set up an LDAP connection
-    my $ldap = new Net::LDAP($dc);
-    unless ($ldap) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup LDAP object: {x}",
-                x => $@));
-    }
-
-    # Check GSSAPI support
-    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
-    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
-        throw EBox::Exceptions::External(
-            __("AD LDAP server does not support GSSAPI"));
-    }
-
-    # Finally bind to LDAP using our SASL object
-    my $bindResult = $ldap->bind(sasl => $sasl);
-    if ($bindResult->is_error()) {
-        throw EBox::Exceptions::External(
-            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
-                x => $dc, y => $bindResult->error_desc()));
-    }
-        $self->{adLdap} = $ldap;
+        $self->{adLdap} = EBox::LDAP::ExternalAD->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};

@@ -31,11 +31,12 @@ use Net::LDAP;
 use Net::Ping;
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
-use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror};
+use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 
 use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
-use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
+#use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
+use constant AUTH_AD_USER_KEY   => 'auth_ad_bind_user';
 use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
 use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
@@ -44,7 +45,7 @@ use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
 
-use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
+use constant USERS_ZCONF_FILE => '/etc/zentyal/users.conf';
 
 # Singleton variable
 my $_instance = undef;
@@ -77,6 +78,67 @@ sub instance
     return $_instance;
 }
 
+sub dcHostname
+{
+    my $dc      = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, USERS_ZCONF_FILE);
+    $dc or throw EBox::Exceptions::Internal('not dc');
+    return $dc;
+}
+
+
+sub connectWithKerberos
+{
+    my ($self, $keytab) = @_;
+    my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
+    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
+
+    EBox::info("Connecting to AD LDAP");
+    my $dc = $self->dcHostname();
+
+    my $ccache = EBox::Config::tmp() . $keytab . '-ad.ccache';
+    $ENV{KRB5CCNAME} = $ccache;
+
+    # Get credentials for computer account
+    my $ok = kinit($keytab, $hostSamAccountName);
+    unless (defined $ok and $ok == 1) {
+        throw EBox::Exceptions::External(
+            __x("Unable to get kerberos ticket to bind to LDAP: {x}",
+                x => kerror()));
+    }
+
+    # Set up a SASL object
+    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
+    unless ($sasl) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup SASL object: {x}",
+                x => $@));
+    }
+
+    # Set up an LDAP connection
+    my $ldap = new Net::LDAP($dc);
+    unless ($ldap) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup LDAP object: {x}",
+                x => $@));
+    }
+
+    # Check GSSAPI support
+    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
+    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
+        throw EBox::Exceptions::External(
+            __("AD LDAP server does not support GSSAPI"));
+    }
+
+    # Finally bind to LDAP using our SASL object
+    my $bindResult = $ldap->bind(sasl => $sasl);
+    if ($bindResult->is_error()) {
+        throw EBox::Exceptions::External(
+            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
+                x => $dc, y => $bindResult->error_desc()));
+    }
+    return $ldap;
+}
+
 
 # Method: _setAuthenticationModeAD
 #
@@ -90,9 +152,11 @@ sub _setAuthenticationModeAD
     EBox::info("Setting AD authentication");
 
     # Read config keys
-    my $dc      = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
-    my $bindDN  = EBox::Config::configkeyFromFile(AUTH_AD_BIND_DN_KEY, SQUID_ZCONF_FILE);
-    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, SQUID_ZCONF_FILE);
+    my $dc      = $self->dcHostname();
+    my $user = EBox::Config::configkeyFromFile(AUTH_AD_USER_KEY,  USERS_ZCONF_FILE);
+    $user or throw EBox::Config::Internal('user');
+    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
+    $bindPwd or throw EBox::Config::Internal('binPwd');
 
     # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
     # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
@@ -169,6 +233,7 @@ sub _setAuthenticationModeAD
     # Check the host domain match the AD dns domain. Requiered by kerberos.
     my $ad = new Net::LDAP($dc);
     my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
+    my $defaultNC = $dse->get_value('defaultNamingContext');
     my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
     my $dcDomain = $dcDnsHostname[1];
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -180,7 +245,7 @@ sub _setAuthenticationModeAD
     }
 
     # Check the host realm match the AD realm. Required by kerberos.
-    my $defaultNC = $self->_adDefaultNamingContext($dc);
+#    my $defaultNC = $self->_adDefaultNamingContext($dc);
     my $adRealm = uc ($defaultNC);
     $adRealm =~ s/DC=//g;
     $adRealm =~ s/,/\./g;
@@ -242,7 +307,8 @@ sub _setAuthenticationModeAD
     # Bind to the AD LDAP
 #    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
     # XXX
-    my $bindResult = $ad->bind('foobar@domain1.com', password => $bindPwd);
+    my $adPrinc = $user . '@' . $adRealm;
+    my $bindResult = $ad->bind($adPrinc, password => $bindPwd);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
             __x("Could not bind to AD LDAP server '{x}' (Error was '{y}'). " .
@@ -252,23 +318,23 @@ sub _setAuthenticationModeAD
 
     # Retrieve samAccountName for bind DN and build principal name to get
     # a kerberos ticket
-    my $result = $ad->search(
-        base => $defaultNC,
-        scope => 'sub',
-        filter => "(distinguishedName=$bindDN)",
-        attrs => ['samAccountName']);
-    if ($result->count() != 1) {
-        throw EBox::Exceptions::External(
-            __x("Could not retrieve samAccountName attribute for DN '{x}'",
-                x => $bindDN));
-    }
-    my $entry = $result->entry(0);
-    my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
+    # my $result = $ad->search(
+    #     base => $defaultNC,
+    #     scope => 'sub',
+    #     filter => "(distinguishedName=$bindDN)",
+    #     attrs => ['samAccountName']);
+    # if ($result->count() != 1) {
+    #     throw EBox::Exceptions::External(
+    #         __x("Could not retrieve samAccountName attribute for DN '{x}'",
+    #             x => $bindDN));
+    # }
+    # my $entry = $result->entry(0);
+    # my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
 
     # Check the Zentyal computer account
     my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
     my $hostFound = undef;
-    $result = $ad->search(base => "CN=Computers,$defaultNC",
+    my $result = $ad->search(base => "CN=Computers,$defaultNC",
                           scope => 'sub',
                           filter => '(objectClass=computer)',
                           attrs => ['samAccountName']);
