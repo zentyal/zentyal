@@ -28,6 +28,7 @@ use base qw(EBox::Module::Service
 use EBox::Global;
 use EBox::Util::Random;
 use EBox::Ldap;
+use EBox::LDAP::ExternalAD;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;

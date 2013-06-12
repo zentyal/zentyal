@@ -79,15 +79,11 @@ sub instance
 
 sub dcHostname
 {
-    my $dc      = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, USERS_ZCONF_FILE);
+    my $dc  = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, USERS_ZCONF_FILE);
     $dc or throw EBox::Exceptions::Internal('not dc');
     return $dc;
 }
 
-sub keytabs
-{
-
-}
 
 sub connectWithKerberos
 {
@@ -143,23 +139,29 @@ sub connectWithKerberos
 }
 
 
+sub bindPwd
+{
+    my ($self) = @_;
+    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
+    $bindPwd or throw EBox::Config::Internal('bindPwd');
+    return $bindPwd;
+}
+
 # Method: _setAuthenticationModeAD
 #
 #   Perform all necessary checks and operations to let squid authenticate users
 #   against domain controller
 #
-sub _setAuthenticationModeAD
+sub ldapConn
 {
     my ($self) = @_;
 
-    EBox::info("Setting AD authentication");
+    EBox::info("Setting AD connection");
 
-    # Read config keys
-    my $dc      = $self->dcHostname();
-    my $user = EBox::Config::configkeyFromFile(AUTH_AD_USER_KEY,  USERS_ZCONF_FILE);
-    $user or throw EBox::Config::Internal('user');
-    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
-    $bindPwd or throw EBox::Config::Internal('binPwd');
+
+    my $dc  = $self->dcHostname();
+
+
 
     # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
     # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
@@ -233,37 +235,18 @@ sub _setAuthenticationModeAD
     }
     $pinger->close();
 
-    # Check the host domain match the AD dns domain. Requiered by kerberos.
-    my $ad = new Net::LDAP($dc);
-    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
-    my $dcDomain = $dcDnsHostname[1];
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostDomain = $sysinfo->hostDomain();
-    unless (lc $hostDomain eq lc $dcDomain) {
-        throw EBox::Exceptions::External(
-            __x("The server domain '{x}' does not match DC domain '{y}'.",
-                x => $hostDomain, y => $dcDomain));
-    }
+
+
 
     # Check the host realm match the AD realm. Required by kerberos.
 #    my $defaultNC = $self->_adDefaultNamingContext($dc);
-    my $adRealm = uc ($defaultNC);
-    $adRealm =~ s/DC=//g;
-    $adRealm =~ s/,/\./g;
-    my $usersModule = EBox::Global->modInstance('users');
-    my $hostRealm = $usersModule->kerberosRealm();
-    unless ($adRealm eq $hostRealm) {
-        throw EBox::Exceptions::External(
-            __x("The server kerberos realm '{x}' does not match AD realm '{y}'.",
-                x => $hostRealm, y => $adRealm));
-    }
+
 
     # Check clock skew between DC and Zentyal
     $self->_adCheckClockSkew($dc);
 
     # Check the AD DNS server has an A record for Zentyal
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostFQDN = $sysinfo->fqdn();
     my $hostIpAddress = undef;
     $query = $resolver->query($hostFQDN, 'A');
@@ -310,8 +293,11 @@ sub _setAuthenticationModeAD
     # Bind to the AD LDAP
 #    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
     # XXX
-    my $adPrinc = $user . '@' . $adRealm;
-    my $bindResult = $ad->bind($adPrinc, password => $bindPwd);
+
+    my $ad = new Net::LDAP($dc);
+    my $adUser = $self->_adUser();
+    my $bindPwd = $self->bindPwd();
+    my $bindResult = $ad->bind($adUser, password => $bindPwd);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
             __x("Could not bind to AD LDAP server '{x}' (Error was '{y}'). " .
@@ -332,10 +318,83 @@ sub _setAuthenticationModeAD
     #             x => $bindDN));
     # }
     # my $entry = $result->entry(0);
-    # my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
+    # my $adUser = $entry->get_value('samAccountName') . '@' . $adRealm;
 
+    return $ad;
+}
+
+
+sub _rootDse
+{
+    my ($self) = @_;
+    if (not $self->{rootDse}) {
+        my $dc = $self->dcHostname();
+        my $ad = new Net::LDAP($dc);
+        $self->{rootDse} = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
+    }
+    return $self->{rootDse};
+}
+
+sub _adRealm
+{
+    my ($self) = @_;
+    my $dse = $self->_rootDse();
+    my $defaultNC = $dse->get_value('defaultNamingContext');
+    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
+    my $dcDomain = $dcDnsHostname[1];
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    unless (lc $hostDomain eq lc $dcDomain) {
+        throw EBox::Exceptions::External(
+            __x("The server domain '{x}' does not match DC domain '{y}'.",
+                x => $hostDomain, y => $dcDomain));
+    }
+    my $adRealm = uc ($defaultNC);
+    $adRealm =~ s/DC=//g;
+    $adRealm =~ s/,/\./g;
+
+    # Check whether the host domain match the AD dns domain. Requiered by
+    # kerberos.
+    my $usersModule = EBox::Global->modInstance('users');
+    my $hostRealm = $usersModule->kerberosRealm();
+    unless ($adRealm eq $hostRealm) {
+        throw EBox::Exceptions::External(
+            __x("The server kerberos realm '{x}' does not match AD realm '{y}'.",
+                x => $hostRealm, y => $adRealm));
+    }
+
+    return $adRealm;
+}
+
+sub _adDefaultNC
+{
+    my ($self) = @_;
+    my $dse = $self->_rootDse();
+    return $dse->get_value('defaultNamingContext');
+}
+
+sub _adUser
+{
+    my ($self) = @_;
+    my $user = EBox::Config::configkeyFromFile(AUTH_AD_USER_KEY,  USERS_ZCONF_FILE);
+    $user or throw EBox::Config::Internal('user');
+    my $adRealm = $self->_adRealm();
+    return $user . '@' . $adRealm;
+}
+
+sub initKeyTabs
+{
+    my ($self) = @_;
+    my $ad = $self->ldapConn();
+
+    my $adUser = $self->_adUser();
+    my $dc      = $self->dcHostname();
+    my $defaultNC = $self->_adDefaultNC();
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $bindPwd = $self->bindPwd();
     # Check the Zentyal computer account
     my $hostSamAccountName = uc($sysinfo->hostName()) . '$';
+    my $hostFQDN = $sysinfo->fqdn();
     my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
 
 
@@ -351,14 +410,12 @@ sub _setAuthenticationModeAD
         unless (defined $ok and $ok == 1) {
             EBox::error("kdestroy: " . kerror());
         }
-        $ok = kinit_pwd($adPrinc, $bindPwd);
+        $ok = kinit_pwd($adUser, $bindPwd);
         unless (defined $ok and $ok == 1) {
             EBox::error("kinit: " . kerror());
         }
 
         my $computerName = uc ($sysinfo->hostName());
-
-
 
         my @servicesPrincipals = @{ $self->externalServicesPrincipals };
         foreach my $servPrincipal (@servicesPrincipals) {

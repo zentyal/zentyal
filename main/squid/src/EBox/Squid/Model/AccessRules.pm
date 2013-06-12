@@ -191,7 +191,6 @@ sub _populateGroupsFromExternalAD
     my ($self) = @_;
 
     my $squid = $self->parentModule();
-#    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
 
     my $key = EBox::LDAP::ExternalAD->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
     my $skip = EBox::Config::boolean($key);

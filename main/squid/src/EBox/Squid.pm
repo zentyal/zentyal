@@ -539,7 +539,7 @@ sub _configureAuthenticationMode
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
         use EBox::LDAP::ExternalAD;
         my $ad = EBox::LDAP::ExternalAD->instance();
-        $ad->_setAuthenticationModeAD();
+        $ad->initKeyTabs();
     }
 }
 
