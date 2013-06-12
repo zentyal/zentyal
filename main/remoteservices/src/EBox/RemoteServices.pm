@@ -467,7 +467,7 @@ sub widgets
     my ($self) = @_;
 
     return {
-        'cc_connection' => {
+        'ccConnection' => {
             'title'   => __('Your Zentyal Server Account'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
@@ -968,12 +968,6 @@ sub maxUsers
     # Small business
     if ($self->subscriptionLevel($force) == 5) {
         $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
-    }
-
-    # Cloud
-    my $max_cloud = $self->maxCloudUsers($force);
-    if (($max_cloud and $max_cloud < $max_users) or ($max_users == 0)) {
-        $max_users = $max_cloud;
     }
 
     return $max_users;

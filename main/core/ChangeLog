@@ -1,4 +1,26 @@
 HEAD
+	+ Disable drag & drop on tables with only one row
+3.1.4
+	+ Don't allow to move read-only rows
+	+ Better prefix for user configuration redis keys
+	+ Hide disabled carousel buttons, fix modal template, refresh
+	+ Fixed modal dialog template
+	+ Mark save changes button as changed when moving rows
+	+ Rremove unusded parameter in Zentyal.DataTable.changeRow
+3.1.3
+	+ Enhanced UI styles: dialogs, progress bars, carousel, colors and images
+	+ Rows of tables can now be moved using drag & drop
+	+ Added logout dialog with option of discarding changes
+	+ Remember page size options per users, added 'View all' page size option
+	+ Added storage of options per user
+	+ Enable and/or conifgure module dependencies automatically in
+	  Module Status page
+	+ Adapted CGIs to new modal dialogs
+	+ Ported graphs from flotr.js to flot.js
+	+ Ported JS code to jQuery and jQuery-ui
+	+ Removed Modalbox.js, table_orderer.js and carousel.js
+	+ Left menu keyword search is now case insensitive
+3.1.2
 	+ Make manage administrators table resilent against invalid users
 	+ Remove deprecated backup domains related from logs module
 	+ Added EBox::Types::URI type

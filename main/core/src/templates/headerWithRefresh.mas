@@ -11,8 +11,8 @@ $favicon => '/favicon.ico'
 <title><% __('Zentyal') %> - <% $title %></title>
 <link href="/dynamic-data/css/public.css" rel="stylesheet" type="text/css" />
 <link rel="shortcut icon" href="<% $favicon %>" />
+<script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/common.js">//</script>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript">
 <!--
 function timedRefresh(timeoutPeriod) {

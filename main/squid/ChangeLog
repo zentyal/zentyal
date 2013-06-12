@@ -1,4 +1,4 @@
-HEAD
+3.1.2
 	+ Use external squid log file to retrieve HTTP proxy requests
 	+ Added Auth and Cache Exceptions for non-transparent mode
 	  which allow to bypass Squid + Dansguardian auth

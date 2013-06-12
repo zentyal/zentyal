@@ -35,6 +35,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Types::Boolean;
+use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
@@ -695,34 +696,6 @@ sub deletedRowNotify
 
 }
 
-# Method: movedUpRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved up
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedUpRowNotify
-{
-
-}
-
-# Method: movedDownRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved down
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedDownRowNotify
-{
-
-}
-
 # Method: updatedRowNotify
 #
 #    Override this method to be notified whenever
@@ -763,7 +736,7 @@ sub updatedRowNotify
 #
 #   model - model name where the action took place
 #   action - string represting the action:
-#            [ add, del, edit, moveUp, moveDown ]
+#            [ add, del, edit ]
 #
 #   row  - row modified
 #
@@ -1029,41 +1002,55 @@ sub _selectOptions
     return $self->{'cacheOptions'}->{$field};
 }
 
-sub moveUp
+# Method: moveRowRelative
+#
+#  Moves the row to the position specified either by the previous row or the
+#  next one. If both positions are suppiled the previous row has priority
+#
+#  Parameters:
+#     id - id of row to move
+#     prevId - ID of the row directly after the new position, undef if unknow
+#     nextId - ID of the row directly before the new position, undef if unknow
+#
+#    Returns:
+#       - list reference contianing the old row position and the new one
+#
+sub moveRowRelative
 {
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-
-    my $pos = $order{$id};
-    if ($order{$id} == 0) {
-        return;
+    my ($self, $id, $prevId, $nextId) = @_;
+    if ((not $prevId) and (not $nextId)) {
+        throw EBox::Exceptions::MissingArgument("No changes were supplied");
+    }
+    if ($prevId) {
+        if (($id eq $prevId)) {
+            throw EBox::Exceptions::MissingArgument("id and prevId must be different ids (both were '$id')");
+        } elsif ($nextId and ($prevId eq $nextId)) {
+            throw EBox::Exceptions::MissingArgument("nextId and prevId must be different ids (both were '$nextId')");
+        }
+    }
+    if ($nextId and ($id eq $nextId)) {
+        throw EBox::Exceptions::MissingArgument("id and nextId must be different ids (both were '$id')");
     }
 
-    $self->_swapPos($pos, $pos - 1);
+    my $oldPos = $self->removeIdFromOrder($id);
+    # lokup new positions
+    my $newPos;
 
-    $self->setMessage($self->message('moveUp'));
-    $self->movedUpRowNotify($self->row($id));
-    $self->_notifyManager('moveUp', $self->row($id));
-}
+    if (defined $prevId) {
+         $newPos = $self->idPosition($prevId) + 1;
+     } elsif (defined $nextId) {
+         $newPos = $self->idPosition($nextId);
+     }
 
-sub moveDown
-{
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-    my $numOrder = keys %order;
-
-    my $pos = $order{$id};
-    if ($order{$id} == $numOrder -1) {
-        return;
+    if (not defined $newPos) {
+        $self->_insertPos($id, 0); # to not lose the element
+        throw EBox::Exceptions::Internal("No new position was found for id $id between $prevId and $nextId");
     }
 
-    $self->_swapPos($pos, $pos + 1);
+    $self->_insertPos($id, $newPos);
 
-    $self->setMessage($self->message('moveDown'));
-    $self->movedDownRowNotify($self->row($id));
-    $self->_notifyManager('moveDown', $self->row($id));
+    $self->_notifyManager('move', $self->row($id));
+    return [$oldPos => $newPos];
 }
 
 # Method: _removeRow
@@ -1081,9 +1068,7 @@ sub _removeRow
 
     my $confmod = $self->{'confmodule'};
     $confmod->unset("$self->{'directory'}/$id");
-    my @order = @{$confmod->get_list($self->{'order'})};
-    @order = grep ($_ ne $id, @order);
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->removeIdFromOrder($id);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -1952,8 +1937,6 @@ sub help
 #      add - when a row is added
 #      del - when a row is deleted
 #      update - when a row is updated
-#      moveUp - when a row is moved up
-#      moveDown - when a row is moved down
 #
 # Parameters:
 #
@@ -2621,18 +2604,34 @@ sub automaticRemoveMsg
 #
 # Returns:
 #
-#    int - page size
+#    int page size or '_all' for 'All pages' option
 sub pageSize
 {
     my ($self) = @_;
 
     # if the user has selected a page size return it
-    if (exists $self->{'pageSize'} ) {
-        return $self->{'pageSize'};
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
+    if ($pageSize) {
+        return $pageSize;
     }
 
     return $self->defaultPageSize();
 }
+
+# Method: pageSizeIntValue
+#
+#  return the exact maximum number of rows which should be displayed in each
+#  page
+sub pageSizeIntValue
+{
+    my ($self) = @_;
+    my $pageSize = $self->pageSize();
+    if ($pageSize eq '_all') {
+        return 2147483647; # POSIX MAX INT
+    }
+    return $pageSize;
+}
+
 
 # Method: defaultPageSize
 #
@@ -2651,7 +2650,7 @@ sub defaultPageSize
         return $table->{'pageSize'};
     }
 
-    # fallback to defautl value of 10
+    # fallback to default value of 10
     return 10;
 }
 
@@ -2683,7 +2682,7 @@ sub setPageSize
                                            )
     }
 
-    $self->{'pageSize'} = $rows;
+    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS
@@ -2713,7 +2712,7 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
+    my $function = "Zentyal.TableHelper.changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
     return sprintf ($function,
@@ -2755,7 +2754,7 @@ sub modalChangeViewJS
 
     my $extraParamsJS = _paramsToJSON(%args);
 
-    my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalChangeView('%s','%s','%s','%s','%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
@@ -2784,14 +2783,14 @@ sub modalCancelAddJS
     my $directory = $self->directory();
     my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $onSuccess='';
+    my $success='';
     if ($selectCallerId) {
-        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
+        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
 
-    my $js = "new Ajax.Request('$url', { method: 'post',  parameters: '$params'";
-    if ($onSuccess) {
-        $js .= ", onSuccess: $onSuccess";
+    my $js = "jQuery.ajax('{url: $url', type: 'post', data: '$params'";
+    if ($success) {
+        $js .= ", success: $success";
     }
     $js.= '});';
     return $js;
@@ -2814,7 +2813,7 @@ sub addNewRowJS
     my ($self, $page, %params) = @_;
     my $cloneId = $params{cloneId};
 
-    my  $function = "addNewRow('%s','%s',%s,'%s',%s)";
+    my  $function = "Zentyal.TableHelper.addNewRow('%s','%s',%s,'%s',%s)";
 
     my $table = $self->table();
     my @extraFields;
@@ -2835,7 +2834,7 @@ sub modalAddNewRowJS
     $nextPage or
         $nextPage = '';
 
-    my  $function = "modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
@@ -2874,7 +2873,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page, $modal, @extraParams) = @_;
 
-    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -2883,7 +2882,6 @@ sub changeRowJS
     if ($modal) {
         $tablename .= '_modal';
         $actionUrl =~ s/Controller/ModalController/;
-        $modalResize = 1;
     }
 
     my $force =0;
@@ -2897,7 +2895,6 @@ sub changeRowJS
                     $editId,
                     $page,
                     $force,
-                    $modalResize,
                     $extraParamsJS);
 }
 
@@ -2921,33 +2918,20 @@ sub _paramsToJSON
 #    (POSITIONAL)
 #    action - move or del
 #    editId - row id to edit
-#    direction - up or down
-#     page - page number
+#    page - page number
 #
 # Returns:
 #
 #     string - holding a javascript funcion
 sub actionClickedJS
 {
-    my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
+    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
 
-    unless (($action eq 'move') or ($action eq 'del') or ($action eq 'clone')) {
+    unless (($action eq 'del') or ($action eq 'clone')) {
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    if ($action eq 'move'
-            and not ($direction eq 'up' or $direction eq 'down')) {
-
-        throw EBox::Exceptions::External("Wrong action $direction");
-    }
-
-    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
-
-    if ($direction) {
-        $direction = "dir=$direction";
-    } else {
-        $direction = "";
-    }
+    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
@@ -2965,7 +2949,6 @@ sub actionClickedJS
                     $tablename,
                     $action,
                     $editId,
-                    $direction,
                     $table->{'confdir'},
                     $page,
                     $extraParamsJS);
@@ -2996,7 +2979,7 @@ sub customActionClickedJS
         throw EBox::Exceptions::Internal("Wrong custom action $action");
     }
 
-    my $function = "customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
+    my $function = "Zentyal.TableHelper.customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
@@ -3174,8 +3157,6 @@ sub _setDefaultMessages
        'add'       => __x('{row} added', row => $rowName),
        'del'       => __x('{row} deleted', row => $rowName),
        'update'    => __x('{row} updated', row => $rowName),
-       'moveUp'    => __x('{row} moved up', row => $rowName),
-       'moveDown'  => __x('{row} moved down', row => $rowName),
       );
 
     foreach my $action (keys (%defaultMessages)) {
@@ -3466,51 +3447,72 @@ sub _newId
     return $leadingText . $id;
 }
 
+sub _idsOrderList
+{
+    my ($self) = @_;
+    my $confmod = $self->{'confmodule'};
+    return $confmod->get_list($self->{'order'});
+}
+
+sub _setIdsOrderList
+{
+    my ($self, $order) = @_;
+    $self->{confmodule}->set_list($self->{'order'}, 'string', $order);
+}
+
 # Insert the id element in selected position, if the position is the
 # last + 1 is inserted after the last one
 sub _insertPos #(id, position)
 {
     my ($self, $id, $pos) = @_;
+    my @order = @{$self->_idsOrderList()};
 
-    my $confmod = $self->{'confmodule'};
-
-    my @order = @{$confmod->get_list($self->{'order'})};
-
-    if (@order == 0) {
-        push (@order, $id);
-    } elsif ($pos == 0) {
-        @order = ($id, @order);
-    } elsif ($pos == @order) {
-        push (@order, $id);
+    if ($pos == 0) {
+        unshift @order , $id;
+    } elsif ($pos >= @order) {
+        push @order, $id;
     } else {
-        splice (@order, $pos, 1, ($id, $order[$pos]));
+        splice(@order, $pos, 0, $id);
     }
 
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->_setIdsOrderList(\@order);
 }
 
-sub _swapPos
+# return the old postion in order
+sub removeIdFromOrder
 {
-    my ($self, $posA, $posB ) = @_;
+    my ($self, $id) = @_;
+    my @order = @{ $self->_idsOrderList() };
+    for (my $i=0; $i < @order; $i++) {
+        if ($id eq $order[$i]) {
+            splice @order, $i, 1;
+            $self->_setIdsOrderList(\@order);
+            return $i;
+        }
+    }
+    throw EBox::Exceptions::Internal("Id to remove '$id' not found");
+}
 
+sub idPosition
+{
+    my ($self, $id) = @_;
     my $confmod = $self->{'confmodule'};
-    my @order = @{$confmod->get_list($self->{'order'})};
-
-    my $temp = $order[$posA];
-    $order[$posA] =  $order[$posB];
-    $order[$posB] = $temp;
-
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    my @order = @{$self->_idsOrderList()};
+    for (my $i =0 ; $i < @order; $i++) {
+        if ($order[$i] eq $id) {
+            return $i;
+        }
+    }
+    return undef;
 }
 
 sub _orderHash
 {
     my $self = shift;
-    my $confmod = $self->{'confmodule'};
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$confmod->get_list($self->{'order'})};
+        my @order = @{$self->_idsOrderList()};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -4585,7 +4587,7 @@ sub confirmationJS
     } @ {  $table->{tableDescription} };
     my $elementsArrayJS = '['. join(',', @elements) . ']' ;
 
-    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+    my $function = "Zentyal.TableHelper.confirmationDialog('%s', '%s','%s', '%s', %s)";
 
     my $call =  sprintf ($function,
                     $self->_mainController(),
@@ -4595,15 +4597,14 @@ sub confirmationJS
                     $elementsArrayJS
                     );
 
-    my $goAheadJSEscaped = $goAheadJS;
-    $goAheadJSEscaped =~ s{'}{\\'}g;
-
     my $js =<< "ENDJS";
        this.disable = true;
        var specs = $call;
        this.disable = false;
        if (specs.wantDialog) {
-           showConfirmationDialog(specs, '$goAheadJSEscaped');
+           Zentyal.TableHelper.showConfirmationDialog(specs, function(){
+               $goAheadJS
+           });
        } else {
           $goAheadJS ;
        }
@@ -4612,4 +4613,19 @@ ENDJS
 
     return $js;
 }
+
+sub setSortableTableJS
+{
+    my ($self) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.setSortableTable('%s', '%s', '%s')";
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    );
+    return $call;
+}
+
+
 1;

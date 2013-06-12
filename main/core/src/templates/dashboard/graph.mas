@@ -20,7 +20,7 @@
 </td>
 % }
 <script type="text/javascript">
-graphInfo['<% $elem %>'] = [
+Zentyal.Dashboard.graphInfo['<% $elem %>'] = [
 % my $values = $item->{'novalues'};
 % foreach my $i (0..$values-2) {
     [<% $i %>, 0],
@@ -28,10 +28,10 @@ graphInfo['<% $elem %>'] = [
     [<% $values-1 %>, <% $item->{'value'} %>]
 ];
 
-Flotr.draw(
-    $('<% $elem %>'), [
+jQuery.plot(
+    '#' + Zentyal.escapeSelector('<% $elem %>'), [
     {
-        data: graphInfo['<% $elem %>']
+        data: Zentyal.Dashboard.graphInfo['<% $elem %>']
     }],
     {
         xaxis: { noTicks: 0 },

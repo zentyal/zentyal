@@ -201,7 +201,7 @@ sub _printPopup
         return;
     }
 
-    $self->_header;
+    print($self->cgi()->header(-charset=>'utf-8'));
     print '<div id="limewrap"><div>';
     $self->_error;
     $self->_msg;

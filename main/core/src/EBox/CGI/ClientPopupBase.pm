@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,24 +16,13 @@
 use strict;
 use warnings;
 
-package EBox::CGI::Controller::DataMultiTable;
-
+package EBox::CGI::ClientPopupBase;
 use base 'EBox::CGI::ClientRawBase';
 
-use EBox::Gettext;
-use EBox::Global;
-
-sub new # (cgi=?)
-  {
-
-    my $class = shift;
-
-    my $self = $class->SUPER::new('template' => '/ajax/tableBody.mas',
-				  @_);
-
-    bless($self, $class);
-    return $self;
-
-  }
+sub _print
+{
+    my ($self) = @_;
+    $self->_printPopup();
+}
 
 1;
