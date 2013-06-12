@@ -76,6 +76,9 @@ use Perl6::Junction qw(any);
   } else {
     @ids = @{$model->customFilterIds($adaptedFilter)};
   }
+  if (@ids < 2) {
+     $movableRows = 0;
+  }
   unless ($page) {
     $page = 0;
   }
@@ -172,8 +175,7 @@ if ($checkAllProperty) {
 <%perl>
     my $displayRows = 0;
     my $matches = 0;
-    for ( my $idx = 0; $idx < scalar(@ids); $idx++)
-    {
+    for ( my $idx = 0; $idx < scalar(@ids); $idx++) {
       my  $row;
       if (not $model->customFilter() and defined($adaptedFilter)) {
         $row = $model->row($ids[$idx]);
@@ -196,7 +198,7 @@ if ($checkAllProperty) {
          $addRowMoveHandle = 1;
       }
 </%perl>
-      <tr class='border' id="<% $row->id() %>">
+      <tr class='<% "@trClass" %>' id="<% $row->id() %>">
 %      foreach my $td (@{$row->elements()})      {
 <%perl>
           next unless ($td->HTMLViewer());
