@@ -28,6 +28,7 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
+use EBox::LDAP::ExternalAD;
 
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
@@ -241,7 +242,9 @@ sub _populateGroupsFromExternalAD
     my ($self) = @_;
 
     my $squid = $self->parentModule();
-    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
+#    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
+
+    my $key = EBox::LDAP::ExternalAD->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
     my $skip = EBox::Config::boolean($key);
 
     my $groups = [];
