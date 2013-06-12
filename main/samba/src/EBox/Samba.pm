@@ -1960,7 +1960,7 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    unless ($self->configured()) {
+    if ($self->configured()) {
         my $settings = $self->model('GeneralSettings');
         $settings->setValue('netbiosName', $newHostName);
     }
