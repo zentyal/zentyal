@@ -54,8 +54,6 @@ sub ldap
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     unless(defined($self->{ldap})) {
         $self->{ldap} = EBox::Ldap->instance();
     }
