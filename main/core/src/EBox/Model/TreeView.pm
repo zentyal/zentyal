@@ -146,7 +146,7 @@ sub childNodes
 #
 # Returns:
 #
-#    list ref of strings
+#    list ref of hashes with name and printableName attributes
 #
 sub nodeTypes
 {
@@ -263,7 +263,7 @@ sub defaultActions
 sub defaultActionLabels
 {
     return {
-        'add' => __('Add'),
+        'add' => __('Add new'),
         'delete' => __('Delete'),
         'edit' => __('Edit'),
     };

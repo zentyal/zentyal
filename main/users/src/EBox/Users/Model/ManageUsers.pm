@@ -80,7 +80,11 @@ sub childNodes
 
 sub nodeTypes
 {
-    return [ 'user', 'group' ];
+    return [
+        { name => 'user', printableName => __('Users') },
+        { name => 'group', printableName => __('Groups') },
+        { name => 'contact', printableName => __('Contacts') },
+    ];
 }
 
 1;

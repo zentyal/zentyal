@@ -19,7 +19,7 @@
 .jstree-default a > ins { width: 22px; }
 .jstree-default a.jstree-loading .jstree-icon { background:url("/data/images/ajax-loader.gif") center center no-repeat !important; }
 
-/* .jstree-default.jstree-focused { background:#ffffff; } */
+.jstree-default { background: white; }
 
 .jstree-default .jstree-no-dots li, 
 .jstree-default .jstree-no-dots .jstree-leaf > ins { background:transparent; }

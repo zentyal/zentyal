@@ -4,6 +4,7 @@
 <%init>
   use JSON::XS;
   my %typesHash = map { $_ => 1 } @{$model->nodeTypes()};
+  my $treeId = "tree_" . $model->name();
 </%init>
 
 <& .pageTitle, title => $model->pageTitle() &>
@@ -26,19 +27,53 @@
 </div>
 %  }
 
+<div id="treeButtons" class="treeviewButtons">
 % my $actionLabels = $model->defaultActionLabels();
 % foreach my $action (@{$model->defaultActions()}) {
-<button id="<% $action %>" class="actionButton" type="button"><% $actionLabels->{$action} %></button>
+<!-- FIXME: use a different CSS class -->
+<button id="<% $action %>" class="treeviewActionButton" type="button" style="background-image: url('/data/images/<% $action %>.gif')">
+<% $actionLabels->{$action} %>
+</button>
 % }
+</div>
 
-<div id="tree1" class="treeView"/>
+<div class="treeViewToolbox">
+
+<form action="javascript:void(0)">
+
+  <input type='text'
+      name='<% $model->name() %>'
+      id='<% $model->name() . "_filter" %>'
+      value=""
+  />
+  <input type='submit'
+      name='filter'
+      value="<% __('Search') %>"
+      title="Apply"
+      onClick="Zentyal.TableHelper.setLoading('filterId'); return false"
+  />
+  <span id="filterId"></span>
+
+<span class="treeviewCheckboxes">
+% foreach my $type (@{$model->nodeTypes()}) {
+%   my $name = $type->{name};
+%   my $printableName = $type->{printableName};
+<input type="checkbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
+% }
+</span>
+
+</form>
+
+</div>
+
+<div id="<% $treeId %>" class="treeView"/>
 
 <script>
 jQuery(function () {
 
   jQuery.jstree._themes = "/data/css/jstree-themes/";
 
-  var treeComponent = jQuery("#tree1");
+  var treeComponent = jQuery("#<% $treeId %>");
 
   treeComponent.jstree({
 	"json_data" : {
@@ -60,7 +95,8 @@ jQuery(function () {
 	},
 % my @types;
 % foreach my $type (@{$model->nodeTypes()}) {
-%   push (@types, "\"$type\": { \"icon\": { \"image\": \"/data/images/treeview/$type.png\" } }");
+%   my $name = $type->{name};
+%   push (@types, "\"$name\": { \"icon\": { \"image\": \"/data/images/treeview/$name.png\" } }");
 % }
     "types" : { "types" : { <% join (',', @types) %> } },
 	"plugins" : [ "themes", "json_data", "ui", "types" ]
@@ -72,7 +108,7 @@ jQuery(function () {
     treeComponent.jstree('open_all');
   });
 
-  jQuery(".actionButton").each(function() {
+  jQuery(".treeviewActionButton").each(function() {
     jQuery(this).click(function() {
         var actionId = jQuery(this).attr('id');
         var selectedNode = treeComponent.jstree('get_selected');
