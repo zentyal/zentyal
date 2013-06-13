@@ -69,6 +69,11 @@ sub dnComponent
     return 'ou=Groups';
 }
 
+sub userClass
+{
+    return 'EBox::UsersAndGroups::User';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the group
@@ -181,8 +186,9 @@ sub users
 {
     my ($self, $system) = @_;
 
+    my $userClass = $self->userClass();
     my @members = $self->get('member');
-    @members = map { new EBox::UsersAndGroups::User(dn => $_) } @members;
+    @members = map { $userClass->new(dn => $_) } @members;
 
     unless ($system) {
         @members = grep { not $_->system() } @members;
@@ -210,16 +216,17 @@ sub usersNotIn
 {
     my ($self, $system) = @_;
 
-    my %attrs = (
-            base => $self->_ldap->dn(),
-            filter => "(&(objectclass=posixAccount)(!(memberof=$self->{dn})))",
+    my $userClass = $self->userClass();
+
+    my %searchParams = (
+            base => $userClass->dnComponent() . ',' . $self->_ldap->dn(),
+            filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
             scope => 'sub',
             );
-
-    my $result = $self->_ldap->search(\%attrs);
+    my $result = $self->_ldap->search(\%searchParams);
 
     my @users = map {
-            EBox::UsersAndGroups::User->new(entry => $_)
+            $userClass->new(entry => $_)
         } $result->entries();
 
     unless ($system) {
