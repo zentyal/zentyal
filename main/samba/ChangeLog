@@ -1,3 +1,6 @@
+HEAD
+    + Fix SIDs to ignore list, add missing end of line character in regular
+      expressions
 3.0.19
 	+ Fix id mapping for users and groups added by the s4sync daemon
 3.0.18
