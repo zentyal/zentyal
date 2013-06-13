@@ -17,20 +17,18 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::User
+# Class: EBox::UsersAndGroups::User::ExternalAD
 #
-#   Zentyal user, stored in LDAP
+#   User retrieved from external AD
 #
 
 package EBox::UsersAndGroups::User::ExternalAD;
-
 use base 'EBox::UsersAndGroups::User';
 
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::Group;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -42,19 +40,6 @@ use Error qw(:try);
 use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-
-use constant MAXUSERLENGTH  => 128;
-use constant MAXPWDLENGTH   => 512;
-use constant SYSMINUID      => 1900;
-use constant MINUID         => 2000;
-use constant MAXUID         => 2**31;
-use constant HOMEPATH       => '/home';
-use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
-use constant QUOTA_LIMIT    => 2097151;
-use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
-                                 'loginShell', 'uidNumber', 'gidNumber',
-                                 'homeDirectory', 'quota', 'userPassword',
-                                 'description', 'krb5Key');
 
 sub new
 {
@@ -82,35 +67,9 @@ sub dnComponent
     return 'cn=Users';
 }
 
-# Method: _entry
-#
-#   Return Net::LDAP::Entry entry for the user
-#
-sub _entry
+sub groupClass
 {
-    my ($self) = @_;
-
-    unless ($self->{entry}) {
-        # XXX cahgne for AD
-        if (defined $self->{uid}) {
-            my $result = undef;
-            my $attrs = {
-                base => $self->_ldap->dn(),
-                filter => "(uid=$self->{uid})",
-                scope => 'sub',
-            };
-            $result = $self->_ldap->search($attrs);
-            if ($result->count() > 1) {
-                throw EBox::Exceptions::Internal(
-                    __x('Found {count} results for, expected only one.',
-                        count => $result->count()));
-            }
-            $self->{entry} = $result->entry(0);
-        } else {
-            $self->SUPER::_entry();
-        }
-    }
-    return $self->{entry};
+    return 'EBox::UsersAndGroups::Group::ExternalAD';
 }
 
 # Method: name
@@ -120,8 +79,6 @@ sub _entry
 sub name
 {
     my ($self) = @_;
-    EBox::debug("NAME called " .  $self->get('samaccountname'));
-
     return $self->get('samaccountname');
 }
 
@@ -133,30 +90,6 @@ sub fullname
         $fullname = $self->get('name');
     }
     return $fullname;
-}
-
-sub firstname
-{
-    my ($self) = @_;
-    my $first =  $self->get('givenName');
-    if (not $first) {
-        $first = '';
-    }
-    return $first;
-}
-
-sub surname
-{
-    my ($self) = @_;
-    # XXX look for equivalent
-    return 'surname';
-    return $self->get('sn');
-}
-
-sub home
-{
-    my ($self) = @_;
-    return $self->get('homeDirectory');
 }
 
 sub quota

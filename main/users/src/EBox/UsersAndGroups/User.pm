@@ -77,6 +77,11 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+sub groupClass
+{
+    return 'EBox::UsersAndGroups::Group';
+}
+
 sub dnComponent
 {
     return 'ou=Users';
@@ -131,13 +136,21 @@ sub fullname
 sub firstname
 {
     my ($self) = @_;
-    return $self->get('givenName');
+    my $firstname =  $self->get('givenName');
+    if (not $firstname) {
+        return '';
+    }
+    return $firstname;
 }
 
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+    my $sn =  $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 sub home
@@ -337,32 +350,35 @@ sub groupsNotIn
 sub _groups
 {
     my ($self, $system, $invert) = @_;
+    my $groupClass = $self->groupClass();
 
     my $filter;
     my $dn = $self->dn();
+
+    my $groupObjectClass = $groupClass->mainObjectClass();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
+        $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
+        $filter = "(&(objectclass=$groupObjectClass)(member=$dn))";
     }
 
     my %attrs = (
-        base => $self->_ldap->dn(),
+        base =>  $groupClass->dnComponent() . ',' . $self->_ldap->dn(),
         filter => $filter,
         scope => 'sub',
     );
 
     my $result = $self->_ldap->search(\%attrs);
+    EBox::debug("User groups: " .$result->count());
 
     my @groups;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->entries())
-        {
+    if ($result->count > 0)  {
+        foreach my $entry ($result->entries()) {
+            my $groupObject = $groupClass->new(entry => $entry);
             if (not $system) {
-                next if ($entry->get_value('gidNumber') < EBox::UsersAndGroups::Group->MINGID);
+                next if $groupObject->system();
             }
-            push (@groups, new EBox::UsersAndGroups::Group(entry => $entry));
+            push (@groups, $groupObject);
         }
         # sort grups by name
         @groups = sort {
