@@ -220,4 +220,50 @@ sub _checkRowExist
     return $gpo->exists();
 }
 
+# Method: precondition
+#
+#   Check samba is configured and provisioned
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    my $samba = $self->parentModule();
+    unless ($samba->configured()) {
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
+    }
+    unless ($samba->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return undef;
+    }
+
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#   Show the precondition failure message
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notConfigured') {
+        return __('You must enable the module in the module ' .
+                'status section in order to use it.');
+    }
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __('The domain has not been created yet.');
+    }
+}
+
 1;
