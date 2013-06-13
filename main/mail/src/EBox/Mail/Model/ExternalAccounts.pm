@@ -278,7 +278,7 @@ sub removeRow
 
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument(
-                "Missing row identifier to remove")
+                "Missing row identifier to remove");
     }
 
     my $row = $self->row($id);
