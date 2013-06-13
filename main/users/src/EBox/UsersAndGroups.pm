@@ -64,6 +64,7 @@ use Fcntl qw(:flock);
 use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers'; # same than users
 
+use constant NORMAL_MODE      => 'normal';
 use constant EXTERNAL_AD_MODE => 'external-ad';
 
 use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
@@ -1737,7 +1738,7 @@ sub mode
     # XXX
     return EXTERNAL_AD_MODE;
 
-    return 'master';
+    return NORMAL_MODE;
 }
 
 sub newLDAP

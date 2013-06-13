@@ -152,4 +152,11 @@ sub _table
     return $dataForm;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    my $usersMod = $self->parentModule();
+    return $usersMod->mode() eq $usersMod->NORMAL_MODE();
+}
+
 1;
