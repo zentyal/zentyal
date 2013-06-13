@@ -36,6 +36,7 @@ use Net::LDAP::Control::Sort;
 use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
+use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
 sub _table
 {
@@ -192,8 +193,7 @@ sub _populateGroupsFromExternalAD
 
     my $squid = $self->parentModule();
 
-    my $key = EBox::LDAP::ExternalAD->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
-    my $skip = EBox::Config::boolean($key);
+    my $skip = EBox::Config::boolean(AUTH_AD_SKIP_SYSTEM_GROUPS_KEY);
 
     my $groups = [];
     my $ad = $self->_adLdap();
