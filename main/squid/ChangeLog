@@ -1,4 +1,5 @@
 HEAD
+	+ Handle domains that are actually IPs in the LogHelper
 	+ Use external squid log file to retrieve HTTP proxy requests
 3.0.11
 	+ Avoid warning in AccessRules validateTypedRow

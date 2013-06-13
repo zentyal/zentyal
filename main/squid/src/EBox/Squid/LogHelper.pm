@@ -22,6 +22,7 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
+use Net::IP;
 use POSIX qw(strftime);
 
 use constant SQUIDLOGFILE => '/var/log/squid3/external-access.log';
@@ -110,7 +111,14 @@ sub _domain
 
     my $domain = $url;
     $domain =~ s{^http(s?)://}{}g;
+    # TODO: IPv4
     $domain =~ s{(:|/).*}{};
+
+    # Check if the domain is an IP
+    my $ip = new Net::IP($domain);
+    if ($ip) {
+        return $ip->ip();
+    }
 
     my $shortDomain = "";
     my @components = split(/\./, $domain);
