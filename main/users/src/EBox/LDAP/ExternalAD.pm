@@ -26,6 +26,7 @@ use Error qw(:try);
 use Net::DNS::Resolver;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Net::LDAP;
 use Net::Ping;
@@ -547,21 +548,17 @@ sub externalServicesPrincipals
 
 }
 
-sub _throwNotAvailableException
-{
-    throw EBox::Exceptions::Internal('Not avalilable in external AD moded');
-}
 
 #  XXXX new fluff starts here
 
 sub anonymousLdapCon
 {
-    _throwNotAvailableException();
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
 sub getRoPassword
 {
-    _throwNotAvailableException();
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
 sub dn
@@ -587,7 +584,7 @@ sub clearConn
 }
 
 sub roRootDn {
-    _throwNotAvailableException();
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
 sub ldapConf
@@ -601,7 +598,7 @@ sub ldapConf
 
 sub _dumpLdap
 {
-    _throwNotAvailableException();
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
 sub safeConnect
@@ -616,7 +613,7 @@ sub safeBind
 
 sub changeUserPassword
 {
-    _throwNotAvailableException();
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
 1;
