@@ -1,3 +1,6 @@
+HEAD
+    + NetBIOS computer name is now updated before reprovision and after
+      hostname change
 3.0.19
 	+ Fix id mapping for users and groups added by the s4sync daemon
 3.0.18
