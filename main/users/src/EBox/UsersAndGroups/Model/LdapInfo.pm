@@ -95,17 +95,27 @@ sub _content
 
     my $users = $self->parentModule();
     my $ldap = $users->ldap();
+
+    my ($roRootDn, $roPassword);
+    if ($users->mode() eq $users->EXTERNAL_AD_MODE) {
+        $roRootDn = __('Not available in external AD mode');
+        $roPassword = __('Not available in external AD mode');
+    } else {
+        $roRootDn   = $ldap->roRootDn();
+        $roPassword = $ldap->getRoPassword();
+    }
+
     return {
         dn => $ldap->dn(),
         rootDn => $ldap->rootDn(),
         password => $ldap->getPassword(),
 
-        roRootDn   => $ldap->roRootDn(),
-        roPassword => $ldap->getRoPassword(),
+        roRootDn => $roRootDn,
+        roPassword => $roPassword,
 
         usersDn => $users->usersDn(),
         groupsDn => $users->groupsDn(),
-    }
+    };
 }
 
 # Method: precondition
