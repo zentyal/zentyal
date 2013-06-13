@@ -3,7 +3,7 @@
 </%args>
 <%init>
   use JSON::XS;
-  my %typesHash = map { $_ => 1 } @{$model->nodeTypes()};
+  my %typesHash = map { $_->{name} => 1 } @{$model->nodeTypes()};
   my $treeId = "tree_" . $model->name();
 </%init>
 
