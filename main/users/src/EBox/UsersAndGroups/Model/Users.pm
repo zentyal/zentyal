@@ -172,6 +172,7 @@ sub ids
         return [];
     }
 
+    $self->{userClass} = $users->{userClass}; # XXX refactor?
     my @list = map { $_->dn() } @{$users->realUsers()};
 
     my $filterOU = $self->filterOU();
@@ -194,11 +195,12 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $user = new EBox::UsersAndGroups::User(dn => $id);
+    my $user = $self->{userClass}->new(dn => $id);
     if ($user->exists()) {
-        my $full = $user->get('cn');
-        my $userName = $user->get('uid');
+        my $userName = $user->name();
+        my $full = $user->fullname();
         my $link = "/UsersAndGroups/User?user=$id";
+
         my $row = $self->_setValueRow(
             name => $userName,
             fullname => $full,

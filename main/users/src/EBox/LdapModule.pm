@@ -20,7 +20,7 @@ package EBox::LdapModule;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
-use EBox::Ldap;
+#use EBox::Ldap; # XXX remove if not longer used
 
 use Error qw(:try);
 
@@ -52,10 +52,11 @@ sub _ldapModImplementation
 #   LDAP setup of this ebox
 sub ldap
 {
-    my ($self) = @_;
+    my ($self, $globalRO) = @_;
 
     unless(defined($self->{ldap})) {
-        $self->{ldap} = EBox::Ldap->instance();
+        # XXX RW, RO>
+        $self->{ldap} = EBox::Global->getInstance($globalRO)->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
 }

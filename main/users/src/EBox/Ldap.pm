@@ -712,6 +712,7 @@ sub start
     return  $self->refreshLdap();
 }
 
+# XXX maybe use clearConn instead?
 sub refreshLdap
 {
     my ($self) = @_;

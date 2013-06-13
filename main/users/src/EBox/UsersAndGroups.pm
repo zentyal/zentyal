@@ -64,6 +64,12 @@ use constant USERSDN        => 'ou=Users';
 use constant GROUPSDN       => 'ou=Groups';
 use constant COMPUTERSDN    => 'ou=Computers';
 
+use constant AD_USERSDN => 'cn=Users';
+use constant AD_GROUPSDN => 'cn=Users'; # same than users
+use constant AD_COMPUTERSDN => 'cn=Computers'; # same than users
+
+use constant EXTERNAL_AD_MODE => 'external-ad';
+
 use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
 use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
@@ -91,7 +97,30 @@ sub _create
                                       printableName => __('Users and Groups'),
                                       @_);
     bless($self, $class);
+    $self->_setupForMode();
+
     return $self;
+}
+
+sub _setupForMode
+{
+    my ($self) = @_;
+    my $mode = $self->mode();
+    if ($mode ne EXTERNAL_AD_MODE) {
+        $self->{ldapClass} = 'EBox::Ldap';
+        $self->{userClass} = 'EBox::UsersAndGroups::User';
+        $self->{groupClass} = 'EBox::UsersAndGroups::Group';
+    } else {
+        $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
+        $self->{userClass} = 'EBox::UsersAndGroups::User::ExternalAD';
+        $self->{groupClass} = 'EBox::GroupsAndGroups::Group::ExternalAD';
+        # load this classes only when needed
+        foreach my $pkg ($self->{ldapClass}, $self->{userClass}) {
+            eval "use $pkg";
+            $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
+        }
+    }
+
 }
 
 # Method: depends
@@ -499,6 +528,12 @@ sub wizardPages
 sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
+    $self->_setupForMode();
+    # XXX
+    if ($self->mode() eq EXTERNAL_AD_MODE) {
+        # XXX setup refresh keytab cron?
+        return;
+    }
 
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
@@ -617,11 +652,15 @@ sub _setupNSSPAM
 #
 #       Check if users and groups can be edited.
 #
-#       Returns true if mode is master
+#       They could not be edited ither mode is external-ad or the syncprovider
+#       does not allows it
 #
 sub editableMode
 {
     my ($self) = @_;
+    if ($self->mode() ne 'master') {
+        return 0;
+    }
 
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
@@ -682,7 +721,11 @@ sub groupsDn
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    return GROUPSDN . "," . $dn;
+    if ($self->mode() eq EXTERNAL_AD_MODE) {
+        return AD_GROUPSDN . ',' . $dn;
+    }
+
+    return GROUPSDN . ',' . $dn;
 }
 
 # Method: groupDn
@@ -719,7 +762,10 @@ sub usersDn
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    return USERSDN . "," . $dn;
+    if ($self->mode() eq EXTERNAL_AD_MODE) {
+        return AD_USERSDN . ',' . $dn;
+    }
+    return USERSDN . ',' . $dn;
 }
 
 # Method: userDn
@@ -850,9 +896,12 @@ sub users
 
     return [] if (not $self->isEnabled());
 
+    my $objectClass = $self->{userClass}->mainObjectClass();
     my %args = (
-        base => $self->ldap->dn(),
-        filter => 'objectclass=posixAccount',
+#        base => $self->ldap->dn(),
+        base => $self->usersDn(),
+        #XXX
+       filter => "objectclass=$objectClass",
         scope => 'sub',
     );
 
@@ -861,7 +910,7 @@ sub users
     my @users = ();
     foreach my $entry ($result->entries)
     {
-        my $user = new EBox::UsersAndGroups::User(entry => $entry);
+        my $user = $self->{userClass}->new(entry => $entry);
 
         # Include system users?
         next if (not $system and $user->system());
@@ -1664,6 +1713,7 @@ sub authUser
     my ($self, $user, $password) = @_;
 
     my $authorized = 0;
+    # XXX use windAD LDAPI
     my $ldap = EBox::Ldap::safeConnect(EBox::Ldap::LDAPI);
     try {
         EBox::Ldap::safeBind($ldap, $self->userDn($user), $password);
@@ -1692,8 +1742,21 @@ sub listSchemas
 sub mode
 {
     my ($self) = @_;
+    # XXX
+    return EXTERNAL_AD_MODE;
 
     return 'master';
+}
+
+sub newLDAP
+{
+    my ($self) = @_;
+    my $mode = $self->mode();
+    if ($mode eq EXTERNAL_AD_MODE) {
+        return EBox::LDAP::ExternalAD->instance();
+    }
+
+    return  EBox::Ldap->instance();
 }
 
 # common check for user names and group names

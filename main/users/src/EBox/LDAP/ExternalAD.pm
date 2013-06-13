@@ -143,12 +143,15 @@ sub connectWithKerberos
 }
 
 
-sub bindPwd
+sub getPassword
 {
     my ($self) = @_;
-    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
-    $bindPwd or throw EBox::Config::Internal('bindPwd');
-    return $bindPwd;
+    unless (defined($self->{password})) {
+        my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
+        $bindPwd or throw EBox::Config::Internal('bindPwd');
+        $self->{password} = $bindPwd;
+    }
+    return $self->{password};
 }
 
 # Method: _setAuthenticationModeAD
@@ -156,16 +159,13 @@ sub bindPwd
 #   Perform all necessary checks and operations to let squid authenticate users
 #   against domain controller
 #
-sub ldapConn
+sub ldapCon
 {
     my ($self) = @_;
 
     EBox::info("Setting AD connection");
 
-
     my $dc  = $self->dcHostname();
-
-
 
     # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
     # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
@@ -239,10 +239,6 @@ sub ldapConn
     }
     $pinger->close();
 
-    # Check the host realm match the AD realm. Required by kerberos.
-#    my $defaultNC = $self->_adDefaultNamingContext($dc);
-
-
     # Check clock skew between DC and Zentyal
     $self->_adCheckClockSkew($dc);
 
@@ -297,7 +293,7 @@ sub ldapConn
 
     my $ad = new Net::LDAP($dc);
     my $adUser = $self->_adUser();
-    my $bindPwd = $self->bindPwd();
+    my $bindPwd = $self->getPassword();
     my $bindResult = $ad->bind($adUser, password => $bindPwd);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
@@ -320,7 +316,7 @@ sub ldapConn
     # }
     # my $entry = $result->entry(0);
     # my $adUser = $entry->get_value('samAccountName') . '@' . $adRealm;
-
+    $self->{ldap} = $ad;
     return $ad;
 }
 
@@ -367,6 +363,10 @@ sub _adRealm
     return $adRealm;
 }
 
+# Method: _adDefaultNamingContext
+#
+#   Retrieve the AD default naming context from DC ldap root dse
+#
 sub _adDefaultNC
 {
     my ($self) = @_;
@@ -386,13 +386,13 @@ sub _adUser
 sub initKeyTabs
 {
     my ($self) = @_;
-    my $ad = $self->ldapConn();
+    my $ad = $self->ldapCon();
 
     my $adUser = $self->_adUser();
     my $dc      = $self->dcHostname();
     my $defaultNC = $self->_adDefaultNC();
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $bindPwd = $self->bindPwd();
+    my $bindPwd = $self->getPassword();
     # Check the Zentyal computer account
     my $hostSamAccountName = $self->hostSamAccountName();
     my $hostFQDN = $sysinfo->fqdn();
@@ -533,19 +533,8 @@ sub _adCheckClockSkew
     }
 }
 
-# Method: _adDefaultNamingContext
-#
-#   Retrieve the AD default naming context from DC ldap root dse
-#
-sub _adDefaultNamingContext
-{
-    my ($self, $dc) = @_;
 
-    my $ad = new Net::LDAP($dc);
-    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    return $defaultNC;
-}
+
 
 sub externalServicesPrincipals
 {
@@ -558,5 +547,76 @@ sub externalServicesPrincipals
 
 }
 
+sub _throwNotAvailableException
+{
+    throw EBox::Exceptions::Internal('Not avalilable in external AD moded');
+}
+
+#  XXXX new fluff starts here
+
+sub anonymousLdapCon
+{
+    _throwNotAvailableException();
+}
+
+sub getRoPassword
+{
+    _throwNotAvailableException();
+}
+
+sub dn
+{
+    my ($self) = @_;
+    if(!defined($self->{dn})) {
+        $self->{dn} = $self->_adDefaultNC();
+    }
+
+    return defined ($self->{dn}) ? $self->{dn} : '';
+
+}
+
+# Method: clearConn
+#
+#       Closes LDAP connection and clears DN cached value
+#
+sub clearConn
+{
+    my ($self) = @_;
+    delete $self->{rootDse};
+    $self->SUPER::clearConn();
+}
+
+sub roRootDn {
+    _throwNotAvailableException();
+}
+
+sub ldapConf
+{
+    my ($self) = @_;
+    return {
+        dn => $self->dn()
+
+       };
+}
+
+sub _dumpLdap
+{
+    _throwNotAvailableException();
+}
+
+sub safeConnect
+{
+    throw EBox::Exceptions::Internal('XXX SAFE CONNECT');
+}
+
+sub safeBind
+{
+    throw EBox::Exceptions::Internal('XXX SAFE BIND');
+}
+
+sub changeUserPassword
+{
+    _throwNotAvailableException();
+}
 
 1;

@@ -72,6 +72,11 @@ sub new
     return $self;
 }
 
+sub mainObjectClass
+{
+    return 'posixAccount';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
