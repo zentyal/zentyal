@@ -45,7 +45,7 @@ sub _process
     $self->_requireParam("user", __('username'));
 
     my $dn = $self->unsafeParam('user');
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = $usersandgroups->{userClass}->new(dn => $dn);
 
     my $components = $usersandgroups->allUserAddOns($user);
     my $usergroups = $user->groups();

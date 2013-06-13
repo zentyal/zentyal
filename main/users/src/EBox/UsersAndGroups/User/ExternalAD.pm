@@ -138,7 +138,11 @@ sub fullname
 sub firstname
 {
     my ($self) = @_;
-    return $self->get('givenName');
+    my $first =  $self->get('givenName');
+    if (not $first) {
+        $first = '';
+    }
+    return $first;
 }
 
 sub surname
