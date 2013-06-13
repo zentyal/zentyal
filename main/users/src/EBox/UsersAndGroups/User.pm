@@ -915,6 +915,11 @@ sub _loginShell
     return $users->model('PAM')->login_shellValue();
 }
 
+sub quotaAvailable
+{
+    return 1;
+}
+
 sub defaultQuota
 {
     my ($self) = @_;

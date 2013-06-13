@@ -31,9 +31,7 @@ use EBox::Gettext;
 use EBox::UsersAndGroups;
 
 use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::LDAP;
+use EBox::Exceptions::UnwillingToPerform;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
@@ -115,22 +113,6 @@ sub internal
     return (defined ($title) and ($title eq 'internal'));
 }
 
-sub _groups
-{
-    my ($self, $system, $invert) = @_;
-
-}
-
-sub groups
-{
-    # XXX
-    return [];
-}
-
-sub groupsNotIn
-{
-    return [];
-}
 
 sub system
 {
@@ -138,6 +120,41 @@ sub system
 
     # XXX look gor more attributes
     return $self->get('isCriticalSystemObject');
+}
+
+sub set
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+}
+
+sub delete
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+}
+
+sub save
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+}
+
+sub changePassword
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('Cannot change the password of external AD users'));
+}
+
+sub setPasswordFromHashes
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('Cannot change the password of external AD users'));
+}
+
+sub deleteObject
+{
+    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+}
+
+sub quotaAvailable
+{
+    return 0;
 }
 
 1;

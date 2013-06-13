@@ -58,6 +58,7 @@ sub _process
     push(@args, 'remaingroups' => $remaingroups);
     push(@args, 'components' => $components);
     push(@args, 'slave' => not $editable);
+    push(@args, 'quotaAvailable' => $user->quotaAvailable());
 
     if ($editable) {
         $self->{crumbs} = [
