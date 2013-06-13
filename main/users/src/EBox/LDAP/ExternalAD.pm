@@ -34,16 +34,9 @@ use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 
-use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
-#use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
 use constant AUTH_AD_USER_KEY   => 'auth_ad_bind_user';
 use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
-
-use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
-
-use constant AUTH_MODE_INTERNAL    => 'internal';
-use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
 use constant USERS_ZCONF_FILE => '/etc/zentyal/users.conf';
 
