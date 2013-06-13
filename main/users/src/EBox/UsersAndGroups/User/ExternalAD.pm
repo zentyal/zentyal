@@ -124,32 +124,32 @@ sub system
 
 sub set
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'External AD users cannot be modified');
 }
 
 sub delete
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'External AD users cannot be modified');
 }
 
 sub save
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'External AD users cannot be modified');
 }
 
 sub changePassword
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('Cannot change the password of external AD users'));
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'Cannot change the password of external AD users');
 }
 
 sub setPasswordFromHashes
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('Cannot change the password of external AD users'));
+    throw EBox::Exceptions::UnwillingToPerform( reason =>'Cannot change the password of external AD users');
 }
 
 sub deleteObject
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => __('External AD users cannot be modified'));
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'External AD users cannot be modified');
 }
 
 sub quotaAvailable
