@@ -113,9 +113,9 @@ sub _setupForMode
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{userClass} = 'EBox::UsersAndGroups::User::ExternalAD';
-        $self->{groupClass} = 'EBox::GroupsAndGroups::Group::ExternalAD';
+        $self->{groupClass} = 'EBox::UsersAndGroups::Group::ExternalAD';
         # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{userClass}) {
+        foreach my $pkg ($self->{ldapClass}, $self->{userClass}, $self->{groupClass}) {
             eval "use $pkg";
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
@@ -1007,9 +1007,12 @@ sub groups
 
     return [] if (not $self->isEnabled());
 
+    my $groupClass  = $self->{groupClass};
+    my $objectClass = $groupClass->mainObjectClass();
     my %args = (
-        base => $self->ldap->dn(),
-        filter => 'objectclass=zentyalGroup',
+        base => $self->groupsDn(),
+#        base => $self->ldap->dn(),
+        filter => "objectclass=$objectClass",
         scope => 'sub',
     );
 
@@ -1018,7 +1021,7 @@ sub groups
     my @groups = ();
     foreach my $entry ($result->entries())
     {
-        my $group = new EBox::UsersAndGroups::Group(entry => $entry);
+        my $group = $groupClass->new(entry => $entry);
 
         # Include system users?
         next if (not $system and $group->system());

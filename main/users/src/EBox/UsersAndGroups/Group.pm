@@ -59,6 +59,12 @@ sub new
     return $self;
 }
 
+sub mainObjectClass
+{
+    return 'zentyalGroup';
+}
+
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the group
@@ -97,6 +103,12 @@ sub name
 {
     my ($self) = @_;
     return $self->get('cn');
+}
+
+sub description
+{
+    my ($self) = @_;
+    return $self->get('description');
 }
 
 # Method: removeAllMembers
