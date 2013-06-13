@@ -655,7 +655,7 @@ sub _setupNSSPAM
 sub editableMode
 {
     my ($self) = @_;
-    if ($self->mode() ne 'master') {
+    if ($self->mode() ne NORMAL_MODE) {
         return 0;
     }
 
@@ -1425,8 +1425,6 @@ sub menu
             $folder->add(new EBox::Menu::Item(
                         'url' => 'Users/View/Groups',
                         'text' => __('Groups'), order => 20));
-            $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('User Template'), order => 30));
         }
 
         if (EBox::Config::configkey('multiple_ous')) {
@@ -1435,9 +1433,11 @@ sub menu
                         'text' => __('Organizational Units'), order => 25));
         }
 
-        $folder->add(new EBox::Menu::Item(
-                    'url' => 'Users/Composite/Sync',
-                    'text' => __('Synchronization'), order => 40));
+        if ($self->mode() eq NORMAL_MODE) {
+            $folder->add(new EBox::Menu::Item(
+                'url' => 'Users/Composite/Sync',
+                'text' => __('Synchronization'), order => 40));
+        }
 
         $folder->add(new EBox::Menu::Item(
                     'url' => 'Users/Composite/Settings',
