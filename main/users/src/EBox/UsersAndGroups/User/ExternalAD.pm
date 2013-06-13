@@ -77,6 +77,11 @@ sub mainObjectClass
     return 'user';
 }
 
+sub dnComponent
+{
+    return 'cn=Users';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user

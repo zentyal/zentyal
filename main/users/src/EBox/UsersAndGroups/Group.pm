@@ -64,6 +64,10 @@ sub mainObjectClass
     return 'zentyalGroup';
 }
 
+sub dnComponent
+{
+    return 'ou=Groups';
+}
 
 # Method: _entry
 #

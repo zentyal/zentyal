@@ -77,6 +77,11 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+sub dnComponent
+{
+    return 'ou=Users';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user

@@ -60,12 +60,8 @@ use Perl6::Junction qw(any);
 use String::ShellQuote;
 use Fcntl qw(:flock);
 
-use constant USERSDN        => 'ou=Users';
-use constant GROUPSDN       => 'ou=Groups';
-use constant COMPUTERSDN    => 'ou=Computers';
 
-use constant AD_USERSDN => 'cn=Users';
-use constant AD_GROUPSDN => 'cn=Users'; # same than users
+use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers'; # same than users
 
 use constant EXTERNAL_AD_MODE => 'external-ad';
@@ -555,8 +551,8 @@ sub _setConf
     push (@array, 'binddn'    => $ldap->roRootDn());
     push (@array, 'rootbinddn'=> $ldap->rootDn());
     push (@array, 'bindpw'    => $nsspw);
-    push (@array, 'usersdn'   => USERSDN . ',' . $dn);
-    push (@array, 'groupsdn'  => GROUPSDN . ',' . $dn);
+    push (@array, 'usersdn'   => $self->usersDn());
+    push (@array, 'groupsdn'  => $self->groupsDn());
     push (@array, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
@@ -721,11 +717,7 @@ sub groupsDn
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        return AD_GROUPSDN . ',' . $dn;
-    }
-
-    return GROUPSDN . ',' . $dn;
+    return $self->{groupClass}->dnComponent() . ',' . $dn;
 }
 
 # Method: groupDn
@@ -762,10 +754,7 @@ sub usersDn
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    if ($self->mode() eq EXTERNAL_AD_MODE) {
-        return AD_USERSDN . ',' . $dn;
-    }
-    return USERSDN . ',' . $dn;
+    return $self->{userClass}->dnComponent() . ',' . $dn;
 }
 
 # Method: userDn
