@@ -20,7 +20,6 @@ package EBox::Squid::Model::AccessRules;
 use base 'EBox::Model::DataTable';
 
 use EBox;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -28,8 +27,6 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Squid::Types::TimePeriod;
-use EBox::LDAP::ExternalAD;
-
 
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
@@ -127,7 +124,7 @@ sub _populateGroups
     if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
         return $self->_populateGroupsFromExternalAD();
     } else {
-        my $userMod = EBox::Global->modInstance('users');
+        my $userMod = $self->global()->modInstance('users');
         return [] unless ($userMod->isEnabled());
 
         my @groups;
@@ -148,8 +145,7 @@ sub _adLdap
     unless (defined $self->{adLdap}) {
         my $squid = $self->parentModule();
         my $keytab = $squid->KEYTAB_FILE();
-
-        $self->{adLdap} = EBox::LDAP::ExternalAD->connectWithKerberos($keytab);
+        $self->{adLdap} = $self->global()->modInstance('users')->ldap()->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};

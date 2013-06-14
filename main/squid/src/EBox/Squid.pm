@@ -535,8 +535,7 @@ sub _configureAuthenticationMode
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        use EBox::LDAP::ExternalAD;
-        my $ad = EBox::LDAP::ExternalAD->instance();
+        my $ad = $self->global('users')->ldap();
         $ad->initKeyTabs();
     }
 }
@@ -634,8 +633,7 @@ sub _writeSquidConf
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        # XXX
-        my $externalAD = EBox::LDAP::ExternalAD->instance();
+        my $externalAD = $self->glboal->modInstance('users')->ldap();
         my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = $externalAD->hostSamAccountName();
@@ -918,7 +916,7 @@ sub writeDgGroups
     my $generalSettings = $self->model('GeneralSettings');
     my $realm = '';
     if ($generalSettings->kerberosValue()) {
-        my $users = EBox::Global->modInstance('users');
+        my $users = $self->global()->modInstance('users');
         $realm = '@' . $users->kerberosRealm();
     }
 
@@ -1295,25 +1293,15 @@ sub _commercialMsg
 sub authenticationMode
 {
     my ($self) = @_;
-
-    my $mode = EBox::Config::configkeyFromFile(AUTH_MODE_KEY, SQUID_ZCONF_FILE);
-    $mode = AUTH_MODE_INTERNAL unless length $mode;
-
-    if ($mode eq AUTH_MODE_INTERNAL) {
+    my $users = $self->global()->modInstance('users');
+    my $usersMode = $users->mode();
+    if ($usersMode eq $users->NORMAL_MODE) {
         return AUTH_MODE_INTERNAL;
-    } elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        return AUTH_MODE_EXTERNAL_AD; # XXX disabled enterprise check in development
-        if (EBox::Global->edition() ) {
-            return AUTH_MODE_EXTERNAL_AD;
-        } else {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise edition');
-            return AUTH_MODE_INTERNAL;
-        }
+    } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
-        my $error = __x("Invalid value for key '{key}' in configuration file {value}",
-                         key => AUTH_MODE_KEY,
-                         value => SQUID_ZCONF_FILE);
-        throw EBox::Exceptions::External($error);
+        EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
+        return AUTH_MODE_INTERNAL;
     }
 }
 

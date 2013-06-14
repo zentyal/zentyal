@@ -21,6 +21,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Gettext;
 
@@ -890,6 +891,13 @@ sub changeUserPassword
                         add     => [ userPassword => $newPasswd ] ]);
         _errorOnLdap($mesg, $dn);
     }
+}
+
+sub connectWithKerberos
+{
+    EBox::Exceptions::UnwillingToPerform->throw(
+        reason => 'Internal LDAP does not support this connection method'
+    );
 }
 
 1;
