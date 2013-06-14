@@ -235,9 +235,10 @@ sub message
     if ($action eq 'update') {
         my $userstatus = $self->value('enableDir');
         if ($userstatus)  {
-                return __("Configuration Settings saved. <br>  Remember that in order to have UserDir working, you should create the " . PUBLIC_DIR . "
+		return __("Configuration Settings saved") . '<br>' .  __x(" Remember that in order to have UserDir working, you should create the { PUBLIC_DIR }
          folder, and to provide www-data execution permissions over the involved /home/user folders ");
-;
+
+
         }
 
     }
