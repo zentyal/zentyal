@@ -21,39 +21,18 @@ use warnings;
 #
 package EBox::Samba::Model::GPOScriptsStartup;
 
-use base 'EBox::Model::DataTable';
+use base 'EBox::Samba::Model::GPOScripts';
 
 use EBox::Gettext;
-use EBox::Types::Text;
 
-# Method: _table
-#
-# Overrides:
-#
-#   <EBox::Model::DataTable::_table>
-#
 sub _table
 {
     my ($self) = @_;
 
-    my $tableDesc = [
-        new EBox::Types::Text(fieldName     => 'name',
-                              printableName => __('Name')),
-        new EBox::Types::Text(fieldName     => 'parameters',
-                              printableName => __('Parameters')),
-    ];
-
-    my $dataTable = {
-        tableName           => 'GPOScriptsStartup',
-        printableTableName  => __('Startup Scripts'),
-        defaultActions      => ['add', 'delete', 'changeView'],
-        tableDescription    => $tableDesc,
-        printableRowName    => __('startup script'),
-        sortedBy            => 'name',
-        withoutActions      => 0,
-        modelDomain         => 'Samba',
-    };
-
+    my $dataTable = $self->SUPER::_table();
+    $dataTable->{tableName}          = 'GPOScriptsStartup',
+    $dataTable->{printableTableName} = __('Startup Scripts'),
+    $dataTable->{printableRowName}   = __('startup script'),
     return $dataTable;
 }
 
