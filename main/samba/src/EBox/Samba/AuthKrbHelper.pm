@@ -140,7 +140,7 @@ sub _getTicketUsingKeytab
     }
 
     # If the keytab does not exists, extract it
-    unless (EBox::Sudo::fileTest('-f', $keytab)) {
+    if (not EBox::Sudo::fileTest('-f', $keytab) or $retry) {
         $self->_extractKeytab($principal, $realm, $keytab);
         $retry = 0;
     }
