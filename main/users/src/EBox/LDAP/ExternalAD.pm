@@ -91,6 +91,12 @@ sub _dcLDAPConnection
     return $ldap;
 }
 
+sub url
+{
+    my ($self) = @_;
+    return $self->dcHostname();
+}
+
 sub hostSamAccountName
 {
     my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
@@ -593,16 +599,6 @@ sub ldapConf
 sub _dumpLdap
 {
     throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
-}
-
-sub safeConnect
-{
-    throw EBox::Exceptions::Internal('XXX SAFE CONNECT');
-}
-
-sub safeBind
-{
-    throw EBox::Exceptions::Internal('XXX SAFE BIND');
 }
 
 sub changeUserPassword

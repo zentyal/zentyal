@@ -810,6 +810,11 @@ sub _slapcatCmd
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
+sub url
+{
+    return LDAPI;
+}
+
 sub safeConnect
 {
     my ($ldapurl) = @_;
