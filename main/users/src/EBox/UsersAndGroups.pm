@@ -381,11 +381,28 @@ sub setupDNS
     $dnsMod->addService($ownDomain, $service);
 }
 
+
+
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
 #
 sub enableActions
+{
+    my ($self) = @_;
+    my $mode = $self->mode();
+    if ($mode eq NORMAL_MODE) {
+        $self->_ownServerEnableActions();
+    } elsif ($mode eq EXTERNAL_AD_MODE) {
+        $self->_externalADEnableActions();
+    } else {
+        throw EBox::Exceptions::Internal("Unknown mode $mode");
+    }
+}
+
+
+sub _ownServerEnableActions
 {
     my ($self) = @_;
 
@@ -447,6 +464,15 @@ sub enableActions
     # mark webAdmin as changed to avoid problems with getpwent calls, it needs
     # to be restarted to be aware of the new nsswitch conf
     EBox::Global->modInstance('webadmin')->setAsChanged();
+}
+
+sub _externalADEnableActions
+{
+    my ($self) = @_;
+    # setup external AD in resolver DNS configuration
+    # XXX chnage but resovler setup
+    my $host = $self->model('Mode')->value('dcHostname');
+    my $resolver = $self->global()->modInstance('network')->model('DNSResolver');
 }
 
 sub enableService
@@ -1735,10 +1761,11 @@ sub listSchemas
 sub mode
 {
     my ($self) = @_;
-    # XXX
-    return EXTERNAL_AD_MODE;
-
-    return NORMAL_MODE;
+    my $mode = $self->model('Mode')->value('mode');
+    if (not $mode) {
+        return NORMAL_MODE;
+    }
+    return $mode;
 }
 
 sub newLDAP
@@ -1746,7 +1773,9 @@ sub newLDAP
     my ($self) = @_;
     my $mode = $self->mode();
     if ($mode eq EXTERNAL_AD_MODE) {
-        return EBox::LDAP::ExternalAD->instance();
+        return EBox::LDAP::ExternalAD->instance(
+            @{ $self->model('Mode')->adModeOptions() }
+           );
     }
 
     return  EBox::Ldap->instance();

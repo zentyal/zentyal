@@ -34,12 +34,6 @@ use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 
-use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
-use constant AUTH_AD_USER_KEY   => 'auth_ad_bind_user';
-use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
-
-use constant USERS_ZCONF_FILE => '/etc/zentyal/users.conf';
-
 # Singleton variable
 my $_instance = undef;
 
@@ -63,19 +57,38 @@ sub _new_instance
 sub instance
 {
     my ($self, %opts) = @_;
+    $opts{dcHostname} or throw EBox::Exceptions::MissingArgument('dcHostname');
+    $opts{user}       or throw EBox::Exceptions::MissingArgument('user');
+    $opts{password}   or throw EBox::Exceptions::MissingArgument('password');
 
     unless(defined($_instance)) {
         $_instance = __PACKAGE__->_new_instance();
-    }
+    };
+
+    $_instance->{dcHostname} = $opts{dcHostname};
+    $_instance->{user}       = $opts{user};
+    $_instance->{password}   = $opts{password};
 
     return $_instance;
 }
 
 sub dcHostname
 {
-    my $dc  = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, USERS_ZCONF_FILE);
-    $dc or throw EBox::Exceptions::Internal('not dc');
-    return $dc;
+    my ($self) = @_;
+    return $self->{dcHostname};
+}
+
+sub _dcLDAPConnection
+{
+    my ($self) = @_;
+    my $dc = $self->dcHostname();
+    my $ldap = new Net::LDAP($dc);
+    unless ($ldap) {
+        throw EBox::Exceptions::External(
+            __x("Unable to setup LDAP object: {x}",
+                x => $@));
+    }
+    return $ldap;
 }
 
 sub hostSamAccountName
@@ -111,13 +124,7 @@ sub connectWithKerberos
                 x => $@));
     }
 
-    # Set up an LDAP connection
-    my $ldap = new Net::LDAP($dc);
-    unless ($ldap) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup LDAP object: {x}",
-                x => $@));
-    }
+    my $ldap = $self->_dcLDAPConnection();
 
     # Check GSSAPI support
     my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
@@ -140,11 +147,6 @@ sub connectWithKerberos
 sub getPassword
 {
     my ($self) = @_;
-    unless (defined($self->{password})) {
-        my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, USERS_ZCONF_FILE);
-        $bindPwd or throw EBox::Config::Internal('bindPwd');
-        $self->{password} = $bindPwd;
-    }
     return $self->{password};
 }
 
@@ -285,7 +287,7 @@ sub ldapCon
 #    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
     # XXX
 
-    my $ad = new Net::LDAP($dc);
+    my $ad = $self->_dcLDAPConnection();
     my $adUser = $self->_adUser();
     my $bindPwd = $self->getPassword();
     my $bindResult = $ad->bind($adUser, password => $bindPwd);
@@ -319,8 +321,7 @@ sub _rootDse
 {
     my ($self) = @_;
     if (not $self->{rootDse}) {
-        my $dc = $self->dcHostname();
-        my $ad = new Net::LDAP($dc);
+        my $ad = $self->_dcLDAPConnection();
         $self->{rootDse} = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
     }
     return $self->{rootDse};
@@ -371,7 +372,7 @@ sub _adDefaultNC
 sub _adUser
 {
     my ($self) = @_;
-    my $user = EBox::Config::configkeyFromFile(AUTH_AD_USER_KEY,  USERS_ZCONF_FILE);
+    my $user = $self->{user};
     $user or throw EBox::Config::Internal('user');
     my $adRealm = $self->_adRealm();
     return $user . '@' . $adRealm;

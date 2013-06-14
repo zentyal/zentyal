@@ -21,24 +21,20 @@ use strict;
 use warnings;
 
 package EBox::UsersAndGroups::Model::Mode;
-
 use base 'EBox::Model::DataForm';
 
+use EBox::UsersAndGroups;
+
 use EBox::Gettext;
+use EBox::Types::Select;
 use EBox::Types::Text;
-use EBox::Types::KrbRealm;
+use EBox::Types::DomainName;
+use EBox::Types::Password;
+
+use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::View::Customizer;
 
-# Group: Public methods
-
-# Constructor: new
-#
-#      Create a data form
-#
-# Overrides:
-#
-#      <EBox::Model::DataForm::new>
-#
 sub new
 {
     my ($class, %params) = @_;
@@ -49,42 +45,93 @@ sub new
     return $self;
 }
 
-# Method: validateTypedRow
-#
-#   Check the kerberos realm and LDAP base DN
-#
-# Overrides:
-#
-#   <EBox::Model::DataForm::validateTypedRow>
-#
+
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if (exists $changedFields->{dn}) {
-        my $dn = $changedFields->{dn}->value();
-        $self->_validateDN($dn);
+    my $mode = $allFields->{mode}->value();
+    if ($mode eq EBox::UsersAndGroups->NORMAL_MODE) {
+        $self->_validateNormalMode($allFields);
+    } elsif ($mode eq EBox::UsersAndGroups->EXTERNAL_AD_MODE) {
+        $self->_validateExternalADMode($allFields);
+    } else {
+        throw EBox::Exceptions::Internal("Invalid users mode: $mode");
     }
 }
 
-# Method: _table
-#
-#	Overrides <EBox::Model::DataForm::_table to change its name
-#
+sub _validateNormalMode
+{
+    my ($self, $params) = @_;
+    my $dn = $params->{dn}->value();
+    if (not $dn) {
+        throw EBox::Exceptions::MissingArgument($params->{dn}->printableName());
+    }
+
+    $self->_validateDN($dn);
+}
+
+sub _validateExternalADMode
+{
+    my ($self, $params) = @_;
+    my @needed = qw(dcHostname dcUser dcPassword);
+    foreach my $name (@needed) {
+        my $element = $params->{$name};
+        if (not $element->value()) {
+            throw EBox::Exceptions::MissingArgument($element->printableName());
+        }
+    }
+
+    my $user = $params->{dcUser}->value();
+    if ($user =~ m/@/) {
+        throw EBox::Exceptions::External(
+            __('The use should not contain a domain. The domain will be extracted from Active Directory')
+           );
+    }
+}
+
 sub _table
 {
     my ($self) = @_;
 
     my @tableDesc = (
-        new EBox::Types::Text (
+        EBox::Types::Select->new(
+            fieldName => 'mode',
+            printableName => __('Server mode'),
+            editable => 1,
+            populate => \&_modeOptions,
+        ),
+        EBox::Types::Text->new(
             fieldName => 'dn',
             printableName => __('LDAP DN'),
             editable => 1,
             allowUnsafeChars => 1,
             size => 36,
             defaultValue => $self->_dnFromHostname(),
-            help => __('This will be the DN suffix in LDAP tree')
+            help => __('This will be the DN suffix in LDAP tree'),
         ),
+        EBox::Types::DomainName->new(
+            fieldName => 'dcHostname',
+            printableName => __('Active Directory hostname'),
+            editable => 1,
+            optional => 1,
+        ),
+        EBox::Types::Text->new(
+            fieldName => 'dcUser',
+            printableName => __('Administrative user of the Active Directory'),
+            help          =>
+               __('This user has to have enough permissions to create a computer account in the domain'),
+            editable => 1,
+            unsafeParam => 1,
+            optional => 1,
+        ),
+        EBox::Types::Password->new(
+            fieldName => 'dcPassword',
+            printableName => __('User password'),
+            editable => 1,
+            unsafeParam => 1,
+            optional => 1,
+        )
     );
 
     my $dataForm = {
@@ -98,6 +145,30 @@ sub _table
 
     return $dataForm;
 }
+
+sub viewCustomizer
+{
+    my ($self) = @_;
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    my $normalParams = [qw/dn/];
+    my $adParams = [qw/dcHostname dcUser dcPassword/];
+
+    $customizer->setOnChangeActions({
+        mode => {
+                EBox::UsersAndGroups->NORMAL_MODE  => {
+                    show    => $normalParams,
+                    hide    => $adParams,
+                },
+                EBox::UsersAndGroups->EXTERNAL_AD_MODE => {
+                    show  => $adParams,
+                    hide => $normalParams,
+                }
+       }
+    });
+    return $customizer;
+}
+
 
 sub getDnFromDomainName
 {
@@ -126,6 +197,31 @@ sub _validateDN
     unless ($dn =~ /^dc=[^,=]+(,dc=[^,=]+)*$/) {
         throw EBox::Exceptions::InvalidData(data => __('LDAP DN'), value => $dn);
     }
+}
+
+sub _modeOptions
+{
+    return [
+        {
+            value => EBox::UsersAndGroups->NORMAL_MODE,
+            printableValue => __('Normal'),
+        },
+        {
+            value => EBox::UsersAndGroups->EXTERNAL_AD_MODE,
+            printableValue => __('Use external Active Directory server'),
+        },
+
+       ];
+}
+
+sub adModeOptions
+{
+    my ($self) = @_;
+    return [
+        dcHostname => $self->value('dcHostname'),
+        user       => $self->value('dcUser'),
+        password   => $self->value('dcPassword'),
+       ];
 }
 
 1;
