@@ -392,8 +392,9 @@ sub enableActions
 {
     my ($self) = @_;
     my $mode = $self->mode();
+    $self->_setupForMode();
     if ($mode eq NORMAL_MODE) {
-        $self->_ownServerEnableActions();
+        $self->_internalServerEnableActions();
     } elsif ($mode eq EXTERNAL_AD_MODE) {
         $self->_externalADEnableActions();
     } else {
@@ -401,8 +402,7 @@ sub enableActions
     }
 }
 
-
-sub _ownServerEnableActions
+sub _internalServerEnableActions
 {
     my ($self) = @_;
 
@@ -469,10 +469,13 @@ sub _ownServerEnableActions
 sub _externalADEnableActions
 {
     my ($self) = @_;
-    # setup external AD in resolver DNS configuration
-    # XXX chnage but resovler setup
-    my $host = $self->model('Mode')->value('dcHostname');
-    my $resolver = $self->global()->modInstance('network')->model('DNSResolver');
+    my $global = $self->global();
+    my $network = $self->global()->modInstance('network');
+    # we need to restart network to force the regenation of DNS resolvers
+    $global->modInstance('network')->setAsChanged();
+    # we need to webadmin to clear DNs cache daa
+    $global->modInstance('webadmin')->setAsChanged();
+
 }
 
 sub enableService

@@ -199,6 +199,13 @@ sub _validateDN
     }
 }
 
+sub modePrintableName
+{
+    my ($self) = @_;
+    my $modeEl = $self->row()->elementByName('mode');
+    return $modeEl->printableValue();
+}
+
 sub _modeOptions
 {
     return [
