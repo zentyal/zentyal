@@ -49,7 +49,7 @@
 % foreach my $type (@{$model->nodeTypes()}) {
 %   my $name = $type->{name};
 %   my $printableName = $type->{printableName};
-<input type="checkbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
+<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
 % }
 </span>
 
@@ -102,6 +102,17 @@ jQuery(function () {
   jQuery('#filter_button').click(function() {
     var text = jQuery('#filter_text').val();
     treeComponent.jstree('search', text);
+  });
+
+  jQuery(".treeviewCheckbox").each(function() {
+    jQuery(this).click(function() {
+        var nodes = jQuery("[rel='" + jQuery(this).val() + "']").show();
+        if (jQuery(this).prop('checked')) {
+            nodes.show();
+        } else {
+            nodes.hide();
+        }
+    });
   });
 
   jQuery(".treeviewActionButton").each(function() {
