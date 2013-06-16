@@ -26,7 +26,8 @@ use EBox::Users::User;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
+sub new
+{
     my $class = shift;
     my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
 
@@ -35,7 +36,8 @@ sub new {
     return $self;
 }
 
-sub _process($) {
+sub _process
+{
     my $self = shift;
 
     my $users = EBox::Global->modInstance('users');
@@ -94,7 +96,7 @@ sub _process($) {
 
     $user->save();
 
-    $self->{redirect} = 'Users/User?user=' . $user->dn();
+    $self->{redirect} = 'Users/EditUser?user=' . $user->dn();
 }
 
 1;

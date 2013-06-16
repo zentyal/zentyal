@@ -32,6 +32,7 @@ sub _tree
         modelDomain => 'Users',
         pageTitle => __('Users and Groups'),
         defaultActions => [ 'add', 'edit', 'delete' ],
+        idParam => 'dn',
         help =>  __('FIXME'),
     };
 }
@@ -85,6 +86,13 @@ sub nodeTypes
         { name => 'group', printableName => __('Groups') },
         { name => 'contact', printableName => __('Contacts') },
     ];
+}
+
+sub doubleClickHandlerJS
+{
+    my ($self, $type, $id) = @_;
+
+    $self->actionHandlerJS('edit', $type, $id);
 }
 
 1;

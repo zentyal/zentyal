@@ -98,8 +98,8 @@ jQuery(function () {
 %   my $name = $type->{name};
 %   push (@types, "\"$name\": { \"icon\": { \"image\": \"/data/images/treeview/$name.png\" } }");
 % }
-    "types" : { "types" : { <% join (',', @types) %> } },
-	"plugins" : [ "themes", "json_data", "ui", "types" ]
+    types: { "types" : { <% join (',', @types) %> } },
+	plugins: [ "themes", "json_data", "ui", "types" ],
   });
 
   // FIXME: probably this should not be the default behaviour
@@ -115,7 +115,19 @@ jQuery(function () {
         var selectedNodeId = selectedNode.attr('id');
         var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
         if (nodeType in <% encode_json(\%typesHash) %>) {
-            alert("ACTION CLICKED: " + actionId + " " + selectedNodeId + " (" + nodeType + ")");
+
+% foreach my $action (@{$model->defaultActions()}) {
+            if (actionId == '<% $action %>') {
+% foreach my $type (@{$model->nodeTypes()}) {
+%   my $type = $type->{name};
+                if (nodeType == '<% $type %>') {
+                    <% $model->actionHandlerJS($action, $type, 'selectedNodeId') %>
+                }
+% }
+            }
+% }
+
+/*
             jQuery.ajax({ url: '/<% $model->modelDomain() %>/TreeController/<% $model->name() %>',
                           type: 'POST',
                           data: 'action=' + actionId + '&type=' + nodeType + '&id=' + selectedNodeId,
@@ -123,8 +135,24 @@ jQuery(function () {
                               alert("SUCCESS!!");
                           }
             });
+*/
         }
     });
+  });
+
+  treeComponent.bind('dblclick.jstree', function (e) {
+      var node = jQuery(e.target).closest('li');
+      var nodeType = node.attr('rel');
+      var nodeId = node.attr('id');
+      // FIXME: refactor this to avoid duplicated code?
+      if (nodeType in <% encode_json(\%typesHash) %>) {
+% foreach my $type (@{$model->nodeTypes()}) {
+%   my $type = $type->{name};
+          if (nodeType == '<% $type %>') {
+              <% $model->doubleClickHandlerJS($type, 'nodeId') %>
+          }
+% }
+      }
   });
 
 });

@@ -153,6 +153,22 @@ sub nodeTypes
     return [];
 }
 
+# Method: idParam
+#
+#    Return the name of the parameter to be used on action CGIs
+#    to receive the selected node id
+#
+# Returns:
+#
+#    string containing the param name
+#
+sub idParam
+{
+    my ($self) = @_;
+
+    return $self->tree()->{'idParam'};
+}
+
 # Method: modelName
 #
 #    Return the model name which is set by the key 'treeName' when
@@ -374,6 +390,59 @@ sub keywords
     push(@words, _parse_words($self->help()));
 
     return \@words;
+}
+
+# Method: actionHandlerJS
+#
+#    Return the JavaScript code to be executed when clicking an action button
+#    with a node selected.
+#
+#    Can be overrided in TreeView models but by default shows a modal dialog
+#    with a CGI with "ActionType" as name, for example, if the action is
+#    'edit' and the type is 'user', from the Users module, the CGI URL
+#    will be /Users/EditUser
+#
+# Parameters:
+#
+#    type - string with the action to execute
+#    type - string type of the node
+#    id   - name of the JS variable containing the id of the node
+#
+# Returns:
+#
+#    string with the JS code
+#
+sub actionHandlerJS
+{
+    my ($self, $action, $type, $id) = @_;
+
+    my $url = '/' . $self->modelDomain() . '/' . ucfirst($action) . ucfirst($type);
+    my $title = $self->defaultActionLabels()->{$action};
+    my $param = $self->idParam();
+
+    return "Zentyal.Dialog.showURL('$url', {title: '$title', width: 600, data: { $param: $id }});";
+}
+
+# Method: doubleClickHandlerJS
+#
+#    Return the JavaScript code to be executed when double-clicking a node.
+#
+#    To be overrided in TreeView models.
+#
+# Parameters:
+#
+#    type - string type of the node
+#    id   - name of the JS variable containing the id of the node
+#
+# Returns:
+#
+#    string with the JS code
+#
+sub doubleClickHandlerJS
+{
+    my ($self, $type, $id) = @_;
+
+    return '';
 }
 
 1;
