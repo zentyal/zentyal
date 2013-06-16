@@ -1023,7 +1023,8 @@ sub ous
 #       Returns the objects of a given OU
 #
 # Parameters:
-#       ou - DN of the Organizational Unit to be used as search base
+#       ou     - DN of the Organizational Unit to be used as search base
+#       system - include system users and groups (default: false)
 #
 # Returns:
 #
@@ -1031,7 +1032,7 @@ sub ous
 #
 sub ouObjects
 {
-    my ($self, $ou) = @_;
+    my ($self, $ou, $system) = @_;
 
     return [] if (not $self->isEnabled());
 
@@ -1048,14 +1049,22 @@ sub ouObjects
 
     foreach my $entry ($result->entries)
     {
+        my $object;
+
         # FIXME: replace with better checks!
         if ($entry->exists('uid')) {
-            push (@objects, new EBox::Users::User(entry => $entry));
+            $object = new EBox::Users::User(entry => $entry);
         } elsif ($entry->exists('gidNumber')) {
-            push (@objects, new EBox::Users::Group(entry => $entry));
+            $object = new EBox::Users::Group(entry => $entry);
         } else {
             EBox::warn("Unexpected entry found: FIXME");
+            next;
         }
+
+        # Include system users and groups?
+        next if (not $system and $object->system());
+
+        push (@objects, $object);
     }
 
     # sort by dn (as it is currently the only common attribute, but maybe we can change this)

@@ -16,8 +16,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
 <div id="user_attrs" style="float: left">
-        <form action='ModifyUser' method='POST' autocomplete='off'>
-        <input type="hidden" name="user" value="<% $user->dn() %>">
+        <form action='/Users/ActionEditUser' method='POST' autocomplete='off'>
+        <input type="hidden" name="dn" value="<% $user->dn() %>">
         <table class='formTable'>
         <tbody>
             <tr>
@@ -160,7 +160,7 @@ $user
 <tbody>
 <tr>
     <td rowspan="2">
-    <form action='DelGroupFromUser' method='post'>
+    <form action='/Users/DelGroupFromUser' method='post'>
         <select name='delgroup' size='8' multiple>
 %   if(@usergroups) {
 %           foreach my $group (@usergroups){
@@ -187,7 +187,7 @@ $user
     </form>
         <br />
         <br />
-    <form action='AddGroupToUser' method='post'>
+    <form action='/Users/AddGroupToUser' method='post'>
         <input  class='inputButton' type='image' name='addtouser'
                 value="<%__('Add users to group')%>"
                 src='/data/images/left.gif'

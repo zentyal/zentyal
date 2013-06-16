@@ -17,8 +17,8 @@ use EBox::Gettext;
 </div>
 
 <br />
-<form action='Del' method='POST'>
-		<input type="hidden" name="objectname" value="<% $group->dn() %>">
+<form action='/Users/ActionDelete' method='POST'>
+		<input type="hidden" name="dn" value="<% $group->dn() %>">
 				<input class='inputButton' type='submit' name='delgroup'
 					   value="<% __('Delete group') %>"
 					   alt="<% __('Delete group') %>">

@@ -16,9 +16,9 @@ use EBox::Gettext;
 <br />
 % }
 
-<form action='ModifyGroup' method='POST'>
+<form action='/Users/ActionEditGroup' method='POST'>
 	<span class="ftitle"><% __('Comment') %>: </span>
-	<input type="hidden" name="groupname" value="<% $group->dn() %>">
+	<input type="hidden" name="dn" value="<% $group->dn() %>">
 	<input type='text' class='inputText' name='comment' value="<% $group->get('description') %>">
 %	unless ($slave) {
 	<input class='inputButton' type='submit' name='user'
@@ -38,7 +38,7 @@ use EBox::Gettext;
 <tbody>
 <tr>
 	<td rowspan="2">
-    <form action='DelUserFromGroup' method='post'>
+    <form action='/Users/DelUserFromGroup' method='post'>
         <select name='deluser' size='8' multiple>
 %   if(@groupusers) {
 %           foreach my $user (@groupusers){
@@ -69,7 +69,7 @@ use EBox::Gettext;
 		<br />
 
 %	unless ($slave) {
-    <form action='AddUserToGroup' method='post'>
+    <form action='/Users/AddUserToGroup' method='post'>
 		<input 	class='inputButton' type='image' name='addtogroup'
 				value="<%__('Add users to group')%>"
 				src='/data/images/left.gif'
