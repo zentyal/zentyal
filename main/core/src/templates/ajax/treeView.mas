@@ -41,17 +41,8 @@
 
 <form action="javascript:void(0)">
 
-  <input type='text'
-      name='<% $model->name() %>'
-      id='<% $model->name() . "_filter" %>'
-      value=""
-  />
-  <input type='submit'
-      name='filter'
-      value="<% __('Search') %>"
-      title="Apply"
-      onClick="Zentyal.TableHelper.setLoading('filterId'); return false"
-  />
+  <input type='text' name='filter_text' id='filter_text' value="" />
+  <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
   <span id="filterId"></span>
 
 <span class="treeviewCheckboxes">
@@ -99,13 +90,18 @@ jQuery(function () {
 %   push (@types, "\"$name\": { \"icon\": { \"image\": \"/data/images/treeview/$name.png\" } }");
 % }
     types: { "types" : { <% join (',', @types) %> } },
-	plugins: [ "themes", "json_data", "ui", "types" ],
+	plugins: [ "themes", "json_data", "ui", "types", "search" ],
   });
 
   // FIXME: probably this should not be the default behaviour
   //        but for testing purposes is better this way until finished
   treeComponent.on('loaded.jstree', function () {
     treeComponent.jstree('open_all');
+  });
+
+  jQuery('#filter_button').click(function() {
+    var text = jQuery('#filter_text').val();
+    treeComponent.jstree('search', text);
   });
 
   jQuery(".treeviewActionButton").each(function() {
