@@ -12,7 +12,7 @@ use EBox::Gettext;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 
-<div id="edit_user">
+<div id="edit_user" style="height: 320px">
 
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
 <div id="user_attrs" style="float: left">
@@ -124,9 +124,11 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 </div>
 
 <div id="user_addons">
+<center>
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
+</center>
 </div>
 
 <%def masterSlaveUserAttr>
