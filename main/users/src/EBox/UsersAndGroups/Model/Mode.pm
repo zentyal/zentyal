@@ -49,6 +49,9 @@ sub new
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
+    if ($self->parentModule->configured()) {
+        throw EBox::Exceptions::External(__('This parameters could not be changed once the user module has been configured.'));
+    }
 
     my $mode = $allFields->{mode}->value();
     if ($mode eq EBox::UsersAndGroups->NORMAL_MODE) {
