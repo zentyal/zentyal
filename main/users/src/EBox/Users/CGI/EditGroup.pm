@@ -59,6 +59,18 @@ sub _process
     push(@args, 'slave' => not $editable);
 
     $self->{params} = \@args;
+
+    if ($self->param('edit')) {
+        $self->_requireParamAllowEmpty('comment', __('comment'));
+        my $comment = $self->unsafeParam('comment');
+        if (length ($comment)) {
+            $group->set('description', $comment);
+        } else {
+            $group->delete('description');
+        }
+
+        $self->{redirect} = 'Users/Tree/ManageUsers';
+    }
 }
 
 sub _print

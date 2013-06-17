@@ -35,7 +35,8 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    my $usersandgroups = EBox::Global->modInstance('users');
+
+    my $users = EBox::Global->modInstance('users');
 
     $self->{'title'} = __('Users');
 
@@ -46,11 +47,11 @@ sub _process
     my $dn = $self->unsafeParam('dn');
     my $user = new EBox::Users::User(dn => $dn);
 
-    my $components = $usersandgroups->allUserAddOns($user);
+    my $components = $users->allUserAddOns($user);
     my $usergroups = $user->groups();
     my $remaingroups = $user->groupsNotIn();
 
-    my $editable = $usersandgroups->editableMode();
+    my $editable = $users->editableMode();
 
     push(@args, 'user' => $user);
     push(@args, 'usergroups' => $usergroups);
@@ -59,6 +60,54 @@ sub _process
     push(@args, 'slave' => not $editable);
 
     $self->{params} = \@args;
+
+    if ($self->param('edit')) {
+        $self->_requireParamAllowEmpty('quota', __('quota'));
+        $user->set('quota', $self->param('quota'), 1);
+
+        if ($editable) {
+            $self->_requireParam('name', __('first name'));
+            $self->_requireParam('surname', __('last name'));
+            $self->_requireParamAllowEmpty('comment', __('comment'));
+            $self->_requireParamAllowEmpty('password', __('password'));
+            $self->_requireParamAllowEmpty('repassword', __('confirm password'));
+
+            my $givenName = $self->param('name');
+            my $surname = $self->param('surname');
+
+            my $fullname;
+            if ($givenName) {
+                $fullname = "$givenName $surname";
+            } else {
+                $fullname = $surname;
+            }
+            my $comment = $self->unsafeParam('comment');
+            if (length ($comment)) {
+                $user->set('description', $comment, 1);
+            } else {
+                $user->delete('description', 1);
+            }
+
+            $user->set('givenname', $givenName, 1);
+            $user->set('sn', $surname, 1);
+            $user->set('cn', $fullname, 1);
+
+            # Change password if not empty
+            my $password = $self->unsafeParam('password');
+            if ($password) {
+                my $repassword = $self->unsafeParam('repassword');
+                if ($password ne $repassword){
+                    throw EBox::Exceptions::External(__('Passwords do not match.'));
+                }
+
+                $user->changePassword($password, 1);
+            }
+        }
+
+        $user->save();
+
+        $self->{redirect} = 'Users/Tree/ManageUsers';
+    }
 }
 
 sub _print

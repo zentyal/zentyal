@@ -51,6 +51,24 @@ sub _process
     push(@args, 'user' => $user);
     push(@args, 'slave' => not $editable);
 
+    my $deluser;
+
+    if ($self->param('cancel')) {
+        $self->{redirect} = 'Users/Tree/ManageUsers';
+    } elsif ($self->param('deluserforce')) {
+        $deluser = 1;
+    } elsif ($self->unsafeParam('deluser')) {
+        my $user = new EBox::Users::User(dn => $dn);
+        $deluser = not $self->_warnUser('user', $user);
+    }
+
+    if ($deluser) {
+        my $user = new EBox::Users::User(dn => $dn);
+        $user->deleteObject();
+        $self->{msg} = __('User removed successfully');
+        $self->{redirect} = 'Users/Tree/ManageUsers';
+    }
+
     $self->{params} = \@args;
 }
 
@@ -71,6 +89,27 @@ sub _top
 
 sub _footer
 {
+}
+
+sub _warnUser
+{
+    my ($self, $object, $ldapObject) = @_;
+
+    my $usersandgroups = EBox::Global->modInstance('users');
+    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
+
+    if (@{$warns}) { # If any module wants to warn user
+         $self->{template} = 'users/del.mas';
+         $self->{redirect} = undef;
+         my @array = ();
+         push(@array, 'object' => $object);
+         push(@array, 'name'   => $ldapObject);
+         push(@array, 'data'   => $warns);
+         $self->{params} = \@array;
+         return 1;
+    }
+
+    return undef;
 }
 
 1;

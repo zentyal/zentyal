@@ -19,7 +19,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 <div class='note'>
     <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
 </div>
-<form action='/Users/ActionDelete' method='POST'>
+<form action='/Users/DeleteUser' method='POST'>
 <p>
 <input type="hidden" name="dn" value="<% $user->dn() %>">
             <input class='inputButton' type='submit' name='deluser'
