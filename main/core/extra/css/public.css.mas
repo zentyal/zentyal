@@ -1076,10 +1076,18 @@ a.notchanged:hover {
 }
 
 .treeviewActionButton:hover {
-    background-color: #dfdfdf
+    background-color: #dfdfdf;
     background-image: url('/data/images/add.gif');
     background-position: 6px;
     background-repeat: no-repeat;
+}
+
+.treeviewActionButton:disabled, .treeviewActionButton:disabled:hover {
+    cursor: default;
+    border-color: #dbdbdb;
+    background-color: #eee;
+    color: #BBB;
+    opacity: 0.5;
 }
 
 #field_help {

@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
+use EBox::Samba::Computer;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
@@ -1947,6 +1948,37 @@ sub hostDomainChangedDone
     $value = 'ZENTYAL-DOMAIN' unless defined $value;
     $value = uc ($value);
     $settings->setValue('workgroup', $value);
+}
+
+sub computers
+{
+    my ($self, $system) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => 'objectClass=computer',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldb->search(\%args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Samba::Computer(entry => $entry);
+
+        push (@computers, $computer);
+    }
+
+    @computers = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @computers;
+
+    return \@computers;
 }
 
 1;

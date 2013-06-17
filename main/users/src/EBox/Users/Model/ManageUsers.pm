@@ -30,13 +30,38 @@ sub _tree
     return {
         treeName => 'ManageUsers',
         modelDomain => 'Users',
-        pageTitle => __('Users and Groups'),
+        pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],
-        help =>  __('FIXME'),
+        idParam => 'dn',
+        help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba'),
     };
 }
 
 sub rootNodes
+{
+    my ($self) = @_;
+
+    my $domain = EBox::Global->getInstance(1)->modInstance('sysinfo')->hostDomain();
+
+    return [ { id => 'root', printableName => $domain, type => 'domain' } ];
+}
+
+sub childNodes
+{
+    my ($self, $parent) = @_;
+
+    if ($parent eq 'root') {
+        return $self->_ous();
+    } elsif (($parent =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
+        return $self->_sambaComputers();
+    } elsif ($parent =~ /^ou=/) {
+        return $self->_ouObjects($parent);
+    } else {
+        return [];
+    }
+}
+
+sub _ous
 {
     my ($self) = @_;
 
@@ -51,7 +76,24 @@ sub rootNodes
     return \@nodes;
 }
 
-sub childNodes
+sub _sambaComputers
+{
+    my ($self) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    my @computers;
+
+    foreach my $computer (@{$samba->computers()}) {
+        my $id = $computer->dn();
+        my $printableName = $computer->get('cn');
+        push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
+    }
+
+    return \@computers;
+}
+
+sub _ouObjects
 {
     my ($self, $parent) = @_;
 
@@ -81,10 +123,19 @@ sub childNodes
 sub nodeTypes
 {
     return [
-        { name => 'user', printableName => __('Users') },
-        { name => 'group', printableName => __('Groups') },
-        { name => 'contact', printableName => __('Contacts') },
+        { name => 'domain', actions => { filter => 0, add => 1 } },
+        { name => 'user', printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
+        { name => 'group', printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
+        { name => 'computer', printableName => __('Computers'), actions => { filter => 1 } },
+        { name => 'contact', printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
     ];
+}
+
+sub doubleClickHandlerJS
+{
+    my ($self, $type, $id) = @_;
+
+    $self->actionHandlerJS('edit', $type, $id);
 }
 
 1;

@@ -28,6 +28,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Sudo;
 
 use Error qw(:try);
+use JSON::XS;
 
 sub new
 {
@@ -151,6 +152,22 @@ sub childNodes
 sub nodeTypes
 {
     return [];
+}
+
+# Method: idParam
+#
+#    Return the name of the parameter to be used on action CGIs
+#    to receive the selected node id
+#
+# Returns:
+#
+#    string containing the param name
+#
+sub idParam
+{
+    my ($self) = @_;
+
+    return $self->tree()->{'idParam'};
 }
 
 # Method: modelName
@@ -374,6 +391,103 @@ sub keywords
     push(@words, _parse_words($self->help()));
 
     return \@words;
+}
+
+# Method: actionHandlerJS
+#
+#    Return the JavaScript code to be executed when clicking an action button
+#    with a node selected.
+#
+#    Can be overrided in TreeView models but by default shows a modal dialog
+#    with a CGI with "ActionType" as name, for example, if the action is
+#    'edit' and the type is 'user', from the Users module, the CGI URL
+#    will be /Users/EditUser
+#
+# Parameters:
+#
+#    type - string with the action to execute
+#    type - string type of the node
+#    id   - name of the JS variable containing the id of the node
+#
+# Returns:
+#
+#    string with the JS code
+#
+sub actionHandlerJS
+{
+    my ($self, $action, $type, $id) = @_;
+
+    my $url = '/' . $self->modelDomain() . '/' . ucfirst($action) . ucfirst($type);
+    my $title = $self->defaultActionLabels()->{$action};
+    my $param = $self->idParam();
+
+    return "Zentyal.Dialog.showURL('$url', {title: '$title', width: 600, data: { $param: $id }});";
+}
+
+# Method: doubleClickHandlerJS
+#
+#    Return the JavaScript code to be executed when double-clicking a node.
+#
+#    To be overrided in TreeView models.
+#
+# Parameters:
+#
+#    type - string type of the node
+#    id   - name of the JS variable containing the id of the node
+#
+# Returns:
+#
+#    string with the JS code
+#
+sub doubleClickHandlerJS
+{
+    my ($self, $type, $id) = @_;
+
+    return '';
+}
+
+# Method: jsonData
+#
+#   Return tree representation in JSON format for jstree
+#
+# Returns:
+#
+#   string with the encoded JSON data
+#
+sub jsonData
+{
+    my ($self) = @_;
+
+    my @data;
+
+    foreach my $node (@{$self->rootNodes()}) {
+        my $id = $node->{id};
+        my @children = $self->_childData($id);
+        push (@data, { data => $node->{printableName}, attr => { rel => $node->{type}, id => $id }, children => \@children });
+    }
+
+    return encode_json(\@data);
+}
+
+sub _childData
+{
+    my ($self, $id) = @_;
+
+    my @children;
+
+    foreach my $child (@{$self->childNodes($id)}) {
+        my $childId = $child->{id};
+        push (@children, {
+            data => $child->{printableName},
+            attr => {
+                rel => $child->{type},
+                id => $childId,
+            },
+            children => $self->_childData($childId),
+        });
+    }
+
+    return \@children;
 }
 
 1;
