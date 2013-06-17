@@ -1,4 +1,4 @@
-HEAD
+3.0.20
 	+ Fix SIDs to ignore list, add missing end of line character in regular
 	  expressions
 	+ NetBIOS computer name is now updated before reprovision and after
