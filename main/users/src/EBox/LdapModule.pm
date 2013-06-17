@@ -311,7 +311,7 @@ sub usersModesAllowed
 {
     my ($self) = @_;
     my $users = $self->global()->modInstance('users');
-    return [$users->NORMAL_MODE()];
+    return [$users->STANDALONE_MODE()];
 }
 
 sub checkUsersMode

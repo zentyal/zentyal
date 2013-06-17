@@ -54,7 +54,7 @@ sub validateTypedRow
     }
 
     my $mode = $allFields->{mode}->value();
-    if ($mode eq EBox::UsersAndGroups->NORMAL_MODE) {
+    if ($mode eq EBox::UsersAndGroups->STANDALONE_MODE) {
         $self->_validateNormalMode($allFields);
     } elsif ($mode eq EBox::UsersAndGroups->EXTERNAL_AD_MODE) {
         $self->_validateExternalADMode($allFields);
@@ -154,18 +154,18 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $normalParams = [qw/dn/];
+    my $standaloneParams = [qw/dn/];
     my $adParams = [qw/dcHostname dcUser dcPassword/];
 
     $customizer->setOnChangeActions({
         mode => {
-                EBox::UsersAndGroups->NORMAL_MODE  => {
-                    show    => $normalParams,
+                EBox::UsersAndGroups->STANDALONE_MODE  => {
+                    show    => $standaloneParams,
                     hide    => $adParams,
                 },
                 EBox::UsersAndGroups->EXTERNAL_AD_MODE => {
                     show  => $adParams,
-                    hide => $normalParams,
+                    hide => $standaloneParams,
                 }
        }
     });
@@ -213,8 +213,8 @@ sub _modeOptions
 {
     return [
         {
-            value => EBox::UsersAndGroups->NORMAL_MODE,
-            printableValue => __('Normal'),
+            value => EBox::UsersAndGroups->STANDALONE_MODE,
+            printableValue => __('Standalone server'),
         },
         {
             value => EBox::UsersAndGroups->EXTERNAL_AD_MODE,

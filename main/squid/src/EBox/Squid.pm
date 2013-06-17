@@ -136,7 +136,7 @@ sub usersModesAllowed
 {
     my ($self) = @_;
     my $users = $self->global()->modInstance('users');
-    return [$users->NORMAL_MODE(), $users->EXTERNAL_AD_MODE];
+    return [$users->STANDALONE_MODE(), $users->EXTERNAL_AD_MODE];
 }
 
 # Method: enableActions
@@ -1303,7 +1303,7 @@ sub authenticationMode
     my ($self) = @_;
     my $users = $self->global()->modInstance('users');
     my $usersMode = $users->mode();
-    if ($usersMode eq $users->NORMAL_MODE) {
+    if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
     } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
         return AUTH_MODE_EXTERNAL_AD;

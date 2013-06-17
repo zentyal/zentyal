@@ -64,7 +64,7 @@ use Fcntl qw(:flock);
 use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers'; # same than users
 
-use constant NORMAL_MODE      => 'normal';
+use constant STANDALONE_MODE      => 'normal';
 use constant EXTERNAL_AD_MODE => 'external-ad';
 
 use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
@@ -393,7 +393,7 @@ sub enableActions
     my ($self) = @_;
     my $mode = $self->mode();
     $self->_setupForMode();
-    if ($mode eq NORMAL_MODE) {
+    if ($mode eq STANDALONE_MODE) {
         $self->_internalServerEnableActions();
     } elsif ($mode eq EXTERNAL_AD_MODE) {
         $self->_externalADEnableActions();
@@ -684,7 +684,7 @@ sub _setupNSSPAM
 sub editableMode
 {
     my ($self) = @_;
-    if ($self->mode() ne NORMAL_MODE) {
+    if ($self->mode() ne STANDALONE_MODE) {
         return 0;
     }
 
@@ -712,7 +712,7 @@ sub _daemons
     my ($self) = @_;
 
     my $usingInternalServer = sub {
-        return $self->mode() eq NORMAL_MODE;
+        return $self->mode() eq STANDALONE_MODE;
     };
 
     return [
@@ -1477,7 +1477,7 @@ sub menu
                         'text' => __('Organizational Units'), order => 25));
         }
 
-        if ($self->mode() eq NORMAL_MODE) {
+        if ($self->mode() eq STANDALONE_MODE) {
             $folder->add(new EBox::Menu::Item(
                 'url' => 'Users/Composite/Sync',
                 'text' => __('Synchronization'), order => 40));
@@ -1781,7 +1781,7 @@ sub mode
     my ($self) = @_;
     my $mode = $self->model('Mode')->value('mode');
     if (not $mode) {
-        return NORMAL_MODE;
+        return STANDALONE_MODE;
     }
     return $mode;
 }

@@ -132,7 +132,7 @@ sub precondition
 {
     my ($self) = @_;
     my $usersMod = $self->parentModule();
-    return $usersMod->mode() eq $usersMod->NORMAL_MODE();
+    return $usersMod->mode() eq $usersMod->STANDALONE_MODE();
 }
 
 # Method: viewCustomizer
