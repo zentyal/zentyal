@@ -30,7 +30,7 @@ sub _tree
     return {
         treeName => 'ManageUsers',
         modelDomain => 'Users',
-        pageTitle => __('Users and Groups'),
+        pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],
         idParam => 'dn',
         help =>  __('FIXME'),
@@ -38,6 +38,28 @@ sub _tree
 }
 
 sub rootNodes
+{
+    my ($self) = @_;
+
+    my $domain = EBox::Global->getInstance(1)->modInstance('sysinfo')->hostDomain();
+
+    return [ { id => 'root', printableName => $domain, type => 'domain' } ];
+}
+
+sub childNodes
+{
+    my ($self, $parent) = @_;
+
+    if ($parent eq 'root') {
+        return $self->_ous();
+    } elsif ($parent =~ /^ou=/) {
+        return $self->_ouObjects($parent);
+    } else {
+        return [];
+    }
+}
+
+sub _ous
 {
     my ($self) = @_;
 
@@ -52,7 +74,8 @@ sub rootNodes
     return \@nodes;
 }
 
-sub childNodes
+
+sub _ouObjects
 {
     my ($self, $parent) = @_;
 
@@ -82,9 +105,11 @@ sub childNodes
 sub nodeTypes
 {
     return [
-        { name => 'user', printableName => __('Users') },
-        { name => 'group', printableName => __('Groups') },
-        { name => 'contact', printableName => __('Contacts') },
+        { name => 'domain', filter => 0 },
+        { name => 'user', printableName => __('Users'), filter => 1 },
+        { name => 'group', printableName => __('Groups'), filter => 1 },
+        { name => 'computer', printableName => __('Computers'), filter => 1 },
+        { name => 'contact', printableName => __('Contacts'), filter => 1 },
     ];
 }
 

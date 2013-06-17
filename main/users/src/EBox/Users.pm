@@ -87,7 +87,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'users',
-                                      printableName => __('Users and Groups'),
+                                      printableName => __('Users and Computers'),
                                       @_);
     bless($self, $class);
     return $self;
@@ -1424,7 +1424,7 @@ sub menu
     if ($self->configured()) {
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'Users/Tree/ManageUsers',
-                                              'text' => __('TreeView (WIP)'), order => 9));
+                                              'text' => __('Manage'), order => 9));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Users',
                                               'text' => __('Users'), order => 10));
             $folder->add(new EBox::Menu::Item('url' => 'Users/Groups',

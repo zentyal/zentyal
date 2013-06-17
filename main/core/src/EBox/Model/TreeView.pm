@@ -28,6 +28,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Sudo;
 
 use Error qw(:try);
+use JSON::XS;
 
 sub new
 {
@@ -443,6 +444,50 @@ sub doubleClickHandlerJS
     my ($self, $type, $id) = @_;
 
     return '';
+}
+
+# Method: jsonData
+#
+#   Return tree representation in JSON format for jstree
+#
+# Returns:
+#
+#   string with the encoded JSON data
+#
+sub jsonData
+{
+    my ($self) = @_;
+
+    my @data;
+
+    foreach my $node (@{$self->rootNodes()}) {
+        my $id = $node->{id};
+        my @children = $self->_childData($id);
+        push (@data, { data => $node->{printableName}, attr => { rel => $node->{type}, id => $id }, children => \@children });
+    }
+
+    return encode_json(\@data);
+}
+
+sub _childData
+{
+    my ($self, $id) = @_;
+
+    my @children;
+
+    foreach my $child (@{$self->childNodes($id)}) {
+        my $childId = $child->{id};
+        push (@children, {
+            data => $child->{printableName},
+            attr => {
+                rel => $child->{type},
+                id => $childId,
+            },
+            children => $self->_childData($childId),
+        });
+    }
+
+    return \@children;
 }
 
 1;

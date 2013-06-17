@@ -48,6 +48,7 @@
 <span class="treeviewCheckboxes">
 % foreach my $type (@{$model->nodeTypes()}) {
 %   my $name = $type->{name};
+%   next unless $type->{filter};
 %   my $printableName = $type->{printableName};
 <input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
 % }
@@ -68,21 +69,7 @@ jQuery(function () {
 
   treeComponent.jstree({
 	"json_data" : {
-		"data" : [
-% foreach my $node (@{$model->rootNodes()}) {
-%   my $id = $node->{id};
-%   my @children;
-%   foreach my $child (@{$model->childNodes($id)}) {
-%       my $childId = $child->{id};
-%       push (@children, "{ \"data\": \"$child->{printableName}\", \"attr\": { \"rel\": \"$child->{type}\", \"id\": \"$childId\" } }");
-%   }
-			{
-              "data" : "<% $node->{printableName} %>",
-              "attr" : { "rel": "<% $node->{type} %>", "id": "<% $id %>" },
-              "children" : [ <% join (',', @children) %> ]
-            },
-% }
-		]
+		"data" : <% $model->jsonData() %>
 	},
 % my @types;
 % foreach my $type (@{$model->nodeTypes()}) {
