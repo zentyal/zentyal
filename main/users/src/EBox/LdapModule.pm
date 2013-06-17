@@ -306,4 +306,29 @@ sub slaveSetupWarning
     return undef;
 }
 
+
+sub usersModesAllowed
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    return [$users->NORMAL_MODE()];
+}
+
+sub checkUsersMode
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    my $mode = $users->mode();
+    my $allowedMode = grep {
+        $mode eq $_
+    } @{ $self->usersModesAllowed() };
+    if (not $allowedMode) {
+        throw EBox::Exceptions::External(__x(
+            'Module {mod} is uncompatible with the current users operation mode ({mode})',
+            mod => $self->printableName(),
+            mode => $users->model('Mode')->modePrintableName,
+        ));
+    }
+}
+
 1;

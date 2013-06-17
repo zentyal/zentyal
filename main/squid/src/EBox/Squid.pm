@@ -132,6 +132,13 @@ sub initialSetup
     }
 }
 
+sub usersModesAllowed
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    return [$users->NORMAL_MODE(), $users->EXTERNAL_AD_MODE];
+}
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -139,6 +146,7 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     # Create the kerberos service principal in kerberos,
     # export the keytab and set the permissions

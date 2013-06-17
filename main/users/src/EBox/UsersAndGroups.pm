@@ -711,12 +711,27 @@ sub _daemons
 {
     my ($self) = @_;
 
+    my $usingInternalServer = sub {
+        return $self->mode() eq NORMAL_MODE;
+    };
+
     return [
-        { name => 'ebox.slapd' },
-        { name => 'zentyal.heimdal-kdc'  },
-        { name => 'zentyal.heimdal-kpasswd'  },
+        {
+            name => 'ebox.slapd',
+            precondition => $usingInternalServer
+        },
+        {
+            name => 'zentyal.heimdal-kdc',
+            precondition => $usingInternalServer
+        },
+        {
+            name => 'zentyal.heimdal-kpasswd',
+            precondition => $usingInternalServer
+        },
     ];
 }
+
+
 
 # Method: _enforceServiceState
 #
