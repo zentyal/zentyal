@@ -52,6 +52,8 @@ sub childNodes
 
     if ($parent eq 'root') {
         return $self->_ous();
+    } elsif (($parent =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
+        return $self->_sambaComputers();
     } elsif ($parent =~ /^ou=/) {
         return $self->_ouObjects($parent);
     } else {
@@ -74,6 +76,22 @@ sub _ous
     return \@nodes;
 }
 
+sub _sambaComputers
+{
+    my ($self) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    my @computers;
+
+    foreach my $computer (@{$samba->computers()}) {
+        my $id = $computer->dn();
+        my $printableName = $computer->get('cn');
+        push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
+    }
+
+    return \@computers;
+}
 
 sub _ouObjects
 {
