@@ -33,7 +33,7 @@ sub _tree
         pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],
         idParam => 'dn',
-        help =>  __('FIXME'),
+        help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba'),
     };
 }
 
@@ -105,11 +105,11 @@ sub _ouObjects
 sub nodeTypes
 {
     return [
-        { name => 'domain', filter => 0 },
-        { name => 'user', printableName => __('Users'), filter => 1 },
-        { name => 'group', printableName => __('Groups'), filter => 1 },
-        { name => 'computer', printableName => __('Computers'), filter => 1 },
-        { name => 'contact', printableName => __('Contacts'), filter => 1 },
+        { name => 'domain', actions => { filter => 0, add => 1 } },
+        { name => 'user', printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
+        { name => 'group', printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
+        { name => 'computer', printableName => __('Computers'), actions => { filter => 1 } },
+        { name => 'contact', printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
     ];
 }
 

@@ -30,7 +30,6 @@
 <div id="treeButtons" class="treeviewButtons">
 % my $actionLabels = $model->defaultActionLabels();
 % foreach my $action (@{$model->defaultActions()}) {
-<!-- FIXME: use a different CSS class -->
 <button id="<% $action %>" class="treeviewActionButton" type="button" style="background-image: url('/data/images/<% $action %>.gif')">
 <% $actionLabels->{$action} %>
 </button>
@@ -48,7 +47,7 @@
 <span class="treeviewCheckboxes">
 % foreach my $type (@{$model->nodeTypes()}) {
 %   my $name = $type->{name};
-%   next unless $type->{filter};
+%   next unless $type->{actions}->{filter};
 %   my $printableName = $type->{printableName};
 <input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
 % }
@@ -132,6 +131,22 @@ jQuery(function () {
 */
         }
     });
+  });
+
+  treeComponent.bind('select_node.jstree', function (e, data) {
+      var type = data.rslt.obj.attr('rel');
+
+% foreach my $type (@{$model->nodeTypes()}) {
+      if (type == '<% $type->{name} %>') {
+% foreach my $action (@{$model->defaultActions()}) {
+% if ($type->{actions}->{$action}) {
+            jQuery('#<% $action %>').removeAttr('disabled');
+% } else {
+            jQuery('#<% $action %>').attr('disabled', 'disabled');
+% }
+% }
+      }
+% }
   });
 
   treeComponent.bind('dblclick.jstree', function (e) {
