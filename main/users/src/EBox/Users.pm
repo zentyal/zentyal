@@ -926,6 +926,27 @@ sub group
     return $group;
 }
 
+# Method: groupByDN
+#
+# Returns the object which represents a give group DN. Raises a exception if
+# the group does not exists
+#
+#  Parameters:
+#      dn
+#
+#  Returns:
+#    the instance of EBox::Users::Group for the group
+#
+sub groupByDN
+{
+    my ($self, $dn) = @_;
+    my $group = new EBox::Users::Group(dn => $dn);
+    if (not $group->exists()) {
+        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $dn);
+    }
+    return $group;
+}
+
 # Method: groupExists
 #
 #  Returns:

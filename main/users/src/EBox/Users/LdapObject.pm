@@ -285,8 +285,17 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
-    return $basedn;
+    my $dse = $self->_ldap->ldapCon()->root_dse();
+
+    # get naming Contexts
+    my @contexts = $dse->get_value('namingContexts');
+
+    # FIXME: LDAP tree may have multiple naming Contexts (forest), we don't support it right now, we always pick the
+    # first one we get.
+    if ($#contexts >= 1) {
+        EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
+    }
+    return $contexts[0];
 }
 
 # Method: _entry
@@ -338,6 +347,41 @@ sub _ldap
     my ($self) = @_;
 
     return EBox::Global->modInstance('users')->ldap();
+}
+
+# Method canonicalName
+#
+#   Returns a string representing the canonical name object.
+#
+sub canonicalName
+{
+    my ($self) = @_;
+
+    my $canonicalName = '';
+    my $dn = $self->dn();
+    my $baseDN = $self->baseDn();
+
+    # TODO: Once we support forests like AD does we would need this part uncommented.
+    # for my $section (split (',', $baseDN)) {
+    #     if ($canonicalName) {
+    #         $canonicalName .= '.';
+    #     }
+    #     my ($trash, $value) = split ('=', $section, 2);
+    #     $canonicalName .= $value;
+    # }
+
+    my @contentDN = split ($baseDN, $dn);
+
+    # We need to reverse the order of the array to construct the canonical Name in the right order.
+    for my $unit (reverse (split (',', $contentDN[0]))) {
+        if ($canonicalName) {
+            $canonicalName .= '/';
+        }
+        my ($trash, $value) = split ('=', $unit, 2);
+        $canonicalName .= $value;
+    }
+
+    return $canonicalName;
 }
 
 # Method: as_ldif
