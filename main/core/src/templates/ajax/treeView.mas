@@ -156,10 +156,11 @@ jQuery(function () {
       // FIXME: refactor this to avoid duplicated code?
       if (nodeType in <% encode_json(\%typesHash) %>) {
 % foreach my $type (@{$model->nodeTypes()}) {
-%   my $type = $type->{name};
-          if (nodeType == '<% $type %>') {
-              <% $model->doubleClickHandlerJS($type, 'nodeId') %>
+% if ($type->{actions}->{edit}) {
+          if (nodeType == '<% $type->{name} %>') {
+              <% $model->doubleClickHandlerJS($type->{name}, 'nodeId') %>
           }
+% }
 % }
       }
   });
