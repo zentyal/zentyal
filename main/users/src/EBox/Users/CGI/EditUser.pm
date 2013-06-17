@@ -107,6 +107,22 @@ sub _process
         $user->save();
 
         $self->{redirect} = 'Users/Tree/ManageUsers';
+    } elsif ($self->param('addgrouptouser')) {
+        $self->_requireParam('addgroup', __('group'));
+        my @groups = $self->unsafeParam('addgroup');
+
+        foreach my $gr (@groups) {
+            my $group = new EBox::Users::Group(dn => $gr);
+            $user->addGroup($group);
+        }
+    } elsif ($self->param('delgroupfromuser')) {
+        $self->_requireParam('delgroup', __('group'));
+
+        my @groups = $self->unsafeParam('delgroup');
+        foreach my $gr (@groups){
+            my $group = new EBox::Users::Group(dn => $gr);
+            $user->removeGroup($group);
+        }
     }
 }
 

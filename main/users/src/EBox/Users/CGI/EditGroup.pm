@@ -70,6 +70,20 @@ sub _process
         }
 
         $self->{redirect} = 'Users/Tree/ManageUsers';
+    } elsif ($self->param('addusertogroup')) {
+        $self->_requireParam('adduser', __('user'));
+        my @users = $self->unsafeParam('adduser');
+
+        foreach my $us (@users) {
+            $group->addMember(new EBox::Users::User(dn => $us));
+        }
+    } elsif ($self->param('deluserfromgroup')) {
+        $self->_requireParam('deluser', __('user'));
+        my @users = $self->unsafeParam('deluser');
+
+        foreach my $us (@users) {
+            $group->removeMember(new EBox::Users::User(dn => $us));
+        }
     }
 }
 

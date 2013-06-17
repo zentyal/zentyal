@@ -39,7 +39,8 @@ use EBox::Gettext;
 <tbody>
 <tr>
     <td rowspan="2">
-    <form action='/Users/DelUserFromGroup' method='post'>
+    <form action='/Users/EditGroup' method='post'>
+        <input type="hidden" name="deluserfromgroup" value="deluserfromgroup">
         <select name='deluser' size='8' multiple>
 %   if(@groupusers) {
 %           foreach my $user (@groupusers){
@@ -70,7 +71,8 @@ use EBox::Gettext;
         <br />
 
 %   unless ($slave) {
-    <form action='/Users/AddUserToGroup' method='post'>
+    <form action='/Users/EditGroup' method='post'>
+        <input type="hidden" name="addusertogroup" value="addusertogroup">
         <input  class='inputButton' type='image' name='addtogroup'
                 value="<%__('Add users to group')%>"
                 src='/data/images/left.gif'

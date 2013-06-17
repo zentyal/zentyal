@@ -163,7 +163,8 @@ $user
 <tbody>
 <tr>
     <td rowspan="2">
-    <form action='/Users/DelGroupFromUser' method='post'>
+    <form action='/Users/EditUser' method='post'>
+        <input type="hidden" name="delgroupfromuser" value="delgroupfromuser">
         <select name='delgroup' size='8' multiple>
 %   if(@usergroups) {
 %           foreach my $group (@usergroups){
@@ -190,7 +191,8 @@ $user
     </form>
         <br />
         <br />
-    <form action='/Users/AddGroupToUser' method='post'>
+    <form action='/Users/EditUser' method='post'>
+        <input type="hidden" name="addgrouptouser" value="addgrouptouser">
         <input  class='inputButton' type='image' name='addtouser'
                 value="<%__('Add users to group')%>"
                 src='/data/images/left.gif'
