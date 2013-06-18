@@ -1,4 +1,5 @@
 HEAD
+	+ Fix regression in CGIs package names
 	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1.2
 	+ Ported JS code to jQuery
