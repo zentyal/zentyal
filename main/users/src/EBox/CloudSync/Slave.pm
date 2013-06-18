@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::CloudSync::Slave;
 
-use base 'EBox::UsersAndGroups::Slave';
+use base 'EBox::Users::Slave';
 
 use EBox::Global;
 use EBox::Exceptions::External;

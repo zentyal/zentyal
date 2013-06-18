@@ -9,27 +9,26 @@
 use EBox::Gettext;
 </%init>
 <script  type="text/javascript">
+"use strict";
 function doUpdates(title) {
+    var url, data;
     var packages = [];
-    var checkboxes = $$('.pkg-checkbox');
-    for (var i=0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-          packages.push(checkboxes[i].name);
-        }
-    }
+    jQuery('.pkg-checkbox:checked').each(function(index, element) {
+          packages.push(element.name);
+    });
     if (packages.length > 0) {
-       var url= 'InstallPkgs?';
+       url= 'InstallPkgs';
+       data = 'upgrade=yes';
        for (var i=0; i < packages.length; i++) {
-            url += 'upgrade=yes';
-            url += '&' +  packages[i] + '=yes';
+            data += '&' +  packages[i] + '=yes';
        }
-      url += '&popup=1';
+       data += '&popup=1';
 
-      Modalbox.show(url, {
-                           'title': title,
-                           'transitions': false,
-                            'afterHide': function() { window.location.reload();  }
-                         });
+      Zentyal.Dialog.showURL(url, {
+                         'title': title,
+                         'data': data,
+                         'close': function() { window.location.reload();  }
+      });
    } else {
      alert('No packages selected for upgrade');
    }
@@ -38,41 +37,22 @@ function doUpdates(title) {
 function checkAllPackages(checkAll)
 {
   var check = checkAll.checked;
-  var checkboxes = $$('.pkg-checkbox');
-  for (var i=0; i < checkboxes.length; i++) {
-       checkboxes[i].checked = check;
-  }
-  $('upgradeButton').disabled = !check;
+  jQuery('.pkg-checkbox').prop('checked', check);
+  jQuery('#upgradeButton').prop('disabled', !check);
 }
 
 function checkboxChange()
 {
-    var existsUnchecked = false;
-    var existsChecked = false;
-    var checkboxes = $$('.pkg-checkbox');
-    for (var i=0; i < checkboxes.length; i++) {
-        if (checkboxes[i].checked) {
-           existsChecked = true;
-        } else {
-          existsUnchecked = true;
-        }
-        if (existsChecked && existsUnchecked) {
-           break;
-        }
-    }
-    if (existsChecked) {
-       $('upgradeButton').disabled = false;
-       if (!existsUnchecked) {
-        $('allbox').checked = true;
-       }
+    var checkboxes = jQuery('.pkg-checkbox');
+    var checked = checkboxes.filter(':checked');
 
+    if (checked.length != 0) {
+       jQuery('#upgradeButton').prop('disabled', false);
+    } else {
+       jQuery('#upgradeButton').prop('disabled', true);
     }
-    if (existsUnchecked) {
-        $('allbox').checked = false;
-        if (! existsChecked) {
-           $('upgradeButton').disabled = true;
-        }
-    }
+
+    jQuery('#allbox').prop('checked', (checked.length == checkboxes.length));
 }
 
 // to sync state in page load
@@ -101,26 +81,26 @@ automatically as scheduled') %>
 % }
 
 % if (@upgradables != 0) {
-        <script src="/data/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
+%#        <script src="/data/js/scriptaculous/scriptaculous.js" type="text/javascript"></script>
 % if ($QAUpdates) {
-	<p><%__('Updates are available for the following system components')%>:</p>
+        <p><%__('Updates are available for the following system components')%>:</p>
 % } else {
-	<p><%__('Community updates are available for the following system components')%>:</p>
+        <p><%__('Community updates are available for the following system components')%>:</p>
 % }
-	<form name='updates' name='updates' action='InstallPkgs' method='post'>
-		<table class='dataTable' cellspacing='0'>
-		<thead>
-			<tr>
-				<th class='tleft'><%__('Component')%></th>
-				<th class='tleft'><%__('Description')%></th>
+        <form name='updates' name='updates' action='InstallPkgs' method='post'>
+                <table class='dataTable' cellspacing='0'>
+                <thead>
+                        <tr>
+                                <th class='tleft'><%__('Component')%></th>
+                                <th class='tleft'><%__('Description')%></th>
                                 <th class='tleft'><%__('Version')%></th>
-				<th class='thOptions'><%__('Update')%></th>
-			</tr>
-		</thead>
-		<tbody>
-%	foreach my $pkg (@upgradables) {
-			<tr class='border'>
-				<td>
+                                <th class='thOptions'><%__('Update')%></th>
+                        </tr>
+                </thead>
+                <tbody>
+%       foreach my $pkg (@upgradables) {
+                        <tr class='border'>
+                                <td>
 %         if ( $pkg->{security} ) {
                                 <img src="/data/images/exclamation.png"
                                      alt="<% __('Security update') %>"
@@ -132,21 +112,21 @@ automatically as scheduled') %>
 %         }
 %         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and ($pkg->{changelog}) ) {
                                 <img src="/data/images/add.gif" alt="more info"
-                                     onclick="$('<% $pkg->{name} %>_changelog').toggle()
+                                     onclick="jQuery('#<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
                                 />
 %         }
                                 <%$pkg->{name}%>
                                 </td>
-				<td><%$pkg->{description}%></td>
-				<td><%$pkg->{version}%></td>
-				<td class='tcenter'>
-					<input type='checkbox' value='yes' class='pkg-checkbox'
-					       name='pkg-<%$pkg->{name}%>'
+                                <td><%$pkg->{description}%></td>
+                                <td><%$pkg->{version}%></td>
+                                <td class='tcenter'>
+                                        <input type='checkbox' value='yes' class='pkg-checkbox'
+                                               name='pkg-<%$pkg->{name}%>'
                                                onclick="checkboxChange(); return true"
                                                 />
-				</td>
-			</tr>
+                                </td>
+                        </tr>
 %         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and $pkg->{changelog}) {
                         <tr style="display:none"></tr>
                         <tr class='trimp' id="<% $pkg->{name} %>_changelog" style="display:none">
@@ -156,27 +136,27 @@ automatically as scheduled') %>
                         </tr>
 %         }
 %       }
-			<tr class='trimp'>
-				<td colspan='3'>
-					<strong><%__('Update all packages')%></strong>
-				</td>
-				<td class='tcenter'>
-					<input type='checkbox' value='on'
-						onclick="checkAllPackages(this); return true"
-						name='allbox' id='allbox'/>
-				</td>
-			</tr>
-		</tbody>
-		</table>
-		<div class="note">
-		<% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Upgrade button.") %>
-		</div>
-		<input type='hidden' name='upgrade' value="yes"/>
-	</form>
-	<button class='inputButton' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
+                        <tr class='trimp'>
+                                <td colspan='3'>
+                                        <strong><%__('Update all packages')%></strong>
+                                </td>
+                                <td class='tcenter'>
+                                        <input type='checkbox' value='on'
+                                                onclick="checkAllPackages(this); return true"
+                                                name='allbox' id='allbox'/>
+                                </td>
+                        </tr>
+                </tbody>
+                </table>
+                <div class="note">
+                <% __("This operation can take some time, don't worry if Zentyal looks unresponsive after pressing the Upgrade button.") %>
+                </div>
+                <input type='hidden' name='upgrade' value="yes"/>
+        </form>
+        <button class='inputButton' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
 % }
-	<button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
-	<form name='updateList' action='Updates' method='post'>
-		<input type='hidden' name='updatePkgs' value="yes"/>
-	</form>
+        <button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
+        <form name='updateList' action='Updates' method='post'>
+                <input type='hidden' name='updatePkgs' value="yes"/>
+        </form>
 

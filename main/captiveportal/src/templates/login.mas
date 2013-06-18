@@ -10,17 +10,16 @@ use EBox::Gettext;
 <html xmlns="http://www.w3.org/1999/xhtml"><HEAD><TITLE>Zentyal</TITLE>
 <meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
-<script src="/data/js/common.js" type="text/javascript">//</SCRIPT>
 </head>
 <body onload="document.getElementById('credential_0').focus();">
 <script src="/data/js/capsLock.js" type="text/javascript">//</script>
 <center>
-	<form name='login' action='/LOGIN' method='post'>
+        <form name='login' action='/LOGIN' method='post'>
                 <div class="warning" id="capsWarning" style="display: none">
                   <% __('Warning: Caps Lock is enabled')%>
                 </div>
 
-	<table id="login">
+        <table id="login">
           <tr>
             <td rowspan="4" id="logotd">
               <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
@@ -30,9 +29,9 @@ use EBox::Gettext;
             <div class="warning" id="capsWarning" style="display: none">
                 Warning: Caps Lock is enabled
             </div>
-%		if(length($reason)){
-			<div id='reason'><% $reason %></div>
-%		}
+%               if(length($reason)){
+                        <div id='reason'><% $reason %></div>
+%               }
           </tr>
           <tr>
             <td class="labeltd"><% __('Username') %></td>
@@ -60,7 +59,7 @@ use EBox::Gettext;
           </tr>
         </table>
     </form>
-	</div>
+        </div>
 </center>
 <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %>
 </div>

@@ -22,7 +22,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -39,13 +39,13 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $userDN = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=".$userDN;
+    $self->{redirect} = "Users/User?user=".$userDN;
     $self->keepParam('user');
 
     $self->_requireParam('account', __('External mail account'));
     my $account = $self->unsafeParam('account');
 
-    my $user = new EBox::UsersAndGroups::User(dn => $userDN);
+    my $user = new EBox::Users::User(dn => $userDN);
     $mail->{fetchmail}->removeExternalAccount($user, $account);
 }
 

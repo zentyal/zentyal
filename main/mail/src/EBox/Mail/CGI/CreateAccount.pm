@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -41,11 +41,11 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{redirect} = "Users/User?user=$user";
 
     $self->keepParam('user');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
     $self->_requireParam('vdomain', __('virtual domain'));
     my $vdomain = $self->param('vdomain');
     $self->_requireParam('lhs', __('Mail address'));

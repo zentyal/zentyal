@@ -148,6 +148,7 @@ th > div {
   text-align: left;
 }
 </style>
+<div id="wizard_error"></div>
 <form method="post" style="text-align: center;" action="./RemoteServices/Wizard/Subscription">
       <div class="subscription">
 
@@ -267,7 +268,7 @@ th > div {
                     <td style="text-align:right;">
                       <input type="button" value="<% __s('Register') %>"
 % if ( $first ) {
-                             onclick="nextStep()"
+                             onclick="Zentyal.Wizard.Software.nextStep()"
 % } else {
                              onclick="register_save()"
 % }
@@ -307,53 +308,40 @@ th > div {
 
      <div style="clear: both"></div>
      <script type="text/javascript" language="javascript">
-        function update_form() {
-            if ($('radio_subscribe').checked) {
-                $('subs_pass2').hide();
-                $('subs_newsletter').hide();
-                $('subs_agree').hide();
-                $('promo').hide();
-                $('subs_firstname').hide();
-                $('subs_lastname').hide();
-                $('subs_sector').hide();
-                $('subs_company').hide();
-                $('subs_position').hide();
-                $('subs_phone').hide();
-            }
-            else {
-                $('subs_pass2').show();
-                $('subs_newsletter').show();
-                $('subs_agree').show();
-                $('promo').show();
-                $('subs_firstname').show();
-                $('subs_lastname').show();
-                $('subs_sector').show();
-                $('subs_company').show();
-                $('subs_position').show();
-                $('subs_phone').show();
-            }
-        }
-
-        Element.observe($('radio_subscribe'), 'change', update_form);
-        Element.observe($('radio_register'), 'change', update_form);
+        "use strict";
+        jQuery('#radio_subscribe, #radio_register').change(function () {
+            var notSubscribed = ! jQuery('#radio_subscribe').prop('checked');
+            jQuery('#subs_pass2').toggle(notSubscribed);
+            jQuery('#subs_newsletter').toggle(notSubscribed);
+            jQuery('#subs_agree').toggle(notSubscribed);
+            jQuery('#promo').toggle(notSubscribed);
+            jQuery('#subs_firstname').toggle(notSubscribed);
+            jQuery('#subs_lastname').toggle(notSubscribed);
+            jQuery('#subs_sector').toggle(notSubscribed);
+            jQuery('#subs_company').toggle(notSubscribed);
+            jQuery('#subs_position').toggle(notSubscribed);
+            jQuery('#subs_phone').toggle(notSubscribed);
+        });
 
         window.register_save = function() {
            // Mimetise the nextStep
-           setLoading(true);
-           var form = $$('#wizardPage0 form')[0];
-           form.request( {
-               onFailure : function (response) {
-                  $('wizard_error').update(response.responseText);
-                  $('wizard_error').appear({
-                         duration: 0.5,
-                         from: 0, to: 1 });
-                  setLoading(false);
-               },
-               onSuccess : function (response) {
-                  Modalbox.show('/RemoteServices/Subscription?wizard=1',
-                                { title : '<% __('Registering a server') %>' });
-               }
-           });
+           Zentyal.Wizard.Software.setLoading(true);
+           var form = jQuery('#wizardPage0 form').first();
+           jQuery.ajax({
+                        url: form.attr('action'),
+                        type: 'post',
+                        data: form.serialize(),
+                        error : function (response) {
+                          jQuery('#wizard_error').html(response.responseText).show(500);
+                          Zentyal.Wizard.Software.setLoading(false);
+                        },
+                        success : function (response) {
+                            Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
+                                title : '<% __('Registering a server') %>',
+                                data: 'wizard=1'
+                            });
+                       }
+                     });
         }
      </script>
 </form>

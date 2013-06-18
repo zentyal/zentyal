@@ -31,7 +31,7 @@ use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
 
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
@@ -91,7 +91,7 @@ sub groups
 #
 # Returns:
 #
-#   array ref of EBox::UsersAndGroups::Group objects
+#   array ref of EBox::Users::Group objects
 #
 sub groupsNotIn
 {

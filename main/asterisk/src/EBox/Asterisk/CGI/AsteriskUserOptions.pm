@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -43,10 +43,10 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{redirect} = "Users/User?user=$user";
     $self->keepParam('user');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
     if ($self->param('active') eq 'yes') {
         $astldap->setHasAccount($user, 1);
         my $myextn = $extensions->getUserExtension($user);

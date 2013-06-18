@@ -28,8 +28,7 @@ use EBox::ServiceManager;
 use EBox::Global;
 use EBox::Gettext;
 
-## arguments:
-## 	title [required]
+
 sub new
 {
     my $class = shift;
@@ -43,24 +42,20 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->_requireParam('module');
+    $self->_requireParam('enable');
 
-    my %modules;
-    for my $mod (@{$self->params()}) {
-        my @params = $self->param($mod);
-        my $enabled = undef;
-        if (@params > 1) {
-            $enabled = 1;
-        }
-        $modules{$mod} = $enabled;
-    }
+    my $modName = $self->param('module');
+    my $enable  = $self->param('enable');
+    my $manager = EBox::ServiceManager->new();
 
-    my $manager = new EBox::ServiceManager();
-    $manager->enableServices(\%modules);
+    $manager->enableService($modName, $enable);
 
+    # CGI response
     my $modules = $manager->moduleStatus();
     my @params;
     push @params, (modules => $modules,
-                   hasChanged => EBox::Global->getInstance()->unsaved());
+                   hasChanged =>  EBox::Global->getInstance()->unsaved());
 
     $self->{params} = \@params;
 }

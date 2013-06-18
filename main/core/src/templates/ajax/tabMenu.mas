@@ -24,11 +24,8 @@ use EBox::Gettext;
   my $defaultModel = ${$models}[$selectedTab];
 
 </%init>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
-
-
 
 <ul id="<% "tabMenu_$tabName" | h %>" class="tabs">
 <%perl>
@@ -81,7 +78,7 @@ use EBox::Gettext;
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].action = '<% $action %>';
   modelAttrs_<% $tabName | hu %>['<% $name . "_$idx" %>'].directory = '<% $modelDir %>';
 % }
-  var tabMenu_<% $tabName | hu %> = new EBox.Tabs(
+  var tabMenu_<% $tabName | hu %> = new Zentyal.Tabs(
      '<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>
   );
   var url = location.href.split('#');

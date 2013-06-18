@@ -121,7 +121,7 @@ for my $ruser (@{$rusers}) {
             }
             $user->{passwords} = $ruser->{passwords};
             $user->{comment} = $ruser->{description};
-            EBox::UsersAndGroups::User->create($user, 0, ignoreSlaves => IGNORE);
+            EBox::Users::User->create($user, 0, ignoreSlaves => IGNORE);
         };
     } otherwise {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
@@ -162,7 +162,7 @@ for my $rgroup (@{$rgroups}) {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
             $rgroup->{description} = ($rgroup->{description} or '');
             $lgroup->{gidNumber} = $rgroup->{gid};
-            $lgroup = EBox::UsersAndGroups::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
+            $lgroup = EBox::Users::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
         }
         otherwise {
             EBox::error('Failed to sync remote group ' . $rgroup->{name});

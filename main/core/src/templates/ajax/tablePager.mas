@@ -8,9 +8,8 @@
     my $tableName = $model->table()->{'tableName'};
     my @sizeOptions;
 
-    my @sizes = (10, 15, 20, 30, 50, 100, 200, 500);
     my $defaultSize = $model->defaultPageSize();
-
+    my @sizes = (50, 100, 200, 500);
     # if  default size isn't in size options add it
     my $defaultSizeIncluded = grep { $_ == $defaultSize  } @sizes;
     if ( not $defaultSizeIncluded) {
@@ -24,6 +23,10 @@
                             'printableValue' => $size
                         });
     }
+    push (@sizeOptions, {
+        'value' => '_all',
+        'printableValue' => __('View all'),
+     });
 </%init>
 <%perl>
     my $pageSizeId = $tableName . '_pageSizeId';
@@ -39,7 +42,7 @@
        'value'       => $model->pageSize(),
        'options'     => \@sizeOptions,
        'id'          => $tableName . '_pageSize',
-       'onchange'    => qq{setLoading('$pageSizeId'); $changeViewJS;return false}
+       'onchange'    => qq{Zentyal.TableHelper.setLoading('$pageSizeId'); $changeViewJS;return false}
   &>
 
      <span id="<% $pageSizeId %>"></span><span class="pagination_n">
@@ -55,9 +58,9 @@
 %   if ($page != 0) {
         <input name='tofirst' type='image'
             src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
-	    onclick="setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" />
+	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" />
 	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
-	    onclick="setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" />
+	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" />
 %   } else {
         <input name='tofirst' type='image'
             src='/data/images/non_rw.gif' alt="<% __('first') %>" value="<% __('first') %>"/>
@@ -69,13 +72,13 @@
             src="/data/images/f.gif"
             alt="<% __('next') %>"
             value="<% __('next') %>"
-            onclick="setLoading('<% $pagerId %>');<%
+            onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
      	$model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" />
         <input name='tolast' type='image'
             src="/data/images/ff.gif"
             alt="<% __('last') %>"
             value="<% __('last') %>"
-	    onclick="setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" />
+	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" />
 %   } else {
         <input name='tonext' type='image'
             src="/data/images/non_f.gif"

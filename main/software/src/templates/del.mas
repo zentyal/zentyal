@@ -17,11 +17,11 @@ my $popup = $first ? 0 : 1;
 my $okOnClick = '';
 my $cancelOnClick = '';
 
-my $url = '/Software/InstallPkgs?';
-$url .= '&' . $action . '=1';
-$url .= '&go=yes';
+my $url = '/Software/InstallPkgs';
+my $data =  $action . '=1';
+$data .= '&go=yes';
 foreach my $pkg (@packages) {
-    $url .= '&pkg-' . $pkg . '=yes';
+    $data .= '&pkg-' . $pkg . '=yes';
 }
 
 if ($popup) {
@@ -32,12 +32,12 @@ if ($popup) {
         $title= __('Removing packages');
     }
 
-    $url .= '&popup=1';
+    $data .= '&popup=1';
 
-    $okOnClick = qq|onclick="Modalbox.show('$url', {title: '$title', transitions: false})"|;
-    $cancelOnClick = q|onclick="Modalbox.hide(); return false"|;
+    $okOnClick = qq|onclick="Zentyal.Dialog.showURL('$url', {title: '$title', data: '$data'})"|;
+    $cancelOnClick = q|onclick="Zentyal.Dialog.Close(); return false"|;
 } else {
-    $okOnClick = qq|onclick="window.location='$url'; return false"|;
+    $okOnClick = qq|onclick="window.location='$url?$data' ; return false"|;
     $cancelOnClick = q|onclick="window.history.back(); return false"|;
 }
 </%init>

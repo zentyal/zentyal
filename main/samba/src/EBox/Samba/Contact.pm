@@ -91,7 +91,7 @@ sub addToZentyal
     $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba contact '$fullName' to Zentyal");
 
-    $zentyalContact = EBox::UsersAndGroups::Contact->create($params, 0, %optParams);
+    $zentyalContact = EBox::Users::Contact->create($params, 0, %optParams);
     $zentyalContact->exists() or
         throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
 
@@ -119,7 +119,7 @@ sub updateZentyal
 
     my $dn = 'cn=' . $name . ',' . $users->usersDn();
 
-    $zentyalContact = new EBox::UsersAndGroups::Contact(dn => $dn);
+    $zentyalContact = new EBox::Users::Contact(dn => $dn);
     $zentyalContact->exists() or
         throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist");
 
