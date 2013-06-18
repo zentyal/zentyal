@@ -70,6 +70,10 @@ sub _ous
     foreach my $ou (@{$self->parentModule()->ous()}) {
         my $dn = $ou->dn();
         my ($name) = $dn =~ /^ou=([^,]+),/;
+
+        # Hide Kerberos OU as it's not useful for the user to keep the UI simple
+        next if ($name eq 'Kerberos');
+
         push (@nodes, { id => $dn, printableName => $name, type => 'ou' });
     }
 
