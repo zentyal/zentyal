@@ -292,7 +292,7 @@ sub create
         $self->_checkPwdLength($clearPassword);
     }
 
-    $createdUser = $self->SUPER::create($samAccountName, $params);
+    my $createdUser = $self->SUPER::create($samAccountName, $params);
 
     my $anyObjectClass = any($createdUser->get('objectClass'));
     my @userExtraObjectClasses = ('user', 'posixAccount');
@@ -394,7 +394,7 @@ sub addToZentyal
         $optParams{uidNumber} = $uidNumber;
         $self->set('uidNumber', $uidNumber);
     }
-    $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
+    $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
     $self->setupUidMapping($uidNumber);
 
     $zentyalUser = EBox::Users::User->create($params, 0, %optParams);

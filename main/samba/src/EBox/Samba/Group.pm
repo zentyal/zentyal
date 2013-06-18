@@ -249,7 +249,7 @@ sub updateZentyal
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
     $zentyalGroup->setIgnoredModules(['samba']);
-    $zentyalGroup->setSecurity($self->isSecurityGroup, 1)
+    $zentyalGroup->setSecurity($self->isSecurityGroup, 1);
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 

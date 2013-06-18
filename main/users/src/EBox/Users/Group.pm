@@ -37,7 +37,6 @@ use Error qw(:try);
 use Perl6::Junction qw(any);
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use List::MoreUtils 'any';
 
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
@@ -170,7 +169,7 @@ sub users
     @members = map { new EBox::Users::User(dn => $_) } @members;
 
     unless ($system) {
-        @members = grep { not $_->isSystemGroup() } @members;
+        @members = grep { not $_->isSystem() } @members;
     }
     # sort by uid
     @members = sort {
@@ -208,7 +207,7 @@ sub usersNotIn
         } $result->entries();
 
     unless ($system) {
-        @users = grep { not $_->isSystemGroup() } @users;
+        @users = grep { not $_->isSystem() } @users;
     }
 
     @users = sort {
@@ -331,7 +330,7 @@ sub set
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -344,7 +343,7 @@ sub add
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -357,7 +356,7 @@ sub delete
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -370,7 +369,7 @@ sub deleteValues
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -511,7 +510,7 @@ sub create
     if ($params{security}) {
         my $gid = exists $params{gidNumber} ? $params{gidNumber}: $self->_gidForNewGroup($system);
         $self->_checkGid($gid, $system);
-        push ($attr{objectclass}, 'posixGroup');
+        push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);
    }
     push (@attr, 'description' => $comment) if ($comment);
@@ -594,14 +593,14 @@ sub isSecurityGroup
 
     my $ldap = EBox::Global->modInstance('users')->ldap();
 
-    return any { /posixGroup/ } $ldap->objectClasses($self->dn());
+    return ('posixGroup' eq any($ldap->objectClasses($self->dn())));
 }
 
-# Method: isSystemGroup
+# Method: isSystem
 #
 #   Whether the security group is a system group.
 #
-sub isSystemGroup
+sub isSystem
 {
     my ($self) = @_;
 

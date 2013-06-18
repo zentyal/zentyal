@@ -481,16 +481,16 @@ sub ldapContactsToLdb
     my $contacts = $usersModule->contacts();
     foreach my $contact (@{$contacts}) {
         my $dn = $contact->dn();
-        my $fullName = $user->get('cn');
-        my $name = $user->get('cn');
+        my $fullName = $contact->get('cn');
+        my $name = $contact->get('cn');
         EBox::debug("Loading contact $dn");
         try {
             my $params = {
-                givenName   => scalar ($user->get('givenName')),
-                initials    => scalar ($user->get('initials')),
-                sn          => scalar ($user->get('sn')),
-                displayName => scalar ($user->get('displayName')),
-                description => scalar ($user->get('description')),
+                givenName   => scalar ($contact->get('givenName')),
+                initials    => scalar ($contact->get('initials')),
+                sn          => scalar ($contact->get('sn')),
+                displayName => scalar ($contact->get('displayName')),
+                description => scalar ($contact->get('description')),
             };
             EBox::Samba::Contact->create($name, $params);
         } catch EBox::Exceptions::DataExists with {
@@ -498,7 +498,7 @@ sub ldapContactsToLdb
             my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading user '$dn': $error");
+            EBox::error("Error loading contact '$dn': $error");
         };
     }
 }
@@ -519,11 +519,11 @@ sub ldapGroupsToLdb
             my %params = ();
 
             push (%params, description => scalar ($group->get('description')));
-            if $group->isSecurityGroup() {
+            if ($group->isSecurityGroup()) {
                 push (%params, gidNumber => scalar ($group->get('gidNumber')));
                 push (%params, security => 1);
             };
-            $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
+            $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Group $dn already in Samba database");
         } otherwise {

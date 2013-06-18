@@ -306,7 +306,8 @@ sub _modifyContact
     # TODO We should not hardcode the dn generation here.
     my $ldb = EBox::Global->modInstance('samba')->ldb();
     my $baseDn = $ldb->dn();
-    my $sambaDn = "CN=$name,CN=Users,$baseDn";
+    my $cn = $zentyalContact->cn();
+    my $sambaDn = "CN=$cn,CN=Users,$baseDn";
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
         return unless $sambaContact->exists();
@@ -343,7 +344,8 @@ sub _delContact
     # TODO We should not hardcode the dn generation here.
     my $ldb = EBox::Global->modInstance('samba')->ldb();
     my $baseDn = $ldb->dn();
-    my $sambaDn = "CN=$name,CN=Users,$baseDn";
+    my $cn = $zentyalContact->cn();
+    my $sambaDn = "CN=$cn,CN=Users,$baseDn";
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
         return unless $sambaContact->exists();

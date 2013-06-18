@@ -313,13 +313,13 @@ sub _migrateTo32
     # We removed the zentyal-group object, we refresh the objects in the old schema location:
     my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
 
-    my %args = (
+    %args = (
         base => 'cn=schema,cn=config',
         filter => "(objectClass=olcSchemaConfig)",
         scope => 'sub',
     );
 
-    my $result = $ldap->search(\%args);
+    $result = $ldap->search(\%args);
 
     for my $entry ($result->entries) {
         if($entry->get_value('cn') =~ m/rfc2307bis/) {
@@ -961,7 +961,7 @@ sub users
         my $user = new EBox::Users::User(entry => $entry);
 
         # Include system users?
-        next if (not $system and $user->isSystemGroup());
+        next if (not $system and $user->isSystem());
 
         push (@users, $user);
     }
@@ -1130,7 +1130,7 @@ sub groups
         my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
-        next if (not $system and $group->isSystemGroup());
+        next if (not $system and $group->isSystem());
 
         push (@groups, $group);
     }
@@ -1176,7 +1176,7 @@ sub securityGroups
         my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
-        next if (not $system and $group->isSystemGroup());
+        next if (not $system and $group->isSystem());
 
         push (@groups, $group);
     }
@@ -1267,7 +1267,7 @@ sub ouObjects
         }
 
         # Include system users and groups?
-        next if (not $system and $object->system());
+        next if (not $system and $object->isSystem());
 
         push (@objects, $object);
     }

@@ -229,16 +229,16 @@ sub _groups
 
     my @filteredGroups = ();
     for my $group (@groups) {
-        push (@filteredGroups, $group) if (not $group->isSystemGroup());
+        push (@filteredGroups, $group) if (not $group->isSystem());
     }
     return \@filteredGroups;
 }
 
-# Method: system
+# Method: isSystem
 #
 #   Return 1 if this is a system user, 0 if not
 #
-sub system
+sub isSystem
 {
     my ($self) = @_;
 

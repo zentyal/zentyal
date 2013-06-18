@@ -47,7 +47,7 @@ sub create
 {
     my ($self, $name, $params) = @_;
 
-    $createdContact = $self->SUPER::create($name, $params);
+    my $createdContact = $self->SUPER::create($name, $params);
 
     my $anyObjectClass = any($createdContact->get('objectClass'));
     my @contactExtraObjectClasses = ('contact');
@@ -119,7 +119,7 @@ sub updateZentyal
 
     my $dn = 'cn=' . $name . ',' . $users->usersDn();
 
-    $zentyalContact = new EBox::Users::Contact(dn => $dn);
+    my $zentyalContact = new EBox::Users::Contact(dn => $dn);
     $zentyalContact->exists() or
         throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist");
 
