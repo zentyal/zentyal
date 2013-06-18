@@ -1,0 +1,29 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add Organizational Unit') %></h3>
+	<form action='/Users/AddDomain' method='POST'>
+	<table class='formTable'>
+		<tr>
+			<td  class='tright'>
+				<span class="ftitle">
+					<% __('Name') %>:
+				</span>
+			</td>
+			<td>
+				<input type='text' class='inputText' name='ou'>
+			</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='add'
+					   value="<% __('Add') %>"
+					   alt="<% __('Add') %>"/>
+
+			</td>
+		</tr>
+	</table>
+	</form>
