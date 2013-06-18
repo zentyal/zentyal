@@ -25,6 +25,21 @@ use EBox;
 
 use EBox::CaptivePortal::CGI::Login;
 
+sub urlToClass
+{
+    my ($url) = @_;
+
+    unless ($url) {
+        return 'EBox::CaptivePortal::CGI::Dashboard::Index';
+    }
+
+    my @parts = split('/', $url);
+    # filter '' and undef
+    @parts = grep { $_ } @parts;
+
+    return 'EBox::CaptivePortal::CGI::' . join('::', @parts);
+}
+
 # this is the same version of EBox::CGI::Run::run() but without redis transactions
 sub run
 {
@@ -32,6 +47,7 @@ sub run
 
     my $cgi;
     my $classname = urlToClass($url);
+    print STDERR "$url -> $classname \n";
     eval "use $classname";
     if ($@) {
         if (not $cgi) {
