@@ -32,6 +32,7 @@ use integer;
 
 use Error qw(:try);
 
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;
@@ -174,6 +175,28 @@ sub validateTypedRow
                 $targets{$target} = $params->{$target}->subtype();
             }
         }
+    } elsif ($filterType eq 'u32') {
+        my $ownId = $params->{id};
+        my $ifaceValue = $params->{iface}->value();
+
+        foreach my $id (@{$self->ids()}) {
+            next if (defined $ownId and ($id eq $ownId));
+
+            my $row = $self->row($id);
+            my $rowIface = $row->valueByName('iface');
+
+            if ($ifaceValue eq ALL_IFACES or $ifaceValue eq $rowIface) {
+                throw EBox::Exceptions::External(
+                    __x("There is already an existing 'priorization of small packets' rule for '{iface}'",
+                    iface => $rowIface)
+                );
+            }
+            if ($rowIface eq ALL_IFACES) {
+                throw EBox::Exceptions::External(
+                    __("There is already an existing 'priorization of small packets' for all interfaces")
+                );
+            }
+        }
     }
 
     # Check the memory structure works as well
@@ -241,6 +264,7 @@ sub _table
             printableName => __('Filter type'),
             populate => \&_populateFilterType,
             editable => 1,
+            help => __('Priorization of small control packages will affect small ACK, SYN, FIN and RST control packages'),
          ),
          new EBox::Types::Select(
                     fieldName => 'iface',
@@ -573,7 +597,7 @@ sub _populateFilterType
     });
     push (@filters, {
         value => 'u32',
-        printableValue => __('Prioritize small control packets (ACK, SYN, FIN, RST)'),
+        printableValue => __('Prioritize small control packets'),
     });
 
     return \@filters;
