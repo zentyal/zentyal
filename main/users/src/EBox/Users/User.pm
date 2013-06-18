@@ -229,7 +229,7 @@ sub _groups
 
     my @filteredGroups = ();
     for my $group (@groups) {
-        push (@filteredGroups, $group) if ($group->system());
+        push (@filteredGroups, $group) if (not $group->isSystemGroup());
     }
     return \@filteredGroups;
 }

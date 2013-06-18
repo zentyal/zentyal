@@ -961,7 +961,7 @@ sub users
         my $user = new EBox::Users::User(entry => $entry);
 
         # Include system users?
-        next if (not $system and $user->system());
+        next if (not $system and $user->isSystemGroup());
 
         push (@users, $user);
     }
@@ -1109,7 +1109,7 @@ sub groups
         my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
-        next if (not $system and $group->system());
+        next if (not $system and $group->isSystemGroup());
 
         push (@groups, $group);
     }
@@ -1155,7 +1155,7 @@ sub securityGroups
         my $group = new EBox::Users::Group(entry => $entry);
 
         # Include system users?
-        next if (not $system and $group->system());
+        next if (not $system and $group->isSystemGroup());
 
         push (@groups, $group);
     }

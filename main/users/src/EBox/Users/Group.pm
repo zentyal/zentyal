@@ -170,7 +170,7 @@ sub users
     @members = map { new EBox::Users::User(dn => $_) } @members;
 
     unless ($system) {
-        @members = grep { not $_->system() } @members;
+        @members = grep { not $_->isSystemGroup() } @members;
     }
     # sort by uid
     @members = sort {
@@ -208,7 +208,7 @@ sub usersNotIn
         } $result->entries();
 
     unless ($system) {
-        @users = grep { not $_->system() } @users;
+        @users = grep { not $_->isSystemGroup() } @users;
     }
 
     @users = sort {
@@ -597,7 +597,11 @@ sub isSecurityGroup
     return any { /posixGroup/ } $ldap->objectClasses($self->dn());
 }
 
-sub system
+# Method: isSystemGroup
+#
+#   Whether the security group is a system group.
+#
+sub isSystemGroup
 {
     my ($self) = @_;
 
