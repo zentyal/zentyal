@@ -132,12 +132,7 @@ sub initialSetup
     }
 }
 
-sub usersModesAllowed
-{
-    my ($self) = @_;
-    my $users = $self->global()->modInstance('users');
-    return [$users->STANDALONE_MODE(), $users->EXTERNAL_AD_MODE];
-}
+
 
 # Method: enableActions
 #
@@ -146,11 +141,9 @@ sub usersModesAllowed
 sub enableActions
 {
     my ($self) = @_;
-    $self->checkUsersMode();
-
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
+    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
+        $self->_enableActionsInternalAuth();
+    }
 
     try {
         # FIXME: this should probably be moved to _setConf
@@ -168,6 +161,15 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+sub _enableActionsInternalAuth
+{
+    my ($self) = @_;
+    # Create the kerberos service principal in kerberos,
+    # export the keytab and set the permissions
+    $self->kerberosCreatePrincipals();
+
 }
 
 # Method: reprovisionLDAP
@@ -543,7 +545,7 @@ sub _configureAuthenticationMode
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $ad = $self->global('users')->ldap();
+        my $ad = $self->global()->modInstance('users')->ldap();
         $ad->initKeyTabs();
     }
 }
@@ -641,7 +643,7 @@ sub _writeSquidConf
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $externalAD = $self->glboal->modInstance('users')->ldap();
+        my $externalAD = $self->global()->modInstance('users')->ldap();
         my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = $externalAD->hostSamAccountName();
