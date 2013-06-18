@@ -1752,10 +1752,12 @@ sub authUser
     my ($self, $user, $password) = @_;
 
     my $authorized = 0;
+    my $userDn = $self->ldap()->userBindDN($user);
     my $ldapURL = $self->ldap()->url();
     my $ldap = EBox::Ldap::safeConnect($ldapURL);
+
     try {
-        EBox::Ldap::safeBind($ldap, $self->userDn($user), $password);
+        EBox::Ldap::safeBind($ldap, $userDn, $password);
         $authorized = 1; # auth ok
     } otherwise {
         $authorized = 0; # auth failed

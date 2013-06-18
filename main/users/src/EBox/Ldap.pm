@@ -816,6 +816,14 @@ sub url
     return LDAPI;
 }
 
+sub userBindDN
+{
+    my ($self, $user) = @_;
+    return "uid=$user," .
+           $self->dnComponent() . ',' .
+           $self->dn();
+}
+
 sub safeConnect
 {
     my ($ldapurl) = @_;

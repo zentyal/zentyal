@@ -97,6 +97,12 @@ sub url
     return $self->dcHostname();
 }
 
+sub userBindDN
+{
+    my ($self, $user) = @_;
+    return $self->_adUser($user);
+}
+
 sub hostSamAccountName
 {
     my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
