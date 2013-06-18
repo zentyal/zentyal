@@ -22,36 +22,58 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Users;
-use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
 {
-    my $class = shift;
-    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
-    bless($self, $class);
-    $self->{errorchain} = 'Users/Groups';
-    return $self;
+	my $class = shift;
+	my $self = $class->SUPER::new('template' => '/users/addgroup.mas', @_);
+	bless($self, $class);
+	return $self;
 }
 
-sub _process($)
+sub _process
 {
-    my $self = shift;
+	my $self = shift;
+	my $users = EBox::Global->modInstance('users');
 
-    my @args = ();
+	my @args = ();
 
-    $self->_requireParam('groupname', __('group name'));
+	$self->{params} = \@args;
 
-    my $groupname = $self->param('groupname');
-    my $comment = $self->unsafeParam('comment');
+    if ($self->param('add')) {
+        $self->_requireParam('groupname', __('group name'));
 
-    my $group = EBox::Users::Group->create($groupname, $comment);
+        my $groupname = $self->param('groupname');
+        my $comment = $self->unsafeParam('comment');
 
-    if ($self->param('addAndEdit')) {
-        $self->{redirect} = 'Users/Group?group=' . $group->dn();
-    } else {
-        $self->{redirect} = "Users/Groups";
+        my $group = EBox::Users::Group->create($groupname, $comment);
+
+        if ($self->param('addAndEdit')) {
+            $self->{redirect} = 'Users/EditGroup?dn=' . $group->dn();
+        } else {
+            $self->{redirect} = "Users/Tree/ManageUsers";
+        }
     }
+}
+
+sub _print
+{
+    my ($self) = @_;
+
+    $self->_printPopup();
+}
+
+sub _menu
+{
+}
+
+sub _top
+{
+}
+
+sub _footer
+{
 }
 
 1;

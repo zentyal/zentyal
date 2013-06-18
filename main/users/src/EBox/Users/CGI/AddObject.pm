@@ -38,7 +38,7 @@ sub _process
     my @args;
 
     $self->_requireParam('dn', 'dn');
-    my $ou = $self->unsafeParam('dn');
+    my $dn = $self->unsafeParam('dn');
 
     push (@args, dn => $dn);
 

@@ -8,11 +8,24 @@ use EBox::Gettext;
 <input type="radio" name="object_type" value="group"><% __('Group') %>
 <input type="radio" name="object_type" value="contact"><% __('Contact') %>
 
+<div id="addform"></div>
+
 <script>
 jQuery(function () {
+    var form = jQuery('#addform');
+    form.load('/Users/AddUser');
+
     jQuery('input[name=object_type]').click(function () {
         var selectedType = jQuery('input[name=object_type]:checked').val();
-        alert("SELECTED: " + selectedType);
+        switch (selectedType) {
+        case 'user':
+            form.load('/Users/AddUser');
+            break;
+        case 'group':
+            form.load('/Users/AddGroup');
+            break;
+        }
     });
 });
+
 </script>
