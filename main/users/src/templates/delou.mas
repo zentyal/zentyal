@@ -1,0 +1,28 @@
+<%args>
+	$group
+	$slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a OU in a slave.') %>
+</div>
+% } else {
+<h3><% __("Delete Organizational Unit") %></h3>
+<div class='note'>
+	<% __('This operation will cause the removal of the OU and all objects inside it, including users, groups, etc.') %>
+</div>
+
+<br />
+<form action='/Users/DeleteOU' method='POST'>
+		<input type="hidden" name="dn" value="<% $group->dn() %>">
+				<input class='inputButton' type='submit' name='delou'
+					   value="<% __('Delete group') %>"
+					   alt="<% __('Delete group') %>">
+			<td>
+		</tr>
+</form>
+% }

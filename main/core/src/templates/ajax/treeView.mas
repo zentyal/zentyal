@@ -73,7 +73,11 @@ jQuery(function () {
 % my @types;
 % foreach my $type (@{$model->nodeTypes()}) {
 %   my $name = $type->{name};
-%   push (@types, "\"$name\": { \"icon\": { \"image\": \"/data/images/treeview/$name.png\" } }");
+%   if ($type->{defaultIcon}) {
+%       push (@types, "$name: {}");
+%   } else {
+%       push (@types, "$name: { icon: { image: '/data/images/treeview/$name.png' } }");
+%   }
 % }
     types: { "types" : { <% join (',', @types) %> } },
 	plugins: [ "themes", "json_data", "ui", "types", "search" ],

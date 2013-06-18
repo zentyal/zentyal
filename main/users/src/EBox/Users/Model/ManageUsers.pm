@@ -70,7 +70,7 @@ sub _ous
     foreach my $ou (@{$self->parentModule()->ous()}) {
         my $dn = $ou->dn();
         my ($name) = $dn =~ /^ou=([^,]+),/;
-        push (@nodes, { id => $dn, printableName => $name });
+        push (@nodes, { id => $dn, printableName => $name, type => 'ou' });
     }
 
     return \@nodes;
@@ -124,6 +124,7 @@ sub nodeTypes
 {
     return [
         { name => 'domain', actions => { filter => 0, add => 1 } },
+        { name => 'ou', actions => { filter => 0, add => 1, delete => 1 }, defaultIcon => 1 },
         { name => 'user', printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
         { name => 'group', printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
         { name => 'computer', printableName => __('Computers'), actions => { filter => 1 } },
