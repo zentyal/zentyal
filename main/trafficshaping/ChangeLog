@@ -1,3 +1,5 @@
+HEAD
+	+ Added support to priorize ACK, SYN, FIN and RST small packages.
 3.1
 	+ Depend on zentyal-core 3.1
 3.0.1
