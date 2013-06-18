@@ -2,14 +2,10 @@
 -->
 <%args>
 	@groups => ();
-    $usersModel => undef
 </%args>
 <%init>
 use EBox::Gettext;
 use EBox::Global;
-if (not $usersModel) {
-    $usersModel = EBox::Global->modInstance('users')->model('Users');
-}
 </%init>
 <h3><% __('Add User') %></h3>
 	<form action='/Users/AddUser' method='POST' autocomplete='off'>

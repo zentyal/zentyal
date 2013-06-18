@@ -2,9 +2,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-use EBox::Global;
-my $groupsModel = EBox::Global->modInstance('users')->model('Groups');
-
 </%init>
 <h3><% __('Add Group') %></h3>
 	<form action='AddGroup' method='POST'>
