@@ -134,7 +134,7 @@ sub _populateGroups
 
         my @groups;
         push (@groups, { value => '__USERS__', printableValue => __('All users') });
-        foreach my $group (@{$userMod->groups()}) {
+        foreach my $group (@{$userMod->securityGroups()}) {
             my $groupDN = $group->dn();
             my $canonicalName = $group->canonicalName();
             push (@groups, { value => $groupDN, printableValue => $canonicalName });

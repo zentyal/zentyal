@@ -2756,7 +2756,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page, $modal, @extraParams) = @_;
 
-    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -2765,7 +2765,6 @@ sub changeRowJS
     if ($modal) {
         $tablename .= '_modal';
         $actionUrl =~ s/Controller/ModalController/;
-        $modalResize = 1;
     }
 
     my $force =0;
@@ -2779,7 +2778,6 @@ sub changeRowJS
                     $editId,
                     $page,
                     $force,
-                    $modalResize,
                     $extraParamsJS);
 }
 

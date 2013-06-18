@@ -1,5 +1,6 @@
 HEAD
 	+ Added support for multiou.
+	+ Updated to use the new security group concept.
 3.1.2
 	+ Use external squid log file to retrieve HTTP proxy requests
 	+ Added Auth and Cache Exceptions for non-transparent mode

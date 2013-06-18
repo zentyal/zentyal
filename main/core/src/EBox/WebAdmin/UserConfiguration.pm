@@ -35,7 +35,7 @@ sub user
 sub _fullKey
 {
     my ($user, $key) = @_;
-    my $fullKey =  "/state/webadmin_users/$user";
+    my $fullKey =  "user-conf/$user";
     $fullKey .= $key;
     $fullKey =~ s{//+}{/}g;
     return $fullKey;

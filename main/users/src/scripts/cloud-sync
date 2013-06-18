@@ -159,7 +159,7 @@ for my $rgroup (@{$rgroups}) {
         try {
             $lgroup = $users->group($rgroup->{name});
         } catch EBox::Exceptions::DataNotFound with {
-            EBox::info('Local group "' . $rgroup->{name} . '" does not exist, creating...');
+            EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
             $rgroup->{description} = ($rgroup->{description} or '');
             $lgroup->{gidNumber} = $rgroup->{gid};
             $lgroup = EBox::Users::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
@@ -192,8 +192,10 @@ for my $rgroup (@{$rgroups}) {
 
 for my $group (@{$lgroups}) {
     my $name = $group->name();
-    if (not $rgroupnames->{$name}) {
-        EBox::info("Local group $name not present in remote, removing...");
+    if (not $group->isSecurityGroup()) {
+        EBox::info("Local distribution group $name not synced...");
+    } elsif (not $rgroupnames->{$name}) {
+        EBox::info("Local security group $name not present in remote, removing...");
         $group->setIgnoredSlaves(IGNORE);
         $group->deleteObject();
     }

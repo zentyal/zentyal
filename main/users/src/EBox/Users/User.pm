@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,7 +22,7 @@ use warnings;
 
 package EBox::Users::User;
 
-use base 'EBox::Users::LdapObject';
+use base 'EBox::Users::InetOrgPerson';
 
 use EBox::Config;
 use EBox::Global;
@@ -51,10 +49,6 @@ use constant MAXUID         => 2**31;
 use constant HOMEPATH       => '/home';
 use constant QUOTA_PROGRAM  => EBox::Config::scripts('users') . 'user-quota';
 use constant QUOTA_LIMIT    => 2097151;
-use constant CORE_ATTRS     => ( 'cn', 'uid', 'sn', 'givenName',
-                                 'loginShell', 'uidNumber', 'gidNumber',
-                                 'homeDirectory', 'quota', 'userPassword',
-                                 'description', 'krb5Key');
 
 sub new
 {
@@ -62,10 +56,11 @@ sub new
     my %opts = @_;
     my $self = {};
 
+    my @coreAttrs = ('uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key');
+    $self = $class->SUPER::new(@_, coreAttrs => @coreAttrs);
+
     if (defined $opts{uid}) {
         $self->{uid} = $opts{uid};
-    } else {
-        $self = $class->SUPER::new(@_);
     }
 
     bless ($self, $class);
@@ -112,24 +107,6 @@ sub name
     return $self->get('uid');
 }
 
-sub fullname
-{
-    my ($self) = @_;
-    return $self->get('cn');
-}
-
-sub firstname
-{
-    my ($self) = @_;
-    return $self->get('givenName');
-}
-
-sub surname
-{
-    my ($self) = @_;
-    return $self->get('sn');
-}
-
 sub home
 {
     my ($self) = @_;
@@ -140,12 +117,6 @@ sub quota
 {
     my ($self) = @_;
     return $self->get('quota');
-}
-
-sub comment
-{
-    my ($self) = @_;
-    return $self->get('description');
 }
 
 sub internal
@@ -161,10 +132,6 @@ sub set
 {
     my ($self, $attr, $value) = @_;
 
-    # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
-        $self->{core_changed} = 1;
-    }
     if ($attr eq 'quota') {
         if ($self->_checkQuota($value)) {
             throw EBox::Exceptions::InvalidData('data' => __('user quota'),
@@ -179,20 +146,6 @@ sub set
 
     shift @_;
     $self->SUPER::set(@_);
-}
-
-# Catch some of the delete ops which need special actions
-sub delete
-{
-    my ($self, $attr, $value) = @_;
-
-    # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
-        $self->{core_changed} = 1;
-    }
-
-    shift @_;
-    $self->SUPER::delete(@_);
 }
 
 sub save
@@ -213,77 +166,18 @@ sub save
         $self->_ldap->changeUserPassword($self->dn(), $passwd);
     }
 
+    my $hasCoreChanges = $self->{core_changed};
+
     shift @_;
     $self->SUPER::save(@_);
 
     if ($changetype ne 'delete') {
-        if ($self->{core_changed} or defined $passwd) {
-            delete $self->{core_changed};
+        if ($hasCoreChanges or defined $passwd) {
 
             my $users = EBox::Global->modInstance('users');
             $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
         }
     }
-}
-
-# Method: setIgnoredModules
-#
-#   Set the modules that should not be notified of the changes
-#   made to this object
-#
-# Parameters:
-#
-#   mods - Array reference cotaining module names
-#
-sub setIgnoredModules
-{
-    my ($self, $mods) = @_;
-    $self->{ignoreMods} = $mods;
-}
-
-# Method: setIgnoredSlaves
-#
-#   Set the slaves that should not be notified of the changes
-#   made to this object
-#
-# Parameters:
-#
-#   mods - Array reference cotaining slave names
-#
-sub setIgnoredSlaves
-{
-    my ($self, $slaves) = @_;
-    $self->{ignoreSlaves} = $slaves;
-}
-
-# Method: addGroup
-#
-#   Add this user to the given group
-#
-# Parameters:
-#
-#   group - Group object
-#
-sub addGroup
-{
-    my ($self, $group) = @_;
-
-    $group->addMember($self);
-}
-
-# Method: removeGroup
-#
-#   Removes this user from the given group
-#
-# Parameters:
-#
-#   group - Group object
-#
-sub removeGroup
-{
-    my ($self, $group) = @_;
-
-    $group->removeMember($self);
 }
 
 # Method: groups
@@ -328,41 +222,16 @@ sub _groups
 {
     my ($self, $system, $invert) = @_;
 
-    my $filter;
-    my $dn = $self->dn();
-    if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
-    } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
+    shift @_;
+    my @groups = @{$self->SUPER::_groups($invert)};
+
+    return \@groups if ($system);
+
+    my @filteredGroups = ();
+    for my $group (@groups) {
+        push (@filteredGroups, $group) if (not $group->isSystemGroup());
     }
-
-    my %attrs = (
-        base => $self->_ldap->dn(),
-        filter => $filter,
-        scope => 'sub',
-    );
-
-    my $result = $self->_ldap->search(\%attrs);
-
-    my @groups;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->entries())
-        {
-            if (not $system) {
-                next if ($entry->get_value('gidNumber') < EBox::Users::Group->MINGID);
-            }
-            push (@groups, new EBox::Users::Group(entry => $entry));
-        }
-        # sort grups by name
-        @groups = sort {
-            my $aValue = $a->name();
-            my $bValue = $b->name();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
-        } @groups;
-    }
-    return \@groups;
+    return \@filteredGroups;
 }
 
 # Method: system
@@ -461,17 +330,9 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    # remove this user from all its grups
-    foreach my $group (@{$self->groups()}) {
-        $self->removeGroup($group);
-    }
-
     # Notify users deletion to modules
     my $users = EBox::Global->modInstance('users');
     $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
-
-    # Mark as changed to process save
-    $self->{core_changed} = 1;
 
     # Call super implementation
     shift @_;
@@ -503,22 +364,24 @@ sub passwordHashes
 #   user - hash ref containing:
 #       user - user name
 #       password
-#       fullname (optional)
+#       fullname
 #       givenname
+#       initials
 #       surname
+#       displayname
 #       comment
-#       ou (optional) # TODO param conflict, wrong doc
-#   system - boolean: if true it adds the user as system user, otherwise as
-#                     normal user
+#       ou (multiple_ous enabled only)
+#   system - boolean: if true it adds the user as system user, otherwise as normal user
 #   params hash (all optional):
-#      uidNumber    - user UID number
-#      ou           - organizational unit
-#      ignoreMods   - modules that should not be notified about the user creation
-#      ignoreSlaves - slaves that should not be notified about the user creation
+#       uidNumber    - user UID number
+#       ou           - organizational unit
+#       internal     - Whether this use is internal or not.
+#       ignoreMods   - modules that should not be notified about the user creation
+#       ignoreSlaves - slaves that should not be notified about the user creation
 #
 # Returns:
 #
-#   Returns the new create user object
+#   Returns the new created user object
 #
 sub create
 {
@@ -542,7 +405,12 @@ sub create
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        $max_users = $rs->maxUsers();
+        if ($users->master() eq 'cloud') {
+            $max_users = $rs->maxCloudUsers();
+        }
+        else {
+            $max_users = $rs->maxUsers();
+        }
     }
 
     if ($max_users) {
@@ -575,7 +443,7 @@ sub create
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $user->{'user'});
     }
-    # Verify than a group with the same name does not exists
+    # Verify that a group with the same name does not exists
     if ($users->groupExists($user->{user})) {
         throw EBox::Exceptions::External(
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
@@ -611,60 +479,49 @@ sub create
 
     my $defaultGroupDN = $users->groupDn(EBox::Users->DEFAULTGROUP);
     my $group = new EBox::Users::Group(dn => $defaultGroupDN);
-    my $gid = $group->get('gidNumber');
-
-    # If fullname is not specified we build it with
-    # givenname and surname
-    unless (defined $user->{'fullname'}) {
-        $user->{'fullname'} = '';
-        if ($user->{'givenname'}) {
-            $user->{'fullname'} = $user->{'givenname'} . ' ';
-        }
-        $user->{'fullname'} .= $user->{'surname'};
+    if (not $group->isSecurityGroup()) {
+        throw EBox::Exceptions::InvalidData(
+            'data' => __('default group'),
+            'value' => $group->name(),
+            'advice' => __('Default group must be a security group.'),
+        );
     }
+    my $gid = $group->get('gidNumber');
 
     my $realm = $users->kerberosRealm();
     my $quota = $self->defaultQuota();
-    my @attr = (
-        'cn'            => $user->{fullname},
-        'uid'           => $user->{user},
-        'sn'            => $user->{surname},
-        'givenName'     => $user->{givenname},
-        'loginShell'    => $self->_loginShell(),
-        'uidNumber'     => $uid,
-        'gidNumber'     => $gid,
-        'homeDirectory' => $homedir,
-        'quota'         => $quota,
-        'objectclass'   => [
-            'inetOrgPerson',
-            'posixAccount',
-            'passwordHolder',
-            'systemQuotas',
-            'krb5Principal',
-            'krb5KDCEntry'
-        ],
-        'krb5PrincipalName'    => $user->{user} . '@' . $realm,
-        'krb5KeyVersionNumber' => 0,
-        'krb5MaxLife'          => 86400,  # TODO
-        'krb5MaxRenew'         => 604800, # TODO
-        'krb5KDCFlags'         => 126,    # TODO
-    );
-
-    push (@attr, 'description' => $user->{comment}) if ($user->{comment});
-
-    if ($params{internal}) {
-        push (@attr, 'title' => 'internal') if ($params{internal});
-    }
 
     my $res = undef;
     my $entry = undef;
     try {
+        $user->{dn} = $dn;
+        shift @_;
+        $entry = $self->SUPER::create($user, %params);
+
+        my $anyObjectClass = any($entry->get('objectClass'));
+        my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
+        foreach my $extraObjectClass (@userExtraObjectClasses) {
+            if ($extraObjectClass ne $anyObjectClass) {
+                $entry->add('objectClass', $extraObjectClass, 1);
+            }
+        }
+        $entry->set('uid', $user->{user}, 1);
+        $entry->set('loginShell', $self->_loginShell(), 1);
+        $entry->set('uidNumber', $uid, 1);
+        $entry->set('gidNumber', $gid, 1);
+        $entry->set('homeDirectory', $homedir, 1);
+        $entry->set('quota', $quota, 1);
+        $entry->set('krb5PrincipalName', $user->{user} . '@' . $realm, 1);
+        $entry->set('krb5KeyVersionNumber', 0, 1);
+        $entry->set('krb5MaxLife', 86400, 1); # TODO
+        $entry->set('krb5MaxRenew', 604800, 1); # TODO
+        $entry->set('krb5KDCFlags', 126, 1); # TODO
+        $entry->set('title', 'internal', 1) if ($params{internal});
+
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
-        $entry = new Net::LDAP::Entry($dn, @attr);
         unless ($system) {
-            $users->notifyModsPreLdapUserBase('preAddUser', $entry,
-                $params{ignoreMods}, $params{ignoreSlaves});
+            $users->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
         }
 
         my $result = $entry->update($self->_ldap->{ldap});
@@ -676,7 +533,7 @@ sub create
                     opArgs => $self->entryOpChangesInUpdate($entry),
                    );
             };
-    }
+        }
 
         $res = new EBox::Users::User(dn => $dn);
 

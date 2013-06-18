@@ -1,4 +1,6 @@
 HEAD
+	+ Updated zarafa-contact LDAP schema so we don't require uidNumber.
+	+ Use EntryUUID field as unique ID for users, contacts and groups.
 	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1
 	+ Removed 3.0.X migration code

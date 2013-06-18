@@ -16,52 +16,42 @@
 use strict;
 use warnings;
 
-package EBox::LdapUserImplementation;
+package EBox::Users::CGI::AddUserToGroup;
 
-use base qw(EBox::LdapUserBase);
+use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
+use EBox::Users::Group;
 use EBox::Gettext;
 
-sub _create {
+sub new
+{
     my $class = shift;
-    my $self = {};
+    my $self = $class->SUPER::new('title' => 'Users and Groups',
+                      @_);
     bless($self, $class);
     return $self;
 }
 
-sub _delGroupWarning {
-    my ($self, $group) = @_;
+sub _process
+{
+    my $self = shift;
+    my @args = ();
 
-    if (@{$group->members()}) {
-        return (__('This group contains members'));
+    $self->_requireParam('group' , __('group'));
+    my $group = $self->unsafeParam('group');
+    $self->{errorchain} = "Users/Group";
+    $self->keepParam('group');
+
+    $self->_requireParam('adduser', __('user'));
+    my @users = $self->unsafeParam('adduser');
+
+    $group = new EBox::Users::Group(dn => $group);
+    foreach my $us (@users){
+        $group->addMember(new EBox::Users::User(dn => $us));
     }
 
-    return undef;
-}
-
-sub schemas
-{
-    return [
-        EBox::Config::share() . '/zentyal-users/passwords.ldif',
-        EBox::Config::share() . '/zentyal-users/quota.ldif',
-    ];
-}
-
-sub acls
-{
-    my $users = EBox::Global->modInstance('users');
-    return [ "to attrs=userPassword by dn=\"" . $users->ldap()->rootDn() .
-             "\" write by self write " .
-             "by * none" ];
-}
-
-sub indexes
-{
-    return [
-                 'uid', 'uidNumber', 'memberUid', 'cn', 'ou',
-                 'gidNumber', 'uniqueMember', 'krb5PrincipalName',
-           ];
+    $self->{redirect} = 'Users/Group?group=' . $group->dn();
 }
 
 1;
