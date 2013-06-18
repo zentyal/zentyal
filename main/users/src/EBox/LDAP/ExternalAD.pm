@@ -421,12 +421,13 @@ sub initKeyTabs
 
         my @servicesPrincipals = @{ $self->externalServicesPrincipals };
         foreach my $servPrincipal (@servicesPrincipals) {
-            my $keytab     = $servPrincipal->{keytab};
-            my $keytabUser = $servPrincipal->{keytabUser};
-            my $service    = $servPrincipal->{service};
+            my $keytab      = $servPrincipal->{keytab};
+            my $keytabFound = EBox::Sudo::fileTest('-r', $keytab);
+            my $keytabUser  = $servPrincipal->{keytabUser};
+            my $service     = $servPrincipal->{service};
             my $keytabTempPath = EBox::Config::tmp() . "$service.keytab";
-            if ($hostFound) {
-                EBox::Sudo::root("cp '$keytab' '$keytabTempPath'");
+            if ($hostFound and $keytabFound) {
+                EBox::Sudo::root("cp '$keytab' '$keytabTempPath'") ;
                 EBox::Sudo::root("chown ebox '$keytabTempPath'");
                 EBox::Sudo::root("chmod 660 '$keytabTempPath'" );
 

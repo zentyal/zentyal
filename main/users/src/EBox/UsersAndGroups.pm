@@ -555,6 +555,13 @@ sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
     $self->_setupForMode();
+
+    # Setup kerberos config file
+    my $realm = $self->kerberosRealm();
+    my @array = ();
+    push (@array, 'realm' => $realm);
+    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
+
     # XXX
     if ($self->mode() eq EXTERNAL_AD_MODE) {
         # XXX setup refresh keytab cron?
@@ -575,7 +582,6 @@ sub _setConf
 
     my $dn = $ldap->dn;
     my $nsspw = $ldap->getRoPassword();
-    my @array = ();
     push (@array, 'ldap' => EBox::Ldap::LDAPI);
     push (@array, 'basedc'    => $dn);
     push (@array, 'binddn'    => $ldap->roRootDn());
@@ -620,11 +626,7 @@ sub _setConf
     # commit slaves removal
     EBox::UsersAndGroups::Slave->commitRemovals($self->global());
 
-    # Get the FQDN
-    my $realm = $self->kerberosRealm();
-    @array = ();
-    push (@array, 'realm' => $realm);
-    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
+
 
     my $ldapBase = $self->ldap->dn();
     @array = ();
