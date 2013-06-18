@@ -210,21 +210,13 @@ sub dn
 {
     my ($self) = @_;
 
-    unless (defined ($self->{dn})) {
-        my $params = {
-            base => '',
-            scope => 'base',
-            filter => 'cn=*',
-            attrs => ['defaultNamingContext'],
-        };
-        my $msg = $self->search($params);
-        if ($msg->count() == 1) {
-            my $entry = $msg->entry(0);
-            $self->{dn} = $entry->get_value('defaultNamingContext');
-        }
+    unless (defined $self->{dn}) {
+        my $dse = $self->rootDse();
+
+        $self->{dn} = $dse->get_value('defaultNamingContext');
     }
 
-    return defined ($self->{dn}) ? $self->{dn} : '';
+    return defined $self->{dn} ? $self->{dn} : '';
 }
 
 # Method: clearConn
@@ -495,7 +487,7 @@ sub ldapContactsToLdb
         try {
             my $params = {
                 givenName   => scalar ($user->get('givenName')),
-                initialse   => scalar ($user->get('initials')),
+                initials    => scalar ($user->get('initials')),
                 sn          => scalar ($user->get('sn')),
                 displayName => scalar ($user->get('displayName')),
                 description => scalar ($user->get('description')),

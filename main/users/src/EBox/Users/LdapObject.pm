@@ -285,17 +285,8 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my $dse = $self->_ldap->ldapCon()->root_dse();
-
-    # get naming Contexts
-    my @contexts = $dse->get_value('namingContexts');
-
-    # FIXME: LDAP tree may have multiple naming Contexts (forest), we don't support it right now, we always pick the
-    # first one we get.
-    if ($#contexts >= 1) {
-        EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
-    }
-    return $contexts[0];
+    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
+    return $basedn;
 }
 
 # Method: _entry
