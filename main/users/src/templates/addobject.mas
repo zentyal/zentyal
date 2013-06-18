@@ -1,0 +1,18 @@
+<%args>
+    $dn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<input type="radio" name="object_type" value="user" checked><% __('User') %>
+<input type="radio" name="object_type" value="group"><% __('Group') %>
+<input type="radio" name="object_type" value="contact"><% __('Contact') %>
+
+<script>
+jQuery(function () {
+    jQuery('input[name=object_type]').click(function () {
+        var selectedType = jQuery('input[name=object_type]:checked').val();
+        alert("SELECTED: " + selectedType);
+    });
+});
+</script>
