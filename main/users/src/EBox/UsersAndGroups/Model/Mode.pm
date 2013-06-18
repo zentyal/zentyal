@@ -131,6 +131,7 @@ sub _table
         EBox::Types::DomainName->new(
             fieldName => 'dcHostname',
             printableName => __('Active Directory hostname'),
+            help =>  __('Both the Active Directory hostname and the own Zentyal server hostname should be DNS resolvable'),
             editable => 1,
             optional => 1,
         ),

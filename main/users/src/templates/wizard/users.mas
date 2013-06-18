@@ -38,7 +38,7 @@ $hostDomain
             <% __('Select the domain name of the server') %>
         </h4>
         <div>
-            <% __('This will used as the Kerberos authentication realm for your users.') %>
+            <% __('This will be used as the Kerberos authentication realm for your users.') %>
         </div>
         <div style="margin: 20px auto; width: 40%; text-align: left">
             <div>
@@ -55,6 +55,7 @@ $hostDomain
             <% __('Enter your active directory settings') %>
         </h4>
         <div>
+            <% __('Both the Active Directory hostname and the own Zentyal server hostname should be DNS resolvable') %><br/>
             <% __('The administrative user has to have enough permissions to create a computer account in the domain') %>
         </div>
         <table style="margin: 20px auto; width: 40%; text-align: left"><tbody>
