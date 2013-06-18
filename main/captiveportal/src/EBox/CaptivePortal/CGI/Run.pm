@@ -47,14 +47,12 @@ sub run
 
     my $cgi;
     my $classname = urlToClass($url);
-    
+
     eval "use $classname";
     if ($@) {
-        if (not $cgi) {
-            my $log = EBox::logger;
-            $log->error("Unable to import cgi: $classname Eval error: $@");
-            $cgi = EBox::CaptivePortal::CGI::Login->new();
-        }
+        my $log = EBox::logger;
+        $log->error("Unable to import cgi: $classname Eval error: $@");
+        $cgi = EBox::CaptivePortal::CGI::Login->new();
     } else {
         $cgi = new $classname();
     }
