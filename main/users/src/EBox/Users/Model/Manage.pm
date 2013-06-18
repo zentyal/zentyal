@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Users::Model::ManageUsers;
+package EBox::Users::Model::Manage;
 
 use base 'EBox::Model::TreeView';
 
@@ -28,7 +28,7 @@ sub _tree
     my ($self) = @_;
 
     return {
-        treeName => 'ManageUsers',
+        treeName => 'Manage',
         modelDomain => 'Users',
         pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],

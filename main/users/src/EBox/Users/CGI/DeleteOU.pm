@@ -55,7 +55,7 @@ sub _process
     my $delou;
 
     if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('delouforce')) {
         $delou = 1;
     } elsif ($self->unsafeParam('delou')) {
@@ -66,7 +66,7 @@ sub _process
     if ($delou) {
         my $ou = new EBox::Users::Group(dn => $dn);
         $ou->deleteObject();
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     }
 
     $self->{params} = \@args;

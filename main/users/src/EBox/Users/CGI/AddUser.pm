@@ -79,7 +79,7 @@ sub _process
         if ($self->param('addAndEdit')) {
             $self->{redirect} = "Users/EditUser?dn=" . $newUser->dn();
         } else {
-            $self->{redirect} = "Users/Tree/ManageUsers";
+            $self->{redirect} = "Users/Tree/Manage";
         }
     }
 }

@@ -45,10 +45,10 @@ isa_ok EBox::CGI::Run::_instanceModelCGI('SysInfo/View/Halt'), 'EBox::CGI::View:
 
 my $users = EBox::Global->modInstance('users');
 my $manager = EBox::Model::Manager->instance();
-ok $manager->_modelExists('users/ManageUsers'), 'tree model exists';
-isa_ok $users->model('ManageUsers'), 'EBox::Users::Model::ManageUsers', 'tree model has correct type';
-isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/ManageUsers'), 'EBox::Users::Model::ManageUsers', 'instance tree from url';
-isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/ManageUsers'), 'EBox::CGI::View::Tree', 'instance tree viewer';
+ok $manager->_modelExists('users/Manage'), 'tree model exists';
+isa_ok $users->model('Manage'), 'EBox::Users::Model::Manage', 'tree model has correct type';
+isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/Manage'), 'EBox::Users::Model::Manage', 'instance tree from url';
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/Manage'), 'EBox::CGI::View::Tree', 'instance tree viewer';
 
 isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Controller/Users'), 'EBox::CGI::Controller::DataTable', 'instance datatable controller';
 

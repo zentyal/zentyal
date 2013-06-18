@@ -1422,7 +1422,7 @@ sub menu
                                         'order' => $order);
 
     if ($self->configured()) {
-        $folder->add(new EBox::Menu::Item('url' => 'Users/Tree/ManageUsers',
+        $folder->add(new EBox::Menu::Item('url' => 'Users/Tree/Manage',
                                           'text' => __('Manage'), order => 10));
         if ($self->editableMode()) {
             $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',

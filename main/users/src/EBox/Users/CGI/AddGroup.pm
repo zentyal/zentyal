@@ -52,7 +52,7 @@ sub _process
         if ($self->param('addAndEdit')) {
             $self->{redirect} = 'Users/EditGroup?dn=' . $group->dn();
         } else {
-            $self->{redirect} = "Users/Tree/ManageUsers";
+            $self->{redirect} = "Users/Tree/Manage";
         }
     }
 }

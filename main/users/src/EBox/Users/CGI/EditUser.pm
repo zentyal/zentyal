@@ -106,7 +106,7 @@ sub _process
 
         $user->save();
 
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('addgrouptouser')) {
         $self->_requireParam('addgroup', __('group'));
         my @groups = $self->unsafeParam('addgroup');

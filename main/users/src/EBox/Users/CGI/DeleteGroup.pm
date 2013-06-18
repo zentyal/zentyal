@@ -55,7 +55,7 @@ sub _process
     my $delgroup;
 
     if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('delgroupforce')) {
         $delgroup = 1;
     } elsif ($self->unsafeParam('delgroup')) {
@@ -67,7 +67,7 @@ sub _process
         my $group = new EBox::Users::Group(dn => $dn);
         $group->deleteObject();
         $self->{msg} = __('Group removed successfully');
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     }
 
     $self->{params} = \@args;

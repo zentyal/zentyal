@@ -5,7 +5,7 @@ enabledepends:
     - ntp
 
 models:
-    - ManageUsers
+    - Manage
     - Mode
     - Password
     - LdapInfo

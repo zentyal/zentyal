@@ -54,7 +54,7 @@ sub _process
     my $deluser;
 
     if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('deluserforce')) {
         $deluser = 1;
     } elsif ($self->unsafeParam('deluser')) {
@@ -66,7 +66,7 @@ sub _process
         my $user = new EBox::Users::User(dn => $dn);
         $user->deleteObject();
         $self->{msg} = __('User removed successfully');
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     }
 
     $self->{params} = \@args;

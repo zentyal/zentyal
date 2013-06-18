@@ -49,7 +49,7 @@ sub _process
 
         EBox::Users::OU->create("ou=$ou,$baseDn");
 
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     }
 }
 

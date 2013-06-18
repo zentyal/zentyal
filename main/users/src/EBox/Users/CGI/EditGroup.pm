@@ -69,7 +69,7 @@ sub _process
             $group->delete('description');
         }
 
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('addusertogroup')) {
         $self->_requireParam('adduser', __('user'));
         my @users = $self->unsafeParam('adduser');
