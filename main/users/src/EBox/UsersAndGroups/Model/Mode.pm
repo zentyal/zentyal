@@ -85,6 +85,21 @@ sub _validateExternalADMode
         }
     }
 
+    my $hostname =  $params->{dcHostname}->value();
+    my $dcDomain;
+    $dcDomain = $hostname;
+    $dcDomain =~ s/^(.*?)\.//;
+    my $hostDomain = $self->global()->modInstance('sysinfo')->hostDomain();
+    if ($hostDomain ne $dcDomain) {
+        throw EBox::Exceptions::External(
+           __x('Invalid DC hostname {dc}; it must be in the same domain that the Zentyal server. Current Zentyal server domain is {dom}',
+               dc => $hostname,
+               dom => $hostDomain,
+              )
+        );
+    }
+
+
     my $user = $params->{dcUser}->value();
     if ($user =~ m/@/) {
         throw EBox::Exceptions::External(
