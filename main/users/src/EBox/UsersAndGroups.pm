@@ -818,7 +818,8 @@ sub userDn
     my ($self, $user) = @_;
     $user or throw EBox::Exceptions::MissingArgument('user');
 
-    my $dn = "uid=$user," .  $self->usersDn;
+    my $attr = $self->{userClass}->dnLeftmostAttribute();
+    my $dn = "$attr=$user," .  $self->usersDn;
     return $dn;
 }
 

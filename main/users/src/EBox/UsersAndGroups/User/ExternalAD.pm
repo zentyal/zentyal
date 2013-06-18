@@ -65,6 +65,11 @@ sub dnComponent
     return 'cn=Users';
 }
 
+sub dnLeftmostAttribute
+{
+    return 'cn';
+}
+
 sub groupClass
 {
     return 'EBox::UsersAndGroups::Group::ExternalAD';

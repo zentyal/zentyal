@@ -87,6 +87,11 @@ sub dnComponent
     return 'ou=Users';
 }
 
+sub dnLeftmostAttribute
+{
+    return 'uid';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
