@@ -133,7 +133,7 @@ sub _shareSize
 {
     my ($path) = @_;
     if ( EBox::Sudo::fileTest('-d', $path) ) {
-        my $du = EBox::Sudo::root("du -sb $path");
+        my $du = EBox::Sudo::root("du -sb '$path'");
         my @du_split = split(/\t/, $du->[0]);
         return int( $du_split[0] );
     } else {
