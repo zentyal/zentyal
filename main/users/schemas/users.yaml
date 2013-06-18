@@ -7,13 +7,10 @@ enabledepends:
 models:
     - ManageUsers
     - Mode
-    - Users
-    - Groups
     - Password
     - LdapInfo
     - PAM
     - AccountSettings
-    - OUs
     - Slaves
     - Master
     - SlavePassword

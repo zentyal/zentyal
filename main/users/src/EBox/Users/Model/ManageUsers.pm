@@ -139,4 +139,34 @@ sub doubleClickHandlerJS
     $self->actionHandlerJS('edit', $type, $id);
 }
 
+# Method: precondition
+#
+# Check if the module is configured
+#
+# Overrides:
+#
+# <EBox::Model::Base::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    return $self->parentModule()->configured();
+}
+
+# Method: preconditionFailMsg
+#
+# Check if the module is configured
+#
+# Overrides:
+#
+# <EBox::Model::Model::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('You must enable the module Users in the module status section in order to use it.');
+}
+
 1;
