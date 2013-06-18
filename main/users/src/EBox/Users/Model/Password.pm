@@ -165,7 +165,7 @@ sub setTypedRow
     my $pass = $auth->{pass};
 
     # Check we can instance the zentyal user
-    my $zentyalUser = new EBox::UsersAndGroups::User(uid => $user);
+    my $zentyalUser = new EBox::Users::User(uid => $user);
     unless ($zentyalUser->exists()) {
         throw EBox::Exceptions::External(__x('User {x} not found in LDAP database'),
             x => $user);

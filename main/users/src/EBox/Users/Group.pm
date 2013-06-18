@@ -111,45 +111,45 @@ sub removeAllMembers
 
 # Method: addMember
 #
-#   Adds the given user as a member
+#   Adds the given person as a member
 #
 # Parameters:
 #
-#   user - User object
+#   person - inetOrgPerson object
 #
 sub addMember
 {
-    my ($self, $user, $lazy) = @_;
+    my ($self, $person, $lazy) = @_;
     try {
-        $self->add('member', $user->dn(), $lazy);
+        $self->add('member', $person->dn(), $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to add already existent member $user to group " . $self->name());
+        EBox::debug("Tried to add already existent member $person to group " . $self->name());
     };
 }
 
 # Method: removeMember
 #
-#   Removes the given user as a member
+#   Removes the given person as a member
 #
 # Parameters:
 #
-#   user - User object
+#   person - inetOrgPerson object
 #
 sub removeMember
 {
-    my ($self, $user, $lazy) = @_;
+    my ($self, $person, $lazy) = @_;
     try {
-        $self->deleteValues('member', [$user->dn()], $lazy);
+        $self->deleteValues('member', [$person->dn()], $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
+        EBox::debug("Tried to remove inexistent member $person to group " . $self->name());
     };
 }
 
@@ -169,7 +169,7 @@ sub users
     @members = map { new EBox::Users::User(dn => $_) } @members;
 
     unless ($system) {
-        @members = grep { not $_->system() } @members;
+        @members = grep { not $_->isSystem() } @members;
     }
     # sort by uid
     @members = sort {
@@ -207,7 +207,7 @@ sub usersNotIn
         } $result->entries();
 
     unless ($system) {
-        @users = grep { not $_->system() } @users;
+        @users = grep { not $_->isSystem() } @users;
     }
 
     @users = sort {
@@ -220,13 +220,117 @@ sub usersNotIn
     return \@users;
 }
 
+# Method: contacts
+#
+#   Return the list of contacts for this group
+#
+# Returns:
+#
+#   arrary ref of contacts (EBox::Users::Contact)
+#
+sub contacts
+{
+    my ($self) = @_;
+
+    my %attrs = (
+        base => $self->_ldap->dn(),
+        filter => "(&(!(objectclass=posixAccount))(memberof=$self->{dn}))",
+        scope => 'sub',
+    );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @contacts = map {
+        EBox::Users::Contact->new(entry => $_)
+    } $result->entries();
+
+    # sort by fullname
+    @contacts = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @contacts;
+
+    return \@contacts;
+}
+
+# Method: contactsNotIn
+#
+#   Contacts that don't belong to this group
+#
+#   Returns:
+#
+#       array ref of EBox::Users::Contact objects
+#
+sub contactsNotIn
+{
+    my ($self) = @_;
+
+    my %attrs = (
+            base => $self->_ldap->dn(),
+            filter => "(&(&(!(objectclass=posixAccount))(!(memberof=$self->{dn}))(objectclass=inetorgPerson)))",
+            scope => 'sub',
+            );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @contacts = map {
+        EBox::Users::Contact->new(entry => $_)
+    } $result->entries();
+
+    @contacts = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @contacts;
+
+    return \@contacts;
+}
+
+# Method: members
+#
+#   Return the list of members for this group
+#
+# Returns:
+#
+#   arrary ref of members (EBox::Users::InetOrgPerson)
+#
+sub members
+{
+    my ($self) = @_;
+
+    my %attrs = (
+        base => $self->_ldap->dn(),
+        filter => "(memberof=$self->{dn})",
+        scope => 'sub',
+    );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @members = map {
+        EBox::Users::InetOrgPerson->new(entry => $_)
+    } $result->entries();
+
+    # sort by fullname
+    @members = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @members;
+
+    return \@members;
+}
+
 # Catch some of the set ops which need special actions
 sub set
 {
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -239,7 +343,7 @@ sub add
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -252,7 +356,7 @@ sub delete
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -265,7 +369,7 @@ sub deleteValues
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -275,7 +379,7 @@ sub deleteValues
 
 # Method: deleteObject
 #
-#   Delete the user
+#   Delete the group
 #
 sub deleteObject
 {
@@ -350,12 +454,18 @@ sub setIgnoredSlaves
 #   comment - comment's group
 #   system - boolan: if true it adds the group as system group,
 #   otherwise as normal group
+#   security - boolean: if true it creates a security group, otherwise creates a distribution group. Default is true.
 #   ignoreMods - ldap modules to be ignored on addUser notify
 #   ignoreSlaves - slaves to be ignored on addUser notify
 #
 sub create
 {
     my ($self, $group, $comment, $system, %params) = @_;
+
+    if (!$params{security} && $system) {
+        throw EBox::Exceptions::External(
+            __('A group cannot be a distribution group and a system group at the same time.'));
+    }
 
     my $users = EBox::Global->modInstance('users');
     my $dn = $users->groupDn($group);
@@ -384,7 +494,7 @@ sub create
             'data' => __('group'),
             'value' => $group);
     }
-    # Verify than a user with the same name does not exists
+    # Verify that a user with the same name does not exists
     if ($users->userExists($group)) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
@@ -392,16 +502,17 @@ sub create
            );
     }
 
-    my $gid = exists $params{gidNumber} ?
-                     $params{gidNumber} :
-                     $self->_gidForNewGroup($system);
-    $self->_checkGid($gid, $system);
-
     my @attr = (
         'cn'          => $group,
-        'gidNumber'   => $gid,
-        'objectclass' => ['posixGroup', 'zentyalGroup'],
+        'objectclass' => ['zentyalDistributionGroup'],
     );
+
+    if ($params{security}) {
+        my $gid = exists $params{gidNumber} ? $params{gidNumber}: $self->_gidForNewGroup($system);
+        $self->_checkGid($gid, $system);
+        push (@attr, objectclass => 'posixGroup');
+        push (@attr, gidNumber => $gid);
+   }
     push (@attr, 'description' => $comment) if ($comment);
 
     my $res = undef;
@@ -472,11 +583,33 @@ sub _checkGroupName
     return 1;
 }
 
-sub system
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+sub isSecurityGroup
 {
     my ($self) = @_;
 
-    return ($self->get('gidNumber') < MINGID);
+    my $ldap = EBox::Global->modInstance('users')->ldap();
+
+    return ('posixGroup' eq any($ldap->objectClasses($self->dn())));
+}
+
+# Method: isSystem
+#
+#   Whether the security group is a system group.
+#
+sub isSystem
+{
+    my ($self) = @_;
+
+    if ($self->isSecurityGroup()) {
+        return ($self->get('gidNumber') < MINGID);
+    } else {
+        # System groups are only valid with security groups.
+        return undef;
+    }
 }
 
 sub _gidForNewGroup
@@ -516,7 +649,7 @@ sub lastGid
 
     my $lastGid = -1;
     my $users = EBox::Global->modInstance('users');
-    foreach my $group (@{$users->groups($system)}) {
+    foreach my $group (@{$users->securityGroups($system)}) {
         my $gid = $group->get('gidNumber');
         if ($system) {
             last if ($gid >= MINGID);

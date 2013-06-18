@@ -53,15 +53,19 @@ while (1) {
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
     my $sambaUserList = $sambaModule->ldb->users();
+    my $sambaContactList = $sambaModule->ldb->contacts();
     my $sambaGroupList = $sambaModule->ldb->groups();
     write_file($sambaTimestampFile, getTimestamp());
 
     my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$sambaUserList};
+    my %sambaContacts = map { $_->get('name') => $_ } @{$sambaContactList};
     my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$sambaGroupList};
 
     my $zentyalUserList = $usersModule->users();
+    my $zentyalContactList = $usersModule->contacts();
     my $zentyalGroupList = $usersModule->groups();
     my %zentyalUsers = map { $_->get('uid') => $_ } @{$zentyalUserList};
+    my %zentyalContacts = map { $_->get('cn') => $_ } @{$zentyalContactList};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$zentyalGroupList};
 
     #################################################
@@ -99,7 +103,38 @@ while (1) {
         $zentyalUsers{$zentyalUserName}->deleteObject();
     }
 
+    #################################################
+    #### Sync contacts
+    #################################################
+    # Add contacts that exists in samba but not in Zentyal
+    foreach my $sambaContactName (sort keys %sambaContacts) {
+        if (exists $zentyalContacts{$sambaContactName}) {
+            my $changed = $sambaContacts{$sambaContactName}->get('whenChanged');
+            $changed =~ s/\.\d+Z//;
+            if ($changed > $sambaTimestamp) {
+                try {
+                    $sambaContacts{$sambaContactName}->updateZentyal();
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating contact $sambaContactName: $error. s4sync will try again in next synchronization");
+                };
+            }
+            delete $zentyalContacts{$sambaContactName};
+        } else {
+            try {
+                $sambaContacts{$sambaContactName}->addToZentyal();
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding contact $sambaContactName: $error. s4sync will try again in next synchronization");
+            };
+        }
+    }
 
+    foreach my $zentyalContactName (sort keys %zentyalContacts) {
+        EBox::debug("Deleting Zentyal contact '$zentyalContactName'");
+        $zentyalContacts{$zentyalContactName}->setIgnoredModules(['samba']);
+        $zentyalContacts{$zentyalContactName}->deleteObject();
+    }
 
     #################################################
     #### Sync groups

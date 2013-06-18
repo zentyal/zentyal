@@ -210,21 +210,13 @@ sub dn
 {
     my ($self) = @_;
 
-    unless (defined ($self->{dn})) {
-        my $params = {
-            base => '',
-            scope => 'base',
-            filter => 'cn=*',
-            attrs => ['defaultNamingContext'],
-        };
-        my $msg = $self->search($params);
-        if ($msg->count() == 1) {
-            my $entry = $msg->entry(0);
-            $self->{dn} = $entry->get_value('defaultNamingContext');
-        }
+    unless (defined $self->{dn}) {
+        my $dse = $self->rootDse();
+
+        $self->{dn} = $dse->get_value('defaultNamingContext');
     }
 
-    return defined ($self->{dn}) ? $self->{dn} : '';
+    return defined $self->{dn} ? $self->{dn} : '';
 }
 
 # Method: clearConn
@@ -480,6 +472,37 @@ sub ldapUsersToLdb
     }
 }
 
+sub ldapContactsToLdb
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal contacts into samba database');
+    my $usersModule = EBox::Global->modInstance('users');
+    my $contacts = $usersModule->contacts();
+    foreach my $contact (@{$contacts}) {
+        my $dn = $contact->dn();
+        my $fullName = $contact->get('cn');
+        my $name = $contact->get('cn');
+        EBox::debug("Loading contact $dn");
+        try {
+            my $params = {
+                givenName   => scalar ($contact->get('givenName')),
+                initials    => scalar ($contact->get('initials')),
+                sn          => scalar ($contact->get('sn')),
+                displayName => scalar ($contact->get('displayName')),
+                description => scalar ($contact->get('description')),
+            };
+            EBox::Samba::Contact->create($name, $params);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Contact $dn already in Samba database");
+            my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading contact '$dn': $error");
+        };
+    }
+}
+
 sub ldapGroupsToLdb
 {
     my ($self) = @_;
@@ -493,11 +516,14 @@ sub ldapGroupsToLdb
         my $sambaGroup = undef;
         try {
             my $samAccountName = $group->get('cn');
-            my $params = {
-                gidNumber => scalar ($group->get('gidNumber')),
-                description => scalar ($group->get('description')),
+            my %params = ();
+
+            push (%params, description => scalar ($group->get('description')));
+            if ($group->isSecurityGroup()) {
+                push (%params, gidNumber => scalar ($group->get('gidNumber')));
+                push (%params, security => 1);
             };
-            $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
+            $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Group $dn already in Samba database");
         } otherwise {
@@ -598,6 +624,27 @@ sub users
         next if $skip;
 
         push (@{$list}, $user);
+    }
+    return $list;
+}
+
+sub contacts
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(&(objectclass=contact)(!(objectclass=computer)))' .
+                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('name')) {
+        my $contact = new EBox::Samba::Contact(entry => $entry);
+
+        push (@{$list}, $contact);
     }
     return $list;
 }

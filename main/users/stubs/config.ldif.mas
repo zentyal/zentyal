@@ -30,6 +30,7 @@ include: file:///etc/ldap/schema/cosine.ldif
 include: file:///usr/share/zentyal-users/rfc2307bis.ldif
 include: file:///etc/ldap/schema/inetorgperson.ldif
 include: file:///usr/share/zentyal-users/heimdal.ldif
+include: file:///usr/share/zentyal-users/zentyal.ldif
 
 # Set defaults for the backend
 dn: olcBackend=hdb,cn=config
@@ -96,7 +97,7 @@ objectClass: top
 olcOverlay: memberof
 olcMemberOfDangling: ignore
 olcMemberOfRefInt: TRUE
-olcMemberOfGroupOC: zentyalGroup
+olcMemberOfGroupOC: zentyalDistributionGroup
 olcMemberOfMemberAD: member
 olcMemberOfMemberOfAD: memberOf
 

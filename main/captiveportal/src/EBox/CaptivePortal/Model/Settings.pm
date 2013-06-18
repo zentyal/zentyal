@@ -106,7 +106,7 @@ sub populateGroups
             {
                value            => $_->name(),
                printableValue   => $_->name(),
-            }, @{$userMod->groups()}
+            }, @{$userMod->securityGroups()}
          )
     );
     return \@groups;
