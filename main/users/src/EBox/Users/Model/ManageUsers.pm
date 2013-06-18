@@ -123,8 +123,8 @@ sub _ouObjects
 sub nodeTypes
 {
     return {
-        domain => { actions => { filter => 0, add => 1 } },
-        ou => { actions => { filter => 0, add => 1, delete => 1 }, defaultIcon => 1 },
+        domain => { actions => { filter => 0, add => 1 }, actionObjects => { add => 'OU' } },
+        ou => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU' }, defaultIcon => 1 },
         user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
         group => { printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },

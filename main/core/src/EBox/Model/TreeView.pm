@@ -401,7 +401,8 @@ sub keywords
 #    Can be overrided in TreeView models but by default shows a modal dialog
 #    with a CGI with "ActionType" as name, for example, if the action is
 #    'edit' and the type is 'user', from the Users module, the CGI URL
-#    will be /Users/EditUser
+#    will be /Users/EditUser, this can be modified in the actionObjects
+#    attribute in nodeTypes()
 #
 # Parameters:
 #
@@ -417,7 +418,16 @@ sub actionHandlerJS
 {
     my ($self, $action, $type, $id) = @_;
 
-    my $url = '/' . $self->modelDomain() . '/' . ucfirst($action) . ucfirst($type);
+    my $actionCGI = ucfirst($action);
+
+    my $actionObject = $self->nodeTypes()->{$type}->{actionObjects}->{$action};
+    if ($actionObject) {
+        $actionCGI .= $actionObject;
+    } else {
+        $actionCGI .= ucfirst($type);
+    }
+
+    my $url = '/' . $self->modelDomain() . "/$actionCGI";
     my $title = $self->defaultActionLabels()->{$action};
     my $param = $self->idParam();
 
