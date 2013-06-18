@@ -47,7 +47,7 @@ sub run
 
     my $cgi;
     my $classname = urlToClass($url);
-    print STDERR "$url -> $classname \n";
+    
     eval "use $classname";
     if ($@) {
         if (not $cgi) {
