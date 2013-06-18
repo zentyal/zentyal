@@ -106,6 +106,7 @@ sub _setConf
     my $sldap = $self->model('SecondaryLDAP');
     my $users = EBox::Global->modInstance('users');
 
+
     # Apache conf file
     EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
         "captiveportal/captiveportal-apache2.conf.mas",
@@ -116,8 +117,9 @@ sub _setConf
 
     # Ldap connection (for auth) config file
     my @params;
-    push (@params, ldap_url => EBox::Ldap::LDAPI);
-    push (@params, ldap_bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn);
+    my $ldap = $users->ldap();
+    push (@params, ldap_url => $ldap->url());
+    push (@params, ldap_bindstring => $ldap->userBindDN('{USERNAME}'));
 
     my $group = $settings->groupValue();
 
