@@ -100,7 +100,8 @@ sub url
 sub userBindDN
 {
     my ($self, $user) = @_;
-    return $self->_adUser($user);
+    my $adRealm = $self->_adRealm();
+    return $user . '@' . $adRealm;
 }
 
 sub hostSamAccountName
