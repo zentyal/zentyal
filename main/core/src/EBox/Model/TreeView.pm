@@ -147,7 +147,7 @@ sub childNodes
 #
 # Returns:
 #
-#    list ref of hashes with name and printableName attributes
+#    hash ref indexed by type name and hash ref with attributes as value
 #
 sub nodeTypes
 {

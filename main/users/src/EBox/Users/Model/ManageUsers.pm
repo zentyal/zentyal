@@ -122,14 +122,14 @@ sub _ouObjects
 
 sub nodeTypes
 {
-    return [
-        { name => 'domain', actions => { filter => 0, add => 1 } },
-        { name => 'ou', actions => { filter => 0, add => 1, delete => 1 }, defaultIcon => 1 },
-        { name => 'user', printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
-        { name => 'group', printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
-        { name => 'computer', printableName => __('Computers'), actions => { filter => 1 } },
-        { name => 'contact', printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
-    ];
+    return {
+        domain => { actions => { filter => 0, add => 1 } },
+        ou => { actions => { filter => 0, add => 1, delete => 1 }, defaultIcon => 1 },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
+        group => { printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
+        computer => { printableName => __('Computers'), actions => { filter => 1 } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
+    };
 }
 
 sub doubleClickHandlerJS

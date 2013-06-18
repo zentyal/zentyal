@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 24;
+use Test::More tests => 23;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -51,7 +51,6 @@ isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/ManageUsers'), 'EBox::Users::Mod
 isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/ManageUsers'), 'EBox::CGI::View::Tree', 'instance tree viewer';
 
 isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Controller/Users'), 'EBox::CGI::Controller::DataTable', 'instance datatable controller';
-isa_ok EBox::CGI::Run::_instanceModelCGI('Users/TreeController/ManageUsers'), 'EBox::CGI::Controller::TreeView', 'instance treeview controller';
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';

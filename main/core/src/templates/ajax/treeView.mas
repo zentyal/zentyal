@@ -2,8 +2,7 @@
   $model
 </%args>
 <%init>
-  use JSON::XS;
-  my %typesHash = map { $_->{name} => 1 } @{$model->nodeTypes()};
+  my %types = %{$model->nodeTypes()};
   my $treeId = "tree_" . $model->name();
 </%init>
 
@@ -45,10 +44,9 @@
   <span id="filterId"></span>
 
 <span class="treeviewCheckboxes">
-% foreach my $type (@{$model->nodeTypes()}) {
-%   my $name = $type->{name};
-%   next unless $type->{actions}->{filter};
-%   my $printableName = $type->{printableName};
+% foreach my $name (keys %types) {
+%   next unless $types{$name}->{actions}->{filter};
+%   my $printableName = $types{$name}->{printableName};
 <input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
 % }
 </span>
@@ -71,9 +69,8 @@ jQuery(function () {
 		"data" : <% $model->jsonData() %>
 	},
 % my @types;
-% foreach my $type (@{$model->nodeTypes()}) {
-%   my $name = $type->{name};
-%   if ($type->{defaultIcon}) {
+% foreach my $name (keys %types) {
+%   if ($types{$name}->{defaultIcon}) {
 %       push (@types, "$name: {}");
 %   } else {
 %       push (@types, "$name: { icon: { image: '/data/images/treeview/$name.png' } }");
@@ -111,39 +108,26 @@ jQuery(function () {
         var selectedNode = treeComponent.jstree('get_selected');
         var selectedNodeId = selectedNode.attr('id');
         var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
-        if (nodeType in <% encode_json(\%typesHash) %>) {
 
 % foreach my $action (@{$model->defaultActions()}) {
-            if (actionId == '<% $action %>') {
-% foreach my $type (@{$model->nodeTypes()}) {
-%   my $type = $type->{name};
-                if (nodeType == '<% $type %>') {
-                    <% $model->actionHandlerJS($action, $type, 'selectedNodeId') %>
-                }
-% }
+        if (actionId == '<% $action %>') {
+% foreach my $type (keys %types) {
+            if (nodeType == '<% $type %>') {
+                <% $model->actionHandlerJS($action, $type, 'selectedNodeId') %>
             }
 % }
-
-/*
-            jQuery.ajax({ url: '/<% $model->modelDomain() %>/TreeController/<% $model->name() %>',
-                          type: 'POST',
-                          data: 'action=' + actionId + '&type=' + nodeType + '&id=' + selectedNodeId,
-                          success: function(t) {
-                              alert("SUCCESS!!");
-                          }
-            });
-*/
         }
+% }
     });
   });
 
   treeComponent.bind('select_node.jstree', function (e, data) {
       var type = data.rslt.obj.attr('rel');
 
-% foreach my $type (@{$model->nodeTypes()}) {
-      if (type == '<% $type->{name} %>') {
+% foreach my $name (keys %types) {
+      if (type == '<% $name %>') {
 % foreach my $action (@{$model->defaultActions()}) {
-% if ($type->{actions}->{$action}) {
+% if ($types{$name}->{actions}->{$action}) {
             jQuery('#<% $action %>').removeAttr('disabled');
 % } else {
             jQuery('#<% $action %>').attr('disabled', 'disabled');
@@ -157,16 +141,14 @@ jQuery(function () {
       var node = jQuery(e.target).closest('li');
       var nodeType = node.attr('rel');
       var nodeId = node.attr('id');
-      // FIXME: refactor this to avoid duplicated code?
-      if (nodeType in <% encode_json(\%typesHash) %>) {
-% foreach my $type (@{$model->nodeTypes()}) {
-% if ($type->{actions}->{edit}) {
-          if (nodeType == '<% $type->{name} %>') {
-              <% $model->doubleClickHandlerJS($type->{name}, 'nodeId') %>
-          }
-% }
-% }
+
+% foreach my $type (keys %types) {
+%   if ($types{$type}->{actions}->{edit}) {
+      if (nodeType == '<% $type %>') {
+          <% $model->doubleClickHandlerJS($type, 'nodeId') %>
       }
+%   }
+% }
   });
 
 });
