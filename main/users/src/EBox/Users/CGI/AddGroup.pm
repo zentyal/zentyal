@@ -49,11 +49,7 @@ sub _process
 
         my $group = EBox::Users::Group->create($groupname, $comment);
 
-        if ($self->param('addAndEdit')) {
-            $self->{redirect} = 'Users/EditGroup?dn=' . $group->dn();
-        } else {
-            $self->{redirect} = "Users/Tree/Manage";
-        }
+        $self->{redirect} = "Users/Tree/Manage";
     }
 }
 

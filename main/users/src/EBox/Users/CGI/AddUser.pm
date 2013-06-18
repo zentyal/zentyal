@@ -76,11 +76,7 @@ sub _process
             $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
         }
 
-        if ($self->param('addAndEdit')) {
-            $self->{redirect} = "Users/EditUser?dn=" . $newUser->dn();
-        } else {
-            $self->{redirect} = "Users/Tree/Manage";
-        }
+        $self->{redirect} = "Users/Tree/Manage";
     }
 }
 
