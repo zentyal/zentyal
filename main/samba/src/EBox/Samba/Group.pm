@@ -147,36 +147,6 @@ sub members
     return $members;
 }
 
-# Method: usersNotIn
-#
-#   Users that don't belong to this group
-#
-#   Returns:
-#
-#       array ref of EBox::Users::Group objects
-#
-sub usersNotIn
-{
-    my ($self, $system) = @_;
-
-    my $dn = $self->dn();
-    my %attrs = (
-            base => $self->_ldap->dn(),
-            filter => "(&(objectclass=posixAccount)(!(memberof=$dn)))",
-            scope => 'sub',
-            );
-
-    my $result = $self->_ldap->search(\%attrs);
-
-    my @users;
-    if ($result->count > 0) {
-        foreach my $entry ($result->sorted('uid')) {
-            push (@users, new EBox::Samba::User(entry => $entry));
-        }
-    }
-    return \@users;
-}
-
 sub setupGidMapping
 {
     my ($self, $gidNumber) = @_;
