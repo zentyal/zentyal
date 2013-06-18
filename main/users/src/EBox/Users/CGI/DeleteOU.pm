@@ -49,7 +49,7 @@ sub _process
 
     my $editable = $users->editableMode();
 
-    push(@args, 'ou' => $ou);
+    push(@args, 'dn' => $dn);
     push(@args, 'slave' => not $editable);
 
     my $delou;
