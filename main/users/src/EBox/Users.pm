@@ -1243,8 +1243,8 @@ sub ouObjects
 
     my %args = (
         base => $ou,
-        # TODO: include other objects: contacts, computers, ...
-        filter => '(|(objectclass=posixAccount)(objectclass=zentyalGroup))',
+        # TODO: include other objects: computers, ...
+        filter => '(|(objectclass=inetOrgPerson)(objectclass=zentyalDistributionGroup))',
         scope => 'sub',
     );
 
