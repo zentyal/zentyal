@@ -11,6 +11,8 @@ use EBox::Exceptions::Internal;
 
 use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
 
+my $singleton;
+
 # Method: new
 #
 #   Instance a new helper, getting the ticket for the specified principal.
@@ -27,6 +29,10 @@ use Authen::Krb5::Easy qw(kinit kinit_pwd klist kdestroy kerror);
 sub new
 {
     my ($class, %params) = @_;
+
+    if (defined $singleton) {
+        return $singleton;
+    }
 
     my $principal = undef;
     my $realm = undef;
@@ -83,7 +89,8 @@ sub new
 
     my ($targetPrincipal, $targetRealm) = split(/@/, $principal);
     if (length $targetRealm and $targetRealm ne $realm) {
-        my $error = "The specified principal realm ($targetRealm) does not match specified realm ($realm)";
+        my $error = "The specified principal realm ($targetRealm) does not " .
+            "match specified realm ($realm)";
         throw EBox::Exceptions::MissingArgument($error);
     }
 
@@ -91,20 +98,22 @@ sub new
     my $ccache = EBox::Config::tmp() . 'samba.ccache';
     $ENV{KRB5CCNAME} = $ccache;
 
-    my $self = {};
-    $self->{principal} = $targetPrincipal;
-    $self->{realm} = $realm;
-    $self->{password} = $params{password};
-    $self->{keytab} = EBox::Config::conf() . 'samba.keytab';
-    bless ($self, $class);
+    $singleton = {};
+    $singleton->{principal} = $targetPrincipal;
+    $singleton->{realm} = $realm;
+    $singleton->{password} = $params{password};
+    $singleton->{keytab} = EBox::Config::conf() . 'samba.keytab';
+    bless ($singleton, $class);
 
-    if ($self->{password}) {
-        $self->_getTicketUsingPassword($self->{principal}, $self->{realm}, $self->{password});
+    if ($singleton->{password}) {
+        $singleton->_getTicketUsingPassword($singleton->{principal},
+            $singleton->{realm}, $singleton->{password});
     } else {
-        $self->_getTicketUsingKeytab($self->{principal}, $self->{realm}, $self->{keytab});
+        $singleton->_getTicketUsingKeytab($singleton->{principal},
+            $singleton->{realm}, $singleton->{keytab});
     }
 
-    return $self;
+    return $singleton;
 }
 
 sub destroy
@@ -209,7 +218,8 @@ sub _extractKeytab
     my $ownerGroup = EBox::Config::group();
 
     my @cmds;
-    push (@cmds, "samba-tool domain exportkeytab '$keytab' --principal='$principal\@$realm'");
+    push (@cmds, "samba-tool domain exportkeytab '$keytab' " .
+                 "--principal='$principal\@$realm'");
     push (@cmds, "chown '$ownerUser:$ownerGroup' '$keytab'");
     push (@cmds, "chmod 400 '$keytab'");
     EBox::Sudo::root(@cmds);
@@ -253,6 +263,19 @@ sub principal
     my ($self) = @_;
 
     return $self->{principal};
+}
+
+# Method: DESTROY
+#
+#   This is the class destructor, which destroy the ticket cache when the
+#   last reference to the class is destroyed
+#
+sub DESTROY
+{
+    my ($self) = @_;
+
+    $self->destroy();
+    $singleton = undef;
 }
 
 1;
