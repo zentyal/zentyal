@@ -220,9 +220,18 @@ sub _validateDN
 
 sub modePrintableName
 {
-    my ($self) = @_;
-    my $modeEl = $self->row()->elementByName('mode');
-    return $modeEl->printableValue();
+    my ($self, $modeValue) = @_;
+    if (not $modeValue) {
+        $modeValue = $self->row()->valueByName('mode');
+    }
+    foreach my $option (@{ _modeOptions() }) {
+        if ($option->{value} eq $modeValue) {
+            return $option->{printableValue};
+        }
+    }
+
+    # nothing found, return mode vlaue
+    return $modeValue;
 }
 
 sub _modeOptions

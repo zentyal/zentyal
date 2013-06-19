@@ -72,21 +72,37 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate users
 sub mainObjectClass
 {
     return 'posixAccount';
 }
 
+# Method: groupClass
+#
+#  Returns:
+#     perl class used for groups which can contain users of this class
 sub groupClass
 {
     return 'EBox::UsersAndGroups::Group';
 }
 
+# Method: dnComponent
+#
+# Returns:
+#    DN which prepended to DN base will give the container for users
 sub dnComponent
 {
     return 'ou=Users';
 }
 
+# Method: dnLeftmostAttribute
+#
+#  Returns:
+#   Type of the attribute for a particula user DN leftmost component
 sub dnLeftmostAttribute
 {
     return 'uid';

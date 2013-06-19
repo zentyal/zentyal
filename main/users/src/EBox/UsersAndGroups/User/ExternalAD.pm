@@ -55,36 +55,61 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Overrides:
+#    EBox::UsersAndGroups::User::mainObjectClass
 sub mainObjectClass
 {
     return 'user';
 }
 
+# Method: dnComponent
+#
+#  Overrides:
+#    EBox::UsersAndGroups::User::dnComponent
 sub dnComponent
 {
     return 'cn=Users';
 }
 
-sub dnLeftmostAttribute
-{
-    return 'cn';
-}
-
+# Method: groupClass
+#
+#  Overrides:
+#    EBox::UsersAndGroups::User::groupClass
 sub groupClass
 {
     return 'EBox::UsersAndGroups::Group::ExternalAD';
 }
 
+# Method: dnLeftmostAttribute
+#
+#  Overrides:
+#    EBox::UsersAndGroups::User::dnLeftmostattribute
+sub dnLeftmostAttribute
+{
+    return 'cn';
+}
+
 # Method: name
 #
-#   Return user name
+#   This uses the sAMAccountName attribute as user name
 #
+#  Overrides:
+#   EBox::UsersAndGroups::User::name
 sub name
 {
     my ($self) = @_;
     return $self->get('samaccountname');
 }
 
+# Method: fullname
+#
+#   This uses the displayName attribute as user full name. If not available it
+#   fall backs to the name attribute
+#
+#  Overrides:
+#   EBox::UsersAndGroups::User::fullname
 sub fullname
 {
     my ($self) = @_;
@@ -95,35 +120,23 @@ sub fullname
     return $fullname;
 }
 
+# Method: quota
+#
+#   No quota suport for external AD users, so we return empty string
+#
+#  Overrides:
+#   EBox::UsersAndGroups::User::quota
 sub quota
 {
     my ($self) = @_;
-    # XXX look for equivalent
     return '';
-    return $self->get('quota');
 }
-
-sub comment
-{
-    my ($self) = @_;
-    return $self->get('description');
-}
-
-# ?>>
-sub internal
-{
-    my ($self) = @_;
-
-    my $title = $self->get('title');
-    return (defined ($title) and ($title eq 'internal'));
-}
-
 
 sub system
 {
     my ($self) = @_;
 
-    # XXX look gor more attributes
+    # XXX look for more attributes ?
     return $self->get('isCriticalSystemObject');
 }
 
