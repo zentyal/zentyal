@@ -72,6 +72,10 @@ sub instance
     return $_instance;
 }
 
+# Method: dcHostname
+#
+#  Returns:
+#    domain controller hostname
 sub dcHostname
 {
     my ($self) = @_;
@@ -91,12 +95,20 @@ sub _dcLDAPConnection
     return $ldap;
 }
 
+# Method: url
+#
+#  Overrides:
+#     EBox::Ldap::url
 sub url
 {
     my ($self) = @_;
     return $self->dcHostname();
 }
 
+# Method: userBindDN
+#
+#  Overrides:
+#     EBox::Ldap::userBindDN
 sub userBindDN
 {
     my ($self, $user) = @_;
@@ -104,18 +116,30 @@ sub userBindDN
     return $user . '@' . $adRealm;
 }
 
+# Method: hostSamAccountName
+#
+# Returns:
+#   sAMAccountName value for this server
 sub hostSamAccountName
 {
     my $sysinfo = EBox::Global->modInstance('sysinfo'); # XXX RO or RW?
     return uc($sysinfo->hostName()) . '$';
 }
 
+# Method: connectWithKerberos
+#
+#   authorizes a principal to AD's kerberos
+#
+#   Parameters:
+#      keytab - key tab used for authentication
+#
+#  Returns:
+#     Net::LDAP connection object
 sub connectWithKerberos
 {
     my ($self, $keytab) = @_;
     my $hostSamAccountName = $self->hostSamAccountName();
 
-    EBox::info("Connecting to AD LDAP");
     my $dc = $self->dcHostname();
 
     my $ccache = EBox::Config::tmp() . $keytab . '.ccache';
@@ -156,18 +180,23 @@ sub connectWithKerberos
     return $ldap;
 }
 
-
+# Method: getPassword
+#
+# Returns:
+#   password of the configured AD administrative user
 sub getPassword
 {
     my ($self) = @_;
     return $self->{password};
 }
 
-# Method: _setAuthenticationModeAD
+# Method: _ldapCon
 #
-#   Perform all necessary checks and operations to let squid authenticate users
-#   against domain controller
+#   sets a LDAP conenction to the external AD. The connection will be used from
+#   now by this object
 #
+# Returns:
+#   - Net::LDAP connection object
 sub ldapCon
 {
     my ($self) = @_;
@@ -297,9 +326,6 @@ sub ldapCon
     }
 
     # Bind to the AD LDAP
-#    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
-    # XXX
-
     my $ad = $self->_dcLDAPConnection();
     my $adUser = $self->_adUser();
     my $bindPwd = $self->getPassword();
@@ -310,21 +336,6 @@ sub ldapCon
                 "Please check the supplied credentials.",
                 x => $dc, y => $bindResult->error_desc()));
     }
-
-    # Retrieve samAccountName for bind DN and build principal name to get
-    # a kerberos ticket
-    # my $result = $ad->search(
-    #     base => $defaultNC,
-    #     scope => 'sub',
-    #     filter => "(distinguishedName=$bindDN)",
-    #     attrs => ['samAccountName']);
-    # if ($result->count() != 1) {
-    #     throw EBox::Exceptions::External(
-    #         __x("Could not retrieve samAccountName attribute for DN '{x}'",
-    #             x => $bindDN));
-    # }
-    # my $entry = $result->entry(0);
-    # my $adUser = $entry->get_value('samAccountName') . '@' . $adRealm;
     $self->{ldap} = $ad;
     return $ad;
 }
@@ -391,6 +402,9 @@ sub _adUser
     return $user . '@' . $adRealm;
 }
 
+# Method: initKeyTabs
+#
+#  initializes keytabs for AD/Kerberos services
 sub initKeyTabs
 {
     my ($self) = @_;
@@ -407,10 +421,10 @@ sub initKeyTabs
     my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
 
 
-    # Extract keytab for squid
+    # Extract keytab for servces
     try {
         # Remove old credentials cache
-        my $ccache = EBox::Config::tmp() . 'squid-ad-setup.ccache';
+        my $ccache = EBox::Config::tmp() . 'kerberos-ad-setup.ccache';
         $ENV{KRB5CCNAME} = $ccache;
         unlink $ccache if (-f $ccache);
 
@@ -543,21 +557,20 @@ sub _adCheckClockSkew
 }
 
 
-
-
+# Method: externalServicesPrincipals
+#
+# Returns:
+#  reference a list of principals of services which can connect to AD/Kerberos
 sub externalServicesPrincipals
 {
     my ($self) = @_;
-    # XXX implemnt, returning squid for now
+    # XXX implement, returning squid for now
     my @servicesPrincipals;
     my $squid = EBox::Global->modInstance('squid');
     push @servicesPrincipals, $squid->kerberosServicePrincipals();
     return \@servicesPrincipals;
 
 }
-
-
-#  XXXX new fluff starts here
 
 sub anonymousLdapCon
 {
@@ -569,6 +582,10 @@ sub getRoPassword
     throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
+# Method: dn
+#
+#  Returns:
+#    base DN of the external AD
 sub dn
 {
     my ($self) = @_;
@@ -595,6 +612,10 @@ sub roRootDn {
     throw EBox::Exceptions::UnwillingToPerform(reason => 'This action is not available in external AD mode');
 }
 
+# Method: ldapConf
+#
+#  Returns:
+#    has wiht infromation about the LDAP conf for human consumption
 sub ldapConf
 {
     my ($self) = @_;
