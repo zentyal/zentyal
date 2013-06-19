@@ -518,12 +518,12 @@ sub ldapGroupsToLdb
         my $sambaGroup = undef;
         try {
             my $samAccountName = $group->get('cn');
-            my %params = ();
-
-            push (%params, description => scalar ($group->get('description')));
+            my %params = (
+                description => scalar ($group->get('description'))
+            );
             if ($group->isSecurityGroup()) {
-                push (%params, gidNumber => scalar ($group->get('gidNumber')));
-                push (%params, security => 1);
+                $params{gidNumber} = scalar ($group->get('gidNumber'));
+                $params{security} = 1;
             };
             $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
         } catch EBox::Exceptions::DataExists with {
