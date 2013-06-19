@@ -306,10 +306,12 @@ sub create
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
 
-    $createdUser->set('sAMAccountName', $samAccountName);
-    $createdUser->set('userPrincipalName', "$samAccountName\@$realm");
-    $createdUser->set('userAccountControl', '514');
-    $createdUser->set('uidNumber', $params->{uidNumber}) if defined $params->{uidNumber};
+    $createdUser->set('sAMAccountName', $samAccountName, 1);
+    $createdUser->set('userPrincipalName', "$samAccountName\@$realm", 1);
+    $createdUser->set('userAccountControl', '514', 1);
+    $createdUser->set('uidNumber', $params->{uidNumber}, 1) if defined $params->{uidNumber};
+
+    $createdUser->save();
 
     # Setup the uid mapping
     $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};

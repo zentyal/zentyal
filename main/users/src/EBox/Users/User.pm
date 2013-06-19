@@ -56,8 +56,10 @@ sub new
     my %opts = @_;
     my $self = {};
 
-    my @coreAttrs = ('uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key');
-    $self = $class->SUPER::new(@_, coreAttrs => @coreAttrs);
+    my $coreAttrs = ['uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key'];
+    $opts{idField} = 'uid';
+    $opts{coreAttrs} = $coreAttrs;
+    $self = $class->SUPER::new(%opts);
 
     if (defined $opts{uid}) {
         $self->{uid} = $opts{uid};
