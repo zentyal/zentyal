@@ -556,7 +556,6 @@ sub _adCheckClockSkew
     }
 }
 
-
 # Method: externalServicesPrincipals
 #
 # Returns:
@@ -567,9 +566,10 @@ sub externalServicesPrincipals
     # XXX implement, returning squid for now
     my @servicesPrincipals;
     my $squid = EBox::Global->modInstance('squid');
-    push @servicesPrincipals, $squid->kerberosServicePrincipals();
+    if ($squid->isEnabled()) {
+        push @servicesPrincipals, $squid->kerberosServicePrincipals();
+    }
     return \@servicesPrincipals;
-
 }
 
 sub anonymousLdapCon
