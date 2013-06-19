@@ -1,4 +1,5 @@
 HEAD
+	+ Redirect to / from /ebox using remote access to avoid blank page
 	+ Make manage administrators table resilent against invalid users
 3.0.21
 	+ Added EBox::Types::URI type
