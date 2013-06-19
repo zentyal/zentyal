@@ -109,7 +109,9 @@ sub kerberosServicePrincipals
     my $data = { service    => 'http',
                  principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy' };
+                 keytabUser => 'proxy',
+                 module => $self->name()
+                };
     return $data;
 }
 
