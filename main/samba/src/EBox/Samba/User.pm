@@ -292,24 +292,28 @@ sub create
         $self->_checkPwdLength($clearPassword);
     }
 
-    my $createdUser = $self->SUPER::create($samAccountName, $params);
+    my $organizationalPerson = $self->SUPER::create($samAccountName, $params);
 
-    my $anyObjectClass = any($createdUser->get('objectClass'));
+    my $anyObjectClass = any($organizationalPerson->get('objectClass'));
     my @userExtraObjectClasses = ('user', 'posixAccount');
 
     foreach my $extraObjectClass (@userExtraObjectClasses) {
         if ($extraObjectClass ne $anyObjectClass) {
-            $createdUser->add('objectClass', $extraObjectClass, 1);
+            $organizationalPerson->add('objectClass', $extraObjectClass, 1);
         }
     }
+
+    my $createdUser = new EBox::Samba::User(dn => $organizationalPerson->dn());
 
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
 
-    $createdUser->set('sAMAccountName', $samAccountName);
-    $createdUser->set('userPrincipalName', "$samAccountName\@$realm");
-    $createdUser->set('userAccountControl', '514');
-    $createdUser->set('uidNumber', $params->{uidNumber}) if defined $params->{uidNumber};
+    $createdUser->set('sAMAccountName', $samAccountName, 1);
+    $createdUser->set('userPrincipalName', "$samAccountName\@$realm", 1);
+    $createdUser->set('userAccountControl', '514', 1);
+    $createdUser->set('uidNumber', $params->{uidNumber}, 1) if defined $params->{uidNumber};
+
+    $createdUser->save();
 
     # Setup the uid mapping
     $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};

@@ -183,7 +183,7 @@ sub create
     $self->_checkAccountNotExists($name);
 
     my $attr = [];
-    push ($attr, objectClass => ('top', 'person', 'organizationalPerson'));
+    push ($attr, objectClass => ['top', 'person', 'organizationalPerson']);
     push ($attr, name        => $name);
     push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
     push ($attr, initials    => $params->{initials}) if defined $params->{initials};

@@ -44,7 +44,11 @@ sub new
     my %opts = @_;
     my $self;
 
-    $self = $class->SUPER::new(@_);
+    if (defined $opts{idField} and defined $opts{$opts{idField}}) {
+        $self = {};
+    } else {
+        $self = $class->SUPER::new(@_);
+    }
     $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description'];
 
     if (defined $opts{coreAttrs}) {

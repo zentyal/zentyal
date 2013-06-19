@@ -593,7 +593,7 @@ sub isSecurityGroup
 
     my $ldap = EBox::Global->modInstance('users')->ldap();
 
-    return ('posixGroup' eq any($ldap->objectClasses($self->dn())));
+    return ('posixGroup' eq any(@{$ldap->objectClasses($self->dn())}));
 }
 
 # Method: isSystem

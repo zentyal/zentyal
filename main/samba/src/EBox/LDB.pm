@@ -21,8 +21,10 @@ package EBox::LDB;
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
 use EBox::Samba::User;
+use EBox::Samba::Contact;
 use EBox::Samba::Group;
 use EBox::Samba::DNS::Zone;
+use EBox::Users::User;
 
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
