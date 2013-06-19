@@ -28,7 +28,6 @@ use base qw(EBox::Module::Service
 use EBox::Global;
 use EBox::Util::Random;
 use EBox::Ldap;
-use EBox::LDAP::ExternalAD;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -65,7 +64,8 @@ use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers'; # same than users
 
 use constant STANDALONE_MODE      => 'normal';
-use constant EXTERNAL_AD_MODE => 'external-ad';
+use constant EXTERNAL_AD_MODE     => 'external-ad';
+use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 
 use constant LIBNSS_LDAPFILE => '/etc/ldap.conf';
 use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
@@ -99,6 +99,10 @@ sub _create
     return $self;
 }
 
+# Method: _setupForMode
+#
+#   setup the internal attributes need for active authentication mode
+#
 sub _setupForMode
 {
     my ($self) = @_;
@@ -470,12 +474,10 @@ sub _externalADEnableActions
 {
     my ($self) = @_;
     my $global = $self->global();
-    my $network = $self->global()->modInstance('network');
     # we need to restart network to force the regenation of DNS resolvers
     $global->modInstance('network')->setAsChanged();
     # we need to webadmin to clear DNs cache daa
     $global->modInstance('webadmin')->setAsChanged();
-
 }
 
 sub enableService
@@ -551,6 +553,9 @@ sub wizardPages
 #
 #       Override EBox::Module::Service::_setConf
 #
+#  Parameters:
+#    noSlaveSetup - don't setup slaves in standalone serve mode
+#
 sub _setConf
 {
     my ($self, $noSlaveSetup) = @_;
@@ -562,9 +567,8 @@ sub _setConf
     push (@array, 'realm' => $realm);
     $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
 
-    # XXX
     if ($self->mode() eq EXTERNAL_AD_MODE) {
-        # XXX setup refresh keytab cron?
+        # nothing more to do in this mode
         return;
     }
 
@@ -625,8 +629,6 @@ sub _setConf
 
     # commit slaves removal
     EBox::UsersAndGroups::Slave->commitRemovals($self->global());
-
-
 
     my $ldapBase = $self->ldap->dn();
     @array = ();
@@ -733,8 +735,6 @@ sub _daemons
     ];
 }
 
-
-
 # Method: _enforceServiceState
 #
 #       Override EBox::Module::Service::_enforceServiceState
@@ -789,7 +789,7 @@ sub groupDn
 #
 #       Returns the dn where the users are stored in the ldap directory.
 #       Accepts an optional parameter as base dn instead of getting it
-#       from the local LDAP repository
+#       from the LDAP directory
 #
 # Returns:
 #
@@ -935,10 +935,8 @@ sub users
 
     my $objectClass = $self->{userClass}->mainObjectClass();
     my %args = (
-#        base => $self->ldap->dn(),
         base => $self->usersDn(),
-        #XXX
-       filter => "objectclass=$objectClass",
+        filter => "objectclass=$objectClass",
         scope => 'sub',
     );
 
@@ -1048,7 +1046,6 @@ sub groups
     my $objectClass = $groupClass->mainObjectClass();
     my %args = (
         base => $self->groupsDn(),
-#        base => $self->ldap->dn(),
         filter => "objectclass=$objectClass",
         scope => 'sub',
     );
@@ -1292,6 +1289,10 @@ sub initialSlaveSync
     }
 }
 
+# Method: isUserCorner
+#
+#  Returns:
+#    true if we are running inside the user corner web server, false otherwise
 sub isUserCorner
 {
     my ($self) = @_;
@@ -1616,6 +1617,12 @@ sub masterConf
 sub dumpConfig
 {
     my ($self, $dir, %options) = @_;
+    my $mode = $self->mode();
+    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
+    if ($mode ne STANDALONE_MODE) {
+        # the dump of the LDAP is only availabe in standalone server mode
+        return;
+    }
 
     $self->ldap->dumpLdapConfig($dir);
     $self->ldap->dumpLdapData($dir);
@@ -1646,12 +1653,46 @@ sub _usersInEtcPasswd
 
 sub restoreDependencies
 {
-    return ['dns'];
+    my ($self) = @_;
+    if ($self->mode() eq STANDALONE_MODE) {
+            return ['dns'];
+    }
+    return [];
 }
 
+# Method: restoreBackupPreCheck
+#
+# Check that the backup to be restored mode is compatible.
+# Also, in case we are using standalone mode, checks if we have clonflicts between
+# users in the LDAP data to be loaded and the users in /etc/passwd
 sub restoreBackupPreCheck
 {
     my ($self, $dir) = @_;
+    my $mode = $self->mode();
+    my $backupModeFile = $dir . '/' . BACKUP_MODE_FILE;
+    my $backupMode;
+    if (-r $backupModeFile) {
+        $backupMode =  File::Slurp::read_file($backupModeFile);
+    } else {
+        # standalone mode by default
+        $backupMode = STANDALONE_MODE;
+    }
+
+
+    if ($mode ne $backupMode) {
+        my $modeModel = $self->model('Mode');
+        throw EBox::Exceptions::External(
+            __x('Cannot restore users module bacuse is running in mode {mode} and the backup was made in mode {bpMode}',
+                mode => $modeModel->modePrintableName($mode),
+                bpMode => $modeModel->modePrintableName($backupMode),
+               )
+           );
+    }
+
+    if ($mode ne STANDALONE_MODE) {
+        # nothing more to check
+        return;
+    }
 
     my %etcPasswdUsers = map { $_ => 1 } @{ $self->_usersInEtcPasswd() };
 
@@ -1667,6 +1708,13 @@ sub restoreConfig
 {
     my ($self, $dir) = @_;
     my $mode = $self->mode();
+
+    File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
+    if ($mode ne STANDALONE_MODE) {
+        # only standalone mode needs to do this operations to restore the LDAP
+        # directory
+        return;
+    }
 
     $self->_manageService('stop');
 
@@ -1759,9 +1807,10 @@ sub authUser
 
     try {
         EBox::Ldap::safeBind($ldap, $userDn, $password);
-        $authorized = 1; # auth ok
+        $authorized = 1;
     } otherwise {
-        $authorized = 0; # auth failed
+        # exception == auth failed
+        $authorized = 0;
     };
     return $authorized;
 }
@@ -1791,6 +1840,10 @@ sub mode
     return $mode;
 }
 
+# Method: newLDAP
+#
+#  Return a new LDAP object instance of the class requiered by the active mode
+#
 sub newLDAP
 {
     my ($self) = @_;
