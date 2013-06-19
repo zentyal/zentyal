@@ -370,11 +370,10 @@ sub passwordHashes
 #       surname
 #       displayname
 #       comment
-#       ou (multiple_ous enabled only)
+#       ou           - organizational unit
 #   system - boolean: if true it adds the user as system user, otherwise as normal user
 #   params hash (all optional):
 #       uidNumber    - user UID number
-#       ou           - organizational unit
 #       internal     - Whether this use is internal or not.
 #       ignoreMods   - modules that should not be notified about the user creation
 #       ignoreSlaves - slaves that should not be notified about the user creation
@@ -422,12 +421,9 @@ sub create
         }
     }
 
-    # Is the user added to the default OU?
-    my $isDefaultOU = 1;
     my $dn;
     if ($user->{ou}) {
         $dn = 'uid=' . $user->{user} . ',' . $user->{ou};
-        $isDefaultOU = ($user->{ou} eq $users->usersDn());
     } else {
         $dn = $users->userDn($user->{'user'});
     }
@@ -550,12 +546,9 @@ sub create
 
         # Init user
         unless ($system) {
-            # only default OU users are initializated
-            if ($isDefaultOU) {
-                $users->reloadNSCD();
-                $users->initUser($res, $passwd);
-                $res->_setFilesystemQuota($quota);
-            }
+            $users->reloadNSCD();
+            $users->initUser($res, $passwd);
+            $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
             $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});

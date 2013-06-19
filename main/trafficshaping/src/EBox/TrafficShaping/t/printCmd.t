@@ -21,10 +21,11 @@ use strict;
 use warnings;
 
 use Data::Dumper;
-use EBox::Global;
 use EBox;
+use EBox::Global;
+use EBox::Global::TestStub;
 
-EBox->init();
+EBox::Global::TestStub::fake();
 
 my ($iface) = @ARGV;
 

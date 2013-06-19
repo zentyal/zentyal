@@ -32,6 +32,7 @@ use integer;
 
 use Error qw(:try);
 
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;
@@ -130,45 +131,71 @@ sub validateTypedRow
         $reactivated = $changedParams->{enabled}->value();
     }
 
-    # Check objects have members
-    my $objMod = $self->global()->modInstance('objects');
-    foreach my $target (qw(source destination)) {
-        if ( defined ( $params->{$target} )) {
-            if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
-                my $srcObjId = $params->{$target}->value();
-                unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
-                    throw EBox::Exceptions::External(
-                    __x('Object {object} has no members. Please add at ' .
-                        'least one to add rules using this object',
-                        object => $params->{$target}->printableValue()));
+    my %targets;
+    my $filterType = $params->{filterType}->value();
+    if ($filterType eq 'fw') {
+
+        # Check objects have members
+        my $objMod = $self->global()->modInstance('objects');
+        foreach my $target (qw(source destination)) {
+            if ( defined ( $params->{$target} )) {
+                if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
+                    my $srcObjId = $params->{$target}->value();
+                    unless ( @{$objMod->objectAddresses($srcObjId)} > 0 ) {
+                        throw EBox::Exceptions::External(
+                        __x('Object {object} has no members. Please add at ' .
+                            'least one to add rules using this object',
+                            object => $params->{$target}->printableValue()));
+                    }
                 }
             }
         }
-    }
 
-    my $service = $params->{service}->subtype();
-    if ($service->fieldName() eq 'port') {
-        my $servMod = $self->global()->modInstance('services');
-        # Check if service is any, any source or destination is given
-        if ($service->value() eq 'any'
-           and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
-           and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
+        my $service = $params->{service}->subtype();
+        if ($service->fieldName() eq 'port') {
+            my $servMod = $self->global()->modInstance('services');
+            # Check if service is any, any source or destination is given
+            if ($service->value() eq 'any'
+               and $params->{source}->subtype()->isa('EBox::Types::Union::Text')
+               and $params->{destination}->subtype()->isa('EBox::Types::Union::Text')) {
 
-            throw EBox::Exceptions::External(
-                __('If service is any, some source or ' .
-                   'destination should be provided'));
+                throw EBox::Exceptions::External(
+                    __('If service is any, some source or ' .
+                       'destination should be provided'));
 
+            }
         }
-    }
 
-    # Transform objects (Select type) to object identifier to satisfy
-    # checkRule API
-    my %targets;
-    foreach my $target (qw(source destination)) {
-        if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
-            $targets{$target} = $params->{$target}->value();
-        } else {
-            $targets{$target} = $params->{$target}->subtype();
+        # Transform objects (Select type) to object identifier to satisfy
+        # checkRule API
+        foreach my $target (qw(source destination)) {
+            if ( $params->{$target}->subtype()->isa('EBox::Types::Select') ) {
+                $targets{$target} = $params->{$target}->value();
+            } else {
+                $targets{$target} = $params->{$target}->subtype();
+            }
+        }
+    } elsif ($filterType eq 'u32') {
+        my $ownId = $params->{id};
+        my $ifaceValue = $params->{iface}->value();
+
+        foreach my $id (@{$self->ids()}) {
+            next if (defined $ownId and ($id eq $ownId));
+
+            my $row = $self->row($id);
+            my $rowIface = $row->valueByName('iface');
+
+            if ($ifaceValue eq ALL_IFACES or $ifaceValue eq $rowIface) {
+                throw EBox::Exceptions::External(
+                    __x("There is already an existing 'priorization of small packets' rule for '{iface}'",
+                    iface => $rowIface)
+                );
+            }
+            if ($rowIface eq ALL_IFACES) {
+                throw EBox::Exceptions::External(
+                    __("There is already an existing 'priorization of small packets' for all interfaces")
+                );
+            }
         }
     }
 
@@ -181,18 +208,23 @@ sub validateTypedRow
         @ifacesToCheck = ($ifaceValue);
     }
     foreach my $ifCheck (@ifacesToCheck) {
-        $self->{ts}->checkRule(
-            interface      => $ifCheck,
-            service        => $params->{service}->value(),
-            source         => $targets{source},
-            destination    => $targets{destination},
-            priority       => $params->{priority}->value(),
-            guaranteedRate => $params->{guaranteed_rate}->value(),
-            limitedRate    => $params->{limited_rate}->value(),
-            ruleId         => $params->{id}, # undef on addition
-            enabled        => $params->{enabled},
-            reactivated    => $reactivated,
-            );
+        my @ruleArgs = ();
+        push (@ruleArgs, interface      => $ifCheck);
+        push (@ruleArgs, filterType     => $filterType);
+        push (@ruleArgs, priority       => $params->{priority}->value());
+        push (@ruleArgs, guaranteedRate => $params->{guaranteed_rate}->value());
+        push (@ruleArgs, limitedRate    => $params->{limited_rate}->value());
+        push (@ruleArgs, ruleId         => $params->{id}); # undef on addition
+        push (@ruleArgs, enabled        => $params->{enabled});
+        push (@ruleArgs, reactivated    => $reactivated);
+
+        if ($filterType eq 'fw') {
+            push (@ruleArgs, service        => $params->{service}->value());
+            push (@ruleArgs, source         => $targets{source});
+            push (@ruleArgs, destination    => $targets{destination});
+        }
+
+        $self->{ts}->checkRule(@ruleArgs);
     }
 }
 
@@ -226,8 +258,14 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead =
-        (
+    my @tableHead = (
+        new EBox::Types::Select(
+            fieldName => 'filterType',
+            printableName => __('Filter type'),
+            populate => \&_populateFilterType,
+            editable => 1,
+            help => __('Priorization of small control packages will affect small ACK, SYN, FIN and RST control packages'),
+         ),
          new EBox::Types::Select(
                     fieldName => 'iface',
                     printableName => __('Interface'),
@@ -549,6 +587,22 @@ sub _l7Types
     }
 }
 
+sub _populateFilterType
+{
+    my @filters = ();
+
+    push (@filters, {
+        value => 'fw',
+        printableValue => __('Based on Firewall'),
+    });
+    push (@filters, {
+        value => 'u32',
+        printableValue => __('Prioritize small control packets'),
+    });
+
+    return \@filters;
+}
+
 sub _populateIfacesSub
 {
     my ($self) = @_;
@@ -577,23 +631,27 @@ sub rulesForIface
         if (($rowIface ne $iface) and ($rowIface ne ALL_IFACES) ) {
             next;
         }
+        my $filterType = $row->elementByName('filterType')->value();
 
-        my $ruleRef =
-          {
-           ruleId      => $id,
-           service     => $row->elementByName('service'),
-           source      => $row->elementByName('source')->subtype(),
-           destination => $row->elementByName('destination')->subtype(),
-           priority    => $row->valueByName('priority'),
-           guaranteed_rate => $row->valueByName('guaranteed_rate'),
-           limited_rate => $row->valueByName('limited_rate'),
-           enabled     => $row->valueByName('enabled'),
-          };
+        my $ruleRef = {
+            ruleId      => $id,
+            filterType  => $filterType,
+            priority    => $row->valueByName('priority'),
+            guaranteed_rate => $row->valueByName('guaranteed_rate'),
+            limited_rate => $row->valueByName('limited_rate'),
+            enabled     => $row->valueByName('enabled'),
+        };
+
+        if ($filterType eq 'fw') {
+            $ruleRef->{service} = $row->elementByName('service');
+            $ruleRef->{source} = $row->elementByName('source')->subtype();
+            $ruleRef->{destination} = $row->elementByName('destination')->subtype();
+        }
+
         push ( @rules, $ruleRef );
     }
 
     return \@rules;
-
 }
 
 # it seems that higher numbers are lowest priority
@@ -652,6 +710,30 @@ sub configuredInterfaces
     }
 
     return [keys %ifaces];
+}
+
+# Method: viewCustomizer
+#
+#   Overrides <EBox::Model::DataTable::viewCustomizer>
+#   to show breadcrumbs
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $custom = $self->SUPER::viewCustomizer();
+
+    my $filterTypeActions = {
+        fw => {
+            enable => ['service', 'source', 'destination'],
+        },
+        u32 => {
+            disable => ['service', 'source', 'destination'],
+        },
+    };
+
+    $custom->setOnChangeActions({filterType => $filterTypeActions});
+
+    return $custom;
 }
 
 1;

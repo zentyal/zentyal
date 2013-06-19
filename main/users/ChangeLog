@@ -4,6 +4,7 @@ HEAD
 	+ Configuration key multiple_ous removed as this is now enabled by default
 	+ Renamed namespace from UsersAndGroups to Users
 	+ Added support for Contacts handling.
+3.1.3
 	+ Renamed namespace from UsersAndGroups to Users
 	+ Fixed maximum users check when not using cloud sync
 3.1.2
