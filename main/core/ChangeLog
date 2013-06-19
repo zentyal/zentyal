@@ -3,6 +3,8 @@ HEAD
 	+ Adapted EBox::CGI::Run for the new TreeView models
 	+ Fixed DataTable row removal from the UI with 100% volatile models with
 	  'ids' method overriden.
+3.1.5
+	+ Increased webadmin default timeout.
 	+ Disable drag & drop on tables with only one row
 3.1.4
 	+ Don't allow to move read-only rows

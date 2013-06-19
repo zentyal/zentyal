@@ -33,7 +33,7 @@ use EBox::Exceptions::InvalidType;
 # Parameters:
 #
 #       majorNumber - a major number which identify the qdisc
-#       filters_ref - an array ref to <EBox::TrafficShaping::FwFilter> attached to this queue
+#       filters_ref - an array ref to <EBox::TrafficShaping::Filter::Base> attached to this queue
 #                discipline (Optional)
 #       realQDisc - the <EBox::TrafficShaping::QueueDiscipline> real (Optional)
 #
@@ -78,7 +78,7 @@ sub new
 #
 # Parameters:
 #
-#      filter - a <EBox::TrafficShaping::Filter::Fw> to attach to qdisc
+#      filter - a <EBox::TrafficShaping::Filter::Base> to attach to qdisc
 #
 # Exceptions:
 #
@@ -96,8 +96,8 @@ sub attachFilter
     # Treat the argument
     throw EBox::Exceptions::MissingArgurment( "filter" )
       unless defined( $filter );
-    throw EBox::Exceptions::InvalidType( 'filter', 'EBox::TrafficShaping::Filter::Fw' )
-      unless $filter->isa( 'EBox::TrafficShaping::Filter::Fw' );
+    throw EBox::Exceptions::InvalidType( 'filter', 'EBox::TrafficShaping::Filter::Base' )
+      unless $filter->isa( 'EBox::TrafficShaping::Filter::Base' );
 
     # Check if filter is already there
     my @filterWithout = grep { not $_->equals( $filter ) } @{$self->{filters}};
@@ -147,7 +147,7 @@ sub deAttachFilter
 #
 # Returns:
 #
-#      array ref - containing <EBox::TrafficShaping::Filter::Fw>
+#      array ref - containing <EBox::TrafficShaping::Filter::Base>
 #                  or undef if there's no
 #
 sub filters
