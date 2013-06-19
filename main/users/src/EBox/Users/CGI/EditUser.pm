@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::EditUser;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
@@ -124,25 +124,6 @@ sub _process
             $user->removeGroup($group);
         }
     }
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
 }
 
 1;

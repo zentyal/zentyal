@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::AddGroup;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
@@ -54,25 +54,6 @@ sub _process
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
 }
 
 1;

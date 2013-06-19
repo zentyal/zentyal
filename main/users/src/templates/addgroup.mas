@@ -4,7 +4,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Group') %></h3>
-        <div id='error' class='error' style='display:none'></div>
+    <div id='error' class='error' style='display:none'></div>
 	<form action='/Users/AddGroup' method='POST' id='addGroupForm'>
 	<table class='formTable'>
 		<tr>
@@ -34,7 +34,6 @@ use EBox::Gettext;
 				<input class='inputButton'  type='submit' name='add'
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>"/>
-
 			</td>
 		</tr>
 	</table>
@@ -44,9 +43,8 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#addGroupForm').on('submit', function(event) {
       event.preventDefault();
-      console.info('aaa');
       var form = jQuery(this);
-      var url   = form.attr('action');
+      var url  = form.attr('action');
       var data = form.serialize();
       data += '&add=1';
 
@@ -57,12 +55,10 @@ jQuery(function() {
           success: function (response){
              console.info('success');
              if (response.success) {
-                   // If possible i would like more a Zentyal.Dailog.close();
                    window.location = response.redirect;
              } else {
                    jQuery('#error').html(response.error).show();
              }
-
           },
           error: function(jqXHR){
               jQuery('#error').html(jqXHR.responseText).show();

@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::AddOU;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users::OU;
@@ -51,25 +51,6 @@ sub _process
 
         $self->{redirect} = 'Users/Tree/Manage';
     }
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
 }
 
 1;

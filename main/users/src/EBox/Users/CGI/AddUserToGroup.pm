@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::AddUserToGroup;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users::Group;
