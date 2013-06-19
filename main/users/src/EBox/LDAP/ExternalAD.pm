@@ -421,7 +421,7 @@ sub initKeyTabs
     my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
 
 
-    # Extract keytab for servces
+    # Extract keytab for services
     try {
         # Remove old credentials cache
         my $ccache = EBox::Config::tmp() . 'kerberos-ad-setup.ccache';

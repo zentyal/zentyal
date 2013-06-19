@@ -74,6 +74,7 @@ use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
 use constant MAX_SB_USERS   => 25;
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
+use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
 use constant LDAP_CONFDIR    => '/etc/ldap/slapd.d/';
 use constant LDAP_DATADIR    => '/var/lib/ldap/';
@@ -563,15 +564,26 @@ sub _setConf
 
     # Setup kerberos config file
     my $realm = $self->kerberosRealm();
-    my @array = ();
-    push (@array, 'realm' => $realm);
-    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@array);
+    my @params = ('realm' => $realm);
+    $self->writeConfFile(KRB5_CONF_FILE, 'users/krb5.conf.mas', \@params);
 
     if ($self->mode() eq EXTERNAL_AD_MODE) {
-        # nothing more to do in this mode
-        return;
+        $self->_setConfExternalAD();
+    } else {
+        $self->_setConfInternal($realm, $noSlaveSetup);
     }
+}
 
+sub _setConfExternalAD
+{
+    my ($self) = @_;
+    $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "users/zentyal-users-external-ad.cron.mas", []);
+    EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
+}
+
+sub _setConfInternal
+{
+    my ($self, $realm, $noSlaveSetup) = @_;
     if ($self->get('need_reprovision')) {
         $self->unset('need_reprovision');
         # workaround  a orphan need_reprovision on read-only
@@ -586,23 +598,24 @@ sub _setConf
 
     my $dn = $ldap->dn;
     my $nsspw = $ldap->getRoPassword();
-    push (@array, 'ldap' => EBox::Ldap::LDAPI);
-    push (@array, 'basedc'    => $dn);
-    push (@array, 'binddn'    => $ldap->roRootDn());
-    push (@array, 'rootbinddn'=> $ldap->rootDn());
-    push (@array, 'bindpw'    => $nsspw);
-    push (@array, 'usersdn'   => $self->usersDn());
-    push (@array, 'groupsdn'  => $self->groupsDn());
-    push (@array, 'computersdn' => COMPUTERSDN . ',' . $dn);
+    my @params;
+    push (@params, 'ldap' => EBox::Ldap::LDAPI);
+    push (@params, 'basedc'    => $dn);
+    push (@params, 'binddn'    => $ldap->roRootDn());
+    push (@params, 'rootbinddn'=> $ldap->rootDn());
+    push (@params, 'bindpw'    => $nsspw);
+    push (@params, 'usersdn'   => $self->usersDn());
+    push (@params, 'groupsdn'  => $self->groupsDn());
+    push (@params, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
-            \@array);
+            \@params);
 
     $self->_setupNSSPAM();
 
     # Slaves cron
-    @array = ();
-    push(@array, 'slave_time' => EBox::Config::configkey('slave_time'));
+    @params = ();
+    push(@params, 'slave_time' => EBox::Config::configkey('slave_time'));
     if ($self->master() eq 'cloud') {
         my $rs = new EBox::Global->modInstance('remoteservices');
         my $rest = $rs->REST();
@@ -617,9 +630,9 @@ sub _setConf
             $self->initialSlaveSync(new EBox::CloudSync::Slave(), 1);
         }
 
-        push(@array, 'cloudsync_enabled' => 1);
+        push(@params, 'cloudsync_enabled' => 1);
     }
-    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@array);
+    $self->writeConfFile(CRONFILE, "users/zentyal-users.cron.mas", \@params);
 
     # Configure as slave if enabled
     $self->masterConf->setupSlave() unless ($noSlaveSetup);
@@ -631,13 +644,13 @@ sub _setConf
     EBox::UsersAndGroups::Slave->commitRemovals($self->global());
 
     my $ldapBase = $self->ldap->dn();
-    @array = ();
-    push (@array, 'ldapBase' => $ldapBase);
-    push (@array, 'realm' => $realm);
-    $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@array);
+    @params = ();
+    push (@params, 'ldapBase' => $ldapBase);
+    push (@params, 'realm' => $realm);
+    $self->writeConfFile(KDC_CONF_FILE, 'users/kdc.conf.mas', \@params);
 
-    @array = ();
-    $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@array);
+    @params = ();
+    $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@params);
 }
 
 # overriden to revoke slave removals
