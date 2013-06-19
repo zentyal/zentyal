@@ -46,3 +46,4 @@ modeldepends:
 
 foreign:
     SambaShares: [SambaSharePermissions]
+    GPOs: [GPO]

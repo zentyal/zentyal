@@ -16,8 +16,8 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOScripts
 #
+# Class: EBox::Samba::Model::GPOScripts
 #
 package EBox::Samba::Model::GPOScripts;
 
@@ -27,6 +27,7 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::File;
+use EBox::Exceptions::Internal;
 
 # Method: _table
 #
@@ -40,28 +41,29 @@ sub _table
 
     my $tableDesc = [
         new EBox::Types::Select(
-            fieldName     => 'type',
-            printableName => __('Script type'),
-            populate      => sub { $self->_populateScriptType() },
-            editable      => 1),
+            fieldName      => 'type',
+            printableName  => __('Script type'),
+            populate       => sub { $self->_populateScriptType() },
+            editable       => 1),
         new EBox::Types::Text(
-            fieldName      => 'path',
-            printableName  => __('Path'),
+            fieldName      => 'name',
+            printableName  => __('Script name'),
             editable       => 0,
-            hiddenOnSetter => 1),
+            hiddenOnSetter => 1,
+            hiddenOnViewer => 0),
         new EBox::Types::Text(
-            fieldName     => 'parameters',
-            printableName => __('Parameters'),
-            editable      => 1,
-            optional      => 1,
-            hiddenOnSetter  => 0,
-            hiddenOnViewer  => 0),
+            fieldName      => 'parameters',
+            printableName  => __('Parameters'),
+            editable       => 1,
+            optional       => 1,
+            hiddenOnSetter => 0,
+            hiddenOnViewer => 0),
         new EBox::Types::File(
-            fieldName     => 'upload',
-            printableName => __('Upload new script'),
-            editable      => 1,
-            hiddenOnSetter  => 0,
-            hiddenOnViewer  => 1),
+            fieldName      => 'upload',
+            printableName  => __('Upload new script'),
+            editable       => 1,
+            hiddenOnSetter => 0,
+            hiddenOnViewer => 1),
     ];
 
     my $dataTable = {
@@ -91,7 +93,8 @@ sub _populateScriptType
 
 # Method: precondition
 #
-#   Check samba is configured and provisioned
+#   Check samba is configured and provisioned, required prior to modify
+#   the GPOs
 #
 # Overrides:
 #
@@ -132,6 +135,45 @@ sub preconditionFailMsg
     if ($self->{preconditionFail} eq 'notProvisioned') {
         return __('The domain has not been created yet.');
     }
+}
+
+# Method: parentRow
+#
+#   Returns the parent row
+#
+# Overrides:
+#
+#   <EBox::Model::Component::parentRow>
+#
+sub parentRow
+{
+    my ($self) = @_;
+
+    unless ($self->{parent}) {
+        return undef;
+    }
+
+    my $dir = $self->directory();
+    my @parts = split ('/', $dir);
+
+    my $rowId = undef;
+    for (my $i = scalar (@parts) - 1; $i > 0; $i--) {
+        if ($parts[$i] =~ m/CN={.+}/) {
+            $rowId = $parts[$i];
+            last;
+        }
+    }
+    if (not defined $rowId) {
+        return undef;
+    }
+
+    my $row = $self->{parent}->row($rowId);
+    unless ($row) {
+        throw EBox::Exceptions::Internal("Cannot find row with rowId $rowId." .
+            "Component directory: $dir.");
+    }
+
+    return $row;
 }
 
 1;
