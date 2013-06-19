@@ -124,8 +124,8 @@ sub _setConf
     my $group = $settings->groupValue();
 
     if ($group ne '__all__') {
-        push (@params, ldap_group => $group);
-        push (@params, ldap_groupsdn => $users->groupsDn());
+        push (@params, ldap_group => $users->groupDn($group));
+        push (@params, ldap_groupmember => $users->userDn('{USERNAME}'));
     }
 
     if ($sldap->enabledValue()) {
