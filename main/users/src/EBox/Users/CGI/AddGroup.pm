@@ -34,14 +34,16 @@ sub new
 
 sub _process
 {
-	my $self = shift;
-	my $users = EBox::Global->modInstance('users');
+    my $self = shift;
 
-	my @args = ();
+    my $users = EBox::Global->modInstance('users');
 
-	$self->{params} = \@args;
+    my @args = ();
+
+    $self->{params} = \@args;
 
     if ($self->param('add')) {
+        $self->{json} = { success => 0 };
         $self->_requireParam('groupname', __('group name'));
 
         my $groupname = $self->param('groupname');
@@ -49,7 +51,8 @@ sub _process
 
         my $group = EBox::Users::Group->create($groupname, $comment);
 
-        $self->{redirect} = "Users/Tree/Manage";
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
 

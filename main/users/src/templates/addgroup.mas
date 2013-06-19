@@ -4,7 +4,8 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Group') %></h3>
-	<form action='/Users/AddGroup' method='POST'>
+        <div id='error' class='error' style='display:none'></div>
+	<form action='/Users/AddGroup' method='POST' id='addGroupForm'>
 	<table class='formTable'>
 		<tr>
 			<td  class='tright'>
@@ -30,7 +31,7 @@ use EBox::Gettext;
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='add'
+				<input class='inputButton'  type='submit' name='add'
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>"/>
 
@@ -38,3 +39,35 @@ use EBox::Gettext;
 		</tr>
 	</table>
 	</form>
+
+<script>
+jQuery(function() {
+   jQuery('#addGroupForm').on('submit', function(event) {
+      event.preventDefault();
+      console.info('aaa');
+      var form = jQuery(this);
+      var url   = form.attr('action');
+      var data = form.serialize();
+      data += '&add=1';
+
+      jQuery.ajax({
+          url : url,
+          data: data,
+          dataType: 'json',
+          success: function (response){
+             console.info('success');
+             if (response.success) {
+                   // If possible i would like more a Zentyal.Dailog.close();
+                   window.location = response.redirect;
+             } else {
+                   jQuery('#error').html(response.error).show();
+             }
+
+          },
+          error: function(jqXHR){
+              jQuery('#error').html(jqXHR.responseText).show();
+          }
+      });
+    });
+});
+</script>
