@@ -16,20 +16,17 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::User
-#
-#   Samba user, stored in samba LDAP
+# Class: EBox::Samba::GPO
 #
 package EBox::Samba::GPO;
 
 use base 'EBox::Samba::LdbObject';
 
 use EBox::Gettext;
+use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
-use Perl6::Junction qw(any);
+
 use Data::UUID;
-use Filesys::SmbClient;
-use EBox::Samba::AuthKrbHelper;
 
 use constant STATUS_ENABLED                 => 0x00;
 use constant STATUS_USER_CONF_DISABLED      => 0x01;
@@ -121,8 +118,7 @@ sub deleteObject
         throw EBox::Exceptions::Internal("Could not get the DNS domain name");
     }
 
-    # Grab a kerberos ticket for domain administrator
-    my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
+    my $smb = new EBox::Samba::SmbClient(RID => 500);
 
     # TODO: Remove all links to this GPO in the domain
 
@@ -130,15 +126,8 @@ sub deleteObject
     $self->SUPER::deleteObject();
 
     # Remove GTP from sysvol
-    my $smb = new Filesys::SmbClient(username => $krbHelper->principal(),
-                                     flags => SMB_CTX_FLAG_USE_KERBEROS,
-                                     debug => 0)
-        or throw EBox::Exceptions::Internal("Could not connect to smb server: $!");
     $smb->rmdir_recurse("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName")
         or throw EBox::Exceptions::Internal("Could not remove GPO from sysvol: $!");
-
-    # Destroy kerberos ticket
-    $krbHelper->destroy();
 }
 
 # Method: status
@@ -169,6 +158,21 @@ sub setStatus
     $self->set('flags', $flags, $lazy);
 }
 
+# Method: path
+#
+#   Returns the GPO filesystem path in a form ready to be used by
+#   EBox::Samba::SmbClient
+#
+sub path
+{
+    my ($self) = @_;
+
+    my $path = $self->get('gPCFileSysPath');
+    $path =~ s/\\/\//g;
+
+    return "smb:$path";
+}
+
 # Method: create
 #
 #   Creates a new GPO
@@ -188,20 +192,15 @@ sub create
         throw EBox::Exceptions::Internal("Could not get the DNS domain name");
     }
 
-    # Grab a kerberos ticket for domain administrator
-    my $krbHelper = new EBox::Samba::AuthKrbHelper(RID => 500);
+    my $smb = new EBox::Samba::SmbClient(RID => 500);
 
     # Create GPT in sysvol
     my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
-    my $smb = new Filesys::SmbClient(username => $krbHelper->principal(),
-                                     flags => SMB_CTX_FLAG_USE_KERBEROS,
-                                     debug => 0)
-        or throw EBox::Exceptions::Internal("Error connecting: $!");
     $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName",'0666')
         or throw EBox::Exceptions::Internal("Error mkdir: $!");
-    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/User",'0666')
+    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/USER",'0666')
         or throw EBox::Exceptions::Internal("Error mkdir: $!");
-    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/Machine",'0666')
+    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/MACHINE",'0666')
         or throw EBox::Exceptions::Internal("Error mkdir: $!");
     my $fd = $smb->open(">smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/GPT.INI", 0666)
         or throw EBox::Exceptions::Internal("Can't create file: $!");
