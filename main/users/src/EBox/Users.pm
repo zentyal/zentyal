@@ -37,6 +37,7 @@ use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::Users::Slave;
 use EBox::Users::User;
+use EBox::Users::Contact;
 use EBox::Users::Group;
 use EBox::Users::OU;
 use EBox::UsersSync::Master;
