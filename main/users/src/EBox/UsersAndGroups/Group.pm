@@ -59,16 +59,28 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate groups
 sub mainObjectClass
 {
     return 'zentyalGroup';
 }
 
+# Method: dnComponent
+#
+# Returns:
+#    DN which prepended to DN base will give the container for groups
 sub dnComponent
 {
     return 'ou=Groups';
 }
 
+# Method: userClass
+#
+#  Returns:
+#     perl class used for users which could be member of this group
 sub userClass
 {
     return 'EBox::UsersAndGroups::User';

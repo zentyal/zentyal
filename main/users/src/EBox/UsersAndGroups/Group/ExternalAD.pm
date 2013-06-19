@@ -40,16 +40,28 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Overrides:
+#    EBox::UsersAndGroups::Groupr::mainObjectClass
 sub mainObjectClass
 {
     return 'group';
 }
 
+# Method: dnComponent
+#
+#  Overrides:
+#    EBox::UsersAndGroups::Group::dnComponent
 sub dnComponent
 {
-    return 'cn=Users'; # same than users
+    return 'cn=Users'; # in AD same than users
 }
 
+# Method: userClass
+#
+#  Overrides:
+#    EBox::UsersAndGroups::Group::userClass
 sub userClass
 {
     return 'EBox::UsersAndGroups::User::ExternalAD';
