@@ -292,16 +292,18 @@ sub create
         $self->_checkPwdLength($clearPassword);
     }
 
-    my $createdUser = $self->SUPER::create($samAccountName, $params);
+    my $organizationalPerson = $self->SUPER::create($samAccountName, $params);
 
-    my $anyObjectClass = any($createdUser->get('objectClass'));
+    my $anyObjectClass = any($organizationalPerson->get('objectClass'));
     my @userExtraObjectClasses = ('user', 'posixAccount');
 
     foreach my $extraObjectClass (@userExtraObjectClasses) {
         if ($extraObjectClass ne $anyObjectClass) {
-            $createdUser->add('objectClass', $extraObjectClass, 1);
+            $organizationalPerson->add('objectClass', $extraObjectClass, 1);
         }
     }
+
+    my $createdUser = new EBox::Samba::User(dn => $organizationalPerson->dn());
 
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();

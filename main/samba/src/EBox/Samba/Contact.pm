@@ -47,16 +47,19 @@ sub create
 {
     my ($self, $name, $params) = @_;
 
-    my $createdContact = $self->SUPER::create($name, $params);
+    my $organizationalPerson = $self->SUPER::create($name, $params);
 
-    my $anyObjectClass = any($createdContact->get('objectClass'));
+    my $anyObjectClass = any($organizationalPerson->get('objectClass'));
     my @contactExtraObjectClasses = ('contact');
 
     foreach my $extraObjectClass (@contactExtraObjectClasses) {
         if ($extraObjectClass ne $anyObjectClass) {
-            $createdContact->add('objectClass', $extraObjectClass, 1);
+            $organizationalPerson->add('objectClass', $extraObjectClass, 1);
         }
     }
+
+    my $createdContact = new EBox::Samba::Contact(dn => $organizationalPerson->dn());
+
     # Contact specific attributes.
     # TODO
 

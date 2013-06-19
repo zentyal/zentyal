@@ -38,7 +38,6 @@ use EBox::Exceptions::LDAP;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 use Convert::ASN1;
-use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use constant MAXUSERLENGTH  => 128;
@@ -490,34 +489,35 @@ sub create
     my $quota = $self->defaultQuota();
 
     my $res = undef;
+    my $parentRes = undef;
     my $entry = undef;
     try {
         $user->{dn} = $dn;
         shift @_;
-        $entry = $self->SUPER::create($user, %params);
+        $parentRes = $self->SUPER::create($user, %params);
 
-        my $anyObjectClass = any($entry->get('objectClass'));
+        my $anyObjectClass = any($parentRes->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
         foreach my $extraObjectClass (@userExtraObjectClasses) {
             if ($extraObjectClass ne $anyObjectClass) {
-                $entry->add('objectClass', $extraObjectClass, 1);
+                $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $entry->set('uid', $user->{user}, 1);
-        $entry->set('loginShell', $self->_loginShell(), 1);
-        $entry->set('uidNumber', $uid, 1);
-        $entry->set('gidNumber', $gid, 1);
-        $entry->set('homeDirectory', $homedir, 1);
-        $entry->set('quota', $quota, 1);
-        $entry->set('krb5PrincipalName', $user->{user} . '@' . $realm, 1);
-        $entry->set('krb5KeyVersionNumber', 0, 1);
-        $entry->set('krb5MaxLife', 86400, 1); # TODO
-        $entry->set('krb5MaxRenew', 604800, 1); # TODO
-        $entry->set('krb5KDCFlags', 126, 1); # TODO
-        $entry->set('title', 'internal', 1) if ($params{internal});
+        $parentRes->set('uid', $user->{user}, 1);
+        $parentRes->set('loginShell', $self->_loginShell(), 1);
+        $parentRes->set('uidNumber', $uid, 1);
+        $parentRes->set('gidNumber', $gid, 1);
+        $parentRes->set('homeDirectory', $homedir, 1);
+        $parentRes->set('quota', $quota, 1);
+        $parentRes->set('krb5PrincipalName', $user->{user} . '@' . $realm, 1);
+        $parentRes->set('krb5KeyVersionNumber', 0, 1);
+        $parentRes->set('krb5MaxLife', 86400, 1); # TODO
+        $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
+        $parentRes->set('krb5KDCFlags', 126, 1); # TODO
+        $parentRes->set('title', 'internal', 1) if ($params{internal});
 
-        # Call modules initialization. The notified modules can modify the entry,
-        # add or delete attributes.
+        # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
+        $entry = $parentRes->_entry();
         unless ($system) {
             $users->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
         }
@@ -568,10 +568,12 @@ sub create
         if (defined $res and $res->exists()) {
             $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
-        } else {
+        } elsif ($parentRes and $parentRes->exists()) {
             $users->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
+            $parentRes->deleteObject(@_);
         }
         $res = undef;
+        $parentRes = undef;
         $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;

@@ -25,6 +25,14 @@ package EBox::Users::Contact;
 
 use base 'EBox::Users::InetOrgPerson';
 
+use EBox::Config;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::LDAP;
+
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+
 # Method: save
 #
 #   Saves the contact changes.
@@ -44,7 +52,7 @@ sub save
         if ($hasCoreChanges) {
 
             my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyContact', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
+            $users->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
         }
     }
 }
@@ -115,19 +123,32 @@ sub create
         $contact->{dn} .= ',' . $users->usersDn();
     }
 
-    my $res;
-    my $entry;
+    my $res = undef;
+    my $parentRes = undef;
+    my $entry = undef;
     try {
         shift @_;
-        $entry = $self->SUPER::create($contact, %params);
+        $parentRes = $self->SUPER::create($contact, %params);
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
+        $entry = $parentRes->_entry();
         $users->notifyModsPreLdapUserBase('preAddContact', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on contact LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $self->entryOpChangesInUpdate($entry),
+                   );
+            };
+        }
 
         $res = new EBox::Users::Contact(dn => $contact->{dn});
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addContact', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+        $users->notifyModsLdapUserBase('addContact', $res, $params{ignoreMods}, $params{ignoreSlaves});
     } otherwise {
         my ($error) = @_;
 
@@ -139,12 +160,14 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addContactFailed', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+            $users->notifyModsLdapUserBase('addContactFailed', $res, $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
-        } else {
-            $users->notifyModsPreLdapUserBase('preAddContactFailed', [$res], $params{ignoreMods}, $params{ignoreSlaves});
+        } elsif ($parentRes and $parentRes->exists()) {
+            $users->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+            $parentRes->deleteObject(@_);
         }
         $res = undef;
+        $parentRes = undef;
         $entry = undef;
         throw $error;
     };
