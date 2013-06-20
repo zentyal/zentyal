@@ -770,23 +770,29 @@ sub _manageService
 #   This method will try to start or restart all the daemons associated to
 #   the module
 #
-#   If the module was temporary stopped, then it is removed and
-#   restart firewall module if the module is a firewall observer
-#   analogously to <stopService>.
+#   If the module was temporary stopped and restartModules parameter
+#   is true, then it is removed and restart firewall module if the
+#   module is a firewall observer analogously to <stopService>. This
+#   is done *after* the module is stopped.
+#
+# Named parameters:
+#
+#   restartModules - Boolean indicating we can restart modules if required
 #
 sub _startService
 {
     my ($self, %params) = @_;
     $self->_manageService('start', %params);
 
+    # Firewall observer restart, if necessary
     my $temporaryStopped = $self->temporaryStopped();
-    $self->setTemporaryStopped(0); # Do it here to make Firewall
-                                   # helper to work
-    if ($params{restart} and $temporaryStopped
+    $self->setTemporaryStopped(0); # Do it here to make Firewall helper to work
+    if ($params{restartModules} and $temporaryStopped
         and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()) {
         my $fw = $self->global()->modInstance('firewall');
         $fw->restartService();
     }
+
     # Notify observers
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::Module::Service::Observer')};
@@ -800,6 +806,10 @@ sub _startService
 #   This is the external interface to call the implementation which lies in
 #   _stopService in subclassess
 #
+#   If restoreModules parameter is true, the module is a firewall
+#   observer and firewall module is enabled, then firewall module is
+#   restarted. This is done *before* the module is stopped.
+#
 # Named parameters:
 #
 #   restartModules - Boolean indicating if the module is a firewall
@@ -810,19 +820,19 @@ sub stopService
 {
     my ($self, %params) = @_;
 
-    $self->_lock();
-    try {
-        $self->_stopService(%params);
-    } finally {
-        $self->_unlock();
-    };
-
     $self->setTemporaryStopped(1);
     if ($params{restartModules}
         and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()) {
         my $fw = $self->global()->modInstance('firewall');
         $fw->restartService();
     }
+
+    $self->_lock();
+    try {
+        $self->_stopService(%params);
+    } finally {
+        $self->_unlock();
+    };
 
 }
 
