@@ -788,7 +788,10 @@ sub _startService
     my $temporaryStopped = $self->temporaryStopped();
     $self->setTemporaryStopped(0); # Do it here to make Firewall helper to work
     if ($params{restartModules} and $temporaryStopped
-        and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()) {
+        and $self->global()->modExists('firewall') and $self->isa('EBox::FirewallObserver')
+        and $self->global()->modInstance('firewall')->isEnabled()
+        and $self->firewallHelper()->can('restartOnTemporaryStop')
+        and $self->firewallHelper()->restartOnTemporaryStop()) {
         my $fw = $self->global()->modInstance('firewall');
         $fw->restartService();
     }
@@ -822,7 +825,10 @@ sub stopService
 
     $self->setTemporaryStopped(1);
     if ($params{restartModules}
-        and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()) {
+        and $self->global()->modExists('firewall')
+        and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()
+        and $self->firewallHelper()->can('restartOnTemporaryStop')
+        and $self->firewallHelper()->restartOnTemporaryStop()) {
         my $fw = $self->global()->modInstance('firewall');
         $fw->restartService();
     }

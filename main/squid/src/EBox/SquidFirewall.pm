@@ -45,6 +45,17 @@ sub prerouting
     return [];
 }
 
+# Method: restartOnTemporaryStop
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::restartOnTemporaryStop>
+#
+sub restartOnTemporaryStop
+{
+    return 1;
+}
+
 sub _trans_prerouting
 {
     my ($self) = @_;

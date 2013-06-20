@@ -26,7 +26,7 @@ use constant DNS_PORT => 53;
 
 # Method: prerouting
 #
-#   To set transparent DNS cache if it was there
+#   To set transparent DNS cache if it is enabled
 #
 # Overrides:
 #
@@ -59,6 +59,17 @@ sub prerouting
         }
     }
     return \@rules;
+}
+
+# Method: restartOnTemporaryStop
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::restartOnTemporaryStop>
+#
+sub restartOnTemporaryStop
+{
+    return 1;
 }
 
 sub output

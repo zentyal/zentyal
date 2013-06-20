@@ -50,6 +50,17 @@ sub preForward
     return $self->_ifaceRules();
 }
 
+# Method: restartOnTemporaryStop
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::restartOnTemporaryStop>
+#
+sub restartOnTemporaryStop
+{
+    return 1;
+}
+
 sub _ifaceRules
 {
     my ($self) = @_;
