@@ -36,7 +36,16 @@ sub new
 sub _processWizard
 {
     my ($self) = @_;
+    if ($self->param('standalone')) {
+        $self->_processStandalone();
+    } else {
+        $self->_processExternalAD();
+    }
+}
 
+sub _processStandalone
+{
+    my ($self) = @_;
     my $domain = $self->param('domain');
     if ($domain) {
         EBox::info('Setting the host domain');
@@ -48,6 +57,24 @@ sub _processWizard
         $row->elementByName('hostdomain')->setValue($domain);
         $row->store();
     }
+}
+
+sub _processExternalAD
+{
+    my ($self) = @_;
+    $self->_requireParam('dcHostname', __('Active Directory hostname'));
+    $self->_requireParam('dcUser', __('Administrative user'));
+    $self->_requireParam('dcPassword', __('User password'));
+
+    my $users = EBox::Global->modInstance('users');
+    my $mode = $users->model('Mode');
+    $mode->setRow(
+        0, # no force mode
+        mode       => $users->EXTERNAL_AD_MODE(),
+        dcHostname => $self->param('dcHostname'),
+        dcUser => $self->param('dcUser'),
+        dcPassword => $self->param('dcPassword'),
+       );
 }
 
 1;

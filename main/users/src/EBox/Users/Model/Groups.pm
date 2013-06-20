@@ -16,15 +16,16 @@
 use strict;
 use warnings;
 
-package EBox::Users::Model::Groups;
-
-# Class: EBox::Users::Model::Groups
+#  Class: EBox::Users::Model::Groups
 #
 #       This a class used as a proxy for the groups stored in LDAP.
 #       It is meant to improve the user experience when managing groups,
 #       but it's just an interim solution. An integral approach needs to
 #       be done.
 #
+package EBox::Users::Model::Groups;
+use base 'EBox::Model::DataTable';
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -34,8 +35,6 @@ use EBox::Users::Group;
 
 use EBox::Types::Text;
 use EBox::Types::Link;
-
-use base 'EBox::Model::DataTable';
 
 sub new
 {
@@ -154,6 +153,7 @@ sub ids
         return [];
     }
 
+    $self->{groupClass} = $users->{groupClass}; # XXX refactor?
     my @list = map { $_->dn() } @{$users->groups()};
     return \@list;
 }
@@ -166,11 +166,10 @@ sub ids
 sub row
 {
     my ($self, $id) = @_;
+    my $group = $self->{groupClass}->new(dn => $id);
 
-    my $group = new EBox::Users::Group(dn => $id);
-
-    my $desc = $group->get('description');
-    my $name = $group->get('cn');
+    my $name = $group->name();
+    my $desc = $group->description();
     my $link = "/Users/Group?group=" . $group->dn();
     my $row = $self->_setValueRow(
                     name => $name,
