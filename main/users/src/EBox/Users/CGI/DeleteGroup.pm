@@ -64,9 +64,10 @@ sub _process
     }
 
     if ($delgroup) {
+        $self->{json} = { success => 0 };
         my $group = new EBox::Users::Group(dn => $dn);
         $group->deleteObject();
-        $self->{msg} = __('Group removed successfully');
+        $self->{json}->{success} = 1;
         $self->{redirect} = 'Users/Tree/Manage';
     }
 

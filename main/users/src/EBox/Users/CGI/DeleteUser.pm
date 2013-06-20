@@ -63,9 +63,10 @@ sub _process
     }
 
     if ($deluser) {
+        $self->{json} = { success => 0 };
         my $user = new EBox::Users::User(dn => $dn);
         $user->deleteObject();
-        $self->{msg} = __('User removed successfully');
+        $self->{json}->{success} = 1;
         $self->{redirect} = 'Users/Tree/Manage';
     }
 

@@ -64,8 +64,10 @@ sub _process
     }
 
     if ($delou) {
+        $self->{json} = { success => 0 };
         my $ou = new EBox::Users::Group(dn => $dn);
         $ou->deleteObject();
+        $self->{json}->{success} = 1;
         $self->{redirect} = 'Users/Tree/Manage';
     }
 

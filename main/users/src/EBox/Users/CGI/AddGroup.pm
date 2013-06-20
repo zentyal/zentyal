@@ -26,21 +26,17 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('template' => '/users/addgroup.mas', @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('template' => '/users/addgroup.mas', @_);
+    bless ($self, $class);
+    return $self;
 }
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $users = EBox::Global->modInstance('users');
-
-    my @args = ();
-
-    $self->{params} = \@args;
 
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
@@ -52,7 +48,7 @@ sub _process
         my $group = EBox::Users::Group->create($groupname, $comment);
 
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = '/Users/Tree/Manage';
+        $self->{json}->{redirect} = 'Users/Tree/Manage';
     }
 }
 

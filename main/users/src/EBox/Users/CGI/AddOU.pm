@@ -40,6 +40,7 @@ sub _process
     my @args;
 
     if ($self->param('add')) {
+        $self->{json} = { success => 0 };
         $self->_requireParam('ou', __('OU name'));
         my $ou = $self->param('ou');
 
@@ -49,7 +50,8 @@ sub _process
 
         EBox::Users::OU->create("ou=$ou,$baseDn");
 
-        $self->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = 'Users/Tree/Manage';
     }
 }
 

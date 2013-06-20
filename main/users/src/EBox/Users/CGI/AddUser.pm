@@ -35,13 +35,12 @@ sub new
 sub _process
 {
     my ($self) = @_;
+
     my $users = EBox::Global->modInstance('users');
 
-    my @args;
-
-    $self->{params} = \@args;
-
     if ($self->param('add')) {
+        $self->{json} = { success => 0 };
+
         $self->_requireParam('username', __('user name'));
         $self->_requireParam('name', __('first name'));
         $self->_requireParam('surname', __('last name'));
@@ -76,7 +75,8 @@ sub _process
             $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
         }
 
-        $self->{redirect} = "Users/Tree/Manage";
+        $self->{json}->{success} = 1;
+        $self->{redirect} = 'Users/Tree/Manage';
     }
 }
 

@@ -61,6 +61,7 @@ sub _process
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
+        $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('comment', __('comment'));
         my $comment = $self->unsafeParam('comment');
         if (length ($comment)) {
@@ -69,21 +70,26 @@ sub _process
             $group->delete('description');
         }
 
+        $self->{json}->{success}  = 1;
         $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('addusertogroup')) {
+        $self->{json} = { success => 0 };
         $self->_requireParam('adduser', __('user'));
         my @users = $self->unsafeParam('adduser');
 
         foreach my $us (@users) {
             $group->addMember(new EBox::Users::User(dn => $us));
         }
+        $self->{json}->{success}  = 1;
     } elsif ($self->param('deluserfromgroup')) {
+        $self->{json} = { success => 0 };
         $self->_requireParam('deluser', __('user'));
         my @users = $self->unsafeParam('deluser');
 
         foreach my $us (@users) {
             $group->removeMember(new EBox::Users::User(dn => $us));
         }
+        $self->{json}->{success}  = 1;
     }
 }
 
