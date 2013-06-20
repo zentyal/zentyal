@@ -85,15 +85,6 @@ sub groupClass
     return 'EBox::Users::Group';
 }
 
-# Method: dnComponent
-#
-# Returns:
-#    DN which prepended to DN base will give the container for users
-sub dnComponent
-{
-    return 'ou=Users';
-}
-
 # Method: dnLeftmostAttribute
 #
 #  Returns:

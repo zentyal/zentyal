@@ -880,13 +880,14 @@ sub _enforceServiceState
 #
 #       string - dn
 #
+# FIXME: This should not be used anymore...
 sub groupsDn
 {
     my ($self, $dn) = @_;
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    return $self->{groupClass}->dnComponent() . ',' . $dn;
+    return $dn;
 }
 
 # Method: groupDn
@@ -917,13 +918,14 @@ sub groupDn
 #
 #       string - dn
 #
+# FIXME: This should not be used anymore...
 sub usersDn
 {
     my ($self, $dn) = @_;
     unless(defined($dn)) {
         $dn = $self->ldap->dn();
     }
-    return $self->{userClass}->dnComponent() . ',' . $dn;
+    return $dn;
 }
 
 # Method: userDn

@@ -834,9 +834,18 @@ sub url
 sub userBindDN
 {
     my ($self, $user) = @_;
-    return "uid=$user," .
-           $self->dnComponent() . ',' .
-           $self->dn();
+
+    my $args = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => "(uid=$user)"
+    };
+
+    $msg = $self->search($args);
+    _errorOnLdap($msg, $args);
+
+    # FIXME: Improve error checking.
+    return $msg->entry(0)->dn();
 }
 
 sub safeConnect

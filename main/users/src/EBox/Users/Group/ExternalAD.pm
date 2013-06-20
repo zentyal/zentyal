@@ -49,15 +49,6 @@ sub mainObjectClass
     return 'group';
 }
 
-# Method: dnComponent
-#
-#  Overrides:
-#    EBox::Users::Group::dnComponent
-sub dnComponent
-{
-    return 'cn=Users'; # in AD same than users
-}
-
 # Method: userClass
 #
 #  Overrides:

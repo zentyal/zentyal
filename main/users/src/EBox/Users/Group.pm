@@ -68,15 +68,6 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
-# Method: dnComponent
-#
-# Returns:
-#    DN which prepended to DN base will give the container for groups
-sub dnComponent
-{
-    return 'ou=Groups';
-}
-
 # Method: userClass
 #
 #  Returns:
@@ -231,7 +222,7 @@ sub usersNotIn
     my $userClass = $self->userClass();
 
     my %searchParams = (
-            base => $userClass->dnComponent() . ',' . $self->_ldap->dn(),
+            base => $self->_ldap->dn(),
             filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
             scope => 'sub',
             );
