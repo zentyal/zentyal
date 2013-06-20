@@ -696,13 +696,15 @@ sub _checkGid
 {
     my ($self, $gid, $system) = @_;
 
-    if ($gid < MINGID and not $system) {
-        throw EBox::Exceptions::External(
-            __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
-                gid => $gid,
-                min => MINGID,
-            )
-        );
+    if ($gid < MINGID) {
+        if (not $system) {
+            throw EBox::Exceptions::External(
+                __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
+                    gid => $gid,
+                    min => MINGID,
+                )
+            );
+        }
     } elsif ($system) {
         throw EBox::Exceptions::External(
             __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
