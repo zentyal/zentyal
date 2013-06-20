@@ -249,7 +249,7 @@ sub updateZentyal
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
     $zentyalGroup->setIgnoredModules(['samba']);
-    $zentyalGroup->setSecurity($self->isSecurityGroup, 1);
+    $zentyalGroup->setSecurityGroup($self->isSecurityGroup(), 1);
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 
@@ -352,6 +352,25 @@ sub isSecurityGroup
     my ($self) = @_;
 
     return $self->get('groupType') & GROUPTYPESECURITY;
+}
+
+# Method: setSecurityGroup
+#
+#   Sets/unsets this group as a security group.
+#
+sub setSecurityGroup
+{
+    my ($self, $isSecurityGroup, $lazy) = @_;
+
+    my $groupType = $self->get('groupType');
+
+    if ($isSecurityGroup) {
+        $groupType |= GROUPTYPESECURITY;
+    } else {
+        $groupType &= ~GROUPTYPESECURITY;
+    }
+
+    $self->set('groupType', $groupType, $lazy);
 }
 
 1;

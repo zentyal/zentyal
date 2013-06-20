@@ -462,7 +462,9 @@ sub create
 {
     my ($self, $group, $comment, $system, %params) = @_;
 
-    if (!$params{security} && $system) {
+    my $security = 1;
+    $security = $params{security} unless not defined $params{security};
+    if ((not $security) and $system) {
         throw EBox::Exceptions::External(
             __('A group cannot be a distribution group and a system group at the same time.'));
     }
@@ -507,7 +509,7 @@ sub create
         'objectclass' => ['zentyalDistributionGroup'],
     );
 
-    if ($params{security}) {
+    if ($security) {
         my $gid = exists $params{gidNumber} ? $params{gidNumber}: $self->_gidForNewGroup($system);
         $self->_checkGid($gid, $system);
         push (@attr, objectclass => 'posixGroup');
@@ -596,6 +598,29 @@ sub isSecurityGroup
     return ('posixGroup' eq any(@{$ldap->objectClasses($self->dn())}));
 }
 
+# Method: setSecurityGroup
+#
+#   Sets/unsets this group as a security group.
+#
+#
+sub setSecurityGroup
+{
+    my ($self, $isSecurityGroup, $lazy) = @_;
+
+    return if ($isSecurityGroup && $self->isSecurityGroup());
+
+    if ($isSecurityGroup) {
+        unless (defined $self->get('gidNumber')) {
+            my $gid = $self->_gidForNewGroup();
+            $self->_checkGid($gid);
+            self->set('gidNumber', $gid, $lazy);
+        }
+        $self->add('objectClass', 'posixGroup', $lazy);
+    } else {
+        $self->deleteValues('objectClass', ['posixGroup'], $lazy);
+    }
+}
+
 # Method: isSystem
 #
 #   Whether the security group is a system group.
@@ -671,25 +696,20 @@ sub _checkGid
 {
     my ($self, $gid, $system) = @_;
 
-    if ($gid < MINGID) {
-        if (not $system) {
-            throw EBox::Exceptions::External(
-                 __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
-                     gid => $gid,
-                     min => MINGID,
-                    )
-                );
-        }
-    }
-    else {
-        if ($system) {
-            throw EBox::Exceptions::External(
-               __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
-                    gid => $gid,
-                    max => MINGID,
-                   )
-               );
-        }
+    if ($gid < MINGID and not $system) {
+        throw EBox::Exceptions::External(
+            __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
+                gid => $gid,
+                min => MINGID,
+            )
+        );
+    } elsif ($system) {
+        throw EBox::Exceptions::External(
+            __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
+                gid => $gid,
+                max => MINGID,
+            )
+        );
     }
 }
 
