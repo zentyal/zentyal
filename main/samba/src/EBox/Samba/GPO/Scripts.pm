@@ -27,6 +27,7 @@ package EBox::Samba::GPO::Scripts;
 
 use base 'EBox::Samba::GPO::Extension';
 
+use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Parse::RecDescent;
@@ -65,7 +66,7 @@ use Encode qw(encode decode);
 use constant GRAMMAR_SCRIPTS_INI => q{
 IniFile:    WhiteSpace Sections WhiteSpace /\Z/
             { $return = $item[2] }
-Sections:   Section(s)
+Sections:   Section(s?)
             {
                 my $ret = {};
                 foreach my $hash (@{$item[1]}) {
@@ -129,7 +130,7 @@ startrule:  IniFile
 use constant GRAMMAR_PSSCRIPTS_INI => q{
 IniFile:    WhiteSpace Sections WhiteSpace /\Z/
             { $return = $item[2] }
-Sections:   Section(s)
+Sections:   Section(s?)
             {
                 my $ret = {};
                 foreach my $hash (@{$item[1]}) {
@@ -260,7 +261,7 @@ sub read
 
     # Create folder hierachy. If they already exists error is ignored.
     $smb->mkdir("$gpoFilesystemPath/$scope/Scripts", 0600);
-    $smb->mkdir("$gpoFilesystemPath/$scope/Scripts/Login", 0600);
+    $smb->mkdir("$gpoFilesystemPath/$scope/Scripts/Logon", 0600);
     $smb->mkdir("$gpoFilesystemPath/$scope/Scripts/Logoff", 0600);
 
     # Scripts indexs file paths
