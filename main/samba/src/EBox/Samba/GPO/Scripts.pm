@@ -297,4 +297,43 @@ sub read
     return $data;
 }
 
+sub write
+{
+    my ($self, $data) = @_;
+
+    my $scope = $self->_scope();
+    my $gpo = $self->gpo();
+    my $gpoFilesystemPath = $gpo->path();
+
+    my $smb = new EBox::Samba::SmbClient(RID => 500);
+
+    # Create folder hierachy. If they already exists error is ignored.
+    $smb->mkdir("$gpoFilesystemPath/$scope/Scripts", 0600);
+    $smb->mkdir("$gpoFilesystemPath/$scope/Scripts/Logon", 0600);
+    $smb->mkdir("$gpoFilesystemPath/$scope/Scripts/Logoff", 0600);
+
+    # Scripts indexs file paths
+    my $scriptsPath = "$gpoFilesystemPath/$scope/Scripts/scripts.ini";
+    my $psScriptsPath = "$gpoFilesystemPath/$scope/Scripts/psscripts.ini";
+
+    # Write tmpfile
+    my $buffer;
+
+    $buffer .= "\r\n";
+    my $batchData = $data->{batch};
+    foreach my $key (sort keys %{$batchData}) {
+        $buffer .= "[$key]\r\n";
+        my $aux = $batchData->{$key};
+        foreach my $index (keys %{$aux}) {
+            $buffer .= "${index}CmdLine=$aux->{$index}->{CmdLine}\r\n";
+            $buffer .= "${index}Parameters=$aux->{$index}->{Parameters}\r\n";
+        }
+        $buffer .= "\r\n";
+    }
+    $buffer = encode('UTF-16LE', $buffer);
+    $buffer = "\x{FF}" . "\x{FE}" . $buffer;
+
+    $smb->write_file($scriptsPath, $buffer);
+}
+
 1;

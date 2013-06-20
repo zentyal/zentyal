@@ -21,6 +21,7 @@ package EBox::Samba::SmbClient;
 use base 'Filesys::SmbClient';
 
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
 use EBox::Samba::AuthKrbHelper;
 
 sub new
@@ -75,6 +76,89 @@ sub read_file
     }
     throw EBox::Exceptions::Internal(__x('Could not stat file {x}',
         x => $path));
+}
+
+sub copy_file_to_smb
+{
+    my ($self, $src, $dst) = @_;
+
+    my @srcStat = stat ($src);
+    unless ($#srcStat) {
+        throw EBox::Exceptions::Internal("Can not stat $src");
+    }
+    my $srcSize = $srcStat[7];
+    my $pendingBytes = $srcSize;
+    my $writtenBytes = 0;
+
+    my $fd = $self->open(">$dst", '0600');
+    if ($fd == 0) {
+        throw EBox::Exceptions::Internal(
+            "Can not open $dst: $!");
+    }
+    my $ret = open(SRC, $src);
+    if ($ret == 0) {
+        throw EBox::Exceptions::Internal(
+            "Can not open $src: $!");
+    }
+
+    my $buffer = undef;
+    my $chunkSize = 4096;
+    while ($pendingBytes > 0) {
+        $chunkSize = ($pendingBytes < $chunkSize) ?
+                      $pendingBytes : $chunkSize;
+        my $read = sysread (SRC, $buffer, $chunkSize);
+        unless (defined $read) {
+            throw EBox::Exceptions::Internal(
+                "Can not read $src: $!");
+        }
+        $pendingBytes -= $read;
+
+        my $wrote = $self->write($fd, $buffer);
+        if ($wrote == -1) {
+            throw EBox::Exceptions::Internal(
+                "Can not write $dst: $!");
+        }
+        $writtenBytes += $wrote;
+    }
+    close SRC;
+    $self->close($fd);
+
+    unless ($writtenBytes == $srcSize and $pendingBytes == 0) {
+        throw EBox::Exceptions::Internal(
+            "Error copying $src to $dst. Sizes does not match");
+    }
+}
+
+sub write_file
+{
+    my ($self, $dst, $buffer) = @_;
+
+    my @stat = $self->stat($dst);
+    if ($#stat) {
+        my $ret = $self->unlink($dst);
+        unless ($ret) {
+            throw EBox::Exception::Internal(
+                "Can not unlink $dst: $!");
+        }
+    }
+
+    my $fd = $self->open(">$dst", '0600');
+    if ($fd == 0) {
+        throw EBox::Exceptions::Internal(
+            "Can not open $dst: $!");
+    }
+    my $size = length ($buffer);
+    my $wrote = $self->write($fd, $buffer);
+    if ($wrote == -1) {
+        throw EBox::Exceptions::Internal(
+            "Can not write $dst: $!");
+    }
+    $self->close($fd);
+
+    unless ($wrote == $size) {
+        throw EBox::Exceptions::Internal(
+            "Error writting to $dst. Sizes does not match");
+    }
 }
 
 1;

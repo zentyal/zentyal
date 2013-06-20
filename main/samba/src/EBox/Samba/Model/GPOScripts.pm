@@ -26,7 +26,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
-use EBox::Types::File;
+use EBox::Samba::Types::SmbFile;
 use EBox::Exceptions::Internal;
 
 # Method: _table
@@ -44,13 +44,8 @@ sub _table
             fieldName      => 'type',
             printableName  => __('Script type'),
             populate       => sub { $self->_populateScriptType() },
+            defaultValue   => 'batch',
             editable       => 1),
-        new EBox::Types::Text(
-            fieldName      => 'name',
-            printableName  => __('Script name'),
-            editable       => 0,
-            hiddenOnSetter => 1,
-            hiddenOnViewer => 0),
         new EBox::Types::Text(
             fieldName      => 'parameters',
             printableName  => __('Parameters'),
@@ -58,19 +53,29 @@ sub _table
             optional       => 1,
             hiddenOnSetter => 0,
             hiddenOnViewer => 0),
-        new EBox::Types::File(
-            fieldName      => 'upload',
-            printableName  => __('Upload new script'),
+        new EBox::Samba::Types::SmbFile(
+            fieldName      => 'script',
+            printableName  => __('File'),
+            unique         => 1,
             editable       => 1,
+            optional       => 0,
+            dynamicPath    => sub {
+                my ($self) = @_;
+                return $self->model->_scriptPath($self->userPath());
+            },
+            user => EBox::Config::user(),
+            group => EBox::Config::group(),
+            #showFileWhenEditing => 0,
+            allowDownload  => 0,
             hiddenOnSetter => 0,
-            hiddenOnViewer => 1),
+            hiddenOnViewer => 0),
     ];
 
     my $dataTable = {
         tableName           => 'GPOScripts',
         printableTableName  => __('Scripts'),
         printableRowName    => __('script'),
-        defaultActions      => ['add', 'del', 'changeView'],
+        defaultActions      => ['add', 'del', 'edit', 'move', 'changeView'],
         whithoutActions     => 0,
         tableDescription    => $tableDesc,
         sortedBy            => 'type',

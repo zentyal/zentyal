@@ -16,14 +16,15 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOScriptsShutdown
 #
+# Class: EBox::Samba::Model::GPOScriptsShutdown
 #
 package EBox::Samba::Model::GPOScriptsShutdown;
 
 use base 'EBox::Samba::Model::GPOScripts';
 
 use EBox::Gettext;
+use EBox::Samba::GPO;
 use EBox::Samba::GPO::ScriptsComputer;
 
 sub _table
@@ -35,6 +36,16 @@ sub _table
     $dataTable->{printableTableName} = __('Shutdown Scripts'),
     $dataTable->{printableRowName}   = __('shutdown script'),
     return $dataTable;
+}
+
+sub _scriptPath
+{
+    my ($self, $basename) = @_;
+
+    my $gpoDN = $self->parentRow->id();
+    my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+    my $path = $gpo->path();
+    return "$path/Machine/Scripts/Shutdown/$basename";
 }
 
 sub ids
@@ -76,7 +87,7 @@ sub row
     my $data = $self->{data};
     unless (defined $data) {
         my $gpoDN = $self->parentRow->id();
-        my $extension = new EBox::Samba::GPO::UserScripts(dn => $gpoDN);
+        my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
         $data = $extension->read();
     }
 
@@ -85,11 +96,50 @@ sub row
     my $script = $data->{$type}->{Shutdown}->{$index};
     my $row = $self->_setValueRow(
             type => $type,
-            name => $script->{CmdLine},
             parameters => $script->{Parameters},
-        );
+            script => $self->_scriptPath($script->{CmdLine}));
     $row->setId($id);
 
     return $row;
 }
+
+# Method: addTypedRow
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::addTypedRow>
+#
+sub addTypedRow
+{
+    my ($self, $params_r, %optParams) = @_;
+
+    # Check compulsory fields
+    $self->_checkCompulsoryFields($params_r);
+
+    my $type = $params_r->{type}->value();
+    my $parameters = $params_r->{parameters}->value();
+
+    # Move the file
+    my $scriptElement = $params_r->{script};
+    $scriptElement->_moveToPath();
+
+    # Write extension
+    my $gpoDN = $self->parentRow->id();
+    my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
+    my $data = $self->{data};
+    unless (defined $data) {
+        my $data = $extension->read();
+    }
+
+    my $ids = $self->ids();
+    my $index = scalar @{$ids};
+    $data->{$type}->{Shutdown}->{$index} = {
+        CmdLine => $scriptElement->userPath(),
+        Parameters => $parameters,
+    };
+    $extension->write($data);
+
+    return "$type\_$index";
+}
+
 1;
