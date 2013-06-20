@@ -144,6 +144,11 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
+    # check if users module is running in standalone mode
+    my $users = $self->global()->modInstance('users');
+    if ($users->mode() ne $users->STANDALONE_MODE) {
+        throw EBox::Exceptions::External(__('User corner needs that the users module is configured in standalone server mode'));
+    }
 
     # Create userjournal dir if it not exists
     my @commands;
