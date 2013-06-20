@@ -49,11 +49,6 @@ sub new
     $self->{tableName} = 'ExternalRules';
     $self->{printableTableName} = __('Rules for external interfaces (upload)');
 
-#    my $network = $self->global()->modInstance('network');
-#    foreach my $iface (@{ $network->ExternalIfaces }) {
-#        $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
-#    }
-
     return $self;
 }
 
