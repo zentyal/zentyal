@@ -45,7 +45,7 @@ sub _process
     $self->_requireParam("user", __('username'));
 
     my $dn = $self->unsafeParam('user');
-    my $user = new EBox::Users::User(dn => $dn);
+    my $user = $usersandgroups->{userClass}->new(dn => $dn);
 
     my $components = $usersandgroups->allUserAddOns($user);
     my $usergroups = $user->groups();
@@ -58,6 +58,7 @@ sub _process
     push(@args, 'remaingroups' => $remaingroups);
     push(@args, 'components' => $components);
     push(@args, 'slave' => not $editable);
+    push(@args, 'quotaAvailable' => $user->quotaAvailable());
 
     if ($editable) {
         $self->{crumbs} = [

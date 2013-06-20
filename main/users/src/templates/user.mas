@@ -6,6 +6,7 @@
     @remaingroups
     @components
     $slave => 1
+    $quotaAvailable => 1
 </%args>
 <%init>
 use EBox::Gettext;
@@ -64,6 +65,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % if ($slave) {
          <& .groupsRO, usergroups => \@usergroups &>
 % }
+% if ($quotaAvailable) {
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
@@ -74,6 +76,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                     <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
                 </td>
             </tr>
+% }
 %   unless ($slave) {
             <tr>
                 <td class='tright'>

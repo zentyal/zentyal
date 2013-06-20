@@ -45,18 +45,21 @@ sub _process
     $self->_requireParam('group', __('group'));
 
     my $group       = $self->unsafeParam('group');
-    $group          = new EBox::Users::Group(dn => $group);
+    $group          = $usersandgroups->{groupClass}->new(dn => $group);
     my $grpusers    = $group->users();
     my $remainusers = $group->usersNotIn();
     my $components  = $usersandgroups->allGroupAddOns($group);
 
     my $editable = $usersandgroups->editableMode();
+    if (not $editable) {
+        $self->{title} = __('View group');
+    }
 
     push(@args, 'group' => $group);
     push(@args, 'groupusers' => $grpusers);
     push(@args, 'remainusers' => $remainusers);
     push(@args, 'components' => $components);
-    push(@args, 'slave' => not $editable);
+    push(@args, 'readOnly' => not $editable);
 
     if ($editable) {
         $self->{crumbs} = [

@@ -61,4 +61,11 @@ sub _table
     return $dataTable;
 }
 
+sub precondition
+{
+    my ($self) = @_;
+    my $usersMod = $self->parentModule();
+    return $usersMod->mode() eq $usersMod->STANDALONE_MODE();
+}
+
 1;

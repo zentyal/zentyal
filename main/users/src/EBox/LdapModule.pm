@@ -20,7 +20,7 @@ package EBox::LdapModule;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
-use EBox::Ldap;
+#use EBox::Ldap; # XXX remove if not longer used
 
 use Error qw(:try);
 
@@ -52,22 +52,13 @@ sub _ldapModImplementation
 #   LDAP setup of this ebox
 sub ldap
 {
-    my ($self) = @_;
-
-    my $users = EBox::Global->modInstance('users');
+    my ($self, $globalRO) = @_;
 
     unless(defined($self->{ldap})) {
-        $self->{ldap} = EBox::Ldap->instance();
+        # XXX RW, RO>
+        $self->{ldap} = EBox::Global->getInstance($globalRO)->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
-}
-
-sub masterLdap
-{
-    my ($self) = @_;
-
-    $self->ldap->ldapCon();
-    return $self->ldap->{ldap};
 }
 
 # Method: _loadSchema
@@ -313,6 +304,31 @@ sub slaveSetupWarning
 {
     my ($self, $master) = @_;
     return undef;
+}
+
+
+sub usersModesAllowed
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    return [$users->STANDALONE_MODE()];
+}
+
+sub checkUsersMode
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    my $mode = $users->mode();
+    my $allowedMode = grep {
+        $mode eq $_
+    } @{ $self->usersModesAllowed() };
+    if (not $allowedMode) {
+        throw EBox::Exceptions::External(__x(
+            'Module {mod} is uncompatible with the current users operation mode ({mode})',
+            mod => $self->printableName(),
+            mode => $users->model('Mode')->modePrintableName,
+        ));
+    }
 }
 
 1;

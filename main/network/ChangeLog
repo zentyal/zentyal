@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted DNS resolver model to authorization mode changes
+	  in users and squid module
 3.1.2
 	+ Ported JS code to jQuery
 3.1.1

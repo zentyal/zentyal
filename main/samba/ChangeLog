@@ -1,3 +1,5 @@
+HEAD
+	+ Added incompatiblity with external AD authentication mode
 3.1.4
 	+ Fix SIDs to ignore list, add missing end of line character in regular
 	  expressions

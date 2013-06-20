@@ -72,6 +72,42 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate users
+sub mainObjectClass
+{
+    return 'posixAccount';
+}
+
+# Method: groupClass
+#
+#  Returns:
+#     perl class used for groups which can contain users of this class
+sub groupClass
+{
+    return 'EBox::Users::Group';
+}
+
+# Method: dnComponent
+#
+# Returns:
+#    DN which prepended to DN base will give the container for users
+sub dnComponent
+{
+    return 'ou=Users';
+}
+
+# Method: dnLeftmostAttribute
+#
+#  Returns:
+#   Type of the attribute for a particula user DN leftmost component
+sub dnLeftmostAttribute
+{
+    return 'uid';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
@@ -121,13 +157,21 @@ sub fullname
 sub firstname
 {
     my ($self) = @_;
-    return $self->get('givenName');
+    my $firstname =  $self->get('givenName');
+    if (not $firstname) {
+        return '';
+    }
+    return $firstname;
 }
 
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+    my $sn =  $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 sub home
@@ -327,32 +371,35 @@ sub groupsNotIn
 sub _groups
 {
     my ($self, $system, $invert) = @_;
+    my $groupClass = $self->groupClass();
 
     my $filter;
     my $dn = $self->dn();
+
+    my $groupObjectClass = $groupClass->mainObjectClass();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalGroup)(!(member=$dn)))";
+        $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalGroup)(member=$dn))";
+        $filter = "(&(objectclass=$groupObjectClass)(member=$dn))";
     }
 
     my %attrs = (
-        base => $self->_ldap->dn(),
+        base =>  $groupClass->dnComponent() . ',' . $self->_ldap->dn(),
         filter => $filter,
         scope => 'sub',
     );
 
     my $result = $self->_ldap->search(\%attrs);
+    EBox::debug("User groups: " .$result->count());
 
     my @groups;
-    if ($result->count > 0)
-    {
-        foreach my $entry ($result->entries())
-        {
+    if ($result->count > 0)  {
+        foreach my $entry ($result->entries()) {
+            my $groupObject = $groupClass->new(entry => $entry);
             if (not $system) {
-                next if ($entry->get_value('gidNumber') < EBox::Users::Group->MINGID);
+                next if $groupObject->system();
             }
-            push (@groups, new EBox::Users::Group(entry => $entry));
+            push (@groups, $groupObject);
         }
         # sort grups by name
         @groups = sort {
@@ -887,6 +934,11 @@ sub _loginShell
 
     my $users = EBox::Global->modInstance('users');
     return $users->model('PAM')->login_shellValue();
+}
+
+sub quotaAvailable
+{
+    return 1;
 }
 
 sub defaultQuota
