@@ -44,10 +44,10 @@ sub _process
         my $ou = $self->param('ou');
 
         my $users = EBox::Global->modInstance('users');
-        #FIXME: my $baseDn = $users->baseDn();
-        my $baseDn = 'dc=zentyal-domain,dc=lan';
+        # FIXME: We should support nested OUs!
+        my $parent = $users->defaultNamingContext();
 
-        EBox::Users::OU->create("ou=$ou,$baseDn");
+        EBox::Users::OU->create($ou, $parent);
 
         $self->{redirect} = 'Users/Tree/ManageUsers';
     }

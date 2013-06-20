@@ -386,4 +386,70 @@ sub as_ldif
     return $self->_entry->ldif(change => 0);
 }
 
+# Method: isContainer
+#
+#   Return whether this LdapObject can hold other objects or not.
+#
+sub isContainer
+{
+    return undef;
+}
+
+# Method: children
+#
+#   Return a reference to the list of objects that are children of this node.
+#
+sub children
+{
+    my ($self) = @_;
+
+    return [] unless $self->isContainer();
+
+    my $attrs = {
+        base   => $self->dn(),
+        filter => '(objectclass=*)',
+        scope  => 'one',
+    };
+
+    my $result = $self->_ldap->search($attrs);
+
+    my @objects = ();
+    foreach my $entry ($result->entries) {
+        my $object = $self->entryModeledObject($entry);
+
+        push (@objects, $object);
+    }
+    return \@objects;
+}
+
+# Method: parent
+#
+#   Return the parent of this object or undef if it's the root.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+sub parent
+{
+    my ($self) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $defaultNamingContext = $usersMod->defaultNamingContext();
+
+    my $dn = $self->dn();
+    return undef if ($dn eq $defaultNamingContext->dn());
+
+    my $attrs = {
+        base   => $self->baseDn(),
+        filter => '(objectclass=*)',
+        scope  => 'base',
+    };
+
+    my $result = $self->_ldap->search($attrs);
+    throw EBox::Exceptions::Internal($result->error) if ($result->code);
+    throw EBox::Exceptions::Internal("Found more than one parent for DN: " . $dn) if ($result->count() > 1);
+    throw EBox::Exceptions::Internal("Unable to find the parent for DN: " . $dn) if ($result->count() < 1);
+
+    return $usersMod->entryModeledObject($result->entry(0));
+}
+
 1;

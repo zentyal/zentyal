@@ -53,12 +53,11 @@ sub new
 {
     my $class = shift;
     my %opts = @_;
-    my $self = {};
 
     my $coreAttrs = ['uid', 'loginShell', 'uidNumber', 'gidNumber', 'homeDirectory', 'quota', 'userPassword', 'krb5Key'];
     $opts{idField} = 'uid';
     $opts{coreAttrs} = $coreAttrs;
-    $self = $class->SUPER::new(%opts);
+    my $self = $class->SUPER::new(%opts);
 
     if (defined $opts{uid}) {
         $self->{uid} = $opts{uid};
@@ -586,17 +585,6 @@ sub create
 
     # Return the new created user
     return $res;
-}
-
-sub _checkName
-{
-    my ($name) = @_;
-
-    if ($name =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
-        return 1;
-    } else {
-        return undef;
-    }
 }
 
 sub _checkUserName

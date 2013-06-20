@@ -1254,19 +1254,8 @@ sub ouObjects
 
     my @objects;
 
-    foreach my $entry ($result->entries)
-    {
-        my $object;
-
-        # FIXME: replace with better checks!
-        if ($entry->exists('uid')) {
-            $object = new EBox::Users::User(entry => $entry);
-        } elsif ($entry->exists('gidNumber')) {
-            $object = new EBox::Users::Group(entry => $entry);
-        } else {
-            EBox::warn("Unexpected entry found: FIXME");
-            next;
-        }
+    foreach my $entry ($result->entries) {
+        my $object = $self->entryModeledObject($entry);
 
         # Include system users and groups?
         next if (not $system and $object->isSystem());
@@ -1978,6 +1967,25 @@ sub checkNameLimitations
      }
 }
 
+# Method: checkCnLimitations
+#
+#   Return whether the given string is valid for its usage as a cn field.
+#
+# Parameters:
+#
+#   string - The string to check.
+#
+sub checkCnLimitations
+{
+    my ($string) = @_;
+
+    if ($string =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
+        return 1;
+    } else {
+        return undef;
+    }
+}
+
 #  Nethod: newUserUidNumber
 #
 #  return the uid for a new user
@@ -2105,6 +2113,47 @@ sub _facilitiesForDiskUsage
     return {
         $usersPrintableName   => [ $usersPath ],
     };
+}
+
+# Method: entryModeledObject
+#
+#   Return the Perl Object that handles the given LDAP entry.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# Parameters:
+#
+#   entry - A Net::LDAP::Entry object.
+#
+sub entryModeledObject
+{
+    my ($self, $entry) = @_;
+
+    my $object;
+
+    # FIXME: replace with better checks!
+    if ($entry->exists('uid')) {
+        $object = new EBox::Users::User(entry => $entry);
+    } elsif ($entry->exists('gidNumber')) {
+        $object = new EBox::Users::Group(entry => $entry);
+    } else {
+        throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
+    }
+
+    return $object;
+}
+
+# Method: defaultNamingContext
+#
+#   Return the Perl Object that holds the default Naming Context for this LDAP server.
+#
+#
+sub defaultNamingContext
+{
+    my ($self) = @_;
+
+    my $ldap = $self->ldap;
+    return new EBox::Users::NamingContext(dn => $ldap->dn());
 }
 
 1;
