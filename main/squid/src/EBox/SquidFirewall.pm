@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,12 +25,20 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
+# Method: prerouting
+#
+#   To set transparent HTTP proxy if it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::prerouting>
+#
 sub prerouting
 {
     my ($self) = @_;
 
     my $sq = $self->_global()->modInstance('squid');
-    if ($sq->transproxy()) {
+    if ( (not $sq->temporaryStopped()) and $sq->transproxy()) {
         return $self->_trans_prerouting();
     }
 

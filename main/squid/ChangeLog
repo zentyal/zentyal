@@ -1,4 +1,6 @@
 HEAD
+	+ Set transparent HTTP proxy firewall rules unless the module is
+	  temporary stopped
 	+ Use external squid log file to retrieve HTTP proxy requests
 3.0.11
 	+ Avoid warning in AccessRules validateTypedRow
