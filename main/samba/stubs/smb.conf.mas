@@ -55,6 +55,8 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     interfaces = <% $ifaces %>
     bind interfaces only = yes
 
+    case sensitive = no
+
     log level = 3
     log file = /var/log/samba/samba.log
 
