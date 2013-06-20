@@ -1,5 +1,7 @@
 HEAD
 	+ Added support for external Active Directory authorization
+3.1.3
+	+ Renamed namespace from UsersAndGroups to Users
 	+ Fixed maximum users check when not using cloud sync
 3.1.2
 	+ Remove deprecated backup domain methods
@@ -35,7 +37,7 @@ HEAD
 	+ Don't try to update samba password in user corner when samba is
 	  not configured
 	+ Add operation arguments on LDAP error whenever is possible
-	+ EBox::UsersAndGroups::User::create() allows now an internal attribute
+	+ EBox::Users::User::create() allows now an internal attribute
 	+ Users marked as internal are not displayed on the interface
 	+ New realUsers() method to filter only non-internal ones
 3.0.13
@@ -44,8 +46,8 @@ HEAD
 	+ Reload nscd also when creating new groups
 3.0.12
 	+ Fixed typo in exception class name in EBox::Ldap
-	+ Added missing use statement in EBox::UsersAndGroups and
-	  EBox::UsersAndGroups::LDAPObject classes
+	+ Added missing use statement in EBox::Users and
+	  EBox::Users::LDAPObject classes
 3.0.11
 	+ Dont loop through the group members when adding/removing members
 	+ Added EBox::Exceptions::LDAP
@@ -57,7 +59,7 @@ HEAD
 3.0.10
 	+ Use less costly LDAP operations when adding or removing members
 	  from a group
-	+ Added EBox:UsersAndGroups::LdapObject::deleteValues method
+	+ Added EBox:Users::LdapObject::deleteValues method
 	+ Faster custom row id filter for Users model
 	+ Forbid user synchronization with other zentyals if samba is provisioned
 	+ Display users groups in slave mode
@@ -114,7 +116,7 @@ HEAD
 	+ Fixed some errors on RESTClient after API change
 	+ Updated REST journaling behavior
 	+ Do not show unavailable options in master select
-	+ Added new EBox::UsersAndGroups::newUserUidNumber() function
+	+ Added new EBox::Users::newUserUidNumber() function
 	+ Added check to assure that a no-ldap user has the same uid than
 	  a new user
 	+ Implement SysInfo::Observer to disallow host domain changes after the
@@ -190,7 +192,7 @@ HEAD
 	+ Heimdal Kerberos integration for SSO features
 	+ Better validation of user names and groups names. Better message
 	  when this validation fails
-	+ Added user() and group methods() to EBox::UsersAndGroups
+	+ Added user() and group methods() to EBox::Users
 	+ Added quota limit check
 	+ Added backup domain for /home
 	+ Adapted ldapvi to changes in port
@@ -267,7 +269,7 @@ HEAD
 	+ Init slave users on enable (now home directories are created)
 	+ Create LDAP indexes during slave enable
 2.1.12
-	+ UsersAndGroups::lastUid() now takes also into account non-ldap users
+	+ Users::lastUid() now takes also into account non-ldap users
 	+ Stop old ldap daemons in reinstall script, needed before changing mode
 2.1.11
 	+ Use a safer mode() implementation to avoid recursions with ModelManager

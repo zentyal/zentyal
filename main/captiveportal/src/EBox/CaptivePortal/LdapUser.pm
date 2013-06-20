@@ -23,7 +23,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use Perl6::Junction qw(any);
 
 sub new

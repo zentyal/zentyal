@@ -1,4 +1,4 @@
-class: 'EBox::UsersAndGroups'
+class: 'EBox::Users'
 
 enabledepends:
     - dns

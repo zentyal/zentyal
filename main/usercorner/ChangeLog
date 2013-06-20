@@ -1,3 +1,5 @@
+3.1.1
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1
 	+ Removed 3.0.X migration code
 	+ Depend on zentyal-core 3.1

@@ -39,7 +39,7 @@ sub _process($) {
 
 	$self->_requireParam('user', __('user'));
 	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+	$self->{redirect} = "Users/User?user=$user";
 
 	$self->_requireParam('alias', __('mail alias'));
 	my $alias = $self->param('alias');
