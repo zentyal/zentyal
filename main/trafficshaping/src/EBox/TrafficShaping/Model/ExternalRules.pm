@@ -49,13 +49,29 @@ sub new
     $self->{tableName} = 'ExternalRules';
     $self->{printableTableName} = __('Rules for external interfaces (upload)');
 
-    my $network = $self->global()->modInstance('network');
-    foreach my $iface (@{ $network->ExternalIfaces }) {
-        $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
-    }
+#    my $network = $self->global()->modInstance('network');
+#    foreach my $iface (@{ $network->ExternalIfaces }) {
+#        $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
+#    }
 
     return $self;
 }
+
+
+sub ids
+{
+    my ($self) = @_;
+    if (not $self->{stateRateSet}) {
+        my $network = $self->global()->modInstance('network');
+        foreach my $iface (@{ $network->ExternalIfaces }) {
+            $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
+        }
+        $self->{stateRateSet} = 1;
+    }
+
+    return $self->SUPER::ids();
+}
+
 
 sub allIfacesForRuleTable
 {
