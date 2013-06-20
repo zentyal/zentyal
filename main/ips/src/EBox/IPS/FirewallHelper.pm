@@ -20,6 +20,14 @@ use warnings;
 
 use base 'EBox::FirewallHelper';
 
+# Method: preInput
+#
+#   To set the inline IPS to scan the incoming traffic
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::preInput>
+#
 sub preInput
 {
     my ($self) = @_;
@@ -27,6 +35,14 @@ sub preInput
     return $self->_ifaceRules();
 }
 
+# Method: preForward
+#
+#   To set the inline IPS to scan the forwarded traffic
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::preForward>
+#
 sub preForward
 {
     my ($self) = @_;
@@ -41,12 +57,14 @@ sub _ifaceRules
     my @rules;
 
     my $ips = EBox::Global->modInstance('ips');
-    my $qNum = $ips->nfQueueNum();
 
-    foreach my $iface (@{$ips->enabledIfaces()}) {
-        push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE --queue-num $qNum");
+    unless ($ips->temporaryStopped()) {
+        my $qNum = $ips->nfQueueNum();
+
+        foreach my $iface (@{$ips->enabledIfaces()}) {
+            push (@rules, "-i $iface -m mark ! --mark 0x10000/0x10000 -j NFQUEUE --queue-num $qNum");
+        }
     }
-
     return \@rules;
 }
 
