@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -788,18 +788,74 @@ sub _startService
 #   This is the external interface to call the implementation which lies in
 #   _stopService in subclassess
 #
+# Named parameters:
+#
+#   restartModules - Boolean indicating if the module is a firewall
+#                    observer, then it performs the firewall restart
+#                    after stopping the module.
 #
 sub stopService
 {
-    my $self = shift;
+    my ($self, %params) = @_;
 
     $self->_lock();
     try {
-        $self->_stopService();
+        $self->_stopService(%params);
     } finally {
         $self->_unlock();
     };
+
+    $self->setStopped(1);
+    if ($params{restartModules}
+        and $self->isa('EBox::FirewallObserver') and $self->global()->modInstance('firewall')->isEnabled()) {
+        # TODO: Restart firewall module with the module stopped
+        my $fw = $self->global()->modInstance('firewall');
+        $fw->restartService();
+    }
+
 }
+
+
+# Method: setStopped
+#
+#   The goal for the module is to be stopped or not. This is different
+#   from enabled as the module is enabled but momently stopped.
+#
+#   The variable is not stored in the backend as it is not
+#   necessary... yet.
+#
+# Parameters:
+#
+#   stopped - Boolean the goal is to be stopped or not
+#
+sub setStopped
+{
+    my ($self, $stopped) = @_;
+
+    $self->{stopped} = 1;
+}
+
+
+# Method: stopped
+#
+#   Get if the goal for the module is to be stopped or not. This is
+#   different from enabled as the module is enabled but momently
+#   stopped.
+#
+#   The variable is not stored in the backend as it is not
+#   necessary... yet.
+#
+# Returns:
+#
+#   Boolean - the goal is to be stopped or not
+#
+sub stopped
+{
+    my ($self) = @_;
+
+    return $self->{stopped};
+}
+
 
 # Method: _stopService
 #

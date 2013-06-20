@@ -1,4 +1,6 @@
 HEAD
+	+ Restart firewall module when a firewall observer module is
+	  stopped using CLI or EBox::Module::Service::stopService
 	+ Redirect to / from /ebox using remote access to avoid blank page
 	+ Make manage administrators table resilent against invalid users
 3.0.21
