@@ -43,7 +43,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#addGroupForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addGroupForm', { add: 1});
+       Zentyal.Dialog.submitForm('#addGroupForm', { add: 1 });
     });
 });
 </script>

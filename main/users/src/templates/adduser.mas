@@ -8,7 +8,8 @@ use EBox::Gettext;
 use EBox::Global;
 </%init>
 <h3><% __('Add User') %></h3>
-	<form action='/Users/AddUser' method='POST' autocomplete='off'>
+    <div id='error' class='error' style='display:none'></div>
+	<form action='/Users/AddUser' method='POST' autocomplete='off' id='addUserForm'>
 	<table class='formTable'>
 		<tr>
 			<td class='tright'>
@@ -72,6 +73,15 @@ use EBox::Global;
 		</tr>
 	</table>
 	</form>
+
+<script>
+jQuery(function() {
+   jQuery('#addUserForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addUserForm', { add: 1 });
+    });
+});
+</script>
 
 <%def .groupSelectorLine>
 <%args>
