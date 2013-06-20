@@ -12,7 +12,7 @@ use EBox::Gettext;
 </div>
 % } else {
 <h3><% __("Delete group") %></h3>
-<div id='error' class='error' style='display:none'></div>
+<div id='error_deleteGroupForm' class='error' style='display:none'></div>
 <div class='note'>
 	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
 </div>

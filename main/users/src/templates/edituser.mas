@@ -15,7 +15,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 <div id="edit_user" style="height: 320px">
 
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
-<div id='error' class='error' style='display:none'></div>
+<div id='error_editUserForm' class='error' style='display:none'></div>
 <div id="user_attrs" style="float: left">
         <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">

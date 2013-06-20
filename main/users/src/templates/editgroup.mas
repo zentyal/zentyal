@@ -9,7 +9,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Administration of group ') %> <span class='stitle'><% $group->name() %></span></h3>
-<div id='error' class='error' style='display:none'></div>
+<div id='error_editGroupForm' class='error' style='display:none'></div>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
     <% __("There are no users at the moment. You need at least one to manage this group properly.")%>

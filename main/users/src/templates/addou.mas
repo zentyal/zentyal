@@ -4,7 +4,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Organizational Unit') %></h3>
-    <div id='error' class='error' style='display:none'></div>
+    <div id='error_addOuForm' class='error' style='display:none'></div>
 	<form action='/Users/AddDomain' method='POST' id='addOuForm'>
 	<table class='formTable'>
 		<tr>
@@ -33,7 +33,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#addOuForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addGroupForm', { add: 1 });
+       Zentyal.Dialog.submitForm('#addOuForm', { add: 1 });
     });
 });
 </script>

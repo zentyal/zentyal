@@ -27,7 +27,6 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new('template' => '/users/addobject.mas', @_);
     bless($self, $class);
-    $self->{errorchain} = 'Users/AddObject';
     return $self;
 }
 
