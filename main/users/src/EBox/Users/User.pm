@@ -87,7 +87,7 @@ sub mainObjectClass
 #     perl class used for groups which can contain users of this class
 sub groupClass
 {
-    return 'EBox::UsersAndGroups::Group';
+    return 'EBox::Users::Group';
 }
 
 # Method: dnComponent

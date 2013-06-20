@@ -17,18 +17,18 @@
 use strict;
 use warnings;
 
-# Class: EBox::UsersAndGroups::User::ExternalAD
+# Class: EBox::Users::User::ExternalAD
 #
 #   User retrieved from external AD
 #
 
-package EBox::UsersAndGroups::User::ExternalAD;
-use base 'EBox::UsersAndGroups::User';
+package EBox::Users::User::ExternalAD;
+use base 'EBox::Users::User';
 
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use EBox::UsersAndGroups;
+use EBox::Users;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::UnwillingToPerform;
@@ -58,7 +58,7 @@ sub new
 # Method: mainObjectClass
 #
 #  Overrides:
-#    EBox::UsersAndGroups::User::mainObjectClass
+#    EBox::Users::User::mainObjectClass
 sub mainObjectClass
 {
     return 'user';
@@ -67,7 +67,7 @@ sub mainObjectClass
 # Method: dnComponent
 #
 #  Overrides:
-#    EBox::UsersAndGroups::User::dnComponent
+#    EBox::Users::User::dnComponent
 sub dnComponent
 {
     return 'cn=Users';
@@ -76,16 +76,16 @@ sub dnComponent
 # Method: groupClass
 #
 #  Overrides:
-#    EBox::UsersAndGroups::User::groupClass
+#    EBox::Users::User::groupClass
 sub groupClass
 {
-    return 'EBox::UsersAndGroups::Group::ExternalAD';
+    return 'EBox::Users::Group::ExternalAD';
 }
 
 # Method: dnLeftmostAttribute
 #
 #  Overrides:
-#    EBox::UsersAndGroups::User::dnLeftmostattribute
+#    EBox::Users::User::dnLeftmostattribute
 sub dnLeftmostAttribute
 {
     return 'cn';
@@ -96,7 +96,7 @@ sub dnLeftmostAttribute
 #   This uses the sAMAccountName attribute as user name
 #
 #  Overrides:
-#   EBox::UsersAndGroups::User::name
+#   EBox::Users::User::name
 sub name
 {
     my ($self) = @_;
@@ -109,7 +109,7 @@ sub name
 #   fall backs to the name attribute
 #
 #  Overrides:
-#   EBox::UsersAndGroups::User::fullname
+#   EBox::Users::User::fullname
 sub fullname
 {
     my ($self) = @_;
@@ -125,7 +125,7 @@ sub fullname
 #   No quota suport for external AD users, so we return empty string
 #
 #  Overrides:
-#   EBox::UsersAndGroups::User::quota
+#   EBox::Users::User::quota
 sub quota
 {
     my ($self) = @_;

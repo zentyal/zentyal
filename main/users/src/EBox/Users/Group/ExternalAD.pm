@@ -15,8 +15,8 @@
 use strict;
 use warnings;
 #
-package EBox::UsersAndGroups::Group::ExternalAD;
-use base 'EBox::UsersAndGroups::Group';
+package EBox::Users::Group::ExternalAD;
+use base 'EBox::Users::Group';
 
 use EBox::Gettext;
 use EBox::Exceptions::UnwillingToPerform;
@@ -43,7 +43,7 @@ sub new
 # Method: mainObjectClass
 #
 #  Overrides:
-#    EBox::UsersAndGroups::Groupr::mainObjectClass
+#    EBox::Users::Groupr::mainObjectClass
 sub mainObjectClass
 {
     return 'group';
@@ -52,7 +52,7 @@ sub mainObjectClass
 # Method: dnComponent
 #
 #  Overrides:
-#    EBox::UsersAndGroups::Group::dnComponent
+#    EBox::Users::Group::dnComponent
 sub dnComponent
 {
     return 'cn=Users'; # in AD same than users
@@ -61,10 +61,10 @@ sub dnComponent
 # Method: userClass
 #
 #  Overrides:
-#    EBox::UsersAndGroups::Group::userClass
+#    EBox::Users::Group::userClass
 sub userClass
 {
-    return 'EBox::UsersAndGroups::User::ExternalAD';
+    return 'EBox::Users::User::ExternalAD';
 }
 
 # Method: name

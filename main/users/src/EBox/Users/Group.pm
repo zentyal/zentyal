@@ -83,7 +83,7 @@ sub dnComponent
 #     perl class used for users which could be member of this group
 sub userClass
 {
-    return 'EBox::UsersAndGroups::User';
+    return 'EBox::Users::User';
 }
 
 # Method: _entry
