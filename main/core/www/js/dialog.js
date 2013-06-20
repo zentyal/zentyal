@@ -58,3 +58,32 @@ Zentyal.Dialog.showURL = function(url, params) {
 Zentyal.Dialog.close = function() {
     jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };
+
+Zentyal.Dialog.submitForm = function(formSelector, extraData) {
+    var form = jQuery(formSelector);
+    var url  = form.attr('action');
+    var data = form.serialize();
+    jQuery.each(extraData, function(name, value) {
+        data += '&' + name + '=' + value;
+    });
+
+    jQuery.ajax({
+        url : url,
+        data: data,
+        dataType: 'json',
+        success: function (response){
+            if (response.success) {
+                if ('redirect' in response) {
+                    window.location = response.redirect;
+                } else {
+                    Zentyal.Dialog.close();
+                }
+            } else {
+                jQuery('#error_' + form.attr('id')).html(response.error).show();
+            }
+        },
+        error: function(jqXHR){
+            jQuery('#error').html(jqXHR.responseText).show();
+        }
+    });
+};
