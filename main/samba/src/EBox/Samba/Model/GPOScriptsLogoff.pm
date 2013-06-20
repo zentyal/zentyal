@@ -16,14 +16,15 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Model::GPOScriptsLogoff
 #
+# Class: EBox::Samba::Model::GPOScriptsLogoff
 #
 package EBox::Samba::Model::GPOScriptsLogoff;
 
 use base 'EBox::Samba::Model::GPOScripts';
 
 use EBox::Gettext;
+use EBox::Samba::GPO::ScriptsUser;
 
 sub _table
 {
@@ -34,6 +35,62 @@ sub _table
     $dataTable->{printableTableName} = __('Logoff Scripts'),
     $dataTable->{printableRowName}   = __('logoff script'),
     return $dataTable;
+}
+
+sub ids
+{
+    my ($self) = @_;
+
+    my $ids = [];
+
+    my $gpoDN = $self->parentRow->id();
+    my $extension = new EBox::Samba::GPO::ScriptsUser(dn => $gpoDN);
+
+    my $data = $extension->read();
+
+    # Cache the data for row function
+    $self->{data} = $data;
+
+    # Filter the results, get Batch Logon only
+    my $batchScripts = $data->{batch};
+    my $batchLogonScripts = $batchScripts->{Logoff};
+    foreach my $index (sort keys %{$batchLogonScripts}) {
+        push (@{$ids}, "batch_$index");
+    }
+
+    # Filter the results, get PowerShell Logon only
+    my $psScripts = $data->{ps};
+    my $psLogonScripts = $psScripts->{Logoff};
+    foreach my $index (sort keys %{$psLogonScripts}) {
+        push (@{$ids}, "ps_$index");
+    }
+
+    return $ids;
+}
+
+sub row
+{
+    my ($self, $id) = @_;
+
+    # Try to retrieve cached data
+    my $data = $self->{data};
+    unless (defined $data) {
+        my $gpoDN = $self->parentRow->id();
+        my $extension = new EBox::Samba::GPO::UserScripts(dn => $gpoDN);
+        $data = $extension->read();
+    }
+
+    my ($type, $index) = split (/_/, $id);
+
+    my $script = $data->{$type}->{Logoff}->{$index};
+    my $row = $self->_setValueRow(
+            type => $type,
+            name => $script->{CmdLine},
+            parameters => $script->{Parameters},
+        );
+    $row->setId($id);
+
+    return $row;
 }
 
 1;
