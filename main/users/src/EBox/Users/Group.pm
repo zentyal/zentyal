@@ -462,7 +462,9 @@ sub create
 {
     my ($self, $group, $comment, $system, %params) = @_;
 
-    if (!$params{security} && $system) {
+    my $security = 1;
+    $security = $params{security} unless not defined $params{security};
+    if ((not $security) and $system) {
         throw EBox::Exceptions::External(
             __('A group cannot be a distribution group and a system group at the same time.'));
     }
@@ -507,7 +509,7 @@ sub create
         'objectclass' => ['zentyalDistributionGroup'],
     );
 
-    if ($params{security}) {
+    if ($security) {
         my $gid = exists $params{gidNumber} ? $params{gidNumber}: $self->_gidForNewGroup($system);
         $self->_checkGid($gid, $system);
         push (@attr, objectclass => 'posixGroup');
