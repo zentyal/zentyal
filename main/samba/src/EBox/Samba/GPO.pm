@@ -208,9 +208,6 @@ sub create
         or throw EBox::Exceptions::Internal("Can't write file: $!");
     $smb->close($fd);
 
-    # Destroy kerberos ticket
-    $krbHelper->destroy();
-
     # Create the GPC (Group Policy Container)
     my $gpoPath = "\\\\$dnsDomain\\sysvol\\$dnsDomain\\Policies\\$gpoName";
 
