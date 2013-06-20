@@ -5,6 +5,7 @@ HEAD
 	+ Implemented security group and distribution group concept from AD.
 	+ Created an OrganizationalPerson object to reuse code between User
 	  accounts and Contacts.
+	+ Added incompatiblity with external AD authentication mode
 3.1.4
 	+ Fix SIDs to ignore list, add missing end of line character in regular
 	  expressions

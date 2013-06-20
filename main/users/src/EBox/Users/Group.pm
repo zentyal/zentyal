@@ -59,6 +59,33 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate groups
+sub mainObjectClass
+{
+    return 'zentyalDistributionGroup';
+}
+
+# Method: dnComponent
+#
+# Returns:
+#    DN which prepended to DN base will give the container for groups
+sub dnComponent
+{
+    return 'ou=Groups';
+}
+
+# Method: userClass
+#
+#  Returns:
+#     perl class used for users which could be member of this group
+sub userClass
+{
+    return 'EBox::Users::User';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the group
@@ -97,6 +124,12 @@ sub name
 {
     my ($self) = @_;
     return $self->get('cn');
+}
+
+sub description
+{
+    my ($self) = @_;
+    return $self->get('description');
 }
 
 # Method: removeAllMembers
@@ -165,8 +198,9 @@ sub users
 {
     my ($self, $system) = @_;
 
+    my $userClass = $self->userClass();
     my @members = $self->get('member');
-    @members = map { new EBox::Users::User(dn => $_) } @members;
+    @members = map { $userClass->new(dn => $_) } @members;
 
     unless ($system) {
         @members = grep { not $_->isSystem() } @members;
@@ -194,16 +228,17 @@ sub usersNotIn
 {
     my ($self, $system) = @_;
 
-    my %attrs = (
-            base => $self->_ldap->dn(),
-            filter => "(&(objectclass=posixAccount)(!(memberof=$self->{dn})))",
+    my $userClass = $self->userClass();
+
+    my %searchParams = (
+            base => $userClass->dnComponent() . ',' . $self->_ldap->dn(),
+            filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
             scope => 'sub',
             );
-
-    my $result = $self->_ldap->search(\%attrs);
+    my $result = $self->_ldap->search(\%searchParams);
 
     my @users = map {
-            EBox::Users::User->new(entry => $_)
+            $userClass->new(entry => $_)
         } $result->entries();
 
     unless ($system) {

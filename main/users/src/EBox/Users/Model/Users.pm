@@ -16,8 +16,6 @@
 use strict;
 use warnings;
 
-package EBox::Users::Model::Users;
-
 # Class: EBox::Users::Model::Users
 #
 #       This a class used as a proxy for the users stored in LDAP.
@@ -25,6 +23,10 @@ package EBox::Users::Model::Users;
 #       but it's just an interim solution. An integral approach needs to
 #       be done.
 #
+
+package EBox::Users::Model::Users;
+use base 'EBox::Model::DataTable';
+
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -34,8 +36,6 @@ use EBox::Exceptions::Internal;
 
 use EBox::Types::Text;
 use EBox::Types::Link;
-
-use base 'EBox::Model::DataTable';
 
 sub new
 {
@@ -172,6 +172,7 @@ sub ids
         return [];
     }
 
+    $self->{userClass} = $users->{userClass}; # XXX refactor?
     my @list = map { $_->dn() } @{$users->realUsers()};
 
     my $filterOU = $self->filterOU();
@@ -194,11 +195,12 @@ sub row
 {
     my ($self, $id) = @_;
 
-    my $user = new EBox::Users::User(dn => $id);
+    my $user = $self->{userClass}->new(dn => $id);
     if ($user->exists()) {
-        my $full = $user->get('cn');
-        my $userName = $user->get('uid');
+        my $userName = $user->name();
+        my $full = $user->fullname();
         my $link = "/Users/User?user=$id";
+
         my $row = $self->_setValueRow(
             name => $userName,
             fullname => $full,

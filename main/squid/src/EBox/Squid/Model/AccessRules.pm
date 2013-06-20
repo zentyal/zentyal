@@ -20,7 +20,6 @@ package EBox::Squid::Model::AccessRules;
 use base 'EBox::Model::DataTable';
 
 use EBox;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -32,13 +31,10 @@ use EBox::Squid::Types::TimePeriod;
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Authen::SASL qw(Perl);
-use Authen::Krb5::Easy qw(kinit kdestroy kerror kcheck);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
+use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
-# Method: _table
-#
-#
 sub _table
 {
     my ($self) = @_;
@@ -129,7 +125,7 @@ sub _populateGroups
     if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
         return $self->_populateGroupsFromExternalAD();
     } else {
-        my $userMod = EBox::Global->modInstance('users');
+        my $userMod = $self->global()->modInstance('users');
         return [] unless ($userMod->isEnabled());
 
         my @groups;
@@ -149,58 +145,9 @@ sub _adLdap
     my ($self) = @_;
 
     unless (defined $self->{adLdap}) {
-    my $squid = $self->parentModule();
-    my $keytab = $squid->KEYTAB_FILE();
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
-
-    EBox::info("Connecting to AD LDAP");
-    my $confFile = $squid->SQUID_ZCONF_FILE();
-    my $dcKey = $squid->AUTH_AD_DC_KEY();
-    my $dc = EBox::Config::configkeyFromFile($dcKey, $confFile);
-
-    my $ccache = EBox::Config::tmp() . 'squid-ad.ccache';
-    $ENV{KRB5CCNAME} = $ccache;
-
-    # Get credentials for computer account
-    my $ok = kinit($keytab, $hostSamAccountName);
-    unless (defined $ok and $ok == 1) {
-        throw EBox::Exceptions::External(
-            __x("Unable to get kerberos ticket to bind to LDAP: {x}",
-                x => kerror()));
-    }
-
-    # Set up a SASL object
-    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
-    unless ($sasl) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup SASL object: {x}",
-                x => $@));
-    }
-
-    # Set up an LDAP connection
-    my $ldap = new Net::LDAP($dc);
-    unless ($ldap) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup LDAP object: {x}",
-                x => $@));
-    }
-
-    # Check GSSAPI support
-    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
-    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
-        throw EBox::Exceptions::External(
-            __("AD LDAP server does not support GSSAPI"));
-    }
-
-    # Finally bind to LDAP using our SASL object
-    my $bindResult = $ldap->bind(sasl => $sasl);
-    if ($bindResult->is_error()) {
-        throw EBox::Exceptions::External(
-            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
-                x => $dc, y => $bindResult->error_desc()));
-    }
-        $self->{adLdap} = $ldap;
+        my $squid = $self->parentModule();
+        my $keytab = $squid->KEYTAB_FILE();
+        $self->{adLdap} = $self->global()->modInstance('users')->ldap()->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};
@@ -243,8 +190,8 @@ sub _populateGroupsFromExternalAD
     my ($self) = @_;
 
     my $squid = $self->parentModule();
-    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
-    my $skip = EBox::Config::boolean($key);
+
+    my $skip = EBox::Config::boolean(AUTH_AD_SKIP_SYSTEM_GROUPS_KEY);
 
     my $groups = [];
     my $ad = $self->_adLdap();

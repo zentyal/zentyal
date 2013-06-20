@@ -304,6 +304,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');

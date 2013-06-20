@@ -68,7 +68,11 @@ sub fullname
 sub firstname
 {
     my ($self) = @_;
-    return $self->get('givenName');
+    my $firstname =  $self->get('givenName');
+    if (not $firstname) {
+        return '';
+    }
+    return $firstname;
 }
 
 sub initials
@@ -80,7 +84,11 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-    return $self->get('sn');
+        my $sn =  $self->get('sn');
+    if (not $sn) {
+        return '';
+    }
+    return $sn;
 }
 
 sub displayname
@@ -233,10 +241,12 @@ sub _groups
 
     my $filter;
     my $dn = $self->dn();
+
+    my $groupObjectClass = $groupClass->mainObjectClass();
     if ($invert) {
-        $filter = "(&(objectclass=zentyalDistributionGroup)(!(member=$dn)))";
+        $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
     } else {
-        $filter = "(&(objectclass=zentyalDistributionGroup)(member=$dn))";
+        $filter = "(&(objectclass=$groupObjectClass)(member=$dn))";
     }
 
     my %attrs = (
@@ -246,11 +256,13 @@ sub _groups
     );
 
     my $result = $self->_ldap->search(\%attrs);
+    EBox::debug("User groups: " .$result->count());
 
     my @groups;
     if ($result->count > 0) {
         foreach my $entry ($result->entries()) {
-            push (@groups, new EBox::Users::Group(entry => $entry));
+            my $groupObject = $groupClass->new(entry => $entry);
+            push (@groups, $groupObject);
         }
         # sort grups by name
         @groups = sort {

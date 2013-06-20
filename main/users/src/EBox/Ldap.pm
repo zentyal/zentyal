@@ -21,6 +21,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Gettext;
 
@@ -714,6 +715,7 @@ sub start
     return  $self->refreshLdap();
 }
 
+# XXX maybe use clearConn instead?
 sub refreshLdap
 {
     my ($self) = @_;
@@ -811,6 +813,32 @@ sub _slapcatCmd
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
+# Method: url
+#
+#  Return the URL or paraeter to create a connection with this LDAP
+sub url
+{
+    return LDAPI;
+}
+
+# Method: userBindDN
+#
+#  given a plain user name, it return the argument needed to bind to the
+#  directory which that user, normally a DN
+#
+# Parametes:
+#        user - plain username
+#
+# Returns:
+#   DN or other token to use for binding to the directory
+sub userBindDN
+{
+    my ($self, $user) = @_;
+    return "uid=$user," .
+           $self->dnComponent() . ',' .
+           $self->dn();
+}
+
 sub safeConnect
 {
     my ($ldapurl) = @_;
@@ -886,6 +914,13 @@ sub changeUserPassword
                         add     => [ userPassword => $newPasswd ] ]);
         _errorOnLdap($mesg, $dn);
     }
+}
+
+sub connectWithKerberos
+{
+    EBox::Exceptions::UnwillingToPerform->throw(
+        reason => 'Internal LDAP does not support this connection method'
+    );
 }
 
 1;

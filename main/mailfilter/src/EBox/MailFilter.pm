@@ -191,6 +191,7 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 

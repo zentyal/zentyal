@@ -67,6 +67,42 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate users
+sub mainObjectClass
+{
+    return 'posixAccount';
+}
+
+# Method: groupClass
+#
+#  Returns:
+#     perl class used for groups which can contain users of this class
+sub groupClass
+{
+    return 'EBox::Users::Group';
+}
+
+# Method: dnComponent
+#
+# Returns:
+#    DN which prepended to DN base will give the container for users
+sub dnComponent
+{
+    return 'ou=Users';
+}
+
+# Method: dnLeftmostAttribute
+#
+#  Returns:
+#   Type of the attribute for a particula user DN leftmost component
+sub dnLeftmostAttribute
+{
+    return 'uid';
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the user
@@ -221,6 +257,7 @@ sub groupsNotIn
 sub _groups
 {
     my ($self, $system, $invert) = @_;
+    my $groupClass = $self->groupClass();
 
     shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};
@@ -723,6 +760,11 @@ sub _loginShell
 
     my $users = EBox::Global->modInstance('users');
     return $users->model('PAM')->login_shellValue();
+}
+
+sub quotaAvailable
+{
+    return 1;
 }
 
 sub defaultQuota
