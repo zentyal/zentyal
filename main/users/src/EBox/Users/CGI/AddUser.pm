@@ -76,7 +76,7 @@ sub _process
         }
 
         $self->{json}->{success} = 1;
-        $self->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
 

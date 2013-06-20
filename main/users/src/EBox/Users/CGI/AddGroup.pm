@@ -48,7 +48,7 @@ sub _process
         my $group = EBox::Users::Group->create($groupname, $comment);
 
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
 

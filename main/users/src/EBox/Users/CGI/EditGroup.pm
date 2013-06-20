@@ -71,7 +71,7 @@ sub _process
         }
 
         $self->{json}->{success}  = 1;
-        $self->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };
         $self->_requireParam('adduser', __('user'));

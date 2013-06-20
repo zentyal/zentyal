@@ -51,7 +51,7 @@ sub _process
         EBox::Users::OU->create("ou=$ou,$baseDn");
 
         $self->{json}->{success} = 1;
-        $self->{json}->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
 

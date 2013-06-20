@@ -67,7 +67,7 @@ sub _process
         my $user = new EBox::Users::User(dn => $dn);
         $user->deleteObject();
         $self->{json}->{success} = 1;
-        $self->{redirect} = 'Users/Tree/Manage';
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 
     $self->{params} = \@args;
