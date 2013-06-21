@@ -22,7 +22,6 @@ use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Users::OU;
 
 sub new
 {
@@ -36,7 +35,7 @@ sub _process
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
     $self->{'title'} = __('Users');
 
@@ -45,9 +44,8 @@ sub _process
     $self->_requireParam('dn', 'dn');
 
     my $dn = $self->unsafeParam('dn');
-    my $ou = new EBox::Users::OU(dn => $dn);
-
-    my $editable = $users->editableMode();
+    my $ou = $usersMod->ouClass()->new(dn => $dn);
+    my $editable = $usersMod->editableMode();
 
     push(@args, 'dn' => $dn);
     push(@args, 'slave' => not $editable);
@@ -59,13 +57,11 @@ sub _process
     } elsif ($self->param('delouforce')) {
         $delou = 1;
     } elsif ($self->unsafeParam('delou')) {
-        my $ou = new EBox::Users::Group(dn => $dn);
         $delou = not $self->_warnUser('ou', $ou);
     }
 
     if ($delou) {
         $self->{json} = { success => 0 };
-        my $ou = new EBox::Users::Group(dn => $dn);
         $ou->deleteObject();
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
@@ -78,8 +74,8 @@ sub _warnUser
 {
     my ($self, $object, $ldapObject) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $warns = $users->allWarnings($object, $ldapObject);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $warns = $usersMod->allWarnings($object, $ldapObject);
 
     if (@{$warns}) { # If any module wants to warn user
          $self->{template} = 'users/del.mas';

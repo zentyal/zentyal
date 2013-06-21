@@ -21,7 +21,6 @@ package EBox::Users::CGI::AddOU;
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
-use EBox::Users::OU;
 use EBox::Gettext;
 
 sub new
@@ -43,11 +42,11 @@ sub _process
         $self->_requireParam('ou', __('OU name'));
         my $ou = $self->param('ou');
 
-        my $users = EBox::Global->modInstance('users');
+        my $usersMod = EBox::Global->modInstance('users');
         # FIXME: We should support nested OUs!
-        my $parent = $users->defaultNamingContext();
+        my $parent = $usersMod->defaultNamingContext();
 
-        EBox::Users::OU->create($ou, $parent);
+        $usersMod->ouClass()->create($ou, $parent);
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';

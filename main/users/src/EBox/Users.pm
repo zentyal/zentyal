@@ -36,10 +36,7 @@ use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::Users::Slave;
-use EBox::Users::User;
 use EBox::Users::Contact;
-use EBox::Users::Group;
-use EBox::Users::OU;
 use EBox::Users::NamingContext;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
@@ -112,19 +109,34 @@ sub _setupForMode
     my $mode = $self->mode();
     if ($mode ne EXTERNAL_AD_MODE) {
         $self->{ldapClass} = 'EBox::Ldap';
+        $self->{ouClass} = 'EBox::Users::OU';
         $self->{userClass} = 'EBox::Users::User';
         $self->{groupClass} = 'EBox::Users::Group';
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
+        $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
         $self->{userClass} = 'EBox::Users::User::ExternalAD';
         $self->{groupClass} = 'EBox::Users::Group::ExternalAD';
         # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{userClass}, $self->{groupClass}) {
+        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{groupClass}) {
             eval "use $pkg";
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
     }
 
+}
+
+# Method: ouClass
+#
+#   Return the OC class implementation to use.
+#
+sub ouClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("ouClass not initialized.") unless (defined $self->{ouClass});
+
+    return $self->{ouClass};
 }
 
 # Method: depends
@@ -938,6 +950,7 @@ sub usersDn
 #
 #  Returns:
 #     dn for the user
+# FIXME: This method is not correct for Windows AD, it doesn't use the user id as the CN value!
 sub userDn
 {
     my ($self, $user) = @_;
@@ -1328,7 +1341,7 @@ sub ous
     my @ous = ();
     foreach my $entry ($result->entries())
     {
-        my $ou = new EBox::Users::OU(entry => $entry);
+        my $ou = $self->ouClass()->new(entry => $entry);
         push (@ous, $ou);
     }
 
