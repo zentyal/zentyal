@@ -28,7 +28,6 @@ use EBox::Global;
 use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::InvalidType;
 
 # Method: isContainer
 #
@@ -59,10 +58,8 @@ sub create
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    throw EBox::Exceptions::InvalidData(
-        "Invalid character found on '$name' to be used as an OU name") unless ($usersMod->checkCnLimitations($name));
-    throw EBox::Exceptions::InvalidType(
-        'Given parent ' . $parent->dn() . ' is not a container') unless ($parent->isContainer);
+    throw EBox::Exceptions::InvalidData(data => 'name', value => $name) unless ($usersMod->checkCnLimitations($name));
+    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
     my $args = {
         attr => [

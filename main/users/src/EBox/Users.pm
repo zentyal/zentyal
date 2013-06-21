@@ -2137,7 +2137,7 @@ sub checkNameLimitations
 #
 sub checkCnLimitations
 {
-    my ($string) = @_;
+    my ($self, $string) = @_;
 
     if ($string =~ /^([a-zA-Z\d\s_-]+\.)*[a-zA-Z\d\s_-]+$/) {
         return 1;
