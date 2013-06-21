@@ -59,13 +59,18 @@ Zentyal.Dialog.close = function() {
     jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };
 
-Zentyal.Dialog.submitForm = function(formSelector, extraData) {
+Zentyal.Dialog.submitForm = function(formSelector, extraData, extraParams) {
     var form = jQuery(formSelector);
     var url  = form.attr('action');
     var data = form.serialize();
-    jQuery.each(extraData, function(name, value) {
-        data += '&' + name + '=' + value;
-    });
+    if (extraData !== undefined) {
+        jQuery.each(extraData, function(name, value) {
+            data += '&' + name + '=' + value;
+        });
+    }
+    if (extraParams == undefined) {
+        extraParams = {};
+    }
 
     jQuery.ajax({
         url : url,
@@ -73,13 +78,18 @@ Zentyal.Dialog.submitForm = function(formSelector, extraData) {
         dataType: 'json',
         success: function (response){
             if (response.success) {
+                if ('success' in extraParams) {
+                    extraParams.success(response);
+                }
                 if ('redirect' in response) {
                     window.location = response.redirect;
-                } else {
-                    Zentyal.Dialog.close();
                 }
             } else {
                 jQuery('#error_' + form.attr('id')).html(response.error).show();
+                if ('error' in extraParams) {
+                    extraParams.error(response);
+                }
+
             }
         },
         error: function(jqXHR){
