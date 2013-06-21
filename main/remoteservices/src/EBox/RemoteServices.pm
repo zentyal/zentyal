@@ -332,7 +332,7 @@ sub _daemons
     return [
         {
             'name'         => RUNNERD_SERVICE,
-            'precondition' => \&eBoxSubscribed,
+            'precondition' => \&runRunnerd,
         },
         {
             'name'         => REPORTERD_SERVICE,
@@ -1572,6 +1572,44 @@ sub inventoryEnabled
     my ($self) = @_;
 
     return $self->reportEnabled();
+}
+
+# Method: runRunnerd
+#
+#     Get if runnerd daemon should be run.
+#
+#     By default, run if the server is registered. If not, then this
+#     depends on the value set by <ensureRunnerdRunning> method
+#
+# Returns:
+#
+#     Boolean
+#
+sub runRunnerd
+{
+    my ($self) = @_;
+
+    return 1 if ($self->eBoxSubscribed());
+    return $self->get_bool('runnerd_always_running');
+}
+
+# Method: ensureRunnerdRunning
+#
+#     Ensure runnerd is running even when the server is not
+#     registered.
+#
+#     Save changes is required to start/stop runnerd daemon.
+#
+# Parameters:
+#
+#     run - Boolean indicating if runnerd is meant to be run or not
+#
+sub ensureRunnerdRunning
+{
+    my ($self, $run) = @_;
+
+    $run = 0 unless (defined($run));
+    $self->set_bool('runnerd_always_running', $run);
 }
 
 # Group: Private methods
