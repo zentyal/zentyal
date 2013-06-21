@@ -41,9 +41,10 @@ sub rootNodes
 {
     my ($self) = @_;
 
-    my $domain = EBox::Global->getInstance(1)->modInstance('sysinfo')->hostDomain();
+    my $usersMod = EBox::Global->getInstance(1)->modInstance("users");
+    my $defaultNamingContext = $usersMod->defaultNamingContext();
 
-    return [ { id => 'root', printableName => $domain, type => 'domain' } ];
+    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
 }
 
 sub childNodes

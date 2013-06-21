@@ -42,7 +42,7 @@ sub new
     throw EBox::Exceptions::Internal(
         "A naming context cannot be instanciated from an ldif string") if (defined $params{ldif});
 
-    my $self = return $class->SUPER::new(%params);        my $class = shift;
+    my $self = return $class->SUPER::new(%params);
     bless ($self, $class);
     return $self;
 }
@@ -51,11 +51,37 @@ sub new
 #
 #   Return that this NamingContext can hold other objects.
 #
-#   Overrides >EBox::Users::LdapObject::isContainer>
+#   Override <EBox::Users::LdapObject::isContainer>
 #
 sub isContainer
 {
     return 1;
+}
+
+# Method: baseName
+#
+#   Return a string representing the base name of this Naming Context. A naming Object doesn't follow the
+#   usual naming rules.
+#
+#   Override <EBox::Users::LdapObject::baseName>
+#
+sub baseName
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    throw EBox::Exceptions::Internal("A Naming Context cannot have a parent: " . $parent->dn()) if (defined $parent);
+
+    my $dn = $self->dn();
+    my $baseName = '';
+    for my $section (split (',', $dn)) {
+        if ($baseName) {
+            $baseName .= '.';
+        }
+        my ($trash, $value) = split ('=', $section, 2);
+        $baseName .= $value;
+    }
+    return $baseName;
 }
 
 1;

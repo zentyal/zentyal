@@ -25,6 +25,7 @@ use EBox::Users;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
@@ -274,7 +275,7 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->_entry->dn();
+    return $self->_entry()->dn();
 }
 
 # Method: baseDn
@@ -285,7 +286,10 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
+    my $dn = $self->dn();
+    return $dn if ($self->_ldap->dn() eq $dn);
+
+    my ($trash, $basedn) = split(/,/, $dn, 2);
     return $basedn;
 }
 
@@ -300,11 +304,22 @@ sub _entry
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
-            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
+            my $dn = $self->{dn};
+            my $filter = undef;
+            my $baseDN = undef;
+            my $scope = undef;
+            if ($self->_ldap->dn() eq $dn) {
+                $filter = '(objectclass=*)';
+                $baseDN = $dn;
+                $scope = 'base';
+            } else {
+                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
+                $scope = 'one';
+            }
             my $attrs = {
-                base => $basedn,
+                base => $baseDN,
                 filter => $filter,
-                scope => 'one',
+                scope => $scope,
             };
             $result = $self->_ldap->search($attrs);
         }
@@ -342,37 +357,45 @@ sub _ldap
 
 # Method canonicalName
 #
-#   Returns a string representing the canonical name object.
+#   Return a string representing the object's canonical name.
 #
 sub canonicalName
 {
     my ($self) = @_;
 
+    my $parent = $self->parent();
+
     my $canonicalName = '';
-    my $dn = $self->dn();
-    my $baseDN = $self->baseDn();
-
-    # TODO: Once we support forests like AD does we would need this part uncommented.
-    # for my $section (split (',', $baseDN)) {
-    #     if ($canonicalName) {
-    #         $canonicalName .= '.';
-    #     }
-    #     my ($trash, $value) = split ('=', $section, 2);
-    #     $canonicalName .= $value;
-    # }
-
-    my @contentDN = split ($baseDN, $dn);
-
-    # We need to reverse the order of the array to construct the canonical Name in the right order.
-    for my $unit (reverse (split (',', $contentDN[0]))) {
-        if ($canonicalName) {
-            $canonicalName .= '/';
-        }
-        my ($trash, $value) = split ('=', $unit, 2);
-        $canonicalName .= $value;
+    if ($parent) {
+        $canonicalName = $parent->canonicalName() . '/';
     }
 
+    $canonicalName .= $self->baseName();
+
     return $canonicalName;
+}
+
+# Method baseName
+#
+#   Return a string representing the object's base name. Root node doesn't follow the standard naming schema,
+#   thus, it should override this method.
+#
+#   Throw EBox::Exceptions::Internal if the method is not overrided by the root node implementation.
+#
+sub baseName
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+
+    throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn()) unless ($parent);
+
+    my $dn = $self->dn();
+    my $parentDN = $parent->dn();
+    my ($contentDN, $trashDN) = split ($parentDN, $dn);
+    my ($trashTag, $baseName) = split ('=', $contentDN, 2);
+
+    return $baseName;
 }
 
 # Method: as_ldif

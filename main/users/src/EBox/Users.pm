@@ -40,6 +40,7 @@ use EBox::Users::User;
 use EBox::Users::Contact;
 use EBox::Users::Group;
 use EBox::Users::OU;
+use EBox::Users::NamingContext;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;

@@ -34,7 +34,7 @@ use EBox::Exceptions::InvalidType;
 #
 #   Return that this Organizational Unit can hold other objects.
 #
-#   Overrides >EBox::Users::LdapObject::isContainer>
+#   Override <EBox::Users::LdapObject::isContainer>
 #
 sub isContainer
 {
