@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::EditUser;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
@@ -62,6 +62,7 @@ sub _process
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
+        $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
 
@@ -106,8 +107,11 @@ sub _process
 
         $user->save();
 
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{json}->{success}  = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     } elsif ($self->param('addgrouptouser')) {
+        $self->{json} = { success => 0 };
+
         $self->_requireParam('addgroup', __('group'));
         my @groups = $self->unsafeParam('addgroup');
 
@@ -115,7 +119,11 @@ sub _process
             my $group = new EBox::Users::Group(dn => $gr);
             $user->addGroup($group);
         }
+
+        $self->{json}->{success} = 1;
     } elsif ($self->param('delgroupfromuser')) {
+        $self->{json} = { success => 0 };
+
         $self->_requireParam('delgroup', __('group'));
 
         my @groups = $self->unsafeParam('delgroup');
@@ -123,26 +131,9 @@ sub _process
             my $group = new EBox::Users::Group(dn => $gr);
             $user->removeGroup($group);
         }
+
+        $self->{json}->{success} = 1;
     }
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
 }
 
 1;

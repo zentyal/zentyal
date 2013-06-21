@@ -1729,53 +1729,31 @@ sub menu
                                         'text' => $self->printableName(),
                                         'separator' => $separator,
                                         'order' => $order);
-
     if ($self->configured()) {
-        if ($self->editableMode()) {
-            $folder->add(new EBox::Menu::Item('url' => 'Users/Tree/ManageUsers',
-                                              'text' => __('Manage'), order => 9));
-            $folder->add(new EBox::Menu::Item('url' => 'Users/Users',
-                                              'text' => __('Users'), order => 10));
-            $folder->add(new EBox::Menu::Item('url' => 'Users/Groups',
-                                              'text' => __('Groups'), order => 20));
-            $folder->add(new EBox::Menu::Item('url' => 'Users/Composite/UserTemplate',
-                                              'text' => __('User Template'), order => 30));
-            $folder->add(new EBox::Menu::Item('url' => 'Users/View/Contacts',
-                                              'text' => __('Contacts'), order => 35));
-
-        } else {
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/View/Users',
-                        'text' => __('Users'), order => 10));
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/View/Groups',
-                        'text' => __('Groups'), order => 20));
-            $folder->add(new EBox::Menu::Item(
-                        'url' => 'Users/View/Contacts',
-                        'text' => __('contacts'), order => 35));
-        }
-
         $folder->add(new EBox::Menu::Item(
-                    'url' => 'Users/View/OUs',
-                    'text' => __('Organizational Units'), order => 25));
-
+            'url'  => 'Users/Tree/Manage',
+            'text' => __('Manage'), order => 10));
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Users/Composite/UserTemplate',
+            'text' => __('User Template'), order => 30));
+        $folder->add(new EBox::Menu::Item(
+            'url'  => 'Users/View/OUs',
+            'text' => __('Organizational Units'), order => 25));
         if ($self->mode() eq STANDALONE_MODE) {
             $folder->add(new EBox::Menu::Item(
-                'url' => 'Users/Composite/Sync',
+                'url'  => 'Users/Composite/Sync',
                 'text' => __('Synchronization'), order => 40));
         }
-
         $folder->add(new EBox::Menu::Item(
-                    'url' => 'Users/Composite/Settings',
-                    'text' => __('LDAP Settings'), order => 50));
-
+            'url'  => 'Users/Composite/Settings',
+            'text' => __('LDAP Settings'), order => 50));
     } else {
-        $folder->add(new EBox::Menu::Item('url' => 'Users/View/Mode',
-                                          'text' => __('Configure mode'),
-                                          'separator' => $separator,
-                                          'order' => 0));
+        $folder->add(new EBox::Menu::Item(
+            'url'       => 'Users/View/Mode',
+            'text'      => __('Configure mode'),
+            'separator' => $separator,
+            'order'     => 0));
     }
-
     $root->add($folder);
 }
 

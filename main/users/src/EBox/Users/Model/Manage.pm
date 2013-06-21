@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Users::Model::ManageUsers;
+package EBox::Users::Model::Manage;
 
 use base 'EBox::Model::TreeView';
 
@@ -28,7 +28,7 @@ sub _tree
     my ($self) = @_;
 
     return {
-        treeName => 'ManageUsers',
+        treeName => 'Manage',
         modelDomain => 'Users',
         pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],
@@ -70,7 +70,11 @@ sub _ous
     foreach my $ou (@{$self->parentModule()->ous()}) {
         my $dn = $ou->dn();
         my ($name) = $dn =~ /^ou=([^,]+),/;
-        push (@nodes, { id => $dn, printableName => $name });
+
+        # Hide Kerberos OU as it's not useful for the user to keep the UI simple
+        next if ($name eq 'Kerberos');
+
+        push (@nodes, { id => $dn, printableName => $name, type => 'ou' });
     }
 
     return \@nodes;
@@ -122,13 +126,14 @@ sub _ouObjects
 
 sub nodeTypes
 {
-    return [
-        { name => 'domain', actions => { filter => 0, add => 1 } },
-        { name => 'user', printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
-        { name => 'group', printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
-        { name => 'computer', printableName => __('Computers'), actions => { filter => 1 } },
-        { name => 'contact', printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
-    ];
+    return {
+        domain => { actions => { filter => 0, add => 1 }, actionObjects => { add => 'OU' } },
+        ou => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
+        group => { printableName => __('Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
+        computer => { printableName => __('Computers'), actions => { filter => 1 } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
+    };
 }
 
 sub doubleClickHandlerJS
@@ -136,6 +141,36 @@ sub doubleClickHandlerJS
     my ($self, $type, $id) = @_;
 
     $self->actionHandlerJS('edit', $type, $id);
+}
+
+# Method: precondition
+#
+# Check if the module is configured
+#
+# Overrides:
+#
+# <EBox::Model::Base::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    return $self->parentModule()->configured();
+}
+
+# Method: preconditionFailMsg
+#
+# Check if the module is configured
+#
+# Overrides:
+#
+# <EBox::Model::Model::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('You must enable the module Users in the module status section in order to use it.');
 }
 
 1;

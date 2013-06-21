@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,46 +16,42 @@
 use strict;
 use warnings;
 
-package EBox::Users::CGI::DelGroupFromUser;
+package EBox::Users::CGI::AddOU;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
-use EBox::Users;
-use EBox::Users::User;
-use EBox::Users::Group;
+use EBox::Users::OU;
 use EBox::Gettext;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => 'Users and Groups',
-                      @_);
+    my $self = $class->SUPER::new('template' => '/users/addou.mas', @_);
     bless($self, $class);
     return $self;
 }
 
 sub _process
 {
-    my ($self) = @_;
+    my $self = shift;
 
-    $self->_requireParam('user' , __('user'));
-    my $user = $self->unsafeParam('user');
-    $user = new EBox::Users::User(dn => $user);
+    my @args;
 
-    $self->{errorchain} = "Users/User";
-    $self->keepParam('user');
+    if ($self->param('add')) {
+        $self->{json} = { success => 0 };
+        $self->_requireParam('ou', __('OU name'));
+        my $ou = $self->param('ou');
 
-    $self->_requireParam('delgroup', __('group'));
+        my $users = EBox::Global->modInstance('users');
+        # FIXME: We should support nested OUs!
+        my $parent = $users->defaultNamingContext();
 
-    my @groups = $self->unsafeParam('delgroup');
+        EBox::Users::OU->create($ou, $parent);
 
-    foreach my $dn (@groups){
-        my $group = new EBox::Users::Group(dn => $dn);
-        $user->removeGroup($group);
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
-
-    $self->{redirect} = 'Users/User?user=' . $user->dn();
 }
 
 1;

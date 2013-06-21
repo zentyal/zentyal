@@ -12,12 +12,13 @@ use EBox::Gettext;
 </div>
 % } else {
 <h3><% __("Delete group") %></h3>
+<div id='error_deleteGroupForm' class='error' style='display:none'></div>
 <div class='note'>
 	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
 </div>
 
 <br />
-<form action='/Users/DeleteGroup' method='POST'>
+<form action='/Users/DeleteGroup' method='POST' id='deleteGroupForm'>
 		<input type="hidden" name="dn" value="<% $group->dn() %>">
 				<input class='inputButton' type='submit' name='delgroup'
 					   value="<% __('Delete group') %>"
@@ -25,4 +26,13 @@ use EBox::Gettext;
 			<td>
 		</tr>
 </form>
+
+<script>
+jQuery(function() {
+   jQuery('#deleteGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#deleteGroupForm', { delete: 1 });
+    });
+});
+</script>
 % }

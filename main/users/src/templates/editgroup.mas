@@ -9,6 +9,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Administration of group ') %> <span class='stitle'><% $group->name() %></span></h3>
+<div id='error_editGroupForm' class='error' style='display:none'></div>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
     <% __("There are no users at the moment. You need at least one to manage this group properly.")%>
@@ -16,7 +17,7 @@ use EBox::Gettext;
 <br />
 % }
 
-<form action='/Users/EditGroup' method='POST'>
+<form action='/Users/EditGroup' method='POST' id='editGroupForm'>
     <span class="ftitle"><% __('Comment') %>: </span>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
@@ -106,3 +107,11 @@ use EBox::Gettext;
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
 
+<script>
+jQuery(function() {
+   jQuery('#editGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#editGroupForm', { edit: 1 });
+    });
+});
+</script>

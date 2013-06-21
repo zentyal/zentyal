@@ -1,14 +1,11 @@
 <%args>
-	@groups => ();
 </%args>
 <%init>
 use EBox::Gettext;
-use EBox::Global;
-my $groupsModel = EBox::Global->modInstance('users')->model('Groups');
-
 </%init>
 <h3><% __('Add Group') %></h3>
-	<form action='AddGroup' method='POST'>
+    <div id='error_addGroupForm' class='error' style='display:none'></div>
+	<form action='/Users/AddGroup' method='POST' id='addGroupForm'>
 	<table class='formTable'>
 		<tr>
 			<td  class='tright'>
@@ -34,16 +31,19 @@ my $groupsModel = EBox::Global->modInstance('users')->model('Groups');
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='addAndEdit' 
-					   value="<% __('Add and Edit') %>"
-					   alt="<% __('Add and Edit') %>"/>
-				<input class='inputButton' type='submit' name='add' 
+				<input class='inputButton'  type='submit' name='add'
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>"/>
-
 			</td>
 		</tr>
 	</table>
 	</form>
 
-<& '/ajax/tableBody.mas', model => $groupsModel &>
+<script>
+jQuery(function() {
+   jQuery('#addGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addGroupForm', { add: 1 });
+    });
+});
+</script>

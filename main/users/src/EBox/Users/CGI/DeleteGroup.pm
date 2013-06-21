@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Users::CGI::DeleteGroup;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
@@ -55,7 +55,7 @@ sub _process
     my $delgroup;
 
     if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{redirect} = 'Users/Tree/Manage';
     } elsif ($self->param('delgroupforce')) {
         $delgroup = 1;
     } elsif ($self->unsafeParam('delgroup')) {
@@ -64,32 +64,14 @@ sub _process
     }
 
     if ($delgroup) {
+        $self->{json} = { success => 0 };
         my $group = new EBox::Users::Group(dn => $dn);
         $group->deleteObject();
-        $self->{msg} = __('Group removed successfully');
-        $self->{redirect} = 'Users/Tree/ManageUsers';
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 
     $self->{params} = \@args;
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
 }
 
 sub _warnUser

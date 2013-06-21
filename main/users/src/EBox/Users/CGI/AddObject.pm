@@ -5,7 +5,7 @@
 # published by the Free Software Foundation.
 #
 # This program is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# but WITHObjectT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU General Public License for more details.
 #
@@ -16,20 +16,17 @@
 use strict;
 use warnings;
 
-package EBox::Users::CGI::AddDomain;
+package EBox::Users::CGI::AddObject;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
-use EBox::Global;
-use EBox::Users::OU;
 use EBox::Gettext;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/users/addou.mas', @_);
+    my $self = $class->SUPER::new('template' => '/users/addobject.mas', @_);
     bless($self, $class);
-    $self->{errorchain} = 'Users/AddDomain';
     return $self;
 }
 
@@ -39,37 +36,12 @@ sub _process
 
     my @args;
 
-    if ($self->param('add')) {
-        $self->_requireParam('ou', __('OU name'));
-        my $ou = $self->param('ou');
+    $self->_requireParam('dn', 'dn');
+    my $dn = $self->unsafeParam('dn');
 
-        my $users = EBox::Global->modInstance('users');
-        # FIXME: We should support nested OUs!
-        my $parent = $users->defaultNamingContext();
+    push (@args, dn => $dn);
 
-        EBox::Users::OU->create($ou, $parent);
-
-        $self->{redirect} = 'Users/Tree/ManageUsers';
-    }
-}
-
-sub _print
-{
-    my ($self) = @_;
-
-    $self->_printPopup();
-}
-
-sub _menu
-{
-}
-
-sub _top
-{
-}
-
-sub _footer
-{
+    $self->{params} = \@args;
 }
 
 1;

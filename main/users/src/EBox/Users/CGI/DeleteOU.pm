@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,18 +16,18 @@
 use strict;
 use warnings;
 
-package EBox::Users::CGI::DeleteUser;
+package EBox::Users::CGI::DeleteOU;
 
 use base 'EBox::CGI::ClientPopupBase';
 
-use EBox::Global;
-use EBox::Users;
 use EBox::Gettext;
+use EBox::Global;
+use EBox::Users::OU;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/users/deluser.mas', @_);
+    my $self = $class->SUPER::new('template' => '/users/delou.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -35,7 +35,8 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    my $usersandgroups = EBox::Global->modInstance('users');
+
+    my $users = EBox::Global->modInstance('users');
 
     $self->{'title'} = __('Users');
 
@@ -44,28 +45,28 @@ sub _process
     $self->_requireParam('dn', 'dn');
 
     my $dn = $self->unsafeParam('dn');
-    my $user = new EBox::Users::User(dn => $dn);
+    my $ou = new EBox::Users::OU(dn => $dn);
 
-    my $editable = $usersandgroups->editableMode();
+    my $editable = $users->editableMode();
 
-    push(@args, 'user' => $user);
+    push(@args, 'dn' => $dn);
     push(@args, 'slave' => not $editable);
 
-    my $deluser;
+    my $delou;
 
     if ($self->param('cancel')) {
         $self->{redirect} = 'Users/Tree/Manage';
-    } elsif ($self->param('deluserforce')) {
-        $deluser = 1;
-    } elsif ($self->unsafeParam('deluser')) {
-        my $user = new EBox::Users::User(dn => $dn);
-        $deluser = not $self->_warnUser('user', $user);
+    } elsif ($self->param('delouforce')) {
+        $delou = 1;
+    } elsif ($self->unsafeParam('delou')) {
+        my $ou = new EBox::Users::Group(dn => $dn);
+        $delou = not $self->_warnUser('ou', $ou);
     }
 
-    if ($deluser) {
+    if ($delou) {
         $self->{json} = { success => 0 };
-        my $user = new EBox::Users::User(dn => $dn);
-        $user->deleteObject();
+        my $ou = new EBox::Users::Group(dn => $dn);
+        $ou->deleteObject();
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
@@ -77,8 +78,8 @@ sub _warnUser
 {
     my ($self, $object, $ldapObject) = @_;
 
-    my $usersandgroups = EBox::Global->modInstance('users');
-    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
+    my $users = EBox::Global->modInstance('users');
+    my $warns = $users->allWarnings($object, $ldapObject);
 
     if (@{$warns}) { # If any module wants to warn user
          $self->{template} = 'users/del.mas';
