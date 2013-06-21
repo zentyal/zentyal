@@ -841,7 +841,7 @@ sub userBindDN
         filter => "(uid=$user)"
     };
 
-    $msg = $self->search($args);
+    my $msg = $self->search($args);
     _errorOnLdap($msg, $args);
 
     # FIXME: Improve error checking.

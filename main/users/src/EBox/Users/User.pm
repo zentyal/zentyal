@@ -76,15 +76,6 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
-# Method: groupClass
-#
-#  Returns:
-#     perl class used for groups which can contain users of this class
-sub groupClass
-{
-    return 'EBox::Users::Group';
-}
-
 # Method: dnLeftmostAttribute
 #
 #  Returns:
@@ -248,7 +239,6 @@ sub groupsNotIn
 sub _groups
 {
     my ($self, $system, $invert) = @_;
-    my $groupClass = $self->groupClass();
 
     shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};

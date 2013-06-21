@@ -59,6 +59,15 @@ sub new
     return $self;
 }
 
+# Method: groupClass
+#
+#  Returns:
+#     perl class used for groups which can contain users of this class
+sub groupClass
+{
+    return 'EBox::Users::Group';
+}
+
 sub fullname
 {
     my ($self) = @_;
@@ -242,6 +251,7 @@ sub _groups
     my $filter;
     my $dn = $self->dn();
 
+    my $groupClass = $self->groupClass();
     my $groupObjectClass = $groupClass->mainObjectClass();
     if ($invert) {
         $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
