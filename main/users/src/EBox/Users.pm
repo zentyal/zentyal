@@ -1028,23 +1028,23 @@ sub reloadNSCD
    }
 }
 
-# Method: userByUsername
+# Method: userByUID
 #
-# Return the instance of EBox::Users::User object which represents a give username or undef if it's not found.
+# Return the instance of EBox::Users::User object which represents a given uid or undef if it's not found.
 #
 #  Parameters:
-#      username
+#      uid
 #
-sub userByUsername
+sub userByUID
 {
-    my ($self, $username) = @_;
+    my ($self, $uid) = @_;
 
     my $userClass = $self->userClass();
     my $objectClass = $userClass->mainObjectClass();
-    my $usernameTag = $userClass->usernameTag();
+    my $uidTag = $userClass->uidTag();
     my $args = {
         base => $self->ldap->dn(),
-        filter => "(&(objectclass=$objectClass)($usernameTag=$username))",
+        filter => "(&(objectclass=$objectClass)($uidTag=$uid))",
         scope => 'sub',
     };
 
@@ -1052,9 +1052,9 @@ sub userByUsername
     my $count = $result->count();
     if ($count > 1) {
         throw EBox::Exceptions::Internal(
-            __x('Found {count} results for \'{username}\' user, expected only one.',
+            __x('Found {count} results for \'{uid}\' user, expected only one.',
                 count => $count,
-                name  => $username
+                name  => $uid
             )
         );
     } elsif ($count == 0) {
@@ -1072,8 +1072,8 @@ sub userByUsername
 #
 sub userExists
 {
-    my ($self, $username) = @_;
-    return undef unless ($self->userByName($username));
+    my ($self, $uid) = @_;
+    return undef unless ($self->userByUID($uid));
     return 1;
 }
 

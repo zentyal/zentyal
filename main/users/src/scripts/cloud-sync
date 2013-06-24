@@ -78,7 +78,7 @@ for my $ruser (@{$rusers}) {
     try {
         my $changed = 0;
 
-        $luser = $users->userByUsername($ruser->{name});
+        $luser = $users->userByUID($ruser->{name});
         if ($luser) {
             $luser->setIgnoredSlaves(IGNORE);
 
@@ -182,7 +182,7 @@ for my $rgroup (@{$rgroups}) {
             $lgroup->removeAllMembers(1);
             $changed = 1;
             foreach my $user (@{$rgroup->{members}}) {
-                $lgroup->addMember($users->userByUsername($user), 1);
+                $lgroup->addMember($users->userByUID($user), 1);
             }
         }
         $lgroup->save() if ($changed);

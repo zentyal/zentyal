@@ -86,11 +86,11 @@ sub defaultContainer
     return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
 }
 
-# Method: usernameTag
+# Method: uidTag
 #
 #   Return the tag to store the username
 #
-sub usernameTag
+sub uidTag
 {
     return 'uid';
 }

@@ -47,11 +47,11 @@ sub mainObjectClass
     return 'user';
 }
 
-# Method: usernameTag
+# Method: uidTag
 #
 #  Overrides:
-#    EBox::Users::User::usernameTag
-sub usernameTag
+#    EBox::Users::User::uidTag
+sub uidTag
 {
     return 'samaccountname';
 }
