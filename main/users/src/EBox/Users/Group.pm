@@ -504,7 +504,7 @@ sub create
 
     my $isSystemGroup = undef;
     if (defined $params->{isSystemGroup}) {
-        $isSecurityGroup = $params->{isSystemGroup};
+        $isSystemGroup = $params->{isSystemGroup};
     }
 
     if ((not $isSecurityGroup) and $isSystemGroup) {
