@@ -11,13 +11,6 @@
 use EBox::Gettext;
 use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
-
-#my $remainGroupsJS;
-#if (not $slave) {
-#   my $json = JSON::XS->new();
-#   my @groupNames = map { $_->name() } @remaingroups;
-#   $remainGroupsJS = $json->encode(\@groupNames);
-#}
 </%init>
 
 <div id="edit_user" style="height: 320px">
