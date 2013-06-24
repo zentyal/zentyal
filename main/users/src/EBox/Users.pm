@@ -35,10 +35,12 @@ use EBox::Sudo;
 use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
-use EBox::Users::Slave;
-use EBox::Users::OU; # FIXME: This should be removed
 use EBox::Users::Contact;
+use EBox::Users::Group;
 use EBox::Users::NamingContext;
+use EBox::Users::OU;
+use EBox::Users::Slave;
+use EBox::Users::User;
 use EBox::UsersSync::Master;
 use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
