@@ -35,9 +35,9 @@ sub _table
     my ($self) = @_;
 
     my $dataTable = $self->SUPER::_table();
-    $dataTable->{tableName}          = 'GPOScriptsLogin',
-    $dataTable->{printableTableName} = __('Login Scripts'),
-    $dataTable->{printableRowName}   = __('login script'),
+    $dataTable->{tableName}          = 'GPOScriptsLogin';
+    $dataTable->{printableTableName} = __('Logon Scripts');
+    $dataTable->{printableRowName}   = __('logon script');
     return $dataTable;
 }
 
@@ -175,7 +175,6 @@ sub removeRow
     my ($type, $index) = split (/_/, $id);
     delete $data->{$type}->{Logon}->{$index};
     foreach my $i (sort keys %{$data->{$type}->{Logon}}) {
-        EBox::info("Processing $i");
         my $newIdx = $i - 1;
         if ($i > $index) {
             $data->{$type}->{Logon}->{$newIdx} = $data->{$type}->{Logon}->{$i};

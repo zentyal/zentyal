@@ -75,7 +75,7 @@ sub _table
         tableName           => 'GPOScripts',
         printableTableName  => __('Scripts'),
         printableRowName    => __('script'),
-        defaultActions      => ['add', 'del', 'edit', 'move', 'changeView'],
+        defaultActions      => ['add', 'del', 'changeView'],
         whithoutActions     => 0,
         tableDescription    => $tableDesc,
         sortedBy            => 'type',
