@@ -35,9 +35,9 @@ sub _table
     my ($self) = @_;
 
     my $dataTable = $self->SUPER::_table();
-    $dataTable->{tableName}          = 'GPOScriptsStartup',
-    $dataTable->{printableTableName} = __('Startup Scripts'),
-    $dataTable->{printableRowName}   = __('startup script'),
+    $dataTable->{tableName}          = 'GPOScriptsStartup';
+    $dataTable->{printableTableName} = __('Startup Scripts');
+    $dataTable->{printableRowName}   = __('startup script');
     return $dataTable;
 }
 

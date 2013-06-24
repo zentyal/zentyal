@@ -27,14 +27,17 @@ use EBox::Gettext;
 use EBox::Samba::GPO;
 use EBox::Samba::GPO::ScriptsComputer;
 
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
+
 sub _table
 {
     my ($self) = @_;
 
     my $dataTable = $self->SUPER::_table();
-    $dataTable->{tableName}          = 'GPOScriptsShutdown',
-    $dataTable->{printableTableName} = __('Shutdown Scripts'),
-    $dataTable->{printableRowName}   = __('shutdown script'),
+    $dataTable->{tableName}          = 'GPOScriptsShutdown';
+    $dataTable->{printableTableName} = __('Shutdown Scripts');
+    $dataTable->{printableRowName}   = __('shutdown script');
     return $dataTable;
 }
 
@@ -139,7 +142,48 @@ sub addTypedRow
     };
     $extension->write($data);
 
+    $self->setMessage(__x('Shutdown script {x} added',
+        x => $scriptElement->userPath()));
+
     return "$type\_$index";
+}
+
+sub removeRow
+{
+    my ($self, $id, $force) = @_;
+
+    unless (defined $id) {
+        throw EBox::Exceptions::MissingArgument(
+            "Missing row identifier to remove");
+    }
+
+    my $row = $self->row($id);
+    unless (defined $row) {
+        throw EBox::Exceptions::Internal(
+            "Row with id $id does not exist, so it cannot be removed");
+    }
+    my $e = $row->elementByName('script');
+    my $name = $e->userPath();
+
+    my $gpoDN = $self->parentRow->id();
+    my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
+    my $data = $self->{data};
+    unless (defined $data) {
+        my $data = $extension->read();
+    }
+
+    my ($type, $index) = split (/_/, $id);
+    delete $data->{$type}->{Shutdown}->{$index};
+    foreach my $i (sort keys %{$data->{$type}->{Shutdown}}) {
+        my $newIdx = $i - 1;
+        if ($i > $index) {
+            $data->{$type}->{Shutdown}->{$newIdx} = $data->{$type}->{Shutdown}->{$i};
+            delete $data->{$type}->{Shutdown}->{$i};
+        }
+    }
+    $extension->write($data);
+
+    $self->setMessage(__x('Shutdown script {x} removed', x => $name));
 }
 
 1;
