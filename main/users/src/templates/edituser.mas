@@ -163,13 +163,7 @@ $user
 </%args>
 <%init>
 my $json = JSON::XS->new();
-my @member  = map {
-               my $gr = $_;
-               {
-                   name => $gr->name(),
-                   dn   => $gr->dn(),
-               }
-} @usergroups;
+my @member  = map { $_->name() } @usergroups;
 my @noMember = map { $_->name() } @remaingroups;
 my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
 </%init>
@@ -347,11 +341,10 @@ this.element.show();
             userGroups.children().remove();
             for (i=0; i< data.member.length; i++) {
                group = data.member[i];
-               userGroups.append('<ul>' + group.name +
+               userGroups.append('<ul>' + group +
                                  '<input type="image" class="inputButton" ' +
                                   'src="/data/images/delete.gif" ' +
-                                  'data-group-name="' + group.name + '" ' +
-                                  'data-group-dn="' + group.dn + '" ' +
+                                  'data-group-name="' + group + '" ' +
                                   '/>' +   '</ul>'
                                  );
             }
