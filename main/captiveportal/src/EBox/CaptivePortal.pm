@@ -375,7 +375,7 @@ sub quotaExceeded
         return 0;
     }
 
-    my $user = EBox::Global->modInstance('users')->userByUsername($username);
+    my $user = EBox::Global->modInstance('users')->userByUID($username);
     my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
