@@ -63,7 +63,7 @@ SectionId: "[" SectionName "]" WhiteSpace LineBreak(s)
 }
 SectionName: /[a-zA-Z0-9_ \t]+/
 Key:    /[^=\[\]]+/ WhiteSpace "=" WhiteSpace /[^\r\n]+/
-        WhiteSpace LineBreak(s)
+        WhiteSpace LineBreak(s?)
         {
             $return = {
                 key => $item[1],
