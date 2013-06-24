@@ -62,10 +62,10 @@ sub _process
 
     if ($self->param('edit')) {
         $self->{json} = { success => 0 };
-        $self->_requireParamAllowEmpty('comment', __('comment'));
-        my $comment = $self->unsafeParam('comment');
-        if (length ($comment)) {
-            $group->set('description', $comment);
+        $self->_requireParamAllowEmpty('description', __('description'));
+        my $description = $self->unsafeParam('description');
+        if (length ($description)) {
+            $group->set('description', $description);
         } else {
             $group->delete('description');
         }

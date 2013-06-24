@@ -428,20 +428,32 @@ sub children
 
     return [] unless $self->isContainer();
 
+    # All children except for organizationalRole objects which are only used internally
     my $attrs = {
         base   => $self->dn(),
-        filter => '(objectclass=*)',
+        filter => '(!(objectclass=organizationalRole))',
         scope  => 'one',
     };
 
     my $result = $self->_ldap->search($attrs);
+    my $usersMod = EBox::Global->getInstance(1)->modInstance('users');
 
     my @objects = ();
     foreach my $entry ($result->entries) {
-        my $object = $self->entryModeledObject($entry);
+        my $object = $usersMod->entryModeledObject($entry);
 
         push (@objects, $object);
     }
+
+    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
+    # FIXME: Fix the API so all ldapobjects have a valid name method to use here.
+    @objects = sort {
+        my $aValue = $a->dn();
+        my $bValue = $b->dn();
+        (lc $aValue cmp lc $bValue) or
+        ($aValue cmp $bValue)
+    } @objects;
+
     return \@objects;
 }
 
@@ -455,7 +467,7 @@ sub parent
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->getInstance(1)->modInstance('users');
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
     my $dn = $self->dn();

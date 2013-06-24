@@ -21,7 +21,7 @@ use EBox::Gettext;
     <span class="ftitle"><% __('Comment') %>: </span>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
-    <input type='text' class='inputText' name='comment' value="<% $group->get('description') %>">
+    <input type='text' class='inputText' name='description' value="<% $group->get('description') %>">
 %   unless ($slave) {
     <input class='inputButton' type='submit' name='user'
                        value="<% __('Change') %>"

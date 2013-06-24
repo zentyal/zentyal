@@ -36,6 +36,7 @@ use EBox::FileSystem;
 use EBox::LdapUserImplementation;
 use EBox::Config;
 use EBox::Users::Slave;
+use EBox::Users::OU; # FIXME: This should be removed
 use EBox::Users::Contact;
 use EBox::Users::NamingContext;
 use EBox::UsersSync::Master;
@@ -1316,87 +1317,6 @@ sub securityGroups
     return \@groups;
 }
 
-# Method: ous
-#
-#       Returns an array containing all the OUs
-#
-# Returns:
-#
-#       array ref - holding the OUs
-#
-sub ous
-{
-    my ($self) = @_;
-
-    return [] if (not $self->isEnabled());
-
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => 'objectclass=organizationalUnit',
-        scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @ous = ();
-    foreach my $entry ($result->entries())
-    {
-        my $ou = $self->ouClass()->new(entry => $entry);
-        push (@ous, $ou);
-    }
-
-    return \@ous;
-}
-
-# Method: ouObjects
-#
-#       Returns the objects of a given OU
-#
-# Parameters:
-#       ou     - DN of the Organizational Unit to be used as search base
-#       system - include system users and groups (default: false)
-#
-# Returns:
-#
-#       array ref - holding the LdapObjects belonging to the given OU
-#
-sub ouObjects
-{
-    my ($self, $ou, $system) = @_;
-
-    return [] if (not $self->isEnabled());
-
-    my %args = (
-        base => $ou,
-        # TODO: include other objects: computers, ...
-        filter => '(|(objectclass=inetOrgPerson)(objectclass=zentyalDistributionGroup))',
-        scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @objects;
-
-    foreach my $entry ($result->entries) {
-        my $object = $self->entryModeledObject($entry);
-
-        # Include system users and groups?
-        next if (not $system and $object->isSystem());
-
-        push (@objects, $object);
-    }
-
-    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
-    @objects = sort {
-            my $aValue = $a->dn();
-            my $bValue = $b->dn();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
-    } @objects;
-
-    return \@objects;
-}
-
 # Method: _modsLdapUserbase
 #
 # Returns modules implementing LDAP user base interface
@@ -2305,15 +2225,49 @@ sub entryModeledObject
     my $object;
 
     # FIXME: replace with better checks!
-    if ($entry->exists('uid')) {
-        $object = new EBox::Users::User(entry => $entry);
+    # TODO: Add support for Contacts!!
+    if ($entry->exists('ou')) {
+        $object = $self->{ouClass}->new(entry => $entry);
+    } elsif ($entry->exists('uid')) {
+        $object = $self->{userClass}->new(entry => $entry);
     } elsif ($entry->exists('gidNumber')) {
-        $object = new EBox::Users::Group(entry => $entry);
+        $object = $self->{groupClass}->new(entry => $entry);
     } else {
         throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
     }
 
     return $object;
+}
+
+# Method: objectFromDn
+#
+#   Return the perl object modeling the given dn or undef if not found.
+#
+# Parameters:
+#   dn - An LDAP DN string identifying the object to retrieve.
+#
+sub objectFromDn
+{
+    my ($self, $dn) = @_;
+
+    my $args = {
+        base => $dn,
+        filter => "(objectClass=*)",
+        scope => 'base',
+    };
+
+    my $result = $self->ldap->search($args);
+
+    my $count = $result->count();
+
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for, expected only one.', count => $result->count()));
+    } elsif ($count == 0) {
+        return undef;
+    } else {
+        return $self->entryModeledObject($result->entry(0));
+    }
 }
 
 # Method: defaultNamingContext

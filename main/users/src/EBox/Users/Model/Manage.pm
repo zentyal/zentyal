@@ -41,7 +41,7 @@ sub rootNodes
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->getInstance(1)->modInstance("users");
+    my $usersMod = $self->parentModule();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
     return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
@@ -51,34 +51,47 @@ sub childNodes
 {
     my ($self, $parent) = @_;
 
+    my $usersMod = $self->parentModule();
+
+    my $parentObject = undef;
+
     if ($parent eq 'root') {
-        return $self->_ous();
+        $parentObject = $usersMod->defaultNamingContext();
     } elsif (($parent =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
+        # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
-    } elsif ($parent =~ /^ou=/) {
-        return $self->_ouObjects($parent);
     } else {
-        return [];
-    }
-}
-
-sub _ous
-{
-    my ($self) = @_;
-
-    my @nodes;
-
-    foreach my $ou (@{$self->parentModule()->ous()}) {
-        my $dn = $ou->dn();
-        my ($name) = $dn =~ /^ou=([^,]+),/;
-
-        # Hide Kerberos OU as it's not useful for the user to keep the UI simple
-        next if ($name eq 'Kerberos');
-
-        push (@nodes, { id => $dn, printableName => $name, type => 'ou' });
+        $parentObject = $usersMod->objectFromDn($parent);
     }
 
-    return \@nodes;
+    my $id = undef;
+    my $printableName = undef;
+    my $type = undef;
+    my @childNodes = ();
+    foreach my $child (@{$parentObject->children()}) {
+        $id = $child->dn();
+        if ($child->isa('EBox::Users::OU')) {
+            $type = 'ou';
+            $printableName = $child->name();
+            # Hide Kerberos OU as it's not useful for the user to keep the UI simple
+            next if ($printableName eq 'Kerberos');
+        } elsif ($child->isa('EBox::Users::User')) {
+            $type = 'user';
+            $printableName = $child->fullname();
+        } elsif ($child->isa('EBox::Users::Contact')) {
+            $type = 'contact';
+            $printableName = $child->fullname();
+        } elsif ($child->isa('EBox::Users::Group')) {
+            $type = 'group';
+            $printableName = $child->name();
+        } else {
+            EBox::warn("Unknown object type for DN: " . $child->dn());
+            next;
+        }
+        push (@childNodes, { id => $id, printableName => $printableName, type => $type });
+    }
+
+    return \@childNodes;
 }
 
 sub _sambaComputers
@@ -96,33 +109,6 @@ sub _sambaComputers
     }
 
     return \@computers;
-}
-
-sub _ouObjects
-{
-    my ($self, $parent) = @_;
-
-    my @nodes;
-
-    foreach my $object (@{$self->parentModule()->ouObjects($parent)}) {
-        my $id = $object->dn();
-        my $printableName;
-        my $type;
-
-        if ($object->isa('EBox::Users::User')) {
-            $type = 'user';
-            $printableName = $object->fullname();
-        } elsif ($object->isa('EBox::Users::Group')) {
-            $type = 'group';
-            $printableName = $object->name();
-        } else {
-            next;
-        }
-
-        push (@nodes, { id => $id, printableName => $printableName, type => $type });
-    }
-
-    return \@nodes;
 }
 
 sub nodeTypes

@@ -40,6 +40,18 @@ sub isContainer
     return 1;
 }
 
+# Method: name
+#
+#   Return the name of this OU.
+#
+#   Override <EBox::Users::LdapObject::name>
+sub name
+{
+    my ($self) = @_;
+
+    return $self->get('ou');
+}
+
 # Method: create
 #
 #   Add and return a new Organizational Unit.

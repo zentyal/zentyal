@@ -24,8 +24,8 @@ use EBox::Gettext;
 				</span>
 			</td>
 			<td>
-				<input type='text' class='inputText' name='comment'>
-				<div class="comment">(<% __('Optional value') %>)</div>
+				<input type='text' class='inputText' name='description'>
+				<div class="description">(<% __('Optional value') %>)</div>
 			</td>
 		</tr>
 		<tr>

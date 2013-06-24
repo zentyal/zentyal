@@ -472,46 +472,57 @@ sub setIgnoredSlaves
 
 # Method: create
 #
-#       Adds a new group
+#   Adds a new group.
 #
 # Parameters:
 #
-#   group - group name
-#   comment - comment's group
-#   system - boolan: if true it adds the group as system group,
-#   otherwise as normal group
-#   security - boolean: if true it creates a security group, otherwise creates a distribution group. Default is true.
-#   ignoreMods - ldap modules to be ignored on addUser notify
-#   ignoreSlaves - slaves to be ignored on addUser notify
+#   name   - Group name
+#   params - Hash reference with the following fields:
+#       description     - Group's description.
+#       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
+#       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
+#       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
+#       ignoreMods      - Ldap modules to be ignored on addUser notify.
+#       ignoreSlaves    - Slaves to be ignored on addUser notify.
+# TODO: Add OU.
 #
 sub create
 {
-    my ($self, $group, $comment, $system, %params) = @_;
+    my ($self, $name, $params) = @_;
 
-    my $security = 1;
-    $security = $params{security} unless not defined $params{security};
-    if ((not $security) and $system) {
+    my $isSecurityGroup = 1;
+    if (defined $params->{isSecurityGroup}) {
+        $isSecurityGroup = $params->{isSecurityGroup};
+    }
+
+    my $isSystemGroup = undef;
+    if (defined $params->{isSystemGroup}) {
+        $isSecurityGroup = $params->{isSystemGroup};
+    }
+
+    if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
-            __('A group cannot be a distribution group and a system group at the same time.'));
+            __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
+                'the same time.', group => $name));
     }
 
     my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn($group);
+    my $dn = $users->groupDn($name);
 
-    if (length ($group) > MAXGROUPLENGTH) {
+    if (length ($name) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters",
                 maxGroupLength => MAXGROUPLENGTH));
     }
 
-    unless (_checkGroupName($group)) {
+    unless (_checkGroupName($name)) {
         my $advice = __('To avoid problems, the group name should consist ' .
                         'only of letters, digits, underscores, spaces, ' .
                         'periods, dashs and not start with a dash. They ' .
                         'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $group,
+            'value' => $name,
             'advice' => $advice
            );
     }
@@ -520,28 +531,28 @@ sub create
     if (new EBox::Users::Group(dn => $dn)->exists()) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
-            'value' => $group);
+            'value' => $name);
     }
     # Verify that a user with the same name does not exists
-    if ($users->userExists($group)) {
+    if ($users->userExists($name)) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $group)
+               name => $name)
            );
     }
 
     my @attr = (
-        'cn'          => $group,
+        'cn'          => $name,
         'objectclass' => ['zentyalDistributionGroup'],
     );
 
-    if ($security) {
-        my $gid = exists $params{gidNumber} ? $params{gidNumber}: $self->_gidForNewGroup($system);
-        $self->_checkGid($gid, $system);
+    if ($isSecurityGroup) {
+        my $gid = exists $params->{gidNumber} ? $params->{gidNumber}: $self->_gidForNewGroup($isSystemGroup);
+        $self->_checkGid($gid, $isSystemGroup);
         push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);
    }
-    push (@attr, 'description' => $comment) if ($comment);
+    push (@attr, 'description' => $params->{description}) if (defined $params->{description} and $params->{description});
 
     my $res = undef;
     my $entry = undef;
@@ -550,7 +561,7 @@ sub create
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
         $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
-            $params{ignoreMods}, $params{ignoreSlaves});
+            $params->{ignoreMods}, $params->{ignoreSlaves});
 
                 my $changetype =  $entry->changetype();
                 my $changes = [$entry->changes()];
@@ -566,11 +577,11 @@ sub create
         }
 
         $res = new EBox::Users::Group(dn => $dn);
-        unless ($system) {
+        unless ($isSystemGroup) {
             $users->reloadNSCD();
 
             # Call modules initialization
-            $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
+            $users->notifyModsLdapUserBase('addGroup', $res, $params->{ignoreMods}, $params->{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -583,10 +594,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
+            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
+            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;

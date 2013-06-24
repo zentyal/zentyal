@@ -4,6 +4,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<input type="radio" name="object_type" value="ou"><% __('OU') %>
 <input type="radio" name="object_type" value="user" checked><% __('User') %>
 <input type="radio" name="object_type" value="group"><% __('Group') %>
 <input type="radio" name="object_type" value="contact"><% __('Contact') %>
@@ -18,6 +19,9 @@ jQuery(function () {
     jQuery('input[name=object_type]').click(function () {
         var selectedType = jQuery('input[name=object_type]:checked').val();
         switch (selectedType) {
+        case 'ou':
+            form.load('/Users/AddOU');
+            break;
         case 'user':
             form.load('/Users/AddUser');
             break;
