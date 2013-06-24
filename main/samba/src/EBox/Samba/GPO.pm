@@ -23,6 +23,7 @@ package EBox::Samba::GPO;
 use base 'EBox::Samba::LdbObject';
 
 use EBox::Gettext;
+use EBox::Sudo;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 
@@ -148,6 +149,7 @@ sub deleteObject
     my ($self) = @_;
 
     my $gpoName = $self->get('name');
+    my $gpoDN = $self->get('distinguishedName');
     unless (length $gpoName) {
         throw EBox::Exceptions::Internal("Could not get the GPO name");
     }
@@ -162,6 +164,23 @@ sub deleteObject
     my $path = $self->path();
 
     # TODO: Remove all links to this GPO in the domain
+
+    # Remove subcontainers
+    my $userDN = "CN=User,$gpoDN";
+    my $machineDN = "CN=Machine,$gpoDN";
+    my $result;
+    $result = $self->_ldap->delete($userDN);
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO. LDAP error: $msg");
+    }
+    $result = $self->_ldap->delete($machineDN);
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO. LDAP error: $msg");
+    }
 
     # Remove GPC from LDAP
     $self->SUPER::deleteObject();
@@ -233,9 +252,67 @@ sub create
         throw EBox::Exceptions::Internal("Could not get the DNS domain name");
     }
 
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
+    # Create the GPC (Group Policy Container)
+    my $gpoPath = "\\\\$dnsDomain\\SysVol\\$dnsDomain\\Policies\\$gpoName";
+    my $gpoDN = "CN=$gpoName,CN=Policies,CN=System,$defaultNC";
+    my $attrs = [];
+    push (@{$attrs}, objectClass => ['groupPolicyContainer']);
+    push (@{$attrs}, displayName => $displayName);
+    push (@{$attrs}, flags => $status);
+    push (@{$attrs}, versionNumber => $versionNumber);
+    push (@{$attrs}, gPCFunctionalityVersion => 2);
+    push (@{$attrs}, gPCFileSysPath => $gpoPath);
+    my $result = $self->_ldap->add($gpoDN, { attr => $attrs });
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO. LDAP error: $msg");
+    }
+
+    # Create user subcontainer
+    my $userDN = "CN=User,$gpoDN";
+    my $userAttrs = [];
+    push (@{$userAttrs}, objectClass => ['container']);
+    $result = $self->_ldap->add($userDN, { attr => $userAttrs });
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO user container. LDAP error: $msg");
+    }
+
+    # Create machine subcontainer
+    my $machineDN = "CN=Machine,$gpoDN";
+    my $machineAttrs = [];
+    push (@{$machineAttrs}, objectClass => ['container']);
+    $result = $self->_ldap->add($machineDN, { attr => $machineAttrs });
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO machine container. LDAP error: $msg");
+    }
+
+    $result = $self->_ldap->search({base => $gpoDN,
+                                    scope => 'one',
+                                    filter => '(objectClass=*)',
+                                    attrs => ['nTSecurityDescriptor']});
+    if ($result->is_error()) {
+        my $msg = $result->error_desc();
+        throw EBox::Exceptions::Internal(
+            "Can not create GPO. LDAP error: $msg");
+    }
+    my $entry = $result->entry(0);
+    unless (defined $entry) {
+        throw EBox::Exceptions::Internal(
+            "Can not retrieve LDAP created GPO entry");
+    }
+    my $ntSecurityDescriptor = $entry->get_value('ntSecurityDescriptor');
+    unless (defined $ntSecurityDescriptor) {
+        throw EBox::Exceptions::Internal(
+            "Can not retrieve NT Security Descriptor from GPO LDAP entry");
+    }
 
     # Create GPT in sysvol
+    my $smb = new EBox::Samba::SmbClient(RID => 500);
     my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
     $gptContent = encode('UTF-8', $gptContent);
     $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName",'0666')
@@ -250,21 +327,10 @@ sub create
         or throw EBox::Exceptions::Internal("Can't write file: $!");
     $smb->close($fd);
 
-    # Create the GPC (Group Policy Container)
-    my $gpoPath = "\\\\$dnsDomain\\sysvol\\$dnsDomain\\Policies\\$gpoName";
+    # TODO Set NT security Descriptor instead sysvolreset
+    EBox::Sudo::root("samba-tool ntacl sysvolreset");
 
-    my $dn = "CN=$gpoName,CN=Policies,CN=System,$defaultNC";
-    my $attrs = [];
-    push (@{$attrs}, objectClass => ['groupPolicyContainer']);
-    push (@{$attrs}, displayName => $displayName);
-    push (@{$attrs}, flags => $status);
-    push (@{$attrs}, versionNumber => $versionNumber);
-    push (@{$attrs}, gPCFunctionalityVersion => 2);
-    push (@{$attrs}, gPCFileSysPath => $gpoPath);
-    my $result = $self->_ldap->add($dn, { attr => $attrs });
-
-    my $createdGPO = new EBox::Samba::GPO(dn => $dn);
-
+    my $createdGPO = new EBox::Samba::GPO(dn => $gpoDN);
     return $createdGPO;
 }
 
