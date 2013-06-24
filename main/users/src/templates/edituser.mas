@@ -350,14 +350,13 @@ this.element.show();
    var updateGroupsWidgets = function(data) {
             var group, i;
             var groupAdd =  jQuery('#addgroup');
-//            groupAdd.detach();
+            groupAdd.detach();
             groupAdd.find('option').remove();
             for (i=0; i< data.noMember.length; i ++) {
                group = data.noMember[i];
                groupAdd.append('<option value="' + group + '">' + group + '</option>');
             }
-//          prepend to DOM
-
+            groupAdd.insertAfter('#addgroupLabel');
 
             var groupDel = jQuery('#delgroup');
             groupDel.detach();
@@ -366,7 +365,8 @@ this.element.show();
                group = data.member[i];
                groupDel.append('<option value="' + group.dn + '">' + group.name + '</option>');
             }
-            jQuery('#removeUserFromGroup').prepend(groupDel);
+//            jQuery('#removeUserFromGroup').prepend(groupDel);
+            groupDel.prependTo('#removeUserFromGroup');
    };
 
    var refreshGroups = function (groupInfo) {
@@ -404,9 +404,8 @@ $user
 </%args>
 <div id='error_addUserToGroup'></div>
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
-  <label for="addgroup"><% __('Group') %> </label>
-  <select name="addgroup" id="addgroup" <% $disabled %> >
-
+  <label for="addgroup" id="addgroupLabel"><% __('Group') %> </label>
+  <select name="addgroup" id="addgroup">
   </select>
   <input type='submit' value='<% __('Add') %>' />
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
