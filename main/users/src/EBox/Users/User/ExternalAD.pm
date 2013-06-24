@@ -47,15 +47,6 @@ sub mainObjectClass
     return 'user';
 }
 
-# Method: groupClass
-#
-#  Overrides:
-#    EBox::Users::User::groupClass
-sub groupClass
-{
-    return 'EBox::Users::Group::ExternalAD';
-}
-
 # Method: dnLeftmostAttribute
 #
 #  Overrides:
@@ -106,7 +97,14 @@ sub quota
     return '';
 }
 
-sub system
+# Method: isSystem
+#
+#   Return 1 if this is a system user, 0 if not
+#
+# Overides:
+#   EBox::Users::User::isSystem
+#
+sub isSystem
 {
     my ($self) = @_;
 

@@ -59,15 +59,6 @@ sub new
     return $self;
 }
 
-# Method: groupClass
-#
-#  Returns:
-#     perl class used for groups which can contain users of this class
-sub groupClass
-{
-    return 'EBox::Users::Group';
-}
-
 sub fullname
 {
     my ($self) = @_;
@@ -251,7 +242,8 @@ sub _groups
     my $filter;
     my $dn = $self->dn();
 
-    my $groupClass = $self->groupClass();
+    my $usersMod = $self->_usersMod();
+    my $groupClass = $usersMod->groupClass();
     my $groupObjectClass = $groupClass->mainObjectClass();
     if ($invert) {
         $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
@@ -354,8 +346,6 @@ sub create
     unless (defined $person->{dn}) {
         throw EBox::Exceptions::MissingArgument("person->{dn}");
     }
-
-    my $users = EBox::Global->modInstance('users');
 
     # Verify person exists
     if (new EBox::Users::InetOrgPerson(dn => $person->{dn})->exists()) {

@@ -352,7 +352,16 @@ sub _ldap
 {
     my ($self) = @_;
 
-    return EBox::Global->modInstance('users')->ldap();
+    return $self->_usersMod()->ldap();
+}
+
+sub _usersMod
+{
+    my ($self) = @_;
+
+    $self->{usersMod} = EBox::Global->modInstance('users') unless (defined $self->{usersMod} and $self->{usersMod});
+
+    return $self->{usersMod}
 }
 
 # Method canonicalName
@@ -436,7 +445,7 @@ sub children
     };
 
     my $result = $self->_ldap->search($attrs);
-    my $usersMod = EBox::Global->getInstance(1)->modInstance('users');
+    my $usersMod = $self->_usersMod();
 
     my @objects = ();
     foreach my $entry ($result->entries) {
@@ -467,7 +476,7 @@ sub parent
 {
     my ($self) = @_;
 
-    my $usersMod = EBox::Global->getInstance(1)->modInstance('users');
+    my $usersMod = $self->_usersMod();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
     my $dn = $self->dn();

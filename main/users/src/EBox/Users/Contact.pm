@@ -51,8 +51,8 @@ sub save
     if ($changetype ne 'delete') {
         if ($hasCoreChanges) {
 
-            my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+            my $usersMod = $self->_usersMod();
+            $usersMod->notifyModsLdapUserBase('modifyContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
         }
     }
 }
@@ -66,8 +66,8 @@ sub deleteObject
     my ($self) = @_;
 
     # Notify contact deletion to modules
-    my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delContact', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Call super implementation
     shift @_;
@@ -110,17 +110,17 @@ sub create
         );
     }
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = $self->_usersMod();
 
     # Is the contact added to the default OU?
     my $isDefaultOU = 1;
     $contact->{dn} = 'cn=' . $contact->{fullname};
     if (EBox::Config::configkey('multiple_ous') and $contact->{ou}) {
         $contact->{dn} .= ',' . $contact->{ou};
-        $isDefaultOU = ($contact->{ou} eq $users->usersDn());
+        $isDefaultOU = ($contact->{ou} eq $usersMod->usersDn());
     }
     else {
-        $contact->{dn} .= ',' . $users->usersDn();
+        $contact->{dn} .= ',' . $usersMod->usersDn();
     }
 
     my $res = undef;
@@ -132,7 +132,7 @@ sub create
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
-        $users->notifyModsPreLdapUserBase('preAddContact', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase('preAddContact', $entry, $params{ignoreMods}, $params{ignoreSlaves});
 
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
@@ -148,7 +148,7 @@ sub create
         $res = new EBox::Users::Contact(dn => $contact->{dn});
 
         # Call modules initialization
-        $users->notifyModsLdapUserBase('addContact', $res, $params{ignoreMods}, $params{ignoreSlaves});
+        $usersMod->notifyModsLdapUserBase('addContact', $res, $params{ignoreMods}, $params{ignoreSlaves});
     } otherwise {
         my ($error) = @_;
 
@@ -160,10 +160,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addContactFailed', $res, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
-            $users->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $params{ignoreMods}, $params{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;

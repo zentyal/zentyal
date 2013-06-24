@@ -155,8 +155,10 @@ sub viewCustomizer
 
 sub _locked
 {
-    my $users = EBox::Global->modInstance('users');
-    my $master = $users->get_hash('Master/keys/form');
+    my ($self) = @_;
+
+    my $usersMod = $self->parentModule();
+    my $master = $usersMod->get_hash('Master/keys/form');
     return (defined($master) and $master->{master} eq 'zentyal');
 }
 
@@ -182,7 +184,7 @@ sub validateTypedRow
         $self->_checkSamba();
     }
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = $self->parentModule();
 
     # will the operation destroy current users?
     my $destroy = 1;
@@ -201,7 +203,7 @@ sub validateTypedRow
                               $allParams->{password}->value() :
                               $changedParams->{password}->value();
 
-        $users->masterConf->checkMaster($host, $port, $password);
+        $usersMod->masterConf->checkMaster($host, $port, $password);
     }
 
     if ($master eq 'cloud') {
@@ -213,14 +215,14 @@ sub validateTypedRow
         # If cloud is already provisoned destroy local users before sync
         $destroy = 0 if (not $realm);
 
-        if ($realm and ($users->kerberosRealm() ne $realm)) {
+        if ($realm and ($usersMod->kerberosRealm() ne $realm)) {
             throw EBox::Exceptions::External(__x('Master server has a different REALM, check hostnames. Master is {master} and this server {slave}.',
                 master => $realm,
-                slave => $users->kerberosRealm()
+                slave => $usersMod->kerberosRealm()
             ));
         }
 
-         my $realUsers = $users->realUsers('without_admin');
+         my $realUsers = $usersMod->realUsers('without_admin');
          $realUsers = scalar(@{$realUsers});
          if ( $realUsers > $rs->maxCloudUsers('force') ) {
             my $max = $rs->maxCloudUsers();
@@ -231,13 +233,13 @@ sub validateTypedRow
 
     my @ldapMods = grep {
         my $mod = $_;
-        ($mod->name() ne $users->name()) and
+        ($mod->name() ne $usersMod->name()) and
          ($mod->isa('EBox::LdapModule'))
     } @{ $self->global->modInstances() };
 
     unless ($force) {
         my $warnMsg = '';
-        my $nUsers = scalar @{$users->users()};
+        my $nUsers = scalar @{$usersMod->users()};
         if ($nUsers > 0 and $destroy) {
             $warnMsg = (__('CAUTION: this will delete all defined users and import master ones.'));
         }

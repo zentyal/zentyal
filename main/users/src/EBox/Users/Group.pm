@@ -68,15 +68,6 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
-# Method: userClass
-#
-#  Returns:
-#     perl class used for users which could be member of this group
-sub userClass
-{
-    return 'EBox::Users::User';
-}
-
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the group
@@ -189,7 +180,9 @@ sub users
 {
     my ($self, $system) = @_;
 
-    my $userClass = $self->userClass();
+    my $usersMod = $self->_usersMod();
+
+    my $userClass = $usersMod->userClass();
     my @members = $self->get('member');
     @members = map { $userClass->new(dn => $_) } @members;
 
@@ -412,8 +405,8 @@ sub deleteObject
     my ($self) = @_;
 
     # Notify group deletion to modules
-    my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Call super implementation
     shift @_;
@@ -430,8 +423,8 @@ sub save
     if ($self->{core_changed}) {
         delete $self->{core_changed};
 
-        my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
+        my $usersMod = $self->_usersMod();
+        $usersMod->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
     }
 }
 
@@ -506,8 +499,8 @@ sub create
                 'the same time.', group => $name));
     }
 
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn($name);
+    my $usersMod = $self->_usersMod();
+    my $dn = $usersMod->groupDn($name);
 
     if (length ($name) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
@@ -534,7 +527,7 @@ sub create
             'value' => $name);
     }
     # Verify that a user with the same name does not exists
-    if ($users->userExists($name)) {
+    if ($usersMod->userExists($name)) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
                name => $name)
@@ -560,7 +553,7 @@ sub create
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
-        $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
+        $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
             $params->{ignoreMods}, $params->{ignoreSlaves});
 
                 my $changetype =  $entry->changetype();
@@ -578,10 +571,10 @@ sub create
 
         $res = new EBox::Users::Group(dn => $dn);
         unless ($isSystemGroup) {
-            $users->reloadNSCD();
+            $usersMod->reloadNSCD();
 
             # Call modules initialization
-            $users->notifyModsLdapUserBase('addGroup', $res, $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroup', $res, $params->{ignoreMods}, $params->{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -594,10 +587,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;
@@ -630,7 +623,7 @@ sub isSecurityGroup
 {
     my ($self) = @_;
 
-    my $ldap = EBox::Global->modInstance('users')->ldap();
+    my $ldap = $self->_usersMod()->ldap();
 
     return ('posixGroup' eq any(@{$ldap->objectClasses($self->dn())}));
 }
@@ -710,8 +703,8 @@ sub lastGid
     my ($self, $system) = @_;
 
     my $lastGid = -1;
-    my $users = EBox::Global->modInstance('users');
-    foreach my $group (@{$users->securityGroups($system)}) {
+    my $usersMod = $self->_usersMod();
+    foreach my $group (@{$usersMod->securityGroups($system)}) {
         my $gid = $group->get('gidNumber');
         if ($system) {
             last if ($gid >= MINGID);

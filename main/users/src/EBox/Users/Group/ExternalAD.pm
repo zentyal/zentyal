@@ -49,15 +49,6 @@ sub mainObjectClass
     return 'group';
 }
 
-# Method: userClass
-#
-#  Overrides:
-#    EBox::Users::Group::userClass
-sub userClass
-{
-    return 'EBox::Users::User::ExternalAD';
-}
-
 # Method: name
 #
 #   Return group name
@@ -68,7 +59,14 @@ sub name
     return $self->get('name');
 }
 
-sub system
+# Method: isSystem
+#
+#   Whether the security group is a system group.
+#
+# Overides:
+#   EBox::Users::Group::isSystem
+#
+sub isSystem
 {
     my ($self) = @_;
 

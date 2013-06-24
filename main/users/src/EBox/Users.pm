@@ -131,7 +131,7 @@ sub _setupForMode
 
 # Method: ouClass
 #
-#   Return the OC class implementation to use.
+#   Return the OU class implementation to use.
 #
 sub ouClass
 {
@@ -140,6 +140,32 @@ sub ouClass
     throw EBox::Exceptions::Internal("ouClass not initialized.") unless (defined $self->{ouClass});
 
     return $self->{ouClass};
+}
+
+# Method: userClass
+#
+#   Return the User class implementation to use.
+#
+sub userClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("userClass not initialized.") unless (defined $self->{userClass});
+
+    return $self->{userClass};
+}
+
+# Method: groupClass
+#
+#   Return the Group class implementation to use.
+#
+sub groupClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("groupClass not initialized.") unless (defined $self->{groupClass});
+
+    return $self->{groupClass};
 }
 
 # Method: depends
@@ -569,7 +595,12 @@ sub _internalServerEnableActions
     $self->_setConf(1);
 
     # Create default group
-    EBox::Users::Group->create(DEFAULTGROUP, 'All users', 1);
+    my $params = {
+        description => 'All users',
+        isSystemGroup => 1,
+    };
+
+    EBox::Users::Group->create(DEFAULTGROUP, $params);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');

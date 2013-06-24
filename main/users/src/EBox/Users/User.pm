@@ -192,8 +192,8 @@ sub save
     if ($changetype ne 'delete') {
         if ($hasCoreChanges or defined $passwd) {
 
-            my $users = EBox::Global->modInstance('users');
-            $users->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
+            my $usersMod = $self->_usersMod();
+            $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
         }
     }
 }
@@ -349,8 +349,8 @@ sub deleteObject
     my ($self) = @_;
 
     # Notify users deletion to modules
-    my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delUser', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Call super implementation
     shift @_;
@@ -404,7 +404,7 @@ sub create
 {
     my ($self, $user, $system, %params) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = $self->_usersMod();
 
     unless (_checkUserName($user->{'user'})) {
         my $advice = __('To avoid problems, the username should consist only ' .
@@ -417,12 +417,12 @@ sub create
                                            );
     }
 
-    my $real_users = $users->realUsers('without_admin');
+    my $real_users = $usersMod->realUsers('without_admin');
 
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        if ($users->master() eq 'cloud') {
+        if ($usersMod->master() eq 'cloud') {
             $max_users = $rs->maxCloudUsers();
         }
         else {
@@ -443,7 +443,7 @@ sub create
     if ($user->{ou}) {
         $dn = 'uid=' . $user->{user} . ',' . $user->{ou};
     } else {
-        $dn = $users->userDn($user->{'user'});
+        $dn = $usersMod->userDn($user->{'user'});
     }
 
     if (length($user->{'user'}) > MAXUSERLENGTH) {
@@ -458,7 +458,7 @@ sub create
                                            'value' => $user->{'user'});
     }
     # Verify that a group with the same name does not exists
-    if ($users->groupExists($user->{user})) {
+    if ($usersMod->groupExists($user->{user})) {
         throw EBox::Exceptions::External(
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
                name => $user->{user})
@@ -491,7 +491,7 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-    my $defaultGroupDN = $users->groupDn(EBox::Users->DEFAULTGROUP);
+    my $defaultGroupDN = $usersMod->groupDn(EBox::Users->DEFAULTGROUP);
     my $group = new EBox::Users::Group(dn => $defaultGroupDN);
     if (not $group->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
@@ -502,7 +502,7 @@ sub create
     }
     my $gid = $group->get('gidNumber');
 
-    my $realm = $users->kerberosRealm();
+    my $realm = $usersMod->kerberosRealm();
     my $quota = $self->defaultQuota();
 
     my $res = undef;
@@ -536,7 +536,7 @@ sub create
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
         unless ($system) {
-            $users->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
         }
 
         my $result = $entry->update($self->_ldap->{ldap});
@@ -565,12 +565,12 @@ sub create
 
         # Init user
         unless ($system) {
-            $users->reloadNSCD();
-            $users->initUser($res, $passwd);
+            $usersMod->reloadNSCD();
+            $usersMod->initUser($res, $passwd);
             $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
-            $users->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -583,10 +583,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
-            $users->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;
@@ -646,8 +646,8 @@ sub lastUid
     my ($self, $system) = @_;
 
     my $lastUid = -1;
-    my $users = EBox::Global->modInstance('users');
-    foreach my $user (@{$users->users($system)}) {
+    my $usersMod = $self->_usersMod();
+    foreach my $user (@{$usersMod->users($system)}) {
         my $uid = $user->get('uidNumber');
         if ($system) {
             last if ($uid >= MINUID);
@@ -739,8 +739,8 @@ sub _loginShell
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return $users->model('PAM')->login_shellValue();
+    my $usersMod = $self->_usersMod();
+    return $usersMod->model('PAM')->login_shellValue();
 }
 
 sub quotaAvailable
@@ -752,8 +752,8 @@ sub defaultQuota
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $model = $users->model('AccountSettings');
+    my $usersMod = $self->_usersMod();
+    my $model = $usersMod->model('AccountSettings');
 
     my $value = $model->defaultQuotaValue();
     if ($value eq 'defaultQuota_disabled') {

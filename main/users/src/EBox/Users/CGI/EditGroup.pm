@@ -38,7 +38,6 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    my $usersandgroups = EBox::Global->modInstance('users');
 
     my @args = ();
 
