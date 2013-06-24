@@ -328,13 +328,15 @@ sub write
     my $buffer = "\r\n";
     my $batchData = $data->{batch};
     foreach my $key (sort keys %{$batchData}) {
-        $buffer .= "[$key]\r\n";
         my $aux = $batchData->{$key};
-        foreach my $index (sort keys %{$aux}) {
-            $buffer .= "${index}CmdLine=$aux->{$index}->{CmdLine}\r\n";
-            $buffer .= "${index}Parameters=$aux->{$index}->{Parameters}\r\n";
+        if (keys %{$aux} > 0) {
+            $buffer .= "[$key]\r\n";
+            foreach my $index (sort keys %{$aux}) {
+                $buffer .= "${index}CmdLine=$aux->{$index}->{CmdLine}\r\n";
+                $buffer .= "${index}Parameters=$aux->{$index}->{Parameters}\r\n";
+            }
+            $buffer .= "\r\n";
         }
-        $buffer .= "\r\n";
     }
     $buffer = encode('UTF-16LE', $buffer);
     $buffer = "\x{FF}" . "\x{FE}" . $buffer;
@@ -344,13 +346,15 @@ sub write
     $buffer = "\r\n";
     my $psData = $data->{ps};
     foreach my $key (sort keys %{$psData}) {
-        $buffer .= "[$key]\r\n";
         my $aux = $psData->{$key};
-        foreach my $index (sort keys %{$aux}) {
-            $buffer .= "${index}CmdLine=$aux->{$index}->{CmdLine}\r\n";
-            $buffer .= "${index}Parameters=$aux->{$index}->{Parameters}\r\n";
+        if (keys %{$aux} > 0) {
+            $buffer .= "[$key]\r\n";
+            foreach my $index (sort keys %{$aux}) {
+                $buffer .= "${index}CmdLine=$aux->{$index}->{CmdLine}\r\n";
+                $buffer .= "${index}Parameters=$aux->{$index}->{Parameters}\r\n";
+            }
+            $buffer .= "\r\n";
         }
-        $buffer .= "\r\n";
     }
     $buffer = encode('UTF-16LE', $buffer);
     $buffer = "\x{FF}" . "\x{FE}" . $buffer;
