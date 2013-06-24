@@ -179,14 +179,8 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup'></div>
 <form action='/Users/EditUser' method='POST' id='removeUserFromGroup'>
-        <select name='delgroup' id='delgroup'  size='8' multiple>
-%   if(@usergroups) {
-%   } else {
-                <option value="" disabled>
-                    <% __('No membership in any group') %>
-                </option>
-%   }
-        </select>
+        <ul name='userGroups' id='userGroups'  size='8' multiple>
+        </ul>
         <input  type="hidden" name="dn" value="<% $user->dn() %>"/>
         <input  type="hidden" name="delgroupfromuser" value="1"/>
 <br/>
@@ -351,22 +345,25 @@ this.element.show();
             var group, i;
             var groupAdd =  jQuery('#addgroup');
             groupAdd.detach();
-            groupAdd.find('option').remove();
-            for (i=0; i< data.noMember.length; i ++) {
+            groupAdd.children().remove();
+            for (i=0; i< data.noMember.length; i++) {
                group = data.noMember[i];
                groupAdd.append('<option value="' + group + '">' + group + '</option>');
             }
             groupAdd.insertAfter('#addgroupLabel');
 
-            var groupDel = jQuery('#delgroup');
-            groupDel.detach();
-            groupDel.find('option').remove();
-            for (i=0; i< data.member.length; i ++) {
+            var userGroups = jQuery('#userGroups');
+            userGroups.detach();
+            userGroups.children().remove();
+            var delIcon = '<img src="/data/images/delete.gif" alt="Remove" />';
+            for (i=0; i< data.member.length; i++) {
                group = data.member[i];
-               groupDel.append('<option value="' + group.dn + '">' + group.name + '</option>');
+               userGroups.append('<ul>' + group.name +
+                                  '<span data-group-dn="' + group.dn + '">' +
+                                  delIcon + '</span></ul>'
+                                 );
             }
-//            jQuery('#removeUserFromGroup').prepend(groupDel);
-            groupDel.prependTo('#removeUserFromGroup');
+            userGroups.prependTo('#removeUserFromGroup');
    };
 
    var refreshGroups = function (groupInfo) {
