@@ -9,7 +9,7 @@
 </%args>
 <%init>
 use EBox::Gettext;
-#use JSON::XS;
+use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 
 #my $remainGroupsJS;
@@ -161,19 +161,26 @@ $user
 @usergroups
 @remaingroups
 </%args>
-
+<%init>
+my $json = JSON::XS->new();
+my @member  = map {
+               my $gr = $_;
+               {
+                   name => $gr->name(),
+                   dn   => $gr->dn(),
+               }
+} @usergroups;
+my @noMember = map { $_->name() } @remaingroups;
+my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
+</%init>
 
 <div class="tleft"><% __("User groups") %></div>
 <br/>
+<& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup'></div>
 <form action='/Users/EditUser' method='POST' id='removeUserFromGroup'>
         <select name='delgroup' id='delgroup'  size='8' multiple>
 %   if(@usergroups) {
-%           foreach my $group (@usergroups){
-                <option value="<% $group->dn() %>">
-                    <% $group->name() %>
-                </option>
-%           }
 %   } else {
                 <option value="" disabled>
                     <% __('No membership in any group') %>
@@ -187,7 +194,7 @@ $user
                 value="<%__('Remove selected group(s) from user')%>"
         />
 </form>
-<& .addToGroup, user => $user, remaingroups => \@remaingroups &>
+
 <br/>
 
  <style>
@@ -314,14 +321,14 @@ if ( valid ) {
 return;
 }
 // Remove invalid value
-//this.input
-//.val( "" )
-//.attr( "title", value + " didn't match any item" )
-//.tooltip( "open" );
-//this.element.val( "" );
-//this._delay(function() {
-//this.input.tooltip( "close" ).attr( "title", "" );
-//}, 2500 );
+this.input
+.val( "" )
+.attr( "title", value + " didn't match any item" )
+.tooltip( "open" );
+this.element.val( "" );
+this._delay(function() {
+this.input.tooltip( "close" ).attr( "title", "" );
+}, 2500 );
 this.input.data( "ui-autocomplete" ).term = "";
 },
 _destroy: function() {
@@ -339,13 +346,14 @@ this.element.show();
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editUserForm', { edit: 1 });
     });
-   var refreshGroups = function (groupInfo) {
-        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn() %>', function(data) {
+
+   var updateGroupsWidgets = function(data) {
             var group, i;
             var groupAdd =  jQuery('#addgroup');
 //            groupAdd.detach();
+            groupAdd.find('option').remove();
             for (i=0; i< data.noMember.length; i ++) {
-               group = data.member[i];
+               group = data.noMember[i];
                groupAdd.append('<option value="' + group + '">' + group + '</option>');
             }
 //          prepend to DOM
@@ -359,8 +367,15 @@ this.element.show();
                groupDel.append('<option value="' + group.dn + '">' + group.name + '</option>');
             }
             jQuery('#removeUserFromGroup').prepend(groupDel);
-        });
    };
+
+   var refreshGroups = function (groupInfo) {
+        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn()
+      %>', updateGroupsWidgets);
+   };
+
+
+
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
        console.log('submit addUserToGroup');
@@ -375,7 +390,9 @@ this.element.show();
        Zentyal.Dialog.submitForm('#removeUserFromGroup', {}, { complete : refreshGroups});
     });
 
-   jQuery('#addgroup').combobox();
+
+//   jQuery('#addgroup').combobox();
+   updateGroupsWidgets(<% $groupDataJSON %>);
 });
 </script>
 
@@ -384,23 +401,14 @@ this.element.show();
 <%def .addToGroup>
 <%args>
 $user
-@remaingroups
 </%args>
-<%init>
-my $disabled = @remaingroups ? '' : 'disabled';
-</%init>
 <div id='error_addUserToGroup'></div>
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
-  <label for="addgroup" <% $disabled %> ><% __('Group') %> </label>
+  <label for="addgroup"><% __('Group') %> </label>
   <select name="addgroup" id="addgroup" <% $disabled %> >
-%   foreach my $group (@remaingroups){
-%     my $name = $group->name();
-      <option value="<% $name %>">
-        <% $name %>
-      </option>
-%   }
+
   </select>
-  <input type='submit'  <% $disabled %> value='<% __('Add') %>' />
+  <input type='submit' value='<% __('Add') %>' />
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>
