@@ -45,7 +45,7 @@ sub _process
         my $groupname = $self->param('groupname');
         my $params = {
             description => $self->unsafeParam('description')
-        }
+        };
 
         my $group = EBox::Users::Group->create($groupname, $params);
 
