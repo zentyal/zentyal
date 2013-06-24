@@ -17,7 +17,7 @@ ldap_bindstring = <% $ldap_bindstring %>
 ldap_group = <% $ldap_group->dn() %>
 
 # LDAP groups dn template
-ldap_group_member = <% $ldap_groupmember %>
+ldap_group_member = <% $ldap_groupmember->dn() %>
 
 
 % if (defined($ldap2_url)) {

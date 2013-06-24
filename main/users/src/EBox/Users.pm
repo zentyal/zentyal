@@ -951,26 +951,6 @@ sub usersDn
     return $dn;
 }
 
-# Method: userDn
-#
-#    Returns the dn for a given user. The user doesn't have to exist
-#
-#   Parameters:
-#       user
-#
-#  Returns:
-#     dn for the user
-# FIXME: This method is not correct for Windows AD, it doesn't use the user id as the CN value!
-sub userDn
-{
-    my ($self, $user) = @_;
-    $user or throw EBox::Exceptions::MissingArgument('user');
-
-    my $attr = $self->{userClass}->dnLeftmostAttribute();
-    my $dn = "$attr=$user," .  $self->usersDn;
-    return $dn;
-}
-
 # Init a new user (home and permissions)
 sub initUser
 {

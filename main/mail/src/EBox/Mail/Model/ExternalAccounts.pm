@@ -167,9 +167,9 @@ sub _user
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
     my $user = $request->user();
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
-    return new EBox::Users::User(dn => $users->userDn($user));
+    return new $usersMod->userByUID($user));
 }
 
 sub _userExternalAccounts
