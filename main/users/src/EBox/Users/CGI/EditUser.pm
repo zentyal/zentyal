@@ -116,7 +116,7 @@ sub _process
         my @groups = $self->unsafeParam('addgroup');
 
         foreach my $gr (@groups) {
-            my $group = new EBox::Users::Group(dn => $gr);
+            my $group = new EBox::Users::Group(gid => $gr);
             $user->addGroup($group);
         }
 
@@ -133,6 +133,12 @@ sub _process
         }
 
         $self->{json}->{success} = 1;
+    } elsif ($self->param('groupInfo')) {
+        $self->{json} = {
+             success => 1,
+             member => [map { $_->name } @{$usergroups} ],
+             noMember => [map { $_->name } @{$remaingroups} ],
+           };
     }
 }
 
