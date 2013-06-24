@@ -301,6 +301,9 @@ sub _entry
         my $result = undef;
         if (defined $self->{dn}) {
             my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
+            if (not $basedn) {
+                throw EBox::Exceptions::Internal("DN too short: " . $self->{dn});
+            }
             my $attrs = {
                 base => $basedn,
                 filter => $filter,

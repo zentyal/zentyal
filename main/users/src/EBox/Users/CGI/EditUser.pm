@@ -136,10 +136,25 @@ sub _process
     } elsif ($self->param('groupInfo')) {
         $self->{json} = {
              success => 1,
-             member => [map { $_->name } @{$usergroups} ],
-             noMember => [map { $_->name } @{$remaingroups} ],
+             member =>   _groupListWithDN($usergroups),
+             noMember =>   [  map { $_->name } @{ $remaingroups }],
            };
     }
 }
+
+sub _groupListWithDN
+{
+    my ($groupList) = @_;
+    return [ map {
+               my $gr = $_;
+               {
+                   name => $gr->name(),
+                   dn   => $gr->dn(),
+               }
+            } @{$groupList }
+   ];
+}
+
+
 
 1;

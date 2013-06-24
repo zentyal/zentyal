@@ -167,7 +167,7 @@ $remaingroups
 <br/>
 <div id='error_removeUserFromGroup'></div>
 <form action='/Users/EditUser' method='POST' id='removeUserFromGroup'>
-        <select name='delgroup' size='8' multiple>
+        <select name='delgroup' id='delgroup'  size='8' multiple>
 %   if(@usergroups) {
 %           foreach my $group (@usergroups){
                 <option value="<% $group->dn() %>">
@@ -200,16 +200,31 @@ jQuery(function() {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editUserForm', { edit: 1 });
     });
+   var refreshGroups = function (groupInfo) {
+        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn() %>', function(data) {
+            var group, i;
+            jQuery('#addgroup').autocomplete('option', 'source', data.noMember);
+            var groupSel = jQuery('#delgroup');
+            console.log('groupSel length' + groupSel.length );
+//            groupSel.detach();
+            groupSel.find('option').remove();
+            for (i=0; i< data.member.length; i ++) {
+               group = data.member[i];
+               groupSel.append('<option value="' + group.dn + '">' + group.name + '</option>');
+            }
+//            jQuery('#removeUserFromGroup').prepend(groupSel);
+        });
+   };
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
        console.log('submit addUserToGroup');
-       Zentyal.Dialog.submitForm('#addUserToGroup');
+       Zentyal.Dialog.submitForm('#addUserToGroup', {}, { complete : refreshGroups});
        // fix group ocntrols
     });
    jQuery('#removeUserFromGroup').on('submit', function(event) {
        event.preventDefault();
        console.log('submit removeUserFromGroup');
-       Zentyal.Dialog.submitForm('#removeUserFromGroup');
+       Zentyal.Dialog.submitForm('#removeUserFromGroup', {}, { complete : refreshGroups});
        // fix groupConmtrols
     });
 });
