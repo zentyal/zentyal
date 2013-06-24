@@ -350,9 +350,7 @@ sub clearCache
 
 sub _ldap
 {
-    my ($self) = @_;
-
-    return $self->_usersMod()->ldap();
+    return EBox::Global->modInstance('users')->ldap();
 }
 
 sub _usersMod
