@@ -159,6 +159,7 @@ sub deleteObject
     }
 
     my $smb = new EBox::Samba::SmbClient(RID => 500);
+    my $path = $self->path();
 
     # TODO: Remove all links to this GPO in the domain
 
@@ -166,8 +167,8 @@ sub deleteObject
     $self->SUPER::deleteObject();
 
     # Remove GTP from sysvol
-    $smb->rmdir_recurse("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName")
-        or throw EBox::Exceptions::Internal("Could not remove GPO from sysvol: $!");
+    $smb->rmdir_recurse($path) or throw EBox::Exceptions::Internal(
+        "Could not remove GPO from sysvol: $!");
 }
 
 # Method: status
