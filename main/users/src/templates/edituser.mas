@@ -380,7 +380,7 @@ this.element.show();
     });
 
 
-//   jQuery('#addgroup').combobox();
+   jQuery('#addgroup').combobox();
    updateGroupsWidgets(<% $groupDataJSON %>);
 });
 </script>
