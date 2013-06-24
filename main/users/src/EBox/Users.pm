@@ -1028,39 +1028,53 @@ sub reloadNSCD
    }
 }
 
-# Method: user
+# Method: userByUsername
 #
-# Returns the object which represents a give user. Raises a exception if
-# the user does not exists
+# Return the instance of EBox::Users::User object which represents a give username or undef if it's not found.
 #
 #  Parameters:
 #      username
 #
-#  Returns:
-#    the instance of EBox::Users::User for the given user
-sub user
+sub userByUsername
 {
     my ($self, $username) = @_;
-    my $dn = $self->userDn($username);
-    my $user = new EBox::Users::User(dn => $dn);
-    if (not $user->exists()) {
-        throw EBox::Exceptions::DataNotFound(data => __('user'), value => $username);
+
+    my $userClass = $self->userClass();
+    my $objectClass = $userClass->mainObjectClass();
+    my $usernameTag = $userClass->usernameTag();
+    my $args = {
+        base => $self->ldap->dn(),
+        filter => "(&(objectclass=$objectClass)($usernameTag=$username))",
+        scope => 'sub',
+    };
+
+    my $result = $self->ldap->search($args);
+    my $count = $result->count();
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for \'{username}\' user, expected only one.',
+                count => $count,
+                name  => $username
+            )
+        );
+    } elsif ($count == 0) {
+        return undef;
+    } else {
+        return $self->entryModeledObject($result->entry(0));
     }
-    return $user;
 }
 
 # Method: userExists
 #
-# Returns:
+#  Returns:
 #
-#   bool - whether the user exists or not
+#      bool - whether the user exists or not
 #
 sub userExists
 {
     my ($self, $username) = @_;
-    my $dn = $self->userDn($username);
-    my $user = new EBox::Users::User(dn => $dn);
-    return $user->exists();
+    return undef unless ($self->userByName($username));
+    return 1;
 }
 
 # Method: users
@@ -1179,9 +1193,7 @@ sub contacts
 
 # Method: groupByName
 #
-# Return the instance of EBox::Users::Group object which represents a give group name.
-#
-# Throw EBox::Exceptions::DataNotFound if the group does not exist.
+# Return the instance of EBox::Users::Group object which represents a give group name or undef if it's not found.
 #
 #  Parameters:
 #      name
@@ -1208,31 +1220,10 @@ sub groupByName
             )
         );
     } elsif ($count == 0) {
-        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $name);
+        return undef;
     } else {
         return $self->entryModeledObject($result->entry(0));
     }
-}
-
-# Method: groupByDN
-#
-# Return the object which represents a give group DN. Raises a exception if
-# the group does not exists
-#
-#  Parameters:
-#      dn
-#
-#  Returns:
-#    the instance of EBox::Users::Group for the group
-#
-sub groupByDN
-{
-    my ($self, $dn) = @_;
-    my $group = $self->groupClass()->new(dn => $dn);
-    if (not $group->exists()) {
-        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $dn);
-    }
-    return $group;
 }
 
 # Method: groupExists

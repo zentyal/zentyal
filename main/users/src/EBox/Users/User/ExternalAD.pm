@@ -47,13 +47,13 @@ sub mainObjectClass
     return 'user';
 }
 
-# Method: dnLeftmostAttribute
+# Method: usernameTag
 #
 #  Overrides:
-#    EBox::Users::User::dnLeftmostattribute
-sub dnLeftmostAttribute
+#    EBox::Users::User::usernameTag
+sub usernameTag
 {
-    return 'cn';
+    return 'samaccountname';
 }
 
 # Method: name

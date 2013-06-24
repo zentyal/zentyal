@@ -76,10 +76,10 @@ for my $ruser (@{$rusers}) {
 
     my $luser;
     try {
-        try {
-            my $changed = 0;
+        my $changed = 0;
 
-            $luser = $users->user($ruser->{name});
+        $luser = $users->userByUsername($ruser->{name});
+        if ($luser) {
             $luser->setIgnoredSlaves(IGNORE);
 
             # User exists, update fields:
@@ -106,7 +106,7 @@ for my $ruser (@{$rusers}) {
 
             $luser->save() if ($changed);
 
-        } catch EBox::Exceptions::DataNotFound with {
+        } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
             my $user;
             $user->{user} = $ruser->{name};
@@ -122,7 +122,7 @@ for my $ruser (@{$rusers}) {
             $user->{passwords} = $ruser->{passwords};
             $user->{comment} = $ruser->{description};
             EBox::Users::User->create($user, 0, ignoreSlaves => IGNORE);
-        };
+        }
     } otherwise {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
@@ -156,9 +156,8 @@ for my $rgroup (@{$rgroups}) {
 
     my $lgroup;
     try {
-        try {
-            $lgroup = $users->groupByName($rgroup->{name});
-        } catch EBox::Exceptions::DataNotFound with {
+        $lgroup = $users->groupByName($rgroup->{name});
+        unless ($lgroup) {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
 
             $params = {
@@ -170,9 +169,6 @@ for my $rgroup (@{$rgroups}) {
 
             $lgroup = EBox::Users::Group->create($rgroup->{name}, $params);
         }
-        otherwise {
-            EBox::error('Failed to sync remote group ' . $rgroup->{name});
-        };
 
         # Update group info
         $lgroup->setIgnoredSlaves(IGNORE);
@@ -186,7 +182,7 @@ for my $rgroup (@{$rgroups}) {
             $lgroup->removeAllMembers(1);
             $changed = 1;
             foreach my $user (@{$rgroup->{members}}) {
-                $lgroup->addMember($users->user($user), 1);
+                $lgroup->addMember($users->userByUsername($user), 1);
             }
         }
         $lgroup->save() if ($changed);
