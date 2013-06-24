@@ -59,11 +59,11 @@ sub _table
         ),
         new EBox::Types::Text (
             fieldName => 'usersDn',
-            printableName => __('Users DN'),
+            printableName => __('Default Users DN'),
         ),
         new EBox::Types::Text (
             fieldName => 'groupsDn',
-            printableName => __('Groups DN'),
+            printableName => __('Default Groups DN'),
         ),
     );
 
@@ -114,7 +114,7 @@ sub _content
         roPassword => $roPassword,
 
         usersDn => $users->usersDn(),
-        groupsDn => $users->groupsDn(),
+        groupsDn => $users->groupClass()->defaultContainer()->dn(),
     };
 }
 

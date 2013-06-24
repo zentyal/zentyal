@@ -776,7 +776,6 @@ sub _setConfInternal
     push (@params, 'rootbinddn'=> $ldap->rootDn());
     push (@params, 'bindpw'    => $nsspw);
     push (@params, 'usersdn'   => $self->usersDn());
-    push (@params, 'groupsdn'  => $self->groupsDn());
     push (@params, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
@@ -930,26 +929,6 @@ sub _enforceServiceState
 
     # Clear LDAP connection
     $self->ldap->clearConn();
-}
-
-# Method: groupsDn
-#
-#       Returns the dn where the groups are stored in the ldap directory
-#       Accepts an optional parameter as base dn instead of getting it
-#       from the local LDAP repository
-#
-# Returns:
-#
-#       string - dn
-#
-# FIXME: This should not be used anymore...
-sub groupsDn
-{
-    my ($self, $dn) = @_;
-    unless(defined($dn)) {
-        $dn = $self->ldap->dn();
-    }
-    return $dn;
 }
 
 # Method: usersDn
@@ -1473,7 +1452,7 @@ sub notifyModsLdapUserBase
     }
 
     my $basedn = $args->[0]->baseDn();
-    my $defaultOU = ($basedn eq $self->usersDn() or $basedn eq $self->groupsDn());
+    my $defaultOU = ($basedn eq $self->usersDn() or $basedn eq $self->groupClass()->defaultContainer()->dn());
     foreach my $mod (@{$self->_modsLdapUserBase($ignored_modules)}) {
 
         # Skip modules not supporting multiple OU if not default OU

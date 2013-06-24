@@ -104,7 +104,7 @@ sub _addGroup
     return if (not $group->isSecurityGroup());
 
     my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if ($group->parent->dn() ne $users->ldap()->defaultContainer()->dn());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -125,7 +125,7 @@ sub _modifyGroup
     return if (not $group->isSecurityGroup());
 
     my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if ($group->baseDn() ne $users->groupClass()->defaultContainer()->dn());
 
     # FIXME: We should sync contacts too!
     my @members = map { $_->name() } @{$group->users()};
@@ -147,7 +147,7 @@ sub _delGroup
     my ($self, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if ($group->baseDn() ne $users->groupClass()->defaultContainer()->dn());
 
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);
