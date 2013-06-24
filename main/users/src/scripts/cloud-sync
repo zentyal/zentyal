@@ -160,9 +160,15 @@ for my $rgroup (@{$rgroups}) {
             $lgroup = $users->group($rgroup->{name});
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
-            $rgroup->{description} = ($rgroup->{description} or '');
-            $lgroup->{gidNumber} = $rgroup->{gid};
-            $lgroup = EBox::Users::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
+
+            $params = {
+                description   => $rgroup->{description},
+                gidNumber     => $rgroup->{gid},
+                isSystemGroup => 0,
+                ignoreSlaves  => IGNORE,
+            }
+
+            $lgroup = EBox::Users::Group->create($rgroup->{name}, $params);
         }
         otherwise {
             EBox::error('Failed to sync remote group ' . $rgroup->{name});

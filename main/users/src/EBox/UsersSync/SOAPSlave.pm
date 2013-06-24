@@ -84,7 +84,11 @@ sub addGroup
 {
     my ($class, $group) = @_;
 
-    EBox::Users::Group->create($group->{name}, $group->{comment});
+    my $params = {
+        description => $group->{comment}
+    };
+
+    EBox::Users::Group->create($group->{name}, $params);
 
     return $class->_soapResult(0);
 }
