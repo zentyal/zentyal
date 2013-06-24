@@ -491,7 +491,7 @@ sub create
                      $self->_newUserUidNumber($system);
     $self->_checkUid($uid, $system);
 
-    my $defaultGroupDN = $usersMod->groupDn(EBox::Users->DEFAULTGROUP);
+    my $defaultGroupDN = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
     my $group = new EBox::Users::Group(dn => $defaultGroupDN);
     if (not $group->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(

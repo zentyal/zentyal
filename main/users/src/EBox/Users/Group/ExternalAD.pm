@@ -42,12 +42,29 @@ sub new
 
 # Method: mainObjectClass
 #
-#  Overrides:
-#    EBox::Users::Groupr::mainObjectClass
+# Overrides:
+#   EBox::Users::Groupr::mainObjectClass
+#
 sub mainObjectClass
 {
     return 'group';
 }
+
+# Method: defaultContainer
+#
+#   Return the default container that will hold Group objects.
+#
+# Overrides:
+#   EBox::Users::Group::defaultContainer
+#
+sub defaultContainer
+{
+    my ($self) = @_;
+
+    my $usersMod = $self->_usersMod();
+    return $usersMod->objectFromDN('cn=Users,'.$self->_ldap->dn());
+}
+
 
 # Method: name
 #

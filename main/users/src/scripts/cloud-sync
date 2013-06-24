@@ -157,7 +157,7 @@ for my $rgroup (@{$rgroups}) {
     my $lgroup;
     try {
         try {
-            $lgroup = $users->group($rgroup->{name});
+            $lgroup = $users->groupByName($rgroup->{name});
         } catch EBox::Exceptions::DataNotFound with {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
 

@@ -61,7 +61,7 @@ sub childNodes
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
-        $parentObject = $usersMod->objectFromDn($parent);
+        $parentObject = $usersMod->objectFromDN($parent);
     }
 
     my $id = undef;

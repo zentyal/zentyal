@@ -363,12 +363,12 @@ sub _getQueues
 
     my @queues = ();
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
-        my $group = new EBox::Users::Group(dn => $users->groupDn($queue));
+        my $group = $usersMod->groupByName($queue));
         my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};

@@ -104,7 +104,7 @@ sub _setConf
     my ($self) = @_;
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
 
     # Apache conf file
@@ -117,15 +117,15 @@ sub _setConf
 
     # Ldap connection (for auth) config file
     my @params;
-    my $ldap = $users->ldap();
+    my $ldap = $usersMod->ldap();
     push (@params, ldap_url => $ldap->url());
     push (@params, ldap_bindstring => $ldap->userBindDN('{USERNAME}'));
 
     my $group = $settings->groupValue();
 
     if ($group ne '__all__') {
-        push (@params, ldap_group => $users->groupDn($group));
-        push (@params, ldap_groupmember => $users->userDn('{USERNAME}'));
+        push (@params, ldap_group => $usersMod->groupByName($group));
+        push (@params, ldap_groupmember => $usersMod->userDn('{USERNAME}'));
     }
 
     if ($sldap->enabledValue()) {

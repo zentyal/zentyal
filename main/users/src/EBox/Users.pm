@@ -129,6 +129,19 @@ sub _setupForMode
 
 }
 
+# Method: ldapClass
+#
+#   Return the LDAP class implementation to use.
+#
+sub ldapClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("ldapClass not initialized.") unless (defined $self->{ldapClass});
+
+    return $self->{ldapClass};
+}
+
 # Method: ouClass
 #
 #   Return the OU class implementation to use.
@@ -600,7 +613,9 @@ sub _internalServerEnableActions
         isSystemGroup => 1,
     };
 
-    EBox::Users::Group->create(DEFAULTGROUP, $params);
+    my $groupClass = $self->groupClass();
+    my $parent = $groupClass->defaultContainer();
+    $groupClass->create(DEFAULTGROUP, $parent, $params);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
@@ -937,24 +952,6 @@ sub groupsDn
     return $dn;
 }
 
-# Method: groupDn
-#
-#    Returns the dn for a given group. The group doesn't have to exist
-#
-#   Parameters:
-#       group
-#
-#  Returns:
-#     dn for the group
-sub groupDn
-{
-    my ($self, $group) = @_;
-    $group or throw EBox::Exceptions::MissingArgument('group');
-
-    my $dn = "cn=$group," .  $self->groupsDn;
-    return $dn;
-}
-
 # Method: usersDn
 #
 #       Returns the dn where the users are stored in the ldap directory.
@@ -1201,30 +1198,46 @@ sub contacts
     return \@contacts;
 }
 
-# Method: group
+# Method: groupByName
 #
-# Returns the object which represents a give group. Raises a exception if
-# the group does not exists
+# Return the instance of EBox::Users::Group object which represents a give group name.
+#
+# Throw EBox::Exceptions::DataNotFound if the group does not exist.
 #
 #  Parameters:
-#      groupname
+#      name
 #
-#  Returns:
-#    the instance of EBox::Users::Group for the group
-sub group
+sub groupByName
 {
-    my ($self, $groupname) = @_;
-    my $dn = $self->groupDn($groupname);
-    my $group = new EBox::Users::Group(dn => $dn);
-    if (not $group->exists()) {
-        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $groupname);
+    my ($self, $name) = @_;
+
+    my $groupClass = $self->groupClass();
+    my $objectClass = $groupClass->mainObjectClass();
+    my $args = {
+        base => $self->ldap->dn(),
+        filter => "(&(objectclass=$objectClass)(cn=$name))",
+        scope => 'sub',
+    };
+
+    my $result = $self->ldap->search($args);
+    my $count = $result->count();
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for \'{name}\' group, expected only one.',
+                count => $count,
+                name  => $name
+            )
+        );
+    } elsif ($count == 0) {
+        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $name);
+    } else {
+        return $self->entryModeledObject($result->entry(0));
     }
-    return $group;
 }
 
 # Method: groupByDN
 #
-# Returns the object which represents a give group DN. Raises a exception if
+# Return the object which represents a give group DN. Raises a exception if
 # the group does not exists
 #
 #  Parameters:
@@ -1236,7 +1249,7 @@ sub group
 sub groupByDN
 {
     my ($self, $dn) = @_;
-    my $group = new EBox::Users::Group(dn => $dn);
+    my $group = $self->groupClass()->new(dn => $dn);
     if (not $group->exists()) {
         throw EBox::Exceptions::DataNotFound(data => __('group'), value => $dn);
     }
@@ -1251,10 +1264,9 @@ sub groupByDN
 #
 sub groupExists
 {
-    my ($self, $groupname) = @_;
-    my $dn = $self->groupDn($groupname);
-    my $group = new EBox::Users::Group(dn => $dn);
-    return $group->exists();
+    my ($self, $name) = @_;
+    return undef unless ($self->groupByName($name));
+    return 1;
 }
 
 # Method: groups
@@ -1274,7 +1286,7 @@ sub groups
 
     return [] if (not $self->isEnabled());
 
-    my $groupClass  = $self->{groupClass};
+    my $groupClass  = $self->groupClass();
     my $objectClass = $groupClass->mainObjectClass();
     my %args = (
         base => $self->ldap->dn(),
@@ -2260,26 +2272,26 @@ sub entryModeledObject
     # FIXME: replace with better checks!
     # TODO: Add support for Contacts!!
     if ($entry->exists('ou')) {
-        $object = $self->{ouClass}->new(entry => $entry);
+        $object = $self->ouClass()->new(entry => $entry);
     } elsif ($entry->exists('uid')) {
-        $object = $self->{userClass}->new(entry => $entry);
+        $object = $self->userClass()->new(entry => $entry);
     } elsif ($entry->exists('gidNumber')) {
-        $object = $self->{groupClass}->new(entry => $entry);
+        $object = $self->groupClass()->new(entry => $entry);
     } else {
         throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
     }
-
     return $object;
 }
 
-# Method: objectFromDn
+# Method: objectFromDN
 #
 #   Return the perl object modeling the given dn or undef if not found.
 #
 # Parameters:
+#
 #   dn - An LDAP DN string identifying the object to retrieve.
 #
-sub objectFromDn
+sub objectFromDN
 {
     my ($self, $dn) = @_;
 

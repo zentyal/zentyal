@@ -39,6 +39,8 @@ sub _process
 {
     my ($self) = @_;
 
+    my $usersMod = EBox::Global->modInstance('users');
+
     my @args = ();
 
     $self->_requireParam('dn', 'dn');
@@ -47,9 +49,9 @@ sub _process
     my $group       = new EBox::Users::Group(dn => $dn);
     my $grpusers    = $group->users();
     my $remainusers = $group->usersNotIn();
-    my $components  = $usersandgroups->allGroupAddOns($group);
+    my $components  = $usersMod->allGroupAddOns($group);
 
-    my $editable = $usersandgroups->editableMode();
+    my $editable = $usersMod->editableMode();
 
     push(@args, 'group' => $group);
     push(@args, 'groupusers' => $grpusers);

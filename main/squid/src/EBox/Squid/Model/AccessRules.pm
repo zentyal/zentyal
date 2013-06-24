@@ -358,7 +358,7 @@ sub rules
                 if ($group eq '__USERS__') {
                     $users = $userMod->users();
                 } else {
-                    $users = $userMod->groupByDN($group)->users();
+                    $users = $userMod->objectFromDN($group)->users();
                 }
 
                 if (not @{$users}) {
@@ -513,7 +513,7 @@ sub filterProfiles
                 if ($group eq '__USERS__') {
                     $members = $userMod->users();
                 } else {
-                    $members = $userMod->groupByDN($group)->users();
+                    $members = $userMod->objectFromDN($group)->users();
                 }
                 @users = map { $_->name() } @{$members};
             }

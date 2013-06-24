@@ -18,7 +18,7 @@ use EBox::Gettext;
 % }
 
 <form action='/Users/EditGroup' method='POST' id='editGroupForm'>
-    <span class="ftitle"><% __('Comment') %>: </span>
+    <span class="ftitle"><% __('Description') %>: </span>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
     <input type='text' class='inputText' name='description' value="<% $group->get('description') %>">

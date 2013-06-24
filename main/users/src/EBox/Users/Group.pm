@@ -68,6 +68,18 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
+# Method: defaultContainer
+#
+#   Return the default container that will hold Group objects.
+#
+sub defaultContainer
+{
+    my ($self) = @_;
+
+    my $usersMod = $self->_usersMod();
+    return $usersMod->objectFromDN('ou=Groups,'.$self->_ldap->dn());
+}
+
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the group
@@ -181,7 +193,6 @@ sub users
     my ($self, $system) = @_;
 
     my $usersMod = $self->_usersMod();
-
     my $userClass = $usersMod->userClass();
     my @members = $self->get('member');
     @members = map { $userClass->new(dn => $_) } @members;
@@ -212,7 +223,8 @@ sub usersNotIn
 {
     my ($self, $system) = @_;
 
-    my $userClass = $self->userClass();
+    my $usersMod = $self->_usersMod();
+    my $userClass = $usersMod->userClass();
 
     my %searchParams = (
             base => $self->_ldap->dn(),
@@ -469,7 +481,8 @@ sub setIgnoredSlaves
 #
 # Parameters:
 #
-#   name   - Group name
+#   name   - Group name.
+#   parent - Parent container that will hold this new Group.
 #   params - Hash reference with the following fields:
 #       description     - Group's description.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
@@ -477,11 +490,12 @@ sub setIgnoredSlaves
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #       ignoreMods      - Ldap modules to be ignored on addUser notify.
 #       ignoreSlaves    - Slaves to be ignored on addUser notify.
-# TODO: Add OU.
 #
 sub create
 {
-    my ($self, $name, $params) = @_;
+    my ($self, $name, $parent, $params) = @_;
+
+    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
     my $isSecurityGroup = 1;
     if (defined $params->{isSecurityGroup}) {
@@ -499,13 +513,9 @@ sub create
                 'the same time.', group => $name));
     }
 
-    my $usersMod = $self->_usersMod();
-    my $dn = $usersMod->groupDn($name);
-
     if (length ($name) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
-            __x("Groupname must not be longer than {maxGroupLength} characters",
-                maxGroupLength => MAXGROUPLENGTH));
+            __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
     }
 
     unless (_checkGroupName($name)) {
@@ -520,8 +530,10 @@ sub create
            );
     }
 
+    my $usersMod = $self->_usersMod();
+
     # Verify group exists
-    if (new EBox::Users::Group(dn => $dn)->exists()) {
+    if ($usersMod->groupExists($name)) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
             'value' => $name);
@@ -533,6 +545,8 @@ sub create
                name => $name)
            );
     }
+
+    my $dn = 'cn=$name,' . $parent->dn();
 
     my @attr = (
         'cn'          => $name,

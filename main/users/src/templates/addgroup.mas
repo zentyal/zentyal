@@ -20,7 +20,7 @@ use EBox::Gettext;
 		<tr>
 			<td class='tright'>
 				<span class="ftitle">
-					<% __('Comment') %>:
+					<% __('Description') %>:
 				</span>
 			</td>
 			<td>
