@@ -76,6 +76,18 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+# Method: defaultContainer
+#
+#   Return the default container that will hold Group objects.
+#
+sub defaultContainer
+{
+    my ($self) = @_;
+
+    my $usersMod = $self->_usersMod();
+    return $usersMod->objectFromDN('ou=Users,'.$self->_ldap->dn());
+}
+
 # Method: dnLeftmostAttribute
 #
 #  Returns:

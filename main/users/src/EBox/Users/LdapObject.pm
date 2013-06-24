@@ -427,6 +427,29 @@ sub isContainer
     return undef;
 }
 
+# Method: defaultContainer
+#
+#   Return the default container that would hold this object.
+#
+sub defaultContainer
+{
+    throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: isInDefaultContainer
+#
+#   Return whether this object is stored in its default container.
+#
+sub isInDefaultContainer
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    my $defaultContainer = $self->defaultContainer();
+
+    return ($parent->dn() eq $defaultContainer->dn());
+}
+
 # Method: children
 #
 #   Return a reference to the list of objects that are children of this node.
