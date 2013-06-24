@@ -205,14 +205,13 @@ jQuery(function() {
             var group, i;
             jQuery('#addgroup').autocomplete('option', 'source', data.noMember);
             var groupSel = jQuery('#delgroup');
-            console.log('groupSel length' + groupSel.length );
-//            groupSel.detach();
+            groupSel.detach();
             groupSel.find('option').remove();
             for (i=0; i< data.member.length; i ++) {
                group = data.member[i];
                groupSel.append('<option value="' + group.dn + '">' + group.name + '</option>');
             }
-//            jQuery('#removeUserFromGroup').prepend(groupSel);
+            jQuery('#removeUserFromGroup').prepend(groupSel);
         });
    };
    jQuery('#addUserToGroup').on('submit', function(event) {
