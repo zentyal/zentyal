@@ -178,18 +178,8 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <br/>
 <& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup'></div>
-<form action='/Users/EditUser' method='POST' id='removeUserFromGroup'>
-        <ul name='userGroups' id='userGroups'  size='8' multiple>
-        </ul>
-        <input  type="hidden" name="dn" value="<% $user->dn() %>"/>
-        <input  type="hidden" name="delgroupfromuser" value="1"/>
-<br/>
-        <input  type='submit' class='inputButton'  name='delfromuser'
-                value="<%__('Remove selected group(s) from user')%>"
-        />
-</form>
-
-<br/>
+<ul name='userGroups' id='userGroups'  size='8' multiple>
+</ul>
 
  <style>
 .custom-combobox {
@@ -355,23 +345,22 @@ this.element.show();
             var userGroups = jQuery('#userGroups');
             userGroups.detach();
             userGroups.children().remove();
-            var delIcon = '<img src="/data/images/delete.gif" alt="Remove" />';
             for (i=0; i< data.member.length; i++) {
                group = data.member[i];
                userGroups.append('<ul>' + group.name +
-                                  '<span data-group-dn="' + group.dn + '">' +
-                                  delIcon + '</span></ul>'
+                                 '<input type="image" class="inputButton" ' +
+                                  'src="/data/images/delete.gif" ' +
+                                  'data-group-name="' + group.name + '" ' +
+                                  'data-group-dn="' + group.dn + '" ' +
+                                  '/>' +   '</ul>'
                                  );
             }
-            userGroups.prependTo('#removeUserFromGroup');
+            userGroups.insertAfter('#error_removeUserFromGroup');
    };
 
    var refreshGroups = function (groupInfo) {
-        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn()
-      %>', updateGroupsWidgets);
+        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn()  %>', updateGroupsWidgets);
    };
-
-
 
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
@@ -379,12 +368,29 @@ this.element.show();
        Zentyal.Dialog.submitForm('#addUserToGroup', {}, { complete : refreshGroups});
     });
 
-
-
-   jQuery('#removeUserFromGroup').on('submit', function(event) {
+   jQuery('#userGroups').on('click', 'input', function(event) {
        event.preventDefault();
-       console.log('submit removeUserFromGroup');
-       Zentyal.Dialog.submitForm('#removeUserFromGroup', {}, { complete : refreshGroups});
+       var userDn = '<% $user->dn() %>';
+       var url = '/Users/EditUser';
+       var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
+       data += '&delgroup=' + event.target.getAttribute('data-group-name');
+       jQuery('#error_removeUserFromGroup').html('').hide();
+       jQuery.ajax({
+          url: url,
+          data: data,
+          dataType: 'json',
+          error: function(jqXHR) {
+             jQuery('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+          },
+          success: function(response) {
+             if (!response.success) {
+                jQuery(errorSelector).html(response.error).show();
+             }
+          },
+          complete: function() {
+              refreshGroups();
+          }
+       });
     });
 
 

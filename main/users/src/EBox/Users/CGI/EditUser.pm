@@ -128,7 +128,7 @@ sub _process
 
         my @groups = $self->unsafeParam('delgroup');
         foreach my $gr (@groups){
-            my $group = new EBox::Users::Group(dn => $gr);
+            my $group = new EBox::Users::Group(gid => $gr);
             $user->removeGroup($group);
         }
 
