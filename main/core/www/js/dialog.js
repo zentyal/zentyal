@@ -89,11 +89,13 @@ Zentyal.Dialog.submitForm = function(formSelector, extraData, extraParams) {
                 if ('error' in extraParams) {
                     extraParams.error(response);
                 }
-
+            }
+            if ('complete' in extraParams) {
+                extraParams.complete(response);
             }
         },
         error: function(jqXHR){
             jQuery('#error').html(jqXHR.responseText).show();
-        }
+        },
     });
 };
