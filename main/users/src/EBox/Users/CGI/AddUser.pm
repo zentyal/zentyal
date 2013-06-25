@@ -55,7 +55,7 @@ sub _process
         $self->_requireParam('username', __('user name'));
         $self->_requireParam('name', __('first name'));
         $self->_requireParam('surname', __('last name'));
-        $self->_requireParamAllowEmpty('comment', __('comment'));
+        $self->_requireParamAllowEmpty('description', __('description'));
 
         my %params;
         $params{uid} = $self->param('username');
@@ -70,7 +70,7 @@ sub _process
         $params{repassword} = $self->unsafeParam('repassword');
 
         $params{group} = $self->unsafeParam('group');
-        $params{comment} = $self->unsafeParam('comment');
+        $params{description} = $self->unsafeParam('description');
 
         for my $field (qw/password repassword/) {
             unless (defined($params{$field}) and $params{$field} ne "") {

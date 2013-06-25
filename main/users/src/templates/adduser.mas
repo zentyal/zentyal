@@ -43,7 +43,7 @@ use EBox::Global;
                 <div class="optional_field"><% __('Optional') %></div>
 			</td>
 			<td>
-				<input type='text' class='inputText' name='comment'>
+				<input type='text' class='inputText' name='description'>
 			</td>
 		</tr>
 		<tr>
