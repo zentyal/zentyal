@@ -76,7 +76,7 @@ sub addToZentyal
     my $initials = $self->get('initials');
     my $surName = $self->get('sn');
     my $displayName = $self->get('displayName');
-    my $comment = $self->get('description');
+    my $description = $self->get('description');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
@@ -86,7 +86,7 @@ sub addToZentyal
         initials => $initials,
         surname => $surName,
         displayname => $displayName,
-        comment => $comment,
+        description => $description,
     };
 
     my $zentyalContact = undef;
