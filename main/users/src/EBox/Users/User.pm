@@ -499,16 +499,15 @@ sub create
                            $class->_newUserUidNumber($isSystemUser);
     $class->_checkUid($uidNumber, $isSystemUser);
 
-    my $defaultGroupDN = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
-    my $group = new EBox::Users::Group(dn => $defaultGroupDN);
-    if (not $group->isSecurityGroup()) {
+    my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
+    if (not $defaultGroup->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('default group'),
-            'value' => $group->name(),
+            'value' => $defaultGroup->name(),
             'advice' => __('Default group must be a security group.'),
         );
     }
-    my $gid = $group->get('gidNumber');
+    my $gid = $defaultGroup->get('gidNumber');
 
     my $realm = $usersMod->kerberosRealm();
     my $quota = $class->defaultQuota();
