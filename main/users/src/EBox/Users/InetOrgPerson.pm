@@ -84,7 +84,7 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-        my $sn =  $self->get('sn');
+    my $sn = $self->get('sn');
     if (not $sn) {
         return '';
     }

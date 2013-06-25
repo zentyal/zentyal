@@ -61,7 +61,7 @@ sub _process
             fullname => $fullname,
             parent => $users->objectFromDN($dn),
             givenname => $givenname,
-            sn => $surname,
+            surname => $surname,
             description => $self->param('description'),
             mail => $self->param('mail'),
         );
