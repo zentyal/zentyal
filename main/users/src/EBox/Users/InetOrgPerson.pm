@@ -49,7 +49,7 @@ sub new
     } else {
         $self = $class->SUPER::new(@_);
     }
-    $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description'];
+    $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description', 'mail'];
 
     if (defined $opts{coreAttrs}) {
         push ($self->{coreAttrs}, $opts{coreAttrs});
@@ -101,6 +101,13 @@ sub description
 {
     my ($self) = @_;
     return $self->get('description');
+}
+
+sub mail
+{
+    my ($self) = @_;
+
+    return $self->get('mail');
 }
 
 # Catch some of the set ops which need special actions
@@ -329,6 +336,7 @@ sub generatedFullName
 #       surname
 #       displayname
 #       description
+#       mail
 #       ignoreMods   - modules that should not be notified about the person creation
 #       ignoreSlaves - slaves that should not be notified about the person creation
 #
@@ -359,6 +367,7 @@ sub create
     push (@attr, sn          => $args{surname}) if ($args{surname});
     push (@attr, displayName => $args{displayname}) if ($args{displayname});
     push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, mail        => $args{mail}) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;
