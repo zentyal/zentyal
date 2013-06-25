@@ -1022,6 +1022,40 @@ sub reloadNSCD
    }
 }
 
+# Method: ous
+#
+#       Returns an array containing all the OUs
+#
+# Returns:
+#
+#       array ref - holding the OUs. Each user is represented by a
+#       EBox::Users::OU object
+#
+sub ous
+{
+    my ($self) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => "objectclass=$objectClass",
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @ous = ();
+    foreach my $entry ($result->entries)
+    {
+        my $ou = $self->{ouClass}->new(entry => $entry);
+        push (@ous, $ou);
+    }
+
+    return \@ous;
+}
+
 # Method: userByUID
 #
 # Return the instance of EBox::Users::User object which represents a given uid or undef if it's not found.
