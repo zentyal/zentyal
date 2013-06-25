@@ -80,29 +80,31 @@ sub deleteObject
 #
 # Parameters:
 #
-#   contact - hash ref containing:
+#   args - Named parameters:
+#       parent
 #       fullname
 #       givenname
 #       initials
 #       surname
 #       displayname
-#       comment
-#       ou (multiple_ous enabled only)
-#   params hash (all optional):
+#       description
 #       ignoreMods - modules that should not be notified about the contact creation
 #       ignoreSlaves - slaves that should not be notified about the contact creation
 #
-# Returns:
-#
-#   Returns the new created contact object
-#
 sub create
 {
-    my ($self, $contact, %params) = @_;
+    my ($class, %args) = @_;
 
-    $contact->{fullname} = $self->generatedFullName($contact) unless (defined $contact->{fullname});
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('fullname') unless ($args{fullname});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-    unless ($contact->{fullname}) {
+    my $fullName = $args{fullname};
+    $fullName = $class->generatedFullName($args) unless ($fullName);
+
+    unless ($fullName) {
         throw EBox::Exceptions::InvalidData(
             data => __('given name, initials, surname'),
             value => __('empty'),
@@ -110,45 +112,36 @@ sub create
         );
     }
 
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
 
-    # Is the contact added to the default OU?
-    my $isDefaultOU = 1;
-    $contact->{dn} = 'cn=' . $contact->{fullname};
-    if (EBox::Config::configkey('multiple_ous') and $contact->{ou}) {
-        $contact->{dn} .= ',' . $contact->{ou};
-        $isDefaultOU = ($contact->{ou} eq $usersMod->usersDn());
-    }
-    else {
-        $contact->{dn} .= ',' . $usersMod->usersDn();
-    }
+    my $dn = 'cn=' . $args{fullname} . ',' . $args{parent}->dn();
 
     my $res = undef;
     my $parentRes = undef;
     my $entry = undef;
     try {
-        shift @_;
-        $parentRes = $self->SUPER::create($contact, %params);
+        $args{dn} = $dn;
+        $parentRes = $class->SUPER::create(%args);
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
-        $usersMod->notifyModsPreLdapUserBase('preAddContact', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase('preAddContact', $entry, $args{ignoreMods}, $args{ignoreSlaves});
 
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on contact LDAP entry creation:'),
                     result => $result,
-                    opArgs => $self->entryOpChangesInUpdate($entry),
+                    opArgs => $class->entryOpChangesInUpdate($entry),
                    );
             };
         }
 
-        $res = new EBox::Users::Contact(dn => $contact->{dn});
+        $res = new EBox::Users::Contact(dn => $dn);
 
         # Call modules initialization
-        $usersMod->notifyModsLdapUserBase('addContact', $res, $params{ignoreMods}, $params{ignoreSlaves});
+        $usersMod->notifyModsLdapUserBase('addContact', $res, $args{ignoreMods}, $args{ignoreSlaves});
     } otherwise {
         my ($error) = @_;
 
@@ -160,10 +153,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
-            $usersMod->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $args{ignoreMods}, $args{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;
