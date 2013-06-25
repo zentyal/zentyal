@@ -300,17 +300,17 @@ sub deleteObject
 
 sub generatedFullName
 {
-    my ($self, $person) = @_;
+    my ($self, %args) = @_;
     my $fullname = '';
 
-    if ($person->{givenname}) {
-        $fullname = $person->{givenname} . ' ';
+    if ($args{givenname}) {
+        $fullname = $args{givenname} . ' ';
     }
-    if ($person->{initials}) {
-        $fullname .= $person->{initials} . '. ';
+    if ($args{initials}) {
+        $fullname .= $args{initials} . '. ';
     }
-    if ($person->{surname}) {
-        $fullname .= $person->{surname};
+    if ($args{surname}) {
+        $fullname .= $args{surname};
     }
     return $fullname
 }
@@ -338,7 +338,7 @@ sub generatedFullName
 #
 sub create
 {
-    my ($class, $args) = @_;
+    my ($class, %args) = @_;
 
     throw EBox::Exceptions::MissingArgument('dn') unless ($args{dn});
 
@@ -349,7 +349,7 @@ sub create
     }
 
     my $fullname = $args{fullname};
-    $fullname = $class->generatedFullName($args) unless ($fullname);
+    $fullname = $class->generatedFullName(%args) unless ($fullname);
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');

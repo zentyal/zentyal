@@ -102,7 +102,7 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $fullName = $args{fullname};
-    $fullName = $class->generatedFullName($args) unless ($fullName);
+    $fullName = $class->generatedFullName(%args) unless ($fullName);
 
     unless ($fullName) {
         throw EBox::Exceptions::InvalidData(
