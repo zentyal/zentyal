@@ -88,7 +88,7 @@ sub defaultContainer
 
 # Method: uidTag
 #
-#   Return the tag to store the username
+#   Return the tag to store the uid
 #
 sub uidTag
 {
@@ -147,7 +147,7 @@ sub quota
     return $self->get('quota');
 }
 
-sub internal
+sub isInternal
 {
     my ($self) = @_;
 
@@ -385,34 +385,29 @@ sub passwordHashes
 
 # Method: create
 #
-#       Adds a new user
+#       Adds a new user.
 #
 # Parameters:
 #
-#   user - hash ref containing:
-#       user - user name
+#   uid    - User name.
+#   parent - Parent container that will hold this new User.
+#   params - Hash reference with the following fields:
 #       password
 #       fullname
 #       givenname
 #       initials
 #       surname
 #       displayname
-#       comment
-#       ou           - organizational unit
-#   system - boolean: if true it adds the user as system user, otherwise as normal user
-#   params hash (all optional):
+#       description
+#       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber    - user UID number
-#       internal     - Whether this use is internal or not.
+#       isInternal     - Whether this use is internal or not.
 #       ignoreMods   - modules that should not be notified about the user creation
 #       ignoreSlaves - slaves that should not be notified about the user creation
 #
-# Returns:
-#
-#   Returns the new created user object
-#
 sub create
 {
-    my ($self, $username, $parent, $params) = @_;
+    my ($self, $uid, $parent, $params) = @_;
 
     throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
@@ -421,18 +416,18 @@ sub create
         $isSystemUser = $params->{isSystemUser};
     }
 
-    unless (_checkUserName($username)) {
-        my $advice = __('To avoid problems, the username should consist only ' .
+    unless (_checkUserName($uid)) {
+        my $advice = __('To avoid problems, the uid should consist only ' .
                         'of letters, digits, underscores, spaces, periods, ' .
                         'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $username,
+                                            'value' => $uid,
                                             'advice' => $advice
                                            );
     }
 
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers('without_admin');
 
     my $max_users = 0;
@@ -455,33 +450,33 @@ sub create
         }
     }
 
-    if (length($username) > MAXUSERLENGTH) {
+    if (length($uid) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
-    if ($usersMod->userExists($username)) {
+    if ($usersMod->userExists($uid)) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $username);
+                                           'value' => $uid);
     }
     # Verify that a group with the same name does not exists
-    if ($usersMod->groupExists($username)) {
+    if ($usersMod->groupExists($uid)) {
         throw EBox::Exceptions::External(
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $username)
+               name => $uid)
            );
     }
 
-    my $dn = 'uid=$username,' . $parent->dn();
+    my $dn = 'uid=$uid,' . $parent->dn();
 
-    my @userPwAttrs = getpwnam($username);
+    my @userPwAttrs = getpwnam($uid);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
 
-    my $homedir = _homeDirectory($username);
+    my $homedir = _homeDirectory($uid);
     if (-e $homedir) {
         throw EBox::Exceptions::External(
             __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
@@ -529,18 +524,18 @@ sub create
                 $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $parentRes->set('uid', $username, 1);
+        $parentRes->set('uid', $uid, 1);
         $parentRes->set('loginShell', $self->_loginShell(), 1);
         $parentRes->set('uidNumber', $uid, 1);
         $parentRes->set('gidNumber', $gid, 1);
         $parentRes->set('homeDirectory', $homedir, 1);
         $parentRes->set('quota', $quota, 1);
-        $parentRes->set('krb5PrincipalName', $username . '@' . $realm, 1);
+        $parentRes->set('krb5PrincipalName', $uid . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
         $parentRes->set('krb5KDCFlags', 126, 1); # TODO
-        $parentRes->set('title', 'internal', 1) if ($params->{internal});
+        $parentRes->set('title', 'internal', 1) if ($params->{isInternal});
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
@@ -635,9 +630,9 @@ sub _checkUserName
 
 sub _homeDirectory
 {
-    my ($username) = @_;
+    my ($uid) = @_;
 
-    my $home = HOMEPATH . '/' . $username;
+    my $home = HOMEPATH . '/' . $uid;
     return $home;
 }
 
