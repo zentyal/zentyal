@@ -27,7 +27,9 @@ $ = jQuery;
                     source: $.proxy( this, "_source" )
                 })
                 .tooltip({
-                    tooltipClass: "ui-state-highlight"
+// changed tooltip class until ui-state-highlight is fixed in the css
+//                    tooltipClass: "ui-state-highlight"
+                    tooltipClass: "ui-tooltip"
                 });
             this._on( this.input, {
                 autocompleteselect: function( event, ui ) {
