@@ -54,10 +54,10 @@ sub _process
         $self->_requireParam('surname', __('Surname'));
 
         my $givenname = $self->param('givenname');
-        my $surname => $self->param('surname');
+        my $surname = $self->param('surname');
         my $fullname = "$givenname $surname";
 
-        my $group = EBox::Users::Contact->create(
+        my $contact = EBox::Users::Contact->create(
             fullname => $fullname,
             parent => $users->objectFromDN($dn),
             givenname => $givenname,
