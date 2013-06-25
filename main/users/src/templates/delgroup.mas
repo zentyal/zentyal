@@ -31,7 +31,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#deleteGroupForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#deleteGroupForm', { delete: 1 });
+       Zentyal.Dialog.submitForm('#deleteGroupForm', { extraData: {delete: 1} });
     });
 });
 </script>

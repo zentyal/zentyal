@@ -33,7 +33,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 jQuery(function() {
    jQuery('#delUserForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#delUserForm', { deluser: 1 });
+       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
     });
 });
 </script>

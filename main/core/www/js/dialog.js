@@ -50,8 +50,6 @@ Zentyal.Dialog.showURL = function(url, params) {
         }
     }
 
-
-
     jQuery('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
 
@@ -59,43 +57,45 @@ Zentyal.Dialog.close = function() {
     jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };
 
-Zentyal.Dialog.submitForm = function(formSelector, extraData, extraParams) {
+Zentyal.Dialog.submitForm = function(formSelector, params) {
     var form = jQuery(formSelector);
     var url  = form.attr('action');
     var data = form.serialize();
-    if (extraData !== undefined) {
-        jQuery.each(extraData, function(name, value) {
+    var errorSelector = '#error_' + form.attr('id');
+    if (params == undefined) {
+        params = {};
+    }
+    if (params.extraData !== undefined) {
+        jQuery.each(params.extraData, function(name, value) {
             data += '&' + name + '=' + value;
         });
     }
-    if (extraParams == undefined) {
-        extraParams = {};
-    }
 
+    jQuery(errorSelector).html('').hide();
     jQuery.ajax({
         url : url,
         data: data,
         dataType: 'json',
         success: function (response){
             if (response.success) {
-                if ('success' in extraParams) {
-                    extraParams.success(response);
-                }
-                if ('redirect' in response) {
-                    window.location = response.redirect;
+                if ('success' in params) {
+                    params.success(response);
                 }
             } else {
-                jQuery('#error_' + form.attr('id')).html(response.error).show();
-                if ('error' in extraParams) {
-                    extraParams.error(response);
+                jQuery(errorSelector).html(response.error).show();
+                if ('error' in params) {
+                    params.error(response);
                 }
             }
-            if ('complete' in extraParams) {
-                extraParams.complete(response);
+            if ('complete' in params) {
+                params.complete(response);
+            }
+            if ('redirect' in response) {
+                window.location = response.redirect;
             }
         },
         error: function(jqXHR){
-            jQuery('#error').html(jqXHR.responseText).show();
+            jQuery(errorSelector).html(jqXHR.responseText).show();
         },
     });
 };
