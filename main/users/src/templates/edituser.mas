@@ -161,7 +161,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <div class="tleft"><% __("Groups") %></div>
 <br/>
 <& .addToGroup, user => $user &>
-<div id='error_removeUserFromGroup'></div>
+<div id='error_removeUserFromGroup' class='error' style='display:none'></div>
 <ul name='userGroups' id='userGroups'  size='8'>
 </ul>
 
@@ -353,7 +353,6 @@ this.element.show();
 
    jQuery('#userGroups').on('click', 'input', function(event) {
        event.preventDefault();
-       var userDn = '<% $user->dn() %>';
        var url = '/Users/EditUser';
        var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
        data += '&delgroup=' + event.target.getAttribute('data-group-name');
@@ -367,7 +366,7 @@ this.element.show();
           },
           success: function(response) {
              if (!response.success) {
-                jQuery(errorSelector).html(response.error).show();
+                jQuery('#error_removeUserFromGroup').html(response.error).show();
              }
           },
           complete: function() {

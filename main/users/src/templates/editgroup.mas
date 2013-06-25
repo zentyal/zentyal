@@ -31,7 +31,7 @@ use EBox::Gettext;
 
 <div id="group_users">
 % unless ($slave) {
-<& .usersRW, groupusers => \@groupusers, remainusers => \@remainusers &>
+<& .usersRW, group => $group, groupusers => \@groupusers, remainusers => \@remainusers &>
 % } else {
 <& .usersRO, groupusers => \@groupusers &>
 % }
@@ -53,6 +53,7 @@ jQuery(function() {
 
 <%def .usersRW>
 <%args>
+$group
 @groupusers
 @remainusers
 </%args>
@@ -65,7 +66,7 @@ my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember}
 <div class="tleft"><% __("Users") %></div>
 <br/>
 %# XXX add user
-<div id='error_removeUserFromGroup'></div>
+<div id='error_removeUserFromGroup' class='error' style='display:none'></div>
 <ul name='groupUsers' id='groupUsers'  size='8'>
 </ul>
 <script>
@@ -88,6 +89,36 @@ jQuery(function() {
       }
       groupUsers.insertAfter('#error_removeUserFromGroup');
   };
+
+   var refreshUsers = function (groupInfo) {
+        jQuery.getJSON('/Users/EditGroup', 'userInfo=1&dn=' + '<% $group->dn() %>', updateUserWidgets);
+   };
+
+  jQuery('#groupUsers').on('click', 'input', function(event) {
+    event.preventDefault();
+    var url = '/Users/EditGroup';
+    var data = 'deluserfromgroup=1&dn=<% $group->dn() %>';
+    data += '&deluser=' + event.target.getAttribute('data-user-name');
+    jQuery('#error_removeUserFromGroup').html('').hide();
+    jQuery.ajax({
+       url: url,
+       data: data,
+       dataType: 'json',
+       error: function(jqXHR) {
+          jQuery('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+       },
+       success: function(response) {
+          if (!response.success) {
+             jQuery('#error_removeUserFromGroup').html(response.error).show();
+          }
+       },
+       complete: function() {
+           refreshUsers();
+       }
+    });
+ });
+
+
   updateUserWidgets(<% $userDataJSON %>);
 });
 </script>
