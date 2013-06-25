@@ -2219,7 +2219,7 @@ sub entryModeledObject
     my $object;
 
     # TODO: Add support for Contacts!!
-    my $anyObjectClasses = any(@{$entry->get_value('objectClass')});
+    my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
     if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->ouClass()->new(entry => $entry);
     } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
