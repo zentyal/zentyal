@@ -479,7 +479,7 @@ sub setIgnoredSlaves
 #
 # Parameters:
 #
-#   args - Hash reference with the following fields:
+#   args - Named parameters:
 #       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.

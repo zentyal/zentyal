@@ -389,7 +389,7 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   args - Hash reference with the following fields:
+#   args - Named parameters:
 #       uid    - User name.
 #       parent - Parent container that will hold this new User.
 #       password
