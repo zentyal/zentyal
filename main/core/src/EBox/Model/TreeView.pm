@@ -431,7 +431,7 @@ sub actionHandlerJS
     my $title = $self->defaultActionLabels()->{$action};
     my $param = $self->idParam();
 
-    return "Zentyal.Dialog.showURL('$url', {title: '$title', width: 600, data: { $param: $id }});";
+    return "Zentyal.Dialog.showURL('$url', {title: '$title', width: 640, data: { $param: $id }});";
 }
 
 # Method: doubleClickHandlerJS

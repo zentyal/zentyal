@@ -389,7 +389,7 @@ $user
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup" style="width: 40px">
   </select>
-  <input type='submit' value='<% __('Add group') %>' />
+  <input type='submit' value='<% __('Add group') %>' style='margin-left: 30px'/>
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>
