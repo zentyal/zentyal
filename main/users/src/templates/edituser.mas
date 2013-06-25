@@ -315,7 +315,7 @@ this.element.show();
    jQuery('#editUserForm').on('submit', function(event) {
        console.log('submit editUserForm');
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#editUserForm', extraData: { { edit: 1} });
+       Zentyal.Dialog.submitForm('#editUserForm', { extraData:  { edit: 1} });
     });
 
    var updateGroupsWidgets = function(data) {

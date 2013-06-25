@@ -314,7 +314,7 @@ sub _entry
                 $scope = 'base';
             } else {
                 $scope = 'one';
-                my ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
+                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
                 if (not $baseDN) {
                     throw EBox::Exceptions::Internal("DN too short: " . $self->{dn});
                 }
