@@ -389,9 +389,9 @@ sub passwordHashes
 #
 # Parameters:
 #
-#   uid    - User name.
-#   parent - Parent container that will hold this new User.
-#   params - Hash reference with the following fields:
+#   args - Hash reference with the following fields:
+#       uid    - User name.
+#       parent - Parent container that will hold this new User.
 #       password
 #       fullname
 #       givenname
@@ -407,13 +407,16 @@ sub passwordHashes
 #
 sub create
 {
-    my ($self, $uid, $parent, $params) = @_;
+    my ($class, %args) = @_;
+
+    my $uid = $args{uid};
+    my $parent = $args{parent};
 
     throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
     my $isSystemUser = undef;
-    if (defined $params->{isSystemUser}) {
-        $isSystemUser = $params->{isSystemUser};
+    if (defined $args{isSystemUser}) {
+        $isSystemUser = $args{isSystemUser};
     }
 
     unless (_checkUserName($uid)) {
@@ -485,15 +488,15 @@ sub create
     }
 
     # Check the password length if specified
-    my $passwd = $params->{'password'};
+    my $passwd = $args{'password'};
     if (defined $passwd) {
-        $self->_checkPwdLength($passwd);
+        $class->_checkPwdLength($passwd);
     }
 
-    my $uid = exists $params->{uidNumber} ?
-                     $params->{uidNumber} :
-                     $self->_newUserUidNumber($isSystemUser);
-    $self->_checkUid($uid, $isSystemUser);
+    my $uidNumber = exists $args{uidNumber} ?
+                           $args{uidNumber} :
+                           $class->_newUserUidNumber($isSystemUser);
+    $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroupDN = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
     my $group = new EBox::Users::Group(dn => $defaultGroupDN);
@@ -507,15 +510,15 @@ sub create
     my $gid = $group->get('gidNumber');
 
     my $realm = $usersMod->kerberosRealm();
-    my $quota = $self->defaultQuota();
+    my $quota = $class->defaultQuota();
 
     my $res = undef;
     my $parentRes = undef;
     my $entry = undef;
-    my $fullName = $params->{fullname};
+    my $fullName = $args{fullname};
     try {
-        $params->{dn} = $dn;
-        $parentRes = $self->SUPER::create($fullName, $parent, $params);
+        $args{dn} = $dn;
+        $parentRes = $class->SUPER::create($fullName, $parent, \%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
@@ -525,8 +528,8 @@ sub create
             }
         }
         $parentRes->set('uid', $uid, 1);
-        $parentRes->set('loginShell', $self->_loginShell(), 1);
-        $parentRes->set('uidNumber', $uid, 1);
+        $parentRes->set('loginShell', $class->_loginShell(), 1);
+        $parentRes->set('uidNumber', $uidNumber, 1);
         $parentRes->set('gidNumber', $gid, 1);
         $parentRes->set('homeDirectory', $homedir, 1);
         $parentRes->set('quota', $quota, 1);
@@ -535,22 +538,22 @@ sub create
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
         $parentRes->set('krb5KDCFlags', 126, 1); # TODO
-        $parentRes->set('title', 'internal', 1) if ($params->{isInternal});
+        $parentRes->set('title', 'internal', 1) if ($args{isInternal});
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
         unless ($isSystemUser) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUser', $entry, $params->{ignoreMods}, $params->{ignoreSlaves});
+                'preAddUser', $entry, $args{ignoreMods}, $args{ignoreSlaves});
         }
 
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on user LDAP entry creation:'),
                     result => $result,
-                    opArgs => $self->entryOpChangesInUpdate($entry),
+                    opArgs => $class->entryOpChangesInUpdate($entry),
                    );
             };
         }
@@ -559,13 +562,13 @@ sub create
 
         # Set the user password and kerberos keys
         if (defined $passwd) {
-            $self->_checkPwdLength($passwd);
+            $class->_checkPwdLength($passwd);
             $res->_ldap->changeUserPassword($res->dn(), $passwd);
             # Force reload of krb5Keys
             $res->clearCache();
         }
-        elsif (defined($params->{passwords})) {
-            $res->setPasswordFromHashes($params->{passwords});
+        elsif (defined($args{passwords})) {
+            $res->setPasswordFromHashes($args{passwords});
         }
 
         # Init user
@@ -576,7 +579,7 @@ sub create
 
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase(
-                'addUser', [ $res, $passwd ], $params->{ignoreMods}, $params->{ignoreSlaves});
+                'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -590,11 +593,11 @@ sub create
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
             $usersMod->notifyModsLdapUserBase(
-                'addUserFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
+                'addUserFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUserFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
+                'preAddUserFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;
@@ -651,10 +654,10 @@ sub _homeDirectory
 #
 sub lastUid
 {
-    my ($self, $system) = @_;
+    my ($class, $system) = @_;
 
     my $lastUid = -1;
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     foreach my $user (@{$usersMod->users($system)}) {
         my $uid = $user->get('uidNumber');
         if ($system) {
@@ -676,9 +679,9 @@ sub lastUid
 
 sub _newUserUidNumber
 {
-    my ($self, $systemUser) = @_;
+    my ($class, $systemUser) = @_;
 
-    my $uid = $self->lastUid($systemUser);
+    my $uid = $class->lastUid($systemUser);
     do {
         # try next uid in order
         $uid++;
@@ -745,9 +748,7 @@ sub _checkPwdLength
 
 sub _loginShell
 {
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     return $usersMod->model('PAM')->login_shellValue();
 }
 
@@ -758,9 +759,7 @@ sub quotaAvailable
 
 sub defaultQuota
 {
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     my $model = $usersMod->model('AccountSettings');
 
     my $value = $model->defaultQuotaValue();
