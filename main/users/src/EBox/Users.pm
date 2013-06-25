@@ -1593,7 +1593,7 @@ sub allGroupAddOns
 # Method: allWarning
 #
 #       Returns all the the warnings provided by the modules when a certain
-#       user or group is going to be deleted. Function _delUserWarning or
+#       user, group is going to be deleted. Function _delUserWarning or
 #       _delGroupWarning is called in all module implementing them.
 #
 # Parameters:
@@ -1608,6 +1608,9 @@ sub allGroupAddOns
 sub allWarnings
 {
     my ($self, $object, $name) = @_;
+
+    # TODO: Extend it for ous and contacts.
+    return [] unless (($object eq 'user') or ($object eq 'group'));
 
     # Check for maximum users
     if (EBox::Global->edition() eq 'sb') {
