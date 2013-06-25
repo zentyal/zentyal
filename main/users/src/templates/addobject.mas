@@ -14,7 +14,7 @@ use EBox::Gettext;
 <script>
 jQuery(function () {
     var form = jQuery('#addform');
-    form.load('/Users/AddUser');
+    form.load('/Users/AddUser', {dn: '<% $dn %>'});
 
     jQuery('input[name=object_type]').click(function () {
         var selectedType = jQuery('input[name=object_type]:checked').val();
