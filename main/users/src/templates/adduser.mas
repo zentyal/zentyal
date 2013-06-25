@@ -39,7 +39,7 @@ use EBox::Global;
 		</tr>
 		<tr>
 			<td class='tright'>
-				<span class='ftitle'><% __('Comment') %>:</span>
+				<span class='ftitle'><% __('Description') %>:</span>
                 <div class="optional_field"><% __('Optional') %></div>
 			</td>
 			<td>

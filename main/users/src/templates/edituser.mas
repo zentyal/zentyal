@@ -54,7 +54,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
             <tr>
                 <td class='tright' width="170px">
                     <span class='ftitle'>
-                        <% __('Comment') %>:
+                        <% __('Description') %>:
                     </span>
                     <div class="optional_field">
                         <% __('Optional') %>
