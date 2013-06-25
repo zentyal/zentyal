@@ -313,9 +313,13 @@ sub _entry
                 $baseDN = $dn;
                 $scope = 'base';
             } else {
-                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
                 $scope = 'one';
+                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
+                if (not $baseDN) {
+                    throw EBox::Exceptions::Internal("DN too short: " . $self->{dn});
+                }
             }
+
             my $attrs = {
                 base => $baseDN,
                 filter => $filter,

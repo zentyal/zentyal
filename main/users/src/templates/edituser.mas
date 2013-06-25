@@ -9,15 +9,16 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 
-<div id="edit_user" style="height: 320px">
+<div id="edit_user">
 
 <h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
 <div id='error_editUserForm' class='error' style='display:none'></div>
-<div id="user_attrs" style="float: left">
-        <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
+<div id="user_attrs" style="height: 320px; float: left">
+      <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
         <table class='formTable'>
@@ -67,9 +68,6 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
                 </td>
             </tr>
-% if ($slave) {
-         <& .groupsRO, usergroups => \@usergroups &>
-% }
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
@@ -114,15 +112,15 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
             </tr>
         </tbody>
         </table>
-        </form>
+     </form>
 </div>
 
+<div id="user_groups" style="float: right;">
 % unless ($slave) {
-<div id="user_groups" style="float: right">
 <& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
-</div>
+% } else {
+<& .groupsRO, usergroups => \@usergroups &>
 % }
-
 </div>
 
 <div id="user_addons">
@@ -153,84 +151,250 @@ $user
 @usergroups
 @remaingroups
 </%args>
-<table>
-<thead>
-    <tr>
-        <th class="tleft"><% __("User groups") %></th>
-        <th></th>
-        <th class="tleft"><% __("Other groups") %></th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td rowspan="2">
-    <form action='/Users/EditUser' method='post'>
-        <input type="hidden" name="delgroupfromuser" value="delgroupfromuser">
-        <select name='delgroup' size='8' multiple>
-%   if(@usergroups) {
-%           foreach my $group (@usergroups){
-                <option value="<% $group->dn() %>">
-                    <% $group->name() %>
-                </option>
-%           }
-%   } else {
-                <option value="" disabled>
-                    <% __('Empty list') %>
-                </option>
-%   }
-        </select>
-    </td>
+<%init>
+my $json = JSON::XS->new();
+my @member  = map { $_->name() } @usergroups;
+my @noMember = map { $_->name() } @remaingroups;
+my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
+</%init>
 
-    <td>
-        <input  class='inputButton' type='image' name='delfromuser'
-                value="<%__('Remove')%>"
-                src='/data/images/right.gif'
-                title="<%('Remove groups from user')%>"
-                alt="<%__('Remove groups from user')%>" />
-        <input  type="hidden" name="user"
-                value="<% $user->dn() %>"/>
-    </form>
-        <br />
-        <br />
-    <form action='/Users/EditUser' method='post'>
-        <input type="hidden" name="addgrouptouser" value="addgrouptouser">
-        <input  class='inputButton' type='image' name='addtouser'
-                value="<%__('Add users to group')%>"
-                src='/data/images/left.gif'
-                title="<%('Add users to group')%>"
-                alt="<%__('Add users to group')%>" />
-    </td>
+<& .addToGroup, user => $user &>
+<div id='error_removeUserFromGroup'></div>
+<% __("Groups") %>:
+<ul name='userGroups' id='userGroups' size='8'>
+</ul>
 
-    <td>
-        <select name='addgroup' size='8' multiple>
-%       if(@remaingroups) {
-%           foreach my $group (@remaingroups){
-                <option value="<% $group->dn() %>">
-                    <% $group->name() %>
-                </option>
-%           }
-%       } else {
-                <option value="" disabled>
-                    <% __('Empty list') %>
-                </option>
-%       }
-        </select>
-        <input type="hidden" name="user" value="<% $user->dn() %>">
-    </form>
-    </td>
-</tr>
-</tbody>
-</table>
+ <style>
+.custom-combobox {
+position: relative;
+display: inline-block;
+}
+.custom-combobox-toggle {
+position: absolute;
+top: 0;
+bottom: 0;
+margin-left: -1px;
+padding: 0;
+/* support: IE7 */
+*height: 1.7em;
+*top: 0.1em;
+}
+.custom-combobox-input {
+margin: 0;
+padding: 0.3em;
+}
+</style>
 
 <script>
+
+
 jQuery(function() {
+     $ = jQuery;
+
+ (function( $ ) {
+$.widget( "custom.combobox", {
+_create: function() {
+this.wrapper = $( "<span>" )
+.addClass( "custom-combobox" )
+.insertAfter( this.element );
+this.element.hide();
+this._createAutocomplete();
+this._createShowAllButton();
+},
+_createAutocomplete: function() {
+var selected = this.element.children( ":selected" ),
+value = selected.val() ? selected.text() : "";
+this.input = $( "<input>" )
+.appendTo( this.wrapper )
+.val( value )
+.attr( "title", "" )
+.addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+.autocomplete({
+delay: 0,
+minLength: 0,
+source: $.proxy( this, "_source" )
+})
+.tooltip({
+tooltipClass: "ui-state-highlight"
+});
+this._on( this.input, {
+autocompleteselect: function( event, ui ) {
+ui.item.option.selected = true;
+this._trigger( "select", event, {
+item: ui.item.option
+});
+},
+autocompletechange: "_removeIfInvalid"
+});
+},
+_createShowAllButton: function() {
+var input = this.input,
+wasOpen = false;
+$( "<a>" )
+.attr( "tabIndex", -1 )
+.attr( "title", "Show All Items" )
+.tooltip()
+.appendTo( this.wrapper )
+.button({
+icons: {
+primary: "ui-icon-triangle-1-s"
+},
+text: false
+})
+.removeClass( "ui-corner-all" )
+.addClass( "custom-combobox-toggle ui-corner-right" )
+.mousedown(function() {
+wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+})
+.click(function() {
+input.focus();
+// Close if already visible
+if ( wasOpen ) {
+return;
+}
+// Pass empty string as value to search for, displaying all results
+input.autocomplete( "search", "" );
+});
+},
+_source: function( request, response ) {
+var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+response( this.element.children( "option" ).map(function() {
+var text = $( this ).text();
+if ( this.value && ( !request.term || matcher.test(text) ) )
+return {
+label: text,
+value: text,
+option: this
+};
+}) );
+},
+_removeIfInvalid: function( event, ui ) {
+// Selected an item, nothing to do
+if ( ui.item ) {
+return;
+}
+// Search for a match (case-insensitive)
+var value = this.input.val(),
+valueLowerCase = value.toLowerCase(),
+valid = false;
+this.element.children( "option" ).each(function() {
+if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+this.selected = valid = true;
+return false;
+}
+});
+// Found a match, nothing to do
+if ( valid ) {
+return;
+}
+// Remove invalid value
+this.input
+.val( "" )
+.attr( "title", value + " didn't match any item" )
+.tooltip( "open" );
+this.element.val( "" );
+this._delay(function() {
+this.input.tooltip( "close" ).attr( "title", "" );
+}, 2500 );
+this.input.data( "ui-autocomplete" ).term = "";
+},
+_destroy: function() {
+this.wrapper.remove();
+this.element.show();
+}
+});
+})( jQuery );
+
+//   jQuery('#addgroup').autocomplete({
+%#//     source: <% $remaingroups %>
+//   });
    jQuery('#editUserForm').on('submit', function(event) {
+       console.log('submit editUserForm');
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#editUserForm', { edit: 1 });
+       Zentyal.Dialog.submitForm('#editUserForm', { extraData:  { edit: 1} });
     });
+
+   var updateGroupsWidgets = function(data) {
+            var group, i;
+            var groupAdd =  jQuery('#addgroup');
+            groupAdd.detach();
+            groupAdd.children().remove();
+            for (i=0; i< data.noMember.length; i++) {
+               group = data.noMember[i];
+               groupAdd.append('<option value="' + group + '">' + group + '</option>');
+            }
+            groupAdd.insertAfter('#addgroupLabel');
+
+            var userGroups = jQuery('#userGroups');
+            userGroups.detach();
+            userGroups.children().remove();
+            for (i=0; i< data.member.length; i++) {
+               group = data.member[i];
+               userGroups.append('<li>' + group +
+                                 '<input type="image" style="border: none; background: none;"' +
+                                  'src="/data/images/delete.gif" ' +
+                                  'data-group-name="' + group + '" ' +
+                                  '/>' +   '</li>'
+                                 );
+            }
+            userGroups.insertAfter('#error_removeUserFromGroup');
+   };
+
+   var refreshGroups = function (groupInfo) {
+        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn()  %>', updateGroupsWidgets);
+   };
+
+   jQuery('#addUserToGroup').on('submit', function(event) {
+       event.preventDefault();
+       console.log('submit addUserToGroup');
+       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+    });
+
+   jQuery('#userGroups').on('click', 'input', function(event) {
+       event.preventDefault();
+       var userDn = '<% $user->dn() %>';
+       var url = '/Users/EditUser';
+       var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
+       data += '&delgroup=' + event.target.getAttribute('data-group-name');
+       jQuery('#error_removeUserFromGroup').html('').hide();
+       jQuery.ajax({
+          url: url,
+          data: data,
+          dataType: 'json',
+          error: function(jqXHR) {
+             jQuery('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+          },
+          success: function(response) {
+             if (!response.success) {
+                jQuery(errorSelector).html(response.error).show();
+             }
+          },
+          complete: function() {
+              refreshGroups();
+          }
+       });
+    });
+
+
+   jQuery('#addgroup').combobox();
+   updateGroupsWidgets(<% $groupDataJSON %>);
 });
 </script>
 
+</%def>
+
+<%def .addToGroup>
+<%args>
+$user
+</%args>
+<div id='error_addUserToGroup'></div>
+<form action='/Users/EditUser' method='POST' id='addUserToGroup' >
+  <select name="addgroup" id="addgroup" style="width: 40px">
+  </select>
+  <input type='submit' value='<% __('Add group') %>' />
+  <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
+  <input type="hidden" name="addgrouptouser" value="1"/>
+</form>
 </%def>
 
 <%def .groupsRO>
@@ -246,23 +410,12 @@ if (@usergroups) {
    $groupStr =  __('No member of any group');
 }
 </%init>
-           <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Groups') %>:
-                    </span>
-                </td>
-                <td>
-                   <% $groupStr %>
-                </td>
-            </tr>
+<div class="tleft"><% __("Groups") %></div>
+<ul name='userGroups' id='userGroups'  size='8'>
 % foreach my $group (@usergroups) {
-           <tr>
-                <td class='tright'>
-                </td>
-                <td>
-                   <% $group->name() %>
-                </td>
-            </tr>
+      <li>
+         <% $group->name() %>
+      </li>
 % }
+</ul>
 </%def>

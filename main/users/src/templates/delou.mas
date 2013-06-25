@@ -31,7 +31,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#delOuForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#delOuForm', { delou: 1 });
+       Zentyal.Dialog.submitForm('#delOuForm', { extraData: {delou: 1} });
     });
 });
 </script>

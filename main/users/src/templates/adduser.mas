@@ -78,7 +78,7 @@ use EBox::Global;
 jQuery(function() {
    jQuery('#addUserForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addUserForm', { add: 1 });
+       Zentyal.Dialog.submitForm('#addUserForm', { extraData: { add: 1} });
     });
 });
 </script>
