@@ -168,7 +168,6 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 "use strict";
 jQuery(function() {
    jQuery('#editUserForm').on('submit', function(event) {
-       console.log('submit editUserForm');
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editUserForm', { extraData:  { edit: 1} });
     });
@@ -210,7 +209,7 @@ jQuery(function() {
 
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addUserToGroup', {   complete : refreshGroups});
+       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
     });
 
    jQuery('#userGroups').on('click', 'input', function(event) {
@@ -253,7 +252,7 @@ $user
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup" style="width: 40px">
   </select>
-  <input type='submit' value='<% __('Add group') %>' style='margin-left: 30px'/>
+  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style='margin-left: 30px'/>
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>

@@ -108,7 +108,7 @@ jQuery(function() {
 
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addUserToGroup', {   complete : refreshUsers});
+       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshUsers});
     });
 
   jQuery('#groupUsers').on('click', 'input', function(event) {
