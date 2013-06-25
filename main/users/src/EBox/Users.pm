@@ -775,7 +775,6 @@ sub _setConfInternal
     push (@params, 'binddn'    => $ldap->roRootDn());
     push (@params, 'rootbinddn'=> $ldap->rootDn());
     push (@params, 'bindpw'    => $nsspw);
-    push (@params, 'usersdn'   => $self->usersDn());
     push (@params, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
