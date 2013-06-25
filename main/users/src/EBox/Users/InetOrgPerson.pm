@@ -321,7 +321,9 @@ sub generatedFullName
 #
 # Parameters:
 #
-#   person - hash ref containing:
+#   fullname - Full name.
+#   parent   - Parent container that will hold this new person.
+#   params   - Hash reference with the following fields:
 #       dn  - The DN path where this person should be stored.
 #       fullname
 #       givenname
@@ -341,35 +343,35 @@ sub generatedFullName
 #
 sub create
 {
-    my ($self, $person, %params) = @_;
+    my ($self, $fullname, $parent, $params) = @_;
 
-    unless (defined $person->{dn}) {
-        throw EBox::Exceptions::MissingArgument("person->{dn}");
+    unless (defined $params->{dn}) {
+        throw EBox::Exceptions::MissingArgument("params->{dn}");
     }
 
     # Verify person exists
-    if (new EBox::Users::InetOrgPerson(dn => $person->{dn})->exists()) {
+    if (new EBox::Users::InetOrgPerson(dn => $params->{dn})->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('person'),
-                                           'value' => $person->{dn});
+                                           'value' => $params->{dn});
     }
 
-    $person->{fullname} = $self->generatedFullName($person) unless (defined $person->{fullname});
+    $fullname = $self->generatedFullName($params) unless ($fullname);
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');
-    push (@attr, cn          => $person->{fullname}) if defined $person->{fullname};
-    push (@attr, givenName   => $person->{givenname}) if defined $person->{givenname};
-    push (@attr, initials    => $person->{initials}) if defined $person->{initials};
-    push (@attr, sn          => $person->{surname}) if defined $person->{surname};
-    push (@attr, displayName => $person->{displayname}) if defined $person->{displayname};
-    push (@attr, description => $person->{comment}) if defined $person->{comment};
+    push (@attr, cn          => $params->{fullname}) if defined $params->{fullname};
+    push (@attr, givenName   => $params->{givenname}) if defined $params->{givenname};
+    push (@attr, initials    => $params->{initials}) if defined $params->{initials};
+    push (@attr, sn          => $params->{surname}) if defined $params->{surname};
+    push (@attr, displayName => $params->{displayname}) if defined $params->{displayname};
+    push (@attr, description => $params->{comment}) if defined $params->{comment};
 
     my $res = undef;
     my $entry = undef;
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
-        $entry = new Net::LDAP::Entry($person->{dn}, @attr);
+        $entry = new Net::LDAP::Entry($params->{dn}, @attr);
 
         my $result = $entry->update($self->_ldap->{ldap});
         if ($result->is_error()) {
@@ -382,7 +384,7 @@ sub create
             };
         }
 
-        $res = new EBox::Users::InetOrgPerson(dn => $person->{dn});
+        $res = new EBox::Users::InetOrgPerson(dn => $params->{dn});
 
     } otherwise {
         my ($error) = @_;

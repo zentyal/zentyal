@@ -124,8 +124,9 @@ sub ldapCon
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
             }
             my $credentials = EBox::UserCorner::Auth->credentials();
-            my $users = EBox::Global->modInstance('users');
-            $dn = $users->userDn($credentials->{'user'});
+            my $usersMod = EBox::Global->modInstance('users');
+            my $user = $usersMod->userByUID($credentials->{'user'});
+            $dn = $user->dn();
             $pass = $credentials->{'pass'};
         } else {
             $dn = $self->rootDn();

@@ -74,10 +74,8 @@ sub mainObjectClass
 #
 sub defaultContainer
 {
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
-    return $usersMod->objectFromDN('ou=Groups,'.$self->_ldap->dn());
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN('ou=Groups,'.$usersMod->ldap->dn());
 }
 
 # Method: _entry

@@ -951,26 +951,6 @@ sub usersDn
     return $dn;
 }
 
-# Method: userDn
-#
-#    Returns the dn for a given user. The user doesn't have to exist
-#
-#   Parameters:
-#       user
-#
-#  Returns:
-#     dn for the user
-# FIXME: This method is not correct for Windows AD, it doesn't use the user id as the CN value!
-sub userDn
-{
-    my ($self, $user) = @_;
-    $user or throw EBox::Exceptions::MissingArgument('user');
-
-    my $attr = $self->{userClass}->dnLeftmostAttribute();
-    my $dn = "$attr=$user," .  $self->usersDn;
-    return $dn;
-}
-
 # Init a new user (home and permissions)
 sub initUser
 {
@@ -1028,39 +1008,53 @@ sub reloadNSCD
    }
 }
 
-# Method: user
+# Method: userByUID
 #
-# Returns the object which represents a give user. Raises a exception if
-# the user does not exists
+# Return the instance of EBox::Users::User object which represents a given uid or undef if it's not found.
 #
 #  Parameters:
-#      username
+#      uid
 #
-#  Returns:
-#    the instance of EBox::Users::User for the given user
-sub user
+sub userByUID
 {
-    my ($self, $username) = @_;
-    my $dn = $self->userDn($username);
-    my $user = new EBox::Users::User(dn => $dn);
-    if (not $user->exists()) {
-        throw EBox::Exceptions::DataNotFound(data => __('user'), value => $username);
+    my ($self, $uid) = @_;
+
+    my $userClass = $self->userClass();
+    my $objectClass = $userClass->mainObjectClass();
+    my $uidTag = $userClass->uidTag();
+    my $args = {
+        base => $self->ldap->dn(),
+        filter => "(&(objectclass=$objectClass)($uidTag=$uid))",
+        scope => 'sub',
+    };
+
+    my $result = $self->ldap->search($args);
+    my $count = $result->count();
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for \'{uid}\' user, expected only one.',
+                count => $count,
+                name  => $uid
+            )
+        );
+    } elsif ($count == 0) {
+        return undef;
+    } else {
+        return $self->entryModeledObject($result->entry(0));
     }
-    return $user;
 }
 
 # Method: userExists
 #
-# Returns:
+#  Returns:
 #
-#   bool - whether the user exists or not
+#      bool - whether the user exists or not
 #
 sub userExists
 {
-    my ($self, $username) = @_;
-    my $dn = $self->userDn($username);
-    my $user = new EBox::Users::User(dn => $dn);
-    return $user->exists();
+    my ($self, $uid) = @_;
+    return undef unless ($self->userByUID($uid));
+    return 1;
 }
 
 # Method: users
@@ -1179,9 +1173,7 @@ sub contacts
 
 # Method: groupByName
 #
-# Return the instance of EBox::Users::Group object which represents a give group name.
-#
-# Throw EBox::Exceptions::DataNotFound if the group does not exist.
+# Return the instance of EBox::Users::Group object which represents a give group name or undef if it's not found.
 #
 #  Parameters:
 #      name
@@ -1208,31 +1200,10 @@ sub groupByName
             )
         );
     } elsif ($count == 0) {
-        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $name);
+        return undef;
     } else {
         return $self->entryModeledObject($result->entry(0));
     }
-}
-
-# Method: groupByDN
-#
-# Return the object which represents a give group DN. Raises a exception if
-# the group does not exists
-#
-#  Parameters:
-#      dn
-#
-#  Returns:
-#    the instance of EBox::Users::Group for the group
-#
-sub groupByDN
-{
-    my ($self, $dn) = @_;
-    my $group = $self->groupClass()->new(dn => $dn);
-    if (not $group->exists()) {
-        throw EBox::Exceptions::DataNotFound(data => __('group'), value => $dn);
-    }
-    return $group;
 }
 
 # Method: groupExists

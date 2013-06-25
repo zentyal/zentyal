@@ -82,17 +82,15 @@ sub mainObjectClass
 #
 sub defaultContainer
 {
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
-    return $usersMod->objectFromDN('ou=Users,'.$self->_ldap->dn());
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
 }
 
-# Method: dnLeftmostAttribute
+# Method: uidTag
 #
-#  Returns:
-#   Type of the attribute for a particula user DN leftmost component
-sub dnLeftmostAttribute
+#   Return the tag to store the username
+#
+sub uidTag
 {
     return 'uid';
 }
@@ -414,21 +412,27 @@ sub passwordHashes
 #
 sub create
 {
-    my ($self, $user, $system, %params) = @_;
+    my ($self, $username, $parent, $params) = @_;
 
-    my $usersMod = $self->_usersMod();
+    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
-    unless (_checkUserName($user->{'user'})) {
+    my $isSystemUser = undef;
+    if (defined $params->{isSystemUser}) {
+        $isSystemUser = $params->{isSystemUser};
+    }
+
+    unless (_checkUserName($username)) {
         my $advice = __('To avoid problems, the username should consist only ' .
                         'of letters, digits, underscores, spaces, periods, ' .
                         'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $user->{'user'},
+                                            'value' => $username,
                                             'advice' => $advice
                                            );
     }
 
+    my $usersMod = $self->_usersMod();
     my $real_users = $usersMod->realUsers('without_admin');
 
     my $max_users = 0;
@@ -451,40 +455,33 @@ sub create
         }
     }
 
-    my $dn;
-    if ($user->{ou}) {
-        $dn = 'uid=' . $user->{user} . ',' . $user->{ou};
-    } else {
-        $dn = $usersMod->userDn($user->{'user'});
-    }
-
-    if (length($user->{'user'}) > MAXUSERLENGTH) {
+    if (length($username) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
-    if (new EBox::Users::User(dn => $dn)->exists()) {
+    if ($usersMod->userExists($username)) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $user->{'user'});
+                                           'value' => $username);
     }
     # Verify that a group with the same name does not exists
-    if ($usersMod->groupExists($user->{user})) {
+    if ($usersMod->groupExists($username)) {
         throw EBox::Exceptions::External(
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $user->{user})
+               name => $username)
            );
     }
 
-    my @userPwAttrs = getpwnam($user->{'user'});
+    my $dn = 'uid=$username,' . $parent->dn();
+
+    my @userPwAttrs = getpwnam($username);
     if (@userPwAttrs) {
-        throw EBox::Exceptions::External(
-            __("Username already exists on the system")
-        );
+        throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
 
-    my $homedir = _homeDirectory($user->{'user'});
+    my $homedir = _homeDirectory($username);
     if (-e $homedir) {
         throw EBox::Exceptions::External(
             __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
@@ -493,15 +490,15 @@ sub create
     }
 
     # Check the password length if specified
-    my $passwd = $user->{'password'};
+    my $passwd = $params->{'password'};
     if (defined $passwd) {
         $self->_checkPwdLength($passwd);
     }
 
-    my $uid = exists $params{uidNumber} ?
-                     $params{uidNumber} :
-                     $self->_newUserUidNumber($system);
-    $self->_checkUid($uid, $system);
+    my $uid = exists $params->{uidNumber} ?
+                     $params->{uidNumber} :
+                     $self->_newUserUidNumber($isSystemUser);
+    $self->_checkUid($uid, $isSystemUser);
 
     my $defaultGroupDN = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
     my $group = new EBox::Users::Group(dn => $defaultGroupDN);
@@ -520,10 +517,10 @@ sub create
     my $res = undef;
     my $parentRes = undef;
     my $entry = undef;
+    my $fullName = $params->{fullname};
     try {
-        $user->{dn} = $dn;
-        shift @_;
-        $parentRes = $self->SUPER::create($user, %params);
+        $params->{dn} = $dn;
+        $parentRes = $self->SUPER::create($fullName, $parent, $params);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
@@ -532,23 +529,24 @@ sub create
                 $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $parentRes->set('uid', $user->{user}, 1);
+        $parentRes->set('uid', $username, 1);
         $parentRes->set('loginShell', $self->_loginShell(), 1);
         $parentRes->set('uidNumber', $uid, 1);
         $parentRes->set('gidNumber', $gid, 1);
         $parentRes->set('homeDirectory', $homedir, 1);
         $parentRes->set('quota', $quota, 1);
-        $parentRes->set('krb5PrincipalName', $user->{user} . '@' . $realm, 1);
+        $parentRes->set('krb5PrincipalName', $username . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
         $parentRes->set('krb5KDCFlags', 126, 1); # TODO
-        $parentRes->set('title', 'internal', 1) if ($params{internal});
+        $parentRes->set('title', 'internal', 1) if ($params->{internal});
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
-        unless ($system) {
-            $usersMod->notifyModsPreLdapUserBase('preAddUser', $entry, $params{ignoreMods}, $params{ignoreSlaves});
+        unless ($isSystemUser) {
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddUser', $entry, $params->{ignoreMods}, $params->{ignoreSlaves});
         }
 
         my $result = $entry->update($self->_ldap->{ldap});
@@ -571,18 +569,19 @@ sub create
             # Force reload of krb5Keys
             $res->clearCache();
         }
-        elsif (defined($user->{passwords})) {
-            $res->setPasswordFromHashes($user->{passwords});
+        elsif (defined($params->{passwords})) {
+            $res->setPasswordFromHashes($params->{passwords});
         }
 
         # Init user
-        unless ($system) {
+        unless ($isSystemUser) {
             $usersMod->reloadNSCD();
             $usersMod->initUser($res, $passwd);
             $res->_setFilesystemQuota($quota);
 
             # Call modules initialization
-            $usersMod->notifyModsLdapUserBase('addUser', [ $res, $passwd ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase(
+                'addUser', [ $res, $passwd ], $params->{ignoreMods}, $params->{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -595,10 +594,12 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addUserFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase(
+                'addUserFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
-            $usersMod->notifyModsPreLdapUserBase('preAddUserFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddUserFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;

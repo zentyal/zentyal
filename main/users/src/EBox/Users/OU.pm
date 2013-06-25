@@ -68,7 +68,7 @@ sub create
 {
     my ($self, $name, $parent) = @_;
 
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
 
     throw EBox::Exceptions::InvalidData(data => 'name', value => $name) unless ($usersMod->checkCnLimitations($name));
     throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());

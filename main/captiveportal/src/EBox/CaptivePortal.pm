@@ -125,7 +125,7 @@ sub _setConf
 
     if ($group ne '__all__') {
         push (@params, ldap_group => $usersMod->groupByName($group));
-        push (@params, ldap_groupmember => $usersMod->userDn('{USERNAME}'));
+        push (@params, ldap_groupmember => $usersMod->userByUID('{USERNAME}');
     }
 
     if ($sldap->enabledValue()) {
@@ -375,7 +375,7 @@ sub quotaExceeded
         return 0;
     }
 
-    my $user = EBox::Global->modInstance('users')->user($username);
+    my $user = EBox::Global->modInstance('users')->userByUID($username);
     my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
