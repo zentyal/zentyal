@@ -479,9 +479,9 @@ sub setIgnoredSlaves
 #
 # Parameters:
 #
-#   name   - Group name.
-#   parent - Parent container that will hold this new Group.
-#   params - Hash reference with the following fields:
+#   args - Hash reference with the following fields:
+#       name   - Group name.
+#       parent - Parent container that will hold this new Group.
 #       description     - Group's description.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
@@ -491,18 +491,21 @@ sub setIgnoredSlaves
 #
 sub create
 {
-    my ($self, $name, $parent, $params) = @_;
+    my ($class, %args) = @_;
+
+    my $name = $args{name};
+    my $parent = $args{parent};
 
     throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
 
     my $isSecurityGroup = 1;
-    if (defined $params->{isSecurityGroup}) {
-        $isSecurityGroup = $params->{isSecurityGroup};
+    if (defined $args{isSecurityGroup}) {
+        $isSecurityGroup = $args{isSecurityGroup};
     }
 
     my $isSystemGroup = undef;
-    if (defined $params->{isSystemGroup}) {
-        $isSystemGroup = $params->{isSystemGroup};
+    if (defined $args{isSystemGroup}) {
+        $isSystemGroup = $args{isSystemGroup};
     }
 
     if ((not $isSecurityGroup) and $isSystemGroup) {
@@ -528,7 +531,7 @@ sub create
            );
     }
 
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
 
     # Verify group exists
     if ($usersMod->groupExists($name)) {
@@ -552,12 +555,12 @@ sub create
     );
 
     if ($isSecurityGroup) {
-        my $gid = exists $params->{gidNumber} ? $params->{gidNumber}: $self->_gidForNewGroup($isSystemGroup);
-        $self->_checkGid($gid, $isSystemGroup);
+        my $gid = exists $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
+        $class->_checkGid($gid, $isSystemGroup);
         push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);
    }
-    push (@attr, 'description' => $params->{description}) if (defined $params->{description} and $params->{description});
+    push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
 
     my $res = undef;
     my $entry = undef;
@@ -566,17 +569,17 @@ sub create
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
         $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
-            $params->{ignoreMods}, $params->{ignoreSlaves});
+            $args{ignoreMods}, $args{ignoreSlaves});
 
                 my $changetype =  $entry->changetype();
                 my $changes = [$entry->changes()];
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on group LDAP entry creation:'),
                     result => $result,
-                    opArgs   => $self->entryOpChangesInUpdate($entry),
+                    opArgs   => $class->entryOpChangesInUpdate($entry),
                    );
             }
         }
@@ -586,7 +589,7 @@ sub create
             $usersMod->reloadNSCD();
 
             # Call modules initialization
-            $usersMod->notifyModsLdapUserBase('addGroup', $res, $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroup', $res, $args{ignoreMods}, $args{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -599,10 +602,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params->{ignoreMods}, $params->{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;
@@ -681,17 +684,17 @@ sub isSystem
 
 sub _gidForNewGroup
 {
-    my ($self, $system) = @_;
+    my ($class, $system) = @_;
 
     my $gid;
     if ($system) {
-        $gid = $self->lastGid(1) + 1;
+        $gid = $class->lastGid(1) + 1;
         if ($gid == MINGID) {
             throw EBox::Exceptions::Internal(
                 __('Maximum number of groups reached'));
         }
     } else {
-        $gid = $self->lastGid + 1;
+        $gid = $class->lastGid + 1;
     }
 
     return $gid;
@@ -712,10 +715,10 @@ sub _gidForNewGroup
 #
 sub lastGid
 {
-    my ($self, $system) = @_;
+    my ($class, $system) = @_;
 
     my $lastGid = -1;
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     foreach my $group (@{$usersMod->securityGroups($system)}) {
         my $gid = $group->get('gidNumber');
         if ($system) {
