@@ -68,9 +68,6 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
                 </td>
             </tr>
-% if ($slave) {
-         <& .groupsRO, usergroups => \@usergroups &>
-% }
             <tr>
                 <td class='tright'>
                     <span class='ftitle'>
@@ -118,12 +115,12 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
      </form>
 </div>
 
-% unless ($slave) {
 <div id="user_groups">
-<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups&>
-</div>
+% unless ($slave) {
+<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
+% } else {
+<& .groupsRO, usergroups => \@usergroups &>
 % }
-
 </div>
 
 <div id="user_addons">
@@ -161,11 +158,11 @@ my @noMember = map { $_->name() } @remaingroups;
 my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
 </%init>
 
-<div class="tleft"><% __("User groups") %></div>
+<div class="tleft"><% __("Groups") %></div>
 <br/>
 <& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup'></div>
-<ul name='userGroups' id='userGroups'  size='8' multiple>
+<ul name='userGroups' id='userGroups'  size='8'>
 </ul>
 
  <style>
@@ -415,23 +412,12 @@ if (@usergroups) {
    $groupStr =  __('No member of any group');
 }
 </%init>
-           <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Groups') %>:
-                    </span>
-                </td>
-                <td>
-                   <% $groupStr %>
-                </td>
-            </tr>
+<div class="tleft"><% __("Groups") %></div>
+<ul name='userGroups' id='userGroups'  size='8'>
 % foreach my $group (@usergroups) {
-           <tr>
-                <td class='tright'>
-                </td>
-                <td>
-                   <% $group->name() %>
-                </td>
-            </tr>
+      <li>
+         <% $group->name() %>
+      </li>
 % }
+</ul>
 </%def>
