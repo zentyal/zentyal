@@ -105,6 +105,7 @@ sub deleteObject
 #       surname
 #       displayname
 #       description
+#       mail
 #       ignoreMods - modules that should not be notified about the contact creation
 #       ignoreSlaves - slaves that should not be notified about the contact creation
 #

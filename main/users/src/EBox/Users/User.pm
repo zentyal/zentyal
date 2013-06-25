@@ -400,6 +400,7 @@ sub passwordHashes
 #       surname
 #       displayname
 #       description
+#       mail
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber    - user UID number
 #       isInternal     - Whether this use is internal or not.
