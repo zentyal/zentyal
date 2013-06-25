@@ -427,7 +427,7 @@ sub create
                                            );
     }
 
-    my $usersMod = $self->_usersMod();
+    my $usersMod = EBox::Global->modInstance('users');
     my $real_users = $usersMod->realUsers('without_admin');
 
     my $max_users = 0;
