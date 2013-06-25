@@ -79,7 +79,7 @@ sub childNodes
             $type = 'user';
             $printableName = $child->fullname();
             unless ($printableName) {
-                $printableName => $child->name();
+                $printableName = $child->name();
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';
