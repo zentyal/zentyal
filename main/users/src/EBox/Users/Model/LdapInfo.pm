@@ -113,7 +113,7 @@ sub _content
         roRootDn => $roRootDn,
         roPassword => $roPassword,
 
-        usersDn => $users->usersDn(),
+        usersDn => $users->userClass()->defaultContainer()->dn(),
         groupsDn => $users->groupClass()->defaultContainer()->dn(),
     };
 }

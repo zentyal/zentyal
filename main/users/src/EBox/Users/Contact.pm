@@ -40,6 +40,16 @@ sub mainObjectClass
     return 'inetOrgPerson';
 }
 
+# Method: defaultContainer
+#
+#   Return the default container that will hold Group objects.
+#
+sub defaultContainer
+{
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
+}
+
 # Method: save
 #
 #   Saves the contact changes.
