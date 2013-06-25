@@ -234,6 +234,128 @@ sub _delUser
     };
 }
 
+# Method: _preAddContact
+#
+#   This method adds the contact to samba LDAP.
+#   TODO Support multiples OU
+#
+sub _preAddContact
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $name = $entry->get_value('cn');
+    my $givenName = $entry->get_value('givenName');
+    my $initials = $entry->get_value('initials');
+    my $sn = $entry->get_value('sn');
+    my $displayName = $entry->get_value('displayName');
+    my $description = $entry->get_value('description');
+
+    my $params = {
+        givenName   => $givenName,
+        initials    => $initials,
+        sn          => $sn,
+        displayName => $displayName,
+        description => $description,
+    };
+
+    EBox::info("Creating contact '$name'");
+    my $sambaContact = EBox::Samba::Contact->create($name, $params);
+}
+
+sub _preAddContactFailed
+{
+    my ($self, $entry) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    try {
+        my $name = $entry->get_value('cn');
+
+        # TODO Is the contact added to the default OU?
+        # TODO We should not hardcode the dn generation here.
+        my $ldb = EBox::Global->modInstance('samba')->ldb();
+        my $baseDn = $ldb->dn();
+        my $dn = "CN=$name,CN=Users,$baseDn";
+
+        my $sambaContact = new EBox::Samba::Contact(dn => $dn);
+        return unless $sambaContact->exists();
+        EBox::info("Aborted contact creation, removing from samba");
+        $sambaContact->deleteObject();
+    } otherwise {
+    };
+}
+
+sub _modifyContact
+{
+    my ($self, $zentyalContact) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $dn = $zentyalContact->dn();
+    EBox::debug("Updating contact '$dn'");
+
+    # TODO Is the contact added to the default OU?
+    # TODO We should not hardcode the dn generation here.
+    my $ldb = EBox::Global->modInstance('samba')->ldb();
+    my $baseDn = $ldb->dn();
+    my $cn = $zentyalContact->cn();
+    my $sambaDn = "CN=$cn,CN=Users,$baseDn";
+    try {
+        my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
+        return unless $sambaContact->exists();
+
+        my $givenName = $zentyalContact->get_value('givenName');
+        my $initials = $zentyalContact->get_value('initials');
+        my $sn = $zentyalContact->get_value('sn');
+        my $displayName = $zentyalContact->get_value('displayName');
+        my $description = $zentyalContact->get_value('description');
+
+        $sambaContact->set('givenName', $givenName, 1);
+        $sambaContact->set('initials', $initials, 1);
+        $sambaContact->set('sn', $sn, 1);
+        $sambaContact->set('displayName', $displayName, 1);
+        $sambaContact->set('description', $description, 1);
+        $sambaContact->save();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error modifying contact: $error");
+    };
+}
+
+sub _delContact
+{
+    my ($self, $zentyalContact) = @_;
+
+    return unless ($self->{samba}->configured() and
+                   $self->{samba}->isEnabled() and
+                   $self->{samba}->isProvisioned());
+
+    my $dn = $zentyalContact->dn();
+    EBox::debug("Deleting contact '$dn' from samba");
+    # TODO Is the contact added to the default OU?
+    # TODO We should not hardcode the dn generation here.
+    my $ldb = EBox::Global->modInstance('samba')->ldb();
+    my $baseDn = $ldb->dn();
+    my $cn = $zentyalContact->cn();
+    my $sambaDn = "CN=$cn,CN=Users,$baseDn";
+    try {
+        my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
+        return unless $sambaContact->exists();
+        $sambaContact->deleteObject();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error deleting contact: $error");
+    };
+}
+
 # Method: _preAddGroup
 #
 #   This method adds the group to samba LDAP

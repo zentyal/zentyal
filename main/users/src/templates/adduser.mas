@@ -1,20 +1,17 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
-	@users => ();
+	$dn
 	@groups => ();
-        @ous => ();
-        $usersModel => undef
 </%args>
 <%init>
 use EBox::Gettext;
 use EBox::Global;
-if (not $usersModel) {
- $usersModel = EBox::Global->modInstance('users')->model('Users');
-}
 </%init>
 <h3><% __('Add User') %></h3>
-	<form action='AddUser' method='POST' autocomplete='off'>
+    <div id='error_addUserForm' class='error' style='display:none'></div>
+	<form action='/Users/AddUser' method='POST' autocomplete='off' id='addUserForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
 	<table class='formTable'>
 		<tr>
 			<td class='tright'>
@@ -42,11 +39,11 @@ if (not $usersModel) {
 		</tr>
 		<tr>
 			<td class='tright'>
-				<span class='ftitle'><% __('Comment') %>:</span>
+				<span class='ftitle'><% __('Description') %>:</span>
                 <div class="optional_field"><% __('Optional') %></div>
 			</td>
 			<td>
-				<input type='text' class='inputText' name='comment'>
+				<input type='text' class='inputText' name='description'>
 			</td>
 		</tr>
 		<tr>
@@ -68,23 +65,25 @@ if (not $usersModel) {
 		<& .groupSelectorLine, groups => \@groups &>
 		</tr>
 		<tr>
-		<& .ouSelectorLine, ous => \@ous &>
-		</tr>
-		<tr>
 			<td></td>
 			<td>
 				<input class='inputButton' type='submit' name='add'
 					   value="<% __('Add') %>"
 					   alt="<% __('Add') %>">
 				</input>
-				<input class='inputButton' type='submit' name='addAndEdit'
-					   value="<% __('Add and Edit') %>"
-					   alt="<% __('Add and Edit') %>">
-				</input>
 			</td>
 		</tr>
 	</table>
 	</form>
+
+<script>
+jQuery(function() {
+   jQuery('#addUserForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addUserForm', { extraData: { add: 1} });
+    });
+});
+</script>
 
 <%def .groupSelectorLine>
 <%args>
@@ -104,26 +103,4 @@ if (not $usersModel) {
     </select>
 </td>
 </%def>
-
-<%def .ouSelectorLine>
-<%args>
-@ous
-</%args>
-% if (@ous > 0) {
-<td class='tright'>
-     <span class='ftitle'><% __('Organizational Unit') %>:</span>
-</td>
-<td>
-    <select name='ou'>
-% foreach my $ou (@ous){
-	    <option value='<% $ou->dn() %>'>
-              <% $ou->dn() %>
-        </option>
-% }
-    </select>
-</td>
-% }
-</%def>
-
-<& '/users/usersTableBody.mas', model => $usersModel &>
 

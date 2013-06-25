@@ -1,0 +1,41 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $user
+    $slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+my $readOnly = $slave ? "readonly='readonly'" : "";
+</%init>
+
+<h3><%__('Delete user')%></h3>
+<div id='error_delUserForm' class='error' style='display:none'></div>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a user in a slave.') %>
+</div>
+% } else {
+<div class='note'>
+    <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
+</div>
+<form action='/Users/DeleteUser' method='POST' id='delUserForm'>
+<p>
+<input type="hidden" name="dn" value="<% $user->dn() %>">
+            <input class='inputButton' type='submit' name='deluser'
+                   value="<% __('Delete user') %>"
+                   alt="<% __('Delete user') %>">
+</p>
+</form>
+
+<script>
+jQuery(function() {
+   jQuery('#delUserForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
+    });
+});
+</script>
+% }
+

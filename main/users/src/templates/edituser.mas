@@ -1,0 +1,421 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+    $user
+    @usergroups
+    @remaingroups
+    @components
+    $slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+use JSON::XS;
+my $readOnly = $slave ? "readonly='readonly'" : "";
+</%init>
+
+<div id="edit_user">
+
+<h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
+<div id='error_editUserForm' class='error' style='display:none'></div>
+<div id="user_attrs" style="height: 320px; float: left">
+      <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
+        <input type="hidden" name="dn" value="<% $user->dn() %>">
+        <input type="hidden" name="edit" value="edit">
+        <table class='formTable'>
+        <tbody>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('First name') %>:
+                    </span>
+                </td>
+                <td>
+                  <& masterSlaveUserAttr,
+                               name => 'name',
+                               value=> $user->firstname(),
+                               slave => $slave,
+                   &>
+                </td>
+            </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('Last name') %>:
+                    </span>
+                </td>
+                <td>
+                  <& masterSlaveUserAttr,
+                               name => 'surname',
+                               value=> $user->surname(),
+                               slave => $slave,
+                   &>
+                </td>
+            </tr>
+            <tr>
+                <td class='tright' width="170px">
+                    <span class='ftitle'>
+                        <% __('Description') %>:
+                    </span>
+                    <div class="optional_field">
+                        <% __('Optional') %>
+                    </div>
+                </td>
+                <td>
+                  <& masterSlaveUserAttr,
+                               name => 'description',
+                               value=> ($user->description() or ''),
+                               slave => $slave,
+                   &>
+                </td>
+            </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('User quota') %> (MB):
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+                </td>
+            </tr>
+%   unless ($slave) {
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('Password') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='password' class='inputText' name='password'>
+                </td>
+            </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('Retype password') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='password' class='inputText' name='repassword'>
+                </td>
+            </tr>
+% }
+
+            <tr>
+                <td>
+                </td>
+                <td>
+                    <input class='inputButton' type='submit' name='user'
+                           value="<% __('Change') %>"
+                           alt="<% __('Change') %>">
+                <td>
+            </tr>
+        </tbody>
+        </table>
+     </form>
+</div>
+
+<div id="user_groups" style="float: right;">
+% unless ($slave) {
+<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
+% } else {
+<& .groupsRO, usergroups => \@usergroups &>
+% }
+</div>
+
+<div id="user_addons">
+<center>
+% foreach my $comp (@components) {
+      <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
+% }
+</center>
+</div>
+
+<%def masterSlaveUserAttr>
+<%args>
+$name
+$value
+$slave
+</%args>
+% if ($slave) {
+<% $value %>
+ <input type="hidden" name="<% $name %>" value="<% $value %>" />
+% } else {
+ <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+%}
+</%def>
+
+<%def .groupsRW>
+<%args>
+$user
+@usergroups
+@remaingroups
+</%args>
+<%init>
+my $json = JSON::XS->new();
+my @member  = map { $_->name() } @usergroups;
+my @noMember = map { $_->name() } @remaingroups;
+my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
+</%init>
+
+<& .addToGroup, user => $user &>
+<div id='error_removeUserFromGroup'></div>
+<% __("Groups") %>:
+<ul name='userGroups' id='userGroups' size='8'>
+</ul>
+
+ <style>
+.custom-combobox {
+position: relative;
+display: inline-block;
+}
+.custom-combobox-toggle {
+position: absolute;
+top: 0;
+bottom: 0;
+margin-left: -1px;
+padding: 0;
+/* support: IE7 */
+*height: 1.7em;
+*top: 0.1em;
+}
+.custom-combobox-input {
+margin: 0;
+padding: 0.3em;
+}
+</style>
+
+<script>
+
+
+jQuery(function() {
+     $ = jQuery;
+
+ (function( $ ) {
+$.widget( "custom.combobox", {
+_create: function() {
+this.wrapper = $( "<span>" )
+.addClass( "custom-combobox" )
+.insertAfter( this.element );
+this.element.hide();
+this._createAutocomplete();
+this._createShowAllButton();
+},
+_createAutocomplete: function() {
+var selected = this.element.children( ":selected" ),
+value = selected.val() ? selected.text() : "";
+this.input = $( "<input>" )
+.appendTo( this.wrapper )
+.val( value )
+.attr( "title", "" )
+.addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
+.autocomplete({
+delay: 0,
+minLength: 0,
+source: $.proxy( this, "_source" )
+})
+.tooltip({
+tooltipClass: "ui-state-highlight"
+});
+this._on( this.input, {
+autocompleteselect: function( event, ui ) {
+ui.item.option.selected = true;
+this._trigger( "select", event, {
+item: ui.item.option
+});
+},
+autocompletechange: "_removeIfInvalid"
+});
+},
+_createShowAllButton: function() {
+var input = this.input,
+wasOpen = false;
+$( "<a>" )
+.attr( "tabIndex", -1 )
+.attr( "title", "Show All Items" )
+.tooltip()
+.appendTo( this.wrapper )
+.button({
+icons: {
+primary: "ui-icon-triangle-1-s"
+},
+text: false
+})
+.removeClass( "ui-corner-all" )
+.addClass( "custom-combobox-toggle ui-corner-right" )
+.mousedown(function() {
+wasOpen = input.autocomplete( "widget" ).is( ":visible" );
+})
+.click(function() {
+input.focus();
+// Close if already visible
+if ( wasOpen ) {
+return;
+}
+// Pass empty string as value to search for, displaying all results
+input.autocomplete( "search", "" );
+});
+},
+_source: function( request, response ) {
+var matcher = new RegExp( $.ui.autocomplete.escapeRegex(request.term), "i" );
+response( this.element.children( "option" ).map(function() {
+var text = $( this ).text();
+if ( this.value && ( !request.term || matcher.test(text) ) )
+return {
+label: text,
+value: text,
+option: this
+};
+}) );
+},
+_removeIfInvalid: function( event, ui ) {
+// Selected an item, nothing to do
+if ( ui.item ) {
+return;
+}
+// Search for a match (case-insensitive)
+var value = this.input.val(),
+valueLowerCase = value.toLowerCase(),
+valid = false;
+this.element.children( "option" ).each(function() {
+if ( $( this ).text().toLowerCase() === valueLowerCase ) {
+this.selected = valid = true;
+return false;
+}
+});
+// Found a match, nothing to do
+if ( valid ) {
+return;
+}
+// Remove invalid value
+this.input
+.val( "" )
+.attr( "title", value + " didn't match any item" )
+.tooltip( "open" );
+this.element.val( "" );
+this._delay(function() {
+this.input.tooltip( "close" ).attr( "title", "" );
+}, 2500 );
+this.input.data( "ui-autocomplete" ).term = "";
+},
+_destroy: function() {
+this.wrapper.remove();
+this.element.show();
+}
+});
+})( jQuery );
+
+//   jQuery('#addgroup').autocomplete({
+%#//     source: <% $remaingroups %>
+//   });
+   jQuery('#editUserForm').on('submit', function(event) {
+       console.log('submit editUserForm');
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#editUserForm', { extraData:  { edit: 1} });
+    });
+
+   var updateGroupsWidgets = function(data) {
+            var group, i;
+            var groupAdd =  jQuery('#addgroup');
+            groupAdd.detach();
+            groupAdd.children().remove();
+            for (i=0; i< data.noMember.length; i++) {
+               group = data.noMember[i];
+               groupAdd.append('<option value="' + group + '">' + group + '</option>');
+            }
+            groupAdd.insertAfter('#addgroupLabel');
+
+            var userGroups = jQuery('#userGroups');
+            userGroups.detach();
+            userGroups.children().remove();
+            for (i=0; i< data.member.length; i++) {
+               group = data.member[i];
+               userGroups.append('<li>' + group +
+                                 '<input type="image" style="border: none; background: none;"' +
+                                  'src="/data/images/delete.gif" ' +
+                                  'data-group-name="' + group + '" ' +
+                                  '/>' +   '</li>'
+                                 );
+            }
+            userGroups.insertAfter('#error_removeUserFromGroup');
+   };
+
+   var refreshGroups = function (groupInfo) {
+        jQuery.getJSON('/Users/EditUser', 'groupInfo=1&dn=' + '<% $user->dn()  %>', updateGroupsWidgets);
+   };
+
+   jQuery('#addUserToGroup').on('submit', function(event) {
+       event.preventDefault();
+       console.log('submit addUserToGroup');
+       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+    });
+
+   jQuery('#userGroups').on('click', 'input', function(event) {
+       event.preventDefault();
+       var userDn = '<% $user->dn() %>';
+       var url = '/Users/EditUser';
+       var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
+       data += '&delgroup=' + event.target.getAttribute('data-group-name');
+       jQuery('#error_removeUserFromGroup').html('').hide();
+       jQuery.ajax({
+          url: url,
+          data: data,
+          dataType: 'json',
+          error: function(jqXHR) {
+             jQuery('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+          },
+          success: function(response) {
+             if (!response.success) {
+                jQuery(errorSelector).html(response.error).show();
+             }
+          },
+          complete: function() {
+              refreshGroups();
+          }
+       });
+    });
+
+
+   jQuery('#addgroup').combobox();
+   updateGroupsWidgets(<% $groupDataJSON %>);
+});
+</script>
+
+</%def>
+
+<%def .addToGroup>
+<%args>
+$user
+</%args>
+<div id='error_addUserToGroup'></div>
+<form action='/Users/EditUser' method='POST' id='addUserToGroup' >
+  <select name="addgroup" id="addgroup" style="width: 40px">
+  </select>
+  <input type='submit' value='<% __('Add group') %>' />
+  <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
+  <input type="hidden" name="addgrouptouser" value="1"/>
+</form>
+</%def>
+
+<%def .groupsRO>
+<%args>
+@usergroups
+</%args>
+<%init>
+my $groupStr;
+if (@usergroups) {
+    my $firstGroup = shift @usergroups;
+    $groupStr =  $firstGroup->name();
+} else {
+   $groupStr =  __('No member of any group');
+}
+</%init>
+<div class="tleft"><% __("Groups") %></div>
+<ul name='userGroups' id='userGroups'  size='8'>
+% foreach my $group (@usergroups) {
+      <li>
+         <% $group->name() %>
+      </li>
+% }
+</ul>
+</%def>

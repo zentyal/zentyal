@@ -538,14 +538,3 @@ olcObjectClasses: (
   STRUCTURAL
   MAY cn
   )
-#
-################################################################################
-#
-olcObjectClasses: (
-  1.3.6.1.4.1.98546.1.2.3
-  NAME 'zentyalGroup'
-  DESC 'Zentyal group'
-  SUP top STRUCTURAL
-  MUST cn
-  MAY ( member $ description $ owner )
-  )

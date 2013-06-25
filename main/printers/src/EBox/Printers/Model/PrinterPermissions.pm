@@ -73,7 +73,7 @@ sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
     my @groups = ();
-    my $list = $userMod->groups();
+    my $list = $userMod->securityGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');

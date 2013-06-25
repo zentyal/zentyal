@@ -374,18 +374,18 @@
     text-decoration: underline;
     color: <% $secondary_color %>;
 }
-.dataTable tbody tr { 
+.dataTable tbody tr {
     background: white;
     border-bottom: 2px solid <% $data_table_inner_border_color %>;
 }
 .dataTable tbody tr:hover{
     background-color: whitesmoke;
 }
-.dataTable tr.even { 
-    background: <% $data_table_bg_even %>; 
+.dataTable tr.even {
+    background: <% $data_table_bg_even %>;
 }
-.dataTable tr.highlight { 
-    background: <% $data_table_bg_highlight %>; 
+.dataTable tr.highlight {
+    background: <% $data_table_bg_highlight %>;
     border-color: white;
 }
 .pagination_n{
@@ -623,8 +623,8 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 body {
     overflow-y: scroll;
     min-width: 960px;
-    max-width: 1500px;
-    width: 98%;    
+    max-width: 1200px;
+    width: 98%;
     margin: 0px auto;
     padding:0;
     color: #000000;
@@ -1050,7 +1050,7 @@ a.notchanged:hover {
     background: white;
 }
 
-.addNew {
+.addNew, .treeviewActionButton {
     background-color: #E9E9E9;
     background-image: url('/data/images/add.gif');
     background-position: 6px;
@@ -1073,6 +1073,21 @@ a.notchanged:hover {
 
 .addNew:hover {
     background-color: #dfdfdf
+}
+
+.treeviewActionButton:hover {
+    background-color: #dfdfdf;
+    background-image: url('/data/images/add.gif');
+    background-position: 6px;
+    background-repeat: no-repeat;
+}
+
+.treeviewActionButton:disabled, .treeviewActionButton:disabled:hover {
+    cursor: default;
+    border-color: #dbdbdb;
+    background-color: #eee;
+    color: #BBB;
+    opacity: 0.5;
 }
 
 #field_help {
@@ -1877,8 +1892,8 @@ float:left;
     font-weight: bold;
     color: #666;
 }
-#popx:hover { 
-    color: #333; 
+#popx:hover {
+    color: #333;
 }
 .tip {
     padding: 15px 15px 15px 50px;
@@ -1905,6 +1920,20 @@ float:left;
     height: 100%;
     min-height: 600px;
     width: 100%;
+}
+
+.treeView {
+    height: 480px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.treeviewButtons {
+    margin: 20px 5px;
+}
+
+.treeviewCheckboxes {
+    float: right;
 }
 
 .moveRowHandle {

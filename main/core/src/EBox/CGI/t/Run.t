@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 18;
+use Test::More tests => 23;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -42,6 +42,15 @@ my $sysinfo = EBox::Global->modInstance('sysinfo');
 isa_ok $sysinfo->model('Halt'), 'EBox::SysInfo::Model::Halt', 'model exists';
 isa_ok EBox::CGI::Run::modelFromUrl('SysInfo/View/Halt'), 'EBox::SysInfo::Model::Halt', 'instance model from url';
 isa_ok EBox::CGI::Run::_instanceModelCGI('SysInfo/View/Halt'), 'EBox::CGI::View::DataTable', 'instance model viewer';
+
+my $users = EBox::Global->modInstance('users');
+my $manager = EBox::Model::Manager->instance();
+ok $manager->_modelExists('users/Manage'), 'tree model exists';
+isa_ok $users->model('Manage'), 'EBox::Users::Model::Manage', 'tree model has correct type';
+isa_ok EBox::CGI::Run::modelFromUrl('Users/Tree/Manage'), 'EBox::Users::Model::Manage', 'instance tree from url';
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Tree/Manage'), 'EBox::CGI::View::Tree', 'instance tree viewer';
+
+isa_ok EBox::CGI::Run::_instanceModelCGI('Users/Controller/Users'), 'EBox::CGI::Controller::DataTable', 'instance datatable controller';
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';

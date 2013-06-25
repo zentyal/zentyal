@@ -25,6 +25,7 @@ use EBox::Users;
 use EBox::Gettext;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
@@ -274,7 +275,7 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->_entry->dn();
+    return $self->_entry()->dn();
 }
 
 # Method: baseDn
@@ -285,7 +286,10 @@ sub baseDn
 {
     my ($self) = @_;
 
-    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
+    my $dn = $self->dn();
+    return $dn if ($self->_ldap->dn() eq $dn);
+
+    my ($trash, $basedn) = split(/,/, $dn, 2);
     return $basedn;
 }
 
@@ -300,11 +304,26 @@ sub _entry
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
-            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
+            my $dn = $self->{dn};
+            my $filter = undef;
+            my $baseDN = undef;
+            my $scope = undef;
+            if ($self->_ldap->dn() eq $dn) {
+                $filter = '(objectclass=*)';
+                $baseDN = $dn;
+                $scope = 'base';
+            } else {
+                $scope = 'one';
+                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
+                if (not $baseDN) {
+                    throw EBox::Exceptions::Internal("DN too short: " . $self->{dn});
+                }
+            }
+
             my $attrs = {
-                base => $basedn,
+                base => $baseDN,
                 filter => $filter,
-                scope => 'one',
+                scope => $scope,
             };
             $result = $self->_ldap->search($attrs);
         }
@@ -335,9 +354,59 @@ sub clearCache
 
 sub _ldap
 {
+    return EBox::Global->modInstance('users')->ldap();
+}
+
+sub _usersMod
+{
     my ($self) = @_;
 
-    return EBox::Global->modInstance('users')->ldap();
+    $self->{usersMod} = EBox::Global->modInstance('users') unless (defined $self->{usersMod} and $self->{usersMod});
+
+    return $self->{usersMod}
+}
+
+# Method canonicalName
+#
+#   Return a string representing the object's canonical name.
+#
+sub canonicalName
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+
+    my $canonicalName = '';
+    if ($parent) {
+        $canonicalName = $parent->canonicalName() . '/';
+    }
+
+    $canonicalName .= $self->baseName();
+
+    return $canonicalName;
+}
+
+# Method baseName
+#
+#   Return a string representing the object's base name. Root node doesn't follow the standard naming schema,
+#   thus, it should override this method.
+#
+#   Throw EBox::Exceptions::Internal if the method is not overrided by the root node implementation.
+#
+sub baseName
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+
+    throw EBox::Exceptions::Internal("Root nodes must override this method: DN: " . $self->dn()) unless ($parent);
+
+    my $dn = $self->dn();
+    my $parentDN = $parent->dn();
+    my ($contentDN, $trashDN) = split ($parentDN, $dn);
+    my ($trashTag, $baseName) = split ('=', $contentDN, 2);
+
+    return $baseName;
 }
 
 # Method: as_ldif
@@ -349,6 +418,107 @@ sub as_ldif
     my ($self) = @_;
 
     return $self->_entry->ldif(change => 0);
+}
+
+# Method: isContainer
+#
+#   Return whether this LdapObject can hold other objects or not.
+#
+sub isContainer
+{
+    return undef;
+}
+
+# Method: defaultContainer
+#
+#   Return the default container that would hold this object.
+#
+sub defaultContainer
+{
+    throw EBox::Exceptions::NotImplemented();
+}
+
+# Method: isInDefaultContainer
+#
+#   Return whether this object is stored in its default container.
+#
+sub isInDefaultContainer
+{
+    my ($self) = @_;
+
+    my $parent = $self->parent();
+    my $defaultContainer = $self->defaultContainer();
+
+    return ($parent->dn() eq $defaultContainer->dn());
+}
+
+# Method: children
+#
+#   Return a reference to the list of objects that are children of this node.
+#
+sub children
+{
+    my ($self) = @_;
+
+    return [] unless $self->isContainer();
+
+    # All children except for organizationalRole objects which are only used internally
+    my $attrs = {
+        base   => $self->dn(),
+        filter => '(!(objectclass=organizationalRole))',
+        scope  => 'one',
+    };
+
+    my $result = $self->_ldap->search($attrs);
+    my $usersMod = $self->_usersMod();
+
+    my @objects = ();
+    foreach my $entry ($result->entries) {
+        my $object = $usersMod->entryModeledObject($entry);
+
+        push (@objects, $object);
+    }
+
+    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
+    # FIXME: Fix the API so all ldapobjects have a valid name method to use here.
+    @objects = sort {
+        my $aValue = $a->dn();
+        my $bValue = $b->dn();
+        (lc $aValue cmp lc $bValue) or
+        ($aValue cmp $bValue)
+    } @objects;
+
+    return \@objects;
+}
+
+# Method: parent
+#
+#   Return the parent of this object or undef if it's the root.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+sub parent
+{
+    my ($self) = @_;
+
+    my $usersMod = $self->_usersMod();
+    my $defaultNamingContext = $usersMod->defaultNamingContext();
+
+    my $dn = $self->dn();
+    return undef if ($dn eq $defaultNamingContext->dn());
+
+    my $attrs = {
+        base   => $self->baseDn(),
+        filter => '(objectclass=*)',
+        scope  => 'base',
+    };
+
+    my $result = $self->_ldap->search($attrs);
+    throw EBox::Exceptions::Internal($result->error) if ($result->code);
+    throw EBox::Exceptions::Internal("Found more than one parent for DN: " . $dn) if ($result->count() > 1);
+    throw EBox::Exceptions::Internal("Unable to find the parent for DN: " . $dn) if ($result->count() < 1);
+
+    return $usersMod->entryModeledObject($result->entry(0));
 }
 
 1;

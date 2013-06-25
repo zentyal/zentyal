@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -15,47 +13,84 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 # Class: EBox::Users::OU
 #
 #   Organizational Unit, stored in LDAP
 #
 
-use strict;
-use warnings;
-
 package EBox::Users::OU;
+use base 'EBox::Users::LdapObject';
 
 use EBox::Global;
 use EBox::Users;
 
-use EBox::Exceptions::External;
-use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 
-use base 'EBox::Users::LdapObject';
-
-sub new
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate ou
+sub mainObjectClass
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return $self;
+    return 'organizationalUnit';
 }
 
+# Method: isContainer
+#
+#   Return that this Organizational Unit can hold other objects.
+#
+#   Override <EBox::Users::LdapObject::isContainer>
+#
+sub isContainer
+{
+    return 1;
+}
+
+# Method: name
+#
+#   Return the name of this OU.
+#
+#   Override <EBox::Users::LdapObject::name>
+sub name
+{
+    my ($self) = @_;
+
+    return $self->get('ou');
+}
+
+# Method: create
+#
+#   Add and return a new Organizational Unit.
+#
+#   Throw EBox::Exceptions::InvalidData if a non valid character is detected on $name.
+#   Throw EBox::Exceptions::InvalidType if $parent is not a valid container.
+#
+# Parameters:
+#
+#   name   - Organizational Unit name
+#   parent - Parent container that will hold this new OU.
+#
 sub create
 {
-    my ($self, $dn) = @_;
+    my ($self, $name, $parent) = @_;
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
-    my %args = (
+    throw EBox::Exceptions::InvalidData(data => 'name', value => $name) unless ($usersMod->checkCnLimitations($name));
+    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
+
+    my $args = {
         attr => [
             'objectclass' => ['organizationalUnit'],
+            'ou' => $name,
         ]
-    );
-    my $r = $self->_ldap->add($dn, \%args);
+    };
 
+    my $dn = "ou=$name," . $parent->dn();
+    my $result = $self->_ldap->add($dn, $args);
     my $res = new EBox::Users::OU(dn => $dn);
     return $res;
 }

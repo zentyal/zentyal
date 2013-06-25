@@ -174,6 +174,19 @@ sub deleteValues
     }
 }
 
+# Method: checkObjectErasability
+#
+#   Returns whether the object could be deleted or not.
+sub checkObjectErasability
+{
+    my ($self) = @_;
+
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    return !($isCritical and lc ($isCritical) eq 'true');
+
+}
+
 # Method: deleteObject
 #
 #   Deletes this object from the LDAP
@@ -182,9 +195,7 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    # Refuse to delete critical system objects
-    my $isCritical = $self->get('isCriticalSystemObject');
-    if ($isCritical and lc ($isCritical) eq 'true') {
+    if (!$self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));

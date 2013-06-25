@@ -61,12 +61,13 @@ sub _table
                     optional      => 0,
                 ),
                 new EBox::Types::Select(
-                    fieldName     => 'group',
-                    printableName => __('Users Group'),
-                    populate      => \&_populateGroups,
-                    editable      => 1,
-                    optional      => 0,
-                    disableCache  => 1,
+                    fieldName        => 'group',
+                    printableName    => __('Users Group'),
+                    populate         => \&_populateGroups,
+                    editable         => 1,
+                    optional         => 0,
+                    disableCache     => 1,
+                    allowUnsafeChars => 1,
                 ),
                 new EBox::Types::Union::Text(
                     fieldName => 'any',
@@ -129,9 +130,10 @@ sub _populateGroups
 
         my @groups;
         push (@groups, { value => '__USERS__', printableValue => __('All users') });
-        foreach my $group (@{$userMod->groups()}) {
-            my $name = $group->name();
-            push (@groups, { value => $name, printableValue => $name });
+        foreach my $group (@{$userMod->securityGroups()}) {
+            my $groupDN = $group->dn();
+            my $canonicalName = $group->canonicalName();
+            push (@groups, { value => $groupDN, printableValue => $canonicalName });
         }
         return \@groups;
     }
@@ -356,7 +358,7 @@ sub rules
                 if ($group eq '__USERS__') {
                     $users = $userMod->users();
                 } else {
-                    $users = $userMod->group($group)->users();
+                    $users = $userMod->objectFromDN($group)->users();
                 }
 
                 if (not @{$users}) {
@@ -511,7 +513,7 @@ sub filterProfiles
                 if ($group eq '__USERS__') {
                     $members = $userMod->users();
                 } else {
-                    $members = $userMod->group($group)->users();
+                    $members = $userMod->objectFromDN($group)->users();
                 }
                 @users = map { $_->name() } @{$members};
             }

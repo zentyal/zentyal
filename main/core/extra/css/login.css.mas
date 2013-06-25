@@ -127,8 +127,8 @@ input[type='submit'] {
     -webkit-transition: background-color 0.5s;
 }
 input[type='submit']:hover {
+    background:#46962D
     background-color:#46962D;
     transition: background-color 0.5s;
     -webkit-transition: background-color 0.5s;
-
 }

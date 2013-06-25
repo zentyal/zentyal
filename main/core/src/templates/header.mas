@@ -13,6 +13,7 @@ $favicon => '/favicon.ico'
 <link rel="shortcut icon" href="<% $favicon %>" />
 <script type="text/javascript" src="/data/js/jquery.js">//</script>
 <script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
+<script type="text/javascript" src="/data/js/jquery.jstree.js">//</script> <!-- FIXME: include only when needed -->
 <script type="text/javascript" src="/data/js/common.js">//</script>
 <script type="text/javascript" src="/data/js/progress.js">//</script>
 <script type="text/javascript" src="/data/js/dialog.js">//</script>

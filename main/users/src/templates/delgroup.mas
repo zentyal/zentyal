@@ -1,0 +1,38 @@
+<%args>
+	$group
+	$slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+% if ($slave) {
+<div class='warning'>
+    <% __('You cannot delete a group in a slave.') %>
+</div>
+% } else {
+<h3><% __("Delete group") %></h3>
+<div id='error_deleteGroupForm' class='error' style='display:none'></div>
+<div class='note'>
+	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
+</div>
+
+<br />
+<form action='/Users/DeleteGroup' method='POST' id='deleteGroupForm'>
+		<input type="hidden" name="dn" value="<% $group->dn() %>">
+				<input class='inputButton' type='submit' name='delgroup'
+					   value="<% __('Delete group') %>"
+					   alt="<% __('Delete group') %>">
+			<td>
+		</tr>
+</form>
+
+<script>
+jQuery(function() {
+   jQuery('#deleteGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#deleteGroupForm', { extraData: {delete: 1} });
+    });
+});
+</script>
+% }

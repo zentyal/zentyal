@@ -193,7 +193,7 @@ sub _mailboxRelatedObjectInGroup
 
     $group = $group->get('cn');
     my %attrs = (
-        base => $users->groupsDn(),
+        base => $users->ldap()->dn(),
         filter => "&(objectclass=mailboxRelatedObject)(cn=$group)",
         scope => 'one'
     );
@@ -211,7 +211,7 @@ sub _mailboxRelatedObjectExists
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-        base => $users->groupsDn(),
+        base => $users->ldap()->dn(),
         filter => "&(objectclass=mailboxRelatedObject)(mail=$alias)",
         scope => 'one'
     );

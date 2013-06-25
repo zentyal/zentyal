@@ -42,7 +42,7 @@ sub _addUser
     return if ($user->baseDn() ne $users->usersDn());
 
     # refresh user info to avoid cache problems with passwords:
-    $user = $users->user($user->name());
+    $user = $users->userByUID($user->name());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
@@ -69,7 +69,7 @@ sub _modifyUser
     return if ($user->baseDn() ne $users->usersDn());
 
     # refresh user info to avoid cache problems with passwords:
-    $user = $users->user($user->name());
+    $user = $users->userByUID($user->name());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
@@ -101,8 +101,10 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
+    return if (not $group->isSecurityGroup());
+
     my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return unless ($group->isInDefaultContainer());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -120,9 +122,12 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if (not $group->isSecurityGroup());
 
+    my $users = EBox::Global->modInstance('users');
+    return unless ($group->isInDefaultContainer());
+
+    # FIXME: We should sync contacts too!
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
         name        => $group->name(),
@@ -142,7 +147,7 @@ sub _delGroup
     my ($self, $group) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return unless ($group->isInDefaultContainer());
 
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);

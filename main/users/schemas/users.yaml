@@ -5,14 +5,12 @@ enabledepends:
     - ntp
 
 models:
+    - Manage
     - Mode
-    - Users
-    - Groups
     - Password
     - LdapInfo
     - PAM
     - AccountSettings
-    - OUs
     - Slaves
     - Master
     - SlavePassword

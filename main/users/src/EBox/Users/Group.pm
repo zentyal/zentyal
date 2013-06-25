@@ -65,25 +65,17 @@ sub new
 #     object class name which will be used to discriminate groups
 sub mainObjectClass
 {
-    return 'zentyalGroup';
+    return 'zentyalDistributionGroup';
 }
 
-# Method: dnComponent
+# Method: defaultContainer
 #
-# Returns:
-#    DN which prepended to DN base will give the container for groups
-sub dnComponent
-{
-    return 'ou=Groups';
-}
-
-# Method: userClass
+#   Return the default container that will hold Group objects.
 #
-#  Returns:
-#     perl class used for users which could be member of this group
-sub userClass
+sub defaultContainer
 {
-    return 'EBox::Users::User';
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN('ou=Groups,'.$usersMod->ldap->dn());
 }
 
 # Method: _entry
@@ -144,45 +136,45 @@ sub removeAllMembers
 
 # Method: addMember
 #
-#   Adds the given user as a member
+#   Adds the given person as a member
 #
 # Parameters:
 #
-#   user - User object
+#   person - inetOrgPerson object
 #
 sub addMember
 {
-    my ($self, $user, $lazy) = @_;
+    my ($self, $person, $lazy) = @_;
     try {
-        $self->add('member', $user->dn(), $lazy);
+        $self->add('member', $person->dn(), $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to add already existent member $user to group " . $self->name());
+        EBox::debug("Tried to add already existent member $person to group " . $self->name());
     };
 }
 
 # Method: removeMember
 #
-#   Removes the given user as a member
+#   Removes the given person as a member
 #
 # Parameters:
 #
-#   user - User object
+#   person - inetOrgPerson object
 #
 sub removeMember
 {
-    my ($self, $user, $lazy) = @_;
+    my ($self, $person, $lazy) = @_;
     try {
-        $self->deleteValues('member', [$user->dn()], $lazy);
+        $self->deleteValues('member', [$person->dn()], $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to remove inexistent member $user to group " . $self->name());
+        EBox::debug("Tried to remove inexistent member $person to group " . $self->name());
     };
 }
 
@@ -198,12 +190,13 @@ sub users
 {
     my ($self, $system) = @_;
 
-    my $userClass = $self->userClass();
+    my $usersMod = $self->_usersMod();
+    my $userClass = $usersMod->userClass();
     my @members = $self->get('member');
     @members = map { $userClass->new(dn => $_) } @members;
 
     unless ($system) {
-        @members = grep { not $_->system() } @members;
+        @members = grep { not $_->isSystem() } @members;
     }
     # sort by uid
     @members = sort {
@@ -228,10 +221,11 @@ sub usersNotIn
 {
     my ($self, $system) = @_;
 
-    my $userClass = $self->userClass();
+    my $usersMod = $self->_usersMod();
+    my $userClass = $usersMod->userClass();
 
     my %searchParams = (
-            base => $userClass->dnComponent() . ',' . $self->_ldap->dn(),
+            base => $self->_ldap->dn(),
             filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
             scope => 'sub',
             );
@@ -242,7 +236,7 @@ sub usersNotIn
         } $result->entries();
 
     unless ($system) {
-        @users = grep { not $_->system() } @users;
+        @users = grep { not $_->isSystem() } @users;
     }
 
     @users = sort {
@@ -255,13 +249,117 @@ sub usersNotIn
     return \@users;
 }
 
+# Method: contacts
+#
+#   Return the list of contacts for this group
+#
+# Returns:
+#
+#   arrary ref of contacts (EBox::Users::Contact)
+#
+sub contacts
+{
+    my ($self) = @_;
+
+    my %attrs = (
+        base => $self->_ldap->dn(),
+        filter => "(&(!(objectclass=posixAccount))(memberof=$self->{dn}))",
+        scope => 'sub',
+    );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @contacts = map {
+        EBox::Users::Contact->new(entry => $_)
+    } $result->entries();
+
+    # sort by fullname
+    @contacts = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @contacts;
+
+    return \@contacts;
+}
+
+# Method: contactsNotIn
+#
+#   Contacts that don't belong to this group
+#
+#   Returns:
+#
+#       array ref of EBox::Users::Contact objects
+#
+sub contactsNotIn
+{
+    my ($self) = @_;
+
+    my %attrs = (
+            base => $self->_ldap->dn(),
+            filter => "(&(&(!(objectclass=posixAccount))(!(memberof=$self->{dn}))(objectclass=inetorgPerson)))",
+            scope => 'sub',
+            );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @contacts = map {
+        EBox::Users::Contact->new(entry => $_)
+    } $result->entries();
+
+    @contacts = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @contacts;
+
+    return \@contacts;
+}
+
+# Method: members
+#
+#   Return the list of members for this group
+#
+# Returns:
+#
+#   arrary ref of members (EBox::Users::InetOrgPerson)
+#
+sub members
+{
+    my ($self) = @_;
+
+    my %attrs = (
+        base => $self->_ldap->dn(),
+        filter => "(memberof=$self->{dn})",
+        scope => 'sub',
+    );
+
+    my $result = $self->_ldap->search(\%attrs);
+
+    my @members = map {
+        EBox::Users::InetOrgPerson->new(entry => $_)
+    } $result->entries();
+
+    # sort by fullname
+    @members = sort {
+            my $aValue = $a->fullname();
+            my $bValue = $b->fullname();
+            (lc $aValue cmp lc $bValue) or
+                ($aValue cmp $bValue)
+    } @members;
+
+    return \@members;
+}
+
 # Catch some of the set ops which need special actions
 sub set
 {
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -274,7 +372,7 @@ sub add
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -287,7 +385,7 @@ sub delete
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -300,7 +398,7 @@ sub deleteValues
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any CORE_ATTRS) {
+    if ($attr eq any(CORE_ATTRS)) {
         $self->{core_changed} = 1;
     }
 
@@ -310,15 +408,15 @@ sub deleteValues
 
 # Method: deleteObject
 #
-#   Delete the user
+#   Delete the group
 #
 sub deleteObject
 {
     my ($self) = @_;
 
     # Notify group deletion to modules
-    my $users = EBox::Global->modInstance('users');
-    $users->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delGroup', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
 
     # Call super implementation
     shift @_;
@@ -335,8 +433,8 @@ sub save
     if ($self->{core_changed}) {
         delete $self->{core_changed};
 
-        my $users = EBox::Global->modInstance('users');
-        $users->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
+        my $usersMod = $self->_usersMod();
+        $usersMod->notifyModsLdapUserBase('modifyGroup', [$self], $self->{ignoreMods}, $self->{ignoreSlaves});
     }
 }
 
@@ -377,67 +475,93 @@ sub setIgnoredSlaves
 
 # Method: create
 #
-#       Adds a new group
+#   Adds a new group.
 #
 # Parameters:
 #
-#   group - group name
-#   comment - comment's group
-#   system - boolan: if true it adds the group as system group,
-#   otherwise as normal group
-#   ignoreMods - ldap modules to be ignored on addUser notify
-#   ignoreSlaves - slaves to be ignored on addUser notify
+#   args - Named parameters:
+#       name            - Group name.
+#       parent          - Parent container that will hold this new Group.
+#       description     - Group's description.
+#       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
+#       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
+#       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
+#       ignoreMods      - Ldap modules to be ignored on addUser notify.
+#       ignoreSlaves    - Slaves to be ignored on addUser notify.
 #
 sub create
 {
-    my ($self, $group, $comment, $system, %params) = @_;
+    my ($class, %args) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->groupDn($group);
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-    if (length ($group) > MAXGROUPLENGTH) {
-        throw EBox::Exceptions::External(
-            __x("Groupname must not be longer than {maxGroupLength} characters",
-                maxGroupLength => MAXGROUPLENGTH));
+    my $isSecurityGroup = 1;
+    if (defined $args{isSecurityGroup}) {
+        $isSecurityGroup = $args{isSecurityGroup};
     }
 
-    unless (_checkGroupName($group)) {
+    my $isSystemGroup = undef;
+    if (defined $args{isSystemGroup}) {
+        $isSystemGroup = $args{isSystemGroup};
+    }
+
+    if ((not $isSecurityGroup) and $isSystemGroup) {
+        throw EBox::Exceptions::External(
+            __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
+                'the same time.', group => $args{name}));
+    }
+
+    if (length ($args{name}) > MAXGROUPLENGTH) {
+        throw EBox::Exceptions::External(
+            __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
+    }
+
+    unless (_checkGroupName($args{name})) {
         my $advice = __('To avoid problems, the group name should consist ' .
                         'only of letters, digits, underscores, spaces, ' .
                         'periods, dashs and not start with a dash. They ' .
                         'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $group,
+            'value' => $args{name},
             'advice' => $advice
            );
     }
 
+    my $usersMod = EBox::Global->modInstance('users');
+
     # Verify group exists
-    if (new EBox::Users::Group(dn => $dn)->exists()) {
+    if ($usersMod->groupExists($args{name})) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
-            'value' => $group);
+            'value' => $args{name});
     }
-    # Verify than a user with the same name does not exists
-    if ($users->userExists($group)) {
+    # Verify that a user with the same name does not exists
+    if ($usersMod->userExists($args{name})) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $group)
+               name => $args{name})
            );
     }
 
-    my $gid = exists $params{gidNumber} ?
-                     $params{gidNumber} :
-                     $self->_gidForNewGroup($system);
-    $self->_checkGid($gid, $system);
+    my $dn = 'cn=' . $args{name} . ',' . $args{parent}->dn();
 
     my @attr = (
-        'cn'          => $group,
-        'gidNumber'   => $gid,
-        'objectclass' => ['posixGroup', 'zentyalGroup'],
+        'cn'          => $args{name},
+        'objectclass' => ['zentyalDistributionGroup'],
     );
-    push (@attr, 'description' => $comment) if ($comment);
+
+    if ($isSecurityGroup) {
+        my $gid = exists $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
+        $class->_checkGid($gid, $isSystemGroup);
+        push (@attr, objectclass => 'posixGroup');
+        push (@attr, gidNumber => $gid);
+   }
+    push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
 
     my $res = undef;
     my $entry = undef;
@@ -445,28 +569,28 @@ sub create
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
-        $users->notifyModsPreLdapUserBase('preAddGroup', $entry,
-            $params{ignoreMods}, $params{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
+            $args{ignoreMods}, $args{ignoreSlaves});
 
                 my $changetype =  $entry->changetype();
                 my $changes = [$entry->changes()];
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on group LDAP entry creation:'),
                     result => $result,
-                    opArgs   => $self->entryOpChangesInUpdate($entry),
+                    opArgs   => $class->entryOpChangesInUpdate($entry),
                    );
             }
         }
 
         $res = new EBox::Users::Group(dn => $dn);
-        unless ($system) {
-            $users->reloadNSCD();
+        unless ($isSystemGroup) {
+            $usersMod->reloadNSCD();
 
             # Call modules initialization
-            $users->notifyModsLdapUserBase('addGroup', $res, $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroup', $res, $args{ignoreMods}, $args{ignoreSlaves});
         }
     } otherwise {
         my ($error) = @_;
@@ -479,10 +603,10 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res and $res->exists()) {
-            $users->notifyModsLdapUserBase('addGroupFailed', [ $res ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $users->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $params{ignoreMods}, $params{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;
@@ -507,26 +631,71 @@ sub _checkGroupName
     return 1;
 }
 
-sub system
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+sub isSecurityGroup
 {
     my ($self) = @_;
 
-    return ($self->get('gidNumber') < MINGID);
+    my $ldap = $self->_usersMod()->ldap();
+
+    return ('posixGroup' eq any(@{$ldap->objectClasses($self->dn())}));
+}
+
+# Method: setSecurityGroup
+#
+#   Sets/unsets this group as a security group.
+#
+#
+sub setSecurityGroup
+{
+    my ($self, $isSecurityGroup, $lazy) = @_;
+
+    return if ($isSecurityGroup && $self->isSecurityGroup());
+
+    if ($isSecurityGroup) {
+        unless (defined $self->get('gidNumber')) {
+            my $gid = $self->_gidForNewGroup();
+            $self->_checkGid($gid);
+            self->set('gidNumber', $gid, $lazy);
+        }
+        $self->add('objectClass', 'posixGroup', $lazy);
+    } else {
+        $self->deleteValues('objectClass', ['posixGroup'], $lazy);
+    }
+}
+
+# Method: isSystem
+#
+#   Whether the security group is a system group.
+#
+sub isSystem
+{
+    my ($self) = @_;
+
+    if ($self->isSecurityGroup()) {
+        return ($self->get('gidNumber') < MINGID);
+    } else {
+        # System groups are only valid with security groups.
+        return undef;
+    }
 }
 
 sub _gidForNewGroup
 {
-    my ($self, $system) = @_;
+    my ($class, $system) = @_;
 
     my $gid;
     if ($system) {
-        $gid = $self->lastGid(1) + 1;
+        $gid = $class->lastGid(1) + 1;
         if ($gid == MINGID) {
             throw EBox::Exceptions::Internal(
                 __('Maximum number of groups reached'));
         }
     } else {
-        $gid = $self->lastGid + 1;
+        $gid = $class->lastGid + 1;
     }
 
     return $gid;
@@ -547,11 +716,11 @@ sub _gidForNewGroup
 #
 sub lastGid
 {
-    my ($self, $system) = @_;
+    my ($class, $system) = @_;
 
     my $lastGid = -1;
-    my $users = EBox::Global->modInstance('users');
-    foreach my $group (@{$users->groups($system)}) {
+    my $usersMod = EBox::Global->modInstance('users');
+    foreach my $group (@{$usersMod->securityGroups($system)}) {
         my $gid = $group->get('gidNumber');
         if ($system) {
             last if ($gid >= MINGID);
@@ -576,22 +745,19 @@ sub _checkGid
     if ($gid < MINGID) {
         if (not $system) {
             throw EBox::Exceptions::External(
-                 __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
-                     gid => $gid,
-                     min => MINGID,
-                    )
-                );
-        }
-    }
-    else {
-        if ($system) {
-            throw EBox::Exceptions::External(
-               __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
+                __x('Incorrect GID {gid} for a group . GID must be equal or greater than {min}',
                     gid => $gid,
-                    max => MINGID,
-                   )
-               );
+                    min => MINGID,
+                )
+            );
         }
+    } elsif ($system) {
+        throw EBox::Exceptions::External(
+            __x('Incorrect GID {gid} for a system group . GID must be lesser than {max}',
+                gid => $gid,
+                max => MINGID,
+            )
+        );
     }
 }
 
