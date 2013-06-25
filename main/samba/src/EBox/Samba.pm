@@ -40,7 +40,7 @@ use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
 use EBox::Samba::GPO;
@@ -304,6 +304,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');
@@ -727,7 +728,7 @@ sub _createDirectories
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $group = EBox::Users::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
@@ -1906,7 +1907,7 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    unless ($self->configured()) {
+    if ($self->configured()) {
         my $settings = $self->model('GeneralSettings');
         $settings->setValue('netbiosName', $newHostName);
     }

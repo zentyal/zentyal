@@ -3,12 +3,28 @@
 	@groupusers
 	@remainusers
 	@components
-	$slave => 1
+	$readOnly => 1
 </%args>
 <%init>
 use EBox::Gettext;
+my $title;
+my $sopen = "<span class='stitle'>";
+my $sclose = "</span>";
+if ($readOnly) {
+    $title = __x('Information of group {sopen}{name}{sclose}',
+                 name => $group->name(),
+                 sopen => $sopen,
+                 sclose => $sclose,
+                );
+} else {
+    $title = __x('Administration of group {sopen}{name}{sclose}',
+                 name => $group->name(),
+                 sopen => $sopen,
+                 sclose => $sclose,
+                );
+}
 </%init>
-<h3><% __('Administration of group ') %> <span class='stitle'><% $group->name() %></span></h3>
+<h3><% $title %></h3>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
     <% __("There are no users at the moment. You need at least one to manage this group properly.")%>
@@ -19,12 +35,14 @@ use EBox::Gettext;
 <form action='ModifyGroup' method='POST'>
 	<span class="ftitle"><% __('Comment') %>: </span>
 	<input type="hidden" name="groupname" value="<% $group->dn() %>">
+%	if (not $readOnly) {
 	<input type='text' class='inputText' name='comment' value="<% $group->get('description') %>">
-%	unless ($slave) {
 	<input class='inputButton' type='submit' name='user'
 					   value="<% __('Change') %>"
 					   alt="<% __('Change') %>">
-%	}
+%	} else {
+        <span><% $group->get('description') %></span>
+%       }
 </form>
 
 <table>
@@ -56,7 +74,7 @@ use EBox::Gettext;
 
 	<td>
 
-%	unless ($slave) {
+%	unless ($readOnly) {
 		<input 	class='inputButton' type='image' name='delfromgroup'
 				value="<%__('Remove')%>"
 				src='/data/images/right.gif'
@@ -68,7 +86,7 @@ use EBox::Gettext;
 		<br />
 		<br />
 
-%	unless ($slave) {
+%	unless ($readOnly) {
     <form action='AddUserToGroup' method='post'>
 		<input 	class='inputButton' type='image' name='addtogroup'
 				value="<%__('Add users to group')%>"
@@ -103,7 +121,7 @@ use EBox::Gettext;
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
 
-% unless ($slave) {
+% unless ($readOnly) {
 <h3><% __("Delete group") %></h3>
 <div class='note'>
 	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>

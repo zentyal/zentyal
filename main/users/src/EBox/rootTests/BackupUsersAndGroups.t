@@ -23,7 +23,7 @@ foreach my $dir ($TEST_DIR, $BACKUP_DIR, $EXTENDED_BACKUP_DIR) {
   mkdir $dir or die "Can not create directory $dir";
 }
 
-use_ok('EBox::UsersAndGroups');
+use_ok('EBox::Users');
 
 _cleanUsers();
 try {

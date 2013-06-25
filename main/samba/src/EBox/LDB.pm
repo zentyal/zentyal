@@ -546,7 +546,7 @@ sub ldapServicePrincipalsToLdb
                 my $baseDn = $usersModule->ldap->dn();
                 my $realm = $usersModule->kerberosRealm();
                 my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
-                my $user = new EBox::UsersAndGroups::User(dn => $dn, internal => 1);
+                my $user = new EBox::Users::User(dn => $dn, internal => 1);
                 # If the user does not exists the module has not been enabled yet
                 next unless ($user->exists());
 

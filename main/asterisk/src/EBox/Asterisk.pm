@@ -199,6 +199,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -367,7 +368,7 @@ sub _getQueues
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
-        my $group = new EBox::UsersAndGroups::Group(dn => $users->groupDn($queue));
+        my $group = new EBox::Users::Group(dn => $users->groupDn($queue));
         my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};

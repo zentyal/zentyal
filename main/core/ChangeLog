@@ -1,12 +1,13 @@
-HEAD
+3.1.5
+	+ Increased webadmin default timeout.
 	+ Disable drag & drop on tables with only one row
 3.1.4
 	+ Don't allow to move read-only rows
 	+ Better prefix for user configuration redis keys
-	+ Hide disabled carousel buttons, fix modal template, refresh
+	+ Hide disabled carousel buttons, fix modal template
 	+ Fixed modal dialog template
 	+ Mark save changes button as changed when moving rows
-	+ Rremove unusded parameter in Zentyal.DataTable.changeRow
+	+ Remove unused parameter in Zentyal.DataTable.changeRow
 3.1.3
 	+ Enhanced UI styles: dialogs, progress bars, carousel, colors and images
 	+ Rows of tables can now be moved using drag & drop

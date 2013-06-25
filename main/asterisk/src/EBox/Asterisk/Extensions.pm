@@ -26,7 +26,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Ldap;
 
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Asterisk;
 use Perl6::Junction qw(any);
 

@@ -1,3 +1,5 @@
+HEAD
+	+ Adapted squid to new user module interface for external AD authorization
 3.1.2
 	+ Use external squid log file to retrieve HTTP proxy requests
 	+ Added Auth and Cache Exceptions for non-transparent mode

@@ -28,8 +28,8 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 
 use EBox::Samba::Contact;
 
@@ -146,7 +146,7 @@ sub members
 #
 #   Returns:
 #
-#       array ref of EBox::UsersAndGroups::Group objects
+#       array ref of EBox::Users::Group objects
 #
 sub usersNotIn
 {
@@ -246,7 +246,7 @@ sub addToZentyal
     $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $gid");
     $self->setupGidMapping($gidNumber);
 
-    $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
+    $zentyalGroup = EBox::Users::Group->create($gid, $comment, 0, %optParams);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
 
     $self->_membersToZentyal($zentyalGroup);
@@ -263,7 +263,7 @@ sub updateZentyal
 
     my $desc = $self->get('description');
 
-    $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
+    $zentyalGroup = new EBox::Users::Group(gid => $gid);
     $zentyalGroup->exists() or
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
@@ -330,7 +330,7 @@ sub _membersToZentyal
     foreach my $memberName (keys %sambaMembers) {
         unless (exists $zentyalMembers{$memberName}) {
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
-            my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
+            my $zentyalUser = new EBox::Users::User(uid => $memberName);
             if (not $zentyalUser->exists()) {
                 EBox::error("Cannot add user '$memberName' to group '$gid' because the user does not exist");
                 next;

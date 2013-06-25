@@ -169,7 +169,7 @@ sub _user
     my $user = $request->user();
     my $users = EBox::Global->modInstance('users');
 
-    return new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+    return new EBox::Users::User(dn => $users->userDn($user));
 }
 
 sub _userExternalAccounts

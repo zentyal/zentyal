@@ -144,6 +144,11 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
+    # check if users module is running in standalone mode
+    my $users = $self->global()->modInstance('users');
+    if ($users->mode() ne $users->STANDALONE_MODE) {
+        throw EBox::Exceptions::External(__('User corner needs that the users module is configured in standalone server mode'));
+    }
 
     # Create userjournal dir if it not exists
     my @commands;
@@ -229,13 +234,13 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
+    my $folder = new EBox::Menu::Folder('name' => 'Users',
                                         'text' => __('Users and Groups'),
                                         'separator' => 'Office',
                                         'order' => 510);
 
     my $item = new EBox::Menu::Item(text => $self->printableName(),
-                                    url => 'UsersAndGroups/UserCorner',
+                                    url => 'Users/UserCorner',
                                     order => 100);
     $folder->add($item);
     $root->add($folder);
@@ -282,7 +287,7 @@ sub certificates
 
 # Method: editableMode
 #
-#       Reimplementation of EBox::UsersAndGroups::editableMode()
+#       Reimplementation of EBox::Users::editableMode()
 #       compatible with user corner to workaround lack of redis access
 #
 #       Returns true if mode is editable

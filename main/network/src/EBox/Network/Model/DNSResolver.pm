@@ -125,13 +125,13 @@ sub replace
 
 # Method: syncRows
 #
-#   Overrided to set localhost as primary nameserver if the module is enabled.
-#   This works because DNS module modChange network in enableService
+#   Overrided to set localhost as primary nameserver if the DNS module is
+#   enabled.  This works because DNS module modChange network in enableService
 #
 sub syncRows
 {
     my ($self, $currentIds) = @_;
-
+    my $global = $self->global();
     my $changed = 0;
 
     my $add = 0;
@@ -140,19 +140,19 @@ sub syncRows
     my $firstRow = $self->row($firstId);
 
     # Set localhost as primary resolver if DNS is installed and enabled
-    if (EBox::Global->modExists('dns')) {
-        my $dnsModule = EBox::Global->modInstance('dns');
+    if ($global->modExists('dns')) {
+        my $dnsModule = $global->modInstance('dns');
         $add = 1 if $dnsModule->isEnabled();
     }
 
-    # Do not set readonly on primary resolver if squid is configured to
+    # Do not set readonly on primary resolver if users is configured to
     # authenticate users against external AD, the AD server must be used
     # as primary resolver instead localhost
-    if (EBox::Global->modExists('squid')) {
-        my $squid = EBox::Global->modInstance('squid');
-        if ($squid->isEnabled() and $squid->can('authenticationMode')) {
-            my $mode = $squid->authenticationMode();
-            if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
+    if ($global->modExists('users')) {
+        my $users = $global->modInstance('users');
+        if ($users->isEnabled()) {
+            my $mode = $users->mode();
+            if ($mode eq $users->EXTERNAL_AD_MODE()) {
                 $add = 0;
             }
         }

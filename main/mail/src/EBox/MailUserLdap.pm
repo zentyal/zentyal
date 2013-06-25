@@ -29,7 +29,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Model::Manager;
 use EBox::Gettext;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use Error qw( :try );
 
 use Perl6::Junction qw(any);
@@ -222,7 +222,7 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::UsersAndGroups::User(uid => $uid);
+        my $user = new EBox::Users::User(uid => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});
@@ -231,7 +231,7 @@ sub delAccountsFromVDomain   #vdomain
 
 # Method: _addUser
 #
-#   Overrides <EBox::UsersAndGroups::LdapUserBase> to create a default mail
+#   Overrides <EBox::Users::LdapUserBase> to create a default mail
 #   account user@domain if the admin has enabled the auto email account creation
 #   feature
 sub _addUser
@@ -461,7 +461,7 @@ sub usersWithMailInGroup
 
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push (@mailusers, new EBox::UsersAndGroups::User(entry => $entry));
+        push (@mailusers, new EBox::Users::User(entry => $entry));
     }
 
     return @mailusers;

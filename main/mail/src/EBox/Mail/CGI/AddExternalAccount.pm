@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use EBox::Validate;
 
 sub new
@@ -52,7 +52,7 @@ sub _process
 
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{redirect} = "Users/User?user=$user";
     $self->keepParam('user');
 
     my %params;
@@ -61,7 +61,7 @@ sub _process
         $params{$name} = $self->unsafeParam($name);
     }
 
-    my $userObject = new EBox::UsersAndGroups::User(dn => $user);
+    my $userObject = new EBox::Users::User(dn => $user);
     $params{user} = $userObject;
 
     my $mail = EBox::Global->modInstance('mail');

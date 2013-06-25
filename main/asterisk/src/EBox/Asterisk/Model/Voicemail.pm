@@ -145,7 +145,7 @@ sub row
 
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $user = new EBox::Users::User(dn => $users->userDn($username));
 
     my $pass = $user->get('AstVoicemailPassword');
     my $mail = $user->get('AstVoicemailEmail');
@@ -193,7 +193,7 @@ sub _addTypedRow
 
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $user = new EBox::Users::User(dn => $users->userDn($username));
 
     $user->set('AstVoicemailPassword', $pass, 1);
     $user->set('AstVoicemailEmail', $mail, 1);
@@ -210,7 +210,7 @@ sub precondition
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
     my $users = EBox::Global->modInstance('users');
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $user = new EBox::Users::User(dn => $users->userDn($username));
 
     my $userLdap = EBox::AsteriskLdapUser->new();
     return $userLdap->hasAccount($user);

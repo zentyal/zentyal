@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 ## arguments:
 ##      title [required]
@@ -41,12 +41,12 @@ sub _process
     $self->_requireParam('user', __('user'));
     my $user = $self->unsafeParam('user');
     $self->keepParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{redirect} = "Users/User?user=$user";
 
     $self->_requireParam('quotaType');
     my $quotaType = $self->param('quotaType');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    $user = new EBox::Users::User(dn => $user);
     my $mail = EBox::Global->modInstance('mail');
     if ($quotaType eq 'noQuota') {
         $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);

@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::Group;
 
 sub new {
 	my $class = shift;
@@ -41,7 +41,7 @@ sub _process
 
     $self->_requireParam('group', __('group'));
     my $group= $self->unsafeParam('group');
-    $self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{redirect} = "Users/Group?group=$group";
 
     $self->keepParam('group');
 
@@ -51,7 +51,7 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
-    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    $group = new EBox::Users::Group(dn => $group);
     $mail->{malias}->addGroupAlias($lhs."@".$rhs, $group);
 }
 
