@@ -33,7 +33,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#addOuForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addOuForm', { add: 1 });
+       Zentyal.Dialog.submitForm('#addOuForm', { extraData: { add: 1} });
     });
 });
 </script>

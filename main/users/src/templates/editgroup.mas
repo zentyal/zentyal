@@ -111,7 +111,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#editGroupForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#editGroupForm', { edit: 1 });
+       Zentyal.Dialog.submitForm('#editGroupForm', { extraData: {edit: 1} });
     });
 });
 </script>
