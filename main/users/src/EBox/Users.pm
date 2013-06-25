@@ -1122,7 +1122,7 @@ sub realUsers
 {
     my ($self, $withoutAdmin) = @_;
 
-    my @users = grep { not $_->internal() } @{$self->users()};
+    my @users = grep { not $_->isInternal() } @{$self->users()};
 
     if ($withoutAdmin) {
         @users = grep { $_->name() ne 'Administrator' } @users;
