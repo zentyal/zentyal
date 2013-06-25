@@ -52,13 +52,13 @@ sub _process
         $self->_requireParam('groupname', __('group name'));
 
         my $groupname = $self->param('groupname');
-        my $params = {
+        my @params = (
             description => $self->unsafeParam('description')
-        };
+        );
 
         my $ou = $users->objectFromDN($dn);
 
-        my $group = EBox::Users::Group->create($groupname, $ou, $params);
+        my $group = EBox::Users::Group->create(name => $groupname, parent => $ou, @params);
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';

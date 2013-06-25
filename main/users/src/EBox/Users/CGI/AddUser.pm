@@ -57,32 +57,35 @@ sub _process
         $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('comment', __('comment'));
 
-        my $user;
-        $user->{'user'} = $self->param('username');
-        $user->{'name'} = $self->param('name');
-        $user->{'surname'} = $self->param('surname');
-        $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
-        $user->{'givenname'} = $user->{'name'};
+        my %params;
+        $params{username} = $self->param('username');
+        $params{parent} = $users->objectFromDN($dn);
 
-        $user->{'password'} = $self->unsafeParam('password');
-        $user->{'repassword'} = $self->unsafeParam('repassword');
-        $user->{'group'} = $self->unsafeParam('group');
-        $user->{'comment'} = $self->unsafeParam('comment');
+        $params{name} = $self->param('name');
+        $params{surname} = $self->param('surname');
+        $params{fullname} = $self->param('fullname');
+        $params{givenname} = $self->param('givenname');
+
+        $params{password} = $self->unsafeParam('password');
+        $params{repassword} = $self->unsafeParam('repassword');
+
+        $params{group} = $self->unsafeParam('group');
+        $params{comment} = $self->unsafeParam('comment');
 
         for my $field (qw/password repassword/) {
-            unless (defined($user->{$field}) and $user->{$field} ne "") {
+            unless (defined($params{$field}) and $params{$field} ne "") {
                 throw EBox::Exceptions::DataMissing('data' => __($field));
             }
         }
 
-        if ($user->{'password'} ne $user->{'repassword'}){
+        if ($params{password} ne $params{repassword}) {
             throw EBox::Exceptions::External(__('Passwords do not match.'));
         }
 
-        my $newUser = EBox::Users::User->create($user->{user}, $ou);
+        my $newUser = EBox::Users::User->create(%params);
         # FIXME!
-        if ($user->{'group'}) {
-            $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
+        if ($params{group}) {
+            $newUser->addGroup(new EBox::Users::Group(dn => $params{group}));
         }
 
         $self->{json}->{success} = 1;
