@@ -29,79 +29,14 @@ use EBox::Gettext;
 %   }
 </form>
 
-<table>
-<thead>
-    <tr>
-        <th class="tleft"><% __("Users in group") %></th>
-        <th></th>
-        <th class="tleft"><% __("Users not in group") %></th>
-    </tr>
-</thead>
-<tbody>
-<tr>
-    <td rowspan="2">
-    <form action='/Users/EditGroup' method='post'>
-        <input type="hidden" name="deluserfromgroup" value="deluserfromgroup">
-        <select name='deluser' size='8' multiple>
-%   if(@groupusers) {
-%           foreach my $user (@groupusers){
-                <option value="<% $user->dn() %>">
-                    <% $user->name() %>
-                </option>
-%           }
-%   } else {
-                <option value="" disabled>
-                    <% __('Empty list') %>
-                </option>
-%   }
-        </select>
-    </td>
+<div id="group_users">
+% unless ($slave) {
+<& .usersRW, groupusers => \@groupusers, remainusers => \@remainusers &>
+% } else {
+<& .usersRO, groupusers => \@groupusers &>
+% }
+</div>
 
-    <td>
-
-%   unless ($slave) {
-        <input  class='inputButton' type='image' name='delfromgroup'
-                value="<%__('Remove')%>"
-                src='/data/images/right.gif'
-                title="<%('Remove users from group')%>"
-                alt="<%__('Remove users from group')%>" />
-        <input  type="hidden" name="group" value="<% $group->dn() %>"/>
-%   }
-    </form>
-        <br />
-        <br />
-
-%   unless ($slave) {
-    <form action='/Users/EditGroup' method='post'>
-        <input type="hidden" name="addusertogroup" value="addusertogroup">
-        <input  class='inputButton' type='image' name='addtogroup'
-                value="<%__('Add users to group')%>"
-                src='/data/images/left.gif'
-                title="<%('Add users to group')%>"
-                alt="<%__('Add users to group')%>" />
-%   }
-    </td>
-
-    <td>
-        <select name='adduser' size='8' multiple>
-%       if(@remainusers) {
-%           foreach my $user (@remainusers){
-                <option value="<% $user->dn() %>">
-                    <% $user->name() %>
-                </option>
-%           }
-%       } else {
-                <option value="" disabled>
-                    <% __('Empty list') %>
-                </option>
-%       }
-        </select>
-        <input type="hidden" name="group" value="<% $group->dn() %>">
-    </form>
-    </td>
-</tr>
-</tbody>
-</table>
 
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
@@ -115,3 +50,57 @@ jQuery(function() {
     });
 });
 </script>
+
+<%def .usersRW>
+<%args>
+@groupusers
+@remainusers
+</%args>
+<%init>
+my $json = JSON::XS->new();
+my @member  = map { $_->name() } @groupusers;
+my @noMember = map { $_->name() } @remainusers;
+my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
+</%init>
+<div class="tleft"><% __("Users") %></div>
+<br/>
+%# XXX add user
+<div id='error_removeUserFromGroup'></div>
+<ul name='groupUsers' id='groupUsers'  size='8'>
+</ul>
+<script>
+"use strict";
+jQuery(function() {
+   var updateUserWidgets = function(data) {
+      var user, i;
+
+      var groupUsers = jQuery('#groupUsers');
+      groupUsers.detach();
+      groupUsers.children().remove();
+      for (i=0; i< data.member.length; i++) {
+         user = data.member[i];
+         groupUsers.append('<li>' + user +
+                           '<input type="image" class="inputButton" ' +
+                            'src="/data/images/delete.gif" ' +
+                            'data-user-name="' + user + '" ' +
+                            '/>' +   '</li>'
+                           );
+      }
+      groupUsers.insertAfter('#error_removeUserFromGroup');
+  };
+  updateUserWidgets(<% $userDataJSON %>);
+});
+</script>
+</%def>
+
+<%def .usersRO>
+<%args>
+@groupusers
+</%args>
+<div class="tleft"><% __("Users") %></div>
+<ul name='groupUsers' id='groupUsers'  size='8'>
+% foreach my $user (@groupusers) {
+ <li><% $user->name() %></li>
+% }
+</ul>
+</%def>
