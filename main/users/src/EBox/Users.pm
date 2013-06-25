@@ -1205,7 +1205,8 @@ sub contactsByName
     my @contacts = ();
 
     foreach my $entry (@{$result->entries}) {
-        push (@contacts, $self->entryModeledObject($entry));
+        my $contact = $self->entryModeledObject($entry);
+        push (@contacts, $contact) if ($contact);
     }
 
     return \@contacts;
@@ -2324,7 +2325,8 @@ sub entryModeledObject
     } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->groupClass()->new(entry => $entry);
     } else {
-        throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
+        EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+        return undef;
     }
     return $object;
 }
