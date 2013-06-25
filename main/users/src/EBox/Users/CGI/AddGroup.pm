@@ -50,15 +50,16 @@ sub _process
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
         $self->_requireParam('groupname', __('group name'));
+        $self->_requireParam('type', __('group type'));
 
         my $groupname = $self->param('groupname');
-        my @params = (
-            description => $self->unsafeParam('description')
+
+        my $group = EBox::Users::Group->create(
+            name => $groupname,
+            parent => $users->objectFromDN($dn),
+            description => $self->unsafeParam('description'),
+            isSecurityGroup => ($self->param('type') eq 'security'),
         );
-
-        my $ou = $users->objectFromDN($dn);
-
-        my $group = EBox::Users::Group->create(name => $groupname, parent => $ou, @params);
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
