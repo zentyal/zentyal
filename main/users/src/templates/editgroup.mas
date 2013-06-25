@@ -83,6 +83,7 @@ jQuery(function() {
            addUser.append('<option value="' + user + '">' + user + '</option>');
       }
       addUser.insertBefore('#addUserToGroupSubmit');
+      jQuery('#adduser').combobox('clearText');
 
       var groupUsers = jQuery('#groupUsers');
       groupUsers.detach();

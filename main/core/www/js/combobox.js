@@ -113,6 +113,9 @@ $ = jQuery;
         _destroy: function() {
             this.wrapper.remove();
             this.element.show();
-        }
+        },
+        clearText: function() {
+           this.input.val( "" );
+       }
     });
 })( jQuery );

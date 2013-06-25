@@ -182,6 +182,7 @@ jQuery(function() {
                addGroup.append('<option value="' + group + '">' + group + '</option>');
             }
             addGroup.insertBefore('#addGroupSubmit');
+            jQuery('#addgroup').combobox('clearText');
 
             var userGroups = jQuery('#userGroups');
             userGroups.detach();
