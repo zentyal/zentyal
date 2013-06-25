@@ -187,7 +187,10 @@ jQuery(function() {
             var userGroups = jQuery('#userGroups');
             userGroups.detach();
             userGroups.children().remove();
-            for (i=0; i< data.member.length; i++) {
+            if (data.member.length === 0) {
+                userGroups.append('<div class="note"><% __('This user is not member of any group') %></div>');
+            }
+            for (i=0; i < data.member.length; i++) {
                group = data.member[i];
                userGroups.append('<li>' + group +
                                  '<input type="image" style="border: none; background: none;"' +

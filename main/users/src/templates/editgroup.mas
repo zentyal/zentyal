@@ -87,6 +87,9 @@ jQuery(function() {
       var groupUsers = jQuery('#groupUsers');
       groupUsers.detach();
       groupUsers.children().remove();
+      if (data.member.length === 0) {
+          groupUsers.append('<div class="note"><% __('This group has not members') %></div>');
+      }
       for (i=0; i< data.member.length; i++) {
          user = data.member[i];
          groupUsers.append('<li>' + user +
