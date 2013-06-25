@@ -165,6 +165,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 
 <script src='/data/js/combobox.js' />
 <script>
+"use strict";
 jQuery(function() {
    jQuery('#editUserForm').on('submit', function(event) {
        console.log('submit editUserForm');
@@ -206,9 +207,6 @@ jQuery(function() {
 
    jQuery('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
-       console.log('submit addUserToGroup');
-       var addgroupVal= jQuery('#addgroup').val();
-       console.log('addgroup ' + addgroupVal);
        Zentyal.Dialog.submitForm('#addUserToGroup', {   complete : refreshGroups});
     });
 
