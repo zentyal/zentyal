@@ -114,14 +114,16 @@ sub _setupForMode
         $self->{ldapClass} = 'EBox::Ldap';
         $self->{ouClass} = 'EBox::Users::OU';
         $self->{userClass} = 'EBox::Users::User';
+        $self->{contactClass} = 'EBox::Users::Contact';
         $self->{groupClass} = 'EBox::Users::Group';
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
         $self->{userClass} = 'EBox::Users::User::ExternalAD';
+        $self->{contactClass} = 'EBox::Users::Contact::ExternalAD';
         $self->{groupClass} = 'EBox::Users::Group::ExternalAD';
         # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{groupClass}) {
+        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}) {
             eval "use $pkg";
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
@@ -166,6 +168,19 @@ sub userClass
     throw EBox::Exceptions::Internal("userClass not initialized.") unless (defined $self->{userClass});
 
     return $self->{userClass};
+}
+
+# Method: contactClass
+#
+#   Return the Contact class implementation to use.
+#
+sub contactClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("contactClass not initialized.") unless (defined $self->{contactClass});
+
+    return $self->{contactClass};
 }
 
 # Method: groupClass
@@ -1128,6 +1143,51 @@ sub realUsers
     }
 
     return \@users;
+}
+
+# Method: contactsByName
+#
+# Return a reference to a list of instances of EBox::Users::Contact objects which represents a given name.
+#
+#  Parameters:
+#      name
+#
+sub contactsByName
+{
+    my ($self, $name) = @_;
+
+    my $contactClass = $self->contactClass();
+    my $objectClass = $contactClass->mainObjectClass();
+    my $args = {
+        base => $self->ldap->dn(),
+        filter => "(&(objectclass=$objectClass)(cn=$name))",
+        scope => 'sub',
+    };
+
+    my $result = $self->ldap->search($args);
+    my $count = $result->count();
+    return [] if ($count == 0);
+
+    my @contacts = ();
+
+    foreach my $entry (@{$result->entries}) {
+        push (@contacts, $self->entryModeledObject($entry));
+    }
+
+    return \@contacts;
+}
+
+# Method: contactExists
+#
+#  Returns:
+#
+#      bool - whether the contact exists or not
+#
+sub contactExists
+{
+    my ($self, $name) = @_;
+    return undef unless ($self->contactsByName($name));
+    return 1;
 }
 
 # Method: contacts
@@ -2220,12 +2280,13 @@ sub entryModeledObject
 
     my $object;
 
-    # TODO: Add support for Contacts!!
     my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
     if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->ouClass()->new(entry => $entry);
     } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->userClass()->new(entry => $entry);
+    } elsif ($self->contactClass()->mainObjectClass() eq $anyObjectClasses) {
+        $object = $self->contactClass()->new(entry => $entry);
     } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->groupClass()->new(entry => $entry);
     } else {

@@ -33,6 +33,13 @@ use EBox::Exceptions::LDAP;
 
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
+# Method: mainObjectClass
+#
+sub mainObjectClass
+{
+    return 'inetOrgPerson';
+}
+
 # Method: save
 #
 #   Saves the contact changes.
