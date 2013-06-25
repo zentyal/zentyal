@@ -58,7 +58,7 @@ sub _process
         $self->_requireParamAllowEmpty('comment', __('comment'));
 
         my %params;
-        $params{username} = $self->param('username');
+        $params{uid} = $self->param('username');
         $params{parent} = $users->objectFromDN($dn);
 
         $params{name} = $self->param('name');
