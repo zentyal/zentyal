@@ -2218,13 +2218,13 @@ sub entryModeledObject
 
     my $object;
 
-    # FIXME: replace with better checks!
     # TODO: Add support for Contacts!!
-    if ($entry->exists('ou')) {
+    my $anyObjectClasses = any(@{$entry->get_value('objectClass')};
+    if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->ouClass()->new(entry => $entry);
-    } elsif ($entry->exists('uid')) {
+    } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->userClass()->new(entry => $entry);
-    } elsif ($entry->exists('gidNumber')) {
+    } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->groupClass()->new(entry => $entry);
     } else {
         throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
