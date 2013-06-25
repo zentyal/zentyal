@@ -409,23 +409,24 @@ sub create
 {
     my ($class, %args) = @_;
 
-    my $uid = $args{uid};
-    my $parent = $args{parent};
-
-    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('uid') unless ($args{uid});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $isSystemUser = undef;
     if (defined $args{isSystemUser}) {
         $isSystemUser = $args{isSystemUser};
     }
 
-    unless (_checkUserName($uid)) {
+    unless (_checkUserName($args{uid})) {
         my $advice = __('To avoid problems, the uid should consist only ' .
                         'of letters, digits, underscores, spaces, periods, ' .
                         'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $uid,
+                                            'value' => $args{uid},
                                             'advice' => $advice
                                            );
     }
@@ -453,33 +454,33 @@ sub create
         }
     }
 
-    if (length($uid) > MAXUSERLENGTH) {
+    if (length($args{uid}) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
-    if ($usersMod->userExists($uid)) {
+    if ($usersMod->userExists($args{uid})) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $uid);
+                                           'value' => $args{uid});
     }
     # Verify that a group with the same name does not exists
-    if ($usersMod->groupExists($uid)) {
+    if ($usersMod->groupExists($args{uid})) {
         throw EBox::Exceptions::External(
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $uid)
+               name => $args{uid})
            );
     }
 
-    my $dn = 'uid=$uid,' . $parent->dn();
+    my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
 
-    my @userPwAttrs = getpwnam($uid);
+    my @userPwAttrs = getpwnam($args{uid});
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
 
-    my $homedir = _homeDirectory($uid);
+    my $homedir = _homeDirectory($args{uid});
     if (-e $homedir) {
         throw EBox::Exceptions::External(
             __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
@@ -518,7 +519,7 @@ sub create
     my $fullName = $args{fullname};
     try {
         $args{dn} = $dn;
-        $parentRes = $class->SUPER::create($fullName, $parent, \%args);
+        $parentRes = $class->SUPER::create($fullName, $args{parent}, \%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
@@ -527,13 +528,13 @@ sub create
                 $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $parentRes->set('uid', $uid, 1);
+        $parentRes->set('uid', $args{uid}, 1);
         $parentRes->set('loginShell', $class->_loginShell(), 1);
         $parentRes->set('uidNumber', $uidNumber, 1);
         $parentRes->set('gidNumber', $gid, 1);
         $parentRes->set('homeDirectory', $homedir, 1);
         $parentRes->set('quota', $quota, 1);
-        $parentRes->set('krb5PrincipalName', $uid . '@' . $realm, 1);
+        $parentRes->set('krb5PrincipalName', $args{uid} . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO

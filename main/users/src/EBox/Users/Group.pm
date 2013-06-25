@@ -480,8 +480,8 @@ sub setIgnoredSlaves
 # Parameters:
 #
 #   args - Hash reference with the following fields:
-#       name   - Group name.
-#       parent - Parent container that will hold this new Group.
+#       name            - Group name.
+#       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
@@ -493,10 +493,11 @@ sub create
 {
     my ($class, %args) = @_;
 
-    my $name = $args{name};
-    my $parent = $args{parent};
-
-    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $isSecurityGroup = 1;
     if (defined $args{isSecurityGroup}) {
@@ -511,22 +512,22 @@ sub create
     if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
             __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
-                'the same time.', group => $name));
+                'the same time.', group => $args{name}));
     }
 
-    if (length ($name) > MAXGROUPLENGTH) {
+    if (length ($args{name}) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
     }
 
-    unless (_checkGroupName($name)) {
+    unless (_checkGroupName($args{name})) {
         my $advice = __('To avoid problems, the group name should consist ' .
                         'only of letters, digits, underscores, spaces, ' .
                         'periods, dashs and not start with a dash. They ' .
                         'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $name,
+            'value' => $args{name},
             'advice' => $advice
            );
     }
@@ -534,23 +535,23 @@ sub create
     my $usersMod = EBox::Global->modInstance('users');
 
     # Verify group exists
-    if ($usersMod->groupExists($name)) {
+    if ($usersMod->groupExists($args{name})) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
-            'value' => $name);
+            'value' => $args{name});
     }
     # Verify that a user with the same name does not exists
-    if ($usersMod->userExists($name)) {
+    if ($usersMod->userExists($args{name})) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $name)
+               name => $args{name})
            );
     }
 
-    my $dn = 'cn=$name,' . $parent->dn();
+    my $dn = 'cn=' . $args{name} . ',' . $args{parent}->dn();
 
     my @attr = (
-        'cn'          => $name,
+        'cn'          => $args{name},
         'objectclass' => ['zentyalDistributionGroup'],
     );
 
