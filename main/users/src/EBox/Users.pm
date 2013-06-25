@@ -608,14 +608,14 @@ sub _internalServerEnableActions
     $self->_setConf(1);
 
     # Create default group
-    my $params = {
+    my $groupClass = $self->groupClass();
+    my %args = (
+        name => DEFAULTGROUP,
+        parent => $groupClass->defaultContainer(),
         description => 'All users',
         isSystemGroup => 1,
-    };
-
-    my $groupClass = $self->groupClass();
-    my $parent = $groupClass->defaultContainer();
-    $groupClass->create(DEFAULTGROUP, $parent, $params);
+    );
+    $groupClass->create(%args);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');

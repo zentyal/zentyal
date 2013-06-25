@@ -108,20 +108,22 @@ for my $ruser (@{$rusers}) {
 
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
-            my $user;
-            $user->{user} = $ruser->{name};
-            $user->{name} = $ruser->{firstname};
-            $user->{surname} = $ruser->{lastname};
-            if ($user->{name}) {
-                $user->{fullname} = $user->{name} . ' ' . $user->{surname};
-                $user->{givenname} = $user->{name};
+            my %user;
+            $user{user} = $ruser->{name};
+            $user{name} = $ruser->{firstname};
+            $user{surname} = $ruser->{lastname};
+            if ($user{name}) {
+                $user{fullname} = $user{name} . ' ' . $user{surname};
+                $user{givenname} = $user{name};
             } else {
-                $user->{fullname} = $user->{surname};
-                $user->{givenname} = '';
+                $user{fullname} = $user{surname};
+                $user{givenname} = '';
             }
-            $user->{passwords} = $ruser->{passwords};
-            $user->{comment} = $ruser->{description};
-            EBox::Users::User->create($user, 0, ignoreSlaves => IGNORE);
+            $user{passwords} = $ruser->{passwords};
+            $user{comment} = $ruser->{description};
+            $user{isSystemUser} = 0;
+            $user{ignoreSlaves} = IGNORE;
+            EBox::Users::User->create(%user);
         }
     } otherwise {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
@@ -160,14 +162,15 @@ for my $rgroup (@{$rgroups}) {
         unless ($lgroup) {
             EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
 
-            $params = {
+            my %args = (
+                name          => $rgroup->{name},
                 description   => $rgroup->{description},
                 gidNumber     => $rgroup->{gid},
                 isSystemGroup => 0,
                 ignoreSlaves  => IGNORE,
-            }
+            )
 
-            $lgroup = EBox::Users::Group->create($rgroup->{name}, $params);
+            $lgroup = EBox::Users::Group->create(%args);
         }
 
         # Update group info
