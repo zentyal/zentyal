@@ -97,7 +97,14 @@ sub displayname
     return $self->get('displayName');
 }
 
+# TODO: Remove!
 sub comment
+{
+    my ($self) = @_;
+    return $self->get('description');
+}
+
+sub description
 {
     my ($self) = @_;
     return $self->get('description');
@@ -330,7 +337,7 @@ sub generatedFullName
 #       initials
 #       surname
 #       displayname
-#       comment
+#       description
 #       ou (multiple_ous enabled only)
 #   params hash (all optional):
 #      ignoreMods - modules that should not be notified about the person creation
@@ -359,12 +366,12 @@ sub create
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');
-    push (@attr, cn          => $params->{fullname}) if defined $params->{fullname};
-    push (@attr, givenName   => $params->{givenname}) if defined $params->{givenname};
-    push (@attr, initials    => $params->{initials}) if defined $params->{initials};
-    push (@attr, sn          => $params->{surname}) if defined $params->{surname};
-    push (@attr, displayName => $params->{displayname}) if defined $params->{displayname};
-    push (@attr, description => $params->{comment}) if defined $params->{comment};
+    push (@attr, cn          => $fullname);
+    push (@attr, givenName   => $params->{givenname}) if (defined $params->{givenname} and $params->{givenname});
+    push (@attr, initials    => $params->{initials}) if (defined $params->{initials} and defined $params->{initials});
+    push (@attr, sn          => $params->{surname}) if (defined $params->{surname} and $params->{surname});
+    push (@attr, displayName => $params->{displayname}) if (defined $params->{displayname} and $params->{displayname});
+    push (@attr, description => $params->{description}) if (defined $params->{description} and $params->{description});
 
     my $res = undef;
     my $entry = undef;

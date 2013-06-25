@@ -41,7 +41,7 @@ sub addUser
         $user->{passwords} = \@pass;
     }
 
-    EBox::Users::User->create($user);
+    EBox::Users::User->create(%{$user});
 
     return $self->_soapResult(0);
 }
@@ -84,11 +84,12 @@ sub addGroup
 {
     my ($class, $group) = @_;
 
-    my $params = {
-        description => $group->{comment}
-    };
+    my %args = (
+        name        => $group->{name},
+        description => $group->{comment},
+    );
 
-    EBox::Users::Group->create($group->{name}, $params);
+    EBox::Users::Group->create(%args);
 
     return $class->_soapResult(0);
 }

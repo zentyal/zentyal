@@ -35,7 +35,14 @@ sub _process
 {
     my $self = shift;
 
-    my @args;
+    $self->_requireParam('dn', 'ou dn');
+    my $dn = $self->unsafeParam('dn');
+
+    my @params;
+
+    push (@params, dn => $dn);
+
+    $self->{params} = \@params;
 
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
@@ -43,8 +50,12 @@ sub _process
         my $ou = $self->param('ou');
 
         my $usersMod = EBox::Global->modInstance('users');
-        # FIXME: We should support nested OUs!
-        my $parent = $usersMod->defaultNamingContext();
+        my $parent;
+        if ($dn eq 'root') {
+            $parent = $usersMod->defaultNamingContext();
+        } else {
+            $parent = $usersMod->objectFromDN($dn);
+        }
 
         $usersMod->ouClass()->create($ou, $parent);
 

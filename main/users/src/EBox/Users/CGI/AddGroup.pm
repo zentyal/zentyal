@@ -38,16 +38,28 @@ sub _process
 
     my $users = EBox::Global->modInstance('users');
 
+    $self->_requireParam('dn', 'ou dn');
+    my $dn = $self->unsafeParam('dn');
+
+    my @params;
+
+    push (@params, dn => $dn);
+
+    $self->{params} = \@params;
+
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
         $self->_requireParam('groupname', __('group name'));
+        $self->_requireParam('type', __('group type'));
 
         my $groupname = $self->param('groupname');
-        my $params = {
-            description => $self->unsafeParam('description')
-        };
 
-        my $group = EBox::Users::Group->create($groupname, $params);
+        my $group = EBox::Users::Group->create(
+            name => $groupname,
+            parent => $users->objectFromDN($dn),
+            description => $self->unsafeParam('description'),
+            isSecurityGroup => ($self->param('type') eq 'security'),
+        );
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';

@@ -29,6 +29,15 @@ use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
 
+# Method: mainObjectClass
+#
+#  Returns:
+#     object class name which will be used to discriminate ou
+sub mainObjectClass
+{
+    return 'organizationalUnit';
+}
+
 # Method: isContainer
 #
 #   Return that this Organizational Unit can hold other objects.

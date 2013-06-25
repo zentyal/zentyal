@@ -69,7 +69,7 @@ sub _process
         if ($editable) {
             $self->_requireParam('name', __('first name'));
             $self->_requireParam('surname', __('last name'));
-            $self->_requireParamAllowEmpty('comment', __('comment'));
+            $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('password', __('password'));
             $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
@@ -82,9 +82,9 @@ sub _process
             } else {
                 $fullname = $surname;
             }
-            my $comment = $self->unsafeParam('comment');
-            if (length ($comment)) {
-                $user->set('description', $comment, 1);
+            my $description = $self->unsafeParam('description');
+            if (length ($description)) {
+                $user->set('description', $description, 1);
             } else {
                 $user->delete('description', 1);
             }

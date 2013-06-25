@@ -1,6 +1,7 @@
 <!-- vim: ts=4 sw=4 nowrap filetype=mason
 -->
 <%args>
+	$dn
 	@groups => ();
 </%args>
 <%init>
@@ -10,6 +11,7 @@ use EBox::Global;
 <h3><% __('Add User') %></h3>
     <div id='error_addUserForm' class='error' style='display:none'></div>
 	<form action='/Users/AddUser' method='POST' autocomplete='off' id='addUserForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
 	<table class='formTable'>
 		<tr>
 			<td class='tright'>
@@ -37,11 +39,11 @@ use EBox::Global;
 		</tr>
 		<tr>
 			<td class='tright'>
-				<span class='ftitle'><% __('Comment') %>:</span>
+				<span class='ftitle'><% __('Description') %>:</span>
                 <div class="optional_field"><% __('Optional') %></div>
 			</td>
 			<td>
-				<input type='text' class='inputText' name='comment'>
+				<input type='text' class='inputText' name='description'>
 			</td>
 		</tr>
 		<tr>

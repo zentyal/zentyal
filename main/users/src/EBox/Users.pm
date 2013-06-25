@@ -608,14 +608,14 @@ sub _internalServerEnableActions
     $self->_setConf(1);
 
     # Create default group
-    my $params = {
+    my $groupClass = $self->groupClass();
+    my %args = (
+        name => DEFAULTGROUP,
+        parent => $groupClass->defaultContainer(),
         description => 'All users',
         isSystemGroup => 1,
-    };
-
-    my $groupClass = $self->groupClass();
-    my $parent = $groupClass->defaultContainer();
-    $groupClass->create(DEFAULTGROUP, $parent, $params);
+    );
+    $groupClass->create(%args);
 
     # Perform LDAP actions (schemas, indexes, etc)
     EBox::info('Performing first LDAP actions');
@@ -1122,7 +1122,7 @@ sub realUsers
 {
     my ($self, $withoutAdmin) = @_;
 
-    my @users = grep { not $_->internal() } @{$self->users()};
+    my @users = grep { not $_->isInternal() } @{$self->users()};
 
     if ($withoutAdmin) {
         @users = grep { $_->name() ne 'Administrator' } @users;
@@ -1593,7 +1593,7 @@ sub allGroupAddOns
 # Method: allWarning
 #
 #       Returns all the the warnings provided by the modules when a certain
-#       user or group is going to be deleted. Function _delUserWarning or
+#       user, group is going to be deleted. Function _delUserWarning or
 #       _delGroupWarning is called in all module implementing them.
 #
 # Parameters:
@@ -1608,6 +1608,9 @@ sub allGroupAddOns
 sub allWarnings
 {
     my ($self, $object, $name) = @_;
+
+    # TODO: Extend it for ous and contacts.
+    return [] unless (($object eq 'user') or ($object eq 'group'));
 
     # Check for maximum users
     if (EBox::Global->edition() eq 'sb') {
@@ -2218,13 +2221,13 @@ sub entryModeledObject
 
     my $object;
 
-    # FIXME: replace with better checks!
     # TODO: Add support for Contacts!!
-    if ($entry->exists('ou')) {
+    my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
+    if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->ouClass()->new(entry => $entry);
-    } elsif ($entry->exists('uid')) {
+    } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->userClass()->new(entry => $entry);
-    } elsif ($entry->exists('gidNumber')) {
+    } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->groupClass()->new(entry => $entry);
     } else {
         throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
