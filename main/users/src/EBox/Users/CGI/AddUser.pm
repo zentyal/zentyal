@@ -38,8 +38,19 @@ sub _process
 
     my $users = EBox::Global->modInstance('users');
 
+    $self->_requireParam('dn', 'ou dn');
+    my $dn = $self->unsafeParam('dn');
+
+    my @params;
+
+    push (@params, dn => $dn);
+
+    $self->{params} = \@params;
+
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
+
+        my $ou = $users->objectFromDN($dn);
 
         $self->_requireParam('username', __('user name'));
         $self->_requireParam('name', __('first name'));
@@ -68,9 +79,8 @@ sub _process
             throw EBox::Exceptions::External(__('Passwords do not match.'));
         }
 
-        $user->{ou} = $self->unsafeParam('ou');
-
-        my $newUser = EBox::Users::User->create($user, 0);
+        my $newUser = EBox::Users::User->create($user->{user}, $ou);
+        # FIXME!
         if ($user->{'group'}) {
             $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
         }
