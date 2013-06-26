@@ -155,7 +155,8 @@ sub _gpLinks
     if (defined $gpLink) {
         $gpLink = decode ('UTF-8', $gpLink);
         my @gpLink = ($gpLink =~ /\[([^\[\]]+)\]/g);
-        foreach my $link (@gpLink) {
+        my $index = 1;
+        foreach my $link (reverse @gpLink) {
             my ($gpoDN, $gpLinkOptions) = split (/;/, $link);
             $gpoDN =~ s/ldap:\/\///ig;
             # Query GPO name
@@ -167,8 +168,9 @@ sub _gpLinks
             my $gpoEntry = $gpoResult->entry(0);
             my $gpoDisplayName = $gpoEntry->get_value('displayName');
             push (@{$gpLinks}, { id => $dn,
-                                 printableName => $gpoDisplayName,
+                                 printableName => "$index: $gpoDisplayName",
                                  type => 'gpLink'});
+            $index++;
         }
     }
 
