@@ -50,6 +50,16 @@ use EBox::Gettext;
                     <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
                 </td>
             </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+					    <% __('E-Mail') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='surname' value="<% $contact->mail() %>">
+                </td>
+            </tr>
 
 %   unless ($slave) {
              <tr>
@@ -66,3 +76,13 @@ use EBox::Gettext;
         </table>
     </form>
 </div>
+
+<script>
+"use strict";
+jQuery(function() {
+   jQuery('#editContactForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#editContactForm', { extraData: {edit: 1} });
+    });
+});
+</script>

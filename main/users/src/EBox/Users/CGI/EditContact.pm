@@ -65,7 +65,7 @@ sub _process
             $contact->delete('description');
         }
 
-        $self->{json}->{success}  = 1;
+        $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
