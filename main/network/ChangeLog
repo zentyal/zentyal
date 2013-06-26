@@ -1,3 +1,5 @@
+HEAD
+	+ Corrected typo in message on tab multigw when only one gw is present
 3.0.6
 	+ PPPoE set iface script is more robust against locks
 	+ Adapted to use of ifaceByAddress, removed IPAddressExists
