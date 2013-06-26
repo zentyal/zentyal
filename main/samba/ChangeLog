@@ -1,3 +1,5 @@
+HEAD
+	+ Use krb5 keys on new users when plain password not available
 3.0.20
 	+ Fix SIDs to ignore list, add missing end of line character in regular
 	  expressions
