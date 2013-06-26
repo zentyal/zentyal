@@ -471,9 +471,8 @@ sub jsonData
     my @data;
 
     foreach my $node (@{$self->rootNodes()}) {
-        my $id = $node->{id};
-        my @children = $self->_childData($id);
-        push (@data, { data => $node->{printableName}, attr => { rel => $node->{type}, id => $id }, children => \@children });
+        my @children = $self->_childData($node);
+        push (@data, { data => $node->{printableName}, attr => { rel => $node->{type}, id => $node->{id} }, children => \@children });
     }
 
     return encode_json(\@data);
@@ -481,19 +480,18 @@ sub jsonData
 
 sub _childData
 {
-    my ($self, $id) = @_;
+    my ($self, $parent) = @_;
 
     my @children;
 
-    foreach my $child (@{$self->childNodes($id)}) {
-        my $childId = $child->{id};
+    foreach my $child (@{$self->childNodes($parent)}) {
         push (@children, {
             data => $child->{printableName},
             attr => {
                 rel => $child->{type},
-                id => $childId,
+                id => $child->{id},
             },
-            children => $self->_childData($childId),
+            children => $self->_childData($child),
         });
     }
 

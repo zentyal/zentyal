@@ -54,16 +54,16 @@ sub childNodes
     my $usersMod = $self->parentModule();
 
     my $parentObject = undef;
-
-    if ($parent eq 'root') {
+    if ($parent->{id} eq 'root') {
         $parentObject = $usersMod->defaultNamingContext();
-    } elsif (($parent =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
+    } elsif ($parent->{type} eq 'computer') {
+        # dont look for childs in computers
+        return [];
+    } elsif (($parent->{id} =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
-    } elsif ($parent =~ m/\$$/) {
-        return [];
     } else {
-        $parentObject = $usersMod->objectFromDN($parent);
+        $parentObject = $usersMod->objectFromDN($parent->{id});
     }
 
     my $id = undef;
@@ -110,7 +110,7 @@ sub _sambaComputers
     foreach my $computer (@{$samba->computers()}) {
         my $id = $computer->dn();
         my $printableName = $computer->name();
-        push (@computers, { id => $id . '$', printableName => $printableName, type => 'computer' });
+        push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
     }
 
     return \@computers;
