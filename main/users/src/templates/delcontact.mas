@@ -30,7 +30,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#delContactForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#delContactForm', { extraData: {delete: 1} });
+       Zentyal.Dialog.submitForm('#delContactForm', { extraData: {delcontact: 1} });
     });
 });
 </script>

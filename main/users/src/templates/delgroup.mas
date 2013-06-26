@@ -6,7 +6,7 @@
 use EBox::Gettext;
 </%init>
 
-<h3><% __("Delete group") %></h3>
+<h3><% __('Delete group') %></h3>
 <div id='error_delGroupForm' class='error' style='display:none'></div>
 
 % if ($slave) {
@@ -30,7 +30,7 @@ use EBox::Gettext;
 jQuery(function() {
    jQuery('#delGroupForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#delGroupForm', { extraData: {delete: 1} });
+       Zentyal.Dialog.submitForm('#delGroupForm', { extraData: {delgroup: 1} });
     });
 });
 </script>
