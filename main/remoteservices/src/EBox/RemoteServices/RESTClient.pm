@@ -361,7 +361,7 @@ sub last_error
 #
 sub _invalidCredentialsMsg
 {
-    my $forgottenURL = "https://remote.zentyal.com";
+    my $forgottenURL = "https://remote.zentyal.com/reset";
     return __x('User/email address and password do not match. Did you forget your password? '
                . 'You can reset it {ohp}here{closehref}. '
                . 'If you need a new account you can subscribe {openhref}here{closehref}.'
