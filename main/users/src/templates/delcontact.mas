@@ -7,7 +7,7 @@ use EBox::Gettext;
 </%init>
 
 <h3><% __("Delete contact") %></h3>
-<div id='error_deleteContactForm' class='error' style='display:none'></div>
+<div id='error_delContactForm' class='error' style='display:none'></div>
 
 % if ($slave) {
 <div class='warning'>
@@ -17,7 +17,7 @@ use EBox::Gettext;
 <div class='note'>
     <% __('This operation will cause the removal of the contact and any dependent configuration.') %>
 </div>
-<form action='/Users/DeleteContact' method='POST' id='deleteContactForm'>
+<form action='/Users/DeleteContact' method='POST' id='delContactForm'>
 <p>
 		<input type="hidden" name="dn" value="<% $contact->dn() %>">
 				<input class='inputButton' type='submit' name='delcontact'
@@ -28,9 +28,9 @@ use EBox::Gettext;
 
 <script>
 jQuery(function() {
-   jQuery('#deleteContactForm').on('submit', function(event) {
+   jQuery('#delContactForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#deleteContactForm', { extraData: {delete: 1} });
+       Zentyal.Dialog.submitForm('#delContactForm', { extraData: {delete: 1} });
     });
 });
 </script>
