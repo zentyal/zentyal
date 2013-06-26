@@ -22,7 +22,7 @@ use warnings;
 #
 package EBox::Samba::User;
 
-use base 'EBox::Samba::OrganizationalPerson';
+use base 'EBox::Samba::SecurityPrincipal';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -44,8 +44,6 @@ use Error qw(:try);
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
-
-use base 'EBox::Samba::SecurityPrincipal';
 
 # Method: changePassword
 #

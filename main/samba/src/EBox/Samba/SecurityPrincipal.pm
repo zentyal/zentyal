@@ -23,7 +23,7 @@ use warnings;
 #
 package EBox::Samba::SecurityPrincipal;
 
-use base 'EBox::Samba::LdbObject';
+use base 'EBox::Samba::OrganizationalPerson';
 
 # Method: new
 #

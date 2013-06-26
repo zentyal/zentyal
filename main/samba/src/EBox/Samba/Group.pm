@@ -22,6 +22,8 @@ use warnings;
 #
 package EBox::Samba::Group;
 
+use base 'EBox::Samba::SecurityPrincipal';
+
 use EBox::Global;
 use EBox::Gettext;
 
@@ -44,8 +46,6 @@ use constant GROUPTYPEUNIVERSAL => 0x00000008;
 use constant GROUPTYPEAPPBASIC  => 0x00000010;
 use constant GROUPTYPEAPPQUERY  => 0x00000020;
 use constant GROUPTYPESECURITY  => 0x80000000;
-
-use base 'EBox::Samba::SecurityPrincipal';
 
 sub new
 {
