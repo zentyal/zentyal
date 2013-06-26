@@ -42,8 +42,14 @@ unless (-f $sambaTimestampFile) {
     write_file($sambaTimestampFile, '0');
 }
 
-my $sambaModule = EBox::Global->modInstance('samba');
-my $usersModule = EBox::Global->modInstance('users');
+my $ro = 1;
+my $global = EBox::Global->getInstance($ro);
+my $sambaModule = $global->modInstance('samba');
+my $usersModule = $global->modInstance('users');
+
+my $usersOU    = $usersModule->userClass()->defaultContainer($ro);
+my $groupsOU   = $usersModule->groupClass()->defaultContainer($ro);
+my $contactsOU = $usersModule->contactClass->defaultContainer($ro);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -88,7 +94,7 @@ while (1) {
         } else {
             if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
                 try {
-                    $sambaUsers{$sambaUserName}->addToZentyal();
+                    $sambaUsers{$sambaUserName}->addToZentyal($usersOU);
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
@@ -122,7 +128,7 @@ while (1) {
             delete $zentyalContacts{$sambaContactName};
         } else {
             try {
-                $sambaContacts{$sambaContactName}->addToZentyal();
+                $sambaContacts{$sambaContactName}->addToZentyal($contactsOU);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding contact $sambaContactName: $error. s4sync will try again in next synchronization");
@@ -154,7 +160,7 @@ while (1) {
             delete $zentyalGroups{$sambaGroupName};
         } else {
             try {
-                $sambaGroups{$sambaGroupName}->addToZentyal();
+                $sambaGroups{$sambaGroupName}->addToZentyal($groupsOU);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");

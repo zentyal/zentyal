@@ -20,6 +20,7 @@ package EBox::LDB;
 
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
+use EBox::Samba::OU;
 use EBox::Samba::User;
 use EBox::Samba::Contact;
 use EBox::Samba::Group;
@@ -680,6 +681,28 @@ sub groups
     }
 
     return $list;
+}
+
+sub ous
+{
+    my ($self) = @_;
+    my $objectClass = EBox::Samba::OU->mainObjectClass();
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => "objectclass=$objectClass",
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @ous = ();
+    foreach my $entry ($result->entries)
+    {
+        my $ou = EBox::Samba::OU->new(entry => $entry);
+        push (@ous, $ou);
+    }
+
+    return \@ous;
 }
 
 # Method: dnsZones

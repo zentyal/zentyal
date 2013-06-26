@@ -211,30 +211,34 @@ sub create
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $name      = $self->get('samAccountName');
     my $gidNumber = $self->get('gidNumber');
 
-    my %params;
-    $params{description} = $self->get('description');
-    $params{ignoreMods} = ['samba'];
+    my @params = (
+        name => $name,
+        description =>  $self->get('description'),
+        parent => $ou,
+        ignoreMods  => ['samba'],
+    );
     EBox::info("Adding samba group '$name' to Zentyal");
     my $zentyalGroup = undef;
 
-    if ($gidNumber) {
-        $params{gidNumber} = $gidNumber;
-    } else {
+    if (not $gidNumber) {
         $gidNumber = $self->getXidNumberFromRID();
-        $params{gidNumber} = $gidNumber;
+        $gidNumber or
+            throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
         $self->set('gidNumber', $gidNumber);
     }
-    $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
+
+    push @params, gidNumber => $gidNumber;
     $self->setupGidMapping($gidNumber);
 
-    $params{isSecurityGroup} = $self->isSecurityGroup();
-    $params{isSystemGroup} = 0;
-    $zentyalGroup = EBox::Users::Group->create($name, \%params);
+    push @params, isSecurityGroup => $self->isSecurityGroup();
+    push @params, isSystemGroup   => 0;
+    $zentyalGroup = EBox::Users::Group->create(@params);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$name' to Zentyal");
 
     $self->_membersToZentyal($zentyalGroup);

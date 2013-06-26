@@ -69,7 +69,8 @@ sub create
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $fullName = $self->get('name');
     my $givenName = $self->get('givenName');
@@ -87,6 +88,7 @@ sub addToZentyal
         surname => $surName,
         displayname => $displayName,
         description => $description,
+        parent => $ou,
     };
 
     my $zentyalContact = undef;

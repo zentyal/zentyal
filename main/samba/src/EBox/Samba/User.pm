@@ -363,7 +363,8 @@ sub _checkPwdLength
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $userName = $self->get('samAccountName');
     my $fullName = $self->get('name');
@@ -376,7 +377,7 @@ sub addToZentyal
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $params = {
+    my @params = (
         uid => $userName,
         fullname => $fullName,
         givenname => $givenName,
@@ -384,24 +385,25 @@ sub addToZentyal
         surname => $surName,
         displayname => $displayName,
         description => $description,
-    };
+        isSystemUser => 0,
+        parent => $ou,
+    );
 
     my $zentyalUser = undef;
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
+    push @params, ignoreMods => ['samba'];
     EBox::info("Adding samba user '$userName' to Zentyal");
 
-    if ($uidNumber) {
-        $optParams{uidNumber} = $uidNumber;
-    } else {
+    if (not $uidNumber) {
         $uidNumber = $self->getXidNumberFromRID();
-        $optParams{uidNumber} = $uidNumber;
+        $uidNumber or
+            throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
         $self->set('uidNumber', $uidNumber);
     }
-    $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
+
+    push @params, uidNumber => $uidNumber;
     $self->setupUidMapping($uidNumber);
 
-    $zentyalUser = EBox::Users::User->create($params, 0, %optParams);
+    $zentyalUser = EBox::Users::User->create(@params);
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Error addding samba user '$userName' to Zentyal");
 
