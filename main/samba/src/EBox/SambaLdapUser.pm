@@ -113,7 +113,12 @@ sub _addUser
     my $uidNumber = $sambaUser->get('uidNumber');
 
     EBox::info("Setting '$samAccountName' password");
-    $sambaUser->changePassword($zentyalPassword);
+    if (defined($zentyalPassword)) {
+        $sambaUser->changePassword($zentyalPassword);
+    } else {
+        my $keys = $zentyalUser->kerberosKeys();
+        $sambaUser->setCredentials($keys);
+    }
 
     if ($uidNumber) {
         $sambaUser->setupUidMapping($uidNumber);
