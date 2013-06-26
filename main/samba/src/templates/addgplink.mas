@@ -1,0 +1,87 @@
+<%args>
+	$dn
+    $gpos
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add Group Policy Link') %></h3>
+    <div id='error_addGPOLinkForm' class='error' style='display:none'></div>
+	<form action='/Samba/AddGPLink' method='POST' id='addGPLinkForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
+	<table class='formTable'>
+		<tr>
+			<td  class='tright'>
+				<span class="ftitle">
+					<% __('Group Policy Object') %>:
+				</span>
+			</td>
+			<td>
+                <select name="gpoDN">
+% foreach my $gpo (@{$gpos}) {
+%   my $value = $gpo->get('distinguishedName');
+%   my $printableValue = $gpo->get('displayName');
+                    <& .option, value => $value, printableValue => $printableValue &>
+% }
+                </select>
+			</td>
+		</tr>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'>
+                    <% __('Link enabled') %>:
+                </span>
+            </td>
+            <td>
+                <input name='linkEnabled' type='checkbox' checked/>
+            </td>
+        </tr>
+        <tr>
+            <td class='tright'>
+                <span class='ftitle'>
+                    <% __('Enforced') %>:
+                </span>
+            </td>
+            <td>
+                <input name='enforced' type='checkbox' />
+            </td>
+        </tr>
+		<tr>
+			<td></td>
+			<td>
+				<input class='inputButton' type='submit' name='add'
+					   value="<% __('Add') %>"
+					   alt="<% __('Add') %>"/>
+
+			</td>
+		</tr>
+	</table>
+	</form>
+
+<script>
+jQuery(function() {
+   jQuery('#addGPLinkForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addGPLinkForm', { extraData: { add: 1} });
+    });
+});
+</script>
+
+<%def .option>
+<%args>
+$value
+$selected => 0
+$printableValue => undef
+$disabled => 0
+</%args>
+<%init>
+if (!defined $printableValue) {
+   $printableValue = $value;
+}
+my $selectedAttr = $selected ? 'selected="selected"' : '';
+my $disabledAttr = $disabled ? 'disabled="disabled"' : '';
+</%init>
+<option value="<% $value | h %>" <% $selectedAttr %> <% $disabledAttr %> >
+<% $printableValue %>
+</option>
+</%def>

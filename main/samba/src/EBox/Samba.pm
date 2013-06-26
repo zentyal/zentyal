@@ -988,6 +988,9 @@ sub menu
     $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
                                       text  => __('Group Policy Objects'),
                                       order => 20));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
+                                      text  => __('Group Policy Links'),
+                                      order => 30));
     $root->add($folder);
 }
 
