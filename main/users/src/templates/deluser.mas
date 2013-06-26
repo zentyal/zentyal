@@ -6,7 +6,6 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 
 <h3><%__('Delete user')%></h3>

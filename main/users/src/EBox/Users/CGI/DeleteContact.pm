@@ -52,9 +52,18 @@ sub _process
     push(@args, 'contact' => $contact);
     push(@args, 'slave' => not $editable);
 
+    my $delcontact;
+
     if ($self->param('cancel')) {
         $self->{redirect} = 'Users/Tree/Manage';
+    } elsif ($self->unsafeParam('delcontactforce')) {
+        $delcontact = 1;
     } elsif ($self->unsafeParam('delcontact')) {
+        my $contact = new EBox::Users::Contact(dn => $dn);
+        $delcontact = not $self->_warnUser('contact', $contact);
+    }
+
+    if ($delcontact) {
         $self->{json} = { success => 0 };
         my $contact = new EBox::Users::Contact(dn => $dn);
         $contact->deleteObject();
@@ -63,6 +72,27 @@ sub _process
     }
 
     $self->{params} = \@args;
+}
+
+sub _warnContact
+{
+    my ($self, $object, $ldapObject) = @_;
+
+    my $usersandgroups = EBox::Global->modInstance('users');
+    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
+
+    if (@{$warns}) { # If any module wants to warn user
+         $self->{template} = 'users/del.mas';
+         $self->{redirect} = undef;
+         my @array = ();
+         push(@array, 'object' => $object);
+         push(@array, 'name'   => $ldapObject);
+         push(@array, 'data'   => $warns);
+         $self->{params} = \@array;
+         return 1;
+    }
+
+    return undef;
 }
 
 1;
