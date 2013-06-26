@@ -25,4 +25,10 @@ package EBox::Samba::Computer;
 
 use base 'EBox::Samba::LdbObject';
 
+sub name
+{
+    my ($self) = @_;
+    return $self->get('name');
+}
+
 1;

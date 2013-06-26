@@ -60,6 +60,8 @@ sub childNodes
     } elsif (($parent =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
+    } elsif ($parent =~ m/\$$/) {
+        return [];
     } else {
         $parentObject = $usersMod->objectFromDN($parent);
     }
@@ -107,8 +109,8 @@ sub _sambaComputers
 
     foreach my $computer (@{$samba->computers()}) {
         my $id = $computer->dn();
-        my $printableName = $computer->get('cn');
-        push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
+        my $printableName = $computer->name();
+        push (@computers, { id => $id . '$', printableName => $printableName, type => 'computer' });
     }
 
     return \@computers;
