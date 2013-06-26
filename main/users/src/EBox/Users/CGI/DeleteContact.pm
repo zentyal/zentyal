@@ -54,8 +54,6 @@ sub _process
 
     if ($self->param('cancel')) {
         $self->{redirect} = 'Users/Tree/Manage';
-    } elsif ($self->unsafeParam('delcontactforce')) {
-        $delcontact = 1;
     } elsif ($self->unsafeParam('delcontact')) {
         $self->{json} = { success => 0 };
         my $contact = new EBox::Users::Contact(dn => $dn);
