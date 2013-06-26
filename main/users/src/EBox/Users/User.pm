@@ -77,13 +77,17 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
-# Method: defaultContainer
+# Clss method: defaultContainer
+#
+#   Parameters:
+#     ro - wether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
 sub defaultContainer
 {
-    my $usersMod = EBox::Global->modInstance('users');
+    my ($package, $ro) = @_;
+    my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
     return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
 }
 
