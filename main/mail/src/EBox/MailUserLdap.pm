@@ -462,7 +462,7 @@ sub usersWithMailInGroup
     my $usersMod = EBox::Global->modInstance('users');
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        my $object = $usersMod->entryModeledObject($entry)
+        my $object = $usersMod->entryModeledObject($entry);
         push (@mailusers, $object) if ($object);
     }
 
