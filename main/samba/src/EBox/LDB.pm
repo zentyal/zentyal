@@ -492,16 +492,18 @@ sub ldapContactsToLdb
         my $name = $contact->get('cn');
         EBox::debug("Loading contact $dn");
         try {
-            my $params = {
+            my %args = (
+                name        => scalar ($name),
                 givenName   => scalar ($contact->get('givenName')),
                 initials    => scalar ($contact->get('initials')),
                 sn          => scalar ($contact->get('sn')),
                 displayName => scalar ($contact->get('displayName')),
                 description => scalar ($contact->get('description')),
-            };
-            EBox::Samba::Contact->create($name, $params);
+            );
+            EBox::Samba::Contact->create(%args);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Contact $dn already in Samba database");
+            # FIXME: usersDn is wrong here!
             my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
         } otherwise {
             my $error = shift;
