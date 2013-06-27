@@ -57,7 +57,7 @@ use EBox::Gettext;
                     </span>
                 </td>
                 <td>
-                    <input type='text' class='inputText' name='surname' value="<% $contact->mail() %>">
+                    <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
                 </td>
             </tr>
 
