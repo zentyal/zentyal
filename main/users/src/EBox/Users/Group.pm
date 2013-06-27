@@ -503,7 +503,10 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-    my $isSecurityGroup =  $args{isSecurityGroup};
+    my $isSecurityGroup = 1;
+    if (defined $args{isSecurityGroup}) {
+        $isSecurityGroup = $args{isSecurityGroup};
+    }
     my $isSystemGroup = $args{isSystemGroup};
     if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
