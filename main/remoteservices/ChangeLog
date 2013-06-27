@@ -1,4 +1,5 @@
 HEAD
+	+ Save software module after setting QA updates configuration
 	+ Give support to custom proxied redirections to provide local HTTP
 	  servers from Zentyal Remote using
 	  /etc/zentyal/remoteservices_redirections.yaml

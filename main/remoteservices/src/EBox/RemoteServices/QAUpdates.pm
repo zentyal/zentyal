@@ -66,6 +66,7 @@ sub _setQAUpdates
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
             $softwareMod->setQAUpdates(1);
+            $softwareMod->save();
         }
     } else {
         EBox::info('No software module installed QA updates should be done by hand');
@@ -221,6 +222,7 @@ sub _removeQAUpdates
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
             $softwareMod->setQAUpdates(0);
+            $softwareMod->save();
         }
     }
 }
