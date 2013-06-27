@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Added line to apparmor profile which workarounds launchpad bug
 	  1107686. Thanks to Christian Bonato for finding this workaround.
 	+ Recover from excepcion when parsing leases file
