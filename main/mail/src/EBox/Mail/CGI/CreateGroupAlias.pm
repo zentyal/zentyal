@@ -26,17 +26,18 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Users::Group;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail',
-                                      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Mail',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('group', __('group'));
