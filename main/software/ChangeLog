@@ -1,3 +1,6 @@
+HEAD
+	+ Set proper permissions to preferences file when QA updates are
+	  not exclusive
 3.0.5
 	+ Fixed wrong management of preferences files
 3.0.4

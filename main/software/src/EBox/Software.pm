@@ -1018,7 +1018,8 @@ sub _setAptPreferences
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
-            EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
+            EBox::Sudo::root("cp '$preferencesBak' '$preferences'",
+                             "chmod 0644 '$preferences'");
             # remove old backup to avoid to overwrite user's modifications
             EBox::Sudo::root("rm -f '$preferencesBak' ");
         } else {
