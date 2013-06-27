@@ -1,0 +1,33 @@
+<%args>
+	$containerDN
+    $linkIndex
+    $gpoDN
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div id='error_deleteGPOLinkForm' class='error' style='display:none'></div>
+<div class='note'>
+    <% __x('This operation will delete the group policy link from the ' .
+           'container {x}. The group policy object itself will not ' .
+           'be deleted.', x => $containerDN) %>
+</div>
+
+<form action='/Samba/DeleteGPLink' method='POST' id='deleteGPLinkForm'>
+    <input type="hidden" name="containerDN" value="<% $containerDN %>">
+    <input type="hidden" name="linkIndex" value="<% $linkIndex %>">
+    <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
+    <p>
+	    <input class='inputButton' type='submit' name='del'
+            value="<% __('Delete') %>" alt="<% __('Delete') %>"/>
+    </p>
+</form>
+
+<script>
+jQuery(function() {
+   jQuery('#deleteGPLinkForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#deleteGPLinkForm', { extraData: { del: 1} });
+    });
+});
+</script>

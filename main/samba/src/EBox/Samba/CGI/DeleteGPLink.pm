@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::AddGPLink;
+package EBox::Samba::CGI::DeleteGPLink;
 
 use base 'EBox::CGI::ClientPopupBase';
 
@@ -27,8 +27,8 @@ use EBox::Samba::GPO;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/samba/addgplink.mas', @_);
-    bless($self, $class);
+    my $self = $class->SUPER::new('template' => '/samba/delgplink.mas', @_);
+    bless ($self, $class);
     return $self;
 }
 
@@ -36,30 +36,27 @@ sub _process
 {
     my ($self) = @_;
 
-    $self->_requireParam('dn', 'Container DN');
-    my $containerDN = $self->unsafeParam('dn');
+    $self->_requireParam('containerDN', __('Container DN'));
+    $self->_requireParam('linkIndex', __('GPO Link index'));
+    $self->_requireParam('gpoDN', __('GPO DN'));
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $gpos = $sambaMod->gpos();
+    my $containerDN = $self->unsafeParam('containerDN');
+    my $linkIndex = $self->unsafeParam('linkIndex');
+    my $gpoDN = $self->unsafeParam('gpoDN');
 
     my $params = [];
-    push (@{$params}, dn => $containerDN);
-    push (@{$params}, gpos => $gpos);
+    push (@{$params}, containerDN => $containerDN);
+    push (@{$params}, linkIndex => $linkIndex);
+    push (@{$params}, gpoDN => $gpoDN);
     $self->{params} = $params;
 
-    if ($self->param('add')) {
+    if ($self->param('del')) {
         $self->{json} = { success => 0 };
-        $self->_requireParam('gpoDN', __('GPO DN'));
-        my $gpoDN = $self->param('gpoDN');
-        my $linkEnabled = $self->param('linkEnabled') ? 1 : 0;
-        my $enforced = $self->param('enforced') ? 1 : 0;
-
         my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
         unless ($gpo->exists()) {
             throw EBox::Exceptions::Internal("GPO $gpoDN does not exists");
         }
-        $gpo->link($containerDN, $linkEnabled, $enforced);
-
+        $gpo->unlink($containerDN, $linkIndex);
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Samba/Tree/GPOLinks';
     }

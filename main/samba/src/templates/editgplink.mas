@@ -1,13 +1,19 @@
 <%args>
-	$dn
-    $gpos
+	$containerDN
+    $gpoDN
+    $gpoDisplayName
+    $linkIndex
+    $linkEnabled
+    $enforced
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<div id='error_addGPOLinkForm' class='error' style='display:none'></div>
-<form action='/Samba/AddGPLink' method='POST' id='addGPLinkForm'>
-    <input type="hidden" name="dn" value="<% $dn %>">
+<div id='error_editGPOLinkForm' class='error' style='display:none'></div>
+<form action='/Samba/EditGPLink' method='POST' id='editGPLinkForm'>
+    <input type="hidden" name="containerDN" value="<% $containerDN %>">
+    <input type="hidden" name="gpoDN" value="<% $gpoDN %>">
+    <input type="hidden" name="linkIndex" value="<% $linkIndex %>">
 	<table class='formTable'>
 		<tr>
 			<td  class='tright'>
@@ -16,13 +22,7 @@ use EBox::Gettext;
 				</span>
 			</td>
 			<td>
-                <select name="gpoDN">
-% foreach my $gpo (@{$gpos}) {
-%   my $value = $gpo->get('distinguishedName');
-%   my $printableValue = $gpo->get('displayName');
-                    <& .option, value => $value, printableValue => $printableValue &>
-% }
-                </select>
+                <% $gpoDisplayName %>
 			</td>
 		</tr>
         <tr>
@@ -32,7 +32,8 @@ use EBox::Gettext;
                 </span>
             </td>
             <td>
-                <input name='linkEnabled' type='checkbox' checked/>
+% my $isEnabled = ($linkEnabled ? 'checked' : '');
+                <input name='linkEnabled' type='checkbox' <% $isEnabled %>/>
             </td>
         </tr>
         <tr>
@@ -42,26 +43,26 @@ use EBox::Gettext;
                 </span>
             </td>
             <td>
-                <input name='enforced' type='checkbox' />
+% my $isEnforced = ($enforced ? 'checked' : '');
+                <input name='enforced' type='checkbox' <% $isEnforced %>/>
             </td>
         </tr>
 		<tr>
 			<td></td>
 			<td>
-				<input class='inputButton' type='submit' name='add'
-					   value="<% __('Add') %>"
-					   alt="<% __('Add') %>"/>
+				<input class='inputButton' type='submit' name='edit'
+					   value="<% __('Edit') %>"
+					   alt="<% __('Edit') %>"/>
 
 			</td>
 		</tr>
 	</table>
 	</form>
-
 <script>
 jQuery(function() {
-   jQuery('#addGPLinkForm').on('submit', function(event) {
+   jQuery('#editGPLinkForm').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addGPLinkForm', { extraData: { add: 1} });
+       Zentyal.Dialog.submitForm('#editGPLinkForm', { extraData: { edit: 1} });
     });
 });
 </script>

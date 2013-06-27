@@ -33,7 +33,6 @@ sub _tree
         modelDomain => 'Samba',
         pageTitle => __('Group Policy Links'),
         defaultActions => [ 'add', 'edit', 'delete' ],
-        idParam => 'dn',
         #TODO help =>  __(''),
     };
 }
@@ -47,8 +46,7 @@ sub rootNodes
     my $rootNC = $rootDSE->get_value('rootDomainNamingContext');
     my $rootDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $rootNC)));
 
-    return [ { id => 'root',
-               printableName => __x('Forest: {x}', x => $rootDomain),
+    return [ { printableName => __x('Forest: {x}', x => $rootDomain),
                type => 'forest' } ];
 }
 
@@ -78,7 +76,7 @@ sub _domainList
             EBox::error("Can not retrieve domain dns root from $dn");
             next;
         }
-        push (@{$domainList}, { id => $domainNC,
+        push (@{$domainList}, { metadata => { dn => $domainNC },
                                 printableName => $domainDnsRoot,
                                 type => 'domain' });
     }
@@ -100,9 +98,9 @@ sub _siteList
         filter => "(objectCategory=CN=Site,CN=Schema,$configurationNC)",
         attrs => ['name']});
     foreach my $entry ($result->entries()) {
-        push (@{$siteList}, { id => $entry->dn(),
-                                printableName => $entry->get_value('name'),
-                                type => 'site' });
+        push (@{$siteList}, { metadata => { dn => $entry->dn() },
+                              printableName => $entry->get_value('name'),
+                              type => 'site' });
     }
     return $siteList;
 }
@@ -130,7 +128,7 @@ sub _som
             EBox::error("Can not retrieve OU name from $dn");
             next;
         }
-        push (@{$somList}, { id => $dn,
+        push (@{$somList}, { metadata => { dn => $dn },
                              printableName => $name,
                              type => 'ou' });
     }
@@ -167,9 +165,16 @@ sub _gpLinks
                 attrs => ['displayName']});
             my $gpoEntry = $gpoResult->entry(0);
             my $gpoDisplayName = $gpoEntry->get_value('displayName');
-            push (@{$gpLinks}, { id => $dn,
+            my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED);
+            my $linkEnabled = not ($gpLinkOptions & EBox::Samba::GPO::LINK_DISABLED);
+            push (@{$gpLinks}, { metadata => { containerDN => $dn,
+                                               linkIndex => $index,
+                                               gpoDisplayName => $gpoDisplayName,
+                                               linkEnabled => $linkEnabled,
+                                               enforced => $enforced,
+                                               gpoDN => $gpoDN, },
                                  printableName => "$index: $gpoDisplayName",
-                                 type => 'gpLink'});
+                                 type => 'gpLink' });
             $index++;
         }
     }
@@ -177,25 +182,37 @@ sub _gpLinks
     return $gpLinks;
 }
 
+sub defaultActionLabels
+{
+    return {
+        'add' => __('Add new Group Policy Link'),
+        'delete' => __('Delete Group Policy Link'),
+        'edit' => __('Edit Group Policy Link'),
+    };
+}
+
 sub childNodes
 {
-    my ($self, $parent, $type) = @_;
+    my ($self, $parentType, $parentMetadata) = @_;
 
     my $childNodes = [];
     if ($type eq 'forest') {
-        push (@{$childNodes}, { id => 'domainList', printableName => __('Domains'), type => 'domainList' });
-        push (@{$childNodes}, { id => 'siteList', printableName => __('Sites'), type => 'siteList' });
+        push (@{$childNodes}, { printableName => __('Domains'), type => 'domainList' });
+        push (@{$childNodes}, { printableName => __('Sites'), type => 'siteList' });
     } elsif ($type eq 'domainList') {
         push (@{$childNodes}, @{$self->_domainList()});
     } elsif ($type eq 'siteList') {
         push (@{$childNodes}, @{$self->_siteList()});
     } elsif ($type eq 'domain') {
-        push (@{$childNodes}, @{$self->_gpLinks($parent)});
-        push (@{$childNodes}, @{$self->_som($parent)});
+        my $domainDN = $parentMetadata->{dn};
+        push (@{$childNodes}, @{$self->_gpLinks($domainDN)});
+        push (@{$childNodes}, @{$self->_som($domainDN)});
     } elsif ($type eq 'ou') {
-        push (@{$childNodes}, @{$self->_gpLinks($parent)});
+        my $containerDN = $parentMetadata->{dn};
+        push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
     } elsif ($type eq 'site') {
-        push (@{$childNodes}, @{$self->_gpLinks($parent)});
+        my $containerDN = $parentMetadata->{dn};
+        push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
     }
     return $childNodes;
 }
@@ -209,15 +226,15 @@ sub nodeTypes
         domain      => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
         ou          => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
         site        => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
-        gpLink      => { actions => { filter => 0, add => 0, edit => 1, delete => 1 }, actionObjects => {} },
+        gpLink      => { actions => { filter => 0, add => 0, edit => 1, delete => 1 }, actionObjects => { edit => 'GPLink', delete => 'GPLink' } },
     };
 }
 
 sub doubleClickHandlerJS
 {
-    my ($self, $type, $id) = @_;
+    my ($self, $type) = @_;
 
-    $self->actionHandlerJS('edit', $type, $id);
+    $self->actionHandlerJS('delete', $type);
 }
 
 # Method: precondition

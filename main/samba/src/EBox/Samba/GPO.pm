@@ -36,6 +36,10 @@ use constant STATUS_USER_CONF_DISABLED      => 0x01;
 use constant STATUS_COMPUTER_CONF_DISABLED  => 0x02;
 use constant STATUS_ALL_DISABLED            => 0x03;
 
+use constant LINK_ENABLED   => 0x00000000;
+use constant LINK_DISABLED  => 0x00000001;
+use constant LINK_ENFORCED  => 0x00000002;
+
 use constant GPT_INI_GRAMMAR => q{
 IniFile: WhiteSpace Section(s) WhiteSpace /\Z/
 {
@@ -464,6 +468,140 @@ sub _gptIniParser
             throw EBox::Exceptions::Internal(__("Bad grammar"));
     }
     return $self->{gptIniParser};
+}
+
+sub link
+{
+    my ($self, $containerDN, $linkEnabled, $enforced) = @_;
+
+    # Get our DN
+    my $gpoDN = $self->dn();
+
+    # Instantiate container object
+    my $container = new EBox::Samba::LdbObject(dn => $containerDN);
+    unless ($container->exists()) {
+        throw EBox::Exceptions::Internal(
+            "Container $containerDN not found.");
+    }
+    my $gpLinkAttr = $container->get('gpLink');
+    $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
+
+    # Check this GPO is not already linked
+    my @linkedGPOs = grep (/.+/, split (/\[([^\[\]]+)\]/, $gpLinkAttr));
+    foreach my $link (@linkedGPOs) {
+        my ($linkedDN, $linkOptions) = split(/;/, $link);
+        $linkedDN =~ s/ldap:\/\///ig;
+        if (lc $linkedDN eq lc $gpoDN) {
+            throw EBox::Exceptions::External(__x(
+                "GPO {x} is already linked to this container",
+                    x => $self->get('displayName')));
+        }
+    }
+
+    # Build link options
+    my $linkOptions = $linkEnabled ? LINK_ENABLED : LINK_DISABLED;
+    if ($enforced) {
+        $linkOptions |= LINK_ENFORCED;
+    }
+
+    # Add the link to array
+    my $newLink = "LDAP://$gpoDN;$linkOptions";
+    unshift (@linkedGPOs, $newLink);
+
+    # Build new gpLink attribute
+    $gpLinkAttr = '';
+    foreach my $link (@linkedGPOs) {
+        $gpLinkAttr .= "[$link]";
+    }
+    $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
+
+    # Write GPLink attribute
+    $container->set('gpLink', $gpLinkAttr);
+}
+
+sub unlink
+{
+    my ($self, $containerDN, $linkIndex) = @_;
+
+    # Instance the container and get the gpLink attribute
+    my $container = new EBox::Samba::LdbObject(dn => $containerDN);
+    unless ($container->exists()) {
+        throw EBox::Exceptions::Internal(
+            "Container $containerDN does not exists");
+    }
+
+    my $gpLinkAttr = $container->get('gpLink');
+    $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
+
+    # Split linked GPOs
+    my @linkedGPOs = grep (/.+/, reverse split (/\[([^\[\]]+)\]/, $gpLinkAttr));
+
+    # Check linked GPO at given index is ourself
+    my $target = $linkedGPOs[$linkIndex - 1];
+    my ($gpoPath, $linkOptions) = split(/;/, $target);
+    $gpoPath =~ s/ldap:\/\///ig;
+    if (lc $gpoPath ne lc $self->get('distinguishedName')) {
+        throw EBox::Exceptions::Internal("Index does not match");
+    }
+
+    # Remove from array
+    splice (@linkedGPOs, $linkIndex - 1, 1);
+
+    # Build and set new gpLink attribute
+    if (scalar @linkedGPOs) {
+        $gpLinkAttr = '';
+        foreach my $link (reverse @linkedGPOs) {
+            $gpLinkAttr .= "[$link]";
+        }
+        $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
+        $container->set('gpLink', $gpLinkAttr);
+    } else {
+        $container->delete('gpLink', 0);
+    }
+}
+
+sub editLink
+{
+    my ($self, $containerDN, $linkIndex, $linkEnabled, $enforced) = @_;
+
+    # Instance the container and get the gpLink attribute
+    my $container = new EBox::Samba::LdbObject(dn => $containerDN);
+    unless ($container->exists()) {
+        throw EBox::Exceptions::Internal(
+            "Container $containerDN does not exists");
+    }
+    my $gpLinkAttr = $container->get('gpLink');
+    $gpLinkAttr = decode('UTF-8', $gpLinkAttr);
+
+    # Split linked GPOs
+    my @linkedGPOs = grep (/.+/, reverse split (/\[([^\[\]]+)\]/, $gpLinkAttr));
+
+    # Check linked GPO at given index is ourself
+    my $target = $linkedGPOs[$linkIndex - 1];
+    my ($gpoPath, $linkOptions) = split(/;/, $target);
+    $gpoPath =~ s/ldap:\/\///ig;
+    if (lc $gpoPath ne lc $self->get('distinguishedName')) {
+        throw EBox::Exceptions::Internal("Index does not match");
+    }
+
+    # Build new link options
+    my $newLinkOptions = $linkEnabled ? LINK_ENABLED : LINK_DISABLED;
+    if ($enforced) {
+        $newLinkOptions |= LINK_ENFORCED;
+    }
+
+    my $newLink = "LDAP://" . $self->dn() . ";$newLinkOptions";
+    $linkedGPOs[$linkIndex - 1] = $newLink;
+
+    # Build new gpLink attribute
+    $gpLinkAttr = '';
+    foreach my $link (reverse @linkedGPOs) {
+        $gpLinkAttr .= "[$link]";
+    }
+    $gpLinkAttr = encode('UTF-8', $gpLinkAttr);
+
+    # Write GPLink attribute
+    $container->set('gpLink', $gpLinkAttr);
 }
 
 1;

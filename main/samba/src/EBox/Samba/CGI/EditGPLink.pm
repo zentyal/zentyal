@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Samba::CGI::AddGPLink;
+package EBox::Samba::CGI::EditGPLink;
 
 use base 'EBox::CGI::ClientPopupBase';
 
@@ -27,7 +27,7 @@ use EBox::Samba::GPO;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('template' => '/samba/addgplink.mas', @_);
+    my $self = $class->SUPER::new('template' => '/samba/editgplink.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -36,29 +36,39 @@ sub _process
 {
     my ($self) = @_;
 
-    $self->_requireParam('dn', 'Container DN');
-    my $containerDN = $self->unsafeParam('dn');
+    $self->_requireParam('containerDN', 'Container DN');
+    $self->_requireParam('gpoDN', 'GPO DN');
+    $self->_requireParam('linkIndex', 'Link Index');
+    #$self->_requireParamAllowEmpty('linkEnabled', 'Link Enabled');
+    #$self->_requireParamAllowEmpty('enforced', 'Link Enforced');
 
-    my $sambaMod = EBox::Global->modInstance('samba');
-    my $gpos = $sambaMod->gpos();
+    my $containerDN     = $self->unsafeParam('containerDN');
+    my $gpoDN           = $self->unsafeParam('gpoDN');
+    my $gpoDisplayName  = $self->unsafeParam('gpoDisplayName');
+    my $linkIndex       = $self->unsafeParam('linkIndex');
+    my $linkEnabled     = $self->unsafeParam('linkEnabled');
+    my $enforced        = $self->unsafeParam('enforced');
 
     my $params = [];
-    push (@{$params}, dn => $containerDN);
-    push (@{$params}, gpos => $gpos);
+    push (@{$params}, containerDN => $containerDN);
+    push (@{$params}, gpoDN => $gpoDN);
+    push (@{$params}, gpoDisplayName => $gpoDisplayName);
+    push (@{$params}, linkIndex => $linkIndex);
+    push (@{$params}, linkEnabled => $linkEnabled);
+    push (@{$params}, enforced => $enforced);
     $self->{params} = $params;
 
-    if ($self->param('add')) {
+    if ($self->param('edit')) {
         $self->{json} = { success => 0 };
-        $self->_requireParam('gpoDN', __('GPO DN'));
-        my $gpoDN = $self->param('gpoDN');
-        my $linkEnabled = $self->param('linkEnabled') ? 1 : 0;
-        my $enforced = $self->param('enforced') ? 1 : 0;
+
+        $enforced = $self->param('enforced') ? 1 : 0;
+        $linkEnabled = $self->param('linkEnabled') ? 1 : 0;
 
         my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
         unless ($gpo->exists()) {
             throw EBox::Exceptions::Internal("GPO $gpoDN does not exists");
         }
-        $gpo->link($containerDN, $linkEnabled, $enforced);
+        $gpo->editLink($containerDN, $linkIndex, $linkEnabled, $enforced);
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Samba/Tree/GPOLinks';
