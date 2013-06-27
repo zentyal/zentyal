@@ -571,6 +571,7 @@ sub ldapContactsToLdb
                 sn          => scalar ($contact->get('sn')),
                 displayName => scalar ($contact->get('displayName')),
                 description => scalar ($contact->get('description')),
+                mail        => $contact->get('mail')
             );
             EBox::Samba::Contact->create(%args);
         } catch EBox::Exceptions::DataExists with {

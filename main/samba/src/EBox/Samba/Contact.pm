@@ -85,6 +85,7 @@ sub create
     push (@attr, sn          => $args{sn}) if ($args{sn});
     push (@attr, displayName => $args{displayName}) if ($args{displayName});
     push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, mail => $args{mail}) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;
