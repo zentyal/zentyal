@@ -8,42 +8,42 @@
 use EBox::Gettext;
 </%init>
 
-<form name='createaccount' action='/Mail/CreateAccount' method='POST'>
+<form id='createaccount' name='createaccount' action='/Mail/CreateAccount' method='POST'>
 
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-	<h3><% __('Create mail account') %></h3>
+        <h3><% __('Create mail account') %></h3>
 
 %     if (not $params->{service} )  {
           <& /mail/moduleDisabled.mas &>
 %      }
 
-	<table class="formTable">
-	<tr>
-		<td class="tright" width="170px"><% __('Account name') %>:</td>
-		<td><input type='text' class='inputText' name='lhs'></td>
-	</tr>
-	<tr>
-		<td class="tright"><% __('Domain name') %>:</td>
-		<td>
-			<select name="vdomain" enabled onChange='vdomainChanged(this)'>
-%			my @kvd = @{ $params->{'vdomains'} };
-%			foreach my $vd (@kvd) {
-%                               my $printableValue = '@' . $vd;
-				<option value= <% $vd %> > <% $printableValue %> </option>
-%			}
-			</select>
-		</td>
-	</tr>
-
-	<tr>
-		<td></td>
-		<td>
-			<input class='inputButton' type='submit' name='change'
-					value="<% __('Create') %>"
-					alt="<% __('Create') %>">
-		</td>
+        <table class="formTable">
+        <tr>
+                <td class="tright" width="170px"><% __('Account name') %>:</td>
+                <td><input type='text' class='inputText' name='lhs'></td>
         </tr>
-	</table>
+        <tr>
+                <td class="tright"><% __('Domain name') %>:</td>
+                <td>
+                        <select name="vdomain" enabled onChange='vdomainChanged(this)'>
+%                       my @kvd = @{ $params->{'vdomains'} };
+%                       foreach my $vd (@kvd) {
+%                               my $printableValue = '@' . $vd;
+                                <option value= <% $vd %> > <% $printableValue %> </option>
+%                       }
+                        </select>
+                </td>
+        </tr>
+
+        <tr>
+                <td></td>
+                <td>
+                        <input class='inputButton' type='submit' name='change'
+                                        value="<% __('Create') %>"
+                                        alt="<% __('Create') %>">
+                </td>
+        </tr>
+        </table>
 </form>
 
 
@@ -51,29 +51,29 @@ use EBox::Gettext;
 <%args>
 $params
 </%args>
-	<tr>
-	<td class='tright'><% __('Maildir size') %>:</td>
-	<td><input type='text' class='inputText' name='mdsize'
-				id='mdsize'
-				size="15"
-%		if($params->{'mdsize'} eq 0) {
-			disabled
-			value=""
-%		} else {
-			enabled
-			value='<% $params->{'mdsize'} %>'
-%		}
-		/> (Mb)
-	</td>
-	</tr>
+        <tr>
+        <td class='tright'><% __('Maildir size') %>:</td>
+        <td><input type='text' class='inputText' name='mdsize'
+                                id='mdsize'
+                                size="15"
+%               if($params->{'mdsize'} eq 0) {
+                        disabled
+                        value=""
+%               } else {
+                        enabled
+                        value='<% $params->{'mdsize'} %>'
+%               }
+                /> (Mb)
+        </td>
+        </tr>
 
-	<tr>
-	<td class='tright'><% __('Unlimited size') %></td>
-	<td><input type='checkbox' name='ummsize' id='ummsize'
-			value='0' onclick="updateMDSize()"
-%				if($params->{'mdsize'} eq 0) {
-			checked
-%				}
-	></td>
-	</tr>
+        <tr>
+        <td class='tright'><% __('Unlimited size') %></td>
+        <td><input type='checkbox' name='ummsize' id='ummsize'
+                        value='0' onclick="updateMDSize()"
+%                               if($params->{'mdsize'} eq 0) {
+                        checked
+%                               }
+        ></td>
+        </tr>
 </%def>
