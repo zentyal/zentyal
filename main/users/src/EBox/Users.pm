@@ -1624,7 +1624,7 @@ sub defaultUserModels
 #
 # Parameters:
 #
-#       user - username
+#       user - user object
 #
 # Returns:
 #
@@ -1637,7 +1637,7 @@ sub allUserAddOns
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
 
-    my $defaultOU = ($user->baseDn() eq $self->usersDn());
+    my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
