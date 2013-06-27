@@ -176,11 +176,7 @@ sub create
 {
     my ($self, $name, $params) = @_;
 
-    my $isSecurityGroup = 1;
-    if (defined $params->{isSecurityGroup}) {
-        $isSecurityGroup = $params->{isSecurityGroup};
-    }
-
+    my $isSecurityGroup = $params->{isSecurityGroup};
     # TODO Is the group added to the default OU?
     my $baseDn = $self->_ldap->dn();
     my $dn = "CN=$name,CN=Users,$baseDn";
@@ -191,17 +187,20 @@ sub create
     # TODO: We may want to support more than global groups!
     my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
-    push ($attr, objectClass    => ['top', 'group', 'posixGroup']);
+    push ($attr, cn => $name);
+    push ($attr, objectClass    => ['group']);
     push ($attr, sAMAccountName    => "$name");
     push ($attr, description       => $params->{description}) if defined $params->{description};
     if ($isSecurityGroup) {
         push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
         $groupType |= GROUPTYPESECURITY;
     }
+
     push ($attr, groupType         => $groupType);
 
     # Add the entry
-    my $result = $self->_ldap->add($dn, { attr => $attr });
+    my $result = $self->_ldap->add($dn, { attrs => $attr });
+EBox::info("added");
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping

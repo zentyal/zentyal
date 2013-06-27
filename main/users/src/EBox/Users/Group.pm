@@ -503,16 +503,8 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-    my $isSecurityGroup = 1;
-    if (defined $args{isSecurityGroup}) {
-        $isSecurityGroup = $args{isSecurityGroup};
-    }
-
-    my $isSystemGroup = undef;
-    if (defined $args{isSystemGroup}) {
-        $isSystemGroup = $args{isSystemGroup};
-    }
-
+    my $isSecurityGroup =  $args{isSecurityGroup};
+    my $isSystemGroup = $args{isSystemGroup};
     if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
             __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
