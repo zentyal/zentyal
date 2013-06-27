@@ -455,14 +455,16 @@ sub ldapUsersToLdb
         my $samAccountName = $user->get('uid');
         EBox::debug("Loading user $dn");
         try {
-            my $params = {
-                uidNumber    => scalar ($user->get('uidNumber')),
-                sn           => scalar ($user->get('sn')),
-                givenName    => scalar ($user->get('givenName')),
-                description  => scalar ($user->get('description')),
-                kerberosKeys => $user->kerberosKeys(),
-            };
-            EBox::Samba::User->create($samAccountName, $params);
+            my %args = (
+                name           => scalar ($user->get('cn')),
+                samAccountName => scalar ($samAccountName),
+                uidNumber      => scalar ($user->get('uidNumber')),
+                sn             => scalar ($user->get('sn')),
+                givenName      => scalar ($user->get('givenName')),
+                description    => scalar ($user->get('description')),
+                kerberosKeys   => $user->kerberosKeys(),
+            );
+            EBox::Samba::User->create(%args);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("User $dn already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
@@ -578,11 +580,13 @@ sub ldapServicePrincipalsToLdb
                 next unless ($user->exists());
 
                 EBox::info("Importing service principal $dn");
-                my $params = {
-                    description  => scalar ($user->get('description')),
-                    kerberosKeys => $user->kerberosKeys(),
-                };
-                $smbUser = EBox::Samba::User->create($samAccountName, $params);
+                my %args = (
+                    name           => scalar ($user->get('cn')),
+                    samAccountName => scalar ($samAccountName),
+                    description    => scalar ($user->get('description')),
+                    kerberosKeys   => $user->kerberosKeys(),
+                );
+                $smbUser = EBox::Samba::User->create(%args);
                 $smbUser->setCritical(1);
                 $smbUser->setViewInAdvancedOnly(1);
             }

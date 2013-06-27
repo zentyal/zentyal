@@ -24,21 +24,11 @@ package EBox::Samba::OrganizationalPerson;
 
 use base 'EBox::Samba::LdbObject';
 
-use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Exceptions::UnwillingToPerform;
 
-use EBox::Samba::Credentials;
-
-use EBox::Users::User;
 use EBox::Samba::Group;
-
-use Perl6::Junction qw(any);
-use Encode;
-use Net::LDAP::Control;
-use Date::Calc;
-use Error qw(:try);
 
 # Method: addGroup
 #
@@ -137,7 +127,7 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    if ($self->checkObjectErasability()) {
+    unless ($self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
@@ -151,52 +141,6 @@ sub deleteObject
     # Call super implementation
     shift @_;
     $self->SUPER::deleteObject(@_);
-}
-
-# Method: create
-#
-#   Adds a new person
-#
-# Parameters:
-#
-#   name - The person name
-#
-#   params hash ref (all optional):
-#       givenName
-#       initials
-#       sn
-#       displayName
-#       description
-#
-# Returns:
-#
-#   Returns the new create person object
-#
-sub create
-{
-    my ($self, $name, $params) = @_;
-
-    # TODO Is the user added to the default OU?
-    my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$name,CN=Users,$baseDn";
-
-    $self->_checkAccountNotExists($name);
-
-    my $attr = [];
-    push ($attr, objectClass => ['top', 'person', 'organizationalPerson']);
-    push ($attr, name        => $name);
-    push ($attr, givenName   => $params->{givenName}) if defined $params->{givenName};
-    push ($attr, initials    => $params->{initials}) if defined $params->{initials};
-    push ($attr, sn          => $params->{sn}) if defined $params->{sn};
-    push ($attr, displayName => $params->{displayName}) if defined $params->{displayName};
-    push ($attr, description => $params->{description}) if defined $params->{description};
-
-    # Add the entry
-    my $result = $self->_ldap->add($dn, { attr => $attr });
-    my $createdPerson = new EBox::Samba::OrganizationalPerson(dn => $dn);
-
-    # Return the new created person
-    return $createdPerson;
 }
 
 1;

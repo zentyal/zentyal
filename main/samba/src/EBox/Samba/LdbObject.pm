@@ -26,6 +26,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 
+use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Control;
@@ -199,7 +200,7 @@ sub checkObjectErasability
 
     # Refuse to delete critical system objects
     my $isCritical = $self->get('isCriticalSystemObject');
-    return !($isCritical and lc ($isCritical) eq 'true');
+    return not ($isCritical and (lc ($isCritical) eq 'true'));
 
 }
 
@@ -211,7 +212,7 @@ sub deleteObject
 {
     my ($self, $attr, $lazy) = @_;
 
-    if (!$self->checkObjectErasability()) {
+    unless ($self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
@@ -268,6 +269,24 @@ sub save
             throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
         }
     }
+}
+
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
+sub entryOpChangesInUpdate
+{
+    my ($self, $entry) = @_;
+    local $Data::Dumper::Terse = 1;
+    my @changes = $entry->changes();
+    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
+    return $args;
 }
 
 # Method: dn
