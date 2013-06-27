@@ -137,14 +137,16 @@
     </table>
 
 <script>
-jQuery('#userOptions').on('submit', function(event) {
-   event.preventDefault();
-   Zentyal.Dialog.submitForm(event.target, {
-       success: function(response) {
-          var url = '/Users/EditUser';
-          var data = 'dn=' + response.userDN;
-          Zentyal.Dialog.showURL(url, { data: data});
-       }
+jQuery(function() {
+   jQuery('#userOptions').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success: function(response) {
+               var url = '/Users/EditUser';
+               var data = 'dn=' + response.userDN;
+               Zentyal.Dialog.showURL(url, { data: data});
+            }
+        });
    });
 });
 </script>
