@@ -17,7 +17,6 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelAlias;
-
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -25,28 +24,30 @@ use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail',
-                                      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Mail',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $mail = EBox::Global->modInstance('mail');
+sub _process
+{
+    my ($self) = @_;
+    my $mail = EBox::Global->modInstance('mail');
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "Users/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->{redirect} = "Users/User?user=$user";
 
-	$self->_requireParam('alias', __('mail alias'));
-	my $alias = $self->param('alias');
+    $self->_requireParam('alias', __('mail alias'));
+    my $alias = $self->param('alias');
 
-	$self->keepParam('user');
+    $self->keepParam('user');
 
-	$mail->{malias}->delAlias($alias);
+    $mail->{malias}->delAlias($alias);
 }
 
 1;
