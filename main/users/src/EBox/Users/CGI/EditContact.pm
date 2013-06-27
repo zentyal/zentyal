@@ -28,9 +28,7 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => __('Edit contact'),
-                                  'template' => '/users/editcontact.mas',
-                                  @_);
+    my $self = $class->SUPER::new('template' => '/users/editcontact.mas', @_);
     bless($self, $class);
     return $self;
 }
@@ -57,13 +55,34 @@ sub _process
 
     if ($self->param('edit')) {
         $self->{json} = { success => 0 };
+        $self->_requireParam('firstname', __('first name'));
+        $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('description', __('description'));
+        $self->_requireParam('mail', __('E-mail'));
+
+        my $givenName = $self->param('firstname');
+        my $surname = $self->param('surname');
+        my $mail = $self->param('mail');
+
+        my $fullname;
+        if ($givenName) {
+            $fullname = "$givenName $surname";
+        } else {
+            $fullname = $surname;
+        }
         my $description = $self->unsafeParam('description');
         if (length ($description)) {
-            $contact->set('description', $description);
+            $contact->set('description', $description, 1);
         } else {
-            $contact->delete('description');
+            $contact->delete('description', 1);
         }
+
+        $contact->set('givenname', $givenName, 1);
+        $contact->set('sn', $surname, 1);
+        $contact->set('cn', $fullname, 1);
+        $contact->set('mail', $mail, 1);
+
+        $contact->save();
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
