@@ -2342,6 +2342,10 @@ sub entryModeledObject
 sub objectFromDN
 {
     my ($self, $dn) = @_;
+    my $ldap = $self->ldap();
+    if ($dn eq $ldap->dn()) {
+        return $self->defaultNamingContext();
+    }
 
     my $args = {
         base => $dn,
@@ -2349,7 +2353,7 @@ sub objectFromDN
         scope => 'base',
     };
 
-    my $result = $self->ldap->search($args);
+    my $result = $ldap->search($args);
 
     my $count = $result->count();
 
