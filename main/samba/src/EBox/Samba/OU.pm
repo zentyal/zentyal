@@ -16,18 +16,17 @@
 use strict;
 use warnings;
 
-# Class: EBox::Users::OU
+# Class: EBox::Samba::OU
 #
-#   Organizational Unit, stored in LDAP
+#   Organizational Unit, stored in LDB
 #
 
-package EBox::Users::OU;
-use base 'EBox::Users::LdapObject';
+package EBox::Samba::OU;
+use base 'EBox::Samba::LdbObject';
 
-use EBox::Global;
-use EBox::Users;
-
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
+use EBox::Users::OU;
 
 # Method: mainObjectClass
 #
@@ -42,7 +41,7 @@ sub mainObjectClass
 #
 #   Return that this Organizational Unit can hold other objects.
 #
-#   Override <EBox::Users::LdapObject::isContainer>
+#   Override <EBox::Samba::LdapObject::isContainer>
 #
 sub isContainer
 {
@@ -53,7 +52,7 @@ sub isContainer
 #
 #   Return the name of this OU.
 #
-#   Override <EBox::Users::LdapObject::name>
+#   Override <EBox::Samba::LdapObject::name>
 sub name
 {
     my ($self) = @_;
@@ -72,6 +71,33 @@ sub relativeDn
     return $dn;
 }
 
+
+
+sub addToZentyal
+{
+    my ($self, $rDn) = @_;
+    my $users = EBox::Global->getInstance(1)->modInstance('users');
+
+    my ($name, $parentDn) = split ',', $rDn, 2;
+    my $parent;
+    if ($parentDn) {
+        $parentDn .= ',' . $users->ldap()->dn();
+        $parent = $users->objectFromDN($parentDn);
+    } else {
+        $parent = $users->defaultNamingContext();
+    }
+
+    my $ou = EBox::Users::OU->create($name, $parent);
+    $ou->exists() or
+        throw EBox::Exceptions::Internal("Error addding samba OU '$name' to Zentyal");
+}
+
+sub updateZentyal
+{
+    my ($self, $rDn) = @_;
+    EBox::warn("updateZentyal called in OU $rDn. No implemented editables changes in OU ");
+}
+
 # Method: create
 #
 #   Add and return a new Organizational Unit.
@@ -88,10 +114,8 @@ sub create
 {
     my ($self, $name, $parent) = @_;
 
-    my $usersMod = EBox::Global->modInstance('users');
-
-    throw EBox::Exceptions::InvalidData(data => 'name', value => $name) unless ($usersMod->checkCnLimitations($name));
-    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
+    $parent->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn());
 
     my $args = {
         attr => [
@@ -102,7 +126,7 @@ sub create
 
     my $dn = "ou=$name," . $parent->dn();
     my $result = $self->_ldap->add($dn, $args);
-    my $res = new EBox::Users::OU(dn => $dn);
+    my $res = EBox::Samba::OU->new(dn => $dn);
     return $res;
 }
 

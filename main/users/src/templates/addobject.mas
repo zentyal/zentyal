@@ -28,6 +28,9 @@ jQuery(function () {
         case 'group':
             form.load('/Users/AddGroup', {dn: '<% $dn %>'});
             break;
+        case 'contact':
+            form.load('/Users/AddContact', {dn: '<% $dn %>'});
+            break;
         }
     });
 });

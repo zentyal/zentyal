@@ -29,6 +29,7 @@ use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Credentials;
@@ -39,6 +40,8 @@ use EBox::Samba::Group;
 use Perl6::Junction qw(any);
 use Encode;
 use Net::LDAP::Control;
+use Net::LDAP::Entry;
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Date::Calc;
 use Error qw(:try);
 
@@ -259,18 +262,22 @@ sub setHomeDrive
 
 # Method: create
 #
+# FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
+# because an OrganizationalPerson reconversion to a User failed.
+#
 #   Adds a new user
 #
 # Parameters:
 #
-#   samAccountName - string with the user name
-#   params hash ref (all optional):
+#   args - Named parameters:
 #       name
 #       givenName
 #       initials
 #       sn
 #       displayName
 #       description
+#       mail
+#       samAccountName - string with the user name
 #       clearPassword - Clear text password
 #       kerberosKeys - Set of kerberos keys
 #       uidNumber - user UID numberer
@@ -281,54 +288,87 @@ sub setHomeDrive
 #
 sub create
 {
-    # FIXME: MS Windows uses name/cn as the user id.
-    my ($self, $samAccountName, $params) = @_;
+    my ($class, %args) = @_;
 
-    $self->_checkAccountName($samAccountName, MAXUSERLENGTH);
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('samAccountName') unless ($args{samAccountName});
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+
+    my $samAccountName = $args{samAccountName};
+    $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
     # Check the password length if specified
-    my $clearPassword = $params->{'clearPassword'};
+    my $clearPassword = $args{'clearPassword'};
     if (defined $clearPassword) {
-        $self->_checkPwdLength($clearPassword);
+        $class->_checkPwdLength($clearPassword);
     }
 
-    my $organizationalPerson = $self->SUPER::create($samAccountName, $params);
+    my $name = $args{name};
+    # TODO Is the user added to the default OU?
+    my $baseDn = $class->_ldap->dn();
+    my $dn = "CN=$name,CN=Users,$baseDn";
 
-    my $anyObjectClass = any($organizationalPerson->get('objectClass'));
-    my @userExtraObjectClasses = ('user', 'posixAccount');
-
-    foreach my $extraObjectClass (@userExtraObjectClasses) {
-        if ($extraObjectClass ne $anyObjectClass) {
-            $organizationalPerson->add('objectClass', $extraObjectClass, 1);
-        }
-    }
-
-    my $createdUser = new EBox::Samba::User(dn => $organizationalPerson->dn());
-
+    $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
 
-    $createdUser->set('sAMAccountName', $samAccountName, 1);
-    $createdUser->set('userPrincipalName', "$samAccountName\@$realm", 1);
-    $createdUser->set('userAccountControl', '514', 1);
-    $createdUser->set('uidNumber', $params->{uidNumber}, 1) if defined $params->{uidNumber};
+    my @attr = ();
+    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user', 'posixAccount']);
+    push (@attr, cn          => $name);
+    push (@attr, name        => $name);
+    push (@attr, givenName   => $args{givenName}) if ($args{givenName});
+    push (@attr, initials    => $args{initials}) if ($args{initials});
+    push (@attr, sn          => $args{sn}) if ($args{sn});
+    push (@attr, displayName => $args{displayName}) if ($args{displayName});
+    push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, sAMAccountName => $samAccountName);
+    push (@attr, userPrincipalName => "$samAccountName\@$realm");
+    push (@attr, userAccountControl => '514');
+    push (@attr, uidNumber => $args{uidNumber}) if ($args{uidNumber});
 
-    $createdUser->save();
+    my $res = undef;
+    my $entry = undef;
+    try {
+        $entry = new Net::LDAP::Entry($dn, @attr);
 
-    # Setup the uid mapping
-    $createdUser->setupUidMapping($params->{uidNumber}) if defined $params->{uidNumber};
+        my $result = $entry->update($class->_ldap->ldbCon());
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on person LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $class->entryOpChangesInUpdate($entry),
+                );
+            };
+        }
 
-    # Set the password
-    if (defined $params->{clearPassword}) {
-        $createdUser->changePassword($params->{clearPassword});
-        $createdUser->setAccountEnabled(1);
-    } elsif (defined $params->{kerberosKeys}) {
-        $createdUser->setCredentials($params->{kerberosKeys});
-        $createdUser->setAccountEnabled(1);
-    }
+        $res = new EBox::Samba::User(dn => $dn);
 
-    # Return the new created user
-    return $createdUser;
+        # Setup the uid mapping
+        $res->setupUidMapping($args{uidNumber}) if defined $args{uidNumber};
+
+        # Set the password
+        if (defined $args{clearPassword}) {
+            $res->changePassword($args{clearPassword});
+            $res->setAccountEnabled();
+        } elsif (defined $args{kerberosKeys}) {
+            $res->setCredentials($args{kerberosKeys});
+            $res->setAccountEnabled();
+        }
+    } otherwise {
+        my ($error) = @_;
+
+        EBox::error($error);
+
+        if (defined $res and $res->exists()) {
+            $res->SUPER::deleteObject(@_);
+        }
+        $res = undef;
+        $entry = undef;
+        throw $error;
+    };
+
+    return $res;
 }
 
 sub _checkAccountName
@@ -363,7 +403,8 @@ sub _checkPwdLength
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $userName = $self->get('samAccountName');
     my $fullName = $self->get('name');
@@ -371,37 +412,38 @@ sub addToZentyal
     my $initials = $self->get('initials');
     my $surName = $self->get('sn');
     my $displayName = $self->get('displayName');
-    my $comment = $self->get('description');
+    my $description = $self->get('description');
     my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $params = {
-        user => $userName,
+    my @params = (
+        uid => $userName,
         fullname => $fullName,
         givenname => $givenName,
         initials => $initials,
         surname => $surName,
         displayname => $displayName,
-        comment => $comment,
-    };
+        description => $description,
+        isSystemUser => 0,
+        parent => $ou,
+    );
 
     my $zentyalUser = undef;
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
+    push @params, ignoreMods => ['samba'];
     EBox::info("Adding samba user '$userName' to Zentyal");
 
-    if ($uidNumber) {
-        $optParams{uidNumber} = $uidNumber;
-    } else {
+    if (not $uidNumber) {
         $uidNumber = $self->getXidNumberFromRID();
-        $optParams{uidNumber} = $uidNumber;
+        $uidNumber or
+            throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
         $self->set('uidNumber', $uidNumber);
     }
-    $uidNumber or throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
+
+    push @params, uidNumber => $uidNumber;
     $self->setupUidMapping($uidNumber);
 
-    $zentyalUser = EBox::Users::User->create($params, 0, %optParams);
+    $zentyalUser = EBox::Users::User->create(@params);
     $zentyalUser->exists() or
         throw EBox::Exceptions::Internal("Error addding samba user '$userName' to Zentyal");
 

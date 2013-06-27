@@ -79,7 +79,7 @@ sub _process
         my @users = $self->unsafeParam('adduser');
 
         foreach my $us (@users) {
-            $group->addMember(new EBox::Users::User(dn => $us));
+            $group->addMember(new EBox::Users::User(uid => $us));
         }
         $self->{json}->{success}  = 1;
     } elsif ($self->param('deluserfromgroup')) {
@@ -88,9 +88,15 @@ sub _process
         my @users = $self->unsafeParam('deluser');
 
         foreach my $us (@users) {
-            $group->removeMember(new EBox::Users::User(dn => $us));
+            $group->removeMember(new EBox::Users::User(uid => $us));
         }
         $self->{json}->{success}  = 1;
+    } elsif ($self->param('userInfo')) {
+        $self->{json} = {
+             success => 1,
+             member =>   [ map { $_->name } @{ $grpusers }],
+             noMember => [ map { $_->name } @{ $remainusers }],
+           };
     }
 }
 

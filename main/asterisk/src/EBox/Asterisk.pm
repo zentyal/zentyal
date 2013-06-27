@@ -368,7 +368,7 @@ sub _getQueues
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
-        my $group = $usersMod->groupByName($queue));
+        my $group = $usersMod->groupByName($queue);
         my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};

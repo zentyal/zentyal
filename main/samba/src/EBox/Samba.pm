@@ -2017,4 +2017,82 @@ sub computers
     return \@computers;
 }
 
+# Method: entryModeledObject
+#
+#   Return the Perl Object that handles the given LDAP entry.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# Parameters:
+#
+#   entry - A Net::LDAP::Entry object.
+#
+sub entryModeledObject
+{
+    my ($self, $entry) = @_;
+
+    my $object;
+
+    my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group);
+    foreach my $class (@entryClasses) {
+        if ($class->mainObjectClass() eq $anyObjectClasses) {
+            return $class->new(entry => $entry);
+        }
+    }
+
+    EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+    return undef;
+}
+
+# Method: objectFromDN
+#
+#   Return the perl object modeling the given dn or undef if not found.
+#
+# Parameters:
+#
+#   dn - An LDAP DN string identifying the object to retrieve.
+#
+sub objectFromDN
+{
+    my ($self, $dn) = @_;
+    my $ldb = $self->ldb();
+    if ($dn eq $ldb->dn()) {
+        return $self->defaultNamingContext();
+    }
+
+    my $args = {
+        base => $dn,
+        filter => "(objectClass=*)",
+        scope => 'base',
+    };
+
+    my $result = $ldb->search($args);
+
+    my $count = $result->count();
+
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for, expected only one.', count => $result->count()));
+    } elsif ($count == 0) {
+        return undef;
+    } else {
+        return $self->entryModeledObject($result->entry(0));
+    }
+}
+
+
+# Method: defaultNamingContext
+#
+#   Return the Perl Object that holds the default Naming Context for this LDAP server.
+#
+#
+sub defaultNamingContext
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb;
+    return new EBox::Users::NamingContext(dn => $ldb->dn());
+}
+
 1;

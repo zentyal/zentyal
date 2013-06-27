@@ -114,14 +114,16 @@ sub _setupForMode
         $self->{ldapClass} = 'EBox::Ldap';
         $self->{ouClass} = 'EBox::Users::OU';
         $self->{userClass} = 'EBox::Users::User';
+        $self->{contactClass} = 'EBox::Users::Contact';
         $self->{groupClass} = 'EBox::Users::Group';
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
         $self->{userClass} = 'EBox::Users::User::ExternalAD';
+        $self->{contactClass} = 'EBox::Users::Contact::ExternalAD';
         $self->{groupClass} = 'EBox::Users::Group::ExternalAD';
         # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{groupClass}) {
+        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}) {
             eval "use $pkg";
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
@@ -166,6 +168,19 @@ sub userClass
     throw EBox::Exceptions::Internal("userClass not initialized.") unless (defined $self->{userClass});
 
     return $self->{userClass};
+}
+
+# Method: contactClass
+#
+#   Return the Contact class implementation to use.
+#
+sub contactClass
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::Internal("contactClass not initialized.") unless (defined $self->{contactClass});
+
+    return $self->{contactClass};
 }
 
 # Method: groupClass
@@ -775,7 +790,6 @@ sub _setConfInternal
     push (@params, 'binddn'    => $ldap->roRootDn());
     push (@params, 'rootbinddn'=> $ldap->rootDn());
     push (@params, 'bindpw'    => $nsspw);
-    push (@params, 'usersdn'   => $self->usersDn());
     push (@params, 'computersdn' => COMPUTERSDN . ',' . $dn);
 
     $self->writeConfFile(LIBNSS_LDAPFILE, "users/ldap.conf.mas",
@@ -931,6 +945,26 @@ sub _enforceServiceState
     $self->ldap->clearConn();
 }
 
+# Method: groupDn
+#
+#    Returns the dn for a given group. The group doesn't have to exist
+#
+#   Parameters:
+#       group
+#
+#  Returns:
+#     dn for the group
+#
+# FIXME: This should not be used anymore...
+sub groupDn
+{
+    my ($self, $group) = @_;
+    $group or throw EBox::Exceptions::MissingArgument('group');
+
+    my $dn = "cn=$group," . EBox::Users::Group::defaultContainer()->dn();
+    return $dn;
+}
+
 # Method: usersDn
 #
 #       Returns the dn where the users are stored in the ldap directory.
@@ -1006,6 +1040,40 @@ sub reloadNSCD
             EBox::Sudo::root('/etc/init.d/nscd force-reload');
         } otherwise {};
    }
+}
+
+# Method: ous
+#
+#       Returns an array containing all the OUs
+#
+# Returns:
+#
+#       array ref - holding the OUs. Each user is represented by a
+#       EBox::Users::OU object
+#
+sub ous
+{
+    my ($self) = @_;
+
+    return [] if (not $self->isEnabled());
+
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => "objectclass=$objectClass",
+        scope => 'sub',
+    );
+
+    my $result = $self->ldap->search(\%args);
+
+    my @ous = ();
+    foreach my $entry ($result->entries)
+    {
+        my $ou = $self->{ouClass}->new(entry => $entry);
+        push (@ous, $ou);
+    }
+
+    return \@ous;
 }
 
 # Method: userByUID
@@ -1129,6 +1197,52 @@ sub realUsers
     }
 
     return \@users;
+}
+
+# Method: contactsByName
+#
+# Return a reference to a list of instances of EBox::Users::Contact objects which represents a given name.
+#
+#  Parameters:
+#      name
+#
+sub contactsByName
+{
+    my ($self, $name) = @_;
+
+    my $contactClass = $self->contactClass();
+    my $objectClass = $contactClass->mainObjectClass();
+    my $args = {
+        base => $self->ldap->dn(),
+        filter => "(&(objectclass=$objectClass)(cn=$name))",
+        scope => 'sub',
+    };
+
+    my $result = $self->ldap->search($args);
+    my $count = $result->count();
+    return [] if ($count == 0);
+
+    my @contacts = ();
+
+    foreach my $entry (@{$result->entries}) {
+        my $contact = $self->entryModeledObject($entry);
+        push (@contacts, $contact) if ($contact);
+    }
+
+    return \@contacts;
+}
+
+# Method: contactExists
+#
+#  Returns:
+#
+#      bool - whether the contact exists or not
+#
+sub contactExists
+{
+    my ($self, $name) = @_;
+    return undef unless ($self->contactsByName($name));
+    return 1;
 }
 
 # Method: contacts
@@ -1530,7 +1644,7 @@ sub defaultUserModels
 #
 # Parameters:
 #
-#       user - username
+#       user - user object
 #
 # Returns:
 #
@@ -1543,7 +1657,7 @@ sub allUserAddOns
     my $global = EBox::Global->modInstance('global');
     my @names = @{$global->modNames};
 
-    my $defaultOU = ($user->baseDn() eq $self->usersDn());
+    my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @components;
@@ -1982,10 +2096,12 @@ sub _removePasswds
 #
 sub authUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $username, $password) = @_;
 
     my $authorized = 0;
-    my $userDn = $self->ldap()->userBindDN($user);
+
+    my $user = $self->userByUID($username);
+    my $userDn = $user->dn();
     my $ldapURL = $self->ldap()->url();
     my $ldap = EBox::Ldap::safeConnect($ldapURL);
 
@@ -2221,16 +2337,18 @@ sub entryModeledObject
 
     my $object;
 
-    # TODO: Add support for Contacts!!
     my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
     if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->ouClass()->new(entry => $entry);
     } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->userClass()->new(entry => $entry);
+    } elsif ($self->contactClass()->mainObjectClass() eq $anyObjectClasses) {
+        $object = $self->contactClass()->new(entry => $entry);
     } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
         $object = $self->groupClass()->new(entry => $entry);
     } else {
-        throw EBox::Exceptions::Internal("Unknown perl object for DN: " . $entry->dn());
+        EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+        return undef;
     }
     return $object;
 }
@@ -2246,6 +2364,10 @@ sub entryModeledObject
 sub objectFromDN
 {
     my ($self, $dn) = @_;
+    my $ldap = $self->ldap();
+    if ($dn eq $ldap->dn()) {
+        return $self->defaultNamingContext();
+    }
 
     my $args = {
         base => $dn,
@@ -2253,7 +2375,7 @@ sub objectFromDN
         scope => 'base',
     };
 
-    my $result = $self->ldap->search($args);
+    my $result = $ldap->search($args);
 
     my $count = $result->count();
 

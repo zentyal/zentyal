@@ -124,8 +124,7 @@ sub _setConf
     my $group = $settings->groupValue();
 
     if ($group ne '__all__') {
-        push (@params, ldap_group => $usersMod->groupByName($group));
-        push (@params, ldap_groupmember => $usersMod->userByUID('{USERNAME}');
+        push (@params, ldap_group => $usersMod->groupDn($group));;
     }
 
     if ($sldap->enabledValue()) {

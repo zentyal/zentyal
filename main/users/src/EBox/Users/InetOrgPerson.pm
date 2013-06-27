@@ -49,7 +49,7 @@ sub new
     } else {
         $self = $class->SUPER::new(@_);
     }
-    $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description'];
+    $self->{coreAttrs} = ['cn', 'givenName', 'initials', 'sn', 'displayName', 'description', 'mail'];
 
     if (defined $opts{coreAttrs}) {
         push ($self->{coreAttrs}, $opts{coreAttrs});
@@ -84,7 +84,7 @@ sub initials
 sub surname
 {
     my ($self) = @_;
-        my $sn =  $self->get('sn');
+    my $sn = $self->get('sn');
     if (not $sn) {
         return '';
     }
@@ -97,17 +97,17 @@ sub displayname
     return $self->get('displayName');
 }
 
-# TODO: Remove!
-sub comment
+sub description
 {
     my ($self) = @_;
     return $self->get('description');
 }
 
-sub description
+sub mail
 {
     my ($self) = @_;
-    return $self->get('description');
+
+    return $self->get('mail');
 }
 
 # Catch some of the set ops which need special actions
@@ -307,17 +307,17 @@ sub deleteObject
 
 sub generatedFullName
 {
-    my ($self, $person) = @_;
+    my ($self, %args) = @_;
     my $fullname = '';
 
-    if ($person->{givenname}) {
-        $fullname = $person->{givenname} . ' ';
+    if ($args{givenname}) {
+        $fullname = $args{givenname} . ' ';
     }
-    if ($person->{initials}) {
-        $fullname .= $person->{initials} . '. ';
+    if ($args{initials}) {
+        $fullname .= $args{initials} . '. ';
     }
-    if ($person->{surname}) {
-        $fullname .= $person->{surname};
+    if ($args{surname}) {
+        $fullname .= $args{surname};
     }
     return $fullname
 }
@@ -328,21 +328,17 @@ sub generatedFullName
 #
 # Parameters:
 #
-#   fullname - Full name.
-#   parent   - Parent container that will hold this new person.
-#   params   - Hash reference with the following fields:
-#       dn  - The DN path where this person should be stored.
-#       fullname
+#   args - Named parameters:
+#       fullname - Full name.
+#       dn       - The DN string to identify this person.
 #       givenname
 #       initials
 #       surname
 #       displayname
 #       description
-#       ou (multiple_ous enabled only)
-#   params hash (all optional):
-#      ignoreMods - modules that should not be notified about the person creation
-#      ignoreSlaves - slaves that should not be notified about the person creation
-#   extraAttributes
+#       mail
+#       ignoreMods   - modules that should not be notified about the person creation
+#       ignoreSlaves - slaves that should not be notified about the person creation
 #
 # Returns:
 #
@@ -350,48 +346,48 @@ sub generatedFullName
 #
 sub create
 {
-    my ($self, $fullname, $parent, $params) = @_;
+    my ($class, %args) = @_;
 
-    unless (defined $params->{dn}) {
-        throw EBox::Exceptions::MissingArgument("params->{dn}");
-    }
+    throw EBox::Exceptions::MissingArgument('dn') unless ($args{dn});
 
     # Verify person exists
-    if (new EBox::Users::InetOrgPerson(dn => $params->{dn})->exists()) {
+    if (new EBox::Users::InetOrgPerson(dn => $args{dn})->exists()) {
         throw EBox::Exceptions::DataExists('data' => __('person'),
-                                           'value' => $params->{dn});
+                                           'value' => $args{dn});
     }
 
-    $fullname = $self->generatedFullName($params) unless ($fullname);
+    my $fullname = $args{fullname};
+    $fullname = $class->generatedFullName(%args) unless ($fullname);
 
     my @attr = ();
     push (@attr, objectClass => 'inetOrgPerson');
     push (@attr, cn          => $fullname);
-    push (@attr, givenName   => $params->{givenname}) if (defined $params->{givenname} and $params->{givenname});
-    push (@attr, initials    => $params->{initials}) if (defined $params->{initials} and defined $params->{initials});
-    push (@attr, sn          => $params->{surname}) if (defined $params->{surname} and $params->{surname});
-    push (@attr, displayName => $params->{displayname}) if (defined $params->{displayname} and $params->{displayname});
-    push (@attr, description => $params->{description}) if (defined $params->{description} and $params->{description});
+    push (@attr, givenName   => $args{givenname}) if ($args{givenname});
+    push (@attr, initials    => $args{initials}) if ($args{initials});
+    push (@attr, sn          => $args{surname}) if ($args{surname});
+    push (@attr, displayName => $args{displayname}) if ($args{displayname});
+    push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, mail        => $args{mail}) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
-        $entry = new Net::LDAP::Entry($params->{dn}, @attr);
+        $entry = new Net::LDAP::Entry($args{dn}, @attr);
 
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,
-                    opArgs => $self->entryOpChangesInUpdate($entry),
+                    opArgs => $class->entryOpChangesInUpdate($entry),
                    );
             };
         }
 
-        $res = new EBox::Users::InetOrgPerson(dn => $params->{dn});
+        $res = new EBox::Users::InetOrgPerson(dn => $args{dn});
 
     } otherwise {
         my ($error) = @_;

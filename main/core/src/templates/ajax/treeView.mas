@@ -29,7 +29,7 @@
 <div id="treeButtons" class="treeviewButtons">
 % my $actionLabels = $model->defaultActionLabels();
 % foreach my $action (@{$model->defaultActions()}) {
-<button id="<% $action %>" class="treeviewActionButton" type="button" style="background-image: url('/data/images/<% $action %>.gif')">
+<button id="<% $action %>" class="treeviewActionButton" type="button" disabled style="background-image: url('/data/images/<% $action %>.gif')">
 <% $actionLabels->{$action} %>
 </button>
 % }

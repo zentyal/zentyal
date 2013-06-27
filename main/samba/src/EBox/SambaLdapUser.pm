@@ -58,19 +58,22 @@ sub _preAddUser
                    $self->{samba}->isProvisioned());
 
     my $dn = $entry->dn();
+    my $name        = $entry->get_value('cn');
     my $description = $entry->get_value('description');
     my $givenName   = $entry->get_value('givenName');
     my $surName     = $entry->get_value('sn');
     my $uid         = $entry->get_value('uid');
 
-    my $params = {
-        description   => $description,
-        givenName     => $givenName,
-        sn            => $surName,
-    };
+    my %args = (
+        name           => $name,
+        samAccountName => $uid,
+        description    => $description,
+        givenName      => $givenName,
+        sn             => $surName,
+    );
 
     EBox::info("Creating user '$uid'");
-    my $sambaUser = EBox::Samba::User->create($uid, $params);
+    my $sambaUser = EBox::Samba::User->create(%args);
     my $newUidNumber = $sambaUser->getXidNumberFromRID();
     EBox::debug("Changing uidNumber from $uid to $newUidNumber");
     $sambaUser->set('uidNumber', $newUidNumber);
@@ -254,16 +257,17 @@ sub _preAddContact
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
 
-    my $params = {
+    my %args = (
+        name        => $name,
         givenName   => $givenName,
         initials    => $initials,
         sn          => $sn,
         displayName => $displayName,
         description => $description,
-    };
+    );
 
     EBox::info("Creating contact '$name'");
-    my $sambaContact = EBox::Samba::Contact->create($name, $params);
+    my $sambaContact = EBox::Samba::Contact->create(%args);
 }
 
 sub _preAddContactFailed

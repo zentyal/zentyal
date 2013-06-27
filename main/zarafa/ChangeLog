@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted user addon to multi-OU tree view
 	+ Updated zarafa-contact LDAP schema so we don't require uidNumber.
 	+ Use EntryUUID field as unique ID for users, contacts and groups.
 	+ Added incompatiblity with external AD authentication mode

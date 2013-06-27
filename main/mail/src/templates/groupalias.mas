@@ -7,26 +7,26 @@ use EBox::Gettext;
 <h3><% __('Mail alias settings') %></h3>
 
 
-%	if($params->{'nacc'} eq 0) {
-	<div class='warning'>
-		<p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
-	</div>
+%       if($params->{'nacc'} eq 0) {
+        <div class='warning'>
+                <p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
+        </div>
 %      } else {
 %            if (not $params->{service} ) {
                    <& /mail/moduleDisabled.mas &>
 %            }
-	<table cellspacing='0' class='dataTable'>
-		<thead>
-			<tr>
-				<th width='66%' class='tleft'>
-					<% __('Mail alias') %>
-				</th>
-				<th class='thOptions'>
-					<% __('Action') %>
-				</th>
-			</tr>
-		</thead>
-          	<tbody>
+        <table cellspacing='0' class='dataTable' id='aliasTable'>
+                <thead>
+                        <tr>
+                                <th width='66%' class='tleft'>
+                                        <% __('Mail alias') %>
+                                </th>
+                                <th class='thOptions'>
+                                        <% __('Action') %>
+                                </th>
+                        </tr>
+                </thead>
+                <tbody>
        <& .addAlias,
            group => $params->{group},
            vdomains => $params->{vdomains},
@@ -35,10 +35,49 @@ use EBox::Gettext;
              group => $params->{group},
              aliases => $params->{aliases},
         &>
-	    </tbody>
-	</table>
+            </tbody>
+        </table>
 % }
+<script>
+  var refreshDialog = function(response) {
+                var url = '/Users/EditGroup';
+                var data = 'dn=' + response.groupDN;
+                Zentyal.Dialog.showURL(url, { data: data});
+  };
 
+  jQuery('#createAlias').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success : refreshDialog
+      });
+  });
+
+  jQuery('#aliasTable').on('click', 'href', function(event) {
+      event.preventDefault();
+      var url = '/Users/DelGroupAlias';
+      var data = 'user="' + '<% $params->{user}->dn() %>' + '" ';
+      data += '&alias=' + event.target.getAttribute('data-alias');
+      // we reuse div for createAlias form
+      jQuery('#error_createAlias').html('').hide();
+      jQuery.ajax({
+         url: url,
+         data: data,
+         dataType: 'json',
+         error: function(jqXHR) {
+            jQuery('#error_createAlias').html(jqXHR.responseText).show();
+         },
+         success: function(response) {
+            if (response.success) {
+                refreshDialog(response);
+            } else {
+               jQuery('#error_createAlias').html(response.error).show();
+            }
+         }
+      });
+  });
+});
+
+</script>
 
 
 <%def .addAlias>
@@ -46,27 +85,28 @@ use EBox::Gettext;
 $group
 @vdomains
 </%args>
-<form action='/Mail/CreateGroupAlias' method='POST'>
+<div id='error_createAlias' class='error' style='display:none'></div>
+<form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
     <input type="hidden" name="group" value="<% $group->dn() %>">
-			<tr>
-				<td>
-					<input type='text' class='inputText' name='lhs'>
-					<select name="rhs" enabled>
-%					foreach my $vd (@vdomains) {
-						<option value= <% $vd %> > <% __($vd) %> </option>
-%					}
-					</select>
-				</td>
-				<td class='tcenter'>
-					<input class='inputButton'
-							type='image'
-							src='/data/images/add.gif'
-							name='change'
-							value="<% __('Create') %>"
-							title="<% __('Create') %>"
-							alt="<% __('Create') %>">
-				</td>
-			</tr>
+                        <tr>
+                                <td>
+                                        <input type='text' class='inputText' name='lhs'>
+                                        <select name="rhs" enabled>
+%                                       foreach my $vd (@vdomains) {
+                                                <option value= <% $vd %> > <% __($vd) %> </option>
+%                                       }
+                                        </select>
+                                </td>
+                                <td class='tcenter'>
+                                        <input class='inputButton'
+                                                        type='image'
+                                                        src='/data/images/add.gif'
+                                                        name='change'
+                                                        value="<% __('Create') %>"
+                                                        title="<% __('Create') %>"
+                                                        alt="<% __('Create') %>">
+                                </td>
+                        </tr>
 
 </form>
 </%def>
@@ -77,16 +117,16 @@ $group
 $group
 @aliases
 </%args>
-%	foreach my $alias (@aliases) {
-			<tr class='border'>
-				<td><% $alias %></td>
-				<td class='tcenter'>
-					<a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group->dn() %>'>
-					<img src='/data/images/delete.gif'
-						title="<% __('Delete') %>"
-						alt="<% __('Delete') %>"/></a>
-				</td>
-			</tr>
+%       foreach my $alias (@aliases) {
+                        <tr class='border'>
+                                <td><% $alias %></td>
+                                <td class='tcenter'>
+                                        <a href='#' data-alias='<% $alias %>' />
+                                        <img src='/data/images/delete.gif'
+                                                title="<% __('Delete') %>"
+                                                alt="<% __('Delete') %>"/></a>
+                                </td>
+                        </tr>
 
-%	}
+%       }
 </%def>

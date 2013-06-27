@@ -791,16 +791,16 @@ sub _addVMailDomainOU
     my ($self, $vdomain) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $ldap = $users->ldap();
-    my $ldapconf = $ldap->ldapConf;
-    my $dn =  "ou=$vdomain," . $users->usersDn();
+    my $usersDN = $users->usersDn();
 
-    my $group = new EBox::Users::OU(dn => $dn);
-    return if $group->exists();
+    my $dn = "ou=$vdomain," . $usersDN;
+    my $ou = new EBox::Users::OU(dn => $dn);
+    return if $ou->exists();
 
-    $group->create($dn);
-    $group->add('objectClass', [ 'zarafa-company' ], 1);
-    $group->save();
+    my $parent = $users->objectFromDN($usersDN);
+    $ou->create($vdomain, $parent);
+    $ou->add('objectClass', [ 'zarafa-company' ], 1);
+    $ou->save();
 }
 
 # Method: addModuleStatus

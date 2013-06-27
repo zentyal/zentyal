@@ -42,8 +42,21 @@ unless (-f $sambaTimestampFile) {
     write_file($sambaTimestampFile, '0');
 }
 
-my $sambaModule = EBox::Global->modInstance('samba');
-my $usersModule = EBox::Global->modInstance('users');
+my $ro = 1;
+my $global = EBox::Global->getInstance($ro);
+my $sambaModule = $global->modInstance('samba');
+my $usersModule = $global->modInstance('users');
+
+my $usersOU    = $usersModule->userClass()->defaultContainer($ro);
+my $groupsOU   = $usersModule->groupClass()->defaultContainer($ro);
+my $contactsOU = $usersModule->contactClass()->defaultContainer($ro);
+
+my $ldb = $sambaModule->ldb();
+
+my $ldapBaseDN = $usersModule->ldap()->dn();
+my $ldbBaseDN  =  $ldb->dn();
+
+my @ignoreOUs = qw(ou=Users ou=Groups ou=Computers ou=Kerberos ou=postfix ou=mailalias,ou=postfix ou=vdomains,ou=postfix);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -52,21 +65,55 @@ while (1) {
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
-    my $sambaUserList = $sambaModule->ldb->users();
-    my $sambaContactList = $sambaModule->ldb->contacts();
-    my $sambaGroupList = $sambaModule->ldb->groups();
+
+    my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$ldb->users()};
+    my %sambaContacts = map { $_->get('name') => $_ } @{$ldb->contacts()};
+    my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$ldb->groups()};
+    my %sambaOUs    = map { my $ou = $_; ($ou->relativeDn($ldbBaseDN) => $ou) } @{ $ldb->ous() };
+
     write_file($sambaTimestampFile, getTimestamp());
 
-    my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$sambaUserList};
-    my %sambaContacts = map { $_->get('name') => $_ } @{$sambaContactList};
-    my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$sambaGroupList};
+    my %zentyalUsers = map { $_->get('uid') => $_ } @{$usersModule->users()};
+    my %zentyalContacts = map { $_->get('cn') => $_ } @{$usersModule->contacts()};
+    my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
+    my %zentyalOUs    = map { my $ou = $_; ($ou->relativeDn($ldapBaseDN) => $ou) } @{ $usersModule->ous() };
 
-    my $zentyalUserList = $usersModule->users();
-    my $zentyalContactList = $usersModule->contacts();
-    my $zentyalGroupList = $usersModule->groups();
-    my %zentyalUsers = map { $_->get('uid') => $_ } @{$zentyalUserList};
-    my %zentyalContacts = map { $_->get('cn') => $_ } @{$zentyalContactList};
-    my %zentyalGroups = map { $_->get('cn') => $_ } @{$zentyalGroupList};
+    # sync OUd
+    foreach my $ignored (@ignoreOUs) {
+        delete $sambaOUs{$ignored};
+        delete $zentyalOUs{$ignored};
+    }
+    foreach my $rDN (sort keys %sambaOUs) {
+        EBox::debug("sync OU $rDN?");
+        my $ou = $sambaOUs{$rDN};
+        my $inZentyal = delete $zentyalOUs{$rDN};
+        if ($inZentyal) {
+            EBox::debug("already in zentyal $rDN?");
+            my $changed = $ou->get('whenChanged');
+            $changed =~ s/\.\d+Z//;
+            if ($changed > $sambaTimestampFile) {
+                try {
+                    $ou->updateZentyal($rDN);
+                } otherwise {
+                    my ($error) = @_;
+                    EBox::error("Error updating OU $rDN: $error. s4sync will try again in next synchronization");
+                };
+            }
+        } else {
+            EBox::debug("addToZentyal $rDN?");
+            try {
+                $ou->addToZentyal($rDN);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding OU $rDN: $error. s4sync will try again in next synchronization");
+            };
+        }
+    }
+
+    foreach my $rDn (sort keys %zentyalOUs) {
+        EBox::debug("Deleting Zentyal OU '$rDn'");
+        $zentyalUsers{$rDn}->deleteObject();
+    }
 
     #################################################
     #### Sync users
@@ -88,7 +135,7 @@ while (1) {
         } else {
             if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
                 try {
-                    $sambaUsers{$sambaUserName}->addToZentyal();
+                    $sambaUsers{$sambaUserName}->addToZentyal($usersOU);
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
@@ -122,7 +169,7 @@ while (1) {
             delete $zentyalContacts{$sambaContactName};
         } else {
             try {
-                $sambaContacts{$sambaContactName}->addToZentyal();
+                $sambaContacts{$sambaContactName}->addToZentyal($contactsOU);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding contact $sambaContactName: $error. s4sync will try again in next synchronization");
@@ -154,7 +201,7 @@ while (1) {
             delete $zentyalGroups{$sambaGroupName};
         } else {
             try {
-                $sambaGroups{$sambaGroupName}->addToZentyal();
+                $sambaGroups{$sambaGroupName}->addToZentyal($groupsOU);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");

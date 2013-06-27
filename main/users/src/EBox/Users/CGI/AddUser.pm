@@ -17,7 +17,6 @@ use strict;
 use warnings;
 
 package EBox::Users::CGI::AddUser;
-
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
@@ -35,22 +34,13 @@ sub new
 sub _process
 {
     my ($self) = @_;
-
     my $users = EBox::Global->modInstance('users');
 
     $self->_requireParam('dn', 'ou dn');
     my $dn = $self->unsafeParam('dn');
 
-    my @params;
-
-    push (@params, dn => $dn);
-
-    $self->{params} = \@params;
-
     if ($self->param('add')) {
         $self->{json} = { success => 0 };
-
-        my $ou = $users->objectFromDN($dn);
 
         $self->_requireParam('username', __('user name'));
         $self->_requireParam('name', __('first name'));
@@ -90,6 +80,12 @@ sub _process
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
+    } else {
+        my @params = (
+                dn => $dn,
+                groups => $users->groups()
+        );
+        $self->{params} = \@params;
     }
 }
 

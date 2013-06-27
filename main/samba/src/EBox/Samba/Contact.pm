@@ -24,77 +24,128 @@ package EBox::Samba::Contact;
 
 use base 'EBox::Samba::OrganizationalPerson';
 
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
+
+use EBox::Users::Contact;
+
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Error qw(:try);
 
 # Method: create
 #
-#   Adds a new contact
+# FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
+# because an OrganizationalPerson reconversion to a Contact failed.
+#
+#   Adds a new user
 #
 # Parameters:
 #
-#   name - string with the contact full name
-#   params hash ref (all optional):
+#   args - Named parameters:
+#       name
 #       givenName
 #       initials
 #       sn
 #       displayName
 #       description
+#       mail
+#       samAccountName - string with the user name
+#       clearPassword - Clear text password
+#       kerberosKeys - Set of kerberos keys
+#       uidNumber - user UID numberer
 #
 # Returns:
 #
-#   Returns the new create contact object
+#   Returns the new create user object
 #
 sub create
 {
-    my ($self, $name, $params) = @_;
+    my ($class, %args) = @_;
 
-    my $organizationalPerson = $self->SUPER::create($name, $params);
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
 
-    my $anyObjectClass = any($organizationalPerson->get('objectClass'));
-    my @contactExtraObjectClasses = ('contact');
+    my $name = $args{name};
+    # TODO Is the user added to the default OU?
+    my $baseDn = $class->_ldap->dn();
+    my $dn = "CN=$name,CN=Users,$baseDn";
 
-    foreach my $extraObjectClass (@contactExtraObjectClasses) {
-        if ($extraObjectClass ne $anyObjectClass) {
-            $organizationalPerson->add('objectClass', $extraObjectClass, 1);
+    $class->_checkAccountNotExists($name);
+
+    my @attr = ();
+    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'contact']);
+    push (@attr, cn          => $name);
+    push (@attr, name        => $name);
+    push (@attr, givenName   => $args{givenName}) if ($args{givenName});
+    push (@attr, initials    => $args{initials}) if ($args{initials});
+    push (@attr, sn          => $args{sn}) if ($args{sn});
+    push (@attr, displayName => $args{displayName}) if ($args{displayName});
+    push (@attr, description => $args{description}) if ($args{description});
+
+    my $res = undef;
+    my $entry = undef;
+    try {
+        $entry = new Net::LDAP::Entry($dn, @attr);
+
+        my $result = $entry->update($class->_ldap->ldbCon());
+        if ($result->is_error()) {
+            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+                throw EBox::Exceptions::LDAP(
+                    message => __('Error on person LDAP entry creation:'),
+                    result => $result,
+                    opArgs => $class->entryOpChangesInUpdate($entry),
+                );
+            };
         }
-    }
 
-    my $createdContact = new EBox::Samba::Contact(dn => $organizationalPerson->dn());
+        $res = new EBox::Samba::Contact(dn => $dn);
 
-    # Contact specific attributes.
-    # TODO
+    } otherwise {
+        my ($error) = @_;
 
-    # Return the new created contact
-    return $createdContact;
+        EBox::error($error);
+
+        if (defined $res and $res->exists()) {
+            $res->SUPER::deleteObject(@_);
+        }
+        $res = undef;
+        $entry = undef;
+        throw $error;
+    };
+
+    return $res;
 }
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $fullName = $self->get('name');
     my $givenName = $self->get('givenName');
     my $initials = $self->get('initials');
     my $surName = $self->get('sn');
     my $displayName = $self->get('displayName');
-    my $comment = $self->get('description');
+    my $description = $self->get('description');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $params = {
+    my $parent = EBox::Users::Contact->defaultContainer();
+
+    my %args = (
         fullname => $fullName,
         givenname => $givenName,
         initials => $initials,
         surname => $surName,
         displayname => $displayName,
-        comment => $comment,
-    };
+        description => $description,
+        parent => $parent,
+        ignoreMods => ['samba'],
+    );
 
-    my $zentyalContact = undef;
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba contact '$fullName' to Zentyal");
-
-    $zentyalContact = EBox::Users::Contact->create($params, 0, %optParams);
+    my $zentyalContact = EBox::Users::Contact->create(%args);
     $zentyalContact->exists() or
         throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
 

@@ -175,11 +175,7 @@ sub create
 {
     my ($self, $name, $params) = @_;
 
-    my $isSecurityGroup = 1;
-    if (defined $params->{isSecurityGroup}) {
-        $isSecurityGroup = $params->{isSecurityGroup};
-    }
-
+    my $isSecurityGroup = $params->{isSecurityGroup};
     # TODO Is the group added to the default OU?
     my $baseDn = $self->_ldap->dn();
     my $dn = "CN=$name,CN=Users,$baseDn";
@@ -190,17 +186,20 @@ sub create
     # TODO: We may want to support more than global groups!
     my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
-    push ($attr, objectClass    => ['top', 'group', 'posixGroup']);
+    push ($attr, cn => $name);
+    push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
     push ($attr, sAMAccountName    => "$name");
     push ($attr, description       => $params->{description}) if defined $params->{description};
     if ($isSecurityGroup) {
         push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
         $groupType |= GROUPTYPESECURITY;
     }
+
     push ($attr, groupType         => $groupType);
 
     # Add the entry
-    my $result = $self->_ldap->add($dn, { attr => $attr });
+    my $result = $self->_ldap->add($dn, { attrs => $attr });
+EBox::info("added");
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping
@@ -211,30 +210,34 @@ sub create
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
     my $name      = $self->get('samAccountName');
     my $gidNumber = $self->get('gidNumber');
 
-    my %params;
-    $params{description} = $self->get('description');
-    $params{ignoreMods} = ['samba'];
+    my @params = (
+        name => $name,
+        description =>  $self->get('description'),
+        parent => $ou,
+        ignoreMods  => ['samba'],
+    );
     EBox::info("Adding samba group '$name' to Zentyal");
     my $zentyalGroup = undef;
 
-    if ($gidNumber) {
-        $params{gidNumber} = $gidNumber;
-    } else {
+    if (not $gidNumber) {
         $gidNumber = $self->getXidNumberFromRID();
-        $params{gidNumber} = $gidNumber;
+        $gidNumber or
+            throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
         $self->set('gidNumber', $gidNumber);
     }
-    $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
+
+    push @params, gidNumber => $gidNumber;
     $self->setupGidMapping($gidNumber);
 
-    $params{isSecurityGroup} = $self->isSecurityGroup();
-    $params{isSystemGroup} = 0;
-    $zentyalGroup = EBox::Users::Group->create($name, \%params);
+    push @params, isSecurityGroup => $self->isSecurityGroup();
+    push @params, isSystemGroup   => 0;
+    $zentyalGroup = EBox::Users::Group->create(@params);
     $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$name' to Zentyal");
 
     $self->_membersToZentyal($zentyalGroup);

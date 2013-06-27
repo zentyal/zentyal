@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -76,13 +77,17 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
-# Method: defaultContainer
+# Clss method: defaultContainer
+#
+#   Parameters:
+#     ro - wether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
 sub defaultContainer
 {
-    my $usersMod = EBox::Global->modInstance('users');
+    my ($package, $ro) = @_;
+    my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
     return $usersMod->objectFromDN('ou=Users,'.$usersMod->ldap->dn());
 }
 
@@ -399,6 +404,7 @@ sub passwordHashes
 #       surname
 #       displayname
 #       description
+#       mail
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber    - user UID number
 #       isInternal     - Whether this use is internal or not.
@@ -515,10 +521,9 @@ sub create
     my $res = undef;
     my $parentRes = undef;
     my $entry = undef;
-    my $fullName = $args{fullname};
     try {
         $args{dn} = $dn;
-        $parentRes = $class->SUPER::create($fullName, $args{parent}, \%args);
+        $parentRes = $class->SUPER::create(%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
         my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');

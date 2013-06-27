@@ -1,4 +1,5 @@
 HEAD
+	+ Added combobox.js
 	+ Added EBox::Model::Base as base for DataTable and the new TreeView
 	+ Adapted EBox::CGI::Run for the new TreeView models
 	+ Fixed DataTable row removal from the UI with 100% volatile models with

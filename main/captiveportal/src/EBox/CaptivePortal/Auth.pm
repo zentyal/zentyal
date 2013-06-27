@@ -181,9 +181,8 @@ sub checkPassword # (user, password)
     my $url = EBox::Config::configkeyFromFile('ldap_url', $CONF_FILE);
     my $bind = EBox::Config::configkeyFromFile('ldap_bindstring', $CONF_FILE);
     my $groupDN = EBox::Config::configkeyFromFile('ldap_group', $CONF_FILE);
-    my $member = EBox::Config::configkeyFromFile('ldap_group_member', $CONF_FILE);
 
-    return 1 if ($self->_checkLdapPassword($user, $password, $url, $bind, $groupDN, $member));
+    return 1 if ($self->_checkLdapPassword($user, $password, $url, $bind, $groupDN));
 
     # Test secondary ldap if it exists in configuration file
     my $url2 = EBox::Config::configkeyFromFile('ldap2_url', $CONF_FILE);
@@ -199,7 +198,9 @@ sub checkPassword # (user, password)
 
 sub _checkLdapPassword
 {
-    my ($self, $user, $password, $url, $bind, $groupDN, $member) = @_;
+    my ($self, $user, $password, $url, $bind, $groupDN) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
 
     # replace usrename in bind string
     $bind =~ s/{USERNAME}/$user/g;
@@ -212,16 +213,21 @@ sub _checkLdapPassword
             # we have not finished
             $authorized = 0;
 
-            $member =~ s/{USERNAME}/$user/g;
-            # check also the group for the user
-            my %attrs = (
-                base => $groupDN,
-                filter => "(member=$member)",
-                scope => 'base'
-            );
+            my $member = $usersMod->userByUID($user);
+            if ($member) {
+                my $memberDN = $member->dn();
+                # check also the group for the user
+                my %attrs = (
+                    base => $groupDN,
+                    filter => "(member=$memberDN)",
+                    scope => 'base'
+                );
 
-            my $result = $ldap->search(%attrs);
-            $authorized = ($result->count > 0);
+                my $result = $ldap->search(%attrs);
+                $authorized = ($result->count > 0);
+            } else {
+                $authorized = 0;
+            }
         }
     } otherwise {
         $authorized = 0; # auth failed

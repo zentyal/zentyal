@@ -476,7 +476,7 @@ sub children
     foreach my $entry ($result->entries) {
         my $object = $usersMod->entryModeledObject($entry);
 
-        push (@objects, $object);
+        push (@objects, $object) if ($object);
     }
 
     # sort by dn (as it is currently the only common attribute, but maybe we can change this)

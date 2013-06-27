@@ -68,13 +68,17 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
-# Method: defaultContainer
+# Class method: defaultContainer
+#
+#   Parameters:
+#     ro - wether to use the read-only version of the users module
 #
 #   Return the default container that will hold Group objects.
 #
 sub defaultContainer
 {
-    my $usersMod = EBox::Global->modInstance('users');
+    my ($class, $ro) = @_;
+    my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
     return $usersMod->objectFromDN('ou=Groups,'.$usersMod->ldap->dn());
 }
 
@@ -503,12 +507,7 @@ sub create
     if (defined $args{isSecurityGroup}) {
         $isSecurityGroup = $args{isSecurityGroup};
     }
-
-    my $isSystemGroup = undef;
-    if (defined $args{isSystemGroup}) {
-        $isSystemGroup = $args{isSystemGroup};
-    }
-
+    my $isSystemGroup = $args{isSystemGroup};
     if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
             __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
