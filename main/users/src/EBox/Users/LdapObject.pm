@@ -521,4 +521,15 @@ sub parent
     return $usersMod->entryModeledObject($result->entry(0));
 }
 
+sub relativeDn
+{
+    my ($self, $dnBase) = @_;
+    my $dn = $self->dn();
+    if (not $dn =~ s/,$dnBase$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
+    }
+
+    return $dn;
+}
+
 1;

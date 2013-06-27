@@ -168,6 +168,7 @@ sub setupGidMapping
 #   name   - Group name.
 #   params - Hash reference with the following fields:
 #       description     - Group's description.
+#       parent          - Parent container that will hold this new Group.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 # TODO: Add OU.
@@ -176,10 +177,17 @@ sub create
 {
     my ($self, $name, $params) = @_;
 
+    $params->{parent} or
+        throw EBox::Exceptions::MissingArgument('parent');
+    $params->{parent}->isContainer() or
+        throw EBox::Exceptions::InvalidData(
+            data => 'parent', value => $params->{parent}->dn());
+
+
     my $isSecurityGroup = $params->{isSecurityGroup};
     # TODO Is the group added to the default OU?
     my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$name,CN=Users,$baseDn";
+    my $dn = "CN=$name," . $params->{parent}->dn();
 
     $self->_checkAccountName($name, MAXGROUPLENGTH);
     $self->_checkAccountNotExists($name);

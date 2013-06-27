@@ -61,17 +61,6 @@ sub name
     return $self->get('ou');
 }
 
-sub relativeDn
-{
-    my ($self, $dnBase) = @_;
-    my $dn = $self->dn();
-    if (not $dn =~ s/,$dnBase$//) {
-        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
-    }
-
-    return $dn;
-}
-
 # Method: create
 #
 #   Add and return a new Organizational Unit.
