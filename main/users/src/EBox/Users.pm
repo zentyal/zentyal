@@ -2076,10 +2076,12 @@ sub _removePasswds
 #
 sub authUser
 {
-    my ($self, $user, $password) = @_;
+    my ($self, $username, $password) = @_;
 
     my $authorized = 0;
-    my $userDn = $self->ldap()->userBindDN($user);
+
+    my $user = $self->userByUID($username);
+    my $userDn = $user->dn();
     my $ldapURL = $self->ldap()->url();
     my $ldap = EBox::Ldap::safeConnect($ldapURL);
 

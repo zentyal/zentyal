@@ -836,17 +836,7 @@ sub userBindDN
 {
     my ($self, $user) = @_;
 
-    my $args = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => "(uid=$user)"
-    };
-
-    my $msg = $self->search($args);
-    _errorOnLdap($msg, $args);
-
-    # FIXME: Improve error checking.
-    return $msg->entry(0)->dn();
+    return "uid=$user," . EBox::Users::User::defaultContainer();
 }
 
 sub safeConnect

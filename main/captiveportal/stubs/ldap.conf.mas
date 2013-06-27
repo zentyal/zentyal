@@ -2,7 +2,6 @@
     $ldap_url
     $ldap_bindstring
     $ldap_group => ''
-    $ldap_groupmember => ''
     $ldap2_url => undef
     $ldap2_bindstring => undef
 </%args>
@@ -15,9 +14,6 @@ ldap_bindstring = <% $ldap_bindstring %>
 
 # LDAP group DN, user must be inside this group to login
 ldap_group = <% $ldap_group->dn() %>
-
-# LDAP groups dn template
-ldap_group_member = <% $ldap_groupmember->dn() %>
 
 
 % if (defined($ldap2_url)) {
