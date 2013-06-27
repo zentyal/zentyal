@@ -325,9 +325,9 @@ sub _entry
         if (defined $self->{dn}) {
             my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
             my $attrs = {
-                base => $basedn,
-                filter => $filter,
-                scope => 'one',
+                base => $self->{dn},
+                filter => 'dn=' .$self->{dn},
+                scope => 'base',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
