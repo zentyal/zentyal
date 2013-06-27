@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::UserOptions;
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -37,15 +37,14 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
     my $cpldap = new EBox::CaptivePortal::LdapUser;
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "Users/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-    $self->keepParam('user');
-
-    my $user = new EBox::Users::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
 
     my $overridden = not ($self->param('CaptiveUser_defaultQuota_selected') eq
                      'defaultQuota_default');
@@ -56,6 +55,8 @@ sub _process
         $quota = $self->param('CaptiveUser_defaultQuota_size');
     }
     $cpldap->setQuota($user, $overridden, $quota);
+
+    $self->{json}->{success} = 1;
 }
 
 1;
