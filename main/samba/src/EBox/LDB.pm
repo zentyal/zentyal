@@ -560,21 +560,37 @@ sub ldapOUsToLDB
     my ($self) = @_;
 
     EBox::info('Loading Zentyal OUS into samba database');
-    my $global = $self->getInstance();
+    my $global = EBox::Global->getInstance();
     my $usersModule = $global->modInstance('users');
     my $sambaModule = $global->modInstance('samba');
-    my $ldapBaseDN = $usersModule->ldap()->dn();
-    my $baseDN  =  $self->dn();
+    my $ldapBaseDn = $usersModule->ldap()->dn();
+    my $baseDn  =  $self->dn();
 
     my @ous = sort {
-        $a->dn() <=> $b->dn()
+        my @aDn = split ',', $a->dn();
+        my @bDn = split ',', $b->dn();
+        if (@aDn != @bDn) {
+            @aDn <=> @bDn;
+        } else {
+            my $res;
+            my $i = @aDn - 1;
+            while ($i > 0) {
+                $res = $aDn[$i] cmp $bDn[$i];
+                if ($res != 0) {
+                    last;
+                }
+                $i -= 1;
+            }
+            $res;
+        }
     } @{ $usersModule->ous()   };
 
     foreach my $ou (@ous) {
-        my $rDN = $ou->relativeDN($ldapBaseDN);
-        my ($name, $parentDn) = split ',', $rDN, 2;
-        my $parent;
+        my $rDn = $ou->relativeDn($ldapBaseDn);
+        my ($leftmostAtr, $parentDn) = split ',', $rDn, 2;
+        my ($thrash, $name) = split '=', $leftmostAtr, 2;
 
+        my $parent;
         if ($parentDn) {
             $parentDn .= ',' . $self->dn();
             $parent = $sambaModule->objectFromDN($parentDn);
@@ -582,14 +598,14 @@ sub ldapOUsToLDB
             $parent = $sambaModule->defaultNamingContext();
         }
 
-        EBox::debug("Loading OU $rDN");
+        EBox::debug("Loading OU $rDn");
         try {
             EBox::Samba::OU->create($name, $parent);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("OU $name already in Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading OU '$rDN': $error");
+            EBox::error("Error loading OU '$rDn': $error");
         };
     }
 }
