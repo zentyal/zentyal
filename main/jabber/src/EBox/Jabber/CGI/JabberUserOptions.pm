@@ -17,8 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Jabber::CGI::JabberUserOptions;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -38,15 +37,14 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
     my $jabberldap = new EBox::JabberLdapUser;
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "Users/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-    $self->keepParam('user');
-
-    $user = new EBox::Users::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
 
     if ($self->param('active') eq 'yes'){
         $jabberldap->setHasAccount($user, 1);
@@ -61,6 +59,8 @@ sub _process
             $jabberldap->setHasAccount($user, 0);
         }
     }
+
+    $self->{json}->{success} = 1;
 }
 
 1;
