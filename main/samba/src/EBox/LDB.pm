@@ -477,6 +477,8 @@ sub ldapUsersToLdb
     }
 }
 
+
+
 sub ldapContactsToLdb
 {
     my ($self) = @_;
@@ -548,6 +550,45 @@ sub ldapGroupsToLdb
             };
         }
         $sambaGroup->save();
+    }
+}
+
+sub ldapOUsToLDB
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal OUS into samba database');
+    my $global = $self->getInstance();
+    my $usersModule = $global->modInstance('users');
+    my $sambaModule = $global->modInstance('samba');
+    my $ldapBaseDN = $usersModule->ldap()->dn();
+    my $baseDN  =  $self->dn();
+
+    my @ous = sort {
+        $a->dn() <=> $b->dn()
+    } @{ $usersModule->ous()   };
+
+    foreach my $ou (@ous) {
+        my $rDN = $ou->relativeDN($ldapBaseDN);
+        my ($name, $parentDn) = split ',', $rDN, 2;
+        my $parent;
+
+        if ($parentDn) {
+            $parentDn .= ',' . $self->dn();
+            $parent = $sambaModule->objectFromDN($parentDn);
+        } else {
+            $parent = $sambaModule->defaultNamingContext();
+        }
+
+        EBox::debug("Loading OU $rDN");
+        try {
+            EBox::Samba::OU->create($name, $parent);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("OU $name already in Samba database");
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading OU '$rDN': $error");
+        };
     }
 }
 
@@ -692,7 +733,7 @@ sub ous
     my ($self) = @_;
     my $objectClass = EBox::Samba::OU->mainObjectClass();
     my %args = (
-        base => $self->ldap->dn(),
+        base => $self->dn(),
         filter => "objectclass=$objectClass",
         scope => 'sub',
     );

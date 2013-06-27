@@ -72,15 +72,15 @@ sub relativeDn
 }
 
 
+
 sub addToZentyal
 {
     my ($self, $rDn) = @_;
     my $users = EBox::Global->getInstance(1)->modInstance('users');
 
-    my ($name, @parentDnComponents) = split ',', $rDn;
+    my ($name, $parentDn) = split ',', $rDn, 2;
     my $parent;
-    if (@parentDnComponents) {
-        my $parentDn = join ',', @parentDnComponents;
+    if ($parentDn) {
         $parentDn .= ',' . $users->ldap()->dn();
         $parent = $users->objectFromDN($parentDn);
     } else {
