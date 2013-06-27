@@ -257,16 +257,17 @@ sub _preAddContact
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
 
-    my $params = {
+    my %args = (
+        name        => $name,
         givenName   => $givenName,
         initials    => $initials,
         sn          => $sn,
         displayName => $displayName,
         description => $description,
-    };
+    );
 
     EBox::info("Creating contact '$name'");
-    my $sambaContact = EBox::Samba::Contact->create($name, $params);
+    my $sambaContact = EBox::Samba::Contact->create(%args);
 }
 
 sub _preAddContactFailed

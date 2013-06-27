@@ -28,6 +28,10 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::MissingArgument;
 
+use EBox::Users::Contact;
+
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+
 # Method: create
 #
 # FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
@@ -126,22 +130,21 @@ sub addToZentyal
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $params = {
+    my $parent = EBox::Users::Contact->defaultContainer();
+
+    my %args = (
         fullname => $fullName,
         givenname => $givenName,
         initials => $initials,
         surname => $surName,
         displayname => $displayName,
         description => $description,
-        parent => $ou,
-    };
+        parent => $parent,
+        ignoreMods => ['samba'],
+    );
 
-    my $zentyalContact = undef;
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
     EBox::info("Adding samba contact '$fullName' to Zentyal");
-
-    $zentyalContact = EBox::Users::Contact->create($params, 0, %optParams);
+    my $zentyalContact = EBox::Users::Contact->create(%args);
     $zentyalContact->exists() or
         throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
 
