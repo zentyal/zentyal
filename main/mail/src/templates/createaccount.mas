@@ -7,10 +7,10 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
+<div id='error_createaccount' class='error' style='display:none'></div>
 <form id='createaccount' name='createaccount' action='/Mail/CreateAccount' method='POST'>
 
-    <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
+    <input type="hidden" name="user" id="user" value="<% $params->{'user'}->dn() %>">
         <h3><% __('Create mail account') %></h3>
 
 %     if (not $params->{service} )  {
@@ -25,7 +25,7 @@ use EBox::Gettext;
         <tr>
                 <td class="tright"><% __('Domain name') %>:</td>
                 <td>
-                        <select name="vdomain" enabled onChange='vdomainChanged(this)'>
+                        <select name="vdomain">
 %                       my @kvd = @{ $params->{'vdomains'} };
 %                       foreach my $vd (@kvd) {
 %                               my $printableValue = '@' . $vd;
@@ -45,7 +45,22 @@ use EBox::Gettext;
         </tr>
         </table>
 </form>
+<script>
+jQuery(function() {
+   jQuery('#createaccount').on('submit', function(event) {
+      event.preventDefault();
+      console.log('createaccount sumbit');
+      Zentyal.Dialog.submitForm('#createaccount', {
+            success : function(data) {
+                var url = '/Users/EditUser';
+                var data = 'dn=' + data.userDN;
+                Zentyal.Dialog.showURL(url, { data: data});
+            }
+      });
+   });
+});
 
+</script>
 
 <%def .maildirSize>
 <%args>

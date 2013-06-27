@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelAlias;
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -36,18 +36,19 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
+
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "Users/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
     $self->_requireParam('alias', __('mail alias'));
     my $alias = $self->param('alias');
-
-    $self->keepParam('user');
-
     $mail->{malias}->delAlias($alias);
+
+    $self->{json}->{success} = 1;
 }
 
 1;
