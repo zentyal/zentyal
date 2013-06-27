@@ -168,7 +168,7 @@ sub deleteValues
 {
     my ($self, $attr, $values, $lazy) = @_;
 
-    if ($attr eq any $self->_entry->attributes) {
+    if (grep (/$attr/i, $self->_entry->attributes())) {
         $self->_entry->delete($attr, $values);
         $self->save() unless $lazy;
     }
@@ -288,11 +288,10 @@ sub _entry
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
-            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
             my $attrs = {
-                base => $basedn,
-                filter => $filter,
-                scope => 'one',
+                base => $self->{dn},
+                filter => '(objectClass=*)',
+                scope => 'base',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
