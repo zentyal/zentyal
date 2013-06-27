@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed recursive bug that tried to add two times the same
+	  interface to InterfaceRates model
 3.1.1
 	+ Added support to priorize ACK, SYN, FIN and RST small packages.
 3.1
