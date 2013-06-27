@@ -17,7 +17,6 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::UserOptions;
-
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -25,26 +24,26 @@ use EBox::Gettext;
 use EBox::CaptivePortal::LdapUser;
 use EBox::Users::User;
 
-## arguments:
-##	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Captive Portal',
-				      @_);
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Captive Portal',
+                                      @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $cpldap = new EBox::CaptivePortal::LdapUser;
+sub _process
+{
+    my ($self) = @_;
+    my $cpldap = new EBox::CaptivePortal::LdapUser;
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "Users/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $user = $self->unsafeParam('user');
+    $self->{redirect} = "Users/User?user=$user";
 
-	$self->keepParam('user');
+    $self->keepParam('user');
 
     my $user = new EBox::Users::User(dn => $user);
 
