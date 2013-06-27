@@ -48,14 +48,31 @@ sub new
     $self->{tableName} = 'ExternalRules';
     $self->{printableTableName} = __('Rules for external interfaces (upload)');
 
-    my $network = $self->global()->modInstance('network');
-    foreach my $iface (@{ $network->ExternalIfaces }) {
-        $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
-    }
-
     return $self;
 }
 
+# Method: ids
+#
+#   This method is overriden to set up some module internal data structure which depends on the
+#     external interface
+#
+# Overrides :
+#
+#      EBox::Model::DataTable::ids
+#
+sub ids
+{
+    my ($self) = @_;
+    if (not $self->{stateRateSet}) {
+        my $network = $self->global()->modInstance('network');
+        foreach my $iface (@{ $network->ExternalIfaces }) {
+            $self->_setStateRate($iface, $self->{ts}->uploadRate($iface));
+        }
+        $self->{stateRateSet} = 1;
+    }
+
+    return $self->SUPER::ids();
+}
 
 sub allIfacesForRuleTable
 {

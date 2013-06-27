@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed recursive bug that tried to add two times the same
+	  interface to InterfaceRates model
 3.0.1
 	+ Fixed row synchronization with interface changes in Interfaces rates model
 	+ Do not create builder or reset chains for non set or trunk interfaces
