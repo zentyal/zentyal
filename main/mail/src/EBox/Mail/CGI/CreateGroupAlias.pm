@@ -17,8 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::CreateGroupAlias;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -38,13 +37,13 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
+
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('group', __('group'));
-    my $group= $self->unsafeParam('group');
-    $self->{redirect} = "Users/Group?group=$group";
-
-    $self->keepParam('group');
+    my $groupDN = $self->unsafeParam('group');
+    $self->{json}->{groupDN} = $groupDN;
 
     $self->_requireParam('lhs', __('account name'));
     $self->_requireParam('rhs', __('domain name'));
@@ -52,8 +51,10 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
-    $group = new EBox::Users::Group(dn => $group);
+    my $group = new EBox::Users::Group(dn => $groupDN);
     $mail->{malias}->addGroupAlias($lhs."@".$rhs, $group);
+
+    $self->{json}->{success} = 1;
 }
 
 1;

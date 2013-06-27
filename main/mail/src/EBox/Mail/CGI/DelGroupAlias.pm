@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelGroupAlias;
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -37,18 +37,21 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
+
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('group', __('group'));
     my $groupDN = $self->unsafeParam('group');
-    $self->{redirect} = "Users/Group?group=".$groupDN;
-    $self->keepParam('group');
+    $self->{json}->{groupDN} = $groupDN;
 
     $self->_requireParam('alias', __('group alias mail'));
     my $alias = $self->param('alias');
 
     my $group = new EBox::Users::Group(dn => $groupDN);
     $mail->{malias}->delGroupAlias($alias, $group);
+
+    $self->{json}->{success} = 1;
 }
 
 1;

@@ -15,7 +15,7 @@ use EBox::Gettext;
 %            if (not $params->{service} ) {
                    <& /mail/moduleDisabled.mas &>
 %            }
-        <table cellspacing='0' class='dataTable'>
+        <table cellspacing='0' class='dataTable' id='aliasTable'>
                 <thead>
                         <tr>
                                 <th width='66%' class='tleft'>
@@ -38,7 +38,46 @@ use EBox::Gettext;
             </tbody>
         </table>
 % }
+<script>
+  var refreshDialog = function(response) {
+                var url = '/Users/EditGroup';
+                var data = 'dn=' + response.groupDN;
+                Zentyal.Dialog.showURL(url, { data: data});
+  };
 
+  jQuery('#createAlias').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success : refreshDialog
+      });
+  });
+
+  jQuery('#aliasTable').on('click', 'href', function(event) {
+      event.preventDefault();
+      var url = '/Users/DelGroupAlias';
+      var data = 'user="' + '<% $params->{user}->dn() %>' + '" ';
+      data += '&alias=' + event.target.getAttribute('data-alias');
+      // we reuse div for createAlias form
+      jQuery('#error_createAlias').html('').hide();
+      jQuery.ajax({
+         url: url,
+         data: data,
+         dataType: 'json',
+         error: function(jqXHR) {
+            jQuery('#error_createAlias').html(jqXHR.responseText).show();
+         },
+         success: function(response) {
+            if (response.success) {
+                refreshDialog(response);
+            } else {
+               jQuery('#error_createAlias').html(response.error).show();
+            }
+         }
+      });
+  });
+});
+
+</script>
 
 
 <%def .addAlias>
@@ -46,7 +85,8 @@ use EBox::Gettext;
 $group
 @vdomains
 </%args>
-<form action='/Mail/CreateGroupAlias' method='POST'>
+<div id='error_createAlias' class='error' style='display:none'></div>
+<form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
@@ -81,7 +121,7 @@ $group
                         <tr class='border'>
                                 <td><% $alias %></td>
                                 <td class='tcenter'>
-                                        <a href='../Mail/DelGroupAlias?alias=<% $alias %>&group=<% $group->dn() %>'>
+                                        <a href='#' data-alias='<% $alias %>' />
                                         <img src='/data/images/delete.gif'
                                                 title="<% __('Delete') %>"
                                                 alt="<% __('Delete') %>"/></a>
