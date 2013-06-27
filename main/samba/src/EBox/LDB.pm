@@ -491,7 +491,7 @@ sub ldapContactsToLdb
         EBox::debug("Loading contact $dn");
         try {
             my %args = (
-                name        => scalar ($name);
+                name        => scalar ($name),
                 givenName   => scalar ($contact->get('givenName')),
                 initials    => scalar ($contact->get('initials')),
                 sn          => scalar ($contact->get('sn')),
