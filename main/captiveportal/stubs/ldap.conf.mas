@@ -13,7 +13,7 @@ ldap_url = <% $ldap_url %>
 ldap_bindstring = <% $ldap_bindstring %>
 
 # LDAP group DN, user must be inside this group to login
-ldap_group = <% $ldap_group->dn() %>
+ldap_group = <% $ldap_group %>
 
 
 % if (defined($ldap2_url)) {

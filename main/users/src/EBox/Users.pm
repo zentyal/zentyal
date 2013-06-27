@@ -945,6 +945,26 @@ sub _enforceServiceState
     $self->ldap->clearConn();
 }
 
+# Method: groupDn
+#
+#    Returns the dn for a given group. The group doesn't have to exist
+#
+#   Parameters:
+#       group
+#
+#  Returns:
+#     dn for the group
+#
+# FIXME: This should not be used anymore...
+sub groupDn
+{
+    my ($self, $group) = @_;
+    $group or throw EBox::Exceptions::MissingArgument('group');
+
+    my $dn = "cn=$group," . EBox::Users::Group::defaultContainer()->dn();
+    return $dn;
+}
+
 # Method: usersDn
 #
 #       Returns the dn where the users are stored in the ldap directory.

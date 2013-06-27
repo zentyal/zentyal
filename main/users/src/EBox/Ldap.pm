@@ -836,7 +836,7 @@ sub userBindDN
 {
     my ($self, $user) = @_;
 
-    return "uid=$user," . EBox::Users::User::defaultContainer();
+    return "uid=$user," . EBox::Users::User::defaultContainer()->dn();
 }
 
 sub safeConnect
