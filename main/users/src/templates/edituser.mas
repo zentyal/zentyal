@@ -123,12 +123,10 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % }
 </div>
 
-<div id="user_addons"  style="float: right;">
-<center>
+<div id="user_addons"  style="float: left;">
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
-</center>
 </div>
 
 <%def masterSlaveUserAttr>
