@@ -425,9 +425,9 @@ sub allAccountsFromVDomain
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $users->ldap()->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
     my $result = $self->{'ldap'}->search(\%attrs);
