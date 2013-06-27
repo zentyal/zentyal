@@ -56,6 +56,7 @@ use File::Slurp;
 use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
+use Net::LDAP::Control::Sort;
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -1996,10 +1997,12 @@ sub computers
 
     return [] unless $self->isProvisioned();
 
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
     my %args = (
         base => $self->ldap->dn(),
         filter => 'objectClass=computer',
         scope => 'sub',
+        control => [$sort],
     );
 
     my $result = $self->ldb->search(\%args);
@@ -2007,16 +2010,9 @@ sub computers
     my @computers;
     foreach my $entry ($result->entries()) {
         my $computer = new EBox::Samba::Computer(entry => $entry);
-
+        next unless $computer->exists();
         push (@computers, $computer);
     }
-
-    @computers = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @computers;
 
     return \@computers;
 }
