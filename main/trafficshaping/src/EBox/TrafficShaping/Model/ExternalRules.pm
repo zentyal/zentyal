@@ -51,6 +51,15 @@ sub new
     return $self;
 }
 
+# Method: ids
+#
+#   This method is overriden to set up some module internal data structure which depends on the
+#     external interface
+#
+# Overrides :
+#
+#      EBox::Model::DataTable::ids
+#
 sub ids
 {
     my ($self) = @_;
