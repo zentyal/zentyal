@@ -86,15 +86,15 @@ use EBox::Gettext;
 <script>
 jQuery(function() {
   var refreshDialog = function(response) {
-                var url = '/Users/EditUser';
-                var data = 'dn=' + response.userDN;
-                Zentyal.Dialog.showURL(url, { data: data});
+       var url = '/Users/EditUser';
+       var data = 'dn=' + response.userDN;
+       Zentyal.Dialog.showURL(url, { data: data});
   };
 
   jQuery('#createAlias, #delAccount, #setMaildirQuota').on('submit', function(event) {
-        event.preventDefault();
-        Zentyal.Dialog.submitForm(event.target, {
-            success : refreshDialog
+       event.preventDefault();
+       Zentyal.Dialog.submitForm(event.target, {
+           success : refreshDialog
       });
   });
 
