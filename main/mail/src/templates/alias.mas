@@ -13,13 +13,13 @@ use EBox::Gettext;
 
 <div id='error_delAccount' class='error' style='display:none'></div>
 <form action='/Mail/DelAccount' id='delAccount' method='POST'>
-	<input type="hidden" name="mail" value="<% $params->{'mail'} %>">
-	<input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-	<% __('Mail address') %>:<span class='stitle'><% $params->{'mail'} %></span>
-	<input class='inputButton' type='submit' name='change'
-			value="<% __('Delete') %>"
-			title="<% __('Delete') %>"
-			alt="<% __('Delete') %>">
+        <input type="hidden" name="mail" value="<% $params->{'mail'} %>">
+        <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
+        <% __('Mail address') %>:<span class='stitle'><% $params->{'mail'} %></span>
+        <input class='inputButton' type='submit' name='change'
+                        value="<% __('Delete') %>"
+                        title="<% __('Delete') %>"
+                        alt="<% __('Delete') %>">
 </form>
 
 
@@ -30,56 +30,56 @@ use EBox::Gettext;
     <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
 
-		<h3><% __('Create mail aliases') %></h3>
-		<table cellspacing='0' class='dataTable' id='aliasTable'>
-			<thead>
-				<tr>
-					<th width='66%' class='tleft'>
-						<% __('Mail alias') %>
-					</th>
-					<th class='thOptions'>
-						<% __('Action') %>
-					</th>
-				</tr>
-			</thead>
-			<tbody>
-			<tr>
-				<td>
-					<input type='text' class='inputText' name='lhs'>
-					 @
-					<select name="rhs" enabled>
-%					my @kvd = @{ $params->{'vdomains'} };
-%					foreach my $vd (@kvd) {
-						<option value= <% $vd %> > <% __($vd) %> </option>
-%					}
-					</select>
-				</td>
-				<td class='tcenter'>
-					<input class='inputButton'
-							type='image'
-							src='/data/images/add.gif'
-							name='change'
-							value="<% __('Create') %>"
-							title="<% __('Create') %>"
-							alt="<% __('Create') %>">
-				</td>
-			</tr>
-%	if(@{$params->{aliases}} != 0) {
-%			my @aux=();
-%			foreach my $alias (@{$params->{aliases}}) {
-				<tr class='border'>
-					<td><% $alias %></td>
-					<td class='tcenter'>
-						<a href='#' data-alias='<% $alias %>' />
-						<img src='/data/images/delete.gif'
-							title="<% __('Delete') %>"
-							alt="<% __('Delete') %>"/></a>
-					</td>
-				</tr>
-%				}
-%	}
-			</tbody>
-		</table>
+                <h3><% __('Create mail aliases') %></h3>
+                <table cellspacing='0' class='dataTable' id='aliasTable'>
+                        <thead>
+                                <tr>
+                                        <th width='66%' class='tleft'>
+                                                <% __('Mail alias') %>
+                                        </th>
+                                        <th class='thOptions'>
+                                                <% __('Action') %>
+                                        </th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                                <td>
+                                        <input type='text' class='inputText' name='lhs'>
+                                         @
+                                        <select name="rhs" enabled>
+%                                       my @kvd = @{ $params->{'vdomains'} };
+%                                       foreach my $vd (@kvd) {
+                                                <option value= <% $vd %> > <% __($vd) %> </option>
+%                                       }
+                                        </select>
+                                </td>
+                                <td class='tcenter'>
+                                        <input class='inputButton'
+                                                        type='image'
+                                                        src='/data/images/add.gif'
+                                                        name='change'
+                                                        value="<% __('Create') %>"
+                                                        title="<% __('Create') %>"
+                                                        alt="<% __('Create') %>">
+                                </td>
+                        </tr>
+%       if(@{$params->{aliases}} != 0) {
+%                       my @aux=();
+%                       foreach my $alias (@{$params->{aliases}}) {
+                                <tr class='border'>
+                                        <td><% $alias %></td>
+                                        <td class='tcenter'>
+                                                <a href='#' data-alias='<% $alias %>' />
+                                                <img src='/data/images/delete.gif'
+                                                        title="<% __('Delete') %>"
+                                                        alt="<% __('Delete') %>"/></a>
+                                        </td>
+                                </tr>
+%                               }
+%       }
+                        </tbody>
+                </table>
 </form>
 
 <& .updateMaildirQuotaJs, params => $params &>
