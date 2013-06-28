@@ -39,6 +39,8 @@ sub _process
 
     my $usersMod = EBox::Global->modInstance('users');
 
+    $self->{title} = __('Contacts');
+
     my @args = ();
 
     $self->_requireParam('dn', 'dn');
@@ -46,47 +48,86 @@ sub _process
     my $dn = $self->unsafeParam('dn');
     my $contact = new EBox::Users::Contact(dn => $dn);
 
+    my $contactgroups = $contact->groups();
+    my $remaingroups = $contact->groupsNotIn();
+
     my $editable = $usersMod->editableMode();
 
     push(@args, 'contact' => $contact);
+    push(@args, 'contactgroups' => $contactgroups);
+    push(@args, 'remaingroups' => $remaingroups);
     push(@args, 'slave' => not $editable);
 
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
         $self->{json} = { success => 0 };
-        $self->_requireParam('firstname', __('first name'));
-        $self->_requireParam('surname', __('last name'));
-        $self->_requireParamAllowEmpty('description', __('description'));
-        $self->_requireParam('mail', __('E-mail'));
 
-        my $givenName = $self->param('firstname');
-        my $surname = $self->param('surname');
-        my $mail = $self->param('mail');
+        if ($editable) {
+            $self->_requireParam('firstname', __('first name'));
+            $self->_requireParam('surname', __('last name'));
+            $self->_requireParamAllowEmpty('description', __('description'));
+            $self->_requireParam('mail', __('E-mail'));
 
-        my $fullname;
-        if ($givenName) {
-            $fullname = "$givenName $surname";
-        } else {
-            $fullname = $surname;
+            my $givenName = $self->param('firstname');
+            my $surname = $self->param('surname');
+            my $mail = $self->param('mail');
+
+            my $fullname;
+            if ($givenName) {
+                $fullname = "$givenName $surname";
+            } else {
+                $fullname = $surname;
+            }
+            my $description = $self->unsafeParam('description');
+            if (length ($description)) {
+                $contact->set('description', $description, 1);
+            } else {
+                $contact->delete('description', 1);
+            }
+
+            $contact->set('givenname', $givenName, 1);
+            $contact->set('sn', $surname, 1);
+            $contact->set('cn', $fullname, 1);
+            $contact->set('mail', $mail, 1);
+
+            $contact->save();
         }
-        my $description = $self->unsafeParam('description');
-        if (length ($description)) {
-            $contact->set('description', $description, 1);
-        } else {
-            $contact->delete('description', 1);
-        }
-
-        $contact->set('givenname', $givenName, 1);
-        $contact->set('sn', $surname, 1);
-        $contact->set('cn', $fullname, 1);
-        $contact->set('mail', $mail, 1);
-
-        $contact->save();
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
+    } elsif ($self->param('addgrouptocontact')) {
+        $self->{json} = { success => 0 };
+
+        $self->_requireParam('addgroup', __('group'));
+        my @groups = $self->unsafeParam('addgroup');
+
+        foreach my $gr (@groups) {
+            my $group = new EBox::Users::Group(gid => $gr);
+            $contact->addGroup($group);
+        }
+
+        $self->{json}->{success} = 1;
+    } elsif ($self->param('delgroupfromcontact')) {
+        $self->{json} = { success => 0 };
+
+        $self->_requireParam('delgroup', __('group'));
+
+        my @groups = $self->unsafeParam('delgroup');
+        foreach my $gr (@groups){
+            my $group = new EBox::Users::Group(gid => $gr);
+            $contact->removeGroup($group);
+        }
+
+        $self->{json}->{success} = 1;
+    } elsif ($self->param('groupInfo')) {
+        $self->{json} = {
+             success => 1,
+             member =>   [ map { $_->name } @{ $contactgroups }],
+             noMember => [ map { $_->name } @{ $remaingroups }],
+           };
     }
+
 }
 
 1;
