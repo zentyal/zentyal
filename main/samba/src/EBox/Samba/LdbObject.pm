@@ -307,10 +307,11 @@ sub _entry
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
+            my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
             my $attrs = {
-                base => $self->{dn},
-                filter => '(objectClass=*)',
-                scope => 'base',
+                base => $basedn,
+                filter => $filter,
+                scope => 'one',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);

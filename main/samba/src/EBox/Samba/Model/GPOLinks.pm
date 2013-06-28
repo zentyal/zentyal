@@ -141,6 +141,7 @@ sub _gpLinks
 
     my $gpLinks = [];
 
+# TODO If GPO has been removed and there is a link to a non existant GPO do not die
     my $ldb = $self->parentModule->ldb();
     my $result = $ldb->search({
         base => $dn,
@@ -158,13 +159,11 @@ sub _gpLinks
             my ($gpoDN, $gpLinkOptions) = split (/;/, $link);
             $gpoDN =~ s/ldap:\/\///ig;
             # Query GPO name
-            my $gpoResult = $ldb->search({
-                base => $gpoDN,
-                scope => 'base',
-                filter => '(objectClass=*)',
-                attrs => ['displayName']});
-            my $gpoEntry = $gpoResult->entry(0);
-            my $gpoDisplayName = $gpoEntry->get_value('displayName');
+            my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
+            next unless ($gpo->exists());
+            EBox::info($gpoDN);
+
+            my $gpoDisplayName = $gpo->get('displayName');
             my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED);
             my $linkEnabled = not ($gpLinkOptions & EBox::Samba::GPO::LINK_DISABLED);
             push (@{$gpLinks}, { metadata => { containerDN => $dn,
@@ -196,21 +195,21 @@ sub childNodes
     my ($self, $parentType, $parentMetadata) = @_;
 
     my $childNodes = [];
-    if ($type eq 'forest') {
+    if ($parentType eq 'forest') {
         push (@{$childNodes}, { printableName => __('Domains'), type => 'domainList' });
         push (@{$childNodes}, { printableName => __('Sites'), type => 'siteList' });
-    } elsif ($type eq 'domainList') {
+    } elsif ($parentType eq 'domainList') {
         push (@{$childNodes}, @{$self->_domainList()});
-    } elsif ($type eq 'siteList') {
+    } elsif ($parentType eq 'siteList') {
         push (@{$childNodes}, @{$self->_siteList()});
-    } elsif ($type eq 'domain') {
+    } elsif ($parentType eq 'domain') {
         my $domainDN = $parentMetadata->{dn};
         push (@{$childNodes}, @{$self->_gpLinks($domainDN)});
         push (@{$childNodes}, @{$self->_som($domainDN)});
-    } elsif ($type eq 'ou') {
+    } elsif ($parentType eq 'ou') {
         my $containerDN = $parentMetadata->{dn};
         push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
-    } elsif ($type eq 'site') {
+    } elsif ($parentType eq 'site') {
         my $containerDN = $parentMetadata->{dn};
         push (@{$childNodes}, @{$self->_gpLinks($containerDN)});
     }
