@@ -120,7 +120,7 @@ sub setCredentials
 #
 sub deleteObject
 {
-    my ($self) = @_;
+    my ($self, @params) = @_;
 
     if (not $self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
@@ -136,8 +136,7 @@ sub deleteObject
     # TODO Remove this user from shares ACLs
 
     # Call super implementation
-    shift @_;
-    $self->SUPER::deleteObject(@_);
+    $self->SUPER::deleteObject(@params);
 }
 
 sub setupUidMapping

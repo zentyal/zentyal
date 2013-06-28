@@ -2064,4 +2064,9 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
+sub multipleOUSupport
+{
+    return 1;
+}
+
 1;

@@ -680,4 +680,10 @@ sub _checkWindowsBuiltin
     }
 }
 
+sub multipleOUSupport
+{
+    return 1;
+}
+
+
 1;
