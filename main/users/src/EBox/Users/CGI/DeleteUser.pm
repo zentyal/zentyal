@@ -17,7 +17,6 @@ use strict;
 use warnings;
 
 package EBox::Users::CGI::DeleteUser;
-
 use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
@@ -35,63 +34,39 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    my $usersandgroups = EBox::Global->modInstance('users');
-
     $self->{'title'} = __('Users');
 
-    my @args = ();
-
     $self->_requireParam('dn', 'dn');
-
     my $dn = $self->unsafeParam('dn');
     my $user = new EBox::Users::User(dn => $dn);
 
-    my $editable = $usersandgroups->editableMode();
-
-    push(@args, 'user' => $user);
-    push(@args, 'slave' => not $editable);
-
-    my $deluser;
-
-    if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/Manage';
-    } elsif ($self->param('deluserforce')) {
-        $deluser = 1;
+    if ($self->unsafeParam('cancel')) {
+        $self->{json} = {
+            success => 1,
+            redirect => '/Users/Tree/Manage'
+         };
+        return;
     } elsif ($self->unsafeParam('deluser')) {
-        my $user = new EBox::Users::User(dn => $dn);
-        $deluser = not $self->_warnUser('user', $user);
-    }
-
-    if ($deluser) {
         $self->{json} = { success => 0 };
-        my $user = new EBox::Users::User(dn => $dn);
         $user->deleteObject();
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
+    } else {
+        # show dialog
+        my $usersandgroups = EBox::Global->getInstance()->modInstance('users');
+
+        my @args = ();
+        push(@args, 'user' => $user);
+        my $editable = $usersandgroups->editableMode();
+        push(@args, 'slave' => not $editable);
+        my $warns = $usersandgroups->allWarnings('user', $user);
+        push(@args, warns => $warns);
+        $self->{params} = \@args;
     }
 
-    $self->{params} = \@args;
+
 }
 
-sub _warnUser
-{
-    my ($self, $object, $ldapObject) = @_;
 
-    my $usersandgroups = EBox::Global->modInstance('users');
-    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
-
-    if (@{$warns}) { # If any module wants to warn user
-         $self->{template} = 'users/del.mas';
-         $self->{redirect} = undef;
-         my @array = ();
-         push(@array, 'object' => $object);
-         push(@array, 'name'   => $ldapObject);
-         push(@array, 'data'   => $warns);
-         $self->{params} = \@array;
-         return 1;
-    }
-
-    return undef;
-}
 
 1;
