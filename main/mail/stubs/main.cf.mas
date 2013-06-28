@@ -15,7 +15,7 @@
         $maxmsgsize
         $aliasDN
         $vmaildir
-        $usersDN
+        $baseDN
         $uidvmail
         $gidvmail
 
@@ -140,7 +140,7 @@ virtual_mailbox_base = <% $vmaildir %>
 virtual_mailbox_maps= ldap:ldapvirtualmap
 ldapvirtualmap_server_host = <% $ldapServer %>
 ldapvirtualmap_version = 3
-ldapvirtualmap_search_base = <% $usersDN %>
+ldapvirtualmap_search_base = <% $baseDN %>
 ldapvirtualmap_query_filter = (&(mail=%s)(!(quota=-1))(objectClass=CourierMailAccount))
 ldapvirtualmap_result_attribute = mailbox
 ldapvirtualmap_bind = yes
@@ -186,7 +186,7 @@ smtpd_sender_restrictions=reject_authenticated_sender_login_mismatch
 smtpd_sender_login_maps = ldap:senderlogin
 senderlogin_server_host = <% $ldapServer %>
 senderlogin_version = 3
-senderlogin_search_base = <% $usersDN %>
+senderlogin_search_base = <% $baseDN %>
 senderlogin_query_filter = (&(mail=%s)(objectClass=CourierMailAccount))
 senderlogin_result_attribute = mail
 senderlogin_bind = yes

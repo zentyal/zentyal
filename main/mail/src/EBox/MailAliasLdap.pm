@@ -194,8 +194,8 @@ sub _mailboxRelatedObjectInGroup
     $group = $group->get('cn');
     my %attrs = (
         base => $users->ldap()->dn(),
-        filter => "&(objectclass=mailboxRelatedObject)(cn=$group)",
-        scope => 'one'
+        filter => "(&(objectclass=mailboxRelatedObject)(cn=$group))",
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
@@ -212,8 +212,8 @@ sub _mailboxRelatedObjectExists
 
     my %attrs = (
         base => $users->ldap()->dn(),
-        filter => "&(objectclass=mailboxRelatedObject)(mail=$alias)",
-        scope => 'one'
+        filter => "(&(objectclass=mailboxRelatedObject)(mail=$alias))",
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
@@ -739,9 +739,9 @@ sub accountExists
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-        base => $users->usersDn,
+        base => $users->ldap()->dn(),
         filter => "&(objectclass=couriermailaccount)(mail=$alias)",
-        scope => 'one'
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
