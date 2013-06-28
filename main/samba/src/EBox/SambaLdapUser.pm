@@ -32,8 +32,6 @@ use EBox::Users::Group;
 use EBox::Users::OU;
 use EBox::Gettext;
 
-
-
 sub new
 {
     my $class = shift;
@@ -69,8 +67,10 @@ sub _preAddOU
     $self->_sambaReady() or
         return;
     my $dn = $self->_ldapDNToLdb($entry->dn());
-    my $name = $entry->get('ou');
-    my $parent = EBox::Users::OU->parent($dn);
+    my $name = $entry->get_value('ou');
+    use Data::Dumper;
+    EBox::debug(Dumper($name));
+    my $parent = EBox::Samba::OU->parent($dn);
 
     EBox::debug("Creating OU in LDB '$name'");
     EBox::Samba::OU->create($name, $parent);
@@ -81,7 +81,6 @@ sub _preAddOuFailed
     my ($self, $entry) = @_;
     $self->_sambaReady() or
         return;
-
 
     try {
         my $name = $entry->get_value('ou');
@@ -103,19 +102,17 @@ sub _delOU
         return;
 
     my $dn =  $zentyalOU->dn();
-    EBox::debug("Deleting contact '$dn' from samba");
+    EBox::debug("Deleting OU '$dn' from samba");
     my $sambaDn = $self->_ldapDNToLdb($dn);
     try {
         my $sambaOu = new EBox::Samba::OU(dn => $dn);
         return unless $sambaOu->exists();
-        EBox::info("Aborted OU creation, removing from samba");
         $sambaOu->deleteObject();
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting OU $sambaDn: $error");
     };
 }
-
 
 # Method: _preAddUser
 #
@@ -544,10 +541,8 @@ sub _delGroup
 sub _userAddOns
 {
     my ($self, $zentyalUser) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
     return undef unless $sambaUser->exists();

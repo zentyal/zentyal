@@ -710,7 +710,7 @@ sub _loadLDAP
         my $error = shift;
         EBox::error("Trying to setup ldap failed: $error");
     };
-    EBox::debug('done');
+    EBox::debug('Setup LDAP done');
 }
 
 # Generate, store in the given file and return a password
@@ -1550,7 +1550,6 @@ sub notifyModsLdapUserBase
 
     # Save user corner operations for slave-sync daemon
     if ($self->isUserCorner) {
-
         my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
         mkdir ($dir) unless (-d $dir);
 

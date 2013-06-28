@@ -29,6 +29,10 @@ use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
 
+use Net::LDAP::Entry;
+use Net::LDAP::Constant;
+use Error qw(:try);
+
 # Method: mainObjectClass
 #
 #  Returns:
@@ -73,9 +77,10 @@ sub name
 #   name   - Organizational Unit name
 #   parent - Parent container that will hold this new OU.
 #
+#  XXX TODO put parent in %args
 sub create
 {
-    my ($self, $name, $parent) = @_;
+    my ($self, $name, $parent, %args) = @_;
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -86,17 +91,82 @@ sub create
     $parent->isContainer() or
         throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn());
 
-    my $args = {
-        attr => [
+    my @attrs = (
             'objectclass' => ['organizationalUnit'],
             'ou' => $name,
-        ]
+           );
+
+    my $entry;
+    my $ou;
+    my $dn = "ou=$name," . $parent->dn();
+    try {
+        # Call modules initialization. The notified modules can modify the entry,
+        # add or delete attributes.
+        $entry = new Net::LDAP::Entry($dn, @attrs);
+        $usersMod->notifyModsPreLdapUserBase('preAddOU', $entry,
+                                             $args{ignoreMods}, $args{ignoreSlaves});
+        my $changetype =  $entry->changetype();
+        my $changes = [$entry->changes()];
+        my $result = $entry->update($self->_ldap->{ldap});
+        if ($result->is_error()) {
+            unless (($result->code == Net::LDAP::Constant::LDAP_LOCAL_ERROR) and
+                    ($result->error eq 'No attributes to update')
+                   ) {
+                        throw EBox::Exceptions::LDAP(
+                            message => __('Error on group LDAP entry creation:'),
+                            result => $result,
+                            opArgs   => $self->entryOpChangesInUpdate($entry),
+                           );
+            }
+        }
+
+        $ou = EBox::Users::OU->new(dn => $dn);
+        # Call modules initialization
+        $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
+    } otherwise {
+        my ($error) = @_;
+
+        EBox::error($error);
+
+        # A notified module has thrown an exception. Delete the object from LDAP
+        # Call to parent implementation to avoid notifying modules about deletion
+        # TODO Ideally we should notify the modules for beginTransaction,
+        #      commitTransaction and rollbackTransaction. This will allow modules to
+        #      make some cleanup if the transaction is aborted
+        if ($ou and $ou->exists()) {
+            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $args{ignoreMods}, $args{ignoreSlaves});
+            $ou->SUPER::deleteObject(@_);
+        } else {
+            $usersMod->notifyModsPreLdapUserBase('preAddOUFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
+        }
+        $ou = undef;
+        $entry = undef;
+        $error->throw();
     };
 
-    my $dn = "ou=$name," . $parent->dn();
-    my $result = $self->_ldap->add($dn, $args);
-    my $res = new EBox::Users::OU(dn => $dn);
-    return $res;
+    return $ou;
+}
+
+# Method: deleteObject
+#
+#   Delete the OU
+#
+sub deleteObject
+{
+    my ($self, @params) = @_;
+
+    # Notify group deletion to modules
+    my $usersMod = $self->_usersMod();
+    $usersMod->notifyModsLdapUserBase('delOU', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+
+    # Call super implementation
+    $self->SUPER::deleteObject(@params);
+}
+
+sub defaultContainer
+{
+    my $usersMod = EBox::Global->getInstance()->modInstance('users');
+    return $usersMod->defaultNamingContext();
 }
 
 1;
