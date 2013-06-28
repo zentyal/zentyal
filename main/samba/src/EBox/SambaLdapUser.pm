@@ -395,6 +395,8 @@ sub _delContact
     my $dn = $zentyalContact->dn();
     EBox::debug("Deleting contact '$dn' from samba");
     my $sambaDn = $self->_ldapDNToLdb($dn);
+    # replace uid with cn for first attribute
+    $sambaDn =~ s/^uid/cn/;
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
         return unless $sambaContact->exists();
