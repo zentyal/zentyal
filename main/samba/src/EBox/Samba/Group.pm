@@ -56,6 +56,12 @@ sub new
     return $self;
 }
 
+sub mainObjectClass
+{
+    return 'group';
+}
+
+
 # Method: removeAllMembers
 #
 #   Remove all members in the group

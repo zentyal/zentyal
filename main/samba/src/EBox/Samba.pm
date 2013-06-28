@@ -1999,15 +1999,18 @@ sub entryModeledObject
 
     my $object;
 
-    my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
+    my $anyObjectClasses = any($entry->get_value('objectClass'));
     my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group);
     foreach my $class (@entryClasses) {
-        if ($class->mainObjectClass() eq $anyObjectClasses) {
+            EBox::debug("Checking " . $class->mainObjectClass . ' agains ' . (join ',', $entry->get_value('objectClass')) );
+        if ($class->mainObjectClass eq $anyObjectClasses) {
+
             return $class->new(entry => $entry);
         }
     }
 
     EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+    EBox::trace();
     return undef;
 }
 

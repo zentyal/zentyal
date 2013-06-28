@@ -36,6 +36,8 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 use Perl6::Junction qw(any);
 
+my $_usersMod; # cached users module
+
 # Method: new
 #
 #   Instance an object readed from LDAP.
@@ -284,9 +286,13 @@ sub dn
 #
 sub baseDn
 {
-    my ($self) = @_;
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
 
-    my $dn = $self->dn();
     return $dn if ($self->_ldap->dn() eq $dn);
 
     my ($trash, $basedn) = split(/,/, $dn, 2);
@@ -352,18 +358,22 @@ sub clearCache
     $self->{entry} = undef;
 }
 
+# Class method
 sub _ldap
 {
-    return EBox::Global->modInstance('users')->ldap();
+    return __PACKAGE__->_usersMod()->ldap();
 }
+
 
 sub _usersMod
 {
-    my ($self) = @_;
+    my ($class) = @_;
 
-    $self->{usersMod} = EBox::Global->modInstance('users') unless (defined $self->{usersMod} and $self->{usersMod});
+    if (not $_usersMod) {
+        $_usersMod = EBox::Global->getInstance(0)->modInstance('users');
+    }
 
-    return $self->{usersMod}
+    return $_usersMod;
 }
 
 # Method canonicalName
@@ -497,34 +507,31 @@ sub children
 #
 #   Throw EBox::Exceptions::Internal on error.
 #
+# TODO
+#   bug: dns with same or less commponents of root DN are not treated properly
 sub parent
 {
-    my ($self) = @_;
-
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
     my $usersMod = $self->_usersMod();
+
     my $defaultNamingContext = $usersMod->defaultNamingContext();
-
-    my $dn = $self->dn();
     return undef if ($dn eq $defaultNamingContext->dn());
-
-    my $attrs = {
-        base   => $self->baseDn(),
-        filter => '(objectclass=*)',
-        scope  => 'base',
-    };
-
-    my $result = $self->_ldap->search($attrs);
-    throw EBox::Exceptions::Internal($result->error) if ($result->code);
-    throw EBox::Exceptions::Internal("Found more than one parent for DN: " . $dn) if ($result->count() > 1);
-    throw EBox::Exceptions::Internal("Unable to find the parent for DN: " . $dn) if ($result->count() < 1);
-
-    return $usersMod->entryModeledObject($result->entry(0));
 }
 
 sub relativeDn
 {
-    my ($self, $dnBase) = @_;
-    my $dn = $self->dn();
+    my ($self, $dnBase, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+
     if (not $dn =~ s/,$dnBase$//) {
         throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
     }

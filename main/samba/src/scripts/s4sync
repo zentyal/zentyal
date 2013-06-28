@@ -56,7 +56,7 @@ my $ldb = $sambaModule->ldb();
 my $ldapBaseDN = $usersModule->ldap()->dn();
 my $ldbBaseDN  =  $ldb->dn();
 
-my @ignoreOUs = qw(ou=Users ou=Groups ou=Computers ou=Kerberos ou=postfix ou=mailalias,ou=postfix ou=vdomains,ou=postfix);
+my %ignoreOUs = map {( $_ => $_)} qw(ou=Users ou=Groups ou=Computers ou=Kerberos ou=postfix ou=mailalias,ou=postfix ou=vdomains,ou=postfix);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -69,7 +69,16 @@ while (1) {
     my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$ldb->users()};
     my %sambaContacts = map { $_->get('name') => $_ } @{$ldb->contacts()};
     my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$ldb->groups()};
-    my %sambaOUs    = map { my $ou = $_; ($ou->relativeDn($ldbBaseDN) => $ou) } @{ $ldb->ous() };
+    my @orderSambaOUs;
+    my %sambaOUs;
+    foreach my $ou ( EBox::Samba::OU->orderOUList($ldb->ous()) ) {
+        my $rDn = $ou->relativeDn($ldbBaseDN);
+        if (exists $ignoreOUs{$rDn}) {
+            next;
+        }
+        push @orderSambaOUs, $rDn;
+        $sambaOUs{$rDn} = $rDn;
+    }
 
     write_file($sambaTimestampFile, getTimestamp());
 
@@ -77,13 +86,11 @@ while (1) {
     my %zentyalContacts = map { $_->get('cn') => $_ } @{$usersModule->contacts()};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
     my %zentyalOUs    = map { my $ou = $_; ($ou->relativeDn($ldapBaseDN) => $ou) } @{ $usersModule->ous() };
-
-    # sync OUd
-    foreach my $ignored (@ignoreOUs) {
-        delete $sambaOUs{$ignored};
+    foreach my $ignored (keys %ignoreOUs) {
         delete $zentyalOUs{$ignored};
     }
-    foreach my $rDN (sort keys %sambaOUs) {
+
+    foreach my $rDN (@orderSambaOUs) {
         EBox::debug("sync OU $rDN?");
         my $ou = $sambaOUs{$rDN};
         my $inZentyal = delete $zentyalOUs{$rDN};
@@ -110,9 +117,10 @@ while (1) {
         }
     }
 
-    foreach my $rDn (sort keys %zentyalOUs) {
-        EBox::debug("Deleting Zentyal OU '$rDn'");
-        $zentyalUsers{$rDn}->deleteObject();
+    my @orderZentyalOus = reverse @{ EBox::Samba::OU->orderOUList([values %zentyalOUs]) };
+    foreach my $ou (@orderZentyalOus) {
+        EBox::debug("Deleting Zentyal OU '" . $ou->dn() . "'");
+        $ou->deleteObject();
     }
 
     #################################################

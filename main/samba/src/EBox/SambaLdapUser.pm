@@ -28,6 +28,7 @@ use EBox::Samba::User;
 use EBox::Samba::Group;
 use EBox::Users::User;
 use EBox::Users::Group;
+use EBox::Users::OU;
 use EBox::Gettext;
 
 use base qw(EBox::LdapUserBase);
@@ -36,11 +37,33 @@ sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{samba} = EBox::Global->modInstance('samba');
+    my $global = EBox::Global->getInstance(0);
+    $self->{samba} = $global->modInstance('samba');
     $self->{ldb} = $self->{samba}->ldb();
+    $self->{ldapBaseDn} = $global->modInstance('users')->ldap()->dn();
     bless($self, $class);
 
     return $self;
+}
+
+sub _sambaReady
+{
+    my ($self) = @_;
+    return ($self->{samba}->configured() and
+            $self->{samba}->isEnabled() and
+            $self->{samba}->isProvisioned());
+}
+
+sub _preAddOU
+{
+    my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
+    my $dn = $entry->dn();
+    my $name = $entry->get('ou');
+    my $parent = EBox::Users::OU->parent($dn);
+
+    EBox::Samba::OU->create($name, $parent);
 }
 
 # Method: _preAddUser

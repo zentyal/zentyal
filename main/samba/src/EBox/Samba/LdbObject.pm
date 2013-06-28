@@ -34,6 +34,8 @@ use Net::LDAP::Control;
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
+my $_sambaMod;
+
 # Method: new
 #
 #   Instance an object readed from LDB.
@@ -306,9 +308,16 @@ sub dn
 #
 sub baseDn
 {
-    my ($self) = @_;
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
 
-    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
+    return $dn if ($self->_ldap->dn() eq $dn);
+
+    my ($trash, $basedn) = split(/,/, $dn, 2);
     return $basedn;
 }
 
@@ -362,6 +371,14 @@ sub _entry
     return $self->{entry};
 }
 
+sub _sambaMod
+{
+    if (not $_sambaMod) {
+        $_sambaMod = EBox::Global->getInstance(0)->modInstance('samba')
+    }
+    return $_sambaMod;
+}
+
 # Method: _ldap
 #
 #   Returns the LDAP object
@@ -370,7 +387,7 @@ sub _ldap
 {
     my ($self) = @_;
 
-    return EBox::Global->modInstance('samba')->ldb();
+    return _sambaMod()->ldb();
 }
 
 # Method: to_ldif
@@ -549,6 +566,48 @@ sub getXidNumberFromRID
     my $rid = (split (/-/, $sid))[7];
 
     return $rid + 50000;
+}
+
+# Method: parent
+#
+#   Return the parent of this object or undef if it's the root.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# TODO
+#   bug: dns with same or less commponents of root DN are not treated properly
+sub parent
+{
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+    my $sambaMod = $self->_sambaMod();
+
+
+    my $defaultNamingContext = $sambaMod->defaultNamingContext();
+    return undef if ($dn eq $defaultNamingContext->dn());
+
+    my $parentDn = $self->baseDn($dn);
+    return $sambaMod->objectFromDN($parentDn);
+}
+
+sub relativeDn
+{
+    my ($self, $dnBase, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+
+    if (not $dn =~ s/,$dnBase$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
+    }
+
+    return $dn;
 }
 
 1;

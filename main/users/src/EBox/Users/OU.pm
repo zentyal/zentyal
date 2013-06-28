@@ -79,8 +79,12 @@ sub create
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    throw EBox::Exceptions::InvalidData(data => 'name', value => $name) unless ($usersMod->checkCnLimitations($name));
-    throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn()) unless ($parent->isContainer());
+    $usersMod->checkCnLimitations($name) or
+        throw EBox::Exceptions::InvalidData(data => 'name', value => $name);
+    $parent or
+        throw EBox::Exceptions::MissingArgument('parent');
+    $parent->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn());
 
     my $args = {
         attr => [

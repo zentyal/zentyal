@@ -33,6 +33,11 @@ use EBox::Users::Contact;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Error qw(:try);
 
+sub mainObjectClass
+{
+    return 'contact';
+}
+
 # Method: create
 #
 # FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
@@ -155,6 +160,8 @@ sub addToZentyal
 
     $zentyalContact->setIgnoredModules(['samba']);
 }
+
+
 
 sub updateZentyal
 {

@@ -60,19 +60,6 @@ sub name
     return $self->get('ou');
 }
 
-sub relativeDn
-{
-    my ($self, $dnBase) = @_;
-    my $dn = $self->dn();
-    if (not $dn =~ s/,$dnBase$//) {
-        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
-    }
-
-    return $dn;
-}
-
-
-
 sub addToZentyal
 {
     my ($self, $rDn) = @_;
@@ -128,6 +115,30 @@ sub create
     my $result = $self->_ldap->add($dn, $args);
     my $res = EBox::Samba::OU->new(dn => $dn);
     return $res;
+}
+
+sub orderOUList
+{
+    my ($class, $list) = @_;
+    my @ous = sort {
+        my @aDn = split ',', $a->dn();
+        my @bDn = split ',', $b->dn();
+        if (@aDn != @bDn) {
+            @aDn <=> @bDn;
+        } else {
+            my $res;
+            my $i = @aDn - 1;
+            while ($i > 0) {
+                $res = $aDn[$i] cmp $bDn[$i];
+                if ($res != 0) {
+                    last;
+                }
+                $i -= 1;
+            }
+            $res;
+        }
+    } @{ $list  };
+    return \@ous;
 }
 
 1;
