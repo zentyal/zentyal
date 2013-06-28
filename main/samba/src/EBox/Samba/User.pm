@@ -122,7 +122,7 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    if ($self->checkObjectErasability()) {
+    if (not $self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
