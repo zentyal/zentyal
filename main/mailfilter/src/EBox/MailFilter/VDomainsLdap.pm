@@ -330,7 +330,7 @@ sub spamAccount
     my ($self, $vdomain) = @_;
     my $usersMod = EBox::Global->modInstance('users');
     my $user = $usersMod->userByUID('spam');
-    return $self->_hasAccount($vdomain, $users);
+    return $self->_hasAccount($vdomain, $user);
 }
 
 # Method: hamAccount
