@@ -15,6 +15,8 @@ use EBox::Gettext;
 %            if (not $params->{service} ) {
                    <& /mail/moduleDisabled.mas &>
 %            }
+   <div id='error_createAlias' class='error' style='display:none'></div>
+   <form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
         <table cellspacing='0' class='dataTable' id='aliasTable'>
                 <thead>
                         <tr>
@@ -37,12 +39,14 @@ use EBox::Gettext;
         &>
             </tbody>
         </table>
+    </form>
 % }
 <script>
+jQuery(function(){
   var refreshDialog = function(response) {
                 var url = '/Users/EditGroup';
                 var data = 'dn=' + response.groupDN;
-                Zentyal.Dialog.showURL(url, { data: data});
+                Zentyal.Dialog.showURL(url, { data: data})
   };
 
   jQuery('#createAlias').on('submit', function(event) {
@@ -52,9 +56,9 @@ use EBox::Gettext;
       });
   });
 
-  jQuery('#aliasTable').on('click', 'href', function(event) {
+  jQuery('#aliasTable').on('click', 'a', function(event) {
       event.preventDefault();
-      var url = '/Users/DelGroupAlias';
+      var url = '/Mail/DelGroupAlias';
       var data = 'group="' + '<% $params->{group}->dn() %>' + '" ';
       data += '&alias=' + event.target.getAttribute('data-alias');
       // we reuse div for createAlias form
@@ -85,8 +89,7 @@ use EBox::Gettext;
 $group
 @vdomains
 </%args>
-<div id='error_createAlias' class='error' style='display:none'></div>
-<form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
+
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
@@ -108,7 +111,6 @@ $group
                                 </td>
                         </tr>
 
-</form>
 </%def>
 
 
@@ -121,10 +123,11 @@ $group
                         <tr class='border'>
                                 <td><% $alias %></td>
                                 <td class='tcenter'>
-                                        <a href='#' data-alias='<% $alias %>' />
-                                        <img src='/data/images/delete.gif'
+                                        <a href='#' data-alias='<% $alias %>'>
+                                           <img src='/data/images/delete.gif'
                                                 title="<% __('Delete') %>"
-                                                alt="<% __('Delete') %>"/></a>
+                                                alt="<% __('Delete') %>"/>
+                                        </a>
                                 </td>
                         </tr>
 
