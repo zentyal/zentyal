@@ -55,7 +55,7 @@ use EBox::Gettext;
   jQuery('#aliasTable').on('click', 'href', function(event) {
       event.preventDefault();
       var url = '/Users/DelGroupAlias';
-      var data = 'user="' + '<% $params->{user}->dn() %>' + '" ';
+      var data = 'group="' + '<% $params->{group}->dn() %>' + '" ';
       data += '&alias=' + event.target.getAttribute('data-alias');
       // we reuse div for createAlias form
       jQuery('#error_createAlias').html('').hide();

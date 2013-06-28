@@ -348,7 +348,7 @@ sub _delContact
     # TODO We should not hardcode the dn generation here.
     my $ldb = EBox::Global->modInstance('samba')->ldb();
     my $baseDn = $ldb->dn();
-    my $cn = $zentyalContact->cn();
+    my $cn = $zentyalContact->fullname();
     my $sambaDn = "CN=$cn,CN=Users,$baseDn";
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
@@ -375,15 +375,16 @@ sub _preAddGroup
 
     my $dn = $entry->dn();
     my $description = $entry->get_value('description');
-    my $gid         = $entry->get_value('cn');
-    $self->_checkWindowsBuiltin($gid);
+    my $name        = $entry->get_value('cn');
+    $self->_checkWindowsBuiltin($name);
 
-    my $params = {
-        description   => $description,
-    };
+    my %args = (
+        name        => $name,
+        description => $description,
+    );
 
-    EBox::info("Creating group '$gid'");
-    my $sambaGroup = EBox::Samba::Group->create($gid, $params);
+    EBox::info("Creating group '$name'");
+    my $sambaGroup = EBox::Samba::Group->create(%args);
     my $newGidNumber = $sambaGroup->getXidNumberFromRID();
     EBox::debug("Changing gidNumber to $newGidNumber");
     $sambaGroup->set('gidNumber', $newGidNumber);

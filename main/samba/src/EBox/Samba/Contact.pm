@@ -65,11 +65,14 @@ sub create
 
     # Check for required arguments.
     throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $name = $args{name};
     # TODO Is the user added to the default OU?
     my $baseDn = $class->_ldap->dn();
-    my $dn = "CN=$name,CN=Users,$baseDn";
+    my $dn = "CN=$name," . $args{parent}->dn();
 
     $class->_checkAccountNotExists($name);
 
@@ -82,6 +85,7 @@ sub create
     push (@attr, sn          => $args{sn}) if ($args{sn});
     push (@attr, displayName => $args{displayName}) if ($args{displayName});
     push (@attr, description => $args{description}) if ($args{description});
+    push (@attr, mail => $args{mail}) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;

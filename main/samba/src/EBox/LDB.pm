@@ -445,21 +445,89 @@ sub domainNetBiosName
     return undef;
 }
 
+sub _parentFromRDN
+{
+    my ($self, $sambaModule, $rDn) = @_;
+    my ($leftmostAtr, $parentDn) = split ',', $rDn, 2;
+    my $parent;
+    if ($parentDn) {
+        $parentDn .= ',' . $self->dn();
+        $parent = $sambaModule->objectFromDN($parentDn);
+    } else {
+        $parent = $sambaModule->defaultNamingContext();
+    }
+    return $parent;
+}
+
+sub ldapOUsToLDB
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal OUS into samba database');
+    my $global = EBox::Global->getInstance();
+    my $usersModule = $global->modInstance('users');
+    my $sambaModule = $global->modInstance('samba');
+    my $ldapBaseDn = $usersModule->ldap()->dn();
+
+    my @ous = sort {
+        my @aDn = split ',', $a->dn();
+        my @bDn = split ',', $b->dn();
+        if (@aDn != @bDn) {
+            @aDn <=> @bDn;
+        } else {
+            my $res;
+            my $i = @aDn - 1;
+            while ($i > 0) {
+                $res = $aDn[$i] cmp $bDn[$i];
+                if ($res != 0) {
+                    last;
+                }
+                $i -= 1;
+            }
+            $res;
+        }
+    } @{ $usersModule->ous()   };
+
+    foreach my $ou (@ous) {
+        my $rDn = $ou->relativeDn($ldapBaseDn);
+        my ($leftmostAtr, $parentDn) = split ',', $rDn, 2;
+        my ($thrash, $name) = split '=', $leftmostAtr, 2;
+        my $parent = $self->_parentFromRDN($sambaModule, $rDn);
+
+        EBox::debug("Loading OU $rDn");
+        try {
+            EBox::Samba::OU->create($name, $parent);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("OU $name already in Samba database");
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading OU '$rDn': $error");
+        };
+    }
+}
+
 sub ldapUsersToLdb
 {
     my ($self) = @_;
 
     EBox::info('Loading Zentyal users into samba database');
-    my $usersModule = EBox::Global->modInstance('users');
+    my $global = EBox::Global->getInstance();
+    my $usersModule = $global->modInstance('users');
+    my $sambaModule = $global->modInstance('samba');
+    my $ldapBaseDn = $usersModule->ldap()->dn();
+
     my $users = $usersModule->users();
     foreach my $user (@{$users}) {
-        my $dn = $user->dn();
+        my $rDn = $user->relativeDn($ldapBaseDn);
+        my $parent = $self->_parentFromRDN($sambaModule, $rDn);
         my $samAccountName = $user->get('uid');
-        EBox::debug("Loading user $dn");
+
+        EBox::debug("Loading user $rDn");
         try {
             my %args = (
                 name           => scalar ($user->get('cn')),
                 samAccountName => scalar ($samAccountName),
+                parent         => $parent,
                 uidNumber      => scalar ($user->get('uidNumber')),
                 sn             => scalar ($user->get('sn')),
                 givenName      => scalar ($user->get('givenName')),
@@ -468,48 +536,53 @@ sub ldapUsersToLdb
             );
             EBox::Samba::User->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("User $dn already in Samba database");
+            EBox::debug("User $rDn already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
             $sambaUser->setCredentials($user->kerberosKeys());
-            EBox::debug("Password updated for user $dn");
+            EBox::debug("Password updated for user $rDn");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading user '$dn': $error");
+            EBox::error("Error loading user '$rDn': $error");
         };
     }
 }
-
-
 
 sub ldapContactsToLdb
 {
     my ($self) = @_;
 
     EBox::info('Loading Zentyal contacts into samba database');
-    my $usersModule = EBox::Global->modInstance('users');
+    my $global = EBox::Global->getInstance();
+    my $usersModule = $global->modInstance('users');
+    my $sambaModule = $global->modInstance('samba');
+    my $ldapBaseDn = $usersModule->ldap()->dn();
+
     my $contacts = $usersModule->contacts();
     foreach my $contact (@{$contacts}) {
-        my $dn = $contact->dn();
+        my $rDn = $contact->relativeDn($ldapBaseDn);
+        my $parent = $self->_parentFromRDN($sambaModule, $rDn);
         my $fullName = $contact->get('cn');
         my $name = $contact->get('cn');
-        EBox::debug("Loading contact $dn");
+        EBox::debug("Loading contact $rDn");
         try {
             my %args = (
                 name        => scalar ($name),
+                parent      => $parent,
                 givenName   => scalar ($contact->get('givenName')),
                 initials    => scalar ($contact->get('initials')),
                 sn          => scalar ($contact->get('sn')),
                 displayName => scalar ($contact->get('displayName')),
                 description => scalar ($contact->get('description')),
+                mail        => $contact->get('mail')
             );
             EBox::Samba::Contact->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("Contact $dn already in Samba database");
+            EBox::debug("Contact $rDn already in Samba database");
             # FIXME: usersDn is wrong here!
             my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading contact '$dn': $error");
+            EBox::error("Error loading contact '$rDn': $error");
         };
     }
 }
@@ -519,27 +592,35 @@ sub ldapGroupsToLdb
     my ($self) = @_;
 
     EBox::info('Loading Zentyal groups into samba database');
-    my $usersModule = EBox::Global->modInstance('users');
+    my $global = EBox::Global->getInstance();
+    my $usersModule = $global->modInstance('users');
+    my $sambaModule = $global->modInstance('samba');
+    my $ldapBaseDn = $usersModule->ldap()->dn();
+
     my $groups = $usersModule->groups();
     foreach my $group (@{$groups}) {
-        my $dn = $group->dn();
-        EBox::debug("Loading group $dn");
+        my $rDn = $group->relativeDn($ldapBaseDn);
+        my $parent = $self->_parentFromRDN($sambaModule, $rDn);
+
+        EBox::debug("Loading group $rDn");
         my $sambaGroup = undef;
         try {
-            my $samAccountName = $group->get('cn');
-            my %params = (
-                description => scalar ($group->get('description'))
+            my $name = $group->get('cn');
+            my %args = (
+                parent => $parent,
+                description => scalar ($group->get('description')),
+                name => scalar ($name),
             );
             if ($group->isSecurityGroup()) {
-                $params{gidNumber} = scalar ($group->get('gidNumber'));
-                $params{security} = 1;
+                $args{gidNumber} = scalar ($group->get('gidNumber'));
+                $args{security} = 1;
             };
-            $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
+            $sambaGroup = EBox::Samba::Group->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("Group $dn already in Samba database");
+            EBox::debug("Group $rDn already in Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading group '$dn': $error");
+            EBox::error("Error loading group '$rDn': $error");
         };
         next unless defined $sambaGroup;
 
@@ -554,45 +635,6 @@ sub ldapGroupsToLdb
             };
         }
         $sambaGroup->save();
-    }
-}
-
-sub ldapOUsToLDB
-{
-    my ($self) = @_;
-
-    EBox::info('Loading Zentyal OUS into samba database');
-    my $global = $self->getInstance();
-    my $usersModule = $global->modInstance('users');
-    my $sambaModule = $global->modInstance('samba');
-    my $ldapBaseDN = $usersModule->ldap()->dn();
-    my $baseDN  =  $self->dn();
-
-    my @ous = sort {
-        $a->dn() <=> $b->dn()
-    } @{ $usersModule->ous()   };
-
-    foreach my $ou (@ous) {
-        my $rDN = $ou->relativeDN($ldapBaseDN);
-        my ($name, $parentDn) = split ',', $rDN, 2;
-        my $parent;
-
-        if ($parentDn) {
-            $parentDn .= ',' . $self->dn();
-            $parent = $sambaModule->objectFromDN($parentDn);
-        } else {
-            $parent = $sambaModule->defaultNamingContext();
-        }
-
-        EBox::debug("Loading OU $rDN");
-        try {
-            EBox::Samba::OU->create($name, $parent);
-        } catch EBox::Exceptions::DataExists with {
-            EBox::debug("OU $name already in Samba database");
-        } otherwise {
-            my $error = shift;
-            EBox::error("Error loading OU '$rDN': $error");
-        };
     }
 }
 

@@ -29,7 +29,7 @@ use EBox::Gettext;
 %   }
 </form>
 
-<div id="group_users">
+<div id="group_users" style="float: right;">
 % unless ($slave) {
 <& .usersRW, group => $group, groupusers => \@groupusers, remainusers => \@remainusers &>
 % } else {
@@ -37,10 +37,11 @@ use EBox::Gettext;
 % }
 </div>
 
-
+<div id="group_addons"  style="float: left;">
 % foreach my $comp (@components) {
       <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
 % }
+</div>
 
 <%def .usersRW>
 <%args>
@@ -54,8 +55,7 @@ my @member  = map { $_->name() } @groupusers;
 my @noMember = map { $_->name() } @remainusers;
 my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
 </%init>
-<div class="tleft"><% __("Users") %></div>
-<br/>
+
 <& .addToGroup, group => $group &>
 <div id='error_removeUserFromGroup' class='error' style='display:none'></div>
 <ul name='groupUsers' id='groupUsers'  size='8'>

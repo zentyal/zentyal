@@ -45,6 +45,7 @@ use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
 use EBox::Samba::GPO;
 use EBox::Samba::Computer;
+use EBox::Samba::NamingContext;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
@@ -2092,7 +2093,7 @@ sub defaultNamingContext
     my ($self) = @_;
 
     my $ldb = $self->ldb;
-    return new EBox::Users::NamingContext(dn => $ldb->dn());
+    return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
 1;
