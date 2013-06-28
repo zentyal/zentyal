@@ -25,11 +25,10 @@ use Error qw(:try);
 
 use EBox::Sudo;
 use EBox::Samba;
+use EBox::Samba::OU;
 use EBox::Samba::User;
 use EBox::Samba::Group;
-use EBox::Users::User;
-use EBox::Users::Group;
-use EBox::Users::OU;
+use EBox::Samba::Contact;
 use EBox::Gettext;
 
 sub new
@@ -105,7 +104,7 @@ sub _delOU
     EBox::debug("Deleting OU '$dn' from samba");
     my $sambaDn = $self->_ldapDNToLdb($dn);
     try {
-        my $sambaOu = new EBox::Samba::OU(dn => $dn);
+        my $sambaOu = EBox::Samba::OU->new(dn => $dn);
         return unless $sambaOu->exists();
         $sambaOu->deleteObject();
     } otherwise {
@@ -408,8 +407,6 @@ sub _delContact
 
 # Method: _preAddGroup
 #
-#   This method adds the group to samba LDAP
-#   TODO Support multiples OU
 #
 sub _preAddGroup
 {
@@ -418,7 +415,7 @@ sub _preAddGroup
         return;
 
     my $dn = $entry->dn();
-    my $parent = EBox::Users::Group->parent($self->_ldapDNToLdb($dn));
+    my $parent = EBox::Samba::Group->parent($self->_ldapDNToLdb($dn));
     my $description = $entry->get_value('description');
     my $gid         = $entry->get_value('cn');
     $self->_checkWindowsBuiltin($gid);
