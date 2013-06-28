@@ -443,20 +443,6 @@ sub domainNetBiosName
     return undef;
 }
 
-sub _parentFromRDNToDelete
-{
-    my ($self, $sambaModule, $rDn) = @_;
-    my $parentDn = $self->baseDN($rDn);
-    my $parent;
-    if ($parentDn) {
-        $parentDn .= ',' . $self->_ldap->dn();
-        $parent = $sambaModule->objectFromDN($parentDn);
-    } else {
-        $parent = $sambaModule->defaultNamingContext();
-    }
-    return $parent;
-}
-
 sub ldapOUsToLDB
 {
     my ($self) = @_;

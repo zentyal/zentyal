@@ -458,7 +458,6 @@ sub isInDefaultContainer
 
     my $parent = $self->parent();
     my $defaultContainer = $self->defaultContainer();
-
     return ($parent->dn() eq $defaultContainer->dn());
 }
 
@@ -521,6 +520,9 @@ sub parent
 
     my $defaultNamingContext = $usersMod->defaultNamingContext();
     return undef if ($dn eq $defaultNamingContext->dn());
+
+    my $parentDn = $self->baseDn($dn);
+    return $usersMod->objectFromDN($parentDn);
 }
 
 sub relativeDn
