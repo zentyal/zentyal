@@ -163,8 +163,8 @@ sub _gpLinks
             next unless ($gpo->exists());
 
             my $gpoDisplayName = $gpo->get('displayName');
-            my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED);
-            my $linkEnabled = not ($gpLinkOptions & EBox::Samba::GPO::LINK_DISABLED);
+            my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED());
+            my $linkEnabled = not ($gpLinkOptions & EBox::Samba::GPO::LINK_DISABLED());
             push (@{$gpLinks}, { metadata => { containerDN => $dn,
                                                linkIndex => $index,
                                                gpoDisplayName => $gpoDisplayName,

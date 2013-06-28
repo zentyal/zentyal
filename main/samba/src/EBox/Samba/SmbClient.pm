@@ -18,6 +18,7 @@ use warnings;
 
 package EBox::Samba::SmbClient;
 
+use Filesys::SmbClient;
 use base 'Filesys::SmbClient';
 
 use EBox::Gettext;
