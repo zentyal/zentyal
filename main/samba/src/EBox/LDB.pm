@@ -603,17 +603,16 @@ sub ldapGroupsToLdb
         EBox::debug("Loading group $rDn");
         my $sambaGroup = undef;
         try {
-            my $name = $group->get('cn');
-            my %args = (
+            my $samAccountName = $group->get('cn');
+            my %params = (
                 parent => $parent,
-                description => scalar ($group->get('description')),
-                name => scalar ($name),
+                description => scalar ($group->get('description'))
             );
             if ($group->isSecurityGroup()) {
-                $args{gidNumber} = scalar ($group->get('gidNumber'));
-                $args{security} = 1;
+                $params{gidNumber} = scalar ($group->get('gidNumber'));
+                $params{security} = 1;
             };
-            $sambaGroup = EBox::Samba::Group->create(%args);
+            $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Group $rDn already in Samba database");
         } otherwise {
