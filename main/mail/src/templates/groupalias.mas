@@ -6,7 +6,8 @@ use EBox::Gettext;
 </%init>
 <h3><% __('Mail alias settings') %></h3>
 
-
+%# this div is only so editgroup.mas could knew this addon is active
+<div id='needReload' />
 %       if($params->{'nacc'} eq 0) {
         <div class='warning'>
                 <p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>

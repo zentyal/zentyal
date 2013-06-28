@@ -96,6 +96,7 @@ sub _process
              success => 1,
              member =>   [ map { $_->name } @{ $grpusers }],
              noMember => [ map { $_->name } @{ $remainusers }],
+             groupDN => $dn,
            };
     }
 }
