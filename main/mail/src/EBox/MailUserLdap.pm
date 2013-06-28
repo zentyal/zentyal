@@ -182,6 +182,7 @@ sub userAccount
 #
 #   Returns:
 #          the user or undef if there is not account
+# TODO: REVIEW
 sub userByAccount
 {
     my ($self, $account) = @_;
@@ -425,9 +426,9 @@ sub allAccountsFromVDomain
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $users->ldap()->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
     my $result = $self->{'ldap'}->search(\%attrs);
@@ -448,20 +449,21 @@ sub allAccountsFromVDomain
 sub usersWithMailInGroup
 {
     my ($self, $group) = @_;
-    my $users = EBox::Global->modInstance('users');
 
     my $groupdn = $group->dn();
     my %args = (
-                base => $users->usersDn,
-                filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
-                scope => 'one',
-               );
+        base => $self->{ldap}->dn(),
+        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        scope => 'sub',
+    );
 
     my $result = $self->{ldap}->search(\%args);
 
+    my $usersMod = EBox::Global->modInstance('users');
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push (@mailusers, new EBox::Users::User(entry => $entry));
+        my $object = $usersMod->entryModeledObject($entry);
+        push (@mailusers, $object) if ($object);
     }
 
     return @mailusers;
