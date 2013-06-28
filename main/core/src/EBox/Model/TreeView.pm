@@ -477,11 +477,10 @@ sub jsonData
 
 sub _childData
 {
-    my ($self, $id, $type) = @_;
+    my ($self, $type, $metadata) = @_;
 
     my @children;
-
-    foreach my $child (@{$self->childNodes($id, $type)}) {
+    foreach my $child (@{$self->childNodes($type, $metadata)}) {
         my $childType = $child->{type};
         my $childMetadata = $child->{metadata};
         my $childPrintableName = $child->{printableName};
