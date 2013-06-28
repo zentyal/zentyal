@@ -153,14 +153,41 @@ sub create
 #
 sub deleteObject
 {
-    my ($self, @params) = @_;
+    my ($self, %params) = @_;
 
     # Notify group deletion to modules
     my $usersMod = $self->_usersMod();
     $usersMod->notifyModsLdapUserBase('delOU', $self, $self->{ignoreMods}, $self->{ignoreSlaves});
+    if (not $params{recursive}) {
+        $self->_deleteObjectAndContents();
+    } else {
+        $self->SUPER::deleteObject(%params);
+    }
+}
 
-    # Call super implementation
-    $self->SUPER::deleteObject(@params);
+sub _deleteObjectAndContents
+{
+    my ($self) = @_;
+    my $usersMod = $self->_usersMod();
+    my $ldap = $self->_ldap->{ldap};
+
+    my $result = $ldap->search(
+        base   => $self->dn(),
+        filter => "(objectclass=*)",
+    );
+    # deeper entries, first in order
+    my @entries = sort { $b->dn =~ tr/,// <=> $a->dn =~ tr/,//} $result->entries();
+    foreach my $entry (@entries) {
+        my $object = $usersMod->entryModeledObject($entry);
+        if ($object) {
+            # call proper method to give opportunity to clean u[
+            $object->deleteObject(recursive => 1);
+        } else {
+            # standard LDAP removal
+            $entry->delete();
+            $entry->update($ldap);
+        }
+    }
 }
 
 sub defaultContainer
