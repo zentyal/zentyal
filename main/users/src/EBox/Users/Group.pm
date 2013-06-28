@@ -569,10 +569,10 @@ sub create
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
         $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
-            $args{ignoreMods}, $args{ignoreSlaves});
+                                               $args{ignoreMods}, $args{ignoreSlaves});
 
-                my $changetype =  $entry->changetype();
-                my $changes = [$entry->changes()];
+        my $changetype =  $entry->changetype();
+        my $changes = [$entry->changes()];
         my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
