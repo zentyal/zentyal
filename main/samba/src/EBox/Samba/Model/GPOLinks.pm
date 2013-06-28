@@ -161,7 +161,6 @@ sub _gpLinks
             # Query GPO name
             my $gpo = new EBox::Samba::GPO(dn => $gpoDN);
             next unless ($gpo->exists());
-            EBox::info($gpoDN);
 
             my $gpoDisplayName = $gpo->get('displayName');
             my $enforced = ($gpLinkOptions & EBox::Samba::GPO::LINK_ENFORCED);
