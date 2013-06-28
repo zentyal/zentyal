@@ -60,7 +60,7 @@ jQuery(function(){
   jQuery('#aliasTable').on('click', 'a', function(event) {
       event.preventDefault();
       var url = '/Mail/DelGroupAlias';
-      var data = 'group="' + '<% $params->{group}->dn() %>' + '" ';
+      var data = 'group=<% $params->{group}->dn() %>';
       data += '&alias=' + event.target.getAttribute('data-alias');
       // we reuse div for createAlias form
       jQuery('#error_createAlias').html('').hide();
@@ -124,10 +124,12 @@ $group
                         <tr class='border'>
                                 <td><% $alias %></td>
                                 <td class='tcenter'>
-                                        <a href='#' data-alias='<% $alias %>'>
+                                        <a href='#'>
                                            <img src='/data/images/delete.gif'
+                                                data-alias='<% $alias %>'
                                                 title="<% __('Delete') %>"
-                                                alt="<% __('Delete') %>"/>
+                                                alt="<% __('Delete') %>"
+                                            />
                                         </a>
                                 </td>
                         </tr>

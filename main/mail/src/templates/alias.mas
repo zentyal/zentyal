@@ -70,10 +70,13 @@ use EBox::Gettext;
                                 <tr class='border'>
                                         <td><% $alias %></td>
                                         <td class='tcenter'>
-                                                <a href='#' data-alias='<% $alias %>' />
-                                                <img src='/data/images/delete.gif'
-                                                        title="<% __('Delete') %>"
-                                                        alt="<% __('Delete') %>"/></a>
+                                                <a href='#'>
+                                                    <img src='/data/images/delete.gif'
+                                                         data-alias='<% $alias %>'
+                                                         title="<% __('Delete') %>"
+                                                         alt="<% __('Delete') %>"
+                                                    />
+                                                 </a>
                                         </td>
                                 </tr>
 %                               }
@@ -98,11 +101,14 @@ jQuery(function() {
       });
   });
 
-  jQuery('#aliasTable').on('click', 'href', function(event) {
+  jQuery('#aliasTable').on('click', 'a', function(event) {
       event.preventDefault();
-      var url = '/Users/DelAlias';
-      var data = 'user="' + '<% $params->{user}->dn() %>' + '" ';
+      var url = '/Mail/DelAlias';
+      var data = 'user=<% $params->{user}->dn() %>';
+      console.log( event.target);
+      console.log( event.target.getAttribute('data-alias'));
       data += '&alias=' + event.target.getAttribute('data-alias');
+
       // we reuse div for createAlias form
       jQuery('#error_createAlias').html('').hide();
       jQuery.ajax({
