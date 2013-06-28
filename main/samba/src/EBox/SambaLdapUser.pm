@@ -417,18 +417,18 @@ sub _delContact
 sub _preAddGroup
 {
     my ($self, $entry) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $entry->dn();
+    my $parent = EBox::Users::Group->parent($self->_ldapDNToLdb($dn));
     my $description = $entry->get_value('description');
     my $gid         = $entry->get_value('cn');
     $self->_checkWindowsBuiltin($gid);
 
     my $params = {
         description   => $description,
+        parent        => $parent,
     };
 
     EBox::info("Creating group '$gid'");
@@ -443,48 +443,44 @@ sub _preAddGroup
 sub _preAddGroupFailed
 {
     my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
 
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
-
-    my $dn = $entry->dn();
+    my $samAccountName = $entry->get_value('cn');
     try {
-        my $samAccountName = $entry->get_value('cn');
         my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
+        my ($error) = @_;
+        EBox::error("Error removig group $samAccountName: $error")
     };
 }
 
 sub _addGroupFailed
 {
     my ($self, $zentyalGroup) = @_;
+    $self->_sambaReady() or
+        return;
 
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
-
-    my $dn = $zentyalGroup->dn();
+    my $samAccountName = $zentyalGroup->get('cn');
     try {
-        my $samAccountName = $zentyalGroup->get('cn');
         my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
+        my ($error) = @_;
+        EBox::error("Error removig group $samAccountName: $error")
     };
 }
 
 sub _modifyGroup
 {
     my ($self, $zentyalGroup) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Modifying group '$dn'");
@@ -510,10 +506,8 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $zentyalGroup) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Deleting group '$dn' from samba");
