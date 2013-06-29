@@ -28,6 +28,52 @@ sub new
     return $self;
 }
 
+
+# Method: _preAddOU
+#
+#   When a new ou is going to be created this method is called,
+#   just before ldap add
+#
+# Parameters:
+#
+#   entry - The future OU LDAP entry
+#
+sub _preAddOU
+{
+}
+
+sub _preAddOUFailed
+{
+}
+
+# Method: _addOU
+#
+#    When a new ou is created this method is called
+#
+# Parameters:
+#
+#   ou - created ou
+sub _addOU
+{
+}
+
+sub _addOUFailed
+{
+}
+
+# Method: _delOU
+#
+#    When a ou is deleted this method is called
+#
+# Parameters:
+#
+#   ou - deleted user
+sub _delOU
+{
+}
+
+# XXX no implemented yet modifyOU related methods
+
 # Method: _preAddUser
 #
 #   When a new user is going to be created this method is called,

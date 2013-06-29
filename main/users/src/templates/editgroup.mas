@@ -75,6 +75,14 @@ jQuery(function() {
    var updateUserWidgets = function(data) {
       var user, i;
 
+      // workaround for edit mailalias
+      if (!(data.firstTime) & (jQuery('#needReload').length > 0)) {
+           var url = '/Users/EditGroup';
+           var data = 'dn=' + data.groupDN;
+           Zentyal.Dialog.showURL(url, { data: data})
+           return;
+      }
+
       var addUser =  jQuery('#adduser');
       addUser.detach();
       addUser.children().remove();
@@ -137,7 +145,9 @@ jQuery(function() {
  });
 
   jQuery('#adduser').combobox();
-  updateUserWidgets(<% $userDataJSON %>);
+  var users = <% $userDataJSON %>;
+  users.firstTime = 1;
+  updateUserWidgets(users);
 });
 </script>
 </%def>

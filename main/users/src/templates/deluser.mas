@@ -3,6 +3,7 @@
 <%args>
     $user
     $slave => 1
+    @warns => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -17,22 +18,36 @@ use EBox::Gettext;
 </div>
 % } else {
 <div class='note'>
-    <% __('This operation will cause the removal of the user and all dependent data such as mail accounts, user files, etc.') %>
+    <% __('This operation will cause the removal of the user and all its dependent data') %>
+%   if (@warns) {
+     <ul>
+%      foreach my $warn(@warns) {
+           <li><% $warn %></li>
+%      }
+     </ul>
+%   }
 </div>
 <form action='/Users/DeleteUser' method='POST' id='delUserForm'>
 <p>
 <input type="hidden" name="dn" value="<% $user->dn() %>">
-            <input class='inputButton' type='submit' name='deluser'
+            <input class='inputButton' type='submit' id='deluser' name='deluser'
                    value="<% __('Delete user') %>"
                    alt="<% __('Delete user') %>">
+            <input class='inputButton' type='submit' id='cancel' name='cancel'
+                   value="<% __('Cancel') %>"
+                   alt="<% __('Cancel') %>">
 </p>
 </form>
 
 <script>
 jQuery(function() {
-   jQuery('#delUserForm').on('submit', function(event) {
+   jQuery('#deluser').on('click', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
+    });
+   jQuery('#cancel').on('click', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {cancel: 1} });
     });
 });
 </script>

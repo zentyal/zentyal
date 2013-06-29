@@ -188,12 +188,11 @@ sub userByAccount
     my ($self, $account) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
 
     my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=*)(mail=$account)",
-                scope => 'one',
+                base => $self->{ldap}->dn(),
+                filter => "&(objectclass=posixAccount)(mail=$account)",
+                scope => 'sub',
                 attrs => ['uid'],
                );
 
@@ -394,16 +393,14 @@ sub _accountExists
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my $username = $user->name();
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(uid=$username)",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
 }
@@ -423,15 +420,13 @@ sub allAccountsFromVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my %attrs = (
-                 base => $users->ldap()->dn(),
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
                  scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
 

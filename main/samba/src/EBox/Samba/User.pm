@@ -48,6 +48,14 @@ use Error qw(:try);
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
+# Method: mainObjectClass
+#
+sub mainObjectClass
+{
+    return 'user';
+}
+
+
 # Method: changePassword
 #
 #   Configure a new password for the user
@@ -112,9 +120,9 @@ sub setCredentials
 #
 sub deleteObject
 {
-    my ($self) = @_;
+    my ($self, @params) = @_;
 
-    if ($self->checkObjectErasability()) {
+    if (not $self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
@@ -128,8 +136,7 @@ sub deleteObject
     # TODO Remove this user from shares ACLs
 
     # Call super implementation
-    shift @_;
-    $self->SUPER::deleteObject(@_);
+    $self->SUPER::deleteObject(@params);
 }
 
 sub setupUidMapping

@@ -392,7 +392,7 @@ sub _setMailConf
     push (@array, 'allowed', $allowedaddrs);
     push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
-    push (@array, 'usersDN', $users->usersDn());
+    push (@array, 'baseDN', $users->ldap()->dn());
     push (@array, 'uidvmail', $self->{musers}->uidvmail());
     push (@array, 'gidvmail', $self->{musers}->gidvmail());
     push (@array, 'popssl', $self->pop3s());
@@ -602,7 +602,7 @@ sub _setDovecotConf
 
     # ldap dovecot conf file
     @params = ();
-    push (@params, usersDn      => $users->usersDn());
+    push (@params, baseDN      => $users->ldap()->dn());
     push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
     push (@params, zentyalROPwd => $roPwd);

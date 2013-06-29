@@ -6,10 +6,7 @@
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 <script>
-   console.log('script block');
 jQuery(function() {
-   console.log('ONLOAD');
-    console.log(   jQuery('#userOptions').length);
    jQuery('#userOptions').on('submit', function(event) {
         console.log('before prevent default');
         event.preventDefault();
