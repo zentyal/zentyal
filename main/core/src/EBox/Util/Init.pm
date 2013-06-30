@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -43,19 +43,39 @@ sub moduleList
     print "\n";
 }
 
+# Procedure: checkModule
+#
+#    Check the module is valid
+#
+#    - the given module name is a valid Zentyal module
+#    - the given module is one which services associated to it
+#
+# Parameters:
+#
+#    modname - String the module name
+#
+# Returns:
+#
+#    <EBox::Module::Base> - the module
+#
+# Exits:
+#
+#    - if it is not a valid module name
+#    - if it is not a valid service module
+#
 sub checkModule
 {
     my ($modname) = @_;
 
     my $global = EBox::Global->getInstance(1);
     my $mod = $global->modInstance($modname);
-    if (!defined $mod) {
+    if (not defined $mod) {
         print STDERR "$modname is not a valid module name\n";
         moduleList();
         exit 2;
     }
-    if(!$mod->isa("EBox::Module::Service")) {
-        print STDERR "$modname is a not manageable module name\n";
+    if (not $mod->isa("EBox::Module::Service")) {
+        print STDERR "$modname is not a module with services\n";
         moduleList();
         exit 2;
     }
@@ -113,7 +133,7 @@ sub moduleAction
     my $redis = $mod->redis();
     try {
         $redis->begin() if ($redisTrans);
-        $mod->$action();
+        $mod->$action(restartModules => 1);
         $redis->commit() if ($redisTrans);
         $success = 0;
     } catch EBox::Exceptions::Base with {
@@ -177,12 +197,28 @@ sub printModuleMessage
 }
 
 
+# Procedure: moduleRestart
+#
+#     Restart the given module (rewrite configuration and restart daemons)
+#
+# Parameters:
+#
+#     modname - String the module name
+#
 sub moduleRestart
 {
     my ($modname) = @_;
     moduleAction($modname, 'restartService', 'restart');
 }
 
+# Procedure: moduleStop
+#
+#     Stop the given module
+#
+# Parameters:
+#
+#     modname - String the module name
+#
 sub moduleStop
 {
     my ($modname) = @_;

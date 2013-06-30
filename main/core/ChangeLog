@@ -1,4 +1,8 @@
 HEAD
+	+ Restart firewall module when a firewall observer module is
+	  stopped/started using zentyal init.d script
+	+ Added temporary stopped state to a Service module to know if a
+	  module is stopped but enabled
 	+ Redirect to / from /ebox using remote access to avoid blank page
 	+ Make manage administrators table resilent against invalid users
 3.0.21
