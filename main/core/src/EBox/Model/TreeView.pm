@@ -416,7 +416,7 @@ sub actionHandlerJS
     my $ret = {
         url => $url,
         title => $title,
-        width => 600 };
+        width => 640 };
 
     return $ret;
 }
