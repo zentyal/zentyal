@@ -124,12 +124,6 @@ sub _domain
         return $domain;
     }
 
-    # Check if the domain is an IP
-    my $ip = new Net::IP($domain);
-    if ($ip) {
-        return $ip->ip();
-    }
-
     my $shortDomain = "";
     my @components = split(/\./, $domain);
     foreach my $element (reverse @components) {

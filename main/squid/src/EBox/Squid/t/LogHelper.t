@@ -61,6 +61,27 @@ sub setUpLogHelper : Test(setup)
     $self->{file}      = '/var/log/squid3/external-access.log';
 }
 
+sub test_domain_name : Test(3)
+{
+    my ($self) = @_;
+
+    my @cases = (
+        {
+            name => 'Test domain name',
+            line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
+            expected => {
+                bytes  => 1516,  code      => 'TCP_MEM_HIT/200',     elapsed     => 0, event => 'accepted',
+                method => 'GET', mimetype  => 'text/plain',          remotehost  => '192.168.100.3',
+                rfc931 => '-',   timestamp => '2013-06-30 10:17:22', peer => 'NONE/-',
+                url    => 'http://db.local.clamav.net/daily-17404.cdiff',
+                domain => 'local.clamav.net',
+            },
+        },
+       );
+    $self->_testCases(\@cases);
+}
+
+
 sub test_ip_addr_domain : Test(6)
 {
     my ($self) = @_;
@@ -89,8 +110,14 @@ sub test_ip_addr_domain : Test(6)
             },
         },
        );
+    $self->_testCases(\@cases);
+}
 
-    foreach my $case (@cases) {
+sub _testCases
+{
+    my ($self, $cases) = @_;
+
+    foreach my $case (@{$cases}) {
         $self->{dbEngine}->_tmClearLastInsert();
         lives_ok {
             $self->{logHelper}->processLine($self->{file}, $case->{line}, $self->{dbEngine});
