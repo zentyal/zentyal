@@ -67,7 +67,8 @@ sub precondition
 
 sub preconditionFailMsg
 {
-    	return __x('To be able to use this feature you need at least two enabled gateways. You can add them {ba}here{ca} first.', ba => '<a href="/Network/View/GatewayTable">' , ca => '</a>');
+    return __x('To be able to use this feature you need at least two enabled gateways. You can add them {oa}here{ca} first.',
+               oa => '<a href="/Network/View/GatewayTable">', ca => '</a>');
 }
 
 1;
