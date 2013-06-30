@@ -1,4 +1,6 @@
 HEAD
+	+ Save logs module when creating VPN client to start logging its log
+	+ Save software module after setting QA updates configuration
 	+ Small correction on a link that were still pointing to Cloud
 	+ Support running runnerd without being registered programatically
 	+ Give support to custom proxied redirections to provide local HTTP
