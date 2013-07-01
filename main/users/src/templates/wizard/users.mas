@@ -69,7 +69,7 @@ $hostDomain
            </tr>
            <tr>
                 <td><label for="dcPassword"><% __('User password') %></label></td>
-                <td><input type="text" name="dcPassword" id="dcPassword"/></td>
+                <td><input type="password" name="dcPassword" id="dcPassword"/></td>
            </tr>
         </tbody></table>
 

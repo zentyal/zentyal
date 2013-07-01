@@ -661,7 +661,7 @@ sub _externalADEnableActions
 {
     my ($self) = @_;
     my $global = $self->global();
-    # we need to restart network to force the regenation of DNS resolvers
+    # we need to restart network to force the regeneration of DNS resolvers
     $global->modInstance('network')->setAsChanged();
     # we need to webadmin to clear DNs cache daa
     $global->modInstance('webadmin')->setAsChanged();
