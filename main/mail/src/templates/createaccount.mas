@@ -46,8 +46,8 @@ use EBox::Gettext;
         </table>
 </form>
 <script>
-jQuery(function() {
-   jQuery('#createaccount').on('submit', function(event) {
+$(function() {
+   $('#createaccount').on('submit', function(event) {
       event.preventDefault();
       console.log('createaccount sumbit');
       Zentyal.Dialog.submitForm('#createaccount', {

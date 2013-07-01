@@ -759,14 +759,8 @@ sub uploadRate # (iface)
 sub totalDownloadRate
 {
     my ($self) = @_;
-
-    my $sumDownload = 0;
     my $rates = $self->interfaceRateModel();
-    foreach my $iface (@{$rates->ids()}) {
-        $sumDownload += $rates->row($iface)->valueByName('download');
-    }
-
-    return $sumDownload;
+    return $rates->totalDownloadRate();
 }
 
 # Method: enoughInterfaces

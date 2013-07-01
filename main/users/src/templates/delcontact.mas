@@ -19,16 +19,17 @@ use EBox::Gettext;
 </div>
 <form action='/Users/DeleteContact' method='POST' id='delContactForm'>
 <p>
-		<input type="hidden" name="dn" value="<% $contact->dn() %>">
-				<input class='inputButton' type='submit' name='delcontact'
-					   value="<% __('Delete contact') %>"
-					   alt="<% __('Delete contact') %>">
+                <input type="hidden" name="dn" value="<% $contact->dn() %>" />
+                <input class='inputButton' type='submit' name='delcontact'
+                       value="<% __('Delete contact') %>"
+                       alt="<% __('Delete contact') %>" />
+                <& /input/dialogCancel.mas &>
 </p>
 </form>
 
 <script>
-jQuery(function() {
-   jQuery('#delContactForm').on('submit', function(event) {
+$(function() {
+   $('#delContactForm').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delContactForm', { extraData: {delcontact: 1} });
     });

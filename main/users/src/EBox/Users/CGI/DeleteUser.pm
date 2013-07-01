@@ -40,13 +40,7 @@ sub _process
     my $dn = $self->unsafeParam('dn');
     my $user = new EBox::Users::User(dn => $dn);
 
-    if ($self->unsafeParam('cancel')) {
-        $self->{json} = {
-            success => 1,
-            redirect => '/Users/Tree/Manage'
-         };
-        return;
-    } elsif ($self->unsafeParam('deluser')) {
+    if ($self->unsafeParam('deluser')) {
         $self->{json} = { success => 0 };
         $user->deleteObject();
         $self->{json}->{success} = 1;

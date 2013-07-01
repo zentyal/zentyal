@@ -17,14 +17,14 @@ my $hostDomain = $sysinfo->hostDomain();
          <& .externalADSection &>
 </form>
 <script>
-jQuery(function() {
-   jQuery('#standaloneRadio').on('click', function (event) {
-      jQuery('#standaloneSection').show();
-      jQuery('#externalADSection').hide();
+$(function() {
+   $('#standaloneRadio').on('click', function (event) {
+      $('#standaloneSection').show();
+      $('#externalADSection').hide();
    });
-   jQuery('#adRadio').on('click', function (event) {
-      jQuery('#standaloneSection').hide();
-      jQuery('#externalADSection').show();
+   $('#adRadio').on('click', function (event) {
+      $('#standaloneSection').hide();
+      $('#externalADSection').show();
    });
 });
 </script>

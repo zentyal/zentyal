@@ -14,22 +14,21 @@ use EBox::Gettext;
 <h3><% __("Delete Organizational Unit") %></h3>
 <div id='error_delOuForm' class='error' style='display:none'></div>
 <div class='note'>
-	<% __('This operation will cause the removal of the OU and all objects inside it, including users, groups, etc.') %>
+        <% __('This operation will cause the removal of the OU and all objects inside it, including users, groups, etc.') %>
 </div>
 
 <br />
 <form action='/Users/DeleteOU' method='POST' id='delOuForm'>
-		<input type="hidden" name="dn" value="<% $dn %>">
-				<input class='inputButton' type='submit' name='delou'
-					   value="<% __('Delete Organizational Unit') %>"
-					   alt="<% __('Delete Organizational Unit') %>">
-			<td>
-		</tr>
+                <input type="hidden" name="dn" value="<% $dn %>" />
+                <input class='inputButton' type='submit' name='delou'
+                       value="<% __('Delete Organizational Unit') %>"
+                       alt="<% __('Delete Organizational Unit') %>" />
+                <& /input/dialogCancel.mas &>
 </form>
 
 <script>
-jQuery(function() {
-   jQuery('#delOuForm').on('submit', function(event) {
+$(function() {
+   $('#delOuForm').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delOuForm', { extraData: {delou: 1} });
     });

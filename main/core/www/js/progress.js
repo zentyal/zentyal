@@ -3,7 +3,7 @@
 // code used by progress.mas
 
 "use strict";
-jQuery.noConflict();
+
 Zentyal.namespace('ProgressIndicator');
 
 Zentyal.ProgressIndicator.updateProgressBar = function(progressbar, ticks, totalTicks) {
@@ -22,7 +22,7 @@ Zentyal.ProgressIndicator.updateProgressBar = function(progressbar, ticks, total
         progressbar.progressbar('option', 'max', totalTicks);
     }
     progressbar.progressbar('value', ticks);
-    jQuery('#percent', progressbar).html(percent+"%");
+    $('#percent', progressbar).html(percent+"%");
 };
 
 Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
@@ -30,21 +30,21 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
     if (xmlHttp.responseText.length === 0) {
         return;
     }
-    response = jQuery.parseJSON(xmlHttp.responseText);
+    response = $.parseJSON(xmlHttp.responseText);
 
     if (xmlHttp.readyState == 4) {
         if (response.state == 'running') {
             var ticks = 0;
             var totalTicks = 0;
             if (('message' in response) && response.message.length > 0 ) {
-                jQuery('#currentItem').html(response.message);
+                $('#currentItem').html(response.message);
             }
             if ( ('ticks' in response) && (response.ticks >= 0)) {
-                jQuery('#ticks').html(response.ticks);
+                $('#ticks').html(response.ticks);
                 ticks = response.ticks;
             }
             if ( ('totalTicks' in response) && (response.totalTicks > 0)) {
-                jQuery('#totalTicks').html(response.totalTicks);
+                $('#totalTicks').html(response.totalTicks);
                 totalTicks = response.totalTicks;
             }
 
@@ -59,29 +59,29 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
 
           if (showNotesOnFinish) {
             if (('errorMsg' in response) && (response.errorMsg)) {
-                jQuery('#warning-progress-messages').html(response.errorMsg);
+                $('#warning-progress-messages').html(response.errorMsg);
 
-                jQuery('#done_note').removeClass('note').addClass('warning');
-                jQuery('#warning-progress').show();
-                jQuery('#warning-progress-messages').show();
+                $('#done_note').removeClass('note').addClass('warning');
+                $('#warning-progress').show();
+                $('#warning-progress-messages').show();
             }
 
-              jQuery('#progressing').hide();
-              jQuery('#done').show();
+              $('#progressing').hide();
+              $('#done').show();
           }
 
             // Used to tell selenium we are done
             // with saving changes
-            jQuery('ajax_request_cookie').val(1337);
+            $('ajax_request_cookie').val(1337);
         } else if (response.state == 'error') {
             clearInterval(timerId);
             if (showNotesOnFinish) {
-                jQuery('#progressing').hide();
+                $('#progressing').hide();
             }
 
-            jQuery('#error-progress').show();
+            $('#error-progress').show();
             if ('errorMsg' in response) {
-                jQuery('#error-progress-message').html(response.errorMsg);
+                $('#error-progress-message').html(response.errorMsg);
             }
         }
     }
@@ -89,11 +89,11 @@ Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, 
 
 Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
     var time = 0,
-    progressbar = jQuery('#progress_bar');
+    progressbar = $('#progress_bar');
     progressbar.progressbar({ max: false, value: 0});
     var requestParams = "progress=" + progressId ;
     var callServer = function() {
-        jQuery.ajax({
+        $.ajax({
             url: currentItemUrl,
             data: requestParams,
             type : 'POST',
@@ -115,7 +115,7 @@ Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, current
 
 Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
     var loadMethod = function() {
-        jQuery.ajax({
+        $.ajax({
             url: url,
             success: function(text) {
                 if (text) {

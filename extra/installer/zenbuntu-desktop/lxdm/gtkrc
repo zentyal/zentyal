@@ -1,17 +1,6 @@
 style "back"
 {
-	engine "pixmap"
-	{
-		image
-		{
-			function = FLAT_BOX
-			shadow=NONE
-			state = NORMAL
-			file="wave.svg"
-			stretch=TRUE
-			detail = "base"
-		}
-	}
+	bg[NORMAL]="#000"
 }
 
 style "time"

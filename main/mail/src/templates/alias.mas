@@ -87,21 +87,21 @@ use EBox::Gettext;
 
 <& .updateMaildirQuotaJs, params => $params &>
 <script>
-jQuery(function() {
+$(function() {
   var refreshDialog = function(response) {
        var url = '/Users/EditUser';
        var data = 'dn=' + response.userDN;
        Zentyal.Dialog.showURL(url, { data: data});
   };
 
-  jQuery('#createAlias, #delAccount, #setMaildirQuota').on('submit', function(event) {
+  $('#createAlias, #delAccount, #setMaildirQuota').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm(event.target, {
            success : refreshDialog
       });
   });
 
-  jQuery('#aliasTable').on('click', 'a', function(event) {
+  $('#aliasTable').on('click', 'a', function(event) {
       event.preventDefault();
       var url = '/Mail/DelAlias';
       var data = 'user=<% $params->{user}->dn() %>';
@@ -110,19 +110,19 @@ jQuery(function() {
       data += '&alias=' + event.target.getAttribute('data-alias');
 
       // we reuse div for createAlias form
-      jQuery('#error_createAlias').html('').hide();
-      jQuery.ajax({
+      $('#error_createAlias').html('').hide();
+      $.ajax({
          url: url,
          data: data,
          dataType: 'json',
          error: function(jqXHR) {
-            jQuery('#error_createAlias').html(jqXHR.responseText).show();
+            $('#error_createAlias').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
                 refreshDialog(response);
             } else {
-               jQuery('#error_createAlias').html(response.error).show();
+               $('#error_createAlias').html(response.error).show();
             }
          }
       });

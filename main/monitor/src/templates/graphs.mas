@@ -39,12 +39,12 @@ Parameters:
 Zentyal.Monitor = {};
 Zentyal.Monitor.updateGraphs = function () {
    // Time period is sent using the tab
-   var period = jQuery('#timePeriod').attr('value');
-   jQuery('div.graph').each(function(index, graph) {
+   var period = $('#timePeriod').attr('value');
+   $('div.graph').each(function(index, graph) {
        var url = '/Monitor/UpdateGraph';
        var tiParts = graph.id.split('__');
        var parts   = tiParts[0].split('.');
-       jQuery.ajax({
+       $.ajax({
                     url: url,
                     async: true,
                     type: 'get',
@@ -60,7 +60,7 @@ Zentyal.Monitor.updateGraphs = function () {
     });
 };
 
-jQuery(function() {
+$(function() {
   // Update graphs every 30s
       setInterval( Zentyal.Monitor.updateGraphs, 30000);
 });

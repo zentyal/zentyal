@@ -21,6 +21,7 @@ package EBox::Users::Model::Manage;
 use base 'EBox::Model::TreeView';
 
 use EBox::Gettext;
+use EBox::Users;
 use EBox::Types::Action;
 
 sub _tree
@@ -85,6 +86,7 @@ sub childNodes
             $type = 'contact';
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
+            next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
         } else {

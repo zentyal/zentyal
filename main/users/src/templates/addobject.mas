@@ -1,23 +1,24 @@
 <%args>
     $dn
+    $addGroup
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<input type="radio" name="object_type" value="user" checked><% __('User') %>
-<input type="radio" name="object_type" value="group"><% __('Group') %>
+<input type="radio" name="object_type" value="user" <% $addGroup ? '' : 'checked' %>><% __('User') %>
+<input type="radio" name="object_type" value="group" <% $addGroup ? 'checked' : '' %>><% __('Group') %>
 <input type="radio" name="object_type" value="contact"><% __('Contact') %>
 <input type="radio" name="object_type" value="ou"><% __('Organizational Unit') %>
 
 <div id="addform"></div>
 
 <script>
-jQuery(function () {
-    var form = jQuery('#addform');
-    form.load('/Users/AddUser', {dn: '<% $dn %>'});
+$(function () {
+    var form = $('#addform');
+    form.load('/Users/<% $addGroup ? 'AddGroup' : 'AddUser' %>', {dn: '<% $dn %>'});
 
-    jQuery('input[name=object_type]').click(function () {
-        var selectedType = jQuery('input[name=object_type]:checked').val();
+    $('input[name=object_type]').click(function () {
+        var selectedType = $('input[name=object_type]:checked').val();
         switch (selectedType) {
         case 'ou':
             form.load('/Users/AddOU', {dn: '<% $dn %>'});

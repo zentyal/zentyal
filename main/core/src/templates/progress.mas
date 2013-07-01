@@ -252,7 +252,7 @@ background: #666 url('/data/images/black-texture.png');
 </div>
 
 <script type="text/javascript">
-jQuery( function() {
+$( function() {
    Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
                         '<% $currentItemUrl %>',
                         <% $reloadInterval %>,
@@ -262,16 +262,16 @@ jQuery( function() {
   );
 % if (@slides) {
    var disableClass = 'carouselControlDisabled';
-   jQuery('#carousel').carousel();
-   jQuery('#carouselLeft').prop('disabled', true).addClass(disableClass);
-   jQuery('#carousel').on('slid', '', function() {
+   $('#carousel').carousel();
+   $('#carouselLeft').prop('disabled', true).addClass(disableClass);
+   $('#carousel').on('slid', '', function() {
       var toEnable ='', toDisable ='',
           leftId = '#carouselLeft', rightId = '#carouselRight';
-      var carouselContents = jQuery('#carouselContents');
+      var carouselContents = $('#carouselContents');
       if (carouselContents.find('.item:last').hasClass('active')) {
             toEnable = leftId;
             toDisable= rightId;
-           jQuery('#carousel').carousel('pause');
+           $('#carousel').carousel('pause');
       } else if (carouselContents.find('.item:first').hasClass('active')) {
            toEnable= rightId;
            toDisable = leftId
@@ -281,10 +281,10 @@ jQuery( function() {
       }
 
       if (toDisable) {
-         jQuery(toDisable).prop('disabled', true).addClass(disableClass);
+         $(toDisable).prop('disabled', true).addClass(disableClass);
       }
 
-      jQuery(toEnable).prop('disabled', false).removeClass(disableClass);
+      $(toEnable).prop('disabled', false).removeClass(disableClass);
    });
 
 % }

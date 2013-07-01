@@ -39,7 +39,10 @@ sub _process
     $self->_requireParam('dn', 'dn');
     my $dn = $self->unsafeParam('dn');
 
+    my $addGroup = $dn =~ /^ou=Groups,/;
+
     push (@args, dn => $dn);
+    push (@args, addGroup => $addGroup);
 
     $self->{params} = \@args;
 }

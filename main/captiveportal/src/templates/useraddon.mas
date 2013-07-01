@@ -6,8 +6,8 @@
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 <script>
-jQuery(function() {
-   jQuery('#userOptions').on('submit', function(event) {
+$(function() {
+   $('#userOptions').on('submit', function(event) {
         console.log('before prevent default');
         event.preventDefault();
         console.log('submit JS');
