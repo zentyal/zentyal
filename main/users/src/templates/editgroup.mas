@@ -18,6 +18,10 @@ use EBox::Gettext;
 % }
 
 <form action='/Users/EditGroup' method='POST' id='editGroupForm'>
+    <span class="ftitle"> <% __('Type') %>: </span>
+    <input type="radio" name="type" value="security" <% $group->isSecurityGroup() ? 'checked' : '' %>><% __('Security Group') %>
+    <input type="radio" name="type" value="distribution" <% $group->isSecurityGroup() ? '' : 'checked' %>><% __('Distribution Group') %>
+
     <span class="ftitle"><% __('Description') %>: </span>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">

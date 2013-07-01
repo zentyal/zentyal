@@ -64,6 +64,11 @@ sub _process
     if ($self->param('edit')) {
         $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('description', __('description'));
+        $self->_requireParam('type', __('type'));
+
+        my $type = $self->param('type');
+        $group->setSecurityGroup($type eq 'security');
+
         my $description = $self->unsafeParam('description');
         if (length ($description)) {
             $group->set('description', $description);
