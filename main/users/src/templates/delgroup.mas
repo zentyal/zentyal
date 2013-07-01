@@ -15,14 +15,15 @@ use EBox::Gettext;
 </div>
 % } else {
 <div class='note'>
-	<% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
+        <% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
 </div>
 <form action='/Users/DeleteGroup' method='POST' id='delGroupForm'>
 <p>
-		<input type="hidden" name="dn" value="<% $group->dn() %>">
-				<input class='inputButton' type='submit' name='delgroup'
-					   value="<% __('Delete group') %>"
-					   alt="<% __('Delete group') %>">
+                <input type="hidden" name="dn" value="<% $group->dn() %>">
+                <input class='inputButton' type='submit' name='delgroup'
+                       value="<% __('Delete group') %>"
+                       alt="<% __('Delete group') %>">
+                <& /input/dialogCancel.mas &>
 </p>
 </form>
 

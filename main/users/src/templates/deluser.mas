@@ -29,13 +29,11 @@ use EBox::Gettext;
 </div>
 <form action='/Users/DeleteUser' method='POST' id='delUserForm'>
 <p>
-<input type="hidden" name="dn" value="<% $user->dn() %>">
+<input type="hidden" name="dn" value="<% $user->dn() %>" />
             <input class='inputButton' type='submit' id='deluser' name='deluser'
                    value="<% __('Delete user') %>"
-                   alt="<% __('Delete user') %>">
-            <input class='inputButton' type='submit' id='cancel' name='cancel'
-                   value="<% __('Cancel') %>"
-                   alt="<% __('Cancel') %>">
+                   alt="<% __('Delete user') %>" />
+            <& /input/dialogCancel.mas &>
 </p>
 </form>
 
@@ -44,10 +42,6 @@ jQuery(function() {
    jQuery('#deluser').on('click', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
-    });
-   jQuery('#cancel').on('click', function(event) {
-       event.preventDefault();
-       Zentyal.Dialog.submitForm('#delUserForm', { extraData: {cancel: 1} });
     });
 });
 </script>
