@@ -317,8 +317,11 @@ sub _groupAddOns
         'service' => $asterisk->isEnabled(),
     };
 
-    return { path => '/asterisk/group.mas',
-             params => $args };
+    return {
+        title  =>  __('Asterisk group queue'),
+        path   => '/asterisk/group.mas',
+        params => $args
+       };
 }
 
 sub _modifyGroup

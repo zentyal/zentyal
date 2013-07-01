@@ -241,10 +241,8 @@ $(function() {
     });
 
     $('.foldUserAddon').on('click', function(event) {
-        console.log('foldUserAddon click ' + this);
         event.preventDefault();
         var divId = this.getAttribute('data-fold-div');
-        console.log('divID ' + divId);
         $('#' + divId).toggle();
     });
 

@@ -652,7 +652,11 @@ sub _groupAddOns
         'service'   => $self->{samba}->isEnabled(),
     };
 
-    return { path => '/samba/samba.mas', params => $args };
+    return {
+        title => __('Sharing directory for this group'),
+        path => '/samba/samba.mas',
+        params => $args
+       };
 }
 
 # Method: _checkWindowsBuiltin

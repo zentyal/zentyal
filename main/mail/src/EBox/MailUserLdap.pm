@@ -379,7 +379,11 @@ sub _groupAddOns
         'nacc'     => scalar ($self->usersWithMailInGroup($group)),
     };
 
-    return { path => '/mail/groupalias.mas', params => $args };
+    return {
+        title  => __('Mail alias settings'),
+        path   => '/mail/groupalias.mas',
+        params => $args
+       };
 }
 
 sub _modifyGroup

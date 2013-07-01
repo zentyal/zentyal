@@ -1695,7 +1695,11 @@ sub allGroupAddOns
     my @components;
     foreach my $mod (@modsFunc) {
         my $comp = $mod->_groupAddOns($group);
-        push (@components, $comp) if ($comp);
+        if ($comp) {
+            $comp->{id} = ref $mod;
+            $comp->{id} =~ s/:/_/g;
+            push (@components, $comp) if ($comp);
+        }
     }
 
     return \@components;
