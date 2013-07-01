@@ -25,7 +25,7 @@ function installRS(title) {
 }
 
 function installSoftware(title, html) {
-   jQuery(html).first().dialog({ title: title });
+   $(html).first().dialog({ title: title });
 }
 </script>
 % }

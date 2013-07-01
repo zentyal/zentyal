@@ -337,13 +337,20 @@ sub mapAccounts
     EBox::info("Mapping domain administrator account");
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
-    $domainAdmin->addToZentyal() if ($domainAdmin->exists() and (not $domainAdminZentyal->exists()));
+    if ($domainAdmin->exists() and (not $domainAdminZentyal->exists())) {
+        my $parentOu = EBox::Users::User->defaultContainer();
+        $domainAdmin->addToZentyal($parentOu);
+    }
+
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
-    $domainAdmins->addToZentyal() if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists()));
+    if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists())) {
+        my $parentOu = EBox::Users::Group->defaultContainer();
+        $domainAdmins->addToZentyal($parentOu);
+    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     # Map domain users group
@@ -427,7 +434,9 @@ sub provisionDC
         $samba->_startService();
 
         # Load all zentyal users and groups into ldb
+        $samba->ldb->ldapOUsToLDB();
         $samba->ldb->ldapUsersToLdb();
+        $samba->ldb->ldapContactsToLdb();
         $samba->ldb->ldapGroupsToLdb();
         $samba->ldb->ldapServicePrincipalsToLdb();
 
@@ -1061,10 +1070,15 @@ sub provisionADC
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $users = $usersModule->users();
+        my $contacts = $usersModule->contacts();
         my $groups = $usersModule->groups();
         foreach my $zentyalUser (@{$users}) {
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
+        }
+        foreach my $zentyalContact (@{$contacts}) {
+            $zentyalContact->setIgnoredModules(['samba']);
+            $zentyalContact->deleteObject();
         }
         foreach my $zentyalGroup (@{$groups}) {
             $zentyalGroup->setIgnoredModules(['samba']);

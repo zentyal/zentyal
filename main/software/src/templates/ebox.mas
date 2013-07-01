@@ -158,7 +158,7 @@ var pkgTable = new Array(
 %# Basic table
 <div id="basic">
 % unless ($first) {
-    <a href='#' onclick="jQuery('#basic').fadeOut(300); jQuery('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
+    <a href='#' onclick="$('#basic').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
 % }
     <div class="headcontainer">
     <h3><%__('Server roles')%></h3>
@@ -459,7 +459,7 @@ var pkgTable = new Array(
 
 
 <div id="advanced">
-    <a href='#' onclick="jQuery('#advanced').fadeOut(300);jQuery('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
+    <a href='#' onclick="$('#advanced').fadeOut(300);$('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
             <li>
@@ -542,8 +542,8 @@ var pkgTable = new Array(
 % }
 
 <script>
-jQuery(function() {
-   if (jQuery('#zentyal-remoteservices').length > 0) {
+$(function() {
+   if ($('#zentyal-remoteservices').length > 0) {
         Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
    }
    if (location.hash === '#delete') {
@@ -552,17 +552,17 @@ jQuery(function() {
         Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
   }
 
-   jQuery('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
+   $('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
    // update button status
    Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
    Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
    Zentyal.SoftwareManagementUI.updateActionButton('deleteTable', 'delete_button');
 % if ($first) {
-   jQuery('#advanced').hide();
+   $('#advanced').hide();
 % } else {
-   jQuery('#basic').hide();
+   $('#basic').hide();
 % }
-  jQuery('#updateBox, #deleteBox').hide();
+  $('#updateBox, #deleteBox').hide();
   Zentyal.stripe('.dataTable', 'even', 'odd');
 });
 </script>

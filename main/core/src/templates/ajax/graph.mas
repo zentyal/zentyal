@@ -192,7 +192,7 @@ END
  Wait till dom's finished loading.
 **/
 document.observe('dom:loaded', function(){
-  jQuery.plot('#' + Zentyal.escapeSelector('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
+  $.plot('#' + Zentyal.escapeSelector('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
 });
 </script>
 

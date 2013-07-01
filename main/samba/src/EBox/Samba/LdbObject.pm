@@ -26,12 +26,15 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 
+use Data::Dumper;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Control;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
+
+my $_sambaMod;
 
 # Method: new
 #
@@ -190,6 +193,19 @@ sub deleteValues
     }
 }
 
+# Method: checkObjectErasability
+#
+#   Returns whether the object could be deleted or not.
+sub checkObjectErasability
+{
+    my ($self) = @_;
+
+    # Refuse to delete critical system objects
+    my $isCritical = $self->get('isCriticalSystemObject');
+    return not ($isCritical and (lc ($isCritical) eq 'true'));
+
+}
+
 # Method: deleteObject
 #
 #   Deletes this object from the LDAP
@@ -198,9 +214,7 @@ sub deleteObject
 {
     my ($self, $attr, $lazy) = @_;
 
-    # Refuse to delete critical system objects
-    my $isCritical = $self->get('isCriticalSystemObject');
-    if ($isCritical and lc ($isCritical) eq 'true') {
+    unless ($self->checkObjectErasability()) {
         throw EBox::Exceptions::UnwillingToPerform(
             reason => __x('The object {x} is a system critical object.',
                           x => $self->dn()));
@@ -259,6 +273,24 @@ sub save
     }
 }
 
+# Method: entryOpChangesInUpdate
+#
+#  string with the pending changes in a LDAP entry. This string is intended to
+#  be used only for human consumption
+#
+#  Warning:
+#   a entry with a failed update preserves the failed changes. This is
+#   not documented in Net::LDAP so it could change in the future
+#
+sub entryOpChangesInUpdate
+{
+    my ($self, $entry) = @_;
+    local $Data::Dumper::Terse = 1;
+    my @changes = $entry->changes();
+    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
+    return $args;
+}
+
 # Method: dn
 #
 #   Return DN for this object
@@ -276,9 +308,16 @@ sub dn
 #
 sub baseDn
 {
-    my ($self) = @_;
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
 
-    my ($trash, $basedn) = split(/,/, $self->dn(), 2);
+    return $dn if ($self->_ldap->dn() eq $dn);
+
+    my ($trash, $basedn) = split(/,/, $dn, 2);
     return $basedn;
 }
 
@@ -295,9 +334,9 @@ sub _entry
         if (defined $self->{dn}) {
             my ($filter, $basedn) = split(/,/, $self->{dn}, 2);
             my $attrs = {
-                base => $basedn,
-                filter => $filter,
-                scope => 'one',
+                base => $self->{dn},
+                filter => 'dn=' .$self->{dn},
+                scope => 'base',
                 attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
@@ -332,6 +371,14 @@ sub _entry
     return $self->{entry};
 }
 
+sub _sambaMod
+{
+    if (not $_sambaMod) {
+        $_sambaMod = EBox::Global->getInstance(0)->modInstance('samba')
+    }
+    return $_sambaMod;
+}
+
 # Method: _ldap
 #
 #   Returns the LDAP object
@@ -340,7 +387,7 @@ sub _ldap
 {
     my ($self) = @_;
 
-    return EBox::Global->modInstance('samba')->ldb();
+    return _sambaMod()->ldb();
 }
 
 # Method: to_ldif
@@ -519,6 +566,48 @@ sub getXidNumberFromRID
     my $rid = (split (/-/, $sid))[7];
 
     return $rid + 50000;
+}
+
+# Method: parent
+#
+#   Return the parent of this object or undef if it's the root.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# TODO
+#   bug: dns with same or less commponents of root DN are not treated properly
+sub parent
+{
+    my ($self, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+    my $sambaMod = $self->_sambaMod();
+
+
+    my $defaultNamingContext = $sambaMod->defaultNamingContext();
+    return undef if ($dn eq $defaultNamingContext->dn());
+
+    my $parentDn = $self->baseDn($dn);
+    return $sambaMod->objectFromDN($parentDn);
+}
+
+sub relativeDn
+{
+    my ($self, $dnBase, $dn) = @_;
+    if (not $dn and ref $self) {
+        $dn = $self->dn();
+    } elsif (not $dn) {
+        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
+    }
+
+    if (not $dn =~ s/,$dnBase$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
+    }
+
+    return $dn;
 }
 
 1;

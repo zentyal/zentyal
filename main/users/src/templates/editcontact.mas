@@ -1,0 +1,241 @@
+<%args>
+    $contact
+    @contactgroups
+    @remaingroups
+    $slave => 1
+</%args>
+<%init>
+use EBox::Gettext;
+use JSON::XS;
+</%init>
+
+
+<div id="edit_contact">
+
+<h3><% __('Administration of contact ') %> <span class='stitle'><% $contact->fullname() %></span></h3>
+<div id='error_editContactForm' class='error' style='display:none'></div>
+<div id="contact_attrs" style="height: 320px; float: left">
+    <form action='/Users/EditContact' method='POST' id='editContactForm'>
+        <input type="hidden" name="dn" value="<% $contact->dn() %>">
+        <input type="hidden" name="edit" value="edit">
+        <table class='formTable'>
+        <tbody>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('First name') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='firstname' value="<% $contact->firstname() %>">
+                </td>
+            </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('Last name') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
+                </td>
+            </tr>
+            <tr>
+                <td class='tright' width="170px">
+                    <span class='ftitle'>
+                        <% __('Description') %>:
+                    </span>
+                    <div class="optional_field">
+                        <% __('Optional') %>
+                    </div>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
+                </td>
+            </tr>
+            <tr>
+                <td class='tright'>
+                    <span class='ftitle'>
+                        <% __('E-Mail') %>:
+                    </span>
+                </td>
+                <td>
+                    <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
+                </td>
+            </tr>
+
+%   unless ($slave) {
+             <tr>
+                <td>
+                </td>
+                <td>
+                    <input class='inputButton' type='submit' name='contact'
+                           value="<% __('Change') %>"
+                           alt="<% __('Change') %>">
+                <td>
+            </tr>
+%   }
+        </tbody>
+        </table>
+    </form>
+</div>
+
+<div id="contact_groups" style="float: right;">
+% unless ($slave) {
+<& .groupsRW, contact => $contact, contactgroups => \@contactgroups, remaingroups => \@remaingroups &>
+% } else {
+<& .groupsRO, contactgroups => \@contactgroups &>
+% }
+</div>
+
+<%def .groupsRW>
+<%args>
+$contact
+@contactgroups
+@remaingroups
+</%args>
+<%init>
+my $json = JSON::XS->new();
+my @member  = map { $_->name() } @contactgroups;
+my @noMember = map { $_->name() } @remaingroups;
+my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember});
+</%init>
+
+<& .addToGroup, contact => $contact &>
+<div id='error_removeContactFromGroup' class='error' style='display:none'></div>
+<ul name='contactGroups' id='contactGroups'>
+</ul>
+
+<script src='/data/js/combobox.js' />
+<script>
+"use strict";
+$(function() {
+   $('#editContactForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#editContactForm', { extraData:  { edit: 1} });
+    });
+
+   var updateGroupsWidgets = function(data) {
+            var group, i;
+            var addGroup =  $('#addgroup');
+            addGroup.detach();
+            addGroup.children().remove();
+            for (i=0; i< data.noMember.length; i++) {
+               group = data.noMember[i];
+               addGroup.append('<option value="' + group + '">' + group + '</option>');
+            }
+            addGroup.insertBefore('#addGroupSubmit');
+            $('#addgroup').combobox('clearText');
+
+            var contactGroups = $('#contactGroups');
+            contactGroups.detach();
+            contactGroups.children().remove();
+            if (data.member.length === 0) {
+                contactGroups.append('<div class="note"><% __('This contact is not member of any group') %></div>');
+            }
+            for (i=0; i < data.member.length; i++) {
+               group = data.member[i];
+               contactGroups.append('<li>' + group +
+                                 '<input type="image" style="border: none; background: none;"' +
+                                  'src="/data/images/delete.gif" ' +
+                                  'data-group-name="' + group + '" ' +
+                                  '/>' +   '</li>'
+                                 );
+            }
+            contactGroups.insertAfter('#error_removeContactFromGroup');
+
+
+   };
+
+   var refreshGroups = function (groupInfo) {
+        $.getJSON('/Users/EditContact', 'groupInfo=1&dn=' + '<% $contact->dn()  %>', updateGroupsWidgets);
+   };
+
+   $('#addContactToGroup').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
+    });
+
+   $('#contactGroups').on('click', 'input', function(event) {
+       event.preventDefault();
+       var url = '/Users/EditContact';
+       var data = 'delgroupfromcontact=1&dn=<% $contact->dn() %>';
+       data += '&delgroup=' + event.target.getAttribute('data-group-name');
+       $('#error_removeContactFromGroup').html('').hide();
+       $.ajax({
+          url: url,
+          data: data,
+          dataType: 'json',
+          error: function(jqXHR) {
+             $('#error_removeContactFromGroup').html(jqXHR.responseText).show();
+          },
+          success: function(response) {
+             if (!response.success) {
+                $('#error_removeContactFromGroup').html(response.error).show();
+             }
+          },
+          complete: function() {
+              refreshGroups();
+          }
+       });
+    });
+
+
+  $('#addgroup').combobox();
+   updateGroupsWidgets(<% $groupDataJSON %>);
+});
+</script>
+
+</%def>
+
+<%def .addToGroup>
+<%args>
+$contact
+</%args>
+<div id='error_addContactToGroup' class='error' style='display:none'></div>
+<form action='/Users/EditContact' method='POST' id='addContactToGroup' >
+  <select name="addgroup" id="addgroup" style="width: 40px">
+  </select>
+  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style='margin-left: 30px'/>
+  <input type="hidden" name="dn"   value="<% $contact->dn() %>"/>
+  <input type="hidden" name="addgrouptocontact" value="1"/>
+</form>
+</%def>
+
+<%def .groupsRO>
+<%args>
+@contactgroups
+</%args>
+<%init>
+my $groupStr;
+if (@contactgroups) {
+    my $firstGroup = shift @contactgroups;
+    $groupStr =  $firstGroup->name();
+} else {
+   $groupStr =  __('No member of any group');
+}
+</%init>
+<div class="tleft"><% __("Groups") %></div>
+<ul name='contactGroups' id='contactGroups'  size='8'>
+% foreach my $group (@contactgroups) {
+      <li>
+         <% $group->name() %>
+      </li>
+% }
+</ul>
+</%def>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

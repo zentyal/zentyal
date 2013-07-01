@@ -53,7 +53,7 @@
 */
 Zentyal.Tabs =  function(tabContainer, modelAttrs, options) {
     // The div where the tabs are
-    this.tabContainer = jQuery('#' + tabContainer);
+    this.tabContainer = $('#' + tabContainer);
     // Set the tabMenu name
     var nameParts = tabContainer.split('_');
     this.tabName = nameParts[1];
@@ -97,7 +97,7 @@ Zentyal.Tabs =  function(tabContainer, modelAttrs, options) {
     } else {
         tabs.each(function(index, tab) {
             if (tab.id === options.defaultTab) {
-                this.activeTab = jQuery(tab);
+                this.activeTab = $(tab);
                 this.activeTabIdx = index;
                 return false;
             }
@@ -221,7 +221,7 @@ Zentyal.Tabs.prototype = {
   */
     _setupTab : function(that, linkElement) {
         var key = linkElement.hash.substring(1)
-        linkElement = jQuery(linkElement);
+        linkElement = $(linkElement);
         // Create the property key to call by user url#<key>
         linkElement.attr('key', key);
         linkElement.on('click', function(event) {
@@ -272,7 +272,7 @@ Zentyal.Tabs.prototype = {
      make the POST request dynamically.
   */
   _setTableFormInput : function(name, value) {
-      var input = jQuery('#tableForm #' + name);
+      var input = $('#tableForm #' + name);
       if ( input.length > 0 ) {
           // Input is defined
           input.setAttribute('value', value);
@@ -282,7 +282,7 @@ Zentyal.Tabs.prototype = {
           dirInput.setAttribute('name', name);
           dirInput.setAttribute('type', 'hidden');
           dirInput.setAttribute('value', value);
-          jQuery('#tableForm').append(dirInput);
+          $('#tableForm').append(dirInput);
       }
   }
 

@@ -1,0 +1,175 @@
+<%args>
+  $model
+</%args>
+<%init>
+  my %types = %{$model->nodeTypes()};
+  my $treeId = "tree_" . $model->name();
+</%init>
+
+<& .pageTitle, title => $model->pageTitle() &>
+
+<& .headTitle, title => $model->headTitle() &>
+
+% # Print the help if any
+% my $help = $model->help();
+% if ($help) {
+<div class="help">
+    <% $model->help() %>
+</div>
+% }
+
+% # Print the disabled module warning if needed
+% my $disabledModuleWarning = $model->disabledModuleWarning();
+% if ($disabledModuleWarning) {
+<div class="warning">
+    <% $disabledModuleWarning %>
+</div>
+%  }
+
+<div id="treeButtons" class="treeviewButtons">
+% my $actionLabels = $model->defaultActionLabels();
+% foreach my $action (@{$model->defaultActions()}) {
+<button id="<% $action %>" class="treeviewActionButton" type="button" disabled style="background-image: url('/data/images/<% $action %>.gif')">
+<% $actionLabels->{$action} %>
+</button>
+% }
+</div>
+
+<div class="treeViewToolbox">
+
+<form action="javascript:void(0)">
+
+  <input type='text' name='filter_text' id='filter_text' value="" />
+  <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
+  <span id="filterId"></span>
+
+<span class="treeviewCheckboxes">
+% foreach my $name (keys %types) {
+%   next unless $types{$name}->{actions}->{filter};
+%   my $printableName = $types{$name}->{printableName};
+<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
+% }
+</span>
+
+</form>
+
+</div>
+
+<div id="<% $treeId %>" class="treeView"/>
+
+<script>
+$(function () {
+
+  $.jstree._themes = "/data/css/jstree-themes/";
+
+  var treeComponent = $("#<% $treeId %>");
+
+  treeComponent.jstree({
+	"json_data" : {
+		"data" : <% $model->jsonData() %>
+	},
+% my @types;
+% foreach my $name (keys %types) {
+%   if ($types{$name}->{defaultIcon}) {
+%       push (@types, "$name: {}");
+%   } else {
+%       push (@types, "$name: { icon: { image: '/data/images/treeview/$name.png' } }");
+%   }
+% }
+    types: { "types" : { <% join (',', @types) %> } },
+	plugins: [ "themes", "json_data", "ui", "types", "search" ],
+  });
+
+  // FIXME: probably this should not be the default behaviour
+  //        but for testing purposes is better this way until finished
+  treeComponent.on('loaded.jstree', function () {
+    treeComponent.jstree('open_all');
+  });
+
+  $('#filter_button').click(function() {
+    var text = $('#filter_text').val();
+    treeComponent.jstree('search', text);
+  });
+
+  $(".treeviewCheckbox").each(function() {
+    $(this).click(function() {
+        var nodes = $("[rel='" + $(this).val() + "']").show();
+        if ($(this).prop('checked')) {
+            nodes.show();
+        } else {
+            nodes.hide();
+        }
+    });
+  });
+
+  $(".treeviewActionButton").each(function() {
+    $(this).click(function() {
+        var actionId = $(this).attr('id');
+        var selectedNode = treeComponent.jstree('get_selected');
+        var selectedNodeId = selectedNode.attr('id');
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
+
+% foreach my $action (@{$model->defaultActions()}) {
+        if (actionId == '<% $action %>') {
+% foreach my $type (keys %types) {
+            if (nodeType == '<% $type %>') {
+                <% $model->actionHandlerJS($action, $type, 'selectedNodeId') %>
+            }
+% }
+        }
+% }
+    });
+  });
+
+  treeComponent.bind('select_node.jstree', function (e, data) {
+      var type = data.rslt.obj.attr('rel');
+
+% foreach my $name (keys %types) {
+      if (type == '<% $name %>') {
+% foreach my $action (@{$model->defaultActions()}) {
+% if ($types{$name}->{actions}->{$action}) {
+            $('#<% $action %>').removeAttr('disabled');
+% } else {
+            $('#<% $action %>').attr('disabled', 'disabled');
+% }
+% }
+      }
+% }
+  });
+
+  treeComponent.bind('dblclick.jstree', function (e) {
+      var node = $(e.target).closest('li');
+      var nodeType = node.attr('rel');
+      var nodeId = node.attr('id');
+
+% foreach my $type (keys %types) {
+%   if ($types{$type}->{actions}->{edit}) {
+      if (nodeType == '<% $type %>') {
+          <% $model->doubleClickHandlerJS($type, 'nodeId') %>
+      }
+%   }
+% }
+  });
+
+});
+</script>
+
+
+<%def .pageTitle>
+<%args>
+  $title => undef
+</%args>
+<& /title.mas, title => $title &>
+</%def>
+
+<%def .headTitle>
+<%args>
+  $title => undef
+</%args>
+% if ($title) {
+<h3>
+    <% $title %>
+</h3>
+% }
+</%def>
+

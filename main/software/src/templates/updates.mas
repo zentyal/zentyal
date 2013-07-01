@@ -13,7 +13,7 @@ use EBox::Gettext;
 function doUpdates(title) {
     var url, data;
     var packages = [];
-    jQuery('.pkg-checkbox:checked').each(function(index, element) {
+    $('.pkg-checkbox:checked').each(function(index, element) {
           packages.push(element.name);
     });
     if (packages.length > 0) {
@@ -37,22 +37,22 @@ function doUpdates(title) {
 function checkAllPackages(checkAll)
 {
   var check = checkAll.checked;
-  jQuery('.pkg-checkbox').prop('checked', check);
-  jQuery('#upgradeButton').prop('disabled', !check);
+  $('.pkg-checkbox').prop('checked', check);
+  $('#upgradeButton').prop('disabled', !check);
 }
 
 function checkboxChange()
 {
-    var checkboxes = jQuery('.pkg-checkbox');
+    var checkboxes = $('.pkg-checkbox');
     var checked = checkboxes.filter(':checked');
 
     if (checked.length != 0) {
-       jQuery('#upgradeButton').prop('disabled', false);
+       $('#upgradeButton').prop('disabled', false);
     } else {
-       jQuery('#upgradeButton').prop('disabled', true);
+       $('#upgradeButton').prop('disabled', true);
     }
 
-    jQuery('#allbox').prop('checked', (checked.length == checkboxes.length));
+    $('#allbox').prop('checked', (checked.length == checkboxes.length));
 }
 
 // to sync state in page load
@@ -112,7 +112,7 @@ automatically as scheduled') %>
 %         }
 %         if ( ($pkg->{security} or $pkg->{'ebox-qa'}) and ($pkg->{changelog}) ) {
                                 <img src="/data/images/add.gif" alt="more info"
-                                     onclick="jQuery('#<% $pkg->{name} %>_changelog').toggle()
+                                     onclick="$('#<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
                                 />
 %         }

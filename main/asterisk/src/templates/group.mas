@@ -5,6 +5,8 @@
     use EBox::Gettext;
 </%init>
    <h3><% __('Asterisk group queue') %></h3>
+%# this div is only so editgroup.mas could knew this addon is active
+   <div id='needReload' />
 
 %   if ($params->{'nacc'} eq 0) {
     <div class='warning'>
@@ -16,7 +18,8 @@
 %       }
 
     <table class='formTable'>
-    <form action='/Asterisk/AsteriskGroupOptions' method='POST'>
+   <div id='error_groupOptions' class='error' style='display:none'></div>
+    <form id='groupOptions' action='/Asterisk/AsteriskGroupOptions' method='POST'>
         <input type="hidden" name="group" value="<% $params->{group}->dn() %>">
         <tr>
         <td class="tright">
@@ -55,3 +58,20 @@
     </form>
     </table>
 %   }
+
+<script>
+$(function(){
+  var refreshDialog = function(response) {
+                var url = '/Users/EditGroup';
+                var data = 'dn=' + response.groupDN;
+                Zentyal.Dialog.showURL(url, { data: data})
+  };
+
+  $('#groupOptions').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success : refreshDialog
+      });
+  });
+});
+</script>

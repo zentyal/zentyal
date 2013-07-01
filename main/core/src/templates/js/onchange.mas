@@ -6,7 +6,7 @@
 <%init>
 my $fullId = "${tableName}_${fieldName}";
 </%init>
-jQuery('#<% $fullId %>').change(function (event) {
+$('#<% $fullId %>').change(function (event) {
               Zentyal.TableHelper.onFieldChange(event, <% $JSONActions %>, '<% $tableName %>')
 }  );
 

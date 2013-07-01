@@ -8,8 +8,9 @@
 
     <& .jabberDisabledWarning, $params &>
 
+    <div id='error_userOptions' class='error' style='display:none'></div>
+    <form id='userOptions' action="/Jabber/JabberUserOptions" method="post">
     <table class="formTable">
-    <form action="/Jabber/JabberUserOptions" method="post">
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
     <tr>
     <td class="tright">
@@ -49,8 +50,23 @@
                alt="<% __('Change') %>" />
     </td>
     </tr>
-    </form>
     </table>
+    </form>
+
+<script>
+$(function() {
+   $('#userOptions').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success: function(response) {
+               var url = '/Users/EditUser';
+               var data = 'dn=' + response.userDN;
+               Zentyal.Dialog.showURL(url, { data: data});
+            }
+        });
+   });
+});
+</script>
 
 <%def .jabberDisabledWarning>
 <%init>

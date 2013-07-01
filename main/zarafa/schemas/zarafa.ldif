@@ -460,8 +460,8 @@ olcObjectClasses: (
   DESC 'Zarafa: a contact of Zarafa'
   SUP top
   AUXILIARY
-  MUST ( cn $ uidNumber )
-  MAY ( zarafaSendAsPrivilege $ zarafaHidden $ zarafaAliases $ zarafaAccount )
+  MUST ( cn )
+  MAY ( uidNumber $ zarafaSendAsPrivilege $ zarafaHidden $ zarafaAliases $ zarafaAccount )
   )
 #
 ################################################################################

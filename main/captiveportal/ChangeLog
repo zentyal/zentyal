@@ -1,4 +1,7 @@
 HEAD
+	+ Removed no longer necessary jQuery noConflict()
+	+ Updated to use the new API to retrieve groups and users.
+	+ Updated to use the new security group concept.
 	+ Make user authorizarion compatible with external AD mode
 3.1.3
 	+ Fix regression in CGIs package names

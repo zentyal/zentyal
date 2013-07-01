@@ -17,8 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::DelGroupAlias;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
@@ -26,28 +25,33 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Users::Group;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail',
-                                      @_);
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Mail',
+                                  @_);
+        bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-        my $self = shift;
-        my $mail = EBox::Global->modInstance('mail');
+sub _process
+{
+    my ($self) = @_;
+    $self->{json}->{success} = 0;
 
-        $self->_requireParam('group', __('group'));
-        my $groupDN = $self->unsafeParam('group');
-        $self->{redirect} = "Users/Group?group=".$groupDN;
-        $self->keepParam('group');
+    my $mail = EBox::Global->modInstance('mail');
 
-        $self->_requireParam('alias', __('group alias mail'));
-        my $alias = $self->param('alias');
+    $self->_requireParam('group', __('group'));
+    my $groupDN = $self->unsafeParam('group');
+    $self->{json}->{groupDN} = $groupDN;
 
-        my $group = new EBox::Users::Group(dn => $groupDN);
-        $mail->{malias}->delGroupAlias($alias, $group);
+    $self->_requireParam('alias', __('group alias mail'));
+    my $alias = $self->param('alias');
+
+    my $group = new EBox::Users::Group(dn => $groupDN);
+    $mail->{malias}->delGroupAlias($alias, $group);
+
+    $self->{json}->{success} = 1;
 }
 
 1;

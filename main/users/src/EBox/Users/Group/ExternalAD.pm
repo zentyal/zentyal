@@ -42,30 +42,27 @@ sub new
 
 # Method: mainObjectClass
 #
-#  Overrides:
-#    EBox::Users::Groupr::mainObjectClass
+# Overrides:
+#   EBox::Users::Groupr::mainObjectClass
+#
 sub mainObjectClass
 {
     return 'group';
 }
 
-# Method: dnComponent
+# Method: defaultContainer
 #
-#  Overrides:
-#    EBox::Users::Group::dnComponent
-sub dnComponent
+#   Return the default container that will hold Group objects.
+#
+# Overrides:
+#   EBox::Users::Group::defaultContainer
+#
+sub defaultContainer
 {
-    return 'cn=Users'; # in AD same than users
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN('cn=Users,'.$usersMod->ldap->dn());
 }
 
-# Method: userClass
-#
-#  Overrides:
-#    EBox::Users::Group::userClass
-sub userClass
-{
-    return 'EBox::Users::User::ExternalAD';
-}
 
 # Method: name
 #
@@ -77,7 +74,14 @@ sub name
     return $self->get('name');
 }
 
-sub system
+# Method: isSystem
+#
+#   Whether the security group is a system group.
+#
+# Overides:
+#   EBox::Users::Group::isSystem
+#
+sub isSystem
 {
     my ($self) = @_;
 

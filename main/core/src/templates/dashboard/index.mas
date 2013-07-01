@@ -56,8 +56,8 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 </div>
 <script type="text/javascript">
 "use strict";
-jQuery.noConflict();
-jQuery( function () {
+
+$(function () {
       Zentyal.Dashboard.statusStrings = <% $statusStringJson %>;
       Zentyal.Dashboard.createSortableDashboard();
       setInterval( Zentyal.Dashboard.updateWidgets, 30000);

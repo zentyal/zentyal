@@ -53,7 +53,7 @@
 Zentyal.FileUpload = function (params) {
     this.start = params.start;
     this.complete = params.complete;
-    this.form = jQuery('#' + params.formId);
+    this.form = $('#' + params.formId);
     this.iframe = this._createIframe();
     this.form.attr('target', this.iframe.id);
     return this;
@@ -88,7 +88,7 @@ Zentyal.FileUpload.prototype = {
     this.div.appendChild(iframe);
 
     var eventData = {complete: this.complete, iframe: iframe};
-    jQuery('#' + iframeId).hide().on('load', eventData, Zentyal.FileUpload.prototype._onIframeLoad);
+    $('#' + iframeId).hide().on('load', eventData, Zentyal.FileUpload.prototype._onIframeLoad);
 
     return iframe;
   },
@@ -111,7 +111,7 @@ Zentyal.FileUpload.prototype = {
 
     if ( typeof(complete == "function") ) {
       complete(doc.body.innerHTML);
-      jQuery(iframe).off('load', Zentyal.FileUpload.prototype._onIframeLoad);
+      $(iframe).off('load', Zentyal.FileUpload.prototype._onIframeLoad);
     }
 
   }

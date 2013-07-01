@@ -1,5 +1,4 @@
 "use strict";
-jQuery.noConflict();
 
 Zentyal.namespace('Dialog');
 
@@ -23,7 +22,7 @@ Zentyal.Dialog.showURL = function(url, params) {
         params = {};
     }
 
-    var existentDialog = jQuery('#' + Zentyal.Dialog.DEFAULT_ID);
+    var existentDialog = $('#' + Zentyal.Dialog.DEFAULT_ID);
     if (existentDialog.length > 0) {
         Zentyal.Dialog.loadInExistent(existentDialog, url, params);
         return;
@@ -34,13 +33,13 @@ Zentyal.Dialog.showURL = function(url, params) {
         minWidth: 500,
         position: {my: 'top+100', at: 'top'},
         create: function (event, ui) {
-            Zentyal.Dialog.loadInExistent(jQuery(event.target), url, params);
+            Zentyal.Dialog.loadInExistent($(event.target), url, params);
         },
         close:  function (event, ui) {
             if (typeof(params.close) === 'function') {
                 params.close(event, ui);
             }
-            jQuery(event.target).dialog('destroy');
+            $(event.target).dialog('destroy');
         }
     };
     for (i=0; i < dialogParamsAllowed.length; i++) {
@@ -50,11 +49,52 @@ Zentyal.Dialog.showURL = function(url, params) {
         }
     }
 
-
-
-    jQuery('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
+    $('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
 
 Zentyal.Dialog.close = function() {
-    jQuery('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
+    $('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
+};
+
+Zentyal.Dialog.submitForm = function(formSelector, params) {
+    var form = $(formSelector);
+    var url  = form.attr('action');
+    var data = form.serialize();
+    var errorSelector = '#error_' + form.attr('id');
+    if (params == undefined) {
+        params = {};
+    }
+    if (params.extraData !== undefined) {
+        $.each(params.extraData, function(name, value) {
+            data += '&' + name + '=' + value;
+        });
+    }
+
+    $(errorSelector).html('').hide();
+    $.ajax({
+        url : url,
+        data: data,
+        dataType: 'json',
+        success: function (response){
+            if (response.success) {
+                if ('success' in params) {
+                    params.success(response);
+                }
+            } else {
+                $(errorSelector).html(response.error).show();
+                if ('error' in params) {
+                    params.error(response);
+                }
+            }
+            if ('complete' in params) {
+                params.complete(response);
+            }
+            if ('redirect' in response) {
+                window.location = response.redirect;
+            }
+        },
+        error: function(jqXHR){
+            $(errorSelector).html(jqXHR.responseText).show();
+        },
+    });
 };

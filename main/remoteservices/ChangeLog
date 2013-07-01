@@ -1,3 +1,5 @@
+HEAD
+	+ Removed no longer necessary jQuery noConflict()
 3.1.4
 	+ Fixed wizard to show again errors
 	+ Fixed path escape on Reporter::SambaDiskUsage, thanks to EddieA

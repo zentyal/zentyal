@@ -371,25 +371,25 @@ use EBox::NetWrappers qw(:all);
 </div>
 
 <script type="text/javascript">
-jQuery('#method').change(function(event) {
-    var selected = jQuery(event.target).val();
+$('#method').change(function(event) {
+    var selected = $(event.target).val();
 
     if (selected === 'static' || selected === 'dhcp' ||
         selected === 'ppp' || selected === 'bridged') {
-        jQuery('#external').show();
+        $('#external').show();
     } else {
-        jQuery('#external').hide();
+        $('#external').hide();
     }
 
-    jQuery('#ipaddr').toggle(selected === 'static');
-    jQuery('#netmask').toggle(selected === 'static');
-    jQuery('#virtual').toggle(selected === 'static');
+    $('#ipaddr').toggle(selected === 'static');
+    $('#netmask').toggle(selected === 'static');
+    $('#virtual').toggle(selected === 'static');
 
-    jQuery('#trunk').toggle(selected === 'trunk');
+    $('#trunk').toggle(selected === 'trunk');
 
-    jQuery('#bridged').toggle(selected === 'bridged');
+    $('#bridged').toggle(selected === 'bridged');
 
-    jQuery('#ppp_user').toggle(selected === 'ppp');
-    jQuery('#ppp_pass').toggle(selected === 'ppp');
+    $('#ppp_user').toggle(selected === 'ppp');
+    $('#ppp_pass').toggle(selected === 'ppp');
  }).change();
 </script>

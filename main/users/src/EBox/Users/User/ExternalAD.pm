@@ -1,5 +1,3 @@
-#!/usr/bin/perl -w
-
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -14,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -39,22 +38,6 @@ use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
-sub new
-{
-    my $class = shift;
-    my %opts = @_;
-    my $self = {};
-
-    if (defined $opts{uid}) {
-        $self->{uid} = $opts{uid};
-    } else {
-        $self = $class->SUPER::new(@_);
-    }
-
-    bless ($self, $class);
-    return $self;
-}
-
 # Method: mainObjectClass
 #
 #  Overrides:
@@ -64,31 +47,13 @@ sub mainObjectClass
     return 'user';
 }
 
-# Method: dnComponent
+# Method: uidTag
 #
 #  Overrides:
-#    EBox::Users::User::dnComponent
-sub dnComponent
+#    EBox::Users::User::uidTag
+sub uidTag
 {
-    return 'cn=Users';
-}
-
-# Method: groupClass
-#
-#  Overrides:
-#    EBox::Users::User::groupClass
-sub groupClass
-{
-    return 'EBox::Users::Group::ExternalAD';
-}
-
-# Method: dnLeftmostAttribute
-#
-#  Overrides:
-#    EBox::Users::User::dnLeftmostattribute
-sub dnLeftmostAttribute
-{
-    return 'cn';
+    return 'samaccountname';
 }
 
 # Method: name
@@ -132,7 +97,14 @@ sub quota
     return '';
 }
 
-sub system
+# Method: isSystem
+#
+#   Return 1 if this is a system user, 0 if not
+#
+# Overides:
+#   EBox::Users::User::isSystem
+#
+sub isSystem
 {
     my ($self) = @_;
 
