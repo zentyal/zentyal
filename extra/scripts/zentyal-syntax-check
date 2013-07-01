@@ -122,7 +122,7 @@ sub installdeps
         my @candidates = split (',', $line);
         @candidates = grep { /lib.+-perl/ } @candidates;
         foreach my $candidate (@candidates) {
-            my ($package) = $candidate =~ /.*(lib.+-perl).*/;
+            my ($package) = $candidate =~ /(lib.+-perl).*/;
             next if ($blacklist{$package});
             if ($package) {
                 push (@deps, $package);

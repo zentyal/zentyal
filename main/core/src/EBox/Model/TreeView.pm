@@ -154,22 +154,6 @@ sub nodeTypes
     return [];
 }
 
-# Method: idParam
-#
-#    Return the name of the parameter to be used on action CGIs
-#    to receive the selected node id
-#
-# Returns:
-#
-#    string containing the param name
-#
-sub idParam
-{
-    my ($self) = @_;
-
-    return $self->tree()->{'idParam'};
-}
-
 # Method: modelName
 #
 #    Return the model name which is set by the key 'treeName' when
@@ -416,7 +400,7 @@ sub keywords
 #
 sub actionHandlerJS
 {
-    my ($self, $action, $type, $id) = @_;
+    my ($self, $action, $type) = @_;
 
     my $actionCGI = ucfirst($action);
 
@@ -429,9 +413,12 @@ sub actionHandlerJS
 
     my $url = '/' . $self->modelDomain() . "/$actionCGI";
     my $title = $self->defaultActionLabels()->{$action};
-    my $param = $self->idParam();
+    my $ret = {
+        url => $url,
+        title => $title,
+        width => 640 };
 
-    return "Zentyal.Dialog.showURL('$url', {title: '$title', width: 640, data: { $param: $id }});";
+    return $ret;
 }
 
 # Method: doubleClickHandlerJS
@@ -451,7 +438,7 @@ sub actionHandlerJS
 #
 sub doubleClickHandlerJS
 {
-    my ($self, $type, $id) = @_;
+    my ($self, $type) = @_;
 
     return '';
 }
@@ -471,8 +458,18 @@ sub jsonData
     my @data;
 
     foreach my $node (@{$self->rootNodes()}) {
-        my @children = $self->_childData($node);
-        push (@data, { data => $node->{printableName}, attr => { rel => $node->{type}, id => $node->{id} }, children => \@children });
+        my $type = $node->{type};
+        my $metadata = $node->{metadata};
+        my $printableName = $node->{printableName};
+        my @children = $self->_childData($type, $metadata);
+        push (@data, {
+            data => $printableName,
+            attr => {
+                rel => $type
+            },
+            metadata => $metadata,
+            children => \@children,
+        });
     }
 
     return encode_json(\@data);
@@ -480,18 +477,20 @@ sub jsonData
 
 sub _childData
 {
-    my ($self, $parent) = @_;
+    my ($self, $type, $metadata) = @_;
 
     my @children;
-
-    foreach my $child (@{$self->childNodes($parent)}) {
+    foreach my $child (@{$self->childNodes($type, $metadata)}) {
+        my $childType = $child->{type};
+        my $childMetadata = $child->{metadata};
+        my $childPrintableName = $child->{printableName};
         push (@children, {
-            data => $child->{printableName},
+            data => $childPrintableName,
+            metadata => $childMetadata,,
             attr => {
-                rel => $child->{type},
-                id => $child->{id},
+                rel => $childType,
             },
-            children => $self->_childData($child),
+            children => $self->_childData($childType, $childMetadata),
         });
     }
 

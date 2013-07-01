@@ -106,14 +106,24 @@ jQuery(function () {
     jQuery(this).click(function() {
         var actionId = jQuery(this).attr('id');
         var selectedNode = treeComponent.jstree('get_selected');
-        var selectedNodeId = selectedNode.attr('id');
+        var selectedNodeMetadata = selectedNode.data();
         var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
+
+        var metadata = [];
+        for (var key in selectedNodeMetadata) {
+            metadata.push(key + "=" + selectedNodeMetadata[key]);
+        }
+        var metadataStr = metadata.join('&');
 
 % foreach my $action (@{$model->defaultActions()}) {
         if (actionId == '<% $action %>') {
 % foreach my $type (keys %types) {
             if (nodeType == '<% $type %>') {
-                <% $model->actionHandlerJS($action, $type, 'selectedNodeId') %>
+% my $link = $model->actionHandlerJS($action, $type);
+                Zentyal.Dialog.showURL('<% $link->{url} %>',
+                    { title: '<% $link->{title} %>',
+                      width: <% $link->{width} %>,
+                      data: metadataStr });
             }
 % }
         }
@@ -140,12 +150,21 @@ jQuery(function () {
   treeComponent.bind('dblclick.jstree', function (e) {
       var node = jQuery(e.target).closest('li');
       var nodeType = node.attr('rel');
-      var nodeId = node.attr('id');
+      var selectedNodeMetadata = node.data();
+      var metadata = [];
+      for (var key in selectedNodeMetadata) {
+          metadata.push(key + "=" + selectedNodeMetadata[key]);
+      }
+      var metadataStr = metadata.join('&');
 
 % foreach my $type (keys %types) {
 %   if ($types{$type}->{actions}->{edit}) {
       if (nodeType == '<% $type %>') {
-          <% $model->doubleClickHandlerJS($type, 'nodeId') %>
+% my $link = $model->doubleClickHandlerJS($type);
+        Zentyal.Dialog.showURL('<% $link->{url} %>',
+            { title: '<% $link->{title} %>',
+              width: <% $link->{width} %>,
+              data: metadataStr });
       }
 %   }
 % }

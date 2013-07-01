@@ -43,6 +43,7 @@ use EBox::Util::Random qw( generate );
 use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
+use EBox::Samba::GPO;
 use EBox::Samba::Computer;
 use EBox::Samba::NamingContext;
 use EBox::Exceptions::UnwillingToPerform;
@@ -56,6 +57,7 @@ use File::Slurp;
 use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
+use Net::LDAP::Control::Sort;
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -978,10 +980,20 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Office',
-                                    'order' => 540));
+    my $folder = new EBox::Menu::Folder(name      => 'Samba',
+                                        text      => $self->printableName(),
+                                        separator => 'Office',
+                                        order     => 540);
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
+                                      text  => __('General'),
+                                      order => 10));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
+                                      text  => __('Group Policy Objects'),
+                                      order => 20));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
+                                      text  => __('Group Policy Links'),
+                                      order => 30));
+    $root->add($folder);
 }
 
 # Method: administratorPassword
@@ -1952,16 +1964,46 @@ sub hostDomainChangedDone
     $settings->setValue('workgroup', $value);
 }
 
+# Method: gpos
+#
+#   Returns the Domain GPOs
+#
+# Returns:
+#
+#   Array ref containing instances of EBox::Samba::GPO
+#
+sub gpos
+{
+    my ($self) = @_;
+
+    my $gpos = [];
+    my $defaultNC = $self->ldb->dn();
+    my $params = {
+        base => "CN=Policies,CN=System,$defaultNC",
+        scope => 'one',
+        filter => '(objectClass=GroupPolicyContainer)',
+        attrs => ['*']
+    };
+    my $result = $self->ldb->search($params);
+    foreach my $entry ($result->entries()) {
+        push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
+    }
+
+    return $gpos;
+}
+
 sub computers
 {
     my ($self, $system) = @_;
 
     return [] unless $self->isProvisioned();
 
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
     my %args = (
         base => $self->ldap->dn(),
         filter => 'objectClass=computer',
         scope => 'sub',
+        control => [$sort],
     );
 
     my $result = $self->ldb->search(\%args);
@@ -1969,16 +2011,9 @@ sub computers
     my @computers;
     foreach my $entry ($result->entries()) {
         my $computer = new EBox::Samba::Computer(entry => $entry);
-
+        next unless $computer->exists();
         push (@computers, $computer);
     }
-
-    @computers = sort {
-        my $aValue = $a->name();
-        my $bValue = $b->name();
-        (lc $aValue cmp lc $bValue) or
-            ($aValue cmp $bValue)
-    } @computers;
 
     return \@computers;
 }
