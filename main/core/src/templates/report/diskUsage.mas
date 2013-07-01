@@ -35,11 +35,11 @@ my $json = JSON::XS->new();
 my $data = $json->encode($dataset{data});
 my $usageByLabel = $json->encode($dataset{usageByLabel});
 </%perl>
-jQuery(function() {
+$(function() {
   var data = <% $data %>;
   var usageByLabel = <% $usageByLabel %>;
 
-  jQuery.plot('#diskUsageChart', data, {
+  $.plot('#diskUsageChart', data, {
         series: {
             pie: {
                 innerRadius: 0.1,

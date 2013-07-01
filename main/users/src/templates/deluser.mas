@@ -38,8 +38,8 @@ use EBox::Gettext;
 </form>
 
 <script>
-jQuery(function() {
-   jQuery('#deluser').on('click', function(event) {
+$(function() {
+   $('#deluser').on('click', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delUserForm', { extraData: {deluser: 1} });
     });

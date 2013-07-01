@@ -28,7 +28,7 @@ Zentyal.Dashboard.graphInfo['<% $elem %>'] = [
     [<% $values-1 %>, <% $item->{'value'} %>]
 ];
 
-jQuery.plot(
+$.plot(
     '#' + Zentyal.escapeSelector('<% $elem %>'), [
     {
         data: Zentyal.Dashboard.graphInfo['<% $elem %>']

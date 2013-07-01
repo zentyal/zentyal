@@ -109,15 +109,15 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";
-jQuery(function() {
-   jQuery('#editContactForm').on('submit', function(event) {
+$(function() {
+   $('#editContactForm').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editContactForm', { extraData:  { edit: 1} });
     });
 
    var updateGroupsWidgets = function(data) {
             var group, i;
-            var addGroup =  jQuery('#addgroup');
+            var addGroup =  $('#addgroup');
             addGroup.detach();
             addGroup.children().remove();
             for (i=0; i< data.noMember.length; i++) {
@@ -125,9 +125,9 @@ jQuery(function() {
                addGroup.append('<option value="' + group + '">' + group + '</option>');
             }
             addGroup.insertBefore('#addGroupSubmit');
-            jQuery('#addgroup').combobox('clearText');
+            $('#addgroup').combobox('clearText');
 
-            var contactGroups = jQuery('#contactGroups');
+            var contactGroups = $('#contactGroups');
             contactGroups.detach();
             contactGroups.children().remove();
             if (data.member.length === 0) {
@@ -148,30 +148,30 @@ jQuery(function() {
    };
 
    var refreshGroups = function (groupInfo) {
-        jQuery.getJSON('/Users/EditContact', 'groupInfo=1&dn=' + '<% $contact->dn()  %>', updateGroupsWidgets);
+        $.getJSON('/Users/EditContact', 'groupInfo=1&dn=' + '<% $contact->dn()  %>', updateGroupsWidgets);
    };
 
-   jQuery('#addContactToGroup').on('submit', function(event) {
+   $('#addContactToGroup').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
     });
 
-   jQuery('#contactGroups').on('click', 'input', function(event) {
+   $('#contactGroups').on('click', 'input', function(event) {
        event.preventDefault();
        var url = '/Users/EditContact';
        var data = 'delgroupfromcontact=1&dn=<% $contact->dn() %>';
        data += '&delgroup=' + event.target.getAttribute('data-group-name');
-       jQuery('#error_removeContactFromGroup').html('').hide();
-       jQuery.ajax({
+       $('#error_removeContactFromGroup').html('').hide();
+       $.ajax({
           url: url,
           data: data,
           dataType: 'json',
           error: function(jqXHR) {
-             jQuery('#error_removeContactFromGroup').html(jqXHR.responseText).show();
+             $('#error_removeContactFromGroup').html(jqXHR.responseText).show();
           },
           success: function(response) {
              if (!response.success) {
-                jQuery('#error_removeContactFromGroup').html(response.error).show();
+                $('#error_removeContactFromGroup').html(response.error).show();
              }
           },
           complete: function() {
@@ -181,7 +181,7 @@ jQuery(function() {
     });
 
 
-  jQuery('#addgroup').combobox();
+  $('#addgroup').combobox();
    updateGroupsWidgets(<% $groupDataJSON %>);
 });
 </script>

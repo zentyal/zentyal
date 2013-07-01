@@ -35,7 +35,7 @@ var gettext = function (st) {
   return st;
 };
 
-jQuery(function() {
+$(function() {
    // initialize pages
    var newPages = [];
 % for my $page ( @pages ) {

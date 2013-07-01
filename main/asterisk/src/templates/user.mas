@@ -56,8 +56,8 @@
 
 
 <script>
-jQuery(function() {
-   jQuery('#userOptions').on('submit', function(event) {
+$(function() {
+   $('#userOptions').on('submit', function(event) {
         event.preventDefault();
         Zentyal.Dialog.submitForm(event.target, {
             success: function(response) {

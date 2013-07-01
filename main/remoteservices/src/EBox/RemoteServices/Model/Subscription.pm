@@ -699,19 +699,19 @@ sub _showSaveChanges
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
-       jQuery.ajax({
+       $.ajax({
                       url: '/RemoteServices/Controller/Subscription',
                       type: 'post',
                       data: 'action=edit&tablename=$tableName&directory=$tableName&id=form&' +  Zentyal.TableHelper.encodeFields('$tableName', $fieldsArrayJS ),
                       success: function(responseText) {
-                           jQuery('#$tableName').html(responseText);
+                           $('#$tableName').html(responseText);
                             if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
                                Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
                             }
                       },
                       error : function(t) {
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
-                            jQuery('#error_$tableName').html(t.responseText);
+                            $('#error_$tableName').html(t.responseText);
                       }
                   });
 Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
