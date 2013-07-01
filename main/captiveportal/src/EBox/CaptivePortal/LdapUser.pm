@@ -61,8 +61,11 @@ sub _userAddOns
         'liimitBW'    => $limitBW,
     };
 
-    return { path => '/captiveportal/useraddon.mas',
-             params => $args };
+    return {
+        title =>  __('Captive Portal'),
+        path => '/captiveportal/useraddon.mas',
+        params => $args
+       };
 }
 
 sub isQuotaOverridden

@@ -555,7 +555,11 @@ sub _userAddOns
         'service'        => $serviceEnabled,
     };
 
-    return { path => '/samba/samba.mas', params => $args };
+    return {
+        title =>  __('Active Directory/File sharing account'),
+        path => '/samba/samba.mas',
+        params => $args
+       };
 }
 
 # Method: _groupShareEnabled

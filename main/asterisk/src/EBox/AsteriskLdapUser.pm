@@ -183,8 +183,11 @@ sub _userAddOns
         'service' => $asterisk->isEnabled(),
     };
 
-    return { path => '/asterisk/user.mas',
-             params => $args };
+    return {
+              title =>  __('Asterisk account'),
+              path => '/asterisk/user.mas',
+              params => $args
+          };
 }
 
 # Method: _delUser

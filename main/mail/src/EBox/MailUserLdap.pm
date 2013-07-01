@@ -344,7 +344,20 @@ sub _userAddOns
             externalAccounts => \@externalAccounts,
     );
 
-    return { path => '/mail/account.mas', params => { @paramsList } };
+    my $title;
+    if  (not @vdomains) {
+        $title = __('Mail account');
+    } elsif (not $usermail) {
+        $title =  __('Create mail account');
+    } else {
+        $title = __('Mail account settings');
+    }
+
+    return {
+        title  => $title,
+        path   => '/mail/account.mas',
+        params => { @paramsList }
+       };
 }
 
 sub _groupAddOns
