@@ -140,12 +140,12 @@ sub row
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $ldap = $users->{ldap};
+    my $usersMod = EBox::Global->modInstance('users');
+    my $ldap = $usersMod->ldap();
 
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $user = $usersMod->userByUID($username);
 
     my $pass = $user->get('AstVoicemailPassword');
     my $mail = $user->get('AstVoicemailEmail');
@@ -188,12 +188,12 @@ sub _addTypedRow
        $delete = 'no';
     }
 
-    my $users = EBox::Global->modInstance('users');
-    my $ldap = $users->{ldap};
+    my $usersMod = EBox::Global->modInstance('users');
+    my $ldap = $usersMod->ldap();
 
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $user = $usersMod->userByUID($username);
 
     $user->set('AstVoicemailPassword', $pass, 1);
     $user->set('AstVoicemailEmail', $mail, 1);
@@ -209,8 +209,8 @@ sub precondition
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
     my $username = $request->user();
-    my $users = EBox::Global->modInstance('users');
-    my $user = new EBox::UsersAndGroups::User(dn => $users->userDn($username));
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->usersByUID($username);
 
     my $userLdap = EBox::AsteriskLdapUser->new();
     return $userLdap->hasAccount($user);

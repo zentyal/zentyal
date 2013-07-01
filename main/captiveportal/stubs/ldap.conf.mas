@@ -2,7 +2,6 @@
     $ldap_url
     $ldap_bindstring
     $ldap_group => ''
-    $ldap_groupsdn => ''
     $ldap2_url => undef
     $ldap2_bindstring => undef
 </%args>
@@ -13,11 +12,8 @@ ldap_url = <% $ldap_url %>
 # bind dn with {USERNAME} token
 ldap_bindstring = <% $ldap_bindstring %>
 
-# LDAP group, user must be inside this group to login
+# LDAP group DN, user must be inside this group to login
 ldap_group = <% $ldap_group %>
-
-# LDAP groups dn
-ldap_groupsdn = <% $ldap_groupsdn %>
 
 
 % if (defined($ldap2_url)) {

@@ -29,7 +29,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Model::Manager;
 use EBox::Gettext;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use Error qw( :try );
 
 use Perl6::Junction qw(any);
@@ -182,17 +182,17 @@ sub userAccount
 #
 #   Returns:
 #          the user or undef if there is not account
+# TODO: REVIEW
 sub userByAccount
 {
     my ($self, $account) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
 
     my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=*)(mail=$account)",
-                scope => 'one',
+                base => $self->{ldap}->dn(),
+                filter => "&(objectclass=posixAccount)(mail=$account)",
+                scope => 'sub',
                 attrs => ['uid'],
                );
 
@@ -222,7 +222,7 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::UsersAndGroups::User(uid => $uid);
+        my $user = new EBox::Users::User(uid => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});
@@ -231,7 +231,7 @@ sub delAccountsFromVDomain   #vdomain
 
 # Method: _addUser
 #
-#   Overrides <EBox::UsersAndGroups::LdapUserBase> to create a default mail
+#   Overrides <EBox::Users::LdapUserBase> to create a default mail
 #   account user@domain if the admin has enabled the auto email account creation
 #   feature
 sub _addUser
@@ -393,16 +393,14 @@ sub _accountExists
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my $username = $user->name();
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(uid=$username)",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
 }
@@ -422,15 +420,13 @@ sub allAccountsFromVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
 
@@ -448,20 +444,21 @@ sub allAccountsFromVDomain
 sub usersWithMailInGroup
 {
     my ($self, $group) = @_;
-    my $users = EBox::Global->modInstance('users');
 
     my $groupdn = $group->dn();
     my %args = (
-                base => $users->usersDn,
-                filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
-                scope => 'one',
-               );
+        base => $self->{ldap}->dn(),
+        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        scope => 'sub',
+    );
 
     my $result = $self->{ldap}->search(\%args);
 
+    my $usersMod = EBox::Global->modInstance('users');
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push (@mailusers, new EBox::UsersAndGroups::User(entry => $entry));
+        my $object = $usersMod->entryModeledObject($entry);
+        push (@mailusers, $object) if ($object);
     }
 
     return @mailusers;

@@ -40,9 +40,11 @@ use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
+use EBox::Samba::Computer;
+use EBox::Samba::NamingContext;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
@@ -303,6 +305,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');
@@ -726,7 +729,7 @@ sub _createDirectories
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $group = EBox::Users::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
@@ -1898,7 +1901,7 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    unless ($self->configured()) {
+    if ($self->configured()) {
         my $settings = $self->model('GeneralSettings');
         $settings->setValue('netbiosName', $newHostName);
     }
@@ -1948,5 +1951,118 @@ sub hostDomainChangedDone
     $value = uc ($value);
     $settings->setValue('workgroup', $value);
 }
+
+sub computers
+{
+    my ($self, $system) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => 'objectClass=computer',
+        scope => 'sub',
+    );
+
+    my $result = $self->ldb->search(\%args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Samba::Computer(entry => $entry);
+
+        push (@computers, $computer);
+    }
+
+    @computers = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @computers;
+
+    return \@computers;
+}
+
+# Method: entryModeledObject
+#
+#   Return the Perl Object that handles the given LDAP entry.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# Parameters:
+#
+#   entry - A Net::LDAP::Entry object.
+#
+sub entryModeledObject
+{
+    my ($self, $entry) = @_;
+
+    my $object;
+
+    my $anyObjectClasses = any($entry->get_value('objectClass'));
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group);
+    foreach my $class (@entryClasses) {
+            EBox::debug("Checking " . $class->mainObjectClass . ' agains ' . (join ',', $entry->get_value('objectClass')) );
+        if ($class->mainObjectClass eq $anyObjectClasses) {
+
+            return $class->new(entry => $entry);
+        }
+    }
+
+    EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+    EBox::trace();
+    return undef;
+}
+
+# Method: objectFromDN
+#
+#   Return the perl object modeling the given dn or undef if not found.
+#
+# Parameters:
+#
+#   dn - An LDAP DN string identifying the object to retrieve.
+#
+sub objectFromDN
+{
+    my ($self, $dn) = @_;
+    my $ldb = $self->ldb();
+    if ($dn eq $ldb->dn()) {
+        return $self->defaultNamingContext();
+    }
+
+    my $args = {
+        base => $dn,
+        filter => "(objectClass=*)",
+        scope => 'base',
+    };
+
+    my $result = $ldb->search($args);
+
+    my $count = $result->count();
+
+    if ($count > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for, expected only one.', count => $result->count()));
+    } elsif ($count == 0) {
+        return undef;
+    } else {
+        return $self->entryModeledObject($result->entry(0));
+    }
+}
+
+
+# Method: defaultNamingContext
+#
+#   Return the Perl Object that holds the default Naming Context for this LDAP server.
+#
+#
+sub defaultNamingContext
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb;
+    return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
 
 1;

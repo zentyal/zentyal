@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::SambaLdapUser;
+use base qw(EBox::LdapUserBase);
 
 use MIME::Base64;
 use Encode;
@@ -24,23 +25,92 @@ use Error qw(:try);
 
 use EBox::Sudo;
 use EBox::Samba;
+use EBox::Samba::OU;
 use EBox::Samba::User;
 use EBox::Samba::Group;
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Samba::Contact;
 use EBox::Gettext;
-
-use base qw(EBox::LdapUserBase);
 
 sub new
 {
     my $class = shift;
     my $self  = {};
-    $self->{samba} = EBox::Global->modInstance('samba');
+    my $global = EBox::Global->getInstance(0);
+    $self->{samba} = $global->modInstance('samba');
     $self->{ldb} = $self->{samba}->ldb();
+    $self->{ldbBaseDn} = $self->{ldb}->dn();
+    $self->{ldapBaseDn} = $global->modInstance('users')->ldap()->dn();
     bless($self, $class);
 
     return $self;
+}
+
+sub _sambaReady
+{
+    my ($self) = @_;
+    return ($self->{samba}->configured() and
+            $self->{samba}->isEnabled() and
+            $self->{samba}->isProvisioned());
+}
+
+sub _ldapDNToLdb
+{
+    my ($self, $dn) = @_;
+    my $rDn = EBox::Samba::User->relativeDn($self->{ldapBaseDn}, $dn);
+    return $rDn . ',' . $self->{ldbBaseDn};
+}
+
+sub _preAddOU
+{
+    my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
+    my $dn = $self->_ldapDNToLdb($entry->dn());
+    my $name = $entry->get_value('ou');
+    use Data::Dumper;
+    EBox::debug(Dumper($name));
+    my $parent = EBox::Samba::OU->parent($dn);
+
+    EBox::debug("Creating OU in LDB '$name'");
+    EBox::Samba::OU->create($name, $parent);
+}
+
+sub _preAddOuFailed
+{
+    my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
+
+    try {
+        my $name = $entry->get_value('ou');
+        my $dn = $self->_ldapDNToLdb($entry->dn());
+        my $sambaOu = new EBox::Samba::OU(dn => $dn);
+        return unless $sambaOu->exists();
+        EBox::info("Aborted OU creation, removing from samba");
+        $sambaOu->deleteObject();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error deleting OU " . $entry->dn() . ": $error");
+    };
+}
+
+sub _delOU
+{
+    my ($self, $zentyalOU) = @_;
+    $self->_sambaReady() or
+        return;
+
+    my $dn =  $zentyalOU->dn();
+    EBox::debug("Deleting OU '$dn' from samba");
+    my $sambaDn = $self->_ldapDNToLdb($dn);
+    try {
+        my $sambaOu = EBox::Samba::OU->new(dn => $dn);
+        return unless $sambaOu->exists();
+        $sambaOu->deleteObject();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error deleting OU $sambaDn: $error");
+    };
 }
 
 # Method: _preAddUser
@@ -52,25 +122,30 @@ sub new
 sub _preAddUser
 {
     my ($self, $entry) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $entry->dn();
+    my $name        = $entry->get_value('cn');
     my $description = $entry->get_value('description');
     my $givenName   = $entry->get_value('givenName');
     my $surName     = $entry->get_value('sn');
     my $uid         = $entry->get_value('uid');
 
-    my $params = {
-        description   => $description,
-        givenName     => $givenName,
-        sn            => $surName,
-    };
+    # _ldapDNToLdb returns a DN wit h uid instead of cn but it is ok for get the parent
+    my $parent = EBox::Samba::User->parent($self->_ldapDNToLdb($entry->dn()));
+
+    my %args = (
+        name           => $name,
+        parent         => $parent,
+        samAccountName => $uid,
+        description    => $description,
+        givenName      => $givenName,
+        sn             => $surName,
+    );
 
     EBox::info("Creating user '$uid'");
-    my $sambaUser = EBox::Samba::User->create($uid, $params);
+    my $sambaUser = EBox::Samba::User->create(%args);
     my $newUidNumber = $sambaUser->getXidNumberFromRID();
     EBox::debug("Changing uidNumber from $uid to $newUidNumber");
     $sambaUser->set('uidNumber', $newUidNumber);
@@ -81,10 +156,8 @@ sub _preAddUser
 sub _preAddUserFailed
 {
     my ($self, $entry) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     try {
         my $uid = $entry->get_value('uid');
@@ -93,6 +166,8 @@ sub _preAddUserFailed
         EBox::info("Aborted user creation, removing from samba");
         $sambaUser->deleteObject();
     } otherwise {
+        my ($error) = @_;
+        EBox::info("Error removing samba user " .   $entry->get_value('uid') . ": $error");
     };
 }
 
@@ -103,10 +178,8 @@ sub _preAddUserFailed
 sub _addUser
 {
     my ($self, $zentyalUser, $zentyalPassword) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $samAccountName = $zentyalUser->get('uid');
     my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
@@ -148,10 +221,8 @@ sub _addUser
 sub _addUserFailed
 {
     my ($self, $zentyalUser) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     try {
         my $uid = $zentyalUser->get('uid');
@@ -166,10 +237,8 @@ sub _addUserFailed
 sub _modifyUser
 {
     my ($self, $zentyalUser, $zentyalPwd) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalUser->dn();
     EBox::debug("Updating user '$dn'");
@@ -199,10 +268,8 @@ sub _modifyUser
 sub _delUser
 {
     my ($self, $zentyalUser) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalUser->dn();
     EBox::debug("Deleting user '$dn' from samba");
@@ -234,26 +301,130 @@ sub _delUser
     };
 }
 
+# Method: _preAddContact
+#
+#   This method adds the contact to samba LDAP.
+#
+sub _preAddContact
+{
+    my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
+
+    my $name = $entry->get_value('cn');
+    my $givenName = $entry->get_value('givenName');
+    my $initials = $entry->get_value('initials');
+    my $sn = $entry->get_value('sn');
+    my $displayName = $entry->get_value('displayName');
+    my $description = $entry->get_value('description');
+    my $ldbDn = $self->_ldapDNToLdb($entry->dn());
+    my $parent = EBox::Samba::Contact->parent($ldbDn);
+
+    my %args = (
+        name        => $name,
+        givenName   => $givenName,
+        initials    => $initials,
+        sn          => $sn,
+        displayName => $displayName,
+        description => $description,
+        parent      => $parent,
+    );
+
+    EBox::info("Creating contact '$name'");
+    my $sambaContact = EBox::Samba::Contact->create(%args);
+}
+
+sub _preAddContactFailed
+{
+    my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
+
+    try {
+        my $dn = $self->_ldapDNToLdb($entry->dn());
+
+        my $sambaContact = new EBox::Samba::Contact(dn => $dn);
+        return unless $sambaContact->exists();
+        EBox::info("Aborted contact creation, removing from samba");
+        $sambaContact->deleteObject();
+    } otherwise {
+        my ($error) = @_;
+        EBox::debug("Error removing contact " . $entry->dn() . ": $error");
+    };
+}
+
+sub _modifyContact
+{
+    my ($self, $zentyalContact) = @_;
+    $self->_sambaReady() or
+        return;
+
+    my $dn = $zentyalContact->dn();
+    EBox::debug("Updating contact '$dn'");
+
+    my $sambaDn = $self->_ldapDNToLdb($dn);
+    try {
+        my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
+        return unless $sambaContact->exists();
+
+        my $givenName = $zentyalContact->get_value('givenName');
+        my $initials = $zentyalContact->get_value('initials');
+        my $sn = $zentyalContact->get_value('sn');
+        my $displayName = $zentyalContact->get_value('displayName');
+        my $description = $zentyalContact->get_value('description');
+
+        $sambaContact->set('givenName', $givenName, 1);
+        $sambaContact->set('initials', $initials, 1);
+        $sambaContact->set('sn', $sn, 1);
+        $sambaContact->set('displayName', $displayName, 1);
+        $sambaContact->set('description', $description, 1);
+        $sambaContact->save();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error modifying contact: $error");
+    };
+}
+
+sub _delContact
+{
+    my ($self, $zentyalContact) = @_;
+    $self->_sambaReady() or
+        return;
+
+
+    my $dn = $zentyalContact->dn();
+    EBox::debug("Deleting contact '$dn' from samba");
+    my $sambaDn = $self->_ldapDNToLdb($dn);
+    # replace uid with cn for first attribute
+    $sambaDn =~ s/^uid/cn/;
+    try {
+        my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
+        return unless $sambaContact->exists();
+        $sambaContact->deleteObject();
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Error deleting contact: $error");
+    };
+}
+
 # Method: _preAddGroup
 #
-#   This method adds the group to samba LDAP
-#   TODO Support multiples OU
 #
 sub _preAddGroup
 {
     my ($self, $entry) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $entry->dn();
+    my $parent = EBox::Samba::Group->parent($self->_ldapDNToLdb($dn));
     my $description = $entry->get_value('description');
     my $gid         = $entry->get_value('cn');
     $self->_checkWindowsBuiltin($gid);
 
     my $params = {
         description   => $description,
+        parent        => $parent,
     };
 
     EBox::info("Creating group '$gid'");
@@ -268,48 +439,44 @@ sub _preAddGroup
 sub _preAddGroupFailed
 {
     my ($self, $entry) = @_;
+    $self->_sambaReady() or
+        return;
 
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
-
-    my $dn = $entry->dn();
+    my $samAccountName = $entry->get_value('cn');
     try {
-        my $samAccountName = $entry->get_value('cn');
         my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
+        my ($error) = @_;
+        EBox::error("Error removig group $samAccountName: $error")
     };
 }
 
 sub _addGroupFailed
 {
     my ($self, $zentyalGroup) = @_;
+    $self->_sambaReady() or
+        return;
 
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
-
-    my $dn = $zentyalGroup->dn();
+    my $samAccountName = $zentyalGroup->get('cn');
     try {
-        my $samAccountName = $zentyalGroup->get('cn');
         my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         return unless $sambaGroup->exists();
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
+        my ($error) = @_;
+        EBox::error("Error removig group $samAccountName: $error")
     };
 }
 
 sub _modifyGroup
 {
     my ($self, $zentyalGroup) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Modifying group '$dn'");
@@ -335,10 +502,8 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $zentyalGroup) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Deleting group '$dn' from samba");
@@ -375,10 +540,8 @@ sub _delGroup
 sub _userAddOns
 {
     my ($self, $zentyalUser) = @_;
-
-    return unless ($self->{samba}->configured() and
-                   $self->{samba}->isEnabled() and
-                   $self->{samba}->isProvisioned());
+    $self->_sambaReady() or
+        return;
 
     my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
     return undef unless $sambaUser->exists();
@@ -504,5 +667,11 @@ sub _checkWindowsBuiltin
            );
     }
 }
+
+sub multipleOUSupport
+{
+    return 1;
+}
+
 
 1;

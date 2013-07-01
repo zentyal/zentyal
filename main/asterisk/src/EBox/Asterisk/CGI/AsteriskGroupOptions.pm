@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::Group;
 
 sub new
 {
@@ -43,10 +43,10 @@ sub _process
 
     $self->_requireParam('group', __('group'));
     my $group = $self->unsafeParam('group');
-    $self->{redirect} = "UsersAndGroups/Group?group=$group";
+    $self->{redirect} = "Users/Group?group=$group";
     $self->keepParam('group');
 
-    $group = new EBox::UsersAndGroups::Group(dn => $group);
+    $group = new EBox::Users::Group(dn => $group);
     if ($self->param('active') eq 'yes') {
         $astldap->setHasQueue($group, 1);
         my $myextn = $extensions->getQueueExtension($group);

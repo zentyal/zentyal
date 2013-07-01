@@ -18,13 +18,13 @@ use warnings;
 
 package EBox::Mail::CGI::CreateAccount;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -36,16 +36,16 @@ sub new
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
+    $self->{json} = { success => 0};
+
     my $mail = EBox::Global->modInstance('mail');
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-    $self->keepParam('user');
-
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
     $self->_requireParam('vdomain', __('virtual domain'));
     my $vdomain = $self->param('vdomain');
     $self->_requireParam('lhs', __('Mail address'));
@@ -56,6 +56,7 @@ sub _process
     }
 
     $mail->{musers}->setUserAccount($user, $lhs, $vdomain, $mdsize);
+    $self->{json}->{success} = 1;
 }
 
 1;

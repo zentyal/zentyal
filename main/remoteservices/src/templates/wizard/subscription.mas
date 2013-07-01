@@ -148,6 +148,7 @@ th > div {
   text-align: left;
 }
 </style>
+<div id="wizard_error"></div>
 <form method="post" style="text-align: center;" action="./RemoteServices/Wizard/Subscription">
       <div class="subscription">
 

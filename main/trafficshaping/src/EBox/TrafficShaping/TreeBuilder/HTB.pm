@@ -27,6 +27,7 @@ use EBox::TrafficShaping::Class;
 use EBox::TrafficShaping::QDisc::Base;
 use EBox::TrafficShaping::QDisc::Root;
 use EBox::TrafficShaping::Filter::Fw;
+use EBox::TrafficShaping::Filter::U32;
 use EBox::TrafficShaping::QueueDiscipline::HTB;
 use EBox::TrafficShaping::QueueDiscipline::SFQ;
 
@@ -179,6 +180,7 @@ sub buildRoot # (defaultClass, rate)
 #
 # Parameters:
 #
+#    filterType     - Type of filter used with the rule.
 #    service        - String the service identifier related to zentyal-services module
 #                     *(Optional)*
 #    source         - <EBox::Types::IPAddr> or <EBox::Types::MACAddr> the source
@@ -300,27 +302,46 @@ sub buildRule
     $childNode->add_child( $leafNode );
     $leafQDisc->setParent( $leafNode );
 
-    # If there's no policy to classify, not adding a new filter
-    if ( defined ( $args{source} ) or defined ( $args{destination} ) or
-        defined( $args{service} ) ) {
-      # Filter to the new class attached to the root qdisc
-      my $rootQDisc = $self->{treeRoot}->value();
+    if ($args{filterType} eq 'fw') {
+        # If there's no policy to classify, not adding a new filter
+        if (defined ($args{source}) or defined ($args{destination}) or
+            defined($args{service})) {
+            # Filter to the new class attached to the root qdisc
+            my $rootQDisc = $self->{treeRoot}->value();
 
-      my $filter = new EBox::TrafficShaping::Filter::Fw(
-							flowId    => {
-								      rootHandle => 1,
-								      classId    => $classId
-								     },
-							mark      => $classId,
-						        parent    => $rootQDisc,
-							service   => $args{service},
-							srcAddr   => $args{source},
-							dstAddr   => $args{destination},
-							matchPrio => $args{priority},
-						       );
+            my $filter = new EBox::TrafficShaping::Filter::Fw(
+                flowId    => {
+                    rootHandle => 1,
+                    classId    => $classId
+                },
+                mark      => $classId,
+                parent    => $rootQDisc,
+                service   => $args{service},
+                srcAddr   => $args{source},
+                dstAddr   => $args{destination},
+                matchPrio => $args{priority},
+            );
 
-      # Attach filter to the root qdisc
-      $rootQDisc->attachFilter( $filter );
+            # Attach filter to the root qdisc
+            $rootQDisc->attachFilter( $filter );
+        }
+    } elsif ($args{filterType} eq 'u32') {
+        # Filter to the new class attached to the root qdisc
+        my $rootQDisc = $self->{treeRoot}->value();
+
+        my $flowId = {
+            rootHandle => 1,
+            classId    => $classId
+        };
+
+        my @filters = @{$self->_u32SmallPackagesFilters($flowId, $rootQDisc)};
+
+        for my $filter (@filters) {
+            # Attach filter to the root qdisc
+            $rootQDisc->attachFilter($filter);
+        }
+    } else {
+        throw EBox::Exceptions::Internal("Unknown filter type: $args{filterType}");
     }
 
     # Set lowest priority to class with default traffic
@@ -331,7 +352,6 @@ sub buildRule
 
     # Rule added!
     return $classId;
-
   }
 
 # Method: updateRule
@@ -342,6 +362,7 @@ sub buildRule
 #
 #        identifier     - the leaf class identifier which represents the
 #        rule internally which is updated
+#        filterType     - The filter type ('fw' or 'u32').
 #
 #        service        - String the service id *(Optional)*
 #        guaranteedRate - maximum gua+ranteed rate in Kilobits per second
@@ -452,10 +473,12 @@ sub updateRule
     $assocQueue->setAttribute('prio', $args{priority}) if defined ( $args{priority} );
     $assocQueue->setAttribute('rate', $args{guaranteedRate}) if defined ( $args{guaranteedRate} );
     $assocQueue->setAttribute('ceil', $args{limitedRate}) if defined ( $args{limitedRate} );
-    # Then the filter
-    my $filterAssoc = $self->_findFilterFromClass($leafClassId);
-    $filterAssoc->setAttribute('service', $args{service}) if defined ( $args{service} );
 
+    if ($args{filterType} eq 'fw') {
+        # Then the filter
+        my $filterAssoc = $self->_findFilterFromClass($leafClassId);
+        $filterAssoc->setAttribute('service', $args{service}) if defined ($args{service});
+    }
   }
 
 # Method: destroyRule
@@ -587,6 +610,7 @@ sub findLeafClassId
 #    leafClassId - Int the leaf class identifier to direct traffic which
 #                  matches with the given filter value
 #    priority    - Int the filter priority
+#    filterType  - The filter type.
 #    srcAddr - a source address (<EBox::Types::IPAddr> or <EBox::Types::MACAddr>) *(Optional)*
 #    dstAddr - a destination address (<EBox::Types::IPAddr>) *(Optional)*
 #    service   - undef or <EBox::Types::Union> from
@@ -603,60 +627,74 @@ sub findLeafClassId
 #
 # Exceptions:
 #
-#    <EBox::Exceptions::MissingArguments> - throw if any of the parameters
-#                                           is missing
+#    <EBox::Exceptions::MissingArgument> - throw if any of the parameters
+#                                          is missing
 #
 sub addFilter
-  {
+{
 
     my ($self, %params) = @_;
 
     my $leafClassId = delete $params{leafClassId};
-    my $service = delete $params{service};
-    my $srcAddr = delete $params{srcAddr};
-    my $dstAddr = delete $params{dstAddr};
+    my $filterType = delete $params{filterType};
     my $id = delete $params{id};
     my $priority = delete $params{priority};
 
-    throw EBox::Exceptions::MissingArgument(__('Leaf class identifier'))
-      unless defined ( $leafClassId );
-    throw EBox::Exceptions::MissingArgument('Filter priority')
-      unless defined ( $priority );
-    throw EBox::Exceptions::MissingArgument(__('Address'))
-      unless defined ( $srcAddr ) or defined ( $dstAddr );
+    throw EBox::Exceptions::MissingArgument('Leaf class identifier') unless defined ($leafClassId);
+    throw EBox::Exceptions::MissingArgument('Filter priority') unless defined ($priority);
+    throw EBox::Exceptions::MissingArgument('Filter type') unless defined ($filterType);
 
     $leafClassId = {
-		    major => 1,            # FIXME: when more than a root qdisc will be settled on
-		    minor => $leafClassId,
-		   };
+        major => 1,            # FIXME: when more than a root qdisc will be settled on
+        minor => $leafClassId,
+    };
 
-    my $filter = undef;
     # The filters are attached to the root
     my $rootQDisc = $self->{treeRoot}->value();
 
     # Set filter identifier
     $id = $leafClassId->{minor} unless ( defined ( $id ) );
 
-    $filter = new EBox::TrafficShaping::Filter::Fw(
-						   identifier => $id,
-						   flowId     => {
-							          rootHandle => 1,
-								  classId    => $leafClassId->{minor}
-								 },
-						   mark       => $leafClassId->{minor},
-						   parent     => $rootQDisc,
-						   service    => $service,
-						   srcAddr    => $srcAddr,
-						   dstAddr    => $dstAddr,
-						   matchPrio  => $priority,
-						  );
+    if ($filterType eq 'fw') {
+        my $service = delete $params{service};
+        my $srcAddr = delete $params{srcAddr};
+        my $dstAddr = delete $params{dstAddr};
 
-    if ( $filter ) {
-      # Attach to the qdisc
-      $rootQDisc->attachFilter ( $filter );
+        throw EBox::Exceptions::MissingArgument(__('Address')) unless defined ($srcAddr) or defined ($dstAddr);
+
+        my $filter = new EBox::TrafficShaping::Filter::Fw(
+            identifier => $id,
+            flowId     => {
+                rootHandle => 1,
+                classId    => $leafClassId->{minor}
+            },
+            mark       => $leafClassId->{minor},
+            parent     => $rootQDisc,
+            service    => $service,
+            srcAddr    => $srcAddr,
+            dstAddr    => $dstAddr,
+            matchPrio  => $priority,
+        );
+
+        if ( $filter ) {
+          # Attach to the qdisc
+          $rootQDisc->attachFilter ( $filter );
+        }
+    } elsif ($filterType eq 'u32') {
+        my $flowId = {
+            rootHandle => 1,
+            classId    => $leafClassId->{minor}
+        };
+        my @filters = @{$self->_u32SmallPackagesFilters($flowId, $rootQDisc)};
+
+        for my $filter (@filters) {
+            # Attach filter to the root qdisc
+            $rootQDisc->attachFilter($filter);
+        }
+    } else {
+        throw EBox::Exceptions::Internal("Unknown filter type: $filterType");
     }
-
-  }
+}
 
 ###################################
 # Private Methods
@@ -968,18 +1006,21 @@ sub _createInternalStructure # (defaultClassId)
     my $eBoxIPType = new EBox::Types::IPAddr(fieldName     => 'ifaceAddr',
                                             printableName => 'ifaceAddr');
     $eBoxIPType->setValue("$ifaceAddr/32");
-    $self->addFilter(leafClassId => $eBoxId,
-                     priority    => 0,
-                     srcAddr     => $eBoxIPType,
-                     service     => undef,
-                    );
-    $self->addFilter(leafClassId => $eBoxId,
-                     priority    => 0,
-                     dstAddr     => $eBoxIPType,
-                     service     => undef,
-                     id          => $eBoxId + 1,
-                    );
-
+    $self->addFilter(
+        leafClassId => $eBoxId,
+        filterType  => 'fw',
+        priority    => 0,
+        srcAddr     => $eBoxIPType,
+        service     => undef,
+    );
+    $self->addFilter(
+        leafClassId => $eBoxId,
+        filterType  => 'fw',
+        priority    => 0,
+        dstAddr     => $eBoxIPType,
+        service     => undef,
+        id          => $eBoxId + 1,
+    );
 }
 
 ###
@@ -1101,5 +1142,56 @@ sub _findFilterFromClass # (leafClassId)
     return $filterFound;
 
   }
+
+sub _u32SmallPackagesFilters
+{
+    my ($self, $flowId, $parent) = @_;
+
+    my @filters = ();
+
+    # Package size <= 64 bytes
+    my $packageSizeMatch = {
+        matchType => 'u16',
+        matchPattern => 0x0,
+        matchMask => 0xffc0,
+        matchOffset => 2,
+    };
+
+    # IP Protocol Match
+    my $ipProtocolMatch = {
+        matchType => 'ip',
+        matchPattern => 6,
+        matchMask => 0xff,
+    };
+
+    my @flags = (
+        0x10, # ACK
+        0x02, # SYN
+        0x01, # FIN
+        0x04, # RST
+    );
+
+    my $id = $flowId->{classId};
+    for my $flag (@flags) {
+        my @matchList = ($ipProtocolMatch, $packageSizeMatch);
+        push (@matchList, {
+            matchType => 'u8',
+            matchPattern => $flag,
+            matchMask => 0xff,
+            matchOffset => 13,
+            matchNextHdrOffset => 1,
+        });
+        push (@filters, new EBox::TrafficShaping::Filter::U32(
+            identifier => $id,
+            flowId => $flowId,
+            parent => $parent,
+            matchList => \@matchList,
+        ));
+        $id++;
+    }
+
+    return \@filters;
+}
+
 
 1;

@@ -20,6 +20,7 @@ use warnings;
 #
 
 package EBox::Samba::Group;
+use base 'EBox::Samba::LdbObject';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -27,17 +28,24 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
 
-use constant MAXGROUPLENGTH => 128;
+use constant MAXGROUPLENGTH     => 128;
+use constant GROUPTYPESYSTEM    => 0x00000001;
+use constant GROUPTYPEGLOBAL    => 0x00000002;
+use constant GROUPTYPELOCAL     => 0x00000004;
+use constant GROUPTYPEUNIVERSAL => 0x00000008;
+use constant GROUPTYPEAPPBASIC  => 0x00000010;
+use constant GROUPTYPEAPPQUERY  => 0x00000020;
+use constant GROUPTYPESECURITY  => 0x80000000;
 
-use base 'EBox::Samba::LdbObject';
+
 
 sub new
 {
@@ -47,6 +55,12 @@ sub new
     bless ($self, $class);
     return $self;
 }
+
+sub mainObjectClass
+{
+    return 'group';
+}
+
 
 # Method: removeAllMembers
 #
@@ -140,36 +154,6 @@ sub members
     return $members;
 }
 
-# Method: usersNotIn
-#
-#   Users that don't belong to this group
-#
-#   Returns:
-#
-#       array ref of EBox::UsersAndGroups::Group objects
-#
-sub usersNotIn
-{
-    my ($self, $system) = @_;
-
-    my $dn = $self->dn();
-    my %attrs = (
-            base => $self->_ldap->dn(),
-            filter => "(&(objectclass=posixAccount)(!(memberof=$dn)))",
-            scope => 'sub',
-            );
-
-    my $result = $self->_ldap->search(\%attrs);
-
-    my @users;
-    if ($result->count > 0) {
-        foreach my $entry ($result->sorted('uid')) {
-            push (@users, new EBox::Samba::User(entry => $entry));
-        }
-    }
-    return \@users;
-}
-
 sub setupGidMapping
 {
     my ($self, $gidNumber) = @_;
@@ -183,38 +167,54 @@ sub setupGidMapping
 
 # Method: create
 #
-#   Adds a new group
+#   Adds a new Samba group.
 #
 # Parameters:
 #
-#   group - group name
-#   comment - comment's group
-#   system - boolan: if true it adds the group as system group,
-#   otherwise as normal group
-#   ignoreMods - ldap modules to be ignored on addUser notify
-#   ignoreSlaves - slaves to be ignored on addUser notify
+#   name   - Group name.
+#   params - Hash reference with the following fields:
+#       description     - Group's description.
+#       parent          - Parent container that will hold this new Group.
+#       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
+#       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
+# TODO: Add OU.
 #
 sub create
 {
-    my ($self, $samAccountName, $params) = @_;
+    my ($self, $name, $params) = @_;
 
+    $params->{parent} or
+        throw EBox::Exceptions::MissingArgument('parent');
+    $params->{parent}->isContainer() or
+        throw EBox::Exceptions::InvalidData(
+            data => 'parent', value => $params->{parent}->dn());
+
+
+    my $isSecurityGroup = $params->{isSecurityGroup};
     # TODO Is the group added to the default OU?
     my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$samAccountName,CN=Users,$baseDn";
+    my $dn = "CN=$name," . $params->{parent}->dn();
 
-    $self->_checkAccountName($samAccountName, MAXGROUPLENGTH);
-    $self->_checkAccountNotExists($samAccountName);
+    $self->_checkAccountName($name, MAXGROUPLENGTH);
+    $self->_checkAccountNotExists($name);
 
-    my $usersModule = EBox::Global->modInstance('users');
-    my $realm = $usersModule->kerberosRealm();
+    # TODO: We may want to support more than global groups!
+    my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
-    push ($attr, objectClass    => ['top', 'group', 'posixGroup']);
-    push ($attr, sAMAccountName    => "$samAccountName");
-    push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
+    push ($attr, cn => $name);
+    push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
+    push ($attr, sAMAccountName    => "$name");
     push ($attr, description       => $params->{description}) if defined $params->{description};
+    if ($isSecurityGroup) {
+        push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
+        $groupType |= GROUPTYPESECURITY;
+    }
+
+    push ($attr, groupType         => $groupType);
 
     # Add the entry
-    my $result = $self->_ldap->add($dn, { attr => $attr });
+    my $result = $self->_ldap->add($dn, { attrs => $attr });
+EBox::info("added");
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping
@@ -225,29 +225,35 @@ sub create
 
 sub addToZentyal
 {
-    my ($self) = @_;
+    my ($self, $ou) = @_;
+    $ou or throw EBox::Exceptions::MissingArgument('ou');
 
-    my $gid       = $self->get('samAccountName');
-    my $comment   = $self->get('description');
+    my $name      = $self->get('samAccountName');
     my $gidNumber = $self->get('gidNumber');
 
-    my %optParams;
-    $optParams{ignoreMods} = ['samba'];
-    EBox::info("Adding samba group '$gid' to Zentyal");
+    my @params = (
+        name => $name,
+        description =>  $self->get('description'),
+        parent => $ou,
+        ignoreMods  => ['samba'],
+    );
+    EBox::info("Adding samba group '$name' to Zentyal");
     my $zentyalGroup = undef;
 
-    if ($gidNumber) {
-        $optParams{gidNumber} = $gidNumber;
-    } else {
+    if (not $gidNumber) {
         $gidNumber = $self->getXidNumberFromRID();
-        $optParams{gidNumber} = $gidNumber;
+        $gidNumber or
+            throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
         $self->set('gidNumber', $gidNumber);
     }
-    $gidNumber or throw EBox::Exceptions::Internal("Could not get gidNumber for group $gid");
+
+    push @params, gidNumber => $gidNumber;
     $self->setupGidMapping($gidNumber);
 
-    $zentyalGroup = EBox::UsersAndGroups::Group->create($gid, $comment, 0, %optParams);
-    $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$gid' to Zentyal");
+    push @params, isSecurityGroup => $self->isSecurityGroup();
+    push @params, isSystemGroup   => 0;
+    $zentyalGroup = EBox::Users::Group->create(@params);
+    $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$name' to Zentyal");
 
     $self->_membersToZentyal($zentyalGroup);
 }
@@ -263,11 +269,12 @@ sub updateZentyal
 
     my $desc = $self->get('description');
 
-    $zentyalGroup = new EBox::UsersAndGroups::Group(gid => $gid);
+    $zentyalGroup = new EBox::Users::Group(gid => $gid);
     $zentyalGroup->exists() or
         throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
 
     $zentyalGroup->setIgnoredModules(['samba']);
+    $zentyalGroup->setSecurityGroup($self->isSecurityGroup(), 1);
     $zentyalGroup->set('description', $desc, 1);
     $zentyalGroup->save();
 
@@ -330,7 +337,7 @@ sub _membersToZentyal
     foreach my $memberName (keys %sambaMembers) {
         unless (exists $zentyalMembers{$memberName}) {
             EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
-            my $zentyalUser = new EBox::UsersAndGroups::User(uid => $memberName);
+            my $zentyalUser = new EBox::Users::User(uid => $memberName);
             if (not $zentyalUser->exists()) {
                 EBox::error("Cannot add user '$memberName' to group '$gid' because the user does not exist");
                 next;
@@ -359,6 +366,36 @@ sub _checkAccountName
                 'advice' =>  __('Windows group names cannot be only spaces, numbers and dots'),
            );
     }
+}
+
+# Method: isSecurityGroup
+#
+#   Whether is a security group or just a distribution group.
+#
+sub isSecurityGroup
+{
+    my ($self) = @_;
+
+    return $self->get('groupType') & GROUPTYPESECURITY;
+}
+
+# Method: setSecurityGroup
+#
+#   Sets/unsets this group as a security group.
+#
+sub setSecurityGroup
+{
+    my ($self, $isSecurityGroup, $lazy) = @_;
+
+    my $groupType = $self->get('groupType');
+
+    if ($isSecurityGroup) {
+        $groupType |= GROUPTYPESECURITY;
+    } else {
+        $groupType &= ~GROUPTYPESECURITY;
+    }
+
+    $self->set('groupType', $groupType, $lazy);
 }
 
 1;

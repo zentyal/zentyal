@@ -1,5 +1,7 @@
 HEAD
 	+ Removed no longer necessary jQuery noConflict()
+3.1.4
+	+ Fixed wizard to show again errors
 	+ Fixed path escape on Reporter::SambaDiskUsage, thanks to EddieA
 	  for pointing out the fix
 	+ maxUsers method does not take maxCloudUsers into account

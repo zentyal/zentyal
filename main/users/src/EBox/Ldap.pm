@@ -21,6 +21,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Gettext;
 
@@ -123,8 +124,9 @@ sub ldapCon
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
             }
             my $credentials = EBox::UserCorner::Auth->credentials();
-            my $users = EBox::Global->modInstance('users');
-            $dn = $users->userDn($credentials->{'user'});
+            my $usersMod = EBox::Global->modInstance('users');
+            my $user = $usersMod->userByUID($credentials->{'user'});
+            $dn = $user->dn();
             $pass = $credentials->{'pass'};
         } else {
             $dn = $self->rootDn();
@@ -225,22 +227,24 @@ sub getRoPassword
 sub dn
 {
     my ($self) = @_;
-    if(!defined($self->{dn})) {
+
+    unless (defined $self->{dn}) {
         my $ldap = $self->anonymousLdapCon();
         $ldap->bind();
+        my $dse = $ldap->root_dse();
 
-        my %args = (
-            'base' => '',
-            'scope' => 'base',
-            'filter' => '(objectclass=*)',
-            'attrs' => ['namingContexts']
-        );
-        my $result = $ldap->search(%args);
-        my $entry = ($result->entries)[0];
-        my $attr = ($entry->attributes)[0];
-        $self->{dn} = $entry->get_value($attr);
+        # get naming Contexts
+        my @contexts = $dse->get_value('namingContexts');
+
+        # FIXME: LDAP tree may have multiple naming Contexts (forest), we don't support it right now, we always pick the
+        # first one we get.
+        if ($#contexts >= 1) {
+            EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
+        }
+
+        $self->{dn} = $contexts[0];
     }
-    return defined ($self->{dn}) ? $self->{dn} : '';
+    return defined $self->{dn} ? $self->{dn} : '';
 }
 
 # Method: clearConn
@@ -712,6 +716,7 @@ sub start
     return  $self->refreshLdap();
 }
 
+# XXX maybe use clearConn instead?
 sub refreshLdap
 {
     my ($self) = @_;
@@ -809,6 +814,31 @@ sub _slapcatCmd
     return  "/usr/sbin/slapcat -F " . CONF_DIR . " -b '$base' > $ldifFile";
 }
 
+# Method: url
+#
+#  Return the URL or paraeter to create a connection with this LDAP
+sub url
+{
+    return LDAPI;
+}
+
+# Method: userBindDN
+#
+#  given a plain user name, it return the argument needed to bind to the
+#  directory which that user, normally a DN
+#
+# Parametes:
+#        user - plain username
+#
+# Returns:
+#   DN or other token to use for binding to the directory
+sub userBindDN
+{
+    my ($self, $user) = @_;
+
+    return "uid=$user," . EBox::Users::User::defaultContainer()->dn();
+}
+
 sub safeConnect
 {
     my ($ldapurl) = @_;
@@ -884,6 +914,13 @@ sub changeUserPassword
                         add     => [ userPassword => $newPasswd ] ]);
         _errorOnLdap($mesg, $dn);
     }
+}
+
+sub connectWithKerberos
+{
+    EBox::Exceptions::UnwillingToPerform->throw(
+        reason => 'Internal LDAP does not support this connection method'
+    );
 }
 
 1;

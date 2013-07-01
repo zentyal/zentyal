@@ -1,5 +1,9 @@
 HEAD
 	+ Removed no longer necessary jQuery noConflict()
+	+ Search the whole LDAP tree looking for groups and users.
+	+ Added incompatiblity with external AD authentication mode
+3.1.2
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1.1
 	+ Removed deprecated backup domain methods
 3.1

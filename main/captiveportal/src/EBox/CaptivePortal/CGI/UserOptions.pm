@@ -17,36 +17,34 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::CGI::UserOptions;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::CaptivePortal::LdapUser;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
-## arguments:
-##	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Captive Portal',
-				      @_);
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Captive Portal',
+                                      @_);
 
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $cpldap = new EBox::CaptivePortal::LdapUser;
+sub _process
+{
+    my ($self) = @_;
+    $self->{json}->{success} = 0;
+    my $cpldap = new EBox::CaptivePortal::LdapUser;
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-	$self->keepParam('user');
-
-    my $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
 
     my $overridden = not ($self->param('CaptiveUser_defaultQuota_selected') eq
                      'defaultQuota_default');
@@ -57,6 +55,8 @@ sub _process($) {
         $quota = $self->param('CaptiveUser_defaultQuota_size');
     }
     $cpldap->setQuota($user, $overridden, $quota);
+
+    $self->{json}->{success} = 1;
 }
 
 1;

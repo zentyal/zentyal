@@ -17,40 +17,39 @@ use strict;
 use warnings;
 
 package EBox::Jabber::CGI::JabberUserOptions;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 
-## arguments:
-##	title [required]
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Jabber',
-				      @_);
 
-	bless($self, $class);
-	return $self;
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => 'Jabber',
+                                  @_);
+
+    bless($self, $class);
+    return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $jabberldap = new EBox::JabberLdapUser;
+sub _process
+{
+    my ($self) = @_;
+    $self->{json}->{success} = 0;
+    my $jabberldap = new EBox::JabberLdapUser;
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->_requireParam('user', __('user'));
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-	$self->keepParam('user');
-
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
 
     if ($self->param('active') eq 'yes'){
         $jabberldap->setHasAccount($user, 1);
         if (defined($self->param('is_admin')))
-        {
+            {
             $jabberldap->setIsAdmin($user, 1);
         } else {
             $jabberldap->setIsAdmin($user, 0);
@@ -60,6 +59,8 @@ sub _process($) {
             $jabberldap->setHasAccount($user, 0);
         }
     }
+
+    $self->{json}->{success} = 1;
 }
 
 1;

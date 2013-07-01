@@ -24,20 +24,20 @@ use EBox::Global;
 use EBox::Gettext;
 
 sub _create {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 sub _delGroupWarning {
     my ($self, $group) = @_;
 
-	if (@{$group->users()}) {
-		return (__('This group contains users'));
-	}
+    if (@{$group->members()}) {
+        return (__('This group contains members'));
+    }
 
-	return undef;
+    return undef;
 }
 
 sub schemas

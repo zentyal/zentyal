@@ -153,7 +153,7 @@ sub processUserCornerFile
     my ($file) = @_;
 
     EBox::Sudo::root("chown ebox:ebox $file") unless (-r $file);
-    my $action = EBox::UsersAndGroups::Slave->readActionInfo($file);
+    my $action = EBox::Users::Slave->readActionInfo($file);
     if ($mode eq 'run') {
 
         foreach my $slave (@{$slaves}) {

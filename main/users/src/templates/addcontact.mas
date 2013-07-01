@@ -1,0 +1,74 @@
+<%args>
+    $dn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add Contact') %></h3>
+    <div id='error_addContactForm' class='error' style='display:none'></div>
+    <form action='/Users/AddContact' method='POST' id='addContactForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
+    <table class='formTable'>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('First name') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='givenname'>
+            </td>
+        </tr>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('Last name') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='surname'>
+            </td>
+        </tr>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('Description') %>:
+                </span>
+                <div class="optional_field">
+                    <% __('Optional') %>
+                </div>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='description'>
+            </td>
+        </tr>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('E-Mail') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='mail'>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input class='inputButton' type='submit' name='add'
+                       value="<% __('Add') %>"
+                       alt="<% __('Add') %>"/>
+
+            </td>
+        </tr>
+    </table>
+    </form>
+
+<script>
+jQuery(function() {
+   jQuery('#addContactForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addContactForm', { extraData: { add: 1} });
+    });
+});
+</script>

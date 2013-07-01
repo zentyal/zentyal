@@ -1,3 +1,17 @@
+HEAD
+	+ Removed EBox::Samba::Group::usersNotIn() method. It was not used neither
+	  valid for samba groups.
+	+ New EBox::Samba::computers() to get all objects with computer class
+	+ Implemented security group and distribution group concept from AD.
+	+ Created an OrganizationalPerson object to reuse code between User
+	  accounts and Contacts.
+	+ Added incompatiblity with external AD authentication mode
+3.1.4
+	+ Fix SIDs to ignore list, add missing end of line character in regular
+	  expressions
+	+ NetBIOS computer name is now updated before reprovision and after
+	  hostname change
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1.3
 	+ Removed deprecated backup domains implementation
 	+ Fix id mapping for users and groups added by the s4sync daemon

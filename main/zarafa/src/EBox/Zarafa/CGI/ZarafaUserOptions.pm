@@ -16,8 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Zarafa::CGI::ZarafaUserOptions;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -38,17 +37,15 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
 
     my $zarafaldap = new EBox::ZarafaLdapUser;
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-    $self->keepParam('user');
-
-    $user = new EBox::UsersAndGroups::User(dn => $user);
-
+    my $user = new EBox::Users::User(dn => $userDN);
     if ($self->param('active') eq 'yes') {
         if ($zarafaldap->hasAccount($user)) {
             if (defined($self->param('has_pop3'))) {
@@ -95,6 +92,8 @@ sub _process
             }
         }
     }
+
+    $self->{json}->{success} = 1;
 }
 
 1;

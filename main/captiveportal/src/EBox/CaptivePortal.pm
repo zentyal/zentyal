@@ -104,7 +104,8 @@ sub _setConf
     my ($self) = @_;
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
+
 
     # Apache conf file
     EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
@@ -116,14 +117,14 @@ sub _setConf
 
     # Ldap connection (for auth) config file
     my @params;
-    push (@params, ldap_url => EBox::Ldap::LDAPI);
-    push (@params, ldap_bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn);
+    my $ldap = $usersMod->ldap();
+    push (@params, ldap_url => $ldap->url());
+    push (@params, ldap_bindstring => $ldap->userBindDN('{USERNAME}'));
 
     my $group = $settings->groupValue();
 
     if ($group ne '__all__') {
-        push (@params, ldap_group => $group);
-        push (@params, ldap_groupsdn => $users->groupsDn());
+        push (@params, ldap_group => $usersMod->groupDn($group));;
     }
 
     if ($sldap->enabledValue()) {
@@ -373,7 +374,7 @@ sub quotaExceeded
         return 0;
     }
 
-    my $user = EBox::Global->modInstance('users')->user($username);
+    my $user = EBox::Global->modInstance('users')->userByUID($username);
     my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
