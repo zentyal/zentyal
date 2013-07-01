@@ -102,7 +102,7 @@ sub _groups
     my $users = EBox::Global->modInstance('users');
     return \@groups unless ($users->configured());
 
-    my @sortedGroups = sort { $a->name() cmp $b->name() } @{$users->groups()};
+    my @sortedGroups = sort { $a->name() cmp $b->name() } @{$users->securityGroups()};
     for my $group (@sortedGroups) {
         push (@groups, {
             value => $group->get('gidNumber'),

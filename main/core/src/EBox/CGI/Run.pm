@@ -25,6 +25,7 @@ use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
 use EBox::CGI::Controller::Modal;
 use EBox::CGI::View::DataTable;
+use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
 
 use Error qw(:try);
@@ -173,7 +174,7 @@ sub _parseModelUrl
         $namespace = $module->name();
     }
 
-    if ($type eq any(qw(Composite View Controller ModalController))) {
+    if ($type eq any(qw(Composite View Controller ModalController Tree))) {
         return ($model, $namespace, $type, $action);
     }
 
@@ -241,6 +242,8 @@ sub _instanceModelCGI
         $menuNamespace = $model->menuNamespace();
         if ($type eq 'View') {
             $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
+        } elsif ($type eq 'Tree') {
+            $cgi = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace);
         } elsif ($type eq 'Controller') {
             $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
         } elsif ($type eq 'ModalController') {

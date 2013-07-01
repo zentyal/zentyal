@@ -18,39 +18,51 @@ use warnings;
 
 package EBox::Users::CGI::AddGroup;
 
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
-use EBox::Users::Group;
 use EBox::Gettext;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
-    bless($self, $class);
-    $self->{errorchain} = 'Users/Groups';
+    my $self = $class->SUPER::new('template' => '/users/addgroup.mas', @_);
+    bless ($self, $class);
     return $self;
 }
 
-sub _process($)
+sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
 
-    my @args = ();
+    my $users = EBox::Global->modInstance('users');
 
-    $self->_requireParam('groupname', __('group name'));
+    $self->_requireParam('dn', 'ou dn');
+    my $dn = $self->unsafeParam('dn');
 
-    my $groupname = $self->param('groupname');
-    my $comment = $self->unsafeParam('comment');
+    my @params;
 
-    my $group = EBox::Users::Group->create($groupname, $comment);
+    push (@params, dn => $dn);
 
-    if ($self->param('addAndEdit')) {
-        $self->{redirect} = 'Users/Group?group=' . $group->dn();
-    } else {
-        $self->{redirect} = "Users/Groups";
+    $self->{params} = \@params;
+
+    if ($self->param('add')) {
+        $self->{json} = { success => 0 };
+        $self->_requireParam('groupname', __('group name'));
+        $self->_requireParam('type', __('group type'));
+
+        my $groupname = $self->param('groupname');
+
+        my $group = EBox::Users::Group->create(
+            name => $groupname,
+            parent => $users->objectFromDN($dn),
+            description => $self->unsafeParam('description'),
+            isSecurityGroup => ($self->param('type') eq 'security'),
+        );
+
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     }
 }
 

@@ -182,17 +182,17 @@ sub userAccount
 #
 #   Returns:
 #          the user or undef if there is not account
+# TODO: REVIEW
 sub userByAccount
 {
     my ($self, $account) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
 
     my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=*)(mail=$account)",
-                scope => 'one',
+                base => $self->{ldap}->dn(),
+                filter => "&(objectclass=posixAccount)(mail=$account)",
+                scope => 'sub',
                 attrs => ['uid'],
                );
 
@@ -393,16 +393,14 @@ sub _accountExists
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my $username = $user->name();
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(uid=$username)",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
 }
@@ -422,15 +420,13 @@ sub allAccountsFromVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
 
@@ -448,20 +444,21 @@ sub allAccountsFromVDomain
 sub usersWithMailInGroup
 {
     my ($self, $group) = @_;
-    my $users = EBox::Global->modInstance('users');
 
     my $groupdn = $group->dn();
     my %args = (
-                base => $users->usersDn,
-                filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
-                scope => 'one',
-               );
+        base => $self->{ldap}->dn(),
+        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        scope => 'sub',
+    );
 
     my $result = $self->{ldap}->search(\%args);
 
+    my $usersMod = EBox::Global->modInstance('users');
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push (@mailusers, new EBox::Users::User(entry => $entry));
+        my $object = $usersMod->entryModeledObject($entry);
+        push (@mailusers, $object) if ($object);
     }
 
     return @mailusers;

@@ -107,7 +107,7 @@ ldap_user_search_filter = (|(&(objectClass=zarafa-user)(zarafaAccount=1))(object
 # Note: contacts also use this field for uniqueness. If you change this,
 # you might need to update the zarafa.schema file too, and change
 # the MUST uidNumber to whatever you set here.dnl
-ldap_user_unique_attribute = uidNumber
+ldap_user_unique_attribute = entryUUID
 
 # Type of unique user id
 # default: text
@@ -218,7 +218,7 @@ ldap_user_certificate_attribute = userCertificate
 #   (objectCategory=Group)
 # For LDAP with posix groups, use:
 #   no need to set the search filter
-ldap_group_search_filter = (objectClass=zentyalGroup)
+ldap_group_search_filter = (objectClass=zentyalDistributionGroup)
 
 # unique group id for find the group
 # Required
@@ -226,7 +226,7 @@ ldap_group_search_filter = (objectClass=zentyalGroup)
 #    objectSid
 # For LDAP with posix group, use:
 #    gidNumber
-ldap_group_unique_attribute = gidNumber
+ldap_group_unique_attribute = entryUUID
 
 # Type of unique group id
 # default: text
