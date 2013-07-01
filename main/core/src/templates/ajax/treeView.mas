@@ -58,11 +58,11 @@
 <div id="<% $treeId %>" class="treeView"/>
 
 <script>
-jQuery(function () {
+$(function () {
 
-  jQuery.jstree._themes = "/data/css/jstree-themes/";
+  $.jstree._themes = "/data/css/jstree-themes/";
 
-  var treeComponent = jQuery("#<% $treeId %>");
+  var treeComponent = $("#<% $treeId %>");
 
   treeComponent.jstree({
 	"json_data" : {
@@ -86,15 +86,15 @@ jQuery(function () {
     treeComponent.jstree('open_all');
   });
 
-  jQuery('#filter_button').click(function() {
-    var text = jQuery('#filter_text').val();
+  $('#filter_button').click(function() {
+    var text = $('#filter_text').val();
     treeComponent.jstree('search', text);
   });
 
-  jQuery(".treeviewCheckbox").each(function() {
-    jQuery(this).click(function() {
-        var nodes = jQuery("[rel='" + jQuery(this).val() + "']").show();
-        if (jQuery(this).prop('checked')) {
+  $(".treeviewCheckbox").each(function() {
+    $(this).click(function() {
+        var nodes = $("[rel='" + $(this).val() + "']").show();
+        if ($(this).prop('checked')) {
             nodes.show();
         } else {
             nodes.hide();
@@ -102,12 +102,12 @@ jQuery(function () {
     });
   });
 
-  jQuery(".treeviewActionButton").each(function() {
-    jQuery(this).click(function() {
-        var actionId = jQuery(this).attr('id');
+  $(".treeviewActionButton").each(function() {
+    $(this).click(function() {
+        var actionId = $(this).attr('id');
         var selectedNode = treeComponent.jstree('get_selected');
         var selectedNodeId = selectedNode.attr('id');
-        var nodeType = jQuery.jstree._focused()._get_type(selectedNode);
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
 
 % foreach my $action (@{$model->defaultActions()}) {
         if (actionId == '<% $action %>') {
@@ -128,9 +128,9 @@ jQuery(function () {
       if (type == '<% $name %>') {
 % foreach my $action (@{$model->defaultActions()}) {
 % if ($types{$name}->{actions}->{$action}) {
-            jQuery('#<% $action %>').removeAttr('disabled');
+            $('#<% $action %>').removeAttr('disabled');
 % } else {
-            jQuery('#<% $action %>').attr('disabled', 'disabled');
+            $('#<% $action %>').attr('disabled', 'disabled');
 % }
 % }
       }
@@ -138,7 +138,7 @@ jQuery(function () {
   });
 
   treeComponent.bind('dblclick.jstree', function (e) {
-      var node = jQuery(e.target).closest('li');
+      var node = $(e.target).closest('li');
       var nodeType = node.attr('rel');
       var nodeId = node.attr('id');
 

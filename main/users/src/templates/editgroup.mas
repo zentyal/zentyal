@@ -84,26 +84,26 @@ my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember}
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";
-jQuery(function() {
-   jQuery('#editGroupForm').on('submit', function(event) {
+$(function() {
+   $('#editGroupForm').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editGroupForm', { extraData: {edit: 1} });
     });
 });
 
-jQuery(function() {
+$(function() {
    var updateUserWidgets = function(data) {
       var user, i;
 
       // workaround for edit mailalias
-      if (!(data.firstTime) & (jQuery('#needReload').length > 0)) {
+      if (!(data.firstTime) & ($('#needReload').length > 0)) {
            var url = '/Users/EditGroup';
            var data = 'dn=' + data.groupDN;
            Zentyal.Dialog.showURL(url, { data: data})
            return;
       }
 
-      var addUser =  jQuery('#adduser');
+      var addUser =  $('#adduser');
       addUser.detach();
       addUser.children().remove();
       for (i=0; i< data.noMember.length; i++) {
@@ -111,9 +111,9 @@ jQuery(function() {
            addUser.append('<option value="' + user + '">' + user + '</option>');
       }
       addUser.insertBefore('#addUserToGroupSubmit');
-      jQuery('#adduser').combobox('clearText');
+      $('#adduser').combobox('clearText');
 
-      var groupUsers = jQuery('#groupUsers');
+      var groupUsers = $('#groupUsers');
       groupUsers.detach();
       groupUsers.children().remove();
       if (data.member.length === 0) {
@@ -132,30 +132,30 @@ jQuery(function() {
   };
 
    var refreshUsers = function (groupInfo) {
-        jQuery.getJSON('/Users/EditGroup', 'userInfo=1&dn=' + '<% $group->dn() %>', updateUserWidgets);
+        $.getJSON('/Users/EditGroup', 'userInfo=1&dn=' + '<% $group->dn() %>', updateUserWidgets);
    };
 
-   jQuery('#addUserToGroup').on('submit', function(event) {
+   $('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshUsers});
     });
 
-  jQuery('#groupUsers').on('click', 'input', function(event) {
+  $('#groupUsers').on('click', 'input', function(event) {
     event.preventDefault();
     var url = '/Users/EditGroup';
     var data = 'deluserfromgroup=1&dn=<% $group->dn() %>';
     data += '&deluser=' + event.target.getAttribute('data-user-name');
-    jQuery('#error_removeUserFromGroup').html('').hide();
-    jQuery.ajax({
+    $('#error_removeUserFromGroup').html('').hide();
+    $.ajax({
        url: url,
        data: data,
        dataType: 'json',
        error: function(jqXHR) {
-          jQuery('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+          $('#error_removeUserFromGroup').html(jqXHR.responseText).show();
        },
        success: function(response) {
           if (!response.success) {
-             jQuery('#error_removeUserFromGroup').html(response.error).show();
+             $('#error_removeUserFromGroup').html(response.error).show();
           }
        },
        complete: function() {
@@ -164,7 +164,7 @@ jQuery(function() {
     });
  });
 
-  jQuery('#adduser').combobox();
+  $('#adduser').combobox();
   var users = <% $userDataJSON %>;
   users.firstTime = 1;
   updateUserWidgets(users);
