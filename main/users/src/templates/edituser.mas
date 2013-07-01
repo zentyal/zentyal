@@ -125,9 +125,11 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 
 <div id="user_addons"  style="float: left;">
 % foreach my $comp (@components) {
-   <a class='foldUserAddon' data-fold-div='<% $comp->{id} %>' href='#'>
-       <h3><% $comp->{title}%></h3>
-   </a>
+  <div class="stitle">
+    <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
+    <% $comp->{title}%>
+  </div>
+   <br/>
    <div id='<% $comp->{id} %>'  class='userAddon' style='display:none' >
        <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
    </div>
@@ -243,6 +245,7 @@ $(function() {
     $('.foldUserAddon').on('click', function(event) {
         event.preventDefault();
         var divId = this.getAttribute('data-fold-div');
+        $(this).toggleClass('minBox').toggleClass('maxBox');
         $('#' + divId).toggle();
     });
 
