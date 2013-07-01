@@ -243,7 +243,7 @@ sub enableActions
     my ($self) = @_;
 
     # Disable IPv6 if it is enabled
-    if (-e '/proc/net/if_inet6') {
+    if (-d  '/proc/sys/net/ipv6') {
         my @cmds;
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);

@@ -1,4 +1,5 @@
 HEAD
+	+ Better check for ipv6 presence before disabling it
 	+ Removed no longer necessary jQuery noConflict()
 	+ Adapted DNS resolver model to authorization mode changes
 	  in users and squid module
