@@ -18,14 +18,30 @@ use EBox::Gettext;
 % }
 
 <form action='/Users/EditGroup' method='POST' id='editGroupForm'>
-    <span class="ftitle"> <% __('Type') %>: </span>
-    <input type="radio" name="type" value="security" <% $group->isSecurityGroup() ? 'checked' : '' %>><% __('Security Group') %>
-    <input type="radio" name="type" value="distribution" <% $group->isSecurityGroup() ? '' : 'checked' %>><% __('Distribution Group') %>
-
-    <span class="ftitle"><% __('Description') %>: </span>
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
-    <input type='text' class='inputText' name='description' value="<% $group->get('description') %>">
+
+    <table class='formTable'>
+    <tbody>
+    <tr>
+        <td class='tright'>
+            <span class="ftitle"> <% __('Type') %>: </span>
+        </td>
+        <td>
+            <input type="radio" name="type" value="security" <% $group->isSecurityGroup() ? 'checked' : '' %>><% __('Security Group') %>
+            <input type="radio" name="type" value="distribution" <% $group->isSecurityGroup() ? '' : 'checked' %>><% __('Distribution Group') %>
+        </td>
+    </tr>
+    <tr>
+        <td class='tright'>
+            <span class="ftitle"><% __('Description') %>: </span>
+        </td>
+        <td>
+            <input type='text' class='inputText' name='description' value="<% $group->get('description') %>">
+        </td>
+    </tr>
+    </tbody>
+    </table>
 %   unless ($slave) {
     <input class='inputButton' type='submit' name='user'
                        value="<% __('Change') %>"
