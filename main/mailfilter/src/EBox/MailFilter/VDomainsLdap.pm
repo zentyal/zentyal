@@ -328,9 +328,9 @@ sub _addVDomain
 sub spamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('spam');
-    return $self->_hasAccount($vdomain, $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('spam');
+    return $self->_hasAccount($vdomain, $user);
 }
 
 # Method: hamAccount
@@ -343,9 +343,9 @@ sub spamAccount
 sub hamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('ham');
-    return $self->_hasAccount($vdomain, $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('ham');
+    return $self->_hasAccount($vdomain, $user);
 }
 
 sub learnAccountsExists
@@ -389,11 +389,9 @@ sub learnAccounts
 
 sub _hasAccount
 {
-    my ($self, $vdomain, $userDN) = @_;
-    my $user= new EBox::Users::User(dn => $userDN);
-    if (not $user->exists()) {
-        return 0;
-    }
+    my ($self, $vdomain, $user) = @_;
+
+    return 0 unless ($user);
 
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
@@ -424,18 +422,16 @@ sub _hasAccount
 sub setSpamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('spam');
-    my $user = new EBox::Users::User(dn => $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('spam');
     $self->_setAccount($vdomain, $user, $active);
 }
 
 sub setHamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('ham');
-    my $user = new EBox::Users::User(dn => $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('ham');
     $self->_setAccount($vdomain, $user, $active);
 }
 
@@ -443,7 +439,7 @@ sub _setAccount
 {
     my ($self, $vdomain, $user, $active) = @_;
 
-    return unless ($user->exists());
+    return unless ($user);
 
     if ($active) {
         $self->_addAccount($vdomain, $user);

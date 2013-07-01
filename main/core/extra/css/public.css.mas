@@ -374,18 +374,18 @@
     text-decoration: underline;
     color: <% $secondary_color %>;
 }
-.dataTable tbody tr { 
+.dataTable tbody tr {
     background: white;
     border-bottom: 2px solid <% $data_table_inner_border_color %>;
 }
 .dataTable tbody tr:hover{
     background-color: whitesmoke;
 }
-.dataTable tr.even { 
-    background: <% $data_table_bg_even %>; 
+.dataTable tr.even {
+    background: <% $data_table_bg_even %>;
 }
-.dataTable tr.highlight { 
-    background: <% $data_table_bg_highlight %>; 
+.dataTable tr.highlight {
+    background: <% $data_table_bg_highlight %>;
     border-color: white;
 }
 .pagination_n{
@@ -623,8 +623,8 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 body {
     overflow-y: scroll;
     min-width: 960px;
-    max-width: 1500px;
-    width: 98%;    
+    max-width: 1200px;
+    width: 98%;
     margin: 0px auto;
     padding:0;
     color: #000000;
@@ -1050,7 +1050,7 @@ a.notchanged:hover {
     background: white;
 }
 
-.addNew {
+.addNew, .treeviewActionButton {
     background-color: #E9E9E9;
     background-image: url('/data/images/add.gif');
     background-position: 6px;
@@ -1073,6 +1073,21 @@ a.notchanged:hover {
 
 .addNew:hover {
     background-color: #dfdfdf
+}
+
+.treeviewActionButton:hover {
+    background-color: #dfdfdf;
+    background-image: url('/data/images/add.gif');
+    background-position: 6px;
+    background-repeat: no-repeat;
+}
+
+.treeviewActionButton:disabled, .treeviewActionButton:disabled:hover {
+    cursor: default;
+    border-color: #dbdbdb;
+    background-color: #eee;
+    color: #BBB;
+    opacity: 0.5;
 }
 
 #field_help {
@@ -1877,8 +1892,8 @@ float:left;
     font-weight: bold;
     color: #666;
 }
-#popx:hover { 
-    color: #333; 
+#popx:hover {
+    color: #333;
 }
 .tip {
     padding: 15px 15px 15px 50px;
@@ -1907,6 +1922,20 @@ float:left;
     width: 100%;
 }
 
+.treeView {
+    height: 480px;
+    border: 1px solid #ccc;
+    margin-top: 10px;
+}
+
+.treeviewButtons {
+    margin: 20px 5px;
+}
+
+.treeviewCheckboxes {
+    float: right;
+}
+
 .moveRowHandle {
     background: url("/data/images/row-handler.gif") no-repeat scroll center center transparent;
     cursor: move;
@@ -1924,4 +1953,27 @@ tr:hover .moveRowHandle{
 }
 .ui-sortable-helper{
     box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+}
+
+/*
+  Nedeed for combobox.js
+*/
+
+.custom-combobox {
+position: relative;
+display: inline-block;
+}
+.custom-combobox-toggle {
+position: absolute;
+top: 0;
+bottom: 0;
+margin-left: -1px;
+padding: 0;
+/* support: IE7 */
+*height: 1.7em;
+*top: 0.1em;
+}
+.custom-combobox-input {
+margin: 0;
+padding: 0.3em;
 }

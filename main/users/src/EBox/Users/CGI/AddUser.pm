@@ -12,72 +12,80 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Users::CGI::AddUser;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Users;
 use EBox::Gettext;
-use EBox::Exceptions::External;
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => 'Users and Groups', @_);
-    bless($self, $class);
-    $self->{errorchain} = 'Users/Users';
+    my $self = $class->SUPER::new('template' => '/users/adduser.mas', @_);
+    bless ($self, $class);
     return $self;
 }
 
 sub _process
 {
-    my $self = shift;
-    my @args = ();
+    my ($self) = @_;
+    my $users = EBox::Global->modInstance('users');
 
-    $self->_requireParam('username', __('user name'));
-    $self->_requireParam('name', __('first name'));
-    $self->_requireParam('surname', __('last name'));
-    $self->_requireParamAllowEmpty('comment', __('comment'));
+    $self->_requireParam('dn', 'ou dn');
+    my $dn = $self->unsafeParam('dn');
 
-    my $user;
-    $user->{'user'} = $self->param('username');
-    $user->{'name'} = $self->param('name');
-    $user->{'surname'} = $self->param('surname');
-    $user->{'fullname'} = $user->{'name'} . ' ' . $user->{'surname'};
-    $user->{'givenname'} = $user->{'name'};
+    if ($self->param('add')) {
+        $self->{json} = { success => 0 };
 
-    $user->{'password'} = $self->unsafeParam('password');
-    $user->{'repassword'} = $self->unsafeParam('repassword');
-    $user->{'group'} = $self->unsafeParam('group');
-    $user->{'comment'} = $self->unsafeParam('comment');
+        $self->_requireParam('username', __('user name'));
+        $self->_requireParam('name', __('first name'));
+        $self->_requireParam('surname', __('last name'));
+        $self->_requireParamAllowEmpty('description', __('description'));
 
-    for my $field (qw/password repassword/) {
-        unless (defined($user->{$field}) and $user->{$field} ne "") {
-            throw EBox::Exceptions::DataMissing('data' => __($field));
+        my %params;
+        $params{uid} = $self->param('username');
+        $params{parent} = $users->objectFromDN($dn);
+
+        $params{name} = $self->param('name');
+        $params{surname} = $self->param('surname');
+        $params{fullname} = $self->param('fullname');
+        $params{givenname} = $self->param('givenname');
+
+        $params{password} = $self->unsafeParam('password');
+        $params{repassword} = $self->unsafeParam('repassword');
+
+        $params{group} = $self->unsafeParam('group');
+        $params{description} = $self->unsafeParam('description');
+
+        for my $field (qw/password repassword/) {
+            unless (defined($params{$field}) and $params{$field} ne "") {
+                throw EBox::Exceptions::DataMissing('data' => __($field));
+            }
         }
-    }
 
-    if ($user->{'password'} ne $user->{'repassword'}){
-         throw EBox::Exceptions::External(__('Passwords do not match.'));
-    }
+        if ($params{password} ne $params{repassword}) {
+            throw EBox::Exceptions::External(__('Passwords do not match.'));
+        }
 
-    if (EBox::Config::configkey('multiple_ous')) {
-        $user->{ou} = $self->unsafeParam('ou');
-    }
+        my $newUser = EBox::Users::User->create(%params);
+        # FIXME!
+        if ($params{group}) {
+            $newUser->addGroup(new EBox::Users::Group(dn => $params{group}));
+        }
 
-    my $newUser = EBox::Users::User->create($user, 0);
-    if ($user->{'group'}) {
-        $newUser->addGroup(new EBox::Users::Group(dn => $user->{'group'}));
-    }
-
-    if ($self->param('addAndEdit')) {
-            $self->{redirect} = "Users/User?user=" . $newUser->dn();
+        $self->{json}->{success} = 1;
+        $self->{json}->{redirect} = '/Users/Tree/Manage';
     } else {
-            $self->{redirect} = "Users/Users";
+        my @params = (
+                dn => $dn,
+                groups => $users->groups()
+        );
+        $self->{params} = \@params;
     }
 }
 

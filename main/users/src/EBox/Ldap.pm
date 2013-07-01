@@ -124,8 +124,9 @@ sub ldapCon
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
             }
             my $credentials = EBox::UserCorner::Auth->credentials();
-            my $users = EBox::Global->modInstance('users');
-            $dn = $users->userDn($credentials->{'user'});
+            my $usersMod = EBox::Global->modInstance('users');
+            my $user = $usersMod->userByUID($credentials->{'user'});
+            $dn = $user->dn();
             $pass = $credentials->{'pass'};
         } else {
             $dn = $self->rootDn();
@@ -226,22 +227,24 @@ sub getRoPassword
 sub dn
 {
     my ($self) = @_;
-    if(!defined($self->{dn})) {
+
+    unless (defined $self->{dn}) {
         my $ldap = $self->anonymousLdapCon();
         $ldap->bind();
+        my $dse = $ldap->root_dse();
 
-        my %args = (
-            'base' => '',
-            'scope' => 'base',
-            'filter' => '(objectclass=*)',
-            'attrs' => ['namingContexts']
-        );
-        my $result = $ldap->search(%args);
-        my $entry = ($result->entries)[0];
-        my $attr = ($entry->attributes)[0];
-        $self->{dn} = $entry->get_value($attr);
+        # get naming Contexts
+        my @contexts = $dse->get_value('namingContexts');
+
+        # FIXME: LDAP tree may have multiple naming Contexts (forest), we don't support it right now, we always pick the
+        # first one we get.
+        if ($#contexts >= 1) {
+            EBox::warn("Zentyal doesn't support 'forests', we will just work with the tree '$contexts[0]'");
+        }
+
+        $self->{dn} = $contexts[0];
     }
-    return defined ($self->{dn}) ? $self->{dn} : '';
+    return defined $self->{dn} ? $self->{dn} : '';
 }
 
 # Method: clearConn
@@ -832,9 +835,8 @@ sub url
 sub userBindDN
 {
     my ($self, $user) = @_;
-    return "uid=$user," .
-           $self->dnComponent() . ',' .
-           $self->dn();
+
+    return "uid=$user," . EBox::Users::User::defaultContainer()->dn();
 }
 
 sub safeConnect

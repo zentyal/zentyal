@@ -76,10 +76,10 @@ for my $ruser (@{$rusers}) {
 
     my $luser;
     try {
-        try {
-            my $changed = 0;
+        my $changed = 0;
 
-            $luser = $users->user($ruser->{name});
+        $luser = $users->userByUID($ruser->{name});
+        if ($luser) {
             $luser->setIgnoredSlaves(IGNORE);
 
             # User exists, update fields:
@@ -106,23 +106,25 @@ for my $ruser (@{$rusers}) {
 
             $luser->save() if ($changed);
 
-        } catch EBox::Exceptions::DataNotFound with {
+        } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
-            my $user;
-            $user->{user} = $ruser->{name};
-            $user->{name} = $ruser->{firstname};
-            $user->{surname} = $ruser->{lastname};
-            if ($user->{name}) {
-                $user->{fullname} = $user->{name} . ' ' . $user->{surname};
-                $user->{givenname} = $user->{name};
+            my %user;
+            $user{user} = $ruser->{name};
+            $user{name} = $ruser->{firstname};
+            $user{surname} = $ruser->{lastname};
+            if ($user{name}) {
+                $user{fullname} = $user{name} . ' ' . $user{surname};
+                $user{givenname} = $user{name};
             } else {
-                $user->{fullname} = $user->{surname};
-                $user->{givenname} = '';
+                $user{fullname} = $user{surname};
+                $user{givenname} = '';
             }
-            $user->{passwords} = $ruser->{passwords};
-            $user->{comment} = $ruser->{description};
-            EBox::Users::User->create($user, 0, ignoreSlaves => IGNORE);
-        };
+            $user{passwords} = $ruser->{passwords};
+            $user{comment} = $ruser->{description};
+            $user{isSystemUser} = 0;
+            $user{ignoreSlaves} = IGNORE;
+            EBox::Users::User->create(%user);
+        }
     } otherwise {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
@@ -156,17 +158,20 @@ for my $rgroup (@{$rgroups}) {
 
     my $lgroup;
     try {
-        try {
-            $lgroup = $users->group($rgroup->{name});
-        } catch EBox::Exceptions::DataNotFound with {
-            EBox::info('Local group "' . $rgroup->{name} . '" does not exist, creating...');
-            $rgroup->{description} = ($rgroup->{description} or '');
-            $lgroup->{gidNumber} = $rgroup->{gid};
-            $lgroup = EBox::Users::Group->create($rgroup->{name}, $rgroup->{description}, 0, ignoreSlaves => IGNORE);
+        $lgroup = $users->groupByName($rgroup->{name});
+        unless ($lgroup) {
+            EBox::info('Local security group "' . $rgroup->{name} . '" does not exist, creating...');
+
+            my %args = (
+                name          => $rgroup->{name},
+                description   => $rgroup->{description},
+                gidNumber     => $rgroup->{gid},
+                isSystemGroup => 0,
+                ignoreSlaves  => IGNORE,
+            )
+
+            $lgroup = EBox::Users::Group->create(%args);
         }
-        otherwise {
-            EBox::error('Failed to sync remote group ' . $rgroup->{name});
-        };
 
         # Update group info
         $lgroup->setIgnoredSlaves(IGNORE);
@@ -180,7 +185,7 @@ for my $rgroup (@{$rgroups}) {
             $lgroup->removeAllMembers(1);
             $changed = 1;
             foreach my $user (@{$rgroup->{members}}) {
-                $lgroup->addMember($users->user($user), 1);
+                $lgroup->addMember($users->userByUID($user), 1);
             }
         }
         $lgroup->save() if ($changed);
@@ -192,8 +197,10 @@ for my $rgroup (@{$rgroups}) {
 
 for my $group (@{$lgroups}) {
     my $name = $group->name();
-    if (not $rgroupnames->{$name}) {
-        EBox::info("Local group $name not present in remote, removing...");
+    if (not $group->isSecurityGroup()) {
+        EBox::info("Local distribution group $name not synced...");
+    } elsif (not $rgroupnames->{$name}) {
+        EBox::info("Local security group $name not present in remote, removing...");
         $group->setIgnoredSlaves(IGNORE);
         $group->deleteObject();
     }

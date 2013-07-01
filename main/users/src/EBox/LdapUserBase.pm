@@ -28,6 +28,52 @@ sub new
     return $self;
 }
 
+
+# Method: _preAddOU
+#
+#   When a new ou is going to be created this method is called,
+#   just before ldap add
+#
+# Parameters:
+#
+#   entry - The future OU LDAP entry
+#
+sub _preAddOU
+{
+}
+
+sub _preAddOUFailed
+{
+}
+
+# Method: _addOU
+#
+#    When a new ou is created this method is called
+#
+# Parameters:
+#
+#   ou - created ou
+sub _addOU
+{
+}
+
+sub _addOUFailed
+{
+}
+
+# Method: _delOU
+#
+#    When a ou is deleted this method is called
+#
+# Parameters:
+#
+#   ou - deleted user
+sub _delOU
+{
+}
+
+# XXX no implemented yet modifyOU related methods
+
 # Method: _preAddUser
 #
 #   When a new user is going to be created this method is called,
@@ -117,6 +163,79 @@ sub _modifyUser
 #   removed you must not return anything
 #
 sub _delUserWarning
+{
+}
+
+# Method: _preAddContact
+#
+#   When a new contact is going to be created this method is called,
+#   just before ldap add
+#
+# Parameters:
+#
+#   attrs - The contact attributes of LDAP add operation
+#
+sub _preAddContact
+{
+}
+
+sub _preAddContactFailed
+{
+}
+
+# Method: _addContact
+#
+#    When a new contact is created this method is called
+#
+# Parameters:
+#
+#   contact - created contact
+sub _addContact
+{
+}
+
+sub _addContactFailed
+{
+}
+
+# Method: _preDelContact
+#
+#   When a new contact is going to be deleted
+#   TODO
+#
+#sub _preDelContact
+#{
+#}
+
+# Method: _delContact
+#
+#    When a contact is deleted this method is called
+#
+# Parameters:
+#
+#   contact - deleted contact
+sub _delContact
+{
+}
+
+# Method: _preModifyContact
+#
+#   When a contact is going to be modified
+#   TODO
+#
+#sub _preModifyContact
+#{
+#}
+
+# Method: _modifyContact
+#
+#   When a contact is modified this method is called
+#
+# Parameters:
+#
+#   contact - modified contact
+#
+sub _modifyContact
 {
 }
 

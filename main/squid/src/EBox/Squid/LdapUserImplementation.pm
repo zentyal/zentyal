@@ -78,4 +78,14 @@ sub _delGroupWarning
     return ();
 }
 
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 1;
+}
+
 1;

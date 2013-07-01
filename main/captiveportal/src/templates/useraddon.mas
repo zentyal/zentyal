@@ -5,6 +5,23 @@
     use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
+<script>
+jQuery(function() {
+   jQuery('#userOptions').on('submit', function(event) {
+        console.log('before prevent default');
+        event.preventDefault();
+        console.log('submit JS');
+        Zentyal.Dialog.submitForm(event.target, {
+            success: function(response) {
+               var url = '/Users/EditUser';
+               var data = 'dn=' + response.userDN;
+               Zentyal.Dialog.showURL(url, { data: data});
+            }
+        });
+   });
+});
+</script>
+
     <h3><% __('Captive Portal') %></h3>
 % if (not $params->{limitBW}) {
      <& .captiveportalNoLimitBWWarning, $params &>
@@ -12,7 +29,8 @@
 
     <& .captiveportalDisabledWarning, $params &>
 
-    <form action="/CaptivePortal/UserOptions" method="post">
+    <div id='error_userOptions' class='error' style='display:none'></div>
+    <form id='userOptions' action="/CaptivePortal/UserOptions" method="post">
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
   <table class="formTable">
     <tbody>
@@ -26,7 +44,7 @@
 % my $lhidden = ($params->{overridden} and $params->{quota} > 0) ? '' : 'class="hidden"';
 
 
-  <select name="CaptiveUser_defaultQuota_selected" onchange="showSelected(this);" id="CaptiveUser_defaultQuota_selected">
+  <select name="CaptiveUser_defaultQuota_selected" onchange="Zentyal.TableHelper.showSelected(this);" id="CaptiveUser_defaultQuota_selected">
 <option value="defaultQuota_default" <% $default %>>
 <% __('Use default') %>
 </option>
@@ -64,8 +82,8 @@ Mb
                alt="<% __('Change') %>" />
     </td>
     </tr>
-    </form>
     </table>
+  </form>
 
 <%def .captiveportalDisabledWarning>
 <%init>

@@ -171,7 +171,8 @@ sub models
 
     my @models = ();
     foreach my $component (@{$self->components()}) {
-        if ($component->isa('EBox::Model::DataTable')) {
+        # FIXME: Both should inherit from some EBox::Model::Base
+        if ($component->isa('EBox::Model::DataTable') or $component->isa('EBox::Model::TreeView')) {
             push (@models, $component);
             next;
         } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
