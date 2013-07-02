@@ -222,7 +222,7 @@ sub nodeTypes
         domainList  => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {} },
         siteList    => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {} },
         domain      => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
-        ou          => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
+        ou          => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' }, defaultIcon => 1 },
         site        => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
         gpLink      => { actions => { filter => 0, add => 0, edit => 1, delete => 1 }, actionObjects => { edit => 'GPLink', delete => 'GPLink' } },
     };
