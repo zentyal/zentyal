@@ -210,7 +210,6 @@ sub _populateGroupsFromExternalAD
         my $printableValue;
         my $samAccountName = $entry->get_value('samAccountName');
         my $sid = $self->_sidToString($entry->get_value('objectSid'));
-        utf8::decode($samAccountName);
         my $parentRelative = $entry->dn();
         $parentRelative =~ s/$defaultNC$//;
         $parentRelative =~ s/^.*?,//;
@@ -223,6 +222,7 @@ sub _populateGroupsFromExternalAD
             $printableValue = "$parentRelative/$samAccountName";
         }
 
+        utf8::decode($printableValue);
         push (@{$groups}, { value => $sid, printableValue => $printableValue });
     }
 
