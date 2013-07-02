@@ -207,10 +207,23 @@ sub _populateGroupsFromExternalAD
                           attrs => ['samAccountName', 'objectSid'],
                           control => [$sort]);
     foreach my $entry ($res->entries()) {
+        my $printableValue;
         my $samAccountName = $entry->get_value('samAccountName');
         my $sid = $self->_sidToString($entry->get_value('objectSid'));
         utf8::decode($samAccountName);
-        push (@{$groups}, { value => $sid, printableValue => $samAccountName });
+        my $parentRelative = $entry->dn();
+        $parentRelative =~ s/$defaultNC$//;
+        $parentRelative =~ s/^.*?,//;
+        $parentRelative =~ s/,$//;
+        if (($parentRelative eq 'CN=Users') or ($parentRelative eq 'CN=Builtin')) {
+            $printableValue = $samAccountName;
+        } else {
+            $parentRelative =~ s/^.*?=//;
+            $parentRelative =~ s{,.*?=}{/}g;
+            $printableValue = "$parentRelative/$samAccountName";
+        }
+
+        push (@{$groups}, { value => $sid, printableValue => $printableValue });
     }
 
     # TODO Make connection persistent?
