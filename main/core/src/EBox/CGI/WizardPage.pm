@@ -47,11 +47,11 @@ use EBox::Exceptions::Base;
 use constant ERROR_STATUS => '500';
 
 ## arguments
-##		title [optional]
-##		error [optional]
-##		msg [optional]
-##		cgi   [optional]
-##		template [optional]
+##              title [optional]
+##              error [optional]
+##              msg [optional]
+##              cgi   [optional]
+##              template [optional]
 sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
     my $class = shift;
@@ -99,10 +99,10 @@ sub _masonParameters
 
 sub _print
 {
-	my ($self) = @_;
-	$self->_header();
+    my ($self) = @_;
+    $self->_header();
     if ( $self->{cgi}->request_method() eq 'GET' ) {
-	    $self->_body();
+            $self->_body();
     }
 }
 
@@ -111,7 +111,7 @@ sub _process
     my $self = shift;
     $self->{params} = $self->_masonParameters();
     if ( $self->{cgi}->request_method() eq 'POST' ) {
-	    $self->_processWizard();
+            $self->_processWizard();
     }
 }
 
