@@ -1,3 +1,6 @@
+HEAD
+	+ Set transparent HTTP proxy firewall rules unless the module is
+	  temporary stopped
 3.0.12
 	+ Use external squid log file to retrieve HTTP proxy requests
 3.0.11
