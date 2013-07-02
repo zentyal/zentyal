@@ -262,7 +262,7 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must enable the Samba module in the module status ' .
+    return __('You must enable the File Sharing module in the module status ' .
               'section in order to use it.');
 }
 

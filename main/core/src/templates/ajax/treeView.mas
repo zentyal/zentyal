@@ -10,6 +10,8 @@
 
 <& .headTitle, title => $model->headTitle() &>
 
+% if ($model->precondition()) {
+
 % # Print the help if any
 % my $help = $model->help();
 % if ($help) {
@@ -173,6 +175,14 @@ $(function () {
 });
 </script>
 
+% } else {
+%   my $failMsg = $model->preconditionFailMsg();
+%   if ($failMsg) {
+<div class="note">
+  <% $failMsg %>
+</div>
+%   }
+% }
 
 <%def .pageTitle>
 <%args>
