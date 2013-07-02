@@ -219,8 +219,8 @@ sub nodeTypes
 {
     return {
         forest      => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {} },
-        domainList  => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {} },
-        siteList    => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {} },
+        domainList  => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {}, defaultIcon => 1 },
+        siteList    => { actions => { filter => 0, add => 0, edit => 0, delete => 0 }, actionObjects => {}, defaultIcon => 1 },
         domain      => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
         ou          => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' }, defaultIcon => 1 },
         site        => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
