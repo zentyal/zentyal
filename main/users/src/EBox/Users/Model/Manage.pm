@@ -91,6 +91,13 @@ sub childNodes
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
+        } elsif ($child->isa('EBox::Users::Container::ExternalAD')) {
+            #^ container class only used in ExternalAD mode
+            # for now we are only interested in the user containers
+            $child->usersContainer() or
+                next;
+            $type = 'container';
+            $printableName = $child->name();
         } else {
             EBox::warn("Unknown object type for DN: " . $child->dn());
             next;
@@ -115,6 +122,7 @@ sub _sambaComputers
         push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
     }
 
+
     return \@computers;
 }
 
@@ -123,6 +131,7 @@ sub nodeTypes
     return {
         domain => { actions => { filter => 0, add => 1 }, actionObjects => { add => 'OU' } },
         ou => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        container => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
         group => { printableName => __('Security Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
         dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => 1, delete => 1 },
