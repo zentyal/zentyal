@@ -1,4 +1,5 @@
 HEAD
+	+ Handle domains that are actually IP addresses in the LogHelper
 	+ Set transparent HTTP proxy firewall rules unless the module is
 	  temporary stopped
 3.0.12
