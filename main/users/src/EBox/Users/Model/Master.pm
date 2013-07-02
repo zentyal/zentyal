@@ -86,6 +86,13 @@ sub _table
         }
     }
 
+    my $unlocked = sub {
+        return $self->_unlocked();
+    };
+    my $locked = sub {
+        return $self->_locked();
+    };
+
     my @tableDesc = (
         new EBox::Types::Select (
             fieldName => 'master',
@@ -97,21 +104,21 @@ sub _table
         new EBox::Types::Host (
             fieldName => 'host',
             printableName => __('Master host'),
-            editable => \&_unlocked,
+            editable => $unlocked,
             help => __('Hostname or IP of the master'),
         ),
         new EBox::Types::Port (
             fieldName => 'port',
             printableName => __('Master port'),
             defaultValue => 443,
-            editable => \&_unlocked,
+            editable => $unlocked,
             help => __('Master port for Zentyal Administration (default: 443)'),
         ),
         new EBox::Types::Password (
             fieldName => 'password',
             printableName => __('Slave password'),
-            editable => \&_unlocked,
-            hidden => \&_locked,
+            editable => $unlocked,
+            hidden => $locked,
             help => __('Password for new slave connection'),
         ),
     );
@@ -164,7 +171,8 @@ sub _locked
 
 sub _unlocked
 {
-    return (not _locked());
+    my ($self) = @_;
+    return (not $self->_locked());
 }
 
 sub validateTypedRow
