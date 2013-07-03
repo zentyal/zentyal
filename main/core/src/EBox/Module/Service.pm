@@ -788,14 +788,16 @@ sub _startService
     my $temporaryStopped = $self->temporaryStopped();
     $self->setTemporaryStopped(0); # Do it here to make Firewall helper to work
     my $global   = $self->global();
-    my $fwHelper = $self->firewallHelper();
-    if ($params{restartModules} and $temporaryStopped
-        and $global->modExists('firewall') and $self->isa('EBox::FirewallObserver')
-        and $global->modInstance('firewall')->isEnabled()
-        and $fwHelper->can('restartOnTemporaryStop')
-        and $fwHelper->restartOnTemporaryStop()) {
-        my $fw = $global->modInstance('firewall');
-        $fw->restartService();
+    if ($self->isa('EBox::FirewallObserver')) {
+        my $fwHelper = $self->firewallHelper();
+        if ($params{restartModules} and $temporaryStopped
+            and $global->modExists('firewall')
+            and $global->modInstance('firewall')->isEnabled()
+            and $fwHelper->can('restartOnTemporaryStop')
+            and $fwHelper->restartOnTemporaryStop()) {
+            my $fw = $global->modInstance('firewall');
+            $fw->restartService();
+        }
     }
 
     # Notify observers
@@ -826,14 +828,16 @@ sub stopService
 
     $self->setTemporaryStopped(1);
     my $global   = $self->global();
-    my $fwHelper = $self->firewallHelper();
-    if ($params{restartModules}
-        and $global->modExists('firewall')
-        and $self->isa('EBox::FirewallObserver') and $global->modInstance('firewall')->isEnabled()
-        and $fwHelper->can('restartOnTemporaryStop')
-        and $fwHelper->restartOnTemporaryStop()) {
-        my $fw = $global->modInstance('firewall');
-        $fw->restartService();
+    if ($self->isa('EBox::FirewallObserver')) {
+        my $fwHelper = $self->firewallHelper();
+        if ($params{restartModules}
+            and $global->modExists('firewall')
+            and $global->modInstance('firewall')->isEnabled()
+            and $fwHelper->can('restartOnTemporaryStop')
+            and $fwHelper->restartOnTemporaryStop()) {
+            my $fw = $global->modInstance('firewall');
+            $fw->restartService();
+        }
     }
 
     $self->_lock();
