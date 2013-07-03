@@ -131,7 +131,7 @@ try {
         }
     }
     try {
-        $webAdminMod->_daemon('restart');
+        $webAdminMod->restartService();
         $progress->setAsFinished($retValue, $errorMsg);
     } catch EBox::Exceptions::External with {
         # Ignore if it cannot put as finished since it's possible it
