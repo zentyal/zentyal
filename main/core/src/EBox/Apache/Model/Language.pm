@@ -104,7 +104,12 @@ sub _populateLanguages
 
 sub updatedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $oldRow) = @_;
+    if (not $row->isEqualTo($oldRow)) {
+        # no need to set special reload for apache
+        return;
+    }
+
     my $global = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     $sysinfo->setReloadPageAfterSavingChanges(1);
