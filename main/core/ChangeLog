@@ -1,4 +1,5 @@
 HEAD
+	+ unconfigure-module script disables also the module
 	+ Restart firewall module when a firewall observer module is
 	  stopped/started using zentyal init.d script
 	+ Added temporary stopped state to a Service module to know if a

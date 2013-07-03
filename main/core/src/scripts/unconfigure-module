@@ -27,3 +27,4 @@ unless ($mod->isa('EBox::Module::Service')) {
 }
 
 $mod->setConfigured(undef);
+$mod->set('_serviceModuleStatus', 0);
