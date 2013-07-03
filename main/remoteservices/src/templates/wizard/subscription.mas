@@ -309,30 +309,30 @@ th > div {
      <div style="clear: both"></div>
      <script type="text/javascript" language="javascript">
         "use strict";
-        jQuery('#radio_subscribe, #radio_register').change(function () {
-            var notSubscribed = ! jQuery('#radio_subscribe').prop('checked');
-            jQuery('#subs_pass2').toggle(notSubscribed);
-            jQuery('#subs_newsletter').toggle(notSubscribed);
-            jQuery('#subs_agree').toggle(notSubscribed);
-            jQuery('#promo').toggle(notSubscribed);
-            jQuery('#subs_firstname').toggle(notSubscribed);
-            jQuery('#subs_lastname').toggle(notSubscribed);
-            jQuery('#subs_sector').toggle(notSubscribed);
-            jQuery('#subs_company').toggle(notSubscribed);
-            jQuery('#subs_position').toggle(notSubscribed);
-            jQuery('#subs_phone').toggle(notSubscribed);
+        $('#radio_subscribe, #radio_register').change(function () {
+            var notSubscribed = ! $('#radio_subscribe').prop('checked');
+            $('#subs_pass2').toggle(notSubscribed);
+            $('#subs_newsletter').toggle(notSubscribed);
+            $('#subs_agree').toggle(notSubscribed);
+            $('#promo').toggle(notSubscribed);
+            $('#subs_firstname').toggle(notSubscribed);
+            $('#subs_lastname').toggle(notSubscribed);
+            $('#subs_sector').toggle(notSubscribed);
+            $('#subs_company').toggle(notSubscribed);
+            $('#subs_position').toggle(notSubscribed);
+            $('#subs_phone').toggle(notSubscribed);
         });
 
         window.register_save = function() {
            // Mimetise the nextStep
            Zentyal.Wizard.Software.setLoading(true);
-           var form = jQuery('#wizardPage0 form').first();
-           jQuery.ajax({
+           var form = $('#wizardPage0 form').first();
+           $.ajax({
                         url: form.attr('action'),
                         type: 'post',
                         data: form.serialize(),
                         error : function (response) {
-                          jQuery('#wizard_error').html(response.responseText).show(500);
+                          $('#wizard_error').html(response.responseText).show(500);
                           Zentyal.Wizard.Software.setLoading(false);
                         },
                         success : function (response) {

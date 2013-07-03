@@ -1,5 +1,5 @@
 "use strict";
-jQuery.noConflict();
+
 Zentyal.namespace('SoftwareManagementUI');
 
 Zentyal.SoftwareManagementUI.suites =  {
@@ -14,62 +14,62 @@ Zentyal.SoftwareManagementUI.suites =  {
 };
 
 Zentyal.SoftwareManagementUI.showInstallTab = function() {
-    jQuery('#installTab').removeClass().addClass('current');
-    jQuery('#updateTab, #deleteTab').removeClass();
-    jQuery('#installBox').show();
-    jQuery('#updateBox, #deleteBox').hide();
+    $('#installTab').removeClass().addClass('current');
+    $('#updateTab, #deleteTab').removeClass();
+    $('#installBox').show();
+    $('#updateBox, #deleteBox').hide();
 };
 
 Zentyal.SoftwareManagementUI.showUpdateTab = function (){
-    jQuery('#updateTab').removeClass().addClass('current');
-    jQuery('#installTab, #deleteTab').removeClass();
-    jQuery('#updateBox').show();
-    jQuery('#installBox, #deleteBox').hide();
+    $('#updateTab').removeClass().addClass('current');
+    $('#installTab, #deleteTab').removeClass();
+    $('#updateBox').show();
+    $('#installBox, #deleteBox').hide();
 };
 
 Zentyal.SoftwareManagementUI.showDeleteTab = function (){
-    jQuery('#deleteTab').removeClass().addClass('current');
-    jQuery('#installTab, #updateTab').removeClass();
-    jQuery('#deleteBox').show();
-    jQuery('#installBox, #updateBox').hide();
+    $('#deleteTab').removeClass().addClass('current');
+    $('#installTab, #updateTab').removeClass();
+    $('#deleteBox').show();
+    $('#installBox, #updateBox').hide();
 };
 
 Zentyal.SoftwareManagementUI.showInfo = function(id) {
     var idSel =  '#' + id;
-    jQuery(idSel).show(200);
-    jQuery('#Gateway, #Infrastructure, #Office, #Communications, #Install').not(idSel).hide(200);
+    $(idSel).show(200);
+    $('#Gateway, #Infrastructure, #Office, #Communications, #Install').not(idSel).hide(200);
 };
 
 Zentyal.SoftwareManagementUI.hideInfo = function (id) {
-    jQuery('#' + id).fadeOut(200);
-    jQuery('Install').show(200);
+    $('#' + id).fadeOut(200);
+    $('Install').show(200);
 };
 
 Zentyal.SoftwareManagementUI.tick = function (id, update_packages){
-    jQuery('#' + id+ '_image_tick').show();
-    jQuery('#' + id+ '_image').hide();
-    jQuery('#' + id+ '_check').prop('checked', true);
+    $('#' + id+ '_image_tick').show();
+    $('#' + id+ '_image').hide();
+    $('#' + id+ '_check').prop('checked', true);
 
      if (update_packages) {
          var deps = Zentyal.SoftwareManagementUI.suites[id];
-         jQuery.each(deps, function(index, packageId) {
+         $.each(deps, function(index, packageId) {
              Zentyal.SoftwareManagementUI.selectPackage(packageId, true);
          });
      }
 };
 
 Zentyal.SoftwareManagementUI.untick = function(id, update_packages){
-    jQuery('#' + id+'_image_tick').hide();
-    jQuery('#' + id+'_image').show();
-    jQuery('#' + id+'_check').prop('checked', false);
+    $('#' + id+'_image_tick').hide();
+    $('#' + id+'_image').show();
+    $('#' + id+'_check').prop('checked', false);
 
     if (update_packages) {
         var otherSuitesPackages = {};
         for (var suite in Zentyal.SoftwareManagementUI.suites) {
             if (suite != id) {
-                if (jQuery('#' + suite +'_check').prop('checked')) {
+                if ($('#' + suite +'_check').prop('checked')) {
                     var suiteDeps = Zentyal.SoftwareManagementUI.suites[suite];
-                    jQuery.each(suiteDeps, function(index, pkg) {
+                    $.each(suiteDeps, function(index, pkg) {
                          otherSuitesPackages[pkg] = true;
                     });
                 }
@@ -77,7 +77,7 @@ Zentyal.SoftwareManagementUI.untick = function(id, update_packages){
         }
 
         var deps =  Zentyal.SoftwareManagementUI.suites[id];
-        jQuery.each(deps, function(index, pkg) {
+        $.each(deps, function(index, pkg) {
             if (! (pkg in otherSuitesPackages)) {
                 Zentyal.SoftwareManagementUI.unselectPackage(pkg, false);
             }
@@ -86,18 +86,18 @@ Zentyal.SoftwareManagementUI.untick = function(id, update_packages){
 };
 
 Zentyal.SoftwareManagementUI.selected = function(id) {
-    return jQuery('#' + id).hasClass('package_selected');
+    return $('#' + id).hasClass('package_selected');
 };
 
 Zentyal.SoftwareManagementUI.selectPackage = function(id, no_update_ticks) {
-  jQuery('#' + id).addClass('package_selected');
+  $('#' + id).addClass('package_selected');
   if (!no_update_ticks) {
        Zentyal.SoftwareManagementUI.updateTicks();
   }
 };
 
 Zentyal.SoftwareManagementUI.unselectPackage = function(id, no_update_ticks) {
-    jQuery('#' + id).removeClass('package_selected');
+    $('#' + id).removeClass('package_selected');
     if (!no_update_ticks) {
          Zentyal.SoftwareManagementUI.updateTicks();
     }
@@ -132,18 +132,18 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
 };
 
 Zentyal.SoftwareManagementUI.selectAll = function(table, actionButton) {
-    jQuery('#' + table  + ' :checkbox').prop('checked', true);
-    jQuery('#' + actionButton).prop('disabled', false);
+    $('#' + table  + ' :checkbox').prop('checked', true);
+    $('#' + actionButton).prop('disabled', false);
 };
 
 Zentyal.SoftwareManagementUI.deselectAll = function(table, actionButton) {
-    jQuery('#' + table  + ' :checkbox').prop('checked', false);
-    jQuery('#' + actionButton).prop('disabled', true);
+    $('#' + table  + ' :checkbox').prop('checked', false);
+    $('#' + actionButton).prop('disabled', true);
 };
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
     var packages = [];
-    packages = jQuery('#' + container + ' :checked').map(function() {
+    packages = $('#' + container + ' :checked').map(function() {
          return 'pkg-' + this.getAttribute('data-pkg');
     }).get();
     Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);
@@ -151,19 +151,19 @@ Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title
 
 Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {
     var packages = [];
-    if (jQuery('#Gateway_check').prop('checked')) {
+    if ($('#Gateway_check').prop('checked')) {
         packages.push('pkg-zentyal-gateway');
     }
-    if (jQuery('#Office_check').prop('checked')) {
+    if ($('#Office_check').prop('checked')) {
         packages.push('pkg-zentyal-office');
     }
-    if (jQuery('#Communications_check').prop('checked')) {
+    if ($('#Communications_check').prop('checked')) {
         packages.push('pkg-zentyal-communication');
     }
-    if (jQuery('#Infrastructure_check').prop('checked')) {
+    if ($('#Infrastructure_check').prop('checked')) {
         packages.push('pkg-zentyal-infrastructure');
     }
-    jQuery('.package_selected').each(function (index, el) {
+    $('.package_selected').each(function (index, el) {
        packages.push('pkg-' + el.id);
     });
 
@@ -189,16 +189,16 @@ Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, 
 };
 
 Zentyal.SoftwareManagementUI.updateActionButton = function(table, buttonId) {
-    var allDisabled = jQuery('#' + table + ' :checked').length === 0;
-    jQuery('#' + buttonId).prop('disabled', allDisabled);
+    var allDisabled = $('#' + table + ' :checked').length === 0;
+    $('#' + buttonId).prop('disabled', allDisabled);
 };
 
 Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
     var trSel = '#' + tableId  + ' tbody tr';
-    var tableTr =  jQuery(trSel);
-    var filterText = jQuery('#' + filterId).val();
+    var tableTr =  $(trSel);
+    var filterText = $('#' + filterId).val();
 
-    filterText = jQuery.trim(filterText).toLowerCase();
+    filterText = $.trim(filterText).toLowerCase();
     if (filterText === '') {
         tableTr.show();
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -206,7 +206,7 @@ Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
     }
 
     tableTr.each(function (index, tr) {
-        tr = jQuery(tr)
+        tr = $(tr)
         if (tr.text().toLowerCase().indexOf(filterText) >= 0 ) {
             tr.show();
         } else {

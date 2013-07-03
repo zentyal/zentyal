@@ -60,7 +60,7 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var description= jQuery('#backup_description').val();
+     var description= $('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup';
      var data = 'description='  +  escape(description);
@@ -91,8 +91,8 @@ my $formId    = $id . '_form';
 my $onChange = << "JS_END";
 var fileUpload = new Zentyal.FileUpload(
    { formId :   '$formId',
-     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
-     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
+     start :    function() { $('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; $('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();

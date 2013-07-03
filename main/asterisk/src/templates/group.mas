@@ -60,14 +60,14 @@
 %   }
 
 <script>
-jQuery(function(){
+$(function(){
   var refreshDialog = function(response) {
                 var url = '/Users/EditGroup';
                 var data = 'dn=' + response.groupDN;
                 Zentyal.Dialog.showURL(url, { data: data})
   };
 
-  jQuery('#groupOptions').on('submit', function(event) {
+  $('#groupOptions').on('submit', function(event) {
         event.preventDefault();
         Zentyal.Dialog.submitForm(event.target, {
             success : refreshDialog

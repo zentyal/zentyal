@@ -32,6 +32,7 @@ use base qw(EBox::Module::Service
 
 use feature qw(switch);
 
+use Data::UUID;
 use Date::Calc;
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
@@ -67,11 +68,11 @@ use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
 use Error qw(:try);
-use Net::DNS;
 use File::Slurp;
 use JSON::XS;
+use Net::DNS;
 use POSIX;
-use Data::UUID;
+use YAML::XS;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
@@ -82,6 +83,7 @@ use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
+use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
 
 # OCS conf constants
 use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
@@ -150,6 +152,7 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_setProxyRedirections();
     $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
         $self->_setUpAuditEnvironment();
@@ -324,7 +327,7 @@ sub _daemons
     return [
         {
             'name'         => RUNNERD_SERVICE,
-            'precondition' => \&eBoxSubscribed,
+            'precondition' => \&runRunnerd,
         },
         {
             'name'         => REPORTERD_SERVICE,
@@ -1561,17 +1564,55 @@ sub inventoryEnabled
     return $self->reportEnabled();
 }
 
+# Method: runRunnerd
+#
+#     Get if runnerd daemon should be run.
+#
+#     By default, run if the server is registered. If not, then this
+#     depends on the value set by <ensureRunnerdRunning> method
+#
+# Returns:
+#
+#     Boolean
+#
+sub runRunnerd
+{
+    my ($self) = @_;
+
+    return 1 if ($self->eBoxSubscribed());
+    return $self->get_bool('runnerd_always_running');
+}
+
+# Method: ensureRunnerdRunning
+#
+#     Ensure runnerd is running even when the server is not
+#     registered.
+#
+#     Save changes is required to start/stop runnerd daemon.
+#
+# Parameters:
+#
+#     run - Boolean indicating if runnerd is meant to be run or not
+#
+sub ensureRunnerdRunning
+{
+    my ($self, $run) = @_;
+
+    $run = 0 unless (defined($run));
+    $self->set_bool('runnerd_always_running', $run);
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
 #
-# if subscribed
-# 1. Write soap-loc.conf.mas and soap-loc-ssl.conf.mas templates
-# 2. Write the CA certificates file
-# 3. Add include in webadmin configuration
-# else
-# 1. Remove CA certificates file
-# 2. Remove include in webadmin configuration
+# if subscribed and has bundle
+# 1. Write soap-loc.mas template
+# 2. Write the SSLCACertificatePath directory
+# 3. Add include in zentyal-apache configuration
+# elsif not subscribed
+# 1. Remove SSLCACertificatePath directory
+# 2. Remove include in zentyal-webadmin configuration
 #
 sub _confSOAPService
 {
@@ -1608,6 +1649,49 @@ sub _confSOAPService
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();
+}
+
+# Configure Apache Proxy redirections server
+#
+# if subscribed and has bundle and remoteservices_redirections.conf is written
+# 1. Write proxy-redirections.conf.mas template
+# 2. Add include in zentyal-apache configuration
+# elsif not subscribed
+# 1. Remove include in zentyal-apache configuration
+#
+sub _setProxyRedirections
+{
+    my ($self) = @_;
+
+    my $confFile = SERV_DIR . 'proxy-redirections.conf';
+    my $apacheMod = EBox::Global->modInstance('apache');
+    if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
+        try {
+            my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+            my @tmplParams = (
+                redirections => $redirConf,
+               );
+            EBox::Module::Base::writeConfFileNoCheck(
+                $confFile,
+                'remoteservices/proxy-redirections.conf.mas',
+                \@tmplParams);
+            $apacheMod->addInclude($confFile);
+        } otherwise {
+            # Not proper YAML file
+            my ($exc) = @_;
+            EBox::error($exc);
+        };
+    } else {
+        # Do nothing if include is already removed
+        try {
+            unlink($confFile) if (-f $confFile);
+            $apacheMod->removeInclude($confFile);
+        } catch EBox::Exceptions::Internal with { ; };
+    }
+    # We have to save Apache changes:
+    # From GUI, it is assumed that it is done at the end of the process
+    # From CLI, we have to call it manually in some way. TODO: Find it!
+    # $apacheMod->save();
 }
 
 # Assure the VPN connection with our VPN servers is established

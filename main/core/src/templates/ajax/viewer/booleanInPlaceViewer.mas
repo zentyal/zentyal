@@ -29,7 +29,7 @@ my $onChange = qq{Zentyal.TableHelper.sendInPlaceBooleanValue("$controller",
 if ($checkAllId) {
     $onChange .= qq|if (this.checked) {
                        Zentyal.TableHelper.checkAllControlValue("$controller", "$tableName", "$dir", "$checkAllId", "$fieldName");
-                    } else { jQuery("#$checkAllId").prop("checked", false);  }
+                    } else { $("#$checkAllId").prop("checked", false);  }
                 |;
 }
 

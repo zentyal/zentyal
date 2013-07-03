@@ -34,7 +34,7 @@ my %printableName = (
 <& .addAccount, params => $params &>
 <a href='#' class='addNew'
    name='add'
-         onClick='jQuery(this).hide(); jQuery("#add_external_account").show();return false'>
+         onClick='$(this).hide(); $("#add_external_account").show();return false'>
     <% __('Add new') %>
   </a>
 % if (@externalAccounts){
@@ -44,37 +44,37 @@ my %printableName = (
 &>
 % }
 <script>
-jQuery(function() {
+$(function() {
   var refreshDialog = function(response) {
                 var url = '/Users/EditUser';
                 var data = 'dn=' + response.userDN;
                 Zentyal.Dialog.showURL(url, { data: data});
   };
 
-  jQuery('#add_external_account').on('submit', function(event) {
+  $('#add_external_account').on('submit', function(event) {
      event.preventDefault();
      Zentyal.Dialog.submitForm(event.target, {
           success : refreshDialog
     });
   });
 
-  jQuery('#externalAccountsTable').on('click', 'href', function(event) {
+  $('#externalAccountsTable').on('click', 'href', function(event) {
       event.preventDefault();
       var fullUrl = event.target.href;
       var urlSplit = fullUrl.split('?');
-      jQuery('#error_removeExternalAccount').html('').hide();
-      jQuery.ajax({
+      $('#error_removeExternalAccount').html('').hide();
+      $.ajax({
          url: urlSplit[0],
          data: urlSplit[1],
          dataType: 'json',
          error: function(jqXHR) {
-            jQuery('#error_removeExternalAccount').html(jqXHR.responseText).show();
+            $('#error_removeExternalAccount').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
                 refreshDialog(response);
             } else {
-               jQuery('#error_removeExternalAccount').html(response.error).show();
+               $('#error_removeExternalAccount').html(response.error).show();
             }
          }
       });

@@ -15,9 +15,9 @@ use EBox::Gettext;
   <script type="text/javascript">
     function logout() {
         // Set loading
-        jQuery('#logout').html('<img src="/data/images/ajax-loader.gif" />');
+        $('#logout').html('<img src="/data/images/ajax-loader.gif" />');
         // Ajax logout
-        jQuery.ajax({
+        $.ajax({
              url: '/Logout',
              complete: function(response) {
                 if (403 == response.status) {

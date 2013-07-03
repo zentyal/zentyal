@@ -65,7 +65,7 @@ use EBox::Gettext;
 <div class='endForm'>
 <form id='acceptChanges' method='post'
     action='/ServiceModule/ConfigureModuleController'
-    onsubmit='jQuery("#accept").hide(); jQuery("#accept_loading").show()'>
+    onsubmit='$("#accept").hide(); $("#accept_loading").show()'>
 
     <input class='inputButton' type='submit' name='accept' id='accept'
         value="<% __('Accept') %>" />
@@ -77,8 +77,8 @@ use EBox::Gettext;
 </div>
 
 <script>
-jQuery('#seeDetails').on('click', function () {
-   jQuery('#details').toggle();
+$('#seeDetails').on('click', function () {
+   $('#details').toggle();
    return false;
 });
 </script>

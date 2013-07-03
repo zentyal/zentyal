@@ -20,6 +20,8 @@ package EBox::FirewallHelper;
 
 use EBox::Gettext;
 
+# Group: Public methods
+
 sub new
 {
     my $class = shift;
@@ -195,6 +197,22 @@ sub chains
 {
     return {}
 }
+
+# Method: restartOnTemporaryStop
+#
+#   Determine if the firewall module must be restarted in a module
+#   temporary stop
+#
+# Returns:
+#
+#   Boolean - the value. By default, it is stopped
+#
+sub restartOnTemporaryStop
+{
+    return 0;
+}
+
+# Group: Protected methods
 
 # Method: _outputIface
 #

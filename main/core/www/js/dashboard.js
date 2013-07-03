@@ -1,17 +1,17 @@
 // Copyright (C) 2013 Zentyal Technologies S.L. licensed under the GPLv2
 "use strict";
-jQuery.noConflict();
+
 Zentyal.namespace('Dashboard');
 Zentyal.namespace('Dashboard.ConfigureWidgets');
 
 Zentyal.Dashboard.createSortableDashboard = function() {
-     jQuery('.dashboard').sortable({
+     $('.dashboard').sortable({
                                   elements: '.widgetBox',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
                                   update: function(event, ui) {
-                                      var dashboard = jQuery(this);
+                                      var dashboard = $(this);
                                       Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
                                   }
                                });
@@ -19,11 +19,11 @@ Zentyal.Dashboard.createSortableDashboard = function() {
 
 Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
     var escapedId = Zentyal.escapeSelector(containerId);
-    jQuery.ajax({
+    $.ajax({
          url: url,
          datatype: 'json',
          success: function (response) {
-            var container = jQuery('#' + escapedId);
+            var container = $('#' + escapedId);
             container.removeClass().addClass('summary_value', 'summary_' + response.type);
             container.html(response.value);
          }
@@ -33,16 +33,16 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
 Zentyal.Dashboard.toggleClicked = function(element) {
     var elementId = Zentyal.escapeSelector(element);
     var contentSelector = '#' + elementId + '_content';
-    var toggler = jQuery('#' + elementId + '_toggler');
+    var toggler = $('#' + elementId + '_toggler');
     // XXX blind effect has problems with the graphs will see if migration to flotr solves it
     if(toggler.hasClass('minBox')) {
-        jQuery(contentSelector).hide('blind');
+        $(contentSelector).hide('blind');
         toggler.removeClass('minBox').addClass('maxBox');
     } else {
-        jQuery(contentSelector).show('blind');
+        $(contentSelector).show('blind');
         toggler.removeClass('maxBox').addClass('minBox');
     }
-    jQuery.ajax({
+    $.ajax({
          url: "/Dashboard/Toggle",
          type: 'post',
          data:  { element: element }
@@ -51,13 +51,13 @@ Zentyal.Dashboard.toggleClicked = function(element) {
 
 Zentyal.Dashboard.closeWidget = function(wid) {
     var selector = '#widget_' + Zentyal.escapeSelector(wid);
-    var widget = jQuery(selector);
+    var widget = $(selector);
     widget.fadeOut(500, function() {
         var dashboard = widget.closest('.dashboard');
         widget.remove();
 
         var placeholdeSel = selector + '_placeholder';
-        if(jQuery(placeholdeSel).length > 0) {
+        if($(placeholdeSel).length > 0) {
             var parts = wid.split(':');
             Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(parts[0], Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
          }
@@ -74,7 +74,7 @@ Zentyal.Dashboard.dashboardSortableUpdate = function (dashboard) {
         return this.id.split('_')[1];
     }).get().join(',');
 
-    jQuery.ajax({
+    $.ajax({
         url: '/Dashboard/Update',
         type: 'post',
         data: { dashboard: dashboardId, widgets: widgets }
@@ -115,12 +115,12 @@ Zentyal.Dashboard.parseWidgetId = function (wid) {
 };
 
 Zentyal.Dashboard.toggleClose = function () {
-    jQuery('.closeBox').toggle(10);
+    $('.closeBox').toggle(10);
 };
 
 Zentyal.Dashboard.closeNotification = function (msg) {
-    jQuery('#notification_container').hide();
-    jQuery.ajax({
+    $('#notification_container').hide();
+    $.ajax({
                  url: '/SysInfo/CloseNotification',
                  data: {  message: msg  }
                 });
@@ -175,7 +175,7 @@ Zentyal.Dashboard.updateGraph = function(element,value) {
         g[i] = [i, g[i+1][1]];
     }
     g[g.length-1] = [g.length-1, value];
-    jQuery.plot(
+    $.plot(
         '#' + Zentyal.escapeSelector(id), [
         {
             data: g
@@ -189,7 +189,7 @@ Zentyal.Dashboard.updateGraph = function(element,value) {
 
 Zentyal.Dashboard.updateValue = function(element, item) {
     if (item.value_type === 'ajax') {
-        jQuery.ajax({
+        $.ajax({
                          url: item.ajax_url,
                          async: false,
                          dataType: 'json',
@@ -264,7 +264,7 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
 Zentyal.Dashboard.updateGraphRow = function(item, itemname) {
     for(var g = 0; g < item.graphs.length; g++) {
         var graphname = itemname + '_' + g;
-        var graph = jQuery('#' + Zentyal.escapeSelector(graphname));
+        var graph = $('#' + Zentyal.escapeSelector(graphname));
         Zentyal.Dashboard.updateGraph(graph, item.graphs[g].value);
     }
 };
@@ -272,8 +272,8 @@ Zentyal.Dashboard.updateGraphRow = function(item, itemname) {
 Zentyal.Dashboard.updateList = function(item, itemname) {
     var listname = itemname + '_table';
     var nonename = itemname + '_none';
-    var list = jQuery('#' + Zentyal.escapeSelector(listname));
-    var none = jQuery('#' + Zentyal.escapeSelector(nonename));
+    var list = $('#' + Zentyal.escapeSelector(listname));
+    var none = $('#' + Zentyal.escapeSelector(nonename));
     if(item.ids.length === 0) {
         list.hide();
         none.show();
@@ -305,7 +305,7 @@ Zentyal.Dashboard.updateList = function(item, itemname) {
                 var cell = row.insertCell(c);
                 cell.innerHTML = content[c];
             }
-            jQuery(row).effect('highlight');
+            $(row).effect('highlight');
         }
     }
 };
@@ -317,19 +317,19 @@ Zentyal.Dashboard.updateWidget = function(widget) {
     }
 
     var widgetSelector = '#' + Zentyal.escapeSelector( widget.module + ":" + widget.name + '_content');
-    var widgetcontents = jQuery(widgetSelector);
+    var widgetcontents = $(widgetSelector);
 
    //fade out no longer existent sections
    var currentSections = {};
    if(widget.sections) {
-        jQuery.each(widget.sections, function(index, newsect) {
+        $.each(widget.sections, function(index, newsect) {
                var id = widget.module + ":" + widget.name + '_' + newsect.name + '_section';
                currentSections[id] = {};
         });
    }
    widgetcontents.children().each( function(index, oldsect) {
         if(!(oldsect.id in currentSections)) {
-            oldsect = jQuery(oldsect);
+            oldsect = $(oldsect);
             oldsect.fadeOut(500, function() {
                 oldsect.remove();
             });
@@ -342,7 +342,7 @@ Zentyal.Dashboard.updateWidget = function(widget) {
         var s = widget.sections[i];
         var sect = widget.module + ":" + widget.name + '_' + s.name;
         var sectname = sect + '_section';
-        var cursect = jQuery('#' + Zentyal.escapeSelector(sectname));
+        var cursect = $('#' + Zentyal.escapeSelector(sectname));
         if(cursect.length === 0) {
             var newsection = document.createElement("div");
             newsection.id = sectname;
@@ -351,7 +351,7 @@ Zentyal.Dashboard.updateWidget = function(widget) {
             } else {
                 prevsect.after(newsection);
             }
-            jQuery.ajax({
+            $.ajax({
                 url: '/Dashboard/Section',
                 data: {
                     module: widget.module,
@@ -360,19 +360,19 @@ Zentyal.Dashboard.updateWidget = function(widget) {
                },
                dataType: 'html',
                success: function (response) {
-                   jQuery(newsection).html(response).effect('highlight');
+                   $(newsection).html(response).effect('highlight');
               }
             });
-            prevsect = jQuery(newsection);
+            prevsect = $(newsection);
             continue;
         } else {
             prevsect = cursect;
             if (!('items' in s)) {
                 continue;
             }
-            jQuery.each(s.items, function(item,i) {
+            $.each(s.items, function(item,i) {
                 var itemname = sect + '_' + i;
-                var element = jQuery('#' + Zentyal.escapeSelector(itemname));
+                var element = $('#' + Zentyal.escapeSelector(itemname));
                 if(item.type == 'value') {
                     Zentyal.Dashboard.updateValue(element, item);
                 } else if(item.type == 'status') {
@@ -392,7 +392,7 @@ Zentyal.Dashboard.updateWidget = function(widget) {
 
 
 Zentyal.Dashboard.updateWidgets = function() {
-    jQuery('.widgetBox').each(function(index, widgetBox) {
+    $('.widgetBox').each(function(index, widgetBox) {
         var id = widgetBox.id;
         //id can be empty when draggin things
         if (id === '') {
@@ -400,7 +400,7 @@ Zentyal.Dashboard.updateWidgets = function() {
         }
         var idParts = Zentyal.Dashboard.parseWidgetId(id);
         var url = '/Dashboard/WidgetJSON?module=' + idParts.module + '&widget=' + idParts.widget;
-        jQuery.ajax({
+        $.ajax({
                          url:   url,
                          type: 'get',
                          dataType: 'json',
@@ -420,7 +420,7 @@ Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
 Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
 
-    jQuery('<div id="configure_widgets_dialog"></div>').dialog({
+    $('<div id="configure_widgets_dialog"></div>').dialog({
         title: title,
         width: 980,
         height: 120,
@@ -428,9 +428,9 @@ Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
         resizable: false,
         create: function (event, ui) {
             Zentyal.TableHelper.setLoading('configure_widgets_dialog');
-            jQuery(event.target).load('/Dashboard/ConfigureWidgets', function() {
+            $(event.target).load('/Dashboard/ConfigureWidgets', function() {
                 Zentyal.Dashboard.toggleClose();
-                jQuery(this).css({overflow: 'visible'});
+                $(this).css({overflow: 'visible'});
             });
         },
        beforeClose: function() {
@@ -494,7 +494,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, s
 };
 
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module) {
-    jQuery('#widget_list').sortable({
+    $('#widget_list').sortable({
         elements: '.widgetBarBox',
         dropOnEmpty: true,
         connectWith: '.dashboard',
@@ -505,7 +505,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         start: function(event, ui) {
             var id = ui.item.attr('id');
             var idParts = Zentyal.Dashboard.parseWidgetId(id);
-            jQuery.ajax({
+            $.ajax({
                 url: '/Dashboard/Widget?module=' + idParts.module + '&widget=' + idParts.widget,
                 type: 'get',
                 dataType: 'html',
@@ -513,7 +513,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
                     var widget = ui.item;
                     widget.removeClass().addClass('widgetBox');
                     widget.attr('id', id.replace(/_placeholder$/, ''));
-                    widget.width(jQuery('#dashboard1').width());
+                    widget.width($('#dashboard1').width());
                     widget.html(response);
                     widget.find('.closeBox').toggle(500); // XXX first?
                 }
@@ -540,7 +540,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
 
     Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = start;
     var mod = null;
-    jQuery.each(Zentyal.Dashboard.ConfigureWidgets.modules, function(index, modObject) {
+    $.each(Zentyal.Dashboard.ConfigureWidgets.modules, function(index, modObject) {
         if (modObject.name === module) {
             mod = modObject;
             return false;
@@ -562,13 +562,13 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
         var id = 'widget_' + module + ':' + widgets[i]['name'];
         widgets[i].id = id;
         // recalculate present because it can have changed
-        widgets[i].present =  jQuery('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
+        widgets[i].present =  $('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
     }
 
     var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
     html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
     html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
-    jQuery('#widget_list').html(html);
+    $('#widget_list').html(html);
 
     if (changeModule) {
         Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable(module);

@@ -13,12 +13,12 @@ use EBox::Gettext;
 <div id="addform"></div>
 
 <script>
-jQuery(function () {
-    var form = jQuery('#addform');
+$(function () {
+    var form = $('#addform');
     form.load('/Users/<% $addGroup ? 'AddGroup' : 'AddUser' %>', {dn: '<% $dn %>'});
 
-    jQuery('input[name=object_type]').click(function () {
-        var selectedType = jQuery('input[name=object_type]:checked').val();
+    $('input[name=object_type]').click(function () {
+        var selectedType = $('input[name=object_type]:checked').val();
         switch (selectedType) {
         case 'ou':
             form.load('/Users/AddOU', {dn: '<% $dn %>'});

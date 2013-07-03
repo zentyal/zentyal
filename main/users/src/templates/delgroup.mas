@@ -28,8 +28,8 @@ use EBox::Gettext;
 </form>
 
 <script>
-jQuery(function() {
-   jQuery('#delGroupForm').on('submit', function(event) {
+$(function() {
+   $('#delGroupForm').on('submit', function(event) {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#delGroupForm', { extraData: {delgroup: 1} });
     });

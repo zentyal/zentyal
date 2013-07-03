@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed cloud sync setup when user number is unlimited
+	+ Fixed error in server master form when checking if
+	  controls are editable
 	+ Added a way to retrieve a group by its dn.
 	+ New TreeView to manage users, groups and OUs
 	+ Configuration key multiple_ous removed as this is now enabled by default

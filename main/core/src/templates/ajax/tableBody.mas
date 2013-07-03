@@ -245,7 +245,7 @@ if ($checkAllProperty) {
 
 
 <script>
-jQuery(function() {
+$(function() {
      Zentyal.stripe('#<% $tableName %>', 'even', 'odd');
 % if ($movableRows) {
      <% $model->setSortableTableJS() %>
