@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
 use Error qw(:try);
+use EBox::Exceptions::External;
 
 sub new
 {
@@ -65,6 +66,11 @@ sub _processExternalAD
     $self->_requireParam('dcHostname', __('Active Directory hostname'));
     $self->_requireParam('dcUser', __('Administrative user'));
     $self->_requireParam('dcPassword', __('User password'));
+    $self->_requireParam('dcPassword2', __('Confirm user password'));
+    my $dcPassword = $self->param('dcPassword');
+    if ($dcPassword ne $self->param('dcPassword2')) {
+        throw EBox::Exceptions::External(__('User password and confirm user password does not match'));
+    }
 
     my $users = EBox::Global->modInstance('users');
     my $mode = $users->model('Mode');
@@ -73,7 +79,7 @@ sub _processExternalAD
         mode       => $users->EXTERNAL_AD_MODE(),
         dcHostname => $self->param('dcHostname'),
         dcUser => $self->param('dcUser'),
-        dcPassword => $self->param('dcPassword'),
+        dcPassword => $dcPassword,
        );
 }
 
