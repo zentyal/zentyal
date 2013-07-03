@@ -561,6 +561,7 @@ sub saveAllModules
         EBox::info("First installation, enabling modules: $modNames");
 
         foreach my $name (@mods) {
+
             EBox::info("Enabling module $name");
             if ($progress) {
                 $progress->setMessage(__x("Enabling {modName} module",
@@ -571,6 +572,12 @@ sub saveAllModules
             next if ($name eq 'dhcp'); # Skip dhcp module
 
             my $module = EBox::GlobalImpl->modInstance($ro, $name);
+
+            my $state = $module->get_state();
+            if ($state->{skipFirstTimeEnable}) {
+                EBox::info("Not enabling $name at first time because its wizard was skipped");
+                next;
+            }
 
             # Do not enable this module if dependencies were not enabled
             my $enable = 1;

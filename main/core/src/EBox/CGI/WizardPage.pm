@@ -60,18 +60,18 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     my $self = $class->SUPER::new(@_);
     my $namespace = delete $opts{'namespace'};
     my $tmp = $class;
-    $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
+    $tmp =~ s/^EBox::(.*?)::CGI::(.*)$//;
     if(not $namespace) {
         $namespace = $1;
     }
     $self->{namespace} = $namespace;
-    $self->{module} = $2;
-    $self->{cginame} = $3;
-    if (defined($self->{cginame})) {
-        $self->{url} = $self->{module} . "/" . $self->{cginame};
-    } else {
-        $self->{url} = $self->{module} . "/Index";
-    }
+    $self->{module} = lc $1;
+    $self->{cginame} = $2;
+    # if (defined($self->{cginame})) {
+    #     $self->{url} = $self->{module} . "/" . $self->{cginame};
+    # } else {
+    #     $self->{url} = $self->{module} . "/Index";
+    # }
 
     bless($self, $class);
     return $self;
@@ -139,7 +139,12 @@ sub run
     else {
         try {
             $self->_validateReferer();
-            $self->_process();
+            if ($self->param('skip')) {
+                $self->skipModule();
+            } else {
+                $self->_process();
+            }
+
             $self->_print;
         } otherwise {
             my $ex = shift;
@@ -183,6 +188,17 @@ sub _footer
 sub _menu
 {
 
+}
+
+sub skipModule
+{
+    my ($self) = @_;
+    my $module = EBox::Global->getInstance()->modInstance($self->{module});
+    if ($module->isa('EBox::Module::Config')) {
+        my $state = $module->get_state();
+        $state->{skipFirstTimeEnable} = 1;
+        $module->set_state($state);
+    }
 }
 
 1;
