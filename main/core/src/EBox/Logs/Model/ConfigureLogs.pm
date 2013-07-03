@@ -196,10 +196,21 @@ sub validateTypedRow
     }
 }
 
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+    $self->_enableLogForRow($row);
+}
+
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    $self->_enableLogForRow($row);
+}
 
+sub _enableLogForRow
+{
+    my ($self, $row) = @_;
     my $domain = $row->valueByName('domain');
     my $enabled = $row->valueByName('enabled');
 
