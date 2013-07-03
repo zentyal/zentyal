@@ -17,34 +17,15 @@ use strict;
 use warnings;
 
 package EBox::Ldap::Test;
-use base 'EBox::Test::Class';
+use base 'EBox::Test::LDAPClass';
 
 use EBox::Global::TestStub;
 
 use Test::More;
-use Test::Net::LDAP::Util qw(ldap_mockify);
 
 sub class
 {
     'EBox::Ldap'
-}
-
-sub startup : Test(startup)
-{
-    my ($self) = @_;
-    my $class = $self->class;
-    eval "use $class";
-    die $@ if $@;
-
-    # Created the ldap password files with dummy content
-    my $confDir = EBox::Config::conf();
-    system ("echo Foo > $confDir/ldap.passwd");
-    system ("echo Foo > $confDir/ldap_ro.passwd");
-}
-
-sub setUpConfiguration : Test(setup)
-{
-    my ($self) = @_;
 }
 
 sub instance : Tests(3)
@@ -94,7 +75,5 @@ sub ldapCon: Tests(4)
 1;
 
 END {
-    ldap_mockify {
-        EBox::Ldap::Test->runtests();
-    }
+    EBox::Ldap::Test->runtests();
 }
