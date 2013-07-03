@@ -230,7 +230,7 @@ sub validateTypedRow
             ));
         }
 
-        my $realUsers = $users->realUsers('without_admin');
+        my $realUsers = $usersMod->realUsers('without_admin');
         $realUsers = scalar(@{$realUsers});
         my $max = $rs->maxCloudUsers('force');
         if ($max and $realUsers > $max) {
