@@ -1,4 +1,13 @@
 HEAD
+	+ Display web remote access support settings
+	+ Save logs module when creating VPN client to start logging its log
+	+ Save software module after setting QA updates configuration
+	+ Small correction on a link that were still pointing to Cloud
+	+ Support running runnerd without being registered programatically
+	+ Give support to custom proxied redirections to provide local HTTP
+	  servers from Zentyal Remote using
+	  /etc/zentyal/remoteservices_redirections.yaml
+	+ Fixed path escape on Reporter::SambaDiskUsage
 	+ Removed no longer necessary jQuery noConflict()
 3.1.4
 	+ Fixed wizard to show again errors

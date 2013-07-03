@@ -1,3 +1,7 @@
+HEAD
+	+ Add restartOnTemporaryStop attribute to firewall helper to
+	  indicate to core if firewall must be restart on temporary stop
+	  events
 3.1.1
 	+ Set file location for redirect rule logging
 	+ Use zentyal-firewall prefix in redirects log

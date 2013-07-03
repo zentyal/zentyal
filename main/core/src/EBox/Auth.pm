@@ -225,7 +225,12 @@ sub loginCC
     my ($self, $req) = @_;
 
     if ( $self->recognize_user($req) == OK ) {
-        return $self->authenticate($req);
+        my $retVal = $self->authenticate($req);
+        if ($req->uri() =~ m:^/ebox:) {
+            $req->headers_out()->set('Location' => '/');
+            return HTTP_MOVED_TEMPORARILY;
+        }
+        return $retVal;
     } else {
         if ( EBox::Global->modExists('remoteservices') ) {
             my $remoteServMod = EBox::Global->modInstance('remoteservices');

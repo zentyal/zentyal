@@ -29,6 +29,7 @@ use String::ShellQuote;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
+my $NET_LIBVIRT_PATH = '/var/lib/libvirt/network';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -582,8 +583,8 @@ sub _netExists
 {
     my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD net-list|awk '{ print $1 }'|tail -n+3|grep \"^$name\$\"");
-    return ($? == 0);
+    my $path = "$NET_LIBVIRT_PATH/$name.xml";
+    return EBox::Sudo::fileTest('-e', $path);
 }
 
 sub writeConf

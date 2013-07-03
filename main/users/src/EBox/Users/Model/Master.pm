@@ -230,13 +230,13 @@ sub validateTypedRow
             ));
         }
 
-         my $realUsers = $usersMod->realUsers('without_admin');
-         $realUsers = scalar(@{$realUsers});
-         if ( $realUsers > $rs->maxCloudUsers('force') ) {
-            my $max = $rs->maxCloudUsers();
+        my $realUsers = $users->realUsers('without_admin');
+        $realUsers = scalar(@{$realUsers});
+        my $max = $rs->maxCloudUsers('force');
+        if ($max and $realUsers > $max) {
             my $current = $realUsers;
             throw EBox::Exceptions::External(__x('Your Zentyal Cloud allows a maximum of {max} users. Currently there are {current} users created.', current => $current, max => $max));
-         }
+        }
     }
 
     my @ldapMods = grep {

@@ -1,4 +1,9 @@
 HEAD
+	+ Restart firewall module when a firewall observer module is
+	  stopped/started using zentyal init.d script
+	+ Added temporary stopped state to a Service module to know if a
+	  module is stopped but enabled
+	+ Redirect to / from /ebox using remote access to avoid blank page
 	+ Removed no longer necessary jQuery noConflict()
 	+ Added combobox.js
 	+ Added EBox::Model::Base as base for DataTable and the new TreeView
