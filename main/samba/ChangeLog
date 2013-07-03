@@ -1,4 +1,6 @@
 HEAD
+	+ Do not store in samba_access table 4 records each 10s when antivirus
+	  daemon is not running
 	+ Use krb5 keys on new users when plain password not available
 3.0.20
 	+ Fix SIDs to ignore list, add missing end of line character in regular
