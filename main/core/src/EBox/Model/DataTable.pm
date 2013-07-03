@@ -1409,17 +1409,15 @@ sub setTypedRow
             $confmod->set($key, $hash);
         }
 
-        if ($modified) {
-            $self->setMessage($self->message('update'));
-            # Dependant models may return some message to inform the user
-            my $depModelMsg = $self->_notifyManager('update', $row);
-            if (defined ($depModelMsg)
-                    and ($depModelMsg ne '' and $depModelMsg ne '<br><br>')) {
-                $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
-            }
-            $self->_notifyManager('update', $row);
-            $self->updatedRowNotify($row, $oldRow, $force);
+        $self->setMessage($self->message('update'));
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyManager('update', $row);
+        if (defined ($depModelMsg)
+                and ($depModelMsg ne '' and $depModelMsg ne '<br><br>')) {
+            $self->setMessage($self->message('update') . '<br><br>' . $depModelMsg);
         }
+        $self->_notifyManager('update', $row);
+        $self->updatedRowNotify($row, $oldRow, $force);
 
         $self->_commitTransaction();
     } otherwise {
