@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed log bugs: use correct RO mode in loggerd, fixed behaviour
+	  when all log helpers are disabled, enable logs correctly when
+	  added by first time to configure logs table
 	+ Restart firewall module when a firewall observer module is
 	  stopped/started using zentyal init.d script
 	+ Added temporary stopped state to a Service module to know if a
