@@ -106,7 +106,7 @@ sub saveAllModulesAction
             $nextStepUrlOnClick = $jsCloseDialogAndReload;
             $sysinfo->setReloadPageAfterSavingChanges(0);
         } else {
-            $nextStepUrlOnClick = "Zentyal.Dialog.close(); $('#changes_menu').removeClass('changed').addClass('notchanged'); return false";
+            $nextStepUrlOnClick = "Zentyal.Dialog.close(); \$('#changes_menu').removeClass('changed').addClass('notchanged'); return false";
         }
 
         push @params, nextStepUrlOnclick => $nextStepUrlOnClick;

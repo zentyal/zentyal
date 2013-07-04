@@ -54,16 +54,17 @@ sub new
 
 # Method: ids
 #
-# This method is overriden to set up some module internal data structure which depends on the
-# external interface
+#   This method is overriden to set up some module internal data structure which depends on the
+#   external interface
 #
 # Overrides :
 #
-# EBox::Model::DataTable::ids
+#   EBox::Model::DataTable::ids
 #
 sub ids
 {
     my ($self) = @_;
+
     if (not $self->{stateRateSet}) {
         my $network = $self->global()->modInstance('network');
         foreach my $iface (@{ $network->ExternalIfaces }) {
@@ -74,7 +75,6 @@ sub ids
 
     return $self->SUPER::ids();
 }
-
 
 sub allIfacesForRuleTable
 {

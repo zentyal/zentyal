@@ -89,6 +89,13 @@ sub childNodes
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
+        } elsif ($child->isa('EBox::Users::Container::ExternalAD')) {
+            #^ container class only used in ExternalAD mode
+            # for now we are only interested in the user containers
+            $child->usersContainer() or
+                next;
+            $type = 'container';
+            $printableName = $child->name();
         } else {
             EBox::warn("Unknown object type for DN: " . $child->dn());
             next;
@@ -115,20 +122,26 @@ sub _sambaComputers
             type => 'computer', metadata => { dn => $dn } });
     }
 
+
     return \@computers;
 }
 
 sub nodeTypes
 {
+    my ($self) = @_;
+    my $usersMod = $self->parentModule();
+    my $rw = $usersMod->mode() eq $usersMod->STANDALONE_MODE;
+
     return {
-        domain => { actions => { filter => 0, add => 1 }, actionObjects => { add => 'OU' } },
-        ou => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
-        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
-        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => 1, delete => 1 },
+        domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
+        ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
-        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
     };
 }
 

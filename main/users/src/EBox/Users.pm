@@ -116,14 +116,16 @@ sub _setupForMode
         $self->{userClass} = 'EBox::Users::User';
         $self->{contactClass} = 'EBox::Users::Contact';
         $self->{groupClass} = 'EBox::Users::Group';
+        $self->{containerClass} = undef;
     } else {
         $self->{ldapClass} = 'EBox::LDAP::ExternalAD';
         $self->{ouClass} = 'EBox::Users::OU::ExternalAD';
         $self->{userClass} = 'EBox::Users::User::ExternalAD';
         $self->{contactClass} = 'EBox::Users::Contact::ExternalAD';
         $self->{groupClass} = 'EBox::Users::Group::ExternalAD';
+        $self->{containerClass} = 'EBox::Users::Container::ExternalAD';
         # load this classes only when needed
-        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}) {
+        foreach my $pkg ($self->{ldapClass}, $self->{ouClass}, $self->{userClass}, $self->{contactClass}, $self->{groupClass}, $self->{containerClass}) {
             eval "use $pkg";
             $@ and throw EBox::Exceptions::Internal("When loading $pkg: $@");
         }
@@ -139,7 +141,8 @@ sub ldapClass
 {
     my ($self) = @_;
 
-    throw EBox::Exceptions::Internal("ldapClass not initialized.") unless (defined $self->{ldapClass});
+    (defined $self->{ldapClass}) or
+        throw EBox::Exceptions::Internal("ldapClass not initialized.");
 
     return $self->{ldapClass};
 }
@@ -152,7 +155,8 @@ sub ouClass
 {
     my ($self) = @_;
 
-    throw EBox::Exceptions::Internal("ouClass not initialized.") unless (defined $self->{ouClass});
+    (defined $self->{ouClass}) or
+        throw EBox::Exceptions::Internal("ouClass not initialized.");
 
     return $self->{ouClass};
 }
@@ -165,7 +169,8 @@ sub userClass
 {
     my ($self) = @_;
 
-    throw EBox::Exceptions::Internal("userClass not initialized.") unless (defined $self->{userClass});
+    (defined $self->{userClass}) or
+        throw EBox::Exceptions::Internal("userClass not initialized.");
 
     return $self->{userClass};
 }
@@ -178,7 +183,8 @@ sub contactClass
 {
     my ($self) = @_;
 
-    throw EBox::Exceptions::Internal("contactClass not initialized.") unless (defined $self->{contactClass});
+    (defined $self->{contactClass}) or
+        throw EBox::Exceptions::Internal("contactClass not initialized.");
 
     return $self->{contactClass};
 }
@@ -191,9 +197,22 @@ sub groupClass
 {
     my ($self) = @_;
 
-    throw EBox::Exceptions::Internal("groupClass not initialized.") unless (defined $self->{groupClass});
+    (defined $self->{groupClass}) or
+        throw EBox::Exceptions::Internal("groupClass not initialized.") ;
 
     return $self->{groupClass};
+}
+
+# Method: container
+#
+#   Return the Container class implementation to use.
+#
+#  Warning:
+#    this can be undefined since standalone server does not use it
+sub containerClass
+{
+    my ($self) = @_;
+    return $self->{containerClass};
 }
 
 # Method: depends
@@ -368,7 +387,7 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    if (defined($version) and EBox::Util::Version::compare($version, '3.1.3') <= 0) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.3') <= 0)) {
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
@@ -661,7 +680,7 @@ sub _externalADEnableActions
 {
     my ($self) = @_;
     my $global = $self->global();
-    # we need to restart network to force the regenation of DNS resolvers
+    # we need to restart network to force the regeneration of DNS resolvers
     $global->modInstance('network')->setAsChanged();
     # we need to webadmin to clear DNs cache daa
     $global->modInstance('webadmin')->setAsChanged();
@@ -2334,22 +2353,17 @@ sub entryModeledObject
 {
     my ($self, $entry) = @_;
 
-    my $object;
-
     my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
-    if ($self->ouClass()->mainObjectClass() eq $anyObjectClasses) {
-        $object = $self->ouClass()->new(entry => $entry);
-    } elsif ($self->userClass()->mainObjectClass() eq $anyObjectClasses) {
-        $object = $self->userClass()->new(entry => $entry);
-    } elsif ($self->contactClass()->mainObjectClass() eq $anyObjectClasses) {
-        $object = $self->contactClass()->new(entry => $entry);
-    } elsif ($self->groupClass()->mainObjectClass() eq $anyObjectClasses) {
-        $object = $self->groupClass()->new(entry => $entry);
-    } else {
-        EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
-        return undef;
+    foreach my $type ( qw(ouClass userClass contactClass groupClass containerClass)) {
+        my $class = $self->$type();
+        my $mainLDAPClass = $class->mainObjectClass();
+        if ((defined $mainLDAPClass) and ($mainLDAPClass eq $anyObjectClasses)) {
+            return $class->new(entry => $entry);
+        }
     }
-    return $object;
+
+    EBox::debug("Ignored unknown perl object for DN: " . $entry->dn());
+    return undef;
 }
 
 # Method: objectFromDN

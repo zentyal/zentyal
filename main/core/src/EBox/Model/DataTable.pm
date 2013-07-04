@@ -2671,7 +2671,7 @@ sub modalCancelAddJS
         $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
 
-    my $js = "$.ajax('{url: $url', type: 'post', data: '$params'";
+    my $js = "\$.ajax('{url: $url', type: 'post', data: '$params'";
     if ($success) {
         $js .= ", success: $success";
     }

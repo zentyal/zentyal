@@ -1,4 +1,6 @@
 HEAD
+	+ Check for existing libvirt networks using test on files definition
+	  insted of virsh net-list which was buggy
 	+ Removed no longer necessary jQuery noConflict()
 3.1.2
 	+ Ported JS code to jQuery

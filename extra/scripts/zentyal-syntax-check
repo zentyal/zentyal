@@ -130,7 +130,7 @@ sub installdeps
         }
     }
 
-    system ("sudo apt-get install -y --no-install-recommends @deps");
+    system ("sudo apt-get install -y --force-yes --no-install-recommends @deps");
 }
 
 sub filter
