@@ -60,18 +60,12 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     my $self = $class->SUPER::new(@_);
     my $namespace = delete $opts{'namespace'};
     my $tmp = $class;
-    $tmp =~ s/^EBox::(.*?)::CGI::(.*)$//;
+    $tmp =~ s/^EBox::(.*?)::CGI::.*$//;
     if(not $namespace) {
         $namespace = $1;
     }
     $self->{namespace} = $namespace;
     $self->{module} = lc $1;
-    $self->{cginame} = $2;
-    # if (defined($self->{cginame})) {
-    #     $self->{url} = $self->{module} . "/" . $self->{cginame};
-    # } else {
-    #     $self->{url} = $self->{module} . "/Index";
-    # }
 
     bless($self, $class);
     return $self;
