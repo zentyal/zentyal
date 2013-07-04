@@ -561,7 +561,6 @@ sub saveAllModules
         EBox::info("First installation, enabling modules: $modNames");
 
         foreach my $name (@mods) {
-
             EBox::info("Enabling module $name");
             if ($progress) {
                 $progress->setMessage(__x("Enabling {modName} module",
