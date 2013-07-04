@@ -2356,6 +2356,8 @@ sub entryModeledObject
     my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
     foreach my $type ( qw(ouClass userClass contactClass groupClass containerClass)) {
         my $class = $self->$type();
+        # containerClass may not exist.
+        next unless ($class);
         my $mainLDAPClass = $class->mainObjectClass();
         if ((defined $mainLDAPClass) and ($mainLDAPClass eq $anyObjectClasses)) {
             return $class->new(entry => $entry);
