@@ -1,4 +1,5 @@
 HEAD
+	+ Added a way to use Net::LDAP mock object for unit testing.
 	+ Fixed cloud sync setup when user number is unlimited
 	+ Fixed error in server master form when checking if
 	  controls are editable

@@ -30,7 +30,8 @@ use Test::Exception;
 
 use EBox::TestStubs;
 
-sub _testStubsForFrameworkModules :  Test(startup) {
+sub _testStubsForFrameworkModules :  Test(startup)
+{
     EBox::TestStubs::activateTestStubs();
 }
 
