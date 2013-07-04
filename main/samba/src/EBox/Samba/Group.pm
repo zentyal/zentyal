@@ -213,7 +213,6 @@ sub create
 
     # Add the entry
     my $result = $self->_ldap->add($dn, { attrs => $attr });
-EBox::info("added");
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping
