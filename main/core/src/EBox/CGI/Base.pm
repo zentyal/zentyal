@@ -213,13 +213,13 @@ sub _checkForbiddenChars
     my ($self, $value) = @_;
     POSIX::setlocale(LC_ALL, EBox::locale());
 
-    unless ( $value =~ m{^[\w /.?&+:\-\@]*$} ) {
+    unless ( $value =~ m{^[\w /.?&+:\-\@,=\{\}]*$} ) {
         my $logger = EBox::logger;
         $logger->info("Invalid characters in param value $value.");
         $self->{error} ='The input contains invalid characters';
         throw EBox::Exceptions::External(__("The input contains invalid " .
             "characters. All alphanumeric characters, plus these non " .
-            "alphanumeric chars: /.?&+:-\@ and spaces are allowed."));
+           "alphanumeric chars: ={},/.?&+:-\@ and spaces are allowed."));
         if (defined($self->{redirect})) {
             $self->{chain} = $self->{redirect};
         }

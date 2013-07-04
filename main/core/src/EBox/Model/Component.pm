@@ -28,6 +28,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 use Encode;
 use Error qw(:try);
@@ -157,6 +158,13 @@ sub parent
     my ($self) = @_;
 
     return $self->{'parent'};
+}
+
+sub directory
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::NotImplemented('directory');
 }
 
 # Method: parentRow
