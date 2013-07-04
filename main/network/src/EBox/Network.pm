@@ -3404,19 +3404,36 @@ sub _stopService
     foreach my $if (@{$iflist}) {
         try {
             my $ifname = $if;
-            if ($self->ifaceMethod($if) eq 'ppp') {
+            my $method = $self->ifaceMethod($if);
+            if ($method eq 'ppp') {
                 $ifname = "zentyal-ppp-$if";
             } else {
-                push (@cmds, "/sbin/ip address flush label $if");
-                push (@cmds, "/sbin/ip address flush label $if:*");
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
             }
-            push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+            push @cmds, "/sbin/ifdown --force -i $file $ifname";
+            if ($method eq 'dhcp') {
+                my $cmd = $self->_stopDhclientCmd($if);
+                push @cmds, $cmd if $cmd;
+            }
         } catch EBox::Exceptions::Internal with {};
     }
 
     EBox::Sudo::root(@cmds);
 
     $self->SUPER::_stopService();
+}
+
+sub _stopDhclientCmd
+{
+    my ($self, $iface) = @_;
+    my $pidFile = '/var/run/dhclient.' . $iface . '.pid';
+    my $pid = $self->pidFileRunning($pidFile);
+    if ($pid) {
+        return "kill $pid";
+    } else {
+        return undef;
+    }
 }
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)
