@@ -550,7 +550,7 @@ sub _openHTTPSConnection
                 try {
                     EBox::Sudo::root(
                         EBox::Iptables::pf(
-                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                            "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
                            )
                          );
                 } catch EBox::Exceptions::Sudo::Command with {
@@ -561,7 +561,7 @@ sub _openHTTPSConnection
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
-                        "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                        "-A ointernal -p udp -d $dnsServer --dport 53 -j oaccept"
                        )
                     );
             }
@@ -582,7 +582,7 @@ sub _openVPNConnection #(ipaddr, port, protocol)
             eval "use EBox::Iptables";
             EBox::Sudo::root(
                 EBox::Iptables::pf(
-                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"
+                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j oaccept"
                    )
                  );
         }

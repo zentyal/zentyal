@@ -375,6 +375,7 @@ sub validateTypedRow
     }
 }
 
+# TODO: Add doc as used by list-proxy-rules job
 sub rules
 {
     my ($self) = @_;
