@@ -2354,6 +2354,7 @@ sub entryModeledObject
     my ($self, $entry) = @_;
 
     my $anyObjectClasses = any(@{[$entry->get_value('objectClass')]});
+    # IMPORTANT: The order matters, a contactClass would match users too, so we must check first if it's a user.
     foreach my $type ( qw(ouClass userClass contactClass groupClass containerClass)) {
         my $class = $self->$type();
         # containerClass may not exist.
@@ -2364,8 +2365,32 @@ sub entryModeledObject
         }
     }
 
+    my $ldap = $self->ldap();
+    if ($entry->dn() eq $ldap->dn()) {
+        return $self->defaultNamingContext();
+    }
+
     EBox::debug("Ignored unknown perl object for DN: " . $entry->dn());
     return undef;
+}
+
+# Method: relativeDN
+#
+#   Return the given dn without the naming Context part.
+#
+sub relativeDN
+{
+    my ($self, $dn) = @_;
+
+    throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
+
+    my $baseDN = $self->ldap()->dn();
+
+    if (not $dn =~ s/,$baseDN$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $baseDN");
+    }
+
+    return $dn;
 }
 
 # Method: objectFromDN
