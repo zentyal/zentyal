@@ -122,13 +122,13 @@ sub input
         my $r;
 
         # Allow DNS and Captive portal access
-        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        $r = "$input -p tcp --dport 53 -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p udp --dport 53 -j ACCEPT";
+        $r = "$input -p udp --dport 53 -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p tcp --dport $port -j ACCEPT";
+        $r = "$input -p tcp --dport $port -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p tcp --dport $captiveport -j ACCEPT";
+        $r = "$input -p tcp --dport $captiveport -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
 
         $r = "$input -j icaptive";
@@ -167,9 +167,9 @@ sub forward
             ($rule)
         } @exRules;
         # Allow DNS
-        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        $r = "$input -p tcp --dport 53 -j faccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p udp --dport 53 -j ACCEPT";
+        $r = "$input -p udp --dport 53 -j faccept";
         push(@rules, { 'rule' => $r, priority => 5 });
 
         $r = "$input -p tcp -j DROP";

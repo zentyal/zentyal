@@ -1,4 +1,7 @@
 HEAD
+	+ Set inline firewall rules position and mode based on
+	  ips_fw_position configuration key
+	+ Configure accept mode to let Suricata accept or drop the traffic
 	+ Set inline firewall rules unless the module is temporary stopped
 	+ Added ips_rule_updates to manage when IPS rule set is updated
 	+ Change IPS rule management with ASU adding new fields

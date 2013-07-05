@@ -83,7 +83,7 @@ sub input
               qq{-p tcp -m tcp --dport $port };
 
 
-    $cmd .=   qq{-j ACCEPT};
+    $cmd .=   qq{-j iaccept};
 
     return [$cmd];
 }

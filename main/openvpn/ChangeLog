@@ -1,3 +1,5 @@
+HEAD
+	+ Adapt firewall rules to new accept chains
 3.0.5
 	+ Create correctly advertised network objects for interfaces with
 	  more than one address in the same network

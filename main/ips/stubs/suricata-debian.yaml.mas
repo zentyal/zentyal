@@ -1,4 +1,5 @@
 <%args>
+    $mode
     @rules
 </%args>
 <%text>
@@ -149,9 +150,13 @@ outputs:
 # If you want packet to be sent to another queue after an ACCEPT decision
 # set mode to 'route' and set next_queue value.
 nfq:
+% if ($mode eq 'repeat') {
   mode: repeat
   repeat_mark: 65536
   repeat_mask: 65536
+% } else {
+  mode: accept
+% }
 #  route_queue: 2
 
 # af-packet support
