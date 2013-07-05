@@ -94,11 +94,21 @@ Zentyal.Wizard.Software.loadPage = function(index) {
 
 // Skip this page
 Zentyal.Wizard.Software.skipStep = function() {
-    Zentyal.Wizard.Software.loadPage(Zentyal.Wizard.Software.actualPage+1);
+    var form = $('#wizardPage' + Zentyal.Wizard.Software.visible + ' form');
+    var url = form.attr('action');
+    var data = 'skip=1';
+    Zentyal.Wizard.submitPage(url, data);
 };
 
 // Save changes and step into next page
 Zentyal.Wizard.Software.nextStep = function() {
+    var form = $('#wizardPage' + Zentyal.Wizard.Software.visible + ' form');
+    var url = form.attr('action');
+    var data =  form.serialize();
+    Zentyal.Wizard.submitPage(url, data);
+};
+
+Zentyal.Wizard.submitPage = function (url, data) {
     // avoid possible mess by page calls to this function
     if (Zentyal.Wizard.Software.isLoading) {
         return;
@@ -115,14 +125,14 @@ Zentyal.Wizard.Software.nextStep = function() {
     };
 
     $.ajax({
-        url: form.attr('action'),
+        url: url,
         type: 'POST',
-        data: form.serialize(),
+        data: data,
         success: success,
         error: error
     });
-
 };
+
 
 // Shows final page
 Zentyal.Wizard.Software.finalPage = function(firstTime) {

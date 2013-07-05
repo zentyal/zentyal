@@ -12,15 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
+
 # Class: EBox::Samba::Group
 #
 #   Samba group, stored in samba LDAP
 #
-
 package EBox::Samba::Group;
-use base 'EBox::Samba::LdbObject';
+
+use base 'EBox::Samba::SecurityPrincipal';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -45,13 +47,10 @@ use constant GROUPTYPEAPPBASIC  => 0x00000010;
 use constant GROUPTYPEAPPQUERY  => 0x00000020;
 use constant GROUPTYPESECURITY  => 0x80000000;
 
-
-
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
     bless ($self, $class);
     return $self;
 }
@@ -214,7 +213,6 @@ sub create
 
     # Add the entry
     my $result = $self->_ldap->add($dn, { attrs => $attr });
-EBox::info("added");
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping

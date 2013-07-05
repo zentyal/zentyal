@@ -1923,7 +1923,7 @@ float:left;
 }
 
 .treeView {
-    height: 480px;
+    min-height: 480px;
     border: 1px solid #ccc;
     margin-top: 10px;
 }
