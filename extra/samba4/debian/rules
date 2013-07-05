@@ -12,8 +12,7 @@ override_dh_auto_configure:
 		--enable-developer \
 		--prefix=/opt/samba4 \
 		--sysconfdir=/etc/samba \
-		--bundled-libraries=ALL \
-		--enable-zavs
+		--bundled-libraries=ALL
 
 override_dh_auto_install:
 	dh_auto_install --destdir=debian/samba4
