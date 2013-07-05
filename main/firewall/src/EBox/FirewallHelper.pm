@@ -101,6 +101,20 @@ sub forwardNoSpoof
     return [];
 }
 
+# Method: forwardAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   faccept chain. You can use them to analyse accepted forward traffic.
+#
+# Returns:
+#
+#   array ref - containing forwardAccept rules
+#
+sub forwardAccept
+{
+    return [];
+}
+
 # Method: preInput
 #
 #   Rules returned by this method are added to the INPUT chain
@@ -143,6 +157,20 @@ sub inputNoSpoof
     return [];
 }
 
+# Method: inputAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   iaccept chain. You can use them to analyse accepted input traffic.
+#
+# Returns:
+#
+#   array ref - containing inputAccept rules
+#
+sub inputAccept
+{
+    return [];
+}
+
 # Method: preOutput
 #
 #   Rules returned by this method are added to the OUTPUT chain
@@ -170,7 +198,19 @@ sub output
     return [];
 }
 
-
+# Method: outputAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   oaccept chain. You can use them to analyse accepted output traffic.
+#
+# Returns:
+#
+#   array ref - containing outputAccept rules
+#
+sub outputAccept
+{
+    return [];
+}
 
 # Method: externalInput
 #

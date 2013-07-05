@@ -75,10 +75,11 @@ sub syncRows
         my $module = $newRules{$rule}->{'module'}->{'printableName'};
 
         my ($table, $chain, $condition, $decision, $type);
-        if ($rule =~ m/-A/) {
+        if ($rule =~ m/(-A|-I)/) {
+            my ($action) = $rule =~ m/(-A|-I)/;
             # common firewall rule
             ($table, $chain, $condition, $decision) =
-                $rule =~ /-t ([a-z]+) -A ([a-z]+) (.*) -j (.*)/;
+                $rule =~ /-t ([a-z]+) $action ([a-z]+) (.*) -j (.*)/;
 
             if (defined($RULE_TYPES{$chain})) {
                 $type = $RULE_TYPES{$chain};
