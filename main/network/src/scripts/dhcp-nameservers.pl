@@ -31,7 +31,7 @@ my $iface = shift;
 
 $iface or exit;
 try {
-	$network->setDHCPNameservers($iface, \@ARGV);
+    $network->setDHCPNameservers($iface, \@ARGV);
 } finally {
-	exit;
+    exit;
 };
