@@ -48,6 +48,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::LDAP;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
+use EBox::Users::NamingContext;
 
 use Digest::SHA;
 use Digest::MD5;
