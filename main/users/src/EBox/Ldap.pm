@@ -859,6 +859,8 @@ sub _loadLdap
     my $chownConfCommand = $self->_chownConfDir($slapd);
     my $chownDataCommand = $self->_chownDataDir($slapd);
 
+    use Devel::StackTrace;
+    EBox::debug(Devel::StackTrace->new()->as_string());
     $self->_execute(0, # Without pause
         cmds => [$backupCommand, $mkCommand, $rmCommand, $slapaddCommand,
             $chownConfCommand, $chownDataCommand]);
@@ -883,6 +885,13 @@ sub _loadLdapConfig
     my $pass = $self->getPassword();
     $content =~ s/credentials=".*?"/credentials="$pass"/g;
     $content =~ s/^olcRootPW:.*$/olcRootPW: $pass/mg;
+    if ($content =~ m/^olcSizeLimit:/m) {
+        EBox::error('olcSizeLimit parameter interferes with LDAP restore. We will remove it from the LDAP.' .
+                    ' You can add it again later if you need it'
+                   );
+        $content =~ s/^olcSizeLimit:.*$//mg;
+    }
+
     write_file($ldifFile, $content);
     $self->_loadLdap($dir, $slapd, 'config');
 }
