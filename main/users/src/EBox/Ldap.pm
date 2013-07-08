@@ -859,8 +859,6 @@ sub _loadLdap
     my $chownConfCommand = $self->_chownConfDir($slapd);
     my $chownDataCommand = $self->_chownDataDir($slapd);
 
-    use Devel::StackTrace;
-    EBox::debug(Devel::StackTrace->new()->as_string());
     $self->_execute(0, # Without pause
         cmds => [$backupCommand, $mkCommand, $rmCommand, $slapaddCommand,
             $chownConfCommand, $chownDataCommand]);
