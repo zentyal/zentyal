@@ -66,15 +66,15 @@ sub prerouting
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
 
-        my $r;
-        $r = "$input -j captive";
-        push(@rules, { 'priority' => 5, 'rule' => $r });
-
         push(@rules, @{$self->_usersRules('captive')});
         push @rules, map {
             my $rule = $input . ' ' . $_->{rule};
             ($rule)
         } @exRules;
+
+        my $r;
+        $r = "$input -j captive";
+        push(@rules, $r);
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
@@ -158,9 +158,6 @@ sub forward
         my $input = $self->_inputIface($ifc);
         my $r;
 
-        $r = "$input -j fcaptive";
-        push(@rules, { 'priority' => 6, 'rule' => $r });
-
         push(@rules, @{$self->_usersRules('fcaptive')});
         push @rules, map {
             my $rule = $input . ' ' . $_->{rule};
@@ -176,6 +173,9 @@ sub forward
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         $r = "$input -p udp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+
+        $r = "$input -j fcaptive";
+        push @rules, $r;
     }
     return \@rules;
 }
