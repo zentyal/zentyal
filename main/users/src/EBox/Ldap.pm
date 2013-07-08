@@ -883,6 +883,13 @@ sub _loadLdapConfig
     my $pass = $self->getPassword();
     $content =~ s/credentials=".*?"/credentials="$pass"/g;
     $content =~ s/^olcRootPW:.*$/olcRootPW: $pass/mg;
+    if ($content =~ m/^olcSizeLimit:/m) {
+        EBox::error('olcSizeLimit parameter interferes with LDAP restore. We will remove it from the LDAP.' .
+                    ' You can add it again later if you need it'
+                   );
+        $content =~ s/^olcSizeLimit:.*$//mg;
+    }
+
     write_file($ldifFile, $content);
     $self->_loadLdap($dir, $slapd, 'config');
 }
