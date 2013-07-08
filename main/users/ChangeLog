@@ -1,4 +1,6 @@
 HEAD
+	+ Remove olcSizeLimit from config ldif to be able to restore LDAP
+	  when it is present
 	+ User template account default options not longer shown in slave servers
 2.2.8
 	+ Check to assure that quota has been really assigned logs an error instead
