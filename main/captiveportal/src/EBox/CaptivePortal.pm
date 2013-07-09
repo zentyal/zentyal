@@ -346,13 +346,6 @@ sub exceptionsFirewallRules
     return \@rules;
 }
 
-sub exceptionsPreroutingFirewallRules
-{
-    my ($self) = @_;
-    my $exceptionsModel = $self->model('Exceptions');
-    return $exceptionsModel->firewallPreroutingRules();
-}
-
 # Function: sessionExpired
 #
 #   returns 1 if the session has expired

@@ -24,7 +24,7 @@
 #             ipaddr type additional keys:
 #               'ipaddr' - ip/s member (CIDR notation)
 #               'mask'   -  network mask's member
-#               'macaddr' -  mac address' membe (could be empty if not deifned for the member)
+#               'macaddr' -  mac address' membe (could be empty if not defined for the member)
 #             iprange type additional keys:
 #               'begin' - ip which marks the begins of the range (no mask)
 #               'end' - ip which marks the begins of the range (no mask)
@@ -100,15 +100,22 @@ sub addresses
 #  members
 #  Each parameter is intended to be used in a different iptables command
 #
+#  Parameters:
+#    useMac - if true the source MAc argument will be added when possible (default: false)
+#
 #  Return:
 #   - list reference
 sub iptablesSrcParams
 {
-    my ($self) = @_;
+    my ($self, $useMAC) = @_;
     my @params;
     foreach my $member (@{ $self }) {
         if ($member->{type} eq 'ipaddr') {
-            push @params,  ' --source ' .  $member->{ipaddr};
+            my $arg =  ' --source ' .  $member->{ipaddr};
+            if ($useMAC and $member->{macaddr}) {
+                $arg .= ' -m mac --mac-source ' . $member->{macaddr};
+            }
+            push @params, $arg;
         } elsif ($member->{type} eq 'iprange') {
             push @params, ' -m iprange --src-range ' . $member->{begin} . '-' . $member->{end};
         }

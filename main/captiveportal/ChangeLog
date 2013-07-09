@@ -1,4 +1,6 @@
 HEAD
+	+ Use MAC address in object exception
+	+ Fixed bug in exceptions firewall rules
 	+ Adapt firewall rules to new accept chains
 3.0.4
 	+ Added missing use sentence to Users Model
