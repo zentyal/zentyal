@@ -144,7 +144,7 @@ sub firewallRules
 
             push @rules,  map {
                 $_ . ' -j RETURN'
-            } @{ $members->iptablesSrcParams() };
+            } @{ $members->iptablesSrcParams(1) };
 
         } elsif ($selectedType eq 'exception_service') {
             my $serviceId = $exception->subtype()->value();
