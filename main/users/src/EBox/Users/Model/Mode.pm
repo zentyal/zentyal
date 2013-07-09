@@ -182,7 +182,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     my $standaloneParams = [qw/dn/];
-    my $adParams = [qw/dcHostname dcUser dcPassword/];
+    my $adParams = [qw/dcHostname dcUser dcPassword dcPassword2/];
 
     $customizer->setOnChangeActions({
         mode => {
