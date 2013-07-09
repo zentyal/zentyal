@@ -113,7 +113,7 @@ sub iptablesSrcParams
         if ($member->{type} eq 'ipaddr') {
             my $arg =  ' --source ' .  $member->{ipaddr};
             if ($useMAC and $member->{macaddr}) {
-                $arg .= ' --mac --mac-source ' . $member->{macaddr};
+                $arg .= ' -m mac --mac-source ' . $member->{macaddr};
             }
             push @params, $arg;
         } elsif ($member->{type} eq 'iprange') {
