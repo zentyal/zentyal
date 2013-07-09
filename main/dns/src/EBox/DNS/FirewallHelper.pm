@@ -77,8 +77,8 @@ sub output
     my ($self) = @_;
     my @rules;
 
-    push (@rules, '--protocol udp --dport ' . DNS_PORT . ' -j ACCEPT');
-    push (@rules, '--protocol tcp --dport ' . DNS_PORT . ' -j ACCEPT');
+    push (@rules, '--protocol udp --dport ' . DNS_PORT . ' -j oaccept');
+    push (@rules, '--protocol tcp --dport ' . DNS_PORT . ' -j oaccept');
 
     return \@rules;
 }

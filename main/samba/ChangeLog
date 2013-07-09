@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt firewall rules to new accept chains
 	+ Add config key to skip writting homeDirectory and homeDrive attribute
 	+ Do not store in samba_access table 4 records each 10s when antivirus
 	  daemon is not running

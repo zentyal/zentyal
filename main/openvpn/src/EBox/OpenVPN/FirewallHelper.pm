@@ -91,7 +91,7 @@ sub _inputRules
     # allow rip traffic in openvpn virtual ifaces
     foreach my $iface (@{ $self->ifaces() }) {
         my $input = $self->_inputIface($iface);
-        push @rules, "$input -p udp --destination-port 520 -j ACCEPT";
+        push @rules, "$input -p udp --destination-port 520 -j iaccept";
     }
 
     my @ports = grep {$_->{external} == $external} @{ $self->ports };
@@ -104,7 +104,7 @@ sub _inputRules
         my $inputIface = defined $listen ? $self->_inputIface($listen) : "";
 
         my $rule =
-          "--protocol $proto --destination-port $port $inputIface -j ACCEPT";
+          "--protocol $proto --destination-port $port $inputIface -j iaccept";
         push @rules, $rule;
     }
 
@@ -121,19 +121,19 @@ sub output
         # allow rip traffic in openvpn virtual ifaces
         foreach my $iface (@{ $self->ifaces() }) {
             my $output = $self->_outputIface($iface);
-            push @rules, "$output -p udp --destination-port 520 -j ACCEPT";
+            push @rules, "$output -p udp --destination-port 520 -j oaccept";
         }
 
         foreach my $server_r (@{ $self->serversToConnect() }) {
             my ($serverProto, $server, $serverPort) = @{$server_r};
             my $connectRule =
-"--protocol $serverProto --destination $server --destination-port $serverPort -j ACCEPT";
+"--protocol $serverProto --destination $server --destination-port $serverPort -j oaccept";
             push @rules, $connectRule;
         }
     }
 
-# we need HTTP access for client bundle generation (need to resolve external address)
-    my $httpRule = "--protocol tcp  --destination-port 80 -j ACCEPT";
+    # we need HTTP access for client bundle generation (need to resolve external address)
+    my $httpRule = "--protocol tcp  --destination-port 80 -j oaccept";
     push @rules, $httpRule;
 
     return \@rules;

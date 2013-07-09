@@ -64,7 +64,7 @@ sub postrouting
         foreach my $iface (@externalIfaces) {
             my $output = $self->_outputIface($iface);
             # don't NAT connections going thru IPsec VPN
-            push @rules, "$output --destination $network -j ACCEPT";
+            push @rules, "$output --destination $network -j oaccept";
         }
     }
 

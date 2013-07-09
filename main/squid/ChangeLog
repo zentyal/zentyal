@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt firewall rules to new accept chains
 	+ Handle domains that are actually IP addresses in the LogHelper
 	+ Set transparent HTTP proxy firewall rules unless the module is
 	  temporary stopped
