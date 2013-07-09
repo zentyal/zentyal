@@ -246,7 +246,10 @@ sub serviceIptablesArgs
     my @conf =  @{ $self->serviceConfiguration($id) };
     foreach my $conf (@conf) {
         my $args = '';
-        if ($conf->{protocol} ne 'any') {
+        my $tcpUdp = 0;
+        if ($conf->{protocol} eq 'tcp/udp') {
+            $tcpUdp = 1;
+        } elsif ($conf->{protocol} ne 'any') {
             $args .= '--protocol ' . $conf->{protocol};
         }
         if ($conf->{source} ne 'any') {
@@ -256,7 +259,13 @@ sub serviceIptablesArgs
             $args .= ' --dport ' . $conf->{destination};
         }
 
-        push @args, $args;
+        if ($tcpUdp) {
+            my $tcpArgs = '--protocol tcp' . $args;
+            my $udpArgs = '--protocol udp' . $args;
+            push @args, ($tcpArgs, $udpArgs);
+        } else {
+            push @args, $args;
+        }
     }
 
     return \@args;
