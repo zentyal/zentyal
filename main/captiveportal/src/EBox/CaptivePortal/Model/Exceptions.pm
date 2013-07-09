@@ -139,7 +139,7 @@ sub firewallRules
                 # must have priority over normal redirect rulex
                 push @rules,  map {
                     $_ . ' ' . $captureHTTPRule
-                } @{ $members->iptablesSrcParams() };
+                } @{ $members->iptablesSrcParams(1) };
             }
 
             push @rules,  map {
