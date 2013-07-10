@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid "cannot return outside of a subroutine" warning in cloud-sync
 	+ Fixed cloud sync setup when user number is unlimited
 3.0.21
 	+ Fixed maximum users check when not using cloud sync
