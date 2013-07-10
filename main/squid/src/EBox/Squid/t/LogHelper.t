@@ -66,13 +66,13 @@ sub test_domain_name : Test(4)
 
     my @cases = (
         {
-            name => 'Test domain name',
+            name => 'Test domain name (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
             expected => undef,
         },
         {
-            name => 'Test domain name',
+            name => 'Test domain name (internal)',
             file => '/var/log/squid3/access.log',
             line => '1372580242.651      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - FIRST_UP_PARENT/localhost text/plain',
             expected => {
@@ -94,13 +94,13 @@ sub test_ip_addr_domain : Test(8)
 
     my @cases = (
         {
-            name => 'IPv4 domain',
+            name => 'IPv4 domain (internal)',
             file => '/var/log/squid3/access.log',
             line => '1372578572.975    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - FIRST_UP_PARENT/localhost -',
             expected => undef,
         },
         {
-            name => 'IPv4 domain',
+            name => 'IPv4 domain (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372578573.235    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - DIRECT/91.189.91.15 -',
             expected => {
@@ -112,13 +112,13 @@ sub test_ip_addr_domain : Test(8)
             },
         },
         {
-            name => 'IPv6 domain',
+            name => 'IPv6 domain (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372580239.517    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip - DIRECT/194.245.148.135 text/html',
             expected => undef,
         },
         {
-            name => 'IPv6 domain',
+            name => 'IPv6 domain (internal)',
             file => '/var/log/squid3/access.log',
             line => '1372580239.947    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip user1 FIRST_UP_PARENT/localhost text/html',
             expected => {
@@ -139,13 +139,13 @@ sub tests_denied_by_internal : Test(8)
 
     my @cases = (
         {
-            name => 'Internal first',
+            name => 'Internal first (internal)',
             file => '/var/log/squid3/access.log',
             line => '1372578572.975    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo user1 FIRST_UP_PARENT/localhost -',
             expected => undef,
         },
         {
-            name => 'Internal first',
+            name => 'Internal first (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372578572.575    233 192.168.100.3 TCP_MISS/304 398 GET http://foo.bar/foo - DIRECT/91.189.91.15 -',
             expected => {
@@ -157,13 +157,13 @@ sub tests_denied_by_internal : Test(8)
             },
         },
         {
-            name => 'External first',
+            name => 'External first (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372578572.575    233 192.168.100.3 TCP_MISS/304 398 GET http://foo.bar/foo - DIRECT/91.189.91.15 -',
             expected => undef,
         },
         {
-            name => 'External first',
+            name => 'External first (internal)',
             file => '/var/log/squid3/access.log',
             line => '1372578572.975    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo user1 FIRST_UP_PARENT/localhost -',
             expected => {
