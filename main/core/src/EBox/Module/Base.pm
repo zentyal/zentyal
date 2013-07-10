@@ -856,7 +856,8 @@ sub pidRunning
 #
 # Returns:
 #
-#   boolean - True if it's running , otherise false
+#   pid number - if the file exists, contains a PID and the PID is running
+#   undef      - otherwise
 #
 sub pidFileRunning
 {
@@ -870,10 +871,11 @@ sub pidFileRunning
     } otherwise {
         $pid = undef;
     };
-    unless ($pid) {
+    if ($pid and $self->pidRunning($pid)) {
+        return $pid;
+    } else {
         return undef;
     }
-    return $self->pidRunning($pid);
 }
 
 # Method: _preSetConf

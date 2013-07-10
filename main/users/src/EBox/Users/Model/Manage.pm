@@ -44,7 +44,7 @@ sub rootNodes
     my $usersMod = $self->parentModule();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
-    return [ {printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
+    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
 }
 
 sub childNodes
@@ -100,8 +100,7 @@ sub childNodes
             EBox::warn("Unknown object type for DN: " . $child->dn());
             next;
         }
-        push (@childNodes, {printableName => $printableName, type => $type,
-            metadata => { dn => $dn } });
+        push (@childNodes, { id => $dn, printableName => $printableName, type => $type, metadata => { dn => $dn } });
     }
 
     return \@childNodes;
@@ -118,10 +117,8 @@ sub _sambaComputers
     foreach my $computer (@{$samba->computers()}) {
         my $dn = $computer->dn();
         my $printableName = $computer->name();
-        push (@computers, { printableName => $printableName,
-            type => 'computer', metadata => { dn => $dn } });
+        push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
     }
-
 
     return \@computers;
 }

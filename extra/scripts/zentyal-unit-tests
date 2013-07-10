@@ -71,7 +71,7 @@ fi
 
 if [ "$COVERAGE" == "yes" ]
 then
-    export HARNESS_PERL_SWITCHES="-MDevel::Cover=-ignore,\.t\$"
+    export HARNESS_PERL_SWITCHES="-MDevel::Cover=+ignore,\.t,\TestStub.pm,\Test.pm\$"
 fi
 
 if [ "$JUNIT" == "yes" ]

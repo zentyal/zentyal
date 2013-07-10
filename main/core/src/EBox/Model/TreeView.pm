@@ -465,7 +465,8 @@ sub jsonData
         push (@data, {
             data => $printableName,
             attr => {
-                rel => $type
+                rel => $type,
+                id => $node->{id}
             },
             metadata => $metadata,
             children => \@children,
@@ -489,6 +490,7 @@ sub _childData
             metadata => $childMetadata,,
             attr => {
                 rel => $childType,
+                id => $child->{id}
             },
             children => $self->_childData($childType, $childMetadata),
         });
