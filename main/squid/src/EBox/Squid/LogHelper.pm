@@ -82,8 +82,6 @@ sub processLine # (file, line, logger)
         } else {
             $event = 'denied';
         }
-    } elsif ( $file eq  INTERNALSQUIDLOGFILE and $fields[3] =~ /^DENIED/) {
-        $event = 'denied';
     } else {
         $event = 'accepted';
     }
