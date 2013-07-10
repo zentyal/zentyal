@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 85;
+use Test::More tests => 72;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -67,10 +67,6 @@ sub fakeModuleTest
     isa_ok($mod, 'EBox::Macaco');
     can_ok($mod, 'partners');
     is   $mod->partners(), 7, "Checking data initialization via object call of installed sub ";
-
-    _testModInstancesOfType('EBox::Inexistent', 0);
-    _testModInstancesOfType('EBox::Macaco::Son::Son', 1);
-    _testModInstancesOfType('EBox::Macaco', 6);
 }
 
 sub _testModuleBasics
@@ -102,34 +98,6 @@ sub _testModuleBasics
     }
 
     return $mod;
-}
-
-sub _testModInstancesOfType
-{
-    my ($type, $instancesExpected) = @_;
-
-    my $global =  EBox::Global->getInstance();
-    my @instances;
-    lives_ok{  @instances =  @{$global->modInstancesOfType($type) }  } 'EBox::Global::modInstancesOfType';
-
-    is @instances, $instancesExpected, 'Checking wether modInstancesOfType returns the expected number of modules intances';
-
-    if (@instances != $instancesExpected) {
-        my @modules = @ {$global->modNames() };
-        diag "DEBUG. EBox::Global->modNames() -> @modules\n";
-        my @alldirsBase = @{ $global->all_dirs_base('modules')   };
-        diag "DEBUG. EBox::Global->allDirsBase() -> @alldirsBase\n";
-        my @alldirs =  $global->all_dirs('modules')  ;
-        diag "DEBUG. EBox::Global->allDirs() -> @alldirs\n";
-    }
-
-    SKIP: {
-        skip $instancesExpected, 'modInstancesOfType has not returned the expected dunmber of instances so we skip the instances checks' if @instances != $instancesExpected;
-
-        foreach my $mod (@instances) {
-            isa_ok ($mod, $type);
-        }
-    }
 }
 
 sub tearDown
