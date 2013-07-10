@@ -178,6 +178,27 @@ sub tests_denied_by_internal : Test(8)
     $self->_testCases(\@cases);
 }
 
+sub tests_filtered_by_dg : Test(6)
+{
+    my ($self) = @_;
+
+    my @cases = (
+        {
+            name => 'Dansguardian',
+            file => '/var/log/dansguardian/access.log',
+            line => '1372578572.575    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo - DEFAULT_PARENT/127.0.0.1 -',
+            expected => {
+                bytes  => 398,   code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'filtered',
+                method => 'GET', mimetype  => '-',                   remotehost => '192.168.100.3',
+                rfc931 => '-',   timestamp => '2013-06-30 09:49:32', peer => 'DEFAULT_PARENT/127.0.0.1',
+                url    => 'http://foo.bar/foo',
+                domain => 'foo.bar',
+            },
+        },
+    );
+    $self->_testCases(\@cases);
+}
+
 sub _testCases
 {
     my ($self, $cases) = @_;
