@@ -69,6 +69,7 @@ sub processLine # (file, line, logger)
     my ($self, $file, $line, $dbengine) = @_;
         chomp $line;
 
+    $line =~ s/,\s+/,/g;
     my @fields = split (/\s+/, $line);
 
     if ($fields[2] eq '127.0.0.1') {

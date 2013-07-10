@@ -195,6 +195,18 @@ sub tests_filtered_by_dg : Test(6)
                 domain => 'foo.bar',
             },
         },
+        {
+            name => 'Dansguardian with spaces inside fields',
+            file => '/var/log/dansguardian/access.log',
+            line => '1373456055.925    597 ::, 127.0.0.1, 127.0.0.1 TCP_MISS/400 98702 GET http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest ::, 127.0.0.1, 127.0.0.1 DEFAULT_PARENT/127.0.0.1 text/html',
+            expected => {
+                bytes  => 98702, code      => 'TCP_MISS/400', elapsed     => 597, event => 'accepted',
+                method => 'GET', mimetype  => 'text/html',    remotehost  => '::,127.0.0.1,127.0.0.1',
+                rfc931 => '::,127.0.0.1,127.0.0.1', timestamp => '2013-07-10 13:34:15', peer => 'DEFAULT_PARENT/127.0.0.1',
+                url    => 'http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest',
+                domain => 'precise-zentyal',
+            }
+        },
     );
     $self->_testCases(\@cases);
 }
