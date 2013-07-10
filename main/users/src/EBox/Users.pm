@@ -2386,6 +2386,8 @@ sub relativeDN
 
     my $baseDN = $self->ldap()->dn();
 
+    return '' if ($dn eq $baseDN);
+
     if (not $dn =~ s/,$baseDN$//) {
         throw EBox::Exceptions::Internal("$dn is not contained in $baseDN");
     }

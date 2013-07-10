@@ -2030,7 +2030,11 @@ sub ldbDNFromLDAPDN
     # Computers and Users are not OUs for Samba.
     $relativeDN =~ s/ou=Users$/CN=Users/gi;
     $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
-    my $dn = $relativeDN .  ',' . $self->ldap()->dn();
+    my $dn = '';
+    if ($relativeDN) {
+        $dn = $relativeDN .  ',';
+    }
+    $dn .= $self->ldap()->dn();
     return $dn;
 }
 
@@ -2099,6 +2103,8 @@ sub relativeDN
     throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
 
     my $baseDN = $self->ldap()->dn();
+
+    return '' if ($dn eq $baseDN);
 
     if (not $dn =~ s/,$baseDN$//) {
         throw EBox::Exceptions::Internal("$dn is not contained in $baseDN");
