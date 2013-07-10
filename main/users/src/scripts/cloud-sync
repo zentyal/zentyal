@@ -31,7 +31,7 @@ EBox::init();
 my $users = EBox::Global->modInstance('users');
 
 if ($users->master() ne 'cloud') {
-    return;
+    exit 0;
 }
 
 
@@ -200,4 +200,4 @@ for my $group (@{$lgroups}) {
 }
 
 EBox::info("Synchronization done");
-
+1;
