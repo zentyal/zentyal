@@ -387,10 +387,11 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.3') <= 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
+# FIXME: uncomment when fixed the problems in ANSTE upgrades
+#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.3') <= 0)) {
+#        # Perform the migration to 3.2
+#        $self->_migrateTo32();
+#    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
