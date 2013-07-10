@@ -46,6 +46,8 @@ use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
+use constant BUILT_IN_CONTAINERS => qw(Users Computers);
+
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
 use constant ROOT_DSE_ATTRS => [
@@ -465,6 +467,15 @@ sub ldapOUsToLDB
         my $parentDN = $parent->dn();
 
         EBox::debug("Loading OU $name into $parentDN");
+        EBox::debug($self->dn());
+        EBox::debug();
+
+        # Samba already has an specific container for this OU, ignore it.
+        if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
+            EBox::debug("Ignoring OU $name given that it has a built in container");
+            next;
+        }
+
         try {
             EBox::Samba::OU->create(name => $name, parent => $parent);
         } catch EBox::Exceptions::DataExists with {
