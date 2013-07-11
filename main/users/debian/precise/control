@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Uploaders: José A. Calvo <jacalvo@zentyal.com>
-Build-Depends: zbuildtools, libtest-net-ldap-perl
+Build-Depends: zbuildtools, libtest-net-ldap-perl (>= 0.02)
 Standards-Version: 3.9.2
 Homepage: http://www.zentyal.org/
 Vcs-Browser: http://git.zentyal.org/zentyal.git/tree/HEAD:/main/users
