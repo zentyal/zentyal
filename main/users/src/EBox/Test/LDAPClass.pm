@@ -47,6 +47,11 @@ sub _testStubsForLDAP : Test(startup)
     my $confDir = EBox::Config::conf();
     system ("echo Foo > $confDir/ldap.passwd");
     system ("echo Foo > $confDir/ldap_ro.passwd");
+
+    # Create the LDAP Mock object.
+    my $ldapInstance = $class->instance();
+    $ldapInstance->{ldap} = new Net::LDAP('ldap.example.com');
+    $ldapInstance->{ldap}->mock_root_dse(namingContexts => 'dc=example,dc=com');
 }
 
 sub runtests

@@ -40,7 +40,7 @@ sub instance : Test(3)
     isa_ok($ldapInstance, $class, '... and the object it returns');
 }
 
-sub ldapCon : Test(5)
+sub ldapCon : Test(4)
 {
     my ($self) = @_;
     my $class = $self->class;
@@ -48,24 +48,6 @@ sub ldapCon : Test(5)
     my $ldapInstance = $class->instance();
 
     can_ok($ldapInstance, 'ldapCon');
-
-    use Net::LDAP;
-
-    my $ldap = Net::LDAP->new('ldap.example.com');
-
-    $ldap->add('uid=user1, ou=users, dc=example, dc=com');
-    $ldap->add('uid=user2, ou=users, dc=example, dc=com');
-    $ldap->add(
-        'cn=group1, ou=groups, dc=example, dc=com',
-        attrs => [
-            member => [
-                'uid=user1, ou=users, dc=example, dc=com',
-                'uid=user2, ou=users, dc=example, dc=com',
-            ]
-        ]
-    );
-
-    isa_ok($ldap, 'Test::Net::LDAP::Mock');
 
     my $ldapCon = undef;
     ok($ldapCon = $ldapInstance->ldapCon(), 'Got the ldapConnection');
