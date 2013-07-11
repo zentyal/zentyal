@@ -133,47 +133,23 @@ sub test_ip_addr_domain : Test(8)
     $self->_testCases(\@cases);
 }
 
-sub tests_denied_by_internal : Test(8)
+sub tests_denied_by_internal : Test(3)
 {
     my ($self) = @_;
 
     my @cases = (
         {
-            name => 'Internal first (internal)',
-            file => '/var/log/squid3/access.log',
-            line => '1372578572.975    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo user1 FIRST_UP_PARENT/localhost -',
-            expected => undef,
-        },
-        {
-            name => 'Internal first (external)',
-            file => '/var/log/squid3/external-access.log',
-            line => '1372578572.575    233 192.168.100.3 TCP_MISS/304 398 GET http://foo.bar/foo - DIRECT/91.189.91.15 -',
-            expected => {
-                bytes  => 398,     code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'denied',
-                method => 'GET',   mimetype  => '-',                   remotehost => '192.168.100.3',
-                rfc931 => 'user1', timestamp => '2013-06-30 09:49:32', peer => 'DIRECT/91.189.91.15',
-                url    => 'http://foo.bar/foo',
-                domain => 'foo.bar',
-            },
-        },
-        {
-            name => 'External first (external)',
-            file => '/var/log/squid3/external-access.log',
-            line => '1372578572.575    233 192.168.100.3 TCP_MISS/304 398 GET http://foo.bar/foo - DIRECT/91.189.91.15 -',
-            expected => undef,
-        },
-        {
-            name => 'External first (internal)',
+            name => 'Internal',
             file => '/var/log/squid3/access.log',
             line => '1372578572.975    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo user1 FIRST_UP_PARENT/localhost -',
             expected => {
                 bytes  => 398,     code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'denied',
                 method => 'GET',   mimetype  => '-',                   remotehost => '192.168.100.3',
-                rfc931 => 'user1', timestamp => '2013-06-30 09:49:32', peer => 'DIRECT/91.189.91.15',
+                rfc931 => 'user1', timestamp => '2013-06-30 09:49:32', peer => 'FIRST_UP_PARENT/localhost',
                 url    => 'http://foo.bar/foo',
                 domain => 'foo.bar',
             },
-        }
+        },
     );
     $self->_testCases(\@cases);
 }

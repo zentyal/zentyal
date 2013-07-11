@@ -109,30 +109,13 @@ sub processLine # (file, line, logger)
 
         $dbengine->insert('squid_access', $data);
     } else {
-        if ($file eq  EXTERNALSQUIDLOGFILE) {
-            my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
-            my $domain = $self->_domain($fields[6]);
-            $temp{$url}->{timestamp} = $time;
-            $temp{$url}->{elapsed} = $fields[1];
-            $temp{$url}->{remotehost} = $fields[2];
-            $temp{$url}->{bytes} = $fields[4];
-            $temp{$url}->{method} = $fields[5];
-            $temp{$url}->{url} = $url;
-            $temp{$url}->{domain} = substr($domain, 0, 254);
-            $temp{$url}->{peer} = $fields[8];
-            $temp{$url}->{mimetype} = $fields[9];
-
-            # Check we are not overwriting a denial from the internal squid
-            unless (defined $temp{$url}->{event}) {
-                $temp{$url}->{event} = $event;
-                $temp{$url}->{code} = $fields[3];
-            }
+        if ($file eq EXTERNALSQUIDLOGFILE) {
+            $self->_fillExternalData($url, $event, @fields);
         } else {
             $temp{$url}->{rfc931} = $fields[7];
 
             if ($event eq 'denied') {
-                $temp{$url}->{event} = $event;
-                $temp{$url}->{code} = $fields[3];
+                $self->_fillExternalData($url, $event, @fields);
             }
         }
         $self->_insertEvent($url, $dbengine);
@@ -140,6 +123,25 @@ sub processLine # (file, line, logger)
 }
 
 # Group: Private methods
+
+sub _fillExternalData
+{
+    my ($self, $url, $event, @fields) = @_;
+
+    my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
+    my $domain = $self->_domain($fields[6]);
+    $temp{$url}->{timestamp} = $time;
+    $temp{$url}->{elapsed} = $fields[1];
+    $temp{$url}->{remotehost} = $fields[2];
+    $temp{$url}->{bytes} = $fields[4];
+    $temp{$url}->{method} = $fields[5];
+    $temp{$url}->{url} = $url;
+    $temp{$url}->{domain} = substr($domain, 0, 254);
+    $temp{$url}->{peer} = $fields[8];
+    $temp{$url}->{mimetype} = $fields[9];
+    $temp{$url}->{event} = $event;
+    $temp{$url}->{code} = $fields[3];
+}
 
 sub _insertEvent
 {
