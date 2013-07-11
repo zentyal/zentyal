@@ -243,7 +243,7 @@ sub enableActions
     my ($self) = @_;
 
     # Disable IPv6 if it is enabled
-    if (-e '/proc/net/if_inet6') {
+    if (-d  '/proc/sys/net/ipv6') {
         my @cmds;
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);
@@ -3232,7 +3232,6 @@ sub _supportActions
 sub _preSetConf
 {
     my ($self, %opts) = @_;
-
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
     return unless exists $ENV{'USER'};
@@ -3251,7 +3250,8 @@ sub _preSetConf
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $if (@{$iflist}) {
-        if ($self->_hasChanged($if)) {
+        my $dhcpIface = $self->ifaceMethod($if) eq 'dhcp';
+        if ($self->_hasChanged($if) or $dhcpIface) {
             try {
                 my @cmds;
                 if ($self->ifaceExists($if)) {
@@ -3286,6 +3286,7 @@ sub _preSetConf
             }
         }
     }
+
 }
 
 sub _daemons
@@ -3303,7 +3304,6 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
-
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
@@ -3318,6 +3318,7 @@ sub _setConf
 sub _enforceServiceState
 {
     my ($self, %opts) = @_;
+
     my $restart = delete $opts{restart};
 
     my $file = INTERFACES_FILE;
@@ -3327,7 +3328,8 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
-        if ($self->_hasChanged($iface) or $restart) {
+        my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
+        if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
                 $iface = "zentyal-ppp-$iface";
             }
@@ -3335,10 +3337,10 @@ sub _enforceServiceState
         }
     }
 
+
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
-        open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
@@ -3346,7 +3348,6 @@ sub _enforceServiceState
                 $self->_unsetChanged($iface);
             }
         }
-        unlink (IFUP_LOCK_FILE);
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
@@ -3407,16 +3408,29 @@ sub _stopService
             if ($self->ifaceMethod($if) eq 'ppp') {
                 $ifname = "zentyal-ppp-$if";
             } else {
-                push (@cmds, "/sbin/ip address flush label $if");
-                push (@cmds, "/sbin/ip address flush label $if:*");
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
             }
-            push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+            push @cmds, "/sbin/ifdown --force -i $file $ifname";
         } catch EBox::Exceptions::Internal with {};
     }
 
     EBox::Sudo::root(@cmds);
 
     $self->SUPER::_stopService();
+}
+
+sub _stopDhclientCmd
+{
+    my ($self, $iface) = @_;
+    my $pidFile = '/var/run/dhclient.' . $iface . '.pid';
+    my $pid = $self->pidFileRunning($pidFile);
+    if ($pid) {
+        print "kill $pid\n";
+        return "kill $pid";
+    } else {
+        return undef;
+    }
 }
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)

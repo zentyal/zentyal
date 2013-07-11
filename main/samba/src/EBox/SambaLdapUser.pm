@@ -53,26 +53,19 @@ sub _sambaReady
             $self->{samba}->isProvisioned());
 }
 
-sub _ldapDNToLdb
-{
-    my ($self, $dn) = @_;
-    my $rDn = EBox::Samba::User->relativeDn($self->{ldapBaseDn}, $dn);
-    return $rDn . ',' . $self->{ldbBaseDn};
-}
-
 sub _preAddOU
 {
     my ($self, $entry) = @_;
     $self->_sambaReady() or
         return;
-    my $dn = $self->_ldapDNToLdb($entry->dn());
+    my $dn = $self->{samba}->ldbObjectFromLDAPObject($entry->dn());
     my $name = $entry->get_value('ou');
     use Data::Dumper;
     EBox::debug(Dumper($name));
     my $parent = EBox::Samba::OU->parent($dn);
 
     EBox::debug("Creating OU in LDB '$name'");
-    EBox::Samba::OU->create($name, $parent);
+    EBox::Samba::OU->create(name => $name, parent => $parent);
 }
 
 sub _preAddOuFailed
@@ -83,7 +76,7 @@ sub _preAddOuFailed
 
     try {
         my $name = $entry->get_value('ou');
-        my $dn = $self->_ldapDNToLdb($entry->dn());
+        my $dn = $self->{samba}->ldbObjectFromLDAPObject($entry->dn());
         my $sambaOu = new EBox::Samba::OU(dn => $dn);
         return unless $sambaOu->exists();
         EBox::info("Aborted OU creation, removing from samba");
@@ -100,16 +93,14 @@ sub _delOU
     $self->_sambaReady() or
         return;
 
-    my $dn =  $zentyalOU->dn();
-    EBox::debug("Deleting OU '$dn' from samba");
-    my $sambaDn = $self->_ldapDNToLdb($dn);
+    EBox::debug("Deleting OU '$zentyalOU->dn()' from samba");
+    my $sambaOu = $self->{samba}->ldbObjectFromLDAPObject($zentyalOU);
+    return unless $sambaOu;
     try {
-        my $sambaOu = EBox::Samba::OU->new(dn => $dn);
-        return unless $sambaOu->exists();
         $sambaOu->deleteObject();
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting OU $sambaDn: $error");
+        EBox::error("Error deleting OU $sambaOu->dn(): $error");
     };
 }
 
@@ -117,7 +108,6 @@ sub _delOU
 #
 #   This method add the user to samba LDAP. The account will be
 #   created, but without password and disabled.
-#   TODO Support multiples OU
 #
 sub _preAddUser
 {
@@ -132,8 +122,8 @@ sub _preAddUser
     my $surName     = $entry->get_value('sn');
     my $uid         = $entry->get_value('uid');
 
-    # _ldapDNToLdb returns a DN wit h uid instead of cn but it is ok for get the parent
-    my $parent = EBox::Samba::User->parent($self->_ldapDNToLdb($entry->dn()));
+    # FIXME: ldbDNFromLDAPDN returns a DN with uid instead of cn but it is ok for get the parent
+    my $parent = EBox::Samba::User->parent($self->{samba}->ldbDNFromLDAPDN($entry->dn()));
 
     my %args = (
         name           => $name,
@@ -186,7 +176,12 @@ sub _addUser
     my $uidNumber = $sambaUser->get('uidNumber');
 
     EBox::info("Setting '$samAccountName' password");
-    $sambaUser->changePassword($zentyalPassword);
+    if (defined($zentyalPassword)) {
+        $sambaUser->changePassword($zentyalPassword);
+    } else {
+        my $keys = $zentyalUser->kerberosKeys();
+        $sambaUser->setCredentials($keys);
+    }
 
     if ($uidNumber) {
         $sambaUser->setupUidMapping($uidNumber);
@@ -317,7 +312,7 @@ sub _preAddContact
     my $sn = $entry->get_value('sn');
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
-    my $ldbDn = $self->_ldapDNToLdb($entry->dn());
+    my $ldbDn = $self->{samba}->ldbDNFromLDAPDN($entry->dn());
     my $parent = EBox::Samba::Contact->parent($ldbDn);
 
     my %args = (
@@ -341,7 +336,7 @@ sub _preAddContactFailed
         return;
 
     try {
-        my $dn = $self->_ldapDNToLdb($entry->dn());
+        my $dn = $self->{samba}->ldbDNFromLDAPDN($entry->dn());
 
         my $sambaContact = new EBox::Samba::Contact(dn => $dn);
         return unless $sambaContact->exists();
@@ -362,7 +357,7 @@ sub _modifyContact
     my $dn = $zentyalContact->dn();
     EBox::debug("Updating contact '$dn'");
 
-    my $sambaDn = $self->_ldapDNToLdb($dn);
+    my $sambaDn = $self->{samba}->ldbDNFromLDAPDN($dn);
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
         return unless $sambaContact->exists();
@@ -394,9 +389,7 @@ sub _delContact
 
     my $dn = $zentyalContact->dn();
     EBox::debug("Deleting contact '$dn' from samba");
-    my $sambaDn = $self->_ldapDNToLdb($dn);
-    # replace uid with cn for first attribute
-    $sambaDn =~ s/^uid/cn/;
+    my $sambaDn = $self->{samba}->ldbDNFromLDAPDN($dn);
     try {
         my $sambaContact = new EBox::Samba::Contact(dn => $sambaDn);
         return unless $sambaContact->exists();
@@ -417,18 +410,19 @@ sub _preAddGroup
         return;
 
     my $dn = $entry->dn();
-    my $parent = EBox::Samba::Group->parent($self->_ldapDNToLdb($dn));
-    my $description = $entry->get_value('description');
-    my $gid         = $entry->get_value('cn');
-    $self->_checkWindowsBuiltin($gid);
+    my $name = $entry->get_value('cn');
+    $self->_checkWindowsBuiltin($name);
 
-    my $params = {
-        description   => $description,
-        parent        => $parent,
-    };
+    # The isSecurityGroup flag is not set here given that the zentyalObject doesn't exist yet, we will
+    # update it later on the _addGroup callback. Maybe we would move this creation to _addGroup...
+    my %args = (
+        name        => $name,
+        parent      => EBox::Samba::Group->parent($self->{samba}->ldbDNFromLDAPDN($dn)),
+        description => $entry->get_value('description'),
+    );
 
-    EBox::info("Creating group '$gid'");
-    my $sambaGroup = EBox::Samba::Group->create($gid, $params);
+    EBox::info("Creating group '$name'");
+    my $sambaGroup = EBox::Samba::Group->create(%args);
     my $newGidNumber = $sambaGroup->getXidNumberFromRID();
     EBox::debug("Changing gidNumber to $newGidNumber");
     $sambaGroup->set('gidNumber', $newGidNumber);
@@ -451,6 +445,25 @@ sub _preAddGroupFailed
     } otherwise {
         my ($error) = @_;
         EBox::error("Error removig group $samAccountName: $error")
+    };
+}
+
+# Method: _addGroup
+#
+# The kind of group is set at this stage.
+#
+sub _addGroup
+{
+    my ($self, $zentyalGroup) = @_;
+    $self->_sambaReady() or
+        return;
+
+    my $samAccountName = $zentyalGroup->get('cn');
+    my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
+    if ($sambaGroup->exists()) {
+        $sambaGroup->setSecurityGroup($zentyalGroup->isSecurityGroup());
+    } else {
+        EBox::error("Error setting the kind of group for $samAccountName");
     };
 }
 

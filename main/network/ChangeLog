@@ -1,4 +1,7 @@
 HEAD
+	+ To fix dhclient erratic behaviour, we always restart the dhcp interfaces
+	+ Corrected typo in message on tab multigw when only one gw is present
+	+ Better check for ipv6 presence before disabling it
 	+ Removed no longer necessary jQuery noConflict()
 	+ Adapted DNS resolver model to authorization mode changes
 	  in users and squid module

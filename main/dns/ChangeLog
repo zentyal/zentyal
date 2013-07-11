@@ -1,3 +1,7 @@
+HEAD
+	+ Set transparent DNS cache firewall rules unless the module is
+	  temporary stopped
+	+ Set transparent DNS cache firewall rules in Firewall Helper
 3.1
 	+ Removed 3.0.X migration code
 	+ Implemented _daemonsToDisable()

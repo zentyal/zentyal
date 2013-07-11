@@ -499,6 +499,202 @@ kexpires()
     OUTPUT:
         RETVAL
 
+# /* Retrieve list of credentials in the cache */
+AV*
+klist()
+#   /* return:
+#    *  undef on error, the list of credentials on success
+#    */
+    INIT:
+        AV *av_creds = newAV();
+    CODE:
+        krb5_context context;
+        krb5_error_code code;
+        krb5_ccache ccache = NULL;
+        krb5_cc_cursor current;
+        krb5_creds creds;
+        krb5_principal princ;
+        krb5_flags flags;
+
+        krb_error_while_doing = NULL;
+        krb_error_string = NULL;
+        krb_error_code = 0;
+
+        code = krb5_init_context(&context);
+        if(code)
+        {
+            krb_error_while_doing = "unable to initialize context";
+            krb_error_string = (char *)error_message(code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        code = krb5_cc_default(context, &ccache);
+        if(code)
+        {
+            krb_error_while_doing = "could not get default ccache";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        flags = 0;
+        code = krb5_cc_set_flags(context, ccache, flags);
+        if(code)
+        {
+            krb_error_while_doing = "could not set ccache flags";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        code = krb5_cc_start_seq_get(context, ccache, &current);
+        if(code)
+        {
+            krb_error_while_doing = "could not start sequential get";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        code = krb5_cc_next_cred(context, ccache, &current, &creds);
+        while(!code)
+        {
+            size_t j;
+            char *str;
+            krb5_timestamp sec;
+            HV *hv_cred = newHV();
+
+            krb5_timeofday(context, &sec);
+            code = krb5_unparse_name(context, creds.server, &str);
+            if (code) {
+                krb_error_while_doing = "could not convert kerberos principal to text string";
+                krb_error_string = krb5_get_error_message(context, code);
+                krb_error_code = code;
+                XSRETURN_UNDEF;
+            }
+            hv_store(hv_cred, "server", 6, newSVpv(str, strlen(str)), 0);
+            free(str);
+
+            code = krb5_unparse_name(context, creds.client, &str);
+            if (code) {
+                 krb_error_while_doing = "could not convert kerberos principal to text string";
+                krb_error_string = krb5_get_error_message(context, code);
+                krb_error_code = code;
+                XSRETURN_UNDEF;
+            }
+            hv_store(hv_cred, "client", 6, newSVpv(str, strlen(str)), 0);
+            free(str);
+
+            if (!krb5_is_config_principal(context, creds.client)) {
+                Ticket t;
+                size_t len;
+                char *s;
+
+                decode_Ticket(creds.ticket.data, creds.ticket.length, &t, &len);
+                code = krb5_enctype_to_string(context, t.enc_part.etype, &s);
+                if (code == 0) {
+                    hv_store(hv_cred, "ticket_etype", 12, newSVpv(s, strlen(s)), 0);
+                    free(s);
+                } else {
+                    hv_store(hv_cred, "ticket_etype", 12, newSVuv(t.enc_part.etype), 0);
+                }
+                if (t.enc_part.kvno) {
+                    hv_store(hv_cred, "kvno", 4, newSVuv(*t.enc_part.kvno), 0);
+                }
+
+                if (creds.session.keytype != t.enc_part.etype) {
+                    code = krb5_enctype_to_string(context, creds.session.keytype, &str);
+                    if (code) {
+                        krb5_warn(context, code, "session keytype");
+                    } else {
+                        hv_store(hv_cred, "session_key", 11, newSVpv(str, strlen(str)), 0);
+                        free(str);
+                    }
+                }
+                free_Ticket(&t);
+
+                hv_store(hv_cred, "ticket_length", 13, newSVuv(creds.ticket.length), 0);
+            }
+
+            hv_store(hv_cred, "auth_time", 9, newSVuv(creds.times.authtime), 0);
+            if (creds.times.authtime != creds.times.starttime) {
+                hv_store(hv_cred, "start_time", 10, newSVuv(creds.times.starttime), 0);
+            }
+
+            hv_store(hv_cred, "end_time", 8, newSVuv(creds.times.endtime), 0);
+
+            if (sec > creds.times.endtime) {
+                hv_store(hv_cred, "expired", 7, newSVuv(1), 0);
+            } else {
+                hv_store(hv_cred, "expired", 7, newSVuv(0), 0);
+            }
+
+            if (creds.flags.b.renewable) {
+                hv_store(hv_cred, "renew_till", 10, newSVuv(creds.times.renew_till), 0);
+            }
+
+            {
+                char flags[1024];
+                AV *av_flags = newAV();
+                unparse_flags(TicketFlags2int(creds.flags.b), asn1_TicketFlags_units(), flags, sizeof(flags));
+                char *pch;
+                pch = strtok(flags, " ,");
+                while (pch != NULL) {
+                    av_push(av_flags, newSVpv(pch, strlen(pch)));
+                    pch = strtok(NULL, " ,");
+                }
+                hv_store(hv_cred, "flags", 5, newRV((SV*)av_flags), 0);
+            }
+
+            if (creds.addresses.len != 0) {
+                AV *addresses = newAV();
+                for (j = 0; j < creds.addresses.len; j++) {
+                    char buf[128];
+                    size_t len;
+                    code = krb5_print_address(&creds.addresses.val[j],
+                            buf, sizeof(buf), &len);
+                    if (code == 0) {
+                        av_push(addresses, newSVpv(buf, strlen(buf)));
+                    }
+                }
+                hv_store(hv_cred, "addresses", 9, newRV((SV*)addresses), 0);
+            } else {
+                hv_store(hv_cred, "addresses", 9, newSV(0), 0);
+            }
+            av_push(av_creds, newRV((SV*)hv_cred));
+
+            krb5_free_cred_contents(context, &creds);
+            code = krb5_cc_next_cred(context, ccache, &current, &creds);
+        }
+        if(code && code != KRB5_CC_END)
+        {
+            krb_error_while_doing = "could not read next credential";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        code = krb5_cc_end_seq_get(context, ccache, &current);
+        if(code)
+        {
+            krb_error_while_doing = "could not finish reading credentials";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        flags = KRB5_TC_OPENCLOSE;
+        code = krb5_cc_set_flags(context, ccache, flags);
+        if(code)
+        {
+            krb_error_while_doing = "could not set ccache flags";
+            krb_error_string = krb5_get_error_message(context, code);
+            krb_error_code = code;
+            XSRETURN_UNDEF;
+        }
+        krb5_cc_close(context, ccache);
+        krb5_free_context(context);
+
+        av_creds = (AV *)sv_2mortal((SV *)av_creds);
+        RETVAL = av_creds;
+    OUTPUT:
+        RETVAL
+
 # you would think that I could just export the globals, but I can't figure
 # out how to do that, so these will sufice:
 

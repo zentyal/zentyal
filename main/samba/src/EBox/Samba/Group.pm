@@ -12,15 +12,17 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
+
 # Class: EBox::Samba::Group
 #
 #   Samba group, stored in samba LDAP
 #
-
 package EBox::Samba::Group;
-use base 'EBox::Samba::LdbObject';
+
+use base 'EBox::Samba::SecurityPrincipal';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -45,13 +47,10 @@ use constant GROUPTYPEAPPBASIC  => 0x00000010;
 use constant GROUPTYPEAPPQUERY  => 0x00000020;
 use constant GROUPTYPESECURITY  => 0x80000000;
 
-
-
 sub new
 {
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
     bless ($self, $class);
     return $self;
 }
@@ -171,54 +170,53 @@ sub setupGidMapping
 #
 # Parameters:
 #
-#   name   - Group name.
-#   params - Hash reference with the following fields:
-#       description     - Group's description.
+#   args - Named parameters:
+#       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
+#       description     - Group's description.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
-# TODO: Add OU.
 #
 sub create
 {
-    my ($self, $name, $params) = @_;
+    my ($class, %args) = @_;
 
-    $params->{parent} or
-        throw EBox::Exceptions::MissingArgument('parent');
-    $params->{parent}->isContainer() or
-        throw EBox::Exceptions::InvalidData(
-            data => 'parent', value => $params->{parent}->dn());
+    # Check for required arguments.
+    throw EBox::Exceptions::MissingArgument('name') unless ($args{name});
+    throw EBox::Exceptions::MissingArgument('parent') unless ($args{parent});
+    throw EBox::Exceptions::InvalidData(
+        data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
+    my $isSecurityGroup = 1;
+    if (defined $args{isSecurityGroup}) {
+        $isSecurityGroup = $args{isSecurityGroup};
+    }
 
-    my $isSecurityGroup = $params->{isSecurityGroup};
-    # TODO Is the group added to the default OU?
-    my $baseDn = $self->_ldap->dn();
-    my $dn = "CN=$name," . $params->{parent}->dn();
+    my $dn = 'CN=' . $args{name} . ',' . $args{parent}->dn();
 
-    $self->_checkAccountName($name, MAXGROUPLENGTH);
-    $self->_checkAccountNotExists($name);
+    $class->_checkAccountName($args{name}, MAXGROUPLENGTH);
+    $class->_checkAccountNotExists($args{name});
 
     # TODO: We may want to support more than global groups!
     my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
-    push ($attr, cn => $name);
+    push ($attr, cn => $args{name});
     push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
-    push ($attr, sAMAccountName    => "$name");
-    push ($attr, description       => $params->{description}) if defined $params->{description};
+    push ($attr, sAMAccountName    => $args{name});
+    push ($attr, description       => $args{description}) if ($args{description});
     if ($isSecurityGroup) {
-        push ($attr, gidNumber         => $params->{gidNumber}) if defined $params->{gidNumber};
+        push ($attr, gidNumber         => $args{gidNumber}) if ($args{gidNumber});
         $groupType |= GROUPTYPESECURITY;
     }
 
     push ($attr, groupType         => $groupType);
 
     # Add the entry
-    my $result = $self->_ldap->add($dn, { attrs => $attr });
-EBox::info("added");
+    my $result = $class->_ldap->add($dn, { attrs => $attr });
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
     # Setup the gid mapping
-    $createdGroup->setupGidMapping($params->{gidNumber}) if defined $params->{gidNumber};
+    $createdGroup->setupGidMapping($args{gidNumber}) if defined $args{gidNumber};
 
     return $createdGroup;
 }
@@ -376,7 +374,7 @@ sub isSecurityGroup
 {
     my ($self) = @_;
 
-    return $self->get('groupType') & GROUPTYPESECURITY;
+    return 1 if ($self->get('groupType') & GROUPTYPESECURITY);
 }
 
 # Method: setSecurityGroup
@@ -387,7 +385,10 @@ sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
 
-    my $groupType = $self->get('groupType');
+    return if ($self->isSecurityGroup() == $isSecurityGroup);
+
+    # We do this so we are able to use the groupType value as a 32bit number.
+    my $groupType = ($self->get('groupType') & 0xFFFFFFFF);
 
     if ($isSecurityGroup) {
         $groupType |= GROUPTYPESECURITY;

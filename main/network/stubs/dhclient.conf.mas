@@ -3,6 +3,9 @@
     $domainSearch => undef
     $domainNameServers => []
 </%args>
+<%init>
+my $nsConfigured = @{ $domainNameServers } > 0;
+</%init>
 # Configuration file for /sbin/dhclient, which is included in Debian's
 #	dhcp3-client package.
 #
@@ -25,13 +28,13 @@ supersede domain-name "<% $domainName %>";
 % if (length ($domainSearch) > 0) {
 supersede domain-search "<% $domainSearch %>.";
 % }
-% if (scalar (@{$domainNameServers}) > 0) {
+% if ($nsConfigured) {
 % my $servers = join (',', @{$domainNameServers});
 supersede domain-name-servers <% $servers %>;
 % }
 #prepend domain-name-servers 127.0.0.1;
 request subnet-mask, broadcast-address, time-offset, routers,
-	domain-name, domain-name-servers,
+	domain-name, <%  $nsConfigured ? '' :  'domain-name-servers,' %>
 	host-name, netbios-name-servers, netbios-scope;
 #require subnet-mask, domain-name-servers;
 timeout 30;

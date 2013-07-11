@@ -33,7 +33,6 @@ sub _tree
         modelDomain => 'Users',
         pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'add', 'edit', 'delete' ],
-        idParam => 'dn',
         help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba. Please note that multiple OU support is partial, some modules may only work with users and groups in the default Users and Groups OUs.'),
     };
 }
@@ -45,34 +44,33 @@ sub rootNodes
     my $usersMod = $self->parentModule();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
-    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
+    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain', metadata => { dn => $defaultNamingContext->dn() } } ];
 }
 
 sub childNodes
 {
-    my ($self, $parent) = @_;
+    my ($self, $parentType, $parentMetadata) = @_;
 
     my $usersMod = $self->parentModule();
 
     my $parentObject = undef;
-    if ($parent->{id} eq 'root') {
+    if ($parentType eq 'domain') {
         $parentObject = $usersMod->defaultNamingContext();
-    } elsif ($parent->{type} eq 'computer') {
+    } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parent->{id} =~ /^ou=Computers,/) and EBox::Global->modExists('samba')) {
+    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and EBox::Global->modExists('samba')) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
-        $parentObject = $usersMod->objectFromDN($parent->{id});
+        $parentObject = $usersMod->objectFromDN($parentMetadata->{dn});
     }
 
-    my $id = undef;
     my $printableName = undef;
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
-        $id = $child->dn();
+        my $dn = $child->dn();
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
@@ -91,11 +89,18 @@ sub childNodes
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
+        } elsif ($child->isa('EBox::Users::Container::ExternalAD')) {
+            #^ container class only used in ExternalAD mode
+            # for now we are only interested in the user containers
+            $child->usersContainer() or
+                next;
+            $type = 'container';
+            $printableName = $child->name();
         } else {
             EBox::warn("Unknown object type for DN: " . $child->dn());
             next;
         }
-        push (@childNodes, { id => $id, printableName => $printableName, type => $type });
+        push (@childNodes, { id => $dn, printableName => $printableName, type => $type, metadata => { dn => $dn } });
     }
 
     return \@childNodes;
@@ -110,9 +115,9 @@ sub _sambaComputers
     my @computers;
 
     foreach my $computer (@{$samba->computers()}) {
-        my $id = $computer->dn();
+        my $dn = $computer->dn();
         my $printableName = $computer->name();
-        push (@computers, { id => $id, printableName => $printableName, type => 'computer' });
+        push (@computers, { id => $dn, printableName => $printableName, type => 'computer', metadata => { dn => $dn } });
     }
 
     return \@computers;
@@ -120,23 +125,28 @@ sub _sambaComputers
 
 sub nodeTypes
 {
+    my ($self) = @_;
+    my $usersMod = $self->parentModule();
+    my $rw = $usersMod->mode() eq $usersMod->STANDALONE_MODE;
+
     return {
-        domain => { actions => { filter => 0, add => 1 }, actionObjects => { add => 'OU' } },
-        ou => { actions => { filter => 0, add => 1, delete => 1 }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        user => { printableName => __('Users'), actions => { filter => 1, edit => 1, delete => 1 } },
-        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => 1, delete => 1 } },
-        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => 1, delete => 1 },
+        domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
+        ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
-        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => 1, delete => 1 } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
     };
 }
 
 sub doubleClickHandlerJS
 {
-    my ($self, $type, $id) = @_;
+    my ($self, $type) = @_;
 
-    $self->actionHandlerJS('edit', $type, $id);
+    $self->actionHandlerJS('edit', $type);
 }
 
 # Method: precondition

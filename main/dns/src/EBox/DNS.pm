@@ -63,7 +63,6 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
-use constant DNS_PORT => 53;
 use constant DESKTOP_SERVICE_PORT => 6895;
 use constant DESKTOP_SERVICE_NAME => 'zentyal-desktop-api';
 
@@ -832,9 +831,6 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
-
-    # Set transparent DNS cache
-    $self->_setTransparentCache();
 }
 
 sub _reverseData
@@ -1650,45 +1646,6 @@ sub _removeDisjuncFiles
         # Remove the jnl if exists as well (only applicable for dyn zones)
         if (-f "${file}.jnl") {
             EBox::Sudo::root("rm -rf '${file}.jnl'");
-        }
-    }
-}
-
-# Set configuration for transparent DNS cache
-# TODO: Move FirewallHelper to core to avoid this implementation here without
-# using the framework
-sub _setTransparentCache
-{
-    my ($self) = @_;
-
-    if ( $self->model('Settings')->row()->valueByName('transparent') ) {
-        # The transparent cache DNS setting is enabled
-        my $gl = EBox::Global->getInstance(1);
-        if ( $gl->modExists('firewall') ) {
-            my $fw = $gl->modInstance('firewall');
-            if ( $fw->isEnabled() ) {
-                my @rules = ();
-                my $net = $gl->modInstance('network');
-                eval 'use EBox::FirewallHelper;';
-                my $fwHelper = new EBox::FirewallHelper();
-                foreach my $iface (@{$net->InternalIfaces()}) {
-                    my $addrs = $net->ifaceAddresses($iface);
-                    my $input = $fwHelper->_inputIface($iface);
-                    foreach my $addr ( map { $_->{address} } @{$addrs} ) {
-                        next unless ( defined($addr) and ($addr ne ""));
-                        my $rule = "-t nat -A premodules $input "
-                                   . "! -d $addr -p tcp --dport " . DNS_PORT
-                                   . ' -j REDIRECT --to-ports ' . DNS_PORT;
-                        push(@rules, $rule);
-                        $rule = "-t nat -A premodules $input "
-                                . "! -d $addr -p udp --dport " . DNS_PORT
-                                . ' -j REDIRECT --to-ports ' . DNS_PORT;
-                        push(@rules, $rule);
-                    }
-                }
-                my @cmds = map { '/sbin/iptables ' . $_ } @rules;
-                EBox::Sudo::root(@cmds);
-            }
         }
     }
 }

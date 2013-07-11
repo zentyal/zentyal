@@ -25,16 +25,35 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
+# Method: prerouting
+#
+#   To set transparent HTTP proxy if it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::prerouting>
+#
 sub prerouting
 {
     my ($self) = @_;
 
     my $sq = $self->_global()->modInstance('squid');
-    if ($sq->transproxy()) {
+    if ( (not $sq->temporaryStopped()) and $sq->transproxy()) {
         return $self->_trans_prerouting();
     }
 
     return [];
+}
+
+# Method: restartOnTemporaryStop
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::restartOnTemporaryStop>
+#
+sub restartOnTemporaryStop
+{
+    return 1;
 }
 
 sub _trans_prerouting

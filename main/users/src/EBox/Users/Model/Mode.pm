@@ -106,6 +106,10 @@ sub _validateExternalADMode
             __('The use should not contain a domain. The domain will be extracted from Active Directory')
            );
     }
+
+    if ($params->{dcPassword}->value() ne $params->{dcPassword2}->value()) {
+        throw EBox::Exceptions::External(__('User password and confirm user password does not match'));
+    }
 }
 
 sub _table
@@ -150,6 +154,13 @@ sub _table
             editable => 1,
             unsafeParam => 1,
             optional => 1,
+        ),
+        EBox::Types::Password->new(
+            fieldName => 'dcPassword2',
+            printableName => __('Confirm user password'),
+            editable => 1,
+            unsafeParam => 1,
+            optional => 1,
         )
     );
 
@@ -171,7 +182,7 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     my $standaloneParams = [qw/dn/];
-    my $adParams = [qw/dcHostname dcUser dcPassword/];
+    my $adParams = [qw/dcHostname dcUser dcPassword dcPassword2/];
 
     $customizer->setOnChangeActions({
         mode => {

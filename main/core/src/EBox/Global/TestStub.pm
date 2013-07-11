@@ -69,8 +69,10 @@ sub setAllModules
 sub fake
 {
     my $tmpConfDir = '/tmp/zentyal-test-conf/';
-    system ("rm -rf $tmpConfDir");
-    mkdir ("mkdir $tmpConfDir");
+    system ("rm -rf $tmpConfDir") if ( -e $tmpConfDir);
+    ($? == 0) or die ("Can not clean temporally test dir $tmpConfDir");
+    mkdir ($tmpConfDir);
+    ($? == 0) or die ("Can not create the temporally test dir $tmpConfDir");
 
     EBox::TestStub::fake();
     EBox::Config::TestStub::fake(modules => $ENV{ZENTYAL_MODULES_SCHEMAS}, conf => $tmpConfDir, user => 'nobody');

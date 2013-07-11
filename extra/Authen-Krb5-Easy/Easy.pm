@@ -17,7 +17,7 @@ our @ISA = qw(Exporter DynaLoader);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-	kinit_pwd kinit kdestroy kexpires kerror kcheck kexpired
+	kinit_pwd kinit kdestroy kexpires kerror kcheck kexpired klist
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );

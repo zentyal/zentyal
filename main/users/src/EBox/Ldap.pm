@@ -69,7 +69,7 @@ sub _new_instance
 #   object of class <EBox::Ldap>
 sub instance
 {
-    my ($self, %opts) = @_;
+    my ($class) = @_;
 
     unless(defined($_instance)) {
         $_instance = EBox::Ldap->_new_instance();

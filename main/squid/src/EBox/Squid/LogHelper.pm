@@ -23,6 +23,7 @@ use base 'EBox::LogHelper';
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Validate;
 use POSIX qw(strftime);
 
 use constant SQUIDLOGFILE => '/var/log/squid3/external-access.log';
@@ -111,7 +112,18 @@ sub _domain
 
     my $domain = $url;
     $domain =~ s{^http(s?)://}{}g;
-    $domain =~ s{(:|/).*}{};
+    $domain =~ s{/.*}{};
+
+    # IPv6 [ip_v6]
+    if (substr($domain, 0, 1) eq '[') {
+        $domain =~ s{\[|\]}{}g;
+        return $domain;
+    }
+
+    $domain =~ s{:.*}{}; # Remove port section
+    if (EBox::Validate::checkIP($domain)) {
+        return $domain;
+    }
 
     my $shortDomain = "";
     my @components = split(/\./, $domain);

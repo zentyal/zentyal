@@ -174,8 +174,8 @@ sub connectWithKerberos
     my $bindResult = $ldap->bind(sasl => $sasl);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
-            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
-                x => $dc, y => $bindResult->error_desc()));
+            __x("Could not bind to AD LDAP server '{server}'. Error was '{error}'",
+                server => $dc, error => $bindResult->error_desc()));
     }
     return $ldap;
 }
