@@ -374,7 +374,7 @@ sub isSecurityGroup
 {
     my ($self) = @_;
 
-    return $self->get('groupType') & GROUPTYPESECURITY;
+    return 1 if ($self->get('groupType') & GROUPTYPESECURITY);
 }
 
 # Method: setSecurityGroup
@@ -385,7 +385,10 @@ sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
 
-    my $groupType = $self->get('groupType');
+    return if ($self->isSecurityGroup() == $isSecurityGroup);
+
+    # We do this so we are able to use the groupType value as a 32bit number.
+    my $groupType = ($self->get('groupType') & 0xFFFFFFFF);
 
     if ($isSecurityGroup) {
         $groupType |= GROUPTYPESECURITY;

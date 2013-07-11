@@ -467,9 +467,6 @@ sub ldapOUsToLDB
         my $parentDN = $parent->dn();
 
         EBox::debug("Loading OU $name into $parentDN");
-        EBox::debug($self->dn());
-        EBox::debug();
-
         # Samba already has an specific container for this OU, ignore it.
         if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
             EBox::debug("Ignoring OU $name given that it has a built in container");
