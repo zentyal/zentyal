@@ -1,4 +1,6 @@
 HEAD
+	+ Fix parse of the dansguardian log in the LogHelper
+	+ Make LogHelper extract data from internal and external log files
 	+ Adapt firewall rules to new accept chains
 	+ Handle domains that are actually IP addresses in the LogHelper
 	+ Set transparent HTTP proxy firewall rules unless the module is

@@ -58,20 +58,26 @@ sub setUpLogHelper : Test(setup)
     my ($self) = @_;
 
     $self->{logHelper} = new EBox::Squid::LogHelper();
-    $self->{file}      = '/var/log/squid3/external-access.log';
 }
 
-sub test_domain_name : Test(3)
+sub test_domain_name : Test(4)
 {
     my ($self) = @_;
 
     my @cases = (
         {
-            name => 'Test domain name',
+            name => 'Test domain name (external)',
+            file => '/var/log/squid3/external-access.log',
             line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
+            expected => undef,
+        },
+        {
+            name => 'Test domain name (internal)',
+            file => '/var/log/squid3/access.log',
+            line => '1372580242.651      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - FIRST_UP_PARENT/localhost text/plain',
             expected => {
-                bytes  => 1516,  code      => 'TCP_MEM_HIT/200',     elapsed     => 0, event => 'accepted',
-                method => 'GET', mimetype  => 'text/plain',          remotehost  => '192.168.100.3',
+                bytes  => 1516,  code      => 'TCP_MEM_HIT/200',     elapsed    => 0, event => 'accepted',
+                method => 'GET', mimetype  => 'text/plain',          remotehost => '192.168.100.3',
                 rfc931 => '-',   timestamp => '2013-06-30 10:17:22', peer => 'NONE/-',
                 url    => 'http://db.local.clamav.net/daily-17404.cdiff',
                 domain => 'local.clamav.net',
@@ -82,34 +88,102 @@ sub test_domain_name : Test(3)
 }
 
 
-sub test_ip_addr_domain : Test(6)
+sub test_ip_addr_domain : Test(8)
 {
     my ($self) = @_;
 
     my @cases = (
         {
-            name => 'IPv4 domain',
-            line => '1372578572.975    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - DIRECT/91.189.91.15 -',
+            name => 'IPv4 domain (internal)',
+            file => '/var/log/squid3/access.log',
+            line => '1372578572.975    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - FIRST_UP_PARENT/localhost -',
+            expected => undef,
+        },
+        {
+            name => 'IPv4 domain (external)',
+            file => '/var/log/squid3/external-access.log',
+            line => '1372578573.235    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - DIRECT/91.189.91.15 -',
             expected => {
-                bytes  => 398,   code      => 'TCP_MISS/304', elapsed     => 233, event => 'accepted',
-                method => 'GET', mimetype  => '-',            remotehost  => '192.168.100.3',
-                rfc931 => '-',   timestamp => '2013-06-30 09:49:32', peer => 'DIRECT/91.189.91.15',
+                bytes  => 398,   code      => 'TCP_MISS/304',        elapsed    => 233, event => 'accepted',
+                method => 'GET', mimetype  => '-',                   remotehost => '192.168.100.3',
+                rfc931 => '-',   timestamp => '2013-06-30 09:49:33', peer => 'DIRECT/91.189.91.15',
                 url    => 'http://131.12.32.1/ubuntu/dists/precise/Release',
                 domain => '131.12.32.1',
             },
         },
         {
-            name => 'IPv6 domain',
+            name => 'IPv6 domain (external)',
+            file => '/var/log/squid3/external-access.log',
             line => '1372580239.517    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip - DIRECT/194.245.148.135 text/html',
+            expected => undef,
+        },
+        {
+            name => 'IPv6 domain (internal)',
+            file => '/var/log/squid3/access.log',
+            line => '1372580239.947    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip user1 FIRST_UP_PARENT/localhost text/html',
             expected => {
-                bytes  => 427,   code      => 'TCP_MISS/200', elapsed     => 108, event => 'accepted',
-                method => 'GET', mimetype  => 'text/html',    remotehost  => '192.168.100.21',
-                rfc931 => '-',   timestamp => '2013-06-30 10:17:19', peer => 'DIRECT/194.245.148.135',
+                bytes  => 427,     code      => 'TCP_MISS/200',        elapsed    => 108, event => 'accepted',
+                method => 'GET',   mimetype  => 'text/html',           remotehost => '192.168.100.21',
+                rfc931 => 'user1', timestamp => '2013-06-30 10:17:19', peer => 'DIRECT/194.245.148.135',
                 url    => 'http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip',
                 domain => '2001:db8:85a3::8a2e:370:7334',
             },
         },
        );
+    $self->_testCases(\@cases);
+}
+
+sub tests_denied_by_internal : Test(3)
+{
+    my ($self) = @_;
+
+    my @cases = (
+        {
+            name => 'Internal',
+            file => '/var/log/squid3/access.log',
+            line => '1372578572.975    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo user1 FIRST_UP_PARENT/localhost -',
+            expected => {
+                bytes  => 398,     code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'denied',
+                method => 'GET',   mimetype  => '-',                   remotehost => '192.168.100.3',
+                rfc931 => 'user1', timestamp => '2013-06-30 09:49:32', peer => 'FIRST_UP_PARENT/localhost',
+                url    => 'http://foo.bar/foo',
+                domain => 'foo.bar',
+            },
+        },
+    );
+    $self->_testCases(\@cases);
+}
+
+sub tests_filtered_by_dg : Test(6)
+{
+    my ($self) = @_;
+
+    my @cases = (
+        {
+            name => 'Dansguardian',
+            file => '/var/log/dansguardian/access.log',
+            line => '1372578572.575    233 192.168.100.3 TCP_DENIED/403 398 GET http://foo.bar/foo - DEFAULT_PARENT/127.0.0.1 -',
+            expected => {
+                bytes  => 398,   code      => 'TCP_DENIED/403',      elapsed    => 233, event => 'filtered',
+                method => 'GET', mimetype  => '-',                   remotehost => '192.168.100.3',
+                rfc931 => '-',   timestamp => '2013-06-30 09:49:32', peer => 'DEFAULT_PARENT/127.0.0.1',
+                url    => 'http://foo.bar/foo',
+                domain => 'foo.bar',
+            },
+        },
+        {
+            name => 'Dansguardian with spaces inside fields',
+            file => '/var/log/dansguardian/access.log',
+            line => '1373456055.925    597 ::, 127.0.0.1, 127.0.0.1 TCP_MISS/400 98702 GET http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest ::, 127.0.0.1, 127.0.0.1 DEFAULT_PARENT/127.0.0.1 text/html',
+            expected => {
+                bytes  => 98702, code      => 'TCP_MISS/400', elapsed     => 597, event => 'accepted',
+                method => 'GET', mimetype  => 'text/html',    remotehost  => '::,127.0.0.1,127.0.0.1',
+                rfc931 => '::,127.0.0.1,127.0.0.1', timestamp => '2013-07-10 13:34:15', peer => 'DEFAULT_PARENT/127.0.0.1',
+                url    => 'http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest',
+                domain => 'precise-zentyal',
+            }
+        },
+    );
     $self->_testCases(\@cases);
 }
 
@@ -120,7 +194,7 @@ sub _testCases
     foreach my $case (@{$cases}) {
         $self->{dbEngine}->_tmClearLastInsert();
         lives_ok {
-            $self->{logHelper}->processLine($self->{file}, $case->{line}, $self->{dbEngine});
+            $self->{logHelper}->processLine($case->{file}, $case->{line}, $self->{dbEngine});
         } $case->{name};
         if (defined($case->{expected})) {
             is($self->{dbEngine}->_tmLastInsertTable(), 'squid_access', 'Check last insert target table');
