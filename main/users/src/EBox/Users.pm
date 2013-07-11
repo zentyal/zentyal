@@ -65,7 +65,7 @@ use Fcntl qw(:flock);
 use constant COMPUTERSDN    => 'ou=Computers';
 use constant AD_COMPUTERSDN => 'cn=Computers';
 
-use constant STANDALONE_MODE      => 'normal';
+use constant STANDALONE_MODE      => 'master';
 use constant EXTERNAL_AD_MODE     => 'external-ad';
 use constant BACKUP_MODE_FILE     => 'LDAP_MODE.bak';
 
