@@ -28,7 +28,7 @@ sub class
     'EBox::Ldap'
 }
 
-sub instance : Tests(3)
+sub instance : Test(3)
 {
     my ($self) = @_;
     my $class = $self->class;
@@ -40,7 +40,7 @@ sub instance : Tests(3)
     isa_ok($ldapInstance, $class, '... and the object it returns');
 }
 
-sub ldapCon: Tests(4)
+sub ldapCon : Test(5)
 {
     my ($self) = @_;
     my $class = $self->class;
@@ -70,6 +70,7 @@ sub ldapCon: Tests(4)
     my $ldapCon = undef;
     ok($ldapCon = $ldapInstance->ldapCon(), 'Got the ldapConnection');
     isa_ok($ldapCon, 'Net::LDAP');
+    isa_ok($ldapCon, 'Test::Net::LDAP::Mock');
 }
 
 1;

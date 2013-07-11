@@ -23,7 +23,6 @@ use warnings;
 package EBox::Test::LDAPClass;
 use base 'EBox::Test::Class';
 
-use EBox::TestStubs;
 use EBox::Exceptions::NotImplemented;
 
 use Error qw(:try);

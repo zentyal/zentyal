@@ -525,20 +525,16 @@ sub parent
     return $usersMod->objectFromDN($parentDn);
 }
 
-sub relativeDn
+# Method: relativeDN
+#
+#   Return the dn of this object without the naming Context.
+#
+sub relativeDN
 {
-    my ($self, $dnBase, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
+    my ($self) = @_;
 
-    if (not $dn =~ s/,$dnBase$//) {
-        throw EBox::Exceptions::Internal("$dn is not contained in $dnBase");
-    }
-
-    return $dn;
+    my $usersMod = $self->_usersMod();
+    return $usersMod->relativeDN($self->dn());
 }
 
 1;

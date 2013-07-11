@@ -57,7 +57,10 @@ sub _process
             $parent = $usersMod->objectFromDN($dn);
         }
 
-        $usersMod->ouClass()->create($ou, $parent);
+        $usersMod->ouClass()->create(
+            name   => $ou,
+            parent => $parent
+        );
 
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';

@@ -74,7 +74,7 @@ sub addToZentyal
         $parent = $users->defaultNamingContext();
     }
 
-    my $ou = EBox::Users::OU->create($name, $parent);
+    my $ou = EBox::Users::OU->create(name => $name, parent => $parent);
     $ou->exists() or
         throw EBox::Exceptions::Internal("Error addding samba OU '$name' to Zentyal");
 }
@@ -94,25 +94,26 @@ sub updateZentyal
 #
 # Parameters:
 #
-#   name   - Organizational Unit name
-#   parent - Parent container that will hold this new OU.
+#   args - Named parameters:
+#       name    - Organizational Unit name
+#       parent - Parent container that will hold this new OU.
 #
 sub create
 {
-    my ($self, $name, $parent) = @_;
+    my ($class, %args) = @_;
 
-    $parent->isContainer() or
-        throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn());
+    $args{parent}->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
 
-    my $args = {
+    my $attrs = {
         attr => [
             'objectclass' => ['organizationalUnit'],
-            'ou' => $name,
+            'ou' => $args{name},
         ]
     };
 
-    my $dn = "ou=$name," . $parent->dn();
-    my $result = $self->_ldap->add($dn, $args);
+    my $dn = "ou=$args{name}," . $args{parent}->dn();
+    my $result = $class->_ldap->add($dn, $attrs);
     my $res = EBox::Samba::OU->new(dn => $dn);
     return $res;
 }

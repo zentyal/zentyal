@@ -74,31 +74,31 @@ sub name
 #
 # Parameters:
 #
-#   name   - Organizational Unit name
-#   parent - Parent container that will hold this new OU.
+#   args - Named parameters:
+#      name    - Organizational Unit name
+#       parent - Parent container that will hold this new OU.
 #
-#  XXX TODO put parent in %args
 sub create
 {
-    my ($self, $name, $parent, %args) = @_;
+    my ($class, %args) = @_;
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    $usersMod->checkCnLimitations($name) or
-        throw EBox::Exceptions::InvalidData(data => 'name', value => $name);
-    $parent or
+    $usersMod->checkCnLimitations($args{name}) or
+        throw EBox::Exceptions::InvalidData(data => 'name', value => $args{name});
+    $args{parent} or
         throw EBox::Exceptions::MissingArgument('parent');
-    $parent->isContainer() or
-        throw EBox::Exceptions::InvalidData(data => 'parent', value => $parent->dn());
+    $args{parent}->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
 
     my @attrs = (
             'objectclass' => ['organizationalUnit'],
-            'ou' => $name,
+            'ou' => $args{name},
            );
 
     my $entry;
     my $ou;
-    my $dn = "ou=$name," . $parent->dn();
+    my $dn = "ou=$args{name}," . $args{parent}->dn();
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
@@ -107,7 +107,7 @@ sub create
                                              $args{ignoreMods}, $args{ignoreSlaves});
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
-        my $result = $entry->update($self->_ldap->{ldap});
+        my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
             unless (($result->code == Net::LDAP::Constant::LDAP_LOCAL_ERROR) and
                     ($result->error eq 'No attributes to update')
@@ -115,7 +115,7 @@ sub create
                         throw EBox::Exceptions::LDAP(
                             message => __('Error on group LDAP entry creation:'),
                             result => $result,
-                            opArgs   => $self->entryOpChangesInUpdate($entry),
+                            opArgs   => $class->entryOpChangesInUpdate($entry),
                            );
             }
         }
