@@ -1,6 +1,7 @@
 <%args>
-	$group
-	$slave => 1
+    $group
+    $slave => 1
+    @warns => ()
 </%args>
 <%init>
 use EBox::Gettext;
@@ -16,6 +17,13 @@ use EBox::Gettext;
 % } else {
 <div class='note'>
         <% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
+%   if (@warns) {
+     <ul>
+%      foreach my $warn(@warns) {
+           <li><% $warn %></li>
+%      }
+     </ul>
+%  }
 </div>
 <form action='/Users/DeleteGroup' method='POST' id='delGroupForm'>
 <p>

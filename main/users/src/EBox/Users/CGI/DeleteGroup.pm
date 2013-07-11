@@ -36,63 +36,27 @@ sub _process
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
-    $self->{'title'} = __('Users');
-
-    my @args = ();
-
     $self->_requireParam('dn', 'dn');
 
     my $dn = $self->unsafeParam('dn');
     my $group = new EBox::Users::Group(dn => $dn);
 
-    my $editable = $users->editableMode();
-
-    push(@args, 'group' => $group);
-    push(@args, 'slave' => not $editable);
-
-    my $delgroup;
-
-    if ($self->param('cancel')) {
-        $self->{redirect} = 'Users/Tree/Manage';
-    } elsif ($self->param('delgroupforce')) {
-        $delgroup = 1;
-    } elsif ($self->unsafeParam('delgroup')) {
-        my $group = new EBox::Users::Group(dn => $dn);
-        $delgroup = not $self->_warnUser('group', $group);
-    }
-
-    if ($delgroup) {
+    if ($self->unsafeParam('delgroup')) {
         $self->{json} = { success => 0 };
-        my $group = new EBox::Users::Group(dn => $dn);
         $group->deleteObject();
         $self->{json}->{success} = 1;
         $self->{json}->{redirect} = '/Users/Tree/Manage';
+    } else {
+        # show confirmation dialog
+        my @args;
+        my $users = EBox::Global->getInstance()->modInstance('users');
+        push(@args, 'group' => $group);
+        my $editable = $users->editableMode();
+        push(@args, 'slave' => not $editable);
+        my $warns = $users->allWarnings('group', $group);
+        push(@args, warns => $warns);
+        $self->{params} = \@args;
     }
-
-    $self->{params} = \@args;
-}
-
-sub _warnUser
-{
-    my ($self, $object, $ldapObject) = @_;
-
-    my $usersandgroups = EBox::Global->modInstance('users');
-    my $warns = $usersandgroups->allWarnings($object, $ldapObject);
-
-    if (@{$warns}) { # If any module wants to warn user
-         $self->{template} = 'users/del.mas';
-         $self->{redirect} = undef;
-         my @array = ();
-         push(@array, 'object' => $object);
-         push(@array, 'name'   => $ldapObject);
-         push(@array, 'data'   => $warns);
-         $self->{params} = \@array;
-         return 1;
-    }
-
-    return undef;
 }
 
 1;
