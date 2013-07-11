@@ -1,4 +1,5 @@
 HEAD
+	+ Show correct group names in the Access Rules menu when using Users Group
 	+ Handle domains that are actually IP addresses in the LogHelper
 	+ Set transparent HTTP proxy firewall rules unless the module is
 	  temporary stopped

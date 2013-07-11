@@ -416,7 +416,7 @@ sub baseName
     my ($contentDN, $trashDN) = split ($parentDN, $dn);
     my ($trashTag, $baseName) = split ('=', $contentDN, 2);
 
-    return $baseName;
+    return substr($baseName, 0, -1);
 }
 
 # Method: as_ldif
