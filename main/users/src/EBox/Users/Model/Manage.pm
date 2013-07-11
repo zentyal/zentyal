@@ -44,7 +44,7 @@ sub rootNodes
     my $usersMod = $self->parentModule();
     my $defaultNamingContext = $usersMod->defaultNamingContext();
 
-    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain' } ];
+    return [ { id => 'root', printableName => $defaultNamingContext->baseName(), type => 'domain', metadata => { dn => $defaultNamingContext->dn() } } ];
 }
 
 sub childNodes
