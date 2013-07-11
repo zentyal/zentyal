@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug which make delete group dialog to show errors when
+	  there was warnings
 	+ Added a way to use Net::LDAP mock object for unit testing.
 	+ Fixed cloud sync setup when user number is unlimited
 	+ Fixed error in server master form when checking if
