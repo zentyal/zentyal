@@ -846,6 +846,13 @@ sub _adcMode
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
+sub _nmbdCond
+{
+    my ($self) = @_;
+
+    return (-f SAMBACONFFILE);
+}
+
 sub _sysvolSyncCond
 {
     my ($self) = @_;
@@ -889,6 +896,7 @@ sub _daemons
         },
         {
             name => 'zentyal.nmbd',
+            precondition => \&_nmbdCond,
         },
         {
             name => 'zentyal.s4sync',
