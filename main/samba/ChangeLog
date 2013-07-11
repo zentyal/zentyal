@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted user addon to multi-OU tree view
 	+ Removed EBox::Samba::Group::usersNotIn() method. It was not used neither
 	  valid for samba groups.
 	+ New EBox::Samba::computers() to get all objects with computer class
