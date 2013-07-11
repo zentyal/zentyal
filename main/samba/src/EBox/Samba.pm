@@ -45,6 +45,7 @@ use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
 use EBox::Samba::GPO;
 use EBox::Samba::Computer;
+use EBox::Samba::Container;
 use EBox::Samba::NamingContext;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
@@ -2026,6 +2027,42 @@ sub computers
     return \@computers;
 }
 
+# Method: ldbDNFromLDAPDN
+sub ldbDNFromLDAPDN
+{
+    my ($self, $ldapDN) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+
+    my $relativeDN = $usersMod->relativeDN($ldapDN);
+    # Computers and Users are not OUs for Samba.
+    $relativeDN =~ s/ou=Users$/CN=Users/gi;
+    $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
+    my $dn = '';
+    if ($relativeDN) {
+        $dn = $relativeDN .  ',';
+    }
+    $dn .= $self->ldap()->dn();
+    return $dn;
+}
+
+# Method: ldbObjectFromLDAPObject
+#
+#   Return the perl Object that handles in Samba the given perl object from OpenLDAP or undef if not found.
+#
+sub ldbObjectFromLDAPObject
+{
+    my ($self, $ldapObject) = @_;
+
+    throw EBox::Exceptions::MissingArgument('ldapObject') unless ($ldapObject);
+    throw EBox::Exceptions::InvalidType('ldapObject', 'EBox::Users::LdapObject') unless ($ldapObject->isa('EBox::Users::LdapObject'));
+
+    EBox::debug($ldapObject->dn());
+    my $ldbDN = $self->ldbDNFromLDAPDN($ldapObject->dn());
+    EBox::debug($ldbDN);
+    return $self->objectFromDN($ldbDN);
+}
+
 # Method: entryModeledObject
 #
 #   Return the Perl Object that handles the given LDAP entry.
@@ -2043,18 +2080,45 @@ sub entryModeledObject
     my $object;
 
     my $anyObjectClasses = any($entry->get_value('objectClass'));
-    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group);
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container);
     foreach my $class (@entryClasses) {
-            EBox::debug("Checking " . $class->mainObjectClass . ' agains ' . (join ',', $entry->get_value('objectClass')) );
+            EBox::debug("Checking " . $class->mainObjectClass . ' against ' . (join ',', $entry->get_value('objectClass')) );
         if ($class->mainObjectClass eq $anyObjectClasses) {
 
             return $class->new(entry => $entry);
         }
     }
 
+    my $ldb = $self->ldb();
+    if ($entry->dn() eq $ldb->dn()) {
+        return $self->defaultNamingContext();
+    }
+
+
     EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
     EBox::trace();
     return undef;
+}
+
+# Method: relativeDN
+#
+#   Return the given dn without the naming Context part.
+#
+sub relativeDN
+{
+    my ($self, $dn) = @_;
+
+    throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
+
+    my $baseDN = $self->ldap()->dn();
+
+    return '' if ($dn eq $baseDN);
+
+    if (not $dn =~ s/,$baseDN$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $baseDN");
+    }
+
+    return $dn;
 }
 
 # Method: objectFromDN

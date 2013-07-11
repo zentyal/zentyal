@@ -46,6 +46,8 @@ use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
+use constant BUILT_IN_CONTAINERS => qw(Users Computers);
+
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
 use constant ROOT_DSE_ATTRS => [
@@ -451,32 +453,33 @@ sub ldapOUsToLDB
 
     EBox::info('Loading Zentyal OUS into samba database');
     my $global = EBox::Global->getInstance();
-    my $usersModule = $global->modInstance('users');
-    my $ldapBaseDn = $usersModule->ldap()->dn();
-    my $sambaModule = $global->modInstance('samba');
-    my $ldbBaseDN  = $sambaModule->ldap()->dn();
-    my $defaultContainer = $sambaModule->defaultNamingContext();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
 
-    my @ous = @{ EBox::Samba::OU->orderOUList($usersModule->ous() )  };
+    my @ous = @{ EBox::Samba::OU->orderOUList($usersMod->ous()) };
     foreach my $ou (@ous) {
-        my $rDn = $ou->relativeDn($ldapBaseDn);
-        my ($leftmostAtr, $unused1) = split ',', $rDn, 2;
-        my ($unused2, $name) = split '=', $leftmostAtr, 2;
-
-        my $dn = $rDn .  ',' . $ldapBaseDn;
-        my $parent = EBox::Samba::OU->parent($dn);
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($ou->parent);
         if (not $parent) {
-            $parent = $defaultContainer;
+            my $dn = $ou->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+        }
+        my $name = $ou->name();
+        my $parentDN = $parent->dn();
+
+        EBox::debug("Loading OU $name into $parentDN");
+        # Samba already has an specific container for this OU, ignore it.
+        if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
+            EBox::debug("Ignoring OU $name given that it has a built in container");
+            next;
         }
 
-        EBox::debug("Loading OU $rDn");
         try {
-            EBox::Samba::OU->create($name, $parent);
+            EBox::Samba::OU->create(name => $name, parent => $parent);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("OU $name already in Samba database");
+            EBox::debug("OU $name already in $parentDN on Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading OU '$rDn': $error");
+            EBox::error("Error loading OU '$name' in '$parentDN': $error");
         };
     }
 }
@@ -487,23 +490,18 @@ sub ldapUsersToLdb
 
     EBox::info('Loading Zentyal users into samba database');
     my $global = EBox::Global->getInstance();
-    my $usersModule = $global->modInstance('users');
-    my $ldapBaseDn = $usersModule->ldap()->dn();
-    my $sambaModule = $global->modInstance('samba');
-    my $ldbBaseDN  = $sambaModule->ldap()->dn();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
 
-    my $users = $usersModule->users();
+    my $users = $usersMod->users();
     foreach my $user (@{$users}) {
-        my $rDn = $user->relativeDn($ldapBaseDn);
-        my $dn = $rDn .  ',' . $ldapBaseDn;
-        my $parent = EBox::Samba::User->parent($dn);
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($user->parent);
         if (not $parent) {
-            EBox::debug($user->dn() . ' is in the root of the tree. skipping it');
-            next;
+            my $dn = $user->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
         }
         my $samAccountName = $user->get('uid');
-
-        EBox::debug("Loading user $rDn");
+        EBox::debug("Loading user $samAccountName");
         try {
             my %args = (
                 name           => scalar ($user->get('cn')),
@@ -517,13 +515,13 @@ sub ldapUsersToLdb
             );
             EBox::Samba::User->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("User $rDn already in Samba database");
+            EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
             $sambaUser->setCredentials($user->kerberosKeys());
-            EBox::debug("Password updated for user $rDn");
+            EBox::debug("Password updated for user $samAccountName");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading user '$rDn': $error");
+            EBox::error("Error loading user '$samAccountName': $error");
         };
     }
 }
@@ -534,24 +532,20 @@ sub ldapContactsToLdb
 
     EBox::info('Loading Zentyal contacts into samba database');
     my $global = EBox::Global->getInstance();
-    my $usersModule = $global->modInstance('users');
-    my $ldapBaseDn = $usersModule->ldap()->dn();
-    my $sambaModule = $global->modInstance('samba');
-    my $ldbBaseDN  = $sambaModule->ldap()->dn();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
 
-    my $contacts = $usersModule->contacts();
+    my $contacts = $usersMod->contacts();
     foreach my $contact (@{$contacts}) {
-        my $rDn = $contact->relativeDn($ldapBaseDn);
-        my $dn = $rDn .  ',' . $ldapBaseDn;
-        my $parent = EBox::Samba::Contact->parent($dn);
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($contact->parent);
         if (not $parent) {
-            EBox::debug($contact->dn() . ' is in the root of the tree. skipping it');
-            next;
+            my $dn = $contact->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
         }
 
-        my $fullName = $contact->get('cn');
+        my $parentDN = $parent->dn();
         my $name = $contact->get('cn');
-        EBox::debug("Loading contact $rDn");
+        EBox::debug("Loading contact $name on $parentDN");
         try {
             my %args = (
                 name        => scalar ($name),
@@ -565,12 +559,10 @@ sub ldapContactsToLdb
             );
             EBox::Samba::Contact->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("Contact $rDn already in Samba database");
-            # FIXME: usersDn is wrong here!
-            my $sambaContact = new EBox::Samba::Contact(dn => 'cn=' . $name . ',' . $usersModule->usersDn());
+            EBox::debug("Contact $name already in $parentDN on Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading contact '$rDn': $error");
+            EBox::error("Error loading contact '$name' in '$parentDN': $error");
         };
     }
 }
@@ -581,39 +573,36 @@ sub ldapGroupsToLdb
 
     EBox::info('Loading Zentyal groups into samba database');
     my $global = EBox::Global->getInstance();
-    my $usersModule = $global->modInstance('users');
-    my $ldapBaseDn = $usersModule->ldap()->dn();
-    my $sambaModule = $global->modInstance('samba');
-    my $ldbBaseDN  = $sambaModule->ldap()->dn();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
 
-    my $groups = $usersModule->groups();
+    my $groups = $usersMod->groups();
     foreach my $group (@{$groups}) {
-        my $rDn = $group->relativeDn($ldapBaseDn);
-        my $dn = $rDn .  ',' . $ldapBaseDn;
-        my $parent = EBox::Samba::Group->parent($dn);
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($group->parent);
         if (not $parent) {
-            EBox::debug($group->dn() . ' is in the root of the tree. skipping it');
-            next;
+            my $dn = $group->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
         }
-
-        EBox::debug("Loading group $rDn");
+        my $parentDN = $parent->dn();
+        my $name = $group->get('cn');
+        EBox::debug("Loading group $name");
         my $sambaGroup = undef;
         try {
-            my $samAccountName = $group->get('cn');
-            my %params = (
+            my %args = (
+                name => $name,
                 parent => $parent,
-                description => scalar ($group->get('description'))
+                description => scalar ($group->get('description')),
             );
             if ($group->isSecurityGroup()) {
-                $params{gidNumber} = scalar ($group->get('gidNumber'));
-                $params{security} = 1;
+                $args{gidNumber} = scalar ($group->get('gidNumber'));
+                $args{isSecurityGroup} = $group->isSecurityGroup();
             };
-            $sambaGroup = EBox::Samba::Group->create($samAccountName, \%params);
+            $sambaGroup = EBox::Samba::Group->create(%args);
         } catch EBox::Exceptions::DataExists with {
-            EBox::debug("Group $rDn already in Samba database");
+            EBox::debug("Group $name already in Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading group '$rDn': $error");
+            EBox::error("Error loading group '$name': $error");
         };
         next unless defined $sambaGroup;
 
@@ -641,6 +630,34 @@ sub ldapServicePrincipalsToLdb
     my $fqdn = $sysinfo->fqdn();
 
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    my $usersMod = EBox::Global->modInstance('users');
+    my $sambaMod = EBox::Global->modInstance('samba');
+
+    my $baseDn = $usersMod->ldap()->dn();
+    my $realm = $usersMod->kerberosRealm();
+    my $ldapKerberosDN = "ou=Kerberos,$baseDn";
+    my $ldapKerberosOU = new EBox::Users::OU(dn => $ldapKerberosDN);
+
+    # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
+    return unless ($ldapKerberosOU->exists());
+
+    my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
+    unless ($ldbKerberosOU) {
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU->parent());
+        if (not $parent) {
+            throw EBox::Exceptions::External("Unable to to find the container for '$ldbKerberosOU' in Samba");
+        }
+        my $name = $ldapKerberosOU->name();
+        my $parentDN = $parent->dn();
+        EBox::debug("Loading OU $name into $parentDN");
+        try {
+            $ldbKerberosOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+        } otherwise {
+            my $error = shift;
+            throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN': $error");
+        };
+    }
+
     foreach my $module (@{$modules}) {
         my $principals = $module->kerberosServicePrincipals();
         my $samAccountName = "$principals->{service}-$hostname";
@@ -650,11 +667,8 @@ sub ldapServicePrincipalsToLdb
                 # Get the heimdal user to extract the kerberos keys. All service
                 # principals for each module should have the same keys, so take
                 # the first one.
-                my $usersModule = EBox::Global->modInstance('users');
                 my $p = @{$principals->{principals}}[0];
-                my $baseDn = $usersModule->ldap->dn();
-                my $realm = $usersModule->kerberosRealm();
-                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
+                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
                 my $user = new EBox::Users::User(dn => $dn, internal => 1);
                 # If the user does not exists the module has not been enabled yet
                 next unless ($user->exists());
@@ -662,6 +676,7 @@ sub ldapServicePrincipalsToLdb
                 EBox::info("Importing service principal $dn");
                 my %args = (
                     name           => scalar ($user->get('cn')),
+                    parent         => $ldbKerberosOU,
                     samAccountName => scalar ($samAccountName),
                     description    => scalar ($user->get('description')),
                     kerberosKeys   => $user->kerberosKeys(),
