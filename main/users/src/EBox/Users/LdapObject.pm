@@ -193,7 +193,7 @@ sub deleteValues
 #
 sub deleteObject
 {
-    my ($self, $attr, $lazy) = @_;
+    my ($self) = @_;
 
     $self->_entry->delete();
     $self->save();
@@ -238,15 +238,16 @@ sub remove
 sub save
 {
     my ($self) = @_;
-    my $entry= $self->_entry;
+    my $entry = $self->_entry;
 
     my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-            throw EBox::Exceptions::LDAP( message => __('There was an error updating LDAP:'),
-                                          result =>   $result,
-                                          opArgs   => $self->entryOpChangesInUpdate($entry),
-                                         );
+            throw EBox::Exceptions::LDAP(
+                message => __('There was an error updating LDAP:'),
+                result =>   $result,
+                opArgs   => $self->entryOpChangesInUpdate($entry),
+            );
         }
     }
 }

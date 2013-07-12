@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::Samba::LdbObject inherites from EBox::Users::LdapObject to reuse
+	  as much code as possible.
 	+ Do not try to start nmbd if smb.conf is not written
 	+ Use krb5 keys on new users when plain password not available
 	+ Removed EBox::Samba::Group::usersNotIn() method. It was not used neither
