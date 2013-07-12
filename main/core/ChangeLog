@@ -1,4 +1,5 @@
 HEAD
+	+ Do not use hidden form fields for generating confirmation dialog JS
 	+ Fixed log bugs: use correct RO mode in loggerd, fixed behaviour
 	  when all log helpers are disabled, enable logs correctly when
 	  added by first time to configure logs table
