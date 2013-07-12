@@ -381,15 +381,21 @@ sub _usersMod
 #
 #   Return a string representing the object's canonical name.
 #
+#   Parameters:
+#
+#       excludeRoot - Whether the LDAP root's canonical name should be excluded
+#
 sub canonicalName
 {
-    my ($self) = @_;
+    my ($self, $excludeRoot) = @_;
 
     my $parent = $self->parent();
 
     my $canonicalName = '';
     if ($parent) {
-        $canonicalName = $parent->canonicalName() . '/';
+        unless ($excludeRoot and (not $parent->parent())) {
+            $canonicalName = $parent->canonicalName() . '/';
+        }
     }
 
     $canonicalName .= $self->baseName();

@@ -128,40 +128,44 @@ sub create
 
 sub addToZentyal
 {
-    my ($self, $ou) = @_;
-    $ou or throw EBox::Exceptions::MissingArgument('ou');
+    my ($self) = @_;
 
-    my $fullName = $self->get('name');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+
+    if (not $parent) {
+        my $dn = $self->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
+    }
+    my $name = $self->get('name');
     my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
     my $surName = $self->get('sn');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
+    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $parent = EBox::Users::Contact->defaultContainer();
+    my $zentyalContact = undef;
+    EBox::info("Adding samba contact '$name' to Zentyal");
+    try {
+        my %args = (
+            parent       => $parent,
+            fullname     => scalar ($name),
+            givenName    => scalar ($givenName),
+            initials     => scalar ($self->get('initials')),
+            surname      => scalar ($surName),
+            displayname  => scalar ($self->get('displayName')),
+            description  => scalar ($self->get('description')),
+            ignoreMods   => ['samba'],
+        );
 
-    my %args = (
-        fullname => $fullName,
-        givenname => $givenName,
-        initials => $initials,
-        surname => $surName,
-        displayname => $displayName,
-        description => $description,
-        parent => $parent,
-        ignoreMods => ['samba'],
-    );
-
-    EBox::info("Adding samba contact '$fullName' to Zentyal");
-    my $zentyalContact = EBox::Users::Contact->create(%args);
-    $zentyalContact->exists() or
-        throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
-
-    $zentyalContact->setIgnoredModules(['samba']);
+        EBox::Users::Contact->create(%args);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("Contact $name already in OpenLDAP database");
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading contact '$contact': $error");
+    };
 }
-
-
 
 sub updateZentyal
 {
@@ -170,23 +174,18 @@ sub updateZentyal
     my $name = $self->get('name');
     EBox::info("Updating zentyal contact '$name'");
 
-    my $zentyalUser = undef;
-    my $fullName = $name;
     my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
     my $surName = $self->get('sn');
+    my $fullName = $self->get('cn');
+    my $initials = $self->get('initials');
     my $displayName = $self->get('displayName');
     my $description = $self->get('description');
     $givenName = '-' unless defined $givenName;
     $surName = '-' unless defined $surName;
 
-    my $users = EBox::Global->modInstance('users');
-
-    my $dn = 'cn=' . $name . ',' . $users->usersDn();
-
-    my $zentyalContact = new EBox::Users::Contact(dn => $dn);
-    $zentyalContact->exists() or
-        throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist");
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $zentyalContact = $sambaMod->ldapObjectFromLDBObject($self);
+    throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist") unless ($zentyalContact and $zentyalContact->exists());
 
     $zentyalContact->setIgnoredModules(['samba']);
     $zentyalContact->set('cn', $fullName, 1);

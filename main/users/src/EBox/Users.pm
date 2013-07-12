@@ -1065,7 +1065,7 @@ sub reloadNSCD
 
 # Method: ous
 #
-#       Returns an array containing all the OUs
+#       Returns an array containing all the OUs sorted by canonicalName
 #
 # Returns:
 #
@@ -1094,7 +1094,9 @@ sub ous
         push (@ous, $ou);
     }
 
-    return \@ous;
+    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+
+    return \@sortedOUs;
 }
 
 # Method: userByUID

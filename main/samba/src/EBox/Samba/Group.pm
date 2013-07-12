@@ -223,53 +223,65 @@ sub create
 
 sub addToZentyal
 {
-    my ($self, $ou) = @_;
-    $ou or throw EBox::Exceptions::MissingArgument('ou');
+    my ($self) = @_;
 
-    my $name      = $self->get('samAccountName');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+    if (not $parent) {
+        my $dn = $self->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
+    }
+    my $parentDN = $parent->dn();
+    my $name = $self->get('samAccountName');
     my $gidNumber = $self->get('gidNumber');
 
-    my @params = (
-        name => $name,
-        description =>  $self->get('description'),
-        parent => $ou,
-        ignoreMods  => ['samba'],
-    );
-    EBox::info("Adding samba group '$name' to Zentyal");
     my $zentyalGroup = undef;
+    EBox::info("Adding samba group '$name' to Zentyal");
+    try {
+        my @params = (
+            name => $name,
+            parent => $parent,
+            description =>  $self->get('description'),
+            isSecurityGroup => $self->isSecurityGroup(),
+            isSystemGroup => 0,
+            ignoreMods  => ['samba'],
+        );
 
-    if (not $gidNumber) {
-        $gidNumber = $self->getXidNumberFromRID();
-        $gidNumber or
-            throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
-        $self->set('gidNumber', $gidNumber);
+        if ($self->isSecurityGroup()) {
+            if (not $gidNumber) {
+                $gidNumber = $self->getXidNumberFromRID();
+                throw EBox::Exceptions::Internal("Could not get gidNumber for group $name") unless ($gidNumber);
+                $self->set('gidNumber', $gidNumber);
+            }
+
+            push @params, gidNumber => $gidNumber;
+            $self->setupGidMapping($gidNumber);
+        }
+
+        $zentyalGroup = EBox::Users::Group->create(@params);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("Group $name already in Samba database");
+        $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading group '$name': $error");
+    };
+
+    if ($zentyalGroup && $zentyalGroup->exists()) {
+        $self->_membersToZentyal($zentyalGroup);
     }
-
-    push @params, gidNumber => $gidNumber;
-    $self->setupGidMapping($gidNumber);
-
-    push @params, isSecurityGroup => $self->isSecurityGroup();
-    push @params, isSystemGroup   => 0;
-    $zentyalGroup = EBox::Users::Group->create(@params);
-    $zentyalGroup->exists() or throw EBox::Exceptions::Internal("Error adding samba group '$name' to Zentyal");
-
-    $self->_membersToZentyal($zentyalGroup);
 }
 
 sub updateZentyal
 {
     my ($self) = @_;
 
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
     my $gid = $self->get('samAccountName');
     EBox::info("Updating zentyal group '$gid'");
 
-    my $zentyalGroup = undef;
-
-    my $desc = $self->get('description');
-
-    $zentyalGroup = new EBox::Users::Group(gid => $gid);
-    $zentyalGroup->exists() or
-        throw EBox::Exceptions::Internal("Zentyal group '$gid' does not exist");
+    my $description = $self->get('description');
 
     $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->setSecurityGroup($self->isSecurityGroup(), 1);

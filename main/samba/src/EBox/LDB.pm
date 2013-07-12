@@ -456,7 +456,7 @@ sub ldapOUsToLDB
     my $usersMod = $global->modInstance('users');
     my $sambaMod = $global->modInstance('samba');
 
-    my @ous = @{ EBox::Samba::OU->orderOUList($usersMod->ous()) };
+    my @ous = @{ $usersMod->ous() };
     foreach my $ou (@ous) {
         my $parent = $sambaMod->ldbObjectFromLDAPObject($ou->parent);
         if (not $parent) {
@@ -592,10 +592,10 @@ sub ldapGroupsToLdb
                 name => $name,
                 parent => $parent,
                 description => scalar ($group->get('description')),
+                isSecurityGroup => $group->isSecurityGroup(),
             );
             if ($group->isSecurityGroup()) {
                 $args{gidNumber} = scalar ($group->get('gidNumber'));
-                $args{isSecurityGroup} = $group->isSecurityGroup();
             };
             $sambaGroup = EBox::Samba::Group->create(%args);
         } catch EBox::Exceptions::DataExists with {
@@ -801,7 +801,9 @@ sub ous
         push (@ous, $ou);
     }
 
-    return \@ous;
+    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+
+    return \@sortedOUs;
 }
 
 # Method: dnsZones

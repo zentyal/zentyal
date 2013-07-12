@@ -2027,6 +2027,43 @@ sub computers
     return \@computers;
 }
 
+# Method: ldapDNFromLDBDN
+sub ldapDNFromLDBDN
+{
+    my ($self, $ldbDN) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+
+    my $relativeDN = $self->relativeDN($ldbDN);
+    # Computers and Users are not OUs for Samba.
+    $relativeDN =~ s/CN=Users$/ou=Users/gi;
+    $relativeDN =~ s/CN=Computers$/ou=Computers/gi;
+    my $dn = '';
+    if ($relativeDN) {
+        $dn = $relativeDN .  ',';
+    }
+    $dn .= $usersMod->ldap()->dn();
+    return $dn;
+}
+
+# Method: ldapObjectFromLDBObject
+#
+#   Return the perl Object that handles in OpenLDAP the given perl object from Samba or undef if not found.
+#
+sub ldapObjectFromLDBObject
+{
+    my ($self, $ldbObject) = @_;
+
+    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
+    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+
+    EBox::debug($ldbObject->dn());
+    my $ldapDN = $self->ldapDNFromLDBDN($ldbObject->dn());
+    EBox::debug($ldapDN);
+    my $usersMod = EBox::Global->modInstance('users');
+    return $usersMod->objectFromDN($ldapDN);
+}
+
 # Method: ldbDNFromLDAPDN
 sub ldbDNFromLDAPDN
 {
