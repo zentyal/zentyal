@@ -1,4 +1,5 @@
 HEAD
+	+ Added foldable user and group add-ons to dialogs
 	+ Fixed error in the baseName() method for an Ldap Object
 	+ Fixed bug which make delete group dialog to show errors when
 	  there was warnings

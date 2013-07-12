@@ -78,9 +78,10 @@ sub childNodes
             next if ($printableName eq 'Kerberos');
         } elsif ($child->isa('EBox::Users::User')) {
             $type = 'user';
-            $printableName = $child->fullname();
-            unless ($printableName) {
-                $printableName = $child->name();
+            $printableName = $child->name();
+            my $fullname = $child->fullname();
+            if ($fullname) {
+                $printableName .= " ($fullname)";
             }
         } elsif ($child->isa('EBox::Users::Contact')) {
             $type = 'contact';

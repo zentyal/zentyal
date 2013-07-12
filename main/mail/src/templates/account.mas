@@ -6,8 +6,7 @@ use EBox::Gettext;
 </%init>
 % if  (not  @{$ params->{vdomains} } ) {
 <& .noVdomains &>
-% }
-%elsif($params->{'mail'} eq undef) {
+% } elsif($params->{'mail'} eq undef) {
     <& /mail/createaccount.mas, params => $params &>
 %} else {
     <& /mail/alias.mas, params => $params &>

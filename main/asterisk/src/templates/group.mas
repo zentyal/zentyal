@@ -4,7 +4,6 @@
 <%init>
     use EBox::Gettext;
 </%init>
-   <h3><% __('Asterisk group queue') %></h3>
 %# this div is only so editgroup.mas could knew this addon is active
    <div id='needReload' />
 

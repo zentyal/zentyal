@@ -4,9 +4,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-
-<h3><% __('Mail account settings') %></h3>
-
 % if (not $params->{service} ) {
      <& /mail/moduleDisabled.mas &>
 % }

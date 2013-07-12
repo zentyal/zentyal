@@ -58,7 +58,11 @@ sub _userAddOns
             'service'  => $self->{jabber}->isEnabled(),
            };
 
-    return { path => '/jabber/jabber.mas', params => $args };
+    return {
+        title =>  __('Jabber account'),
+        path => '/jabber/jabber.mas',
+        params => $args
+       };
 }
 
 sub schemas

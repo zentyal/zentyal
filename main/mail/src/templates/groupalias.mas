@@ -4,8 +4,6 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Mail alias settings') %></h3>
-
 %# this div is only so editgroup.mas could knew this addon is active
 <div id='needReload' />
 %       if($params->{'nacc'} eq 0) {

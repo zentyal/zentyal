@@ -4,7 +4,7 @@
 <%init>
     use EBox::Gettext;
 </%init>
-    <h3><% __('Jabber account') %></h3>
+    <h3><% %></h3>
 
     <& .jabberDisabledWarning, $params &>
 

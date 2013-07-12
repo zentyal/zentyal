@@ -674,7 +674,7 @@ h3 {
 }
 
 h4 {
-    font-size: 12px;
+    font-size: 16px;
     color: #666464;
     margin-top: 10px;
     margin-bottom: 7px;
@@ -955,7 +955,7 @@ filter: alpha(opacity=100);
     color: #4c4c4c;
     margin: 3px;
     font-weight: bold;
-    padding: 1px 1px 1px 3px;
+    padding: 1px;
     line-height: 14px;
 }
 
@@ -1922,6 +1922,8 @@ float:left;
     width: 100%;
 }
 
+
+
 .treeView {
     min-height: 480px;
     border: 1px solid #ccc;
@@ -1964,16 +1966,86 @@ position: relative;
 display: inline-block;
 }
 .custom-combobox-toggle {
-position: absolute;
-top: 0;
-bottom: 0;
-margin-left: -1px;
-padding: 0;
-/* support: IE7 */
-*height: 1.7em;
-*top: 0.1em;
+    background-color: #DDDDDD;
+    border-color: #999999;
+    border-style: solid;
+    border-width: 1px 2px 2px 0;
+    bottom: 0;
+    height: 25px;
+    margin-left: -3px;
+    top: 0;
+    vertical-align: top !important;
 }
 .custom-combobox-input {
-margin: 0;
-padding: 0.3em;
+    margin: 0;
+    padding: 0.45em;
+    background-image: -moz-linear-gradient(center top , #F5F5F5, #FFFFFF);
+    border: 1px solid #A5A5A5;
+    border-radius: 3px 3px 3px 3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius: 3px;
 }
+.ui-autocomplete{
+    background-color: #eee !important;
+    border: 1px solid #999 !important;
+    border-radius: 0px 0px 3px 3px !important;
+    -webkit-border-radius:0px 0px 3px 3px !important;
+    -moz-border-radius: 0px 0px 3px 3px !important;
+}
+
+/**********************
+    USER and groups
+***********************/
+
+#edit_user h4 {
+    margin-top: 0px;
+}
+
+.form-block{
+    padding: 10px;
+    background-color: whitesmoke;
+    border-radius:3px;
+    margin: 5px;
+    -webkit-border-radius:3px;
+    -moz-border-radius: 3px;
+}
+
+#user_groups {
+    float: left;
+    width: 310px;
+}
+
+#user_attrs {
+    float: left;
+    width: 240px;
+}
+
+#user_addons {
+    float: left;
+    width: 580px;
+}
+
+ul#userGroups {
+    padding-left: 0px;
+}
+
+ul#userGroups li{
+    background-color: #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius:15px;
+    -webkit-border-radius: 15px;
+    -moz-border-radius: 15px;
+    color: #333333;
+    font-size: 14px;
+    font-weight: bold;
+    list-style: none outside none;
+    padding: 5px 20px;
+    position: relative;
+    margin-bottom: 3px;
+}
+ul#userGroups li input{
+    position: absolute;
+    top:3px;
+    right:5px;
+}
+
