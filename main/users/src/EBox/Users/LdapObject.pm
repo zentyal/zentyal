@@ -507,8 +507,6 @@ sub children
 #
 #   Throw EBox::Exceptions::Internal on error.
 #
-# TODO
-#   bug: dns with same or less commponents of root DN are not treated properly
 sub parent
 {
     my ($self, $dn) = @_;
@@ -523,7 +521,13 @@ sub parent
     return undef if ($dn eq $defaultNamingContext->dn());
 
     my $parentDn = $self->baseDn($dn);
-    return $usersMod->objectFromDN($parentDn);
+    my $parent = $usersMod->objectFromDN($parentDn);
+
+    if ($parent) {
+        return $parent;
+    } else {
+        throw EBox::Exceptions::Internal("The dn '$dn' is not representing a valid parent!");
+    }
 }
 
 # Method: relativeDN
