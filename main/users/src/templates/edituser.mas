@@ -15,9 +15,9 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 
 <div id="edit_user">
 
-<h3><% __('Administration of user') %> <span class='stitle'><% $user->name() %></span></h3>
 <div id='error_editUserForm' class='error' style='display:none'></div>
-<div id="user_attrs" style="height: 320px; float: left">
+<div id="user_attrs" class="form-block">
+  <h4><% __('User profile') %> | <% $user->name() %></h4>
       <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
@@ -115,7 +115,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
      </form>
 </div>
 
-<div id="user_groups" style="float: right;">
+<div id="user_groups" class="form-block">
+<h4> <% __('User groups') %></h4>
 % unless ($slave) {
 <& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
 % } else {
@@ -123,7 +124,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % }
 </div>
 
-<div id="user_addons"  style="float: left;">
+<div id="user_addons" class="form-block">
+<h4> <% __('Addons configuration') %></h4>
 % foreach my $comp (@components) {
   <div class="stitle">
     <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
@@ -193,7 +195,7 @@ $(function() {
             userGroups.detach();
             userGroups.children().remove();
             if (data.member.length === 0) {
-                userGroups.append('<div class="note"><% __('This user is not member of any group') %></div>');
+                userGroups.append('<div><% __('This user is not member of any group') %></div>');
             }
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
