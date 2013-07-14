@@ -25,100 +25,101 @@ use EBox::Gettext;
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Network Interfaces'),
-				      'template' => '/network/ifaces.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Network Interfaces'),
+            'template' => '/network/ifaces.mas',
+            @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	$self->{params} = $self->masonParameters();
+    my $self = shift;
+    $self->{params} = $self->masonParameters();
 }
 
 sub masonParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  my $net = EBox::Global->modInstance('network');
-  my $ifname = $self->param('iface');
-  ($ifname) or $ifname = '';
+    my $net = EBox::Global->modInstance('network');
+    my $ifname = $self->param('iface');
+    ($ifname) or $ifname = '';
 
-  my $tmpifaces = $net->ifaces();
-  my $iface = {};
-  if ($ifname eq '') {
-    $ifname = @{$tmpifaces}[0];
-  }
-
-  my @params = ();
-  my @bridges = ();
-  my @ifaces = ();
-
-  foreach (@{$tmpifaces}) {
-    my $ifinfo = {};
-    $ifinfo->{'name'} = $_;
-    $ifinfo->{'alias'} = $net->ifaceAlias($_);
-    push(@ifaces,$ifinfo);
-    ($_ eq $ifname) or next;
-    $iface->{'name'} = $_;
-    $iface->{'alias'} = $net->ifaceAlias($_);
-    $iface->{'method'} = $net->ifaceMethod($_);
-    if ($net->ifaceIsExternal($_)) {
-      $iface->{'external'} = "yes";
-    } else {
-      $iface->{'external'} = "no";
+    my $tmpifaces = $net->ifaces();
+    my $iface = {};
+    if ($ifname eq '') {
+        $ifname = @{$tmpifaces}[0];
     }
-    if ($net->ifaceMethod($_) eq 'static') {
-      $iface->{'address'} = $net->ifaceAddress($_);
-      $iface->{'netmask'} = $net->ifaceNetmask($_);
-      $iface->{'virtual'} = $net->vifacesConf($_);
-    } elsif ($net->ifaceMethod($_) eq 'trunk') {
-      push(@params, 'vlans' => $net->ifaceVlans($_));
-    } elsif ($net->ifaceMethod($_) eq 'bridged') {
-      $iface->{'bridge'} = $net->ifaceBridge($_);
-    } elsif ($net->ifaceMethod($_) eq 'ppp') {
-      $iface->{'ppp_user'} = $net->ifacePPPUser($_);
-      $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
+
+    my @params = ();
+    my @bridges = ();
+    my @ifaces = ();
+
+    foreach (@{$tmpifaces}) {
+        my $ifinfo = {};
+        $ifinfo->{'name'} = $_;
+        $ifinfo->{'alias'} = $net->ifaceAlias($_);
+        push(@ifaces,$ifinfo);
+        ($_ eq $ifname) or next;
+        $iface->{'name'} = $_;
+        $iface->{'alias'} = $net->ifaceAlias($_);
+        $iface->{'method'} = $net->ifaceMethod($_);
+        if ($net->ifaceIsExternal($_)) {
+            $iface->{'external'} = "yes";
+        } else {
+            $iface->{'external'} = "no";
+        }
+        if ($net->ifaceMethod($_) eq 'static') {
+            $iface->{'address'} = $net->ifaceAddress($_);
+            $iface->{'netmask'} = $net->ifaceNetmask($_);
+            $iface->{'virtual'} = $net->vifacesConf($_);
+        } elsif ($net->ifaceMethod($_) eq 'trunk') {
+            push(@params, 'vlans' => $net->ifaceVlans($_));
+        } elsif ($net->ifaceMethod($_) eq 'bridged') {
+            $iface->{'bridge'} = $net->ifaceBridge($_);
+        } elsif ($net->ifaceMethod($_) eq 'ppp') {
+            $iface->{'ppp_user'} = $net->ifacePPPUser($_);
+            $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
+        }
     }
-  }
-  my $externalWarning = 0;
-  if ($net->ifaceIsExternal($ifname)) {
-	$externalWarning = _externalWarning($ifname);
-  }
+    my $externalWarning = 0;
+    if ($net->ifaceIsExternal($ifname)) {
+        $externalWarning = _externalWarning($ifname);
+    }
 
-  foreach my $bridge ( @{$net->bridges()} ) {
-    my $brinfo = {};
-    $brinfo->{'id'} = $bridge;
-    $brinfo->{'name'} = "br$bridge";
-    $brinfo->{'alias'} = $net->ifaceAlias("br$bridge");
-    push(@bridges, $brinfo);
-  }
+    foreach my $bridge ( @{$net->bridges()} ) {
+        my $brinfo = {};
+        $brinfo->{'id'} = $bridge;
+        $brinfo->{'name'} = "br$bridge";
+        $brinfo->{'alias'} = $net->ifaceAlias("br$bridge");
+        push(@bridges, $brinfo);
+    }
 
-  push(@params, 'externalWarning' => $externalWarning);
-  push(@params, 'iface' => $iface);
-  push(@params, 'ifaces' => \@ifaces);
-  push(@params, 'bridges', => \@bridges);
+    push(@params, 'externalWarning' => $externalWarning);
+    push(@params, 'iface' => $iface);
+    push(@params, 'ifaces' => \@ifaces);
+    push(@params, 'bridges', => \@bridges);
 
-  return \@params;
+    return \@params;
 }
 
 sub _externalWarning
 {
-  my ($iface) =  @_;
-  my $req = Apache2::RequestUtil->request();
+    my ($iface) =  @_;
+    my $req = Apache2::RequestUtil->request();
 
-  return 0 unless ($req);
-  my $remote = $req->connection->remote_ip();
-  my $command = "/sbin/ip route get to $remote "
-		. ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
-  my $routeIface = `$command`;
-  return 0 unless ( $? == 0);
-  chop($routeIface);
-  if (defined($routeIface) and $routeIface eq $iface) {
-	return 1;
-  }
+    return 0 unless ($req);
+    my $remote = $req->connection->remote_ip();
+    my $command = "/sbin/ip route get to $remote "
+        . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
+    my $routeIface = `$command`;
+    return 0 unless ( $? == 0);
+    chop($routeIface);
+    if (defined($routeIface) and $routeIface eq $iface) {
+        return 1;
+    }
 }
+
 1;
