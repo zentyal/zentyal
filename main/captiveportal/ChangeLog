@@ -1,4 +1,4 @@
-HEAD
+3.0.5
 	+ Use MAC address in object exception
 	+ Fixed bug in exceptions firewall rules
 	+ Adapt firewall rules to new accept chains
