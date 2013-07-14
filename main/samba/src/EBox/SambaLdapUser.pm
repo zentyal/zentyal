@@ -117,10 +117,13 @@ sub _preAddUser
 
     my $dn = $entry->dn();
     my $name        = $entry->get_value('cn');
-    my $description = $entry->get_value('description');
     my $givenName   = $entry->get_value('givenName');
-    my $surName     = $entry->get_value('sn');
+    my $initials    = $entry->get_value('initials');
+    my $surname     = $entry->get_value('sn');
+    my $displayName = $entry->get_value('displayName');
+    my $description = $entry->get_value('description');
     my $uid         = $entry->get_value('uid');
+    my $uidNumber   = $entry->get_value('uidNumber');
 
     # FIXME: ldbDNFromLDAPDN returns a DN with uid instead of cn but it is ok for get the parent
     my $parent = EBox::Samba::User->parent($self->{samba}->ldbDNFromLDAPDN($entry->dn()));
@@ -129,15 +132,17 @@ sub _preAddUser
         name           => $name,
         parent         => $parent,
         samAccountName => $uid,
-        description    => $description,
         givenName      => $givenName,
-        sn             => $surName,
+        initials       => $initials,
+        sn             => $surname,
+        displayName    => $displayName,
+        description    => $description,
     );
 
     EBox::info("Creating user '$uid'");
     my $sambaUser = EBox::Samba::User->create(%args);
     my $newUidNumber = $sambaUser->getXidNumberFromRID();
-    EBox::debug("Changing uidNumber from $uid to $newUidNumber");
+    EBox::debug("Changing uidNumber from $uidNumber to $newUidNumber");
     $sambaUser->set('uidNumber', $newUidNumber);
     $sambaUser->setupUidMapping($newUidNumber);
     $entry->replace('uidNumber' => $newUidNumber);

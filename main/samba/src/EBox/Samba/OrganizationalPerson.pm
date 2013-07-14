@@ -30,6 +30,60 @@ use EBox::Exceptions::UnwillingToPerform;
 
 use EBox::Samba::Group;
 
+# Method: name
+#
+#   Return the name of this person
+#
+sub name
+{
+    return $self->get('cn');
+}
+
+# Method: givenName
+#
+#   Return the given name of this person
+#
+sub givenName
+{
+    return $self->get('givenName');
+}
+
+# Method: initials
+#
+#   Return the initials of this person
+#
+sub initials
+{
+    return $self->get('initials');
+}
+
+# Method: surname
+#
+#   Return the surname of this person
+#
+sub surname
+{
+    return $self->get('sn');
+}
+
+# Method: displayName
+#
+#   Return the display name of this person
+#
+sub displayName
+{
+    return $self->get('displayName');
+}
+
+# Method: description
+#
+#   Return the description of this person
+#
+sub description
+{
+    return $self->get('description');
+}
+
 # Method: addGroup
 #
 #   Add this person to the given group

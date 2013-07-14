@@ -253,11 +253,9 @@ sub children
         push (@objects, $object) if ($object);
     }
 
-    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
-    # FIXME: Fix the API so all ldapobjects have a valid name method to use here.
     @objects = sort {
-        my $aValue = $a->dn();
-        my $bValue = $b->dn();
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
         (lc $aValue cmp lc $bValue) or
         ($aValue cmp $bValue)
     } @objects;

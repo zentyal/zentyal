@@ -423,11 +423,11 @@ sub addToZentyal
         throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
     }
     my $uid = $self->self('samAccountName');
-    my $givenName = $self->get('givenName');
-    my $surName = $self->get('sn');
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
     my $uidNumber = $self->get('uidNumber');
-    $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
+    $givenName = '-' unless $givenName;
+    $surname = '-' unless $surname;
 
     my $zentyalUser = undef;
     EBox::info("Adding samba user '$uid' to Zentyal");
@@ -435,12 +435,12 @@ sub addToZentyal
         my %args = (
             uid          => scalar ($uid),
             parent       => $parent,
-            fullname     => scalar ($self->get('cn')),
-            givenName    => scalar ($givenName),
-            initials     => scalar ($self->get('initials')),
-            surname      => scalar ($surName),
-            displayname  => scalar ($self->get('displayName')),
-            description  => scalar ($self->get('description')),
+            fullname     => $self->name(),
+            givenName    => $givenName,
+            initials     => $self->initials(),
+            surname      => $surname,
+            displayname  => $self->displayName(),
+            description  => $self->description(),
             ignoreMods   => ['samba'],
         );
 
@@ -484,14 +484,14 @@ sub updateZentyal
 
     my $zentyalUser = undef;
     my $uid = $self->self('samAccountName');
-    my $givenName = $self->get('givenName');
-    my $surName = $self->get('sn');
-    my $fullName = $self->get('cn');
-    my $initials = $self->get('initials');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
-    $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
+    my $fullName = $self->name();
+    my $initials = $self->initials();
+    my $displayName = $self->displayName();
+    my $description = $self->description();
+    $givenName = '-' unless $givenName;
+    $surName = '-' unless $surname;
 
     $zentyalUser = new EBox::Users::User(uid => $uid);
     throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist") unless ($zentyalUser and $zentyalUser->exists());
@@ -500,7 +500,7 @@ sub updateZentyal
     $zentyalUser->set('cn', $fullName, 1);
     $zentyalUser->set('givenName', $givenName, 1);
     $zentyalUser->set('initials', $initials, 1);
-    $zentyalUser->set('sn', $surName, 1);
+    $zentyalUser->set('sn', $surname, 1);
     $zentyalUser->set('displayName', $displayName, 1);
     $zentyalUser->set('description', $description, 1);
     $zentyalUser->save();
