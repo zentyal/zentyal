@@ -29,6 +29,7 @@ use EBox::Gettext;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::NotImplemented;
 
 use EBox::Users::User;
 use EBox::Users::Group;
@@ -127,30 +128,18 @@ sub members
 {
     my ($self) = @_;
 
-    my $members = [];
-    my @membersDN = $self->get('member');
-    foreach my $memberDN (@membersDN) {
-        my $obj = new EBox::Samba::LdbObject(dn => $memberDN);
-        my @class = $obj->get('objectClass');
-        if ('user' eq any @class) {
-            push (@{$members}, new EBox::Samba::User(dn => $memberDN));
-            next;
-        }
-        if ('group' eq any @class) {
-            push (@{$members}, new EBox::Samba::Group(dn => $memberDN));
-            next;
-        }
-        if ('contact' eq any @class) {
-            push (@{$members}, new EBox::Samba::Contact(dn => $memberDN));
-            next;
-        }
+    my $sambaMod = $self->_sambaMod();
+    my @members = map {
+        $sambaMod->objectFromDN($_)
+    } $self->get('member');
 
-        # Unknown member type
-        my $dn = $self->dn();
-        EBox::warn("Unknown group member type ($memberDN) found on group $dn");
-    }
+    @members = sort {
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @members;
 
-    return $members;
+    return \@members;
 }
 
 sub setupGidMapping
@@ -285,7 +274,7 @@ sub updateZentyal
 
     $zentyalGroup->setIgnoredModules(['samba']);
     $zentyalGroup->setSecurityGroup($self->isSecurityGroup(), 1);
-    $zentyalGroup->set('description', $desc, 1);
+    $zentyalGroup->set('description', $description, 1);
     $zentyalGroup->save();
 
     $self->_membersToZentyal($zentyalGroup);
@@ -295,13 +284,13 @@ sub _membersToZentyal
 {
     my ($self, $zentyalGroup) = @_;
 
-    return unless (defined $zentyalGroup and $zentyalGroup->exists());
+    return unless ($zentyalGroup and $zentyalGroup->exists());
 
     my $gid = $self->get('samAccountName');
     my $sambaMembersList = $self->members();
-    my $zentyalMembersList = $zentyalGroup->users();
+    my $zentyalMembersList = $zentyalGroup->members();
 
-    my %zentyalMembers = map { $_->get('uid') => $_ } @{$zentyalMembersList};
+    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::Group')) {
@@ -309,54 +298,41 @@ sub _membersToZentyal
             EBox::warn("Member '$dn' is a nested group, not supported!");
             next;
         }
-        if ($sambaMember->isa('EBox::Samba::User')) {
-            my $samAccountName = $sambaMember->get('samAccountName');
-            if (defined $samAccountName) {
-                $sambaMembers{$samAccountName} = $sambaMember;
-                next;
-            }
-            my $dn = $sambaMember->dn();
-            EBox::warn("Member '$dn' does not seem to be a user, skipped");
-        }
-        if ($sambaMember->isa('EBox::Samba::Contact') and
-            EBox::Config::boolean('treat_contacts_as_users')) {
-            my $mail = $sambaMember->get('mail');
-            $mail =~ s/@.*$//;
-            my $aUser = new EBox::Samba::User(samAccountName => $mail);
-            if ($aUser->exists()) {
-                $sambaMembers{$mail} = $aUser;
-                next;
-            }
+        if ($sambaMember->isa('EBox::Samba::User') or $sambaMember->isa('EBox::Samba::Contact')) {
+            my $canonicalName = $sambaMember->canonicalName(1);
+            $sambaMembers{$canonicalName} = $sambaMember;
+            next;
         }
         my $dn = $sambaMember->dn();
         EBox::warn("Unexpected member type ($dn)");
     }
 
-    foreach my $memberName (keys %zentyalMembers) {
-        unless (exists $sambaMembers{$memberName}) {
-            EBox::info("Removing member '$memberName' from Zentyal group '$gid'");
+    foreach my $memberCanonicalName (keys %zentyalMembers) {
+        unless (exists $sambaMembers{$memberCanonicalName}) {
+            EBox::info("Removing member '$memberCanonicalName' from Zentyal group '$gid'");
             try {
-                $zentyalGroup->removeMember($zentyalMembers{$memberName}, 1);
+                $zentyalGroup->removeMember($zentyalMembers{$memberCanonicalName}, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error removing user '$memberName' for group '$gid': $error");
+                EBox::error("Error removing member '$memberCanonicalName' for group '$gid': $error");
             };
          }
     }
 
-    foreach my $memberName (keys %sambaMembers) {
-        unless (exists $zentyalMembers{$memberName}) {
-            EBox::info("Adding member '$memberName' to Zentyal group '$gid'");
-            my $zentyalUser = new EBox::Users::User(uid => $memberName);
-            if (not $zentyalUser->exists()) {
-                EBox::error("Cannot add user '$memberName' to group '$gid' because the user does not exist");
+    my $sambaMod = EBox::Global->modInstance('samba');
+    foreach my $memberCanonicalName (keys %sambaMembers) {
+        unless (exists $zentyalMembers{$memberCanonicalName}) {
+            EBox::info("Adding member '$memberCanonicalName' to Zentyal group '$gid'");
+            my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+            unless ($zentyalMember and $zentyalMember->exists()) {
+                EBox::error("Cannot add member '$memberCanonicalName' to group '$gid' because the member does not exist");
                 next;
             }
             try {
-                $zentyalGroup->addMember($zentyalUser, 1);
+                $zentyalGroup->addMember($zentyalMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding user '$memberName' for group '$gid': $error");
+                EBox::error("Error adding member '$memberCanonicalName' for group '$gid': $error");
             };
         }
     }

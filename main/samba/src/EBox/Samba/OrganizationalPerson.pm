@@ -36,6 +36,7 @@ use EBox::Samba::Group;
 #
 sub name
 {
+    my ($self) = @_;
     return $self->get('cn');
 }
 
@@ -45,6 +46,7 @@ sub name
 #
 sub givenName
 {
+    my ($self) = @_;
     return $self->get('givenName');
 }
 
@@ -54,6 +56,7 @@ sub givenName
 #
 sub initials
 {
+    my ($self) = @_;
     return $self->get('initials');
 }
 
@@ -63,6 +66,7 @@ sub initials
 #
 sub surname
 {
+    my ($self) = @_;
     return $self->get('sn');
 }
 
@@ -72,6 +76,7 @@ sub surname
 #
 sub displayName
 {
+    my ($self) = @_;
     return $self->get('displayName');
 }
 
@@ -81,6 +86,7 @@ sub displayName
 #
 sub description
 {
+    my ($self) = @_;
     return $self->get('description');
 }
 

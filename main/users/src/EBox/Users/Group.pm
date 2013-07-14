@@ -328,30 +328,21 @@ sub contactsNotIn
 #
 # Returns:
 #
-#   arrary ref of members (EBox::Users::InetOrgPerson)
+#   arrary ref of members
 #
 sub members
 {
     my ($self) = @_;
 
-    my %attrs = (
-        base => $self->_ldap->dn(),
-        filter => "(memberof=$self->{dn})",
-        scope => 'sub',
-    );
-
-    my $result = $self->_ldap->search(\%attrs);
-
+    my $usersMod = $self->_usersMod();
     my @members = map {
-        EBox::Users::InetOrgPerson->new(entry => $_)
-    } $result->entries();
+        $usersMod->objectFromDN($_)
+    } $self->get('member');
 
-    # sort by fullname
     @members = sort {
-            my $aValue = $a->fullname();
-            my $bValue = $b->fullname();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
     } @members;
 
     return \@members;

@@ -1,4 +1,7 @@
 HEAD
+	+ Reimplemented EBox::Users::Group::members to retrieve the members of the
+	  group directly instead of searching for the objects that are set as
+	  members of the group.
 	+ Fixed error in the baseName() method for an Ldap Object
 	+ Fixed bug which make delete group dialog to show errors when
 	  there was warnings

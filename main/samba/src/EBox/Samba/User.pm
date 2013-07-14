@@ -483,7 +483,6 @@ sub updateZentyal
     EBox::info("Updating zentyal user '$uid'");
 
     my $zentyalUser = undef;
-    my $uid = $self->self('samAccountName');
     my $givenName = $self->givenName();
     my $surname = $self->surname();
     my $fullName = $self->name();
@@ -491,7 +490,7 @@ sub updateZentyal
     my $displayName = $self->displayName();
     my $description = $self->description();
     $givenName = '-' unless $givenName;
-    $surName = '-' unless $surname;
+    $surname = '-' unless $surname;
 
     $zentyalUser = new EBox::Users::User(uid => $uid);
     throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist") unless ($zentyalUser and $zentyalUser->exists());
