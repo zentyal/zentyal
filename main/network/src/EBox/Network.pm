@@ -3923,6 +3923,30 @@ sub wakeonlan
     return `wakeonlan $param 2>&1`;
 }
 
+# Method: externalConnectionWarning
+#
+#   Checks if the given iface is being used to connect to the Zentyal UI.
+#   This is used to warn when trying to set is as external in the Interfaces
+#   configuration or in the initial wizard.
+#
+# Parameters:
+#
+#   iface - name of the iface to check
+#
+sub externalConnectionWarning
+{
+    my ($self, $iface) =  @_;
+
+    my $remote = $ENV{HTTP_X_FORWARDED_FOR};
+    my $command = "/sbin/ip route get to $remote" . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
+    my $routeIface = `$command`;
+    return 0 unless ($? == 0);
+    chop($routeIface);
+    if (defined($routeIface) and ($routeIface eq $iface)) {
+        return 1;
+    }
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
