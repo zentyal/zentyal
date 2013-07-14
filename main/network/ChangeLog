@@ -1,4 +1,6 @@
 HEAD
+	+ Warning in initial configuration wizard when trying to set as external
+	  the interface used to access the administration interface
 	+ To fix dhclient erratic behaviour, we always restart the dhcp interfaces
 	+ Corrected typo in message on tab multigw when only one gw is present
 	+ Better check for ipv6 presence before disabling it

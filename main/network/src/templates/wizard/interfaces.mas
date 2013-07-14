@@ -5,6 +5,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Network interfaces') %></h3>
+<div id="wizard_error"></div>
 <form method="post" action="./Network/Wizard/Ifaces" style="text-align: center">
         <div><img src="/data/images/interfaces.png" /></div>
         <h4><% __('Configure interface types') %></h4>
@@ -22,4 +23,18 @@ use EBox::Gettext;
 
         </div>
 </form>
-
+<script>
+% foreach my $iface (@ifaces) {
+    $('[name=<% $iface %>_scope]').change(function () {
+        $.getJSON('/Network/Wizard/Ifaces', 'iface=<% $iface %>', function (data) {
+            if (!data.success) {
+                if ($('input[name=<% $iface %>_scope]:radio:checked').val() == 'external') {
+                    $('#wizard_error').html(data.error).show(500);
+                } else {
+                    $('#wizard_error').hide();
+                }
+            }
+        });
+    });
+% }
+</script>

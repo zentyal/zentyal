@@ -84,12 +84,13 @@ sub masonParameters
             $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
         }
     }
+
     my $externalWarning = 0;
     if ($net->ifaceIsExternal($ifname)) {
-        $externalWarning = _externalWarning($ifname);
+        $externalWarning = $net->externalConnectionWarning($ifname);
     }
 
-    foreach my $bridge ( @{$net->bridges()} ) {
+    foreach my $bridge (@{$net->bridges()}) {
         my $brinfo = {};
         $brinfo->{'id'} = $bridge;
         $brinfo->{'name'} = "br$bridge";
@@ -103,23 +104,6 @@ sub masonParameters
     push(@params, 'bridges', => \@bridges);
 
     return \@params;
-}
-
-sub _externalWarning
-{
-    my ($iface) =  @_;
-    my $req = Apache2::RequestUtil->request();
-
-    return 0 unless ($req);
-    my $remote = $req->connection->remote_ip();
-    my $command = "/sbin/ip route get to $remote "
-        . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
-    my $routeIface = `$command`;
-    return 0 unless ( $? == 0);
-    chop($routeIface);
-    if (defined($routeIface) and $routeIface eq $iface) {
-        return 1;
-    }
 }
 
 1;
