@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bad interpolation in JS code in booleanInPlaceViewer.mas
 	+ WizardPage CGIs can now return JSON replies as response
 	+ unconfigure-module script disables also the module
 	+ Restart firewall module when a firewall observer module is
