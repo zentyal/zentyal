@@ -21,8 +21,6 @@ $(function() {
    });
 });
 </script>
-
-    <h3><% __('Captive Portal') %></h3>
 % if (not $params->{limitBW}) {
      <& .captiveportalNoLimitBWWarning, $params &>
 % }

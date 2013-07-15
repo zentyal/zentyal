@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted user addon to multi-OU tree view
 	+ Ignored SIDs are now synced to LDAP, but hidden on the interface
 	  according to the regexps in /etc/zentyal/sids-to-hide.regex
 	+ Do not try to start nmbd if smb.conf is not written

@@ -344,7 +344,20 @@ sub _userAddOns
             externalAccounts => \@externalAccounts,
     );
 
-    return { path => '/mail/account.mas', params => { @paramsList } };
+    my $title;
+    if  (not @vdomains) {
+        $title = __('Mail account');
+    } elsif (not $usermail) {
+        $title =  __('Create mail account');
+    } else {
+        $title = __('Mail account settings');
+    }
+
+    return {
+        title  => $title,
+        path   => '/mail/account.mas',
+        params => { @paramsList }
+       };
 }
 
 sub _groupAddOns
@@ -366,7 +379,11 @@ sub _groupAddOns
         'nacc'     => scalar ($self->usersWithMailInGroup($group)),
     };
 
-    return { path => '/mail/groupalias.mas', params => $args };
+    return {
+        title  => __('Mail alias settings'),
+        path   => '/mail/groupalias.mas',
+        params => $args
+       };
 }
 
 sub _modifyGroup

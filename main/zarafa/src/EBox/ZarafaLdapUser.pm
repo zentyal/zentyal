@@ -68,7 +68,11 @@ sub _userAddOns
         'service' => $self->{zarafa}->isEnabled(),
     };
 
-    return { path => '/zarafa/zarafa.mas', params => $args };
+    return {
+        title =>   __('Zarafa account'),
+        path => '/zarafa/zarafa.mas',
+        params => $args
+       };
 }
 
 sub schemas
