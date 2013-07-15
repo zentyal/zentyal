@@ -65,15 +65,15 @@ sub prerouting
     foreach my $ifc (@{$ifaces}) {
         my $input = $self->_inputIface($ifc);
 
-        my $r;
-        $r = "$input -j captive";
-        push(@rules, { 'priority' => 5, 'rule' => $r });
-
         push(@rules, @{$self->_usersRules('captive')});
         push @rules, map {
             my $rule = $input . ' ' . $_->{rule};
             ($rule)
         } @exRules;
+
+        my $r;
+        $r = "$input -j captive";
+        push(@rules, $r);
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
@@ -120,13 +120,13 @@ sub input
         my $r;
 
         # Allow DNS and Captive portal access
-        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        $r = "$input -p tcp --dport 53 -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p udp --dport 53 -j ACCEPT";
+        $r = "$input -p udp --dport 53 -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p tcp --dport $port -j ACCEPT";
+        $r = "$input -p tcp --dport $port -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p tcp --dport $captiveport -j ACCEPT";
+        $r = "$input -p tcp --dport $captiveport -j iaccept";
         push(@rules, { 'rule' => $r, priority => 5 });
 
         $r = "$input -j icaptive";
@@ -156,24 +156,24 @@ sub forward
         my $input = $self->_inputIface($ifc);
         my $r;
 
-        $r = "$input -j fcaptive";
-        push(@rules, { 'priority' => 6, 'rule' => $r });
-
         push(@rules, @{$self->_usersRules('fcaptive')});
         push @rules, map {
             my $rule = $input . ' ' . $_->{rule};
             ($rule)
         } @exRules;
         # Allow DNS
-        $r = "$input -p tcp --dport 53 -j ACCEPT";
+        $r = "$input -p tcp --dport 53 -j faccept";
         push(@rules, { 'rule' => $r, priority => 5 });
-        $r = "$input -p udp --dport 53 -j ACCEPT";
+        $r = "$input -p udp --dport 53 -j faccept";
         push(@rules, { 'rule' => $r, priority => 5 });
 
         $r = "$input -p tcp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
         $r = "$input -p udp -j DROP";
         push(@rules, { 'rule' => $r, 'chain' => 'fcaptive' });
+
+        $r = "$input -j fcaptive";
+        push @rules, $r;
     }
     return \@rules;
 }

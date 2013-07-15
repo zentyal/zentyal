@@ -1,4 +1,5 @@
-HEAD
+3.0.10
+	+ Adapt firewall rules to new accept chains
 	+ Set transparent DNS cache firewall rules unless the module is
 	  temporary stopped
 	+ Set transparent DNS cache firewall rules in Firewall Helper

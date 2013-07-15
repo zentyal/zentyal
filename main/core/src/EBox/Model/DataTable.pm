@@ -4462,14 +4462,17 @@ sub confirmationJS
 
     my $actionUrl =  $table->{'actions'}->{'editField'};
 
-    my @elements = map {
+    my @elements = grep {
+        not $_-> hidden()
+    } @{  $table->{tableDescription} };
+    my @elementNames = map {
         my $element = $_;
         my @fields = map {
             qq{'$_'}
         } $element->fields();
         @fields;
-    } @ {  $table->{tableDescription} };
-    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+    } @elements;
+    my $elementsArrayJS = '['. join(',', @elementNames) . ']' ;
 
     my $function = "Zentyal.TableHelper.confirmationDialog('%s', '%s','%s', '%s', %s)";
 

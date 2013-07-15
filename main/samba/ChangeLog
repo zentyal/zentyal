@@ -1,4 +1,8 @@
 HEAD
+	+ Adapt firewall rules to new accept chains
+	+ Add config key to skip writting homeDirectory and homeDrive attribute
+	+ Do not store in samba_access table 4 records each 10s when antivirus
+	  daemon is not running
 	+ Adapted user addon to multi-OU tree view
 	+ Ignored SIDs are now synced to LDAP, but hidden on the interface
 	  according to the regexps in /etc/zentyal/sids-to-hide.regex

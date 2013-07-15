@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid "cannot return outside of a subroutine" warning in cloud-sync
 	+ Added foldable user and group add-ons to dialogs
 	+ Replaced package breaks parameter with depends statement
 	+ Fixed error in the baseName() method for an Ldap Object

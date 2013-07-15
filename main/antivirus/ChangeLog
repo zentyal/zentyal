@@ -1,3 +1,5 @@
+HEAD
+	+ Adapt firewall rules to new accept chains
 3.1
 	+ Added LogHelper for storing AV DB updates in the DB
 	+ Disable outdated script hook as it is not shown in the UI

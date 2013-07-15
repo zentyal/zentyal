@@ -45,7 +45,7 @@ sub output
 		my $host = $p->{host};
 		my $port = $p->{port};
 		my $r = "-m state --state NEW -p tcp -d $host --dport $port ".
-			"-j ACCEPT";
+			"-j oaccept";
 		push (@rules, $r);
 	}
 

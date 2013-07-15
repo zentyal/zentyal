@@ -817,7 +817,9 @@ sub _setConf
 
     # Only set global roaming profiles and drive letter options
     # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings
+    # overwritting already existing per-user settings. Also skip if
+    # unmanaged_home_directory config key is defined
+    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
     unless ($self->mode() eq 'adc') {
         my $netbiosName = $self->netbiosName();
         my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
@@ -833,7 +835,7 @@ sub _setConf
 
             # Mount user home on network drive
             my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1);
+            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
             $user->save();
         }
     }

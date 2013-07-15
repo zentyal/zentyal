@@ -51,16 +51,16 @@ sub output
 
         foreach my $port (SAMBAPORTS) {
             my $r = "-m state --state NEW $output  ".
-                "-p tcp --sport $port -j ACCEPT";
+                "-p tcp --sport $port -j oaccept";
             push(@rules, $r);
             $r = "-m state --state NEW $output ".
-                "-p udp --sport $port -j ACCEPT";
+                "-p udp --sport $port -j oaccept";
             push(@rules, $r);
             $r = "-m state --state NEW $output  ".
-                "-p tcp --dport $port -j ACCEPT";
+                "-p tcp --dport $port -j oaccept";
             push(@rules, $r);
             $r = "-m state --state NEW $output  ".
-                "-p udp --dport $port -j ACCEPT";
+                "-p udp --dport $port -j oaccept";
             push(@rules, $r);
         }
     }

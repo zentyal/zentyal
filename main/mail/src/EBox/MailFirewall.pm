@@ -62,7 +62,7 @@ sub output
                             $mail->ipfilter())) {
 
                     $r = "-d $ipfilter -m state --state NEW $output ".
-                        "-p tcp --dport $port -j ACCEPT";
+                        "-p tcp --dport $port -j oaccept";
 
                     push(@rules, $r);
                 }
@@ -70,7 +70,7 @@ sub output
         }
     }
     if ($mail->service()) {
-        $r = "-m state --state NEW -p tcp --dport 25 -j ACCEPT";
+        $r = "-m state --state NEW -p tcp --dport 25 -j oaccept";
         push(@rules, $r);
     }
 
