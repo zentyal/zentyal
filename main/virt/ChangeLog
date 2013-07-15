@@ -1,4 +1,5 @@
 HEAD
+	+ Request user confirmation when clicking remove virtual machine button
 	+ Check for existing libvirt networks using test on files definition
 	  insted of virsh net-list which was buggy
 	+ Removed no longer necessary jQuery noConflict()
