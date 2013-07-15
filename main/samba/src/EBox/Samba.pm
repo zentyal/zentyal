@@ -2162,13 +2162,29 @@ sub objectFromDN
 #
 #   Return the Perl Object that holds the default Naming Context for this LDAP server.
 #
-#
 sub defaultNamingContext
 {
     my ($self) = @_;
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: sidsToHide
+#
+#   Return the list of regexps to of SIDs to hide on the UI
+#   read from /etc/zentyal/sids-to-hide.regex
+#
+sub sidsToHide
+{
+    my ($self) = @_;
+
+    my $ignoredSidsFile = EBox::Config::etc() . 'sids-to-hide.regex';
+    my @lines = read_file($ignoredSidsFile);
+    my @sidsTmp = grep(/^\s*S-/, @lines);
+    my @sids = map { s/\n//; $_; } @sidsTmp;
+
+    return \@sids;
 }
 
 
