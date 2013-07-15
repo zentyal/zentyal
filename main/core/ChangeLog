@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bad interpolation in JS code in booleanInPalceViewer.mas
 	+ unconfigure-module script disables also the module
 	+ Restart firewall module when a firewall observer module is
 	  stopped/started using zentyal init.d script
