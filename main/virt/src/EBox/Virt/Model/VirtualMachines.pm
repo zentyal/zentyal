@@ -443,4 +443,24 @@ sub updatedRowNotify
     $sysinfo->setReloadPageAfterSavingChanges(1);
 }
 
+sub actionClickedJS
+{
+    my ($self, $action, @params) = @_;
+    my $actionJS = $self->SUPER::actionClickedJS($action, @params);
+    if ($action ne 'del') {
+        return $actionJS;
+    }
+    my $title = __('Remove virtual machine');
+    my $message = __('Are you sure about removing this virtual machine?. All its data will be lost. ');
+    my $confirmJS = <<"END_JS";
+       var dialogParams = {
+           title: '$title',
+           message: '$message'
+       };
+       var accept= function() { $actionJS };
+       Zentyal.TableHelper.showConfirmationDialog(dialogParams, accept);
+END_JS
+    return $confirmJS;
+}
+
 1;
