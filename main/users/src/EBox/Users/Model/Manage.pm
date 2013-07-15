@@ -24,6 +24,21 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
+sub new
+{
+    my ($class, %params) = @_;
+
+    my $self = $class->SUPER::new(%params);
+    bless($self, $class);
+
+    my $samba = EBox::Global->modInstance('samba');
+    if (defined ($samba)) {
+        $self->{sidsToHide} = $samba->sidsToHide();
+    }
+
+    return $self;
+}
+
 sub _tree
 {
     my ($self) = @_;
@@ -77,6 +92,8 @@ sub childNodes
             # Hide Kerberos OU as it's not useful for the user to keep the UI simple
             next if ($printableName eq 'Kerberos');
         } elsif ($child->isa('EBox::Users::User')) {
+            next if $self->_hiddenSid($child, 'User');
+
             $type = 'user';
             $printableName = $child->fullname();
             unless ($printableName) {
@@ -87,6 +104,8 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
+            next if $self->_hiddenSid($child, 'Group');
+
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
         } elsif ($child->isa('EBox::Users::Container::ExternalAD')) {
@@ -177,6 +196,25 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     return __('You must enable the module Users in the module status section in order to use it.');
+}
+
+sub _hiddenSid
+{
+    my ($self, $object, $type) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    return 0 unless defined ($samba);
+
+    my $dn = $object->dn();
+    eval "use EBox::Samba::$type";
+    $object = $type eq 'User' ? new EBox::Samba::User(dn => $dn) : new EBox::Samba::Group(dn => $dn);
+
+    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
+       return 1 if ($object->sid() =~ m/$ignoredSidMask/);
+    }
+
+    return 0;
 }
 
 1;
