@@ -1,4 +1,5 @@
 HEAD
+	+ WizardPage CGIs can now return JSON replies as response
 	+ unconfigure-module script disables also the module
 	+ Restart firewall module when a firewall observer module is
 	  stopped/started using zentyal init.d script

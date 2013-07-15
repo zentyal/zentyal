@@ -27,7 +27,7 @@
 # print an error messages that user will see
 #
 # If status is OK the wizard will step into next wizard page.
-#
+
 use strict;
 use warnings;
 
@@ -94,9 +94,17 @@ sub _masonParameters
 sub _print
 {
     my ($self) = @_;
+
     $self->_header();
-    if ( $self->{cgi}->request_method() eq 'GET' ) {
-            $self->_body();
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    if ($self->{cgi}->request_method() eq 'GET') {
+        $self->_body();
     }
 }
 
@@ -104,8 +112,8 @@ sub _process
 {
     my $self = shift;
     $self->{params} = $self->_masonParameters();
-    if ( $self->{cgi}->request_method() eq 'POST' ) {
-            $self->_processWizard();
+    if ($self->{cgi}->request_method() eq 'POST') {
+        $self->_processWizard();
     }
 }
 
