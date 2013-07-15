@@ -1,3 +1,5 @@
+HEAD
+	+ Explicitly set firewall version dependency in control file
 3.0.21
 	+ Adapt firewall rules to new accept chains
 	+ Add config key to skip writting homeDirectory and homeDrive attribute
