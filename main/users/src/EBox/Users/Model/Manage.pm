@@ -26,21 +26,6 @@ use EBox::Types::Action;
 
 use Error qw(:try);
 
-sub new
-{
-    my ($class, %params) = @_;
-
-    my $self = $class->SUPER::new(%params);
-    bless($self, $class);
-
-    my $samba = EBox::Global->modInstance('samba');
-    if (defined ($samba)) {
-        $self->{sidsToHide} = $samba->sidsToHide();
-    }
-
-    return $self;
-}
-
 sub _tree
 {
     my ($self) = @_;
@@ -216,6 +201,10 @@ sub _hiddenSid
 
     unless (defined ($object) and $object->can('sid')) {
         return 0;
+    }
+
+    unless ($self->{sidsToHide}) {
+        $self->{sidsToHide} = $samba->sidsToHide();
     }
 
     foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
