@@ -24,6 +24,8 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
+use Error qw(:try);
+
 sub new
 {
     my ($class, %params) = @_;
@@ -68,13 +70,15 @@ sub childNodes
 
     my $usersMod = $self->parentModule();
 
+    my $usingSamba = EBox::Global->modExists('samba');
+
     my $parentObject = undef;
     if ($parentType eq 'domain') {
         $parentObject = $usersMod->defaultNamingContext();
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and EBox::Global->modExists('samba')) {
+    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and $usingSamba) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -92,7 +96,7 @@ sub childNodes
             # Hide Kerberos OU as it's not useful for the user to keep the UI simple
             next if ($printableName eq 'Kerberos');
         } elsif ($child->isa('EBox::Users::User')) {
-            next if $self->_hiddenSid($child, 'User');
+            next if ($usingSamba and $self->_hiddenSid($dn));
 
             $type = 'user';
             $printableName = $child->fullname();
@@ -104,7 +108,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if $self->_hiddenSid($child, 'Group');
+            next if ($usingSamba and $self->_hiddenSid($dn));
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
@@ -200,15 +204,19 @@ sub preconditionFailMsg
 
 sub _hiddenSid
 {
-    my ($self, $object, $type) = @_;
+    my ($self, $dn) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
 
-    return 0 unless defined ($samba);
+    my $object = undef;
 
-    my $dn = $object->dn();
-    eval "use EBox::Samba::$type";
-    $object = $type eq 'User' ? new EBox::Samba::User(dn => $dn) : new EBox::Samba::Group(dn => $dn);
+    try {
+        $object = $samba->objectFromDN($dn);
+    } otherwise {};
+
+    unless (defined ($object) and $object->can('sid')) {
+        return 0;
+    }
 
     foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
        return 1 if ($object->sid() =~ m/$ignoredSidMask/);
