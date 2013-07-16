@@ -55,9 +55,14 @@ sub ids
 {
     my ($self) = @_;
 
-    my $ids = [];
+    my $parentRow = $self->parentRow();
+    unless (defined $parentRow) {
+        return [];
+    }
 
-    my $gpoDN = $self->parentRow->id();
+    my @ids;
+
+    my $gpoDN = $parentRow->id();
     my $extension = new EBox::Samba::GPO::ScriptsComputer(dn => $gpoDN);
 
     my $data = $extension->read();
@@ -69,17 +74,17 @@ sub ids
     my $batchScripts = $data->{batch};
     my $batchLogonScripts = $batchScripts->{Startup};
     foreach my $index (sort keys %{$batchLogonScripts}) {
-        push (@{$ids}, "batch_$index");
+        push (@ids, "batch_$index");
     }
 
     # Filter the results, get PowerShell Logon only
     my $psScripts = $data->{ps};
     my $psLogonScripts = $psScripts->{Startup};
     foreach my $index (sort keys %{$psLogonScripts}) {
-        push (@{$ids}, "ps_$index");
+        push (@ids, "ps_$index");
     }
 
-    return $ids;
+    return \@ids;
 }
 
 sub row
