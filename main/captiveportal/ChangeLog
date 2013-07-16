@@ -1,3 +1,5 @@
+HEAD
+	+ Explicitly set firewall version dependency in control file
 3.0.5
 	+ Use MAC address in object exception
 	+ Fixed bug in exceptions firewall rules
