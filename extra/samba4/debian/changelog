@@ -1,3 +1,9 @@
+samba4 (4.1.0rc1-zentyal3) precise; urgency=low
+
+  * Delete update-alternatives commands for swat
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 17 Jul 2013 00:12:47 +0200
+
 samba4 (4.1.0rc1-zentyal2) precise; urgency=low
 
   * New upstream release
