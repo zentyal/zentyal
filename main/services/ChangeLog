@@ -1,4 +1,4 @@
-HEAD
+3.0.4
 	+ Fixed bug in iptables arguments for TCP/UDP ports in EBox::Services::serviceIptablesArgs
 3.0.3
 	+ Create HTTPS service by default to help firewall configuration on
