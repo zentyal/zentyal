@@ -1,3 +1,5 @@
+HEAD
+	+ Explicitly set firewall version dependency in control file
 3.0.24
 	+ Adapt firewall rules to new accept chains
 3.0.23
