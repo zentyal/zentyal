@@ -43,7 +43,7 @@ sub _process
         $self->{json} = { success => 0 };
 
         $self->_requireParam('username', __('user name'));
-        $self->_requireParam('name', __('first name'));
+        $self->_requireParam('givenname', __('first name'));
         $self->_requireParam('surname', __('last name'));
         $self->_requireParamAllowEmpty('description', __('description'));
 
@@ -51,10 +51,9 @@ sub _process
         $params{uid} = $self->param('username');
         $params{parent} = $users->objectFromDN($dn);
 
-        $params{name} = $self->param('name');
+        $params{givenname} = $self->param('givenname');
         $params{surname} = $self->param('surname');
         $params{fullname} = $self->param('fullname');
-        $params{givenname} = $self->param('givenname');
 
         $params{password} = $self->unsafeParam('password');
         $params{repassword} = $self->unsafeParam('repassword');
