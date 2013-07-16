@@ -1,6 +1,5 @@
 HEAD
 	+ Explicitly set firewall version dependency in control file
-HEAD
 	+ Set inline firewall rules position and mode based on
 	  ips_fw_position configuration key
 	+ Configure accept mode to let Suricata accept or drop the traffic
