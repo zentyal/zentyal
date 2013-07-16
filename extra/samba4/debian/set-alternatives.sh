@@ -53,5 +53,4 @@ update-alternatives --force --install /usr/sbin/samba_spnupdate samba_spnupdate 
 update-alternatives --force --install /usr/sbin/samba_upgradedns samba_upgradedns /opt/samba4/sbin/samba_upgradedns 0
 #update-alternatives --force --install /usr/sbin/samba_upgradeprovision samba_upgradeprovision /opt/samba4/sbin/samba_upgradeprovision 0
 update-alternatives --force --install /usr/sbin/smbd smbd /opt/samba4/sbin/smbd 0
-update-alternatives --force --install /usr/sbin/swat swat /opt/samba4/sbin/swat 0
 update-alternatives --force --install /usr/sbin/winbindd winbindd /opt/samba4/sbin/winbindd 0
