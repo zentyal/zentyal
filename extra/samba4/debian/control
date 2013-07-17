@@ -48,6 +48,7 @@ Depends: python,
          libdm0,
          libcups2,
          zlib1g,
+         libbsd0,
          ${misc:Depends}
 Replaces: samba4-common-bin, ldb-tools, tdb-tools
 Breaks: samba4-common-bin, ldb-tools, tdb-tools
