@@ -59,6 +59,7 @@ use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
 use Net::LDAP::Control::Sort;
+use Net::LDAP::Util qw(ldap_explode_dn);
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -2047,7 +2048,7 @@ sub ldbDNFromLDAPDN
         if ($sambaUser->exists()) {
             return $sambaUser->dn();
         } else {
-            $ldapUser = new EBox::Users::User(dn => $ldapDN);
+            my $ldapUser = new EBox::Users::User(dn => $ldapDN);
             my $cn = $ldapUser->fullname();
             $relativeDN =~ s/uid=([^,]*),/CN=$cn,/gi;
         }
