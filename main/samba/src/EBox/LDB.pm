@@ -82,20 +82,14 @@ sub _new_instance
 {
     my $class = shift;
 
-    my $ignoredSidsFile = EBox::Config::etc() . 's4sync-sids.ignore';
-    my @lines = read_file($ignoredSidsFile);
-    my @sidsTmp = grep(/^\s*S-/, @lines);
-    my @sids = map { s/\n//; $_; } @sidsTmp;
-
     my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
-    @lines = read_file($ignoredGroupsFile);
+    my @lines = read_file($ignoredGroupsFile);
     chomp (@lines);
     my %ignoredGroups = map { $_ => 1 } @lines;
 
     my $self = {};
     $self->{ldb} = undef;
     $self->{idamp} = undef;
-    $self->{ignoredSids} = \@sids;
     $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
@@ -717,14 +711,6 @@ sub users
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);
-        my $entrySid = $user->sid();
-
-        my $skip = 0;
-        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
-            $skip = 1 if ($user->sid() =~ m/$ignoredSidMask/);
-        }
-        next if $skip;
-
         push (@{$list}, $user);
     }
     return $list;
@@ -768,13 +754,6 @@ sub groups
         next if (exists $self->{ignoredGroups}->{$entry->get_value('samAccountName')});
 
         my $group = new EBox::Samba::Group(entry => $entry);
-
-        my $skip = 0;
-        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
-            $skip = 1 if ($group->sid() =~ m/$ignoredSidMask/);
-        }
-        my $entrySid = $group->sid();
-        next if $skip;
 
         push (@{$list}, $group);
     }

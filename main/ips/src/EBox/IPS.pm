@@ -146,6 +146,30 @@ sub nfQueueNum
     return $queueNum;
 }
 
+# Method: fwPosition
+#
+#     IPS inline firewall position determined by ips_fw_position
+#     configuration key
+#
+# Returns:
+#
+#     front  - if the all traffic should be analysed
+#     behind - if only not explicitly accepted/denied traffic should be analysed
+#              (*Default value*)
+#
+sub fwPosition
+{
+    my ($self) = @_;
+
+    my $where = EBox::Config::configkey('ips_fw_position');
+    if (defined ($where) and (($where eq 'front') or ($where eq 'behind'))) {
+        return $where;
+    } else {
+        # Default value
+        return 'behind';
+    }
+}
+
 sub _setRules
 {
     my ($self) = @_;
@@ -179,7 +203,7 @@ sub _setRules
 
 # Method: _setConf
 #
-#        Regenerate the configuration
+#       Regenerate the configuration
 #
 # Overrides:
 #
@@ -190,9 +214,13 @@ sub _setConf
     my ($self) = @_;
 
     my $rules = $self->_setRules();
+    my $mode  = 'accept';
+    if ($self->fwPosition() eq 'front') {
+        $mode = 'repeat';
+    }
 
     $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
-                         [ rules => $rules ]);
+                         [ mode => $mode, rules => $rules ]);
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled() ]);

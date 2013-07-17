@@ -59,6 +59,7 @@ use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
 use Net::LDAP::Control::Sort;
+use Net::LDAP::Util qw(ldap_explode_dn);
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -817,7 +818,9 @@ sub _setConf
 
     # Only set global roaming profiles and drive letter options
     # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings
+    # overwritting already existing per-user settings. Also skip if
+    # unmanaged_home_directory config key is defined
+    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
     unless ($self->mode() eq 'adc') {
         my $netbiosName = $self->netbiosName();
         my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
@@ -833,7 +836,7 @@ sub _setConf
 
             # Mount user home on network drive
             my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1);
+            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
             $user->save();
         }
     }
@@ -2075,6 +2078,18 @@ sub ldbDNFromLDAPDN
     # Computers and Users are not OUs for Samba.
     $relativeDN =~ s/ou=Users$/CN=Users/gi;
     $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
+    if (grep (/^uid=/i, $relativeDN)) {
+        my $dnParts = ldap_explode_dn($ldapDN);
+        my $uid = $dnParts->[0]->{UID};
+        my $sambaUser = new EBox::Samba::User(samAccountName => $uid);
+        if ($sambaUser->exists()) {
+            return $sambaUser->dn();
+        } else {
+            my $ldapUser = new EBox::Users::User(dn => $ldapDN);
+            my $cn = $ldapUser->fullname();
+            $relativeDN =~ s/uid=([^,]*),/CN=$cn,/gi;
+        }
+    }
     my $dn = '';
     if ($relativeDN) {
         $dn = $relativeDN .  ',';
@@ -2174,31 +2189,18 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $args = {
-        base => $dn,
-        filter => "(objectClass=*)",
-        scope => 'base',
-    };
+    my $baseObject = EBox::Samba::LdbObject(dn => $dn);
 
-    my $result = $ldb->search($args);
-
-    my $count = $result->count();
-
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for, expected only one.', count => $result->count()));
-    } elsif ($count == 0) {
-        return undef;
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return undef;
     }
 }
-
 
 # Method: defaultNamingContext
 #
 #   Return the Perl Object that holds the default Naming Context for this LDAP server.
-#
 #
 sub defaultNamingContext
 {
@@ -2206,6 +2208,23 @@ sub defaultNamingContext
 
     my $ldb = $self->ldb;
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: sidsToHide
+#
+#   Return the list of regexps to of SIDs to hide on the UI
+#   read from /etc/zentyal/sids-to-hide.regex
+#
+sub sidsToHide
+{
+    my ($self) = @_;
+
+    my $ignoredSidsFile = EBox::Config::etc() . 'sids-to-hide.regex';
+    my @lines = read_file($ignoredSidsFile);
+    my @sidsTmp = grep(/^\s*S-/, @lines);
+    my @sids = map { s/\n//; $_; } @sidsTmp;
+
+    return \@sids;
 }
 
 

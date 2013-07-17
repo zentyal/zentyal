@@ -1,4 +1,6 @@
 HEAD
+	+ Set iaccept, faccept and oaccept chains instead of ACCEPT target
+	  to be able to analyse traffic using IPS
 	+ Add restartOnTemporaryStop attribute to firewall helper to
 	  indicate to core if firewall must be restart on temporary stop
 	  events

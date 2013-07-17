@@ -4,6 +4,14 @@ HEAD
 	  Contacts and distribution groups natively.
 	+ EBox::Samba::LdbObject inherites from EBox::Users::LdapObject to reuse
 	  as much code as possible.
+	+ Fixed ldbDNFromLDAPDN to convert uid= into CN=.
+	+ Adapt firewall rules to new accept chains
+	+ Add config key to skip writting homeDirectory and homeDrive attribute
+	+ Do not store in samba_access table 4 records each 10s when antivirus
+	  daemon is not running
+	+ Adapted user addon to multi-OU tree view
+	+ Ignored SIDs are now synced to LDAP, but hidden on the interface
+	  according to the regexps in /etc/zentyal/sids-to-hide.regex
 	+ Do not try to start nmbd if smb.conf is not written
 	+ Use krb5 keys on new users when plain password not available
 	+ Removed EBox::Samba::Group::usersNotIn() method. It was not used neither

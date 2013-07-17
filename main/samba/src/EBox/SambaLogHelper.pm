@@ -99,6 +99,9 @@ sub processLine # (file, line, logger)
                 $dataToInsert{event} = 'quarantine';
                 $dataToInsert{qfilename} = $fields[4];
             }
+        } else {
+            # ClamAV daemon not responding?
+            return;
         }
     } else {
         unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*(smbd|zavs).*?: (.+)/) {

@@ -1675,10 +1675,6 @@ sub defaultUserModels
 sub allUserAddOns
 {
     my ($self, $user) = @_;
-
-    my $global = EBox::Global->modInstance('global');
-    my @names = @{$global->modNames};
-
     my $defaultOU = ($user->baseDn() eq $user->defaultContainer()->dn());
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
@@ -1689,6 +1685,8 @@ sub allUserAddOns
 
         my $comp = $mod->_userAddOns($user);
         if ($comp) {
+            $comp->{id} = ref $mod;
+            $comp->{id} =~ s/:/_/g;
             push (@components, $comp);
         }
     }
@@ -1720,7 +1718,11 @@ sub allGroupAddOns
     my @components;
     foreach my $mod (@modsFunc) {
         my $comp = $mod->_groupAddOns($group);
-        push (@components, $comp) if ($comp);
+        if ($comp) {
+            $comp->{id} = ref $mod;
+            $comp->{id} =~ s/:/_/g;
+            push (@components, $comp) if ($comp);
+        }
     }
 
     return \@components;

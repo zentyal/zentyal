@@ -1,4 +1,6 @@
 HEAD
+	+ Adapt firewall rules to new accept chains
+	+ Adapted user addon to multi-OU tree view
 	+ Removed no longer necessary jQuery noConflict()
 	+ Search the whole LDAP tree looking for groups and users.
 	+ Added incompatiblity with external AD authentication mode

@@ -4,8 +4,6 @@
 <%init>
     use EBox::Gettext;
 </%init>
-    <h3><% __('Jabber account') %></h3>
-
     <& .jabberDisabledWarning, $params &>
 
     <div id='error_userOptions' class='error' style='display:none'></div>

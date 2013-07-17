@@ -54,14 +54,14 @@ sub input
     if (@externalMTAs ) {
         my $port = $self->{port};
         push (@rules,
-                "--protocol tcp --dport $port   -j ACCEPT");
+                "--protocol tcp --dport $port -j iaccept");
 
     }
 
     if ($self->{POPProxy}) {
         my $port = $self->{POPProxyPort};
         push (@rules,
-                "-m state --state NEW --protocol tcp --dport $port -j ACCEPT");
+                "-m state --state NEW --protocol tcp --dport $port -j iaccept");
     }
 
     return \@rules;
@@ -76,7 +76,7 @@ sub output
         my @externalMTAs = @{ $self->{externalMTAs} };
         if (@externalMTAs) {
             my $fwport = $self->{fwport};
-            push (@rules, "--protocol tcp --dport $fwport -j ACCEPT");
+            push (@rules, "--protocol tcp --dport $fwport -j oaccept");
         }
     }
 

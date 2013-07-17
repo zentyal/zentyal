@@ -142,6 +142,23 @@ sub test_using_ASU : Test(5)
     cmp_ok($self->{mod}->usingASU(), '==', 0, 'Not using ASU anymore');
 }
 
+sub test_fw_position : Test(4)
+{
+    my ($self) = @_;
+
+    cmp_ok($self->{mod}->fwPosition(), 'eq', 'behind', 'default position is behind');
+    {
+        my $fakedConfig = new Test::MockModule('EBox::Config');
+        $fakedConfig->mock('configkey', 'tralala');
+        cmp_ok($self->{mod}->fwPosition(), 'eq', 'behind', 'invalid conf key, use default behind');
+        $fakedConfig->mock('configkey', 'front');
+        cmp_ok($self->{mod}->fwPosition(), 'eq', 'front', 'valid conf key');
+        $fakedConfig->mock('configkey', 'behind');
+        cmp_ok($self->{mod}->fwPosition(), 'eq', 'behind', 'valid conf key');
+    }
+
+}
+
 1;
 
 

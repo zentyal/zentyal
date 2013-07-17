@@ -125,7 +125,6 @@ sub _preAddUser
     my $uid         = $entry->get_value('uid');
     my $uidNumber   = $entry->get_value('uidNumber');
 
-    # FIXME: ldbDNFromLDAPDN returns a DN with uid instead of cn but it is ok for get the parent
     my $parent = EBox::Samba::User->parent($self->{samba}->ldbDNFromLDAPDN($entry->dn()));
 
     my %args = (
@@ -573,7 +572,11 @@ sub _userAddOns
         'service'        => $serviceEnabled,
     };
 
-    return { path => '/samba/samba.mas', params => $args };
+    return {
+        title =>  __('Active Directory/File sharing account'),
+        path => '/samba/samba.mas',
+        params => $args
+       };
 }
 
 # Method: _groupShareEnabled
@@ -666,7 +669,11 @@ sub _groupAddOns
         'service'   => $self->{samba}->isEnabled(),
     };
 
-    return { path => '/samba/samba.mas', params => $args };
+    return {
+        title => __('Sharing directory for this group'),
+        path => '/samba/samba.mas',
+        params => $args
+       };
 }
 
 # Method: _checkWindowsBuiltin

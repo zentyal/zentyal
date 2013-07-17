@@ -35,7 +35,7 @@ sub output
     my @rules;
 
     # freshclam update service
-    push (@rules, '--protocol tcp --dport 80 -j ACCEPT');
+    push (@rules, '--protocol tcp --dport 80 -j oaccept');
 
     return \@rules;
 }

@@ -62,7 +62,8 @@ sub _create
 #
 sub depends
 {
-    my $mods = EBox::Global->modInstancesOfType('EBox::LogObserver');
+    my ($self) = @_;
+    my $mods = $self->global()->modInstancesOfType('EBox::LogObserver');
     my @names = map ($_->{name}, @$mods);
     return \@names;
 }
@@ -167,7 +168,7 @@ sub allEnabledLogHelpers
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     my $enabledLogs = $self->_restoreEnabledLogsModules();
 
@@ -207,7 +208,7 @@ sub allLogHelpers
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     my @objects;
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
@@ -221,7 +222,8 @@ sub allLogHelpers
 
 sub getLogsModules
 {
-    my $global = EBox::Global->getInstance();
+    my ($self) = @_;
+    my $global = $self->global();
 
     return [grep { $_->configured() } @{$global->modInstancesOfType('EBox::LogObserver')}];
 }
@@ -246,7 +248,7 @@ sub getAllTables
     }
 
     my $tables = {};
-    foreach my $mod (@{getLogsModules()}) {
+    foreach my $mod (@{$self->getLogsModules()}) {
         my @tableInfos = @{ $self->getModTableInfos($mod) };
 
         foreach my $comp (@tableInfos) {
@@ -724,7 +726,10 @@ sub _restoreEnabledLogsModules
 
     my $string = <$file>;
     close($file);
-    return undef unless (defined($string));
+
+    if (not $string) {
+        return {}
+    }
 
     my %enabled;
     foreach my $domain (split(/,/, $string)) {
@@ -821,7 +826,7 @@ sub purge
 
     # purge each module
     while (my ($modName, $threshold) = each %thresholdByModule) {
-        my $mod = EBox::Global->modInstance($modName);
+        my $mod = $self->global()->modInstance($modName);
         my @logTables = @{ $self->getModTableInfos($mod) };
 
         foreach my $table (@logTables) {

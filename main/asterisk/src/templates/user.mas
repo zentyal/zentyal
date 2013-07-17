@@ -4,8 +4,6 @@
 <%init>
     use EBox::Gettext;
 </%init>
-    <h3><% __('Asterisk account') %></h3>
-
     <div class="help"><%__('Password for Asterisk service is the user password')%></div>
 
 %   if (not $params->{service} ) {
