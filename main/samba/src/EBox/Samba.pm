@@ -2040,6 +2040,18 @@ sub ldbDNFromLDAPDN
     # Computers and Users are not OUs for Samba.
     $relativeDN =~ s/ou=Users$/CN=Users/gi;
     $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
+    if (grep (/^uid=/i, $relativeDN)) {
+        my $dnParts = ldap_explode_dn($ldapDN);
+        my $uid = $dnParts->[0]->{UID};
+        my $sambaUser = new EBox::Samba::User(samAccountName => $uid);
+        if ($sambaUser->exists()) {
+            return $sambaUser->dn();
+        } else {
+            $ldapUser = new EBox::Users::User(dn => $ldapDN);
+            my $cn = $ldapUser->fullname();
+            $relativeDN =~ s/uid=([^,]*),/CN=$cn,/gi;
+        }
+    }
     my $dn = '';
     if ($relativeDN) {
         $dn = $relativeDN .  ',';
@@ -2139,26 +2151,14 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $args = {
-        base => $dn,
-        filter => "(objectClass=*)",
-        scope => 'base',
-    };
+    my $baseObject = EBox::Samba::LdbObject(dn => $dn);
 
-    my $result = $ldb->search($args);
-
-    my $count = $result->count();
-
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for, expected only one.', count => $result->count()));
-    } elsif ($count == 0) {
-        return undef;
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return undef;
     }
 }
-
 
 # Method: defaultNamingContext
 #

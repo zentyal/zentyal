@@ -122,7 +122,6 @@ sub _preAddUser
     my $surName     = $entry->get_value('sn');
     my $uid         = $entry->get_value('uid');
 
-    # FIXME: ldbDNFromLDAPDN returns a DN with uid instead of cn but it is ok for get the parent
     my $parent = EBox::Samba::User->parent($self->{samba}->ldbDNFromLDAPDN($entry->dn()));
 
     my %args = (
