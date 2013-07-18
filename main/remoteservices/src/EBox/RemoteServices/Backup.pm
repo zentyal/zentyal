@@ -19,6 +19,7 @@ package EBox::RemoteServices::Backup;
 use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;
+use Digest::SHA;
 use Error qw(:try);
 use EBox::Backup;
 use EBox::Config;
@@ -88,6 +89,12 @@ sub prepareMakeRemoteBackup
 #      automatic - Boolean indicating whether the backup must be set as
 #                  automatic or not
 #
+# Exceptions:
+#
+#      <EBox::Exceptions::Internal> - the backup process fails
+#
+#      <EBox::Exceptions::InvalidData> - the backup file is corrupted
+#
 sub makeRemoteBackup
 {
     my ($self, $name, $description, $automatic) = @_;
@@ -108,7 +115,7 @@ sub makeRemoteBackup
 
 # Method: sendRemoteBackup
 #
-#      Send a configuration backup to Zentyal Cloud
+#      Send a configuration backup to Zentyal Remote
 #
 # Parameters:
 #
@@ -121,6 +128,11 @@ sub makeRemoteBackup
 #      automatic - Boolean indicating whether the backup must be set as
 #                  automatic or not
 #
+# Exceptions:
+#
+#      <EBox::Exceptions::InvalidData> - thrown when the upload is corrupted
+#                                        (Checksums mismatch)
+#
 sub sendRemoteBackup
 {
     my ($self, $archive, $name, $description, $automatic) = @_;
@@ -129,12 +141,15 @@ sub sendRemoteBackup
     defined $description or $description = '';
     defined $automatic or $automatic = 0;
 
+    my $digest = $self->_digest($archive);
+
     try {
         $self->_pushConfBackup($archive,
-                               fileName => $name,
-                               comment => $description,
+                               fileName  => $name,
+                               comment   => $description,
                                automatic => $automatic,
-                               size => (-s $archive));
+                               size      => (-s $archive),
+                               digest    => $digest);
     }
     finally {
         unlink $archive;
@@ -403,6 +418,7 @@ sub _pushConfBackup
 {
     my ($self, $archive, %p) = @_;
 
+    my $checksum = delete $p{digest};
     my $ret = $self->{restClient}->PUT('/conf-backup/meta/' . $p{fileName}, query => \%p, retry => 0);
 
     # Send the file using curl
@@ -411,7 +427,20 @@ sub _pushConfBackup
     my $curlCmd = CURL;
     $curlCmd .= ' --insecure' unless ( EBox::Config::boolean('rs_verify_servers') );
     $curlCmd .= " --upload-file '$archive' --netrc '" . $url->as_string() . "'";
-    EBox::Sudo::command($curlCmd);
+
+    if ($checksum) {
+        # Send the checksum as a custom header
+        $curlCmd .= " --header 'X-Checksum-SHA1 : $checksum' --write-out '%{http_code}\n'";
+    }
+    my $outCurl = EBox::Sudo::command($curlCmd);
+    if ($checksum) {
+        # Look for 409 (Conflict) to launch InvalidData exception
+        if ($outCurl->[$#{$outCurl}] =~ m/409/) {
+            throw EBox::Exceptions::InvalidData(data   => 'backup',
+                                                value  => __('Configuration backup upload corrupted'),
+                                                advice => __('Try the upload again'));
+        }
+    }
 }
 
 sub _handleResult   # ( HTTP::Response, named params)
@@ -521,6 +550,19 @@ sub _removeConfBackup
     my $res = $self->{restClient}->DELETE('/conf-backup/meta/' . $p{fileName}, retry => 0);
 
     _handleResult($res->{result}, %p);
+}
+
+# Return the SHA-1 sum for a given file name
+sub _digest
+{
+    my ($self, $file) = @_;
+
+    open(my $fh, '<', $file);
+    binmode($fh);
+
+    my $digest = Digest::SHA->new(1)->addfile($fh)->hexdigest();
+    close($fh);
+    return $digest;
 }
 
 1;
