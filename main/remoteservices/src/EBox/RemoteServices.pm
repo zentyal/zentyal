@@ -1664,7 +1664,7 @@ sub _setProxyRedirections
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'proxy-redirections.conf';
-    my $apacheMod = EBox::Global->modInstance('apache');
+    my $webadminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
         try {
             my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
@@ -1675,7 +1675,7 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            $apacheMod->addInclude($confFile);
+            $webadminMod->addInclude($confFile);
         } otherwise {
             # Not proper YAML file
             my ($exc) = @_;
@@ -1685,13 +1685,13 @@ sub _setProxyRedirections
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            $apacheMod->removeInclude($confFile);
+            $webadminMod->removeInclude($confFile);
         } catch EBox::Exceptions::Internal with { ; };
     }
     # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
-    # $apacheMod->save();
+    # $webadminMod->save();
 }
 
 # Assure the VPN connection with our VPN servers is established
