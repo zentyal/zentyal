@@ -22,11 +22,12 @@ package EBox::Samba::SysvolSync;
 
 use EBox::Global;
 use EBox::Util::Random;
+use EBox::Samba::SmbClient;
 
 use Error qw(:try);
+use Errno;
 use Net::Ping;
 use Net::DNS;
-use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
 
 use constant DEBUG => 0;
 
@@ -34,90 +35,55 @@ sub new
 {
     my ($class) = @_;
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $samba = EBox::Global->modInstance('samba');
-    my $sambaSettings = $samba->model('GeneralSettings');
-
-    # Set kerberos ticket cache path
-    my $ccache = EBox::Config::tmp() . 'sysvol-sync.ccache';
-    my $keytab = EBox::Config::conf() . 'sysvol-sync.keytab';
-    $ENV{KRB5CCNAME} = $ccache;
-
-    # Remove old cache
-    unlink $ccache if (-f $ccache);
-
-    my $self = {
-        keytab => $keytab,
-        adUser => $sambaSettings->adminAccountValue(),
-        destination => $sysinfo->fqdn(),
-        hasTicket => 0,
-    };
-
+    my $self = {};
     bless ($self, $class);
-
-    # Check source
-    my $source = $sambaSettings->dcfqdnValue();
-    $self->{source} = $self->checkSource($source);
 
     return $self;
 }
 
-sub extractKeytab
-{
-    my ($self, $keytab, $adminUser) = @_;
-
-    my $ok = 1;
-    my $zentyalUser = EBox::Config::user();
-    my @cmds;
-    push (@cmds, "rm -f $keytab");
-    push (@cmds, "samba-tool domain exportkeytab $keytab " .
-                 "--principal='$adminUser'");
-    push (@cmds, "chown '$zentyalUser' '$keytab'");
-    push (@cmds, "chmod 400 '$keytab'");
-
-    try {
-        my $ret = kdestroy();
-        unless (defined $ret and $ret == 1) {
-            EBox::error("kdestroy: " . kerror());
-        }
-        EBox::debug("Extracting keytab");
-        EBox::Sudo::root(@cmds);
-        $ok = kinit($keytab, $adminUser);
-        if (defined $ok and $ok == 1) {
-            EBox::info("Got ticket");
-        } else {
-            EBox::error("kinit error: " . kerror());
-        }
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Could not extract keytab: $error");
-        $ok = undef;
-    };
-    return $ok;
-}
-
-sub sourceReachable
+sub getSourceDC
 {
     my ($self) = @_;
 
-    my $source = $self->{source};
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $settingsModel = $sambaModule->model('GeneralSettings');
+    my $src = $settingsModel->dcfqdnValue();
+
+    return $self->checkDC($src);
+}
+
+sub getDestinationDC
+{
+    my ($self) = @_;
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $dst = $sysinfo->fqdn();
+
+    return $self->checkDC($dst);
+}
+
+sub dcReachable
+{
+    my ($self, $dc) = @_;
+
     my $pinger = Net::Ping->new('tcp', 2);
+    $pinger->service_check(1);
     $pinger->port_number(445);
-    my $reachable = $pinger->ping($source);
+    my $reachable = $pinger->ping($dc);
     $pinger->close();
+
     return $reachable;
 }
 
-sub checkSource
+sub checkDC
 {
-    my ($self, $source) = @_;
+    my ($self, $dc) = @_;
 
     # If we have an IP as the source, reverse resolve to the FQDN. This is
     # required for kerberos to get the CIFS ticket.
-    if (EBox::Validate::checkIP($source)) {
-        my $resolver = new Net::DNS::Resolver(
-            nameservers => ['127.0.0.1', $source]);
-        my $target = join('.', reverse split(/\./, $source)).".in-addr.arpa";
+    if (EBox::Validate::checkIP($dc)) {
+        my $resolver = new Net::DNS::Resolver(nameservers => ['127.0.0.1']);
+        my $target = join('.', reverse split(/\./, $dc)).".in-addr.arpa";
         my $answer = '';
         my $query = $resolver->query($target, 'PTR');
         if ($query) {
@@ -128,69 +94,94 @@ sub checkSource
             }
         }
         if (length $answer) {
-            $source = $answer;
+            $dc = $answer;
         } else {
-            EBox::error("Could not reverse resolve DC IP $source to the FQDN");
-            return undef;
+            throw EBox::Exceptions::Internal(
+                "Could not reverse resolve DC IP $dc to the FQDN");
         }
     }
-    return $source;
+
+    unless ($self->dcReachable($dc)) {
+        throw EBox::Exceptions::Internal("DC $dc is not reachable");
+    }
+    return $dc;
+}
+
+sub copyEntry
+{
+    my ($self, $smb, $entry) = @_;
+
+    my $srcURL = "$entry->{srcBase}/$entry->{name}";
+    my $dstURL = "$entry->{dstBase}/$entry->{name}";
+    my $dstSD = $entry->{sd};
+
+    if ($entry->{type} == Filesys::SmbClient::SMBC_DIR) {
+        if ($smb->mkdir($dstURL, '0666') != 1) {
+            # Ignore already exists error
+            if ($! != Errno::EEXIST) {
+                throw EBox::Exceptions::Internal("mkdir: $!");
+            }
+        }
+        if ($smb->set_xattr($dstURL, "system.nt_sec_desc.*", $dstSD) != 1) {
+            throw EBox::Exceptions::Internal("setxattr: $!");
+        }
+    } elsif ($entry->{type} == Filesys::SmbClient::SMBC_FILE) {
+        if ($smb->smb_copy($srcURL, $dstURL) != 1) {
+            throw EBox::Exceptions::Internal("smb_copy: $!");
+        }
+        if ($smb->set_xattr($dstURL, "system.nt_sec_desc.*", $dstSD) != 1) {
+            throw EBox::Exceptions::Internal("setxattr: $!");
+        }
+    }
+}
+
+sub syncDirectory
+{
+    my ($self, $smb, $srcURL, $dstURL) = @_;
+
+    my $srcFD = $smb->opendir($srcURL) or
+        throw EBox::Exceptions::Internal("opendir: $!");
+
+    while (my $f = $smb->readdir_struct($srcFD)) {
+        my $type = @{$f}[0];
+        my $name = @{$f}[1];
+        my $comment = @{$f}[2];
+        my $sd = $smb->get_xattr("$srcURL/$name", "system.nt_sec_desc.*");
+
+        my $entry = {
+            srcBase => $srcURL,
+            dstBase => $dstURL,
+            type    => $type,
+            name    => $name,
+            comment => $comment,
+            sd      => $sd,
+        };
+
+        if ($name ne '.' and $name ne '..') {
+            $self->copyEntry($smb, $entry);
+            if ($type == Filesys::SmbClient::SMBC_DIR) {
+                $self->syncDirectory($smb, "$srcURL/$name", "$dstURL/$name");
+            }
+        }
+    }
+    $smb->close($srcFD);
 }
 
 sub sync
 {
-    my ($self, $debug) = @_;
+    my ($self) = @_;
 
-    my $source = $self->{source};
-    my $destination = $self->{destination};
-    unless (defined $source and length $source) {
-        EBox::error("Source not defined");
-        return;
-    }
-    unless (defined $destination and length $destination) {
-        EBox::error("Destination not defined");
-        return;
-    }
+    try {
+        my $srcDC = $self->getSourceDC();
+        my $dstDC = $self->getDestinationDC();
 
-    # Try to ping the DC
-    return unless ($self->sourceReachable());
-
-    # Check if ticket is expired
-    $self->{hasTicket} = kcheck($self->{keytab}, $self->{adUser});
-
-    # Get ticket
-    while (not $self->{hasTicket}) {
-        EBox::info("No ticket or expired");
-        $self->{hasTicket} = $self->extractKeytab($self->{keytab}, $self->{adUser});
-        sleep (2);
-    }
-
-    # Sync share
-    my $cmd = "net rpc share migrate files sysvol " .
-              "-k --destination=$destination -S $source --acls";
-    if ($debug) {
-        $cmd .= " -v -d6 >> " . EBox::Config::tmp() . "sysvol-sync.output 2>&1";
-    }
-
-    EBox::info("Synchronizing sysvol share from $source");
-    system ($cmd);
-    if ($? == -1) {
-        EBox::error("failed to execute: $!");
-        return -1;
-    } elsif ($? & 127) {
-        my $signal = ($? & 127);
-        EBox::error("child died with signal $signal");
-        return $signal;
-    } else {
-        my $code = ($? >> 8);
-        unless ($code == 0) {
-            EBox::info("child exited with value $code");
-            # Maybe user pwd has changed an we need to export keytab again
-            $self->{hasTicket} = 0;
-        }
-        return $code;
-    }
-    return 0;
+        EBox::info("Synchronizing sysvol from $srcDC to $dstDC");
+        my $smb = new EBox::Samba::SmbClient(RID => 500);
+        my $srcURL = "smb://$srcDC/sysvol";
+        my $dstURL = "smb://$dstDC/sysvol";
+        $self->syncDirectory($smb, $srcURL, $dstURL);
+    } otherwise {
+    };
 }
 
 # Method: run
@@ -205,12 +196,10 @@ sub run
 
     while (1) {
         my $randomSleep = (DEBUG ? (3) : ($interval + int (rand ($random))));
-        EBox::debug("Sleeping for $randomSleep seconds");
         sleep ($randomSleep);
-        $self->sync(DEBUG);
+        $self->sync();
     }
 
-    kdestroy();
     EBox::info("Samba sysvol synchronizer script stopped");
 }
 
