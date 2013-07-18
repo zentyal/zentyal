@@ -2153,7 +2153,7 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $baseObject = EBox::Samba::LdbObject(dn => $dn);
+    my $baseObject = new EBox::Samba::LdbObject(dn => $dn);
 
     if ($baseObject->exists()) {
         return $self->entryModeledObject($baseObject->_entry());
