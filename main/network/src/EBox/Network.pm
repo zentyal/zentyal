@@ -4203,7 +4203,7 @@ sub regenGateways
 
     my $global = EBox::Global->getInstance();
 
-    my $timeout = 60;
+    my $timeout = 180;
     my $locked = 0;
 
     while ((not $locked) and ($timeout > 0)) {
