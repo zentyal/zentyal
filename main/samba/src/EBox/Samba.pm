@@ -51,6 +51,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
+use EBox::Samba::LdbObject;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
