@@ -1,4 +1,5 @@
 HEAD
+	+ Increase regenGateways() timeout from 60 to 180 seconds
 	+ Add zentyal-users to package breaks control to avoid errors with
 	  bad users version
 	+ Fixed regression in external interface check in Network -> Interfaces

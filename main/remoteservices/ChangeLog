@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wrong jQuery interpolation in Subscription form
 	+ Adapt firewall rules to new accept chains
 	+ Display web remote access support settings
 	+ Save logs module when creating VPN client to start logging its log

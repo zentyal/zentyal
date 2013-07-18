@@ -51,6 +51,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
+use EBox::Samba::LdbObject;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -2189,7 +2190,7 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $baseObject = EBox::Samba::LdbObject(dn => $dn);
+    my $baseObject = new EBox::Samba::LdbObject(dn => $dn);
 
     if ($baseObject->exists()) {
         return $self->entryModeledObject($baseObject->_entry());
