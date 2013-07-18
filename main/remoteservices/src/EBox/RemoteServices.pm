@@ -1675,7 +1675,7 @@ sub _setProxyRedirections
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
-            $webadminMod->addInclude($confFile);
+            $webadminMod->addApacheInclude($confFile);
         } otherwise {
             # Not proper YAML file
             my ($exc) = @_;
@@ -1685,7 +1685,7 @@ sub _setProxyRedirections
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
-            $webadminMod->removeInclude($confFile);
+            $webadminMod->removeApacheInclude($confFile);
         } catch EBox::Exceptions::Internal with { ; };
     }
     # We have to save Apache changes:
