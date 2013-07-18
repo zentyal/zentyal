@@ -707,26 +707,28 @@ sub prepareMakeBackup
 
 # Method: makeBackup
 #
-#       Backups the current configuration
+#      Back up the current configuration
 #
 # Parameters:
 #
-#                   progress    - progress indicator
-#                                 associated with this operation (optional)
-#                   description - backup's description (default: 'Backup')
-#                   bug         - whether this backup is intended for a bug report
-#                                 (one consequence of this is that we must clear
-#                                  private data)
-#                   fallbackToRO - fallback to read-only configuration when
-#                                  they are not saved changes
+#      progress    - progress indicator
+#                    associated with this operation (optional)
+#      description - backup's description (default: 'Backup')
+#      bug         - whether this backup is intended for a bug report
+#                    (one consequence of this is that we must clear
+#                     private data)
+#      fallbackToRO - fallback to read-only configuration when
+#                     they are not saved changes
 #
 #  Returns:
 #         - path to the new backup archive
 #
 # Exceptions:
 #
-#       Internal - If backup fails
-#       External - If modules have unsaved changes
+#       <EBox::Exceptions::Internal>    - If backup fails
+#       <EBox::Exceptions::External>    - If modules have unsaved changes
+#       <EBox::Exceptions::InvalidData> - If the created backup is corrupted
+#
 sub makeBackup
 {
     my ($self, %options) = @_;
@@ -755,6 +757,9 @@ sub makeBackup
 
         $filename = $self->_makeBackup(%options,
                                        changesSaved => $changesSaved);
+
+        # Check the backup is correct, if not raise EBox::Exceptions::External exception
+        $self->_checkBackup($filename);
     }
     otherwise {
         my $ex = shift @_;
@@ -1660,6 +1665,24 @@ sub _backupFileById
 sub _facilitiesForDiskUsage
 {
     return { __(q{Backup archives}) => [ backupDir() ] }
+}
+
+# Check the backup contents a non-corrupted data
+sub _checkBackup
+{
+    my ($self, $filename) = @_;
+
+    try {
+        EBox::Sudo::command("tar --list --file '$filename'");
+        EBox::Sudo::command("tar --test-label --file '$filename'");
+    } catch EBox::Exceptions::Command with {
+        my ($exc) = @_;
+        throw EBox::Exceptions::InvalidData(
+            data   => 'backup',
+            value  => $exc->stringify(),
+            advice => __('Try to back up again as the created backup is corrupted')
+           );
+    };
 }
 
 1;
