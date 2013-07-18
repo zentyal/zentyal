@@ -1,3 +1,6 @@
+HEAD
+	+ Check backup integrity by listing the tar file, throw
+	  InvalidData exception if the tar is corrupted
 3.0.22
 	+ Do not use hidden form fields for generating confirmation dialog JS
 	+ Fixed log bugs: use correct RO mode in loggerd, fixed behaviour
