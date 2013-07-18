@@ -23,6 +23,7 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Base;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::RemoteServices::Backup;
 use Error qw(:try);
@@ -31,9 +32,36 @@ use Getopt::Long;
 use Pod::Usage;
 
 use constant LAST_BACKUP_TIMESTAMP_FILE => EBox::Config::conf() . 'remoteservices/last-backup-stamp';
+use constant ATTEMPT_NUM => 2;
 
-# Get the cron jobs from the CC
-sub _makeConfBackup
+# Real make conf backup
+sub makeConfBackup
+{
+    my $backupService = new EBox::RemoteServices::Backup();
+    my $automatic     = 1;
+    my $backupName    = 'automatic-backup-' . time();
+    foreach my $attempt (1 .. ATTEMPT_NUM) {
+        EBox::debug("Attempt $attempt to make the backup");
+        try {
+            $backupService->makeRemoteBackup($backupName,
+                                             __('Automatic backup'),
+                                             $automatic);
+            last;
+        } catch EBox::Exceptions::InvalidData with {
+            my ($exc) = @_;
+            EBox::debug("Backup corrupted in some way...");
+            $exc->throw() if ($attempt == ATTEMPT_NUM);
+        };
+    }
+}
+
+# The following actions are done:
+#
+#    * Check if a new backup is needed
+#    * Make the backup (retry ATTEMPT_NUM if corruption happens)
+#    * Notify the backup resolution
+#
+sub checkMakeRetryConfBackup
 {
     my $gl = EBox::Global->getInstance(1);
     my $rs = $gl->modInstance('remoteservices');
@@ -45,12 +73,9 @@ sub _makeConfBackup
         }
         # Make the conf backup if any change has been done to Zentyal
         if ( $gl->lastModificationTime() > $lastBackupStamp ) {
-            my $backupService = new EBox::RemoteServices::Backup();
             my ($automatic, $level, $msg, $additional, $dispatchTo) = (1, 'info', '', {}, undef);
             try {
-                $backupService->makeRemoteBackup('automatic-backup-' . time(),
-                                                 __('Automatic backup'),
-                                                 $automatic);
+                makeConfBackup();
                 # Save the timestamp for later use
                 File::Slurp::write_file(LAST_BACKUP_TIMESTAMP_FILE, time());
                 $msg = __('Automatic configuration backup done');
@@ -93,7 +118,7 @@ if ( $usage or (not $correct)) {
 
 EBox::init();
 
-_makeConfBackup();
+checkMakeRetryConfBackup();
 
 __END__
 
