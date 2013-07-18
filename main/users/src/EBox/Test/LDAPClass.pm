@@ -36,6 +36,18 @@ sub class
     throw EBox::Exceptions::NotImplemented('class', ref $class);
 }
 
+# Method: _testStubsSetFiles
+#
+#   Initialises some status files required to test LDAP based code.
+#
+sub _testStubsSetFiles
+{
+    # Created the ldap password files with dummy content
+    my $confDir = EBox::Config::conf();
+    system ("echo Foo > $confDir/ldap.passwd");
+    system ("echo Foo > $confDir/ldap_ro.passwd");
+}
+
 sub _testStubsForLDAP : Test(startup)
 {
     my ($self) = @_;
@@ -43,10 +55,7 @@ sub _testStubsForLDAP : Test(startup)
     eval "use $class";
     die $@ if $@;
 
-    # Created the ldap password files with dummy content
-    my $confDir = EBox::Config::conf();
-    system ("echo Foo > $confDir/ldap.passwd");
-    system ("echo Foo > $confDir/ldap_ro.passwd");
+    $self->_testStubsSetFiles();
 
     # Create the LDAP Mock object.
     my $ldapInstance = $class->instance();

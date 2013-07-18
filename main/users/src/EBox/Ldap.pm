@@ -72,7 +72,7 @@ sub instance
     my ($class) = @_;
 
     unless(defined($_instance)) {
-        $_instance = EBox::Ldap->_new_instance();
+        $_instance = $class->_new_instance();
     }
 
     return $_instance;
@@ -254,6 +254,10 @@ sub dn
 sub clearConn
 {
     my ($self) = @_;
+
+    if (defined $self->{ldap}) {
+        $self->{ldap}->disconnect();
+    }
     delete $self->{dn};
     delete $self->{ldap};
     delete $self->{password};
@@ -339,7 +343,7 @@ sub search # (args)
 #        }
 #    }
     my $result = $self->{ldap}->search(%{$args});
-    _errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args);
     return $result;
 }
 
@@ -361,7 +365,7 @@ sub modify
 
     $self->ldapCon;
     my $result = $self->{ldap}->modify($dn, %{$args});
-    _errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args);
     return $result;
 }
 
@@ -382,7 +386,7 @@ sub delete
 
     $self->ldapCon;
     my $result =  $self->{ldap}->delete($dn);
-    _errorOnLdap($result, $dn);
+    $self->_errorOnLdap($result, $dn);
     return $result;
 }
 
@@ -405,7 +409,7 @@ sub add # (dn, args)
 
     $self->ldapCon;
     my $result =  $self->{ldap}->add($dn, %{$args});
-    _errorOnLdap($result, $args);
+    $self->_errorOnLdap($result, $args);
     return $result;
 }
 
@@ -690,7 +694,10 @@ sub lastModificationTime
     return POSIX::mktime( $s, $m, $h, $day, $month -1, $year - 1900 );
 
 }
-
+# Method: _errorOnLdap
+#
+#   Check the result for errors
+#
 sub _errorOnLdap
 {
     my ($result, $args) = @_;

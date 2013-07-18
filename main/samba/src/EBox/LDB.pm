@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::LDB;
+use base 'EBox::Ldap';
 
 use EBox::Samba::LdbObject;
 use EBox::Samba::Credentials;
@@ -35,7 +36,6 @@ use EBox::Gettext;
 use Net::LDAP;
 use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
-use Authen::SASL qw(Perl);
 
 use Data::Dumper;
 use File::Slurp;
@@ -88,29 +88,11 @@ sub _new_instance
     my %ignoredGroups = map { $_ => 1 } @lines;
 
     my $self = {};
-    $self->{ldb} = undef;
+    $self->{ldap} = undef;
     $self->{idamp} = undef;
     $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
-}
-
-# Method: instance
-#
-#   Return a singleton instance of class <EBox::Ldap>
-#
-# Returns:
-#
-#   object of class <EBox::Ldap>
-sub instance
-{
-    my ($self, %opts) = @_;
-
-    unless (defined ($_instance)) {
-        $_instance = EBox::LDB->_new_instance();
-    }
-
-    return $_instance;
 }
 
 # Method: idmap
@@ -125,6 +107,17 @@ sub idmap
         $self->{idmap} = EBox::LDB::IdMapDb->new();
     }
     return $self->{idmap};
+}
+
+# Method: ldapCon
+#
+# Override EBox::Ldap::ldapCon
+#
+sub ldapCon
+{
+    my ($self) = @_;
+
+    return $self->ldbCon();
 }
 
 # Method: ldbCon
@@ -145,8 +138,8 @@ sub ldbCon
 
     # Workaround to detect if connection is broken and force reconnection
     my $reconnect = 0;
-    if (defined $self->{ldb}) {
-        my $mesg = $self->{ldb}->search(
+    if (defined $self->{ldap}) {
+        my $mesg = $self->{ldap}->search(
                 base => '',
                 scope => 'base',
                 filter => "(cn=*)",
@@ -157,11 +150,11 @@ sub ldbCon
         }
     }
 
-    if (not defined $self->{ldb} or $reconnect) {
-        $self->{ldb} = $self->safeConnect();
+    if (not defined $self->{ldap} or $reconnect) {
+        $self->{ldap} = $self->safeConnect();
     }
 
-    return $self->{ldb};
+    return $self->{ldap};
 }
 
 sub safeConnect
@@ -216,174 +209,6 @@ sub dn
     }
 
     return defined $self->{dn} ? $self->{dn} : '';
-}
-
-# Method: clearConn
-#
-#   Closes LDAP connection and clears DN cached value
-#
-sub clearConn
-{
-    my ($self) = @_;
-
-    if (defined $self->{ldb}) {
-        $self->{ldb}->disconnect();
-    }
-
-    delete $self->{dn};
-    delete $self->{ldb};
-}
-
-# Method: search
-#
-#   Performs a search in the LDB database using Net::LDAP.
-#
-# Parameters:
-#
-#   args - arguments to pass to Net::LDAP->search()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the search
-#
-sub search
-{
-    my ($self, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->search(%{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: existsDN
-#
-#   Finds whether a DN exists on the database
-#
-# Parameters:
-#
-#   dn   - dn to lookup
-#   relativeToBaseDN - whether the given DN is relative to the baseDN (default: false)
-#
-# Returns:
-#
-#  boolean - whether the DN exists or not
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the LDAP search
-#
-sub existsDN
-{
-    my ($self, $dn, $relativeToBaseDN) = @_;
-    if ($relativeToBaseDN) {
-        $dn = $dn . ','  . $self->dn();
-    }
-
-    my $ldb = $self->ldbCon();
-    my %args = (base => $dn, scope=>'base', filter => '(objectclass=*)');
-    my $result = $ldb->search(%args);
-
-    if (ldap_error_name($result) eq 'LDAP_NO_SUCH_OBJECT') {
-        # then it does not exists
-        return 0;
-    } else {
-        # check if there is no other error
-        $self->_errorOnLdap($result, \%args);
-    }
-
-    return $result->count() > 0;
-}
-
-# Method: modify
-#
-#   Performs a modification in the LDB database using Net::LDAP.
-#
-# Parameters:
-#
-#   dn   - dn where to perform the modification
-#   args - parameters to pass to Net::LDAP->modify()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub modify
-{
-    my ($self, $dn, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->modify($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: delete
-#
-#   Performs a deletion in the LDB database using Net::LDAP
-#
-# Parameters:
-#
-#   dn - dn to delete
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub delete
-{
-    my ($self, $dn) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->delete($dn);
-    $self->_errorOnLdap($result, $dn);
-
-    return $result;
-}
-
-# Method: add
-#
-#   Adds an object or attributes in the LDB database using Net::LDAP
-#
-# Parameters:
-#
-#   dn - dn to add
-#   args - parameters to pass to Net::LDAP->add()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub add
-{
-    my ($self, $dn, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->add($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: _errorOnLdap
-#
-#   Check the result for errors
-#
-sub _errorOnLdap
-{
-    my ($self, $result, $args) = @_;
-
-    my @frames = caller (2);
-    if ($result->is_error()) {
-        if ($args) {
-            EBox::error( Dumper($args) );
-        }
-        throw EBox::Exceptions::Internal("Unknown error at " .
-                                         $frames[3] . " " .
-                                         $result->error);
-    }
 }
 
 #############################################################################
