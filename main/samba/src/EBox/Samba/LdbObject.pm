@@ -106,6 +106,11 @@ sub _entry
 {
     my ($self) = @_;
 
+    if ($self->{entry} and (not $self->{entry}->exists('objectGUID'))) {
+        $self->{dn} = $self->{entry}->dn();
+        delete $self->{entry};
+    }
+
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
