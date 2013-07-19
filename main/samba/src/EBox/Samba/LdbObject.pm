@@ -340,12 +340,8 @@ sub children
 # TODO: Try to share code with parent class...
 sub parent
 {
-    my ($self, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
+    my ($self) = @_;
+    my $dn = $self->dn();
     my $sambaMod = $self->_sambaMod();
 
     my $defaultNamingContext = $sambaMod->defaultNamingContext();
