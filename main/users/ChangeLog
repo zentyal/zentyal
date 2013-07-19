@@ -1,5 +1,7 @@
 HEAD
-	+ All LdbObject based objects will have the 'entryUUID' field available.
+	+ preAdd callbacks get a second argument noting the parent when this
+	  new object will be created.
+	+ All LdapObject based objects will have the 'entryUUID' field available.
 	+ Created an EBox::LDAPBase class to share code with the Samba's EBox::LDB
 	  one.
 	+ Reimplemented EBox::Users::Group::members to retrieve the members of the

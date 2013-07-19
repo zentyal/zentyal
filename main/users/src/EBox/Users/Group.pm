@@ -559,8 +559,8 @@ sub create
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
-        $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
-                                               $args{ignoreMods}, $args{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase(
+            'preAddGroup', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
 
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
@@ -596,7 +596,8 @@ sub create
             $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddGroupFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;
