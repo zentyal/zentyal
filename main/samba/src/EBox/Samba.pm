@@ -2093,6 +2093,9 @@ sub ldbDNFromLDAPDN
             my $cn = $ldapUser->fullname();
             $relativeDN =~ s/uid=([^,]*),/CN=$cn,/gi;
         }
+    } elsif (lc ($relativeDN) eq 'cn=domain admins,ou=groups') {
+        # XXX: This mapping is required due to the ou=Groups legacy.
+        $relativeDN = 'CN=Domain Admins,CN=Users';
     }
     my $dn = '';
     if ($relativeDN) {

@@ -1,4 +1,6 @@
 HEAD
+	+ Fix regression in dhcp-gateway.pl which interfered with save
+	  change process
 	+ Increase regenGateways() timeout from 60 to 180 seconds
 	+ Add zentyal-users to package breaks control to avoid errors with
 	  bad users version
