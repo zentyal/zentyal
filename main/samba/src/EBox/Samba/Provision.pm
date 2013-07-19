@@ -18,9 +18,10 @@ use warnings;
 
 package EBox::Samba::Provision;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
@@ -316,6 +317,38 @@ sub resetSysvolACL
     EBox::Sudo::rootWithoutException($cmd);
 }
 
+# Method: mapDefaultContainers
+#
+#   Links the default CN containers from SAMBA in the LDAP equivalent OUs.
+#
+sub mapDefaultContainers
+{
+    my ($self) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my @containerNames = ('Users', 'Computers');
+    my $ldbRootDN = $sambaMod->ldb()->dn();
+    my $ldapRootDN = $usersMod->_ldap()->dn();
+
+    foreach my $containerName (@containerNames) {
+        my $ldbDN = "CN=$containerName,$ldbRootDN";
+        my $ldapDN = "ou=$containerName,$ldapRootDN";
+        my $ldbObject = $sambaMod->objectFromDN($ldbDN);
+        my $ldapObject = $usersMod->objectFromDN($lapDN);
+
+        unless ($ldbObject) {
+            throw EBox::Exceptions::Internal("Unable to find $ldbDN on LDB.")
+        }
+
+        unless ($ldapObject) {
+            throw EBox::Exceptions::Internal("Unable to find $ldapDN on LDAP.")
+        }
+
+        $ldbObject->_linkWithUsersObject($ldapObject);
+    }
+}
+
 sub mapAccounts
 {
     my ($self) = @_;
@@ -338,8 +371,7 @@ sub mapAccounts
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
     if ($domainAdmin->exists() and (not $domainAdminZentyal->exists())) {
-        my $parentOu = EBox::Users::User->defaultContainer();
-        $domainAdmin->addToZentyal($parentOu);
+        $domainAdmin->addToZentyal();
     }
 
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
@@ -348,8 +380,7 @@ sub mapAccounts
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
     if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists())) {
-        my $parentOu = EBox::Users::Group->defaultContainer();
-        $domainAdmins->addToZentyal($parentOu);
+        $domainAdmins->addToZentyal();
     }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
@@ -442,6 +473,9 @@ sub provisionDC
 
         # Map accounts
         $self->mapAccounts();
+
+        # Map defaultContainers
+        $self->mapDefaultContainers();
 
         # Reset sysvol
         $self->resetSysvolACL();
@@ -1090,6 +1124,9 @@ sub provisionADC
 
         # Map accounts
         $self->mapAccounts();
+
+        # Map defaultContainers
+        $self->mapDefaultContainers();
 
         EBox::debug('Setting provisioned flag');
         $self->setProvisioned(1);

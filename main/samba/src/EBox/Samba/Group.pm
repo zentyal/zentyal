@@ -215,7 +215,17 @@ sub addToZentyal
     my ($self) = @_;
 
     my $sambaMod = EBox::Global->modInstance('samba');
-    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+
+    my $parent = undef;
+    my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainAdminsSID = "$domainSID-512";
+    if ($domainAdminsSID eq $self->sid()) {
+        # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
+        $parent = EBox::Users::Group->defaultContainer();
+    } else {
+        $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+    }
+
     if (not $parent) {
         my $dn = $self->dn();
         throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");

@@ -37,6 +37,43 @@ use Error qw(:try);
 
 my $_sambaMod;
 
+# Method: new
+#
+#   Instance an object readed from LDAP.
+#
+#   Parameters:
+#
+#      dn - Full dn for the user
+#  or
+#      ldif - Reads the entry from LDIF
+#  or
+#      entry - Net::LDAP entry for the user
+#  or
+#      objectGUID - The LDB's objectGUID.
+#
+sub new
+{
+    my ($class, %params) = @_;
+
+    my $self = {};
+
+    if ($params{objectGUID}) {
+        $self->{objectGUID} = $params{objectGUID};
+    } else {
+        try {
+            $self = $class->SUPER::new(%params);
+        } catch EBox::Exceptions::MissingArgument with {
+            my ($error) = @_;
+
+            throw EBox::Exceptions::MissingArgument("$error|objectGUID");
+        };
+    }
+
+    bless ($self, $class);
+    return $self;
+}
+
+
 # Method: objectGUID
 #
 #   Return the objectGUID attribute existent in any LDB object.
@@ -123,16 +160,30 @@ sub _entry
 
     unless ($self->{entry}) {
         my $result = undef;
-        if (defined $self->{dn}) {
+        my $base = undef;
+        my $filter = undef;
+        my $scope = undef;
+        if (defined $self->{objectGUID}) {
+            $base = $self->_ldap()->dn();
+            $filter = "(objectGUID=" . $self->{objectGUID} . ")";
+            $scope = 'sub';
+        } elsif (defined $self->{dn}) {
             my $dn = $self->{dn};
-            my $attrs = {
-                base => $dn,
-                filter => "(distinguishedName=$dn)",
-                scope => 'base',
-                attrs => ['*', 'objectGUID', 'unicodePwd', 'supplementalCredentials'],
-            };
-            $result = $self->_ldap->search($attrs);
+            $base = $dn;
+            $filter = "(distinguishedName=$dn)";
+            $scope = 'base';
+        } else {
+            return undef;
         }
+
+        my $attrs = {
+            base   => $base,
+            filter => $filter,
+            scope  => $scope,
+            attrs  => ['*', 'objectGUID', 'unicodePwd', 'supplementalCredentials'],
+        };
+
+        $result = $self->_ldap->search($attrs);
         return undef unless defined $result;
 
         if ($result->count() > 1) {
