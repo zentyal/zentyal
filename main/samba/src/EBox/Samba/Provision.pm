@@ -335,7 +335,7 @@ sub mapDefaultContainers
         my $ldbDN = "CN=$containerName,$ldbRootDN";
         my $ldapDN = "ou=$containerName,$ldapRootDN";
         my $ldbObject = $sambaMod->objectFromDN($ldbDN);
-        my $ldapObject = $usersMod->objectFromDN($lapDN);
+        my $ldapObject = $usersMod->objectFromDN($ldapDN);
 
         unless ($ldbObject) {
             throw EBox::Exceptions::Internal("Unable to find $ldbDN on LDB.")
