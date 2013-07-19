@@ -319,6 +319,9 @@ sub enableActions
     # Create directories
     EBox::info('Creating directories');
     $self->_createDirectories();
+
+    # Load the required OpenLDAP schema updates.
+    $self->performLDAPActions();
 }
 
 sub getProvision

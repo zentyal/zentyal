@@ -693,6 +693,13 @@ sub _checkWindowsBuiltin
     }
 }
 
+sub schemas
+{
+    return [
+        EBox::Config::share() . '/zentyal-samba/zentyalsambalink.ldif',
+    ];
+}
+
 sub multipleOUSupport
 {
     return 1;
