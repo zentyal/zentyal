@@ -181,4 +181,17 @@ sub init
     $debug = EBox::Config::boolean('debug');
 }
 
+# Function: declared
+#
+#   Return whether the given constant is defined or not.
+#
+sub declared ($) {
+    use constant 1.01; # don't omit this!
+    my $name = shift;
+    $name =~ s/^::/main::/;
+    my $pkg = caller;
+    my $full_name = $name =~ /::/ ? $name : "${pkg}::$name";
+    $constant::declared{$full_name};
+}
+
 1;
