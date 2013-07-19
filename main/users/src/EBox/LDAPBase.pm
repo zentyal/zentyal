@@ -48,11 +48,6 @@ sub instance
 {
     my ($class) = @_;
 
-    unless (EBox::declared('LDAPI')) {
-        # Child classes must define the LDAPI constant.
-        throw EBox::Exceptions::NotImplemented('LDAPI constant must be defined!');
-    }
-
     unless(defined($_instance)) {
         $_instance = $class->_new_instance();
     }
@@ -480,10 +475,15 @@ sub _errorOnLdap
 
 # Method: url
 #
-#  Return the URL or paraeter to create a connection with this LDAP
+#  Return the URL or parameter to create a connection with this LDAP
 sub url
 {
-    return LDAPI;
+    unless (EBox::declared('LDAPI')) {
+        # Child classes must define the LDAPI constant.
+        throw EBox::Exceptions::NotImplemented('LDAPI constant must be defined!');
+    }
+
+    return LDAPI();
 }
 
 sub safeConnect

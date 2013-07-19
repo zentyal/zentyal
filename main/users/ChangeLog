@@ -1,4 +1,6 @@
 HEAD
+	+ Created an EBox::LDAPBase class to share code with the Samba's EBox::LDB
+	  one.
 	+ Reimplemented EBox::Users::Group::members to retrieve the members of the
 	  group directly instead of searching for the objects that are set as
 	  members of the group.

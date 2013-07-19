@@ -84,7 +84,7 @@ sub _new_instance
     chomp (@lines);
     my %ignoredGroups = map { $_ => 1 } @lines;
 
-    my $self = $class->SUPER::_new_instance():
+    my $self = $class->SUPER::_new_instance();
     $self->{idamp} = undef;
     $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
