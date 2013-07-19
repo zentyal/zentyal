@@ -278,7 +278,8 @@ sub ldapOUsToLDB
         }
 
         try {
-            EBox::Samba::OU->create(name => $name, parent => $parent);
+            my $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+            $sambaOU->_linkWithUsersObject($ou);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("OU $name already in $parentDN on Samba database");
         } otherwise {
@@ -317,7 +318,8 @@ sub ldapUsersToLdb
                 description    => scalar ($user->get('description')),
                 kerberosKeys   => $user->kerberosKeys(),
             );
-            EBox::Samba::User->create(%args);
+            my $sambaUser = EBox::Samba::User->create(%args);
+            $sambaUser->_linkWithUsersObject($user);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
@@ -361,7 +363,8 @@ sub ldapContactsToLdb
                 description => scalar ($contact->get('description')),
                 mail        => $contact->get('mail')
             );
-            EBox::Samba::Contact->create(%args);
+            my $sambaContact = EBox::Samba::Contact->create(%args);
+            $sambaContact->_linkWithUsersObject($contact);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Contact $name already in $parentDN on Samba database");
         } otherwise {
@@ -402,6 +405,7 @@ sub ldapGroupsToLdb
                 $args{gidNumber} = scalar ($group->get('gidNumber'));
             };
             $sambaGroup = EBox::Samba::Group->create(%args);
+            $sambaGroup->_linkWithUsersObject($group);
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("Group $name already in Samba database");
         } otherwise {
@@ -456,6 +460,7 @@ sub ldapServicePrincipalsToLdb
         EBox::debug("Loading OU $name into $parentDN");
         try {
             $ldbKerberosOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+            $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
         } otherwise {
             my $error = shift;
             throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN': $error");
@@ -486,6 +491,7 @@ sub ldapServicePrincipalsToLdb
                     kerberosKeys   => $user->kerberosKeys(),
                 );
                 $smbUser = EBox::Samba::User->create(%args);
+                # TODO: Should we link this with any OpenLDAP user?
                 $smbUser->setCritical(1);
                 $smbUser->setViewInAdvancedOnly(1);
             }

@@ -472,6 +472,9 @@ sub addToZentyal
             unicodePwd => $up
         );
         $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+
+        $self->_linkWithUsersObject($zentyalUser);
+
     }
 }
 

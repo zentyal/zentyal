@@ -45,6 +45,23 @@ sub new
     return $self;
 }
 
+sub _linkEntryWithSamba
+{
+    my ($self, $entry, $ldbObject) = @_;
+
+    unless ($entry and $entry->isa('Net::LDAP::Entry')) {
+        throw EBox::Exceptions::Internal("Invalid entry argument. It's not a Net::LDAP::Entry.");
+    }
+    unless ($ldbObject and $ldbObject->isa('EBox::Samba::LDBObject')) {
+        throw EBox::Exceptions::Internal("Invalid ldbObject argument. It's not an EBox::Samba::LDBObject.");
+    }
+
+    $entry->add(
+        objectClass    => 'zentyalSambaLink',
+        msdsObjectGUID => $ldbObject->objectGUID(),
+    );
+}
+
 sub _sambaReady
 {
     my ($self) = @_;
@@ -56,16 +73,17 @@ sub _sambaReady
 sub _preAddOU
 {
     my ($self, $entry) = @_;
-    $self->_sambaReady() or
-        return;
+
+    return unless ($self->_sambaReady());
+
     my $dn = $self->{samba}->ldbObjectFromLDAPObject($entry->dn());
     my $name = $entry->get_value('ou');
-    use Data::Dumper;
-    EBox::debug(Dumper($name));
     my $parent = EBox::Samba::OU->parent($dn);
 
     EBox::debug("Creating OU in LDB '$name'");
-    EBox::Samba::OU->create(name => $name, parent => $parent);
+    my $ou = EBox::Samba::OU->create(name => $name, parent => $parent);
+
+    $self->_linkEntryWithSamba($entry, $ou);
 }
 
 sub _preAddOuFailed
@@ -145,6 +163,8 @@ sub _preAddUser
     $sambaUser->set('uidNumber', $newUidNumber);
     $sambaUser->setupUidMapping($newUidNumber);
     $entry->replace('uidNumber' => $newUidNumber);
+
+    $self->_linkEntryWithSamba($entry, $sambaUser);
 }
 
 sub _preAddUserFailed
@@ -331,6 +351,7 @@ sub _preAddContact
 
     EBox::info("Creating contact '$name'");
     my $sambaContact = EBox::Samba::Contact->create(%args);
+    $self->_linkEntryWithSamba($entry, $sambaContact);
 }
 
 sub _preAddContactFailed
@@ -432,6 +453,7 @@ sub _preAddGroup
     $sambaGroup->set('gidNumber', $newGidNumber);
     $sambaGroup->setupGidMapping($newGidNumber);
     $entry->replace('gidNumber' => $newGidNumber);
+    $self->_linkEntryWithSamba($entry, $sambaGroup);
 }
 
 sub _preAddGroupFailed

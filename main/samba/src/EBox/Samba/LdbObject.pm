@@ -37,6 +37,16 @@ use Error qw(:try);
 
 my $_sambaMod;
 
+# Method: objectGUID
+#
+#   Return the objectGUID attribute existent in any LDB object.
+sub objectGUID
+{
+    my ($self) = @_;
+
+    return $self->_entry()->get('objectGUID');
+}
+
 # Method: checkObjectErasability
 #
 #   Returns whether the object could be deleted or not.
@@ -313,6 +323,41 @@ sub relativeDN
 
     my $sambaMod = $self->_sambaMod();
     return $sambaMod->relativeDN($self->dn());
+}
+
+# Method: _linkWithUsersEntry
+#
+#   Stores a link to this object into the given Entry.
+#
+sub _linkWithUsersEntry
+{
+    my ($self, $entry) = @_;
+
+    unless ($entry and $entry->isa('Net::LDAP::Entry')) {
+        throw EBox::Exceptions::Internal("Invalid entry argument. It's not a Net::LDAP::Entry.");
+    }
+
+    $entry->add(
+        objectClass    => 'zentyalSambaLink',
+        msdsObjectGUID => $self->objectGUID(),
+    );
+}
+
+# Method: _linkWithUsersObject
+#
+#   Stores a link to this object into the given OpenLDAP object.
+#
+sub _linkWithUsersObject
+{
+    my ($self, $ldapObject) = @_;
+
+    unless ($ldapObject and $ldapObject->isa('EBox::Users::LdapObject')) {
+        throw EBox::Exceptions::Internal("Invalid ldapObject argument. It's not an EBox::Users::LdapObject.");
+    }
+
+    $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
+    $ldapObject->set('msdsObjectGUID', $self->objectGUID(), 1);
+    $ldapObject->save();
 }
 
 1;

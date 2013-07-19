@@ -1,4 +1,7 @@
 HEAD
+	+ Added _linkWithUsersEntry && _linkWithUsersObject and called for every
+	  Samba object created from the users module, so we have a direct link
+	  between objects.
 	+ All LDBObject based objects will have the objectGUID field availble.
 	+ Removed unused method EBox::LDB::existsDN.
 	+ Updated EBox::LDB class to use the new EBox::LDAPBase to share code.

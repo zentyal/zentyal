@@ -156,7 +156,8 @@ sub addToZentyal
             ignoreMods   => ['samba'],
         );
 
-        EBox::Users::Contact->create(%args);
+        my $zentyalContact = EBox::Users::Contact->create(%args);
+        $self->_linkWithUsersObject($zentyalContact);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("Contact $name already in OpenLDAP database");
     } otherwise {
