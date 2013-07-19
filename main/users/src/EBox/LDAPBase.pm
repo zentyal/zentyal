@@ -202,7 +202,7 @@ sub delObjectclass # (dn, objectclass);
         filter => "(objectclass=$objectclass)"
        };
     my $msg = $self->search($searchArgs);
-    _errorOnLdap($msg, $searchArgs);
+    $self->_errorOnLdap($msg, $searchArgs);
     return unless ($msg->entries > 0);
 
     my %attrexist = map {$_ => 1} $msg->pop_entry->attributes;
@@ -213,7 +213,7 @@ sub delObjectclass # (dn, objectclass);
         filter => '(objectclass=*)'
        };
     $msg = $self->search($attrSearchArgs);
-    _errorOnLdap($msg, $attrSearchArgs);
+    $self->_errorOnLdap($msg, $attrSearchArgs);
     my %attrs;
     for my $oc (grep(!/^$objectclass$/, $msg->entry->get_value('objectclass'))){
         # get objectclass attributes
@@ -246,12 +246,12 @@ sub delObjectclass # (dn, objectclass);
         my $deleteArgs = [ objectclass => $objectclass, %attr2del ];
         $result = $self->modify($dn, { changes =>
                 [delete => $deleteArgs] });
-        _errorOnLdap($msg, $deleteArgs);
+        $self->_errorOnLdap($msg, $deleteArgs);
     } else {
         my $deleteArgs = [ objectclass => $objectclass ];
         $result = $self->modify($dn, { changes =>
                 [delete => $deleteArgs] });
-        _errorOnLdap($msg, $deleteArgs);
+        $self->_errorOnLdap($msg, $deleteArgs);
     }
     return $result;
 }
@@ -466,9 +466,9 @@ sub lastModificationTime
 #
 sub _errorOnLdap
 {
-    my ($result, $args) = @_;
+    my ($class, $result, $args) = @_;
 
-    if ($result->is_error){
+    if ($result->is_error()){
         throw EBox::Exceptions::LDAP(result => $result, opArgs => $args);
     }
 }

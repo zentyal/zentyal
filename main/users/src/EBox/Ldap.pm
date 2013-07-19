@@ -476,12 +476,12 @@ sub changeUserPassword
         my $mesg = $self->{ldap}->set_password(user => $dn,
                                                oldpasswd => $oldPasswd,
                                                newpasswd => $newPasswd);
-        _errorOnLdap($mesg, $dn);
+        $self->_errorOnLdap($mesg, $dn);
     } else {
         my $mesg = $self->{ldap}->modify( $dn,
                         changes => [ delete => [ userPassword => $oldPasswd ],
                         add     => [ userPassword => $newPasswd ] ]);
-        _errorOnLdap($mesg, $dn);
+        $self->_errorOnLdap($mesg, $dn);
     }
 }
 
