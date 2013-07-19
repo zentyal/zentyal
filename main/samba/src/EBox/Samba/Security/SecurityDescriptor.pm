@@ -38,6 +38,23 @@ use EBox::Exceptions::InvalidArgument;
 
 use Error qw(:try);
 
+use constant CONTROL_OD => (1<<0);
+use constant CONTROL_GD => (1<<1);
+use constant CONTROL_DP => (1<<2);
+use constant CONTROL_DD => (1<<3);
+use constant CONTROL_SP => (1<<4);
+use constant CONTROL_SD => (1<<5);
+use constant CONTROL_SS => (1<<6);
+use constant CONTROL_DT => (1<<7);
+use constant CONTROL_DC => (1<<8);
+use constant CONTROL_SC => (1<<9);
+use constant CONTROL_DI => (1<<10);
+use constant CONTROL_SI => (1<<11);
+use constant CONTROL_PD => (1<<12);
+use constant CONTROL_PS => (1<<13);
+use constant CONTROL_RM => (1<<14);
+use constant CONTROL_SR => (1<<15);
+
 #
 # Security descriptor control flags that apply to the DACL or SACL
 #
@@ -110,24 +127,24 @@ sub new
 {
     my ($class, %params) = @_;
 
-    unless (defined $params{ownerSID}) {
-        throw EBox::Exceptions::MissingArgument('ownerSID');
-    }
-    unless (defined $params{groupSID}) {
-        throw EBox::Exceptions::MisssinArgument('groupSID');
-    }
-
     my $self = {};
     bless ($self, $class);
 
-    $self->setOwnerSID($params{ownerSID});
-    $self->setGroupSID($params{groupSID});
+    unless (defined $params{blob} or (defined $params{ownerSID} and defined $params{groupSID})) {
+        throw EBox::Exceptions::MissingArgument(' blob | (ownerSID && groupSID)');
+    }
 
-    $self->{saclFlags} = '';
-    $self->{daclFlags} = 'PAI';
-    $self->{sacl} = [];
-    $self->{dacl} = [];
+    if (defined $params{blob}) {
+        $self->decodeBlob($params{blob});
+    } else {
+        $self->setOwnerSID($params{ownerSID});
+        $self->setGroupSID($params{groupSID});
 
+        $self->{saclFlags} = '';
+        $self->{daclFlags} = 'PAI';
+        $self->{sacl} = [];
+        $self->{dacl} = [];
+    }
 
     return $self;
 }
@@ -272,6 +289,242 @@ sub getAsString
     }
 
     return $string;
+}
+
+# Method: decodeSID
+#
+#   Decodes a SID inside a security descriptor binary blob at a given offset.
+#
+# Documentation:
+#
+#   [MS-DTYP] Section 2.4.2.2
+#
+sub decodeSID
+{
+    my ($self, $blob, $offset) = @_;
+
+    # Revision (1 byte):
+    # An 8-bit unsigned integer that specifies the revision level of the SID.
+    # This value MUST be set to 0x01.
+    my $revision;
+
+    # SubAuthorityCount (1 byte):
+    # An 8-bit unsigned integer that specifies the number of elements in the
+    # SubAuthority array. The maximum number of elements allowed is 15.
+    my $subAuthorityCount;
+
+
+    # IdentifierAuthority (6 bytes):
+    # A SID_IDENTIFIER_AUTHORITY structure that indicates the authority under
+    # which the SID was created. It describes the entity that created the SID.
+    # The Identifier Authority value {0,0,0,0,0,5} denotes SIDs created by the
+    # NT SID authority.
+    my $identifierAuthority;
+
+    # SubAuthority (variable):
+    # A variable length array of unsigned 32-bit integers that uniquely
+    # identifies a principal relative to the IdentifierAuthority. Its length
+    # is determined by SubAuthorityCount.
+    my @subAuthority;
+
+    my $fmt = "\@$offset(C C)";
+    (undef, $subAuthorityCount) = unpack($fmt, $blob);
+
+    $fmt = "\@$offset(C C a6 L$subAuthorityCount)";
+    ($revision, undef, $identifierAuthority, @subAuthority) =
+        unpack($fmt, $blob);
+
+    $identifierAuthority = hex(unpack('H*', $identifierAuthority));
+
+    EBox::debug("Revision:               <$revision>");
+    EBox::debug("SubAuthorityCount:      <$subAuthorityCount>");
+    EBox::debug("IdentifierAuthority:    <$identifierAuthority>");
+    foreach my $subAuthority (@subAuthority) {
+        EBox::debug("SubAuthority:           <$subAuthority>");
+    }
+
+    my $sid = "S-1-$identifierAuthority-" . join ('-', @subAuthority);
+    EBox::debug("Decoded SID: $sid");
+    return $sid;
+}
+
+sub decodeACL
+{
+    my ($self, $blob, $aceCount) = @_;
+
+    my $aceType;
+    my $aceFlags;
+    my $aceSize;
+
+    EBox::debug("===> $count");
+    my $aceOffset = 0;
+    for (my $i=0; $i<$aceCount; $i++) {
+        my $fmt = "\@$aceOffset(C C S)";
+        ($aceType, $aceFlags, $aceSize) = unpack($fmt, $blob);
+        EBox::debug("AceType:   <$aceType>");
+        EBox::debug("AceFlags:  <$aceFlags>");
+        EBox::debug("AceSize:   <$aceSize>");
+        $aceOffset += ($aceSize + 4);
+    }
+}
+
+sub decodeSACL
+{
+    my ($self, $blob, $offset) = @_;
+
+    my $revision;
+    my $sbz1;
+    my $aclSize;
+    my $aceCount;
+    my $sbz2;
+
+    my $fmt = "\@$offset(C C S S S)";
+    ($revision, $sbz1, $aclSize, $aceCount, $sbz2) = unpack($fmt, $blob);
+    $offset += 8;
+
+    EBox::debug("Revision:  <$revision>");
+    EBox::debug("Sbz1:      <$sbz1>");
+    EBox::debug("AclSize:   <$aclSize>");
+    EBox::debug("AceCount:  <$aceCount>");
+    EBox::debug("Sbz2:      <$sbz2>");
+
+    $self->decodeACL(substr($blob, $offset, $aclSize), $aceCount);
+}
+
+sub decodeDACL
+{
+    my ($self, $blob, $offset) = @_;
+
+    EBox::debug("Decode DACL at offset <$offset>");
+    my $revision;
+    my $sbz1;
+    my $aclSize;
+    my $aceCount;
+    my $sbz2;
+
+    my $fmt = "\@$offset(C C S S S)";
+    ($revision, $sbz1, $aclSize, $aceCount, $sbz2) = unpack($fmt, $blob);
+
+    EBox::debug("Revision:  <$revision>");
+    EBox::debug("Sbz1:      <$sbz1>");
+    EBox::debug("AclSize:   <$aclSize>");
+    EBox::debug("AceCount:  <$aceCount>");
+    EBox::debug("Sbz2:      <$sbz2>");
+}
+
+# Method: decodeBlob
+#
+#   Decodes a binary blob containing a security descriptor
+#
+sub decodeBlob
+{
+    my ($self, $blob) = @_;
+
+    # Revision (1 byte):
+    # An unsigned 8-bit value that specifies the revision of the
+    # SECURITY_DESCRIPTOR structure. This field MUST be set to one.
+    my $revision;
+
+
+    # Sbz1 (1 byte):
+    # An unsigned 8-bit value with no meaning unless the Control RM bit is set
+    # to 0x1. If the RM bit is set to 0x1, Sbz1 is interpreted as the resource
+    # manager control bits that contain specific information<53> for the
+    # specific resource manager that is accessing the structure. The
+    # permissible values and meanings of these bits are determined by the
+    # implementation of the resource manager.
+    my $sbz1;
+
+    # Control (2 bytes):
+    # An unsigned 16-bit field that specifies control access bit flags. The
+    # Self Relative (SR) bit MUST be set when the security descriptor is in
+    # self-relative format.
+    my $control;
+
+    # OffsetOwner (4 bytes):
+    # An unsigned 32-bit integer that specifies the offset to the SID. This
+    # SID specifies the owner of the object to which the security descriptor
+    # is associated. This must be a valid offset if the OD flag is not set.
+    # If this field is set to zero, the OwnerSid field MUST not be present.
+    my $offsetOwner;
+
+    # OffsetGroup (4 bytes):
+    # An unsigned 32-bit integer that specifies the offset to the SID. This
+    # SID specifies the group of the object to which the security descriptor
+    # is associated. This must be a valid offset if the GD flag is not set.
+    # If this field is set to zero, the GroupSid field MUST not be present.
+    my $offsetGroup;
+
+    # OffsetSacl (4 bytes):
+    # An unsigned 32-bit integer that specifies the offset to the ACL that
+    # contains system ACEs. Typically, the system ACL contains auditing ACEs
+    # (such as SYSTEM_AUDIT_ACE, SYSTEM_AUDIT_CALLBACK_ACE, or
+    # SYSTEM_AUDIT_CALLBACK_OBJECT_ACE), and at most one Label ACE (as
+    # specified in section 2.4.4.13). This must be a valid offset if the SP
+    # flag is set; if the SP flag is not set, this field MUST be set to zero.
+    # If this field is set to zero, the Sacl field MUST not be present.
+    my $offsetSACL;
+
+    # OffsetDacl (4 bytes):
+    # An unsigned 32-bit integer that specifies the offset to the ACL that
+    # contains ACEs that control access. Typically, the DACL contains ACEs
+    # that grant or deny access to principals or groups. This must be a valid
+    # offset if the DP flag is set; if the DP flag is not set, this field MUST
+    # be set to zero. If this field is set to zero, the Dacl field MUST not be
+    # present.
+    my $offsetDACL;
+
+    # OwnerSid (variable):
+    # The SID of the owner of the object. The length of the SID MUST be a
+    # multiple of 4. This field MUST be present if the OffsetOwner field is
+    # not zero.
+    my $ownerSID;
+
+    # GroupSid (variable):
+    # The SID of the group of the object. The length of the SID MUST be a
+    # multiple of 4. This field MUST be present if the GroupOwner field is not
+    # zero.
+    my $groupSID;
+
+    # Sacl (variable):
+    # The SACL of the object. The length of the SID MUST be a multiple of 4.
+    # This field MUST be present if the SP flag is set.
+    my $sacl;
+
+    # Dacl (variable):
+    # The DACL of the object. The length of the SID MUST be a multiple of 4.
+    # This field MUST be present if the DP flag is set.
+    my $dacl;
+
+    my $fmt = 'C C S L L L L ';
+    ($revision, $sbz1, $control, $offsetOwner, $offsetGroup, $offsetSACL,
+     $offsetDACL, $ownerSID, $groupSID, $sacl, $dacl) = unpack ($fmt, $blob);
+
+    EBox::debug("Revision:    <$revision>");
+    EBox::debug("Sbz1:        <$sbz1>");
+    EBox::debug("Control:     <$control>");
+    EBox::debug("OffsetOwner: <$offsetOwner>");
+    EBox::debug("OffsetGroup: <$offsetGroup>");
+    EBox::debug("OffsetSACL:  <$offsetSACL>");
+    EBox::debug("OffsetDACL:  <$offsetDACL>");
+
+    if ((not ($control & CONTROL_OD)) and ($offsetOwner != 0)) {
+        my $ownerSID = $self->decodeSID($blob, $offsetOwner);
+        $self->setOwnerSID($ownerSID);
+    }
+
+    if ((not ($control & CONTROL_GD)) and ($offsetGroup != 0)) {
+        my $groupSID = $self->decodeSID($blob, $offsetGroup);
+        $self->setGroupSID($groupSID);
+    }
+
+    if (($control & CONTROL_SP) and $offsetSACL != 0) {
+        $self->decodeSACL($blob, $offsetSACL);
+    }
+
+    if (($control & CONTROL_DP) and $offsetDACL != 0) {
+        $self->decodeDACL($blob, $offsetDACL);
+    }
 }
 
 1;

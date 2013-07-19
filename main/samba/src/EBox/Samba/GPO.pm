@@ -25,6 +25,7 @@ use base 'EBox::Samba::LdbObject';
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Samba::SmbClient;
+use EBox::Samba::Security::SecurityDescriptor;
 use EBox::Exceptions::Internal;
 
 use Encode qw(encode decode);
@@ -314,6 +315,7 @@ sub create
         throw EBox::Exceptions::Internal(
             "Can not retrieve NT Security Descriptor from GPO LDAP entry");
     }
+    my $sd = new EBox::Samba::Security::SecurityDescriptor(blob => $ntSecurityDescriptor);
 
     # Create GPT in sysvol
     my $smb = new EBox::Samba::SmbClient(RID => 500);
@@ -321,6 +323,7 @@ sub create
     $gptContent = encode('UTF-8', $gptContent);
     $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName",'0666')
         or throw EBox::Exceptions::Internal("Error mkdir: $!");
+    # TODO $smb->set_xattr()
     $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/USER",'0666')
         or throw EBox::Exceptions::Internal("Error mkdir: $!");
     $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/MACHINE",'0666')
@@ -330,9 +333,6 @@ sub create
     $smb->write($fd, $gptContent)
         or throw EBox::Exceptions::Internal("Can't write file: $!");
     $smb->close($fd);
-
-    # TODO Set NT security Descriptor instead sysvolreset
-    EBox::Sudo::root("samba-tool ntacl sysvolreset");
 
     my $createdGPO = new EBox::Samba::GPO(dn => $gpoDN);
     return $createdGPO;
