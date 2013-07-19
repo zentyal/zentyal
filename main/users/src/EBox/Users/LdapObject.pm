@@ -331,6 +331,7 @@ sub _entry
                 base => $baseDN,
                 filter => $filter,
                 scope => $scope,
+                attrs => ['*', 'entryUUID'],
             };
             $result = $self->_ldap->search($attrs);
         }

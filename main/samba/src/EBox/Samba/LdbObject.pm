@@ -114,7 +114,7 @@ sub _entry
                 base => $dn,
                 filter => "(distinguishedName=$dn)",
                 scope => 'base',
-                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+                attrs => ['*', 'objectGUID' 'unicodePwd', 'supplementalCredentials'],
             };
             $result = $self->_ldap->search($attrs);
         }

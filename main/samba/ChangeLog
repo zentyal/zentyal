@@ -1,4 +1,5 @@
 HEAD
+	+ All LDBObject based objects will have the objectGUID field availble.
 	+ Removed unused method EBox::LDB::existsDN.
 	+ Updated EBox::LDB class to use the new EBox::LDAPBase to share code.
 	+ Updated s4sync to handle OUs and contacts sync.
