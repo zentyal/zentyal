@@ -17,10 +17,8 @@ use strict;
 use warnings;
 
 package EBox::LDB;
-use base 'EBox::Ldap';
+use base 'EBox::LDAPBase';
 
-use EBox::Samba::LdbObject;
-use EBox::Samba::Credentials;
 use EBox::Samba::OU;
 use EBox::Samba::User;
 use EBox::Samba::Contact;
@@ -31,16 +29,15 @@ use EBox::Users::User;
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
 use Net::LDAP;
-use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
 
-use Data::Dumper;
-use File::Slurp;
-use File::Temp qw(:seekable);
 use Error qw( :try );
+use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
@@ -87,8 +84,7 @@ sub _new_instance
     chomp (@lines);
     my %ignoredGroups = map { $_ => 1 } @lines;
 
-    my $self = {};
-    $self->{ldap} = undef;
+    my $self = $class->SUPER::_new_instance():
     $self->{idamp} = undef;
     $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
@@ -107,17 +103,6 @@ sub idmap
         $self->{idmap} = EBox::LDB::IdMapDb->new();
     }
     return $self->{idmap};
-}
-
-# Method: ldapCon
-#
-# Override EBox::Ldap::ldapCon
-#
-sub ldapCon
-{
-    my ($self) = @_;
-
-    return $self->ldbCon();
 }
 
 # Method: ldbCon
