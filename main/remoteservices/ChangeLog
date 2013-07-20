@@ -1,5 +1,10 @@
 HEAD
 	+ Fixed wrong jQuery interpolation in Subscription form
+	+ Retry making the configuration backup if the conf backup process
+	  produced a corrupted backup
+	+ Send the checksum of the conf backup when pushing to check
+	  its integrity on server side
+	+ Explicitly set firewall version dependency in control file
 	+ Adapt firewall rules to new accept chains
 	+ Display web remote access support settings
 	+ Save logs module when creating VPN client to start logging its log
