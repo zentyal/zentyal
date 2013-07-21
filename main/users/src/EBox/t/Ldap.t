@@ -33,7 +33,7 @@ sub instance : Test(3)
     my ($self) = @_;
     my $class = $self->class;
 
-    can_ok($self, 'instance');
+    can_ok($class, 'instance');
 
     my $ldapInstance = undef;
     ok($ldapInstance = $class->instance(), '... and the constructor should succeed');
