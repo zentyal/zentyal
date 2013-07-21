@@ -2178,10 +2178,6 @@ sub newLDAP
            );
     }
 
-    use Devel::StackTrace;
-    my $trace = Devel::StackTrace->new;
-    EBox::debug($trace->as_string);
-
     return  EBox::Ldap->instance();
 }
 
