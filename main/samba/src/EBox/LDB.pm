@@ -91,6 +91,24 @@ sub _new_instance
     return $self;
 }
 
+# Method: instance
+#
+#   Return a singleton instance of this class
+#
+# Returns:
+#
+#   object of class <EBox::LDB>
+sub instance
+{
+    my ($class) = @_;
+
+    unless(defined($_instance)) {
+        $_instance = $class->_new_instance();
+    }
+
+    return $_instance;
+}
+
 # Method: idmap
 #
 #   Returns an instance of IdMapDb.

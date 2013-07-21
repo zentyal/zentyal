@@ -24,9 +24,6 @@ use EBox::Gettext;
 use Error qw(:try);
 use POSIX;
 
-# Singleton variable
-my $_instance = undef;
-
 sub _new_instance
 {
     my $class = shift;
@@ -35,24 +32,6 @@ sub _new_instance
     $self->{ldap} = undef;
     bless($self, $class);
     return $self;
-}
-
-# Method: instance
-#
-#   Return a singleton instance of this class
-#
-# Returns:
-#
-#   object of class <EBox::Ldap>
-sub instance
-{
-    my ($class) = @_;
-
-    unless(defined($_instance)) {
-        $_instance = $class->_new_instance();
-    }
-
-    return $_instance;
 }
 
 # Method: dn

@@ -52,11 +52,10 @@ sub _ldapModImplementation
 #   LDAP setup of this ebox
 sub ldap
 {
-    my ($self, $globalRO) = @_;
+    my ($self) = @_;
 
     unless(defined($self->{ldap})) {
-        # XXX RW, RO>
-        $self->{ldap} = EBox::Global->getInstance($globalRO)->modInstance('users')->newLDAP();
+        $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
 }

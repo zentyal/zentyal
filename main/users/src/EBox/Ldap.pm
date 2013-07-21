@@ -39,6 +39,24 @@ use constant CONF_DIR      => '/etc/ldap/slapd.d';
 # Singleton variable
 my $_instance = undef;
 
+# Method: instance
+#
+#   Return a singleton instance of this class
+#
+# Returns:
+#
+#   object of class <EBox::Ldap>
+sub instance
+{
+    my ($class) = @_;
+
+    unless(defined($_instance)) {
+        $_instance = $class->_new_instance();
+    }
+
+    return $_instance;
+}
+
 # Method: ldapCon
 #
 #       Returns the Net::LDAP connection used by the module
