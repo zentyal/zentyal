@@ -464,6 +464,9 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $samba->_startService();
 
+        # Map defaultContainers
+        $self->mapDefaultContainers();
+
         # Load all zentyal users and groups into ldb
         $samba->ldb->ldapOUsToLDB();
         $samba->ldb->ldapUsersToLdb();
@@ -473,9 +476,6 @@ sub provisionDC
 
         # Map accounts
         $self->mapAccounts();
-
-        # Map defaultContainers
-        $self->mapDefaultContainers();
 
         # Reset sysvol
         $self->resetSysvolACL();
@@ -1119,14 +1119,15 @@ sub provisionADC
             $zentyalGroup->deleteObject();
         }
 
+        # TODO: Should we clear all OU like we do with users, groups and contacts?
+        # Map defaultContainers
+        $self->mapDefaultContainers();
+
         # Load Zentyal service principals into samba
         $sambaModule->ldb->ldapServicePrincipalsToLdb();
 
         # Map accounts
         $self->mapAccounts();
-
-        # Map defaultContainers
-        $self->mapDefaultContainers();
 
         EBox::debug('Setting provisioned flag');
         $self->setProvisioned(1);
