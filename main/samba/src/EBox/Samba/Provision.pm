@@ -329,7 +329,7 @@ sub mapDefaultContainers
     my $sambaMod = EBox::Global->modInstance('samba');
     my @containerNames = ('Users', 'Computers');
     my $ldbRootDN = $sambaMod->ldb()->dn();
-    my $ldapRootDN = $usersMod->_ldap()->dn();
+    my $ldapRootDN = $usersMod->ldap()->dn();
 
     foreach my $containerName (@containerNames) {
         my $ldbDN = "CN=$containerName,$ldbRootDN";

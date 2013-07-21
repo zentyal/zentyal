@@ -2148,7 +2148,7 @@ sub ldapObjectByObjectGUID
     my ($self, $objectGUID) = @_;
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $base = $usersMod->_ldap()->dn();
+    my $base = $usersMod->ldap()->dn();
     my $filter = "(&(objectClass=zentyalSambaLink)(msdsObjectGUID=$objectGUID))";
     my $scope = 'sub';
 
@@ -2159,7 +2159,7 @@ sub ldapObjectByObjectGUID
         attrs  => ['*', 'entryUUID'],
     };
 
-    my $result = $usersMod->_ldap->search($attrs);
+    my $result = $usersMod->ldap->search($attrs);
     return undef unless ($result);
 
     if ($result->count() > 1) {

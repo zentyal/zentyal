@@ -81,7 +81,52 @@ sub objectGUID
 {
     my ($self) = @_;
 
-    return $self->_entry()->get('objectGUID');
+    my $objectGUID = $self->get('objectGUID');
+    return $self->_objectGUIDToString($objectGUID);
+}
+
+sub _objectGUIDToString
+{
+    my ($class, $objectGUID) = @_;
+
+    my $unpacked = unpack("H*hex", $objectGUID);
+
+    my $objectGUIDString = substr($unpacked, 6, 2);
+    $objectGUIDString .= substr($unpacked, 4, 2);
+    $objectGUIDString .= substr($unpacked, 2, 2);
+    $objectGUIDString .= substr($unpacked, 0, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 10, 2);
+    $objectGUIDString .= substr($unpacked, 8, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 14, 2);
+    $objectGUIDString .= substr($unpacked, 12, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 16, 4);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 20);
+
+    return $objectGUIDString;
+}
+
+sub _stringToObjectGUID
+{
+    my ($class, $objectGUIDString) = @_;
+
+    my $tmpString = substr($objectGUIDString, 6, 2);
+    $tmpString .= substr($objectGUIDString, 4, 2);
+    $tmpString .= substr($objectGUIDString, 2, 2);
+    $tmpString .= substr($objectGUIDString, 0, 2);
+    $tmpString .= substr($objectGUIDString, 11, 2);
+    $tmpString .= substr($objectGUIDString, 9, 2);
+    $tmpString .= substr($objectGUIDString, 16, 2);
+    $tmpString .= substr($objectGUIDString, 14, 2);
+    $tmpString .= substr($objectGUIDString, 19, 4);
+    $tmpString .= substr($objectGUIDString, 24);
+
+    my $objectGUID = pack("H*", $tmpString);
+
+    return $objectGUID;
 }
 
 # Method: checkObjectErasability
@@ -131,7 +176,7 @@ sub save
     my $entry = $self->_entry;
 
     $control = [] unless $control;
-    my $result = $entry->update($self->_ldap->ldbCon(), control => $control);
+    my $result = $entry->update($self->_ldap->connection(), control => $control);
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
             throw EBox::Exceptions::LDAP(
@@ -206,7 +251,9 @@ sub _entry
 #
 sub _ldap
 {
-    return __PACKAGE__->_sambaMod()->ldb();
+    my ($class) = @_;
+
+    return $class->_sambaMod()->ldb();
 }
 
 sub _sambaMod
@@ -384,10 +431,13 @@ sub _linkWithUsersEntry
         throw EBox::Exceptions::Internal("Invalid entry argument. It's not a Net::LDAP::Entry.");
     }
 
-    $entry->add(
-        objectClass    => 'zentyalSambaLink',
-        msdsObjectGUID => $self->objectGUID(),
-    );
+    my @attributes = ();
+    unless (grep { $_ eq 'zentyalSambaLink' } @{$entry->get_values('objectClass')}) {
+        push (@attributes, objectClass => 'zentyalSambaLink');
+    }
+    push (@attributes, msdsObjectGUID => $self->objectGUID());
+
+    $entry->add(@attributes);
 }
 
 # Method: _linkWithUsersObject
