@@ -341,7 +341,7 @@ sub create
     try {
         $entry = new Net::LDAP::Entry($dn, @attr);
 
-        my $result = $entry->update($class->_ldap->ldbCon());
+        my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(

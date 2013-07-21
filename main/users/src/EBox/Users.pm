@@ -471,7 +471,7 @@ sub _migrateTo32
                         "Can't load LDIF file: $newSchema");
                 }
                 $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
-                my $updateResult = $entry->update($ldap->ldapCon());
+                my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
                     EBox::error("Reverting LDAP changes");

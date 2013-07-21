@@ -24,6 +24,7 @@ package EBox::Test::LDAPClass;
 use base 'EBox::Test::Class';
 
 use EBox::Exceptions::NotImplemented;
+use EBox::Ldap;
 
 use Error qw(:try);
 use Test::More;
@@ -48,6 +49,11 @@ sub _testStubsSetFiles
     system ("echo Foo > $confDir/ldap_ro.passwd");
 }
 
+sub _ldapInstance
+{
+    return EBox::Ldap->instance();
+}
+
 sub _testStubsForLDAP : Test(startup)
 {
     my ($self) = @_;
@@ -58,7 +64,7 @@ sub _testStubsForLDAP : Test(startup)
     $self->_testStubsSetFiles();
 
     # Create the LDAP Mock object.
-    my $ldapInstance = $class->instance();
+    my $ldapInstance = $self->_ldapInstance();
     $ldapInstance->{ldap} = new Net::LDAP('ldap.example.com');
     $ldapInstance->{ldap}->mock_root_dse(namingContexts => 'dc=example,dc=com');
 }

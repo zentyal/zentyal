@@ -71,7 +71,7 @@ sub _loadSchema
 {
     my ($self, $ldiffile) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadSchemaDirectory($ldap, $ldiffile);
 }
@@ -120,7 +120,7 @@ sub _loadACL
 {
     my ($self, $acl) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadACLDirectory($ldap, $acl);
 }
@@ -179,7 +179,7 @@ sub _addIndex
 {
     my ($self, $attribute) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_addIndexDirectory($ldap, $attribute);
 }
