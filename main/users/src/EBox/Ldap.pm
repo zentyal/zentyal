@@ -57,18 +57,18 @@ sub instance
     return $_instance;
 }
 
-# Method: ldapCon
+# Method: connection
 #
-#       Returns the Net::LDAP connection used by the module
-#
-# Returns:
-#
-#       An object of class Net::LDAP whose connection has already bound
+#   Return the Net::LDAP connection used by the module
 #
 # Exceptions:
 #
-#       Internal - If connection can't be created
-sub ldapCon
+#   Internal - If connection can't be created
+#
+# Override:
+#   EBox::LDAPBase::connection
+#
+sub connection
 {
     my ($self) = @_;
 
@@ -485,7 +485,7 @@ sub changeUserPassword
 {
     my ($self, $dn, $newPasswd, $oldPasswd) = @_;
 
-    $self->ldapCon();
+    $self->connection();
     my $rootdse = $self->{ldap}->root_dse();
     if ($rootdse->supported_extension('1.3.6.1.4.1.4203.1.11.1')) {
         # Update the password using the LDAP extension will update the kerberos keys also

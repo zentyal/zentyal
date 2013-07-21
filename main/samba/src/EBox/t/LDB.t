@@ -28,19 +28,19 @@ sub class
     'EBox::LDB'
 }
 
-sub ldbCon : Test(4)
+sub connection : Test(4)
 {
     my ($self) = @_;
     my $class = $self->class;
 
     my $ldbInstance = $class->instance();
 
-    can_ok($ldbInstance, 'ldbCon');
+    can_ok($ldbInstance, 'connection');
 
-    my $ldbCon = undef;
-    ok($ldbCon = $ldbInstance->ldbCon(), 'Got the ldbConnection');
-    isa_ok($ldbCon, 'Net::LDAP');
-    isa_ok($ldbCon, 'Test::Net::LDAP::Mock');
+    my $connection = undef;
+    ok($connection = $ldbInstance->connection(), 'Got the LDB connection');
+    isa_ok($connection, 'Net::LDAP');
+    isa_ok($connection, 'Test::Net::LDAP::Mock');
 }
 
 1;

@@ -24,6 +24,7 @@ package EBox::Test::LDBClass;
 use base 'EBox::Test::LDAPClass';
 
 use EBox::Config;
+use EBox::LDB;
 
 use Test::More;
 
@@ -39,6 +40,11 @@ sub _testStubsSetFiles
     my $etcDir = EBox::Config::etc();
     system ("touch $etcDir/s4sync-sids.ignore");
     system ("touch $etcDir/s4sync-groups.ignore");
+}
+
+sub _ldapInstance
+{
+    return EBox::LDB->instance();
 }
 
 1;

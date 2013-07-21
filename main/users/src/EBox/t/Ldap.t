@@ -40,19 +40,19 @@ sub instance : Test(3)
     isa_ok($ldapInstance, $class, '... and the object it returns');
 }
 
-sub ldapCon : Test(4)
+sub connection : Test(4)
 {
     my ($self) = @_;
     my $class = $self->class;
 
     my $ldapInstance = $class->instance();
 
-    can_ok($ldapInstance, 'ldapCon');
+    can_ok($ldapInstance, 'connection');
 
-    my $ldapCon = undef;
-    ok($ldapCon = $ldapInstance->ldapCon(), 'Got the ldapConnection');
-    isa_ok($ldapCon, 'Net::LDAP');
-    isa_ok($ldapCon, 'Test::Net::LDAP::Mock');
+    my $connection = undef;
+    ok($connection = $ldapInstance->connection(), 'Got the LDAP connection');
+    isa_ok($connection, 'Net::LDAP');
+    isa_ok($connection, 'Test::Net::LDAP::Mock');
 }
 
 1;

@@ -123,19 +123,18 @@ sub idmap
     return $self->{idmap};
 }
 
-# Method: ldbCon
+# Method: connection
 #
-#   Returns the Net::LDAP connection used by the module
-#
-# Returns:
-#
-#   An object of class Net::LDAP whose connection has already bound
+#   Return the Net::LDAP connection used by the module
 #
 # Exceptions:
 #
 #   Internal - If connection can't be created
 #
-sub ldbCon
+# Override:
+#   EBox::LDAPBase::connection
+#
+sub connection
 {
     my ($self) = @_;
 
@@ -662,7 +661,7 @@ sub rootDse
 {
     my ($self) = @_;
 
-    return $self->ldbCon()->root_dse(attrs => ROOT_DSE_ATTRS);
+    return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
 1;

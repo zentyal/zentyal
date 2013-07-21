@@ -34,6 +34,20 @@ sub _new_instance
     return $self;
 }
 
+# Method: connection
+#
+#   Return the Net::LDAP connection used by the module
+#
+# Exceptions:
+#
+#   Internal - If connection can't be created
+#
+sub connection
+{
+    throw EBox::Exceptions::NotImplemented();
+}
+
+
 # Method: dn
 #
 #       Returns the base DN (Distinguished Name)
@@ -77,7 +91,7 @@ sub search # (args)
 {
     my ($self, $args) = @_;
 
-    $self->ldapCon;
+    $self->connection();
     #FIXME: this was added to deal with a problem where an object wouldn't be
     #returned if attributes were required but objectclass wasn't required too
     #it's apparently working now, so it's commented, remove it if it works
@@ -108,7 +122,7 @@ sub modify
 {
     my ($self, $dn, $args) = @_;
 
-    $self->ldapCon;
+    $self->connection();
     my $result = $self->{ldap}->modify($dn, %{$args});
     $self->_errorOnLdap($result, $args);
     return $result;
@@ -129,7 +143,7 @@ sub delete
 {
     my ($self, $dn) = @_;
 
-    $self->ldapCon;
+    $self->connection();
     my $result =  $self->{ldap}->delete($dn);
     $self->_errorOnLdap($result, $dn);
     return $result;
@@ -152,7 +166,7 @@ sub add # (dn, args)
 {
     my ($self, $dn, $args) = @_;
 
-    $self->ldapCon;
+    $self->connection();
     my $result =  $self->{ldap}->add($dn, %{$args});
     $self->_errorOnLdap($result, $args);
     return $result;
@@ -174,7 +188,7 @@ sub delObjectclass # (dn, objectclass);
 {
     my ($self, $dn, $objectclass) = @_;
 
-    my $schema = $self->ldapCon->schema();
+    my $schema = $self->connection()->schema();
     my $searchArgs = {
         base => $dn,
         scope => 'base',

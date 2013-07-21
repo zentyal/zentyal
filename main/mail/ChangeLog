@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapt firewall rules to new accept chains
 	+ Adapted user addon to multi-OU tree view
 	+ Removed no longer necessary jQuery noConflict()

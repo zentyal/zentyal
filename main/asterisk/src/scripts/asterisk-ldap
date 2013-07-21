@@ -11,7 +11,7 @@ my $extensions = new EBox::Asterisk::Extensions;
 
 sub update
 {
-	$extensions->{ldap}->ldapCon;
+	$extensions->{ldap}->connection();
 	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;
 	my $qdn = $extensions->queuesDn;
@@ -33,7 +33,7 @@ sub update
 
 sub clean
 {
-	$extensions->{ldap}->ldapCon;
+	$extensions->{ldap}->connection();
 	my $ldap = $extensions->{ldap}->{ldap};
 	my $edn = $extensions->extensionsDn;
 	my $qdn = $extensions->queuesDn;

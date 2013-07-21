@@ -137,7 +137,7 @@ sub getJabberAdmins
     my $dn = $users->usersDn;
     my @admins = ();
 
-    $users->{ldap}->ldapCon;
+    $users->{ldap}->connection();
     my $ldap = $users->{ldap};
 
     my %args = (base => $dn, filter => 'jabberAdmin=TRUE');
