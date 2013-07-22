@@ -38,8 +38,6 @@ sub new
     my $global = EBox::Global->getInstance(0);
     $self->{samba} = $global->modInstance('samba');
     $self->{ldb} = $self->{samba}->ldb();
-    $self->{ldbBaseDn} = $self->{ldb}->dn();
-    $self->{ldapBaseDn} = $global->modInstance('users')->ldap()->dn();
     bless($self, $class);
 
     return $self;
@@ -68,7 +66,7 @@ sub _ldbDNFromLDAPDN
     if ($relativeDN) {
         $dn = $relativeDN .  ',';
     }
-    $dn .= $self->{ldbBaseDn};
+    $dn .= $self->{ldb}->dn();
     return $dn;
 }
 
