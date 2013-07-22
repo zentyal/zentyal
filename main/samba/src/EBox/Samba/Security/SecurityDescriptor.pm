@@ -18,8 +18,8 @@ use warnings;
 
 # Class: EBox::Samba::Security::SecurityDescriptor
 #
-#   This is a helper class to generate security descriptors strings, based
-#   on the SDDL (Security Descriptor Definition Language).
+#   This is a helper class to generate security descriptors, in binary format
+#   or SDDL string format (Security Descriptor Definition Language).
 #
 #   A security descriptor is a structure and associated data that contains
 #   the security information for a securable object. A security descriptor
@@ -29,12 +29,20 @@ use warnings;
 #   of attempts to access the object.
 #
 #   Documentation:
-#   http://msdn.microsoft.com/en-us/library/windows/desktop/aa379567%28v=vs.85%29.aspx
+#
+#   [MS-DTYP] — v20130118
+#       Windows Data Types
+#       Copyright © 2013 Microsoft Corporation.
 #
 package EBox::Samba::Security::SecurityDescriptor;
 
+use EBox::Samba::Security::ACL::Discretionary;
+use EBox::Samba::Security::ACL::System;
+use EBox::Samba::Security::SID;
+
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidArgument;
+use EBox::Exceptions::Internal;
 
 use Error qw(:try);
 
@@ -55,74 +63,6 @@ use constant CONTROL_PS => (1<<13);
 use constant CONTROL_RM => (1<<14);
 use constant CONTROL_SR => (1<<15);
 
-#
-# Security descriptor control flags that apply to the DACL or SACL
-#
-my $aclFlags = {
-    P  => 'PROTECTED',        # The SE_DACL_PROTECTED flag is set
-    AR => 'AUTO_INHERIT_REQ', # The SE_DACL_AUTO_INHERIT_REQ flag is set
-    AI => 'AUTO_INHERITED',   # The SE_DACL_AUTO_INHERITED flag is set
-};
-
-#
-# ACE or security descriptor valid SID tokens
-# Commented entries are not implemented in samba (libcli/security/sddl.c)
-#
-our $sidStrings = {
-    AN  =>  'ANONYMOUS',                        # Anonymous logon. The corresponding RID is SECURITY_ANONYMOUS_LOGON_RID.
-    AO  =>  'ACCOUNT_OPERATORS',                # Account operators. The corresponding RID is DOMAIN_ALIAS_RID_ACCOUNT_OPS.
-    AU  =>  'AUTHENTICATED_USERS',              # Authenticated users. The corresponding RID is SECURITY_AUTHENTICATED_USER_RID.
-    BA  =>  'BUILTIN_ADMINISTRATORS',           # Built-in administrators. The corresponding RID is DOMAIN_ALIAS_RID_ADMINS.
-    BG  =>  'BUILTIN_GUESTS',                   # Built-in guests. The corresponding RID is DOMAIN_ALIAS_RID_GUESTS.
-    BO  =>  'BACKUP_OPERATORS',                 # Backup operators. The corresponding RID is DOMAIN_ALIAS_RID_BACKUP_OPS.
-    BU  =>  'BUILTIN_USERS',                    # Built-in users. The corresponding RID is DOMAIN_ALIAS_RID_USERS.
-    CA  =>  'CERT_SERV_ADMINISTRATORS',         # Certificate publishers. The corresponding RID is DOMAIN_GROUP_RID_CERT_ADMINS.
-#   CD  =>  'CERTSVC_DCOM_ACCESS',              # Users who can connect to certification authorities using Distributed Component Object Model (DCOM).
-                                                # The corresponding RID is DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP.
-    CG  =>  'SDDL_CREATOR_GROUP',               # Creator group. The corresponding RID is SECURITY_CREATOR_GROUP_RID.
-    CO  =>  'CREATOR_OWNER',                    # Creator owner. The corresponding RID is SECURITY_CREATOR_OWNER_RID.
-    DA  =>  'DOMAIN_ADMINISTRATORS',            # Domain administrators. The corresponding RID is DOMAIN_GROUP_RID_ADMINS.
-    DC  =>  'DOMAIN_COMPUTERS',                 # Domain computers. The corresponding RID is DOMAIN_GROUP_RID_COMPUTERS.
-    DD  =>  'DOMAIN_DOMAIN_CONTROLLERS',        # Domain controllers. The corresponding RID is DOMAIN_GROUP_RID_CONTROLLERS.
-    DG  =>  'DOMAIN_GUESTS',                    # Domain guests. The corresponding RID is DOMAIN_GROUP_RID_GUESTS.
-    DU  =>  'DOMAIN_USERS',                     # Domain users. The corresponding RID is DOMAIN_GROUP_RID_USERS.
-    EA  =>  'ENTERPRISE_ADMINS',                # Enterprise administrators. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_ADMINS.
-    ED  =>  'ENTERPRISE_DOMAIN_CONTROLLERS',    # Enterprise domain controllers. The corresponding RID is SECURITY_SERVER_LOGON_RID.
-#   HI  =>  'ML_HIGH',                          # High integrity level. The corresponding RID is SECURITY_MANDATORY_HIGH_RID.
-    IU  =>  'INTERACTIVE',                      # Interactively logged-on user. This is a group identifier added to the token of a
-                                                # process when it was logged on interactively. The corresponding logon type is LOGON32_LOGON_INTERACTIVE.
-                                                # The corresponding RID is SECURITY_INTERACTIVE_RID.
-    LA  =>  'LOCAL_ADMIN',                      # Local administrator. The corresponding RID is DOMAIN_USER_RID_ADMIN.
-    LG  =>  'LOCAL_GUEST',                      # Local guest. The corresponding RID is DOMAIN_USER_RID_GUEST.
-    LS  =>  'LOCAL_SERVICE',                    # Local service account. The corresponding RID is SECURITY_LOCAL_SERVICE_RID.
-#   LW  =>  'ML_LOW',                           # Low integrity level. The corresponding RID is SECURITY_MANDATORY_LOW_RID.
-#   ME  =>  'MLMEDIUM',                         # Medium integrity level. The corresponding RID is SECURITY_MANDATORY_MEDIUM_RID.
-#   MU  =>  'PERFMON_USERS',                    # Performance Monitor users.
-    NO  =>  'NETWORK_CONFIGURATION_OPS',        # Network configuration operators. The corresponding RID is DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS.
-    NS  =>  'NETWORK_SERVICE',                  # Network service account. The corresponding RID is SECURITY_NETWORK_SERVICE_RID.
-    NU  =>  'NETWORK',                          # Network logon user. This is a group identifier added to the token of a process when it was logged on across a network.
-                                                # The corresponding logon type is LOGON32_LOGON_NETWORK. The corresponding RID is SECURITY_NETWORK_RID.
-    PA  =>  'GROUP_POLICY_ADMINS',              # Group Policy administrators. The corresponding RID is DOMAIN_GROUP_RID_POLICY_ADMINS.
-    PO  =>  'PRINTER_OPERATORS',                # Printer operators. The corresponding RID is DOMAIN_ALIAS_RID_PRINT_OPS.
-    PS  =>  'PERSONAL_SELF',                    # Principal self. The corresponding RID is SECURITY_PRINCIPAL_SELF_RID.
-    PU  =>  'POWER_USERS',                      # Power users. The corresponding RID is DOMAIN_ALIAS_RID_POWER_USERS.
-    RC  =>  'RESTRICTED_CODE',                  # Restricted code. This is a restricted token created using the CreateRestrictedToken function.
-                                                # The corresponding RID is SECURITY_RESTRICTED_CODE_RID.
-    RD  =>  'REMOTE_DESKTOP',                   # Terminal server users. The corresponding RID is DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS.
-    RE  =>  'REPLICATOR',                       # Replicator. The corresponding RID is DOMAIN_ALIAS_RID_REPLICATOR.
-    RO  =>  'ENTERPRISE_RO_DCs',                # Enterprise Read-only domain controllers. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS.
-#   RS  =>  'RAS_SERVERS RAS',                  # servers group. The corresponding RID is DOMAIN_ALIAS_RID_RAS_SERVERS.
-    RU  =>  'ALIAS_PREW2KCOMPACC',              # Alias to grant permissions to accounts that use applications compatible with operating systems previous to Windows 2000.
-                                                # The corresponding RID is DOMAIN_ALIAS_RID_PREW2KCOMPACCESS.
-    SA  =>  'SCHEMA_ADMINISTRATORS',            # Schema administrators. The corresponding RID is DOMAIN_GROUP_RID_SCHEMA_ADMINS.
-#   SI  =>  'ML_SYSTEM',                        # System integrity level. The corresponding RID is SECURITY_MANDATORY_SYSTEM_RID.
-    SO  =>  'SERVER_OPERATORS',                 # Server operators. The corresponding RID is DOMAIN_ALIAS_RID_SYSTEM_OPS.
-    SU  =>  'SERVICE',                          # Service logon user. This is a group identifier added to the token of a process when it was logged as a service.
-                                                # The corresponding logon type is LOGON32_LOGON_SERVICE. The corresponding RID is SECURITY_SERVICE_RID.
-    SY  =>  'LOCAL_SYSTEM',                     # Local system. The corresponding RID is SECURITY_LOCAL_SYSTEM_RID.
-    WD  =>  'EVERYONE',                         # Everyone. The corresponding RID is SECURITY_WORLD_RID
-};
-
 sub new
 {
     my ($class, %params) = @_;
@@ -130,20 +70,19 @@ sub new
     my $self = {};
     bless ($self, $class);
 
-    unless (defined $params{blob} or (defined $params{ownerSID} and defined $params{groupSID})) {
-        throw EBox::Exceptions::MissingArgument(' blob | (ownerSID && groupSID)');
+    unless (defined $params{blob} or
+        (defined $params{ownerSID} and defined $params{groupSID})) {
+        throw EBox::Exceptions::MissingArgument(
+            'blob | (ownerSID & groupSID)');
     }
 
     if (defined $params{blob}) {
-        $self->decodeBlob($params{blob});
+        $self->_decode($params{blob});
     } else {
         $self->setOwnerSID($params{ownerSID});
         $self->setGroupSID($params{groupSID});
-
-        $self->{saclFlags} = '';
-        $self->{daclFlags} = 'PAI';
-        $self->{sacl} = [];
-        $self->{dacl} = [];
+        $self->{sacl} = new EBox::Samba::Security::ACL::Discretionary();
+        $self->{dacl} = new EBox::Samba::Security::ACL::System();
     }
 
     return $self;
@@ -151,7 +90,7 @@ sub new
 
 # Method: setOwnerSID
 #
-#   Set the SID string that identifies the object's owner
+#   Set the SID that identifies the object's owner
 #
 sub setOwnerSID
 {
@@ -161,20 +100,17 @@ sub setOwnerSID
         throw EBox::Exceptions::MissingArgument('ownerSID');
     }
 
-    if (length $ownerSID == 2) {
-        unless (exists $sidStrings->{$ownerSID}) {
-            throw EBox::Exceptions::InvalidArgument('SID String', $ownerSID);
-        }
+    unless ($ownerSID->isa('EBox::Samba::Security::SID')) {
+        throw EBox::Exceptions::InvalidArgument(
+            'ownerSID (Expected EBox::Samba::Security::SID instance)');
     }
-
-    # TODO Validate SID format
 
     $self->{ownerSID} = $ownerSID;
 }
 
 # Method: setGroupSID
 #
-#   Set the SID string that identifies the object's primary group
+#   Set the SID that identifies the object's primary group
 #
 sub setGroupSID
 {
@@ -184,239 +120,63 @@ sub setGroupSID
         throw EBox::Exceptions::MissingArgument('groupSID');
     }
 
-    if (length $groupSID == 2) {
-        unless (exists $sidStrings->{$groupSID}) {
-            throw EBox::Exceptions::InvalidArgument('SID String', $groupSID);
-        }
+    unless ($groupSID->isa('EBox::Samba::Security::SID')) {
+        throw EBox::Exceptions::InvalidArgument(
+            'groupSID (Expected EBox::Samba::Security::SID instance)');
     }
-
-    # TODO Validate SID format
 
     $self->{groupSID} = $groupSID;
 }
 
-# Method: setDACLFlags
+# Method: addDiscretionaryACE
 #
-#   Security descriptor control flags that apply to the DACL.
-#   The flags string can be a concatenation of zero or more of the
-#   keys defined in the hash $daclFlags
+#   Adds an ACE (Access Control Entry) to the discretionary ACL
 #
-sub setDACLFlags
-{
-    my ($self, $flags) = @_;
-
-    unless (defined $flags) {
-        throw EBox::Exceptions::MissingArgument('flags');
-    }
-
-    # TODO Validate flags
-    $self->{daclFlags} = $flags;
-}
-
-# Method: setSACLFlags
-#
-#   Set the Security descriptor control flags that apply to the SACL.
-#   The flags string uses the same control bit strings as the dacl_flags string.
-#
-sub setSACLFlags
-{
-    my ($self, $flags) = @_;
-
-    unless (defined $flags) {
-        throw EBox::Exceptions::MissingArgument('flags');
-    }
-
-    # TODO Validate flags
-    $self->{saclFlags} = $flags;
-}
-
-# Method: addDACL
-#
-#   Adds an ACE (Access Control Entry) to the DACL list
-#
-sub addDACL
+sub addDiscretionaryACE
 {
     my ($self, $ace) = @_;
 
     unless (defined $ace) {
         throw EBox::Eceptions::MissingArgument('ace');
     }
-    unless ($ace->isa('EBox::Samba::Security::AccessControlEntry')) {
-        throw EBox::Exceptions::InvalidArgument('ace');
+    unless ($ace->isa('EBox::Samba::Security::ACE')) {
+        throw EBox::Exceptions::InvalidArgument(
+            'ace (Expected EBox::Samba::Security::ACE instance)');
     }
-    push (@{$self->{dacl}}, $ace);
+
+    my $acl = $self->{dacl};
+    $acl->addACE($ace);
 }
 
-# Method: addSCAL
+# Method: addSystemACE
 #
-#   Adds an ACE to the SACL list
+#   Adds an ACE (Access Control Entry) to the system ACL
 #
-sub addSACL
+sub addSystemACE
 {
     my ($self, $ace) = @_;
 
     unless (defined $ace) {
         throw EBox::Eceptions::MissingArgument('ace');
     }
-    unless ($ace->isa('EBox::Samba::AccessControlEntry')) {
-        throw EBox::Exceptions::InvalidArgument('ace');
-    }
-    push (@{$self->{sacl}}, $ace);
-}
-
-
-sub getAsString
-{
-    my ($self) = @_;
-
-    my $string = '';
-    $string .= ('O:' . $self->{ownerSID});
-
-    $string .= ('G:' . $self->{groupSID});
-
-    if (scalar @{$self->{dacl}}) {
-        $string .= ('D:' . $self->{daclFlags});
-        foreach my $ace (@{$self->{dacl}}) {
-            $string .= ('(' . $ace->getAsString() . ')');
-        }
+    unless ($ace->isa('EBox::Samba::Security::ACE')) {
+        throw EBox::Exceptions::InvalidArgument(
+            'ace (Expected EBox::Samba::Security::ACE instance)');
     }
 
-    if (scalar @{$self->{sacl}}) {
-        $string .= ('S:' . $self->{saclFlags});
-        foreach my $ace (@{$self->{sacl}}) {
-            $string .= ('(' . $ace->getAsString() . ')');
-        }
-    }
-
-    return $string;
+    my $acl = $self->{sacl};
+    $acl->addACE($ace);
 }
 
-# Method: decodeSID
-#
-#   Decodes a SID inside a security descriptor binary blob at a given offset.
-#
-# Documentation:
-#
-#   [MS-DTYP] Section 2.4.2.2
-#
-sub decodeSID
-{
-    my ($self, $blob, $offset) = @_;
-
-    # Revision (1 byte):
-    # An 8-bit unsigned integer that specifies the revision level of the SID.
-    # This value MUST be set to 0x01.
-    my $revision;
-
-    # SubAuthorityCount (1 byte):
-    # An 8-bit unsigned integer that specifies the number of elements in the
-    # SubAuthority array. The maximum number of elements allowed is 15.
-    my $subAuthorityCount;
-
-
-    # IdentifierAuthority (6 bytes):
-    # A SID_IDENTIFIER_AUTHORITY structure that indicates the authority under
-    # which the SID was created. It describes the entity that created the SID.
-    # The Identifier Authority value {0,0,0,0,0,5} denotes SIDs created by the
-    # NT SID authority.
-    my $identifierAuthority;
-
-    # SubAuthority (variable):
-    # A variable length array of unsigned 32-bit integers that uniquely
-    # identifies a principal relative to the IdentifierAuthority. Its length
-    # is determined by SubAuthorityCount.
-    my @subAuthority;
-
-    my $fmt = "\@$offset(C C)";
-    (undef, $subAuthorityCount) = unpack($fmt, $blob);
-
-    $fmt = "\@$offset(C C a6 L$subAuthorityCount)";
-    ($revision, undef, $identifierAuthority, @subAuthority) =
-        unpack($fmt, $blob);
-
-    $identifierAuthority = hex(unpack('H*', $identifierAuthority));
-
-    EBox::debug("Revision:               <$revision>");
-    EBox::debug("SubAuthorityCount:      <$subAuthorityCount>");
-    EBox::debug("IdentifierAuthority:    <$identifierAuthority>");
-    foreach my $subAuthority (@subAuthority) {
-        EBox::debug("SubAuthority:           <$subAuthority>");
-    }
-
-    my $sid = "S-1-$identifierAuthority-" . join ('-', @subAuthority);
-    EBox::debug("Decoded SID: $sid");
-    return $sid;
-}
-
-sub decodeACL
-{
-    my ($self, $blob, $aceCount) = @_;
-
-    my $aceType;
-    my $aceFlags;
-    my $aceSize;
-
-    EBox::debug("===> $count");
-    my $aceOffset = 0;
-    for (my $i=0; $i<$aceCount; $i++) {
-        my $fmt = "\@$aceOffset(C C S)";
-        ($aceType, $aceFlags, $aceSize) = unpack($fmt, $blob);
-        EBox::debug("AceType:   <$aceType>");
-        EBox::debug("AceFlags:  <$aceFlags>");
-        EBox::debug("AceSize:   <$aceSize>");
-        $aceOffset += ($aceSize + 4);
-    }
-}
-
-sub decodeSACL
-{
-    my ($self, $blob, $offset) = @_;
-
-    my $revision;
-    my $sbz1;
-    my $aclSize;
-    my $aceCount;
-    my $sbz2;
-
-    my $fmt = "\@$offset(C C S S S)";
-    ($revision, $sbz1, $aclSize, $aceCount, $sbz2) = unpack($fmt, $blob);
-    $offset += 8;
-
-    EBox::debug("Revision:  <$revision>");
-    EBox::debug("Sbz1:      <$sbz1>");
-    EBox::debug("AclSize:   <$aclSize>");
-    EBox::debug("AceCount:  <$aceCount>");
-    EBox::debug("Sbz2:      <$sbz2>");
-
-    $self->decodeACL(substr($blob, $offset, $aclSize), $aceCount);
-}
-
-sub decodeDACL
-{
-    my ($self, $blob, $offset) = @_;
-
-    EBox::debug("Decode DACL at offset <$offset>");
-    my $revision;
-    my $sbz1;
-    my $aclSize;
-    my $aceCount;
-    my $sbz2;
-
-    my $fmt = "\@$offset(C C S S S)";
-    ($revision, $sbz1, $aclSize, $aceCount, $sbz2) = unpack($fmt, $blob);
-
-    EBox::debug("Revision:  <$revision>");
-    EBox::debug("Sbz1:      <$sbz1>");
-    EBox::debug("AclSize:   <$aclSize>");
-    EBox::debug("AceCount:  <$aceCount>");
-    EBox::debug("Sbz2:      <$sbz2>");
-}
-
-# Method: decodeBlob
+# Method: _decode
 #
 #   Decodes a binary blob containing a security descriptor
 #
-sub decodeBlob
+# Documentation:
+#
+#   [MS-DTYP] Section 2.4.6
+#
+sub _decode
 {
     my ($self, $blob) = @_;
 
@@ -424,7 +184,6 @@ sub decodeBlob
     # An unsigned 8-bit value that specifies the revision of the
     # SECURITY_DESCRIPTOR structure. This field MUST be set to one.
     my $revision;
-
 
     # Sbz1 (1 byte):
     # An unsigned 8-bit value with no meaning unless the Control RM bit is set
@@ -508,22 +267,37 @@ sub decodeBlob
     EBox::debug("OffsetSACL:  <$offsetSACL>");
     EBox::debug("OffsetDACL:  <$offsetDACL>");
 
-    if ((not ($control & CONTROL_OD)) and ($offsetOwner != 0)) {
-        my $ownerSID = $self->decodeSID($blob, $offsetOwner);
-        $self->setOwnerSID($ownerSID);
+    unless ($revision == 1) {
+        throw EBox::Exceptions::Internal(
+            "Invalid security descriptor revision. Was $revision, expected 1");
     }
 
-    if ((not ($control & CONTROL_GD)) and ($offsetGroup != 0)) {
-        my $groupSID = $self->decodeSID($blob, $offsetGroup);
-        $self->setGroupSID($groupSID);
+    if ($offsetOwner != 0) {
+        EBox::debug("Decoding owner SID");
+        my $sid = new EBox::Samba::Security::SID(
+            blob => $blob, blobOffset => $offsetOwner);
+        $self->{ownerSID} = $sid;
+    }
+
+    if ($offsetGroup != 0) {
+        EBox::debug("Decoding primary group SID");
+        my $sid = new EBox::Samba::Security::SID(
+            blob => $blob, blobOffset => $offsetGroup);
+        $self->{groupSID} = $sid;
     }
 
     if (($control & CONTROL_SP) and $offsetSACL != 0) {
-        $self->decodeSACL($blob, $offsetSACL);
+        EBox::debug("Decoding system ACL");
+        my $acl = new EBox::Samba::Security::ACL::System(
+            blob => $blob, blobOffset => $offsetSACL);
+        $self->{sacl} = $acl;
     }
 
     if (($control & CONTROL_DP) and $offsetDACL != 0) {
-        $self->decodeDACL($blob, $offsetDACL);
+        EBox::debug("Decoding discretionary ACL");
+        my $acl = new EBox::Samba::Security::ACL::Discretionary(
+            blob => $blob, blobOffset => $offsetDACL);
+        $self->{dacl} = $acl;
     }
 }
 
