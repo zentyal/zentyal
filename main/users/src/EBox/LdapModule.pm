@@ -52,11 +52,10 @@ sub _ldapModImplementation
 #   LDAP setup of this ebox
 sub ldap
 {
-    my ($self, $globalRO) = @_;
+    my ($self) = @_;
 
     unless(defined($self->{ldap})) {
-        # XXX RW, RO>
-        $self->{ldap} = EBox::Global->getInstance($globalRO)->modInstance('users')->newLDAP();
+        $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
 }
@@ -72,7 +71,7 @@ sub _loadSchema
 {
     my ($self, $ldiffile) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadSchemaDirectory($ldap, $ldiffile);
 }
@@ -121,7 +120,7 @@ sub _loadACL
 {
     my ($self, $acl) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadACLDirectory($ldap, $acl);
 }
@@ -180,7 +179,7 @@ sub _addIndex
 {
     my ($self, $attribute) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_addIndexDirectory($ldap, $attribute);
 }

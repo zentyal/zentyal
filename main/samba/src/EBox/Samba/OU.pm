@@ -62,27 +62,35 @@ sub name
 
 sub addToZentyal
 {
-    my ($self, $rDn) = @_;
-    my $users = EBox::Global->getInstance(1)->modInstance('users');
+    my ($self) = @_;
+    my $sambaMod = EBox::Global->getInstance(1)->modInstance('samba');
 
-    my ($name, $parentDn) = split ',', $rDn, 2;
-    my $parent;
-    if ($parentDn) {
-        $parentDn .= ',' . $users->ldap()->dn();
-        $parent = $users->objectFromDN($parentDn);
-    } else {
-        $parent = $users->defaultNamingContext();
+    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+    if (not $parent) {
+        my $dn = $self->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
     }
 
-    my $ou = EBox::Users::OU->create(name => $name, parent => $parent);
-    $ou->exists() or
-        throw EBox::Exceptions::Internal("Error addding samba OU '$name' to Zentyal");
+    my $name = $self->name();
+    my $parentDN = $parent->dn();
+
+    try {
+        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent);
+        $self->_linkWithUsersObject($ou);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("OU $name already in $parentDN on OpenLDAP database");
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading OU '$name' in '$parentDN': $error");
+    };
 }
 
 sub updateZentyal
 {
-    my ($self, $rDn) = @_;
-    EBox::warn("updateZentyal called in OU $rDn. No implemented editables changes in OU ");
+    my ($self) = @_;
+
+    my $dn = $self->dn();
+    EBox::warn("updateZentyal called in OU $dn. No implemented editables changes in OU ");
 }
 
 # Method: create
@@ -116,30 +124,6 @@ sub create
     my $result = $class->_ldap->add($dn, $attrs);
     my $res = EBox::Samba::OU->new(dn => $dn);
     return $res;
-}
-
-sub orderOUList
-{
-    my ($class, $list) = @_;
-    my @ous = sort {
-        my @aDn = split ',', $a->dn();
-        my @bDn = split ',', $b->dn();
-        if (@aDn != @bDn) {
-            @aDn <=> @bDn;
-        } else {
-            my $res;
-            my $i = @aDn - 1;
-            while ($i > 0) {
-                $res = $aDn[$i] cmp $bDn[$i];
-                if ($res != 0) {
-                    last;
-                }
-                $i -= 1;
-            }
-            $res;
-        }
-    } @{ $list  };
-    return \@ous;
 }
 
 1;

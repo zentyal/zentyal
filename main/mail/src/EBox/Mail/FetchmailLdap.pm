@@ -224,7 +224,7 @@ sub removeExternalAccount
     foreach my $fetchmailAccount (@fetchmailAccounts) {
         if ($fetchmailAccount =~ m/^$account:/) {
             $entry->delete(fetchmailAccount => [$fetchmailAccount]);
-            $entry->update($self->{ldap}->ldapCon());
+            $entry->update($self->{ldap}->connection());
             return;
         }
     }

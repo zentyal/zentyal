@@ -148,7 +148,8 @@ sub create
 
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
-        $usersMod->notifyModsPreLdapUserBase('preAddContact', $entry, $args{ignoreMods}, $args{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase(
+            'preAddContact', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
 
         my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
@@ -179,7 +180,8 @@ sub create
             $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
-            $usersMod->notifyModsPreLdapUserBase('preAddContactFailed', $entry, $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddContactFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;

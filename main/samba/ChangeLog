@@ -1,6 +1,18 @@
 HEAD
+	+ Added objectByObjectGUID to retrieve an LDB object from its LDAP
+	  replica.
+	+ Added _linkWithUsersEntry && _linkWithUsersObject and called for every
+	  Samba object created from the users module, so we have a direct link
+	  between objects.
+	+ All LDBObject based objects will have the objectGUID field availble.
+	+ Removed unused method EBox::LDB::existsDN.
+	+ Updated EBox::LDB class to use the new EBox::LDAPBase to share code.
+	+ Updated s4sync to handle OUs and contacts sync.
+	+ Removed configuration key 'treat_contacts_as_users'. We handle now
+	  Contacts and distribution groups natively.
+	+ EBox::Samba::LdbObject inherites from EBox::Users::LdapObject to reuse
+	  as much code as possible.
 	+ Added a special case to map 'Domain Admins' DN from OpenLDAP to LDB.
-	+ Fixed ldbDNFromLDAPDN to convert uid= into CN=.
 	+ Adapt firewall rules to new accept chains
 	+ Add config key to skip writting homeDirectory and homeDrive attribute
 	+ Do not store in samba_access table 4 records each 10s when antivirus

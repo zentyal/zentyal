@@ -328,30 +328,21 @@ sub contactsNotIn
 #
 # Returns:
 #
-#   arrary ref of members (EBox::Users::InetOrgPerson)
+#   arrary ref of members
 #
 sub members
 {
     my ($self) = @_;
 
-    my %attrs = (
-        base => $self->_ldap->dn(),
-        filter => "(memberof=$self->{dn})",
-        scope => 'sub',
-    );
-
-    my $result = $self->_ldap->search(\%attrs);
-
+    my $usersMod = $self->_usersMod();
     my @members = map {
-        EBox::Users::InetOrgPerson->new(entry => $_)
-    } $result->entries();
+        $usersMod->objectFromDN($_)
+    } $self->get('member');
 
-    # sort by fullname
     @members = sort {
-            my $aValue = $a->fullname();
-            my $bValue = $b->fullname();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
     } @members;
 
     return \@members;
@@ -568,8 +559,8 @@ sub create
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
-        $usersMod->notifyModsPreLdapUserBase('preAddGroup', $entry,
-                                               $args{ignoreMods}, $args{ignoreSlaves});
+        $usersMod->notifyModsPreLdapUserBase(
+            'preAddGroup', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
 
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
@@ -605,7 +596,8 @@ sub create
             $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
             $res->SUPER::deleteObject(@_);
         } else {
-            $usersMod->notifyModsPreLdapUserBase('preAddGroupFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsPreLdapUserBase(
+                'preAddGroupFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
         }
         $res = undef;
         $entry = undef;
