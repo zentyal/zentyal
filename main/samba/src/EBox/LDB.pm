@@ -512,7 +512,7 @@ sub ldapServicePrincipalsToLdb
 
                 EBox::info("Importing service principal $dn");
                 my %args = (
-                    name           => scalar ($user->get('cn')),
+                    name           => scalar ($user->get('uid')),
                     parent         => $ldbKerberosOU,
                     samAccountName => scalar ($samAccountName),
                     description    => scalar ($user->get('description')),
