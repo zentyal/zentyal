@@ -74,11 +74,7 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $name = $args{name};
-    # TODO Is the user added to the default OU?
-    my $baseDn = $class->_ldap->dn();
     my $dn = "CN=$name," . $args{parent}->dn();
-
-    $class->_checkAccountNotExists($name);
 
     my @attr = ();
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'contact']);
