@@ -43,6 +43,14 @@ sub connection : Test(4)
     isa_ok($connection, 'Test::Net::LDAP::Mock');
 }
 
+sub url : Test(1)
+{
+    my ($self) = @_;
+    my $class = $self->class;
+
+    cmp_ok($class->url(), 'eq', 'ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi', "Getting the LDB's URL");
+}
+
 1;
 
 END {
