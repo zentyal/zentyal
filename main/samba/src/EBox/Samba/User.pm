@@ -435,12 +435,12 @@ sub addToZentyal
         my %args = (
             uid          => scalar ($uid),
             parent       => $parent,
-            fullname     => $self->name(),
-            givenName    => $givenName,
-            initials     => $self->initials(),
-            surname      => $surname,
-            displayname  => $self->displayName(),
-            description  => $self->description(),
+            fullname     => scalar($self->name()),
+            givenname    => scalar($givenName),
+            initials     => scalar($self->initials()),
+            surname      => scalar($surname),
+            displayname  => scalar($self->displayName()),
+            description  => scalar($self->description()),
             ignoreMods   => ['samba'],
         );
 

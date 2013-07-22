@@ -238,9 +238,9 @@ sub addToZentyal
     EBox::info("Adding samba group '$name' to Zentyal");
     try {
         my @params = (
-            name => $name,
+            name => scalar($name),
             parent => $parent,
-            description =>  $self->get('description'),
+            description =>  scalar($self->get('description')),
             isSecurityGroup => $self->isSecurityGroup(),
             isSystemGroup => 0,
             ignoreMods  => ['samba'],

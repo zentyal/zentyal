@@ -78,14 +78,14 @@ sub create
 
     my @attr = ();
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'contact']);
-    push (@attr, cn          => $name);
-    push (@attr, name        => $name);
-    push (@attr, givenName   => $args{givenName}) if ($args{givenName});
-    push (@attr, initials    => $args{initials}) if ($args{initials});
-    push (@attr, sn          => $args{sn}) if ($args{sn});
-    push (@attr, displayName => $args{displayName}) if ($args{displayName});
-    push (@attr, description => $args{description}) if ($args{description});
-    push (@attr, mail => $args{mail}) if ($args{mail});
+    push (@attr, cn          => scalar($name));
+    push (@attr, name        => scalar($name));
+    push (@attr, givenName   => scalar($args{givenName}) if ($args{givenName}));
+    push (@attr, initials    => scalar($args{initials}) if ($args{initials}));
+    push (@attr, sn          => scalar($args{sn})) if ($args{sn});
+    push (@attr, displayName => scalar($args{displayName})) if ($args{displayName});
+    push (@attr, description => scalar($args{description})) if ($args{description});
+    push (@attr, mail        => scalar($args{mail})) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;

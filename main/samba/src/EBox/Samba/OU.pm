@@ -75,7 +75,7 @@ sub addToZentyal
     my $parentDN = $parent->dn();
 
     try {
-        my $ou = EBox::Users::OU->create(name => $name, parent => $parent);
+        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent);
         $self->_linkWithUsersObject($ou);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
