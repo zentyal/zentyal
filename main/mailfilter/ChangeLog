@@ -1,4 +1,5 @@
 HEAD
+	+ Removed dkim_verification obsolete option from the local conf
 	+ Adapt firewall rules to new accept chains
 	+ Updated to use the new User API.
 	+ Added incompatiblity with external AD authentication mode
