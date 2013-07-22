@@ -471,14 +471,7 @@ sub _errorOnLdap
 #  Return the URL or parameter to create a connection with this LDAP
 sub url
 {
-    my ($class) = @_;
-
-    unless ($class->can('LDAPI')) {
-        # Child classes must define the LDAPI constant.
-        throw EBox::Exceptions::NotImplemented('LDAPI constant must be defined!');
-    }
-
-    return LDAPI();
+    throw EBox::Exceptions::NotImplemented();
 }
 
 sub safeConnect

@@ -55,6 +55,14 @@ sub connection : Test(4)
     isa_ok($connection, 'Test::Net::LDAP::Mock');
 }
 
+sub url : Test(1)
+{
+    my ($self) = @_;
+    my $class = $self->class;
+
+    cmp_ok($class->url(), 'eq', 'ldapi://%2fvar%2frun%2fslapd%2fldapi', "Getting the LDAP's URL");
+}
+
 1;
 
 END {
