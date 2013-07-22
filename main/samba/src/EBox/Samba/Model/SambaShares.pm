@@ -34,6 +34,7 @@ use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Model::Manager;
 use EBox::Exceptions::DataInUse;
+use EBox::Samba::SecurityPrincipal;
 use EBox::Sudo;
 
 use Error qw(:try);
@@ -388,7 +389,7 @@ sub createDirs
             push (@posixACL, $perm);
 
             # Account Sid
-            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
+            my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
             if ($object->exists()) {
                 $aceString .= ';;' . $object->sid() . ')';
                 push (@aceStrings, $aceString);

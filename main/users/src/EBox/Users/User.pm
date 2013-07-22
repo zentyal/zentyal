@@ -549,7 +549,7 @@ sub create
         $entry = $parentRes->_entry();
         unless ($isSystemUser) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUser', $entry, $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUser', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
         }
 
         my $result = $entry->update($class->_ldap->{ldap});
@@ -602,7 +602,7 @@ sub create
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUserFailed', [ $entry ], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUserFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
             $parentRes->deleteObject(@_);
         }
         $res = undef;

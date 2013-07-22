@@ -59,7 +59,7 @@ sub usersContainer
     my ($self) = @_;
     my $dc = $self->defaultContainer()->dn();
     my $usersDN = "CN=Users," . $dc;
-    EBox::debug("USERS DN " . $usersDN . ' COMTIANER DN ' . $self->dn());
+    EBox::debug("USERS DN " . $usersDN . ' CONTAINER DN ' . $self->dn());
     return $self->dn() eq $usersDN;
 }
 

@@ -9,7 +9,7 @@ EBox::init();
 
 my $global = EBox::Global->getInstance();
 my $users = $global->modInstance('users');
-$users->{ldap}->ldapCon();
+$users->{ldap}->connection();
 
 sub update
 {

@@ -190,14 +190,14 @@ sub getPassword
     return $self->{password};
 }
 
-# Method: _ldapCon
+# Method: connection
 #
 #   sets a LDAP conenction to the external AD. The connection will be used from
 #   now by this object
 #
 # Returns:
 #   - Net::LDAP connection object
-sub ldapCon
+sub connection
 {
     my ($self) = @_;
 
@@ -408,7 +408,7 @@ sub _adUser
 sub initKeyTabs
 {
     my ($self) = @_;
-    my $ad = $self->ldapCon();
+    my $ad = $self->connection();
 
     my $adUser = $self->_adUser();
     my $dc      = $self->dcHostname();

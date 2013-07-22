@@ -471,7 +471,7 @@ sub _migrateTo32
                         "Can't load LDIF file: $newSchema");
                 }
                 $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
-                my $updateResult = $entry->update($ldap->ldapCon());
+                my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
                     EBox::error("Reverting LDAP changes");
@@ -1065,7 +1065,7 @@ sub reloadNSCD
 
 # Method: ous
 #
-#       Returns an array containing all the OUs
+#       Returns an array containing all the OUs sorted by canonicalName
 #
 # Returns:
 #
@@ -1094,7 +1094,9 @@ sub ous
         push (@ous, $ou);
     }
 
-    return \@ous;
+    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+
+    return \@sortedOUs;
 }
 
 # Method: userByUID

@@ -16,47 +16,44 @@
 use strict;
 use warnings;
 
-package EBox::Ldap::Test;
-use base 'EBox::Test::LDAPClass';
+package EBox::Samba::LdbObject::Test;
 
 use EBox::Global::TestStub;
+use base 'EBox::Test::LDBClass';
 
 use Test::More;
 
 sub class
 {
-    'EBox::Ldap'
+    'EBox::Samba::LdbObject'
 }
 
-sub instance : Test(3)
+sub _objectGUIDToString : Test(1)
 {
     my ($self) = @_;
     my $class = $self->class;
 
-    can_ok($class, 'instance');
+    my $exampleBinary = pack('H*', '09f976995c580548915e4976ab3a4317');
+    my $expectedOutput = '9976f909-585c-4805-915e-4976ab3a4317';
 
-    my $ldapInstance = undef;
-    ok($ldapInstance = $class->instance(), '... and the constructor should succeed');
-    isa_ok($ldapInstance, $class, '... and the object it returns');
+    my $stringObjectGUID = $class->_objectGUIDToString($exampleBinary);
+    cmp_ok($stringObjectGUID, 'eq', $expectedOutput, "_objectGUIDToString");
 }
 
-sub connection : Test(4)
+sub _stringToObjectGUID : Test(1)
 {
     my ($self) = @_;
     my $class = $self->class;
 
-    my $ldapInstance = $class->instance();
+    my $exampleString = '9976f909-585c-4805-915e-4976ab3a4317';
+    my $expectedOutput = pack('H*', '09f976995c580548915e4976ab3a4317');
 
-    can_ok($ldapInstance, 'connection');
-
-    my $connection = undef;
-    ok($connection = $ldapInstance->connection(), 'Got the LDAP connection');
-    isa_ok($connection, 'Net::LDAP');
-    isa_ok($connection, 'Test::Net::LDAP::Mock');
+    my $objectGUID = $class->_stringToObjectGUID($exampleString);
+    cmp_ok($objectGUID, 'eq', $expectedOutput, '_stringToObjectGUID');
 }
 
 1;
 
 END {
-    EBox::Ldap::Test->runtests();
+    EBox::Samba::LdbObject::Test->runtests();
 }

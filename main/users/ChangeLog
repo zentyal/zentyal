@@ -1,4 +1,12 @@
 HEAD
+	+ preAdd callbacks get a second argument noting the parent when this
+	  new object will be created.
+	+ All LdapObject based objects will have the 'entryUUID' field available.
+	+ Created an EBox::LDAPBase class to share code with the Samba's EBox::LDB
+	  one.
+	+ Reimplemented EBox::Users::Group::members to retrieve the members of the
+	  group directly instead of searching for the objects that are set as
+	  members of the group.
 	+ Avoid "cannot return outside of a subroutine" warning in cloud-sync
 	+ Added foldable user and group add-ons to dialogs
 	+ Replaced package breaks parameter with depends statement
