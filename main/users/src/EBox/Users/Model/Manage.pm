@@ -81,7 +81,7 @@ sub childNodes
             # Hide Kerberos OU as it's not useful for the user to keep the UI simple
             next if ($printableName eq 'Kerberos');
         } elsif ($child->isa('EBox::Users::User')) {
-            next if ($usingSamba and $self->_hiddenSid($dn));
+            next if ($usingSamba and $self->_hiddenSid($child));
 
             $type = 'user';
             $printableName = $child->name();
@@ -94,7 +94,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if ($usingSamba and $self->_hiddenSid($dn));
+            next if ($usingSamba and $self->_hiddenSid($child));
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
@@ -190,17 +190,16 @@ sub preconditionFailMsg
 
 sub _hiddenSid
 {
-    my ($self, $dn) = @_;
+    my ($self, $ldapObject) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
 
-    my $object = undef;
-
+    my $sambaObject = undef;
     try {
-        $object = $samba->objectFromDN($dn);
+        $sambaObject = $samba->ldbobjectFromLDAPObject($ldapObject);
     } otherwise {};
 
-    unless (defined ($object) and $object->can('sid')) {
+    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
         return 0;
     }
 
@@ -209,7 +208,7 @@ sub _hiddenSid
     }
 
     foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($object->sid() =~ m/$ignoredSidMask/);
+       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
     }
 
     return 0;
