@@ -116,6 +116,17 @@ sub connection
     return $self->{ldap};
 }
 
+# Method: url
+#
+#  Return the URL or parameter to create a connection with this LDAP
+#
+# Override: EBox::LDAPBase::url
+#
+sub url
+{
+    return LDAPI;
+}
+
 # Method: anonymousLdapCon
 #
 #       returns a LDAP connection without any binding
