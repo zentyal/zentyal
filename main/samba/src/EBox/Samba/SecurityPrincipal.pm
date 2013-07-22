@@ -22,15 +22,29 @@ use warnings;
 #   SecurityPrincipal auxiliary class
 #
 package EBox::Samba::SecurityPrincipal;
-
 use base 'EBox::Samba::OrganizationalPerson';
+
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+
+use Error qw(:try);
 
 # Method: new
 #
-#   Class constructor
+#   Instance an object readed from LDAP.
 #
-# Parameters:
+#   Parameters:
 #
+#      dn - Full dn for the user
+#  or
+#      ldif - Reads the entry from LDIF
+#  or
+#      entry - Net::LDAP entry for the user
+#  or
+#      objectGUID - The LDB's objectGUID.
+#  or
 #      samAccountName
 #  or
 #      SID
@@ -39,21 +53,22 @@ sub new
 {
     my ($class, %params) = @_;
 
-    unless ($params{entry} or $params{dn} or $params{ldif} or
-            $params{samAccountName} or $params{sid}) {
-        throw EBox::Exceptions::MissingArgument('Constructor argument');
-    }
-
     my $self = {};
+    bless ($self, $class);
+
     if ($params{samAccountName}) {
         $self->{samAccountName} = $params{samAccountName};
     } elsif ($params{sid}) {
         $self->{sid} = $params{sid};
     } else {
-        $self = $class->SUPER::new(%params);
-    }
-    bless ($self, $class);
+        try {
+            $self = $class->SUPER::new(%params);
+        } catch EBox::Exceptions::MissingArgument with {
+            my ($error) = @_;
 
+            throw EBox::Exceptions::MissingArgument("$error|samAccountName|sid");
+        };
+    }
     return $self;
 }
 
@@ -186,7 +201,7 @@ sub _checkAccountNotExists
 {
     my ($self, $samAccountName) = @_;
 
-    my $obj = new EBox::Samba::LdbObject(samAccountName => $samAccountName);
+    my $obj = new EBox::Samba::SecurityPrincipal(samAccountName => $samAccountName);
     if ($obj->exists()) {
         my $dn = $obj->dn();
         throw EBox::Exceptions::DataExists(
