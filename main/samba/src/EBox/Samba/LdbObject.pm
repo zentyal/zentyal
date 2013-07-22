@@ -56,6 +56,7 @@ sub new
     my ($class, %params) = @_;
 
     my $self = {};
+    bless ($self, $class);
 
     if ($params{objectGUID}) {
         $self->{objectGUID} = $params{objectGUID};
@@ -69,7 +70,6 @@ sub new
         };
     }
 
-    bless ($self, $class);
     return $self;
 }
 
@@ -432,11 +432,10 @@ sub _linkWithUsersEntry
     }
 
     my @attributes = ();
-    unless (grep { $_ eq 'zentyalSambaLink' } @{$entry->get_values('objectClass')}) {
+    unless (grep { $_ eq 'zentyalSambaLink' } @{[$entry->get_value('objectClass')]}) {
         push (@attributes, objectClass => 'zentyalSambaLink');
     }
     push (@attributes, msdsObjectGUID => $self->objectGUID());
-
     $entry->add(@attributes);
 }
 
@@ -452,7 +451,9 @@ sub _linkWithUsersObject
         throw EBox::Exceptions::Internal("Invalid ldapObject argument. It's not an EBox::Users::LdapObject.");
     }
 
-    $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
+    unless (grep { $_ eq 'zentyalSambaLink' } @{[$ldapObject->_entry()->get_value('objectClass')]}) {
+        $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
+    }
     $ldapObject->set('msdsObjectGUID', $self->objectGUID(), 1);
     $ldapObject->save();
 }

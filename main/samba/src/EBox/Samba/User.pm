@@ -422,7 +422,7 @@ sub addToZentyal
         my $dn = $self->dn();
         throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
     }
-    my $uid = $self->self('samAccountName');
+    my $uid = $self->get('samAccountName');
     my $givenName = $self->givenName();
     my $surname = $self->surname();
     my $uidNumber = $self->get('uidNumber');
