@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed encoding of parameters in confirmation dialogs
 	+ Check backup integrity by listing the tar file, throw
 	  InvalidData exception if the tar is corrupted
 3.0.22
