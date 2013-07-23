@@ -43,7 +43,7 @@ sub mainObjectClass
 # FIXME: We should find a way to share code with the Contact::create method using the common class. I had to revert it
 # because an OrganizationalPerson reconversion to a Contact failed.
 #
-#   Adds a new user
+#   Adds a new contact
 #
 # Parameters:
 #
@@ -58,7 +58,6 @@ sub mainObjectClass
 #       samAccountName - string with the user name
 #       clearPassword - Clear text password
 #       kerberosKeys - Set of kerberos keys
-#       uidNumber - user UID numberer
 #
 # Returns:
 #
@@ -75,11 +74,7 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $name = $args{name};
-    # TODO Is the user added to the default OU?
-    my $baseDn = $class->_ldap->dn();
     my $dn = "CN=$name," . $args{parent}->dn();
-
-    $class->_checkAccountNotExists($name);
 
     my @attr = ();
     push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'contact']);
@@ -90,14 +85,14 @@ sub create
     push (@attr, sn          => $args{sn}) if ($args{sn});
     push (@attr, displayName => $args{displayName}) if ($args{displayName});
     push (@attr, description => $args{description}) if ($args{description});
-    push (@attr, mail => $args{mail}) if ($args{mail});
+    push (@attr, mail        => $args{mail}) if ($args{mail});
 
     my $res = undef;
     my $entry = undef;
     try {
         $entry = new Net::LDAP::Entry($dn, @attr);
 
-        my $result = $entry->update($class->_ldap->ldbCon());
+        my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
@@ -128,71 +123,69 @@ sub create
 
 sub addToZentyal
 {
-    my ($self, $ou) = @_;
-    $ou or throw EBox::Exceptions::MissingArgument('ou');
+    my ($self) = @_;
 
-    my $fullName = $self->get('name');
-    my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
-    my $surName = $self->get('sn');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+
+    if (not $parent) {
+        my $dn = $self->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
+    }
+    my $name = $self->name();
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
     $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
+    $surname = '-' unless defined $surname;
 
-    my $parent = EBox::Users::Contact->defaultContainer();
+    my $zentyalContact = undef;
+    EBox::info("Adding samba contact '$name' to Zentyal");
+    try {
+        my %args = (
+            parent       => $parent,
+            fullname     => scalar ($name),
+            givenName    => scalar ($givenName),
+            initials     => scalar ($self->initials()),
+            surname      => scalar ($surname),
+            displayname  => scalar ($self->displayName()),
+            description  => scalar ($self->description()),
+            ignoreMods   => ['samba'],
+        );
 
-    my %args = (
-        fullname => $fullName,
-        givenname => $givenName,
-        initials => $initials,
-        surname => $surName,
-        displayname => $displayName,
-        description => $description,
-        parent => $parent,
-        ignoreMods => ['samba'],
-    );
-
-    EBox::info("Adding samba contact '$fullName' to Zentyal");
-    my $zentyalContact = EBox::Users::Contact->create(%args);
-    $zentyalContact->exists() or
-        throw EBox::Exceptions::Internal("Error addding samba contact '$fullName' to Zentyal");
-
-    $zentyalContact->setIgnoredModules(['samba']);
+        my $zentyalContact = EBox::Users::Contact->create(%args);
+        $self->_linkWithUsersObject($zentyalContact);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("Contact $name already in OpenLDAP database");
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading contact '$name': $error");
+    };
 }
-
-
 
 sub updateZentyal
 {
     my ($self) = @_;
 
-    my $name = $self->get('name');
+    my $name = $self->name();
     EBox::info("Updating zentyal contact '$name'");
 
-    my $zentyalUser = undef;
-    my $fullName = $name;
-    my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
-    my $surName = $self->get('sn');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
+    my $initials = $self->initials();
+    my $displayName = $self->displayName();
+    my $description = $self->description();
     $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
+    $surname = '-' unless defined $surname;
 
-    my $users = EBox::Global->modInstance('users');
-
-    my $dn = 'cn=' . $name . ',' . $users->usersDn();
-
-    my $zentyalContact = new EBox::Users::Contact(dn => $dn);
-    $zentyalContact->exists() or
-        throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist");
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $zentyalContact = $sambaMod->ldapObjectFromLDBObject($self);
+    throw EBox::Exceptions::Internal("Zentyal contact '$name' does not exist") unless ($zentyalContact and $zentyalContact->exists());
 
     $zentyalContact->setIgnoredModules(['samba']);
-    $zentyalContact->set('cn', $fullName, 1);
+    $zentyalContact->set('cn', $name, 1);
     $zentyalContact->set('givenName', $givenName, 1);
     $zentyalContact->set('initials', $initials, 1);
-    $zentyalContact->set('sn', $surName, 1);
+    $zentyalContact->set('sn', $surname, 1);
     $zentyalContact->set('displayName', $displayName, 1);
     $zentyalContact->set('description', $description, 1);
     $zentyalContact->save();

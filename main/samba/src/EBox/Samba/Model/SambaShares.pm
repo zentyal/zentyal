@@ -34,6 +34,7 @@ use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Model::Manager;
 use EBox::Exceptions::DataInUse;
+use EBox::Samba::SecurityPrincipal;
 use EBox::Sudo;
 
 use EBox::Samba::Security::SecurityDescriptor;

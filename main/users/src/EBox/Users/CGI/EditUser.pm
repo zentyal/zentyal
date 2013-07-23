@@ -68,13 +68,13 @@ sub _process
         $user->set('quota', $self->param('quota'), 1);
 
         if ($editable) {
-            $self->_requireParam('name', __('first name'));
+            $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
             $self->_requireParamAllowEmpty('description', __('description'));
             $self->_requireParamAllowEmpty('password', __('password'));
             $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
-            my $givenName = $self->param('name');
+            my $givenName = $self->param('givenname');
             my $surname = $self->param('surname');
 
             my $fullname;

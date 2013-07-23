@@ -193,7 +193,7 @@ sub deleteValues
 #
 sub deleteObject
 {
-    my ($self, $attr, $lazy) = @_;
+    my ($self) = @_;
 
     $self->_entry->delete();
     $self->save();
@@ -238,15 +238,16 @@ sub remove
 sub save
 {
     my ($self) = @_;
-    my $entry= $self->_entry;
+    my $entry = $self->_entry;
 
     my $result = $entry->update($self->_ldap->{ldap});
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-            throw EBox::Exceptions::LDAP( message => __('There was an error updating LDAP:'),
-                                          result =>   $result,
-                                          opArgs   => $self->entryOpChangesInUpdate($entry),
-                                         );
+            throw EBox::Exceptions::LDAP(
+                message => __('There was an error updating LDAP:'),
+                result =>   $result,
+                opArgs   => $self->entryOpChangesInUpdate($entry),
+            );
         }
     }
 }
@@ -307,6 +308,11 @@ sub _entry
 {
     my ($self) = @_;
 
+    if ($self->{entry} and (not $self->{entry}->exists('entryUUID'))) {
+        $self->{dn} = $self->{entry}->dn();
+        delete $self->{entry};
+    }
+
     unless ($self->{entry}) {
         my $result = undef;
         if (defined $self->{dn}) {
@@ -330,6 +336,7 @@ sub _entry
                 base => $baseDN,
                 filter => $filter,
                 scope => $scope,
+                attrs => ['*', 'entryUUID'],
             };
             $result = $self->_ldap->search($attrs);
         }
@@ -380,15 +387,21 @@ sub _usersMod
 #
 #   Return a string representing the object's canonical name.
 #
+#   Parameters:
+#
+#       excludeRoot - Whether the LDAP root's canonical name should be excluded
+#
 sub canonicalName
 {
-    my ($self) = @_;
+    my ($self, $excludeRoot) = @_;
 
     my $parent = $self->parent();
 
     my $canonicalName = '';
     if ($parent) {
-        $canonicalName = $parent->canonicalName() . '/';
+        unless ($excludeRoot and (not $parent->parent())) {
+            $canonicalName = $parent->canonicalName() . '/';
+        }
     }
 
     $canonicalName .= $self->baseName();
@@ -506,23 +519,23 @@ sub children
 #
 #   Throw EBox::Exceptions::Internal on error.
 #
-# TODO
-#   bug: dns with same or less commponents of root DN are not treated properly
 sub parent
 {
-    my ($self, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
+    my ($self) = @_;
+    my $dn = $self->dn();
     my $usersMod = $self->_usersMod();
 
     my $defaultNamingContext = $usersMod->defaultNamingContext();
     return undef if ($dn eq $defaultNamingContext->dn());
 
     my $parentDn = $self->baseDn($dn);
-    return $usersMod->objectFromDN($parentDn);
+    my $parent = $usersMod->objectFromDN($parentDn);
+
+    if ($parent) {
+        return $parent;
+    } else {
+        throw EBox::Exceptions::Internal("The dn '$dn' is not representing a valid parent!");
+    }
 }
 
 # Method: relativeDN

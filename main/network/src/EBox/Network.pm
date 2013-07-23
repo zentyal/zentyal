@@ -32,7 +32,6 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
@@ -3341,6 +3340,7 @@ sub _enforceServiceState
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
+        EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
@@ -3348,6 +3348,7 @@ sub _enforceServiceState
                 $self->_unsetChanged($iface);
             }
         }
+        EBox::Util::Lock::unlock('ifup');
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
@@ -3418,19 +3419,6 @@ sub _stopService
     EBox::Sudo::root(@cmds);
 
     $self->SUPER::_stopService();
-}
-
-sub _stopDhclientCmd
-{
-    my ($self, $iface) = @_;
-    my $pidFile = '/var/run/dhclient.' . $iface . '.pid';
-    my $pid = $self->pidFileRunning($pidFile);
-    if ($pid) {
-        print "kill $pid\n";
-        return "kill $pid";
-    } else {
-        return undef;
-    }
 }
 
 sub _routersReachableIfChange # (interface, newaddress?, newmask?)
@@ -4203,7 +4191,7 @@ sub regenGateways
 
     my $global = EBox::Global->getInstance();
 
-    my $timeout = 60;
+    my $timeout = 180;
     my $locked = 0;
 
     while ((not $locked) and ($timeout > 0)) {

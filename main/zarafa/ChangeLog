@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapted user addon to multi-OU tree view
 	+ Updated zarafa-contact LDAP schema so we don't require uidNumber.
 	+ Use EntryUUID field as unique ID for users, contacts and groups.

@@ -22,6 +22,9 @@ SAMBA_SRC="samba4_$version.orig.tar.gz"
 if ! [ -f $SAMBA_SRC ]
 then
     ./build-orig.sh $version
+    if [ $? -ne 0 ]; then
+        exit 1
+    fi
 fi
 
 mkdir $BUILD_DIR

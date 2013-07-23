@@ -341,7 +341,7 @@ sub create
     try {
         $entry = new Net::LDAP::Entry($dn, @attr);
 
-        my $result = $entry->update($class->_ldap->ldbCon());
+        my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
             unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
@@ -413,88 +413,96 @@ sub _checkPwdLength
 
 sub addToZentyal
 {
-    my ($self, $ou) = @_;
-    $ou or throw EBox::Exceptions::MissingArgument('ou');
+    my ($self) = @_;
 
-    my $userName = $self->get('samAccountName');
-    my $fullName = $self->get('name');
-    my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
-    my $surName = $self->get('sn');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $parent = $sambaMod->ldapObjectFromLDBObject($self->parent);
+
+    if (not $parent) {
+        my $dn = $self->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
+    }
+    my $uid = $self->get('samAccountName');
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
     my $uidNumber = $self->get('uidNumber');
-    $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
-
-    my @params = (
-        uid => $userName,
-        fullname => $fullName,
-        givenname => $givenName,
-        initials => $initials,
-        surname => $surName,
-        displayname => $displayName,
-        description => $description,
-        isSystemUser => 0,
-        parent => $ou,
-    );
+    $givenName = '-' unless $givenName;
+    $surname = '-' unless $surname;
 
     my $zentyalUser = undef;
-    push @params, ignoreMods => ['samba'];
-    EBox::info("Adding samba user '$userName' to Zentyal");
+    EBox::info("Adding samba user '$uid' to Zentyal");
+    try {
+        my %args = (
+            uid          => scalar ($uid),
+            parent       => $parent,
+            fullname     => scalar($self->name()),
+            givenname    => scalar($givenName),
+            initials     => scalar($self->initials()),
+            surname      => scalar($surname),
+            displayname  => scalar($self->displayName()),
+            description  => scalar($self->description()),
+            ignoreMods   => ['samba'],
+        );
 
-    if (not $uidNumber) {
-        $uidNumber = $self->getXidNumberFromRID();
-        $uidNumber or
-            throw EBox::Exceptions::Internal("Could not get uidNumber for user $userName");
-        $self->set('uidNumber', $uidNumber);
+        if (not $uidNumber) {
+            $uidNumber = $self->getXidNumberFromRID();
+            throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid") unless ($uidNumber);
+            $self->set('uidNumber', $uidNumber);
+        }
+
+        $args{uidNumber} = $uidNumber;
+        $self->setupUidMapping($uidNumber);
+
+        $zentyalUser = EBox::Users::User->create(%args);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("User $uid already in OpenLDAP database");
+        $zentyalUser = new EBox::Users::User(uid => $uid);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading user '$uid': $error");
+    };
+
+    if ($zentyalUser) {
+        $zentyalUser->setIgnoredModules(['samba']);
+
+        my $sc = $self->get('supplementalCredentials');
+        my $up = $self->get('unicodePwd');
+        my $creds = new EBox::Samba::Credentials(
+            supplementalCredentials => $sc,
+            unicodePwd => $up
+        );
+        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+
+        $self->_linkWithUsersObject($zentyalUser);
+
     }
-
-    push @params, uidNumber => $uidNumber;
-    $self->setupUidMapping($uidNumber);
-
-    $zentyalUser = EBox::Users::User->create(@params);
-    $zentyalUser->exists() or
-        throw EBox::Exceptions::Internal("Error addding samba user '$userName' to Zentyal");
-
-    $zentyalUser->setIgnoredModules(['samba']);
-
-    my $sc = $self->get('supplementalCredentials');
-    my $up = $self->get('unicodePwd');
-    my $creds = new EBox::Samba::Credentials(
-        supplementalCredentials => $sc,
-        unicodePwd => $up
-    );
-    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 }
 
 sub updateZentyal
 {
     my ($self) = @_;
 
-    my $userName = $self->get('samAccountName');
-    EBox::info("Updating zentyal user '$userName'");
+    my $uid = $self->get('samAccountName');
+    EBox::info("Updating zentyal user '$uid'");
 
     my $zentyalUser = undef;
-    my $fullName = $self->get('name');
-    my $givenName = $self->get('givenName');
-    my $initials = $self->get('initials');
-    my $surName = $self->get('sn');
-    my $displayName = $self->get('displayName');
-    my $description = $self->get('description');
-    my $uidNumber = $self->get('uidNumber');
-    $givenName = '-' unless defined $givenName;
-    $surName = '-' unless defined $surName;
+    my $givenName = $self->givenName();
+    my $surname = $self->surname();
+    my $fullName = $self->name();
+    my $initials = $self->initials();
+    my $displayName = $self->displayName();
+    my $description = $self->description();
+    $givenName = '-' unless $givenName;
+    $surname = '-' unless $surname;
 
-    $zentyalUser = new EBox::Users::User(uid => $userName);
-    $zentyalUser->exists() or
-        throw EBox::Exceptions::Internal("Zentyal user '$userName' does not exist");
+    $zentyalUser = new EBox::Users::User(uid => $uid);
+    throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist") unless ($zentyalUser and $zentyalUser->exists());
 
     $zentyalUser->setIgnoredModules(['samba']);
     $zentyalUser->set('cn', $fullName, 1);
     $zentyalUser->set('givenName', $givenName, 1);
     $zentyalUser->set('initials', $initials, 1);
-    $zentyalUser->set('sn', $surName, 1);
+    $zentyalUser->set('sn', $surname, 1);
     $zentyalUser->set('displayName', $displayName, 1);
     $zentyalUser->set('description', $description, 1);
     $zentyalUser->save();

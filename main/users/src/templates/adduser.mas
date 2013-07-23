@@ -26,7 +26,7 @@ use EBox::Global;
                                 <span class='ftitle'><% __('First name')%>:</span>
                         </td>
                         <td>
-                                <input type='text' class='inputText' name='name'>
+                                <input type='text' class='inputText' name='givenname'>
                         </td>
                 </tr>
                 <tr>

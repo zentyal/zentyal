@@ -74,8 +74,19 @@ sub fake
     mkdir ($tmpConfDir);
     ($? == 0) or die ("Can not create the temporally test dir $tmpConfDir");
 
+    my $tmpEtcDir = '/tmp/zentyal-test-etc/';
+    system ("rm -rf $tmpEtcDir") if ( -e $tmpEtcDir);
+    ($? == 0) or die ("Can not clean temporally test dir $tmpEtcDir");
+    mkdir ($tmpEtcDir);
+    ($? == 0) or die ("Can not create the temporally test dir $tmpEtcDir");
+
     EBox::TestStub::fake();
-    EBox::Config::TestStub::fake(modules => $ENV{ZENTYAL_MODULES_SCHEMAS}, conf => $tmpConfDir, user => 'nobody');
+    EBox::Config::TestStub::fake(
+        modules => $ENV{ZENTYAL_MODULES_SCHEMAS},
+        conf => $tmpConfDir,
+        etc => $tmpEtcDir,
+        user => 'nobody'
+    );
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
     *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
     # dont run scripts from zentyal directories

@@ -47,16 +47,9 @@ my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
 
-my $usersOU    = $usersModule->userClass()->defaultContainer($ro);
-my $groupsOU   = $usersModule->groupClass()->defaultContainer($ro);
-my $contactsOU = $usersModule->contactClass()->defaultContainer($ro);
-
 my $ldb = $sambaModule->ldb();
 
-my $ldapBaseDN = $usersModule->ldap()->dn();
-my $ldbBaseDN  =  $ldb->dn();
-
-my %ignoreOUs = map {( $_ => $_)} qw(ou=Users ou=Groups ou=Computers ou=Kerberos ou=postfix ou=mailalias,ou=postfix ou=vdomains,ou=postfix);
+my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Kerberos postfix postfix/mailalias postfix/vdomains);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -65,62 +58,61 @@ while (1) {
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
-
     my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$ldb->users()};
-    my %sambaContacts = map { $_->get('name') => $_ } @{$ldb->contacts()};
+    my %sambaContacts = map { $_->canonicalName(1) => $_ } @{$ldb->contacts()};
     my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$ldb->groups()};
     my @orderSambaOUs;
     my %sambaOUs;
-    foreach my $ou ( EBox::Samba::OU->orderOUList($ldb->ous()) ) {
-        my $rDn = $ou->relativeDn($ldbBaseDN);
-        if (exists $ignoreOUs{$rDn}) {
+    foreach my $ou (@{$ldb->ous()}) {
+        my $canonicalName = $ou->canonicalName(1);
+        if (exists $ignoreOUs{$canonicalName}) {
             next;
         }
-        push @orderSambaOUs, $rDn;
-        $sambaOUs{$rDn} = $rDn;
+        push @orderSambaOUs, $canonicalName;
+        $sambaOUs{$canonicalName} = $ou;
     }
 
     write_file($sambaTimestampFile, getTimestamp());
 
     my %zentyalUsers = map { $_->get('uid') => $_ } @{$usersModule->users()};
-    my %zentyalContacts = map { $_->get('cn') => $_ } @{$usersModule->contacts()};
+    my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
-    my %zentyalOUs    = map { my $ou = $_; ($ou->relativeDn($ldapBaseDN) => $ou) } @{ $usersModule->ous() };
+    my %zentyalOUs    = map { my $_->canonicalName(1) => $_ } @{ $usersModule->ous() };
     foreach my $ignored (keys %ignoreOUs) {
         delete $zentyalOUs{$ignored};
     }
 
-    foreach my $rDN (@orderSambaOUs) {
-        EBox::debug("sync OU $rDN?");
-        my $ou = $sambaOUs{$rDN};
-        my $inZentyal = delete $zentyalOUs{$rDN};
+    foreach my $canonicalName (@orderSambaOUs) {
+        EBox::debug("sync OU $canonicalName");
+        my $ou = $sambaOUs{$canonicalName};
+        my $inZentyal = delete $zentyalOUs{$canonicalName};
         if ($inZentyal) {
-            EBox::debug("already in zentyal $rDN?");
+            EBox::debug("$canonicalName is already in zentyal, updating...");
             my $changed = $ou->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestampFile) {
                 try {
-                    $ou->updateZentyal($rDN);
+                    $ou->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
-                    EBox::error("Error updating OU $rDN: $error. s4sync will try again in next synchronization");
+                    EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
                 };
             }
         } else {
-            EBox::debug("addToZentyal $rDN?");
+            EBox::debug("adding $canonicalName to Zentyal");
             try {
-                $ou->addToZentyal($rDN);
+                $ou->addToZentyal();
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding OU $rDN: $error. s4sync will try again in next synchronization");
+                EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
             };
         }
     }
 
-    my @orderZentyalOus = reverse @{ EBox::Samba::OU->orderOUList([values %zentyalOUs]) };
-    foreach my $ou (@orderZentyalOus) {
-        EBox::debug("Deleting Zentyal OU '" . $ou->dn() . "'");
-        $ou->deleteObject();
+    my @orderZentyalOus = reverse sort keys %zentyalOUs;
+    foreach my $ouCanonicalName (reverse sort keys %zentyalOUs) {
+        EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$ouCanonicalName}->dn() . "'");
+        $zentyalOUs{$ouCanonicalName}->deleteObject();
     }
 
     #################################################
@@ -143,7 +135,7 @@ while (1) {
         } else {
             if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
                 try {
-                    $sambaUsers{$sambaUserName}->addToZentyal($usersOU);
+                    $sambaUsers{$sambaUserName}->addToZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
@@ -162,33 +154,33 @@ while (1) {
     #### Sync contacts
     #################################################
     # Add contacts that exists in samba but not in Zentyal
-    foreach my $sambaContactName (sort keys %sambaContacts) {
-        if (exists $zentyalContacts{$sambaContactName}) {
-            my $changed = $sambaContacts{$sambaContactName}->get('whenChanged');
+    foreach my $sambaContactCanonicalName (sort keys %sambaContacts) {
+        if (exists $zentyalContacts{$sambaContactCanonicalName}) {
+            my $changed = $sambaContacts{$sambaContactCanonicalName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaContacts{$sambaContactName}->updateZentyal();
+                    $sambaContacts{$sambaContactCanonicalName}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
-                    EBox::error("Error updating contact $sambaContactName: $error. s4sync will try again in next synchronization");
+                    EBox::error("Error updating contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
                 };
             }
-            delete $zentyalContacts{$sambaContactName};
+            delete $zentyalContacts{$sambaContactCanonicalName};
         } else {
             try {
-                $sambaContacts{$sambaContactName}->addToZentyal($contactsOU);
+                $sambaContacts{$sambaContactCanonicalName}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding contact $sambaContactName: $error. s4sync will try again in next synchronization");
+                EBox::error("Error adding contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
             };
         }
     }
 
-    foreach my $zentyalContactName (sort keys %zentyalContacts) {
-        EBox::debug("Deleting Zentyal contact '$zentyalContactName'");
-        $zentyalContacts{$zentyalContactName}->setIgnoredModules(['samba']);
-        $zentyalContacts{$zentyalContactName}->deleteObject();
+    foreach my $zentyalContactCanonicalName (sort keys %zentyalContacts) {
+        EBox::debug("Deleting Zentyal contact '$zentyalContactCanonicalName'");
+        $zentyalContacts{$zentyalContactCanonicalName}->setIgnoredModules(['samba']);
+        $zentyalContacts{$zentyalContactCanonicalName}->deleteObject();
     }
 
     #################################################
@@ -209,7 +201,7 @@ while (1) {
             delete $zentyalGroups{$sambaGroupName};
         } else {
             try {
-                $sambaGroups{$sambaGroupName}->addToZentyal($groupsOU);
+                $sambaGroups{$sambaGroupName}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");

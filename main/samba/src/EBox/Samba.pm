@@ -51,6 +51,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
+use EBox::Samba::LdbObject;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -59,6 +60,7 @@ use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
 use Net::LDAP::Control::Sort;
+use Net::LDAP::Util qw(ldap_explode_dn);
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -317,6 +319,9 @@ sub enableActions
     # Create directories
     EBox::info('Creating directories');
     $self->_createDirectories();
+
+    # Load the required OpenLDAP schema updates.
+    $self->performLDAPActions();
 }
 
 sub getProvision
@@ -2029,23 +2034,25 @@ sub computers
     return \@computers;
 }
 
-# Method: ldbDNFromLDAPDN
-sub ldbDNFromLDAPDN
+# Method: ldapObjectFromLDBObject
+#
+#   Return the perl Object that handles in OpenLDAP the given perl object from Samba or undef if not found.
+#
+sub ldapObjectFromLDBObject
 {
-    my ($self, $ldapDN) = @_;
+    my ($self, $ldbObject) = @_;
+
+    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
+    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    my $relativeDN = $usersMod->relativeDN($ldapDN);
-    # Computers and Users are not OUs for Samba.
-    $relativeDN =~ s/ou=Users$/CN=Users/gi;
-    $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
-    my $dn = '';
-    if ($relativeDN) {
-        $dn = $relativeDN .  ',';
+    if ($ldbObject->isa('EBox::Samba::NamingContext')) {
+        return $usersMod->defaultNamingContext();
     }
-    $dn .= $self->ldap()->dn();
-    return $dn;
+
+    my $objectGUID = $ldbObject->objectGUID();
+    return $self->ldapObjectByObjectGUID($objectGUID);
 }
 
 # Method: ldbObjectFromLDAPObject
@@ -2059,10 +2066,15 @@ sub ldbObjectFromLDAPObject
     throw EBox::Exceptions::MissingArgument('ldapObject') unless ($ldapObject);
     throw EBox::Exceptions::InvalidType('ldapObject', 'EBox::Users::LdapObject') unless ($ldapObject->isa('EBox::Users::LdapObject'));
 
-    EBox::debug($ldapObject->dn());
-    my $ldbDN = $self->ldbDNFromLDAPDN($ldapObject->dn());
-    EBox::debug($ldbDN);
-    return $self->objectFromDN($ldbDN);
+    if ($ldapObject->isa('EBox::Users::NamingContext')) {
+        return $self->defaultNamingContext();
+    }
+
+    my $objectGUID = $ldapObject->get('msdsObjectGUID');
+    unless ($objectGUID) {
+        throw EBox::Exceptions::Internal("'" . $ldapObject->dn() ."' lacks a value for msdsObjectGUID!");
+    }
+    return $self->ldbObjectByObjectGUID($objectGUID);
 }
 
 # Method: entryModeledObject
@@ -2123,6 +2135,68 @@ sub relativeDN
     return $dn;
 }
 
+# Method: ldapObjectByObjectGUID
+#
+#   Return the ldap perl object modeling the given objectGUID or undef if not found.
+#
+# Parameters:
+#
+#   objectGUID - The objectGUID id.
+#
+sub ldapObjectByObjectGUID
+{
+    my ($self, $objectGUID) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $base = $usersMod->ldap()->dn();
+    my $filter = "(&(objectClass=zentyalSambaLink)(msdsObjectGUID=$objectGUID))";
+    my $scope = 'sub';
+
+    my $attrs = {
+        base   => $base,
+        filter => $filter,
+        scope  => $scope,
+        attrs  => ['*', 'entryUUID'],
+    };
+
+    my $result = $usersMod->ldap->search($attrs);
+    return undef unless ($result);
+
+    if ($result->count() > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for, expected only one.',
+                count => $result->count()));
+    }
+
+    my $entry = $result->entry(0);
+    if ($entry) {
+        return $usersMod->entryModeledObject($entry);
+    } else {
+        return undef;
+    }
+}
+
+# Method: ldbObjectByObjectGUID
+#
+#   Return the perl object modeling the given objectGUID or undef if not found.
+#
+# Parameters:
+#
+#   objectGUID - The objectGUID id.
+#
+sub ldbObjectByObjectGUID
+{
+    my ($self, $objectGUID) = @_;
+
+    my $baseObject = new EBox::Samba::LdbObject(objectGUID => $objectGUID);
+
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
+    } else {
+        return undef;
+    }
+}
+
 # Method: objectFromDN
 #
 #   Return the perl object modeling the given dn or undef if not found.
@@ -2139,26 +2213,14 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $args = {
-        base => $dn,
-        filter => "(objectClass=*)",
-        scope => 'base',
-    };
+    my $baseObject = new EBox::Samba::LdbObject(dn => $dn);
 
-    my $result = $ldb->search($args);
-
-    my $count = $result->count();
-
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for, expected only one.', count => $result->count()));
-    } elsif ($count == 0) {
-        return undef;
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return undef;
     }
 }
-
 
 # Method: defaultNamingContext
 #

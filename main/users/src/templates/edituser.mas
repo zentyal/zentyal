@@ -31,8 +31,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                 </td>
                 <td>
                   <& masterSlaveUserAttr,
-                               name => 'name',
-                               value=> $user->firstname(),
+                               name => 'givenname',
+                               value => $user->firstname(),
                                slave => $slave,
                    &>
                 </td>

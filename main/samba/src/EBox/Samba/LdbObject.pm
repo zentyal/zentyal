@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Samba::LdbObject;
+use base 'EBox::Users::LdapObject';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -24,6 +25,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::LDAP;
 
 use Data::Dumper;
 use Net::LDAP::LDIF;
@@ -37,144 +39,94 @@ my $_sambaMod;
 
 # Method: new
 #
-#   Instance an object readed from LDB.
+#   Instance an object readed from LDAP.
 #
-# Parameters:
+#   Parameters:
 #
-#      dn - Full dn for the entry
+#      dn - Full dn for the user
 #  or
-#      ldif - Net::LDAP::LDIF for the entry
+#      ldif - Reads the entry from LDIF
 #  or
-#      entry - Net::LDAP entry
+#      entry - Net::LDAP entry for the user
+#  or
+#      objectGUID - The LDB's objectGUID.
 #
 sub new
 {
     my ($class, %params) = @_;
 
     my $self = {};
-    if ($params{entry}) {
-        $self->{entry} = $params{entry};
-    } elsif ($params{ldif}) {
-        my $ldif = Net::LDAP::LDIF->new($params{ldif}, "r");
-        $self->{entry} = $ldif->read_entry();
-    } elsif ($params{dn}) {
-        $self->{dn} = $params{dn};
+    bless ($self, $class);
+
+    if ($params{objectGUID}) {
+        $self->{objectGUID} = $params{objectGUID};
+    } else {
+        try {
+            $self = $class->SUPER::new(%params);
+        } catch EBox::Exceptions::MissingArgument with {
+            my ($error) = @_;
+
+            throw EBox::Exceptions::MissingArgument("$error|objectGUID");
+        };
     }
 
-    bless ($self, $class);
     return $self;
 }
 
-# Method: exists
+
+# Method: objectGUID
 #
-#   Returns 1 if the object exist, 0 if not
-#
-sub exists
+#   Return the objectGUID attribute existent in any LDB object.
+sub objectGUID
 {
     my ($self) = @_;
 
-    # User exists if we already have its entry
-    return 1 if ($self->{entry});
-
-    $self->{entry} = $self->_entry();
-
-    return (defined $self->{entry});
+    my $objectGUID = $self->get('objectGUID');
+    return $self->_objectGUIDToString($objectGUID);
 }
 
-# Method: get
-#
-#   Read an user attribute
-#
-# Parameters:
-#
-#   attribute - Attribute name to read
-#
-sub get
+sub _objectGUIDToString
 {
-    my ($self, $attr) = @_;
-    if (wantarray()) {
-        my @value = $self->_entry->get_value($attr);
-        foreach my $el (@value) {
-            utf8::decode($el);
-        }
-        return @value;
-    } else {
-        my $value = $self->_entry->get_value($attr);
-        utf8::decode($value);
-        return $value;
-    }
+    my ($class, $objectGUID) = @_;
+
+    my $unpacked = unpack("H*hex", $objectGUID);
+
+    my $objectGUIDString = substr($unpacked, 6, 2);
+    $objectGUIDString .= substr($unpacked, 4, 2);
+    $objectGUIDString .= substr($unpacked, 2, 2);
+    $objectGUIDString .= substr($unpacked, 0, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 10, 2);
+    $objectGUIDString .= substr($unpacked, 8, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 14, 2);
+    $objectGUIDString .= substr($unpacked, 12, 2);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 16, 4);
+    $objectGUIDString .= '-';
+    $objectGUIDString .= substr($unpacked, 20);
+
+    return $objectGUIDString;
 }
 
-# Method: set
-#
-#   Set an user attribute.
-#
-# Parameters:
-#
-#   attribute - Attribute name to read
-#   value     - Value to set (scalar or array ref)
-#   lazy      - Do not update the entry in LDAP
-#
-sub set
+sub _stringToObjectGUID
 {
-    my ($self, $attr, $value, $lazy) = @_;
+    my ($class, $objectGUIDString) = @_;
 
-    $self->_entry->replace($attr => $value);
-    $self->save() unless $lazy;
-}
+    my $tmpString = substr($objectGUIDString, 6, 2);
+    $tmpString .= substr($objectGUIDString, 4, 2);
+    $tmpString .= substr($objectGUIDString, 2, 2);
+    $tmpString .= substr($objectGUIDString, 0, 2);
+    $tmpString .= substr($objectGUIDString, 11, 2);
+    $tmpString .= substr($objectGUIDString, 9, 2);
+    $tmpString .= substr($objectGUIDString, 16, 2);
+    $tmpString .= substr($objectGUIDString, 14, 2);
+    $tmpString .= substr($objectGUIDString, 19, 4);
+    $tmpString .= substr($objectGUIDString, 24);
 
-# Method: add
-#
-#   Adds a value to an attribute without removing previous ones (if any)
-#
-# Parameters:
-#
-#   attribute - Attribute name to read
-#   value     - Value to set (scalar or array ref)
-#   lazy      - Do not update the entry in LDAP
-#
-sub add
-{
-    my ($self, $attr, $value, $lazy) = @_;
+    my $objectGUID = pack("H*", $tmpString);
 
-    $self->_entry->add($attr => $value);
-    $self->save() unless $lazy;
-}
-
-# Method: delete
-#
-#   Delete all values from an attribute
-#
-#   Parameters (for attribute deletion):
-#
-#       attribute - Attribute name to remove
-#       lazy      - Do not update the entry in LDAP
-#
-sub delete
-{
-    my ($self, $attr, $lazy) = @_;
-    $self->deleteValues($attr, [], $lazy);
-}
-
-# Method: deleteValues
-#
-#   Deletes values from an object if they exists
-#
-#   Parameters (for attribute deletion):
-#
-#       attribute - Attribute name to read
-#       values    - reference to the list of values to delete.
-#                   Empty list means all attributes
-#       lazy      - Do not update the entry in LDAP
-#
-sub deleteValues
-{
-    my ($self, $attr, $values, $lazy) = @_;
-
-    if (grep (/$attr/i, $self->_entry->attributes())) {
-        $self->_entry->delete($attr, $values);
-        $self->save() unless $lazy;
-    }
+    return $objectGUID;
 }
 
 # Method: checkObjectErasability
@@ -194,6 +146,8 @@ sub checkObjectErasability
 #
 #   Deletes this object from the LDAP
 #
+#   Override EBox::Users::LdapObject::deleteObject
+#
 sub deleteObject
 {
     my ($self) = @_;
@@ -204,37 +158,7 @@ sub deleteObject
                           x => $self->dn()));
     }
 
-    $self->_entry->delete();
-    $self->save();
-}
-
-# Method: remove
-#
-#   Remove a value from the given attribute, or the whole
-#   attribute if no values left
-#
-#   If an array ref is received as value, all the values will be
-#   deleted at the same time
-#
-# Parameters:
-#
-#   attribute - Attribute name
-#   value(s)  - Value(s) to remove (value or array ref to values)
-#   lazy      - Do not update the entry in LDAP
-#
-sub remove
-{
-    my ($self, $attr, $value, $lazy) = @_;
-
-    # Delete attribute only if it exists
-    if ($attr eq any $self->_entry->attributes) {
-        if (ref ($value) ne 'ARRAY') {
-            $value = [ $value ];
-        }
-
-        $self->_entry->delete($attr, $value);
-        $self->save() unless $lazy;
-    }
+    $self->SUPER::deleteObject();
 }
 
 # Method: save
@@ -244,87 +168,67 @@ sub remove
 #   This method is only needed if some operation
 #   was used using lazy flag
 #
+#   Override EBox::Users::LdapObject::save
+#
 sub save
 {
     my ($self, $control) = @_;
+    my $entry = $self->_entry;
 
     $control = [] unless $control;
-    my $result = $self->_entry->update($self->_ldap->ldbCon(), control => $control);
+    my $result = $entry->update($self->_ldap->connection(), control => $control);
     if ($result->is_error()) {
         unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
-            throw EBox::Exceptions::External(__('There was an error updating LDAP: ') . $result->error());
+            throw EBox::Exceptions::LDAP(
+                message => __('There was an error updating LDAP:'),
+                result =>   $result,
+                opArgs   => $self->entryOpChangesInUpdate($entry),
+            );
         }
     }
-}
-
-# Method: entryOpChangesInUpdate
-#
-#  string with the pending changes in a LDAP entry. This string is intended to
-#  be used only for human consumption
-#
-#  Warning:
-#   a entry with a failed update preserves the failed changes. This is
-#   not documented in Net::LDAP so it could change in the future
-#
-sub entryOpChangesInUpdate
-{
-    my ($self, $entry) = @_;
-    local $Data::Dumper::Terse = 1;
-    my @changes = $entry->changes();
-    my $args = $entry->changetype() . ' ' . Dumper(\@changes);
-    return $args;
-}
-
-# Method: dn
-#
-#   Return DN for this object
-#
-sub dn
-{
-    my ($self) = @_;
-
-    return $self->_entry->dn();
-}
-
-# Method: baseDn
-#
-#   Return base DN for this object
-#
-sub baseDn
-{
-    my ($self, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
-
-    return $dn if ($self->_ldap->dn() eq $dn);
-
-    my ($trash, $basedn) = split(/,/, $dn, 2);
-    return $basedn;
 }
 
 # Method: _entry
 #
 #   Return Net::LDAP::Entry entry for the object
 #
+#   Override EBox::Users::LdapObject::_entry
+#
 sub _entry
 {
     my ($self) = @_;
 
+    if ($self->{entry} and (not $self->{entry}->exists('objectGUID'))) {
+        $self->{dn} = $self->{entry}->dn();
+        delete $self->{entry};
+    }
+
     unless ($self->{entry}) {
         my $result = undef;
-        if (defined $self->{dn}) {
+        my $base = undef;
+        my $filter = undef;
+        my $scope = undef;
+        if (defined $self->{objectGUID}) {
+            $base = $self->_ldap()->dn();
+            $filter = "(objectGUID=" . $self->{objectGUID} . ")";
+            $scope = 'sub';
+        } elsif (defined $self->{dn}) {
             my $dn = $self->{dn};
-            my $attrs = {
-                base => $dn,
-                filter => "(distinguishedName=$dn)",
-                scope => 'base',
-                attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-            };
-            $result = $self->_ldap->search($attrs);
+            $base = $dn;
+            $filter = "(distinguishedName=$dn)";
+            $scope = 'base';
+        } else {
+            return undef;
         }
+
+        my $attrs = {
+            base   => $base,
+            filter => $filter,
+            scope  => $scope,
+            attrs  => ['*', 'objectGUID', 'unicodePwd', 'supplementalCredentials'],
+        };
+
+        $result = $self->_ldap->search($attrs);
         return undef unless defined $result;
 
         if ($result->count() > 1) {
@@ -339,34 +243,25 @@ sub _entry
     return $self->{entry};
 }
 
+# Method: _ldap
+#
+#   Returns the LDAP object
+#
+#   Override EBox::Users::LdapObject::_ldap
+#
+sub _ldap
+{
+    my ($class) = @_;
+
+    return $class->_sambaMod()->ldb();
+}
+
 sub _sambaMod
 {
     if (not $_sambaMod) {
         $_sambaMod = EBox::Global->getInstance(0)->modInstance('samba')
     }
     return $_sambaMod;
-}
-
-# Method: _ldap
-#
-#   Returns the LDAP object
-#
-sub _ldap
-{
-    my ($self) = @_;
-
-    return _sambaMod()->ldb();
-}
-
-# Method: to_ldif
-#
-#   Returns a string containing the LDAP entry as LDIF
-#
-sub as_ldif
-{
-    my ($self) = @_;
-
-    return $self->_entry->ldif(change => 0);
 }
 
 sub _guidToString
@@ -441,42 +336,126 @@ sub getXidNumberFromRID
     return $rid + 50000;
 }
 
+# Method: children
+#
+#   Return a reference to the list of objects that are children of this node.
+#
+#   Override EBox::Users::LdapObject::children
+#
+# TODO: Try to share code with parent class...
+sub children
+{
+    my ($self) = @_;
+
+    return [] unless $self->isContainer();
+
+    # All children except for organizationalRole objects which are only used internally
+    my $attrs = {
+        base   => $self->dn(),
+        filter => '(!(objectclass=organizationalRole))',
+        scope  => 'one',
+    };
+
+    my $result = $self->_ldap->search($attrs);
+    my $sambaMod = $self->_sambaMod();
+
+    my @objects = ();
+    foreach my $entry ($result->entries) {
+        my $object = $sambaMod->entryModeledObject($entry);
+
+        push (@objects, $object) if ($object);
+    }
+
+    @objects = sort {
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or
+        ($aValue cmp $bValue)
+    } @objects;
+
+    return \@objects;
+}
+
 # Method: parent
 #
 #   Return the parent of this object or undef if it's the root.
 #
 #   Throw EBox::Exceptions::Internal on error.
 #
-# TODO
-#   bug: dns with same or less commponents of root DN are not treated properly
+#   Override EBox::Users::LdapObject::parent
+#
+# TODO: Try to share code with parent class...
 sub parent
 {
-    my ($self, $dn) = @_;
-    if (not $dn and ref $self) {
-        $dn = $self->dn();
-    } elsif (not $dn) {
-        throw EBox::Exceptions::MissingArgument("Called as class method and no DN supplied");
-    }
+    my ($self) = @_;
+    my $dn = $self->dn();
     my $sambaMod = $self->_sambaMod();
-
 
     my $defaultNamingContext = $sambaMod->defaultNamingContext();
     return undef if ($dn eq $defaultNamingContext->dn());
 
     my $parentDn = $self->baseDn($dn);
-    return $sambaMod->objectFromDN($parentDn);
+    my $parent = $sambaMod->objectFromDN($parentDn);
+
+    if ($parent) {
+        return $parent;
+    } else {
+        throw EBox::Exceptions::Internal("The dn '$dn' is not representing a valid parent!");
+    }
 }
 
 # Method: relativeDN
 #
 #   Return the dn of this object without the naming Context.
 #
+#   Override EBox::Users::LdapObject::relativeDN
+#
+# TODO: Try to share code with parent class...
 sub relativeDN
 {
     my ($self) = @_;
 
     my $sambaMod = $self->_sambaMod();
     return $sambaMod->relativeDN($self->dn());
+}
+
+# Method: _linkWithUsersEntry
+#
+#   Stores a link to this object into the given Entry.
+#
+sub _linkWithUsersEntry
+{
+    my ($self, $entry) = @_;
+
+    unless ($entry and $entry->isa('Net::LDAP::Entry')) {
+        throw EBox::Exceptions::Internal("Invalid entry argument. It's not a Net::LDAP::Entry.");
+    }
+
+    my @attributes = ();
+    unless (grep { $_ eq 'zentyalSambaLink' } @{[$entry->get_value('objectClass')]}) {
+        push (@attributes, objectClass => 'zentyalSambaLink');
+    }
+    push (@attributes, msdsObjectGUID => $self->objectGUID());
+    $entry->add(@attributes);
+}
+
+# Method: _linkWithUsersObject
+#
+#   Stores a link to this object into the given OpenLDAP object.
+#
+sub _linkWithUsersObject
+{
+    my ($self, $ldapObject) = @_;
+
+    unless ($ldapObject and $ldapObject->isa('EBox::Users::LdapObject')) {
+        throw EBox::Exceptions::Internal("Invalid ldapObject argument. It's not an EBox::Users::LdapObject.");
+    }
+
+    unless (grep { $_ eq 'zentyalSambaLink' } @{[$ldapObject->_entry()->get_value('objectClass')]}) {
+        $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
+    }
+    $ldapObject->set('msdsObjectGUID', $self->objectGUID(), 1);
+    $ldapObject->save();
 }
 
 1;

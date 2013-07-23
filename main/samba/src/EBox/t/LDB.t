@@ -16,28 +16,16 @@
 use strict;
 use warnings;
 
-package EBox::Ldap::Test;
-use base 'EBox::Test::LDAPClass';
+package EBox::LDB::Test;
 
 use EBox::Global::TestStub;
+use base 'EBox::Test::LDBClass';
 
 use Test::More;
 
 sub class
 {
-    'EBox::Ldap'
-}
-
-sub instance : Test(3)
-{
-    my ($self) = @_;
-    my $class = $self->class;
-
-    can_ok($class, 'instance');
-
-    my $ldapInstance = undef;
-    ok($ldapInstance = $class->instance(), '... and the constructor should succeed');
-    isa_ok($ldapInstance, $class, '... and the object it returns');
+    'EBox::LDB'
 }
 
 sub connection : Test(4)
@@ -45,12 +33,12 @@ sub connection : Test(4)
     my ($self) = @_;
     my $class = $self->class;
 
-    my $ldapInstance = $class->instance();
+    my $ldbInstance = $class->instance();
 
-    can_ok($ldapInstance, 'connection');
+    can_ok($ldbInstance, 'connection');
 
     my $connection = undef;
-    ok($connection = $ldapInstance->connection(), 'Got the LDAP connection');
+    ok($connection = $ldbInstance->connection(), 'Got the LDB connection');
     isa_ok($connection, 'Net::LDAP');
     isa_ok($connection, 'Test::Net::LDAP::Mock');
 }
@@ -60,11 +48,11 @@ sub url : Test(1)
     my ($self) = @_;
     my $class = $self->class;
 
-    cmp_ok($class->url(), 'eq', 'ldapi://%2fvar%2frun%2fslapd%2fldapi', "Getting the LDAP's URL");
+    cmp_ok($class->url(), 'eq', 'ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi', "Getting the LDB's URL");
 }
 
 1;
 
 END {
-    EBox::Ldap::Test->runtests();
+    EBox::LDB::Test->runtests();
 }
