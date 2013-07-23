@@ -19,6 +19,7 @@ package EBox::Virt::Libvirt;
 use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
@@ -670,7 +671,10 @@ sub _usedBridgeIds
 
     my $usedBridges = {};
 
-    my @files = glob ("/etc/libvirt/qemu/networks/*.xml");
+    my $tmpdir = EBox::Config::tmp() . 'libvirt-networks';
+    EBox::Sudo::root("mkdir -p $tmpdir",
+                     "cp /etc/libvirt/qemu/networks/*.xml $tmpdir/");
+    my @files = glob ("$tmpdir/*.xml");
     foreach my $file (@files) {
         my $content = read_file($file);
         my $id = $content =~ /<bridge name="virbr(\d+)"/;
@@ -678,6 +682,7 @@ sub _usedBridgeIds
             $usedBridges->{$id} = 1;
         }
     }
+    EBox::Sudo::root("rm -rf $tmpdir");
 
     return $usedBridges;
 }
