@@ -107,9 +107,6 @@ function encodeFields(table, fields)
     return pars.join('&');
 }
 
-
-
-
 function modalAddNewRow(url, table, fields, directory,  nextPage, extraParams)
 {
     var title = '';
@@ -1166,7 +1163,7 @@ function confirmationDialog(url, table, directory, actionToConfirm, elements)
     var id = table + '_' + name;
     var el = $(id);
     pars +='&'+ name + '=';
-    pars +=el.value;
+    pars +=  encodeURIComponent(el.value);
   }
 
   var request = new Ajax.Request(url, {
