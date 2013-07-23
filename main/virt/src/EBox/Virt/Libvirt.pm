@@ -25,6 +25,7 @@ use EBox::NetWrappers;
 use EBox::Virt;
 use File::Basename;
 use String::ShellQuote;
+use File::Slurp;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
@@ -427,8 +428,7 @@ sub setIface
         if (not exists $self->{netConf}->{$source}) {
             $self->{netConf}->{$source} = {};
             $self->{netConf}->{$source}->{num} = $self->{netNum}++;
-            # FIXME: Check if the address is not used
-            $self->{netConf}->{$source}->{bridge} = $self->{netBridgeId}++;
+            $self->{netConf}->{$source}->{bridge} = $self->_freeBridgeId();
         }
     }
 
@@ -658,9 +658,39 @@ sub initInternalNetworks
 
     $self->{netConf} = {};
     $self->{netNum} = 190;
+    $self->{usedBridgeIds} = $self->_usedBridgeIds();
     $self->{netBridgeId} = 1;
 
     _run("rm -rf $NET_PATH/*");
+}
+
+sub _usedBridgeIds
+{
+    my ($self) = @_;
+
+    my $usedBridges = {};
+
+    my @files = glob ("/etc/libvirt/qemu/networks/*.xml");
+    foreach my $file (@files) {
+        my $content = read_file($file);
+        my $id = $content =~ /<bridge name="virbr(\d+)"/;
+        if ($id) {
+            $usedBridges->{$id} = 1;
+        }
+    }
+
+    return $usedBridges;
+}
+
+sub _freeBridgeId
+{
+    my ($self) = @_;
+
+    while (exists $self->{usedBridgeIds}->{$self->{netBridgeId}}) {
+        $self->{netBridgeId}++;
+    }
+
+    return $self->{netBridgeId};
 }
 
 sub _run
