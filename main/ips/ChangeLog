@@ -1,4 +1,4 @@
-HEAD
+3.0.1
 	+ Explicitly set firewall version dependency in control file
 	+ Set inline firewall rules position and mode based on
 	  ips_fw_position configuration key
