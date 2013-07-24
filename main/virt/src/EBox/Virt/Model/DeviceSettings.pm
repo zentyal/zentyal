@@ -334,17 +334,11 @@ sub _checkDevicePath
                                              name => $name,
                                              img => $path));
     }
+
     unless (-r $path) {
         throw EBox::Exceptions::External(__x("{name} '{img}' is not readable",
                                              name => $name,
                                              img => $path));
-    }
-    if ($rw) {
-        unless (-w $path) {
-            throw EBox::Exceptions::External(__x("{name} '{img}' is not writable",
-                                             name => $name,
-                                             img => $path));
-        }
     }
 }
 
