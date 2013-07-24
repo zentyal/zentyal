@@ -250,6 +250,10 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to set logs or apache module as changed
+        return;
+    }
 
     EBox::OpenVPN::Model::InterfaceTable::updatedRowNotify($self, $row, $oldRow, $force);
     my $openvpn = $self->parentModule();

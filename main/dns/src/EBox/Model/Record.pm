@@ -85,6 +85,12 @@ sub _addToDelete
     my $key = EBox::DNS::DELETED_RR_KEY();
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
+        foreach my $elem (@list) {
+            if ($elem eq $domain) {
+                # domain already added, nothing to do
+                return;
+            }
+        }
         @list = @{$mod->st_get_list($key)};
     }
 
