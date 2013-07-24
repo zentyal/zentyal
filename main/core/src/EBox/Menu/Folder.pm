@@ -59,12 +59,7 @@ sub html
     }
 
     my $id = $self->{id};
-    my $html = '';
-    if (defined($self->{style})) {
-        $html .= "<li id='" . $id . "' class='$self->{style}'>\n";
-    } else {
-        $html .= "<li id='" . $id . "'>\n";
-    }
+    my $html = "<li id=\"$id\" class=\"menu-$name\">\n";
 
     my $isCurrentFolder = ($name eq $currentFolder);
     my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
@@ -74,17 +69,16 @@ sub html
         $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
         $html .= "<a title='$text' href='' class='$aClass' ";
-        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu$name', this);return false;\"";
+        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu-$name', this);return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";
 
     $html .= "<ul class='submenu'>\n";
 
-    my $menuClass = "menu$name";
+    my $menuClass = "menu-$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
     foreach my $item (@sorted) {
-        $item->{style} = $menuClass;
         $html .= $item->html($isCurrentFolder, $currentUrl);
     }
 

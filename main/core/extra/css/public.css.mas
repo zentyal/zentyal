@@ -887,7 +887,6 @@ filter: alpha(opacity=100);
 #nav { margin-bottom: 0em; }
 
 #nav li, #nav li li {
-    display: inline;
     padding: 0;
     margin: 0;
 }
@@ -2049,3 +2048,14 @@ ul#userGroups li input{
     right:5px;
 }
 
+li[class^="menu"] {
+    background: left center no-repeat !important;
+}
+
+li[class^="menu"] a {
+    padding-left: 40px !important;
+}
+
+li[class$="Users"] {
+    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
+}

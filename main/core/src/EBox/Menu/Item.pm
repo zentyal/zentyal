@@ -56,17 +56,11 @@ sub html
         };
     }
 
+    my $name = $self->{name};
     my $text = $self->{text};
     my $url = $self->{url};
     if ($urlsToHide->{$url} or (length($text) == 0)) {
         return '';
-    }
-
-    my $liClass = '';
-    if ($self->{style}) {
-        $liClass = q{class='navc } .  $self->{style} . q{'};
-    } else {
-        $liClass = q{class='navc'};
     }
 
     my $aClass = '';
@@ -79,9 +73,9 @@ sub html
        $style = qq/style='display:inline;'/;
     }
 
-    my $html .= "<li id='" . $self->{id} . "' $style $liClass>\n";
+    my $html .= "<li id=\"$self->{id}\" $style class=\"menu-$name\">\n";
     $html .= qq{<a title="$text" href="/$url" $aClass }
-         . qq{ target="_parent">$text</a>\n};
+          . qq{ target="_parent">$text</a>\n};
 
     $html .= "</li>\n";
 
