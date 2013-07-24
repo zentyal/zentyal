@@ -334,6 +334,12 @@ sub _checkDevicePath
                                              name => $name,
                                              img => $path));
     }
+
+    unless (-r $path) {
+        throw EBox::Exceptions::External(__x("{name} '{img}' is not readable",
+                                             name => $name,
+                                             img => $path));
+    }
 }
 
 
