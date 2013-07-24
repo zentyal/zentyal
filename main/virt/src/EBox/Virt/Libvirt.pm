@@ -19,16 +19,19 @@ package EBox::Virt::Libvirt;
 use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
 use EBox::Virt;
 use File::Basename;
 use String::ShellQuote;
+use File::Slurp;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
-my $NET_LIBVIRT_PATH = '/var/lib/libvirt/network';
+my $LIBVIRT_NET_CONF_PATH = '/etc/libvirt/qemu/networks';
+my $LIBVIRT_NET_PATH = '/var/lib/libvirt/network';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -427,8 +430,7 @@ sub setIface
         if (not exists $self->{netConf}->{$source}) {
             $self->{netConf}->{$source} = {};
             $self->{netConf}->{$source}->{num} = $self->{netNum}++;
-            # FIXME: Check if the address is not used
-            $self->{netConf}->{$source}->{bridge} = $self->{netBridgeId}++;
+            $self->{netConf}->{$source}->{bridge} = $self->_freeBridgeId();
         }
     }
 
@@ -582,7 +584,7 @@ sub _netExists
 {
     my ($self, $name) = @_;
 
-    my $path = "$NET_LIBVIRT_PATH/$name.xml";
+    my $path = "$LIBVIRT_NET_CONF_PATH/$name.xml";
     return EBox::Sudo::fileTest('-e', $path);
 }
 
@@ -658,9 +660,49 @@ sub initInternalNetworks
 
     $self->{netConf} = {};
     $self->{netNum} = 190;
+    $self->{usedBridgeIds} = $self->_usedBridgeIds();
     $self->{netBridgeId} = 1;
 
+    my @nets = glob ("$NET_PATH/*");
+    foreach my $net (@nets) {
+        my $path = "$LIBVIRT_NET_PATH/" . basename($net);
+        _run("rm -rf $path");
+    }
     _run("rm -rf $NET_PATH/*");
+}
+
+sub _usedBridgeIds
+{
+    my ($self) = @_;
+
+    my $usedBridges = {};
+
+    my $tmpdir = EBox::Config::tmp() . 'libvirt-networks';
+    EBox::Sudo::root("mkdir -p $tmpdir",
+                     "cp /etc/libvirt/qemu/networks/*.xml $tmpdir/",
+                     "chmod 644 $tmpdir/*.xml");
+    my @files = glob ("$tmpdir/*.xml");
+    foreach my $file (@files) {
+        my $content = read_file($file);
+        my $id = $content =~ /<bridge name="virbr(\d+)"/;
+        if ($id) {
+            $usedBridges->{$id} = 1;
+        }
+    }
+    EBox::Sudo::root("rm -rf $tmpdir");
+
+    return $usedBridges;
+}
+
+sub _freeBridgeId
+{
+    my ($self) = @_;
+
+    while (exists $self->{usedBridgeIds}->{$self->{netBridgeId}}) {
+        $self->{netBridgeId}++;
+    }
+
+    return $self->{netBridgeId};
 }
 
 sub _run
