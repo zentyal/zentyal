@@ -71,7 +71,7 @@ sub _trans_prerouting
     foreach my $id (@{$exceptions->enabledRows()}) {
         my $row = $exceptions->row($id);
         my $addr = $row->valueByName('domain');
-        push (@rules, "-p tcp -d $addr --dport 80 -j iaccept");
+        push (@rules, "-p tcp -d $addr --dport 80 -j ACCEPT");
     }
 
     my @ifaces = @{$net->InternalIfaces()};
