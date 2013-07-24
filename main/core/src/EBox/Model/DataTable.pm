@@ -1334,83 +1334,81 @@ sub setTypedRow
     my @setterTypes = @{$self->setterTypes()};
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        my $checkRowUnique = $self->rowUnique();
 
-    my $checkRowUnique = $self->rowUnique();
+        my $row = $self->row($id);
+        my $oldRow = $self->_cloneRow($row);
+        my $allHashElements = $row->hashElements();
+        my $changedElements = {};
+        my @changedElements = ();
+        foreach my $paramName (keys %{$paramsRef}) {
+            unless ($paramName ne any(@setterTypes)) {
+                throw EBox::Exceptions::Internal('Trying to update a non setter type');
+            }
 
-    my $row = $self->row($id);
-    my $oldRow = $self->_cloneRow($row);
-    my $allHashElements = $row->hashElements();
-    my $changedElements = {};
-    my @changedElements = ();
-    foreach my $paramName (keys %{$paramsRef}) {
-        unless ($paramName ne any(@setterTypes)) {
-            throw EBox::Exceptions::Internal('Trying to update a non setter type');
+            my $paramData = $paramsRef->{$paramName};
+            if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+                next;
+            }
+
+            if ($paramData->unique()) {
+                # No need to check if the entire row is unique if
+                # any of the fields are already checked
+                $checkRowUnique = 0;
+                $self->_checkFieldIsUnique($paramData);
+            }
+
+            $paramData->setRow($row);
+            $changedElements->{$paramName} = $paramData;
+            push (@changedElements, $paramData);
+            $allHashElements->{$paramName} = $paramData;
         }
 
-        my $paramData = $paramsRef->{$paramName};
-        if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
-            next;
+        # Check if the new row is unique if needed
+        if ($checkRowUnique and (keys %{$paramsRef} > 0)) {
+            $self->_checkRowIsUnique($id, $allHashElements);
         }
 
-        if ($paramData->unique()) {
-            # No need to check if the entire row is unique if
-            # any of the fields are already checked
-            $checkRowUnique = 0;
-            $self->_checkFieldIsUnique($paramData);
+        # add ids parameters for call to validateTypedRow
+        $changedElements->{id} = $id;
+        $allHashElements->{id} = $id;
+        $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+        # remove ids after call to validateTypedRow
+        delete $changedElements->{id};
+        delete $allHashElements->{id};
+
+        # If force != true automaticRemove is enabled it means
+        # the model has to automatically check if the row which is
+        # about to be changed is referenced elsewhere and this change
+        # produces an inconsistent state
+        if ((not $force) and $self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
         }
 
-        $paramData->setRow($row);
-        $changedElements->{$paramName} = $paramData;
-        push (@changedElements, $paramData);
-        $allHashElements->{$paramName} = $paramData;
-    }
+        my $key = "$dir/$id";
+        my $hash = $confmod->get_hash($key);
 
-    # Check if the new row is unique if needed
-    if ($checkRowUnique and (keys %{$paramsRef} > 0)) {
-        $self->_checkRowIsUnique($id, $allHashElements);
-    }
+        my $modified = @changedElements;
+        for my $data (@changedElements) {
+            $data->storeInHash($hash);
+        }
 
-    # add ids parameters for call to validateTypedRow
-    $changedElements->{id} = $id;
-    $allHashElements->{id} = $id;
-    $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
-    # remove ids after call to validateTypedRow
-    delete $changedElements->{id};
-    delete $allHashElements->{id};
+        # update readonly if change
+        my $oldRO = $hash->{readOnly};
+        if (defined ($readOnly) and $readOnly) {
+            $hash->{readOnly} = 1;
+        } else {
+            delete $hash->{readOnly};
+        }
 
-    # If force != true automaticRemove is enabled it means
-    # the model has to automatically check if the row which is
-    # about to be changed is referenced elsewhere and this change
-    # produces an inconsistent state
-    if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
-    }
+        # Update row hash if needed
+        if ($modified or ($hash->{readOnly} xor $oldRO)) {
+            $confmod->set($key, $hash);
+        }
 
-    my $key = "$dir/$id";
-    my $hash = $confmod->get_hash($key);
-
-    my $modified = @changedElements;
-    for my $data (@changedElements) {
-        $data->storeInHash($hash);
-    }
-
-    # update readonly if change
-    my $oldRO = $hash->{readOnly};
-    if (defined ($readOnly) and $readOnly) {
-        $hash->{readOnly} = 1;
-    } else {
-        delete $hash->{readOnly};
-    }
-
-    # Update row hash if needed
-    if ($modified or ($hash->{readOnly} xor $oldRO)) {
-        $confmod->set($key, $hash);
-    }
-
-    if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyManager('update', $row);
@@ -1420,10 +1418,8 @@ sub setTypedRow
         }
         $self->_notifyManager('update', $row);
         $self->updatedRowNotify($row, $oldRow, $force);
-    }
 
-    $self->_commitTransaction();
-
+        $self->_commitTransaction();
     } otherwise {
         my $ex = shift;
         $self->_rollbackTransaction();

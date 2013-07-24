@@ -735,4 +735,27 @@ sub cloneSubModelsFrom
     }
 }
 
+sub isEqualTo
+{
+    my ($self, $other) = @_;
+    if ($self->model()->contextName() ne $other->model()->contextName()) {
+        # rows for different models are differents,  we assume
+        #  rows from different instances of the same model could be equal
+        EBox::debug("Differenrt context");
+        return 0;
+    }
+    my @values = @{  $self->elements() };
+    my @otherValues = @{ $other->elements() };
+    if (@values != @otherValues) {
+        EBox::debug("Differenrt number elements @values != @otherValues");
+        return 0;
+    }
+    for (my $i=0; $i < @values; $i++) {
+        if (not $values[$i]->isEqualTo($otherValues[$i])) {
+            return 0;
+        }
+    }
+    return 1;
+}
+
 1;

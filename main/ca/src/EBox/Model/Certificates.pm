@@ -349,6 +349,10 @@ sub validateTypedRow
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to set module as changed
+        return;
+    }
 
     my $modName = $row->valueByName('module');
     my $mod = EBox::Global->modInstance($modName);

@@ -71,6 +71,10 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to set logs or apache module as changed
+        return;
+    }
 
     # change on service, ifaceType or ifaceNumber can produce a new iface or a
     # existent iface change
