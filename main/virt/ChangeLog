@@ -1,5 +1,6 @@
 HEAD
 	+ Bridges already used are skipped instead of reused to avoid conflicts
+	+ Delete unsued bridges once deleted
 3.0.7
 	+ Check for existing libvirt networks using test on files definition
 	  insted of virsh net-list which was buggy

@@ -30,7 +30,8 @@ use File::Slurp;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
-my $NET_LIBVIRT_PATH = '/var/lib/libvirt/network';
+my $LIBVIRT_NET_CONF_PATH = '/etc/libvirt/qemu/networks';
+my $LIBVIRT_NET_PATH = '/var/lib/libvirt/network';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -583,7 +584,7 @@ sub _netExists
 {
     my ($self, $name) = @_;
 
-    my $path = "$NET_LIBVIRT_PATH/$name.xml";
+    my $path = "$LIBVIRT_NET_CONF_PATH/$name.xml";
     return EBox::Sudo::fileTest('-e', $path);
 }
 
@@ -662,6 +663,11 @@ sub initInternalNetworks
     $self->{usedBridgeIds} = $self->_usedBridgeIds();
     $self->{netBridgeId} = 1;
 
+    my @nets = glob ("$NET_PATH/*");
+    foreach my $net (@nets) {
+        my $path = "$LIBVIRT_NET_PATH/" . basename($net);
+        _run("rm -rf $path");
+    }
     _run("rm -rf $NET_PATH/*");
 }
 
@@ -673,7 +679,8 @@ sub _usedBridgeIds
 
     my $tmpdir = EBox::Config::tmp() . 'libvirt-networks';
     EBox::Sudo::root("mkdir -p $tmpdir",
-                     "cp /etc/libvirt/qemu/networks/*.xml $tmpdir/");
+                     "cp /etc/libvirt/qemu/networks/*.xml $tmpdir/",
+                     "chmod 644 $tmpdir/*.xml");
     my @files = glob ("$tmpdir/*.xml");
     foreach my $file (@files) {
         my $content = read_file($file);
