@@ -741,11 +741,13 @@ sub isEqualTo
     if ($self->model()->contextName() ne $other->model()->contextName()) {
         # rows for different models are differents,  we assume
         #  rows from different instances of the same model could be equal
+        EBox::debug("Differenrt context");
         return 0;
     }
-    my @values = @{  $self->value() };
-    my @otherValues = @{ $other->vallues() };
+    my @values = @{  $self->elements() };
+    my @otherValues = @{ $other->elements() };
     if (@values != @otherValues) {
+        EBox::debug("Differenrt number elements @values != @otherValues");
         return 0;
     }
     for (my $i=0; $i < @values; $i++) {

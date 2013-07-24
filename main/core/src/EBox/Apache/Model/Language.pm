@@ -105,7 +105,7 @@ sub _populateLanguages
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
-    if (not $row->isEqualTo($oldRow)) {
+    if ($row->isEqualTo($oldRow)) {
         # no need to set special reload for apache
         return;
     }

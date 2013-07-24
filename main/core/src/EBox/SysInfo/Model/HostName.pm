@@ -213,7 +213,7 @@ sub _checkDNSName
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-    if (not $row->isEqualTo($oldRow)) {
+    if ($row->isEqualTo($oldRow)) {
         # no need to change hostname
         return;
     }

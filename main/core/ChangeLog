@@ -1,4 +1,6 @@
 HEAD
+	+ Always call udpateRowNotify in row update, even wehre the new
+	  values are the same than old ones
 	+ Fixed encoding of parameters in confirmation dialogs
 	+ Check backup integrity by listing the tar file, throw
 	  InvalidData exception if the tar is corrupted
