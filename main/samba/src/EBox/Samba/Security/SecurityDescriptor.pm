@@ -39,71 +39,89 @@ use EBox::Exceptions::InvalidArgument;
 use Error qw(:try);
 
 #
+# ACE or security descriptor valid SID tokens
+# List coming from [MS-DTYP]
+# Commented entries are not implemented in samba (libcli/security/sddl.c)
+#
+our $sidTokens = {
+    DA => 'DOMAIN_ADMINS',                 # Domain administrators. The corresponding RID is DOMAIN_GROUP_RID_ADMINS.
+    DG => 'DOMAIN_GUESTS',                 # Domain guests. The corresponding RID is DOMAIN_GROUP_RID_GUESTS.
+    DU => 'DOMAIN_USERS',                  # Domain users. The corresponding RID is DOMAIN_GROUP_RID_USERS.
+    ED => 'ENTERPRISE_DOMAIN_CONTROLLERS', # Enterprise domain controllers. The corresponding RID is SECURITY_SERVER_LOGON_RID.
+    DD => 'DOMAIN_DOMAIN_CONTROLLERS',     # Domain controllers. The corresponding RID is DOMAIN_GROUP_RID_CONTROLLERS.
+    DC => 'DOMAIN_COMPUTERS',              # Domain computers. The corresponding RID is DOMAIN_GROUP_RID_COMPUTERS.
+    BA => 'BUILTIN_ADMINISTRATORS',        # Built-in administrators. The corresponding RID is DOMAIN_ALIAS_RID_ADMINS.
+    BG => 'BUILTIN_GUESTS',                # Built-in guests. The corresponding RID is DOMAIN_ALIAS_RID_GUESTS.
+    BU => 'BUILTIN_USERS',                 # Built-in users. The corresponding RID is DOMAIN_ALIAS_RID_USERS.
+    LA => 'ADMINISTRATOR',                 # Local administrator. The corresponding RID is DOMAIN_USER_RID_ADMIN.
+    LG => 'GUEST',                         # Local guest. The corresponding RID is DOMAIN_USER_RID_GUEST.
+    AO => 'ACCOUNT_OPERATORS',             # Account operators. The corresponding RID is DOMAIN_ALIAS_RID_ACCOUNT_OPS.
+    BO => 'BACKUP_OPERATORS',              # Backup operators. The corresponding RID is DOMAIN_ALIAS_RID_BACKUP_OPS.
+    PO => 'PRINTER_OPERATORS',             # Printer operators. The corresponding RID is DOMAIN_ALIAS_RID_PRINT_OPS.
+    SO => 'SERVER_OPERATORS',              # Server operators. The corresponding RID is DOMAIN_ALIAS_RID_SYSTEM_OPS.
+    AU => 'AUTHENTICATED_USERS',           # Authenticated users. The corresponding RID is SECURITY_AUTHENTICATED_USER_RID.
+    PS => 'PRINCIPAL_SELF',                # Principal self. The corresponding RID is SECURITY_PRINCIPAL_SELF_RID.
+    CO => 'CREATOR_OWNER',                 # Creator owner. The corresponding RID is SECURITY_CREATOR_OWNER_RID.
+    CG => 'CREATOR_GROUP',                 # Creator group. The corresponding RID is SECURITY_CREATOR_GROUP_RID.
+    SY => 'LOCAL_SYSTEM',                  # Local system. The corresponding RID is SECURITY_LOCAL_SYSTEM_RID.
+    PU => 'POWER_USERS',                   # Power users. The corresponding RID is DOMAIN_ALIAS_RID_POWER_USERS.
+    WD => 'EVERYONE',                      # Everyone. The corresponding RID is SECURITY_WORLD_RID
+    RE => 'REPLICATOR',                    # Replicator. The corresponding RID is DOMAIN_ALIAS_RID_REPLICATOR.
+    IU => 'INTERACTIVE',                   # Interactively logged-on user. This is a group identifier added to the token of a
+                                           # process when it was logged on interactively. The corresponding logon type is LOGON32_LOGON_INTERACTIVE.
+                                           # The corresponding RID is SECURITY_INTERACTIVE_RID.
+    NU => 'NETWORK',                       # Network logon user. This is a group identifier added to the token of a process when it was logged on across a network.
+                                           # The corresponding logon type is LOGON32_LOGON_NETWORK. The corresponding RID is SECURITY_NETWORK_RID.
+    SU => 'SERVICE',                       # Service logon user. This is a group identifier added to the token of a process when it was logged as a service.
+                                           # The corresponding logon type is LOGON32_LOGON_SERVICE. The corresponding RID is SECURITY_SERVICE_RID.
+    RC => 'RESTRICTED_CODE',               # Restricted code. This is a restricted token created using the CreateRestrictedToken function.
+                                           # The corresponding RID is SECURITY_RESTRICTED_CODE_RID.
+    WR => 'WRITE_RESTRICTED_CODE',
+    AN => 'ANONYMOUS',                     # Anonymous logon. The corresponding RID is SECURITY_ANONYMOUS_LOGON_RID.
+    SA => 'SCHEMA_ADMINISTRATORS',         # Schema administrators. The corresponding RID is DOMAIN_GROUP_RID_SCHEMA_ADMINS.
+    CA => 'CERT_PUBLISHERS',               # Certificate publishers. The corresponding RID is DOMAIN_GROUP_RID_CERT_ADMINS.
+#    RS => 'RAS_SERVERS RAS',               # servers group. The corresponding RID is DOMAIN_ALIAS_RID_RAS_SERVERS.
+    EA => 'ENTERPRISE_ADMINS',             # Enterprise administrators. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_ADMINS.
+    PA => 'GROUP_POLICY_CREATOR_OWNER',    # Group Policy administrators. The corresponding RID is DOMAIN_GROUP_RID_POLICY_ADMINS.
+    RU => 'ALIAS_PREW2KCOMPACC',           # Alias to grant permissions to accounts that use applications compatible with operating systems previous to Windows 2000.
+                                           # The corresponding RID is DOMAIN_ALIAS_RID_PREW2KCOMPACCESS.
+    LS => 'LOCAL_SERVICE',                 # Local service account. The corresponding RID is SECURITY_LOCAL_SERVICE_RID.
+    NS => 'NETWORK_SERVICE',               # Network service account. The corresponding RID is SECURITY_NETWORK_SERVICE_RID.
+    RD => 'REMOTE_DESKTOP',                # Terminal server users. The corresponding RID is DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS.
+    NO => 'NETWORK_CONFIGURATION_OPS',     # Network configuration operators. The corresponding RID is DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS.
+#    MU => 'PERFMON_USERS',                 # Performance Monitor users.
+#    LU => 'PERFLOG_USERS',
+#    IS => 'IIS_USERS',
+#    CY => 'CRYPTO_OPERATORS',
+#    OW => 'OWNER_RIGHTS',
+#    ER => 'EVENT_LOG_READERS',
+    RO => 'ENTERPRISE_RO_DCS',             # Enterprise Read-only domain controllers. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS.
+#    CD => 'CERTSVC_DCOM_ACCESS',           # Users who can connect to certification authorities using Distributed Component Object Model (DCOM).
+                                           # The corresponding RID is DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP.
+#    AC => 'ALL_APP_PACKAGES',
+#    RA => 'REMOTE_ACCESS_SERVERS',
+#    ES => 'RDS_ENDPOINT_SERVERS',
+#    MS => 'RDS_MANAGEMENT_SERVERS',
+#    UD => 'USER_MODE_DRIVERS',
+#    HA => 'HYPER_V_ADMINS',
+#    CN => 'CLONEABLE_CONTROLLERS',
+#    AA => 'ACCESS_CONTROL_ASSISTANCE_OPS',
+#    RM => 'REMOTE_MANAGEMENT_USERS',
+#    LW => 'ML_LOW',                        # Low integrity level. The corresponding RID is SECURITY_MANDATORY_LOW_RID.
+#    ME => 'ML_MEDIUM',                     # Medium integrity level. The corresponding RID is SECURITY_MANDATORY_MEDIUM_RID.
+#    MP => 'ML_MEDIUM_PLUS',
+#    HI => 'ML_HIGH',                       # High integrity level. The corresponding RID is SECURITY_MANDATORY_HIGH_RID.
+#    SI => 'ML_SYSTEM',                     # System integrity level. The corresponding RID is SECURITY_MANDATORY_SYSTEM_RID.
+
+}
+
+#
 # Security descriptor control flags that apply to the DACL or SACL
 #
 my $aclFlags = {
     P  => 'PROTECTED',        # The SE_DACL_PROTECTED flag is set
     AR => 'AUTO_INHERIT_REQ', # The SE_DACL_AUTO_INHERIT_REQ flag is set
     AI => 'AUTO_INHERITED',   # The SE_DACL_AUTO_INHERITED flag is set
-};
-
-#
-# ACE or security descriptor valid SID tokens
-# Commented entries are not implemented in samba (libcli/security/sddl.c)
-#
-our $sidStrings = {
-    AN  =>  'ANONYMOUS',                        # Anonymous logon. The corresponding RID is SECURITY_ANONYMOUS_LOGON_RID.
-    AO  =>  'ACCOUNT_OPERATORS',                # Account operators. The corresponding RID is DOMAIN_ALIAS_RID_ACCOUNT_OPS.
-    AU  =>  'AUTHENTICATED_USERS',              # Authenticated users. The corresponding RID is SECURITY_AUTHENTICATED_USER_RID.
-    BA  =>  'BUILTIN_ADMINISTRATORS',           # Built-in administrators. The corresponding RID is DOMAIN_ALIAS_RID_ADMINS.
-    BG  =>  'BUILTIN_GUESTS',                   # Built-in guests. The corresponding RID is DOMAIN_ALIAS_RID_GUESTS.
-    BO  =>  'BACKUP_OPERATORS',                 # Backup operators. The corresponding RID is DOMAIN_ALIAS_RID_BACKUP_OPS.
-    BU  =>  'BUILTIN_USERS',                    # Built-in users. The corresponding RID is DOMAIN_ALIAS_RID_USERS.
-    CA  =>  'CERT_SERV_ADMINISTRATORS',         # Certificate publishers. The corresponding RID is DOMAIN_GROUP_RID_CERT_ADMINS.
-#   CD  =>  'CERTSVC_DCOM_ACCESS',              # Users who can connect to certification authorities using Distributed Component Object Model (DCOM).
-                                                # The corresponding RID is DOMAIN_ALIAS_RID_CERTSVC_DCOM_ACCESS_GROUP.
-    CG  =>  'SDDL_CREATOR_GROUP',               # Creator group. The corresponding RID is SECURITY_CREATOR_GROUP_RID.
-    CO  =>  'CREATOR_OWNER',                    # Creator owner. The corresponding RID is SECURITY_CREATOR_OWNER_RID.
-    DA  =>  'DOMAIN_ADMINISTRATORS',            # Domain administrators. The corresponding RID is DOMAIN_GROUP_RID_ADMINS.
-    DC  =>  'DOMAIN_COMPUTERS',                 # Domain computers. The corresponding RID is DOMAIN_GROUP_RID_COMPUTERS.
-    DD  =>  'DOMAIN_DOMAIN_CONTROLLERS',        # Domain controllers. The corresponding RID is DOMAIN_GROUP_RID_CONTROLLERS.
-    DG  =>  'DOMAIN_GUESTS',                    # Domain guests. The corresponding RID is DOMAIN_GROUP_RID_GUESTS.
-    DU  =>  'DOMAIN_USERS',                     # Domain users. The corresponding RID is DOMAIN_GROUP_RID_USERS.
-    EA  =>  'ENTERPRISE_ADMINS',                # Enterprise administrators. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_ADMINS.
-    ED  =>  'ENTERPRISE_DOMAIN_CONTROLLERS',    # Enterprise domain controllers. The corresponding RID is SECURITY_SERVER_LOGON_RID.
-#   HI  =>  'ML_HIGH',                          # High integrity level. The corresponding RID is SECURITY_MANDATORY_HIGH_RID.
-    IU  =>  'INTERACTIVE',                      # Interactively logged-on user. This is a group identifier added to the token of a
-                                                # process when it was logged on interactively. The corresponding logon type is LOGON32_LOGON_INTERACTIVE.
-                                                # The corresponding RID is SECURITY_INTERACTIVE_RID.
-    LA  =>  'LOCAL_ADMIN',                      # Local administrator. The corresponding RID is DOMAIN_USER_RID_ADMIN.
-    LG  =>  'LOCAL_GUEST',                      # Local guest. The corresponding RID is DOMAIN_USER_RID_GUEST.
-    LS  =>  'LOCAL_SERVICE',                    # Local service account. The corresponding RID is SECURITY_LOCAL_SERVICE_RID.
-#   LW  =>  'ML_LOW',                           # Low integrity level. The corresponding RID is SECURITY_MANDATORY_LOW_RID.
-#   ME  =>  'MLMEDIUM',                         # Medium integrity level. The corresponding RID is SECURITY_MANDATORY_MEDIUM_RID.
-#   MU  =>  'PERFMON_USERS',                    # Performance Monitor users.
-    NO  =>  'NETWORK_CONFIGURATION_OPS',        # Network configuration operators. The corresponding RID is DOMAIN_ALIAS_RID_NETWORK_CONFIGURATION_OPS.
-    NS  =>  'NETWORK_SERVICE',                  # Network service account. The corresponding RID is SECURITY_NETWORK_SERVICE_RID.
-    NU  =>  'NETWORK',                          # Network logon user. This is a group identifier added to the token of a process when it was logged on across a network.
-                                                # The corresponding logon type is LOGON32_LOGON_NETWORK. The corresponding RID is SECURITY_NETWORK_RID.
-    PA  =>  'GROUP_POLICY_ADMINS',              # Group Policy administrators. The corresponding RID is DOMAIN_GROUP_RID_POLICY_ADMINS.
-    PO  =>  'PRINTER_OPERATORS',                # Printer operators. The corresponding RID is DOMAIN_ALIAS_RID_PRINT_OPS.
-    PS  =>  'PERSONAL_SELF',                    # Principal self. The corresponding RID is SECURITY_PRINCIPAL_SELF_RID.
-    PU  =>  'POWER_USERS',                      # Power users. The corresponding RID is DOMAIN_ALIAS_RID_POWER_USERS.
-    RC  =>  'RESTRICTED_CODE',                  # Restricted code. This is a restricted token created using the CreateRestrictedToken function.
-                                                # The corresponding RID is SECURITY_RESTRICTED_CODE_RID.
-    RD  =>  'REMOTE_DESKTOP',                   # Terminal server users. The corresponding RID is DOMAIN_ALIAS_RID_REMOTE_DESKTOP_USERS.
-    RE  =>  'REPLICATOR',                       # Replicator. The corresponding RID is DOMAIN_ALIAS_RID_REPLICATOR.
-    RO  =>  'ENTERPRISE_RO_DCs',                # Enterprise Read-only domain controllers. The corresponding RID is DOMAIN_GROUP_RID_ENTERPRISE_READONLY_DOMAIN_CONTROLLERS.
-#   RS  =>  'RAS_SERVERS RAS',                  # servers group. The corresponding RID is DOMAIN_ALIAS_RID_RAS_SERVERS.
-    RU  =>  'ALIAS_PREW2KCOMPACC',              # Alias to grant permissions to accounts that use applications compatible with operating systems previous to Windows 2000.
-                                                # The corresponding RID is DOMAIN_ALIAS_RID_PREW2KCOMPACCESS.
-    SA  =>  'SCHEMA_ADMINISTRATORS',            # Schema administrators. The corresponding RID is DOMAIN_GROUP_RID_SCHEMA_ADMINS.
-#   SI  =>  'ML_SYSTEM',                        # System integrity level. The corresponding RID is SECURITY_MANDATORY_SYSTEM_RID.
-    SO  =>  'SERVER_OPERATORS',                 # Server operators. The corresponding RID is DOMAIN_ALIAS_RID_SYSTEM_OPS.
-    SU  =>  'SERVICE',                          # Service logon user. This is a group identifier added to the token of a process when it was logged as a service.
-                                                # The corresponding logon type is LOGON32_LOGON_SERVICE. The corresponding RID is SECURITY_SERVICE_RID.
-    SY  =>  'LOCAL_SYSTEM',                     # Local system. The corresponding RID is SECURITY_LOCAL_SYSTEM_RID.
-    WD  =>  'EVERYONE',                         # Everyone. The corresponding RID is SECURITY_WORLD_RID
 };
 
 sub new
@@ -145,7 +163,7 @@ sub setOwnerSID
     }
 
     if (length $ownerSID == 2) {
-        unless (exists $sidStrings->{$ownerSID}) {
+        unless (exists $sidTokens->{$ownerSID}) {
             throw EBox::Exceptions::InvalidArgument('SID String', $ownerSID);
         }
     }
@@ -168,7 +186,7 @@ sub setGroupSID
     }
 
     if (length $groupSID == 2) {
-        unless (exists $sidStrings->{$groupSID}) {
+        unless (exists $sidTokens->{$groupSID}) {
             throw EBox::Exceptions::InvalidArgument('SID String', $groupSID);
         }
     }

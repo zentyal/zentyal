@@ -109,8 +109,8 @@ my $aceRights = {
 #   KX => "KEY_EXECUTE",
 
 #   # Mandatory Label Rights
-#   MR => 'LABEL_NO_READ_UP',
-#   MW => 'LABEL_NO_WRITE_UP',
+#   NR => 'LABEL_NO_READ_UP',
+#   NW => 'LABEL_NO_WRITE_UP',
 #   NX => 'LABEL_NO_EXECUTE_UP',
 };
 
@@ -240,19 +240,19 @@ sub setInheritObjectGUID
 #
 # Parameters:
 #
-#   accountSID - Can be either a key of the hash $sidStrings or a SID string
+#   accountSID - Can be either a key of the hash $sidTokens or a SID string
 #
 sub setObjectSID
 {
     my ($self, $sid) = @_;
 
-    my $sidStrings = $EBox::Samba::Security::SecurityDescriptor::sidStrings;
+    my $sidTokens = $EBox::Samba::Security::SecurityDescriptor::sidTokens;
 
     unless (defined $sid) {
         throw EBox::Exceptions::MissingArgument('sid');
     }
     if (length $sid == 2) {
-        unless (exists $sidStrings->{$sid}) {
+        unless (exists $sidTokens->{$sid}) {
             throw EBox::Exceptions::InvalidArgument('SID String', $sid);
         }
     }
