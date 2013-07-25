@@ -102,9 +102,18 @@ sub connection
             if ($@) {
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
             }
-            my $credentials = EBox::UserCorner::Auth->credentials();
+
+            # Connect as a read only user to be able to lookup the user.
             my $usersMod = EBox::Global->modInstance('users');
+            my $userCornerMod = EBox::Global->modInstance('usercorner');
+            $dn = $userCornerMod->roRootDn();
+            $pass = $userCornerMod->getRoPassword();
+            safeBind($self->{ldap}, $dn, $pass);
+            my $credentials = EBox::UserCorner::Auth->credentials();
             my $user = $usersMod->userByUID($credentials->{'user'});
+            unless ($user) {
+                throw EBox::Exceptions::UnwillingToPerform("The user '$user' does not exist!");
+            }
             $dn = $user->dn();
             $pass = $credentials->{'pass'};
         } else {

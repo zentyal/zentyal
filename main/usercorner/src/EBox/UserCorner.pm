@@ -19,6 +19,8 @@ package EBox::UserCorner;
 
 use base qw(EBox::Module::Service);
 
+use File::Copy qw(copy move);
+
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -133,8 +135,40 @@ sub initialSetup
         $self->setPort($port);
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.1') <= 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.2
+#
+#  * Create the ldap_ro.passwd file.
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    $self->_setupRoLDAPAccess();
+
+}
+
+sub _setupRoLDAPAccess
+{
+    my ($self) = @_;
+
+    # Copy ldapro password.
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $ldapPasswdFile = EBox::Config::conf() . 'ldap_ro_usercorner.passwd';
+    copy(EBox::Config::conf() . 'ldap_ro.passwd', $ldapPasswdFile);
+    EBox::Sudo::root(
+        "chown $ucUser::$ucGroup  $ldapPasswdFile",
+        "chmod 600 $ldapPasswdFile"
+    );
 }
 
 # Method: enableActions
@@ -160,6 +194,8 @@ sub enableActions
         push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
         EBox::Sudo::root(@commands);
     }
+
+    $self->_setupRoLDAPAccess();
 
     # migrate modules to usercorner
     (-d (EBox::Config::conf() . 'configured')) and return;
@@ -295,6 +331,48 @@ sub certificates
 sub editableMode
 {
     return (-f '/var/lib/zentyal-usercorner/editable');
+}
+
+# Method: roRootDn
+#
+#       Returns the dn of the read only priviliged user
+#
+# Returns:
+#
+#       string - the Dn
+sub roRootDn
+{
+    my $ldap = EBox::Ldap->instance();
+
+    return $ldap->roRootDn();
+}
+
+# Method: getRoPassword
+#
+#   Returns the password of the read only privileged user
+#   used to connect to the LDAP directory with read only
+#   permissions
+#
+# Returns:
+#
+#       string - password
+#
+sub getRoPassword
+{
+    my ($self) = @_;
+
+    unless (defined($self->{roPassword})) {
+        my $path = EBox::Config::conf() . 'ldap_ro_usercorner.passwd';
+        open(PASSWD, $path) or
+            throw EBox::Exceptions::External('Could not get LDAP password');
+
+        my $pwd = <PASSWD>;
+        close(PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{roPassword} = $pwd;
+    }
+    return $self->{roPassword};
 }
 
 1;
