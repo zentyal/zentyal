@@ -65,7 +65,7 @@ sub run
                 push (@extraParams, htmlblocks => $htmlblocks);
             }
 
-            my $classname = urlToClass($url);
+            my $classname = $self->urlToClass($url);
             eval "use $classname";
 
             if ($@) {
@@ -116,7 +116,7 @@ sub modelFromUrl
 #
 sub urlToClass
 {
-    my ($url) = @_;
+    my ($self, $url) = @_;
 
     unless ($url) {
         return "EBox::Dashboard::CGI::Index";
