@@ -58,8 +58,13 @@ sub html
         return '';
     }
 
+    my $menuClass = "menu-$name";
     my $id = $self->{id};
-    my $html = "<li id=\"$id\" class=\"menu-$name\">\n";
+    my $liClass = $menuClass;
+    if (defined($self->{style})) {
+        $liClass .= " $self->{style}";
+    }
+    my $html = "<li id=\"$id\" class=\"$liClass\">\n";
 
     my $isCurrentFolder = ($name eq $currentFolder);
     my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
@@ -76,9 +81,9 @@ sub html
 
     $html .= "<ul class='submenu'>\n";
 
-    my $menuClass = "menu-$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
     foreach my $item (@sorted) {
+        $item->{style} = $menuClass;
         $html .= $item->html($isCurrentFolder, $currentUrl);
     }
 

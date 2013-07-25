@@ -73,7 +73,12 @@ sub html
        $style = qq/style='display:inline;'/;
     }
 
-    my $html .= "<li id=\"$self->{id}\" $style class=\"menu-$name\">\n";
+    my $liClass = "menu-$name";
+    if (defined($self->{style})) {
+        $liClass .= " $self->{style}";
+    }
+
+    my $html .= "<li id=\"$self->{id}\" $style class=\"$liClass\">\n";
     $html .= qq{<a title="$text" href="/$url" $aClass }
           . qq{ target="_parent">$text</a>\n};
 
