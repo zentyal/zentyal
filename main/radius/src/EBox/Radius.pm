@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Radius;
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Gettext;
