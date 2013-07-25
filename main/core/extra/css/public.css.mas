@@ -893,21 +893,27 @@ filter: alpha(opacity=100);
 
 #nav li li { display: none; }
 
-#nav .navarrow{
+#nav a.navarrow:after,
+#nav a.despleg:after{
+    content: " ";
+    height: 100%;
+    width:20px;
     background-image: url('/data/images/desc.gif');
-    background-position: center right;
+    background-position: center center;
     background-repeat:no-repeat;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
-#nav .despleg{
+#nav a.despleg:after{
     background-image: url('/data/images/asc.gif') !important;
-    background-position: center right;
-    background-repeat:no-repeat;
 }
 
 
 #nav li a {
     display: block;
+    position: relative;
     padding: 10px 20px 10px 4px;
     text-decoration: none;
     margin: 0px;
@@ -918,9 +924,10 @@ filter: alpha(opacity=100);
 }
 
 #nav li a:hover {
+    color: #000; 
     background-color: rgba(220, 220, 220, 1);
-    color: #000; }
 
+}
 #nav li li a {
     display: block;
     padding: 6px 6px 6px 4px;
@@ -2048,23 +2055,37 @@ ul#userGroups li input{
     right:5px;
 }
 
-li[class^="menu"] {
-    background: left center no-repeat !important;
-}
-
-li[class^="menu"] a {
-    padding-left: 40px !important;
-}
-
-li[class$="Users"] {
-    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
-}
-
+#nav > li[class^="menu"] > a,
 td[class^="moduleStatusItem"] {
-    background: left center no-repeat !important;
+    background-position: left center;
+    background-repeat:  no-repeat;
     padding-left: 40px !important;
 }
 
-td[class$="users"] {
+#nav > li[class$="-users"] > a{
     background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
+}
+#nav > li[class$="dashboard"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-dashboard.png") !important;
+}
+#nav > li[class$="status"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-status.png") !important;
+}
+#nav > li[class$="-SysInfo"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-system.png") !important;
+}
+#nav > li[class$="-Network"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-network.png") !important;
+}
+#nav > li[class$="-Maintenance"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-maintenance.png") !important;
+}
+#nav > li[class$="-Software"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-software.png") !important;
+}
+#nav > li[class$="-users"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
+}
+#nav > li[class$="-Firewall"] > a {
+    background-image: url("/data/software/images/package-icons/zentyal-firewall.png") !important;
 }
