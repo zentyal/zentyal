@@ -178,7 +178,7 @@ sub setTypedRow
     $zentyalUser->changePassword($pass1->value());
 
     eval 'use EBox::UserCorner::Auth';
-    EBox::UserCorner::Auth->updatePassword($user, $pass1->value());
+    EBox::UserCorner::Auth->updatePassword($user, $pass1->value(), $zentyalUser->dn());
 
     $self->setMessage(__('Password successfully updated'));
 }
