@@ -2059,3 +2059,12 @@ li[class^="menu"] a {
 li[class$="Users"] {
     background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
 }
+
+td[class^="moduleStatusItem"] {
+    background: left center no-repeat !important;
+    padding-left: 40px !important;
+}
+
+td[class$="users"] {
+    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
+}

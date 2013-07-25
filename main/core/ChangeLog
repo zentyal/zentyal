@@ -1,5 +1,5 @@
 HEAD
-	+ Added icons for top-level menu entries
+	+ Added icons for top-level menu entries and module status page
 	+ Fixed encoding of parameters in confirmation dialogs
 	+ Check backup integrity by listing the tar file, throw
 	  InvalidData exception if the tar is corrupted
