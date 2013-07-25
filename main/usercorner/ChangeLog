@@ -1,4 +1,5 @@
 HEAD
+	+ Added  EBox::UserCorner::CGI::Run to fix regressions
 	+ Connect as the LDAP root user in read only mode to retrieve users DN.
 	+ Added incompatiblity with external AD authentication mode
 3.1.1
