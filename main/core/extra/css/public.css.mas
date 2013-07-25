@@ -897,7 +897,7 @@ filter: alpha(opacity=100);
 #nav a.despleg:after{
     content: " ";
     height: 100%;
-    width:20px;
+    width:15px;
     background-image: url('/data/images/desc.gif');
     background-position: center center;
     background-repeat:no-repeat;
@@ -919,14 +919,16 @@ filter: alpha(opacity=100);
     margin: 0px;
     line-height: 120%;
     color: <% $nav_li_color %>;
-    font-weight: bold;
     border-top: 1px solid #ccc;
 }
-
 #nav li a:hover {
     color: #000; 
     background-color: rgba(220, 220, 220, 1);
 
+}
+#nav > li > a{
+    text-transform: uppercase;
+    font-weight: normal;
 }
 #nav li li a {
     display: block;
@@ -952,6 +954,65 @@ filter: alpha(opacity=100);
 }
 
 #nav .submenu { margin-left:20px; }
+
+
+/***************
+menu icons
+******************/
+
+
+
+#nav > li[class^="menu"] > a,
+td[class^="moduleStatusItem"],
+[class^="icon"] {
+    background-position: left center;
+    background-repeat:  no-repeat;
+    padding: 15px 12px 15px 40px;
+}
+
+#nav > li.menu-Antivirus > a, .icon-antivirus { background-image: url("/data/software/images/package-icons/zentyal-antivirus.png");}
+#nav > li.menu-Asterisk > a,.icon-asterisk { background-image: url("/data/software/images/package-icons/zentyal-asterisk.png");}
+#nav > li.menu-BwMonitor > a, .icon-bwmonitor { background-image: url("/data/software/images/package-icons/zentyal-bwmonitor.png");}
+#nav > li.menu-CA > a, .icon-ca { background-image: url("/data/software/images/package-icons/zentyal-ca.png");}
+#nav > li.menu-Captiveportal > a, .icon-captiveportal { background-image: url("/data/software/images/package-icons/zentyal-captiveportal.png");}
+#nav > li.menu-Dashboard > a, .icon-dashboard { background-image: url("/data/software/images/package-icons/zentyal-dashboard.png");}
+#nav > li.menu-DNS > a, .icon-dns { background-image: url("/data/software/images/package-icons/zentyal-dns.png");}
+#nav > li.menu-DHCP > a, .icon-dhcp { background-image: url("/data/software/images/package-icons/zentyal-dhcp.png");}
+#nav > li.menu-Backup > a, .icon-ebackup { background-image: url("/data/software/images/package-icons/zentyal-ebackup.png");}
+#nav > li.menu-Firewall > a, .icon-software { background-image: url("/data/software/images/package-icons/zentyal-firewall.png");}
+#nav > li.menu-FTP > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-ftp.png");}
+#nav > li.menu-IPS > a, .icon-ips { background-image: url("/data/software/images/package-icons/zentyal-ips.png");}
+#nav > li.menu-IPsec > a, .icon-ipsec { background-image: url("/data/software/images/package-icons/zentyal-ipsec.png");}
+#nav > li.menu-Jabber > a, .icon-jabber { background-image: url("/data/software/images/package-icons/zentyal-jabber.png");}
+#nav > li.menu-l7-protocols > a, .icon-l7-protocols { background-image: url("/data/software/images/package-icons/zentyal-l7-protocols.png");}
+#nav > li.menu-LTSP > a, .icon-ltsp { background-image: url("/data/software/images/package-icons/zentyal-ltsp.png");}
+#nav > li.menu-Mail > a, .icon-mail{ background-image: url("/data/software/images/package-icons/zentyal-mail.png");}
+#nav > li.menu-MailFilter > a, .icon-mailfilter { background-image: url("/data/software/images/package-icons/zentyal-mailfilter.png");}
+#nav > li.menu-Maintenance > a, .icon-maintenance  { background-image: url("/data/software/images/package-icons/zentyal-maintenance.png");}
+#nav > li.menu-Monitor > a, .icon-monitor { background-image: url("/data/software/images/package-icons/zentyal-monitor.png");}
+#nav > li.menu-Network > a, .moduleStatusItem-network, .icon-network  { background-image: url("/data/software/images/package-icons/zentyal-network.png");}
+#nav > li.menu-ntp > a, .icon-ntp { background-image: url("/data/software/images/package-icons/zentyal-ntp.png");}
+#nav > li.menu-nut > a, .icon-nut { background-image: url("/data/software/images/package-icons/zentyal-nut.png");}
+#nav > li.menu-VPN > a, .icon-openvpn { background-image: url("/data/software/images/package-icons/zentyal-openvpn.png");}
+#nav > li.menu-PPTP > a, .icon-pptp { background-image: url("/data/software/images/package-icons/zentyal-pptp.png");}
+#nav > li.menu-Printers > a, .icon-printers { background-image: url("/data/software/images/package-icons/zentyal-printers.png");}
+#nav > li.menu-RADIUS > a, .icon-radius { background-image: url("/data/software/images/package-icons/zentyal-radius.png");}
+#nav > li.menu-Register > a, .icon-register { background-image: url("/data/software/images/package-icons/zentyal-register.png");}
+#nav > li.menu-RemoteServices > a, .icon-RemoteServices { background-image: url("/data/software/images/package-icons/zentyal-remoteservices.png");}
+#nav > li.menu-samba > a { background-image: url("/data/software/images/package-icons/zentyal-samba.png");}
+#nav > li.menu-Status > a, .icon-status { background-image: url("/data/software/images/package-icons/zentyal-mstatus.png");}
+#nav > li.menu-SysInfo > a, .icon-system { background-image: url("/data/software/images/package-icons/zentyal-system.png");}
+#nav > li.menu-Software > a, .icon-software  { background-image: url("/data/software/images/package-icons/zentyal-software.png");}
+#nav > li.menu-Status > a, .icon-status { background-image: url("/data/software/images/package-icons/zentyal-mstatus.png");}
+#nav > li.menu-Squid > a, .icon-status { background-image: url("/data/software/images/package-icons/zentyal-squid.png");}
+#nav > li.menu-TrafficShaping > a, .icon-TrafficShaping { background-image: url("/data/software/images/package-icons/zentyal-trafficshaping.png");}
+#nav > li.menu-UPS > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-ups.png");}
+#nav > li.menu-UserCorner > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-usercorner.png");}
+#nav > li.menu-Users > a, .moduleStatusItem-users, .icon-users { background-image: url("/data/software/images/package-icons/zentyal-users.png");}
+#nav > li.menu-Virt > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-virt.png");}
+#nav > li.menu-WebMail > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-webmail.png");}
+#nav > li.menu-WebServer > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-webserver.png");}
+#nav > li.menu-Zarafa > a, .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-zarafa.png");}
 
 .sleft { float: left; }
 
@@ -1545,25 +1606,24 @@ float:left;
 
 #software #packages {
     margin: 20px 0 10px 0;
-    border: 1px solid #CCC;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
     padding: 10px 0;
 }
 
 #software .package {
-    text-align: center;
-    margin: 8px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #CCCCCC;
     display: inline-block;
-    width: 80px;
-    height: 70px;
-    overflow: hidden;
+    height: 100px;
+    margin: 8px;
     padding: 9px 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    text-align: center;
     vertical-align: middle;
+    width: 112px;
+    background-color: white;
+    position: relative;
 }
 
 #software .package:hover {
@@ -1573,14 +1633,19 @@ float:left;
 
 #software .package img {
     height: 32px;
-    width: 32px;
+    margin-bottom: 10px;
     margin-top: 5px;
+    width: 32px;    
 }
 
 #software .package p {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
+    border-top: 1px dashed #dddddd;
+    color: #333333;
+    display: table-cell;
+    font-size: 12px;
+    height: 50px;
+    vertical-align: middle;
+    width: 112px;
 }
 
 #software .package_selected, #software .package_selected:hover {
@@ -1594,9 +1659,20 @@ float:left;
     padding:5px 10px;
     font-weight:normal;
 }
-
-.package_installed { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
-.package_installed:hover { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+.package_installed:before {
+content: " ";
+position: absolute;
+top: -5px;
+right: -5px;
+border-radius: 13px;
+border: 1px solid #fff;
+height: 22px;
+width: 22px;
+background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !important;
+}
+.package_installed.package_selected{
+    background-color: transparent !important;
+}
 
 /* modalbox.js stuff */
 
@@ -1738,13 +1814,9 @@ float:left;
 /* end modalbox.js stuff */
 
 .headcontainer{
-    border-radius: 15px ;
-    -moz-border-radius: 15px;
-    border: 1px solid #ccc;
     padding: 10px 0px;
     width:100%;
     margin-top:15px;
-
 }
 
 .headcontainer > h3, #packages > h3 {
@@ -1754,7 +1826,6 @@ float:left;
     padding: 3px 0px;
     margin: 0px 0px 0px 10px;
 }
-
 .head {
     margin: 0 30px;
     padding: 5px;
@@ -1762,9 +1833,9 @@ float:left;
     text-align: center;
     width:115px;
 }
-
-.head:hover{background-color: #ECF5DA;}
-
+.head:hover{
+    background-color: #ECF5DA;
+}
 .head h3{
     font-size:14px;
     border-bottom:none;
@@ -1773,7 +1844,6 @@ float:left;
     margin-bottom: 2px;
     margin-top: 0;
 }
-
 .final_installation {
     height:400px;
     background: url("/data/software/images/fluffy_ok.png") 250px bottom no-repeat
@@ -2055,37 +2125,3 @@ ul#userGroups li input{
     right:5px;
 }
 
-#nav > li[class^="menu"] > a,
-td[class^="moduleStatusItem"] {
-    background-position: left center;
-    background-repeat:  no-repeat;
-    padding-left: 40px !important;
-}
-
-#nav > li[class$="-users"] > a{
-    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
-}
-#nav > li[class$="dashboard"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-dashboard.png") !important;
-}
-#nav > li[class$="status"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-status.png") !important;
-}
-#nav > li[class$="-SysInfo"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-system.png") !important;
-}
-#nav > li[class$="-Network"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-network.png") !important;
-}
-#nav > li[class$="-Maintenance"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-maintenance.png") !important;
-}
-#nav > li[class$="-Software"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-software.png") !important;
-}
-#nav > li[class$="-users"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-users.png") !important;
-}
-#nav > li[class$="-Firewall"] > a {
-    background-image: url("/data/software/images/package-icons/zentyal-firewall.png") !important;
-}
