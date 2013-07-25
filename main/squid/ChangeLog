@@ -1,4 +1,5 @@
 HEAD
+	+ Prerouting rules have no iaccept chain, use ACCEPT target
 	+ Explicitly set firewall version dependency in control file
 3.0.13
 	+ Fix parse of the dansguardian log in the LogHelper
