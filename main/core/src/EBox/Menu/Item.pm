@@ -68,17 +68,12 @@ sub html
         $aClass = q{class='current'};
     }
 
-    my $style = '';
-    if ($currentFolder) {
-       $style = qq/style='display:inline;'/;
-    }
-
     my $liClass = "menu-$name";
     if (defined($self->{style})) {
         $liClass .= " $self->{style}";
     }
 
-    my $html .= "<li id=\"$self->{id}\" $style class=\"$liClass\">\n";
+    my $html .= "<li id=\"$self->{id}\" class=\"$liClass\">\n";
     $html .= qq{<a title="$text" href="/$url" $aClass }
           . qq{ target="_parent">$text</a>\n};
 
