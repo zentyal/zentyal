@@ -22,6 +22,7 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Global;
 use EBox::Validate;
 use POSIX qw(strftime);
 
@@ -29,6 +30,7 @@ use constant EXTERNALSQUIDLOGFILE => '/var/log/squid3/external-access.log';
 use constant INTERNALSQUIDLOGFILE => '/var/log/squid3/access.log';
 use constant DANSGUARDIANLOGFILE => '/var/log/dansguardian/access.log';
 
+# TODO: Clear this periodically
 my %temp;
 
 sub new
@@ -67,11 +69,15 @@ sub logFiles
 sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
-        chomp $line;
+    chomp $line;
 
-    $line =~ s/,\s+/,/g;
+    my $global = EBox::Global->instance();
+    my $squid = $global->modInstance('squid');
+    my $filterNeeded = $squid->filterNeeded();
+
     my @fields = split (/\s+/, $line);
 
+    # FIXME: regex match instead of eq ??
     if ($fields[2] eq '127.0.0.1') {
         return;
     }
@@ -92,25 +98,24 @@ sub processLine # (file, line, logger)
     if ($file eq  DANSGUARDIANLOGFILE) {
         my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
         my $domain = $self->_domain($fields[6]);
-        my $data = {
-            'timestamp' => $time,
-            'elapsed' => $fields[1],
-            'remotehost' => $fields[2],
-            'code' => $fields[3],
-            'bytes' => $fields[4],
-            'method' => $fields[5],
-            'url' => $url,
-            'domain' => substr($domain, 0, 254),
-            'rfc931' => $fields[7],
-            'peer' => $fields[8],
-            'mimetype' => $fields[9],
-            'event' => $event
-        };
 
-        $dbengine->insert('squid_access', $data);
+        $temp{$url}->{timestamp} = $time;
+        $temp{$url}->{elapsed} = $fields[1];
+        $temp{$url}->{remotehost} = $fields[2];
+        $temp{$url}->{code} = $fields[3];
+        $temp{$url}->{method} = $fields[5];
+        $temp{$url}->{url} = $url;
+        $temp{$url}->{domain} = substr($domain, 0, 254);
+        $temp{$url}->{peer} = $fields[8];
+        $temp{$url}->{mimetype} = $fields[9];
+        $temp{$url}->{event} = $event;
     } else {
         if ($file eq EXTERNALSQUIDLOGFILE) {
-            $self->_fillExternalData($url, $event, @fields);
+            if ($filterNeeded) {
+                $temp{$url}->{bytes} = $fields[4];
+            } else {
+                $self->_fillExternalData($url, $event, @fields);
+            }
         } else {
             $temp{$url}->{rfc931} = $fields[7];
 
@@ -118,8 +123,8 @@ sub processLine # (file, line, logger)
                 $self->_fillExternalData($url, $event, @fields);
             }
         }
-        $self->_insertEvent($url, $dbengine);
     }
+    $self->_insertEvent($url, $dbengine);
 }
 
 # Group: Private methods
@@ -128,19 +133,21 @@ sub _fillExternalData
 {
     my ($self, $url, $event, @fields) = @_;
 
-    my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
-    my $domain = $self->_domain($fields[6]);
-    $temp{$url}->{timestamp} = $time;
-    $temp{$url}->{elapsed} = $fields[1];
-    $temp{$url}->{remotehost} = $fields[2];
-    $temp{$url}->{bytes} = $fields[4];
-    $temp{$url}->{method} = $fields[5];
-    $temp{$url}->{url} = $url;
-    $temp{$url}->{domain} = substr($domain, 0, 254);
-    $temp{$url}->{peer} = $fields[8];
-    $temp{$url}->{mimetype} = $fields[9];
-    $temp{$url}->{event} = $event;
-    $temp{$url}->{code} = $fields[3];
+    unless (defined($temp{$url}{timestamp})) {
+        my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
+        my $domain = $self->_domain($fields[6]);
+        $temp{$url}->{timestamp} = $time;
+        $temp{$url}->{elapsed} = $fields[1];
+        $temp{$url}->{remotehost} = $fields[2];
+        $temp{$url}->{bytes} = $fields[4];
+        $temp{$url}->{method} = $fields[5];
+        $temp{$url}->{url} = $url;
+        $temp{$url}->{domain} = substr($domain, 0, 254);
+        $temp{$url}->{peer} = $fields[8];
+        $temp{$url}->{mimetype} = $fields[9];
+        $temp{$url}->{event} = $event;
+        $temp{$url}->{code} = $fields[3];
+    }
 }
 
 sub _insertEvent
@@ -148,7 +155,9 @@ sub _insertEvent
     my ($self, $id, $dbengine) = @_;
 
     # Check we got all the data
-    if (defined($temp{$id}{rfc931}) and defined($temp{$id}{timestamp})) {
+    if (defined($temp{$id}{rfc931}) and
+        defined($temp{$id}{timestamp}) and
+        defined($temp{$id}{bytes})) {
         $dbengine->insert('squid_access', $temp{$id});
         delete $temp{$id};
     }
