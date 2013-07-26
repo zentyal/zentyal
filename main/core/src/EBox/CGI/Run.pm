@@ -98,6 +98,20 @@ sub run
     };
 }
 
+# Method: modelFromlUrl
+#
+#  Returns model instance for the given URL
+#
+sub modelFromUrl
+{
+    my ($self, $url) = @_;
+
+    my ($model, $namespace, $type) = _parseModelUrl($url);
+    return undef unless ($model and $namespace);
+    my $path = lc ($namespace) . "/$model";
+    return $self->_instanceComponent($path, $type);
+}
+
 # Method: urlToClass
 #
 #  Returns CGI class for the given URL
