@@ -37,6 +37,11 @@ sub new
 {
     my $class = shift;
     my $self = {};
+
+    my $global = EBox::Global->instance();
+    my $squid = $global->modInstance('squid');
+    $self->{filterNeeded} = $squid->filterNeeded();
+
     bless($self, $class);
     return $self;
 }
@@ -70,10 +75,6 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
     chomp $line;
-
-    my $global = EBox::Global->instance();
-    my $squid = $global->modInstance('squid');
-    my $filterNeeded = $squid->filterNeeded();
 
     my @fields = split (/\s+/, $line);
 
@@ -111,7 +112,7 @@ sub processLine # (file, line, logger)
         $temp{$url}->{event} = $event;
     } else {
         if ($file eq EXTERNALSQUIDLOGFILE) {
-            if ($filterNeeded) {
+            if ($self->{filterNeeded}) {
                 $temp{$url}->{bytes} = $fields[4];
             } else {
                 $self->_fillExternalData($url, $event, @fields);
