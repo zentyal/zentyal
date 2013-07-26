@@ -410,8 +410,7 @@
 }
 .tright {
     text-align: right;
-    vertical-align: top;
-    white-space: nowrap;
+    vertical-align: middle;
 }
 
 .border { border-bottom: 2px solid #eee; }
