@@ -151,7 +151,15 @@ sub _clientTypeOptions
                     value => 'mac',
                     printableValue => 'Mac OS X',
                    } ,
-                  );
+                   {
+                    value => 'android',
+                    printableValue => 'Android',
+                   } ,
+                   {
+                    value => 'iphone',
+                    printableValue => 'iPhone',
+           }
+           );
     return \@options;
 }
 
@@ -164,8 +172,44 @@ sub validateTypedRow
     $self->_validateCertificate($action, $params_r, $actual_r);
     $self->_validateClientType($action, $params_r, $actual_r);
     $self->_validateInstaller($action, $params_r, $actual_r);
+    $self->_validateConnStrategy($action, $params_r, $actual_r);
+    $self->_validateInterface($action, $params_r, $actual_r);
 }
 
+sub _validateConnStrategy
+{
+
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    my $clientType = $params_r->{clientType}->value();
+    my $connstrategy = $params_r->{connStrategy}->value();
+
+    if (($clientType eq 'android') && ($connstrategy eq 'random')) {
+    throw EBox::Exceptions::External(
+       __('You cannot set random strategy connection for Android devices')
+                                            );
+    }
+        return;
+}
+
+
+sub _validateInterface
+{
+
+    my ($self, $action, $params_r, $actual_r) = @_;
+
+    my $clientType = $params_r->{clientType}->value();
+    my $confRow = $self->_serverConfRow();
+    my $tunInterface = $confRow->elementByName('tunInterface')->value();
+
+
+    if (($clientType eq 'android') && ($tunInterface == 0)) {
+    throw EBox::Exceptions::External(
+       __('You cannot use tap interfaces with Android devices')
+                                            );
+    }
+        return;
+}
 
 sub _validateServer
 {

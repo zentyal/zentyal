@@ -27,6 +27,7 @@ use EBox::NetWrappers;
 use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
+use EBox::OpenVPN::Server::ClientBundleGenerator::Android;
 use EBox::Validate
   qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
 
@@ -648,7 +649,10 @@ sub clientBundle
     if ($clientType eq 'mac') {
         $clientType = 'linux';
     }
-    if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox')) ) {
+    if ($clientType eq 'iphone') {
+        $clientType = 'android';
+    }
+    if ( !($clientType eq any('windows',  'linux', 'EBoxToEBox', 'android', 'iphone')) ) {
         throw EBox::Exceptions::External(
                       __x('Unsupported client type: {ct}', ct => $clientType) );
     }
