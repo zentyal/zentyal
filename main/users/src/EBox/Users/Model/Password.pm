@@ -80,6 +80,11 @@ sub _table
     return $dataTable;
 }
 
+sub userCorner
+{
+    return 1;
+}
+
 # Method: _updateSambaPassword
 #
 #   Here we changed the user password in the samba database if it is

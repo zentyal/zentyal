@@ -62,10 +62,11 @@ sub run
             push (@extraParams, htmlblocks => $htmlblocks);
         }
 
-        my $cgi = _instanceModelCGI($url, @extraParams);
+        my $cgi = $self->_instanceModelCGI($url, @extraParams);
 
         unless ($cgi) {
             my $classname = $self->urlToClass($url);
+            print STDERR "\n URL $url -> $classname\n";
             eval "use $classname";
 
             if ($@) {
@@ -196,7 +197,7 @@ sub _readUrlAliases
 
 sub _instanceComponent
 {
-    my ($path, $type) = @_;
+    my ($self, $path, $type) = @_;
 
     my $manager = EBox::Model::Manager->instance();
     my $model = undef;
@@ -211,7 +212,7 @@ sub _instanceComponent
 
 sub _instanceModelCGI
 {
-    my ($url, @extraParams) = @_;
+    my ($self, $url, @extraParams) = @_;
 
     my ($cgi, $menuNamespace) = (undef, undef);
 
@@ -223,7 +224,7 @@ sub _instanceModelCGI
     my $path = lc ($namespace) . "/$modelName";
     return undef unless $manager->componentExists($path);
 
-    my $model = _instanceComponent($path, $type);
+    my $model = $self->_instanceComponent($path, $type);
 
     if ($model) {
         $menuNamespace = $model->menuNamespace();

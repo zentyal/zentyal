@@ -45,4 +45,15 @@ sub urlToClass
     }
 }
 
+sub _instanceComponent
+{
+    my ($self, $path, $type) = @_;
+    my $model = $self->SUPER::_instanceComponent($path, $type);
+    if ($model->userCorner()) {
+        return $model
+    } else {
+        return undef;
+    }
+}
+
 1;
