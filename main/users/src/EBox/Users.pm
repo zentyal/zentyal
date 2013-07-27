@@ -1795,6 +1795,7 @@ sub menu
     my $order = 510;
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
                                         'text' => $self->printableName(),
                                         'separator' => $separator,
                                         'order' => $order);

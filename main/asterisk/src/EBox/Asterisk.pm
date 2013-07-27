@@ -530,6 +530,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
+                                        'icon' => 'asterisk',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' => 630);

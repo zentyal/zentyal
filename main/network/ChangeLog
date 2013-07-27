@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Fix regression in dhcp-gateway.pl which interfered with save
 	  change process
 	+ Increase regenGateways() timeout from 60 to 180 seconds

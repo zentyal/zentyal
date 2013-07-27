@@ -926,7 +926,7 @@ filter: alpha(opacity=100);
 
 }
 #nav > li > a{
-    text-transform: uppercase;
+//    text-transform: uppercase;
     font-weight: normal;
 }
 #nav li li a {

@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Fixed wrong jQuery interpolation in Subscription form
 	+ Retry making the configuration backup if the conf backup process
 	  produced a corrupted backup

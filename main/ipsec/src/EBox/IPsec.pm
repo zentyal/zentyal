@@ -374,6 +374,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(
+                                        'icon' => 'openvpn',
                                         'name' => 'VPN',
                                         'text' => 'VPN',
                                         'separator' => 'Infrastructure',

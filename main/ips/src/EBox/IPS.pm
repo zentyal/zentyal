@@ -245,6 +245,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'IPS/Composite/General',
                                     'text' => $self->printableName(),
+                                    'icon' => 'ips',
                                     'separator' => 'Gateway',
                                     'order' => 228));
 }
