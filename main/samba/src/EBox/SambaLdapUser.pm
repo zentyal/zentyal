@@ -736,7 +736,7 @@ sub _checkWindowsBuiltin
     my $dn = "CN=$name,CN=Builtin";
     my $searchArgs = {
         base => 'CN=Builtin',
-        scope => 'base',
+        scope => 'one',
         filter => "(dn=$dn)"
        };
     my $result = $self->search($searchArgs);
