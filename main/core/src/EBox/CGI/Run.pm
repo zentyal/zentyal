@@ -66,7 +66,6 @@ sub run
 
         unless ($cgi) {
             my $classname = $self->urlToClass($url);
-            print STDERR "\n URL $url -> $classname\n";
             eval "use $classname";
 
             if ($@) {
@@ -119,7 +118,6 @@ sub modelFromUrl
 sub urlToClass
 {
     my ($self, $url) = @_;
-
     unless ($url) {
         return "EBox::Dashboard::CGI::Index";
     }
