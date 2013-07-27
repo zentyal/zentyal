@@ -29,6 +29,7 @@ sub new
     my $self = {};
     bless($self, $class);
     $self->{style} = delete $opts{style};
+    $self->{icon} = delete $opts{icon};
     $self->{separator} = delete $opts{separator};
     my $order = delete $opts{order};
     if (defined($order)) {

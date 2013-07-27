@@ -89,16 +89,19 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+                                    'icon' => 'dashboard',
                                     'text' => __('Dashboard'),
                                     'separator' => 'Core',
                                     'order' => 10));
 
     $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
                                     'text' => __('Module Status'),
+                                    'icon' => 'mstatus',
                                     'separator' => 'Core',
                                     'order' => 20));
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'icon' => 'system',
                                         'text' => __('System'),
                                         'order' => 30);
 
@@ -117,6 +120,7 @@ sub menu
 
     my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
                                        'text' => __('Maintenance'),
+                                       'icon' => 'maintenance',
                                        'separator' => 'Core',
                                        'order' => 70);
 

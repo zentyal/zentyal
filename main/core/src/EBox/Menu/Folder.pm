@@ -58,23 +58,27 @@ sub html
         return '';
     }
 
-    my $menuClass = "menu-$name";
+    my $menuClass = "menu$name";
     my $id = $self->{id};
     my $liClass = $menuClass;
-    if (defined($self->{style})) {
+    if ($self->{style}) {
         $liClass .= " $self->{style}";
     }
     my $html = "<li id=\"$id\" class=\"$liClass\">\n";
 
     my $isCurrentFolder = ($name eq $currentFolder);
-    my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
+    my $aClass = '';
+    if ($self->{icon}) {
+        $aClass = "icon-$self->{icon}";
+    }
+    $aClass .= $isCurrentFolder ? ' despleg' : ' navarrow';
 
     my $url = $self->{url};
     if (defined $url) {
         $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
         $html .= "<a title='$text' href='' class='$aClass' ";
-        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu-$name', this);return false;\"";
+        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu$name', this);return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";

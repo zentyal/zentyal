@@ -56,7 +56,6 @@ sub html
         };
     }
 
-    my $name = $self->{name};
     my $text = $self->{text};
     my $url = $self->{url};
     if ($urlsToHide->{$url} or (length($text) == 0)) {
@@ -64,17 +63,20 @@ sub html
     }
 
     my $aClass = '';
+    if ($self->{icon}) {
+        $aClass = "icon-$self->{icon}";
+    }
     if ($currentUrl eq $url) {
-        $aClass = q{class='current'};
+        $aClass .= ' current';
     }
 
-    my $liClass = "menu-$name";
-    if (defined($self->{style})) {
+    my $liClass = '';
+    if ($self->{style}) {
         $liClass .= " $self->{style}";
     }
 
     my $html .= "<li id=\"$self->{id}\" class=\"$liClass\">\n";
-    $html .= qq{<a title="$text" href="/$url" $aClass }
+    $html .= qq{<a title="$text" href="/$url" class=\"$aClass\" }
           . qq{ target="_parent">$text</a>\n};
 
     $html .= "</li>\n";
