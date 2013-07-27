@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bad arguments in  CGI::Controller::Composite call to SUPER::new()
 	+ More flexible EBox::CGI::run for inheretance
 	+ Fixed encoding of parameters in confirmation dialogs
 	+ Check backup integrity by listing the tar file, throw

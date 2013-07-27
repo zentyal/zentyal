@@ -43,9 +43,8 @@ sub new
     my $class = shift;
     my %params = @_;
 
-    my $model = delete $params{model};
-    my $self = $class->SUPER::new(template => $model->Viewer(),
-            @_);
+    my $model = $params{model};
+    my $self = $class->SUPER::new(template => $model->Viewer(), %params);
     $self->{model} = $model;
 
     bless ($self, $class);

@@ -25,16 +25,13 @@ use EBox::Global;
 
 # Group: Public methods
 
-sub new # (cgi=?)
+sub new
 {
-    my $class = shift;
-    my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
-    my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
-                                  @_);
-    $self->{'tableModel'} = $tableModel;
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
     bless($self, $class);
-    return $self;
+    return  $self;
 }
 
 # Group: Protected methods
