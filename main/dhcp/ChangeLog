@@ -1,3 +1,5 @@
+HEAD
+	+ Added menu icon
 3.1
 	+ Implemented _daemonsToDisable()
 	+ Moved initRange and endRange methods to the network module to be shared.

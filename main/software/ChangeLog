@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Set proper permissions to preferences file when QA updates are
 	  not exclusive
 	+ Restart fully the webadmin module after installation, this forces

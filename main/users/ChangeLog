@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Added new userCorner method to password model
 	+ Usercorner uses the ldap_ro credentials to retrieve user DNs.
 	+ preAdd callbacks get a second argument noting the parent when this

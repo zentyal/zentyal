@@ -271,6 +271,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
                                         'text' => __('Users and Computers'),
                                         'separator' => 'Office',
                                         'order' => 510);

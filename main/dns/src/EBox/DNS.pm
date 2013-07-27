@@ -903,6 +903,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'icon' => 'dns',
                                     'url' => 'DNS/Composite/Global',
                                     'separator' => 'Infrastructure',
                                     'order' => 420));

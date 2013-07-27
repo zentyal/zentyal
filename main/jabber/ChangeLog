@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapted user addon to multi-OU tree view.
 	+ Added incompatiblity with external AD authentication mode.

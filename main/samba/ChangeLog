@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Added objectByObjectGUID to retrieve an LDB object from its LDAP
 	  replica.
 	+ Added _linkWithUsersEntry && _linkWithUsersObject and called for every

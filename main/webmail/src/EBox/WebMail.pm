@@ -224,6 +224,7 @@ sub menu
     $root->add(
                new EBox::Menu::Item(
                    'url' => 'WebMail/View/Options',
+                   'icon' => 'webmail',
                    'text' => $self->printableName(),
                    'separator' => 'Communications',
               )

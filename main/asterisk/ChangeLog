@@ -1,4 +1,5 @@
 HEAD
+	+ Added menu icon
 	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapted user addon to multi-OU tree view.
 	+ Updated to use the new API to find groups and users.

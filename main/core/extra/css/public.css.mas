@@ -410,8 +410,7 @@
 }
 .tright {
     text-align: right;
-    vertical-align: top;
-    white-space: nowrap;
+    vertical-align: middle;
 }
 
 .border { border-bottom: 2px solid #eee; }
@@ -887,41 +886,49 @@ filter: alpha(opacity=100);
 #nav { margin-bottom: 0em; }
 
 #nav li, #nav li li {
-    display: inline;
     padding: 0;
     margin: 0;
 }
 
 #nav li li { display: none; }
 
-#nav .navarrow{
+#nav a.navarrow:after,
+#nav a.despleg:after{
+    content: " ";
+    height: 100%;
+    width:15px;
     background-image: url('/data/images/desc.gif');
-    background-position: center right;
+    background-position: center center;
     background-repeat:no-repeat;
+    position: absolute;
+    right: 0px;
+    top: 0px;
 }
 
-#nav .despleg{
+#nav a.despleg:after{
     background-image: url('/data/images/asc.gif') !important;
-    background-position: center right;
-    background-repeat:no-repeat;
 }
 
 
 #nav li a {
     display: block;
+    position: relative;
     padding: 10px 20px 10px 4px;
     text-decoration: none;
     margin: 0px;
     line-height: 120%;
     color: <% $nav_li_color %>;
-    font-weight: bold;
     border-top: 1px solid #ccc;
 }
-
 #nav li a:hover {
+    color: #000;
     background-color: rgba(220, 220, 220, 1);
-    color: #000; }
 
+}
+#nav > li > a{
+//    text-transform: uppercase;
+    font-weight: normal;
+}
 #nav li li a {
     display: block;
     padding: 6px 6px 6px 4px;
@@ -946,6 +953,64 @@ filter: alpha(opacity=100);
 }
 
 #nav .submenu { margin-left:20px; }
+
+
+/***************
+ menu icons
+****************/
+
+#nav > li > a[class^="icon"],
+td[class^="icon"] {
+    background-position: left center;
+    background-repeat: no-repeat;
+    padding: 15px 12px 15px 40px;
+}
+
+.icon-antivirus { background-image: url("/data/software/images/package-icons/zentyal-antivirus.png");}
+.icon-asterisk { background-image: url("/data/software/images/package-icons/zentyal-asterisk.png");}
+.icon-bwmonitor { background-image: url("/data/software/images/package-icons/zentyal-bwmonitor.png");}
+.icon-ca { background-image: url("/data/software/images/package-icons/zentyal-ca.png");}
+.icon-captiveportal { background-image: url("/data/software/images/package-icons/zentyal-captiveportal.png");}
+.icon-dashboard { background-image: url("/data/software/images/package-icons/zentyal-dashboard.png");}
+.icon-dns { background-image: url("/data/software/images/package-icons/zentyal-dns.png");}
+.icon-dhcp { background-image: url("/data/software/images/package-icons/zentyal-dhcp.png");}
+.icon-ebackup { background-image: url("/data/software/images/package-icons/zentyal-ebackup.png");}
+.icon-firewall { background-image: url("/data/software/images/package-icons/zentyal-firewall.png");}
+.icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-ftp.png");}
+.icon-ips { background-image: url("/data/software/images/package-icons/zentyal-ips.png");}
+.icon-ipsec { background-image: url("/data/software/images/package-icons/zentyal-ipsec.png");}
+.icon-jabber { background-image: url("/data/software/images/package-icons/zentyal-jabber.png");}
+.icon-l7-protocols { background-image: url("/data/software/images/package-icons/zentyal-l7-protocols.png");}
+.icon-ltsp { background-image: url("/data/software/images/package-icons/zentyal-ltsp.png");}
+.icon-mail { background-image: url("/data/software/images/package-icons/zentyal-mail.png");}
+.icon-mailfilter { background-image: url("/data/software/images/package-icons/zentyal-mailfilter.png");}
+.icon-maintenance { background-image: url("/data/software/images/package-icons/zentyal-maintenance.png");}
+.icon-events { background-image: url("/data/software/images/package-icons/zentyal-events.png");}
+.icon-logs { background-image: url("/data/software/images/package-icons/zentyal-logs.png");}
+.icon-monitor { background-image: url("/data/software/images/package-icons/zentyal-monitor.png");}
+.icon-network { background-image: url("/data/software/images/package-icons/zentyal-network.png");}
+.icon-ntp { background-image: url("/data/software/images/package-icons/zentyal-ntp.png");}
+.icon-nut { background-image: url("/data/software/images/package-icons/zentyal-nut.png");}
+.icon-openvpn { background-image: url("/data/software/images/package-icons/zentyal-openvpn.png");}
+.icon-pptp { background-image: url("/data/software/images/package-icons/zentyal-pptp.png");}
+.icon-printers { background-image: url("/data/software/images/package-icons/zentyal-printers.png");}
+.icon-radius { background-image: url("/data/software/images/package-icons/zentyal-radius.png");}
+.icon-register { background-image: url("/data/software/images/package-icons/zentyal-register.png");}
+.icon-remoteservices { background-image: url("/data/software/images/package-icons/zentyal-remoteservices.png");}
+.icon-samba { background-image: url("/data/software/images/package-icons/zentyal-samba.png");}
+.icon-status { background-image: url("/data/software/images/package-icons/zentyal-mstatus.png");}
+.icon-system { background-image: url("/data/software/images/package-icons/zentyal-system.png");}
+.icon-software  { background-image: url("/data/software/images/package-icons/zentyal-software.png");}
+.icon-mstatus { background-image: url("/data/software/images/package-icons/zentyal-mstatus.png");}
+.icon-squid { background-image: url("/data/software/images/package-icons/zentyal-squid.png");}
+.icon-trafficshaping { background-image: url("/data/software/images/package-icons/zentyal-trafficshaping.png");}
+.icon-ups { background-image: url("/data/software/images/package-icons/zentyal-ups.png");}
+.icon-usercorner { background-image: url("/data/software/images/package-icons/zentyal-usercorner.png");}
+.icon-users { background-image: url("/data/software/images/package-icons/zentyal-users.png");}
+.icon-virt { background-image: url("/data/software/images/package-icons/zentyal-virt.png");}
+.icon-webmail { background-image: url("/data/software/images/package-icons/zentyal-webmail.png");}
+.icon-webserver { background-image: url("/data/software/images/package-icons/zentyal-webserver.png");}
+.icon-zarafa { background-image: url("/data/software/images/package-icons/zentyal-zarafa.png");}
 
 .sleft { float: left; }
 
@@ -1539,25 +1604,24 @@ float:left;
 
 #software #packages {
     margin: 20px 0 10px 0;
-    border: 1px solid #CCC;
-    -moz-border-radius: 15px;
-    -webkit-border-radius: 15px;
-    border-radius: 15px;
     padding: 10px 0;
 }
 
 #software .package {
-    text-align: center;
-    margin: 8px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 0 5px #CCCCCC;
     display: inline-block;
-    width: 80px;
-    height: 70px;
-    overflow: hidden;
+    height: 100px;
+    margin: 8px;
     padding: 9px 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    text-align: center;
     vertical-align: middle;
+    width: 112px;
+    background-color: white;
+    position: relative;
 }
 
 #software .package:hover {
@@ -1567,14 +1631,19 @@ float:left;
 
 #software .package img {
     height: 32px;
-    width: 32px;
+    margin-bottom: 10px;
     margin-top: 5px;
+    width: 32px;
 }
 
 #software .package p {
-    margin: 0;
-    font-weight: bold;
-    color: #333;
+    border-top: 1px dashed #dddddd;
+    color: #333333;
+    display: table-cell;
+    font-size: 12px;
+    height: 50px;
+    vertical-align: middle;
+    width: 112px;
 }
 
 #software .package_selected, #software .package_selected:hover {
@@ -1588,9 +1657,20 @@ float:left;
     padding:5px 10px;
     font-weight:normal;
 }
-
-.package_installed { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
-.package_installed:hover { background: url(/data/images/apply.gif) 5px 5px no-repeat #ccc !important;}
+.package_installed:before {
+content: " ";
+position: absolute;
+top: -5px;
+right: -5px;
+border-radius: 13px;
+border: 1px solid #fff;
+height: 22px;
+width: 22px;
+background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !important;
+}
+.package_installed.package_selected{
+    background-color: transparent !important;
+}
 
 /* modalbox.js stuff */
 
@@ -1732,13 +1812,9 @@ float:left;
 /* end modalbox.js stuff */
 
 .headcontainer{
-    border-radius: 15px ;
-    -moz-border-radius: 15px;
-    border: 1px solid #ccc;
     padding: 10px 0px;
     width:100%;
     margin-top:15px;
-
 }
 
 .headcontainer > h3, #packages > h3 {
@@ -1748,7 +1824,6 @@ float:left;
     padding: 3px 0px;
     margin: 0px 0px 0px 10px;
 }
-
 .head {
     margin: 0 30px;
     padding: 5px;
@@ -1756,9 +1831,9 @@ float:left;
     text-align: center;
     width:115px;
 }
-
-.head:hover{background-color: #ECF5DA;}
-
+.head:hover{
+    background-color: #ECF5DA;
+}
 .head h3{
     font-size:14px;
     border-bottom:none;
@@ -1767,7 +1842,6 @@ float:left;
     margin-bottom: 2px;
     margin-top: 0;
 }
-
 .final_installation {
     height:400px;
     background: url("/data/software/images/fluffy_ok.png") 250px bottom no-repeat

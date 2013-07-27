@@ -224,6 +224,7 @@ sub menu
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
+                                      icon  => 'webserver',
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
