@@ -23,18 +23,17 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
+
 
 sub new
 {
     my ($class, %params) = @_;
-    my $self = $class->SUPER::new(%params);
-    $self->{'tableModel'} = $params{'tableModel'};
+    my $tableModel = $params{'tableModel'};
+    my $self = $class->SUPER::new('template' => $tableModel->Viewer(), %params);
+    $self->{'tableModel'} = $tableModel;
     bless($self, $class);
     return  $self;
 }
-
-# Group: Protected methods
 
 # Method: _header
 #
@@ -87,8 +86,6 @@ sub _process
         $self->{'params'} = \@params;
     }
 }
-
-# Group: Private methods
 
 # Method to check if the given parameters are exactly in the model or
 # not and then add
