@@ -25,6 +25,7 @@ use EBox::CGI::Run;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
@@ -36,6 +37,7 @@ use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
 use MIME::Base64;
 use Digest::MD5;
+use Error qw(:try);
 use Fcntl qw(:flock);
 use File::Basename;
 
@@ -53,6 +55,7 @@ EBox::initLogger('usercorner-log.conf');
 #
 #   - user name
 #   - password
+#   - user DN
 #   - session id: if the id is undef, it creates a new one
 #   - key: key for rijndael, if sid is undef creates a new one
 # Exceptions:
@@ -60,7 +63,7 @@ EBox::initLogger('usercorner-log.conf');
 #               - When session file cannot be opened to write
 sub _savesession
 {
-        my ($user, $passwd, $sid, $key) = @_;
+    my ($user, $passwd, $userDN, $sid, $key) = @_;
 
     if(not defined($sid)) {
         my $rndStr;
@@ -101,7 +104,7 @@ sub _savesession
         or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
     # Truncate the file after locking
     truncate($sidFile, 0);
-        print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . time if defined $sid;
+        print $sidFile $sid . "\t" . $encodedcryptedpass . "\t" . $userDN . "\t" . time if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
         close($sidFile);
@@ -123,13 +126,12 @@ sub _updatesession
         or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
 
     my $sess_info = <$sidFile>;
-    my ($sid, $cryptedpass, $lastime);
-    ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+    my ($sid, $cryptedpass, $userDN, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
 
     # Truncate the file
     truncate($sidFile, 0);
     seek($sidFile, 0, 0);
-    print $sidFile $sid . "\t" . $cryptedpass . "\t" . time if defined $sid;
+    print $sidFile $sid . "\t" . $cryptedpass . "\t" . $userDN . "\t" . time if defined $sid;
     # Release the lock
     flock($sidFile, LOCK_UN);
     close($sidFile);
@@ -146,17 +148,38 @@ sub _updatesession
 #
 # Returns:
 #
-#       boolean - true if it's correct, otherwise false
+#       string - the user's DN identified, or undef
 #
 # Exceptions:
 #
 #       <EBox::Exceptions::Internal> - when password's file cannot be opened
 sub checkPassword # (user, password)
 {
-    my ($self, $user, $passwd) = @_;
+    my ($self, $user, $password) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return $users->authUser($user, $passwd);
+    # We connect to the LDAP with a read only account to lookup the user.
+    my $usersMod = EBox::Global->modInstance('users');
+
+    # We require an LDAP connection to query the LDAP database. That connection MUST be closed after the validation.
+    my $ldap = EBox::Ldap->instance();
+    my $connection = $ldap->connection();
+
+    my $userDN = undef;
+    my $userObject = $usersMod->userByUID($user);
+
+    if ($userObject) {
+        try {
+            $userDN = $userObject->dn();
+            EBox::Ldap::safeBind($connection, $userDN, $password);
+        } otherwise {
+            # exception == auth failed
+            $userDN = undef;
+        };
+    }
+
+    # Force the LDAP connection clean up to prevent any other privileged query that may happen.
+    $ldap->clearConn();
+    return $userDN;
 }
 
 # Method: updatePassword
@@ -169,13 +192,13 @@ sub checkPassword # (user, password)
 #
 sub updatePassword
 {
-    my ($self, $user, $passwd) = @_;
+    my ($self, $user, $passwd, $userDN) = @_;
     my $r = Apache2::RequestUtil->request();
 
     my $session_info = EBox::UserCorner::Auth->key($r);
     my $sid = substr($session_info, 0, 32);
     my $key = substr($session_info, 32, 32);
-    _savesession($user, $passwd, $sid, $key);
+    _savesession($user, $passwd, $userDN, $sid, $key);
 }
 
 # Method: authen_cred
@@ -186,7 +209,8 @@ sub authen_cred  # (request, user, password)
 {
     my ($self, $r, $user, $passwd) = @_;
 
-    unless ($self->checkPassword($user, $passwd)) {
+    my $userDN = $self->checkPassword($user, $passwd);
+    unless ($userDN) {
         my $log = EBox->logger();
         my $ip = $r->hostname();
         $ip or $ ip ='unknown';
@@ -194,12 +218,16 @@ sub authen_cred  # (request, user, password)
         return;
     }
 
-    return _savesession($user, $passwd);
+    return _savesession($user, $passwd, $userDN);
 }
 
 # Method: credentials
 #
 #   gets the current user and password
+#
+# Throws:
+#
+#   EBox::Exceptions::DataNotFound - When the credentials are not available.
 #
 sub credentials
 {
@@ -208,7 +236,12 @@ sub credentials
     my $user = $r->user();
 
     my $session_info = EBox::UserCorner::Auth->key($r);
-    return _credentials($user, $session_info);
+
+    if ($session_info) {
+        return _credentials($user, $session_info);
+    }
+
+    throw EBox::Exceptions::DataNotFound(data => "session");
 }
 
 sub _credentials
@@ -229,8 +262,7 @@ sub _credentials
         or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
 
     my $sess_info = <$SID_F>;
-    my ($sid, $cryptedpass, $lastime);
-    ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+    my ($sid, $cryptedpass, $userDN, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
 
     # Release the lock
     flock($SID_F, LOCK_UN);
@@ -240,7 +272,7 @@ sub _credentials
     my $pass = $cipher->decrypt($decodedcryptedpass);
     $pass =~ tr/\x00//d;
 
-    return { 'user' => $user, 'pass' => $pass };
+    return { 'user' => $user, 'pass' => $pass, 'userDN' => $userDN };
 }
 
 # Method: authen_ses_key
@@ -268,8 +300,7 @@ sub authen_ses_key  # (request, session_key)
           or throw EBox::Exceptions::Lock('EBox::UserCorner::Auth');
 
         my $sess_info = <$SID_F>;
-        my ($sid, $cryptedpass, $lastime);
-        ($sid, $cryptedpass, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
+        my ($sid, $cryptedpass, $userDN, $lastime) = split (/\t/, $sess_info) if defined $sess_info;
 
         $expired = _timeExpired($lastime);
         if ($session_key eq $sid) {

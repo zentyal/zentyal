@@ -309,4 +309,16 @@ sub disabledModuleWarning
     }
 }
 
+# Method: userCorner
+#
+# Whether this component can be used in the usercorner. Defualt implementation
+# always return false
+#
+#  Returns:
+#          boolean - whether this component can be used in usercorner
+sub userCorner
+{
+    return 0;
+}
+
 1;

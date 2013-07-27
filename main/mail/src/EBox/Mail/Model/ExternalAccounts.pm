@@ -139,6 +139,11 @@ sub _table
     return $dataTable;
 }
 
+sub userCorner
+{
+    return 1;
+}
+
 sub _mailProtocols
 {
     return [
