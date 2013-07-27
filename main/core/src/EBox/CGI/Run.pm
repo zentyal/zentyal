@@ -118,10 +118,7 @@ sub modelFromUrl
 sub urlToClass
 {
     my ($self, $url) = @_;
-    EBox::debug("urlToClass : $self $url");
     unless ($url) {
-        EBox::debug("TO DASHBOARD");
-        EBox::trace();
         return "EBox::Dashboard::CGI::Index";
     }
 
