@@ -984,7 +984,9 @@ td[class^="icon"] {
 .icon-ltsp { background-image: url("/data/software/images/package-icons/zentyal-ltsp.png");}
 .icon-mail { background-image: url("/data/software/images/package-icons/zentyal-mail.png");}
 .icon-mailfilter { background-image: url("/data/software/images/package-icons/zentyal-mailfilter.png");}
-.icon-maintenance  { background-image: url("/data/software/images/package-icons/zentyal-maintenance.png");}
+.icon-maintenance { background-image: url("/data/software/images/package-icons/zentyal-maintenance.png");}
+.icon-events { background-image: url("/data/software/images/package-icons/zentyal-events.png");}
+.icon-logs { background-image: url("/data/software/images/package-icons/zentyal-logs.png");}
 .icon-monitor { background-image: url("/data/software/images/package-icons/zentyal-monitor.png");}
 .icon-network { background-image: url("/data/software/images/package-icons/zentyal-network.png");}
 .icon-ntp { background-image: url("/data/software/images/package-icons/zentyal-ntp.png");}
