@@ -308,7 +308,7 @@ sub run
     }
 
     if (defined($self->{chain})) {
-        my $classname = EBox::CGI::Run::urlToClass($self->{chain});
+        my $classname = EBox::CGI::Run->urlToClass($self->{chain});
         if (not $self->isa($classname)) {
           eval "use $classname";
           if ($@) {
