@@ -2417,23 +2417,12 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $args = {
-        base => $dn,
-        filter => "(objectClass=*)",
-        scope => 'base',
-    };
+    my $baseObject = new EBox::Users::LdapObject(dn => $dn);
 
-    my $result = $ldap->search($args);
-
-    my $count = $result->count();
-
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for, expected only one.', count => $result->count()));
-    } elsif ($count == 0) {
-        return undef;
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return undef;
     }
 }
 

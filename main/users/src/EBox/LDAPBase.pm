@@ -22,6 +22,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
 use Error qw(:try);
+use Net::LDAP::Constant qw(LDAP_NO_SUCH_OBJECT);
 use POSIX;
 
 sub _new_instance
@@ -102,7 +103,9 @@ sub search # (args)
 #        }
 #    }
     my $result = $self->{ldap}->search(%{$args});
-    $self->_errorOnLdap($result, $args);
+    unless ($result->code() == LDAP_NO_SUCH_OBJECT) {
+        $self->_errorOnLdap($result, $args);
+    }
     return $result;
 }
 

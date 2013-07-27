@@ -208,14 +208,14 @@ sub _entry
         my $base = undef;
         my $filter = undef;
         my $scope = undef;
-        if (defined $self->{objectGUID}) {
+        if ($self->{objectGUID}) {
             $base = $self->_ldap()->dn();
             $filter = "(objectGUID=" . $self->{objectGUID} . ")";
             $scope = 'sub';
-        } elsif (defined $self->{dn}) {
+        } elsif ($self->{dn}) {
             my $dn = $self->{dn};
             $base = $dn;
-            $filter = "(distinguishedName=$dn)";
+            $filter = "(objectclass=*)";
             $scope = 'base';
         } else {
             return undef;
@@ -229,7 +229,7 @@ sub _entry
         };
 
         $result = $self->_ldap->search($attrs);
-        return undef unless defined $result;
+        return undef unless ($result);
 
         if ($result->count() > 1) {
             throw EBox::Exceptions::Internal(

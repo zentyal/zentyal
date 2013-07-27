@@ -24,9 +24,14 @@ use warnings;
 package EBox::Samba::OU;
 use base 'EBox::Samba::LdbObject';
 
-use EBox::Exceptions::Internal;
+use EBox;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
+use EBox::Global;
 use EBox::Users::OU;
+
+use Error qw(:try);
 
 # Method: mainObjectClass
 #
@@ -75,7 +80,7 @@ sub addToZentyal
     my $parentDN = $parent->dn();
 
     try {
-        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent);
+        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
         $self->_linkWithUsersObject($ou);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");

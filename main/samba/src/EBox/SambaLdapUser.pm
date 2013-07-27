@@ -56,9 +56,10 @@ sub _ldbDNFromLDAPDN
     my $usersMod = EBox::Global->modInstance('users');
 
     my $relativeDN = $usersMod->relativeDN($ldapDN);
-    # Computers and Users are not OUs for Samba.
+    # Computers, Builtin and Users are not OUs for Samba.
     $relativeDN =~ s/ou=Users$/CN=Users/gi;
     $relativeDN =~ s/ou=Computers$/CN=Computers/gi;
+    $relativeDN =~ s/ou=Builtin$/CN=Builtin/gi;
     if (grep (/^uid=/i, $relativeDN)) {
         throw EBox::Exceptions::NotImplemented();
     }
@@ -124,14 +125,14 @@ sub _delOU
     $self->_sambaReady() or
         return;
 
-    EBox::debug("Deleting OU '$zentyalOU->dn()' from samba");
+    EBox::debug("Deleting OU ' . $zentyalOU->dn() . ' from samba");
     my $sambaOu = $self->{samba}->ldbObjectFromLDAPObject($zentyalOU);
     return unless $sambaOu;
     try {
         $sambaOu->deleteObject();
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting OU $sambaOu->dn(): $error");
+        EBox::error("Error deleting OU " . $sambaOu->dn() . ": $error");
     };
 }
 

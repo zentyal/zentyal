@@ -129,9 +129,11 @@ sub members
     my ($self) = @_;
 
     my $sambaMod = $self->_sambaMod();
-    my @members = map {
-        $sambaMod->objectFromDN($_)
-    } $self->get('member');
+    my @members = ();
+    foreach my $member ($self->get('member')) {
+        my $memberObject = $sambaMod->objectFromDN($member);
+        push (@members, $memberObject) if ($memberObject);
+    }
 
     @members = sort {
         my $aValue = $a->canonicalName();
@@ -258,6 +260,7 @@ sub addToZentyal
         }
 
         $zentyalGroup = EBox::Users::Group->create(@params);
+        $self->_linkWithUsersObject($zentyalGroup);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("Group $name already in Samba database");
         $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);

@@ -44,6 +44,7 @@ use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
 use EBox::Samba::GPO;
+use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Container;
 use EBox::Samba::NamingContext;
@@ -2071,10 +2072,12 @@ sub ldbObjectFromLDAPObject
     }
 
     my $objectGUID = $ldapObject->get('msdsObjectGUID');
-    unless ($objectGUID) {
-        throw EBox::Exceptions::Internal("'" . $ldapObject->dn() ."' lacks a value for msdsObjectGUID!");
+    if ($objectGUID) {
+        return $self->ldbObjectByObjectGUID($objectGUID);
+    } else {
+        EBox::debug("Unable to find the LDB object for LDAP's DN: " . $ldapObject->dn());
+        return undef;
     }
-    return $self->ldbObjectByObjectGUID($objectGUID);
 }
 
 # Method: entryModeledObject
@@ -2094,7 +2097,7 @@ sub entryModeledObject
     my $object;
 
     my $anyObjectClasses = any($entry->get_value('objectClass'));
-    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container);
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container EBox::Samba::BuiltinDomain);
     foreach my $class (@entryClasses) {
             EBox::debug("Checking " . $class->mainObjectClass . ' against ' . (join ',', $entry->get_value('objectClass')) );
         if ($class->mainObjectClass eq $anyObjectClasses) {
