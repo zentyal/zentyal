@@ -326,16 +326,6 @@ sub setViewInAdvancedOnly
     $self->save($relaxOidControl) unless $lazy;
 }
 
-sub getXidNumberFromRID
-{
-    my ($self) = @_;
-
-    my $sid = $self->sid();
-    my $rid = (split (/-/, $sid))[7];
-
-    return $rid + 50000;
-}
-
 # Method: children
 #
 #   Return a reference to the list of objects that are children of this node.
