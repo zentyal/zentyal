@@ -975,7 +975,7 @@ td[class^="icon"] {
 .icon-dns { background-image: url("/data/software/images/package-icons/zentyal-dns.png");}
 .icon-dhcp { background-image: url("/data/software/images/package-icons/zentyal-dhcp.png");}
 .icon-ebackup { background-image: url("/data/software/images/package-icons/zentyal-ebackup.png");}
-.icon-software { background-image: url("/data/software/images/package-icons/zentyal-firewall.png");}
+.icon-firewall { background-image: url("/data/software/images/package-icons/zentyal-firewall.png");}
 .icon-ftp { background-image: url("/data/software/images/package-icons/zentyal-ftp.png");}
 .icon-ips { background-image: url("/data/software/images/package-icons/zentyal-ips.png");}
 .icon-ipsec { background-image: url("/data/software/images/package-icons/zentyal-ipsec.png");}
