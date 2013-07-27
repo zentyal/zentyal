@@ -125,14 +125,14 @@ sub _delOU
     $self->_sambaReady() or
         return;
 
-    EBox::debug("Deleting OU ' . $zentyalOU->dn() . ' from samba");
-    my $sambaOu = $self->{samba}->ldbObjectFromLDAPObject($zentyalOU);
-    return unless $sambaOu;
+    EBox::debug("Deleting OU '" . $zentyalOU->dn() . "' from samba");
+    my $sambaOU = $self->{samba}->ldbObjectFromLDAPObject($zentyalOU);
+    return unless $sambaOU;
     try {
-        $sambaOu->deleteObject();
+        $sambaOU->deleteObject();
     } otherwise {
         my ($error) = @_;
-        EBox::error("Error deleting OU " . $sambaOu->dn() . ": $error");
+        EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
     };
 }
 
