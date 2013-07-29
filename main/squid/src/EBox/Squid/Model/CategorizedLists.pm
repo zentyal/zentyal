@@ -153,7 +153,11 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $oldRow) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to change categorized lists
+        return;
+    }
     $self->_changeInCategorizedLists();
 }
 
