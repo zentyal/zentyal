@@ -104,7 +104,7 @@ sub connection
             }
             my $credentials = undef;
             try {
-                my $credentials = EBox::UserCorner::Auth->credentials();
+                $credentials = EBox::UserCorner::Auth->credentials();
             } catch EBox::Exceptions::DataNotFound with {
                 # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
                 my $userCornerMod = EBox::Global->modInstance('usercorner');
@@ -112,6 +112,9 @@ sub connection
                     userDN => $userCornerMod->roRootDn(),
                     pass => $userCornerMod->getRoPassword()
                 };
+            } otherwise {
+                my ($error) = @_;
+                throw $error;
             };
             $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};
