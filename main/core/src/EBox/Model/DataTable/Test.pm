@@ -616,7 +616,6 @@ sub setRowTest : Test(8)
             'Setting row',
     );
 
-
     lives_ok {
         $changeParams{id} = $id;
         $dataTable->setRow(0, %changeParams);
