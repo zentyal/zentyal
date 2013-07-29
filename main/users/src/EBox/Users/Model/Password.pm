@@ -165,6 +165,7 @@ sub setTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
+    eval 'use EBox::UserCorner::Auth';
     my $auth = EBox::UserCorner::Auth->credentials();
     my $user = $auth->{user};
     my $pass = $auth->{pass};
@@ -182,7 +183,6 @@ sub setTypedRow
     # At this point, the password has been changed in samba
     $zentyalUser->changePassword($pass1->value());
 
-    eval 'use EBox::UserCorner::Auth';
     EBox::UserCorner::Auth->updatePassword($user, $pass1->value(), $zentyalUser->dn());
 
     $self->setMessage(__('Password successfully updated'));
