@@ -20,7 +20,7 @@ then
 
     mv /usr/share/zenbuntu-core/second-boot.sh /etc/rc.local
 
-    initctl emit zentyal-lxdm
+    start lxdm
 else
     URL=$(/usr/share/zenbuntu-core/get-zentyal-url)
     plymouth message --text="Zentyal interface at $URL (Alt+F2 for login shell)"
