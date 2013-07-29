@@ -19,8 +19,6 @@ package EBox::UserCorner;
 
 use base qw(EBox::Module::Service);
 
-use File::Copy qw(copy move);
-
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -164,11 +162,11 @@ sub _setupRoLDAPAccess
     # Copy ldapro password.
     my $ucUser = USERCORNER_USER;
     my $ucGroup = USERCORNER_GROUP;
-    my $ldapPasswdFile = EBox::Config::conf() . USERCORNER_LDAP_PASS;
-    copy(EBox::Config::conf() . USERCORNER_LDAP_PASS, $ldapPasswdFile);
+    my $ldapUsersPasswdFile = EBox::Config::conf() . 'ldap_ro.passwd';
     EBox::Sudo::root(
-        "chown $ucUser::$ucGroup  $ldapPasswdFile",
-        "chmod 600 $ldapPasswdFile"
+        "cp $ldapUsersPasswdFile " . USERCORNER_LDAP_PASS,
+        "chown $ucUser:$ucGroup  " . USERCORNER_LDAP_PASS,
+        "chmod 600 " . USERCORNER_LDAP_PASS
     );
 }
 
@@ -364,8 +362,7 @@ sub getRoPassword
     my ($self) = @_;
 
     unless (defined($self->{roPassword})) {
-        my $path = EBox::Config::conf() . USERCORNER_LDAP_PASS;
-        open(PASSWD, $path) or
+        open(PASSWD, USERCORNER_LDAP_PASS) or
             throw EBox::Exceptions::External('Could not get LDAP password');
 
         my $pwd = <PASSWD>;
