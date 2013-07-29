@@ -165,12 +165,7 @@ $(function () {
   treeComponent.bind('dblclick.jstree', function (e) {
       var node = $(e.target).closest('li');
       var nodeType = node.attr('rel');
-      var selectedNodeMetadata = node.data();
-      var metadata = [];
-      for (var key in selectedNodeMetadata) {
-          metadata.push(key + "=" + selectedNodeMetadata[key]);
-      }
-      var metadataStr = metadata.join('&');
+      var metadata = node.data();
 
 % foreach my $type (keys %types) {
 %   if ($types{$type}->{actions}->{edit}) {
@@ -179,7 +174,7 @@ $(function () {
         Zentyal.Dialog.showURL('<% $link->{url} %>',
             { title: '<% $link->{title} %>',
               width: <% $link->{width} %>,
-              data: metadataStr });
+              data: metadata });
       }
 %   }
 % }
