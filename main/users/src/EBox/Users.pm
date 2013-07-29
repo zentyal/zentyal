@@ -792,10 +792,16 @@ sub _setConfInternal
 {
     my ($self, $realm, $noSlaveSetup) = @_;
     if ($self->get('need_reprovision')) {
+        $self->unset('need_reprovision');
+        # workaround  a orphan need_reprovision on read-only
+        my $roKey = 'users/ro/need_reprovision';
+        $self->redis->unset($roKey);
+
         try {
             $self->reprovision();
         } otherwise {
             my ($ex) = @_;
+            $self->set('need_reprovision', 1);
             throw EBox::Exceptions::External(__x(
 'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
                err => "$ex",
@@ -804,10 +810,7 @@ sub _setConfInternal
             ));
         };
 
-        $self->unset('need_reprovision');
-        # workaround  a orphan need_reprovision on read-only
-        my $roKey = 'users/ro/need_reprovision';
-        $self->redis->unset($roKey);
+
     }
 
     my $ldap = $self->ldap;

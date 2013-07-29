@@ -1,4 +1,6 @@
 HEAD
+	+ Better error control on reprovision, do not clear the
+	  reprovision flg on error
 	+ Added menu icon
 	+ Added new userCorner method to password model
 	+ Usercorner uses the ldap_ro credentials to retrieve user DNs.
