@@ -19,8 +19,6 @@ package EBox::UserCorner;
 
 use base qw(EBox::Module::Service);
 
-use File::Copy qw(copy move);
-
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
@@ -33,6 +31,7 @@ use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
 use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
 use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
+use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
 {
@@ -135,7 +134,7 @@ sub initialSetup
         $self->setPort($port);
     }
 
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.1') <= 0)) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2') < 0)) {
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
@@ -146,7 +145,7 @@ sub initialSetup
 
 # Migration to 3.2
 #
-#  * Create the ldap_ro.passwd file.
+#  * Create the USERCORNER_LDAP_PASS file.
 #
 sub _migrateTo32
 {
@@ -163,11 +162,11 @@ sub _setupRoLDAPAccess
     # Copy ldapro password.
     my $ucUser = USERCORNER_USER;
     my $ucGroup = USERCORNER_GROUP;
-    my $ldapPasswdFile = EBox::Config::conf() . 'ldap_ro_usercorner.passwd';
-    copy(EBox::Config::conf() . 'ldap_ro.passwd', $ldapPasswdFile);
+    my $ldapUsersPasswdFile = EBox::Config::conf() . 'ldap_ro.passwd';
     EBox::Sudo::root(
-        "chown $ucUser::$ucGroup  $ldapPasswdFile",
-        "chmod 600 $ldapPasswdFile"
+        "cp $ldapUsersPasswdFile " . USERCORNER_LDAP_PASS,
+        "chown $ucUser:$ucGroup  " . USERCORNER_LDAP_PASS,
+        "chmod 600 " . USERCORNER_LDAP_PASS
     );
 }
 
@@ -363,8 +362,7 @@ sub getRoPassword
     my ($self) = @_;
 
     unless (defined($self->{roPassword})) {
-        my $path = EBox::Config::conf() . 'ldap_ro_usercorner.passwd';
-        open(PASSWD, $path) or
+        open(PASSWD, USERCORNER_LDAP_PASS) or
             throw EBox::Exceptions::External('Could not get LDAP password');
 
         my $pwd = <PASSWD>;
