@@ -2004,6 +2004,14 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     margin-top: 10px;
 }
 
+.treeViewNodeViewer {
+    border: 1px solid #ccc;
+    background-color: white;
+    min-height: 100px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
 .treeviewButtons {
     margin: 20px 5px;
 }

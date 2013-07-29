@@ -4,6 +4,7 @@
 <%init>
   my %types = %{$model->nodeTypes()};
   my $treeId = "tree_" . $model->name();
+  my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
 
 <& .pageTitle, title => $model->pageTitle() &>
@@ -57,7 +58,10 @@
 
 </div>
 
+<div id="<% $treeViewerId %>" class="treeViewNodeViewer"/>
+
 <div id="<% $treeId %>" class="treeView"/>
+
 
 <script>
 $(function () {
@@ -104,18 +108,27 @@ $(function () {
     });
   });
 
+  treeComponent.bind("select_node.jstree",
+    function (evt, data) {
+        var selectedNode = treeComponent.jstree('get_selected');
+        var metadata = selectedNode.data();
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
+
+% foreach my $type (keys %types) {
+%   next unless $types{$type}->{actions}->{view};
+%   my $link = $model->clickHandlerJS($type);
+        if (nodeType == '<% $type %>') {
+            $('#<% $treeViewerId %>').load('<% $link->{url} %>', { data: metadata });
+        }
+% }
+  });
+
   $(".treeviewActionButton").each(function() {
     $(this).click(function() {
         var actionId = $(this).attr('id');
         var selectedNode = treeComponent.jstree('get_selected');
-        var selectedNodeMetadata = selectedNode.data();
+        var metadata = selectedNode.data();
         var nodeType = $.jstree._focused()._get_type(selectedNode);
-
-        var metadata = [];
-        for (var key in selectedNodeMetadata) {
-            metadata.push(key + "=" + selectedNodeMetadata[key]);
-        }
-        var metadataStr = metadata.join('&');
 
 % foreach my $action (@{$model->defaultActions()}) {
         if (actionId == '<% $action %>') {
@@ -125,7 +138,7 @@ $(function () {
                 Zentyal.Dialog.showURL('<% $link->{url} %>',
                     { title: '<% $link->{title} %>',
                       width: <% $link->{width} %>,
-                      data: metadataStr });
+                      data: metadata });
             }
 % }
         }
