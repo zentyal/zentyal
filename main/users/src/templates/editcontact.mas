@@ -1,7 +1,7 @@
 <%args>
     $contact
     @contactgroups
-    @remaingroups
+    @remaingroups => ()
     $slave => 1
 </%args>
 <%init>

@@ -3,8 +3,8 @@
 <%args>
     $user
     @usergroups
-    @remaingroups
-    @components
+    @remaingroups => ()
+    @components => ()
     $slave => 1
 </%args>
 <%init>
@@ -125,7 +125,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 </div>
 
 <div id="user_addons" class="form-block">
-<h4> <% __('Addons configuration') %></h4>
+<h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
   <div class="stitle">
     <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
