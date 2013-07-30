@@ -1,5 +1,5 @@
 HEAD
-	+ Replaced call to existsDN in EBox::SambaLdapUser with call to search
+	+ Use new existsDN method in EBox::SambaLdapUser
 	+ Added menu icon
 	+ Added objectByObjectGUID to retrieve an LDB object from its LDAP
 	  replica.
