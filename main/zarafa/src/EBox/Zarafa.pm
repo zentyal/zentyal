@@ -780,25 +780,31 @@ sub _createVMailDomainsOUs
 {
     my ($self) = @_;
 
+    my $usersMod = EBox::Global->modInstance('users');
+    my $namingContext = $usersMod->defaultNamingContext();
+
+    my $dn = "ou=zarafa," . $namingContext->dn();
+    my $ou = new EBox::Users::OU(dn => $dn);
+    unless ($ou and $ou->exists()) {
+        $ou = EBox::Users::OU->create(name => 'zarafa', parent => $namingContext);
+    }
+
     my @vdomains = @{$self->model('VMailDomains')->vdomains()};
 
     foreach my $vdomain (@vdomains) {
-        $self->_addVMailDomainOU($vdomain);
+        $self->_addVMailDomainOU($vdomain, $ou);
     }
 }
 
 sub _addVMailDomainOU
 {
-    my ($self, $vdomain) = @_;
+    my ($self, $vdomain, $parent) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $usersContainer = EBox::Users::User->defaultContainer();
-
-    my $dn = "ou=$vdomain," . $usersContainer->dn();
+    my $dn = "ou=$vdomain," . $parent->dn();
     my $ou = new EBox::Users::OU(dn => $dn);
     return if $ou->exists();
 
-    $ou->create($vdomain, $usersContainer);
+    $ou->create(name => $vdomain, parent => $parent);
     $ou->add('objectClass', [ 'zarafa-company' ], 1);
     $ou->save();
 }
