@@ -654,6 +654,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
                                         'text' => __('Maintenance'),
+                                        'icon' => 'maintenance',
                                         'separator' => 'Core',
                                         'order' => 70);
 

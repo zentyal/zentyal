@@ -23,15 +23,13 @@ use base 'EBox::CGI::Controller::DataTable';
 use EBox::Gettext;
 use EBox::Global;
 
-sub new # (cgi=?)
+sub new
 {
-	my $class = shift;
-	my %params = @_;
-	my $tableModel = $params{'tableModel'};
-	my $self = $class->SUPER::new(@_);
-	$self->{'tableModel'} = $tableModel;
-	bless($self, $class);
-	return  $self;
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
+    bless($self, $class);
+    return  $self;
 }
 
 sub _process

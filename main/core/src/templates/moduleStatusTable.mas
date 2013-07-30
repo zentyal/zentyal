@@ -64,7 +64,7 @@ $(function() {
 %   my $status = $mod->{'status'};
 %   my $configured = $mod->{'configured'};
     <tr>
-        <td>
+        <td class="icon-<% $name %>">
             <% $printableName %>
         </td>
         <td style="color:#888">

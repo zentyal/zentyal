@@ -185,6 +185,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $settings = new EBox::Menu::Item(
+        'icon' => 'ltsp',
         'url' => 'LTSP/Composite/Composite',
         'text' => $self->printableName(),
         'separator' => 'Infrastructure',

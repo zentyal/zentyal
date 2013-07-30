@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::Radius;
 
-use base qw(EBox::Module::Service EBox::FirewallObserver EBox::LogObserver);
+use base qw(EBox::Module::Service EBox::LogObserver);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -289,6 +289,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item(
             'url' => 'Radius/Composite/General',
+            'icon' => 'radius',
             'separator' => 'Gateway',
             'order' => 225,
             'text' => 'RADIUS'));

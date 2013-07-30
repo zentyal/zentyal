@@ -86,8 +86,8 @@ Zentyal.LeftMenu.showMenu = function(name, menuAnchor){
 };
 
 Zentyal.LeftMenu._open = function(name, menuAnchor) {
-    $('.' + name).each(function(index, e) {
-            e.style.display = 'inline';
+    $('.submenu .' + name).each(function(index, e) {
+            e.style.display = 'block';
                             }
                       );
     menuAnchor.addClass('despleg');
@@ -95,7 +95,7 @@ Zentyal.LeftMenu._open = function(name, menuAnchor) {
 };
 
 Zentyal.LeftMenu._close = function(name, menuAnchor) {
-  $('.' + name).each(function(index, e) {
+  $('.submenu .' + name).each(function(index, e) {
       e.style.display = 'none';
                              }
                     );

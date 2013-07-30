@@ -1049,6 +1049,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
+                                        'icon' => 'squid',
                                         'text' => $self->printableName(),
                                         'separator' => 'Gateway',
                                         'order' => 210);

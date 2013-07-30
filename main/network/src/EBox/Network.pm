@@ -4055,6 +4055,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'icon' => 'network',
                                         'text' => __('Network'),
                                         'separator' => 'Core',
                                         'order' => 40);

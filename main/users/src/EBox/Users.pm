@@ -1795,6 +1795,7 @@ sub menu
     my $order = 510;
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
                                         'text' => $self->printableName(),
                                         'separator' => $separator,
                                         'order' => $order);
@@ -2112,31 +2113,6 @@ sub _removePasswds
 
   File::Copy::move($tmpFile, $file);
   unlink $tmpFile;
-}
-
-# Method: authUser
-#
-#   try to authenticate the given user with the given password
-#
-sub authUser
-{
-    my ($self, $username, $password) = @_;
-
-    my $authorized = 0;
-
-    my $user = $self->userByUID($username);
-    my $userDn = $user->dn();
-    my $ldapURL = $self->ldap()->url();
-    my $ldap = EBox::Ldap::safeConnect($ldapURL);
-
-    try {
-        EBox::Ldap::safeBind($ldap, $userDn, $password);
-        $authorized = 1;
-    } otherwise {
-        # exception == auth failed
-        $authorized = 0;
-    };
-    return $authorized;
 }
 
 sub listSchemas

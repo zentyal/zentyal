@@ -1,4 +1,6 @@
 HEAD
+	+ Adapted to updatedRowNotify call with no changes in values
+	+ Added menu icon
 	+ Adapt firewall rules to new accept chains
 	+ Set transparent DNS cache firewall rules unless the module is
 	  temporary stopped

@@ -1,4 +1,8 @@
 HEAD
+	+ Fixed code typo in slave setup
+	+ Added menu icon
+	+ Added new userCorner method to password model
+	+ Usercorner uses the ldap_ro credentials to retrieve user DNs.
 	+ preAdd callbacks get a second argument noting the parent when this
 	  new object will be created.
 	+ All LdapObject based objects will have the 'entryUUID' field available.

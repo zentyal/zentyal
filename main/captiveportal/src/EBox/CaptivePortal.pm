@@ -80,6 +80,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'CaptivePortal/Composite/General',
+                                    'icon' => 'captiveportal',
                                     'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 226));

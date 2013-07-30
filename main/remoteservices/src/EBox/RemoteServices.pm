@@ -423,6 +423,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
+                                        icon => 'register',
                                         text => __('Registration'),
                                         separator => 'Core',
                                         order => 105);

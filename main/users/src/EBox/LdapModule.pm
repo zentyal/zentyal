@@ -273,7 +273,7 @@ sub reprovisionLDAP
 sub slaveSetup
 {
     my ($self) = @_;
-    $self->resetLDAPConf();
+    $self->reprovisionLDAP();
 }
 
 # Method: preSlaveSetup

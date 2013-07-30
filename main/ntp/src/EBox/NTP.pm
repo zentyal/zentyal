@@ -271,6 +271,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'icon' => 'ntp',
                                     'url' => 'NTP/Composite/General',
                                     'separator' => 'Infrastructure',
                                     'order' => 445));

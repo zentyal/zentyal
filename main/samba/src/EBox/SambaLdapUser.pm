@@ -735,7 +735,15 @@ sub _checkWindowsBuiltin
     my ($self, $name) = @_;
 
     my $dn = "CN=$name,CN=Builtin";
-    if ($self->{ldb}->existsDN($dn, 1)) {
+    my $searchArgs = {
+        base => 'CN=Builtin',
+        scope => 'one',
+        filter => "(dn=$dn)"
+       };
+    my $result = $self->search($searchArgs);
+    $self->_errorOnLdap($result, $searchArgs);
+
+    if ($result->entries() > 0) {
         throw EBox::Exceptions::External(
             __x('{name} already exists as windows bult-in group',
                 name => $name

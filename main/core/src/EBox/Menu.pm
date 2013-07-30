@@ -52,7 +52,7 @@ sub getKeywords
     }
     if (defined ($item->{'url'})) {
         try {
-            my $model = EBox::CGI::Run::modelFromUrl($item->{'url'});
+            my $model = EBox::CGI::Run->modelFromUrl($item->{'url'});
             if ($model) {
                 my $words = $model->keywords();
                 for my $word (@{$words}) {

@@ -1,4 +1,6 @@
 HEAD
+	+ Added menu icon
+	+ Added new userCorner method to external accounts model
 	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapt firewall rules to new accept chains
 	+ Adapted user addon to multi-OU tree view

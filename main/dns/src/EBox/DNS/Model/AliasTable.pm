@@ -213,6 +213,12 @@ sub _addToDelete
     my @list = ();
     if ( $mod->st_entry_exists($key) ) {
         @list = @{$mod->st_get_list($key)};
+        foreach my $elem (@list) {
+            if ($elem eq $domain) {
+                # domain already added, nothing to do
+                return;
+            }
+        }
     }
 
     push (@list, $domain);

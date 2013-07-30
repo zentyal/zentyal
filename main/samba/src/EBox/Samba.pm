@@ -999,6 +999,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(name      => 'Samba',
                                         text      => $self->printableName(),
+                                        icon      => 'samba',
                                         separator => 'Office',
                                         order     => 540);
     $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',

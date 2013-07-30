@@ -132,6 +132,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
+                                        'icon' => 'maintenance',
                                         'text' => __('Maintenance'),
                                         'separator' => 'Core',
                                         'order' => 70);
