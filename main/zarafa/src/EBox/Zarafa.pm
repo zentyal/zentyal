@@ -802,9 +802,9 @@ sub _addVMailDomainOU
 
     my $dn = "ou=$vdomain," . $parent->dn();
     my $ou = new EBox::Users::OU(dn => $dn);
-    return if $ou->exists();
+    return if ($ou and $ou->exists());
 
-    $ou->create(name => $vdomain, parent => $parent);
+    $ou = EBox::Users::OU->create(name => $vdomain, parent => $parent);
     $ou->add('objectClass', [ 'zarafa-company' ], 1);
     $ou->save();
 }
