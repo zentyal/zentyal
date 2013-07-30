@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::Model::CategorizedLists;
+
 use base 'EBox::Model::DataTable';
 
 use EBox;
@@ -152,7 +153,11 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $oldRow) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to change categorized lists
+        return;
+    }
     $self->_changeInCategorizedLists();
 }
 
@@ -218,7 +223,6 @@ sub afterRestoreConfig
     my %noPresent =  map {
         $_ => 1
     } @{  $squid->pathsToRemove('restoreConfigNoPresent') };
-
 
     foreach my $id (@{ $self->ids() }) {
         my $row = $self->row($id);

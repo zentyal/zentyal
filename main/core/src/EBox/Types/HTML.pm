@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,10 +17,10 @@
 #
 #       This class represents a type which contains raw HTML
 #
-package EBox::Types::HTML;
-
 use strict;
 use warnings;
+
+package EBox::Types::HTML;
 
 use base 'EBox::Types::Text';
 
@@ -58,7 +58,6 @@ sub new
 
     return $self;
 }
-
 
 # Group: Protected methods
 

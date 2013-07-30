@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Virt;
+
 use base qw(EBox::Module::Service
             EBox::Report::DiskUsageProvider
             EBox::NetworkObserver
@@ -44,7 +45,6 @@ use constant VNC_PASSWD_FILE => '/var/lib/zentyal/conf/vnc-passwd';
 
 my $UPSTART_PATH = '/etc/init/';
 my $WWW_PATH = EBox::Config::www();
-
 
 sub _create
 {
@@ -82,12 +82,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    if ($version) {
-        if (EBox::Util::Version::compare($version, '3.0.2') < 0) {
-            eval "use EBox::Virt::Migration";
-            EBox::Virt::Migration->migrateOS($self);
-        }
-    } else {
+    unless ($version) {
         # Create default service only if installing the first time
         my $services = EBox::Global->modInstance('services');
 
@@ -127,6 +122,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
+                                    'icon' => 'virt',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 447));
@@ -239,7 +235,6 @@ sub _setConf
     write_file(VNC_PASSWD_FILE, @lines);
     chmod (0600, VNC_PASSWD_FILE);
 }
-
 
 sub updateFirewallService
 {
@@ -367,7 +362,6 @@ sub allowsNoneIface
     my ($self) = @_;
     return $self->{backend}->allowsNoneIface();
 }
-
 
 sub manageScript
 {
@@ -680,45 +674,6 @@ sub usingVBox
     my ($self) = @_;
 
     return $self->{backend}->isa('EBox::Virt::VBox');
-}
-
-sub backupDomains
-{
-    my $name = 'machines';
-    my %attrs  = (
-                  printableName => __('Virtual Machines'),
-                  description   => __(q{Disk images of the virtual machines}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-
-    return {} unless $enabled{machines};
-
-    my @files;
-    my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        my $settings = $vm->subModel('settings');
-        my $devices = $settings->componentByName('DeviceSettings');
-        foreach my $deviceId (@{$devices->enabledRows()}) {
-            my $device = $devices->row($deviceId);
-            my $file = $device->valueByName('path');
-            unless ($file) {
-                my $disk_name = $device->valueByName('name');
-                next unless ($disk_name);
-                $file = $self->{backend}->diskFile($disk_name, $name);
-            }
-            push (@files, $file);
-        }
-    }
-
-    return { includes => \@files };
 }
 
 sub _facilitiesForDiskUsage

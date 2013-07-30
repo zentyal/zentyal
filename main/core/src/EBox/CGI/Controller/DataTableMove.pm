@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,25 +13,24 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Controller::DataTableMove;
-
 use strict;
 use warnings;
+
+package EBox::CGI::Controller::DataTableMove;
 
 use base 'EBox::CGI::Controller::DataTable';
 
 use EBox::Gettext;
 use EBox::Global;
 
-sub new # (cgi=?)
+sub new
 {
-	my $class = shift;
-	my %params = @_;
-	my $tableModel = $params{'tableModel'};
-	my $self = $class->SUPER::new(@_);
-	$self->{'tableModel'} = $tableModel;
-	bless($self, $class);
-	return  $self;
+    my ($class, %params) = @_;
+
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
+    bless($self, $class);
+    return  $self;
 }
 
 sub _process
@@ -41,6 +40,5 @@ sub _process
 	$self->moveRow();
 	$self->refreshTable();
 }
-
 
 1;

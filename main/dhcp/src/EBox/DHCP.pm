@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,10 +16,10 @@ use strict;
 use warnings;
 
 package EBox::DHCP;
+
 use base qw( EBox::Module::Service
              EBox::NetworkObserver
              EBox::LogObserver );
-
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
@@ -31,7 +31,6 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Objects;
 use EBox::Validate qw(:all);
-
 
 use EBox::Sudo;
 use EBox::NetWrappers qw(:all);
@@ -45,7 +44,6 @@ use Net::IP;
 use Error qw(:try);
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
-
 
 # Module local conf stuff
 # FIXME: extract this from somewhere to support multi-distro?
@@ -207,17 +205,31 @@ sub actions
 #
 # Overrides:
 #
-#   <EBox::Module::Service::daemons>
+#   <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
     my ($self) = @_;
-    my $preSub = sub { return $self->_dhcpDaemonNeeded()  };
+
+    my $preSub = sub { return $self->_dhcpDaemonNeeded() };
+
     return [
-        { 'name' => DHCP_SERVICE,
-          'precondition' => $preSub
-         }
-       ];
+        {
+            'name' => DHCP_SERVICE,
+            'precondition' => $preSub
+        }
+    ];
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'isc-dhcp-server', 'type' => 'init.d' } ];
 }
 
 sub _dhcpDaemonNeeded
@@ -253,6 +265,7 @@ sub menu
 {
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'DHCP/View/Interfaces',
+                                    'icon' => 'dhcp',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 410));
@@ -279,56 +292,24 @@ sub depends
     return $dependsList;
 }
 
-# Method: initRange
-#
-#   Return the initial host address range for a given interface
-#
-# Parameters:
-#
-#   iface - String interface name
-#
-# Returns:
-#
-#   String - containing the initial range
-#
+# DEPRECATED
 sub initRange # (interface)
 {
     my ($self, $iface) = @_;
 
     my $net = $self->global()->modInstance('network');
-    my $address = $net->ifaceAddress($iface);
-    my $netmask = $net->ifaceNetmask($iface);
 
-    my $network = ip_network($address, $netmask);
-    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
-    my $init_range = $first . "." . ($last+1);
-    return $init_range;
+    return $net->netInitRange($iface);
 }
 
-# Method: endRange
-#
-#   Return the final host address range for a given interface
-#
-# Parameters:
-#
-#   iface - String interface name
-#
-# Returns:
-#
-#   string - containing the final range
-#
+# DEPRECATED
 sub endRange # (interface)
 {
     my ($self, $iface) = @_;
 
     my $net = $self->global()->modInstance('network');
-    my $address = $net->ifaceAddress($iface);
-    my $netmask = $net->ifaceNetmask($iface);
 
-    my $broadcast = ip_broadcast($address, $netmask);
-    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
-    my $end_range = $first . "." . ($last-1);
-    return $end_range;
+    return $net->netEndRange($iface);
 }
 
 # Method: defaultGateway
@@ -590,7 +571,6 @@ sub notifyStaticRoutesChange
     my ($self) = @_;
     $self->setAsChanged();
 }
-
 
 # Method: rangeAction
 #
@@ -896,7 +876,6 @@ sub ifaceMethodChanged # (iface, old_method, new_method)
     return 0;
 }
 
-
 # Method: staticIfaceAddressChanged
 #
 #       Return true *unless*:
@@ -981,7 +960,6 @@ sub freeIface #( self, iface )
 }
 
 # Group: Private methods
-
 
 # Impelment LogHelper interface
 sub tableInfo
@@ -1362,11 +1340,11 @@ sub _thinClientOptions # (iface, element)
 #    my $row = $thinClientModel->findValue(hosts => $element);
 #    if ( defined($row) ) {
     if ($thinClientModel->row()->valueByName('nextServer') ne 'none') {
-        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();#$row->id());
-        $ret->{nextServer} = $thinClientModel->nextServer();#$row->id());
-        $ret->{filename}   = $thinClientModel->remoteFilename();#$row->id());
-        $ret->{architecture} = $thinClientModel->architecture();#$row->id());
-        $ret->{fat} = $thinClientModel->fat();#$row->id());
+        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();
+        $ret->{nextServer} = $thinClientModel->nextServer();
+        $ret->{filename}   = $thinClientModel->remoteFilename();
+        $ret->{architecture} = $thinClientModel->architecture();
+        $ret->{fat} = $thinClientModel->fat();
     }
     return $ret;
 
@@ -1456,7 +1434,6 @@ sub _dynamicDNSEnabled # (ifacesInfo)
     }
 }
 
-
 # Returns those model instances attached to the given interface
 sub _removeDataModelsAttached
 {
@@ -1488,7 +1465,6 @@ sub _getModel
     return $configuration->componentByName($modelName, 1);
 }
 
-
 sub _getAllModelInstances
 {
     my ($self, $modelName) = @_;
@@ -1511,7 +1487,6 @@ sub dynamicDNSDomains
     my $ddModel= $self->_getModel('DynamicDNS', $iface);
     return $ddModel->row();
 }
-
 
 # Check there are enough static interfaces to have DHCP service enabled
 sub _checkStaticIfaces
@@ -1539,7 +1514,6 @@ sub _nStaticIfaces
 
     return $staticIfaces;
 }
-
 
 # Method: gatewayDelete
 #

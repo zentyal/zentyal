@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,7 +18,7 @@
 # An specialized model from <EBox::Model::DataForm::Action>
 # which is used to download a file from an action form.
 #
-# It redirects the response to <EBox::CGI::Controller::Downloader::FromTempDir>
+# It redirects the response to <EBox::CGI::Downloader::FromTempDir>
 # to download a file from EBox::Config::tmp()
 #
 # How to use it?
@@ -32,19 +32,19 @@
 #
 #
 
+use strict;
+use warnings;
+
 package EBox::Model::DataForm::Download;
 
 use base 'EBox::Model::DataForm::Action';
-
-use strict;
-use warnings;
 
 # eBox Exceptions
 use EBox::Exceptions::MissingArgument;
 
 # Core modules
 use Error qw(:try);
-use constant URL_REDIRECT => '/Controller/Downloader/FromTempDir?filename=';
+use constant URL_REDIRECT => '/Downloader/FromTempDir?filename=';
 
 # Group: Public methods
 

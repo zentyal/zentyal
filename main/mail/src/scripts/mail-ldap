@@ -19,7 +19,7 @@ my $alias = new EBox::MailAliasLdap;
 
 sub update
 {
-    $vdomain->{ldap}->ldapCon;
+    $vdomain->{ldap}->connection();
     my $ldap = $vdomain->{ldap}->{ldap};
     my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
 
@@ -54,7 +54,7 @@ sub update
 
 sub clean
 {
-    $vdomain->{ldap}->ldapCon;
+    $vdomain->{ldap}->connection();
     my $ldap = $vdomain->{ldap}->{ldap};
 
     my $pdn = "ou=postfix, " . $vdomain->{ldap}->dn;

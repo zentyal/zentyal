@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NTP;
-
 use strict;
 use warnings;
+
+package EBox::NTP;
 
 use base qw(EBox::Module::Service);
 
@@ -96,7 +96,6 @@ sub actions
     ];
 }
 
-
 # Method: usedFiles
 #
 #   Override EBox::Module::Service::usedFiles
@@ -175,9 +174,22 @@ sub _preSetConf
     } otherwise {};
 }
 
+#  Method: _daemons
+#
+#   Overrides <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     return [ { name => 'ebox.ntpd' } ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { name => 'ntp', type => 'init.d' } ];
 }
 
 # Method: synchronized
@@ -259,6 +271,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'icon' => 'ntp',
                                     'url' => 'NTP/Composite/General',
                                     'separator' => 'Infrastructure',
                                     'order' => 445));

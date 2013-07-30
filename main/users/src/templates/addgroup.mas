@@ -1,0 +1,62 @@
+<%args>
+    $dn
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<h3><% __('Add Group') %></h3>
+    <div id='error_addGroupForm' class='error' style='display:none'></div>
+    <form action='/Users/AddGroup' method='POST' id='addGroupForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
+    <table class='formTable'>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('Type') %>:
+                </span>
+            </td>
+            <td>
+                <input type="radio" name="type" value="security" checked><% __('Security Group') %>
+                <input type="radio" name="type" value="distribution"><% __('Distribution Group') %>
+            </td>
+        </tr>
+        <tr>
+            <td  class='tright'>
+                <span class="ftitle">
+                    <% __('Group name') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='groupname'>
+            </td>
+        </tr>
+        <tr>
+            <td class='tright'>
+                <span class="ftitle">
+                    <% __('Description') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='description'>
+                <div class="description">(<% __('Optional value') %>)</div>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td>
+                <input class='inputButton'  type='submit' name='add'
+                       value="<% __('Add') %>"
+                       alt="<% __('Add') %>"/>
+            </td>
+        </tr>
+    </table>
+    </form>
+
+<script>
+$(function() {
+   $('#addGroupForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addGroupForm', { extraData: {add: 1} });
+    });
+});
+</script>

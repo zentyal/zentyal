@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,13 +16,14 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal::LdapUser;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use Perl6::Junction qw(any);
 
 sub new
@@ -47,7 +48,6 @@ sub _userAddOns
     my $cportal = EBox::Global->modInstance('captiveportal');
     return unless ($cportal->configured());
 
-
     my $overridden = $self->isQuotaOverridden($user);
     my $quota = $self->getQuota($user);
     my $limitBW = $cportal->model('BWSettings')->limitBWValue();
@@ -61,8 +61,11 @@ sub _userAddOns
         'liimitBW'    => $limitBW,
     };
 
-    return { path => '/captiveportal/useraddon.mas',
-             params => $args };
+    return {
+        title =>  __('Captive Portal'),
+        path => '/captiveportal/useraddon.mas',
+        params => $args
+       };
 }
 
 sub isQuotaOverridden
@@ -112,7 +115,6 @@ sub setQuota
 
     return 0;
 }
-
 
 # Method: getQuota
 #

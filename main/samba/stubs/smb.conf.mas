@@ -12,6 +12,7 @@
     $profilesPath
     $sysvolPath
     $print => 0
+    $disableFullAudit => 0
 
     $antivirus => 0
     $antivirus_exceptions => {}
@@ -53,6 +54,8 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 
     interfaces = <% $ifaces %>
     bind interfaces only = yes
+
+    case sensitive = no
 
     log level = 3
     log file = /var/log/samba/samba.log
@@ -98,7 +101,10 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'users'}));
-% my $objects = 'acl_xattr full_audit';
+% my $objects = 'acl_xattr';
+% unless ($disableFullAudit) {
+%   $objects .= ' full_audit';
+% }
 % if ($av) {
 %   $objects .= ' scannedonly';
 % }
@@ -132,7 +138,10 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
-% my $objects = 'acl_xattr full_audit';
+% my $objects = 'acl_xattr';
+% unless ($disableFullAudit) {
+%   $objects .= ' full_audit';
+% }
 % if ($av) {
 %   $objects .= ' scannedonly';
 % }

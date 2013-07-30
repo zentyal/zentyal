@@ -13,23 +13,23 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::IPS::Model::Rules;
+
+use base 'EBox::Model::DataTable';
 
 # Class: EBox::IPS::Model::Rules
 #
 #   Class description
 #
 
-use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
-
-use Devel::StackTrace;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 use EBox::Types::Select;
+use Devel::StackTrace;
 
 use constant DEFAULT_RULES => qw(local bad-traffic exploit community-exploit
     shellcode virus scan finger ftp telnet rpc rservices dos community-dos ddos

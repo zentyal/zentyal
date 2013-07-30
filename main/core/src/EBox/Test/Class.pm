@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,7 @@ use warnings;
 #  This class is intended to use as base, replacing Test:Class, to build eBox's test classes
 #
 package EBox::Test::Class;
+
 use base 'Test::Class';
 
 use lib '../..';
@@ -29,7 +30,8 @@ use Test::Exception;
 
 use EBox::TestStubs;
 
-sub _testStubsForFrameworkModules :  Test(startup) {
+sub _testStubsForFrameworkModules :  Test(startup)
+{
     EBox::TestStubs::activateTestStubs();
 }
 

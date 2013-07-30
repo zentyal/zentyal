@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,7 +20,7 @@ package EBox::LdapModule;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
-use EBox::Ldap;
+#use EBox::Ldap; # XXX remove if not longer used
 
 use Error qw(:try);
 
@@ -54,20 +54,10 @@ sub ldap
 {
     my ($self) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     unless(defined($self->{ldap})) {
-        $self->{ldap} = EBox::Ldap->instance();
+        $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
-}
-
-sub masterLdap
-{
-    my ($self) = @_;
-
-    $self->ldap->ldapCon();
-    return $self->ldap->{ldap};
 }
 
 # Method: _loadSchema
@@ -81,7 +71,7 @@ sub _loadSchema
 {
     my ($self, $ldiffile) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadSchemaDirectory($ldap, $ldiffile);
 }
@@ -130,7 +120,7 @@ sub _loadACL
 {
     my ($self, $acl) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_loadACLDirectory($ldap, $acl);
 }
@@ -189,11 +179,10 @@ sub _addIndex
 {
     my ($self, $attribute) = @_;
 
-    $self->ldap->ldapCon();
+    $self->ldap->connection();
     my $ldap = $self->ldap->{ldap};
     $self->_addIndexDirectory($ldap, $attribute);
 }
-
 
 sub _addIndexDirectory
 {
@@ -314,6 +303,31 @@ sub slaveSetupWarning
 {
     my ($self, $master) = @_;
     return undef;
+}
+
+
+sub usersModesAllowed
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    return [$users->STANDALONE_MODE()];
+}
+
+sub checkUsersMode
+{
+    my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    my $mode = $users->mode();
+    my $allowedMode = grep {
+        $mode eq $_
+    } @{ $self->usersModesAllowed() };
+    if (not $allowedMode) {
+        throw EBox::Exceptions::External(__x(
+            'Module {mod} is uncompatible with the current users operation mode ({mode})',
+            mod => $self->printableName(),
+            mode => $users->model('Mode')->modePrintableName,
+        ));
+    }
 }
 
 1;

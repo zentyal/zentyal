@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Radius;
+
 use base qw(EBox::Module::Service EBox::LogObserver);
 
 use EBox::Global;
@@ -73,7 +74,6 @@ sub actions
     },
     ];
 }
-
 
 # Method: usedFiles
 #
@@ -179,7 +179,6 @@ sub _daemons
     ];
 }
 
-
 # Method: _setConf
 #
 # Overrides:
@@ -202,7 +201,6 @@ sub _setConf
     $self->_setLDAP();
     $self->_setClients();
 }
-
 
 # set up the Users configuration
 sub _setUsers
@@ -266,7 +264,6 @@ sub _setLDAP
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
-
 # set up the RADIUS clients
 sub _setClients
 {
@@ -280,7 +277,6 @@ sub _setClients
                             { 'uid' => 'root', 'gid' => 'freerad', mode => '640' });
 }
 
-
 # Method: menu
 #
 # Overrides:
@@ -293,6 +289,7 @@ sub menu
 
     $root->add(new EBox::Menu::Item(
             'url' => 'Radius/Composite/General',
+            'icon' => 'radius',
             'separator' => 'Gateway',
             'order' => 225,
             'text' => 'RADIUS'));

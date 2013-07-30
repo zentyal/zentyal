@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MyDBEngine;
-
 use strict;
 use warnings;
+
+package EBox::MyDBEngine;
 
 use base qw(EBox::AbstractDBEngine);
 
@@ -199,7 +199,6 @@ sub unbufferedInsert
         $sql .= " ?,";
     }
     $sql = (substr($sql, 0, -1)).')';
-
 
     $self->_prepare($sql);
     my $err = $self->{'sthinsert'}->execute(@vals);
@@ -467,7 +466,6 @@ sub query_hash_to_sql
     return $sql;
 }
 
-
 # Method: do
 #
 #   Prepare and execute a single statement.
@@ -600,7 +598,6 @@ sub backupDB
     }
 }
 
-
 sub restoreDB
 {
     my ($self, $dir, $basename, %params) = @_;
@@ -666,7 +663,6 @@ sub  dumpDB
     $self->_mangleDumpFile($outputFile);
 }
 
-
 sub _mangleDumpFile
 {
     my ($self, $file) = @_;
@@ -681,7 +677,6 @@ sub _mangleDumpFile
         EBox::Sudo::command($sed);
     }
 }
-
 
 # Method: restoreDB
 #
@@ -727,7 +722,6 @@ sub restoreDBDump
         EBox::info('Database dump for ' . _dbname() . ' restored' );
     }
 }
-
 
 # Method: sqlAsSuperuser
 #

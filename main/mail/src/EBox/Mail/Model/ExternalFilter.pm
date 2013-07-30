@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,11 +23,12 @@
 #
 #
 
-package EBox::Mail::Model::ExternalFilter;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Mail::Model::ExternalFilter;
+
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -121,11 +122,8 @@ sub _table
 
                      };
 
-
-
     return $dataForm;
 }
-
 
 # Method: viewCustomizer
 #
@@ -151,9 +149,6 @@ sub viewCustomizer
         return $customizer;
 }
 
-
-
-
 sub _availableFilters
 {
     my @options = (
@@ -170,7 +165,6 @@ sub validateTypedRow
 
   $self->_checkFWPort($action, $params_r, $actual_r);
 }
-
 
 sub _checkFWPort
 {
@@ -200,12 +194,10 @@ sub precondition
     return not $mailfilter->isEnabled();
 }
 
-
 sub preconditionFailMsg
 {
     return __('As long mailfilter module is enabled the mail server will use the filter it provides');
 }
-
 
 1;
 

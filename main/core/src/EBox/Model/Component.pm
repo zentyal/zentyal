@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,15 +19,16 @@
 #   by <EBox::Model::Composite> and <EBox::Model::DataTable>.
 #
 
-package EBox::Model::Component;
-
 use strict;
 use warnings;
+
+package EBox::Model::Component;
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 use Encode;
 use Error qw(:try);
@@ -47,7 +48,6 @@ sub parentModule
 
     return $self->{'confmodule'};
 }
-
 
 # Method: global
 #
@@ -82,8 +82,6 @@ sub modelGetter
         return $modelInstance;
     };
 }
-
-
 
 # Method: pageTitle
 #
@@ -160,6 +158,13 @@ sub parent
     my ($self) = @_;
 
     return $self->{'parent'};
+}
+
+sub directory
+{
+    my ($self) = @_;
+
+    throw EBox::Exceptions::NotImplemented('directory');
 }
 
 # Method: parentRow
@@ -302,6 +307,18 @@ sub disabledModuleWarning
         return __x("{mod} module is disabled. Don't forget to enable it on the {oh}Module Status{ch} section, otherwise your changes won't have any effect.",
                    mod => $module->printableName(), oh => '<a href="/ServiceModule/StatusView">', ch => '</a>');
     }
+}
+
+# Method: userCorner
+#
+# Whether this component can be used in the usercorner. Defualt implementation
+# always return false
+#
+#  Returns:
+#          boolean - whether this component can be used in usercorner
+sub userCorner
+{
+    return 0;
 }
 
 1;

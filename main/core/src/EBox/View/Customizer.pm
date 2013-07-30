@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,15 +18,14 @@
 #   This class is used to customize default views. It helps to change the
 #   behaviour and layout of a view using Perl code.
 #
-package EBox::View::Customizer;
-
 use strict;
 use warnings;
+
+package EBox::View::Customizer;
 
 # Dependencies
 use EBox::Config;
 use EBox::Types::Boolean;
-
 
 # External dependencies
 use HTML::Mason::Interp;

@@ -1,3 +1,13 @@
+HEAD
+	+ Added menu icon
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Removed code for deprecated cloud method and backup domains
+3.1
+	+ Remove unused Size and Message Types
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
 3.0.6
 	+ Added preCheckTarget hook
 3.0.5

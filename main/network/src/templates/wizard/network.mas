@@ -20,11 +20,11 @@ if (scalar @ifaces == 1) {
 </%init>
 <script type="text/javascript">
     changeState = function(iface) {
-        if ( $(iface + "_method").getValue() == 'static' ) {
-            $(iface + "_static").appear();
+        if ( $('#' + iface + "_method").val() === 'static' ) {
+            $('#' + iface + "_static").show(500);
         }
         else {
-            $(iface + "_static").hide();
+            $('#' + iface + "_static").hide();
         }
     }
 </script>

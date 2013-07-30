@@ -22,7 +22,7 @@ $page = 0 unless ( $page );
 %    my @fields = map { "'" . $_ . "'" } keys %{$params};
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>"
-       onclick="changeRow('<% $url %>', '<% $table %>',
+       onclick="Zentyal.TableHelper.changeRow('<% $url %>', '<% $table %>',
        [ <% join(', ', @fields) %> ], '<% $directory %>',
        '<% $rowId %>', <% $page %>, true); return false"
 />
@@ -31,7 +31,7 @@ $page = 0 unless ( $page );
 % {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
-	onclick="actionClicked('<% $url %>', '<% $table %>', '<%
+	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
         $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
         '<% $page %>'); return false"/>
 % }
@@ -39,12 +39,12 @@ $page = 0 unless ( $page );
 % {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>" title="Change"
-	onclick="actionClicked('<% $url %>', '<% $table %>', '<%
+	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
         $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
         '<% $page %>'); return false"/>
 % }
 
 <input  class='inputButton' type='submit' name='cancel'
 		value="<% __('Cancel') %>" title="Cancel"
-		onclick="changeView('<% $url %>', '<% $table %>', '<% $directory %>', 'changeList')" />
+		onclick="Zentyal.TableHelper.changeView('<% $url %>', '<% $table %>', '<% $directory %>', 'changeList')" />
 

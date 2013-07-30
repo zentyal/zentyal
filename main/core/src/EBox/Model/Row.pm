@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -38,11 +38,10 @@
 #       - 'printableValueHash' => hash ref containing the fields and
 #          their printable value
 
-package EBox::Model::Row;
-
-
 use strict;
 use warnings;
+
+package EBox::Model::Row;
 
 use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
@@ -50,7 +49,6 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
-
 
 # Dependencies
 
@@ -88,7 +86,6 @@ sub new
     }
     $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
-
 
     bless ( $self, $class);
 
@@ -298,7 +295,6 @@ sub configModule
 
     return $self->{confmodule};
 }
-
 
 # Method: addElement
 #
@@ -534,7 +530,6 @@ sub size
     return scalar(@{$self->{'values'}});
 }
 
-
 # Method: store
 #
 #   This method is used to synchronize the elements of a row with usually disk.
@@ -733,6 +728,29 @@ sub cloneSubModelsFrom
 
         $subModel->clone($otherSubDir, $subDir);
     }
+}
+
+sub isEqualTo
+{
+    my ($self, $other) = @_;
+    if ($self->model()->contextName() ne $other->model()->contextName()) {
+        # rows for different models are differents,  we assume
+        #  rows from different instances of the same model could be equal
+        EBox::debug("Differenrt context");
+        return 0;
+    }
+    my @values = @{  $self->elements() };
+    my @otherValues = @{ $other->elements() };
+    if (@values != @otherValues) {
+        EBox::debug("Differenrt number elements @values != @otherValues");
+        return 0;
+    }
+    for (my $i=0; $i < @values; $i++) {
+        if (not $values[$i]->isEqualTo($otherValues[$i])) {
+            return 0;
+        }
+    }
+    return 1;
 }
 
 1;

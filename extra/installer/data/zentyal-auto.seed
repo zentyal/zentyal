@@ -9,6 +9,9 @@ d-i clock-setup/utc boolean true
 # grub
 d-i grub-installer/only_debian boolean true
 
+# no headless by default
+zinstaller-headless zinstaller-headless/question boolean false
+
 ##
 ## partitioning
 ##

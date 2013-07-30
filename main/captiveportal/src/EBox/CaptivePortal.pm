@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CaptivePortal;
+
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LdapModule
@@ -79,11 +80,11 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'CaptivePortal/Composite/General',
+                                    'icon' => 'captiveportal',
                                     'text' => $self->printableName(),
                                     'separator' => 'Gateway',
                                     'order' => 226));
 }
-
 
 # Method: enableActions
 #
@@ -99,13 +100,13 @@ sub enableActions
     $self->SUPER::enableActions();
 }
 
-
 sub _setConf
 {
     my ($self) = @_;
     my $settings = $self->model('Settings');
     my $sldap = $self->model('SecondaryLDAP');
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
+
 
     # Apache conf file
     EBox::Module::Base::writeConfFileNoCheck(APACHE_CONF,
@@ -117,14 +118,14 @@ sub _setConf
 
     # Ldap connection (for auth) config file
     my @params;
-    push (@params, ldap_url => EBox::Ldap::LDAPI);
-    push (@params, ldap_bindstring => 'uid={USERNAME},ou=Users,' . $users->ldap->dn);
+    my $ldap = $usersMod->ldap();
+    push (@params, ldap_url => $ldap->url());
+    push (@params, ldap_bindstring => $ldap->userBindDN('{USERNAME}'));
 
     my $group = $settings->groupValue();
 
     if ($group ne '__all__') {
-        push (@params, ldap_group => $group);
-        push (@params, ldap_groupsdn => $users->groupsDn());
+        push (@params, ldap_group => $usersMod->groupDn($group));;
     }
 
     if ($sldap->enabledValue()) {
@@ -141,7 +142,6 @@ sub _setConf
 
     $self->_writePeriodFile();
 }
-
 
 sub _writeCSS
 {
@@ -161,7 +161,6 @@ sub _writeCSS
                                              [ %params ],
                                              { mode => '0644' });
 }
-
 
 sub _daemons
 {
@@ -189,7 +188,6 @@ sub _daemons
 #{
 #}
 
-
 sub firewallHelper
 {
     my ($self) = @_;
@@ -206,7 +204,6 @@ sub _ldapModImplementation
     my ($self) = @_;
     return $self->{cpldap};
 }
-
 
 # Function: usesPort
 #
@@ -227,7 +224,6 @@ sub usesPort # (protocol, port, iface)
     return undef;
 }
 
-
 # Function: httpPort
 #
 #   Returns the port where captive portal HTTP redirection resides
@@ -238,7 +234,6 @@ sub httpPort
     my $settings = $self->model('Settings');
     return $settings->http_portValue(),
 }
-
 
 # Function: httpsPort
 #
@@ -257,7 +252,6 @@ sub expirationTime
     my $settings = $self->model('Settings');
     return $settings->expirationValue(),
 }
-
 
 # Function: ifaces
 #
@@ -278,9 +272,7 @@ sub ifaces
     return \@ifaces;
 }
 
-
 # Session manage methods:
-
 
 # Function: currentUsers
 #
@@ -307,7 +299,6 @@ sub currentUsers
     return $model->currentUsers();
 }
 
-
 # method: userFirewallRule
 #
 #   Parameters:
@@ -326,7 +317,6 @@ sub userFirewallRule
     $macSrc = "-m mac --mac-source $mac" if defined($mac);
     return "-s $ip $macSrc -m comment --comment 'user:$name' -j RETURN";
 }
-
 
 sub exceptionsFirewallRules
 {
@@ -360,7 +350,6 @@ sub sessionExpired
     return time() > ($time + $self->expirationTime() + 30);
 }
 
-
 # Function: quotaExceeded
 #
 #   returns 1 if user has exceeded his quota
@@ -379,7 +368,7 @@ sub quotaExceeded
         return 0;
     }
 
-    my $user = EBox::Global->modInstance('users')->user($username);
+    my $user = EBox::Global->modInstance('users')->userByUID($username);
     my $quota = $self->{cpldap}->getQuota($user);
 
     # No limit
@@ -390,7 +379,6 @@ sub quotaExceeded
     # check quota
     return $bwusage > $quota;
 }
-
 
 # Function: removeSession
 #
@@ -424,7 +412,6 @@ sub _bwmonitor {
     my $bwmonitor = EBox::Global->modInstance('bwmonitor');
     return defined($bwmonitor) and $bwmonitor->isEnabled();
 }
-
 
 sub eventWatchers
 {

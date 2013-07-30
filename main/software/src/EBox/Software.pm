@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Software;
+
 use base qw(EBox::Module::Config);
 
 use EBox;
@@ -125,7 +126,6 @@ sub listBrokenPkgs
     }
     return \@list;
 }
-
 
 # Method: installPkgs
 #
@@ -335,7 +335,6 @@ sub listPackageInstallDepends
     return $self->_packageDepends('install', $packages);
 }
 
-
 # Method: listPackageDescription
 #
 #   Returns a list of short descriptions of each package in the list.
@@ -508,7 +507,6 @@ sub isInstalled
     }
 }
 
-
 # Method: getAutomaticUpdates
 #
 #   Returns if the automatic update mode is enabled
@@ -653,9 +651,10 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => $self->printableName(),
-                                           'separator' => 'Core',
-                                           'order' => 100);
+                                            'icon' => 'software',
+                                            'text' => $self->printableName(),
+                                            'separator' => 'Core',
+                                            'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
                                           'text' => __('Zentyal Components')));
@@ -984,7 +983,6 @@ sub QAUpdates
     return $self->get_bool('qa_updates');
 }
 
-
 sub _setConf
 {
     my ($self) = @_;
@@ -1048,7 +1046,6 @@ sub _installCronFile
        );
 }
 
-
 # Method: firstTimeMenu
 #
 #   Prints first time menu instead of Zentyal default menu.
@@ -1088,7 +1085,6 @@ sub firstTimeMenu
 
     print "</ul></div>\n";
 }
-
 
 # Method: _printMenuItem
 #

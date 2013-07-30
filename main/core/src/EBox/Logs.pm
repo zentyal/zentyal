@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Logs;
+
 use base qw(EBox::Module::Service EBox::Report::DiskUsageProvider);
 
 use EBox::Global;
@@ -40,7 +41,6 @@ use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
 use constant MYSQL_ZENTYAL_DATA_DIR           => '/var/lib/mysql/zentyal';
-
 
 #       EBox::Module::Service interface
 #
@@ -77,7 +77,6 @@ sub _daemons
         }
     ];
 }
-
 
 #  Method: _loggerdPrecondition
 #
@@ -325,56 +324,9 @@ sub getLogDomains
     return \%logdomains;
 }
 
-sub backupDomains
-{
-    my $name = 'logs';
-    my %attrs  = (
-                  printableName => __('Logs'),
-                  description   => __(q{Zentyal Server logs database}),
-                  extraDataDump => 1,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub dumpExtraBackupData
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my @domainsDumped;
-    if ($backupDomains{logs} ) {
-        my $logsDir = $dir . '/logs';
-        if (not -d $logsDir) {
-            mkdir $logsDir or
-                throw EBox::Exceptions::Internal("Cannot create $logsDir: $!");
-        }
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        my $dumpFileBasename = "eboxlogs";
-
-        $dbengine->backupDB($logsDir, $dumpFileBasename);
-        push @domainsDumped, 'logs';
-    }
-
-    return \@domainsDumped;
-}
-
-sub dumpExtraBackupDataSize
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my $size = 0;
-    if ($backupDomains{logs} ) {
-         $size += EBox::FileSystem::dirDiskUsage($dir);
-    }
-
-    return $size;
-}
-
-
 sub _checkValidDate # (date)
 {
     my ($datestr) = @_;
-
 
     my ($date, $time) = split (/ /, $datestr);
     my ($year, $month, $day) = split (/-/, $date);
@@ -463,7 +415,6 @@ sub search
                            "Field $field does not appear in tableinfo's titles field");
                         }
 
-
             if ($field eq 'event') {
                 $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
@@ -521,7 +472,6 @@ sub search
     return $hashret;
 }
 
-
 # Method: totalRecords
 #
 #       Get the total records stored in database for a given table
@@ -570,7 +520,6 @@ sub consolidatedLogForDay
     ($date) = split '\s', $date;
     $date .= ' 00:00:00';
 
-
     $table = $table . '_daily';
 
     my $dbengine = EBox::DBEngineFactory::DBEngine();
@@ -598,7 +547,6 @@ sub yesterdayDate
     return "$year-$mon-$mday 00:00:00";
 }
 
-
 sub _addFilter
 {
     my ($self, $field, $filter) = @_;
@@ -606,7 +554,6 @@ sub _addFilter
                    and length($filter) > 0);
     $self->{'sqlselect'}->{'filter'}->{$field} = $filter;
 }
-
 
 sub _addDateFilter
 {
@@ -622,7 +569,6 @@ sub _addPager
     $self->{'sqlselect'}->{'offset'} = $offset;
     $self->{'sqlselect'}->{'limit'} = $limit;
 }
-
 
 sub _addOrder
 {
@@ -672,7 +618,6 @@ sub _sqlStmnt
         }
     }
 
-
     if ($sql->{'filter'}) {
         foreach my $field (keys %{$sql->{'filter'}}) {
             $stmt .= "$and $field = ? ";
@@ -709,6 +654,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
                                         'text' => __('Maintenance'),
+                                        'icon' => 'maintenance',
                                         'separator' => 'Core',
                                         'order' => 70);
 
@@ -793,7 +739,6 @@ sub _restoreEnabledLogsModules
 
     return \%enabled;
 }
-
 
 # Overrides:
 #  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
@@ -893,7 +838,6 @@ sub purge
         }
     }
 }
-
 
 # Transform an hour into a localtime
 sub _thresholdDate

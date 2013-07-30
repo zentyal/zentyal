@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,18 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
 
+use strict;
+use warnings;
 
 package EBox::Mail::Model::ExternalAccounts;
+
 use base 'EBox::Model::DataTable';
 
 #
 #  To manage email retrieval form external accounts in the user corner
 #  section
 #
-
-use strict;
-use warnings;
-
 
 use EBox;
 use EBox::Gettext;
@@ -35,7 +34,6 @@ use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
 use EBox::Validate;
-
 
 use Apache2::RequestUtil;
 
@@ -67,7 +65,6 @@ sub pageTitle
 {
     return __('External mail accounts');
 }
-
 
 # Group: Private methods
 
@@ -142,6 +139,11 @@ sub _table
     return $dataTable;
 }
 
+sub userCorner
+{
+    return 1;
+}
+
 sub _mailProtocols
 {
     return [
@@ -170,9 +172,9 @@ sub _user
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
     my $user = $request->user();
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
-    return new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+    return new $usersMod->userByUID($user);
 }
 
 sub _userExternalAccounts
@@ -190,7 +192,6 @@ sub _userAccount
     my $user = $self->_user();
     return $self->{mailMod}->{musers}->userAccount($user);
 }
-
 
 sub ids
 {
@@ -228,8 +229,6 @@ sub row
     $row->setId($id);
     return $row;
 }
-
-
 
 sub validateTypedRow
 {
@@ -278,14 +277,13 @@ sub addTypedRow
     return $nAccounts;
 }
 
-
 sub removeRow
 {
     my ($self, $id, $force) = @_;
 
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument(
-                "Missing row identifier to remove")
+                "Missing row identifier to remove");
     }
 
     my $row = $self->row($id);
@@ -303,7 +301,6 @@ sub removeRow
                           ac => $externalAccount)
                      );
 }
-
 
 sub setTypedRow
 {
@@ -328,8 +325,6 @@ sub setTypedRow
         $allHashElements->{$name} = $value;
     }
 
-
-
     my $newAccount =
           $self->_elementsToParamsForFetchmailLdapCall($allHashElements);
     $self->{mailMod}->{fetchmail}->modifyExternalAccount(
@@ -339,7 +334,6 @@ sub setTypedRow
                                                         );
 
 }
-
 
 sub _elementsToParamsForFetchmailLdapCall
 {
@@ -354,7 +348,6 @@ sub _elementsToParamsForFetchmailLdapCall
         keep           => $params_r->{keep}->value(),
         fetchall       => $params_r->{fetchall}->value(),
        );
-
 
     my $mailProtocol = $params_r->{protocol}->value();
     if ($mailProtocol eq 'pop3') {
@@ -386,15 +379,12 @@ sub _elementsToParamsForFetchmailLdapCall
     return \@callParams;
 }
 
-
-
 sub precondition
 {
     my ($self) = @_;
     my $account = $self->_userAccount();
     return defined $account;
 }
-
 
 sub preconditionFailMsg
 {

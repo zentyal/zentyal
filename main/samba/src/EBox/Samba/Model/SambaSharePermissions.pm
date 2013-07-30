@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #  This model is used to configure permissions of each share
 #  created in EBox::Samba::Model::SambaShares
 #
+use strict;
+use warnings;
+
 package EBox::Samba::Model::SambaSharePermissions;
 
 use base 'EBox::Model::DataTable';
-
-use strict;
-use warnings;
 
 use EBox::Exceptions::DataExists;
 use EBox::Gettext;
@@ -77,7 +77,7 @@ sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
     my @groups = ();
-    my $list = $userMod->groups();
+    my $list = $userMod->securityGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');
@@ -86,7 +86,6 @@ sub populateGroup
     }
     return \@groups;
 }
-
 
 sub populatePermissions
 {
@@ -184,7 +183,6 @@ sub viewCustomizer
         return $custom;
 }
 
-
 # Group: Protected methods
 
 # Method: _table
@@ -243,8 +241,6 @@ sub _table
       return $dataTable;
 }
 
-
-
 # Private methods
 sub _permissionsHelp
 {
@@ -265,6 +261,5 @@ sub filterUserGroupPrintableValue
 
     return $value;
 }
-
 
 1;

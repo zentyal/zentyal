@@ -7,7 +7,7 @@ FROM ubuntu
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" >> /etc/apt/sources.list
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise-updates main universe" >> /etc/apt/sources.list
-RUN echo "deb http://ppa.launchpad.net/zentyal/3.0/ubuntu precise main" >> /etc/apt/sources.list
+RUN echo "deb http://ppa.launchpad.net/zentyal/3.1/ubuntu precise main" >> /etc/apt/sources.list
 RUN apt-get update
 
 #Installing dependencies
@@ -16,7 +16,7 @@ RUN apt-get install -y --force-yes libyaml-libyaml-perl libtest-mockmodule-perl 
 
 # Checking out the zentyal repo
 RUN git clone https://github.com/Zentyal/zentyal.git
-RUN cd zentyal && git checkout 3.0
+RUN cd zentyal && git checkout master
 
 RUN /zentyal/extra/scripts/zentyal-syntax-check --installdeps --path=/zentyal --release=precise
 

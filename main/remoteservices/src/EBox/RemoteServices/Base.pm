@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -51,7 +51,6 @@ use constant RS_SUBDIR     => 'remoteservices/subscription';
 sub new
 {
   my ($class, %params) = @_;
-
 
   my $self = {};
 
@@ -293,7 +292,6 @@ sub _printableSize
     return $size . ' ' . (pop @units);
 }
 
-
 # Method: _sortableDate
 #
 #      Given a date in String format, try to transform to a sortable
@@ -361,7 +359,6 @@ sub _soapConnect
     my $server = 'https://' . $self->_servicesServer() . '/soap'
       . $self->_urlSuffix();
 
-
     my %certificates = (
         ca   => $self->{caCertificate},
         cert => $self->{certificate},
@@ -387,7 +384,6 @@ sub _soapConnect
           __('Cannot create SOAP connection')
          );
 
-
     $self->{connection} = $soapClient;
 }
 
@@ -402,7 +398,6 @@ sub _servicesServer
 				    );
   return $self->_queryServicesNameserver($serviceHostName);
 }
-
 
 # Check given host and port is reachable using nmap tool
 sub _checkHostPort

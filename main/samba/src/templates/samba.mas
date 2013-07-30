@@ -5,7 +5,6 @@
 use EBox::Gettext;
 </%init>
 % if ($params->{'username'}) {
-	<h3><% __('Active Directory/File sharing account') %></h3>
 	<& .sambaDisabled, $params &>
 	<table class="formTable">
 	<form action='/Samba/ActiveSharing' method='post'>
@@ -38,8 +37,6 @@ use EBox::Gettext;
 	</table>
 
 %  } else {
-
-	<h3> <% __('Sharing directory for this group') %> </h3>
 	<form action='/Samba/ActiveSharing' method='post'>
     <div class='help'>
         <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>

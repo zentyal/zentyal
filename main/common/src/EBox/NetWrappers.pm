@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::NetWrappers;
-
 use strict;
 use warnings;
+
+package EBox::NetWrappers;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -223,7 +223,6 @@ sub iface_addresses_with_netmask
     return \%netmaskByAddr;
 }
 
-
 sub _ifaceShowAddress
 {
     my ($if) = @_;
@@ -247,6 +246,41 @@ sub _ifaceShowAddress
     }  @output;
 
     return @addrs;
+}
+
+# Function: iface_destination_address
+#
+#   Returns the destination addresses for point-to-point interfaces
+#
+# Parameters:
+#
+#       interfaceName - Interface's name
+#
+# Returns:
+#
+#       A string with the destination address or undef if it's not a point-to-point interface
+#
+# Exceptions:
+#
+#       DataNotFound - If interface does not exists
+#
+sub iface_destination_address
+{
+    my ($interfaceName) = @_;
+
+    unless (iface_exists($interfaceName)) {
+        throw EBox::Exceptions::DataNotFound(
+                data => __('Interface'),
+                value => $interfaceName);
+    }
+
+    my $interface = IO::Interface::Simple->new($interfaceName);
+
+    if ($interface->is_pt2pt) {
+        return $interface->dstaddr;
+    } else {
+        return undef;
+    }
 }
 
 # Function: list_routes

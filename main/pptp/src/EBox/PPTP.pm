@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::PPTP;
+
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
             EBox::LogObserver);
@@ -197,22 +198,7 @@ sub _setUsers
 {
     my ($self) = @_;
 
-    my @params = ();
-    my $pppSecrets = {};
-
-    my $network = EBox::Global->modInstance('network');
-
-    foreach my $iface (@{$network->pppIfaces()}) {
-        my $user = $network->ifacePPPUser($iface);
-        my $pass = $network->ifacePPPPass($iface);
-        $pppSecrets->{$user} = $pass;
-    }
-
-    push (@params, pppoe => $pppSecrets);
-
     my $model = $self->model('Users');
-
-    push (@params, users => $model->getUsers());
 
     my $pptpConf = '';
     foreach my $user (@{$model->getUsers()}) {
@@ -235,7 +221,6 @@ sub _setUsers
     write_file(CHAPSECRETSFILE, $file);
 }
 
-
 # Method: menu
 #
 # Overrides:
@@ -247,6 +232,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(
+                                        'icon' => 'openvpn',
                                         'name' => 'VPN',
                                         'text' => 'VPN',
                                         'separator' => 'Infrastructure',

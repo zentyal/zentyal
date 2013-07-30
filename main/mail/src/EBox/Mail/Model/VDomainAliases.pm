@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -23,6 +23,7 @@ use warnings;
 #       be done.
 #
 package EBox::Mail::Model::VDomainAliases;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -31,7 +32,6 @@ use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 
 use EBox::Mail::Types::WriteOnceDomain;
-
 
 sub new
 {
@@ -57,7 +57,6 @@ sub _table
                                         'unique' => 1,
                                       ),
 
-
          );
 
         my $dataTable =
@@ -80,7 +79,6 @@ sub _table
 
         return $dataTable;
 }
-
 
 sub validateTypedRow
 {
@@ -139,7 +137,6 @@ sub preconditionFailMsg
                   'status section in order to use it.');
 }
 
-
 sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
@@ -158,7 +155,6 @@ sub pageTitle
         my ($self) = @_;
         return $self->parentRow()->printableValueByName('vdomain');
 }
-
 
 sub existsAlias
 {
@@ -179,7 +175,6 @@ sub aliases
 
     return \@aliases;
 }
-
 
 1;
 

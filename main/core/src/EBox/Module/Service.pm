@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Module::Service;
+
 use base qw(EBox::Module::Config);
 
 use EBox::Config;
@@ -143,24 +144,24 @@ sub disableActions
 #   For example: the firewall module has to be disabled together with the
 #                network module.
 #
-#   By default it returns the modules established in the enabledepends list
-#   in the module YAML file. Override the method if you need something more
-#   specific, e.g., having a dynamic list.
-#
 # Returns:
 #
-#    array ref containing the instances of modules.
+#    array ref containing the  modules names
 #
 sub disableModDepends
 {
     my ($self) = @_;
+    my $name = $self->name();
+    my $global = $self->global;
 
-    my $deps = [];
-    foreach my $mod (@{$self->global->modInstancesOfType('EBox::Module::Service')}) {
-        push (@{$deps}, $mod)
-            if ($self->name() eq any @{$mod->info->{enabledepends}});
+    my @deps = ();
+    foreach my $mod (@{$global->modInstancesOfType('EBox::Module::Service')}) {
+        if ($name eq any @{$mod->enableModDepends()}) {
+            push @deps, $mod;
+        }
     }
-    return $deps;
+    my @names = map { $_->name } @deps;
+    return \@names;
 }
 
 # Method: enableModDepends
@@ -179,7 +180,7 @@ sub disableModDepends
 #
 # Returns:
 #
-#    array ref containing the dependencies.
+#    - array ref containing the dependencies names.
 #
 #    Example:
 #
@@ -195,6 +196,40 @@ sub enableModDepends
         return $depends;
     }
 }
+
+# Method: enableModDependsRecursive
+#
+#   This method works like enableModDepends but its recurse in all module dependencies
+#
+# Returns:
+#
+#    - list reference with the dependencies names
+sub enableModDependsRecursive
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my %depends;
+    my @toCheck = @{ $self->enableModDepends() };
+    for (my $i=0; $i < @toCheck; $i++) {
+        my $modName = $toCheck[$i];
+        if (exists $depends{$modName}) {
+            next;
+        }
+        my $mod = $global->modInstance($modName);
+        $mod->isa('EBox::Module::Service') or next;
+        $depends{$modName}  = $mod;
+        push @toCheck, @{ $mod->enableModDepends() };
+    }
+
+    my $name = $self->name();
+    my @depNames = map {
+        my $modName = $_->name();
+        ($modName ne $name) ? ($modName) : ();
+    } @{ $global->sortModulesEnableModDepends([$self, values %depends]) };
+
+    return [keys %depends];
+}
+
 
 # Method: bootDepends
 #
@@ -325,7 +360,6 @@ sub firstInstall
     return 1;
 }
 
-
 sub configureModule
 {
     my ($self) = @_;
@@ -333,6 +367,7 @@ sub configureModule
     try {
         $self->setConfigured(1);
         #$self->updateModuleDigests($modName);
+        $self->_overrideDaemons();
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
@@ -377,7 +412,6 @@ sub setInstalled
 
     return $self->st_set_bool('_serviceInstalled', 1);
 }
-
 
 # Method: isEnabled
 #
@@ -554,16 +588,18 @@ sub enableService
     # Otherwise, we have to disable ourself and all modules depending on us
     if ($status) {
         foreach my $mod (@{$self->enableModDepends()}) {
-            my $instance = $self->global->modInstance($mod);
+            my $instance = $self->global()->modInstance($mod);
             $status = ($status and $instance->isEnabled());
         }
     }
 
     unless ($status) {
-        # Disable all modules that depend on us
-        my $mods = $self->disableModDepends();
-        foreach my $mod (@{$mods}) {
-            $mod->enableService(0);
+        # Disable all modules that depends on us
+        my $global = $self->global();
+        my $revDepends = $self->disableModDepends();
+        foreach my $depName (@{$revDepends}) {
+            my $instance = $global->modInstance($depName);
+            $instance->enableService(0);
         }
     }
 
@@ -1084,6 +1120,43 @@ sub disableApparmorProfile
             EBox::Sudo::root('invoke-rc.d apparmor restart');
         }
     }
+}
+
+# Method: _daemonsToDisable
+#
+#   This is like _daemons but only to specify those init scripts
+#   that need to be stopped and disabled when enabling the module.
+#
+sub _daemonsToDisable
+{
+    return [];
+}
+
+sub _overrideDaemons
+{
+    my ($self) = @_;
+
+    my @daemons = @{$self->_daemonsToDisable()};
+
+    my @cmds;
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        push (@cmds, "service $name stop");
+    }
+
+    push (@daemons, @{$self->_daemons()});
+
+    foreach my $daemon (@daemons) {
+        my $name = $daemon->{name};
+        if ($daemon->{type} eq 'init.d') {
+            push (@cmds, "update-rc.d $name disable");
+        } else {
+            push (@cmds, "echo manual > /etc/init/$name.override");
+        }
+    }
+
+    EBox::Sudo::silentRoot(@cmds);
 }
 
 1;

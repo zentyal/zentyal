@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,24 +13,27 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Zarafa;
-
 use strict;
 use warnings;
+
+package EBox::Zarafa;
 
 use feature qw(switch);
 
 use base qw(EBox::Module::Service EBox::LdapModule EBox::KerberosModule);
 
-use EBox::Global;
-use EBox::Gettext;
 use EBox::Config;
-use EBox::ZarafaLdapUser;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Ldap;
 use EBox::WebServer;
+use EBox::ZarafaLdapUser;
 
 use Encode;
 use Error qw(:try);
+use Net::LDAP::LDIF;
 use Storable;
 
 use constant ZARAFACONFFILE => '/etc/zarafa/server.cfg';
@@ -186,6 +189,7 @@ sub kerberosServicePrincipals
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -213,9 +217,69 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    # Create new principal when upgrading from 3.0.2
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.3') < 0) {
-        $self->kerberosCreatePrincipals() if ($self->configured());
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1') <= 0) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+}
+
+# Migration to 3.2
+#
+#  * Migrate current OpenLDAP schema to the new one in 3.2
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    # LDAP Backup.
+    my $backupDir = EBox::Config::conf . "backup-zarafa-upgrade-to-32-" . time();
+    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
+    my $usersMod = EBox::Global->modInstance('users');
+    $usersMod->dumpConfig($backupDir);
+
+    my $ldap = EBox::Ldap->instance();
+
+    my $newSchema = EBox::Config::share() . 'zentyal-zarafa/zarafa.ldif';
+
+    my %args = (
+        base => 'cn=schema,cn=config',
+        filter => "(objectClass=olcSchemaConfig)",
+        scope => 'sub',
+    );
+
+    my $result = $ldap->search(\%args);
+
+    for my $entry ($result->entries) {
+        if($entry->get_value('cn') =~ m/zarafa/) {
+            EBox::info("Migrating " . $entry->dn() . " schema");
+            my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
+            defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
+
+            if (not $ldif->eof()) {
+                my $newEntry = $ldif->read_entry();
+                if ($ldif->error()) {
+                    throw EBox::Exceptions::Internal(
+                        "Can't load LDIF file: $newSchema");
+                }
+                $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
+                my $updateResult = $entry->update($ldap->connection());
+                if ($updateResult->is_error()) {
+                    EBox::error($updateResult->error());
+                    EBox::error("Reverting LDAP changes");
+                    $usersMod->restoreConfig($backupDir);
+                    throw EBox::Exceptions::Internal(
+                        "Found and error while updating LDAP schema!");
+                }
+                if (not $ldif->eof()) {
+                    EBox::error("Found unexpected entries in $newSchema");
+                    EBox::error("Reverting LDAP changes");
+                    $usersMod->restoreConfig($backupDir);
+                    throw EBox::Exceptions::Internal(
+                        "Found and error while updating LDAP schema!");
+                }
+                $ldif->done();
+            }
+        }
     }
 }
 
@@ -727,16 +791,16 @@ sub _addVMailDomainOU
     my ($self, $vdomain) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $ldap = $users->ldap();
-    my $ldapconf = $ldap->ldapConf;
-    my $dn =  "ou=$vdomain," . $users->usersDn();
+    my $usersDN = $users->usersDn();
 
-    my $group = new EBox::UsersAndGroups::OU(dn => $dn);
-    return if $group->exists();
+    my $dn = "ou=$vdomain," . $usersDN;
+    my $ou = new EBox::Users::OU(dn => $dn);
+    return if $ou->exists();
 
-    $group->create($dn);
-    $group->add('objectClass', [ 'zarafa-company' ], 1);
-    $group->save();
+    my $parent = $users->objectFromDN($usersDN);
+    $ou->create($vdomain, $parent);
+    $ou->add('objectClass', [ 'zarafa-company' ], 1);
+    $ou->save();
 }
 
 # Method: addModuleStatus
@@ -757,6 +821,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Zarafa',
+                                        'icon' => 'zarafa',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' => 605

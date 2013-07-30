@@ -1,0 +1,15 @@
+Source: zenbuntu-core
+Section: metapackages
+Priority: optional
+Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
+Build-Depends: debhelper (>= 7.0.0), cdbs
+Standards-Version: 3.9.1
+Homepage: http://www.zentyal.org/
+
+Package: zenbuntu-core
+Architecture: all
+Depends: openssh-server, nano, plymouth-theme-ubuntu-text, acpid, ntp, wget, policykit-1
+Conflicts: zenbuntu-desktop (<< 3.1)
+Description: Zentyal Environment for Ubuntu Server
+ This package ships scripts and branding stuff included in
+ the Zentyal installer to setup the Zentyal system.

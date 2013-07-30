@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::EBackup;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 use EBox;
@@ -30,7 +31,6 @@ use File::Basename;
 use EBox::FileSystem;
 use Filesys::Df;
 use EBox::DBEngineFactory;
-use EBox::EBackup::Subscribed;
 use EBox::EBackup::Password;
 
 use MIME::Base64;
@@ -51,6 +51,8 @@ use constant LOCK_FILE     => EBox::Config::tmp() . 'ebox-ebackup-lock';
 
 use constant UPDATE_STATUS_IN_BACKGROUND_LOCK =>  'ebackup-collectionstatus';
 use constant UPDATE_STATUS_SCRIPT =>   EBox::Config::share() . '/zentyal-ebackup/update-status';
+use constant FINGERPRINT_FILE => EBox::Config::share() . 'zentyal-ebackup/server-fingerprints';
+
 
 # Constructor: _create
 #
@@ -93,7 +95,6 @@ sub addModuleStatus
         running       => $self->isEnabled(),
         nobutton      => 1));
 }
-
 
 # This hook is called before checking if a target is ready for the backup
 # It is intended to be used to mount filesystems or
@@ -203,7 +204,6 @@ sub restoreFile
     };
 }
 
-
 sub _duplicityRestoreFileCmd
 {
     my ($self, $url, $file, $date, $destination) = @_;
@@ -271,19 +271,19 @@ sub lastBackupDate
 # Arguments:
 #
 #       type - full or incremental
+#       urlParams -
 #
 # Returns:
 #
 #   String contaning the arguments for duplicy
 sub remoteArguments
 {
-    my ($self, $type, $urlParams, %extraParams) = @_;
+    my ($self, $type, $urlParams) = @_;
     defined $urlParams or
         $urlParams = {};
-    my $toCloud = $extraParams{toCloud};
 
     my $volSize = $self->_volSize();
-    my $fileArgs = $self->remoteFileSelectionArguments($toCloud);
+    my $fileArgs = $self->remoteFileSelectionArguments();
     my $cmd =  DUPLICITY_WRAPPER .  " $type " .
             "--volsize $volSize " .
             "$fileArgs " .
@@ -291,17 +291,19 @@ sub remoteArguments
     return $cmd;
 }
 
-
 sub extraDataDir
 {
     return EBox::Config::home() . 'extra-backup-data';
 }
 
+# Method: dumpExtraData
+#
+#    dumps into an always-backuped directory extra data regardless of the
+#    includes or the excludes. Now the extra dumped data is only a configuration backup
+#
 sub dumpExtraData
 {
     my ($self, $readOnlyGlobal) = @_;
-
-    my @domainsDumped;
 
     my $extraDataDir = $self->extraDataDir();
     EBox::Sudo::root("rm -rf $extraDataDir");
@@ -310,16 +312,10 @@ sub dumpExtraData
         throw EBox::Exceptions::Internal("Cannot create directory $extraDataDir. $!");
     if (not -w $extraDataDir) {
         EBox::error("Cannot write in extra backup data directory $extraDataDir");
-        return;
+        return [];
     }
 
     my $global = EBox::Global->getInstance($readOnlyGlobal);
-
-    # create backup domain files
-    my @enabledBackupDomains = keys %{ $self->_enabledBackupDomains()  };
-    File::Slurp::write_file($self->enabledDomainsListPath(),
-                            join ',', @enabledBackupDomains);
-
     try {
         my $filename = 'confbackup.tar';
         my $bakFile = EBox::Backup->backupDir() . "/$filename";
@@ -336,38 +332,10 @@ sub dumpExtraData
         }
 
         EBox::Sudo::command("mv $bakFile $extraDataDir");
-
-        push @domainsDumped, 'configuration';
     } otherwise {
         my $ex = shift;
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     };
-
-    my %enabled = %{ $self->_enabledBackupDomains() };
-
-    foreach my $mod (@{ $global->modInstances() }) {
-        if ($mod->can('dumpExtraBackupData')) {
-            try {
-                my $dumped = $mod->dumpExtraBackupData($extraDataDir, %enabled);
-                if ($dumped) {
-                    push @domainsDumped, @{ $dumped };
-                }
-            } otherwise {
-                EBox::error("Error dumping extra backup data for module " .
-                             $mod->name .
-                            '. The backup will continue but you could not be able to restore all parts of your system');
-            };
-        }
-    }
-
-    return \@domainsDumped;
-}
-
-sub enabledDomainsListPath
-{
-    my ($self) = @_;
-    my $path = $self->extraDataDir() .  '/enabled-domains.csv';
-    return $path;
 }
 
 # Method: includedConfigBackupPath
@@ -381,193 +349,18 @@ sub includedConfigBackupPath
     return $path;
 }
 
-# Method: availableBackupDomains
-#
-# Parameters: modNames - names of modules to look for backup domains (Default:
-# all installed modules)
-#
-# Returns:
-#
-#    hash reference whose backup domain name as key and backup
-#      domain attributes as values
-sub availableBackupDomains
-{
-    my ($self, $modNames) = @_;
-    my %backupDomains = ();
-
-    my $global = EBox::Global->getInstance();
-    if (not defined $modNames) {
-        $modNames = $global->modNames();
-    }
-
-    foreach my $name (@{ $modNames }) {
-        my $mod = $global->modInstance($name);
-        # the mod shouldnt to exist when we supply a list of modules
-        defined $mod or
-            next;
-        if ($mod->isa('EBox::Module::Service')) {
-            $mod->configured() or
-                next;
-        }
-
-        if ($mod->can('backupDomains')) {
-            my @modBackupDomains = $mod->backupDomains();
-            while (my ($name, $attrs) = splice( @modBackupDomains, 0, 2)) {
-                $backupDomains{$name} = $attrs;
-                $backupDomains{$name}->{enabled} = $mod->configured();
-            }
-
-            # the same domain can be provided by different modules this is
-            # intentional to allow than more of one module for each backup
-            # domain  but assure that their $attr valeus are identical or you can
-            # run into trouble
-        }
-    }
-
-    # special filesIncludes ebackup domain
-    $backupDomains{filesIncludes} = {
-        enabled => 1,
-        printableName => __('All files in backup'),
-        description   => __(q{All files included in the backup}),
-    };
-
-    return \%backupDomains;
-}
-
-sub selectableBackupDomains
-{
-    my ($self, $modNames) = @_;
-    my $backupDomains = $self->availableBackupDomains($modNames);
-
-    # remove non-selectable domains
-    delete $backupDomains->{filesIncludes};
-
-    return $backupDomains;
-}
-
-sub _enabledBackupDomains
-{
-    my ($self, $filesIncludesDomain) = @_;
-    defined $filesIncludesDomain or
-        $filesIncludesDomain = 1;
-
-    my $domainsModel = $self->model('BackupDomains');
-    my $enabled =  $domainsModel->enabled();
-
-    if ($filesIncludesDomain) {
-        my $excludesModel =$self->model('RemoteExcludes');
-        $enabled->{filesIncludes} = $excludesModel->hasIncludes();
-    }
-
-    return $enabled;
-}
-
-sub backupDomainsFileSelectionsRowPrefix
-{
-    return 'ds';
-}
-
-sub _rawModulesBackupDomainsFileSelections
-{
-    my ($self, %enabled) = @_;
-
-    if (not keys %enabled) {
-        %enabled = %{ $self->_enabledBackupDomains(0) };
-    }
-
-    if (not keys %enabled) {
-        return [];
-    }
-
-    my $mods = EBox::Global->getInstance()->modInstances();
-    my @domainSelections = ();
-    foreach my $mod (@{ $mods }) {
-        if ($mod->can('backupDomainsFileSelection')) {
-            my $bds = $mod->backupDomainsFileSelection(%enabled);
-            $bds->{mod} = $mod->{name};
-            push @domainSelections, $bds;
-        }
-    }
-
-    @domainSelections = sort {
-                       my $pA = exists $a->{priority} ?
-                                       $a->{priority} : 1;
-                       my $pB = exists $b->{priority} ?
-                                       $b->{priority} : 1;
-                       $pA <=> $pB
-                     } @domainSelections ;
-    return \@domainSelections;
-}
-
-# Method: modulesBackupDomainsFileSelections
-#
-#  Returns:
-#   list with all file selections for the enabled backup domains in the system
-
-sub modulesBackupDomainsFileSelections
-{
-    my ($self, %enabled) = @_;
-    my @domainSelections = @{ $self->_rawModulesBackupDomainsFileSelections(%enabled) };
-
-    my $prefix = $self->backupDomainsFileSelectionsRowPrefix();
-    my @selections;
-    foreach my $ds (@domainSelections) {
-        foreach my $type (qw(include)) {
-            my $typeList = $type . 's';
-            if ($ds->{$typeList}) {
-                foreach my $value (@{ $ds->{$typeList} }) {
-                        my $encodedValue = encode_base64($value, '');
-                        $encodedValue =~ s/=/eq/g;
-                        $encodedValue =~ s/\+/ad/g;
-                        $encodedValue =~ s{/}{sl}g;
-
-                        my $id =  $prefix .  '_' .
-                            $ds->{mod} . '_' . $type . '_' .$encodedValue;
-                        push @selections, {
-                                           id   => $id,
-                                           type => $type,
-                                           value => $value };
-                }
-            }
-        }
-    }
-
-    return \@selections;
-}
-
-
-sub _backupDomainsFileSelectionArguments
-{
-    my ($self) = @_;
-
-    my @selections = @{ $self->modulesBackupDomainsFileSelections };
-
-    my $args = '';
-    foreach my $selection (@selections) {
-        $args .= '--' . $selection->{type} . ' ' . $selection->{value} . ' ';
-    }
-
-    return $args;
-}
 
 sub remoteFileSelectionArguments
 {
-    my ($self, $toCloud) = @_;
+    my ($self) = @_;
     my $args = '';
-    if ($toCloud) {
-        # exclude configuration backup it will be stored as idependent file
-        $args .= ' --exclude='. $self->includedConfigBackupPath() . ' ';
-    }
     # Include configuration backup
     $args .= ' --include=' . $self->extraDataDir . ' ';
 
     $args .= $self->_autoExcludesArguments();
 
-    # high level selection arguments
-    $args .= $self->_backupDomainsFileSelectionArguments();
-
     my $excludesModel = $self->model('RemoteExcludes');
-    $args .= $excludesModel->fileSelectionArguments(domainSelections => 0);
+    $args .= $excludesModel->fileSelectionArguments();
     return $args;
 }
 
@@ -673,7 +466,6 @@ sub remoteGenerateListFile
         EBox::Sudo::root("rm -f $tmpFile");
     }
 }
-
 
 # Method: remoteStatus
 #
@@ -897,7 +689,6 @@ sub _updateStatusInBackgroundLockFile
     return EBox::Util::Lock::_lockFile(UPDATE_STATUS_IN_BACKGROUND_LOCK);
 }
 
-
 # Method: tmpFileList
 #
 #   Return the patch to store the temporary remote file list
@@ -1010,19 +801,16 @@ sub setRemoteBackupCron
     EBox::Sudo::root("install --mode=0644 $tmpFile $dst");
 }
 
-
 sub removeRemoteBackupCron
 {
     my $rmCmd = "rm -f " . backupCronFile();
     EBox::Sudo::root($rmCmd);
 }
 
-
 sub backupCronFile
 {
     return '/etc/cron.d/ebox-ebackup';
 }
-
 
 # Method: _setConf
 #
@@ -1039,36 +827,14 @@ sub _setConf
         return;
     }
 
-    # Store password
     my $model = $self->model('RemoteSettings');
 
-    my $usingCloud =  $model->row()->valueByName('method') eq 'cloud';
-    my $cloudCredentials;
+    # Store password
+    my $pass = $model->row()->valueByName('password');
+    defined $pass or
+        $pass = '';
+    EBox::EBackup::Password::setPasswdFile($pass);
 
-    if ($usingCloud) {
-        try {
-            $cloudCredentials = EBox::EBackup::Subscribed::credentials();
-            if ($cloudCredentials) {
-                EBox::EBackup::Subscribed::createStructure();
-            }
-        } catch EBox::Exceptions::NotConnected with {
-            my ($ex) = @_;
-            EBox::error("Could not get Cloud backup credentials: $ex");
-        };
-    }
-
-    my $pass;
-    if (not $usingCloud) {
-        $pass = $model->row()->valueByName('password');
-        defined $pass or
-            $pass = '';
-        EBox::EBackup::Password::setPasswdFile($pass);
-    } elsif ($cloudCredentials) {
-        $pass = $cloudCredentials->{password};
-        EBox::EBackup::Password::setPasswdFile($pass);
-    } else {
-        EBox::error("No new backup connection password found, using old one");
-    }
 
     my $symPass = $model->row->valueByName('encryption');
     $self->$symPass = '' unless (defined($symPass));
@@ -1080,12 +846,8 @@ sub _setConf
         $self->removeRemoteBackupCron();
     }
 
-    if ((not $usingCloud) or $cloudCredentials) {
-        $self->_syncRemoteCachesInBackground;
-    }
-
+    $self->_syncRemoteCachesInBackground;
 }
-
 
 # this calls to remoteGenerateStatusCache and if there was change it regenerates
 # also the files list
@@ -1108,8 +870,9 @@ sub menu
     my ($self, $root) = @_;
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
-                        'text' => __('System'),
-                        'order' => 30);
+                                        'icon' => 'system',
+                                        'text' => __('System'),
+                                        'order' => 30);
 
     $system->add(new EBox::Menu::Item(
             'url' => 'SysInfo/EBackup',
@@ -1179,7 +942,7 @@ sub _remoteUrl
 
     if ($sshKnownHosts) {
         $url .= ' --ssh-options="-oUserKnownHostsFile='
-            . EBox::EBackup::Subscribed::FINGERPRINT_FILE . '"';
+            . FINGERPRINT_FILE . '"';
     }
 
     if (not %forceParams) {
@@ -1202,7 +965,6 @@ sub _remoteUrl
 
     return $url;
 }
-
 
 sub _volSize
 {
@@ -1333,7 +1095,6 @@ sub storageUsage
         return undef;
     }
 
-
     my $result = {
             used => int($used),
             available => int($available),
@@ -1359,7 +1120,6 @@ sub _clearStorageUsageCache
     my $file = _storageUsageCacheFile();
     system "rm -f $file";
 }
-
 
 sub checkTargetStatus
 {

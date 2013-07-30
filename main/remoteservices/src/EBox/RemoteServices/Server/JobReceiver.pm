@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,10 +22,10 @@
 #      some way
 #
 
-package EBox::RemoteServices::Server::JobReceiver;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Server::JobReceiver;
 
 use base 'EBox::RemoteServices::Server::Base';
 
@@ -85,7 +85,6 @@ sub runJob
 
 }
 
-
 # Method: runInternalJob
 #
 # Add as internal job to the run queue. Results for internal jobs are NOT
@@ -123,7 +122,6 @@ sub runInternalJob
     my $retValue = _addJob($jobId, $script, $arguments, $dataFile, 1);
     return $retValue
 }
-
 
 # Method: pullStatus
 #
@@ -255,7 +253,6 @@ sub removeJob
     my $dirPath  = EBox::RemoteServices::Configuration::JobsDir() . $id;
     system "rm -rf $dirPath";
 }
-
 
 # Method: URI
 #

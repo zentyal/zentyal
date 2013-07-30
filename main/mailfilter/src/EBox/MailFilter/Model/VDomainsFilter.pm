@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,8 +16,8 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::VDomainsFilter;
-use base 'EBox::Model::DataTable';
 
+use base 'EBox::Model::DataTable';
 
 use EBox;
 
@@ -105,7 +105,6 @@ sub _table
 
                                                                                ),
 
-
                                             ],
 
                                ),
@@ -170,14 +169,12 @@ __( 'Every time that a email moved into or out of the IMAP spam folder ' .
 
 }
 
-
 sub precondition
 {
     my ($self) = @_;
     my $mail = $self->global()->modInstance('mail');
     $mail->model('VDomains')->ids() > 0;
 }
-
 
 sub preconditionFailMsg
 {
@@ -188,7 +185,6 @@ sub preconditionFailMsg
 
    );
 }
-
 
 sub _findRowByVDomain
 {
@@ -206,7 +202,6 @@ sub _vdomainId
     return $vdomainsModel->findId(vdomain => $vdomain);
 }
 
-
 sub spamThreshold
 {
     my ($self, $vdomain) = @_;
@@ -215,7 +210,6 @@ sub spamThreshold
 
     return $self->spamThresholdFromRow($row);
 }
-
 
 sub spamThresholdFromRow
 {
@@ -230,8 +224,6 @@ sub spamThresholdFromRow
     my $addr = $threshold->subtype()->value();
     return $addr;
 }
-
-
 
 # return the row for a given vdomain. If the vdomain has not a configuration row
 # it creates it with the default values
@@ -255,12 +247,10 @@ sub vdomainRow
    #                 hamAccount  => 0,
 #                    spamAccount => 0,
 
-
                   );
 
         $vdRow = $self->_findRowByVDomain($vdomain);
     }
-
 
     return $vdRow;
 }
@@ -289,7 +279,6 @@ sub nameFromRow
     return $vdomainRow->elementByName('vdomain')->value();
 }
 
-
 sub addVDomainSenderACL
 {
     my ($self, $vdomain, $sender, $policy) = @_;
@@ -309,7 +298,6 @@ sub addVDomainSenderACL
     }
 
 }
-
 
 sub vdomainAllowedToLearnFromIMAPFolder
 {
@@ -349,7 +337,6 @@ sub _anotherAllowedToLearnFromIMAPFolder
     return 0;
 }
 
-
 # Method: headTitle
 #
 #   Overrides <EBox::Model::Component::headTitle> to not
@@ -358,7 +345,6 @@ sub headTitle
 {
     return undef;
 }
-
 
 sub addedRowNotify
 {
@@ -376,7 +362,6 @@ sub addedRowNotify
     }
 
 }
-
 
 sub deletedRowNotify
 {
@@ -396,6 +381,10 @@ sub deletedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
 
     # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
     # changed but to avoid corner cases we will always notifiy to mail

@@ -1,32 +1,8 @@
 "use strict";
-function tab1(){
-    document.getElementById('installTab').className = 'current';
-    document.getElementById('updateTab').className='';
-    document.getElementById('deleteTab').className='';
-    document.getElementById('installBox').show();
-    document.getElementById('updateBox').hide();
-    document.getElementById('deleteBox').hide();
-}
 
-function tab2(){
-    document.getElementById('installTab').className = '';
-    document.getElementById('updateTab').className='current';
-    document.getElementById('deleteTab').className='';
-    document.getElementById('installBox').hide();
-    document.getElementById('updateBox').show();
-    document.getElementById('deleteBox').hide();
-}
+Zentyal.namespace('SoftwareManagementUI');
 
-function tab3(){
-    document.getElementById('installTab').className = '';
-    document.getElementById('updateTab').className='';
-    document.getElementById('deleteTab').className='current';
-    document.getElementById('installBox').hide();
-    document.getElementById('updateBox').hide();
-    document.getElementById('deleteBox').show();
-}
-
-var suites =  {
+Zentyal.SoftwareManagementUI.suites =  {
     'Gateway' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-squid', 'zentyal-trafficshaping', 'zentyal-l7-protocols',
                   'zentyal-users', 'zentyal-remoteservices', 'zentyal-monitor', 'zentyal-ca', 'zentyal-openvpn' ],
     'Infrastructure' : [ 'zentyal-network', 'zentyal-firewall', 'zentyal-dhcp', 'zentyal-dns', 'zentyal-openvpn',
@@ -37,126 +13,209 @@ var suites =  {
                          'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
 };
 
-function showInfo(id){
-    var items = ['Gateway', 'Infrastructure', 'Office', 'Communications', 'Install'];
-    Effect.Appear(id, { duration : 0.2 });
-    for (var i = 0; i < items.length; i++) {
-        if (items[i] != id) {
-            Effect.Fade(items[i], { duration : 0.2 });
-        }
-    }
-}
+Zentyal.SoftwareManagementUI.showInstallTab = function() {
+    $('#installTab').removeClass().addClass('current');
+    $('#updateTab, #deleteTab').removeClass();
+    $('#installBox').show();
+    $('#updateBox, #deleteBox').hide();
+};
 
-function hideInfo(id) {
-    Effect.Fade(id, { duration : 0.2 });
-    Effect.Appear('Install', { duration : 0.2 });
-}
+Zentyal.SoftwareManagementUI.showUpdateTab = function (){
+    $('#updateTab').removeClass().addClass('current');
+    $('#installTab, #deleteTab').removeClass();
+    $('#updateBox').show();
+    $('#installBox, #deleteBox').hide();
+};
 
-function tick(id, update_packages){
-    document.getElementById(id+'_image_tick').show();
-    document.getElementById(id+'_image').hide();
-    document.getElementById(id+'_check').checked = true;
+Zentyal.SoftwareManagementUI.showDeleteTab = function (){
+    $('#deleteTab').removeClass().addClass('current');
+    $('#installTab, #updateTab').removeClass();
+    $('#deleteBox').show();
+    $('#installBox, #updateBox').hide();
+};
+
+Zentyal.SoftwareManagementUI.showInfo = function(id) {
+    var idSel =  '#' + id;
+    $(idSel).show(200);
+    $('#Gateway, #Infrastructure, #Office, #Communications, #Install').not(idSel).hide(200);
+};
+
+Zentyal.SoftwareManagementUI.hideInfo = function (id) {
+    $('#' + id).fadeOut(200);
+    $('Install').show(200);
+};
+
+Zentyal.SoftwareManagementUI.tick = function (id, update_packages){
+    $('#' + id+ '_image_tick').show();
+    $('#' + id+ '_image').hide();
+    $('#' + id+ '_check').prop('checked', true);
 
      if (update_packages) {
-        var deps = suites[id];
-        for (var i=0; i<deps.length; i++) {
-           selectPackage(deps[i], 1);
-        }
+         var deps = Zentyal.SoftwareManagementUI.suites[id];
+         $.each(deps, function(index, packageId) {
+             Zentyal.SoftwareManagementUI.selectPackage(packageId, true);
+         });
      }
-}
+};
 
-function untick(id, update_packages){
-    document.getElementById(id+'_image_tick').hide();
-    document.getElementById(id+'_image').show();
-    document.getElementById(id+'_check').checked = false;
+Zentyal.SoftwareManagementUI.untick = function(id, update_packages){
+    $('#' + id+'_image_tick').hide();
+    $('#' + id+'_image').show();
+    $('#' + id+'_check').prop('checked', false);
 
     if (update_packages) {
-        var tickedSuites = [];
-        for (var suite in suites) {
-          if (suite != id) {
-            if ($(suite +'_check').checked) {
-              tickedSuites.push(suite);
+        var otherSuitesPackages = {};
+        for (var suite in Zentyal.SoftwareManagementUI.suites) {
+            if (suite != id) {
+                if ($('#' + suite +'_check').prop('checked')) {
+                    var suiteDeps = Zentyal.SoftwareManagementUI.suites[suite];
+                    $.each(suiteDeps, function(index, pkg) {
+                         otherSuitesPackages[pkg] = true;
+                    });
+                }
             }
-          }
         }
-        var deps = suites[id];
-        for (var i=0; i< deps.length; i++) {
-          var pkg = deps[i];
-          // check if pkg also is in another enabled suite
-          var multiSuite = false;
-          for (var ts=0; ts < tickedSuites.length; ts++) {
-            var suiteDeps = suites[tickedSuites[ts]];
-            for (var nDep=0; nDep < suiteDeps.length; nDep++) {
-              if (pkg == suiteDeps[nDep]) {
-                multiSuite = true;
-                break;
-              }
-            }
-            if (multiSuite) {
-              break;
-            }
-          }
 
-          if (!multiSuite) {
-             unselectPackage(pkg, 1);
-          }
-        }
+        var deps =  Zentyal.SoftwareManagementUI.suites[id];
+        $.each(deps, function(index, pkg) {
+            if (! (pkg in otherSuitesPackages)) {
+                Zentyal.SoftwareManagementUI.unselectPackage(pkg, false);
+            }
+        });
     }
-}
+};
 
-function selected(id) {
-  var element = $(id);
-  if (element)   {
-    return element.hasClassName('package_selected');
+Zentyal.SoftwareManagementUI.selected = function(id) {
+    return $('#' + id).hasClass('package_selected');
+};
+
+Zentyal.SoftwareManagementUI.selectPackage = function(id, no_update_ticks) {
+  $('#' + id).addClass('package_selected');
+  if (!no_update_ticks) {
+       Zentyal.SoftwareManagementUI.updateTicks();
   }
-  return false;
-}
+};
 
-function selectPackage(id, no_update_ticks) {
-  var element = $(id);
-  if (element) {
-     element.addClassName('package_selected');
-     if (!no_update_ticks) {
-       updateTicks();
-     }
-  }
-}
+Zentyal.SoftwareManagementUI.unselectPackage = function(id, no_update_ticks) {
+    $('#' + id).removeClass('package_selected');
+    if (!no_update_ticks) {
+         Zentyal.SoftwareManagementUI.updateTicks();
+    }
+};
 
-function unselectPackage(id, no_update_ticks) {
-    var element = $(id);
-    if (element) {
-       element.removeClassName('package_selected');
-       if (!no_update_ticks) {
-         updateTicks();
-       }
-   }
-}
-
-function togglePackage(id) {
-    if (selected(id)) {
-        unselectPackage(id);
+Zentyal.SoftwareManagementUI.togglePackage = function(id) {
+    if (Zentyal.SoftwareManagementUI.selected(id)) {
+        Zentyal.SoftwareManagementUI.unselectPackage(id);
     } else {
-        selectPackage(id);
+        Zentyal.SoftwareManagementUI.selectPackage(id);
     }
-    updateTicks();
-}
+    Zentyal.SoftwareManagementUI.updateTicks();
+};
 
-function updateTicks() {
-    // add/remove ticks from suites after package unselection
-    for (var suite in suites) {
+Zentyal.SoftwareManagementUI.updateTicks = function() {
+    // add/remove ticks from suites after package (un)selection
+    for (var suite in Zentyal.SoftwareManagementUI.suites) {
         var allSelected = true;
-        for (var i=0; i<suites[suite].length; i++) {
-            if (!selected(suites[suite][i])) {
+        var packages = Zentyal.SoftwareManagementUI.suites[suite];
+        for (var i=0; i< packages.length; i++) {
+            if (!Zentyal.SoftwareManagementUI.selected(packages[i])) {
                 allSelected = false;
                 break;
             }
         }
         if (allSelected) {
-          tick(suite, 0);
+          Zentyal.SoftwareManagementUI.tick(suite, false);
         } else {
-          untick(suite, 0);
+          Zentyal.SoftwareManagementUI.untick(suite, false);
         }
     }
-}
+};
 
+Zentyal.SoftwareManagementUI.selectAll = function(table, actionButton) {
+    $('#' + table  + ' :checkbox').prop('checked', true);
+    $('#' + actionButton).prop('disabled', false);
+};
 
+Zentyal.SoftwareManagementUI.deselectAll = function(table, actionButton) {
+    $('#' + table  + ' :checkbox').prop('checked', false);
+    $('#' + actionButton).prop('disabled', true);
+};
+
+Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
+    var packages = [];
+    packages = $('#' + container + ' :checked').map(function() {
+         return 'pkg-' + this.getAttribute('data-pkg');
+    }).get();
+    Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);
+};
+
+Zentyal.SoftwareManagementUI.sendFormBasic = function(popup, title) {
+    var packages = [];
+    if ($('#Gateway_check').prop('checked')) {
+        packages.push('pkg-zentyal-gateway');
+    }
+    if ($('#Office_check').prop('checked')) {
+        packages.push('pkg-zentyal-office');
+    }
+    if ($('#Communications_check').prop('checked')) {
+        packages.push('pkg-zentyal-communication');
+    }
+    if ($('#Infrastructure_check').prop('checked')) {
+        packages.push('pkg-zentyal-infrastructure');
+    }
+    $('.package_selected').each(function (index, el) {
+       packages.push('pkg-' + el.id);
+    });
+
+    Zentyal.SoftwareManagementUI._sendFormPackagesList('install', packages, popup, title);
+};
+
+Zentyal.SoftwareManagementUI._sendFormPackagesList = function(action, packages, popup, title) {
+    var url  = '/Software/InstallPkgs',
+        data = action + '=1';
+   if (packages.length > 0) {
+     for (var i=0; i < packages.length; i++) {
+         data += '&' +  packages[i] + '=yes';
+     }
+     data += '&popup=' + popup;
+     if (popup) {
+         Zentyal.Dialog.showURL(url, {'title': title, 'data': data});
+     } else {
+       window.location = url + '?' + data;
+     }
+  } else {
+      alert('No packages selected');
+  }
+};
+
+Zentyal.SoftwareManagementUI.updateActionButton = function(table, buttonId) {
+    var allDisabled = $('#' + table + ' :checked').length === 0;
+    $('#' + buttonId).prop('disabled', allDisabled);
+};
+
+Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
+    var trSel = '#' + tableId  + ' tbody tr';
+    var tableTr =  $(trSel);
+    var filterText = $('#' + filterId).val();
+
+    filterText = $.trim(filterText).toLowerCase();
+    if (filterText === '') {
+        tableTr.show();
+        Zentyal.stripe('.dataTable', 'even', 'odd');
+        return;
+    }
+
+    tableTr.each(function (index, tr) {
+        tr = $(tr)
+        if (tr.text().toLowerCase().indexOf(filterText) >= 0 ) {
+            tr.show();
+        } else {
+            tr.hide();
+            }
+    });
+
+    //stripe with visible status aware
+    var visibleTr =  tableTr.filter(':visible');
+    visibleTr.filter(':even').addClass('even').removeClass('odd');
+    visibleTr.filter(':odd').addClass('odd').removeClass('even');
+};

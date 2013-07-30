@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,27 +16,24 @@ use strict;
 use warnings;
 
 package EBox::CGI::View::DataTable;
+
 use base 'EBox::CGI::ClientBase';
 
 use Error qw(:try);
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
 
-sub new # (cgi=?)
+
+sub new
 {
-    my $class = shift;
-    my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
-    my $self = $class->SUPER::new('template' => $tableModel->Viewer(),
-                                  @_);
+    my ($class, %params) = @_;
+    my $tableModel = $params{'tableModel'};
+    my $self = $class->SUPER::new('template' => $tableModel->Viewer(), %params);
     $self->{'tableModel'} = $tableModel;
     bless($self, $class);
-    return $self;
+    return  $self;
 }
-
-# Group: Protected methods
 
 # Method: _header
 #
@@ -89,8 +86,6 @@ sub _process
         $self->{'params'} = \@params;
     }
 }
-
-# Group: Private methods
 
 # Method to check if the given parameters are exactly in the model or
 # not and then add

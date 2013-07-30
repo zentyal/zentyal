@@ -4,7 +4,10 @@
 
 Parameters:
 
-   port - Int the listening port
+   bind_address - String the bind address.
+                  Default value: 127.0.0.1
+   port - Int the listening port.
+          Default value: 60080
    group - String the group that must live apache-perl process
    user  - String the user that the apache-perl process must be
    serverroot - String the path to the Apache server root
@@ -27,7 +30,8 @@ Parameters:
 # FIXME: unhardcode paths passing them as args...
 </%doc>
 <%args>
-    $port
+    $bind_address => '127.0.0.1'
+    $port => 60080
     $group
     $user
     $serverroot
@@ -91,13 +95,11 @@ Include /etc/apache2/mods-available/mime.load
 Include /etc/apache2/mods-available/negotiation.load
 Include /etc/apache2/mods-available/setenvif.load
 Include /etc/apache2/mods-available/rewrite.load
-Include /etc/apache2/mods-available/ssl.conf
-Include /etc/apache2/mods-available/ssl.load
 Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 Include /etc/apache2/mods-available/expires.load
 
-Listen <% $port %>
+Listen <% $bind_address %>:<% $port %>
 User <% $user %>
 Group <% $group %>
 
@@ -144,7 +146,7 @@ DefaultType text/plain
 
 HostnameLookups Off
 
-ErrorLog /var/log/zentyal/error.log
+ErrorLog /var/log/zentyal/error-perl.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
@@ -160,15 +162,6 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{fore
 ServerSignature Off
 ServerTokens Min
 
-<IfModule mod_ssl.c>
-    SSLEngine on
-    SSLProtocol all
-    SSLCipherSuite HIGH:MEDIUM
-    SSLInsecureRenegotiation on
-    SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-    SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-</IfModule>
-
 <IfModule mod_setenvif.c>
     BrowserMatch "Mozilla/2" nokeepalive
     BrowserMatch "MSIE 4\.0b2;" nokeepalive downgrade-1.0 force-response-1.0
@@ -183,14 +176,6 @@ ServerTokens Min
 % foreach my $includeFile (@includes) {
      Include <% $includeFile %>
 % }
-
-    <IfModule mod_ssl.c>
-        SSLEngine on
-        SSLProtocol all
-        SSLCipherSuite HIGH:MEDIUM
-        SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-        SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-    </IfModule>
 
     <Directory />
         Options SymLinksIfOwnerMatch
@@ -215,7 +200,7 @@ ServerTokens Min
         Allow from all
     </Directory>
 
-    CustomLog /var/log/zentyal/access.log combined
+    CustomLog /var/log/zentyal/access-perl.log combined
 
 % if ($debug eq 'yes') {
 # Yes, this is useless right now.
@@ -238,9 +223,6 @@ ServerTokens Min
     </Files>
 
     <Directory /usr/share/zentyal/cgi/>
-        <IfModule mod_ssl.c>
-            SSLOptions +StdEnvVars
-        </IfModule>
 
         AuthType EBox::Auth
         AuthName EBox
@@ -279,19 +261,7 @@ Listen <% $desktop_services_port %>
 <VirtualHost *:<% $desktop_services_port %> >
     DocumentRoot /usr/share/zentyal/www/
 
-    <IfModule mod_ssl.c>
-        SSLEngine on
-        SSLProtocol all
-        SSLCipherSuite HIGH:MEDIUM
-        SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-        SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-    </IfModule>
-
     <Directory /usr/share/zentyal/cgi/>
-        <IfModule mod_ssl.c>
-            SSLOptions +StdEnvVars
-        </IfModule>
-
         SetHandler perl-script
         PerlHandler ModPerl::Registry
         PerlSendHeader On

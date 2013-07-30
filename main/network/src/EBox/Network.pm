@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Network;
+
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
 # Interfaces list which will be ignored
@@ -31,7 +32,6 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
@@ -69,6 +69,36 @@ use File::Slurp;
 
 use constant FAILOVER_CHAIN => 'FAILOVER-TEST';
 use constant CHECKIP_CHAIN => 'CHECKIP-TEST';
+
+# Group: Public methods
+
+# Method: localGatewayIP
+#
+#       Return the local IP address that may be used as the gateway for the given IP or undef if Zentyal is not
+#       directly connected with the given IP.
+#
+# Parameters:
+#
+#       ip - String the IP address for the client that will use the returning IP address as gateway.
+#
+# Returns:
+#
+#       String - Zentyal's IP address that would act as the gateway. undef if not reachable.
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::MissingArgument> - thrown if any compulsory argument is missing
+#
+sub localGatewayIP
+{
+    my ($self, $ip) = @_;
+
+    $ip or throw EBox::Exceptions::MissingArgument('ip');
+
+    my $iface = $self->gatewayReachable($ip);
+    return undef unless ($iface);
+    return $self->ifaceAddress($iface);
+}
 
 sub _create
 {
@@ -201,7 +231,6 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
-    # TODO: Migration to remove zentyal-network cron tab and obsolete tables
 }
 
 # Method: enableActions
@@ -213,7 +242,7 @@ sub enableActions
     my ($self) = @_;
 
     # Disable IPv6 if it is enabled
-    if (-e '/proc/net/if_inet6') {
+    if (-d  '/proc/sys/net/ipv6') {
         my @cmds;
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);
@@ -275,6 +304,31 @@ sub ExternalIfaces
         }
     }
     return \@array;
+}
+
+# Method: externalIpAddresses
+#
+#   Returs a list of external IP addresses
+#
+# Returns:
+#
+#   array ref - Holding the external IP's
+#
+sub externalIpAddresses
+{
+    my ($self) = @_;
+
+    my $ips = [];
+
+    my $externalInterfaces = $self->ExternalIfaces();
+    foreach my $interface (@{$externalInterfaces}) {
+        foreach my $interfaceInfo (@{$self->ifaceAddresses($interface)}) {
+            next unless (defined $interfaceInfo);
+            push @{$ips}, $interfaceInfo->{address};
+        }
+    }
+
+    return $ips;
 }
 
 # Method: InternalIfaces
@@ -407,7 +461,6 @@ sub ifaceIsBridge # (interface)
     }
 }
 
-
 # Method: ifaceOnConfig
 #
 #   Checks if a given iface is configured
@@ -430,6 +483,58 @@ sub ifaceOnConfig
     }
 
     return defined($self->get_hash('interfaces')->{$name}->{method});
+}
+
+# Method: netInitRange
+#
+#   Return the initial host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   String - containing the initial range
+#
+sub netInitRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $network = ip_network($address, $netmask);
+    my ($first, $last) = $network =~ /(.*)\.(\d+)$/;
+    my $init_range = $first . "." . ($last + 1);
+
+    return $init_range;
+}
+
+# Method: netEndRange
+#
+#   Return the final host address range for a given interface
+#
+# Parameters:
+#
+#   iface - String interface name
+#
+# Returns:
+#
+#   string - containing the final range
+#
+sub netEndRange # (interface)
+{
+    my ($self, $iface) = @_;
+
+    my $address = $self->ifaceAddress($iface);
+    my $netmask = $self->ifaceNetmask($iface);
+
+    my $broadcast = ip_broadcast($address, $netmask);
+    my ($first, $last) = $broadcast =~ /(.*)\.(\d+)$/;
+    my $end_range = $first . "." . ($last - 1);
+
+    return $end_range;
 }
 
 sub _ignoreIface
@@ -1466,7 +1571,6 @@ sub setIfacePPP
         throw EBox::Exceptions::DataNotFound(data => __('Interface'),
                              value => $name);
 
-
     my $oldm = $self->ifaceMethod($name);
     my $olduser = $self->ifacePPPUser($name);
     my $oldpass = $self->ifacePPPPass($name);
@@ -1505,7 +1609,6 @@ sub setIfacePPP
             }
         }
     }
-
 
     if ($oldm ne 'ppp') {
             $self->_notifyChangedIface(
@@ -1576,7 +1679,6 @@ sub setIfaceTrunk # (iface, force)
     } elsif ($oldm eq 'bridged') {
         $self->BridgedCleanUp($name);
     }
-
 
     if ($oldm ne 'notset') {
         $self->_notifyChangedIface(
@@ -1665,7 +1767,6 @@ sub setIfaceBridged
                                                  value => "br$bridge");
     }
 
-
     my $oldm = $self->ifaceMethod($name);
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -1677,7 +1778,6 @@ sub setIfaceBridged
     } elsif ($oldm eq 'bridged' and $self->ifaceBridge($name) ne $bridge) {
         $self->BridgedCleanUp($name);
     }
-
 
     my $global = EBox::Global->getInstance();
     my @observers = @{$global->modInstancesOfType('EBox::NetworkObserver')};
@@ -1832,7 +1932,6 @@ sub vlanExists # (vlanID)
     return exists $self->get_hash('vlans')->{$vlan};
 }
 
-
 # Method: ifaceVlans
 #
 #   Returns information about every vlan that exists on the given trunk
@@ -1919,7 +2018,6 @@ sub _removeBridge # (id)
     $self->_removeIface("br$id");
 }
 
-
 # Method: _removeEmptyBridges
 #
 # Removes bridges which has no bridged interfaces
@@ -1940,7 +2038,6 @@ sub _removeEmptyBridges
         $self->_removeBridge($bridge);
     }
 }
-
 
 # Method: bridges
 #
@@ -2914,7 +3011,7 @@ sub _removeRoutes
     my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
         my $network = $currentRoute->{network};
-        if (not $network =~ m{/}) {
+        unless (($network =~ m{/}) or ($network eq 'default')) {
             # add /32 mask to ips without it so we can compare same format
             $network .= '/32';
         }
@@ -3134,7 +3231,6 @@ sub _supportActions
 sub _preSetConf
 {
     my ($self, %opts) = @_;
-
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
     return unless exists $ENV{'USER'};
@@ -3153,7 +3249,8 @@ sub _preSetConf
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $if (@{$iflist}) {
-        if ($self->_hasChanged($if)) {
+        my $dhcpIface = $self->ifaceMethod($if) eq 'dhcp';
+        if ($self->_hasChanged($if) or $dhcpIface) {
             try {
                 my @cmds;
                 if ($self->ifaceExists($if)) {
@@ -3188,6 +3285,7 @@ sub _preSetConf
             }
         }
     }
+
 }
 
 sub _daemons
@@ -3205,7 +3303,6 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
-
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
@@ -3220,6 +3317,7 @@ sub _setConf
 sub _enforceServiceState
 {
     my ($self, %opts) = @_;
+
     my $restart = delete $opts{restart};
 
     my $file = INTERFACES_FILE;
@@ -3229,7 +3327,8 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
-        if ($self->_hasChanged($iface) or $restart) {
+        my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
+        if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
                 $iface = "zentyal-ppp-$iface";
             }
@@ -3237,10 +3336,11 @@ sub _enforceServiceState
         }
     }
 
+
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
-        open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
+        EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
@@ -3248,7 +3348,7 @@ sub _enforceServiceState
                 $self->_unsetChanged($iface);
             }
         }
-        unlink (IFUP_LOCK_FILE);
+        EBox::Util::Lock::unlock('ifup');
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
@@ -3275,7 +3375,6 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState();
 }
 
-
 # Method:  restoreConfig
 #
 #   Restore its configuration from the backup file.
@@ -3295,7 +3394,6 @@ sub restoreConfig
     $self->SUPER::restoreConfig();
 }
 
-
 sub _stopService
 {
     my ($self) = @_;
@@ -3311,10 +3409,10 @@ sub _stopService
             if ($self->ifaceMethod($if) eq 'ppp') {
                 $ifname = "zentyal-ppp-$if";
             } else {
-                push (@cmds, "/sbin/ip address flush label $if");
-                push (@cmds, "/sbin/ip address flush label $if:*");
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
             }
-            push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+            push @cmds, "/sbin/ifdown --force -i $file $ifname";
         } catch EBox::Exceptions::Internal with {};
     }
 
@@ -3813,6 +3911,30 @@ sub wakeonlan
     return `wakeonlan $param 2>&1`;
 }
 
+# Method: externalConnectionWarning
+#
+#   Checks if the given iface is being used to connect to the Zentyal UI.
+#   This is used to warn when trying to set is as external in the Interfaces
+#   configuration or in the initial wizard.
+#
+# Parameters:
+#
+#   iface - name of the iface to check
+#
+sub externalConnectionWarning
+{
+    my ($self, $iface) =  @_;
+
+    my $remote = $ENV{HTTP_X_FORWARDED_FOR};
+    my $command = "/sbin/ip route get to $remote" . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
+    my $routeIface = `$command`;
+    return 0 unless ($? == 0);
+    chop($routeIface);
+    if (defined($routeIface) and ($routeIface eq $iface)) {
+        return 1;
+    }
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
@@ -3933,6 +4055,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'icon' => 'network',
                                         'text' => __('Network'),
                                         'separator' => 'Core',
                                         'order' => 40);
@@ -4004,8 +4127,6 @@ sub _defaultGwAndIface
     }
 }
 
-
-
 # Method: gatewaysWithMac
 #
 #   Return the enabled gateways and its mac address
@@ -4071,7 +4192,7 @@ sub regenGateways
 
     my $global = EBox::Global->getInstance();
 
-    my $timeout = 60;
+    my $timeout = 180;
     my $locked = 0;
 
     while ((not $locked) and ($timeout > 0)) {

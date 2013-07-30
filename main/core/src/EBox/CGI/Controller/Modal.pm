@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,13 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::CGI::Controller::Modal;
-
 use strict;
 use warnings;
 
-use base 'EBox::CGI::ClientRawBase';
+package EBox::CGI::Controller::Modal;
 
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -29,16 +28,11 @@ use EBox::Exceptions::Internal;
 # Dependencies
 use Error qw(:try);
 
-sub new # (cgi=?)
+sub new
 {
-    my $class = shift;
-    my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
-
-    my $self = $class->SUPER::new(@_);
-    $self->{'tableModel'} = $tableModel;
-
-
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
     bless($self, $class);
     return  $self;
 }
@@ -76,25 +70,6 @@ sub addRow
 
     my $model = $self->{'tableModel'};
     $model->addRow($self->getParams());
-}
-
-sub moveRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    $self->_requireParam('dir');
-
-    my $id = $self->param('id');
-    my $dir = $self->param('dir');
-
-    if ($dir eq 'up') {
-        $model->moveUp($id);
-    } else {
-        $model->moveDown($id);
-    }
 }
 
 sub removeRow
@@ -137,7 +112,6 @@ sub editField
     }
 
 }
-
 
 sub editBoolean
 {
@@ -229,7 +203,6 @@ sub refreshTable
     $self->{'params'} = \@params;
 }
 
-
 sub cancelAdd
 {
     my ($self, $model) = @_;
@@ -278,9 +251,6 @@ sub _process
     } elsif ($action eq 'del') {
         $self->removeRow();
         $self->refreshTable(1, $action);
-    } elsif ($action eq 'move') {
-        $self->moveRow();
-        $self->refreshTable(1, $action);
    } elsif ($action eq 'changeAdd') {
         my $showTable = not $firstShow;
         my @extraParams;
@@ -319,6 +289,5 @@ sub _process
     }
 
 }
-
 
 1;

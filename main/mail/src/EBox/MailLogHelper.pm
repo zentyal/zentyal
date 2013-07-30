@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 #
@@ -14,6 +14,7 @@ use strict;
 use warnings;
 
 package EBox::MailLogHelper;
+
 use base qw(EBox::LogHelper);
 
 use EBox::Gettext;
@@ -77,7 +78,6 @@ sub processLine
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-
     if (not $line =~ m/(?:postfix)|(?:deliver)/) {
         return;
     }
@@ -114,7 +114,6 @@ sub processLine
                      };
 
         $self->_insert($dbengine, $values);
-
 
     } elsif ($line =~ m/SASL PLAIN authentication failed/) {
         # auth failed, not admited at queue. Insert noauth event
@@ -204,7 +203,6 @@ sub processLine
             $temp{$qid}{'to'} = $1;
         }
 
-
         $temp{$qid}{'relay'} = $relay;
         $temp{$qid}{'status'} = $status;
         $temp{$qid}{'msg'} = $msg;
@@ -263,8 +261,6 @@ sub _insertEvent
 {
     my ($self, $qid, $dbengine) = @_;
 
-
-
     my $values = {
                   timestamp => $temp{$qid}{'date'},
                   message_id => $temp{$qid}{'msgid'},
@@ -283,7 +279,6 @@ sub _insertEvent
 
     $self->_insert($dbengine, $values);
 }
-
 
 sub _insert
 {

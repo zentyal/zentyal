@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Printers::LogHelper;
+
 use base 'EBox::LogHelper';
 
 use EBox;
@@ -75,7 +76,6 @@ sub processLine # (file, line, logger)
         _processPagesLog(@_);
     }
 }
-
 
 sub _processMainLog
 {
@@ -160,7 +160,6 @@ sub _processPagesLog
                      );
 }
 
-
 1;
 __DATA__
 error_log example:
@@ -169,7 +168,6 @@ E [15/Jul/2010:15:01:07 +0200] [cups-driverd] Bad driver information file "/usr/
 I [15/Jul/2010:18:36:21 +0200] [Job 11] Queued on "hpqueue" by "user".
 
 I [15/Jul/2010:18:38:54 +0200] [Job 11] Job completed.
-
 
 page_log example:
 hpqueue 13 user [15/Jul/2010:18:48:23 +0200] 4 1DEBUG: - localhost (stdin) na_letter_8.5x11in -

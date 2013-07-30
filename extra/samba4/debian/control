@@ -20,7 +20,6 @@ Build-Depends: build-essential,
                attr,
                docbook-xsl,
                libcups2-dev,
-               libmagic-dev, libpcre3-dev, libclamav-dev,
                libpam0g-dev,
                libgpg-error-dev,
                libgcrypt11-dev,
@@ -49,7 +48,6 @@ Depends: python,
          libdm0,
          libcups2,
          zlib1g,
-         libmagic1, libpcre3, libclamav6,
          ${misc:Depends}
 Replaces: samba4-common-bin, ldb-tools, tdb-tools
 Breaks: samba4-common-bin, ldb-tools, tdb-tools

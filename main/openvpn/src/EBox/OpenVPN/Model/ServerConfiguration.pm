@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::OpenVPN::Model::ServerConfiguration;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Global;
@@ -42,7 +43,6 @@ use EBox::View::Customizer;
 
 use constant ALL_INTERFACES => '_ALL';
 
-
 sub new
 {
     my $class = shift;
@@ -53,8 +53,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub _table
 {
@@ -129,6 +127,14 @@ sub _table
                  optional => 1,
 
                  ),
+         new EBox::Types::Boolean(
+                 fieldName => 'rejectRoutes',
+                 printableName => __('Reject routes pushed by Zentyal tunnel clients'),
+                 editable => 1,
+                 defaultValue => 0,
+                 help => __('When checked this server will not take any route ' .
+                            'advertised by its client')
+                 ),
          new EBox::Types::Select(
                  fieldName  => 'local',
                  printableName => __('Interface to listen on'),
@@ -200,8 +206,8 @@ sub viewCustomizer
     my ($self) = @_;
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
-    my $tunnelParams = [qw/ripPasswd/];
-    my $noTunnelParams = [qw/redirectGw dns1 dns2 searchDomain wins/];
+    my $tunnelParams = [qw/ripPasswd rejectRoutes/];
+    my $noTunnelParams = [qw/clientToClient redirectGw dns1 dns2 searchDomain wins/];
 
     $customizer->setOnChangeActions(
             { pullRoutes =>
@@ -218,14 +224,10 @@ sub viewCustomizer
     return $customizer;
 }
 
-
 sub name
 {
     __PACKAGE__->nameFromClass(),
 }
-
-
-
 
 sub _populateLocal
 {
@@ -239,7 +241,6 @@ sub _populateLocal
 
     @options = map { { value => $_ } }  @enabledIfaces;
 
-
     push @options,  {
                      value => ALL_INTERFACES,
                       printableValue => __('All network interfaces'),
@@ -247,9 +248,6 @@ sub _populateLocal
 
     return \@options;
 }
-
-
-
 
 sub validateTypedRow
 {
@@ -274,7 +272,6 @@ sub validateTypedRow
 
     $self->_checkPortIsAvailable($action, $params_r, $actual_r);
 }
-
 
 sub _checkRipPasswd
 {
@@ -429,7 +426,6 @@ sub _checkPortIsAvailable
     }
 }
 
-
 sub _alreadyCheckedAvailablity
 {
     my ($self, $proto, $port, $local, $actual_r) = @_;
@@ -460,8 +456,6 @@ sub _alreadyCheckedAvailablity
     return 0;
 }
 
-
-
 #XXX this must be in a iface type...
 sub _checkIface
 {
@@ -474,7 +468,6 @@ sub _checkIface
     if ($iface eq ALL_INTERFACES) {
         return;
     }
-
 
     my $network = EBox::Global->modInstance('network');
 
@@ -489,8 +482,6 @@ sub _checkIface
     }
 }
 
-
-
 sub _checkMasqueradeIsAvailable
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -501,7 +492,6 @@ sub _checkMasqueradeIsAvailable
     if (not $masquerade ) {
         return;
     }
-
 
     my $firewall = EBox::Global->modInstance('firewall');
     if (not $firewall) {
@@ -526,12 +516,10 @@ sub _checkIfaceAndMasquerade
                                  $params_r->{masquerade}->value() :
                                  $actual_r->{masquerade}->value();
 
-
     if ($masquerade) {
         # with masquerade either internal or external interfaces are correct
         return;
     }
-
 
     my $local   = exists $params_r->{local} ?
                                  $params_r->{local}->value() :
@@ -561,7 +549,6 @@ sub _checkIfaceAndMasquerade
 
 }
 
-
 sub _checkServerCertificate
 {
     my ($self, $action, $params_r, $actual_r) = @_;
@@ -573,11 +560,9 @@ sub _checkServerCertificate
     EBox::OpenVPN::Server->checkCertificate($cn);
 }
 
-
 sub _checkTlsRemote
 {
     my ($self, $action, $params_r, $actual_r) = @_;
-
 
     (exists $params_r->{tlsRemote}) or
         return;
@@ -589,10 +574,8 @@ sub _checkTlsRemote
         return;
     }
 
-
     EBox::OpenVPN::Server->checkCertificate($cn);
 }
-
 
 sub _checkTunnelForbiddenParams
 {
@@ -613,7 +596,6 @@ sub _checkTunnelForbiddenParams
         }
     }
 }
-
 
 # The interface type resides in the ServerModels so we must set it in the
 # parentRow
@@ -658,5 +640,4 @@ sub pageTitle
 }
 
 1;
-
 

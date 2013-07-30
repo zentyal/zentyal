@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Squid::LdapUserImplementation;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Gettext;
@@ -75,6 +76,16 @@ sub _delGroupWarning
         return (__('HTTP proxy access rules'));
     }
     return ();
+}
+
+# Method: multipleOUSupport
+#
+#   Returns 1 if this module supports users in multiple OU's,
+#   0 otherwise
+#
+sub multipleOUSupport
+{
+    return 1;
 }
 
 1;

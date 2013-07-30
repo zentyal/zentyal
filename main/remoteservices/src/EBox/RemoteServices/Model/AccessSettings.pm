@@ -21,10 +21,10 @@
 #     - passwordless (Boolean)
 #
 
-package EBox::RemoteServices::Model::AccessSettings;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::AccessSettings;
 
 use base 'EBox::Model::DataForm';
 
@@ -58,7 +58,6 @@ sub new
     return $self;
 
 }
-
 
 # Group: Protected methods
 

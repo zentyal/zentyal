@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -29,10 +29,11 @@ use Storable qw(store);
 sub _addWord
 {
     my ($keywords, $word, $id) = @_;
-    if(not defined($keywords->{$word})) {
+
+    if (not defined ($keywords->{$word})) {
         $keywords->{$word} = [];
     }
-    if(!grep(/^$id$/, @{$keywords->{$word}})) {
+    if (not grep (/^$id$/, @{$keywords->{$word}})) {
         push(@{$keywords->{$word}}, $id);
     }
 }
@@ -40,7 +41,8 @@ sub _addWord
 sub getKeywords
 {
     my ($keywords, $item) = @_;
-    if(defined($item->{'text'})) {
+
+    if (defined ($item->{'text'})) {
         my $text = $item->{'text'};
         $text = lc($text);
         my @words = split('\W+', $text);
@@ -48,11 +50,10 @@ sub getKeywords
             _addWord($keywords, $word, $item->{id});
         }
     }
-    if(defined($item->{'url'})) {
+    if (defined ($item->{'url'})) {
         try {
-            my $classname = EBox::CGI::Run::classFromUrl($item->{'url'});
-            my ($model, $action) = EBox::CGI::Run::lookupModel($classname);
-            if($model) {
+            my $model = EBox::CGI::Run->modelFromUrl($item->{'url'});
+            if ($model) {
                 my $words = $model->keywords();
                 for my $word (@{$words}) {
                     _addWord($keywords, $word, $item->{id});
@@ -60,9 +61,9 @@ sub getKeywords
             }
         } otherwise {
             EBox::debug('No model found for ' . $item->{'url'} . "\n");
-        }
+        };
     }
-    if($item->items()) {
+    if ($item->items()) {
         for my $i (@{$item->items()}) {
             getKeywords($keywords, $i);
         }

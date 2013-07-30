@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,15 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Model::ImageControl;
-#
 use strict;
 use warnings;
+
+package EBox::Model::ImageControl;
 
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
-
 
 sub new
 {
@@ -43,10 +42,8 @@ sub _table
 {
     my ($self) = @_;
 
-
     my $tableDesc   = $self->_tableDesc();
     my $modelDomain = $self->_modelDomain();
-
 
     my $dataForm = {
                     tableName          => $self->nameFromClass,
@@ -61,7 +58,6 @@ sub _table
     return $dataForm;
 }
 
-
 sub _messages
 {
     my ($self) = @_;
@@ -70,8 +66,6 @@ sub _messages
             'add'       => undef,
             'del'       => undef,
             'update'    => undef,
-            'moveUp'    => undef,
-            'moveDown'  => undef,
            };
 }
 
@@ -79,7 +73,6 @@ sub _tableDesc
 {
     throw EBox::Exceptions::NotImplemented;
 }
-
 
 sub _modelDomain
 {
@@ -91,13 +84,10 @@ sub _modelDomain
     return  $imageTable->{modelDomain};
 }
 
-
 sub Viewer
 {
     return  '/ajax/imageControl.mas';
 }
-
-
 
 # custom changeRowJS to update the list
 sub changeRowJS
@@ -110,12 +100,10 @@ sub changeRowJS
 
     my  $function = 'applyChangeToImage("%s", "%s", %s, "%s")';
 
-
     my $table = $self->_imageModel->table();
     my $fields = $self->_paramsWithSetterJS();
 
     $fields =~ s/'/"/g;
-
 
     my $ownJS = sprintf ($function,
                          $table->{'actions'}->{'editField'},
@@ -125,24 +113,20 @@ sub changeRowJS
                          0, # force
                         );
 
-
     my $JS = "var $functionName = function() { $superJS; $ownJS; return false   }; $functionName()";
 
     return $JS;
 
 }
 
-
 sub printableTableName
 {
   return '';
 }
 
-
 sub _imageModel
 {
     throw EBox::Exceptions::NotImplemented;
 }
-
 
 1;

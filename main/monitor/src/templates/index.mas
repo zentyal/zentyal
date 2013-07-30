@@ -27,7 +27,6 @@ Parameters:
                    ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=updates&utm_campaign=enterprise_edition" target="_blank">',
                    ch => '</a>');
 </%init>
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
 
@@ -68,17 +67,17 @@ Parameters:
 
 <script type="text/javascript">
   // Where the required attributes from model will be stored
-  var modelAttrs_<% $tabName | hu %> = new Object();
+  var modelAttrs_<% $tabName | hu %> = {};
 <%perl>
   # Store the action under a hash using [] operator from Object JS
   foreach my $periodData (@periods) {
 </%perl>
-  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'] = new Object();
+  modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'] = {};
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].action =
        '<% $URL %>';
   modelAttrs_<% $tabName | hu %>['<% $periodData->{name} %>'].additionalParams =
        [ { 'name' : 'period', 'value' : '<% $periodData->{name} %>' }];
 % }
-  var tabMenu_<% $tabName | hu %> = new EBox.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
+  var tabMenu_<% $tabName | hu %> = new Zentyal.Tabs('<% "tabMenu_$tabName" | hu %>', modelAttrs_<% $tabName | hu %>);
 </script>
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2013 eBox Technologies S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,15 +18,16 @@ use warnings;
 
 package EBox::Samba::Provision;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Global;
 
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
@@ -36,8 +37,6 @@ use Net::LDAP::Util qw(ldap_explode_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Error qw(:try);
-
-use constant SAMBA_PROVISION_FILE => '/home/samba/.provisioned';
 
 sub new
 {
@@ -51,18 +50,18 @@ sub isProvisioned
 {
     my ($self) = @_;
 
-    return EBox::Sudo::fileTest('-f', SAMBA_PROVISION_FILE);
+    my $state = EBox::Global->modInstance('samba')->get_state();
+    return $state->{provisioned};
 }
 
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
-    if ($provisioned) {
-        EBox::Sudo::root("touch " . SAMBA_PROVISION_FILE);
-    } else {
-        EBox::Sudo::root("rm -f " . SAMBA_PROVISION_FILE);
-    }
+    my $samba = EBox::Global->modInstance('samba');
+    my $state = $samba->get_state();
+    $state->{provisioned} = $provisioned;
+    $samba->set_state($state);
 }
 
 # Method: checkEnvironment
@@ -318,6 +317,38 @@ sub resetSysvolACL
     EBox::Sudo::rootWithoutException($cmd);
 }
 
+# Method: mapDefaultContainers
+#
+#   Links the default CN containers from SAMBA in the LDAP equivalent OUs.
+#
+sub mapDefaultContainers
+{
+    my ($self) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my @containerNames = ('Users', 'Computers');
+    my $ldbRootDN = $sambaMod->ldb()->dn();
+    my $ldapRootDN = $usersMod->ldap()->dn();
+
+    foreach my $containerName (@containerNames) {
+        my $ldbDN = "CN=$containerName,$ldbRootDN";
+        my $ldapDN = "ou=$containerName,$ldapRootDN";
+        my $ldbObject = $sambaMod->objectFromDN($ldbDN);
+        my $ldapObject = $usersMod->objectFromDN($ldapDN);
+
+        unless ($ldbObject) {
+            throw EBox::Exceptions::Internal("Unable to find $ldbDN on LDB.")
+        }
+
+        unless ($ldapObject) {
+            throw EBox::Exceptions::Internal("Unable to find $ldapDN on LDAP.")
+        }
+
+        $ldbObject->_linkWithUsersObject($ldapObject);
+    }
+}
+
 sub mapAccounts
 {
     my ($self) = @_;
@@ -338,14 +369,19 @@ sub mapAccounts
 
     EBox::info("Mapping domain administrator account");
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
-    my $domainAdminZentyal = new EBox::UsersAndGroups::User(uid => $domainAdmin->get('samAccountName'));
-    $domainAdmin->addToZentyal() if ($domainAdmin->exists() and (not $domainAdminZentyal->exists()));
+    my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
+    if ($domainAdmin->exists() and (not $domainAdminZentyal->exists())) {
+        $domainAdmin->addToZentyal();
+    }
+
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
-    my $domainAdminsZentyal = new EBox::UsersAndGroups::Group(gid => $domainAdmins->get('samAccountName'));
-    $domainAdmins->addToZentyal() if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists()));
+    my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
+    if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists())) {
+        $domainAdmins->addToZentyal();
+    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     # Map domain users group
@@ -428,8 +464,13 @@ sub provisionDC
         # Start managed service to let it create the LDAP socket
         $samba->_startService();
 
+        # Map defaultContainers
+        $self->mapDefaultContainers();
+
         # Load all zentyal users and groups into ldb
+        $samba->ldb->ldapOUsToLDB();
         $samba->ldb->ldapUsersToLdb();
+        $samba->ldb->ldapContactsToLdb();
         $samba->ldb->ldapGroupsToLdb();
         $samba->ldb->ldapServicePrincipalsToLdb();
 
@@ -1063,15 +1104,24 @@ sub provisionADC
         # Purge users and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
         my $users = $usersModule->users();
+        my $contacts = $usersModule->contacts();
         my $groups = $usersModule->groups();
         foreach my $zentyalUser (@{$users}) {
             $zentyalUser->setIgnoredModules(['samba']);
             $zentyalUser->deleteObject();
         }
+        foreach my $zentyalContact (@{$contacts}) {
+            $zentyalContact->setIgnoredModules(['samba']);
+            $zentyalContact->deleteObject();
+        }
         foreach my $zentyalGroup (@{$groups}) {
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
         }
+
+        # TODO: Should we clear all OU like we do with users, groups and contacts?
+        # Map defaultContainers
+        $self->mapDefaultContainers();
 
         # Load Zentyal service principals into samba
         $sambaModule->ldb->ldapServicePrincipalsToLdb();

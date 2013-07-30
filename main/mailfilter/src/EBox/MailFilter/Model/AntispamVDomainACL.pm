@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,8 +16,8 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::Model::AntispamVDomainACL;
-use base 'EBox::Model::DataTable';
 
+use base 'EBox::Model::DataTable';
 
 use EBox;
 
@@ -90,7 +90,6 @@ sub _table
 
 }
 
-
 sub _populatePolicy
 {
     return [
@@ -100,7 +99,6 @@ sub _populatePolicy
            ]
 
 }
-
 
 sub addedRowNotify
 {
@@ -117,7 +115,10 @@ sub deletedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
     $self->_aclChanged();
 }
 
@@ -128,7 +129,6 @@ sub _aclChanged
     my $mailfilter = EBox::Global->modInstance('mailfilter');
     $mailfilter->antispam()->aclChanged();
 }
-
 
 # Method: whitelist
 #
@@ -141,8 +141,6 @@ sub whitelist
     return $self->_listByPolicy('whitelist');
 }
 
-
-
 # Method: blacklist
 #
 # Returns:
@@ -153,8 +151,6 @@ sub blacklist
     my ($self) = @_;
     return $self->_listByPolicy('blacklist');
 }
-
-
 
 sub _listByPolicy
 {
@@ -169,7 +165,6 @@ sub _listByPolicy
     }
     return \@list;
 }
-
 
 1;
 

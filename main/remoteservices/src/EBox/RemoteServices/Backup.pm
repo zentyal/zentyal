@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::Backup;
+
 use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;
@@ -67,7 +68,6 @@ sub prepareMakeRemoteBackup
     $name or throw EBox::Exceptions::MissingArgument('name');
     defined $description or $description = '';
 
-
     my @backupOptions = (
         description => $description,
         remoteBackup => $name,
@@ -111,7 +111,6 @@ sub makeRemoteBackup
 
     $self->sendRemoteBackup($archive, $name, $description, $automatic);
 }
-
 
 # Method: sendRemoteBackup
 #
@@ -519,7 +518,6 @@ sub _pullConfBackup
         return $outFile;
     }
 }
-
 
 sub _pullAllMetaConfBackup
 {

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -25,6 +25,7 @@ use strict;
 use warnings;
 
 package EBox::TrafficShaping::Model::ExternalRules;
+
 use base 'EBox::TrafficShaping::Model::RuleTableBase';
 
 use EBox::Gettext;
@@ -54,15 +55,16 @@ sub new
 # Method: ids
 #
 #   This method is overriden to set up some module internal data structure which depends on the
-#     external interface
+#   external interface
 #
 # Overrides :
 #
-#      EBox::Model::DataTable::ids
+#   EBox::Model::DataTable::ids
 #
 sub ids
 {
     my ($self) = @_;
+
     if (not $self->{stateRateSet}) {
         my $network = $self->global()->modInstance('network');
         foreach my $iface (@{ $network->ExternalIfaces }) {
@@ -119,6 +121,5 @@ sub notifyForeignModelAction
     }
     return $userNotes;
 }
-
 
 1;

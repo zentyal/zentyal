@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,33 +13,31 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::LdapUserImplementation;
-
 use strict;
 use warnings;
+
+package EBox::LdapUserImplementation;
 
 use base qw(EBox::LdapUserBase);
 
 use EBox::Global;
 use EBox::Gettext;
 
-
 sub _create {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
-
 
 sub _delGroupWarning {
     my ($self, $group) = @_;
 
-	if (@{$group->users()}) {
-		return (__('This group contains users'));
-	}
+    if (@{$group->members()}) {
+        return (__('This group contains members'));
+    }
 
-	return undef;
+    return undef;
 }
 
 sub schemas

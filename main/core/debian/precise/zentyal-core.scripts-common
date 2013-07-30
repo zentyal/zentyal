@@ -7,8 +7,8 @@ stop_ebox_processes() {
     pkill -9 -u ebox || true
 }
 
-# This function uses the eBox API to fetch the configured apache port used
-# by eBox
+# This function uses the Zentyal API to fetch the configured webadmin port used
+# by Zentyal
 #
 # Usage: port=$(fetch_ebox_port)
 fetch_ebox_port()
@@ -20,8 +20,8 @@ fetch_ebox_port()
             use EBox::Global;
             EBox::init();
 
-            my $apache = EBox::Global->modInstance('apache');
-            print $apache->port();
+            my $webadmin = EBox::Global->modInstance('webadmin');
+            print $webadmin->port();
             exit 0;
             ' 2> /dev/null );
 
@@ -34,7 +34,7 @@ fetch_ebox_port()
 
 # This function is used to try guess if a given port is available. It tries
 # to connect to the port. Note that it does not distinguish if the port
-# is being already used by eBox.
+# is being already used by Zentyal.
 #
 # Usage: check_port_available port_number
 check_port_available()
@@ -59,15 +59,16 @@ check_port_available()
     return $ret;
 }
 
-# This function uses the eBox API to set the apache port to be used by eBox.
+# This function uses the Zentyal API to set the webadmin port to be used by
+# Zentyal.
 #
 # In case the current port and the new port are the same it returns without
 # modifying the current value.
 #
 # We have to do two things to set the port:
 #
-#   Tell apache module its new port
-#   Save changes in apache and services
+#   Tell webadmin module its new port
+#   Save changes in webadmin and services
 #
 # Usage: set_ebox_port new_port
 set_ebox_port()
@@ -89,9 +90,9 @@ set_ebox_port()
             EBox::init();
             my $port = $ARGV[0];
             my $global = EBox::Global->getInstance();
-            my $apache = $global->modInstance('apache');
-            $apache->setPort($port);
-            $apache->saveConfig();
+            my $webadmin = $global->modInstance('webadmin');
+            $webadmin->setPort($port);
+            $webadmin->saveConfig();
             if ($global->modExists('services')) {
                 $global->modInstance('services')->saveConfig();
             }

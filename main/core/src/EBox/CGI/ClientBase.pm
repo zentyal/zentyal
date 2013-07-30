@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::ClientBase;
+
 use base 'EBox::CGI::Base';
 
 use EBox::Gettext;
@@ -31,21 +32,12 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
     my $class = shift;
     my %opts = @_;
-    my $namespace = delete $opts{'namespace'};
     my $htmlblocks = delete $opts{'htmlblocks'};
 
     my $self = $class->SUPER::new(@_);
 
-    my $tmp = $class;
-    $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
-
-    if(not $namespace) {
-        $namespace = $1;
-    }
-
-
     if (not $htmlblocks) {
-        $htmlblocks = $namespace . "::HtmlBlocks";
+        $htmlblocks = 'EBox::HtmlBlocks';
     }
     eval "use $htmlblocks";
     $self->{htmlblocks} = $htmlblocks;

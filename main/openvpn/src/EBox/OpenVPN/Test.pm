@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::OpenVPN::Test;
+
 use base 'EBox::Test::Class';
 
 # Description:
-use strict;
-use warnings;
 
 use Test::More;
 use Test::Exception;
@@ -246,7 +248,6 @@ sub newAndDeleteClientTest : Test(12)
     eq_or_diff [sort @actualClientsNamesForUI], [sort @userClientsNames],
       "Checking returned test clients names for UI";
 
-
     # delete test
 
     my ($nameToDelete) = @clientsNames;
@@ -306,11 +307,8 @@ sub _checkDeleteDaemon
     my $existsMethod = $type . 'Exists';
     my $listMethod = $type . 'sNames';
 
-
     my $daemon = $openVPN->$type($name);
     my $expectedDeletedData = _expectedDeletedDaemonData($daemon);
-
-
 
     lives_ok {
         $openVPN->$deleteMethod($name);
@@ -325,8 +323,6 @@ sub _checkDeleteDaemon
     dies_ok {
         $openVPN->$deleteMethod($name);
     } 'wether you cannot delete the same daemon twice';
-
-
 
     my @actualDaemonsNames = $openVPN->$listMethod();
     ok $name ne all(@actualDaemonsNames),
@@ -344,7 +340,6 @@ sub _expectedDeletedDaemonData
     $deletedData{name} =  $daemon->name;
     $deletedData{type} =  $daemon->type;
 
-
     return \%deletedData;
 }
 
@@ -359,8 +354,6 @@ sub _checkDeletedDaemonData
 
     is_deeply $deletedData, $expectedDeleted,
         'checking wether deleted data is correct';
-
-
 
 }
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,14 +16,13 @@ use strict;
 use warnings;
 
 package EBox::TrafficShaping::Model::InterfaceRate;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 
 use EBox::Types::Int;
 use EBox::Types::Text;
-
-
 
 use constant DEFAULT_KB => 16384;
 
@@ -159,6 +158,18 @@ sub preconditionFailMsg
                    . '{openhref}Network->Interfaces{closehref}',
                openhref  => '<a href="/Network/Ifaces">',
                closehref => '</a>');
+}
+
+sub totalDownloadRate
+{
+    my ($self) = @_;
+    my $sumDownload = 0;
+
+    foreach my $id (@{$self->ids()}) {
+        $sumDownload += $self->row($id)->valueByName('download');
+    }
+
+    return $sumDownload;
 }
 
 1;

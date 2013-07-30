@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Menu::Item;
+
 use base 'EBox::Menu::TextNode';
 
 use EBox::Exceptions::Internal;
@@ -61,26 +62,22 @@ sub html
         return '';
     }
 
+    my $aClass = '';
+    if ($self->{icon}) {
+        $aClass = "icon-$self->{icon}";
+    }
+    if ($currentUrl eq $url) {
+        $aClass .= ' current';
+    }
+
     my $liClass = '';
     if ($self->{style}) {
-        $liClass = q{class='navc } .  $self->{style} . q{'};
-    } else {
-        $liClass = q{class='navc'};
+        $liClass .= " $self->{style}";
     }
 
-    my $aClass = '';
-    if ($currentUrl eq $url) {
-        $aClass = q{class='current'};
-    }
-
-    my $style = '';
-    if ($currentFolder) {
-       $style = qq/style='display:inline;'/;
-    }
-
-    my $html .= "<li id='" . $self->{id} . "' $style $liClass>\n";
-    $html .= qq{<a title="$text" href="/$url" $aClass }
-         . qq{ target="_parent">$text</a>\n};
+    my $html .= "<li id=\"$self->{id}\" class=\"$liClass\">\n";
+    $html .= qq{<a title="$text" href="/$url" class=\"$aClass\" }
+          . qq{ target="_parent">$text</a>\n};
 
     $html .= "</li>\n";
 

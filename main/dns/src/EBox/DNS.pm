@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::DNS;
+
 use base qw( EBox::Module::Service
              EBox::FirewallObserver
              EBox::SysInfo::Observer
@@ -99,7 +100,6 @@ sub appArmorProfiles
             }
            ];
 }
-
 
 # Method: addDomain
 #
@@ -547,28 +547,6 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # TODO Remove this code after branching for Zentyal 3.1
-    my $state = $self->get_state();
-    unless ($state->{tsigKeysUpdated}) {
-        EBox::info("Updating domain keys");
-        # Update domain TSIG keys to proper format
-        my $domainModel = $self->model('DomainTable');
-        foreach my $id (@{$domainModel->ids()}) {
-            my $row = $domainModel->row($id);
-            my $key = $row->elementByName('tsigKey');
-            $key->setValue($domainModel->_generateSecret());
-            $row->store();
-        }
-        $state->{tsigKeysUpdated} = 1;
-        $self->set_state($state);
-
-        # Save and restart DHCP to reload new TSIG keys
-        if (EBox::Global->modExists('dhcp')) {
-            my $dhcp = EBox::Global->modInstance('dhcp');
-            $dhcp->save();
-        }
-    }
-
     # Create default rules and services only if installing the first time
     unless ($version) {
         my $services = EBox::Global->modInstance('services');
@@ -613,13 +591,27 @@ sub _services
 
 # Method: _daemons
 #
-#  Override <EBox::Module::Service::_daemons>
+#  Overrides <EBox::Module::Service::_daemons>
 #
 sub _daemons
 {
     return [
         {
             'name' => 'ebox.bind9'
+        }
+    ];
+}
+
+# Method: _daemonsToDisable
+#
+#  Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        {
+            'name' => 'bind9',
+            'type' => 'init.d'
         }
     ];
 }
@@ -911,6 +903,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'icon' => 'dns',
                                     'url' => 'DNS/Composite/Global',
                                     'separator' => 'Infrastructure',
                                     'order' => 420));
@@ -1358,7 +1351,6 @@ sub _formatSRV
     return \@srvRecords;
 }
 
-
 # Method: _completeDomain
 #
 #  Return a structure with all required data to build bind db config files
@@ -1437,7 +1429,6 @@ sub _domainIds
     my $model = $self->model('DomainTable');
     return $model->ids();
 }
-
 
 # Update an already created dynamic reverse zone using nsupdate
 sub _updateDynReverseZone
@@ -1757,44 +1748,6 @@ sub firewallHelper
     }
 
     return undef;
-}
-
-# Get the ranges for the given domain if used by DHCP module
-sub _getRanges
-{
-    my ($self, $domainData) = @_;
-
-    my @ranges = ();
-
-    my $dhcp = EBox::Global->modInstance('dhcp');
-    my $net  = EBox::Global->modInstance('network');
-
-    return \@ranges unless (defined($dhcp));
-
-    foreach my $iface (grep { $net->ifaceMethod($_) eq 'static'} @{$net->allIfaces()}) {
-        my $dynDNSRow = $dhcp->dynamicDNSDomains($iface);
-        my @domains = ( $dynDNSRow->printableValueByName('dynamic_domain') );
-        if ( $dynDNSRow->valueByName('static_domain') ne 'same' ) {
-            push(@domains, $dynDNSRow->printableValueByName('static_domain'));
-        }
-        if ( $domainData->{'name'} eq any(@domains) ) {
-            my $initRange = $dhcp->initRange($iface);
-            $initRange =~ s/1$/0/;
-            my $endRange  = $dhcp->endRange($iface);
-            my $ip = new Net::IP("$initRange - $endRange");
-            do {
-                my $rev = Net::IP->new($ip->ip())->reverse_ip();
-                if ( defined($rev) ) {
-                    # It returns 0.netaddr.in-addr.arpa so we need to remove it
-                    # to make it compilant with bind zone definition
-                    $rev =~ s/^0\.//;
-                    $rev =~ s:\.in-addr\.arpa\.::;
-                    push(@ranges, $rev);
-                }
-            } while ($ip += 256);
-        }
-    }
-    return \@ranges;
 }
 
 sub _updateManagedDomainIPsModel

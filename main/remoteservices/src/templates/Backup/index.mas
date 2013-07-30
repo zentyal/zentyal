@@ -47,15 +47,15 @@ if ($restricted) {
 
 my $backupTitle = __('Remote Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var name= \$('backup_name').value;
-     var description= \$('backup_description').value;
+     var name= $('#backup_name').val();
+     var description= $('#backup_description').val();
      var title = '$backupTitle: ' + description;
-     var url = '/RemoteServices/Backup/MakeRemoteBackup?';
-     url += 'name=' + name;
-     url += '&description=' + description;
-     url += '&backup=1&popup=1';
+     var url = '/RemoteServices/Backup/MakeRemoteBackup';
+     var data = 'name=' + name;
+     data += '&description=' + description;
+     data += '&backup=1&popup=1';
 
-     Modalbox.show(url, {title: title, overlayClose: false,});
+     Zentyal.Dialog.showURL(url, {title: title, data: data});
      return false
 ENDJS
 
@@ -154,8 +154,10 @@ my @rows = map {
              push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
 
              my $restoreUrl = "Confirm?action=restore&name=$name&popup=1";
+             my $restoreData = "name=$name&popup=1";
              my $downloadUrl = "DownloadRemoteBackup?name=$name";
-             my $deleteUrl = "Confirm?action=delete&name=$name&popup=1";
+             my $deleteUrl = "Confirm";
+             my $deleteData = "action=delete&name=$name&popup=1";
 
              # action element
              push @row, [
@@ -163,7 +165,7 @@ my @rows = map {
                           name => __('Restore'),
                           icon => $applyImg,
                           text => $restoreTitle,
-                          onclick => "Modalbox.show('$restoreUrl',  {title:'$restoreTitle', transitions: false}); return false",
+                          onclick => "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false",
                          },
 
                          {
@@ -176,7 +178,7 @@ my @rows = map {
                           name => __('Delete'),
                           icon => $deleteImg,
                           text => $deleteTitle,
-                          onclick => "Modalbox.show('$deleteUrl',  {title:'$deleteTitle', transitions: false}); return false",
+                          onclick => "Zentyal.Dialog.showURL('$deleteUrl',  {title:'$deleteTitle', data: '$deleteData'}); return false",
                          },
 
                         ];

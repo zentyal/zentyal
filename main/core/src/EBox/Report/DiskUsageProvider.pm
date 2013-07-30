@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,15 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Report::DiskUsageProvider;
+
 # class: EBox::Report::DiskUsageProvider
 #
 #  Any module which wants add one or more section to the disk usage report must
 #  subclass this module and override the _facilitiesForDiskUsage method.  Some
 #  modules with special needs may want to override the diskUsage method instead
 #  of _facilitiesForDiskUsage
-use strict;
-use warnings;
 
 # Method: diskUsage
 #  return the different facilities which takes up disk space and the amount used
@@ -48,7 +50,6 @@ sub diskUsage
     throw EBox::Exceptions::MissingArgument('blockSize');
   my ($fileSystemToScan) = $params{fileSystem};
 
-
   my %facilities = %{ $self->_facilitiesForDiskUsage() };
 
   my %moduleDiskUsage;
@@ -67,16 +68,10 @@ sub diskUsage
       $moduleDiskUsage{$filesys}->{$facility} += EBox::FileSystem::dirDiskUsage($dir, $blockSize);
     }
 
-
   }
-
-
 
   return \%moduleDiskUsage;
 }
-
-
-
 
 # Method: _facilitiesForDiskUsage
 #
@@ -95,6 +90,5 @@ sub _facilitiesForDiskUsage
 {
   return {};
 }
-
 
 1;

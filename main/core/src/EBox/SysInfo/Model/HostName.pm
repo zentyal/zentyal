@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -20,6 +20,7 @@ use warnings;
 #   This model is used to configure the host name and domain
 #
 package EBox::SysInfo::Model::HostName;
+
 use base 'EBox::Model::DataForm';
 
 use Error qw(:try);
@@ -213,6 +214,10 @@ sub _checkDNSName
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to change hostname
+        return;
+    }
 
     my $newHostName   = $self->row->valueByName('hostname');
     my $oldHostName   = defined $oldRow ? $oldRow->valueByName('hostname') : $newHostName;

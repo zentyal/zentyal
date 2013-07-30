@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,7 +12,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 
 # Class EBox::Objects::Members
 #
@@ -29,12 +28,10 @@
 #               'begin' - ip which marks the begins of the range (no mask)
 #               'end' - ip which marks the begins of the range (no mask)
 
-package EBox::Objects::Members;
-
 use strict;
 use warnings;
 
-
+package EBox::Objects::Members;
 
 sub new
 {
@@ -45,7 +42,6 @@ sub new
 
     return $self;
 }
-
 
 # Method: addresses
 #
@@ -146,6 +142,5 @@ sub iptablesDstParams
 
     return \@params;
 }
-
 
 1;

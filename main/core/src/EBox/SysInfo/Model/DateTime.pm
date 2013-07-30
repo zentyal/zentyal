@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #   This model is used to configure the system date time
 #
 
-package EBox::SysInfo::Model::DateTime;
-
 use strict;
 use warnings;
+
+package EBox::SysInfo::Model::DateTime;
 
 use Error qw(:try);
 

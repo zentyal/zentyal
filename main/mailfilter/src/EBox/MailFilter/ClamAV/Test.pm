@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailFilter::ClamAV::Test;
-# package:
 use strict;
 use warnings;
 
+package EBox::MailFilter::ClamAV::Test;
+
 use base 'EBox::Test::Class';
+
+# package:
 
 use EBox::Test;
 use Test::File;
@@ -38,8 +40,6 @@ sub setUpTestDir : Test(setup)
   mkdir $dir;
 }
 
-
-
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
@@ -58,18 +58,15 @@ sub setUpConfiguration : Test(setup)
     EBox::Config::TestStub::setConfigKeys('tmp' => '/tmp');
 }
 
-
 sub clearConfiguration : Test(teardown)
 {
     EBox::Module::Config::TestStub::setConfig();
 }
 
-
 sub testDir
 {
   return '/tmp/ebox.mailfilter.clamav.test';
 }
-
 
 sub writeConfTest #: Test(3)
 {
@@ -85,7 +82,6 @@ sub writeConfTest #: Test(3)
   }
 
 }
-
 
 sub freshclamEventTest : Test(14)
 {
@@ -150,7 +146,6 @@ sub _fakeFreshclamStateFile
 			       );
 
 }
-
 
 sub _clamavInstance
 {

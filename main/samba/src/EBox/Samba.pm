@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Samba;
-
 use strict;
 use warnings;
+
+package EBox::Samba;
 
 use base qw(EBox::Module::Service
             EBox::FirewallObserver
@@ -40,13 +40,18 @@ use EBox::DBEngineFactory;
 use EBox::LDB;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Random qw( generate );
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
+use EBox::Samba::GPO;
+use EBox::Samba::Computer;
+use EBox::Samba::Container;
+use EBox::Samba::NamingContext;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::Internal;
 use EBox::Util::Version;
 use EBox::DBEngineFactory;
+use EBox::Samba::LdbObject;
 
 use Perl6::Junction qw( any );
 use Error qw(:try);
@@ -54,6 +59,8 @@ use File::Slurp;
 use File::Temp qw( tempfile tempdir );
 use File::Basename;
 use Net::Ping;
+use Net::LDAP::Control::Sort;
+use Net::LDAP::Util qw(ldap_explode_dn);
 use JSON::XS;
 
 use constant SAMBA_DIR            => '/home/samba/';
@@ -148,36 +155,6 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
-    }
-
-    # Migration from 3.0.8, force users resync
-    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.9') < 0) {
-        EBox::Sudo::silentRoot('rm /var/lib/zentyal/.s4sync_ts');
-    }
-
-    # Migration from 3.0.11, add fields to the LogHelper tables and set
-    # AV quarantine dir
-    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.12') < 0) {
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        unless (defined ($dbengine->checkForColumn('samba_virus', 'username'))) {
-            $dbengine->do("ALTER TABLE samba_virus ADD COLUMN username VARCHAR(24)");
-        }
-        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'username'))) {
-            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN username VARCHAR(24)");
-        }
-        unless (defined ($dbengine->checkForColumn('samba_quarantine', 'client'))) {
-            $dbengine->do("ALTER TABLE samba_quarantine ADD COLUMN client INT UNSIGNED");
-        }
-    }
-
-    # Migration from 3.0.12, support sizes greater than 2 GiB
-    if (defined($version) and EBox::Util::Version::compare($version, '3.0.13') < 0) {
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        $dbengine->do("ALTER TABLE samba_disk_usage
-                       MODIFY size BIGINT DEFAULT 0");
-        $dbengine->do("ALTER TABLE samba_disk_usage_report
-                       MODIFY size BIGINT DEFAULT 0");
-
     }
 }
 
@@ -333,6 +310,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     # Remount filesystem with user_xattr and acl options
     EBox::info('Setting up filesystem');
@@ -341,6 +319,9 @@ sub enableActions
     # Create directories
     EBox::info('Creating directories');
     $self->_createDirectories();
+
+    # Load the required OpenLDAP schema updates.
+    $self->performLDAPActions();
 }
 
 sub getProvision
@@ -673,6 +654,7 @@ sub writeSambaConfig
     push (@array, 'roamingProfiles' => $self->roamingProfiles());
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
+    push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
@@ -755,7 +737,7 @@ sub _createDirectories
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $group = EBox::UsersAndGroups::DEFAULTGROUP();
+    my $group = EBox::Users::DEFAULTGROUP();
     my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
@@ -872,6 +854,13 @@ sub _adcMode
     return ($settings->modeValue() eq $settings->MODE_ADC());
 }
 
+sub _nmbdCond
+{
+    my ($self) = @_;
+
+    return (-f SAMBACONFFILE);
+}
+
 sub _sysvolSyncCond
 {
     my ($self) = @_;
@@ -915,6 +904,7 @@ sub _daemons
         },
         {
             name => 'zentyal.nmbd',
+            precondition => \&_nmbdCond,
         },
         {
             name => 'zentyal.s4sync',
@@ -1002,15 +992,25 @@ sub firewallCaptivePortalExceptions
     return \@rules;
 }
 
-
 sub menu
 {
     my ($self, $root) = @_;
 
-    $root->add(new EBox::Menu::Item('url' => 'Samba/Composite/General',
-                                    'text' => $self->printableName(),
-                                    'separator' => 'Office',
-                                    'order' => 540));
+    my $folder = new EBox::Menu::Folder(name      => 'Samba',
+                                        text      => $self->printableName(),
+                                        icon      => 'samba',
+                                        separator => 'Office',
+                                        order     => 540);
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
+                                      text  => __('General'),
+                                      order => 10));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
+                                      text  => __('Group Policy Objects'),
+                                      order => 20));
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
+                                      text  => __('Group Policy Links'),
+                                      order => 30));
+    $root->add($folder);
 }
 
 # Method: administratorPassword
@@ -1330,38 +1330,6 @@ sub restoreDependencies
     }
 
     return \@depends;
-}
-
-sub backupDomains
-{
-    my $name = 'shares';
-    my %attrs  = (
-                  printableName => __('File Sharing'),
-                  description   => __(q{Shares, users and groups homes and profiles}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{shares}) {
-        my $sambaLdapUser = new EBox::SambaLdapUser();
-
-        my @dirs = ('/home');
-
-        push @dirs, map {
-            $_->{path}
-        } @{ $self->shares(1) };
-
-        my $selection = {
-                          includes => \@dirs,
-                         };
-        return $selection;
-    }
-
-    return {};
 }
 
 # Implement LogHelper interface
@@ -2012,5 +1980,277 @@ sub hostDomainChangedDone
     $value = uc ($value);
     $settings->setValue('workgroup', $value);
 }
+
+# Method: gpos
+#
+#   Returns the Domain GPOs
+#
+# Returns:
+#
+#   Array ref containing instances of EBox::Samba::GPO
+#
+sub gpos
+{
+    my ($self) = @_;
+
+    my $gpos = [];
+    my $defaultNC = $self->ldb->dn();
+    my $params = {
+        base => "CN=Policies,CN=System,$defaultNC",
+        scope => 'one',
+        filter => '(objectClass=GroupPolicyContainer)',
+        attrs => ['*']
+    };
+    my $result = $self->ldb->search($params);
+    foreach my $entry ($result->entries()) {
+        push (@{$gpos}, new EBox::Samba::GPO(entry => $entry));
+    }
+
+    return $gpos;
+}
+
+sub computers
+{
+    my ($self, $system) = @_;
+
+    return [] unless $self->isProvisioned();
+
+    my $sort = new Net::LDAP::Control::Sort(order => 'name');
+    my %args = (
+        base => $self->ldap->dn(),
+        filter => 'objectClass=computer',
+        scope => 'sub',
+        control => [$sort],
+    );
+
+    my $result = $self->ldb->search(\%args);
+
+    my @computers;
+    foreach my $entry ($result->entries()) {
+        my $computer = new EBox::Samba::Computer(entry => $entry);
+        next unless $computer->exists();
+        push (@computers, $computer);
+    }
+
+    return \@computers;
+}
+
+# Method: ldapObjectFromLDBObject
+#
+#   Return the perl Object that handles in OpenLDAP the given perl object from Samba or undef if not found.
+#
+sub ldapObjectFromLDBObject
+{
+    my ($self, $ldbObject) = @_;
+
+    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
+    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+
+    my $usersMod = EBox::Global->modInstance('users');
+
+    if ($ldbObject->isa('EBox::Samba::NamingContext')) {
+        return $usersMod->defaultNamingContext();
+    }
+
+    my $objectGUID = $ldbObject->objectGUID();
+    return $self->ldapObjectByObjectGUID($objectGUID);
+}
+
+# Method: ldbObjectFromLDAPObject
+#
+#   Return the perl Object that handles in Samba the given perl object from OpenLDAP or undef if not found.
+#
+sub ldbObjectFromLDAPObject
+{
+    my ($self, $ldapObject) = @_;
+
+    throw EBox::Exceptions::MissingArgument('ldapObject') unless ($ldapObject);
+    throw EBox::Exceptions::InvalidType('ldapObject', 'EBox::Users::LdapObject') unless ($ldapObject->isa('EBox::Users::LdapObject'));
+
+    if ($ldapObject->isa('EBox::Users::NamingContext')) {
+        return $self->defaultNamingContext();
+    }
+
+    my $objectGUID = $ldapObject->get('msdsObjectGUID');
+    unless ($objectGUID) {
+        throw EBox::Exceptions::Internal("'" . $ldapObject->dn() ."' lacks a value for msdsObjectGUID!");
+    }
+    return $self->ldbObjectByObjectGUID($objectGUID);
+}
+
+# Method: entryModeledObject
+#
+#   Return the Perl Object that handles the given LDAP entry.
+#
+#   Throw EBox::Exceptions::Internal on error.
+#
+# Parameters:
+#
+#   entry - A Net::LDAP::Entry object.
+#
+sub entryModeledObject
+{
+    my ($self, $entry) = @_;
+
+    my $object;
+
+    my $anyObjectClasses = any($entry->get_value('objectClass'));
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container);
+    foreach my $class (@entryClasses) {
+            EBox::debug("Checking " . $class->mainObjectClass . ' against ' . (join ',', $entry->get_value('objectClass')) );
+        if ($class->mainObjectClass eq $anyObjectClasses) {
+
+            return $class->new(entry => $entry);
+        }
+    }
+
+    my $ldb = $self->ldb();
+    if ($entry->dn() eq $ldb->dn()) {
+        return $self->defaultNamingContext();
+    }
+
+
+    EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
+    EBox::trace();
+    return undef;
+}
+
+# Method: relativeDN
+#
+#   Return the given dn without the naming Context part.
+#
+sub relativeDN
+{
+    my ($self, $dn) = @_;
+
+    throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
+
+    my $baseDN = $self->ldap()->dn();
+
+    return '' if ($dn eq $baseDN);
+
+    if (not $dn =~ s/,$baseDN$//) {
+        throw EBox::Exceptions::Internal("$dn is not contained in $baseDN");
+    }
+
+    return $dn;
+}
+
+# Method: ldapObjectByObjectGUID
+#
+#   Return the ldap perl object modeling the given objectGUID or undef if not found.
+#
+# Parameters:
+#
+#   objectGUID - The objectGUID id.
+#
+sub ldapObjectByObjectGUID
+{
+    my ($self, $objectGUID) = @_;
+
+    my $usersMod = EBox::Global->modInstance('users');
+    my $base = $usersMod->ldap()->dn();
+    my $filter = "(&(objectClass=zentyalSambaLink)(msdsObjectGUID=$objectGUID))";
+    my $scope = 'sub';
+
+    my $attrs = {
+        base   => $base,
+        filter => $filter,
+        scope  => $scope,
+        attrs  => ['*', 'entryUUID'],
+    };
+
+    my $result = $usersMod->ldap->search($attrs);
+    return undef unless ($result);
+
+    if ($result->count() > 1) {
+        throw EBox::Exceptions::Internal(
+            __x('Found {count} results for, expected only one.',
+                count => $result->count()));
+    }
+
+    my $entry = $result->entry(0);
+    if ($entry) {
+        return $usersMod->entryModeledObject($entry);
+    } else {
+        return undef;
+    }
+}
+
+# Method: ldbObjectByObjectGUID
+#
+#   Return the perl object modeling the given objectGUID or undef if not found.
+#
+# Parameters:
+#
+#   objectGUID - The objectGUID id.
+#
+sub ldbObjectByObjectGUID
+{
+    my ($self, $objectGUID) = @_;
+
+    my $baseObject = new EBox::Samba::LdbObject(objectGUID => $objectGUID);
+
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
+    } else {
+        return undef;
+    }
+}
+
+# Method: objectFromDN
+#
+#   Return the perl object modeling the given dn or undef if not found.
+#
+# Parameters:
+#
+#   dn - An LDAP DN string identifying the object to retrieve.
+#
+sub objectFromDN
+{
+    my ($self, $dn) = @_;
+    my $ldb = $self->ldb();
+    if ($dn eq $ldb->dn()) {
+        return $self->defaultNamingContext();
+    }
+
+    my $baseObject = new EBox::Samba::LdbObject(dn => $dn);
+
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
+    } else {
+        return undef;
+    }
+}
+
+# Method: defaultNamingContext
+#
+#   Return the Perl Object that holds the default Naming Context for this LDAP server.
+#
+sub defaultNamingContext
+{
+    my ($self) = @_;
+
+    my $ldb = $self->ldb;
+    return new EBox::Samba::NamingContext(dn => $ldb->dn());
+}
+
+# Method: sidsToHide
+#
+#   Return the list of regexps to of SIDs to hide on the UI
+#   read from /etc/zentyal/sids-to-hide.regex
+#
+sub sidsToHide
+{
+    my ($self) = @_;
+
+    my $ignoredSidsFile = EBox::Config::etc() . 'sids-to-hide.regex';
+    my @lines = read_file($ignoredSidsFile);
+    my @sidsTmp = grep(/^\s*S-/, @lines);
+    my @sids = map { s/\n//; $_; } @sidsTmp;
+
+    return \@sids;
+}
+
 
 1;

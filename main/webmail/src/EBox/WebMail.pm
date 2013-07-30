@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,10 +18,10 @@
 #      Class description
 #
 
-package EBox::WebMail;
-
 use strict;
 use warnings;
+
+package EBox::WebMail;
 
 use base qw(EBox::Module::Service);
 
@@ -42,7 +42,6 @@ use constant {
     ROUNDCUBE_DIR => '/var/lib/roundcube',
     HTTPD_WEBMAIL_DIR => '/var/www/webmail',
 };
-
 
 # Group: Protected methods
 
@@ -138,7 +137,6 @@ sub _setManageSievePluginConf
             $self->model('RemoteServerConfiguration')->getSieveConfiguration();
     }
 
-
     $self->writeConfFile(
                          SIEVE_PLUGIN_INC_ETC_FILE,
                          'webmail/managesieve-config.php.inc.mas',
@@ -185,7 +183,6 @@ sub _confForRemoteServer
     return $self->model('RemoteServerConfiguration')->getConfiguration();
 }
 
-
 # Group: Public methods
 
 # Method: menu
@@ -227,6 +224,7 @@ sub menu
     $root->add(
                new EBox::Menu::Item(
                    'url' => 'WebMail/View/Options',
+                   'icon' => 'webmail',
                    'text' => $self->printableName(),
                    'separator' => 'Communications',
               )

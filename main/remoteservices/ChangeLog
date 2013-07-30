@@ -1,12 +1,13 @@
 HEAD
+	+ Adapted to updatedRowNotify call with no changes in values
+	+ Added menu icon
+	+ Fixed wrong jQuery interpolation in Subscription form
 	+ Retry making the configuration backup if the conf backup process
 	  produced a corrupted backup
 	+ Send the checksum of the conf backup when pushing to check
 	  its integrity on server side
 	+ Explicitly set firewall version dependency in control file
-3.0.24
 	+ Adapt firewall rules to new accept chains
-3.0.23
 	+ Display web remote access support settings
 	+ Save logs module when creating VPN client to start logging its log
 	+ Save software module after setting QA updates configuration
@@ -16,18 +17,32 @@ HEAD
 	  servers from Zentyal Remote using
 	  /etc/zentyal/remoteservices_redirections.yaml
 	+ Fixed path escape on Reporter::SambaDiskUsage
-3.0.22
+	+ Removed no longer necessary jQuery noConflict()
+3.1.4
+	+ Fixed wizard to show again errors
+	+ Fixed path escape on Reporter::SambaDiskUsage, thanks to EddieA
+	  for pointing out the fix
 	+ maxUsers method does not take maxCloudUsers into account
+3.1.3
+	+ Ported JS code to jQuery
+3.1.2
+	+ Remove deprecated backup domain report in ebackup reporter
 	+ Custom QA archive can be set at qa_updates_archive configuration
 	  key
-3.0.21
 	+ Custom QA repository can be set at qa_updates_repo configuration
 	  key
 	+ RESTClient can now set the URI endpoint programatically
 	+ Added pullStatus SOAP server method to get the job result via
 	  polling
+3.1.1
 	+ Cloud-prof installation is now smoothly as it is tried at first
 	  and during 10 times during 5 minutes
+	+ Migrated SOAP services to use Nginx for SSL.
+3.1
+	+ Updated to reflect the Apache -> WebAdmin rename.
+	+ Removed 3.0.X migration code
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
 3.0.20
 	+ Changed location of remote backup metainfo files to preserve cache
 	  after reboot

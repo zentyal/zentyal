@@ -1,15 +1,23 @@
 HEAD
+	+ Added menu icon
+	+ Request user confirmation when clicking remove virtual machine button
 	+ Do not check for r/rw perms on disks as libvirt automatically fixes them
 	+ Bridges already used are skipped instead of reused to avoid conflicts
 	+ Delete unsued bridges once deleted
-3.0.7
 	+ Check for existing libvirt networks using test on files definition
 	  insted of virsh net-list which was buggy
-3.0.6
+	+ Removed no longer necessary jQuery noConflict()
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Remove deprecated backup domains methods
 	+ More descriptive names for the windows types of virtual machines
 	+ Do not stop VNC proxies before VMs are stopped
 	+ Always try to shutdown VMs first and then destroy after 30 seconds
 	+ Fix Qemu keymap detection when having UTF-8 environment
+3.1
+	+ Removed 3.0.X migration code
+	+ Depend on zentyal-core 3.1
 3.0.5
 	+ Reload the page after saving changes if a VM has been modified
 	+ Added calls to generate VM stop alerts on module stop

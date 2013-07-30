@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-package EBox::Events::Model::EventsGraph;
-use base 'EBox::Logs::Model::Graph';
-#
 use strict;
 use warnings;
 
+package EBox::Events::Model::EventsGraph;
+
+use base 'EBox::Logs::Model::Graph';
+
 use EBox::Gettext;
-
-
 
 use Error qw(:try);
 
@@ -36,7 +34,6 @@ sub new
     return $self;
 
 }
-
 
 sub dbTableName
 {
@@ -88,26 +85,16 @@ sub _table
                                 'add'       => undef,
                                 'del'       => undef,
                                 'update'    => undef,
-                                'moveUp'    => undef,
-                                'moveDown'  => undef,
                                }
                   };
 
-
   return $dataTable;
 }
-
-
-
-
 
 sub tableName
 {
     return 'EventsGraph';
 }
-
-
-
 
 sub timePeriod
 {
@@ -125,7 +112,7 @@ sub reportRows
     my ($self) = @_;
 
     my %totalRowsByDate;
-    
+
     my $rows =  $self->SUPER::reportRows();
     foreach my $row (@{ $rows } ) {
         my $date = $row->{date};
@@ -165,7 +152,7 @@ sub limitByTimePeriod
 
     if ($nSources == 0) {
         $nSources = 1;
-    } 
+    }
 
     return $unityLimit * $nSources;
 }

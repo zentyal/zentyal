@@ -188,12 +188,12 @@ END
 <div id="<% $container %>" style="width:600px;height:300px;"></div>
 <br/>
 <script language="javascript" type="text/javascript">
-			/**
-			 * Wait till dom's finished loading.
-			 */
-			document.observe('dom:loaded', function(){
-			    var f = Flotr.draw($('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
-			});
+/**
+ Wait till dom's finished loading.
+**/
+document.observe('dom:loaded', function(){
+  $.plot('#' + Zentyal.escapeSelector('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
+});
 </script>
 
 </%method>
@@ -202,8 +202,9 @@ END
 
 <& PARENT:headerScriptSection &>
 
-<script language="javascript" type="text/javascript" src="/data/js/flotr.js"></script>
+%#<script language="javascript" type="text/javascript" src="/data/js/flotr.js"></script>
 
+<script type="text/javascript" src="/data/js/jquery.flot.js"></script>
 </%method>
 
 <%method editForm>

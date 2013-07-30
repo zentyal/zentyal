@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,16 +17,16 @@
 #
 #
 
-package EBox::Asterisk::Extensions;
-
 use strict;
 use warnings;
+
+package EBox::Asterisk::Extensions;
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Ldap;
 
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Asterisk;
 use Perl6::Junction qw(any);
 
@@ -282,7 +282,6 @@ sub delUserExtension
     my $result = $self->{'ldap'}->search(\%attrs);
 
     my @extns = map { $_->get_value('cn') } $result->sorted('cn');
-
 
     foreach (@extns) {
         $self->delExtension($_);
@@ -596,7 +595,6 @@ sub delQueueMember
     $user->set('AstQueueMemberof', \@members);
 }
 
-
 sub isQueueMember
 {
     my ($self, $user, $group) = @_;
@@ -683,7 +681,6 @@ sub delQueueExtension
     my $result = $self->{'ldap'}->search(\%attrs);
 
     my @extns = map { $_->get_value('cn') } $result->sorted('cn');
-
 
     foreach (@extns) {
         $self->delExtension($_);

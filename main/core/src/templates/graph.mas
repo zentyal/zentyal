@@ -48,7 +48,6 @@ my $tiny = 0.01;
 <div id='<% $id %>' class='graph'></div>
 <div id='legend_<% $id %>'></div>
 <script type="text/javascript">
-//<![CDATA[
 % }
 var track_formatter = function(obj) {
     var time = <% $timeformatter %>(obj.x);
@@ -61,13 +60,10 @@ var track_formatter = function(obj) {
     return '(' + time + ': ' + other + ')';
 }
 
-Flotr.draw(
-    $('<% $id %>'), [
+var previousPoint;
+$.plot(
+    '#' + Zentyal.escapeSelector('<% $id %>'), [
 % my $first = $series[0]->{'data'};
-% my $min_x = $first->[0]->[0];
-% my $max_x = $first->[$#{$first}]->[0];
-% my $min_y = undef;
-% my $max_y = undef;
 % foreach my $set (@series) {
 %   my $data = $set->{'data'};
 %   pop(@{$data}); # Remove the last nan value
@@ -79,15 +75,8 @@ Flotr.draw(
 %       $pair->[0] =~ s/,/./;
 %       $pair->[1] =~ s/,/./;
 %       if ($pair->[1] ne 'nan') {
-%           if (!defined($min_y) or ($min_y > $pair->[1])) {
-%               $min_y = $pair->[1];
-%           }
-%           if (!defined($max_y) or ($max_y < $pair->[1])) {
-%               $max_y = $pair->[1];
-%           }
         [<% $pair->[0] %>,<% $pair->[1] %>],
 %       } else {
-%           $min_y = 0;
 %           if($i != 0) {
                 [<% ($data->[$i-1]->[0] + $tiny) %>,0],
 %           }
@@ -104,38 +93,49 @@ Flotr.draw(
 % }
     ],
     {
-        xaxis: { noTicks: 3,
+        xaxis: {
+            ticks: 3,
             tickFormatter: <% $timeformatter %>
         },
-        yaxis: { noTicks: 5,
+        yaxis: {
+                 ticks: 3,
 % if($formatter) {
   tickFormatter: <% $formatter %>
 % }
         },
+        grid: { hoverable: true },
 % my $columns = $#series + 1;
 % if ($columns > 5) {
 %   $columns = 5;
 % }
-% my $diff_x = $max_x - $min_x;
-% my $diff_y = $max_y - $min_y;
-% my $max_diff;
-% if ($diff_x > $diff_y) {
-%   $max_diff = $diff_x;
-% } else {
-%   $max_diff = $diff_y;
-% }
-% my $sensibility = int($max_diff/10);
-% my $point = int($max_diff/10);
-        legend: { container: 'legend_<% $id %>', noColumns: <% $columns %> },
-        mouse: {
-            track: true,
-            sensibility: <% $sensibility %>,
-            lineColor: '#ff3f19',
-            trackFormatter: track_formatter
-        }
+        legend: { container: '#' + Zentyal.escapeSelector('legend_<% $id %>'), noColumns: <% $columns %> },
     }
 );
+
+$('#' + Zentyal.escapeSelector('<% $id %>')).on('plothover',  function (event, pos, item) {
+         if ( item ) {
+            if (previousPoint !== item.datapoint ) {
+               previousPoint = item.datapoint;
+
+               $("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+               var text = track_formatter(pos);
+               $('<div id="tooltip_<% $id %>">' + text + '</div>').css({
+                    top: pos.y + 5,
+                    left: pos.x + 5,
+                    border: '1px solid #0087A5',
+                    padding: '5px 10px',
+                    color: '#fff',
+                    'background-color': '#00ADD0',
+                    opacity: 0.80,
+                    width: '100%'
+               }).appendTo(event.target);
+           }
+         } else {
+            $("#tooltip_" + Zentyal.escapeSelector('<% $id %>')).remove();
+            previousPoint = null;
+         }
+});
+
 % unless ( $repainting ) {
-//]]>
 </script>
 % }

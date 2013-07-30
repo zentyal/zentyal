@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Asterisk;
+
 use base qw(EBox::Module::Service EBox::LdapModule
             EBox::UserCorner::Provider EBox::LogObserver);
 
@@ -198,6 +199,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -361,12 +363,12 @@ sub _getQueues
 
     my @queues = ();
 
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
     my $extensions = new EBox::Asterisk::Extensions;
 
     foreach my $queue (@{$extensions->queues()}) {
-        my $group = new EBox::UsersAndGroups::Group(dn => $users->groupDn($queue));
+        my $group = $usersMod->groupByName($queue);
         my @members = map { $_->name() } @{$group->users()};
 
         my $queueInfo = {};
@@ -528,6 +530,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Asterisk',
+                                        'icon' => 'asterisk',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' => 630);

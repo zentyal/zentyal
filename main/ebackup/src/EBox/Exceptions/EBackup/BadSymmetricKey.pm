@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,11 +19,11 @@ use warnings;
 use strict;
 use warnings;
 
-
 package EBox::Exceptions::EBackup::BadSymmetricKey;
-use base 'EBox::Exceptions::External';
-use EBox::Gettext;
 
+use base 'EBox::Exceptions::External';
+
+use EBox::Gettext;
 
 sub new
 {
@@ -41,6 +41,5 @@ sub new
     bless ($self, $class);
     return $self;
 }
-
 
 1;

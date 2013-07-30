@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersSync::Master;
-
 use strict;
 use warnings;
+
+package EBox::UsersSync::Master;
 
 use EBox::Config;
 use EBox::Exceptions::External;
@@ -55,18 +55,20 @@ sub confSOAPService
     my ($self) = @_;
 
     my $confFile = EBox::Config::conf() . 'users/soap.conf';
+    my $confSSLFile = EBox::Config::conf() . 'users/soap-ssl.conf';
 
     my @params;
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
 
-    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
+    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.conf.mas', \@params);
+    EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
 
-    my $apache = EBox::Global->modInstance('apache');
-    $apache->addInclude($confFile);
+    my $webAdminMod = EBox::Global->modInstance('webadmin');
+    $webAdminMod->addApacheInclude($confFile);
+    $webAdminMod->addNginxInclude($confSSLFile);
 
-    $apache->addCA(MASTER_CERT) if (-f MASTER_CERT);
+    $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);
 }
-
 
 # SERVER METHODS
 
@@ -104,7 +106,6 @@ sub setupMaster
     );
 }
 
-
 # Method: addSlave
 #
 #   Register a new slave in this master
@@ -118,7 +119,6 @@ sub addSlave
     my $table = $users->model('Slaves');
 
     EBox::info("Adding a new slave on $host:$port");
-
 
     my $changed = $users->changed();
     my $id = $table->addRow(host => $host, port => $port);
@@ -141,7 +141,6 @@ sub addSlave
     # Regenerate slave connection password
     $self->setupMaster();
 }
-
 
 # CLIENT METHODS
 
@@ -187,7 +186,6 @@ sub checkMaster
         }
     }
 
-    my $apache = $global->modInstance('apache');
     my $users = $global->modInstance('users');
     $password = uri_escape($password);
     local $ENV{PERL_LWP_SSL_VERIFY_HOSTNAME} = 0;
@@ -195,7 +193,6 @@ sub checkMaster
         name  => 'urn:Users/Master',
         proxy => "https://slave:$password\@$host:$port/master",
     );
-
 
     try {
         $master->getDN();
@@ -207,7 +204,6 @@ sub checkMaster
     # Check that master's REALM is correct
     $self->_checkRealm($users, $master);
 }
-
 
 # Method: isSlave
 #
@@ -239,7 +235,7 @@ sub setupSlave
         my $port = $master->portValue();
         my $password = $master->passwordValue();
 
-        my $apache = EBox::Global->modInstance('apache');
+        my $webAdminMod = EBox::Global->modInstance('webadmin');
         $password = uri_escape($password);
         my $client = EBox::SOAPClient->instance(
             name  => 'urn:Users/Master',
@@ -254,7 +250,7 @@ sub setupSlave
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            $client->registerSlave($apache->port(), $client_cert, 1);
+            $client->registerSlave($webAdminMod->port(), $client_cert, 1);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);
@@ -273,7 +269,6 @@ sub setupSlave
     }
 }
 
-
 sub _checkRealm
 {
     my ($self, $users, $client) = @_;
@@ -285,7 +280,6 @@ sub _checkRealm
         throw EBox::Exceptions::External(__x("Master server has a different REALM, check hostnames. Master is {master} and slave {slave}.", master => $mrealm, slave => $srealm));
     }
 }
-
 
 sub _recreateLDAP
 {
@@ -330,6 +324,5 @@ sub _analyzeException
     }
     throw EBox::Exceptions::External(__("Couldn't configure Zentyal as slave") . ": $msg.");
 }
-
 
 1;

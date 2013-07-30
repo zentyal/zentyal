@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Menu::Folder;
+
 use base 'EBox::Menu::TextNode';
 
 use EBox::Exceptions::Internal;
@@ -57,30 +58,33 @@ sub html
         return '';
     }
 
+    my $menuClass = "menu$name";
     my $id = $self->{id};
-    my $html = '';
-    if (defined($self->{style})) {
-        $html .= "<li id='" . $id . "' class='$self->{style}'>\n";
-    } else {
-        $html .= "<li id='" . $id . "'>\n";
+    my $liClass = $menuClass;
+    if ($self->{style}) {
+        $liClass .= " $self->{style}";
     }
+    my $html = "<li id=\"$id\" class=\"$liClass\">\n";
 
     my $isCurrentFolder = ($name eq $currentFolder);
-    my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
+    my $aClass = '';
+    if ($self->{icon}) {
+        $aClass = "icon-$self->{icon}";
+    }
+    $aClass .= $isCurrentFolder ? ' despleg' : ' navarrow';
 
     my $url = $self->{url};
     if (defined $url) {
         $html .= "<a title='$text' href='/$url' class='$aClass' ";
     } else {
         $html .= "<a title='$text' href='' class='$aClass' ";
-        $html .= "onclick=\"showMenu('menu$name', this);return false;\"";
+        $html .= "onclick=\"Zentyal.LeftMenu.showMenu('menu$name', this);return false;\"";
     }
 
     $html .= " target='_parent'>$text</a>\n";
 
     $html .= "<ul class='submenu'>\n";
 
-    my $menuClass = "menu$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
     foreach my $item (@sorted) {
         $item->{style} = $menuClass;
@@ -94,7 +98,7 @@ sub html
       # JS call to set the correct variables
         $html .= <<"END_JS"
 <script type="text/javascript">
-    showMenu('$menuClass', \$('$id'));
+    Zentyal.LeftMenu.showMenu('$menuClass', \$('#$id'));
 </script>
 END_JS
     }

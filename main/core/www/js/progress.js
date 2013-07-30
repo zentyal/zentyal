@@ -1,160 +1,130 @@
-// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+// Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
 
 // code used by progress.mas
-var percent = 0;
-var time = 0;
 
-var ticks = 0;
-var totalTicks = 0;
+"use strict";
 
+Zentyal.namespace('ProgressIndicator');
 
-function porcentH(i){
-  this.value = 0;
-  this.setValue = function(v){
-    if(v > 100)
-      v = 100;
-    if(v < 0)
-      v = 0;
-    this.value = v;
-    $('progressValue').morph('width: ' + v + '%', { duration: 0.5 });
-    document.getElementById('percentValue').innerHTML= v+"%";
-  };
+Zentyal.ProgressIndicator.updateProgressBar = function(progressbar, ticks, totalTicks) {
+    var percent;
+    if (totalTicks > 0) {
+        percent = Math.ceil((ticks/totalTicks)*100);
+        if( percent > 100)
+            percent = 100;
+        if(percent < 0)
+            percent = 0;
+    } else {
+        percent = 0;
+    }
 
-  this.upValue = function(v){
-    v += this.value;
-    this.setValue(v);
-  };
-
-  this.downValue = function(v){
-    v = this.value - v;
-    this.setValue(v);
-  };
-
+    if (progressbar.progressbar('option').max !== totalTicks) {
+        progressbar.progressbar('option', 'max', totalTicks);
+    }
+    progressbar.progressbar('value', ticks);
+    $('#percent', progressbar).html(percent+"%");
 };
 
-var ph = new porcentH('progress');
-
-// Update the page
-function updatePage (xmlHttp, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
-    var rawResponse = xmlHttp.responseText.replace(/\n/g, "<br />");
-    var response = eval("(" + rawResponse + ")");
+Zentyal.ProgressIndicator.updatePage  = function(xmlHttp, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
+    var response;
+    if (xmlHttp.responseText.length === 0) {
+        return;
+    }
+    response = $.parseJSON(xmlHttp.responseText);
 
     if (xmlHttp.readyState == 4) {
         if (response.state == 'running') {
-            // current item
+            var ticks = 0;
+            var totalTicks = 0;
             if (('message' in response) && response.message.length > 0 ) {
-                $('currentItem').innerHTML = response.message;
+                $('#currentItem').html(response.message);
             }
             if ( ('ticks' in response) && (response.ticks >= 0)) {
-                $('ticks').innerHTML = response.ticks;
+                $('#ticks').html(response.ticks);
                 ticks = response.ticks;
             }
             if ( ('totalTicks' in response) && (response.totalTicks > 0)) {
-                $('totalTicks').innerHTML = response.totalTicks;
+                $('#totalTicks').html(response.totalTicks);
                 totalTicks = response.totalTicks;
             }
 
             if ( totalTicks > 0 ) {
-                percent = Math.ceil((ticks/totalTicks)*100);
-                ph.setValue(percent);
+                Zentyal.ProgressIndicator.updateProgressBar(progressbar, ticks, totalTicks);
             }
-        }
-        else if (response.state == 'done') {
-            pe.stop();
+        } else if (response.state == 'done') {
+            clearInterval(timerId);
             if ( nextStepTimeout > 0 ) {
-//                setTimeout ( "location.href='" + nextStepUrl + "';", nextStepTimeout*1000 );
-              loadWhenAvailable(nextStepUrl, nextStepTimeout);
+              Zentyal.ProgressIndicator.loadWhenAvailable(nextStepUrl, nextStepTimeout);
             }
 
           if (showNotesOnFinish) {
             if (('errorMsg' in response) && (response.errorMsg)) {
-                $('warning-progress-messages').update(
-                    response.errorMsg);
+                $('#warning-progress-messages').html(response.errorMsg);
 
-                $('done_note').removeClassName('note');
-                $('done_note').addClassName('warning');
-                $('warning-progress').show();
-                $('warning-progress-messages').show();
+                $('#done_note').removeClass('note').addClass('warning');
+                $('#warning-progress').show();
+                $('#warning-progress-messages').show();
             }
 
-            Element.hide('progressing');
-            $('done').show();
+              $('#progressing').hide();
+              $('#done').show();
           }
 
             // Used to tell selenium we are done
             // with saving changes
-            $('ajax_request_cookie').value = 1337;
-        }
-        else if (response.state == 'error') {
-            pe.stop();
+            $('ajax_request_cookie').val(1337);
+        } else if (response.state == 'error') {
+            clearInterval(timerId);
             if (showNotesOnFinish) {
-               Element.hide('progressing');
+                $('#progressing').hide();
             }
 
-            $('error-progress').show();
+            $('#error-progress').show();
             if ('errorMsg' in response) {
-                $('error-progress-message').update(
-                    response.errorMsg);
+                $('#error-progress-message').html(response.errorMsg);
             }
         }
     }
-}
+};
 
-// Generate an Ajax request to fetch the current package
-function callServer(progressId, url, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
-
-    // Build the URL to connect to
-    var par = "progress=" + progressId ;
-
-    new Ajax.Request(url, {
-        method: 'post',
-        parameters: par,
-        asynchronous: true,
-                       onSuccess: function (t) { updatePage(t, nextStepTimeout, nextStepUrl, showNotesOnFinish); }
+Zentyal.ProgressIndicator.updateProgressIndicator = function(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish) {
+    var time = 0,
+    progressbar = $('#progress_bar');
+    progressbar.progressbar({ max: false, value: 0});
+    var requestParams = "progress=" + progressId ;
+    var callServer = function() {
+        $.ajax({
+            url: currentItemUrl,
+            data: requestParams,
+            type : 'POST',
+            complete: function (xhr) {
+                Zentyal.ProgressIndicator.updatePage(xhr, progressbar, timerId, nextStepTimeout, nextStepUrl, showNotesOnFinish);
+            }
+        });
+        time++;
+        if (time >= 10) {
+            time = 0;
+            if (window.showAds) {
+                showAds(1);
+            }
         }
-    );
-    time++;
-    if (time >= 10) {
-        time = 0;
-      if (window.showAds) {
-        showAds(1);
-      }
-    }
+    };
 
+    var timerId = setInterval(callServer, reloadInterval*1000);
+};
 
-}
+Zentyal.ProgressIndicator.loadWhenAvailable = function(url, secondsTimeout) {
+    var loadMethod = function() {
+        $.ajax({
+            url: url,
+            success: function(text) {
+                if (text) {
+                    clearInterval(timerId);
+                    window.location.replace(url);
+                }
+            }
+        });
+   };
 
-
-var pe;
-function createPeriodicalExecuter(progressId, currentItemUrl,  reloadInterval, nextStepTimeout, nextStepUrl, showNotesOnFinish)
-{
-    var callServerCurriedBody = "callServer(" + progressId + ", '"
-                                                + currentItemUrl  + "', "
-                                                + nextStepTimeout + ", '"
-                                                + nextStepUrl + "', " +
-                                                + showNotesOnFinish +  ")";
-
-    var callServerCurried = new Function(callServerCurriedBody );
-
-    pe = new PeriodicalExecuter(callServerCurried, reloadInterval);
-}
-
-
-var progress_pl; // use progress_pe if it works
-function loadWhenAvailable(url, secondsTimeout)
-{
-  var loadMethod = function() {
-       new Ajax.Request(url, {
-                             onSuccess: function(transport) {
-
-                               if (transport.responseText) {
-                                  progress_pl.stop();
-                                  window.location.replace(url);                               }
-
-                              }
-                            }
-                        );
-  };
-  progress_pl = new PeriodicalExecuter(loadMethod, secondsTimeout);
-}
-
+    var timerId = setInterval(loadMethod, secondsTimeout*1000);
+};

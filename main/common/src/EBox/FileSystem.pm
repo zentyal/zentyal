@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,13 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::FileSystem;
 use strict;
 use warnings;
 
+package EBox::FileSystem;
 
 use base 'Exporter';
+
 our @EXPORT_OK = qw(makePrivateDir cleanDir isSubdir dirDiskUsage dirFileSystem);
 use Params::Validate;
 use EBox::Validate;
@@ -232,7 +233,6 @@ sub dirDiskUsage
         return $blockCount;
 }
 
-
 # Function: staticFileSystems
 #
 #      Return static file systems information as seen in /etc/fstab
@@ -254,7 +254,6 @@ sub staticFileSystems
 {
     return _fileSystems(FSTAB_PATH, @_);
 }
-
 
 # Function: fileSystems
 #

@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -41,7 +41,6 @@ use constant {
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
-
 sub new
 {
     my $class = shift;
@@ -50,7 +49,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _externalAccountString
 {
@@ -125,20 +123,17 @@ sub addExternalAccount
     $user->add('fetchmailAccount', $fetchmailString);
 }
 
-
-
-
 sub existsAnyExternalAccount
 {
     my ($self) = @_;
 
     my %attrs = (
-            base => EBox::Global->modInstance('users')->usersDn,
+            base => $self->{ldap}->dn(),
             filter => 'objectclass=fetchmailUser',
             scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     foreach my $entry ($result->entries()) {
         my @accounts = $entry->get_value('fetchmailAccount');
         if (@accounts) {
@@ -156,12 +151,12 @@ sub allExternalAccountsByLocalAccount
     my @zarafaDomains = $params{zarafaDomains};
 
     my %attrs = (
-            base => EBox::Global->modInstance('users')->usersDn,
+            base => $self->{ldap}->dn(),
             filter => 'objectclass=fetchmailUser',
             scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     if ($result->count() == 0) {
         return {};
     }
@@ -178,7 +173,6 @@ sub allExternalAccountsByLocalAccount
                 }
             }
         }
-
 
         my @externalAccounts = map {
             $self->_externalAccountHash($_)
@@ -215,24 +209,22 @@ sub removeExternalAccount
     my $username = $user->name();
 
     my %attrs = (
-        base => EBox::Global->modInstance('users')->usersDn,
+        base => $self->{ldap}->dn(),
         filter => '&(objectclass=fetchmailUser)(uid=' . $username . ')',
-        scope => 'one'
+        scope => 'sub'
     );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     my ($entry) = $result->entries();
     if (not $result->count() > 0) {
         throw EBox::Exceptions::Internal( "Cannot find user $username" );
     }
 
-
-
     my @fetchmailAccounts = $entry->get_value('fetchmailAccount');
     foreach my $fetchmailAccount (@fetchmailAccounts) {
         if ($fetchmailAccount =~ m/^$account:/) {
             $entry->delete(fetchmailAccount => [$fetchmailAccount]);
-            $entry->update($self->{'ldap'}->ldapCon());
+            $entry->update($self->{ldap}->connection());
             return;
         }
     }
@@ -242,14 +234,12 @@ sub removeExternalAccount
                                     );
 }
 
-
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
     $self->removeExternalAccount($user, $account);
     $self->addExternalAccount(user => $user, @{ $newAccountHash});
 }
-
 
 sub writeConf
 {
@@ -322,7 +312,6 @@ sub isEnabled
 
 }
 
-
 sub stop
 {
     EBox::Service::manage(FETCHMAIL_SERVICE, 'stop');
@@ -332,7 +321,6 @@ sub start
 {
     EBox::Service::manage(FETCHMAIL_SERVICE, 'start');
 }
-
 
 sub running
 {
@@ -367,13 +355,13 @@ sub modifyTimestamp
     my ($self) = @_;
 
     my %params = (
-        base => EBox::Global->modInstance('users')->usersDn,
+        base => $self->{ldap}->dn(),
         filter => "objectclass=fetchmailUser",
-        scope => 'one',
+        scope => 'sub',
         attrs => ['modifyTimestamp'],
     );
 
-    my $result = $self->{'ldap'}->search(\%params);
+    my $result = $self->{ldap}->search(\%params);
 
     my $timeStamp = 0;
     foreach my $entry ($result->entries()) {
@@ -410,7 +398,6 @@ sub setFetchmailRegenTs
     my $tsFile = $self->_fetchmailRegenTsFile();
     return File::Slurp::write_file($tsFile, $ts);
 }
-
 
 sub checkExternalAccount
 {
@@ -495,6 +482,5 @@ sub externalAccountRowValues
     return \%values;
 
 }
-
 
 1;

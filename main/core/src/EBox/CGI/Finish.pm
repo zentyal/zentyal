@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,7 +16,8 @@ use strict;
 use warnings;
 
 package EBox::CGI::Finish;
-use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
+
+use base qw(EBox::CGI::ClientPopupBase EBox::CGI::ProgressClient);
 
 use EBox::Config;
 use EBox::Global;
@@ -42,11 +43,7 @@ sub _process
     my @array = ();
     my $global = EBox::Global->getInstance();
     if ($global->unsaved) {
-        my $manager = new EBox::ServiceManager();
-        #my $askPermission = defined @{$manager->checkFiles()};
-
         push(@array, 'unsaved' => 'yes');
-        push(@array, 'askPermission' => 0);
         push(@array, 'disabledModules' => _disabledModules());
         push(@array, 'actions' => _pendingActions());
     } else {
@@ -144,21 +141,5 @@ sub _disabledModules
     return \@modules;
 }
 
-
-
-sub _print
-{
-    my ($self) = @_;
-    $self->_printPopup();
-}
-
-sub _top
-{}
-
-sub _menu
-{}
-
-sub _footer
-{}
 
 1;

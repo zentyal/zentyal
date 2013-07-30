@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::CGI::Wizard;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -64,7 +65,6 @@ sub _process
     $self->{params} = \@array;
 }
 
-
 # Method: _modulesWizardPages
 #
 #   Returns an array ref with installed modules wizard pages
@@ -105,7 +105,5 @@ sub _top
     my ($self)= @_;
     $self->_topNoAction();
 }
-
-
 
 1;

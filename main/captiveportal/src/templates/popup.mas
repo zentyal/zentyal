@@ -11,16 +11,15 @@ use EBox::Gettext;
   <meta http-equiv=Content-Type content="text/html; charset=utf-8" />
   <meta http-equiv="refresh" content="<% $interval %>" />
   <link href="/dynamic-data/css/captiveportal.css" type="text/css" rel="stylesheet" />
-  <script src="/data/js/prototype.js" type="text/javascript"></script>
+  <script src="/data/js/jquery.js" type="text/javascript"></script>
   <script type="text/javascript">
     function logout() {
         // Set loading
-        $('logout').replace('<img src="/data/images/ajax-loader.gif" />');
-
+        $('#logout').html('<img src="/data/images/ajax-loader.gif" />');
         // Ajax logout
-        new Ajax.Request('/Logout', {
-
-            onComplete: function(response) {
+        $.ajax({
+             url: '/Logout',
+             complete: function(response) {
                 if (403 == response.status) {
                     // logout successful, close popup
                     window.close();
@@ -39,7 +38,7 @@ use EBox::Gettext;
        <div style="padding: 15px">
          <% __('Keep this window open while using your Internet connection.') %>
        </div>
-       <div id="logout"><a href="#" onclick="logout()"><% __('Logout') %></a></div>
+       <div id="logout"><a href="#" onclick="logout(); return false"><% __('Logout') %></a></div>
      </div>
 </body>
 </html>

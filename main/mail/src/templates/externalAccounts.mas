@@ -34,7 +34,7 @@ my %printableName = (
 <& .addAccount, params => $params &>
 <a href='#' class='addNew'
    name='add'
-         onClick='this.style.display = "none"; $("add_external_account").show();return false'>
+         onClick='$(this).hide(); $("#add_external_account").show();return false'>
     <% __('Add new') %>
   </a>
 % if (@externalAccounts){
@@ -43,6 +43,46 @@ my %printableName = (
    params           => $params,
 &>
 % }
+<script>
+$(function() {
+  var refreshDialog = function(response) {
+                var url = '/Users/EditUser';
+                var data = 'dn=' + response.userDN;
+                Zentyal.Dialog.showURL(url, { data: data});
+  };
+
+  $('#add_external_account').on('submit', function(event) {
+     event.preventDefault();
+     Zentyal.Dialog.submitForm(event.target, {
+          success : refreshDialog
+    });
+  });
+
+  $('#externalAccountsTable').on('click', 'href', function(event) {
+      event.preventDefault();
+      var fullUrl = event.target.href;
+      var urlSplit = fullUrl.split('?');
+      $('#error_removeExternalAccount').html('').hide();
+      $.ajax({
+         url: urlSplit[0],
+         data: urlSplit[1],
+         dataType: 'json',
+         error: function(jqXHR) {
+            $('#error_removeExternalAccount').html(jqXHR.responseText).show();
+         },
+         success: function(response) {
+            if (response.success) {
+                refreshDialog(response);
+            } else {
+               $('#error_removeExternalAccount').html(response.error).show();
+            }
+         }
+      });
+  });
+});
+
+</script>
+
 
 <%def .accountsTable>
 <%args>
@@ -87,10 +127,13 @@ my @columnTitles = map {
 push @columnTitles, __('Action');
 </%init>
 <br/><br/>
+<div id='error_removeExternalAccount' class='error' style='display:none'></div>
+<div id='externalAccountsTable'>
 <& /dataTable.mas,
   columnTitles => \@columnTitles,
   rows => \@rows,
 &>
+</div>
 </%def>
 
 
@@ -98,7 +141,8 @@ push @columnTitles, __('Action');
 <%args>
 $params
 </%args>
-<form action='/Mail/AddExternalAccount' method='POST' id='add_external_account' style='display:none;'>
+<div id='error_add_external_account' class='error' style='display:none'></div>
+<form action='/Mail/AddExternalAccount'  method='POST' id='add_external_account' style='display:none;'>
 <& /formTable.mas,
    rows => [
     [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],

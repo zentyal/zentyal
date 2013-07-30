@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #       An specialized model from <EBox::Model::DataForm> which
 #       includes a image or a graphic.
 
+use strict;
+use warnings;
+
 package EBox::Model::Image;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::CGI::Temp;
 
@@ -36,19 +36,14 @@ sub new
 
   bless ( $self, $class );
 
-
-
   return $self;
 
 }
-
 
 sub Viewer
 {
   return '/ajax/image.mas';
 }
-
-
 
 # returns a hash with the following:
 #      uri - image uri
@@ -83,9 +78,6 @@ sub image
 
 }
 
-
-
-
 # to override by subclass
 # must return a hash with the following:
 #      image - wether the image was created or not
@@ -97,17 +89,11 @@ sub _generateImage
   throw EBox::Exceptions::NotImplemented();
 }
 
-
-
-
-
-
 # must return the ImageControl subclass associated with the image
 sub _controlModel
 {
   throw EBox::Exceptions::NotImplemented;
 }
-
 
 sub _controlModelField
 {
@@ -117,7 +103,6 @@ sub _controlModelField
   my $getter = $field . 'Value';
   return $control->$getter;
 }
-
 
 # Method: checkTable
 #
@@ -133,7 +118,6 @@ sub checkTable
         throw EBox::Exceptions::Internal('Missing tableDescription in table definition');
     }
 
-
     if (not $table->{tableName}) {
         throw EBox::Exceptions::Internal(
             'table description has not tableName field or has a empty one'
@@ -148,8 +132,6 @@ sub checkTable
         }
     }
 
-
-
 }
 
 # Method: refreshImage
@@ -162,6 +144,5 @@ sub refreshImage
     my ($self) = @_;
     return 1;
 }
-
 
 1;

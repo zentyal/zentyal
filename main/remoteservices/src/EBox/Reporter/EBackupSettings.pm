@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -86,7 +86,6 @@ sub _consolidate
     my $ebackup = EBox::Global->getInstance(1)->modInstance('ebackup');
 
     my $res = {};
-    $res->{backup_domains} = $ebackup->model('BackupDomains')->report();
     my $settings = $ebackup->model('RemoteSettings')->report();
     foreach my $k (keys(%{$settings})) {
         $res->{$k} = $settings->{$k};

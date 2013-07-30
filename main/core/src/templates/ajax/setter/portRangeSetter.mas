@@ -15,7 +15,7 @@ my $typeSelected = $data->rangeType();
             'value'    => $data->rangeType(),
             'options'  => $data->rangeTypes(),
             'id'       => "$id" . "_range_type",
-            'onchange' => qq{showPortRange('$id');},
+            'onchange' => qq{Zentyal.TableHelper.showPortRange('$id');},
             'disabled'  =>  $disabled
 
     &>

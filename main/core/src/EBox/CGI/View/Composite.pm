@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,7 @@ use warnings;
 #
 
 package EBox::CGI::View::Composite;
+
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
@@ -48,16 +49,12 @@ use Error qw(:try);
 #
 sub new
 {
-    my $class = shift;
-    my %params = @_;
-
+    my ($class, %params) = @_;
     my $composite = delete $params{composite};
-    my $self = $class->SUPER::new(template => $composite->Viewer(),
-            @_);
+    my $self = $class->SUPER::new(template => $composite->Viewer(), %params);
     $self->{composite} = $composite;
 
     bless ($self, $class);
-
     return $self;
 }
 

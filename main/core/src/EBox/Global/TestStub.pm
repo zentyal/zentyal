@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -69,11 +69,24 @@ sub setAllModules
 sub fake
 {
     my $tmpConfDir = '/tmp/zentyal-test-conf/';
-    system ("rm -rf $tmpConfDir");
-    mkdir ("mkdir $tmpConfDir");
+    system ("rm -rf $tmpConfDir") if ( -e $tmpConfDir);
+    ($? == 0) or die ("Can not clean temporally test dir $tmpConfDir");
+    mkdir ($tmpConfDir);
+    ($? == 0) or die ("Can not create the temporally test dir $tmpConfDir");
+
+    my $tmpEtcDir = '/tmp/zentyal-test-etc/';
+    system ("rm -rf $tmpEtcDir") if ( -e $tmpEtcDir);
+    ($? == 0) or die ("Can not clean temporally test dir $tmpEtcDir");
+    mkdir ($tmpEtcDir);
+    ($? == 0) or die ("Can not create the temporally test dir $tmpEtcDir");
 
     EBox::TestStub::fake();
-    EBox::Config::TestStub::fake(modules => $ENV{ZENTYAL_MODULES_SCHEMAS}, conf => $tmpConfDir, user => 'nobody');
+    EBox::Config::TestStub::fake(
+        modules => $ENV{ZENTYAL_MODULES_SCHEMAS},
+        conf => $tmpConfDir,
+        etc => $tmpEtcDir,
+        user => 'nobody'
+    );
     EBox::Global->new(1, redis => EBox::Test::RedisMock->new());
     *EBox::GlobalImpl::modExists = \&EBox::GlobalImpl::_className;
     # dont run scripts from zentyal directories

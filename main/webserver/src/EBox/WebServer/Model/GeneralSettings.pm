@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,16 +13,17 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::WebServer::Model::GeneralSettings;
+
+use base 'EBox::Model::DataForm';
 
 # Class: EBox::WebServer::Model::GeneralSettings
 #
 #   Form to set the general configuration settings for the web server.
 #
-use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -82,7 +83,7 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $oldFields) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $apache = $global->modInstance('apache');
+    my $webAdminMod = $global->modInstance('webadmin');
     my $services = $global->modInstance('services');
     my $firewall = $global->modInstance('firewall');
     my $portNumber;
@@ -107,7 +108,7 @@ sub validateTypedRow
     if (exists $changedFields->{ssl} and
         $changedFields->{ssl}->selectedType() eq 'ssl_port') {
         my $portNumberSSL = $changedFields->{ssl}->value();
-        if ($apache->port() eq $portNumberSSL) {
+        if ($webAdminMod->port() eq $portNumberSSL) {
             throw EBox::Exceptions::External(
                     __x('Zentyal Administration is running on this port, change it on {ohref}System -> General{chref}.',
                         ohref => '<a href="/SysInfo/Composite/General">', chref => '</a>')
@@ -217,6 +218,29 @@ sub sslPort
 sub DefaultEnableDir
 {
     return 0;
+}
+
+# Method: message
+#
+#   Allows us to introduce some conditionals when showing the message
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::message>
+#
+#
+sub message
+{
+    my ($self, $action) = @_;
+    if ($action eq 'update') {
+        my $userstatus = $self->value('enableDir');
+        if ($userstatus)  {
+            return __('Configuration Settings saved.') . '<br>' .
+                   __x('Remember that in order to have UserDir working, you should create the {p} directory, and to provide www-data execution permissions over the involved /home/user directories.', p => PUBLIC_DIR);
+        }
+    }
+
+    return $self->SUPER::message($action);
 }
 
 # Group: Protected methods

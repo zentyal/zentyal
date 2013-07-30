@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,12 +13,12 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-
-package EBox::Mail::Model::RetrievalServices;
-use base 'EBox::Model::DataForm';
-
 use strict;
 use warnings;
+
+package EBox::Mail::Model::RetrievalServices;
+
+use base 'EBox::Model::DataForm';
 
 use EBox::Global;
 use EBox::Gettext;
@@ -26,7 +26,6 @@ use EBox::Validate qw(:all);
 use EBox::Types::Boolean;
 use EBox::Types::Select;
 use EBox::Exceptions::External;
-
 
 # XXX TODO: disable ssl options when no service is enabled
 sub new
@@ -38,7 +37,6 @@ sub new
 
     return $self;
 }
-
 
 # Method:  _table
 #
@@ -109,7 +107,6 @@ sub _table
     return $dataForm;
 }
 
-
 sub activeProtocols
 {
     my ($self) = @_;
@@ -137,8 +134,6 @@ sub activeProtocols
 
     return \%protocols;
 }
-
-
 
 sub validateTypedRow
 {

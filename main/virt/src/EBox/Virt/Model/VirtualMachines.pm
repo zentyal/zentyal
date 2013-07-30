@@ -20,6 +20,7 @@ use warnings;
 #      Table of Virtual Machines
 #
 package EBox::Virt::Model::VirtualMachines;
+
 use base 'EBox::Model::DataTable';
 
 use EBox::Global;
@@ -218,7 +219,6 @@ sub validateTypedRow
     }
 }
 
-
 sub _acquireRunning
 {
     my ($self, $id) = @_;
@@ -247,7 +247,7 @@ sub _viewConsoleClicked
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true,}); return false",
+   return "Zentyal.Dialog.showURL('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true, dialogClass: 'VMConsole' }); return false",
 }
 
 sub _acquirePaused
@@ -441,6 +441,26 @@ sub updatedRowNotify
     my ($self) = @_;
     my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
     $sysinfo->setReloadPageAfterSavingChanges(1);
+}
+
+sub actionClickedJS
+{
+    my ($self, $action, @params) = @_;
+    my $actionJS = $self->SUPER::actionClickedJS($action, @params);
+    if ($action ne 'del') {
+        return $actionJS;
+    }
+    my $title = __('Remove virtual machine');
+    my $message = __('Are you sure about removing this virtual machine?. All its data will be lost. ');
+    my $confirmJS = <<"END_JS";
+       var dialogParams = {
+           title: '$title',
+           message: '$message'
+       };
+       var accept= function() { $actionJS };
+       Zentyal.TableHelper.showConfirmationDialog(dialogParams, accept);
+END_JS
+    return $confirmJS;
 }
 
 1;

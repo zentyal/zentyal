@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -27,12 +27,14 @@
 # print an error messages that user will see
 #
 # If status is OK the wizard will step into next wizard page.
-#
-package EBox::CGI::WizardPage;
+
 use strict;
 use warnings;
 
+package EBox::CGI::WizardPage;
+
 use base 'EBox::CGI::Base';
+
 use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
@@ -45,11 +47,11 @@ use EBox::Exceptions::Base;
 use constant ERROR_STATUS => '500';
 
 ## arguments
-##		title [optional]
-##		error [optional]
-##		msg [optional]
-##		cgi   [optional]
-##		template [optional]
+##              title [optional]
+##              error [optional]
+##              msg [optional]
+##              cgi   [optional]
+##              template [optional]
 sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 {
     my $class = shift;
@@ -58,23 +60,16 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     my $self = $class->SUPER::new(@_);
     my $namespace = delete $opts{'namespace'};
     my $tmp = $class;
-    $tmp =~ s/^(.*?)::CGI::(.*?)(?:::)?(.*)//;
+    $tmp =~ s/^EBox::(.*?)::CGI::.*$//;
     if(not $namespace) {
         $namespace = $1;
     }
     $self->{namespace} = $namespace;
-    $self->{module} = $2;
-    $self->{cginame} = $3;
-    if (defined($self->{cginame})) {
-        $self->{url} = $self->{module} . "/" . $self->{cginame};
-    } else {
-        $self->{url} = $self->{module} . "/Index";
-    }
+    $self->{module} = lc $1;
 
     bless($self, $class);
     return $self;
 }
-
 
 # Method: _processWizard
 #
@@ -84,7 +79,6 @@ sub _processWizard
 {
     # Override this to process wizard page
 }
-
 
 # Method: _masonParameters
 #
@@ -99,23 +93,29 @@ sub _masonParameters
 
 sub _print
 {
-	my ($self) = @_;
-	$self->_header();
-    if ( $self->{cgi}->request_method() eq 'GET' ) {
-	    $self->_body();
+    my ($self) = @_;
+
+    $self->_header();
+
+    my $json = $self->{json};
+    if ($json) {
+        $self->JSONReply($json);
+        return;
+    }
+
+    if ($self->{cgi}->request_method() eq 'GET') {
+        $self->_body();
     }
 }
-
 
 sub _process
 {
     my $self = shift;
     $self->{params} = $self->_masonParameters();
-    if ( $self->{cgi}->request_method() eq 'POST' ) {
-	    $self->_processWizard();
+    if ($self->{cgi}->request_method() eq 'POST') {
+        $self->_processWizard();
     }
 }
-
 
 sub _print_error
 {
@@ -141,7 +141,12 @@ sub run
     else {
         try {
             $self->_validateReferer();
-            $self->_process();
+            if ($self->param('skip')) {
+                $self->skipModule();
+            } else {
+                $self->_process();
+            }
+
             $self->_print;
         } otherwise {
             my $ex = shift;
@@ -166,7 +171,6 @@ sub run
     }
 }
 
-
 sub _title
 {
 
@@ -186,6 +190,17 @@ sub _footer
 sub _menu
 {
 
+}
+
+sub skipModule
+{
+    my ($self) = @_;
+    my $module = EBox::Global->getInstance()->modInstance($self->{module});
+    if ($module->isa('EBox::Module::Config')) {
+        my $state = $module->get_state();
+        $state->{skipFirstTimeEnable} = 1;
+        $module->set_state($state);
+    }
 }
 
 1;

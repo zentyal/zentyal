@@ -8,10 +8,10 @@ my $id = $tableName . '_' . $data->fieldName();
 my $loadingId = $id . '_loading';
 my $formId    = $id . '_form';
 my $onChange = << "JS_END";
-var fileUpload = new EBox.FileUpload(
-   { formId :   '$formId',
-     onStart :    function() { setLoading('$loadingId'); },
-     onComplete : function()  { setDone('$loadingId') ; },
+var fileUpload = new Zentyal.FileUpload(
+   { formId:   '$formId',
+     start:    function() { Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete: function() { Zentyal.TableHelper.setDone('$loadingId') ; },
    }
 );
 return fileUpload.submit();
@@ -21,7 +21,7 @@ JS_END
 % if ( $data->editable() ) {
 <div id="<% $id %>" class="<% $cssClass %>">
 </form>
- <form action="/Controller/Uploader"
+ <form action="/Uploader"
         method="POST"
         enctype="multipart/form-data"
         id="<% $id . '_form' %>">

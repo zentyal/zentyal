@@ -4,94 +4,10 @@
     @actions => ()
     $unsaved => 'no'
     @disabledModules => ()
-    $askPermission => undef
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-
-% if ($askPermission) {
-
-<script type="text/javascript" src="/data/js/prototype.js">//</script>
-<script type="text/javascript" src="/data/js/scriptaculous/scriptaculous.js?load=effects">//</script>
-<script type="text/javascript" src="/data/js/modalbox.js">//</script>
-<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
-
-<script type="text/javascript">
-var acceptedFiles = new Array();
-var rejectedFiles = new Array();
-var checkedFiles = 0;
-
-function checkIfDone(totalFiles)
-{
-    checkedFiles++;
-
-    if (checkedFiles != totalFiles) {
-        return;
-    }
-
-    sendAcceptedFiles();
-    Modalbox.hide();
-}
-
-function acceptConfFile(id, totalFiles)
-{
-    if (acceptedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    acceptedFiles.push(id);
-
-    new Effect.Fade(id);
-
-    checkIfDone(totalFiles);
-
-}
-
-function rejectConfFile(id, totalFiles)
-{
-    if (acceptedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    if (rejectedFiles.indexOf(id) != -1) {
-        return;
-    }
-
-    rejectedFiles.push(id);
-
-    new Effect.Fade(id);
-
-    checkIfDone(totalFiles);
-}
-
-function sendAcceptedFiles()
-{
- var MyAjax = new Ajax.Request(
-                "/ServiceModule/Controller",
-                {
-                        method: 'get',
-                        parameters: {'acceptedFiles':acceptedFiles, 'rejectedFiles':rejectedFiles},
-                        asyncrhonous: true,
-                        evalScripts: true,
-
-                }
-                );
-
-}
-
-% my $title = __('Warning');
-        Modalbox.show('/ServiceModule/View',
-                      { title: '<% $title %>',
-                       loadingString: 'Loding.. Please wait',
-                       inactiveFade: false,
-                       width: 600,
-                       height: 400});
-        Modalbox.deactivate();
-</script>
-
-% }
-
 % if($unsaved eq 'yes') {
 
 <div class='warning'>
@@ -145,10 +61,10 @@ my $mboxDiscardTitle = __('Discarding changes');
  <p>
     <input class='inputButton' type='submit' name='save' id='save'
                    value="<% __('Save') %>"
-                   onclick="Modalbox.show('/SaveChanges?save=1', {title: '<% $mboxSaveTitle %>', overlayClose: false});  Modalbox.MBclose.hide(); return false" />
+                   onclick="Zentyal.Dialog.showURL('/SaveChanges', {title: '<% $mboxSaveTitle %>', data:'save=1', load: function() {$('.ui-dialog-titlebar-close', this).hide()}}); return false" />
     <input class='inputButton' type='submit' name='cancel'
                    value="<% __('Discard changes') %>"
-                   onclick="Modalbox.show('/SaveChanges?cancel=1', {title: '<% $mboxDiscardTitle %>', overlayClose: false});  Modalbox.MBclose.hide(); return false" />
+                   onclick="Zentyal.Dialog.showURL('/SaveChanges', {title: '<% $mboxDiscardTitle %>', data:'cancel=1', load: function() {$('.ui-dialog-titlebar-close', this).hide()}}); return false" />
  </p>
 </form>
 % }else{

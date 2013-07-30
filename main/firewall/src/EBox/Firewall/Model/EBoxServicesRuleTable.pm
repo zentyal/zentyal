@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies S.L.
+# Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,6 +18,9 @@
 # This class is used for enable or disable the rules automatically
 # added by the eBox services implementing FirewallHelper.
 #
+use strict;
+use warnings;
+
 package EBox::Firewall::Model::EBoxServicesRuleTable;
 
 use EBox::Global;
@@ -28,9 +31,6 @@ use EBox::Exceptions::External;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 use EBox::Iptables;
-
-use strict;
-use warnings;
 
 use base 'EBox::Model::DataTable';
 
@@ -167,7 +167,6 @@ sub _table
 
     return $dataTable;
 }
-
 
 # Method: viewCustomizer
 #

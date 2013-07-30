@@ -63,7 +63,6 @@ use constant SCANNING_INTERVAL => 60;
 use constant EVENT_FOLDING_INTERVAL => 30 * 60; # half hour
 use constant MAX_MSG_LENGTH => 256;
 
-
 # Group: Public methods
 
 # Constructor: new
@@ -479,7 +478,6 @@ sub _addToDispatch
     # Sending the dumpered event with a null char
     print $eventPipe ( $dumper->Dump() . "\0" );
 }
-
 
 ###############
 # Main program

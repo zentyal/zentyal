@@ -1,5 +1,11 @@
-3.0.4
+HEAD
+	+ Added menu icon
 	+ Adapt firewall rules to new accept chains
+	+ Updated to use the new security group concept.
+3.1
+	+ Removed 3.0.X migration code
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
 3.0.3
 	+ Modified printers are updated in the printers table
 	+ Print correctly utf8 characters in printer's name, location and description

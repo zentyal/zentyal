@@ -1,0 +1,63 @@
+HEAD
+	+ Added missing use declaration in rules model
+3.0.2
+	+ Fixed wrong timestamp format
+3.0.1
+	+ Adapted to changes in EBox::LogHelper::_convertTimestamp
+2.3.6
+	+ Move report code to remoteservices
+2.3.5
+	+ IDS is now under Gateway instead of UTM
+2.3.4
+	+ Adapted to new Model management framework
+2.3.3
+	+ Create tables with MyISAM engine by default
+2.3.2
+	+ withoutActions property in AlertDetails.pm for the new tableBody.mas
+2.3.1
+	+ Adapted messages in the UI for new editions
+2.3
+	+ Adapted to new MySQL logs backend
+	+ Show the number of available rules if using ASU
+	+ If using ASU, then only use those rules to avoid
+	  incompatibilites with old community ones
+	+ Replaced autotools with zbuildtools
+2.1.3
+	+ Reviewed some subscription strings
+2.1.2
+	+ Differentiate ads from notes
+	+ Removed /zentyal prefix from URLs
+2.1.1
+	+ Remove unnecesary code from syncRows methods
+2.1
+	+ Remove unnecesary isReadOnly call in syncRows
+	+ Delete obsolete migration and use initial-setup to add SQL tables
+2.0.1
+	+ Fixed help message for rules model
+	+ Added commercial message
+1.5.2
+	+ Consolidation for reports now discriminates between priority levels
+1.5.1
+	+ Bugfix: Snort doesn't fail to start when monitoring multiple interfaces
+	+ Home nets list is hardcoded to default now
+1.5
+	+ Include snort.conf from the snort lucid package (2.8.5.2)
+1.4
+	+ Remove headTitle from models
+1.3.13
+	+ Fixed printable strings in interface view
+1.3.12
+	+ Add page title
+1.3.11
+	+ Added report support
+1.3.10
+	+ Limited set of default rules by default to avoid high CPU consumption
+	+ Bugfix: don't add deleted snort rules
+1.3.6
+	+ Bugfix: don't try to start snort if there are no valid interfaces selected
+1.3.3
+	+ Bugfix in logs consolidation, now it works
+1.1.20
+	+ New release
+1.1.10
+	+ Initial release

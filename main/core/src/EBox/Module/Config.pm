@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Module::Config;
+
 use base 'EBox::Module::Base';
 
 use EBox::Config;
@@ -162,7 +163,6 @@ sub _load_redis_from_file
 sub aroundDumpConfig
 {
     my ($self, $dir, @options) = @_;
-
     $self->_dump_to_file($dir);
     # dump also state, it will not be restored as default
     $self->_dump_state_to_file($dir);
@@ -778,7 +778,6 @@ sub _addFileToList
 #    $self->_removeFilesFromList($dir);
 #}
 
-
 # FIXME: reimplement this
 #sub _clearFilesToRemoveLists
 #{
@@ -896,7 +895,6 @@ sub backupFilesInArchive
         return;
 
     my $archive = $self->_filesArchive($dir);
-
 
     my $firstFile  = shift @filesToBackup;
     my $archiveCmd = "tar  -C / -cf $archive --atime-preserve --absolute-names --preserve-permissions --preserve-order --same-owner '$firstFile'";

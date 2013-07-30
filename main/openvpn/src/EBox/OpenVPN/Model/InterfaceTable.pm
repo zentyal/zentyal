@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,11 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::OpenVPN::Model::InterfaceTable;
-
-
 use strict;
 use warnings;
+
+package EBox::OpenVPN::Model::InterfaceTable;
 
 use EBox::Types::Text;
 use EBox::Types::Int;
@@ -57,7 +56,6 @@ sub interfaceFields
     return @fields;
 }
 
-
 sub addedRowNotify
 {
     my ($self, $row) = @_;
@@ -71,6 +69,10 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to set logs or apache module as changed
+        return;
+    }
 
     # change on service, ifaceType or ifaceNumber can produce a new iface or a
     # existent iface change
@@ -92,7 +94,6 @@ sub initializeInterfaces
             $interfaceType->setValue(IFACE_TYPE_DEFAULT);
         }
 
-
         my $number = $self->_nextInterfaceNumber();
         $interfaceNumber->setValue($number);
 
@@ -100,9 +101,6 @@ sub initializeInterfaces
     }
 
 }
-
-
-
 
 sub _nextInterfaceNumber
 {
@@ -130,8 +128,6 @@ sub _nextInterfaceNumber
     return $newNumber;
 }
 
-
-
 sub _usedIfaceNumbers
 {
     my ($self) = @_;
@@ -156,8 +152,5 @@ sub _usedIfaceNumbers
 
     return \@numbers;
 }
-
-
-
 
 1;

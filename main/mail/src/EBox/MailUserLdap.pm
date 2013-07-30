@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailUserLdap;
+
 use base qw(EBox::LdapUserBase);
 
 use EBox::Sudo;
@@ -28,7 +29,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Model::Manager;
 use EBox::Gettext;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use Error qw( :try );
 
 use Perl6::Junction qw(any);
@@ -55,7 +56,6 @@ sub mailboxesDir
 {
     return DIRVMAIL;
 }
-
 
 # Method: setUserAccount
 #
@@ -159,7 +159,6 @@ sub delUserAccount
     EBox::Sudo::root(@cmds);
 }
 
-
 # Method: userAccount
 #
 #  return the user mail account or undef if it doesn't exists
@@ -170,7 +169,6 @@ sub userAccount
 
     return $user->get('mail');
 }
-
 
 # Method: userByAccount
 #
@@ -184,17 +182,17 @@ sub userAccount
 #
 #   Returns:
 #          the user or undef if there is not account
+# TODO: REVIEW
 sub userByAccount
 {
     my ($self, $account) = @_;
 
     my $mail = EBox::Global->modInstance('mail');
-    my $users = EBox::Global->modInstance('users');
 
     my %args = (
-                base => $users->usersDn,
-                filter => "&(objectclass=*)(mail=$account)",
-                scope => 'one',
+                base => $self->{ldap}->dn(),
+                filter => "&(objectclass=posixAccount)(mail=$account)",
+                scope => 'sub',
                 attrs => ['uid'],
                );
 
@@ -208,7 +206,6 @@ sub userByAccount
 
     return $usermail;
 }
-
 
 # Method: delAccountsFromVDomain
 #
@@ -225,17 +222,16 @@ sub delAccountsFromVDomain   #vdomain
 
     my $mail = "";
     while (my ($uid, $mail) = each %accs) {
-        my $user = new EBox::UsersAndGroups::User(uid => $uid);
+        my $user = new EBox::Users::User(uid => $uid);
         $mail = $accs{$uid};
 
         $self->delUserAccount($user, $accs{$uid});
     }
 }
 
-
 # Method: _addUser
 #
-#   Overrides <EBox::UsersAndGroups::LdapUserBase> to create a default mail
+#   Overrides <EBox::Users::LdapUserBase> to create a default mail
 #   account user@domain if the admin has enabled the auto email account creation
 #   feature
 sub _addUser
@@ -333,7 +329,6 @@ sub _userAddOns
         $mail->{fetchmail}->externalAccountRowValues($_)
      } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
-
     my @paramsList = (
             user        => $user,
             mail        => $usermail,
@@ -349,7 +344,20 @@ sub _userAddOns
             externalAccounts => \@externalAccounts,
     );
 
-    return { path => '/mail/account.mas', params => { @paramsList } };
+    my $title;
+    if  (not @vdomains) {
+        $title = __('Mail account');
+    } elsif (not $usermail) {
+        $title =  __('Create mail account');
+    } else {
+        $title = __('Mail account settings');
+    }
+
+    return {
+        title  => $title,
+        path   => '/mail/account.mas',
+        params => { @paramsList }
+       };
 }
 
 sub _groupAddOns
@@ -371,7 +379,11 @@ sub _groupAddOns
         'nacc'     => scalar ($self->usersWithMailInGroup($group)),
     };
 
-    return { path => '/mail/groupalias.mas', params => $args };
+    return {
+        title  => __('Mail alias settings'),
+        path   => '/mail/groupalias.mas',
+        params => $args
+       };
 }
 
 sub _modifyGroup
@@ -398,20 +410,17 @@ sub _accountExists
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my $username = $user->name();
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(uid=$username)",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     return ($result->count > 0);
 }
-
 
 # Method: allAccountFromVDomain
 #
@@ -428,15 +437,13 @@ sub allAccountsFromVDomain
 {
     my ($self, $vdomain) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-
     my %attrs = (
-                 base => $users->usersDn,
+                 base => $self->{ldap}->dn(),
                  filter => "&(objectclass=couriermailaccount)(mail=*@".$vdomain.")",
-                 scope => 'one'
+                 scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
 
     my %accounts = map { $_->get_value('uid'), $_->get_value('mail')} $result->sorted('uid');
 
@@ -454,20 +461,21 @@ sub allAccountsFromVDomain
 sub usersWithMailInGroup
 {
     my ($self, $group) = @_;
-    my $users = EBox::Global->modInstance('users');
 
     my $groupdn = $group->dn();
     my %args = (
-                base => $users->usersDn,
-                filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
-                scope => 'one',
-               );
+        base => $self->{ldap}->dn(),
+        filter => "(&(objectclass=couriermailaccount)(memberof=$groupdn))",
+        scope => 'sub',
+    );
 
     my $result = $self->{ldap}->search(\%args);
 
+    my $usersMod = EBox::Global->modInstance('users');
     my @mailusers;
     foreach my $entry ($result->entries()) {
-        push (@mailusers, new EBox::UsersAndGroups::User(entry => $entry));
+        my $object = $usersMod->entryModeledObject($entry);
+        push (@mailusers, $object) if ($object);
     }
 
     return @mailusers;
@@ -498,12 +506,10 @@ sub checkUserMDSize
     return \@warnusers;
 }
 
-
 sub _checkMaildirNotExists
 {
     my ($self, $lhs, $vdomain) = @_;
     my $dir = DIRVMAIL . "/$vdomain/$lhs/";
-
 
     if (EBox::Sudo::fileTest('-e', $dir)) {
         my $backupDirBase = $dir ;
@@ -554,7 +560,6 @@ sub _createMaildir
     EBox::Sudo::root(@cmds);
 }
 
-
 sub _sieveDir
 {
     my ($self, $lhs, $vdomain) = @_;
@@ -591,7 +596,6 @@ sub maildirQuota
     return $user->get('mailquota');
 }
 
-
 #  Method: maildirQuotaType
 #
 #     get the type of the quota assigned to the user
@@ -623,7 +627,6 @@ sub maildirQuotaType
     return 'default';
 }
 
-
 #  Method: setMaildirQuotaUsesDefault
 #
 #     sets wether the user is using the default quota or not. Additionally if
@@ -648,8 +651,6 @@ sub setMaildirQuotaUsesDefault
     $user->save();
     $self->setUserZarafaQuotaDefault($user, $isDefault);
 }
-
-
 
 #  Method: setMaildirQuota
 #
@@ -718,7 +719,6 @@ sub regenMaildirQuotas
     }
 }
 
-
 # FIXME make a listener-observer for this new code and move it to zentyal-zarafa
 sub _userZarafaAccount
 {
@@ -783,7 +783,6 @@ sub uidvmail
     return scalar (getpwnam(EBox::Config::user));
 }
 
-
 sub schemas
 {
     return [
@@ -793,7 +792,6 @@ sub schemas
         EBox::Config::share() . '/zentyal-mail/eboxmailrelated.ldif',
     ];
 }
-
 
 sub acls
 {

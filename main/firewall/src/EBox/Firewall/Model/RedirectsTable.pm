@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Firewall::Model::RedirectsTable;
+
 use base qw(EBox::Model::DataTable EBox::Firewall::Model::RulesWithInterface);
 
 use EBox::Global;
@@ -44,8 +45,6 @@ sub new
 
     return $self;
 }
-
-
 
 sub protocol
 {
@@ -329,7 +328,7 @@ sub _fieldDescription
             'fieldName' => 'log',
             'printableName' => __('Log'),
             'editable' => 1,
-            'help' => __('Log new forwarded connections'));
+            'help' => __x('Log new forwarded connections to {log}', log => '/var/log/syslog'));
     push (@tableHead, $plog);
 
     my $desc = new EBox::Types::Text(

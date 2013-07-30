@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailVDomainsLdap;
-
 use strict;
 use warnings;
+
+package EBox::MailVDomainsLdap;
 
 use EBox::Sudo;
 use EBox::Validate qw( :all );
@@ -54,7 +54,6 @@ sub addVDomain
 {
     my ($self, $vdomain, $dftmdsize) = @_;
 
-
     my $ldap = $self->{ldap};
 
     checkDomainName($vdomain, 'Virtual domain name');
@@ -64,8 +63,6 @@ sub addVDomain
         throw EBox::Exceptions::DataExists('data' => __('virtual domain'),
                                            'value' => $vdomain);
     }
-
-
 
     my $dn = "domainComponent=$vdomain, " . $self->vdomainDn;
     my %attrs = (
@@ -173,7 +170,6 @@ sub vdomains
 
     return @vdomains;
 }
-
 
 # Method: _updateVDomain
 #
@@ -289,8 +285,6 @@ sub allWarnings
 
     return \@allWarns;
 }
-
-
 
 sub regenConfig
 {

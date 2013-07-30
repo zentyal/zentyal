@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,11 +17,11 @@ use strict;
 use warnings;
 
 package EBox::RemoteServices::FirewallHelper;
+
 use base 'EBox::FirewallHelper';
 
 use constant STD_SSH_PORT => 22;
 use constant LISTEN_ALL => '0.0.0.0';
-
 
 sub new
 {
@@ -35,7 +35,6 @@ sub new
     return $self;
 }
 
-
 # WARNING: the rules should be generated in a form which matches iptables-save
 # output; otherwise route-up-support-access script will not work
 
@@ -45,7 +44,6 @@ sub prerouting
     if (not $self->_mustRedirect()) {
         return [];
     }
-
 
     my $addr = $self->{sshRedirect}->{address};
     my $port = $self->{sshRedirect}->{port};
@@ -63,7 +61,6 @@ sub prerouting
     return [$cmd];
 }
 
-
 sub input
 {
     my ($self) = @_;
@@ -79,11 +76,9 @@ sub input
     if ($addr ne LISTEN_ALL) {
         $cmd .= qq{-d $addr/32 }
     }
-    $cmd .= qq{-i $iface } .
-              qq{-p tcp -m tcp --dport $port };
+    $cmd .= qq{-i $iface } . qq{-p tcp -m tcp --dport $port };
 
-
-    $cmd .=   qq{-j iaccept};
+    $cmd .= qq{-j iaccept};
 
     return [$cmd];
 }
@@ -103,6 +98,5 @@ sub _mustRedirect
 
     return 1;
 }
-
 
 1;

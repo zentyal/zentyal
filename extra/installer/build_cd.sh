@@ -16,11 +16,22 @@ mkdir $TMPDIR
 # Download ubuntu keyring if not exists
 test -f $UBUNTU_KEYRING_TAR || wget $UBUNTU_KEYRING_URL
 
-# Build zenbuntu-desktop package including core deps
-cp -rL zenbuntu-desktop $TMPDIR/zenbuntu-desktop
+# Build zenbuntu-core package including zentyal-core deps
+cp -rL zenbuntu-core $TMPDIR/zenbuntu-core
 CORE_DEPS=`./extract-core-deps.sh`
-sed -i "s/^Depends: /Depends: $CORE_DEPS /" $TMPDIR/zenbuntu-desktop/debian/control
+sed -i "s/^Depends: /Depends: $CORE_DEPS /" $TMPDIR/zenbuntu-core/debian/control
+pushd $TMPDIR/zenbuntu-core
+dpkg-buildpackage
+popd
+
+cp -rL zenbuntu-desktop $TMPDIR/zenbuntu-desktop
 pushd $TMPDIR/zenbuntu-desktop
+dpkg-buildpackage
+popd
+
+# Build zinstaller-headless udeb
+cp -rL zinstaller-headless $TMPDIR/zinstaller-headless
+pushd $TMPDIR/zinstaller-headless
 dpkg-buildpackage
 popd
 
@@ -60,14 +71,20 @@ do
         fi
     done
 
+    # Add zinstaller-remote udeb
     if [ "$INCLUDE_REMOTE" == "true" ]
     then
-        # Add zinstaller-remote udeb
         UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-remote
         mkdir -p $UDEB_DIR
         rm $UDEB_DIR/*
-        cp $TMPDIR/*.udeb $UDEB_DIR/
+        cp $TMPDIR/zinstaller-remote*.udeb $UDEB_DIR/
     fi
+
+    # Add zinstaller-headless udeb
+    UDEB_DIR=$CD_BUILD_DIR/pool/main/z/zinstaller-headless
+    mkdir -p $UDEB_DIR
+    rm $UDEB_DIR/*
+    cp $TMPDIR/zinstaller-headless*.udeb $UDEB_DIR/
 
     test -d $CD_BUILD_DIR/isolinux || (echo "isolinux directory not found in $CD_BUILD_DIR."; false) || exit 1
     test -d $CD_BUILD_DIR/.disk || (echo ".disk directory not found in $CD_BUILD_DIR."; false) || exit 1

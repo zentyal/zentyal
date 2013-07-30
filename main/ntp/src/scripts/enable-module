@@ -1,14 +1,9 @@
 #!/bin/bash
 
-# don't start dhcp with its script
-update-rc.d -f ntp remove
-
-# stop ntp  if it's running as a normal service
-invoke-rc.d ntp stop
-
 # disable ntp daemon executed by Ubuntu networking services during boot
 IFUP=/etc/network/if-up.d/ntpdate
 [ -x $IFUP ] && chmod -x $IFUP
 EXITHOOK=/etc/dhcp/dhclient-exit-hooks.d/ntp
 [ -x $EXITHOOK ] && chmod -x $EXITHOOK
+
 exit 0

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,6 +17,7 @@ use strict;
 use warnings;
 
 package EBox::SysInfo;
+
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
 use HTML::Mason;
@@ -70,11 +71,6 @@ sub initialSetup
         $state->{closedMessages} = {};
         $self->set_state($state);
     }
-
-    if (defined ($version) and EBox::Util::Version::compare($version, '3.0.21') < 0) {
-        # Remove unnecessary .bak files
-        EBox::Sudo::root("rm -f /var/lib/zentyal/conf/*.bak");
-    }
 }
 
 # Method: menu
@@ -93,17 +89,19 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+                                    'icon' => 'dashboard',
                                     'text' => __('Dashboard'),
                                     'separator' => 'Core',
                                     'order' => 10));
 
     $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
                                     'text' => __('Module Status'),
+                                    'icon' => 'mstatus',
                                     'separator' => 'Core',
                                     'order' => 20));
 
-
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'icon' => 'system',
                                         'text' => __('System'),
                                         'order' => 30);
 
@@ -122,6 +120,7 @@ sub menu
 
     my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
                                        'text' => __('Maintenance'),
+                                       'icon' => 'maintenance',
                                        'separator' => 'Core',
                                        'order' => 70);
 
@@ -194,7 +193,6 @@ sub hostDomain
     return $domain;
 }
 
-
 # we override aroundRestoreconfig to restore also state data (for the widget)
 sub aroundRestoreConfig
 {
@@ -203,7 +201,6 @@ sub aroundRestoreConfig
     $self->_load_state_from_file($dir);
     $self->setReloadPageAfterSavingChanges(0);
 }
-
 
 sub setReloadPageAfterSavingChanges
 {
@@ -368,7 +365,7 @@ sub linksWidget
     my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
                                          out_method => sub { $html .= $_[0] });
     my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'links-widget.mas'
+        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
        );
     $interp->exec($component, @params);
 
@@ -470,5 +467,41 @@ sub _restartAllServices
     } catch EBox::Exceptions::Internal with {
     };
 }
+
+my $_dashboardStatusStrings;
+sub dashboardStatusStrings
+{
+    if (defined $_dashboardStatusStrings) {
+        return $_dashboardStatusStrings;
+    }
+
+    $_dashboardStatusStrings = {
+        'start_button' =>  __('Start'),
+        'restart_button' =>  __('Restart'),
+        'running' => {
+            'text'   => __('Running'),
+            'tip'   => __('The service is enabled and running'),
+            'class' => 'summaryRunning'
+        },
+        'stopped' => {
+            'text'  => __('Stopped'),
+            'tip'   => __('The service is enabled, but not running'),
+            'class' => 'summaryStopped'
+        },
+        'unmanaged' => {
+             'text'  => __('Running unmanaged'),
+             'tip'   => __('The service is running, but not enabled in Zentyal'),
+             'class' => 'summaryDisabled'
+        },
+        'disabled' => {
+            'text'  => __('Disabled'),
+            'tip'   => __('The service is not enabled in Zentyal'),
+            'class' => 'summaryDisabled'
+        }
+     };
+
+    return $_dashboardStatusStrings;
+}
+
 
 1;

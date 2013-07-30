@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -31,11 +31,12 @@
 #      - tabbed     - the components will be shown in a tab way
 #
 
-package EBox::Model::Composite;
-use base 'EBox::Model::Component';
-
 use strict;
 use warnings;
+
+package EBox::Model::Composite;
+
+use base 'EBox::Model::Component';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
@@ -152,6 +153,34 @@ sub componentNames
     my ($self) = @_;
 
     return [];
+}
+
+# Method: models
+#
+#   get all Model objects inside the composite.
+#
+# Parameters:
+#   recursive - searchs inside the nested composites (default: false)
+#
+# Returns:
+#   an array of Model objects found.
+#
+sub models
+{
+    my ($self, $recursive) = @_;
+
+    my @models = ();
+    foreach my $component (@{$self->components()}) {
+        # FIXME: Both should inherit from some EBox::Model::Base
+        if ($component->isa('EBox::Model::DataTable') or $component->isa('EBox::Model::TreeView')) {
+            push (@models, $component);
+            next;
+        } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
+            push (@models, @{$component->models($recursive)});
+        }
+    }
+
+    return \@models;
 }
 
 # Method: setLayout
@@ -378,7 +407,6 @@ sub permanentMessage
 
     return $self->{permanentMessage};
 }
-
 
 # Method: permanentMessageType
 #
@@ -646,7 +674,6 @@ sub _setDefaultActions
     $self->{actions} = $actionsRef;
 }
 
-
 sub keywords
 {
     my ($self) = @_;
@@ -793,7 +820,6 @@ sub HTMLTitle
              }
            ];
 }
-
 
 # Method: clone
 #

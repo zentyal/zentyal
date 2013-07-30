@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::IPsec::Model::ConfPhase2;
+
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
@@ -100,16 +101,20 @@ sub viewCustomizer
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{'phase2-auth'} ) {
-        my $espenc = $changedFields->{'phase2-enc'};
-        $espenc = $self->row()->valueByName('phase2-enc') unless $espenc;
+    if (exists $changedFields->{'phase2-auth'}) {
+        my $espenc;
+        if (exists $changedFields->{'phase2-enc'}) {
+            $espenc = $changedFields->{'phase2-enc'}->value();
+        } else {
+            $espenc = $allFields->{'phase2-enc'}->value();
+        }
         if ( $changedFields->{'phase2-auth'}->value() eq 'any' and $espenc ne 'any') {
-                throw EBox::Exceptions::InvalidData(
-                          'data'  => __('ESP Authentication'),
-                          'value' => $changedFields->{'phase2-auth'}->value(),
-                      );
+            throw EBox::Exceptions::InvalidData(
+                'data'  => __('ESP Authentication'),
+                'value' => $changedFields->{'phase2-auth'}->value(),
+            );
 
         }
     }

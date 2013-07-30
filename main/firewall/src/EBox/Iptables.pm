@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,14 +13,15 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+use strict;
+use warnings;
+
 package EBox::Iptables;
+
 # Package to manage iptables command utility
 
 # private functions will return references to sets of commands to be run
 # instead of running the commands themselves
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Firewall;
@@ -632,7 +633,6 @@ sub _loadIptModules
     return \@commands;
 }
 
-
 # Execute firewall helper rules for each module
 sub _executeModuleRules
 {
@@ -827,7 +827,6 @@ sub _oglobal
     return \@commands;
 }
 
-
 # Method: _fglobal
 #
 #   Add rules to fglobal, that is the chain to control access
@@ -1017,7 +1016,6 @@ sub _inputIface # (iface)
         return "-i $iface";
     }
 }
-
 
 # Method: _natEnabled
 #

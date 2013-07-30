@@ -1,43 +1,35 @@
-// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+// Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
+"use strict";
 
-helpShown = false;
+Zentyal.namespace('Help');
 
-function showHelp() {
-    helpShown = true;
-    $("hidehelp").style.display = "inline";
-    $("showhelp").style.display = "none";
-    $$(".help").each(function(e) {
-        e.style.display = "block";
-    });
-}
+Zentyal.Help.helpShown = false;
 
-function hideHelp() {
-    helpShown = false;
-    $("hidehelp").style.display = "none";
-    $("showhelp").style.display = "inline";
-    $$(".help").each(function(e) {
-        e.style.display = "none";
-    });
-}
+Zentyal.Help.showHelp = function () {
+    Zentyal.Help.helpShown = true;
+    $('#hidehelp, .help').show();
+    $('#showhelp').hide();
+};
 
-function initHelp() {
-    if($$(".help").length == 0) {
-        var helpbutton = $("helpbutton");
-        if (helpbutton) {
-            helpbutton.hide();
-        }
+Zentyal.Help.hideHelp = function () {
+    Zentyal.Help.helpShown = false;
+    $('#hidehelp, .help').hide();
+    $('#showhelp').show();
+};
+
+Zentyal.Help.initHelp = function () {
+    if($('.help').length === 0) {
+        $('#helpbutton').hide();
     } else {
-        var helpbutton = $("helpbutton");
-        if (helpbutton) {
-            helpbutton.show();
-        }
-        if (helpShown) {
-            showHelp();
+        $('#helpbutton').show();
+        if (Zentyal.Help.helpShown) {
+            Zentyal.Help.showHelp();
         } else {
-            hideHelp();
+            Zentyal.Help.hideHelp();
         }
     }
-}
+};
 
-initHelp();
-document.body.addEventListener("DOMNodeInserted", initHelp, false);
+Zentyal.Help.initHelp();
+$('body').bind('DOMNodeInserted', Zentyal.Help.initHelp, false);
+

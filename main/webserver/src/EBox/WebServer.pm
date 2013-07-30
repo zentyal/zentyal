@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::WebServer;
+
 use base qw(EBox::Module::Service EBox::SyncFolders::Provider);
 
 use EBox::Global;
@@ -223,6 +224,7 @@ sub menu
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
+                                      icon  => 'webserver',
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
@@ -535,7 +537,6 @@ sub _setVHosts
             };
         }
 
-
     }
 
     # Remove not used old dirs
@@ -792,34 +793,6 @@ sub restoreConfig
     }
 
     EBox::Sudo::root("cp -a $sitesBackDir/* " . SITES_AVAILABLE_DIR);
-}
-
-sub backupDomains
-{
-    my $name = 'webserver';
-    my %attrs  = (
-                  printableName => __('Web server hosted files'),
-                  description => __(q{Virtual hosts data}),
-                  order => 300,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{webserver}) {
-        my $selection = {
-                          includes => [
-                    EBox::WebServer::PlatformPath::DocumentRoot(),
-                    EBox::WebServer::PlatformPath::VDocumentRoot(),
-                                      ],
-                         };
-        return $selection;
-    }
-
-    return {};
 }
 
 # Implement EBox::SyncFolders::Provider interface

@@ -10,6 +10,7 @@ models:
     - DownloadClientBundle
     - Clients
     - ClientConfiguration
+    - ClientExposedNetworks
     - UploadClientBundle
     - DeletedDaemons
 
@@ -18,5 +19,5 @@ modeldepends:
         objects/ObjectTable: [object]
 
 foreign:
-    Clients: [ClientConfiguration, UploadClientBundle]
+    Clients: [ClientConfiguration, ClientExposedNetworks, UploadClientBundle]
     Servers: [ServerConfiguration, ExposedNetworks, DownloadClientBundle]

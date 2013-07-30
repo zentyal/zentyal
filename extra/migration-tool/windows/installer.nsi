@@ -4,11 +4,11 @@
 ; Kervin Pierre, kervin@blueprint-tech.com
 ; 05JUN02
 
-; Modified by eBox Technologies S.L. (2009-2010)
+; Modified by Zentyal S.L. (2009-2010)
 
 !define PRODUCT_NAME "Zentyal Migration Tool"
 !define PRODUCT_VERSION "2.2"
-!define PRODUCT_PUBLISHER "eBox Technologies S.L."
+!define PRODUCT_PUBLISHER "Zentyal S.L."
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\zentyal-migration.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 !define PRODUCT_UNINST_ROOT_KEY "HKLM"

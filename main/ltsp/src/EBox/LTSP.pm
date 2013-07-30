@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,12 +17,12 @@
 #
 #   TODO: Documentation
 
+use strict;
+use warnings;
+
 package EBox::LTSP;
 
 use base qw(EBox::Module::Service);
-
-use strict;
-use warnings;
 
 use EBox::Global;
 use EBox::Gettext;
@@ -185,6 +185,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $settings = new EBox::Menu::Item(
+        'icon' => 'ltsp',
         'url' => 'LTSP/Composite/Composite',
         'text' => $self->printableName(),
         'separator' => 'Infrastructure',
@@ -536,7 +537,6 @@ sub _setConf
     my ($self) = @_;
     $self->_writeConfiguration();
 }
-
 
 sub _who
 {

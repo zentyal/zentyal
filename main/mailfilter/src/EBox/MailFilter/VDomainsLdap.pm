@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::MailFilter::VDomainsLdap;
+
 use base qw(EBox::LdapUserBase EBox::LdapVDomainBase);
 
 use EBox::Sudo;
@@ -25,7 +26,7 @@ use EBox::Gettext;
 use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 # LDAP schema
 use constant SCHEMAS => ('/etc/ldap/schema/amavis.schema',
@@ -327,9 +328,9 @@ sub _addVDomain
 sub spamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('spam');
-    return $self->_hasAccount($vdomain, $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('spam');
+    return $self->_hasAccount($vdomain, $user);
 }
 
 # Method: hamAccount
@@ -342,9 +343,9 @@ sub spamAccount
 sub hamAccount
 {
     my ($self, $vdomain) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('ham');
-    return $self->_hasAccount($vdomain, $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('ham');
+    return $self->_hasAccount($vdomain, $user);
 }
 
 sub learnAccountsExists
@@ -360,7 +361,6 @@ sub learnAccountsExists
 
     return 0;
 }
-
 
 # Method: learnAccounts
 #
@@ -389,11 +389,9 @@ sub learnAccounts
 
 sub _hasAccount
 {
-    my ($self, $vdomain, $userDN) = @_;
-    my $user= new EBox::UsersAndGroups::User(dn => $userDN);
-    if (not $user->exists()) {
-        return 0;
-    }
+    my ($self, $vdomain, $user) = @_;
+
+    return 0 unless ($user);
 
     my $mail         = EBox::Global->modInstance('mail');
     my $mailUserLdap = $mail->_ldapModImplementation();
@@ -424,18 +422,16 @@ sub _hasAccount
 sub setSpamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('spam');
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('spam');
     $self->_setAccount($vdomain, $user, $active);
 }
 
 sub setHamAccount
 {
     my ($self, $vdomain, $active) = @_;
-    my $users = EBox::Global->modInstance('users');
-    my $dn = $users->userDn('ham');
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $usersMod = EBox::Global->modInstance('users');
+    my $user = $usersMod->userByUID('ham');
     $self->_setAccount($vdomain, $user, $active);
 }
 
@@ -443,7 +439,7 @@ sub _setAccount
 {
     my ($self, $vdomain, $user, $active) = @_;
 
-    return unless ($user->exists());
+    return unless ($user);
 
     if ($active) {
         $self->_addAccount($vdomain, $user);

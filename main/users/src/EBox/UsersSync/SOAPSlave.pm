@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersSync::SOAPSlave;
-
 use strict;
 use warnings;
+
+package EBox::UsersSync::SOAPSlave;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Config;
@@ -26,8 +26,8 @@ use Devel::StackTrace;
 use SOAP::Lite;
 use MIME::Base64;
 
-use EBox::UsersAndGroups::User;
-use EBox::UsersAndGroups::Group;
+use EBox::Users::User;
+use EBox::Users::Group;
 
 # Group: Public class methods
 
@@ -41,7 +41,7 @@ sub addUser
         $user->{passwords} = \@pass;
     }
 
-    EBox::UsersAndGroups::User->create($user);
+    EBox::Users::User->create(%{$user});
 
     return $self->_soapResult(0);
 }
@@ -50,7 +50,7 @@ sub modifyUser
 {
     my ($class, $userinfo) = @_;
 
-    my $user = new EBox::UsersAndGroups::User(dn => $userinfo->{dn});
+    my $user = new EBox::Users::User(dn => $userinfo->{dn});
     $user->set('cn', $userinfo->{fullname}, 1);
     $user->set('sn', $userinfo->{surname}, 1);
     $user->set('givenname', $userinfo->{givenname}, 1);
@@ -74,7 +74,7 @@ sub delUser
 {
     my ($self, $dn) = @_;
 
-    my $user = new EBox::UsersAndGroups::User(dn => $dn);
+    my $user = new EBox::Users::User(dn => $dn);
     $user->deleteObject();
 
     return $self->_soapResult(0);
@@ -84,7 +84,12 @@ sub addGroup
 {
     my ($class, $group) = @_;
 
-    EBox::UsersAndGroups::Group->create($group->{name}, $group->{comment});
+    my %args = (
+        name        => $group->{name},
+        description => $group->{comment},
+    );
+
+    EBox::Users::Group->create(%args);
 
     return $class->_soapResult(0);
 }
@@ -93,7 +98,7 @@ sub modifyGroup
 {
     my ($self, $groupinfo) = @_;
 
-    my $group = new EBox::UsersAndGroups::Group(dn => $groupinfo->{dn});
+    my $group = new EBox::Users::Group(dn => $groupinfo->{dn});
     $group->set('member', $groupinfo->{members});
 
     return 1;
@@ -103,7 +108,7 @@ sub delGroup
 {
     my ($self, $dn) = @_;
 
-    my $group = new EBox::UsersAndGroups::Group(dn => $dn);
+    my $group = new EBox::Users::Group(dn => $dn);
     $group->deleteObject();
 
     return $self->_soapResult(0);

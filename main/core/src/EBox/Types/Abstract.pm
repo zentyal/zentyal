@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -24,10 +24,10 @@
 #      It is the parent type where the remainder types overrides from.
 #
 
-package EBox::Types::Abstract;
-
 use strict;
 use warnings;
+
+package EBox::Types::Abstract;
 
 use EBox;
 
@@ -283,7 +283,6 @@ sub help
         return '';
     }
 }
-
 
 sub trailingText
 {

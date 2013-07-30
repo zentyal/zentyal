@@ -1,0 +1,106 @@
+<!-- vim: ts=4 sw=4 nowrap filetype=mason
+-->
+<%args>
+	$dn
+	@groups => ();
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Global;
+</%init>
+<h3><% __('Add User') %></h3>
+    <div id='error_addUserForm' class='error' style='display:none'></div>
+        <form action='/Users/AddUser' method='POST' autocomplete='off' id='addUserForm'>
+    <input type="hidden" name="dn" value="<% $dn %>">
+        <table class='formTable'>
+                <tr>
+                        <td class='tright'>
+                                <span class="ftitle"><% __('User name')%>:</span>
+                        </td>
+                        <td>
+                                <input type='text' class='inputText' name='username'>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('First name')%>:</span>
+                        </td>
+                        <td>
+                                <input type='text' class='inputText' name='givenname'>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Last name')%>:</span>
+                        </td>
+                        <td>
+                                <input type='text' class='inputText' name='surname'>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Description') %>:</span>
+                <div class="optional_field"><% __('Optional') %></div>
+                        </td>
+                        <td>
+                                <input type='text' class='inputText' name='description'>
+                        </td>
+                </tr>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Password') %>:</span>
+                        </td>
+                        <td>
+                                <input type='password' class='inputText' name='password'>
+                        </td>
+                <tr>
+                        <td class='tright'>
+                                <span class='ftitle'><% __('Retype password') %>:</span>
+                        </td>
+                        <td>
+                                <input type='password' class='inputText' name='repassword'>
+                        </td>
+                </tr>
+                <tr>
+                <& .groupSelectorLine, groups => \@groups &>
+                </tr>
+                <tr>
+                        <td></td>
+                        <td>
+                                <input class='inputButton' type='submit' name='add'
+                                           value="<% __('Add') %>"
+                                           alt="<% __('Add') %>">
+                                </input>
+                        </td>
+                </tr>
+        </table>
+        </form>
+
+<script>
+$(function() {
+   $('#addUserForm').on('submit', function(event) {
+       event.preventDefault();
+       Zentyal.Dialog.submitForm('#addUserForm', { extraData: { add: 1} });
+    });
+});
+</script>
+
+<%def .groupSelectorLine>
+<%args>
+@groups
+</%args>
+<td class='tright'>
+     <span class='ftitle'><% __('Group') %>:</span>
+</td>
+<td>
+    <select name='group' <% @groups == 0 ? 'disabled' : ''  %>>
+        <option selected value=''></option>
+% foreach my $gr (@groups){
+            <option value='<% $gr->dn() %>'>
+              <% $gr->name() %>
+        </option>
+% }
+    </select>
+</td>
+</%def>
+

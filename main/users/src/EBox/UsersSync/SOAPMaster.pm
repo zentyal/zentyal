@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::UsersSync::SOAPMaster;
-
 use strict;
 use warnings;
+
+package EBox::UsersSync::SOAPMaster;
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Config;
@@ -71,7 +71,6 @@ sub registerSlave
     return $self->_soapResult(0);
 }
 
-
 # Method: URI
 #
 # Overrides:
@@ -81,7 +80,6 @@ sub registerSlave
 sub URI {
     return 'urn:Users/Master';
 }
-
 
 # Method: _soapResult
 #

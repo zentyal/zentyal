@@ -1,4 +1,4 @@
-# Copyright (C) 2010-2012 eBox Technologies
+# Copyright (C) 2010-2013 Zentyal
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::Model::RemoteSupportAccess;
-
 use strict;
 use warnings;
+
+package EBox::RemoteServices::Model::RemoteSupportAccess;
 
 use base 'EBox::Model::DataForm';
 
@@ -52,7 +52,6 @@ sub new
     return $self;
 
 }
-
 
 # Group: Protected methods
 
@@ -154,7 +153,6 @@ __('To restrict addresses you need that your Zentyal Server is registered to Zen
         }
     }
 }
-
 
 sub _message
 {

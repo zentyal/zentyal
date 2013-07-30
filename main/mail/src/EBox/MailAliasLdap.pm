@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::MailAliasLdap;
-
 use strict;
 use warnings;
+
+package EBox::MailAliasLdap;
 
 use EBox::Sudo;
 use EBox::Global;
@@ -174,7 +174,6 @@ sub _delmailboxRelatedObject
 
     return unless $self->_mailboxRelatedObjectExists($alias);
 
-
     my @classes = $group->get('objectClass');
     my @mail = $group->get('mail');
 
@@ -194,9 +193,9 @@ sub _mailboxRelatedObjectInGroup
 
     $group = $group->get('cn');
     my %attrs = (
-        base => $users->groupsDn(),
-        filter => "&(objectclass=mailboxRelatedObject)(cn=$group)",
-        scope => 'one'
+        base => $users->ldap()->dn(),
+        filter => "(&(objectclass=mailboxRelatedObject)(cn=$group))",
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
@@ -212,9 +211,9 @@ sub _mailboxRelatedObjectExists
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-        base => $users->groupsDn(),
-        filter => "&(objectclass=mailboxRelatedObject)(mail=$alias)",
-        scope => 'one'
+        base => $users->ldap()->dn(),
+        filter => "(&(objectclass=mailboxRelatedObject)(mail=$alias))",
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);
@@ -740,9 +739,9 @@ sub accountExists
     my $users = EBox::Global->modInstance('users');
 
     my %attrs = (
-        base => $users->usersDn,
+        base => $users->ldap()->dn(),
         filter => "&(objectclass=couriermailaccount)(mail=$alias)",
-        scope => 'one'
+        scope => 'sub'
     );
 
     my $result = $self->{'ldap'}->search(\%attrs);

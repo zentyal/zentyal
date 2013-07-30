@@ -1,0 +1,41 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: zinstaller-remote\n"
+"Report-Msgid-Bugs-To: zinstaller-headless@packages.debian.org\n"
+"POT-Creation-Date: 2013-05-06 19:32+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: text
+#. Description
+#: ../templates:1001
+msgid "Remote Administration only"
+msgstr "Administración Remota únicamente"
+
+#. Type: boolean
+#. Description
+#: ../templates:2001
+msgid "Do you want to proceed installation without graphical environment?"
+msgstr ""
+"¿Quieres instalar sin entorno gráfico?"
+
+#. Type: boolean
+#. Description
+#: ../templates:2001
+msgid ""
+"If you answer yes, graphical environment will not be installed and Zentyal "
+"will only be available remotely."
+msgstr ""
+"Si respondes Sí, el entorno gráfico no se instalará y Zentyal estará "
+"disponible únicamente en remoto."

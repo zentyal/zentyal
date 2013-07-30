@@ -389,7 +389,7 @@ if ($hasChanged) {
   $className = 'notChanged';
 }
 </%perl>
-$('changes_menu').className = '<% $className %>';
+$('#changes_menu').removeClass().addClass('<% $className %>');
 </script>
 </%method>
 

@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -18,12 +18,12 @@
 #   TODO: Document class
 #
 
+use strict;
+use warnings;
+
 package EBox::LTSP::Model::ImageCreation;
 
 use base 'EBox::Model::DataForm';
-
-use strict;
-use warnings;
 
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -34,7 +34,7 @@ use EBox::Types::Action;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use EBox::Apache;
+use EBox::WebAdmin;
 
 sub new
 {
@@ -141,7 +141,7 @@ sub _doCreate
         # Needed here because the code in the script takes some seconds to execute
         $ltsp->st_set_string('work', 'build');
 
-        EBox::Apache::cleanupForExec();
+        EBox::WebAdmin::cleanupForExec();
         exec("sudo /usr/share/zentyal-ltsp/build-image $arch $fat");
     }
     $self->setMessage($action->message(), 'note');

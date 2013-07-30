@@ -1,19 +1,23 @@
-<!-- vim: ts=4 sw=4 nowrap filetype=mason
--->
 <%args>
-	$unsaved => 'no'	
+	$unsaved => 'no'
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-% if($unsaved eq 'yes'){
+% if ($unsaved eq 'yes'){
 <div class='warning'>
-	<% __('There are unsaved changes, if you log out now they will be lost.') %>
+   <% __('There are unsaved changes. Do you really want to close the session?') %>
 </div>
-% }else{
-<div class='note'>
-	<% __('There are no unsaved changes in this session.') %>
+% } else {
+<div class='info'>
+   <% __('Do you really want to close the session?') %>
 </div>
 % }
-<a class="big" href='/Logout/Logout'><% __('Exit') %></a>
+<form action='/Logout/Logout' style="margin-top:20px;">
+% if ($unsaved eq 'yes'){
+<div> <% __('Discard current changes') %> <& /input/checkbox.mas, name=> 'revokeConfig' &><div>
+% }
+  <div style="float: left; margin: 15px 0;"> <& /input/submit.mas, name=> 'logoutSubmit', class => 'big', value =>  __('Exit session') &>
+   <input type='button' name='cancel' style='margin-left:10px;' class='big' value='<% __('Cancel') %>' onClick='Zentyal.Dialog.close(); return false'/></div>
+</form>
 

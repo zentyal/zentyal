@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,6 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Model::DataTable::Test;
+
 use base 'EBox::Test::Class';
 
 use Test::More;;
@@ -51,7 +52,6 @@ sub clearGConf : Test(teardown)
 {
     EBox::TestStubs::setConfig();
 }
-
 
 sub deviantTableTest : Test(5)
 {
@@ -172,7 +172,7 @@ sub tableTest  : Test(6)
             $tableFromModel = $dataTable->table();
         } "checking first call to table method with: $caseName";
 
-        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fileds were inserted by first time setup';
+        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fields were inserted by first time setup';
     }
 }
 
@@ -307,59 +307,143 @@ sub addRowTest  : Test(25)
        'Checking data table size after the additions';
 }
 
-
-# XXX TODO:
-# deviant test up and down in no-prderer table
-# straight test of moving up and down
-sub moveRowsTest : Test(8)
+sub moveRowsTest : Test(21)
 {
     my ($self) = @_;
 
     my $tableDescription = _tableDescription4fields();
     $tableDescription->{order}   = 1;
+    $tableDescription->{insertPosition} = 'back';
 
     my $dataTable = $self->_newDataTable($tableDescription);
-    $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
+    my @cases = (
+        {
+            desc => 'Move first to normal position',
+            args => ['a', 'c', 'd'],
+            expected => {
+                    'a' => 2,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move first to last position',
+            args => ['a', 'e', undef],
+            expected => {
+                    'a' => 4,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 3,
+               }
+        },
+        {
+            desc => 'Move normal to first',
+            args => ['d', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 0,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to normal',
+            args => ['b', 'd', 'e'],
+            expected => {
+                    'a' => 0,
+                    'b' => 3,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to end',
+            args => ['d', 'e', undef],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 4,
+                    'e' => 3,
+               }
+        },
 
-    my @tableRows = (
-            [ uniqueField => 'wasFirstAtTheBegin', regularField => 'regular' ],
-            [ uniqueField => 'wasSecondAtTheBegin', regularField => 'regular', ],
-            );
-    foreach (@tableRows) {
-        $dataTable->add(@{$_});
+        {
+            desc => 'Move end to first',
+            args => ['e', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 0,
+               }
+        },
+        {
+            desc => 'Move end to normal',
+            args => ['e', 'b', 'c'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 2,
+               }
+        },
+
+        {
+            desc => 'Move normal to same position',
+            args => ['c', 'b', 'd'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+    );
+
+    foreach my $case (@cases) {
+        _moveRowTestTableSetup($dataTable);
+        lives_ok {
+            $dataTable->moveRowRelative(@{ $case->{args}  });
+        } 'Moving row case: ' . $case->{desc};
+
+        my %newOrder = $dataTable->_orderHash();
+        is_deeply \%newOrder, $case->{expected},
+              'checking that the order after the move is correct';
     }
 
-    my @order = @{ $dataTable->order() };
+    my @invalidArgumens = (
+        ['b', 'b', 'c'],
+        ['a', undef, 'a'],
+        ['c', 'd', 'd'],
+       );
+    foreach my $args (@invalidArgumens) {
+        my @args = @{ $args };
+        throws_ok {
+            $dataTable->moveRowRelative(@args);
+        } 'EBox::Exceptions::MissingArgument', "Checking call to moveRowRelative with invalid arguments @args";
+    }
+}
 
-    my $upperRow = $order[0];
-    my $lowerRow = $order[1];
 
-    $dataTable->moveUp($upperRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving up the upper row has not changed the order';
-    ok ((not $dataTable->called('movedUpRowNotify')),
-            'Checking that movedUpRowNotify has not been triggered');
-    $dataTable->clear();
+sub _moveRowTestTableSetup
+{
+    my ($dataTable) = @_;
+    $dataTable->removeAll(1);
+    foreach my $id ('a', 'b', 'c', 'd', 'e') {
+        my @fields = (id => $id, uniqueField => "unique $id", regularField => "regular $id");
 
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving down the  lower row has not changed the order';
-    ok ((not $dataTable->called('movedDownRowNotify')),
-            'Checking that movedDownRowNotify has not been triggered');
-    $dataTable->clear();
-
-    my @reverseOrder = reverse @order;
-    $dataTable->moveUp($lowerRow);
-    is_deeply $dataTable->order, \@reverseOrder,
-              'checking that lower row was moved up';
-    ok ($dataTable->called('movedUpRowNotify'), 'Checking that movedUpRowNotify has been triggered');
-    $dataTable->clear();
-
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that upper row was moved down';
-    ok ($dataTable->called('movedDownRowNotify'), 'Checking that movedDownRowNotify has been triggered');
-    $dataTable->clear();
+        $dataTable->addRow(@fields);
+    }
+    return $dataTable;
 }
 
 sub removeAllTest : Test(3)
@@ -377,7 +461,6 @@ sub removeAllTest : Test(3)
         $dataTable->removeAll();
     } 'call removeAll in a empty table';
 }
-
 
 sub removeAllRowsWithAutomaticRemove : Test(5)
 {
@@ -410,7 +493,6 @@ sub removeAllRowsWithAutomaticRemove : Test(5)
     is $dataTable->size, 0, 'checking that after removing all rows with force-0 but not used rows  the table is empty';
 }
 
-
 sub removeRowTest : Test(5)
 {
     my ($self) = @_;
@@ -441,7 +523,6 @@ sub removeRowTest : Test(5)
     $dataTable->clear();
 }
 
-
 sub removeRowWithAutomaticRemoveTest : Test(8)
 {
     my ($self) = @_;
@@ -466,8 +547,6 @@ sub removeRowWithAutomaticRemoveTest : Test(8)
               'removeRow in a row reported as usedin a automaticRemove table  raises DataInUse execption';
     ok ((not $dataTable->called($notifyMethodName)), 'checking that on DataInUse excpeion notify method was not called');
 
-
-
     lives_ok {
         $dataTable->removeRow($id, 1)
     } 'removeRow with force in a used row within a automaticRemove table works';
@@ -485,7 +564,6 @@ sub removeRowWithAutomaticRemoveTest : Test(8)
     $dataTable->called_ok($notifyMethodName);
     $dataTable->clear();
 }
-
 
 sub deviantSetRowTest : Test(9)
 {
@@ -535,6 +613,8 @@ sub deviantSetRowTest : Test(9)
         'Checking error when validateTypedRow fails'
     );
 }
+
+
 
 sub _checkDeviantSetRow
 {
@@ -592,7 +672,6 @@ sub _checkSetRow
     $dataTable->clear();
 }
 
-
 # XXX TODO add notification method parameters test
 sub setRowTest : Test(8)
 {
@@ -616,13 +695,12 @@ sub setRowTest : Test(8)
             'Setting row',
     );
 
-
     lives_ok {
         $changeParams{id} = $id;
         $dataTable->setRow(0, %changeParams);
     } 'Setting row with the same values';
 
-    ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
+    ok (($dataTable->called($notifyMethodName)), 'checking that on setting row with no changes also calls notify method');
 }
 
 sub setWithDataInUseTest : Test(15)
@@ -773,7 +851,6 @@ sub optionsFromForeignModelTest : Test(2)
 
     my $options=  $dataTable->optionsFromForeignModel($field);
 
-
     is_deeply  $options, \@expectedOptions,
                'checking optionsFromForeignModel for a existent field';
 }
@@ -880,7 +957,6 @@ sub _newPopulatedDataTable
 
     my $dataTable = $self->_newDataTable($tableDescription);
     $self->_populateDataTable($dataTable);
-
 
     return $dataTable;
 }

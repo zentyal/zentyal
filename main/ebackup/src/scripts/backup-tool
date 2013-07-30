@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -37,7 +37,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Event;
-use EBox::EBackup::Subscribed;
 
 use Error qw(:try);
 
@@ -261,9 +260,6 @@ sub _removeExpiredBackups
         # Delete orphaned metadata
         my $settingsModel = $ebackup->model('RemoteSettings');
         my $method = $settingsModel->row()->valueByName('method');
-        if ($method eq 'cloud') {
-            EBox::EBackup::Subscribed::deleteOrphanMetadata($ebackup->remoteStatus());
-        }
     } catch EBox::Exceptions::Sudo::Command with {
         my $ex = shift @_;
         my $errorMsg = $ex->error()->[-1];
@@ -417,46 +413,10 @@ sub _errorMessageFromDuplicityCmd
     }
 }
 
-sub _afterSuccessCloudActions
-{
-    my (%params) = @_;
-
-    my $ebackup = $params{ebackup};
-    my $type    = $params{type};
-    my $extraDataDumped = $params{extraDataDumped};
-
-    $ebackup->remoteGenerateStatusCache();
-    my $availableDomains = $ebackup->availableBackupDomains();
-    my @enabledDomains = grep { $availableDomains->{$_}->{enabled} } keys %{$availableDomains};
-    my %backupDomains = map {
-          $_ => { %{ $availableDomains->{$_} } }
-    } @enabledDomains;
-
-    # remove unused keys
-    foreach my $attrs (values %backupDomains) {
-        delete $attrs->{enabled};
-    }
-
-    EBox::info('Writing Disaster Recovery metadata');
-    my $credentials = EBox::EBackup::Subscribed::credentials();
-    my $date = $ebackup->lastBackupDate();
-    EBox::EBackup::Subscribed::writeDRMetadata(
-                                               credentials         => $credentials,
-                                               date                => $date,
-                                               backupType          => $type,
-                                               backupDomains       => \%backupDomains,
-                                               extraDataDumped      => $extraDataDumped,
-                                              );
-
-    # upload configuration backup
-    my $confBackup = $ebackup->includedConfigBackupPath();
-    EBox::EBackup::Subscribed::uploadConfigurationBackup($credentials, $date, $confBackup);
-}
-
 sub backupCmd
 {
-    my ($ebackup, $type, $usingCloud) = @_;
-    my $backupCmd = $ebackup->remoteArguments($type, {}, toCloud => $usingCloud);
+    my ($ebackup, $type) = @_;
+    my $backupCmd = $ebackup->remoteArguments($type, {});
     return $backupCmd;
 }
 
@@ -505,11 +465,6 @@ if ($mustExit) {
 }
 
 my ($success, $successMsg, $errorMsg) = (1, '', '');
-my @extraDataDumped;
-my $usingCloud = $ebackup->model('RemoteSettings')->row()->valueByName('method') eq 'cloud';
-if ($usingCloud) {
-    EBox::EBackup::Subscribed::createStructure();
-}
 
 try {
     $type = _adjustType($ebackup, $type);
@@ -536,20 +491,14 @@ try {
     }
 
     try {
-        @extraDataDumped = @{ $ebackup->dumpExtraData($globalRO) };
+        $ebackup->dumpExtraData($globalRO);
     } otherwise {
         my $ex = @_;
         EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     };
 
-    my $backupCmd = backupCmd($ebackup, $type, $usingCloud);
+    my $backupCmd = backupCmd($ebackup, $type);
     ($success, $successMsg, $errorMsg) = _performBackup($ebackup, $backupCmd);
-
-    if ( $success and $usingCloud) {
-        _afterSuccessCloudActions(ebackup => $ebackup,
-                                  type => $type,
-                                  extraDataDumped => \@extraDataDumped);
-    }
 
     if ($success) {
         EBox::info('Backup process finished successfuly');
@@ -567,9 +516,7 @@ try {
         if ($success) {
             $ebackup->waitForUpdateStatusInBackground();
 
-            if (not $usingCloud) {
-                $ebackup->remoteGenerateStatusCache();
-            }
+            $ebackup->remoteGenerateStatusCache();
 
             # Create file list
             $ebackup->remoteGenerateListFile();

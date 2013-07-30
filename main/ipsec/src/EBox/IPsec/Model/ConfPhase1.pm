@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,8 +16,8 @@ use strict;
 use warnings;
 
 package EBox::IPsec::Model::ConfPhase1;
-use base 'EBox::Model::DataForm';
 
+use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::Types::Int;
@@ -101,16 +101,20 @@ sub viewCustomizer
 #
 sub validateTypedRow
 {
-    my ($self, $action, $changedFields) = @_;
+    my ($self, $action, $changedFields, $allFields) = @_;
 
-    if ( exists $changedFields->{'ike-auth'} ) {
-        my $ikeenc = $changedFields->{'ike-enc'};
-        $ikeenc = $self->row()->valueByName('ike-enc') unless $ikeenc;
+    if (exists $changedFields->{'ike-auth'}) {
+        my $ikeenc;
+        if (exists $changedFields->{'ike-enc'}) {
+            $ikeenc = $changedFields->{'ike-enc'}->value();
+        } else {
+            $ikeenc = $allFields->{'ike-enc'}->value();
+        }
         if ( $changedFields->{'ike-auth'}->value() eq 'any' and $ikeenc ne 'any') {
-                throw EBox::Exceptions::InvalidData(
-                          'data'  => __('IKE Authentication'),
-                          'value' => $changedFields->{'ike-auth'}->value(),
-                      );
+            throw EBox::Exceptions::InvalidData(
+                'data'  => __('IKE Authentication'),
+                'value' => $changedFields->{'ike-auth'}->value(),
+            );
 
         }
     }
