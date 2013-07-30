@@ -56,10 +56,10 @@
     <% $header_img_padding %>
 }
 #hmenu {
-    position: relative;
-    display: block;
-    top: -60px;
-    float:right;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 100;
 }
 #hmenu a {
     float:left;
@@ -94,7 +94,7 @@
 }
 
 #hmenu #m {
-    background:url("/data/images/logout.gif") center 5px no-repeat ;
+    background:url("/data/images/logout.gif") center 5px no-repeat white;
 }
 
 #hmenu #m:hover {
@@ -703,31 +703,35 @@ input {
 
 .tabs {
     margin: 10px 0px 0 0;
-    padding: 0px;
+    padding: 10px;
+    background-color: white;
 }
 
 .tabs li {
     list-style: none;
     display : inline-block;
-    margin-right: 5px;
 }
 
 .tabs li a {
-    padding: 10px 15px;
-    background: #cccccc;
-    color: #333;
+    background: none repeat scroll 0 0 #EEEEEE;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
+    color: #333333;
     display: block;
+    font-size: 14px;
+    padding: 10px 15px;
     text-decoration: none;
-    font-size: 14px
+    border: 1px solid #CCCCCC;
 }
 
 .tabs li a:hover{
+    background-color: #ddd;
 }
 
 .tabs li a.current{
     background: #69BE28;
     color: white;
-    font-weight: bold;
+    border: 1px solid #46962D;
 }
 .insideTab {
     margin: 0px;
@@ -928,9 +932,9 @@ input {
 }
 
 
-/*************************************************************
+/**********************************************************************************************
  Menu icons
-**************************************************************/
+**********************************************************************************************/
 
 a[class^="icon"],
 td[class^="icon"] {
@@ -1051,6 +1055,12 @@ a.notchanged:hover {
 .hidden {
           display: none;
 }
+
+/**********************************************************************************************
+
+TABLE LIST
+
+***********************************************************************************************/
 
 .eDataTable, .bDataTable {
     width: 100%;
@@ -1462,7 +1472,11 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
 }
 
 
-/* packet Filter*/
+/***********************************************************************************************
+
+ packet Filter
+
+ ***********************************************************************************************/
 
 
 .PackFilter > div {
@@ -1521,7 +1535,11 @@ float:left;
 
 .big:hover {background-color:#FFC200;}
 
-/* Progress bar */
+/***********************************************************************************************
+
+ Progress bar 
+
+ ***********************************************************************************************/
 
 #progress_bar .ui-progressbar-value  {
     background-color: <% $progress_bar_bg_color %>;
@@ -1643,7 +1661,11 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     background-color: transparent !important;
 }
 
-/* modalbox.js stuff */
+/***********************************************************************************************
+
+ modalbox.js stuff 
+
+***********************************************************************************************/
 
 #MB_overlay {
 	position: absolute;
@@ -1707,7 +1729,8 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 	background: transparent url(/data/images/spinner.gif) 50% 0 no-repeat;
 }
 
-/* Color scheme */
+/*  Color scheme */
+
 #MB_frame {
 	padding-bottom:10px;
 	background-color: #FFF;
@@ -1730,6 +1753,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 #MB_close:hover { color: #000 }
 
 /* Alert message */
+
 .MB_alert {
 	margin: 10px 0;
 	text-align: center;
@@ -1927,9 +1951,11 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     opacity:1;
     filter:alpha(opacity=100)
 }
-/*********************************    
-    help mesages and tip 
-**********************************/
+/**************************************************************************************
+
+    HELP MESSAGES AND TIPS 
+
+**************************************************************************************/
 
 #popx {
     position: absolute;
@@ -1960,11 +1986,19 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     background-image:  url("/data/images/help.png");
     background-color: <% $help_background %>;
 }
+.help a{
+    color: <% $help_color %>;
+    font-weight: bold;    
+}
 .note, .ad {
     border-color: <% $note_border %>;
     color: <% $note_color %>;
     background-image: url("<% $image_note %>");
     background-color: <% $note_background %>;
+}
+.note a, .ad a{
+    color: <% $note_color %>;
+    font-weight: bold;
 }
 .ad {
     <% $ad_extra_style %>
@@ -1975,6 +2009,10 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     background-image:  url("/data/images/exclamation.png");
     background-color:<% $error_background %>;
 }
+.error a{
+    font-weight: bold;
+    color: <% $error_color %>;
+}
 .warning, .adwarning {
     border-color: <% $warn_border %>;
     color: <% $warn_color %>;
@@ -1984,10 +2022,14 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 .adwarning {
     <% $ad_extra_style %>
 }
+.warning a, .adwarning a{
+    font-weight: bold;
+    color: <% $warn_color %>;
+}
 .tip {
     padding: 15px 15px 15px 50px;
     position: relative;
-    color: #333;
+    color: #C35F00;
     background-color: #F8ECAE;
     background-image: url("/data/images/tip.png");
     border-color: #E7942A;
@@ -1999,9 +2041,11 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 .disabledCustomAction {
     opacity: 0.5;
 }
-/**************************
+/**************************************************************************************
+    
     VM iframe 
- **************************/
+
+**************************************************************************************/
 
 .VMConsole{
     width: 80% !important;
@@ -2085,9 +2129,11 @@ display: inline-block;
     -moz-border-radius: 0px 0px 3px 3px !important;
 }
 
-/**********************
+/**************************************************************************************
+    
     USER and groups
-***********************/
+
+**************************************************************************************/
 
 #edit_user h4 {
     margin-top: 0px;
@@ -2141,9 +2187,11 @@ ul#userGroups li input{
     right:5px;
 }
 
-/**************************************
+/**************************************************************************************
+
     Item block general workframe
-***************************************/
+
+**************************************************************************************/
 
 
 .item-block {
@@ -2157,3 +2205,14 @@ ul#userGroups li input{
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
     margin: 10px;
 }
+
+
+/**************************************************************************************
+
+BUTTONS 
+
+**************************************************************************************/
+
+.btn{}
+
+

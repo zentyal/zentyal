@@ -293,7 +293,7 @@ $tableName
 $model
 $filter => undef
 </%args>
-<table class="bDataTable">
+<table class="bDataTable tableSearch">
     <tr>
         <td>
          <& SELF:filterForm,
@@ -636,7 +636,7 @@ my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
 %   $actionLinksAdded = 1;
-  <a href='#' class='addNew'
+  <a href='#' class='btn addNew'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
