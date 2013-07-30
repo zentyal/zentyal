@@ -1,4 +1,5 @@
 HEAD
+	+ mail-ldap init script dies on LDAP add error
 	+ Added menu icon
 	+ Added new userCorner method to external accounts model
 	+ Updated to use renamed method EBox::Ldap::connection.
