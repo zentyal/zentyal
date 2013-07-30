@@ -16,9 +16,6 @@ then
 
     # Restore default rc.local
     cp /usr/share/zenbuntu-core/rc.local /etc/rc.local
-
-    # Restore default lxdm auto-startup
-    rm -f /etc/init/lxdm.override
 fi
 
 exit 0
