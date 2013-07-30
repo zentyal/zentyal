@@ -329,9 +329,6 @@ sub validateRowRemoval
     }
 }
 
-
-
-
 # Method: addedRowNotify
 #
 # Overrides:
@@ -580,13 +577,12 @@ sub checkGWName
     }
 }
 
-sub setTypedRow
-{
-    my ($self, $id, $paramsRef, %optParams) = @_;
-    $paramsRef = $self->_autoDetectInterface($paramsRef);
-    return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
-}
-
+# Method: addTypedRow
+#
+#  Overriden to add interface parameter if needed
+#
+#  Overrids:
+#    - EBox::DataTable::addTypedRow
 sub addTypedRow
 {
     my ($self, $paramsRef, %optParams) = @_;
@@ -594,6 +590,18 @@ sub addTypedRow
     return $self->SUPER::addTypedRow($paramsRef, %optParams);
 }
 
+# Method: setTypedRow
+#
+#  Overriden to add interface parameter if needed
+#
+#  Overrids:
+#    - EBox::DataTable::setTypedRow
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+}
 
 sub _autoDetectInterface
 {
