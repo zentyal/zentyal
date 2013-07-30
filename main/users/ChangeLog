@@ -1,4 +1,5 @@
 HEAD
+	+ Added Net::LDAPBase::search method
 	+ Better error control on reprovision, do not clear the
 	  reprovision flg on error
 	+ Added menu icon
