@@ -118,7 +118,7 @@ $(function () {
 %   next unless $types{$type}->{actions}->{view};
 %   my $link = $model->clickHandlerJS($type);
         if (nodeType == '<% $type %>') {
-            $('#<% $treeViewerId %>').load('<% $link->{url} %>', { data: metadata });
+            $('#<% $treeViewerId %>').load('<% $link->{url} %>', metadata);
         }
 % }
   });
