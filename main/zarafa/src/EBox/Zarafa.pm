@@ -28,6 +28,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Users::User;
 use EBox::WebServer;
 use EBox::ZarafaLdapUser;
 
@@ -791,14 +792,13 @@ sub _addVMailDomainOU
     my ($self, $vdomain) = @_;
 
     my $users = EBox::Global->modInstance('users');
-    my $usersDN = $users->usersDn();
+    my $usersContainer = EBox::Users::User->defaultContainer();
 
-    my $dn = "ou=$vdomain," . $usersDN;
+    my $dn = "ou=$vdomain," . $usersContainer->dn();
     my $ou = new EBox::Users::OU(dn => $dn);
     return if $ou->exists();
 
-    my $parent = $users->objectFromDN($usersDN);
-    $ou->create($vdomain, $parent);
+    $ou->create($vdomain, $usersContainer);
     $ou->add('objectClass', [ 'zarafa-company' ], 1);
     $ou->save();
 }
