@@ -3,8 +3,8 @@
 <%args>
     $user
     @usergroups
-    @remaingroups
-    @components
+    @remaingroups => ()
+    @components => ()
     $slave => 1
 </%args>
 <%init>

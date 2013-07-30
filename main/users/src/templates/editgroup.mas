@@ -1,8 +1,8 @@
 <%args>
     $group
     @groupusers
-    @remainusers
-    @components
+    @remainusers => ()
+    @components => ()
     $slave => 1
 </%args>
 <%init>
