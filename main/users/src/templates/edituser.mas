@@ -13,7 +13,12 @@ use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
 </%init>
 
-<div id="edit_user">
+% if ($slave) {
+  <div id="edit_user" class="readonly">
+% } else {
+  <div id="edit_user">
+% }
+
 
 <div id='error_editUserForm' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block">

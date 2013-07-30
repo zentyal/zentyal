@@ -6,7 +6,7 @@
   my $treeId = "tree_" . $model->name();
   my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
-
+<div class="item-block treeView-item-block">
 <& .pageTitle, title => $model->pageTitle() &>
 
 <& .headTitle, title => $model->headTitle() &>
@@ -46,21 +46,24 @@
   <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
   <span id="filterId"></span>
 
-<span class="treeviewCheckboxes">
+<div class="treeviewCheckboxes">
+<span class="btn btn-filter btn-only-icon">filter</span>
+<div class="dropdown-menu" id="treeviewCheckboxes-dmenu" >
 % foreach my $name (keys %types) {
 %   next unless $types{$name}->{actions}->{filter};
 %   my $printableName = $types{$name}->{printableName};
-<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
+<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" id="<% $name %>" value="<% $name %>" checked> <label for="<% $name %>"><% $printableName %></label>
 % }
-</span>
+</div>
+</div>
 
 </form>
 
 </div>
 
-<div id="<% $treeViewerId %>" class="treeViewNodeViewer"/>
+<div id="<% $treeId %>" class="treeView"></div>
 
-<div id="<% $treeId %>" class="treeView"/>
+<div id="<% $treeViewerId %>" class="treeViewNodeViewer"></div>
 
 
 <script>
@@ -191,7 +194,7 @@ $(function () {
 </div>
 %   }
 % }
-
+</div>
 <%def .pageTitle>
 <%args>
   $title => undef

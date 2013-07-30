@@ -120,8 +120,9 @@
 #content {
     z-index: 9;
     margin-top: 10px;
-    margin-left: 200px;
-    position: relative;
+    position: absolute;
+    right: 0px;
+    left: 200px;
 }
 
 #menu {
@@ -294,6 +295,7 @@
     color:#000000;
     font-size: 11px;
     border-collapse: collapse;
+    margin-top: 20px;
 }
 .dataTable thead > tr {
     background: <% $main_color %>;
@@ -584,6 +586,7 @@ body {
     font-size: 12px;
     font-family: Verdana, sans-serif;
     background-color: #eee;
+    position: relative;
     behavior: url(/data/js/csshover.htc);
 }
 
@@ -739,6 +742,12 @@ input {
     background: white;
 }
 
+.insideTab .item-block{
+    background-color: white;
+    box-shadow: none;
+    margin: 0px;
+    padding: 0px;
+}
 
 .selected {
     border-top: 1px solid #787878;
@@ -778,30 +787,26 @@ input {
 }
 
 #helpbutton {
-    font-size: 11px;
-    font-family: Trebuchet MS, sans-serif;
-    text-align: center;
+    height: 30px;
     position: absolute;
-    right: 0px;
-    top: 10px;
+    right: 0;
+    top: 0;
+    width: 30px;
 }
 
 #helpbutton a {
-    color: #999;
-    padding: 15px 3px 3px 3px;
-    border-radius: 3px;
+    background: url("/data/images/showhelp.png") no-repeat scroll center center transparent;
+    font-size: 0px;
+    height: 30px;
     text-decoration: none;
-    background:url("/data/images/hidehelp.png") top center no-repeat;
+    width: 30px;
+    display: block;
 }
-
-
-#helpbutton a:hover { color: #428592; background:url("/data/images/showhelp.png") top center no-repeat; }
 
 #helpbutton > #hidehelp {
-    background:url("/data/images/showhelp.png") top center no-repeat;
+    background:url("/data/images/hidehelp.png") center center no-repeat;
     color: #428592;
 }
-#helpbutton > #hidehelp:hover {color: #999; background:url("/data/images/hidehelp.png") top center no-repeat;}
 
 #titlehelp {
     width: auto;
@@ -1070,12 +1075,15 @@ TABLE LIST
 .eDataTable td, .bDataTable td {
     padding: 6px;
 }
-.eDataTable input, .eDataTable select,
-.bDataTable input, .bDataTable select {
-}
+
 .bDataTable form , .eDataTable form {
     padding:0;
     margin:0;
+}
+
+.tableSearch{
+    float: right;
+    width: auto;
 }
 
 .button {
@@ -2058,30 +2066,6 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     width: 100%;
 }
 
-
-
-.treeView {
-    min-height: 480px;
-    border: 1px solid #ccc;
-    margin-top: 10px;
-}
-
-.treeViewNodeViewer {
-    border: 1px solid #ccc;
-    background-color: white;
-    min-height: 100px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.treeviewButtons {
-    margin: 20px 5px;
-}
-
-.treeviewCheckboxes {
-    float: right;
-}
-
 .moveRowHandle {
     background: url("/data/images/row-handler.gif") no-repeat scroll center center transparent;
     cursor: move;
@@ -2149,7 +2133,7 @@ display: inline-block;
 
 .form-block{
     padding: 10px;
-    background-color: whitesmoke;
+    background-color: #eee;
     border-radius:3px;
     margin: 5px;
     -webkit-border-radius:3px;
@@ -2158,17 +2142,17 @@ display: inline-block;
 
 #user_groups {
     float: left;
-    width: 310px;
+    width: 45%;
 }
 
 #user_attrs {
     float: left;
-    width: 240px;
+    width: 45%
 }
 
 #user_addons {
     float: left;
-    width: 580px;
+    width: 95%;
 }
 
 ul#userGroups {
@@ -2205,9 +2189,13 @@ ul#userGroups li input{
 .item-block {
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-    margin: 10px;
+    margin: 10px 0px;
+    padding: 10px;
 }
 
+.item-block h3{
+    margin: 0px 0px 10px; 
+}
 .item-section {
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
@@ -2217,10 +2205,135 @@ ul#userGroups li input{
 
 /**************************************************************************************
 
-BUTTONS 
+    TREEVIEW 
 
 **************************************************************************************/
 
-.btn{}
+.treeView-item-block{
+    position: absolute;
+    width: 100%;
+}
+
+.treeView {
+    min-height: 480px;
+    margin-top: 10px;
+    width: 30%;
+    float: left;
+    background-color: whitesmoke !important;
+}
+
+.treeViewNodeViewer {
+    margin-left: 1%;
+    margin-top: 10px;
+    min-height: 100px;
+    float: left;
+    width: 69%;
+}
 
 
+.treeviewButtons {
+    margin: 20px 5px;
+}
+
+.treeViewToolbox{
+    padding: 10px 0px;
+    width: 30%;
+    margin-bottom: -10px;
+    position: relative;
+    background-color: #ddd;
+}
+
+.treeviewCheckboxes {
+    position: absolute;
+    right: 10px;
+    top: 10px;  
+}
+
+.treeviewCheckboxes label {
+    clear: right;
+    float: left;
+    margin-bottom: 10px 
+}
+.treeviewCheckboxes input {
+    clear: left;
+    float: left;
+}
+.treeviewCheckboxes  .btn-filter{
+    float: right;
+}
+.treeviewCheckboxes .btn-filter:hover + .dropdown-menu {
+    display: block;
+}
+.treeviewCheckboxes .dropdown-menu {
+    background-color: white;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+    padding: 10px;
+    position: absolute;
+    right: 0;
+    top: 26px;
+    width: 200px;
+    display: none;
+}
+
+.jstree a, .jstree a.jstree-hovered  {
+    padding: 5px !important;
+}
+.jstree a.jstree-hovered  {
+    background-color: #ddd !important;
+    border: 0px !important;
+
+}
+.jstree a.jstree-clicked, .jstree a.jstree-hovered.jstree-clicked{
+    background-color: #00ADD0 !important;
+    border: 0 none !important;
+    color: white;
+    font-weight: bold;
+}
+.jstree ins{
+    vertical-align: top;
+}
+
+.jstree-default a.jstree-search{
+    color: #00ADD0 !important;
+    font-style: normal !important;
+    font-weight: bold !important;
+}
+
+/********************************************************************************
+
+BUTTONS
+
+*********************************************************************************/
+
+
+.btn {
+    background-color: whitesmoke;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    color: #666666;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+.btn-icon {
+    padding-left: 40px;
+    background-position: 5px center
+}
+
+.btn-only-icon {
+    padding: 0px;
+    font-size: 0px;
+    display: block;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+}
+
+.btn-filter{
+    background-image: url(/data/images/filter.png);
+}

@@ -293,17 +293,13 @@ $tableName
 $model
 $filter => undef
 </%args>
-<table class="bDataTable tableSearch">
-    <tr>
-        <td>
+<div class="bDataTable tableSearch">
          <& SELF:filterForm,
             tableName => $tableName,
             model     => $model,
             filter    => $filter,
          &>
-        </td>
-    </tr>
-</table>
+</div>
 </%method>
 
 <%method filterForm>
@@ -630,12 +626,10 @@ $addAction
 $page
 </%args>
 <%init>
-my $actionLinksAdded = 0;
 my $tableName = $model->name();
 my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
-%   $actionLinksAdded = 1;
   <a href='#' class='btn addNew'
       name='add'
          onClick="<%
@@ -644,10 +638,6 @@ my $checkAll  = $model->checkAllProperty();
                       page => $page,
                       isFilter => 0)
                 %>;return false"><% __('Add new') %></a>
-% }
-
-% if ($actionLinksAdded) {
-    <br/><br/>
 % }
 
 </%method>
