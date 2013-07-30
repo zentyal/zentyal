@@ -1,4 +1,6 @@
 HEAD
+	+ Fix regression is Gateways table due to the change of behaviour
+	  of update row notifications
 	+ Added menu icon
 	+ Fix regression in dhcp-gateway.pl which interfered with save
 	  change process
