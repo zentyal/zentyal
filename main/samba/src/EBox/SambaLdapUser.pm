@@ -457,7 +457,6 @@ sub _preAddGroup
         return;
 
     my $name = $entry->get_value('cn');
-    $self->_checkWindowsBuiltin($name);
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
     # The isSecurityGroup flag is not set here given that the zentyalObject doesn't exist yet, we will
@@ -725,31 +724,6 @@ sub _groupAddOns
         path => '/samba/samba.mas',
         params => $args
        };
-}
-
-# Method: _checkWindowsBuiltin
-#
-# check whether the group already exists in the Builtin branch
-sub _checkWindowsBuiltin
-{
-    my ($self, $name) = @_;
-
-    my $dn = "CN=$name,CN=Builtin";
-    my $searchArgs = {
-        base => 'CN=Builtin',
-        scope => 'one',
-        filter => "(dn=$dn)"
-       };
-    my $result = $self->search($searchArgs);
-    $self->_errorOnLdap($result, $searchArgs);
-
-    if ($result->entries() > 0) {
-        throw EBox::Exceptions::External(
-            __x('{name} already exists as windows bult-in group',
-                name => $name
-               )
-           );
-    }
 }
 
 sub schemas
