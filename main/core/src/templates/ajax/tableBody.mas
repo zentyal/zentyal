@@ -149,11 +149,11 @@ if ($checkAllProperty) {
 %
 %   unless ((defined $onlyCustomActions) and $onlyCustomActions)   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
+% if ($printableTableName) {
 <h3>
-  <%
-    $printableTableName
-  %>
+  <% $printableTableName %>
 </h3>
+% }
 %    }
 %   }
 <& SELF:topToolbar,
