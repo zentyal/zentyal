@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use strict;
+use warnings;
 
 use EBox::Global;
 use EBox::Asterisk::Extensions;
@@ -11,58 +12,60 @@ my $extensions = new EBox::Asterisk::Extensions;
 
 sub update
 {
-	$extensions->{ldap}->connection();
-	my $ldap = $extensions->{ldap}->{ldap};
-	my $edn = $extensions->extensionsDn;
-	my $qdn = $extensions->queuesDn;
+    $extensions->{ldap}->connection();
+    my $ldap = $extensions->{ldap}->{ldap};
+    my $edn = $extensions->extensionsDn;
+    my $qdn = $extensions->queuesDn;
 
-	my $result = $ldap->add($edn, attr => [
-		'ou' => 'Extensions',
-		'objectClass' => 'top',
-		'objectClass' => 'organizationalUnit'
-	]);
-	($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
+    my $result = $ldap->add($edn, attr => [
+                'ou' => 'Extensions',
+                'objectClass' => 'top',
+                'objectClass' => 'organizationalUnit'
+               ]);
+    ($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
 
-	my $result = $ldap->add($qdn, attr => [
-		'ou' => 'Queues',
-		'objectClass' => 'top',
-		'objectClass' => 'organizationalUnit'
-	]);
-	($result->is_error) and warn "Can't initialize Queues leaf ".$result->error;
+    my $result = $ldap->add($qdn, attr => [
+        'ou' => 'Queues',
+        'objectClass' => 'top',
+        'objectClass' => 'organizationalUnit'
+       ]);
+    ($result->is_error) and warn "Can't initialize Queues leaf ".$result->error;
 }
 
 sub clean
 {
-	$extensions->{ldap}->connection();
-	my $ldap = $extensions->{ldap}->{ldap};
-	my $edn = $extensions->extensionsDn;
-	my $qdn = $extensions->queuesDn;
+    $extensions->{ldap}->connection();
+    my $ldap = $extensions->{ldap}->{ldap};
+    my $edn = $extensions->extensionsDn;
+    my $qdn = $extensions->queuesDn;
 
-	my @extns = $extensions->extensions;
-	foreach (@extns) {
-		$extensions->delExtension($_);
-	}
+    my @extns = $extensions->extensions;
+        foreach (@extns) {
+            $extensions->delExtension($_);
+        }
 
-	my $result = $ldap->delete($edn);
-	($result->is_error) and warn "Can't remove Extensions leaf ".$result->error;
+    my $result = $ldap->delete($edn);
+    ($result->is_error) and warn "Can't remove Extensions leaf ".$result->error;
 
-	my $result = $ldap->delete($qdn);
-	($result->is_error) and warn "Can't remove Queues leaf ".$result->error;
+    my $result = $ldap->delete($qdn);
+    ($result->is_error) and warn "Can't remove Queues leaf ".$result->error;
 }
 
 sub usage {
-	print "Usage: $0 update | clean\n";
-	exit 1;
+    print "Usage: $0 update | clean\n";
+    exit 1;
 }
 
 unless ($#ARGV == 0) {
-	usage();
+    usage();
 }
 
 if ($ARGV[0] eq 'update') {
-	update();
+    update();
 } elsif ($ARGV[0] eq 'clean') {
-	clean();
+    clean();
 } else {
-	usage();
+    usage();
 }
+
+1;
