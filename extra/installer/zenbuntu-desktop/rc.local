@@ -1,5 +1,0 @@
-#!/bin/sh
-
-initctl emit zentyal-lxdm
-
-exit 0
