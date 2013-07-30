@@ -1,6 +1,6 @@
 HEAD
-	+ Workaround in advanced packages section against some browsers
-	  which preserves input content by position
+	+ Reset checkboxes in advanced packages section; this is need for
+	  some browsers which autocompletes input by position
 	+ Added menu icon
 	+ Set proper permissions to preferences file when QA updates are
 	  not exclusive
