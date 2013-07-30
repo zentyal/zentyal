@@ -12,24 +12,30 @@ my $extensions = new EBox::Asterisk::Extensions;
 
 sub update
 {
-    $extensions->{ldap}->connection();
-    my $ldap = $extensions->{ldap}->{ldap};
+    my $ldap = $extensions->{ldap};
+    $ldap->connection();
+
     my $edn = $extensions->extensionsDn;
+    if (not $ldap->existsDN($edn)) {
+        $ldap->add($edn, {attr => [
+            'ou' => 'Extensions',
+            'objectClass' => 'top',
+            'objectClass' => 'organizationalUnit'
+           ]});
+    } else {
+        warn "Extension element $edn already exists";
+    }
+
     my $qdn = $extensions->queuesDn;
-
-    my $result = $ldap->add($edn, attr => [
-                'ou' => 'Extensions',
-                'objectClass' => 'top',
-                'objectClass' => 'organizationalUnit'
-               ]);
-    ($result->is_error) and warn "Can't initialize Extensions leaf ".$result->error;
-
-    my $result = $ldap->add($qdn, attr => [
-        'ou' => 'Queues',
-        'objectClass' => 'top',
-        'objectClass' => 'organizationalUnit'
-       ]);
-    ($result->is_error) and warn "Can't initialize Queues leaf ".$result->error;
+    if (not $ldap->existsDN($qdn)) {
+        $ldap->add($qdn, { attr => [
+            'ou' => 'Queues',
+            'objectClass' => 'top',
+            'objectClass' => 'organizationalUnit'
+           ]});
+    } else {
+        warn "Queue element $edn already exists";
+    }
 }
 
 sub clean
@@ -44,14 +50,16 @@ sub clean
             $extensions->delExtension($_);
         }
 
-    my $result = $ldap->delete($edn);
+    my $result;
+     $result = $ldap->delete($edn);
     ($result->is_error) and warn "Can't remove Extensions leaf ".$result->error;
 
-    my $result = $ldap->delete($qdn);
+    $result = $ldap->delete($qdn);
     ($result->is_error) and warn "Can't remove Queues leaf ".$result->error;
 }
 
-sub usage {
+sub usage
+{
     print "Usage: $0 update | clean\n";
     exit 1;
 }
