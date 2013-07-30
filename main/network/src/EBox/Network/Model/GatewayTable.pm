@@ -329,6 +329,9 @@ sub validateRowRemoval
     }
 }
 
+
+
+
 # Method: addedRowNotify
 #
 # Overrides:
@@ -338,8 +341,6 @@ sub validateRowRemoval
 sub addedRowNotify
 {
     my ($self, $row) = @_;
-
-    $self->_autoDetectInterface($row);
 
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
@@ -356,8 +357,6 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
-    $self->_autoDetectInterface($row);
 
     return if ($force); # failover event can force changes
 
@@ -581,18 +580,42 @@ sub checkGWName
     }
 }
 
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+}
+
+sub addTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
+    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    return $self->SUPER::addTypedRow($paramsRef, %optParams);
+}
+
+
 sub _autoDetectInterface
 {
-    my ($self, $row) = @_;
+    my ($self, $paramsRef) = @_;
 
-    return if ($row->valueByName('auto'));
+    if (exists $paramsRef->{auto} and $paramsRef->{auto}->value()) {
+        return $paramsRef;
+    }
+
+    my $ip = $paramsRef->{ip}->value();
+    if (not $ip) {
+        throw EBox::Exceptions::DataMissing(data => $self->fieldHeader('ip')->printableName());
+    }
 
     my $network = $self->parentModule();
-    my $iface = $network->gatewayReachable($row->valueByName('ip'));
+    my $iface = $network->gatewayReachable($ip);
     if ($iface) {
-        $row->elementByName('interface')->setValue($iface);
-        $row->store();
+        my $interfaceType = $self->fieldHeader('interface')->clone();
+        $interfaceType->setValue($iface);
+        $paramsRef->{interface} = $interfaceType;
     }
+    return $paramsRef;
 }
 
 1;
