@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug which unallowed to disable the proxy server
 	+ Corrected typo in message on tab multigw when only one gw is present
 3.0.6
 	+ PPPoE set iface script is more robust against locks
