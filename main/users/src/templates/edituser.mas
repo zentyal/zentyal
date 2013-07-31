@@ -5,7 +5,7 @@
     @usergroups
     @remaingroups => ()
     @components => ()
-    $slave => 1
+    $slave => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -15,14 +15,17 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 
 % if ($slave) {
   <div id="edit_user" class="readonly">
+  <h3 class="icon-user"><% __('User') %> <% $user->name() %></h3>
 % } else {
   <div id="edit_user">
 % }
 
 
+
+
 <div id='error_editUserForm' class='error' style='display:none'></div>
-<div id="user_attrs" class="form-block">
-  <h4><% __('User profile') %> | <% $user->name() %></h4>
+<div id="user_attrs" class="form-block half-block">
+      <h4><% __('Profile') %></h4>
       <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
@@ -120,7 +123,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
      </form>
 </div>
 
-<div id="user_groups" class="form-block">
+<div id="user_groups" class="form-block half-block">
 <h4> <% __('User groups') %></h4>
 % unless ($slave) {
 <& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
@@ -129,7 +132,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % }
 </div>
 
-<div id="user_addons" class="form-block">
+<div id="user_addons" class="form-block full-block">
 <h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
   <div class="stitle">
@@ -172,7 +175,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 
 <& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup' class='error' style='display:none'></div>
-<ul name='userGroups' id='userGroups'>
+<ul name='userGroups' id='userGroups' class="labels-list">
 </ul>
 
 <script src='/data/js/combobox.js' />
@@ -205,10 +208,10 @@ $(function() {
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
                userGroups.append('<li>' + group +
-                                 '<input type="image" style="border: none; background: none;"' +
-                                  'src="/data/images/delete.gif" ' +
+                                 '<span ' +
+                                  'class="close" ' +
                                   'data-group-name="' + group + '" ' +
-                                  '/>' +   '</li>'
+                                  '>delete</span>' +   '</li>'
                                  );
             }
             userGroups.insertAfter('#error_removeUserFromGroup');
@@ -271,7 +274,7 @@ $user
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup" style="width: 40px">
   </select>
-  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style='margin-left: 30px'/>
+  <input type='submit' id='addGroupSubmit' class='btn btn-icon btn-add' value='<% __('Add') %>' style='float: right'/>
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>
@@ -290,12 +293,11 @@ if (@usergroups) {
    $groupStr =  __('No member of any group');
 }
 </%init>
-<div class="tleft"><% __("Groups") %></div>
-<ul name='userGroups' id='userGroups'  size='8'>
+<ul name='userGroups' id='userGroups' class="labels-list" size='8'>
 % foreach my $group (@usergroups) {
       <li>
          <% $group->name() %>
-      </li>
+      </li> 
 % }
 </ul>
 </%def>
