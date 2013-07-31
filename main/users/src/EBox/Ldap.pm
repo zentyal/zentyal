@@ -408,6 +408,7 @@ sub usersInBackup
             }
 
             # in zentyal users are identified by DN, not by objectclass
+            # TODO: Review this code, with multiou this may not be true anymore!
             if ($dn =~ /$usersDn$/) {
                 push @users, $entry->get_value('uid');
             }

@@ -475,11 +475,11 @@ sub asteriskUsersInQueue
 {
     my ($self, $group) = @_;
 
-    my $users = $self->{users};
+    my $usersContainer = EBox::Users::User->defaultContainer();
     my $groupdn = $group->dn();
 
     my %args = (
-                base => $users->usersDn,
+                base => $usersContainer->dn(),
                 filter => "(&(objectclass=AsteriskSIPUser)(memberOf=$groupdn))",
                 scope => 'one',
                );

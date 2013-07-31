@@ -26,7 +26,7 @@ use EBox::Service;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
-
+use EBox::Users::User;
 use EBox::WebServer::PlatformPath;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
@@ -432,7 +432,7 @@ sub _setUserDir
         my $ldapPort   = $ldap->ldapConf()->{port};
         my $rootDN = $ldap->rootDn();
         my $ldapPass = $ldap->getPassword();
-        my $usersDN = $usersMod->usersDn();
+        my $usersDN = EBox::Users::User->defaultContainer()->dn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
                              [

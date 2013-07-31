@@ -1,4 +1,6 @@
 HEAD
+	+ Moved ZarafaCompany objects root into ou=zarafa from ou=Users because
+	  Samba doesn't allow ou creations under CN=Users.
 	+ Added menu icon
 	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapted user addon to multi-OU tree view
