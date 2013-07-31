@@ -124,7 +124,7 @@ $(function () {
         var nodeType = $.jstree._focused()._get_type(selectedNode);
 
 % foreach my $type (keys %types) {
-%   next unless $types{$type}->{actions}->{view};
+%   next unless $types{$type}->{actions}->{edit};
 %   my $link = $model->clickHandlerJS($type);
         if (nodeType == '<% $type %>') {
             $('#<% $treeViewerId %>').load('<% $link->{url} %>', metadata);
@@ -168,24 +168,6 @@ $(function () {
 % }
 % }
       }
-% }
-  });
-
-  treeComponent.bind('dblclick.jstree', function (e) {
-      var node = $(e.target).closest('li');
-      var nodeType = node.attr('rel');
-      var metadata = node.data();
-
-% foreach my $type (keys %types) {
-%   if ($types{$type}->{actions}->{edit}) {
-      if (nodeType == '<% $type %>') {
-% my $link = $model->doubleClickHandlerJS($type);
-        Zentyal.Dialog.showURL('<% $link->{url} %>',
-            { title: '<% $link->{title} %>',
-              width: <% $link->{width} %>,
-              data: metadata });
-      }
-%   }
 % }
   });
 
