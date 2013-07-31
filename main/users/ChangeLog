@@ -1,4 +1,7 @@
 HEAD
+	+ Added Net::LDAPBase::existsDN method
+	+ Better error control on reprovision, do not clear the
+	  reprovision flg on error
 	+ Fixed code typo in slave setup
 	+ Added menu icon
 	+ Added new userCorner method to password model
