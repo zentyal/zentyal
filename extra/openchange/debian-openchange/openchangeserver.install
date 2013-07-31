@@ -1,0 +1,10 @@
+usr/sbin
+usr/lib/*/libmapiserver.so.*
+usr/lib/*/openchange/dcerpc_mapiproxy_server
+usr/lib/python*/dist-packages/openchange/*.py
+usr/lib/python*/dist-packages/openchange/web/*.py
+usr/lib/python*/dist-packages/openchange/web/auth/*.py
+usr/lib/python*/dist-packages/openchange/utils/*.py
+usr/share/samba/setup/AD/oc_provision_*.ldif
+usr/share/samba/setup/AD/prefixMap.txt
+usr/share/samba/setup/AD/provision_schema_basedn_modify.ldif

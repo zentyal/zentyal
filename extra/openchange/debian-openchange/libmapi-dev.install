@@ -1,0 +1,6 @@
+usr/include/gen_ndr/*.h
+usr/include/libmapi/*.h
+usr/include/libmapi/socket/*.h
+usr/lib/*/libmapi.so
+usr/lib/*/pkgconfig/libmapi.pc
+usr/share/man/man3/*.3
