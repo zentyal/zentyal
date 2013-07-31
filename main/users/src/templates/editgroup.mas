@@ -66,7 +66,9 @@ use EBox::Gettext;
 % }
 </div>
 
+% if (@components) {
 <div id="group_addons"  class="form-block full-block">
+<h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
   <div class="stitle">
     <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
@@ -75,9 +77,10 @@ use EBox::Gettext;
    <div id='<% $comp->{id} %>'  class='userAddon' style='display:none' >
        <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
    </div>
-
 % }
 </div>
+% }
+
 </div>
 <%def .usersRW>
 <%args>

@@ -132,6 +132,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % }
 </div>
 
+% if (@components) {
 <div id="user_addons" class="form-block full-block">
 <h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
@@ -145,6 +146,7 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
    </div>
 % }
 </div>
+% }
 
 <%def masterSlaveUserAttr>
 <%args>
@@ -297,7 +299,7 @@ if (@usergroups) {
 % foreach my $group (@usergroups) {
       <li>
          <% $group->name() %>
-      </li> 
+      </li>
 % }
 </ul>
 </%def>
