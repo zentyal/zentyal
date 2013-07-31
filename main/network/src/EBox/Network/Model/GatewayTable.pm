@@ -611,7 +611,10 @@ sub _autoDetectInterface
         return $paramsRef;
     }
 
-    my $ip = $paramsRef->{ip}->value();
+    my $ip;
+    if (exists $paramsRef->{ip} and $paramsRef->{ip}) {
+        $ip =  $paramsRef->{ip}->value();
+    }
     if (not $ip) {
         throw EBox::Exceptions::DataMissing(data => $self->fieldHeader('ip')->printableName());
     }
