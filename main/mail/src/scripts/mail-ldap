@@ -19,37 +19,42 @@ my $alias = new EBox::MailAliasLdap;
 
 sub update
 {
-    $vdomain->{ldap}->connection();
-    my $ldap = $vdomain->{ldap}->{ldap};
-    my $dn = "ou=postfix, " . $vdomain->{ldap}->dn;
+    my $ldap = $vdomain->{ldap};
+    $ldap->connection();
+    my $dn;
 
-    my $result = $ldap->add($dn, attr => [
+    $dn = 'ou=postfix,' . $vdomain->{ldap}->dn;
+    if (not $ldap->existsDN($dn)) {
+        $ldap->add($dn, {attr => [
                 'ou' => 'postfix',
                 'objectClass' => 'top',
                 'objectClass' => 'organizationalUnit'
-              ]);
-
-    ($result->is_error) and warn "Cant initialize postfix leaf.";
+               ]});
+    } else {
+        warn "$dn already exists";
+    }
 
     $dn = $vdomain->vdomainDn();
-
-    $result = $ldap->add($dn, attr => [
-        'ou' => 'vdomains',
-        'objectClass' => 'top',
-        'objectClass' => 'organizationalUnit'
-       ]);
-
-    ($result->is_error) and warn "Cant initialize virtual domains leaf.";
+    if (not $ldap->existsDN($dn)) {
+        $ldap->add($dn, {attr => [
+            'ou' => 'vdomains',
+            'objectClass' => 'top',
+            'objectClass' => 'organizationalUnit'
+           ]});
+    } else {
+        warn "$dn already exists";
+    }
 
     $dn = $alias->aliasDn();
-
-    $result = $ldap->add($dn, attr => [
+    if (not $ldap->existsDN($dn)) {
+        $ldap->add($dn, {attr => [
             'ou'    =>      'mailalias',
             'objectClass' => 'top',
             'objectClass' => 'organizationalUnit'
-           ]);
-
-    ($result->is_error) and warn "Cant initialize mail alias leaf.";
+        ]});
+    }  else {
+        warn "$dn already exists";
+    }
 }
 
 sub clean
