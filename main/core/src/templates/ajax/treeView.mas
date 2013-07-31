@@ -29,25 +29,17 @@
 </div>
 %  }
 
-<div id="treeButtons" class="treeviewButtons">
-% my $actionLabels = $model->defaultActionLabels();
-% foreach my $action (@{$model->defaultActions()}) {
-<button id="<% $action %>" class="treeviewActionButton" type="button" disabled style="background-image: url('/data/images/<% $action %>.gif')">
-<% $actionLabels->{$action} %>
-</button>
-% }
-</div>
-
+<div class="treeViewLeft">
 <div class="treeViewToolbox">
 
 <form action="javascript:void(0)">
-
+<div class="tableSearch">
   <input type='text' name='filter_text' id='filter_text' value="" />
   <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
   <span id="filterId"></span>
-
+</div>
 <div class="treeviewCheckboxes">
-<span class="btn btn-filter btn-only-icon">filter</span>
+<span class="btn btn-filter btn-only-icon">Filter</span>
 <div class="dropdown-menu" id="treeviewCheckboxes-dmenu" >
 % foreach my $name (keys %types) {
 %   next unless $types{$name}->{actions}->{filter};
@@ -61,7 +53,17 @@
 
 </div>
 
+
 <div id="<% $treeId %>" class="treeView"></div>
+<div id="treeButtons" class="treeviewButtons">
+% my $actionLabels = $model->defaultActionLabels();
+% foreach my $action (@{$model->defaultActions()}) {
+<button id="<% $action %>" class="btn btn-<% $action %> btn-only-icon treeviewActionButton" title="<% $actionLabels->{$action} %>" type="button" disabled>
+<% $actionLabels->{$action} %>
+</button>
+% }
+</div>
+</div>
 
 <div id="<% $treeViewerId %>" class="treeViewNodeViewer"></div>
 
@@ -109,6 +111,10 @@ $(function () {
             nodes.hide();
         }
     });
+  });
+
+  $(".btn-filter").click(function() {
+    $("#treeviewCheckboxes-dmenu").slideToggle("fast");
   });
 
   treeComponent.bind("select_node.jstree",
@@ -184,6 +190,8 @@ $(function () {
   });
 
 });
+
+
 </script>
 
 % } else {

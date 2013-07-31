@@ -68,10 +68,10 @@
     line-height: 16px;
     padding: 25px 15px 5px 15px;
     text-decoration: none;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
     border-radius:3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -381,7 +381,7 @@
 select {
     font-size: 11px;
     font-family: Verdana, sans-serif;
-    border:1px solid #A5A5A5;
+    border:1px solid #999999;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -405,10 +405,10 @@ select {
 }
 
 input[type='password'], input[type='text'] {
-    border:1px solid #A5A5A5;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
+    border:1px solid #999;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
     background-image: -ms-linear-gradient(top, #f5f5f5, #fff);
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#f5f5f5), to(#fff));
     background-image: -webkit-linear-gradient(top, #f5f5f5, #fff);
@@ -435,10 +435,10 @@ input[type='submit'], button, input[type='button'] {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     background-color: #E9E9E9;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999;
+    border-left: 1px solid #999;
+    border-right: 2px solid #999;
+    border-bottom: 2px solid #999;
     padding:5px 10px ;
     cursor:pointer;
     text-transform: uppercase;
@@ -456,10 +456,10 @@ button > img {margin-bottom:-3px;}
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     background-color: #E9E9E9;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
     padding:5px 10px;
     cursor:pointer;
     text-transform: uppercase;
@@ -471,7 +471,7 @@ button > img {margin-bottom:-3px;}
 
 input[type='submit']:hover, input[type='button']:hover {background:#DFDFDF}
 
-button:hover {background:#DFDFDF}
+button:hover {background-color:#DFDFDF}
 
 input[type='submit']:disabled, input[type='button']:disabled, input[type='submit']:disabled:hover, #install_button:disabled, #install_button:disabled:hover {
     cursor:default;
@@ -533,10 +533,10 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
     font-size: 11px;
     font-family: Verdana, sans-serif;
     background: whiteSmoke;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1086,6 +1086,24 @@ TABLE LIST
     width: auto;
 }
 
+.tableSearch input[type="text"]{
+    height: 28px;
+    padding: 0px 5px;
+    vertical-align: top;
+    float: left;
+}
+.tableSearch input[type="submit"]{
+    text-indent: 1000px;
+    height: 30px;
+    width: 30px;
+    background: whitesmoke url('/data/images/magnifying-glass.png') center center no-repeat;
+    border: 1px solid #999;
+    border-radius: 2px;
+    margin-left: -2px;
+    float: left;
+}
+
+
 .button {
     cursor: pointer;
 }
@@ -1099,15 +1117,15 @@ TABLE LIST
     border-radius: 5px;
 }
 
-.addNew, .treeviewActionButton {
+.addNew{
     background-color: #E9E9E9;
     background-image: url('/data/images/add.gif');
     background-position: 6px;
     background-repeat: no-repeat;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -1124,20 +1142,6 @@ TABLE LIST
     background-color: #dfdfdf
 }
 
-.treeviewActionButton:hover {
-    background-color: #dfdfdf;
-    background-image: url('/data/images/add.gif');
-    background-position: 6px;
-    background-repeat: no-repeat;
-}
-
-.treeviewActionButton:disabled, .treeviewActionButton:disabled:hover {
-    cursor: default;
-    border-color: #dbdbdb;
-    background-color: #eee;
-    color: #BBB;
-    opacity: 0.5;
-}
 
 #field_help {
     color: #888;
@@ -1524,10 +1528,10 @@ a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     background: #E9E9E9 url(/data/images/conf_rul.gif) 5px center no-repeat;
-    border-top: 1px solid #A5A5A5;
-    border-left: 1px solid #A5A5A5;
-    border-right: 2px solid #A5A5A5;
-    border-bottom: 2px solid #A5A5A5;
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 2px solid #999999;
+    border-bottom: 2px solid #999999;
     padding:5px 10px 5px 30px;
     cursor:pointer;
 }
@@ -2108,7 +2112,7 @@ display: inline-block;
     margin: 0;
     padding: 0.45em;
     background-image: -moz-linear-gradient(center top , #F5F5F5, #FFFFFF);
-    border: 1px solid #A5A5A5;
+    border: 1px solid #999999;
     border-radius: 3px 3px 3px 3px;
     -webkit-border-radius:3px;
     -moz-border-radius: 3px;
@@ -2213,36 +2217,52 @@ ul#userGroups li input{
     position: absolute;
     width: 100%;
 }
-
+.treeViewLeft {
+    float: left;
+    width: 30%;
+    margin-top: 20px;
+}
 .treeView {
     min-height: 480px;
-    margin-top: 10px;
-    width: 30%;
+    width: 100%;
     float: left;
     background-color: whitesmoke !important;
+    overflow: hidden;
 }
 
 .treeViewNodeViewer {
-    margin-left: 1%;
-    margin-top: 10px;
     min-height: 100px;
-    float: left;
+    float: right;
     width: 69%;
-}
-
+    margin-top: 20px;
+}   
 
 .treeviewButtons {
-    margin: 20px 5px;
-}
+    background-color: #dddddd;
+    float: left;
+    padding: 10px 0;
+    width: 100%;
+    height: 28px;
 
+}
+.treeviewButtons .btn-add{
+    margin-left: 10px;
+}
+.treeviewButtons .btn-delete{
+    float: right;    
+    margin-right: 10px;
+}
 .treeViewToolbox{
     padding: 10px 0px;
-    width: 30%;
-    margin-bottom: -10px;
+    width: 100%;
+    height: 30px;
     position: relative;
     background-color: #ddd;
 }
-
+.treeViewToolbox .tableSearch {
+    float: none;
+    margin-left: 10px;
+}
 .treeviewCheckboxes {
     position: absolute;
     right: 10px;
@@ -2252,7 +2272,9 @@ ul#userGroups li input{
 .treeviewCheckboxes label {
     clear: right;
     float: left;
-    margin-bottom: 10px 
+    margin-bottom: 10px;
+    margin-left: 5px;
+    width: 80%;
 }
 .treeviewCheckboxes input {
     clear: left;
@@ -2261,16 +2283,13 @@ ul#userGroups li input{
 .treeviewCheckboxes  .btn-filter{
     float: right;
 }
-.treeviewCheckboxes .btn-filter:hover + .dropdown-menu {
-    display: block;
-}
 .treeviewCheckboxes .dropdown-menu {
     background-color: white;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
     padding: 10px;
     position: absolute;
-    right: 0;
-    top: 26px;
+    left: 1px;
+    top: 34px;
     width: 200px;
     display: none;
 }
@@ -2307,33 +2326,50 @@ BUTTONS
 
 
 .btn {
-    background-color: whitesmoke;
-    border: 1px solid #ccc;
-    border-radius: 2px;
-    color: #666666;
+    background-color: #EEEEEE;
+    border: 1px solid #999999;
+    border-radius: 2px 2px 2px 2px;
+    color: #333333;
     cursor: pointer;
     font-size: 11px;
     font-weight: bold;
+    height: 30px;
     letter-spacing: 1px;
-    padding: 5px 10px;
+    overflow: hidden;
     text-transform: uppercase;
 }
-
-.btn-icon {
-    padding-left: 40px;
-    background-position: 5px center
+.btn:hover{
+    background-color: whitesmoke;
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.25)
 }
-
+.btn:disabled, .btn:disabled:hover{
+    opacity: 0.3;
+    box-shadow: none;
+    cursor: default;
+}
+.btn-icon {
+    padding-left: 25px;
+    background-position: 5px center;
+    background-repeat: no-repeat;
+}
 .btn-only-icon {
-    padding: 0px;
-    font-size: 0px;
-    display: block;
     background-position: center center;
     background-repeat: no-repeat;
-    width: 26px;
-    height: 26px;
+    height: 28px;
+    overflow: hidden;
+    padding: 0px;
+    text-indent: 1000px;
+    width: 28px;
+    font-size: 0px;
 }
 
-.btn-filter{
-    background-image: url(/data/images/filter.png);
+.btn-filter{ background-image: url(/data/images/filter.png);}
+.btn-add{ background-image: url(/data/images/add.gif);}
+.btn-delete{ 
+    background-color: #FF5C26;
+    background-image: url("/data/images/delete-w.gif");
+    border-color: #B22D00;
+    color: white;
 }
+.btn-delete:hover{background-color: #D93600;}
+.btn-edit{ background-image: url(/data/images/edit.gif);}
