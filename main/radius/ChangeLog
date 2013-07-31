@@ -1,4 +1,5 @@
 HEAD
+	+ Remove FirewallObserver inheritance as it is not used
 	+ Added menu icon
 	+ Updated to use the new security group concept.
 3.1

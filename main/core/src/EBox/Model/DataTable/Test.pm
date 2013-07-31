@@ -700,7 +700,7 @@ sub setRowTest : Test(8)
         $dataTable->setRow(0, %changeParams);
     } 'Setting row with the same values';
 
-    ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
+    ok (($dataTable->called($notifyMethodName)), 'checking that on setting row with no changes also calls notify method');
 }
 
 sub setWithDataInUseTest : Test(15)

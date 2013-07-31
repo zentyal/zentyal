@@ -92,6 +92,10 @@ sub moduleEnabled
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
 
     my $global = EBox::Global->getInstance();
     if ( $global->modExists('cloud-prof') ) {

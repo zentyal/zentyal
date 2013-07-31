@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to updatedRowNotify call with no changes in values
 	+ Added menu icon
 	+ Removed dkim_verification obsolete option from the local conf
 	+ Adapt firewall rules to new accept chains

@@ -1000,26 +1000,6 @@ sub groupDn
     return $dn;
 }
 
-# Method: usersDn
-#
-#       Returns the dn where the users are stored in the ldap directory.
-#       Accepts an optional parameter as base dn instead of getting it
-#       from the LDAP directory
-#
-# Returns:
-#
-#       string - dn
-#
-# FIXME: This should not be used anymore...
-sub usersDn
-{
-    my ($self, $dn) = @_;
-    unless(defined($dn)) {
-        $dn = $self->ldap->dn();
-    }
-    return $dn;
-}
-
 # Init a new user (home and permissions)
 sub initUser
 {
@@ -1182,7 +1162,7 @@ sub users
 
     my $objectClass = $self->{userClass}->mainObjectClass();
     my %args = (
-        base => $self->usersDn(),
+        base => $self->ldap->dn(),
         filter => "objectclass=$objectClass",
         scope => 'sub',
     );
@@ -2083,9 +2063,7 @@ sub restoreConfig
     for my $user (@{$self->users()}) {
 
         # Init local users
-        if ($user->baseDn eq $self->usersDn) {
-            $self->initUser($user);
-        }
+        $self->initUser($user);
 
         # Notify modules except samba because its users will be
         # restored from its own LDB backup
