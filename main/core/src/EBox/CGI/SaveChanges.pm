@@ -41,7 +41,7 @@ sub _process
     my $global = EBox::Global->getInstance();
     if (not $global->unsaved) {
         # installer gives false positive there
-        if (not $self->param('installer')) {
+        if (not $self->param('firstTime')) {
             throw EBox::Exceptions::External("No changes to be saved or revoked");
         }
     }

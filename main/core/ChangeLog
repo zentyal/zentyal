@@ -4,7 +4,7 @@ HEAD
 	+ Fixed bad call to EBox::CGI::Run::urlToClass in EBox::CGi::Base
 	+ Added icons for top-level menu entries and module status page
 	+ Fixed bad arguments in CGI::Controller::Composite call to SUPER::new()
-	+ More flexible EBox::CGI::run for inheretance
+	+ More flexible EBox::CGI::run for inheritance
 	+ Fixed encoding of parameters in confirmation dialogs
 	+ Check backup integrity by listing the tar file, throw
 	  InvalidData exception if the tar is corrupted
