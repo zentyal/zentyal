@@ -1,4 +1,4 @@
 etc/apache2/conf.d/rpcproxy.conf
-usr/lib/openchange/web/rpcproxy/rpcproxy.wsgi
-usr/lib/openchange/web/rpcproxy/rpcproxy
-usr/lib/openchange/web/rpcproxy/rpcproxy*.egg-info
+opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+opt/samba4/lib/openchange/web/rpcproxy/rpcproxy
+opt/samba4/lib/openchange/web/rpcproxy/rpcproxy*.egg-info
