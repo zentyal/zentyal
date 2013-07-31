@@ -57,7 +57,7 @@ config.make:
 		./configure --with-gnustep --enable-debug --disable-strip
 
 build: config.make build-stamp controlfiles
-build-stamp:
+build-stamp: config.make
 	dh_testdir
 
 	-mv sope-core/NGStreams/config.guess sope-core/NGStreams/config.guess.upstream
