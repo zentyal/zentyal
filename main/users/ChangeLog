@@ -1,4 +1,4 @@
-HEAD
+3.0.22
 	+ Fixed code typo in slave setup
 	+ Avoid "cannot return outside of a subroutine" warning in cloud-sync
 	+ Fixed cloud sync setup when user number is unlimited
