@@ -34,7 +34,7 @@ sub _tree
         treeName => 'Manage',
         modelDomain => 'Users',
         pageTitle => $self->parentModule()->printableName(),
-        defaultActions => [ 'add', 'edit', 'delete' ],
+        defaultActions => [ 'add', 'delete' ],
         help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba. Please note that multiple OU support is partial, some modules may only work with users and groups in the default Users and Groups OUs.'),
     };
 }
