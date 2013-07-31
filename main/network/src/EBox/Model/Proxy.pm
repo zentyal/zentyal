@@ -136,15 +136,17 @@ sub validateTypedRow
     my ($self, $action, $newValues_r, $allValues_r) = @_;
     if (exists $allValues_r->{server}) {
         my $server = $allValues_r->{server}->value();
-        my $netMod = $self->parentModule();
-        my $iface = $netMod->ifaceByAddress($server);
-        if ($iface) {
-            throw EBox::Exceptions::External(
-                __x('Proxy {addr} is invalid because it is the address of the interface {if}',
-                    addr => $server,
-                    if   => $iface,
-                   )
-               );
+        if ($server) {
+            my $netMod = $self->parentModule();
+            my $iface = $netMod->ifaceByAddress($server);
+            if ($iface) {
+                throw EBox::Exceptions::External(
+                    __x('Proxy {addr} is invalid because it is the address of the interface {if}',
+                        addr => $server,
+                        if   => $iface,
+                       )
+                   );
+            }
         }
     }
 
