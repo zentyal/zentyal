@@ -599,21 +599,31 @@ sub addTypedRow
 sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
-    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    my $currentRow =  $self->row($id);
+    $paramsRef = $self->_autoDetectInterface($paramsRef, $currentRow);
+
     return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 }
 
 sub _autoDetectInterface
 {
-    my ($self, $paramsRef) = @_;
+    my ($self, $paramsRef, $currentRow) = @_;
+    my $auto;
+    if (exists $paramsRef->{auto}) {
+        $auto = $paramsRef->{auto}->value();
+    } elsif ($currentRow) {
+        $auto = $currentRow->valueByName('auto');
+    }
 
-    if (exists $paramsRef->{auto} and $paramsRef->{auto}->value()) {
+    if ($auto) {
         return $paramsRef;
     }
 
     my $ip;
-    if (exists $paramsRef->{ip} and $paramsRef->{ip}) {
+    if (exists $paramsRef->{ip}) {
         $ip =  $paramsRef->{ip}->value();
+    } elsif ($currentRow) {
+        $ip = $currentRow->valueByName('ip');
     }
     if (not $ip) {
         throw EBox::Exceptions::DataMissing(data => $self->fieldHeader('ip')->printableName());
