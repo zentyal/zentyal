@@ -266,7 +266,6 @@ sub defaultActionLabels
     return {
         'add' => __('Add new'),
         'delete' => __('Delete'),
-        'edit' => __('Edit'),
     };
 }
 

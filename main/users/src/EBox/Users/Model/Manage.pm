@@ -142,23 +142,16 @@ sub nodeTypes
         domain => { actions => { filter => 0, add => $rw }, actionObjects => { add => 'OU' } },
         ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
-        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw, view => 1 } },
-        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw, view => 1 } },
-        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw, view => 1 },
-                                                                actionObjects => { edit => 'Group', delete => 'Group', view => 'Group' } },
+        user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
+                                                                actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
-        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw, view => 1 } },
+        contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
     };
 }
 
 sub clickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('view', $type);
-}
-
-sub doubleClickHandlerJS
 {
     my ($self, $type) = @_;
 
