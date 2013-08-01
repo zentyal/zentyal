@@ -7,14 +7,11 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </%init>
 
-
-
-
-
 <div id="edit_user">
-<h3 class="icon-group"><% __('Group ') %> <% $group->name() %></h3>
+<h3 class="<% $iconclass %>"><% __('Group ') %> <% $group->name() %></h3>
 
 <div id='error_editGroupForm' class='error' style='display:none'></div>
 % unless (@groupusers or @remainusers) {
@@ -27,7 +24,7 @@ use EBox::Gettext;
     <input type="hidden" name="dn" value="<% $group->dn() %>">
     <input type="hidden" name="edit" value="edit">
 
-          <label> <% __('Type') %> </label> 
+          <label> <% __('Type') %> </label>
             <div class="radioGroup">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>
@@ -72,7 +69,6 @@ use EBox::Gettext;
 </div>
 % }
 
-</div>
 <%def .usersRW>
 <%args>
 $group
@@ -99,9 +95,7 @@ $(function() {
        event.preventDefault();
        Zentyal.Dialog.submitForm('#editGroupForm', { extraData: {edit: 1} });
     });
-});
 
-$(function() {
    var updateUserWidgets = function(data) {
       var user, i;
 
