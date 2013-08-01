@@ -148,9 +148,6 @@ sub setupGidMapping
 {
     my ($self, $gidNumber) = @_;
 
-    # NOTE Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
-    # it is not working when the user init session as DOMAIN/user but user@domain.com
-    # FIXME Remove this when fixed
     my $type = $self->_ldap->idmap->TYPE_GID();
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $gidNumber);
 }
@@ -193,21 +190,21 @@ sub create
     my $attr = [];
     push ($attr, cn => $args{name});
     push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
-    push ($attr, sAMAccountName    => $args{name});
-    push ($attr, description       => $args{description}) if ($args{description});
+    push ($attr, sAMAccountName => $args{name});
+    push ($attr, description    => $args{description}) if ($args{description});
     if ($isSecurityGroup) {
-        push ($attr, gidNumber         => $args{gidNumber}) if ($args{gidNumber});
         $groupType |= GROUPTYPESECURITY;
     }
 
-    push ($attr, groupType         => $groupType);
+    push ($attr, groupType       => $groupType);
 
     # Add the entry
     my $result = $class->_ldap->add($dn, { attrs => $attr });
     my $createdGroup = new EBox::Samba::Group(dn => $dn);
 
-    # Setup the gid mapping
-    $createdGroup->setupGidMapping($args{gidNumber}) if defined $args{gidNumber};
+    if (defined $args{gidNumber}) {
+        $createdGroup->setupGidMapping($args{gidNumber});
+    }
 
     return $createdGroup;
 }
@@ -234,7 +231,6 @@ sub addToZentyal
     }
     my $parentDN = $parent->dn();
     my $name = $self->get('samAccountName');
-    my $gidNumber = $self->get('gidNumber');
 
     my $zentyalGroup = undef;
     EBox::info("Adding samba group '$name' to Zentyal");
@@ -249,14 +245,12 @@ sub addToZentyal
         );
 
         if ($self->isSecurityGroup()) {
-            if (not $gidNumber) {
-                $gidNumber = $self->getXidNumberFromRID();
-                throw EBox::Exceptions::Internal("Could not get gidNumber for group $name") unless ($gidNumber);
-                $self->set('gidNumber', $gidNumber);
+            my $gidNumber = $self->xidNumber();
+            unless (defined $gidNumber) {
+                throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
             }
-
-            push @params, gidNumber => $gidNumber;
-            $self->setupGidMapping($gidNumber);
+            push (@params, gidNumber => $gidNumber);
+            EBox::debug("Replicating a security group into OpenLDAP with gidNumber = $gidNumber");
         }
 
         $zentyalGroup = EBox::Users::Group->create(@params);
@@ -286,7 +280,18 @@ sub updateZentyal
     my $description = $self->get('description');
 
     $zentyalGroup->setIgnoredModules(['samba']);
-    $zentyalGroup->setSecurityGroup($self->isSecurityGroup(), 1);
+    if ($self->isSecurityGroup()) {
+        unless ($zentyalGroup->isSecurityGroup()) {
+            $zentyalGroup->setSecurityGroup(1, 1);
+            my $gidNumber = $self->xidNumber();
+            unless (defined $gidNumber) {
+                throw EBox::Exceptions::Internal("Could not get gidNumber for group " . $zentyalGroup->name());
+            }
+            $zentyalGroup->set('gidNumber', $gidNumber, 1);
+        }
+    } elsif ($zentyalGroup->isSecurityGroup()) {
+        $zentyalGroup->setSecurityGroup(0, 1);
+    }
     $zentyalGroup->set('description', $description, 1);
     $zentyalGroup->save();
 

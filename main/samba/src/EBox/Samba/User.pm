@@ -143,9 +143,6 @@ sub setupUidMapping
 {
     my ($self, $uidNumber) = @_;
 
-    # NOTE Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
-    # it is not working when the user init session as DOMAIN/user but user@domain.com
-    # FIXME Remove this when fixed
     my $type = $self->_ldap->idmap->TYPE_UID();
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $uidNumber);
 }
@@ -287,7 +284,7 @@ sub setHomeDrive
 #       samAccountName - string with the user name
 #       clearPassword - Clear text password
 #       kerberosKeys - Set of kerberos keys
-#       uidNumber - user UID numberer
+#       uidNumber - user UID number
 #
 # Returns:
 #
@@ -334,7 +331,6 @@ sub create
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
     push (@attr, userAccountControl => '514');
-    push (@attr, uidNumber => $args{uidNumber}) if ($args{uidNumber});
 
     my $res = undef;
     my $entry = undef;
@@ -354,9 +350,6 @@ sub create
 
         $res = new EBox::Samba::User(dn => $dn);
 
-        # Setup the uid mapping
-        $res->setupUidMapping($args{uidNumber}) if defined $args{uidNumber};
-
         # Set the password
         if (defined $args{clearPassword}) {
             $res->changePassword($args{clearPassword});
@@ -364,6 +357,10 @@ sub create
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled();
+        }
+
+        if (defined $args{uidNumber}) {
+            $res->setupUidMapping($args{uidNumber});
         }
     } otherwise {
         my ($error) = @_;
@@ -425,7 +422,6 @@ sub addToZentyal
     my $uid = $self->get('samAccountName');
     my $givenName = $self->givenName();
     my $surname = $self->surname();
-    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless $givenName;
     $surname = '-' unless $surname;
 
@@ -444,14 +440,11 @@ sub addToZentyal
             ignoreMods   => ['samba'],
         );
 
-        if (not $uidNumber) {
-            $uidNumber = $self->getXidNumberFromRID();
-            throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid") unless ($uidNumber);
-            $self->set('uidNumber', $uidNumber);
+        my $uidNumber = $self->xidNumber();
+        unless (defined $uidNumber) {
+            throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
         }
-
         $args{uidNumber} = $uidNumber;
-        $self->setupUidMapping($uidNumber);
 
         $zentyalUser = EBox::Users::User->create(%args);
     } catch EBox::Exceptions::DataExists with {
@@ -474,7 +467,6 @@ sub addToZentyal
         $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 
         $self->_linkWithUsersObject($zentyalUser);
-
     }
 }
 

@@ -210,14 +210,13 @@ sub _checkAccountNotExists
     }
 }
 
-sub getXidNumberFromRID
+sub xidNumber
 {
     my ($self) = @_;
 
-    my $sid = $self->sid();
-    my $rid = (split (/-/, $sid))[7];
+    my $sambaMod = EBox::Global->modInstance('samba');
 
-    return $rid + 50000;
+    return $sambaMod->ldb()->idmap()->getXidNumberBySID($self->sid())
 }
 
 1;

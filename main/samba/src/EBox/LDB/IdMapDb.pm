@@ -31,7 +31,6 @@ sub setupNameMapping
 
     $self->deleteMapping($sid, 1);
 
-    my $file = EBox::Config::tmp() . 'idmap.ldif';
     my $ldif = "dn: CN=$sid\n" .
                "changetype: add\n" .
                "xidNumber: $uidNumber\n" .
@@ -41,14 +40,12 @@ sub setupNameMapping
                "cn: $sid\n";
     EBox::debug("Mapping XID '$uidNumber' to '$sid'");
     EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
-    unlink $file;
 }
 
 sub deleteMapping
 {
     my ($self, $sid, $silent) = @_;
 
-    my $file = EBox::Config::tmp() . 'idmap.ldif';
     my $ldif = "dn: CN=$sid\n" .
                "changetype: delete\n";
     if ($silent) {
@@ -57,7 +54,37 @@ sub deleteMapping
         EBox::debug("Unmapping XID '$sid'");
         EBox::Sudo::root("echo '$ldif' | ldbmodify -H $self->{file}");
     }
-    unlink $file;
+}
+
+sub getXidNumberBySID
+{
+    my ($self, $sid) = @_;
+
+    EBox::debug("Searching for the XID of '$sid'");
+    my $output = EBox::Sudo::root("ldbsearch -H $self->{file} \"(&(objectClass=sidMap)(cn=$sid))\" | grep -v ^GENSEC");
+    my $ldifBuffer = join ('', @{$output});
+    EBox::debug($ldifBuffer);
+
+    my $fd;
+    open $fd, '<', \$ldifBuffer;
+
+    my $xid = undef;
+    my $ldif = Net::LDAP::LDIF->new($fd);
+    if (not $ldif->eof()) {
+        my $entry = $ldif->read_entry();
+        if ($ldif->error()) {
+            EBox::debug("Error msg: " . $ldif->error());
+            EBox::debug("Error lines:\n" . $ldif->error_lines());
+        } if (not $ldif->eof()) {
+            EBox::debug("Got more than one entry!");
+        } else {
+            $xid = $entry->get_value('xidNumber');
+        }
+    }
+    $ldif->done();
+    close $fd;
+
+    return $xid
 }
 
 1;

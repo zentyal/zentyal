@@ -23,6 +23,9 @@ use MIME::Base64;
 use Encode;
 use Error qw(:try);
 
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::OU;
@@ -154,7 +157,6 @@ sub _preAddUser
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
     my $uid         = $entry->get_value('uid');
-    my $uidNumber   = $entry->get_value('uidNumber');
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
@@ -171,11 +173,11 @@ sub _preAddUser
 
     EBox::info("Creating user '$uid'");
     my $sambaUser = EBox::Samba::User->create(%args);
-    my $newUidNumber = $sambaUser->getXidNumberFromRID();
-    EBox::debug("Changing uidNumber from $uidNumber to $newUidNumber");
-    $sambaUser->set('uidNumber', $newUidNumber);
-    $sambaUser->setupUidMapping($newUidNumber);
-    $entry->replace('uidNumber' => $newUidNumber);
+    my $uidNumber = $sambaUser->xidNumber();
+    unless (defined $uidNumber) {
+        throw EBox::Exceptions::Internal("Could not get the xidNumber from SAMBA for user $uid");
+    }
+    $entry->replace('uidNumber' => $uidNumber);
     $sambaUser->_linkWithUsersEntry($entry);
 }
 
@@ -216,7 +218,6 @@ sub _addUser
 
     my $samAccountName = $zentyalUser->get('uid');
     my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
-    my $uidNumber = $sambaUser->get('uidNumber');
 
     EBox::info("Setting '$samAccountName' password");
     if (defined($zentyalPassword)) {
@@ -224,10 +225,6 @@ sub _addUser
     } else {
         my $keys = $zentyalUser->kerberosKeys();
         $sambaUser->setCredentials($keys);
-    }
-
-    if ($uidNumber) {
-        $sambaUser->setupUidMapping($uidNumber);
     }
 
     # If server is first DC and roaming profiles are enabled, write
@@ -469,11 +466,11 @@ sub _preAddGroup
 
     EBox::info("Creating group '$name'");
     my $sambaGroup = EBox::Samba::Group->create(%args);
-    my $newGidNumber = $sambaGroup->getXidNumberFromRID();
-    EBox::debug("Changing gidNumber to $newGidNumber");
-    $sambaGroup->set('gidNumber', $newGidNumber);
-    $sambaGroup->setupGidMapping($newGidNumber);
-    $entry->replace('gidNumber' => $newGidNumber);
+    my $gidNumber = $sambaGroup->xidNumber();
+    unless (defined $gidNumber) {
+        throw EBox::Exceptions::Internal("Could not get the xidNumber from SAMBA for group $name");
+    }
+    $entry->replace('gidNumber' => $gidNumber);
     $sambaGroup->_linkWithUsersEntry($entry);
 }
 
@@ -515,7 +512,18 @@ sub _addGroup
     my $samAccountName = $zentyalGroup->get('cn');
     my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
     if ($sambaGroup->exists()) {
-        $sambaGroup->setSecurityGroup($zentyalGroup->isSecurityGroup());
+        if ($zentyalGroup->isSecurityGroup()) {
+            unless ($sambaGroup->isSecurityGroup()) {
+                $sambaGroup->setSecurityGroup(1);
+                my $gidNumber = $sambaGroup->xidNumber();
+                unless (defined $gidNumber) {
+                    throw EBox::Exceptions::Internal("Could not get gidNumber for group " . $zentyalGroup->name());
+                }
+                $zentyalGroup->set('gidNumber', $gidNumber);
+            }
+        } elsif ($sambaGroup->isSecurityGroup()) {
+            $sambaGroup->setSecurityGroup(0);
+        }
     } else {
         EBox::error("Error setting the kind of group for $samAccountName");
     };
@@ -658,7 +666,7 @@ sub setGroupShare
     my ($self, $group, $shareName) = @_;
 
     if ((not defined $shareName) or ( $shareName =~ /^\s*$/)) {
-        throw EBox::Exceptions::External(__("A name should be provided for the share."));
+        throw EBox::Exceptions::External("A name should be provided for the share.");
     }
 
     my $oldName = $self->_groupShareEnabled($group);
