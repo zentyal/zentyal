@@ -66,14 +66,15 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 <div id="user_addons" class="form-block full-block">
 <h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
-  <div class="stitle">
-    <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' >
-    </a><% $comp->{title}%>
-  </div>
-   <br/>
-   <div id='<% $comp->{id} %>'  class='userAddon' style='display:none' >
+  <div class="foldableSection">
+   <div class="foldableHead foldUserAddon" data-fold-div='<% $comp->{id} %>'>
+      <span class='maxBox'></span>
+      <% $comp->{title}%>
+   </div>
+   <div id='<% $comp->{id} %>'  class='userAddon foldableContent' >
        <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
    </div>
+ </div>
 % }
 </div>
 % }
@@ -187,7 +188,7 @@ $(function() {
     $('.foldUserAddon').on('click', function(event) {
         event.preventDefault();
         var divId = this.getAttribute('data-fold-div');
-        $(this).toggleClass('minBox').toggleClass('maxBox');
+        $(this).find('span').toggleClass('minBox').toggleClass('maxBox');
         $('#' + divId).toggle();
     });
 
@@ -206,7 +207,7 @@ $user
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' class='btn btn-only-icon btn-add btn-submit' value='<% __('Add') %>' style='float: right'/>
+  <input type='submit' id='addGroupSubmit' class='btn btn-only-icon btn-add btn-submit' value='<% __('Add group') %>' title='<% __('Add group') %>' style='float: right'/>
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>

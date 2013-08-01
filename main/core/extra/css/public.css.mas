@@ -1368,27 +1368,7 @@ a.minBox, a.maxBox {
     width: 98%;
 }
 
-a.maxBox {
-        background-position: -15px 0px;
-}
 
-a.maxBox:hover {
-        background-position: 0px 0px;
-}
-
-a.minBox {
-        background-position: -15px -15px;
-}
-
-a.minBox:hover {
-        background-position: 0px -15px;
-}
-a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
-        background-image:url('/data/images/triangles.png');
-        background-repeat: no-repeat;
-        width: 15px;
-        height: 15px;   
-}
 
 .widArrow {
     display: inline-block;
@@ -2154,8 +2134,7 @@ width: 80%;
 }
 
 .form-block{
-    background-color: #fff;
-    background-color: #FFFFFF;
+    background-color: whitesmoke;
     margin: 1%;
     padding: 1.5%;
 }
@@ -2228,22 +2207,24 @@ ul.labels-list li .close{
 
 .treeView-item-block{
     position: absolute;
-    width: 97%;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
+    right: 0px;
+    left: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-top: 0px;
 
 }
 .treeViewLeft {
     float: left;
     width: 30%;
     margin-top: 20px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
 }
 .treeView {
-    min-height: 480px;
     width: 100%;
     float: left;
-    background-color: whitesmoke !important;
-    max-height: 500px;
+    background-color: white !important;
+    height: 500px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -2253,7 +2234,9 @@ ul.labels-list li .close{
     float: right;
     width: 69%;
     margin-top: 20px;
-    background-color: whitesmoke
+    background-color: white ;
+    min-height:600px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
 }   
 .treeViewNodeViewer h3{
     height: 30px;
@@ -2261,15 +2244,14 @@ ul.labels-list li .close{
     padding-top: 10px;
     padding-bottom: 10px;
     margin: 0px;
-    background-color: whitesmoke;
 }
 .treeviewButtons {
-    background-color: #dddddd;
+    background-color: whitesmoke;
     float: left;
     padding: 10px 0;
     width: 100%;
     height: 28px;
-
+    border-top: 2px dotted #ccc;
 }
 .treeviewButtons .btn-add{
     margin-left: 10px;
@@ -2283,7 +2265,8 @@ ul.labels-list li .close{
     width: 100%;
     height: 30px;
     position: relative;
-    background-color: #ddd;
+    background-color: whitesmoke;
+    border-bottom: 2px dotted #ccc;
 }
 .treeViewToolbox .tableSearch {
     float: none;
@@ -2448,4 +2431,57 @@ form.formDiv input[type="radio"] {
 }
 form.formDiv .radioGroup label{
     font-weight: normal
+}
+
+
+/********************************************************************************
+
+FOLDable SECtIONS
+
+*********************************************************************************/
+
+.foldableSection{
+    border-top: 1px dashed #ccc;
+}
+.foldableSection:last-child{
+    border-bottom: 1px dashed #ccc;   
+}
+.foldableHead {
+    color: #666666;
+    font-size: 14px;
+    padding: 10px 5px;
+    cursor: pointer;
+}
+.foldableHead:hover{
+    background-color: #eee;
+}
+.foldableHead span{
+    margin: 3px 5px;
+}
+.foldableContent {
+    padding: 10px 0px;
+    display: none;
+}
+
+.maxBox {
+        background-position: -15px 0px;
+}
+
+.maxBox:hover {
+        background-position: 0px 0px;
+}
+
+.minBox {
+        background-position: -15px -15px;
+}
+
+.minBox:hover {
+        background-position: 0px -15px;
+}
+.minBox, .minBox:hover, .maxBox, .maxBox:hover {
+        background-image:url('/data/images/triangles.png');
+        background-repeat: no-repeat;
+        width: 15px;
+        height: 15px;
+        float: left;
 }

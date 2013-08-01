@@ -6,7 +6,6 @@
   my $treeId = "tree_" . $model->name();
   my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
-<div class="item-block treeView-item-block">
 <& .pageTitle, title => $model->pageTitle() &>
 
 <& .headTitle, title => $model->headTitle() &>
@@ -50,9 +49,7 @@
 </div>
 
 </form>
-
 </div>
-
 
 <div id="<% $treeId %>" class="treeView"></div>
 <div id="treeButtons" class="treeviewButtons">
@@ -64,7 +61,6 @@
 % }
 </div>
 </div>
-
 <div id="<% $treeViewerId %>" class="treeViewNodeViewer"></div>
 
 
@@ -184,7 +180,7 @@ $(function () {
 </div>
 %   }
 % }
-</div>
+
 <%def .pageTitle>
 <%args>
   $title => undef

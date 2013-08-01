@@ -21,7 +21,6 @@ use EBox::Gettext;
 <div class='note'>
     <% __("There are no users at the moment. You need at least one to manage this group properly.")%>
 </div>
-<br />
 % }
 <div class="form-block half-block">
 <form class="formDiv" action='/Users/EditGroup' method='POST' id='editGroupForm'>
@@ -60,13 +59,15 @@ use EBox::Gettext;
 <div id="group_addons"  class="form-block full-block">
 <h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
-  <div class="stitle">
-    <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
-       <% $comp->{title} %>
-   </div>
-   <div id='<% $comp->{id} %>'  class='userAddon' style='display:none' >
+<div class="foldableSection">
+  <div class="foldableHead foldUserAddon" data-fold-div='<% $comp->{id} %>'>
+    <span class='maxBox'></span>
+    <% $comp->{title}%>
+  </div>
+   <div id='<% $comp->{id} %>'  class='userAddon foldableContent'>
        <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
    </div>
+ </div>
 % }
 </div>
 % }
@@ -175,7 +176,7 @@ $(function() {
   $('.foldUserAddon').on('click', function(event) {
     event.preventDefault();
     var divId = this.getAttribute('data-fold-div');
-    $(this).toggleClass('minBox').toggleClass('maxBox');
+    $(this).find('span').toggleClass('minBox').toggleClass('maxBox');
     $('#' + divId).toggle();
   });
 
@@ -195,7 +196,7 @@ $group
 <form action='/Users/EditGroup' method='POST' id='addUserToGroup' >
   <select name="adduser" id="adduser">
   </select>
-  <input type='submit' id='addUserToGroupSubmit' class='btn btn-only-icon btn-add' style="float:right;" value='<% __('Add') %>' />
+  <input type='submit' id='addUserToGroupSubmit' class='btn btn-only-icon btn-add' style="float:right;" value='<% __('Add user') %>' title='<% __('Add user') %>' />
   <input type="hidden" name="dn"   value="<% $group->dn() %>"/>
   <input type="hidden" name="addusertogroup" value="1"/>
 </form>
