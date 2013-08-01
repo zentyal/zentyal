@@ -285,9 +285,9 @@ sub validateRow
                 if ($action eq 'add') {
                     throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
                 } else {
-                    throw EBox::Exceptions::External(__x("Gateway {gw} must be reachable by a static interface. "
-                                . "Currently it is reachable by {iface} which is not static",
-                                gw => $ip, iface => $iface));
+                    throw EBox::Exceptions::External(__x("Gateway {gw} must be in the same network that a static interface. "
+                                                          . "Currently it belongs to the network of {iface} which is not static",
+                                                         gw => $ip, iface => $iface));
                 }
             }
         } else {
@@ -599,19 +599,32 @@ sub addTypedRow
 sub setTypedRow
 {
     my ($self, $id, $paramsRef, %optParams) = @_;
-    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    my $currentRow =  $self->row($id);
+    $paramsRef = $self->_autoDetectInterface($paramsRef, $currentRow);
+
     return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
 }
 
 sub _autoDetectInterface
 {
-    my ($self, $paramsRef) = @_;
+    my ($self, $paramsRef, $currentRow) = @_;
+    my $auto;
+    if (exists $paramsRef->{auto}) {
+        $auto = $paramsRef->{auto}->value();
+    } elsif ($currentRow) {
+        $auto = $currentRow->valueByName('auto');
+    }
 
-    if (exists $paramsRef->{auto} and $paramsRef->{auto}->value()) {
+    if ($auto) {
         return $paramsRef;
     }
 
-    my $ip = $paramsRef->{ip}->value();
+    my $ip;
+    if (exists $paramsRef->{ip}) {
+        $ip =  $paramsRef->{ip}->value();
+    } elsif ($currentRow) {
+        $ip = $currentRow->valueByName('ip');
+    }
     if (not $ip) {
         throw EBox::Exceptions::DataMissing(data => $self->fieldHeader('ip')->printableName());
     }
