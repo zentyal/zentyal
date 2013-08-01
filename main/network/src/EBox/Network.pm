@@ -3524,11 +3524,11 @@ sub gatewayReachable
     if ($name) {
         if (not $reachableByNoStaticIface) {
         throw EBox::Exceptions::External(
-                __x("Gateway {gw} not reachable", gw => $gw));
+                __x("Gateway {gw} must be in the same network than a static interface", gw => $gw));
         } else {
         throw EBox::Exceptions::External(
-                __x("Gateway {gw} must be reachable by a static interface. "
-                    . "Currently it is reachable by {iface} which is not static",
+                __x("Gateway {gw} must be in the same network than a static interface. "
+                    . "Currently it belongs to the network of {iface} which is not static",
                     gw => $gw, iface => $reachableByNoStaticIface) );
         }
 

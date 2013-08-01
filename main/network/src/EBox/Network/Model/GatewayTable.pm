@@ -285,9 +285,9 @@ sub validateRow
                 if ($action eq 'add') {
                     throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
                 } else {
-                    throw EBox::Exceptions::External(__x("Gateway {gw} must be reachable by a static interface. "
-                                . "Currently it is reachable by {iface} which is not static",
-                                gw => $ip, iface => $iface));
+                    throw EBox::Exceptions::External(__x("Gateway {gw} must be in the same network that a static interface. "
+                                                          . "Currently it belongs to the network of {iface} which is not static",
+                                                         gw => $ip, iface => $iface));
                 }
             }
         } else {
