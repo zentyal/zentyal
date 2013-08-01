@@ -1,6 +1,6 @@
 HEAD
+	+ Clearer messages for gateway not reachable condition
 	+ Fixed bug which unallowed to disable the proxy server
-	+ More clear messages for gateway not reachable condition
 	+ Fix regression is Gateways table due to the change of behaviour
 	  of update row notifications
 	+ Added menu icon
