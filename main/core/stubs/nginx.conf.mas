@@ -118,6 +118,14 @@ http {
         #   root /usr/share/nginx/www;
         #}
 
+        error_page 502 /errors/502.html;
+        location = /errors/502.html {
+           root /usr/share/zentyal/www;
+        }
+        location = /js/jquery-1.9.1.js {
+           root /usr/share/zentyal/www;
+        }
+
         location @proxy {
             proxy_pass http://localhost:60080;
 

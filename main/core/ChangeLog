@@ -1,4 +1,5 @@
 HEAD
+	+ Added better 502 error page for nginx with redirect when apache is ready
 	+ Fixed bad call to EBox::CGI::Run::urlToClass in EBox::CGi::Base
 	+ Added icons for top-level menu entries and module status page
 	+ Fixed bad arguments in  CGI::Controller::Composite call to SUPER::new()
