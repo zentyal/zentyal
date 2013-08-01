@@ -938,7 +938,7 @@ input {
 
 
 /**********************************************************************************************
- Menu icons
+ ICONS
 **********************************************************************************************/
 
 a[class^="icon"],
@@ -994,16 +994,20 @@ td[class^="icon"] {
 .icon-webserver { background-image: url("/data/software/images/package-icons/zentyal-webserver.png");}
 .icon-zarafa { background-image: url("/data/software/images/package-icons/zentyal-zarafa.png");}
 
+/**********************************************************************************************
+ ICONS on titles
+**********************************************************************************************/
+
 h3[class^="icon"]{
     background-position: 5px center;
     background-repeat: no-repeat;
     padding-left: 45px !important;  
 }
-h3.icon-user{ background-image: url('/data/images/treeview/user-big.png')
-}
-h3.icon-group{ background-image: url('/data/images/treeview/group-big.png')
-}
 
+h3.icon-user{ background-image: url('/data/images/treeview/user-big.png')}
+h3.icon-group{ background-image: url('/data/images/treeview/group-big.png')}
+h3.icon-dgroup{ background-image: url('/data/images/treeview/dgroup-big.png')}
+h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
 
 .sleft { float: left; }
 
@@ -2374,7 +2378,6 @@ BUTTONS
     width: 28px;
     font-size: 0px;
 }
-
 .btn-filter{ background-image: url(/data/images/filter.png);}
 .btn-add{ background-image: url(/data/images/add.gif);}
 .btn-delete{ 
@@ -2391,7 +2394,6 @@ BUTTONS
     width: 30px;
     cursor: pointer; 
 }
-
 .btn-submit{
     height: 30px; 
 }
@@ -2407,20 +2409,27 @@ FORMS
 
 form.formDiv label {
     display: block;
-    color: #666;
+    color: #888;
     margin-bottom: 3px;
     font-weight: bold;
 }
-form.formDiv input, form.formDiv textarea{
+form.formDiv input[type="text"],form.formDiv input[type="password"]{
     margin-bottom: 10px; 
     display: block;
+    font-size: 14px;
+    color: #333;
 }
+
 form.formDiv textarea{
     width: 95%;
     resize: none ;
+    margin-bottom: 10px; 
+    display: block;
+    font-size: 14px;
 }
 form.formDiv .optional_field {
     margin-left: 10px;
+    font-weight: normal;
 }
 form.formDiv input[type="radio"] {
     display: inline-block;
@@ -2430,7 +2439,8 @@ form.formDiv input[type="radio"] {
     margin-bottom: 10px;
 }
 form.formDiv .radioGroup label{
-    font-weight: normal
+    font-weight: normal;
+    color: #333;
 }
 
 
