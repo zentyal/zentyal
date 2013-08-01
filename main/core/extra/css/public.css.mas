@@ -58,7 +58,7 @@
 #hmenu {
     position: absolute;
     top: 5px;
-    right: 5px;
+    right: 0px;
     z-index: 100;
 }
 #hmenu a {
@@ -404,7 +404,7 @@ select {
     border: 2px inset;
 }
 
-input[type='password'], input[type='text'] {
+input[type='password'], input[type='text'], textarea {
     border:1px solid #999;
     border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -1104,7 +1104,7 @@ TABLE LIST
     float: left;
 }
 .tableSearch input[type="submit"]{
-    text-indent: 1000px;
+    font-size: 0px;
     height: 30px;
     width: 30px;
     background: whitesmoke url('/data/images/magnifying-glass.png') center center no-repeat;
@@ -1141,9 +1141,9 @@ TABLE LIST
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     padding: 0px 10px 0px 25px;
-    height: 30px;
+    height: 28px;
     display: inline-block;
-    line-height: 30px;
+    line-height: 28px;
     text-decoration: none;
     font-size: 12px;
     color: #333;
@@ -1383,13 +1383,11 @@ a.minBox {
 a.minBox:hover {
         background-position: 0px -15px;
 }
-
-
-
 a.minBox, a.minBox:hover, a.maxBox, a.maxBox:hover {
         background-image:url('/data/images/triangles.png');
-        height:15px;
-        width:15px;
+        background-repeat: no-repeat;
+        width: 15px;
+        height: 15px;   
 }
 
 .widArrow {
@@ -2110,6 +2108,7 @@ tr:hover .moveRowHandle{
 .custom-combobox {
 position: relative;
 display: inline-block;
+width: 80%;
 }
 .custom-combobox-toggle {
     background-color: #DDD;
@@ -2131,6 +2130,10 @@ display: inline-block;
     border-radius: 2px !important;
     -webkit-border-radius:2px !important;
     -moz-border-radius: 2px !important;
+        max-width: 200px;
+    min-width: 120px;
+    padding: 0 0 0 5px;
+    width: 80%;
 }
 .ui-autocomplete{
     background-color: #eee !important;
@@ -2151,9 +2154,10 @@ display: inline-block;
 }
 
 .form-block{
-    padding: 5px;
     background-color: #fff;
-    margin: 10px;
+    background-color: #FFFFFF;
+    margin: 1%;
+    padding: 1.5%;
 }
 
 .half-block {
@@ -2203,6 +2207,7 @@ ul.labels-list li .close{
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
     margin: 10px 0px;
     padding: 10px;
+    position: relative;
 }
 
 .item-block h3{
@@ -2223,7 +2228,10 @@ ul.labels-list li .close{
 
 .treeView-item-block{
     position: absolute;
-    width: 100%;
+    width: 97%;
+    padding-left: 1.5%;
+    padding-right: 1.5%;
+
 }
 .treeViewLeft {
     float: left;
@@ -2354,7 +2362,7 @@ BUTTONS
     cursor: pointer;
     font-size: 11px;
     font-weight: bold;
-    height: 30px;
+    height: 28px;
     letter-spacing: 1px;
     overflow: hidden;
     text-transform: uppercase;
@@ -2399,4 +2407,45 @@ BUTTONS
     height: 100%; 
     width: 30px;
     cursor: pointer; 
+}
+
+.btn-submit{
+    height: 30px; 
+}
+.btn-only-icon.btn-submit{
+    width: 30px;
+}
+
+/********************************************************************************
+
+FORMS
+
+*********************************************************************************/
+
+form.formDiv label {
+    display: block;
+    color: #666;
+    margin-bottom: 3px;
+    font-weight: bold;
+}
+form.formDiv input, form.formDiv textarea{
+    margin-bottom: 10px; 
+    display: block;
+}
+form.formDiv textarea{
+    width: 95%;
+    resize: none ;
+}
+form.formDiv .optional_field {
+    margin-left: 10px;
+}
+form.formDiv input[type="radio"] {
+    display: inline-block;
+    margin-bottom: 0;
+}
+.radioGroup{
+    margin-bottom: 10px;
+}
+form.formDiv .radioGroup label{
+    font-weight: normal
 }
