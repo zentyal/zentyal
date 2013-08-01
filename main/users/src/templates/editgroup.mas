@@ -101,10 +101,7 @@ $(function() {
 
       // workaround for edit mailalias
       if (!(data.firstTime) & ($('#needReload').length > 0)) {
-           var url = '/Users/EditGroup';
-           var data = 'dn=' + data.groupDN;
-           Zentyal.Dialog.showURL(url, { data: data})
-           return;
+         // TODO reload right panel
       }
 
       var addUser =  $('#adduser');
