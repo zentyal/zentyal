@@ -1,4 +1,6 @@
 HEAD
+	+ When a new system user is created with uid 0 we also create its home.
+	  This is required by Samba for the Administrator account.
 	+ Added Net::LDAPBase::existsDN method
 	+ Better error control on reprovision, do not clear the
 	  reprovision flg on error

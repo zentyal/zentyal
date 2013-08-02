@@ -210,14 +210,30 @@ sub _checkAccountNotExists
     }
 }
 
-sub getXidNumberFromRID
+sub xidNumber
 {
     my ($self) = @_;
 
-    my $sid = $self->sid();
-    my $rid = (split (/-/, $sid))[7];
+    my $sambaMod = EBox::Global->modInstance('samba');
+    my $ldb = $sambaMod->ldb();
+    my $idmap = $ldb->idmap();
 
-    return $rid + 50000;
+    my $xidNumber = $idmap->getXidNumberBySID($self->sid());
+
+    unless (defined $xidNumber) {
+        # This object lacks an XidNumber, we generate one.
+        $xidNumber = $idmap->consumeNextXidNumber();
+        my $object = $sambaMod->entryModeledObject($self->_entry);
+        if ($object->isa('EBox::Samba::User')) {
+            $object->setupUidMapping($xidNumber);
+        } elsif ($object->isa('EBox::Samba::Group')) {
+            $object->setupGidMapping($xidNumber);
+        } else {
+            EBox::debug("Unknown object!");
+        }
+    }
+
+    return $xidNumber;
 }
 
 1;

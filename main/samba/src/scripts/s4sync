@@ -21,10 +21,12 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use Error qw(:try);
+use EBox::Users::Group;
+use EBox::Users::User;
 
-use Time::gmtime;
+use Error qw(:try);
 use File::Slurp;
+use Time::gmtime;
 
 sub getTimestamp
 {
@@ -49,7 +51,7 @@ my $usersModule = $global->modInstance('users');
 
 my $ldb = $sambaModule->ldb();
 
-my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Kerberos postfix postfix/mailalias postfix/vdomains);
+my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix postfix/mailalias postfix/vdomains);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -77,7 +79,12 @@ while (1) {
     my %zentyalUsers = map { $_->get('uid') => $_ } @{$usersModule->users()};
     my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
-    my %zentyalOUs    = map { my $_->canonicalName(1) => $_ } @{ $usersModule->ous() };
+    my %zentyalOUs    = map { $_->canonicalName(1) => $_ } @{$usersModule->ous()};
+
+    # The Administrator user, and 'Domain Users' group are special case entries.
+    $zentyalUsers{'Administrator'} = new EBox::Users::User(uid => 'Administrator');
+    $zentyalGroups{'Domain Users'} = new EBox::Users::Group(gid => 'Domain Users');
+
     foreach my $ignored (keys %ignoreOUs) {
         delete $zentyalOUs{$ignored};
     }
@@ -112,6 +119,7 @@ while (1) {
     my @orderZentyalOus = reverse sort keys %zentyalOUs;
     foreach my $ouCanonicalName (reverse sort keys %zentyalOUs) {
         EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$ouCanonicalName}->dn() . "'");
+        $zentyalOUs{$ouCanonicalName}->setIgnoredModules(['samba']);
         $zentyalOUs{$ouCanonicalName}->deleteObject();
     }
 
