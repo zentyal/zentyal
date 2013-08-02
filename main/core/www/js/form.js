@@ -31,6 +31,10 @@ Zentyal.Form.setupAjaxSubmit = function(formSelector, params) {
               } else if ('error' in response) {
                  errorDiv.html(response.error).show();
               }
+
+              if ('success' in params) {
+                  params.success(response);
+              }
            },
            error: function(jqXHR){
               errorDiv.html(jqXHR.responseText).show();
