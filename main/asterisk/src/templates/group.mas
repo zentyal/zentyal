@@ -54,10 +54,8 @@
 
 <script>
 $(function(){
-   console.log('astGroupOptions loading');
   $('#astGroupOptions').on('submit', function(event) {
         event.preventDefault();
-   console.log('astGroupOptions submit');
         Zentyal.TableHelper.setLoading('submitAstGroupOptions', undefined,  true);
         var noteDiv =  $('#note_astGroupOptions');
         noteDiv.hide();
@@ -86,6 +84,5 @@ $(function(){
            }
     });
   });
-  console.log('astGroupOptions onload finished');
 });
 </script>

@@ -4,15 +4,16 @@
 <%init>
     use EBox::Gettext;
 </%init>
+<script type="text/javascript" src="/data/js/table-helper.js" />
     <div class="help"><%__('Password for Asterisk service is the user password')%></div>
 
 %   if (not $params->{service} ) {
         <& /asterisk/moduleDisabled.mas &>
 %   }
 
-
- <div id='error_userOptions' class='error' style='display:none'></div>
- <form id='userOptions' action="/Asterisk/AsteriskUserOptions" method="POST">
+ <div id='note_astUserOptions' class='note' style='display:none'></div>
+ <div id='error_astUserOptions' class='error' style='display:none'></div>
+ <form id='astUserOptions' action="/Asterisk/AsteriskUserOptions" method="POST">
     <table class="formTable">
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
         <tr>
@@ -55,15 +56,35 @@
 
 <script>
 $(function() {
-   $('#userOptions').on('submit', function(event) {
+   $('#astUserOptions').on('submit', function(event) {
         event.preventDefault();
-        Zentyal.Dialog.submitForm(event.target, {
-            success: function(response) {
-               var url = '/Users/EditUser';
-               var data = 'dn=' + response.userDN;
-               Zentyal.Dialog.showURL(url, { data: data});
-            }
-        });
+        Zentyal.TableHelper.setLoading('submitAstUserOptions', undefined,  true);
+        var noteDiv =  $('#note_astUserOptions');
+        noteDiv.hide();
+        var errorDiv = $('#error_astUserOptions');
+        errorDiv.hide();
+
+        var form = $(event.target);
+        var url = form.attr('action');
+        var data = form.serialize();
+       $.ajax({
+           url : url,
+           data: data,
+           dataType: 'json',
+           success: function (response){
+              if (response.success) {
+                  noteDiv.html(response.msg).show();
+              } else {
+                 errorDiv.html(response.error).show();
+              }
+           },
+           error: function(jqXHR){
+              errorDiv.html(jqXHR.responseText).show();
+           },
+           complete: function() {
+             Zentyal.TableHelper.restoreHidden('submitAstGroupOptions');
+           }
+    });
    });
 });
 </script>
