@@ -1,4 +1,5 @@
 HEAD
+	+ Remove needReload notification for group addons
 	+ When a new system user is created with uid 0 we also create its home.
 	  This is required by Samba for the Administrator account.
 	+ Added Net::LDAPBase::existsDN method

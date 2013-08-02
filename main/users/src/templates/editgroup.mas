@@ -99,11 +99,6 @@ $(function() {
    var updateUserWidgets = function(data) {
       var user, i;
 
-      // workaround for edit mailalias
-      if (!(data.firstTime) & ($('#needReload').length > 0)) {
-         // TODO reload right panel
-      }
-
       var addUser =  $('#adduser');
       addUser.detach();
       addUser.children().remove();
