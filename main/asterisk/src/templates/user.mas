@@ -4,7 +4,6 @@
 <%init>
     use EBox::Gettext;
 </%init>
-<script type="text/javascript" src="/data/js/table-helper.js" />
     <div class="help"><%__('Password for Asterisk service is the user password')%></div>
 
 %   if (not $params->{service} ) {

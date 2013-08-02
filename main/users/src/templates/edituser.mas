@@ -111,6 +111,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 <ul name='userGroups' id='userGroups' class="labels-list">
 </ul>
 
+<script type="text/javascript" src="/data/js/table-helper.js" />
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";

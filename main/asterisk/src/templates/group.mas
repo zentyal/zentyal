@@ -4,7 +4,7 @@
 <%init>
     use EBox::Gettext;
 </%init>
-<script type="text/javascript" src="/data/js/table-helper.js" />
+
 % if (not $params->{service} ) {
             <& /asterisk/moduleDisabled.mas &>
 % }
