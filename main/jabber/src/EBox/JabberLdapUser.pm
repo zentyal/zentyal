@@ -134,13 +134,13 @@ sub getJabberAdmins
 
     my $global = EBox::Global->getInstance();
     my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
+    my $usersContainer = EBox::Users::User->defaultContainer();
     my @admins = ();
 
     $users->{ldap}->connection();
     my $ldap = $users->{ldap};
 
-    my %args = (base => $dn, filter => 'jabberAdmin=TRUE');
+    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {

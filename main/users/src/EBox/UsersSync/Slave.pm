@@ -32,6 +32,8 @@ use EBox::Util::Random;
 use EBox::Sudo;
 use EBox::SOAPClient;
 use EBox::Gettext;
+use EBox::Users::User;
+
 use URI::Escape;
 use File::Slurp;
 use Error qw(:try);
@@ -69,7 +71,7 @@ sub _addUser
 
     # Different OU?
     my $users = EBox::Global->modInstance('users');
-    if ($user->baseDn() ne $users->usersDn()) {
+    if ($user->baseDn() ne $users->userClass()->defaultContainer()->dn()) {
         $userinfo->{ou} = $user->baseDn();
     }
 

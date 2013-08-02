@@ -1,4 +1,5 @@
 HEAD
+	+ Postrouting rules have no oaccept chain, use ACCEPT target
 	+ Added menu icon
 	+ Adapt L2TP firewall rules to new accept chains
 	+ Adapt firewall rules to new accept chains

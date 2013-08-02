@@ -18,10 +18,12 @@ use warnings;
 
 package EBox::Squid::LogHelper::Test;
 
+use EBox;
 use base 'Test::Class';
 
 use Test::Differences;
 use Test::Exception;
+use Test::MockModule;
 use Test::MockObject;
 use Test::More;
 
@@ -60,7 +62,7 @@ sub setUpLogHelper : Test(setup)
     $self->{logHelper} = new EBox::Squid::LogHelper();
 }
 
-sub test_domain_name : Test(4)
+sub test_domain_name : Test(5)
 {
     my ($self) = @_;
 
@@ -68,6 +70,12 @@ sub test_domain_name : Test(4)
         {
             name => 'Test domain name (external)',
             file => '/var/log/squid3/external-access.log',
+            line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
+            expected => undef,
+        },
+        {
+            name => 'Test domain name (dansguardian)',
+            file => '/var/log/dansguardian/access.log',
             line => '1372580242.251      0 192.168.100.3 TCP_MEM_HIT/200 1516 GET http://db.local.clamav.net/daily-17404.cdiff - NONE/- text/plain',
             expected => undef,
         },
@@ -88,7 +96,7 @@ sub test_domain_name : Test(4)
 }
 
 
-sub test_ip_addr_domain : Test(8)
+sub test_ip_addr_domain : Test(10)
 {
     my ($self) = @_;
 
@@ -100,13 +108,19 @@ sub test_ip_addr_domain : Test(8)
             expected => undef,
         },
         {
+            name => 'IPv4 domain (dansguardian)',
+            file => '/var/log/dansguardian/access.log',
+            line => '1372578572.975    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - FIRST_UP_PARENT/localhost -',
+            expected => undef,
+        },
+        {
             name => 'IPv4 domain (external)',
             file => '/var/log/squid3/external-access.log',
             line => '1372578573.235    233 192.168.100.3 TCP_MISS/304 398 GET http://131.12.32.1/ubuntu/dists/precise/Release - DIRECT/91.189.91.15 -',
             expected => {
                 bytes  => 398,   code      => 'TCP_MISS/304',        elapsed    => 233, event => 'accepted',
                 method => 'GET', mimetype  => '-',                   remotehost => '192.168.100.3',
-                rfc931 => '-',   timestamp => '2013-06-30 09:49:33', peer => 'DIRECT/91.189.91.15',
+                rfc931 => '-',   timestamp => '2013-06-30 09:49:32', peer => 'FIRST_UP_PARENT/localhost',
                 url    => 'http://131.12.32.1/ubuntu/dists/precise/Release',
                 domain => '131.12.32.1',
             },
@@ -114,6 +128,12 @@ sub test_ip_addr_domain : Test(8)
         {
             name => 'IPv6 domain (external)',
             file => '/var/log/squid3/external-access.log',
+            line => '1372580239.517    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip - DIRECT/194.245.148.135 text/html',
+            expected => undef,
+        },
+        {
+            name => 'IPv6 domain (dansguardian)',
+            file => '/var/log/dansguardian/access.log',
             line => '1372580239.517    108 192.168.100.21 TCP_MISS/200 427 GET http://[2001:db8:85a3::8a2e:370:7334]/nic/checkip - DIRECT/194.245.148.135 text/html',
             expected => undef,
         },
@@ -154,11 +174,23 @@ sub tests_denied_by_internal : Test(3)
     $self->_testCases(\@cases);
 }
 
-sub tests_filtered_by_dg : Test(6)
+sub tests_filtered_by_dg : Test(5)
 {
     my ($self) = @_;
 
     my @cases = (
+        {
+            name => 'Dansguardian (internal)',
+            file => '/var/log/squid3/access.log',
+            line => '1372578572.575    233 192.168.100.3 TCP_MISS/200 398 GET http://foo.bar/foo - DEFAULT_PARENT/127.0.0.1 -',
+            expected => undef,
+        },
+        {
+            name => 'Dansguardian (external)',
+            file => '/var/log/squid3/external-access.log',
+            line => '1372578572.575    233 192.168.100.3 TCP_MISS/200 398 GET http://foo.bar/foo - DEFAULT_PARENT/127.0.0.1 -',
+            expected => undef,
+        },
         {
             name => 'Dansguardian',
             file => '/var/log/dansguardian/access.log',
@@ -170,18 +202,6 @@ sub tests_filtered_by_dg : Test(6)
                 url    => 'http://foo.bar/foo',
                 domain => 'foo.bar',
             },
-        },
-        {
-            name => 'Dansguardian with spaces inside fields',
-            file => '/var/log/dansguardian/access.log',
-            line => '1373456055.925    597 ::, 127.0.0.1, 127.0.0.1 TCP_MISS/400 98702 GET http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest ::, 127.0.0.1, 127.0.0.1 DEFAULT_PARENT/127.0.0.1 text/html',
-            expected => {
-                bytes  => 98702, code      => 'TCP_MISS/400', elapsed     => 597, event => 'accepted',
-                method => 'GET', mimetype  => 'text/html',    remotehost  => '::,127.0.0.1,127.0.0.1',
-                rfc931 => '::,127.0.0.1,127.0.0.1', timestamp => '2013-07-10 13:34:15', peer => 'DEFAULT_PARENT/127.0.0.1',
-                url    => 'http://localhost.precise-zentyal:3129/squid-internal-periodic/store_digest',
-                domain => 'precise-zentyal',
-            }
         },
     );
     $self->_testCases(\@cases);
@@ -208,5 +228,10 @@ sub _testCases
 1;
 
 END {
+    # Use filtering for this test
+    my $squid = new Test::MockModule('EBox::Squid');
+    $squid->mock('filterNeeded', sub { return 1; });
+
+    EBox::init();
     EBox::Squid::LogHelper::Test->runtests();
 }

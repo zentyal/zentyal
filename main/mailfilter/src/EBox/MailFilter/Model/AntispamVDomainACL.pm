@@ -115,7 +115,10 @@ sub deletedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
     $self->_aclChanged();
 }
 
