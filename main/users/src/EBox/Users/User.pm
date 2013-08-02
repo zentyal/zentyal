@@ -577,7 +577,17 @@ sub create
         }
 
         # Init user
-        unless ($isSystemUser) {
+        if ($isSystemUser) {
+            if ($uidNumber == 0) {
+                # Special case to handle Samba's Administrator. It's like a regular user but without quotas.
+                $usersMod->reloadNSCD();
+                $usersMod->initUser($res, $passwd);
+
+                # Call modules initialization
+                $usersMod->notifyModsLdapUserBase(
+                    'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
+            }
+        } else {
             $usersMod->reloadNSCD();
             $usersMod->initUser($res, $passwd);
             $res->_setFilesystemQuota($quota);

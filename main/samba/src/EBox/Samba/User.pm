@@ -445,6 +445,7 @@ sub addToZentyal
             throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
         }
         $args{uidNumber} = $uidNumber;
+        $args{isSystemUser} = ($uidNumber < EBox::Users::User->MINUID());
 
         $zentyalUser = EBox::Users::User->create(%args);
     } catch EBox::Exceptions::DataExists with {

@@ -250,6 +250,7 @@ sub addToZentyal
                 throw EBox::Exceptions::Internal("Could not get gidNumber for group $name");
             }
             push (@params, gidNumber => $gidNumber);
+            push (@params, isSystemGroup => ($gidNumber < EBox::Users::Group->MINGID()));
             EBox::debug("Replicating a security group into OpenLDAP with gidNumber = $gidNumber");
         }
 

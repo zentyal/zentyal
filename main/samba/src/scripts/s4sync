@@ -21,10 +21,12 @@ use warnings;
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use Error qw(:try);
+use EBox::Users::Group;
+use EBox::Users::User;
 
-use Time::gmtime;
+use Error qw(:try);
 use File::Slurp;
+use Time::gmtime;
 
 sub getTimestamp
 {
@@ -78,6 +80,11 @@ while (1) {
     my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
     my %zentyalOUs    = map { $_->canonicalName(1) => $_ } @{$usersModule->ous()};
+
+    # The Administrator user, and 'Domain Users' group are special case entries.
+    $zentyalUsers{'Administrator'} = new EBox::Users::User(uid => 'Administrator');
+    $zentyalGroups{'Domain Users'} = new EBox::Users::Group(gid => 'Domain Users');
+
     foreach my $ignored (keys %ignoreOUs) {
         delete $zentyalOUs{$ignored};
     }
