@@ -3,17 +3,12 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use JSON::XS;
+my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
-%# this div is only so editgroup.mas could knew this addon is active
-<div id='needReload' />
-%       if($params->{'nacc'} eq 0) {
-        <div class='warning'>
-                <p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
-        </div>
-%      } else {
-%            if (not $params->{service} ) {
-                   <& /mail/moduleDisabled.mas &>
-%            }
+% if (not $params->{service} ) {
+  <& /mail/moduleDisabled.mas &>
+% }
    <div id='error_createAlias' class='error' style='display:none'></div>
    <form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
         <table cellspacing='0' class='dataTable' id='aliasTable'>
@@ -28,30 +23,48 @@ use EBox::Gettext;
                         </tr>
                 </thead>
                 <tbody>
-       <& .addAlias,
-           group => $params->{group},
-           vdomains => $params->{vdomains},
-       &>
-       <& .aliasList,
-             group => $params->{group},
-             aliases => $params->{aliases},
-        &>
+                 <& .addAlias,
+                      group => $params->{group},
+                     vdomains => $params->{vdomains},
+                 &>
             </tbody>
         </table>
     </form>
-% }
 <script>
+"use strict";
 $(function(){
-  var refreshDialog = function(response) {
-                var url = '/Users/EditGroup';
-                var data = 'dn=' + response.groupDN;
-                Zentyal.Dialog.showURL(url, { data: data})
+  var refreshAliasList = function(aliases) {
+      var i;
+      var aliasTable = $('#aliasTable');
+      var tbody = $('tbody', aliasTable);
+      tbody.detach();
+      tbody.children('.aliasRow').remove();
+      for (i=0; i < aliases.length; i++) {
+          var alias = aliases[i];
+          var newRowHtml =  '<tr class="border aliasRow">'  +
+                            '<td>'  + alias + '</td>' +
+                             '<td class="tcenter">' +
+                                 '<a href="#">' +
+                                    '<img src="/data/images/delete.gif" ' +
+                                        'data-alias="' + alias +'" ' +
+                                        'title="<% __('Delete') %>" ' +
+                                        'alt="<% __('Delete') %>" ' +
+                                    '/>' +
+                                 '</a>' +
+                             '</td>' +
+                        '</tr>';
+         var newRow = jQuery(newRowHtml);
+         tbody.append(newRow);
+      }
+    aliasTable.append(tbody);
   };
 
   $('#createAlias').on('submit', function(event) {
         event.preventDefault();
         Zentyal.Dialog.submitForm(event.target, {
-            success : refreshDialog
+            success : function (response) {
+                refreshAliasList(response.aliases);
+            }
       });
   });
 
@@ -71,13 +84,15 @@ $(function(){
          },
          success: function(response) {
             if (response.success) {
-                refreshDialog(response);
+                refreshAliasList(response.aliases);
             } else {
                $('#error_createAlias').html(response.error).show();
             }
          }
       });
   });
+
+  refreshAliasList(<% $aliasesJS %>);
 });
 
 </script>
@@ -110,27 +125,4 @@ $group
                                 </td>
                         </tr>
 
-</%def>
-
-
-<%def .aliasList>
-<%args>
-$group
-@aliases
-</%args>
-%       foreach my $alias (@aliases) {
-                        <tr class='border'>
-                                <td><% $alias %></td>
-                                <td class='tcenter'>
-                                        <a href='#'>
-                                           <img src='/data/images/delete.gif'
-                                                data-alias='<% $alias %>'
-                                                title="<% __('Delete') %>"
-                                                alt="<% __('Delete') %>"
-                                            />
-                                        </a>
-                                </td>
-                        </tr>
-
-%       }
 </%def>

@@ -51,6 +51,7 @@ sub _process
     my $group = new EBox::Users::Group(dn => $groupDN);
     $mail->{malias}->delGroupAlias($alias, $group);
 
+    $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }
 

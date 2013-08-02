@@ -39,8 +39,6 @@ sub _process
     my ($self) = @_;
     $self->{json}->{success} = 0;
 
-    my $mail = EBox::Global->modInstance('mail');
-
     $self->_requireParam('group', __('group'));
     my $groupDN = $self->unsafeParam('group');
     $self->{json}->{groupDN} = $groupDN;
@@ -52,8 +50,16 @@ sub _process
     my $rhs = $self->param('rhs');
 
     my $group = new EBox::Users::Group(dn => $groupDN);
-    $mail->{malias}->addGroupAlias($lhs."@".$rhs, $group);
 
+    my $mail = EBox::Global->modInstance('mail');
+    if ($mail->{musers}->usersWithMailInGroup($group) == 0) {
+        throw EBox::Exceptions::External(__('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') );
+    }
+
+    my $newAlias = $lhs."@".$rhs;
+    $mail->{malias}->addGroupAlias($newAlias, $group);
+
+    $self->{json}->{aliases} =  $mail->{malias}->groupAliases($group);
     $self->{json}->{success} = 1;
 }
 

@@ -125,7 +125,7 @@ sub _checkAccountAlias
 # Parameters:
 #
 #     alias - The mail alias account to create
-#     groupname - The group name.
+#     group - group object
 #
 sub addGroupAlias
 {
