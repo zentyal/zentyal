@@ -109,7 +109,6 @@ sub _process
         $user->save();
 
         $self->{json}->{success}  = 1;
-        $self->{json}->{redirect} = '/Users/Tree/Manage';
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
 

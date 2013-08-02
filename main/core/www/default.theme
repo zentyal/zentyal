@@ -8,7 +8,7 @@ body_background_color: "#eee"
 loginin_padding_style: "15px 30px 15px 30px"
 
 # public.css
-header_img_padding: "padding-top: 3px; padding-left: 3px;"
+header_img_padding: "padding-top: 15px; padding-left: 5px;"
 
 hmenu_bg_color: "#B5D448"
 hmenu_hover_bg_color: "#C5E64E"
@@ -37,21 +37,21 @@ progress_bar_bg_color: "#69BE28"
 progress_bar_fg_color: "#white"
 
 # tooltips
-help_color:      "#484554"
-help_background: "#DFF5FE"
-help_border:     "#1d4efa"
+help_color:      "#00529B"
+help_background: "#BDE5F8"
+help_border:     "#00529B"
 
-note_color:      "#484554"
-note_background: "#dfef7a"
-note_border:     "#a9c500"
+note_color:      "#4F8A10"
+note_background: "#DFF2BF"
+note_border:     "#4F8A10"
 
-error_color:      "#484554"
-error_background: "#FDDDD9"
-error_border:     "#fa601d"
+error_color:      "#D8000C"
+error_background: "#FFBABA"
+error_border:     "#D8000C"
 
-warn_color:      "#484554"
-warn_background: "#f8fea5"
-warn_border:     "#ebfa1d"
+warn_color:      "#9F6000"
+warn_background: "#FEEFB3"
+warn_border:     "#9F6000"
 
 ad_color:       "#484554"
 ad_background:  "#dfef7a"

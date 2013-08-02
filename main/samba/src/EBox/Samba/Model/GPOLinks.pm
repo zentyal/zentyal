@@ -32,7 +32,7 @@ sub _tree
         treeName => 'GPOLinks',
         modelDomain => 'Samba',
         pageTitle => __('Group Policy Links'),
-        defaultActions => [ 'add', 'edit', 'delete' ],
+        defaultActions => [ 'add', 'delete' ],
         #TODO help =>  __(''),
     };
 }
