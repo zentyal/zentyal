@@ -5,9 +5,22 @@
 use EBox::Gettext;
 </%init>
 % if ($params->{'username'}) {
+  <& .user, params => $params &>
+%  } else {
+  <& .group, params => $params &>
+%  }
+
+<%def .user>
+<%args>
+$params
+</%args>
         <& .sambaDisabled, $params &>
+
+
+        <div id='note_sambaUserShare' class='note' style='display:none'></div>
+        <div id='error_sambaUserShare' class='error' style='display:none'></div>
+        <form action='/Samba/ActiveSharing' method='post' id='sambaUserShare'>
         <table class="formTable">
-        <form action='/Samba/ActiveSharing' method='post'>
             <input type="hidden" name="user" value="<% $params->{'username'} %>">
         <tr>
         <td class="tright" width="170px">
@@ -29,21 +42,38 @@ use EBox::Gettext;
                 <td></td>
                 <td>
                         <input class='inputButton' type='submit' name='change'
-                                        value="<% __('Change') %>"
-                                        alt="<% __('Change') %>">
+                               id = 'submit_sambaUserShare'
+                               value="<% __('Change') %>"
+                               alt="<% __('Change') %>">
                 </td>
         </tr>
-        </form>
         </table>
+        </form>
 
-%  } else {
-        <form action='/Samba/ActiveSharing' method='post'>
+<script>
+$(function(){
+   Zentyal.Form.setupAjaxSubmit('#sambaUserShare', {
+        noteDiv: '#note_sambaUserShare',
+        errorDiv: '#error_sambaUserShare',
+        submitButton: '#submit_sambaUserShare'
+    });
+});
+</script>
+</%def>
+
+<%def .group>
+<%args>
+$params
+</%args>
     <div class='help'>
         <%   __("You can set a share directory for this group, but you should keep in mind that Microsoft Windows 98 and Millenium will not be able to see names longer than 12 characters") %>
     </div>
 
     <& .sambaDisabled, $params &>
 
+   <div id='note_sambaGroupShare' class='note' style='display:none'></div>
+   <div id='error_sambaGroupShare' class='error' style='display:none'></div>
+   <form action='/Samba/ActiveSharing' method='post' id='sambaGroupShare'>
     <input type="hidden" name="group" value="<% $params->{'groupname'} %>">
 %           if (length($params->{'sharename'}) > 12) {
                 <div class='warning'>
@@ -56,19 +86,28 @@ use EBox::Gettext;
             class="inputText"
             value="<% $params->{'share'} %>">
 %       if (defined $params->{'share'})  {
-            <input class='inputButton' type='submit' name='namechange'
+            <input class='inputButton' type='submit' name='namechange' id='namechange_sambaGroupShare'
                 value="<% __('Change') %>"
                  alt="<% __('Change') %>">
-            <input class='inputButton' type='submit' name='remove'
+            <input class='inputButton' type='submit' name='remove'  id='remove_sambaGroupShare'
                 value="<% __('Delete') %>"
                  alt="<% __('Delete') %>">
 %       } else {
-            <input class='inputButton' type='submit' name='add'
+            <input class='inputButton' type='submit' name='add' id='add_sambaGroupShare'
                 value="<% __('Add') %>"
                  alt="<% __('Add') %>">
 %       }
         </form>
-%  }
+<script>
+$(function(){
+   Zentyal.Form.setupAjaxSubmit('#sambaGroupShare', {
+        noteDiv: '#note_sambaGroupShare',
+        errorDiv: '#error_sambaGroupShare',
+        submitButton: '#namechange_sambaGroupShare, #remove_sambaGroupShare, #add_sambaGroupShare'
+    });
+});
+</script>
+</%def>
 
 <%def .sambaDisabled>
 <%init>
