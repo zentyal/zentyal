@@ -152,36 +152,6 @@ sub delete
     $self->SUPER::delete(@_);
 }
 
-# Method: setIgnoredModules
-#
-#   Set the modules that should not be notified of the changes
-#   made to this object
-#
-# Parameters:
-#
-#   mods - Array reference cotaining module names
-#
-sub setIgnoredModules
-{
-    my ($self, $mods) = @_;
-    $self->{ignoreMods} = $mods;
-}
-
-# Method: setIgnoredSlaves
-#
-#   Set the slaves that should not be notified of the changes
-#   made to this object
-#
-# Parameters:
-#
-#   mods - Array reference cotaining slave names
-#
-sub setIgnoredSlaves
-{
-    my ($self, $slaves) = @_;
-    $self->{ignoreSlaves} = $slaves;
-}
-
 # Method: addGroup
 #
 #   Add this inetOrgPerson to the given group

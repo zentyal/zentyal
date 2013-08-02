@@ -31,9 +31,9 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
 use Data::Dumper;
+use Error qw(:try);
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-
 use Perl6::Junction qw(any);
 
 my $_usersMod; # cached users module
@@ -199,6 +199,36 @@ sub deleteObject
     $self->save();
 }
 
+# Method: setIgnoredModules
+#
+#   Set the modules that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining module names
+#
+sub setIgnoredModules
+{
+    my ($self, $mods) = @_;
+    $self->{ignoreMods} = $mods;
+}
+
+# Method: setIgnoredSlaves
+#
+#   Set the slaves that should not be notified of the changes
+#   made to this object
+#
+# Parameters:
+#
+#   mods - Array reference cotaining slave names
+#
+sub setIgnoredSlaves
+{
+    my ($self, $slaves) = @_;
+    $self->{ignoreSlaves} = $slaves;
+}
+
 # Method: remove
 #
 #   Remove a value from the given attribute, or the whole
@@ -315,29 +345,19 @@ sub _entry
 
     unless ($self->{entry}) {
         my $result = undef;
-        if (defined $self->{dn}) {
+        if ($self->{dn}) {
             my $dn = $self->{dn};
-            my $filter = undef;
-            my $baseDN = undef;
-            my $scope = undef;
-            if ($self->_ldap->dn() eq $dn) {
-                $filter = '(objectclass=*)';
-                $baseDN = $dn;
-                $scope = 'base';
-            } else {
-                $scope = 'one';
-                ($filter, $baseDN) = split(/,/, $self->{dn}, 2);
-                if (not $baseDN) {
-                    throw EBox::Exceptions::Internal("DN too short: " . $self->{dn});
-                }
-            }
+            my $base = $dn;
+            my $filter = "(objectclass=*)";
+            my $scope = 'base';
 
             my $attrs = {
-                base => $baseDN,
+                base => $base,
                 filter => $filter,
                 scope => $scope,
                 attrs => ['*', 'entryUUID'],
             };
+
             $result = $self->_ldap->search($attrs);
         }
         return undef unless defined $result;

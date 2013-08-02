@@ -16,12 +16,12 @@
 use strict;
 use warnings;
 
-# Class: EBox::Samba::Container
+# Class: EBox::Samba::BuiltinDomain
 #
-#   container, stored in LDB
+#   builtinDomain, stored in LDB
 #
 
-package EBox::Samba::Container;
+package EBox::Samba::BuiltinDomain;
 use base 'EBox::Samba::LdbObject';
 
 use EBox;
@@ -37,12 +37,12 @@ use Error qw(:try);
 #
 sub mainObjectClass
 {
-    return 'container';
+    return 'builtinDomain';
 }
 
 # Method: isContainer
 #
-#   Return that this Container can hold other objects.
+#   Return that this BuiltinDomain can hold other objects.
 #
 sub isContainer
 {
@@ -90,27 +90,27 @@ sub updateZentyal
     my ($self) = @_;
 
     my $dn = $self->dn();
-    EBox::warn("updateZentyal called in Container $dn. No implemented editables changes in Containers");
+    EBox::warn("updateZentyal called in BuiltinDomain $dn. No implemented editables changes in BuiltinDomain");
 }
 
 sub set
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => 'Container objects cannot be modified');
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'BuiltinDomain objects cannot be modified');
 }
 
 sub delete
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => 'Container objects cannot be modified');
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'BuiltinDomain objects cannot be modified');
 }
 
 sub save
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => 'Container objects cannot be modified');
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'BuiltinDomain objects cannot be modified');
 }
 
 sub deleteObject
 {
-    throw EBox::Exceptions::UnwillingToPerform(reason => 'Container objects cannot be modified');
+    throw EBox::Exceptions::UnwillingToPerform(reason => 'BuiltinDomain objects cannot be modified');
 }
 
 1;
