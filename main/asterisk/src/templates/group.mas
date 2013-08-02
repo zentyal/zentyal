@@ -4,21 +4,15 @@
 <%init>
     use EBox::Gettext;
 </%init>
-%# this div is only so editgroup.mas could knew this addon is active
-   <div id='needReload' />
-
-%   if ($params->{'nacc'} eq 0) {
-    <div class='warning'>
-      <p><% __('There are no users in this group or the users do not have an Asterisk account, so a queue cannot be created.') %></p>
-    </div>
-%   } else {
-%       if (not $params->{service} ) {
+<script type="text/javascript" src="/data/js/table-helper.js" />
+% if (not $params->{service} ) {
             <& /asterisk/moduleDisabled.mas &>
-%       }
+% }
+<form id='astGroupOptions' action='/Asterisk/AsteriskGroupOptions' method='POST'>
+  <table class='formTable'><tbody>
+   <div id='note_astGroupOptions' class='note' style='display:none'></div>
+   <div id='error_astGroupOptions' class='error' style='display:none'></div>
 
-    <table class='formTable'>
-   <div id='error_groupOptions' class='error' style='display:none'></div>
-    <form id='groupOptions' action='/Asterisk/AsteriskGroupOptions' method='POST'>
         <input type="hidden" name="group" value="<% $params->{group}->dn() %>">
         <tr>
         <td class="tright">
@@ -49,28 +43,49 @@
         <tr>
         <td></td>
         <td>
-            <input class="inputButton" type="submit" name="change"
+            <input class="inputButton" type="submit" name="change" id='submitAstGroupOptions'
                     value="<% __('Change') %>"
                     alt="<% __('Change') %>">
         </td>
         </tr>
-    </form>
-    </table>
-%   }
+  </tbody></table>
+</form>
+
 
 <script>
 $(function(){
-  var refreshDialog = function(response) {
-                var url = '/Users/EditGroup';
-                var data = 'dn=' + response.groupDN;
-                Zentyal.Dialog.showURL(url, { data: data})
-  };
-
-  $('#groupOptions').on('submit', function(event) {
+   console.log('astGroupOptions loading');
+  $('#astGroupOptions').on('submit', function(event) {
         event.preventDefault();
-        Zentyal.Dialog.submitForm(event.target, {
-            success : refreshDialog
-      });
+   console.log('astGroupOptions submit');
+        Zentyal.TableHelper.setLoading('submitAstGroupOptions', undefined,  true);
+        var noteDiv =  $('#note_astGroupOptions');
+        noteDiv.hide();
+        var errorDiv = $('#error_astGroupOptions');
+        errorDiv.hide();
+
+        var form = $(event.target);
+        var url = form.attr('action');
+        var data = form.serialize();
+       $.ajax({
+           url : url,
+           data: data,
+           dataType: 'json',
+           success: function (response){
+              if (response.success) {
+                  noteDiv.html(response.msg).show();
+              } else {
+                 errorDiv.html(response.error).show();
+              }
+           },
+           error: function(jqXHR){
+              errorDiv.html(jqXHR.responseText).show();
+           },
+           complete: function() {
+             Zentyal.TableHelper.restoreHidden('submitAstGroupOptions');
+           }
+    });
   });
+  console.log('astGroupOptions onload finished');
 });
 </script>
