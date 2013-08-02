@@ -310,7 +310,6 @@ sub _groupAddOns
     my $extn = $extensions->getQueueExtension($group);
 
     my $args = {
-        'nacc' => scalar ($self->asteriskUsersInQueue($group)),
         'group' => $group,
         'extension' => $extn,
         'active'   => $active,
