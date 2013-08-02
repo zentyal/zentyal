@@ -52,38 +52,12 @@
     </table>
  </form>
 
-
 <script>
 $(function() {
-   $('#astUserOptions').on('submit', function(event) {
-        event.preventDefault();
-        Zentyal.TableHelper.setLoading('submitAstUserOptions', undefined,  true);
-        var noteDiv =  $('#note_astUserOptions');
-        noteDiv.hide();
-        var errorDiv = $('#error_astUserOptions');
-        errorDiv.hide();
-
-        var form = $(event.target);
-        var url = form.attr('action');
-        var data = form.serialize();
-       $.ajax({
-           url : url,
-           data: data,
-           dataType: 'json',
-           success: function (response){
-              if (response.success) {
-                  noteDiv.html(response.msg).show();
-              } else {
-                 errorDiv.html(response.error).show();
-              }
-           },
-           error: function(jqXHR){
-              errorDiv.html(jqXHR.responseText).show();
-           },
-           complete: function() {
-             Zentyal.TableHelper.restoreHidden('submitAstGroupOptions');
-           }
+   Zentyal.Form.setupAjaxSubmit('#astUserOptions', {
+        noteDiv: '#note_astUserOptions',
+        errorDiv: '#error_astUserOptions',
+        submitButton: '#submitAstGroupOptions'
     });
-   });
 });
 </script>

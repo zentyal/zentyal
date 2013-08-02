@@ -9,6 +9,7 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
+   <div id='note_createAlias' class='note' style='display:none'></div>
    <div id='error_createAlias' class='error' style='display:none'></div>
    <form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
         <table cellspacing='0' class='dataTable' id='aliasTable'>

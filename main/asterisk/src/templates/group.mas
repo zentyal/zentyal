@@ -54,35 +54,10 @@
 
 <script>
 $(function(){
-  $('#astGroupOptions').on('submit', function(event) {
-        event.preventDefault();
-        Zentyal.TableHelper.setLoading('submitAstGroupOptions', undefined,  true);
-        var noteDiv =  $('#note_astGroupOptions');
-        noteDiv.hide();
-        var errorDiv = $('#error_astGroupOptions');
-        errorDiv.hide();
-
-        var form = $(event.target);
-        var url = form.attr('action');
-        var data = form.serialize();
-       $.ajax({
-           url : url,
-           data: data,
-           dataType: 'json',
-           success: function (response){
-              if (response.success) {
-                  noteDiv.html(response.msg).show();
-              } else {
-                 errorDiv.html(response.error).show();
-              }
-           },
-           error: function(jqXHR){
-              errorDiv.html(jqXHR.responseText).show();
-           },
-           complete: function() {
-             Zentyal.TableHelper.restoreHidden('submitAstGroupOptions');
-           }
-    });
-  });
+  Zentyal.Form.setupAjaxSubmit('#astGroupOptions', {
+     noteDiv: '#note_astGroupOptions',
+     errorDiv: '#error_astGroupOptions',
+     submitButton: '#submitAstGroupOptions'
+ });
 });
 </script>
