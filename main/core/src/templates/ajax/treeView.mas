@@ -4,8 +4,8 @@
 <%init>
   my %types = %{$model->nodeTypes()};
   my $treeId = "tree_" . $model->name();
+  my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
-
 <& .pageTitle, title => $model->pageTitle() &>
 
 <& .headTitle, title => $model->headTitle() &>
@@ -28,36 +28,41 @@
 </div>
 %  }
 
+<div class="treeViewLeft">
+<div class="treeViewToolbox">
+
+<form action="javascript:void(0)">
+<div class="tableSearch">
+  <input type='text' name='filter_text' id='filter_text' value="" />
+  <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
+  <span id="filterId"></span>
+</div>
+<div class="treeviewCheckboxes">
+<span class="btn btn-filter btn-only-icon">Filter</span>
+<div class="dropdown-menu" id="treeviewCheckboxes-dmenu" >
+% foreach my $name (keys %types) {
+%   next unless $types{$name}->{actions}->{filter};
+%   my $printableName = $types{$name}->{printableName};
+<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" id="<% $name %>" value="<% $name %>" checked> <label for="<% $name %>"><% $printableName %></label>
+% }
+</div>
+</div>
+
+</form>
+</div>
+
+<div id="<% $treeId %>" class="treeView"></div>
 <div id="treeButtons" class="treeviewButtons">
 % my $actionLabels = $model->defaultActionLabels();
 % foreach my $action (@{$model->defaultActions()}) {
-<button id="<% $action %>" class="treeviewActionButton" type="button" disabled style="background-image: url('/data/images/<% $action %>.gif')">
+<button id="<% $action %>" class="btn btn-<% $action %> btn-only-icon treeviewActionButton" title="<% $actionLabels->{$action} %>" type="button" disabled>
 <% $actionLabels->{$action} %>
 </button>
 % }
 </div>
-
-<div class="treeViewToolbox">
-
-<form action="javascript:void(0)">
-
-  <input type='text' name='filter_text' id='filter_text' value="" />
-  <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
-  <span id="filterId"></span>
-
-<span class="treeviewCheckboxes">
-% foreach my $name (keys %types) {
-%   next unless $types{$name}->{actions}->{filter};
-%   my $printableName = $types{$name}->{printableName};
-<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" value="<% $name %>" checked> <% $printableName %>
-% }
-</span>
-
-</form>
-
 </div>
+<div id="<% $treeViewerId %>" class="treeViewNodeViewer"></div>
 
-<div id="<% $treeId %>" class="treeView"/>
 
 <script>
 $(function () {
@@ -104,18 +109,31 @@ $(function () {
     });
   });
 
+  $(".btn-filter").click(function() {
+    $("#treeviewCheckboxes-dmenu").slideToggle("fast");
+  });
+
+  treeComponent.bind("select_node.jstree",
+    function (evt, data) {
+        var selectedNode = treeComponent.jstree('get_selected');
+        var metadata = selectedNode.data();
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
+
+% foreach my $type (keys %types) {
+%   next unless $types{$type}->{actions}->{edit};
+%   my $link = $model->clickHandlerJS($type);
+        if (nodeType == '<% $type %>') {
+            $('#<% $treeViewerId %>').load('<% $link->{url} %>', metadata);
+        }
+% }
+  });
+
   $(".treeviewActionButton").each(function() {
     $(this).click(function() {
         var actionId = $(this).attr('id');
         var selectedNode = treeComponent.jstree('get_selected');
-        var selectedNodeMetadata = selectedNode.data();
+        var metadata = selectedNode.data();
         var nodeType = $.jstree._focused()._get_type(selectedNode);
-
-        var metadata = [];
-        for (var key in selectedNodeMetadata) {
-            metadata.push(key + "=" + selectedNodeMetadata[key]);
-        }
-        var metadataStr = metadata.join('&');
 
 % foreach my $action (@{$model->defaultActions()}) {
         if (actionId == '<% $action %>') {
@@ -125,7 +143,7 @@ $(function () {
                 Zentyal.Dialog.showURL('<% $link->{url} %>',
                     { title: '<% $link->{title} %>',
                       width: <% $link->{width} %>,
-                      data: metadataStr });
+                      data: metadata });
             }
 % }
         }
@@ -149,30 +167,9 @@ $(function () {
 % }
   });
 
-  treeComponent.bind('dblclick.jstree', function (e) {
-      var node = $(e.target).closest('li');
-      var nodeType = node.attr('rel');
-      var selectedNodeMetadata = node.data();
-      var metadata = [];
-      for (var key in selectedNodeMetadata) {
-          metadata.push(key + "=" + selectedNodeMetadata[key]);
-      }
-      var metadataStr = metadata.join('&');
-
-% foreach my $type (keys %types) {
-%   if ($types{$type}->{actions}->{edit}) {
-      if (nodeType == '<% $type %>') {
-% my $link = $model->doubleClickHandlerJS($type);
-        Zentyal.Dialog.showURL('<% $link->{url} %>',
-            { title: '<% $link->{title} %>',
-              width: <% $link->{width} %>,
-              data: metadataStr });
-      }
-%   }
-% }
-  });
-
 });
+
+
 </script>
 
 % } else {
