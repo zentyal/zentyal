@@ -15,8 +15,6 @@
 use strict;
 use warnings;
 
-use lib '../../..';
-
 package EBox::Model::DataTable::Test;
 
 use base 'EBox::Test::Class';
@@ -174,7 +172,7 @@ sub tableTest  : Test(6)
             $tableFromModel = $dataTable->table();
         } "checking first call to table method with: $caseName";
 
-        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fileds were inserted by first time setup';
+        ok exists $tableFromModel->{tableDescriptionByName}, 'checking that some fields were inserted by first time setup';
     }
 }
 
@@ -309,58 +307,143 @@ sub addRowTest  : Test(25)
        'Checking data table size after the additions';
 }
 
-# XXX TODO:
-# deviant test up and down in no-prderer table
-# straight test of moving up and down
-sub moveRowsTest : Test(8)
+sub moveRowsTest : Test(21)
 {
     my ($self) = @_;
 
     my $tableDescription = _tableDescription4fields();
     $tableDescription->{order}   = 1;
+    $tableDescription->{insertPosition} = 'back';
 
     my $dataTable = $self->_newDataTable($tableDescription);
-    $dataTable->set_true('movedUpRowNotify', 'movedDownRowNotify');
+    my @cases = (
+        {
+            desc => 'Move first to normal position',
+            args => ['a', 'c', 'd'],
+            expected => {
+                    'a' => 2,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move first to last position',
+            args => ['a', 'e', undef],
+            expected => {
+                    'a' => 4,
+                    'b' => 0,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 3,
+               }
+        },
+        {
+            desc => 'Move normal to first',
+            args => ['d', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 0,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to normal',
+            args => ['b', 'd', 'e'],
+            expected => {
+                    'a' => 0,
+                    'b' => 3,
+                    'c' => 1,
+                    'd' => 2,
+                    'e' => 4,
+               }
+        },
+        {
+            desc => 'Move normal to end',
+            args => ['d', 'e', undef],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 4,
+                    'e' => 3,
+               }
+        },
 
-    my @tableRows = (
-            [ uniqueField => 'wasFirstAtTheBegin', regularField => 'regular' ],
-            [ uniqueField => 'wasSecondAtTheBegin', regularField => 'regular', ],
-            );
-    foreach (@tableRows) {
-        $dataTable->add(@{$_});
+        {
+            desc => 'Move end to first',
+            args => ['e', undef, 'a'],
+            expected => {
+                    'a' => 1,
+                    'b' => 2,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 0,
+               }
+        },
+        {
+            desc => 'Move end to normal',
+            args => ['e', 'b', 'c'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 3,
+                    'd' => 4,
+                    'e' => 2,
+               }
+        },
+
+        {
+            desc => 'Move normal to same position',
+            args => ['c', 'b', 'd'],
+            expected => {
+                    'a' => 0,
+                    'b' => 1,
+                    'c' => 2,
+                    'd' => 3,
+                    'e' => 4,
+               }
+        },
+    );
+
+    foreach my $case (@cases) {
+        _moveRowTestTableSetup($dataTable);
+        lives_ok {
+            $dataTable->moveRowRelative(@{ $case->{args}  });
+        } 'Moving row case: ' . $case->{desc};
+
+        my %newOrder = $dataTable->_orderHash();
+        is_deeply \%newOrder, $case->{expected},
+              'checking that the order after the move is correct';
     }
 
-    my @order = @{ $dataTable->order() };
+    my @invalidArgumens = (
+        ['b', 'b', 'c'],
+        ['a', undef, 'a'],
+        ['c', 'd', 'd'],
+       );
+    foreach my $args (@invalidArgumens) {
+        my @args = @{ $args };
+        throws_ok {
+            $dataTable->moveRowRelative(@args);
+        } 'EBox::Exceptions::MissingArgument', "Checking call to moveRowRelative with invalid arguments @args";
+    }
+}
 
-    my $upperRow = $order[0];
-    my $lowerRow = $order[1];
 
-    $dataTable->moveUp($upperRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving up the upper row has not changed the order';
-    ok ((not $dataTable->called('movedUpRowNotify')),
-            'Checking that movedUpRowNotify has not been triggered');
-    $dataTable->clear();
+sub _moveRowTestTableSetup
+{
+    my ($dataTable) = @_;
+    $dataTable->removeAll(1);
+    foreach my $id ('a', 'b', 'c', 'd', 'e') {
+        my @fields = (id => $id, uniqueField => "unique $id", regularField => "regular $id");
 
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that moving down the  lower row has not changed the order';
-    ok ((not $dataTable->called('movedDownRowNotify')),
-            'Checking that movedDownRowNotify has not been triggered');
-    $dataTable->clear();
-
-    my @reverseOrder = reverse @order;
-    $dataTable->moveUp($lowerRow);
-    is_deeply $dataTable->order, \@reverseOrder,
-              'checking that lower row was moved up';
-    ok ($dataTable->called('movedUpRowNotify'), 'Checking that movedUpRowNotify has been triggered');
-    $dataTable->clear();
-
-    $dataTable->moveDown($lowerRow);
-    is_deeply $dataTable->order, \@order,
-              'checking that upper row was moved down';
-    ok ($dataTable->called('movedDownRowNotify'), 'Checking that movedDownRowNotify has been triggered');
-    $dataTable->clear();
+        $dataTable->addRow(@fields);
+    }
+    return $dataTable;
 }
 
 sub removeAllTest : Test(3)
@@ -531,6 +614,8 @@ sub deviantSetRowTest : Test(9)
     );
 }
 
+
+
 sub _checkDeviantSetRow
 {
     my ($self, $dataTable, $id, $params_r, $testName) = @_;
@@ -615,7 +700,7 @@ sub setRowTest : Test(8)
         $dataTable->setRow(0, %changeParams);
     } 'Setting row with the same values';
 
-    ok ((not $dataTable->called($notifyMethodName)), 'checking that on setting row with no changes notify method was not called');
+    ok (($dataTable->called($notifyMethodName)), 'checking that on setting row with no changes also calls notify method');
 }
 
 sub setWithDataInUseTest : Test(15)
@@ -770,7 +855,7 @@ sub optionsFromForeignModelTest : Test(2)
                'checking optionsFromForeignModel for a existent field';
 }
 
-sub findTest : Test(6)
+sub findTest : Test(10)
 {
     my ($self) = @_;
 
@@ -778,12 +863,23 @@ sub findTest : Test(6)
 
     my $fieldName = 'uniqueField';
     my $fieldValue = 'populatedRow2';
+    my $field2Name = 'regularField';
+    my $field2Value = 'regular';
+    my $fieldValue2 = 'populatedRow1';
 
     my $row;
 
     dies_ok {
         $dataTable->find('inexistentField' => 'b');
     } 'checking that find() with a inexistent field fails' ;
+
+    throws_ok {
+        $dataTable->findValueMultipleFields({});
+    } 'EBox::Exceptions::InvalidData', 'thrown exception when no fields is searched on multiple';
+
+    throws_ok {
+        $dataTable->findValue();
+    } 'EBox::Exceptions::MissingArgument', 'thrown exception when no fields is searched on single';
 
     $row = $dataTable->find($fieldName => 'inexistent');
     ok ((not defined $row), 'checking that find() with a inexistent value returns undef' );
@@ -800,11 +896,21 @@ sub findTest : Test(6)
 
     my $idfound = $dataTable->findId($fieldName => $fieldValue);
     is $idfound, $row->id(),
-       'checking return value of findId metthod';
+       'checking return value of findId method';
 
     my $valueFound = $dataTable->findValue($fieldName => $fieldValue);
     is $valueFound->id(), $row->id(),
        'checking return value of findValue method';
+
+    $valueFound = $dataTable->findValueMultipleFields({$fieldName => $fieldValue,
+                                                       $field2Name => $field2Value});
+    is $valueFound->id(), $row->id(),
+       'checking return value of findValueMultipleFields method';
+
+    my $anotherRow = $dataTable->findValueMultipleFields({$fieldName => $fieldValue2,
+                                                          $field2Name => $field2Value});
+    isnt $anotherRow->id(), $row->id(),
+       'checking return value of findMultipleFields is another row';
 }
 
 sub _newDataTable
@@ -879,6 +985,10 @@ sub _populateDataTable
             [
                 uniqueField => 'populatedRow3', regularField => 'regular',
                 optionalField => 'noDefaultText'
+            ],
+            [
+                uniqueField => 'populatedRow4', regularField => 'regular',
+                optionalField => 'undef'
             ],
     );
 

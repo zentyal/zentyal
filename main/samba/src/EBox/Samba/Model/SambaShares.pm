@@ -34,6 +34,7 @@ use EBox::Types::Union;
 use EBox::Types::Boolean;
 use EBox::Model::Manager;
 use EBox::Exceptions::DataInUse;
+use EBox::Samba::SecurityPrincipal;
 use EBox::Sudo;
 
 use Error qw(:try);
@@ -81,6 +82,10 @@ sub new
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
 
     my $global = EBox::Global->getInstance();
     if ( $global->modExists('cloud-prof') ) {
@@ -388,7 +393,7 @@ sub createDirs
             push (@posixACL, $perm);
 
             # Account Sid
-            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
+            my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
             if ($object->exists()) {
                 $aceString .= ';;' . $object->sid() . ')';
                 push (@aceStrings, $aceString);

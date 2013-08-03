@@ -17,14 +17,13 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::AddExternalAccount;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 use EBox::Validate;
 
 sub new
@@ -48,12 +47,12 @@ my %validProtocols = (pop3 => 1, pop3s => 1, imap => 1, imaps => 1);
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
+    $self->{json}->{success} = 0;
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
-    $self->keepParam('user');
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
     my %params;
     while (my ($name, $printable) = each %printableByParam) {
@@ -61,7 +60,7 @@ sub _process
         $params{$name} = $self->unsafeParam($name);
     }
 
-    my $userObject = new EBox::UsersAndGroups::User(dn => $user);
+    my $userObject = new EBox::Users::User(dn => $userDN);
     $params{user} = $userObject;
 
     my $mail = EBox::Global->modInstance('mail');
@@ -89,6 +88,7 @@ sub _process
     $params{fetchall} = $self->param('fetchall');
 
     $mail->{fetchmail}->addExternalAccount(%params);
+    $self->{json}->{success} = 1;
 }
 
 1;

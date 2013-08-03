@@ -89,16 +89,19 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Dashboard/Index',
+                                    'icon' => 'dashboard',
                                     'text' => __('Dashboard'),
                                     'separator' => 'Core',
                                     'order' => 10));
 
     $root->add(new EBox::Menu::Item('url' => 'ServiceModule/StatusView',
                                     'text' => __('Module Status'),
+                                    'icon' => 'mstatus',
                                     'separator' => 'Core',
                                     'order' => 20));
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
+                                        'icon' => 'system',
                                         'text' => __('System'),
                                         'order' => 30);
 
@@ -117,6 +120,7 @@ sub menu
 
     my $maint = new EBox::Menu::Folder('name' => 'Maintenance',
                                        'text' => __('Maintenance'),
+                                       'icon' => 'maintenance',
                                        'separator' => 'Core',
                                        'order' => 70);
 
@@ -361,7 +365,7 @@ sub linksWidget
     my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
                                          out_method => sub { $html .= $_[0] });
     my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'links-widget.mas'
+        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
        );
     $interp->exec($component, @params);
 
@@ -463,5 +467,41 @@ sub _restartAllServices
     } catch EBox::Exceptions::Internal with {
     };
 }
+
+my $_dashboardStatusStrings;
+sub dashboardStatusStrings
+{
+    if (defined $_dashboardStatusStrings) {
+        return $_dashboardStatusStrings;
+    }
+
+    $_dashboardStatusStrings = {
+        'start_button' =>  __('Start'),
+        'restart_button' =>  __('Restart'),
+        'running' => {
+            'text'   => __('Running'),
+            'tip'   => __('The service is enabled and running'),
+            'class' => 'summaryRunning'
+        },
+        'stopped' => {
+            'text'  => __('Stopped'),
+            'tip'   => __('The service is enabled, but not running'),
+            'class' => 'summaryStopped'
+        },
+        'unmanaged' => {
+             'text'  => __('Running unmanaged'),
+             'tip'   => __('The service is running, but not enabled in Zentyal'),
+             'class' => 'summaryDisabled'
+        },
+        'disabled' => {
+            'text'  => __('Disabled'),
+            'tip'   => __('The service is not enabled in Zentyal'),
+            'class' => 'summaryDisabled'
+        }
+     };
+
+    return $_dashboardStatusStrings;
+}
+
 
 1;

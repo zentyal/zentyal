@@ -17,36 +17,33 @@ use strict;
 use warnings;
 
 package EBox::Logout::CGI::Index;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => __('Logout'),
-				      'template' => '/logout/index.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => __('Logout'),
+                                  'template' => '/logout/index.mas',
+                                  @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _process
 {
-	my $self = shift;
-	my $global = EBox::Global->getInstance();
-	if ($global->unsaved) {
-		my @array = ();
-		push(@array, 'unsaved' => 'yes');
-		$self->{params} = \@array;
-	}
+    my ($self) = @_;
+    my $global = EBox::Global->getInstance();
+    if ($global->unsaved) {
+        $self->{params} = ['unsaved' => 'yes'];
+    }
 }
 
 sub _loggedIn
 {
-	return 1;
+    return 1;
 }
 
 1;

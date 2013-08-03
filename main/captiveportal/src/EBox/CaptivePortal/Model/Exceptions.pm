@@ -140,12 +140,12 @@ sub firewallRules
                 # must have priority over normal redirect rulex
                 push @rules,  map {
                     $_ . ' ' . $captureHTTPRule
-                } @{ $members->iptablesSrcParams() };
+                } @{ $members->iptablesSrcParams(1) };
             }
 
             push @rules,  map {
                 $_ . ' -j RETURN'
-            } @{ $members->iptablesSrcParams() };
+            } @{ $members->iptablesSrcParams(1) };
 
         } elsif ($selectedType eq 'exception_service') {
             my $serviceId = $exception->subtype()->value();

@@ -30,16 +30,21 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::Service;
 use EBox::Sudo;
+use EBox::DBEngineFactory;
 use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::Internal;
 use EBox::IPS::LogHelper;
 use EBox::IPS::FirewallHelper;
 use List::Util;
+use POSIX;
 
-use constant SURICATA_CONF_FILE => '/etc/suricata/suricata-debian.yaml';
+use constant SURICATA_CONF_FILE    => '/etc/suricata/suricata-debian.yaml';
 use constant SURICATA_DEFAULT_FILE => '/etc/default/suricata';
-use constant SURICATA_INIT_FILE => '/etc/init/zentyal.suricata.conf';
-use constant SNORT_RULES_DIR => '/etc/snort/rules';
-use constant SURICATA_RULES_DIR => '/etc/suricata/rules';
+use constant SURICATA_INIT_FILE    => '/etc/init/zentyal.suricata.conf';
+use constant SNORT_RULES_DIR       => '/etc/snort/rules';
+use constant SURICATA_RULES_DIR    => '/etc/suricata/rules';
+use constant SURICATA_UPSTART_JOB  => 'zentyal.suricata';
+use constant SURICATA_LOG_FILE     => '/var/log/upstart/' . SURICATA_UPSTART_JOB . '.log';
 
 # Group: Protected methods
 
@@ -75,7 +80,7 @@ sub _daemons
 {
     return [
         {
-         'name' => 'zentyal.suricata',
+         'name'         => SURICATA_UPSTART_JOB,
          'precondition' => \&_suricataNeeded,
         }
     ];
@@ -114,6 +119,57 @@ sub enabledIfaces
     return \@ifaces;
 }
 
+# Method: nfQueueNum
+#
+#     Get the NFQueue number for perform inline IPS.
+#
+# Returns:
+#
+#     Int - between 0 and 65535
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::Internal> - thrown if the value to return is
+#     greater than 65535
+#
+sub nfQueueNum
+{
+    my ($self) = @_;
+
+    # As l7filter may take as much as interfaces are up, a security
+    # measure is set to + 10 of enabled interfaces
+    my $netMod = $self->global()->modInstance('network');
+    my $queueNum = scalar(@{$netMod->ifaces()}) + 10;
+    if ( $queueNum > 65535 ) {
+        throw EBox::Exceptions::Internal('There are too many interfaces to set a valid NFQUEUE number');
+    }
+    return $queueNum;
+}
+
+# Method: fwPosition
+#
+#     IPS inline firewall position determined by ips_fw_position
+#     configuration key
+#
+# Returns:
+#
+#     front  - if the all traffic should be analysed
+#     behind - if only not explicitly accepted/denied traffic should be analysed
+#              (*Default value*)
+#
+sub fwPosition
+{
+    my ($self) = @_;
+
+    my $where = EBox::Config::configkey('ips_fw_position');
+    if (defined ($where) and (($where eq 'front') or ($where eq 'behind'))) {
+        return $where;
+    } else {
+        # Default value
+        return 'behind';
+    }
+}
+
 sub _setRules
 {
     my ($self) = @_;
@@ -128,9 +184,6 @@ sub _setRules
     foreach my $id (@{$rulesModel->enabledRows()}) {
         my $row = $rulesModel->row($id);
         my $name = $row->valueByName('name');
-        if ($self->usingASU()) {
-            $name = "emerging-$name";
-        }
         my $decision = $row->valueByName('decision');
         if ($decision =~ /log/) {
             push (@cmds, "cp $snortDir/$name.rules $suricataDir/");
@@ -150,7 +203,7 @@ sub _setRules
 
 # Method: _setConf
 #
-#        Regenerate the configuration
+#       Regenerate the configuration
 #
 # Overrides:
 #
@@ -161,15 +214,19 @@ sub _setConf
     my ($self) = @_;
 
     my $rules = $self->_setRules();
+    my $mode  = 'accept';
+    if ($self->fwPosition() eq 'front') {
+        $mode = 'repeat';
+    }
 
     $self->writeConfFile(SURICATA_CONF_FILE, 'ips/suricata-debian.yaml.mas',
-                         [ rules => $rules ]);
+                         [ mode => $mode, rules => $rules ]);
 
     $self->writeConfFile(SURICATA_DEFAULT_FILE, 'ips/suricata.mas',
                          [ enabled => $self->isEnabled() ]);
 
     $self->writeConfFile(SURICATA_INIT_FILE, 'ips/suricata.upstart.mas',
-                         [ ]);
+                         [ nfQueueNum => $self->nfQueueNum() ]);
 
 }
 
@@ -188,6 +245,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'IPS/Composite/General',
                                     'text' => $self->printableName(),
+                                    'icon' => 'ips',
                                     'separator' => 'Gateway',
                                     'order' => 228));
 }
@@ -232,6 +290,11 @@ sub logHelper
 
 # Method: tableInfo
 #
+#       Two tables are created:
+#
+#           - ips_event for IPS events
+#           - ips_rule_updates for IPS rule updates
+#
 # Overrides:
 #
 #       <EBox::LogObserver::tableInfo>
@@ -252,7 +315,8 @@ sub tableInfo
 
     my @order = qw(timestamp priority description source dest protocol event);
 
-    return [{
+    my $tableInfos = [
+        {
             'name' => __('IPS'),
             'tablename' => 'ips_event',
             'titles' => $titles,
@@ -262,7 +326,23 @@ sub tableInfo
             'eventcol' => 'event',
             'filter' => ['priority', 'description', 'source', 'dest'],
             'consolidate' => $self->_consolidate(),
-           }];
+        } ];
+    if ($self->usingASU()) {
+        push(@{$tableInfos}, {
+            'name'      => __('IPS Rule Updates'),
+            'tablename' => 'ips_rule_updates',
+            'titles'    => { 'timestamp'      => __('Date'),
+                             'failure_reason' => __('Failure reason'),
+                             'event'          => __('Event') },
+            'order'     => [qw(timestamp event failure_reason)],
+            'timecol'   => 'timestamp',
+            'events'    => { 'success' => __('Success'), 'failure' => __('Failure') },
+            'eventcol'  => 'event',
+            'filter'    => [ 'failure_reason' ],
+           },
+            );
+    }
+    return $tableInfos;
 }
 
 sub _consolidate
@@ -302,12 +382,14 @@ sub usingASU
 {
     my ($self, $usingASU) = @_;
 
+    my $state = $self->get_state();
     my $key = 'using_asu';
     if (defined($usingASU)) {
-        $self->st_set_bool($key, $usingASU);
+        $state->{$key} = $usingASU;
+        $self->set_state($state);
     } else {
-        if ( $self->st_entry_exists($key) ) {
-            $usingASU = $self->st_get_bool($key);
+        if ( exists $state->{$key} ) {
+            $usingASU = $state->{$key};
         } else {
             # For now, checking emerging is in rules
             my $rulesDir = SNORT_RULES_DIR . '/';
@@ -317,6 +399,55 @@ sub usingASU
     }
     return $usingASU;
 }
+
+
+# Method: setASURuleSet
+#
+#    Set the rule set file names that ASU is using
+#
+#    This implies <usingASU> is set to True if the ruleset is not
+#    empty and False if the ruleset is empty or not defined.
+#
+# Parameters:
+#
+#    ruleSet - Array ref the rule set for ASU
+#              *(Optional)* If it is not provided, then it is removed
+#
+sub setASURuleSet
+{
+    my ($self, $ruleSet) = @_;
+
+    my $state = $self->get_state();
+    if ( (not defined($ruleSet)) or (scalar(@{$ruleSet}) == 0) ) {
+        delete $state->{asu_rule_set};
+    } else {
+        $state->{asu_rule_set} = $ruleSet;
+    }
+    $self->set_state($state);
+    $self->usingASU(exists $state->{asu_rule_set});
+}
+
+
+# Method: ASURuleSet
+#
+#    Get the rule set file names that ASU is using
+#
+# Returns:
+#
+#    Array ref - the rule set for ASU, empty array ref otherwise
+#
+sub ASURuleSet
+{
+    my ($self) = @_;
+
+    my $state = $self->get_state();
+    my $ruleSet = $state->{asu_rule_set};
+    unless (defined($ruleSet)) {
+        $ruleSet = [];
+    }
+    return $ruleSet;
+}
+
 
 # Method: rulesNum
 #
@@ -339,13 +470,9 @@ sub rulesNum
 
     my $rulesNum;
     if ( $force or (not $self->st_entry_exists($key)) ) {
-        my @files;
         my $rulesDir = SNORT_RULES_DIR . '/';
-        if ( $self->usingASU() ) {
-            @files = <${rulesDir}emerging-*.rules>;
-        } else {
-            @files = <${rulesDir}*.rules>;
-        }
+        my @files = <${rulesDir}*.rules>;
+
         # Count the number of rules removing blank lines and comment lines
         my @numRules = map { `sed -e '/^#/d' -e '/^\$/d' $_ | wc -l` } @files;
         $rulesNum = List::Util::sum(@numRules);
@@ -354,6 +481,59 @@ sub rulesNum
         $rulesNum = $self->st_get_int($key);
     }
     return $rulesNum;
+}
+
+# Method: notifyUpdate
+#
+#      This method is intended to store the update log in the
+#      ips_rule_update table.
+#
+#      It suceeds if the daemon is running, it does not if the daemon
+#      is not running waiting for 10s (daemon restarting lag maximum
+#      time)
+#
+#      It will send an event if the attempt has failed
+#
+# Parameters:
+#
+#      failureReason - String reason on failure.
+#                      *(Optional)* Default value: check the daemon is running
+#
+sub notifyUpdate
+{
+    my ($self, $failureReason) = @_;
+
+    my $event = 'success';
+    if ($self->isEnabled()) {
+        if ( $failureReason ) {
+            $event  = 'failure';
+        } else {
+            my $count = 0;
+            while (not $self->isRunning()) {
+                last if (++$count > 10);
+                sleep(1);
+            }
+            if ($count >= 10) {
+                $event = 'failure';
+                $failureReason = __x('Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for details and rule changelog at {url} ({name} rules)',
+                                     log  => SURICATA_LOG_FILE,
+                                     url  => 'http://rules.emergingthreats.net/changelogs',
+                                     name => 'suricata.open');
+            } else {
+                $failureReason = "";
+            }
+        }
+        my $dbh = EBox::DBEngineFactory::DBEngine();
+        $dbh->unbufferedInsert('ips_rule_updates',
+                               { timestamp      => POSIX::strftime('%Y-%m-%d %H:%M:%S', localtime()),
+                                 failure_reason => substr($failureReason, 0, 512), # Truncate
+                                 event          => $event });
+        if ($event eq 'failure') {
+            # Send an event
+            $self->_sendFailureEvent($failureReason);
+        }
+    }
+
 }
 
 sub firewallHelper
@@ -367,5 +547,25 @@ sub firewallHelper
 
     return undef;
 }
+
+# Group: Private methods
+
+# Send failure event when a failure attempt happens
+sub _sendFailureEvent
+{
+    my ($self, $message) = @_;
+
+    my $global = $self->global();
+    if ($global->modExists('events')) {
+        my $events = $global->modInstance('events');
+        if ( $events->isRunning() ) {
+            $events->sendEvent(
+                message    => $message,
+                source     => 'ips-rule-update',
+                level      => 'warn');
+        }
+    }
+}
+
 
 1;

@@ -4,16 +4,16 @@
 <%init>
     use EBox::Gettext;
 </%init>
-    <h3><% __('Asterisk account') %></h3>
-
     <div class="help"><%__('Password for Asterisk service is the user password')%></div>
 
 %   if (not $params->{service} ) {
         <& /asterisk/moduleDisabled.mas &>
 %   }
 
+
+ <div id='error_userOptions' class='error' style='display:none'></div>
+ <form id='userOptions' action="/Asterisk/AsteriskUserOptions" method="POST">
     <table class="formTable">
-    <form action="/Asterisk/AsteriskUserOptions" method="POST">
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
         <tr>
         <td class="tright">
@@ -49,5 +49,21 @@
                     alt="<% __('Change') %>">
         </td>
         </tr>
-    </form>
     </table>
+ </form>
+
+
+<script>
+$(function() {
+   $('#userOptions').on('submit', function(event) {
+        event.preventDefault();
+        Zentyal.Dialog.submitForm(event.target, {
+            success: function(response) {
+               var url = '/Users/EditUser';
+               var data = 'dn=' + response.userDN;
+               Zentyal.Dialog.showURL(url, { data: data});
+            }
+        });
+   });
+});
+</script>

@@ -16,7 +16,7 @@
 # Class: EBox::RemoteServices::Model::AccessSettings
 #
 # This class is the model to configure the access settings from
-# control panel of remote services to eBox:
+# Zentyal Remote to Zentyal Server
 #
 #     - passwordless (Boolean)
 #
@@ -75,7 +75,8 @@ sub _table
       (
        new EBox::Types::Boolean(
                                 fieldName     => 'passwordless',
-                                printableName => __('Access from control panel without password'),
+                                printableName => __x('Enable access without password from {tool} and Support',
+                                                     tool => 'Zentyal Remote'),
                                 editable      => 1,
                                 defaultValue  => 1,
                                ),
@@ -83,11 +84,12 @@ sub _table
 
     my $dataForm = {
                     tableName          => 'AccessSettings',
-                    printableTableName => __('Access settings'),
+                    printableTableName => __('Web Remote Access Settings'),
                     modelDomain        => 'RemoteServices',
                     defaultActions     => [ 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,
                     class              => 'dataForm',
+                    help               => __('This is only intended for Web Administration User Interface'),
                 };
 
       return $dataForm;

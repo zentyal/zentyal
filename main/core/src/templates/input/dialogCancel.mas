@@ -1,0 +1,13 @@
+<%init>
+use EBox::Gettext;
+$ARGS{onClick} ='Zentyal.Dialog.close(); return false';
+if (not $ARGS{value}) {
+    $ARGS{value} = __('Cancel');
+    $ARGS{alt} = __('Cancel');
+}
+</%init>
+<input type='button'
+    <& /htmlAttributes.mas,
+       %ARGS
+    &>
+/>

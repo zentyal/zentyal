@@ -12,12 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
 package EBox::Auth;
-
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
@@ -168,9 +166,6 @@ sub authen_cred  # (request, $user, password, fromCC)
     my $sid = $md5->hexdigest();
     _savesession($sid, $user);
 
-    my $global = EBox::Global->getInstance();
-    $global->revokeAllModules();
-
     return $sid;
 }
 
@@ -230,7 +225,12 @@ sub loginCC
     my ($self, $req) = @_;
 
     if ( $self->recognize_user($req) == OK ) {
-        return $self->authenticate($req);
+        my $retVal = $self->authenticate($req);
+        if ($req->uri() =~ m:^/ebox:) {
+            $req->headers_out()->set('Location' => '/');
+            return HTTP_MOVED_TEMPORARILY;
+        }
+        return $retVal;
     } else {
         if ( EBox::Global->modExists('remoteservices') ) {
             my $remoteServMod = EBox::Global->modInstance('remoteservices');

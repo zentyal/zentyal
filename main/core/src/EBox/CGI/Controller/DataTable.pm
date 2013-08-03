@@ -61,7 +61,7 @@ sub getParams
             }
             # TODO Review code to see if we are actually checking
             # types which are not optional
-                    $params{$fieldName} = $value;
+            $params{$fieldName} = $value;
         }
     }
 
@@ -159,29 +159,6 @@ sub addRow
     return $id;
 }
 
-sub moveRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    $self->_requireParam('dir');
-
-    my $id = $self->unsafeParam('id');
-    my $dir = $self->param('dir');
-
-    my $before = $model->_rowOrder($id);
-    if ($dir eq 'up') {
-        $model->moveUp($id);
-    } else {
-        $model->moveDown($id);
-    }
-    my $after = $model->_rowOrder($id);
-
-    $self->_auditLog('move', $self->_getAuditId($id), $before, $after);
-}
-
 sub removeRow
 {
     my $self = shift;
@@ -192,9 +169,12 @@ sub removeRow
     my $id = $self->unsafeParam('id');
     my $force = $self->param('force');
 
+    # We MUST get it before remove the item or it will fail.
+    my $auditId = $self->_getAuditId($id);
+
     $model->removeRow($id, $force);
 
-    $self->_auditLog('del', $self->_getAuditId($id));
+    $self->_auditLog('del', $auditId);
 }
 
 sub editField
@@ -295,11 +275,10 @@ sub editBoolean
     $self->_editField(1, %editParams);
 
     $model->popMessage();
+
     my $global = EBox::Global->getInstance();
-    # XXX Factor this class to be able to print 'application/json'
-    #     and 'text/html' headers. This way we could just return
+    # XXX Use JSON here This way we could just return
     #     a json object { changes_menu: true } and get it evaled
-    #     using prototype. That's the right way :)
     if ($global->unsaved()) {
         $self->_responseToEnableChangesMenuElement();
     }
@@ -328,7 +307,7 @@ sub _responseToEnableChangesMenuElement
 {
     my ($self) = @_;
     $self->_header();
-    print '$("changes_menu").className = "changed"';
+    print '$("#changes_menu").removeClass().addClass("changed")';
 }
 
 sub customAction
@@ -410,13 +389,6 @@ sub delAction
     $self->refreshTable();
 }
 
-sub moveAction
-{
-    my ($self) = @_;
-    $self->moveRow();
-    $self->refreshTable();
-}
-
 sub changeAddAction
 {
     my ($self) = @_;
@@ -448,8 +420,9 @@ sub viewAction
 sub editBooleanAction
 {
     my ($self) = @_;
-    delete $self->{template};
+    delete $self->{template}; # to not print standard response
     $self->editBoolean();
+
 }
 
 sub cloneAction
@@ -497,6 +470,25 @@ sub confirmationDialogAction
         message => $msg,
         title => $title
        };
+}
+
+sub setPositionAction
+{
+    my ($self, %params) = @_;
+    my $model = $params{model};
+
+    $self->{json} = { success => 0};
+    my $id     = $self->param('id');
+    my $prevId = $self->param('prevId');
+    (not $prevId) and $prevId = undef;
+    my $nextId = $self->param('nextId');
+    (not $nextId) and $nextId = undef;
+
+    my $res = $model->moveRowRelative($id, $prevId, $nextId);
+    $self->_auditLog('move', $self->_getAuditId($id), $res->[0], $res->[1]);
+
+    $self->{json}->{success} = 1;
+    $self->{json}->{unsavedModules} = EBox::Global->getInstance()->unsaved() ? 1 : 0;
 }
 
 # Group: Protected methods
@@ -568,7 +560,6 @@ sub _print
     unless ($self->{json}) {
         $self->_printRedirect;
     }
-
 }
 
 sub _getAuditId

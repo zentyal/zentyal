@@ -23,7 +23,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use EBox::Model::Manager;
 use Perl6::Junction qw(any all);
 
@@ -68,7 +68,11 @@ sub _userAddOns
         'service' => $self->{zarafa}->isEnabled(),
     };
 
-    return { path => '/zarafa/zarafa.mas', params => $args };
+    return {
+        title =>   __('Zarafa account'),
+        path => '/zarafa/zarafa.mas',
+        params => $args
+       };
 }
 
 sub schemas
@@ -261,27 +265,38 @@ sub _addUser
 
 }
 
+sub _addContact
+{
+    my ($self, $contact) = @_;
+
+    unless ($self->{zarafa}->configured()) {
+        return;
+    }
+
+    $self->setHasContact($contact, 1);
+}
+
 sub hasContact
 {
-    my ($self, $user) = @_;
-    return 'zarafa-contact' eq any($user->get('objectClass'));
+    my ($self, $person) = @_;
+    return 'zarafa-contact' eq any($person->get('objectClass'));
 }
 
 sub setHasContact
 {
-    my ($self, $user, $contact) = @_;
+    my ($self, $person, $contact) = @_;
 
-    if ($self->hasAccount($user)) {
+    if ($self->hasAccount($person)) {
         # nothing to do here
         return;
     }
 
-    my $alreadyContact = $self->hasContact($user);
+    my $alreadyContact = $self->hasContact($person);
     if ($alreadyContact and not $contact) {
-        $user->remove('objectClass', 'zarafa-contact');
+        $person->remove('objectClass', 'zarafa-contact');
     }
     elsif (not $alreadyContact and $contact) {
-        $user->add('objectClass', 'zarafa-contact');
+        $person->add('objectClass', 'zarafa-contact');
     }
 
     return 0;
@@ -319,6 +334,15 @@ sub defaultUserModel
 sub multipleOUSupport
 {
     return 1;
+}
+
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'zarafa' ];
 }
 
 1;

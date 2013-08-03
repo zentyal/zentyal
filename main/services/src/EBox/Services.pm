@@ -129,6 +129,14 @@ sub _defaultServices
          'destinationPort' => '80',
          'internal' => 0,
         },
+        {
+         'name' => 'HTTPS',
+         'printableName' => 'HTTPS',
+         'description' => __('HyperText Transport Protocol over SSL'),
+         'protocol' => 'tcp',
+         'destinationPort' => '443',
+         'internal' => 0,
+        },
     ];
 }
 
@@ -238,7 +246,10 @@ sub serviceIptablesArgs
     my @conf =  @{ $self->serviceConfiguration($id) };
     foreach my $conf (@conf) {
         my $args = '';
-        if ($conf->{protocol} ne 'any') {
+        my $tcpUdp = 0;
+        if ($conf->{protocol} eq 'tcp/udp') {
+            $tcpUdp = 1;
+        } elsif ($conf->{protocol} ne 'any') {
             $args .= '--protocol ' . $conf->{protocol};
         }
         if ($conf->{source} ne 'any') {
@@ -248,7 +259,13 @@ sub serviceIptablesArgs
             $args .= ' --dport ' . $conf->{destination};
         }
 
-        push @args, $args;
+        if ($tcpUdp) {
+            my $tcpArgs = '--protocol tcp' . $args;
+            my $udpArgs = '--protocol udp' . $args;
+            push @args, ($tcpArgs, $udpArgs);
+        } else {
+            push @args, $args;
+        }
     }
 
     return \@args;
@@ -600,6 +617,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'icon' => 'network',
                                         'text' => __('Network'),
                                         'separator' => 'Core',
                                         'order' => 40);

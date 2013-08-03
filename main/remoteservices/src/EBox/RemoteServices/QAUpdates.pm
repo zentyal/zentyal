@@ -67,6 +67,7 @@ sub _setQAUpdates
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
             $softwareMod->setQAUpdates(1);
+            $softwareMod->save();
         }
     } else {
         EBox::info('No software module installed QA updates should be done by hand');
@@ -132,13 +133,16 @@ sub _zentyalVersion
 }
 
 # Get the QA archive to look
+# qa_updates_archive conf key has higher precedence
 sub _archive
 {
-    my $ubuntuVersion = _ubuntuVersion();
-    my $zentyalVersion = _zentyalVersion();
+    if (EBox::Config::configkey('qa_updates_archive')) {
+        return EBox::Config::configkey('qa_updates_archive');
+    } else {
+        my $zentyalVersion = _zentyalVersion();
 
-    return "zentyal-qa-$zentyalVersion";
-
+        return "zentyal-qa-$zentyalVersion";
+    }
 }
 
 # Get the suite of archives to set preferences
@@ -199,7 +203,11 @@ sub _setQARepoConf
 sub _repositoryHostname
 {
     my $rs = EBox::Global->modInstance('remoteservices');
-    return 'qa.' . $rs->cloudDomain();
+    if ( EBox::Config::configkey('qa_updates_repo') ) {
+        return EBox::Config::configkey('qa_updates_repo');
+    } else {
+        return 'qa.' . $rs->cloudDomain();
+    }
 }
 
 # Remove QA updates
@@ -214,6 +222,7 @@ sub _removeQAUpdates
     if ($softwareMod) {
         if ( $softwareMod->can('setQAUpdates') ) {
             $softwareMod->setQAUpdates(0);
+            $softwareMod->save();
         }
     }
 }

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 18;
+use Test::More tests => 23;
 use Test::Exception;
 
 use EBox::Global::TestStub;
@@ -28,9 +28,9 @@ use_ok ('EBox::CGI::Run');
 
 EBox::Global::TestStub::fake();
 
-is EBox::CGI::Run::urlToClass('SysInfo/Backup'), 'EBox::SysInfo::CGI::Backup', 'cgi class from url';
-is EBox::CGI::Run::urlToClass(), 'EBox::Dashboard::CGI::Index', 'cgi index class';
-is EBox::CGI::Run::urlToClass('RemoteServices/Backup/Index'), 'EBox::RemoteServices::CGI::Backup::Index', 'more complex cgi index class';
+is (EBox::CGI::Run->urlToClass('SysInfo/Backup'), 'EBox::SysInfo::CGI::Backup', 'cgi class from url');
+is (EBox::CGI::Run->urlToClass(), 'EBox::Dashboard::CGI::Index', 'cgi index class');
+is (EBox::CGI::Run->urlToClass('RemoteServices/Backup/Index'), 'EBox::RemoteServices::CGI::Backup::Index', 'more complex cgi index class');
 
 my ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('SysInfo/View/Halt');
 is $module, 'SysInfo', 'model from url (module)';
@@ -40,8 +40,16 @@ is $action, undef, 'model from url (undefined action)';
 
 my $sysinfo = EBox::Global->modInstance('sysinfo');
 isa_ok $sysinfo->model('Halt'), 'EBox::SysInfo::Model::Halt', 'model exists';
-isa_ok EBox::CGI::Run::modelFromUrl('SysInfo/View/Halt'), 'EBox::SysInfo::Model::Halt', 'instance model from url';
-isa_ok EBox::CGI::Run::_instanceModelCGI('SysInfo/View/Halt'), 'EBox::CGI::View::DataTable', 'instance model viewer';
+isa_ok(EBox::CGI::Run->modelFromUrl('SysInfo/View/Halt'), 'EBox::SysInfo::Model::Halt', 'instance model from url');
+isa_ok(EBox::CGI::Run->_instanceModelCGI('SysInfo/View/Halt'), 'EBox::CGI::View::DataTable', 'instance model viewer');
+isa_ok(EBox::CGI::Run->_instanceModelCGI('SysInfo/Controller/Halt'), 'EBox::CGI::Controller::DataTable', 'instance datatable controller');
+
+my $users = EBox::Global->modInstance('users');
+my $manager = EBox::Model::Manager->instance();
+ok $manager->_modelExists('users/Manage'), 'tree model exists';
+isa_ok $users->model('Manage'), 'EBox::Users::Model::Manage', 'tree model has correct type';
+isa_ok (EBox::CGI::Run->modelFromUrl('Users/Tree/Manage'), 'EBox::Users::Model::Manage', 'instance tree from url');
+isa_ok(EBox::CGI::Run->_instanceModelCGI('Users/Tree/Manage'), 'EBox::CGI::View::Tree', 'instance tree viewer');
 
 ($model, $module, $type, $action) = EBox::CGI::Run::_parseModelUrl('Logs/Composite/General/foobar');
 is $module, 'Logs', 'composite from url (module)';
@@ -51,7 +59,7 @@ is $action, 'foobar', 'composite from url (action)';
 
 my $logs = EBox::Global->modInstance('logs');
 isa_ok $logs->composite('General'), 'EBox::Logs::Composite::General', 'composite exists';
-isa_ok EBox::CGI::Run::modelFromUrl('Logs/Composite/General/foobar'), 'EBox::Logs::Composite::General', 'instance composite from url';
-isa_ok EBox::CGI::Run::_instanceModelCGI('Logs/Composite/General/foobar'), 'EBox::CGI::Controller::Composite', 'instance composite controller';
+isa_ok(EBox::CGI::Run->modelFromUrl('Logs/Composite/General/foobar'), 'EBox::Logs::Composite::General', 'instance composite from url');
+isa_ok(EBox::CGI::Run->_instanceModelCGI('Logs/Composite/General/foobar'), 'EBox::CGI::Controller::Composite', 'instance composite controller');
 
 1;

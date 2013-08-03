@@ -230,6 +230,7 @@ sub menu
 
     my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
                                     'url' => 'Printers/Composite/General',
+                                    'icon' => 'printers',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
                                     'order' => 550);

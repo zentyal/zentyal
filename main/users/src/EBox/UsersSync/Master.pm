@@ -55,14 +55,17 @@ sub confSOAPService
     my ($self) = @_;
 
     my $confFile = EBox::Config::conf() . 'users/soap.conf';
+    my $confSSLFile = EBox::Config::conf() . 'users/soap-ssl.conf';
 
     my @params;
     push (@params, passwords_file => MASTER_PASSWORDS_FILE);
 
-    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.mas', \@params);
+    EBox::Module::Base::writeConfFileNoCheck($confFile, 'users/soap.conf.mas', \@params);
+    EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
 
     my $webAdminMod = EBox::Global->modInstance('webadmin');
-    $webAdminMod->addInclude($confFile);
+    $webAdminMod->addApacheInclude($confFile);
+    $webAdminMod->addNginxInclude($confSSLFile);
 
     $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);
 }

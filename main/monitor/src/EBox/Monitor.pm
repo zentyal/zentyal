@@ -147,6 +147,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
                                         'text' => __('Maintenance'),
+                                        'icon' => 'maintenance',
                                         'separator' => 'Core',
                                         'order' => 70);
 
@@ -545,7 +546,7 @@ sub _setMainConf
         $self->_setOldHostname($hostname);
     }
 
-    # Send stats to Zentyal Cloud with the server name if the host is subscribed
+    # Send stats to Zentyal Remote with the server name if the host is subscribed
     my $global = EBox::Global->getInstance(1);
     if ( $global->modExists('remoteservices') ) {
         my $rs = $global->modInstance('remoteservices');

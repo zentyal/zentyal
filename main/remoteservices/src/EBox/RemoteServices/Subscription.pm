@@ -549,7 +549,7 @@ sub _openHTTPSConnection
                 try {
                     EBox::Sudo::root(
                         EBox::Iptables::pf(
-                            "-A ointernal -p tcp -d $site --dport 443 -j ACCEPT"
+                            "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
                            )
                          );
                 } catch EBox::Exceptions::Sudo::Command with {
@@ -560,7 +560,7 @@ sub _openHTTPSConnection
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
-                        "-A ointernal -p udp -d $dnsServer --dport 53 -j ACCEPT"
+                        "-A ointernal -p udp -d $dnsServer --dport 53 -j oaccept"
                        )
                     );
             }
@@ -581,14 +581,15 @@ sub _openVPNConnection #(ipaddr, port, protocol)
             eval "use EBox::Iptables";
             EBox::Sudo::root(
                 EBox::Iptables::pf(
-                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j ACCEPT"
+                    "-A ointernal -p $protocol -d $ipAddr --dport $port -j oaccept"
                    )
                  );
         }
     }
 }
 
-# Install zentyal-cloud-prof package in a hour to avoid problems with dpkg
+# Try to install zentyal-cloud-prof package 10 times during 50 minutes
+# if any problem happened with dpkg
 sub _installCloudProf
 {
     my ($self, $params, $confKeys) = @_;
@@ -596,30 +597,36 @@ sub _installCloudProf
     return unless ( exists $params->{installCloudProf} );
 
     if ( $self->_pkgInstalled(PROF_PKG) ) {
-        # Remove any at command from user to avoid removing pkg using at
-        my $user = EBox::Config::user();
-        my $queuedJobs = EBox::Sudo::rootWithoutException("atq | grep $user");
-        if (@{$queuedJobs} > 0) {
-            # Delete them
-            my @jobIds = map { m/^([0-9]+)\s/ } @{$queuedJobs};
-            EBox::Sudo::root('atrm ' . join(' ', @jobIds));
-        }
         return;
     }
 
+    my $installCloudProf = $params->{installCloudProf};
+
     my $fh = new File::Temp(DIR => EBox::Config::tmp());
     $fh->unlink_on_destroy(0);
-    print $fh "exec " . $params->{installCloudProf} . " \n";
+    my $tmpFilename = $fh->filename();
+    my $try = <<END;
+#!/bin/bash
+for try in {1..10}
+do
+   $installCloudProf
+   if dpkg -l | grep cloud-prof | grep ^ii; then
+      break
+   fi
+   sleep 300
+done
+rm -f $tmpFilename
+END
+    print $fh $try;
     close($fh);
 
     try {
-        EBox::Sudo::command("chmod a+x '" . $params->{installCloudProf} . "'");
-        # Delay the ebox-cloud-prof installation for an hour
-        EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
+        EBox::Sudo::command("chmod a+x '$installCloudProf'");
+        EBox::Sudo::command("bash '$tmpFilename'");
     } catch EBox::Exceptions::Command with {
-        # Ignore installation errors
+        my ($exc) = @_;
+        EBox::error($exc);
     };
-
 }
 
 sub _executeBundleScripts

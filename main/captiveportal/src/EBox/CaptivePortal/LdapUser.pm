@@ -23,7 +23,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
+use EBox::Users;
 use Perl6::Junction qw(any);
 
 sub new
@@ -61,8 +61,11 @@ sub _userAddOns
         'liimitBW'    => $limitBW,
     };
 
-    return { path => '/captiveportal/useraddon.mas',
-             params => $args };
+    return {
+        title =>  __('Captive Portal'),
+        path => '/captiveportal/useraddon.mas',
+        params => $args
+       };
 }
 
 sub isQuotaOverridden

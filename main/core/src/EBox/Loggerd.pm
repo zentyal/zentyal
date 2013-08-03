@@ -52,7 +52,7 @@ sub run
     $self->initDaemon();
     EBox::init();
 
-    my $global = EBox::Global->getInstance();
+    my $global = EBox::Global->getInstance(1);
     my $log = $global->modInstance('logs');
     $self->{'loghelpers'} = $log->allEnabledLogHelpers();
     $self->{'dbengine'} = EBox::DBEngineFactory::DBEngine();

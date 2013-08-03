@@ -18,10 +18,11 @@ use warnings;
 
 package EBox::CloudSync::Slave;
 
-use base 'EBox::UsersAndGroups::Slave';
+use base 'EBox::Users::Slave';
 
 use EBox::Global;
 use EBox::Exceptions::External;
+use EBox::Users::User;
 
 use Error qw(:try);
 use MIME::Base64;
@@ -30,6 +31,10 @@ sub new
 {
     my ($class, $host, $port, $cert) = @_;
     my $self = $class->SUPER::new(name => 'zentyal-cloud');
+
+    $self->{usersMod} = EBox::Global->modInstance('users');
+    $self->{usersContainer} = $self->{usersMod}->userClass()->defaultContainer();
+
     bless($self, $class);
     return $self;
 }
@@ -38,11 +43,10 @@ sub _addUser
 {
     my ($self, $user, $pass) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($user->baseDn() ne $users->usersDn());
+    return if ($user->baseDn() ne $self->{usersContainer}->dn());
 
     # refresh user info to avoid cache problems with passwords:
-    $user = $users->user($user->name());
+    $user = $self->{usersMod}->userByUID($user->name());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
@@ -65,11 +69,10 @@ sub _modifyUser
 {
     my ($self, $user, $pass) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($user->baseDn() ne $users->usersDn());
+    return if ($user->baseDn() ne $self->{usersContainer}->dn());
 
     # refresh user info to avoid cache problems with passwords:
-    $user = $users->user($user->name());
+    $user = $self->{usersMod}->userByUID($user->name());
 
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
@@ -89,8 +92,7 @@ sub _delUser
 {
     my ($self, $user) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($user->baseDn() ne $users->usersDn());
+    return if ($user->baseDn() ne $self->{usersContainer}->dn());
 
     my $uid = $user->get('uid');
     $self->RESTClient->DELETE("/v1/users/users/$uid", retry => 1);
@@ -101,8 +103,9 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if (not $group->isSecurityGroup());
+
+    return unless ($group->isInDefaultContainer());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -120,9 +123,11 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return if (not $group->isSecurityGroup());
 
+    return unless ($group->isInDefaultContainer());
+
+    # FIXME: We should sync contacts too!
     my @members = map { $_->name() } @{$group->users()};
     my $groupinfo = {
         name        => $group->name(),
@@ -141,8 +146,7 @@ sub _delGroup
 {
     my ($self, $group) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    return if ($group->baseDn() ne $users->groupsDn());
+    return unless ($group->isInDefaultContainer());
 
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);

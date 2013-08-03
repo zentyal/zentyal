@@ -1,3 +1,12 @@
+HEAD
+	+ asterisk-ldap script fails if LDAP operation fails
+	+ Added menu icon
+	+ Updated to use renamed method EBox::Ldap::connection.
+	+ Adapted user addon to multi-OU tree view.
+	+ Updated to use the new API to find groups and users.
+	+ Added incompatiblity with external AD authentication mode.
+3.1.1
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1

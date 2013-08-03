@@ -76,10 +76,9 @@ sub input
     if ($addr ne LISTEN_ALL) {
         $cmd .= qq{-d $addr/32 }
     }
-    $cmd .= qq{-i $iface } .
-              qq{-p tcp -m tcp --dport $port };
+    $cmd .= qq{-i $iface } . qq{-p tcp -m tcp --dport $port };
 
-    $cmd .=   qq{-j ACCEPT};
+    $cmd .= qq{-j iaccept};
 
     return [$cmd];
 }

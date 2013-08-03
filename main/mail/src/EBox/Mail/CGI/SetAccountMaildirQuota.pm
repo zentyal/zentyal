@@ -17,13 +17,12 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::SetAccountMaildirQuota;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 ## arguments:
 ##      title [required]
@@ -38,15 +37,16 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
+
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->keepParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
     $self->_requireParam('quotaType');
     my $quotaType = $self->param('quotaType');
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
     my $mail = EBox::Global->modInstance('mail');
     if ($quotaType eq 'noQuota') {
         $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);
@@ -64,6 +64,7 @@ __('Quota must be a amount of MB greter than zero')
         $mail->{musers}->setMaildirQuota($user, $quota);
         $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);
     }
+    $self->{json}->{success} = 1;
 }
 
 1;

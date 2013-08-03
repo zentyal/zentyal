@@ -23,6 +23,8 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
+use EBox::Users::User;
+
 use Error qw(:try);
 
 use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
@@ -131,6 +133,7 @@ sub _services
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -203,7 +206,7 @@ sub _setConf
     push(@array, 'ldapBase' => $ldap->dn());
     push(@array, 'ldapRoot', $ldapconf->{'rootdn'});
     push(@array, 'ldapPasswd' => $ldap->getPassword());
-    push(@array, 'usersDn' => $users->usersDn());
+    push(@array, 'usersDn' => EBox::Users::User->defaultContainer()->dn());
 
     push(@array, 'domain' => $settings->domainValue());
     push(@array, 'ssl' => $settings->sslValue());
@@ -244,6 +247,7 @@ sub menu
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'Jabber/Composite/General',
                                     'text' => $self->printableName(),
+                                    'icon' => 'jabber',
                                     'separator' => 'Communications',
                                     'order' => 620));
 }

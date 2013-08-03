@@ -17,6 +17,6 @@ if (not defined $buttonText) {
 <br/>
 <div class='tcenter'>
 <input type ='button' value=<% $buttonText %>
-       onclick='Modalbox.hide(); return false'
+       onclick='Zentyal.Dialog.close(); return false'
 />
 </div>

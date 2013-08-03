@@ -1,3 +1,6 @@
+3.1.1
+	+ Removed dependencies on prototype and scriptaculous javascript libraries
+	+ Removed deprecated configuration key override_user_modification
 3.1
 	+ Set debug = yes by default for the development series
 	+ Remove "use GD" workaround in EBox::init()

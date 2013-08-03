@@ -1,3 +1,7 @@
+HEAD
+	+ Adapted to updatedRowNotify call with no changes in values
+	+ Added menu icon
+	+ Adapt firewall rules to new accept chains
 3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Removed 3.0.X migration code

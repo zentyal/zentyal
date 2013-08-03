@@ -20,6 +20,8 @@ package EBox::FirewallHelper;
 
 use EBox::Gettext;
 
+# Group: Public methods
+
 sub new
 {
     my $class = shift;
@@ -99,6 +101,20 @@ sub forwardNoSpoof
     return [];
 }
 
+# Method: forwardAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   faccept chain. You can use them to analyse accepted forward traffic.
+#
+# Returns:
+#
+#   array ref - containing forwardAccept rules
+#
+sub forwardAccept
+{
+    return [];
+}
+
 # Method: preInput
 #
 #   Rules returned by this method are added to the INPUT chain
@@ -141,6 +157,20 @@ sub inputNoSpoof
     return [];
 }
 
+# Method: inputAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   iaccept chain. You can use them to analyse accepted input traffic.
+#
+# Returns:
+#
+#   array ref - containing inputAccept rules
+#
+sub inputAccept
+{
+    return [];
+}
+
 # Method: preOutput
 #
 #   Rules returned by this method are added to the OUTPUT chain
@@ -164,6 +194,20 @@ sub preOutput
 #
 #   array ref - containing output rules
 sub output
+{
+    return [];
+}
+
+# Method: outputAccept
+#
+#   Rules returned by this method are inserted in reverse order in
+#   oaccept chain. You can use them to analyse accepted output traffic.
+#
+# Returns:
+#
+#   array ref - containing outputAccept rules
+#
+sub outputAccept
 {
     return [];
 }
@@ -195,6 +239,22 @@ sub chains
 {
     return {}
 }
+
+# Method: restartOnTemporaryStop
+#
+#   Determine if the firewall module must be restarted in a module
+#   temporary stop
+#
+# Returns:
+#
+#   Boolean - the value. By default, it is stopped
+#
+sub restartOnTemporaryStop
+{
+    return 0;
+}
+
+# Group: Protected methods
 
 # Method: _outputIface
 #

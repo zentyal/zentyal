@@ -39,9 +39,9 @@ sub new
 
     my $self = $class->SUPER::new();
 
-    my $gl = EBox::Global->getInstance();
-    $self->{rs} = $gl->modInstance('remoteservices');
-    $self->{openvpn} = $gl->modInstance('openvpn');
+    $self->{gl} = EBox::Global->getInstance();
+    $self->{rs} = $self->{gl}->modInstance('remoteservices');
+    $self->{openvpn} = $self->{gl}->modInstance('openvpn');
 
     # Merge self with the certs
     my %certificates = %{$self->_certificates()};
@@ -90,8 +90,7 @@ sub create
 
         # Configure and enable VPN module and its dependencies
         foreach my $depName ((@{$openvpn->depends()}, $openvpn->name())) {
-            my $gl = EBox::Global->getInstance();
-            my $mod = $gl->modInstance($depName);
+            my $mod = $self->{gl}->modInstance($depName);
             if (not $mod->configured() ) {
                 $mod->setConfigured(1);
                 $mod->enableActions();
@@ -126,6 +125,9 @@ sub create
             @localParams,
            );
         $openvpn->save();
+        # We need to save logs config as newClient performs EBox::OpenVPN::notifyLogChange
+        # as it may be changes in the log configuration
+        $self->{gl}->modInstance('logs')->save();
     }
     return $self->{client};
 }
@@ -326,7 +328,7 @@ sub checkVPNConnectivity
 sub _vpnClientLocalAddress
 {
     my ($self, $serverAddr) = @_;
-    my $network = EBox::Global->getInstance()->modInstance('network');
+    my $network = $self->{gl}->modInstance('network');
 
     # get interfaces to check and their order
     my ($ifaceGw , $gw) = $network->_defaultGwAndIface();

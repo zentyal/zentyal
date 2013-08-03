@@ -139,6 +139,11 @@ sub _table
     return $dataTable;
 }
 
+sub userCorner
+{
+    return 1;
+}
+
 sub _mailProtocols
 {
     return [
@@ -167,9 +172,9 @@ sub _user
     my ($self) = @_;
     my $request = Apache2::RequestUtil->request();
     my $user = $request->user();
-    my $users = EBox::Global->modInstance('users');
+    my $usersMod = EBox::Global->modInstance('users');
 
-    return new EBox::UsersAndGroups::User(dn => $users->userDn($user));
+    return new $usersMod->userByUID($user);
 }
 
 sub _userExternalAccounts
@@ -278,7 +283,7 @@ sub removeRow
 
     unless (defined($id)) {
         throw EBox::Exceptions::MissingArgument(
-                "Missing row identifier to remove")
+                "Missing row identifier to remove");
     }
 
     my $row = $self->row($id);

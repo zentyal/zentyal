@@ -40,7 +40,7 @@ use constant IMAGEPATH => EBox::Config::tmp . '/varimages';
 use constant PIDPATH => EBox::Config::tmp . '/pids/';
 use constant ENABLED_LOG_CONF_DIR => EBox::Config::conf  . '/logs';;
 use constant ENABLED_LOG_CONF_FILE => ENABLED_LOG_CONF_DIR . '/enabled.conf';
-use constant PG_DATA_DIR           => '/var/lib/postgres';
+use constant MYSQL_ZENTYAL_DATA_DIR           => '/var/lib/mysql/zentyal';
 
 #       EBox::Module::Service interface
 #
@@ -62,7 +62,8 @@ sub _create
 #
 sub depends
 {
-    my $mods = EBox::Global->modInstancesOfType('EBox::LogObserver');
+    my ($self) = @_;
+    my $mods = $self->global()->modInstancesOfType('EBox::LogObserver');
     my @names = map ($_->{name}, @$mods);
     return \@names;
 }
@@ -167,7 +168,7 @@ sub allEnabledLogHelpers
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     my $enabledLogs = $self->_restoreEnabledLogsModules();
 
@@ -207,7 +208,7 @@ sub allLogHelpers
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     my @objects;
     my @mods = @{$global->modInstancesOfType('EBox::LogObserver')};
@@ -221,7 +222,8 @@ sub allLogHelpers
 
 sub getLogsModules
 {
-    my $global = EBox::Global->getInstance();
+    my ($self) = @_;
+    my $global = $self->global();
 
     return [grep { $_->configured() } @{$global->modInstancesOfType('EBox::LogObserver')}];
 }
@@ -246,7 +248,7 @@ sub getAllTables
     }
 
     my $tables = {};
-    foreach my $mod (@{getLogsModules()}) {
+    foreach my $mod (@{$self->getLogsModules()}) {
         my @tableInfos = @{ $self->getModTableInfos($mod) };
 
         foreach my $comp (@tableInfos) {
@@ -322,51 +324,6 @@ sub getLogDomains
     return \%logdomains;
 }
 
-sub backupDomains
-{
-    my $name = 'logs';
-    my %attrs  = (
-                  printableName => __('Logs'),
-                  description   => __(q{Zentyal Server logs database}),
-                  extraDataDump => 1,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub dumpExtraBackupData
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my @domainsDumped;
-    if ($backupDomains{logs} ) {
-        my $logsDir = $dir . '/logs';
-        if (not -d $logsDir) {
-            mkdir $logsDir or
-                throw EBox::Exceptions::Internal("Cannot create $logsDir: $!");
-        }
-        my $dbengine = EBox::DBEngineFactory::DBEngine();
-        my $dumpFileBasename = "eboxlogs";
-
-        $dbengine->backupDB($logsDir, $dumpFileBasename);
-        push @domainsDumped, 'logs';
-    }
-
-    return \@domainsDumped;
-}
-
-sub dumpExtraBackupDataSize
-{
-    my ($self, $dir, %backupDomains) = @_;
-
-    my $size = 0;
-    if ($backupDomains{logs} ) {
-         $size += EBox::FileSystem::dirDiskUsage($dir);
-    }
-
-    return $size;
-}
-
 sub _checkValidDate # (date)
 {
     my ($datestr) = @_;
@@ -405,6 +362,8 @@ sub _checkValidDate # (date)
 #       pagesize - Int the page's size to return the result
 #
 #       page - Int the page to search for results
+#
+#       timecol - String the timestamp column to perform date filters
 #
 #       filters - hash ref a list of filters indexed by name which
 #       contains the value of the given filter (normally a
@@ -695,6 +654,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'Maintenance',
                                         'text' => __('Maintenance'),
+                                        'icon' => 'maintenance',
                                         'separator' => 'Core',
                                         'order' => 70);
 
@@ -767,7 +727,10 @@ sub _restoreEnabledLogsModules
 
     my $string = <$file>;
     close($file);
-    return undef unless (defined($string));
+
+    if (not $string) {
+        return {}
+    }
 
     my %enabled;
     foreach my $domain (split(/,/, $string)) {
@@ -780,10 +743,6 @@ sub _restoreEnabledLogsModules
 # Overrides:
 #  EBox::Report::DiskUsageProivider::_facilitiesForDiskUsage
 #
-# Warning:
-#   this implies thhat all postgresql data are log, if someday other kind of
-#   data is added to the database we will to change this (and maybe overriding
-#   EBox::Report::DiskUsageProivider::diskUsage will be needed)
 sub _facilitiesForDiskUsage
 {
   my ($self) = @_;
@@ -791,7 +750,7 @@ sub _facilitiesForDiskUsage
   my $printableName = __('Log messages');
 
   return {
-          $printableName => [ PG_DATA_DIR ],
+          $printableName => [ MYSQL_ZENTYAL_DATA_DIR ],
          };
 }
 
@@ -868,7 +827,7 @@ sub purge
 
     # purge each module
     while (my ($modName, $threshold) = each %thresholdByModule) {
-        my $mod = EBox::Global->modInstance($modName);
+        my $mod = $self->global()->modInstance($modName);
         my @logTables = @{ $self->getModTableInfos($mod) };
 
         foreach my $table (@logTables) {

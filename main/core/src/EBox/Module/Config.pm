@@ -232,8 +232,6 @@ sub _saveConfig
                                          . " module: " . $self->name() . "\n");
     }
 
-    $self->_dump_to_file();
-
     $self->modelsSaveConfig();
 
     $self->_copy_to_ro();

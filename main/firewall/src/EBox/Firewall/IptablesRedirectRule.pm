@@ -98,7 +98,7 @@ sub strings
                 my $natRule = "-t nat -A PREROUTING $modulesConf " .
                     "-i $iface $src $natSvc $origDst -j DNAT $toDst";
                 my $filterRule = "-A fredirects $state $modulesConf " .
-                    "-i $iface $src $filterSvc $dst -j ACCEPT";
+                    "-i $iface $src $filterSvc $dst -j faccept";
 
                 push (@rules, $natRule);
                 push (@rules, $filterRule);
@@ -123,7 +123,7 @@ sub strings
                         "--limit $limit/min ".
                         "--limit-burst $burst " .
                         '--log-level ' . $self->{'log_level'} . ' ' .
-                        '--log-prefix "ebox-firewall redirect "';
+                        '--log-prefix "zentyal-firewall redirect "';
 
                     unshift (@rules, $logRule);
                 }

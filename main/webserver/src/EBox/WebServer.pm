@@ -26,7 +26,7 @@ use EBox::Service;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
-
+use EBox::Users::User;
 use EBox::WebServer::PlatformPath;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
@@ -224,6 +224,7 @@ sub menu
       my ($self, $root) = @_;
 
       my $item = new EBox::Menu::Item(name  => 'WebServer',
+                                      icon  => 'webserver',
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
@@ -431,7 +432,7 @@ sub _setUserDir
         my $ldapPort   = $ldap->ldapConf()->{port};
         my $rootDN = $ldap->rootDn();
         my $ldapPass = $ldap->getPassword();
-        my $usersDN = $usersMod->usersDn();
+        my $usersDN = EBox::Users::User->defaultContainer()->dn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
                              [
@@ -792,34 +793,6 @@ sub restoreConfig
     }
 
     EBox::Sudo::root("cp -a $sitesBackDir/* " . SITES_AVAILABLE_DIR);
-}
-
-sub backupDomains
-{
-    my $name = 'webserver';
-    my %attrs  = (
-                  printableName => __('Web server hosted files'),
-                  description => __(q{Virtual hosts data}),
-                  order => 300,
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{webserver}) {
-        my $selection = {
-                          includes => [
-                    EBox::WebServer::PlatformPath::DocumentRoot(),
-                    EBox::WebServer::PlatformPath::VDocumentRoot(),
-                                      ],
-                         };
-        return $selection;
-    }
-
-    return {};
 }
 
 # Implement EBox::SyncFolders::Provider interface

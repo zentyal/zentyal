@@ -25,16 +25,35 @@ use EBox::Config;
 use EBox::Firewall;
 use EBox::Gettext;
 
+# Method: prerouting
+#
+#   To set transparent HTTP proxy if it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::prerouting>
+#
 sub prerouting
 {
     my ($self) = @_;
 
     my $sq = $self->_global()->modInstance('squid');
-    if ($sq->transproxy()) {
+    if ( (not $sq->temporaryStopped()) and $sq->transproxy()) {
         return $self->_trans_prerouting();
     }
 
     return [];
+}
+
+# Method: restartOnTemporaryStop
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::restartOnTemporaryStop>
+#
+sub restartOnTemporaryStop
+{
+    return 1;
 }
 
 sub _trans_prerouting
@@ -86,7 +105,7 @@ sub input
     my @ifaces = @{$net->InternalIfaces()};
     foreach my $ifc (@ifaces) {
         my $input = $self->_inputIface($ifc);
-        my $r = "-m state --state NEW $input -p tcp --dport $squidFrontPort -j ACCEPT";
+        my $r = "-m state --state NEW $input -p tcp --dport $squidFrontPort -j iaccept";
         push (@rules, $r);
     }
     push (@rules, "-m state --state NEW -p tcp --dport $dansguardianPort -j DROP");
@@ -99,8 +118,8 @@ sub output
     my ($self) = @_;
 
     my @rules = ();
-    push (@rules, "-m state --state NEW -p tcp --dport 80 -j ACCEPT");
-    push (@rules, "-m state --state NEW -p tcp --dport 443 -j ACCEPT");
+    push (@rules, "-m state --state NEW -p tcp --dport 80 -j oaccept");
+    push (@rules, "-m state --state NEW -p tcp --dport 443 -j oaccept");
     return \@rules;
 }
 

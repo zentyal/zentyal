@@ -32,7 +32,6 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant IFUP_LOCK_FILE => '/var/lib/zentyal/tmp/ifup.lock';
 use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
 use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
@@ -243,7 +242,7 @@ sub enableActions
     my ($self) = @_;
 
     # Disable IPv6 if it is enabled
-    if (-e '/proc/net/if_inet6') {
+    if (-d  '/proc/sys/net/ipv6') {
         my @cmds;
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.all\.disable_ipv6/d" ' . SYSCTL_FILE);
         push (@cmds, 'sed -ri "/net\.ipv6\.conf\.default\.disable_ipv6/d" ' . SYSCTL_FILE);
@@ -3012,7 +3011,7 @@ sub _removeRoutes
     my @currentRoutes = list_routes(1, 0); # routes via gateway
     foreach my $currentRoute (@currentRoutes) {
         my $network = $currentRoute->{network};
-        if (not $network =~ m{/}) {
+        unless (($network =~ m{/}) or ($network eq 'default')) {
             # add /32 mask to ips without it so we can compare same format
             $network .= '/32';
         }
@@ -3232,7 +3231,6 @@ sub _supportActions
 sub _preSetConf
 {
     my ($self, %opts) = @_;
-
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
     return unless exists $ENV{'USER'};
@@ -3251,7 +3249,8 @@ sub _preSetConf
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $if (@{$iflist}) {
-        if ($self->_hasChanged($if)) {
+        my $dhcpIface = $self->ifaceMethod($if) eq 'dhcp';
+        if ($self->_hasChanged($if) or $dhcpIface) {
             try {
                 my @cmds;
                 if ($self->ifaceExists($if)) {
@@ -3286,6 +3285,7 @@ sub _preSetConf
             }
         }
     }
+
 }
 
 sub _daemons
@@ -3303,7 +3303,6 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
-
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
@@ -3318,6 +3317,7 @@ sub _setConf
 sub _enforceServiceState
 {
     my ($self, %opts) = @_;
+
     my $restart = delete $opts{restart};
 
     my $file = INTERFACES_FILE;
@@ -3327,7 +3327,8 @@ sub _enforceServiceState
     my @ifups = ();
     my $iflist = $self->allIfacesWithRemoved();
     foreach my $iface (@{$iflist}) {
-        if ($self->_hasChanged($iface) or $restart) {
+        my $dhcpIface = $self->ifaceMethod($iface) eq 'dhcp';
+        if ($self->_hasChanged($iface) or $dhcpIface or $restart) {
             if ($self->ifaceMethod($iface) eq 'ppp') {
                 $iface = "zentyal-ppp-$iface";
             }
@@ -3335,10 +3336,11 @@ sub _enforceServiceState
         }
     }
 
+
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
     if (exists $ENV{'USER'}) {
-        open(my $fd, '>', IFUP_LOCK_FILE); close($fd);
+        EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
                     "unblock-exec /sbin/ifup --force -i $file $iface");
@@ -3346,7 +3348,7 @@ sub _enforceServiceState
                 $self->_unsetChanged($iface);
             }
         }
-        unlink (IFUP_LOCK_FILE);
+        EBox::Util::Lock::unlock('ifup');
     }
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
@@ -3407,10 +3409,10 @@ sub _stopService
             if ($self->ifaceMethod($if) eq 'ppp') {
                 $ifname = "zentyal-ppp-$if";
             } else {
-                push (@cmds, "/sbin/ip address flush label $if");
-                push (@cmds, "/sbin/ip address flush label $if:*");
+                push @cmds, "/sbin/ip address flush label $if";
+                push @cmds, "/sbin/ip address flush label $if:*";
             }
-            push (@cmds, "/sbin/ifdown --force -i $file $ifname");
+            push @cmds, "/sbin/ifdown --force -i $file $ifname";
         } catch EBox::Exceptions::Internal with {};
     }
 
@@ -3522,11 +3524,11 @@ sub gatewayReachable
     if ($name) {
         if (not $reachableByNoStaticIface) {
         throw EBox::Exceptions::External(
-                __x("Gateway {gw} not reachable", gw => $gw));
+                __x("Gateway {gw} must be in the same network that a static interface", gw => $gw));
         } else {
         throw EBox::Exceptions::External(
-                __x("Gateway {gw} must be reachable by a static interface. "
-                    . "Currently it is reachable by {iface} which is not static",
+                __x("Gateway {gw} must be in the same network that static interface. "
+                    . "Currently it belongs to the network of {iface} which is not static",
                     gw => $gw, iface => $reachableByNoStaticIface) );
         }
 
@@ -3909,6 +3911,30 @@ sub wakeonlan
     return `wakeonlan $param 2>&1`;
 }
 
+# Method: externalConnectionWarning
+#
+#   Checks if the given iface is being used to connect to the Zentyal UI.
+#   This is used to warn when trying to set is as external in the Interfaces
+#   configuration or in the initial wizard.
+#
+# Parameters:
+#
+#   iface - name of the iface to check
+#
+sub externalConnectionWarning
+{
+    my ($self, $iface) =  @_;
+
+    my $remote = $ENV{HTTP_X_FORWARDED_FOR};
+    my $command = "/sbin/ip route get to $remote" . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
+    my $routeIface = `$command`;
+    return 0 unless ($? == 0);
+    chop($routeIface);
+    if (defined($routeIface) and ($routeIface eq $iface)) {
+        return 1;
+    }
+}
+
 sub interfacesWidget
 {
     my ($self, $widget) = @_;
@@ -4029,6 +4055,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Network',
+                                        'icon' => 'network',
                                         'text' => __('Network'),
                                         'separator' => 'Core',
                                         'order' => 40);
@@ -4165,7 +4192,7 @@ sub regenGateways
 
     my $global = EBox::Global->getInstance();
 
-    my $timeout = 60;
+    my $timeout = 180;
     my $locked = 0;
 
     while ((not $locked) and ($timeout > 0)) {

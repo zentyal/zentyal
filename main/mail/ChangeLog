@@ -1,3 +1,17 @@
+HEAD
+	+ mail-ldap init script dies on LDAP add error
+	+ Added menu icon
+	+ Added new userCorner method to external accounts model
+	+ Updated to use renamed method EBox::Ldap::connection.
+	+ Adapt firewall rules to new accept chains
+	+ Adapted user addon to multi-OU tree view
+	+ Removed no longer necessary jQuery noConflict()
+	+ Search the whole LDAP tree looking for groups and users.
+	+ Added incompatiblity with external AD authentication mode
+3.1.2
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1.1
+	+ Removed deprecated backup domain methods
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1

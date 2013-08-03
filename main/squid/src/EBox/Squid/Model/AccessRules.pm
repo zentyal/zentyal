@@ -20,7 +20,6 @@ package EBox::Squid::Model::AccessRules;
 use base 'EBox::Model::DataTable';
 
 use EBox;
-use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Types::Text;
@@ -32,13 +31,10 @@ use EBox::Squid::Types::TimePeriod;
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
 use Authen::SASL qw(Perl);
-use Authen::Krb5::Easy qw(kinit kdestroy kerror kcheck);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
+use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
-# Method: _table
-#
-#
 sub _table
 {
     my ($self) = @_;
@@ -65,12 +61,13 @@ sub _table
                     optional      => 0,
                 ),
                 new EBox::Types::Select(
-                    fieldName     => 'group',
-                    printableName => __('Users Group'),
-                    populate      => \&_populateGroups,
-                    editable      => 1,
-                    optional      => 0,
-                    disableCache  => 1,
+                    fieldName        => 'group',
+                    printableName    => __('Users Group'),
+                    populate         => \&_populateGroups,
+                    editable         => 1,
+                    optional         => 0,
+                    disableCache     => 1,
+                    allowUnsafeChars => 1,
                 ),
                 new EBox::Types::Union::Text(
                     fieldName => 'any',
@@ -128,14 +125,15 @@ sub _populateGroups
     if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
         return $self->_populateGroupsFromExternalAD();
     } else {
-        my $userMod = EBox::Global->modInstance('users');
+        my $userMod = $self->global()->modInstance('users');
         return [] unless ($userMod->isEnabled());
 
         my @groups;
         push (@groups, { value => '__USERS__', printableValue => __('All users') });
-        foreach my $group (@{$userMod->groups()}) {
-            my $name = $group->name();
-            push (@groups, { value => $name, printableValue => $name });
+        foreach my $group (@{$userMod->securityGroups()}) {
+            my $groupDN = $group->dn();
+            my $baseName = $group->baseName();
+            push (@groups, { value => $groupDN, printableValue => $baseName });
         }
         return \@groups;
     }
@@ -147,58 +145,9 @@ sub _adLdap
     my ($self) = @_;
 
     unless (defined $self->{adLdap}) {
-    my $squid = $self->parentModule();
-    my $keytab = $squid->KEYTAB_FILE();
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
-
-    EBox::info("Connecting to AD LDAP");
-    my $confFile = $squid->SQUID_ZCONF_FILE();
-    my $dcKey = $squid->AUTH_AD_DC_KEY();
-    my $dc = EBox::Config::configkeyFromFile($dcKey, $confFile);
-
-    my $ccache = EBox::Config::tmp() . 'squid-ad.ccache';
-    $ENV{KRB5CCNAME} = $ccache;
-
-    # Get credentials for computer account
-    my $ok = kinit($keytab, $hostSamAccountName);
-    unless (defined $ok and $ok == 1) {
-        throw EBox::Exceptions::External(
-            __x("Unable to get kerberos ticket to bind to LDAP: {x}",
-                x => kerror()));
-    }
-
-    # Set up a SASL object
-    my $sasl = new Authen::SASL(mechanism => 'GSSAPI');
-    unless ($sasl) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup SASL object: {x}",
-                x => $@));
-    }
-
-    # Set up an LDAP connection
-    my $ldap = new Net::LDAP($dc);
-    unless ($ldap) {
-        throw EBox::Exceptions::External(
-            __x("Unable to setup LDAP object: {x}",
-                x => $@));
-    }
-
-    # Check GSSAPI support
-    my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
-    unless ($dse->supported_sasl_mechanism('GSSAPI')) {
-        throw EBox::Exceptions::External(
-            __("AD LDAP server does not support GSSAPI"));
-    }
-
-    # Finally bind to LDAP using our SASL object
-    my $bindResult = $ldap->bind(sasl => $sasl);
-    if ($bindResult->is_error()) {
-        throw EBox::Exceptions::External(
-            __x("Could not bind to AD LDAP server '{x}'. Error was '{y}'" .
-                x => $dc, y => $bindResult->error_desc()));
-    }
-        $self->{adLdap} = $ldap;
+        my $squid = $self->parentModule();
+        my $keytab = $squid->KEYTAB_FILE();
+        $self->{adLdap} = $self->global()->modInstance('users')->ldap()->connectWithKerberos($keytab);
     }
 
     return $self->{adLdap};
@@ -241,8 +190,8 @@ sub _populateGroupsFromExternalAD
     my ($self) = @_;
 
     my $squid = $self->parentModule();
-    my $key = $squid->AUTH_AD_SKIP_SYSTEM_GROUPS_KEY();
-    my $skip = EBox::Config::boolean($key);
+
+    my $skip = EBox::Config::boolean(AUTH_AD_SKIP_SYSTEM_GROUPS_KEY);
 
     my $groups = [];
     my $ad = $self->_adLdap();
@@ -258,10 +207,23 @@ sub _populateGroupsFromExternalAD
                           attrs => ['samAccountName', 'objectSid'],
                           control => [$sort]);
     foreach my $entry ($res->entries()) {
+        my $printableValue;
         my $samAccountName = $entry->get_value('samAccountName');
         my $sid = $self->_sidToString($entry->get_value('objectSid'));
-        utf8::decode($samAccountName);
-        push (@{$groups}, { value => $sid, printableValue => $samAccountName });
+        my $parentRelative = $entry->dn();
+        $parentRelative =~ s/$defaultNC$//;
+        $parentRelative =~ s/^.*?,//;
+        $parentRelative =~ s/,$//;
+        if (($parentRelative eq 'CN=Users') or ($parentRelative eq 'CN=Builtin')) {
+            $printableValue = $samAccountName;
+        } else {
+            $parentRelative =~ s/^.*?=//;
+            $parentRelative =~ s{,.*?=}{/}g;
+            $printableValue = "$parentRelative/$samAccountName";
+        }
+
+        utf8::decode($printableValue);
+        push (@{$groups}, { value => $sid, printableValue => $printableValue });
     }
 
     # TODO Make connection persistent?
@@ -338,7 +300,7 @@ sub validateTypedRow
     my $ownTimePeriod = exists $params_r->{timePeriod} ?
                                      $params_r->{timePeriod} :  $actual_r->{timePeriod};
     foreach my $id (@{ $self->ids() }) {
-        next if ($id eq $ownId);
+        next if (defined($ownId) and ($id eq $ownId));
 
         my $row = $self->row($id);
         my $rowSource = $row->elementByName('source');
@@ -375,6 +337,33 @@ sub validateTypedRow
     }
 }
 
+sub addedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row, $force) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub _changeInAccessRules
+{
+    my ($self) = @_;
+
+    # TODO: Check if there is a change in the use of filtering
+    $self->global()->modChange('logs');
+}
+
+# TODO: Add doc as used by list-proxy-rules job
 sub rules
 {
     my ($self) = @_;
@@ -409,7 +398,7 @@ sub rules
                 if ($group eq '__USERS__') {
                     $users = $userMod->users();
                 } else {
-                    $users = $userMod->group($group)->users();
+                    $users = $userMod->objectFromDN($group)->users();
                 }
 
                 if (not @{$users}) {
@@ -564,7 +553,7 @@ sub filterProfiles
                 if ($group eq '__USERS__') {
                     $members = $userMod->users();
                 } else {
-                    $members = $userMod->group($group)->users();
+                    $members = $userMod->objectFromDN($group)->users();
                 }
                 @users = map { $_->name() } @{$members};
             }

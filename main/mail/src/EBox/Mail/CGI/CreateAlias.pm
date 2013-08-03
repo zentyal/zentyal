@@ -17,41 +17,43 @@ use strict;
 use warnings;
 
 package EBox::Mail::CGI::CreateAlias;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 
-sub new {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => 'Mail',
+sub new
+{
+        my $class = shift;
+        my $self = $class->SUPER::new('title' => 'Mail',
                                       @_);
-	bless($self, $class);
-	return $self;
+        bless($self, $class);
+        return $self;
 }
 
-sub _process($) {
-	my $self = shift;
-	my $mail = EBox::Global->modInstance('mail');
+sub _process
+{
+    my ($self) = @_;
 
-	$self->_requireParam('user', __('user'));
-	my $user = $self->unsafeParam('user');
-	$self->{redirect} = "UsersAndGroups/User?user=$user";
+    $self->{json}->{success} = 0;
+    my $mail = EBox::Global->modInstance('mail');
 
-	$self->keepParam('user');
+    $self->_requireParam('user', __('user'));
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-	$self->_requireParam('maildrop', __('maildrop'));
-	$self->_requireParam('lhs', __('account name'));
-	$self->_requireParam('rhs', __('domain name'));
+    $self->_requireParam('maildrop', __('maildrop'));
+    $self->_requireParam('lhs', __('account name'));
+    $self->_requireParam('rhs', __('domain name'));
 
-	my $maildrop = $self->param('maildrop');
-	my $lhs = $self->param('lhs');
-	my $rhs = $self->param('rhs');
+    my $maildrop = $self->param('maildrop');
+    my $lhs = $self->param('lhs');
+    my $rhs = $self->param('rhs');
 
-	$mail->{malias}->addAlias($lhs."@".$rhs, $maildrop, $maildrop);
+    $mail->{malias}->addAlias($lhs."@".$rhs, $maildrop, $maildrop);
+    $self->{json}->{success} = 1;
 }
 
 1;

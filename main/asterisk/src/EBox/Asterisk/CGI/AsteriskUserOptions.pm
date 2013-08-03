@@ -17,14 +17,13 @@ use strict;
 use warnings;
 
 package EBox::Asterisk::CGI::AsteriskUserOptions;
-
-use base 'EBox::CGI::ClientBase';
+use base 'EBox::CGI::ClientPopupBase';
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::AsteriskLdapUser;
 use EBox::Asterisk::Extensions;
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub new
 {
@@ -37,16 +36,16 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 1;
 
     my $astldap = new EBox::AsteriskLdapUser;
     my $extensions = new EBox::Asterisk::Extensions;
 
     $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "UsersAndGroups/User?user=$user";
-    $self->keepParam('user');
+    my $userDN = $self->unsafeParam('user');
+    $self->{json}->{userDN} = $userDN;
 
-    $user = new EBox::UsersAndGroups::User(dn => $user);
+    my $user = new EBox::Users::User(dn => $userDN);
     if ($self->param('active') eq 'yes') {
         $astldap->setHasAccount($user, 1);
         my $myextn = $extensions->getUserExtension($user);
@@ -58,6 +57,7 @@ sub _process
     } else {
         $astldap->setHasAccount($user, 0);
     }
+    $self->{json}->{success} = 1;
 }
 
 1;

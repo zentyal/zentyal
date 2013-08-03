@@ -160,4 +160,16 @@ sub preconditionFailMsg
                closehref => '</a>');
 }
 
+sub totalDownloadRate
+{
+    my ($self) = @_;
+    my $sumDownload = 0;
+
+    foreach my $id (@{$self->ids()}) {
+        $sumDownload += $self->row($id)->valueByName('download');
+    }
+
+    return $sumDownload;
+}
+
 1;

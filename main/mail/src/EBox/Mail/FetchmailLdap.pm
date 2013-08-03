@@ -128,12 +128,12 @@ sub existsAnyExternalAccount
     my ($self) = @_;
 
     my %attrs = (
-            base => EBox::Global->modInstance('users')->usersDn,
+            base => $self->{ldap}->dn(),
             filter => 'objectclass=fetchmailUser',
             scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     foreach my $entry ($result->entries()) {
         my @accounts = $entry->get_value('fetchmailAccount');
         if (@accounts) {
@@ -151,12 +151,12 @@ sub allExternalAccountsByLocalAccount
     my @zarafaDomains = $params{zarafaDomains};
 
     my %attrs = (
-            base => EBox::Global->modInstance('users')->usersDn,
+            base => $self->{ldap}->dn(),
             filter => 'objectclass=fetchmailUser',
             scope => 'sub'
                 );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     if ($result->count() == 0) {
         return {};
     }
@@ -209,12 +209,12 @@ sub removeExternalAccount
     my $username = $user->name();
 
     my %attrs = (
-        base => EBox::Global->modInstance('users')->usersDn,
+        base => $self->{ldap}->dn(),
         filter => '&(objectclass=fetchmailUser)(uid=' . $username . ')',
-        scope => 'one'
+        scope => 'sub'
     );
 
-    my $result = $self->{'ldap'}->search(\%attrs);
+    my $result = $self->{ldap}->search(\%attrs);
     my ($entry) = $result->entries();
     if (not $result->count() > 0) {
         throw EBox::Exceptions::Internal( "Cannot find user $username" );
@@ -224,7 +224,7 @@ sub removeExternalAccount
     foreach my $fetchmailAccount (@fetchmailAccounts) {
         if ($fetchmailAccount =~ m/^$account:/) {
             $entry->delete(fetchmailAccount => [$fetchmailAccount]);
-            $entry->update($self->{'ldap'}->ldapCon());
+            $entry->update($self->{ldap}->connection());
             return;
         }
     }
@@ -355,13 +355,13 @@ sub modifyTimestamp
     my ($self) = @_;
 
     my %params = (
-        base => EBox::Global->modInstance('users')->usersDn,
+        base => $self->{ldap}->dn(),
         filter => "objectclass=fetchmailUser",
-        scope => 'one',
+        scope => 'sub',
         attrs => ['modifyTimestamp'],
     );
 
-    my $result = $self->{'ldap'}->search(\%params);
+    my $result = $self->{ldap}->search(\%params);
 
     my $timeStamp = 0;
     foreach my $entry ($result->entries()) {

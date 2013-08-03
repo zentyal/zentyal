@@ -32,6 +32,7 @@ use base qw(EBox::Module::Service
 
 use feature qw(switch);
 
+use Data::UUID;
 use Date::Calc;
 use EBox::Config;
 use EBox::Dashboard::ModuleStatus;
@@ -67,15 +68,14 @@ use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
 use Error qw(:try);
-use Net::DNS;
 use File::Slurp;
 use JSON::XS;
+use Net::DNS;
 use POSIX;
-use Data::UUID;
+use YAML::XS;
 
 # Constants
 use constant SERV_DIR            => EBox::Config::conf() . 'remoteservices/';
-use constant CA_DIR              => EBox::Config::conf() . 'ssl-ca/';
 use constant SUBS_DIR            => SERV_DIR . 'subscription/';
 use constant WS_DISPATCHER       => __PACKAGE__ . '::WSDispatcher';
 use constant RUNNERD_SERVICE     => 'ebox.runnerd';
@@ -83,6 +83,7 @@ use constant REPORTERD_SERVICE   => 'zentyal.reporterd';
 use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
+use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
 
 # OCS conf constants
 use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
@@ -151,6 +152,7 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_setProxyRedirections();
     $self->_confSOAPService();
     if ($self->eBoxSubscribed()) {
         $self->_setUpAuditEnvironment();
@@ -325,7 +327,7 @@ sub _daemons
     return [
         {
             'name'         => RUNNERD_SERVICE,
-            'precondition' => \&eBoxSubscribed,
+            'precondition' => \&runRunnerd,
         },
         {
             'name'         => REPORTERD_SERVICE,
@@ -421,6 +423,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder(name => 'RemoteServices',
+                                        icon => 'register',
                                         text => __('Registration'),
                                         separator => 'Core',
                                         order => 105);
@@ -468,7 +471,7 @@ sub widgets
     my ($self) = @_;
 
     return {
-        'cc_connection' => {
+        'ccConnection' => {
             'title'   => __('Your Zentyal Server Account'),
             'widget'  => \&_ccConnectionWidget,
             'order'  => 4,
@@ -969,12 +972,6 @@ sub maxUsers
     # Small business
     if ($self->subscriptionLevel($force) == 5) {
         $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
-    }
-
-    # Cloud
-    my $max_cloud = $self->maxCloudUsers($force);
-    if (($max_cloud and $max_cloud < $max_users) or ($max_users == 0)) {
-        $max_users = $max_cloud;
     }
 
     return $max_users;
@@ -1568,23 +1565,62 @@ sub inventoryEnabled
     return $self->reportEnabled();
 }
 
+# Method: runRunnerd
+#
+#     Get if runnerd daemon should be run.
+#
+#     By default, run if the server is registered. If not, then this
+#     depends on the value set by <ensureRunnerdRunning> method
+#
+# Returns:
+#
+#     Boolean
+#
+sub runRunnerd
+{
+    my ($self) = @_;
+
+    return 1 if ($self->eBoxSubscribed());
+    return $self->get_bool('runnerd_always_running');
+}
+
+# Method: ensureRunnerdRunning
+#
+#     Ensure runnerd is running even when the server is not
+#     registered.
+#
+#     Save changes is required to start/stop runnerd daemon.
+#
+# Parameters:
+#
+#     run - Boolean indicating if runnerd is meant to be run or not
+#
+sub ensureRunnerdRunning
+{
+    my ($self, $run) = @_;
+
+    $run = 0 unless (defined($run));
+    $self->set_bool('runnerd_always_running', $run);
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
 #
-# if subscribed
+# if subscribed and has bundle
 # 1. Write soap-loc.mas template
 # 2. Write the SSLCACertificatePath directory
-# 3. Add include in ebox-apache configuration
-# else
+# 3. Add include in zentyal-apache configuration
+# elsif not subscribed
 # 1. Remove SSLCACertificatePath directory
-# 2. Remove include in ebox-apache configuration
+# 2. Remove include in zentyal-webadmin configuration
 #
 sub _confSOAPService
 {
     my ($self) = @_;
 
     my $confFile = SERV_DIR . 'soap-loc.conf';
+    my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
         if ( $self->hasBundle() ) {
@@ -1593,28 +1629,70 @@ sub _confSOAPService
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
                );
-            EBox::Module::Base::writeConfFileNoCheck(
-                $confFile,
-                'remoteservices/soap-loc.mas',
-                \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
+            EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
-            $webAdminMod->addInclude($confFile);
+            $webAdminMod->addApacheInclude($confFile);
+            $webAdminMod->addNginxInclude($confSSLFile);
             $webAdminMod->addCA($self->_caCertPath());
         }
     } else {
         # Do nothing if CA or include are already removed
         try {
-            $webAdminMod->removeInclude($confFile);
+            $webAdminMod->removeApacheInclude($confFile);
+        } catch EBox::Exceptions::Internal with { ; };
+        try {
+            $webAdminMod->removeNginxInclude($confSSLFile);
         } catch EBox::Exceptions::Internal with { ; };
         try {
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch EBox::Exceptions::Internal with { ; };
     }
-    # We have to save web admin changes:
+    # We have to save web admin changes to load the CA certificates file for SSL validation.
+    $webAdminMod->save();
+}
+
+# Configure Apache Proxy redirections server
+#
+# if subscribed and has bundle and remoteservices_redirections.conf is written
+# 1. Write proxy-redirections.conf.mas template
+# 2. Add include in zentyal-apache configuration
+# elsif not subscribed
+# 1. Remove include in zentyal-apache configuration
+#
+sub _setProxyRedirections
+{
+    my ($self) = @_;
+
+    my $confFile = SERV_DIR . 'proxy-redirections.conf';
+    my $webadminMod = EBox::Global->modInstance('webadmin');
+    if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
+        try {
+            my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+            my @tmplParams = (
+                redirections => $redirConf,
+               );
+            EBox::Module::Base::writeConfFileNoCheck(
+                $confFile,
+                'remoteservices/proxy-redirections.conf.mas',
+                \@tmplParams);
+            $webadminMod->addApacheInclude($confFile);
+        } otherwise {
+            # Not proper YAML file
+            my ($exc) = @_;
+            EBox::error($exc);
+        };
+    } else {
+        # Do nothing if include is already removed
+        try {
+            unlink($confFile) if (-f $confFile);
+            $webadminMod->removeApacheInclude($confFile);
+        } catch EBox::Exceptions::Internal with { ; };
+    }
+    # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
     # From CLI, we have to call it manually in some way. TODO: Find it!
-    # $webAdminMod->save();
-    EBox::Global->modChange('webadmin');
+    # $webadminMod->save();
 }
 
 # Assure the VPN connection with our VPN servers is established

@@ -1,3 +1,16 @@
+HEAD
+	+ Postrouting rules have no oaccept chain, use ACCEPT target
+	+ Added menu icon
+	+ Adapt L2TP firewall rules to new accept chains
+	+ Adapt firewall rules to new accept chains
+	+ Updated to use the new security group concept.
+3.1.2
+	+ Fixed the connection validation form so the enable / disable checkbox
+	  works.
+	+ Block the connection enabling if the tunnel configuration does not pass
+	  validation.
+3.1.1
+	+ Fixed bug in Users model when zentyal-samba is not installed
 3.1
 	+ Added support for IPsec/L2TP
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

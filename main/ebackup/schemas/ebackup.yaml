@@ -8,9 +8,8 @@ models:
     - RemoteRestoreLogs
     - RemoteRestoreConf
     - RemoteStorage
-    - BackupDomains
 
 composites:
-    RemoteGeneral: [RemoteSettings, RemoteStorage, RemoteStatus, BackupDomains]
+    RemoteGeneral: [RemoteSettings, RemoteStorage, RemoteStatus]
     Remote: [RemoteGeneral, RemoteFileList, ServicesRestore, RemoteExcludes]
     ServicesRestore: [RemoteRestoreConf, RemoteRestoreLogs]

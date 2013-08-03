@@ -31,6 +31,7 @@ use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
 use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
 use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
+use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
 {
@@ -133,8 +134,40 @@ sub initialSetup
         $self->setPort($port);
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.2
+#
+#  * Create the USERCORNER_LDAP_PASS file.
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    $self->_setupRoLDAPAccess();
+
+}
+
+sub _setupRoLDAPAccess
+{
+    my ($self) = @_;
+
+    # Copy ldapro password.
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $ldapUsersPasswdFile = EBox::Config::conf() . 'ldap_ro.passwd';
+    EBox::Sudo::root(
+        "cp $ldapUsersPasswdFile " . USERCORNER_LDAP_PASS,
+        "chown $ucUser:$ucGroup  " . USERCORNER_LDAP_PASS,
+        "chmod 600 " . USERCORNER_LDAP_PASS
+    );
 }
 
 # Method: enableActions
@@ -144,6 +177,11 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
+    # check if users module is running in standalone mode
+    my $users = $self->global()->modInstance('users');
+    if ($users->mode() ne $users->STANDALONE_MODE) {
+        throw EBox::Exceptions::External(__('User corner needs that the users module is configured in standalone server mode'));
+    }
 
     # Create userjournal dir if it not exists
     my @commands;
@@ -155,6 +193,8 @@ sub enableActions
         push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
         EBox::Sudo::root(@commands);
     }
+
+    $self->_setupRoLDAPAccess();
 
     # migrate modules to usercorner
     (-d (EBox::Config::conf() . 'configured')) and return;
@@ -229,13 +269,14 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder('name' => 'UsersAndGroups',
-                                        'text' => __('Users and Groups'),
+    my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
+                                        'text' => __('Users and Computers'),
                                         'separator' => 'Office',
                                         'order' => 510);
 
     my $item = new EBox::Menu::Item(text => $self->printableName(),
-                                    url => 'UsersAndGroups/UserCorner',
+                                    url => 'Users/UserCorner',
                                     order => 100);
     $folder->add($item);
     $root->add($folder);
@@ -282,7 +323,7 @@ sub certificates
 
 # Method: editableMode
 #
-#       Reimplementation of EBox::UsersAndGroups::editableMode()
+#       Reimplementation of EBox::Users::editableMode()
 #       compatible with user corner to workaround lack of redis access
 #
 #       Returns true if mode is editable
@@ -290,6 +331,47 @@ sub certificates
 sub editableMode
 {
     return (-f '/var/lib/zentyal-usercorner/editable');
+}
+
+# Method: roRootDn
+#
+#       Returns the dn of the read only priviliged user
+#
+# Returns:
+#
+#       string - the Dn
+sub roRootDn
+{
+    my $ldap = EBox::Ldap->instance();
+
+    return $ldap->roRootDn();
+}
+
+# Method: getRoPassword
+#
+#   Returns the password of the read only privileged user
+#   used to connect to the LDAP directory with read only
+#   permissions
+#
+# Returns:
+#
+#       string - password
+#
+sub getRoPassword
+{
+    my ($self) = @_;
+
+    unless (defined($self->{roPassword})) {
+        open(PASSWD, USERCORNER_LDAP_PASS) or
+            throw EBox::Exceptions::External('Could not get LDAP password');
+
+        my $pwd = <PASSWD>;
+        close(PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{roPassword} = $pwd;
+    }
+    return $self->{roPassword};
 }
 
 1;

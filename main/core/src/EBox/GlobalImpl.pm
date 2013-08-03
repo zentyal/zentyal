@@ -446,7 +446,7 @@ sub modifiedModules
 
     my $sorted;
     if ( $from eq 'enable' ) {
-        $sorted = sortModulesEnableModDepends(\@mods);
+        $sorted = __PACKAGE__->sortModulesEnableModDepends(\@mods);
     } else {
         $sorted = __PACKAGE__->sortModulesByDependencies(\@mods, 'depends');
     }
@@ -458,8 +458,8 @@ sub modifiedModules
 
 sub sortModulesEnableModDepends
 {
-    my ($mods) = @_;
-    return __PACKAGE__->sortModulesByDependencies(
+    my ($self, $mods) = @_;
+    return $self->sortModulesByDependencies(
         $mods,
         'enableModDepends'
        );
@@ -571,6 +571,12 @@ sub saveAllModules
             next if ($name eq 'dhcp'); # Skip dhcp module
 
             my $module = EBox::GlobalImpl->modInstance($ro, $name);
+
+            my $state = $module->get_state();
+            if ($state->{skipFirstTimeEnable}) {
+                EBox::info("Not enabling $name at first time because its wizard was skipped");
+                next;
+            }
 
             # Do not enable this module if dependencies were not enabled
             my $enable = 1;

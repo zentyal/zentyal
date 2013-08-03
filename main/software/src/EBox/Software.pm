@@ -651,9 +651,10 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => $self->printableName(),
-                                           'separator' => 'Core',
-                                           'order' => 100);
+                                            'icon' => 'software',
+                                            'text' => $self->printableName(),
+                                            'separator' => 'Core',
+                                            'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
                                           'text' => __('Zentyal Components')));
@@ -1015,7 +1016,8 @@ sub _setAptPreferences
     } else {
         my $existsOld = EBox::Sudo::fileTest('-e', $preferencesBak);
         if ($existsOld) {
-            EBox::Sudo::root("cp '$preferencesBak' '$preferences'");
+            EBox::Sudo::root("cp '$preferencesBak' '$preferences'",
+                             "chmod 0644 '$preferences'");
             # remove old backup to avoid to overwrite user's modifications
             EBox::Sudo::root("rm -f '$preferencesBak' ");
         } else {

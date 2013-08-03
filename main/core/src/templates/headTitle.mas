@@ -7,7 +7,8 @@
 </%args>
 <%init>
 use EBox::Gettext;
-my $mboxTitle = __('Save changes?');
+ my $logoutTitle = __('Close session');
+my $finishTitle = __('Save changes?');
 </%init>
 <div id="top"></div>
 	<div id="header">
@@ -22,11 +23,15 @@ my $mboxTitle = __('Save changes?');
           </a>
 % }
 % if ( $logout ne '' ) {
-	  <a id="m" href="/Logout/Index"><% $logout %></a>
+%
+     <a id="m" href="#"
+     onclick="Zentyal.Dialog.showURL('/Logout/Index', { title: '<% $logoutTitle %>'}); return false">
+      <% $logout %>
+     </a>
 % }
 % if ( $save ne '' ) {
-	  <a class="<% $finishClass %>" id="changes_menu" href="/Finish"
-          onclick="Modalbox.show('/Finish', { title: '<% $mboxTitle %>', transitions: false, afterLoad: function() { $('save').focus()} }); return false">
+	  <a class="<% $finishClass %>" id="changes_menu" href="#"
+          onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">
               <% $save %>
           </a>
 % }

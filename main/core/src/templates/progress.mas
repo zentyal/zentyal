@@ -45,103 +45,174 @@ unless (defined ($nextStepText)) {
     $nextStepText = __('Click here to go to the Dashboard');
 }
 
-my $barStyle ='';
-my $progresValueStyle ='';
-my $percentMargin;
-if ($inModalbox) {
-    $barStyle = 'style="padding-left: 0pt; width: 450px; height: 30px; margin-left: 18px; margin-top: 20px;"';
-    $progresValueStyle  = 'style="padding-left: 0pt; width: 0px; height: 30px; margin-left: 0px; margin-top: 20px;"';
-    $percentMargin = 245;
-}
-
 if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
         $nextStepUrlFailureOnclick = $nextStepUrlOnclick;
 
 }
 </%init>
-<script type="text/javascript" src="/data/js/prototype.js"></script>
-<script type="text/javascript" src="/data/js/progress.js"></script>
-<script type="text/javascript" src="/data/js/table-helper.js"></script>
-% if ($inModalbox) {
-<script type="text/javascript" src="/data/js/modalbox.js">//</script>
-<script type="text/javascript" src="/data/js/modalbox-zentyal.js">//</script>
-% } else {
-<script type="text/javascript" src="/data/js/carousel.js">//</script>
-% }
-
-<script type="text/javascript">
-        createPeriodicalExecuter(<% $progressId %>,
-                             '<% $currentItemUrl %>',
-                             <% $reloadInterval %>,
-                             <% $nextStepTimeout %>,
-                             '<% $nextStepUrl %>',
-                             <% $showNotesOnFinish ? 'true' : 'false' %>
-                             );
-
-        function init(){
-                ph = new porcentH('progress');
-        }
-
-        if (document.addEventListener) {
-                document.addEventListener("DOMContentLoaded", init, false);
-        }
-</script>
-
+% if (@slides) {
+<script type="text/javascript" src="/data/js/carousel-bootstrap.js">//</script>
 <style>
-
-#slide_wrapper {
+.carousel-inner {
     width: 690px;
-    height: 350px;
-    margin-left: 45px;
+    height: 400px;
     overflow: hidden;
 }
 
 #slides {
     width: 6900px;
 }
-
-#slides .ads {
-    float: left;
-    width: 690px;
-    height: 350px;
+.carousel_slide{
+position: relative;
+margin-top: 20px;
+background: #666 url('/data/images/black-texture.png');
+}
+.carousel_slide:hover .carousel-control{
+  display: block;
 }
 
-.percent{
-    float: left;
-    line-height: 30px;
-
-        height:30px;
-        /*margin-left: <% $percentMargin ? $percentMargin : '380' %>px;*/
-        z-index : 100;
-        filter: alpha(opacity=90);
-        -moz-opacity: 0.9;
-        KhtmlOpacity: .9;
-        opacity: .9;
+.carousel-inner {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
 }
 
+.carousel-inner > .item {
+  display: none;
+  position: relative;
+  -webkit-transition: 0.6s ease-in-out left;
+  -moz-transition: 0.6s ease-in-out left;
+  -o-transition: 0.6s ease-in-out left;
+  transition: 0.6s ease-in-out left;
+}
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+  display: block;
+  line-height: 1;
+}
+.carousel-inner > .active,
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  display: block;
+}
+.carousel-inner > .active {
+  left: 0;
+}
+.carousel-inner > .next,
+.carousel-inner > .prev {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.carousel-inner > .next {
+  left: 100%;
+}
+.carousel-inner > .prev {
+  left: -100%;
+}
+.carousel-inner > .next.left,
+.carousel-inner > .prev.right {
+  left: 0;
+}
+.carousel-inner > .active.left {
+  left: -100%;
+}
+.carousel-inner > .active.right {
+  left: 100%;
+}
+.carousel-control {
+  display: none;
+  position: absolute;
+  bottom: 10px;
+  left: 0px;
+  width: 30px;
+  height: 40px;
+  font-size: 50px;
+  font-weight: 100;
+  line-height: 32px;
+  color: white;
+  text-decoration: none;
+  background-color: #FF7900 ;
+  -webkit-border-radius: 0px 23px 23px 0px;
+  -moz-border-radius: 0px 23px 23px 0px;
+  border-radius: 0px 23px 23px 0px;
+}
+
+.carousel-control.right {
+  left: auto;
+  text-align: right;
+  right: 0px;
+    -webkit-border-radius: 23px 0px 0px 23px;
+  -moz-border-radius: 23px 0px 0px 23px;
+  border-radius: 23px 0px 0px 23px;
+
+}
+.carousel-control:hover,
+.carousel-control:focus {
+  text-decoration: none;
+  background-color: #C35F00;
+}
+.carousel-indicators {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  z-index: 5;
+  margin: 0;
+  list-style: none;
+}
+.carousel-indicators li {
+  display: block;
+  float: left;
+  width: 10px;
+  height: 10px;
+  margin-left: 5px;
+  text-indent: -999px;
+  background-color: #ccc;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 5px;
+}
+.carousel-indicators .active {
+  background-color: #fff;
+}
+.carousel-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 15px;
+  background: #333333;
+  background: rgba(0, 0, 0, 0.75);
+}
+.carousel-caption h4,
+.carousel-caption p {
+  color: #ffffff;
+  line-height: 20px;
+}
+.carousel-caption h4 {
+  margin: 0 0 5px;
+}
+.carousel-caption p {
+  margin-bottom: 0;
+}
+.carousel-control.carouselControlDisabled {
+  display: none !important;
+}
 </style>
+% }
 
 % if (@slides) {
-<div id="slide_wrapper" class="slide_container">
-    <div id="slides">
-% foreach my $slide (@slides) {
-<% $slide %>
-% }
-    </div>
-    <a href="javascript:" id="adsButtonPrev" class="carousel-control" rel="prev"></a>
-    <a href="javascript:" id="adsButtonNext" class="carousel-control" rel="next"></a>
-</div>
+<& .carouselSection, slides => \@slides &>
 % }
 
 <div id='progressing'>
 <p> <% $text %> </p>
 <% $currentItemCaption %>: <strong><span id="currentItem"><% __("Starting...")%></span></strong>
 <br/>
-<div id="progress_bar">
-        <div class="percent" id="percentValue"></div>
-    <div class="bar" <% $barStyle %> >
-        <div id="progressValue" <% $progresValueStyle %> ></div>
-    </div>
+% if (0) {
+<div class="percent" id="percentValue"></div>
+% }
+<div id='progress_bar'>
+         <div id='percent' class='progress-label tcenter'><% __('Loading...') %></div>
 </div>
 <br/>
 <span id='ticks'>-</span><% __(" of ") %>
@@ -180,45 +251,47 @@ if ((defined $nextStepUrlOnclick) and (not defined $nextStepUrlFailureOnclick)){
    &>
 </div>
 
+<script type="text/javascript">
+$( function() {
+   Zentyal.ProgressIndicator.updateProgressIndicator(<% $progressId %>,
+                        '<% $currentItemUrl %>',
+                        <% $reloadInterval %>,
+                        <% $nextStepTimeout %>,
+                        '<% $nextStepUrl %>',
+                        <% $showNotesOnFinish ? 'true' : 'false' %>
+  );
 % if (@slides) {
-<script type="text/javascript" language="javascript">
-      if ($('adsButtonPrev')) $('adsButtonPrev').hide();
+   var disableClass = 'carouselControlDisabled';
+   $('#carousel').carousel();
+   $('#carouselLeft').prop('disabled', true).addClass(disableClass);
+   $('#carousel').on('slid', '', function() {
+      var toEnable ='', toDisable ='',
+          leftId = '#carouselLeft', rightId = '#carouselRight';
+      var carouselContents = $('#carouselContents');
+      if (carouselContents.find('.item:last').hasClass('active')) {
+            toEnable = leftId;
+            toDisable= rightId;
+           $('#carousel').carousel('pause');
+      } else if (carouselContents.find('.item:first').hasClass('active')) {
+           toEnable= rightId;
+           toDisable = leftId
+           right = true;
+      } else {
+          toEnable = leftId +  ', ' + rightId;
+      }
 
-      var car_options = {
-          'auto' : true,
-          'frequency' : 20,
-          'circular' : true,
-          'duration' : 0.8,
-          'wheel' : false,
-          'afterMove': null
-      };
+      if (toDisable) {
+         $(toDisable).prop('disabled', true).addClass(disableClass);
+      }
 
-      var car_obj = new Carousel('slide_wrapper', $$('#slides .ads'), $$('a.carousel-control'), car_options);
+      $(toEnable).prop('disabled', false).removeClass(disableClass);
+   });
 
-      car_obj.options.afterMove = function () {
-          var slide_num = car_obj.current._index;
-          if (slide_num == 0) {
-              $('adsButtonPrev').hide();
-          } else if (slide_num == <% scalar (@slides) - 1 %>) {
-              $('adsButtonNext').hide();
-          } else {
-              $('adsButtonPrev').show();
-              $('adsButtonNext').show();
-          }
-      };
-</script>
 % }
-
-% if ($inModalbox) {
-<script  type="text/javascript">
-  var section = $("error-progress");
-  section.show = section.show.wrap(function (origFunc) {
-                                       origFunc.apply(Modalbox, arguments);
-                                        Modalbox.resizeToInclude(this);
-                                        Modalbox.resize(0, +20);
-                                   });
+});
 </script>
-% }
+
+
 <%def .nextStep>
 <%args>
 $type
@@ -240,4 +313,27 @@ $onclick
     </a>
   </div>
 % }
+</%def>
+
+<%def .carouselSection>
+<%args>
+@slides
+</%args>
+<div id="carousel" class="carousel_slide">
+     <div id='carouselContents' class="carousel-inner">
+% my $first = 1;
+% foreach my $slide (@slides) {
+%    if ($first) {
+       <div class="item active">
+%      $first = 0;
+%    } else {
+       <div class='item'>
+%    }
+           <% $slide %>
+       </div>
+% }
+    </div>
+    <a id='carouselLeft' class="left carousel-control" href="#carousel" data-slide="prev">&lsaquo;</a>
+    <a id='carouselRight' class="right carousel-control" href="#carousel" data-slide="next">&rsaquo;</a>
+</div>
 </%def>

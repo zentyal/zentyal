@@ -15,7 +15,8 @@ Parameters:
   use EBox::Monitor::Configuration;
   my ($periodData) = grep { $_->{name} eq $period } @{EBox::Monitor::Configuration::TimePeriods()};
 </%init>
-<script type="text/javascript" src="/data/js/flotr.js"></script>
+%# alwas incldue?
+<script type="text/javascript" src="/data/js/jquery.flot.js"></script>
 <script type="text/javascript" src="/data/js/excanvas.js"></script>
 <script type="text/javascript" src="/data/js/format.js"></script>
 % foreach my $graph (@graphs) {
@@ -35,31 +36,32 @@ Parameters:
   </div>
 % }
 <script type="text/javascript">
-//<![CDATA[
-function updateGraphs() {
+Zentyal.Monitor = {};
+Zentyal.Monitor.updateGraphs = function () {
    // Time period is sent using the tab
-   var period = $('timePeriod').getAttribute('value');
-   var graphs = $$('div.graph');
-   graphs.each(function(graph) {
+   var period = $('#timePeriod').attr('value');
+   $('div.graph').each(function(index, graph) {
        var url = '/Monitor/UpdateGraph';
        var tiParts = graph.id.split('__');
        var parts   = tiParts[0].split('.');
-       new Ajax.Request(url,
-                        { method: 'get',
-                          asynchronous : true,
-                          evalJS : true,
-                          parameters: { 'period'   : period,
-                                        'measure'  : parts[0],
-                                        'instance' : parts[1],
-                                        'typeInstance' : tiParts[1],
-                                        },
-                        });                                        
-   }); 
-}
+       $.ajax({
+                    url: url,
+                    async: true,
+                    type: 'get',
+                    data: { 'period'   : period,
+                             'measure'  : parts[0],
+                             'instance' : parts[1],
+                            'typeInstance' : tiParts[1],
+                          },
+                    success: function(text) {
+                        eval(text)
+                   }
+                  });
+    });
+};
 
-Event.observe(window, 'load', function() {
-  // Update graphs every 30s   
-  new PeriodicalExecuter(updateGraphs, 30);
+$(function() {
+  // Update graphs every 30s
+      setInterval( Zentyal.Monitor.updateGraphs, 30000);
 });
-//]]>
 </script>

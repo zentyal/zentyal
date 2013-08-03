@@ -47,6 +47,7 @@ sub menu
 {
     my ($self, $root) = @_;
     $root->add(new EBox::Menu::Item('url' => 'FTP/View/Options',
+                                    'icon' => 'ftp',
                                     'text'  => $self->printableName(),
                                     'separator' => 'Office',
                                     'order' => 565));
@@ -225,40 +226,9 @@ sub _daemons
     return [ { 'name' => 'vsftpd' } ];
 }
 
-sub backupDomains
-{
-    my $name = 'ftpserver';
-    my %attrs  = (
-                  printableName => __('Zentyal FTP server files'),
-                  description   => __(q{User homes and global directory.}),
-                  order         => 300,
-                 );
-
-    return ($name, \%attrs);
-}
-
 sub ftpHome
 {
     return '/srv/ftp';
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{ftpserver}) {
-        my @includes = ( $self->ftpHome(), );
-        my $options = $self->model('Options');
-        if ( $options->userHomes()) {
-            push @includes, '/home';
-        }
-
-        my $selection = {
-                          includes => \@includes,
-                        };
-        return $selection;
-    }
-
-    return {};
 }
 
 1;

@@ -1,3 +1,7 @@
+HEAD
+	+ Added menu icon
+	+ Adapt firewall rules to new accept chains
+	+ Updated to use the new security group concept.
 3.1
 	+ Removed 3.0.X migration code
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

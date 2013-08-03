@@ -23,7 +23,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
-use EBox::EBackup::Subscribed;
 
 use Error qw(:try);
 
@@ -159,19 +158,12 @@ sub _backupFile
     my ($self, $date) = @_;
     my $ebackup  = EBox::Global->modInstance('ebackup');
     my $settings = $ebackup->model('RemoteSettings');
-    my $usingCloud = $settings->row()->valueByName('method') eq 'cloud';
 
     my $tmpFile = EBox::Config::tmp() . 'eboxbackup-tmp.tar';
 
     try {
-        if ($usingCloud) {
-            my $credentials = EBox::EBackup::Subscribed::credentials();
-            $credentials->{encSelected}  = $settings->row()->elementByName('encryption')->selectedType();
-            EBox::EBackup::Subscribed::downloadConfigurationBackup($credentials, $date, $tmpFile);
-        } else {
-            my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
-            $ebackup->restoreFile($bakFile, $date, $tmpFile);
-        }
+        my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
+        $ebackup->restoreFile($bakFile, $date, $tmpFile);
     } catch EBox::Exceptions::External with {
         my $ex = shift;
         my $text = $ex->stringify();

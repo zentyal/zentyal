@@ -73,7 +73,7 @@ sub ids
     my @users = split ('\s', $usersField);
     my @ids = map {
         my $id = getpwnam($_);
-        ($id)
+        (defined $id) ? ($id) : ();
     } @users;
     return \@ids;
 }

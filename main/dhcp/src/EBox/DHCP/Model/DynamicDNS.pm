@@ -263,7 +263,11 @@ sub dynamicDomainsIds
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to set module as changed
+        return;
+    }
 
     if (EBox::Global->modExists('dns')) {
         my $dnsModule = EBox::Global->modInstance('dns');

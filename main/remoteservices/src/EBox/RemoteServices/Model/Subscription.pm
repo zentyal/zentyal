@@ -154,9 +154,9 @@ sub setTypedRow
     my $modManager = EBox::Model::Manager->instance();
     $modManager->markAsChanged();
 
-    # Mark the apache module as changed as well
-    my $apacheMod = EBox::Global->modInstance('webadmin');
-    $apacheMod->setAsChanged();
+    # Mark the webadmin module as changed as well
+    my $webadminMod = EBox::Global->modInstance('webadmin');
+    $webadminMod->setAsChanged();
 
     # Reload table
     $self->reloadTable();
@@ -699,19 +699,22 @@ sub _showSaveChanges
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
-var MyAjax = new Ajax.Request('/RemoteServices/Controller/Subscription', {
-  method : 'post',
-  parameters : '&action=edit&tablename=$tableName&directory=$tableName&id=form&' + encodeFields('$tableName', $fieldsArrayJS ),
-  evalScripts : true,
-  onSuccess : function(t) { Element.update('$tableName', t.responseText);
+       \$.ajax({
+                      url: '/RemoteServices/Controller/Subscription',
+                      type: 'post',
+                      data: 'action=edit&tablename=$tableName&directory=$tableName&id=form&' +  Zentyal.TableHelper.encodeFields('$tableName', $fieldsArrayJS ),
+                      success: function(responseText) {
+                           \$('#$tableName').html(responseText);
                             if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
-                               Modalbox.show('/RemoteServices/Subscription', {  title : '$caption',   overlayClose: false });
+                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
                             }
-                          },
-  onFailure : function(t) { restoreHidden('customActions_${tableName}_submit_form', '$tableName');
-                            Element.update('error_$tableName', t.responseText); }
-  });
-setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+                      },
+                      error : function(t) {
+                            Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                            \$('#error_$tableName').html(t.responseText);
+                      }
+                  });
+Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
 return false
 JS
     return $jsStr;

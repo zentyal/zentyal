@@ -279,6 +279,7 @@ sub kerberosServicePrincipals
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -391,7 +392,7 @@ sub _setMailConf
     push (@array, 'allowed', $allowedaddrs);
     push (@array, 'aliasDN', $self->{malias}->aliasDn());
     push (@array, 'vmaildir', $self->{musers}->DIRVMAIL);
-    push (@array, 'usersDN', $users->usersDn());
+    push (@array, 'baseDN', $users->ldap()->dn());
     push (@array, 'uidvmail', $self->{musers}->uidvmail());
     push (@array, 'gidvmail', $self->{musers}->gidvmail());
     push (@array, 'popssl', $self->pop3s());
@@ -601,7 +602,7 @@ sub _setDovecotConf
 
     # ldap dovecot conf file
     @params = ();
-    push (@params, usersDn      => $users->usersDn());
+    push (@params, baseDN      => $users->ldap()->dn());
     push (@params, mailboxesDir =>  VDOMAINS_MAILBOXES_DIR);
     push (@params, zentyalRO    => "cn=zentyalro," . $users->ldap->dn());
     push (@params, zentyalROPwd => $roPwd);
@@ -1411,6 +1412,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'Mail',
+                                        'icon' => 'mail',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' => 610
@@ -1629,32 +1631,6 @@ sub restoreConfig
         }
     }
 
-}
-
-# backup stuff
-
-sub backupDomains
-{
-    my $name = 'mailboxes';
-    my %attrs  = (
-                  printableName => __('Mailboxes'),
-                  description   => __(q{Mail messages from users and group alias}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-    if ($enabled{mailboxes}) {
-        my $selection = {
-                          includes => [ $self->_storageMailDirs() ],
-                         };
-        return $selection;
-    }
-
-    return {};
 }
 
 sub _storageMailDirs

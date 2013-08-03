@@ -87,12 +87,7 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
-use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
-use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
-use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
-use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
-
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
@@ -114,7 +109,9 @@ sub kerberosServicePrincipals
     my $data = { service    => 'http',
                  principals => [ 'HTTP' ],
                  keytab     => KEYTAB_FILE,
-                 keytabUser => 'proxy' };
+                 keytabUser => 'proxy',
+                 module => $self->name()
+                };
     return $data;
 }
 
@@ -137,6 +134,8 @@ sub initialSetup
     }
 }
 
+
+
 # Method: enableActions
 #
 #   Override EBox::Module::Service::enableActions
@@ -144,10 +143,9 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
-
-    # Create the kerberos service principal in kerberos,
-    # export the keytab and set the permissions
-    $self->kerberosCreatePrincipals();
+    if ($self->authenticationMode() eq AUTH_MODE_INTERNAL) {
+        $self->_enableActionsInternalAuth();
+    }
 
     try {
         # FIXME: this should probably be moved to _setConf
@@ -165,6 +163,15 @@ sub enableActions
 
     # Execute enable-module script
     $self->SUPER::enableActions();
+}
+
+sub _enableActionsInternalAuth
+{
+    my ($self) = @_;
+    # Create the kerberos service principal in kerberos,
+    # export the keytab and set the permissions
+    $self->kerberosCreatePrincipals();
+
 }
 
 # Method: reprovisionLDAP
@@ -534,332 +541,14 @@ sub usesPort
     return undef;
 }
 
-# Method: _adDefaultNamingContext
-#
-#   Retrieve the AD default naming context from DC ldap root dse
-#
-sub _adDefaultNamingContext
-{
-    my ($self, $dc) = @_;
-
-    my $ad = new Net::LDAP($dc);
-    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
-    my $defaultNC = $dse->get_value('defaultNamingContext');
-    return $defaultNC;
-}
-
-# Method: _adcheckClockSkew
-#
-#   Checks the clock skew with the remote AD server and throw exception
-#   if the offset is above two minutes.
-#
-#   FIXME This method is duplicated from samba module, file Provision.pm
-#
-#   Maths:
-#       Originate Timestamp     T1 - time request sent by client
-#       Receive Timestamp       T2 - time request received by server
-#       Transmit Timestamp      T3 - time reply sent by server
-#       Destination Timestamp   T4 - time reply received by client
-#
-#       The roundtrip delay d and local clock offset t are defined as:
-#       d = (T4 - T1) - (T2 - T3)
-#       t = ((T2 - T1) + (T3 - T4)) / 2
-#
-sub _adCheckClockSkew
-{
-    my ($self, $adServerIp) = @_;
-
-    throw EBox::Exceptions::MissingArgument('adServerIp')
-        unless (defined $adServerIp and length $adServerIp);
-
-    my %h;
-    try {
-        %h = get_ntp_response($adServerIp);
-    } otherwise {
-        throw EBox::Exceptions::External(
-            __x('Could not retrive time from AD server {x} via NTP.',
-                x => $adServerIp));
-    };
-
-    my $t0 = time;
-    my $T1 = $t0; # $h{'Originate Timestamp'};
-    my $T2 = $h{'Receive Timestamp'};
-    my $T3 = $h{'Transmit Timestamp'};
-    my $T4 = time; # From Time::HiRes
-    my $d = ($T4 - $T1) - ($T2 - $T3);
-    my $t = (($T2 - $T1) + ($T3 - $T4)) / 2;
-    unless (abs($t) < 120) {
-        throw EBox::Exceptions::External(
-            __('The clock skew with the AD server is higher than two minutes. ' .
-               'This can cause problems with kerberos authentication, please ' .
-               'sync both clocks with an external NTP source and try again.'));
-    }
-}
-
-# Method: _setAuthenticationModeAD
-#
-#   Perform all necessary checks and operations to let squid authenticate users
-#   against domain controller
-#
-sub _setAuthenticationModeAD
-{
-    my ($self) = @_;
-
-    EBox::info("Setting AD authentication");
-
-    # Read config keys
-    my $dc      = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
-    my $bindDN  = EBox::Config::configkeyFromFile(AUTH_AD_BIND_DN_KEY, SQUID_ZCONF_FILE);
-    my $bindPwd = EBox::Config::configkeyFromFile(AUTH_AD_BIND_PWD_KEY, SQUID_ZCONF_FILE);
-
-    # Validate specified DC. It must be defined as FQDN because the 'msktutil' tool need
-    # to retrieve credentials for LDAP service principal (LDAP/dc_fqdn@AD_REALM)
-    if (EBox::Validate::checkIP($dc)) {
-        throw EBox::Exceptions::External(
-            __x('The domain controller must be specified as full qualified domain name'));
-    }
-    unless (EBox::Validate::checkDomainName($dc) and scalar (split (/\./, $dc)) > 1) {
-        throw EBox::Exceptions::External(
-            __x('The FQDN {x} does not seem to be valid', x => $dc));
-    }
-
-    # Check DC can be resolved to IP
-    my $resolver = new Net::DNS::Resolver();
-    $resolver->tcp_timeout(5);
-    $resolver->udp_timeout(5);
-    my $dcIpAddress = undef;
-    my $query = $resolver->query($dc, 'A');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            $dcIpAddress = $rr->address();
-            last;
-        }
-    }
-    unless (defined $dcIpAddress and length $dcIpAddress) {
-        my $url = '/Network/Composite/DNS';
-        throw EBox::Exceptions::External(
-            __x('The domain controller {x} could not be resolved to its IP address. ' .
-                'Please, make sure you are using one of the AD DNS servers as the ' .
-                'primary resolver in the {oh}resolvers list{ch}.',
-                x => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
-    }
-
-    # Check DC can be reverse resolved
-    my $dcReverseName = undef;
-    my $targetIP = join ('.', reverse split (/\./, $dcIpAddress)) . ".in-addr.arpa";
-    $query = $resolver->query($targetIP, 'PTR');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq "PTR";
-            $dcReverseName = $rr->ptrdname();
-        }
-    }
-    unless (defined $dcReverseName and length $dcReverseName) {
-        my $url = '/Network/Composite/DNS';
-        throw EBox::Exceptions::External(
-            __x("The IP address '{x}' belonging to the domain controller '{y}' could not be " .
-                'reverse resolved. Please, make sure you are using one of the AD DNS servers as the ' .
-                'primary resolver in the {oh}resolvers list{ch}, and it contains the required reverse zones.',
-                x => $dcIpAddress, y => $dc, oh => "<a href=\"$url\">", ch => '</a>'));
-    }
-
-    # Check the reverse resolved name match the DC name supplied by user
-    unless (lc $dcReverseName eq lc $dc) {
-        throw EBox::Exceptions::External(
-            __x("The AD DNS server has resolved the supplied DC name '{x}' to the IP '{y}', " .
-                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
-                "AD DNS records.", x => $dc, y => $dcIpAddress, z => $dcReverseName));
-
-    }
-
-    # Check DC is reachable
-    my $pinger = new Net::Ping('tcp');
-    $pinger->port_number(88);
-    $pinger->service_check(1);
-    unless ($pinger->ping($dc)) {
-        throw EBox::Exceptions::External(
-            __x('The domain controller {x} is unreachable.',
-                x => $dc));
-    }
-    $pinger->close();
-
-    # Check the host domain match the AD dns domain. Requiered by kerberos.
-    my $ad = new Net::LDAP($dc);
-    my $dse = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
-    my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
-    my $dcDomain = $dcDnsHostname[1];
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $hostDomain = $sysinfo->hostDomain();
-    unless (lc $hostDomain eq lc $dcDomain) {
-        throw EBox::Exceptions::External(
-            __x("The server domain '{x}' does not match DC domain '{y}'.",
-                x => $hostDomain, y => $dcDomain));
-    }
-
-    # Check the host realm match the AD realm. Required by kerberos.
-    my $defaultNC = $self->_adDefaultNamingContext($dc);
-    my $adRealm = uc ($defaultNC);
-    $adRealm =~ s/DC=//g;
-    $adRealm =~ s/,/\./g;
-    my $usersModule = EBox::Global->modInstance('users');
-    my $hostRealm = $usersModule->kerberosRealm();
-    unless ($adRealm eq $hostRealm) {
-        throw EBox::Exceptions::External(
-            __x("The server kerberos realm '{x}' does not match AD realm '{y}'.",
-                x => $hostRealm, y => $adRealm));
-    }
-
-    # Check clock skew between DC and Zentyal
-    $self->_adCheckClockSkew($dc);
-
-    # Check the AD DNS server has an A record for Zentyal
-    my $hostFQDN = $sysinfo->fqdn();
-    my $hostIpAddress = undef;
-    $query = $resolver->query($hostFQDN, 'A');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq 'A';
-            $hostIpAddress = $rr->address();
-            last;
-        }
-    }
-    unless (defined $hostIpAddress and length $hostIpAddress) {
-        throw EBox::Exceptions::External(
-            __x("The Zentyal server FQDN '{x}' could not be resolved by the AD DNS server. " .
-                "Please, ensure the A and PTR records for the Zentyal server exists in your AD DNS server.",
-                x => $hostFQDN));
-    }
-
-    # Check the AD DNS server has a PTR record for Zentyal
-    my $hostReverseName = undef;
-    my $hostTargetIP = join ('.', reverse split (/\./, $hostIpAddress)) . ".in-addr.arpa";
-    $query = $resolver->query($hostTargetIP, 'PTR');
-    if ($query) {
-        foreach my $rr ($query->answer()) {
-            next unless $rr->type() eq "PTR";
-            $hostReverseName = $rr->ptrdname();
-        }
-    }
-    unless (defined $hostReverseName and length $hostReverseName) {
-        throw EBox::Exceptions::External(
-            __x("The IP address '{x}' belonging to Zentyal server '{y}' could not be " .
-                "reverse resolved. Please, make sure your AD DNS server has the " .
-                "required PTR records defined.", x => $hostIpAddress, y => $hostFQDN));
-    }
-
-    # Check the reverse resolved name match the DC name supplied by user
-    unless (lc $hostReverseName eq lc $hostFQDN) {
-        throw EBox::Exceptions::External(
-            __x("The AD DNS server has resolved the Zentyal server name '{x}' to the IP '{y}', " .
-                "but the reverse resolution of that IP has returned name '{z}'. Please fix your " .
-                "AD DNS records.", x => $hostFQDN, y => $hostIpAddress, z => $hostReverseName));
-
-    }
-
-    # Bind to the AD LDAP
-    my $bindResult = $ad->bind($bindDN, password => $bindPwd);
-    if ($bindResult->is_error()) {
-        throw EBox::Exceptions::External(
-            __x("Could not bind to AD LDAP server '{x}' (Error was '{y}'). " .
-                "Please check the supplied credentials.",
-                x => $dc, y => $bindResult->error_desc()));
-    }
-
-    # Retrieve samAccountName for bind DN and build principal name to get
-    # a kerberos ticket
-    my $result = $ad->search(
-        base => $defaultNC,
-        scope => 'sub',
-        filter => "(distinguishedName=$bindDN)",
-        attrs => ['samAccountName']);
-    if ($result->count() != 1) {
-        throw EBox::Exceptions::External(
-            __x("Could not retrieve samAccountName attribute for DN '{x}'",
-                x => $bindDN));
-    }
-    my $entry = $result->entry(0);
-    my $adPrinc = $entry->get_value('samAccountName') . '@' . $adRealm;
-
-    # Check the Zentyal computer account
-    my $hostSamAccountName = uc ($sysinfo->hostName()) . '$';
-    my $hostFound = undef;
-    $result = $ad->search(base => "CN=Computers,$defaultNC",
-                          scope => 'sub',
-                          filter => '(objectClass=computer)',
-                          attrs => ['samAccountName']);
-    foreach my $entry ($result->entries()) {
-        my $entrySamAccountName = $entry->get_value('samAccountName');
-        if (uc $entrySamAccountName eq uc $hostSamAccountName) {
-            $hostFound = 1;
-            last;
-        }
-    }
-
-    # Extract keytab for squid
-    try {
-        # Remove old credentials cache
-        my $ccache = EBox::Config::tmp() . 'squid-ad-setup.ccache';
-        $ENV{KRB5CCNAME} = $ccache;
-        unlink $ccache if (-f $ccache);
-
-        # Get kerberos ticket for the admin user
-        my $ok = kdestroy();
-        unless (defined $ok and $ok == 1) {
-            EBox::error("kdestroy: " . kerror());
-        }
-        $ok = kinit_pwd($adPrinc, $bindPwd);
-        unless (defined $ok and $ok == 1) {
-            EBox::error("kinit: " . kerror());
-        }
-
-        my $computerName = uc ($sysinfo->hostName());
-        my $keytabTempPath = EBox::Config::tmp() . 'HTTP.keytab';
-        if ($hostFound) {
-            my @cmds;
-            EBox::Sudo::root("cp " . KEYTAB_FILE . " $keytabTempPath");
-            EBox::Sudo::root("chown ebox $keytabTempPath");
-            # Update keytab
-            my $cmd = "msktutil -N --auto-update --computer-name '$computerName' --keytab '$keytabTempPath' --server '$dc' --user-creds-only --verbose";
-            EBox::Sudo::command($cmd);
-            # Move keytab to the correct place
-            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
-        } else {
-            # Create the account and extract keytab to temporary directory
-            EBox::Sudo::command("rm -f $keytabTempPath");
-            my $cmd = "msktutil -N -c -b 'CN=COMPUTERS' -s 'HTTP/$hostFQDN' " .
-                      "-k '$keytabTempPath' --computer-name '$computerName' " .
-                      "--upn 'HTTP/$hostFQDN' --server '$dc' --user-creds-only " .
-                      "--verbose";
-            EBox::Sudo::command($cmd);
-
-            # Move keytab to the correct place
-            EBox::Sudo::root("mv $keytabTempPath " . KEYTAB_FILE);
-        }
-        if (EBox::Sudo::fileTest('-f', KEYTAB_FILE)) {
-            EBox::Sudo::root("chown root:proxy " . KEYTAB_FILE);
-            EBox::Sudo::root("chmod 440 " . KEYTAB_FILE);
-        }
-    } otherwise {
-        my ($error) = @_;
-        throw EBox::Exceptions::External(
-            __("Error creating computer account for Zentyal server: $error"));
-    } finally {
-        # Destroy acquired credentials
-        my $ok = kdestroy();
-        unless (defined $ok and $ok == 1) {
-            EBox::error("kdestroy: " . kerror());
-        }
-    };
-}
-
 sub _configureAuthenticationMode
 {
     my ($self) = @_;
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        $self->_setAuthenticationModeAD();
+        my $ad = $self->global()->modInstance('users')->ldap();
+        $ad->initKeyTabs();
     }
 }
 
@@ -951,14 +640,15 @@ sub _writeSquidConf
     push @writeParam, ('auth' => $self->authNeeded());
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
-
+    push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
     push @writeParam, ('dn' => $dn);
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        my $dc = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
+        my $externalAD = $self->global()->modInstance('users')->ldap();
+        my $dc = $externalAD->dcHostname();
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
-        my $adPrincipal = uc ($sysinfo->hostName()) . '$';
+        my $adPrincipal = $externalAD->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
@@ -1238,7 +928,7 @@ sub writeDgGroups
     my $generalSettings = $self->model('GeneralSettings');
     my $realm = '';
     if ($generalSettings->kerberosValue()) {
-        my $users = EBox::Global->modInstance('users');
+        my $users = $self->global()->modInstance('users');
         $realm = '@' . $users->kerberosRealm();
     }
 
@@ -1301,6 +991,13 @@ sub _notCachedDomains
     my $model = $self->model('NoCacheDomains');
     return $model->notCachedDomains();
 }
+sub _noAuthDomains
+{
+    my ($self) = @_;
+
+    my $model = $self->model('NoAuthDomains');
+    return $model->noAuthDomains();
+}
 
 sub _dgProfiles
 {
@@ -1352,6 +1049,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Squid',
+                                        'icon' => 'squid',
                                         'text' => $self->printableName(),
                                         'separator' => 'Gateway',
                                         'order' => 210);
@@ -1608,24 +1306,15 @@ sub _commercialMsg
 sub authenticationMode
 {
     my ($self) = @_;
-
-    my $mode = EBox::Config::configkeyFromFile(AUTH_MODE_KEY, SQUID_ZCONF_FILE);
-    $mode = AUTH_MODE_INTERNAL unless length $mode;
-
-    if ($mode eq AUTH_MODE_INTERNAL) {
+    my $users = $self->global()->modInstance('users');
+    my $usersMode = $users->mode();
+    if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
-    } elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        if (EBox::Global->edition() eq 'enterprise') {
-            return AUTH_MODE_EXTERNAL_AD;
-        } else {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise edition');
-            return AUTH_MODE_INTERNAL;
-        }
+    } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
-        my $error = __x("Invalid value for key '{key}' in configuration file {value}",
-                         key => AUTH_MODE_KEY,
-                         value => SQUID_ZCONF_FILE);
-        throw EBox::Exceptions::External($error);
+        EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
+        return AUTH_MODE_INTERNAL;
     }
 }
 

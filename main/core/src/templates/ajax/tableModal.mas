@@ -134,7 +134,7 @@ use POSIX;
 
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
 <div id='error_<% $model->modelName() | hu %>_modal'></div>
-<div id="<% $model->modelName() %>_modal"> 
+<div id="<% $model->modelName() %>_modal">
 % if ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
@@ -246,8 +246,8 @@ use POSIX;
   my $tpages = $requestArgs->{tpages};
   my $selectCallerId = $requestArgs->{selectCallerId};
   my $selectForeignField = $requestArgs->{selectForeignField};
-  my $nextPageContextName  = $requestArgs->{nextPageContextName}; 
-  my $foreignNextPageField  = $requestArgs->{foreignNextPageField}; 
+  my $nextPageContextName  = $requestArgs->{nextPageContextName};
+  my $foreignNextPageField  = $requestArgs->{foreignNextPageField};
   my $changeView = $model->action('changeView');
 
   if ( $action eq 'presetUpdate' ) {
@@ -263,14 +263,14 @@ use POSIX;
 <%perl>
 my $addOnClick;
 if ($foreignNextPageField) {
-    $addOnClick = $model->modalAddNewRowJS($page, $foreignNextPageField, 
+    $addOnClick = $model->modalAddNewRowJS($page, $foreignNextPageField,
                                            selectCallerId => $selectCallerId,
                                            selectForeignField => $selectForeignField,
                                            nextPageContextName =>  $nextPageContextName,
                                                  );
     $addOnClick .= ';';
 } else {
-    $addOnClick .=   'Modalbox.hide();' ;
+    $addOnClick .=   'Zentyal.Dialog.close();' ;
 }
 $addOnClick .=  'return false';
 </%perl>
@@ -285,7 +285,7 @@ $addOnClick .=  'return false';
 % } elsif ($action eq 'changeEdit')  {
 <%perl>
  my $editOnClick =  $model->changeRowJS($editid, $page) . ';' .
-                   'Modalbox.hide();' .
+                   'Zentyal.Dialog.close();' .
                    'return false';
 </%perl>
     <& /ajax/customActions.mas, model => $model, id => $editid &>
@@ -305,7 +305,7 @@ $addOnClick .=  'return false';
         name => 'cancel',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick  => 'Modalbox.hide(); return false'
+        onclick  => 'Zentyal.Dialog.close(); return false'
     &>
 % }
   </td>

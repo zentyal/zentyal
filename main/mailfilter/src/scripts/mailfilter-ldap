@@ -7,7 +7,7 @@ use EBox::Global;
 use EBox::MailVDomainsLdap;
 use EBox::MailFilter::VDomainsLdap;
 use EBox::Sudo qw(root);
-use EBox::UsersAndGroups::User;
+use EBox::Users::User;
 
 sub update
 {
@@ -32,10 +32,10 @@ sub update
 
     foreach my $user_r (@controlUsers) {
         my $username = $user_r->{user};
-        my $user = new EBox::UsersAndGroups::User(uid => $username);
+        my $user = new EBox::Users::User(uid => $username);
         unless ($user->exists()) {
             EBox::debug("Creating user '$username'");
-            EBox::UsersAndGroups::User->create($user_r, 1);
+            EBox::Users::User->create($user_r, 1);
         } else {
             my $uidNumber = $user->get('uidNumber');
             if ($uidNumber > $user->lastUid(1)) {

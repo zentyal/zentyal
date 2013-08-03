@@ -1,18 +1,16 @@
-class: 'EBox::UsersAndGroups'
+class: 'EBox::Users'
 
 enabledepends:
     - dns
     - ntp
 
 models:
+    - Manage
     - Mode
-    - Users
-    - Groups
     - Password
     - LdapInfo
     - PAM
     - AccountSettings
-    - OUs
     - Slaves
     - Master
     - SlavePassword

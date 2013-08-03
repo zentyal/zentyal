@@ -1,3 +1,28 @@
+HEAD
+	+ Clearer messages for gateway not reachable condition
+	+ Fixed bug which unallowed to disable the proxy server
+	+ Fix regression is Gateways table due to the change of behaviour
+	  of update row notifications
+	+ Added menu icon
+	+ Fix regression in dhcp-gateway.pl which interfered with save
+	  change process
+	+ Increase regenGateways() timeout from 60 to 180 seconds
+	+ Add zentyal-users to package breaks control to avoid errors with
+	  bad users version
+	+ Fixed regression in external interface check in Network -> Interfaces
+	  after having nginx as source of all requests to apache
+	+ Warning in initial configuration wizard when trying to set as external
+	  the interface used to access the administration interface
+	+ To fix dhclient erratic behaviour, we always restart the dhcp interfaces
+	+ Corrected typo in message on tab multigw when only one gw is present
+	+ Better check for ipv6 presence before disabling it
+	+ Removed no longer necessary jQuery noConflict()
+	+ Adapted DNS resolver model to authorization mode changes
+	  in users and squid module
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Do not add /32 mask to default route when deleting routes
 3.1
 	+ Updated to reflect the Apache -> WebAdmin rename.
 	+ Added netInitRange and netEndRange methods from the dhcp module to be

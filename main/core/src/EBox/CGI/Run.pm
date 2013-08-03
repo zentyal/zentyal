@@ -25,6 +25,7 @@ use EBox::CGI::Controller::Composite;
 use EBox::CGI::Controller::DataTable;
 use EBox::CGI::Controller::Modal;
 use EBox::CGI::View::DataTable;
+use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
 
 use Error qw(:try);
@@ -55,15 +56,16 @@ sub run
     $redis->begin();
 
     try {
-        my $cgi = _instanceModelCGI($url);
+        $url = _urlAlias($url);
+        my @extraParams;
+        if ($htmlblocks) {
+            push (@extraParams, htmlblocks => $htmlblocks);
+        }
+
+        my $cgi = $self->_instanceModelCGI($url, @extraParams);
 
         unless ($cgi) {
-            my @extraParams;
-            if ($htmlblocks) {
-                push (@extraParams, htmlblocks => $htmlblocks);
-            }
-
-            my $classname = urlToClass($url);
+            my $classname = $self->urlToClass($url);
             eval "use $classname";
 
             if ($@) {
@@ -79,6 +81,7 @@ sub run
         }
 
         $cgi->{originalUrl} = $url;
+
         $cgi->run();
         $redis->commit();
     } otherwise {
@@ -100,12 +103,12 @@ sub run
 #
 sub modelFromUrl
 {
-    my ($url) = @_;
+    my ($self, $url) = @_;
 
     my ($model, $namespace, $type) = _parseModelUrl($url);
     return undef unless ($model and $namespace);
     my $path = lc ($namespace) . "/$model";
-    return _instanceComponent($path, $type);
+    return $self->_instanceComponent($path, $type);
 }
 
 # Method: urlToClass
@@ -114,8 +117,7 @@ sub modelFromUrl
 #
 sub urlToClass
 {
-    my ($url) = @_;
-
+    my ($self, $url) = @_;
     unless ($url) {
         return "EBox::Dashboard::CGI::Index";
     }
@@ -157,11 +159,22 @@ sub _parseModelUrl
 
     defined ($url) or die "Not URL provided";
 
-    $url = _urlAlias($url);
-
     my ($namespace, $type, $model, $action) = split ('/', $url);
 
-    if ($type eq any(qw(Composite View Controller ModalController))) {
+    # Special case for ModalController urls with different format
+    # TODO: try to rewrite modal controller code in order to use
+    #       regular URLs to avoid this workaround
+    if ((defined $model) and ($model eq 'ModalController')) {
+        my $module = EBox::Global->modInstance($type);
+        unless ($module) {
+            return undef;
+        }
+        $type = 'ModalController';
+        $model = $action;
+        $namespace = $module->name();
+    }
+
+    if ($type eq any(qw(Composite View Controller ModalController Tree))) {
         return ($model, $namespace, $type, $action);
     }
 
@@ -196,7 +209,7 @@ sub _readUrlAliases
 
 sub _instanceComponent
 {
-    my ($path, $type) = @_;
+    my ($self, $path, $type) = @_;
 
     my $manager = EBox::Model::Manager->instance();
     my $model = undef;
@@ -211,7 +224,7 @@ sub _instanceComponent
 
 sub _instanceModelCGI
 {
-    my ($url) = @_;
+    my ($self, $url, @extraParams) = @_;
 
     my ($cgi, $menuNamespace) = (undef, undef);
 
@@ -223,24 +236,28 @@ sub _instanceModelCGI
     my $path = lc ($namespace) . "/$modelName";
     return undef unless $manager->componentExists($path);
 
-    my $model = _instanceComponent($path, $type);
+    my $model = $self->_instanceComponent($path, $type);
 
     if ($model) {
         $menuNamespace = $model->menuNamespace();
         if ($type eq 'View') {
-            $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
+            $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
+        } elsif ($type eq 'Tree') {
+            $cgi = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Controller') {
-            $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace);
+            $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'ModalController') {
-            $cgi = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace);
+            $cgi = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Composite') {
             if (defined ($action)) {
                 $cgi = new EBox::CGI::Controller::Composite(composite => $model,
                                                             action    => $action,
-                                                            namespace => $namespace);
+                                                            namespace => $namespace,
+                                                            @extraParams);
             } else {
                 $cgi = new EBox::CGI::View::Composite(composite => $model,
-                                                      namespace => $namespace);
+                                                      namespace => $namespace,
+                                                      @extraParams);
             }
         }
 

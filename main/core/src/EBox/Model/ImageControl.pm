@@ -66,8 +66,6 @@ sub _messages
             'add'       => undef,
             'del'       => undef,
             'update'    => undef,
-            'moveUp'    => undef,
-            'moveDown'  => undef,
            };
 }
 

@@ -191,6 +191,7 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
 sub enableActions
 {
     my ($self) = @_;
+    $self->checkUsersMode();
 
     $self->performLDAPActions();
 
@@ -694,6 +695,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(
                                         'name' => 'MailFilter',
+                                        'icon' => 'mailfilter',
                                         'text' => $self->printableName(),
                                         'separator' => 'Communications',
                                         'order' =>  615

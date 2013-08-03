@@ -20,6 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Util::Lock;
 use Error qw(:try);
 
 EBox::init();
@@ -42,7 +43,8 @@ try {
     # Do not call regenGateways if we are restarting changes, they
     # are already going to be regenerated and also this way we
     # avoid nested lock problems
-    unless (-f '/var/lib/zentyal/tmp/ifup.lock') {
+    my $ifupLock = EBox::Util::Lock::_lockFile('ifup');
+    unless (-f $ifupLock) {
         $network->regenGateways();
     }
 } finally {

@@ -23,6 +23,7 @@ use base 'EBox::CGI::WizardPage';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
+use EBox::Exceptions::External;
 use Error qw(:try);
 
 sub new # (cgi=?)
@@ -45,6 +46,28 @@ sub _masonParameters
     return \@params;
 }
 
+sub _process
+{
+    my $self = shift;
+    $self->{params} = $self->_masonParameters();
+
+    my $net = EBox::Global->modInstance('network');
+
+    my $iface = $self->param('iface');
+    if ($iface) {
+        if ($net->externalConnectionWarning($iface)) {
+            $self->{json} = { success => 0, error =>__x('You are connecting to Zentyal through the {i} interface. If you set it as external the firewall will lock you out during the installation.', i => $iface) };
+        } else {
+            $self->{json} = { success => 1 };
+        }
+        return;
+    }
+
+    if ($self->{cgi}->request_method() eq 'POST') {
+        $self->_processWizard();
+    }
+}
+
 sub _processWizard
 {
     my ($self) = @_;
@@ -55,7 +78,7 @@ sub _processWizard
     foreach my $iface ( @{$net->ifaces()} ) {
         my $scope = $self->param($iface . '_scope');
 
-        if ( $net->ifaceExists($iface) ) {
+        if ($net->ifaceExists($iface)) {
             my $isExternal = 0;
             if ($scope eq 'external') {
                 $isExternal = 1;

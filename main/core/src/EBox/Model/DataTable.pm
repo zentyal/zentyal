@@ -12,12 +12,13 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::Model::DataTable;
 
-use base 'EBox::Model::Component';
+use base 'EBox::Model::Base';
 
 use EBox;
 use EBox::Global;
@@ -35,6 +36,7 @@ use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 use EBox::Types::Boolean;
+use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
@@ -210,16 +212,6 @@ sub modelName
     return $self->table()->{'tableName'};
 }
 
-# Method: name
-#
-#       Return the same that <EBox::Model::DataTable::modelName>
-#
-sub name
-{
-    my ($self) = @_;
-    return $self->modelName();
-}
-
 # XXX transitional method, this will be the future name() method
 sub nameFromClass
 {
@@ -238,44 +230,6 @@ sub nameFromClass
     return $name;
 }
 
-# Method: contextName
-#
-#      The context name which is used as a way to know exactly which
-#      module this model belongs to
-#
-# Returns:
-#
-#      String - following this pattern:
-#      '/moduleName/modelName
-#
-sub contextName
-{
-    my ($self) = @_;
-
-    my $path = '/' . $self->{'confmodule'}->name() . '/' .
-      $self->name() . '/';
-
-    return $path;
-}
-
-# Method: printableContextName
-#
-#       Localisated version of <EBox::Model::DataTable::contextName>
-#       method to be shown on the user
-#
-# Returns:
-#
-#       String - the localisated version of context name
-#
-sub printableContextName
-{
-    my ($self) = @_;
-    my $printableContextName = __x( '{model} in {module} module',
-                                    model  => $self->printableName(),
-                                    module => $self->{'confmodule'}->printableName());
-    return $printableContextName;
-}
-
 # DEPRECATED
 sub index
 {
@@ -290,45 +244,6 @@ sub printableIndex
   #EBox::trace();
   #throw EBox::Exceptions::MethodDeprecated();
   return '';
-}
-
-# Method: precondition
-#
-#       Check if the model has enough data to be manipulated, that
-#       is, this precondition constraint is accomplished.
-#
-#       This method must be override by those models which requires
-#       any precondition to work correctly. Associated to the
-#       precondition there is a fail message which displays what it is
-#       required to make model work using method
-#       <EBox::Model::DataTable::preconditionFailMsg>
-#
-# Returns:
-#
-#       Boolean - true if the precondition is accomplished, false
-#       otherwise
-#       Default value: true
-sub precondition
-{
-    return 1;
-}
-
-# Method: preconditionFailMsg
-#
-#       Return the fail message to inform why the precondition to
-#       manage this model is not accomplished. This method is related
-#       to <EBox::Model::DataTable::precondition>.
-#
-# Returns:
-#
-#       String - the i18ned message to inform user why this model
-#       cannot be handled
-#
-#       Default value: empty string
-#
-sub preconditionFailMsg
-{
-    return '';
 }
 
 # Method: noDataMsg
@@ -695,34 +610,6 @@ sub deletedRowNotify
 
 }
 
-# Method: movedUpRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved up
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedUpRowNotify
-{
-
-}
-
-# Method: movedDownRowNotify
-#
-#    Override this method to be notified whenever
-#    a  row is moved down
-#
-# Arguments:
-#
-#     row - <EBox::Model::Row> containing fields and values of the moved row
-#
-sub movedDownRowNotify
-{
-
-}
-
 # Method: updatedRowNotify
 #
 #    Override this method to be notified whenever
@@ -763,7 +650,7 @@ sub updatedRowNotify
 #
 #   model - model name where the action took place
 #   action - string represting the action:
-#            [ add, del, edit, moveUp, moveDown ]
+#            [ add, del, edit ]
 #
 #   row  - row modified
 #
@@ -1029,41 +916,55 @@ sub _selectOptions
     return $self->{'cacheOptions'}->{$field};
 }
 
-sub moveUp
+# Method: moveRowRelative
+#
+#  Moves the row to the position specified either by the previous row or the
+#  next one. If both positions are suppiled the previous row has priority
+#
+#  Parameters:
+#     id - id of row to move
+#     prevId - ID of the row directly after the new position, undef if unknow
+#     nextId - ID of the row directly before the new position, undef if unknow
+#
+#    Returns:
+#       - list reference contianing the old row position and the new one
+#
+sub moveRowRelative
 {
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-
-    my $pos = $order{$id};
-    if ($order{$id} == 0) {
-        return;
+    my ($self, $id, $prevId, $nextId) = @_;
+    if ((not $prevId) and (not $nextId)) {
+        throw EBox::Exceptions::MissingArgument("No changes were supplied");
+    }
+    if ($prevId) {
+        if (($id eq $prevId)) {
+            throw EBox::Exceptions::MissingArgument("id and prevId must be different ids (both were '$id')");
+        } elsif ($nextId and ($prevId eq $nextId)) {
+            throw EBox::Exceptions::MissingArgument("nextId and prevId must be different ids (both were '$nextId')");
+        }
+    }
+    if ($nextId and ($id eq $nextId)) {
+        throw EBox::Exceptions::MissingArgument("id and nextId must be different ids (both were '$id')");
     }
 
-    $self->_swapPos($pos, $pos - 1);
+    my $oldPos = $self->removeIdFromOrder($id);
+    # lokup new positions
+    my $newPos;
 
-    $self->setMessage($self->message('moveUp'));
-    $self->movedUpRowNotify($self->row($id));
-    $self->_notifyManager('moveUp', $self->row($id));
-}
+    if (defined $prevId) {
+         $newPos = $self->idPosition($prevId) + 1;
+     } elsif (defined $nextId) {
+         $newPos = $self->idPosition($nextId);
+     }
 
-sub moveDown
-{
-    my ($self, $id) = @_;
-
-    my %order = $self->_orderHash();
-    my $numOrder = keys %order;
-
-    my $pos = $order{$id};
-    if ($order{$id} == $numOrder -1) {
-        return;
+    if (not defined $newPos) {
+        $self->_insertPos($id, 0); # to not lose the element
+        throw EBox::Exceptions::Internal("No new position was found for id $id between $prevId and $nextId");
     }
 
-    $self->_swapPos($pos, $pos + 1);
+    $self->_insertPos($id, $newPos);
 
-    $self->setMessage($self->message('moveDown'));
-    $self->movedDownRowNotify($self->row($id));
-    $self->_notifyManager('moveDown', $self->row($id));
+    $self->_notifyManager('move', $self->row($id));
+    return [$oldPos => $newPos];
 }
 
 # Method: _removeRow
@@ -1081,9 +982,7 @@ sub _removeRow
 
     my $confmod = $self->{'confmodule'};
     $confmod->unset("$self->{'directory'}/$id");
-    my @order = @{$confmod->get_list($self->{'order'})};
-    @order = grep ($_ ne $id, @order);
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->removeIdFromOrder($id);
 }
 
 # TODO Split into removeRow and removeRowForce
@@ -1328,83 +1227,81 @@ sub setTypedRow
     my @setterTypes = @{$self->setterTypes()};
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        my $checkRowUnique = $self->rowUnique();
 
-    my $checkRowUnique = $self->rowUnique();
+        my $row = $self->row($id);
+        my $oldRow = $self->_cloneRow($row);
+        my $allHashElements = $row->hashElements();
+        my $changedElements = {};
+        my @changedElements = ();
+        foreach my $paramName (keys %{$paramsRef}) {
+            unless ($paramName ne any(@setterTypes)) {
+                throw EBox::Exceptions::Internal('Trying to update a non setter type');
+            }
 
-    my $row = $self->row($id);
-    my $oldRow = $self->_cloneRow($row);
-    my $allHashElements = $row->hashElements();
-    my $changedElements = {};
-    my @changedElements = ();
-    foreach my $paramName (keys %{$paramsRef}) {
-        unless ($paramName ne any(@setterTypes)) {
-            throw EBox::Exceptions::Internal('Trying to update a non setter type');
+            my $paramData = $paramsRef->{$paramName};
+            if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
+                next;
+            }
+
+            if ($paramData->unique()) {
+                # No need to check if the entire row is unique if
+                # any of the fields are already checked
+                $checkRowUnique = 0;
+                $self->_checkFieldIsUnique($paramData);
+            }
+
+            $paramData->setRow($row);
+            $changedElements->{$paramName} = $paramData;
+            push (@changedElements, $paramData);
+            $allHashElements->{$paramName} = $paramData;
         }
 
-        my $paramData = $paramsRef->{$paramName};
-        if ($row->elementByName($paramName)->isEqualTo($paramsRef->{$paramName})) {
-            next;
+        # Check if the new row is unique if needed
+        if ($checkRowUnique and (keys %{$paramsRef} > 0)) {
+            $self->_checkRowIsUnique($id, $allHashElements);
         }
 
-        if ($paramData->unique()) {
-            # No need to check if the entire row is unique if
-            # any of the fields are already checked
-            $checkRowUnique = 0;
-            $self->_checkFieldIsUnique($paramData);
+        # add ids parameters for call to validateTypedRow
+        $changedElements->{id} = $id;
+        $allHashElements->{id} = $id;
+        $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
+        # remove ids after call to validateTypedRow
+        delete $changedElements->{id};
+        delete $allHashElements->{id};
+
+        # If force != true automaticRemove is enabled it means
+        # the model has to automatically check if the row which is
+        # about to be changed is referenced elsewhere and this change
+        # produces an inconsistent state
+        if ((not $force) and $self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
         }
 
-        $paramData->setRow($row);
-        $changedElements->{$paramName} = $paramData;
-        push (@changedElements, $paramData);
-        $allHashElements->{$paramName} = $paramData;
-    }
+        my $key = "$dir/$id";
+        my $hash = $confmod->get_hash($key);
 
-    # Check if the new row is unique if needed
-    if ($checkRowUnique and (keys %{$paramsRef} > 0)) {
-        $self->_checkRowIsUnique($id, $allHashElements);
-    }
+        my $modified = @changedElements;
+        for my $data (@changedElements) {
+            $data->storeInHash($hash);
+        }
 
-    # add ids parameters for call to validateTypedRow
-    $changedElements->{id} = $id;
-    $allHashElements->{id} = $id;
-    $self->validateTypedRow('update', $changedElements, $allHashElements, $force);
-    # remove ids after call to validateTypedRow
-    delete $changedElements->{id};
-    delete $allHashElements->{id};
+        # update readonly if change
+        my $oldRO = $hash->{readOnly};
+        if (defined ($readOnly) and $readOnly) {
+            $hash->{readOnly} = 1;
+        } else {
+            delete $hash->{readOnly};
+        }
 
-    # If force != true automaticRemove is enabled it means
-    # the model has to automatically check if the row which is
-    # about to be changed is referenced elsewhere and this change
-    # produces an inconsistent state
-    if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $manager->warnOnChangeOnId($self->contextName(), $id, $changedElements, $oldRow);
-    }
+        # Update row hash if needed
+        if ($modified or ($hash->{readOnly} xor $oldRO)) {
+            $confmod->set($key, $hash);
+        }
 
-    my $key = "$dir/$id";
-    my $hash = $confmod->get_hash($key);
-
-    my $modified = @changedElements;
-    for my $data (@changedElements) {
-        $data->storeInHash($hash);
-    }
-
-    # update readonly if change
-    my $oldRO = $hash->{readOnly};
-    if (defined ($readOnly) and $readOnly) {
-        $hash->{readOnly} = 1;
-    } else {
-        delete $hash->{readOnly};
-    }
-
-    # Update row hash if needed
-    if ($modified or ($hash->{readOnly} xor $oldRO)) {
-        $confmod->set($key, $hash);
-    }
-
-    if ($modified) {
         $self->setMessage($self->message('update'));
         # Dependant models may return some message to inform the user
         my $depModelMsg = $self->_notifyManager('update', $row);
@@ -1414,10 +1311,8 @@ sub setTypedRow
         }
         $self->_notifyManager('update', $row);
         $self->updatedRowNotify($row, $oldRow, $force);
-    }
 
-    $self->_commitTransaction();
-
+        $self->_commitTransaction();
     } otherwise {
         my $ex = shift;
         $self->_rollbackTransaction();
@@ -1704,21 +1599,6 @@ sub printableModelName
     return $self->table()->{'printableTableName'};
 }
 
-# Method: printableName
-#
-#       Get the i18ned name
-#
-# Returns:
-#
-#       What <EBox::Model::DataTable::printableModelName> returns
-#
-sub printableName
-{
-    my ($self) = @_;
-
-    return $self->printableModelName();
-}
-
 # Method: pageTitle
 #
 #       Get the i18ned name of the page where the model is contained, if any
@@ -1732,21 +1612,6 @@ sub pageTitle
     my ($self) = @_;
 
     return $self->table()->{'pageTitle'};
-}
-
-# Method: headTitle
-#
-#       Get the i18ned name of the page where the model is contained, if any
-#
-# Returns:
-#
-#   string
-#
-sub headTitle
-{
-    my ($self) = @_;
-
-    return $self->printableModelName();
 }
 
 # Method: directory
@@ -1763,31 +1628,6 @@ sub directory
     my ($self) = @_;
 
     return $self->{'confdir'};
-}
-
-# Method: menuNamespace
-#
-#    Fetch the menu namespace which this model belongs to
-#
-# Returns:
-#
-#        String - Containing namespace
-#
-sub menuNamespace
-{
-    my ($self) = @_;
-
-    if (exists $self->table()->{'menuNamespace'}) {
-        return $self->table()->{'menuNamespace'};
-    } elsif ( defined ( $self->modelDomain() )) {
-        # This is autogenerated menuNamespace got from the model
-        # domain and the table name
-        my $menuNamespace = $self->modelDomain() . '/View/' . $self->tableName();
-        return $menuNamespace;
-
-    } else {
-        return undef;
-    }
 }
 
 # Method: order
@@ -1928,6 +1768,30 @@ sub printableRowName
     return $self->table()->{'printableRowName'};
 }
 
+# Method: menuNamespace
+#
+#    Fetch the menu namespace which this model belongs to
+#
+# Returns:
+#
+#        String - Containing namespace
+#
+sub menuNamespace
+{
+    my ($self) = @_;
+
+    if (exists $self->table()->{'menuNamespace'}) {
+        return $self->table()->{'menuNamespace'};
+    } elsif (defined ($self->modelDomain())) {
+        # This is autogenerated menuNamespace got from the model
+        # domain and the table name
+        my $menuNamespace = $self->modelDomain() . '/View/' . $self->modelName();
+        return $menuNamespace;
+    } else {
+        return undef;
+    }
+}
+
 # Method: help
 #
 #     Get the help message from the model
@@ -1952,8 +1816,6 @@ sub help
 #      add - when a row is added
 #      del - when a row is deleted
 #      update - when a row is updated
-#      moveUp - when a row is moved up
-#      moveDown - when a row is moved down
 #
 # Parameters:
 #
@@ -2168,7 +2030,7 @@ sub find
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, undef, 'printableValue')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2191,7 +2053,7 @@ sub find
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAll('default' => 1);
 #
 # Returns:
 #
@@ -2201,6 +2063,7 @@ sub find
 # Exceptions:
 #
 #   <EBox::Exceptions::MissingArgument>
+#
 sub findAll
 {
     my ($self, $fieldName, $value) = @_;
@@ -2209,7 +2072,7 @@ sub findAll
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'printableValue')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'printableValue')};
 
     return \@matched;
 }
@@ -2227,7 +2090,7 @@ sub findAll
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findValue('default' => 1);
 #
 # Returns:
 #
@@ -2243,11 +2106,39 @@ sub findValue
 {
     my ($self, $fieldName, $value) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
-    }
+    $self->findValueMultipleFields({ $fieldName => $value });
+}
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+# Method: findValueMultipleFields
+#
+#    Return the first row that matches the value of the given
+#    fields against the data returned by the method value()
+#
+#    If you want to match against printable value use
+#    <EBox::Model::DataTable::find>
+# Parameters:
+#
+#     fields     - hash ref with the fields and values to look for
+#
+#     Example:
+#
+#     findValueMultipleFields({'default' => 1});
+#
+# Returns:
+#
+#     <EBox::Model::Row> - the matched row
+#
+#     undef if there was not any match
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::MissingArgument>
+#
+sub findValueMultipleFields
+{
+    my ($self, $fields) = @_;
+
+    my @matched = @{$self->_find($fields, undef, 'value')};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2261,7 +2152,7 @@ sub findValue
 #    Return all the rows that match the value of the given
 #    field against the data returned by the method value()
 #
-#    If you want to match against value use
+#    If you want to match against printable value use
 #    <EBox::Model::DataTable::find>
 #
 #
@@ -2271,7 +2162,7 @@ sub findValue
 #
 #     Example:
 #
-#     find('default' => 1);
+#     findAllValue('default' => 1);
 #
 # Returns:
 #
@@ -2291,7 +2182,7 @@ sub findAllValue
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, 1, 'value')};
+    my @matched = @{$self->_find({ $fieldName => $value }, 1, 'value')};
 
     return \@matched;
 }
@@ -2328,11 +2219,12 @@ sub findId
         throw EBox::Exceptions::MissingArgument("Missing field name");
     }
 
-    my @matched = @{$self->_find($fieldName, $value, undef, 'value')};
+    my $values = { $fieldName => $value };
+    my @matched = @{$self->_find($values, undef, 'value')};
     if (@matched) {
         return $matched[0];
     } else {
-        @matched = @{$self->_find($fieldName, $value, undef, 'printableValue')};
+        @matched = @{$self->_find($values, undef, 'printableValue')};
         return @matched ? $matched[0] : undef;
     }
 }
@@ -2591,18 +2483,34 @@ sub automaticRemoveMsg
 #
 # Returns:
 #
-#    int - page size
+#    int page size or '_all' for 'All pages' option
 sub pageSize
 {
     my ($self) = @_;
 
     # if the user has selected a page size return it
-    if (exists $self->{'pageSize'} ) {
-        return $self->{'pageSize'};
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
+    if ($pageSize) {
+        return $pageSize;
     }
 
     return $self->defaultPageSize();
 }
+
+# Method: pageSizeIntValue
+#
+#  return the exact maximum number of rows which should be displayed in each
+#  page
+sub pageSizeIntValue
+{
+    my ($self) = @_;
+    my $pageSize = $self->pageSize();
+    if ($pageSize eq '_all') {
+        return 2147483647; # POSIX MAX INT
+    }
+    return $pageSize;
+}
+
 
 # Method: defaultPageSize
 #
@@ -2621,7 +2529,7 @@ sub defaultPageSize
         return $table->{'pageSize'};
     }
 
-    # fallback to defautl value of 10
+    # fallback to default value of 10
     return 10;
 }
 
@@ -2653,7 +2561,7 @@ sub setPageSize
                                            )
     }
 
-    $self->{'pageSize'} = $rows;
+    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS
@@ -2683,7 +2591,7 @@ sub changeViewJS
             $args{isFilter},
             );
 
-    my $function = "changeView('%s','%s','%s','%s','%s', %s, %s)";
+    my $function = "Zentyal.TableHelper.changeView('%s','%s','%s','%s','%s', %s, %s)";
 
     my $table = $self->table();
     return sprintf ($function,
@@ -2725,7 +2633,7 @@ sub modalChangeViewJS
 
     my $extraParamsJS = _paramsToJSON(%args);
 
-    my  $function = "modalChangeView('%s','%s','%s','%s','%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalChangeView('%s','%s','%s','%s','%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
@@ -2754,14 +2662,14 @@ sub modalCancelAddJS
     my $directory = $self->directory();
     my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $onSuccess='';
+    my $success='';
     if ($selectCallerId) {
-        $onSuccess = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
+        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
     }
 
-    my $js = "new Ajax.Request('$url', { method: 'post',  parameters: '$params'";
-    if ($onSuccess) {
-        $js .= ", onSuccess: $onSuccess";
+    my $js = "\$.ajax('{url: $url', type: 'post', data: '$params'";
+    if ($success) {
+        $js .= ", success: $success";
     }
     $js.= '});';
     return $js;
@@ -2784,7 +2692,7 @@ sub addNewRowJS
     my ($self, $page, %params) = @_;
     my $cloneId = $params{cloneId};
 
-    my  $function = "addNewRow('%s','%s',%s,'%s',%s)";
+    my  $function = "Zentyal.TableHelper.addNewRow('%s','%s',%s,'%s',%s)";
 
     my $table = $self->table();
     my @extraFields;
@@ -2805,7 +2713,7 @@ sub modalAddNewRowJS
     $nextPage or
         $nextPage = '';
 
-    my  $function = "modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
+    my  $function = "Zentyal.TableHelper.modalAddNewRow('%s','%s',%s,'%s', '%s', %s)";
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
@@ -2844,7 +2752,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page, $modal, @extraParams) = @_;
 
-    my  $function = "changeRow('%s','%s',%s,'%s','%s',%s, %s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -2853,7 +2761,6 @@ sub changeRowJS
     if ($modal) {
         $tablename .= '_modal';
         $actionUrl =~ s/Controller/ModalController/;
-        $modalResize = 1;
     }
 
     my $force =0;
@@ -2867,7 +2774,6 @@ sub changeRowJS
                     $editId,
                     $page,
                     $force,
-                    $modalResize,
                     $extraParamsJS);
 }
 
@@ -2891,33 +2797,20 @@ sub _paramsToJSON
 #    (POSITIONAL)
 #    action - move or del
 #    editId - row id to edit
-#    direction - up or down
-#     page - page number
+#    page - page number
 #
 # Returns:
 #
 #     string - holding a javascript funcion
 sub actionClickedJS
 {
-    my ($self, $action, $editId, $direction, $page, $modal, @extraParams) = @_;
+    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
 
-    unless (($action eq 'move') or ($action eq 'del') or ($action eq 'clone')) {
+    unless (($action eq 'del') or ($action eq 'clone')) {
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    if ($action eq 'move'
-            and not ($direction eq 'up' or $direction eq 'down')) {
-
-        throw EBox::Exceptions::External("Wrong action $direction");
-    }
-
-    my  $function = "actionClicked('%s','%s','%s','%s','%s','%s',%s, %s)";
-
-    if ($direction) {
-        $direction = "dir=$direction";
-    } else {
-        $direction = "";
-    }
+    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
@@ -2935,7 +2828,6 @@ sub actionClickedJS
                     $tablename,
                     $action,
                     $editId,
-                    $direction,
                     $table->{'confdir'},
                     $page,
                     $extraParamsJS);
@@ -2966,7 +2858,7 @@ sub customActionClickedJS
         throw EBox::Exceptions::Internal("Wrong custom action $action");
     }
 
-    my $function = "customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
+    my $function = "Zentyal.TableHelper.customActionClicked('%s','%s','%s',%s,'%s','%s',%s)";
 
     my $table = $self->table();
     my $fields = $self->_paramsWithSetterJS();
@@ -3144,8 +3036,6 @@ sub _setDefaultMessages
        'add'       => __x('{row} added', row => $rowName),
        'del'       => __x('{row} deleted', row => $rowName),
        'update'    => __x('{row} updated', row => $rowName),
-       'moveUp'    => __x('{row} moved up', row => $rowName),
-       'moveDown'  => __x('{row} moved down', row => $rowName),
       );
 
     foreach my $action (keys (%defaultMessages)) {
@@ -3197,14 +3087,14 @@ sub _volatile
 #
 #    (PRIVATE)
 #
-#    Used by find and findAll to find rows in a table
+#    Used by find* methods to find rows in a table matching the given fields values
 #
 # Parameters:
 #
 #    (POSITIONAL)
 #
-#    fieldName  - the name of the field to match
-#    value      - value we want to match
+#    values     - hash ref with the fields and values to look for
+#
 #    allMatches - 1 or undef to tell the method to return just the
 #                 first match or all of them
 #
@@ -3216,7 +3106,7 @@ sub _volatile
 #
 # Example:
 #
-#     _find('default',  1, undef, 'printableValue');
+#     _find({'default' => 1}, undef, 'printableValue');
 #
 # Returns:
 #
@@ -3225,11 +3115,18 @@ sub _volatile
 #
 sub _find
 {
-    my ($self, $fieldName, $value, $allMatches, $kind, $nosync) = @_;
+    my ($self, $values, $allMatches, $kind, $nosync) = @_;
 
-    unless (defined ($fieldName)) {
-        throw EBox::Exceptions::MissingArgument("Missing field name");
+    unless (defined ($values) and (ref ($values) eq 'HASH')) {
+        throw EBox::Exceptions::MissingArgument("Missing values or invalid hash ref");
     }
+
+    my @fields = keys (%{$values});
+
+    unless (@fields) {
+        throw EBox::Exceptions::InvalidData("No fields/values provided");
+    }
+
     my $conf = $self->{confmodule};
 
     $kind = 'value' unless defined ($kind);
@@ -3239,20 +3136,27 @@ sub _find
     my @matched;
     foreach my $id (@rows) {
         my $row = $self->row($id);
-        my $element = $row->elementByName($fieldName);
-        if (defined ($element)) {
-            my $eValue;
-            if ($kind eq 'printableValue') {
-                $eValue = $element->printableValue();
-            } else {
-                $eValue = $element->value();
-            }
-            if ((defined $eValue) and ($eValue eq $value)) {
-                if ($allMatches) {
-                    push (@matched, $id);
+        my $matches = 0;
+        foreach my $field (@fields) {
+            my $element = $row->elementByName($field);
+            if (defined ($element)) {
+                my $eValue;
+                if ($kind eq 'printableValue') {
+                    $eValue = $element->printableValue();
                 } else {
-                    return [ $id ];
+                    $eValue = $element->value();
                 }
+                if ((defined $eValue) and ($eValue eq $values->{$field})) {
+                    $matches++;
+                }
+            }
+        }
+
+        if ($matches == @fields) {
+            if ($allMatches) {
+                push (@matched, $id);
+            } else {
+                return [ $id ];
             }
         }
     }
@@ -3269,7 +3173,7 @@ sub _checkFieldIsUnique
     }
     my $printableValue = $newData->printableValue();
     my @matched =
-        @{$self->_find($newData->fieldName(), $printableValue, undef, 'printableValue', 1)};
+        @{$self->_find({ $newData->fieldName() => $printableValue }, undef, 'printableValue', 1)};
 
     if (@matched) {
         throw EBox::Exceptions::DataExists(
@@ -3422,51 +3326,72 @@ sub _newId
     return $leadingText . $id;
 }
 
+sub _idsOrderList
+{
+    my ($self) = @_;
+    my $confmod = $self->{'confmodule'};
+    return $confmod->get_list($self->{'order'});
+}
+
+sub _setIdsOrderList
+{
+    my ($self, $order) = @_;
+    $self->{confmodule}->set_list($self->{'order'}, 'string', $order);
+}
+
 # Insert the id element in selected position, if the position is the
 # last + 1 is inserted after the last one
 sub _insertPos #(id, position)
 {
     my ($self, $id, $pos) = @_;
+    my @order = @{$self->_idsOrderList()};
 
-    my $confmod = $self->{'confmodule'};
-
-    my @order = @{$confmod->get_list($self->{'order'})};
-
-    if (@order == 0) {
-        push (@order, $id);
-    } elsif ($pos == 0) {
-        @order = ($id, @order);
-    } elsif ($pos == @order) {
-        push (@order, $id);
+    if ($pos == 0) {
+        unshift @order , $id;
+    } elsif ($pos >= @order) {
+        push @order, $id;
     } else {
-        splice (@order, $pos, 1, ($id, $order[$pos]));
+        splice(@order, $pos, 0, $id);
     }
 
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    $self->_setIdsOrderList(\@order);
 }
 
-sub _swapPos
+# return the old postion in order
+sub removeIdFromOrder
 {
-    my ($self, $posA, $posB ) = @_;
+    my ($self, $id) = @_;
+    my @order = @{ $self->_idsOrderList() };
+    for (my $i=0; $i < @order; $i++) {
+        if ($id eq $order[$i]) {
+            splice @order, $i, 1;
+            $self->_setIdsOrderList(\@order);
+            return $i;
+        }
+    }
+    throw EBox::Exceptions::Internal("Id to remove '$id' not found");
+}
 
+sub idPosition
+{
+    my ($self, $id) = @_;
     my $confmod = $self->{'confmodule'};
-    my @order = @{$confmod->get_list($self->{'order'})};
-
-    my $temp = $order[$posA];
-    $order[$posA] =  $order[$posB];
-    $order[$posB] = $temp;
-
-    $confmod->set_list($self->{'order'}, 'string', \@order);
+    my @order = @{$self->_idsOrderList()};
+    for (my $i =0 ; $i < @order; $i++) {
+        if ($order[$i] eq $id) {
+            return $i;
+        }
+    }
+    return undef;
 }
 
 sub _orderHash
 {
     my $self = shift;
-    my $confmod = $self->{'confmodule'};
 
     my  %order;
     if ($self->table()->{'order'}) {
-        my @order = @{$confmod->get_list($self->{'order'})};
+        my @order = @{$self->_idsOrderList()};
         my $i = 0;
         foreach my $id (@order) {
             $order{$id} = $i;
@@ -3524,6 +3449,25 @@ sub _mainController
     return $defAction;
 }
 
+# Set the default controller to that actions which do not have a
+# custom controller
+sub _setControllers
+{
+    my ($self) = @_;
+
+    # Tree is already defined
+    my $table = $self->{'table'};
+    my $defAction = $self->_mainController();
+    if ($defAction) {
+        foreach my $action (@{$table->{'defaultActions'}}) {
+            # Do not overwrite existing actions
+            unless ( exists ( $table->{'actions'}->{$action} )) {
+                $table->{'actions'}->{$action} = $defAction;
+            }
+        }
+    }
+}
+
 sub adaptRowFilter
 {
     my ($self, $filter) = @_;
@@ -3541,25 +3485,6 @@ sub adaptRowFilter
            );
     }
     return $compiled;
-}
-
-# Set the default controller to that actions which do not have a
-# custom controller
-sub _setControllers
-{
-    my ($self) = @_;
-
-    # Table is already defined
-    my $table = $self->{'table'};
-    my $defAction = $self->_mainController();
-    if ($defAction) {
-        foreach my $action (@{$table->{'defaultActions'}}) {
-            # Do not overwrite existing actions
-            unless ( exists ( $table->{'actions'}->{$action} )) {
-                $table->{'actions'}->{$action} = $defAction;
-            }
-        }
-    }
 }
 
 # Method: _paramsWithSetterJS
@@ -4186,6 +4111,7 @@ sub viewCustomizer
     return $self->{viewCustomizer};
 }
 
+
 # Method: _autoloadGetId
 #
 #      Get the identifier which will be used to set the directory to
@@ -4532,16 +4458,19 @@ sub confirmationJS
 
     my $actionUrl =  $table->{'actions'}->{'editField'};
 
-    my @elements = map {
+    my @elements = grep {
+        not $_-> hidden()
+    } @{  $table->{tableDescription} };
+    my @elementNames = map {
         my $element = $_;
         my @fields = map {
             qq{'$_'}
         } $element->fields();
         @fields;
-    } @ {  $table->{tableDescription} };
-    my $elementsArrayJS = '['. join(',', @elements) . ']' ;
+    } @elements;
+    my $elementsArrayJS = '['. join(',', @elementNames) . ']' ;
 
-    my $function = "confirmationDialog('%s', '%s','%s', '%s', %s)";
+    my $function = "Zentyal.TableHelper.confirmationDialog('%s', '%s','%s', '%s', %s)";
 
     my $call =  sprintf ($function,
                     $self->_mainController(),
@@ -4551,15 +4480,14 @@ sub confirmationJS
                     $elementsArrayJS
                     );
 
-    my $goAheadJSEscaped = $goAheadJS;
-    $goAheadJSEscaped =~ s{'}{\\'}g;
-
     my $js =<< "ENDJS";
        this.disable = true;
        var specs = $call;
        this.disable = false;
        if (specs.wantDialog) {
-           showConfirmationDialog(specs, '$goAheadJSEscaped');
+           Zentyal.TableHelper.showConfirmationDialog(specs, function(){
+               $goAheadJS
+           });
        } else {
           $goAheadJS ;
        }
@@ -4568,4 +4496,18 @@ ENDJS
 
     return $js;
 }
+
+sub setSortableTableJS
+{
+    my ($self) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.setSortableTable('%s', '%s', '%s')";
+    my $call =  sprintf ($function,
+                    $self->_mainController(),
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    );
+    return $call;
+}
+
 1;

@@ -30,8 +30,6 @@ use EBox::Gettext;
 use Error qw(:try);
 use EBox::Exceptions::Base;
 
-## arguments:
-##	title [required]
 sub new
 {
     my $class = shift;
@@ -47,16 +45,46 @@ sub _process
 
     $self->_requireParam('module');
     my $modName = $self->param('module');
+
     my $manager = new EBox::ServiceManager();
-    my $module = EBox::Global->modInstance($modName);
+    my $global = EBox::Global->getInstance();
+    my $module = $global->modInstance($modName);
+    my @depModules = map {
+        my $mod = $global->modInstance($_);
+        $mod->isa('EBox::Module::Service') ? ($mod) : ();
+    } @{ $module->enableModDependsRecursive() };
+
+    foreach my $dep (@depModules) {
+        try {
+            if (not $dep->configured()) {
+                $dep->configureModule();
+            } elsif (not $dep->isEnabled()) {
+                $dep->enableService(1);
+            }
+        } otherwise {
+            my ($excep) = @_;
+            if ($excep->isa("EBox::Exceptions::External")) {
+
+                throw EBox::Exceptions::External(__x('Failed to enable {mod}: {err}',
+                                                     mod => $dep->printableName(),
+                                                     err => $excep->stringify()
+                                                    ));
+            } else {
+                throw EBox::Exceptions::Internal('Failed to enable' . $dep->name() . ' ' .
+                                                     $excep->stringify());
+            }
+        };
+    }
+
 
     try {
         $module->configureModule();
     } otherwise {
         my ($excep) = @_;
         if ($excep->isa("EBox::Exceptions::External")) {
-            throw EBox::Exceptions::External("Failed to enable: " .
-                $excep->stringify());
+            throw EBox::Exceptions::External(__x('Failed to enable: {err}',
+                                                  err =>   $excep->stringify()
+                                                 ));
         } else {
             throw EBox::Exceptions::Internal("Failed to enable: " .
                 $excep->stringify());

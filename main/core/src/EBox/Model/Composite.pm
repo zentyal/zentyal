@@ -155,6 +155,34 @@ sub componentNames
     return [];
 }
 
+# Method: models
+#
+#   get all Model objects inside the composite.
+#
+# Parameters:
+#   recursive - searchs inside the nested composites (default: false)
+#
+# Returns:
+#   an array of Model objects found.
+#
+sub models
+{
+    my ($self, $recursive) = @_;
+
+    my @models = ();
+    foreach my $component (@{$self->components()}) {
+        # FIXME: Both should inherit from some EBox::Model::Base
+        if ($component->isa('EBox::Model::DataTable') or $component->isa('EBox::Model::TreeView')) {
+            push (@models, $component);
+            next;
+        } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
+            push (@models, @{$component->models($recursive)});
+        }
+    }
+
+    return \@models;
+}
+
 # Method: setLayout
 #
 #      Set the layout where the elements will be displayed.

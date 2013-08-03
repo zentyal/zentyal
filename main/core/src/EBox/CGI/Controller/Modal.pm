@@ -28,15 +28,11 @@ use EBox::Exceptions::Internal;
 # Dependencies
 use Error qw(:try);
 
-sub new # (cgi=?)
+sub new
 {
-    my $class = shift;
-    my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
-
-    my $self = $class->SUPER::new(@_);
-    $self->{'tableModel'} = $tableModel;
-
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
     bless($self, $class);
     return  $self;
 }
@@ -74,25 +70,6 @@ sub addRow
 
     my $model = $self->{'tableModel'};
     $model->addRow($self->getParams());
-}
-
-sub moveRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    $self->_requireParam('dir');
-
-    my $id = $self->param('id');
-    my $dir = $self->param('dir');
-
-    if ($dir eq 'up') {
-        $model->moveUp($id);
-    } else {
-        $model->moveDown($id);
-    }
 }
 
 sub removeRow
@@ -273,9 +250,6 @@ sub _process
         $self->refreshTable(1, $action);
     } elsif ($action eq 'del') {
         $self->removeRow();
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'move') {
-        $self->moveRow();
         $self->refreshTable(1, $action);
    } elsif ($action eq 'changeAdd') {
         my $showTable = not $firstShow;

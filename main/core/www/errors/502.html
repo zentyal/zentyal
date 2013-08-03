@@ -1,0 +1,48 @@
+<html>
+<head>
+<title>Zentyal</title>
+<link rel="shortcut icon" href="/favicon.ico" />
+<script src="/js/jquery-1.9.1.js" type="text/javascript"></script>
+<script>
+function checker() {
+    $.ajax({
+      type: "get",
+      url: '/',
+      success: function () {
+        location.reload();
+      },
+      statusCode: {
+                    502: function () {
+                          setTimeout(checker, 1000);
+                    },
+                    403: function () {
+                          location.reload();
+                    }
+                   },
+      async: true
+    });
+}
+
+$().ready(checker);
+
+</script>
+
+<style media="screen" type="text/css">
+body {
+    background-color: #eee;
+    color: #000000;
+    font-family: Verdana, sans-serif;
+    margin: 40px 0px 0px 0px
+}
+</style>
+
+</head>
+<body>
+    <div style="margin-top:50px; text-align:center">
+        Waiting until Zentyal is ready...
+    </div>
+    <div style="margin-top: 5px; text-align:center">
+        <img src="/images/ajax-loader.gif">
+    </div>
+</body>
+</html>

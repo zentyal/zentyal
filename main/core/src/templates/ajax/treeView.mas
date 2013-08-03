@@ -1,0 +1,203 @@
+<%args>
+  $model
+</%args>
+<%init>
+  my %types = %{$model->nodeTypes()};
+  my $treeId = "tree_" . $model->name();
+  my $treeViewerId = "treeviewer_" . $model->name();
+</%init>
+<& .pageTitle, title => $model->pageTitle() &>
+
+<& .headTitle, title => $model->headTitle() &>
+
+% if ($model->precondition()) {
+
+% # Print the help if any
+% my $help = $model->help();
+% if ($help) {
+<div class="help">
+    <% $model->help() %>
+</div>
+% }
+
+% # Print the disabled module warning if needed
+% my $disabledModuleWarning = $model->disabledModuleWarning();
+% if ($disabledModuleWarning) {
+<div class="warning">
+    <% $disabledModuleWarning %>
+</div>
+%  }
+
+<div class="treeViewLeft">
+<div class="treeViewToolbox">
+
+<form action="javascript:void(0)">
+<div class="tableSearch">
+  <input type='text' name='filter_text' id='filter_text' value="" />
+  <input type='submit' name='filter_button' id='filter_button' value="<% __('Search') %>" />
+  <span id="filterId"></span>
+</div>
+<div class="treeviewCheckboxes">
+<span class="btn btn-filter btn-only-icon">Filter</span>
+<div class="dropdown-menu" id="treeviewCheckboxes-dmenu" >
+% foreach my $name (keys %types) {
+%   next unless $types{$name}->{actions}->{filter};
+%   my $printableName = $types{$name}->{printableName};
+<input type="checkbox" class="treeviewCheckbox" name="<% $name %>" id="<% $name %>" value="<% $name %>" checked> <label for="<% $name %>"><% $printableName %></label>
+% }
+</div>
+</div>
+
+</form>
+</div>
+
+<div id="<% $treeId %>" class="treeView"></div>
+<div id="treeButtons" class="treeviewButtons">
+% my $actionLabels = $model->defaultActionLabels();
+% foreach my $action (@{$model->defaultActions()}) {
+<button id="<% $action %>" class="btn btn-<% $action %> btn-only-icon treeviewActionButton" title="<% $actionLabels->{$action} %>" type="button" disabled>
+<% $actionLabels->{$action} %>
+</button>
+% }
+</div>
+</div>
+<div id="<% $treeViewerId %>" class="treeViewNodeViewer"></div>
+
+
+<script>
+$(function () {
+
+  $.jstree._themes = "/data/css/jstree-themes/";
+
+  var treeComponent = $("#<% $treeId %>");
+
+  treeComponent.jstree({
+	"json_data" : {
+		"data" : <% $model->jsonData() %>
+	},
+% my @types;
+% foreach my $name (keys %types) {
+%   if ($types{$name}->{defaultIcon}) {
+%       push (@types, "$name: {}");
+%   } else {
+%       push (@types, "$name: { icon: { image: '/data/images/treeview/$name.png' } }");
+%   }
+% }
+    types: { "types" : { <% join (',', @types) %> } },
+	plugins: [ "themes", "json_data", "ui", "types", "search" ],
+  });
+
+  // FIXME: probably this should not be the default behaviour
+  //        but for testing purposes is better this way until finished
+  treeComponent.on('loaded.jstree', function () {
+    treeComponent.jstree('open_all');
+  });
+
+  $('#filter_button').click(function() {
+    var text = $('#filter_text').val();
+    treeComponent.jstree('search', text);
+  });
+
+  $(".treeviewCheckbox").each(function() {
+    $(this).click(function() {
+        var nodes = $("[rel='" + $(this).val() + "']").show();
+        if ($(this).prop('checked')) {
+            nodes.show();
+        } else {
+            nodes.hide();
+        }
+    });
+  });
+
+  $(".btn-filter").click(function() {
+    $("#treeviewCheckboxes-dmenu").slideToggle("fast");
+  });
+
+  treeComponent.bind("select_node.jstree",
+    function (evt, data) {
+        var selectedNode = treeComponent.jstree('get_selected');
+        var metadata = selectedNode.data();
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
+
+        $('#<% $treeViewerId %>').html('');
+
+% foreach my $type (keys %types) {
+%   next unless $types{$type}->{actions}->{edit};
+%   my $link = $model->clickHandlerJS($type);
+        if (nodeType == '<% $type %>') {
+            $('#<% $treeViewerId %>').load('<% $link->{url} %>', metadata);
+        }
+% }
+  });
+
+  $(".treeviewActionButton").each(function() {
+    $(this).click(function() {
+        var actionId = $(this).attr('id');
+        var selectedNode = treeComponent.jstree('get_selected');
+        var metadata = selectedNode.data();
+        var nodeType = $.jstree._focused()._get_type(selectedNode);
+
+% foreach my $action (@{$model->defaultActions()}) {
+        if (actionId == '<% $action %>') {
+% foreach my $type (keys %types) {
+            if (nodeType == '<% $type %>') {
+% my $link = $model->actionHandlerJS($action, $type);
+                Zentyal.Dialog.showURL('<% $link->{url} %>',
+                    { title: '<% $link->{title} %>',
+                      width: <% $link->{width} %>,
+                      data: metadata });
+            }
+% }
+        }
+% }
+    });
+  });
+
+  treeComponent.bind('select_node.jstree', function (e, data) {
+      var type = data.rslt.obj.attr('rel');
+
+% foreach my $name (keys %types) {
+      if (type == '<% $name %>') {
+% foreach my $action (@{$model->defaultActions()}) {
+% if ($types{$name}->{actions}->{$action}) {
+            $('#<% $action %>').removeAttr('disabled');
+% } else {
+            $('#<% $action %>').attr('disabled', 'disabled');
+% }
+% }
+      }
+% }
+  });
+
+});
+
+
+</script>
+
+% } else {
+%   my $failMsg = $model->preconditionFailMsg();
+%   if ($failMsg) {
+<div class="note">
+  <% $failMsg %>
+</div>
+%   }
+% }
+
+<%def .pageTitle>
+<%args>
+  $title => undef
+</%args>
+<& /title.mas, title => $title &>
+</%def>
+
+<%def .headTitle>
+<%args>
+  $title => undef
+</%args>
+% if ($title) {
+<h3>
+    <% $title %>
+</h3>
+% }
+</%def>
+

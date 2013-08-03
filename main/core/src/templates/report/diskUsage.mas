@@ -1,26 +1,65 @@
 <%args>
-$partition 
+$partition
 $partitionAttr
 @partitions
-$chartUrl
+%dataset
 </%args>
 <%init>
 use EBox::Gettext;
+use JSON::XS;
 </%init>
+<script type="text/javascript" src="/data/js/jquery.flot.js"></script>
+<script type="text/javascript" src="/data/js/jquery.flot.pie.js"></script>
 <div class='ifaces'>
 % foreach  (@partitions) {
 %   if ($_ eq $partition) {
      <span class='selected'><% $_ %></span>
 %   } else {
     <a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a>
-%   } 
+%   }
 % }
 </div>
 
 <br/>
 <& .partitionAttrs, $partitionAttr &>
-<img src="<% $chartUrl %>" />
+<div id='diskUsageChart' style='width:779px;height:400px;'></div>
 
+<script>
+<%perl>
+# numberfy data
+foreach my $ds (@{ $dataset{data} }) {
+    $ds->{data} += 0;
+    $ds->{data} =~ s/,/./g;
+}
+my $json = JSON::XS->new();
+my $data = $json->encode($dataset{data});
+my $usageByLabel = $json->encode($dataset{usageByLabel});
+</%perl>
+$(function() {
+  var data = <% $data %>;
+  var usageByLabel = <% $usageByLabel %>;
+
+  $.plot('#diskUsageChart', data, {
+        series: {
+            pie: {
+                innerRadius: 0.1,
+                show: true,
+                label: {
+                   show: true,
+                   radius: 0.9
+                },
+            },
+
+        },
+        legend: {
+           labelFormatter: function (label, series) {
+                       return label + ' ' + usageByLabel[label];
+           },
+           show: true,
+        }
+  });
+});
+</script>
 
 <%def .partitionAttrs>
 <%init>
@@ -33,7 +72,7 @@ push @rows, [__('Options')     => $attrs->{options}];
 my @titles = (
      __('Partition Properties'),
      ''
-); 
+);
 </%init>
 <& /presentationTable.mas, columnTitles => \@titles, rows => \@rows &>
 </%def>

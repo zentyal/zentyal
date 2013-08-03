@@ -12,35 +12,38 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
 package EBox::LDB;
+use base 'EBox::LDAPBase';
 
-use EBox::Samba::LdbObject;
-use EBox::Samba::Credentials;
+use EBox::Samba::OU;
 use EBox::Samba::User;
+use EBox::Samba::Contact;
 use EBox::Samba::Group;
 use EBox::Samba::DNS::Zone;
+use EBox::Users::User;
 
 use EBox::LDB::IdMapDb;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 
 use Net::LDAP;
-use Net::LDAP::Control;
 use Net::LDAP::Util qw(ldap_error_name);
-use Authen::SASL qw(Perl);
 
-use Data::Dumper;
-use File::Slurp;
-use File::Temp qw(:seekable);
 use Error qw( :try );
+use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
+
+use constant BUILT_IN_CONTAINERS => qw(Users Computers Builtin);
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -76,20 +79,13 @@ sub _new_instance
 {
     my $class = shift;
 
-    my $ignoredSidsFile = EBox::Config::etc() . 's4sync-sids.ignore';
-    my @lines = read_file($ignoredSidsFile);
-    my @sidsTmp = grep(/^\s*S-/, @lines);
-    my @sids = map { s/\n//; $_; } @sidsTmp;
-
     my $ignoredGroupsFile = EBox::Config::etc() . 's4sync-groups.ignore';
-    @lines = read_file($ignoredGroupsFile);
+    my @lines = read_file($ignoredGroupsFile);
     chomp (@lines);
     my %ignoredGroups = map { $_ => 1 } @lines;
 
-    my $self = {};
-    $self->{ldb} = undef;
+    my $self = $class->SUPER::_new_instance();
     $self->{idamp} = undef;
-    $self->{ignoredSids} = \@sids;
     $self->{ignoredGroups} = \%ignoredGroups;
     bless ($self, $class);
     return $self;
@@ -97,17 +93,17 @@ sub _new_instance
 
 # Method: instance
 #
-#   Return a singleton instance of class <EBox::Ldap>
+#   Return a singleton instance of this class
 #
 # Returns:
 #
-#   object of class <EBox::Ldap>
+#   object of class <EBox::LDB>
 sub instance
 {
-    my ($self, %opts) = @_;
+    my ($class) = @_;
 
-    unless (defined ($_instance)) {
-        $_instance = EBox::LDB->_new_instance();
+    unless(defined($_instance)) {
+        $_instance = $class->_new_instance();
     }
 
     return $_instance;
@@ -127,26 +123,25 @@ sub idmap
     return $self->{idmap};
 }
 
-# Method: ldbCon
+# Method: connection
 #
-#   Returns the Net::LDAP connection used by the module
-#
-# Returns:
-#
-#   An object of class Net::LDAP whose connection has already bound
+#   Return the Net::LDAP connection used by the module
 #
 # Exceptions:
 #
 #   Internal - If connection can't be created
 #
-sub ldbCon
+# Override:
+#   EBox::LDAPBase::connection
+#
+sub connection
 {
     my ($self) = @_;
 
     # Workaround to detect if connection is broken and force reconnection
     my $reconnect = 0;
-    if (defined $self->{ldb}) {
-        my $mesg = $self->{ldb}->search(
+    if (defined $self->{ldap}) {
+        my $mesg = $self->{ldap}->search(
                 base => '',
                 scope => 'base',
                 filter => "(cn=*)",
@@ -157,11 +152,22 @@ sub ldbCon
         }
     }
 
-    if (not defined $self->{ldb} or $reconnect) {
-        $self->{ldb} = $self->safeConnect();
+    if (not defined $self->{ldap} or $reconnect) {
+        $self->{ldap} = $self->safeConnect();
     }
 
-    return $self->{ldb};
+    return $self->{ldap};
+}
+
+# Method: url
+#
+#  Return the URL or parameter to create a connection with this LDAP
+#
+# Override: EBox::LDAPBase::url
+#
+sub url
+{
+    return LDAPI;
 }
 
 sub safeConnect
@@ -209,189 +215,13 @@ sub dn
 {
     my ($self) = @_;
 
-    unless (defined ($self->{dn})) {
-        my $params = {
-            base => '',
-            scope => 'base',
-            filter => 'cn=*',
-            attrs => ['defaultNamingContext'],
-        };
-        my $msg = $self->search($params);
-        if ($msg->count() == 1) {
-            my $entry = $msg->entry(0);
-            $self->{dn} = $entry->get_value('defaultNamingContext');
-        }
+    unless (defined $self->{dn}) {
+        my $dse = $self->rootDse();
+
+        $self->{dn} = $dse->get_value('defaultNamingContext');
     }
 
-    return defined ($self->{dn}) ? $self->{dn} : '';
-}
-
-# Method: clearConn
-#
-#   Closes LDAP connection and clears DN cached value
-#
-sub clearConn
-{
-    my ($self) = @_;
-
-    if (defined $self->{ldb}) {
-        $self->{ldb}->disconnect();
-    }
-
-    delete $self->{dn};
-    delete $self->{ldb};
-}
-
-# Method: search
-#
-#   Performs a search in the LDB database using Net::LDAP.
-#
-# Parameters:
-#
-#   args - arguments to pass to Net::LDAP->search()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the search
-#
-sub search
-{
-    my ($self, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->search(%{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: existsDN
-#
-#   Finds whether a DN exists on the database
-#
-# Parameters:
-#
-#   dn   - dn to lookup
-#   relativeToBaseDN - whether the given DN is relative to the baseDN (default: false)
-#
-# Returns:
-#
-#  boolean - whether the DN exists or not
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the LDAP search
-#
-sub existsDN
-{
-    my ($self, $dn, $relativeToBaseDN) = @_;
-    if ($relativeToBaseDN) {
-        $dn = $dn . ','  . $self->dn();
-    }
-
-    my $ldb = $self->ldbCon();
-    my %args = (base => $dn, scope=>'base', filter => '(objectclass=*)');
-    my $result = $ldb->search(%args);
-
-    if (ldap_error_name($result) eq 'LDAP_NO_SUCH_OBJECT') {
-        # then it does not exists
-        return 0;
-    } else {
-        # check if there is no other error
-        $self->_errorOnLdap($result, \%args);
-    }
-
-    return $result->count() > 0;
-}
-
-# Method: modify
-#
-#   Performs a modification in the LDB database using Net::LDAP.
-#
-# Parameters:
-#
-#   dn   - dn where to perform the modification
-#   args - parameters to pass to Net::LDAP->modify()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub modify
-{
-    my ($self, $dn, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->modify($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: delete
-#
-#   Performs a deletion in the LDB database using Net::LDAP
-#
-# Parameters:
-#
-#   dn - dn to delete
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub delete
-{
-    my ($self, $dn) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->delete($dn);
-    $self->_errorOnLdap($result, $dn);
-
-    return $result;
-}
-
-# Method: add
-#
-#   Adds an object or attributes in the LDB database using Net::LDAP
-#
-# Parameters:
-#
-#   dn - dn to add
-#   args - parameters to pass to Net::LDAP->add()
-#
-# Exceptions:
-#
-#   Internal - If there is an error during the operation
-#
-sub add
-{
-    my ($self, $dn, $args) = @_;
-
-    my $ldb = $self->ldbCon();
-    my $result = $ldb->add($dn, %{$args});
-    $self->_errorOnLdap($result, $args);
-
-    return $result;
-}
-
-# Method: _errorOnLdap
-#
-#   Check the result for errors
-#
-sub _errorOnLdap
-{
-    my ($self, $result, $args) = @_;
-
-    my @frames = caller (2);
-    if ($result->is_error()) {
-        if ($args) {
-            EBox::error( Dumper($args) );
-        }
-        throw EBox::Exceptions::Internal("Unknown error at " .
-                                         $frames[3] . " " .
-                                         $result->error);
-    }
+    return defined $self->{dn} ? $self->{dn} : '';
 }
 
 #############################################################################
@@ -420,7 +250,9 @@ sub domainSID
     my $msg = $self->search($params);
     if ($msg->count() == 1) {
         my $entry = $msg->entry(0);
-        my $object = new EBox::Samba::LdbObject(entry => $entry);
+        # The object is not a SecurityPrincipal but a SamDomainBase. As we only query
+        # for the sid, it works.
+        my $object = new EBox::Samba::SecurityPrincipal(entry => $entry);
         return $object->sid();
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'domain', value => $base);
@@ -447,29 +279,142 @@ sub domainNetBiosName
     return undef;
 }
 
+sub ldapOUToLDB
+{
+    my ($self, $ldapOU) = @_;
+
+    unless ($ldapOU and $ldapOU->isa('EBox::Users::OU')) {
+        throw EBox::Exceptions::MissingArgument('ldapOU');
+    }
+
+    my $global = EBox::Global->getInstance();
+    my $sambaMod = $global->modInstance('samba');
+
+    my $parent = $sambaMod->ldbObjectFromLDAPObject($ldapOU->parent);
+    if (not $parent) {
+        my $dn = $ldapOU->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+    }
+    my $name = $ldapOU->name();
+    my $parentDN = $parent->dn();
+
+    EBox::debug("Loading OU $name into $parentDN");
+    # Samba already has an specific container for this OU, ignore it.
+    if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
+        EBox::debug("Ignoring OU $name given that it has a built in container");
+        next;
+    }
+
+    my $sambaOU = undef;
+    try {
+        $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+        $sambaOU->_linkWithUsersObject($ldapOU);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("OU $name already in $parentDN on Samba database");
+        $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading OU '$name' in '$parentDN': $error");
+    };
+
+    return $sambaOU;
+}
+
+sub ldapOUsToLDB
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal OUS into samba database');
+
+    my $global = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('users');
+    my @ous = @{ $usersMod->ous() };
+    foreach my $ou (@ous) {
+        $self->ldapOUToLDB($ou);
+    }
+}
+
 sub ldapUsersToLdb
 {
     my ($self) = @_;
 
     EBox::info('Loading Zentyal users into samba database');
-    my $usersModule = EBox::Global->modInstance('users');
-    my $users = $usersModule->users();
+    my $global = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
+
+    my $users = $usersMod->users();
     foreach my $user (@{$users}) {
-        my $dn = $user->dn();
-        EBox::debug("Loading user $dn");
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($user->parent);
+        if (not $parent) {
+            my $dn = $user->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+        }
+        my $samAccountName = $user->get('uid');
+        EBox::debug("Loading user $samAccountName");
         try {
-            my $samAccountName = $user->get('uid');
-            my $params = {
-                uidNumber    => scalar ($user->get('uidNumber')),
-                sn           => scalar ($user->get('sn')),
-                givenName    => scalar ($user->get('givenName')),
-                description  => scalar ($user->get('description')),
-                kerberosKeys => $user->kerberosKeys(),
-            };
-            EBox::Samba::User->create($samAccountName, $params);
+            my %args = (
+                name           => scalar ($user->get('cn')),
+                samAccountName => scalar ($samAccountName),
+                parent         => $parent,
+                uidNumber      => scalar ($user->get('uidNumber')),
+                sn             => scalar ($user->get('sn')),
+                givenName      => scalar ($user->get('givenName')),
+                description    => scalar ($user->get('description')),
+                kerberosKeys   => $user->kerberosKeys(),
+            );
+            my $sambaUser = EBox::Samba::User->create(%args);
+            $sambaUser->_linkWithUsersObject($user);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("User $samAccountName already in Samba database");
+            my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+            $sambaUser->setCredentials($user->kerberosKeys());
+            EBox::debug("Password updated for user $samAccountName");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading user '$dn': $error");
+            EBox::error("Error loading user '$samAccountName': $error");
+        };
+    }
+}
+
+sub ldapContactsToLdb
+{
+    my ($self) = @_;
+
+    EBox::info('Loading Zentyal contacts into samba database');
+    my $global = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
+
+    my $contacts = $usersMod->contacts();
+    foreach my $contact (@{$contacts}) {
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($contact->parent);
+        if (not $parent) {
+            my $dn = $contact->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+        }
+
+        my $parentDN = $parent->dn();
+        my $name = $contact->get('cn');
+        EBox::debug("Loading contact $name on $parentDN");
+        try {
+            my %args = (
+                name        => scalar ($name),
+                parent      => $parent,
+                givenName   => scalar ($contact->get('givenName')),
+                initials    => scalar ($contact->get('initials')),
+                sn          => scalar ($contact->get('sn')),
+                displayName => scalar ($contact->get('displayName')),
+                description => scalar ($contact->get('description')),
+                mail        => $contact->get('mail')
+            );
+            my $sambaContact = EBox::Samba::Contact->create(%args);
+            $sambaContact->_linkWithUsersObject($contact);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Contact $name already in $parentDN on Samba database");
+        } otherwise {
+            my $error = shift;
+            EBox::error("Error loading contact '$name' in '$parentDN': $error");
         };
     }
 }
@@ -479,22 +424,38 @@ sub ldapGroupsToLdb
     my ($self) = @_;
 
     EBox::info('Loading Zentyal groups into samba database');
-    my $usersModule = EBox::Global->modInstance('users');
-    my $groups = $usersModule->groups();
+    my $global = EBox::Global->getInstance();
+    my $usersMod = $global->modInstance('users');
+    my $sambaMod = $global->modInstance('samba');
+
+    my $groups = $usersMod->groups();
     foreach my $group (@{$groups}) {
-        my $dn = $group->dn();
-        EBox::debug("Loading group $dn");
+        my $parent = $sambaMod->ldbObjectFromLDAPObject($group->parent);
+        if (not $parent) {
+            my $dn = $group->dn();
+            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+        }
+        my $parentDN = $parent->dn();
+        my $name = $group->get('cn');
+        EBox::debug("Loading group $name");
         my $sambaGroup = undef;
         try {
-            my $samAccountName = $group->get('cn');
-            my $params = {
-                gidNumber => scalar ($group->get('gidNumber')),
+            my %args = (
+                name => $name,
+                parent => $parent,
                 description => scalar ($group->get('description')),
+                isSecurityGroup => $group->isSecurityGroup(),
+            );
+            if ($group->isSecurityGroup()) {
+                $args{gidNumber} = scalar ($group->get('gidNumber'));
             };
-            $sambaGroup = EBox::Samba::Group->create($samAccountName, $params);
+            $sambaGroup = EBox::Samba::Group->create(%args);
+            $sambaGroup->_linkWithUsersObject($group);
+        } catch EBox::Exceptions::DataExists with {
+            EBox::debug("Group $name already in Samba database");
         } otherwise {
             my $error = shift;
-            EBox::error("Error loading group '$dn': $error");
+            EBox::error("Error loading group '$name': $error");
         };
         next unless defined $sambaGroup;
 
@@ -522,6 +483,34 @@ sub ldapServicePrincipalsToLdb
     my $fqdn = $sysinfo->fqdn();
 
     my $modules = EBox::Global->modInstancesOfType('EBox::KerberosModule');
+    my $usersMod = EBox::Global->modInstance('users');
+    my $sambaMod = EBox::Global->modInstance('samba');
+
+    my $ldb = $sambaMod->ldb();
+    my $baseDn = $usersMod->ldap()->dn();
+    my $realm = $usersMod->kerberosRealm();
+    my $ldapKerberosDN = "ou=Kerberos,$baseDn";
+    my $ldapKerberosOU = new EBox::Users::OU(dn => $ldapKerberosDN);
+
+    # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
+    return unless ($ldapKerberosOU and $ldapKerberosOU->exists());
+
+    my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
+    unless ($ldbKerberosOU) {
+        # Check whether the OU exist in Samba but it's not linked with OpenLDAP.
+        my $ldbRootDN = $ldb->dn();
+        my $ldbKerberosDN = "OU=Kerberos,$ldbRootDN";
+        $ldbKerberosOU = $sambaMod->objectFromDN($ldbKerberosDN);
+
+        if ($ldbKerberosOU->exists()) {
+            $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
+        } else {
+            $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
+        }
+    }
+
+    return unless ($ldbKerberosOU and $ldbKerberosOU->exists());
+
     foreach my $module (@{$modules}) {
         my $principals = $module->kerberosServicePrincipals();
         my $samAccountName = "$principals->{service}-$hostname";
@@ -531,21 +520,22 @@ sub ldapServicePrincipalsToLdb
                 # Get the heimdal user to extract the kerberos keys. All service
                 # principals for each module should have the same keys, so take
                 # the first one.
-                my $usersModule = EBox::Global->modInstance('users');
                 my $p = @{$principals->{principals}}[0];
-                my $baseDn = $usersModule->ldap->dn();
-                my $realm = $usersModule->kerberosRealm();
-                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,ou=Kerberos,$baseDn";
-                my $user = new EBox::UsersAndGroups::User(dn => $dn, internal => 1);
+                my $dn = "krb5PrincipalName=$p/$fqdn\@$realm,$ldapKerberosDN";
+                my $user = new EBox::Users::User(dn => $dn, internal => 1);
                 # If the user does not exists the module has not been enabled yet
                 next unless ($user->exists());
 
                 EBox::info("Importing service principal $dn");
-                my $params = {
-                    description  => scalar ($user->get('description')),
-                    kerberosKeys => $user->kerberosKeys(),
-                };
-                $smbUser = EBox::Samba::User->create($samAccountName, $params);
+                my %args = (
+                    name           => scalar ($user->get('uid')),
+                    parent         => $ldbKerberosOU,
+                    samAccountName => scalar ($samAccountName),
+                    description    => scalar ($user->get('description')),
+                    kerberosKeys   => $user->kerberosKeys(),
+                );
+                $smbUser = EBox::Samba::User->create(%args);
+                # TODO: Should we link this with any OpenLDAP user?
                 $smbUser->setCritical(1);
                 $smbUser->setViewInAdvancedOnly(1);
             }
@@ -581,15 +571,28 @@ sub users
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);
-        my $entrySid = $user->sid();
-
-        my $skip = 0;
-        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
-            $skip = 1 if ($user->sid() =~ m/$ignoredSidMask/);
-        }
-        next if $skip;
-
         push (@{$list}, $user);
+    }
+    return $list;
+}
+
+sub contacts
+{
+    my ($self) = @_;
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'sub',
+        filter => '(&(&(objectclass=contact)(!(objectclass=computer)))' .
+                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        attrs => ['*'],
+    };
+    my $result = $self->search($params);
+    my $list = [];
+    foreach my $entry ($result->sorted('name')) {
+        my $contact = new EBox::Samba::Contact(entry => $entry);
+
+        push (@{$list}, $contact);
     }
     return $list;
 }
@@ -612,17 +615,34 @@ sub groups
 
         my $group = new EBox::Samba::Group(entry => $entry);
 
-        my $skip = 0;
-        foreach my $ignoredSidMask (@{$self->{ignoredSids}}) {
-            $skip = 1 if ($group->sid() =~ m/$ignoredSidMask/);
-        }
-        my $entrySid = $group->sid();
-        next if $skip;
-
         push (@{$list}, $group);
     }
 
     return $list;
+}
+
+sub ous
+{
+    my ($self) = @_;
+    my $objectClass = EBox::Samba::OU->mainObjectClass();
+    my %args = (
+        base => $self->dn(),
+        filter => "objectclass=$objectClass",
+        scope => 'sub',
+    );
+
+    my $result = $self->connection()->search(\%args);
+
+    my @ous = ();
+    foreach my $entry ($result->entries)
+    {
+        my $ou = EBox::Samba::OU->new(entry => $entry);
+        push (@ous, $ou);
+    }
+
+    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+
+    return \@sortedOUs;
 }
 
 # Method: dnsZones
@@ -668,7 +688,7 @@ sub rootDse
 {
     my ($self) = @_;
 
-    return $self->ldbCon()->root_dse(attrs => ROOT_DSE_ATTRS);
+    return $self->connection()->root_dse(attrs => ROOT_DSE_ATTRS);
 }
 
 1;

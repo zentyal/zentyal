@@ -22,7 +22,7 @@ use Error qw(:try);
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
 try {
-    use EBox::CGI::Run;
+    use EBox::UserCorner::CGI::Run;
     use EBox;
     EBox::initLogger('usercorner-log.conf');
     POSIX::setlocale(LC_ALL, EBox::locale());
@@ -34,7 +34,7 @@ try {
     sigprocmask(SIG_UNBLOCK, $sigset);
 
     binmode(STDOUT, ':utf8');
-    EBox::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::HtmlBlocks');
+    EBox::UserCorner::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::HtmlBlocks');
 } otherwise  {
     my $ex = shift;
     use Devel::StackTrace;
@@ -50,11 +50,9 @@ try {
     print start_html(-title => __('Zentyal'),
        -script => [
             {-type => 'text/javascript',
+             -src  => '/data/js/jquery.js'},
+            {-type => 'text/javascript',
              -src  => '/data/js/common.js'},
-            {-type => 'text/javascript',
-             -src  => '/data/js/prototype.js'},
-            {-type => 'text/javascript',
-             -src  => '/data/js/scriptaculous/scriptaculous.js'}
             ],
        -head => Link({-rel=>'stylesheet',
             -href => '/dynamic-data/css/public.css',

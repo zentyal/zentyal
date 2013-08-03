@@ -122,6 +122,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
+                                    'icon' => 'virt',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 447));
@@ -311,15 +312,15 @@ sub _manageVM
 {
     my ($self, $name, $action) = @_;
 
+    my $manageScript = $self->manageScript($name);
+    $manageScript = shell_quote($manageScript);
+    EBox::Sudo::root("$manageScript $action");
+
     my $vncDaemon = $self->vncDaemon($name);
     my $currentStatus = EBox::Service::running($vncDaemon) ? 'start' : 'stop';
     if ($action ne $currentStatus) {
         EBox::Service::manage($vncDaemon, $action);
     }
-
-    my $manageScript = $self->manageScript($name);
-    $manageScript = shell_quote($manageScript);
-    EBox::Sudo::root("$manageScript $action");
 }
 
 sub pauseVM
@@ -538,12 +539,14 @@ sub _writeMachineConf
 
     my $start = $backend->startVMCommand(name => $name, port => $vncport, pass => $vncpass);
     my $stop = $backend->shutdownVMCommand($name);
+    my $forceStop = $backend->shutdownVMCommand($name, 1);
+    my $running = $backend->runningVMCommand($name);
     my $listenport = $vncport + 1000;
 
     EBox::Module::Base::writeConfFileNoCheck(
             "$UPSTART_PATH/" . $self->machineDaemon($name) . '.conf',
             '/virt/upstart.mas',
-            [ startCmd => $start, stopCmd => $stop, user => $self->{vmUser} ],
+            [ startCmd => $start, stopCmd => $stop, forceStopCmd => $forceStop, runningCmd => $running, user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0644' }
     );
 
@@ -671,45 +674,6 @@ sub usingVBox
     my ($self) = @_;
 
     return $self->{backend}->isa('EBox::Virt::VBox');
-}
-
-sub backupDomains
-{
-    my $name = 'machines';
-    my %attrs  = (
-                  printableName => __('Virtual Machines'),
-                  description   => __(q{Disk images of the virtual machines}),
-                 );
-
-    return ($name, \%attrs);
-}
-
-sub backupDomainsFileSelection
-{
-    my ($self, %enabled) = @_;
-
-    return {} unless $enabled{machines};
-
-    my @files;
-    my $vms = $self->model('VirtualMachines');
-    foreach my $vmId (@{$vms->ids()}) {
-        my $vm = $vms->row($vmId);
-        my $name = $vm->valueByName('name');
-        my $settings = $vm->subModel('settings');
-        my $devices = $settings->componentByName('DeviceSettings');
-        foreach my $deviceId (@{$devices->enabledRows()}) {
-            my $device = $devices->row($deviceId);
-            my $file = $device->valueByName('path');
-            unless ($file) {
-                my $disk_name = $device->valueByName('name');
-                next unless ($disk_name);
-                $file = $self->{backend}->diskFile($disk_name, $name);
-            }
-            push (@files, $file);
-        }
-    }
-
-    return { includes => \@files };
 }
 
 sub _facilitiesForDiskUsage

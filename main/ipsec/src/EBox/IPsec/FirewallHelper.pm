@@ -53,7 +53,7 @@ sub inputNoSpoof
     foreach my $interface (@{$self->{L2TPInterfaces}}) {
         my $clientAddress = EBox::NetWrappers::iface_destination_address($interface);
         if ($clientAddress) {
-            push (@rules, "-s $clientAddress/32 -i $interface -j ACCEPT");
+            push (@rules, "-s $clientAddress/32 -i $interface -j iaccept");
         }
     }
 
@@ -78,7 +78,7 @@ sub externalInput
 
     ($self->_isEnabled() and $self->{hasL2TP}) or return [];
 
-    return ["-m policy --dir in --pol ipsec -p udp --dport 1701 -j ACCEPT"];
+    return ["-m policy --dir in --pol ipsec -p udp --dport 1701 -j iaccept"];
 }
 
 # Method: forward
@@ -94,7 +94,7 @@ sub forward
 
     ($self->_isEnabled() and $self->{hasL2TP}) or return [];
 
-    return ["-i ppp+ -p all -m state --state NEW,ESTABLISHED,RELATED -j ACCEPT"];
+    return ["-i ppp+ -p all -m state --state NEW,ESTABLISHED,RELATED -j faccept"];
 }
 
 # Method: forwardNoSpoof
@@ -115,7 +115,7 @@ sub forwardNoSpoof
     foreach my $interface (@{$self->{L2TPInterfaces}}) {
         my $clientAddress = $socket->if_dstaddr($interface);
         if ($clientAddress) {
-            push (@rules, "-s $clientAddress/32 -i $interface -j ACCEPT");
+            push (@rules, "-s $clientAddress/32 -i $interface -j faccept");
         }
     }
 

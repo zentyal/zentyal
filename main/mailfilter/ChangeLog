@@ -1,3 +1,12 @@
+HEAD
+	+ Adapted to updatedRowNotify call with no changes in values
+	+ Added menu icon
+	+ Removed dkim_verification obsolete option from the local conf
+	+ Adapt firewall rules to new accept chains
+	+ Updated to use the new User API.
+	+ Added incompatiblity with external AD authentication mode
+3.1.1
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
 3.1
 	+ Removed 3.0.X migration code
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades

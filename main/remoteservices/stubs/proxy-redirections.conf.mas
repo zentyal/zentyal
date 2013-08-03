@@ -1,0 +1,46 @@
+<%doc>
+  This template is intended to set up a proxy SSL redirection based on
+  remoteservices_redirection.conf file
+
+  Example conf file content:
+
+  - url: ntop
+    target: "http://localhost:3000"
+    absolute_url_patterns:
+      - ^/[^/]+\.(html|css|js|gif|png)$
+      - ^/(MochiKit|PlotKit|plugins)
+  - url : apache
+    target : "http://localhost:80"
+
+</%doc>
+<%args>
+   @redirections
+</%args>
+Include /etc/apache2/mods-available/proxy.load
+Include /etc/apache2/mods-available/proxy_http.load
+
+<IfModule mod_proxy.c>
+   ProxyRequests Off
+   ProxyVia      On
+
+<IfModule mod_rewrite.c>
+% foreach my $redir (@redirections) {
+   RewriteCond %{HTTP:Via}    .
+   RewriteRule /<% $redir->{url} %>(.*) <% $redir->{target} %>$1 [P,L]
+  
+   ProxyPassReverse /<% $redir->{url} %> <% $redir->{target} %>
+
+%   if ($redir->{absolute_url_patterns}) {  
+   RewriteCond %{HTTP:Via}    .
+%      my ($i, $nElem) = (1, scalar(@{$redir->{absolute_url_patterns}}) );
+%      foreach my $pattern (@{$redir->{absolute_url_patterns}}) {
+%         my $pattern_or = $pattern . (($i < $nElem) ? ' [OR]' : "");
+   RewriteCond %{REQUEST_URI} <% $pattern_or %>
+%         $i++;
+%      }
+   RewriteRule /(.*) <% $redir->{target} %>/$1 [P,L]
+%   }
+
+% }
+</IfModule>
+</IfModule>

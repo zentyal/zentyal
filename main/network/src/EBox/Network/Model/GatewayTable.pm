@@ -285,9 +285,9 @@ sub validateRow
                 if ($action eq 'add') {
                     throw EBox::Exceptions::External(__('You can not manually add a gateway for DHCP or PPPoE interfaces'));
                 } else {
-                    throw EBox::Exceptions::External(__x("Gateway {gw} must be reachable by a static interface. "
-                                . "Currently it is reachable by {iface} which is not static",
-                                gw => $ip, iface => $iface));
+                    throw EBox::Exceptions::External(__x("Gateway {gw} must be in the same network that a static interface. "
+                                                          . "Currently it belongs to the network of {iface} which is not static",
+                                                         gw => $ip, iface => $iface));
                 }
             }
         } else {
@@ -339,8 +339,6 @@ sub addedRowNotify
 {
     my ($self, $row) = @_;
 
-    $self->_autoDetectInterface($row);
-
     if ($row->valueByName('default')) {
         my $network = $self->parentModule();
         $network->storeSelectedDefaultGateway($row->id());
@@ -356,8 +354,6 @@ sub addedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-
-    $self->_autoDetectInterface($row);
 
     return if ($force); # failover event can force changes
 
@@ -581,18 +577,66 @@ sub checkGWName
     }
 }
 
+# Method: addTypedRow
+#
+#  Overriden to add interface parameter if needed
+#
+#  Overrids:
+#    - EBox::DataTable::addTypedRow
+sub addTypedRow
+{
+    my ($self, $paramsRef, %optParams) = @_;
+    $paramsRef = $self->_autoDetectInterface($paramsRef);
+    return $self->SUPER::addTypedRow($paramsRef, %optParams);
+}
+
+# Method: setTypedRow
+#
+#  Overriden to add interface parameter if needed
+#
+#  Overrids:
+#    - EBox::DataTable::setTypedRow
+sub setTypedRow
+{
+    my ($self, $id, $paramsRef, %optParams) = @_;
+    my $currentRow =  $self->row($id);
+    $paramsRef = $self->_autoDetectInterface($paramsRef, $currentRow);
+
+    return $self->SUPER::setTypedRow($id, $paramsRef, %optParams);
+}
+
 sub _autoDetectInterface
 {
-    my ($self, $row) = @_;
+    my ($self, $paramsRef, $currentRow) = @_;
+    my $auto;
+    if (exists $paramsRef->{auto}) {
+        $auto = $paramsRef->{auto}->value();
+    } elsif ($currentRow) {
+        $auto = $currentRow->valueByName('auto');
+    }
 
-    return if ($row->valueByName('auto'));
+    if ($auto) {
+        return $paramsRef;
+    }
+
+    my $ip;
+    if (exists $paramsRef->{ip}) {
+        $ip =  $paramsRef->{ip}->value();
+    } elsif ($currentRow) {
+        $ip = $currentRow->valueByName('ip');
+    }
+    if (not $ip) {
+        throw EBox::Exceptions::DataMissing(data => $self->fieldHeader('ip')->printableName());
+    }
 
     my $network = $self->parentModule();
-    my $iface = $network->gatewayReachable($row->valueByName('ip'));
+    my $iface = $network->gatewayReachable($ip);
     if ($iface) {
-        $row->elementByName('interface')->setValue($iface);
-        $row->store();
+        my $interfaceType = $self->fieldHeader('interface')->clone();
+        $interfaceType->setValue($iface);
+        $paramsRef->{interface} = $interfaceType;
     }
+    return $paramsRef;
 }
 
 1;

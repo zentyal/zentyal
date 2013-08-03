@@ -20,15 +20,19 @@ package EBox::Virt::Libvirt;
 use base 'EBox::Virt::AbstractBackend';
 
 use EBox::Gettext;
+use EBox::Config;
 use EBox::Sudo;
 use EBox::Exceptions::MissingArgument;
 use EBox::NetWrappers;
 use EBox::Virt;
 use File::Basename;
 use String::ShellQuote;
+use File::Slurp;
 
 my $VM_PATH = '/var/lib/zentyal/machines';
 my $NET_PATH = '/var/lib/zentyal/vnets';
+my $LIBVIRT_NET_CONF_PATH = '/etc/libvirt/qemu/networks';
+my $LIBVIRT_NET_PATH = '/var/lib/libvirt/network';
 my $KEYMAP_PATH = '/usr/share/qemu/keymaps';
 my $VM_FILE = 'domain.xml';
 my $VIRTCMD = EBox::Virt::LIBVIRT_BIN();
@@ -160,6 +164,21 @@ sub vmPaused
     return ($self->_state($name) eq 'paused');
 }
 
+# Method: runningVMCommand
+#
+#   Only used for libvirt for the upstart and manage.sh scripts.
+#
+# Parameters:
+#
+#   name    - virtual machine name
+#
+sub runningVMCommand
+{
+    my ($self, $name) = @_;
+
+    return "$VIRTCMD domstate $name | grep -q ^running";
+}
+
 sub _state
 {
     my ($self, $name) = @_;
@@ -256,21 +275,6 @@ sub startVMCommand
     return $cmd;
 }
 
-# Method: shutdownVM
-#
-#   Shuts down a virtual machine.
-#
-# Parameters:
-#
-#   name    - virtual machine name
-#
-sub shutdownVM
-{
-    my ($self, $name) = @_;
-
-    _run($self->shutdownVMCommand($name));
-}
-
 # Method: shutdownVMCommand
 #
 #   Command to shut down a virtual machine.
@@ -278,6 +282,7 @@ sub shutdownVM
 # Parameters:
 #
 #   name    - virtual machine name
+#   force   - force hard power off
 #
 # Returns:
 #
@@ -285,19 +290,16 @@ sub shutdownVM
 #
 sub shutdownVMCommand
 {
-    my ($self, $name) = @_;
-    my $cmd;
+    my ($self, $name, $force) = @_;
 
-    my $os = $self->{vmConf}->{$name}->{os};
-    if (($os eq 'new_windows') or ($os eq 'old_windows')) {
-        $cmd = "$VIRTCMD shutdown $name";
+    my $action = $force ? 'destroy' : 'shutdown';
+    my $cmd = "$VIRTCMD $action $name";
+    if ($force) {
+        $self->{vmConf}->{$name}->{forceStopCmd} = $cmd;
     } else {
-        #  "shutdown" only works when a SO with acpi enabled is running
-        #  we are not sure about these systems so we use shutdown
-        $cmd = "$VIRTCMD destroy $name";
+        $self->{vmConf}->{$name}->{stopCmd} = $cmd;
     }
 
-    $self->{vmConf}->{$name}->{stopCmd} = $cmd;
     return $cmd;
 }
 
@@ -429,8 +431,7 @@ sub setIface
         if (not exists $self->{netConf}->{$source}) {
             $self->{netConf}->{$source} = {};
             $self->{netConf}->{$source}->{num} = $self->{netNum}++;
-            # FIXME: Check if the address is not used
-            $self->{netConf}->{$source}->{bridge} = $self->{netBridgeId}++;
+            $self->{netConf}->{$source}->{bridge} = $self->_freeBridgeId();
         }
     }
 
@@ -523,8 +524,8 @@ sub _mouseUsedByOs
 sub systemTypes
 {
     return [
-        { value => 'new_windows', printableValue =>  __('Windows Vista or newer') },
-        { value => 'old_windows', printableValue =>  __('Windows 2003 or older') },
+        { value => 'new_windows', printableValue =>  __('Windows Vista | Windows 2008 or newer') },
+        { value => 'old_windows', printableValue =>  __('Windows XP | Windows 2003 or older') },
         { value => 'linux',       printableValue =>  __('Linux') },
         { value => 'other',       printableValue =>  __('Other') },
     ];
@@ -584,8 +585,8 @@ sub _netExists
 {
     my ($self, $name) = @_;
 
-    EBox::Sudo::silentRoot("$VIRTCMD net-list|awk '{ print $1 }'|tail -n+3|grep \"^$name\$\"");
-    return ($? == 0);
+    my $path = "$LIBVIRT_NET_CONF_PATH/$name.xml";
+    return EBox::Sudo::fileTest('-e', $path);
 }
 
 sub writeConf
@@ -599,6 +600,8 @@ sub writeConf
             '/virt/manage.sh.mas',
             [ startCmd => $vmConf->{startCmd},
               stopCmd => $vmConf->{stopCmd},
+              forceStopCmd => $vmConf->{forceStopCmd},
+              runningCmd => $self->runningVMCommand($name),
               user => $self->{vmUser} ],
             { uid => 0, gid => 0, mode => '0755' }
     );
@@ -657,9 +660,49 @@ sub initInternalNetworks
 
     $self->{netConf} = {};
     $self->{netNum} = 190;
+    $self->{usedBridgeIds} = $self->_usedBridgeIds();
     $self->{netBridgeId} = 1;
 
+    my @nets = glob ("$NET_PATH/*");
+    foreach my $net (@nets) {
+        my $path = "$LIBVIRT_NET_PATH/" . basename($net);
+        _run("rm -rf $path");
+    }
     _run("rm -rf $NET_PATH/*");
+}
+
+sub _usedBridgeIds
+{
+    my ($self) = @_;
+
+    my $usedBridges = {};
+
+    my $tmpdir = EBox::Config::tmp() . 'libvirt-networks';
+    EBox::Sudo::root("mkdir -p $tmpdir",
+                     "cp /etc/libvirt/qemu/networks/*.xml $tmpdir/",
+                     "chmod 644 $tmpdir/*.xml");
+    my @files = glob ("$tmpdir/*.xml");
+    foreach my $file (@files) {
+        my $content = read_file($file);
+        my $id = $content =~ /<bridge name="virbr(\d+)"/;
+        if ($id) {
+            $usedBridges->{$id} = 1;
+        }
+    }
+    EBox::Sudo::root("rm -rf $tmpdir");
+
+    return $usedBridges;
+}
+
+sub _freeBridgeId
+{
+    my ($self) = @_;
+
+    while (exists $self->{usedBridgeIds}->{$self->{netBridgeId}}) {
+        $self->{netBridgeId}++;
+    }
+
+    return $self->{netBridgeId};
 }
 
 sub _run
@@ -691,7 +734,8 @@ sub _vncKeymap
     } else {
         # Autodetect if not defined
         if ($ENV{LANG}) {
-            my ($lang1, $lang2) = split(/_/, $ENV{LANG});
+            my ($lang, $enc) = split(/\./, $ENV{LANG});
+            my ($lang1, $lang2) = split(/_/, $lang);
             if ($lang1) {
                 if ($lang2) {
                     $keymap = "$lang1-" . lc($lang2);

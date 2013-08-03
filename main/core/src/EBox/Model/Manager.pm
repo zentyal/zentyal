@@ -12,15 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
-#
+
 #   This class is used to coordinate all the available models and composites
 #   along Zentyal. It allows us to do things like specifiying relations
 #   amongst different models.
-#
 
-#
 package EBox::Model::Manager;
 
 use EBox;
@@ -72,7 +71,7 @@ sub _new
 #
 sub instance
 {
-    unless(defined($_instance)) {
+    unless (defined ($_instance)) {
         $_instance = EBox::Model::Manager->_new();
     }
 
@@ -376,7 +375,7 @@ sub modelsUsingId
 #
 #   model -  model name, with module path, where the action took place
 #   action - string represting the action:
-#	     [ add, del, edit, moveUp, moveDown ]
+#	     [ add, del, edit ]
 #
 #   row  - <EBox::Model::Row> row modified
 #

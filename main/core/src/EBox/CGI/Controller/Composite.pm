@@ -55,7 +55,7 @@ sub new
     my ($class, %params) = @_;
 
     my $composite = delete $params{composite};
-    my $self = $class->SUPER::new('template' => $composite->Viewer(), @_);
+    my $self = $class->SUPER::new('template' => $composite->Viewer(), %params);
     $self->{composite} = $composite;
     $self->{action}    = delete $params{action};
 

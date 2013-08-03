@@ -1,3 +1,76 @@
+HEAD
+	+ Restyled UI
+	+ Added better 502 error page for nginx with redirect when apache is ready
+	+ Always call udpateRowNotify in row update, even when the new
+	  values are the same than old ones
+	+ Fixed bad call to EBox::CGI::Run::urlToClass in EBox::CGi::Base
+	+ Added icons for top-level menu entries and module status page
+	+ Fixed bad arguments in CGI::Controller::Composite call to SUPER::new()
+	+ More flexible EBox::CGI::run for inheritance
+	+ Fixed encoding of parameters in confirmation dialogs
+	+ Check backup integrity by listing the tar file, throw
+	  InvalidData exception if the tar is corrupted
+	+ Do not use hidden form fields for generating confirmation dialog JS
+	+ Fixed log bugs: use correct RO mode in loggerd, fixed behaviour
+	  when all log helpers are disabled, enable logs correctly when
+	  added by first time to configure logs table
+	+ Fixed bad interpolation in JS code in booleanInPlaceViewer.mas
+	+ WizardPage CGIs can now return JSON replies as response
+	+ unconfigure-module script disables also the module
+	+ Restart firewall module when a firewall observer module is
+	  stopped/started using zentyal init.d script
+	+ Added temporary stopped state to a Service module to know if a
+	  module is stopped but enabled
+	+ Redirect to / from /ebox using remote access to avoid blank page
+	+ Removed no longer necessary jQuery noConflict()
+	+ Added combobox.js
+	+ Added EBox::Model::Base as base for DataTable and the new TreeView
+	+ Adapted EBox::CGI::Run for the new TreeView models
+	+ Fixed DataTable row removal from the UI with 100% volatile models with
+	  'ids' method overriden.
+3.1.5
+	+ Increased webadmin default timeout.
+	+ Disable drag & drop on tables with only one row
+3.1.4
+	+ Don't allow to move read-only rows
+	+ Better prefix for user configuration redis keys
+	+ Hide disabled carousel buttons, fix modal template
+	+ Fixed modal dialog template
+	+ Mark save changes button as changed when moving rows
+	+ Remove unused parameter in Zentyal.DataTable.changeRow
+3.1.3
+	+ Enhanced UI styles: dialogs, progress bars, carousel, colors and images
+	+ Rows of tables can now be moved using drag & drop
+	+ Added logout dialog with option of discarding changes
+	+ Remember page size options per users, added 'View all' page size option
+	+ Added storage of options per user
+	+ Enable and/or conifgure module dependencies automatically in
+	  Module Status page
+	+ Adapted CGIs to new modal dialogs
+	+ Ported graphs from flotr.js to flot.js
+	+ Ported JS code to jQuery and jQuery-ui
+	+ Removed Modalbox.js, table_orderer.js and carousel.js
+	+ Left menu keyword search is now case insensitive
+3.1.2
+	+ Make manage administrators table resilent against invalid users
+	+ Remove deprecated backup domains related from logs module
+	+ Added EBox::Types::URI type
+	+ Added saveReload method to use reload instead of restart to
+	  reduce service downtime. Use with care and programatically
+	+ Added findValueMultipleFields() to DataTable and refactor _find()
+	  to allow search by multiple fields
+	+ Fixed disk usage report for logs component
+3.1.1
+	+ Do not dump unnecessary .bak files to /var/lib/zentyal/conf
+	+ Restart all the core daemons instead of only apache after logrotate
+	+ Fixed graph template so it could be feed with data using decimal
+	  comma, it will convert it to a JS array without problems
+	+ Fixed regression parsing ModalController urls
+	+ Fixed regression non-model CGIs with aliases
+	+ Added a way to retrieve all Models inside a Composite and its children.
+	+ Increased the size limit for file uploads.
+	+ Implemented a way to include configuration files for Nginx so the SOAP
+	  services are able to use Nginx for SSL.
 3.1
 	+ Improved the message shown when there are no changes pending to save on
 	  logout.

@@ -16,62 +16,54 @@
  */
 
 /*
- * Class: EBox.Tabs
- * 
+ * Class: Zentyal.Tabs
+ *
  * This object creates a tab group to manage using CSS and JavaScript.
- * 
+ *
  *
  */
+"use strict";
 
-if ( typeof(EBox) == 'undefined' ) {
-  var EBox = {};
-}
 
-EBox.Tabs = Class.create();
+/*
+   Zentyal.tabs constructor
 
-EBox.Tabs.prototype = {
+   Create a Zentyal. Tabs JS class to manage a tab group
 
-  /* 
-     Constructor: initialize
-     
-     Create a EBox.Tabs JS class to manage a tab group
+   Parameters:
 
-     Parameters:
-     
-     tabContainer - String the tab container identifier from where the tabs hang
-     modelAttrs   - Associative array indexing by element identifier
-                    containing the following properties:
-                     action -  URL for the actions to perform by an AJAX request
-                     additionalParams - array containing associative arrays with
-                                        the following elements:
-                         name  - String the param's name
-                         value - String the param's value
-                     directory - a parameter to send specific for the tab model
-     options      - Associate array which can contain the following
-                    optional parameters:
-                    - activeClassName : String the CSS class name to the active tab
-                    - defaultTab : String the name of the default tab
-                                   or first or last
-     Returns:
-     
-     <EBox.Tabs> - the recently created object
+   tabContainer - String the tab container identifier from where the tabs hang
+   modelAttrs   - Associative array indexing by element identifier
+                  containing the following properties:
+                   action -  URL for the actions to perform by an AJAX request
+                   additionalParams - array containing associative arrays with
+                                      the following elements:
+                       name  - String the param's name
+                       value - String the param's value
+                   directory - a parameter to send specific for the tab model
+   options      - Associate array which can contain the following
+                  optional parameters:
+                  - activeClassName : String the CSS class name to the active tab
+                  - defaultTab : String the name of the default tab
+                                 or first or last
+   Returns:
 
-  */
+   <Zentyal.Tabs> - the recently created object
 
-  initialize : function(tabContainer, modelAttrs, options) {
+*/
+Zentyal.Tabs =  function(tabContainer, modelAttrs, options) {
     // The div where the tabs are
-    this.tabContainer = $(tabContainer);
+    this.tabContainer = $('#' + tabContainer);
     // Set the tabMenu name
     var nameParts = tabContainer.split('_');
     this.tabName = nameParts[1];
-    // Set the active tab
+
     this.activeTab = false;
     this.activeTabIdx = -1;
-    // The tabs
     this.tabs = [];
     // The object where the action URLs are stored, indexed by model name
     this.modelAttrs = modelAttrs;
-    // Create a form to send the parameters
+    // Create a form to send the parameters when requestign a new tab
     this._createForm();
 
     if ( options && options.activeClassName ) {
@@ -89,38 +81,32 @@ EBox.Tabs.prototype = {
     }
 
     // Menu stores all the A hrefs children from the div tab given
-    var tabs = this.tabContainer.getElementsBySelector('a');
-    // Add the onclick function
-    tabs.each( function(linkElement) {
-      this._addTab(linkElement);
-    }.bind(this));
+    this.tabs = this.tabContainer.find('a');
+
+    var that = this;
+    this.tabs.each( function(index, linkElement) {
+        that._setupTab(that, linkElement);
+    });
 
     if ( this.defaultTab == 'first' ) {
       this.activeTab = this.tabs.first();
       this.activeTabIdx = 0;
     } else if ( this.defaultTab == 'last' ) {
       this.activeTab = this.tabs.last();
-      this.activeTabIdx = this.tabs.length;
+      this.activeTabIdx = this.tabs.length - 1;
     } else {
-      for( var idx = 0, len = this.tabs.length; idx < len; idx++ ) {
-        if ( this.tabs[idx].id == options.defaultTab ) {
-          this.activeTab = this.tabs[idx];
-          this.activeTabIdx = idx;
-        }
-      }     
-    }
+        tabs.each(function(index, tab) {
+            if (tab.id === options.defaultTab) {
+                this.activeTab = $(tab);
+                this.activeTabIdx = index;
+                return false;
+            }
+        });
+      }
+    return this;
+};
 
-    // Show default tab (Done at the template)
-//    if ( this.defaultTab == 'first' ) {
-//      this.showActiveTab( this.tabs.first() );
-//    } else if ( this.defaultTab == 'last' ) {
-//      this.showActiveTab( this.tabs.last() );
-//    } else {
-//      this.showActiveTab( this.defaultTab );
-//    }
-                   
-  },
-
+Zentyal.Tabs.prototype = {
   /* Method: showActiveTab
 
      Show the current active tab
@@ -135,42 +121,41 @@ EBox.Tabs.prototype = {
 
   */
   showActiveTab : function(tab) {
-    if ( ! tab ) {
-      // If no tab is passed, then return silently
-      return;
-    }
+      if ( (! tab) || (tab.length === 0) ) {
+          // If no tab is passed, then return silently
+          return;
+      }
 
-    if ( typeof( tab ) == 'string' ) {
+    if ( typeof( tab ) === 'string' ) {
       // Search for the element whose id is call tab
       for ( var idx = 0, len = this.tabs.length; idx < len; idx++) {
         if ( this.tabs[idx].id == tab ) {
           this.showActiveTab(this.tabs[idx]);
           return;
-        }          
+        }
       }
     } else {
-      // Hide the remainder tabs
-      this.tabs.without(tab).each( function(linkElement) {
-        linkElement.removeClassName( this.activeClassName );
-      }.bind(this));
-      // Set the current active tab
-      this.activeTab = tab;
-      // Show the tab
-      tab.addClassName(this.activeClassName);
-      // Set the correct form values
-        this._setDirInput();
-      // Set additional parameters
-      this._setAdditionalParams();
-      // Load the content from table-helper
-      hangTable( 'tabData_' + this.tabName , 'errorTabData_' + this.tabName,
-                 this.modelAttrs[ tab.id ].action, 'tableForm',
-                 'tabData_' + this.tabName
-               );
+        // Hide the no-active tabs
+        this.tabs.not(tab).removeClass(this.activeClassName);
+        this.activeTab = tab;
+        // Show the tab
+        tab.addClass(this.activeClassName);
+        // Set the correct form values
+        var activeTabDir = this.modelAttrs[this.activeTab.attr('id')].directory;
+        this._setTableFormInput('directory', activeTabDir);
+        this._setAdditionalParams();
+
+        // Load the content from table-helper
+        Zentyal.TableHelper.hangTable( 'tabData_' + this.tabName ,
+                   'errorTabData_' + this.tabName,
+                   this.modelAttrs[ tab.attr('id') ].action,
+                   'tableForm',
+                   'tabData_' + this.tabName);
     }
   },
 
   /* Method: next
-     
+
      Show the next tab. If the last one, it does nothing.
 
   */
@@ -186,24 +171,23 @@ EBox.Tabs.prototype = {
   },
 
   /* Method: previous
-     
+
      Show the previous tab. If the first one, it does nothing.
 
   */
   previous : function () {
 
-    if ( this.activeTabIdx == 0 ) {
+    if ( this.activeTabIdx === 0 ) {
       return;
     }
-     
+
     this.activeTabIdx--;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
   /* Method: first
-     
+
      Show the first tab.
 
   */
@@ -212,11 +196,10 @@ EBox.Tabs.prototype = {
     this.activeTabIdx = 0;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
   /* Method: last
-     
+
      Show the last tab.
 
   */
@@ -225,37 +208,26 @@ EBox.Tabs.prototype = {
     this.activeTabIdx = this.tabs.length - 1;
     this.activeTab = this.tabs[this.activeTabIdx];
     this.showActiveTab( this.activeTab );
-
   },
 
+  /* Method: _setupTab
 
-  /* Group: Private method */
-  
-  /* Method: _addTab
-
-     Add the the link element to the EBox.Tabs object
+     Add the the link element to the Zentyal.Tabs object and setup it
 
      Parameters:
-
+     that        - Zentyal.Tabs object
      linkElement - Element the extended element which it is the <a> element
 
   */
-    _addTab : function(linkElement) {
-      // Add the tab to the this.tabs array in order to manage hrefs
-      this.tabs.push(linkElement);
-      // Create the property key to call by user url#<key>
-      linkElement.key = linkElement.hash.substring(1);
-
-      var clickHandler = function(linkElement) {
-        if ( window.event ) {
-          Event.stop( window.event );
-        }
-        this.showActiveTab(linkElement);
-        return false;
-      }.bind(this, linkElement);
-
-      Event.observe( linkElement, 'click', clickHandler);
-      
+    _setupTab : function(that, linkElement) {
+        var key = linkElement.hash.substring(1)
+        linkElement = $(linkElement);
+        // Create the property key to call by user url#<key>
+        linkElement.attr('key', key);
+        linkElement.on('click', function(event) {
+            that.showActiveTab(linkElement);
+            return false;
+        });
     },
 
   /* Method: _createForm
@@ -274,31 +246,7 @@ EBox.Tabs.prototype = {
     form.setAttribute( 'id', 'tableForm');
     form.appendChild( actionInput );
     // Append the form to the body
-    this.tabContainer.parentNode.appendChild(form);
-
-  },
-
-  /* Method: _setDirInput
-
-     Set the directory input value from the selected tab in order to
-     make the POST request dynamically. It will replace any previous
-     directory input value if any.
-
-  */
-  _setDirInput : function() {
-
-    var input = $('tableForm')['directory'];
-    if ( input ) {
-      // Input is defined
-      input.setAttribute('value', this.modelAttrs[this.activeTab.id].directory);
-    } else {
-      // Create the input
-      var dirInput = document.createElement('input');
-      dirInput.setAttribute('name', 'directory');
-      dirInput.setAttribute('type', 'hidden');
-      dirInput.setAttribute('value', this.modelAttrs[this.activeTab.id].directory);
-      $('tableForm').appendChild(dirInput);
-    }
+    this.tabContainer.parent().append(form);
   },
 
   /* Method: _setAdditionalParams
@@ -307,25 +255,35 @@ EBox.Tabs.prototype = {
 
   */
   _setAdditionalParams : function() {
+      var activeTabId = this.activeTab.attr('id');
+      // Check if additionalParams is defined
 
-    // Check if additionalParams is defined
-    if ( this.modelAttrs[this.activeTab.id].additionalParams ) {
-      for(var idx=0; idx < this.modelAttrs[this.activeTab.id].additionalParams.length; idx++) {
-        var param = this.modelAttrs[this.activeTab.id].additionalParams[idx];
-        var input = $('tableForm')[param.name];
-        if ( input ) {
+      if ( this.modelAttrs[activeTabId].additionalParams ) {
+          for(var i=0; i < this.modelAttrs[activeTabId].additionalParams.length; i++) {
+              var param = this.modelAttrs[activeTabId].additionalParams[i];
+              this._setTableFormInput(param.name, param.value);
+          }
+      }
+  },
+
+  /* Method: _setDirInput
+
+     Set the directory input value from the selected tab in order to
+     make the POST request dynamically.
+  */
+  _setTableFormInput : function(name, value) {
+      var input = $('#tableForm #' + name);
+      if ( input.length > 0 ) {
           // Input is defined
-          input.setAttribute('value', param.value);
-        } else {
+          input.setAttribute('value', value);
+      } else {
           // Create the input
           var dirInput = document.createElement('input');
-          dirInput.setAttribute('name', param.name);
+          dirInput.setAttribute('name', name);
           dirInput.setAttribute('type', 'hidden');
-          dirInput.setAttribute('value', param.value);
-          $('tableForm').appendChild(dirInput);
-        }
-      } 
-    }
+          dirInput.setAttribute('value', value);
+          $('#tableForm').append(dirInput);
+      }
   }
-    
-}
+
+};

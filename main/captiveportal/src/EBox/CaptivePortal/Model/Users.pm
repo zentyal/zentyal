@@ -33,6 +33,7 @@ use EBox::Types::Action;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::CaptivePortal::Auth;
+use EBox::Types::Int;
 
 use Fcntl qw(:flock);
 use YAML::XS;
@@ -303,7 +304,7 @@ sub _extendUser
     my $sid = $row->valueByName('sid');
     my $ip = $row->valueByName('ip');
     my $username= $row->valueByName('user');
-    my $user = EBox::Global->modInstance('users')->user($username);
+    my $user = EBox::Global->modInstance('users')->userByUID($username);
 
     my $quota = $self->parentModule()->{cpldap}->getQuota($user);
     if ($quota == 0) {

@@ -82,7 +82,7 @@
      }
 </%perl>
 %   if ($showBody) {
-       <div id="<% $model->modelName() %>">
+       <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
 
@@ -204,11 +204,11 @@ $model
 <%args>
   $title
 </%args>
+% if ($title) {
 <h3>
-  <%
-    $title
-  %>
+  <% $title %>
 </h3>
+% }
 </%method>
 
 <%doc>
@@ -389,7 +389,7 @@ if ($hasChanged) {
   $className = 'notChanged';
 }
 </%perl>
-$('changes_menu').className = '<% $className %>';
+$('#changes_menu').removeClass().addClass('<% $className %>');
 </script>
 </%method>
 

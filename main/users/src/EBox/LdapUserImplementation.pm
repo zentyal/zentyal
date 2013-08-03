@@ -23,21 +23,23 @@ use base qw(EBox::LdapUserBase);
 use EBox::Global;
 use EBox::Gettext;
 
-sub _create {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+sub _create
+{
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
-sub _delGroupWarning {
+sub _delGroupWarning
+{
     my ($self, $group) = @_;
 
-	if (@{$group->users()}) {
-		return (__('This group contains users'));
-	}
+    if (@{$group->members()}) {
+        return (__('This group contains members'));
+    }
 
-	return undef;
+    return undef;
 }
 
 sub schemas
@@ -62,6 +64,15 @@ sub indexes
                  'uid', 'uidNumber', 'memberUid', 'cn', 'ou',
                  'gidNumber', 'uniqueMember', 'krb5PrincipalName',
            ];
+}
+
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'Kerberos' ];
 }
 
 1;

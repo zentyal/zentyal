@@ -24,8 +24,8 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Config;
 use EBox::Ldap;
-use EBox::UsersAndGroups;
-use EBox::UsersAndGroups::User;
+use EBox::Users;
+use EBox::Users::User;
 use EBox::Model::Manager;
 
 sub new
@@ -58,7 +58,11 @@ sub _userAddOns
             'service'  => $self->{jabber}->isEnabled(),
            };
 
-    return { path => '/jabber/jabber.mas', params => $args };
+    return {
+        title =>  __('Jabber account'),
+        path => '/jabber/jabber.mas',
+        params => $args
+       };
 }
 
 sub schemas
@@ -130,17 +134,17 @@ sub getJabberAdmins
 
     my $global = EBox::Global->getInstance();
     my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
+    my $usersContainer = EBox::Users::User->defaultContainer();
     my @admins = ();
 
-    $users->{ldap}->ldapCon;
+    $users->{ldap}->connection();
     my $ldap = $users->{ldap};
 
-    my %args = (base => $dn, filter => 'jabberAdmin=TRUE');
+    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {
-        push (@admins, new EBox::UsersAndGroups::User(entry => $entry));
+        push (@admins, new EBox::Users::User(entry => $entry));
     }
 
     return \@admins;

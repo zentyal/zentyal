@@ -1,3 +1,17 @@
+HEAD
+	+ Added menu icon
+	+ Explicitly set firewall version dependency in control file
+	+ Set inline firewall rules position and mode based on
+	  ips_fw_position configuration key
+	+ Configure accept mode to let Suricata accept or drop the traffic
+	+ Set inline firewall rules unless the module is temporary stopped
+3.1.2
+	+ Added ips_rule_updates to manage when IPS rule set is updated
+	+ Change IPS rule management with ASU adding new fields
+	  to Rules model to identify source and autoconfiguration
+	+ Added rule set file management to module API
+3.1.1
+	+ Fix NFQUEUE clashing with l7filter in trafficshaping module
 3.1
 	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
 	+ Depend on zentyal-core 3.1

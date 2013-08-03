@@ -13,11 +13,14 @@ Parameters:
     $port
     $tmpdir
     $zentyalconfdir
+    $caFile
+    @includes => ()
 </%args>
 
 user www-data;
 worker_processes 4;
 daemon off;
+pid /var/lib/zentyal/tmp/nginx.pid;
 
 events {
     worker_connections 768;
@@ -36,6 +39,7 @@ http {
     keepalive_timeout 65;
     types_hash_max_size 2048;
     server_tokens off;
+    client_max_body_size 50m;
 
     server_names_hash_bucket_size 64;
     server_name_in_redirect off;
@@ -62,13 +66,32 @@ http {
     gzip_http_version 1.1;
     gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript;
 
+    map $ssl_client_s_dn $ssl_client_s_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
+    map $ssl_client_s_dn $ssl_client_s_dn_cn {
+        default           "";
+        ~/CN=(?<CN>[^/]+) $CN;
+    }
+
+    map $ssl_client_i_dn $ssl_client_i_dn_o {
+        default           "";
+        ~/O=(?<O>[^/]+) $O;
+    }
+
     server {
         listen <% $port %>;
 
         ssl on;
         ssl_certificate <% $zentyalconfdir %>ssl/ssl.pem;
         ssl_certificate_key <% $zentyalconfdir %>ssl/ssl.pem;
-        # ssl_client_certificate <% $zentyalconfdir %>ssl-ca/;
+% if ($caFile) {
+        ssl_client_certificate <% $caFile %>;
+        ssl_verify_client optional;
+        ssl_verify_depth 1;
+% }
 
         ssl_session_timeout 5m;
 
@@ -95,6 +118,21 @@ http {
         #   root /usr/share/nginx/www;
         #}
 
+        error_page 502 /errors/502.html;
+        location = /errors/502.html {
+           root /usr/share/zentyal/www;
+        }
+        location = /js/jquery-1.9.1.js {
+           root /usr/share/zentyal/www;
+        }
+        location = /images/ajax-loader.gif {
+           root /usr/share/zentyal/www;
+        }
+        location = /favicon.ico {
+           root /usr/share/zentyal/www;
+        }
+
+
         location @proxy {
             proxy_pass http://localhost:60080;
 
@@ -105,6 +143,8 @@ http {
             proxy_set_header        X-Real-IP       $remote_addr;
             proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
             proxy_set_header        X-Forwarded-Proto $scheme;
+            proxy_send_timeout      3600; # It is a quite high value because Apache should be the one giving the timeout always.
+            proxy_read_timeout      3600; # It is a quite high value because Apache should be the one giving the timeout always.
 
             proxy_redirect     off;
         }
@@ -112,5 +152,9 @@ http {
         location ~ /\.ht {
            deny all;
         }
+% foreach my $includeFile (@includes) {
+
+        include <% $includeFile %>;
+% }
     }
 }

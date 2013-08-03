@@ -18,7 +18,7 @@ if ($data->row()->readOnly() or (not $data->editable()) ) {
 }
 
 my $fieldName = $data->fieldName();
-my $onChange = qq{sendInPlaceBooleanValue("$controller",
+my $onChange = qq{Zentyal.TableHelper.sendInPlaceBooleanValue("$controller",
                                           "$tableName",
                                            "$rowId",
                                            "$dir",
@@ -28,18 +28,17 @@ my $onChange = qq{sendInPlaceBooleanValue("$controller",
                  };
 if ($checkAllId) {
     $onChange .= qq|if (this.checked) {
-                       checkAllControlValue("$controller", "$tableName", "$dir",
-                                            "$checkAllId", "$fieldName");
-                      } else { \$("$checkAllId").checked= false;  }
+                       Zentyal.TableHelper.checkAllControlValue("$controller", "$tableName", "$dir", "$checkAllId", "$fieldName");
+                    } else { \$("#$checkAllId").prop("checked", false);  }
                 |;
 }
 
 </%init>
 <input
-	type='checkbox' <% $checked %>
-	id='<% $id %>'
+        type='checkbox' <% $checked %>
+        id='<% $id %>'
         onChange='<% $onChange %>'
-	<% $disabled %>
+        <% $disabled %>
 />
 <div id='<% $id %>_loading'></div>
 

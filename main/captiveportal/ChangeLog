@@ -1,3 +1,20 @@
+HEAD
+	+ Added menu icon
+	+ Use MAC address in object exception
+	+ Fixed bug in exceptions firewall rules
+	+ Adapt firewall rules to new accept chains
+	+ Adapted user addon to multi-OU tree view
+	+ Removed no longer necessary jQuery noConflict()
+	+ Updated to use the new API to retrieve groups and users.
+	+ Updated to use the new security group concept.
+	+ Make user authorizarion compatible with external AD mode
+3.1.3
+	+ Fix regression in CGIs package names
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1.2
+	+ Ported JS code to jQuery
+3.1.1
+	+ Added missing use sentence to Users Model
 3.1
 	+ Adapted to the new EBox::CGI::Run
 	+ Depend on zentyal-core 3.1

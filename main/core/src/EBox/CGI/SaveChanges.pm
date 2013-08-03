@@ -41,7 +41,7 @@ sub _process
     my $global = EBox::Global->getInstance();
     if (not $global->unsaved) {
         # installer gives false positive there
-        if (not $self->param('installer')) {
+        if (not $self->param('firstTime')) {
             throw EBox::Exceptions::External("No changes to be saved or revoked");
         }
     }
@@ -59,14 +59,14 @@ my @commonProgressParams = (
 
 );
 
-my $jsCloseModalboxAndReload =  'Modalbox.hide(); window.location.reload(); return false';
+my $jsCloseDialogAndReload =  'Zentyal.Dialog.close(); window.location.reload(); return false';
 my @popupProgressParams = (
         raw => 1,
         inModalbox => 1,
         nextStepType => 'submit',
         nextStepText => __('OK'),
         nextStepUrl  => '#',
-        nextStepUrlFailureOnclick => $jsCloseModalboxAndReload,
+        nextStepUrlFailureOnclick => $jsCloseDialogAndReload,
 );
 
 sub saveAllModulesAction
@@ -103,10 +103,10 @@ sub saveAllModulesAction
         my $needReload = $sysinfo->reloadPageAfterSavingChanges();
         my $nextStepUrlOnClick;
         if ($needReload) {
-            $nextStepUrlOnClick = $jsCloseModalboxAndReload;
+            $nextStepUrlOnClick = $jsCloseDialogAndReload;
             $sysinfo->setReloadPageAfterSavingChanges(0);
         } else {
-            $nextStepUrlOnClick = "Modalbox.hide(); \$('changes_menu').removeClassName('changed').addClassName('notchanged'); return false";
+            $nextStepUrlOnClick = "Zentyal.Dialog.close(); \$('#changes_menu').removeClass('changed').addClass('notchanged'); return false";
         }
 
         push @params, nextStepUrlOnclick => $nextStepUrlOnClick;
@@ -138,7 +138,7 @@ sub revokeAllModulesAction
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlOnclick => "Modalbox.hide(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location.reload(); return false";
     }
 
     $self->showProgress(@params);
@@ -158,12 +158,13 @@ sub _print
         return;
     }
 
-    $self->_header;
-    print '<div id="limewrap"><div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div></div>";
+    $self->_printPopup();
+    # print($self->cgi()->header(-charset=>'utf-8'));
+    # print '<div id="limewrap"><div>';
+    # $self->_error;
+    # $self->_msg;
+    # $self->_body;
+    # print "</div></div>";
 }
 
 1;

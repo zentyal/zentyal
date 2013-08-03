@@ -23,6 +23,7 @@ use Perl6::Junction qw(any);
    action     => $action,
 &>
 
+
 <%doc>
   Method: _body
 
@@ -49,19 +50,24 @@ use Perl6::Junction qw(any);
   use EBox::Gettext;
 
   # Fetch table head from model
-  my @tableHead = @{$model->table()->{'tableDescription'}};
+  my $table     = $model->table();
+  my @tableHead = @{$table->{'tableDescription'}};
   # Pointer to different values for convenience
-  my $actions = $model->table()->{'actions'};
+  my $actions = $table->{'actions'};
   my $changeView = $model->action('changeView');
-  my $printableRowName = $model->table()->{'printableRowName'};
-  my $tableName = $model->table()->{'tableName'};
-  my $printableTableName = $model->table()->{'printableTableName'};
-  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
-  my $withoutActions = $model->table()->{'withoutActions'};
+  my $printableRowName = $table->{'printableRowName'};
+  my $tableName = $table->{'tableName'};
+  my $printableTableName = $table->{'printableTableName'};
+  my $onlyCustomActions = $table->{'onlyCustomActions'};
+  my $withoutActions = $table->{'withoutActions'};
 
+  my $movableRows;
   my $adaptedFilter;
   if (defined $filter and ($filter ne '')) {
      $adaptedFilter = $model->adaptRowFilter($filter);
+  } elsif (exists $table->{'order'} and ($table->{'order'} == 1)) {
+     # we can only move rows if they are unfiltered
+     $movableRows = 1;
   }
 
   my @ids;
@@ -69,6 +75,9 @@ use Perl6::Junction qw(any);
     @ids =  @{$model->ids()};
   } else {
     @ids = @{$model->customFilterIds($adaptedFilter)};
+  }
+  if (@ids < 2) {
+     $movableRows = 0;
   }
   unless ($page) {
     $page = 0;
@@ -81,9 +90,7 @@ use Perl6::Junction qw(any);
       $action = 'changeEdit' if ( $editid );
   }
 
-my $pageSize = $model->pageSize();
-$pageSize or
-    $pageSize = 10;
+my $pageSize = $model->pageSizeIntValue();
 
 my %checkAllControls;
 my $checkAllProperty = $model->checkAllProperty();
@@ -94,8 +101,6 @@ if ($checkAllProperty) {
        ( $field => $id)
     } @{ $checkAllProperty } ;
 }
-
-
 </%init>
 <& .pageTitle,
    crumbs => $model->viewCustomizer()->HTMLTitle()
@@ -144,11 +149,11 @@ if ($checkAllProperty) {
 %
 %   unless ((defined $onlyCustomActions) and $onlyCustomActions)   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
+% if ($printableTableName) {
 <h3>
-  <%
-    $printableTableName
-  %>
+  <% $printableTableName %>
 </h3>
+% }
 %    }
 %   }
 <& SELF:topToolbar,
@@ -157,9 +162,7 @@ if ($checkAllProperty) {
    filter     => $filter,
 &>
 
-<table class='<%
-               $model->table()->{'class'}
-              %>'>
+<table id='<% $tableName %>'  class='<%  $table->{'class'}  %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
                    actions   => ((defined $withoutActions) ? not  $withoutActions: 1),
@@ -168,12 +171,11 @@ if ($checkAllProperty) {
                    checkAllControls => \%checkAllControls,
  &>
 
-    <tbody>
+    <tbody id='<% $tableName %>_tbody' >
 <%perl>
     my $displayRows = 0;
     my $matches = 0;
-    for ( my $idx = 0; $idx < scalar(@ids); $idx++)
-    {
+    for ( my $idx = 0; $idx < scalar(@ids); $idx++) {
       my  $row;
       if (not $model->customFilter() and defined($adaptedFilter)) {
         $row = $model->row($ids[$idx]);
@@ -187,9 +189,16 @@ if ($checkAllProperty) {
       if ($displayRows > $pageSize) { next; };
         $row = $model->row($ids[$idx]);
       }
+      my $addRowMoveHandle;
+      my @trClass = qw(border);
+      if ($row->readOnly) {
+          push @trClass, 'readOnly';
+      } elsif ($movableRows) {
+         push @trClass, 'movableRow';
+         $addRowMoveHandle = 1;
+      }
 </%perl>
-      <tr class='border' id="<% $row->id() %>">
-
+      <tr class='<% "@trClass" %>' id="<% $row->id() %>">
 %      foreach my $td (@{$row->elements()})      {
 <%perl>
           next unless ($td->HTMLViewer());
@@ -201,6 +210,10 @@ if ($checkAllProperty) {
           }
 </%perl>
         <td class='tcenter'>
+%          if ($addRowMoveHandle) {
+           <span class='moveRowHandle'></span>
+%              $addRowMoveHandle = 0;
+%         }
           <&
             $td->HTMLViewer(),
              @viewerParams
@@ -230,6 +243,17 @@ if ($checkAllProperty) {
     </tbody>
 </table>
 
+
+<script>
+$(function() {
+     Zentyal.stripe('#<% $tableName %>', 'even', 'odd');
+% if ($movableRows) {
+     <% $model->setSortableTableJS() %>
+% }
+});
+</script>
+
+
 <table class="bDataTable">
     <tr>
     <td class="tright">
@@ -237,7 +261,6 @@ if ($checkAllProperty) {
    model => $model,
    page => $page,
    tpages => POSIX::ceil($matches / $pageSize) - 1,
-   pageSize => $pageSize
 &>
     </td>
     </tr>
@@ -258,7 +281,7 @@ if ($checkAllProperty) {
 
 % unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %  if ( $action eq 'changeEdit' and $editid ) {
-<script>highlightRow('<% $editid %>', 1);</script>
+<script>Zentyal.TableHelper.highlightRow('<% $editid %>', 1);</script>
 %  }
 % }
 % # End body method
@@ -270,17 +293,13 @@ $tableName
 $model
 $filter => undef
 </%args>
-<table class="bDataTable">
-    <tr>
-        <td>
+<div class="bDataTable tableSearch">
          <& SELF:filterForm,
             tableName => $tableName,
             model     => $model,
             filter    => $filter,
          &>
-        </td>
-    </tr>
-</table>
+</div>
 </%method>
 
 <%method filterForm>
@@ -309,7 +328,7 @@ $filter
       name='filter'
       value="<% __('Search') %>"
       title="Apply"
-      onClick="setLoading('<%
+      onClick="Zentyal.TableHelper.setLoading('<%
                              $filterId
                             %>');
                 <%
@@ -607,13 +626,11 @@ $addAction
 $page
 </%args>
 <%init>
-my $actionLinksAdded = 0;
 my $tableName = $model->name();
 my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
-%   $actionLinksAdded = 1;
-  <a href='#' class='addNew'
+  <a href='#' class='btn addNew'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
@@ -621,10 +638,6 @@ my $checkAll  = $model->checkAllProperty();
                       page => $page,
                       isFilter => 0)
                 %>;return false"><% __('Add new') %></a>
-% }
-
-% if ($actionLinksAdded) {
-    <br/><br/>
 % }
 
 </%method>
@@ -703,7 +716,6 @@ $page
               onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
-                              '',
                               $page)
                        %>"
           />
@@ -744,111 +756,13 @@ $page
               onClick="<%
                           $model->actionClickedJS('clone',
                              $row->{id},
-                              '',
                               $page)
                        %>"
           />
 
 %      }
-
-%      if ($table->{'order'} and ($table->{'order'} == 1))
-%      {
-        <& SELF:.moveRowActions,
-            model => $model,
-            row => $row,
-
-            idx => $idx,
-            ids => \@ids,
-
-            page => $page,
-        &>
-%      }
-
 %    }
         </td>
-</%method>
-
-<%method .moveRowActions>
-<%args>
-$model
-$row
-
-$idx
-@ids
-
-$page
-</%args>
-
-<%perl>
-     my $rowReadOnly = $row->readOnly();
-     my ($prevRowRO, $nextRowRO);
-     my ($up_icon, $up_msg);
-     my ($down_icon, $down_msg);
-     my ($up_disabled, $down_disabled);
-
-     my $firstRow =  ($idx == 0);
-     if (not $firstRow) {
-         $prevRowRO = $model->isRowReadOnly($ids[$idx-1]);
-     }
-
-     if ($firstRow or $rowReadOnly or $prevRowRO) {
-         $up_disabled = 'disabled';
-         $up_icon = 'up-inactive.gif';
-         $up_msg = $firstRow ? __('Cannot move up')
-                             : __('Read-only row: move up disabled');
-     } else {
-         $up_disabled = '';
-         $up_icon = 'up.gif';
-         $up_msg = __('Move up');
-     }
-
-     my $lastRow = ($idx == $#ids);
-     if (not $lastRow) {
-           $nextRowRO = $model->isRowReadOnly($ids[$idx+1]);
-     }
-
-     if ($lastRow or $rowReadOnly or $nextRowRO) {
-         $down_disabled = 'disabled';
-         $down_icon = 'down-inactive.gif';
-         $down_msg = $lastRow ? __('Cannot move down')
-                              : __('Read-only row: move down  disabled');
-     } else {
-         $down_disabled = '';
-         $down_icon = 'down.gif';
-         $down_msg = __('Move down');
-     }
-</%perl>
- <input class='inputButton'
-     <% $up_disabled %>
-     type='image'
-     name='up'
-     value="Up"
-     title="<% $up_msg %>"
-     alt="Up"
-     src='/data/images/<% $up_icon  %>'
-     onClick="<%
-                $model->actionClickedJS('move',
-                    $row->{id},
-                   'up',
-                   $page)
-              %>"
- />
-
- <input  class='inputButton'
-     <% $down_disabled %>
-     type='image'
-     name='down'
-     value="Down"
-     title="<% $down_msg %>"
-     alt="Down"
-     src='/data/images/<% $down_icon %>'
-     onClick="<%
-                $model->actionClickedJS('move',
-                    $row->{id},
-                   'down',
-                   $page)
-              %>"
- />
 </%method>
 
 <%doc>
@@ -967,35 +881,6 @@ $changeView
         <td class="legendName">
         <% $edit_msg %>
         </td>
-%   }
-
-%   if (0 && $model->table()->{'order'} == 1 && $#ids > 1 ) {
-%       my $up_icon = 'up.gif';
-%       my $up_msg = __('Move up');
-%       my $down_icon = 'down.gif';
-%       my $down_msg = __('Move down');
-
-        <td>
-        <img
-            title="<% $up_msg %>"
-            alt="Up"
-            src='/data/images/<% $up_icon  %>'
-        />
-        </td>
-        <td class="legendName">
-        <% $up_msg %>
-        <td>
-
-        <td>
-        <img
-            title="<% $down_msg %>"
-            alt="Down"
-            src='/data/images/<% $down_icon  %>'
-        />
-        </td>
-        <td class="legendName">
-        <% $down_msg %>
-        <td>
 %   }
   </tr>
 </tbody></table>

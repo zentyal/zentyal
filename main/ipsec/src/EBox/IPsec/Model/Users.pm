@@ -70,6 +70,9 @@ sub validationGroup
 sub _populateGroups
 {
     my ($self) = @_;
+    my $global = $self->global();
+
+    return [] unless ($global->modExists('users'));
 
     my $userMod = EBox::Global->modInstance('users');
     return [] unless ($userMod->isEnabled());
@@ -80,7 +83,7 @@ sub _populateGroups
         printableValue => __('All users')
     });
 
-    foreach my $group (@{$userMod->groups()}) {
+    foreach my $group (@{$userMod->securityGroups()}) {
         my $name = $group->name();
         push (@groups, {
             value => $name,
@@ -101,8 +104,10 @@ sub _table
     my ($self) = @_;
     my $global = $self->global();
 
-    my @usersSourceSubtypes = ();
+    my @fields = ();
+    my @actions = ();
     if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
+        my @usersSourceSubtypes = ();
         push (@usersSourceSubtypes,
             new EBox::Types::Select(
                 fieldName     => 'group',
@@ -113,29 +118,39 @@ sub _table
                 disableCache  => 1,
             )
         );
-    }
-    push (@usersSourceSubtypes,
-        new EBox::Types::Union::Text(
-            fieldName => 'usersFile',
-            printableName => __('Manual list of users'),
-        )
-    );
+        push (@usersSourceSubtypes,
+            new EBox::Types::Union::Text(
+                fieldName => 'usersFile',
+                printableName => __('Manual list of users'),
+            )
+        );
 
-    my @fields = (
-        new EBox::Types::Union(
-            fieldName  => 'usersSource',
-            printableName => __('Users Source'),
-            editable => 1,
-            subtypes => \@usersSourceSubtypes,
-            help => __('Selects the provider for the users allowed to use the VPN. To use the existing user accounts' .
-                       ' you will need to activate "File sharing" module to enable the Active Directory'),
-        )
-    );
+        @fields = (
+            new EBox::Types::Union(
+                fieldName  => 'usersSource',
+                printableName => __('Users Source'),
+                editable => 1,
+                subtypes => \@usersSourceSubtypes,
+                help => __('Selects the provider for the users allowed to use the VPN.'),
+            )
+        );
+
+        @actions = ('add', 'del', 'editField', 'changeView');
+    } else {
+        @fields = (
+            new EBox::Types::Text(
+                fieldName  => 'usersSource',
+                printableName => __('The list of users allowed to connecto to VPN must be handled manually'),
+                help => __('To use the existing system user accounts you will need to activate "File sharing" module ' .
+                           'to enable the Active Directory'),
+            )
+        );
+    }
 
     my $dataTable = {
         tableName => 'Users',
         printableTableName => __('L2TP/IPSec users source'),
-        defaultActions => ['add', 'del', 'editField', 'changeView' ],
+        defaultActions => \@actions,
         tableDescription => \@fields,
         class => 'dataTable',
         modelDomain => 'IPsec',

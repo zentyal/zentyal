@@ -14,21 +14,11 @@
 % } else {
       class='summary_value'
 % }
-     >
-      <% $item->{value} %>
-  </td>
+     ><% $item->{value} %></td>
 
 % if ($item->{value_type} eq 'ajax') {
   <script>
-    new Ajax.Request('<% $item->{ajax_url} %>', {
-        data: '',
-        onSuccess: function(response) {
-            var container = $('<% $container_id %>');
-            container.className = 'summary_value';
-            container.addClassName('summary_' + response.responseJSON.type);
-            container.innerHTML = response.responseJSON.value;
-        }
-    });
+    Zentyal.Dashboard.updateAjaxValue('<% $item->{ajax_url} %>', '<% $container_id %>');
   </script>
 % }
 </tr>
