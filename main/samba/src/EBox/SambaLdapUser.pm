@@ -746,5 +746,13 @@ sub multipleOUSupport
     return 1;
 }
 
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'Builtin' ];
+}
 
 1;

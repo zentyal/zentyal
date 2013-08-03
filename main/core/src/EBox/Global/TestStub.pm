@@ -80,6 +80,12 @@ sub fake
     mkdir ($tmpEtcDir);
     ($? == 0) or die ("Can not create the temporally test dir $tmpEtcDir");
 
+    my @confdirs = `find . -name conf`;
+    chomp (@confdirs);
+    for my $dir (@confdirs) {
+        system ("cp -r $dir/* $tmpEtcDir");
+    }
+
     EBox::TestStub::fake();
     EBox::Config::TestStub::fake(
         modules => $ENV{ZENTYAL_MODULES_SCHEMAS},

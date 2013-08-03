@@ -78,8 +78,7 @@ sub childNodes
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
-            # Hide Kerberos OU as it's not useful for the user to keep the UI simple
-            next if ($printableName eq 'Kerberos');
+            next if ($self->_hiddenOU($printableName));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($usingSamba and $self->_hiddenSid($child));
 
@@ -186,6 +185,17 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     return __('You must enable the module Users in the module status section in order to use it.');
+}
+
+sub _hiddenOU
+{
+    my ($self, $ou) = @_;
+
+    unless ($self->{ousToHide}) {
+        $self->{ousToHide} = { map { $_ => 1 } @{$self->parentModule()->ousToHide()} };
+    }
+
+    return $self->{ousToHide}->{$ou};
 }
 
 sub _hiddenSid

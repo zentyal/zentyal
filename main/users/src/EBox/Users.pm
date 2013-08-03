@@ -2407,4 +2407,17 @@ sub defaultNamingContext
     return new EBox::Users::NamingContext(dn => $ldap->dn());
 }
 
+sub ousToHide
+{
+    my ($self) = @_;
+
+    my @ous;
+
+    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::LdapModule')}) {
+        push (@ous, @{$mod->_ldapModImplementation()->hiddenOUs()});
+    }
+
+    return \@ous;
+}
+
 1;
