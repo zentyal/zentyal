@@ -119,6 +119,8 @@ $(function () {
         var metadata = selectedNode.data();
         var nodeType = $.jstree._focused()._get_type(selectedNode);
 
+        $('#<% $treeViewerId %>').html('');
+
 % foreach my $type (keys %types) {
 %   next unless $types{$type}->{actions}->{edit};
 %   my $link = $model->clickHandlerJS($type);
