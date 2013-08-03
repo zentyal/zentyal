@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2013-04-02 09:24+0200\n"
+"PO-Revision-Date: 2013-06-11 21:07+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -81,9 +81,8 @@ msgid "Categorized Lists"
 msgstr "Llistes per categories"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:79
-#, fuzzy
 msgid "categorized list"
-msgstr "Categories"
+msgstr "llistes per categories"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid ""
@@ -128,7 +127,6 @@ msgid "Source"
 msgstr "Origen"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
-#, fuzzy
 msgid "Network Object"
 msgstr "Objecte de xarxa"
 
@@ -222,25 +220,26 @@ msgstr "Tots els usuaris"
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
 msgstr ""
+"No disponible l'obtenció del tiquet de Kerberos per enllaçar amb LDAP: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:175
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "No es pot configurar l'objecte SASL: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:183
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "No es pot configurar l'objecte LDAP: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "El server AD LDAP no suporta GSSAPI"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:198
 #, perl-brace-format
 msgid "Could not bind to AD LDAP server '{x}'. Error was '{y}'"
-msgstr ""
+msgstr "No es pot vincular al server AD LDAP'{x}'. L'error era '{y}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:317
 msgid ""

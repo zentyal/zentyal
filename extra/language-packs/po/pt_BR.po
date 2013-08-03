@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-03-22 12:40+0200\n"
-"Last-Translator: flaviove <flaviove@gmail.com>\n"
+"PO-Revision-Date: 2013-07-31 17:34+0200\n"
+"Last-Translator: Jorge <jorge@netsol.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -99,6 +99,8 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Não é possivel utilizar {name} pois já existe a pasta: {dir}. \n"
+"Sobrescrever?"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Time period"
@@ -216,21 +218,21 @@ msgstr "Todos os usuários"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:167
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
-msgstr ""
+msgstr "Não é possivél obter o ticket Kerberos para se ligar ao LDAP: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:175
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "Não foi possível configurar o objeto SASL: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:183
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "Não foi possível configurar o objeto LDAP: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "Servidor AD LDAP não suporta GSSAPI"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:198
 #, perl-brace-format
@@ -722,7 +724,7 @@ msgstr "Espaços não são permitidos em nomes de perfis."
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "O caráter '~' é reservado e não pode ser usado em nomes de perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -1101,7 +1103,7 @@ msgstr "Arquivo inexistente"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
-msgstr ""
+msgstr "Arquivo fornecido não tem lista de estrutura correta"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:97
 #, perl-brace-format

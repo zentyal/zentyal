@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-05-21 09:49+0200\n"
+"PO-Revision-Date: 2013-06-03 12:27+0200\n"
 "Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -77,20 +77,20 @@ msgstr "HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid.pm:1369
-#, fuzzy
 msgid "Categorized Lists"
-msgstr "Kategorier"
+msgstr "Kategoriserte Lister"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:79
-#, fuzzy
 msgid "categorized list"
-msgstr "Kategorier"
+msgstr "kategoriserte lister"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
+"Du kan laste opp filer med kategoriserte lister med domener. Du vil få "
+"muligheten til å filtrere de kategoriene i hver filter profil."
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:139
 #, perl-brace-format
@@ -99,15 +99,17 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Kan ikke bruke navn {name} fordi det er allerede en mappe for dette "
+"navnet:{dir}.\n"
+"Kansje en uforpliktet fjerning?"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Time period"
 msgstr "Tids periode"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
-#, fuzzy
 msgid "Time period when the rule is applied"
-msgstr "Tids rommet tilgang er tillatt. Det er ignorert med en nektet instruks"
+msgstr "Tidsrommet regelen er gjeldende"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:55
 #: ../../main/firewall/src/EBox/Firewall.pm:738
@@ -121,31 +123,17 @@ msgstr "Tids rommet tilgang er tillatt. Det er ignorert med en nektet instruks"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:46
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
 #: ../../main/core/src/EBox/Events.pm:435
-#, fuzzy
 msgid "Source"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-"Kile\n"
-"#-#-#-#-#  nb.po (ebox-ids 1.1)  #-#-#-#-#\n"
-"Kilde\n"
-"#-#-#-#-#  nb.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
-"Kilde\n"
-"#-#-#-#-#  nb.po (ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"Kilde\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Kilde"
+msgstr "Kilde"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
-#, fuzzy
 msgid "Network Object"
-msgstr "Nettverks objekt"
+msgstr "Nettverks Objekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:109
-#, fuzzy
 msgid "Users Group"
-msgstr "Bruker/Gruppe"
+msgstr "Bruker Gruppe"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -165,18 +153,8 @@ msgstr "Bruker/Gruppe"
 #: ../../main/core/src/EBox/Types/Service.pm:182
 #: ../../main/core/src/EBox/Types/PortRange.pm:286
 #: ../../main/services/src/EBox/Services.pm:86
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-network 0.12.99)  #-#-#-#-#\n"
-"Hvilken som helst\n"
-"#-#-#-#-#  nb.po (ebox-firewall 0.12.99)  #-#-#-#-#\n"
-"Hvilken som helst\n"
-"#-#-#-#-#  nb.po (ebox-trafficshaping 0.12.99Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"Hvilken som helst\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Noen"
+msgstr "Hvilken som helst"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:41
@@ -189,26 +167,22 @@ msgstr "Valg"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:88
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
-#, fuzzy
 msgid "Allow All"
-msgstr "Tillat"
+msgstr "Tillat Alle"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
-#, fuzzy
 msgid "Deny All"
-msgstr "Avvis"
+msgstr "Avvis Alle"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:96
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Filter Profiler"
+msgstr "Utfør Filter Profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:109
 #: ../../main/squid/src/EBox/Squid.pm:1363
-#, fuzzy
 msgid "Access Rules"
-msgstr "Tilgangs forespørsler"
+msgstr "Tilgangs Regler"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:117
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:197
@@ -227,13 +201,12 @@ msgid "rule"
 msgstr "regel"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:118
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Her kan du globalt blokkere eller tillate tilgang per bruker gruppe. Filter "
-"alternativer vil være per global instruks eller per objekt instruks"
+"Her kan du filtrere, blokkere eller tillate tilgang per bruker gruppe eller "
+"nettverks gruppe. Regler er kun gjeldende i valgt tidsrom."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:135
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:102

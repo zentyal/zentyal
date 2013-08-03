@@ -9,13 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-07-28 22:25+0200\n"
-"Last-Translator: bsener <blntsnr@ymail.com>\n"
+"PO-Revision-Date: 2013-06-12 13:37+0200\n"
+"Last-Translator: neo <nurettinemreozbakir@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
-"Language: \n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -53,7 +55,7 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:243
 #: ../../main/ca/src/templates/index.mas:97
 msgid "Name"
-msgstr "Adı "
+msgstr "Adı"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:52
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:650
@@ -80,13 +82,15 @@ msgstr "Sınıflandırılmış Listeler"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:79
 msgid "categorized list"
-msgstr "sınıflandırılmış liste"
+msgstr "Sınıflandırılmış liste"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
-msgstr "Alan adlarına göre sınıflandırılmış dosyaları yükleyebilirsiniz. "
+msgstr ""
+"Alan adlarına göre sınıflandırılmış dosyaları yükleyebilirsiniz. Her bir "
+"filtre profilinde bu sınıflandırmaları filtrelemek mümkün olacaktır."
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:139
 #, perl-brace-format
@@ -95,15 +99,16 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"{name} ismini kullanamazsınız, {dir} isimde bir klasör zaten mevcut \n"
+"Belkide hatalı bir kaldırmadır?."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Time period"
-msgstr "Zaman devresi"
+msgstr "Zaman dilimi"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
-#, fuzzy
 msgid "Time period when the rule is applied"
-msgstr "Bu kuralın geçerli olacağı zaman devresi"
+msgstr "Bu kuralın geçerli olacağı zaman dilimi"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:55
 #: ../../main/firewall/src/EBox/Firewall.pm:738
@@ -127,7 +132,7 @@ msgstr "Ağ Nesnesi"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:109
 msgid "Users Group"
-msgstr "Kullanıcı/Grup"
+msgstr "Kullanıcı Grupları"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -162,7 +167,7 @@ msgstr "Karar"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:88
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
-msgstr "Tümünü kabul et"
+msgstr "Tümüne izin ver"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
@@ -199,8 +204,8 @@ msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Kullanıcı grupları veya ağ nesnelerine göre süzme,engelleme veya kabul etme "
-"kuralları uygulayabilirsiniz. Kurallar seçili zaman devresi için geçerli "
+"Kullanıcı grupları veya ağ nesnelerine göre süzme, engelleme veya izin verme "
+"kurallarını uygulayabilirsiniz. Kurallar seçili zaman dilimi için geçerli "
 "olacaktır."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:135
@@ -213,43 +218,48 @@ msgstr "Tüm Kullanıcılar"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:167
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
-msgstr ""
+msgstr "LDAP a bağlanmak için kerberos etiketi alınamıyor: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:175
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "SASL nesne kurulumu yapılamıyor: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:183
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "LDAP nesne kurulumu yapılamıyor: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "AD LDAP sunucusu GSSAPI yı desteklemiyor"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:198
 #, perl-brace-format
 msgid "Could not bind to AD LDAP server '{x}'. Error was '{y}'"
-msgstr ""
+msgstr "AD LDAP sunucusuna bağlanılamıyor '{x}'. Hata '{y}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:317
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr "Saydam vekil sunucu aktifken kullanıcı bazında işlem yapılamaz."
+msgstr ""
+"Kullanıcı grubu ile eşleşen kaynak, şeffaf proxy modu ile uyumlu değildir"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:348
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Eğer grup kuralları varsa bir 'İzin Ver' veya bir nesne ya da herhangi bir "
+"adres için 'Profil' kuralı ekleyemezsiniz"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:353
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Eğer bir 'İzin Ver' veya bir 'Profil' kuralı var ise herhangi bir adres "
+"ekleyemezsiniz"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:363
 #, perl-brace-format

@@ -9,16 +9,16 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2012-08-14 08:07+0200\n"
-"Last-Translator: DGV <dgv@bigmir.net>\n"
+"PO-Revision-Date: 2013-07-23 20:20+0200\n"
+"Last-Translator: Plume <solomko.v@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Pootle 2.1.4\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -106,10 +106,8 @@ msgid "Time period"
 msgstr "Период времени"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
-#, fuzzy
 msgid "Time period when the rule is applied"
-msgstr ""
-"Период времени, когда доступ разрешен. Игнорируется если политика запрета"
+msgstr "Период времени, когда правило активно."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:55
 #: ../../main/firewall/src/EBox/Firewall.pm:738
@@ -127,9 +125,8 @@ msgid "Source"
 msgstr "Источник"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
-#, fuzzy
 msgid "Network Object"
-msgstr "Сетевой объект"
+msgstr "Объект сети"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:109
@@ -177,9 +174,8 @@ msgid "Deny All"
 msgstr "Запретить все"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:96
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Профили фильтра"
+msgstr "Применить профиль фильтра"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:109
 #: ../../main/squid/src/EBox/Squid.pm:1363
@@ -203,14 +199,13 @@ msgid "rule"
 msgstr "правило"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:118
-#, fuzzy
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
-"Здесь можно глобально заблокировать или разрешить доступ по пользовательским "
-"группам. Настройки фильтра могут быть в глобальной политике или политике "
-"объекта"
+"Здесь вы можете фильтровать, блокировать или разрешать доступ для группы "
+"пользователей или сетевого объекта. Правила применяются только на выбранный "
+"период времени."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:135
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:102

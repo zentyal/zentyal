@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2013-05-05 00:08+0200\n"
-"Last-Translator: Pascal <pizzer1@gmx.de>\n"
+"PO-Revision-Date: 2013-07-01 20:01+0200\n"
+"Last-Translator: Daniel <daniel@stoni.ch>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -78,11 +78,11 @@ msgstr "HTTP-Proxy"
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid.pm:1369
 msgid "Categorized Lists"
-msgstr "Kategoriesierte Listen"
+msgstr "Kategorisierte Listen"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:79
 msgid "categorized list"
-msgstr "Kategoriesierte Liste"
+msgstr "Kategorisierte Liste"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid ""
@@ -103,6 +103,7 @@ msgstr ""
 "Namen {dir} vorhanden ist.\n"
 "Ohne Rückfrage löschen?"
 
+# correct!
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Time period"
 msgstr "Zeitrahmen"
@@ -153,17 +154,8 @@ msgstr "Benutzergruppe"
 #: ../../main/core/src/EBox/Types/Service.pm:182
 #: ../../main/core/src/EBox/Types/PortRange.pm:286
 #: ../../main/services/src/EBox/Services.pm:86
-#, fuzzy
 msgid "Any"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Jede/r\n"
-"#-#-#-#-#  de.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Alle\n"
-"#-#-#-#-#  de.po (ebox-trafficshaping 0.12.2)  #-#-#-#-#\n"
-"Alle\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Jeder"
+msgstr "Jede/r"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:41
@@ -176,13 +168,15 @@ msgstr "Entscheidung"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:88
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
+#, fuzzy
 msgid "Allow All"
 msgstr "Alle Erlauben"
 
+# correct
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
-msgstr "Alle Verweigern"
+msgstr "Alle verweigern"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:96
 msgid "Apply Filter Profile"
@@ -228,46 +222,49 @@ msgstr "Alle Benutzer"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:167
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
-msgstr ""
+msgstr "Nicht möglich Kerberos ticket mit LDAP zu verknüpfen."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:175
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "Einrichten von SASL-Objekt nicht möglich: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:183
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "LDAP-Object einrichten nicht möglich: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "ActiveDirectory LDAP-Server unterstützt kein GSSAPI."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:198
 #, perl-brace-format
 msgid "Could not bind to AD LDAP server '{x}'. Error was '{y}'"
-msgstr ""
+msgstr "Keine Verknüpfung zu ActiveDirectory LDAP-Server '{x}'. Fehler: '{y}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:317
-#, fuzzy
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
-"Benutzer-Gruppen-Regeln sind nicht kompatibel mit dem transparenten Proxy-"
-"Modus"
+"Quellenzuordnung durch Benutzer-Gruppen-Regeln sind nicht kompatibel mit dem "
+"transparenten Proxy-Modus"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:348
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Sie können keine 'Zulassen'- oder 'Profil'-Regel für ein Object oder eine "
+"Adresse hinzufügen, wenn Gruppenregeln existieren"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:353
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Sie können keine Grupperegeln hinzufügen, wenn 'Zulassen'- oder "
+"'Profil'-Regeln für Objekte oder Adressen definiert sind."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:363
 #, perl-brace-format
@@ -275,23 +272,16 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"Die Zeitdauer der Regel ({t1}) überlappt mit der Zeitdauer ({t2}) andere "
+"Regel für die gleiche {sourceType}."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:626
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Objekt\n"
-"#-#-#-#-#  de.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Computergruppe\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Objekt\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Computergruppe\n"
-"#-#-#-#-#  de.po (ebox-objects 0.12)  #-#-#-#-#\n"
-"Computergruppe"
+msgstr "Objekt: {o}"
 
+# correct
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:628
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
 #, perl-brace-format
@@ -321,7 +311,7 @@ msgstr "Verweigern"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 msgid "Domain or IP address part of URL"
-msgstr "Domäne oder IP-Adressenteil der URL"
+msgstr "Domänen- oder IP-Adressenteil der URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:92
 #: ../../main/squid/src/EBox/Squid.pm:1421
@@ -378,9 +368,8 @@ msgid "Domain Name Address"
 msgstr "Domänen-Namen-Adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Transparenter Proxy"
+msgstr "überspringe Transparenter Proxy."
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
 msgid "Transparent Proxy Exemptions"
@@ -448,7 +437,6 @@ msgstr "Größe der Cache-Datei (MB)"
 #: ../../main/squid/src/EBox/Squid.pm:1360
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
 msgstr "Allgemeine Einstellungen"
 
@@ -466,10 +454,10 @@ msgstr ""
 "Regeln in Zugangsregeln"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
 msgstr ""
-"Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-Regeln"
+"Die Auswahl des transparenten Proxy ist nicht kompatibel mit Berechtigungs-"
+"Regeln."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -752,6 +740,8 @@ msgstr "in Profilnamen sind keine Leerzeichen erlaubt"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
+"Die '~' Zeichen sind reserviert und können nicht in Profil-Namen verwendet "
+"werden."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -780,7 +770,7 @@ msgid "Filtering settings changed"
 msgstr "Filter-Einstellungen geändert"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
@@ -791,6 +781,8 @@ msgstr ""
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Wenn globale Limits eingeschaltet ist, muss die Größe und Rate definiert "
+"werden."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:66
 msgid ""
@@ -803,6 +795,8 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Die Per-Client-Rate ({clt_rate} KB/s) kann nicht größer sein als die globale "
+"Rate ({net_rate} KB/s)."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:129
 msgid "Network object"
@@ -831,14 +825,12 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:149
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:173
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:96
-#, fuzzy
 msgid "MB"
-msgstr "M"
+msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "max. Übertragungsrate zum Client bei Begrenzung"
+msgstr "max. Übertragungsrate"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:155
 msgid ""
@@ -857,45 +849,37 @@ msgid "Enable per client limit"
 msgstr "Aktiviere Papierkorb"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:169
-#, fuzzy
 msgid "Maximum unlimited size per client"
-msgstr "Maximale Nachrichtengrösse überschritten"
+msgstr "Maximale unbeschränkte Größe je Client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:170
-#, fuzzy
 msgid "Maximum unthrottled download size for each client."
-msgstr ""
-"Maximale Downloadgröße aus diesem Netzwerk bis Begrenzung aktiv wird . -1 "
-"zum deaktivieren der Option."
+msgstr "Maximale ungedrosselte Downloadgröße für jeden Client."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:177
-#, fuzzy
 msgid "Maximum download rate per client"
-msgstr ""
-"Maximale Download-Bandbreite je Client bei Begrenzung. -1 zum deaktivieren "
-"der Option."
+msgstr "Maximale Download-Bandbreite je Client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:178
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
+"Begrenzte Download-Rate, wenn die maximale Größe für jeden Client erreicht "
+"ist."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:187
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
-msgstr "Bandbreitenbegrenzung"
+msgstr "Bandbreitenbegrenzungsregeln"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:195
-#, fuzzy
 msgid ""
 "Bandwith throttling allows you to control download rates for connections "
 "going though the HTTP proxy. The first rule to match is applied. If a "
 "connection doesn't match any rule, then no bandwidth throttling is applied."
 msgstr ""
-"Die Geschwindigkeiten von durch den HTTP-Proxy gehenden Downloads können "
-"begrenzt werden. Klasse 1-Regeln arbeiten auf Netzwerkebene, Klasse 2-Regeln "
-"auf Client-Ebene. Klasse 1-Regelen haben eine höhere Priorität als solche "
-"der Klasse 2. Falls auf eine Verbindung keinerlei Regel zutrifft wird keine "
-"Geschwindigkeits-Drosselung durchgeführt."
+"Die Bandbreitenbegrenzung erlaubt Ihnen, die Übertragungsraten für "
+"Verbindungen, die über den HTTP-Proxy laufen, zu steuern. Sobald die erste "
+"Regel zutrifft, wird diese angewendet. Falls für eine Verbindung keine Regel "
+"zutrifft, erfolgt keine  Bandbreitenbegrenzung."
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:39
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
@@ -960,7 +944,7 @@ msgstr "Sehr großzügig"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:66
 msgid "Permissive"
-msgstr "Etwas großzügig"
+msgstr "großzügig"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 msgid "Medium"
@@ -979,13 +963,12 @@ msgid "Exempt address from caching"
 msgstr "Adresse vom Zwischenspeichern ausschließen"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
-#, fuzzy
 msgid "Cache Exemptions"
 msgstr "Ausnahmen von Zwischenspeicherung"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
 msgid "You can exempt some addresses from caching"
-msgstr "Sie können Adressen vom Zwischenspeichern ausschließen"
+msgstr "Sie können Adressen von der Zwischenspeicherung ausschließen"
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:42
 msgid "Squid traffic requests graph"
@@ -1000,10 +983,10 @@ msgstr "Zugriffs-Anforderungen"
 msgid "Category"
 msgstr "Kategorie"
 
+# Hier fehlt der Zusammenhang für eine eindeutige Übersetzung
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
-#, fuzzy
 msgid "List File"
-msgstr "Horchen"
+msgstr "Datei auflisten"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
 #, fuzzy
@@ -1011,7 +994,6 @@ msgid "File Present"
 msgstr "Horchen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
-#, fuzzy
 msgid "Domain categories"
 msgstr "Domänenliste-Kategorien"
 
@@ -1024,6 +1006,8 @@ msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
+"Es sind keine Kategorien definiert. Sie müssen kategorisierte Datei-Listen "
+"hinzufügen, wenn Sie nach Kategorie filtern möchten."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1747
@@ -1052,7 +1036,6 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:218
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Master.pm:75
-#, fuzzy
 msgid "None"
 msgstr ""
 "#-#-#-#-#  de.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
@@ -1088,7 +1071,7 @@ msgstr "Dateiendungen"
 #: ../../main/asterisk/src/EBox/Asterisk/Model/Meetings.pm:147
 #: ../../main/asterisk/src/EBox/Asterisk/Model/Meetings.pm:154
 msgid "extension"
-msgstr "Rufnummer"
+msgstr "Erweiterung"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:144
 msgid ""
@@ -1125,7 +1108,6 @@ msgid "Settings"
 msgstr "Einstellungen"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:59
-#, fuzzy
 msgid "Domains and URLs"
 msgstr "Domänen- und URL-Regeln"
 
@@ -1135,23 +1117,21 @@ msgid "HTTP proxy traffic report"
 msgstr "HTTP-Proxy Traffic Bericht"
 
 #: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:76
-#, fuzzy
 msgid "HTTP proxy access rules"
 msgstr "Zwischenspeicher des HTTP-Proxy-Dienstes"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not a archive file"
 msgstr "Nicht vorhandende Archiv-Datei"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
-msgstr ""
+msgstr "Bereitgestelltes Dateiarchiv hat keine korrekte Listen-Struktur."
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid .tar.gz file: {f}"
-msgstr "Ungültiger Mailboxtyp: {type}"
+msgstr "Ungültige .tar.gz-Datei: {f}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "M"
@@ -1159,11 +1139,11 @@ msgstr "M"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "T"
-msgstr "D"
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "W"
-msgstr "M"
+msgstr "W"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "H"
@@ -1240,22 +1220,22 @@ msgstr "Sie müssen zwei verschiedene Stunden für den Bereich angeben"
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:408
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr "Ungünstige Stunde des Tages Wert: {h}"
+msgstr "Ungünstige Stunde des Tages-Wert: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:414
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr "Ungünstige Stunde des Tages Format: {h}"
+msgstr "Ungünstige Stunde des Tages-Format: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:421
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr "Ungünstige Minuten Wert: {mi}"
+msgstr "Ungünstiger Minuten-Wert: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:427
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr "falsches Minuten  Format: {mi}"
+msgstr "falsches Minuten-Format: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:439
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:445
@@ -1272,7 +1252,6 @@ msgid "Front HTTP Proxy configuration file"
 msgstr "Konfigurationsdatei des HTTP-Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:200
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
 msgstr "Konfigurationsdatei des HTTP-Proxy"
 
@@ -1706,14 +1685,12 @@ msgid "revoked"
 msgstr "Widerrufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:336
-#, fuzzy
 msgid "expired"
 msgstr "Abgelaufen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:338
-#, fuzzy
 msgid "invalid"
-msgstr "Gültig"
+msgstr "ungültig"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:343
 #, perl-brace-format
@@ -3466,12 +3443,11 @@ msgid "Domain Name Service"
 msgstr "Domänen-Namen-Server"
 
 #: ../../main/dns/src/EBox/DNS.pm:974
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Zusammengefasste Haupteinstellungen"
+msgstr "Schlüssel '{key}' in Konfigurations-Datei {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1773
-#, fuzzy
 msgid "hostname"
 msgstr "Computername (Host)"
 
@@ -3481,9 +3457,9 @@ msgid "alias"
 msgstr "Alias"
 
 #: ../../main/dns/src/EBox/DNS.pm:1899
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Ein Rechner mit dem Namen {host} existiert bereits in dieser Zentyal"
+msgstr "Ein Rechner mit dem Namen {host} existiert bereits in der Domain {y}"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -4390,9 +4366,8 @@ msgstr ""
 "Eingeben"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
-#, fuzzy
 msgid "Small Business"
-msgstr "alle Dienste"
+msgstr "Klein- und Kleinstunternehmen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
 #, fuzzy
@@ -4694,10 +4669,11 @@ msgstr "Softwareaktualisierungen aufgrund des QA (Quality Assurance) Prozesses"
 msgid "Latest QA software update"
 msgstr "Automatische Softwareaktualisierungen"
 
+# Correct translation
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:127
 #, fuzzy, perl-brace-format
 msgid "{date}. {num} updated packages"
-msgstr "Alle Pakete aktualisieren"
+msgstr "{date}. {num} aktualisierte Pakete"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:132
 msgid "No update has been done"
@@ -4776,7 +4752,6 @@ msgid "Data to back up"
 msgstr "Datenbankfehler"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:138
-#, fuzzy
 msgid "data domain"
 msgstr "Statische Domain"
 
@@ -4911,9 +4886,8 @@ msgid "Password"
 msgstr "Passwort"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
-#, fuzzy
 msgid "Available Options"
-msgstr "verfügbar"
+msgstr "verfügbare Optionen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Select one of your purchases"
@@ -4940,16 +4914,14 @@ msgid "Register"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:607
-#, fuzzy
 msgid " module"
-msgstr " Modul"
+msgstr " Modul(e)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " and "
 msgstr " und "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
-#, fuzzy
 msgid " modules"
 msgstr " Module"
 
@@ -5294,9 +5266,10 @@ msgid "No ebox-services DNS key found"
 msgstr "Keine Zentyal-Service Chiffrierschlüssel für DNS gefunden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:246
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Server {s} not found via DNS server {d}. Reason: {r}"
-msgstr "Server {s} konnte mir dem DNS Server {d} nicht gefunden werden "
+msgstr ""
+"Server {s} konnte mir dem DNS Server {d} nicht gefunden werden.  Grund: {r}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:384
 msgid "Cannot create SOAP connection"
@@ -5465,9 +5438,8 @@ msgid "Last name"
 msgstr "Nachname"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:98
-#, fuzzy
 msgid "Phone number"
-msgstr "eine Stunde"
+msgstr "Telefonnummer"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:99
 #, fuzzy
@@ -5549,7 +5521,6 @@ msgid "operations performed"
 msgstr "Änderungen ausgeführt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/DisasterRecovery.pm:31
-#, fuzzy
 msgid "Recover from a disaster"
 msgstr "Geschätzte Zeit zur Durchführung der Wiederherstellung "
 
@@ -5562,9 +5533,8 @@ msgstr "Zentyal Cloud"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
-#, fuzzy
 msgid "Bandwidth Monitor"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreiten-Übersicht"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:301
 #: ../../main/samba/src/EBox/Samba.pm:1342
@@ -5574,9 +5544,8 @@ msgid "Client address"
 msgstr "Clientadresse"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:304
-#, fuzzy
 msgid "External recv"
-msgstr "{iface} externe Netzwerkkarte"
+msgstr "Externe Wiederherstellung"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:305
 #, fuzzy
@@ -5680,9 +5649,8 @@ msgid "Internal out"
 msgstr "Intern"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:86
-#, fuzzy
 msgid "Last hour bandwidth usage"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreiten-Nutzung in der letzten Stunde"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "There is no data to show yet, the values are updated every 10 minutes"
@@ -5926,9 +5894,8 @@ msgid "Time"
 msgstr "Zeit"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:141
-#, fuzzy
 msgid "Extend bandwidth quota"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Erweiterte Bandbreiten-Anteil"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:144
 msgid "Reset bandwith limit"
@@ -6040,7 +6007,6 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:95
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:49
 #: ../../main/captiveportal/src/templates/useraddon.mas:18
-#, fuzzy
 msgid "Bandwidth quota"
 msgstr "Bandbreitenbegrenzung "
 
@@ -6066,9 +6032,8 @@ msgid "Period"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:131
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "Bandbreitenbegrenzung "
+msgstr "Bandbreiten-Einstellungen"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:135
 #, fuzzy
@@ -6353,7 +6318,6 @@ msgstr "Symmetrischer Schlüssel"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:29
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/FileNotFoundInBackup.pm:31
-#, fuzzy
 msgid "unknown"
 msgstr "Unbekannt"
 
@@ -6430,14 +6394,15 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1393
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid " {target} exists and is not longer a directory"
-msgstr "Datei existiert bereits und ist kein Verzeichnis"
+msgstr " {target} existiert und ist nicht mehr ein Verzeichnis"
 
+# Is Correct!
 #: ../../main/ebackup/src/EBox/EBackup.pm:1440
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{target} is not mounted"
-msgstr "Die Seite wurde nicht gefunden"
+msgstr "{target} wurde nicht gefunden"
 
 #: ../../main/ebackup/src/EBox/EBackup.pm:1446
 #, perl-brace-format
@@ -6509,9 +6474,8 @@ msgid "add row"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:332
-#, fuzzy
 msgid "edit row"
-msgstr "Gruppe bearbeiten"
+msgstr "Reihe bearbeiten"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:334
 #, fuzzy
@@ -6588,9 +6552,8 @@ msgid "Weekly"
 msgstr "wöchentlich"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:250
-#, fuzzy
 msgid "Twice a month"
-msgstr "1 Monat"
+msgstr "zweimal im Monat"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:256
 msgid "Monthly"
@@ -6805,18 +6768,17 @@ msgid "Directory for backup"
 msgstr "Verzeichnis für Absicherung"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:792
-#, fuzzy
 msgid "Cannot use the / directory as target"
-msgstr "relativer Pfad"
+msgstr "Kann nicht das / Verzeichnis als Ziel wählen"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:801
 msgid "File exists and it is not a directory"
 msgstr "Datei existiert bereits und ist kein Verzeichnis"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:811
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Cannot read parent directory {d}"
-msgstr "relativer Pfad"
+msgstr "Kann das übergeordnete Verzeichnis {d} nicht lesen."
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:825
 msgid ""
@@ -7609,9 +7571,8 @@ msgstr ""
 "hinzugefügt wird.  "
 
 #: ../../main/network/src/EBox/Network.pm:138
-#, fuzzy
 msgid "Disable IPv6"
-msgstr "deaktiviert"
+msgstr "IPv6 deaktiviert"
 
 #: ../../main/network/src/EBox/Network.pm:139
 msgid ""
@@ -7789,14 +7750,12 @@ msgstr ""
 "Läuft"
 
 #: ../../main/network/src/EBox/Network.pm:3948
-#, fuzzy
 msgid "external"
 msgstr "Extern"
 
 #: ../../main/network/src/EBox/Network.pm:3950
-#, fuzzy
 msgid "internal"
-msgstr "Extern"
+msgstr "Intern"
 
 #: ../../main/network/src/EBox/Network.pm:3956
 msgid "link ok"
@@ -8385,7 +8344,7 @@ msgid "Gateway {gw} disconnected"
 msgstr "Gateway {gw} verbunden"
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:345
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
 msgstr ""
@@ -8499,9 +8458,8 @@ msgid "Internal Network"
 msgstr "Interne Netzwerke"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:76
-#, fuzzy
 msgid "Bridged to"
-msgstr "mit Netzwerk-Brücke"
+msgstr "Netzwerk-Brücke zu"
 
 #: ../../main/virt/src/EBox/Virt/Model/NetworkSettings.pm:83
 #, fuzzy
@@ -8783,19 +8741,19 @@ msgid ""
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:334
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} '{img}' does not exist"
-msgstr "ISO Datei '{img}' ist nicht vorhanden"
+msgstr "{name} '{img}' ist nicht vorhanden"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:339
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} '{img}' is not readable"
-msgstr "Datenbank Abbilddatei {file} ist nicht lesbar"
+msgstr "{name} '{img}' ist nicht lesbar"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:345
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} '{img}' is not writable"
-msgstr "ISO Datei '{img}' ist nicht vorhanden"
+msgstr "{name} '{img}' ist nicht beschreibbar"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:98
 #, fuzzy
@@ -9067,9 +9025,8 @@ msgstr ""
 "benötigten Dateien im Ordner {path}"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:417
-#, fuzzy
 msgid "thin client option"
-msgstr "Thin Client"
+msgstr "Thin Client Optionen"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:116
 #, perl-brace-format
@@ -9484,7 +9441,6 @@ msgid "Confirm Password"
 msgstr "Passwort bestätigen"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AutoLogin.pm:76
-#, fuzzy
 msgid "user and pass"
 msgstr "Benutzer und Passwort"
 
@@ -9530,9 +9486,8 @@ msgid "Image Creation"
 msgstr "Client Konfiguration"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:132
-#, fuzzy
 msgid "The image already exists."
-msgstr "{data} {value} gibt es schon"
+msgstr "Das Datei-Image existiert schon."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:56
 #, fuzzy
@@ -9624,9 +9579,9 @@ msgid "Some work is being done on an image"
 msgstr ""
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:678
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} users logged"
-msgstr "Warne Benutzer bei über"
+msgstr "{n} Benutzer angemeldet"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:680
 msgid "Idle"
@@ -9638,19 +9593,19 @@ msgid "Monitoring"
 msgstr "Überwachung"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:111
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} main configuration file"
-msgstr "Zusammengefasste Haupteinstellungen"
+msgstr "{daemon} Zusammengefasste Haupteinstellungen"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} thresholds configuration file"
-msgstr "Zusammengefasste Schwellen Haupteinstellungen"
+msgstr "{daemon} Zusammengefasste Schwellen der Haupteinstellungen"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:121
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{daemon} default configuration file"
-msgstr "Zusammengefasste Haupteinstellungen"
+msgstr "{daemon} Zusammengefasste Haupteinstellungen"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:149
 #: ../../main/core/src/EBox/Logs.pm:697
@@ -9694,7 +9649,6 @@ msgstr "Einstellungen der Beobachtungs Funktionen"
 
 # oder messen 
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:163
-#, fuzzy
 msgid "measure"
 msgstr "Maßeinheit "
 
@@ -9792,12 +9746,10 @@ msgstr ""
 "nicht zulässig."
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
-#, fuzzy
 msgid "warning minimum"
 msgstr "Warnungsminimum"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:301
-#, fuzzy
 msgid "warning maximum"
 msgstr "Warnungsmaximum"
 
@@ -10078,11 +10030,13 @@ msgid "{what} \"{dS}\" is currently {value}."
 msgstr "{what} \"{dS}\" ist momentan {value}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:305
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} within the {severity} region of "
 "{minBound} and {maxBound}."
-msgstr "Das ist im {severity} Bereich von {minBound} und {maxBound}."
+msgstr ""
+"{what} \"{dS}\" hat gebraucht {duration} im {severity} Bereich von {minBound} "
+"und {maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:312
 #, fuzzy, perl-brace-format
@@ -10090,11 +10044,13 @@ msgid "That is within the {severity} region of {minBound} and {maxBound}. "
 msgstr "Das ist im {severity} Bereich von {minBound} und {maxBound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} above the {severity} threshold of "
 "{bound}. "
-msgstr "Das ist oberhalb der {severity} Grenze von {bound}."
+msgstr ""
+"{what} \"{dS}\" hat gebraucht {duration} oberhalb der {severity} Grenze von "
+"{bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:328
 #, fuzzy, perl-brace-format
@@ -10102,11 +10058,13 @@ msgid "That is above the {severity} threshold of {bound}. "
 msgstr "Das ist oberhalb der {severity} Grenze von {bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:334
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{what} \"{dS}\" has been {duration} below the {severity} threshold of "
 "{bound}. "
-msgstr "Das ist unterhalb der {severity} Grenze von {bound}."
+msgstr ""
+"{what} \"{dS}\" hat gebraucht {duration} unterhalb der {severity} Grenze von "
+"{bound}."
 
 #: ../../main/monitor/src/EBox/Event/Watcher/Monitor.pm:339
 #, fuzzy, perl-brace-format
@@ -10269,12 +10227,10 @@ msgid "ACL"
 msgstr "ACL"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:247
-#, fuzzy
 msgid " (user)"
 msgstr "Benutzer"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:249
-#, fuzzy
 msgid " (group)"
 msgstr "Gruppe"
 
@@ -10594,9 +10550,8 @@ msgid "Samba share absolute path"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:214
-#, fuzzy
 msgid "Samba share directory"
-msgstr "{group} Freigabe-Verzeichnis"
+msgstr "Freigabe-Verzeichnis"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:246
 msgid "The directory is not empty. Are you sure you want to remove it?"
@@ -10823,10 +10778,9 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:100
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
-msgstr "{pkg} muß installiert sein um diese Option zu nutzen"
+msgstr "Zentyal Antivirus-Module muß installiert sein um diese Option zu nutzen"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 #, fuzzy
@@ -11125,7 +11079,6 @@ msgid "group"
 msgstr "Gruppe"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:53
-#, fuzzy
 msgid "share name"
 msgstr "Freigabename"
 
@@ -12146,7 +12099,6 @@ msgid "Services Certificates"
 msgstr "Zertifizierungsdienste"
 
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:319
-#, fuzzy
 msgid "certificate"
 msgstr "Zertifikat"
 
@@ -12848,7 +12800,6 @@ msgid "{model} in {module} module"
 msgstr "{model} im Modul {module}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:357
-#, fuzzy
 msgid "element"
 msgstr "Elemente"
 
@@ -12864,7 +12815,7 @@ msgstr "Feld"
 #: ../../main/core/src/EBox/Model/DataTable.pm:2581
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "{num} Zeilen {rowName} von {model} entfernen{br}"
+msgstr "Entferne {num} Zeilen {rowName} von {model} entfernen{br}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2649
 msgid "Page size"
@@ -13501,9 +13452,8 @@ msgid "Failed login"
 msgstr "Fehlgeschlagen"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:150
-#, fuzzy
 msgid "Expired session"
-msgstr "abgelaufen in"
+msgstr "abgelaufene Sitzung"
 
 #: ../../main/core/src/EBox/AuditLogging.pm:153
 #, fuzzy
@@ -14065,9 +14015,8 @@ msgid "Restoring modules"
 msgstr "Module werden wiederhergestellt"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:269
-#, fuzzy
 msgid "modules restored"
-msgstr "Module zurückgesetzt"
+msgstr "Module wiederhergestellt"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/RestartService.pm:50
 msgid "module name"
@@ -14126,9 +14075,9 @@ msgid "{n} system updates"
 msgstr "{n} System Updates"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:72
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{n} component updates"
-msgstr "Sicherheitsaktualisierung"
+msgstr "{n} Komponenten-Updates"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:160
 msgid "Begin of IP range"
@@ -14530,7 +14479,7 @@ msgstr "Umformen"
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:588
 #: ../../main/core/src/templates/report/raid.mas:119
 msgid "failed"
-msgstr "Versagen"
+msgstr "versagt"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:599
 msgid "resync"
@@ -14843,12 +14792,10 @@ msgid "Any protocol and port"
 msgstr "Alle Ports und Protokolle"
 
 #: ../../main/services/src/EBox/Services.pm:94
-#, fuzzy
 msgid "Any UDP"
 msgstr "alle UDP"
 
 #: ../../main/services/src/EBox/Services.pm:95
-#, fuzzy
 msgid "Any UDP port"
 msgstr "alle UDP-Ports"
 
@@ -14858,7 +14805,6 @@ msgid "Any TCP"
 msgstr "alle TCP"
 
 #: ../../main/services/src/EBox/Services.pm:103
-#, fuzzy
 msgid "Any TCP port"
 msgstr "alle TCP-Ports"
 
@@ -14978,7 +14924,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/nut/src/EBox/NUT/Model/UPSVariables.pm:154
-#, fuzzy
 msgid "Variable"
 msgstr "verfügbar"
 
@@ -15552,9 +15497,9 @@ msgstr ""
 "diesen Alias zu nutzen"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:115
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{alias} (alias)"
-msgstr "E-Mail Alias"
+msgstr "{alias} Alias"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:157
 #, fuzzy, perl-brace-format
@@ -15892,7 +15837,6 @@ msgstr ""
 
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:168
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:187
-#, fuzzy
 msgid "limited to"
 msgstr "Beschränkt auf"
 
@@ -16315,9 +16259,8 @@ msgid "Zarafa"
 msgstr "Zarafa"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:94
-#, fuzzy
 msgid "Enable Outlook Access"
-msgstr "aktiviere Fernwartungszugang"
+msgstr "aktiviere Outlook-Zugang"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:97
 msgid "Enable SOAP connections for Outlook access."
@@ -16410,7 +16353,7 @@ msgstr "IMAPS Gateway aktivieren"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:176
 msgid "Enable iCAL gateway"
-msgstr "iCal Gateway aktivieren"
+msgstr "iCal-Gateway aktivieren"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Gateways.pm:182
 msgid "Enable iCAL SSL gateway"
@@ -17323,19 +17266,17 @@ msgid "Organizational Units"
 msgstr "Name der Organisation"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:68
-#, fuzzy
 msgid "organizational unit"
 msgstr "Name der Organisation"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "OU {ou} removed"
-msgstr "{row} nach oben verschoben"
+msgstr "OU {ou} gelöscht"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/OUs.pm:185
-#, fuzzy
 msgid "OU added"
-msgstr "{row} hinzugefügt"
+msgstr "OU hinzugefügt"
 
 #: ../../main/users/src/EBox/UsersAndGroups/Model/Password.pm:41
 msgid ""
@@ -17576,7 +17517,6 @@ msgstr ""
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:170
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:385
 #: ../../main/users/src/EBox/UsersAndGroups/User.pm:395
-#, fuzzy
 msgid "user quota"
 msgstr "Benutzerdefinierte Größenbeschränkung "
 
@@ -18106,9 +18046,8 @@ msgid "Loading"
 msgstr "Weiterleitung"
 
 #: ../../main/software/src/templates/ebox.mas:427
-#, fuzzy
 msgid "No packages found"
-msgstr "nicht gefunden"
+msgstr "Keine Pakete gefunden"
 
 #: ../../main/software/src/templates/ebox.mas:429
 #: ../../main/core/src/templates/ajax/tableBody.mas:299

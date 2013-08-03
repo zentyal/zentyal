@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-01-21 21:00+0200\n"
+"PO-Revision-Date: 2013-06-24 18:33+0200\n"
 "Last-Translator: uwe <maysara.abdulhaq@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ar\n"
@@ -226,26 +226,26 @@ msgstr "كل المستخدمين"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:167
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
-msgstr ""
+msgstr "تعذّر إستخدام تذكرة كيربيروس للربط مع إل داب : {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:175
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "تغذر إعداد كائن SASL: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:183
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "تعذر إعداد كينونة إل داب: {x}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:191
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "خادم إل داب أكتف دايريكتور لا يدعم GSSAPI"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:198
 #, perl-brace-format
 msgid "Could not bind to AD LDAP server '{x}'. Error was '{y}'"
-msgstr ""
+msgstr "تعذّر الربط إلى خادم إل داب أكتف دايركتوري '{x}'. الخطأ كان '{y}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:317
 msgid ""
@@ -407,7 +407,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:67
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "أزل الإعلانات من كافة بيانات HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-02-21 01:56+0200\n"
-"Last-Translator: Picholeiro <info@picholeiro.info>\n"
+"PO-Revision-Date: 2013-05-27 13:43+0200\n"
+"Last-Translator: mburillo <mburillo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -4141,9 +4141,9 @@ msgid ""
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully configured."
 msgstr ""
-"La eliminación de los paquetes se ha completado con éxito. La interfaz de "
+"La instalación de los paquetes se ha completado con éxito. La interfaz de "
 "administración puede no responder durante unos pocos segundos. Por favor, "
-"espere hasta que el sistema se haya reiniciado completamente"
+"espere hasta que el sistema se haya configurado completamente."
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:232
 msgid "Installing"
@@ -4776,7 +4776,7 @@ msgstr "Detalles del registro de Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:383
 msgid "Unregister"
-msgstr "Sin registrar"
+msgstr "Revocar Registro"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:387
 msgid "Register your Zentyal Server"
