@@ -206,7 +206,7 @@ sub _hiddenSid
 
     my $sambaObject = undef;
     try {
-        $sambaObject = $samba->ldbobjectFromLDAPObject($ldapObject);
+        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
     } otherwise {};
 
     unless (defined ($sambaObject) and $sambaObject->can('sid')) {
