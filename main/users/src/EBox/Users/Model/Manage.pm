@@ -84,6 +84,12 @@ sub childNodes
 
             $type = 'user';
             $printableName = $child->name();
+
+            # FIXME: temporary workaround until the regression is fixed properly
+            use Sys::Hostname;
+            my $hostname = Sys::Hostname::hostname();
+            next if ($printableName =~ /^(\w+)-$hostname$/);
+
             my $fullname = $child->fullname();
             if ($fullname) {
                 $printableName .= " ($fullname)";
