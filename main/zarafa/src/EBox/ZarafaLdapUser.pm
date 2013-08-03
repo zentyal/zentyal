@@ -342,7 +342,7 @@ sub multipleOUSupport
 #
 sub hiddenOUs
 {
-    return [ 'Zarafa' ];
+    return [ 'zarafa' ];
 }
 
 1;
