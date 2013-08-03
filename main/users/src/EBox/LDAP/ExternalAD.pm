@@ -481,7 +481,9 @@ sub initKeyTabs
     } otherwise {
         my ($error) = @_;
         throw EBox::Exceptions::External(
-            __("Error creating computer account for Zentyal server: $error"));
+            __("Error creating computer account for Zentyal server:") .
+            " $error"
+        );
     } finally {
         # Destroy acquired credentials
         my $ok = kdestroy();
