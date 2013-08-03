@@ -78,7 +78,7 @@ sub childNodes
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
-            next if ($self->_hiddenOU($printableName));
+            next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($usingSamba and $self->_hiddenSid($child));
 
@@ -189,13 +189,13 @@ sub preconditionFailMsg
 
 sub _hiddenOU
 {
-    my ($self, $ou) = @_;
+    my ($self, $name) = @_;
 
     unless ($self->{ousToHide}) {
         $self->{ousToHide} = { map { $_ => 1 } @{$self->parentModule()->ousToHide()} };
     }
 
-    return $self->{ousToHide}->{$ou};
+    return $self->{ousToHide}->{$name};
 }
 
 sub _hiddenSid
