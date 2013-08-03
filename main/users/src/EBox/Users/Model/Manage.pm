@@ -156,13 +156,6 @@ sub nodeTypes
     };
 }
 
-sub clickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('edit', $type);
-}
-
 # Method: precondition
 #
 # Check if the module is configured
