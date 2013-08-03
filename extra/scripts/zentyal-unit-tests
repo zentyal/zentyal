@@ -52,8 +52,7 @@ fi
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 cd $SCRIPT_DIR/../../main
 
-# FIXME: captiveportal needs to be excluded as it has a duplicated EBox::CGI::Run package
-INCLUDES=$(find . -name src|grep -v captiveportal|sed 's/.\//-I /'|xargs)
+INCLUDES=$(find . -name src|sed 's/.\//-I /'|xargs)
 
 # Create the modules directory
 CONF_DIR=${ZENTYAL_MODULES_SCHEMAS:=/tmp/zentyal-test-schemas/}
