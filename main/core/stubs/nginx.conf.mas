@@ -125,6 +125,13 @@ http {
         location = /js/jquery-1.9.1.js {
            root /usr/share/zentyal/www;
         }
+        location = /images/ajax-loader.gif {
+           root /usr/share/zentyal/www;
+        }
+        location = /favicon.ico {
+           root /usr/share/zentyal/www;
+        }
+
 
         location @proxy {
             proxy_pass http://localhost:60080;
