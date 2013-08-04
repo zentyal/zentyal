@@ -1,7 +1,7 @@
 <%args>
     $copyright_footer
 </%args>
-<div id="footer">
+<div id="footer" style="display: none">
     <% $copyright_footer %>
 </div>
         <input type='hidden' value='0' id='ajax_request_cookie' name='ajax_request_cookie'/>
