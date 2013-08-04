@@ -54,7 +54,7 @@ $(function(){
                                  '</a>' +
                              '</td>' +
                         '</tr>';
-         var newRow = jQuery(newRowHtml);
+         var newRow = $(newRowHtml);
          tbody.append(newRow);
       }
     aliasTable.append(tbody);
