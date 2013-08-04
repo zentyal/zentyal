@@ -19,6 +19,7 @@ HEAD
 	+ EBox::Samba::LdbObject inherites from EBox::Users::LdapObject to reuse
 	  as much code as possible.
 	+ Added a special case to map 'Domain Admins' DN from OpenLDAP to LDB.
+	+ Don't allow a share with file system root as path
 	+ Adapt firewall rules to new accept chains
 	+ Add config key to skip writting homeDirectory and homeDrive attribute
 	+ Do not store in samba_access table 4 records each 10s when antivirus
