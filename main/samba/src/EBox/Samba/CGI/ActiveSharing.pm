@@ -56,11 +56,14 @@ sub _group
         } else {
             $self->{json}->{msg} = __('Group share added');
         }
+        $self->{json}->{share} = 1;
     } elsif ($self->param('remove')) {
         $smbldap->removeGroupShare($group);
         $self->{json}->{msg} = __('Group share removed');
+        $self->{json}->{share} = 0;
     } else {
         $self->{json}->{msg} = __('Group share set');
+        $self->{json}->{share} = 1;
     }
 
     $self->{json}->{success} = 1;
