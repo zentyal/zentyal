@@ -158,7 +158,9 @@ $(function() {
 
    $('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+       if ($('.custom-combobox input').val()) {
+           Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+       }
     });
 
    $('#userGroups').on('click', 'span', function(event) {

@@ -110,7 +110,9 @@ $(function() {
 
    $('#addContactToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
+       if ($('.custom-combobox input').val()) {
+           Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
+       }
     });
 
    $('#contactGroups').on('click', 'span', function(event) {
