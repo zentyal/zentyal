@@ -9,9 +9,9 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
-   <div id='note_createAlias' class='note' style='display:none'></div>
-   <div id='error_createAlias' class='error' style='display:none'></div>
-   <form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
+   <div id='error_mailCreateAlias' class='error' style='display:none'></div>
+   <div id='note_mailCreateAlias' class='note' style='display:none'></div>
+   <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
         <table cellspacing='0' class='dataTable' id='aliasTable'>
                 <thead>
                         <tr>
@@ -60,13 +60,13 @@ $(function(){
     aliasTable.append(tbody);
   };
 
-  $('#createAlias').on('submit', function(event) {
-        event.preventDefault();
-        Zentyal.Dialog.submitForm(event.target, {
+  Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
+            noteDiv: '#note_mailCreateAlias',
+            errorDiv: '#error_mailCreateAlias',
+            submitButton: '#mailCreateAlias_submit',
             success : function (response) {
                 refreshAliasList(response.aliases);
             }
-      });
   });
 
   $('#aliasTable').on('click', 'a', function(event) {
@@ -74,20 +74,22 @@ $(function(){
       var url = '/Mail/DelGroupAlias';
       var data = 'group=<% $params->{group}->dn() %>';
       data += '&alias=' + event.target.getAttribute('data-alias');
-      // we reuse div for createAlias form
-      $('#error_createAlias').html('').hide();
+      // we reuse div for mailCreateAlias form
+      $('#error_mailCreateAlias').html('').hide();
+      $('#note_mailCreateAlias').html('').hide();
       $.ajax({
          url: url,
          data: data,
          dataType: 'json',
          error: function(jqXHR) {
-            $('#error_createAlias').html(jqXHR.responseText).show();
+            $('#error_mailCreateAlias').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
                 refreshAliasList(response.aliases);
+                $('#note_mailCreateAlias').html(response.msg).show();
             } else {
-               $('#error_createAlias').html(response.error).show();
+               $('#error_mailCreateAlias').html(response.error).show();
             }
          }
       });
@@ -117,12 +119,14 @@ $group
                                 </td>
                                 <td class='tcenter'>
                                         <input class='inputButton'
-                                                        type='image'
-                                                        src='/data/images/add.gif'
-                                                        name='change'
-                                                        value="<% __('Create') %>"
-                                                        title="<% __('Create') %>"
-                                                        alt="<% __('Create') %>">
+                                               id='mailCreateAlias_submit'
+                                               type='image'
+                                               src='/data/images/add.gif'
+                                               name='change'
+                                               value="<% __('Create') %>"
+                                               title="<% __('Create') %>"
+                                               alt="<% __('Create') %>"
+                                        />
                                 </td>
                         </tr>
 
