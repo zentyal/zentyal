@@ -56,6 +56,7 @@ sub _process
     }
     $cpldap->setQuota($user, $overridden, $quota);
 
+    $self->{json}->{msg} = __('User quota set');
     $self->{json}->{success} = 1;
 }
 

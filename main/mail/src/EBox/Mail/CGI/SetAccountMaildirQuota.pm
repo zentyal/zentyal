@@ -24,8 +24,6 @@ use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use EBox::Users::User;
 
-## arguments:
-##      title [required]
 sub new
 {
     my $class = shift;
@@ -64,6 +62,8 @@ __('Quota must be a amount of MB greter than zero')
         $mail->{musers}->setMaildirQuota($user, $quota);
         $mail->{musers}->setMaildirQuotaUsesDefault($user, 0);
     }
+
+    $self->{json}->{msg} = __('Mail directory quota set');
     $self->{json}->{success} = 1;
 }
 

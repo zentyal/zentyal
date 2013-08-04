@@ -36,7 +36,7 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    $self->{json}->{success} = 1;
+    $self->{json}->{success} = 0;
 
     my $astldap = new EBox::AsteriskLdapUser;
     my $extensions = new EBox::Asterisk::Extensions;
@@ -48,14 +48,22 @@ sub _process
     my $user = new EBox::Users::User(dn => $userDN);
     if ($self->param('active') eq 'yes') {
         $astldap->setHasAccount($user, 1);
+        $self->{json}->{enabled} = 1;
+
         my $myextn = $extensions->getUserExtension($user);
+        $self->{json}->{extension} = $myextn;
+
         my $newextn = $self->param('extension');
-        if ($newextn eq '') { $newextn = $myextn; }
-        if ($newextn ne $myextn) {
+        if (($newextn) and ($newextn ne $myextn)) {
             $extensions->modifyUserExtension($user, $newextn);
+            $self->{json}->{extension} = $newextn;
         }
+
+        $self->{json}->{msg} = __x('Enabled Asterisk account with extension {ext}', ext => $newextn ? $newextn : $myextn);
     } else {
         $astldap->setHasAccount($user, 0);
+        $self->{json}->{enabled} = 0;
+        $self->{json}->{msg} = __('Disabled Asterisk account');
     }
     $self->{json}->{success} = 1;
 }

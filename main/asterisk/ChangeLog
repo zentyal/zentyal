@@ -1,4 +1,5 @@
 HEAD
+	+ Adapter users add-on to right panel view
 	+ asterisk-ldap script fails if LDAP operation fails
 	+ Added menu icon
 	+ Updated to use renamed method EBox::Ldap::connection.

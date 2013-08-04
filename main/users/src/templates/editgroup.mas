@@ -9,6 +9,7 @@
 use EBox::Gettext;
 my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </%init>
+<script type="text/javascript" src="/data/js/form.js" />
 
 <div id="edit_user">
 <h3 class="<% $iconclass %>"><% __('Group ') %> <% $group->name() %></h3>
@@ -98,11 +99,6 @@ $(function() {
 
    var updateUserWidgets = function(data) {
       var user, i;
-
-      // workaround for edit mailalias
-      if (!(data.firstTime) & ($('#needReload').length > 0)) {
-         // TODO reload right panel
-      }
 
       var addUser =  $('#adduser');
       addUser.detach();
