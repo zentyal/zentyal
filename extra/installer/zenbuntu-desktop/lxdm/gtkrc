@@ -22,10 +22,10 @@ style "time"
 
 style "prompt"
 {
-	fg[NORMAL]="#DDD"
+	fg[NORMAL]="#ffffff"
 	font_name="Sans Bold 14"
 }
 
 widget "lxdm" style "back"
 widget "lxdm.*.time" style "time"
-widget "lxdm.*.prompt" style "prompt"
+widget_class "GtkWindow.GtkVBox.GtkAlignment.GtkVBox.GtkAlignment.GtkHBox.<GtkLabel>" style "prompt"
