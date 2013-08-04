@@ -89,7 +89,6 @@ $(function() {
         submitButton: '#userMailCreateAccount_submit',
         success : function(response) {
             var account = (('mail' in response) && (response.mail));
-            console.log('account ' + account);
             $('#userMailNoAccountDiv').toggle(!account);
             $('#userMailWithAccountDiv').toggle(account);
         }
