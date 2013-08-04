@@ -78,13 +78,18 @@ sub childNodes
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
-            # Hide Kerberos OU as it's not useful for the user to keep the UI simple
-            next if ($printableName eq 'Kerberos');
+            next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($usingSamba and $self->_hiddenSid($child));
 
             $type = 'user';
             $printableName = $child->name();
+
+            # FIXME: temporary workaround until the regression is fixed properly
+            use Sys::Hostname;
+            my $hostname = Sys::Hostname::hostname();
+            next if ($printableName =~ /^(\w+)-$hostname$/);
+
             my $fullname = $child->fullname();
             if ($fullname) {
                 $printableName .= " ($fullname)";
@@ -151,13 +156,6 @@ sub nodeTypes
     };
 }
 
-sub clickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('edit', $type);
-}
-
 # Method: precondition
 #
 # Check if the module is configured
@@ -188,6 +186,17 @@ sub preconditionFailMsg
     return __('You must enable the module Users in the module status section in order to use it.');
 }
 
+sub _hiddenOU
+{
+    my ($self, $name) = @_;
+
+    unless ($self->{ousToHide}) {
+        $self->{ousToHide} = { map { $_ => 1 } @{$self->parentModule()->ousToHide()} };
+    }
+
+    return $self->{ousToHide}->{$name};
+}
+
 sub _hiddenSid
 {
     my ($self, $ldapObject) = @_;
@@ -196,7 +205,7 @@ sub _hiddenSid
 
     my $sambaObject = undef;
     try {
-        $sambaObject = $samba->ldbobjectFromLDAPObject($ldapObject);
+        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
     } otherwise {};
 
     unless (defined ($sambaObject) and $sambaObject->can('sid')) {

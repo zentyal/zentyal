@@ -103,10 +103,10 @@ sub _addUser
 
     my @objectclasses = $user->get('objectClass');
 
-    unless ('AsteriskSIPUser' eq any @objectclasses) {
+    unless ('AsteriskSIPUser' eq any(@objectclasses)) {
         $user->add('objectClass', ['AsteriskSIPUser',
                                    'AsteriskQueueMember',
-                                   'AsteriskVoicemail'], 1);
+                                   'AsteriskVoiceMail'], 1);
 
         my $md5secret = $self->_genRealmHash($user, $passwd);
         $user->set('AstMD5secret', $md5secret, 1);

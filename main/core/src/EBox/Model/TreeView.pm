@@ -422,9 +422,9 @@ sub actionHandlerJS
 
 # Method: clickHandlerJS
 #
-#    Return the JavaScript code to be executed when selecting a node.
+#    Action to be executed when selecting a node.
 #
-#    To be overrided in TreeView models.
+#    It can be in TreeView models, by default executes the edit action.
 #
 # Parameters:
 #
@@ -438,28 +438,7 @@ sub clickHandlerJS
 {
     my ($self, $type) = @_;
 
-    return '';
-}
-
-# Method: doubleClickHandlerJS
-#
-#    Return the JavaScript code to be executed when double-clicking a node.
-#
-#    To be overrided in TreeView models.
-#
-# Parameters:
-#
-#    type - string type of the node
-#
-# Returns:
-#
-#    hashref in the same format as actionHandlerJS
-#
-sub doubleClickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    return '';
+    $self->actionHandlerJS('edit', $type);
 }
 
 # Method: jsonData

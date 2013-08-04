@@ -228,13 +228,6 @@ sub nodeTypes
     };
 }
 
-sub doubleClickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('delete', $type);
-}
-
 # Method: precondition
 #
 # Check if the module is configured

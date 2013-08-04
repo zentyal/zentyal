@@ -449,4 +449,13 @@ sub multipleOUSupport
     return 0;
 }
 
+# Method: hiddenOUs
+#
+#   Returns array ref with the list of OU names to hide on the UI
+#
+sub hiddenOUs
+{
+    return [];
+}
+
 1;

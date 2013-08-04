@@ -43,7 +43,7 @@
 </%args>*/
 
 #header {
-    height: 70px;
+    height: 50px;
     padding:0;
     margin: 0;
     color: transparent;
@@ -165,7 +165,7 @@
 #nav li.menuSearch{
     border-top: none;
     background-color: transparent;
-}   
+}
 #menusearch {
     background: #fff url("/data/images/magnifying-glass.png") 150px center no-repeat;
     border: 1px solid #DDD;
@@ -700,7 +700,7 @@ input {
 
 /********************************************
 
-    TABS options    
+    TABS options
 
 ************************************************/
 
@@ -819,7 +819,7 @@ input {
     text-align: center;
     position: absolute;
     right: 0px;
-    top: 10px;
+    top: 25px;
 }
 
 #confbutton a {
@@ -860,7 +860,7 @@ input {
     border-top: 1px solid #ccc;
     background-color: whitesmoke;
 }
-#nav li > ul > li { 
+#nav li > ul > li {
     display: none;
     padding: 0;
     margin: 0;
@@ -1001,7 +1001,7 @@ td[class^="icon"] {
 h3[class^="icon"]{
     background-position: 5px center;
     background-repeat: no-repeat;
-    padding-left: 45px !important;  
+    padding-left: 45px !important;
 }
 
 h3.icon-user{ background-image: url('/data/images/treeview/user-big.png')}
@@ -1542,7 +1542,7 @@ float:left;
 
 /***********************************************************************************************
 
- Progress bar 
+ Progress bar
 
  ***********************************************************************************************/
 
@@ -1668,7 +1668,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 
 /***********************************************************************************************
 
- modalbox.js stuff 
+ modalbox.js stuff
 
 ***********************************************************************************************/
 
@@ -1958,7 +1958,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 }
 /**************************************************************************************
 
-    HELP MESSAGES AND TIPS 
+    HELP MESSAGES AND TIPS
 
 **************************************************************************************/
 
@@ -1980,7 +1980,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     margin: 10px 0px;
     font-size: 1em;
     border-width:1px;
-    border-style: dashed; 
+    border-style: dashed;
     background-repeat: no-repeat;
     background-position: 10px 12px;
 }
@@ -1996,7 +1996,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
 }
 .help a{
     color: <% $help_color %>;
-    font-weight: bold;    
+    font-weight: bold;
 }
 .note, .ad {
     border-color: <% $note_border %>;
@@ -2050,8 +2050,8 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     opacity: 0.5;
 }
 /**************************************************************************************
-    
-    VM iframe 
+
+    VM iframe
 
 **************************************************************************************/
 
@@ -2128,7 +2128,7 @@ width: 80%;
 }
 
 /**************************************************************************************
-    
+
     USER and groups
 
 **************************************************************************************/
@@ -2194,7 +2194,7 @@ ul.labels-list li .close{
 }
 
 .item-block h3{
-    margin: 0px 0px 10px; 
+    margin: 0px 0px 10px;
 }
 .item-section {
     background-color: white;
@@ -2205,7 +2205,7 @@ ul.labels-list li .close{
 
 /**************************************************************************************
 
-    TREEVIEW 
+    TREEVIEW
 
 **************************************************************************************/
 
@@ -2241,7 +2241,7 @@ ul.labels-list li .close{
     background-color: white ;
     min-height:600px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
-}   
+}
 .treeViewNodeViewer h3{
     height: 30px;
     line-height: 30px;
@@ -2261,7 +2261,7 @@ ul.labels-list li .close{
     margin-left: 10px;
 }
 .treeviewButtons .btn-delete{
-    float: right;    
+    float: right;
     margin-right: 10px;
 }
 .treeViewToolbox{
@@ -2279,7 +2279,7 @@ ul.labels-list li .close{
 .treeviewCheckboxes {
     position: absolute;
     right: 10px;
-    top: 10px;  
+    top: 10px;
 }
 
 .treeviewCheckboxes label {
@@ -2380,7 +2380,7 @@ BUTTONS
 }
 .btn-filter{ background-image: url(/data/images/filter.png);}
 .btn-add{ background-image: url(/data/images/add.gif);}
-.btn-delete{ 
+.btn-delete{
     background-color: #FF5C26;
     background-image: url("/data/images/delete-w.gif");
     border-color: #B22D00;
@@ -2388,14 +2388,14 @@ BUTTONS
 }
 .btn-delete:hover{background-color: #D93600;}
 .btn-edit{ background-image: url(/data/images/edit.gif);}
-.close { 
+.close {
     background: url(/data/images/close-w.png) center center no-repeat;
-    height: 100%; 
+    height: 100%;
     width: 30px;
-    cursor: pointer; 
+    cursor: pointer;
 }
 .btn-submit{
-    height: 30px; 
+    height: 30px;
 }
 .btn-only-icon.btn-submit{
     width: 30px;
@@ -2414,7 +2414,7 @@ form.formDiv label {
     font-weight: bold;
 }
 form.formDiv input[type="text"],form.formDiv input[type="password"]{
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     display: block;
     font-size: 14px;
     color: #333;
@@ -2423,7 +2423,7 @@ form.formDiv input[type="text"],form.formDiv input[type="password"]{
 form.formDiv textarea{
     width: 95%;
     resize: none ;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
     display: block;
     font-size: 14px;
 }
@@ -2454,7 +2454,7 @@ FOLDable SECtIONS
     border-top: 1px dashed #ccc;
 }
 .foldableSection:last-child{
-    border-bottom: 1px dashed #ccc;   
+    border-bottom: 1px dashed #ccc;
 }
 .foldableHead {
     color: #666666;
