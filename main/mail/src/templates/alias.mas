@@ -4,16 +4,11 @@
 <%init>
 use EBox::Gettext;
 </%init>
-% if (not $params->{service} ) {
-     <& /mail/moduleDisabled.mas &>
-% }
 
-<div id='error_userMailDelAccount' class='note' style='display:none'></div>
-<div id='error_userMailDelAccount' class='error' style='display:none'></div>
 <form action='/Mail/DelAccount' id='userMailDelAccount' method='POST'>
-        <input type="hidden" name="mail" value="<% $params->{'mail'} %>">
+        <input type="hidden" name="mail" id="userMailDelAccount_mail" value="<% $params->{'mail'} %>">
         <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-        <% __('Mail address') %>:<span class='stitle'><% $params->{'mail'} %></span>
+        <% __('Mail address') %>:<span class='stitle' id='userMailDelAccount_mailLabel'><% $params->{'mail'} %></span>
         <input class='inputButton' type='submit' name='change'
                id='userMailDelAccount_submit'
                value="<% __('Delete') %>"
@@ -89,13 +84,16 @@ use EBox::Gettext;
 <script>
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#userMailDelAccount', {
-        noteDiv: '#note_userMailDelAccount',
-        errorDiv: '#error_userMailDelAccount',
+        noteDiv: '#note_userMailCreateDelAccount',
+        errorDiv: '#error_userMailCreateDelAccount',
         submitButton: '#userMailDelAccount_submit',
-        sucess : function(response) {
-            var account = (('mail' in response) && (response.mail));
-            $('#userMailNoAccountDiv').toggle(!account);
-            $('#userMailWithAccountDiv').toggle(account);
+        success : function(response) {
+            if (!response.success) {
+              return;
+            }
+            var hasAccount = (response.mail !== '');
+            $('#userMailNoAccountDiv').toggle(!hasAccount);
+            $('#userMailWithAccountDiv').toggle(hasAccount);
         }
     });
 
@@ -142,17 +140,6 @@ $(function() {
 $params
 </%args>
 <script type="text/javascript">
-   Zentyal.Form.setupAjaxSubmit('#userMailDelAccount', {
-        noteDiv: '#note_userMailDelAccount',
-        errorDiv: '#error_userMailDelAccount',
-        submitButton: '#userMailDelAccount_submit',
-        sucess : function(response) {
-            var account = (('mail' in response) && (response.mail));
-            $('#userMailNoAccountDiv').toggle(!account);
-            $('#userMailWithAccountDiv').toggle(account);
-        }
-    });
-
         function updateMaildirQuota() {
                 var size = document.getElementById("maildirQuota")
                 var type = document.getElementById("quotaType")

@@ -8,8 +8,6 @@
 use EBox::Gettext;
 </%init>
 
-<div id='note_userMailCreateAccount' class='note' style='display:none'></div>
-<div id='error_userMailCreateAccount' class='error' style='display:none'></div>
 <form id='userMailCreateAccount' name='createaccount' action='/Mail/CreateAccount' method='POST'>
 
     <input type="hidden" name="user" id="user" value="<% $params->{'user'}->dn() %>">
@@ -84,13 +82,18 @@ $params
 <script>
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#userMailCreateAccount', {
-        noteDiv: '#note_userMailCreateAccount',
-        errorDiv: '#error_userMailCreateAccount',
+        noteDiv: '#note_userMailCreateDelAccount',
+        errorDiv: '#error_userMailCreateDelAccount',
         submitButton: '#userMailCreateAccount_submit',
         success : function(response) {
-            var account = (('mail' in response) && (response.mail));
-            $('#userMailNoAccountDiv').toggle(!account);
-            $('#userMailWithAccountDiv').toggle(account);
+            if (!response.success) {
+              return;
+            }
+            var hasAccount = (response.mail !== '');
+            $('#userMailNoAccountDiv').toggle(!hasAccount);
+            $('#userMailWithAccountDiv').toggle(hasAccount);
+            $('#userMailDelAccount_mail').val(response.mail);
+            $('#userMailDelAccount_mailLabel').text(response.mail);
         }
     });
 });
