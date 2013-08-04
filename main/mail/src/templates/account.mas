@@ -3,14 +3,20 @@
 </%args>
 <%init>
 use EBox::Gettext;
+my $hasAccount = $params->{mail};
 </%init>
 % if  (not  @{$ params->{vdomains} } ) {
 <& .noVdomains &>
-% } elsif($params->{'mail'} eq undef) {
+% } else {
+
+<div id='userMailNoAccountDiv' <% not $hasAccount ? '' :  'style="display:none"'%> >
     <& /mail/createaccount.mas, params => $params &>
-%} else {
+</div>
+<div id='userMailWithAccountDiv' <% $hasAccount ? '' :  'style="display:none"'%> >
+<p><b>ENABLED</b></p>
     <& /mail/alias.mas, params => $params &>
-    <& /mail/externalAccounts.mas, params => $params &>
+%#    <& /mail/externalAccounts.mas, params => $params &>
+</div>
 %}
 
 <%def .noVdomains>

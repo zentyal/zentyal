@@ -48,9 +48,12 @@ sub _process
 
     $self->_requireParam('mail', __('user mail'));
     my $usermail = $self->param('mail');
+    $self->{json}->{mail} = $usermail;
 
     my $user = new EBox::Users::User(dn => $userDN);
     $mail->{musers}->delUserAccount($user, $usermail);
+    $self->{json}->{msg} = __x('{acc} account removed', acc => $usermail);
+    $self->{json}->{mail} = '';
     $self->{json}->{success} = 1;
 }
 
