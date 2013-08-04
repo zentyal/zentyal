@@ -3,7 +3,6 @@
 </%args>
 <%init>
     use EBox::Gettext;
-    my $trEnabled =
 </%init>
     <& .zarafaDisabledWarning, $params &>
 
