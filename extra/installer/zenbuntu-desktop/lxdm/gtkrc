@@ -1,6 +1,17 @@
 style "back"
 {
-	bg[NORMAL]="#000"
+	engine "pixmap"
+	{
+		image
+		{
+			function = FLAT_BOX
+			shadow=NONE
+			state = NORMAL
+			file="background.svg"
+			stretch=TRUE
+			detail = "base"
+		}
+	}
 }
 
 style "time"
