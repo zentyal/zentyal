@@ -95,6 +95,7 @@ sub _process
         }
 
         $self->{json}->{success} = 1;
+        $self->{json}->{msg} = __('Contact updated');
     } elsif ($self->param('addgrouptocontact')) {
         $self->{json} = { success => 0 };
 

@@ -108,7 +108,8 @@ sub _process
 
         $user->save();
 
-        $self->{json}->{success}  = 1;
+        $self->{json}->{success} = 1;
+        $self->{json}->{msg} = __('User updated');
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
 
@@ -138,7 +139,7 @@ sub _process
              success => 1,
              member =>   [ map { $_->name } @{ $usergroups }],
              noMember => [ map { $_->name } @{ $remaingroups }],
-           };
+        };
     }
 }
 
