@@ -51,7 +51,7 @@ my $usersModule = $global->modInstance('users');
 
 my $ldb = $sambaModule->ldb();
 
-my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix postfix/mailalias postfix/vdomains);
+my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix postfix/mailalias postfix/vdomains zarafa Extensions);
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
