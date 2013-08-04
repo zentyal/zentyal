@@ -769,11 +769,9 @@ Function: setLoading
 Parameters:
 
         elementId - the element identifier
-        modelName - the model name to distinguish among hiddenDiv tags *(Optional)*
-    isSaved   - boolean to indicate if the inner HTML should be saved
-    at *hiddenDiv_<modelName>* in order to be rescued afterwards *(Optional)*
-
-
+        modelName - the model name to distinguish among hiddenDiv tags *(Deprecated: not used)*
+        isSaved   - boolean to indicate if the inner HTML should be saved to be able to resotre it later
+                    with restoreHidden function
 */
 var savedElements = {};
 //XXX modelName does ntvalue = o do anything..
@@ -806,12 +804,12 @@ Zentyal.TableHelper.setDone  = function (elementId)
 /*
 Function: restoreHidden
 
-        Restore HTML stored in *hiddenDiv*
+        Restore HTML stored by setLoading methos
 
 Parameters:
 
         elementId - the element identifier where to restore the HTML hidden
-        modelName - the model name to distinguish among hiddenDiv tags XXX not used. Remove?
+        modelName - the model name to distinguish among hidden (*Deprecated: not used*)
 
 */
 Zentyal.TableHelper.restoreHidden  = function (elementId, modelName) {

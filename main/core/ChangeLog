@@ -1,5 +1,6 @@
 HEAD
 	+ Restyled UI
+	+ Added form.js
 	+ Added better 502 error page for nginx with redirect when apache is ready
 	+ Always call udpateRowNotify in row update, even when the new
 	  values are the same than old ones

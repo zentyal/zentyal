@@ -56,6 +56,10 @@ sub _process
     }
 
     $mail->{musers}->setUserAccount($user, $lhs, $vdomain, $mdsize);
+
+    my $newAccount = $lhs . '@' .$vdomain;
+    $self->{json}->{msg} = __x('{acc} account created', acc => $newAccount);
+    $self->{json}->{mail} = $newAccount;
     $self->{json}->{success} = 1;
 }
 

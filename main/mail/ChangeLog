@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt group and users addon to right panel view
 	+ mail-ldap init script dies on LDAP add error
 	+ Added menu icon
 	+ Added new userCorner method to external accounts model
