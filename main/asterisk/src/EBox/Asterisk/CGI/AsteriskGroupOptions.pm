@@ -54,16 +54,22 @@ sub _process
 
     if ($self->param('active') eq 'yes') {
         $astldap->setHasQueue($group, 1);
+        $self->{json}->{enabled} = 1;
+
         my $myextn = $extensions->getQueueExtension($group);
+        $self->{json}->{extension} = $myextn;
+
         my $newextn = $self->param('extension');
-        if ($newextn eq '') { $newextn = $myextn; }
-        if ($newextn ne $myextn) {
+        if ($newextn and ($newextn ne $myextn)) {
             $extensions->modifyQueueExtension($group, $newextn);
+            $self->{json}->{extension} = $newextn;
         }
-        $self->{json}->{msg} = __('Asterisk queue enabled');
+
+        $self->{json}->{msg} = __x('Asterisk group queue enabled with extension {ext}', ext => $newextn ? $newextn : $myextn);
     } else {
         $astldap->setHasQueue($group, 0);
-        $self->{json}->{msg} = __('Asterisk queue disabled');
+        $self->{json}->{enabled} = 0;
+        $self->{json}->{msg} = __('Asterisk group queue disabled');
     }
     $self->{json}->{success} = 1;
 }

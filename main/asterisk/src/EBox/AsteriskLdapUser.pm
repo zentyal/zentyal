@@ -170,8 +170,7 @@ sub _userAddOns
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($user));
+    my $active = $self->hasAccount($user) ? 1 : 0;
 
     my $extensions = new EBox::Asterisk::Extensions;
     my $extn = $extensions->getUserExtension($user);
@@ -303,9 +302,7 @@ sub _groupAddOns
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasQueue($group));
-
+    my $active = $self->hasQueue($group) ? 1 : 0;
     my $extensions = new EBox::Asterisk::Extensions;
     my $extn = $extensions->getQueueExtension($group);
 

@@ -21,7 +21,7 @@
         </td>
         <td>
             <select name="active" enabled>
-%       if ($params->{'active'} eq 'yes') {
+%       if ($params->{'active'}) {
             <option value="no" ><% __('Disabled') %></option>
             <option selected value="yes" ><% __('Enabled') %></option>
 %       } else {
@@ -31,16 +31,15 @@
             </select>
         </td>
         </tr>
-%       if ($params->{'active'} eq 'yes') {
-        <tr>
+        <tr id='astUserExtensionRow' <%($params->{'active'}) ? '' : 'style="display:none"' %>>
         <td class="tright">
             <span class="ftitle"><% __('Extension') %>:</span>
         </td>
         <td>
-            <input type="text" class="inputText" size="4" maxlenght="4" name="extension" value="<% $params->{'extension'} %>">
+            <input id='astUserExtension' type="text" class="inputText" size="4" maxlenght="4" name="extension" value="<% $params->{'extension'} %>">
         </td>
         </tr>
-%       }
+
         <tr>
         <td></td>
         <td>
@@ -57,7 +56,12 @@ $(function() {
    Zentyal.Form.setupAjaxSubmit('#astUserOptions', {
         noteDiv: '#note_astUserOptions',
         errorDiv: '#error_astUserOptions',
-        submitButton: '#submitAstGroupOptions'
+        submitButton: '#submitAstGroupOptions',
+        success: function(response) {
+           $('#astUserExtensionRow').toggle(response.enabled === 1);
+           $('#astUserExtension').val(response.extension);
+        }
+
     });
 });
 </script>
