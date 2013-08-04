@@ -129,8 +129,6 @@ $(function() {
       event.preventDefault();
       var url = '/Mail/DelAlias';
       var data = 'user=<% $params->{user}->dn() %>';
-      console.log( event.target);
-      console.log( event.target.getAttribute('data-alias'));
       data += '&alias=' + event.target.getAttribute('data-alias');
 
       // we reuse div for createAlias form

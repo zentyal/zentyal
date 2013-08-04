@@ -46,6 +46,16 @@ sub _process
 
     my $user = new EBox::Users::User(dn => $userDN);
     $mail->{fetchmail}->removeExternalAccount($user, $account);
+
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
+
+
+
+    $self->{json}->{externalAccounts} = \@externalAccounts;
+    $self->{json}->{userDN}  = $userDN;
+    $self->{json}->{msg} = __x('External account {acc} removed', acc => $account);
     $self->{json}->{success} = 1;
 }
 
