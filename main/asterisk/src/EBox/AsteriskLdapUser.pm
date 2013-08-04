@@ -517,4 +517,13 @@ sub defaultUserModel
     return 'asterisk/AsteriskUser';
 }
 
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'Extensions' ];
+}
+
 1;
