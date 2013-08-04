@@ -48,16 +48,21 @@ sub _process
 
     if ($self->param('active') eq 'yes'){
         $jabberldap->setHasAccount($user, 1);
-        if (defined($self->param('is_admin')))
-            {
+        $self->{json}->{enabled} = 1;
+        if ($self->param('is_admin')) {
             $jabberldap->setIsAdmin($user, 1);
+            $self->{json}->{admin} = 1;
+            $self->{json}->{msg} = __('Jabber account enabled with administration rights');
         } else {
             $jabberldap->setIsAdmin($user, 0);
+            $self->{json}->{msg} = __('Jabber account enabled');
         }
     } else {
         if ($jabberldap->hasAccount($user)){
             $jabberldap->setHasAccount($user, 0);
         }
+        $self->{json}->{enabled} = 0;
+        $self->{json}->{msg} = __('Jabber account disabled');
     }
 
     $self->{json}->{success} = 1;
