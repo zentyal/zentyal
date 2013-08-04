@@ -12,8 +12,8 @@ my $hasAccount = $params->{mail};
      <& /mail/moduleDisabled.mas &>
 % }
 
-<div id='note_userMailCreateDelAccount' class='note' style='display:none'></div>
 <div id='error_userMailCreateDelAccount' class='error' style='display:none'></div>
+<div id='note_userMailCreateDelAccount' class='note' style='display:none'></div>
 <div id='userMailNoAccountDiv' <% (not $hasAccount) ? '' :  'style="display:none"'%> >
     <& /mail/createaccount.mas, params => $params &>
 </div>

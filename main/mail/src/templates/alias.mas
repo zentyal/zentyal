@@ -17,7 +17,7 @@ use EBox::Gettext;
         />
 </form>
 
-
+<& .updateMaildirQuotaJs, params => $params &>
 <& .modifyMaildirQuota, params => $params &>
 
 <div id='error_createAlias' class='error' style='display:none'></div>
@@ -80,7 +80,6 @@ use EBox::Gettext;
                 </table>
 </form>
 
-<& .updateMaildirQuotaJs, params => $params &>
 <script>
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#userMailDelAccount', {
@@ -97,13 +96,20 @@ $(function() {
         }
     });
 
-  $('#createAlias, #delAccount, #setMaildirQuota').on('submit', function(event) {
-       event.preventDefault();
-       Zentyal.Dialog.submitForm(event.target, {
-           success : refreshDialog
-      });
-  });
+   Zentyal.Form.setupAjaxSubmit('#userMailSetMaildirQuota', {
+        noteDiv: '#note_userMailSetMaildirQuota',
+        errorDiv: '#error_userMailSetMaildirQuota',
+        submitButton: '#userMailSetMaildirQuota_submit',
+    });
 
+
+//  $('#createAlias).on('submit', function(event) {
+//       event.preventDefault();
+//       Zentyal.Dialog.submitForm(event.target, {
+////           success : refreshDialog
+//      });
+//  });
+//
   $('#aliasTable').on('click', 'a', function(event) {
       event.preventDefault();
       var url = '/Mail/DelAlias';
@@ -123,7 +129,7 @@ $(function() {
          },
          success: function(response) {
             if (response.success) {
-                refreshDialog(response);
+//                refreshDialog(response);
             } else {
                $('#error_createAlias').html(response.error).show();
             }
@@ -162,6 +168,8 @@ $params
 </script>
 </%def>
 
+
+
 <%def .modifyMaildirQuota>
 <%args>
 $params
@@ -174,8 +182,10 @@ my @quotaTypeOptions = (
   { value => 'custom' , printableValue => __('Custom quota') },
 );
 </%init>
-<div id='error_setMaildirQuota' class='error' style='display:none'></div>
-<form action='/Mail/SetAccountMaildirQuota' id='setMaildirQuota' method='POST'>
+
+<div id='error_userMailSetMaildirQuota' class='error' style='display:none'></div>
+<div id='note_userMailSetMaildirQuota' class='note' style='display:none'></div>
+<form action='/Mail/SetAccountMaildirQuota' id='userMailSetMaildirQuota' method='POST'>
 <table class='formTable'>
 <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
         <tr>
@@ -208,8 +218,9 @@ my @quotaTypeOptions = (
         <tr>
         <td>
         <input class='inputButton' type='submit' name='change'
-                        value="<% __('Modify') %>"
-                        alt="<% __('Modify') %>">
+               id='userMailSetMaildirQuota_submit'
+               value="<% __('Modify') %>"
+               alt="<% __('Modify') %>">
         </td>
         </tr>
 </table>
