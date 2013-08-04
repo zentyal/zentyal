@@ -48,10 +48,11 @@ sub _process
     $mail->{fetchmail}->removeExternalAccount($user, $account);
 
     my @externalAccounts = map {
-        $mail->{fetchmail}->externalAccountRowValues($_)
+        my $account = $mail->{fetchmail}->externalAccountRowValues($_);
      } @{ $mail->{fetchmail}->externalAccountsForUser($user) };
 
-
+    # XXX workaround  agains ghost value
+    @externalAccounts = grep { $_->{externalAccount} ne $account  } @externalAccounts;
 
     $self->{json}->{externalAccounts} = \@externalAccounts;
     $self->{json}->{userDN}  = $userDN;
