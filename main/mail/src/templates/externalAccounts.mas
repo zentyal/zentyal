@@ -4,6 +4,9 @@ $params
 <%init>
 use EBox::Gettext;
 my @externalAccounts = @{ $params->{externalAccounts} };
+use JSON::XS;
+my $externalAccountsJS =  JSON::XS->new()->encode(\@externalAccounts);
+my $deleteActionText =  __('Delete external account');
 </%init>
 <%shared>
 my %printableName = (
@@ -31,54 +34,93 @@ my %printableName = (
 <div class='note'>
 <% __('The user can change this settings through the user corner') %>
 </div>
+<div id='error_userMailExternalAccount' class='error' style='display:none'></div>
+<div id='note_userMailExternalAccount' class='note' style='display:none'></div>
 <& .addAccount, params => $params &>
 <a href='#' class='addNew'
-   name='add'
-         onClick='$(this).hide(); $("#add_external_account").show();return false'>
+   name='add' id='addlink_userMailExternalAccounts'
+         onClick='$(this).hide(); $("#userMailAddExternalAccount").show();return false'>
     <% __('Add new') %>
   </a>
-% if (@externalAccounts){
 <& .accountsTable,
-   externalAccounts => \@externalAccounts,
-   params           => $params,
+   params  => $params,
+   show    => @externalAccounts > 0
 &>
-% }
 <script>
 $(function() {
-  var refreshDialog = function(response) {
-                var url = '/Users/EditUser';
-                var data = 'dn=' + response.userDN;
-                Zentyal.Dialog.showURL(url, { data: data});
+
+  var refreshList = function(userDN, externalAccounts) {
+     var i;
+     var deleteText = '<% $deleteActionText %>';
+     var trueImg  = '<div class="tcenter"><img src="/data/images/apply.gif" alt="yes"/></div>';
+     var falseImg = '<div class="tcenter"><img src="/data/images/deny-active.gif" alt="no"/></div>';
+     var table = $('#userMailExternalAccountsTable');
+     table.toggle(externalAccounts.length > 0);
+     var tbody = $('tbody', table);
+     tbody.detach();
+     tbody.children().remove();
+
+     for (i=0; i < externalAccounts.length; i++) {
+         var account = externalAccounts[i];
+         var html = '<tr>';
+         html += '<td>' + account['externalAccount'] + '</td>';
+         html += '<td>' + account['server'] + '</td>';
+         html += '<td>' + account['protocol'] + '</td>';
+         html += '<td>' + account['port'] + '</td>';
+         html += '<td>' + (account['keep'] ? trueImg : falseImg ) + '</td>';
+         html += '<td>' + (account['fetchall'] ? trueImg : falseImg ) + '</td>';
+         html += '<td class="tcenter"><a href="#">'
+         html += '<img src="/data/images/delete.gif" text="' + deleteText + '" alt="' + deleteText + '" ';
+         html +=  'data-userDN="' + userDN + '" data-account="' + account['externalAccount'] + '" />';
+         html += '</a></td>'
+         html += '</tr>';
+
+         var newRow = $(html);
+         tbody.append(newRow);
+     }
+
+     table.append(tbody);
   };
 
-  $('#add_external_account').on('submit', function(event) {
-     event.preventDefault();
-     Zentyal.Dialog.submitForm(event.target, {
-          success : refreshDialog
-    });
-  });
+ Zentyal.Form.setupAjaxSubmit('#userMailAddExternalAccount', {
+            noteDiv: '#note_userMailExternalAccount',
+            errorDiv: '#error_userMailExternalAccount',
+            submitButton: '#userMailAddExternalAccount_submit',
+            success : function (response) {
+                if (response.success) {
+                   $("#userMailAddExternalAccount").hide();
+                   $('#addlink_userMailExternalAccounts').show();
+                   refreshList(response.userDN, response.externalAccounts);
+                }
+            }
+   });
 
-  $('#externalAccountsTable').on('click', 'href', function(event) {
+  $('#userMailExternalAccountsTable').on('click', 'a', function(event) {
       event.preventDefault();
-      var fullUrl = event.target.href;
-      var urlSplit = fullUrl.split('?');
-      $('#error_removeExternalAccount').html('').hide();
+      var url = '/Mail/DelExternalAccount';
+      var data = 'user=' +  event.target.getAttribute('data-userDN')
+      data += '&account=' + event.target.getAttribute('data-account');
+      $('#error_userMailExternalAccount').html('').hide();
+      $('#note_userMailExternalAccount').html('').hide();
       $.ajax({
-         url: urlSplit[0],
-         data: urlSplit[1],
+         url: url,
+         data: data,
          dataType: 'json',
          error: function(jqXHR) {
-            $('#error_removeExternalAccount').html(jqXHR.responseText).show();
+            $('#error_userMailExternalAccount').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
-                refreshDialog(response);
+                $('#note_userMailExternalAccount').html(response.msg).show();
+                refreshList(response.userDN, response.externalAccounts);
             } else {
-               $('#error_removeExternalAccount').html(response.error).show();
+               $('#error_userMailExternalAccount').html(response.error).show();
             }
          }
       });
   });
+
+   refreshList('<% $params->{'user'}->dn() %>', <% $externalAccountsJS %>);
 });
 
 </script>
@@ -86,54 +128,56 @@ $(function() {
 
 <%def .accountsTable>
 <%args>
-@externalAccounts
 $params
+$show
 </%args>
 <%init>
 my @tableOrder = qw(externalAccount server protocol port keep fetchall);
-my @rows;
-
-foreach my $account (@externalAccounts) {
-    my @accountRow;
-    foreach my $field (@tableOrder) {
-        if (($field eq 'keep') or ($field eq'fetchall')) {
-          if ($account->{$field}) {
-             push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
-          } else {
-             push @accountRow, q{<div class='tcenter'><img src="/data/images/deny-active.gif" alt="no"/></div>};
-          }
-        } else {
-          push @accountRow, $account->{$field};
-        }
-    }
-    # push action element
-    my $link = '/Mail/DelExternalAccount';
-    $link .= '?user='  . $params->{'user'}->dn();
-    $link .='&account=' . $account->{externalAccount};
-    push @accountRow, [
-        {
-           url => $link,
-           text => __('Delete external account'),
-           icon => '/data/images/delete.gif',
-        }
-
-     ];
-
-    push @rows, \@accountRow;
-}
+##   my @rows;
+##
+##   foreach my $account (@externalAccounts) {
+##       my @accountRow;
+##       foreach my $field (@tableOrder) {
+##           if (($field eq 'keep') or ($field eq'fetchall')) {
+##             if ($account->{$field}) {
+##                push @accountRow, q{<div class='tcenter'><img src="/data/images/apply.gif" alt="yes"/></div>};
+##             } else {
+##                push @accountRow, q{<div class='tcenter'><img src="/data/images/deny-active.gif" alt="no"/></div>};
+##             }
+##           } else {
+##             push @accountRow, $account->{$field};
+##           }
+##       }
+##       # push action element
+##       my $link = '/Mail/DelExternalAccount';
+##       $link .= '?user='  . $params->{'user'}->dn();
+##       $link .='&account=' . $account->{externalAccount};
+##       push @accountRow, [
+##           {
+##              url => $link,
+##              text => __('Delete external account'),
+##              icon => '/data/images/delete.gif',
+##           }
+##
+##        ];
+##
+##       push @rows, \@accountRow;
+##   }
 my @columnTitles = map {
    $printableName{$_}
 } @tableOrder;
-push @columnTitles, __('Action');
+my $actionTitle = __('Action');
 </%init>
 <br/><br/>
-<div id='error_removeExternalAccount' class='error' style='display:none'></div>
-<div id='externalAccountsTable'>
-<& /dataTable.mas,
-  columnTitles => \@columnTitles,
-  rows => \@rows,
-&>
-</div>
+<table id='userMailExternalAccountsTable' class='dataTable' <% $show ? '' : 'style="displa:none"'%> >
+<thead>
+%  foreach my $title (@columnTitles) {
+   <th class ='tleft'><% $title %></th>
+%  }
+   <th class='thOptions'><% $actionTitle %></th>
+</thead>
+<tbody></tbody>
+</table>
 </%def>
 
 
@@ -141,8 +185,7 @@ push @columnTitles, __('Action');
 <%args>
 $params
 </%args>
-<div id='error_add_external_account' class='error' style='display:none'></div>
-<form action='/Mail/AddExternalAccount'  method='POST' id='add_external_account' style='display:none;'>
+<form action='/Mail/AddExternalAccount'  method='POST' id='userMailAddExternalAccount' style='display:none;'>
 <& /formTable.mas,
    rows => [
     [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],
@@ -175,7 +218,7 @@ $params
     [ name => 'port', printableName => $printableName{'port'} ],
     [ name => 'keep', input => 'checkbox', printableName => $printableName{'keep'}],
     [ name => 'fetchall', input => 'checkbox', printableName => $printableName{'fetchall'}],
-    [ name => 'addExternalAccount', input => 'submit', value => __('Add')],
+    [ name => 'addExternalAccount', id=> 'userMailAddExternalAccount_submit',  input => 'submit', value => __('Add')],
   ]
 &>
 
