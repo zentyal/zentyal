@@ -1,3 +1,6 @@
+HEAD
+	+ Assure that type's references to its row are not lost in the
+	  edit form template methods
 3.1.6
 	+ Restyled UI
 	+ Added form.js
