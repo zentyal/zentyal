@@ -22,10 +22,10 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 <& .updateMaildirQuotaJs, params => $params &>
 <& .modifyMaildirQuota, params => $params &>
 
-<div id='error_userMailCreateAlias' class='error' style='display:none'></div>
-<div id='note_userMailCreateAlias' class='note' style='display:none'></div>
+<div id='error_userMailAlias' class='error' style='display:none'></div>
+<div id='note_userMailAlias' class='note' style='display:none'></div>
 <form action='/Mail/CreateAlias' id='userMailCreateAlias' method='POST'>
-    <input type="hidden" name="maildrop" value="<% $params->{'mail'} %>">
+    <input type="hidden" id='userMailCreateAlias_maildrop' name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
 
                 <h3><% __('Create mail aliases') %></h3>
@@ -104,9 +104,8 @@ $(function() {
             if (!response.success) {
               return;
             }
-            var hasAccount = (response.mail !== '');
-            $('#userMailNoAccountDiv').toggle(!hasAccount);
-            $('#userMailWithAccountDiv').toggle(hasAccount);
+            var mail = response.mail;
+            Zentyal.MailUserAddon.accountChange(mail);
         }
     });
 
@@ -117,11 +116,13 @@ $(function() {
     });
 
     Zentyal.Form.setupAjaxSubmit('#userMailCreateAlias', {
-            noteDiv: '#note_userMailCreateAlias',
-            errorDiv: '#error_userMailCreateAlias',
+            noteDiv: '#note_userMailAlias',
+            errorDiv: '#error_userMailAlias',
             submitButton: '#userMailCreateAlias_submit',
             success : function (response) {
-                refreshAliasList(response.aliases);
+                if ('aliases' in response) {
+                    refreshAliasList(response.aliases);
+                }
             }
    });
 
@@ -132,21 +133,23 @@ $(function() {
       data += '&alias=' + event.target.getAttribute('data-alias');
 
       // we reuse div for createAlias form
-      $('#error_userMailCreateAlias').html('').hide();
-      $('#note_userMailCreateAlias').html('').hide();
+      $('#error_userMailAlias').html('').hide();
+      $('#note_userMailAlias').html('').hide();
       $.ajax({
          url: url,
          data: data,
          dataType: 'json',
          error: function(jqXHR) {
-            $('#error_createAlias').html(jqXHR.responseText).show();
+            $('#error_userMailAlias').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
-                $('#note_userMailCreateAlias').html(response.msg).show();
-                refreshAliasList(response.aliases);
+                $('#note_userMailAlias').html(response.msg).show();
             } else {
-               $('#error_createAlias').html(response.error).show();
+               $('#error_userMailAlias').html(response.error).show();
+            }
+            if ('aliases' in response) {
+                refreshAliasList(response.aliases);
             }
          }
       });
