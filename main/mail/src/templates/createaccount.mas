@@ -89,11 +89,8 @@ $(function() {
             if (!response.success) {
               return;
             }
-            var hasAccount = (response.mail !== '');
-            $('#userMailNoAccountDiv').toggle(!hasAccount);
-            $('#userMailWithAccountDiv').toggle(hasAccount);
-            $('#userMailDelAccount_mail').val(response.mail);
-            $('#userMailDelAccount_mailLabel').text(response.mail);
+            var mail = response.mail;
+            Zentyal.MailUserAddon.accountChange(mail);
         }
     });
 });

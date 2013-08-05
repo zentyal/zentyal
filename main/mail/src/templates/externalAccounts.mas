@@ -87,11 +87,13 @@ $(function() {
             errorDiv: '#error_userMailExternalAccount',
             submitButton: '#userMailAddExternalAccount_submit',
             success : function (response) {
-                if (response.success) {
+               if (response.success) {
                    $("#userMailAddExternalAccount").hide();
                    $('#addlink_userMailExternalAccounts').show();
+               }
+               if (('externalAccounts' in response) && ('userDN' in response)) {
                    refreshList(response.userDN, response.externalAccounts);
-                }
+               }
             }
    });
 
@@ -185,11 +187,19 @@ my $actionTitle = __('Action');
 <%args>
 $params
 </%args>
+<%init>
+my $localAccount;
+if ((exists $params->{mail}) and (defined $params->{mail})) {
+   $localAccount =  $params->{mail};
+} else {
+   $localAccount = '';
+}
+</%init>
 <form action='/Mail/AddExternalAccount'  method='POST' id='userMailAddExternalAccount' style='display:none;'>
 <& /formTable.mas,
    rows => [
     [ name => 'user', input => 'hidden', value => $params->{'user'}->dn() ],
-    [ name => 'localAccount', input => 'hidden', value => $params->{'mail'}],
+    [ name => 'localAccount', id=>'userMailAddExternalAccount_localmail', input => 'hidden', value => $localAccount],
     [ name => 'externalAccount', printableName => $printableName{'externalAccount'} ],
     [ name => 'password', input =>'password', printableName => $printableName{'password'}  ],
     [ name => 'mailServer', printableName => $printableName{'server'}],
