@@ -1,3 +1,6 @@
+HEAD
+	+ Assure that type's references to its row are not lost in the
+	  edit form template methods
 3.0.23
 	+ Fixed bad arguments in EBox::CGI::Controller::Composite call to SUPER::new
 	+ Fixed encoding of parameters in confirmation dialogs
