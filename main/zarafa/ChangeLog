@@ -1,4 +1,4 @@
-HEAD
+3.1.2
 	+ Adapter user add-ons to right panel view
 	+ Moved ZarafaCompany objects root into ou=zarafa from ou=Users because
 	  Samba doesn't allow ou creations under CN=Users.
