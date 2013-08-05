@@ -1,3 +1,6 @@
+HEAD
+	+ The Administrator user is hidden now using the samba module functionality
+	  to hide SIDs instead of hardcoded in the code.
 3.1.4
 	+ Remove needReload notification for group addons
 	+ When a new system user is created with uid 0 we also create its home.

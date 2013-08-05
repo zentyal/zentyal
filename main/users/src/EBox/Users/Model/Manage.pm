@@ -85,9 +85,6 @@ sub childNodes
             $type = 'user';
             $printableName = $child->name();
 
-            # Hide samba admin user
-            next if ($printableName eq 'Administrator');
-
             # FIXME: temporary workaround until the regression is fixed properly
             use Sys::Hostname;
             my $hostname = Sys::Hostname::hostname();
