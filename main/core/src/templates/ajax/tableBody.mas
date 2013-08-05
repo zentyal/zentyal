@@ -368,9 +368,10 @@ $editid
   # adding where preset contents must be shown
   my @formData;
   my @extraComponents;
+  my $editRow; # must be outside of if scope to not lose the element weaken reference
   if ($editid and ($editid ne 'undefined')) {
-      my  $fetchRow = $model->row($editid);
-      @formData = @{$fetchRow->elements()};
+      $editRow = $model->row($editid);
+      @formData = @{$editRow->elements()};
       if ($action eq 'clone') {
           # unique fields should not be cloned
           my @uniqFields = grep { $_->unique()  } @tableHead;
