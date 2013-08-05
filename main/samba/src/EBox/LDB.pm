@@ -627,11 +627,11 @@ sub ous
     my $objectClass = EBox::Samba::OU->mainObjectClass();
     my %args = (
         base => $self->dn(),
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=$objectClass)",
         scope => 'sub',
     );
 
-    my $result = $self->connection()->search(\%args);
+    my $result = $self->search(\%args);
 
     my @ous = ();
     foreach my $entry ($result->entries)
