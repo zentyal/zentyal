@@ -502,7 +502,7 @@ sub ldapServicePrincipalsToLdb
         my $ldbKerberosDN = "OU=Kerberos,$ldbRootDN";
         $ldbKerberosOU = $sambaMod->objectFromDN($ldbKerberosDN);
 
-        if ($ldbKerberosOU->exists()) {
+        if ($ldbKerberosOU and $ldbKerberosOU->exists()) {
             $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
         } else {
             $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
