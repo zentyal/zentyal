@@ -15,8 +15,10 @@ Zentyal.MailUserAddon.accountChange = function(mail) {
     // aliases
     $('#userMailCreateAlias_maildrop').val(mail);
     $('#userMailAliasTable .aliasRow').remove();
+    $('#note_userMailAlias, #error_userMailAlias, #note_userMailSetMaildirQuota, #error_userMailSetMaildirQuota').html('').hide();
 
     // external accounts
     $('#userMailAddExternalAccount_localmail').val(mail);
     $('#userMailExternalAccountsTable').children().remove();
+    $('#note_userMailExternalAccount, #error_userMailExternalAccount').html('').hide();
 };

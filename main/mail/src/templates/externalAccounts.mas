@@ -87,11 +87,13 @@ $(function() {
             errorDiv: '#error_userMailExternalAccount',
             submitButton: '#userMailAddExternalAccount_submit',
             success : function (response) {
-                if (response.success) {
+               if (response.success) {
                    $("#userMailAddExternalAccount").hide();
                    $('#addlink_userMailExternalAccounts').show();
+               }
+               if (('externalAccounts' in response) && ('userDN' in response)) {
                    refreshList(response.userDN, response.externalAccounts);
-                }
+               }
             }
    });
 
