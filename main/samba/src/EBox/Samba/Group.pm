@@ -196,7 +196,8 @@ sub create
         $groupType |= GROUPTYPESECURITY;
     }
 
-    push ($attr, groupType       => $groupType);
+    $groupType = unpack('l', pack('l', $groupType)); # force 32bit integer
+    push ($attr, groupType => $groupType);
 
     # Add the entry
     my $result = $class->_ldap->add($dn, { attrs => $attr });
