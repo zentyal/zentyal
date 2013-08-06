@@ -1618,10 +1618,10 @@ sub authenticationMode
     if ($mode eq AUTH_MODE_INTERNAL) {
         return AUTH_MODE_INTERNAL;
     } elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
-        if (EBox::Global->edition() eq 'enterprise') {
+        if (EBox::Global->edition() eq 'enterprise' || EBox::Global->edition() eq 'sb' ) {
             return AUTH_MODE_EXTERNAL_AD;
         } else {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise edition');
+            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise or SBE editions');
             return AUTH_MODE_INTERNAL;
         }
     } else {
