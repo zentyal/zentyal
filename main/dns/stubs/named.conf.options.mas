@@ -1,6 +1,8 @@
 <%args>
   @forwarders
   $keytabPath => undef
+  $sortlist
+  @intnets
 </%args>
 options {
     directory "/var/cache/bind";

@@ -713,6 +713,16 @@ sub _setConf
 
     push (@array, 'forwarders' => $self->_forwarders());
     push (@array, 'keytabPath' => $keytabPath);
+
+#############SORTLIST#####################################
+    my $sortlist = EBox::Config::configkey('sortlist');
+    if ($sortlist) {
+        push (@array, 'intnets' => \@intnets);
+        push (@array, 'sortlist' => );
+    }
+############END OF SORTLIST###############################3
+
+
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
