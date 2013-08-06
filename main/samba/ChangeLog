@@ -1,4 +1,4 @@
-HEAD
+3.1.6
 	+ Fix Samba provisioning when joining an existing Windows server.
 	+ Fixed s4sync to ignore all sub-OUs for a set of OUs so those tree
 	  branches are not synced with samba or deleted from OpenLDAP by mistake.
