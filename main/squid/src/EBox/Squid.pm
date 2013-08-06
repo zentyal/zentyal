@@ -1621,7 +1621,7 @@ sub authenticationMode
         if (EBox::Global->edition() eq 'enterprise' || EBox::Global->edition() eq 'sb' ) {
             return AUTH_MODE_EXTERNAL_AD;
         } else {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for enterprise or SBE editions');
+            EBox::warn('Falling back to internal auth as External AD auth is only available for Enterprise or Small Business editions');
             return AUTH_MODE_INTERNAL;
         }
     } else {
