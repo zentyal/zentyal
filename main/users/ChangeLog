@@ -1,4 +1,4 @@
-HEAD
+3.1.5
 	+ Fixed EBox::Users::LdapObject::canonicalName to propagate the flag to
 	  get or ignore the root's namedContext canonical name.
 	+ The Administrator user is hidden now using the samba module functionality
