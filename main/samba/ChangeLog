@@ -1,4 +1,7 @@
 HEAD
+	+ Fix Samba provisioning when joining an existing Windows server.
+	+ Fixed s4sync to ignore all sub-OUs for a set of OUs so those tree
+	  branches are not synced with samba or deleted from OpenLDAP by mistake.
 	+ The Administrator user should be hidden.
 3.1.5
 	+ Adapted user-addon to right panel view

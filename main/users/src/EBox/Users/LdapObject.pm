@@ -420,7 +420,7 @@ sub canonicalName
     my $canonicalName = '';
     if ($parent) {
         unless ($excludeRoot and (not $parent->parent())) {
-            $canonicalName = $parent->canonicalName() . '/';
+            $canonicalName = $parent->canonicalName($excludeRoot) . '/';
         }
     }
 
