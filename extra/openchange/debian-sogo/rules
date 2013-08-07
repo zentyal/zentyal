@@ -65,10 +65,10 @@ install-arch: build-arch
 	       DESTDIR=$(DESTDIR) \
 	       GNUSTEP_INSTALLATION_DOMAIN=SYSTEM \
 	     install); \
-	  rm -f $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/mapistore_backends/libMAPIStoreSOGo.so.1; \
-	  rm -f $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/mapistore_backends/libMAPIStoreSOGo.so; \
-	  mv -f $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/mapistore_backends/libMAPIStoreSOGo.so.1.0.0 \
-	           $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/mapistore_backends/SOGo.so; \
+	  rm -f $(DESTDIR)/opt/samba4/lib/mapistore_backends/libMAPIStoreSOGo.so.1; \
+	  rm -f $(DESTDIR)/opt/samba4/lib/mapistore_backends/libMAPIStoreSOGo.so; \
+	  mv -f $(DESTDIR)/opt/samba4/lib/mapistore_backends/libMAPIStoreSOGo.so.1.0.0 \
+	           $(DESTDIR)/opt/samba4/lib/mapistore_backends/SOGo.so; \
 	fi
 
 	install -D Scripts/sogo-default debian/tmp/etc/default/sogo
