@@ -24,15 +24,15 @@ package_lc=${package,,}
 BUILD_DIR="/tmp/build-${package_lc}-$$"
 CWD=`pwd`
 
-SRC="${package_lc}-$version.orig.tar.gz"
+SRC="${package_lc}_$version.orig.tar.gz"
 
 if [ "$package" = "openchange" ]; then
     ./build-orig.sh $package $version
     if [ $? -ne 0 ]; then
         exit 1
     fi
-    generated=`ls -tr openchange-*.orig.tar.gz |tail -1`
-    version=${generated/$package-/}
+    generated=`ls -tr openchange_*.orig.tar.gz |tail -1`
+    version=${generated/$package_/}
     version=${version/.orig.tar.gz/}
     echo $version
     SRC=$generated

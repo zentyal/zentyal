@@ -6,7 +6,12 @@ rev=$3
 
 if [ -z "$version" ]
 then
-    echo "Usage: $0 [SOPE|SOGo] <version> [rev]"
+    echo "Usage: $0 [SOPE|SOGo|openchange] <version> [rev]"
+    exit 1
+fi
+
+if [ "$package" = "openchange" ] && [ "$version" != "latest" ]; then
+    echo "We only support 'latest' version for openchange."
     exit 1
 fi
 
@@ -19,14 +24,30 @@ package_lc=${package,,}
 BUILD_DIR=/tmp/build-${package_lc}-$$
 CWD=`pwd`
 
-SRC="${package_lc}-$version.orig.tar.gz"
+SRC="${package_lc}_$version.orig.tar.gz"
 
-if ! [ -f $SRC ]
-then
+if [ "$package" = "openchange" ]; then
     ./build-orig.sh $package $version
     if [ $? -ne 0 ]; then
         exit 1
     fi
+    generated=`ls -tr openchange_*.orig.tar.gz |tail -1`
+    SRC=$generated
+    version=${generated/$package_/}
+    version=${version/.orig.tar.gz/}
+    echo $version
+else
+    if ! [ -f $SRC ]; then
+        ./build-orig.sh $package $version
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
+fi
+
+if ! [ -f $SRC ] ; then
+    echo "Unable to get the origin tar ball for $package / $version."
+    exit 1
 fi
 
 mkdir $BUILD_DIR

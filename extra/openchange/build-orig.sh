@@ -24,8 +24,9 @@ then
     pushd .
     cd openchange-master
     version=`git describe master --tags`
-    generated=$version.orig.tar.gz
-    git archive master --prefix=$version/ | gzip > ../$generated
+    version=${version/$package-/}
+    generated=${package_lc}_$version.orig.tar.gz
+    git archive master --prefix=${package_lc}-$version/ | gzip > ../$generated
     popd
     rm -rf openchange-master
 else
@@ -42,7 +43,7 @@ else
     else
         mv $package-$version ${package_lc}-$version
     fi
-    generated=${package_lc}-$version.orig.tar.gz
+    generated=${package_lc}_$version.orig.tar.gz
     rm $package-$version.tar.gz
     tar cfz $generated "${package_lc}-$version"
     rm -rf "${package_lc}-$version"
