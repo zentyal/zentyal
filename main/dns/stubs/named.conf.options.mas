@@ -1,10 +1,17 @@
-<%args>
+%args>
   @forwarders
   $keytabPath => undef
-  $sortlist
-  @intnets
+  @intnet
 </%args>
+
 options {
+%if (EBox::Config::boolean('sortlist')) {
+     sortlist {
+%    foreach my $intnet (@intnet) {
+            { <% $intnet %> ;{ <% $intnet %> ; };};
+%    }
+    };
+%}
     directory "/var/cache/bind";
 
     // If there is a firewall between you and nameservers you want
