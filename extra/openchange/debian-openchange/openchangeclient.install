@@ -6,7 +6,7 @@ opt/samba4/bin/openchangeclient
 opt/samba4/bin/openchangemapidump
 opt/samba4/bin/openchangepfadmin
 opt/samba4/bin/schemaIDGUID
-opt/samba4/lib/nagios/plugins/check_exchange
+usr/lib/nagios/plugins/check_exchange
 usr/share/man/man1/exchange2mbox.1
 usr/share/man/man1/mapiprofile.1
 usr/share/man/man1/openchangeclient.1

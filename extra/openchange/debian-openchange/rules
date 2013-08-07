@@ -43,8 +43,7 @@ override_dh_auto_install:
 	install -d $(DESTDIR)/usr/lib/nagios/plugins
 	install -m 700 -d -o www-data -g www-data $(DESTDIR)/opt/samba4/var/cache/ntlmauthhandler
 	$(MAKE) datadir=/opt/samba4/share/openchange install installman DESTDIR=$(DESTDIR) MANUALLY_CREATE_SYMLINKS=yes
-	mv $(DESTDIR)/usr/lib/$(DEB_HOST_MULTIARCH)/nagios/check_exchange \
-	   $(DESTDIR)/usr/lib/nagios/plugins/check_exchange 
+	mv $(DESTDIR)/opt/samba4/lib/nagios/check_exchange $(DESTDIR)/usr/lib/nagios/plugins/check_exchange 
 	rm -rf $(DESTDIR)/opt/samba4/modules
 	# Don't install the testsuite for now
 	rm -f $(DESTDIR)/opt/samba4/torture/openchange.so
