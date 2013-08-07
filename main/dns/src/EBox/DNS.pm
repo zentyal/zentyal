@@ -713,11 +713,8 @@ sub _setConf
 
     push (@array, 'forwarders' => $self->_forwarders());
     push (@array, 'keytabPath' => $keytabPath);
-
-
     my @intnet = @{$self->_internalLocalNets()};
     push (@array, 'intnet' => \@intnet);
-
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
