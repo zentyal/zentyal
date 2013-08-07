@@ -1,8 +1,20 @@
+openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal3) precise; urgency=low
+
+  * Fixed origin tarball.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 07 Aug 2013 16:31:52 +0200
+
+openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal2) precise; urgency=low
+
+  * Added dependency on libbsd0
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 07 Aug 2013 15:57:52 +0200
+
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal1) precise; urgency=low
 
   * New upstream release
 
- -- Carlos Perelló Marín perello@zentyal.com>  Wed, 31 Jul 2013 14:31:41 +0200
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 31 Jul 2013 14:31:41 +0200
 
 openchange (1:2.0.r3669-1~inverse1.0) precise; urgency=low
 
