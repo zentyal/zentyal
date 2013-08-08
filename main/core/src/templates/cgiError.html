@@ -32,21 +32,35 @@
         <div>{{ stacktrace_html }}</div>
       </div>
 
+       <div id="report_error_message" class="error" style="display: none">
+       </div>
+
+       <div id="general_report_error" style="display: none">
+        <div class="error">{{ report_error }}</div>
+        <p>{{ report_instructions }}</p>
+       </div>
+
       <div id="report" style="display: none">
-        <div><b>Report</b></div>
+        <h2><b>Report</b></h2>
         <script type="text/javascript">
             function submitForm() {
-                setLoading('submit_button');
+                setLoading('submit_button', undefined, 1);
+                $('general_report_error').hide();
+                $('report_error_message').hide();
                 $('report_form').request({
                     onComplete: function(transport){
                         if (transport.responseText.indexOf('OK') == 0) {
                             var ticket = transport.responseText.substr(3);
                             $('report').replace('<div class="note">{{ report_sent }} ' +
                                                 '<a href="http://trac.zentyal.org/ticket/' + ticket + '">#' + ticket + '</a></note>');
-                        }
-                        else {
-                            $('report').hide();
-                            $('report_error').show();
+                        } else if (transport.responseText.indexOf('ERROR ') == 0)  {
+                            var error_string =  transport.responseText.substr(6);
+                            $('report_error_message').update(error_string);
+                            $('report_error_message').show();
+                            restoreHidden('submit_button');
+                        } else {
+                            $('general_report_error').show();
+                            restoreHidden('submit_button');
                         }
                     },
                 });
@@ -72,11 +86,6 @@
 
       <div id="back">
         <a href="#" onclick="history.go(-1); return false">{{ go_back }}</a>
-      </div>
-
-      <div id="report_error" style="display: none">
-        <div class="error">{{ report_error }}</div>
-        <p>{{ report_instructions }}</p>
       </div>
 
     </div>
