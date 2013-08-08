@@ -20,10 +20,12 @@ use warnings;
 
 use base qw(EBox::CGI::ClientBase);
 
+use EBox::Validate;
 use EBox::Util::BugReport;
+use EBox::Gettext;
 use Error qw(:try);
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
@@ -34,6 +36,13 @@ sub new # (error=?, msg=?, cgi=?)
 sub _print
 {
     my ($self) = @_;
+    my $email = $self->unsafeParam('email');
+    my $validEmail = EBox::Validate::checkEmailAddress($email);
+    if (not $validEmail) {
+        print($self->cgi()->header(-charset=>'utf-8'));
+        print 'ERROR ' . __('Invalid email address');
+        return;
+    }
 
     my $description = $self->unsafeParam('description');
     $description .= "\n\n'''Error'''\n\n";
@@ -45,7 +54,7 @@ sub _print
     $description .= $self->unsafeParam('stacktrace');
     $description .= "\n}}}";
 
-    my $ticket = EBox::Util::BugReport::send($self->unsafeParam('email'),
+    my $ticket = EBox::Util::BugReport::send($email,
                                              $description);
 
     print($self->cgi()->header(-charset=>'utf-8'));

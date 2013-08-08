@@ -32,6 +32,7 @@ try {
 
     EBox::init();
     binmode(STDOUT, ':utf8');
+
     EBox::CGI::Run->run($ENV{'script'}, 'EBox');
 } otherwise  {
     my $ex = shift;
@@ -98,6 +99,7 @@ try {
         $instructions .= '<li>' . __('Create a new ticket in the Zentyal trac by clicking ') . '<a class="nvac" href="#" onclick="window.open(\'http://trac.zentyal.org/newticket\')">' . __('here') . "</a>.</li>";
         $instructions .= '<li>' . __('Write a short description of the problem in the summary field') . '.</li>';
         $instructions .= '<li>' . __('Write a detailed report of what you were doing before this problem ocurred in the description field') . '.</li>';
+        $instructions .= '<li>' . __('Write a valid email address to be notified of ticket updates') . '.</li>';
         $instructions .= '<li>' . __('Download the log file with additional information by clicking') . ' <a class="nvac" href="/SysInfo/Log" id="log">' . __('here') . '</a>.</li>';
         $instructions .= '<li>' . __('Attach the downloaded file in the ticket') . '.</li></ol>';
         $instructions .= '<form action="Backup" method="POST" id="formreport"><input type="hidden" name="bugreport" value="a" /></form></div></div>';
