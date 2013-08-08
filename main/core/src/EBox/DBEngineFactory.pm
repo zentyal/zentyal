@@ -20,7 +20,14 @@ package EBox::DBEngineFactory;
 use EBox;
 use EBox::MyDBEngine;
 
-#
+# FIXME: MyDBEngine should be a singleton directly, this factory is
+#        useless and was filling the logs with a logs of messages
+#        prior to its conversion to singleton, but at the moment
+#        we are not changing it to not break the interface with the
+#        rest of the code.
+
+my $_instance = undef;
+
 # Function: DBEngine
 #
 # Returns:
@@ -29,7 +36,11 @@ use EBox::MyDBEngine;
 #
 sub DBEngine
 {
-    return new EBox::MyDBEngine;
+    unless (defined($_instance)) {
+        $_instance = new EBox::MyDBEngine;
+    }
+
+    return $_instance;
 }
 
 1;
