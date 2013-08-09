@@ -60,6 +60,7 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 $(function () {
       Zentyal.Dashboard.statusStrings = <% $statusStringJson %>;
       Zentyal.Dashboard.createSortableDashboard();
+      Zentyal.Dashboard.levelHeights();
       setInterval( Zentyal.Dashboard.updateWidgets, 30000);
 });
 </script>
