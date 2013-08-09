@@ -1,3 +1,5 @@
+HEAD
+	+ Removed deprecated configuration file keys related with external AD
 3.1.5
 	+ Fixed EBox::Users::LdapObject::canonicalName to propagate the flag to
 	  get or ignore the root's namedContext canonical name.
