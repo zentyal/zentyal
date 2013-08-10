@@ -1,4 +1,4 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,10 +13,10 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Util::Random;
-
 use strict;
 use warnings;
+
+package EBox::Util::Random;
 
 use EBox::Exceptions::Internal;
 
@@ -32,8 +32,10 @@ use EBox::Exceptions::Internal;
 #
 #   String with a generated random password
 #
-sub generate {
+sub generate
+{
     my ($len) = @_;
+    my $path ='/dev/urandom';
     my $char;
     my $data;
     my @chars;
@@ -46,10 +48,10 @@ sub generate {
     @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
             . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@/=");
 
-    open(RD, "</dev/urandom") or die "Failed to open random source";
+    open(RD, "<$path") or die "Failed to open random source $path";
     $data = "";
     while ($len-- > 0) {
-        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        read(RD, $char, 1) == 1 or die "Failed to read random data from $path";
         $data .= $chars[ord($char) % @chars];
     }
     close(RD);
