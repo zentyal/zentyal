@@ -650,6 +650,7 @@ sub _internalServerEnableActions
         parent => $groupClass->defaultContainer(),
         description => 'All users',
         isSystemGroup => 1,
+        ignoreMods  => ['samba'],
     );
     $groupClass->create(%args);
 
