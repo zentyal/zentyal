@@ -1,4 +1,6 @@
 HEAD
+	+ Modules can now be marked for restart after save changes via
+	  post_save_modules redis key of the global module
 	+ Make all dashboards div of the same height to ease drag and drop
 	+ Don't allow invalid email in create report CGI
 	+ DBEngineFactory is now a singleton
