@@ -1,3 +1,5 @@
+HEAD
+	+ DNS is now properly restarted after provision
 3.1.6
 	+ Fix Samba provisioning when joining an existing Windows server.
 	+ Fixed s4sync to ignore all sub-OUs for a set of OUs so those tree

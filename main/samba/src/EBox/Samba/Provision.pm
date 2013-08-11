@@ -283,8 +283,10 @@ sub provision
 {
     my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
+
     # Stop the service
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $global->modInstance('samba');
     $samba->stopService();
 
     # Check environment
@@ -305,6 +307,11 @@ sub provision
     } else {
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
+
+    # dns needs to be restarted after save changes to write proper bind conf with the dlz
+    my @postSaveModules = @{$global->get_list('post_save_modules')};
+    push (@postSaveModules, 'dns');
+    $global->set('post_save_modules', \@postSaveModules);
 }
 
 sub resetSysvolACL
