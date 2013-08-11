@@ -1161,7 +1161,7 @@ sub provisionADC
         }
         foreach my $zentyalOU (@{$ous}) {
             # TODO: We must ignore OUs like the ones used by zentyal-mail.
-            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos']});
+            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos', 'Groups']});
 
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject();
