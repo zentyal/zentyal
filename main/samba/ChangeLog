@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wrong call to _linkWithUsersObject in Provision
 	+ DNS is now properly restarted after provision
 3.1.6
 	+ Fix Samba provisioning when joining an existing Windows server.

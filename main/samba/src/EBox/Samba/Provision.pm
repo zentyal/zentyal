@@ -384,7 +384,7 @@ sub mapAccounts
     my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
     if ($domainAdmin->exists()) {
         if ($domainAdminZentyal->exists()) {
-            $domainAdmin->_linkWithUserObject($domainAdminZentyal);
+            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
         } else {
             $domainAdmin->addToZentyal();
         }
@@ -397,7 +397,7 @@ sub mapAccounts
     my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
     if ($domainAdmins->exists()) {
         if ($domainAdminsZentyal->exists()) {
-            $domainAdmins->_linkWithUserObject($domainAdminsZentyal);
+            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
         } else {
             $domainAdmins->addToZentyal();
         }
