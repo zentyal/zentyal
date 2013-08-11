@@ -359,6 +359,26 @@ sub mapDefaultContainers
             $ldbObject->addToZentyal();
         }
     }
+
+    # ou=Groups is an special case, it should exists always.
+    my $ldbDN = "OU=Groups,$ldbRootDN";
+    my $ldapDN = "ou=Groups,$ldapRootDN";
+
+    EBox::info("Mapping '$ldbDN' into '$ldapDN'");
+
+    my $sambaGroupsOU = $sambaMod->objectFromDN($ldbDN);
+    my $ldapGroupsOU = $usersMod->objectFromDN($ldapDN);
+
+    unless ($sambaGroupsOU and $sambaGroupsOU->exists()) {
+        my $sambaParent = $sambaMod->defaultNamingContext();
+        $sambaGroupsOU = EBox::Samba::OU->create(name => 'Groups', parent => $sambaParent);
+    }
+
+    if ($ldapGroupsOU and $ldapGroupsOU->exists()) {
+        $sambaGroupsOU->_linkWithUsersObject($ldapGroupsOU);
+    } else {
+        $sambaGroupsOU->addToZentyal();
+    }
 }
 
 sub mapAccounts
@@ -1141,7 +1161,7 @@ sub provisionADC
         }
         foreach my $zentyalOU (@{$ous}) {
             # TODO: We must ignore OUs like the ones used by zentyal-mail.
-            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos', 'Groups']});
+            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos']});
 
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject();
