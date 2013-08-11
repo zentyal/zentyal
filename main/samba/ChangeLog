@@ -1,4 +1,7 @@
 HEAD
+	+ Force the ou=Groups deletion on provision time and force its clean
+	  creation later to prevent problems with Windows AD containing such OU
+	  already.
 	+ Fixed wrong call to _linkWithUsersObject in Provision
 	+ DNS is now properly restarted after provision
 3.1.6
