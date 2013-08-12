@@ -1,4 +1,4 @@
-HEAD
+3.0.24
 	+ EBox::Util::Random mentions /dev/urandom in its error messages
 	  to ease troubleshooting
 	+ Don't allow invalid email in create report CGI
