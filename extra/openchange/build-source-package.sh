@@ -33,7 +33,7 @@ if [ "$package" = "openchange" ]; then
     fi
     generated=`ls -tr openchange_*.orig.tar.gz |tail -1`
     SRC=$generated
-    version=${generated/$package_/}
+    version=${generated/${package}_/}
     version=${version/.orig.tar.gz/}
     echo $version
 else
@@ -63,5 +63,5 @@ cp debian/changelog $CWD/debian-${package_lc}/
 ppa-build.sh
 popd
 
-mv $BUILD_DIR/${package_lc}_*.{tar.gz,dsc,changes} .
+mv $BUILD_DIR/${package_lc}_*.{debian.tar.gz,dsc,changes} .
 rm -rf $BUILD_DIR

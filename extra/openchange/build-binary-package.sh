@@ -32,7 +32,7 @@ if [ "$package" = "openchange" ]; then
         exit 1
     fi
     generated=`ls -tr openchange_*.orig.tar.gz |tail -1`
-    version=${generated/$package_/}
+    version=${generated/${package}_/}
     version=${version/.orig.tar.gz/}
     echo $version
     SRC=$generated
