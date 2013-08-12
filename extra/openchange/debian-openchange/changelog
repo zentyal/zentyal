@@ -1,3 +1,9 @@
+openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal6) precise; urgency=low
+
+  * Fixed a wrong path for cached files from python-ocsmanager.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 13:53:46 +0200
+
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal5) precise; urgency=low
 
   * python-ocsmanager is now installed on the standard system path.

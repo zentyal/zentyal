@@ -41,7 +41,7 @@ override_dh_auto_clean:
 
 override_dh_auto_install:
 	install -d $(DESTDIR)/usr/lib/nagios/plugins
-	install -m 700 -d -o www-data -g www-data $(DESTDIR)/opt/samba4/var/cache/ntlmauthhandler
+	install -m 700 -d -o www-data -g www-data $(DESTDIR)/var/cache/ntlmauthhandler
 	$(MAKE) datadir=/opt/samba4/share/openchange install installman DESTDIR=$(DESTDIR) MANUALLY_CREATE_SYMLINKS=yes
 	mv $(DESTDIR)/opt/samba4/lib/nagios/check_exchange $(DESTDIR)/usr/lib/nagios/plugins/check_exchange 
 	rm -rf $(DESTDIR)/opt/samba4/modules
@@ -76,7 +76,7 @@ override_dh_install:
 	dh_install --sourcedir=debian/tmp --list-missing --fail-missing
 
 override_dh_fixperms:
-	dh_fixperms --exclude opt/samba4/var/cache/ntlmauthhandler
+	dh_fixperms --exclude var/cache/ntlmauthhandler
 
 override_dh_strip:
 	dh_strip --dbg-package=openchangeserver-dbg
