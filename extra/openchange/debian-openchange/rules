@@ -68,6 +68,9 @@ override_dh_auto_install:
 	(cd mapiproxy/services/web/rpcproxy; python$* setup.py install --install-lib=/opt/samba4/lib/openchange/web/rpcproxy --root $(DESTDIR) \
 		--install-scripts=/opt/samba4/lib/openchange/web/rpcproxy --install-layout=deb $(py_setup_install_args))
 	rm -f $(DESTDIR)/opt/samba4/lib/openchange/web/rpcproxy/rpcproxy/*pyc
+	install -d $(DESTDIR)/usr/lib/python2.7/dist-packages/
+	echo "/opt/samba4/lib/python2.7/dist-packages" > $(DESTDIR)/usr/lib/python2.7/dist-packages/mapistore.pth
+	echo "/opt/samba4/lib/python2.7/dist-packages" > $(DESTDIR)/usr/lib/python2.7/dist-packages/openchange.pth
 
 override_dh_install:
 	dh_install --sourcedir=debian/tmp --list-missing --fail-missing

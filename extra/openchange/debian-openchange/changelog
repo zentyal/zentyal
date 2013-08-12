@@ -1,8 +1,10 @@
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal5) precise; urgency=low
 
   * python-ocsmanager is now installed on the standard system path.
+  * python-mapistore and openchangeserver install a .pth file now to add those
+    python packages automatically to the pythonpath.
 
- -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 10:33:44 +0200
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 10:55:44 +0200
 
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal4) precise; urgency=low
 
