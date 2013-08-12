@@ -4,6 +4,8 @@ HEAD
 	+ Make all dashboards div of the same height to ease drag and drop
 	+ Don't allow invalid email in create report CGI
 	+ DBEngineFactory is now a singleton
+	+ EBox::Util::Random mentions /dev/urandom in its error messages
+	  to ease troubleshooting
 	+ Assure that type's references to its row are not lost in the
 	  edit form template methods
 3.1.6
