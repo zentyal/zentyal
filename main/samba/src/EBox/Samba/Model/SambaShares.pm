@@ -200,6 +200,9 @@ sub validateTypedRow
         if ($path eq 'system') {
             # Check if it is an allowed system path
             my $normalized = abs_path($parms->{'path'}->value());
+            if ($normalized eq '/') {
+                throw EBox::Exceptions::External(__('The file system root directory cannot be used as share'));
+            }
             foreach my $filterPath (FILTER_PATH) {
                 if ($normalized =~ /^$filterPath/) {
                     throw EBox::Exceptions::External(

@@ -22,6 +22,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
 use Error qw(:try);
+use Net::LDAP::Constant qw(LDAP_NO_SUCH_OBJECT);
 use POSIX;
 
 sub _new_instance
@@ -86,7 +87,7 @@ sub clearConn
 #
 # Exceptions:
 #
-#       Internal - If there is an error during the search
+#       EBox::Exceptions::LDAP - If there is an error during the search
 sub search # (args)
 {
     my ($self, $args) = @_;
@@ -102,8 +103,46 @@ sub search # (args)
 #        }
 #    }
     my $result = $self->{ldap}->search(%{$args});
-    $self->_errorOnLdap($result, $args);
+    unless ($result->code() == LDAP_NO_SUCH_OBJECT) {
+        $self->_errorOnLdap($result, $args);
+    }
     return $result;
+}
+
+# Method: existsDN
+#
+#       checks if a give DN exists in the directory
+#
+# Parameters:
+#
+#       dn - dn to check
+#
+#  Returns:
+#     - boolean
+#
+# Exceptions:
+#
+#       EBox::Exceptions::LDAP - If there is an error during the search
+sub existsDN
+{
+    my ($self, $dn) = @_;
+
+    my @searchArgs = (
+        base => $dn,
+        scope => 'base',
+        filter => "(objectclass=*)"
+       );
+    my $result = $self->{ldap}->search(@searchArgs);
+    if ($result->is_error()) {
+        if ($result->code() == Net::LDAP::Constant::LDAP_NO_SUCH_OBJECT()) {
+            # base does not exists
+            return 0;
+        } else {
+            $self->_errorOnLdap($result, {@searchArgs});
+        }
+    }
+
+    return 1;
 }
 
 # Method: modify

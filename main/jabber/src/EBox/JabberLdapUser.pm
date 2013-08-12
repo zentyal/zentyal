@@ -44,11 +44,9 @@ sub _userAddOns
 
     return unless ($self->{jabber}->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($user));
 
-    my $is_admin = 0;
-    $is_admin = 1 if ($self->isAdmin($user));
+    my $active   = $self->hasAccount($user) ? 1 : 0;
+    my $is_admin = $self->isAdmin($user) ? 1 : 0;
 
     my @args;
     my $args = {
@@ -134,13 +132,13 @@ sub getJabberAdmins
 
     my $global = EBox::Global->getInstance();
     my $users = $global->modInstance('users');
-    my $dn = $users->usersDn;
+    my $usersContainer = EBox::Users::User->defaultContainer();
     my @admins = ();
 
     $users->{ldap}->connection();
     my $ldap = $users->{ldap};
 
-    my %args = (base => $dn, filter => 'jabberAdmin=TRUE');
+    my %args = (base => $usersContainer->dn(), filter => 'jabberAdmin=TRUE');
     my $mesg = $ldap->search(\%args);
 
     foreach my $entry ($mesg->entries) {

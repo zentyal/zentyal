@@ -637,7 +637,6 @@ sub saveAllModules
         }
 
         try {
-
             $mod->save();
         } catch EBox::Exceptions::External with {
             my $ex = shift;
@@ -675,6 +674,23 @@ sub saveAllModules
     }
 
     # TODO: tell events module to resume its watchers
+
+    foreach my $modName (@{$self->get_list('post_save_modules')}) {
+        my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
+        next unless defined ($mod);
+
+        try {
+            $mod->save();
+        }  catch EBox::Exceptions::External with {
+            my $ex = shift;
+            $ex->throw();
+        } otherwise {
+            my $ex = shift;
+            EBox::error("Failed to restart $modName after save changes: $ex");
+            $failed .= "$modName ";
+        };
+    }
+    $self->unset('post_save_modules');
 
     if (not $failed) {
         # post save hooks

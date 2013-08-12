@@ -37,27 +37,41 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
 
     my $astldap = new EBox::AsteriskLdapUser;
     my $extensions = new EBox::Asterisk::Extensions;
 
     $self->_requireParam('group', __('group'));
     my $group = $self->unsafeParam('group');
-    $self->{redirect} = "Users/Group?group=$group";
-    $self->keepParam('group');
+
 
     $group = new EBox::Users::Group(dn => $group);
+
+    if ($astldap->asteriskUsersInQueue($group) == 0) {
+        throw EBox::Exceptions::External(__('There are no users in this group or the users do not have an Asterisk account, so a queue cannot be created.'));
+    }
+
     if ($self->param('active') eq 'yes') {
         $astldap->setHasQueue($group, 1);
+        $self->{json}->{enabled} = 1;
+
         my $myextn = $extensions->getQueueExtension($group);
+        $self->{json}->{extension} = $myextn;
+
         my $newextn = $self->param('extension');
-        if ($newextn eq '') { $newextn = $myextn; }
-        if ($newextn ne $myextn) {
+        if ($newextn and ($newextn ne $myextn)) {
             $extensions->modifyQueueExtension($group, $newextn);
+            $self->{json}->{extension} = $newextn;
         }
+
+        $self->{json}->{msg} = __x('Asterisk group queue enabled with extension {ext}', ext => $newextn ? $newextn : $myextn);
     } else {
         $astldap->setHasQueue($group, 0);
+        $self->{json}->{enabled} = 0;
+        $self->{json}->{msg} = __('Asterisk group queue disabled');
     }
+    $self->{json}->{success} = 1;
 }
 
 1;

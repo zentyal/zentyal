@@ -28,6 +28,7 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Ldap;
+use EBox::Users::User;
 use EBox::WebServer;
 use EBox::ZarafaLdapUser;
 
@@ -779,26 +780,31 @@ sub _createVMailDomainsOUs
 {
     my ($self) = @_;
 
+    my $usersMod = EBox::Global->modInstance('users');
+    my $namingContext = $usersMod->defaultNamingContext();
+
+    my $dn = "ou=zarafa," . $namingContext->dn();
+    my $ou = new EBox::Users::OU(dn => $dn);
+    unless ($ou and $ou->exists()) {
+        $ou = EBox::Users::OU->create(name => 'zarafa', parent => $namingContext, ignoreMods => ['samba']);
+    }
+
     my @vdomains = @{$self->model('VMailDomains')->vdomains()};
 
     foreach my $vdomain (@vdomains) {
-        $self->_addVMailDomainOU($vdomain);
+        $self->_addVMailDomainOU($vdomain, $ou);
     }
 }
 
 sub _addVMailDomainOU
 {
-    my ($self, $vdomain) = @_;
+    my ($self, $vdomain, $parent) = @_;
 
-    my $users = EBox::Global->modInstance('users');
-    my $usersDN = $users->usersDn();
-
-    my $dn = "ou=$vdomain," . $usersDN;
+    my $dn = "ou=$vdomain," . $parent->dn();
     my $ou = new EBox::Users::OU(dn => $dn);
-    return if $ou->exists();
+    return if ($ou and $ou->exists());
 
-    my $parent = $users->objectFromDN($usersDN);
-    $ou->create($vdomain, $parent);
+    $ou = EBox::Users::OU->create(name => $vdomain, parent => $parent, ignoreMods => ['samba']);
     $ou->add('objectClass', [ 'zarafa-company' ], 1);
     $ou->save();
 }

@@ -266,7 +266,6 @@ sub defaultActionLabels
     return {
         'add' => __('Add new'),
         'delete' => __('Delete'),
-        'edit' => __('Edit'),
     };
 }
 
@@ -390,13 +389,12 @@ sub keywords
 #
 # Parameters:
 #
-#    type - string with the action to execute
-#    type - string type of the node
-#    id   - name of the JS variable containing the id of the node
+#    action - string with the action to execute
+#    type   - string type of the node
 #
 # Returns:
 #
-#    string with the JS code
+#    hashref with url, title and width of the modal dialog to show
 #
 sub actionHandlerJS
 {
@@ -416,31 +414,31 @@ sub actionHandlerJS
     my $ret = {
         url => $url,
         title => $title,
-        width => 640 };
+        width => 640
+    };
 
     return $ret;
 }
 
-# Method: doubleClickHandlerJS
+# Method: clickHandlerJS
 #
-#    Return the JavaScript code to be executed when double-clicking a node.
+#    Action to be executed when selecting a node.
 #
-#    To be overrided in TreeView models.
+#    It can be in TreeView models, by default executes the edit action.
 #
 # Parameters:
 #
 #    type - string type of the node
-#    id   - name of the JS variable containing the id of the node
 #
 # Returns:
 #
-#    string with the JS code
+#    hashref in the same format as actionHandlerJS
 #
-sub doubleClickHandlerJS
+sub clickHandlerJS
 {
     my ($self, $type) = @_;
 
-    return '';
+    $self->actionHandlerJS('edit', $type);
 }
 
 # Method: jsonData

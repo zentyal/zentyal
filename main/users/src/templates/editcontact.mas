@@ -1,7 +1,7 @@
 <%args>
     $contact
     @contactgroups
-    @remaingroups
+    @remaingroups => ()
     $slave => 1
 </%args>
 <%init>
@@ -12,75 +12,33 @@ use JSON::XS;
 
 <div id="edit_contact">
 
-<h3><% __('Administration of contact ') %> <span class='stitle'><% $contact->fullname() %></span></h3>
+<h3 class="icon-contact"><% __('Administration of contact ') %> <span class='stitle'><% $contact->fullname() %></span></h3>
+<div id='note_editContactForm' class='note' style='display:none'></div>
 <div id='error_editContactForm' class='error' style='display:none'></div>
-<div id="contact_attrs" style="height: 320px; float: left">
-    <form action='/Users/EditContact' method='POST' id='editContactForm'>
+<div id="contact_attrs" class="form-block half-block">
+    <form class="formDiv" action='/Users/EditContact' method='POST' id='editContactForm'>
         <input type="hidden" name="dn" value="<% $contact->dn() %>">
         <input type="hidden" name="edit" value="edit">
-        <table class='formTable'>
-        <tbody>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('First name') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='firstname' value="<% $contact->firstname() %>">
-                </td>
-            </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Last name') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
-                </td>
-            </tr>
-            <tr>
-                <td class='tright' width="170px">
-                    <span class='ftitle'>
-                        <% __('Description') %>:
-                    </span>
-                    <div class="optional_field">
-                        <% __('Optional') %>
-                    </div>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
-                </td>
-            </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('E-Mail') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
-                </td>
-            </tr>
+        <label><% __('First name') %></label>
+            <input type='text' class='inputText' name='firstname' value="<% $contact->firstname() %>">
+        <label><% __('Last name') %></label>
+            <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
+        <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
+            <textarea name='description' value="<% $contact->description() %>"></textarea>
+        <label><% __('E-Mail') %></label>
+            <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
 
 %   unless ($slave) {
-             <tr>
-                <td>
-                </td>
-                <td>
-                    <input class='inputButton' type='submit' name='contact'
+        <input class='inputButton' id='submitEditContactForm' type='submit' name='contact'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
-                <td>
-            </tr>
 %   }
-        </tbody>
-        </table>
+
     </form>
 </div>
 
-<div id="contact_groups" style="float: right;">
+<div id="contact_groups" class="form-block half-block">
+  <h4> <% __('Contact groups') %></h4>
 % unless ($slave) {
 <& .groupsRW, contact => $contact, contactgroups => \@contactgroups, remaingroups => \@remaingroups &>
 % } else {
@@ -103,17 +61,18 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 
 <& .addToGroup, contact => $contact &>
 <div id='error_removeContactFromGroup' class='error' style='display:none'></div>
-<ul name='contactGroups' id='contactGroups'>
+<ul class="labels-list" name='contactGroups' id='contactGroups'>
 </ul>
 
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";
 $(function() {
-   $('#editContactForm').on('submit', function(event) {
-       event.preventDefault();
-       Zentyal.Dialog.submitForm('#editContactForm', { extraData:  { edit: 1} });
-    });
+   Zentyal.Form.setupAjaxSubmit('#editContactForm', {
+        noteDiv: '#note_editContactForm',
+        errorDiv: '#error_editContactForm',
+        submitButton: '#submitEditContactForm',
+   });
 
    var updateGroupsWidgets = function(data) {
             var group, i;
@@ -136,10 +95,10 @@ $(function() {
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
                contactGroups.append('<li>' + group +
-                                 '<input type="image" style="border: none; background: none;"' +
-                                  'src="/data/images/delete.gif" ' +
+                                 '<span ' +
+                                  'class="close" ' +
                                   'data-group-name="' + group + '" ' +
-                                  '/>' +   '</li>'
+                                  '>delete</span>' +   '</li>'
                                  );
             }
             contactGroups.insertAfter('#error_removeContactFromGroup');
@@ -153,10 +112,12 @@ $(function() {
 
    $('#addContactToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
+       if ($('.custom-combobox input').val()) {
+           Zentyal.Dialog.submitForm('#addContactToGroup', { complete : refreshGroups});
+       }
     });
 
-   $('#contactGroups').on('click', 'input', function(event) {
+   $('#contactGroups').on('click', 'span', function(event) {
        event.preventDefault();
        var url = '/Users/EditContact';
        var data = 'delgroupfromcontact=1&dn=<% $contact->dn() %>';
@@ -194,9 +155,9 @@ $contact
 </%args>
 <div id='error_addContactToGroup' class='error' style='display:none'></div>
 <form action='/Users/EditContact' method='POST' id='addContactToGroup' >
-  <select name="addgroup" id="addgroup" style="width: 40px">
+  <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style='margin-left: 30px'/>
+  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style="float-right" class='btn btn-only-icon btn-add btn-submit'/>
   <input type="hidden" name="dn"   value="<% $contact->dn() %>"/>
   <input type="hidden" name="addgrouptocontact" value="1"/>
 </form>
@@ -215,8 +176,7 @@ if (@contactgroups) {
    $groupStr =  __('No member of any group');
 }
 </%init>
-<div class="tleft"><% __("Groups") %></div>
-<ul name='contactGroups' id='contactGroups'  size='8'>
+<ul name='contactGroups' id='contactGroups' class='labels-list' size='8'>
 % foreach my $group (@contactgroups) {
       <li>
          <% $group->name() %>

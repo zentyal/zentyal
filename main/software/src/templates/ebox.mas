@@ -556,7 +556,11 @@ $(function() {
    // update button status
    Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
    Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
-   Zentyal.SoftwareManagementUI.updateActionButton('deleteTable', 'delete_button');
+   Zentyal.SoftwareManagementUI.updateActionButton('deleteTable',  'delete_button');
+
+  // reset checkboxes, this is need for some browsers which autocompletes input by position
+  jQuery('#installTable :checked, #updateTable :checked, #deleteTable :checked', '#advanced').prop('checked', false);
+
 % if ($first) {
    $('#advanced').hide();
 % } else {

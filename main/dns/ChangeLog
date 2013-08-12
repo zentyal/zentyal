@@ -1,4 +1,6 @@
 HEAD
+	+ Added sortlist support.
+3.1.1
 	+ Adapted to updatedRowNotify call with no changes in values
 	+ Added menu icon
 	+ Adapt firewall rules to new accept chains

@@ -22,8 +22,6 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::ZarafaLdapUser;
 
-## arguments:
-##      title [required]
 sub new
 {
     my $class = shift;
@@ -48,6 +46,7 @@ sub _process
     my $user = new EBox::Users::User(dn => $userDN);
     if ($self->param('active') eq 'yes') {
         if ($zarafaldap->hasAccount($user)) {
+            $self->{json}->{enabled} = 1;
             if (defined($self->param('has_pop3'))) {
                 $zarafaldap->setHasFeature($user, 'pop3', 1);
             } else {
@@ -65,8 +64,10 @@ sub _process
             }
             if (defined($self->param('meeting_autoaccept'))) {
                 $zarafaldap->setMeetingAutoaccept($user, 1);
+                $self->{json}->{meeting_autoaccept} = 1;
             } else {
                 $zarafaldap->setMeetingAutoaccept($user, 0);
+                $self->{json}->{meeting_autoaccept} = 0;
             }
             if (defined($self->param('meeting_declineconflict'))) {
                 $zarafaldap->setMeetingDeclineConflict($user, 1);
@@ -78,19 +79,26 @@ sub _process
             } else {
                 $zarafaldap->setMeetingDeclineRecurring($user, 0);
             }
+            $self->{json}->{msg} = __('Zarafa account options set');
         } else {
             $zarafaldap->setHasAccount($user, 1);
+            $self->{json}->{enabled} = 1;
+            $self->{json}->{msg} = __('Zarafa account enabled');
         }
+
     } else {
         if ($zarafaldap->hasAccount($user)) {
             $zarafaldap->setHasAccount($user, 0);
+            $self->{json}->{enabled} = 0;
         } else {
+            $self->{json}->{enabled} = 0;
             if (defined($self->param('contact'))) {
                 $zarafaldap->setHasContact($user, 1);
             } else {
                 $zarafaldap->setHasContact($user, 0);
             }
         }
+        $self->{json}->{msg} = __('Zarafa account disabled');
     }
 
     $self->{json}->{success} = 1;

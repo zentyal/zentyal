@@ -32,7 +32,7 @@ sub _tree
         treeName => 'GPOLinks',
         modelDomain => 'Samba',
         pageTitle => __('Group Policy Links'),
-        defaultActions => [ 'add', 'edit', 'delete' ],
+        defaultActions => [ 'add', 'delete' ],
         #TODO help =>  __(''),
     };
 }
@@ -226,13 +226,6 @@ sub nodeTypes
         site        => { actions => { filter => 0, add => 1, edit => 0, delete => 0 }, actionObjects => { add => 'GPLink' } },
         gpLink      => { actions => { filter => 0, add => 0, edit => 1, delete => 1 }, actionObjects => { edit => 'GPLink', delete => 'GPLink' } },
     };
-}
-
-sub doubleClickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('delete', $type);
 }
 
 # Method: precondition

@@ -1,4 +1,6 @@
-HEAD
+3.1.3
+	+ Adapt group and users addon to right panel view
+	+ mail-ldap init script dies on LDAP add error
 	+ Added menu icon
 	+ Added new userCorner method to external accounts model
 	+ Updated to use renamed method EBox::Ldap::connection.

@@ -88,6 +88,14 @@ sub _process
     $params{fetchall} = $self->param('fetchall');
 
     $mail->{fetchmail}->addExternalAccount(%params);
+
+    my @externalAccounts = map {
+        $mail->{fetchmail}->externalAccountRowValues($_)
+     } @{ $mail->{fetchmail}->externalAccountsForUser($userObject) };
+
+    $self->{json}->{externalAccounts} = \@externalAccounts;
+    $self->{json}->{userDN}  = $userDN;
+    $self->{json}->{msg} = __x('External account {acc} added', acc => $params{externalAccount});
     $self->{json}->{success} = 1;
 }
 

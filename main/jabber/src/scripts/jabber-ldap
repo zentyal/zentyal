@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 use strict;
+use warnings;
 
 use EBox::Global;
 use EBox::Users;
@@ -13,11 +14,12 @@ $users->{ldap}->connection();
 
 sub update
 {
-	foreach my $user (@{$users->users()}){
-		print "Checking user: $username\n";
+    foreach my $user (@{$users->users()}){
+        my $username = $user->name();
+        print "Checking user: $user\n";
         if (not $user->get('jabberUid')) {
-			print "Adding Jabber account for user $username\n";
-            my @objectclasses = $user->get('objectclass');
+            print "Adding Jabber account for user $username\n";
+            my @objectclass = $user->get('objectclass');
             push (@objectclass, 'userJabberAccount');
 
             $user->set('objectclass', \@objectclass, 1);
@@ -28,15 +30,16 @@ sub update
             } otherwise {
                 warn "Error updating user: $username\n";
             }
-		} else {
-			print "User $username already has a Jabber account\n";
-		}
-	}
+        } else {
+            print "User $username already has a Jabber account\n";
+        }
+    }
 }
 
-sub clean {
-	my $ldap = $users->{ldap};
-	foreach my $user (@{$users->users()}){
+sub clean
+{
+    my $ldap = $users->{ldap};
+    foreach my $user (@{$users->users()}){
         $user->delete('jabberUid', 1) if $user->get('jabberUid');
         $user->delete('jabberAdmin', 1) if $user->get('jabberAdmin');
 
@@ -45,22 +48,24 @@ sub clean {
 
         $user->set('objectClass', \@objectclasses);
         $user->save();
-	}
+    }
 }
 
 sub usage {
-	print "Usage: $0 update | clean\n";
-	exit 1;
+    print "Usage: $0 update | clean\n";
+    exit 1;
 }
 
 unless ($#ARGV == 0) {
-	usage();
+    usage();
 }
 
 if ($ARGV[0] eq 'update') {
-	update();
+    update();
 } elsif ($ARGV[0] eq 'clean') {
-	clean();
+    clean();
 } else {
-	usage();
+    usage();
 }
+
+1;

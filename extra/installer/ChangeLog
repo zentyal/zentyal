@@ -1,3 +1,5 @@
+3.1-2
+    + Avoid the need of customization in the lxdm upstart script
 3.1
     + New headless mode
     + Add a path for extra custom packages not available in Ubuntu repos

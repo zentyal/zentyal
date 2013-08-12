@@ -103,10 +103,10 @@ sub _addUser
 
     my @objectclasses = $user->get('objectClass');
 
-    unless ('AsteriskSIPUser' eq any @objectclasses) {
+    unless ('AsteriskSIPUser' eq any(@objectclasses)) {
         $user->add('objectClass', ['AsteriskSIPUser',
                                    'AsteriskQueueMember',
-                                   'AsteriskVoicemail'], 1);
+                                   'AsteriskVoiceMail'], 1);
 
         my $md5secret = $self->_genRealmHash($user, $passwd);
         $user->set('AstMD5secret', $md5secret, 1);
@@ -170,8 +170,7 @@ sub _userAddOns
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasAccount($user));
+    my $active = $self->hasAccount($user) ? 1 : 0;
 
     my $extensions = new EBox::Asterisk::Extensions;
     my $extn = $extensions->getUserExtension($user);
@@ -303,14 +302,11 @@ sub _groupAddOns
     my $asterisk = $self->{asterisk};
     return unless ($asterisk->configured());
 
-    my $active = 'no';
-    $active = 'yes' if ($self->hasQueue($group));
-
+    my $active = $self->hasQueue($group) ? 1 : 0;
     my $extensions = new EBox::Asterisk::Extensions;
     my $extn = $extensions->getQueueExtension($group);
 
     my $args = {
-        'nacc' => scalar ($self->asteriskUsersInQueue($group)),
         'group' => $group,
         'extension' => $extn,
         'active'   => $active,
@@ -475,11 +471,11 @@ sub asteriskUsersInQueue
 {
     my ($self, $group) = @_;
 
-    my $users = $self->{users};
+    my $usersContainer = EBox::Users::User->defaultContainer();
     my $groupdn = $group->dn();
 
     my %args = (
-                base => $users->usersDn,
+                base => $usersContainer->dn(),
                 filter => "(&(objectclass=AsteriskSIPUser)(memberOf=$groupdn))",
                 scope => 'one',
                );
@@ -519,6 +515,15 @@ sub acls
 sub defaultUserModel
 {
     return 'asterisk/AsteriskUser';
+}
+
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'Extensions' ];
 }
 
 1;

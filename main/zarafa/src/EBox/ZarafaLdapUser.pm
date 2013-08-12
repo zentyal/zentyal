@@ -42,8 +42,8 @@ sub _userAddOns
 
     return unless ($self->{zarafa}->configured());
 
-    my $active = $self->hasAccount($user) ? 'yes' : 'no';
-    my $contact = $self->hasContact($user)? 'yes' : 'no';
+    my $active = $self->hasAccount($user) ? 1 : 0;
+    my $contact = $self->hasContact($user)? 1 : 0;
     my $has_pop3 = $self->hasFeature($user, 'pop3') ? 1 : 0;
     my $has_imap = $self->hasFeature($user, 'imap') ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;
@@ -334,6 +334,15 @@ sub defaultUserModel
 sub multipleOUSupport
 {
     return 1;
+}
+
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'zarafa' ];
 }
 
 1;

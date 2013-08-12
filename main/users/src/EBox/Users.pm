@@ -650,6 +650,7 @@ sub _internalServerEnableActions
         parent => $groupClass->defaultContainer(),
         description => 'All users',
         isSystemGroup => 1,
+        ignoreMods  => ['samba'],
     );
     $groupClass->create(%args);
 
@@ -796,7 +797,21 @@ sub _setConfInternal
         # workaround  a orphan need_reprovision on read-only
         my $roKey = 'users/ro/need_reprovision';
         $self->redis->unset($roKey);
-        $self->reprovision();
+
+        try {
+            $self->reprovision();
+        } otherwise {
+            my ($ex) = @_;
+            $self->set('need_reprovision', 1);
+            throw EBox::Exceptions::External(__x(
+'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
+               err => "$ex",
+               pbeg => '<p>',
+               pend => '</p>'
+            ));
+        };
+
+
     }
 
     my $ldap = $self->ldap;
@@ -986,26 +1001,6 @@ sub groupDn
     return $dn;
 }
 
-# Method: usersDn
-#
-#       Returns the dn where the users are stored in the ldap directory.
-#       Accepts an optional parameter as base dn instead of getting it
-#       from the LDAP directory
-#
-# Returns:
-#
-#       string - dn
-#
-# FIXME: This should not be used anymore...
-sub usersDn
-{
-    my ($self, $dn) = @_;
-    unless(defined($dn)) {
-        $dn = $self->ldap->dn();
-    }
-    return $dn;
-}
-
 # Init a new user (home and permissions)
 sub initUser
 {
@@ -1168,7 +1163,7 @@ sub users
 
     my $objectClass = $self->{userClass}->mainObjectClass();
     my %args = (
-        base => $self->usersDn(),
+        base => $self->ldap->dn(),
         filter => "objectclass=$objectClass",
         scope => 'sub',
     );
@@ -2069,9 +2064,7 @@ sub restoreConfig
     for my $user (@{$self->users()}) {
 
         # Init local users
-        if ($user->baseDn eq $self->usersDn) {
-            $self->initUser($user);
-        }
+        $self->initUser($user);
 
         # Notify modules except samba because its users will be
         # restored from its own LDB backup
@@ -2393,23 +2386,12 @@ sub objectFromDN
         return $self->defaultNamingContext();
     }
 
-    my $args = {
-        base => $dn,
-        filter => "(objectClass=*)",
-        scope => 'base',
-    };
+    my $baseObject = new EBox::Users::LdapObject(dn => $dn);
 
-    my $result = $ldap->search($args);
-
-    my $count = $result->count();
-
-    if ($count > 1) {
-        throw EBox::Exceptions::Internal(
-            __x('Found {count} results for, expected only one.', count => $result->count()));
-    } elsif ($count == 0) {
-        return undef;
+    if ($baseObject->exists()) {
+        return $self->entryModeledObject($baseObject->_entry());
     } else {
-        return $self->entryModeledObject($result->entry(0));
+        return undef;
     }
 }
 
@@ -2424,6 +2406,19 @@ sub defaultNamingContext
 
     my $ldap = $self->ldap;
     return new EBox::Users::NamingContext(dn => $ldap->dn());
+}
+
+sub ousToHide
+{
+    my ($self) = @_;
+
+    my @ous;
+
+    foreach my $mod (@{EBox::Global->modInstancesOfType('EBox::LdapModule')}) {
+        push (@ous, @{$mod->_ldapModImplementation()->hiddenOUs()});
+    }
+
+    return \@ous;
 }
 
 1;
