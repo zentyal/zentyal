@@ -1,8 +1,14 @@
+openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal5) precise; urgency=low
+
+  * python-ocsmanager is now installed on the standard system path.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 10:33:44 +0200
+
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal4) precise; urgency=low
 
   * Added links to the .pc files on the system default pkgconfig folder.
 
- -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 07 Aug 20137:32:52 +0200
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 07 Aug 2013 17:32:52 +0200
 
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal3) precise; urgency=low
 

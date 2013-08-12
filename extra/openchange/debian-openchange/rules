@@ -54,7 +54,7 @@ override_dh_auto_install:
 	rm -rf $(DESTDIR)/opt/samba4/lib/python*/dist-packages/openchange/tests
 	install -m 0644 -D debian/openchangeserver.lintian debian/openchangeserver/usr/share/lintian/overrides/openchangeserver
 	# ocsmanager app
-	(cd mapiproxy/services/ocsmanager; python$* setup.py install --prefix=/opt/samba4 --root $(DESTDIR) \
+	(cd mapiproxy/services/ocsmanager; python$* setup.py install --prefix=/usr --root $(DESTDIR) \
 		--single-version-externally-managed --install-layout=deb $(py_setup_install_args))
 	find $(PKGDIR) -name '*.pth' -delete
 	install -d $(DESTDIR)/etc/ocsmanager
