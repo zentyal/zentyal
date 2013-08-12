@@ -800,7 +800,13 @@ sub _setConf
     return unless $self->configured() and $self->isEnabled();
 
     my $prov = $self->getProvision();
-    if (not $prov->isProvisioned() or $self->get('need_reprovision')) {
+    if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        if ($self->get('need_reprovision')) {
+            # Current provision is not useful, change back status to not provisioned.
+            $prov->setProvisioned(0);
+            # The LDB connection needs to be reset so we stop using cached values.
+            $self->ldb()->clearConn()
+        }
         $prov->provision();
         $self->unset('need_reprovision');
     }
