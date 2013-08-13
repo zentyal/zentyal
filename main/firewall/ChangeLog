@@ -1,3 +1,6 @@
+HEAD
+	+ Hide from External to Internal section by default to avoid confusion
+	  with Port Forwarding unless show_ext_to_int_rules confkey is enabled
 3.1.2
 	+ Added menu icon
 	+ Set iaccept, faccept and oaccept chains instead of ACCEPT target

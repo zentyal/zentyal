@@ -32,7 +32,8 @@ sub new
 
     my $showImages = not EBox::Config::boolean('hide_firewall_images');
     my $showAdvanced = EBox::Config::boolean('show_service_rules');
-    $self->{params} = [ showImages => $showImages, showAdvanced => $showAdvanced ];
+    my $showExtToInt = EBox::Config::boolean('show_ext_to_int_rules');
+    $self->{params} = [ showImages => $showImages, showAdvanced => $showAdvanced, showExtToInt => $showExtToInt ];
 
     bless($self, $class);
     return $self;
