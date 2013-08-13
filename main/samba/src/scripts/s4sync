@@ -149,14 +149,12 @@ while (1) {
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
-            if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
-                try {
-                    $sambaUsers{$sambaUserName}->addToZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
-                };
-            }
+            try {
+                $sambaUsers{$sambaUserName}->addToZentyal();
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
+            };
         }
     }
 

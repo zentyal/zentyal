@@ -249,8 +249,10 @@ sub _addUser
         $sambaUser->save();
     }
 
-    EBox::info("Enabling '$samAccountName' account");
-    $sambaUser->setAccountEnabled(1);
+    unless ($zentyalUser->isDisabled()) {
+        EBox::info("Enabling '$samAccountName' account");
+        $sambaUser->setAccountEnabled(1);
+    }
 }
 
 sub _addUserFailed
@@ -292,6 +294,11 @@ sub _modifyUser
         } else {
             my $keys = $zentyalUser->kerberosKeys();
             $sambaUser->setCredentials($keys);
+        }
+        if ($zentyalUser->isDisabled()) {
+            $sambaUser->setAccountEnabled(0);
+        } else {
+            $sambaUser->setAccountEnabled(1);
         }
         $sambaUser->save();
     } otherwise {
@@ -611,31 +618,6 @@ sub _delGroup
 }
 
 # User and group addons
-
-sub _userAddOns
-{
-    my ($self, $zentyalUser) = @_;
-    $self->_sambaReady() or
-        return;
-
-    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-    return undef unless $sambaUser->exists();
-
-    my $serviceEnabled = $self->{samba}->isEnabled();
-    my $accountEnabled = $sambaUser->isAccountEnabled();
-
-    my $args = {
-        'username'       => $zentyalUser->dn(),
-        'accountEnabled' => $accountEnabled,
-        'service'        => $serviceEnabled,
-    };
-
-    return {
-        title =>  __('Active Directory/File sharing account'),
-        path => '/samba/samba.mas',
-        params => $args
-       };
-}
 
 # Method: _groupShareEnabled
 #

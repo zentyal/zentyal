@@ -365,6 +365,9 @@ sub ldapUsersToLdb
             );
             my $sambaUser = EBox::Samba::User->create(%args);
             $sambaUser->_linkWithUsersObject($user);
+            unless ($user->isDisabled()) {
+                $sambaUser->setAccountEnabled(1);
+            }
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);

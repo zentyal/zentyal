@@ -48,6 +48,30 @@ use Error qw(:try);
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
+# UserAccountControl flags extracted from http://support.microsoft.com/kb/305144
+use constant SCRIPT                         => 0x00000001;
+use constant ACCOUNTDISABLE                 => 0x00000002;
+use constant HOMEDIR_REQUIRED               => 0x00000008;
+use constant LOCKOUT                        => 0x00000010;
+use constant PASSWD_NOTREQD                 => 0x00000020;
+use constant PASSWD_CANT_CHANGE             => 0x00000040;
+use constant ENCRYPTED_TEXT_PWD_ALLOWED     => 0x00000080;
+use constant TEMP_DUPLICATE_ACCOUNT         => 0x00000100;
+use constant NORMAL_ACCOUNT                 => 0x00000200;
+use constant INTERDOMAIN_TRUST_ACCOUNT      => 0x00000800;
+use constant WORKSTATION_TRUST_ACCOUNT      => 0x00001000;
+use constant SERVER_TRUST_ACCOUNT           => 0x00002000;
+use constant DONT_EXPIRE_PASSWORD           => 0x00010000;
+use constant MNS_LOGON_ACCOUNT              => 0x00020000;
+use constant SMARTCARD_REQUIRED             => 0x00040000;
+use constant TRUSTED_FOR_DELEGATION         => 0x00080000;
+use constant NOT_DELEGATED                  => 0x00100000;
+use constant USE_DES_KEY_ONLY               => 0x00200000;
+use constant DONT_REQ_PREAUTH               => 0x00400000;
+use constant PASSWORD_EXPIRED               => 0x00800000;
+use constant TRUSTED_TO_AUTH_FOR_DELEGATION => 0x01000000;
+use constant PARTIAL_SECRETS_ACCOUNT        => 0x04000000;
+
 # Method: mainObjectClass
 #
 sub mainObjectClass
@@ -149,9 +173,7 @@ sub setupUidMapping
 
 # Method: setAccountEnabled
 #
-#   Enables or disables the user account, setting the userAccountControl
-#   attribute. For a description of this attribute check:
-#   http://support.microsoft.com/kb/305144
+#   Enables or disables the user account.
 #
 sub setAccountEnabled
 {
@@ -159,9 +181,9 @@ sub setAccountEnabled
 
     my $flags = $self->get('userAccountControl');
     if ($enable) {
-        $flags = $flags & ~0x0002;
+        $flags = $flags & ~ACCOUNTDISABLE;
     } else {
-        $flags = $flags | 0x0002;
+        $flags = $flags | ACCOUNTDISABLE;
     }
     $self->set('userAccountControl', $flags, 1);
 
@@ -182,7 +204,7 @@ sub isAccountEnabled
 {
     my ($self) = @_;
 
-    return not ($self->get('userAccountControl') & 0x0002);
+    return not ($self->get('userAccountControl') & ACCOUNTDISABLE);
 }
 
 # Method: addSpn
@@ -330,7 +352,8 @@ sub create
     push (@attr, description => $args{description}) if ($args{description});
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
-    push (@attr, userAccountControl => '514');
+    # All accounts are, by default Normal and disabled accounts.
+    push (@attr, userAccountControl => NORMAL_ACCOUNT | ACCOUNTDISABLE);
 
     my $res = undef;
     my $entry = undef;
@@ -468,6 +491,12 @@ sub addToZentyal
         $zentyalUser->setKerberosKeys($creds->kerberosKeys());
 
         $self->_linkWithUsersObject($zentyalUser);
+
+        if ($self->isAccountEnabled()) {
+            $zentyalUser->setDisabled(0);
+        } else {
+            $zentyalUser->setDisabled(1);
+        }
     }
 }
 
@@ -498,6 +527,11 @@ sub updateZentyal
     $zentyalUser->set('sn', $surname, 1);
     $zentyalUser->set('displayName', $displayName, 1);
     $zentyalUser->set('description', $description, 1);
+    if ($self->isAccountEnabled()) {
+        $zentyalUser->setDisabled(0, 1);
+    } else {
+        $zentyalUser->setDisabled(1, 1);
+    }
     $zentyalUser->save();
 
     my $sc = $self->get('supplementalCredentials');

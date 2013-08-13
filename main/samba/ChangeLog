@@ -1,4 +1,10 @@
 HEAD
+	+ Removed sync_disabled_users key. We sync all users now.
+	+ Removed the useraddon to enable or disable file sharing per user, you
+	  can now enable or disable a user directly.
+	+ Used text strings to reference userAccountControl flags instead of plain
+	  numbers.
+	+ Syncronized account disabled / enabled between OpenLDAP and Samba.
 	+ When we are going to start a reprovision, we set the provision flag to
 	  false and reset the LDB connection to clear any cached value.
 	+ Handle the case where ou=Groups exist in OpenLDAP and a Windows AD, so
