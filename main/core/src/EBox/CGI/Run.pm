@@ -56,21 +56,21 @@ sub run
     $redis->begin();
 
     try {
-        $url = _urlAlias($url);
+        my $effectiveUrl = _urlAlias($url);
         my @extraParams;
         if ($htmlblocks) {
             push (@extraParams, htmlblocks => $htmlblocks);
         }
 
-        my $cgi = $self->_instanceModelCGI($url, @extraParams);
+        my $cgi = $self->_instanceModelCGI($effectiveUrl, @extraParams);
 
         unless ($cgi) {
-            my $classname = $self->urlToClass($url);
+            my $classname = $self->urlToClass($effectiveUrl);
             eval "use $classname";
 
             if ($@) {
                 my $log = EBox::logger();
-                $log->error("Unable to load CGI: URL=$url CLASS=$classname ERROR: $@");
+                $log->error("Unable to load CGI: URL=$effectiveUrl CLASS=$classname ERROR: $@");
 
                 my $error_cgi = 'EBox::SysInfo::CGI::PageNotFound';
                 eval "use $error_cgi";

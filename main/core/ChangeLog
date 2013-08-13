@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression on active menu entry highlight
 	+ No-committed changes does not appear in configuration changes
 	  log table
 	+ Added autoFilter property to method tableInfo
