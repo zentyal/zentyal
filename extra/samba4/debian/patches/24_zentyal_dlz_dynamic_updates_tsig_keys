@@ -1,7 +1,7 @@
-Index: samba4_4.1.0rc2/source4/dns_server/dlz_bind9.c
+Index: samba4/source4/dns_server/dlz_bind9.c
 ===================================================================
---- samba4_4.1.0rc2.orig/source4/dns_server/dlz_bind9.c	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/source4/dns_server/dlz_bind9.c	2013-08-11 13:41:18.595173002 +0200
+--- samba4.orig/source4/dns_server/dlz_bind9.c	2013-08-14 00:22:50.097330393 +0200
++++ samba4/source4/dns_server/dlz_bind9.c	2013-08-14 00:22:50.085330393 +0200
 @@ -37,6 +37,7 @@
  #include "messaging/messaging.h"
  #include "lib/cmdline/popt_common.h"
@@ -450,10 +450,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/dlz_bind9.c
  /*
    add a new record
   */
-Index: samba4_4.1.0rc2/source4/dns_server/dlz_minimal.h
+Index: samba4/source4/dns_server/dlz_minimal.h
 ===================================================================
---- samba4_4.1.0rc2.orig/source4/dns_server/dlz_minimal.h	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/source4/dns_server/dlz_minimal.h	2013-08-11 13:41:18.599173002 +0200
+--- samba4.orig/source4/dns_server/dlz_minimal.h	2013-08-14 00:22:50.097330393 +0200
++++ samba4/source4/dns_server/dlz_minimal.h	2013-08-14 00:22:50.085330393 +0200
 @@ -22,6 +22,9 @@
    external DLZ driver, please copy this header into your own source
    tree.
@@ -501,10 +501,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/dlz_minimal.h
  isc_result_t dlz_delrdataset(const char *name, const char *type, void *dbdata, void *version);
 +
 +#endif
-Index: samba4_4.1.0rc2/source4/dns_server/wscript_build
+Index: samba4/source4/dns_server/wscript_build
 ===================================================================
---- samba4_4.1.0rc2.orig/source4/dns_server/wscript_build	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/source4/dns_server/wscript_build	2013-08-11 13:41:18.599173002 +0200
+--- samba4.orig/source4/dns_server/wscript_build	2013-08-14 00:22:50.097330393 +0200
++++ samba4/source4/dns_server/wscript_build	2013-08-14 00:22:50.085330393 +0200
 @@ -12,7 +12,7 @@
  
  # a bind9 dlz module giving access to the Samba DNS SAM
@@ -532,10 +532,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/wscript_build
                    cflags='-DBIND_VERSION_9_8',
                    private_library=True,
                    deps='samba-hostconfig samdb-common gensec popt',
-Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.l
+Index: samba4/source4/dns_server/keys_parser.l
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/keys_parser.l	2013-08-11 13:41:18.599173002 +0200
++++ samba4/source4/dns_server/keys_parser.l	2013-08-14 00:22:50.085330393 +0200
 @@ -0,0 +1,88 @@
 +%{
 +#include "keys_parser.h"
@@ -625,10 +625,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.l
 +    return 0;
 +}
 +#endif
-Index: samba4_4.1.0rc2/source4/dns_server/k_lexer.c
+Index: samba4/source4/dns_server/k_lexer.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/k_lexer.c	2013-08-11 13:41:18.607173003 +0200
++++ samba4/source4/dns_server/k_lexer.c	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,2205 @@
 +#line 2 "k_lexer.c"
 +
@@ -2835,10 +2835,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/k_lexer.c
 +}
 +#endif
 +
-Index: samba4_4.1.0rc2/source4/dns_server/k_lexer.h
+Index: samba4/source4/dns_server/k_lexer.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/k_lexer.h	2013-08-11 13:41:18.607173003 +0200
++++ samba4/source4/dns_server/k_lexer.h	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,355 @@
 +#ifndef yyHEADER_H
 +#define yyHEADER_H 1
@@ -3195,10 +3195,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/k_lexer.h
 +#line 354 "k_lexer.h"
 +#undef yyIN_HEADER
 +#endif /* yyHEADER_H */
-Index: samba4_4.1.0rc2/source4/dns_server/k_parser.c
+Index: samba4/source4/dns_server/k_parser.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/k_parser.c	2013-08-11 13:41:18.611173003 +0200
++++ samba4/source4/dns_server/k_parser.c	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,1851 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5051,10 +5051,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/k_parser.c
 +    fprintf(stderr, "Error: %s\n", s);
 +}
 +
-Index: samba4_4.1.0rc2/source4/dns_server/k_parser.h
+Index: samba4/source4/dns_server/k_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/k_parser.h	2013-08-11 13:41:18.611173003 +0200
++++ samba4/source4/dns_server/k_parser.h	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,86 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5142,10 +5142,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/k_parser.h
 +
 +
 +
-Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.h
+Index: samba4/source4/dns_server/keys_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/keys_parser.h	2013-08-11 13:41:18.615173003 +0200
++++ samba4/source4/dns_server/keys_parser.h	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,21 @@
 +#ifndef __KEYS_PARSER_H__
 +#define __KEYS_PARSER_H__
@@ -5168,10 +5168,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.h
 +struct key_list *getAST(const char *fpath);
 +
 +#endif
-Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.y
+Index: samba4/source4/dns_server/keys_parser.y
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4_4.1.0rc2/source4/dns_server/keys_parser.y	2013-08-11 13:41:18.615173003 +0200
++++ samba4/source4/dns_server/keys_parser.y	2013-08-14 00:22:50.089330393 +0200
 @@ -0,0 +1,203 @@
 +%{
 +#include <stdio.h>
@@ -5376,10 +5376,10 @@ Index: samba4_4.1.0rc2/source4/dns_server/keys_parser.y
 +void yyerror(yyscan_t scanner, struct key_list **kl, const char *s) {
 +    fprintf(stderr, "Error: %s\n", s);
 +}
-Index: samba4_4.1.0rc2/lib/param/param_table.c
+Index: samba4/lib/param/param_table.c
 ===================================================================
---- samba4_4.1.0rc2.orig/lib/param/param_table.c	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/lib/param/param_table.c	2013-08-11 13:41:18.615173003 +0200
+--- samba4.orig/lib/param/param_table.c	2013-08-14 00:22:50.097330393 +0200
++++ samba4/lib/param/param_table.c	2013-08-14 00:22:50.093330393 +0200
 @@ -4189,6 +4189,24 @@
  		.enum_list	= enum_dns_update_settings,
  		.flags		= FLAG_ADVANCED,
@@ -5405,10 +5405,10 @@ Index: samba4_4.1.0rc2/lib/param/param_table.c
  	{
  		.label		= "dns forwarder",
  		.type		= P_STRING,
-Index: samba4_4.1.0rc2/lib/param/loadparm.c
+Index: samba4/lib/param/loadparm.c
 ===================================================================
---- samba4_4.1.0rc2.orig/lib/param/loadparm.c	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/lib/param/loadparm.c	2013-08-11 13:41:18.615173003 +0200
+--- samba4.orig/lib/param/loadparm.c	2013-08-14 00:22:50.097330393 +0200
++++ samba4/lib/param/loadparm.c	2013-08-14 00:22:50.093330393 +0200
 @@ -1,4 +1,4 @@
 -/* 
 +/*
@@ -5509,10 +5509,10 @@ Index: samba4_4.1.0rc2/lib/param/loadparm.c
  	     * basically the equivalent of an empty file. */
  	    return lpcfg_update(lp_ctx);
      }
-Index: samba4_4.1.0rc2/lib/param/param.h
+Index: samba4/lib/param/param.h
 ===================================================================
---- samba4_4.1.0rc2.orig/lib/param/param.h	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/lib/param/param.h	2013-08-11 13:41:18.615173003 +0200
+--- samba4.orig/lib/param/param.h	2013-08-14 00:22:50.097330393 +0200
++++ samba4/lib/param/param.h	2013-08-14 00:22:50.093330393 +0200
 @@ -1,24 +1,24 @@
 -/* 
 +/*
@@ -5583,10 +5583,10 @@ Index: samba4_4.1.0rc2/lib/param/param.h
  			     struct loadparm_context *lp_ctx,
  			     const char *name);
  
-Index: samba4_4.1.0rc2/lib/param/param_functions.c
+Index: samba4/lib/param/param_functions.c
 ===================================================================
---- samba4_4.1.0rc2.orig/lib/param/param_functions.c	2013-08-11 13:41:18.623173003 +0200
-+++ samba4_4.1.0rc2/lib/param/param_functions.c	2013-08-11 13:41:18.615173003 +0200
+--- samba4.orig/lib/param/param_functions.c	2013-08-14 00:22:50.097330393 +0200
++++ samba4/lib/param/param_functions.c	2013-08-14 00:22:50.093330393 +0200
 @@ -267,6 +267,8 @@
  FN_GLOBAL_INTEGER(afs_token_lifetime, iAfsTokenLifetime)
  FN_GLOBAL_INTEGER(algorithmic_rid_base, AlgorithmicRidBase)
