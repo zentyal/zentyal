@@ -73,6 +73,8 @@ sub enableLog
 #        - events: Hash ref containing the possible event choices, the key
 #                  is the stored value in the DB and the value is the i18ned name for that event
 #        - filter: Array ref of the field names that can perform filtering
+#        - autoFilter: hash reference with filters to be applied always to the table info. In the format column name => value.
+#                      Explicit filter if exists take precedence.
 #
 #         - consolidate: instructions for consolidation of information in
 #         periodic tables. The instruction is a hash ref (see below)

@@ -432,7 +432,6 @@ sub search
 {
     my ($self, $from, $to, $index,
         $pagesize, $page, $timecol, $filters) = @_;
-
     my $dbengine = EBox::DBEngineFactory::DBEngine();
 
     my $tables = $self->getAllTables();
@@ -456,15 +455,9 @@ sub search
     if ($filters and %{$filters}) {
         while (my ($field, $filterValue) = each %{$filters}) {
             $field or next;
-            $filterValue or next;
+            (defined $filterValue and ($filterValue eq 0)) or next;
 
-            unless (exists $tableinfo->{'titles'}->{$field}) {
-                           throw  EBox::Exceptions::Internal(
-                           "Field $field does not appear in tableinfo's titles field");
-                        }
-
-
-            if ($field eq 'event') {
+            if (($field eq 'event') or ($filterValue eq 0)) {
                 $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
                 my $type = exists $tableinfo->{types}->{$field} ?
@@ -512,11 +505,11 @@ sub search
     }
 
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
-
     my $hashret = {
                    'totalret' => $tcount,
                    'arrayret' => \@ret
                   };
+
 
     return $hashret;
 }

@@ -1,4 +1,7 @@
 HEAD
+	+ No-committed changes does not appear in configuration changes
+	  log table
+	+ Added autoFilter property to method tableInfo
 	+ EBox::Util::Random mentions /dev/urandom in its error messages
 	  to ease troubleshooting
 	+ Don't allow invalid email in create report CGI
