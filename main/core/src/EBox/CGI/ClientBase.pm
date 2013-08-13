@@ -39,7 +39,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     if (not $htmlblocks) {
         $htmlblocks = 'EBox::HtmlBlocks';
     }
-    eval "use $htmlblocks";
     $self->{htmlblocks} = $htmlblocks;
 
     bless($self, $class);
