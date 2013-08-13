@@ -43,6 +43,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
           <label><% __('User quota') %> (MB)</label>
           <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+          <label><% __('Disabled account') %></label>
+          <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
 %   unless ($slave) {
           <label><% __('Password') %></label>
           <input type='password' class='inputText' name='password'>
