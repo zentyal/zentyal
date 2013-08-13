@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid eval operation when using standard HtmlBlocks class
+	+ Changed some code to not trigger some unnecesary warnings
 	+ Fixed regression on active menu entry highlight
 	+ No-committed changes does not appear in configuration changes
 	  log table
