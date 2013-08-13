@@ -39,7 +39,7 @@ use Data::Dumper;
 
 % if ($selected ne 'none') {
 %	my @time = localtime(time);
-%	my $currentyear = $time[5]+1900; 
+%	my $currentyear = $time[5]+1900;
 
 <h3><% __('Custom query') %></h3>
 <form action='Index' method='POST'>
@@ -56,29 +56,29 @@ use Data::Dumper;
 %  							}
 					value='<%$fd%>'><%$fd%></option>
 %					}
-		</select> / 
+		</select> /
 
 		<select name="frommonth">
 %  					my @fmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
 %  					my $fm=1;
 %  					foreach my $fmonth(@fmonths) {
-				<option 
+				<option
 %  						if ($fm == $fromdate[1]) {
 					selected
 %  						}
 				value='<%$fm%>' ><%$fmonth%></option>
 %						$fm++; }
-		</select> / 
+		</select> /
 
 		<select name="fromyear">
 %  					for (my $fy=2000; $fy<=$currentyear; $fy++) {
-				<option 
+				<option
 %  						if ($fy == $fromdate[2]) {
 					selected
 %  						}
 				value='<%$fy%>' ><%$fy%></option>
 %  					}
-		</select> - 
+		</select> -
 
 		<select name="fromhour">
 %  					for (my $fh=0; $fh<=23; $fh++) {
@@ -89,7 +89,7 @@ use Data::Dumper;
 						value='<%$fh%>'><% sprintf ("%02d", $fh) %></option>
 
 %					}
-		</select> : 
+		</select> :
 
 		<select name="frommin">
 %  					for (my $fn=0; $fn<=59; $fn++) {
@@ -107,7 +107,7 @@ use Data::Dumper;
         <tr>
         <td class='tright'><% __('Refresh logs')  %>:</td>
         <td>
-         <input type="checkbox" name="refresh" id="refresh" <% $refresh ? 'checked="checked" ' : '' %>onclick="updateRefresh()" />
+         <input type="checkbox" name="refresh" id="refresh" <% $refresh ? 'checked="checked" ' : '' %> />
         </td>
         </tr>
 
@@ -121,39 +121,39 @@ use Data::Dumper;
 %  							}
 					value='<%$td%>'><%$td%></option>
 %					}
-		</select> / 
+		</select> /
 
 		<select name="tomonth" id="tomonth">
 %  					my @tmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
 %  					my $tm=1;
 %  					foreach my $tmonth(@tmonths) {
-				<option 
+				<option
 %  						if ($tm == $todate[1]) {
 					selected
 %  						}
 				value='<%$tm%>' ><%$tmonth%></option>
 %						$tm++; }
-		</select> / 
+		</select> /
 
 		<select name="toyear" id="toyear">
 %  					for (my $ty=2000; $ty<=$currentyear; $ty++) {
-				<option 
+				<option
 %  						if ($ty == $todate[2]) {
 					selected
 %  						}
 				value='<%$ty%>' ><%$ty%></option>
 %  					}
-		</select> - 
-		
+		</select> -
+
 		<select name="tohour" id="tohour">
 %  					for (my $th=0; $th<=23; $th++) {
 				<option
 %  					if ($th == $todate[3]) {
 						selected
-%  					}	
+%  					}
 						value='<%$th%>'><% sprintf ("%02d", $th) %></option>
 %					}
-		</select> : 
+		</select> :
 
 		<select name="tomin" id="tomin">
 %  					for (my $tn=0; $tn<=59; $tn++) {
@@ -166,7 +166,7 @@ use Data::Dumper;
 		</select></td>
 
 	</tr>
-	
+
 %	foreach my $filter (@{$tableinfo->{'filter'}}) {
 <tr>
 	<td class='tright'><% $tableinfo->{'titles'}->{$filter} %>:</td>
@@ -174,7 +174,7 @@ use Data::Dumper;
 	<td><input type='text' class='inputText' value='<% $filters->{$filter} %>' name='filter-<% $filter %>'></td>
 % 		} else {
 	<td><input type='text' class='inputText' name='filter-<% $filter %>'></td>
-%		}	
+%		}
 </tr>
 %   }
 
@@ -210,7 +210,7 @@ use Data::Dumper;
                           	. 'notified') %>">
           </span>
         </td>
-        
+
 
 	</tr>
 
@@ -220,7 +220,7 @@ use Data::Dumper;
 </table>
 
 %	if (@{$data}) {
-		<& logs/dbtable.mas , params => $tableinfo , data => $data , 
+		<& logs/dbtable.mas , params => $tableinfo , data => $data ,
 				page => $page , selected => $selected, fromdate => \@fromdate,
 				todate => \@todate, tpages => $tpages,filters => $filters &>
 <%perl>
@@ -242,33 +242,12 @@ use Data::Dumper;
 % }
 
 <script type='text/javascript'>
-
-function updateRefresh() {
-    var refresh = document.getElementById('refresh').checked;
-
-    var today = document.getElementById('today');
-    var tomonth = document.getElementById('tomonth');
-    var toyear = document.getElementById('toyear');
-    var tohour = document.getElementById('tohour');
-    var tomin = document.getElementById('tomin');
-
-    if (refresh) {
-        today.disabled   = true;
-        tomonth.disabled = true;
-        toyear.disabled  = true;
-        tohour.disabled  = true;
-        tomin.disabled   = true;
-    }
-    else {
-        today.disabled   = false;
-        tomonth.disabled = false;
-        toyear.disabled  = false;
-        tohour.disabled  = false;
-        tomin.disabled   = false;
-    }
-
-}
-
-updateRefresh();
-
+$(function() {
+  var updateRefresh = function() {
+    var refresh = $('#refresh').prop('checked');
+    $('#today, #tomonth, #toyear, #tohour, #tomin').prop('disabled', refresh);
+  };
+  $('#refresh').on('click', updateRefresh);
+  updateRefresh();
+});
 </script>
