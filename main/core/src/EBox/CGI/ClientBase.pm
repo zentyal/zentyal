@@ -42,15 +42,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     eval "use $htmlblocks";
     $self->{htmlblocks} = $htmlblocks;
 
-    $self->{module} = $2;
-    $self->{cginame} = $3;
-    $self->{cginame} =~ s|::|/|g;
-    if (defined($self->{cginame})) {
-        $self->{url} = $self->{module} . "/" . $self->{cginame};
-    } else {
-        $self->{url} = $self->{module} . "/Index";
-    }
-
     bless($self, $class);
     return $self;
 }
