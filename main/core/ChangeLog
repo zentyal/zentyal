@@ -1,4 +1,5 @@
 HEAD
+	+ Changed some code to not triger some unnecesary warnings
 	+ Modules can now be marked for restart after save changes via
 	  post_save_modules redis key of the global module
 	+ Make all dashboards div of the same height to ease drag and drop
