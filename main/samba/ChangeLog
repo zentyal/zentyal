@@ -1,4 +1,6 @@
 HEAD
+	+ Removed deprecated objectClass objects not required anymore because
+	  Windows breaks when creating objects with those unused objectClass.
 	+ When we are going to start a reprovision, we set the provision flag to
 	  false and reset the LDB connection to clear any cached value.
 	+ Handle the case where ou=Groups exist in OpenLDAP and a Windows AD, so

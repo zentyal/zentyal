@@ -320,7 +320,7 @@ sub create
     my $realm = $usersMod->kerberosRealm();
 
     my @attr = ();
-    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user', 'posixAccount']);
+    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user']);
     push (@attr, cn          => $name);
     push (@attr, name        => $name);
     push (@attr, givenName   => $args{givenName}) if ($args{givenName});
