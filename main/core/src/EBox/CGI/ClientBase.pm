@@ -21,6 +21,7 @@ use base 'EBox::CGI::Base';
 
 use EBox::Gettext;
 use EBox::Html;
+use EBox::HtmlBlocks;
 
 ## arguments
 ##              title [optional]
@@ -39,6 +40,10 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     if (not $htmlblocks) {
         $htmlblocks = 'EBox::HtmlBlocks';
     }
+    if ($htmlblocks ne 'EBox::HtmlBlocks') {
+        eval "use $htmlblocks";
+    }
+
     $self->{htmlblocks} = $htmlblocks;
 
     bless($self, $class);
