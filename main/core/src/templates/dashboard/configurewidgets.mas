@@ -7,7 +7,7 @@ use JSON;
 </%init>
 <script type='text/javascript'>
 % local $JSON::ConvBlessed = 1;
-% my $modulesJSON = objToJson(\@modules);
+% my $modulesJSON = to_json(\@modules);
 Zentyal.Dashboard.ConfigureWidgets.modules = <% $modulesJSON %>;
 </script>
 
