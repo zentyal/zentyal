@@ -141,7 +141,6 @@ sub _body
     }
     my $interp = $self->_masonInterp();
     my $comp = $interp->make_component(comp_file => $filename);
-    EBox::debug("COMP |$comp| params |" . join(',', @{$self->{params}})  );
     $interp->exec($comp, @{$self->{params}});
 }
 
