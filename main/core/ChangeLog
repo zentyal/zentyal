@@ -1,6 +1,6 @@
 HEAD
 	+ Avoid eval operation when using standard HtmlBlocks class
-	+ Changed some code to not triger some unnecesary warnings
+	+ Changed some code to not trigger some unnecesary warnings
 	+ Modules can now be marked for restart after save changes via
 	  post_save_modules redis key of the global module
 	+ Make all dashboards div of the same height to ease drag and drop
