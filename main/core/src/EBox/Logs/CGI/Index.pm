@@ -165,6 +165,13 @@ sub _searchLogs
         $self->setErrorFromException($ex);
         $hfilters = {};
     };
+    if (exists $tableinfo->{autoFilter}) {
+        while (my ($field, $value) = each $tableinfo->{autoFilter}) {
+            (exists $hfilters->{$field}) and next;
+            $hfilters->{$field} = $value;
+        }
+    }
+
     %hret = %{$logs->search($fromdate[2].'-'.$fromdate[1].'-'.$fromdate[0].' '.$fromdate[3].':'.$fromdate[4].':0',
                             $todate[2].'-'.$todate[1].'-'.$todate[0].' '.$todate[3].':'.$todate[4].':0',
                             $selected,
@@ -312,7 +319,6 @@ sub _process
     }
 
     my $selected = $self->param('selected');
-
     if (defined($selected)) {
         $self->_searchLogs($logs, $selected);
     } else {
