@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-06-03 12:27+0200\n"
+"PO-Revision-Date: 2013-08-09 13:11+0200\n"
 "Last-Translator: Cirion <gonzito@online.no>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: nb\n"
@@ -111,14 +111,12 @@ msgid "Domain Name Address"
 msgstr "Domene Navn Adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Unnta adresse fra mellomlagring"
+msgstr "Unnta adresse fra autorisering og mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Mellomlagrings unntak"
+msgstr "Autorisering og Mellomlagrings unntak"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -127,9 +125,8 @@ msgid "domain name address"
 msgstr "domene navn adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Du kan unnta noen adresser fra mellomlagring"
+msgstr "Du kan unnta noen adresser fra autorisering og mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -262,23 +259,27 @@ msgid "All users"
 msgstr "Alle brukere"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:279
-#, fuzzy
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
-"Bruker gruppe instrukser er ikke kompatible med gjennomsiktig proxy modus"
+"Kilde kobling etter bruker gruppe er ikke kompatible med gjennomsiktig proxy "
+"modus"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:310
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Du kan ikke legge til 'Tillat' eller 'Profil' regel for et objekt eller en "
+"adresse hvis du ikke har gruppe regler"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Du kan ikke legge til en gruppe-basert regel hvis du har en 'Tillat' eller "
+"'Profil' regel for objekter eller adresser"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:325
 #, perl-brace-format
@@ -286,23 +287,25 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"Tidsperioden til regelen ({t1}) overlapper med tidsperioden til ({t2}) annen "
+"regel for samme {sourceType}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "Objekt"
+msgstr "Objekt: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:617
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Gruppe"
+msgstr "Gruppe: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:628
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "Utfør '{p}' profil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:34
 msgid "Domain or URL"
@@ -373,28 +376,25 @@ msgid "Domain or URL updated"
 msgstr "Domene eller URL oppdatert"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Gjennomsiktig Proxy"
+msgstr "Hopp over Gjennomsiktig Mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Gjennomsiktig Proxy"
+msgstr "Gjennomsiktig Mellomlagrings Unntak"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
-#, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
-msgstr "Du kan unnta noen adresser fra mellomlagring"
+msgstr "Du kan unnta noen adresser fra gjennomsiktig mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:44
 msgid "Transparent Proxy"
-msgstr "Gjennomsiktig Proxy"
+msgstr "Gjennomsiktig Mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:58
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Aktiver Enkel På-Logging (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
@@ -402,7 +402,7 @@ msgstr "Reklame Blokkering"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:67
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "Fjern reklame fra all HTTP trafikk"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
@@ -425,7 +425,6 @@ msgstr "Mellom lagrings fil størrelse (MB)"
 #: ../../main/squid/src/EBox/Squid.pm:1058
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
 msgstr "Generelle Instillinger"
 
@@ -435,20 +434,17 @@ msgid "Settings changed"
 msgstr "Instillinger endret"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:140
-#, fuzzy
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
-"Gjennomsiktig proxy er ikke kompatibel med autoriserings instruksen funnet i "
-"noen objekter"
+"Gjennomsiktig mellomlagring er ikke kompatibel med bruker gruppens "
+"autoriserings instruks funnet i noen tilgangs regler"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
 msgstr ""
-"Gjennomsiktig proxy innstillinger er ikke kompatible med autoriserings "
-"instruks"
+"Gjennomsiktig mellomlagring er ikke kompatible med Kerberos autentisering"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -505,7 +501,7 @@ msgid ""
 msgstr ""
 "Tillat/Avvis HTTP trafikken av filer med gitt MIME type. MIME typer som ikke "
 "er listet her er tillatt.\n"
-" Filteret trenger en 'filter' instruks for å være aktiv"
+"Filteret trenger en 'filter' instruks for å være aktiv"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:193
 msgid "MIME type added"
@@ -803,9 +799,8 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:149
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:173
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:96
-#, fuzzy
 msgid "MB"
-msgstr "M"
+msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
 #, fuzzy
@@ -915,37 +910,8 @@ msgstr "Innholds filter terskel endret"
 #: ../../main/asterisk/src/templates/group.mas:28
 #: ../../main/asterisk/src/templates/user.mas:22
 #: ../../main/asterisk/src/templates/user.mas:23
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-mailfilter 0.12.99)  #-#-#-#-#\n"
-"Deaktiver\n"
-"#-#-#-#-#  nb.po (ebox-openvpn 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-zarafa 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (libebox 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-squid 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-ntp 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-samba 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
-"Deaktivert\n"
-"#-#-#-#-#  nb.po (ebox-jabber 0.12.99)  #-#-#-#-#\n"
-"Deaktivert"
+msgstr "Deaktivert"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 msgid "Very permissive"
@@ -972,9 +938,8 @@ msgid "Exempt address from caching"
 msgstr "Unnta adresse fra mellomlagring"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
-#, fuzzy
 msgid "Cache Exemptions"
-msgstr "Mellomlagrings unntak"
+msgstr "Mellomlagrings Unntak"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
 msgid "You can exempt some addresses from caching"
@@ -989,24 +954,20 @@ msgid "Access requests"
 msgstr "Tilgangs forespørsler"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
-#, fuzzy
 msgid "Category"
-msgstr "kategori"
+msgstr "Kategori"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
-#, fuzzy
 msgid "List File"
-msgstr "Lytt"
+msgstr "Liste Fil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
-msgstr "Lytt"
+msgstr "Fil Tilstede"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
-#, fuzzy
 msgid "Domain categories"
-msgstr "Domene liste kategorier"
+msgstr "Domene kategorier"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:182
 msgid "category"
@@ -1104,13 +1065,8 @@ msgstr "Etternavn oppdatert"
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:115
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:65
 #: ../../main/software/src/templates/config.mas:23
-#, fuzzy
 msgid "Settings"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-software 0.12.99)  #-#-#-#-#\n"
-"Instillinger\n"
-"#-#-#-#-#  nb.po (ebox-mail 0.12.99)  #-#-#-#-#\n"
-"Innstillinger"
+msgstr "Innstillinger"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:59
 #, fuzzy
@@ -1255,19 +1211,16 @@ msgid "The time period must be at least active on one day"
 msgstr "Tidsperioden må minst være aktiv på en dag"
 
 #: ../../main/squid/src/EBox/Squid.pm:202
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
-msgstr "HTTP Proxy konfigurasjonsfil"
+msgstr "Front HTTP Proxy konfigurasjonsfil"
 
 #: ../../main/squid/src/EBox/Squid.pm:207
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
-msgstr "HTTP Proxy konfigurasjonsfil"
+msgstr "Bak HTTP Proxy konfigurasjonsfil"
 
 #: ../../main/squid/src/EBox/Squid.pm:212
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "Dansguardian's loggroteringskonfigurasjon"
+msgstr "Squid's logg roterings konfigurasjon"
 
 #: ../../main/squid/src/EBox/Squid.pm:217
 msgid "Content filter configuration file"
@@ -1338,13 +1291,8 @@ msgid "Filter groups per IP"
 msgstr "Filter grupper per IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:302
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr ""
-"#-#-#-#-#  nb.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"Konfigurasjons sikkerhetskopi\n"
-"#-#-#-#-#  nb.po (ebox-ebox 0.12.99)  #-#-#-#-#\n"
-"Konfigurasjon sikkerhetskopi"
+msgstr "Konfigurasjon av adzapper"
 
 #: ../../main/squid/src/EBox/Squid.pm:307
 msgid "Set the kerberos keytab path"

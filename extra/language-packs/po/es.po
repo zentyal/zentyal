@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-05-27 13:43+0200\n"
-"Last-Translator: mburillo <mburillo@zentyal.com>\n"
+"PO-Revision-Date: 2013-08-14 16:26+0200\n"
+"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -100,6 +100,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"No se puede usar el nombre {name} porque ya existe un directorio con el "
+"nombre: {dir}.\n"
+" Es una eliminación sin sincronizar?"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
@@ -108,14 +111,12 @@ msgid "Domain Name Address"
 msgstr "Dirección del nombre de dominio"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Negar almacenamiento en caché del dominio"
+msgstr "Excluir dirección de la Autorización y Caché"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Excepciones en la caché"
+msgstr "Excepciones en la Caché y Autorización"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -124,9 +125,8 @@ msgid "domain name address"
 msgstr "nombre de dominio"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Puede negar el almacenamiento en caché de algunos dominios"
+msgstr "Puede excluir direcciones de la Autorización y Caché"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -288,6 +288,8 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"El periodo temporal de la regla ({t1}) se superpone con el periodo temporal "
+"de la regla ({t2}) para el mismo {sourceType}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
@@ -442,11 +444,10 @@ msgstr ""
 "grupo de usuarios que  se encuentra en algunas reglas de acceso"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
 msgstr ""
-"La opción del proxy transparente es incompatible con la política de "
-"autorización"
+"La opción del proxy transparente es incompatible con la autorización por "
+"Kerberos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -756,7 +757,7 @@ msgid "Filtering settings changed"
 msgstr "Configuracion de Filtrado cambiada"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
@@ -1086,9 +1087,8 @@ msgid "HTTP proxy traffic report"
 msgstr "Informe del tráfico de Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:76
-#, fuzzy
 msgid "HTTP proxy access rules"
-msgstr "Ficheros de cáche de Proxy HTTP"
+msgstr "Reglas de acceso al proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
 msgid "Supplied file is not a archive file"
@@ -1096,7 +1096,7 @@ msgstr "Tipo de archivo inexistente "
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
-msgstr ""
+msgstr "El archivo suministrado no posee una estructura de lista correcta"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:97
 #, perl-brace-format
@@ -1226,9 +1226,8 @@ msgid "Back HTTP Proxy configuration file"
 msgstr "Archivo de configuración de Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:212
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "Configuración de la rotación de los registros de Dansguardian"
+msgstr "Configuración de la rotación de los registros de Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:217
 msgid "Content filter configuration file"
@@ -1324,7 +1323,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:331
 msgid "Override squid upstart job"
-msgstr ""
+msgstr "Anular el script de Upstart para Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:332
 #: ../../main/squid/src/EBox/Squid.pm:338 ../../main/dns/src/EBox/DNS.pm:528
@@ -1654,12 +1653,14 @@ msgstr "Contraseña de túneles de Zentyal a Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Ignorar rutas enviadas por los Zentyal clientes del túnel "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Cuando se marque esta opción, este servidor no aplicará ninguna ruta "
+"publicada por sus clientes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -1981,13 +1982,12 @@ msgstr ""
 "de nuevo"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Lista de redes anunciadas"
+msgstr "Lista de redes anunciadas al servidor del túnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
+msgstr "No es posible anunciar redes para clientes en una interfaz de tipo TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -2826,9 +2826,9 @@ msgstr ""
 "retorno o tiene reglas de firewall restrictivas"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "Registrar conexiones redirigidas nuevas"
+msgstr "Registrar nuevas conexiones redirigidas en {log}"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
 msgid "List of forwarded ports"
@@ -2983,13 +2983,15 @@ msgstr "Si el servicio es cualquiera, se debe indicar algún origen o destino"
 msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
-msgstr ""
+msgstr "Ya existe una regla de \"priorizar paquetes pequeños\" para '{iface}'"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:196
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
 msgstr ""
+"Ya existe una regla de \"priorizar paquetes pequeños\" para todas las "
+"interfaces"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:264
 #: ../../main/mail/src/EBox/Mail.pm:1387 ../../main/mail/src/EBox/Mail.pm:1394
@@ -3001,6 +3003,8 @@ msgid ""
 "Priorization of small control packages will affect small ACK, SYN, FIN and "
 "RST control packages"
 msgstr ""
+"Priorizar pequeños paquetes de control afectara a los paquetes de control "
+"ACK, SYN, FIN y RST"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:181
@@ -3094,13 +3098,12 @@ msgid "Application based service group"
 msgstr "Grupo de servicios basados en aplicación"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:596
-#, fuzzy
 msgid "Based on Firewall"
-msgstr "Cortafuegos Avanzado"
+msgstr "Basadas en Cortafuegos"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:600
 msgid "Prioritize small control packets"
-msgstr ""
+msgstr "Priorizar pequeños paquetes de control"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:615
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:208
@@ -3140,7 +3143,7 @@ msgid "rate"
 msgstr "tasa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
@@ -3219,7 +3222,6 @@ msgid "Interface Rates"
 msgstr "Tasas de Interfaz"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:408
-#, fuzzy
 msgid "filterType"
 msgstr "Tipo de filtro"
 
@@ -3301,9 +3303,9 @@ msgid "Domain Name Service"
 msgstr "Servicio de Nombres de Dominio"
 
 #: ../../main/dns/src/EBox/DNS.pm:971
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "Fichero de configuración principal de {daemon}"
+msgstr "Parámetro '{key}' en el fichero de configuración {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1731
 msgid "hostname"
@@ -3618,9 +3620,9 @@ msgid "{srv} record"
 msgstr "{srv} registro"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "El servicio seleccionado no está en {file}"
+msgstr "El servicio '{srv}' no está en {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format
@@ -3679,7 +3681,7 @@ msgid ""
 "This is the list of host name aliases. All of them will be resolved to the "
 "host's IP addresses list."
 msgstr ""
-"Esta es la lista de alias para el nombre de máquina. Todos ellos resolveran "
+"Esta es la lista de alias para el nombre de máquina. Todos ellos resolverán "
 "a la lista de direcciones IP asignadas a la máquina."
 
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:77
@@ -3993,9 +3995,8 @@ msgid "Installation steps"
 msgstr "Pasos de la instalación"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "Backup remoto"
+msgstr "Elegir Backup"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
@@ -4010,7 +4011,6 @@ msgid "Installation"
 msgstr "Instalación"
 
 #: ../../main/software/src/EBox/Software.pm:1079
-#, fuzzy
 msgid "Restore Configuration"
 msgstr "Restaurar el backup de la configuración"
 
@@ -4564,19 +4564,16 @@ msgid "Unlimited"
 msgstr "Ilimitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:135
-#, fuzzy
 msgid "Data to back up"
-msgstr "Datos respaldados"
+msgstr "Datos a respaldar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
-#, fuzzy
 msgid "data domain"
-msgstr "Dominio estático"
+msgstr "Dominio de datos"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
-#, fuzzy
 msgid "Select the data you want to back up."
-msgstr "Seleccione los dominios que quiere guardar en la copia de seguridad."
+msgstr "Seleccione los datos que quiere guardar en la copia de seguridad."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
@@ -4895,16 +4892,15 @@ msgstr "no existe configuración para backups"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:78
 #, perl-brace-format
 msgid "Enable access without password from {tool} and Support"
-msgstr ""
+msgstr "Activar acceso sin contraseña desde {tool} y Soporte"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
-#, fuzzy
 msgid "Web Remote Access Settings"
-msgstr "Opciones de acceso"
+msgstr "Configuración de acceso a la web de Remote"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:92
 msgid "This is only intended for Web Administration User Interface"
-msgstr ""
+msgstr "Esto está diseñado únicamente para la interfaz de Administración Web"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:265
 #, perl-brace-format
@@ -4912,13 +4908,12 @@ msgid "Inexistent backup: {n}"
 msgstr "Backup inexistente: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:439
-#, fuzzy
 msgid "Configuration backup upload corrupted"
-msgstr "Backup de configuración habilitado"
+msgstr "Envío del respaldo de configuración incorrecto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:440
 msgid "Try the upload again"
-msgstr ""
+msgstr "Intente el envío de nuevo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:454
 msgid "Server not found"
@@ -5111,15 +5106,16 @@ msgid "Restore successful"
 msgstr "Restauración exitosa"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:93
-#, fuzzy
 msgid "Click here to save changes"
-msgstr "Ir a guardar cambios"
+msgstr "Clic aquí para guardar cambios"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:94
 msgid ""
 "Please note that you may need to reload the page and accept the new "
 "certificate restored from the backup."
 msgstr ""
+"Por favor, tenga en cuenta que necesita recargar la pagina y aceptar el "
+"nuevo certificado restaurado desde el respaldo."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/DeleteRemoteBackup.pm:63
 msgid "Backup deleted"
@@ -5319,9 +5315,8 @@ msgid "operations performed"
 msgstr "operaciones efectuadas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/DisasterRecovery.pm:31
-#, fuzzy
 msgid "Recover from a disaster"
-msgstr "Tiempo estimado de recuperación de un desastre"
+msgstr "Recuperarse de un desastre"
 
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:118
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:131
@@ -5928,7 +5923,7 @@ msgstr "Los puertos HTTP y HTTPS no pueden ser el mismo"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/LdapUser.pm:196
 msgid "Captive portal authorized group. The module will be disabled"
-msgstr ""
+msgstr "Grupo autorizado en el Portal Cautivo. El módulo será desactivado"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Event/Watcher/CaptivePortalQuota.pm:77
 #: ../../main/captiveportal/src/templates/login.mas:27
@@ -6208,9 +6203,8 @@ msgid "edit row"
 msgstr "editar fila"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:176
-#, fuzzy
 msgid "remove row"
-msgstr "eliminar"
+msgstr "Eliminar fila"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:186
 msgid "exclude path"
@@ -6776,9 +6770,9 @@ msgid "The file path must be absolute"
 msgstr "La ruta de archivo debe ser absoluta"
 
 #: ../../main/common/src/EBox/Validate.pm:888
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error on regular expression: {err}"
-msgstr "Expresión regular incorrecta"
+msgstr "Expresión regular incorrecta: {err}"
 
 #: ../../main/common/src/EBox/FileSystem.pm:226
 #: ../../main/common/src/EBox/FileSystem.pm:394
@@ -6795,17 +6789,15 @@ msgid "To configure OpenSwan IPsec passwords."
 msgstr "Para configurar las contraseñas de OpenSwan IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:81
-#, fuzzy
 msgid ""
 "To configure L2TP/IPSec users when not using Active Directory validation."
 msgstr ""
-"Para configurar la frecuencia de sincronización de los esclavos de LDAP y "
-"Active Directory."
+"Para configurar los usuarios L2TP/IPSec cuando no se use validación Active "
+"Directory"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:123
-#, fuzzy
 msgid "IPsec based VPN"
-msgstr "IPsec VPN"
+msgstr "VPN basada en IPsec"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:344
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:227
@@ -6854,33 +6846,33 @@ msgid "Phase 2"
 msgstr "Fase 2"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:124
-#, fuzzy
 msgid "Manual list of users"
-msgstr "Lista de servidores"
+msgstr "Lista de usuarios manual"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:131
-#, fuzzy
 msgid "Users Source"
-msgstr "Recurso"
+msgstr "Fuente de Usuarios"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:134
-#, fuzzy
 msgid "Selects the provider for the users allowed to use the VPN."
-msgstr "Seleccione las impresoras a las que tendrá acceso este usuario."
+msgstr "Seleccione el proveedor para los usuarios que puedan usar la VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:143
 msgid "The list of users allowed to connecto to VPN must be handled manually"
 msgstr ""
+"La lista de usuarios autorizados a usar VPN debe ser modificada manualmente"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:144
 msgid ""
 "To use the existing system user accounts you will need to activate \"File "
 "sharing\" module to enable the Active Directory"
 msgstr ""
+"Para usar la lista de usuario del sistema, necesitará activar el módulo de "
+"\"Compartición de Ficheros\", lo que activará Active Directory"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:152
 msgid "L2TP/IPSec users source"
-msgstr ""
+msgstr "Fuente de usuarios para L2TP/IPSec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:129
 #, perl-brace-format
@@ -6888,27 +6880,29 @@ msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address for the interface "
 "\"{interface}\""
 msgstr ""
+"La IP del túnel {localIP} ya está siendo usada como una dirección asignada "
+"para la interfaz \"{interface}\""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:144
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address from the object "
 "member \"{name}\": {fixedIP}"
 msgstr ""
-"El rango {from} - {to} incluye la asignación estática del miembro del objeto "
-"'{name}': {fixedIP}"
+"La IP del túnel {localIP} ya está siendo usada como dirección asignada del "
+"objeto miembro \"{name}\": {fixedIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:157
 #, perl-brace-format
 msgid "The Tunnel IP {localIP} is not part of any local network"
-msgstr ""
+msgstr "La IP del túnel {localIP} no forma parte de ninguna red local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
 msgstr ""
-"El rango {from} - {to} incluye la dirección IP de la interfaz: {ifaceIP}"
+"El rango {from}-{to} ({name}) incluye la dirección IP del túnel : {localIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:190
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
@@ -6938,13 +6932,15 @@ msgstr "Zentyal local"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:269
 msgid "Tunnel IP"
-msgstr ""
+msgstr "IP del túnel"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:271
 msgid ""
 "The IP to use for the VPN tunnel on the server side. It must be a free IP "
 "belonging to the local network where the VPN clients will be connected."
 msgstr ""
+"La IP usada por el túnel VPN en el extremo del servidor. Debe ser una IP "
+"libre que pertenezca a la red local donde conectarán los clientes VPN."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:279
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:442
@@ -6966,7 +6962,6 @@ msgid "Secondary nameserver"
 msgstr "Servidor de nombres secundario"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:299
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
@@ -6975,13 +6970,12 @@ msgstr ""
 "WINS para los clientes DHCP"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:100
-#, fuzzy
 msgid "DataTable Component"
-msgstr "Componentes de Zentyal"
+msgstr "Componente de la tabla de datos"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:102
 msgid "Don't know how to handle this component."
-msgstr ""
+msgstr "No es posible determinar como operar con este componente"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:108
 #: ../../main/software/src/templates/ebox.mas:42
@@ -6993,7 +6987,7 @@ msgstr "Componente"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:157
 msgid "The type of IPSec VPN."
-msgstr ""
+msgstr "El tipo de IPsec VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:168
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:143
@@ -7025,30 +7019,26 @@ msgstr ""
 "otros dispositivos seguros."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:212
-#, fuzzy
 msgid "Enabled flag"
-msgstr "Habilitado"
+msgstr "Marcador habilitado"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
 #, perl-brace-format
 msgid ""
 "Cannot be enabled due to errors in the connection configuration: {error}"
-msgstr ""
+msgstr "No puede ser activado debido a errores en la configuración: {error}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:229
-#, fuzzy
 msgid "Blank characters are not allowed"
-msgstr "Las direcciones IP no están permitidas"
+msgstr "Espacios y caracteres en blanco no permitidos"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:264
-#, fuzzy
 msgid "VPN Type"
-msgstr "Tipo"
+msgstr "Tipo de VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:266
-#, fuzzy
 msgid "Not supported"
-msgstr "Soporte SSL"
+msgstr "No soportado"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:58
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:78
@@ -7057,10 +7047,9 @@ msgid "{from} - {to} is an invalid range"
 msgstr "{from} - {to} es un rango inválido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr ""
-"El rango {from} - {to} incluye la dirección IP de la interfaz: {ifaceIP}"
+msgstr "El rango {from}-{to} incluye la dirección IP del túnel: {localIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:105
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:139
@@ -7074,7 +7063,7 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:117
 msgid "The defined range is not part of any local network"
-msgstr ""
+msgstr "El rango definido no forma parte de ninguna red"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:139
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:125
@@ -7119,12 +7108,16 @@ msgid ""
 "You are using a non fixed IP address as a VPN server address. If the IP "
 "changes it may break the VPN server!"
 msgstr ""
+"Se está usando una IP no fija como dirección del servidor VPN. Si la "
+"dirección IP cambia, es posible que el servidor VPN deje de funcionar."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:55
 #, perl-brace-format
 msgid ""
 "The server IP changed and the old value \"{oldIP}\" is not valid anymore."
 msgstr ""
+"La IP del servidor ha cambiado por lo que el valor \"{oldIP}\" ya no es "
+"válido."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:81
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:130
@@ -7133,14 +7126,11 @@ msgstr "Dirección IP Remota"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:82
 msgid "undefined"
-msgstr ""
+msgstr "indefinido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:83
-#, fuzzy
 msgid "Must be the external IP to connect but it's not defined"
-msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
+msgstr "Debería ser la IP externa a la que conectar, pero no está definido"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:100
 #, perl-brace-format
@@ -7152,14 +7142,12 @@ msgstr ""
 "conectar."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:122
-#, fuzzy
 msgid "Public IP address"
-msgstr "Dirección IP pública de Zentyal."
+msgstr "Dirección IP pública de"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:126
-#, fuzzy
 msgid "Zentyal public IP address where clients will connect to."
-msgstr "Dirección IP pública de Zentyal."
+msgstr "Dirección IP pública de Zentyal donde conectarán los clientes."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:137
 msgid "Remote endpoint public IP address."
@@ -7206,18 +7194,16 @@ msgid "Phase 1"
 msgstr "Fase 1"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
 msgid "L2TP/IPSec Users"
-msgstr "Usuarios de PPTP"
+msgstr "Usuarios de L2TP/IPSec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-#, fuzzy
 msgid ""
 "Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
 "of users defined on Users and Groups."
 msgstr ""
-"Usuarios a los que se permite conectar usando la VPN PPTP. Esta lista es "
-"independiente de los usuarios de LDAP definidos en Usuarios y Grupos."
+"Usuarios a los que se permite conectar usando la L2TP/IPSec VPN. Esta lista "
+"es independiente de los usuarios de LDAP definidos en Usuarios y Grupos."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:75
 msgid ""
@@ -7246,14 +7232,12 @@ msgid "Remote subnet available through the tunnel."
 msgstr "Subred remota disponible a través del túnel."
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
 msgid "User settings"
-msgstr "Configuración general"
+msgstr "Configuración de usuario"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
 msgid "General L2TP/IPSec Settings"
-msgstr "Configuración General"
+msgstr "Configuración General de L2TP/IPSec"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
@@ -7287,15 +7271,16 @@ msgstr ""
 "en la tabla de rutas por defecto. "
 
 #: ../../main/network/src/EBox/Network.pm:137
-#, fuzzy
 msgid "Disable IPv6"
-msgstr "Deshabilitado"
+msgstr "Deshabilitar IPv6"
 
 #: ../../main/network/src/EBox/Network.pm:138
 msgid ""
 "Zentyal does not support yet IPv6, having v6 addresses asigned to interfaces "
 "can cause problems on some services"
 msgstr ""
+"Zenyal no soporta IPv6 todavía, Asignar direcciones IPv6 a las interfaces "
+"puede causar problemas en algunos servicios"
 
 #: ../../main/network/src/EBox/Network.pm:157
 msgid "Zentyal will set your network configuration"
@@ -7320,10 +7305,8 @@ msgid "Zentyal will store your PPPoE passwords"
 msgstr "Zentyal almacenará sus contraseñas de PPPoE"
 
 #: ../../main/network/src/EBox/Network.pm:192
-#, fuzzy
 msgid "Zentyal will disable IPV6 on this system"
-msgstr ""
-"Zentyal proporcionará una cuenta en el sistema a los usuarios del LDAP."
+msgstr "Zentyal desactivará IPv6 en este sistema"
 
 #: ../../main/network/src/EBox/Network.pm:199
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
@@ -7338,9 +7321,8 @@ msgid "Zentyal will set HTTP proxy for APT"
 msgstr "Zentyal configurará el proxy HTTP para APT"
 
 #: ../../main/network/src/EBox/Network.pm:754
-#, fuzzy
 msgid "Argument must be a IP address"
-msgstr "Dirección IP pública de Zentyal."
+msgstr "El Argumento debe ser un dirección IP"
 
 #: ../../main/network/src/EBox/Network.pm:1006
 #: ../../main/network/src/EBox/Network.pm:1010
@@ -7357,9 +7339,9 @@ msgid "Netmask"
 msgstr "Máscara de red"
 
 #: ../../main/network/src/EBox/Network.pm:1015
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
-msgstr "La dirección VPN {addr} ya está en uso por la interfaz {iface}"
+msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1183
 #, perl-brace-format
@@ -7380,9 +7362,9 @@ msgstr ""
 "reservado para las interfaces virtuales"
 
 #: ../../main/network/src/EBox/Network.pm:1410
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
-msgstr "La dirección VPN {addr} ya está en uso por la interfaz {iface}"
+msgstr "La dirección {ip} ya está siendo usada por la interfaz {iface}"
 
 #: ../../main/network/src/EBox/Network.pm:1542
 #, perl-brace-format
@@ -7434,9 +7416,11 @@ msgstr ""
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
 msgstr ""
+"La puerta de enlace {gw} tiene que estar en la misma red que una interfaz "
+"estática"
 
 #: ../../main/network/src/EBox/Network.pm:3530
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
 "belongs to the network of {iface} which is not static"
@@ -7585,22 +7569,24 @@ msgid ""
 "Gateway {gw} is already defined in the gateway table. Use a multi gateway "
 "rule instead"
 msgstr ""
+"La puerta de enlace {gw} ya está definida en la tabla de puertas de enlace. "
+"Usa una regla de multigateway en su lugar"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
+"La dirección de red {addr} no es válida por que ya es la dirección de la "
+"interfaz {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
+"La puerta de enlace {addr} no es válida por que es la dirección de la "
+"interfaz {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
@@ -7608,6 +7594,8 @@ msgid ""
 "Not needed to add a route to {ip} because is reacheable directly by "
 "interface {if}"
 msgstr ""
+"No es necesario añadir una ruta para {ip} por que ya es alcanzable "
+"directamente por la interfaz {if}"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:190
 msgid "IP or network address"
@@ -7686,10 +7674,12 @@ msgstr ""
 "aquí de forma automática."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr "La dirección VPN {addr} ya está en uso por la interfaz {iface}"
+msgstr ""
+"La dirección de la puerta de enlace {ip} ya está asignada como la dirección "
+"de la interfaz local {iface}"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:286
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
@@ -7698,7 +7688,7 @@ msgstr ""
 "PPPoE"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that a static interface. Currently "
 "it belongs to the network of {iface} which is not static"
@@ -7867,11 +7857,11 @@ msgstr ""
 "usuarios del sistema"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
+"La dirección del Proxy {addr} ya está siendo usada como dirección de la "
+"inerfaz {if}"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:157
 msgid ""
@@ -7933,14 +7923,13 @@ msgid "Balance Traffic"
 msgstr "Balanceo de tráfico"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
 msgstr ""
 "Para poder usar esta funcionalidad, necesitará al menos dos puertas de "
-"enlace habilitadas. Puede añadirlas <a href=\"/Network/View/GatewayDataTable"
-"\">aquí</a>."
+"enlace habilitadas. Puede añadirlas {oa}aquí{ca}."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:59
 msgid "Gateways Configuration"
@@ -8012,9 +8001,8 @@ msgstr "Herramientas de Diagnóstico de Red"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:89
 #: ../../main/network/src/templates/diag.mas:31
-#, fuzzy
 msgid "Broadcast address"
-msgstr "Dirección local"
+msgstr "Dirección de difusión"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:55
 msgid "method"
@@ -8055,16 +8043,13 @@ msgstr ""
 "permitidos."
 
 #: ../../main/network/src/EBox/Network/CGI/Wizard/Ifaces.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
 msgstr ""
 "Está conectando a Zentyal a través de esta interfaz. Si la configura como "
-"interfaz externa, el Cortafuegos le bloqueará a menos de que añada reglas en "
-"la sección {openhref}Reglas de filtrado de redes externas a Zentyal"
-"{closehref} donde se permita el acceso al puerto de administración de "
-"Zentyal, SSH, etc."
+"interfaz externa, el Cortafuegos le bloqueará durante la instalación."
 
 # Puerta de enlace conectada
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:158
@@ -8154,12 +8139,13 @@ msgid ""
 "User corner needs that the users module is configured in standalone server "
 "mode"
 msgstr ""
+"El modulo del rincón del usuario necesita que el módulo de \"Usuarios y "
+"Grupos\" sea configurado en modo standalone"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:274
 #: ../../main/users/src/EBox/Users.pm:98
-#, fuzzy
 msgid "Users and Computers"
-msgstr "Usuarios y Grupos"
+msgstr "Usuarios y Equipos"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:315
 msgid "User Corner web server"
@@ -8324,15 +8310,16 @@ msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr "No se puede pausar una máquina parada. Antes debe iniciarla."
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:453
-#, fuzzy
 msgid "Remove virtual machine"
-msgstr "máquina virtual"
+msgstr "Maquina virtual remota"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:454
 msgid ""
 "Are you sure about removing this virtual machine?. All its data will be "
 "lost. "
 msgstr ""
+"¿Estás seguro de querer eliminar esta máquina virtual? Todos sus datos se "
+"perderán."
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:45
 msgid "Hard Disk"
@@ -8352,7 +8339,7 @@ msgstr "Tipo de dispositivo"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:90
 msgid "Use host CD drive"
-msgstr ""
+msgstr "Usar la unidad de CD del anfitrión"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:98
 msgid "Path"
@@ -8376,9 +8363,8 @@ msgstr ""
 "Aquí puede definir las unidades de almacenamiento de la máquina virtual"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:186
-#, fuzzy
 msgid "ISO image"
-msgstr "Imagen"
+msgstr "Imagen ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:189
 #, perl-brace-format
@@ -8386,9 +8372,8 @@ msgid "The CD disk image {img} should be in ISO format"
 msgstr "La imagen de CD {img} debe estar en formato ISO"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:197
-#, fuzzy
 msgid "Hard disk image"
-msgstr "Nombre de Disco Duro"
+msgstr "Imagen de disco duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:204
 #, perl-brace-format
@@ -8432,43 +8417,41 @@ msgstr "Se permite un máximo de {num} unidades de disco duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:279
 msgid "Only one CD connected to a host drive is supported"
-msgstr ""
+msgstr "Solo es posible conectar un CD a la unidad del anfitrión"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Device file for CD \"{f}\" does not exists"
-msgstr "El certificado {cn} no existe"
+msgstr "El fichero de dispositivo para el CD \"{f]\" no existe"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:310
 msgid "HardDisk name"
 msgstr "Nombre de Disco Duro"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:312
-#, fuzzy
 msgid "The name should contain only characters, digits and underscores"
 msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:321
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "You need to provide the path of a {name}"
-msgstr "Debe proporcionar la ruta de una imagen ISO"
+msgstr "Debe proporcionar la ruta de una {name}"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:329
-#, fuzzy
 msgid ""
 "The path should contain only characters, digits, dots, dashes, directory "
 "separators  and underscores"
-msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
+msgstr "La ruta debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:334
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} '{img}' does not exist"
-msgstr "La imagen ISO '{img}' no existe"
+msgstr "{name} '{img}' no existe"
 
 #: ../../main/virt/src/EBox/Virt/Model/DeviceSettings.pm:340
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{name} '{img}' is not readable"
-msgstr "Fichero {file} de volcado de la base de datos no se puede leer"
+msgstr "{name} '{img}' no se puede leer"
 
 #: ../../main/virt/src/EBox/Virt/Model/SystemSettings.pm:98
 msgid "Operating System"
@@ -8513,15 +8496,15 @@ msgstr "Configuración de la Máquina Virtual"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:527
 msgid "Windows Vista | Windows 2008 or newer"
-msgstr ""
+msgstr "Windows Vista | Windows 2008 o superior"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:528
 msgid "Windows XP | Windows 2003 or older"
-msgstr ""
+msgstr "Windows XP | Windows 2003 o anterior"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:529
 msgid "Linux"
-msgstr ""
+msgstr "Linux"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:537
 msgid "i686 compatible"
@@ -8632,12 +8615,16 @@ msgstr ""
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:164
 msgid "No interfaces enabled.  The DHCP server  will not serve any address"
 msgstr ""
+"No hay interfaces habilitadas . El servidor DHCP no servirá ninguna "
+"dirección"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:166
 msgid ""
 "The enabled interfaces have not any range or fixed address configured.  The "
 "DHCP server  will not serve any address"
 msgstr ""
+"Las interfaces habilitadas no poseen ningún rango o dirección fija "
+"configurada. El servidor DHCP no entregará ninguna dirección."
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:89
 #, perl-brace-format
@@ -9071,13 +9058,12 @@ msgstr ""
 "hasta que haya finalizado."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:112
-#, fuzzy
 msgid "Remove Image"
-msgstr "Borrar todos los mensajes"
+msgstr "Eliminar Imagen"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:115
 msgid "The image and its configuration have been removed."
-msgstr ""
+msgstr "La Imagen y su configuración ha sido eliminada."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/AvailableImages.pm:123
 msgid "Available Images"
@@ -9183,9 +9169,8 @@ msgid "Image Creation"
 msgstr "Creación de imagen"
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/ImageCreation.pm:132
-#, fuzzy
 msgid "The image already exists."
-msgstr "{data} ya existente: {value}."
+msgstr "La imagen ya existe."
 
 #: ../../main/ltsp/src/EBox/LTSP/Model/LocalApps.pm:56
 msgid "Applications"
@@ -9283,7 +9268,7 @@ msgstr "{n} usuarios registrados"
 
 #: ../../main/ltsp/src/EBox/LTSP.pm:681
 msgid "Idle"
-msgstr ""
+msgstr "En espera"
 
 #: ../../main/monitor/src/EBox/Monitor.pm:78
 #: ../../main/monitor/src/EBox/Monitor/CGI/Index.pm:44
@@ -9939,9 +9924,9 @@ msgstr ""
 "impresoras"
 
 #: ../../main/printers/src/EBox/Printers.pm:66
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disable {server} upstart job"
-msgstr "Deshabilitar el script de inicio {server}"
+msgstr "Deshabilitar el script de inicio de {server}"
 
 #: ../../main/printers/src/EBox/Printers.pm:83
 msgid "To configure cupsd"
@@ -9983,18 +9968,16 @@ msgstr ""
 "red"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
-#, fuzzy
 msgid "Block"
-msgstr "Bloqueo de Anuncios"
+msgstr "Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
 msgid "Log & Block"
-msgstr ""
+msgstr "Registrar y Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
-msgstr "Seleccionar para qué interfaces será activado el IDS"
+msgstr "Seleccionar para qué interfaces será activado el sistema IPS"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:41
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -10022,59 +10005,50 @@ msgid "Alert Graph"
 msgstr "Diagrama de alertas"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:53
-#, fuzzy
 msgid "IPS Alerts report"
-msgstr "Informe de alertas del IDS"
+msgstr "Informe de alertas del IPS"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:84
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
-msgstr "Sistema de Detección de Intrusiones"
+msgstr "Sistema de Detección/Prevención de Intrusiones"
 
 #: ../../main/ips/src/EBox/IPS.pm:67
 msgid "IDS/IPS"
-msgstr ""
+msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Configuración del estado de los módulos"
+msgstr "Añadir reglas a la configuración de Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
-#, fuzzy
 msgid "Enable start of suricata daemon"
-msgstr "Habilitar demonio dagent para Zarafa"
+msgstr "Habilitar ejecución del demonio de Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "Alert"
 msgstr "Alerta"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Actualizaciones del sistema"
+msgstr "Actualizaciones de reglas del IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Fallo en el disco de respuesto"
+msgstr "Motivo del fallo"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:401
-#, fuzzy
 msgid "Success"
-msgstr "Acceso de invitado"
+msgstr "Éxito"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:401
-#, fuzzy
 msgid "Failure"
-msgstr "defectuoso"
+msgstr "Fallo"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -10082,6 +10056,9 @@ msgid ""
 "Latest rule update makes IDS/IPS daemon to be stopped. Check {log} for "
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
+"La última actualización de reglas hizo que el demonio IDS/IPS se detuviese. "
+"Comprueba {log} y log de cambios en las reglas {url} ({name} rules) para más "
+"detalle."
 
 #: ../../main/jabber/src/EBox/Jabber.pm:57
 msgid "Add Jabber LDAP schema"
@@ -10210,7 +10187,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/LDB.pm:202
 #, perl-brace-format
 msgid "FATAL: Could not connect to samba LDAP server: {error}"
-msgstr ""
+msgstr "FATAL: No es posible conectar con el servidor LDAP de samba: {error}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:109
 msgid "Sync with Zentyal Cloud"
@@ -10290,79 +10267,70 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:54
 msgid "GPO Editor"
-msgstr ""
+msgstr "Editor de GPO"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:62
 #: ../../main/samba/src/EBox/Samba.pm:1009
-#, fuzzy
 msgid "Group Policy Objects"
-msgstr "Política de Grupo"
+msgstr "Objetos de política de grupo (GPO)"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:66
-#, fuzzy
 msgid "group policy object"
-msgstr "política de grupo"
+msgstr "objeto de política de grupo (GPO)"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:126
-#, fuzzy
 msgid "User configuration disabled"
-msgstr "Fichero de configuración de {server}"
+msgstr "Configuración de usuario desactivada"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:127
-#, fuzzy
 msgid "Computer configuration disabled"
-msgstr "Fichero de configuración de filtrado de contenido"
+msgstr "Configuración de equipos desactivada"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:128
-#, fuzzy
 msgid "All settings disabled"
-msgstr "Configuraciones y variables de SAI"
+msgstr "Todas las configuraciones desactivadas"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:149
-#, fuzzy
 msgid "GPO successfully created"
-msgstr "Contraseña actualizada con éxito"
+msgstr "GPO creada con éxito"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:171
 msgid "This is a system critical object and cannot be removed."
-msgstr ""
+msgstr "Esto es un objeto crítico del sistema y no puede ser eliminado."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} removed"
-msgstr "OU {ou} borrada"
+msgstr "GPO {gpo} eliminada"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {dn} not found"
-msgstr "La página no pudo encontrarse"
+msgstr "GPO {dn} no encontrada"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:207
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} updated"
-msgstr "{row} actualizada"
+msgstr "GPO {gpo} actualizada"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:261
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:131
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:137
-#, fuzzy
 msgid ""
 "You must enable the module in the module status section in order to use it."
 msgstr ""
-"El módulo Usuarios debe estar habilitado en la sección Estado del módulo "
-"para poder usarlo."
+"Debes activar el módulo en la sección de estado de los módulos para poder "
+"usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:265
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:135
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:141
-#, fuzzy
 msgid "The domain has not been created yet."
-msgstr "La acción \"{a}\" se ha ejecutado"
+msgstr "El dominio no ha sido creado todavía."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
-#, fuzzy
 msgid "Sync all with Zentyal Cloud"
-msgstr "Zentyal Cloud"
+msgstr "Sincronizar todo con Zentyal Cloud"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:74
 msgid "All shares and user homes will be synchronized using Zentyal Cloud."
@@ -10372,12 +10340,11 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:80
 msgid "Cloud Sync"
-msgstr ""
+msgstr "Sincronización en Cloud"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:99
-#, fuzzy
 msgid "Zentyal Cloud Files not available"
-msgstr "El puerto {p} no está disponible"
+msgstr "Servicio de ficheros de Zentyal Cloud no disponible"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:47
 #: ../../main/software/src/templates/ebox.mas:123
@@ -10387,101 +10354,91 @@ msgstr "Versión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:51
 msgid "Deployment State"
-msgstr ""
+msgstr "Estado del despliegue"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:55
 msgid "Source MSI package path"
-msgstr ""
+msgstr "Ruta al fichero MSI fuente"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:61
-#, fuzzy
 msgid "Software Installation"
-msgstr "Instalación"
+msgstr "Instalación de Software"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:64
-#, fuzzy
 msgid "software package"
-msgstr "actualizaciones de software QA"
+msgstr "paquete de software"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:138
-#, fuzzy
 msgid "No shares"
-msgstr "recurso compartido"
+msgstr "No hay recursos compartidos"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
 #: ../../main/samba/src/EBox/Samba.pm:1012
-#, fuzzy
 msgid "Group Policy Links"
-msgstr "Política de Grupo"
+msgstr "Enlaces para Políticas de Grupo"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:49
 #, perl-brace-format
 msgid "Forest: {x}"
-msgstr ""
+msgstr "Bosque: {x}"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:186
-#, fuzzy
 msgid "Add new Group Policy Link"
-msgstr "Política de grupo añadida"
+msgstr "Enlace de Política de Grupo agregado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:187
-#, fuzzy
 msgid "Delete Group Policy Link"
-msgstr "Política de grupos de filtrado"
+msgstr "Eliminar enlace de Política de Grupo"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:188
-#, fuzzy
 msgid "Edit Group Policy Link"
-msgstr "Política de Grupo"
+msgstr "Editar enlace de Política de Grupo"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:199
 msgid "Sites"
-msgstr ""
+msgstr "Sitio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:258
-#, fuzzy
 msgid ""
 "You must enable the File Sharing module in the module status section in "
 "order to use it."
-msgstr ""
-"Debe habilitar el módulo de correo en la sección de Estado de módulo para "
-"usarlos"
+msgstr "Debe habilitar el módulo de Compartición de Ficheros para poder usarlo."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:39
 msgid "Logoff Scripts"
-msgstr ""
+msgstr "Scripts de cierre de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:40
 msgid "logoff script"
-msgstr ""
+msgstr "script de cierre de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:150
 #, perl-brace-format
 msgid "Logoff script {x} added"
-msgstr ""
+msgstr "Script de cierre de sesión {x} agregado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:191
 #, perl-brace-format
 msgid "Logoff script {x} removed"
-msgstr ""
+msgstr "Script de cierre de sesión {x} eliminado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:39
 msgid "Logon Scripts"
-msgstr ""
+msgstr "Scripts de inicio de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:40
 msgid "logon script"
-msgstr ""
+msgstr "script de inicio de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:150
 #, perl-brace-format
 msgid "Logon script {x} added"
-msgstr ""
+msgstr "Script de inicio de sesión {x} agregado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogin.pm:191
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Logon script {x} removed"
-msgstr "Lista de dominios eliminada"
+msgstr "Script de inicio de sesión {x} eliminado"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaDeletedShares.pm:108
 msgid "path"
@@ -10545,7 +10502,7 @@ msgstr "Nombre del dominio NetBIOS"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:163
 msgid "Site"
-msgstr ""
+msgstr "Sitio"
 
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:169
 msgid "NetBIOS computer name"
@@ -10601,53 +10558,46 @@ msgid "Additional domain controller"
 msgstr "Controlador de dominio adicional"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:45
-#, fuzzy
 msgid "Script type"
-msgstr "Tipo de gráfico"
+msgstr "Tipo de script"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:51
-#, fuzzy
 msgid "Parameters"
-msgstr "Parámetro"
+msgstr "Parámetros"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:76
-#, fuzzy
 msgid "Scripts"
-msgstr "Suscripción"
+msgstr "Scripts"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:77
-#, fuzzy
 msgid "script"
-msgstr "Descripción"
+msgstr "script"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:93
 msgid "Batch"
-msgstr ""
+msgstr "Por lotes"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:94
-#, fuzzy
 msgid "PowerShell"
-msgstr "Secure Shell"
+msgstr "PowerShell"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:39
-#, fuzzy
 msgid "Shutdown Scripts"
-msgstr "Tiempo de apagado"
+msgstr "Scripts de cierre de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:40
-#, fuzzy
 msgid "shutdown script"
-msgstr "Tiempo de apagado"
+msgstr "Script de cierre de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:150
 #, perl-brace-format
 msgid "Shutdown script {x} added"
-msgstr ""
+msgstr "Script de cierre de sesión {x} agregado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:191
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Shutdown script {x} removed"
-msgstr "Tiempo de apagado"
+msgstr "Script de cierre de sesión {x} eliminado"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
@@ -10675,21 +10625,21 @@ msgstr "Añadir excepciones a las opciones por defecto del antivirus"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:39
 msgid "Startup Scripts"
-msgstr ""
+msgstr "Scripts de inicio de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:40
 msgid "startup script"
-msgstr ""
+msgstr "script de inicio de sesión"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:150
 #, perl-brace-format
 msgid "Startup script {x} added"
-msgstr ""
+msgstr "Script de inicio de sesión {x} agregado"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsStartup.pm:191
 #, perl-brace-format
 msgid "Startup script {x} removed"
-msgstr ""
+msgstr "Script de inicio de sesión {x} eliminado"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:51
 msgid "Enable virus scanning"
@@ -10713,10 +10663,11 @@ msgstr ""
 "'samba_fs' al valor 's3fs' en /etc/zentyal/samba.conf"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:100
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
-msgstr "{pkg} debe estar instalado para usar está característica"
+msgstr ""
+"El módulo de Zentyal antivirus debe ser instalado y activado para usar esta "
+"característica"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 msgid "Enable recycle bin"
@@ -10777,31 +10728,33 @@ msgid "User: {u}"
 msgstr "Usuario: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:39
-#, fuzzy
 msgid "User Configuration"
-msgstr "Configuración"
+msgstr "Configuración de Usuario"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:40
 msgid ""
 "Here you can set the policies that apply to users, regardless of which "
 "computer they log on to."
 msgstr ""
+"Aquí puede configurar las políticas que se aplicarán a los usuarios, "
+"independientemente del equipo en el que inicien sesión."
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:38
-#, fuzzy
 msgid "Computer Configuration"
-msgstr "Configuración del cliente"
+msgstr "Configuración del equipo"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:40
 msgid ""
 "Here you can set policies that are applied to computers, regardless of who "
 "logs on to the computers."
 msgstr ""
+"Aquí puede configurar las políticas que se aplican a los equipos, "
+"independientemente de que usuario inicie sesión."
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
 #: ../../main/samba/src/EBox/Samba.pm:88
 msgid "File Sharing"
-msgstr "Compartir ficheros"
+msgstr "Compartición de Ficheros"
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:59
 msgid "File sharing options"
@@ -10820,15 +10773,16 @@ msgid "Recycle Bin"
 msgstr "Papelera de Reciclaje"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPO.pm:38
-#, fuzzy
 msgid "Group Policy Editor"
-msgstr "Política de Grupo"
+msgstr "Editor de Políticas de Grupo"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPO.pm:40
 msgid ""
 "Here you can edit the Group Policy Object, which can be linked to a Site, "
 "Domain, or Organizational Unit in the Active Directory"
 msgstr ""
+"Aquí puede editar la política de grupo (GPO), que podrá ser enlazada a un "
+"Sitio, Dominio o Unidad Organizativa del Directorio Activo"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:108
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:236
@@ -10842,30 +10796,25 @@ msgid "Found {count} results for, expected only one."
 msgstr "Encontrados {count} resultados, sólo se esperaba uno."
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:179
-#, fuzzy
 msgid "Windows account names cannot end with a dot"
 msgstr "Los nombres de cuenta de Windows no pueden acabar con un punto"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:181
-#, fuzzy
 msgid "Windows account names cannot start with a dash"
-msgstr "Los nombres de cuenta de Windows no pueden acabar con un punto"
+msgstr "Los nombres de cuenta de Windows no pueden empezar con guión"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:183
-#, fuzzy
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
 msgstr ""
 "Para evitar problemas, el nombre de grupo debe consistir solo de letras, "
-"dígitos, subrayado, espacios, puntos, guiones. No debería empezar con un "
-"guión ni terminar con un punto"
+"dígitos, subrayado, espacios, puntos y guiones."
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
 #, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
-msgstr ""
-"El nombre de la cuenta no debe ser más largo de {maxLength} caracteres "
+msgstr "El nombre de la cuenta no debe ser más largo de {maxLength} caracteres"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:194
 #: ../../main/samba/src/EBox/Samba/Group.pm:369
@@ -10882,32 +10831,31 @@ msgid "Account name"
 msgstr "Nombre de cuenta"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:40
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} not found."
-msgstr "La página no pudo encontrarse"
+msgstr "GPO {x} no encontrada."
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:56
-#, fuzzy
 msgid "GPO not defined"
-msgstr "La página no pudo encontrarse"
+msgstr "La GPO no ha sido definida"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:219
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:235
 #: ../../main/samba/src/EBox/Samba/GPO.pm:468
 msgid "Bad grammar"
-msgstr ""
+msgstr "Gramática incorrecta"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:283
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:296
 #, perl-brace-format
 msgid "Cannot parse {x} file"
-msgstr ""
+msgstr "No es posible analizar el fichero {x}"
 
 #: ../../main/samba/src/EBox/Samba/Contact.pm:99
 #: ../../main/samba/src/EBox/Samba/User.pm:344
 #: ../../main/users/src/EBox/Users/InetOrgPerson.pm:353
 msgid "Error on person LDAP entry creation:"
-msgstr ""
+msgstr "Error en la creación del usuario LDAP: "
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:102
 #, perl-brace-format
@@ -10917,21 +10865,25 @@ msgstr ""
 "kerberos '{r}'"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:117
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
 "add it in the {ohref}DNS domains page{chref}"
-msgstr "El dominio requerido '{d}' no pudo ser encontrado en el módulo DNS"
+msgstr ""
+"El dominio requerido '{d}' no pudo ser encontrado en el módulo "
+"DNS.<br/>Puede agregarlo desde la {ohref}sección de dominios DNS{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:138
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
 ">You can add it in the {ohref}host names page for domain {d}{chref}."
-msgstr "El registro de máquina '{h}' no se encuentra en el dominio '{d}'"
+msgstr ""
+"El registro de máquina '{h}' no se encuentra en el dominio '{d}'.<br/>Puede "
+"añadirlo en la {ohref}página de nombres de máquinas del dominio {d}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no internal IP addresses are set for host "
 "{host}.<br/>Ensure that you have at least a IP address assigned to an "
@@ -10939,14 +10891,14 @@ msgid ""
 "to the hostname {host}.<br/>You can add it in the {ohref}IP addresses page "
 "for {host}{chref}"
 msgstr ""
-"Samba no puede ser provisionado si no se han asignado direcciones IP o el "
-"dominio de DNS no está correctamente configurado. Asegúrate de que tienes al "
-"menos una dirección IP asignada a una interfaz interna, y que esta IP está "
-"asignada tanto al dominio, como al hostname de esta máquina en tu dominio "
-"local."
+"Samba no puede ser provisionado si no se han asignado direcciones IP "
+"internal al equipo {host}. <br/> Asegúrese de que tiene por lo menos una "
+"dirección IP asignada a una interfaz interna, esta IP debe ser asignada al "
+"dominio {dom} y al nombre de equipo {host}.<br/>Puede añadirlo desde la "
+"{ohref}página de direcciones IP del equipo {host}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:226
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no internal IP addresses are set for domain "
 "{dom}.<br/>Ensure that you have at least a IP address assigned to an "
@@ -10954,11 +10906,11 @@ msgid ""
 "to the local hostname.<br/>You can assign it in the {ohref}IP addresses page "
 "for {dom}{chref}"
 msgstr ""
-"Samba no puede ser provisionado si no se han asignado direcciones IP o el "
-"dominio de DNS no está correctamente configurado. Asegúrate de que tienes al "
-"menos una dirección IP asignada a una interfaz interna, y que esta IP está "
-"asignada tanto al dominio, como al hostname de esta máquina en tu dominio "
-"local."
+"Samba no puede ser provisionado si no se han asignado direcciones IP "
+"internal al equipo {host}. <br/> Asegúrese de que tiene por lo menos una "
+"dirección IP asignada a una interfaz interna, esta IP debe ser asignada al "
+"dominio {dom} y al nombre de equipo {host}.<br/>Puede añadirlo desde la "
+"{ohref}página de direcciones IP del equipo {host}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:269
 #, perl-brace-format
@@ -10967,6 +10919,9 @@ msgid ""
 "of other Zentyal.<br/>You can change this state at {ohref}synchronization "
 "options{chref}"
 msgstr ""
+"No es posible activar Samba por que este servidor está sincronizando sus "
+"usuarios como esclavo de otro servidor Zentyal.<br/> Puede cambiar este "
+"estado desde las {ohref}opciones de sincronización{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:306
 #, perl-brace-format
@@ -10976,18 +10931,22 @@ msgstr "El modo {mode} no está soportado"
 #: ../../main/samba/src/EBox/Samba/Provision.pm:531
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
-msgstr ""
+msgstr "No es posible determinar el dominio del servidor AD especificado {x}. "
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:551
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
+"No es posible determinar el dominio de Kerberos del servidor AD especificado "
+"{x}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:572
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
+"No es posible unirse al servidor LDAP AD ({x}). Por favor, compruebe los "
+"credenciales."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:621
 #, perl-brace-format
@@ -10998,34 +10957,41 @@ msgid ""
 "Please, move the zones to the \"DomainDnsZones\" or \"ForestDnsZones\" and "
 "try again. Check {link} for help on how to do that."
 msgstr ""
+"No es posible unirse al dominio. Las siguientes zonas del DNS están "
+"almacenadas en la partición principal del dominio: {zones}. Esto ocurre "
+"habitualmente cuando el servidor ha sido actualizado desde Windows Server "
+"2000, por lo que Samba4 no es capaz de leer estas zonas. Por favor, mueva "
+"las zonas a \"DomainDNSZones\" o \"ForestDnsZones\" y vuelva a intentarlo. "
+"Consulte {link} para obtener ayuda sobre como realizar estos cambios."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:659
-#, fuzzy
 msgid "Could not retrieve the domain information."
-msgstr "No debe añadir el prefijo www al dominio."
+msgstr "No es posible adquirir la información del dominio."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:668
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
+"El bosque de AD contiene mas de un dominio. Samba solo soporta un dominio "
+"por bosque."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:688
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
-msgstr ""
+msgstr "El controlador de dominio especificado {x} no es alcanzable."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:707
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
-"El dominio del servidor y el dominio de autenticación de kerberos deben "
-"coincidir con el dominio al que intentas unirte."
+"El dominio de kerberos {x} debe coincidir con el dominio del servidor AD "
+"{y}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:716
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
-msgstr ""
+msgstr "El dominio local {x} debe coincidir con el dominio del servidor AD {y}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:751
 #, perl-brace-format
@@ -11033,6 +10999,8 @@ msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
+"El Controlador de Dominio {x} no se puede resolver a su dirección IP. Por "
+"favor, compruebe el nombre de servidor y el servidor de DNS."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:777
 #, perl-brace-format
@@ -11040,30 +11008,38 @@ msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
+"El servidor AD especificado está registrado en el DNS local como {x}, lo que "
+"coincide con el nombre de equipo local."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:798
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
+"El nivel funcional del bosque debe ser Windows Server 2003 o superior. Por "
+"favor, aumente el nivel funcional de su bosque."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:804
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
+"El nivel funcional del bosque debe ser Windows Server 2003 o superior. Por "
+"favor, aumente el nivel funcional de su bosque."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:831
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
+"El dominio al que intenta unirse ha definido relaciones de confianza. Esto "
+"no está soportado por samba actualmente."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:864
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:542
 #, perl-brace-format
 msgid "Could not retrive time from AD server {x} via NTP."
-msgstr ""
+msgstr "No se puede recuperar la hora del servidor AD {x} usando NTP."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:877
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:555
@@ -11072,71 +11048,75 @@ msgid ""
 "problems with kerberos authentication, please sync both clocks with an "
 "external NTP source and try again."
 msgstr ""
+"El desfase de reloj con los servidores AD es mayor de dos minutos. Esto "
+"puede causar problemas con la autenticación por kerberos, por favor, "
+"sincronice ambos relojes con una fuente externa NTP e inténtelo de nuevo."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:916
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
-msgstr "El certificado {cn} no existe"
+msgstr "El sitio especificado {x} no existe en el dominio."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:928
 msgid "Could not determine the site of the specified server"
-msgstr ""
+msgstr "No es posible determinar el sitio del servidor especificado"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:962
 msgid "Could not determine the netbios domain name."
-msgstr ""
+msgstr "No es posible determinar el dominio de nombres de netbios."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:966
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
+"El nombre de netBIOS {x} no pudo ser encontrado. Por favor, compruebe el "
+"valor especificado."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:157
 #: ../../main/samba/src/EBox/Samba/OrganizationalPerson.pm:192
 #: ../../main/samba/src/EBox/Samba/User.pm:127
 #, perl-brace-format
 msgid "The object {x} is a system critical object."
-msgstr ""
+msgstr "El objeto {x} es un objeto crítico de sistema."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:183
 #: ../../main/users/src/EBox/Users/LdapObject.pm:277
-#, fuzzy
 msgid "There was an error updating LDAP:"
 msgstr "Ocurrió un error actualizando LDAP:"
 
 #: ../../main/samba/src/EBox/Samba/GPO.pm:496
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} is already linked to this container"
-msgstr "La dirección VPN {addr} ya está en uso por la interfaz {iface}"
+msgstr "La GPO {x} ya ha sido enlazada con este contenedor"
 
 #: ../../main/samba/src/EBox/Samba/SmbClient.pm:52
 #, perl-brace-format
 msgid "Could not open {x}: {y}"
-msgstr ""
+msgstr "No es posible abrir {x}: {y}"
 
 #: ../../main/samba/src/EBox/Samba/SmbClient.pm:65
 #, perl-brace-format
 msgid "Could not read {x}: {y}"
-msgstr ""
+msgstr "No es posible leer {x}: {y}"
 
 #: ../../main/samba/src/EBox/Samba/SmbClient.pm:73
 #, perl-brace-format
 msgid "Could not close {x}: {y}"
-msgstr ""
+msgstr "No se puede cerrar {x}: {y}"
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddGPLink.pm:52
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteGPLink.pm:41
 msgid "GPO DN"
-msgstr ""
+msgstr "GPO DN"
 
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteGPLink.pm:39
 msgid "Container DN"
-msgstr ""
+msgstr "DN Contenedor"
 
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteGPLink.pm:40
 msgid "GPO Link index"
-msgstr ""
+msgstr "Índice de enlaces de las GPO"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:44
 #: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:76
@@ -11156,25 +11136,20 @@ msgid "share name"
 msgstr "Nombre del recurso compartido"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:371
-#, fuzzy
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
-"Los nombres de cuenta en Windows no pueden estar  compuestos de espacios, "
+"Los nombres de cuenta en Windows no pueden estar compuestos de espacios, "
 "números y puntos únicamente."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:389
-#, fuzzy
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
-"Los nombres de cuenta en Windows no pueden estar  compuestos de espacios, "
+"Los nombres de cuenta en Windows no pueden estar compuestos de espacios, "
 "números y puntos únicamente."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:395
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr ""
-"Los nombres de cuenta en Windows no pueden estar  compuestos de espacios, "
-"números y puntos únicamente."
+msgstr "Los nombres de cuenta en Windows no pueden contener el carácter \"@\"."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:406
 #: ../../main/users/src/EBox/Users/User.pm:759
@@ -11201,16 +11176,15 @@ msgstr "Configurar samba de acuerdo a tu configuración."
 
 #: ../../main/samba/src/EBox/Samba.pm:124
 msgid "To enable extended attributes and acls."
-msgstr "Para extender los atributos extendidos y acl's."
+msgstr "Para activar atributos extendidos y ACL."
 
 #: ../../main/samba/src/EBox/Samba.pm:149
 msgid "File sharing (Samba) protocol"
 msgstr "Protocolo de compartición de ficheros (Samba)"
 
 #: ../../main/samba/src/EBox/Samba.pm:470
-#, fuzzy
 msgid "Filesystem shares"
-msgstr "Uso del sistema de ficheros"
+msgstr "Carpetas compartidas del sistemas de ficheros"
 
 #: ../../main/samba/src/EBox/Samba.pm:1246
 msgid ""
@@ -11298,6 +11272,8 @@ msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
+"El nombre de equipo o dominio no pueden ser modificados si Zentyal está "
+"configurado como un controlador adicional del dominio."
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:634
 msgid "Active Directory/File sharing account"
@@ -12323,9 +12299,8 @@ msgid "Country code"
 msgstr "Código de país"
 
 #: ../../main/ca/src/EBox/CA.pm:225
-#, fuzzy
 msgid "The country code must be the 2-characters ISO code"
-msgstr "La contraseña debe tener al menos 6 caracteres"
+msgstr "La código de país debe ser el código ISO de dos caracteres"
 
 #: ../../main/ca/src/EBox/CA.pm:269 ../../main/ca/src/EBox/CA.pm:745
 #: ../../main/ca/src/EBox/CA.pm:1374
@@ -12396,9 +12371,8 @@ msgid "Created but not available"
 msgstr "Creada pero no disponible"
 
 #: ../../main/ca/src/EBox/CA.pm:1887
-#, fuzzy
 msgid "The field cannot contain only blank characters"
-msgstr "Los datos contienen caracteres inválidos"
+msgstr "El campo no puede contener solo caracteres en blanco"
 
 #: ../../main/ca/src/EBox/CA.pm:1910
 msgid "String"
@@ -12442,17 +12416,16 @@ msgstr "Error desconocido. Se ofrece la salida de OpenSSL:"
 #: ../../main/ca/src/EBox/CA.pm:2533
 #, perl-brace-format
 msgid "Value for subject alternative of type {type}"
-msgstr ""
+msgstr "valor alternativo de tipo {type}"
 
 #: ../../main/ca/src/EBox/CA.pm:2550
-#, fuzzy
 msgid "Subject alternative type"
-msgstr "\"Subject Alternative Names\""
+msgstr "Nombre alternativo"
 
 #: ../../main/ca/src/EBox/CA.pm:2552
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
-msgstr "Sólo {dns}, {ip} y {email} son nombres válidos"
+msgstr "Sólo {dns}, {ip} y {email} son nombres alternativos válidos"
 
 #: ../../main/ca/src/EBox/CA.pm:2596
 #, perl-brace-format
@@ -12669,9 +12642,8 @@ msgid "Disable {app} profile for {bin} binary"
 msgstr "Desactiva el perfil de {app} para el binario {bin}"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:404
-#, fuzzy
 msgid "Antivirus DB updates"
-msgstr "Opciones por defecto del Antivirus"
+msgstr "Actualización de la base de datos del antivirus"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:102
 msgid "Signatures"
@@ -12725,13 +12697,14 @@ msgstr ""
 "Borrar enlaces al script de ntp y hooks de networking (if-up.d y dhclient)"
 
 #: ../../main/ntp/src/EBox/NTP.pm:92
-#, fuzzy
 msgid "Override ntpd apparmor profile"
-msgstr "Sobreescribir el perfil de apparmor"
+msgstr "Invalidar el perfil apparmor de ntpd"
 
 #: ../../main/ntp/src/EBox/NTP.pm:93
 msgid "To allow samba clients to synchronize clock with ntp server"
 msgstr ""
+"Para permitir a los clientes de samba sincronizar el reloj con el servidor "
+"NTP"
 
 #: ../../main/ntp/src/EBox/NTP.pm:109
 msgid "NTP configuration file"
@@ -12851,7 +12824,7 @@ msgstr "campo"
 #: ../../main/core/src/EBox/Model/DataTable.pm:2473
 #, perl-brace-format
 msgid "Remove {num} rows of {rowName} from {model}{br}"
-msgstr "Borra {num} filas de {rowName} de {model}{br}"
+msgstr "Borra {num} filas de {rowName} desde {model}{br}"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:2557
 msgid "Page size"
@@ -12882,14 +12855,12 @@ msgid "{row} updated"
 msgstr "{row} actualizada"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3482
-#, fuzzy
 msgid "Search rows term"
-msgstr "Dominio de búsqueda"
+msgstr "Término de búsqueda en las filas"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3484
-#, fuzzy
 msgid "Must be a valid regular expression"
-msgstr "expresión regular para ruta a excluir"
+msgstr "Debe ser una expresión regular válida"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4071
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:59
@@ -13091,12 +13062,11 @@ msgid "Free Disk Space Watcher"
 msgstr "Monitor de espacio libre de disco"
 
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:166
-#, fuzzy
 msgid ""
 "Warning! The log watcher is not enabled. Enable to be notified when logs "
 "happen."
 msgstr ""
-"¡Cuidado! El observador de registros no está habilitado. Habilitalo para ser "
+"¡Cuidado! El observador de registros no está habilitado. Habilítalo para ser "
 "notificado cuando ocurra un registro."
 
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:193
@@ -13176,7 +13146,6 @@ msgstr ""
 "extraíbles"
 
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:175
-#, fuzzy
 msgid "Free space"
 msgstr "Espacio de almacenamiento libre"
 
@@ -13200,7 +13169,7 @@ msgstr "Selección de idioma"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:81
 msgid "New language selected, save changes to commit"
-msgstr ""
+msgstr "Nuevo idioma seleccionado, guarde los cambios para aplicar"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:44
 msgid "Administration interface TCP port"
@@ -13367,9 +13336,8 @@ msgstr ""
 "backups de la versión de Zentyal {wv} o superior"
 
 #: ../../main/core/src/EBox/Backup.pm:1148
-#, fuzzy
 msgid "Installing Zentyal packages in backup..."
-msgstr "Instalando paquetes"
+msgstr "Instalando paquetes de Zentyal presentes en el respaldo..."
 
 #: ../../main/core/src/EBox/Backup.pm:1373
 #, perl-brace-format
@@ -13424,7 +13392,7 @@ msgstr "Archivos de backup"
 
 #: ../../main/core/src/EBox/Backup.pm:1663
 msgid "Try to back up again as the created backup is corrupted"
-msgstr ""
+msgstr "Intente crear respaldo de nuevo, el respaldo creado es defectuoso"
 
 #: ../../main/core/src/EBox/Logout/CGI/Index.pm:28
 #: ../../main/core/src/EBox/AuditLogging.pm:148
@@ -13553,7 +13521,7 @@ msgstr "Software"
 
 #: ../../main/core/src/EBox/SysInfo.pm:325
 msgid "Checking updates..."
-msgstr ""
+msgstr "Comprobando actualizaciones..."
 
 #: ../../main/core/src/EBox/SysInfo.pm:327
 msgid "Uptime"
@@ -13850,12 +13818,12 @@ msgstr "Configuración del estado de los módulos"
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:68
 #, perl-brace-format
 msgid "Failed to enable {mod}: {err}"
-msgstr ""
+msgstr "Fallo al habilitar {mod}: {err}"
 
 #: ../../main/core/src/EBox/ServiceModule/CGI/ConfigureModuleController.pm:85
 #, perl-brace-format
 msgid "Failed to enable: {err}"
-msgstr ""
+msgstr "Fallo al habilitar: {err}"
 
 #: ../../main/core/src/EBox/MyDBEngine.pm:66
 #: ../../main/core/src/EBox/MyDBEngine.pm:80
@@ -14019,23 +13987,28 @@ msgid ""
 "change the hostname to {new} you will LOSE ALL YOUR USERS DATA. Are you sure "
 "you want to continue?"
 msgstr ""
+"ADVERTENCIA: Dado que el módulo de Usuarios ya ha sido instalado y "
+"configurado, si cambia el nombre de equipo a {new} PERDERÁ TODOS SUS DATOS "
+"DE USUARIOS. ¿Está seguro de que desea continuar?"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:87
 msgid ""
 "Additionally, using a domain ending in '.local' can conflict with other "
 "protocols like zeroconf and is, in general, discouraged."
 msgstr ""
+"Adicionalmente, usar un dominio que acabe en '.local' puede entrar en "
+"conflicto con otros protocolos como zerconf, por lo que no es recomendable "
+"generalmente."
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:168
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:181
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The length must be between {min} and {max} characters"
-msgstr "Un número entre {min} y {max}"
+msgstr "La longitud debe estar entre {min} y {max} caracteres"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:179
-#, fuzzy
 msgid "Host domain"
-msgstr "Nombre del dominio para esta máquina"
+msgstr "Nombre del equipo"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:209
 msgid ""
@@ -14205,12 +14178,12 @@ msgstr "No"
 
 #: ../../main/core/src/EBox/Types/URI.pm:117
 msgid "URI usually follows the format scheme://authority/path"
-msgstr ""
+msgstr "La URI habitualmente sigue el formato: //autoridad/ruta"
 
 #: ../../main/core/src/EBox/Types/URI.pm:124
 #, perl-brace-format
 msgid "Scheme should be one of: {schemes}, not {scheme}"
-msgstr ""
+msgstr "El esquema debe ser uno de: {schemes}, no {scheme}"
 
 #: ../../main/core/src/EBox/Types/Select.pm:340
 #, perl-brace-format
@@ -14256,26 +14229,23 @@ msgstr "Este mes no tiene 31 días."
 
 #: ../../main/core/src/EBox/Types/Time.pm:220
 msgid "Must be in the form HH:MM::SS"
-msgstr ""
+msgstr "Debe tener el formato HH:MM:SS"
 
 #: ../../main/core/src/EBox/Types/Time.pm:229
 msgid "No digit character in time component"
-msgstr ""
+msgstr "Carácter no digital en un componente de tiempo"
 
 #: ../../main/core/src/EBox/Types/Time.pm:239
-#, fuzzy
 msgid "Invalid hours value"
-msgstr "Valor anterior"
+msgstr "Valor de hora inválido"
 
 #: ../../main/core/src/EBox/Types/Time.pm:246
-#, fuzzy
 msgid "Invalid minutes value"
-msgstr "Valor de minutos erróneo: {mi}"
+msgstr "Valor de minutos erróneo"
 
 #: ../../main/core/src/EBox/Types/Time.pm:253
-#, fuzzy
 msgid "Invalid seconds value"
-msgstr "{data} inválido, valor: {value}."
+msgstr "Valor de segundos inválido"
 
 #: ../../main/core/src/EBox/Types/Int.pm:131
 msgid "Enter an integer number"
@@ -14378,7 +14348,7 @@ msgstr "Espacio de almacenamiento libre"
 
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:204
 msgid "Check if any disk partition has no storage space left"
-msgstr "Comprobar si alguna partición no tiene espacio libre de almacenamiento"
+msgstr "Compruebe si alguna partición no tiene espacio de almacenamiento libre"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:188
 msgid "Check if any event has happened in RAID subsystem"
@@ -14387,7 +14357,7 @@ msgstr "Comprueba si algún evento ha ocurrido en el subsistema RAID"
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:236
 #, perl-brace-format
 msgid "New array RAID device {devName} information:"
-msgstr "Información del nuevo vector de dispositivos RAID {devName}:"
+msgstr "Información del nuevo grupo de dispositivos RAID {devName}:"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:238
 #, perl-brace-format
@@ -14439,7 +14409,7 @@ msgstr ""
 "estaba configurado parece que ya no lo está más"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID array {name} has changed its state from {oldState} to {newState}"
 msgstr ""
 "Dispositivo RAID {name} ha cambiado su estado de {oldState} a {newState}"
@@ -14798,13 +14768,12 @@ msgstr ""
 "\"{y}\""
 
 #: ../../main/core/src/EBox/CGI/Base.pm:220
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
 "La entrada contiene caracteres inválidos. Todos los caracteres alfanuméricos "
-"más los caracteres /.?'&+:-@ y los espacios están permitidos."
+"más los caracteres ={},/.?&+:-@ y los espacios están permitidos."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:581
 msgid ""
@@ -14899,9 +14868,8 @@ msgid "HyperText Transport Protocol"
 msgstr "Protocolo de Transporte de hipertexto"
 
 #: ../../main/services/src/EBox/Services.pm:135
-#, fuzzy
 msgid "HyperText Transport Protocol over SSL"
-msgstr "Protocolo de Transporte de hipertexto"
+msgstr "Protocolo de Transporte de hipertexto sobre SSL"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:151
 msgid "This field is usually set to any"
@@ -15363,6 +15331,8 @@ msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
 msgstr ""
+"Los dominios y cuentas de correo serán borrados cuando la configuración del "
+"esclavo esté completada"
 
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:52
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:133
@@ -15991,9 +15961,8 @@ msgid "maildrop"
 msgstr "maildrop"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:73
-#, fuzzy
 msgid "Mail protocol"
-msgstr "protocolo"
+msgstr "protocolo de correo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
 msgid "External mail account"
@@ -16269,7 +16238,6 @@ msgid "Groupware Contact"
 msgstr "Contacto de Groupware"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:50
-#, fuzzy
 msgid "Enable contact in the addressbook even if it has not Zarafa account."
 msgstr ""
 "Habilitar el contacto en la lista de contactos aunque la cuenta esté "
@@ -16576,9 +16544,8 @@ msgid "Zentyal Web Server"
 msgstr "Servidor Web de Zentyal"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:238
-#, fuzzy
 msgid "Configuration Settings saved."
-msgstr "Configuración de cuota"
+msgstr "Opciones de configuración guardadas."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:239
 #, perl-brace-format
@@ -16587,6 +16554,9 @@ msgid ""
 "directory, and to provide www-data execution permissions over the involved /"
 "home/user directories."
 msgstr ""
+"Recuerde que para que UserDir funcione, debe crear el directorio {p} y "
+"asignar permisos de ejecución al usuario www-data sobre los directorios de "
+"/home/usuario implicados."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:290
 #, perl-brace-format
@@ -16635,31 +16605,32 @@ msgstr ""
 "{chref} para activar SSL en un host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:166
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
 "its IP addresses. {noDnsWarning} "
 msgstr ""
-"Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado con el "
-"nombre de mapeo {name} - Dirección IP {ip}. {noDnsWarning}"
+"Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado, Por favor, "
+"compruebe sus direcciones IP {noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
 msgstr ""
 "Host Virtual {vhost} añadido. Un dominio {domain} ha sido creado con el "
-"nombre de mapeo {name} - Dirección IP {ip}. {noDnsWarning}"
+"nombre de equipo {name}. Por favor, configure la IP del equipo. "
+"{noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:196
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
 "Please, set the host IP address"
 msgstr ""
-"Agregado el host virtual {vhost}. Un nombre de mapeo {name} - dirección IP "
-"{ip} ha sido añadido al dominio {domain}."
+"Agregado el host virtual {vhost}. Un nombre de equipo {name} ha sido añadido "
+"al dominio {domain}. Por favor, configure la dirección IP del equipo"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:204
 #, perl-brace-format
@@ -16751,6 +16722,8 @@ msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
+"{dir} debería ser un directorio para la configuración del dominio virtual. "
+"Por favor, muévalo o bórrelo"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:574
 #, perl-brace-format
@@ -16758,11 +16731,12 @@ msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
+"{dir} debería ser un directorio para la raíz del dominio virtual. Por favor, "
+"muévalo o bórrelo"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:817
-#, fuzzy
 msgid "Web server data"
-msgstr "Servidor Web"
+msgstr "Datos del Servidor Web"
 
 #: ../../main/asterisk/src/EBox/AsteriskLdapUser.pm:187
 msgid "Asterisk account"
@@ -16877,10 +16851,10 @@ msgid "Meeting rooms available on the server."
 msgstr "Salas de meeting disponibles en el servidor."
 
 #: ../../main/asterisk/src/EBox/Asterisk/Model/Meetings.pm:122
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable the {name} module before to be able to configure meetings"
-msgstr "El módulo de Usuarios debe estar habilitado en modo maestro."
+msgstr "Debe activar el módulo de {name} antes de configurar las reuniones"
 
 #: ../../main/asterisk/src/EBox/Asterisk/Model/Settings.pm:114
 msgid "Enable demo extensions"
@@ -16972,9 +16946,9 @@ msgid "User extension"
 msgstr "Extensión del usuario"
 
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:340
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Must be a number between {min} and {max}"
-msgstr "Un número entre {min} y {max}"
+msgstr "Debe ser un número entre {min} y {max}"
 
 #: ../../main/asterisk/src/EBox/Asterisk/Extensions.pm:625
 msgid "Queue extension"
@@ -17065,36 +17039,37 @@ msgstr "Fallada"
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:92
 #, perl-brace-format
 msgid "Unable to setup LDAP object: {x}"
-msgstr ""
+msgstr "No es posible configurar el objeto de LDAP: {x}"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:152
 #, perl-brace-format
 msgid "Unable to get kerberos ticket to bind to LDAP: {x}"
-msgstr ""
+msgstr "No es posible adquirir el ticket de kerberos para unirse a LDAP: {x}"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:160
 #, perl-brace-format
 msgid "Unable to setup SASL object: {x}"
-msgstr ""
+msgstr "No se pudo configurar el objeto SASL: {x}"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:170
 msgid "AD LDAP server does not support GSSAPI"
-msgstr ""
+msgstr "el servidor LDAP del AD no soporta GSSAPI"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:177
 #, perl-brace-format
 msgid "Could not bind to AD LDAP server '{server}'. Error was '{error}'"
 msgstr ""
+"No es posible unirse al servidor de LDAP AD '{server}'. Se obtuvo el error: "
+"'{error}'"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:212
-#, fuzzy
 msgid "The domain controller must be specified as full qualified domain name"
-msgstr "El nombre de correo debe ser un nombre cualificado"
+msgstr "El nombre del controlador de domino debe ser un nombre cualificado FQDN"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:216
 #, perl-brace-format
 msgid "The FQDN {x} does not seem to be valid"
-msgstr ""
+msgstr "El FQDN {x} no parece válido"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:235
 #, perl-brace-format
@@ -17103,6 +17078,9 @@ msgid ""
 "make sure you are using one of the AD DNS servers as the primary resolver in "
 "the {oh}resolvers list{ch}."
 msgstr ""
+"El controlador de dominio {x} no se puede resolver a su dirección IP. Por "
+"favor, asegúrese de que esta usando los servidores DNS del AD como el "
+"principal en la {oh}lista de servidores DNS{ch}"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:254
 #, perl-brace-format
@@ -17112,6 +17090,10 @@ msgid ""
 "as the primary resolver in the {oh}resolvers list{ch}, and it contains the "
 "required reverse zones."
 msgstr ""
+"La dirección IP '{x}' que pertenece al controlador de dominio '{y}' no puede "
+"ser resuelto a la inversa. Por favor, asegúrese de que está usando uno de "
+"los servidores DNS del AD está siendo usado como DNS primario, y que "
+"contiene las zonas inversas requeridas. "
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:263
 #, perl-brace-format
@@ -17120,11 +17102,14 @@ msgid ""
 "but the reverse resolution of that IP has returned name '{z}'. Please fix "
 "your AD DNS records."
 msgstr ""
+"El servidor DNS del AD ha resuelto el nombre de controlador de dominio '{x}' "
+"a la IP '{y}', pero la resolución inversa de esa IP devuelve el nombre "
+"'{z}'. Por favor, comprueba los registros DNS del AD."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:275
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain controller {x} is unreachable."
-msgstr "El servidor VPN es alcanzable"
+msgstr "El controlador de dominio {x} no es alcanzable."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:297
 #, perl-brace-format
@@ -17133,6 +17118,9 @@ msgid ""
 "Please, ensure the A and PTR records for the Zentyal server exists in your "
 "AD DNS server."
 msgstr ""
+"El FQDN del servidor Zentyal '{x}' no puede ser resuelto por el servidor DNS "
+"del AD. Por favor, asegúrese que los registros A y PTR para el servidor "
+"Zentyal existen en el servidor DNS del AD."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:314
 #, perl-brace-format
@@ -17141,6 +17129,9 @@ msgid ""
 "resolved. Please, make sure your AD DNS server has the required PTR records "
 "defined."
 msgstr ""
+"La dirección IP '{x}' que pertenece al servidor Zentyal '{y}' no puede ser "
+"resuelta a la inversa. Por favor, asegúrese de que el servidor DNS del AD "
+"contiene el registro PTR requerido."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:335
 #, perl-brace-format
@@ -17148,20 +17139,24 @@ msgid ""
 "Could not bind to AD LDAP server '{x}' (Error was '{y}'). Please check the "
 "supplied credentials."
 msgstr ""
+"No es posible unirse al servidor LDAP AD '{x}' (El error fue '{y}'). Por "
+"favor, compruebe los credenciales."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:365
 #, perl-brace-format
 msgid "The server domain '{x}' does not match DC domain '{y}'."
-msgstr ""
+msgstr "El dominio del servidor '{x}' no coincide con el dominio del DC '{y}'."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:378
 #, perl-brace-format
 msgid "The server kerberos realm '{x}' does not match AD realm '{y}'."
 msgstr ""
+"El dominio de kerberos del servidor '{x}' no coincide con el dominio del AD "
+"'{y}'."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:484
 msgid "Error creating computer account for Zentyal server:"
-msgstr ""
+msgstr "Error creando cuenta de equipo para el servidor Zentyal:"
 
 #: ../../main/users/src/EBox/Users.pm:264
 msgid ""
@@ -17249,21 +17244,26 @@ msgid ""
 "module and it is dependencies will be unusable. In the next saving of "
 "changes reprovision will be attempted again.{pend}"
 msgstr ""
+"Error al reprovisionar: {err}. {pbeg}Hasta que la reprovisión se complete, "
+"el módulo de usuarios y sus dependencias no serán usables. La siguiente vez "
+"que se guarde cambios, se volverá a intentar la reprovisión de nuevo.{pend}"
 
 #: ../../main/users/src/EBox/Users.pm:1120
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
-msgstr "Encontrados {count} resultados, sólo se esperaba uno."
+msgstr ""
+"Se encontraron {count} resultados para el usuario '{uid}', se esperaba sólo "
+"uno."
 
 #: ../../main/users/src/EBox/Users.pm:1328
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
-msgstr "Encontrados {count} resultados, sólo se esperaba uno."
+msgstr ""
+"Encontrados {count} resultados para el grupo '{name}', sólo se esperaba uno."
 
 #: ../../main/users/src/EBox/Users.pm:1799
-#, fuzzy
 msgid "Manage"
-msgstr "Sólo gestionar"
+msgstr "Gestionar"
 
 #: ../../main/users/src/EBox/Users.pm:1802
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
@@ -17284,13 +17284,13 @@ msgid "Configure mode"
 msgstr "Configurar modo"
 
 #: ../../main/users/src/EBox/Users.pm:2002
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
-"Está usando el modo de backup por partes y este backup fue hecho sin el modo "
-"por partes"
+"No es posible restaurar el módulo de usuarios por que se está ejecutando en "
+"modo {mode} y el respaldo se efectuó en modo {bpMode}"
 
 #: ../../main/users/src/EBox/Users.pm:2019
 #, perl-brace-format
@@ -17303,23 +17303,23 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users.pm:2299
 #: ../../main/users/src/EBox/Users.pm:2308
-#, fuzzy
 msgid "Users data"
-msgstr "Cuota de usuario"
+msgstr "Datos de usuario"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:167
 #, perl-brace-format
 msgid ""
 "Master {addr} is invalid because it is the address of the loopback interface"
 msgstr ""
+"El Master {addr} no es válido por que es la dirección de la interfaz de "
+"'loopback'"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:180
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Master {addr} is invalid because it is the address of the interface {if}"
 msgstr ""
-"Se ha configurado la interfaz local {if}, debería ser la IP externa a la que "
-"conectar."
+"El Master {addr} no es válido por que es la dirección de la interfaz {if}"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:280
 #, perl-brace-format
@@ -17327,6 +17327,8 @@ msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "slave {slave}."
 msgstr ""
+"El servidor maestro tiene un dominio diferente, compruebe los nombres de "
+"equipo. El Master es {master} y el esclavo es {slave}."
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:320
 msgid "Invalid password"
@@ -17347,11 +17349,13 @@ msgstr "No se puede configurar a Zentyal como un esclavo"
 msgid ""
 "Module {mod} is uncompatible with the current users operation mode ({mode})"
 msgstr ""
+"El módulo {mod} es incompatible con el el modo de operación actual del "
+"módulo de usuarios ({mode})"
 
 #: ../../main/users/src/EBox/Ldap.pm:481
 #, perl-brace-format
 msgid "FATAL: Couldn't connect to LDAP server {url}: {error}"
-msgstr ""
+msgstr "FATAL: No es posible conectar al servidor LDAP {url}: {error}"
 
 #: ../../main/users/src/EBox/Users/Model/Master.pm:76
 msgid "Other Zentyal Server"
@@ -17409,6 +17413,8 @@ msgid ""
 "Master server has a different REALM, check hostnames. Master is {master} and "
 "this server {slave}."
 msgstr ""
+"El servidor Master tiene diferente dominio, comprueba los nombres de equipo. "
+"Master es {master} y este esclavo es {slave}."
 
 #: ../../main/users/src/EBox/Users/Model/Master.pm:238
 #, perl-brace-format
@@ -17416,6 +17422,8 @@ msgid ""
 "Your Zentyal Cloud allows a maximum of {max} users. Currently there are "
 "{current} users created."
 msgstr ""
+"Tu cuenta de Zentyal Cloud permite un máximo de {max} usuarios. En estos "
+"momentos hay {current} usuarios creados."
 
 #: ../../main/users/src/EBox/Users/Model/Master.pm:252
 msgid "CAUTION: this will delete all defined users and import master ones."
@@ -17428,6 +17436,8 @@ msgid ""
 "Cannot synchronize users with other Zentyal if Samba is either in use or "
 "provisioned"
 msgstr ""
+"No es posible sincronizar los usuarios con otros servidores Zentyal si Samba "
+"está en uso o provisionado."
 
 #: ../../main/users/src/EBox/Users/Model/Slaves.pm:54
 msgid "Slave"
@@ -17453,26 +17463,28 @@ msgid ""
 "multiple OU support is partial, some modules may only work with users and "
 "groups in the default Users and Groups OUs."
 msgstr ""
+"Aquí puede gestionar las Unidades Organizativas, Usuarios, Grupos y "
+"Contactos. También es posible ver los equipos del dominio si se usa Samba. "
+"Por favor, tenga en cuenta que el soporte para múltiples OU es parcial, "
+"algunos módulos solo funcionarán con los usuarios y grupos definidos en el "
+"OU por defecto."
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:151
-#, fuzzy
 msgid "Security Groups"
-msgstr "Actualización de seguridad"
+msgstr "Grupo de seguridad"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:152
-#, fuzzy
 msgid "Distribution Groups"
-msgstr "Lista de grupos"
+msgstr "Grupo de Distribución"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:154
-#, fuzzy
 msgid "Computers"
-msgstr "Completado"
+msgstr "Equipos"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:155
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:42
 msgid "Contacts"
-msgstr ""
+msgstr "Contactos"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:186
 #: ../../main/users/src/EBox/Users/Composite/Sync.pm:89
@@ -17510,6 +17522,9 @@ msgid ""
 "Password change is only available in master or standalone servers. You need "
 "to change your password from the user corner of your master server."
 msgstr ""
+"El cambio de contraseña solo es posible en servidores master o "
+"independientes. Solo es posible cambiar la contraseña desde el rincón del "
+"usuario del servidor master."
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:48
 msgid "Password management"
@@ -17522,22 +17537,24 @@ msgstr "Confirme contraseña"
 #: ../../main/users/src/EBox/Users/Model/Password.pm:115
 #, perl-brace-format
 msgid "Could not bind to LDAP: {x}"
-msgstr ""
+msgstr "No es posible unirse al LDAP: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not get the user DN: {x}"
-msgstr "No se pudo extraer los archivos requeridos del backup: {files}"
+msgstr "No se pudo adquirir el DN del usuario: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:132
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The search for user {x} returned {count} results, expected one"
-msgstr "Encontrados {count} resultados, sólo se esperaba uno."
+msgstr ""
+"La búsqueda del usuario {x} devolvió {count} resultados, se esperaba sólo "
+"uno"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:147
 #, perl-brace-format
 msgid "Could not change password: {x}"
-msgstr ""
+msgstr "No es posible cambiar la contraseña: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:165
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:102
@@ -17548,7 +17565,7 @@ msgstr "Las contraseñas no coinciden"
 #: ../../main/users/src/EBox/Users/Model/Password.pm:176
 #, perl-brace-format
 msgid "User {x} not found in LDAP database"
-msgstr ""
+msgstr "El usuario {x} no encontrado en la base de datos LDAP"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:188
 msgid "Password successfully updated"
@@ -17590,6 +17607,8 @@ msgid ""
 "This parameters could not be changed once the user module has been "
 "configured."
 msgstr ""
+"Estos parámetros no podrán ser modificados una vez que el módulo haya sido "
+"configurado."
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:95
 #, perl-brace-format
@@ -17597,23 +17616,25 @@ msgid ""
 "Invalid DC hostname {dc}; it must be in the same domain that the Zentyal "
 "server. Current Zentyal server domain is {dom}"
 msgstr ""
+"Nombre de DC inválido {dc}; debe estar en el mismo dominio que el servidor "
+"Zentyal. El dominio actual del servidor Zentyal es {dom}"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:106
 msgid ""
 "The use should not contain a domain. The domain will be extracted from "
 "Active Directory"
 msgstr ""
+"El usuario no debe contener un dominio. El dominio se extraerá "
+"automáticamente de Active Directory"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:111
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:72
-#, fuzzy
 msgid "User password and confirm user password does not match"
-msgstr "Las contraseñas introducidas no coinciden."
+msgstr "Las contraseñas introducidas no coinciden"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:122
-#, fuzzy
 msgid "Server mode"
-msgstr "Nombre del Servidor"
+msgstr "Modalidad del servidor"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:128
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:228
@@ -17627,9 +17648,8 @@ msgstr "Este será el sufijo DN en el árbol LDAP"
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:137
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:66
 #: ../../main/users/src/templates/wizard/users.mas:52
-#, fuzzy
 msgid "Active Directory hostname"
-msgstr "Nombre del directorio"
+msgstr "Nombre de equipo en Active Directory"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:138
 #: ../../main/users/src/templates/wizard/users.mas:49
@@ -17637,17 +17657,20 @@ msgid ""
 "Both the Active Directory hostname and the own Zentyal server hostname "
 "should be DNS resolvable"
 msgstr ""
+"Tanto el nombre de equipo en Active Directory como el propio nombre de "
+"equipo del servidor Zentyal tienen que ser compatibles con DNS"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:144
-#, fuzzy
 msgid "Administrative user of the Active Directory"
-msgstr "El destino debe ser un directorio relativo"
+msgstr "Usuario administrativo de Directorio Activo"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:146
 msgid ""
 "This user has to have enough permissions to create a computer account in the "
 "domain"
 msgstr ""
+"Este usuario debe tener suficientes permisos para crear una cuenta de equipo "
+"en el dominio"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:153
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:68
@@ -17658,9 +17681,8 @@ msgstr "Contraseña del usuario"
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:160
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:69
 #: ../../main/users/src/templates/wizard/users.mas:60
-#, fuzzy
 msgid "Confirm user password"
-msgstr "confirmar contraseña"
+msgstr "Confirmar contraseña del usuario"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:170
 msgid "Zentyal Users"
@@ -17672,9 +17694,8 @@ msgid "Standalone server"
 msgstr "Servidor stand-alone"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:257
-#, fuzzy
 msgid "Use external Active Directory server"
-msgstr "servidor de correo externo"
+msgstr "Usar servidor Active Directory externo"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:42
 msgid "Base DN"
@@ -17685,24 +17706,20 @@ msgid "Root DN"
 msgstr "DN Raíz"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:54
-#, fuzzy
 msgid "Read-only root DN"
-msgstr "Fila de solo lectura: edición desactivada"
+msgstr "Raíz del DN de sólo lectura"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:58
-#, fuzzy
 msgid "Read-only password"
-msgstr "Contraseña Repetida"
+msgstr "Contraseña de sólo lectura"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:62
-#, fuzzy
 msgid "Default Users DN"
-msgstr "Cuota de usuario por defecto"
+msgstr "DN de Usuarios por defecto"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:66
-#, fuzzy
 msgid "Default Groups DN"
-msgstr "DN de Grupos"
+msgstr "DN de Grupos por defecto"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:72
 msgid "LDAP information"
@@ -17711,7 +17728,7 @@ msgstr "Información de LDAP"
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:101
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:102
 msgid "Not available in external AD mode"
-msgstr ""
+msgstr "No disponible en modalidad de AD externo"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:142
 msgid ""
@@ -17733,28 +17750,30 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/Contact.pm:132
 msgid "given name, initials, surname"
-msgstr ""
+msgstr "nombre, iniciales, apellido"
 
 #: ../../main/users/src/EBox/Users/Contact.pm:133
 msgid "empty"
-msgstr ""
+msgstr "vacío"
 
 #: ../../main/users/src/EBox/Users/Contact.pm:134
 msgid "Either given name, initials or surname must be non empty"
 msgstr ""
+"Por lo menos una de las variables: nombre, iniciales o apellido debe ser "
+"rellenada"
 
 #: ../../main/users/src/EBox/Users/Contact.pm:158
 msgid "Error on contact LDAP entry creation:"
-msgstr ""
+msgstr "Error al crear entrada de contacto en el LDAP:"
 
 #: ../../main/users/src/EBox/Users/InetOrgPerson.pm:325
 msgid "person"
-msgstr ""
+msgstr "persona"
 
 #: ../../main/users/src/EBox/Users/OU.pm:114
 #: ../../main/users/src/EBox/Users/Group.pm:538
 msgid "Error on group LDAP entry creation:"
-msgstr ""
+msgstr "Error en la creación de una entrada de grupo en el LDAP:"
 
 #: ../../main/users/src/EBox/Users/Types/KrbRealm.pm:93
 msgid ""
@@ -17765,9 +17784,8 @@ msgstr ""
 "versión en mayúsculas del dominio DNS local."
 
 #: ../../main/users/src/EBox/Users/CGI/AddOU.pm:49
-#, fuzzy
 msgid "OU name"
-msgstr "Nombre de usuario"
+msgstr "Nombre de la OU"
 
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:31
 msgid "Edit group"
@@ -17777,15 +17795,13 @@ msgstr "Editar grupo"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:73
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:48
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:69
-#, fuzzy
 msgid "description"
 msgstr "Descripción"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:67
 #: ../../main/users/src/templates/wizard/users.mas:55
-#, fuzzy
 msgid "Administrative user"
-msgstr "Administración de usuario"
+msgstr "Usuario administrativo"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:67
 msgid "quota"
@@ -17794,9 +17810,8 @@ msgstr "cuota"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:71
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:46
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:67
-#, fuzzy
 msgid "first name"
-msgstr "Nombre"
+msgstr "Nombre de pila"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:72
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:47
@@ -17814,24 +17829,20 @@ msgid "group name"
 msgstr "nombre del grupo"
 
 #: ../../main/users/src/EBox/Users/CGI/AddGroup.pm:53
-#, fuzzy
 msgid "group type"
-msgstr "nombre del grupo"
+msgstr "Tipo de grupo"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:70
-#, fuzzy
 msgid "E-mail"
 msgstr "Correo electrónico"
 
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:53
-#, fuzzy
 msgid "Given name"
-msgstr "Nombre de fichero"
+msgstr "Nombre"
 
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:54
-#, fuzzy
 msgid "Surname"
-msgstr "nombre de usuario"
+msgstr "Apellido"
 
 #: ../../main/users/src/EBox/Users/Group.pm:471
 #, perl-brace-format
@@ -17839,6 +17850,8 @@ msgid ""
 "While creating a new group '{group}': A group cannot be a distribution group "
 "and a system group at the same time."
 msgstr ""
+"Al intentar crear nuevo grupo '{group}': Un grupo no puede ser un grupo de "
+"distribución y un grupo del sistema a la vez."
 
 #: ../../main/users/src/EBox/Users/Group.pm:477
 #, perl-brace-format
@@ -17862,6 +17875,8 @@ msgid ""
 "A user account with the name '{name}' already exists. Users and groups "
 "cannot share names"
 msgstr ""
+"Ya existe una cuenta de usuario con el nombre '{name}'. Los usuarios y "
+"grupos no pueden compartir nombre"
 
 #: ../../main/users/src/EBox/Users/Group.pm:653
 msgid "Maximum number of groups reached"
@@ -17914,7 +17929,6 @@ msgstr ""
 "su sistema de ficheros no soporta cuotas?."
 
 #: ../../main/users/src/EBox/Users/User.pm:430
-#, fuzzy
 msgid ""
 "To avoid problems, the uid should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
@@ -17935,6 +17949,8 @@ msgid ""
 "A group account with the name '{name}' already exists. Users and groups "
 "cannot share names"
 msgstr ""
+"Ya existe una cuenta de grupo con el nombre '{name}'. Los usuarios y grupos "
+"no pueden compartir nombres"
 
 #: ../../main/users/src/EBox/Users/User.pm:486
 msgid "Username already exists on the system"
@@ -17950,26 +17966,24 @@ msgstr ""
 "favor, muévalo o bórrelo antes de crear el usuario"
 
 #: ../../main/users/src/EBox/Users/User.pm:511
-#, fuzzy
 msgid "default group"
-msgstr "Eliminar grupo"
+msgstr "Grupo por defecto"
 
 #: ../../main/users/src/EBox/Users/User.pm:513
 msgid "Default group must be a security group."
-msgstr ""
+msgstr "El grupo por defecto debe ser un grupo de seguridad."
 
 #: ../../main/users/src/EBox/Users/User.pm:559
 msgid "Error on user LDAP entry creation:"
-msgstr ""
+msgstr "Error en la creación de entrada de usuario del LDAP:"
 
 #: ../../main/users/src/EBox/Users/User.pm:707
 msgid "Maximum number of system users reached"
 msgstr "Máximo número de usuarios de sistema alcanzado"
 
 #: ../../main/users/src/EBox/Users/User.pm:712
-#, fuzzy
 msgid "Maximum number of users reached"
-msgstr "Máximo número de usuarios de sistema alcanzado"
+msgstr "Máximo número de usuarios alcanzado"
 
 #: ../../main/users/src/EBox/Users/User.pm:729
 #, perl-brace-format
@@ -17985,9 +17999,8 @@ msgstr ""
 "UID incorrecto {uid} para el usuario de sistema. UID debe ser menor de {max}"
 
 #: ../../main/users/src/EBox/LdapUserImplementation.pm:39
-#, fuzzy
 msgid "This group contains members"
-msgstr "Este grupo contiene usuarios"
+msgstr "Este grupo contiene miembros"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
@@ -18272,9 +18285,8 @@ msgstr ""
 "comando en una consola para averiguar el problema: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Actualizaciones automáticas de software"
+msgstr "Realizar actualizaciones automáticas de software"
 
 #: ../../main/software/src/templates/config.mas:15
 msgid "Zentyal is configured to use automatic QA updates"
@@ -18393,24 +18405,20 @@ msgid "This server has been removed from your registered ones"
 msgstr "Este servidor ha sido borrado de su lista de servidores registrados"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:19
-#, fuzzy
 msgid "Choose configuration backup to restore"
-msgstr "Lista de backups de configuración"
+msgstr "Elija el respaldo de configuración a restaurar"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:37
-#, fuzzy
 msgid "No backups available"
-msgstr "Restaurar todos los dominios de backup disponibles"
+msgstr "No hay respaldos disponibles"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:42
-#, fuzzy
 msgid "Skip recover"
-msgstr "recuperación"
+msgstr "Omitir recuperación"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:44
-#, fuzzy
 msgid "Recover"
-msgstr "recuperación"
+msgstr "Recuperación"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:48
 msgid "Remote Backup"
@@ -18517,9 +18525,8 @@ msgstr ""
 "emergente, haz click {hbeg}aquí{hend} para permitirlo."
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:39
-#, fuzzy
 msgid "Continue to your destination"
-msgstr "{hb}Continúa hacia el destino{he}"
+msgstr "Continúa hacia el destino"
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:45
 #: ../../main/captiveportal/src/templates/login.mas:56
@@ -18772,20 +18779,18 @@ msgstr ""
 
 #: ../../main/samba/src/templates/addgplink.mas:14
 #: ../../main/samba/src/templates/editgplink.mas:18
-#, fuzzy
 msgid "Group Policy Object"
-msgstr "Política de Grupo"
+msgstr "Política de Grupo (GPO)"
 
 #: ../../main/samba/src/templates/addgplink.mas:29
 #: ../../main/samba/src/templates/editgplink.mas:26
-#, fuzzy
 msgid "Link enabled"
-msgstr "habilitado"
+msgstr "Enlace habilitado"
 
 #: ../../main/samba/src/templates/addgplink.mas:38
 #: ../../main/samba/src/templates/editgplink.mas:35
 msgid "Enforced"
-msgstr ""
+msgstr "Forzada"
 
 #: ../../main/samba/src/templates/delgplink.mas:11
 #, perl-brace-format
@@ -18793,6 +18798,8 @@ msgid ""
 "This operation will delete the group policy link from the container {x}. The "
 "group policy object itself will not be deleted."
 msgstr ""
+"Esta operación eliminara el enlace de la GPO desde el contenedor {x}. La "
+"política de grupo en si misma no será eliminada."
 
 #: ../../main/samba/src/templates/samba.mas:34
 msgid ""
@@ -19187,9 +19194,8 @@ msgid "Starting..."
 msgstr "Comenzando..."
 
 #: ../../main/core/src/templates/progress.mas:212
-#, fuzzy
 msgid "Loading..."
-msgstr "Cargando"
+msgstr "Cargando..."
 
 #: ../../main/core/src/templates/progress.mas:214
 msgid " of "
@@ -19232,20 +19238,22 @@ msgstr "Ir al Dashboard"
 #: ../../main/core/src/templates/configureView.mas:14
 #, perl-brace-format
 msgid "Enabling this module will also enable its dependecies: {deps}"
-msgstr ""
+msgstr "Activar este módulo también activará sus dependencias: {deps}"
 
 #: ../../main/core/src/templates/configureView.mas:19
 msgid "The modules' enable process will make some modifications to the system."
 msgstr ""
+"El proceso de activación del módulo realizará algunas modificaciones sobre "
+"el sistema."
 
 #: ../../main/core/src/templates/configureView.mas:20
 msgid "Enabling the module will make some modifications to the system."
-msgstr ""
+msgstr "Activar el módulo efectuará algunas modificaciones sobre el sistema."
 
 #: ../../main/core/src/templates/configureView.mas:21
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ohref}Click here to see the details{chref}"
-msgstr "Haz click para volver al Dashboard"
+msgstr "{ohref}Clic aquí para ver los detalles{chref}"
 
 #: ../../main/core/src/templates/configureView.mas:33
 msgid "Actions to perform by Zentyal"
@@ -19260,9 +19268,8 @@ msgid "Accept"
 msgstr "Aceptar"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:28
-#, fuzzy
 msgid "View all"
-msgstr "Vista"
+msgstr "Ver todos"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:47
 #: ../../main/core/src/templates/logs/dbtable.mas:75
@@ -19461,23 +19468,20 @@ msgid "hide help"
 msgstr "ocultar ayuda"
 
 #: ../../main/core/src/templates/logout/index.mas:9
-#, fuzzy
 msgid "There are unsaved changes. Do you really want to close the session?"
-msgstr "No hay cambios sin guardar en esta sesión."
+msgstr "Hay cambios sin guardar. ¿Está seguro de cerrar la sesión?"
 
 #: ../../main/core/src/templates/logout/index.mas:12
 msgid "Do you really want to close the session?"
-msgstr ""
+msgstr "¿Está seguro de cerrar la sesión?"
 
 #: ../../main/core/src/templates/logout/index.mas:16
-#, fuzzy
 msgid "Discard current changes"
-msgstr "Descartar cambios"
+msgstr "Descartar cambios pendientes"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Close session"
-msgstr "Versión de la platforma"
+msgstr "Cerrar la sesión"
 
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Save changes?"
@@ -20032,7 +20036,7 @@ msgstr ""
 
 #: ../../main/users/src/templates/addobject.mas:8
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: ../../main/users/src/templates/addobject.mas:8
 msgid "Organizational Unit"
@@ -20048,35 +20052,33 @@ msgstr "Seleccionar el tipo de servidor"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
 msgid "Connect with external Active Directory server"
-msgstr ""
+msgstr "Conectar con servidor de Directorio Activo externo"
 
 #: ../../main/users/src/templates/wizard/users.mas:34
 msgid "Select the domain name of the server"
 msgstr "Seleccionar nombre del dominio del servidor"
 
 #: ../../main/users/src/templates/wizard/users.mas:36
-#, fuzzy
 msgid "This will be used as the Kerberos authentication realm for your users."
-msgstr ""
-"Esto será usado como dominio de autenticación de Kerberos para sus usuarios."
+msgstr "Será usado como dominio de autenticación de Kerberos para sus usuarios."
 
 #: ../../main/users/src/templates/wizard/users.mas:39
 msgid "Host domain name"
 msgstr "Nombre del dominio para esta máquina"
 
 #: ../../main/users/src/templates/wizard/users.mas:47
-#, fuzzy
 msgid "Enter your active directory settings"
-msgstr "Configuración de la monitorización de tasa de tráfico"
+msgstr "Introduzca su configuración en el directorio activo"
 
 #: ../../main/users/src/templates/wizard/users.mas:49
 msgid ""
 "The administrative user has to have enough permissions to create a computer "
 "account in the domain"
 msgstr ""
+"El usuario administrativo debe tener permisos suficientes para poder crear "
+"una cuenta de equipo en el dominio"
 
 #: ../../main/users/src/templates/editgroup.mas:14
-#, fuzzy
 msgid "Group "
 msgstr "Grupo"
 
@@ -20090,64 +20092,53 @@ msgstr ""
 
 #: ../../main/users/src/templates/editgroup.mas:26
 #: ../../main/users/src/templates/addgroup.mas:16
-#, fuzzy
 msgid "Security Group"
-msgstr "Actualización de seguridad"
+msgstr "Grupo de Seguridad"
 
 #: ../../main/users/src/templates/editgroup.mas:28
 #: ../../main/users/src/templates/addgroup.mas:16
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Administración del grupo"
+msgstr "Grupo de Distribución"
 
 #: ../../main/users/src/templates/editgroup.mas:44
 #: ../../main/users/src/templates/edituser.mas:52
-#, fuzzy
 msgid "Modules configuration"
 msgstr "Configuración del estado de los módulos"
 
 #: ../../main/users/src/templates/editgroup.mas:104
-#, fuzzy
 msgid "This group has not members"
-msgstr "Este grupo tiene una cuenta alias de correo"
+msgstr "Este grupo no contiene miembros"
 
 #: ../../main/users/src/templates/editgroup.mas:169
-#, fuzzy
 msgid "Add user"
 msgstr "Añadir usuario"
 
 #: ../../main/users/src/templates/editcontact.mas:15
-#, fuzzy
 msgid "Administration of contact "
-msgstr "Administración del grupo"
+msgstr "Administración de contactos"
 
 #: ../../main/users/src/templates/editcontact.mas:19
 #: ../../main/users/src/templates/addcontact.mas:42
-#, fuzzy
 msgid "E-Mail"
-msgstr "Correo"
+msgstr "Correo electrónico"
 
 #: ../../main/users/src/templates/editcontact.mas:28
-#, fuzzy
 msgid "Contact groups"
-msgstr "Otros grupos"
+msgstr "Grupos de contactos"
 
 #: ../../main/users/src/templates/editcontact.mas:78
-#, fuzzy
 msgid "This contact is not member of any group"
-msgstr "Usuarios fuera del grupo"
+msgstr "Este contacto no es miembro de ningún grupo"
 
 #: ../../main/users/src/templates/editcontact.mas:139
 #: ../../main/users/src/templates/edituser.mas:184
-#, fuzzy
 msgid "Add group"
 msgstr "Añadir grupo"
 
 #: ../../main/users/src/templates/editcontact.mas:153
 #: ../../main/users/src/templates/edituser.mas:198
-#, fuzzy
 msgid "No member of any group"
-msgstr "Usuarios fuera del grupo"
+msgstr "No es miembro de ningún grupo"
 
 #: ../../main/users/src/templates/edituser.mas:35
 msgid "User quota"
@@ -20163,9 +20154,8 @@ msgid "User groups"
 msgstr "Grupos del usuario"
 
 #: ../../main/users/src/templates/edituser.mas:117
-#, fuzzy
 msgid "This user is not member of any group"
-msgstr "Usuarios fuera del grupo"
+msgstr "Este usuario no es miembro de ningún grupo"
 
 #: ../../main/users/src/templates/delgroup.mas:10
 #: ../../main/users/src/templates/delgroup.mas:27
@@ -20174,7 +20164,7 @@ msgstr "Eliminar grupo"
 
 #: ../../main/users/src/templates/delgroup.mas:14
 msgid "You cannot delete a group in a slave."
-msgstr ""
+msgstr "No es posible borrar un grupo desde un servidor esclavo."
 
 #: ../../main/users/src/templates/delgroup.mas:17
 msgid ""
@@ -20190,7 +20180,7 @@ msgstr "Añadir usuario"
 
 #: ../../main/users/src/templates/addcontact.mas:7
 msgid "Add Contact"
-msgstr ""
+msgstr "Agregar Contacto"
 
 #: ../../main/users/src/templates/addgroup.mas:7
 msgid "Add Group"
@@ -20205,47 +20195,40 @@ msgid "Optional value"
 msgstr "Valor opcional"
 
 #: ../../main/users/src/templates/addou.mas:7
-#, fuzzy
 msgid "Add Organizational Unit"
-msgstr "Unidad Organizativa"
+msgstr "Agregar Unidad Organizativa (OU)"
 
 #: ../../main/users/src/templates/delcontact.mas:9
 #: ../../main/users/src/templates/delcontact.mas:20
-#, fuzzy
 msgid "Delete contact"
-msgstr "Borrar datos"
+msgstr "Borrar contacto"
 
 #: ../../main/users/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
-msgstr ""
+msgstr "No es posible eliminar un contacto en un servidor esclavo."
 
 #: ../../main/users/src/templates/delcontact.mas:16
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
-msgstr ""
-"Esta operación eliminará el grupo y todas sus dependencias, tales como "
-"directorios compartidos, etc."
+msgstr "Esta operación eliminará el contacto y todas sus dependencias."
 
 #: ../../main/users/src/templates/delou.mas:11
 msgid "You cannot delete a OU in a slave."
-msgstr ""
+msgstr "No es posible eliminar una OU en un servidor esclavo."
 
 #: ../../main/users/src/templates/delou.mas:13
 #: ../../main/users/src/templates/delou.mas:20
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Unidad Organizativa"
+msgstr "Eliminar Unidad Organizativa"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Esta operación eliminará el usuario y todas sus dependencias, tales como "
-"cuentas de correo, archivos, etc."
+"Esta operación causará la eliminación de la OU y todos los objetos en su "
+"interior, incluyendo usuarios, grupos, etc."
 
 #: ../../main/users/src/templates/deluser.mas:12
 #: ../../main/users/src/templates/deluser.mas:29
@@ -20254,15 +20237,13 @@ msgstr "Eliminar usuario"
 
 #: ../../main/users/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
-msgstr ""
+msgstr "No es posible eliminar un usuario en un servidor esclavo."
 
 #: ../../main/users/src/templates/deluser.mas:19
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Esta operación eliminará el grupo y todas sus dependencias, tales como "
-"directorios compartidos, etc."
+"Esta operación eliminará el usuario y todos los datos que dependan de él"
 
 #, fuzzy
 #~ msgid "Invalid value for key '{key}' in configuration file {value}"
