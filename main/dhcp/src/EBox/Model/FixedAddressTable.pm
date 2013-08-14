@@ -259,9 +259,7 @@ sub addresses
     my %namesSeen;
     my %macsSeen;
     for my $id (@{$self->ids()}) {
-
         my $row   = $self->row($id);
-        $row or next;
         my $objId = $row->valueByName('object');
         my $mbs   = $objMod->objectMembers($objId);
         # TODO: Restore this when more than one config per interface is possible
