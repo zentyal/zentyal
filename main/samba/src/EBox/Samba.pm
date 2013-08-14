@@ -2050,8 +2050,12 @@ sub ldapObjectFromLDBObject
 {
     my ($self, $ldbObject) = @_;
 
-    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
-    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+    unless ($ldbObject) {
+        throw EBox::Exceptions::MissingArgument('ldbObject')
+    }
+    unless ($ldbObject->isa('EBox::Samba::LdbObject')) {
+        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject');
+    }
 
     my $usersMod = EBox::Global->modInstance('users');
 
