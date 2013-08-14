@@ -74,6 +74,8 @@ sub childNodes
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
+        next if ($self->_hiddenViewInAdvancedOnly($child));
+
         my $dn = $child->dn();
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
@@ -82,7 +84,11 @@ sub childNodes
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($usingSamba and $self->_hiddenSid($child));
 
-            $type = 'user';
+            if ($user->isDisabled()) {
+                $type = 'duser';
+            } else {
+                $type = 'user';
+            }
             $printableName = $child->name();
 
             # FIXME: temporary workaround until the regression is fixed properly
@@ -148,6 +154,7 @@ sub nodeTypes
         ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
         group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
         dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
@@ -218,6 +225,24 @@ sub _hiddenSid
 
     foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
        return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
+    }
+
+    return 0;
+}
+
+sub _hiddenViewInAdvancedOnly
+{
+    my ($self, $ldapObject) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
+
+    my $sambaObject = undef;
+    try {
+        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
+    } otherwise {};
+
+    if ($sambaObject and $sambaObject->isInAdvancedViewOnly()) {
+        return 1;
     }
 
     return 0;
