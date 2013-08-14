@@ -19,10 +19,6 @@ Parameters:
                 - type - String the resource type. Options: file, directory or location.
    includes - Array containing those file includes we want to add
               this Apache configuration
-   desktop_services_enabled - String to enable the Zentyal desktop services CGI
-                                  Default value: 'no'
-   desktop_services_port - Port for the Zentyal desktop services CGI virtual host
-                               Default value: 6895
 
 # FIXME: unhardcode paths passing them as args...
 </%doc>
@@ -36,8 +32,6 @@ Parameters:
     $debug => 'no'
     @restrictedResources => ()
     @includes => ()
-    $desktop_services_enabled => 'no'
-    $desktop_services_port => 6895
 </%args>
 
 Timeout 300
@@ -274,37 +268,3 @@ ServerTokens Min
     RewriteRule ^/(.*) /usr/share/zentyal/cgi/ebox.cgi [E=script:$1,L]
 </VirtualHost>
 
-% if ($desktop_services_enabled eq 'yes') {
-Listen <% $desktop_services_port %>
-<VirtualHost *:<% $desktop_services_port %> >
-    DocumentRoot /usr/share/zentyal/www/
-
-    <IfModule mod_ssl.c>
-        SSLEngine on
-        SSLProtocol all
-        SSLCipherSuite HIGH:MEDIUM
-        SSLCertificateFile /var/lib/zentyal/conf/ssl/ssl.pem
-        SSLCACertificatePath <% $eboxconfdir %>ssl-ca/
-    </IfModule>
-
-    <Directory /usr/share/zentyal/cgi/>
-        <IfModule mod_ssl.c>
-            SSLOptions +StdEnvVars
-        </IfModule>
-
-        SetHandler perl-script
-        PerlHandler ModPerl::Registry
-        PerlSendHeader On
-        AllowOverride None
-        Options +ExecCGI
-        Order allow,deny
-        Allow from all
-    </Directory>
-
-    CustomLog /var/log/zentyal/access-desktop-services.log combined
-
-    RewriteEngine On
-
-    RewriteRule ^/(.*) /usr/share/zentyal/cgi/desktop-services.cgi [E=script:$1,L]
-</VirtualHost>
-% }
