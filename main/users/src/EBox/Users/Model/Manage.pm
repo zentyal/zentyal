@@ -84,7 +84,7 @@ sub childNodes
         } elsif ($child->isa('EBox::Users::User')) {
             next if ($usingSamba and $self->_hiddenSid($child));
 
-            if ($user->isDisabled()) {
+            if ($child->isDisabled()) {
                 $type = 'duser';
             } else {
                 $type = 'user';
