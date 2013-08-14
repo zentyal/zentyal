@@ -21,6 +21,7 @@ use base 'EBox::CGI::Base';
 
 use EBox::Gettext;
 use EBox::Html;
+use EBox::HtmlBlocks;
 
 ## arguments
 ##              title [optional]
@@ -39,17 +40,11 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     if (not $htmlblocks) {
         $htmlblocks = 'EBox::HtmlBlocks';
     }
-    eval "use $htmlblocks";
-    $self->{htmlblocks} = $htmlblocks;
-
-    $self->{module} = $2;
-    $self->{cginame} = $3;
-    $self->{cginame} =~ s|::|/|g;
-    if (defined($self->{cginame})) {
-        $self->{url} = $self->{module} . "/" . $self->{cginame};
-    } else {
-        $self->{url} = $self->{module} . "/Index";
+    if ($htmlblocks ne 'EBox::HtmlBlocks') {
+        eval "use $htmlblocks";
     }
+
+    $self->{htmlblocks} = $htmlblocks;
 
     bless($self, $class);
     return $self;

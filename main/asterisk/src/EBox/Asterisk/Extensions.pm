@@ -223,6 +223,15 @@ sub addUserExtension
         return;
     }
 
+    my $usersMod = EBox::Global->modInstance('users');
+    my $namingContext = $usersMod->defaultNamingContext();
+
+    my $dn = "ou=Extensions," . $namingContext->dn();
+    my $ou = new EBox::Users::OU(dn => $dn);
+    unless ($ou and $ou->exists()) {
+        $ou = EBox::Users::OU->create(name => 'Extensions', parent => $namingContext);
+    }
+
     $self->_checkUserExtensionNumber($extn);
 
     my $username = $user->name();

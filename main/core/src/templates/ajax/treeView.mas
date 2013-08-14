@@ -6,6 +6,8 @@
   my $treeId = "tree_" . $model->name();
   my $treeViewerId = "treeviewer_" . $model->name();
 </%init>
+<script type="text/javascript" src="/data/js/form.js"></script>
+
 <& .pageTitle, title => $model->pageTitle() &>
 
 <& .headTitle, title => $model->headTitle() &>
@@ -125,6 +127,7 @@ $(function () {
 %   next unless $types{$type}->{actions}->{edit};
 %   my $link = $model->clickHandlerJS($type);
         if (nodeType == '<% $type %>') {
+            Zentyal.Form.setLoading('#<% $treeViewerId %>');
             $('#<% $treeViewerId %>').load('<% $link->{url} %>', metadata);
         }
 % }

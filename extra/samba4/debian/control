@@ -48,9 +48,12 @@ Depends: python,
          libdm0,
          libcups2,
          zlib1g,
+         libbsd0,
          ${misc:Depends}
-Replaces: samba4-common-bin, ldb-tools, tdb-tools
+Replaces: samba4-common-bin, ldb-tools, tdb-tools, python-samba
 Breaks: samba4-common-bin, ldb-tools, tdb-tools
+Provides: python-samba
+Conflicts: python-samba
 Description: SMB/CIFS file, NT domain and active directory server (version 4)
  Samba is an implementation of the SMB/CIFS protocol for Unix systems,
  providing support for cross-platform file sharing with Microsoft Windows, OS X,

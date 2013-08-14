@@ -244,8 +244,11 @@ sub linkToView
     my $view = $self->view();
     my $directory = $self->directory();
 
+    my $params="?directory=$directory";
     my $backview = $self->backView();
-    my $params="?directory=$directory" . "&backview=$backview";
+    if ($backview) {
+        $params .=  "&backview=$backview";
+    }
 
     my $url = $view . $params;
 

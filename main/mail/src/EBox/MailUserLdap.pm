@@ -376,7 +376,6 @@ sub _groupAddOns
         'vdomains' => \@vd,
         'aliases'  => $aliases,
         'service'  => $mail->service(),
-        'nacc'     => scalar ($self->usersWithMailInGroup($group)),
     };
 
     return {
@@ -456,7 +455,7 @@ sub allAccountsFromVDomain
 #
 # Parameters:
 #
-#  groupname - groupname
+#  group - group object
 #
 sub usersWithMailInGroup
 {

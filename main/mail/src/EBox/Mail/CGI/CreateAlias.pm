@@ -52,7 +52,11 @@ sub _process
     my $lhs = $self->param('lhs');
     my $rhs = $self->param('rhs');
 
-    $mail->{malias}->addAlias($lhs."@".$rhs, $maildrop, $maildrop);
+    my $alias = $lhs."@".$rhs;
+    $mail->{malias}->addAlias($alias, $maildrop, $maildrop);
+
+    $self->{json}->{msg} = __x('Added alias {al}', al => $alias);
+    $self->{json}->{aliases} = [ $mail->{malias}->accountAlias($maildrop) ];
     $self->{json}->{success} = 1;
 }
 

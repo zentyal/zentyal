@@ -3,19 +3,15 @@
 </%args>
 <%init>
 use EBox::Gettext;
+use JSON::XS;
+my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
-%# this div is only so editgroup.mas could knew this addon is active
-<div id='needReload' />
-%       if($params->{'nacc'} eq 0) {
-        <div class='warning'>
-                <p><% __('There are no users in the group or the users do not have a mail account, so an alias account cannot be created') %></p>
-        </div>
-%      } else {
-%            if (not $params->{service} ) {
-                   <& /mail/moduleDisabled.mas &>
-%            }
-   <div id='error_createAlias' class='error' style='display:none'></div>
-   <form id='createAlias' action='/Mail/CreateGroupAlias' method='POST'>
+% if (not $params->{service} ) {
+  <& /mail/moduleDisabled.mas &>
+% }
+   <div id='error_mailCreateAlias' class='error' style='display:none'></div>
+   <div id='note_mailCreateAlias' class='note' style='display:none'></div>
+   <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
         <table cellspacing='0' class='dataTable' id='aliasTable'>
                 <thead>
                         <tr>
@@ -28,31 +24,49 @@ use EBox::Gettext;
                         </tr>
                 </thead>
                 <tbody>
-       <& .addAlias,
-           group => $params->{group},
-           vdomains => $params->{vdomains},
-       &>
-       <& .aliasList,
-             group => $params->{group},
-             aliases => $params->{aliases},
-        &>
+                 <& .addAlias,
+                      group => $params->{group},
+                     vdomains => $params->{vdomains},
+                 &>
             </tbody>
         </table>
     </form>
-% }
 <script>
+"use strict";
 $(function(){
-  var refreshDialog = function(response) {
-                var url = '/Users/EditGroup';
-                var data = 'dn=' + response.groupDN;
-                Zentyal.Dialog.showURL(url, { data: data})
+  var refreshAliasList = function(aliases) {
+      var i;
+      var aliasTable = $('#aliasTable');
+      var tbody = $('tbody', aliasTable);
+      tbody.detach();
+      tbody.children('.aliasRow').remove();
+      for (i=0; i < aliases.length; i++) {
+          var alias = aliases[i];
+          var newRowHtml =  '<tr class="border aliasRow">'  +
+                            '<td>'  + alias + '</td>' +
+                             '<td class="tcenter">' +
+                                 '<a href="#">' +
+                                    '<img src="/data/images/delete.gif" ' +
+                                        'data-alias="' + alias +'" ' +
+                                        'title="<% __('Delete') %>" ' +
+                                        'alt="<% __('Delete') %>" ' +
+                                    '/>' +
+                                 '</a>' +
+                             '</td>' +
+                        '</tr>';
+         var newRow = $(newRowHtml);
+         tbody.append(newRow);
+      }
+    aliasTable.append(tbody);
   };
 
-  $('#createAlias').on('submit', function(event) {
-        event.preventDefault();
-        Zentyal.Dialog.submitForm(event.target, {
-            success : refreshDialog
-      });
+  Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
+            noteDiv: '#note_mailCreateAlias',
+            errorDiv: '#error_mailCreateAlias',
+            submitButton: '#mailCreateAlias_submit',
+            success : function (response) {
+                refreshAliasList(response.aliases);
+            }
   });
 
   $('#aliasTable').on('click', 'a', function(event) {
@@ -60,24 +74,28 @@ $(function(){
       var url = '/Mail/DelGroupAlias';
       var data = 'group=<% $params->{group}->dn() %>';
       data += '&alias=' + event.target.getAttribute('data-alias');
-      // we reuse div for createAlias form
-      $('#error_createAlias').html('').hide();
+      // we reuse div for mailCreateAlias form
+      $('#error_mailCreateAlias').html('').hide();
+      $('#note_mailCreateAlias').html('').hide();
       $.ajax({
          url: url,
          data: data,
          dataType: 'json',
          error: function(jqXHR) {
-            $('#error_createAlias').html(jqXHR.responseText).show();
+            $('#error_mailCreateAlias').html(jqXHR.responseText).show();
          },
          success: function(response) {
             if (response.success) {
-                refreshDialog(response);
+                refreshAliasList(response.aliases);
+                $('#note_mailCreateAlias').html(response.msg).show();
             } else {
-               $('#error_createAlias').html(response.error).show();
+               $('#error_mailCreateAlias').html(response.error).show();
             }
          }
       });
   });
+
+  refreshAliasList(<% $aliasesJS %>);
 });
 
 </script>
@@ -101,36 +119,15 @@ $group
                                 </td>
                                 <td class='tcenter'>
                                         <input class='inputButton'
-                                                        type='image'
-                                                        src='/data/images/add.gif'
-                                                        name='change'
-                                                        value="<% __('Create') %>"
-                                                        title="<% __('Create') %>"
-                                                        alt="<% __('Create') %>">
+                                               id='mailCreateAlias_submit'
+                                               type='image'
+                                               src='/data/images/add.gif'
+                                               name='change'
+                                               value="<% __('Create') %>"
+                                               title="<% __('Create') %>"
+                                               alt="<% __('Create') %>"
+                                        />
                                 </td>
                         </tr>
 
-</%def>
-
-
-<%def .aliasList>
-<%args>
-$group
-@aliases
-</%args>
-%       foreach my $alias (@aliases) {
-                        <tr class='border'>
-                                <td><% $alias %></td>
-                                <td class='tcenter'>
-                                        <a href='#'>
-                                           <img src='/data/images/delete.gif'
-                                                data-alias='<% $alias %>'
-                                                title="<% __('Delete') %>"
-                                                alt="<% __('Delete') %>"
-                                            />
-                                        </a>
-                                </td>
-                        </tr>
-
-%       }
 </%def>

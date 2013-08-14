@@ -28,6 +28,9 @@ use Error qw(:try);
 use File::Slurp;
 use Time::gmtime;
 
+my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix zarafa Extensions);
+my @ignoreChildrenOUs = qw(postfix Kerberos zarafa Extensions);
+
 sub getTimestamp
 {
     my $time = gmtime();
@@ -35,6 +38,14 @@ sub getTimestamp
         $time->year + 1900, $time->mon + 1, $time->mday,
         $time->hour, $time->min, $time->sec);
     return $timestamp;
+}
+
+sub ignoreOU
+{
+    my ($ouName) = @_;
+
+    return ((exists $ignoreOUs{$ouName}) or
+            (grep { $ouName =~ /^$_\// } @ignoreChildrenOUs));
 }
 
 EBox::init();
@@ -51,8 +62,6 @@ my $usersModule = $global->modInstance('users');
 
 my $ldb = $sambaModule->ldb();
 
-my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix postfix/mailalias postfix/vdomains);
-
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
@@ -67,7 +76,7 @@ while (1) {
     my %sambaOUs;
     foreach my $ou (@{$ldb->ous()}) {
         my $canonicalName = $ou->canonicalName(1);
-        if (exists $ignoreOUs{$canonicalName}) {
+        if (ignoreOU($canonicalName)) {
             next;
         }
         push @orderSambaOUs, $canonicalName;
@@ -84,10 +93,6 @@ while (1) {
     # The Administrator user, and 'Domain Users' group are special case entries.
     $zentyalUsers{'Administrator'} = new EBox::Users::User(uid => 'Administrator');
     $zentyalGroups{'Domain Users'} = new EBox::Users::Group(gid => 'Domain Users');
-
-    foreach my $ignored (keys %ignoreOUs) {
-        delete $zentyalOUs{$ignored};
-    }
 
     foreach my $canonicalName (@orderSambaOUs) {
         EBox::debug("sync OU $canonicalName");
@@ -118,6 +123,9 @@ while (1) {
 
     my @orderZentyalOus = reverse sort keys %zentyalOUs;
     foreach my $ouCanonicalName (reverse sort keys %zentyalOUs) {
+        if (ignoreOU($ouCanonicalName)) {
+            next;
+        }
         EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$ouCanonicalName}->dn() . "'");
         $zentyalOUs{$ouCanonicalName}->setIgnoredModules(['samba']);
         $zentyalOUs{$ouCanonicalName}->deleteObject();
@@ -141,14 +149,12 @@ while (1) {
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
-            if ($sambaUsers{$sambaUserName}->isAccountEnabled() or EBox::Config::boolean('sync_disabled_users')) {
-                try {
-                    $sambaUsers{$sambaUserName}->addToZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
-                };
-            }
+            try {
+                $sambaUsers{$sambaUserName}->addToZentyal();
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
+            };
         }
     }
 

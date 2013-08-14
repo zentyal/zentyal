@@ -1,6 +1,7 @@
 <%args>
 $showImages => 1
 $showAdvanced => 0
+$showExtToInt => 0
 </%args>
 <%init>
 use EBox::Gettext;
@@ -59,6 +60,8 @@ use EBox::Gettext;
 	</p>
     </div>
   </div>
+
+% if ($showExtToInt) {
   <div>
 % if ($showImages) {
 <a class="img_a" href="/Firewall/View/ExternalToInternalRuleTable"><img src="/data/firewall/external_to_internal.png" /></a>
@@ -77,6 +80,8 @@ use EBox::Gettext;
 	</p>
     </div>
   </div>
+% }
+
   <div>
 % if ($showImages) {
 <a class="img_a" href="/Firewall/View/EBoxOutputRuleTable"><img src="/data/firewall/outgoing_traffic.png" /></a>

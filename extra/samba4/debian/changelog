@@ -1,3 +1,28 @@
+samba4 (4.1.0rc2-zentyal4) precise; urgency=low
+
+  * Removed link to a non existing .pc file.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 12:26:48 +0200
+
+samba4 (4.1.0rc2-zentyal3) precise; urgency=low
+
+  * Installed links for the .pc files so other libraries are able to find it.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Mon, 12 Aug 2013 11:04:40 +0200
+
+samba4 (4.1.0rc2-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Sun, 11 Aug 2013 13:45:39 +0200
+
+samba4 (4.1.0rc1-zentyal4) precise; urgency=low
+
+  * Added python modules to the standard python paths.
+  * Added missing dependency on libbsd0 package.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Sun, 11 Aug 2013 12:35:53 +0200
+
 samba4 (4.1.0rc1-zentyal3) precise; urgency=low
 
   * Delete update-alternatives commands for swat

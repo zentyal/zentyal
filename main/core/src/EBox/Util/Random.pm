@@ -32,8 +32,10 @@ use EBox::Exceptions::Internal;
 #
 #   String with a generated random password
 #
-sub generate {
+sub generate
+{
     my ($len) = @_;
+    my $path ='/dev/urandom';
     my $char;
     my $data;
     my @chars;
@@ -46,10 +48,10 @@ sub generate {
     @chars = split(//, "abcdefghijklmnopqrstuvwxyz"
             . "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@/=");
 
-    open(RD, "</dev/urandom") or die "Failed to open random source";
+    open(RD, "<$path") or die "Failed to open random source $path";
     $data = "";
     while ($len-- > 0) {
-        read(RD, $char, 1) == 1 or die "Failed to read random data";
+        read(RD, $char, 1) == 1 or die "Failed to read random data from $path";
         $data .= $chars[ord($char) % @chars];
     }
     close(RD);

@@ -1,5 +1,7 @@
 #!/usr/bin/make -f
 
+DESTDIR = $(CURDIR)/debian/samba4
+
 %:
 	dh $@
 
@@ -15,7 +17,9 @@ override_dh_auto_configure:
 		--bundled-libraries=ALL
 
 override_dh_auto_install:
-	dh_auto_install --destdir=debian/samba4
+	dh_auto_install --destdir=$(DESTDIR)
+	install -d $(DESTDIR)/usr/lib/python2.7/dist-packages
+	echo "/opt/samba4/lib/python2.7/site-packages" > $(DESTDIR)/usr/lib/python2.7/dist-packages/samba.pth
 
 override_dh_auto_test:
 	#no selftest

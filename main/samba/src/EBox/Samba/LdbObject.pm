@@ -311,7 +311,19 @@ sub setCritical
     $self->save($relaxOidControl) unless $lazy;
 }
 
-sub setViewInAdvancedOnly
+sub isInAdvancedViewOnly
+{
+    my ($self) = @_;
+
+    my $value = $self->get('showInAdvancedViewOnly');
+    if ($value and $value eq "TRUE") {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+sub setInAdvancedViewOnly
 {
     my ($self, $enable, $lazy) = @_;
 

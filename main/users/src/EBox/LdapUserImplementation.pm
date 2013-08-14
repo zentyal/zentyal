@@ -53,17 +53,12 @@ sub schemas
 sub acls
 {
     my $users = EBox::Global->modInstance('users');
-    return [ "to attrs=userPassword by dn=\"" . $users->ldap()->rootDn() .
-             "\" write by self write " .
-             "by * none" ];
+    return [];
 }
 
 sub indexes
 {
-    return [
-                 'uid', 'uidNumber', 'memberUid', 'cn', 'ou',
-                 'gidNumber', 'uniqueMember', 'krb5PrincipalName',
-           ];
+    return ['uid', 'uidNumber', 'cn', 'ou', 'gidNumber', 'uniqueMember', 'krb5PrincipalName'];
 }
 
 # Method: hiddenOUs

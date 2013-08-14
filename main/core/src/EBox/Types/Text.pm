@@ -48,8 +48,8 @@ sub new
 sub size
 {
     my ($self) = @_;
-
-    return $self->{'size'};
+    my $size = $self->{size};
+    return $size ? $size : 20; # 20 is html input default
 }
 
 # Method: printableValue
