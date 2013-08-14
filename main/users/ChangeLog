@@ -1,3 +1,6 @@
+HEAD
+	+ Hide Samba objects that should be shown only on an Advance view mode.
+	+ Added support for disabled accounts.
 3.1.6
 	+ Ignored samba module while (re)provisioning on __USERS__ group creation.
 	+ Removed deprecated configuration file keys related with external AD

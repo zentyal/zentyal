@@ -258,8 +258,11 @@ sub addToZentyal
         $zentyalGroup = EBox::Users::Group->create(@params);
         $self->_linkWithUsersObject($zentyalGroup);
     } catch EBox::Exceptions::DataExists with {
-        EBox::debug("Group $name already in Samba database");
+        EBox::debug("Group $name already in Zentyal database");
         $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
+        unless ($zentyalGroup) {
+            EBox::error("The group $name exists in Zentyal but is not linked with Samba!");
+        }
     } otherwise {
         my $error = shift;
         EBox::error("Error loading group '$name': $error");

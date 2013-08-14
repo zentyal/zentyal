@@ -69,38 +69,12 @@ sub _group
     $self->{json}->{success} = 1;
 }
 
-sub _user
-{
-    my ($self) = @_;
-
-    my $smbldap = new EBox::SambaLdapUser;
-
-    $self->_requireParam('user', __('user'));
-    my $userDN = $self->unsafeParam('user');
-
-    my $zentyalUser = new EBox::Users::User(dn => $userDN);
-    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-    my $accountEnabled = $self->param('accountEnabled');
-    if ($accountEnabled eq 'yes') {
-        $sambaUser->setAccountEnabled(1);
-        $self->{json}->{msg} = __('Samba account enabled');
-    } else {
-        $sambaUser->setAccountEnabled(0);
-        $self->{json}->{msg} = __('Samba account disabled');
-    }
-    $self->{json}->{success} = 1;
-}
-
 sub _process
 {
     my ($self) = @_;
     $self->{json}->{success} = 0;
 
-    if ($self->unsafeParam('user')) {
-        $self->_user();
-    } else {
-        $self->_group();
-    }
+    $self->_group();
 }
 
 1;

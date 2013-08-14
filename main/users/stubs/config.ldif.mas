@@ -76,17 +76,26 @@ olcAccess: {0}to *
   by dn="cn=zentyal,<% $dn %>" manage
   by * break
 olcAccess: {1}to attrs=userPassword,shadowLastChange,krb5Key
+  filter=(&(objectClass=shadowAccount)(!(shadowExpire=0)))
   by dn="cn=zentyal,<% $dn %>" write
   by anonymous auth
   by dn="cn=zentyalro,<% $dn %>" none
   by self write
   by * none
-olcAccess: {2}to * by users read
+olcAccess: {2}to attrs=userPassword,shadowLastChange,krb5Key
+  filter=(objectClass=simpleSecurityObject)
+  by dn="cn=zentyal,<% $dn %>" write
+  by anonymous auth
+  by dn="cn=zentyalro,<% $dn %>" none
+  by self write
+  by * none
+olcAccess: {3}to * by users read
 olcDbIndex: objectclass eq
 olcDbIndex: entryCSN eq
 olcDbIndex: entryUUID eq
 olcDbIndex: uid eq
 olcDbIndex: member eq
+olcDbIndex: shadowExpire eq
 
 # Memberof automatic attribute population
 dn: olcOverlay=memberof,olcDatabase={1}hdb,cn=config
