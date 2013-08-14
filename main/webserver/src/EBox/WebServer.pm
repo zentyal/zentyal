@@ -26,7 +26,6 @@ use EBox::Service;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Sudo::Command;
-use EBox::Users::User;
 use EBox::WebServer::PlatformPath;
 use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
@@ -425,13 +424,14 @@ sub _setUserDir
     my $gl = EBox::Global->getInstance();
 
     # Manage configuration for mod_ldap_userdir apache2 module
-    if ( $generalConf->enableDirValue() and $gl->modExists('users') ) {
+    if ($generalConf->enableDirValue() and $gl->modExists('users')) {
         my $usersMod = $gl->modInstance('users');
         my $ldap = $usersMod->ldap();
         my $ldapServer = '127.0.0.1';
         my $ldapPort   = $ldap->ldapConf()->{port};
         my $rootDN = $ldap->rootDn();
         my $ldapPass = $ldap->getPassword();
+        eval 'use EBox::Users::User';
         my $usersDN = EBox::Users::User->defaultContainer()->dn();
         $self->writeConfFile(AVAILABLE_MODS_DIR . LDAP_USERDIR_CONF_FILE,
                              'webserver/ldap_userdir.conf.mas',
