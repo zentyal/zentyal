@@ -482,21 +482,27 @@ sub addToZentyal
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);
 
-        my $sc = $self->get('supplementalCredentials');
-        my $up = $self->get('unicodePwd');
-        my $creds = new EBox::Samba::Credentials(
-            supplementalCredentials => $sc,
-            unicodePwd => $up
-        );
-        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
-
-        $self->_linkWithUsersObject($zentyalUser);
-
         if ($self->isAccountEnabled()) {
             $zentyalUser->setDisabled(0);
         } else {
             $zentyalUser->setDisabled(1);
         }
+
+        my $sc = $self->get('supplementalCredentials');
+        my $up = $self->get('unicodePwd');
+        if ($sc or $up) {
+            # There are some accounts that lack credentials, like Guest account.
+            my $creds = new EBox::Samba::Credentials(
+                supplementalCredentials => $sc,
+                unicodePwd => $up
+            );
+            $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+        } else {
+            EBox::warn("The user $uid doesn't have credentials!");
+        }
+
+        $self->_linkWithUsersObject($zentyalUser);
+
     }
 }
 
@@ -536,11 +542,16 @@ sub updateZentyal
 
     my $sc = $self->get('supplementalCredentials');
     my $up = $self->get('unicodePwd');
-    my $creds = new EBox::Samba::Credentials(
-        supplementalCredentials => $sc,
-        unicodePwd => $up
-    );
-    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+    if ($sc or $up) {
+        # There are some accounts that lack credentials, like Guest account.
+        my $creds = new EBox::Samba::Credentials(
+            supplementalCredentials => $sc,
+            unicodePwd => $up
+        );
+        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+    } else {
+        EBox::warn("The user $uid doesn't have credentials!");
+    }
 }
 
 1;

@@ -1,4 +1,10 @@
 HEAD
+	+ Added isInAdvancedViewOnly and renamed setViewInAdvancedOnly to
+	  setInAdvancedViewOnly to match the attribute name.
+	+ Allowed the syncronization of Users, Groups and Contacts tagged as to be
+	  shown only on the Advanced view.
+	+ Allowed sync of users without kerberos credentials (Guest account).
+	+ Linked Kerberos accounts from Samba with their copy in OpenLDAP.
 	+ Removed sync_disabled_users key. We sync all users now.
 	+ Removed the useraddon to enable or disable file sharing per user, you
 	  can now enable or disable a user directly.
