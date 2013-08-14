@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug which allowed to use incorrect external addresses in
+	  fetchmail accounts
 	+ Explicitly set firewall version dependency in control file
 3.0.6
 	+ Adapt firewall rules to new accept chains

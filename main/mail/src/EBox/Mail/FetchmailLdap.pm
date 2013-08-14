@@ -41,7 +41,6 @@ use constant {
  FETCHMAIL_CRON_FILE => '/etc/cron.d/ebox-mail',
 };
 
-
 sub new
 {
     my $class = shift;
@@ -50,7 +49,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
 
 sub _externalAccountString
 {
@@ -102,31 +100,38 @@ sub _externalAccountHash
     return \%externalAccount;
 }
 
-# Method: addExternallAccount
-#
-#
-# Parameters:
-#
 
-sub addExternalAccount
+sub _checkFetchmailAccountParams
 {
     my ($self, %params) = @_;
-    my @mandatoryParams = qw(user localAccount password
+    my @mandatoryParams = qw(user localAccount externalAccount password
             mailServer  mailProtocol port);
     foreach my $checkedParam (@mandatoryParams) {
         exists $params{$checkedParam} or
             throw EBox::Exceptions::MissingArgument($checkedParam);
     }
 
-    my $user = $params{user};
-
-    my $fetchmailString = $self->_externalAccountString(%params);
-
-    $user->add('fetchmailAccount', $fetchmailString);
+    EBox::Validate::checkEmailAddress($params{localAccount}, __('Local email account'));
+    $self->checkExternalAccount($params{externalAccount});
+    $self->checkPassword($params{password});
+    $self->checkEmailProtocol($params{mailProtocol});
+    EBox::Validate::checkHost($params{mailServer}, __('Mail server'));
+    EBox::Validate::checkPort($params{port}, __('Mail server port'));
 }
 
-
-
+# Method: addExternalAccount
+#
+#
+# Parameters:
+#
+sub addExternalAccount
+{
+    my ($self, %params) = @_;
+    $self->_checkFetchmailAccountParams(%params);
+    my $fetchmailString = $self->_externalAccountString(%params);
+    my $user = $params{user};
+    $user->add('fetchmailAccount', $fetchmailString);
+}
 
 sub existsAnyExternalAccount
 {
@@ -178,7 +183,6 @@ sub allExternalAccountsByLocalAccount
                 }
             }
         }
-
 
         my @externalAccounts = map {
             $self->_externalAccountHash($_)
@@ -242,14 +246,14 @@ sub removeExternalAccount
                                     );
 }
 
-
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
+    my @newAccount = @{ $newAccountHash};
+    $self->_checkFetchmailAccountParams(@newAccount);
     $self->removeExternalAccount($user, $account);
-    $self->addExternalAccount(user => $user, @{ $newAccountHash});
+    $self->addExternalAccount(user => $user, @newAccount);
 }
-
 
 sub writeConf
 {
@@ -321,7 +325,6 @@ sub isEnabled
     return $retrievalServices->row()->valueByName('fetchmail');
 
 }
-
 
 sub stop
 {
@@ -415,19 +418,20 @@ sub setFetchmailRegenTs
 sub checkExternalAccount
 {
     my ($self, $externalAccount) = @_;
+
     if ($externalAccount =~ m/\@/) {
         EBox::Validate::checkEmailAddress(
-                $externalAccount,
-                __('External account')
-               );
+                 $externalAccount,
+                 __('External account')
+                );
     } else {
-        # no info found on valid usernames for fetchmail..
+         # no info found on valid usernames for fetchmail..
         if ($externalAccount =~ m/\s/) {
             throw EBox::Exceptions::InvalidData (
-                    'data' => __('External account username'),
-                    'value' => $externalAccount,
-                    'advice' => __('No spaces allowed')
-                   );
+                'data' => __('External account username'),
+                'value' => $externalAccount,
+                'advice' => __('No spaces allowed')
+               );
         }
         unless ($externalAccount =~ m/^[\w.\-_]+$/) {
             throw EBox::Exceptions::InvalidData (
@@ -442,9 +446,19 @@ sub checkPassword
     my ($self, $password) = @_;
         if ($password =~ m/'/) {
             throw EBox::Exceptions::External(
-  __(q{Character "'" is forbidden for external})
-                                            );
+                __(q{Character "'" is forbidden for external})
+            );
         }
+}
+
+sub checkEmailProtocol
+{
+    my ($self, $mailProtocol) = @_;
+    if (($mailProtocol ne 'pop3') and ($mailProtocol ne 'imap')) {
+        throw EBox::Exceptions::External(
+         __x('Unknown mail protocol: {proto}', proto => $mailProtocol)
+        );
+    }
 }
 
 sub externalAccountRowValues
@@ -479,16 +493,14 @@ sub externalAccountRowValues
         }
     }
 
+    $self->checkEmailProtocol($mailProtocol);
     my $rowProtocol;
     if ($mailProtocol eq 'pop3') {
         $rowProtocol = $ssl ? 'pop3s' : 'pop3';
     } elsif ($mailProtocol eq 'imap') {
         $rowProtocol = $ssl ? 'imaps' : 'imap';
-    }else {
-        throw EBox::Exceptions::Internal(
-         "Unknown mail protocol: $mailProtocol"
-           );
     }
+
     $values{protocol} = $rowProtocol;
     $values{keep}     = $keep;
     $values{fetchall} = $fetchall;
