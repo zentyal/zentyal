@@ -23,7 +23,6 @@ package EBox::RemoteServices;
 use base qw(EBox::Module::Service
             EBox::NetworkObserver
             EBox::Events::DispatcherProvider
-            EBox::Desktop::ServiceProvider
             EBox::FirewallObserver);
 
 use strict;
@@ -56,7 +55,6 @@ use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Connection;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
-use EBox::RemoteServices::Desktop::Subscription;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
 use EBox::RemoteServices::SupportAccess;
@@ -2283,26 +2281,6 @@ sub _migrateTo30
     # Create a new one
     # Get credentials again
     # Rename file ebox-qa.list to zentyal-qa.list
-}
-
-
-# Method: desktopActions
-#
-#   Return an array ref with the exposed methods
-#
-# Returns:
-#
-#   array ref - Containing the exposed actions
-#
-# Overrides:
-#
-#   <EBox::Desktop::ServiceProvider::desktopActions>
-#
-sub desktopActions
-{
-    return {
-        'subscribe' => \&EBox::RemoteServices::Desktop::Subscription::subscribe,
-    };
 }
 
 # Method: subscribedHostname

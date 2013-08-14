@@ -1,4 +1,5 @@
 HEAD
+	+ Removed implementation of the removed Desktop::ServiceProvider
 	+ Retry making the configuration backup if the conf backup process
 	  produced a corrupted backup
 	+ Send the checksum of the conf backup when pushing to check
