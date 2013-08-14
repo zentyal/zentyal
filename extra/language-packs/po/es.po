@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-08-14 16:26+0200\n"
+"PO-Revision-Date: 2013-08-14 16:59+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -5963,9 +5963,8 @@ msgid "You are not logged in"
 msgstr "La sesión no está abierta"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:59
-#, fuzzy
 msgid "User quota set"
-msgstr "Cuota de usuario"
+msgstr "Cuota de usuario establecida"
 
 #: ../../main/pptp/src/EBox/PPTP/Model/Users.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
@@ -8606,6 +8605,9 @@ msgid ""
 "Skipped member {name} from object {obj1} because it has the same name that "
 "other member from object {obj2}. If you want to use it, change its name"
 msgstr ""
+"Se salta el miembro {name} del objeto {obj1} porque tiene el mismo nombre "
+"que otro miembro del objeto {obj2}. Para usarlo se le deberá cambiar el "
+"nombre"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:288
 #, perl-brace-format
@@ -8614,6 +8616,9 @@ msgid ""
 "that other member from object {obj2}. If you want to use it, change its MAC "
 "address"
 msgstr ""
+"Se salta el miembro {name} del objeto {obj1} porque tiene la misma dirección "
+"MAC {addr} que otro miembro del objeto {obj2}. Para usarlo se le deberá "
+"cambiar la dirección MAC"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:76
 msgid "You need at least one static interface to serve DHCP"
@@ -10187,17 +10192,15 @@ msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
-msgstr ""
+msgstr "Cuenta de Jabber habilitada con permisos de administración"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
-#, fuzzy
 msgid "Jabber account enabled"
-msgstr "Cuenta Jabber"
+msgstr "Cuenta Jabber habilitada"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
-#, fuzzy
 msgid "Jabber account disabled"
-msgstr "Cuenta Jabber"
+msgstr "Cuenta Jabber deshabilitada"
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:60
 msgid "Jabber account"
@@ -10257,7 +10260,7 @@ msgstr "recurso compartido"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:204
 msgid "The file system root directory cannot be used as share"
-msgstr ""
+msgstr "La raíz del sistema de ficheros no puede ser compartida"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:209
 #, perl-brace-format
@@ -11069,7 +11072,7 @@ msgstr ""
 "no está soportado por samba actualmente."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:901
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "No se puede recuperar la hora del servidor AD {x} usando NTP."
 
@@ -11168,24 +11171,20 @@ msgid "share name"
 msgstr "Nombre del recurso compartido"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:55
-#, fuzzy
 msgid "Group share renamed"
-msgstr "Nombre del recurso compartido"
+msgstr "Share de grupo renombrada"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:57
-#, fuzzy
 msgid "Group share added"
-msgstr "directorio compartido de {group}"
+msgstr "Share de grupo añadida"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:62
-#, fuzzy
 msgid "Group share removed"
-msgstr "directorio compartido de {group}"
+msgstr "Share de grupo borrada"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:65
-#, fuzzy
 msgid "Group share set"
-msgstr "directorio compartido de {group}"
+msgstr "Share de grupo establecida"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:375
 msgid "Windows group names cannot be only spaces, numbers and dots"
@@ -12807,6 +12806,8 @@ msgstr ""
 #: ../../main/core/src/cgi/ebox.cgi:100
 msgid "Write a valid email address to be notified of ticket updates"
 msgstr ""
+"Escribe una dirección de correo válida para ser notificado de "
+"actualizaciones en el ticket"
 
 #: ../../main/core/src/EBox/Common/Model/EnableForm.pm:99
 msgid "Service enabled"
@@ -14147,9 +14148,8 @@ msgid "Bug-report configuration dump"
 msgstr "Volcado de configuración para informe de fallo"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CreateReport.pm:43
-#, fuzzy
 msgid "Invalid email address"
-msgstr "dirección de correo"
+msgstr "Dirección de correo inválida"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:53
 msgid "No updates"
@@ -16001,9 +16001,9 @@ msgid "group alias mail"
 msgstr "alias de correo de grupo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:54
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Alias {al} removed"
-msgstr "GPO {gpo} eliminada"
+msgstr "Alias {al} borrado"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:47
 msgid "maildrop"
@@ -16013,34 +16013,33 @@ msgstr "maildrop"
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:62
 #, perl-brace-format
 msgid "Added alias {al}"
-msgstr ""
+msgstr "Alias {al} añadido"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:73
 msgid "Mail protocol"
 msgstr "protocolo de correo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:98
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} added"
-msgstr "Cuenta externa añadida"
+msgstr "Cuenta externa {acc} añadida"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
 msgid "External mail account"
 msgstr "Cuenta de correo externa"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} removed"
-msgstr "Cuenta externa {ac} eliminada"
+msgstr "Cuenta externa {acc} eliminada"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:59
 msgid "Quota must be a amount of MB greter than zero"
 msgstr "La cuota deber ser un número mayor que cero"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:66
-#, fuzzy
 msgid "Mail directory quota set"
-msgstr "Nombre de equipo en Active Directory"
+msgstr "Cuota de directorio de correo establecida"
 
 #: ../../main/mail/src/EBox/Mail/CGI/MQRemove.pm:41
 #: ../../main/mail/src/EBox/Mail/CGI/MQRequeue.pm:41
@@ -16053,9 +16052,9 @@ msgid "user mail"
 msgstr "correo del usuario"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:55
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account removed"
-msgstr "Cuenta externa {ac} eliminada"
+msgstr "Cuenta {acc} eliminada"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:48
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:102
@@ -16065,7 +16064,7 @@ msgstr "Alias de correo"
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:55
 #, perl-brace-format
 msgid "Removed alias {al}"
-msgstr ""
+msgstr "Alias {all} borrado"
 
 #: ../../main/mail/src/EBox/Mail/CGI/Wizard/VirtualDomain.pm:46
 msgid "Invalid virtual mail domain"
@@ -16078,9 +16077,9 @@ msgid "Mail address"
 msgstr "Dirección de correo"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:61
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account created"
-msgstr "No creada"
+msgstr "Cuenta {acc} creada"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:56
 msgid ""
@@ -16477,19 +16476,16 @@ msgstr ""
 "la versión para móviles en http://zentyal_ip/webaccess-mobile."
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:82
-#, fuzzy
 msgid "Zarafa account options set"
-msgstr "Cuenta de Zarafa"
+msgstr "Opciones de cuenta de Zarafa establecidas"
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:86
-#, fuzzy
 msgid "Zarafa account enabled"
-msgstr "Cuenta de Zarafa"
+msgstr "Cuenta de Zarafa habilitada"
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:101
-#, fuzzy
 msgid "Zarafa account disabled"
-msgstr "Cuenta de Zarafa"
+msgstr "Cuenta de Zarafa deshabilitada"
 
 #: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:72
 msgid "Zarafa account"
@@ -17073,22 +17069,20 @@ msgstr ""
 #: ../../main/asterisk/src/EBox/Asterisk/CGI/AsteriskGroupOptions.pm:68
 #, perl-brace-format
 msgid "Asterisk group queue enabled with extension {ext}"
-msgstr ""
+msgstr "Cola de grupo de Asterisk habilitada con la extensión {ext}"
 
 #: ../../main/asterisk/src/EBox/Asterisk/CGI/AsteriskGroupOptions.pm:72
-#, fuzzy
 msgid "Asterisk group queue disabled"
-msgstr "Cola de grupo en Asterisk"
+msgstr "Cola de grupo de Asterisk deshabilitada"
 
 #: ../../main/asterisk/src/EBox/Asterisk/CGI/AsteriskUserOptions.pm:62
 #, perl-brace-format
 msgid "Enabled Asterisk account with extension {ext}"
-msgstr ""
+msgstr "Habilitada cuenta de Asterisk con extensión {ext}"
 
 #: ../../main/asterisk/src/EBox/Asterisk/CGI/AsteriskUserOptions.pm:66
-#, fuzzy
 msgid "Disabled Asterisk account"
-msgstr "Cuenta de Asterisk"
+msgstr "Cuenta de Asterisk deshabilitada"
 
 #: ../../main/asterisk/src/EBox/Asterisk.pm:88
 msgid "To configure enabled and disabled modules."
@@ -17612,9 +17606,8 @@ msgstr ""
 "OU por defecto."
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:157
-#, fuzzy
 msgid "Disabled Users"
-msgstr "Deshabilitado"
+msgstr "Usuarios deshabilitados"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:158
 msgid "Security Groups"
@@ -17766,7 +17759,6 @@ msgstr ""
 "Zentyal. El dominio actual del servidor Zentyal es {dom}"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:106
-#, fuzzy
 msgid ""
 "The user should not contain a domain. The domain will be automatically "
 "extracted from Active Directory"
@@ -17946,9 +17938,8 @@ msgid "description"
 msgstr "Descripción"
 
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:80
-#, fuzzy
 msgid "Group updated"
-msgstr "{row} actualizada"
+msgstr "Grupo actualizado"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:67
 #: ../../main/users/src/templates/wizard/users.mas:55
@@ -17976,9 +17967,8 @@ msgid "confirm password"
 msgstr "confirmar contraseña"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:114
-#, fuzzy
 msgid "User updated"
-msgstr "Datos de usuario"
+msgstr "Usuario actualizado"
 
 #: ../../main/users/src/EBox/Users/CGI/AddGroup.pm:52
 #: ../../main/users/src/EBox/Users/Group.pm:486
@@ -17994,9 +17984,8 @@ msgid "E-mail"
 msgstr "Correo electrónico"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:98
-#, fuzzy
 msgid "Contact updated"
-msgstr "Grupos de contactos"
+msgstr "Contacto actualizado"
 
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:53
 msgid "Given name"
@@ -20291,9 +20280,8 @@ msgid "User quota"
 msgstr "Cuota de usuario"
 
 #: ../../main/users/src/templates/edituser.mas:36
-#, fuzzy
 msgid "Disabled account"
-msgstr "Cuenta Jabber"
+msgstr "Cuenta deshabilitada"
 
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/adduser.mas:50
