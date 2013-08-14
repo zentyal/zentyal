@@ -1005,6 +1005,7 @@ h3[class^="icon"]{
 }
 
 h3.icon-user{ background-image: url('/data/images/treeview/user-big.png')}
+h3.icon-duser{ background-image: url('/data/images/treeview/duser-big.png')}
 h3.icon-group{ background-image: url('/data/images/treeview/group-big.png')}
 h3.icon-dgroup{ background-image: url('/data/images/treeview/dgroup-big.png')}
 h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
