@@ -315,7 +315,8 @@ sub isInAdvancedViewOnly
 {
     my ($self) = @_;
 
-    if ($self->get('showInAdvancedViewOnly')) {
+    my $value = $self->get('showInAdvancedViewOnly');
+    if ($value and $value eq "TRUE") {
         return 1;
     } else {
         return 0;
