@@ -189,7 +189,7 @@ sub create
     my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
     push ($attr, cn => $args{name});
-    push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
+    push ($attr, objectClass    => ['top', 'group']);
     push ($attr, sAMAccountName => $args{name});
     push ($attr, description    => $args{description}) if ($args{description});
     if ($isSecurityGroup) {

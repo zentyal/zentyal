@@ -241,7 +241,7 @@ sub credentials
         return _credentials($user, $session_info);
     }
 
-    throw EBox::Exceptions::DataNotFound(data => "session");
+    throw EBox::Exceptions::DataNotFound(data => "session", value => $user);
 }
 
 sub _credentials
