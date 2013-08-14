@@ -256,6 +256,8 @@ sub addresses
 
     my $global = $self->global();
     my $objMod = $global->modInstance('objects');
+    my %namesSeen;
+    my %macsSeen;
     for my $id (@{$self->ids()}) {
         my $row   = $self->row($id);
         my $objId = $row->valueByName('object');
@@ -275,10 +277,31 @@ sub addresses
             # interface and member name is unique within the fixed
             # addresses realm
             if ( $self->_allowedMemberInFixedAddress($iface, $member, $objId, $readOnly) ) {
+                my $name = $member->{name};
+                my $mac  = uc $member->{macaddr};
+                if ($namesSeen{$name}) {
+                    EBox::warn(__x('Skipped member {name} from object {obj1} because it has the same name that other member from object {obj2}. If you want to use it, change its name',
+                                                     name => $name,
+                                                     obj1 => $objMod->objectDescription($objId),
+                                                     obj2 => $objMod->objectDescription($namesSeen{$name}),
+                                                    ));
+                    next;
+                } elsif ($macsSeen{$mac}) {
+                    EBox::warn(__x('Skipped member {name} from object {obj1} has the same MAC address {addr} that other member from object {obj2}. If you want to use it, change its MAC address',
+                                                         name => $name,
+                                                         addr => $mac,
+                                                         obj1 => $objMod->objectDescription($objId),
+                                                         obj2 => $objMod->objectDescription($macsSeen{$mac}),
+                                                       ));
+                    next;
+                }
+
+                $namesSeen{$name} = $objId;
+                $macsSeen{$mac}   = $objId;
                 push (@{$addrs{$objId}->{members}}, {
-                    name => $member->{name},
+                    name => $name,
                     ip   => $member->{ip},
-                    mac  => $member->{macaddr},
+                    mac  => $mac,
                 });
             }
         }
@@ -326,7 +349,6 @@ sub _allowedMemberInFixedAddress
     my $memberIP = new Net::IP($member->{ip});
     my $gl       = EBox::Global->getInstance($readOnly);
     my $net      = $gl->modInstance('network');
-    my $objs     = $gl->modInstance('objects');
     my $netIP    = new Net::IP($dhcp->initRange($iface)
                                . '-' . $dhcp->endRange($iface));
 
@@ -358,58 +380,6 @@ sub _allowedMemberInFixedAddress
             # The IP address is in the range
             EBox::debug('IP address ' . $memberIP->print() . ' is in range '
                         . $rangeRow->valueByName('name') . ": $from-$to");
-            return 0;
-        }
-    }
-
-    # Check the given member is unique within the object realm
-    my $network = $dhcp->global()->modInstance('network');
-    my @otherDHCPIfaces = grep {
-        my $other = $_;
-        ($network->ifaceMethod($other) eq 'static') and
-        ($other ne $iface)
-    } @{ $network->InternalIfaces()  };
-    my @fixedAddressTables = map {
-        $dhcp->_getModel('FixedAddressTable', $_)
-    } @otherDHCPIfaces;
-
-    foreach my $model (@fixedAddressTables) {
-        my $ids = $model->ids();
-        foreach my $id (@{$ids}) {
-            my $row = $model->row($id);
-            my $otherObjId = $row->valueByName('object');
-            my $mbs = $objs->objectMembers($otherObjId);
-            next if ( $otherObjId eq $objId); # If they are the same object
-
-            # Check for the same member name in other object
-            my @matches = grep { $_->{name} eq $member->{name} } @{$mbs};
-            foreach my $match (@matches) {
-                next unless ( $match->{mask} == 32 and defined($match->{macaddr}));
-                EBox::warn('IP address ' . $memberIP->print() . ' not added '
-                           . 'because there are two members with the same name '
-                           . $member->{name} . ' in other fixed address table');
-                return 0;
-            }
-        }
-    }
-
-    # Check for the same MAC address
-    my $fixedAddrModel = $dhcp->_getModel('FixedAddressTable', $iface);
-    my $ids = $fixedAddrModel->ids();
-    foreach my $id ( @{$ids} ) {
-        my $row = $fixedAddrModel->row($id);
-        my $otherObjId = $row->valueByName('object');
-        next if ( $otherObjId eq $objId ); # Check done by unique MAC address property
-        my $mbs = $objs->objectMembers($otherObjId);
-        my @matches = grep {
-            defined($_->{macaddr})
-            and ($_->{macaddr} eq $member->{macaddr})
-            and ($_->{name} ne $member->{name})
-        } @{$mbs};
-        if ( @matches > 0 ) {
-            EBox::warn('MAC address ' . $member->{macaddr} . ' is being '
-                       . 'used by ' . $member->{name} . ' and, at least, '
-                       . $matches[0]->{name});
             return 0;
         }
     }
