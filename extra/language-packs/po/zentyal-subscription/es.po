@@ -49,33 +49,33 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1489
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1487
 msgid "Communications Add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1883
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1881
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1886
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1884
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1900
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1904
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1907
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1905
 msgid "Communications add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2445
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2424
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -372,7 +372,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/Users.pm:1751
+#: ../../main/users/src/EBox/Users.pm:1752
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -381,7 +381,7 @@ msgstr ""
 "permitidos en esta edición. Si necesitas añadir más usuarios, por favor "
 "actualiza la edición."
 
-#: ../../main/users/src/EBox/Users/User.pm:457
+#: ../../main/users/src/EBox/Users/User.pm:495
 #, fuzzy, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
