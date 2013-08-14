@@ -103,7 +103,7 @@ sub _validateExternalADMode
     my $user = $params->{dcUser}->value();
     if ($user =~ m/@/) {
         throw EBox::Exceptions::External(
-            __('The use should not contain a domain. The domain will be extracted from Active Directory')
+            __('The user should not contain a domain. The domain will be automatically extracted from Active Directory')
            );
     }
 
