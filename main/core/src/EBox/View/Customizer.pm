@@ -29,7 +29,7 @@ use EBox::Types::Boolean;
 
 # External dependencies
 use HTML::Mason::Interp;
-use JSON; # objToJson
+use JSON;
 use List::Util; # first
 use Error qw(:try);
 
@@ -285,7 +285,7 @@ sub  onChangeActionOnFieldJS
     my $comp = $interp->make_component(comp_file => $filename);
     my @params = ();
     push(@params, tableName => $tableName,
-        JSONActions => objToJson($actions),
+        JSONActions => to_json($actions),
         fieldName => $fieldName);
 
     $interp->exec($comp, @params);

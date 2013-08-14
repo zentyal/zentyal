@@ -1,4 +1,10 @@
-HEAD
+3.1.7
+	+ Avoid eval operation when using standard HtmlBlocks class
+	+ Changed some code to not trigger some unnecesary warnings
+	+ Fixed regression on active menu entry highlight
+	+ No-committed changes does not appear in configuration changes
+	  log table
+	+ Added autoFilter property to method tableInfo
 	+ Modules can now be marked for restart after save changes via
 	  post_save_modules redis key of the global module
 	+ Make all dashboards div of the same height to ease drag and drop

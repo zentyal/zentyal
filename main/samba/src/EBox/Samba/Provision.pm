@@ -888,7 +888,7 @@ sub checkClockSkew
         %h = get_ntp_response($adServerIp);
     } otherwise {
         throw EBox::Exceptions::External(
-            __x('Could not retrive time from AD server {x} via NTP.',
+            __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
     };
 

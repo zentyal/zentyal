@@ -134,6 +134,7 @@ sub tableInfo
         'filter' => ['username', 'module', 'model'],
         'events' => $action_events,
         'eventcol' => 'event',
+        'autoFilter' => {'temporal' => 0},
     };
 
     my $session_titles = {
