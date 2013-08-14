@@ -2,13 +2,4 @@
 
 chmod g+w /etc/bind
 
-# add zentyal desktop service to /etc/services
-service=zentyal-desktop-api
-port=6895
-if [ `grep -c $service /etc/services` -gt 0 ]; then
-    sed -i "s/.*$service.*/$service\t$port\\/tcp/" /etc/services;
-else
-    echo -e "$service\t$port/tcp" >> /etc/services;
-fi
-
 exit 0

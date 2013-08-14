@@ -607,12 +607,16 @@ sub sambaInterfaces
         $netIfaces = $net->InternalIfaces();
     }
 
+    my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
         push @ifaces, $iface;
 
         if ($net->ifaceMethod($iface) eq 'bridged') {
             my $br = $net->ifaceBridge($iface);
-            push (@ifaces, "br$br");
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
             next;
         }
 
