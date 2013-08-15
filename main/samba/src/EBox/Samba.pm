@@ -1116,7 +1116,7 @@ sub defaultDescription
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
-    return ucfirst($prefix) . ' File Server';
+    return ucfirst($prefix) . ' Server';
 }
 
 # Method: description
