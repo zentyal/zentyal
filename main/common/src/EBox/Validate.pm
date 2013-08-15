@@ -656,8 +656,14 @@ sub checkHost # (domain, name?)
 sub checkEmailAddress
 {
     my ($address, $name) = @_;
+    my $valid = 0;
+    if (($address =~ m/^\s/) or ($address =~ m/\s$/)) {
+        $valid = 0;
+    } else {
+        $valid = Mail::RFC822::Address::valid($address);
+    }
 
-    unless (Mail::RFC822::Address::valid($address)) {
+    unless ($valid) {
         if ($name) {
             throw EBox::Exceptions::InvalidData
                 ('data' => $name, 'value' => $address);

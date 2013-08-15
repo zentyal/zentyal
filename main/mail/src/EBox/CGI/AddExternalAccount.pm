@@ -27,7 +27,6 @@ use EBox::Exceptions::External;
 use EBox::UsersAndGroups::User;
 use EBox::Validate;
 
-
 sub new
 {
     my $class = shift;
@@ -35,8 +34,6 @@ sub new
     bless($self, $class);
     return $self;
 }
-
-
 
 my %printableByParam = (
    'externalAccount' => __('External account'),
@@ -67,11 +64,6 @@ sub _process
     my $userObject = new EBox::UsersAndGroups::User(dn => $user);
     $params{user} = $userObject;
 
-    my $mail = EBox::Global->modInstance('mail');
-
-    $mail->{fetchmail}->checkExternalAccount($params{externalAccount});
-    EBox::Validate::checkHost($params{mailServer}, $printableByParam{server});
-    $mail->{fetchmail}->checkPassword($params{password});
     if (not $validProtocols{$params{mailProtocol}}) {
         throw EBox::Exceptions::InvalidData(
             data => __('Mail protocol'),
@@ -86,12 +78,10 @@ sub _process
         $params{ssl} = 1;
     }
 
-    EBox::Validate::checkPort($params{port}, $printableByParam{port});
-
     $params{keep} = $self->param('keep');
     $params{fetchall} = $self->param('fetchall');
 
-
+    my $mail = EBox::Global->modInstance('mail');
     $mail->{fetchmail}->addExternalAccount(%params);
 }
 

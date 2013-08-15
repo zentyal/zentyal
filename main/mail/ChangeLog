@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug which allowed to use incorrect external addresses in
+	  fetchmail accounts
 	+ Fixed typo in master.cf when mail filter is enabled
 	+ Explicitly set firewall version dependency in control file
 3.0.6
