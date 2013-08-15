@@ -280,19 +280,10 @@ sub addresses
                 my $name = $member->{name};
                 my $mac  = uc $member->{macaddr};
                 if ($namesSeen{$name}) {
-                    EBox::warn(__x('Skipped member {name} from object {obj1} because it has the same name that other member from object {obj2}. If you want to use it, change its name',
-                                                     name => $name,
-                                                     obj1 => $objMod->objectDescription($objId),
-                                                     obj2 => $objMod->objectDescription($namesSeen{$name}),
-                                                    ));
+                    EBox::warn("Skipped member $name from object " . $objMod->objectDescription($objId) . " because it has the same name that other member from object " . $objMod->objectDescription($namesSeen{$name}) . '.  If you want to use it, change its name');
                     next;
                 } elsif ($macsSeen{$mac}) {
-                    EBox::warn(__x('Skipped member {name} from object {obj1} has the same MAC address {addr} that other member from object {obj2}. If you want to use it, change its MAC address',
-                                                         name => $name,
-                                                         addr => $mac,
-                                                         obj1 => $objMod->objectDescription($objId),
-                                                         obj2 => $objMod->objectDescription($macsSeen{$mac}),
-                                                       ));
+                    EBox::warn("Skipped member $name from object " . $objMod->objectDescription($objId) . " has the same MAC address $mac that other member from object " .  $objMod->objectDescription($macsSeen{$mac}) . '. If you want to use it, change its MAC address');
                     next;
                 }
 
