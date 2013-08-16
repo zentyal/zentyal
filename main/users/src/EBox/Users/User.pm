@@ -156,6 +156,23 @@ sub isInternal
 {
     my ($self) = @_;
 
+    # FIXME: title=internal is not properly being set due to a regression
+    # this is a workaround until that is fixed
+    my $hostname = EBox::Global->modInstance('sysinfo')->hostName();
+    my %kerberosPrincipals = (
+        dns => 1,
+        mail => 1,
+        proxy => 1,
+        zarafa => 1,
+    );
+    my $uid = $self->get('uid');
+    foreach my $prefix (keys %kerberosPrincipals) {
+        my $principalUser = "$prefix-$hostname";
+        if ($uid eq $principalUser) {
+            return 1;
+        }
+    }
+
     my $title = $self->get('title');
     return (defined ($title) and ($title eq 'internal'));
 }
@@ -260,8 +277,16 @@ sub _groups
 
     return \@groups if ($system);
 
+    my $samba = EBox::Global->modInstance('samba');
+
     my @filteredGroups = ();
     for my $group (@groups) {
+        next if ($group->name() eq EBox::Users->DEFAULTGROUP);
+        if (defined ($samba)) {
+            next if ($samba->hiddenViewInAdvancedOnly($group));
+            next if ($samba->hiddenSid($group));
+        }
+
         push (@filteredGroups, $group) if (not $group->isSystem());
     }
     return \@filteredGroups;

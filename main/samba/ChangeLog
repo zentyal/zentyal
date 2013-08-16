@@ -1,4 +1,5 @@
 HEAD
+	+ Added hiddenSid() and hiddenViewInAdvancedOnly() methods
 	+ Change default description to Zentyal Server instead of File Server
 	+ Don't put duplicate bridge interfaces in smb.conf
 	+ Mapped group 'Domain Users' to '__USERS__' directly.
