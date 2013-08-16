@@ -260,13 +260,15 @@ sub _groups
 
     return \@groups if ($system);
 
-    #FIXME: move _hiddenSid outside and make it public
-    my $treeview = EBox::Global->modInstance('users')->model('Manage');
+    my $samba = EBox::Global->modInstance('samba');
 
     my @filteredGroups = ();
     for my $group (@groups) {
         next if ($group->name() eq EBox::Users->DEFAULTGROUP);
-        next if ($treeview->_hiddenSid($group));
+        if (defined ($samba)) {
+            next if ($samba->hiddenViewInAdvancedOnly($group));
+            next if ($samba->hiddenSid($group));
+        }
 
         push (@filteredGroups, $group) if (not $group->isSystem());
     }

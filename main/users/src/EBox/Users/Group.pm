@@ -12,8 +12,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
+
 # Class: EBox::Users::Group
 #
 #   Zentyal group, stored in LDAP
@@ -194,23 +196,7 @@ sub users
 {
     my ($self, $system) = @_;
 
-    my $usersMod = $self->_usersMod();
-    my $userClass = $usersMod->userClass();
-    my @members = $self->get('member');
-    @members = map { $userClass->new(dn => $_) } @members;
-
-    unless ($system) {
-        @members = grep { not $_->isSystem() } @members;
-    }
-    # sort by uid
-    @members = sort {
-            my $aValue = $a->name();
-            my $bValue = $b->name();
-            (lc $aValue cmp lc $bValue) or
-                ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
+    $self->_users($system);
 }
 
 # Method: usersNotIn
@@ -225,32 +211,52 @@ sub usersNotIn
 {
     my ($self, $system) = @_;
 
+    $self->_users($system, 1);
+}
+
+sub _users
+{
+    my ($self, $system, $invert) = @_;
+
+    my $samba = EBox::Global->modInstance('samba');
     my $usersMod = $self->_usersMod();
     my $userClass = $usersMod->userClass();
 
-    my %searchParams = (
-            base => $self->_ldap->dn(),
-            filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
-            scope => 'sub',
-            );
-    my $result = $self->_ldap->search(\%searchParams);
+    my @users;
 
-    my @users = map {
-            $userClass->new(entry => $_)
-        } $result->entries();
+    if ($invert) {
+        my %searchParams = (
+                base => $self->_ldap->dn(),
+                filter => "(&(objectclass=" . $userClass->mainObjectClass()  . ")(!(memberof=$self->{dn})))",
+                scope => 'sub',
+        );
+        my $result = $self->_ldap->search(\%searchParams);
 
-    unless ($system) {
-        @users = grep { not $_->isSystem() } @users;
+        @users = map { $userClass->new(entry => $_) } $result->entries();
+    } else {
+        my @members = $self->get('member');
+        @users = map { $userClass->new(dn => $_) } @members;
     }
 
-    @users = sort {
+    my @filteredUsers;
+    foreach my $user (@users) {
+        if (defined ($samba)) {
+            next if ($samba->hiddenViewInAdvancedOnly($user));
+            next if ($samba->hiddenSid($user));
+        }
+
+        push (@filteredUsers, $user) if (not $user->isSystem());
+    }
+
+    # sort by uid
+    @filteredUsers = sort {
             my $aValue = $a->name();
             my $bValue = $b->name();
             (lc $aValue cmp lc $bValue) or
                 ($aValue cmp $bValue)
-    } @users;
+    } @filteredUsers;
 
-    return \@users;
+    return \@filteredUsers;
 }
 
 # Method: contacts
