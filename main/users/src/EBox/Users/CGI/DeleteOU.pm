@@ -23,6 +23,8 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Gettext;
 use EBox::Global;
 
+use Perl6::Junction qw(any);
+
 sub new
 {
     my $class = shift;
@@ -47,8 +49,13 @@ sub _process
     my $ou = $usersMod->ouClass()->new(dn => $dn);
     my $editable = $usersMod->editableMode();
 
-    push(@args, 'dn' => $dn);
-    push(@args, 'slave' => not $editable);
+    my $name = $ou->name();
+    if ($name eq any (qw(Users Groups Computers))) {
+        push (@args, 'forbid' => 1);
+    }
+
+    push (@args, 'dn' => $dn);
+    push (@args, 'slave' => not $editable);
 
     my $delou;
 

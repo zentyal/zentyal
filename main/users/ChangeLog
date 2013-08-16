@@ -1,4 +1,5 @@
 HEAD
+	+ Forbid deletion of Users, Groups and Computers OUs
 	+ Filter also internal users and groups in membership comboboxes
 	+ Hide Samba objects that should be shown only on Advance view mode
 	+ Added support for disabled accounts
