@@ -55,7 +55,7 @@ sub childNodes
 
     my $usersMod = $self->parentModule();
 
-    my $usingSamba = EBox::Global->modExists('samba');
+    my $samba = EBox::Global->modInstance('samba');
 
     my $parentObject = undef;
     if ($parentType eq 'domain') {
@@ -63,7 +63,7 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and $usingSamba) {
+    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and defined ($samba)) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -74,7 +74,7 @@ sub childNodes
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
-        next if ($self->_hiddenViewInAdvancedOnly($child));
+        next if (defined ($samba) and $samba->hiddenViewInAdvancedOnly($child));
 
         my $dn = $child->dn();
         if ($child->isa('EBox::Users::OU')) {
@@ -82,7 +82,7 @@ sub childNodes
             $printableName = $child->name();
             next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
-            next if ($usingSamba and $self->_hiddenSid($child));
+            next if (defined ($samba) and $samba->hiddenSid($child));
 
             if ($child->isDisabled()) {
                 $type = 'duser';
@@ -105,7 +105,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if ($usingSamba and $self->_hiddenSid($child));
+            next if (defined ($samba) and $samba->hiddenSid($child));
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
@@ -202,50 +202,6 @@ sub _hiddenOU
     }
 
     return $self->{ousToHide}->{$name};
-}
-
-sub _hiddenSid
-{
-    my ($self, $ldapObject) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
-        return 0;
-    }
-
-    unless ($self->{sidsToHide}) {
-        $self->{sidsToHide} = $samba->sidsToHide();
-    }
-
-    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
-    }
-
-    return 0;
-}
-
-sub _hiddenViewInAdvancedOnly
-{
-    my ($self, $ldapObject) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    if ($sambaObject and $sambaObject->isInAdvancedViewOnly()) {
-        return 1;
-    }
-
-    return 0;
 }
 
 1;
