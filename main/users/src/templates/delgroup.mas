@@ -1,6 +1,7 @@
 <%args>
     $group
     $slave => 1
+    $forbid => 0
     @warns => ()
 </%args>
 <%init>
@@ -15,6 +16,9 @@ use EBox::Gettext;
     <% __('You cannot delete a group in a slave.') %>
 </div>
 % } else {
+% if ($forbid) {
+<div class='warning'><% __x('This group cannot be deleted') %></div>
+% } else {
 <div class='note'>
         <% __('This operation will cause the removal of the group and all dependent data such as shared directory, etc.') %>
 %   if (@warns) {
@@ -25,12 +29,15 @@ use EBox::Gettext;
      </ul>
 %  }
 </div>
+% }
 <form action='/Users/DeleteGroup' method='POST' id='delGroupForm'>
 <p>
                 <input type="hidden" name="dn" value="<% $group->dn() %>">
+% unless ($forbid) {
                 <input class='inputButton' type='submit' name='delgroup'
                        value="<% __('Delete group') %>"
                        alt="<% __('Delete group') %>">
+% }
                 <& /input/dialogCancel.mas &>
 </p>
 </form>
