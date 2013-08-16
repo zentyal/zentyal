@@ -42,8 +42,8 @@ sub _userAddOns
 
     return unless ($self->{zarafa}->configured());
 
-    my $active = $self->hasAccount($user) ? 'yes' : 'no';
-    my $contact = $self->hasContact($user)? 'yes' : 'no';
+    my $active = $self->hasAccount($user) ? 1 : 0;
+    my $contact = $self->hasContact($user)? 1 : 0;
     my $has_pop3 = $self->hasFeature($user, 'pop3') ? 1 : 0;
     my $has_imap = $self->hasFeature($user, 'imap') ? 1 : 0;
     my $is_admin = $self->isAdmin($user) ? 1 : 0;

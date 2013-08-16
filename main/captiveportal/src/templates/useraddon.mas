@@ -7,18 +7,11 @@
 <script type="text/javascript" src="/data/js/table-helper.js"></script>
 <script>
 $(function() {
-   $('#userOptions').on('submit', function(event) {
-        console.log('before prevent default');
-        event.preventDefault();
-        console.log('submit JS');
-        Zentyal.Dialog.submitForm(event.target, {
-            success: function(response) {
-               var url = '/Users/EditUser';
-               var data = 'dn=' + response.userDN;
-               Zentyal.Dialog.showURL(url, { data: data});
-            }
-        });
-   });
+   Zentyal.Form.setupAjaxSubmit('#captivePortalUserOptions', {
+        noteDiv: '#note_captivePortalUserOptions',
+        errorDiv: '#error_captivePortalUserOptions',
+        submitButton: '#submit_captivePortalUserOptions'
+    });
 });
 </script>
 % if (not $params->{limitBW}) {
@@ -27,8 +20,10 @@ $(function() {
 
     <& .captiveportalDisabledWarning, $params &>
 
-    <div id='error_userOptions' class='error' style='display:none'></div>
-    <form id='userOptions' action="/CaptivePortal/UserOptions" method="post">
+
+    <div id='error_captivePortalUserOptions' class='error' style='display:none'></div>
+    <div id='note_captivePortalUserOptions' class='note' style='display:none'></div>
+    <form id='captivePortalUserOptions' action="/CaptivePortal/UserOptions" method="post">
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
   <table class="formTable">
     <tbody>
@@ -75,7 +70,7 @@ Mb
   <tr>
     <td></td>
     <td>
-        <input class="inputButton" type="submit" name="change"
+        <input class="inputButton" type="submit" name="change" id="submit_captivePortalUserOptions"
                value="<% __('Change') %>"
                alt="<% __('Change') %>" />
     </td>

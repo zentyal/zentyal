@@ -19,8 +19,9 @@ package EBox::LdapModule;
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
-#use EBox::Ldap; # XXX remove if not longer used
 
 use Error qw(:try);
 

@@ -607,12 +607,16 @@ sub sambaInterfaces
         $netIfaces = $net->InternalIfaces();
     }
 
+    my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
         push @ifaces, $iface;
 
         if ($net->ifaceMethod($iface) eq 'bridged') {
             my $br = $net->ifaceBridge($iface);
-            push (@ifaces, "br$br");
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
             next;
         }
 
@@ -800,7 +804,13 @@ sub _setConf
     return unless $self->configured() and $self->isEnabled();
 
     my $prov = $self->getProvision();
-    if (not $prov->isProvisioned() or $self->get('need_reprovision')) {
+    if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        if ($self->get('need_reprovision')) {
+            # Current provision is not useful, change back status to not provisioned.
+            $prov->setProvisioned(0);
+            # The LDB connection needs to be reset so we stop using cached values.
+            $self->ldb()->clearConn()
+        }
         $prov->provision();
         $self->unset('need_reprovision');
     }
@@ -1106,7 +1116,7 @@ sub defaultDescription
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
-    return ucfirst($prefix) . ' File Server';
+    return ucfirst($prefix) . ' Server';
 }
 
 # Method: description
@@ -2044,8 +2054,12 @@ sub ldapObjectFromLDBObject
 {
     my ($self, $ldbObject) = @_;
 
-    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
-    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+    unless ($ldbObject) {
+        throw EBox::Exceptions::MissingArgument('ldbObject')
+    }
+    unless ($ldbObject->isa('EBox::Samba::LdbObject')) {
+        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject');
+    }
 
     my $usersMod = EBox::Global->modInstance('users');
 

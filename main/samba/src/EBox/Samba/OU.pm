@@ -80,8 +80,8 @@ sub addToZentyal
     my $parentDN = $parent->dn();
 
     try {
-        my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
-        $self->_linkWithUsersObject($ou);
+        my $zentyalOU = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
+        $self->_linkWithUsersObject($zentyalOU);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
     } otherwise {

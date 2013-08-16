@@ -283,8 +283,10 @@ sub provision
 {
     my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
+
     # Stop the service
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $global->modInstance('samba');
     $samba->stopService();
 
     # Check environment
@@ -305,6 +307,11 @@ sub provision
     } else {
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
+
+    # dns needs to be restarted after save changes to write proper bind conf with the dlz
+    my @postSaveModules = @{$global->get_list('post_save_modules')};
+    push (@postSaveModules, 'dns');
+    $global->set('post_save_modules', \@postSaveModules);
 }
 
 sub resetSysvolACL
@@ -352,6 +359,26 @@ sub mapDefaultContainers
             $ldbObject->addToZentyal();
         }
     }
+
+    # ou=Groups is an special case, it should exists always.
+    my $ldbDN = "OU=Groups,$ldbRootDN";
+    my $ldapDN = "ou=Groups,$ldapRootDN";
+
+    EBox::info("Mapping '$ldbDN' into '$ldapDN'");
+
+    my $sambaGroupsOU = $sambaMod->objectFromDN($ldbDN);
+    my $ldapGroupsOU = $usersMod->objectFromDN($ldapDN);
+
+    unless ($sambaGroupsOU and $sambaGroupsOU->exists()) {
+        my $sambaParent = $sambaMod->defaultNamingContext();
+        $sambaGroupsOU = EBox::Samba::OU->create(name => 'Groups', parent => $sambaParent);
+    }
+
+    if ($ldapGroupsOU and $ldapGroupsOU->exists()) {
+        $sambaGroupsOU->_linkWithUsersObject($ldapGroupsOU);
+    } else {
+        $sambaGroupsOU->addToZentyal();
+    }
 }
 
 sub mapAccounts
@@ -377,7 +404,7 @@ sub mapAccounts
     my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
     if ($domainAdmin->exists()) {
         if ($domainAdminZentyal->exists()) {
-            $domainAdmin->_linkWithUserObject($domainAdminZentyal);
+            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
         } else {
             $domainAdmin->addToZentyal();
         }
@@ -390,19 +417,29 @@ sub mapAccounts
     my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
     if ($domainAdmins->exists()) {
         if ($domainAdminsZentyal->exists()) {
-            $domainAdmins->_linkWithUserObject($domainAdminsZentyal);
+            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
         } else {
             $domainAdmins->addToZentyal();
         }
     }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
-    # Map domain users group
+    EBox::info("Mapping domain users group account");
+    my $usersModule = EBox::Global->modInstance('users');
     # FIXME Why is this not working during first intall???
-    #my $usersModule = EBox::Global->modInstance('users');
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
+    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
+    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
+    if ($domainUsers->exists()) {
+        if ($domainUsersZentyal->exists()) {
+            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
+        } else {
+            $domainUsers->addToZentyal();
+        }
+    }
+    # Map domain users group
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
@@ -861,7 +898,7 @@ sub checkClockSkew
         %h = get_ntp_response($adServerIp);
     } otherwise {
         throw EBox::Exceptions::External(
-            __x('Could not retrive time from AD server {x} via NTP.',
+            __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
     };
 

@@ -77,6 +77,7 @@ sub _process
         }
 
         $self->{json}->{success}  = 1;
+        $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };
         $self->_requireParam('adduser', __('user'));

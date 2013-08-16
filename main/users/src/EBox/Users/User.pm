@@ -284,6 +284,38 @@ sub isSystem
     return ($self->get('uidNumber') < MINUID);
 }
 
+# Method: isDisabled
+#
+#   Return true if the user is disabled, false otherwise
+#
+sub isDisabled
+{
+    my ($self) = @_;
+
+    # shadowExpire == 0 means disabled, any other value means enabled even not defined.
+    my $value = $self->get('shadowExpire');
+    if ((defined $value) and ($value eq 0)) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+# Method: setDisabled
+#
+#   Enables / disables this user.
+#
+sub setDisabled
+{
+    my ($self, $status) = @_;
+
+    if ($status) {
+        $self->set('shadowExpire', 0);
+    } else {
+        $self->delete('shadowExpire');
+    }
+}
+
 sub _checkQuota
 {
     my ($self, $quota) = @_;
@@ -411,6 +443,7 @@ sub passwordHashes
 #       displayname
 #       description
 #       mail
+#       isDisabled   - boolean: Whether this user should be disabled or not. Default False.
 #       isSystemUser - boolean: if true it adds the user as system user, otherwise as normal user
 #       uidNumber    - user UID number
 #       isInternal     - Whether this use is internal or not.
@@ -427,9 +460,14 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-    my $isSystemUser = undef;
-    if (defined $args{isSystemUser}) {
-        $isSystemUser = $args{isSystemUser};
+    my $isSystemUser = 0;
+    if ($args{isSystemUser}) {
+        $isSystemUser = 1;
+    }
+
+    my $isDisabled = 0; # All users are enabled by default.
+    if ($args{isDisabled}) {
+        $isDisabled = 1;
     }
 
     unless (_checkUserName($args{uid})) {
@@ -532,7 +570,9 @@ sub create
         $parentRes = $class->SUPER::create(%args);
 
         my $anyObjectClass = any($parentRes->get('objectClass'));
-        my @userExtraObjectClasses = ('posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry');
+        my @userExtraObjectClasses = (
+            'posixAccount', 'passwordHolder', 'systemQuotas', 'krb5Principal', 'krb5KDCEntry', 'shadowAccount'
+        );
         foreach my $extraObjectClass (@userExtraObjectClasses) {
             if ($extraObjectClass ne $anyObjectClass) {
                 $parentRes->add('objectClass', $extraObjectClass, 1);
@@ -544,6 +584,9 @@ sub create
         $parentRes->set('gidNumber', $gid, 1);
         $parentRes->set('homeDirectory', $homedir, 1);
         $parentRes->set('quota', $quota, 1);
+        if ($isDisabled) {
+            $parentRes->set('shadowExpire', 0, 1);
+        }
         $parentRes->set('krb5PrincipalName', $args{uid} . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO

@@ -786,7 +786,7 @@ sub _createVMailDomainsOUs
     my $dn = "ou=zarafa," . $namingContext->dn();
     my $ou = new EBox::Users::OU(dn => $dn);
     unless ($ou and $ou->exists()) {
-        $ou = EBox::Users::OU->create(name => 'zarafa', parent => $namingContext);
+        $ou = EBox::Users::OU->create(name => 'zarafa', parent => $namingContext, ignoreMods => ['samba']);
     }
 
     my @vdomains = @{$self->model('VMailDomains')->vdomains()};
@@ -804,7 +804,7 @@ sub _addVMailDomainOU
     my $ou = new EBox::Users::OU(dn => $dn);
     return if ($ou and $ou->exists());
 
-    $ou = EBox::Users::OU->create(name => $vdomain, parent => $parent);
+    $ou = EBox::Users::OU->create(name => $vdomain, parent => $parent, ignoreMods => ['samba']);
     $ou->add('objectClass', [ 'zarafa-company' ], 1);
     $ou->save();
 }
