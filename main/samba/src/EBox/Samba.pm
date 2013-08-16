@@ -2272,32 +2272,6 @@ sub hiddenViewInAdvancedOnly
     return 0;
 }
 
-sub hiddenSid
-{
-    my ($self, $ldapObject) = @_;
-
-    my $samba = EBox::Global->modInstance('samba');
-
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $samba->ldbObjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
-        return 0;
-    }
-
-    unless ($self->{sidsToHide}) {
-        $self->{sidsToHide} = $samba->sidsToHide();
-    }
-
-    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
-    }
-
-    return 0;
-}
-
 # Method: hiddenSid
 #
 #   Check if the specified LDAP object belongs to the list of regexps

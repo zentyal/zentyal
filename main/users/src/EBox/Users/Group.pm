@@ -240,6 +240,7 @@ sub _users
 
     my @filteredUsers;
     foreach my $user (@users) {
+        next if ($user->isInternal());
         if (defined ($samba)) {
             next if ($samba->hiddenViewInAdvancedOnly($user));
             next if ($samba->hiddenSid($user));
