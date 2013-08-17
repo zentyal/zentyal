@@ -107,10 +107,6 @@ sub _populateLanguages
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
-    if ($row->isEqualTo($oldRow)) {
-        # no need to set special reload for apache
-        return;
-    }
 
     my $global = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
