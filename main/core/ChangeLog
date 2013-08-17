@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wrong redirects when using a non-default admin port
 	+ Fixed regression in webadmin reload after changing the language
 	+ Remove unnecessary and problematic desktop services code
 	+ Added icons for disabled users.

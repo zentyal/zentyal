@@ -322,29 +322,34 @@ sub run
         }
     }
 
-    if ((defined($self->{redirect})) && (!defined($self->{error}))) {
+    if (defined ($self->{redirect}) and not defined ($self->{error})) {
         my $request = Apache2::RequestUtil->request();
         my $headers = $request->headers_in();
+
         my $via = $headers->{'Via'};
-        my $host= $headers->{'Host'};
+        my $host = $headers->{'Host'};
+        my $referer = $headers->{'Referer'};
+
         my $fwhost = $headers->{'X-Forwarded-Host'};
         my $fwproto = $headers->{'X-Forwarded-Proto'};
         # If the connection comes from a Proxy,
         # redirects with the Proxy IP address
-        if (defined($via) and defined($fwhost)) {
+        if (defined ($via) and defined ($fwhost)) {
             $host = $fwhost;
         }
-        my $protocol;
-        if ($request->subprocess_env('https')) {
-            $protocol = 'https';
-        } else {
-            $protocol = 'http';
-        }
-        if (defined($fwproto)) {
+
+        my ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
+        if (defined ($fwproto)) {
             $protocol = $fwproto;
         }
-        my $url = "$protocol://${host}/" . $self->{redirect};
-        print($self->cgi()->redirect($url));
+
+        my $url = "$protocol://$host";
+        if ($port) {
+            $url .= ":$port";
+        }
+        $url .= "/$self->{redirect}";
+
+        print ($self->cgi()->redirect($url));
         return;
     }
 
