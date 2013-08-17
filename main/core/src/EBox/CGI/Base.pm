@@ -67,13 +67,16 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
 }
 
 sub _header
-{}
+{
+}
 
 sub _top
-{}
+{
+}
 
 sub _menu
-{}
+{
+}
 
 sub _title
 {
@@ -164,7 +167,8 @@ MASON_INTERP: {
 };
 
 sub _footer
-{}
+{
+}
 
 sub _print
 {
@@ -269,27 +273,23 @@ sub run
 
     if (not $self->_loggedIn) {
         $self->{redirect} = "/Login/Index";
-    }
-    else {
-      try {
-        $self->_validateReferer();
-        $self->_process();
-      }
-      catch EBox::Exceptions::Internal with {
-        my $e = shift;
-        throw $e;
-      }
-      catch EBox::Exceptions::Base with {
-        my $e = shift;
-        $self->setErrorFromException($e);
-        if (defined($self->{redirect})) {
-          $self->{chain} = $self->{redirect};
-        }
-      }
-      otherwise {
-        my $e = shift;
-        throw $e;
-      };
+    } else {
+        try {
+            $self->_validateReferer();
+            $self->_process();
+        } catch EBox::Exceptions::Internal with {
+            my $e = shift;
+            throw $e;
+        } catch EBox::Exceptions::Base with {
+            my $e = shift;
+            $self->setErrorFromException($e);
+            if (defined($self->{redirect})) {
+                $self->{chain} = $self->{redirect};
+            }
+        } otherwise {
+            my $e = shift;
+            throw $e;
+        };
     }
 
     if (defined($self->{error})) {
@@ -310,15 +310,15 @@ sub run
     if (defined($self->{chain})) {
         my $classname = EBox::CGI::Run->urlToClass($self->{chain});
         if (not $self->isa($classname)) {
-          eval "use $classname";
-          if ($@) {
-            throw EBox::Exceptions::Internal("Cannot load $classname. Error: $@");
-          }
-          my $chain = $classname->new('error' => $self->{error},
-                          'msg' => $self->{msg},
-                          'cgi'   => $self->{cgi});
-          $chain->run;
-          return;
+            eval "use $classname";
+            if ($@) {
+                throw EBox::Exceptions::Internal("Cannot load $classname. Error: $@");
+            }
+            my $chain = $classname->new('error' => $self->{error},
+                                        'msg' => $self->{msg},
+                                        'cgi' => $self->{cgi});
+            $chain->run;
+            return;
         }
     }
 
@@ -349,7 +349,7 @@ sub run
     }
 
     try  {
-      $self->_print
+        $self->_print();
     } catch EBox::Exceptions::Base with {
         my $ex = shift;
         $self->setErrorFromException($ex);
@@ -358,22 +358,21 @@ sub run
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
-          $logger->error($ex->as_text);
-          my $error = __("An internal error related to ".
-                 "a template has occurred. This is ".
-                 "a bug, relevant information can ".
-                 "be found in the logs.");
-          $self->_print_error($error);
-      } elsif ($ex->isa('APR::Error')) {
-        my $debug = EBox::Config::boolean('debug');
-        my $error = $debug ? $ex->confess() : $ex->strerror();
-        $self->_print_error($error);
-      } else {
-          # will be logged in EBox::CGI::Run
-          throw $ex;
+            $logger->error($ex->as_text);
+            my $error = __("An internal error related to ".
+                           "a template has occurred. This is ".
+                           "a bug, relevant information can ".
+                           "be found in the logs.");
+            $self->_print_error($error);
+        } elsif ($ex->isa('APR::Error')) {
+            my $debug = EBox::Config::boolean('debug');
+            my $error = $debug ? $ex->confess() : $ex->strerror();
+            $self->_print_error($error);
+        } else {
+            # will be logged in EBox::CGI::Run
+            throw $ex;
         }
-      };
-
+    };
 }
 
 # Method: unsafeParam
@@ -503,8 +502,8 @@ sub cgi
 #    new
 sub setTemplate
 {
-  my ($self, $template) = @_;
-  $self->{template} = $template;
+    my ($self, $template) = @_;
+    $self->{template} = $template;
 }
 
 # Method: _process
@@ -540,8 +539,8 @@ sub setMsg
 #   $error - message to be setted
 sub setError
 {
-  my ($self, $error) = @_;
-  $self->{error} = $error;
+    my ($self, $error) = @_;
+    $self->{error} = $error;
 }
 
 # Method: setErrorFromException
@@ -610,8 +609,8 @@ sub setErrorFromException
 #  setRedirect, setErrorchain
 sub setRedirect
 {
-  my ($self, $redirect) = @_;
-  $self->{redirect} = $redirect;
+    my ($self, $redirect) = @_;
+    $self->{redirect} = $redirect;
 }
 
 # Method: setChain
@@ -627,8 +626,8 @@ sub setRedirect
 #  setRedirect, setErrorchain, keepParam
 sub setChain
 {
-  my ($self, $chain) = @_;
-  $self->{chain} = $chain;
+    my ($self, $chain) = @_;
+    $self->{chain} = $chain;
 }
 
 # Method: setErrorchain
@@ -641,8 +640,8 @@ sub setChain
 #  setChain, setRedirect
 sub setErrorchain
 {
-  my ($self, $errorchain) = @_;
-  $self->{errorchain} = $errorchain;
+    my ($self, $errorchain) = @_;
+    $self->{errorchain} = $errorchain;
 }
 
 # Method: paramsAsHash
@@ -689,7 +688,7 @@ sub _validateReferer
     my ($self) = @_;
 
     # Only check if the client sends params
-    if ( ! @{$self->params()} ) {
+    unless (@{$self->params()}) {
         return;
     }
 
@@ -699,15 +698,15 @@ sub _validateReferer
 
     # allow remoteservices proxy access
     # proxy is a valid subdomain of {domain}
-    if ( EBox::Global->modExists('remoteservices') ) {
+    if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
 
         if ( $rs->eBoxSubscribed() ) {
             $rshostname = $rs->cloudDomain();
         }
     }
-    if ( $referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
-         $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\// ) {
+    if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
+        $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//) {
         return; # everything ok
     }
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
@@ -718,16 +717,14 @@ sub _validateRequiredParams
     my ($self, $params_r) = @_;
 
     my $matchResult_r = _matchParams($self->requiredParameters(), $params_r);
-    my @requiresWithoutMatch =  @{ $matchResult_r->{targetsWithoutMatch} };
+    my @requiresWithoutMatch = @{ $matchResult_r->{targetsWithoutMatch} };
     if (@requiresWithoutMatch) {
-      EBox::error("Mandatory parameters not found in CGI request: @requiresWithoutMatch");
-      throw EBox::Exceptions::External ( __('Your request could not be processed because it lacked some required parameters'));
-    }
-    else {
-
-    my $allMatches = all  @{ $matchResult_r->{matches} };
-    my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
-    return \@newParams;
+        EBox::error("Mandatory parameters not found in CGI request: @requiresWithoutMatch");
+        throw EBox::Exceptions::External ( __('Your request could not be processed because it lacked some required parameters'));
+    } else {
+        my $allMatches = all  @{ $matchResult_r->{matches} };
+        my @newParams = grep { $_ ne $allMatches } @{ $params_r} ;
+        return \@newParams;
     }
 }
 
@@ -751,14 +748,13 @@ sub _matchParams
     my @targetsWithoutMatch;
     my @matchedParams;
     foreach my $targetParam ( @targets ) {
-    my $targetRe = qr/^$targetParam$/;
-    my @matched = grep { $_ =~ $targetRe } @actualParams;
-    if (@matched) {
-        push @matchedParams, @matched;
-    }
-    else {
-        push @targetsWithoutMatch, $targetParam;
-    }
+        my $targetRe = qr/^$targetParam$/;
+        my @matched = grep { $_ =~ $targetRe } @actualParams;
+        if (@matched) {
+            push @matchedParams, @matched;
+        } else {
+            push @targetsWithoutMatch, $targetParam;
+        }
     }
 
     return { matches => \@matchedParams, targetsWithoutMatch => \@targetsWithoutMatch };
@@ -783,7 +779,7 @@ sub optionalParameters
 
 # Method: requiredParameters
 #
-#       Get the required CGI parameter list. Any
+#   Get the required CGI parameter list. Any
 #   parameter that match with this list must be present in the CGI
 #   parameters.
 #
@@ -802,7 +798,8 @@ sub requiredParameters
 #
 #  This method is the workhouse of the CGI it must be overriden by the different CGIs to achieve their objectives
 sub actuate
-{}
+{
+}
 
 # Method: masonParameters
 #
@@ -814,13 +811,13 @@ sub actuate
 #
 sub masonParameters
 {
-  my ($self) = @_;
+    my ($self) = @_;
 
-  if (exists $self->{params}) {
-    return $self->{params};
-  }
+    if (exists $self->{params}) {
+        return $self->{params};
+    }
 
-  return [];
+    return [];
 }
 
 # Method: upload
@@ -850,57 +847,54 @@ sub masonParameters
 #
 sub upload
 {
-  my ($self, $uploadParam) = @_;
-  defined $uploadParam or throw EBox::Exceptions::MissingArgument();
+    my ($self, $uploadParam) = @_;
+    defined $uploadParam or throw EBox::Exceptions::MissingArgument();
 
-  # upload parameter..
-  my $uploadParamValue = $self->cgi->param($uploadParam);
-  if (not defined $uploadParamValue) {
-    if ($self->cgi->cgi_error) {
-      throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
-    }
-    throw EBox::Exceptions::Internal("The upload parameter $uploadParam does not "
-                                     . 'pass on HTTP request');
-  }
-
-  # get upload contents file handle
-  my $UPLOAD_FH = $self->cgi->upload($uploadParam);
-  if (not $UPLOAD_FH) {
-    throw EBox::Exceptions::External( __('Invalid uploaded file.'));
-  }
-
-  # destination file handle and path
-  my ($FH, $filename) = tempfile("uploadXXXXX", DIR => EBox::Config::tmp());
-  if (not $FH) {
-    throw EBox::Exceptions::External( __('Cannot create a temporally file for the upload'));
-  }
-
-  try {
-    #copy the uploaded data to file..
-    my $readStatus;
-    my $readData;
-    my $readSize = 1024 * 8; # read in blocks of 8K
-    while ($readStatus = read $UPLOAD_FH, $readData, $readSize) {
-      print $FH $readData;
+    # upload parameter..
+    my $uploadParamValue = $self->cgi->param($uploadParam);
+    if (not defined $uploadParamValue) {
+        if ($self->cgi->cgi_error) {
+            throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
+        }
+        throw EBox::Exceptions::Internal("The upload parameter $uploadParam does not "
+                . 'pass on HTTP request');
     }
 
-    if (not defined $readStatus) {
-      throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
+    # get upload contents file handle
+    my $UPLOAD_FH = $self->cgi->upload($uploadParam);
+    if (not $UPLOAD_FH) {
+        throw EBox::Exceptions::External( __('Invalid uploaded file.'));
     }
-  }
-  otherwise {
-    my $ex = shift;
-    unlink $filename;
-    $ex->throw();
-  }
-  finally {
-    close $UPLOAD_FH;
-    close $FH;
 
-  };
+    # destination file handle and path
+    my ($FH, $filename) = tempfile("uploadXXXXX", DIR => EBox::Config::tmp());
+    if (not $FH) {
+        throw EBox::Exceptions::External( __('Cannot create a temporally file for the upload'));
+    }
 
-  # return the created file in tmp
-  return $filename;
+    try {
+        #copy the uploaded data to file..
+        my $readStatus;
+        my $readData;
+        my $readSize = 1024 * 8; # read in blocks of 8K
+            while ($readStatus = read $UPLOAD_FH, $readData, $readSize) {
+                print $FH $readData;
+            }
+
+        if (not defined $readStatus) {
+            throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
+        }
+    } otherwise {
+        my $ex = shift;
+        unlink $filename;
+        $ex->throw();
+    } finally {
+        close $UPLOAD_FH;
+        close $FH;
+    };
+
+    # return the created file in tmp
+    return $filename;
 }
 
 # Method: setMenuNamespace
@@ -923,7 +917,6 @@ sub setMenuNamespace
     my ($self, $namespace) = @_;
 
     $self->{'menuNamespace'} = $namespace;
-
 }
 
 # Method: menuNamespace
@@ -949,7 +942,6 @@ sub menuNamespace
     } else {
         return $self->{'url'};
     }
-
 }
 
 sub JSONReply
