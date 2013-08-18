@@ -191,7 +191,7 @@ sub eventWatchers
 #
 sub eventDispatchers
 {
-    return [ 'Log', 'RSS', 'Jabber' ];
+    return [ 'Log', 'Jabber' ];
 }
 
 sub reportDetailsModel

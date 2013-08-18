@@ -6,11 +6,6 @@ models:
     - LogWatcherConfiguration
     - DiskFreeWatcherConfiguration
     - JabberDispatcherConfiguration
-    - RSSDispatcherConfiguration
 
 composites:
     General: [ConfigureWatchers, ConfigureDispatchers]
-
-modeldepends:
-    RSSDispatcherConfiguration:
-        objects/ObjectTable: [allowedObject]

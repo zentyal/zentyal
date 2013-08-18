@@ -345,17 +345,12 @@ sub dynamicwww
 
 sub dynamicwwwSubdirs
 {
-    return [ dynamicimages(), dynamicRSS() ];
+    return [ dynamicimages() ];
 }
 
 sub dynamicimages
 {
     return dynamicwww() . 'images/';
-}
-
-sub dynamicRSS
-{
-    return dynamicwww() . 'feed/';
 }
 
 sub version

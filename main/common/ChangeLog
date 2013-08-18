@@ -1,3 +1,5 @@
+HEAD
+	+ Removed no longer used dynamicRSS() in EBox::Config
 3.1.1
 	+ Removed dependencies on prototype and scriptaculous javascript libraries
 	+ Removed deprecated configuration key override_user_modification
