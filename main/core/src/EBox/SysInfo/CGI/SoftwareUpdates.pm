@@ -99,7 +99,7 @@ sub _process
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
+    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Small Business or Enterprise Edition: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
 }
 
 sub _secureMsg
