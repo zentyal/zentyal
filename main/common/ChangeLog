@@ -1,3 +1,5 @@
+HEAD
+	+ Always show proper language name for english locales
 3.1.1
 	+ Removed dependencies on prototype and scriptaculous javascript libraries
 	+ Removed deprecated configuration key override_user_modification
