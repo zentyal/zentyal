@@ -551,10 +551,7 @@ sub create
 
     my $homedir = _homeDirectory($args{uid});
     if (-e $homedir) {
-        throw EBox::Exceptions::External(
-            __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
-                dir => $homedir)
-        );
+        EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
     }
 
     # Check the password length if specified
