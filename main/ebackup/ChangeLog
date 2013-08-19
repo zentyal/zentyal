@@ -1,4 +1,4 @@
-HEAD
+3.1.4
 	+ Exclude / by default for coherency with the rest of modules like
 	  firewall or proxy, and also allow now to include /
 	+ Do not show default excludes like /dev or /proc on the interface,
