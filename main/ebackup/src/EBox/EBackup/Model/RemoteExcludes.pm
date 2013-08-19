@@ -103,7 +103,7 @@ sub _table
         defaultEnabledValue => 1,
         insertPosition      => 'front',
         help => __(
-'A file or directory is included or excluded according the first match. A directory match is applied to all it contents. Files not explicitly excluded or included are included'
+'A file or directory is included or excluded according the first match. A directory match is applied to all it contents. Anything that is not included is excluded by default.'
            ),
     };
 
