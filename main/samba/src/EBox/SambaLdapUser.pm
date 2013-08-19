@@ -359,6 +359,7 @@ sub _preAddContact
     my $sn = $entry->get_value('sn');
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
+    my $mail = $entry->get_value('mail');
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
     my %args = (
@@ -369,6 +370,7 @@ sub _preAddContact
         displayName => $displayName,
         description => $description,
         parent      => $sambaParent,
+        mail        => $mail,
     );
 
     EBox::info("Creating contact '$name'");
@@ -420,12 +422,14 @@ sub _modifyContact
         my $sn = $zentyalContact->get_value('sn');
         my $displayName = $zentyalContact->get_value('displayName');
         my $description = $zentyalContact->get_value('description');
+        my $mail = $zentyalContact->get_value('mail');
 
         $sambaContact->set('givenName', $givenName, 1);
         $sambaContact->set('initials', $initials, 1);
         $sambaContact->set('sn', $sn, 1);
         $sambaContact->set('displayName', $displayName, 1);
         $sambaContact->set('description', $description, 1);
+        $sambaContact->set('mail', $mail, 1);
         $sambaContact->save();
     } otherwise {
         my ($error) = @_;
