@@ -24,12 +24,18 @@ use base 'EBox::Samba::LdbObject';
 
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
+use EBox::Samba::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
 use Parse::RecDescent;
 use Data::UUID;
+use Fcntl;
+use Error qw( :try );
+use Net::LDAP::Control;
+use Samba::Security::Descriptor;
 
 use constant STATUS_ENABLED                 => 0x00;
 use constant STATUS_USER_CONF_DISABLED      => 0x01;
@@ -113,9 +119,23 @@ sub _entry
     unless ($self->{entry}) {
         if (defined $self->{displayName}) {
             my $attrs = {
-                base => $self->_ldap->dn(),
+                base => "CN=Policies,CN=System," . $self->_ldap->dn(),
                 filter => "(&(objectClass=GroupPolicyContainer)(diplayName=$self->{displayName}))",
                 scope => 'sub',
+                attrs => ['*'],
+            };
+            my $result = $self->_ldap->search($attrs);
+            if ($result->count() > 1) {
+                throw EBox::Exceptions::Internal(
+                    __x('Found {count} results for, expected only one.',
+                        count => $result->count()));
+            }
+            $self->{entry} = $result->entry(0);
+        } elsif (defined $self->{dn}) {
+            my $attrs = {
+                base => $self->{dn},
+                filter => "(&(objectClass=GroupPolicyContainer)(distinguishedName=$self->{dn}))",
+                scope => 'base',
                 attrs => ['*'],
             };
             my $result = $self->_ldap->search($attrs);
@@ -152,24 +172,18 @@ sub deleteObject
 {
     my ($self) = @_;
 
-    my $gpoName = $self->get('name');
-    my $gpoDN = $self->get('distinguishedName');
-    unless (length $gpoName) {
-        throw EBox::Exceptions::Internal("Could not get the GPO name");
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal('Could not get DNS hostname');
     }
 
-    my $defaultNC = $self->_ldap->dn();
-    my $dnsDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $defaultNC)));
-    unless (length $dnsDomain) {
-        throw EBox::Exceptions::Internal("Could not get the DNS domain name");
-    }
-
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
-    my $path = $self->path();
+    my $smb = new EBox::Samba::SmbClient(
+        target => $host, service => 'sysvol', RID => 500);
 
     # TODO: Remove all links to this GPO in the domain
 
     # Remove subcontainers
+    my $gpoDN = $self->get('distinguishedName');
     my $userDN = "CN=User,$gpoDN";
     my $machineDN = "CN=Machine,$gpoDN";
     my $result;
@@ -190,8 +204,8 @@ sub deleteObject
     $self->SUPER::deleteObject();
 
     # Remove GTP from sysvol
-    $smb->rmdir_recurse($path) or throw EBox::Exceptions::Internal(
-        "Could not remove GPO from sysvol: $!");
+    my $path = $self->path();
+    $smb->deltree($path);
 }
 
 # Method: status
@@ -225,16 +239,82 @@ sub setStatus
 # Method: path
 #
 #   Returns the GPO filesystem path in a form ready to be used by
-#   EBox::Samba::SmbClient
+#   Samba::Smb
 #
 sub path
 {
     my ($self) = @_;
 
-    my $path = $self->get('gPCFileSysPath');
-    $path =~ s/\\/\//g;
+    my $defaultNC = $self->_ldap->dn();
+    my $dnsDomain = join ('.', grep (/.+/, split (/[,]?DC=/, $defaultNC)));
+    unless (length $dnsDomain) {
+        throw EBox::Exceptions::Internal("Could not get the DNS domain name");
+    }
+    my $gpoName = $self->get('name');
+    unless (length $gpoName) {
+        throw EBox::Exceptions::Internal("Could not get the GPO name");
+    }
+    return "/$dnsDomain/Policies/$gpoName";
+}
 
-    return "smb:$path";
+# Method: ntSecurityDescriptor
+#
+#   This functions reads the ntSecurityDescriptor attribute from LDAP and
+#   builds a Samba::Security::Descriptor instance to be applied to GPT
+#
+sub ntSecurityDescriptor
+{
+    my ($self) = @_;
+
+    my $control = new EBox::Samba::LDAP::Control::SDFlags(
+        flags => (SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL),
+        critical => 1);
+    unless ($control->valid()) {
+        throw EBox::Exceptions::Internal("Error building LDAP search control");
+    }
+
+    my $params = {
+        base => $self->dn(),
+        scope => 'base',
+        filter => '(objectClass=groupPolicyContainer)',
+        attrs => ['ntSecurityDescriptor'],
+        control => [$control]};
+    my $result = $self->_ldap->search($params);
+    if ($result->is_error()) {
+        throw EBox::Exceptions::Internal(
+            __x("Error getting GPO entry from LDAP: {x}",
+                x => $result->error_text()));
+    }
+    my $entry = $result->entry(0);
+    unless (defined $entry) {
+        throw EBox::Exceptions::Internal(
+            "Error getting GPO entry from LDAP result");
+    }
+
+    my $ntSecDesc = $entry->get_value('ntSecurityDescriptor');
+    unless (defined $ntSecDesc) {
+        throw EBox::Exceptions::Internal(
+            "Error getting ntSecurityDescriptor attribute");
+    }
+
+    my $sd = new Samba::Security::Descriptor();
+    unless ($sd->unmarshall($ntSecDesc, length($ntSecDesc)) == 1) {
+        throw EBox::Exceptions::Internal(
+            "Error unpacking ntSecurityDescriptor attribute");
+    }
+
+    unless ($sd->to_fs_sd() == 1) {
+        throw EBox::Exceptions::Internal(
+            "Error transforming DS security descriptor " .
+            "to FS security descriptor");
+    }
+
+    my $type = $sd->type();
+    $type = $type & ~SEC_DESC_OWNER_DEFAULTED;
+    $type = $type & ~SEC_DESC_GROUP_DEFAULTED;
+    $sd->type($type);
+
+    return $sd;
 }
 
 # Method: create
@@ -248,6 +328,12 @@ sub create
     my $ug = new Data::UUID();
     my $gpoName = uc('{' . $ug->create_str() . '}');
     my $versionNumber = 0;
+
+    # Get dns host name
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal("Could not get the DNS host name");
+    }
 
     # Get dns domain
     my $defaultNC = $self->_ldap->dn();
@@ -309,32 +395,42 @@ sub create
         throw EBox::Exceptions::Internal(
             "Can not retrieve LDAP created GPO entry");
     }
-    my $ntSecurityDescriptor = $entry->get_value('ntSecurityDescriptor');
-    unless (defined $ntSecurityDescriptor) {
-        throw EBox::Exceptions::Internal(
-            "Can not retrieve NT Security Descriptor from GPO LDAP entry");
-    }
 
-    # Create GPT in sysvol
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
-    my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
-    $gptContent = encode('UTF-8', $gptContent);
-    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName",'0666')
-        or throw EBox::Exceptions::Internal("Error mkdir: $!");
-    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/USER",'0666')
-        or throw EBox::Exceptions::Internal("Error mkdir: $!");
-    $smb->mkdir("smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/MACHINE",'0666')
-        or throw EBox::Exceptions::Internal("Error mkdir: $!");
-    my $fd = $smb->open(">smb://$dnsDomain/sysvol/$dnsDomain/Policies/$gpoName/GPT.INI", 0666)
-        or throw EBox::Exceptions::Internal("Can't create file: $!");
-    $smb->write($fd, $gptContent)
-        or throw EBox::Exceptions::Internal("Can't write file: $!");
-    $smb->close($fd);
-
-    # TODO Set NT security Descriptor instead sysvolreset
-    EBox::Sudo::root("samba-tool ntacl sysvolreset");
-
+    # At this point, we can instantiate the created GPO. If anything goes
+    # wrong after, we can delete the object from LDAP
     my $createdGPO = new EBox::Samba::GPO(dn => $gpoDN);
+
+    # Create the GPT in the sysvol share
+    try {
+        my $gptContent = "[General]\r\nVersion=$versionNumber\r\n";
+        $gptContent = encode('UTF-8', $gptContent);
+
+        my $smb = new EBox::Samba::SmbClient(
+            target => $host, service => 'sysvol', RID => 500);
+
+        my $path = "\\$dnsDomain\\Policies\\$gpoName";
+        $smb->mkdir($path);
+
+        # Get the NT security descriptor to set
+        my $sd = $createdGPO->ntSecurityDescriptor();
+        my $sinfo = SECINFO_OWNER |
+                    SECINFO_GROUP |
+                    SECINFO_DACL |
+                    SECINFO_PROTECTED_DACL;
+        $smb->set_sd($path, $sd, $sinfo);
+
+        $smb->mkdir("$path\\USER");
+        $smb->mkdir("$path\\MACHINE");
+        my $fd = $smb->open("$path\\GPT.INI", O_CREAT | O_RDWR | O_TRUNC,
+            Samba::Smb::DENY_NONE);
+        $smb->write($fd, $gptContent, length($gptContent));
+        $smb->close($fd);
+    } otherwise {
+        my ($error) = @_;
+        $createdGPO->deleteObject();
+        throw $error;
+    };
+
     return $createdGPO;
 }
 
@@ -380,9 +476,17 @@ sub extensionUpdate
 {
     my ($self, $isUser, $cseGUID, $toolGUID) = @_;
 
+    my $host = $self->_ldap->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal('Could not get DNS hostname');
+    }
+
+    my $smb = new EBox::Samba::SmbClient(
+        target => $host, service => 'sysvol', RID => 500);
+
     # Read version number in the GPT.INI and increment it
     my $gptIniPath = $self->path() . '/GPT.INI';
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
+
     my $buffer = $smb->read_file($gptIniPath);
     $buffer = decode('UTF-8', $buffer);
 
@@ -435,26 +539,19 @@ sub extensionUpdate
     }
 
     # Update GPT.INI file
-    my $fd = $smb->open(">$gptIniPath", 0666);
-    unless ($fd) {
-        throw EBox::Exceptions::Internal("Can not open $gptIniPath: $!");
-    }
+    my $fd = $smb->open($gptIniPath,
+        O_CREAT | O_RDWR | O_TRUNC, Samba::Smb::DENY_NONE);
+    my $gptContent;
     foreach my $section (keys %{$data}) {
         my $wrote;
-        $wrote = $smb->write($fd, "[$section]\r\n");
-        unless ($wrote) {
-            throw EBox::Exceptions::Internal(
-                "Can not write on $gptIniPath: $!");
-        }
+        $gptContent .= "[$section]\r\n";
         foreach my $pair (@{$data->{$section}}) {
-            $wrote = $smb->write($fd, "$pair->{key}=$pair->{value}\r\n");
-            unless ($wrote) {
-                throw EBox::Exceptions::Internal(
-                    "Can not write on $gptIniPath: $!");
-            }
+            $gptContent .= "$pair->{key}=$pair->{value}\r\n";
         }
         last if (defined $version);
     }
+    $gptContent = encode('UTF-8', $gptContent);
+    $smb->write($fd, $gptContent, length($gptContent));
     $smb->close($fd);
 }
 
