@@ -51,6 +51,22 @@ sub _scriptPath
     return "$path/User/Scripts/Logoff/$basename";
 }
 
+sub _scriptHost
+{
+    my ($self) = @_;
+    my $host = $self->parentModule->ldb->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal('Could not get DNS hostname');
+    }
+    return $host;
+}
+
+sub _scriptService
+{
+    my ($self) = @_;
+    return 'sysvol';
+}
+
 sub ids
 {
     my ($self) = @_;

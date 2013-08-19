@@ -68,7 +68,15 @@ sub _table
             #showFileWhenEditing => 0,
             allowDownload  => 0,
             hiddenOnSetter => 0,
-            hiddenOnViewer => 0),
+            hiddenOnViewer => 0,
+            service        => sub {
+                my ($self) = @_;
+                return $self->model->_scriptService();
+            },
+            host           => sub {
+                my ($self) = @_;
+                return $self->model->_scriptHost();
+            }),
     ];
 
     my $dataTable = {
