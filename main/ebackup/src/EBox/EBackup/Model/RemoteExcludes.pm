@@ -214,7 +214,7 @@ sub fileSelectionArguments
 
     my $args = '';
     my $defaultExcludes = EBox::Config::configkey('ebackup_default_excludes');
-    my @excludes = split ($defaultExcludes);
+    my @excludes = split (' ', $defaultExcludes);
     foreach my $exclude (@excludes) {
         $args .= "--exclude=$exclude ";
     }
