@@ -25,6 +25,7 @@ use base 'EBox::Model::DataTable';
 #
 #
 
+use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
@@ -34,9 +35,6 @@ use EBox::Exceptions::NotConnected;
 use EBox::FileSystem;
 use Error qw(:try);
 use String::ShellQuote;
-
-use constant DEFAULT_EXCLUDES => ('/dev', '/proc', '/sys', '/mnt', '/media', '/tmp',
-                                  '/var/spool', '/var/cache', '/var/tmp');
 
 # Group: Public methods
 
@@ -111,26 +109,6 @@ sub _table
 
     return $dataTable;
 
-}
-
-# Method: syncRows
-#
-#  Needed to add the default excludes the first time or if the list is empty
-#
-#   Overrides <EBox::Model::DataTable::syncRows>
-#
-sub syncRows
-{
-    my ($self, $currentIds) = @_;
-    unless (@{$currentIds}) {
-        # if there are no rows, we have to add them
-        foreach my $exclude (DEFAULT_EXCLUDES) {
-            $self->add(type => 'exclude_path', target => $exclude);
-        }
-        return 1;
-    }
-
-    return 0;
 }
 
 sub _types
@@ -235,6 +213,12 @@ sub fileSelectionArguments
     my ($self) = @_;
 
     my $args = '';
+    my $defaultExcludes = EBox::Config::configkey('ebackup_default_excludes');
+    my @excludes = split ($defaultExcludes);
+    foreach my $exclude (@excludes) {
+        $args .= "--exclude=$exclude ";
+    }
+
     foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $type = $row->valueByName('type');

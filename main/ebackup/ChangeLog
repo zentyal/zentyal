@@ -1,6 +1,8 @@
 HEAD
 	+ Exclude / by default for coherency with the rest of modules like
 	  firewall or proxy, and also allow now to include /
+	+ Do not show default excludes like /dev or /proc on the interface,
+	  they now can be customized in /etc/zentyal/ebackup.conf
 3.1.3
 	+ Added menu icon
 3.1.2
