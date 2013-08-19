@@ -1184,6 +1184,8 @@ sub dumpConfig
 
     my @cmds;
 
+    EBox::Service::manage('zentyal.s4sync', 'stop') if $self->_s4syncCond();
+
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -1233,6 +1235,8 @@ sub dumpConfig
     } otherwise {
         my ($error) = @_;
         throw $error;
+    } finally {
+        EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
     };
 
     # Backup admin password

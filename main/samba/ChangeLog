@@ -1,4 +1,5 @@
 HEAD
+	+ Stop s4sync while dumping configuration backup
 	+ Ignore Asterisk Queues OU in s4sync
 	+ Added hiddenSid() and hiddenViewInAdvancedOnly() methods
 	+ Change default description to Zentyal Server instead of File Server
