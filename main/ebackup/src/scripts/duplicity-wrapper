@@ -45,6 +45,8 @@ if ($alternativePassword) {
     } @ARGV;
 }
 
+$ENV{HOME} = '/root';
+
 # set remote server password
 my $password =   EBox::EBackup::Password::passwd($alternativePassword);
 $ENV{FTP_PASSWORD} = $password;
