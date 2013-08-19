@@ -283,8 +283,10 @@ sub provision
 {
     my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
+
     # Stop the service
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $global->modInstance('samba');
     $samba->stopService();
 
     # Check environment
@@ -305,6 +307,11 @@ sub provision
     } else {
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
+
+    # dns needs to be restarted after save changes to write proper bind conf with the dlz
+    my @postSaveModules = @{$global->get_list('post_save_modules')};
+    push (@postSaveModules, 'dns');
+    $global->set('post_save_modules', \@postSaveModules);
 }
 
 sub resetSysvolACL
@@ -327,13 +334,17 @@ sub mapDefaultContainers
 
     my $usersMod = EBox::Global->modInstance('users');
     my $sambaMod = EBox::Global->modInstance('samba');
-    my @containerNames = ('Users', 'Computers');
-    my $ldbRootDN = $sambaMod->ldb()->dn();
+    my @containerNames = ('Users', 'Computers', 'Builtin');
+    my $ldb = $sambaMod->ldb();
+    my $ldbRootDN = $ldb->dn();
     my $ldapRootDN = $usersMod->ldap()->dn();
 
     foreach my $containerName (@containerNames) {
         my $ldbDN = "CN=$containerName,$ldbRootDN";
         my $ldapDN = "ou=$containerName,$ldapRootDN";
+
+        EBox::info("Mapping '$ldbDN' into '$ldapDN'");
+
         my $ldbObject = $sambaMod->objectFromDN($ldbDN);
         my $ldapObject = $usersMod->objectFromDN($ldapDN);
 
@@ -341,11 +352,32 @@ sub mapDefaultContainers
             throw EBox::Exceptions::Internal("Unable to find $ldbDN on LDB.")
         }
 
-        unless ($ldapObject) {
-            throw EBox::Exceptions::Internal("Unable to find $ldapDN on LDAP.")
+        if ($ldapObject) {
+            $ldbObject->_linkWithUsersObject($ldapObject);
+        } else {
+            EBox::debug("'$ldapDN' doesn't exist in LDAP, creating it...");
+            $ldbObject->addToZentyal();
         }
+    }
 
-        $ldbObject->_linkWithUsersObject($ldapObject);
+    # ou=Groups is an special case, it should exists always.
+    my $ldbDN = "OU=Groups,$ldbRootDN";
+    my $ldapDN = "ou=Groups,$ldapRootDN";
+
+    EBox::info("Mapping '$ldbDN' into '$ldapDN'");
+
+    my $sambaGroupsOU = $sambaMod->objectFromDN($ldbDN);
+    my $ldapGroupsOU = $usersMod->objectFromDN($ldapDN);
+
+    unless ($sambaGroupsOU and $sambaGroupsOU->exists()) {
+        my $sambaParent = $sambaMod->defaultNamingContext();
+        $sambaGroupsOU = EBox::Samba::OU->create(name => 'Groups', parent => $sambaParent);
+    }
+
+    if ($ldapGroupsOU and $ldapGroupsOU->exists()) {
+        $sambaGroupsOU->_linkWithUsersObject($ldapGroupsOU);
+    } else {
+        $sambaGroupsOU->addToZentyal();
     }
 }
 
@@ -370,8 +402,12 @@ sub mapAccounts
     EBox::info("Mapping domain administrator account");
     my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
     my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
-    if ($domainAdmin->exists() and (not $domainAdminZentyal->exists())) {
-        $domainAdmin->addToZentyal();
+    if ($domainAdmin->exists()) {
+        if ($domainAdminZentyal->exists()) {
+            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
+        } else {
+            $domainAdmin->addToZentyal();
+        }
     }
 
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
@@ -379,17 +415,31 @@ sub mapAccounts
     EBox::info("Mapping domain administrators group account");
     my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
     my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
-    if ($domainAdmins->exists() and (not $domainAdminsZentyal->exists())) {
-        $domainAdmins->addToZentyal();
+    if ($domainAdmins->exists()) {
+        if ($domainAdminsZentyal->exists()) {
+            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
+        } else {
+            $domainAdmins->addToZentyal();
+        }
     }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
-    # Map domain users group
+    EBox::info("Mapping domain users group account");
+    my $usersModule = EBox::Global->modInstance('users');
     # FIXME Why is this not working during first intall???
-    #my $usersModule = EBox::Global->modInstance('users');
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
+    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
+    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
+    if ($domainUsers->exists()) {
+        if ($domainUsersZentyal->exists()) {
+            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
+        } else {
+            $domainUsers->addToZentyal();
+        }
+    }
+    # Map domain users group
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
@@ -848,7 +898,7 @@ sub checkClockSkew
         %h = get_ntp_response($adServerIp);
     } otherwise {
         throw EBox::Exceptions::External(
-            __x('Could not retrive time from AD server {x} via NTP.',
+            __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
     };
 
@@ -1101,8 +1151,9 @@ sub provisionADC
             " --password='$adPwd' ";
         EBox::Sudo::rootWithoutException($cmd);
 
-        # Purge users and groups
+        # Purge ous, users, contacts and groups
         EBox::info("Purging the Zentyal LDAP to import Samba users");
+        my $ous = $usersModule->ous();
         my $users = $usersModule->users();
         my $contacts = $usersModule->contacts();
         my $groups = $usersModule->groups();
@@ -1118,8 +1169,14 @@ sub provisionADC
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
         }
+        foreach my $zentyalOU (@{$ous}) {
+            # TODO: We must ignore OUs like the ones used by zentyal-mail.
+            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos', 'Groups']});
 
-        # TODO: Should we clear all OU like we do with users, groups and contacts?
+            $zentyalOU->setIgnoredModules(['samba']);
+            $zentyalOU->deleteObject();
+        }
+
         # Map defaultContainers
         $self->mapDefaultContainers();
 

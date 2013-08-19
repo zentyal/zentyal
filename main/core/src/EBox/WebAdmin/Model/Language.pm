@@ -54,7 +54,7 @@ sub validateTypedRow
             $pkglang = 'pt' if ($pkglang eq 'pt-pt');
         }
         $package = "language-pack-zentyal-$pkglang";
-        $pkgInstalled = $lang eq 'C' ? 1 : EBox::GlobalImpl::_packageInstalled($package);
+        $pkgInstalled = $lang =~ /^en_/ ? 1 : EBox::GlobalImpl::_packageInstalled($package);
     }
 
     if ($showPkgWarn and not $pkgInstalled) {
@@ -91,6 +91,9 @@ sub _populateLanguages
     my $langs = EBox::Gettext::langs();
 
     my $default = EBox::locale();
+    if ($default eq 'C') {
+        $default = 'en_US.UTF-8';
+    }
 
     my @array;
     push (@array, { value => $default, printableValue => $langs->{$default} });
@@ -106,7 +109,8 @@ sub _populateLanguages
 
 sub updatedRowNotify
 {
-    my ($self) = @_;
+    my ($self, $row, $oldRow) = @_;
+
     my $global = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     $sysinfo->setReloadPageAfterSavingChanges(1);

@@ -1,4 +1,5 @@
-HEAD
+3.1.3
+	+ Added menu icon
 	+ Request user confirmation when clicking remove virtual machine button
 	+ Do not check for r/rw perms on disks as libvirt automatically fixes them
 	+ Bridges already used are skipped instead of reused to avoid conflicts

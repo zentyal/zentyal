@@ -1733,6 +1733,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder('name' => 'CA',
                                         'text' => $self->printableName(),
+                                        'icon' => 'ca',
                                         'separator' => 'Infrastructure',
                                         'order' => 422);
 

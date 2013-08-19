@@ -28,15 +28,11 @@ use EBox::Exceptions::Internal;
 # Dependencies
 use Error qw(:try);
 
-sub new # (cgi=?)
+sub new
 {
-    my $class = shift;
-    my %params = @_;
-    my $tableModel = delete $params{'tableModel'};
-
-    my $self = $class->SUPER::new(@_);
-    $self->{'tableModel'} = $tableModel;
-
+    my ($class, %params) = @_;
+    my $self = $class->SUPER::new(%params);
+    $self->{'tableModel'} = $params{'tableModel'};
     bless($self, $class);
     return  $self;
 }

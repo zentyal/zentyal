@@ -43,7 +43,7 @@ use Time::HiRes;
 
 use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
-use constant BUILT_IN_CONTAINERS => qw(Users Computers);
+use constant BUILT_IN_CONTAINERS => qw(Users Computers Builtin);
 
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
@@ -279,41 +279,62 @@ sub domainNetBiosName
     return undef;
 }
 
+sub ldapOUToLDB
+{
+    my ($self, $ldapOU) = @_;
+
+    unless ($ldapOU and $ldapOU->isa('EBox::Users::OU')) {
+        throw EBox::Exceptions::MissingArgument('ldapOU');
+    }
+
+    my $global = EBox::Global->getInstance();
+    my $sambaMod = $global->modInstance('samba');
+
+    my $parent = $sambaMod->ldbObjectFromLDAPObject($ldapOU->parent);
+    if (not $parent) {
+        my $dn = $ldapOU->dn();
+        throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
+    }
+    my $name = $ldapOU->name();
+    my $parentDN = $parent->dn();
+
+    EBox::debug("Loading OU $name into $parentDN");
+
+    my $sambaOU = undef;
+    try {
+        $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+        $sambaOU->_linkWithUsersObject($ldapOU);
+    } catch EBox::Exceptions::DataExists with {
+        EBox::debug("OU $name already in $parentDN on Samba database");
+        $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
+    } otherwise {
+        my $error = shift;
+        EBox::error("Error loading OU '$name' in '$parentDN': $error");
+    };
+
+    return $sambaOU;
+}
+
 sub ldapOUsToLDB
 {
     my ($self) = @_;
 
     EBox::info('Loading Zentyal OUS into samba database');
+
     my $global = EBox::Global->getInstance();
     my $usersMod = $global->modInstance('users');
-    my $sambaMod = $global->modInstance('samba');
-
     my @ous = @{ $usersMod->ous() };
+    my $namingContextDN = $usersMod->ldap()->dn();
     foreach my $ou (@ous) {
-        my $parent = $sambaMod->ldbObjectFromLDAPObject($ou->parent);
-        if (not $parent) {
-            my $dn = $ou->dn();
-            throw EBox::Exceptions::External("Unable to to find the container for '$dn' in Samba");
-        }
         my $name = $ou->name();
-        my $parentDN = $parent->dn();
+        my $parentDN = $ou->parent()->dn();
 
-        EBox::debug("Loading OU $name into $parentDN");
-        # Samba already has an specific container for this OU, ignore it.
-        if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
-            EBox::debug("Ignoring OU $name given that it has a built in container");
+        if (($parentDN eq $namingContextDN) and ((grep { $_ eq $name } BUILT_IN_CONTAINERS) or ($name eq 'Groups'))) {
+            # Samba already has an specific container for this OU, ignore it.
+            EBox::debug("Ignoring OU $name given that it has a built-in container");
             next;
         }
-
-        try {
-            my $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
-            $sambaOU->_linkWithUsersObject($ou);
-        } catch EBox::Exceptions::DataExists with {
-            EBox::debug("OU $name already in $parentDN on Samba database");
-        } otherwise {
-            my $error = shift;
-            EBox::error("Error loading OU '$name' in '$parentDN': $error");
-        };
+        $self->ldapOUToLDB($ou);
     }
 }
 
@@ -348,6 +369,9 @@ sub ldapUsersToLdb
             );
             my $sambaUser = EBox::Samba::User->create(%args);
             $sambaUser->_linkWithUsersObject($user);
+            unless ($user->isDisabled()) {
+                $sambaUser->setAccountEnabled(1);
+            }
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
@@ -469,31 +493,30 @@ sub ldapServicePrincipalsToLdb
     my $usersMod = EBox::Global->modInstance('users');
     my $sambaMod = EBox::Global->modInstance('samba');
 
+    my $ldb = $sambaMod->ldb();
     my $baseDn = $usersMod->ldap()->dn();
     my $realm = $usersMod->kerberosRealm();
     my $ldapKerberosDN = "ou=Kerberos,$baseDn";
     my $ldapKerberosOU = new EBox::Users::OU(dn => $ldapKerberosDN);
 
     # If OpenLDAP doesn't have the Kerberos OU, we don't need to do anything.
-    return unless ($ldapKerberosOU->exists());
+    return unless ($ldapKerberosOU and $ldapKerberosOU->exists());
 
     my $ldbKerberosOU = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU);
     unless ($ldbKerberosOU) {
-        my $parent = $sambaMod->ldbObjectFromLDAPObject($ldapKerberosOU->parent());
-        if (not $parent) {
-            throw EBox::Exceptions::External("Unable to to find the container for '$ldbKerberosOU' in Samba");
-        }
-        my $name = $ldapKerberosOU->name();
-        my $parentDN = $parent->dn();
-        EBox::debug("Loading OU $name into $parentDN");
-        try {
-            $ldbKerberosOU = EBox::Samba::OU->create(name => $name, parent => $parent);
+        # Check whether the OU exist in Samba but it's not linked with OpenLDAP.
+        my $ldbRootDN = $ldb->dn();
+        my $ldbKerberosDN = "OU=Kerberos,$ldbRootDN";
+        $ldbKerberosOU = $sambaMod->objectFromDN($ldbKerberosDN);
+
+        if ($ldbKerberosOU and $ldbKerberosOU->exists()) {
             $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
-        } otherwise {
-            my $error = shift;
-            throw EBox::Exceptions::Internal("Error loading OU '$name' in '$parentDN': $error");
-        };
+        } else {
+            $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
+        }
     }
+
+    return unless ($ldbKerberosOU and $ldbKerberosOU->exists());
 
     foreach my $module (@{$modules}) {
         my $principals = $module->kerberosServicePrincipals();
@@ -519,9 +542,9 @@ sub ldapServicePrincipalsToLdb
                     kerberosKeys   => $user->kerberosKeys(),
                 );
                 $smbUser = EBox::Samba::User->create(%args);
-                # TODO: Should we link this with any OpenLDAP user?
                 $smbUser->setCritical(1);
-                $smbUser->setViewInAdvancedOnly(1);
+                $smbUser->setInAdvancedViewOnly(1);
+                $smbUser->_linkWithUsersObject($user);
             }
             foreach my $p (@{$principals->{principals}}) {
                 try {
@@ -548,7 +571,7 @@ sub users
         base => $self->dn(),
         scope => 'sub',
         filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+                  '(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
@@ -567,8 +590,7 @@ sub contacts
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(&(objectclass=contact)(!(objectclass=computer)))' .
-                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=contact)(!(isDeleted=*)))',
         attrs => ['*'],
     };
     my $result = $self->search($params);
@@ -588,7 +610,7 @@ sub groups
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
@@ -611,11 +633,11 @@ sub ous
     my $objectClass = EBox::Samba::OU->mainObjectClass();
     my %args = (
         base => $self->dn(),
-        filter => "objectclass=$objectClass",
+        filter => "(objectclass=$objectClass)",
         scope => 'sub',
     );
 
-    my $result = $self->ldap->search(\%args);
+    my $result = $self->search(\%args);
 
     my @ous = ();
     foreach my $entry ($result->entries)

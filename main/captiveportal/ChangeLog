@@ -1,4 +1,6 @@
-HEAD
+3.1.4
+	+ User add-on adapted to right panel view
+	+ Added menu icon
 	+ Use MAC address in object exception
 	+ Fixed bug in exceptions firewall rules
 	+ Adapt firewall rules to new accept chains

@@ -1,3 +1,9 @@
+HEAD
+	+ Better warnings for fixed addresses objects with same member
+	  name or mac
+3.1.1
+	+ Adapted to updatedRowNotify call with no changes in values
+	+ Added menu icon
 3.1
 	+ Implemented _daemonsToDisable()
 	+ Moved initRange and endRange methods to the network module to be shared.

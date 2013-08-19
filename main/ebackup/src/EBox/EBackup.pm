@@ -870,8 +870,9 @@ sub menu
     my ($self, $root) = @_;
 
     my $system = new EBox::Menu::Folder('name' => 'SysInfo',
-                        'text' => __('System'),
-                        'order' => 30);
+                                        'icon' => 'system',
+                                        'text' => __('System'),
+                                        'order' => 30);
 
     $system->add(new EBox::Menu::Item(
             'url' => 'SysInfo/EBackup',

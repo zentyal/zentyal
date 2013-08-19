@@ -3,119 +3,61 @@
 <%args>
     $user
     @usergroups
-    @remaingroups
-    @components
-    $slave => 1
+    @remaingroups => ()
+    @components => ()
+    $slave => 0
 </%args>
 <%init>
 use EBox::Gettext;
 use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
+my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 </%init>
 
-<div id="edit_user">
 
+<div id="edit_user">
+<h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
+<div id='note_editUserForm' class='note' style='display:none'></div>
 <div id='error_editUserForm' class='error' style='display:none'></div>
-<div id="user_attrs" class="form-block">
-  <h4><% __('User profile') %> | <% $user->name() %></h4>
-      <form action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
+<div id="user_attrs" class="form-block half-block">
+      <form class="formDiv" action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
-        <table class='formTable'>
-        <tbody>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('First name') %>:
-                    </span>
-                </td>
-                <td>
+          <label><% __('First name') %></label>
                   <& masterSlaveUserAttr,
                                name => 'givenname',
                                value => $user->firstname(),
                                slave => $slave,
                    &>
-                </td>
-            </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Last name') %>:
-                    </span>
-                </td>
-                <td>
+          <label><% __('Last name') %></label>
+
                   <& masterSlaveUserAttr,
                                name => 'surname',
                                value=> $user->surname(),
                                slave => $slave,
                    &>
-                </td>
-            </tr>
-            <tr>
-                <td class='tright' width="170px">
-                    <span class='ftitle'>
-                        <% __('Description') %>:
-                    </span>
-                    <div class="optional_field">
-                        <% __('Optional') %>
-                    </div>
-                </td>
-                <td>
+          <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'description',
                                value=> ($user->description() or ''),
                                slave => $slave,
                    &>
-                </td>
-            </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('User quota') %> (MB):
-                    </span>
-                </td>
-                <td>
-                    <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
-                </td>
-            </tr>
+          <label><% __('User quota') %> (MB)</label>
+          <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+          <label><% __('Disabled account') %></label>
+          <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
 %   unless ($slave) {
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Password') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='password' class='inputText' name='password'>
-                </td>
-            </tr>
-            <tr>
-                <td class='tright'>
-                    <span class='ftitle'>
-                        <% __('Retype password') %>:
-                    </span>
-                </td>
-                <td>
-                    <input type='password' class='inputText' name='repassword'>
-                </td>
-            </tr>
+          <label><% __('Password') %></label>
+          <input type='password' class='inputText' name='password'>
+          <label><% __('Retype password') %></label>
+          <input type='password' class='inputText' name='repassword'>
 % }
-
-            <tr>
-                <td>
-                </td>
-                <td>
-                    <input class='inputButton' type='submit' name='user'
+          <input class='btn btn-submit' id='submitEditUserForm' type='submit' name='user'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
-                <td>
-            </tr>
-        </tbody>
-        </table>
      </form>
 </div>
-
-<div id="user_groups" class="form-block">
+<div id="user_groups" class="form-block half-block">
 <h4> <% __('User groups') %></h4>
 % unless ($slave) {
 <& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
@@ -124,19 +66,22 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 % }
 </div>
 
-<div id="user_addons" class="form-block">
-<h4> <% __('Addons configuration') %></h4>
+% if (@components) {
+<div id="user_addons" class="form-block full-block">
+<h4> <% __('Modules configuration') %></h4>
 % foreach my $comp (@components) {
-  <div class="stitle">
-    <a class='foldUserAddon maxBox' data-fold-div='<% $comp->{id} %>' href='#' />
-    <% $comp->{title}%>
-  </div>
-   <br/>
-   <div id='<% $comp->{id} %>'  class='userAddon' style='display:none' >
+  <div class="foldableSection">
+   <div class="foldableHead foldUserAddon" data-fold-div='<% $comp->{id} %>'>
+      <span class='maxBox'></span>
+      <% $comp->{title}%>
+   </div>
+   <div id='<% $comp->{id} %>'  class='userAddon foldableContent' >
        <& $comp->{'path'}, 'params' => $comp->{'params'}   &>
    </div>
+ </div>
 % }
 </div>
+% }
 
 <%def masterSlaveUserAttr>
 <%args>
@@ -167,17 +112,19 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 
 <& .addToGroup, user => $user &>
 <div id='error_removeUserFromGroup' class='error' style='display:none'></div>
-<ul name='userGroups' id='userGroups'>
+<ul name='userGroups' id='userGroups' class="labels-list">
 </ul>
 
+<script type="text/javascript" src="/data/js/form.js" />
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";
 $(function() {
-   $('#editUserForm').on('submit', function(event) {
-       event.preventDefault();
-       Zentyal.Dialog.submitForm('#editUserForm', { extraData:  { edit: 1} });
-    });
+   Zentyal.Form.setupAjaxSubmit('#editUserForm', {
+        noteDiv: '#note_editUserForm',
+        errorDiv: '#error_editUserForm',
+        submitButton: '#submitEditUserForm',
+   });
 
    var updateGroupsWidgets = function(data) {
             var group, i;
@@ -195,15 +142,15 @@ $(function() {
             userGroups.detach();
             userGroups.children().remove();
             if (data.member.length === 0) {
-                userGroups.append('<div><% __('This user is not member of any group') %></div>');
+                userGroups.append('<div class="note"><% __('This user is not member of any group') %></div>');
             }
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
                userGroups.append('<li>' + group +
-                                 '<input type="image" style="border: none; background: none;"' +
-                                  'src="/data/images/delete.gif" ' +
+                                 '<span ' +
+                                  'class="close" ' +
                                   'data-group-name="' + group + '" ' +
-                                  '/>' +   '</li>'
+                                  '>delete</span>' +   '</li>'
                                  );
             }
             userGroups.insertAfter('#error_removeUserFromGroup');
@@ -217,10 +164,12 @@ $(function() {
 
    $('#addUserToGroup').on('submit', function(event) {
        event.preventDefault();
-       Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+       if ($('.custom-combobox input').val()) {
+           Zentyal.Dialog.submitForm('#addUserToGroup', { complete : refreshGroups});
+       }
     });
 
-   $('#userGroups').on('click', 'input', function(event) {
+   $('#userGroups').on('click', 'span', function(event) {
        event.preventDefault();
        var url = '/Users/EditUser';
        var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
@@ -247,7 +196,7 @@ $(function() {
     $('.foldUserAddon').on('click', function(event) {
         event.preventDefault();
         var divId = this.getAttribute('data-fold-div');
-        $(this).toggleClass('minBox').toggleClass('maxBox');
+        $(this).find('span').toggleClass('minBox').toggleClass('maxBox');
         $('#' + divId).toggle();
     });
 
@@ -264,9 +213,9 @@ $user
 </%args>
 <div id='error_addUserToGroup' class='error' style='display:none'></div>
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
-  <select name="addgroup" id="addgroup" style="width: 40px">
+  <select name="addgroup" id="addgroup">
   </select>
-  <input type='submit' id='addGroupSubmit' value='<% __('Add group') %>' style='margin-left: 30px'/>
+  <input type='submit' id='addGroupSubmit' class='btn btn-only-icon btn-add btn-submit' value='<% __('Add group') %>' title='<% __('Add group') %>' style='float: right'/>
   <input type="hidden" name="dn"   value="<% $user->dn() %>"/>
   <input type="hidden" name="addgrouptouser" value="1"/>
 </form>
@@ -285,8 +234,7 @@ if (@usergroups) {
    $groupStr =  __('No member of any group');
 }
 </%init>
-<div class="tleft"><% __("Groups") %></div>
-<ul name='userGroups' id='userGroups'  size='8'>
+<ul name='userGroups' id='userGroups' class="labels-list" size='8'>
 % foreach my $group (@usergroups) {
       <li>
          <% $group->name() %>

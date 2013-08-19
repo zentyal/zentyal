@@ -44,6 +44,7 @@ use EBox::Users;
 use EBox::Samba::Model::SambaShares;
 use EBox::Samba::Provision;
 use EBox::Samba::GPO;
+use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
 use EBox::Samba::Container;
 use EBox::Samba::NamingContext;
@@ -606,12 +607,16 @@ sub sambaInterfaces
         $netIfaces = $net->InternalIfaces();
     }
 
+    my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
         push @ifaces, $iface;
 
         if ($net->ifaceMethod($iface) eq 'bridged') {
             my $br = $net->ifaceBridge($iface);
-            push (@ifaces, "br$br");
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
             next;
         }
 
@@ -799,7 +804,13 @@ sub _setConf
     return unless $self->configured() and $self->isEnabled();
 
     my $prov = $self->getProvision();
-    if (not $prov->isProvisioned() or $self->get('need_reprovision')) {
+    if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
+        if ($self->get('need_reprovision')) {
+            # Current provision is not useful, change back status to not provisioned.
+            $prov->setProvisioned(0);
+            # The LDB connection needs to be reset so we stop using cached values.
+            $self->ldb()->clearConn()
+        }
         $prov->provision();
         $self->unset('need_reprovision');
     }
@@ -998,6 +1009,7 @@ sub menu
 
     my $folder = new EBox::Menu::Folder(name      => 'Samba',
                                         text      => $self->printableName(),
+                                        icon      => 'samba',
                                         separator => 'Office',
                                         order     => 540);
     $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
@@ -1104,7 +1116,7 @@ sub defaultDescription
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
-    return ucfirst($prefix) . ' File Server';
+    return ucfirst($prefix) . ' Server';
 }
 
 # Method: description
@@ -2042,8 +2054,12 @@ sub ldapObjectFromLDBObject
 {
     my ($self, $ldbObject) = @_;
 
-    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
-    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+    unless ($ldbObject) {
+        throw EBox::Exceptions::MissingArgument('ldbObject')
+    }
+    unless ($ldbObject->isa('EBox::Samba::LdbObject')) {
+        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject');
+    }
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -2071,10 +2087,12 @@ sub ldbObjectFromLDAPObject
     }
 
     my $objectGUID = $ldapObject->get('msdsObjectGUID');
-    unless ($objectGUID) {
-        throw EBox::Exceptions::Internal("'" . $ldapObject->dn() ."' lacks a value for msdsObjectGUID!");
+    if ($objectGUID) {
+        return $self->ldbObjectByObjectGUID($objectGUID);
+    } else {
+        EBox::debug("Unable to find the LDB object for LDAP's DN: " . $ldapObject->dn());
+        return undef;
     }
-    return $self->ldbObjectByObjectGUID($objectGUID);
 }
 
 # Method: entryModeledObject
@@ -2094,7 +2112,7 @@ sub entryModeledObject
     my $object;
 
     my $anyObjectClasses = any($entry->get_value('objectClass'));
-    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container);
+    my @entryClasses =qw(EBox::Samba::OU EBox::Samba::User EBox::Samba::Contact EBox::Samba::Group EBox::Samba::Container EBox::Samba::BuiltinDomain);
     foreach my $class (@entryClasses) {
             EBox::debug("Checking " . $class->mainObjectClass . ' against ' . (join ',', $entry->get_value('objectClass')) );
         if ($class->mainObjectClass eq $anyObjectClasses) {
@@ -2234,12 +2252,56 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
-# Method: sidsToHide
+# Method: hiddenViewInAdvancedOnly
 #
-#   Return the list of regexps to of SIDs to hide on the UI
-#   read from /etc/zentyal/sids-to-hide.regex
+#  Returns if the specified LDAP object needs to be shown only in advanced view
 #
-sub sidsToHide
+sub hiddenViewInAdvancedOnly
+{
+    my ($self, $ldapObject) = @_;
+
+    my $sambaObject = undef;
+    try {
+        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
+    } otherwise {};
+
+    if ($sambaObject and $sambaObject->isInAdvancedViewOnly()) {
+        return 1;
+    }
+
+    return 0;
+}
+
+# Method: hiddenSid
+#
+#   Check if the specified LDAP object belongs to the list of regexps
+#   of SIDs to hide on the UI read from /etc/zentyal/sids-to-hide.regex
+#
+sub hiddenSid
+{
+    my ($self, $ldapObject) = @_;
+
+    my $sambaObject = undef;
+    try {
+        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
+    } otherwise {};
+
+    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
+        return 0;
+    }
+
+    unless ($self->{sidsToHide}) {
+        $self->{sidsToHide} = $self->_sidsToHide();
+    }
+
+    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
+       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
+    }
+
+    return 0;
+}
+
+sub _sidsToHide
 {
     my ($self) = @_;
 
@@ -2250,6 +2312,5 @@ sub sidsToHide
 
     return \@sids;
 }
-
 
 1;

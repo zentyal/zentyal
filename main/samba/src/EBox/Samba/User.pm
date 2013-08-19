@@ -48,6 +48,30 @@ use Error qw(:try);
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
 
+# UserAccountControl flags extracted from http://support.microsoft.com/kb/305144
+use constant SCRIPT                         => 0x00000001;
+use constant ACCOUNTDISABLE                 => 0x00000002;
+use constant HOMEDIR_REQUIRED               => 0x00000008;
+use constant LOCKOUT                        => 0x00000010;
+use constant PASSWD_NOTREQD                 => 0x00000020;
+use constant PASSWD_CANT_CHANGE             => 0x00000040;
+use constant ENCRYPTED_TEXT_PWD_ALLOWED     => 0x00000080;
+use constant TEMP_DUPLICATE_ACCOUNT         => 0x00000100;
+use constant NORMAL_ACCOUNT                 => 0x00000200;
+use constant INTERDOMAIN_TRUST_ACCOUNT      => 0x00000800;
+use constant WORKSTATION_TRUST_ACCOUNT      => 0x00001000;
+use constant SERVER_TRUST_ACCOUNT           => 0x00002000;
+use constant DONT_EXPIRE_PASSWORD           => 0x00010000;
+use constant MNS_LOGON_ACCOUNT              => 0x00020000;
+use constant SMARTCARD_REQUIRED             => 0x00040000;
+use constant TRUSTED_FOR_DELEGATION         => 0x00080000;
+use constant NOT_DELEGATED                  => 0x00100000;
+use constant USE_DES_KEY_ONLY               => 0x00200000;
+use constant DONT_REQ_PREAUTH               => 0x00400000;
+use constant PASSWORD_EXPIRED               => 0x00800000;
+use constant TRUSTED_TO_AUTH_FOR_DELEGATION => 0x01000000;
+use constant PARTIAL_SECRETS_ACCOUNT        => 0x04000000;
+
 # Method: mainObjectClass
 #
 sub mainObjectClass
@@ -143,18 +167,13 @@ sub setupUidMapping
 {
     my ($self, $uidNumber) = @_;
 
-    # NOTE Samba4 beta2 support rfc2307, reading uidNumber from ldap instead idmap.ldb, but
-    # it is not working when the user init session as DOMAIN/user but user@domain.com
-    # FIXME Remove this when fixed
     my $type = $self->_ldap->idmap->TYPE_UID();
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $uidNumber);
 }
 
 # Method: setAccountEnabled
 #
-#   Enables or disables the user account, setting the userAccountControl
-#   attribute. For a description of this attribute check:
-#   http://support.microsoft.com/kb/305144
+#   Enables or disables the user account.
 #
 sub setAccountEnabled
 {
@@ -162,9 +181,9 @@ sub setAccountEnabled
 
     my $flags = $self->get('userAccountControl');
     if ($enable) {
-        $flags = $flags & ~0x0002;
+        $flags = $flags & ~ACCOUNTDISABLE;
     } else {
-        $flags = $flags | 0x0002;
+        $flags = $flags | ACCOUNTDISABLE;
     }
     $self->set('userAccountControl', $flags, 1);
 
@@ -185,7 +204,7 @@ sub isAccountEnabled
 {
     my ($self) = @_;
 
-    return not ($self->get('userAccountControl') & 0x0002);
+    return not ($self->get('userAccountControl') & ACCOUNTDISABLE);
 }
 
 # Method: addSpn
@@ -287,7 +306,7 @@ sub setHomeDrive
 #       samAccountName - string with the user name
 #       clearPassword - Clear text password
 #       kerberosKeys - Set of kerberos keys
-#       uidNumber - user UID numberer
+#       uidNumber - user UID number
 #
 # Returns:
 #
@@ -323,7 +342,7 @@ sub create
     my $realm = $usersMod->kerberosRealm();
 
     my @attr = ();
-    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user', 'posixAccount']);
+    push (@attr, objectClass => ['top', 'person', 'organizationalPerson', 'user']);
     push (@attr, cn          => $name);
     push (@attr, name        => $name);
     push (@attr, givenName   => $args{givenName}) if ($args{givenName});
@@ -333,8 +352,8 @@ sub create
     push (@attr, description => $args{description}) if ($args{description});
     push (@attr, sAMAccountName => $samAccountName);
     push (@attr, userPrincipalName => "$samAccountName\@$realm");
-    push (@attr, userAccountControl => '514');
-    push (@attr, uidNumber => $args{uidNumber}) if ($args{uidNumber});
+    # All accounts are, by default Normal and disabled accounts.
+    push (@attr, userAccountControl => NORMAL_ACCOUNT | ACCOUNTDISABLE);
 
     my $res = undef;
     my $entry = undef;
@@ -354,9 +373,6 @@ sub create
 
         $res = new EBox::Samba::User(dn => $dn);
 
-        # Setup the uid mapping
-        $res->setupUidMapping($args{uidNumber}) if defined $args{uidNumber};
-
         # Set the password
         if (defined $args{clearPassword}) {
             $res->changePassword($args{clearPassword});
@@ -364,6 +380,10 @@ sub create
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
             $res->setAccountEnabled();
+        }
+
+        if (defined $args{uidNumber}) {
+            $res->setupUidMapping($args{uidNumber});
         }
     } otherwise {
         my ($error) = @_;
@@ -425,7 +445,6 @@ sub addToZentyal
     my $uid = $self->get('samAccountName');
     my $givenName = $self->givenName();
     my $surname = $self->surname();
-    my $uidNumber = $self->get('uidNumber');
     $givenName = '-' unless $givenName;
     $surname = '-' unless $surname;
 
@@ -444,14 +463,12 @@ sub addToZentyal
             ignoreMods   => ['samba'],
         );
 
-        if (not $uidNumber) {
-            $uidNumber = $self->getXidNumberFromRID();
-            throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid") unless ($uidNumber);
-            $self->set('uidNumber', $uidNumber);
+        my $uidNumber = $self->xidNumber();
+        unless (defined $uidNumber) {
+            throw EBox::Exceptions::Internal("Could not get uidNumber for user $uid");
         }
-
         $args{uidNumber} = $uidNumber;
-        $self->setupUidMapping($uidNumber);
+        $args{isSystemUser} = ($uidNumber < EBox::Users::User->MINUID());
 
         $zentyalUser = EBox::Users::User->create(%args);
     } catch EBox::Exceptions::DataExists with {
@@ -465,13 +482,24 @@ sub addToZentyal
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);
 
+        if ($self->isAccountEnabled()) {
+            $zentyalUser->setDisabled(0);
+        } else {
+            $zentyalUser->setDisabled(1);
+        }
+
         my $sc = $self->get('supplementalCredentials');
         my $up = $self->get('unicodePwd');
-        my $creds = new EBox::Samba::Credentials(
-            supplementalCredentials => $sc,
-            unicodePwd => $up
-        );
-        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+        if ($sc or $up) {
+            # There are some accounts that lack credentials, like Guest account.
+            my $creds = new EBox::Samba::Credentials(
+                supplementalCredentials => $sc,
+                unicodePwd => $up
+            );
+            $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+        } else {
+            EBox::warn("The user $uid doesn't have credentials!");
+        }
 
         $self->_linkWithUsersObject($zentyalUser);
 
@@ -505,15 +533,25 @@ sub updateZentyal
     $zentyalUser->set('sn', $surname, 1);
     $zentyalUser->set('displayName', $displayName, 1);
     $zentyalUser->set('description', $description, 1);
+    if ($self->isAccountEnabled()) {
+        $zentyalUser->setDisabled(0, 1);
+    } else {
+        $zentyalUser->setDisabled(1, 1);
+    }
     $zentyalUser->save();
 
     my $sc = $self->get('supplementalCredentials');
     my $up = $self->get('unicodePwd');
-    my $creds = new EBox::Samba::Credentials(
-        supplementalCredentials => $sc,
-        unicodePwd => $up
-    );
-    $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+    if ($sc or $up) {
+        # There are some accounts that lack credentials, like Guest account.
+        my $creds = new EBox::Samba::Credentials(
+            supplementalCredentials => $sc,
+            unicodePwd => $up
+        );
+        $zentyalUser->setKerberosKeys($creds->kerberosKeys());
+    } else {
+        EBox::warn("The user $uid doesn't have credentials!");
+    }
 }
 
 1;

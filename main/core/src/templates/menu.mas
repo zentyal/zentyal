@@ -5,7 +5,7 @@ $currentUrl => ''
 </%args>
 <div id='menu'>
     <ul id='nav'>
-        <li>
+        <li class="menuSearch">
             <input id='menusearch' type='text'/>
         </li>
 % foreach my $item (@items) {

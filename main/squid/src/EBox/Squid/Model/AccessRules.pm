@@ -337,6 +337,32 @@ sub validateTypedRow
     }
 }
 
+sub addedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub updatedRowNotify
+{
+    my ($self) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub deletedRowNotify
+{
+    my ($self, $row, $force) = @_;
+    $self->_changeInAccessRules();
+}
+
+sub _changeInAccessRules
+{
+    my ($self) = @_;
+
+    # TODO: Check if there is a change in the use of filtering
+    $self->global()->modChange('logs');
+}
+
 # TODO: Add doc as used by list-proxy-rules job
 sub rules
 {

@@ -38,8 +38,19 @@ sub _process
 
     $self->_requireParam('dn', 'dn');
 
+    my @args;
+
     my $dn = $self->unsafeParam('dn');
     my $group = new EBox::Users::Group(dn => $dn);
+
+    # Forbid deletion of Domain Admins group
+    my $samba = EBox::Global->modInstance('samba');
+    if (defined ($samba)) {
+        my $object = $samba->ldbObjectFromLDAPObject($group);
+        if ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-512$/) {
+            push (@args, 'forbid' => 1);
+        }
+    }
 
     if ($self->unsafeParam('delgroup')) {
         $self->{json} = { success => 0 };
@@ -48,7 +59,6 @@ sub _process
         $self->{json}->{redirect} = '/Users/Tree/Manage';
     } else {
         # show confirmation dialog
-        my @args;
         my $users = EBox::Global->getInstance()->modInstance('users');
         push(@args, 'group' => $group);
         my $editable = $users->editableMode();

@@ -102,10 +102,21 @@ sub connection
             if ($@) {
                 throw EBox::Exceptions::Internal("Error loading class EBox::UserCorner::Auth: $@")
             }
-            my $credentials = EBox::UserCorner::Auth->credentials();
-            my $usersMod = EBox::Global->modInstance('users');
-            my $user = $usersMod->userByUID($credentials->{'user'});
-            $dn = $user->dn();
+            my $credentials = undef;
+            try {
+                $credentials = EBox::UserCorner::Auth->credentials();
+            } catch EBox::Exceptions::DataNotFound with {
+                # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
+                my $userCornerMod = EBox::Global->modInstance('usercorner');
+                $credentials = {
+                    userDN => $userCornerMod->roRootDn(),
+                    pass => $userCornerMod->getRoPassword()
+                };
+            } otherwise {
+                my ($error) = @_;
+                throw $error;
+            };
+            $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};
         } else {
             $dn = $self->rootDn();
@@ -397,6 +408,7 @@ sub usersInBackup
             }
 
             # in zentyal users are identified by DN, not by objectclass
+            # TODO: Review this code, with multiou this may not be true anymore!
             if ($dn =~ /$usersDn$/) {
                 push @users, $entry->get_value('uid');
             }

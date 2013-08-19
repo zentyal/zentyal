@@ -31,6 +31,7 @@ use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
 use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
 use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
+use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
 {
@@ -133,8 +134,40 @@ sub initialSetup
         $self->setPort($port);
     }
 
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
+}
+
+# Migration to 3.2
+#
+#  * Create the USERCORNER_LDAP_PASS file.
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    $self->_setupRoLDAPAccess();
+
+}
+
+sub _setupRoLDAPAccess
+{
+    my ($self) = @_;
+
+    # Copy ldapro password.
+    my $ucUser = USERCORNER_USER;
+    my $ucGroup = USERCORNER_GROUP;
+    my $ldapUsersPasswdFile = EBox::Config::conf() . 'ldap_ro.passwd';
+    EBox::Sudo::root(
+        "cp $ldapUsersPasswdFile " . USERCORNER_LDAP_PASS,
+        "chown $ucUser:$ucGroup  " . USERCORNER_LDAP_PASS,
+        "chmod 600 " . USERCORNER_LDAP_PASS
+    );
 }
 
 # Method: enableActions
@@ -160,6 +193,8 @@ sub enableActions
         push (@commands, "chown $ucUser:$ucGroup $usercornerDir");
         EBox::Sudo::root(@commands);
     }
+
+    $self->_setupRoLDAPAccess();
 
     # migrate modules to usercorner
     (-d (EBox::Config::conf() . 'configured')) and return;
@@ -235,6 +270,7 @@ sub menu
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'Users',
+                                        'icon' => 'users',
                                         'text' => __('Users and Computers'),
                                         'separator' => 'Office',
                                         'order' => 510);
@@ -295,6 +331,47 @@ sub certificates
 sub editableMode
 {
     return (-f '/var/lib/zentyal-usercorner/editable');
+}
+
+# Method: roRootDn
+#
+#       Returns the dn of the read only priviliged user
+#
+# Returns:
+#
+#       string - the Dn
+sub roRootDn
+{
+    my $ldap = EBox::Ldap->instance();
+
+    return $ldap->roRootDn();
+}
+
+# Method: getRoPassword
+#
+#   Returns the password of the read only privileged user
+#   used to connect to the LDAP directory with read only
+#   permissions
+#
+# Returns:
+#
+#       string - password
+#
+sub getRoPassword
+{
+    my ($self) = @_;
+
+    unless (defined($self->{roPassword})) {
+        open(PASSWD, USERCORNER_LDAP_PASS) or
+            throw EBox::Exceptions::External('Could not get LDAP password');
+
+        my $pwd = <PASSWD>;
+        close(PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{roPassword} = $pwd;
+    }
+    return $self->{roPassword};
 }
 
 1;

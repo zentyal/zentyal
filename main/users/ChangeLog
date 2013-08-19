@@ -1,4 +1,29 @@
 HEAD
+	+ Warn instead of throw exception if home directory already exists
+	+ Forbid deletion of Domain Admins group
+	+ Forbid deletion of Users, Groups and Computers OUs
+	+ Filter also internal users and groups in membership comboboxes
+	+ Hide Samba objects that should be shown only on Advance view mode
+	+ Added support for disabled accounts
+3.1.6
+	+ Ignored samba module while (re)provisioning on __USERS__ group creation.
+	+ Removed deprecated configuration file keys related with external AD
+3.1.5
+	+ Fixed EBox::Users::LdapObject::canonicalName to propagate the flag to
+	  get or ignore the root's namedContext canonical name.
+	+ The Administrator user is hidden now using the samba module functionality
+	  to hide SIDs instead of hardcoded in the code.
+3.1.4
+	+ Remove needReload notification for group addons
+	+ When a new system user is created with uid 0 we also create its home.
+	  This is required by Samba for the Administrator account.
+	+ Added Net::LDAPBase::existsDN method
+	+ Better error control on reprovision, do not clear the
+	  reprovision flg on error
+	+ Fixed code typo in slave setup
+	+ Added menu icon
+	+ Added new userCorner method to password model
+	+ Usercorner uses the ldap_ro credentials to retrieve user DNs.
 	+ preAdd callbacks get a second argument noting the parent when this
 	  new object will be created.
 	+ All LdapObject based objects will have the 'entryUUID' field available.

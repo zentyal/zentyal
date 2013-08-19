@@ -149,11 +149,11 @@ if ($checkAllProperty) {
 %
 %   unless ((defined $onlyCustomActions) and $onlyCustomActions)   {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
+% if ($printableTableName) {
 <h3>
-  <%
-    $printableTableName
-  %>
+  <% $printableTableName %>
 </h3>
+% }
 %    }
 %   }
 <& SELF:topToolbar,
@@ -293,17 +293,13 @@ $tableName
 $model
 $filter => undef
 </%args>
-<table class="bDataTable">
-    <tr>
-        <td>
+<div class="bDataTable tableSearch">
          <& SELF:filterForm,
             tableName => $tableName,
             model     => $model,
             filter    => $filter,
          &>
-        </td>
-    </tr>
-</table>
+</div>
 </%method>
 
 <%method filterForm>
@@ -391,9 +387,10 @@ $editid
   # adding where preset contents must be shown
   my @formData;
   my @extraComponents;
+  my $editRow; # must be outside of if scope to not lose the element weaken reference
   if ($editid and ($editid ne 'undefined')) {
-      my  $fetchRow = $model->row($editid);
-      @formData = @{$fetchRow->elements()};
+      $editRow = $model->row($editid);
+      @formData = @{$editRow->elements()};
       if ($action eq 'clone') {
           # unique fields should not be cloned
           my @uniqFields = grep { $_->unique()  } @tableHead;
@@ -630,13 +627,11 @@ $addAction
 $page
 </%args>
 <%init>
-my $actionLinksAdded = 0;
 my $tableName = $model->name();
 my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
-%   $actionLinksAdded = 1;
-  <a href='#' class='addNew'
+  <a href='#' class='btn addNew'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
@@ -644,10 +639,6 @@ my $checkAll  = $model->checkAllProperty();
                       page => $page,
                       isFilter => 0)
                 %>;return false"><% __('Add new') %></a>
-% }
-
-% if ($actionLinksAdded) {
-    <br/><br/>
 % }
 
 </%method>

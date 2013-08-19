@@ -58,16 +58,20 @@ sub html
         return '';
     }
 
+    my $menuClass = "menu$name";
     my $id = $self->{id};
-    my $html = '';
-    if (defined($self->{style})) {
-        $html .= "<li id='" . $id . "' class='$self->{style}'>\n";
-    } else {
-        $html .= "<li id='" . $id . "'>\n";
+    my $liClass = $menuClass;
+    if ($self->{style}) {
+        $liClass .= " $self->{style}";
     }
+    my $html = "<li id=\"$id\" class=\"$liClass\">\n";
 
     my $isCurrentFolder = ($name eq $currentFolder);
-    my $aClass =  $isCurrentFolder ? 'despleg' : 'navarrow';
+    my $aClass = '';
+    if ($self->{icon}) {
+        $aClass = "icon-$self->{icon}";
+    }
+    $aClass .= $isCurrentFolder ? ' despleg' : ' navarrow';
 
     my $url = $self->{url};
     if (defined $url) {
@@ -81,7 +85,6 @@ sub html
 
     $html .= "<ul class='submenu'>\n";
 
-    my $menuClass = "menu$name";
     my @sorted = sort { $a->{order} <=> $b->{order} } @{$self->items()};
     foreach my $item (@sorted) {
         $item->{style} = $menuClass;

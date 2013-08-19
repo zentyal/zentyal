@@ -23,14 +23,16 @@ use base qw(EBox::LdapUserBase);
 use EBox::Global;
 use EBox::Gettext;
 
-sub _create {
+sub _create
+{
     my $class = shift;
     my $self = {};
     bless($self, $class);
     return $self;
 }
 
-sub _delGroupWarning {
+sub _delGroupWarning
+{
     my ($self, $group) = @_;
 
     if (@{$group->members()}) {
@@ -51,17 +53,21 @@ sub schemas
 sub acls
 {
     my $users = EBox::Global->modInstance('users');
-    return [ "to attrs=userPassword by dn=\"" . $users->ldap()->rootDn() .
-             "\" write by self write " .
-             "by * none" ];
+    return [];
 }
 
 sub indexes
 {
-    return [
-                 'uid', 'uidNumber', 'memberUid', 'cn', 'ou',
-                 'gidNumber', 'uniqueMember', 'krb5PrincipalName',
-           ];
+    return ['uid', 'uidNumber', 'cn', 'ou', 'gidNumber', 'uniqueMember', 'krb5PrincipalName'];
+}
+
+# Method: hiddenOUs
+#
+#   Returns the list of OUs to hide on the UI
+#
+sub hiddenOUs
+{
+    return [ 'Kerberos' ];
 }
 
 1;

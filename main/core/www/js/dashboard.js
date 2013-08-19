@@ -4,6 +4,19 @@
 Zentyal.namespace('Dashboard');
 Zentyal.namespace('Dashboard.ConfigureWidgets');
 
+Zentyal.Dashboard.levelHeights = function () {
+    var maxHeight = 0;
+    var allDashboard = $('.dashboard');
+    allDashboard.each(function(index, el) {
+        var height = $(el).height();
+        if (height > maxHeight) {
+            maxHeight = height;
+        }
+    });
+
+    allDashboard.height(maxHeight);
+};
+
 Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
@@ -13,6 +26,7 @@ Zentyal.Dashboard.createSortableDashboard = function() {
                                   update: function(event, ui) {
                                       var dashboard = $(this);
                                       Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
+                                      Zentyal.Dashboard.levelHeights();
                                   }
                                });
 };

@@ -504,7 +504,6 @@ button.ui-button::-moz-focus-inner {
 	position: relative;
 	border: 0;
 	padding: .5em 1em;
-	background: white;
 	overflow: auto;
 }
 .ui-dialog .ui-dialog-buttonpane {

@@ -1,0 +1,264 @@
+Source: sope
+Section: web
+Priority: extra
+Maintainer: Inverse Support <support@inverse.ca>
+Build-Depends: debhelper (>= 7.0.15), gnustep-make, libgnustep-base-dev, gobjc | objc-compiler, libxml2-dev, libldap2-dev | libldap-dev, libssl-dev, zlib1g-dev, libpq-dev | postgresql-dev, libmysqlclient-dev (>= 5.0) | libmysqlclient15-dev (>= 5.0), autotools-dev
+Standards-Version: 3.9.1
+
+Package: sope_SOPEVER_-dbg
+Section: debug
+Architecture: any
+Priority: extra
+Depends: libsope-appserver_SOPEVER_ (= ${binary:Version}) | sope_SOPEVER_-appserver (= ${binary:Version}) | libsope-core_SOPEVER_ (= ${binary:Version}) | libsope-xml_SOPEVER_ (= ${binary:Version}) | libsope-ldap_SOPEVER_ (= ${binary:Version}) | libsope-mime_SOPEVER_ (= ${binary:Version}) | libsope-gdl1-_SOPEVER_ (= ${binary:Version}) | sope_SOPEVER_-gdl1-postgresql (= ${binary:Version}) | sope_SOPEVER_-gdl1-mysql (= ${binary:Version}) | sope_SOPEVER_-stxsaxdriver (= ${binary:Version}) | sope_SOPEVER_-libxmlsaxdriver (= ${binary:Version}), ${misc:Depends}
+Description: Debugging files
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the debugging symbols for all SOPE packages.
+
+Package: libsope_SOPEVER_-dev
+Section: libdevel
+Architecture: all
+Provides: libsope-dev
+Conflicts: libsope-dev
+Depends: libsope-appserver_SOPEVER_-dev, libsope-core_SOPEVER_-dev, libsope-xml_SOPEVER_-dev, libsope-mime_SOPEVER_-dev, libsope-ldap_SOPEVER_-dev, libsope-gdl1-_SOPEVER_-dev, libsbjson-dev, ${misc:Depends}
+Description: Development files for all SOPE libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This is a meta-package depending on all development files of all
+ components of SOPE.
+
+Package: libsope-appserver_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-appserver-dev
+Conflicts: libsope-appserver-dev
+Depends: libsope-appserver_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the SOPE libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the development files for the SOPE application server
+ libraries.
+
+Package: libsope-appserver_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SOPE application server libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ The SOPE application server libraries provide:
+ .
+  * template rendering engine, lots of dynamic elements
+  * HTTP client/server
+  * XML-RPC client
+  * WebDAV server framework
+  * session management
+  * scripting extensions for Foundation, JavaScript bridge
+  * DOM tree rendering library
+
+Package: sope_SOPEVER_-appserver
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SOPE application server
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ . 
+ This package contains the application server that serves SOPE sites.
+
+Package: libsope-core_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-core-dev
+Conflicts: libsope-core-dev
+Depends: libsope-core_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the SOPE core libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the header files for the SOPE core
+ libraries,  which are part of the SOPE application server framework.
+
+Package: libsope-core_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Core libraries of the SOPE application server
+ The SOPE core libraries contain:
+ .
+  * various Foundation extensions
+  * a java.io like stream and socket library
+
+Package: libsope-xml_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-xml-dev
+Conflicts: libsope-xml-dev
+Depends: libsope-xml_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the SOPE XML libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the development files of the SOPE
+ XML libraries.
+
+Package: libsope-xml_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SOPE libraries for XML processing
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ The SOPE libraries for XML processing contain:
+ .
+  * a SAX2 Implementation for Objective-C
+  * an attempt to implement DOM on top of SaxObjC
+  * an XML-RPC implementation (without a transport layer)
+
+Package: libsope-ldap_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-ldap-dev
+Conflicts: libsope-ldap-dev
+Depends: libsope-ldap_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the SOPE LDAP libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the development files of the SOPE
+ LDAP libraries.
+
+Package: libsope-ldap_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SOPE libraries for LDAP access
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ The SOPE libraries for LDAP access contain an Objective-C wrapper for
+ LDAP directory services.
+
+Package: libsope-mime_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-mime-dev
+Conflicts: libsope-mime-dev
+Depends: libsope-mime_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the SOPE MIME libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the development files of the SOPE
+ MIME libraries.
+
+Package: libsope-mime_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: SOPE libraries for MIME processing
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ The SOPE libraries for MIME processing contain:
+ .
+  * classes for processing MIME entities
+  * a full IMAP4 implementation
+  * prototypical POP3 and SMTP processor
+
+Package: libsope-gdl1-_SOPEVER_-dev
+Section: libdevel
+Architecture: any
+Provides: libsope-gdl1-dev
+Conflicts: libsope-gdl1-dev
+Depends: libsope-gdl1-_SOPEVER_ (= ${binary:Version}), ${misc:Depends}
+Description: Development files for the GNUstep database libraries
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the header files for SOPE's fork of the GNUstep
+ database libraries.
+
+Package: libsope-gdl1-_SOPEVER_
+Section: libs
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GNUstep database libraries for SOPE
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains a fork of the GNUstep database libraries used
+ by the SOPE application server.
+
+Package: sope_SOPEVER_-gdl1-postgresql
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: sope_SOPEVER_-db-connector
+Suggests: postgresql (>= 8.2)
+Description: PostgreSQL connector for SOPE's fork of the GNUstep database environment
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the postgresql connector for SOPE's fork of the
+ GNUstep database libraries.
+
+Package: sope_SOPEVER_-gdl1-mysql
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: sope_SOPEVER_-db-connector
+Suggests: mysql-server (>= 5.0)
+Description: MySQL connector for SOPE's fork of the GNUstep database environment
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This package contains the mysql connector for SOPE's fork of the
+ GNUstep database libraries.
+
+Package: sope_SOPEVER_-stxsaxdriver
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: sope-stxsaxdriver
+Description: Structured Text Parser for SOPE's SAX engine
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ . 
+ This parser enables SOPE's SAX engine to parse structured text files.
+
+Package: sope_SOPEVER_-libxmlsaxdriver
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: sope-libxmlsaxdriver
+Description: XML Parser for SOPE's SAX engine
+ SOPE is a framework for developing web applications and services. The
+ name "SOPE" (SKYRiX Object Publishing Environment) is inspired by ZOPE.
+ .
+ This parser enables SOPE's SAX engine to parse XML files.
+
+Package: libsbjson2.3
+Section: web
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Provides: libsbjson
+Description: High performance Objective-C JSON library
+ The BSJson library is a very fast JSON library in Objective-C.
+ .
+ url: http://code.google.com/p/json-framework/
+
+Package: libsbjson2.3-dev
+Section: libdevel
+Architecture: any
+Depends: libsbjson2.3 (= ${binary:Version}), ${misc:Depends}
+Provides: libsbjson-dev
+Description: High performance Objective-C JSON library
+ The BSJson library is a very fast JSON library in Objective-C.
+ .
+ url: http://code.google.com/p/json-framework/

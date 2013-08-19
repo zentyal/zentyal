@@ -381,6 +381,10 @@ sub deletedRowNotify
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
 
     # ideally we should watch if the anyAllowedToLearnFromIMAPFolder status has
     # changed but to avoid corner cases we will always notifiy to mail

@@ -1,4 +1,9 @@
 HEAD
+	+ Hide Queues OU
+3.1.2
+	+ Adapter users add-on to right panel view
+	+ asterisk-ldap script fails if LDAP operation fails
+	+ Added menu icon
 	+ Updated to use renamed method EBox::Ldap::connection.
 	+ Adapted user addon to multi-OU tree view.
 	+ Updated to use the new API to find groups and users.

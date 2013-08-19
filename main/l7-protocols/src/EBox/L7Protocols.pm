@@ -67,6 +67,7 @@ sub menu
     my $item = new EBox::Menu::Item('url' => 'l7-protocols/View/Groups',
                                     'text' => $self->printableName());
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
+                                        'icon' => 'trafficshaping',
                                         'text' => __('Traffic Shaping'),
                                         'separator' => 'Gateway',
                                         'order' => 220);

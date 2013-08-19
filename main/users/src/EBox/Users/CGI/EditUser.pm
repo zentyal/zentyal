@@ -76,6 +76,7 @@ sub _process
 
             my $givenName = $self->param('givenname');
             my $surname = $self->param('surname');
+            my $disabled = $self->param('disabled');
 
             my $fullname;
             if ($givenName) {
@@ -93,6 +94,7 @@ sub _process
             $user->set('givenname', $givenName, 1);
             $user->set('sn', $surname, 1);
             $user->set('cn', $fullname, 1);
+            $user->setDisabled($disabled);
 
             # Change password if not empty
             my $password = $self->unsafeParam('password');
@@ -108,8 +110,8 @@ sub _process
 
         $user->save();
 
-        $self->{json}->{success}  = 1;
-        $self->{json}->{redirect} = '/Users/Tree/Manage';
+        $self->{json}->{success} = 1;
+        $self->{json}->{msg} = __('User updated');
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
 
@@ -139,7 +141,7 @@ sub _process
              success => 1,
              member =>   [ map { $_->name } @{ $usergroups }],
              noMember => [ map { $_->name } @{ $remaingroups }],
-           };
+        };
     }
 }
 

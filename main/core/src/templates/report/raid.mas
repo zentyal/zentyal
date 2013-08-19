@@ -38,9 +38,9 @@ if (defined $raidInfo) {
 
 </%init>
 % if (not defined $raidInfo) {
-<p>
+<div class="note">
 <% __('RAID is not enabled in this system.') %>
-</p>
+</div>
 % return;
 % }
 

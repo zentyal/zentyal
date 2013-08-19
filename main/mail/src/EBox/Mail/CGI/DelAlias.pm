@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
+use EBox::Users::User;
 use EBox::Exceptions::External;
 
 sub new
@@ -48,6 +49,11 @@ sub _process
     my $alias = $self->param('alias');
     $mail->{malias}->delAlias($alias);
 
+    my $user = EBox::Users::User->new(dn =>  $userDN);
+    my $maildrop = $mail->{musers}->userAccount($user);
+
+    $self->{json}->{msg} = __x('Removed alias {al}', al => $alias);
+    $self->{json}->{aliases} = [ $mail->{malias}->accountAlias($maildrop) ];
     $self->{json}->{success} = 1;
 }
 

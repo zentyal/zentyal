@@ -63,8 +63,6 @@ use constant DNS_CONF_FILE => EBox::Config::etc() . 'dns.conf';
 use constant DNS_INTNETS => 'intnets';
 use constant NS_UPDATE_CMD => 'nsupdate';
 use constant DELETED_RR_KEY => 'deleted_rr';
-use constant DESKTOP_SERVICE_PORT => 6895;
-use constant DESKTOP_SERVICE_NAME => 'zentyal-desktop-api';
 
 sub _create
 {
@@ -635,48 +633,6 @@ sub enableService
     }
 }
 
-# Method: _preSetConf
-#
-#   Makes sure DNS has the SRV record so that desktops can automatically
-#   detect the server
-#
-# Overrides:
-#
-#  <EBox::Module::Base::_preSetConf>
-#
-sub _preSetConf
-{
-    my ($self) = @_;
-
-    my $sysinfo = EBox::Global->getInstance(1)->modInstance('sysinfo');
-    my $hostDomain = $sysinfo->hostDomain();
-    my $hostName = $sysinfo->hostName();
-
-    my $domainsModel = $self->model('DomainTable');
-
-    my $domainRow = $domainsModel->find(domain => $hostDomain);
-    if ($domainRow) {
-        my $srvModel = $domainRow->subModel('srv');
-        my $srvRow = $srvModel->find(service_name => DESKTOP_SERVICE_NAME);
-        if ($srvRow) {
-            # TODO: Update the port
-        } else {
-            # Service is not present => Add it
-            my $service = {
-                service => DESKTOP_SERVICE_NAME,
-                protocol => 'tcp',
-                port => DESKTOP_SERVICE_PORT,
-                priority => 0,
-                weight => 0,
-                target_type => 'domainHost',
-                target => $hostName,
-                readOnly => 1
-                };
-            $self->addService($hostDomain, $service);
-        }
-    }
-}
-
 # Method: _setConf
 #
 # Overrides:
@@ -713,6 +669,8 @@ sub _setConf
 
     push (@array, 'forwarders' => $self->_forwarders());
     push (@array, 'keytabPath' => $keytabPath);
+    my @intnet = @{$self->_internalLocalNets()};
+    push (@array, 'intnet' => \@intnet);
     $self->writeConfFile(BIND9CONFOPTIONSFILE,
             "dns/named.conf.options.mas",
             \@array);
@@ -903,6 +861,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('text' => $self->printableName(),
+                                    'icon' => 'dns',
                                     'url' => 'DNS/Composite/Global',
                                     'separator' => 'Infrastructure',
                                     'order' => 420));

@@ -49,16 +49,12 @@ use Error qw(:try);
 #
 sub new
 {
-    my $class = shift;
-    my %params = @_;
-
+    my ($class, %params) = @_;
     my $composite = delete $params{composite};
-    my $self = $class->SUPER::new(template => $composite->Viewer(),
-            @_);
+    my $self = $class->SUPER::new(template => $composite->Viewer(), %params);
     $self->{composite} = $composite;
 
     bless ($self, $class);
-
     return $self;
 }
 

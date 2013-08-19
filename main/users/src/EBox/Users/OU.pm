@@ -24,6 +24,7 @@ use warnings;
 package EBox::Users::OU;
 use base 'EBox::Users::LdapObject';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Users;
 
@@ -84,8 +85,6 @@ sub create
 
     my $usersMod = EBox::Global->modInstance('users');
 
-    $usersMod->checkCnLimitations($args{name}) or
-        throw EBox::Exceptions::InvalidData(data => 'name', value => $args{name});
     $args{parent} or
         throw EBox::Exceptions::MissingArgument('parent');
     $args{parent}->isContainer() or

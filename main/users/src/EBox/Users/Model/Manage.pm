@@ -34,7 +34,7 @@ sub _tree
         treeName => 'Manage',
         modelDomain => 'Users',
         pageTitle => $self->parentModule()->printableName(),
-        defaultActions => [ 'add', 'edit', 'delete' ],
+        defaultActions => [ 'add', 'delete' ],
         help =>  __('Here you can manage Organizational Units, Users, Groups and Contacts. Also you can see the computers in the domain if using Samba. Please note that multiple OU support is partial, some modules may only work with users and groups in the default Users and Groups OUs.'),
     };
 }
@@ -55,7 +55,7 @@ sub childNodes
 
     my $usersMod = $self->parentModule();
 
-    my $usingSamba = EBox::Global->modExists('samba');
+    my $samba = EBox::Global->modInstance('samba');
 
     my $parentObject = undef;
     if ($parentType eq 'domain') {
@@ -63,7 +63,7 @@ sub childNodes
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and $usingSamba) {
+    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and defined ($samba)) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -74,17 +74,28 @@ sub childNodes
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
+        next if (defined ($samba) and $samba->hiddenViewInAdvancedOnly($child));
+
         my $dn = $child->dn();
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
-            # Hide Kerberos OU as it's not useful for the user to keep the UI simple
-            next if ($printableName eq 'Kerberos');
+            next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
-            next if ($usingSamba and $self->_hiddenSid($child));
+            next if (defined ($samba) and $samba->hiddenSid($child));
 
-            $type = 'user';
+            if ($child->isDisabled()) {
+                $type = 'duser';
+            } else {
+                $type = 'user';
+            }
             $printableName = $child->name();
+
+            # FIXME: temporary workaround until the regression is fixed properly
+            use Sys::Hostname;
+            my $hostname = Sys::Hostname::hostname();
+            next if ($printableName =~ /^(\w+)-$hostname$/);
+
             my $fullname = $child->fullname();
             if ($fullname) {
                 $printableName .= " ($fullname)";
@@ -94,7 +105,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if ($usingSamba and $self->_hiddenSid($child));
+            next if (defined ($samba) and $samba->hiddenSid($child));
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();
@@ -143,19 +154,14 @@ sub nodeTypes
         ou => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         container => { actions => { filter => 0, add => $rw, delete => $rw }, actionObjects => { delete => 'OU', add => 'Object' }, defaultIcon => 1 },
         user => { printableName => __('Users'), actions => { filter => 1, edit => $rw, delete => $rw } },
+        duser => { printableName => __('Disabled Users'), actions => { filter => 1, edit => $rw, delete => $rw },
+                                                          actionObjects => { edit => 'User', delete => 'User' } },
         group => { printableName => __('Security Groups'), actions => { filter => 1, edit => $rw, delete => $rw } },
         dgroup => { printableName => __('Distribution Groups'), actions => { filter => 1, edit => $rw, delete => $rw },
                                                                 actionObjects => { edit => 'Group', delete => 'Group' } },
         computer => { printableName => __('Computers'), actions => { filter => 1 } },
         contact => { printableName => __('Contacts'), actions => { filter => 1, edit => $rw, delete => $rw } },
     };
-}
-
-sub doubleClickHandlerJS
-{
-    my ($self, $type) = @_;
-
-    $self->actionHandlerJS('edit', $type);
 }
 
 # Method: precondition
@@ -188,30 +194,15 @@ sub preconditionFailMsg
     return __('You must enable the module Users in the module status section in order to use it.');
 }
 
-sub _hiddenSid
+sub _hiddenOU
 {
-    my ($self, $ldapObject) = @_;
+    my ($self, $name) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
-
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $samba->ldbobjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
-        return 0;
+    unless ($self->{ousToHide}) {
+        $self->{ousToHide} = { map { $_ => 1 } @{$self->parentModule()->ousToHide()} };
     }
 
-    unless ($self->{sidsToHide}) {
-        $self->{sidsToHide} = $samba->sidsToHide();
-    }
-
-    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
-    }
-
-    return 0;
+    return $self->{ousToHide}->{$name};
 }
 
 1;

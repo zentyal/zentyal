@@ -39,14 +39,14 @@ sub html
     return '' if EBox::Config::configkey('hide_menu_separators');
 
     my $text = $self->{text};
-    my $html = '';
     my $show = 0;
 
+    my $liClass = 'menuSeparator';
     if (defined($self->{style})) {
-        $html .= "<li class=\"$self->{style}\">\n";
-    } else {
-        $html .= "<li>\n";
+        $liClass .= " $self->{style}";
     }
+
+    my $html = "<li class=\"$liClass\">\n";
 
     $html .= "<div class=\"separator\">$text</div>\n";
 

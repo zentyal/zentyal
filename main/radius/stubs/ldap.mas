@@ -4,9 +4,6 @@
     $rootdn
     $password
 </%args>
-<%init>
-my $usersDn = 'ou=Users,' . $rootdn;
-</%init>
 # -*- text -*-
 #
 #  $Id$

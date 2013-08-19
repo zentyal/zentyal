@@ -651,9 +651,10 @@ sub menu
 {
         my ($self, $root) = @_;
         my $folder = new EBox::Menu::Folder('name' => 'Software',
-                                           'text' => $self->printableName(),
-                                           'separator' => 'Core',
-                                           'order' => 100);
+                                            'icon' => 'software',
+                                            'text' => $self->printableName(),
+                                            'separator' => 'Core',
+                                            'order' => 100);
 
         $folder->add(new EBox::Menu::Item('url' => 'Software/EBox',
                                           'text' => __('Zentyal Components')));

@@ -122,6 +122,7 @@ sub menu
     my ($self, $root) = @_;
 
     $root->add(new EBox::Menu::Item('url' => 'Virt/View/VirtualMachines',
+                                    'icon' => 'virt',
                                     'text' => $self->printableName(),
                                     'separator' => 'Infrastructure',
                                     'order' => 447));

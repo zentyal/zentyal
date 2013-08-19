@@ -42,56 +42,39 @@ sub _group
     my $smbldap = new EBox::SambaLdapUser;
 
     $self->_requireParam('group', __('group'));
-    my $group = $self->unsafeParam('group');
-    $self->{redirect} = "Users/Group?group=$group";
-    $self->{errorchain} =  "Users/Group";
-
-    $self->keepParam('group');
-
-    $group = new EBox::Users::Group(dn => $group);
+    my $groupDN = $self->unsafeParam('group');
+    my $group = new EBox::Users::Group(dn => $groupDN);
 
     $self->_requireParamAllowEmpty('sharename', __('share name'));
     my $name =  $self->param('sharename');
 
-    if ($self->param('namechange') or $self->param('add')) {
+    my $namechange = $self->param('namechange');
+    if ($namechange or $self->param('add')) {
         $smbldap->setGroupShare($group, $name);
+        if ($namechange) {
+            $self->{json}->{msg} = __('Group share renamed');
+        } else {
+            $self->{json}->{msg} = __('Group share added');
+        }
+        $self->{json}->{share} = 1;
     } elsif ($self->param('remove')) {
         $smbldap->removeGroupShare($group);
-    }
-}
-
-sub _user
-{
-    my ($self) = @_;
-
-    my $smbldap = new EBox::SambaLdapUser;
-
-    $self->_requireParam('user', __('user'));
-    my $user = $self->unsafeParam('user');
-    $self->{redirect} = "Users/User?user=$user";
-    $self->{errorchain} = "Users/User";
-
-    $self->keepParam('user');
-
-    my $zentyalUser = new EBox::Users::User(dn => $user);
-    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-    my $accountEnabled = $self->param('accountEnabled');
-    if ($accountEnabled eq 'yes') {
-        $sambaUser->setAccountEnabled(1);
+        $self->{json}->{msg} = __('Group share removed');
+        $self->{json}->{share} = 0;
     } else {
-        $sambaUser->setAccountEnabled(0);
+        $self->{json}->{msg} = __('Group share set');
+        $self->{json}->{share} = 1;
     }
+
+    $self->{json}->{success} = 1;
 }
 
 sub _process
 {
     my ($self) = @_;
+    $self->{json}->{success} = 0;
 
-    if ($self->unsafeParam('user')) {
-        $self->_user();
-    } else {
-        $self->_group();
-    }
+    $self->_group();
 }
 
 1;
