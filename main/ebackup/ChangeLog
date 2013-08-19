@@ -1,3 +1,6 @@
+HEAD
+	+ Exclude / by default for coherency with the rest of modules like
+	  firewall or proxy, and also allow now to include /
 3.1.3
 	+ Added menu icon
 3.1.2

@@ -235,7 +235,7 @@ sub fileSelectionArguments
     my ($self) = @_;
 
     my $args = '';
-    foreach my $id (@{ $self->ids() }) {
+    foreach my $id (@{$self->ids()}) {
         my $row = $self->row($id);
         my $type = $row->valueByName('type');
         if ($type eq 'exclude_path') {
@@ -243,18 +243,14 @@ sub fileSelectionArguments
             $args .= "--exclude=$path ";
         } elsif ($type eq 'include_path') {
             my $path = shell_quote($row->valueByName('target'));
-            if ($path eq '/') {
-                EBox::warn(
-  q{Not neccesary to include '/' directory in ebackup. Ignoring}
-                   );
-                next;
-            }
             $args .= "--include=$path ";
         } elsif ($type eq 'exclude_regexp') {
             my $regexp = shell_quote($row->valueByName('target'));
             $args .= "--exclude-regexp $regexp " ;
         }
     }
+
+    $args .= "--exclude / ";
 
     return $args;
 }
