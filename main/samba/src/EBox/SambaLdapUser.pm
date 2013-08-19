@@ -249,8 +249,10 @@ sub _addUser
         $sambaUser->save();
     }
 
-    EBox::info("Enabling '$samAccountName' account");
-    $sambaUser->setAccountEnabled(1);
+    unless ($zentyalUser->isDisabled()) {
+        EBox::info("Enabling '$samAccountName' account");
+        $sambaUser->setAccountEnabled(1);
+    }
 }
 
 sub _addUserFailed
@@ -292,6 +294,11 @@ sub _modifyUser
         } else {
             my $keys = $zentyalUser->kerberosKeys();
             $sambaUser->setCredentials($keys);
+        }
+        if ($zentyalUser->isDisabled()) {
+            $sambaUser->setAccountEnabled(0);
+        } else {
+            $sambaUser->setAccountEnabled(1);
         }
         $sambaUser->save();
     } otherwise {
@@ -352,6 +359,7 @@ sub _preAddContact
     my $sn = $entry->get_value('sn');
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
+    my $mail = $entry->get_value('mail');
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
     my %args = (
@@ -362,6 +370,7 @@ sub _preAddContact
         displayName => $displayName,
         description => $description,
         parent      => $sambaParent,
+        mail        => $mail,
     );
 
     EBox::info("Creating contact '$name'");
@@ -413,12 +422,14 @@ sub _modifyContact
         my $sn = $zentyalContact->get_value('sn');
         my $displayName = $zentyalContact->get_value('displayName');
         my $description = $zentyalContact->get_value('description');
+        my $mail = $zentyalContact->get_value('mail');
 
         $sambaContact->set('givenName', $givenName, 1);
         $sambaContact->set('initials', $initials, 1);
         $sambaContact->set('sn', $sn, 1);
         $sambaContact->set('displayName', $displayName, 1);
         $sambaContact->set('description', $description, 1);
+        $sambaContact->set('mail', $mail, 1);
         $sambaContact->save();
     } otherwise {
         my ($error) = @_;
@@ -611,31 +622,6 @@ sub _delGroup
 }
 
 # User and group addons
-
-sub _userAddOns
-{
-    my ($self, $zentyalUser) = @_;
-    $self->_sambaReady() or
-        return;
-
-    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-    return undef unless $sambaUser->exists();
-
-    my $serviceEnabled = $self->{samba}->isEnabled();
-    my $accountEnabled = $sambaUser->isAccountEnabled();
-
-    my $args = {
-        'username'       => $zentyalUser->dn(),
-        'accountEnabled' => $accountEnabled,
-        'service'        => $serviceEnabled,
-    };
-
-    return {
-        title =>  __('Active Directory/File sharing account'),
-        path => '/samba/samba.mas',
-        params => $args
-       };
-}
 
 # Method: _groupShareEnabled
 #

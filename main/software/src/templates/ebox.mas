@@ -156,7 +156,7 @@ var pkgTable = new Array(
 % } else {
 <div id="software" style="padding: 15px 0">
 %# Basic table
-<div id="basic">
+<div id="basic" style="display: none">
 % unless ($first) {
     <a href='#' onclick="$('#basic').fadeOut(300); $('#advanced').fadeIn(300); return false"><%__('View advanced mode')%></a>
 % }
@@ -458,7 +458,7 @@ var pkgTable = new Array(
 
 
 
-<div id="advanced">
+<div id="advanced" style="display: none">
     <a href='#' onclick="$('#advanced').fadeOut(300);$('#basic').fadeIn(300); return false"><% __('View basic mode') %></a>
     <div style="margin-top: 10px" id="tabs">
         <ul id="tabMenu_ConfigurationComposite" class="tabs">
@@ -543,14 +543,15 @@ var pkgTable = new Array(
 
 <script>
 $(function() {
+% if ($first) {
+   $('#basic').show();
+% } else {
+   $('#advanced').show();
+% }
+
    if ($('#zentyal-remoteservices').length > 0) {
         Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
    }
-   if (location.hash === '#delete') {
-        Zentyal.SoftwareManagementUI.showDeleteTab();
-   } else {
-        Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
-  }
 
    $('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
    // update button status
@@ -561,13 +562,14 @@ $(function() {
   // reset checkboxes, this is need for some browsers which autocompletes input by position
   jQuery('#installTable :checked, #updateTable :checked, #deleteTable :checked', '#advanced').prop('checked', false);
 
-% if ($first) {
-   $('#advanced').hide();
-% } else {
-   $('#basic').hide();
-% }
   $('#updateBox, #deleteBox').hide();
   Zentyal.stripe('.dataTable', 'even', 'odd');
+
+  if (location.hash === '#delete') {
+       Zentyal.SoftwareManagementUI.showDeleteTab();
+  } else {
+       Zentyal.SoftwareManagementUI.<% @advUpdatePkgs ? 'showUpdateTab()' : 'showInstallTab()' %>;
+  }
 });
 </script>
 

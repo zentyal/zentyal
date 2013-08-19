@@ -26,7 +26,7 @@ EBox::Global::TestStub::fake();
 
 my $users = EBox::Global->modInstance('users');
 
-is_deeply $users->ousToHide(), [ 'Extensions', 'postfix', 'Builtin', 'Kerberos', 'zarafa' ], 'OUs to hide are the expected ones';
+is_deeply $users->ousToHide(), [ 'Extensions', 'Queues', 'postfix', 'Builtin', 'Kerberos', 'zarafa' ], 'OUs to hide are the expected ones';
 
 my $manage = $users->model('Manage');
 isa_ok $manage, 'EBox::Users::Model::Manage', 'model can be instanced';

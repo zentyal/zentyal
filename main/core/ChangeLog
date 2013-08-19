@@ -1,3 +1,10 @@
+HEAD
+	+ Fixed wrong behavior of software updates in dashboard widget
+	+ Always show proper language name for english locales
+	+ Fixed wrong redirects when using a non-default admin port
+	+ Fixed regression in webadmin reload after changing the language
+	+ Remove unnecessary and problematic desktop services code
+	+ Added icons for disabled users.
 3.1.7
 	+ Avoid eval operation when using standard HtmlBlocks class
 	+ Changed some code to not trigger some unnecesary warnings

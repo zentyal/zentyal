@@ -1,3 +1,11 @@
+HEAD
+	+ Changed description field to be always input text instead of textarea.
+	+ Warn instead of throw exception if home directory already exists
+	+ Forbid deletion of Domain Admins group
+	+ Forbid deletion of Users, Groups and Computers OUs
+	+ Filter also internal users and groups in membership comboboxes
+	+ Hide Samba objects that should be shown only on Advance view mode
+	+ Added support for disabled accounts
 3.1.6
 	+ Ignored samba module while (re)provisioning on __USERS__ group creation.
 	+ Removed deprecated configuration file keys related with external AD

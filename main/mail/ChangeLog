@@ -1,3 +1,5 @@
+3.1.4
+	+ Fixed typo in master.cf when mail filter is enabled
 3.1.3
 	+ Adapt group and users addon to right panel view
 	+ mail-ldap init script dies on LDAP add error

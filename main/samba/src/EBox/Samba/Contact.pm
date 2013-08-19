@@ -144,11 +144,12 @@ sub addToZentyal
         my %args = (
             parent       => $parent,
             fullname     => scalar ($name),
-            givenName    => scalar ($givenName),
+            givenname    => scalar ($givenName),
             initials     => scalar ($self->initials()),
             surname      => scalar ($surname),
             displayname  => scalar ($self->displayName()),
             description  => scalar ($self->description()),
+            mail         => scalar ($self->mail()),
             ignoreMods   => ['samba'],
         );
 
@@ -174,6 +175,7 @@ sub updateZentyal
     my $initials = $self->initials();
     my $displayName = $self->displayName();
     my $description = $self->description();
+    my $mail = $self->mail();
     $givenName = '-' unless defined $givenName;
     $surname = '-' unless defined $surname;
 
@@ -188,6 +190,7 @@ sub updateZentyal
     $zentyalContact->set('sn', $surname, 1);
     $zentyalContact->set('displayName', $displayName, 1);
     $zentyalContact->set('description', $description, 1);
+    $zentyalContact->set('mail', $mail, 1);
     $zentyalContact->save();
 }
 

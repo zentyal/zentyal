@@ -589,12 +589,16 @@ sub sambaInterfaces
         $netIfaces = $net->InternalIfaces();
     }
 
+    my %seenBridges;
     foreach my $iface (@{$netIfaces}) {
         push @ifaces, $iface;
 
         if ($net->ifaceMethod($iface) eq 'bridged') {
             my $br = $net->ifaceBridge($iface);
-            push (@ifaces, "br$br");
+            if (not $seenBridges{$br}) {
+                push (@ifaces, "br$br");
+                $seenBridges{$br} = 1;
+            }
             next;
         }
 
@@ -1094,7 +1098,7 @@ sub defaultDescription
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
-    return ucfirst($prefix) . ' File Server';
+    return ucfirst($prefix) . ' Server';
 }
 
 # Method: description
@@ -1162,6 +1166,12 @@ sub dumpConfig
 
     my @cmds;
 
+    if ($self->_s4syncCond()) {
+        try {
+            EBox::Service::manage('zentyal.s4sync', 'stop');
+        } otherwise {};
+    }
+
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -1211,6 +1221,8 @@ sub dumpConfig
     } otherwise {
         my ($error) = @_;
         throw $error;
+    } finally {
+        EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
     };
 
     # Backup admin password
@@ -2032,8 +2044,12 @@ sub ldapObjectFromLDBObject
 {
     my ($self, $ldbObject) = @_;
 
-    throw EBox::Exceptions::MissingArgument('ldbObject') unless ($ldbObject);
-    throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject') unless ($ldbObject->isa('EBox::Samba::LdbObject'));
+    unless ($ldbObject) {
+        throw EBox::Exceptions::MissingArgument('ldbObject')
+    }
+    unless ($ldbObject->isa('EBox::Samba::LdbObject')) {
+        throw EBox::Exceptions::InvalidType('ldbObject', 'EBox::Samba::LdbObject');
+    }
 
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -2226,12 +2242,56 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
-# Method: sidsToHide
+# Method: hiddenViewInAdvancedOnly
 #
-#   Return the list of regexps to of SIDs to hide on the UI
-#   read from /etc/zentyal/sids-to-hide.regex
+#  Returns if the specified LDAP object needs to be shown only in advanced view
 #
-sub sidsToHide
+sub hiddenViewInAdvancedOnly
+{
+    my ($self, $ldapObject) = @_;
+
+    my $sambaObject = undef;
+    try {
+        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
+    } otherwise {};
+
+    if ($sambaObject and $sambaObject->isInAdvancedViewOnly()) {
+        return 1;
+    }
+
+    return 0;
+}
+
+# Method: hiddenSid
+#
+#   Check if the specified LDAP object belongs to the list of regexps
+#   of SIDs to hide on the UI read from /etc/zentyal/sids-to-hide.regex
+#
+sub hiddenSid
+{
+    my ($self, $ldapObject) = @_;
+
+    my $sambaObject = undef;
+    try {
+        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
+    } otherwise {};
+
+    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
+        return 0;
+    }
+
+    unless ($self->{sidsToHide}) {
+        $self->{sidsToHide} = $self->_sidsToHide();
+    }
+
+    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
+       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
+    }
+
+    return 0;
+}
+
+sub _sidsToHide
 {
     my ($self) = @_;
 
@@ -2242,6 +2302,5 @@ sub sidsToHide
 
     return \@sids;
 }
-
 
 1;

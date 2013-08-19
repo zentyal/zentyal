@@ -299,11 +299,6 @@ sub ldapOUToLDB
     my $parentDN = $parent->dn();
 
     EBox::debug("Loading OU $name into $parentDN");
-    # Samba already has an specific container for this OU, ignore it.
-    if (($parentDN eq $self->dn()) and (grep { $_ eq $name } BUILT_IN_CONTAINERS)) {
-        EBox::debug("Ignoring OU $name given that it has a built in container");
-        next;
-    }
 
     my $sambaOU = undef;
     try {
@@ -329,7 +324,16 @@ sub ldapOUsToLDB
     my $global = EBox::Global->getInstance();
     my $usersMod = $global->modInstance('users');
     my @ous = @{ $usersMod->ous() };
+    my $namingContextDN = $usersMod->ldap()->dn();
     foreach my $ou (@ous) {
+        my $name = $ou->name();
+        my $parentDN = $ou->parent()->dn();
+
+        if (($parentDN eq $namingContextDN) and ((grep { $_ eq $name } BUILT_IN_CONTAINERS) or ($name eq 'Groups'))) {
+            # Samba already has an specific container for this OU, ignore it.
+            EBox::debug("Ignoring OU $name given that it has a built-in container");
+            next;
+        }
         $self->ldapOUToLDB($ou);
     }
 }
@@ -365,6 +369,9 @@ sub ldapUsersToLdb
             );
             my $sambaUser = EBox::Samba::User->create(%args);
             $sambaUser->_linkWithUsersObject($user);
+            unless ($user->isDisabled()) {
+                $sambaUser->setAccountEnabled(1);
+            }
         } catch EBox::Exceptions::DataExists with {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
@@ -535,9 +542,9 @@ sub ldapServicePrincipalsToLdb
                     kerberosKeys   => $user->kerberosKeys(),
                 );
                 $smbUser = EBox::Samba::User->create(%args);
-                # TODO: Should we link this with any OpenLDAP user?
                 $smbUser->setCritical(1);
-                $smbUser->setViewInAdvancedOnly(1);
+                $smbUser->setInAdvancedViewOnly(1);
+                $smbUser->_linkWithUsersObject($user);
             }
             foreach my $p (@{$principals->{principals}}) {
                 try {
@@ -564,7 +571,7 @@ sub users
         base => $self->dn(),
         scope => 'sub',
         filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+                  '(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
@@ -583,8 +590,7 @@ sub contacts
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(&(objectclass=contact)(!(objectclass=computer)))' .
-                  '(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=contact)(!(isDeleted=*)))',
         attrs => ['*'],
     };
     my $result = $self->search($params);
@@ -604,7 +610,7 @@ sub groups
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(objectclass=group)(!(showInAdvancedViewOnly=*))(!(isDeleted=*)))',
+        filter => '(&(objectclass=group)(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);

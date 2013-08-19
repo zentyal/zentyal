@@ -38,7 +38,7 @@ Zentyal.Dashboard.updateAjaxValue = function(url, containerId) {
          datatype: 'json',
          success: function (response) {
             var container = $('#' + escapedId);
-            container.removeClass().addClass('summary_value', 'summary_' + response.type);
+            container.removeClass().addClass('summary_value summary_' + response.type);
             container.html(response.value);
          }
     });

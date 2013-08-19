@@ -424,12 +424,22 @@ sub mapAccounts
     }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
-    # Map domain users group
+    EBox::info("Mapping domain users group account");
+    my $usersModule = EBox::Global->modInstance('users');
     # FIXME Why is this not working during first intall???
-    #my $usersModule = EBox::Global->modInstance('users');
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
+    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
+    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
+    if ($domainUsers->exists()) {
+        if ($domainUsersZentyal->exists()) {
+            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
+        } else {
+            $domainUsers->addToZentyal();
+        }
+    }
+    # Map domain users group
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
@@ -888,7 +898,7 @@ sub checkClockSkew
         %h = get_ntp_response($adServerIp);
     } otherwise {
         throw EBox::Exceptions::External(
-            __x('Could not retrive time from AD server {x} via NTP.',
+            __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
     };
 

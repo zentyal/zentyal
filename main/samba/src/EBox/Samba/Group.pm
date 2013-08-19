@@ -189,7 +189,7 @@ sub create
     my $groupType = GROUPTYPEGLOBAL;
     my $attr = [];
     push ($attr, cn => $args{name});
-    push ($attr, objectClass    => ['top', 'group', 'posixAccount']);
+    push ($attr, objectClass    => ['top', 'group']);
     push ($attr, sAMAccountName => $args{name});
     push ($attr, description    => $args{description}) if ($args{description});
     if ($isSecurityGroup) {
@@ -258,8 +258,11 @@ sub addToZentyal
         $zentyalGroup = EBox::Users::Group->create(@params);
         $self->_linkWithUsersObject($zentyalGroup);
     } catch EBox::Exceptions::DataExists with {
-        EBox::debug("Group $name already in Samba database");
+        EBox::debug("Group $name already in Zentyal database");
         $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
+        unless ($zentyalGroup) {
+            EBox::error("The group $name exists in Zentyal but is not linked with Samba!");
+        }
     } otherwise {
         my $error = shift;
         EBox::error("Error loading group '$name': $error");

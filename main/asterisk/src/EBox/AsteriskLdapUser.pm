@@ -523,7 +523,7 @@ sub defaultUserModel
 #
 sub hiddenOUs
 {
-    return [ 'Extensions' ];
+    return [ 'Extensions', 'Queues' ];
 }
 
 1;

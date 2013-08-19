@@ -11,11 +11,12 @@
 use EBox::Gettext;
 use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
+my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 </%init>
 
 
 <div id="edit_user">
-<h3 class="icon-user"><% __('User') %> <% $user->name() %></h3>
+<h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
 <div id='note_editUserForm' class='note' style='display:none'></div>
 <div id='error_editUserForm' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block half-block">
@@ -43,6 +44,8 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                    &>
           <label><% __('User quota') %> (MB)</label>
           <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
+          <label><% __('Disabled account') %></label>
+          <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
 %   unless ($slave) {
           <label><% __('Password') %></label>
           <input type='password' class='inputText' name='password'>

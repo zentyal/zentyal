@@ -24,6 +24,7 @@ use warnings;
 package EBox::Users::OU;
 use base 'EBox::Users::LdapObject';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Users;
 

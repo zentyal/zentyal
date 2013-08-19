@@ -76,6 +76,7 @@ sub _process
 
             my $givenName = $self->param('givenname');
             my $surname = $self->param('surname');
+            my $disabled = $self->param('disabled');
 
             my $fullname;
             if ($givenName) {
@@ -93,6 +94,7 @@ sub _process
             $user->set('givenname', $givenName, 1);
             $user->set('sn', $surname, 1);
             $user->set('cn', $fullname, 1);
+            $user->setDisabled($disabled);
 
             # Change password if not empty
             my $password = $self->unsafeParam('password');
