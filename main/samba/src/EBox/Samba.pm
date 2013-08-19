@@ -1184,7 +1184,11 @@ sub dumpConfig
 
     my @cmds;
 
-    EBox::Service::manage('zentyal.s4sync', 'stop') if $self->_s4syncCond();
+    if ($self->_s4syncCond()) {
+        try {
+            EBox::Service::manage('zentyal.s4sync', 'stop');
+        } otherwise {};
+    }
 
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
