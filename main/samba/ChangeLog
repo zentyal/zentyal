@@ -1,4 +1,5 @@
 HEAD
+	+ Use new libsamba-perl for GPOs
 	+ Fixed mail and given name sync for Contacts.
 	+ Stop s4sync while dumping configuration backup
 	+ Ignore Asterisk Queues OU in s4sync
