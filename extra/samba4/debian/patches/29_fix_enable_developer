@@ -1,5 +1,7 @@
---- a/buildtools/wafsamba/samba_autoconf.py
-+++ b/buildtools/wafsamba/samba_autoconf.py
+Index: samba4/buildtools/wafsamba/samba_autoconf.py
+===================================================================
+--- samba4.orig/buildtools/wafsamba/samba_autoconf.py	2013-08-14 00:22:50.141330392 +0200
++++ samba4/buildtools/wafsamba/samba_autoconf.py	2013-08-14 00:22:50.141330392 +0200
 @@ -640,7 +640,7 @@
  
      if Options.options.developer:

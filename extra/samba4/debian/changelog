@@ -1,3 +1,11 @@
+samba4 (4.1.0rc2-zentyal5) precise; urgency=low
+
+  * Build talloc, tevent, tdb, ldb, samba-security as public libs
+  * Add dynconfig.h and ndr_security.h to public headers
+  * Add param_options and LP_RESOLVE to smbclient-raw library
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 14 Aug 2013 00:12:26 +0200
+
 samba4 (4.1.0rc2-zentyal4) precise; urgency=low
 
   * Removed link to a non existing .pc file.

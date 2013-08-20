@@ -3,5 +3,13 @@
 25_zentyal_heimdal_api_changes
 26_zentyal_scannedonly
 27_zentyal_scannedonly_extra_info
-fix-enable-developer.diff
-29_zentyal_setntacl_recursive
+29_fix_enable_developer
+30_standalone_talloc
+31_standalone_tevent
+32_standalone_tdb
+33_standalone_ldb
+34_dynconfig_header
+35_security_library_no_private
+36_smbcliraw_missing_deps
+37_ndr_security_header
+38_zentyal_setntacl_recursive

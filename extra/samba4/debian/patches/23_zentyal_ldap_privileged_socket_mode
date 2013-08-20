@@ -1,7 +1,7 @@
 Index: samba4/source4/ldap_server/ldap_server.c
 ===================================================================
---- samba4.orig/source4/ldap_server/ldap_server.c	2012-11-13 19:09:49.659216561 +0100
-+++ samba4/source4/ldap_server/ldap_server.c	2012-11-13 19:10:56.019215301 +0100
+--- samba4.orig/source4/ldap_server/ldap_server.c	2013-08-14 00:22:50.061330394 +0200
++++ samba4/source4/ldap_server/ldap_server.c	2013-08-14 00:22:50.041330394 +0200
 @@ -886,10 +886,11 @@
    open the ldap server sockets
  */
@@ -38,9 +38,9 @@ Index: samba4/source4/ldap_server/ldap_server.c
  		return;
 Index: samba4/lib/param/param_table.c
 ===================================================================
---- samba4.orig/lib/param/param_table.c	2012-11-13 19:09:49.659216561 +0100
-+++ samba4/lib/param/param_table.c	2012-11-13 19:10:56.019215301 +0100
-@@ -1146,6 +1146,15 @@
+--- samba4.orig/lib/param/param_table.c	2013-08-14 00:22:50.061330394 +0200
++++ samba4/lib/param/param_table.c	2013-08-14 00:23:35.000000000 +0200
+@@ -1120,6 +1120,15 @@
  		.enum_list	= NULL,
  		.flags		= FLAG_ADVANCED | FLAG_GLOBAL,
  	},
@@ -58,18 +58,18 @@ Index: samba4/lib/param/param_table.c
  	{N_("Logging Options"), P_SEP, P_SEPARATOR},
 Index: samba4/lib/param/param_functions.c
 ===================================================================
---- samba4.orig/lib/param/param_functions.c	2012-11-13 19:09:49.659216561 +0100
-+++ samba4/lib/param/param_functions.c	2012-11-13 19:10:56.019215301 +0100
-@@ -411,3 +411,4 @@
+--- samba4.orig/lib/param/param_functions.c	2013-08-14 00:22:50.061330394 +0200
++++ samba4/lib/param/param_functions.c	2013-08-14 00:23:35.000000000 +0200
+@@ -407,3 +407,4 @@
  FN_GLOBAL_STRING(username_map, szUsernameMap)
  FN_GLOBAL_STRING(usershare_path, szUsersharePath)
  FN_GLOBAL_STRING(wins_hook, szWINSHook)
 +FN_GLOBAL_INTEGER(ldap_priv_socket_mode, iLdap_priv_socket_mode)
 Index: samba4/lib/param/loadparm.c
 ===================================================================
---- samba4.orig/lib/param/loadparm.c	2012-11-13 19:09:49.659216561 +0100
-+++ samba4/lib/param/loadparm.c	2012-11-13 19:10:56.019215301 +0100
-@@ -2217,6 +2217,8 @@
+--- samba4.orig/lib/param/loadparm.c	2013-08-14 00:22:50.061330394 +0200
++++ samba4/lib/param/loadparm.c	2013-08-14 00:23:35.000000000 +0200
+@@ -2226,6 +2226,8 @@
          lpcfg_do_global_parameter(lp_ctx, "allow dns updates", "secure only");
          lpcfg_do_global_parameter(lp_ctx, "dns forwarder", "");
  

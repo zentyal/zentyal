@@ -207,24 +207,6 @@ sub _startService
     $self->SUPER::_startService(@_);
 }
 
-# Method: _enforceServiceState
-#
-#   Start the samba daemon is expensive and takes a while. After writing
-#   smb.conf the daemon is started to make queries to LDB, so it is not
-#   necessary to restart it after that. This method is overrided to avoid
-#   this situation and restart samba twice while saving changes.
-#
-sub _enforceServiceState
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled() and $self->getProvision->isProvisioned()) {
-        $self->_startService() unless $self->isRunning();
-    } else {
-        $self->_stopService();
-    }
-}
-
 sub _services
 {
     my ($self) = @_;
