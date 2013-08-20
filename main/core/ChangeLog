@@ -1,4 +1,6 @@
 HEAD
+	+ Add missing use statement in EBox::Types::MultiStateAction
+	+ Add icon for openchange module
 	+ Fixed wrong behavior of software updates in dashboard widget
 	+ Always show proper language name for english locales
 	+ Fixed wrong redirects when using a non-default admin port
