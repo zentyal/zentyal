@@ -28,6 +28,7 @@ package EBox::Samba::GPO::Scripts;
 use base 'EBox::Samba::GPO::Extension';
 
 use EBox::Gettext;
+use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use Parse::RecDescent;
@@ -257,25 +258,36 @@ sub read
     my $gpo = $self->gpo();
     my $gpoFilesystemPath = $gpo->path();
 
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
+    my $host = $gpo->_ldap->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal('Could not get DNS hostname');
+    }
 
-    # Create folder hierachy. If they already exists error is ignored.
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts", 0600);
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logon", 0600);
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logoff", 0600);
+    my $smb = new EBox::Samba::SmbClient(
+        target => $host, service => 'sysvol', RID => 500);
 
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts", 0600);
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Shutdown", 0600);
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Startup", 0600);
+    # Create folder hierachy if not exists
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts");
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logon") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts/Logon");
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logoff") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts/Logoff");
+
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts");
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Shutdown") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts/Shutdown");
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Startup") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts/Startup");
 
     # Scripts indexs file paths
     my $scriptsPath = "$gpoFilesystemPath/$scope/Scripts/scripts.ini";
     my $psScriptsPath = "$gpoFilesystemPath/$scope/Scripts/psscripts.ini";
 
     # Check scripts.ini file exists and read it
-    my @stat = $smb->stat($scriptsPath);
-    if ($#stat) {
-        my $buffer = $smb->read_file($scriptsPath, '0400');
+    if ($smb->chkpath($scriptsPath)) {
+        my $buffer = $smb->read_file($scriptsPath);
         $buffer = decode('UTF-16', $buffer);
 
         my $parser = $self->_parserScriptsIni();
@@ -286,9 +298,8 @@ sub read
     }
 
     # Ckeck psscripts.ini file exists and read it
-    my @stat2 = $smb->stat($psScriptsPath);
-    if ($#stat2) {
-        my $buffer = $smb->read_file($psScriptsPath, '0400');
+    if ($smb->chkpath($psScriptsPath)) {
+        my $buffer = $smb->read_file($psScriptsPath);
         $buffer = decode('UTF-16', $buffer);
 
         my $parser = $self->_parserPsScriptsIni();
@@ -309,16 +320,28 @@ sub write
     my $gpo = $self->gpo();
     my $gpoFilesystemPath = $gpo->path();
 
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
+    my $host = $gpo->_ldap->rootDse->get_value('dnsHostName');
+    unless (defined $host and length $host) {
+        throw EBox::Exceptions::Internal('Could not get DNS hostname');
+    }
 
-    # Create folder hierachy. If they already exists error is ignored.
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts", 0600);
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logon", 0600);
-    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logoff", 0600);
+    my $smb = new EBox::Samba::SmbClient(
+        target => $host, service => 'sysvol', RID => 500);
 
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts", 0600);
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Shutdown", 0600);
-    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Startup", 0600);
+    # Create folder hierachy if not exists
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts");
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logon") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts/Logon");
+    $smb->mkdir("$gpoFilesystemPath/User/Scripts/Logoff") unless
+        $smb->chkpath("$gpoFilesystemPath/User/Scripts/Logoff");
+
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts");
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Shutdown") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts/Shutdown");
+    $smb->mkdir("$gpoFilesystemPath/Machine/Scripts/Startup") unless
+        $smb->chkpath("$gpoFilesystemPath/Machine/Scripts/Startup");
 
     # Scripts indexs file paths
     my $scriptsPath = "$gpoFilesystemPath/$scope/Scripts/scripts.ini";
