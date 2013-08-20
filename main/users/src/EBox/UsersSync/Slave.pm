@@ -57,23 +57,25 @@ sub _addUser
     # encode passwords
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
-        user       => $user->get('uid'),
-        fullname   => $user->get('cn'),
-        surname    => $user->get('sn'),
-        givenname  => $user->get('givenName'),
-        uidNumber  => $user->get('uidNumber'),
-        passwords  => \@passwords
+        parentDN     => $user->parent()->dn();
+        uid          => $user->get('uid'),
+        fullname     => $user->fullname(),
+        givenname    => $user->firstname(),
+        initials     => $user->initials(),
+        surname      => $user->surname(),
+        isDisabled   => $user->isDisabled(),
+        isSystemUser => $user->isSystemUser(),
+        isInternal   => $user->isInternal(),
+        uidNumber    => $user->get('uidNumber'),
+        passwords    => \@passwords
     };
 
-    if ($user->get('description')) {
-        $userinfo->{comment} = $user->get('description');
-    }
-
-    # Different OU?
-    my $users = EBox::Global->modInstance('users');
-    if ($user->baseDn() ne $users->userClass()->defaultContainer()->dn()) {
-        $userinfo->{ou} = $user->baseDn();
-    }
+    my $displayname = $user->displayname();
+    $userinfo->{displayname} = $displayname if ($displayname);
+    my $description = $user->description();
+    $userinfo->{description} = $description if ($description);
+    my $mail = $user->mail();
+    $userinfo->{mail} = $mail if ($mail);
 
     # Convert userinfo to SOAP::Data to avoid automatic conversion errors
     my @params;
@@ -96,11 +98,16 @@ sub _modifyUser
     my ($self, $user, $pass) = @_;
 
     my $userinfo = {
-        dn         => $user->dn(),
-        fullname   => $user->get('cn'),
-        surname    => $user->get('sn'),
-        givenname  => $user->get('givenName'),
-        uidNumber  => $user->get('uidNumber'),
+        dn           => $user->dn(),
+        fullname     => $user->fullname(),
+        givenname    => $user->firstname(),
+        initials     => $user->initials(),
+        surname      => $user->surname(),
+        displayname  => $user->displayname(),
+        description  => $user->description(),
+        mail         => $user->mail(),
+        isDisabled   => $user->isDisabled(),
+        uidNumber    => $user->get('uidNumber'),
     };
 
     if ($pass) {
@@ -108,10 +115,6 @@ sub _modifyUser
     } else {
         my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
         $userinfo->{passwords} = \@passwords;
-    }
-
-    if ($user->get('description')) {
-        $userinfo->{description} = $user->get('description');
     }
 
     $self->soapClient->modifyUser($userinfo);
@@ -131,8 +134,13 @@ sub _addGroup
     my ($self, $group) = @_;
 
     my $groupinfo = {
-        name     => $group->name(),
-        comment  => $group->get('description'),
+        parent          => $group->parent()->dn(),
+        name            => $group->name(),
+        comment         => $group->description(),
+        mail            => $group->mail(),
+        isSecurityGroup => $group->isSecurityGroup(),
+        isSystemGroup   => $group->isSystemGroup(),
+        gidNumber       => $group->get('gidNumber'),
     };
 
     $self->soapClient->addGroup($groupinfo);
@@ -146,8 +154,12 @@ sub _modifyGroup
 
     my @members = $group->get('member');
     my $groupinfo = {
-        dn       => $group->dn(),
-        members  => \@members,
+        dn              => $group->dn(),
+        members         => \@members,
+        description     => $group->description(),
+        mail            => $group->mail(),
+        isSecurityGroup => $group->isSecurityGroup(),
+        gidNumber       => $group->get('gidNumber'),
     };
 
     $self->soapClient->modifyGroup($groupinfo);

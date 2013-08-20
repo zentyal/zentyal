@@ -1,4 +1,8 @@
 HEAD
+	+ Added 'mail' field on zentyalDistributionGroup schema.
+	+ Added E-Mail field for Users and Groups when managing them from the UI.
+	+ Changed E-Mail field to optional for Contacts.
+	+ Updated master-slave sync to use the new User and Group fields.
 	+ Changed description field to be always input text instead of textarea.
 	+ Warn instead of throw exception if home directory already exists
 	+ Forbid deletion of Domain Admins group

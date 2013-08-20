@@ -36,7 +36,9 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
               <% __('Distribution Group') %></label>
             </div>
           <label><% __('Description') %> </label>
-          <input type='text' class='inputText' name='description' value="<% $group->get('description') %>">
+          <input type='text' class='inputText' name='description' value="<% $group->description() %>">
+          <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
+          <input type='text' class='inputText' name='mail' value="<% $group->mail() %>">
 %   unless ($slave) {
     <input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
