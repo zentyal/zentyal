@@ -83,9 +83,6 @@ sub kerberosCreatePrincipals
                       "--policy=default '$principal'";
             EBox::info("Creating service principal $principal");
             EBox::Sudo::root($cmd);
-
-            my $user = $users->userByUID("$service-$hostname");
-            $user->setInternal();
         }
 
         # Extract keytab
