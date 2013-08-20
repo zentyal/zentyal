@@ -1,4 +1,5 @@
 HEAD
+	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
 	+ Changed description field to be always input text instead of textarea.
 	+ Warn instead of throw exception if home directory already exists
 	+ Forbid deletion of Domain Admins group

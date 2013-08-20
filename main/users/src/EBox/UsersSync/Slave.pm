@@ -176,7 +176,7 @@ sub soapClient
             name  => 'urn:Users/Slave',
             proxy => "https://$hostname:$port/slave/",
             certs => {
-                cert => SSL_DIR . 'ssl.pem',
+                cert => SSL_DIR . 'ssl.cert',
                 private => SSL_DIR . 'ssl.key',
                 ca => $self->{cert},
             }
