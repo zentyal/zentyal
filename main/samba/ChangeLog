@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bad usage of OpenLDAP when it should be using LDB.
+	+ Force a trace back printing when an LDB connection is not possible.
 	+ Handled mail field sync for Group, User and Contact.
 	+ Use new libsamba-perl for GPOs
 	+ Fixed mail and given name sync for Contacts.
