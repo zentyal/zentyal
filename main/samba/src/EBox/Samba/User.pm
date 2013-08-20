@@ -470,7 +470,7 @@ sub addToZentyal
         $args{uidNumber} = $uidNumber;
         $args{isSystemUser} = ($uidNumber < EBox::Users::User->MINUID());
 
-        if ($sambaMod->hiddenSid($self)) {
+        if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
             $args{isInternal} = 1;
         }
 

@@ -255,7 +255,7 @@ sub addToZentyal
             EBox::debug("Replicating a security group into OpenLDAP with gidNumber = $gidNumber");
         }
 
-        if ($sambaMod->hiddenSid($self)) {
+        if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
             push (@args, isInternal => 1);
         }
 

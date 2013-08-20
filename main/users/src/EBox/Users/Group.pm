@@ -218,7 +218,6 @@ sub _users
 {
     my ($self, $system, $invert) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
     my $usersMod = $self->_usersMod();
     my $userClass = $usersMod->userClass();
 
@@ -241,9 +240,6 @@ sub _users
     my @filteredUsers;
     foreach my $user (@users) {
         next if ($user->isInternal());
-        if (defined ($samba)) {
-            next if ($samba->hiddenViewInAdvancedOnly($user));
-        }
 
         push (@filteredUsers, $user) if (not $user->isSystem());
     }

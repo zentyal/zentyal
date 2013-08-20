@@ -262,20 +262,14 @@ sub _groups
 {
     my ($self, $system, $invert) = @_;
 
-    shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};
 
     return \@groups if ($system);
-
-    my $samba = EBox::Global->modInstance('samba');
 
     my @filteredGroups = ();
     for my $group (@groups) {
         next if ($group->name() eq EBox::Users->DEFAULTGROUP);
         next if ($group->isInternal());
-        if (defined ($samba)) {
-            next if ($samba->hiddenViewInAdvancedOnly($group));
-        }
 
         push (@filteredGroups, $group) if (not $group->isSystem());
     }

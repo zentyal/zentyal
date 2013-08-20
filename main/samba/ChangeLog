@@ -5,7 +5,7 @@ HEAD
 	+ Fixed mail and given name sync for Contacts.
 	+ Stop s4sync while dumping configuration backup
 	+ Ignore Asterisk Queues OU in s4sync
-	+ Added hiddenSid() and hiddenViewInAdvancedOnly() methods
+	+ Added hiddenSid() method
 	+ Change default description to Zentyal Server instead of File Server
 	+ Don't put duplicate bridge interfaces in smb.conf
 	+ Mapped group 'Domain Users' to '__USERS__' directly.
