@@ -1,4 +1,5 @@
 HEAD
+	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
 	+ Use new libsamba-perl for GPOs
 	+ Fixed mail and given name sync for Contacts.

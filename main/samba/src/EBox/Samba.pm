@@ -665,6 +665,14 @@ sub writeSambaConfig
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
 
+    if (EBox::Global->modExists('openchange')) {
+        my $openchangeModule = EBox::Global->modInstance('openchange');
+        my $openchangeEnabled = $openchangeModule->isEnabled();
+        my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        push (@array, 'openchangeEnabled' => $openchangeEnabled);
+        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+    }
+
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
 
