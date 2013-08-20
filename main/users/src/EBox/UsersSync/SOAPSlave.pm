@@ -59,7 +59,7 @@ sub addUser
 
 sub modifyUser
 {
-    my ($class, $userinfo) = @_;
+    my ($self, $userinfo) = @_;
 
     my $user = new EBox::Users::User(dn => $userinfo->{dn});
     $user->set('cn', $userinfo->{fullname}, 1);
@@ -67,7 +67,8 @@ sub modifyUser
     $user->set('initials', $userinfo->{initials}, 1);
     $user->set('sn', $userinfo->{surname}, 1);
     $user->setDisabled($userinfo->{isDisabled}, 1);
-    foreach my $item (@{('displayname', 'description', 'mail')}) {
+    my @optionalAttributes = ('displayname', 'description', 'mail');
+    foreach my $item (@optionalAttributes) {
         if ($userinfo->{$item}) {
             $user->set($item, $userinfo->{$item}, 1);
         } else {
@@ -87,7 +88,7 @@ sub modifyUser
 
     $user->save();
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub delUser
@@ -102,14 +103,14 @@ sub delUser
 
 sub addGroup
 {
-    my ($class, $group) = @_;
+    my ($self, $group) = @_;
 
     my $parent = $self->{usersMod}->objectFromDN($group->{parentDN});
     delete $group->{parentDN};
     $group->{parent} = $parent;
     EBox::Users::Group->create(%{$group});
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub modifyGroup
@@ -125,7 +126,7 @@ sub modifyGroup
 
     $group->save();
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub delGroup

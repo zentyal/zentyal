@@ -57,7 +57,7 @@ sub _addUser
     # encode passwords
     my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
     my $userinfo = {
-        parentDN     => $user->parent()->dn();
+        parentDN     => $user->parent()->dn(),
         uid          => $user->get('uid'),
         fullname     => $user->fullname(),
         givenname    => $user->firstname(),

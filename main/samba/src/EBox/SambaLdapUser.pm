@@ -613,13 +613,13 @@ sub _modifyGroup
             push (@{$sambaMembersDNs}, $sambaUser->dn());
         }
         $sambaGroup->set('member', $sambaMembersDNs, 1);
-        $description = $zentyalGroup->get('description');
+        my $description = $zentyalGroup->get('description');
         if ($description) {
             $sambaGroup->set('description', $description, 1);
         } else {
             $sambaGroup->delete('description', 1);
         }
-        $mail = $zentyalGroup->get('mail');
+        my $mail = $zentyalGroup->get('mail');
         if ($mail) {
             $sambaGroup->set('mail', $mail, 1);
         } else {
