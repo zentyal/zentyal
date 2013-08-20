@@ -1217,6 +1217,24 @@ sub realUsers
     return \@users;
 }
 
+# Method: realGroups
+#
+#       Returns an array containing all the non-internal groups
+#
+# Returns:
+#
+#       array ref - holding the groups. Each user is represented by a
+#       EBox::Users::Group object
+#
+sub realGroups
+{
+    my ($self) = @_;
+
+    my @groups = grep { not $_->isInternal() } @{$self->groups()};
+
+    return \@groups;
+}
+
 # Method: contactsByName
 #
 # Return a reference to a list of instances of EBox::Users::Contact objects which represents a given name.

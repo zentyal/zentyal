@@ -457,6 +457,7 @@ sub save
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #       ignoreMods      - Ldap modules to be ignored on addUser notify.
 #       ignoreSlaves    - Slaves to be ignored on addUser notify.
+#       isInternal      - Whether the group should be hidden or not.
 #
 sub create
 {
@@ -477,6 +478,10 @@ sub create
         throw EBox::Exceptions::External(
             __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
                 'the same time.', group => $args{name}));
+    }
+    my $isInternal = 0;
+    if (defined $args{isInternal}) {
+        $isInternal = $args{isInternal};
     }
 
     if (length ($args{name}) > MAXGROUPLENGTH) {
@@ -524,7 +529,10 @@ sub create
         $class->_checkGid($gid, $isSystemGroup);
         push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);
-   }
+    }
+    if ($isInternal) {
+        push (@attr, internal => 1);
+    }
     push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
 
     my $res = undef;
@@ -702,6 +710,14 @@ sub lastGid
         return ($lastGid < MINGID ? MINGID : $lastGid);
     }
 }
+
+sub isInternal
+{
+    my ($self) = @_;
+
+    return $self->get('internal');
+}
+
 
 sub _checkGid
 {
