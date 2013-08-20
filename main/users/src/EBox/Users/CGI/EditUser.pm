@@ -71,6 +71,7 @@ sub _process
             $self->_requireParam('givenname', __('first name'));
             $self->_requireParam('surname', __('last name'));
             $self->_requireParamAllowEmpty('description', __('description'));
+            $self->_requireParamAllowEmpty('mail', __('E-Mail'));
             $self->_requireParamAllowEmpty('password', __('password'));
             $self->_requireParamAllowEmpty('repassword', __('confirm password'));
 
@@ -89,6 +90,12 @@ sub _process
                 $user->set('description', $description, 1);
             } else {
                 $user->delete('description', 1);
+            }
+            my $mail = $self->unsafeParam('mail');
+            if (length ($mail)) {
+                $user->set('mail', $mail, 1);
+            } else {
+                $user->delete('mail', 1);
             }
 
             $user->set('givenname', $givenName, 1);

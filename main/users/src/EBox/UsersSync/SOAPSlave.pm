@@ -18,18 +18,26 @@ use warnings;
 
 package EBox::UsersSync::SOAPSlave;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Config;
 use EBox::Global;
+use EBox::Users::Contact;
+use EBox::Users::Group;
+use EBox::Users::User;
 
 use Devel::StackTrace;
-use SOAP::Lite;
-use MIME::Base64;
 
-use EBox::Users::User;
-use EBox::Users::Group;
+# Public class methods
 
-# Group: Public class methods
+sub new
+{
+    my $class = shift;
+    my $self = {};
+
+    my $ro = 1;
+    $self->{usersMod} = EBox::Global->getInstance($ro)->modInstance('users');
+
+    bless ($self, $class);
+    return $self;
+}
 
 sub addUser
 {
@@ -41,6 +49,9 @@ sub addUser
         $user->{passwords} = \@pass;
     }
 
+    my $parent = $self->{usersMod}->objectFromDN($user->{parentDN});
+    delete $user->{parentDN};
+    $user->{parent} = $parent;
     EBox::Users::User->create(%{$user});
 
     return $self->_soapResult(0);
@@ -48,12 +59,22 @@ sub addUser
 
 sub modifyUser
 {
-    my ($class, $userinfo) = @_;
+    my ($self, $userinfo) = @_;
 
     my $user = new EBox::Users::User(dn => $userinfo->{dn});
     $user->set('cn', $userinfo->{fullname}, 1);
-    $user->set('sn', $userinfo->{surname}, 1);
     $user->set('givenname', $userinfo->{givenname}, 1);
+    $user->set('initials', $userinfo->{initials}, 1);
+    $user->set('sn', $userinfo->{surname}, 1);
+    $user->setDisabled($userinfo->{isDisabled}, 1);
+    my @optionalAttributes = ('displayname', 'description', 'mail');
+    foreach my $item (@optionalAttributes) {
+        if ($userinfo->{$item}) {
+            $user->set($item, $userinfo->{$item}, 1);
+        } else {
+            $user->delete($item, 1);
+        }
+    }
     $user->set('uidNumber', $userinfo->{uidNumber}, 1);
 
     if ($userinfo->{password}) {
@@ -67,7 +88,7 @@ sub modifyUser
 
     $user->save();
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub delUser
@@ -82,16 +103,14 @@ sub delUser
 
 sub addGroup
 {
-    my ($class, $group) = @_;
+    my ($self, $group) = @_;
 
-    my %args = (
-        name        => $group->{name},
-        description => $group->{comment},
-    );
+    my $parent = $self->{usersMod}->objectFromDN($group->{parentDN});
+    delete $group->{parentDN};
+    $group->{parent} = $parent;
+    EBox::Users::Group->create(%{$group});
 
-    EBox::Users::Group->create(%args);
-
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub modifyGroup
@@ -99,9 +118,15 @@ sub modifyGroup
     my ($self, $groupinfo) = @_;
 
     my $group = new EBox::Users::Group(dn => $groupinfo->{dn});
-    $group->set('member', $groupinfo->{members});
+    $group->set('member', $groupinfo->{members}, 1);
+    $group->set('description', $groupinfo->{description}, 1);
+    $group->set('mail', $groupinfo->{mail}, 1);
+    $group->set('gidNumber', $groupinfo->{gidNumber}, 1);
+    $group->setSecurityGroup($groupinfo->{isSecurityGroup}, 1);
 
-    return 1;
+    $group->save();
+
+    return $self->_soapResult(0);
 }
 
 sub delGroup

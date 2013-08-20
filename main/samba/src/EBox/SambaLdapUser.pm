@@ -156,23 +156,24 @@ sub _preAddUser
     my $surname     = $entry->get_value('sn');
     my $displayName = $entry->get_value('displayName');
     my $description = $entry->get_value('description');
+    my $mail        = $entry->get_value('mail');
     my $uid         = $entry->get_value('uid');
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
-    my %args = (
-        name           => $name,
-        parent         => $sambaParent,
-        samAccountName => $uid,
-        givenName      => $givenName,
-        initials       => $initials,
-        sn             => $surname,
-        displayName    => $displayName,
-        description    => $description,
-    );
+    my @args = ();
+    push (@args, name           => $name);
+    push (@args, parent         => $sambaParent);
+    push (@args, samAccountName => $uid);
+    push (@args, givenName      => $givenName);
+    push (@args, initials       => $initials) if ($initials);
+    push (@args, sn             => $surname);
+    push (@args, displayName    => $displayName) if ($displayName);
+    push (@args, description    => $description) if ($description);
+    push (@args, mail           => $mail) if ($mail);
 
     EBox::info("Creating user '$uid'");
-    my $sambaUser = EBox::Samba::User->create(%args);
+    my $sambaUser = EBox::Samba::User->create(@args);
     my $uidNumber = $sambaUser->xidNumber();
     unless (defined $uidNumber) {
         throw EBox::Exceptions::Internal("Could not get the xidNumber from SAMBA for user $uid");
@@ -285,10 +286,20 @@ sub _modifyUser
 
         my $gn = $zentyalUser->get('givenName');
         my $sn = $zentyalUser->get('sn');
-        my $desc = $zentyalUser->get('description');
+        my $description = $zentyalUser->description();
+        my $mail = $zentyalUser->mail();
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
-        $sambaUser->set('description', $desc, 1);
+        if ($description) {
+            $sambaUser->set('description', $description, 1);
+        } else {
+            $sambaUser->delete('description', 1);
+        }
+        if ($mail) {
+            $sambaUser->set('mail', $mail, 1);
+        } else {
+            $sambaUser->delete('mail', 1);
+        }
         if (defined($zentyalPwd)) {
             $sambaUser->changePassword($zentyalPwd, 1);
         } else {
@@ -362,19 +373,18 @@ sub _preAddContact
     my $mail = $entry->get_value('mail');
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
 
-    my %args = (
-        name        => $name,
-        givenName   => $givenName,
-        initials    => $initials,
-        sn          => $sn,
-        displayName => $displayName,
-        description => $description,
-        parent      => $sambaParent,
-        mail        => $mail,
-    );
+    my @args = ();
+    push (@args, name        => $name);
+    push (@args, parent      => $sambaParent);
+    push (@args, givenName   => $givenName) if ($givenName);
+    push (@args, initials    => $initials) if ($initials);
+    push (@args, sn          => $sn) if ($sn);
+    push (@args, displayName => $displayName) if ($displayName);
+    push (@args, description => $description) if ($description);
+    push (@args, mail        => $mail) if ($mail);
 
     EBox::info("Creating contact '$name'");
-    my $sambaContact = EBox::Samba::Contact->create(%args);
+    my $sambaContact = EBox::Samba::Contact->create(@args);
     $sambaContact->_linkWithUsersEntry($entry);
 }
 
@@ -424,12 +434,36 @@ sub _modifyContact
         my $description = $zentyalContact->get_value('description');
         my $mail = $zentyalContact->get_value('mail');
 
-        $sambaContact->set('givenName', $givenName, 1);
-        $sambaContact->set('initials', $initials, 1);
-        $sambaContact->set('sn', $sn, 1);
-        $sambaContact->set('displayName', $displayName, 1);
-        $sambaContact->set('description', $description, 1);
-        $sambaContact->set('mail', $mail, 1);
+        if ($givenName) {
+            $sambaContact->set('givenName', $givenName, 1);
+        } else {
+            $sambaContact->delete('givenName', 1);
+        }
+        if ($initials) {
+            $sambaContact->set('initials', $initials, 1);
+        } else {
+            $sambaContact->delete('initials', 1);
+        }
+        if ($sn) {
+            $sambaContact->set('sn', $sn, 1);
+        } else {
+            $sambaContact->delete('sn', 1);
+        }
+        if ($displayName) {
+            $sambaContact->set('displayName', $displayName, 1);
+        } else {
+            $sambaContact->delete('displayName', 1);
+        }
+        if ($description) {
+            $sambaContact->set('description', $description, 1);
+        } else {
+            $sambaContact->delete('description', 1);
+        }
+        if ($mail) {
+            $sambaContact->set('mail', $mail, 1);
+        } else {
+            $sambaContact->delete('mail', 1);
+        }
         $sambaContact->save();
     } otherwise {
         my ($error) = @_;
@@ -466,17 +500,19 @@ sub _preAddGroup
 
     my $name = $entry->get_value('cn');
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
+    my $description = $entry->get_value('description');
+    my $mail = $entry->get_value('mail');
 
     # The isSecurityGroup flag is not set here given that the zentyalObject doesn't exist yet, we will
     # update it later on the _addGroup callback. Maybe we would move this creation to _addGroup...
-    my %args = (
-        name        => $name,
-        parent      => $sambaParent,
-        description => $entry->get_value('description'),
-    );
+    my @args = ();
+    push (@args, name          => $name);
+    push (@args, parent        => $sambaParent);
+    push (@args, 'description' => $description) if ($description);
+    push (@args, 'mail'        => $mail) if ($mail);
 
     EBox::info("Creating group '$name'");
-    my $sambaGroup = EBox::Samba::Group->create(%args);
+    my $sambaGroup = EBox::Samba::Group->create(@args);
     my $gidNumber = $sambaGroup->xidNumber();
     unless (defined $gidNumber) {
         throw EBox::Exceptions::Internal("Could not get the xidNumber from SAMBA for group $name");
@@ -577,7 +613,18 @@ sub _modifyGroup
             push (@{$sambaMembersDNs}, $sambaUser->dn());
         }
         $sambaGroup->set('member', $sambaMembersDNs, 1);
-        $sambaGroup->set('description', scalar ($zentyalGroup->get('description')), 1);
+        my $description = $zentyalGroup->get('description');
+        if ($description) {
+            $sambaGroup->set('description', $description, 1);
+        } else {
+            $sambaGroup->delete('description', 1);
+        }
+        my $mail = $zentyalGroup->get('mail');
+        if ($mail) {
+            $sambaGroup->set('mail', $mail, 1);
+        } else {
+            $sambaGroup->delete('mail', 1);
+        }
         $sambaGroup->save();
     } otherwise {
         my ($error) = @_;
