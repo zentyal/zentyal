@@ -1,6 +1,9 @@
 HEAD
 	+ Ignore system ACLs for samba shares, using the NT ACLs instead.
-	+ Use new libsamba-perl for GPOs.
+	+ Fixed bad usage of OpenLDAP when it should be using LDB.
+	+ Force a trace back printing when an LDB connection is not possible.
+	+ Handled mail field sync for Group, User and Contact.
+	+ Use new libsamba-perl for GPOs
 	+ Fixed mail and given name sync for Contacts.
 	+ Stop s4sync while dumping configuration backup
 	+ Ignore Asterisk Queues OU in s4sync
