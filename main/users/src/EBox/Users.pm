@@ -1195,10 +1195,6 @@ sub users
 #
 #       Returns an array containing all the non-internal users
 #
-# Parameters:
-#
-#       withoutAdmin - filter Samba 'Administrator' user (default: false)
-#
 # Returns:
 #
 #       array ref - holding the users. Each user is represented by a
@@ -1206,13 +1202,9 @@ sub users
 #
 sub realUsers
 {
-    my ($self, $withoutAdmin) = @_;
+    my ($self) = @_;
 
     my @users = grep { not $_->isInternal() } @{$self->users()};
-
-    if ($withoutAdmin) {
-        @users = grep { $_->name() ne 'Administrator' } @users;
-    }
 
     return \@users;
 }

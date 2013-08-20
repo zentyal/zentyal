@@ -256,7 +256,7 @@ sub addToZentyal
         }
 
         if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
-            push (@args, isInternal => 1);
+            push (@params, isInternal => 1);
         }
 
         $zentyalGroup = EBox::Users::Group->create(@params);

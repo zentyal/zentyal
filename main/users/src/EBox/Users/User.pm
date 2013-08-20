@@ -485,7 +485,7 @@ sub create
     }
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $real_users = $usersMod->realUsers('without_admin');
+    my $real_users = $usersMod->realUsers();
 
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {
