@@ -52,6 +52,8 @@ sub _process
 
         $self->_requireParam('givenname', __('Given name'));
         $self->_requireParam('surname', __('Surname'));
+        $self->_requireParamAllowEmpty('description', __('Description'));
+        $self->_requireParamAllowEmpty('mail', __('E-Mail'));
 
         my $givenname = $self->param('givenname');
         my $surname = $self->param('surname');

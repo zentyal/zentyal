@@ -63,7 +63,8 @@ sub _process
 
     if ($self->param('edit')) {
         $self->{json} = { success => 0 };
-        $self->_requireParamAllowEmpty('description', __('description'));
+        $self->_requireParamAllowEmpty('description', __('Description'));
+        $self->_requireParamAllowEmpty('mail', __('E-Mail'));
         $self->_requireParam('type', __('type'));
 
         my $type = $self->param('type');
@@ -74,6 +75,12 @@ sub _process
             $group->set('description', $description);
         } else {
             $group->delete('description');
+        }
+        my $mail = $self->unsafeParam('mail');
+        if (length ($mail)) {
+            $group->set('mail', $mail);
+        } else {
+            $group->delete('mail');
         }
 
         $self->{json}->{success}  = 1;

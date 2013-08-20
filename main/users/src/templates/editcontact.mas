@@ -25,7 +25,7 @@ use JSON::XS;
             <input type='text' class='inputText' name='surname' value="<% $contact->surname() %>">
         <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
             <input type='text' class='inputText' name='description' value="<% $contact->description() %>">
-        <label><% __('E-Mail') %></label>
+        <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
             <input type='text' class='inputText' name='mail' value="<% $contact->mail() %>">
 
 %   unless ($slave) {
