@@ -59,6 +59,7 @@ sub kerberosCreatePrincipals
 {
     my ($self) = @_;
 
+    my $users = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
     my $hostdomain = $sysinfo->hostDomain();
@@ -82,6 +83,9 @@ sub kerberosCreatePrincipals
                       "--policy=default '$principal'";
             EBox::info("Creating service principal $principal");
             EBox::Sudo::root($cmd);
+
+            my $user = $users->userByUID("$service-$hostname");
+            $user->setInternal();
         }
 
         # Extract keytab

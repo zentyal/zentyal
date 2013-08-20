@@ -243,7 +243,6 @@ sub _users
         next if ($user->isInternal());
         if (defined ($samba)) {
             next if ($samba->hiddenViewInAdvancedOnly($user));
-            next if ($samba->hiddenSid($user));
         }
 
         push (@filteredUsers, $user) if (not $user->isSystem());

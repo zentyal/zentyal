@@ -82,7 +82,7 @@ sub childNodes
             $printableName = $child->name();
             next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
-            next if (defined ($samba) and $samba->hiddenSid($child));
+            next if ($child->isInternal());
 
             if ($child->isDisabled()) {
                 $type = 'duser';
@@ -105,7 +105,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if (defined ($samba) and $samba->hiddenSid($child));
+            next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();

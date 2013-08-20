@@ -1230,7 +1230,7 @@ sub realGroups
 {
     my ($self) = @_;
 
-    my @groups = grep { not $_->isInternal() } @{$self->groups()};
+    my @groups = grep { not $_->isInternal() } @{$self->securityGroups()};
 
     return \@groups;
 }
