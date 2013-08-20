@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 135;
+use Test::More tests => 137;
 use Test::Exception;
 use Fatal qw(mkdir);
 
@@ -146,7 +146,7 @@ sub checkHostTest
 sub checkEmailAddressTest
 {
     my @straightCases = qw(macaco@monos.org homo.sapiens@primates.com mandrill+colorful@monos.org);
-    my @deviantCases = qw(macaco);
+    my @deviantCases = ('macaco', ' macaco@monos.org');
 
     foreach my $case (@straightCases) {
         my $name = "checking validation for straight case: $case";
