@@ -124,6 +124,7 @@ sub precondition
     }
     unless ($samba->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
+        return undef;
     }
 
     return 1;
