@@ -1,4 +1,5 @@
 HEAD
+	+ Mark internal users and groups properly when creating them in LDAP
 	+ Filter internal users and groups in ACLs selectors
 	+ Use new libsamba-perl for GPOs
 	+ Fixed mail and given name sync for Contacts.
