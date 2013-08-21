@@ -99,7 +99,7 @@ sub _setConf
     push (@{$array}, SOGoProfileURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_user_profile');
     push (@{$array}, OCSFolderInfoURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_folder_info');
     push (@{$array}, OCSSessionsFolderURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_sessions_folder');
-    push (@{$array}, WONoDetach => 'YES');
+    push (@{$array}, WONoDetach => 'NO');
     push (@{$array}, WOLogFile => '/var/log/sogo/sogo.log');
     push (@{$array}, WOPidFile => '/var/run/sogo/sogo.pid');
     my $SOGoUserSources = {
