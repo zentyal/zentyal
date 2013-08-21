@@ -1,3 +1,9 @@
+openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal8) precise; urgency=low
+
+  * Link to samba4 libldb, libndr, libtevent and libtalloc libraries
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 20 Aug 2013 15:46:44 +0200
+
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal7) precise; urgency=low
 
   * Fixed a wrong path for cached files from python-ocsmanager.
