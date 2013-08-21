@@ -251,8 +251,10 @@ sub _doDeprovision
         $output = EBox::Sudo::root($cmd);
         EBox::debug("openchange.ldb removed");
 
-        $self->parentModule->setProvisioned(0);
+        $self->parentModule->setProvisioned(1);
         $self->setMessage($action->message(), 'note');
+
+        # TODO Drop postgresql database tables
     } otherwise {
         my ($error) = @_;
 

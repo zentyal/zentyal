@@ -1,0 +1,69 @@
+<%args>
+    $SOGoTimeZone
+    $SOGoProfileURL
+	$OCSFolderInfoURL
+	$OCSSessionsFolderURL
+    $SOGoUserSources
+    $WONoDetach
+    $WOLogFile
+    $WOPidFile
+</%args>
+<%init>
+</%init>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//GNUstep//DTD plist 0.9//EN" "http://www.gnustep.org/plist-0_9.xml">
+<plist version="0.9">
+<dict>
+    <key>NSGlobalDomain</key>
+    <dict>
+    </dict>
+    <key>sogod</key>
+    <dict>
+	<key>OCSFolderInfoURL</key>
+	<string><% $OCSFolderInfoURL %></string>
+	<key>OCSSessionsFolderURL</key>
+	<string><% $OCSSessionsFolderURL %></string>
+	<key>SOGoProfileURL</key>
+	<string><% $SOGoProfileURL %></string>
+	<key>SOGoTimeZone</key>
+	<string><% $SOGoTimeZone %></string>
+	<key>SOGoUserSources</key>
+	<array>
+	    <dict>
+		<key>CNFieldName</key>
+		<string><% $SOGoUserSources->{CNFieldName} %></string>
+		<key>IDFieldName</key>
+		<string><% $SOGoUserSources->{IDFieldName} %></string>
+		<key>IMAPHostFieldName</key>
+		<string><% $SOGoUserSources->{IMAPHostFieldName} %></string>
+		<key>UIDFieldName</key>
+		<string><% $SOGoUserSources->{UIDFieldName} %></string>
+		<key>baseDN</key>
+		<string><% $SOGoUserSources->{baseDN} %></string>
+		<key>bindDN</key>
+		<string><% $SOGoUserSources->{bindDN} %></string>
+		<key>bindPassword</key>
+		<string><% $SOGoUserSources->{bindPassword} %></string>
+		<key>canAuthenticate</key>
+		<string><% $SOGoUserSources->{canAuthenticate} %></string>
+		<key>displayName</key>
+		<string><% $SOGoUserSources->{displayName} %></string>
+		<key>hostname</key>
+		<string><% $SOGoUserSources->{hostname} %></string>
+		<key>id</key>
+		<string><% $SOGoUserSources->{id} %></string>
+		<key>isAddressBook</key>
+		<string><% $SOGoUserSources->{isAddressBook} %></string>
+		<key>port</key>
+		<string><% $SOGoUserSources->{port} %></string>
+	    </dict>
+	</array>
+	<key>WOLogFile</key>
+	<string><% $WOLogFile %></string>
+	<key>WONoDetach</key>
+	<string><% $WONoDetach %></string>
+	<key>WOPidFile</key>
+	<string><% $WOPidFile %></string>
+    </dict>
+</dict>
+</plist>
