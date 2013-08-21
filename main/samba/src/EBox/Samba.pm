@@ -2018,7 +2018,7 @@ sub computers
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
     my %args = (
-        base => $self->ldap->dn(),
+        base => $self->ldb()->dn(),
         filter => 'objectClass=computer',
         scope => 'sub',
         control => [$sort],
@@ -2132,7 +2132,7 @@ sub relativeDN
 
     throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
 
-    my $baseDN = $self->ldap()->dn();
+    my $baseDN = $self->ldb()->dn();
 
     return '' if ($dn eq $baseDN);
 

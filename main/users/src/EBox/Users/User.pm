@@ -310,12 +310,12 @@ sub isDisabled
 #
 sub setDisabled
 {
-    my ($self, $status) = @_;
+    my ($self, $status, $lazy) = @_;
 
     if ($status) {
-        $self->set('shadowExpire', 0);
+        $self->set('shadowExpire', 0, $lazy);
     } else {
-        $self->delete('shadowExpire');
+        $self->delete('shadowExpire', $lazy);
     }
 }
 

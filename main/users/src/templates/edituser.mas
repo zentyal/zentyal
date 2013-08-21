@@ -42,6 +42,13 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                                value=> ($user->description() or ''),
                                slave => $slave,
                    &>
+
+          <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
+                  <& masterSlaveUserAttr,
+                               name => 'mail',
+                               value => ($user->mail() or ''),
+                               slave => $slave,
+                   &>
           <label><% __('User quota') %> (MB)</label>
           <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
           <label><% __('Disabled account') %></label>

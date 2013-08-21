@@ -130,6 +130,16 @@ sub description
     return $self->get('description');
 }
 
+# Method: mail
+#
+#   Return group mail
+#
+sub mail
+{
+    my ($self) = @_;
+    return $self->get('mail');
+}
+
 # Method: removeAllMembers
 #
 #   Remove all members in the group

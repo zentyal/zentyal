@@ -61,6 +61,31 @@ sub mainObjectClass
     return 'group';
 }
 
+# Method: name
+#
+#   Return group name
+#
+sub name
+{
+    my ($self) = @_;
+    return $self->get('name');
+}
+
+sub description
+{
+    my ($self) = @_;
+    return $self->get('description');
+}
+
+# Method: mail
+#
+#   Return group mail
+#
+sub mail
+{
+    my ($self) = @_;
+    return $self->get('mail');
+}
 
 # Method: removeAllMembers
 #
@@ -162,6 +187,7 @@ sub setupGidMapping
 #       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.
+#       mail            - Group's mail.
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #
@@ -192,6 +218,7 @@ sub create
     push ($attr, objectClass    => ['top', 'group']);
     push ($attr, sAMAccountName => $args{name});
     push ($attr, description    => $args{description}) if ($args{description});
+    push ($attr, mail           => $args{mail}) if ($args{mail});
     if ($isSecurityGroup) {
         $groupType |= GROUPTYPESECURITY;
     }
@@ -239,11 +266,14 @@ sub addToZentyal
         my @params = (
             name => scalar($name),
             parent => $parent,
-            description =>  scalar($self->get('description')),
             isSecurityGroup => $self->isSecurityGroup(),
-            isSystemGroup => 0,
             ignoreMods  => ['samba'],
         );
+
+        my $description = $self->description();
+        push (@params, description =>  $description) if ($description);
+        my $mail = $self->mail();
+        push (@params, mail =>  $mail) if ($mail);
 
         if ($self->isSecurityGroup()) {
             my $gidNumber = $self->xidNumber();
@@ -286,8 +316,6 @@ sub updateZentyal
     my $gid = $self->get('samAccountName');
     EBox::info("Updating zentyal group '$gid'");
 
-    my $description = $self->get('description');
-
     $zentyalGroup->setIgnoredModules(['samba']);
     if ($self->isSecurityGroup()) {
         unless ($zentyalGroup->isSecurityGroup()) {
@@ -301,7 +329,18 @@ sub updateZentyal
     } elsif ($zentyalGroup->isSecurityGroup()) {
         $zentyalGroup->setSecurityGroup(0, 1);
     }
-    $zentyalGroup->set('description', $description, 1);
+    my $description = $self->get('description');
+    if ($description) {
+        $zentyalGroup->set('description', $description, 1);
+    } else {
+        $zentyalGroup->delete('description', 1);
+    }
+    my $mail = $self->get('mail');
+    if ($mail) {
+        $zentyalGroup->set('mail', $mail, 1);
+    } else {
+        $zentyalGroup->delete('mail', 1);
+    }
     $zentyalGroup->save();
 
     $self->_membersToZentyal($zentyalGroup);
