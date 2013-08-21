@@ -1,3 +1,9 @@
+samba4 (4.1.0rc2-zentyal6) precise; urgency=low
+
+  * Removed the .pc links to avoid conflicts with distro packages.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 20 Aug 2013 17:45:31 +0200
+
 samba4 (4.1.0rc2-zentyal5) precise; urgency=low
 
   * Build talloc, tevent, tdb, ldb, samba-security as public libs
