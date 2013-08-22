@@ -245,6 +245,7 @@ sub addToZentyal
 
     my $parent = undef;
     my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
     if ($domainAdminsSID eq $self->sid()) {
         # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
@@ -258,9 +259,43 @@ sub addToZentyal
         throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
     }
     my $parentDN = $parent->dn();
+
     my $name = $self->get('samAccountName');
 
     my $zentyalGroup = undef;
+
+    if ($domainUsersSID eq $self->sid()) {
+        my $usersMod = EBox::Global->modInstance('users');
+        my $usersName = $usersMod->DEFAULTGROUP();
+
+        $zentyalGroup = EBox::Users::Group(gid => $usersName);
+        if ($zentyalGroup->exists()) {
+            # The special __USERS__ group already exists in Zentyal:
+            # 1. Copy its members list into Samba.
+            foreach my $member (@{$zentyalGroup->members()}) {
+                try {
+                    my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
+                    next unless ($smbMember);
+                    $self->addMember($smbMember, 1);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding member: $error");
+                };
+            }
+            $self->save();
+            # 2. link both objects.
+            $self->_linkWithUsersObject($zentyalGroup);
+            # 3. Update its fields.
+            $self->updateZentyal();
+            return;
+        } else {
+            # There is no __USERS__ group in Zentyal, this should not happen, but just in case is just a matter of
+            # create this group with the __USERS__ name.
+            $zentyalGroup = undef;
+            $name = $usersName;
+        }
+    }
+
     EBox::info("Adding samba group '$name' to Zentyal");
     try {
         my @params = (
@@ -298,7 +333,7 @@ sub addToZentyal
         EBox::error("Error loading group '$name': $error");
     };
 
-    if ($zentyalGroup && $zentyalGroup->exists()) {
+    if ($zentyalGroup and $zentyalGroup->exists()) {
         $self->_membersToZentyal($zentyalGroup);
     }
 }

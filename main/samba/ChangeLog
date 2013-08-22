@@ -1,5 +1,13 @@
 HEAD
-	+ Ignore system ACLs for samba shares, using the NT ACLs instead.
+	+ Ignore system ACLs for samba shares, use libsamba-perl library instead.
+	+ Disabled custom auth methods for guests, so Kerberos authentication
+	  works. This should be reverted once Guest support is fixed on Samba 4.
+	+ Synced all members of Zentyal Groups, not just users, when provisioning
+	  with Samba.
+	+ Stop creating special users or groups on provision time, s4sync will do
+	  it for us.
+	+ Services principals are copied to Samba before Groups, so we can keep
+	  memberships intact.
 	+ Fixed bad usage of OpenLDAP when it should be using LDB.
 	+ Force a trace back printing when an LDB connection is not possible.
 	+ Handled mail field sync for Group, User and Contact.

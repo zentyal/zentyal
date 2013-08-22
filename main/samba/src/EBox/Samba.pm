@@ -79,6 +79,7 @@ use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
+use constant GUEST_DEFAULT_USER   => 'nobody';
 
 sub _create
 {
@@ -653,7 +654,7 @@ sub writeSambaConfig
     foreach my $share (@{$shares}) {
         if ($share->{guest}) {
             push (@array, 'guestAccess' => 1);
-            push (@array, 'guestAccount' => EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+            push (@array, 'guestAccount' => GUEST_DEFAULT_USER);
             last;
         }
     }
@@ -694,7 +695,7 @@ sub _setupQuarantineDirectory
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $nobodyUser  = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $nobodyUser  = GUEST_DEFAULT_USER;
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
@@ -725,7 +726,7 @@ sub _createDirectories
 
     my $zentyalUser = EBox::Config::user();
     my $group = EBox::Users::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $nobody = GUEST_DEFAULT_USER;
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 

@@ -400,28 +400,9 @@ sub mapAccounts
     my $admGID = 4;
 
     EBox::info("Mapping domain administrator account");
-    my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
-    my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
-    if ($domainAdmin->exists()) {
-        if ($domainAdminZentyal->exists()) {
-            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
-        } else {
-            $domainAdmin->addToZentyal();
-        }
-    }
-
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
-    my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
-    my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
-    if ($domainAdmins->exists()) {
-        if ($domainAdminsZentyal->exists()) {
-            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
-        } else {
-            $domainAdmins->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     EBox::info("Mapping domain users group account");
@@ -430,23 +411,11 @@ sub mapAccounts
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
-    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
-    if ($domainUsers->exists()) {
-        if ($domainUsersZentyal->exists()) {
-            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
-        } else {
-            $domainUsers->addToZentyal();
-        }
-    }
-    # Map domain users group
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
     my $guestGroupSID = "$domainSID-514";
-    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
@@ -521,8 +490,8 @@ sub provisionDC
         $samba->ldb->ldapOUsToLDB();
         $samba->ldb->ldapUsersToLdb();
         $samba->ldb->ldapContactsToLdb();
-        $samba->ldb->ldapGroupsToLdb();
         $samba->ldb->ldapServicePrincipalsToLdb();
+        $samba->ldb->ldapGroupsToLdb();
 
         # Map accounts
         $self->mapAccounts();

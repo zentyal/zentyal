@@ -24,30 +24,36 @@ package EBox::Samba::Model::SambaShares;
 
 use base 'EBox::Model::DataTable';
 
-use Cwd 'abs_path';
-use String::ShellQuote;
-
+use EBox::Exceptions::DataInUse;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Model::Manager;
+use EBox::Samba::Group;
+use EBox::Samba::SmbClient;
+use EBox::Sudo;
+use EBox::Types::Boolean;
 use EBox::Types::Text;
 use EBox::Types::Union;
-use EBox::Types::Boolean;
-use EBox::Model::Manager;
-use EBox::Exceptions::DataInUse;
-use EBox::Samba::SecurityPrincipal;
-use EBox::Sudo;
 
-use EBox::Samba::Security::SecurityDescriptor;
-use EBox::Samba::Security::AccessControlEntry;
-
+use Cwd 'abs_path';
 use Error qw(:try);
+use Samba::Security::AccessControlEntry;
+use Samba::Security::Descriptor qw(
+    DOMAIN_RID_ADMINISTRATOR
+    SEC_ACE_TYPE_ACCESS_ALLOWED
+    SEC_RIGHTS_FILE_ALL
+    SEC_STD_ALL
+    SEC_RIGHTS_DIR_ALL
+    SEC_RIGHTS_FILE_ALL
+    SEC_ACE_FLAG_CONTAINER_INHERIT
+    SEC_ACE_FLAG_OBJECT_INHERIT
+    SECINFO_OWNER
+    SECINFO_GROUP
+    SECINFO_DACL
+    SECINFO_PROTECTED_DACL
+);
+use String::ShellQuote;
 
-use constant DEFAULT_MASK => '0700';
-use constant DEFAULT_USER => 'root';
-use constant DEFAULT_GROUP => 'root';
-use constant GUEST_DEFAULT_MASK => '0770';
-use constant GUEST_DEFAULT_USER => 'nobody';
-use constant GUEST_DEFAULT_GROUP => 'nogroup';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
 
@@ -221,8 +227,7 @@ sub validateTypedRow
         } else {
             # Check if it is a valid directory
             my $dir = $parms->{'path'}->value();
-            EBox::Validate::checkFilePath($dir,
-                                         __('Samba share directory'));
+            EBox::Validate::checkFilePath($dir, __('Samba share directory'));
         }
     }
 }
@@ -285,10 +290,6 @@ sub deletedRowNotify
 #
 #   This method is used to create the necessary directories for those
 #   shares which must live under /home/samba/shares
-#   We must set here both POSIX ACLs and navite NT ACLs. If we only set
-#   POSIX ACLs, a user can change the permissions in the security tab
-#   of the share. To avoid it we set also navive NT ACLs and set the
-#   owner of the share to 'Domain Admins'.
 #
 sub createDirs
 {
@@ -316,76 +317,68 @@ sub createDirs
 
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
-        if ($guestAccess) {
-           push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
-           push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
-        } else {
-           push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
-           push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
-        }
+        push (@cmds, "chmod 0770 '$path'");
+        # Windows sets by default as the owner of the files, the Builtin Administrators group.
+        my $builtinAdministrators = new EBox::Samba::Group(sid => 'S-1-5-32-544');
+        push (@cmds, 'chown ' . $builtinAdministrators->xidNumber() . ':root' . " '$path'");
         EBox::Sudo::root(@cmds);
 
-        my $sd = undef;
+        my $sambaMod = EBox::Global->modInstance('samba');
+        my $host = $sambaMod->ldb()->rootDse()->get_value('dnsHostName');
+        unless (defined $host and length $host) {
+            throw EBox::Exceptions::Internal('Could not get DNS hostname');
+        }
+        my $smb = new EBox::Samba::SmbClient(target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
+        my $sd = new Samba::Security::Descriptor();
+
+        # Always, full control to the Administrators group.
+        my $ace = new Samba::Security::AccessControlEntry(
+            $builtinAdministrators->sid(), SEC_ACE_TYPE_ACCESS_ALLOWED, SEC_STD_ALL,
+            SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT);
+        $sd->dacl_add($ace);
+
         if ($guestAccess) {
-            my $sd = new EBox::Samba::Security::SecurityDescriptor(ownerSID => 'WD', groupSID => 'WD');
-            my $ace = new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ('OI', 'CI'), rights => ('FR', 'FW', 'FX'), objectSID => 'WD');
-            $sd->addDACL($ace);
-            my $sdString = $sd->getAsString();
-            my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$sdString' '$path'";
-            try {
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Could not set NT ACL for $path: $error");
-            };
-            next;
+            my $domainSID = $sambaMod->ldb->domainSID();
+            my $domainGuestsSID = "$domainSID-514";
+            $ace = new Samba::Security::AccessControlEntry(
+                $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, SEC_RIGHTS_DIR_ALL | SEC_RIGHTS_FILE_ALL ,
+                SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT);
+            $sd->dacl_add($ace);
+        } else {
+
+#        my $sd = new EBox::Samba::Security::SecurityDescriptor(ownerSID => 'BA', groupSID => 'DU');
+#        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'SY'));
+#        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'BA'));
+#        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'LA'));
+#
+#        for my $subId (@{$row->subModel('access')->ids()}) {
+#            my $subRow = $row->subModel('access')->row($subId);
+#            my $permissions = $subRow->elementByName('permissions');
+#
+#            my $userType = $subRow->elementByName('user_group');
+#            my $account = $userType->printableValue();
+#            my $qobject = shell_quote($account);
+#
+#            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
+#            next unless $object->exists();
+#
+#            my $sid = $object->sid();
+#            if ($permissions->value() eq 'readOnly') {
+#                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX'], objectSID => $sid));
+#            } elsif ($permissions->value() eq 'readWrite') {
+#                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX', 'FW', 'SD'], objectSID => $sid));
+#            } elsif ($permissions->value() eq 'administrator') {
+#                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => $sid));
+#            } else {
+#                my $type = $permissions->value();
+#                EBox::error("Unknown share permission type '$type'");
+#                next;
+#            }
+#        }
         }
-
-        my $sd = new EBox::Samba::Security::SecurityDescriptor(ownerSID => 'BA', groupSID => 'DU');
-        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'SY'));
-        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'BA'));
-        $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => 'LA'));
-
-        for my $subId (@{$row->subModel('access')->ids()}) {
-            my $subRow = $row->subModel('access')->row($subId);
-            my $permissions = $subRow->elementByName('permissions');
-
-            my $userType = $subRow->elementByName('user_group');
-            my $account = $userType->printableValue();
-            my $qobject = shell_quote($account);
-
-            my $object = new EBox::Samba::LdbObject(samAccountName => $account);
-            next unless $object->exists();
-
-            my $sid = $object->sid();
-            if ($permissions->value() eq 'readOnly') {
-                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX'], objectSID => $sid));
-            } elsif ($permissions->value() eq 'readWrite') {
-                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FR', 'FX', 'FW', 'SD'], objectSID => $sid));
-            } elsif ($permissions->value() eq 'administrator') {
-                $sd->addDACL(new EBox::Samba::Security::AccessControlEntry(type => 'A', flags => ['OI', 'CI'], rights => ['FA'], objectSID => $sid));
-            } else {
-                my $type = $permissions->value();
-                EBox::error("Unknown share permission type '$type'");
-                next;
-            }
-        }
-
-        # Setting NT ACLs also sets posix ACLs thanks to vfs_xattr plugin
-        try {
-            my $sdString = $sd->getAsString();
-            if ($recursive) {
-                EBox::info("Setting NT ACLs recursively on share '$path', this can take a while");
-                my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set --recursive '$sdString' '$path'";
-                EBox::Sudo::root($cmd);
-            } else {
-                my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$sdString' '$path'";
-                EBox::Sudo::root($cmd);
-            }
-        } otherwise {
-            my $error = shift;
-            EBox::error("Coundn't enable NT ACLs for $path: $error");
-        };
+        my $relativeSharePath = '/';
+        my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
+        $smb->set_sd($relativeSharePath, $sd, $sinfo);
     }
 }
 
