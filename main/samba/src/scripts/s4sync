@@ -95,25 +95,21 @@ while (1) {
     $zentyalGroups{'Domain Users'} = new EBox::Users::Group(gid => 'Domain Users');
 
     foreach my $canonicalName (@orderSambaOUs) {
-        EBox::debug("sync OU $canonicalName");
-        my $ou = $sambaOUs{$canonicalName};
-        my $inZentyal = delete $zentyalOUs{$canonicalName};
-        if ($inZentyal) {
-            EBox::debug("$canonicalName is already in zentyal, updating...");
-            my $changed = $ou->get('whenChanged');
+        if (exists $zentyalOUs{$canonicalName}) {
+            my $changed = $sambaOUs{$canonicalName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
-            if ($changed > $sambaTimestampFile) {
+            if ($changed > $sambaTimestamp) {
                 try {
-                    $ou->updateZentyal();
+                    $sambaOUs{$canonicalName}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
                 };
             }
+            delete $zentyalOUs{$canonicalName};
         } else {
-            EBox::debug("adding $canonicalName to Zentyal");
             try {
-                $ou->addToZentyal();
+                $sambaOUs{$canonicalName}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");

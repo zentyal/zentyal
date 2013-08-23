@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed s4sync when checking for OUs updates.
 	+ Ignore system ACLs for samba shares, use libsamba-perl library instead.
 	+ Disabled custom auth methods for guests, so Kerberos authentication
 	  works. This should be reverted once Guest support is fixed on Samba 4.
