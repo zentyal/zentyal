@@ -20,16 +20,11 @@ package EBox::Objects;
 use base qw(EBox::Module::Config);
 
 use Net::IP;
-use EBox::Validate qw( :all );
 use EBox::Global;
-use EBox::Objects::Model::ObjectTable;
-use EBox::Objects::Model::MemberTable;
-use EBox::Exceptions::InvalidData;
-use EBox::Exceptions::MissingArgument;
-use EBox::Exceptions::DataExists;
-use EBox::Exceptions::DataMissing;
-use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
+use EBox::Validate qw( :all );
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
 
 sub _create
 {
@@ -68,21 +63,6 @@ sub objects
     }
 
     return \@objects;
-}
-
-# Method: objectIds
-#
-#       Return all object ids
-#
-# Returns:
-#
-#       Array ref - containing ids
-sub objectIds # (object)
-{
-    my ($self) = @_;
-
-    my @ids = map { $_->{'id'} }  @{$self->objects()};
-    return  \@ids;
 }
 
 # objectMembers
