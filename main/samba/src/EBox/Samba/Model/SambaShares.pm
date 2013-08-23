@@ -297,9 +297,12 @@ sub createDirs
 
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        my $enabled     = $row->valueByName('enabled');
         my $shareName   = $row->valueByName('share');
         my $pathType    = $row->elementByName('path');
         my $guestAccess = $row->valueByName('guest');
+
+        next unless ($enabled);
 
         my $path = undef;
         if ($pathType->selectedType() eq 'zentyal') {
