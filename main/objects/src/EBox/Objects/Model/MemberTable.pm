@@ -26,20 +26,17 @@ use warnings;
 
 package EBox::Objects::Model::MemberTable;
 
-use EBox::Objects::Members;
+use Net::IP;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
-use EBox::Sudo;
+use EBox::Exceptions::External;
 use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::MACAddr;
 use EBox::Types::IPAddr;
 use EBox::Types::IPRange;
-
-use EBox::Exceptions::External;
-
-use Net::IP;
+use EBox::Objects::Members;
 
 use base 'EBox::Model::DataTable';
 
@@ -144,6 +141,7 @@ sub validateTypedRow
             throw EBox::Exceptions::External(
             __('You cannot use MAC addresses with IP ranges'));
         }
+
         my $range = $address->subtype();
         $printableValue = $range->printableValue();
     }

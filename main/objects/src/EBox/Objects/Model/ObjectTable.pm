@@ -27,6 +27,7 @@ use warnings;
 
 package EBox::Objects::Model::ObjectTable;
 
+use Net::IP;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
@@ -35,9 +36,6 @@ use EBox::Exceptions::DataExists;
 use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
-use EBox::Sudo;
-
-use Net::IP;
 
 use base 'EBox::Model::DataTable';
 
@@ -162,9 +160,9 @@ sub addObject
 
     $self->_checkName($name);
 
-    my $id = $self->addRow( 'name'      => $name,
-                            'id'        => $params{'id'},
-                            'readOnly'  => $params{'readOnly'});
+    my $id = $self->addRow('name'     => $name,
+                           'id'       => $params{'id'},
+                           'readOnly' => $params{'readOnly'});
     unless (defined($id)) {
         throw EBox::Exceptions::Internal("Couldn't add object's name: $name");
     }
