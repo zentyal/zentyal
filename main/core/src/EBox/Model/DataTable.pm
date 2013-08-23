@@ -233,7 +233,6 @@ sub nameFromClass
 # DEPRECATED
 sub index
 {
-  #EBox::trace();
   #throw EBox::Exceptions::MethodDeprecated();
     return '';
 }
@@ -241,7 +240,6 @@ sub index
 # DEPRECATED
 sub printableIndex
 {
-  #EBox::trace();
   #throw EBox::Exceptions::MethodDeprecated();
   return '';
 }
