@@ -63,7 +63,7 @@ sub populateUser
 {
     my $userMod = EBox::Global->modInstance('users');
     my @users = ();
-    my $list = $userMod->users();
+    my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $u->get('uid');
@@ -77,7 +77,7 @@ sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
     my @groups = ();
-    my $list = $userMod->securityGroups();
+    my $list = $userMod->realGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');

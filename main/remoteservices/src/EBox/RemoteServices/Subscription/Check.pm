@@ -204,7 +204,7 @@ sub _usersCheck
         my $usersMod = $gl->modInstance('users');
         if ( $usersMod->isEnabled() and ($usersMod->master() ne 'zentyal') ) {
             # This check must be done if the server is master or Zentyal Cloud is
-            my $users = $usersMod->realUsers('without_admin');
+            my $users = $usersMod->realUsers();
             if ( scalar(@{$users}) > MAX_SB_USERS ) {
                 throw EBox::RemoteServices::Exceptions::NotCapable(
                     __sx('Please note that the maximum number of users for Small Business Edition is {max} '

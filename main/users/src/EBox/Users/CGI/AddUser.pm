@@ -72,7 +72,6 @@ sub _process
         }
 
         my $newUser = EBox::Users::User->create(%params);
-        # FIXME!
         if ($params{group}) {
             $newUser->addGroup(new EBox::Users::Group(dn => $params{group}));
         }
@@ -82,7 +81,7 @@ sub _process
     } else {
         my @params = (
                 dn => $dn,
-                groups => $users->groups()
+                groups => $users->realGroups()
         );
         $self->{params} = \@params;
     }
