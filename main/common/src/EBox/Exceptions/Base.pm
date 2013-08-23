@@ -17,9 +17,11 @@ package EBox::Exceptions::Base;
 
 use base 'Error';
 
-use Log::Log4perl;
-use EBox::Gettext;
 use EBox;
+use EBox::Config;
+use EBox::Gettext;
+
+use Log::Log4perl;
 
 # Constructor: new
 #
@@ -35,43 +37,50 @@ use EBox;
 #
 sub new # (text)
 {
-	my $class = shift;
-	my $text = shift;
-	my (%opts) = @_;
+    my $class = shift;
+    my $text = shift;
+    my (%opts) = @_;
 
-	local $Error::Depth = $Error::Depth + 1;
-	local $Error::Debug = 1;
+    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Debug = 1;
 
-	$self = $class->SUPER::new(-text => $text, @_);
-	if (exists $opts{silent} and $opts{silent}) {
-		$self->{silent} = 1;
-	} else {
-		$self->{silent} = 0;
-	}
+    $self = $class->SUPER::new(-text => $text, @_);
+    if (exists $opts{silent} and $opts{silent}) {
+        $self->{silent} = 1;
+    } else {
+        $self->{silent} = 0;
+    }
 
-	bless ($self, $class);
-	return $self;
+    bless ($self, $class);
+    return $self;
+}
+
+sub stringify
+{
+    my $self = shift;
+
+    return $self->stacktrace();
 }
 
 sub toStderr
 {
-	$self = shift;
-	print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
+    my $self = shift;
+    print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
 }
 
 sub _logfunc # (logger, msg)
 {
-	my ($self, $logger, $msg) = @_;
-	$logger->debug($msg);
+    my ($self, $logger, $msg) = @_;
+    $logger->debug($msg);
 }
 
 sub log
 {
-	$self = shift;
-	my $log = EBox::logger();
-	$Log::Log4perl::caller_depth +=3;
-	$self->_logfunc($log, $self->stringify()) unless $self->{silent};
-	$Log::Log4perl::caller_depth -=3;
+    my $self = shift;
+    my $log = EBox::logger();
+    $Log::Log4perl::caller_depth +=3;
+    $self->_logfunc($log, $self->stringify()) unless $self->{silent};
+    $Log::Log4perl::caller_depth -=3;
 }
 
 1;
