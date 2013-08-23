@@ -285,6 +285,10 @@ sub addToZentyal
             EBox::debug("Replicating a security group into OpenLDAP with gidNumber = $gidNumber");
         }
 
+        if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
+            push (@params, isInternal => 1);
+        }
+
         $zentyalGroup = EBox::Users::Group->create(@params);
         $self->_linkWithUsersObject($zentyalGroup);
     } catch EBox::Exceptions::DataExists with {

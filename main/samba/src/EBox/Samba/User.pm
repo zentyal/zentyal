@@ -470,6 +470,10 @@ sub addToZentyal
         $args{uidNumber} = $uidNumber;
         $args{isSystemUser} = ($uidNumber < EBox::Users::User->MINUID());
 
+        if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
+            $args{isInternal} = 1;
+        }
+
         $zentyalUser = EBox::Users::User->create(%args);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("User $uid already in OpenLDAP database");

@@ -59,7 +59,7 @@ sub populateUser
 {
     my $userMod = EBox::Global->modInstance('users');
     my @users = ();
-    my $list = $userMod->users();
+    my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $u->get('uid');
