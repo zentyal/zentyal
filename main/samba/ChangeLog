@@ -9,6 +9,8 @@ HEAD
 	  it for us.
 	+ Services principals are copied to Samba before Groups, so we can keep
 	  memberships intact.
+	+ Mark internal users and groups properly when creating them in LDAP
+	+ Filter internal users and groups in ACLs selectors
 	+ Fixed bad usage of OpenLDAP when it should be using LDB.
 	+ Force a trace back printing when an LDB connection is not possible.
 	+ Handled mail field sync for Group, User and Contact.
@@ -16,7 +18,7 @@ HEAD
 	+ Fixed mail and given name sync for Contacts.
 	+ Stop s4sync while dumping configuration backup
 	+ Ignore Asterisk Queues OU in s4sync
-	+ Added hiddenSid() and hiddenViewInAdvancedOnly() methods
+	+ Added hiddenSid() method
 	+ Change default description to Zentyal Server instead of File Server
 	+ Don't put duplicate bridge interfaces in smb.conf
 	+ Mapped group 'Domain Users' to '__USERS__' directly.

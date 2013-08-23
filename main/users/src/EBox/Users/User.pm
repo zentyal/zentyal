@@ -156,25 +156,15 @@ sub isInternal
 {
     my ($self) = @_;
 
-    # FIXME: title=internal is not properly being set due to a regression
-    # this is a workaround until that is fixed
-    my $hostname = EBox::Global->modInstance('sysinfo')->hostName();
-    my %kerberosPrincipals = (
-        dns => 1,
-        mail => 1,
-        proxy => 1,
-        zarafa => 1,
-    );
-    my $uid = $self->get('uid');
-    foreach my $prefix (keys %kerberosPrincipals) {
-        my $principalUser = "$prefix-$hostname";
-        if ($uid eq $principalUser) {
-            return 1;
-        }
-    }
-
     my $title = $self->get('title');
     return (defined ($title) and ($title eq 'internal'));
+}
+
+sub setInternal
+{
+    my ($self) = @_;
+
+    $self->set('title', 'internal');
 }
 
 # Catch some of the set ops which need special actions
@@ -272,20 +262,14 @@ sub _groups
 {
     my ($self, $system, $invert) = @_;
 
-    shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};
 
     return \@groups if ($system);
 
-    my $samba = EBox::Global->modInstance('samba');
-
     my @filteredGroups = ();
     for my $group (@groups) {
         next if ($group->name() eq EBox::Users->DEFAULTGROUP);
-        if (defined ($samba)) {
-            next if ($samba->hiddenViewInAdvancedOnly($group));
-            next if ($samba->hiddenSid($group));
-        }
+        next if ($group->isInternal());
 
         push (@filteredGroups, $group) if (not $group->isSystem());
     }
@@ -501,7 +485,7 @@ sub create
     }
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $real_users = $usersMod->realUsers('without_admin');
+    my $real_users = $usersMod->realUsers();
 
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {

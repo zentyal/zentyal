@@ -198,7 +198,6 @@ sub safeConnect
         Time::HiRes::sleep(0.1);
     }
 
-    EBox::trace();
     throw EBox::Exceptions::External(
         __x(q|FATAL: Could not connect to samba LDAP server: {error}|,
             error => $error));

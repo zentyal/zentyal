@@ -208,6 +208,24 @@ sub _startService
     $self->SUPER::_startService(@_);
 }
 
+# Method: _enforceServiceState
+#
+#   Start the samba daemon is expensive and takes a while. After writing
+#   smb.conf the daemon is started to make queries to LDB, so it is not
+#   necessary to restart it after that. This method is overrided to avoid
+#   this situation and restart samba twice while saving changes.
+#
+sub _enforceServiceState
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled() and $self->getProvision->isProvisioned()) {
+        $self->_startService() unless $self->isRunning();
+    } else {
+        $self->_stopService();
+    }
+}
+
 sub _services
 {
     my ($self) = @_;
@@ -2243,41 +2261,16 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
-# Method: hiddenViewInAdvancedOnly
-#
-#  Returns if the specified LDAP object needs to be shown only in advanced view
-#
-sub hiddenViewInAdvancedOnly
-{
-    my ($self, $ldapObject) = @_;
-
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    if ($sambaObject and $sambaObject->isInAdvancedViewOnly()) {
-        return 1;
-    }
-
-    return 0;
-}
-
 # Method: hiddenSid
 #
-#   Check if the specified LDAP object belongs to the list of regexps
+#   Check if the specified LDB object belongs to the list of regexps
 #   of SIDs to hide on the UI read from /etc/zentyal/sids-to-hide.regex
 #
 sub hiddenSid
 {
-    my ($self, $ldapObject) = @_;
+    my ($self, $object) = @_;
 
-    my $sambaObject = undef;
-    try {
-        $sambaObject = $self->ldbObjectFromLDAPObject($ldapObject);
-    } otherwise {};
-
-    unless (defined ($sambaObject) and $sambaObject->can('sid')) {
+    unless ($object->can('sid')) {
         return 0;
     }
 
@@ -2286,7 +2279,7 @@ sub hiddenSid
     }
 
     foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
-       return 1 if ($sambaObject->sid() =~ m/$ignoredSidMask/);
+       return 1 if ($object->sid() =~ m/$ignoredSidMask/);
     }
 
     return 0;
