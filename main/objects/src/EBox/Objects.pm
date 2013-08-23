@@ -43,8 +43,6 @@ sub _create
     return $self;
 }
 
-## api functions
-
 # Method: objects
 #
 #       Return all object names
@@ -179,39 +177,6 @@ sub objectDescription  # (object)
     return $object->valueByName('name');
 }
 
-# get ( $id, ['name'])
-
-# Method: objectInUse
-#
-#       Asks all installed modules if they are currently using an Object.
-#
-# Parameters:
-#
-#       object - the name of an Object
-#
-# Returns:
-#
-#       boolean - true if there is a module which uses the Object, otherwise
-#       false
-sub objectInUse # (object)
-{
-    my ($self, $object ) = @_;
-
-    unless (defined($object)) {
-        throw EBox::Exceptions::MissingArgument("id");
-    }
-
-    my $global = EBox::Global->getInstance();
-    my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
-    foreach my $mod (@mods) {
-        if ($mod->usesObject($object)) {
-            return 1;
-        }
-    }
-
-    return undef;
-}
-
 # Method: objectExists
 #
 #       Checks if a given object exists
@@ -232,26 +197,6 @@ sub objectExists
     }
 
     return defined($self->model('ObjectTable')->row($id));
-}
-
-# Method: removeObjectForce
-#
-#       Forces an object to be deleted
-#
-# Parameters:
-#
-#       object - object description
-#
-sub removeObjectForce # (object)
-{
-    #action: removeObjectForce
-
-    my ($self, $object)  = @_;
-    my $global = EBox::Global->getInstance();
-    my @mods = @{$global->modInstancesOfType('EBox::ObjectsObserver')};
-    foreach my $mod (@mods) {
-        $mod->freeObject($object);
-    }
 }
 
 # Method: addObject
@@ -292,7 +237,6 @@ sub removeObjectForce # (object)
 #                     'macaddr'      => '00:00:00:FA:BA:DA'
 #                   }
 #                  ]
-
 sub addObject
 {
     my ($self, %params) = @_;
@@ -303,7 +247,6 @@ sub addObject
 # Method: menu
 #
 #       Overrides EBox::Module method.
-#
 #
 sub menu
 {

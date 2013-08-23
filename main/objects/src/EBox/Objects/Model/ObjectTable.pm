@@ -95,26 +95,6 @@ sub _table
     return $dataTable;
 }
 
-# Method: warnIfIdUsed
-#
-#	Overrides <EBox::Model::DataTable::warnIfIdUsed>
-#
-#	As there are some modules which do not use the model approach
-#	we have to check manually if they are using an object using the
-#	old-school way of ObjectObserver
-sub warnIfIdUsed
-{
-    my ($self, $id) = @_;
-
-    my $objects = EBox::Global->modInstance('objects');
-
-    if ($objects->objectInUse($id)) {
-        throw EBox::Exceptions::DataInUse(
-                __('This object is being used by another module'));
-    }
-
-}
-
 # Method: validateRow
 #
 #      Override <EBox::Model::DataTable::validateRow> method
@@ -235,4 +215,3 @@ __(q{'Any' is a reserved word that could not be used as object name to avoid con
 }
 
 1;
-
