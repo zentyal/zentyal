@@ -19,7 +19,6 @@ use warnings;
 package EBox::Firewall;
 
 use base qw(EBox::Module::Service
-            EBox::ObjectsObserver
             EBox::NetworkObserver
             EBox::LogObserver);
 
