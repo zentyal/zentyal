@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression (INVALID packets on FORWARD were accepted)
 3.0.5
 	+ Set iaccept, faccept and oaccept chains instead of ACCEPT target
 	  to be able to analyse traffic using IPS
