@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::Mail;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::ObjectsObserver
+use base qw(EBox::Module::Service EBox::LdapModule
             EBox::UserCorner::Provider EBox::FirewallObserver
             EBox::LogObserver EBox::Report::DiskUsageProvider
             EBox::KerberosModule EBox::SyncFolders::Provider
@@ -1098,43 +1098,6 @@ sub isAllowed
     my ($self, $object)  = @_;
     my $objectPolicy = $self->model('ObjectPolicy');
     return $objectPolicy->isAllowed($object);
-}
-
-#
-# Method: freeObject
-#
-#  This method unsets a new allowed object list without the object passed as
-#  parameter
-#
-# Parameters:
-#               object - The object to remove.
-#
-sub freeObject # (object)
-{
-    my ($self, $object) = @_;
-    $object or
-        throw EBox::Exceptions::MissingArgument('object');
-
-    my $objectPolicy = $self->model('ObjectPolicy');
-    $objectPolicy->freeObject($object);
-
-}
-
-# Method: usesObject
-#
-#  This methos method returns if the object is on allowed list
-#
-# Returns:
-#
-#               bool - true if the object is in allowed list, false otherwise
-#
-sub usesObject # (object)
-{
-    my ($self, $object) = @_;
-    if ($self->isAllowed($object)) {
-        return 1;
-    }
-    return undef;
 }
 
 # Function: usesPort

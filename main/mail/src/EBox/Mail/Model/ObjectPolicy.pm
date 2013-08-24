@@ -176,15 +176,6 @@ sub isAllowed
   return $self->row($objectRow)->elementByName('allow')->value() ? 1 : undef;
 }
 
-sub freeObject
-{
-    my ($self, $object) = @_;
-
-    my $row = $self->_findRowByObjectName($object);
-    my $id = $row->id();
-    $self->removeRow($id, 1);
-}
-
 sub _findRowByObjectName
 {
     my ($self, $objectName) = @_;
