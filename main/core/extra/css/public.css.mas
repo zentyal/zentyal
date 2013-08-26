@@ -2385,7 +2385,7 @@ BUTTONS
     opacity: 0.4;
     box-shadow: none;
     cursor: default;
-    background-color: whitesmoke;
+    background-color: #EEEEEE;
 }
 .btn-icon {
     padding-left: 25px !important;
@@ -2425,7 +2425,7 @@ a.btn-only-icon{
 .btn-first{background-image: url("/data/images/rw.gif");}
 .btn-prev{background-image: url("/data/images/r.gif");}
 .btn-config{background-image: url("/data/images/edit-table.gif");}
-.btn-clone{background-image: url("/data/images/clone.gif");}
+.btn-clone{background-image: url("/data/images/clone.png");}
 .btn-delete{
     background-color: #FF5C26;
     background-image: url("/data/images/delete-w.gif");
@@ -2433,6 +2433,7 @@ a.btn-only-icon{
     color: white;
 }
 .btn-delete:hover{background-color: #D93600;}
+.btn-delete:disabled, .btn-delete:disabled:hover{background-color: #FF5C26;}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;

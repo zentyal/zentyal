@@ -701,7 +701,7 @@ $page
 %    {
 %      if ($actions->{'del'})
 %      {
-          <input
+          <button
               <%
                 $disabled
               %>

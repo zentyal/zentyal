@@ -3,7 +3,7 @@ $data
 </%args>
 % my $link = $data->linkToView();
 % if (defined $link) {
-<a class="btn-only-icon btn-config" href="<% $data->linkToView() %>">Configure</a>
+<a class="btn-only-icon btn-config" title="<% __('configure') %>" href="<% $data->linkToView() %>"><% __('configure') %></a>
 % } else {
 <span>--</span>
 % }
