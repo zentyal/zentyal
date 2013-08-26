@@ -690,13 +690,6 @@ input {
     padding-top: 7px;
 }
 
-.ifaces {
-    border-bottom: 1px solid #787878;
-    padding-bottom: 5px;
-    padding-left: 15px;
-    padding-top: 13px;
-}
-
 /********************************************
 
     TABS options
@@ -714,7 +707,7 @@ input {
     display : inline-block;
 }
 
-.tabs li a {
+.tabs li a, .tabs li span {
     background: none repeat scroll 0 0 #EEEEEE;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
@@ -730,7 +723,7 @@ input {
     background-color: #ddd;
 }
 
-.tabs li a.current{
+.tabs li a.current, .tabs li span.current{
     background: #69BE28;
     color: white;
     border: 1px solid #46962D;
@@ -761,28 +754,6 @@ input {
     -webkit-border-radius: 5px 5px 0px 0px;
     border-radius: 5px 5px 0px 0px;
 
-}
-
-.ifaces a  {
-    border-top: 1px solid #dddddd;
-    border-left: 1px solid #dddddd;
-    border-right: 1px solid #dddddd;
-    background: #eee;
-    color: #999;
-    padding: 5px 10px 5px 10px;
-     -moz-border-radius: 5px 5px 0px 0px;
-    -webkit-border-radius: 5px 5px 0px 0px;
-    border-radius: 5px 5px 0px 0px;
-    text-decoration: none;
-
-}
-
-.ifaces a:hover {
-    color: #4c4c4c;
-    background-color: #eeeeee;
-    border-top: 1px solid #aaa;
-    border-left: 1px solid #aaa;
-    border-right: 1px solid #aaa;
 }
 
 #helpbutton {

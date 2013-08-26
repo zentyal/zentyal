@@ -10,15 +10,15 @@ use JSON::XS;
 </%init>
 <script type="text/javascript" src="/data/js/jquery.flot.js"></script>
 <script type="text/javascript" src="/data/js/jquery.flot.pie.js"></script>
-<div class='ifaces'>
+<ul class='tabs'>
 % foreach  (@partitions) {
 %   if ($_ eq $partition) {
-     <span class='selected'><% $_ %></span>
+     <li><span class='current'><% $_ %></span></li>
 %   } else {
-    <a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a>
+    <li><a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a></li>
 %   }
 % }
-</div>
+</ul>
 
 <br/>
 <& .partitionAttrs, $partitionAttr &>

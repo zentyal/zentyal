@@ -30,15 +30,15 @@ if (not exists $tabs{$selected}) {
   $m->abort("bad selected value $selected");
 }
 </%init>
-<div class='ifaces'>
+<ul class='tabs'>
 % foreach my $tab (@tabsOrder) {
 %     if($selected eq $tab) {
-    <span class='selected'><% $tabs{$tab}->{title} %></span>
+    <li><span class='current'><% $tabs{$tab}->{title} %></span></li>
 %     } else {
-    <a href='<% $tabs{$tab}->{url} %>'><%  $tabs{$tab}->{title} %></a>
+    <li><a href='<% $tabs{$tab}->{url} %>'><%  $tabs{$tab}->{title} %></a></li>
 %    }
 % }
 
-</div>
+</ul>
 <& $tabs{$selected}->{component}, %args &>
 
