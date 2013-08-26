@@ -311,8 +311,7 @@ Parameters:
     rowId  - the affected row identifier
     directory - the GConf directory where table is stored
     page        -
-    extraParams - an string with the parameters related to the
-                   action E.g.: param1=value1&param2=value2 *(Optional)*
+    extraParams - an has with extra params
 
 
 */
