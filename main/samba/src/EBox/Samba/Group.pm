@@ -303,7 +303,7 @@ sub _membersToZentyal
                 # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
                 # This is required so both canonical names match on Zentyal's OpenLDAP and Samba.
                 $parent = EBox::Users::Group->defaultContainer();
-                $canonicalName = $parent->canonicalName(1) . '/' $sambaMember->baseName();
+                $canonicalName = $parent->canonicalName(1) . '/' . $sambaMember->baseName();
             } else {
                 $canonicalName = $sambaMember->canonicalName(1);
             }
