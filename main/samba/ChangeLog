@@ -1,4 +1,6 @@
 HEAD
+	+ Allowed nested groups sync with OpenLDAP and reused as much as possible
+	  code from EBox::Users::Group from EBox::Samba::Group.
 	+ Do nothing with shares that are disabled.
 	+ Fixed s4sync when checking for OUs updates.
 	+ Ignore system ACLs for samba shares, use libsamba-perl library instead.

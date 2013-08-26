@@ -18,11 +18,14 @@ use warnings;
 
 # Class: EBox::Samba::Group
 #
-#   Samba group, stored in samba LDAP
+#   Samba group, stored in samba LDB
 #
 package EBox::Samba::Group;
 
-use base 'EBox::Samba::SecurityPrincipal';
+use base qw(
+    EBox::Samba::SecurityPrincipal
+    EBox::Users::Group
+);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -56,117 +59,14 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+# Override:
+#   EBox::Users::Group::mainObjectClass
+#
 sub mainObjectClass
 {
     return 'group';
-}
-
-# Method: name
-#
-#   Return group name
-#
-sub name
-{
-    my ($self) = @_;
-    return $self->get('name');
-}
-
-sub description
-{
-    my ($self) = @_;
-    return $self->get('description');
-}
-
-# Method: mail
-#
-#   Return group mail
-#
-sub mail
-{
-    my ($self) = @_;
-    return $self->get('mail');
-}
-
-# Method: removeAllMembers
-#
-#   Remove all members in the group
-#
-sub removeAllMembers
-{
-    my ($self, $lazy) = @_;
-    $self->delete('member');
-}
-
-# Method: addMember
-#
-#   Adds the given user as a member
-#
-# Parameters:
-#
-#   user - User object
-#
-sub addMember
-{
-    my ($self, $user, $lazy) = @_;
-
-    my @members = $self->get('member');
-
-    # return if user already in the group
-    foreach my $dn (@members) {
-        if (lc ($dn) eq lc ($user->dn())) {
-            return;
-        }
-    }
-
-    $self->add('member', $user->dn(), $lazy);
-}
-
-# Method: removeMember
-#
-#   Removes the given user as a member
-#
-# Parameters:
-#
-#   user - User object
-#
-sub removeMember
-{
-    my ($self, $user, $lazy) = @_;
-
-    my @members;
-    foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
-    }
-
-    $self->deleteValues('member', [$user->dn()], $lazy);
-}
-
-# Method: members
-#
-#   Return the list of members for this group
-#
-# Returns:
-#
-#   arrary ref of members (EBox::Samba::User or EBox::Samba::Group)
-#
-sub members
-{
-    my ($self) = @_;
-
-    my $sambaMod = $self->_sambaMod();
-    my @members = ();
-    foreach my $member ($self->get('member')) {
-        my $memberObject = $sambaMod->objectFromDN($member);
-        push (@members, $memberObject) if ($memberObject);
-    }
-
-    @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
 }
 
 sub setupGidMapping
@@ -394,12 +294,9 @@ sub _membersToZentyal
     my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
-        if ($sambaMember->isa('EBox::Samba::Group')) {
-            my $dn = $sambaMember->dn();
-            EBox::warn("Member '$dn' is a nested group, not supported!");
-            next;
-        }
-        if ($sambaMember->isa('EBox::Samba::User') or $sambaMember->isa('EBox::Samba::Contact')) {
+        if ($sambaMember->isa('EBox::Samba::User') or
+            $sambaMember->isa('EBox::Samba::Contact') or
+            $sambaMember->isa('EBox::Samba::Group')) {
             my $canonicalName = $sambaMember->canonicalName(1);
             $sambaMembers{$canonicalName} = $sambaMember;
             next;
@@ -459,6 +356,9 @@ sub _checkAccountName
 #
 #   Whether is a security group or just a distribution group.
 #
+# Override:
+#   EBox::Users::Group::isSecurityGroup
+#
 sub isSecurityGroup
 {
     my ($self) = @_;
@@ -469,6 +369,9 @@ sub isSecurityGroup
 # Method: setSecurityGroup
 #
 #   Sets/unsets this group as a security group.
+#
+# Override:
+#   EBox::Users::Group::setSecurityGroup
 #
 sub setSecurityGroup
 {
