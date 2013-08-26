@@ -295,7 +295,7 @@
     color:#000000;
     font-size: 11px;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 .dataTable thead > tr {
     background: <% $main_color %>;
@@ -429,7 +429,7 @@ input[type='password']:disabled, input[type='text']:disabled {
 
 
 
-input[type='submit'], button, input[type='button'] {
+input[type='submit'], button, input[type='button'], .big {
     color:#666;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -450,7 +450,7 @@ input[type='submit'], button, input[type='button'] {
 
 button > img {margin-bottom:-3px;}
 
-.big {
+ {
     color:#666;
     border-radius: 3px;
     -webkit-border-radius: 3px;
@@ -1100,6 +1100,7 @@ TABLE LIST
 .tableSearch{
     float: right;
     width: auto;
+    margin-bottom: 10px;
 }
 
 .tableSearch input[type="text"]{
