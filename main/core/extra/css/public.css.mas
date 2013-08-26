@@ -326,7 +326,7 @@
     text-decoration: none;
 }
 .dataTable td a:hover {
-    background: none;
+    background-color: none;
     text-decoration: underline;
     color: <% $secondary_color %>;
 }
@@ -344,9 +344,7 @@
     background: <% $data_table_bg_highlight %>;
     border-color: white;
 }
-.pagination_n{
-    margin: 0px 10px;
-}
+
 .iptable {
     font-size: 11px;
     margin-left: 25px;
@@ -481,8 +479,8 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 }
 
 #install_button:disabled > img {
-    opacity: 0.5;
-    filter:alpha(opacity=50);
+    opacity: 0.4;
+    filter:alpha(opacity=40);
     }
 
 .inputText, .inputTextError {
@@ -555,6 +553,7 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 .inputButton:disabled, input[type='image']:disabled, .inputButton:disabled:hover, input[type='image']:disabled:hover {
     cursor:default;
     background-color:whitesmoke;
+    opacity: 0.4;
 }
 
 .msg {
@@ -1088,6 +1087,27 @@ TABLE LIST
     font-size: 11px;
     border-collapse: collapse;
 }
+
+/**** Table Bottom ****/
+
+ .bDataTable {
+    font-size: 11px;
+    margin-top: 10px;
+    text-align: right;
+}
+.bDataTable .btn-only-icon{
+    border-color: #CCCCCC;
+}
+.pagination_n{
+    display: inline-block;
+    margin: 0 10px;
+    min-width: 80px;
+    text-align: center;
+}
+.bDataTable select{
+    margin-right: 20px;
+}
+/* */
 .eDataTable td, .bDataTable td {
     padding: 6px;
 }
@@ -1985,6 +2005,7 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     border-style: dashed;
     background-repeat: no-repeat;
     background-position: 10px 12px;
+    word-wrap: break-word;
 }
 .help p, .note p, .ad p, .error p, .warning p, .adwarning p, .tip p{
     margin-top: 0px;
@@ -2343,7 +2364,7 @@ BUTTONS
 *********************************************************************************/
 
 
-.btn {
+.btn, .btn-only-icon {
     background-color: #EEEEEE;
     border: 1px solid #999999;
     border-radius: 2px 2px 2px 2px;
@@ -2356,14 +2377,15 @@ BUTTONS
     overflow: hidden;
     text-transform: uppercase;
 }
-.btn:hover{
+.btn:hover, .btn-only-icon:hover{
     background-color: whitesmoke;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.25)
 }
-.btn:disabled, .btn:disabled:hover{
-    opacity: 0.3;
+.btn:disabled, .btn:disabled:hover, .btn-only-icon:disabled, .btn-only-icon:disabled:hover{
+    opacity: 0.4;
     box-shadow: none;
     cursor: default;
+    background-color: whitesmoke;
 }
 .btn-icon {
     padding-left: 25px !important;
@@ -2379,22 +2401,15 @@ BUTTONS
     text-indent: 1000px;
     width: 28px;
     font-size: 0px;
+    vertical-align: middle;
 }
-.btn-filter{ background-image: url(/data/images/filter.png);}
-.btn-add{ background-image: url(/data/images/add.gif);}
-.btn-delete{
-    background-color: #FF5C26;
-    background-image: url("/data/images/delete-w.gif");
-    border-color: #B22D00;
-    color: white;
+a.btn-only-icon{
+    display: inline-block;
 }
-.btn-delete:hover{background-color: #D93600;}
-.btn-edit{ background-image: url(/data/images/edit.gif);}
-.close {
-    background: url(/data/images/close-w.png) center center no-repeat;
-    height: 100%;
-    width: 30px;
-    cursor: pointer;
+.btn-only-icon.btn-small{
+    height: 20px ;
+    width: 20px;
+
 }
 .btn-submit{
     height: 30px;
@@ -2402,7 +2417,28 @@ BUTTONS
 .btn-only-icon.btn-submit{
     width: 30px;
 }
-
+.btn-filter{ background-image: url("/data/images/filter.png");}
+.btn-add{ background-image: url("/data/images/add.gif");}
+.btn-edit{ background-image: url("/data/images/edit.gif");}
+.btn-next{background-image: url("/data/images/f.gif");}
+.btn-last{background-image: url("/data/images/ff.gif");}
+.btn-first{background-image: url("/data/images/rw.gif");}
+.btn-prev{background-image: url("/data/images/r.gif");}
+.btn-config{background-image: url("/data/images/edit-table.gif");}
+.btn-clone{background-image: url("/data/images/clone.gif");}
+.btn-delete{
+    background-color: #FF5C26;
+    background-image: url("/data/images/delete-w.gif");
+    border-color: #B22D00;
+    color: white;
+}
+.btn-delete:hover{background-color: #D93600;}
+.close {
+    background: url("/data/images/close-w.png") center center no-repeat;
+    height: 100%;
+    width: 30px;
+    cursor: pointer;
+}
 /********************************************************************************
 
 FORMS

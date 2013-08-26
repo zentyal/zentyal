@@ -254,17 +254,14 @@ $(function() {
 </script>
 
 
-<table class="bDataTable">
-    <tr>
-    <td class="tright">
+<div class="bDataTable">
+
  <& /ajax/tablePager.mas,
    model => $model,
    page => $page,
    tpages => POSIX::ceil($matches / $pageSize) - 1,
 &>
-    </td>
-    </tr>
-</table>
+</div>
 
 <& SELF:legend, model => $model,
                     actions => $actions,
@@ -293,7 +290,7 @@ $tableName
 $model
 $filter => undef
 </%args>
-<div class="bDataTable tableSearch">
+<div class="tableSearch">
          <& SELF:filterForm,
             tableName => $tableName,
             model     => $model,
@@ -704,7 +701,7 @@ $page
 %    {
 %      if ($actions->{'del'})
 %      {
-          <input class='inputButton'
+          <input
               <%
                 $disabled
               %>
@@ -713,17 +710,17 @@ $page
               value="Del"
               title="<% $delete_msg %>"
               alt="Del"
-              src='/data/images/<% $delete %>.gif'
+              class='btn-only-icon btn-delete'
               onClick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
                               $page)
                        %>"
-          />
+          ><% $delete_msg %></button>
 
 %      }
 %      if ($changeView and $actions->{'editField'})   {
-          <input  class='inputButton'
+          <button
               <%
                 $disabled
               %>
@@ -731,7 +728,7 @@ $page
               name='edit'
               value="edit"
               title="<% $edit_msg %>"
-              src='/data/images/<% $edit %>.gif'
+              class='btn-only-icon btn-edit'
               onClick="<%
                        $model->changeViewJS(
                              changeType => 'changeEdit',
@@ -739,12 +736,12 @@ $page
                              page => $page,
                              isFilter => 0)
                        %>"
-          />
+          ><% $edit_msg %></button>
 %      }
 
 %      if ($actions->{'clone'})
 %      {
-          <input class='inputButton'
+          <button
               <%
                 $disabled
               %>
@@ -753,13 +750,13 @@ $page
               value="Clone"
               title="<% $clone_msg  %>"
               alt="Clone"
-              src='/data/images/<% $clone %>.png'
+              class='btn-only-icon btn-clone'
               onClick="<%
                           $model->actionClickedJS('clone',
                              $row->{id},
                               $page)
                        %>"
-          />
+          ><% $clone_msg  %></button>
 
 %      }
 %    }
