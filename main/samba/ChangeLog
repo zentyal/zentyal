@@ -1,4 +1,8 @@
 HEAD
+	+ Fixed zentyal group memberships sync with Samba to handle all supported
+	  members and to sync on group creation, not just on group update.
+	+ Improved the way we sync group memberships from Samba to Zentyal so we
+	  are able to sync nested groups if they are not yet created at that point.
 	+ Allowed nested groups sync with OpenLDAP and reused as much as possible
 	  code from EBox::Users::Group from EBox::Samba::Group.
 	+ Do nothing with shares that are disabled.

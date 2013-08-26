@@ -489,6 +489,25 @@ sub _delContact
     };
 }
 
+sub _sambaGroupMembersFromZentyalGroup
+{
+    my ($self, $zentyalGroup);
+
+    my @sambaMembersDNs = ();
+    my $zentyalMembers = $zentyalGroup->members();
+    foreach my $zentyalMember (@{$zentyalMembers}) {
+        my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMember);
+
+        unless ($sambaMember) {
+            throw EBox::Exceptions::Internal(
+                "Unable to find a samba equivalent for Zentyal's " . $zentyalMember->canonicalName());
+        }
+        push (@sambaMembersDNs, $sambaMember->dn());
+    }
+
+    return \@sambaMembersDNs;
+}
+
 # Method: _preAddGroup
 #
 #
@@ -574,6 +593,10 @@ sub _addGroup
     } else {
         EBox::error("Error setting the kind of group for $samAccountName");
     };
+
+    my $sambaMembersDNs = $self->_sambaGroupMembersFromZentyalGroup($zentyalGroup);
+
+    $sambaGroup->set('member', $sambaMembersDNs);
 }
 
 sub _addGroupFailed
@@ -597,21 +620,17 @@ sub _addGroupFailed
 sub _modifyGroup
 {
     my ($self, $zentyalGroup) = @_;
-    $self->_sambaReady() or
-        return;
+
+    return unless ($self->_sambaReady())
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Modifying group '$dn'");
     try {
-        my $sambaGroup = new EBox::Samba::Group(samAccountName => $zentyalGroup->get('cn'));
-        return unless $sambaGroup->exists();
+        my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+        return unless ($sambaGroup);
 
-        my $sambaMembersDNs = [];
-        my $zentyalMembers = $zentyalGroup->users();
-        foreach my $zentyalMember (@{$zentyalMembers}) {
-            my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalMember->get('uid'));
-            push (@{$sambaMembersDNs}, $sambaUser->dn());
-        }
+        my $sambaMembersDNs = $self->_sambaGroupMembersFromZentyalGroup($zentyalGroup);
+
         $sambaGroup->set('member', $sambaMembersDNs, 1);
         my $description = $zentyalGroup->get('description');
         if ($description) {
