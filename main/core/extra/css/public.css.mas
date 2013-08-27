@@ -2388,6 +2388,9 @@ a.btn-only-icon{
 .btn-clone{background-image: url("/data/images/clone.png");}
 .btn-help{background-image: url("/data/images/showhelp.png"); border-radius: 10px;}
 .btn-delete{background-image: url("/data/images/delete-w.gif");}
+.btn-deny{background-image: url("/data/images/deny-active.gif");}
+.btn-download{background-image: url("/data/images/install.gif");}
+.btn-reload{background-image: url("/data/images/reload.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;

@@ -28,6 +28,7 @@
        );
 </%init>
 <!-- Form to reissue a certificate -->
+<div class="item-block">
 <h3><% __('Reissue a certificate')  %></h3>
 <div>
   <span class="ftitle"><% __("Common Name") %>: </span>
@@ -48,3 +49,4 @@
 <form action="IssueCertificate" method="post" >
   <& formTable.mas, rows => \@reissueTable &>
 </form>
+</div>

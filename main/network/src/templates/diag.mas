@@ -9,7 +9,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<form action='Diag' method='POST'>
+<form action='Diag' method='POST' class='item-block'>
 <input type="hidden" name="action" value="ping"/>
 <h3><% __('Ping') %></h3>
 <% __('Host') %>:
@@ -18,7 +18,7 @@ use EBox::Gettext;
 <input class='inputButton' type='submit'
        name='accept' value="<% __('Ping') %>" />
 </form>
-<form action='Diag' method='POST'>
+<form action='Diag' method='POST' class='item-block'>
 <input type="hidden" name="action" value="traceroute"/>
 <h3><% __('Traceroute') %></h3>
 <% __('Host') %>:
@@ -27,7 +27,7 @@ use EBox::Gettext;
 <input class='inputButton' type='submit'
        name='accept' value="<% __('Trace') %>" />
 </form>
-<form action='Diag' method='POST'>
+<form action='Diag' method='POST' class='item-block'>
 <input type="hidden" name="action" value="dns"/>
 <h3><% __('Domain Name Resolution') %></h3>
 <% __('Domain name') %>:
@@ -38,7 +38,7 @@ use EBox::Gettext;
 </form>
 
 
-<form action='Diag' method='POST'>
+<form action='Diag' method='POST' class='item-block'>
 <input type="hidden" name="action" value="wakeonlan"/>
 <h3><% __('Wake On LAN') %></h3>
 <% __('Broadcast address') %>:
