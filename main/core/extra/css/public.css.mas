@@ -589,7 +589,7 @@ body {
     behavior: url(/data/js/csshover.htc);
 }
 
-.title {
+h1 {
     display: inline;
     color: <% $main_color %>;
     font-weight: bold;
@@ -757,25 +757,11 @@ input {
 }
 
 #helpbutton {
-    height: 30px;
+    height: 20px;
     position: absolute;
-    right: 0;
-    top: 0;
-    width: 30px;
-}
-
-#helpbutton a {
-    background: url("/data/images/showhelp.png") no-repeat scroll center center transparent;
-    font-size: 0px;
-    height: 30px;
-    text-decoration: none;
-    width: 30px;
-    display: block;
-}
-
-#helpbutton > #hidehelp {
-    background:url("/data/images/hidehelp.png") center center no-repeat;
-    color: #428592;
+    right: 10px;
+    top: 10px;
+    width: 20px;
 }
 
 #titlehelp {
@@ -2388,6 +2374,9 @@ a.btn-only-icon{
 .btn-only-icon.btn-submit{
     width: 30px;
 }
+
+/*** BUTTONS ICONS ***/
+
 .btn-filter{ background-image: url("/data/images/filter.png");}
 .btn-add{ background-image: url("/data/images/add.gif");}
 .btn-edit{ background-image: url("/data/images/edit.gif");}
@@ -2397,20 +2386,39 @@ a.btn-only-icon{
 .btn-prev{background-image: url("/data/images/r.gif");}
 .btn-config{background-image: url("/data/images/edit-table.gif");}
 .btn-clone{background-image: url("/data/images/clone.png");}
-.btn-delete{
-    background-color: #FF5C26;
-    background-image: url("/data/images/delete-w.gif");
-    border-color: #B22D00;
-    color: white;
-}
-.btn-delete:hover{background-color: #D93600;}
-.btn-delete:disabled, .btn-delete:disabled:hover{background-color: #FF5C26;}
+.btn-help{background-image: url("/data/images/showhelp.png"); border-radius: 10px;}
+.btn-delete{background-image: url("/data/images/delete-w.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;
     width: 30px;
     cursor: pointer;
 }
+
+/*** BUTTONS COLORS ***/
+
+.btn-blue, .btn-help{
+    background-color: #00ADD0;
+    border-color: #0087A5;
+    color: white;
+}
+.btn-blue:hover, .btn-help:hover{background-color: #0087A5;}
+.btn-blue:disabled, .btn-blue:disabled:hover, .btn-help:disabled, .btn-help:disabled:hover{background-color: #00ADD0;}
+.btn-red, .btn-delete{
+    background-color: #FF5C26;
+    border-color: #B22D00;
+    color: white;
+}
+.btn-red:hover, .btn-delete:hover{background-color: #D93600;}
+.btn-red:disabled, .btn-red:disabled:hover, .btn-delete:disabled, .btn-delete:disabled:hover{background-color: #FF5C26;}
+.btn-green{
+    background-color: #69BE28;
+    border-color: #46962D;
+    color: white;
+}
+.btn-green:hover{background-color: #46962D;}
+.btn-green:disabled, .btn-red:disabled:hover{background-color: #69BE28;}
+
 /********************************************************************************
 
 FORMS
