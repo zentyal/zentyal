@@ -212,6 +212,9 @@ sub enableActions
 {
     my ($self) = @_;
 
+    # Call super to run enable-module script
+    $self->SUPER::enableActions();
+
     # Disable IPv6 if it is enabled
     if (-e '/proc/net/if_inet6') {
         my @cmds;
@@ -3194,8 +3197,8 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ddclient',
-            'type' => 'init.d',
+            'name' => 'zentyal.ddclient',
+            'type' => 'upstart',
             'pidfiles' => ['/var/run/ddclient.pid'],
             'precondition' => \&isDDNSEnabled
         }

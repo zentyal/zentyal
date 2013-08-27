@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# disable ddclient service
+update-rc.d ddclient disable
