@@ -6,25 +6,25 @@
 use EBox::Gettext;
 my $insideComposite = $m->notes('composite');
 </%init>
-<div>
+<header>
 % if ( (not $insideComposite) and ($title or ($crumbs and @$crumbs))) {
 % if ($crumbs) {
+    <h1>
 %     for  (my $i = 0; $i < scalar(@$crumbs); $i++) {
 %       my $section = $crumbs->[$i];
 %       if ($i != scalar(@$crumbs) - 1) {
-    <span class='title_link'><a href='<% $section->{link} %>'><% $section->{title} %></a></span>
+    <a href='<% $section->{link} %>'><% $section->{title} %></a>
     <span class='title_link_sep'>&#9656;</span>
 %       } else  {
-    <span class='title'><% $section->{title} %></span>
+    <% $section->{title} %></h1>
 %	}
 %     }
 % } elsif ($title) {
-    <span class='title'><% $title %></span>
+    <h1><% $title %></h1>
 % }
     <span id='helpbutton'>
-        <a id='showhelp' style='display:none' href="#" onclick="Zentyal.Help.showHelp(); return false; " title="<% __('Display help notes') %>"><% __('show help')%></a>
-        <a style='display:none' id='hidehelp' href="#" onclick="Zentyal.Help.hideHelp(); return false; " title="<% __('Hide help notes') %>"><% __('hide help')%></a>
+        <button id='showhelp' class="btn-only-icon btn-help btn-small" onclick="Zentyal.Help.showHelp(); return false; " title="<% __('Display help notes') %>"><% __('show help')%></button>
     </span>
 % }
-</div>
+</header>
 

@@ -7,14 +7,7 @@ Zentyal.Help.helpShown = false;
 
 Zentyal.Help.showHelp = function () {
     Zentyal.Help.helpShown = true;
-    $('#hidehelp, .help').show();
-    $('#showhelp').hide();
-};
-
-Zentyal.Help.hideHelp = function () {
-    Zentyal.Help.helpShown = false;
-    $('#hidehelp, .help').hide();
-    $('#showhelp').show();
+    $('.help').slideToggle('fast');
 };
 
 Zentyal.Help.initHelp = function () {
