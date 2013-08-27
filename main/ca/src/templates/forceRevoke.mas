@@ -7,6 +7,7 @@
 <%init>
   use EBox::Gettext;
 </%init>
+<div class="block-item"> 
 <h3>
 <%perl>
 if ( $isCACert ) {
@@ -45,4 +46,4 @@ if ( $isCACert ) {
 	     value='<% __("Cancel") %>' />
     </form>
   </p>
-    
+</div>    
