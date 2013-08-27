@@ -199,9 +199,13 @@ sub members
     my ($self) = @_;
 
     my $ldapMod = $self->_ldapMod();
-    my @members = map {
-        $ldapMod->objectFromDN($_)
-    } $self->get('member');
+    my @members = ();
+    for my $memberDN ($self->get('member')) {
+        my $member = $ldapMod->objectFromDN($memberDN);
+        if ($member and $member->exists()) {
+            push (@members, $member);
+        }
+    }
 
     @members = sort {
         my $aValue = $a->canonicalName();
