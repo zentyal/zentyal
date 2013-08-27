@@ -61,7 +61,12 @@ my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
 
 my $ldb = $sambaModule->ldb();
-
+# The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
+# Those are Zentyal system user and groups so don't appear by default on list actions.
+my $domainSID = $sambaModule->ldb()->domainSID();
+my $domainAdminSID = "$domainSID-500";
+my $domainUsersSID = "$domainSID-513";
+my $domainAdminsSID = "$domainSID-512";
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
@@ -89,10 +94,6 @@ while (1) {
     my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
     my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
     my %zentyalOUs    = map { $_->canonicalName(1) => $_ } @{$usersModule->ous()};
-
-    # The Administrator user, and 'Domain Users' group are special case entries.
-    $zentyalUsers{'Administrator'} = new EBox::Users::User(uid => 'Administrator');
-    $zentyalGroups{'Domain Users'} = new EBox::Users::Group(gid => 'Domain Users');
 
     foreach my $canonicalName (@orderSambaOUs) {
         if (exists $zentyalOUs{$canonicalName}) {
@@ -132,7 +133,8 @@ while (1) {
     #################################################
     # Add users that exists in samba but not in Zentyal
     foreach my $sambaUserName (sort keys %sambaUsers) {
-        if (exists $zentyalUsers{$sambaUserName}) {
+        if ((exists $zentyalUsers{$sambaUserName}) or
+            ($domainAdminSID eq $sambaUsers{$sambaUserName}->sid())) {
             my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
@@ -197,7 +199,9 @@ while (1) {
     #### Sync groups
     #################################################
     foreach my $sambaGroupName (sort keys %sambaGroups) {
-        if (exists $zentyalGroups{$sambaGroupName}) {
+        if ((exists $zentyalGroups{$sambaGroupName}) or
+            ($domainAdminsSID eq $sambaGroups{$sambaGroupName}->sid()) or
+            ($domainUsersSID eq $sambaGroups{$sambaGroupName}->sid())) {
             my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {

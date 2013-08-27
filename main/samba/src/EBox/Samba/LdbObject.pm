@@ -388,6 +388,7 @@ sub _linkWithUsersObject
         $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
     }
     $ldapObject->set('msdsObjectGUID', $self->objectGUID(), 1);
+    $ldapObject->setIgnoredModules(['samba']);
     $ldapObject->save();
 }
 

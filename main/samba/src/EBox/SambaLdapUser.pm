@@ -86,7 +86,9 @@ sub _preAddOU
 {
     my ($self, $entry, $parent) = @_;
 
-    return unless ($self->_sambaReady());
+    unless ($self->_sambaReady()) {
+        return;
+    }
 
     my $sambaParent = $self->{samba}->ldbObjectFromLDAPObject($parent);
     my $name = $entry->get_value('ou');
@@ -112,7 +114,9 @@ sub _preAddOuFailed
             my $dn = $self->_ldbDNFromLDAPDN($entry->dn());
             $sambaOU = new EBox::Samba::OU(dn => $dn);
         }
-        return unless ($sambaOU and $sambaOU->exists());
+        unless ($sambaOU and $sambaOU->exists()) {
+            return;
+        }
 
         EBox::info("Aborted OU creation, removing from samba");
         $sambaOU->deleteObject();
@@ -130,7 +134,9 @@ sub _delOU
 
     EBox::debug("Deleting OU '" . $zentyalOU->dn() . "' from samba");
     my $sambaOU = $self->{samba}->ldbObjectFromLDAPObject($zentyalOU);
-    return unless $sambaOU;
+    unless ($sambaOU and $sambaOU->exists()) {
+        return;
+    }
     try {
         $sambaOU->deleteObject();
     } otherwise {
@@ -197,7 +203,9 @@ sub _preAddUserFailed
         } else {
             $sambaUser = new EBox::Samba::User(samAccountName => $uid);
         }
-        return unless ($sambaUser and $sambaUser->exists());
+        unless ($sambaUser and $sambaUser->exists()) {
+            return;
+        }
 
         EBox::info("Aborted User creation, removing from samba");
         $sambaUser->deleteObject();
@@ -489,23 +497,85 @@ sub _delContact
     };
 }
 
-sub _sambaGroupMembersFromZentyalGroup
+sub _membersToSamba
 {
-    my ($self, $zentyalGroup);
+    my ($self, $sambaGroup, $zentyalGroup, $lazy) = @_;
 
-    my @sambaMembersDNs = ();
-    my $zentyalMembers = $zentyalGroup->members();
-    foreach my $zentyalMember (@{$zentyalMembers}) {
-        my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMember);
-
-        unless ($sambaMember) {
-            throw EBox::Exceptions::Internal(
-                "Unable to find a samba equivalent for Zentyal's " . $zentyalMember->canonicalName());
-        }
-        push (@sambaMembersDNs, $sambaMember->dn());
+    unless ($sambaGroup) {
+        throw EBox::Exceptions::MissingArgument("sambaGroup");
+    }
+    unless ($zentyalGroup) {
+        throw EBox::Exceptions::MissingArgument("zentyalGroup");
     }
 
-    return \@sambaMembersDNs;
+    my $gid = $sambaGroup->get('samAccountName');
+    my $sambaMembersList = $sambaGroup->members();
+    my $zentyalMembersList = $zentyalGroup->members();
+
+    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
+    my %sambaMembers;
+    my $domainSID = $self->{samba}->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
+    my $domainAdminsSID = "$domainSID-512";
+    my $domainAdminSID = "$domainSID-500";
+    foreach my $sambaMember (@{$sambaMembersList}) {
+        if ($sambaMember->isa('EBox::Samba::User') or
+            $sambaMember->isa('EBox::Samba::Contact') or
+            $sambaMember->isa('EBox::Samba::Group')) {
+            my $canonicalName = undef;
+            if ($domainAdminsSID eq $sambaMember->sid()) {
+                # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
+                # This is required so both canonical names match on Zentyal's OpenLDAP and Samba.
+                my $parent = EBox::Users::Group->defaultContainer();
+                $canonicalName = $parent->canonicalName(1) . '/' . $sambaMember->baseName();
+            } else {
+                $canonicalName = $sambaMember->canonicalName(1);
+            }
+            $sambaMembers{$canonicalName} = $sambaMember;
+            next;
+        }
+        my $dn = $sambaMember->dn();
+        EBox::error("Unexpected member type ($dn)");
+    }
+
+    foreach my $memberCanonicalName (keys %sambaMembers) {
+        unless (exists $zentyalMembers{$memberCanonicalName}) {
+            EBox::info("Removing member '$memberCanonicalName' from Samba group '$gid'");
+            try {
+                $sambaGroup->removeMember($sambaMembers{$memberCanonicalName}, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error removing member '$memberCanonicalName' from Samba group '$gid': $error");
+            };
+         }
+    }
+
+    foreach my $memberCanonicalName (keys %zentyalMembers) {
+        unless (exists $sambaMembers{$memberCanonicalName}) {
+            EBox::info("Adding member '$memberCanonicalName' to Samba group '$gid'");
+            my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberCanonicalName});
+            unless ($sambaMember and $sambaMember->exists()) {
+                if ($zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Users') or
+                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Contact') or
+                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
+                    EBox::error("Cannot add member '$memberCanonicalName' to Samba group '$gid' because the member does not exist");
+                    next;
+                } else {
+                    EBox::error("Cannot add member '$memberCanonicalName' to Samba group '$gid' because it's not a known object.");
+                    next;
+                }
+            }
+            try {
+                $sambaGroup->addMember($sambaMember, 1);
+            } otherwise {
+                my ($error) = @_;
+                EBox::error("Error adding member '$memberCanonicalName' to Samba group '$gid': $error");
+            };
+        }
+    }
+    unless ($lazy) {
+        $sambaGroup->save();
+    }
 }
 
 # Method: _preAddGroup
@@ -555,8 +625,9 @@ sub _preAddGroupFailed
         } else {
             $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
         }
-        return unless ($sambaGroup and $sambaGroup->exists());
-
+        unless ($sambaGroup and $sambaGroup->exists()) {
+            return;
+        }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
@@ -572,31 +643,32 @@ sub _preAddGroupFailed
 sub _addGroup
 {
     my ($self, $zentyalGroup) = @_;
-    $self->_sambaReady() or
+    unless ($self->_sambaReady()) {
         return;
+    }
 
+    my $lazy = 1;
     my $samAccountName = $zentyalGroup->get('cn');
-    my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
-    if ($sambaGroup->exists()) {
+    my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+    if ($sambaGroup and $sambaGroup->exists()) {
         if ($zentyalGroup->isSecurityGroup()) {
             unless ($sambaGroup->isSecurityGroup()) {
-                $sambaGroup->setSecurityGroup(1);
+                $sambaGroup->setSecurityGroup(1, $lazy);
                 my $gidNumber = $sambaGroup->xidNumber();
                 unless (defined $gidNumber) {
                     throw EBox::Exceptions::Internal("Could not get gidNumber for group " . $zentyalGroup->name());
                 }
+                $zentyalGroup->setIgnoredModules(['samba']);
                 $zentyalGroup->set('gidNumber', $gidNumber);
             }
         } elsif ($sambaGroup->isSecurityGroup()) {
-            $sambaGroup->setSecurityGroup(0);
+            $sambaGroup->setSecurityGroup(0, $lazy);
         }
+        my $sambaMembersDNs = $self->_membersToSamba($sambaGroup, $zentyalGroup, $lazy);
+        $sambaGroup->save();
     } else {
-        EBox::error("Error setting the kind of group for $samAccountName");
-    };
-
-    my $sambaMembersDNs = $self->_sambaGroupMembersFromZentyalGroup($zentyalGroup);
-
-    $sambaGroup->set('member', $sambaMembersDNs);
+        throw EBox::Exceptions::Internal("Unable to find the samba group for " . $zentyalGroup->canonicalName(1));
+    }
 }
 
 sub _addGroupFailed
@@ -607,8 +679,10 @@ sub _addGroupFailed
 
     my $samAccountName = $zentyalGroup->get('cn');
     try {
-        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
-        return unless $sambaGroup->exists();
+        my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+        unless ($sambaGroup and $sambaGroup->exists()) {
+            return;
+        }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
     } otherwise {
@@ -621,28 +695,32 @@ sub _modifyGroup
 {
     my ($self, $zentyalGroup) = @_;
 
-    return unless ($self->_sambaReady())
+    unless ($self->_sambaReady()) {
+        return;
+    }
 
     my $dn = $zentyalGroup->dn();
     EBox::debug("Modifying group '$dn'");
     try {
         my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
-        return unless ($sambaGroup);
+        unless ($sambaGroup) {
+            return;
+        }
 
-        my $sambaMembersDNs = $self->_sambaGroupMembersFromZentyalGroup($zentyalGroup);
+        my $lazy = 1;
+        $self->_membersToSamba($sambaGroup, $zentyalGroup, $lazy);
 
-        $sambaGroup->set('member', $sambaMembersDNs, 1);
         my $description = $zentyalGroup->get('description');
         if ($description) {
-            $sambaGroup->set('description', $description, 1);
+            $sambaGroup->set('description', $description, $lazy);
         } else {
-            $sambaGroup->delete('description', 1);
+            $sambaGroup->delete('description', $lazy);
         }
         my $mail = $zentyalGroup->get('mail');
         if ($mail) {
-            $sambaGroup->set('mail', $mail, 1);
+            $sambaGroup->set('mail', $mail, $lazy);
         } else {
-            $sambaGroup->delete('mail', 1);
+            $sambaGroup->delete('mail', $lazy);
         }
         $sambaGroup->save();
     } otherwise {
@@ -661,8 +739,10 @@ sub _delGroup
     EBox::debug("Deleting group '$dn' from samba");
     try {
         my $samAccountName = $zentyalGroup->get('cn');
-        my $sambaGroup = new EBox::Samba::Group(samAccountName => $samAccountName);
-        return unless $sambaGroup->exists();
+        my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+        unless ($sambaGroup and $sambaGroup->exists()) {
+            return;
+        }
         $sambaGroup->deleteObject();
 
         # Remove group from shares ACLs
