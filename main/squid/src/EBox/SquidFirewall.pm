@@ -133,14 +133,15 @@ sub forward
     my ($self) = @_;
 
     my $sq = $self->_global()->modInstance('squid');
-    if ( (not $sq->temporaryStopped()) and $sq->transproxy()) {
-        return $self->_trans_forward();
+    if ( (not $sq->temporaryStopped()) and $sq->transproxy()
+          and $sq->_proxy_transparent_filter_https()) {
+        return $self->_trans_filter_https();
     }
 
     return [];
 }
 
-sub _trans_forward
+sub _trans_filter_https
 {
     my ($self) = @_;
 

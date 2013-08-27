@@ -360,6 +360,17 @@ sub _max_object_size
     return $max_object_size;
 }
 
+sub _proxy_transparent_filter_https
+{
+    my $filter_https = EBox::Config::configkey('proxy_transparent_filter_https');
+    if (defined ($filter_https) and (($filter_https eq 'yes') or ($filter_https eq 'no'))) {
+        return ($filter_https eq 'yes');
+    } else {
+        # Default value
+        return 1;
+    }
+}
+
 # Method: transproxy
 #
 #       Returns if the transparent proxy mode is enabled
