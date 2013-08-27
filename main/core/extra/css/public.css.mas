@@ -597,26 +597,13 @@ h1 {
     font-family: Trebuchet MS, Verdana, sans-serif;
     float: none;
 }
+h1 a{
+    text-decoration: none;
+}
 
 .title_link_sep {
-    display: inline;
-    color: #999;
-    font-weight: bold;
-    font-size: 25px;
-    font-family: Trebuchet MS, Verdana, sans-serif;
-    float: none;
+    color: #ccc;
 }
-
-.title_link {
-    display: inline;
-    color: #999;
-    font-weight: bold;
-    font-size: 25px;
-    font-family: Trebuchet MS, Verdana, sans-serif;
-    float: none;
-
-}
-
 
 h3 {
     font-size: 20px;
@@ -643,12 +630,13 @@ a {
 }
 
 a:active {
-    color: #888;
+    color: #666;
     text-decoration: underline;
 }
 
 a:hover {
     text-decoration: none;
+    color:666;
 }
 
 a img { border: 0px; }

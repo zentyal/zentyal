@@ -14,7 +14,7 @@ my $insideComposite = $m->notes('composite');
 %       my $section = $crumbs->[$i];
 %       if ($i != scalar(@$crumbs) - 1) {
     <a href='<% $section->{link} %>'><% $section->{title} %></a>
-    <span class='title_link_sep'>&#9656;</span>
+    <span class='title_link_sep'>&#10097;</span>
 %       } else  {
     <% $section->{title} %></h1>
 %	}
