@@ -286,8 +286,16 @@
     padding: 3px 4px 3px 4px;
 }
 
+/* table legend*/
+
 .legend {
-    margin-bottom: 15px;
+    background-color: #EEEEEE;
+    margin-top: 10px;
+    padding: 5px;
+}
+.legendName {
+    padding-right: 10px;
+    color: #999;
 }
 
 .dataTable {
@@ -1024,9 +1032,7 @@ a.notchanged:hover {
 }
 .bold { font-weight: bold; }
 
-.legendName {
-              padding-right: 10px;
-              }
+
 
 .hidden {
           display: none;
@@ -1462,52 +1468,34 @@ a.minBox, a.maxBox {
  ***********************************************************************************************/
 
 
-.PackFilter > div {
-    background-color: white;
-    margin:5px 0px;
-    float:left;
-    border-radius:5px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    width:100%;
-    padding:10px;
-    border: 1px solid #ccc;
-
-    }
-
-.PackFilter > div > a{
-    float:left;
-
+.PackFilter .item-block{
+    width: 44%;
+    margin: 10px 1%;
+    padding: 15px 2%;
+    float: left;
+    height: 330px;
 }
-
-.PackFilter > div > div {
-    float:left;
-    width:65%;
-    margin-left:20px;
+.PackFilter .item-block.heighter {
+    height: 430px;    
 }
-
-.PackFilter > div > div > h3 {
-    margin-top:5px;
+.PackFilter .item-block h3{
+    border-bottom: medium none;
+    border-top: 2px dotted #CCCCCC;
+    margin: 15px 0 0 0 ;
+    padding: 15px 0 0 0;
 }
-
-.PackFilter > div > div .conf_rul {
-    float:left;
-    margin-top:5px;
-    text-decoration:none;
-    color:#666;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    background: #E9E9E9 url(/data/images/conf_rul.gif) 5px center no-repeat;
-    border-top: 1px solid #999999;
-    border-left: 1px solid #999999;
-    border-right: 2px solid #999999;
-    border-bottom: 2px solid #999999;
-    padding:5px 10px 5px 30px;
-    cursor:pointer;
+.PackFilter .item-block .img_a{
+    background-color: #fff;
+    clear: both;
+    display: block;
+    text-align: center;
 }
-
-.PackFilter > div > div .conf_rul:hover { background-color:#DFDFDF }
+.PackFilter .item-block img{
+    max-width: 100%;
+}
+.PackFilter .item-block .img_a:hover{
+    background-color: whitesmoke;
+}
 
 .big {
 text-decoration:none;
@@ -2333,10 +2321,16 @@ BUTTONS
     letter-spacing: 1px;
     overflow: hidden;
     text-transform: uppercase;
+    line-height: 28px;
+    display: inline-block;
+    text-decoration: none;
+    padding: 0px 10px 0px 0px;
+
 }
 .btn:hover, .btn-only-icon:hover{
     background-color: whitesmoke;
-    box-shadow: 0px 0px 3px rgba(0,0,0,0.25)
+    box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
+    color:#666;
 }
 .btn:disabled, .btn:disabled:hover, .btn-only-icon:disabled, .btn-only-icon:disabled:hover{
     opacity: 0.4;
@@ -2345,7 +2339,7 @@ BUTTONS
     background-color: #EEEEEE;
 }
 .btn-icon {
-    padding-left: 25px !important;
+    padding-left: 30px !important;
     background-position: 5px center;
     background-repeat: no-repeat;
 }
@@ -2405,22 +2399,48 @@ a.btn-only-icon{
     border-color: #0087A5;
     color: white;
 }
-.btn-blue:hover, .btn-help:hover{background-color: #0087A5;}
-.btn-blue:disabled, .btn-blue:disabled:hover, .btn-help:disabled, .btn-help:disabled:hover{background-color: #00ADD0;}
+.btn-blue:hover, 
+.btn-help:hover{
+    background-color: #0087A5;
+    color: white;
+}
+.btn-blue:disabled, 
+.btn-blue:disabled:hover, 
+.btn-help:disabled, 
+.btn-help:disabled:hover{
+    background-color: #00ADD0;
+    color: white;
+}
 .btn-red, .btn-delete{
     background-color: #FF5C26;
     border-color: #B22D00;
     color: white;
 }
-.btn-red:hover, .btn-delete:hover{background-color: #D93600;}
-.btn-red:disabled, .btn-red:disabled:hover, .btn-delete:disabled, .btn-delete:disabled:hover{background-color: #FF5C26;}
+.btn-red:hover,
+.btn-delete:hover{
+    background-color: #D93600;
+    color: white;
+}
+.btn-red:disabled,
+.btn-red:disabled:hover,
+.btn-delete:disabled,
+.btn-delete:disabled:hover{
+    background-color: #FF5C26;color:
+    white;
+}
 .btn-green{
     background-color: #69BE28;
     border-color: #46962D;
     color: white;
 }
-.btn-green:hover{background-color: #46962D;}
-.btn-green:disabled, .btn-red:disabled:hover{background-color: #69BE28;}
+.btn-green:hover{
+    background-color: #46962D; 
+    color: white; }
+.btn-green:disabled,
+.btn-red:disabled:hover{
+    background-color: #69BE28;
+    color: white;
+}
 
 /********************************************************************************
 
