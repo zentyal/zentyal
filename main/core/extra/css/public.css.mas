@@ -636,7 +636,7 @@ a:active {
 
 a:hover {
     text-decoration: none;
-    color:666;
+    color:#666;
 }
 
 a img { border: 0px; }
@@ -695,7 +695,7 @@ input {
     display : inline-block;
 }
 
-.tabs li a, .tabs li span {
+.tabs li > a, .tabs li > span {
     background: none repeat scroll 0 0 #EEEEEE;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
@@ -707,14 +707,25 @@ input {
     border: 1px solid #CCCCCC;
 }
 
-.tabs li a:hover{
+.tabs li > a:hover, .tabs li > span:hover{
     background-color: #ddd;
 }
 
-.tabs li a.current, .tabs li span.current{
+.tabs li > a.current, .tabs li > span.current{
     background: #69BE28;
     color: white;
     border: 1px solid #46962D;
+}
+#updNumber{
+    background-color: #666666;
+    border-radius: 10px 10px 10px 10px;
+    color: #FFFFFF;
+    float: right;
+    font-size: 12px;
+    height: 21px;
+    line-height: 20px;
+    padding: 0 7px;
+    text-align: center;
 }
 .insideTab {
     margin: 0px;
@@ -2159,6 +2170,7 @@ ul.labels-list li .close{
     margin: 10px 0px;
     padding: 10px;
     position: relative;
+    overflow: hidden;
 }
 
 .item-block h3{
