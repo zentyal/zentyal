@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# don't start dhcp with its script
+# don't start ntp with its script
 update-rc.d -f ntp remove
 
 # stop ntp  if it's running as a normal service
