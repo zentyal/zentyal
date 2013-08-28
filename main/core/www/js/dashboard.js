@@ -263,7 +263,7 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
         var restart_form = "<form action='/SysInfo/RestartService'>" +
                            "<input type='hidden' name='module' value='" + item.module + "'/>"  +
                            "<span class='sright'>" +
-                           "<input class='inputButtonRestart' type='submit' name='" + name +
+                           "<input class='btn-dashboard btn-" + name + " btn-small' type='submit' name='" + name +
                             "' value='" + button + "'/> "+
                            "</span>" +
                            "</form>";

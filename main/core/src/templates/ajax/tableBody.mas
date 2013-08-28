@@ -475,7 +475,7 @@ $editid
          &>
 %    }
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => 'btn btn-icon btn-add',
         type => 'submit',
         name => 'add',
         value => __('Add'),
@@ -486,7 +486,7 @@ $editid
 %  elsif ($action eq 'changeEdit')
 %  {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'change',
         value => $model->printableActionName(),
@@ -497,7 +497,7 @@ $editid
 %  if ($changeView)
 %  {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),

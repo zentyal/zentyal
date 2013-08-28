@@ -234,7 +234,11 @@
     margin:0;
     width: 20%;
 }
-
+.thcheckbox {
+    padding:0;
+    margin:0;
+    width: 10%;
+}
 .thOptionsFwd {
     padding:0;
     margin:0;
@@ -333,6 +337,9 @@
     background-color: none;
     text-decoration: none;
 }
+.dataTable td img{
+    vertical-align: middle;
+}
 .dataTable td a:hover {
     background-color: none;
     text-decoration: underline;
@@ -384,6 +391,10 @@
     border-top: 1px solid #CCCCCC;
 }
 
+/*********
+ Input Styles 
+ *********/
+
 select {
     font-size: 11px;
     font-family: Verdana, sans-serif;
@@ -410,7 +421,9 @@ select {
     border: 2px inset;
 }
 
-input[type='password'], input[type='text'], textarea {
+input[type='password'], 
+input[type='text'], 
+textarea {
     border:1px solid #999;
     border-radius: 2px;
     -webkit-border-radius: 2px;
@@ -424,72 +437,13 @@ input[type='password'], input[type='text'], textarea {
     filter: progid:dximagetransform.microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#fff', GradientType=0);
     filter: progid:dximagetransform.microsoft.gradient(enabled=false);
     padding:5px;
-
 }
 
-input[type='password']:disabled, input[type='text']:disabled {
+input[type='password']:disabled,
+input[type='text']:disabled {
     border-color:#eee;
     background-color:#f5f5f5;
-
 }
-
-
-
-input[type='submit'], button, input[type='button'], .big {
-    color:#666;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    background-color: #E9E9E9;
-    border-top: 1px solid #999;
-    border-left: 1px solid #999;
-    border-right: 2px solid #999;
-    border-bottom: 2px solid #999;
-    padding:5px 10px ;
-    cursor:pointer;
-    text-transform: uppercase;
-    letter-spacing:1px;
-    font-weight:bold;
-    font-size:11px;
-}
-
-
-button > img {margin-bottom:-3px;}
-
- {
-    color:#666;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    background-color: #E9E9E9;
-    border-top: 1px solid #999999;
-    border-left: 1px solid #999999;
-    border-right: 2px solid #999999;
-    border-bottom: 2px solid #999999;
-    padding:5px 10px;
-    cursor:pointer;
-    text-transform: uppercase;
-    letter-spacing:1px;
-    font-weight:bold;
-}
-
-#installButtons > button > img { margin-bottom:-3px;}
-
-input[type='submit']:hover, input[type='button']:hover {background-color:#DFDFDF}
-
-button:hover {background-color:#DFDFDF}
-
-input[type='submit']:disabled, input[type='button']:disabled, input[type='submit']:disabled:hover, #install_button:disabled, #install_button:disabled:hover {
-    cursor:default;
-    border-color:#dbdbdb;
-    background-color:#eee;
-    color:#BBB;
-}
-
-#install_button:disabled > img {
-    opacity: 0.4;
-    filter:alpha(opacity=40);
-    }
 
 .inputText, .inputTextError {
     color: #000000;
@@ -506,35 +460,6 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
     font-size: 11px;
     font-family: Verdana, sans-serif;
 }
-
-.inputButtonRestart {
-    font-size: 10px;
-    font-family: Verdana, sans-serif;
-    margin: 0px;
-    padding: 4px 8px 4px 20px !important;
-    text-transform: none!important;
-    font-weight: normal !important;
-}
-
-.inputButtonRestart[name='restart']{
-    background:#cecece  url("/data/images/restart.gif") 5px center no-repeat;
-    border-color:#A8A8A8; }
-
-    .inputButtonRestart[name='restart']:hover{ background:#E0E0E0  url("/data/images/restart.gif") 5px center no-repeat;}
-
-.inputButtonRestart[name='start'], .inputButtonRestart[value='start']{
-    background:#BFE784 url("/data/images/start.gif") 5px center no-repeat;
-    border-color:#829E59}
-
-    .inputButtonRestart[name='start']:hover{background:#D8F1B3 url("/data/images/start.gif") 5px center no-repeat;}
-
-.inputButtonRestart[name='stop']{
-    background: #FACE8B url("/data/images/stop_p.gif") 5px center no-repeat;
-    border-color: #DB8F6B;
-    }
-
-    .inputButtonRestart[name='stop']:hover{background:#F5DB99 url("/data/images/stop_p.gif") 5px center no-repeat;}
-
 .inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
     font-size: 11px;
     font-family: Verdana, sans-serif;
@@ -572,7 +497,6 @@ input[type='submit']:disabled, input[type='button']:disabled, input[type='submit
 
 .logout {
     font-size: 11px;
-    font-family: Verdana, sans-serif;
     border-top: 1px solid #ccc;
     border-left: 1px solid #ccc;
     border-right: 1px solid #4c4c4c;
@@ -649,11 +573,6 @@ a:hover {
 
 a img { border: 0px; }
 
-input {
-    font-size: 11px;
-    font-family: Verdana, sans-serif;
-}
-
 .dataTableMini caption, .ftitle {
     text-align: left;
     border: 0px;
@@ -725,7 +644,7 @@ input {
     border: 1px solid #46962D;
 }
 #updNumber{
-    background-color: #666666;
+    background-color: #46962D;
     border-radius: 10px 10px 10px 10px;
     color: #FFFFFF;
     float: right;
@@ -1116,32 +1035,6 @@ TABLE LIST
     border-radius: 5px;
 }
 
-.addNew{
-    background-color: #E9E9E9;
-    background-image: url('/data/images/add.gif');
-    background-position: 6px;
-    background-repeat: no-repeat;
-    border-top: 1px solid #999999;
-    border-left: 1px solid #999999;
-    border-right: 2px solid #999999;
-    border-bottom: 2px solid #999999;
-    border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    padding: 0px 10px 0px 25px;
-    height: 28px;
-    display: inline-block;
-    line-height: 28px;
-    text-decoration: none;
-    font-size: 12px;
-    color: #333;
-}
-
-.addNew:hover {
-    background-color: #dfdfdf
-}
-
-
 #field_help {
     color: #888;
     clear: both;
@@ -1473,10 +1366,7 @@ a.minBox, a.maxBox {
     margin: 10px 1%;
     padding: 15px 2%;
     float: left;
-    height: 330px;
-}
-.PackFilter .item-block.heighter {
-    height: 430px;    
+    height: 300px;
 }
 .PackFilter .item-block h3{
     border-bottom: medium none;
@@ -1496,15 +1386,6 @@ a.minBox, a.maxBox {
 .PackFilter .item-block .img_a:hover{
     background-color: whitesmoke;
 }
-
-.big {
-text-decoration:none;
-background-color:#FFD600; border-color:#E6A603;
-padding:15px 20px;
-float:left;
-}
-
-.big:hover {background-color:#FFC200;}
 
 /***********************************************************************************************
 
@@ -2309,7 +2190,11 @@ BUTTONS
 *********************************************************************************/
 
 
-.btn, .btn-only-icon {
+.btn,
+.btn-only-icon,
+input[type='submit'], 
+button, 
+input[type='button'] {
     background-color: #EEEEEE;
     border: 1px solid #999999;
     border-radius: 2px 2px 2px 2px;
@@ -2317,22 +2202,30 @@ BUTTONS
     cursor: pointer;
     font-size: 11px;
     font-weight: bold;
-    height: 28px;
+    height: 30px;
     letter-spacing: 1px;
     overflow: hidden;
     text-transform: uppercase;
     line-height: 28px;
     display: inline-block;
     text-decoration: none;
-    padding: 0px 10px 0px 0px;
+    padding: 0px 10px;
 
 }
-.btn:hover, .btn-only-icon:hover{
+.btn:hover,
+.btn-only-icon:hover,
+input[type='submit']:hover, 
+button:hover, 
+input[type='button']:hover{
     background-color: whitesmoke;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
-    color:#666;
+    color:#333;
 }
-.btn:disabled, .btn:disabled:hover, .btn-only-icon:disabled, .btn-only-icon:disabled:hover{
+.btn:disabled, .btn:disabled:hover,
+.btn-only-icon:disabled,.btn-only-icon:disabled:hover,
+input[type='submit']:disabled, input[type='submit']:disabled:hover,
+input[type='button']:disabled, input[type='button']:disabled:hover,
+button:disabled, button:disabled:hover{
     opacity: 0.4;
     box-shadow: none;
     cursor: default;
@@ -2340,17 +2233,17 @@ BUTTONS
 }
 .btn-icon {
     padding-left: 30px !important;
-    background-position: 5px center;
+    background-position: 7px center;
     background-repeat: no-repeat;
 }
 .btn-only-icon {
     background-position: center center;
     background-repeat: no-repeat;
-    height: 28px;
+    height: 30px;
     overflow: hidden;
     padding: 0px;
     text-indent: 1000px;
-    width: 28px;
+    width: 30px;
     font-size: 0px;
     vertical-align: middle;
 }
@@ -2360,13 +2253,47 @@ a.btn-only-icon{
 .btn-only-icon.btn-small{
     height: 20px ;
     width: 20px;
-
 }
 .btn-submit{
     height: 30px;
 }
 .btn-only-icon.btn-submit{
     width: 30px;
+}
+
+/*** DASHBOARD BTN ***/
+
+input.btn-dashboard {
+    font-size: 10px;
+    font-family: Verdana, sans-serif;
+    margin: 0px;
+    padding: 4px 8px 4px 20px;
+    text-transform: none;
+    font-weight: normal;
+    background-repeat: no-repeat;
+    background-position: 5px center;
+    height: auto;
+}
+.btn-dashboard.btn-restart{
+    background-color:#cecece;
+    border-color:#A8A8A8; 
+}
+.btn-dashboard.btn-restart:hover{ 
+    background-color:#E0E0E0;
+}
+.btn-dashboard.btn-start{
+    background-color:#BFE784;
+    border-color:#829E59
+}
+.btn-dashboard.btn-start:hover{
+    background-color:#D8F1B3;
+}
+.btn-dashboard.btn-stop{
+    background-color: #FACE8B;
+    border-color: #DB8F6B;
+    }
+.btn-dashboard.btn-stop:hover{
+    background-color:#F5DB99;
 }
 
 /*** BUTTONS ICONS ***/
@@ -2385,6 +2312,15 @@ a.btn-only-icon{
 .btn-deny{background-image: url("/data/images/deny-active.gif");}
 .btn-download{background-image: url("/data/images/install.gif");}
 .btn-reload{background-image: url("/data/images/reload.gif");}
+.btn-apply{background-image: url("/data/images/apply.gif");}
+.btn-deselect{background-image: url("/data/images/delete.gif");}
+.btn-install{background-image: url("/data/images/install.gif");}
+.btn-update{background-image: url("/data/images/install.gif");}
+.btn-upgrade{background-image: url("/data/images/install.gif");}
+.btn-skip{background-image: url("/data/images/skip.gif");}
+.btn-restart{background-image: url("/data/images/restart.gif");}
+.btn-start{background-image: url("/data/images/start.gif");}
+.btn-stop{background-image: url("/data/images/stop_p.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;
@@ -2441,6 +2377,8 @@ a.btn-only-icon{
     background-color: #69BE28;
     color: white;
 }
+
+
 
 /********************************************************************************
 
@@ -2535,4 +2473,42 @@ FOLDable SECtIONS
         width: 15px;
         height: 15px;
         float: left;
+}
+
+/* disk Usage */
+.diskUsage-tab {
+    overflow: hidden;
+    height: 400px;
+}
+.diskUsage-tab > div {
+    position: absolute;
+    right: 0;
+}
+.diskUsage-tab > table {
+    float: left;
+    width: 30%;
+}
+.diskUsage-tab .legend{
+    background-color: transparent;
+    width: 200px;
+}
+.legendLabel {
+    font-size: 12px;
+}
+.legendColorBox > div {
+    border: medium none !important;
+    height: 20px;
+    position: relative;
+    width: 20px;
+}
+.legendColorBox > div > div {
+    border-width: 10px !important;
+    height: 0 !important;
+    position: absolute;
+    width: 0 !important;
+}
+
+.pieLabel > div {
+    color: #666666 !important;
+    font-size: 12px !important;
 }

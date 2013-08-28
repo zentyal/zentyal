@@ -275,7 +275,7 @@ if ($foreignNextPageField) {
 $addOnClick .=  'return false';
 </%perl>
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => 'btn btn-icon btn-add',
         type => 'submit',
         name => 'add',
         value => __('Add'),
@@ -290,7 +290,7 @@ $addOnClick .=  'return false';
 </%perl>
     <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'change',
         value => __('Change'),
@@ -300,7 +300,7 @@ $addOnClick .=  'return false';
 % }
 % if ($changeView) {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),
