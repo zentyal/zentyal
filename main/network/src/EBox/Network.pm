@@ -63,6 +63,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Common::Model::EnableForm;
 use EBox::Util::Lock;
+use EBox::Util::Version;
 use EBox::DBEngineFactory;
 use File::Basename;
 use File::Slurp;
@@ -202,6 +203,16 @@ sub initialSetup
         };
     }
     # TODO: Migration to remove zentyal-network cron tab and obsolete tables
+
+    # Migration from 3.0.7 to remove ddclient instances from init.d script
+    if (defined($version) and EBox::Util::Version::compare($version, '3.0.8') < 0) {
+        my @cmds;
+        if ($self->isDDNSEnabled()) {
+            push(@cmds, '/etc/init.d/ddclient stop', 'pkill ddclient');
+        }
+        push(@cmds, '/usr/sbin/update-rc.d ddclient disable');
+        EBox::Sudo::silentRoot(@cmds);
+    }
 }
 
 # Method: enableActions
@@ -211,6 +222,9 @@ sub initialSetup
 sub enableActions
 {
     my ($self) = @_;
+
+    # Call super to run enable-module script
+    $self->SUPER::enableActions();
 
     # Disable IPv6 if it is enabled
     if (-e '/proc/net/if_inet6') {
@@ -3194,8 +3208,8 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ddclient',
-            'type' => 'init.d',
+            'name' => 'zentyal.ddclient',
+            'type' => 'upstart',
             'pidfiles' => ['/var/run/ddclient.pid'],
             'precondition' => \&isDDNSEnabled
         }

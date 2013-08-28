@@ -1,0 +1,24 @@
+description "Update dynamic domain name service entries"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+expect fork
+respawn
+
+env DEFAULTFILE=/etc/default/ddclient
+
+pre-start script
+   run_daemon=false
+   if [ -f "$DEFAULTFILE" ]; then
+      . "$DEFAULTFILE"
+   fi
+   [ "x$run_daemon" != "xtrue" ] && { stop; exit 0; }
+   exit 0
+end script
+
+script
+   daemon_interval=300
+   if [ -f "$DEFAULTFILE" ]; then
+      . "$DEFAULTFILE"
+   fi
+   exec /usr/sbin/ddclient -daemon $daemon_interval -syslog -pid /var/run/ddclient.pid
+end script
