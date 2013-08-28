@@ -89,7 +89,7 @@ sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
     if ($row->isEqualTo($oldRow)) {
-	return;
+        return;
     }
 
     $self->_setUndefinedValues($row);
