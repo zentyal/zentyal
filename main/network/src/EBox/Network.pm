@@ -211,7 +211,7 @@ sub initialSetup
             push(@cmds, '/etc/init.d/ddclient stop', 'pkill ddclient');
         }
         push(@cmds, '/usr/sbin/update-rc.d ddclient disable');
-        EBox::Sudo::root(@cmds);
+        EBox::Sudo::silentRoot(@cmds);
     }
 }
 
