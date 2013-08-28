@@ -202,8 +202,7 @@ sub _setStructure
             pf('-A INPUT -m state --state ESTABLISHED,RELATED -j iaccept'),
             pf('-N fdrop'),
             pf('-N faccept'),
-            pf('-A FORWARD -m state --state INVALID -j faccept'),
-
+            pf('-A FORWARD -m state --state INVALID -j fdrop'),
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j faccept'),
 
             pf('-t nat -N premodules'),

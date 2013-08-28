@@ -3292,12 +3292,17 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ddclient',
-            'type' => 'init.d',
+            'name' => 'zentyal.ddclient',
+            'type' => 'upstart',
             'pidfiles' => ['/var/run/ddclient.pid'],
             'precondition' => \&isDDNSEnabled
         }
     ];
+}
+
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'ddclient', 'type' => 'init.d' } ];
 }
 
 sub _setConf
