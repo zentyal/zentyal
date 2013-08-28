@@ -19,11 +19,10 @@ use JSON::XS;
 %   }
 % }
 </ul>
-
-<br/>
+<div class="insideTab diskUsage-tab">
 <& .partitionAttrs, $partitionAttr &>
-<div id='diskUsageChart' style='width:779px;height:400px;'></div>
-
+  <div id='diskUsageChart' style='width:600px;height:400px;'></div>
+</div>
 <script>
 <%perl>
 # numberfy data
