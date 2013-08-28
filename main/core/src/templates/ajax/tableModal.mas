@@ -169,14 +169,14 @@ use POSIX;
 %    }
 %    if ($changeView and exists $actions->{'add'})
 %    {
-  <a href='#' class='addNew'
+  <button type="button" class='btn btn-icon btn-add'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
-                %>;return false"><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></button>
    <br/>
    <br/>
 %    }

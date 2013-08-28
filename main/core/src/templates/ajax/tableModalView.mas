@@ -135,7 +135,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
 &>
 %    }
 %    if ($changeView and exists $actions->{'add'} and (not $changeAddAction))  {
-  <a href='#' class='addNew'
+  <button type="button" class='btn btn-icon btn-add'
       name='add'
          onClick="<%
                  $model->modalChangeViewJS( changeType => "changeAdd",
@@ -143,7 +143,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
                       page => $page,
                       isFilter => 0,
                       selectCallerId => $selectCallerId)
-                %>;return false"><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></button>
    <br/>
    <br/>
 %    }

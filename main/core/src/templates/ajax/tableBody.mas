@@ -628,14 +628,14 @@ my $tableName = $model->name();
 my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
-  <a href='#' class='btn addNew'
+  <button type="button" class='btn btn-icon btn-add'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
-                %>;return false"><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></button>
 % }
 
 </%method>
@@ -705,7 +705,7 @@ $page
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='del'
               value="Del"
               title="<% $delete_msg %>"
@@ -724,7 +724,7 @@ $page
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='edit'
               value="edit"
               title="<% $edit_msg %>"
@@ -745,7 +745,7 @@ $page
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='clone'
               value="Clone"
               title="<% $clone_msg  %>"

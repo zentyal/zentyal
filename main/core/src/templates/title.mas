@@ -23,7 +23,7 @@ my $insideComposite = $m->notes('composite');
     <h1><% $title %></h1>
 % }
     <span id='helpbutton'>
-        <button id='showhelp' class="btn-only-icon btn-help btn-small" onclick="Zentyal.Help.showHelp(); return false; " title="<% __('Display help notes') %>"><% __('show help')%></button>
+        <button type="button" id='showhelp' class="btn-only-icon btn-help btn-small" onclick="Zentyal.Help.showHelp(); return false; " title="<% __('Display help notes') %>"><% __('show help')%></button>
     </span>
 % }
 </header>
