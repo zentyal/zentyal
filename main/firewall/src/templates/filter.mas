@@ -30,7 +30,7 @@ use EBox::Gettext;
 	<a class="btn btn-icon btn-config" href="/Firewall/View/ToInternetRuleTable"><% __('Configure rules') %></a>
 </div>
 
-<div class="item-block heighter">
+<div class="item-block">
 % if ($showImages) {
 	<a class="img_a" href="/Firewall/View/ExternalToEBoxRuleTable"><img src="/data/firewall/external_to_zentyal.png" /></a>
 % }
@@ -42,7 +42,7 @@ use EBox::Gettext;
 </div>
 
 % if ($showExtToInt) {
-	<div class="item-block heighter">
+	<div class="item-block">
 % if ($showImages) {
 	<a class="img_a" href="/Firewall/View/ExternalToInternalRuleTable"><img src="/data/firewall/external_to_internal.png" /></a>
 % }
