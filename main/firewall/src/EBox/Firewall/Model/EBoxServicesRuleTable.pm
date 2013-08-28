@@ -197,4 +197,14 @@ sub headTitle
     return __('Configure Rules');
 }
 
+sub permanentMessage
+{
+    return __('You can disable these rules, but make sure you know what you are doing or otherwise some services could stop working.');
+}
+
+sub permanentMessageType
+{
+    return 'warning';
+}
+
 1;

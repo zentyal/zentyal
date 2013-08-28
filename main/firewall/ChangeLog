@@ -1,3 +1,5 @@
+HEAD
+	+ Moved warnings inside of models instead of Packet Filter frontpage
 3.1.3
 	+ Hide from External to Internal section by default to avoid confusion
 	  with Port Forwarding unless show_ext_to_int_rules confkey is enabled

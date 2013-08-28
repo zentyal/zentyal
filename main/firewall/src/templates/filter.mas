@@ -38,9 +38,6 @@ use EBox::Gettext;
 	<p>
 		<% __('These rules allow you to control access from external networks to sevices running on your Zentyal machine.') %>
 	</p>
-	<div class='warning'>
-		<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
-	</div>
 	<a class="btn btn-icon btn-config" href="/Firewall/View/ExternalToEBoxRuleTable"><% __('Configure rules') %></a>
 </div>
 
@@ -53,9 +50,6 @@ use EBox::Gettext;
 	<p>
 		<% __('These rules allow you to control access from external networks to internal networks.') %>
 	</p>
-	<div class='warning'>
-		<% __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.') %>
-	</div>
 	<a class="btn btn-icon btn-config" href="/Firewall/View/ExternalToInternalRuleTable"><% __('Configure rules') %></a>
 
   </div>
@@ -82,9 +76,6 @@ use EBox::Gettext;
 	<p>
 		<% __('These rules are automatically added by the Zentyal services.') %>
 	</p>
-	<div class='warning'>
-		<% __('You can disable these rules, but make sure you know what you are doing or otherwise some services could stop working.') %>
-	</div>
 	<a class="btn btn-icon btn-config" href="/Firewall/View/EBoxServicesRuleTable"><% __('Configure rules') %></a>
 </div>
 % }

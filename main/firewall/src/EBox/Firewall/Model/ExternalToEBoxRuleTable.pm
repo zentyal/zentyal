@@ -78,4 +78,14 @@ sub _table
     return $dataTable;
 }
 
+sub permanentMessage
+{
+    return __('Be advised that adding rules in this section may compromise your network security as you may grant access from untrusted networks. Please do not use this unless you know what you are doing.');
+}
+
+sub permanentMessageType
+{
+    return 'warning';
+}
+
 1;
