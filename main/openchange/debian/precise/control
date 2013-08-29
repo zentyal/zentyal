@@ -11,7 +11,8 @@ Depends: zentyal-core (>= 3.1), zentyal-core (<< 3.2),
  zentyal-mail, zentyal-samba,
  openchangeserver (>= 1:2.0-QUADRANT-32-g7aa5435-zentyal7),
  sogo-openchange (>= 2.0.7-1zentyal2),
- sope4.9-gdl1-mysql
+ sope4.9-gdl1-mysql,
+ libstring-random-perl
 Description: Zentyal - OpenChange server
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

@@ -21,8 +21,19 @@ package EBox::OpenChange;
 use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Gettext;
+use EBox::Config;
 use EBox::OpenChange::LdapUser;
 use EBox::DBEngineFactory;
+use String::Random;
+
+use constant SOGO_PORT => 20000;
+use constant SOGO_DEFAULT_PREFORK => 1;
+
+use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
+use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
+use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
+use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
+
 
 # Method: _create
 #
@@ -49,9 +60,6 @@ sub initialSetup
     my ($self, $version) = @_;
 
     unless ($version) {
-        EBox::Sudo::root("mkdir -p /root/GNUstep/Defaults/");
-        EBox::Sudo::root("mkdir -p /var/lib/sogo/GNUstep/Defaults");
-
 #        my $firewall = EBox::Global->modInstance('firewall');
 #        $firewall or
 #            return;
@@ -69,96 +77,127 @@ sub enableService
     my ($self, $status) = @_;
 
     $self->SUPER::enableService($status);
-#    if ($self->changed()) {
-#        my $mail = EBox::Global->modInstance('mail');
-#        $mail->setAsChanged();
-#    }
+    if ($self->changed()) {
+        my $mail = $self->global->modInstance('mail');
+        $mail->setAsChanged();
+    }
 }
 
 sub _daemons
 {
+    # TODO if imap and imaps services are disabled, do not run sogod
     my $daemons = [];
     push (@{$daemons}, {
         name => 'sogo',
         type => 'init.d',
-        pidfiles => ['/var/run/sogo/sogo.pid']});
+        pidfiles => [SOGO_PID_FILE]});
 
     return $daemons;
+}
+
+sub usedFiles
+{
+    my $files = [];
+
+    my $sogoDefaultFile = {
+        file => SOGO_DEFAULT_FILE,
+        reason => __('To configure sogo daemon'),
+        module => 'openchange'
+    };
+
+    my $sogoConfFile = {
+        file => SOGO_CONF_FILE,
+        reason => __('To configure sogo parameters'),
+        module => 'openchange'
+    };
+
+    push (@{$files}, $sogoDefaultFile);
+    push (@{$files}, $sogoConfFile);
+
+    return $files;
 }
 
 sub _setConf
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global->modInstance('sysinfo');
-    my $timezoneModel = $sysinfo->model('TimeZone');
-    my $tz = $timezoneModel->row->printableValueByName('timezone');
+    EBox::info("On set conf");
+    $self->_writeSOGoDefaultFile();
+    $self->_writeSOGoConfFile();
+    $self->_setupSOGoDatabase();
+}
+
+sub _writeSOGoDefaultFile
+{
+    my ($self) = @_;
 
     my $array = [];
-    push (@{$array}, SOGoTimeZone => $tz);
-    push (@{$array}, SOGoProfileURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_user_profile');
-    push (@{$array}, OCSFolderInfoURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_folder_info');
-    push (@{$array}, OCSSessionsFolderURL => 'mysql://sogo:sogo@localhost:3306/sogo/sogo_sessions_folder');
-    push (@{$array}, WONoDetach => 'NO');
-    push (@{$array}, WOLogFile => '/var/log/sogo/sogo.log');
-    push (@{$array}, WOPidFile => '/var/run/sogo/sogo.pid');
-    my $SOGoUserSources = {
-        CNFieldName => 'cn',
-        IDFieldName => 'uid',
-        UIDFieldName => 'uid',
-        IMAPHostFieldName => '',
-        baseDN => 'ou=users,dc=oc,dc=local',
-        bindDN => 'uid=Administrator,ou=users,dc=oc,dc=local',
-        bindPassword => 'Administrator',
-        canAuthenticate => 'YES',
-        displayName => 'Shared Addresses',
-        hostname => 'localhost',
-        id => 'public',
-        isAddressBook => 'YES',
-        port => '3389',
-    };
-    push (@{$array}, SOGoUserSources => $SOGoUserSources);
+    my $prefork = EBox::Config::configkey('sogod_prefork');
+    unless (length $prefork) {
+        $prefork = SOGO_DEFAULT_PREFORK;
+    }
+    push (@{$array}, prefork => $prefork);
+    $self->writeConfFile(SOGO_DEFAULT_FILE,
+        'openchange/sogo.mas',
+        $array, { uid => 0, gid => 0, mode => '755' });
+}
 
-    my @sogoUserInfo = getpwnam('sogo');
-    $self->writeConfFile('/var/lib/sogo/GNUstep/Defaults/.GNUstepDefaults',
-        'openchange/GNUstepDefaults.mas',
-        $array, { uid => $sogoUserInfo[2], gid => $sogoUserInfo[3], mode => '600' });
-    $self->writeConfFile('/root/GNUstep/Defaults/.GNUstepDefaults',
-        'openchange/GNUstepDefaults.mas',
-        $array, { uid => 0, gid => 0, mode => '600' });
+sub _writeSOGoConfFile
+{
+    my ($self) = @_;
 
-    $self->_setupSOGoDatabase();
+    my $array = [];
+
+    my $sysinfo = $self->global->modInstance('sysinfo');
+    my $timezoneModel = $sysinfo->model('TimeZone');
+    my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
+
+    my $sogoMailDomain = "kernevil.lan"; # TODO
+
+    push (@{$array}, sogoPort => SOGO_PORT);
+    push (@{$array}, sogoLogFile => SOGO_LOG_FILE);
+    push (@{$array}, sogoPidFile => SOGO_PID_FILE);
+    push (@{$array}, sogoTimeZone => $sogoTimeZone);
+    push (@{$array}, sogoMailDomain => $sogoMailDomain);
+
+    my $imapServer = 'localhost'; # TODO
+    my $smtpServer = 'localhost'; # TODO
+    my $sieveServer = 'localhost'; # TODO
+    push (@{$array}, imapServer => $imapServer);
+    push (@{$array}, smtpServer => $smtpServer);
+    push (@{$array}, sieveServer => $sieveServer);
+
+    my $dbUser = $self->_sogoDbUser();
+    my $dbPass = $self->_sogoDbPass();
+    push (@{$array}, dbUser => $dbUser);
+    push (@{$array}, dbPass => $dbPass);
+    push (@{$array}, dbHost => '127.0.0.1'); # TODO Get from dbengine
+    push (@{$array}, dbPort => 3306); # TODO Get from dbengine
+
+    push (@{$array}, ldapBaseDN => $self->ldap->dn());
+    push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
+    push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
+    push (@{$array}, ldapHost => $self->ldap->LDAPI());
+
+    my (undef, undef, undef, $gid) = getpwnam('sogo');
+    $self->writeConfFile(SOGO_CONF_FILE,
+        'openchange/sogo.conf.mas',
+        $array, { uid => 0, gid => $gid, mode => '640' });
 }
 
 sub _setupSOGoDatabase
 {
     my ($self) = @_;
 
+    my $dbUser = $self->_sogoDbUser();
+    my $dbPass = $self->_sogoDbPass();
+    my $dbHost = '127.0.0.1'; # TODO get from dbengine
+
     my $db = EBox::DBEngineFactory::DBEngine();
     $db->sqlAsSuperuser(sql => 'CREATE DATABASE IF NOT EXISTS sogo');
-    $db->sqlAsSuperuser(sql => 'GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY "sogo";');
+    $db->sqlAsSuperuser(sql => "GRANT ALL ON sogo.* TO $dbUser\@$dbHost " .
+                               "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => 'flush privileges;');
-}
-
-# Method: _postServiceHook
-#
-#     Override this method to setup shared folders.
-#
-# Overrides:
-#
-#     <EBox::Module::Service::_postServiceHook>
-#
-sub _postServiceHook
-{
-    my ($self, $enabled) = @_;
-
-#    if ($enabled and -f FIRST_RUN_FILE) {
-#        my $cmd = 'zarafa-admin -s';
-#        EBox::Sudo::rootWithoutException($cmd);
-#        unlink FIRST_RUN_FILE;
-#    }
-
-    return $self->SUPER::_postServiceHook($enabled);
 }
 
 # Method: menu
@@ -209,6 +248,58 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+sub _sogoDbUser
+{
+    my ($self) = @_;
+
+    my $dbUser = EBox::Config::configkey('sogo_dbuser');
+    return (length $dbUser > 0 ? $dbUser : 'sogo');
+}
+
+sub _sogoDbPass
+{
+    my ($self) = @_;
+
+    # Return value if cached
+    if (defined $self->{sogo_db_password}) {
+        return $self->{sogo_db_password};
+    }
+
+    # Cache and return value if user configured
+    my $dbPass = EBox::Config::configkey('sogo_dbpass');
+    if (length $dbPass) {
+        $self->{sogo_db_password} = $dbPass;
+        return $dbPass;
+    }
+
+    # Otherwise, read from file
+    my $path = EBox::Config::conf() . "sogo_db.passwd";
+
+    # If file does not exists, generate random password and stash to file
+    if (not -f $path) {
+        my $generator = new String::Random();
+        my $pass = $generator->randregex('\w\w\w\w\w\w\w\w');
+
+        my ($login, $password, $uid, $gid) = getpwnam(EBox::Config::user());
+        EBox::Module::Base::writeFile($path, $pass,
+            { mode => '0600', uid => $uid, gid => $gid });
+        $self->{sogo_db_password} = $pass;
+        return $pass;
+    }
+
+    unless (defined ($self->{sogo_db_password})) {
+        open (PASSWD, $path) or
+            throw EBox::Exceptions::External('Could not get SOGo DB password');
+        my $pwd = <PASSWD>;
+        close (PASSWD);
+
+        $pwd =~ s/[\n\r]//g;
+        $self->{sogo_db_password} = $pwd;
+    }
+
+    return $self->{sogo_db_password};
 }
 
 1;
