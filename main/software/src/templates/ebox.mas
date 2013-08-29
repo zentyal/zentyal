@@ -609,9 +609,7 @@ $id
 $buttonId
 </%args>
 % my $filterId = $id . '_filter';
-<div>
-<table class="bDataTable">
-    <tr><td>
+<div class="tableSearch">
        <input type='text' id='<% $filterId %>'/>
        <input type='submit'
          name='filter'
@@ -619,8 +617,6 @@ $buttonId
          title='Apply'
          onclick='Zentyal.SoftwareManagementUI.filterTable("<% $id %>", "<% $filterId %>"); return false'
        />
-   </td></tr>
-</table>
 </div>
 <table id='<% $id %>' class='dataTable'>
 <thead><tr>

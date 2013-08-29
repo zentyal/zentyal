@@ -609,6 +609,7 @@ a img { border: 0px; }
 .tabs li {
     list-style: none;
     display : inline-block;
+    vertical-align: top;
 }
 
 .tabs li > a, .tabs li > span {
@@ -616,7 +617,7 @@ a img { border: 0px; }
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) inset;
     color: #333333;
-    display: block;
+    display: inline-block;
     font-size: 14px;
     padding: 10px 15px;
     text-decoration: none;
@@ -632,16 +633,19 @@ a img { border: 0px; }
     color: white;
     border: 1px solid #46962D;
 }
+#updateTab{
+    padding-right: 50px;
+    position: relative;
+}
 #updNumber{
     background-color: #46962D;
     border-radius: 10px 10px 10px 10px;
-    color: #FFFFFF;
-    float: right;
+    color: #FFF;
+    position: absolute;
     font-size: 12px;
-    height: 21px;
-    line-height: 20px;
-    padding: 0 7px;
-    text-align: center;
+    padding: 4px 7px;
+    right: 10px;
+    top: 7px;
 }
 .insideTab {
     margin: 0px;
@@ -2312,7 +2316,8 @@ input.btn-dashboard {
 .btn-config{background-image: url("/data/images/edit-table.gif");}
 .btn-clone{background-image: url("/data/images/clone.png");}
 .btn-help{background-image: url("/data/images/showhelp.png"); border-radius: 10px;}
-.btn-delete{background-image: url("/data/images/delete-w.gif");}
+.btn-delete{background-image: url("/data/images/delete.gif");}
+.treeviewButtons .btn-delete{background-image: url("/data/images/delete-w.gif");}
 .btn-remove{background-image: url("/data/images/remove.gif");}
 .btn-deny{background-image: url("/data/images/deny-active.gif");}
 .btn-download{background-image: url("/data/images/install.gif");}
@@ -2358,20 +2363,20 @@ input.btn-dashboard {
     background-color: #00ADD0;
     color: white;
 }
-.btn-red, .btn-delete{
+.btn-red, .treeviewButtons .btn-delete{
     background-color: #FF5C26;
     border-color: #B22D00;
     color: white;
 }
 .btn-red:hover,
-.btn-delete:hover{
+.treeviewButtons .btn-delete:hover{
     background-color: #D93600;
     color: white;
 }
 .btn-red:disabled,
 .btn-red:disabled:hover,
-.btn-delete:disabled,
-.btn-delete:disabled:hover{
+.treeviewButtons .btn-delete:disabled,
+.treeviewButtons .btn-delete:disabled:hover{
     background-color: #FF5C26;color:
     white;
 }
