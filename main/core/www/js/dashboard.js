@@ -432,25 +432,17 @@ Zentyal.Dashboard.updateWidgets = function() {
 Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
-Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
-
-    $('<div id="configure_widgets_dialog"></div>').dialog({
-        title: title,
-        width: 980,
-        height: 120,
-        position: 'top',
-        resizable: false,
-        create: function (event, ui) {
-            Zentyal.TableHelper.setLoading('configure_widgets_dialog');
-            $(event.target).load('/Dashboard/ConfigureWidgets', function() {
-                Zentyal.Dashboard.toggleClose();
-                $(this).css({overflow: 'visible'});
-            });
-        },
-       beforeClose: function() {
-           Zentyal.Dashboard.toggleClose();
-       }
-    });
+Zentyal.Dashboard.ConfigureWidgets.toggle = function () {
+    var confWidgets = $('#configure_widgets');
+    if (confWidgets.is(':visible')) {
+        confWidgets.slideUp();
+    } else {
+        Zentyal.TableHelper.setLoading('configure_widgets_dialog');
+        confWidgets.load('/Dashboard/ConfigureWidgets', function() {
+            confWidgets.slideDown();
+        });
+    }
+    Zentyal.Dashboard.toggleClose();
 };
 
 Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widgets, start, end) {

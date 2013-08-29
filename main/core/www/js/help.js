@@ -11,15 +11,8 @@ Zentyal.Help.showHelp = function () {
 };
 
 Zentyal.Help.initHelp = function () {
-    if($('.help').length === 0) {
-        $('#helpbutton').hide();
-    } else {
+    if($('.help').length > 0) {
         $('#helpbutton').show();
-        if (Zentyal.Help.helpShown) {
-            Zentyal.Help.showHelp();
-        } else {
-            Zentyal.Help.hideHelp();
-        }
     }
 };
 
