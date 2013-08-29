@@ -1,3 +1,6 @@
+HEAD
+	+ Removed obsolete PID files on service start to prevent problems with
+	  left over .pid files.
 2.2.9
 	+ Added missing pre-save and post-save directories
 2.2.8
