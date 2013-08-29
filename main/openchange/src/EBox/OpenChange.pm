@@ -49,8 +49,8 @@ sub initialSetup
     my ($self, $version) = @_;
 
     unless ($version) {
-        # TODO mkdir /root/GNUstep/Defaults/
-        # TODO mkdir /var/lib/sogo/GNUstep/Defaults
+        EBox::Sudo::root("mkdir -p /root/GNUstep/Defaults/");
+        EBox::Sudo::root("mkdir -p /var/lib/sogo/GNUstep/Defaults");
 
 #        my $firewall = EBox::Global->modInstance('firewall');
 #        $firewall or
