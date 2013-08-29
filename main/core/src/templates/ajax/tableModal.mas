@@ -192,7 +192,6 @@ use POSIX;
 %    }
 %   elsif ( $action eq 'changeEdit' )
 %    {
-<h3>
 %     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }

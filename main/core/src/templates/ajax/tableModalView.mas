@@ -171,11 +171,11 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
 %  {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %    {
+% if ($printableTableName) {
 <h3>
-  <%
-    $printableTableName
-  %>
+  <% $printableTableName %>
 </h3>
+% }
 %    }
 <table class="bDataTable">
     <tr>

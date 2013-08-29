@@ -350,13 +350,11 @@ $printableRowName
 </%args>
 %    my $formTitle;
 %    if ( $action eq 'changeAdd' )  {
-%      $formTitle = __x('Adding a new {row}', row => $printableRowName);
+%       $formTitle = __x('Adding a new {row}', row => $printableRowName);
 %    } elsif ( $action eq 'changeEdit' )  {
-<h3>
-%     $formTitle = __x('Editing {row}', row => $printableRowName);
+%       $formTitle = __x('Editing {row}', row => $printableRowName);
 %    } elsif ($action eq 'clone') {
-<h3>
-%     $formTitle = __x('Cloning {row}', row => $printableRowName);
+%       $formTitle = __x('Cloning {row}', row => $printableRowName);
 %    }
 <& PARENT:title, title => $formTitle &>
 </%method>
