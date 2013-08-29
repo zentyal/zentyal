@@ -41,7 +41,10 @@ sub _userAddOns
 {
     my ($self, $user) = @_;
 
-    return unless ($self->{openchange}->configured());
+    unless ($self->{openchange}->configured() and
+            $self->{openchange}->isProvisioned()) {
+        return;
+    }
 
     my $active = $self->enabled($user) ? 1 : 0;
     my $args = {
@@ -112,7 +115,10 @@ sub _addUser
 {
     my ($self, $user, $password) = @_;
 
-    return unless ($self->{openchange}->configured());
+    unless ($self->{openchange}->configured() and
+            $self->{openchange}->isProvisioned()) {
+        return;
+    }
 
     my $model = $self->{openchange}->model('OpenChangeUser');
     $self->setAccountEnabled($user, $model->enabledValue());
