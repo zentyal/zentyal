@@ -6,7 +6,6 @@ $partitionAttr
 </%args>
 <%init>
 use EBox::Gettext;
-use JSON::XS;
 </%init>
 <script type="text/javascript" src="/data/js/jquery.flot.js"></script>
 <script type="text/javascript" src="/data/js/jquery.flot.pie.js"></script>
