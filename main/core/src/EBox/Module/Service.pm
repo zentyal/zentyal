@@ -571,6 +571,21 @@ sub _startDaemon
 
     my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
 
+    unless ($isRunning) {
+        # Cleanup obsolete PID files that may stop the daemon launch.
+        if(defined($daemon->{'pidfiles'})) {
+            foreach my $pidfile (@{$daemon->{'pidfiles'}}) {
+                if (-e $pidfile) {
+                    try {
+                        EBox::Sudo::root("rm -f '$pidfile'");
+                    } otherwise {
+                        EBox::warn("Removal of $pidfile failed");
+                    };
+                }
+            }
+        }
+    }
+
     if(daemon_type($daemon) eq 'upstart') {
         if($isRunning) {
             EBox::Service::manage($daemon->{'name'},'restart');

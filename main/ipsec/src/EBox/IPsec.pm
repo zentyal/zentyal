@@ -116,7 +116,10 @@ sub _daemons
         {
             'name' => 'ipsec',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/pluto/pluto.pid'],
+            'pidfiles' => [
+                '/var/run/pluto/pluto.pid',
+                '/var/run/pluto/ipsec_setup.pid',
+            ],
         }
     ];
 }
