@@ -15,9 +15,9 @@ if (not $action->enabled($id)) {
     $attributes{disabled} = 'disabled';
 }
 if ($type eq 'image') {
-    $attributes{src} = $action->image($id);
+    $attributes{class} = 'btn-only-icon btn-' . $action->name{$id};
     $attributes{alt} = $action->printableValue($id);
 }
 </%init>
 
-<input <& /htmlAttributes.mas, %attributes &> />
+<button <& /htmlAttributes.mas, %attributes &> />
