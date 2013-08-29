@@ -346,12 +346,6 @@ sub isProvisioned
 #
 #   It returns the custom shares
 #
-# Parameters:
-#
-#     all - return all shares regardless of their permission
-#           level. Otherwise shares without permssions or guset access are
-#           ignored. Default: false
-#
 # Returns:
 #
 #   Array ref containing hash ref with:
@@ -368,7 +362,7 @@ sub isProvisioned
 #
 sub shares
 {
-    my ($self, $all) = @_;
+    my ($self) = @_;
 
     my $shares = $self->model('SambaShares');
     my @shares = ();
@@ -410,11 +404,6 @@ sub shares
             } elsif ($permissions->value() eq 'administrator') {
                 push (@administrators, $user)
             }
-        }
-
-        if (not $all) {
-            next unless (@readOnly or @readWrite or @administrators
-                         or $shareConf->{'guest'});
         }
 
         $shareConf->{'readOnly'} = join (', ', @readOnly);
@@ -1626,7 +1615,7 @@ sub logHelper
 #        @{ $ldapInfo->groupShareDirectories }
 #      );
 #
-#    foreach my $sh_r (@{ $self->shares(1) }) {
+#    foreach my $sh_r (@{ $self->shares() }) {
 #        push @sharesSortedByPathLen, {path => $sh_r->{path},
 #                                      share =>  $sh_r->{share} };
 #    }
@@ -1745,7 +1734,7 @@ sub logHelper
 #    }
 #
 #    # add no-account shares to share list
-#    foreach my $sh_r (@{ $self->shares(1)  }) {
+#    foreach my $sh_r (@{ $self->shares()  }) {
 #        my $share = {
 #                     share => $sh_r->{share},
 #                     path  => $sh_r->{path},
@@ -1796,7 +1785,7 @@ sub filesystemShares
 {
     my ($self) = @_;
 
-    my $shares = $self->shares(1);
+    my $shares = $self->shares();
     my $paths = [];
 
     foreach my $share (@{$shares}) {
@@ -1851,7 +1840,7 @@ sub groupPaths
     my ($self, $group) = @_;
 
     my $groupName = $group->get('cn');
-    my $shares = $self->shares(1);
+    my $shares = $self->shares();
     my $paths = [];
 
     foreach my $share (@{$shares}) {
@@ -1874,7 +1863,7 @@ sub _updatePathsByLen
     @sharesSortedByPathLen = ();
 
     # Group and custom shares
-    foreach my $sh_r (@{ $self->shares(1) }) {
+    foreach my $sh_r (@{ $self->shares() }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
                                       share =>  $sh_r->{share},
                                       type => ($sh_r->{'groupShare'} ? 'Group' : 'Custom')};

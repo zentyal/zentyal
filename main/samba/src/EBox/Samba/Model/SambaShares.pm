@@ -402,23 +402,6 @@ sub createDirs
             }
         }
         my $relativeSharePath = '/';
-        # type                     : 0x9c04 (39940)
-        # 0: SEC_DESC_OWNER_DEFAULTED
-        # 0: SEC_DESC_GROUP_DEFAULTED
-        # 1: SEC_DESC_DACL_PRESENT
-        # 0: SEC_DESC_DACL_DEFAULTED
-        # 0: SEC_DESC_SACL_PRESENT
-        # 0: SEC_DESC_SACL_DEFAULTED
-        # 0: SEC_DESC_DACL_TRUSTED
-        # 0: SEC_DESC_SERVER_SECURITY
-        # 0: SEC_DESC_DACL_AUTO_INHERIT_REQ
-        # 0: SEC_DESC_SACL_AUTO_INHERIT_REQ
-        # 1: SEC_DESC_DACL_AUTO_INHERITED
-        # 1: SEC_DESC_SACL_AUTO_INHERITED
-        # 1: SEC_DESC_DACL_PROTECTED
-        # 0: SEC_DESC_SACL_PROTECTED
-        # 0: SEC_DESC_RM_CONTROL_VALID
-        # 1: SEC_DESC_SELF_RELATIVE
         my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
         $smb->set_sd($relativeSharePath, $sd, $sinfo);
     }
