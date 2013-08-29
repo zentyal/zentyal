@@ -460,7 +460,7 @@ input[type='text']:disabled {
     font-size: 11px;
     font-family: Verdana, sans-serif;
 }
-.inputButton, input[type='image'], .edit_table_B, #installButtons > button  {
+.edit_table_B {
     font-size: 11px;
     font-family: Verdana, sans-serif;
     background: whiteSmoke;
@@ -474,20 +474,9 @@ input[type='text']:disabled {
     padding: 3px;
 }
 
-.inputButton:hover, input[type='image']:hover, .edit_table_B:hover, #installButtons > button:hover {background: #E7E7E7;}
-
-#installButtons > button  {
-   padding: 5px 10px !important;
-}
-
+.edit_table_B:hover {background: #E7E7E7;}
 .edit_table_B { display: inline-block;}
 .edit_table_B:hover { display: inline-block; background: #E7E7E7 !important;}
-
-.inputButton:disabled, input[type='image']:disabled, .inputButton:disabled:hover, input[type='image']:disabled:hover {
-    cursor:default;
-    background-color:whitesmoke;
-    opacity: 0.4;
-}
 
 .msg {
     color: #FFFFFF;
@@ -2192,9 +2181,11 @@ BUTTONS
 
 .btn,
 .btn-only-icon,
-input[type='submit'], 
+.inputButton,
 button, 
-input[type='button'] {
+input[type='submit'], 
+input[type='button'],
+input[type='image'] {
     background-color: #EEEEEE;
     border: 1px solid #999999;
     border-radius: 2px 2px 2px 2px;
@@ -2214,18 +2205,24 @@ input[type='button'] {
 }
 .btn:hover,
 .btn-only-icon:hover,
-input[type='submit']:hover, 
+.inputButton:hover,
 button:hover, 
-input[type='button']:hover{
+input[type='submit']:hover, 
+input[type='button']:hover,
+input[type='image']:hover
+{
     background-color: whitesmoke;
     box-shadow: 0px 0px 3px rgba(0,0,0,0.25);
     color:#333;
 }
 .btn:disabled, .btn:disabled:hover,
 .btn-only-icon:disabled,.btn-only-icon:disabled:hover,
+.inputButton:disabled, .inputButton:disabled:hover,
+button:disabled, button:disabled:hover,
 input[type='submit']:disabled, input[type='submit']:disabled:hover,
 input[type='button']:disabled, input[type='button']:disabled:hover,
-button:disabled, button:disabled:hover{
+input[type='image']:disabled, input[type='image']:disabled:hover
+{
     opacity: 0.4;
     box-shadow: none;
     cursor: default;
@@ -2309,6 +2306,7 @@ input.btn-dashboard {
 .btn-clone{background-image: url("/data/images/clone.png");}
 .btn-help{background-image: url("/data/images/showhelp.png"); border-radius: 10px;}
 .btn-delete{background-image: url("/data/images/delete-w.gif");}
+.btn-remove{background-image: url("/data/images/remove.gif");}
 .btn-deny{background-image: url("/data/images/deny-active.gif");}
 .btn-download{background-image: url("/data/images/install.gif");}
 .btn-reload{background-image: url("/data/images/reload.gif");}
@@ -2321,6 +2319,9 @@ input.btn-dashboard {
 .btn-restart{background-image: url("/data/images/restart.gif");}
 .btn-start{background-image: url("/data/images/start.gif");}
 .btn-stop{background-image: url("/data/images/stop_p.gif");}
+.btn-restore{background-image: url("/data/images/restore.gif");}
+.btn-requeue{background-image: url("/data/images/requeue.gif");}
+.btn-down{background-image: url("/data/images/down.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;
