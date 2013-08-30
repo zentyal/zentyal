@@ -20,9 +20,13 @@ Zentyal.Dashboard.levelHeights = function () {
 Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
+                                  placeholder: 'widgetPlaceholder',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
+                                  start: function(event, ui) {
+                                      ui.placeholder.height(ui.helper.outerHeight());
+                                  },
                                   update: function(event, ui) {
                                       var dashboard = $(this);
                                       Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
