@@ -327,40 +327,40 @@ sub run
     }
 
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
-	my $request = Apache2::RequestUtil->request();
-	my $headers = $request->headers_in();
-	my $referer = $headers->{'Referer'};
+        my $request = Apache2::RequestUtil->request();
+        my $headers = $request->headers_in();
+        my $referer = $headers->{'Referer'};
 
         my ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
 
-	if (not defined $adminPort) {
-	    $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
-	}
-	if ($port == $adminPort) {
-	    my $via = $headers->{'Via'};
-	    my $host = $headers->{'Host'};
-	    my $fwhost = $headers->{'X-Forwarded-Host'};
-	    my $fwproto = $headers->{'X-Forwarded-Proto'};
-	    # If the connection comes from a Proxy,
-	    # redirects with the Proxy IP address
-	    if (defined ($via) and defined ($fwhost)) {
-		$host = $fwhost;
-	    }
+        if (not defined $adminPort) {
+            $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
+        }
+        if ($port == $adminPort) {
+            my $via = $headers->{'Via'};
+            my $host = $headers->{'Host'};
+            my $fwhost = $headers->{'X-Forwarded-Host'};
+            my $fwproto = $headers->{'X-Forwarded-Proto'};
+            # If the connection comes from a Proxy,
+            # redirects with the Proxy IP address
+            if (defined ($via) and defined ($fwhost)) {
+                $host = $fwhost;
+            }
 
 
-	    if (defined ($fwproto)) {
-		$protocol = $fwproto;
-	    }
+            if (defined ($fwproto)) {
+                $protocol = $fwproto;
+            }
 
-	    my $url = "$protocol://$host";
-	    if ($port) {
-		$url .= ":$port";
-	    }
-	    $url .= "/$self->{redirect}";
+            my $url = "$protocol://$host";
+            if ($port) {
+                $url .= ":$port";
+            }
+            $url .= "/$self->{redirect}";
 
-	    print ($self->cgi()->redirect($url));
-	    return;
-	}
+            print ($self->cgi()->redirect($url));
+            return;
+        }
     }
 
     try  {
