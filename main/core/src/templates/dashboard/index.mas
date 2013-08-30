@@ -29,7 +29,7 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 </div>
 
 <span id="confbutton">
-<button type="button" class="btn-only-icon btn-config" onclick="Zentyal.Dashboard.ConfigureWidgets.toggle(); return false;"></button>
+<button type="button" class="btn-only-icon btn-widgets" onclick="Zentyal.Dashboard.ConfigureWidgets.toggle(); return false;" title="<% __('Configure widgets') %>"></button>
 </span>
 % if (@brokenPackages) {
 <div class='error'>

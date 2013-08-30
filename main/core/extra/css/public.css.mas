@@ -180,25 +180,41 @@
 }
 
 #module_list {
+    background: none repeat scroll 0 0 whitesmoke;
+    float: left;
+    height: 35px;
     width: 100%;
-    display: block;
 }
 
 #module_list > div {
-    padding: 5px 10px;
-    display: inline-block;
-    border-right:1px solid #ccc;
+    border-right: 1px solid #DDDDDD;
+    float: left;
+    margin: 0;
+    padding: 10px;
 }
 #module_list > div > a {text-decoration:none;}
 #module_list > div:hover {background-color:#eee;}
 
-#widget_list {
-    margin-top: 10px;
-    display:block;
-    width:100%;
+#configure_widgets{
+    background-color: white;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    float: left;
+    margin-top: 9px;
 }
-#widget_list > .note{margin:0px;}
+#widget_list {
+    float: left;
+    min-height: 40px;
+    padding: 10px;
+}
 
+#widget_list > .note{
+    background-position: 10px center;
+    margin: 0;
+    padding: 10px 10px 10px 45px;
+}
+#widget_list .widgetBarBox{
+    margin-top: 5px;
+}
 .helptd {
     width: 100%;
     color: #AAAAAA;
@@ -692,7 +708,7 @@ a img { border: 0px; }
     text-align: center;
     position: absolute;
     right: 0px;
-    top: 25px;
+    top: 15px;
 }
 
 /*************************************************************
@@ -2315,7 +2331,7 @@ input.btn-dashboard {
 .btn-requeue{background-image: url("/data/images/requeue.gif");}
 .btn-down{background-image: url("/data/images/down.gif");}
 .btn-viewConsole{background-image: url("/data/images/terminal.gif");}
-
+.btn-widgets{background-image: url("/data/images/widgets.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;
