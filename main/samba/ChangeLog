@@ -1,4 +1,7 @@
 HEAD
+	+ Moved the code that sets the share permissions to EBox::Samba to execute
+	  it on EBox::Module::Service::_postServiceHook hook so we are sure samba
+	  is already started with the new configuration.
 	+ Shares are created even if no permissions are assigned nor is a guest
 	  shared. Administrators will always have permissions now, so the share
 	  should exist.

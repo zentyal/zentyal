@@ -28,13 +28,9 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::External;
-use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
-use EBox::Samba::Group;
-use EBox::Samba::SecurityPrincipal;
-use EBox::Samba::SmbClient;
 use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::Types::HasMany;
@@ -44,24 +40,6 @@ use EBox::Validate;
 
 use Cwd 'abs_path';
 use Error qw(:try);
-use Samba::Security::AccessControlEntry;
-use Samba::Security::Descriptor qw(
-    DOMAIN_RID_ADMINISTRATOR
-    SEC_ACE_FLAG_CONTAINER_INHERIT
-    SEC_ACE_FLAG_OBJECT_INHERIT
-    SEC_ACE_TYPE_ACCESS_ALLOWED
-    SEC_FILE_EXECUTE
-    SEC_RIGHTS_FILE_ALL
-    SEC_RIGHTS_FILE_READ
-    SEC_RIGHTS_FILE_WRITE
-    SEC_STD_ALL
-    SEC_STD_DELETE
-    SECINFO_DACL
-    SECINFO_GROUP
-    SECINFO_OWNER
-    SECINFO_PROTECTED_DACL
-);
-use String::ShellQuote 'shell_quote';
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
@@ -302,7 +280,7 @@ sub deletedRowNotify
 #
 sub createDirs
 {
-    my ($self, $recursive) = @_;
+    my ($self) = @_;
 
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
@@ -311,8 +289,9 @@ sub createDirs
         my $pathType    = $row->elementByName('path');
         my $guestAccess = $row->valueByName('guest');
 
-        next unless ($enabled);
-        next if ($shareName eq 'test-windows');
+        unless ($enabled) {
+            next;
+        }
 
         my $path = undef;
         if ($pathType->selectedType() eq 'zentyal') {
@@ -322,88 +301,31 @@ sub createDirs
         } else {
             EBox::error("Unknown share type on share '$shareName'");
         }
-        next unless defined $path;
+        unless (defined $path) {
+            next;
+        }
 
         # Don't do anything if the directory already exists and the option to manage ACLs
         # only from Windows is set
-        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
+        if (EBox::Config::boolean('unmanaged_acls')) {
+            if (EBox::Sudo::fileTest('-d', $path)) {
+                next;
+            } else {
+                # Store in redis that we should set acls given we just created the share.
+                my $sambaMod = EBox::Global->modInstance('samba');
+                my $state = $sambaMod->get_state();
+                unless (defined $state->{shares_set_rights}) {
+                    $state->{shares_set_rights} = {};
+                }
+                $state->{shares_set_rights}->{$shareName} = 1;
+                $self->set_state($state);
+            }
+        }
 
-        my $sambaMod = EBox::Global->modInstance('samba');
-        my $domainSID = $sambaMod->ldb()->domainSID();
-        my $domainAdminSID = "$domainSID-500";
-        my $builtinAdministratorsSID = 'S-1-5-32-544';
-        my $systemSID = "S-1-5-18";
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
         push (@cmds, "chmod 0770 '$path'");
         EBox::Sudo::root(@cmds);
-
-        my $host = $sambaMod->ldb()->rootDse()->get_value('dnsHostName');
-        unless (defined $host and length $host) {
-            throw EBox::Exceptions::Internal('Could not get DNS hostname');
-        }
-        my $smb = new EBox::Samba::SmbClient(target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
-        my $sd = new Samba::Security::Descriptor();
-        # Set the owner and the group. We differ here from Windows because they just set the owner to
-        # builtin/Administrators but this other setting should be compatible and better looking when using Linux
-        # console.
-        $sd->owner($domainAdminSID);
-        $sd->group($builtinAdministratorsSID);
-
-        my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
-        my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
-        my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
-        my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
-        # Always, full control to Builtin/Administrators group, Users/Administrator and System users.
-        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
-
-        for my $superAdminSID (@superAdminSIDs) {
-            my $ace = new Samba::Security::AccessControlEntry(
-                $superAdminSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $adminRights, $defaultInheritance);
-            $sd->dacl_add($ace);
-        }
-
-        if ($guestAccess) {
-            my $domainSID = $sambaMod->ldb->domainSID();
-            my $domainGuestsSID = "$domainSID-514";
-            my $ace = new Samba::Security::AccessControlEntry(
-                $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-            $sd->dacl_add($ace);
-        } else {
-            for my $subId (@{$row->subModel('access')->ids()}) {
-                my $subRow = $row->subModel('access')->row($subId);
-                my $permissions = $subRow->elementByName('permissions');
-
-                my $userType = $subRow->elementByName('user_group');
-                my $account = $userType->printableValue();
-                my $qobject = shell_quote($account);
-
-                my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                unless ($object->exists()) {
-                    next;
-                }
-
-                my $sid = $object->sid();
-                my $rights = undef;
-                if ($permissions->value() eq 'readOnly') {
-                    $rights = $readRights;
-                } elsif ($permissions->value() eq 'readWrite') {
-                    $rights = $readRights | $writeRights;
-                } elsif ($permissions->value() eq 'administrator') {
-                    $rights = $adminRights;
-                } else {
-                    my $type = $permissions->value();
-                    EBox::error("Unknown share permission type '$type'");
-                    next;
-                }
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $sid, SEC_ACE_TYPE_ACCESS_ALLOWED, $rights, $defaultInheritance);
-                $sd->dacl_add($ace);
-            }
-        }
-        my $relativeSharePath = '/';
-        my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
-        $smb->set_sd($relativeSharePath, $sd, $sinfo);
     }
 }
 
