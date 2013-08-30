@@ -20,9 +20,14 @@ Zentyal.Dashboard.levelHeights = function () {
 Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
+                                  placeholder: 'widgetPlaceholder',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
+                                  scroll: false,
+                                  start: function(event, ui) {
+                                      ui.placeholder.height(ui.helper.outerHeight());
+                                  },
                                   update: function(event, ui) {
                                       var dashboard = $(this);
                                       Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
@@ -505,8 +510,9 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         dropOnEmpty: true,
         connectWith: '.dashboard',
         containment: 'body',
+        placeholder: 'widgetPlaceholder',
         delay: 100,
-        scroll : false,
+        scroll: false,
         opacity: 0.8,
         start: function(event, ui) {
             var id = ui.item.attr('id');
@@ -522,6 +528,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
                     widget.width($('#dashboard1').width());
                     widget.html(response);
                     widget.find('.closeBox').toggle(500); // XXX first?
+                    ui.placeholder.height(widget.height()); // FIXME: wrong height
                 }
             });
         },
@@ -536,7 +543,6 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
             Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
         }
     });
-
 };
 
 Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, changeModule) {

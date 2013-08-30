@@ -1144,6 +1144,11 @@ TABLE LIST
         padding-left: 1%;
 }
 
+.widgetPlaceholder {
+        margin-bottom: 10px;
+        border: 1px black dotted;
+}
+
 .widgetHandle {
         height: 100%;
         width: 100%;
