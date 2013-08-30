@@ -1,0 +1,7 @@
+class: 'EBox::Ntop'
+
+models:
+    - Interface
+
+composites:
+    General: [Interface]

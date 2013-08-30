@@ -1,0 +1,23 @@
+<%doc>
+  Configuration file for ntopng daemon. See manual page for details on the formatting
+
+  ifaces - Array the interface to monitor
+</%doc>
+<%args>
+@ifaces
+$dataDir
+</%args>
+# DNS mode
+# Decode DNS responses and don't resolve numeric IP addresses
+--dns-mode=2
+# Interface to monitor
+% foreach my $iface (@ifaces) {
+--interface=<% $iface %>
+% }
+# Data will be stored here
+--data-dir=<% $dataDir %>
+# Disable login by now
+--disable-login=
+# Verbose for debugging
+--verbose=
+# TODO: Set local networks
