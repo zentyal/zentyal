@@ -40,6 +40,8 @@ use Apache2::Connection;
 use Apache2::RequestUtil;
 use JSON::XS;
 
+my $adminPort = undef;
+
 ## arguments
 ##      title [optional]
 ##      error [optional]
@@ -267,6 +269,8 @@ sub _requireParamAllowEmpty # (param, display)
     throw EBox::Exceptions::DataMissing(data => $display);
 }
 
+
+
 sub run
 {
     my $self = shift;
@@ -323,34 +327,40 @@ sub run
     }
 
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
-        my $request = Apache2::RequestUtil->request();
-        my $headers = $request->headers_in();
-
-        my $via = $headers->{'Via'};
-        my $host = $headers->{'Host'};
-        my $referer = $headers->{'Referer'};
-
-        my $fwhost = $headers->{'X-Forwarded-Host'};
-        my $fwproto = $headers->{'X-Forwarded-Proto'};
-        # If the connection comes from a Proxy,
-        # redirects with the Proxy IP address
-        if (defined ($via) and defined ($fwhost)) {
-            $host = $fwhost;
-        }
+	my $request = Apache2::RequestUtil->request();
+	my $headers = $request->headers_in();
+	my $referer = $headers->{'Referer'};
 
         my ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
-        if (defined ($fwproto)) {
-            $protocol = $fwproto;
-        }
 
-        my $url = "$protocol://$host";
-        if ($port) {
-            $url .= ":$port";
-        }
-        $url .= "/$self->{redirect}";
+	if (not defined $adminPort) {
+	    $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
+	}
+	if ($port == $adminPort) {
+	    my $via = $headers->{'Via'};
+	    my $host = $headers->{'Host'};
+	    my $fwhost = $headers->{'X-Forwarded-Host'};
+	    my $fwproto = $headers->{'X-Forwarded-Proto'};
+	    # If the connection comes from a Proxy,
+	    # redirects with the Proxy IP address
+	    if (defined ($via) and defined ($fwhost)) {
+		$host = $fwhost;
+	    }
 
-        print ($self->cgi()->redirect($url));
-        return;
+
+	    if (defined ($fwproto)) {
+		$protocol = $fwproto;
+	    }
+
+	    my $url = "$protocol://$host";
+	    if ($port) {
+		$url .= ":$port";
+	    }
+	    $url .= "/$self->{redirect}";
+
+	    print ($self->cgi()->redirect($url));
+	    return;
+	}
     }
 
     try  {

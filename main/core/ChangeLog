@@ -1,4 +1,5 @@
 HEAD
+	+ Only apply redirect port fix on administration port
 	+ Fixed regression in user interface with DataInUse exceptions
 	+ Fixed wrong behavior of software updates in dashboard widget
 	+ Always show proper language name for english locales
