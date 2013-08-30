@@ -190,9 +190,12 @@
     border-right: 1px solid #DDDDDD;
     float: left;
     margin: 0;
-    padding: 10px;
 }
-#module_list > div > a {text-decoration:none;}
+#module_list > div > a {
+    text-decoration:none;
+    padding: 10px;
+    display: block;
+}
 #module_list > div:hover {background-color:#eee;}
 
 #configure_widgets{
@@ -1146,7 +1149,8 @@ TABLE LIST
 
 .widgetPlaceholder {
         margin-bottom: 10px;
-        border: 1px black dotted;
+        border: 1px #ccc dashed;
+        background-color: whitesmoke;
 }
 
 .widgetHandle {
