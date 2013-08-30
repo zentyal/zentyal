@@ -47,7 +47,7 @@ sub new
 #
 #       Return the network addresses of all members
 #
-# Parameters:
+# Named parameters:
 #
 #       mask - return also addresses' mask (named optional, default false)
 #
