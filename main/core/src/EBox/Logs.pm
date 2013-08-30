@@ -454,10 +454,13 @@ sub search
     }
     if ($filters and %{$filters}) {
         while (my ($field, $filterValue) = each %{$filters}) {
-            $field or next;
-            (defined $filterValue and ($filterValue eq 0)) or next;
+            if (not $field) {
+                next;
+            } elsif ((not defined $filterValue) or ($filterValue =~ m/^\s*$/)) {
+                next;
+            }
 
-            if (($field eq 'event') or ($filterValue eq 0)) {
+            if (($field eq 'event') or (not $filterValue)) {
                 $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
             } else {
                 my $type = exists $tableinfo->{types}->{$field} ?
