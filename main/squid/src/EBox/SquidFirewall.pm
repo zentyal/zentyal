@@ -23,6 +23,17 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 
+# Group: Public methods
+
+# Method: chains
+#
+#   To create the chain where the filtering rules are inserted if transparent
+#   HTTP proxy it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::chains>
+#
 sub chains
 {
     return {
@@ -52,6 +63,9 @@ sub prerouting
 
 # Method: restartOnTemporaryStop
 #
+#   After stopping this module firewall rules need to be regenerated to
+#   circunvent transparent HTTP proxy
+#
 # Overrides:
 #
 #   <EBox::FirewallHelper::restartOnTemporaryStop>
@@ -61,6 +75,89 @@ sub restartOnTemporaryStop
     return 1;
 }
 
+# Method: input
+#
+#   To automatically accept incoming connections to Squid and not to
+#   Dansguardian neither the backend Squid
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::input>
+#
+sub input
+{
+    my ($self) = @_;
+
+    my $global = $self->_global();
+    my $sq = $global->modInstance('squid');
+    my $net = $global->modInstance('network');
+    my $squidFrontPort = $sq->port();
+    my $dansguardianPort = $sq->DGPORT();
+    my $squidBackPort = $sq->SQUID_EXTERNAL_PORT();
+
+    my @rules = ();
+    my @ifaces = @{$net->InternalIfaces()};
+    foreach my $ifc (@ifaces) {
+        my $input = $self->_inputIface($ifc);
+        my $r = "-m state --state NEW $input -p tcp --dport $squidFrontPort -j iaccept";
+        push (@rules, $r);
+    }
+    push (@rules, "-m state --state NEW -p tcp --dport $dansguardianPort -j DROP");
+    push (@rules, "-m state --state NEW -p tcp --dport $squidBackPort -j DROP");
+
+    return \@rules;
+}
+
+# Method: output
+#
+#   To set transparent HTTP proxy if it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::output>
+#
+sub output
+{
+    my ($self) = @_;
+
+    my @rules = ();
+    push (@rules, "-m state --state NEW -p tcp --dport 80 -j oaccept");
+    push (@rules, "-m state --state NEW -p tcp --dport 443 -j oaccept");
+
+    return \@rules;
+}
+
+# Method: forward
+#
+#   To set transparent HTTPS filtering if it is enabled
+#
+# Overrides:
+#
+#   <EBox::FirewallHelper::forward>
+#
+sub forward
+{
+    my ($self) = @_;
+
+    my $sq = $self->_global()->modInstance('squid');
+    if ( (not $sq->temporaryStopped()) and $sq->transproxy()
+          and $sq->_proxy_transparent_filter_https()) {
+        return $self->_trans_filter_https();
+    }
+
+    return [];
+}
+
+# Group: Private methods
+
+# Method: _trans_prerouting
+#
+#   Creates the iptables rules for transparent HTTP proxy forwarding
+#
+# Returns:
+#
+#   array ref - containing the iptables redirect rules
+#
 sub _trans_prerouting
 {
     my ($self) = @_;
@@ -93,54 +190,16 @@ sub _trans_prerouting
     return \@rules;
 }
 
-sub input
-{
-    my ($self) = @_;
-
-    my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    my $net = $global->modInstance('network');
-    my $squidFrontPort = $sq->port();
-    my $dansguardianPort = $sq->DGPORT();
-    my $squidBackPort = $sq->SQUID_EXTERNAL_PORT();
-
-    my @rules = ();
-    my @ifaces = @{$net->InternalIfaces()};
-    foreach my $ifc (@ifaces) {
-        my $input = $self->_inputIface($ifc);
-        my $r = "-m state --state NEW $input -p tcp --dport $squidFrontPort -j iaccept";
-        push (@rules, $r);
-    }
-    push (@rules, "-m state --state NEW -p tcp --dport $dansguardianPort -j DROP");
-    push (@rules, "-m state --state NEW -p tcp --dport $squidBackPort -j DROP");
-
-    return \@rules;
-}
-
-sub output
-{
-    my ($self) = @_;
-
-    my @rules = ();
-    push (@rules, "-m state --state NEW -p tcp --dport 80 -j oaccept");
-    push (@rules, "-m state --state NEW -p tcp --dport 443 -j oaccept");
-
-    return \@rules;
-}
-
-sub forward
-{
-    my ($self) = @_;
-
-    my $sq = $self->_global()->modInstance('squid');
-    if ( (not $sq->temporaryStopped()) and $sq->transproxy()
-          and $sq->_proxy_transparent_filter_https()) {
-        return $self->_trans_filter_https();
-    }
-
-    return [];
-}
-
+# Method: _trans_filter_https
+#
+#   Creates the iptables rules for transparent HTTPS filtering
+#   This method only creates the chain, calls sub _trans_forward_filter_rules
+#   where the job is done
+#
+# Returns:
+#
+#   array ref - containing the iptables rules
+#
 sub _trans_filter_https
 {
     my ($self) = @_;
@@ -164,6 +223,15 @@ sub _trans_filter_https
     return \@rules;
 }
 
+# Method: _trans_forward_filter_rules
+#
+#   Creates the iptables rules for transparent HTTPS filtering
+#   based on the <EBox::Squid::Model::AccessRules> model
+#
+# Returns:
+#
+#   array ref - containing the iptables rules
+#
 sub _trans_forward_filter_rules
 {
     my ($self) = @_;
@@ -237,14 +305,27 @@ sub _trans_forward_filter_rules
     return \@rules;
 }
 
+# Method: _getDomainFilter
+#
+#   Get the <EBox::Squid::Model:DomainFilter> model that contains the allowed
+#   and banned domains for a given filter profile
+#
+# Parameters:
+#
+#   string - the filter profile name
+#
+# Returns:
+#
+#   ref - reference to the <EBox::Squid::Model::DomainFilter> model
+#
 sub _getDomainFilter
 {
-    my ($self, $ids) = @_;
+    my ($self, $profile) = @_;
 
     my $global = $self->_global();
     my $squid = $global->modInstance('squid');
     my $profilesModel = $squid->model('FilterProfiles');
-    my $row = $profilesModel->row($ids);
+    my $row = $profilesModel->row($profile);
     $row or return undef;
     my $policy = $row->elementByName('filterPolicy')->foreignModelInstance();
     my $domainComposite = $policy->componentByName('Domains', 1);
