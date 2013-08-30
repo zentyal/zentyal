@@ -77,7 +77,7 @@ sub _daemons
 
 # Method: _setConf
 #
-#       Regenerate the configuration
+#       Regenerate the configuration for ntopng
 #
 # Overrides:
 #
@@ -94,8 +94,9 @@ sub _setConf
 
     $self->writeConfFile(NTOPNG_CONF_FILE, 'ntop/ntopng.conf.mas',
                          [
-                             ifaces  => [ 'any' ],
-                             dataDir => $dataDir,
+                             ifaces        => [ 'any' ],
+                             dataDir       => $dataDir,
+                             localNetworks => $self->model('LocalNetworks')->networkIPAddresses(),
                             ]);
 }
 

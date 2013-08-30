@@ -1,7 +1,7 @@
 class: 'EBox::Ntop'
 
 models:
-    - Interface
+    - LocalNetworks
 
 composites:
-    General: [Interface]
+    General: [LocalNetworks]
