@@ -462,48 +462,6 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
    return html;
 };
 
-Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets = function(module, start) {
-    var prev = '';
-
-    var new_start = start - 1;
-    var opacity = 1;
-    var link = true;
-    if(new_start < 0) {
-        opacity = 0.5;
-        new_start = 0;
-        link = false;
-    }
-    prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    if(link) {
-        prev = prev + '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + ', true); return false;">'; // call
-    }
-    prev = prev + '<img src="/data/images/left.gif"/>';
-    if(link) {
-        prev = prev + '</a>';
-    }
-    prev = prev + '</div>';
-    return prev;
-};
-
-
-Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, start, maxWidgets, widgetsLength ) {
-    var next = '';
-    var new_start, opacity;
-    if(start + maxWidgets >= widgetsLength) {
-        new_start = start;
-        opacity = 0.5;
-    }  else {
-        new_start = start + 1;
-        opacity = 1;
-    }
-    next = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    next += '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + ', true); return false;">';
-    next += '<img src="/data/images/right.gif"/>';
-    next += '</a>';
-    next += '</div>';
-    return next;
-};
-
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module) {
     $('#widget_list').sortable({
         elements: '.widgetBarBox',
@@ -577,9 +535,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
         widgets[i].present =  $('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
     }
 
-    var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
+    var html = Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
     $('#widget_list').html(html);
 
     if (changeModule) {
