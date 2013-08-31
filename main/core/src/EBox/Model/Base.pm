@@ -273,4 +273,14 @@ sub keywords
     # FIXME: throw NotImplemented
 }
 
+sub permanentMessage
+{
+    return undef;
+}
+
+sub permanentMessageType
+{
+    return 'note';
+}
+
 1;
