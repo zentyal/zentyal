@@ -47,24 +47,17 @@ use constant PRIVATE_NETWORKS => qw(10.0.0.0/8 172.16.0.0/12 192.168.0.0/16);
 #
 sub syncRows
 {
-    my ($self) = @_;
+    my ($self, $currentRows) = @_;
 
-    my $mod = $self->parentModule();
-
-    my $state = $mod->get_state();
-    if ($state->{has_populated_local_networks}) {
-        return 0;
+    unless (@{$currentRows}) {
+        foreach my $privateNetwork (PRIVATE_NETWORKS) {
+            $self->add(local_network => { local_network_ip => $privateNetwork });
+        }
+        return 1;
     }
-
-    foreach my $privateNetwork (PRIVATE_NETWORKS) {
-        $self->add(local_network => { local_network_ip => $privateNetwork });
-    }
-
-    $state->{has_populated_local_networks} = 1;
-    $mod->set_state($state);
-    return 1;
-
+    return 0;
 }
+
 
 # Method: networkIPAddresses
 #

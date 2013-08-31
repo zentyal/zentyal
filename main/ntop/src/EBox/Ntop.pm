@@ -94,7 +94,7 @@ sub _setConf
 
     $self->writeConfFile(NTOPNG_CONF_FILE, 'ntop/ntopng.conf.mas',
                          [
-                             ifaces        => [ 'any' ],
+                             ifaces        => $self->model('Interfaces')->ifacesToMonitor(),
                              dataDir       => $dataDir,
                              localNetworks => $self->model('LocalNetworks')->networkIPAddresses(),
                             ]);
