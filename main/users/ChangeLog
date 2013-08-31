@@ -1,4 +1,4 @@
-HEAD
+3.0.23
 	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
 3.0.22
 	+ Fixed code typo in slave setup
