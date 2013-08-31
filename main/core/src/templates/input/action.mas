@@ -4,11 +4,11 @@
     $type => 'submit'
 </%args>
 <%init>
+my $printableName = $action->printableValue($id);
 my %attributes = (
     type => $type,
     name => $action->name($id),
-    value => $action->printableValue($id),
-    title => $action->printableValue($id),
+    title => $printableName,
     onclick => $action->onclick($id),
 );
 if (not $action->enabled($id)) {
@@ -20,4 +20,4 @@ if ($type eq 'image') {
 }
 </%init>
 
-<button <& /htmlAttributes.mas, %attributes &> />
+<button <& /htmlAttributes.mas, %attributes &>><% $printableName %></button>
