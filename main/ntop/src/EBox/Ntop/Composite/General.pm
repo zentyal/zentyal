@@ -26,8 +26,33 @@ package EBox::Ntop::Composite::General;
 use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
+use EBox::Ntop;
 
 # Group: Public methods
+
+
+# Method: permanentMessage
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::permanentMessage>
+#
+sub permanentMessage
+{
+    my ($self) = @_;
+
+    my $message;
+    if ($self->parentModule()->isEnabled()) {
+        my $NTOPNG_PORT = EBox::Ntop::NTOPNG_PORT;
+        my $url = "http://localhost:$NTOPNG_PORT";
+        $message = __x('See the {ohref}Ntop User Interface{chref}.',
+                       ohref => "<a href='$url' target='_blank' id='ntop_go_url'>",
+                       chref => '</a>');
+        $message .= "<script>document.getElementById('ntop_go_url').href='http://' + document.domain + ':$NTOPNG_PORT';</script>";
+    }
+    return $message;
+}
+
 
 # Group: Protected methods
 

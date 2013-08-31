@@ -34,6 +34,7 @@ use EBox::Sudo;
 use constant NTOPNG_UPSTART_JOB => 'zentyal.ntopng';
 use constant NTOPNG_CONF_FILE   => '/etc/ntopng/ntopng.conf';
 use constant NTOPNG_DATA_DIR    => EBox::Config::var() . 'lib/ntopng';
+use constant NTOPNG_PORT        => 3000;
 
 # Group: Protected methods
 
@@ -140,6 +141,35 @@ sub usedFiles
     ];
 }
 
+# Method: initialSetup
+#
+#   Set the Ntop UI service and it is denied to internal networks by default
+#
+# Overrides:
+#
+#   <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    unless ($version) {
+        my $services = EBox::Global->modInstance('services');
+
+        my $serviceName = 'ntop_ui';
+        unless ($services->serviceExists(name => $serviceName)) {
+            $services->addMultipleService(
+                name          => $serviceName,
+                printableName => 'Ntop',
+                description   => __('Ntop User Interface'),
+                readOnly      => 1,
+                services      => [ { protocol        => 'tcp',
+                                     sourcePort      => 'any',
+                                     destinationPort => NTOPNG_PORT } ]);
+            $services->saveConfig();
+        }
+    }
+}
 
 # Group: Private methods
 
