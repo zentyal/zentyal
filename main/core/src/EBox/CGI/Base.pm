@@ -269,8 +269,6 @@ sub _requireParamAllowEmpty # (param, display)
     throw EBox::Exceptions::DataMissing(data => $display);
 }
 
-
-
 sub run
 {
     my $self = shift;
@@ -336,7 +334,7 @@ sub run
         if (not defined $adminPort) {
             $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
         }
-        if ($port == $adminPort) {
+        unless (defined ($port) and ($port != $adminPort)) {
             my $via = $headers->{'Via'};
             my $host = $headers->{'Host'};
             my $fwhost = $headers->{'X-Forwarded-Host'};
@@ -346,7 +344,6 @@ sub run
             if (defined ($via) and defined ($fwhost)) {
                 $host = $fwhost;
             }
-
 
             if (defined ($fwproto)) {
                 $protocol = $fwproto;
