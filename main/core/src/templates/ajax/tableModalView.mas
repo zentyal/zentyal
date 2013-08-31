@@ -135,7 +135,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
 &>
 %    }
 %    if ($changeView and exists $actions->{'add'} and (not $changeAddAction))  {
-  <a href='#' class='addNew'
+  <button type="button" class='btn btn-icon btn-add'
       name='add'
          onClick="<%
                  $model->modalChangeViewJS( changeType => "changeAdd",
@@ -143,7 +143,7 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
                       page => $page,
                       isFilter => 0,
                       selectCallerId => $selectCallerId)
-                %>;return false"><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></button>
    <br/>
    <br/>
 %    }
@@ -171,11 +171,11 @@ my $selectCallerId  = $requestArgs->{selectCallerId};
 %  {
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
 %    {
+% if ($printableTableName) {
 <h3>
-  <%
-    $printableTableName
-  %>
+  <% $printableTableName %>
 </h3>
+% }
 %    }
 <table class="bDataTable">
     <tr>
@@ -435,7 +435,7 @@ $forceAction => undef
   <td id="<% 'buttons_' . $model->modelName() . '_modal'%>">
 % if ( $action eq 'changeAdd' or $action eq 'viewAndAdd') {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => 'btn btn-icon btn-add',
         type => 'submit',
         name => 'add',
         value => __('Add'),
@@ -445,7 +445,7 @@ $forceAction => undef
 % } elsif ($action eq 'changeEdit') {
     <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'change',
         value => __('Change'),
@@ -455,7 +455,7 @@ $forceAction => undef
 % }
 % if ($changeView) {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),
@@ -532,17 +532,16 @@ $selectCallerId
 
 %      if ($actions->{'del'})
 %      {
-          <input class='inputButton'
+          <button class='btn-only-icon btn-delete'
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='del'
               value="Del"
               title="<% $delete_msg %>"
               alt="Del"
-              src='/data/images/<% $delete %>.gif'
-              onClick="<%
+              onclick="<%
                           $model->actionClickedJS('del',
                              $row->{id},
                             $page,
@@ -556,15 +555,14 @@ $selectCallerId
 %      if ($changeView)   {
 
 
-          <input  class='inputButton'
+          <button  class='btn-only-icon btn-edit'
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='edit'
               value="edit"
               title="<% $edit_msg %>"
-              src='/data/images/<% $edit %>.gif'
               onClick="<%
                           $model->modalChangeViewJS(
                             changeType => 'changeEdit',
@@ -577,16 +575,15 @@ $selectCallerId
 %      }
 
 %      if ($actions->{'clone'}) {
-          <input class='inputButton'
+          <button class='btn-only-icon btn-clone'
               <%
                 $disabled
               %>
-              type='image'
+              type='button'
               name='clone'
               value="Clone"
               title="<% $clone_msg  %>"
               alt="Clone"
-              src='/data/images/<% $clone %>.png'
               onClick="<%
                           $model->actionClickedJS('clone',
                              $row->{id},
@@ -638,7 +635,7 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
 <table>
  <tr>
     <td><& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'done',
         value => __('Done'),
@@ -646,7 +643,7 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
         onclick => 'Zentyal.Dialog.close(); return false'
     &></td>
     <td><& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),

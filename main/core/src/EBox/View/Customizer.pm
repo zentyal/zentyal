@@ -116,7 +116,12 @@ sub permanentMessage
 {
     my ($self) = @_;
 
-    return $self->{permanentMessage};
+    my $msg = $self->{permanentMessage};
+    if ((not $msg) and defined ($self->{model})) {
+        $msg = $self->{model}->permanentMessage();
+    }
+
+    return $msg;
 }
 
 # Method: permanentMessageType
@@ -131,7 +136,12 @@ sub permanentMessageType
 {
     my ($self) = @_;
 
-    return $self->{permanentMessageType};
+    my $type = $self->{permanentMessageType};
+    if ((not $type) and defined ($self->{model})) {
+        $type = $self->{model}->permanentMessageType();
+    }
+
+    return $type;
 }
 
 # Method: setOnChangeActions
@@ -393,8 +403,8 @@ sub setInitHTMLStateOrder
 
 sub setHTMLTitle
 {
-	my ($self, $title) = @_;
-	$self->{htmlTitle} = $title;
+    my ($self, $title) = @_;
+    $self->{htmlTitle} = $title;
 }
 
 # Method: HTMLTitle
@@ -421,7 +431,7 @@ sub HTMLTitle
     my ($self) = @_;
 
     if ($self->{htmlTitle}) {
-	return $self->{htmlTitle};
+    return $self->{htmlTitle};
     }
     my @crumbs;
     my $model = $self->model();

@@ -1,4 +1,9 @@
 HEAD
+	+ Simplified CSS and improved styles and icons
+	+ Improved dashboard drag&drop behavior in Chrome
+	+ Allow to define permanentMessage directly on models
+	+ Show placeholder in dashboard widgets drag&drop
+	+ Fixed crash reloading dashboard after configure widgets
 	+ Only apply redirect port fix on administration port
 	+ Fixed regression in user interface with DataInUse exceptions
 	+ Fixed wrong behavior of software updates in dashboard widget

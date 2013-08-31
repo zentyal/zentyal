@@ -185,12 +185,12 @@ sub _print
     $self->_header;
     $self->_top;
     $self->_menu;
-    print '<div id="limewrap"><div id="content">';
+    print '<div id="content">';
     $self->_title;
     $self->_error;
     $self->_msg;
     $self->_body;
-    print "</div></div>";
+    print '</div>';
     $self->_footer;
 }
 
@@ -207,11 +207,11 @@ sub _printPopup
     }
 
     print($self->cgi()->header(-charset=>'utf-8'));
-    print '<div id="limewrap"><div>';
+    print '<div>';
     $self->_error;
     $self->_msg;
     $self->_body;
-    print "</div></div>";
+    print '</div>';
 }
 
 sub _checkForbiddenChars

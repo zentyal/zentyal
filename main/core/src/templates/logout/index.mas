@@ -17,7 +17,7 @@ use EBox::Gettext;
 % if ($unsaved eq 'yes'){
 <div> <% __('Discard current changes') %> <& /input/checkbox.mas, name=> 'revokeConfig' &><div>
 % }
-  <div style="float: left; margin: 15px 0;"> <& /input/submit.mas, name=> 'logoutSubmit', class => 'big', value =>  __('Exit session') &>
-   <input type='button' name='cancel' style='margin-left:10px;' class='big' value='<% __('Cancel') %>' onClick='Zentyal.Dialog.close(); return false'/></div>
+  <div style="float: left; margin: 15px 0;"> <& /input/submit.mas, name=> 'logoutSubmit', class => '', value =>  __('Exit session') &>
+   <button type='button' name='cancel' value='<% __('Cancel') %>' onClick='Zentyal.Dialog.close(); return false'><% __('Cancel') %></button></div>
 </form>
 

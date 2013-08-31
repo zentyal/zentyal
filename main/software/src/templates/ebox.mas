@@ -440,9 +440,9 @@ var pkgTable = new Array(
 
        <div style="text-align: right">
 % if ($first) {
-        <button onclick="document.location.href='/Dashboard/Index'"><img src="/data/images/skip.gif"> <% __('Skip install') %> </button>
+        <button class="btn btn-icon btn-skip" onclick="document.location.href='/Dashboard/Index'"><% __('Skip install') %> </button>
 % }
-        <button onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><img src="/data/images/install.gif"> <% __('Install') %></button>
+        <button class="btn btn-icon btn-install" onclick="Zentyal.SoftwareManagementUI.sendFormBasic(<% $popup %>, '<% $titleByAction{install} %>')"><% __('Install') %></button>
 
        </div>
 
@@ -470,7 +470,7 @@ var pkgTable = new Array(
 % } else {
             <li>
 % }
-               <a id="updateTab" href="#" onclick="Zentyal.SoftwareManagementUI.showUpdateTab()"><% __('Update') %>&nbsp;<span id="updNumber">(0)</span>  </a>
+               <a id="updateTab" href="#" onclick="Zentyal.SoftwareManagementUI.showUpdateTab()"><% __('Update') %>&nbsp;<span id="updNumber">0</span>  </a>
             </li>
 % if ($first) {
             <li style="display:none">
@@ -495,12 +495,11 @@ var pkgTable = new Array(
                 table => 'installTable',
                 text =>  __('Install'),
                 action => 'install',
-                icon  => '/data/images/install.gif',
+                icon  => 'install',
                 popup => $popup,
                 popupTitle => $titleByAction{install},
               &>
         </div>
-
         <div id="updateBox">
               <& .pkgTable,
                  id => 'updateTable',
@@ -514,7 +513,7 @@ var pkgTable = new Array(
                 table => 'updateTable',
                 text =>  __('Update'),
                 action => 'upgrade',
-                icon  => '/data/images/install.gif',
+                icon  => 'update',
                 popup=> $popup,
                 popupTitle => $titleByAction{upgrade},
               &>
@@ -532,11 +531,11 @@ var pkgTable = new Array(
                table => 'deleteTable',
                text =>  __('Delete'),
                action => 'remove',
-               icon  => '/data/images/delete.gif',
+               icon  => 'delete',
                popup => $popup,
                popupTitle => $titleByAction{remove},
              &>
-    </div>
+        </div>
 </div>
 </div>
 % }
@@ -553,7 +552,7 @@ $(function() {
         Zentyal.SoftwareManagementUI.selectPackage('zentyal-remoteservices');
    }
 
-   $('#updNumber').html( '(<% scalar @advUpdatePkgs %>)' );
+   $('#updNumber').html( '<% scalar @advUpdatePkgs %>' );
    // update button status
    Zentyal.SoftwareManagementUI.updateActionButton('installTable', 'install_button');
    Zentyal.SoftwareManagementUI.updateActionButton('updateTable', 'update_button');
@@ -586,16 +585,17 @@ $popupTitle
 <table class="bDataTable">
 <tbody><tr><td>
 <div id="<% $action %>Buttons">
-<button  id="<% $id %>" onclick="Zentyal.SoftwareManagementUI.sendForm('<% $action %>', '<% $table%>', <% $popup %>, '<% $popupTitle %>')"><img src='<% $icon %>'>
+<button  type="button" class="btn btn-icon btn-<% $icon %>" id="<% $id %>" onclick="Zentyal.SoftwareManagementUI.sendForm('<% $action %>', '<% $table%>', <% $popup %>, '<% $popupTitle %>')">
                   <% $text %>
 </button>
-<button onclick='location.reload()'><img src="/data/images/reload.png"> <% __('Update list') %></button>
-<button style="float:right" onclick="Zentyal.SoftwareManagementUI.deselectAll('<% $table %>' , '<% $id %>')"><img src="/data/images/delete.gif">
+<button type="button" class="btn btn-icon btn-reload" onclick='location.reload()'><% __('Update list') %></button>
+<button type="button" class="btn btn-icon btn-deselect" onclick="Zentyal.SoftwareManagementUI.deselectAll('<% $table %>' , '<% $id %>')">
       <% __('Deselect All') %>
 </button>
-<button style="float:right" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')"><img src="/data/images/apply.gif">
+<button type="button" class="btn btn-icon btn-apply" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')">
     <% __('Select All') %>
 </button>
+</div>
 </td></tr></tbody>
 </table>
 </%def>
@@ -609,9 +609,7 @@ $id
 $buttonId
 </%args>
 % my $filterId = $id . '_filter';
-<div>
-<table class="bDataTable">
-    <tr><td>
+<div class="tableSearch">
        <input type='text' id='<% $filterId %>'/>
        <input type='submit'
          name='filter'
@@ -619,8 +617,6 @@ $buttonId
          title='Apply'
          onclick='Zentyal.SoftwareManagementUI.filterTable("<% $id %>", "<% $filterId %>"); return false'
        />
-   </td></tr>
-</table>
 </div>
 <table id='<% $id %>' class='dataTable'>
 <thead><tr>

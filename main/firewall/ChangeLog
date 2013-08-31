@@ -1,4 +1,6 @@
 HEAD
+	+ New icons and style for Packet Filter section
+	+ Moved warnings inside of models instead of Packet Filter frontpage
 	+ Fix regression (INVALID packets on FORWARD were accepted)
 	+ Delete iintservs and fobjects unused chains
 3.1.3

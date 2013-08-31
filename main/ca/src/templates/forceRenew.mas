@@ -36,6 +36,7 @@ currently in used by some other module.
            );
   }
 </%init>
+<div class="item-block">
 <h3>
 <%perl>
 if ( $metaDataCert->{isCACert} ) {
@@ -78,3 +79,4 @@ The input buttons one after one
 <& /input/submit.mas, name => 'cancel', value => __('Cancel') &>
 
 </%method>
+</div>
