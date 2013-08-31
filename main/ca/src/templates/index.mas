@@ -79,6 +79,7 @@ use EBox::CA::DN;
   my %validCerts = map { $_->{'dn'}->attribute('commonName') => 1 } grep { $_->{state} eq 'V' } @{$certs};
 
 </%perl>
+<div class="item-block">
 <div class="help">
   <% __("Certificate changes will take effect immediately.") %>
 % if ( $caNeeded ) {
@@ -93,8 +94,9 @@ use EBox::CA::DN;
 <form action="IssueCertificate" method="post" >
   <& formTable.mas, rows => \@issueTable &>
 </form>
-
+</div>
 <!-- List current certificates in a table -->
+<div class="item-block">
 <h3><% __("Current Certificate List")  %></h3>
 <div class="help">
   <% __("Date refers to Expiration Date in Valid/Expired and to Revokation Date in Revoked certificates respectively") %>.
@@ -166,44 +168,34 @@ use EBox::CA::DN;
       </td>
       <td class="tcenter">
 %   if ( $cert->{"state"} eq "V" ) {
-        <a
-    href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->attribute('commonName')
-| u%>"
-    >
-      <img src="/data/images/deny-active.gif"
-           alt="<% __('Revoke') %>" />
+        <a class="btn-only-icon btn-deny"
+    href="ShowForm?action=revoke&cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
+    title="<% __('Revoke') %>">
+    <% __('Revoke') %>
     </a>
-        <img src="/data/images/sep.gif" alt="-" />
 %   }
 %   if ( $cert->{"state"} eq "V" ) {
-        <a
+        <a class="btn-only-icon btn-download"
     href="DownloadFiles?cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
-    >
-      <img src="/data/images/install.gif"
-           alt="<% __('Download Key(s) and Certificate') %>" />
+    title="<% __('Download Key(s) and Certificate') %>">
+    <% __('Download Key(s) and Certificate') %>
     </a>
-        <img src="/data/images/sep.gif" alt="-" />
 %   }
 %   if ( $cert->{"state"} eq "V" ) {
-        <a
-    href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName')
-    | u%>"
-    >
-      <img src="/data/images/reload.png"
-           alt="<% __('Renew') %>" />
+        <a class="btn-only-icon btn-reload"
+    href="ShowForm?action=renew&cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
+    title="<% __('Renew') %>">
+    <% __('Renew') %>
     </a>
-        <img src="/data/images/sep.gif" alt="-" />
 %   }
 %   if (($cert->{'state'} eq 'E' or $cert->{'state'} eq 'R')
 %        and not $caNeeded
 %        and ($cert->{'dn'}->attribute('commonName') ne $caCertName)
 %        and (not exists($validCerts{$cert->{'dn'}->attribute('commonName')})) ) {
-        <a
-    href="ShowForm?action=reissue&cn=<%$cert->{'dn'}->attribute('commonName')
-    | u%>"
-    >
-      <img src="/data/images/reload.png"
-           alt="<% __('Reissue') %>" />
+        <a class="btn-only-icon btn-reload"
+    href="ShowForm?action=reissue&cn=<%$cert->{'dn'}->attribute('commonName') | u%>"
+    title="<% __('Reissue') %>">
+    <% __('Reissue') %>
     </a>
 %   }
 
@@ -224,3 +216,4 @@ use EBox::CA::DN;
                );
 </%perl>
 <& legendTable.mas, elements => \@legendElements, nColumns => 3 &>
+</div>

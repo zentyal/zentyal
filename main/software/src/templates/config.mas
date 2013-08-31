@@ -10,6 +10,8 @@ my $enableTitle = __('Perform automatic software updates');
 my ($hour, $minutes) = split ':', $automaticTime;
 
 </%init>
+<div class="item-block">
+<h3><% __('Settings') %></h3>
 % if ($alwaysAutomatic) {
 <div class='note'>
 <% __('Zentyal is configured to use automatic QA updates') %>
@@ -20,8 +22,6 @@ my ($hour, $minutes) = split ':', $automaticTime;
 %  }
 <& enable.mas, title => $enableTitle, active => $automatic &>
 % }
-
-<h3><% __('Settings') %></h3>
 <form action='AutomaticOptions' method='POST'>
 <table class='formTable'>
 <thead>
@@ -38,7 +38,8 @@ name => 'automaticMinute', value => $minutes, maxValue => 59 &></td>
 </tr>
 </tbody>
 </table>
-
+</form>
+</div>
 <%def .timeSelect >
 <%args>
 $name

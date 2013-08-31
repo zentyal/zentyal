@@ -17,7 +17,7 @@ use EBox::NetWrappers qw(:all);
 <% __('Traffic being routed through interfaces marked as external will be NATed.  Also, services meant for the LAN users will not be available on external interfaces.') %>
 </div>
 <& network/iftabs.mas, ifaces=> \@ifaces, selected => $iface->{name}&>
-<br/>
+<div class="insideTab">
 % if ($externalWarning) {
 <div class='warning'>
  <% __x('You are connecting to Zentyal through this interface. If you set it as external the firewall will lock you out unless you add firewall rules to {openhref}Filtering rules from external networks to Zentyal{closehref} to allow access to the Zentyal administration port, SSH, ...',
@@ -243,8 +243,7 @@ use EBox::NetWrappers qw(:all);
                 <input class="inputText" type="text" size="36" name="vlandesc"/>
             </td>
             <td class='tcenter'>
-                <input class="inputButton" type="image" name="add"
-                        src="/data/images/add.gif"
+                <input class="btn-only-icon btn-add" type="submit" name="add"
                         alt="<% __("Add") %>"
                         title="<% __("Add") %>"
                         value="<% __("Add") %>" >
@@ -261,8 +260,7 @@ use EBox::NetWrappers qw(:all);
                 <%$vlan->{'name'}%>
             </td>
             <td class='tcenter'>
-                <input class="inputButton" type="image" name="del"
-                        src="/data/images/delete.gif"
+                <input class="btn-only-icon btn-delete" type="submit" name="del"
                         alt="<% __("Delete") %>"
                         title="<% __("Delete") %>"
                         value="<% __("Delete") %>" >
@@ -328,7 +326,7 @@ use EBox::NetWrappers qw(:all);
             </td>
 
             <td class='tcenter'>
-                <input class="inputButton" type="image" name="accept"
+                <input class="btn-only-icon btn-add" type="submit" name="accept"
                         src="/data/images/add.gif"
                         alt="<% __("Add") %>"
                         title="<% __("Add") %>"
@@ -355,8 +353,7 @@ use EBox::NetWrappers qw(:all);
             </td>
 
             <td class='tcenter'>
-                <input type="image" name="del"
-                    src="/data/images/delete.gif"
+                <input type="submit" class="btn-only-icon btn-delete" name="del"
                     alt="<% __("Delete") %>"
                     title="<% __("Delete") %>"
                     value="<% __("Delete") %>">
@@ -369,7 +366,7 @@ use EBox::NetWrappers qw(:all);
     </table>
 % }
 </div>
-
+</div>
 <script type="text/javascript">
 $('#method').change(function(event) {
     var selected = $(event.target).val();

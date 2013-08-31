@@ -32,7 +32,9 @@
   <% __("This page only appears once at starting up the Certification
   Authority.\nChanges take effect immediately.") %>
 </div>
+<div class="item-block">
 <h3><% __('Create Certification Authority Certificate') %></h3>
 <form action='CreateCA' method='POST'>
   <& formTable.mas, rows => \@createTable &>
 </form>
+</div>

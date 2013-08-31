@@ -36,6 +36,7 @@
                             page       => 0,
                             isFilter   => 1
                                             );
+   my $pagerId = $tableName . '_pagerId';
 </%perl>
   <& /input/select.mas,
        'name'        => $tableName . '_pageSize',
@@ -45,6 +46,30 @@
        'onchange'    => qq{Zentyal.TableHelper.setLoading('$pageSizeId'); $changeViewJS;return false}
   &>
 
+
+%   if ($page != 0) {
+      <button name='tofirst' type='button'
+          class="btn-only-icon btn-small btn-first"
+          alt="<% __('first') %>" 
+          value="<% __('first') %>"
+	        onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" ></button>
+	   <button name='toprev' type='button' 
+          class="btn-only-icon btn-small btn-prev" 
+          alt="<% __('prev') %>" 
+          value="<% __('prev') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" ></button>
+%   } else {
+        <button name='tofirst' type='button'
+            class="btn-only-icon btn-small btn-first"
+            alt="<% __('first') %>"
+            value="<% __('first') %>"
+            disabled>First</button>
+	     <button name='toprev' type='button'
+            class="btn-only-icon btn-small btn-prev" 
+            alt="<% __('prev') %>" 
+            value="<% __('prev') %>" 
+            disabled ></button>
+%   }
      <span id="<% $pageSizeId %>"></span><span class="pagination_n">
 % my $pageStr = __('Page');
 % my $ofStr = __('of');
@@ -53,39 +78,28 @@
 %   } else {
         <% $pageStr %> <% $page + 1 %> <% $ofStr %> <%$tpages + 1%>
 %   }
-%   my $pagerId = $tableName . '_pagerId';
- 	</span><span id="<% $pagerId %>"></span>
-%   if ($page != 0) {
-        <input name='tofirst' type='image'
-            src='/data/images/rw.gif' alt="<% __('first') %>" value="<% __('first') %>"
-	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" />
-	<input name='toprev' type='image' src="/data/images/r.gif" alt="<% __('prev') %>" value="<% __('prev') %>"
-	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" />
-%   } else {
-        <input name='tofirst' type='image'
-            src='/data/images/non_rw.gif' alt="<% __('first') %>" value="<% __('first') %>"/>
-	<input name='toprev' type='image' src="/data/images/non_r.gif" alt="<% __('prev') %>" value="<% __('prev') %>" />
-%   }
-
+  </span><span id="<% $pagerId %>"></span>
 %   if ($page != $tpages) {
-        <input name='tonext' type='image'
-            src="/data/images/f.gif"
+        <button name='tonext' type='button'
+            class="btn-only-icon btn-small btn-next"
             alt="<% __('next') %>"
             value="<% __('next') %>"
             onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
-     	$model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" />
-        <input name='tolast' type='image'
-            src="/data/images/ff.gif"
+     	      $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" ></button>
+        <button name='tolast' type='button'
+            class="btn-only-icon btn-small btn-last"
             alt="<% __('last') %>"
             value="<% __('last') %>"
-	    onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" />
+	         onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" ></button>
 %   } else {
-        <input name='tonext' type='image'
-            src="/data/images/non_f.gif"
+        <button name='tonext' type='button'
+            class="btn-only-icon btn-small btn-next"
             alt="<% __('next') %>"
-            value="<% __('next') %>"/>
-        <input name='tolast' type='image'
-            src="/data/images/non_ff.gif"
+            value="<% __('next') %>"
+            disabled></button>
+        <button name='tolast' type='button'
+            class="btn-only-icon btn-small btn-last"
             alt="<% __('last') %>"
-            value="<% __('last') %>"/>
+            value="<% __('last') %>"
+            disabled></button>
 %   }

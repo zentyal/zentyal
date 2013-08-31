@@ -1,4 +1,5 @@
 HEAD
+	+ Adapted to new CSS styles
 	+ Use upstart for ddclient daemon management
 3.1.3
 	+ Clearer messages for gateway not reachable condition

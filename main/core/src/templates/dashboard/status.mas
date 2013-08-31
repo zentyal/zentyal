@@ -40,7 +40,7 @@ if ( $item->{statusStr} ) {
 <form action='/SysInfo/RestartService'>
     <input type='hidden' name='module' value='<% $item->{module} %>'/>
     <span class='sright'>
-        <input class='inputButtonRestart <% $statusClass %>' type='submit' name='<% $name %>' value='<% $restart %>'/>
+        <input class='btn-dashboard  btn-restart <% $statusClass %>' type='submit' name='<% $name %>' value='<% $restart %>'/>
     </span>
 </form>
 % }

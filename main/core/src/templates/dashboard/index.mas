@@ -9,7 +9,6 @@
 <%init>
 use utf8;
 use EBox::Gettext;
-use JSON::XS;
 use EBox::SysInfo;
 
 my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStrings());
@@ -25,8 +24,11 @@ my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStr
 </div>
 % }
 
+<div id="configure_widgets" style="display: none">
+</div>
+
 <span id="confbutton">
-<a href="#" onclick=' Zentyal.Dashboard.ConfigureWidgets.show("<% __("Configure Widgets") %>"); return false;' ><% __('Configure widgets') %></a>
+<button type="button" class="btn-only-icon btn-widgets" onclick="Zentyal.Dashboard.ConfigureWidgets.toggle(); return false;" title="<% __('Configure widgets') %>"></button>
 </span>
 % if (@brokenPackages) {
 <div class='error'>
