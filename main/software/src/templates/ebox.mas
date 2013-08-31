@@ -253,8 +253,8 @@ var pkgTable = new Array(
     </div>
 
     <div>
-        <div id="Gateway" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">X</a>
+        <div id="Gateway" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">&#10006;</a>
             <h3><% __s('Zentyal Gateway features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/cache.png' alt='Transparent caching' />
@@ -295,8 +295,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Infrastructure" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">X</a>
+        <div id="Infrastructure" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">&#10006;</a>
             <h3><% __s('Zentyal Infrastructure features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/objects.png' alt='DHCP server' />
@@ -336,8 +336,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Office" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">X</a>
+        <div id="Office" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">&#10006;</a>
             <h3><% __s('Zentyal Office features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/directory.png' alt='Open Directory' />
@@ -375,8 +375,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Communications" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">X</a>
+        <div id="Communications" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">&#10006;</a>
             <h3><% __s('Zentyal Unified Communications features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/email.png' alt='Email' />
@@ -482,7 +482,7 @@ var pkgTable = new Array(
         </ul>
     </div>
     <div class="insideTab">
-        <div id="installBox">
+        <div id="installBox" class="item-block">
               <& .pkgTable,
                  id => 'installTable',
                  pkgs => \@advInstallPkgs,
@@ -500,7 +500,7 @@ var pkgTable = new Array(
                 popupTitle => $titleByAction{install},
               &>
         </div>
-        <div id="updateBox">
+        <div id="updateBox" class="item-block">
               <& .pkgTable,
                  id => 'updateTable',
                  pkgs => \@advUpdatePkgs,
@@ -518,7 +518,7 @@ var pkgTable = new Array(
                 popupTitle => $titleByAction{upgrade},
               &>
         </div>
-        <div id="deleteBox">
+        <div id="deleteBox" class="item-block">
              <& .pkgTable,
                 id => 'deleteTable',
                 pkgs => \@advRemovePkgs,

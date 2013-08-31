@@ -195,6 +195,7 @@
     text-decoration:none;
     padding: 10px;
     display: block;
+    font-size: 11px;
 }
 #module_list > div:hover {background-color:#eee;}
 
@@ -988,7 +989,6 @@ TABLE LIST
     padding:0;
     margin:0;
 }
-
 .tableSearch{
     float: right;
     width: auto;
@@ -1011,6 +1011,7 @@ TABLE LIST
     border-radius: 2px;
     margin-left: -2px;
     float: left;
+    padding: 0px;
 }
 
 
@@ -1414,8 +1415,7 @@ a.minBox, a.maxBox {
 /* Software styles */
 
 #software .feature {
-      display:inline;
-      float:left;
+      display:inline-block;
       padding-left:10px;
       width: 355px;
       height: 250px;
@@ -1425,20 +1425,21 @@ a.minBox, a.maxBox {
     cursor: pointer;
 }
 
-#software .info {
-    background-color:#ecf5da;
-    padding: 15px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    margin-top: 20px;
-}
-
 #software .close_button {
-    float: right;
-    font-size: 1.4em;
+    color: #666666;
+    font-size: 2em;
+    height: 25px;
+    line-height: 25px;
+    position: absolute;
+    right: 5px;
+    text-align: center;
     text-decoration: none;
-    color: #A6C733;
-    font-weight: bold;
+    top: 5px;
+    width: 25px;
+}
+#software .close_button{
+    background-color: whitesmoke;
+    color: #333;
 }
 
 #software #packages {
