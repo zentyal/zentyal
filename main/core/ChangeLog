@@ -1,4 +1,5 @@
 HEAD
+	+ Allow to define permanentMessage directly on models
 	+ Show placeholder in dashboard widgets drag&drop
 	+ Fixed crash reloading dashboard after configure widgets
 	+ Fixed wrong behavior of software updates in dashboard widget
