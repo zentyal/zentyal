@@ -7,7 +7,7 @@
 <%init>
   use EBox::Gettext;
 </%init>
-<div class="block-item"> 
+<div class="item-block">
 <h3>
 <%perl>
 if ( $isCACert ) {
@@ -33,10 +33,10 @@ if ( $isCACert ) {
       <input type="hidden" name="isCACert"
              value="<% $isCACert %>" />
       <input type="hidden" name="reason"
-             value="<% $reason %>" /> 
+             value="<% $reason %>" />
 % if ( defined ( $caPassphrase )) {
       <input type="hidden" name="caPassphrase"
-             value="<% $caPassphrase %>" /> 
+             value="<% $caPassphrase %>" />
 % }
       <input class="inputButton" type="submit"
              name="revokeForce"
@@ -46,4 +46,4 @@ if ( $isCACert ) {
 	     value='<% __("Cancel") %>' />
     </form>
   </p>
-</div>    
+</div>
