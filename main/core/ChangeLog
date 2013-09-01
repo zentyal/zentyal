@@ -1,4 +1,5 @@
 HEAD
+	+ Fix bytes formatter in graphs
 	+ Simplified CSS and improved styles and icons
 	+ Improved dashboard drag&drop behavior in Chrome
 	+ Allow to define permanentMessage directly on models

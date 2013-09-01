@@ -201,7 +201,7 @@ Zentyal.Dashboard.updateGraph = function(element,value) {
         }],
         {
             xaxis: { noTicks: 0 },
-            yaxis: { noTicks: 2, tickFormatter: getBytes }
+            yaxis: { noTicks: 2, tickFormatter: getBytesFormatter }
         }
     );
 };
