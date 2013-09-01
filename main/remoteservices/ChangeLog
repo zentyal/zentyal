@@ -1,4 +1,5 @@
 HEAD
+	+ Adapt remote backup to new UI CSS
 	+ Removed implementation of the removed Desktop::ServiceProvider
 3.1.5
 	+ Adapted to updatedRowNotify call with no changes in values

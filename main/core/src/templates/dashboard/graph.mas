@@ -35,7 +35,7 @@ $.plot(
     }],
     {
         xaxis: { noTicks: 0 },
-        yaxis: { noTicks: 2, tickFormatter: getBytes },
+        yaxis: { noTicks: 2, tickFormatter: getBytesFormatter },
     }
 );
 </script>

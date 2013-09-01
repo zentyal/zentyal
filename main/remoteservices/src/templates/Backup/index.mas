@@ -7,15 +7,17 @@
 <%init>
 use EBox::Gettext;
 </%init>
-% if (not $subscribed) {
-<& /remoteservices/NoActive.mas &>
-% return;
+<div class="insideTab">
+% if ($subscribed) {
+  <& .backupSection, modulesChanged => $modulesChanged,
+                     basic => $basic,
+                     backups => \%backups
+  &>
+  <& .listSection, backups => \%backups &>
+% } else {
+  <& /remoteservices/NoActive.mas &>
 % }
-<& .backupSection, modulesChanged => $modulesChanged,
-                   basic => $basic,
-                   backups => \%backups
-&>
-<& .listSection, backups => \%backups &>
+</div>
 
 <%def .backupSection>
 <%args>
