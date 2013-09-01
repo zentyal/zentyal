@@ -29,7 +29,7 @@ my $timeformatter;
 if($type eq 'int') {
     $formatter = undef;
 } elsif($type eq 'byte') {
-    $formatter = 'getBytes';
+    $formatter = 'getBytesFormatter';
 } elsif($type eq 'degree') {
     $formatter = 'getDegrees';
 } elsif($type eq 'millisecond' ) {
@@ -100,7 +100,7 @@ $.plot(
         yaxis: {
                  ticks: 3,
 % if($formatter) {
-  tickFormatter: <% $formatter %>
+                 tickFormatter: <% $formatter %>
 % }
         },
         grid: { hoverable: true },
