@@ -24,7 +24,7 @@ use warnings;
 
 package EBox::Ntop;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::RedirectHelper);
 
 use EBox::Config;
 use EBox::Gettext;
@@ -170,6 +170,29 @@ sub initialSetup
         }
     }
 }
+
+# Group: <EBox::RedirectHelper> interface implementation
+
+# Method: redirectionConf
+#
+#    Configuration for the redirection from Zentyal Remote if the host
+#    is registered to Ntop UI
+#
+# Overrides:
+#
+#    <EBox::RedirectHelper>
+#
+sub redirectionConf
+{
+    return [ {
+        url    => 'ntop',
+        target => "http://localhost:" . NTOPNG_PORT,
+        absolute_url_patterns => [ '^/(lua|bootstrap|js|css|img)/' ],
+        referer_patterns      => [ '(ntop|lua)' ],
+        query_string_patterns => [ '^page=Top' ],
+    }, ]
+}
+
 
 # Group: Private methods
 
