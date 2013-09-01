@@ -88,12 +88,6 @@ input[type="checkbox"], input[type="radio"]{
     border: 0;
 }
 .subscription select { width: 186px; border: 0 }
-.subscription input[type=button] {
-    margin: 0px 0px 0px 40px;
-    background-color: #E66207;
-    border-color: #704628;
-    color: white;
-}
 
 .subscription .form_title {
   font-weight: bold;

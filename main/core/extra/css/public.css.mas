@@ -2254,11 +2254,14 @@ input[type='image']:disabled, input[type='image']:disabled:hover
     background-position: 7px center;
     background-repeat: no-repeat;
 }
-a.btn-only-icon, a.btn,
-span.btn, span.btn-only-icon{
+a.btn-only-icon,
+a.btn,
+span.btn,
+span.btn-only-icon{
     height: 28px;
 }
-a.btn-only-icon, span.btn-only-icon{
+a.btn-only-icon,
+span.btn-only-icon{
     width: 28px;
 }
 .btn-only-icon {
@@ -2269,7 +2272,7 @@ a.btn-only-icon, span.btn-only-icon{
     padding: 0px !important;
     text-indent: 1000px;
     width: 30px;
-    font-size: 0px;
+    font-size: 0px !important;
     vertical-align: middle;
 }
 a.btn-only-icon{
@@ -2278,6 +2281,10 @@ a.btn-only-icon{
 .btn-only-icon.btn-small{
     height: 20px ;
     width: 20px;
+}
+.btn-only-icon.btn-big{
+    height: 50px ;
+    width: 50px;
 }
 
 .btn-big{
@@ -2395,8 +2402,8 @@ input.btn-dashboard {
 .btn-red:disabled:hover,
 .treeviewButtons .btn-delete:disabled,
 .treeviewButtons .btn-delete:disabled:hover{
-    background-color: #FF5C26;color !important:
-    white !important;
+    background-color: #FF5C26 !important;
+    color : white !important;
 }
 .btn-green{
     background-color: #69BE28 !important;
@@ -2411,8 +2418,20 @@ input.btn-dashboard {
     background-color: #69BE28 !important;
     color: white !important;
 }
-
-
+.btn-orange{
+    background-color: #FF7900 !important;
+    border-color: #C35F00 !important;
+    color: white !important;
+}
+.btn-orange:hover{
+    background-color: #C35F00 !important;
+    color: white !important; 
+}
+.btn-orange:disabled,
+.btn-orange:disabled:hover{
+    background-color: #FF7900 !important;
+    color: white !important;
+}
 
 /********************************************************************************
 
