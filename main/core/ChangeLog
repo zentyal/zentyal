@@ -1,4 +1,6 @@
 HEAD
+	+ RedirectHelper interface to redirect requests from Zentyal
+	  Remote to specific module HTTP applications
 	+ Simplified CSS and improved styles and icons
 	+ Improved dashboard drag&drop behavior in Chrome
 	+ Allow to define permanentMessage directly on models
