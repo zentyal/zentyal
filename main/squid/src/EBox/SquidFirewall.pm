@@ -307,7 +307,7 @@ sub _trans_forward_filter_rules
 
 # Method: _getDomainFilter
 #
-#   Get the <EBox::Squid::Model:DomainFilter> model that contains the allowed
+#   Get the <EBox::Squid::Model::DomainFilter> model that contains the allowed
 #   and banned domains for a given filter profile
 #
 # Parameters:
