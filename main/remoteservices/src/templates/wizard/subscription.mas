@@ -75,7 +75,6 @@ input[type="checkbox"], input[type="radio"]{
 }
 .subscription input[type=text],
 .subscription input[type=password],
-.subscription input[type=button],
 .subscription select {
     padding: 8px;
     width: 170px;
@@ -94,11 +93,6 @@ input[type="checkbox"], input[type="radio"]{
     background-color: #E66207;
     border-color: #704628;
     color: white;
-}
-
-.subscription input[type=button]:hover {
-    background-color: #E68407;
-    border-color: #704628;
 }
 
 .subscription .form_title {
@@ -266,7 +260,7 @@ th > div {
                   <tr>
                     <th></th>
                     <td style="text-align:right;">
-                      <input type="button" value="<% __s('Register') %>"
+                      <input type="button" class="btn-orange" value="<% __s('Register') %>"
 % if ( $first ) {
                              onclick="Zentyal.Wizard.Software.nextStep()"
 % } else {

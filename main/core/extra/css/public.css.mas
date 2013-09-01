@@ -1690,8 +1690,14 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     margin-top: 0;
 }
 .final_installation {
-    height:400px;
-    background: url("/data/software/images/fluffy_ok.png") 250px bottom no-repeat
+    height:450px;
+    background: url("/data/software/images/fluffy_ok.png") right bottom no-repeat;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    margin: 10px 0;
+    overflow: hidden;
+    padding: 10px 20px;
+    position: relative;
 }
 
 .final_installation h4 {
@@ -2274,6 +2280,12 @@ a.btn-only-icon{
     width: 20px;
 }
 
+.btn-big{
+    font-size: 18px !important;
+    height: 50px !important;
+    line-height: 50px !important;
+}
+
 /*** DASHBOARD BTN ***/
 
 input.btn-dashboard {
@@ -2353,51 +2365,51 @@ input.btn-dashboard {
 /*** BUTTONS COLORS ***/
 
 .btn-blue, .btn-help{
-    background-color: #00ADD0;
-    border-color: #0087A5;
-    color: white;
+    background-color: #00ADD0 !important;
+    border-color: #0087A5 !important;
+    color: white !important;
 }
 .btn-blue:hover,
 .btn-help:hover{
-    background-color: #0087A5;
-    color: white;
+    background-color: #0087A5 !important;
+    color: white !important;
 }
 .btn-blue:disabled,
 .btn-blue:disabled:hover,
 .btn-help:disabled,
 .btn-help:disabled:hover{
-    background-color: #00ADD0;
-    color: white;
+    background-color: #00ADD0 !important;
+    color: white !important;
 }
 .btn-red, .treeviewButtons .btn-delete{
-    background-color: #FF5C26;
-    border-color: #B22D00;
-    color: white;
+    background-color: #FF5C26 !important;
+    border-color: #B22D00 !important;
+    color: white !important;
 }
 .btn-red:hover,
 .treeviewButtons .btn-delete:hover{
-    background-color: #D93600;
-    color: white;
+    background-color: #D93600 !important;
+    color: white !important;
 }
 .btn-red:disabled,
 .btn-red:disabled:hover,
 .treeviewButtons .btn-delete:disabled,
 .treeviewButtons .btn-delete:disabled:hover{
-    background-color: #FF5C26;color:
-    white;
+    background-color: #FF5C26;color !important:
+    white !important;
 }
 .btn-green{
-    background-color: #69BE28;
-    border-color: #46962D;
-    color: white;
+    background-color: #69BE28 !important;
+    border-color: #46962D !important;
+    color: white !important;
 }
 .btn-green:hover{
-    background-color: #46962D;
-    color: white; }
+    background-color: #46962D !important;
+    color: white !important; }
 .btn-green:disabled,
 .btn-red:disabled:hover{
-    background-color: #69BE28;
-    color: white;
+    background-color: #69BE28 !important;
+    color: white !important;
 }
 
 
