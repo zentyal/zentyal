@@ -1671,14 +1671,15 @@ background: url(/data/images/apply-w.gif) center no-repeat <% $main_color %> !im
     margin: 0px 0px 0px 10px;
 }
 .head {
-    margin: 0 30px;
-    padding: 5px;
+    background-color: #F5F5F5;
     display: inline-block;
+    margin: 0 1%;
+    padding: 0 0 20px;
     text-align: center;
-    width:115px;
+    width: 22.5%;
 }
 .head:hover{
-    background-color: #ECF5DA;
+    background-color: #ddd;
 }
 .head h3{
     font-size:14px;
@@ -2532,4 +2533,20 @@ FOLDable SECtIONS
 .pieLabel > div {
     color: #666666 !important;
     font-size: 12px !important;
+}
+
+/**********
+ Installation Wizard
+**********/
+
+.buttons-group{
+    background-color: rgba(0, 0, 0, 0.02);
+    border-top: 1px solid #EEEEEE;
+    margin: 20px -10px -10px;
+    padding: 10px;
+    text-align: right;
+}
+.buttons-group .loading-gif{
+    margin-right: 10px;
+    vertical-align: middle;
 }

@@ -53,29 +53,6 @@ my %titleByAction = (
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
 
-<style type="text/css">
-.head {
-% if ($sb) {
-    width: 155px;
-% } else {
-    width: 115px;
-% }
-    /*margin: 0 15px;
-    display: inline-block;
-    text-align: center;*/
-}
-
-.head h3 {
-    text-align: center;
-    margin-bottom: 2px;
-}
-
-h3 {
-    margin-top: 0;
-}
-
-</style>
-
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
 
