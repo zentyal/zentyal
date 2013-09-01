@@ -47,8 +47,8 @@ if ($popup) {
     text-align: center;
     margin: 8px;
     display: inline-block;
-    width: 80px;
-    height: 70px;
+    width: 88px;
+    height: 80px;
     overflow: hidden;
     padding: 5px;
     vertical-align: middle;
@@ -62,8 +62,8 @@ if ($popup) {
 
 .package p {
     margin: 0;
-    font-weight: bold;
     color: #333;
+    font-size: 11px;
 }
 </style>
 <span class="title"><% __('Confirm packages to install') %></span>
