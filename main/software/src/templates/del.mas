@@ -35,7 +35,7 @@ if ($popup) {
     $data .= '&popup=1';
 
     $okOnClick = qq|onclick="Zentyal.Dialog.showURL('$url', {title: '$title', data: '$data'})"|;
-    $cancelOnClick = q|onclick="Zentyal.Dialog.Close(); return false"|;
+    $cancelOnClick = q|onclick="Zentyal.Dialog.close(); return false"|;
 } else {
     $okOnClick = qq|onclick="window.location='$url?$data' ; return false"|;
     $cancelOnClick = q|onclick="window.history.back(); return false"|;
