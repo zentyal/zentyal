@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::SysInfo;
+use EBox::Sudo;
 
 use Error qw(:try);
 
