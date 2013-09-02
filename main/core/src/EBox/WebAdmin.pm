@@ -438,13 +438,6 @@ sub updateAdminPortService
         my $services = $global->modInstance('services');
         $services->setAdministrationPort($port);
     }
-
-    my @restartMods = qw(usercorner captiveportal);
-    foreach my $modName (@restartMods) {
-        if ($global->modExists($modName)) {
-            $global->modInstance($modName)->setAsChanged();
-        }
-    }
 }
 
 sub logs
