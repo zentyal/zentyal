@@ -21,7 +21,7 @@ dmsetup
 devmapper
 crypt
 linux-image
-generic-lts-quantal
+generic-lts-raring
 mdadm
 kpartx
 multipath
