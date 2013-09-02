@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed number of decimals in Disk Usage when unit is MB
 	+ Fixed UTF-8 encoding problems in TreeView
 	+ Copyright footer is now at the bottom of the menu
 	+ Fixed regression on logs search caused by autoFilter changes
