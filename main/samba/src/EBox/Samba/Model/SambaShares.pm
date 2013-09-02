@@ -24,27 +24,23 @@ package EBox::Samba::Model::SambaShares;
 
 use base 'EBox::Model::DataTable';
 
-use Cwd 'abs_path';
-use String::ShellQuote;
-
+use EBox;
+use EBox::Config;
+use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Model::Manager;
+use EBox::Sudo;
+use EBox::Types::Boolean;
+use EBox::Types::HasMany;
 use EBox::Types::Text;
 use EBox::Types::Union;
-use EBox::Types::Boolean;
-use EBox::Model::Manager;
-use EBox::Exceptions::DataInUse;
-use EBox::Samba::SecurityPrincipal;
-use EBox::Sudo;
+use EBox::Validate;
 
+use Cwd 'abs_path';
 use Error qw(:try);
 
-use constant DEFAULT_MASK => '0700';
-use constant DEFAULT_USER => 'root';
-use constant DEFAULT_GROUP => 'root';
-use constant GUEST_DEFAULT_MASK => '0770';
-use constant GUEST_DEFAULT_USER => 'nobody';
-use constant GUEST_DEFAULT_GROUP => '__USERS__';
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
 
@@ -218,8 +214,7 @@ sub validateTypedRow
         } else {
             # Check if it is a valid directory
             my $dir = $parms->{'path'}->value();
-            EBox::Validate::checkFilePath($dir,
-                                         __('Samba share directory'));
+            EBox::Validate::checkFilePath($dir, __('Samba share directory'));
         }
     }
 }
@@ -282,27 +277,21 @@ sub deletedRowNotify
 #
 #   This method is used to create the necessary directories for those
 #   shares which must live under /home/samba/shares
-#   We must set here both POSIX ACLs and navite NT ACLs. If we only set
-#   POSIX ACLs, a user can change the permissions in the security tab
-#   of the share. To avoid it we set also navive NT ACLs and set the
-#   owner of the share to 'Domain Admins'.
 #
 sub createDirs
 {
     my ($self) = @_;
 
-    my $sambaModule = $self->parentModule();
-    my $ldb = $sambaModule->ldb();
-
-    my $domainSid = $ldb->domainSID();
-    my $domainAdminsSid = $domainSid . '-512';
-    my $domainUsersSid  = $domainSid . '-513';
-
     for my $id (@{$self->ids()}) {
         my $row = $self->row($id);
+        my $enabled     = $row->valueByName('enabled');
         my $shareName   = $row->valueByName('share');
         my $pathType    = $row->elementByName('path');
         my $guestAccess = $row->valueByName('guest');
+
+        unless ($enabled) {
+            next;
+        }
 
         my $path = undef;
         if ($pathType->selectedType() eq 'zentyal') {
@@ -312,120 +301,31 @@ sub createDirs
         } else {
             EBox::error("Unknown share type on share '$shareName'");
         }
-        next unless defined $path;
-
-        # Don't do anything if the directory already exists and the option to manage ACLs
-        # only from Windows is set
-        next if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path));
-
-        my @cmds = ();
-        push (@cmds, "mkdir -p '$path'");
-        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
-        if ($guestAccess) {
-           push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
-           push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
-        } else {
-           push (@cmds, 'chmod ' . DEFAULT_MASK . " '$path'");
-           push (@cmds, 'chown ' . DEFAULT_USER . ':' . DEFAULT_GROUP . " '$path'");
-        }
-        EBox::Sudo::root(@cmds);
-
-        if ($guestAccess) {
-            my $ntACL = '';
-            $ntACL .= "O:$domainAdminsSid"; # Object's owner
-            $ntACL .= "G:$domainUsersSid"; # Object's primary group
-            my $aceString = '(A;OICI;0x001301BF;;;S-1-1-0)';
-            $ntACL .= "D:$aceString";
-            my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
-            try {
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Coundn't enable NT ACLs for $path: $error");
-            };
+        unless (defined $path) {
             next;
         }
 
-        # Build the security descriptor string
-        my $ntACL = '';
-        $ntACL .= "O:$domainAdminsSid"; # Object's owner
-        $ntACL .= "G:$domainUsersSid"; # Object's primary group
-
-        # Build the ACS strings
-        my @aceStrings = ();
-        push (@aceStrings, '(A;;0x001f01ff;;;SY)'); # SYSTEM account has full access
-        push (@aceStrings, "(A;;0x001f01ff;;;$domainAdminsSid)"); # Domain admins have full access
-
-        # Posix ACL
-        my @posixACL;
-        push (@posixACL, 'u:root:rwx');
-        push (@posixACL, 'g::---');
-        push (@posixACL, 'g:' . DEFAULT_GROUP . ':---');
-        push (@posixACL, 'g:adm:rwx');
-
-        for my $subId (@{$row->subModel('access')->ids()}) {
-            my $subRow = $row->subModel('access')->row($subId);
-            my $permissions = $subRow->elementByName('permissions');
-
-            my $userType = $subRow->elementByName('user_group');
-            my $perm;
-            if ($userType->selectedType() eq 'group') {
-                $perm = 'g:';
-            } elsif ($userType->selectedType() eq 'user') {
-                $perm = 'u:';
-            }
-            my $account = $userType->printableValue();
-            my $qobject = shell_quote($account);
-            $perm .= $qobject . ':';
-
-            my $aceString = '(A;OICI;';
-            if ($permissions->value() eq 'readOnly') {
-                $aceString .= '0x001200A9;';
-                $perm .= 'rx';
-            } elsif ($permissions->value() eq 'readWrite') {
-                $aceString .= '0x001301BF;';
-                $perm .= 'rwx';
-            } elsif ($permissions->value() eq 'administrator') {
-                $aceString .= '0x001F01FF;';
-                $perm .= 'rwx';
-            } else {
-                my $type = $permissions->value();
-                EBox::error("Unknown share permission type '$type'");
+        # Don't do anything if the directory already exists and the option to manage ACLs
+        # only from Windows is set
+        if (EBox::Config::boolean('unmanaged_acls')) {
+            if (EBox::Sudo::fileTest('-d', $path)) {
                 next;
+            } else {
+                # Store in redis that we should set acls given we just created the share.
+                my $sambaMod = EBox::Global->modInstance('samba');
+                my $state = $sambaMod->get_state();
+                unless (defined $state->{shares_set_rights}) {
+                    $state->{shares_set_rights} = {};
+                }
+                $state->{shares_set_rights}->{$shareName} = 1;
+                $self->set_state($state);
             }
-            push (@posixACL, $perm);
-
-            # Account Sid
-            my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-            if ($object->exists()) {
-                $aceString .= ';;' . $object->sid() . ')';
-                push (@aceStrings, $aceString);
-            }
         }
 
-        # Setting NT ACLs seems to reset posix ACLs, so do it first
-        if (@aceStrings) {
-            try {
-                my $fullAce = join ('', @aceStrings);
-                $ntACL .= "D:$fullAce";
-                my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Coundn't enable NT ACLs for $path: $error");
-            };
-        }
-        if (@posixACL) {
-            try {
-                my $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
-                my $defaultCmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
-                EBox::Sudo::root($defaultCmd);
-                EBox::Sudo::root($cmd);
-            } otherwise {
-                my $error = shift;
-                EBox::error("Couldn't enable POSIX ACLs for $path: $error")
-            };
-        }
+        my @cmds = ();
+        push (@cmds, "mkdir -p '$path'");
+        push (@cmds, "chmod 0770 '$path'");
+        EBox::Sudo::root(@cmds);
     }
 }
 
