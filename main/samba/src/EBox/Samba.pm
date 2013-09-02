@@ -319,6 +319,10 @@ sub _postServiceHook
             # Apply recursively the permissions.
             my $shareContentList = $smb->list(
                 $relativeSharePath, '*', FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_DIRECTORY | FILE_ATTRIBUTE_ARCHIVE, 1);
+            # Reset the DACL_PROTECTED flag;
+            $sdControl = $sd->type();
+            $sdControl &= ~SEC_DESC_DACL_PROTECTED;
+            $sd->type($sdControl);
             foreach my $item (@{$shareContentList}) {
                 my $itemName = $item->{name};
                 $itemName =~ s/^\/\/(.*)/\/$1/s;
