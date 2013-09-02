@@ -1,4 +1,7 @@
 HEAD
+	+ Ignored members that are not valid perl objects to avoid undef entries
+	  on EBox::Users::Group::members method.
+	+ Rewrites to share more code with samba module.
 	+ Added 'mail' field on zentyalDistributionGroup schema.
 	+ Added E-Mail field for Users and Groups when managing them from the UI.
 	+ Changed E-Mail field to optional for Contacts.

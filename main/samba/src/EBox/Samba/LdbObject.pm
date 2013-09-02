@@ -253,13 +253,27 @@ sub _ldap
 {
     my ($class) = @_;
 
-    return $class->_sambaMod()->ldb();
+    return $class->_ldapMod()->ldb();
+}
+
+# Method _ldapMod
+#
+#   Return the Module implementation that calls this method (Either users or samba).
+#
+# Override:
+#   EBox::Users::LdapObject::_ldapMod
+#
+sub _ldapMod
+{
+    my ($class) = @_;
+
+    return $class->_sambaMod();
 }
 
 sub _sambaMod
 {
     if (not $_sambaMod) {
-        $_sambaMod = EBox::Global->getInstance(0)->modInstance('samba')
+        $_sambaMod = EBox::Global->modInstance('samba')
     }
     return $_sambaMod;
 }
@@ -338,89 +352,6 @@ sub setInAdvancedViewOnly
     $self->save($relaxOidControl) unless $lazy;
 }
 
-# Method: children
-#
-#   Return a reference to the list of objects that are children of this node.
-#
-#   Override EBox::Users::LdapObject::children
-#
-# TODO: Try to share code with parent class...
-sub children
-{
-    my ($self) = @_;
-
-    return [] unless $self->isContainer();
-
-    # All children except for organizationalRole objects which are only used internally
-    my $attrs = {
-        base   => $self->dn(),
-        filter => '(!(objectclass=organizationalRole))',
-        scope  => 'one',
-    };
-
-    my $result = $self->_ldap->search($attrs);
-    my $sambaMod = $self->_sambaMod();
-
-    my @objects = ();
-    foreach my $entry ($result->entries) {
-        my $object = $sambaMod->entryModeledObject($entry);
-
-        push (@objects, $object) if ($object);
-    }
-
-    @objects = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or
-        ($aValue cmp $bValue)
-    } @objects;
-
-    return \@objects;
-}
-
-# Method: parent
-#
-#   Return the parent of this object or undef if it's the root.
-#
-#   Throw EBox::Exceptions::Internal on error.
-#
-#   Override EBox::Users::LdapObject::parent
-#
-# TODO: Try to share code with parent class...
-sub parent
-{
-    my ($self) = @_;
-    my $dn = $self->dn();
-    my $sambaMod = $self->_sambaMod();
-
-    my $defaultNamingContext = $sambaMod->defaultNamingContext();
-    return undef if ($dn eq $defaultNamingContext->dn());
-
-    my $parentDn = $self->baseDn($dn);
-    my $parent = $sambaMod->objectFromDN($parentDn);
-
-    if ($parent) {
-        return $parent;
-    } else {
-        throw EBox::Exceptions::Internal("The dn '$dn' is not representing a valid parent!");
-    }
-}
-
-# Method: relativeDN
-#
-#   Return the dn of this object without the naming Context.
-#
-#   Override EBox::Users::LdapObject::relativeDN
-#
-# TODO: Try to share code with parent class...
-sub relativeDN
-{
-    my ($self) = @_;
-
-    my $sambaMod = $self->_sambaMod();
-    return $sambaMod->relativeDN($self->dn());
-}
-
 # Method: _linkWithUsersEntry
 #
 #   Stores a link to this object into the given Entry.
@@ -457,6 +388,7 @@ sub _linkWithUsersObject
         $ldapObject->add('objectClass', 'zentyalSambaLink', 1);
     }
     $ldapObject->set('msdsObjectGUID', $self->objectGUID(), 1);
+    $ldapObject->setIgnoredModules(['samba']);
     $ldapObject->save();
 }
 

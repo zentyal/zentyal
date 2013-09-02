@@ -33,6 +33,7 @@ use EBox::Types::Union::Text;
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;
 use EBox::Types::Text;
+use EBox::Types::HostIP;
 use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::Types::Password;

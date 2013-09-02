@@ -43,7 +43,7 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
-use constant CORE_ATTRS     => ('member', 'description');
+use constant CORE_ATTRS     => ('objectClass', 'mail', 'member', 'description');
 
 sub new
 {
@@ -80,8 +80,8 @@ sub mainObjectClass
 sub defaultContainer
 {
     my ($class, $ro) = @_;
-    my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
-    return $usersMod->objectFromDN('ou=Groups,'.$usersMod->ldap->dn());
+    my $ldapMod = $class->_ldapMod();
+    return $ldapMod->objectFromDN('ou=Groups,' . $class->_ldap->dn());
 }
 
 # Method: _entry
@@ -156,19 +156,19 @@ sub removeAllMembers
 #
 # Parameters:
 #
-#   person - inetOrgPerson object
+#   member - member object (User, Contact, Group)
 #
 sub addMember
 {
-    my ($self, $person, $lazy) = @_;
+    my ($self, $member, $lazy) = @_;
     try {
-        $self->add('member', $person->dn(), $lazy);
+        $self->add('member', $member->dn(), $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to add already existent member $person to group " . $self->name());
+        EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
     };
 }
 
@@ -178,21 +178,44 @@ sub addMember
 #
 # Parameters:
 #
-#   person - inetOrgPerson object
+#   member - member object (User, Contact, Group)
 #
 sub removeMember
 {
-    my ($self, $person, $lazy) = @_;
-    try {
-        $self->deleteValues('member', [$person->dn()], $lazy);
-    } catch EBox::Exceptions::LDAP with {
-        my $ex = shift;
-        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            $ex->throw();
-        }
-        EBox::debug("Tried to remove inexistent member $person to group " . $self->name());
-    };
+    my ($self, $member, $lazy) = @_;
+    $self->deleteValues('member', [$member->dn()], $lazy);
 }
+
+# Method: members
+#
+#   Return the list of members for this group
+#
+# Returns:
+#
+#   arrary ref of members
+#
+sub members
+{
+    my ($self) = @_;
+
+    my $ldapMod = $self->_ldapMod();
+    my @members = ();
+    for my $memberDN ($self->get('member')) {
+        my $member = $ldapMod->objectFromDN($memberDN);
+        if ($member and $member->exists()) {
+            push (@members, $member);
+        }
+    }
+
+    @members = sort {
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @members;
+
+    return \@members;
+}
+
 
 # Method: users
 #
@@ -228,8 +251,8 @@ sub _users
 {
     my ($self, $system, $invert) = @_;
 
-    my $usersMod = $self->_usersMod();
-    my $userClass = $usersMod->userClass();
+    my $ldapMod = $self->_ldapMod();
+    my $userClass = $ldapMod->userClass();
 
     my @users;
 
@@ -279,7 +302,7 @@ sub contacts
 
     my %attrs = (
         base => $self->_ldap->dn(),
-        filter => "(&(!(objectclass=posixAccount))(memberof=$self->{dn}))",
+        filter => "(&(&(!(objectclass=posixAccount))(memberof=$self->{dn})(objectclass=inetorgPerson)))",
         scope => 'sub',
     );
 
@@ -332,32 +355,6 @@ sub contactsNotIn
     } @contacts;
 
     return \@contacts;
-}
-
-# Method: members
-#
-#   Return the list of members for this group
-#
-# Returns:
-#
-#   arrary ref of members
-#
-sub members
-{
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
-    my @members = map {
-        $usersMod->objectFromDN($_)
-    } $self->get('member');
-
-    @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
 }
 
 # Catch some of the set ops which need special actions

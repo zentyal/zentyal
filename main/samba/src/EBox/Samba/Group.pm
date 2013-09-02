@@ -18,11 +18,14 @@ use warnings;
 
 # Class: EBox::Samba::Group
 #
-#   Samba group, stored in samba LDAP
+#   Samba group, stored in samba LDB
 #
 package EBox::Samba::Group;
 
-use base 'EBox::Samba::SecurityPrincipal';
+use base qw(
+    EBox::Samba::SecurityPrincipal
+    EBox::Users::Group
+);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -56,117 +59,14 @@ sub new
     return $self;
 }
 
+# Method: mainObjectClass
+#
+# Override:
+#   EBox::Users::Group::mainObjectClass
+#
 sub mainObjectClass
 {
     return 'group';
-}
-
-# Method: name
-#
-#   Return group name
-#
-sub name
-{
-    my ($self) = @_;
-    return $self->get('name');
-}
-
-sub description
-{
-    my ($self) = @_;
-    return $self->get('description');
-}
-
-# Method: mail
-#
-#   Return group mail
-#
-sub mail
-{
-    my ($self) = @_;
-    return $self->get('mail');
-}
-
-# Method: removeAllMembers
-#
-#   Remove all members in the group
-#
-sub removeAllMembers
-{
-    my ($self, $lazy) = @_;
-    $self->delete('member');
-}
-
-# Method: addMember
-#
-#   Adds the given user as a member
-#
-# Parameters:
-#
-#   user - User object
-#
-sub addMember
-{
-    my ($self, $user, $lazy) = @_;
-
-    my @members = $self->get('member');
-
-    # return if user already in the group
-    foreach my $dn (@members) {
-        if (lc ($dn) eq lc ($user->dn())) {
-            return;
-        }
-    }
-
-    $self->add('member', $user->dn(), $lazy);
-}
-
-# Method: removeMember
-#
-#   Removes the given user as a member
-#
-# Parameters:
-#
-#   user - User object
-#
-sub removeMember
-{
-    my ($self, $user, $lazy) = @_;
-
-    my @members;
-    foreach my $dn ($self->get('member')) {
-        push (@members, $dn) if (lc ($dn) ne lc ($user->dn()));
-    }
-
-    $self->deleteValues('member', [$user->dn()], $lazy);
-}
-
-# Method: members
-#
-#   Return the list of members for this group
-#
-# Returns:
-#
-#   arrary ref of members (EBox::Samba::User or EBox::Samba::Group)
-#
-sub members
-{
-    my ($self) = @_;
-
-    my $sambaMod = $self->_sambaMod();
-    my @members = ();
-    foreach my $member ($self->get('member')) {
-        my $memberObject = $sambaMod->objectFromDN($member);
-        push (@members, $memberObject) if ($memberObject);
-    }
-
-    @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
 }
 
 sub setupGidMapping
@@ -245,6 +145,7 @@ sub addToZentyal
 
     my $parent = undef;
     my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
     if ($domainAdminsSID eq $self->sid()) {
         # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
@@ -258,9 +159,43 @@ sub addToZentyal
         throw EBox::Exceptions::External("Unable to to find the container for '$dn' in OpenLDAP");
     }
     my $parentDN = $parent->dn();
+
     my $name = $self->get('samAccountName');
 
     my $zentyalGroup = undef;
+
+    if ($domainUsersSID eq $self->sid()) {
+        my $usersMod = EBox::Global->modInstance('users');
+        my $usersName = $usersMod->DEFAULTGROUP();
+
+        $zentyalGroup = new EBox::Users::Group(gid => $usersName);
+        if ($zentyalGroup->exists()) {
+            # The special __USERS__ group already exists in Zentyal:
+            # 1. Copy its members list into Samba.
+            foreach my $member (@{$zentyalGroup->members()}) {
+                try {
+                    my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
+                    next unless ($smbMember);
+                    $self->addMember($smbMember, 1);
+                } otherwise {
+                    my $error = shift;
+                    EBox::error("Error adding member: $error");
+                };
+            }
+            $self->save();
+            # 2. link both objects.
+            $self->_linkWithUsersObject($zentyalGroup);
+            # 3. Update its fields.
+            $self->updateZentyal();
+            return;
+        } else {
+            # There is no __USERS__ group in Zentyal, this should not happen, but just in case is just a matter of
+            # create this group with the __USERS__ name.
+            $zentyalGroup = undef;
+            $name = $usersName;
+        }
+    }
+
     EBox::info("Adding samba group '$name' to Zentyal");
     try {
         my @params = (
@@ -302,7 +237,7 @@ sub addToZentyal
         EBox::error("Error loading group '$name': $error");
     };
 
-    if ($zentyalGroup && $zentyalGroup->exists()) {
+    if ($zentyalGroup and $zentyalGroup->exists()) {
         $self->_membersToZentyal($zentyalGroup);
     }
 }
@@ -356,21 +291,31 @@ sub _membersToZentyal
     my $sambaMembersList = $self->members();
     my $zentyalMembersList = $zentyalGroup->members();
 
+    my $sambaMod = $self->_sambaMod();
     my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
+    my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
+    my $domainAdminsSID = "$domainSID-512";
+    my $domainAdminSID = "$domainSID-500";
     foreach my $sambaMember (@{$sambaMembersList}) {
-        if ($sambaMember->isa('EBox::Samba::Group')) {
-            my $dn = $sambaMember->dn();
-            EBox::warn("Member '$dn' is a nested group, not supported!");
-            next;
-        }
-        if ($sambaMember->isa('EBox::Samba::User') or $sambaMember->isa('EBox::Samba::Contact')) {
-            my $canonicalName = $sambaMember->canonicalName(1);
+        if ($sambaMember->isa('EBox::Samba::User') or
+            $sambaMember->isa('EBox::Samba::Contact') or
+            $sambaMember->isa('EBox::Samba::Group')) {
+            my $canonicalName = undef;
+            if ($domainAdminsSID eq $sambaMember->sid()) {
+                # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
+                # This is required so both canonical names match on Zentyal's OpenLDAP and Samba.
+                my $parent = EBox::Users::Group->defaultContainer();
+                $canonicalName = $parent->canonicalName(1) . '/' . $sambaMember->baseName();
+            } else {
+                $canonicalName = $sambaMember->canonicalName(1);
+            }
             $sambaMembers{$canonicalName} = $sambaMember;
             next;
         }
         my $dn = $sambaMember->dn();
-        EBox::warn("Unexpected member type ($dn)");
+        EBox::error("Unexpected member type ($dn)");
     }
 
     foreach my $memberCanonicalName (keys %zentyalMembers) {
@@ -380,25 +325,38 @@ sub _membersToZentyal
                 $zentyalGroup->removeMember($zentyalMembers{$memberCanonicalName}, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error removing member '$memberCanonicalName' for group '$gid': $error");
+                EBox::error("Error removing member '$memberCanonicalName' from Zentyal group '$gid': $error");
             };
          }
     }
 
-    my $sambaMod = EBox::Global->modInstance('samba');
     foreach my $memberCanonicalName (keys %sambaMembers) {
         unless (exists $zentyalMembers{$memberCanonicalName}) {
             EBox::info("Adding member '$memberCanonicalName' to Zentyal group '$gid'");
             my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
             unless ($zentyalMember and $zentyalMember->exists()) {
-                EBox::error("Cannot add member '$memberCanonicalName' to group '$gid' because the member does not exist");
-                next;
+                if ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
+                    # The group is not yet syncronized, we force its sync now to retry...
+                    $sambaMembers{$memberCanonicalName}->addToZentyal();
+                    $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+                    unless ($zentyalMember and $zentyalMember->exists()) {
+                        EBox::error("Cannot add member '$memberCanonicalName' to group '$gid' because the member does not exist");
+                        next;
+                    }
+                } elsif ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Users') or
+                         $sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Contact')) {
+                    EBox::error("Cannot add member '$memberCanonicalName' to Zentyal group '$gid' because the member does not exist");
+                    next;
+                } else {
+                    EBox::error("Cannot add member '$memberCanonicalName' to Zentyal group '$gid' because it's not a known object.");
+                    next;
+                }
             }
             try {
                 $zentyalGroup->addMember($zentyalMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding member '$memberCanonicalName' for group '$gid': $error");
+                EBox::error("Error adding member '$memberCanonicalName' to Zentyal group '$gid': $error");
             };
         }
     }
@@ -424,6 +382,9 @@ sub _checkAccountName
 #
 #   Whether is a security group or just a distribution group.
 #
+# Override:
+#   EBox::Users::Group::isSecurityGroup
+#
 sub isSecurityGroup
 {
     my ($self) = @_;
@@ -434,6 +395,9 @@ sub isSecurityGroup
 # Method: setSecurityGroup
 #
 #   Sets/unsets this group as a security group.
+#
+# Override:
+#   EBox::Users::Group::setSecurityGroup
 #
 sub setSecurityGroup
 {

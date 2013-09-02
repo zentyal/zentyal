@@ -409,7 +409,6 @@ sub mapAccounts
             $domainAdmin->addToZentyal();
         }
     }
-
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
@@ -439,14 +438,11 @@ sub mapAccounts
             $domainUsers->addToZentyal();
         }
     }
-    # Map domain users group
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user
     my $guestSID = "$domainSID-501";
     my $guestGroupSID = "$domainSID-514";
-    #my $uid = getpwnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-    #my $gid = getgrnam(EBox::Samba::Model::SambaShares::GUEST_DEFAULT_GROUP());
     my $uid = 65534;
     my $gid = 65534;
     EBox::info("Mapping domain guest account");
@@ -521,8 +517,8 @@ sub provisionDC
         $samba->ldb->ldapOUsToLDB();
         $samba->ldb->ldapUsersToLdb();
         $samba->ldb->ldapContactsToLdb();
-        $samba->ldb->ldapGroupsToLdb();
         $samba->ldb->ldapServicePrincipalsToLdb();
+        $samba->ldb->ldapGroupsToLdb();
 
         # Map accounts
         $self->mapAccounts();
