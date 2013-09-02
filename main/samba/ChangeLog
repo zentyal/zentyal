@@ -1,4 +1,6 @@
 HEAD
+	+ Ignore container 'Microsoft Exchange System Objects' when quering
+	  users stored in LDB
 	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
 	+ Mark internal users and groups properly when creating them in LDAP

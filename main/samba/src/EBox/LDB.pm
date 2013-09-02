@@ -45,6 +45,11 @@ use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
 use constant BUILT_IN_CONTAINERS => qw(Users Computers Builtin);
 
+# The LDB containers that will be ignored when quering for users stored in LDB
+use constant QUERY_IGNORE_CONTAINERS => (
+    'Microsoft Exchange System Objects',
+);
+
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
 use constant ROOT_DSE_ATTRS => [
@@ -567,19 +572,55 @@ sub users
 {
     my ($self) = @_;
 
+    my $list = [];
+
+    # Query the users stored in the root DN
     my $params = {
         base => $self->dn(),
-        scope => 'sub',
+        scope => 'base',
         filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
                   '(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
-    my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);
         push (@{$list}, $user);
     }
+
+    # Query the containers stored in the root DN and skip the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    $params = {
+        base => $self->dn(),
+        scope => 'one',
+        filter => '(objectClass=Container)',
+        attrs => ['*'],
+    };
+    $result = $self->search($params);
+    foreach my $entry ($result->sorted('cn')) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
+        push (@containers, $container);
+    }
+
+    # Query the users stored in the non ignored containers
+    foreach my $container (@containers) {
+        $params = {
+            base => $container->dn(),
+            scope => 'sub',
+            filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
+                      '(!(isDeleted=*)))',
+            attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+        $result = $self->search($params);
+        foreach my $entry ($result->sorted('samAccountName')) {
+            my $user = new EBox::Samba::User(entry => $entry);
+            push (@{$list}, $user);
+        }
+    }
+
     return $list;
 }
 
@@ -640,8 +681,7 @@ sub ous
     my $result = $self->search(\%args);
 
     my @ous = ();
-    foreach my $entry ($result->entries)
-    {
+    foreach my $entry ($result->entries) {
         my $ou = EBox::Samba::OU->new(entry => $entry);
         push (@ous, $ou);
     }
