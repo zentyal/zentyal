@@ -17,18 +17,18 @@ use strict;
 use warnings;
 
 package EBox::Samba::SmbClient;
-
-use Samba::LoadParm;
-use Samba::Credentials;
-use Samba::Smb;
-use Fcntl;
-
-use EBox::Gettext;
-use EBox::Exceptions::Internal;
-use EBox::Samba::AuthKrbHelper;
-use EBox::Exceptions::MissingArgument;
-
 use base 'Samba::Smb';
+
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Gettext;
+use EBox::Samba::AuthKrbHelper;
+
+use Error qw(:try);
+use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
+use Samba::Credentials;
+use Samba::LoadParm;
+use Samba::Smb;
 
 sub new
 {
@@ -54,7 +54,12 @@ sub new
     $creds->guess();
 
     my $self = $class->SUPER::new($lp, $creds);
-    $self->connect($target, $service);
+    try {
+        $self->connect($target, $service);
+    } otherwise {
+        my ($ex) = @_;
+        throw EBox::Exceptions::External("Error connecting with SMB server: $ex");
+    };
 
     $self->{krbHelper} = $krbHelper;
     $self->{loadparm} = $lp;

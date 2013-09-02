@@ -1,4 +1,5 @@
 HEAD
+	+ Add new exception InvalidArgument
 	+ Updated EBox::Exceptions::Base so we always print an stack trace with
 	  the error.
 	+ EBox::Validate::checkEmailAddress does not ignore any longer white spaces
