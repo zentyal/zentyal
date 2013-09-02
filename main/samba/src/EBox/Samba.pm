@@ -66,12 +66,20 @@ use Net::LDAP::Control::Sort;
 use Net::LDAP::Util qw(ldap_explode_dn);
 use Net::Ping;
 use Perl6::Junction qw( any );
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_SYSTEM
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_ARCHIVE
+);
 use Samba::Security::AccessControlEntry;
 use Samba::Security::Descriptor qw(
     DOMAIN_RID_ADMINISTRATOR
     SEC_ACE_FLAG_CONTAINER_INHERIT
     SEC_ACE_FLAG_OBJECT_INHERIT
     SEC_ACE_TYPE_ACCESS_ALLOWED
+    SEC_DESC_DACL_AUTO_INHERITED
+    SEC_DESC_DACL_PROTECTED
+    SEC_DESC_SACL_AUTO_INHERITED
     SEC_FILE_EXECUTE
     SEC_RIGHTS_FILE_ALL
     SEC_RIGHTS_FILE_READ
@@ -250,6 +258,12 @@ sub _postServiceHook
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
             my $sd = new Samba::Security::Descriptor();
+            my $sdControl = $sd->type();
+            # Inherite all permissions.
+            $sdControl |= SEC_DESC_DACL_AUTO_INHERITED;
+            $sdControl |= SEC_DESC_DACL_PROTECTED;
+            $sdControl |= SEC_DESC_SACL_AUTO_INHERITED;
+            $sd->type($sdControl);
             # Set the owner and the group. We differ here from Windows because they just set the owner to
             # builtin/Administrators but this other setting should be compatible and better looking when using Linux
             # console.
@@ -302,6 +316,15 @@ sub _postServiceHook
             my $relativeSharePath = '/';
             my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
             $smb->set_sd($relativeSharePath, $sd, $sinfo);
+            # Apply recursively the permissions.
+            my $shareContentList = $smb->list(
+                $relativeSharePath, '*', FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_DIRECTORY | FILE_ATTRIBUTE_ARCHIVE, 1);
+            foreach my $item (@{$shareContentList}) {
+                my $itemName = $item->{name};
+                $itemName =~ s/^\/\/(.*)/\/$1/s;
+                EBox::debug($itemName);
+                $smb->set_sd($itemName, $sd, $sinfo);
+            }
         }
     }
 
