@@ -66,11 +66,6 @@ use Net::LDAP::Control::Sort;
 use Net::LDAP::Util qw(ldap_explode_dn);
 use Net::Ping;
 use Perl6::Junction qw( any );
-use Samba::Smb qw(
-    FILE_ATTRIBUTE_SYSTEM
-    FILE_ATTRIBUTE_DIRECTORY
-    FILE_ATTRIBUTE_ARCHIVE
-);
 use Samba::Security::AccessControlEntry;
 use Samba::Security::Descriptor qw(
     DOMAIN_RID_ADMINISTRATOR
@@ -317,8 +312,7 @@ sub _postServiceHook
             my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
             $smb->set_sd($relativeSharePath, $sd, $sinfo);
             # Apply recursively the permissions.
-            my $shareContentList = $smb->list(
-                $relativeSharePath, '*', FILE_ATTRIBUTE_SYSTEM | FILE_ATTRIBUTE_DIRECTORY | FILE_ATTRIBUTE_ARCHIVE, 1);
+            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
             # Reset the DACL_PROTECTED flag;
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
