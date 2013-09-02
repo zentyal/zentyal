@@ -58,6 +58,10 @@ sub _process
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
     } elsif (not $ignore) {
         my $msg = $self->_commercialMsg();
+
+        # This fixes wrong information of apt-check
+        EBox::Sudo::silentRoot('dpkg --clear-avail');
+
         my ($nUpdates, $nSecurity) = @{EBox::Util::Software::upgradablePkgsNum()};
         my $softwareInstalled = EBox::Global->modExists('software');
         my $defaultURL = EBox::SysInfo->UPDATES_URL();
