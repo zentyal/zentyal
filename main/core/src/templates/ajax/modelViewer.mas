@@ -96,6 +96,9 @@
         </div>
 %   }
 % } else  {
+%   if ($model->printableModelName()) {
+<& /title.mas, title => $model->printableModelName() &>
+%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
