@@ -339,8 +339,8 @@ sub run
             $host = $fwhost;
         }
 
-        my  $url;
-        if ($self->_insideWebadmin()) {
+        my $url;
+        if ($> == getpwnam('ebox')) {
             ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
             if (defined ($fwproto)) {
                 $protocol = $fwproto;
@@ -389,11 +389,6 @@ sub run
             throw $ex;
         }
     };
-}
-
-sub _insideWebadmin
-{
-    return $> == getpwnam('ebox');
 }
 
 # Method: unsafeParam
