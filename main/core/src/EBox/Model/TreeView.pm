@@ -471,7 +471,9 @@ sub jsonData
         });
     }
 
-    return encode_json(\@data);
+    my $json = encode_json(\@data);
+    utf8::decode($json);
+    return $json;
 }
 
 sub _childData
