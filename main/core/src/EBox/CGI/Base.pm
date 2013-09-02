@@ -40,6 +40,8 @@ use Apache2::Connection;
 use Apache2::RequestUtil;
 use JSON::XS;
 
+my $adminPort = undef;
+
 ## arguments
 ##      title [optional]
 ##      error [optional]
@@ -183,12 +185,12 @@ sub _print
     $self->_header;
     $self->_top;
     $self->_menu;
-    print '<div id="limewrap"><div id="content">';
+    print '<div id="content">';
     $self->_title;
     $self->_error;
     $self->_msg;
     $self->_body;
-    print "</div></div>";
+    print '</div>';
     $self->_footer;
 }
 
@@ -205,11 +207,11 @@ sub _printPopup
     }
 
     print($self->cgi()->header(-charset=>'utf-8'));
-    print '<div id="limewrap"><div>';
+    print '<div>';
     $self->_error;
     $self->_msg;
     $self->_body;
-    print "</div></div>";
+    print '</div>';
 }
 
 sub _checkForbiddenChars
@@ -325,32 +327,37 @@ sub run
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
         my $request = Apache2::RequestUtil->request();
         my $headers = $request->headers_in();
-
-        my $via = $headers->{'Via'};
-        my $host = $headers->{'Host'};
         my $referer = $headers->{'Referer'};
 
-        my $fwhost = $headers->{'X-Forwarded-Host'};
-        my $fwproto = $headers->{'X-Forwarded-Proto'};
-        # If the connection comes from a Proxy,
-        # redirects with the Proxy IP address
-        if (defined ($via) and defined ($fwhost)) {
-            $host = $fwhost;
-        }
-
         my ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
-        if (defined ($fwproto)) {
-            $protocol = $fwproto;
-        }
 
-        my $url = "$protocol://$host";
-        if ($port) {
-            $url .= ":$port";
+        if (not defined $adminPort) {
+            $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
         }
-        $url .= "/$self->{redirect}";
+        unless (defined ($port) and ($port != $adminPort)) {
+            my $via = $headers->{'Via'};
+            my $host = $headers->{'Host'};
+            my $fwhost = $headers->{'X-Forwarded-Host'};
+            my $fwproto = $headers->{'X-Forwarded-Proto'};
+            # If the connection comes from a Proxy,
+            # redirects with the Proxy IP address
+            if (defined ($via) and defined ($fwhost)) {
+                $host = $fwhost;
+            }
 
-        print ($self->cgi()->redirect($url));
-        return;
+            if (defined ($fwproto)) {
+                $protocol = $fwproto;
+            }
+
+            my $url = "$protocol://$host";
+            if ($port) {
+                $url .= ":$port";
+            }
+            $url .= "/$self->{redirect}";
+
+            print ($self->cgi()->redirect($url));
+            return;
+        }
     }
 
     try  {

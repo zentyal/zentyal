@@ -169,14 +169,14 @@ use POSIX;
 %    }
 %    if ($changeView and exists $actions->{'add'})
 %    {
-  <a href='#' class='addNew'
+  <button type="button" class='btn btn-icon btn-add'
       name='add'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)
-                %>;return false"><% __('Add new') %></a>
+                %>;return false"><% __('Add new') %></button>
    <br/>
    <br/>
 %    }
@@ -192,7 +192,6 @@ use POSIX;
 %    }
 %   elsif ( $action eq 'changeEdit' )
 %    {
-<h3>
 %     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }
@@ -275,7 +274,7 @@ if ($foreignNextPageField) {
 $addOnClick .=  'return false';
 </%perl>
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => 'btn btn-icon btn-add',
         type => 'submit',
         name => 'add',
         value => __('Add'),
@@ -290,7 +289,7 @@ $addOnClick .=  'return false';
 </%perl>
     <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'change',
         value => __('Change'),
@@ -300,7 +299,7 @@ $addOnClick .=  'return false';
 % }
 % if ($changeView) {
     <& /input/submit.mas,
-        class => 'inputButton',
+        class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),

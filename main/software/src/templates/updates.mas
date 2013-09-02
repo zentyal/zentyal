@@ -8,6 +8,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<div class="item-block">
 <script  type="text/javascript">
 "use strict";
 function doUpdates(title) {
@@ -94,19 +95,20 @@ automatically as scheduled') %>
                                 <th class='tleft'><%__('Component')%></th>
                                 <th class='tleft'><%__('Description')%></th>
                                 <th class='tleft'><%__('Version')%></th>
-                                <th class='thOptions'><%__('Update')%></th>
+                                <th class='thcheckbox'><%__('Update')%></th>
                         </tr>
                 </thead>
                 <tbody>
 %       foreach my $pkg (@upgradables) {
                         <tr class='border'>
-                                <td>
+                        <td>
 %         if ( $pkg->{security} ) {
-                                <img src="/data/images/exclamation.png"
+                                <img src="/data/images/security-update.png"
                                      alt="<% __('Security update') %>"
                                      title="<% __('Security update') %>" />
-%         } elsif ( $pkg->{'ebox-qa'} ) {
-                                <img src="/data/images/encrypted.png"
+%         }
+%         if ( $pkg->{'ebox-qa'} ) {
+                                <img src="/data/images/QA-update.png"
                                      alt="<% __('Zentyal QA update') %>"
                                      title="<% __('Zentyal QA update') %>" />
 %         }
@@ -115,7 +117,7 @@ automatically as scheduled') %>
                                      onclick="$('#<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
                                 />
-%         }
+%         }                            
                                 <%$pkg->{name}%>
                                 </td>
                                 <td><%$pkg->{description}%></td>
@@ -153,10 +155,13 @@ automatically as scheduled') %>
                 </div>
                 <input type='hidden' name='upgrade' value="yes"/>
         </form>
-        <button class='inputButton' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><img src="/data/images/down.gif"> <%__('Upgrade')%></button>
+        <div class="bDataTable">
+        <button class='btn btn-icon btn-update' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><%__('Update')%></button>
 % }
-        <button class='inputButton' onclick='document.updateList.submit()'><img src="/data/images/reload.png"> <%__('Update list')%></button>
+        <button class='btn btn-icon btn-reload' onclick='document.updateList.submit()'><%__('Update list')%></button>
+        </div>
         <form name='updateList' action='Updates' method='post'>
                 <input type='hidden' name='updatePkgs' value="yes"/>
         </form>
 
+</div>

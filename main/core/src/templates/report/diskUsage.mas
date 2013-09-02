@@ -6,24 +6,22 @@ $partitionAttr
 </%args>
 <%init>
 use EBox::Gettext;
-use JSON::XS;
 </%init>
 <script type="text/javascript" src="/data/js/jquery.flot.js"></script>
 <script type="text/javascript" src="/data/js/jquery.flot.pie.js"></script>
-<div class='ifaces'>
+<ul class='tabs'>
 % foreach  (@partitions) {
 %   if ($_ eq $partition) {
-     <span class='selected'><% $_ %></span>
+     <li><span class='current'><% $_ %></span></li>
 %   } else {
-    <a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a>
+    <li><a href='DiskUsage?partition=<% $_ | u %>'><% $_ %></a></li>
 %   }
 % }
-</div>
-
-<br/>
+</ul>
+<div class="insideTab diskUsage-tab">
 <& .partitionAttrs, $partitionAttr &>
-<div id='diskUsageChart' style='width:779px;height:400px;'></div>
-
+  <div id='diskUsageChart' style='width:600px;height:400px;'></div>
+</div>
 <script>
 <%perl>
 # numberfy data

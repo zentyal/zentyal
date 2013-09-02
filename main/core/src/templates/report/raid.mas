@@ -62,17 +62,17 @@ $selected
 <%init>
 
 </%init>
-<div class='ifaces'>
+<ul class='tabs'>
 % foreach  my $tab (@tabs) {
 %   my $printableTab = exists $tabPrintableNames{$tab} ?
 %                              $tabPrintableNames{$tab} : $tab;
 %   if ($tab eq $selected) {
-     <span class='selected'><% $printableTab %></span>
+     <li><span class='current'><% $printableTab %></span></li>
 %   } else {
-    <a href='RAID?array=<% $tab | u %>'><% $printableTab %></a>
+    <li><a href='RAID?array=<% $tab | u %>'><% $printableTab %></a></li>
 %   }
 % }
-</div>
+</ul>
 </%def>
 
 

@@ -25,6 +25,7 @@
        );
 </%init>
 <!-- Form to renew a certificate -->
+<div class="item-block">
 <h3><% __('Renew a certificate')  %></h3>
 % if ( $metaDataCert->{'isCACert'} ) {
   <div class="warning">
@@ -69,3 +70,4 @@
 <form action="RenewCertificate" method="post" >
   <& formTable.mas, rows => \@renewTable &>
 </form>
+</div>

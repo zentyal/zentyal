@@ -1,3 +1,7 @@
+HEAD
+	+ Adapted to new CSS styles
+	+ Fixed bug which allowed to use incorrect external addresses in
+	  fetchmail accounts
 3.1.4
 	+ Fixed typo in master.cf when mail filter is enabled
 3.1.3

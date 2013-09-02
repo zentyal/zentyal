@@ -69,7 +69,7 @@ use EBox::Gettext;
 </%init>
 <& /input/submit.mas,
    name => 'change',
-   class => 'inputButton',
+   class => '',
    value => __('Change'),
    onclick => $model->changeRowJS(0, 0) . '; return false',
 &>

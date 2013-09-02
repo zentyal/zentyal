@@ -55,15 +55,13 @@ sub childNodes
 
     my $usersMod = $self->parentModule();
 
-    my $samba = EBox::Global->modInstance('samba');
-
     my $parentObject = undef;
     if ($parentType eq 'domain') {
         $parentObject = $usersMod->defaultNamingContext();
     } elsif ($parentType eq 'computer') {
         # dont look for childs in computers
         return [];
-    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and defined ($samba)) {
+    } elsif (($parentMetadata->{dn} =~ /^ou=Computers,/i) and EBox::Global->modExists('samba')) {
         # FIXME: Integrate this better with the rest of the logic.
         return $self->_sambaComputers();
     } else {
@@ -74,15 +72,13 @@ sub childNodes
     my $type = undef;
     my @childNodes = ();
     foreach my $child (@{$parentObject->children()}) {
-        next if (defined ($samba) and $samba->hiddenViewInAdvancedOnly($child));
-
         my $dn = $child->dn();
         if ($child->isa('EBox::Users::OU')) {
             $type = 'ou';
             $printableName = $child->name();
             next if ($self->_hiddenOU($child->canonicalName(1)));
         } elsif ($child->isa('EBox::Users::User')) {
-            next if (defined ($samba) and $samba->hiddenSid($child));
+            next if ($child->isInternal());
 
             if ($child->isDisabled()) {
                 $type = 'duser';
@@ -105,7 +101,7 @@ sub childNodes
             $printableName = $child->fullname();
         } elsif ($child->isa('EBox::Users::Group')) {
             next if ($child->name() eq EBox::Users::DEFAULTGROUP());
-            next if (defined ($samba) and $samba->hiddenSid($child));
+            next if ($child->isInternal());
 
             $type = $child->isSecurityGroup() ? 'group' : 'dgroup';
             $printableName = $child->name();

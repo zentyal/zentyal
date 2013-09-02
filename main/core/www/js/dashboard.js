@@ -20,9 +20,14 @@ Zentyal.Dashboard.levelHeights = function () {
 Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
+                                  placeholder: 'widgetPlaceholder',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
+                                  scroll: false,
+                                  start: function(event, ui) {
+                                      ui.placeholder.height(ui.helper.outerHeight());
+                                  },
                                   update: function(event, ui) {
                                       var dashboard = $(this);
                                       Zentyal.Dashboard.dashboardSortableUpdate(dashboard);
@@ -196,7 +201,7 @@ Zentyal.Dashboard.updateGraph = function(element,value) {
         }],
         {
             xaxis: { noTicks: 0 },
-            yaxis: { noTicks: 2, tickFormatter: getBytes }
+            yaxis: { noTicks: 2, tickFormatter: getBytesFormatter }
         }
     );
 };
@@ -263,7 +268,7 @@ Zentyal.Dashboard.updateStatus = function (element, item, itemname) {
         var restart_form = "<form action='/SysInfo/RestartService'>" +
                            "<input type='hidden' name='module' value='" + item.module + "'/>"  +
                            "<span class='sright'>" +
-                           "<input class='inputButtonRestart' type='submit' name='" + name +
+                           "<input class='btn-dashboard btn-" + name + " btn-small' type='submit' name='" + name +
                             "' value='" + button + "'/> "+
                            "</span>" +
                            "</form>";
@@ -432,25 +437,17 @@ Zentyal.Dashboard.updateWidgets = function() {
 Zentyal.Dashboard.ConfigureWidgets.cur_wid_start = 0;
 Zentyal.Dashboard.ConfigureWidgets.modules = [];
 
-Zentyal.Dashboard.ConfigureWidgets.show = function (title) {
-
-    $('<div id="configure_widgets_dialog"></div>').dialog({
-        title: title,
-        width: 980,
-        height: 120,
-        position: 'top',
-        resizable: false,
-        create: function (event, ui) {
-            Zentyal.TableHelper.setLoading('configure_widgets_dialog');
-            $(event.target).load('/Dashboard/ConfigureWidgets', function() {
-                Zentyal.Dashboard.toggleClose();
-                $(this).css({overflow: 'visible'});
-            });
-        },
-       beforeClose: function() {
-           Zentyal.Dashboard.toggleClose();
-       }
-    });
+Zentyal.Dashboard.ConfigureWidgets.toggle = function () {
+    var confWidgets = $('#configure_widgets');
+    if (confWidgets.is(':visible')) {
+        confWidgets.slideUp();
+    } else {
+        Zentyal.TableHelper.setLoading('configure_widgets_dialog');
+        confWidgets.load('/Dashboard/ConfigureWidgets', function() {
+            confWidgets.slideDown();
+        });
+    }
+    Zentyal.Dashboard.toggleClose();
 };
 
 Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widgets, start, end) {
@@ -465,56 +462,15 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
    return html;
 };
 
-Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets = function(module, start) {
-    var prev = '';
-
-    var new_start = start - 1;
-    var opacity = 1;
-    var link = true;
-    if(new_start < 0) {
-        opacity = 0.5;
-        new_start = 0;
-        link = false;
-    }
-    prev = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    if(link) {
-        prev = prev + '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + ', true); return false;">'; // call
-    }
-    prev = prev + '<img src="/data/images/left.gif"/>';
-    if(link) {
-        prev = prev + '</a>';
-    }
-    prev = prev + '</div>';
-    return prev;
-};
-
-
-Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets = function(module, start, maxWidgets, widgetsLength ) {
-    var next = '';
-    var new_start, opacity;
-    if(start + maxWidgets >= widgetsLength) {
-        new_start = start;
-        opacity = 0.5;
-    }  else {
-        new_start = start + 1;
-        opacity = 1;
-    }
-    next = '<div class="widArrow" style="opacity: ' + opacity + '">';
-    next += '<a href="#" onclick="Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(\'' + module + '\', ' + new_start + ', true); return false;">';
-    next += '<img src="/data/images/right.gif"/>';
-    next += '</a>';
-    next += '</div>';
-    return next;
-};
-
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module) {
     $('#widget_list').sortable({
         elements: '.widgetBarBox',
         dropOnEmpty: true,
         connectWith: '.dashboard',
         containment: 'body',
+        placeholder: 'widgetPlaceholder',
         delay: 100,
-        scroll : false,
+        scroll: false,
         opacity: 0.8,
         start: function(event, ui) {
             var id = ui.item.attr('id');
@@ -530,6 +486,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
                     widget.width($('#dashboard1').width());
                     widget.html(response);
                     widget.find('.closeBox').toggle(500); // XXX first?
+                    ui.placeholder.height(widget.height()); // FIXME: wrong height
                 }
             });
         },
@@ -544,7 +501,6 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
             Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets(module, Zentyal.Dashboard.ConfigureWidgets.cur_wid_start);
         }
     });
-
 };
 
 Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, changeModule) {
@@ -579,9 +535,7 @@ Zentyal.Dashboard.ConfigureWidgets.showModuleWidgets = function(module, start, c
         widgets[i].present =  $('.dashboard #' + Zentyal.escapeSelector(id)).length > 0;
     }
 
-    var html = Zentyal.Dashboard.ConfigureWidgets.htmlForPrevModuleWidgets(module, start);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
-    html += Zentyal.Dashboard.ConfigureWidgets.htmlForNextModuleWidgets(module, start, max_wids, widgets.length);
+    var html = Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList(module, widgets, start, end);
     $('#widget_list').html(html);
 
     if (changeModule) {

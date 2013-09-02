@@ -1,3 +1,6 @@
+HEAD
+	+ Adapted to new CSS styles
+	+ Use upstart for ddclient daemon management
 3.1.3
 	+ Clearer messages for gateway not reachable condition
 	+ Fixed bug which unallowed to disable the proxy server

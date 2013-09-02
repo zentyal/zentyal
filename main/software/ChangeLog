@@ -1,5 +1,6 @@
 HEAD
 	+ Add icon for openchange module
+	+ Adapted to new CSS styles
 	+ Fixed regression in components page behavior after jQuery migration
 3.1.2
 	+ Reset checkboxes in advanced packages section; this is need for

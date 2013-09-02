@@ -39,20 +39,21 @@ use EBox::Gettext;
 
 %	}
 		<td class='tcenter'>
-			<a href="MQRequeue?qid=<% $row->{'qid'} %>">
-			<img src='/data/images/requeue.gif'
-				title="<% __('Requeue') %>"
-				alt="<% __('Requeue') %>"/></a>
-			<img src='/data/images/sep.gif' alt='-'/>
-			<a href="QueueManager?getinfo=<% $row->{'qid'} %>">
-			<img src='/data/images/down.gif'
-				title="<% __('Show Info') %>"
-				alt="<% __('Show Info') %>"/></a>
-			<img src='/data/images/sep.gif' alt='-'/>
-			<a href="MQRemove?qid=<% $row->{'qid'} %>">
-			<img src='/data/images/remove.gif'
-				title="<% __('Remove') %>"
-				alt="<% __('Remove') %>"/></a>
+			<a href="MQRequeue?qid=<% $row->{'qid'} %>" 
+				class="btn-only-icon btn-requeue"
+				title="<% __('Requeue') %>">
+				<% __('Requeue') %>
+			</a>
+			<a href="QueueManager?getinfo=<% $row->{'qid'} %>" 
+				class="btn-only-icon btn-down"
+				title="<% __('Show Info') %>">
+				<% __('Show Info') %>
+			</a>
+			<a href="MQRemove?qid=<% $row->{'qid'} %>"
+				class="btn-only-icon btn-remove"
+				title="<% __('Remove') %>">
+				<% __('Remove') %>
+			</a>
 		</td>
 	</tr>
 %	if($row->{'qid'} eq $getinfo) {

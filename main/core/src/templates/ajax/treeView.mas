@@ -57,7 +57,7 @@
 <div id="treeButtons" class="treeviewButtons">
 % my $actionLabels = $model->defaultActionLabels();
 % foreach my $action (@{$model->defaultActions()}) {
-<button id="<% $action %>" class="btn btn-<% $action %> btn-only-icon treeviewActionButton" title="<% $actionLabels->{$action} %>" type="button" disabled>
+<button type="button" id="<% $action %>" class="btn btn-<% $action %> btn-only-icon treeviewActionButton" title="<% $actionLabels->{$action} %>" type="button" disabled>
 <% $actionLabels->{$action} %>
 </button>
 % }
