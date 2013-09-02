@@ -1,9 +1,3 @@
-<%args>
-    $copyright_footer
-</%args>
-<div id="footer">
-    <% $copyright_footer %>
-</div>
         <input type='hidden' value='0' id='ajax_request_cookie' name='ajax_request_cookie'/>
         <script type="text/javascript" src="/data/js/help.js">//</script>
 </html>
