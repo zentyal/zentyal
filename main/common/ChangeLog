@@ -1,6 +1,7 @@
 HEAD
-	+ Updated EBox::Exceptions::Base so we always print an stack trace with
-	  the error.
+	+ Exception stacktraces are now properly logged or shown in the interface
+	  according to the debug and dump_exceptions confkeys
+	+ Add new exception InvalidArgument
 	+ EBox::Validate::checkEmailAddress does not ignore any longer white spaces
 	  at the begin and end of the address
 	+ Always show proper language name for english locales

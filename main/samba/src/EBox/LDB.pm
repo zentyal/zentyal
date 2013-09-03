@@ -471,11 +471,11 @@ sub ldapGroupsToLdb
         };
         next unless defined $sambaGroup;
 
-        foreach my $user (@{$group->users()}) {
+        foreach my $member (@{$group->members()}) {
             try {
-                my $smbUser = new EBox::Samba::User(samAccountName => $user->get('uid'));
-                next unless defined $smbUser;
-                $sambaGroup->addMember($smbUser, 1);
+                my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
+                next unless ($smbMember);
+                $sambaGroup->addMember($smbMember, 1);
             } otherwise {
                 my $error = shift;
                 EBox::error("Error adding member: $error");

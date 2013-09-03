@@ -1,7 +1,7 @@
 HEAD
-	+ Add icon for openchange module
+	+ Move package icons from software to core as required for the menu
 	+ Adapted to new CSS styles
-	+ Fixed regression in components page behavior after jQuery migration
+	+ Fixed regressions in components page behavior after jQuery migration
 3.1.2
 	+ Reset checkboxes in advanced packages section; this is need for
 	  some browsers which autocompletes input by position

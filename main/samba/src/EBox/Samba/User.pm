@@ -527,8 +527,10 @@ sub updateZentyal
     $givenName = '-' unless $givenName;
     $surname = '-' unless $surname;
 
-    $zentyalUser = new EBox::Users::User(uid => $uid);
-    throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist") unless ($zentyalUser and $zentyalUser->exists());
+    $zentyalUser = $self->_sambaMod()->ldapObjectFromLDBObject($self);
+    unless ($zentyalUser) {
+        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
+    }
 
     $zentyalUser->setIgnoredModules(['samba']);
     $zentyalUser->set('cn', $fullName, 1);

@@ -35,7 +35,7 @@ if ($popup) {
     $data .= '&popup=1';
 
     $okOnClick = qq|onclick="Zentyal.Dialog.showURL('$url', {title: '$title', data: '$data'})"|;
-    $cancelOnClick = q|onclick="Zentyal.Dialog.Close(); return false"|;
+    $cancelOnClick = q|onclick="Zentyal.Dialog.close(); return false"|;
 } else {
     $okOnClick = qq|onclick="window.location='$url?$data' ; return false"|;
     $cancelOnClick = q|onclick="window.history.back(); return false"|;
@@ -78,8 +78,8 @@ if ($popup) {
 <div class="headcontainer">
 % foreach my $pkg (@actpkginfo) {
     <div id="<% $pkg->{name} %>" class="package">
-       <div><img src="/data/software/images/package-icons/<% $pkg->{name} %>.png"
-             onerror='this.onerror = null; this.src="/data/software/images/package-icons/generic.png"' /></div>
+       <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
+             onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
        <p><% $pkg->{description} %></p>
     </div>
 % }

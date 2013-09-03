@@ -42,7 +42,7 @@ Zentyal.SoftwareManagementUI.showInfo = function(id) {
 
 Zentyal.SoftwareManagementUI.hideInfo = function (id) {
     $('#' + id).fadeOut(200);
-    $('Install').show(200);
+    $('#Install').show(200);
 };
 
 Zentyal.SoftwareManagementUI.tick = function (id, update_packages){

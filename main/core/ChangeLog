@@ -1,6 +1,14 @@
 HEAD
+	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module
+	+ Move package icons from software to core as required for the menu
+	+ Use dpkg --clear-avail to avoid incoherent updates information
+	+ Show printableModelName in DataTables when precondition fails
+	+ Fixed number of decimals in Disk Usage when unit is MB
+	+ Fixed UTF-8 encoding problems in TreeView
+	+ Copyright footer is now at the bottom of the menu
+	+ Fixed regression on logs search caused by autoFilter changes
 	+ Fix bytes formatter in graphs
 	+ Simplified CSS and improved styles and icons
 	+ Improved dashboard drag&drop behavior in Chrome

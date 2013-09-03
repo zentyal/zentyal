@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed typo in external account user corner model
 	+ Adapted to new CSS styles
 	+ Fixed bug which allowed to use incorrect external addresses in
 	  fetchmail accounts

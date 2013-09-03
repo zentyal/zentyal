@@ -25,7 +25,6 @@ use EBox::Menu::Root;
 
 use HTML::Mason;
 
-#
 # Method: title
 #
 #	Returns the html code for the title
@@ -69,7 +68,6 @@ sub title
     return $html;
 }
 
-#
 # Method: titleNoAction
 #
 #	Returns the html code for the title without action buttons
@@ -89,7 +87,6 @@ sub titleNoAction
     return $html;
 }
 
-#
 # Method: menu
 #
 #	Returns the html code for the menu
@@ -113,7 +110,6 @@ sub menu
     return $root->html;
 }
 
-#
 # Method: footer
 #
 #	Returns the html code for the footer page
@@ -124,15 +120,9 @@ sub menu
 #
 sub footer
 {
-    my $global = EBox::Global->getInstance();
-    my $copyright = $global->theme()->{'copyright_footer'};
-
-    my $html = makeHtml('footer.mas',
-                        'copyright_footer' => $copyright);
-    return $html;
+    return makeHtml('footer.mas');
 }
 
-#
 # Method: header
 #
 #	Returns the html code for the header page
