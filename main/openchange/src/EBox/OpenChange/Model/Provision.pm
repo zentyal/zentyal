@@ -289,6 +289,11 @@ sub _doProvision
         my $users = $usersModule->users();
         foreach my $ldapUser (@{$users}) {
             try {
+                # Skip users with already defined mailbox, can belong to
+                # other VDomain
+                my $mailbox = $ldapUser->get('mailbox');
+                next if (defined $mailbox and length $mailbox);
+
                 my $samAccountName = $ldapUser->get('uid');
                 next unless defined $samAccountName;
 
