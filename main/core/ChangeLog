@@ -1,4 +1,5 @@
 HEAD
+	+ Always log Perl errors that are not Zentyal exceptions
 	+ Move package icons from software to core as required for the menu
 	+ Use dpkg --clear-avail to avoid incoherent updates information
 	+ Show printableModelName in DataTables when precondition fails

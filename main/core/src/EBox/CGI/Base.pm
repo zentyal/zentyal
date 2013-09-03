@@ -596,6 +596,7 @@ sub setErrorFromException
                 "in the logs.");
     } else {
         $self->{error} = __('Sorry, you have just hit a bug in Zentyal.');
+        EBox::error($ex);
     }
 
     my $reportHelp = __x('Please look for the details in the {f} file and take a minute to {oh}submit a bug report{ch} so we can fix the issue as soon as possible.',
