@@ -1,4 +1,5 @@
 HEAD
+	+ Readded memberUid to the fields to index for SLAPD.
 	+ Ignored members that are not valid perl objects to avoid undef entries
 	  on EBox::Users::Group::members method.
 	+ Rewrites to share more code with samba module.
