@@ -125,7 +125,7 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
+    my $samba = $self->global->modInstance('samba');
     unless ($samba->configured()) {
         $self->{preconditionFail} = 'notConfigured';
         return undef;
@@ -136,6 +136,24 @@ sub precondition
     }
     unless ($self->parentModule->isEnabled()) {
         $self->{preconditionFail} = 'notEnabled';
+        return undef;
+    }
+
+    # Check the samba domain is present in the Mail Virtual Domains model
+    my $mailModule = $self->global->modInstance('mail');
+    my $VDomainsModel = $mailModule->model('VDomains');
+    my $adDomain = $samba->getProvision->getADDomain('localhost');
+    my $adDomainFound = 0;
+    foreach my $id (@{$VDomainsModel->ids()}) {
+        my $row = $VDomainsModel->row($id);
+        my $vdomain = $row->valueByName('vdomain');
+        if (lc $vdomain eq lc $adDomain) {
+            $adDomainFound = 1;
+            last;
+        }
+    }
+    unless ($adDomainFound) {
+        $self->{preconditionFail} = 'vdomainNotFound';
         return undef;
     }
 
@@ -158,7 +176,7 @@ sub preconditionFailMsg
                   y => $self->parentModule->printableName());
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
-        my $samba = EBox::Global->modInstance('samba');
+        my $samba = $self->global->modInstance('samba');
         return __x('You must provision the {x} module database before ' .
                   'provisioning the {y} module database.',
                   x => $samba->printableName(),
@@ -167,6 +185,14 @@ sub preconditionFailMsg
     if ($self->{preconditionFail} eq 'notEnabled') {
         return __x('You must enable the {x} module before provision the ' .
                    'database', x => $self->parentModule->printableName());
+    }
+    if ($self->{preconditionFail} eq 'vdomainNotFound') {
+        my $samba = $self->global->modInstance('samba');
+        return __x('The virtual domain {x} is not defined. You can add ' .
+                   'it in the {ohref}Virtual Domains page{chref}.',
+                   x => $samba->getProvision->getADDomain('localhost'),
+                   ohref => "<a href='/Mail/View/VDomains'>",
+                   chref => '</a>');
     }
 }
 
