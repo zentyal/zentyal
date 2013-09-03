@@ -25,6 +25,28 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+
+    if ($self->global()->modExists('samba') {
+        $self->{sambaMod} = $self->global()->modInstance('samba');
+    }
+
+    if ($self->{sambaMod} and $self->{sambaMod}->isEnabled() and $self->{sambaMod}->isProvisioned()) {
+        my $domainSID = $self->{sambaMod}->ldb()->domainSID();
+        $self->{domainUsersSID} = "$domainSID-513";
+    } else {
+        # Samba is not available.
+        delete $self->{sambaMod};
+    }
+
+    bless($self, $class);
+    return $self;
+}
+
+
 # Method: validateTypedRow
 #
 #      Check the row to add or update if contains a valid configuration.
@@ -72,22 +94,25 @@ sub _populateGroups
     my ($self) = @_;
     my $global = $self->global();
 
-    return [] unless ($global->modExists('users'));
+    unless ($self->{sambaMod}) {
+        return [];
+    }
 
-    my $userMod = EBox::Global->modInstance('users');
-    return [] unless ($userMod->isEnabled());
-
-    my @groups;
+    my @securityGroups;
     push (@groups, {
-        value => '__USERS__',
+        value => 'Domain Users',
         printableValue => __('All users')
     });
 
-    foreach my $group (@{$userMod->securityGroups()}) {
+    foreach my $group (@{$self->{sambaMod}->ldb()->securityGroups()}) {
         my $name = $group->name();
+        my $description = $group->description();
+        unless ($description) {
+            $description = $name;
+        }
         push (@groups, {
             value => $name,
-            printableValue => $name
+            printableValue => $description,
         });
     }
     return \@groups;
@@ -106,7 +131,8 @@ sub _table
 
     my @fields = ();
     my @actions = ();
-    if ($global->modExists('samba') and $global->modInstance('samba')->isEnabled()) {
+    if ($self->{sambaMod}) {
+        my $domainUsers = new EBox::Samba::Group(sid => $self->{domainUsersSID});
         my @usersSourceSubtypes = ();
         push (@usersSourceSubtypes,
             new EBox::Types::Select(
@@ -116,6 +142,7 @@ sub _table
                 editable      => 1,
                 optional      => 0,
                 disableCache  => 1,
+                defaultValue  => $domainUsers->name(),
             )
         );
         push (@usersSourceSubtypes,
