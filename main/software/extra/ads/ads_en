@@ -1,9 +1,9 @@
 [
   {
-    "title": "Thank you for choosing Zentyal Linux small business server!",
+    "title": "Thank you for choosing Zentyal server!",
     "paragraphs": [
-              "Zentyal is a full-featured Linux server that you can use for free without technical support or updates, or you can get it fully supported for an affordable monthly fee.",
-              "For quick help, check out the official documentation and the Zentyal Forum! Find out what is beyond Zentyal server while your installation finishes!"
+              "Zentyal is an easy-to-use Linux server for small and medium businesses. Do you have the time and the skills to maintain it? The Community Edition is for you! And if not, choose one of the commercial editions.",
+              "For community support, check out the official documentation and the Zentyal Forum!"
              ],
     "links": [ "http://doc.zentyal.org/", "http://forum.zentyal.org" ]
   },
@@ -16,30 +16,30 @@
               "Customized zentyal.me subdomain",
               "Recorded webinars",
               "Whitepapers",
-              "Trials"
+              "Free trials"
              ]
   },
 
   {
     "title": "Small Business Edition",
-    "paragraphs": [ "All-in-one server for businesses with less than 25 users!" ],
+    "paragraphs": [ "All-in-one server for SMBs with less than 25 users!" ],
     "items": [
-              "Full technical support for Gateway/UTM, Infrastructure and Office",
               "Officially supported by Ubuntu/Canonical",
-              "Local disaster recovery",
-              "Remote monitoring and management of servers and desktops"
+              "Unlimited commercial technical support",
+              "Full disaster recovery",
+              "Remote monitoring and management of the server"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
   },
 
   {
     "title": "Enterprise Edition",
-    "paragraphs": [ "Full-featured server for businesses with more than 25 users!" ],
+    "paragraphs": [ "Full-featured server for SMBs with more than 25 users!" ],
     "items": [
-              "Full technical support for Gateway/UTM, Infrastructure, Office and Communications",
               "Officially supported by Ubuntu/Canonical",
+              "Unlimited commercial technical support",
               "Full disaster recovery",
-              "Remote monitoring and management of servers and desktops"
+              "Remote monitoring and management of the server"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
   },
@@ -58,11 +58,11 @@
 
   {
     "title": "Zentyal Remote",
-    "paragraphs": [ "Remote monitoring and management platform for servers and desktops!" ],
+    "paragraphs": [ "Remote monitoring and management platform of servers for IT providers!" ],
     "items": [
-              "Resolve incidents quickly and before they affect your users",
               "Easy and automated maintenance",
-              "Provide remote support for both servers and desktops",
+              "Resolve incidents quickly and before they affect your users",
+              "Remote access to Zentyal Servers",
               "Inventory of network devices and software"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
@@ -73,31 +73,32 @@
     "paragraphs": [ "Learn easy and practical Linux server management!" ],
     "items": [
               "Official on-line courses",
-              "Delivered by certified, in-house instructors",
-              "Plenty of hands-on exercises and real world scenarios",
+              "By certified, in-house instructors",
+              "Plenty exercises and real world scenarios",
               "Certification exams to validate your knowledge"
              ],
     "endText": "Learn more at www.zentyal.com!"
   },
 
   {
-    "title": "Zentyal for Network Administrators Guide",
+    "title": "Official Zentyal Guide",
+    "paragraphs": [ "Learn how to configure and manage a Zentyal Server!" ],
     "items": [
-              "Covers all aspects of managing a Zentyal server",
-              "Official course material",
-              "Eminently practical",
+              "Covers all the relevant aspects",
+              "Best practices for safe and effective maintenance",
+              "Large number of practical exercises",
               "Available in both English and Spanish"
             ],
-    "endText": "Get your copy at store.zentyal.com!"
+    "endText": "Download a sample chapter at store.zentyal.com!"
   },
 
   {
-    "title": "Zentyal Partner Program",
-    "paragraphs": [ "Deliver Zentyal-based network infrastructure solutions! Gain access to:" ],
+    "title": "Zentyal Partners",
+    "paragraphs": [ "Interested in delivering Zentyal-based solutions! Gain access to:" ],
     "items": [
               "Support platform",
-              "Remote monitoring and management of servers and desktops",
-              "Training and certification of technical and sales staff",
+              "Remote monitoring and management of servers",
+              "Technical and sales training and certification",
               "Managed services portfolio",
               "Sales materials",
               "Lead generation program",
