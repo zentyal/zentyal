@@ -23,9 +23,11 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::DBEngineFactory;
 use EBox::Types::Text;
+use EBox::Types::Select;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Action;
 use EBox::Samba::User;
+use EBox::Exceptions::NotImplemented;
 
 use Error qw( :try );
 
@@ -52,6 +54,11 @@ sub _table
     my ($self) = @_;
 
     my $tableDesc = [
+        new EBox::Types::Select(
+            fieldName => 'mode',
+            printableName => __('Provision type'),
+            editable => 1,
+            populate => \&_modeOptions),
         new EBox::Types::Text(
             fieldName => 'firstorganization',
             printableName => __('First Organization'),
@@ -163,6 +170,44 @@ sub preconditionFailMsg
     }
 }
 
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+
+    my $standaloneParams = [qw/dn/];
+    my $adParams = [qw/dcHostname dcUser dcPassword dcPassword2/];
+
+    my $onChange = {
+        mode => {
+            first => {
+                show => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
+                hide => [],
+            },
+            additional => {
+                show => [],
+                hide => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
+            },
+        },
+    };
+    $customizer->setOnChangeActions($onChange);
+    return $customizer;
+}
+
+sub _modeOptions
+{
+    my ($self) = @_;
+
+    my $modes = [];
+
+    push (@{$modes}, {value => 'first', printableValue => __('First Exchange Server') });
+    push (@{$modes}, {value => 'additional', printableValue => __('Additional Exchange Server') });
+
+    return $modes;
+}
+
 sub _acquireProvisioned
 {
     my ($self, $id) = @_;
@@ -174,6 +219,11 @@ sub _acquireProvisioned
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
+
+    my $mode = $params{mode};
+    if ($mode eq 'additional') {
+        throw EBox::Exceptions::NotImplemented();
+    }
 
     my $firstOrganization = $params{firstorganization};
     my $firstOrganizationUnit = $params{firstorganizationunit};
