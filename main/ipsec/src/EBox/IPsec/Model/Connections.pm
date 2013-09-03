@@ -197,23 +197,36 @@ sub validateTypedRow
     my ($self, $action, $changedFields, $allFields) = @_;
 
     if (defined $changedFields->{enabled} && $changedFields->{enabled}->value()) {
-        my $conf = $self->row($allFields->{id})->elementByName('configuration')->foreignModelInstance();
+        my $row = $self->row($allFields->{id});
+        if ($row) {
+            # The row is already created. Otherwise is being created so there is no need to do any validation.
+            my $conf = $row->elementByName('configuration')->foreignModelInstance();
 
-        try {
-            foreach my $model (@{$conf->models(1)}) {
-                foreach my $rowID (@{$model->enabledRows()}) {
-                    my $row = $model->row($rowID);
-                    $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
+            try {
+                foreach my $model (@{$conf->models(1)}) {
+                    foreach my $rowID (@{$model->enabledRows()}) {
+                        my $row = $model->row($rowID);
+                        $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
+                    }
                 }
-            }
-        } otherwise {
-            my $error = shift;
+            } otherwise {
+                my $error = shift;
+                throw EBox::Exceptions::InvalidData(
+                    data => __('Enabled flag'),
+                    value => __('Enabled'),
+                    advice => __x(
+                        'Cannot be enabled due to errors in the connection configuration: {error}',
+                        error => $error
+                    )
+                );
+            };
+        } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),
                 value => __('Enabled'),
-                advice => __x(
-                    'Cannot be enabled due to errors in the connection configuration: {error}',
-                    error => $error
+                advice => __(
+                    'Cannot be enabled when creating a new connection, you should edit the configuration before ' .
+                    'enabling it',
                 )
             );
         }

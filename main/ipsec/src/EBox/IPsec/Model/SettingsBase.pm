@@ -42,18 +42,24 @@ sub viewCustomizer
     $customizer->setModel($self);
 
     my $leftIPAddr = $self->row()->elementByName('left_ipaddr')->value();
-    my $interface = $network->ifaceByAddress($leftIPAddr);
+    if ($leftIPAddr) {
+        my $interface = $network->ifaceByAddress($leftIPAddr);
 
-    if ($interface) {
-        if ($network->ifaceMethod($interface) ne 'static') {
-            $customizer->setPermanentMessage(__(
-                'You are using a non fixed IP address as a VPN server address. If the IP changes it may break the ' .
-                'VPN server!'), 'warning');
+        if ($interface) {
+            if ($network->ifaceMethod($interface) ne 'static') {
+                $customizer->setPermanentMessage(__(
+                    'You are using a non fixed IP address as a VPN server address. If the IP changes it may break the ' .
+                    'VPN server!'), 'warning');
+            }
+        } else {
+            $customizer->setPermanentMessage(
+                __x('The server IP changed and the old value "{oldIP}" is not valid anymore.', oldIP => $leftIPAddr),
+                'error');
         }
     } else {
-        $customizer->setPermanentMessage(__x(
-            'The server IP changed and the old value "{oldIP}" is not valid anymore.',
-            oldIP => $leftIPAddr), 'warning');
+        $customizer->setPermanentMessage(
+            __x('Your system is not correctly configured. We were not able to find any valid public IP address.'),
+            'error');
     }
     return $customizer;
 }
@@ -130,15 +136,15 @@ sub _table
             printableName => __('Remote Address'),
             editable => 1,
             subtypes => [
+                new EBox::Types::Union::Text(
+                    fieldName => 'right_any',
+                    printableName => __('Any address'),
+                ),
                 new EBox::Types::Host(
                     fieldName => 'right_ipaddr',
                     printableName => __('IP Address'),
                     editable => 1,
                     help => __('Remote endpoint public IP address.'),
-                ),
-                new EBox::Types::Union::Text(
-                    fieldName => 'right_any',
-                    printableName => __('Any address'),
                 ),
             ]
         ),
