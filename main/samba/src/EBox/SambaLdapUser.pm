@@ -873,6 +873,11 @@ sub schemas
     ];
 }
 
+sub indexes
+{
+    return ['msdsObjectGUID'];
+}
+
 sub multipleOUSupport
 {
     return 1;
