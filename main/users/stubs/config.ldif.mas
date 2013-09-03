@@ -95,6 +95,7 @@ olcDbIndex: entryCSN eq
 olcDbIndex: entryUUID eq
 olcDbIndex: uid eq
 olcDbIndex: member eq
+olcDbIndex: memberUid eq
 olcDbIndex: shadowExpire eq
 
 # Memberof automatic attribute population
