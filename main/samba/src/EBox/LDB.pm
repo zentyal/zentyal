@@ -639,8 +639,9 @@ sub securityGroups
 {
     my ($self) = @_;
 
+    my $global = EBox::Global->getInstance();
     my $sambaMod = $global->modInstance('samba');
-    if ((not $sambaMod->isEnabled()) or (not $sambaMod->isProvisoned())) {
+    if ((not $sambaMod->isEnabled()) or (not $sambaMod->isProvisioned())) {
         return [];
     }
 

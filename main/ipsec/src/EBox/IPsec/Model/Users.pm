@@ -20,6 +20,7 @@ package EBox::IPsec::Model::Users;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
+use EBox::Global;
 
 use EBox::Types::Select;
 use EBox::Types::Union;
@@ -30,7 +31,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(@_);
 
-    if ($self->global()->modExists('samba') {
+    if ($self->global()->modExists('samba')) {
         $self->{sambaMod} = $self->global()->modInstance('samba');
     }
 
@@ -73,9 +74,10 @@ sub validateTypedRow
 sub validationGroup
 {
     my ($self) = @_;
-    my $global = $self->global();
 
-    return undef unless ($global->modExists('samba') and $global->modInstance('samba')->isEnabled());
+    unless ($self->{sambaMod}) {
+        return undef;
+    }
 
     my $usersSource = $self->row()->elementByName('usersSource');
     if ($usersSource->selectedType() eq 'group') {
@@ -91,31 +93,24 @@ sub validationGroup
 #
 sub _populateGroups
 {
-    my ($self) = @_;
-    my $global = $self->global();
+    my $sambaMod = undef;
+    if (EBox::Global->modExists('samba')) {
+        $sambaMod = EBox::Global->modInstance('samba');
+    }
 
-    unless ($self->{sambaMod}) {
+    unless ($sambaMod and $sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
         return [];
     }
 
     my @securityGroups;
-    push (@groups, {
-        value => 'Domain Users',
-        printableValue => __('All users')
-    });
-
-    foreach my $group (@{$self->{sambaMod}->ldb()->securityGroups()}) {
+    foreach my $group (@{$sambaMod->ldb()->securityGroups()}) {
         my $name = $group->name();
-        my $description = $group->description();
-        unless ($description) {
-            $description = $name;
-        }
-        push (@groups, {
+        push (@securityGroups, {
             value => $name,
-            printableValue => $description,
+            printableValue => $name,
         });
     }
-    return \@groups;
+    return \@securityGroups;
 }
 
 # Method: _table
@@ -132,7 +127,8 @@ sub _table
     my @fields = ();
     my @actions = ();
     if ($self->{sambaMod}) {
-        my $domainUsers = new EBox::Samba::Group(sid => $self->{domainUsersSID});
+        eval 'use EBox::Samba::Group';
+        my $domainUsers = EBox::Samba::Group->new(sid => $self->{domainUsersSID});
         my @usersSourceSubtypes = ();
         push (@usersSourceSubtypes,
             new EBox::Types::Select(
