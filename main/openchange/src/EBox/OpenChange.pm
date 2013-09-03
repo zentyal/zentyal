@@ -60,17 +60,12 @@ sub initialSetup
     my ($self, $version) = @_;
 
     unless ($version) {
-#        my $firewall = EBox::Global->modInstance('firewall');
-#        $firewall or
-#            return;
-#        $firewall->addServiceRules($self->_serviceRules());
-#        $firewall->saveConfigRecursive();
     }
 }
 
 # Method: enableActions
 #
-#       Override EBox::Module::Service::enableService to notify mail
+#   Override EBox::Module::Service::enableService to notify samba
 #
 sub enableService
 {
@@ -78,20 +73,27 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
+        # Mark mail as changed to make dovecot listen IMAP protocol at least
+        # on localhost
         my $mail = $self->global->modInstance('mail');
         $mail->setAsChanged();
+
+        # Mark samba as changed to write smb.conf
+        my $samba = $self->global->modInstance('samba');
+        $samba->setAsChanged();
     }
 }
 
 sub _daemons
 {
-    # TODO if imap and imaps services are disabled, do not run sogod
+    my ($self) = @_;
+
     my $daemons = [];
     push (@{$daemons}, {
         name => 'sogo',
         type => 'init.d',
+        precondition => sub { $self->isProvisioned() },
         pidfiles => [SOGO_PID_FILE]});
-
     return $daemons;
 }
 
@@ -121,7 +123,6 @@ sub _setConf
 {
     my ($self) = @_;
 
-    EBox::info("On set conf");
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
@@ -152,7 +153,9 @@ sub _writeSOGoConfFile
     my $timezoneModel = $sysinfo->model('TimeZone');
     my $sogoTimeZone = $timezoneModel->row->printableValueByName('timezone');
 
-    my $sogoMailDomain = "kernevil.lan"; # TODO
+    my $samba = $self->global->modInstance('samba');
+    my $dcHostName = $samba->ldb->rootDse->get_value('dnsHostName');
+    my (undef, $sogoMailDomain) = split (/\./, $dcHostName, 2);
 
     push (@{$array}, sogoPort => SOGO_PORT);
     push (@{$array}, sogoLogFile => SOGO_LOG_FILE);
@@ -160,9 +163,12 @@ sub _writeSOGoConfFile
     push (@{$array}, sogoTimeZone => $sogoTimeZone);
     push (@{$array}, sogoMailDomain => $sogoMailDomain);
 
-    my $imapServer = 'localhost'; # TODO
-    my $smtpServer = 'localhost'; # TODO
-    my $sieveServer = 'localhost'; # TODO
+    my $mail = $self->global->modInstance('mail');
+    my $retrievalServices = $mail->model('RetrievalServices');
+    my $sieveEnabled = $retrievalServices->value('managesieve');
+    my $sieveServer = ($sieveEnabled ? 'sieve://127.0.0.1:4190' : '');
+    my $imapServer = '127.0.0.1:143';
+    my $smtpServer = '127.0.0.1:25';
     push (@{$array}, imapServer => $imapServer);
     push (@{$array}, smtpServer => $smtpServer);
     push (@{$array}, sieveServer => $sieveServer);
@@ -170,11 +176,11 @@ sub _writeSOGoConfFile
     my $dbName = $self->_sogoDbName();
     my $dbUser = $self->_sogoDbUser();
     my $dbPass = $self->_sogoDbPass();
-    push (@{$array}. dbName => $dbName);
+    push (@{$array}, dbName => $dbName);
     push (@{$array}, dbUser => $dbUser);
     push (@{$array}, dbPass => $dbPass);
-    push (@{$array}, dbHost => '127.0.0.1'); # TODO Get from dbengine
-    push (@{$array}, dbPort => 3306); # TODO Get from dbengine
+    push (@{$array}, dbHost => '127.0.0.1');
+    push (@{$array}, dbPort => 3306);
 
     push (@{$array}, ldapBaseDN => $self->ldap->dn());
     push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
@@ -194,7 +200,7 @@ sub _setupSOGoDatabase
     my $dbUser = $self->_sogoDbUser();
     my $dbPass = $self->_sogoDbPass();
     my $dbName = $self->_sogoDbName();
-    my $dbHost = '127.0.0.1'; # TODO get from dbengine
+    my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");

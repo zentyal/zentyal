@@ -58,8 +58,8 @@
     NGImap4ConnectionStringSeparator = "/";
     SOGoIMAPAclConformsToIMAPExt = NO;
     SOGoMailSpoolPath = /var/spool/sogo;
-    //SOGoIMAPServer = <% $imapServer %>;
-    //SOGoSieveServer = <% $sieveServer %>;
+    SOGoIMAPServer = <% $imapServer %>;
+    SOGoSieveServer = <% $sieveServer %>;
     SOGoDraftsFolderName = Drafts;          // User can override parameter
     SOGoSentFolderName = Sent;              // User can override parameter
     SOGoTrashFolderName = Trash;            // User can override parameter
