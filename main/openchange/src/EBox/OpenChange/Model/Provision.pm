@@ -21,6 +21,7 @@ package EBox::OpenChange::Model::Provision;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
+use EBox::DBEngineFactory;
 use EBox::Types::Text;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Action;
@@ -251,10 +252,17 @@ sub _doDeprovision
         $output = EBox::Sudo::root($cmd);
         EBox::debug("openchange.ldb removed");
 
-        $self->parentModule->setProvisioned(1);
-        $self->setMessage($action->message(), 'note');
+        # Drop SOGo database and db user. To avoid error if it does not exists,
+        # the user is created and granted harmless privileges before drop it
+        my $db = EBox::DBEngineFactory::DBEngine();
+        my $dbName = $self->parentModule->_sogoDbName();
+        my $dbUser = $self->parentModule->_sogoDbUser();
+        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
+        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
+        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 
-        # TODO Drop postgresql database tables
+        $self->parentModule->setProvisioned(0);
+        $self->setMessage($action->message(), 'note');
     } otherwise {
         my ($error) = @_;
 
