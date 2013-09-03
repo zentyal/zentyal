@@ -220,6 +220,15 @@ sub validateTypedRow
                     )
                 );
             };
+        } else {
+            throw EBox::Exceptions::InvalidData(
+                data => __('Enabled flag'),
+                value => __('Enabled'),
+                advice => __(
+                    'Cannot be enabled when creating a new connection, you should edit the configuration before ' .
+                    'enabling it',
+                )
+            );
         }
     }
 
