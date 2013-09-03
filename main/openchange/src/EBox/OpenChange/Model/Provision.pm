@@ -248,7 +248,8 @@ sub _doProvision
 
     my $mode = $params{mode};
     if ($mode eq 'additional') {
-        throw EBox::Exceptions::NotImplemented();
+        throw EBox::Exceptions::External('Provision as additional server is ' .
+                                         'not yet implemented');
     }
 
     my $firstOrganization = $params{firstorganization};
