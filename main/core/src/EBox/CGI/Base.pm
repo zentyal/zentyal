@@ -568,11 +568,6 @@ sub setErrorFromException
 {
     my ($self, $ex) = @_;
 
-    my $debug = EBox::Config::configkey('debug');
-    if ($debug eq 'yes') {
-        EBox::debug($ex->stacktrace());
-    }
-
     my $dump = EBox::Config::configkey('dump_exceptions');
     if (defined ($dump) and ($dump eq 'yes')) {
         $self->{error} = $ex->stringify() if $ex->can('stringify');
