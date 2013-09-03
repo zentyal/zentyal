@@ -1,4 +1,4 @@
-HEAD
+3.1.4
 	+ Fixed the AD support to retrieve Groups from AD directly and default on
 	  Domain users group.
 	+ Stability fixes with default configuration.
