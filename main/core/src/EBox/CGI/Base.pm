@@ -568,12 +568,17 @@ sub setErrorFromException
 {
     my ($self, $ex) = @_;
 
+    my $debug = EBox::Config::configkey('debug');
+    if ($debug eq 'yes') {
+        EBox::debug($ex->stacktrace());
+    }
+
     my $dump = EBox::Config::configkey('dump_exceptions');
     if (defined ($dump) and ($dump eq 'yes')) {
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
-        $self->{error} .= Dumper($ex);
+        $self->{error} .= $ex->stacktrace();
         $self->{error} .= "</pre>\n";
         $self->{error} .= "<br/>\n";
         return;
@@ -582,14 +587,6 @@ sub setErrorFromException
     if ($ex->isa('EBox::Exceptions::External')) {
         $self->{error} = $ex->stringify();
         return;
-    }
-
-    my $debug = EBox::Config::configkey('debug');
-    if ($debug eq 'yes') {
-        my $log = '';
-        $log = $ex->stringify() if $ex->can('stringify');
-        $log .= Dumper($ex);
-        EBox::debug($log);
     }
 
     if ($ex->isa('EBox::Exceptions::Internal')) {

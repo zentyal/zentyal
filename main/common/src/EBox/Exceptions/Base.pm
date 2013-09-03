@@ -54,13 +54,6 @@ sub new # (text)
     return $self;
 }
 
-sub stringify
-{
-    my $self = shift;
-
-    return $self->stacktrace();
-}
-
 sub toStderr
 {
     my $self = shift;
