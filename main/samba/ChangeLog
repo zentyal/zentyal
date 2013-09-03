@@ -1,4 +1,6 @@
 HEAD
+	+ Added EBox::LDB::securityGroups to get the list of security groups from
+	  Samba.
 	+ Requested SLAPD to add an index on the msdsObjectGUID field.
 	+ Added support to set permissions recursively.
 	+ Moved the code that sets the share permissions to EBox::Samba to execute
