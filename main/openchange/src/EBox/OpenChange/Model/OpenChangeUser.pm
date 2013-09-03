@@ -30,7 +30,7 @@ sub _table
     my $tableDescription = [
         new EBox::Types::Boolean(
             fieldName     => 'enabled',
-            printableName => __('OpenChange Account'),
+            printableName => __('Enable OpenChange account'),
             editable      => 1,
             defaultValue  => 0),
     ];

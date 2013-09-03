@@ -46,6 +46,18 @@ sub _userAddOns
         return;
     }
 
+    # If the user does not have a mailbox in the AD domain, do not show
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
+    my $mail = $user->get('mail');
+    unless (defined $mail and length $mail) {
+        return;
+    }
+    my (undef, $mailDomain) = split (/@/, $mail);
+    if (lc $mailDomain ne $adDomain) {
+        return;
+    }
+
     my $active = $self->enabled($user) ? 1 : 0;
     my $args = {
         user     => $user,
@@ -121,7 +133,18 @@ sub _addUser
     }
 
     my $model = $self->{openchange}->model('OpenChangeUser');
-    $self->setAccountEnabled($user, $model->enabledValue());
+    return unless ($model->enabledValue());
+
+    my $mail = EBox::Global->modInstance('mail');
+    my $mailUserModel = $mail->model('MailUser');
+    return unless ($mailUserModel->enabledValue());
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
+    my $vDomain = $mailUserModel->domainValue();
+    return unless (lc $vDomain eq lc $adDomain);
+
+    $self->setAccountEnabled($user, 1);
 }
 
 sub _delUserWarning

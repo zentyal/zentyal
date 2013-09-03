@@ -12,7 +12,7 @@
             <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
             <tr>
                 <td class="tright">
-                    <span class="ftitle"><% __('User account') %>:</span>
+                    <span class="ftitle"><% __('Account status') %>:</span>
                 </td>
                 <td>
                     <select name="active" enabled>

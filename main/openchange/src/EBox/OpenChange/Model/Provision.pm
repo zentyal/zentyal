@@ -285,12 +285,14 @@ sub _doProvision
     };
 
     if ($enableUsers) {
-        my $usersModule = EBox::Global->modInstance('users');
+        my $mailUserLdap = new EBox::MailUserLdap();
+        my $sambaModule = $self->global->modInstance('samba');
+        my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
+        my $usersModule = $self->global->modInstance('users');
         my $users = $usersModule->users();
         foreach my $ldapUser (@{$users}) {
             try {
-                # Skip users with already defined mailbox, can belong to
-                # other VDomain
+                # Skip users with already defined mailbox
                 my $mailbox = $ldapUser->get('mailbox');
                 next if (defined $mailbox and length $mailbox);
 
@@ -304,9 +306,14 @@ sub _doProvision
                 my $critical = $ldbUser->get('isCriticalSystemObject');
                 next if (defined $critical and $critical eq 'TRUE');
 
-                # Skip enabled users
+                # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
                 next if (defined $ac and $ac == 0);
+
+                # Call API to create mailbox in zentyal
+                $mailUserLdap->setUserAccount($ldapUser,
+                                              $ldapUser->get('uid'),
+                                              $adDomain);
 
                 my $cmd = "/opt/samba4/sbin/openchange_newuser ";
                 $cmd .= " --create " if (not defined $ac);
