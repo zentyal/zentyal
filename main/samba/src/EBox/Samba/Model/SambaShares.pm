@@ -323,8 +323,9 @@ sub createDirs
         }
 
         my @cmds = ();
+        # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
+        # sure that the share is already created and Samba is reloaded with the new configuration.
         push (@cmds, "mkdir -p '$path'");
-        push (@cmds, "chmod 0770 '$path'");
         EBox::Sudo::root(@cmds);
     }
 }
