@@ -167,8 +167,10 @@ sub _writeSOGoConfFile
     push (@{$array}, smtpServer => $smtpServer);
     push (@{$array}, sieveServer => $sieveServer);
 
+    my $dbName = $self->_sogoDbName();
     my $dbUser = $self->_sogoDbUser();
     my $dbPass = $self->_sogoDbPass();
+    push (@{$array}. dbName => $dbName);
     push (@{$array}, dbUser => $dbUser);
     push (@{$array}, dbPass => $dbPass);
     push (@{$array}, dbHost => '127.0.0.1'); # TODO Get from dbengine
@@ -191,11 +193,12 @@ sub _setupSOGoDatabase
 
     my $dbUser = $self->_sogoDbUser();
     my $dbPass = $self->_sogoDbPass();
+    my $dbName = $self->_sogoDbName();
     my $dbHost = '127.0.0.1'; # TODO get from dbengine
 
     my $db = EBox::DBEngineFactory::DBEngine();
-    $db->sqlAsSuperuser(sql => 'CREATE DATABASE IF NOT EXISTS sogo');
-    $db->sqlAsSuperuser(sql => "GRANT ALL ON sogo.* TO $dbUser\@$dbHost " .
+    $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
+    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => 'flush privileges;');
 }
@@ -248,6 +251,13 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+sub _sogoDbName
+{
+    my ($self) = @_;
+
+    return 'sogo';
 }
 
 sub _sogoDbUser

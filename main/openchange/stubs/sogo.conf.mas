@@ -9,6 +9,7 @@
     $smtpServer
     $sieveServer
 
+    $dbName
     $dbUser
     $dbPass
     $dbHost
@@ -46,9 +47,9 @@
     SOGoACLsSendEMailNotifications = NO;
 
     /* Database configuration */
-    SOGoProfileURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/sogo/sogo_user_profile";
-    OCSFolderInfoURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/sogo/sogo_folder_info";
-    OCSSessionsFolderURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/sogo/sogo_sessions_folder";
+    SOGoProfileURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_user_profile";
+    OCSFolderInfoURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_folder_info";
+    OCSSessionsFolderURL = "mysql://<% $dbUser %>:<% $dbPass %>@<% $dbHost %>:<% $dbPort %>/<% $dbName %>/sogo_sessions_folder";
 
     /* Common IMAP and SMTP configuration */
     SOGoForceExternalLoginWithEmail = YES;
