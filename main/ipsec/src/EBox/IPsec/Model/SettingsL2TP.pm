@@ -52,8 +52,14 @@ sub nameServer
             return undef;
         } elsif ($selectedType eq 'zentyal_ns') {
             my $network = $self->global()->modInstance('network');
-            my $ifaceAddr = $network->localGatewayIP($row->elementByName('local_ip')->value());
-            return $ifaceAddr;
+            my $localIP = $row->elementByName('local_ip')->value();
+            if ($localIP) {
+                my $ifaceAddr = $network->localGatewayIP($localIP);
+                return $ifaceAddr;
+            } else {
+                # There is no way to get the correct ns value.
+                return undef;
+            }
         } else {
             return $row->elementByName('primary_ns')->subtype()->value();
         }
@@ -82,8 +88,14 @@ sub winsServer
         return undef;
     } elsif ($selectedType eq 'zentyal_wins') {
         my $network = $self->global()->modInstance('network');
-        my $ifaceAddr = $network->localGatewayIP($row->elementByName('local_ip')->value());
-        return $ifaceAddr;
+        my $localIP = $row->elementByName('local_ip')->value();
+        if ($localIP) {
+            my $ifaceAddr = $network->localGatewayIP($row->elementByName('local_ip')->value());
+            return $ifaceAddr;
+        } else {
+            # There is no way to get the correct ns value.
+            return undef;
+        }
     } else {
         return $row->elementByName('wins_server')->subtype()->value();
     }
@@ -118,6 +130,9 @@ sub validateTypedRow
     if (exists $changedFields->{local_ip}) {
         # Check all local networks configured on the server.
         my $localIP = $changedFields->{local_ip}->value();
+        unless ($localIP) {
+            throw EBox::Exceptions::External('The Tunnel IP cannot be empty');
+        }
         my $localIPRangeFound = undef;
         foreach my $interface (@{$network->InternalIfaces()}) {
             if (EBox::Validate::isIPInRange(
