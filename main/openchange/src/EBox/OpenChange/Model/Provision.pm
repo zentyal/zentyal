@@ -279,6 +279,7 @@ sub _doProvision
         throw EBox::Exceptions::External("Error provisioninig: $error");
         $self->parentModule->setProvisioned(0);
     } finally {
+        $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
     };
@@ -346,6 +347,7 @@ sub _doDeprovision
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
         $self->parentModule->setProvisioned(1);
     } finally {
+        $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
     };
