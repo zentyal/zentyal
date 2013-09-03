@@ -627,6 +627,42 @@ sub groups
     return $list;
 }
 
+# Method: securityGroups
+#
+#   Returns an array containing all the security groups
+#
+# Returns:
+#
+#    array - holding the groups as EBox::Samba::Group objects
+#
+sub securityGroups
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $sambaMod = $global->modInstance('samba');
+    if ((not $sambaMod->isEnabled()) or (not $sambaMod->isProvisioned())) {
+        return [];
+    }
+
+    my $allGroups = $self->groups();
+    my @securityGroups = ();
+    foreach my $group (@{$allGroups}) {
+        if ($group->isSecurityGroup()) {
+            push (@securityGroups, $group);
+        }
+    }
+    # sort grups by name
+    @securityGroups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @securityGroups;
+
+    return \@securityGroups;
+}
+
 sub ous
 {
     my ($self) = @_;
