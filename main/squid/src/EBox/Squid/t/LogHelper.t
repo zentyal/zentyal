@@ -19,6 +19,8 @@ use warnings;
 package EBox::Squid::LogHelper::Test;
 
 use EBox;
+use EBox::Squid;
+use EBox::Global::TestStub;
 use base 'Test::Class';
 
 use Test::Differences;
@@ -26,6 +28,12 @@ use Test::Exception;
 use Test::MockModule;
 use Test::MockObject;
 use Test::More;
+
+sub setUpEnviroment : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+    *EBox::Squid::filterNeeded = sub { return 1;};
+}
 
 sub setUpDBEngine : Test(startup)
 {
@@ -228,10 +236,5 @@ sub _testCases
 1;
 
 END {
-    # Use filtering for this test
-    my $squid = new Test::MockModule('EBox::Squid');
-    $squid->mock('filterNeeded', sub { return 1; });
-
-    EBox::init();
     EBox::Squid::LogHelper::Test->runtests();
 }
