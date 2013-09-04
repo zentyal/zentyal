@@ -124,12 +124,18 @@ sub timestampField
 #
 #    Every subclass must implement <_consolidate>
 #
+# Returns:
+#
+#    Boolean - some data were consolidated
+#
 sub consolidate
 {
     my ($self) = @_;
 
     my $beginTime = $self->_beginTime();
     my $endTime   = time();
+    my $inTime = ($endTime - $beginTime >= $self->_granularity());
+    return 0 unless ($inTime);
     try {
         # TODO: Do not store all the result in a single var
         my $result = $self->_consolidate($beginTime, $endTime);
@@ -139,6 +145,7 @@ sub consolidate
         my ($exc) = @_;
         EBox::error("Can't consolidate " . $self->name() . " : $exc");
     };
+    return 1;
 }
 
 # Method: send
@@ -322,6 +329,23 @@ sub _booleanFields
 {
     return [];
 }
+
+
+# Method: _granularity
+#
+#     Determine the granularity for sending report data to Zentyal
+#     Remote
+#
+# Returns:
+#
+#     Int - the maximum granularity in seconds. It defaults to *15*
+#           minutes
+#
+sub _granularity
+{
+    return 15 * 60;
+}
+
 
 # Group: Private methods
 

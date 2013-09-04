@@ -54,7 +54,7 @@ sub use_remoteservices_ok : Test(startup => 1)
     use_ok('EBox::RemoteServices') or die;
 }
 
-sub test_use_ok : Test
+sub test_isa_ok : Test
 {
     my ($self) = @_;
 
