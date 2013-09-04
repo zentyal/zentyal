@@ -66,9 +66,8 @@
     SOGoMailShowSubscribedFoldersOnly = NO; // User can override parameter
 
     /* SMTP server configuration */
-    //SOGoMailingMechanism = smtp;
-    //SOGoSMTPServer = <% $smtpServer %>;
-    //SOGoSMTPAuthenticationType = PLAIN;
+    SOGoMailingMechanism = smtp;
+    SOGoSMTPServer = <% $smtpServer %>;
 
     /* LDAP authentication */
     SOGoUserSources = (
@@ -89,19 +88,18 @@
     );
 
     /* Debug */
-    GCSFolderDebugEnabled = YES;
-    GCSFolderStoreDebugEnabled = YES;
-    LDAPDebugEnabled = YES;
-    MySQL4DebugEnabled = YES;
-    NGImap4DisableIMAP4Pooling = YES;
-    OCSFolderManagerSQLDebugEnabled = YES;
-    PGDebugEnabled = YES;
-    SOGoDebugRequests = YES;
-    SOGoMailKeepDraftsAfterSend = YES;
-    SOGoUIxDebugEnabled = YES;
-    SoDebugObjectTraversal = YES;
-    SoSecurityManagerDebugEnabled = YES;
-    WODontZipResponse = YES;
-    WODebugZipResponse = YES;
-
+    GCSFolderDebugEnabled = NO;
+    GCSFolderStoreDebugEnabled = NO;
+    LDAPDebugEnabled = NO;
+    MySQL4DebugEnabled = NO;
+    NGImap4DisableIMAP4Pooling = NO;
+    OCSFolderManagerSQLDebugEnabled = NO;
+    PGDebugEnabled = NO;
+    SOGoDebugRequests = NO;
+    SOGoMailKeepDraftsAfterSend = NO;
+    SOGoUIxDebugEnabled = NO;
+    SoDebugObjectTraversal = NO;
+    SoSecurityManagerDebugEnabled = NO;
+    WODontZipResponse = NO;
+    WODebugZipResponse = NO;
 }
