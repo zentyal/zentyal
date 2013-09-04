@@ -18,7 +18,8 @@ use warnings;
 
 use lib '../../src';
 
-use Test::More qw(no_plan);
+#use Test::More qw(no_plan);
+use Test::More skip_all => 'FIXME';
 
 use EBox::Test::Mason;
 
