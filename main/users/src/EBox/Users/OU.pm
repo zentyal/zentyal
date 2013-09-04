@@ -139,7 +139,7 @@ sub create
         } else {
             $usersMod->notifyModsPreLdapUserBase(
                 'preAddOUFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
-            throw EBox::Exceptions::DataExists('data' => __('Organization Unit'),
+            throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
                                                'value' => $args{name});
         }
         $ou = undef;
