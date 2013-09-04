@@ -29,6 +29,12 @@ use Test::MockModule;
 use Test::MockObject;
 use Test::More;
 
+sub setUpEnviroment : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+    *EBox::Squid::filterNeeded = sub { return 1;};
+}
+
 sub setUpDBEngine : Test(startup)
 {
     my ($self) = @_;
@@ -230,8 +236,5 @@ sub _testCases
 1;
 
 END {
-
-    EBox::Global::TestStub::fake();
-    *EBox::Squid::filterNeeded = sub { return 1;};
     EBox::Squid::LogHelper::Test->runtests();
 }
