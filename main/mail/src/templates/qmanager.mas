@@ -39,12 +39,12 @@ use EBox::Gettext;
 
 %	}
 		<td class='tcenter'>
-			<a href="MQRequeue?qid=<% $row->{'qid'} %>" 
+			<a href="MQRequeue?qid=<% $row->{'qid'} %>"
 				class="btn-only-icon btn-requeue"
 				title="<% __('Requeue') %>">
 				<% __('Requeue') %>
 			</a>
-			<a href="QueueManager?getinfo=<% $row->{'qid'} %>" 
+			<a href="QueueManager?getinfo=<% $row->{'qid'} %>"
 				class="btn-only-icon btn-down"
 				title="<% __('Show Info') %>">
 				<% __('Show Info') %>
@@ -103,12 +103,12 @@ use EBox::Gettext;
 	<td style="widht: 5%">
 
 %	if ($page != 0) {
-		<input name='tofirst' type='image'
-			src='/data/images/rw.gif'
+		<input name='tofirst' type='submit'
+            class="btn-only-icon btn-first"
 			alt="<% __('first') %>"
 			value="<% __('first') %>">
-		<input name='toprev' type='image'
-			src="/data/images/r.gif"
+		<input name='toprev' type='submit'
+            class="btn-only-icon btn-prev"
 			alt="<% __('prev') %>"
 			value='<% __('prev') %>'>
 %	}
@@ -127,12 +127,12 @@ use EBox::Gettext;
 	<td class='tright' style="widht: 5%">
 
 %	if ($page != $tpages) {
-		<input name='tonext' type='image'
-			src="/data/images/f.gif"
+		<input name='tonext' type='submit'
+            class="btn-only-icon btn-next"
 			alt="<% __('next') %>"
 			value='<% __('next') %>'>
-		<input name='tolast' type='image'
-			src="/data/images/ff.gif"
+		<input name='tolast' type='submit'
+            class="btn-only-icon btn-last"
 			alt="<% __('last') %>"
 			value='<% __('last') %>'>
 %	}

@@ -40,8 +40,6 @@ use Apache2::Connection;
 use Apache2::RequestUtil;
 use JSON::XS;
 
-my $adminPort = undef;
-
 ## arguments
 ##      title [optional]
 ##      error [optional]
@@ -329,35 +327,41 @@ sub run
         my $headers = $request->headers_in();
         my $referer = $headers->{'Referer'};
 
-        my ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
+        my ($protocol, $port);
 
-        if (not defined $adminPort) {
-            $adminPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
+        my $via = $headers->{'Via'};
+        my $host = $headers->{'Host'};
+        my $fwhost = $headers->{'X-Forwarded-Host'};
+        my $fwproto = $headers->{'X-Forwarded-Proto'};
+        # If the connection comes from a Proxy,
+        # redirects with the Proxy IP address
+        if (defined ($via) and defined ($fwhost)) {
+            $host = $fwhost;
         }
-        unless (defined ($port) and ($port != $adminPort)) {
-            my $via = $headers->{'Via'};
-            my $host = $headers->{'Host'};
-            my $fwhost = $headers->{'X-Forwarded-Host'};
-            my $fwproto = $headers->{'X-Forwarded-Proto'};
-            # If the connection comes from a Proxy,
-            # redirects with the Proxy IP address
-            if (defined ($via) and defined ($fwhost)) {
-                $host = $fwhost;
-            }
 
+        my $url;
+        if ($> == getpwnam('ebox')) {
+            ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
             if (defined ($fwproto)) {
                 $protocol = $fwproto;
             }
-
-            my $url = "$protocol://$host";
+            $url = "$protocol://${host}";
             if ($port) {
                 $url .= ":$port";
             }
             $url .= "/$self->{redirect}";
+        } else {
+            if ($request->subprocess_env('https')) {
+                $protocol = 'https';
+            } else {
+                $protocol = 'http';
+            }
 
-            print ($self->cgi()->redirect($url));
-            return;
+            $url = "$protocol://${host}/" . $self->{redirect};
         }
+
+        print ($self->cgi()->redirect($url));
+        return;
     }
 
     try  {
@@ -569,7 +573,7 @@ sub setErrorFromException
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
-        $self->{error} .= Dumper($ex);
+        $self->{error} .= $ex->stacktrace();
         $self->{error} .= "</pre>\n";
         $self->{error} .= "<br/>\n";
         return;
@@ -578,14 +582,6 @@ sub setErrorFromException
     if ($ex->isa('EBox::Exceptions::External')) {
         $self->{error} = $ex->stringify();
         return;
-    }
-
-    my $debug = EBox::Config::configkey('debug');
-    if ($debug eq 'yes') {
-        my $log = '';
-        $log = $ex->stringify() if $ex->can('stringify');
-        $log .= Dumper($ex);
-        EBox::debug($log);
     }
 
     if ($ex->isa('EBox::Exceptions::Internal')) {
@@ -600,6 +596,7 @@ sub setErrorFromException
                 "in the logs.");
     } else {
         $self->{error} = __('Sorry, you have just hit a bug in Zentyal.');
+        EBox::error($ex);
     }
 
     my $reportHelp = __x('Please look for the details in the {f} file and take a minute to {oh}submit a bug report{ch} so we can fix the issue as soon as possible.',

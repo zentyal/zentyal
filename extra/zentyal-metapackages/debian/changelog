@@ -1,3 +1,9 @@
+zentyal-metapackages (3.1.1) precise; urgency=low
+
+  * Removed asterisk, pptp, ltsp and virt from metapackages
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sat, 31 Aug 2013 14:28:27 +0200
+
 zentyal-metapackages (3.1) precise; urgency=low
 
   * Depend on zentyal-ips instead of zentyal-ids

@@ -407,8 +407,8 @@ var pkgTable = new Array(
 %           $class='package_installed';
 %        }
          <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
-            <div><img src="/data/software/images/package-icons/<% $pkg->{name} %>.png"
-                  onerror='this.onerror = null; this.src="/data/software/images/package-icons/generic.png"' /></div>
+            <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
+                  onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
             <p><% $pkg->{description} %></p>
          </div>
 %   }

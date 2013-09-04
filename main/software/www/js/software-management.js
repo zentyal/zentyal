@@ -9,7 +9,7 @@ Zentyal.SoftwareManagementUI.suites =  {
                          'zentyal-webserver', 'zentyal-ftp', 'zentyal-ntp', 'zentyal-ca', 'zentyal-remoteservices' ],
     'Office' : [ 'zentyal-samba', 'zentyal-printers', 'zentyal-antivirus', 'zentyal-users', 'zentyal-firewall',
                  'zentyal-network', 'zentyal-remoteservices', 'zentyal-ca', 'zentyal-openvpn', 'zentyal-monitor' ],
-    'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-asterisk', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
+    'Communications' : [ 'zentyal-mail', 'zentyal-jabber', 'zentyal-mailfilter', 'zentyal-users', 'zentyal-ca',
                          'zentyal-firewall', 'zentyal-network', 'zentyal-remoteservices', 'zentyal-openvpn', 'zentyal-monitor' ]
 };
 
@@ -42,7 +42,7 @@ Zentyal.SoftwareManagementUI.showInfo = function(id) {
 
 Zentyal.SoftwareManagementUI.hideInfo = function (id) {
     $('#' + id).fadeOut(200);
-    $('Install').show(200);
+    $('#Install').show(200);
 };
 
 Zentyal.SoftwareManagementUI.tick = function (id, update_packages){

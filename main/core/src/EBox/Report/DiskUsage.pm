@@ -208,7 +208,6 @@ sub _sizeForUnit
     }
 }
 
-
 sub _sizeLabelWithUnit
 {
     my ($size, $unit) = @_;
@@ -216,7 +215,7 @@ sub _sizeLabelWithUnit
     if ($unit eq 'GB') {
         return sprintf ('%.2f GB', $size / 1024);
     } elsif ($unit eq 'MB') {
-        return "$size MB";
+        return sprintf ('%.2f MB', $size);
     } else {
         throw EBox::Exceptions::Internal("Unknown unit: $unit");
     }

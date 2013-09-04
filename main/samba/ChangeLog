@@ -1,4 +1,8 @@
-HEAD
+3.1.8
+	+ Added EBox::LDB::securityGroups to get the list of security groups from
+	  Samba.
+	+ Requested SLAPD to add an index on the msdsObjectGUID field.
+	+ Added support to set permissions recursively.
 	+ Moved the code that sets the share permissions to EBox::Samba to execute
 	  it on EBox::Module::Service::_postServiceHook hook so we are sure samba
 	  is already started with the new configuration.
