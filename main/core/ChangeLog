@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed regression on dashboard which allowed to move already
+	  present dashboard widgets
 3.1.8
 	+ Always log Perl errors that are not Zentyal exceptions
 	+ Move package icons from software to core as required for the menu
