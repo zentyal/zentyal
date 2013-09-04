@@ -1,3 +1,5 @@
+HEAD
+	+ Throw DataExists error when adding an OU which already exists
 3.1.7
 	+ Readded memberUid to the fields to index for SLAPD.
 	+ Ignored members that are not valid perl objects to avoid undef entries
