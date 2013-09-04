@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression on dashboard which allowed to move already
+	  present dashboard widgets
 	+ Fixed regression on logs search caused by autoFilter changes
 	+ Fix bytes formatter in graphs
 	+ Simplified CSS and improved styles and icons

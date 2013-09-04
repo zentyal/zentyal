@@ -455,8 +455,14 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
    var html = '';
    for (i = start; i < end; ++i) {
      var id = widgets[i]['id'];
-     html += '<div class="widgetBarBox" id="' + id + '_placeholder">';
-     html += Zentyal.Dashboard.widget(module,widgets[i],!widgets[i].present);
+     var present = widgets[i].present;
+     if (present) {
+         html += '<div class="widgetBarBox widgetPresent" ';
+     } else {
+         html += '<div class="widgetBarBox" ';
+     }
+     html +=  'id="' + id + '_placeholder">';
+     html += Zentyal.Dashboard.widget(module,widgets[i],!present);
      html += '</div>';
    }
    return html;
@@ -465,6 +471,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module) {
     $('#widget_list').sortable({
         elements: '.widgetBarBox',
+	cancel:   '.widgetPresent',
         dropOnEmpty: true,
         connectWith: '.dashboard',
         containment: 'body',
