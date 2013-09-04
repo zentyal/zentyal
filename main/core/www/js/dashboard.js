@@ -471,7 +471,7 @@ Zentyal.Dashboard.ConfigureWidgets.htmlFromWidgetList = function (module, widget
 Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module) {
     $('#widget_list').sortable({
         elements: '.widgetBarBox',
-	cancel:   '.widgetPresent',
+        cancel: '.widgetPresent',
         dropOnEmpty: true,
         connectWith: '.dashboard',
         containment: 'body',
