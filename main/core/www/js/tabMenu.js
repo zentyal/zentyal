@@ -275,11 +275,12 @@ Zentyal.Tabs.prototype = {
       var input = $('#tableForm #' + name);
       if ( input.length > 0 ) {
           // Input is defined
-          input.setAttribute('value', value);
+          input.attr('value', value);
       } else {
           // Create the input
           var dirInput = document.createElement('input');
           dirInput.setAttribute('name', name);
+          dirInput.setAttribute('id', name);
           dirInput.setAttribute('type', 'hidden');
           dirInput.setAttribute('value', value);
           $('#tableForm').append(dirInput);

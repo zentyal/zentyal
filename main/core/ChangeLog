@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in tabbed composites with the jQuery changes
 	+ Set proper title in dialogs when loading in an existent one
 	+ Fixed regression on dashboard which allowed to move already
 	  present dashboard widgets
