@@ -1,3 +1,9 @@
+samba4 (4.1.0rc2-zentyal7) precise; urgency=low
+
+  * Fix segfault in scannedonly VFS plugin
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 05 Sep 2013 16:22:19 +0200
+
 samba4 (4.1.0rc2-zentyal6) precise; urgency=low
 
   * Removed the .pc links to avoid conflicts with distro packages.
