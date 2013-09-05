@@ -1,4 +1,6 @@
 HEAD
+	+ Restore configuration backup from file now works again after JS
+	  framework change
 	+ Configuration backup download, restore and delete from the list
 	  works again after the UI changes
 	+ Set proper title in dialogs when loading in an existent one
