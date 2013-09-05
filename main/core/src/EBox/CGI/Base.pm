@@ -686,7 +686,7 @@ sub _validateParams
     my @paramsLeft = @{ $params_r };
     if (@paramsLeft) {
         EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
-        throw EBox::Exceptions::External ( __('Your request could not be processed because it had some incorrect parameters'));
+        throw EBox::Exceptions::External( __('Your request could not be processed because it had some incorrect parameters'));
     }
 
     return 1;
