@@ -24,6 +24,7 @@ use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Ntop;
 use EBox::Validate;
+use List::MoreUtils;
 use RRDs;
 use Time::Piece;
 
@@ -135,8 +136,14 @@ sub _consolidate
                             my $dateIdx = $date->ymd('/');
                             my $minute  = $date->min();
                             my $hour    = $date->hour();
-                            $retData{$clientIP}->{$app}->{$dateIdx}->{$hour}->{$minute} = [ $line->[0],
-                                                                                            $line->[1] ];
+                            my @result  = @{$line};
+                            if (scalar(@{$ifaces}) > 1) {
+                                my $currentData = $retData{$clientIP}->{$app}->{$dateIdx}->{$hour}->{$minute};
+                                if (defined($currentData)) {
+                                    @result = List::MoreUtils::pairwise { $a + $b } @{$currentData}, @{$line};
+                                }
+                            }
+                            $retData{$clientIP}->{$app}->{$dateIdx}->{$hour}->{$minute} = \@result;
                         }
                     }
                     $time += $step;
