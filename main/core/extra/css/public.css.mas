@@ -2362,6 +2362,8 @@ input.btn-dashboard {
 .btn-down{background-image: url("/data/images/down.gif");}
 .btn-viewConsole{background-image: url("/data/images/terminal.gif");}
 .btn-widgets{background-image: url("/data/images/widgets.gif");}
+.btn-extend {background-image: url("/data/images/reload-plus.png");}
+.btn-kick {background-image: url("/data/images/deny-active.gif");}
 .close {
     background: url("/data/images/close-w.png") center center no-repeat;
     height: 100%;
