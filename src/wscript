@@ -1,0 +1,82 @@
+#! /usr/bin/env python
+# encoding: utf-8
+
+from waflib.Task import Task
+from waflib.TaskGen import extension
+from waflib.Tools import c_config
+import os
+
+APPNAME = 'ZentyalMigration'
+VERSION	= '0.9'
+
+def options(ctx):
+    ctx.load('compiler_c')
+
+def configure(ctx):
+    ctx.load('compiler_c')
+
+    ctx.define('_GNU_SOURCE', 1)
+    ctx.env.append_value('CCDEFINES', '_GNU_SOURCE=1')
+
+    # Check headers
+    ctx.check(header_name='sys/types.h')
+    ctx.check(header_name='asm/byteorder.h')
+    ctx.check(header_name='stdint.h')
+    ctx.check(header_name='stddef.h')
+    ctx.check(header_name='stdio.h')
+    ctx.check(header_name='stdlib.h')
+    ctx.check(header_name='stdbool.h')
+    ctx.check(header_name='stdarg.h')
+    ctx.check(header_name='syslog.h')
+    ctx.check(header_name='iconv.h')
+    ctx.check(header_name='ctype.h')
+
+    # Check types
+    ctx.check(type_name='uint8_t')
+    ctx.check(type_name='uint16_t')
+    ctx.check(type_name='uint32_t')
+    ctx.check(type_name='uint64_t')
+    ctx.check(type_name='double')
+    ctx.check(type_name='int')
+    ctx.check(type_name='int8_t')
+    ctx.check(type_name='int16_t')
+    ctx.check(type_name='int32_t')
+    ctx.check(type_name='int64_t')
+    ctx.check(type_name='size_t', header_name='stddef.h')
+    ctx.check(type_name='bool', header_name='stdbool.h')
+
+    # Check external libraries and packages
+    ctx.check_cfg(atleast_pkgconfig_version='0.20')
+    ctx.check_cfg(package='libmapi',
+                  args=['libmapi >= 2.0', '--cflags', '--libs'],
+                  uselib_store='LIBMAPI',
+                  msg="Checking for libmapi 2.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='popt',
+                  args=['popt >= 1.16', '--cflags', '--libs'],
+                  uselib_store='POPT',
+                  msg="Check for popt 1.16",
+                  mandatory=True)
+
+def build(bld):
+    bld.program(
+        source = [
+            'mailboxsize.c',
+            ],
+        target = 'mailboxsize',
+        includes = ['.', '..'],
+        cflags = ['-ggdb'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'LIBMAPI', 'POPT'])
+
+def build(bld):
+    bld.program(
+        source = [
+            'contactsummary.c',
+            ],
+        target = 'contactsummary',
+        includes = ['.', '..'],
+        cflags = ['-ggdb'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'LIBMAPI', 'POPT'])
