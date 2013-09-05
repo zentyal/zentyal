@@ -200,8 +200,6 @@ sub _checkLdapPassword
 {
     my ($self, $user, $password, $url, $bind, $groupDN) = @_;
 
-    my $usersMod = EBox::Global->modInstance('users');
-
     # replace usrename in bind string
     $bind =~ s/{USERNAME}/$user/g;
     my $authorized = 0;
@@ -213,21 +211,16 @@ sub _checkLdapPassword
             # we have not finished
             $authorized = 0;
 
-            my $member = $usersMod->userByUID($user);
-            if ($member) {
-                my $memberDN = $member->dn();
-                # check also the group for the user
-                my %attrs = (
-                    base => $groupDN,
-                    filter => "(member=$memberDN)",
-                    scope => 'base'
-                );
-
-                my $result = $ldap->search(%attrs);
-                $authorized = ($result->count > 0);
-            } else {
-                $authorized = 0;
-            }
+            my $dn = EBox::Ldap::dn();
+            my $userDN = "uid=$user,ou=Users,$dn";
+            # check also the group for the user
+            my %attrs = (
+                base => $groupDN,
+                filter => "(member=$userDN)",
+                scope => 'base'
+            );
+            my $result = $ldap->search(%attrs);
+            $authorized = ($result->count > 0);
         }
     } otherwise {
         $authorized = 0; # auth failed
