@@ -1,4 +1,5 @@
 HEAD
+	+ Throw internal exception in valueByName if elementByName is undef
 	+ Added captiveportal icons to CSS
 	+ Restore configuration backup from file now works again after JS
 	  framework change

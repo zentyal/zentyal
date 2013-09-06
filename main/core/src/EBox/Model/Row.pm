@@ -484,6 +484,12 @@ sub valueByName
         throw EBox::Exceptions::MissingArgument('name');
     }
 
+    my $element = $self->elementByName($name);
+
+    unless ($element) {
+        throw EBox::Exceptions::Internal("Element '$name' does not exist in row '$self->{dir}'");
+    }
+
     return $self->elementByName($name)->value();
 }
 
