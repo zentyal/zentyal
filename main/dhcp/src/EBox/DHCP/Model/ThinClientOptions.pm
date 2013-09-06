@@ -88,7 +88,9 @@ sub nextServer
     given ($nextServerSelectedName) {
         when ('nextServerEBox') {
             my $netMod = EBox::Global->modInstance('network');
-            return $netMod->ifaceAddress($self->{interface});
+            # FIXME: unhardcode this (parentRow() is undefined)
+            my $iface = 'eth0';
+            return $netMod->ifaceAddress($iface);
         }
         default {
             return $nextServerType->printableValue();
