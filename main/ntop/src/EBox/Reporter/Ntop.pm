@@ -136,11 +136,11 @@ sub _consolidate
                             my $dateIdx = $date->ymd('/');
                             my $minute  = $date->min();
                             my $hour    = $date->hour();
-                            my @result  = @{$line};
+                            my @result  = map { $_ * $step } @{$line};
                             if (scalar(@{$ifaces}) > 1) {
                                 my $currentData = $retData{$clientIP}->{$app}->{$dateIdx}->{$hour}->{$minute};
                                 if (defined($currentData)) {
-                                    @result = List::MoreUtils::pairwise { $a + $b } @{$currentData}, @{$line};
+                                    @result = List::MoreUtils::pairwise { $a + $b } @{$currentData}, @result;
                                 }
                             }
                             $retData{$clientIP}->{$app}->{$dateIdx}->{$hour}->{$minute} = \@result;
