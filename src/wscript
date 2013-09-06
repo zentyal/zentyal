@@ -70,7 +70,6 @@ def build(bld):
         depends_on = [APPNAME],
         use = [APPNAME, 'LIBMAPI', 'POPT'])
 
-def build(bld):
     bld.program(
         source = [
             'contactsummary.c',
