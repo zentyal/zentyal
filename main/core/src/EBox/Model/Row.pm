@@ -490,7 +490,7 @@ sub valueByName
         throw EBox::Exceptions::Internal("Element '$name' does not exist in row '$self->{dir}'");
     }
 
-    return $self->elementByName($name)->value();
+    return $element->value();
 }
 
 # Method: printableValueByName
