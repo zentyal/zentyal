@@ -54,64 +54,6 @@ use EBox::View::Customizer;
 
 # Group: Public methods
 
-# Constructor: new
-#
-#     Create the thin client options to the dhcp server
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::DHCP::Model::ThinClientOptions>
-#
-# Exceptions:
-#
-#     <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#     argument is missing
-#
-sub new
-{
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ($self, $class);
-
-    return $self;
-}
-
-# Method: nextServerIsZentyal
-#
-#     Finds out whether the next server the next server is Zentyal or not
-#
-# Parameters:
-#
-#     id - String the row identifier
-#
-# Returns:
-#
-#     Boolean - if Zentyal is the next server for the given row
-#
-# Exceptions:
-#
-#     <EBox::Exceptions::DataNotFound> - thrown if the given id is not
-#     from this model
-#
-sub nextServerIsZentyal
-{
-    my ($self, $id) = @_;
-
-    my $row = $self->row();
-
-    unless ( defined($row) ) {
-        throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
-    }
-
-    return ( $row->valueByName('nextServer') eq 'nextServerEBox' );
-
-}
-
 # Method: nextServer
 #
 #     Get the next server (name or IP address) in an string form to
@@ -137,11 +79,21 @@ sub nextServer
 
     my $row = $self->row();
 
-    unless ( defined($row) ) {
+    unless (defined($row)) {
         throw EBox::Exceptions::DataNotFound(data => 'id', value => $id);
     }
 
-    return $row->valueByName('nextServerHost');
+    my $nextServerType = $row->elementByName('nextServer');
+    my $nextServerSelectedName = $nextServerType->selectedType();
+    given ($nextServerSelectedName) {
+        when ('nextServerEBox') {
+            my $netMod = EBox::Global->modInstance('network');
+            return $netMod->ifaceAddress($self->{interface});
+        }
+        default {
+            return $nextServerType->printableValue();
+        }
+    }
 }
 
 # Method: remoteFilename
