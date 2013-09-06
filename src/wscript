@@ -59,6 +59,12 @@ def configure(ctx):
                   msg="Check for popt 1.16",
                   mandatory=True)
 
+    ctx.check_cfg(package='dbus-1',
+                  args=['dbus-1 >= 1.0', '--cflags', '--libs'],
+                  uselib_store='DBUS',
+                  msg="Check for dbus 1.0",
+                  mandatory=True)
+
 def build(bld):
     bld.program(
         source = [
@@ -68,7 +74,7 @@ def build(bld):
         includes = ['.', '..'],
         cflags = ['-ggdb'],
         depends_on = [APPNAME],
-        use = [APPNAME, 'LIBMAPI', 'POPT'])
+        use = [APPNAME, 'LIBMAPI', 'POPT', 'DBUS'])
 
     bld.program(
         source = [
