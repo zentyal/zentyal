@@ -121,3 +121,8 @@ function getFullDate(seconds) {
     var d = new Date(seconds * 1000);
     return d.toLocaleString();
 }
+
+function getDateTime(seconds) {
+    var d = new Date(seconds * 1000);
+    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
+}

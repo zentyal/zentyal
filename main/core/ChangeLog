@@ -1,4 +1,6 @@
 HEAD
+	+ Added datetime time formatter to JS graphs which show dates in X
+	  axis and date and time in the tracker
 	+ Fixed bug sending parameters in Zentyal.Tabs prototype
 	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
 	  tried to load composite as model by mistake, the bug was at least
