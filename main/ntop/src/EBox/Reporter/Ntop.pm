@@ -158,9 +158,9 @@ sub _consolidate
     foreach my $clientIP (keys(%retData)) {
         foreach my $app (keys(%{$retData{$clientIP}})) {
             foreach my $dateIdx (keys(%{$retData{$clientIP}->{$app}})) {
-                push(@retData, { 'metadata' => { 'clientIP' => $clientIP,
-                                                 'app'      => $app,
-                                                 'date'     => $dateIdx },
+                push(@retData, { 'metadata' => { 'ip'   => $clientIP,
+                                                 'app'  => $app,
+                                                 'date' => $dateIdx },
                                  'data' => $retData{$clientIP}->{$app}->{$dateIdx} });
             }
         }
