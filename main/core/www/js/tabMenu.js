@@ -266,24 +266,24 @@ Zentyal.Tabs.prototype = {
       }
   },
 
-  /* Method: _setDirInput
+  /* Method: _setTableFormInput
 
-     Set the directory input value from the selected tab in order to
+     Set the table form input value from the selected tab in order to
      make the POST request dynamically.
   */
   _setTableFormInput : function(name, value) {
-      var input = $('#tableForm #' + name);
+      var input = $('#tableForm [name=' + name + ']');
       if ( input.length > 0 ) {
           // Input is defined
           input.attr('value', value);
       } else {
           // Create the input
-          var dirInput = document.createElement('input');
-          dirInput.setAttribute('name', name);
-          dirInput.setAttribute('id', name);
-          dirInput.setAttribute('type', 'hidden');
-          dirInput.setAttribute('value', value);
-          $('#tableForm').append(dirInput);
+          var tformInput = document.createElement('input');
+          tformInput.setAttribute('name', name);
+          tformInput.setAttribute('id', name);
+          tformInput.setAttribute('type', 'hidden');
+          tformInput.setAttribute('value', value);
+          $('#tableForm').append(tformInput);
       }
   }
 
