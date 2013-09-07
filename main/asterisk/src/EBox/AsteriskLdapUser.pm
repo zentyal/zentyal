@@ -299,7 +299,8 @@ sub _delGroup
 }
 
 
-sub _groupAddOns
+# FIXME: disabled to avoid crash as queues are not going to be fixed
+sub _groupAddOnsDISABLED
 {
     my ($self, $group) = @_;
 
