@@ -241,12 +241,6 @@ sub fetchData
         }
         $rrdIdx += scalar(@{$data->[0]}); # Put new RRDs files without overwritting
     }
-    # Truncating for testing purposes
-    foreach my $data (@returnData) {
-        if ( @{$data} > 360 ) {
-            @{$data} = @{$data}[-361 .. -1];
-        }
-    }
     my @series =
 	map { { label => $self->{printableLabels}->[$_], data => $returnData[$_] }} 0 .. $#returnData;
     my $id = $self->{name};
