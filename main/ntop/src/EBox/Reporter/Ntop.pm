@@ -115,7 +115,7 @@ sub _consolidate
                 my $rrdFileName = "$dirName/$rrdName";
                 next unless (-f $rrdFileName);
                 # bytes.rrd -> total traffic
-                next if ($rrdFileName eq 'bytes.rrd');
+                next if ($rrdName eq 'bytes.rrd');
                 my ($time, $step, $names, $data) = RRDs::fetch($rrdFileName, 'AVERAGE',
                                                                $beginStr, $endStr);
                 my $err = RRDs::error;
