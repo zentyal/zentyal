@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
+	  tried to load composite as model by mistake, the bug was at least
+	  present sometimes when trying to generate the configuration report
 3.0.26
 	+ Fixed regression on logs search caused by autoFilter changes
 3.0.25
