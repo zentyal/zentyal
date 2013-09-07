@@ -8,3 +8,4 @@ shared-network <% $iface %> {
 &>
 
 <& subnet.mas, info => $ifaces{$iface} &>
+}
