@@ -1,4 +1,7 @@
 HEAD
+	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
+	  tried to load composite as model by mistake, the bug was at least
+	  present sometimes when trying to generate the configuration report
 	+ Throw internal exception in valueByName if elementByName is undef
 	+ Added captiveportal icons to CSS
 	+ Restore configuration backup from file now works again after JS
