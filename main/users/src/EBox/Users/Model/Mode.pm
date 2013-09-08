@@ -49,14 +49,13 @@ sub new
 sub validateTypedRow
 {
     my ($self, $action, $changedFields, $allFields) = @_;
-    if ($self->parentModule->configured()) {
-        throw EBox::Exceptions::External(__('This parameters could not be changed once the user module has been configured.'));
-    }
-
     my $mode = $allFields->{mode}->value();
     if ($mode eq EBox::Users->STANDALONE_MODE) {
         $self->_validateNormalMode($allFields);
     } elsif ($mode eq EBox::Users->EXTERNAL_AD_MODE) {
+        if ($self->parentModule->configured()) {
+            throw EBox::Exceptions::External(__('External AD mode cannot be set once the users module has been configured.'));
+        }
         $self->_validateExternalADMode($allFields);
     } else {
         throw EBox::Exceptions::Internal("Invalid users mode: $mode");
