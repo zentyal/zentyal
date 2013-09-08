@@ -3231,9 +3231,10 @@ sub _supportActions
 sub _preSetConf
 {
     my ($self, %opts) = @_;
+
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
-    return unless exists $ENV{'USER'};
+    return if EBox::Service::running('rc');
 
     my $file = INTERFACES_FILE;
     my $restart = delete $opts{restart};
@@ -3341,10 +3342,11 @@ sub _enforceServiceState
         }
     }
 
+    my $booting = EBox::Service::running('rc');
 
     # Only execute ifups if we are not running from init on boot
     # The interfaces are already up thanks to the networking start
-    if (exists $ENV{'USER'}) {
+    unless ($booting) {
         EBox::Util::Lock::lock('ifup');
         foreach my $iface (@ifups) {
             EBox::Sudo::root(EBox::Config::scripts() .
@@ -3376,6 +3378,12 @@ sub _enforceServiceState
     $self->_cleanupVlanIfaces();
 
     EBox::Sudo::root('/sbin/ip route flush cache');
+
+    # Notify upstart that network is up to avoid boot delay
+    # only when booting
+    if ($booting) {
+        EBox::Sudo::silentRoot('initctl emit static-network-up');
+    }
 
     $self->SUPER::_enforceServiceState();
 }

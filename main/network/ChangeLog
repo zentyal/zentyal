@@ -1,3 +1,6 @@
+HEAD
+	+ Better check for knowing if the system is booting
+	+ Avoid "Waiting for network configuration" screen, boot is faster now
 3.1.4
 	+ Adapted to new CSS styles
 	+ Use upstart for ddclient daemon management
