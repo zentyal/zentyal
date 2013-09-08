@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in dashboard register link after jQuery migration
 	+ Always set as changed without checking RO value, this fixes some
 	  situations in which the save changes button was not enabled
 	+ Fixed regression in audit log IP addresses after nginx integration

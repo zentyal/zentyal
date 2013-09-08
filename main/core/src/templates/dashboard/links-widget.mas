@@ -13,15 +13,16 @@ $softwarePackage => 0
 % unless ($rsPackage and $softwarePackage) {
 <script type="text/javascript">
 function installRS(title) {
-       var url= '/Software/InstallPkgs';
-       var data = 'install=yes';
-       data += '&' +  'pkg-zentyal-remoteservices=yes';
-       data += '&popup=1';
+    var url= '/Software/InstallPkgs';
+    var data = 'install=yes';
+    data += '&' +  'pkg-zentyal-remoteservices=yes';
+    data += '&popup=1';
 
-      Zentyal.Dialog.showURL(url, {
-                           title: title,
-                           close: function() { window.location.reload();  }
-                         });
+    Zentyal.Dialog.showURL(url, {
+        title: title,
+        data: data,
+        close: function() { window.location.reload();  }
+    });
 }
 
 function installSoftware(title, html) {
