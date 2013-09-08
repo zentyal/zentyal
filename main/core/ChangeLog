@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in audit log IP addresses after nginx integration
 	+ Added datetime time formatter to JS graphs which show dates in X
 	  axis and date and time in the tracker
 	+ Fixed bug sending parameters in Zentyal.Tabs prototype
