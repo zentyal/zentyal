@@ -28,7 +28,6 @@ use EBox::Config::Redis;
 use EBox::Model::Manager;
 
 use File::Basename;
-use Test::Deep::NoTest qw(eq_deeply);
 
 sub _create
 {
@@ -585,14 +584,7 @@ sub set
     my ($self, $key, $value) = @_;
 
     $self->_set($key, $value);
-
-    # Only mark as changed if stored value in ro is different
-    unless ($self->{ro}) {
-        my $oldvalue = $self->{redis}->get($self->_ro_key($key));
-        unless (eq_deeply($value, $oldvalue)) {
-            $self->_change();
-        }
-    }
+    $self->_change() unless $self->{ro};
 }
 
 # Method: _set
