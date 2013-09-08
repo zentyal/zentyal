@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wrong calls to isSystem() in master-slave after API changes
 	+ Fix regression trying to join slave after external AD changes
 	+ Fix regression in slave host address after nginx integration
 	+ Throw DataExists error when adding an OU which already exists
