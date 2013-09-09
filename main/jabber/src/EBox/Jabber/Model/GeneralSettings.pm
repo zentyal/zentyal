@@ -122,7 +122,7 @@ sub _table
                                 printableName => __('Jabber domain'),
                                 help => __('Domain used to connect to this server.'),
                                 editable      => 1,
-                                defaultValue  => _fqdn(),
+                                defaultValue  => _defaultDomain(),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'ssl',
@@ -193,10 +193,10 @@ sub _table
     return $dataTable;
 }
 
-sub _fqdn
+sub _defaultDomain
 {
     my $sysinfo = EBox::Global->modInstance('sysinfo');
-    return $sysinfo->fqdn();
+    return $sysinfo->hostDomain();
 }
 
 sub _confirmDomainChange

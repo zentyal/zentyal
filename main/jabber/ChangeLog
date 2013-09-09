@@ -1,6 +1,6 @@
 HEAD
 	+ Clear database if domain is changed
-	+ Use SysInfo::fqdn as default domain
+	+ Use hostDomain instead of fqdn as default domain
 	+ No longer implement SysInfo observer as jabber domain may be differnt
 3.1.2
 	+ Adapted user add-on to right panel view
