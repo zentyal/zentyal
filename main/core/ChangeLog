@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed confirmation dialogs warning style
 	+ Fixed configure widgets width and drop behavior
 	+ Fixed regression in dashboard register link after jQuery migration
 	+ Always set as changed without checking RO value, this fixes some
