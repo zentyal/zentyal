@@ -1,4 +1,5 @@
 HEAD
+	+ Removed some warnings in error.log
 	+ Fixed confirmation dialogs warning style
 	+ Fixed configure widgets width and drop behavior
 	+ Fixed regression in dashboard register link after jQuery migration
