@@ -68,24 +68,24 @@ sub formSubmitted
 {
     my ($self) = @_;
 
-    my @services = ();
+    my @services;
 
     push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORT });
 
     if ($self->sslValue() ne 'disabled') {
-    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTSSL });
+        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTSSL });
     }
 
     if ($self->s2sValue()) {
-    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTS2S });
+        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTS2S });
     }
 
     if ($self->stunValue()) {
-    push(@services, { protocol => 'udp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTSTUN });
+        push(@services, { protocol => 'udp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTSTUN });
     }
 
     if ($self->proxyValue()) {
-    push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTPROXY });
+        push(@services, { protocol => 'tcp', sourcePort => 'any', 'destinationPort' => EBox::Jabber::JABBERPORTPROXY });
     }
 
     my $servMod = EBox::Global->modInstance('services');
@@ -122,7 +122,7 @@ sub _table
                                 printableName => __('Jabber domain'),
                                 help => __('Domain used to connect to this server.'),
                                 editable      => 1,
-                                defaultValue  => EBox::Jabber->fqdn(),
+                                defaultValue  => _defaultDomain(),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'ssl',
@@ -176,8 +176,7 @@ sub _table
                                ),
       );
 
-    my $dataTable =
-      {
+    my $dataTable = {
        tableName          => 'GeneralSettings',
        printableTableName => __('General configuration settings'),
        defaultActions     => [ 'editField', 'changeView' ],
@@ -187,10 +186,31 @@ sub _table
                               update => __('General Jabber server configuration settings updated.'),
                              },
        modelDomain        => 'Jabber',
+       confirmationDialog => { submit => \&_confirmDomainChange },
        help               => __('Make sure the clients can resolve the Jabber domain. If you want other servers to send messages to your users, make sure they can resolve the same domain.'),
-      };
+    };
 
     return $dataTable;
+}
+
+sub _defaultDomain
+{
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    return $sysinfo->hostDomain();
+}
+
+sub _confirmDomainChange
+{
+    my ($self, $params) = @_;
+
+    my $newDomain = $params->{domain};
+    my $oldDomain = $self->value('domain');
+
+    if ($newDomain ne $oldDomain) {
+        return  __('Changing the domain name will delete all your current Jabber data.');
+    } else {
+        return undef;
+    }
 }
 
 1;
