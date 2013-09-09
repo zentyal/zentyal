@@ -342,8 +342,9 @@ sub _addIfaceToRule
 {
     my ($self, $rule, $row) = @_;
 
-    my $interface = $row->elementByName('interface');
-    $rule->setInterface($interface->value());
+    my $network = EBox::Global->modInstance('network');
+    my $iface = $network->realIface($row->elementByName('interface')->value());
+    $rule->setInterface($iface);
 }
 
 sub _addCustomServiceToRule
