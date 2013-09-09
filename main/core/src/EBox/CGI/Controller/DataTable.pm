@@ -201,10 +201,9 @@ sub _editField
     for my $field (@{$tableDesc} ) {
         my $fieldName = $field->fieldName();
 
-        if ($inPlace and $field->isa('EBox::Types::Union')) {
-            my $selected = $row->elementByName($fieldName)->selectedType();
-            $params{"${fieldName}_selected"} = $selected;
-            $params{$selected} = $row->valueByName($fieldName);
+        if ($inPlace and (not $field->isa('EBox::Types::Basic'))) {
+            $row->valueByName($fieldName);
+            $row->elementByName($fieldName)->storeInHash(\%params);
         }
 
         unless ($field->isa('EBox::Types::Boolean')) {
