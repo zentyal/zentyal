@@ -207,7 +207,10 @@ sub _confirmDomainChange
     my $oldDomain = $self->value('domain');
 
     if ($newDomain ne $oldDomain) {
-        return  __('Changing the domain name will delete all your current Jabber data.');
+        return {
+            title => __('Domain change confirmation'),
+            message => __('Changing the domain name will delete all your current Jabber data.')
+        };
     } else {
         return undef;
     }
