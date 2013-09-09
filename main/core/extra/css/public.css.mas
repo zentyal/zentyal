@@ -200,6 +200,7 @@
 #module_list > div:hover {background-color:#eee;}
 
 #configure_widgets{
+    width: 100%;
     background-color: white;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
     float: left;
@@ -219,6 +220,10 @@
 #widget_list .widgetBarBox{
     margin-top: 5px;
 }
+#widget_list .widgetPlaceholder{
+    display: none;
+}
+
 .helptd {
     width: 100%;
     color: #AAAAAA;
