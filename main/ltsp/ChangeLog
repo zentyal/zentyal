@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed debian/control depends to ensure proper upgrade to 3.2
 3.0.2
 	+ Fixed encoding of language select list
 	+ Clean error messages on install-local-applications and update-image
