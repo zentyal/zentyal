@@ -17,7 +17,7 @@ use warnings;
 
 package EBox::Jabber;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::SysInfo::Observer);
+use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Global;
 use EBox::Gettext;
@@ -201,6 +201,8 @@ sub _setConf
     my $settings = $self->model('GeneralSettings');
     my $jabberldap = new EBox::JabberLdapUser;
 
+    my $domain = $settings->domainValue();
+
     push(@array, 'ldapHost' => '127.0.0.1');
     push(@array, 'ldapPort', $ldapconf->{'port'});
     push(@array, 'ldapBase' => $ldap->dn());
@@ -208,7 +210,7 @@ sub _setConf
     push(@array, 'ldapPasswd' => $ldap->getPassword());
     push(@array, 'usersDn' => EBox::Users::User->defaultContainer()->dn());
 
-    push(@array, 'domain' => $settings->domainValue());
+    push(@array, 'domain' => $domain);
     push(@array, 'ssl' => $settings->sslValue());
     push(@array, 's2s' => $settings->s2sValue());
 
@@ -224,6 +226,10 @@ sub _setConf
     $self->writeConfFile(EJABBERDCONFFILE,
                  "jabber/ejabberd.cfg.mas",
                  \@array, { 'uid' => $jabuid, 'gid' => $jabgid, mode => '640' });
+
+    if ($self->_domainChanged($domain)) {
+        $self->_clearDatabase();
+    }
 }
 
 sub zarafaEnabled
@@ -298,22 +304,16 @@ sub certificates
     ];
 }
 
-# Method: fqdn
-#FIXME doc
-sub fqdn
+sub _domainChanged
 {
-    my $fqdn = `hostname --fqdn`;
-    if ($? != 0) {
-        $fqdn = 'ebox.localdomain';
-    }
-    chomp $fqdn;
-    return $fqdn;
-}
+    my ($self, $newDomain) = @_;
 
-sub fqdnChanged
-{
-    my ($self, $oldFqdn, $newFqdn) = @_;
-    $self->_clearDatabase();
+    my $jabberRO = EBox::Global->getInstance(1)->modInstance('jabber');
+    my $oldDomain = $jabberRO->model('GeneralSettings')->domainValue();
+
+    return 0 unless (defined ($newDomain) and defined ($oldDomain));
+
+    return ($newDomain ne $oldDomain);
 }
 
 sub _clearDatabase
