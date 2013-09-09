@@ -61,7 +61,7 @@ sub registerSlave
     my ($self, $port, $cert) = @_;
 
     my $req = Apache2::RequestUtil->request();
-    my $host = $req->connection->get_remote_host();
+    my $host = $req->headers_in()->{'X-Real-IP'};
 
     my $users = EBox::Global->modInstance('users');
     my $master = $users->masterConf();
