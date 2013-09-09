@@ -39,7 +39,6 @@ sub new
 sub _process
 {
     my ($self) = @_;
-    my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
     my $mod = $self->param('module');

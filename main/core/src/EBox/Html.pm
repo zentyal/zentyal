@@ -144,7 +144,11 @@ sub header # (title)
         }
     }
 
-    $title = "$serverName - $title";
+    if ($title) {
+	$title = "$serverName - $title";
+    } else {
+	$title = $serverName;
+    }
 
     my $favicon = $global->theme()->{'favicon'};
     my $html = makeHtml('header.mas', title => $title, favicon => $favicon );
