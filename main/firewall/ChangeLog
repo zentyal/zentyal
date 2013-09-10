@@ -1,4 +1,6 @@
 HEAD
+	+ Use (i|f|o)accept chains in user's defined firewall rules to be
+	  able to analyse the traffic
 	+ Fix regression (INVALID packets on FORWARD were accepted)
 3.0.5
 	+ Set iaccept, faccept and oaccept chains instead of ACCEPT target
