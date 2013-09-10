@@ -287,6 +287,11 @@ sub setupDNS
         push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
         EBox::Sudo::root(@cmds);
     }
+
+    # Save and restart DNS to load samba zones stored in LDB
+    my $dnsMod = EBox::Global->modInstance('dns');
+    $dnsMod->setAsChanged();
+    $dnsMod->save();
 }
 
 sub _checkUsersState
