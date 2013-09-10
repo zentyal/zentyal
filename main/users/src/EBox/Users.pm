@@ -388,11 +388,11 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-# FIXME: uncomment when fixed the problems in ANSTE upgrades
-#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.3') <= 0)) {
-#        # Perform the migration to 3.2
-#        $self->_migrateTo32();
-#    }
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
@@ -455,7 +455,6 @@ sub _migrateTo32
         filter => "(objectClass=olcSchemaConfig)",
         scope => 'sub',
     );
-
     my $result = $ldap->search(\%args);
 
     for my $entry ($result->entries) {
@@ -467,8 +466,7 @@ sub _migrateTo32
             if (not $ldif->eof()) {
                 my $newEntry = $ldif->read_entry();
                 if ($ldif->error()) {
-                    throw EBox::Exceptions::Internal(
-                        "Can't load LDIF file: $newSchema");
+                    throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
                 }
                 $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
                 my $updateResult = $entry->update($ldap->connection());
@@ -476,15 +474,13 @@ sub _migrateTo32
                     EBox::error($updateResult->error());
                     EBox::error("Reverting LDAP changes");
                     $self->restoreConfig($backupDir);
-                    throw EBox::Exceptions::Internal(
-                        "Found and error while updating LDAP schema!");
+                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 if (not $ldif->eof()) {
                     EBox::error("Found unexpected entries in $newSchema");
                     EBox::error("Reverting LDAP changes");
                     $self->restoreConfig($backupDir);
-                    throw EBox::Exceptions::Internal(
-                        "Found and error while updating LDAP schema!");
+                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 $ldif->done();
             }
