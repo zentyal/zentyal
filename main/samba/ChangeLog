@@ -1,5 +1,5 @@
 HEAD
-    + Antivirus daemon ulinks the cache file before create new one
+	+ Antivirus daemon unlinks the cache file before creating new one
 	+ Fix user accounts not enabled when created by s4sync
 	+ Wait for RID pool allocation after join domain as DC
 	+ Remove no longer needed workaround for DNS SPN
