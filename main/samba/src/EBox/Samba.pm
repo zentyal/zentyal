@@ -244,7 +244,7 @@ sub _postServiceHook
                 next;
             }
 
-            if (EBox::Config::boolean('unmanaged_acls') and 
+            if (EBox::Config::boolean('unmanaged_acls') and
                 (not ((defined $state->{shares_set_rights}) and
                       ($state->{shares_set_rights}->{$shareName})))) {
                 # The unmanaged_acls flag is set and we didn't create the share right now, we should not change the
