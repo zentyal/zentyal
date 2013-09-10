@@ -71,6 +71,29 @@ sub setProvisioned
     $samba->set_state($state);
 }
 
+sub isProvisioning
+{
+    my $state = EBox::Global->modInstance('samba')->get_state();
+    my $flag = $state->{provisioning};
+    my $provisioning = (defined $flag and $flag == 1) ? 1 : 0;
+
+    return $provisioning;
+
+}
+
+sub setProvisioning
+{
+    my ($self, $provisioning) = @_;
+
+    if ($provisioning != 0 and $provisioning != 1) {
+        throw EBox::Exceptions::InvalidArgument('provisioning');
+    }
+    my $samba = EBox::Global->modInstance('samba');
+    my $state = $samba->get_state();
+    $state->{provisioning} = $provisioning;
+    $samba->set_state($state);
+}
+
 # Method: checkEnvironment
 #
 #   This method ensure that the environment is properly configured for
