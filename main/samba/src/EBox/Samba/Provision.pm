@@ -55,6 +55,8 @@ sub isProvisioned
     my $state = EBox::Global->modInstance('samba')->get_state();
     my $flag = $state->{provisioned};
     my $provisioned = (defined $flag and $flag == 1) ? 1 : 0;
+    my $global = EBox::Global->getInstance(0);
+    $self->{samba} = $global->modInstance('samba');
 
     return $provisioned;
 }
@@ -437,7 +439,6 @@ sub _syncMembers
     my $domainSID = $self->{samba}->ldb()->domainSID();
     my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
-    my $domainAdminSID = "$domainSID-500";
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or
@@ -497,12 +498,12 @@ sub _syncMembers
     foreach my $memberCanonicalName (keys %sambaMembers) {
         unless (exists $zentyalMembers{$memberCanonicalName}) {
             EBox::info("Adding member '$memberCanonicalName' to Zentyal group '$gid'");
-            my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+            my $zentyalMember = $self->{samba}->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
             unless ($zentyalMember and $zentyalMember->exists()) {
                 if ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
                     # The group is not yet syncronized, we force its sync now to retry...
                     $sambaMembers{$memberCanonicalName}->addToZentyal();
-                    $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+                    $zentyalMember = $self->{samba}->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
                     unless ($zentyalMember and $zentyalMember->exists()) {
                         EBox::error("Cannot add member '$memberCanonicalName' to group '$gid' because the member does not exist");
                         next;
@@ -583,8 +584,8 @@ sub mapAccounts
     my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
     if ($domainUsers->exists()) {
         if ($domainUsersZentyal->exists()) {
-            $self->_syncMembers($domainUsers, $domainUsersZentyal);
             $domainUsers->_linkWithUsersObject($domainUsersZentyal);
+            $self->_syncMembers($domainUsers, $domainUsersZentyal);
         } else {
             $domainUsers->addToZentyal();
         }
