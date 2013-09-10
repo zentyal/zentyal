@@ -329,6 +329,13 @@ sub ldapOUsToLDB
         my $name = $ou->name();
         my $parentDN = $ou->parent()->dn();
 
+        # Internal zentyal OUs should not been imported to LDB
+        next if (grep { lc $_ eq lc $ou->name() } @{
+            ['kerberos', 'users', 'groups', 'computers',
+             'postfix', 'mailalias', 'vdomains', 'fetchmail',
+             'zarafa']
+        });
+
         if (($parentDN eq $namingContextDN) and ((grep { $_ eq $name } BUILT_IN_CONTAINERS) or ($name eq 'Groups'))) {
             # Samba already has an specific container for this OU, ignore it.
             EBox::debug("Ignoring OU $name given that it has a built-in container");
