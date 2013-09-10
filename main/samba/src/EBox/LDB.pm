@@ -298,14 +298,14 @@ sub ldapOUToLDB
     my $name = $ldapOU->name();
     my $parentDN = $parent->dn();
 
-    EBox::debug("Loading OU $name into $parentDN");
+    EBox::info("Loading OU $name into $parentDN");
 
     my $sambaOU = undef;
     try {
         $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
         $sambaOU->_linkWithUsersObject($ldapOU);
     } catch EBox::Exceptions::DataExists with {
-        EBox::debug("OU $name already in $parentDN on Samba database");
+        EBox::warn("OU $name already in $parentDN on Samba database");
         $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
     } otherwise {
         my $error = shift;
