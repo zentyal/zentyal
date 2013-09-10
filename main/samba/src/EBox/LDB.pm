@@ -518,11 +518,12 @@ sub ldapServicePrincipalsToLdb
 
         if ($ldbKerberosOU and $ldbKerberosOU->exists()) {
             $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
+            $ldbKerberosOU->setInAdvancedViewOnly(1);
         } else {
             $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
+            $ldbKerberosOU->setInAdvancedViewOnly(1);
         }
     }
-
     return unless ($ldbKerberosOU and $ldbKerberosOU->exists());
 
     foreach my $module (@{$modules}) {
