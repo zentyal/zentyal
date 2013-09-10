@@ -143,7 +143,9 @@ sub work
                 logevent('INFO', "VIRUS|$user|$addr|$file|$result");
 
                 # Create an empty file to inform the user that a virus has been found
-                open ($FD,">>$path"."VIRUS_found_in_$name.txt") && close ($FD);
+                my $fullPath = "${path}VIRUS_found_in_${name}.txt";
+                unlink $fullPath if -f $fullPath;
+                open ($FD,">>$fullPath") && close ($FD);
 
                 # Quarantine the infected file
                 my (undef, $newFile) = tempfile("$name.XXXXX", DIR => $CONF->{quarantineDir});
@@ -154,7 +156,9 @@ sub work
                 logevent('INFO', "QUARANTINE|$user|$addr|$file|$newFile");
             } else {
                 # File is clean, create the scanned file
-                open ($FD,">>$path.scanned:$name") && close ($FD);
+                my $fullPath = "$path.scanned:$name";
+                unlink $fullPath if -f $fullPath;
+                open ($FD,">>$fullPath") && close ($FD);
             }
         } catch ClamAV::Client::Error with {
             my ($error) = @_;
@@ -162,7 +166,9 @@ sub work
 
             my $path = $data->{path};
             my $name = $data->{name};
-            open ($FD,">>$path.failed:$name") && close ($FD);
+            my $fullPath = "$path.failed:$name";
+            unlink $fullPath if -f $fullPath;
+            open ($FD,">>$fullPath") && close ($FD);
         } otherwise {
             my ($error) = @_;
             logevent('ERROR', "Unexpected error, thread ends now: $error");

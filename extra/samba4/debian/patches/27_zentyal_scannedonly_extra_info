@@ -1,7 +1,7 @@
-Index: samba4/source3/modules/vfs_scannedonly.c
+Index: samba4-4.1.0rc2/source3/modules/vfs_scannedonly.c
 ===================================================================
---- samba4.orig/source3/modules/vfs_scannedonly.c	2013-08-14 00:22:50.129330392 +0200
-+++ samba4/source3/modules/vfs_scannedonly.c	2013-08-14 00:22:50.129330392 +0200
+--- samba4-4.1.0rc2.orig/source3/modules/vfs_scannedonly.c	2013-09-10 20:35:26.695453809 +0200
++++ samba4-4.1.0rc2/source3/modules/vfs_scannedonly.c	2013-09-10 20:36:28.855440629 +0200
 @@ -309,28 +309,55 @@
  	}
  }
