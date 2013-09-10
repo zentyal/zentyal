@@ -543,12 +543,14 @@ sub ldapServicePrincipalsToLdb
 
                 EBox::info("Importing service principal $dn");
                 my %args = (
-                    name           => scalar ($user->get('uid')),
+                    name           => $samAccountName,
                     parent         => $ldbKerberosOU,
-                    samAccountName => scalar ($samAccountName),
-                    description    => scalar ($user->get('description')),
+                    samAccountName => $samAccountName,
                     kerberosKeys   => $user->kerberosKeys(),
                 );
+                if (length $user->get('description')) {
+                    $args{description} = $user->get('description');
+                }
                 $smbUser = EBox::Samba::User->create(%args);
                 $smbUser->setCritical(1);
                 $smbUser->setInAdvancedViewOnly(1);
