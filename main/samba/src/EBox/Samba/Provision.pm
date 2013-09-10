@@ -486,43 +486,54 @@ sub provisionDC
     my ($self, $provisionIP) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
-    $samba->writeSambaConfig();
+    try {
+        $self->setProvisioning(1);
 
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $usersModule = EBox::Global->modInstance('users');
-    my $cmd = 'samba-tool domain provision ' .
-        " --domain='" . $samba->workgroup() . "'" .
-        " --workgroup='" . $samba->workgroup() . "'" .
-        " --realm='" . $usersModule->kerberosRealm() . "'" .
-        " --dns-backend=BIND9_DLZ" .
-        " --use-xattrs=yes " .
-        " --use-rfc2307 " .
-        " --server-role='" . $samba->mode() . "'" .
-        " --users='" . $usersModule->DEFAULTGROUP() . "'" .
-        " --host-name='" . $sysinfo->hostName() . "'" .
-        " --host-ip='" . $provisionIP . "'";
-    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
+        $samba->writeSambaConfig();
 
-    EBox::info("Provisioning database '$cmd'");
-    $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
+        my $fs = EBox::Config::configkey('samba_fs');
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $usersModule = EBox::Global->modInstance('users');
+        my $cmd = 'samba-tool domain provision ' .
+            " --domain='" . $samba->workgroup() . "'" .
+            " --workgroup='" . $samba->workgroup() . "'" .
+            " --realm='" . $usersModule->kerberosRealm() . "'" .
+            " --dns-backend=BIND9_DLZ" .
+            " --use-xattrs=yes " .
+            " --use-rfc2307 " .
+            " --server-role='" . $samba->mode() . "'" .
+            " --users='" . $usersModule->DEFAULTGROUP() . "'" .
+            " --host-name='" . $sysinfo->hostName() . "'" .
+            " --host-ip='" . $provisionIP . "'";
+        $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
-    # Use silent root to avoid showing the admin pass in the logs if
-    # provision command fails.
-    my $output = EBox::Sudo::silentRoot($cmd);
-    if ($? == 0) {
-        EBox::debug("Provision result: @{$output}");
-    } else {
-        my @error = ();
-        my $stderr = EBox::Config::tmp() . 'stderr';
-        if (-r $stderr) {
-            @error = read_file($stderr);
+        EBox::info("Provisioning database '$cmd'");
+        $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
+
+        # Use silent root to avoid showing the admin pass in the logs if
+        # provision command fails.
+        my $output = EBox::Sudo::silentRoot($cmd);
+        if ($? == 0) {
+            EBox::debug("Provision result: @{$output}");
+        } else {
+            my @error = ();
+            my $stderr = EBox::Config::tmp() . 'stderr';
+            if (-r $stderr) {
+                @error = read_file($stderr);
+            }
+            throw EBox::Exceptions::Internal("Error provisioning database. " .
+                    "Output: @{$output}, error:@error");
         }
-        throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
+        $self->setupDNS();
+        $self->setProvisioned(1);
+    } otherwise {
+        my ($error) = @_;
+        $self->setProvisioned(0);
+        $self->setupDNS();
+        throw $error;
+    } finally {
+        $self->setProvisioning(0);
     };
-
-    $self->setupDNS();
-    $self->setProvisioned(1);
 
     try {
         # Disable password policy
@@ -530,11 +541,11 @@ sub provisionDC
         #      zentyal the command may fail if it do not meet requirements,
         #      ending with different passwords
         EBox::info('Setting password policy');
-        $cmd = "samba-tool domain passwordsettings set " .
-                           " --complexity=off "  .
-                           " --min-pwd-length=0" .
-                           " --min-pwd-age=0" .
-                           " --max-pwd-age=365";
+        my $cmd = "samba-tool domain passwordsettings set " .
+                  " --complexity=off "  .
+                  " --min-pwd-length=0" .
+                  " --min-pwd-age=0" .
+                  " --max-pwd-age=365";
         EBox::Sudo::root($cmd);
 
         # Start managed service to let it create the LDAP socket
