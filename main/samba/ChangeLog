@@ -3,6 +3,7 @@ HEAD
 	  users stored in LDB
 	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
+3.1.9
 	+ Antivirus daemon unlinks the cache file before creating new one
 	+ Fix user accounts not enabled when created by s4sync
 	+ Wait for RID pool allocation after join domain as DC

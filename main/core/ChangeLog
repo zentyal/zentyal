@@ -2,6 +2,7 @@ HEAD
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module
+3.1.9
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Removed some warnings in error.log
 	+ Fixed confirmation dialogs warning style
