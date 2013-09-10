@@ -336,7 +336,7 @@ sub ldapOUsToLDB
              'zarafa']
         });
 
-        if (($parentDN eq $namingContextDN) and ((grep { $_ eq $name } BUILT_IN_CONTAINERS) or ($name eq 'Groups'))) {
+        if ((lc $parentDN eq lc $namingContextDN) and ((grep { lc $_ eq lc $name } BUILT_IN_CONTAINERS) or (lc $name eq 'groups'))) {
             # Samba already has an specific container for this OU, ignore it.
             EBox::debug("Ignoring OU $name given that it has a built-in container");
             next;
