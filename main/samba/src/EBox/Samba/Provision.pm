@@ -21,6 +21,7 @@ package EBox::Samba::Provision;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
@@ -51,13 +52,19 @@ sub isProvisioned
     my ($self) = @_;
 
     my $state = EBox::Global->modInstance('samba')->get_state();
-    return $state->{provisioned};
+    my $flag = $state->{provisioned};
+    my $provisioned = (defined $flag and $flag == 1) ? 1 : 0;
+
+    return $provisioned;
 }
 
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
+    if ($provisioned != 0 and $provisioned != 1) {
+        throw EBox::Exceptions::InvalidArgument('provisioned');
+    }
     my $samba = EBox::Global->modInstance('samba');
     my $state = $samba->get_state();
     $state->{provisioned} = $provisioned;
