@@ -77,6 +77,12 @@ sub _table
             defaultValue => 1,
             editable => sub { $self->parentModule->isEnabled() and
                               not $self->parentModule->isProvisioned() }),
+        new EBox::Types::Boolean(
+            fieldName => 'registerAsMain',
+            printableName => __('Set this server as the primary server'),
+            defaultValue => 0,
+            editable => sub { $self->parentModule->isEnabled() and
+                              not $self->parentModule->isProvisioned() }),
     ];
 
     my $customActions = [
@@ -157,6 +163,12 @@ sub precondition
         return undef;
     }
 
+    # Check there are not unsaved changes
+    if ($self->global->unsaved()) {
+        $self->{preconditionFail} = 'unsavedChanges';
+        return undef;
+    }
+
     return 1;
 }
 
@@ -194,6 +206,10 @@ sub preconditionFailMsg
                    ohref => "<a href='/Mail/View/VDomains'>",
                    chref => '</a>');
     }
+    if ($self->{preconditionFail} eq 'unsavedChanges') {
+        return __x('There are unsaved changes. Please save them before '.
+                   'provision');
+    }
 }
 
 sub viewCustomizer
@@ -210,10 +226,10 @@ sub viewCustomizer
         mode => {
             first => {
                 show => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
-                hide => [],
+                hide => ['registerAsMain'],
             },
             additional => {
-                show => [],
+                show => ['registerAsMain'],
                 hide => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
             },
         },
@@ -242,14 +258,45 @@ sub _acquireProvisioned
     return ($provisioned) ? 'provisioned' : 'notProvisioned';
 }
 
+sub _doProvisionAdditional
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $registerAsMain = $params{registerAsMain};
+    try {
+        my $cmd = '/opt/samba4/sbin/openchange_provision --additional';
+        if ($registerAsMain) {
+            $cmd .= ' --primary-server ';
+        }
+        my $output = EBox::Sudo::root($cmd);
+        EBox::debug(join('', @{$output}));
+
+        $cmd = '/opt/samba4/sbin/openchange_provision --openchangedb';
+        $output = EBox::Sudo::root($cmd);
+        EBox::debug(join('', @{$output}));
+
+        $self->parentModule->setProvisioned(1);
+        $self->setMessage($action->message(), 'note');
+    } otherwise {
+        my ($error) = @_;
+
+        throw EBox::Exceptions::External("Error provisioninig: $error");
+        $self->parentModule->setProvisioned(0);
+    } finally {
+        $self->global->modChange('mail');
+        $self->global->modChange('samba');
+        $self->global->modChange('openchange');
+    };
+}
+
 sub _doProvision
 {
     my ($self, $action, $id, %params) = @_;
 
     my $mode = $params{mode};
     if ($mode eq 'additional') {
-        throw EBox::Exceptions::External('Provision as additional server is ' .
-                                         'not yet implemented');
+        $self->_doProvisionAdditional($action, $id, %params);
+        return;
     }
 
     my $firstOrganization = $params{firstorganization};
@@ -262,6 +309,7 @@ sub _doProvision
 
     try {
         my $cmd = '/opt/samba4/sbin/openchange_provision ' .
+                  "--standalone " .
                   "--firstorg='$firstOrganization' " .
                   "--firstou='$firstOrganizationUnit' ";
         my $output = EBox::Sudo::root($cmd);

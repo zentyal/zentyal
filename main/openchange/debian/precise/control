@@ -9,7 +9,7 @@ Package: zentyal-openchange
 Architecture: all
 Depends: zentyal-core (>= 3.1), zentyal-core (<< 3.2),
  zentyal-mail, zentyal-samba,
- openchangeserver (>= 1:2.0-QUADRANT-32-g7aa5435-zentyal7),
+ openchangeserver (>= 1:2.0-QUADRANT-32-g7aa5435-zentyal8),
  sogo-openchange (>= 2.0.7-1zentyal2),
  sope4.9-gdl1-mysql,
  libstring-random-perl
