@@ -324,8 +324,8 @@ sub _doProvision
     } otherwise {
         my ($error) = @_;
 
-        throw EBox::Exceptions::External("Error provisioninig: $error");
         $self->parentModule->setProvisioned(0);
+        throw EBox::Exceptions::External("Error provisioninig: $error");
     } finally {
         $self->global->modChange('mail');
         $self->global->modChange('samba');
