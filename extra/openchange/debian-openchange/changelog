@@ -1,3 +1,9 @@
+openchange (2.0-QUADRANT-40-g24417ae-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 11 Sep 2013 01:34:35 +0200
+
 openchange (1:2.0-QUADRANT-32-g7aa5435-zentyal8) precise; urgency=low
 
   * Link to samba4 libldb, libndr, libtevent and libtalloc libraries

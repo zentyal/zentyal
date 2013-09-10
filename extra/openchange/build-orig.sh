@@ -20,15 +20,19 @@ tar_file="$base_url/$package-$version.tar.gz"
 
 if [ "$package" = "openchange" ]
 then
-    git clone git://git.openchange.org/openchange.git openchange-master
-    pushd .
-    cd openchange-master
+    if [ ! -d openchange-master ]; then
+        git clone https://github.com/carlosperello/openchange.git openchange-master
+    fi
+    pushd openchange-master > /dev/null 2>&1
     version=`git describe master --tags`
     version=${version/$package-/}
     generated=${package_lc}_$version.orig.tar.gz
-    git archive master --prefix=${package_lc}-$version/ | gzip > ../$generated
-    popd
-    rm -rf openchange-master
+    if [ ! -f $generated ]; then
+        git archive master --prefix=${package_lc}-$version/ | gzip > ../$generated
+    else
+        echo "Skip generating orig $generated"
+    fi
+    popd > /dev/null 2>&1
 else
     wget "$tar_file"
 
@@ -47,7 +51,6 @@ else
     rm $package-$version.tar.gz
     tar cfz $generated "${package_lc}-$version"
     rm -rf "${package_lc}-$version"
-
 fi
 
 exit 0

@@ -27,11 +27,13 @@ CWD=`pwd`
 SRC="${package_lc}_$version.orig.tar.gz"
 
 if [ "$package" = "openchange" ]; then
-    ./build-orig.sh $package $version
-    if [ $? -ne 0 ]; then
-        exit 1
-    fi
     generated=`ls -tr openchange_*.orig.tar.gz |tail -1`
+    if [ ! -f $generated ]; then
+        ./build-orig.sh $package $version
+        if [ $? -ne 0 ]; then
+            exit 1
+        fi
+    fi
     SRC=$generated
     version=${generated/${package}_/}
     version=${version/.orig.tar.gz/}
