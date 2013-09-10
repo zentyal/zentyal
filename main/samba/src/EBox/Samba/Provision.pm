@@ -1048,28 +1048,64 @@ sub checkADNebiosName
     return $adNetbiosDomain;
 }
 
-# FIXME This should not be necessary, it is a samba bug.
-sub fixDnsSPN
+# FIXME Workaround for samba bug #9200
+sub _addForestDnsZonesReplica
 {
     my ($self) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $fqdn = $sysinfo->fqdn();
-    my $ucHostname = uc ($sysinfo->hostName());
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+    my $basedn = $ldb->dn();
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
-    my @cmds = ();
-    push (@cmds, "rm -f " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "samba-tool spn add DNS/$fqdn $ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=$ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=DNS/$fqdn");
-    push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
-    EBox::Sudo::root(@cmds);
+    my $params = {
+        base => "CN=Partitions,CN=Configuration,$basedn",
+        scope => 'one',
+        filter => "(nCName=DC=ForestDnsZones,$basedn)",
+        attrs => ['*'],
+    };
+    my $result = $ldb->search($params);
+    unless ($result->count() == 1) {
+        EBox::error("Could not found ForestDnsZones partition.");
+        return;
+    }
+    my $entry = $result->entry(0);
+    my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
+    foreach my $replica (@replicas) {
+        return if (lc $replica eq lc $dsServiceName);
+    }
+    $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
+    $entry->update($ldb->connection());
+}
+
+# FIXME Workaround for samba bug #9200
+sub _addDomainDnsZonesReplica
+{
+    my ($self) = @_;
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+    my $basedn = $ldb->dn();
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+
+    my $params = {
+        base => "CN=Partitions,CN=Configuration,$basedn",
+        scope => 'one',
+        filter => "(nCName=DC=DomainDnsZones,$basedn)",
+        attrs => ['*'],
+    };
+    my $result = $ldb->search($params);
+    unless ($result->count() == 1) {
+        EBox::error("Could not found DomainDnsZones partition.");
+        return;
+    }
+    my $entry = $result->entry(0);
+    my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
+    foreach my $replica (@replicas) {
+        return if (lc $replica eq lc $dsServiceName);
+    }
+    $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
+    $entry->update($ldb->connection());
 }
 
 sub provisionADC
@@ -1171,7 +1207,8 @@ sub provisionADC
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
-        $self->fixDnsSPN();
+        $self->_addForestDnsZonesReplica();
+        $self->_addDomainDnsZonesReplica();
         $self->setupDNS();
 
         # Start managed service to let it create the LDAP socket
