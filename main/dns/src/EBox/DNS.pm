@@ -659,6 +659,16 @@ sub _setConf
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
                 $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
             }
+        } elsif ($sambaModule->isEnabled() and
+                 $sambaModule->getProvision->isProvisioning()) {
+            my $sysinfo = $self->global->modInstance('sysinfo');
+            my $adDomain = $sysinfo->hostDomain();
+            $sambaZones = [ $adDomain ];
+
+            # Get the DNS keytab path used for GSSTSIG zone updates
+            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
+                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
+            }
         }
     }
 
@@ -687,6 +697,18 @@ sub _setConf
     my @domainIds = @{$self->_domainIds()};
     foreach my $domainId (@domainIds) {
         my $domdata = $self->_completeDomain($domainId);
+
+        if (EBox::Global->modExists('samba')) {
+            my $samba = EBox::Global->modInstance('samba');
+            my $provision = $samba->getProvision();
+            if ($provision->isProvisioning()) {
+                my $sysinfo = EBox::Global->modInstance('sysinfo');
+                my $adDomain = $sysinfo->hostDomain();
+                if (lc $adDomain eq $domdata->{name}) {
+                    next;
+                }
+            }
+        }
 
         # Store the domain data to create the reverse zones
         push (@domainData, $domdata);
