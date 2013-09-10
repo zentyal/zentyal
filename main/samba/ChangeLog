@@ -1,4 +1,14 @@
 HEAD
+	+ Fix user accounts not enabled when created by s4sync
+	+ Wait for RID pool allocation after join domain as DC
+	+ Remove no longer needed workaround for DNS SPN
+	+ Add samba as a DomainDnsZones and ForestDnsZones replica holder
+	  when joining as additional DC (samba bug #9200)
+	+ Fixes for LDAP-LDB OUs synchronization
+	+ Forece restart of DNS module while provisioning to reload zones from
+	  LDB
+	+ Block until samba LDAP task is listening when restarting module
+	+ New state flag 'provisioning'
 	+ Added 'All users' option to ACL group permissions
 	+ Fix precondition on GPOScripts model
 3.1.8
