@@ -323,8 +323,6 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-
-
     my $samAccountName = $args{samAccountName};
     $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
@@ -359,10 +357,9 @@ sub create
     my $entry = undef;
     try {
         $entry = new Net::LDAP::Entry($dn, @attr);
-
         my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+            unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,
