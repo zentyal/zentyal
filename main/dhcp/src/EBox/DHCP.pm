@@ -1336,18 +1336,12 @@ sub _thinClientOptions # (iface, element)
     my $thinClientModel = $self->_getModel('ThinClientOptions', $iface);
 
     my $ret = {};
-# TODO: Restore this when more than one config per interface is possible
-#    my $row = $thinClientModel->findValue(hosts => $element);
-#    if ( defined($row) ) {
-    if ($thinClientModel->row()->valueByName('nextServer') ne 'none') {
-        $ret->{nextServerIsZentyal} = $thinClientModel->nextServerIsZentyal();
-        $ret->{nextServer} = $thinClientModel->nextServer();
-        $ret->{filename}   = $thinClientModel->remoteFilename();
-        $ret->{architecture} = $thinClientModel->architecture();
-        $ret->{fat} = $thinClientModel->fat();
+    my $row = $thinClientModel->row();
+    if (defined ($row)) {
+        $ret->{nextServer} = $thinClientModel->nextServer($row->id());
+        $ret->{filename} = $row->valueByName('remoteFilename');
     }
     return $ret;
-
 }
 
 # Method: _dynamicDNS

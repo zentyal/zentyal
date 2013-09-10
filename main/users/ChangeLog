@@ -1,4 +1,10 @@
 HEAD
+	+ Fixed wrong calls to isSystem() in master-slave after API changes
+	+ Fix regression trying to join slave after external AD changes
+	+ Fix regression in slave host address after nginx integration
+	+ Throw DataExists error when adding an OU which already exists
+3.1.7
+	+ Readded memberUid to the fields to index for SLAPD.
 	+ Ignored members that are not valid perl objects to avoid undef entries
 	  on EBox::Users::Group::members method.
 	+ Rewrites to share more code with samba module.

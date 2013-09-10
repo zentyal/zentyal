@@ -126,68 +126,21 @@ if ($restricted) {
 </%def>
 
 
-
 <%def .listSection>
 <%args>
 %backups
 </%args>
 <%init>
 
-my @columnTitles = (
-                    __('Name'),
-                    __('Date'),
-                    __('Description'),
-                    __('Archive size'),
-                    __('Actions'),
-                   );
-
-my $downloadImg  = "/data/images/down.gif";
-my $applyImg = "/data/images/apply.gif";
+my $downloadImg  = "/data/images/download.gif";
+my $applyImg = "/data/images/restore.gif";
 my $deleteImg = "/data/images/delete.gif";
-
 
 my $restoreTitle = __('Restore configuration backup');
 my $downloadTitle = __('Download configuration backup');
 my $deleteTitle = __('Delete configuration backup');
 
-my @rows = map {
-             my @row;
-             my $name =  $_->{Filename};
-             push @row, ( $name, $_->{Date}, $_->{Comment}, $_->{printableSize});
-
-             my $restoreUrl = "Confirm?action=restore&name=$name&popup=1";
-             my $restoreData = "name=$name&popup=1";
-             my $downloadUrl = "DownloadRemoteBackup?name=$name";
-             my $deleteUrl = "Confirm";
-             my $deleteData = "action=delete&name=$name&popup=1";
-
-             # action element
-             push @row, [
-                         {
-                          name => __('Restore'),
-                          icon => $applyImg,
-                          text => $restoreTitle,
-                          onclick => "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false",
-                         },
-
-                         {
-                          name => __('Download'),
-                          icon => $downloadImg,
-                          text => $downloadTitle,
-                          url => $downloadUrl,
-                         },
-                         {
-                          name => __('Delete'),
-                          icon => $deleteImg,
-                          text => $deleteTitle,
-                          onclick => "Zentyal.Dialog.showURL('$deleteUrl',  {title:'$deleteTitle', data: '$deleteData'}); return false",
-                         },
-
-                        ];
-
-             [@row]
-
-          } sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
+my @backups = sort { $b->{sortableDate} <=> $a->{sortableDate} } values %backups;
 
 my @legendElements = (
                       {
@@ -206,9 +159,52 @@ my @legendElements = (
 </%init>
 % if (keys %backups) {
 <h3><% __("Configuration backups' list") %></h3>
-<& /dataTable.mas, rows => \@rows, columnTitles => \@columnTitles &>
-<br />
-
+<table class="dataTable" cellspacing="0">
+  <thead>
+    <tr>
+      <th class="tleft"><% __('Name') %></th>
+      <th><% __('Date') %></th>
+      <th class="tleft"><% __('Description') %></th>
+      <th><% __('Archive size') %></th>
+      <th class="thOptions"><% __('Actions') %></th>
+    </tr>
+  </thead>
+  <tbody>
+<%perl>
+  foreach my $backup (@backups) {
+     my $name = $backup->{Filename};
+     my $restoreUrl  = "Confirm?action=restore&name=$name&popup=1";
+     my $restoreData = "name=$name&popup=1";
+     my $restoreJS   = "Zentyal.Dialog.showURL('$restoreUrl',  {title:'$restoreTitle', data: '$restoreData'}); return false";
+     my $downloadUrl = "DownloadRemoteBackup?name=$name";
+     my $deleteUrl   = "Confirm";
+     my $deleteData  = "action=delete&name=$name&popup=1";
+     my $deleteJS    = "Zentyal.Dialog.showURL('$deleteUrl',  {title:'$deleteTitle', data: '$deleteData'}); return false";
+</%perl>
+    <tr class="border">
+      <td class="tleft"><% $backup->{Filename} %></td>
+      <td class="tcenter"><% $backup->{Date} %></td>
+      <td class="tleft"><% $backup->{Comment} %></td>
+      <td class="tcenter"><% $backup->{printableSize} %></td>
+      <td width="%14" class="tcenter">
+        <button name="restore" class="btn-only-icon btn-restore"
+                value="Restore" title="<% $restoreTitle %>"
+                alt="<% $restoreTitle %>"
+                onclick="<% $restoreJS %>" />
+        <button name="download" class="btn-only-icon btn-download"
+                value="Download" title="<% $downloadTitle %>"
+                alt="<% $downloadTitle %>"
+                onclick="document.location='<% $downloadUrl %>'" />
+        <button name="delete" class="btn-only-icon btn-delete"
+                value="Delete" title="<% $deleteTitle %>"
+                alt="<% $deleteTitle %>"
+                onclick="<% $deleteJS %>" />
+      </td>
+    </tr>
+% }
+  </tbody>
+</table>
+<br>
 <& /legendTable.mas, elements => \@legendElements, nColumns => 3 &>
 % }
 </%def>

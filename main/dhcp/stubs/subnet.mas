@@ -6,32 +6,32 @@
   %info
 </%args>
 % if (exists $info{'staticRoutes'} ) {
-        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw	=>  $info{'gateway'}   &>
+        <& staticRoutes.mas, routes => $info{'staticRoutes'}, defaultGw =>  $info{'gateway'}   &>
 % }
-	subnet <% $info{'net'} %> netmask <% $info{'netmask'} %> {
+    subnet <% $info{'net'} %> netmask <% $info{'netmask'} %> {
                 <& .options, info => \%info &>
-%	my $ranges = $info{'ranges'};
-%	foreach my $range (@{$ranges}) {
+%   my $ranges = $info{'ranges'};
+%   foreach my $range (@{$ranges}) {
             pool {
                 <& .include, name => $range->{'name'} &>
                 <& .thin_client_options, options => $range->{'options'} &>
                 range <% $range->{'from'} %> <% $range->{'to'} %>;
             }
-%	}
+%   }
         }
 
         group {
            <& .options, info => \%info, fixed => 1 &>
-%	foreach my $groupFixed (values %{$info{'fixed'}}) {
-  	   group {
+%   foreach my $groupFixed (values %{$info{'fixed'}}) {
+       group {
                    <& .thin_client_options, options => $groupFixed->{options} &>
 %          foreach my $fixed (@{$groupFixed->{members}}) {
-	  	   host <% $fixed->{'name'} %> {
-		  	  hardware ethernet <% $fixed->{'mac'} %>;
-			  fixed-address <% $fixed->{'ip'} %>;
+           host <% $fixed->{'name'} %> {
+              hardware ethernet <% $fixed->{'mac'} %>;
+              fixed-address <% $fixed->{'ip'} %>;
                           <& .include, name => $fixed->{'name'} &>
                           }
-%	   }
+%      }
            }
 %       }
         }
@@ -49,7 +49,7 @@
             option routers <% $info{'gateway'} %>;
 % }
 % if(defined($info{'search'})) {
-	        option domain-name "<% $info{'search'} %>";
+            option domain-name "<% $info{'search'} %>";
 % }
 % if(exists $info{'nameserver1'} and length($info{'nameserver1'}) > 0) {
             option domain-name-servers <% $info{'nameserver1'} %>\
@@ -145,26 +145,10 @@
   %options
 </%args>
 % if (values(%options) > 0) {
-%   if ($options{nextServerIsZentyal}) {
-%       if ($options{nextServer}) {
-                next-server <% $options{nextServer} %>;
-                option tftp-server-name "<% $options{nextServer} %>";
-%       }
-                option root-path "/opt/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>";
-                if substring( option vendor-class-identifier, 0, 9 ) = "PXEClient" {
-                    filename "/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>/pxelinux.0";
-                } else {
-                    filename "/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>/nbi.img";
-                }
-%   }
-%   else {
-%       if ($options{nextServer}) {
-                next-server <% $options{nextServer} %>;
-                option tftp-server-name "<% $options{nextServer} %>";
-%       }
-%       if ( $options{filename} ) {
-                filename    "<% $options{filename} %>";
-%       }
-%   }
+                   next-server <% $options{nextServer} %>;
+                   option tftp-server-name "<% $options{nextServer} %>";
+% if ( $options{filename} ) {
+                   filename    "<% $options{filename} %>";
+% }
 % }
 </%def>

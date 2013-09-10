@@ -2,6 +2,32 @@ HEAD
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module
+	+ Fixed in-place boolean edit with non-basic types different to Union
+	+ Removed some warnings in error.log
+	+ Fixed confirmation dialogs warning style
+	+ Fixed configure widgets width and drop behavior
+	+ Fixed regression in dashboard register link after jQuery migration
+	+ Always set as changed without checking RO value, this fixes some
+	  situations in which the save changes button was not enabled
+	+ Fixed regression in audit log IP addresses after nginx integration
+	+ Added datetime time formatter to JS graphs which show dates in X
+	  axis and date and time in the tracker
+	+ Fixed bug sending parameters in Zentyal.Tabs prototype
+	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
+	  tried to load composite as model by mistake, the bug was at least
+	  present sometimes when trying to generate the configuration report
+	+ Throw internal exception in valueByName if elementByName is undef
+	+ Added captiveportal icons to CSS
+	+ Restore configuration backup from file now works again after JS
+	  framework change
+	+ Configuration backup download, restore and delete from the list
+	  works again after the UI changes
+	+ Fixed regression in tabbed composites with the jQuery changes
+	+ Set proper title in dialogs when loading in an existent one
+	+ Fixed regression on dashboard which allowed to move already
+	  present dashboard widgets
+3.1.8
+	+ Always log Perl errors that are not Zentyal exceptions
 	+ Move package icons from software to core as required for the menu
 	+ Use dpkg --clear-avail to avoid incoherent updates information
 	+ Show printableModelName in DataTables when precondition fails

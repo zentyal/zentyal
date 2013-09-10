@@ -303,14 +303,14 @@ sub ldapOUToLDB
     my $name = $ldapOU->name();
     my $parentDN = $parent->dn();
 
-    EBox::debug("Loading OU $name into $parentDN");
+    EBox::info("Loading OU $name into $parentDN");
 
     my $sambaOU = undef;
     try {
         $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
         $sambaOU->_linkWithUsersObject($ldapOU);
     } catch EBox::Exceptions::DataExists with {
-        EBox::debug("OU $name already in $parentDN on Samba database");
+        EBox::warn("OU $name already in $parentDN on Samba database");
         $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
     } otherwise {
         my $error = shift;
@@ -334,7 +334,14 @@ sub ldapOUsToLDB
         my $name = $ou->name();
         my $parentDN = $ou->parent()->dn();
 
-        if (($parentDN eq $namingContextDN) and ((grep { $_ eq $name } BUILT_IN_CONTAINERS) or ($name eq 'Groups'))) {
+        # Internal zentyal OUs should not been imported to LDB
+        next if (grep { lc $_ eq lc $ou->name() } @{
+            ['kerberos', 'users', 'groups', 'computers',
+             'postfix', 'mailalias', 'vdomains', 'fetchmail',
+             'zarafa']
+        });
+
+        if ((lc $parentDN eq lc $namingContextDN) and ((grep { lc $_ eq lc $name } BUILT_IN_CONTAINERS) or (lc $name eq 'groups'))) {
             # Samba already has an specific container for this OU, ignore it.
             EBox::debug("Ignoring OU $name given that it has a built-in container");
             next;
@@ -516,11 +523,12 @@ sub ldapServicePrincipalsToLdb
 
         if ($ldbKerberosOU and $ldbKerberosOU->exists()) {
             $ldbKerberosOU->_linkWithUsersObject($ldapKerberosOU);
+            $ldbKerberosOU->setInAdvancedViewOnly(1);
         } else {
             $ldbKerberosOU = $ldb->ldapOUToLDB($ldapKerberosOU);
+            $ldbKerberosOU->setInAdvancedViewOnly(1);
         }
     }
-
     return unless ($ldbKerberosOU and $ldbKerberosOU->exists());
 
     foreach my $module (@{$modules}) {
@@ -540,12 +548,14 @@ sub ldapServicePrincipalsToLdb
 
                 EBox::info("Importing service principal $dn");
                 my %args = (
-                    name           => scalar ($user->get('uid')),
+                    name           => $samAccountName,
                     parent         => $ldbKerberosOU,
-                    samAccountName => scalar ($samAccountName),
-                    description    => scalar ($user->get('description')),
+                    samAccountName => $samAccountName,
                     kerberosKeys   => $user->kerberosKeys(),
                 );
+                if (length $user->get('description')) {
+                    $args{description} = $user->get('description');
+                }
                 $smbUser = EBox::Samba::User->create(%args);
                 $smbUser->setCritical(1);
                 $smbUser->setInAdvancedViewOnly(1);
@@ -666,6 +676,42 @@ sub groups
     }
 
     return $list;
+}
+
+# Method: securityGroups
+#
+#   Returns an array containing all the security groups
+#
+# Returns:
+#
+#    array - holding the groups as EBox::Samba::Group objects
+#
+sub securityGroups
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance();
+    my $sambaMod = $global->modInstance('samba');
+    if ((not $sambaMod->isEnabled()) or (not $sambaMod->isProvisioned())) {
+        return [];
+    }
+
+    my $allGroups = $self->groups();
+    my @securityGroups = ();
+    foreach my $group (@{$allGroups}) {
+        if ($group->isSecurityGroup()) {
+            push (@securityGroups, $group);
+        }
+    }
+    # sort grups by name
+    @securityGroups = sort {
+        my $aValue = $a->name();
+        my $bValue = $b->name();
+        (lc $aValue cmp lc $bValue) or
+            ($aValue cmp $bValue)
+    } @securityGroups;
+
+    return \@securityGroups;
 }
 
 sub ous

@@ -143,7 +143,7 @@ sub authen_cred  # (request, $user, password, fromCC)
         return;
     }
 
-    my $ip  = $r->connection->remote_ip();
+    my $ip = $r->headers_in->{'X-Real-IP'};
     my $audit = EBox::Global->modInstance('audit');
     # Unless it is a CC session or password does
     if ( not (defined($fromCC) and $fromCC) ) {
@@ -194,7 +194,7 @@ sub authen_ses_key  # (request, session_key)
     }
     elsif ($expired) {
         my $audit = EBox::Global->modInstance('audit');
-        my $ip = $r->connection->remote_ip();
+        my $ip = $r->headers_in->{'X-Real-IP'};
         $audit->logSessionEvent($user, $ip, 'expired');
 
         $r->subprocess_env(LoginReason => "Expired");
@@ -259,7 +259,7 @@ sub logout
     $self->SUPER::logout($r);
 
     my $audit = EBox::Global->modInstance('audit');
-    my $ip = $r->connection->remote_ip();
+    my $ip = $r->headers_in->{'X-Real-IP'};
     my $user = $r->user();
     $audit->logSessionEvent($user, $ip, 'logout');
 }

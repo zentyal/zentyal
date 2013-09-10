@@ -72,6 +72,7 @@ sub name
 #
 #   Throw EBox::Exceptions::InvalidData if a non valid character is detected on $name.
 #   Throw EBox::Exceptions::InvalidType if $parent is not a valid container.
+#   Throw Ebox::Exceptions::DataExists if $name already exists
 #
 # Parameters:
 #
@@ -138,6 +139,8 @@ sub create
         } else {
             $usersMod->notifyModsPreLdapUserBase(
                 'preAddOUFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+            throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
+                                               'value' => $args{name});
         }
         $ou = undef;
         $entry = undef;

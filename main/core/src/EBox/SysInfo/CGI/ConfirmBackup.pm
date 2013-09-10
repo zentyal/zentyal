@@ -42,18 +42,14 @@ sub requiredParameters
 {
   my ($self) = @_;
 
-  if ($self->param('download.x')) {
-    return [qw(id download.x download.y)];
-  }  elsif ($self->param('delete.x')) {
-    return [qw(id delete.x delete.y)];
-  }  elsif ($self->param('delete')) {
-    return [qw(id delete)];
-  }  elsif ($self->param('restoreFromId.x')) {
-    return [qw(restoreFromId.x restoreFromId.y id)];
-  }  elsif ($self->param('restoreFromId')) {
-    return [qw(restoreFromId id)];
-  }  elsif ($self->param('restoreFromFile')) {
-    return [qw(restoreFromFile backupfile)];
+  if ($self->param('download')) {
+      return [qw(id download)];
+  } elsif ($self->param('delete')) {
+      return [qw(id delete)];
+  } elsif ($self->param('restoreFromId')) {
+      return [qw(restoreFromId id)];
+  } elsif ($self->param('restoreFromFile')) {
+      return [qw(restoreFromFile backupfile)];
   }
 
   return [];
@@ -68,7 +64,7 @@ sub actuate
 {
   my ($self) = @_;
 
-  if (defined($self->param('download.x'))) {
+  if (defined($self->param('download'))) {
     $self->{chain} = 'SysInfo/Backup';
     return;
   }

@@ -64,7 +64,7 @@ sub _addUser
         initials     => $user->initials(),
         surname      => $user->surname(),
         isDisabled   => $user->isDisabled(),
-        isSystemUser => $user->isSystemUser(),
+        isSystemUser => $user->isSystem(),
         isInternal   => $user->isInternal(),
         uidNumber    => $user->get('uidNumber'),
         passwords    => \@passwords
@@ -139,7 +139,7 @@ sub _addGroup
         comment         => $group->description(),
         mail            => $group->mail(),
         isSecurityGroup => $group->isSecurityGroup(),
-        isSystemGroup   => $group->isSystemGroup(),
+        isSystemGroup   => $group->isSystem(),
         gidNumber       => $group->get('gidNumber'),
     };
 

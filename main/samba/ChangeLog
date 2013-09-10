@@ -3,6 +3,22 @@ HEAD
 	  users stored in LDB
 	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
+	+ Antivirus daemon unlinks the cache file before creating new one
+	+ Fix user accounts not enabled when created by s4sync
+	+ Wait for RID pool allocation after join domain as DC
+	+ Remove no longer needed workaround for DNS SPN
+	+ Add samba as a DomainDnsZones and ForestDnsZones replica holder
+	  when joining as additional DC (samba bug #9200)
+	+ Fixes for LDAP-LDB OUs synchronization
+	+ Force restart of DNS module while provisioning to reload zones from LDB
+	+ Block until samba LDAP task is listening when restarting module
+	+ New state flag 'provisioning'
+	+ Added 'All users' option to ACL group permissions
+	+ Fix precondition on GPOScripts model
+3.1.8
+	+ Added EBox::LDB::securityGroups to get the list of security groups from
+	  Samba.
+	+ Requested SLAPD to add an index on the msdsObjectGUID field.
 	+ Added support to set permissions recursively.
 	+ Moved the code that sets the share permissions to EBox::Samba to execute
 	  it on EBox::Module::Service::_postServiceHook hook so we are sure samba

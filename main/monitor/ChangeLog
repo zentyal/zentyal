@@ -1,3 +1,7 @@
+HEAD
+	+ Remove truncating as we use now proper resolutions
+	+ Set proper resolution (1 point by hour) and time type (datetime)
+	  to last week period
 3.1.2
 	+ Added menu icon
 	+ Removed no longer necessary jQuery noConflict()

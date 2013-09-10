@@ -26,6 +26,7 @@
 <%init>
 my $formatter;
 my $timeformatter;
+my $trackTimeformatter;
 if($type eq 'int') {
     $formatter = undef;
 } elsif($type eq 'byte') {
@@ -39,8 +40,13 @@ if($type eq 'int') {
 }
 if($timetype eq 'time') {
     $timeformatter = 'getTime';
+    $trackTimeformatter = $timeformatter;
+} elsif($timetype eq 'datetime') {
+    $timeformatter = 'getDate';
+    $trackTimeformatter = 'getDateTime';
 } else {
     $timeformatter = 'getDate';
+    $trackTimeformatter = $timeformatter;
 }
 my $tiny = 0.01;
 </%init>
@@ -50,7 +56,7 @@ my $tiny = 0.01;
 <script type="text/javascript">
 % }
 var track_formatter = function(obj) {
-    var time = <% $timeformatter %>(obj.x);
+    var time = <% $trackTimeformatter %>(obj.x);
     var other;
 %   if($formatter) {
         other = <% $formatter %>(obj.y);

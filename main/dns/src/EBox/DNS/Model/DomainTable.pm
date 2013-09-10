@@ -663,10 +663,20 @@ sub syncRows
     my $sambaEnabled = 0;
     if ($global->modExists('samba')) {
         my $samba = $global->modInstance('samba');
-        $sambaEnabled = $samba->isEnabled() && $samba->getProvision->isProvisioned();
-        if ($sambaEnabled) {
+        if ($samba->isEnabled() and
+            $samba->getProvision->isProvisioned())
+        {
+            $sambaEnabled = 1;
             my $sambaZones = $samba->ldb->dnsZones();
-            %sambaZones = map { $_->name() => $_ } @{$sambaZones};
+            %sambaZones = map { $_->name() => 1 } @{$sambaZones};
+        }
+        elsif($samba->isEnabled() and
+              $samba->getProvision->isProvisioning())
+        {
+            $sambaEnabled = 1;
+            my $sysinfo = EBox::Global->modInstance('sysinfo');
+            my $adDomain = $sysinfo->hostDomain();
+            $sambaZones{$adDomain} = 1;
         }
     }
 
@@ -690,15 +700,21 @@ sub syncRows
 
         my $sambaElement = $row->elementByName('samba');
         my $domainName = $row->valueByName('domain');
-        # If the domain is not marked as stored in LDB and is present in samba zones array, mark
-        if ($sambaEnabled and exists $sambaZones{$domainName} and not $sambaElement->value()) {
+        # If the domain is not marked as stored in LDB and is present in
+        # samba zones array, mark
+        if ($sambaEnabled and exists $sambaZones{$domainName} and
+            not $sambaElement->value())
+        {
             $sambaElement->setValue(1);
             $row->store();
             $changed = 1;
         }
 
-        # If the domain is marked as stored in LDB and is not present in samba zones array, unmark
-        if (not $sambaEnabled or (not exists $sambaZones{$domainName} and $sambaElement->value())) {
+        # If the domain is marked as stored in LDB and is not present in
+        # samba zones array, unmark
+        if (not $sambaEnabled or (not exists $sambaZones{$domainName} and
+            $sambaElement->value()))
+        {
             $sambaElement->setValue(0);
             $row->store();
             $changed = 1;
