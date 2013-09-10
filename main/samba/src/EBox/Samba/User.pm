@@ -179,6 +179,9 @@ sub setAccountEnabled
 {
     my ($self, $enable, $lazy) = @_;
 
+    unless (defined $enable) {
+        throw EBox::Exceptions::MissingArgument('enable');
+    }
     my $flags = $self->get('userAccountControl');
     if ($enable) {
         $flags = $flags & ~ACCOUNTDISABLE;
@@ -373,10 +376,10 @@ sub create
         # Set the password
         if (defined $args{clearPassword}) {
             $res->changePassword($args{clearPassword});
-            $res->setAccountEnabled();
+            $res->setAccountEnabled(1);
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
-            $res->setAccountEnabled();
+            $res->setAccountEnabled(1);
         }
 
         if (defined $args{uidNumber}) {
