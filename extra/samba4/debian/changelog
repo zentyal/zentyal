@@ -1,3 +1,16 @@
+samba4 (4.1.0rc2-zentyal9) precise; urgency=low
+
+  * scannedonly VFS plugin: Do not unlink cache file when accessed file is
+    newer
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 10 Sep 2013 20:41:35 +0200
+
+samba4 (4.1.0rc2-zentyal8) precise; urgency=low
+
+  * Fix segfault in scannedonly VFS plugin
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Sun, 08 Sep 2013 17:46:08 +0200
+
 samba4 (4.1.0rc2-zentyal7) precise; urgency=low
 
   * Fix segfault in scannedonly VFS plugin
