@@ -1174,10 +1174,7 @@ sub provisionADC
         $self->fixDnsSPN();
         $self->setupDNS();
 
-        $self->setProvisioned(1);
-
         # Start managed service to let it create the LDAP socket
-        EBox::debug('Starting service');
         $sambaModule->_startService();
 
         # Wait some time until samba is ready
