@@ -87,6 +87,8 @@ use Samba::Security::Descriptor qw(
     SECINFO_PROTECTED_DACL
 );
 use String::ShellQuote 'shell_quote';
+use Time::HiRes;
+use IO::Socket::INET;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
@@ -357,6 +359,23 @@ sub _startService
     }
 
     $self->SUPER::_startService(@_);
+
+    # This function will block until Samba LDAP task is listening or timed
+    # out (300 * 0.1 = 30 seconds)
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => 389,
+                                        Proto    => 'tcp');
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
 }
 
 # Method: _enforceServiceState
