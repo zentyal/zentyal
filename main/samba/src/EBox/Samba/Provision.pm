@@ -1214,8 +1214,11 @@ sub provisionADC
             $zentyalGroup->deleteObject();
         }
         foreach my $zentyalOU (@{$ous}) {
-            # TODO: We must ignore OUs like the ones used by zentyal-mail.
-            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos', 'Groups']});
+            next if (grep { lc $_ eq lc $zentyalOU->name() } @{
+                ['kerberos', 'users', 'groups', 'computers',
+                 'postfix', 'mailalias', 'vdomains', 'fetchmail',
+                 'zarafa']
+            });
 
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject();
