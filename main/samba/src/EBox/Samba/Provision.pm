@@ -1122,6 +1122,8 @@ sub provisionADC
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     try {
+        $self->setProvisioning(1);
+
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
@@ -1228,7 +1230,7 @@ sub provisionADC
         # Map accounts
         $self->mapAccounts();
 
-        EBox::debug('Setting provisioned flag');
+        # Set provisioned flag
         $self->setProvisioned(1);
     } otherwise {
         my ($error) = @_;
@@ -1247,6 +1249,8 @@ sub provisionADC
         }
         # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
+
+        $self->setProvisioning(0);
     };
 }
 
