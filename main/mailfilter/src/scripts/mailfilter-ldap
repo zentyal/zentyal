@@ -20,6 +20,7 @@ sub update
             givenname => 'Spam',
             surname  => 'spam',
             parent => $container,
+            isSystemUser => 1,
             isInternal => 1,
         },
         {
@@ -27,6 +28,7 @@ sub update
             givenname => 'Ham',
             surname => 'ham',
             parent => $container,
+            isSystemUser => 1,
             isInternal => 1,
         },
     );
@@ -38,9 +40,8 @@ sub update
             EBox::debug("Creating user '$username'");
             EBox::Users::User->create(%$user_r);
         } else {
-            my $uidNumber = $user->get('uidNumber');
-            if ($uidNumber > $user->lastUid(1)) {
-                die "$user->name is not a system user as it has to be";
+            unless ($user->isSystem()) {
+                die $user->name() . " is not a system user as it has to be";
             }
         }
     }
