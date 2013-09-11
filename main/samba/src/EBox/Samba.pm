@@ -55,6 +55,7 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::SyncFolders::Folder;
 use EBox::Users;
+use EBox::Users::User;
 use EBox::Util::Random qw( generate );
 
 use Error qw(:try);
@@ -2474,6 +2475,8 @@ sub _migrateTo32
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
     $self->dumpConfig($backupDir);
 
+    EBox::Service::manage('zentyal.s4sync', 'stop');
+
     try {
         EBox::info("Removing posixAccount from users");
         foreach my $user (@{$self->ldb->users()}) {
@@ -2489,9 +2492,9 @@ sub _migrateTo32
             $group->save();
         }
 
+        my $schema = 'zentyal-samba/zentyalsambalink.ldif';
         EBox::info("Loading $schema");
         my $usersMod = $self->global()->modInstance('users');
-        my $schema = 'zentyal-samba/zentyalsambalink.ldif';
         $usersMod->_loadSchema(EBox::Config::share() . $schema);
 
         EBox::info("Map default containers");
@@ -2514,9 +2517,10 @@ sub _migrateTo32
             }
         }
     } otherwise {
+        my ($ex) = @_;
         EBox::error("Reverting Samba backup");
         $self->restoreConfig($backupDir);
-        throw $error;
+        throw $ex;
     };
 }
 
