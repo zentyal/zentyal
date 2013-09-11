@@ -218,7 +218,7 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    if (defined($version) and EBox::Util::Version::compare($version, '3.1') <= 0) {
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1') < 0) {
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
@@ -280,6 +280,38 @@ sub _migrateTo32
                 }
                 $ldif->done();
             }
+        }
+    }
+
+    $self->_createVMailDomainsOUs();
+
+    my $baseDn = $usersMod->ldap()->dn();
+    $result = $ldap->search(
+        base => "ou=Users,$baseDn",
+        filter => "(objectClass=zarafa-company)",
+        scope => 'sub',
+    );
+    my @entries = $result->entries();
+    for my $ou (@entries) {
+        my $ouDn = $ou->get_value('dn');
+        $result = $ldap->search(
+            base => $ouDn,
+            filter => '',
+            scope => 'sub',
+        );
+        for my $entry ($result->entries()) {
+            my $dn = $entry->get_value('dn');
+            $dn =~ s/,ou=Users,/,ou=zarafa,/;
+            $entry->replace(dn => $dn);
+            my $updateResult = $entry->update($ldap->connection());
+            if ($updateResult->is_error()) {
+                EBox::error("Error migrating $dn: " . $updateResult->error());
+            }
+        }
+        $ou->delete();
+        my $updateResult = $ou->update($ldap->connection());
+        if ($updateResult->is_error()) {
+            EBox::error("Error deleting $ouDn: " . $updateResult->error());
         }
     }
 }
