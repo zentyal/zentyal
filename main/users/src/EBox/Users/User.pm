@@ -676,6 +676,8 @@ sub create
         $res->save();
     }
 
+    $defaultGroup->addMember($res);
+
     # Return the new created user
     return $res;
 }
