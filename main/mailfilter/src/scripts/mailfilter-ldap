@@ -13,33 +13,35 @@ sub update
 {
     my $users =  EBox::Global->modInstance('users');
 
+    my $container = EBox::Users::User->defaultContainer();
     my @controlUsers = (
         {
-            user => 'spam',
+            uid => 'spam',
             givenname => 'Spam',
-            surname => 'account',
             surname  => 'spam',
-            password => undef,
+            parent => $container,
+            isSystemUser => 1,
+            isInternal => 1,
         },
         {
-            user => 'ham',
+            uid => 'ham',
             givenname => 'Ham',
-            surname => 'account',
             surname => 'ham',
-            password => undef,
+            parent => $container,
+            isSystemUser => 1,
+            isInternal => 1,
         },
     );
 
     foreach my $user_r (@controlUsers) {
-        my $username = $user_r->{user};
+        my $username = $user_r->{uid};
         my $user = new EBox::Users::User(uid => $username);
         unless ($user->exists()) {
             EBox::debug("Creating user '$username'");
-            EBox::Users::User->create($user_r, 1);
+            EBox::Users::User->create(%$user_r);
         } else {
-            my $uidNumber = $user->get('uidNumber');
-            if ($uidNumber > $user->lastUid(1)) {
-                die "$user->name is not a system user as it has to be";
+            unless ($user->isSystem()) {
+                die $user->name() . " is not a system user as it has to be";
             }
         }
     }
