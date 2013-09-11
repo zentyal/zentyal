@@ -1,5 +1,6 @@
 HEAD
 	+ Added migration from 3.0 (apache -> webadmin)
+3.1.9
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Removed some warnings in error.log
 	+ Fixed confirmation dialogs warning style

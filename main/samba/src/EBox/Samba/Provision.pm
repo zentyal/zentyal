@@ -21,6 +21,7 @@ package EBox::Samba::Provision;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Exceptions::MissingArgument;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
@@ -36,6 +37,7 @@ use Net::LDAP;
 use Net::LDAP::Util qw(ldap_explode_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
+use Time::HiRes;
 use Error qw(:try);
 
 sub new
@@ -51,16 +53,45 @@ sub isProvisioned
     my ($self) = @_;
 
     my $state = EBox::Global->modInstance('samba')->get_state();
-    return $state->{provisioned};
+    my $flag = $state->{provisioned};
+    my $provisioned = (defined $flag and $flag == 1) ? 1 : 0;
+
+    return $provisioned;
 }
 
 sub setProvisioned
 {
     my ($self, $provisioned) = @_;
 
+    if ($provisioned != 0 and $provisioned != 1) {
+        throw EBox::Exceptions::InvalidArgument('provisioned');
+    }
     my $samba = EBox::Global->modInstance('samba');
     my $state = $samba->get_state();
     $state->{provisioned} = $provisioned;
+    $samba->set_state($state);
+}
+
+sub isProvisioning
+{
+    my $state = EBox::Global->modInstance('samba')->get_state();
+    my $flag = $state->{provisioning};
+    my $provisioning = (defined $flag and $flag == 1) ? 1 : 0;
+
+    return $provisioning;
+
+}
+
+sub setProvisioning
+{
+    my ($self, $provisioning) = @_;
+
+    if ($provisioning != 0 and $provisioning != 1) {
+        throw EBox::Exceptions::InvalidArgument('provisioning');
+    }
+    my $samba = EBox::Global->modInstance('samba');
+    my $state = $samba->get_state();
+    $state->{provisioning} = $provisioning;
     $samba->set_state($state);
 }
 
@@ -257,6 +288,11 @@ sub setupDNS
         push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
         EBox::Sudo::root(@cmds);
     }
+
+    # Save and restart DNS to load samba zones stored in LDB
+    my $dnsMod = EBox::Global->modInstance('dns');
+    $dnsMod->setAsChanged();
+    $dnsMod->save();
 }
 
 sub _checkUsersState
@@ -456,43 +492,54 @@ sub provisionDC
     my ($self, $provisionIP) = @_;
 
     my $samba = EBox::Global->modInstance('samba');
-    $samba->writeSambaConfig();
+    try {
+        $self->setProvisioning(1);
 
-    my $fs = EBox::Config::configkey('samba_fs');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $usersModule = EBox::Global->modInstance('users');
-    my $cmd = 'samba-tool domain provision ' .
-        " --domain='" . $samba->workgroup() . "'" .
-        " --workgroup='" . $samba->workgroup() . "'" .
-        " --realm='" . $usersModule->kerberosRealm() . "'" .
-        " --dns-backend=BIND9_DLZ" .
-        " --use-xattrs=yes " .
-        " --use-rfc2307 " .
-        " --server-role='" . $samba->mode() . "'" .
-        " --users='" . $usersModule->DEFAULTGROUP() . "'" .
-        " --host-name='" . $sysinfo->hostName() . "'" .
-        " --host-ip='" . $provisionIP . "'";
-    $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
+        $samba->writeSambaConfig();
 
-    EBox::info("Provisioning database '$cmd'");
-    $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
+        my $fs = EBox::Config::configkey('samba_fs');
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        my $usersModule = EBox::Global->modInstance('users');
+        my $cmd = 'samba-tool domain provision ' .
+            " --domain='" . $samba->workgroup() . "'" .
+            " --workgroup='" . $samba->workgroup() . "'" .
+            " --realm='" . $usersModule->kerberosRealm() . "'" .
+            " --dns-backend=BIND9_DLZ" .
+            " --use-xattrs=yes " .
+            " --use-rfc2307 " .
+            " --server-role='" . $samba->mode() . "'" .
+            " --users='" . $usersModule->DEFAULTGROUP() . "'" .
+            " --host-name='" . $sysinfo->hostName() . "'" .
+            " --host-ip='" . $provisionIP . "'";
+        $cmd .= ' --use-ntvfs' if (defined $fs and $fs eq 'ntvfs');
 
-    # Use silent root to avoid showing the admin pass in the logs if
-    # provision command fails.
-    my $output = EBox::Sudo::silentRoot($cmd);
-    if ($? == 0) {
-        EBox::debug("Provision result: @{$output}");
-    } else {
-        my @error = ();
-        my $stderr = EBox::Config::tmp() . 'stderr';
-        if (-r $stderr) {
-            @error = read_file($stderr);
+        EBox::info("Provisioning database '$cmd'");
+        $cmd .= " --adminpass='" . $samba->administratorPassword() . "'";
+
+        # Use silent root to avoid showing the admin pass in the logs if
+        # provision command fails.
+        my $output = EBox::Sudo::silentRoot($cmd);
+        if ($? == 0) {
+            EBox::debug("Provision result: @{$output}");
+        } else {
+            my @error = ();
+            my $stderr = EBox::Config::tmp() . 'stderr';
+            if (-r $stderr) {
+                @error = read_file($stderr);
+            }
+            throw EBox::Exceptions::Internal("Error provisioning database. " .
+                    "Output: @{$output}, error:@error");
         }
-        throw EBox::Exceptions::Internal("Error provisioning database. Output: @{$output}, error:@error");
+        $self->setupDNS();
+        $self->setProvisioned(1);
+    } otherwise {
+        my ($error) = @_;
+        $self->setProvisioned(0);
+        $self->setupDNS();
+        throw $error;
+    } finally {
+        $self->setProvisioning(0);
     };
-
-    $self->setupDNS();
-    $self->setProvisioned(1);
 
     try {
         # Disable password policy
@@ -500,11 +547,11 @@ sub provisionDC
         #      zentyal the command may fail if it do not meet requirements,
         #      ending with different passwords
         EBox::info('Setting password policy');
-        $cmd = "samba-tool domain passwordsettings set " .
-                           " --complexity=off "  .
-                           " --min-pwd-length=0" .
-                           " --min-pwd-age=0" .
-                           " --max-pwd-age=365";
+        my $cmd = "samba-tool domain passwordsettings set " .
+                  " --complexity=off "  .
+                  " --min-pwd-length=0" .
+                  " --min-pwd-age=0" .
+                  " --max-pwd-age=365";
         EBox::Sudo::root($cmd);
 
         # Start managed service to let it create the LDAP socket
@@ -1002,28 +1049,148 @@ sub checkADNebiosName
     return $adNetbiosDomain;
 }
 
-# FIXME This should not be necessary, it is a samba bug.
-sub fixDnsSPN
+# FIXME Workaround for samba bug #9200
+sub _addForestDnsZonesReplica
 {
     my ($self) = @_;
 
-    my $samba = EBox::Global->modInstance('samba');
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    my $fqdn = $sysinfo->fqdn();
-    my $ucHostname = uc ($sysinfo->hostName());
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+    my $basedn = $ldb->dn();
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
 
-    my @cmds = ();
-    push (@cmds, "rm -f " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "samba-tool spn add DNS/$fqdn $ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=$ucHostname\$");
-    push (@cmds, "samba-tool domain exportkeytab " .
-                 $samba->SAMBA_DNS_KEYTAB() .
-                 " --principal=DNS/$fqdn");
-    push (@cmds, "chgrp bind " . $samba->SAMBA_DNS_KEYTAB());
-    push (@cmds, "chmod g+r " . $samba->SAMBA_DNS_KEYTAB());
-    EBox::Sudo::root(@cmds);
+    my $params = {
+        base => "CN=Partitions,CN=Configuration,$basedn",
+        scope => 'one',
+        filter => "(nCName=DC=ForestDnsZones,$basedn)",
+        attrs => ['*'],
+    };
+    my $result = $ldb->search($params);
+    unless ($result->count() == 1) {
+        EBox::error("Could not found ForestDnsZones partition.");
+        return;
+    }
+    my $entry = $result->entry(0);
+    my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
+    foreach my $replica (@replicas) {
+        return if (lc $replica eq lc $dsServiceName);
+    }
+    $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
+    $entry->update($ldb->connection());
+}
+
+# FIXME Workaround for samba bug #9200
+sub _addDomainDnsZonesReplica
+{
+    my ($self) = @_;
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+    my $basedn = $ldb->dn();
+    my $dsServiceName = $ldb->rootDse->get_value('dsServiceName');
+
+    my $params = {
+        base => "CN=Partitions,CN=Configuration,$basedn",
+        scope => 'one',
+        filter => "(nCName=DC=DomainDnsZones,$basedn)",
+        attrs => ['*'],
+    };
+    my $result = $ldb->search($params);
+    unless ($result->count() == 1) {
+        EBox::error("Could not found DomainDnsZones partition.");
+        return;
+    }
+    my $entry = $result->entry(0);
+    my @replicas = $entry->get_value('msDS-NC-Replica-Locations');
+    foreach my $replica (@replicas) {
+        return if (lc $replica eq lc $dsServiceName);
+    }
+    $entry->add('msDS-NC-Replica-Locations' => [ $dsServiceName ]);
+    $entry->update($ldb->connection());
+}
+
+# Method: _waitForRidSetAllocation
+#
+#   After joining the domain, samba contact the RID manager FSMO role owner
+#   to request a new RID pool. We have to wait for the response before
+#   creating security objects in the LDB or the server will deny with
+#   'unwilling to perform' error code until RID pool is allocated.
+#
+#   This function will block until a RID pool is allocated or timed
+#   out.
+#
+sub _waitForRidPoolAllocation
+{
+    my ($self) = @_;
+
+    use Data::Dumper; # TODO Remove
+    my $allocated = 0;
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+
+    my $sambaModule = EBox::Global->modInstance('samba');
+    my $ldb = $sambaModule->ldb();
+
+    # Get the server object, contained in the config NC, that represents
+    # this DC
+    my $serverNameDN = $ldb->rootDse->get_value('serverName');
+    my $result = $ldb->search({
+        base => $serverNameDN,
+        scope => 'base',
+        filter => '(objectClass=*)',
+        attrs => ['serverReference']});
+    unless ($result->count() == 1) {
+        my $foundEntries = $result->count();
+        my $errorStr = "Error getting the DN of the server object from root " .
+                       "DSE. Expected one entry but got $foundEntries";
+        throw EBox::Exceptions::Internal($errorStr);
+    }
+    my $serverObject = $result->entry(0);
+
+    # Get the domain controller object representing this DC
+    my $serverReferenceDN = $serverObject->get_value('serverReference');
+    while (not $allocated and $maxTries > 0) {
+        $result = $ldb->search({
+            base => $serverReferenceDN,
+            scope => 'base',
+            filter => '(objectClass=*)',
+            attrs => ['rIDSetReferences']});
+        unless ($result->count() == 1) {
+            my $foundEntries = $result->count();
+            my $errorStr = "Error getting the DN of the domain controller " .
+                           "object. Expected one entry but got $foundEntries";
+            throw EBox::Exceptions::Internal($errorStr);
+        }
+        my $dcObject = $result->entry(0);
+
+        # Get the list of references to RID set objects managing RID allocation
+        my @ridSetReferencesDNs = $dcObject->get_value('rIDSetReferences');
+        foreach my $ridSetReferenceDN (@ridSetReferencesDNs) {
+            $result = $ldb->search({
+                base => $ridSetReferenceDN,
+                scope => 'base',
+                filter => '(objectClass=*)',
+                attrs => ['rIDAllocationPool']});
+            unless ($result->count() == 1) {
+                my $foundEntries = $result->count();
+                my $errorStr = "Error getting the RID set object. Expected " .
+                               "one entry but got $foundEntries";
+                throw EBox::Exceptions::Internal($errorStr);
+            }
+            my $ridSetObject = $result->entry(0);
+
+            # The rIDAllocationPool attribute is the pool that the DC will
+            # switch to next, managed by RID Manager
+            my $pool = $ridSetObject->get_value('ridAllocationPool');
+            if (defined $pool) {
+                $allocated = 1;
+                last;
+            }
+        }
+
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
 }
 
 sub provisionADC
@@ -1076,6 +1243,8 @@ sub provisionADC
     my $dnsFile = undef;
     my $adminAccountPwdFile = undef;
     try {
+        $self->setProvisioning(1);
+
         EBox::info("Joining to domain '$domainToJoin' as DC");
         # Set the domain DNS as the primary resolver. This will also let to get
         # the kerberos ticket for the admin account.
@@ -1123,22 +1292,16 @@ sub provisionADC
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
-        $self->fixDnsSPN();
+        $self->_addForestDnsZonesReplica();
+        $self->_addDomainDnsZonesReplica();
         $self->setupDNS();
 
-        $self->setProvisioned(1);
-
         # Start managed service to let it create the LDAP socket
-        EBox::debug('Starting service');
         $sambaModule->_startService();
 
-        # Wait some time until samba is ready
-        sleep (5);
-
-        # Run samba_dnsupdate to add required records to the remote DC
-        EBox::info('Running DNS update on remote DC');
-        $cmd = 'samba_dnsupdate --no-credentials';
-        EBox::Sudo::rootWithoutException($cmd);
+        # Wait for RID pool allocation
+        EBox::info("Waiting RID pool allocation");
+        $self->_waitForRidPoolAllocation();
 
         # Run Knowledge Consistency Checker (KCC) on remote DC
         EBox::info('Running KCC on remote DC');
@@ -1166,8 +1329,11 @@ sub provisionADC
             $zentyalGroup->deleteObject();
         }
         foreach my $zentyalOU (@{$ous}) {
-            # TODO: We must ignore OUs like the ones used by zentyal-mail.
-            next if (grep { $_ eq $zentyalOU->name() } @{['Kerberos', 'Groups']});
+            next if (grep { lc $_ eq lc $zentyalOU->name() } @{
+                ['kerberos', 'users', 'groups', 'computers',
+                 'postfix', 'mailalias', 'vdomains', 'fetchmail',
+                 'zarafa']
+            });
 
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject();
@@ -1182,7 +1348,7 @@ sub provisionADC
         # Map accounts
         $self->mapAccounts();
 
-        EBox::debug('Setting provisioned flag');
+        # Set provisioned flag
         $self->setProvisioned(1);
     } otherwise {
         my ($error) = @_;
@@ -1201,6 +1367,8 @@ sub provisionADC
         }
         # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
+
+        $self->setProvisioning(0);
     };
 }
 
