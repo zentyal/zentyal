@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,32 +16,40 @@
 use strict;
 use warnings;
 
-package EBox::IPS::Composite::AlertReport;
+package EBox::Logs::Composite::SummarizedReport;
 
-use base 'EBox::Logs::Composite::SummarizedReport';
+# Class: EBox::Logs::Composite::SummarizedReport
+#
+#     Base class for all common logic between composites that show
+#     summarised data
+#
+
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 
-# Group: Public methods
-
-# Group: Protected methods
-
-# Method: _description
+# Method: HTMLTitle
+#
+#     Override to set breadcrumbs to Logs
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#     <EBox::Model::Composite::HTMLTitle>
 #
-sub _description
+sub HTMLTitle
 {
-    my $description = {
-        layout          => 'top-bottom',
-        name            => 'AlertReport',
-        printableName   => __('IPS Alerts report'),
-        compositeDomain => 'IPS',
-    };
+    my ($self) = @_;
 
-    return $description;
+    return [
+        {
+            title => __('Query Logs'),
+            link  => '/Maintenance/Logs'
+           },
+        {
+            title => __('Summarized Report'),
+            link  => "",
+        }
+       ];
 }
 
 1;
