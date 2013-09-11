@@ -1,3 +1,9 @@
+samba4 (4.1.0rc3-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 11 Sep 2013 18:31:03 +0200
+
 samba4 (4.1.0rc2-zentyal9) precise; urgency=low
 
   * scannedonly VFS plugin: Do not unlink cache file when accessed file is
