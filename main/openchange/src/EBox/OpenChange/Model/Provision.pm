@@ -22,6 +22,7 @@ use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
 use EBox::DBEngineFactory;
+use EBox::MailUserLdap;
 use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::MultiStateAction;
