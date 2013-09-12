@@ -58,7 +58,8 @@ sub _table
         new EBox::Types::Select(
             fieldName => 'mode',
             printableName => __('Provision type'),
-            editable => 1,
+            editable => sub { $self->parentModule->isEnabled() and
+                              not $self->parentModule->isProvisioned() },
             populate => \&_modeOptions),
         new EBox::Types::Text(
             fieldName => 'firstorganization',
@@ -295,18 +296,19 @@ sub _doProvision
     my ($self, $action, $id, %params) = @_;
 
     my $mode = $params{mode};
-    if ($mode eq 'additional') {
-        $self->_doProvisionAdditional($action, $id, %params);
-        return;
-    }
-
     my $firstOrganization = $params{firstorganization};
     my $firstOrganizationUnit = $params{firstorganizationunit};
     my $enableUsers = $params{enableUsers};
 
+    $self->setValue('mode', $mode);
     $self->setValue('firstorganization', $firstOrganization);
     $self->setValue('firstorganizationunit', $firstOrganizationUnit);
     $self->setValue('enableUsers', $enableUsers);
+
+    if ($mode eq 'additional') {
+        $self->_doProvisionAdditional($action, $id, %params);
+        return;
+    }
 
     try {
         my $cmd = '/opt/samba4/sbin/openchange_provision ' .
