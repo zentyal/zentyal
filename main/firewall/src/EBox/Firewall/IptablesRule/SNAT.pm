@@ -96,7 +96,7 @@ sub strings
                         "--limit $limit/min ".
                         "--limit-burst $burst " .
                         '--log-level ' . $self->{'log_level'} . ' ' .
-                        '--log-prefix "ebox-firewall snat "';
+                        '--log-prefix "zentyal-firewall snat "';
 
                     unshift (@rules, $logRule);
                 }
