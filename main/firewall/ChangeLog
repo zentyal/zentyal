@@ -1,4 +1,6 @@
 HEAD
+	+ Use common prefix (zentyal-firewall) for logging redirections,
+	  snat, drop and log rules
 	+ Use DATETIME type in date column for consolidation tables
 	+ Summarised report has breadcrumbs now
 3.1.5
