@@ -1,5 +1,8 @@
 HEAD
 	+ Added migration code to be executed when upgrading from 3.0
+3.1.10
+	+ Wait until all the samba services are ready before trying to connect
+	+ Removed useless and problematic enforceServiceState override
 3.1.9
 	+ Antivirus daemon unlinks the cache file before creating new one
 	+ Fix user accounts not enabled when created by s4sync

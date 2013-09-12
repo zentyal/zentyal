@@ -368,15 +368,48 @@ sub _startService
 
     $self->SUPER::_startService(@_);
 
-    # This function will block until Samba LDAP task is listening or timed
-    # out (300 * 0.1 = 30 seconds)
+    my $services = $self->_services();
+    foreach my $service (@{$services}) {
+        my $port = $service->{destinationPort};
+        next unless $port;
+
+        my $proto = $service->{protocol};
+        next unless $proto;
+
+        my $desc = $service->{description};
+        if ($proto eq 'tcp') {
+            $self->_waitService('tcp', $port, $desc);
+            next;
+        }
+        if ($proto eq 'udp') {
+            $self->_waitService('udp', $port, $desc);
+            next;
+        }
+        if ($proto eq 'tcp/udp') {
+            $self->_waitService('tcp', $port, $desc);
+            $self->_waitService('udp', $port, $desc);
+            next;
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
     my $maxTries = 300;
     my $sleepSeconds = 0.1;
     my $listening = 0;
+
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
-                                        PeerPort => 389,
-                                        Proto    => 'tcp');
+                                        PeerPort => $port,
+                                        Proto    => $proto);
         if ($sock) {
             $listening = 1;
             last;
@@ -384,23 +417,9 @@ sub _startService
         $maxTries--;
         Time::HiRes::sleep($sleepSeconds);
     }
-}
 
-# Method: _enforceServiceState
-#
-#   Start the samba daemon is expensive and takes a while. After writing
-#   smb.conf the daemon is started to make queries to LDB, so it is not
-#   necessary to restart it after that. This method is overrided to avoid
-#   this situation and restart samba twice while saving changes.
-#
-sub _enforceServiceState
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled() and $self->getProvision->isProvisioned()) {
-        $self->_startService() unless $self->isRunning();
-    } else {
-        $self->_stopService();
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for samba service '$desc' ($proto)");
     }
 }
 
