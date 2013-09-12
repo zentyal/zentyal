@@ -266,15 +266,11 @@ sub _migrateTo32
                 my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
-                    EBox::error("Reverting LDAP changes");
-                    $usersMod->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal(
                         "Found and error while updating LDAP schema!");
                 }
                 if (not $ldif->eof()) {
                     EBox::error("Found unexpected entries in $newSchema");
-                    EBox::error("Reverting LDAP changes");
-                    $usersMod->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal(
                         "Found and error while updating LDAP schema!");
                 }
@@ -286,19 +282,19 @@ sub _migrateTo32
     $self->_createVMailDomainsOUs();
 
     my $baseDn = $usersMod->ldap()->dn();
-    $result = $ldap->search(
+    $result = $ldap->search({
         base => "ou=Users,$baseDn",
-        filter => "(objectClass=zarafa-company)",
+        filter => '(objectClass=zarafa-company)',
         scope => 'sub',
-    );
+    });
     my @entries = $result->entries();
     for my $ou (@entries) {
         my $ouDn = $ou->get_value('dn');
-        $result = $ldap->search(
+        $result = $ldap->search({
             base => $ouDn,
-            filter => '',
+            filter => '(objectClass=*)',
             scope => 'sub',
-        );
+        });
         for my $entry ($result->entries()) {
             my $dn = $entry->get_value('dn');
             $dn =~ s/,ou=Users,/,ou=zarafa,/;
