@@ -22,6 +22,10 @@ if [ "$package" = "openchange" ]
 then
     if [ ! -d openchange-master ]; then
         git clone https://github.com/carlosperello/openchange.git openchange-master
+    else
+        pushd openchange-master > /dev/null 2>&1
+        git pull > /dev/null
+        popd > /dev/null 2>&1
     fi
     pushd openchange-master > /dev/null 2>&1
     version=`git describe master --tags`
