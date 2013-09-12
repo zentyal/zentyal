@@ -4,6 +4,7 @@ HEAD
 	+ Events summarised report has breadcrumbs now
 	+ Base EBox::Logs::Composite::SummarizedReport to let summarised
 	  reports have common breadcrumbs
+3.1.9
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Removed some warnings in error.log
 	+ Fixed confirmation dialogs warning style

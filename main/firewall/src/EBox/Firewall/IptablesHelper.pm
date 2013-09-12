@@ -59,7 +59,7 @@ sub ToInternetRuleTable
 
     my $model = $self->{'manager'}->model('ToInternetRuleTable');
     defined($model) or throw EBox::Exceptions::Internal(
-            "Cant' get ToInternetRuleTableModel");
+            "Can't get ToInternetRuleTableModel");
 
     my @rules;
     for my $id (@{$model->ids()}) {
@@ -69,7 +69,7 @@ sub ToInternetRuleTable
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'faccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -100,7 +100,7 @@ sub ExternalToInternalRuleTable
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'faccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -130,7 +130,7 @@ sub InternalToEBoxRuleTable
         $rule->setState('new' => 1);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'iaccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -160,7 +160,7 @@ sub ExternalToEBoxRuleTable
         $rule->setState('new' => 1);
         $self->_addAddressToRule($rule, $row, 'source');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'iaccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -190,7 +190,7 @@ sub EBoxOutputRuleTable
         $rule->setState('new' => 1);
         $self->_addAddressToRule($rule, $row, 'destination');
         $self->_addServiceToRule($rule, $row);
-        $self->_addDecisionToRule($rule, $row);
+        $self->_addDecisionToRule($rule, $row, 'oaccept');
         push (@rules, @{$rule->strings()});
     }
 
@@ -394,11 +394,11 @@ sub _addDestinationToRule
 
 sub _addDecisionToRule
 {
-    my ($self, $rule, $row) = @_;
+    my ($self, $rule, $row, $acceptChain) = @_;
 
     my $decision = $row->valueByName('decision');
     if ($decision eq 'accept') {
-        $rule->setDecision('ACCEPT');
+        $rule->setDecision($acceptChain);
     } elsif ($decision eq 'deny') {
         $rule->setDecision('drop');
     } elsif ($decision eq 'log') {
