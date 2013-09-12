@@ -20,7 +20,7 @@ Depends: zentyal-core (>= 3.1), zentyal-core (<< 3.2), zentyal-network,
          libclamav-client-perl, libnet-ntp-perl, libuuid-perl,
          libfile-libmagic-perl, libsamba-perl (>=0.07),
          libparse-recdescent-perl, libxs-object-magic-perl,
-         samba4 (>= 4.1.0rc2-zentyal9), ${misc:Depends}
+         samba4 (>= 4.1.0rc3-zentyal1), ${misc:Depends}
 Description: Zentyal - File Sharing and Domain Services
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
