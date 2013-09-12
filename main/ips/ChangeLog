@@ -2,6 +2,7 @@ HEAD
 	+ Use DATETIME type in date column for consolidation tables
 	+ Summarised report table now can be paginated
 	+ Summarised report has breadcrumbs now
+	+ Replace zentyal-ids in debian/control for easier upgrade
 3.1.4
 	+ Rules model now has a checkbox to enable/disable all
 3.1.3

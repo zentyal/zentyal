@@ -4,6 +4,7 @@ HEAD
 	+ Events summarised report has breadcrumbs now
 	+ Base EBox::Logs::Composite::SummarizedReport to let summarised
 	  reports have common breadcrumbs
+	+ Added migration from 3.0 (apache -> webadmin)
 3.1.9
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Removed some warnings in error.log
