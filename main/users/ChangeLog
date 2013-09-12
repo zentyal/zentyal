@@ -1,4 +1,4 @@
-HEAD
+3.1.8
 	+ Enable upgrade from 3.0 in initialSetup
 	+ Fixed wrong calls to isSystem() in master-slave after API changes
 	+ Fix regression trying to join slave after external AD changes
