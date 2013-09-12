@@ -2,7 +2,8 @@ import gobject, dbus, dbus.mainloop.glib
 
 def muestra(property, value):
 
-    print property + value
+    print property
+    print value
 
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
 
