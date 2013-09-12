@@ -1,3 +1,5 @@
+HEAD
+	+ Added migration code to be executed when upgrading from 3.0
 3.1.10
 	+ Wait until all the samba services are ready before trying to connect
 	+ Removed useless and problematic enforceServiceState override
