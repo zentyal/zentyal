@@ -91,24 +91,7 @@ DBusConnection *get_dbus_connection()
     if (dbus_error_is_set(&err)) {
         DEBUG(0, ("[!] D-BUS Connection Error (%s)\n", err.message));
         dbus_error_free(&err);
-    }
-    if (NULL == conn) {
-        DEBUG(0, ("[!] Got a NULL D-BUS Connection\n"));
-        return NULL;
-    }
-
-    // register our name on the bus, and check for errors
-    ret = dbus_bus_request_name(
-        conn, "org.zentyal.openchange.mailboxsize",
-        DBUS_NAME_FLAG_REPLACE_EXISTING , &err);
-    if (dbus_error_is_set(&err)) {
-        DEBUG(0, ("[!] D-BUS Name Error (%s)\n", err.message));
-        dbus_error_free(&err);
-    }
-    if (DBUS_REQUEST_NAME_REPLY_PRIMARY_OWNER != ret) {
-        DEBUG(0, ("[!] There is already someone else handling the mailboxsize D-BUS\n"));
         conn = NULL;
-        return conn;
     }
 
     return conn;
@@ -123,13 +106,7 @@ void send_signal(const char *name, const char* property, int value)
     DBusMessageIter args;
     DBusConnection* conn;
     DBusError err;
-    dbus_uint32_t serial = 0;
-    char *object_name;
-    char *object_name_prefix = "/org/zentyal/openchange/mailboxsize/";
-
-    object_name = malloc(
-        (strlen(name) + strlen(object_name_prefix) + 1) * sizeof(object_name));
-    sprintf(object_name, "%s%s", object_name_prefix, name);
+    char *object_path = "/org/zentyal/openchange/Upgrade";
 
     DEBUG(0, (
         "[+] Sending signal %s with property: %s (%d)\n", name, property, value));
@@ -145,27 +122,20 @@ void send_signal(const char *name, const char* property, int value)
 
     // create a signal & check for errors
     msg = dbus_message_new_signal(
-        object_name, "org.zentyal.openchange.mailboxsize.Signal", name);
-    free(object_name);
-    object_name = NULL;
+        object_path, "org.zentyal.openchange.Upgrade", name);
     if (NULL == msg) {
         DEBUG(0, ("[!] D-BUS Message NULL\n"));
         exit(1);
     }
 
     // append arguments onto signal
+    dbus_message_append_args(
+        msg, DBUS_TYPE_STRING, &property, DBUS_TYPE_UINT32, &value,
+        DBUS_TYPE_INVALID);
     dbus_message_iter_init_append(msg, &args);
-    if (!dbus_message_iter_append_basic(&args, DBUS_TYPE_STRING, &property)) {
-        DEBUG(0, ("[!] D-BUS Out Of Memory!\n"));
-        exit(1);
-    }
-    if (!dbus_message_iter_append_basic(&args, DBUS_TYPE_UINT32, &value)) {
-        DEBUG(0, ("[!] D-BUS Out Of Memory!\n"));
-        exit(1);
-    }
 
     // send the message and flush the connection
-    if (!dbus_connection_send(conn, msg, &serial)) {
+    if (!dbus_connection_send(conn, msg, NULL)) {
         DEBUG(0, ("[!] D-BUS Out Of Memory!\n"));
         exit(1);
     }
@@ -555,6 +525,7 @@ int main(int argc, const char *argv[])
 
     /* Step 6. Calculation task and print */
     retval = calculate_mailboxsize(mem_ctx, &obj_store, &mdata);
+    dbus_connection_unref(get_dbus_connection());
     if (retval) {
         mapi_errstr("mailbox", GetLastError());
         exit (1);

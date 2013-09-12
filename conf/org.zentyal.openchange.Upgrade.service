@@ -1,0 +1,4 @@
+[D-BUS Service]
+Name=org.zentyal.openchange.Upgrade
+Exec=/home/carlos/Work/zentyal/zentyal-exchange/exchange-tools/src/upgrade-daemon.py
+User=root
