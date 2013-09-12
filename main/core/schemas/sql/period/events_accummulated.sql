@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS events_accummulated(
-                      date TIMESTAMP NOT NULL,
+                      date DATETIME NOT NULL,
 
                       source VARCHAR(256),
 

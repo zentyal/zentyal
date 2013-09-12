@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Mail::Composite::TrafficReport;
 
-use base 'EBox::Model::Composite';
+use base 'EBox::Logs::Composite::SummarizedReport';
 
 use EBox::Gettext;
 

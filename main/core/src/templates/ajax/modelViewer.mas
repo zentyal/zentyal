@@ -70,7 +70,7 @@
 <%perl>
      my $showBody = 1;
      my $noDataMsg;
-     if (@{$model->ids()} == 0) {
+     if ($model->size() == 0) {
         $noDataMsg = $model->noDataMsg();
         my $actions = $model->table()->{'actions'};
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
