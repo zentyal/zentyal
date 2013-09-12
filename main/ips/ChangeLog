@@ -1,4 +1,5 @@
 HEAD
+	+ Use DATETIME type in date column for consolidation tables
 	+ Summarised report table now can be paginated
 	+ Summarised report has breadcrumbs now
 	+ Rules model now has a checkbox to enable/disable all
