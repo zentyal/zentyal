@@ -93,13 +93,34 @@ sub usedFiles
 #
 sub _daemons
 {
-    return [
-        {
-            'name' => 'ipsec',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/pluto/pluto.pid'],
-        }
-    ];
+    my ($self) = @_;
+
+    my @daemons = ();
+    push (@daemons, {
+        'name' => 'ipsec',
+        'type' => 'init.d',
+        'pidfiles' => ['/var/run/pluto/pluto.pid'],
+    });
+
+    foreach my $tunnel (@{ $self->tunnels() }) {
+        push (@daemons, {
+            'name' => "zentyal-xl2tpd." . $tunnel->{name},
+            'type' => 'upstart',
+        });
+    }
+
+    return \@daemons;
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'xl2tpd', 'type' => 'init.d' } ];
 }
 
 # Method: initialSetup
