@@ -1,3 +1,5 @@
+HEAD
+	+ Replace zentyal-ids in debian/control for easier upgrade
 3.1.4
 	+ Rules model now has a checkbox to enable/disable all
 3.1.3

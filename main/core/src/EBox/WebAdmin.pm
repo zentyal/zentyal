@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 package EBox::WebAdmin;
 use base qw(EBox::Module::Service);
 
@@ -957,6 +958,41 @@ sub usesPort
         return 0;
     }
     return $port == $self->port();
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
+}
+
+# Migration to 3.2
+#
+#  * Add new schema and link with existing LDAP users
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    my $redis = $self->redis();
+    my @keys = $redis->_keys('apache/*');
+    foreach my $key (@keys) {
+        my $value = $redis->get($key);
+        $key =~ s/^apache/webadmin/;
+        $redis->set($key, $value);
+    }
+    $redis->unset(@keys);
 }
 
 1;
