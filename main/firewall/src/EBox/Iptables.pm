@@ -932,7 +932,7 @@ sub _drop
             pf("-I drop -j LOG -m limit --limit $limit/min " .
             "--limit-burst $burst" .
             ' --log-level ' . SYSLOG_LEVEL .
-            ' --log-prefix "ebox-firewall drop "')
+            ' --log-prefix "zentyal-firewall drop "')
         );
     }
     return \@commands;
@@ -969,7 +969,7 @@ sub _log
             pf("-I log -j LOG -m limit --limit $limit/min " .
             "--limit-burst $burst" .
             ' --log-level ' . SYSLOG_LEVEL .
-            ' --log-prefix "ebox-firewall log "')
+            ' --log-prefix "zentyal-firewall log "')
         );
     }
     return \@commands;

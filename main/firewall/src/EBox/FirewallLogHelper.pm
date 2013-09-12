@@ -61,7 +61,7 @@ sub processLine # (file, line, logger)
 {
     my ($self, $file, $line, $dbengine) = @_;
 
-    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] ebox-firewall (\w+) (.+)/) {
+    unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*: \[.*\] zentyal-firewall (\w+) (.+)/) {
         return;
     }
     my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
