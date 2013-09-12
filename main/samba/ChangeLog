@@ -1,4 +1,5 @@
 HEAD
+    + Fix provisioning flag management on error
 	+ Wait until all the samba services are ready before trying to connect
 	+ Removed useless and problematic enforceServiceState override
 3.1.9
