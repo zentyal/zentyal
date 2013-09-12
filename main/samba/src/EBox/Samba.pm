@@ -2477,51 +2477,44 @@ sub _migrateTo32
 
     EBox::Service::manage('zentyal.s4sync', 'stop');
 
-    try {
-        EBox::info("Removing posixAccount from users");
-        foreach my $user (@{$self->ldb->users()}) {
-            $user->delete('uidNumber', 1);
-            $user->remove('objectclass', 'posixAccount', 1);
-            $user->save();
+    EBox::info("Removing posixAccount from users");
+    foreach my $user (@{$self->ldb->users()}) {
+        $user->delete('uidNumber', 1);
+        $user->remove('objectclass', 'posixAccount', 1);
+        $user->save();
+    }
+
+    EBox::info("Removing posixAccount from groups");
+    foreach my $group (@{$self->ldb->groups()}) {
+        $group->delete('gidNumber', 1);
+        $group->remove('objectclass', 'posixAccount', 1);
+        $group->save();
+    }
+
+    my $schema = 'zentyal-samba/zentyalsambalink.ldif';
+    EBox::info("Loading $schema");
+    my $usersMod = $self->global()->modInstance('users');
+    $usersMod->_loadSchema(EBox::Config::share() . $schema);
+
+    EBox::info("Map default containers");
+    my $provision = $self->getProvision();
+    $provision->mapDefaultContainers();
+
+    EBox::info("Link LDB users with LDAP");
+    foreach my $ldbUser (@{$self->ldb->users()}) {
+        my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
+        if ($ldapUser->exists()) {
+            $ldbUser->_linkWithUsersObject($ldapUser);
         }
+    }
 
-        EBox::info("Removing posixAccount from groups");
-        foreach my $group (@{$self->ldb->groups()}) {
-            $group->delete('gidNumber', 1);
-            $group->remove('objectclass', 'posixAccount', 1);
-            $group->save();
+    EBox::info("Link LDB groups with LDAP");
+    foreach my $ldbGroup (@{$self->ldb->groups()}) {
+        my $ldapGroup = new EBox::Groups::Group(gid => $ldbGroup->get('samAccountName'));
+        if ($ldapGroup->exists()) {
+            $ldbGroup->_linkWithGroupsObject($ldapGroup);
         }
-
-        my $schema = 'zentyal-samba/zentyalsambalink.ldif';
-        EBox::info("Loading $schema");
-        my $usersMod = $self->global()->modInstance('users');
-        $usersMod->_loadSchema(EBox::Config::share() . $schema);
-
-        EBox::info("Map default containers");
-        my $provision = $self->getProvision();
-        $provision->mapDefaultContainers();
-
-        EBox::info("Link LDB users with LDAP");
-        foreach my $ldbUser (@{$self->ldb->users()}) {
-            my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
-            if ($ldapUser->exists()) {
-                $ldbUser->_linkWithUsersObject($ldapUser);
-            }
-        }
-
-        EBox::info("Link LDB groups with LDAP");
-        foreach my $ldbGroup (@{$self->ldb->groups()}) {
-            my $ldapGroup = new EBox::Groups::Group(gid => $ldbGroup->get('samAccountName'));
-            if ($ldapGroup->exists()) {
-                $ldbGroup->_linkWithGroupsObject($ldapGroup);
-            }
-        }
-    } otherwise {
-        my ($ex) = @_;
-        EBox::error("Reverting Samba backup");
-        $self->restoreConfig($backupDir);
-        throw $ex;
-    };
+    }
 
     # TODO: check if exists ou=Users in LDB and create all its objects
     # under CN=Users, then delete ou=Users after that

@@ -414,38 +414,21 @@ sub _migrateTo32
     $self->dumpConfig($backupDir);
 
     # Load the new Zentyal LDAP schema tree.
-    try {
-        EBox::info("Loading zentyal-users/zentyal.ldif");
-        $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
-    } otherwise {
-        my ($error) = @_;
+    EBox::info("Loading zentyal-users/zentyal.ldif");
+    $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
 
-        EBox::error("Reverting LDAP changes");
-        $self->restoreConfig($backupDir);
-        throw $error;
-    };
+    EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
+    # Create a new dump to apply manual changes.
+    my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
+    mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
+    $self->dumpConfig($tempBackupDir);
 
-    try {
-        EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
-        # Create a new dump to apply manual changes.
-        my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
-        mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-        $self->dumpConfig($tempBackupDir);
-
-        # Change all existing objects to use the new ZentyalDistributionGroup
-        EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
-        # Change the schema to use the new ZentyalDistributionGroup for members
-        EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
-
-        # Restore this modified backup.
-        $self->restoreConfig($tempBackupDir);
-    } otherwise {
-        my ($error) = @_;
-
-        EBox::error("Reverting LDAP changes");
-        $self->restoreConfig($backupDir);
-        throw $error;
-    };
+    # Change all existing objects to use the new ZentyalDistributionGroup
+    EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
+    # Change the schema to use the new ZentyalDistributionGroup for members
+    EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
+    # Restore this modified backup.
+    $self->restoreConfig($tempBackupDir);
 
     # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
     my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
@@ -472,14 +455,10 @@ sub _migrateTo32
                 my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
-                    EBox::error("Reverting LDAP changes");
-                    $self->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 if (not $ldif->eof()) {
                     EBox::error("Found unexpected entries in $newSchema");
-                    EBox::error("Reverting LDAP changes");
-                    $self->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 $ldif->done();
