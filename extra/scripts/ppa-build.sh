@@ -3,7 +3,7 @@
 # Array of keys allowed to sign
 SIGN_KEYS=()
 SIGN_KEYS+=('77E038F7D8E88AAB') # kernevil
-SIGN_KEYS+=('19AD31B8')         # TODO jacalvo update this to long key id
+SIGN_KEYS+=('F9FEF52C19AD31B8') # jacalvo
 
 # Get the list of available keys
 SYSTEM_KEYS=($(gpg --list-public-keys --with-colons | awk -F ':' '{print $5}'))
