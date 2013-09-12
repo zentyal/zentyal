@@ -103,10 +103,12 @@ sub _daemons
     });
 
     foreach my $tunnel (@{ $self->tunnels() }) {
-        push (@daemons, {
-            'name' => "zentyal-xl2tpd." . $tunnel->{name},
-            'type' => 'upstart',
-        });
+        if ($tunnel->{type} eq 'l2tp') {
+            push (@daemons, {
+                'name' => "zentyal-xl2tpd." . $tunnel->{name},
+                'type' => 'upstart',
+            });
+        }
     }
 
     return \@daemons;
