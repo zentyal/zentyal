@@ -1,4 +1,6 @@
 HEAD
+	+ Use DATETIME type in date column for consolidation tables
+	+ Summarised report has breadcrumbs now
 	+ Adapted mailfilter-ldap script to the new users API
 3.1.2
 	+ Adapted to updatedRowNotify call with no changes in values

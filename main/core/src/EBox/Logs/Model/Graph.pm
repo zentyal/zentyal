@@ -81,13 +81,25 @@ my %nRowsByTimePeriod = (
     monthly => 24,
    );
 
+# Method: reportRows
+#
+#     Return the rows for graphing them
+#
+# Returns:
+#
+#     array ref - the rows
+#
 sub reportRows
 {
     my ($self) = @_;
 
-    my $limit = $self->limitByTimePeriod();
-    return $self->SUPER::reportRows($limit);
+    unless (exists($self->{reportData})) {
+        my $limit = $self->limitByTimePeriod();
+        $self->{reportData} = $self->SUPER::reportRows($limit);
+    }
+    return $self->{reportData};
 }
+
 
 sub limitByTimePeriod
 {
@@ -103,6 +115,22 @@ sub limitByTimePeriod
 
     return $limit;
 }
+
+# Method: size
+#
+#    Override to send back as size the number of report rows
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::size>
+#
+sub size
+{
+    my ($self) = @_;
+
+    return scalar(@{$self->reportRows()});
+}
+
 
 sub datasetsLabels
 {

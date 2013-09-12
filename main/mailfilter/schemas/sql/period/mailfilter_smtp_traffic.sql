@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS mailfilter_smtp_traffic (
-        `date`       TIMESTAMP NOT NULL,
+        `date`       DATETIME NOT NULL,
         clean        BIGINT DEFAULT 0,
         spam         BIGINT DEFAULT 0,
         banned       BIGINT DEFAULT 0,
