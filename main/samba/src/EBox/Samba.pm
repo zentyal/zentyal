@@ -56,6 +56,7 @@ use EBox::Sudo;
 use EBox::SyncFolders::Folder;
 use EBox::Users;
 use EBox::Users::User;
+use EBox::Users::Group;
 use EBox::Util::Random qw( generate );
 
 use Error qw(:try);
@@ -2510,9 +2511,9 @@ sub _migrateTo32
 
     EBox::info("Link LDB groups with LDAP");
     foreach my $ldbGroup (@{$self->ldb->groups()}) {
-        my $ldapGroup = new EBox::Groups::Group(gid => $ldbGroup->get('samAccountName'));
+        my $ldapGroup = new EBox::Users::Group(gid => $ldbGroup->get('samAccountName'));
         if ($ldapGroup->exists()) {
-            $ldbGroup->_linkWithGroupsObject($ldapGroup);
+            $ldbGroup->_linkWithUsersObject($ldapGroup);
         }
     }
 
