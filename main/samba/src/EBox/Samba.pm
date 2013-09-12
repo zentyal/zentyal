@@ -2522,6 +2522,9 @@ sub _migrateTo32
         $self->restoreConfig($backupDir);
         throw $ex;
     };
+
+    # TODO: check if exists ou=Users in LDB and create all its objects
+    # under CN=Users, then delete ou=Users after that
 }
 
 1;
