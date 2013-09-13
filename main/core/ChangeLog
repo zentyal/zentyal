@@ -1,3 +1,5 @@
+HEAD
+	+ Audit now depends on logs to fix unsaved changes problem
 3.1.11
 	+ Initial setup for webadmin is now executed in postinst
 	+ Fixed webadmin port migration
