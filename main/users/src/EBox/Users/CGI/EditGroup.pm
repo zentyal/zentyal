@@ -20,10 +20,11 @@ package EBox::Users::CGI::EditGroup;
 
 use base 'EBox::CGI::ClientPopupBase';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Users;
 use EBox::Users::Group;
-use EBox::Gettext;
+use EBox::Validate;
 
 sub new
 {
@@ -72,16 +73,18 @@ sub _process
 
         my $description = $self->unsafeParam('description');
         if (length ($description)) {
-            $group->set('description', $description);
+            $group->set('description', $description, 1);
         } else {
-            $group->delete('description');
+            $group->delete('description', 1);
         }
         my $mail = $self->unsafeParam('mail');
         if (length ($mail)) {
-            $group->set('mail', $mail);
+            EBox::Validate::checkEmailAddress($mail, __('E-mail'));
+            $group->set('mail', $mail, 1);
         } else {
-            $group->delete('mail');
+            $group->delete('mail', 1);
         }
+        $group->save();
 
         $self->{json}->{success}  = 1;
         $self->{json}->{msg} = __('Group updated');

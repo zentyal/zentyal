@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Users;
 use EBox::Users::User;
+use EBox::Validate;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -386,7 +387,7 @@ sub add
 
 sub delete
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
@@ -399,7 +400,7 @@ sub delete
 
 sub deleteValues
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $values, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
@@ -454,12 +455,18 @@ sub save
 #       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.
+#       mail            - Group's mail
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #       ignoreMods      - Ldap modules to be ignored on addUser notify.
 #       ignoreSlaves    - Slaves to be ignored on addUser notify.
 #       isInternal      - Whether the group should be hidden or not.
+#
+# Exceptions:
+#
+#       TBD the remainder exceptions
+#       <EBox::Exceptions::InvalidData> - thrown if the provided mail is incorrect
 #
 sub create
 {
@@ -536,6 +543,10 @@ sub create
         push (@attr, internal => 1);
     }
     push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
+    if (defined $args{mail} and $args{mail}) {
+        EBox::Validate::checkEmailAddress($args{mail}, __('E-mail'));
+        push (@attr, 'mail' => $args{mail});
+    }
 
     my $res = undef;
     my $entry = undef;

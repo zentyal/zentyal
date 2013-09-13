@@ -42,6 +42,17 @@ use EBox::Gettext;
             </td>
         </tr>
         <tr>
+            <td class='tright'>
+                <span class="ftitle">
+                    <% __('E-mail') %>:
+                </span>
+            </td>
+            <td>
+                <input type='text' class='inputText' name='mail'>
+                <div class="description">(<% __('Optional value') %>)</div>
+            </td>
+        </tr>
+        <tr>
             <td></td>
             <td>
                 <input class='inputButton'  type='submit' name='add'
