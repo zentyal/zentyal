@@ -1,4 +1,5 @@
 HEAD
+	+ Show in a slave when the user is not a member of any group
 	+ Check email address for a group is done
 	+ Add group dialog can now set the e-mail
 	+ Master/Slave synchronisation works again
