@@ -82,6 +82,7 @@ use constant COMPANY_KEY         => 'subscribedHostname';
 use constant CRON_FILE           => '/etc/cron.d/zentyal-remoteservices';
 use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 use constant REDIR_CONF_FILE     => EBox::Config::etc() . 'remoteservices_redirections.yaml';
+use constant DEFAULT_REMOTE_SITE => 'remote.zentyal.com';
 
 # OCS conf constants
 use constant OCS_CONF_FILE       => '/etc/ocsinventory/ocsinventory-agent.cfg';
@@ -633,9 +634,12 @@ sub controlPanelURL
 {
     my ($self) = @_;
 
-    my $url = 'remote.zentyal.com';
+    my $url = DEFAULT_REMOTE_SITE;
     try {
-        $url = 'www.' . $self->cloudDomain();
+        my $cloudDomain = $self->cloudDomain();
+        if ($cloudDomain ne 'cloud.zentyal.com') {
+            $url = "www.$cloudDomain";
+        }
     } otherwise {};
 
     return "https://${url}/";
