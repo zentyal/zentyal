@@ -1,3 +1,5 @@
+HEAD
+	+ Migrate ids data from 3.0
 3.1.5
 	+ Use DATETIME type in date column for consolidation tables
 	+ Summarised report table now can be paginated

@@ -35,6 +35,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Config;
+use EBox::Util::Version;
 use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
@@ -979,7 +980,7 @@ sub initialSetup
 
 # Migration to 3.2
 #
-#  * Add new schema and link with existing LDAP users
+#  * Migrate redis keys from apache to webadmin
 #
 sub _migrateTo32
 {
@@ -989,8 +990,9 @@ sub _migrateTo32
     my @keys = $redis->_keys('apache/*');
     foreach my $key (@keys) {
         my $value = $redis->get($key);
-        $key =~ s/^apache/webadmin/;
-        $redis->set($key, $value);
+        my $newkey = $key;
+        $newkey =~ s{^apache}{webadmin};
+        $redis->set($newkey, $value);
     }
     $redis->unset(@keys);
 }
