@@ -558,8 +558,10 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    # Perform the migration to 3.2 if ids was installed
-    $self->_migrateTo32();
+    # Perform the migration from old ids if installing for the first time
+    unless ($version) {
+        $self->_migrateTo32();
+    }
 }
 
 # Group: Private methods
@@ -591,7 +593,6 @@ sub _migrateTo32
 
     my $redis = $self->redis();
     my @keys = $redis->_keys('ids/*');
-    return unless @keys;
     foreach my $key (@keys) {
         my $value = $redis->get($key);
         my $newkey = $key;

@@ -1,3 +1,5 @@
+HEAD
+	+ Do not run ids migration if upgrading from ips
 3.1.6
 	+ Migrate ids data from 3.0
 3.1.5
