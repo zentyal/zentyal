@@ -116,7 +116,7 @@ sub set
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any $self->{coreAttrs}) {
+    if ($attr eq any(@{$self->{coreAttrs}})) {
         $self->{core_changed} = 1;
     }
 
@@ -144,7 +144,7 @@ sub delete
     my ($self, $attr, $value) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
-    if ($attr eq any $self->{coreAttrs}) {
+    if ($attr eq any(@{$self->{coreAttrs}})) {
         $self->{core_changed} = 1;
     }
 
@@ -235,7 +235,6 @@ sub _groups
     );
 
     my $result = $self->_ldap->search(\%attrs);
-    EBox::debug("User groups: " .$result->count());
 
     my @groups;
     if ($result->count > 0) {
