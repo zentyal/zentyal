@@ -80,9 +80,8 @@ Description: Zentyal - Communications Suite
  Communication server.
 
 Package: zentyal-ids
+Depends: zentyal-ips, ${misc:Depends}
 Architecture: all
-Depends: zentyal-ips
 Section: oldlibs
-Priority: optional
 Description: transitional package to zentyal-ips
  This is a transitional package. It can safely be removed.
