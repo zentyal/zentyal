@@ -149,7 +149,7 @@ $(function() {
             userGroups.detach();
             userGroups.children().remove();
             if (data.member.length === 0) {
-                userGroups.append('<div class="note"><% __('This user is a not member of any group') %></div>');
+                userGroups.append('<div class="note"><% __('This user is not a member of any group') %></div>');
             }
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
