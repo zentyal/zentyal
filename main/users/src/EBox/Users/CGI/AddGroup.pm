@@ -55,9 +55,10 @@ sub _process
         my $groupname = $self->param('groupname');
 
         my $group = EBox::Users::Group->create(
-            name => $groupname,
-            parent => $users->objectFromDN($dn),
-            description => $self->unsafeParam('description'),
+            name            => $groupname,
+            parent          => $users->objectFromDN($dn),
+            description     => $self->unsafeParam('description'),
+            mail            => $self->unsafeParam('mail'),
             isSecurityGroup => ($self->param('type') eq 'security'),
         );
 
