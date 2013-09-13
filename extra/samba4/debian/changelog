@@ -1,3 +1,9 @@
+samba4 (4.1.0rc3-zentyal2) precise; urgency=low
+
+  * Fix domain join problem related to dns account for bind creation
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 12 Sep 2013 19:41:39 +0200
+
 samba4 (4.1.0rc3-zentyal1) precise; urgency=low
 
   * New upstream release
