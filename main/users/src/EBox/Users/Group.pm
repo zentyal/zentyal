@@ -387,7 +387,7 @@ sub add
 
 sub delete
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
@@ -400,7 +400,7 @@ sub delete
 
 sub deleteValues
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $values, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
