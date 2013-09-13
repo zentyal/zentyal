@@ -307,20 +307,18 @@ sub createDirs
 
         # Don't do anything if the directory already exists and the option to manage ACLs
         # only from Windows is set
-        if (EBox::Config::boolean('unmanaged_acls')) {
-            if (EBox::Sudo::fileTest('-d', $path)) {
-                next;
-            } else {
-                # Store in redis that we should set acls given we just created the share.
-                my $sambaMod = EBox::Global->modInstance('samba');
-                my $state = $sambaMod->get_state();
-                unless (defined $state->{shares_set_rights}) {
-                    $state->{shares_set_rights} = {};
-                }
-                $state->{shares_set_rights}->{$shareName} = 1;
-                $self->set_state($state);
-            }
+        if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path)) {
+            next;
         }
+
+        # Store in redis that we should set acls, given we just created the share.
+        my $sambaMod = EBox::Global->modInstance('samba');
+        my $state = $sambaMod->get_state();
+        unless (defined $state->{shares_set_rights}) {
+            $state->{shares_set_rights} = {};
+        }
+        $state->{shares_set_rights}->{$shareName} = 1;
+        $self->set_state($state);
 
         my @cmds = ();
         # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are

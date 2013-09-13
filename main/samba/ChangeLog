@@ -1,4 +1,6 @@
 HEAD
+	+ Only set share permissions when there is really a permission change
+	  instead of doing it on every samba restart.
 	+ Fix provisioning flag management on error
 3.1.11
 	+ Added migration code to be executed when upgrading from 3.0
