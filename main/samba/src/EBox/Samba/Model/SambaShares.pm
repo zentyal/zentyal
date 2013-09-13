@@ -318,7 +318,7 @@ sub createDirs
             $state->{shares_set_rights} = {};
         }
         $state->{shares_set_rights}->{$shareName} = 1;
-        $self->set_state($state);
+        $sambaMod->set_state($state);
 
         my @cmds = ();
         # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
