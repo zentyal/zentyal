@@ -1,3 +1,5 @@
+HEAD
+	+ Set proper URL to reach Zentyal Remote dashboard from dashboard
 3.0.25
 	+ Removed implementation of the removed Desktop::ServiceProvider
 	+ Retry making the configuration backup if the conf backup process
