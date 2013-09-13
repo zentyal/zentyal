@@ -226,7 +226,6 @@ sub _postServiceHook
 
     if ($enabled) {
 
-        my $state = $self->get_state();
         my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
@@ -252,11 +251,10 @@ sub _postServiceHook
                 next;
             }
 
-            if (EBox::Config::boolean('unmanaged_acls') and
-                (not ((defined $state->{shares_set_rights}) and
-                      ($state->{shares_set_rights}->{$shareName})))) {
-                # The unmanaged_acls flag is set and we didn't create the share right now, we should not change the
-                # permissions. Ignore this share.
+            my $state = $self->get_state();
+            if (not ((defined $state->{shares_set_rights}) and
+                     ($state->{shares_set_rights}->{$shareName}))) {
+                # share permissions didn't change, nothing needs to be done for this share.
                 next;
             }
 
@@ -333,6 +331,8 @@ sub _postServiceHook
                 EBox::debug($itemName);
                 $smb->set_sd($itemName, $sd, $sinfo);
             }
+            delete $state->{shares_set_rights}->{$shareName};
+            $self->set_state($state);
         }
     }
 
