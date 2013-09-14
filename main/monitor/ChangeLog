@@ -1,4 +1,5 @@
 HEAD
+	+ Load measure manager on runtime to avoid unneccesary system calls
 	+ Set proper resolution in last week period
 3.0.3
 	+ Fixed bad bread crumb in threshold configuration model

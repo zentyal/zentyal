@@ -78,8 +78,6 @@ sub _create
                                       @_);
     bless($self, $class);
 
-    $self->_setupMeasures();
-
     return $self;
 }
 
@@ -231,7 +229,7 @@ sub measuredData
                       . join(', ', map { $_->{name} } @{EBox::Monitor::Configuration::TimePeriods()}));
     }
 
-    my $measure = $self->{measureManager}->measure($measureName);
+    my $measure = $self->_measureManager()->measure($measureName);
     return $measure->fetchData(instance     => $instance,
                                typeInstance => $typeInstance,
                                resolution   => $periodData->{resolution},
@@ -277,7 +275,7 @@ sub allMeasuredData
 
     my @measuredData;
     my $atLeastOneReady;
-    foreach my $measure (@{$self->{measureManager}->measures()}) {
+    foreach my $measure (@{$self->_measureManager()->measures()}) {
         try  {
             if(@{$measure->instances()} > 0) {
                 foreach my $instance (@{$measure->instances()}) {
@@ -344,7 +342,7 @@ sub allMeasuredData
 sub measures
 {
     my ($self) = @_;
-    return $self->{measureManager}->measures();
+    return $self->_measureManager()->measures();
 }
 
 # Method: measure
@@ -373,7 +371,7 @@ sub measure
 
     $name or throw EBox::Exceptions::MissingArgument('name');
 
-    return $self->{measureManager}->measure($name);
+    return $self->_measureManager()->measure($name);
 }
 
 
@@ -412,7 +410,7 @@ sub thresholdConfigured
     $measureName or throw EBox::Exceptions::MissingArgument('measureName');
     $dataSource or throw EBox::Exceptions::MissingArgument('dataSource');
 
-    my $measure = $self->{measureManager}->measure($measureName);
+    my $measure = $self->_measureManager()->measure($measureName);
     my $measureWatchersMod = $self->model('MeasureWatchers');
     my $row = $measureWatchersMod->findValue(measure => $measure->name());
     if ( defined($row) ) {
@@ -508,6 +506,17 @@ sub _setMonitorConf
     }
 }
 
+# Get the measure manager which holds all measures this module can manage
+sub _measureManager
+{
+    my ($self) = @_;
+
+    unless (exists $self->{measureManager}) {
+        $self->_setupMeasures();
+    }
+    return $self->{measureManager};
+}
+
 # Setup measures
 sub _setupMeasures
 {
@@ -589,7 +598,7 @@ sub _setThresholdConf
                 my $measureWatcher = $measureWatchersModel->row($id);
                 my $confModel = $measureWatcher->subModel('thresholds');
                 try {
-                    my $measureInstance = $self->{measureManager}->measure($measureWatcher->valueByName('measure'));
+                    my $measureInstance = $self->_measureManager()->measure($measureWatcher->valueByName('measure'));
                     foreach my $confRow (@{$confModel->findDumpThresholds()}) {
                         my $persistElement = $confRow->elementByName('persist');
                         my $persist = 1;
@@ -735,7 +744,7 @@ sub _mountPointsToMonitor
 {
     my ($self) = @_;
 
-    my $dfMeasure = $self->{measureManager}->measure('Df');
+    my $dfMeasure = $self->_measureManager()->measure('Df');
     my @printableTypeInstances = map { $dfMeasure->printableTypeInstance($_) } @{$dfMeasure->typeInstances()};
     return \@printableTypeInstances;
 }
