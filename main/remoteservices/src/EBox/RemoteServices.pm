@@ -636,7 +636,7 @@ sub controlPanelURL
 
     my $url = DEFAULT_REMOTE_SITE;
     try {
-        my $cloudDomain = $self->cloudDomain();
+        my $cloudDomain = $self->cloudDomain('silent');
         if ($cloudDomain ne 'cloud.zentyal.com') {
             $url = "www.$cloudDomain";
         }
@@ -2350,6 +2350,11 @@ sub subscribedUUID
 #
 #        Return the Zentyal Cloud Domain if the server is subscribed
 #
+# Parameters:
+#
+#        silent - String if the host is not registered, throw a silent
+#                 exception
+#
 # Returns:
 #
 #        String - the Zentyal Cloud Domain
@@ -2361,11 +2366,12 @@ sub subscribedUUID
 #
 sub cloudDomain
 {
-    my ($self) = @_;
+    my ($self, $silent) = @_;
 
     unless ( $self->eBoxSubscribed() ) {
         throw EBox::Exceptions::External(
-            __('The Zentyal Remote Domain is only available if the host is subscribed')
+            __('The Zentyal Remote Domain is only available if the host is subscribed'),
+            silent => $silent
            );
     }
 
