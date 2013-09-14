@@ -1,5 +1,5 @@
 HEAD
-	+ Audit now depends on logs to fix unsaved changes problem
+	+ Avoid getting unsaved changes by using readonly instance in manage-logs
 3.1.11
 	+ Initial setup for webadmin is now executed in postinst
 	+ Fixed webadmin port migration
