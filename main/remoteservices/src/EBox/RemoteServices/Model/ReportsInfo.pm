@@ -17,7 +17,7 @@
 #
 # This class is the model to show information about the reports
 #
-#     - Download latest PDF report
+#     - See latest report
 #     - Last consolidation time
 #     - Number of available reporters
 #
@@ -38,35 +38,7 @@ use EBox::Types::HTML;
 use EBox::RemoteServices::Reporter;
 use POSIX;
 
-# Constants
-use constant SAMPLE_REPORT_URL    => 'http://www.zentyal.com/sample-report-pdf';
-use constant SAMPLE_ES_REPORT_URL => 'http://www.zentyal.com/es/sample-report-pdf';
-
 # Group: Public methods
-
-# Constructor: new
-#
-#     Create the subscription form
-#
-# Overrides:
-#
-#     <EBox::Model::DataForm::new>
-#
-# Returns:
-#
-#     <EBox::RemoteServices::Model::ReportsInfo>
-#
-sub new
-{
-
-    my $class = shift;
-    my %opts = @_;
-    my $self = $class->SUPER::new(@_);
-    bless ( $self, $class);
-
-    return $self;
-
-}
 
 # Method: headTitle
 #
@@ -93,7 +65,7 @@ sub _table
       (
        new EBox::Types::HTML(
            fieldName     => 'report_link',
-           printableName => __('Get latest report'),
+           printableName => __('See latest report'),
           ),
        new EBox::Types::Text(
            fieldName     => 'last_consolidation',
@@ -130,15 +102,13 @@ sub _content
 
     my $rs = $self->parentModule();
 
-    my $sampleReportURL = SAMPLE_REPORT_URL;
-    if ( EBox::locale() =~ m:^es: ) {
-        $sampleReportURL = SAMPLE_ES_REPORT_URL;
-    }
+    my $baseURL = $rs->controlPanelURL();
+    my $docReportURL = "${baseURL}doc/report.html";
 
     my ($lastCon, $link, $reportersNum) =
       ( __('Not registered'),
-        __x('{oh}Take a look on the example{ch}',
-            oh => qq{<a href="$sampleReportURL">},
+        __x('{oh}Take a look on the documentation{ch}',
+            oh => qq{<a target="_blank" href="$docReportURL">},
             ch => '</a>'),
         0);
 
@@ -151,11 +121,10 @@ sub _content
             if ( defined( $lastCon ) ) {
                 $lastCon = POSIX::strftime("%c", localtime($lastCon));
                 # Show the link message
-                my $domain   = $rs->cloudDomain();
-                my $subsName = $rs->subscribedHostname();
-                my $reportURL = "https://www.${domain}/services/report/latest/${subsName}/";
+                my $subsUUID = $rs->subscribedUUID();
+                my $reportURL = "${baseURL}services/report/newera/server/${subsUUID}/";
                 $link = __x('{oh}Take a look{ch}',
-                            oh => qq{<a href="$reportURL">},
+                            oh => qq{<a target="_blank" href="$reportURL">},
                             ch => '</a>');
             } else {
                 $lastCon = __('No consolidation done yet');
