@@ -69,7 +69,7 @@ sub _process
         $self->_requireParam('type', __('type'));
 
         my $type = $self->param('type');
-        $group->setSecurityGroup($type eq 'security');
+        $group->setSecurityGroup(($type eq 'security'), 1);
 
         my $description = $self->unsafeParam('description');
         if (length ($description)) {

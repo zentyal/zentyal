@@ -1,4 +1,5 @@
 HEAD
+	+ Fix typo in setSecurityGroup when no GID is set yet
 	+ Show group in slave as read-only
 	+ Show in a slave when the user is not a member of any group
 	+ Check email address for a group is done
