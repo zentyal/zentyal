@@ -54,13 +54,6 @@ sub new # (text)
     return $self;
 }
 
-sub stringify
-{
-    my $self = shift;
-
-    return $self->stacktrace();
-}
-
 sub toStderr
 {
     my $self = shift;
@@ -78,7 +71,7 @@ sub log
     my $self = shift;
     my $log = EBox::logger();
     $Log::Log4perl::caller_depth +=3;
-    $self->_logfunc($log, $self->stringify()) unless $self->{silent};
+    $self->_logfunc($log, $self->stacktrace()) unless $self->{silent};
     $Log::Log4perl::caller_depth -=3;
 }
 

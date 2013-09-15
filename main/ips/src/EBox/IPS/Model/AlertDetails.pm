@@ -22,6 +22,7 @@ use base 'EBox::Logs::Model::Details';
 
 use EBox::Gettext;
 use EBox::Types::Int;
+use EBox::Types::Text;
 
 sub new
 {
@@ -64,7 +65,7 @@ sub _table
         'tableName' =>__PACKAGE__->tableName(),
         'printableTableName' => __('Alert details'),
         'defaultActions' => [ 'changeView', 'editField' ],
-        'defaultController' => '/IPS/Controller/AlertReport',
+        'defaultController' => '/IPS/Controller/AlertDetails',
         'tableDescription' => $tableHead,
         'class' => 'dataTable',
         'order' => 0,

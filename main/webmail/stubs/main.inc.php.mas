@@ -50,7 +50,7 @@ $rcmail_config['debug_level'] = 1;
 $rcmail_config['log_driver'] = 'file';
 
 // date format for log entries
-// (read http://php.net/manual/en/function.date.php for all format characters)  
+// (read http://php.net/manual/en/function.date.php for all format characters)
 $rcmail_config['log_date_format'] = 'd-M-Y H:i:s O';
 
 // Syslog ident string to use, if using the 'syslog' log driver.
@@ -242,7 +242,7 @@ $rcmail_config['create_default_folders'] = FALSE;
 // protect the default folders from renames, deletes, and subscription changes
 $rcmail_config['protect_default_folders'] = TRUE;
 
-// if in your system 0 quota means no limit set this option to TRUE 
+// if in your system 0 quota means no limit set this option to TRUE
 $rcmail_config['quota_zero_as_unlimited'] = FALSE;
 
 // Behavior if a received message requests a message delivery notification (read receipt)
@@ -255,7 +255,7 @@ $rcmail_config['default_charset'] = 'ISO-8859-1';
 // Make use of the built-in spell checker. It is based on GoogieSpell.
 // Since Google only accepts connections over https your PHP installatation
 // requires to be compiled with Open SSL support
-$rcmail_config['enable_spellcheck'] = TRUE;
+$rcmail_config['enable_spellcheck'] = FALSE;
 
 // Set the spell checking engine. 'googie' is the default. 'pspell' is also available,
 // but requires the Pspell extensions. When using Nox Spell Server, also set 'googie' here.
@@ -304,7 +304,7 @@ $rcmail_config['address_book_type'] = 'sql';
 $rcmail_config['ldap_public'] = array();
 
 //
-// If you are going to use LDAP for individual address books, you will need to 
+// If you are going to use LDAP for individual address books, you will need to
 // set 'user_specific' to true and use the variables to generate the appropriate DNs to access it.
 //
 // The recommended directory structure for LDAP is to store all the address book entries
@@ -317,7 +317,7 @@ $rcmail_config['ldap_public'] = array();
 //
 // So the base_dn would be uid=%fu,ou=people,o=root
 // The bind_dn would be the same as based_dn or some super user login.
-/* 
+/*
  * example config for Verisign directory
  *
 $rcmail_config['ldap_public']['Verisign'] = array(

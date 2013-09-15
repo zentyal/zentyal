@@ -1,9 +1,9 @@
 [
   {
-    "title": "&iexcl;Gracias por elegir el servidor Linux Zentyal para pymes!",
+    "title": "&iexcl;Gracias por elegir el servidor Zentyal!",
     "paragraphs": [
-              "Zentyal es un servidor Linux completo que se puede usar de forma gratuita sin soporte t&eacute;cnico y actualizaciones, o con soporte completo por una cuota mensual asequible.",
-              "Para ayuda r&aacute;pida, &iexcl;revisa la documentaci&oacute;n oficial y el Foro de Zentyal! &iexcl;Aprende qu&eacute; m&aacute;s ofrece el servidor Zentyal mientras la instalaci&oacute;n se completa!"
+              "Zentyal es un servidor Linux f&aacute;cil de usar para pymes. &iquest;Tienes el tiempo y conocimientos para mantenerlo? &iexcl;Zentyal Community Edition es para ti! Y si no, elige una de las ediciones comerciales.",
+              "Para soporte de comunidad, echa un vistazo a la documentaci&oacute;n oficial y el Foro Oficial de Zentyal!"
              ],
     "links": [ "http://doc.zentyal.org/", "http://forum.zentyal.org" ]
   },
@@ -12,7 +12,7 @@
     "title": "&iexcl;Registra tu servidor Zentyal de forma gratuita!",
     "paragraphs": [ "Registra tu servidor Zentyal de forma gratuita y gana acceso a los siguientes servicios:" ],
     "items": [
-              "Configuraci&oacute;n de backup remota",
+              "Backup remoto de la configuraci&oacute;n",
               "Subdominio zentyal.me personalizado",
               "Webinarios",
               "Whitepapers",
@@ -22,24 +22,24 @@
 
   {
     "title": "Small Business Edition",
-    "paragraphs": [ "&iexcl;Un servidor todo en uno para empresas con menos de 25 usuarios!" ],
+    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 25 usuarios!" ],
     "items": [
-              "Soporte t&eacute;cnico completo para Gateway/UTM, Infraestructura y Oficina",
               "Oficialmente respaldado por Ubuntu/Canonical",
-              "Recuperaci&oacute;n de desastres local",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota de servidores y escritorios"
+              "Soporte t&eacute;cnico comercial ilimitado",
+              "Recuperaci&oacute;n de desastres en la nube",
+              "Monitorizaci&oacute;n y gesti&oacute;n remota del servidor"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
 
   {
     "title": "Enterprise Edition",
-    "paragraphs": [ "&iexcl;Un servidor completo para empresas con m&aacute;s de 25 usuarios!" ],
+    "paragraphs": [ "&iexcl;Un servidor para pymes con m&aacute;s de 25 usuarios!" ],
     "items": [
-              "Soporte t&eacute;cnico completo para Gateway/UTM, Infraestructura, Oficina y Comunicaciones",
               "Oficialmente respaldado por Ubuntu/Canonical",
-              "Recuperaci&oacute;n de desastres completa",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota de servidores y escritorios"
+              "Soporte t&eacute;cnico comercial ilimitado",
+              "Recuperaci&oacute;n de desastres en la nube",
+              "Monitorizaci&oacute;n y gesti&oacute;n remota del servidor"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
@@ -58,11 +58,11 @@
 
   {
     "title": "Zentyal Remote",
-    "paragraphs": [ "&iexcl;Plataforma de monitorizaci&oacute;n y gesti&oacute;n remota para servidores y escritorios!" ],
+    "paragraphs": [ "&iexcl;Plataforma de monitorizaci&oacute;n y gesti&oacute;n remota de servidores para proveedores TIC!" ],
     "items": [
-              "Resuelve incidencias r&aacute;pidamente y antes de que afecten a tus usuarios",
               "Mantenimiento f&aacute;cil y automatizado",
-              "Acceso remoto para ambos servidores y escritorios",
+              "Resuelve incidencias r&aacute;pidamente y antes de que afecten a tus usuarios",
+              "Acceso remoto a servidores Zentyal",
               "Inventariado de equipos y software"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
@@ -70,36 +70,38 @@
 
   {
     "title": "Formaci&oacute;n Certificada en Zentyal",
-    "paragraphs": [ "&iexcl;Aprende una gesti&oacute;n f&aacute;cil y pr&aacute;ctica de un servidor Linux!" ],
+    "paragraphs": [ "&iexcl;Aprende c&oacute;mo gestionar el servidor Zentyal!" ],
     "items": [
               "Cursos on-line oficiales",
-              "Impartidos por profesores certificados internos",
-              "Muchos ejercicios pr&aacute;cticos y escenarios reales",
+              "Por profesores certificados",
+              "Muchos ejercicios y escenarios reales",
               "Ex&aacute;menes de certificaci&oacute;n para validar tus conocimientos"
              ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com!"
   },
 
   {
-    "title": "Gu&iacute;a Zentyal para Administradores de Redes",
+    "title": "Gu&iacute;a Oficial de Zentyal",
+    "paragraphs": [ "&iexcl;Aprende c&oacute;mo configurar y administrar el servidor Zentyal!" ],
     "items": [
-              "Cubre todos los aspectos de gesti&oacute;n de un servidor Zentyal",
-              "Material oficial de los cursos",
+              "Cubre todos los aspectos m&aacute;s relevantes",
+              "Buenas pr&aacute;cticas para mantenimiento efectivo y seguro",
+              "Gran n&uacute;mero de ejercicios pr&aacute;cticos",
               "Disponible en ingl&eacute;s y en espa&ntilde;ol"
              ],
-    "endText": "&iexcl;Obt&eacute;n la tuya en store.zentyal.com!"
+    "endText": "&iexcl;Descarga un capitulo de ejemplo en store.zentyal.com!"
   },
 
   {
-    "title": "Programa de Partners de Zentyal",
-    "paragraphs": [ "&iexcl;Ofrece soluciones de infraestructura de red basadas en Zentyal! Obt&eacute;n acceso a:" ],
+    "title": "Partners de Zentyal",
+    "paragraphs": [ "&iquest;Interesado en ofrece soluciones basadas en Zentyal? Obt&eacute;n acceso a:" ],
     "items": [
               "Plataforma de soporte",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota de servidores y escritorios",
-              "Formaci&oacute;n y certificaci&oacute;n del personal t&eacute;cnico y comercial",
+              "Monitorizaci&oacute;n y gesti&oacute;n remota de servidores",
+              "Formaci&oacute;n y certificaci&oacute;n t&eacute;cnica y comercial",
               "Portafolio de servicios gestionados",
               "Materiales de venta",
-              "Programa de generaci&oacute;n de oportunidades de venta",
+              "Generaci&oacute;n de oportunidades de venta",
               "Descuentos"
              ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.com!"
@@ -107,13 +109,13 @@
 
   {
     "title": "&iquest;C&oacute;mo puedo contribuir?",
-    "paragraphs": [ "&iquest;Eres un usuario satisfecho de Zentyal? Colabora con el proyecto:" ],
+    "paragraphs": [ "&iquest;Quieres apoyar el desarrollo de Zentyal? Colabora con el proyecto:" ],
     "items": [
               "&iexcl;Haz correr la voz sobre Zentyal!",
               "Escribe how-tos y tutoriales",
               "Traduce Zentyal a tu idioma",
-              "Ayuda a otros usuarios a trav&eacute;s del Foro de Zentyal",
-              "Prueba las &uacute;ltimas versiones e informa sobre bugs",
+              "Ayuda a otros usuarios a trav&eacute;s del Foro",
+              "Prueba las &uacute;ltimas versiones y reporta bugs",
               "Desarrolla tus propios m&oacute;dulos de Zentyal"
              ],
     "endText": "&iexcl;Obt&eacute;n m&aacute;s informaci&oacute;n en www.zentyal.org!"

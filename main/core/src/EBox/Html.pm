@@ -25,14 +25,13 @@ use EBox::Menu::Root;
 
 use HTML::Mason;
 
-#
 # Method: title
 #
-#	Returns the html code for the title
+#   Returns the html code for the title
 #
 # Returns:
 #
-#	string - containg the html code for the title
+#   string - containg the html code for the title
 #
 sub title
 {
@@ -69,14 +68,13 @@ sub title
     return $html;
 }
 
-#
 # Method: titleNoAction
 #
-#	Returns the html code for the title without action buttons
+#   Returns the html code for the title without action buttons
 #
 # Returns:
 #
-#	string - containg the html code for the title
+#   string - containg the html code for the title
 #
 sub titleNoAction
 {
@@ -89,14 +87,13 @@ sub titleNoAction
     return $html;
 }
 
-#
 # Method: menu
 #
-#	Returns the html code for the menu
+#   Returns the html code for the menu
 #
 # Returns:
 #
-#	string - containg the html code for the menu
+#   string - containg the html code for the menu
 #
 sub menu
 {
@@ -113,33 +110,26 @@ sub menu
     return $root->html;
 }
 
-#
 # Method: footer
 #
-#	Returns the html code for the footer page
+#   Returns the html code for the footer page
 #
 # Returns:
 #
-#	string - containg the html code for the footer page
+#   string - containg the html code for the footer page
 #
 sub footer
 {
-    my $global = EBox::Global->getInstance();
-    my $copyright = $global->theme()->{'copyright_footer'};
-
-    my $html = makeHtml('footer.mas',
-                        'copyright_footer' => $copyright);
-    return $html;
+    return makeHtml('footer.mas');
 }
 
-#
 # Method: header
 #
-#	Returns the html code for the header page
+#   Returns the html code for the header page
 #
 # Returns:
 #
-#	string - containg the html code for the header page
+#   string - containg the html code for the header page
 #
 sub header # (title)
 {
@@ -154,7 +144,11 @@ sub header # (title)
         }
     }
 
-    $title = "$serverName - $title";
+    if ($title) {
+        $title = "$serverName - $title";
+    } else {
+        $title = $serverName;
+    }
 
     my $favicon = $global->theme()->{'favicon'};
     my $html = makeHtml('header.mas', title => $title, favicon => $favicon );

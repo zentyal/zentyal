@@ -69,7 +69,7 @@ ldap_search_base = <% $ldapbase %>
 # attribute name which is/(should: was) used in ldap_user_search_filter
 ldap_object_type_attribute = objectClass
 ldap_user_type_attribute_value = zarafa-user,zarafa-contact
-ldap_group_type_attribute_value = posixGroup
+ldap_group_type_attribute_value = zentyalDistributionGroup
 ldap_contact_type_attribute_value = zarafa-contact
 ldap_company_type_attribute_value = zarafa-company
 ldap_addresslist_type_attribute_value = zarafa-addresslist
@@ -107,7 +107,7 @@ ldap_user_search_filter = (|(&(objectClass=zarafa-user)(zarafaAccount=1))(object
 # Note: contacts also use this field for uniqueness. If you change this,
 # you might need to update the zarafa.schema file too, and change
 # the MUST uidNumber to whatever you set here.dnl
-ldap_user_unique_attribute = entryUUID
+ldap_user_unique_attribute = uidNumber
 
 # Type of unique user id
 # default: text

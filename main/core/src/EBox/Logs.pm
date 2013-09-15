@@ -29,9 +29,11 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::DBEngineFactory;
 use EBox::Service;
+use EBox::Logs::Consolidate;
 use EBox::Logs::SlicedBackup;
 use EBox::FileSystem;
 use EBox::Util::SQLTypes;
+use EBox::Util::Version;
 
 use POSIX qw(ceil);
 
@@ -406,8 +408,11 @@ sub search
     }
     if ($filters and %{$filters}) {
         while (my ($field, $filterValue) = each %{$filters}) {
-            $field or next;
-            (defined $filterValue and ($filterValue eq 0)) or next;
+            if (not $field) {
+                next;
+            } elsif ((not defined $filterValue) or ($filterValue =~ m/^\s*$/)) {
+                next;
+            }
 
             if (($field eq 'event') or (not $filterValue)) {
                 $self->{'sqlselect'}->{'filter'}->{$field} = $filterValue;
@@ -539,6 +544,24 @@ sub yesterdayDate
     $mon  +=1;
 
     return "$year-$mon-$mday 00:00:00";
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#
+#   <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Perform consolidation migration from 3.0 to 3.2
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1.10') < 0) {
+        EBox::Logs::Consolidate->migrateConsolidateTablesTo32();
+    }
+
+    $self->SUPER::initialSetup($version);
 }
 
 sub _addFilter
@@ -887,5 +910,6 @@ sub archiveBackupSlices
     my $dbengine = EBox::DBEngineFactory::DBEngine();
     EBox::Logs::SlicedBackup::archive($dbengine);
 }
+
 
 1;

@@ -6,96 +6,6 @@
   $hasChanged
   $action => 'view'
 </%args>
-
-<%init>
-  use EBox::Gettext;
-  use EBox::Model::DataTable;
-
-  sub timeTickFormatter
-  {
-      my ($timePeriod) = @_;
-
-      if ($timePeriod eq 'monthly') {
-          return  <<END
-              function(ts) {
-                  var date;
-                  if (ts > 1000) {
-                     date  = new Date(ts*1000);
-                  }
-                  else {
-                     date = new Date();
-                  }
-
-                  var dateParts =  date.toDateString().split(' ', 4);
-                  var dateSt = dateParts[1] + ' ' + dateParts[3];
-                  return dateSt;
-              }
-END
-      }
-      elsif ($timePeriod eq 'weekly') {
-          return  <<END
-              function(ts) {
-                  var date;
-                  if (ts > 1000) {
-                     date  = new Date(ts*1000);
-                  }
-                  else {
-                     date = new Date();
-                  }
-
-                   return date.toDateString();
-              }
-END
-      }
-      elsif ($timePeriod eq 'daily') {
-          return  <<END
-              function(ts) {
-                  var date;
-                  if (ts > 1000) {
-                     date  = new Date(ts*1000);
-                  }
-                  else {
-                     date = new Date();
-                  }
-
-                   return date.toDateString();
-              }
-END
-      }
-      elsif ($timePeriod eq 'hourly') {
-          return  <<END
-              function(ts) {
-                  var date;
-                  if (ts > 1000) {
-                     date  = new Date(ts*1000);
-                  }
-                  else {
-                     date = new Date();
-                  }
-
-
-                  var dateSt = date.toDateString();
-                  dateSt += ' ' + date.getHours() + ':00';
-                 return dateSt;
-              }
-END
-      }
-      else {
-          return  <<END
-              function(ts) {
-                  var date;
-                  if (ts > 1000) {
-                     date  = new Date(ts*1000);
-                  }
-                  else {
-                     date = new Date();
-                  }
-                  return date.toDateString();
-              }
-END
-     }
-  }
-</%init>
 <& SELF:view,
    model => $model,
    hasChanged => $hasChanged,
@@ -128,8 +38,6 @@ my $reloadAction = $action eq 'changeList';
 
 <& SELF:graph, model => $model  &>
 
-
-
 </%method>
 
 <%method graph>
@@ -137,64 +45,27 @@ my $reloadAction = $action eq 'changeList';
 $model
 </%args>
 <%init>
+use feature 'switch';
+
 my $container = $model->name() . 'GraphContainer';
 
-my @dataSets = @{ $model->datasets };
-my @labels   = @{ $model->datasetsLabels };
+my $labels   = $model->datasetsLabels();
+my $dataSets = $model->datasets();
+my @series;
+foreach my $idx (0 .. $#{$model->datasets()}) {
+   push(@series, { 'data'  => $dataSets->[$idx],
+                   'label' => $labels->[$idx] });
 
-
-# this supposes that all datsets have the same number of points
-my $noTicks = (scalar  @{ $dataSets[0] }) - 1;
-($noTicks < 1) and
-    $noTicks = 1;
-
-
-my $timeTickFormatter = timeTickFormatter($model->timePeriod());
-
-my $graphData = '[ ';
-foreach my $ds (@dataSets) {
-      my $label = shift @labels;
-
-      $graphData .=  "{ \n";
-      $graphData .= "label: '$label',\n";
-
-      $graphData .= 'data: [';
-      foreach my $set (  @{ $ds } ) {
-             my $elements = join ',', @{ $set };
-            $graphData .= "[ $elements ],";
-      }
-      $graphData .= " ],\n";
-
-     if (@{ $ds } < 2) {
-          $graphData .= 'points: {show: true, },';
-     }
-
-#      $graphData .= 'mouse: {  track: true, trackDecimals: 0, },';
-
-      $graphData .= "   },\n";
 }
-
-$graphData .= ' ]';
-
-
-my $graphOptions = <<"END";
-{
-   xaxis: { autoscaleMargin: 0.001, tickDecimals: 0, tickFormatter: $timeTickFormatter, noTicks: $noTicks} ,
-   yaxis: { autoscaleMargin: 0.1, noTicks: $noTicks },
+my $timeType;
+given ($model->timePeriod()) {
+   when (['monthly', 'weekly', 'daily']) { $timeType = 'date'; }
+   when ('hourly') { $timeType = 'time'; }
+   default { $timeType = 'datetime'; }
 }
-END
-
 </%init>
-<div id="<% $container %>" style="width:600px;height:300px;"></div>
-<br/>
-<script language="javascript" type="text/javascript">
-/**
- Wait till dom's finished loading.
-**/
-document.observe('dom:loaded', function(){
-  $.plot('#' + Zentyal.escapeSelector('<% $container %>'), <% $graphData %>, <% $graphOptions %>);
-});
-</script>
+<& /graph.mas, id => $container, type => 'int',
+               timetype => $timeType, series => \@series &>
 
 </%method>
 
@@ -202,9 +73,8 @@ document.observe('dom:loaded', function(){
 
 <& PARENT:headerScriptSection &>
 
-%#<script language="javascript" type="text/javascript" src="/data/js/flotr.js"></script>
-
 <script type="text/javascript" src="/data/js/jquery.flot.js"></script>
+<script type="text/javascript" src="/data/js/format.js"></script>
 </%method>
 
 <%method editForm>

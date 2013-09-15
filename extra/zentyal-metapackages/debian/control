@@ -19,7 +19,7 @@ Description: Zentyal - Core metapackage
 Package: zentyal-all
 Architecture: all
 Replaces: ebox-all
-Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office, zentyal-communication, zentyal-webmail, zentyal-radius, zentyal-captiveportal, zentyal-ipsec, zentyal-pptp, zentyal-virt, zentyal-usercorner, zentyal-monitor, zentyal-ips, zentyal-ltsp, zentyal-bwmonitor, zentyal-zarafa, zentyal-nut, zentyal-remoteservices
+Depends: zentyal-gateway, zentyal-infrastructure, zentyal-office, zentyal-communication, zentyal-webmail, zentyal-radius, zentyal-captiveportal, zentyal-ipsec, zentyal-usercorner, zentyal-monitor, zentyal-ips, zentyal-bwmonitor, zentyal-zarafa, zentyal-nut, zentyal-remoteservices
 Description: Zentyal - All Modules
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -69,7 +69,7 @@ Description: Zentyal - Office Suite
 Package: zentyal-communication
 Architecture: all
 Replaces: ebox-communication
-Depends: zentyal-mail, zentyal-jabber, zentyal-asterisk, zentyal-mailfilter, zentyal-antivirus, zentyal-ebackup, zentyal-software
+Depends: zentyal-mail, zentyal-jabber, zentyal-mailfilter, zentyal-antivirus, zentyal-ebackup, zentyal-software
 Description: Zentyal - Communications Suite
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -78,3 +78,10 @@ Description: Zentyal - Communications Suite
  .
  This metapackage installs typical modules to configure Zentyal as a
  Communication server.
+
+Package: zentyal-ids
+Depends: zentyal-ips, ${misc:Depends}
+Architecture: all
+Section: oldlibs
+Description: transitional package to zentyal-ips
+ This is a transitional package. It can safely be removed.

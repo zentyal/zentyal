@@ -1,4 +1,21 @@
 HEAD
+	+ Fix typo in setSecurityGroup when no GID is set yet
+	+ Show group in slave as read-only
+	+ Show in a slave when the user is not a member of any group
+	+ Check email address for a group is done
+	+ Add group dialog can now set the e-mail
+	+ Master/Slave synchronisation works again
+3.1.8
+	+ Enable upgrade from 3.0 in initialSetup
+	+ Fixed wrong calls to isSystem() in master-slave after API changes
+	+ Fix regression trying to join slave after external AD changes
+	+ Fix regression in slave host address after nginx integration
+	+ Throw DataExists error when adding an OU which already exists
+3.1.7
+	+ Readded memberUid to the fields to index for SLAPD.
+	+ Ignored members that are not valid perl objects to avoid undef entries
+	  on EBox::Users::Group::members method.
+	+ Rewrites to share more code with samba module.
 	+ Added 'mail' field on zentyalDistributionGroup schema.
 	+ Added E-Mail field for Users and Groups when managing them from the UI.
 	+ Changed E-Mail field to optional for Contacts.

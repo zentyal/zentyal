@@ -1,4 +1,53 @@
 HEAD
+	+ Only set share permissions when there is really a permission change
+	  instead of doing it on every samba restart.
+	+ Fix provisioning flag management on error
+3.1.11
+	+ Added migration code to be executed when upgrading from 3.0
+3.1.10
+	+ Wait until all the samba services are ready before trying to connect
+	+ Removed useless and problematic enforceServiceState override
+3.1.9
+	+ Antivirus daemon unlinks the cache file before creating new one
+	+ Fix user accounts not enabled when created by s4sync
+	+ Wait for RID pool allocation after join domain as DC
+	+ Remove no longer needed workaround for DNS SPN
+	+ Add samba as a DomainDnsZones and ForestDnsZones replica holder
+	  when joining as additional DC (samba bug #9200)
+	+ Fixes for LDAP-LDB OUs synchronization
+	+ Force restart of DNS module while provisioning to reload zones from LDB
+	+ Block until samba LDAP task is listening when restarting module
+	+ New state flag 'provisioning'
+	+ Added 'All users' option to ACL group permissions
+	+ Fix precondition on GPOScripts model
+3.1.8
+	+ Added EBox::LDB::securityGroups to get the list of security groups from
+	  Samba.
+	+ Requested SLAPD to add an index on the msdsObjectGUID field.
+	+ Added support to set permissions recursively.
+	+ Moved the code that sets the share permissions to EBox::Samba to execute
+	  it on EBox::Module::Service::_postServiceHook hook so we are sure samba
+	  is already started with the new configuration.
+	+ Shares are created even if no permissions are assigned nor is a guest
+	  shared. Administrators will always have permissions now, so the share
+	  should exist.
+	+ Fixed zentyal group memberships sync with Samba to handle all supported
+	  members and to sync on group creation, not just on group update.
+	+ Improved the way we sync group memberships from Samba to Zentyal so we
+	  are able to sync nested groups if they are not yet created at that point.
+	+ Allowed nested groups sync with OpenLDAP and reused as much as possible
+	  code from EBox::Users::Group from EBox::Samba::Group.
+	+ Do nothing with shares that are disabled.
+	+ Fixed s4sync when checking for OUs updates.
+	+ Ignore system ACLs for samba shares, use libsamba-perl library instead.
+	+ Disabled custom auth methods for guests, so Kerberos authentication
+	  works. This should be reverted once Guest support is fixed on Samba 4.
+	+ Synced all members of Zentyal Groups, not just users, when provisioning
+	  with Samba.
+	+ Stop creating special users or groups on provision time, s4sync will do
+	  it for us.
+	+ Services principals are copied to Samba before Groups, so we can keep
+	  memberships intact.
 	+ Mark internal users and groups properly when creating them in LDAP
 	+ Filter internal users and groups in ACLs selectors
 	+ Fixed bad usage of OpenLDAP when it should be using LDB.

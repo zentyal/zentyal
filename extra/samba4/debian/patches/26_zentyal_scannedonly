@@ -1,7 +1,7 @@
-Index: samba4/source3/modules/vfs_scannedonly.c
+Index: samba4-4.1.0rc2/source3/modules/vfs_scannedonly.c
 ===================================================================
---- samba4.orig/source3/modules/vfs_scannedonly.c	2013-08-14 00:22:50.121330392 +0200
-+++ samba4/source3/modules/vfs_scannedonly.c	2013-08-14 00:23:27.000000000 +0200
+--- samba4-4.1.0rc2.orig/source3/modules/vfs_scannedonly.c	2013-09-10 20:32:44.095339059 +0200
++++ samba4-4.1.0rc2/source3/modules/vfs_scannedonly.c	2013-09-10 20:35:26.695453809 +0200
 @@ -50,6 +50,7 @@
  #include "includes.h"
  #include "smbd/smbd.h"
@@ -41,7 +41,101 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  #define SCANNEDONLY_DEBUG 9
  /*********************/
  /* utility functions */
-@@ -511,6 +512,7 @@
+@@ -388,21 +389,24 @@
+ 	       ,smb_fname->base_name,shortname,base_name));
+ 
+ 	if (ISDOT(shortname) || ISDOTDOT(shortname)) {
++        DEBUG(SCANNEDONLY_DEBUG, ("Is dot or dotdot, return true\n"));
+ 		return true;
+ 	}
+ 	if (is_scannedonly_file(STRUCTSCANO(handle->data), shortname)) {
+ 		DEBUG(SCANNEDONLY_DEBUG,
+ 		      ("scannedonly_allow_access, %s is a scannedonly file, "
+-		       "return 0\n", shortname));
++		       "return false\n", shortname));
+ 		return false;
+ 	}
+ 
+ 	if (!VALID_STAT(smb_fname->st)) {
+-		DEBUG(SCANNEDONLY_DEBUG,("stat %s\n",smb_fname->base_name));
++		DEBUG(SCANNEDONLY_DEBUG,("No valid stat (%s)\n",smb_fname->base_name));
+ 		retval = SMB_VFS_NEXT_STAT(handle, smb_fname);
++		DEBUG(SCANNEDONLY_DEBUG,("stat (%s) returns (%d)\n",
++            smb_fname->base_name, retval));
+ 		if (retval != 0) {
+ 			/* failed to stat this file?!? --> hide it */
+-			DEBUG(SCANNEDONLY_DEBUG,("no valid stat, return"
++			DEBUG(SCANNEDONLY_DEBUG,("No valid stat, return"
+ 						 " allow_nonexistent=%d\n",
+ 						 allow_nonexistent));
+ 			return allow_nonexistent;
+@@ -418,28 +422,31 @@
+ 			S_ISDIR(smb_fname->st.st_ex_mode));
+ 	}
+ 	if (smb_fname->st.st_ex_size == 0) {
+-		DEBUG(SCANNEDONLY_DEBUG,("empty file, return 1\n"));
++		DEBUG(SCANNEDONLY_DEBUG,("Empty file, return true\n"));
+ 		return true;	/* empty files cannot contain viruses ! */
+ 	}
+ 	cachefile = cachefile_name(ctx,
+ 				   shortname,
+ 				   base_name,
+ 				   STRUCTSCANO(handle->data)->p_scanned);
+-	cache_smb_fname = synthetic_smb_fname(ctx, cachefile,NULL,NULL);
++    DEBUG(SCANNEDONLY_DEBUG, ("Cache file name is '%s'\n", cachefile));
++	cache_smb_fname = synthetic_smb_fname(ctx, cachefile, NULL, NULL);
+ 	if (!VALID_STAT(cache_smb_fname->st)) {
++        DEBUG(SCANNEDONLY_DEBUG, ("No valid stat (%s)\n", cache_smb_fname->base_name));
+ 		retval = SMB_VFS_NEXT_STAT(handle, cache_smb_fname);
++        DEBUG(SCANNEDONLY_DEBUG, ("Stat (%s) returns (%d)\n", cache_smb_fname->base_name, retval));
+ 	}
+ 	if (retval == 0 && VALID_STAT(cache_smb_fname->st)) {
++        DEBUG(SCANNEDONLY_DEBUG, ("Checking timespec_is_newer\n"));
+ 		if (timespec_is_newer(&smb_fname->st.st_ex_ctime,
+ 				      &cache_smb_fname->st.st_ex_ctime)) {
+-			talloc_free(cache_smb_fname);
++            DEBUG(SCANNEDONLY_DEBUG, ("cache file is_newer, allow access\n"));
++			TALLOC_FREE(cache_smb_fname);
+ 			return true;
+ 		}
+-		/* no cachefile or too old */
+-		SMB_VFS_NEXT_UNLINK(handle, cache_smb_fname);
+-		retval = -1;
+ 	}
+ 
++    DEBUG(SCANNEDONLY_DEBUG, ("Notifying scanner\n"));
+ 	notify_scanner(handle, smb_fname->base_name);
+ 
+ 	if (loop && sDIR && sDIR->recheck_tries_done == 0) {
+@@ -463,8 +470,8 @@
+ 						 smb_fname2,
+ 						 dire->d_name,
+ 						 base_name, 0, 0, 0, 0, 0);
+-			talloc_free(fpath2);
+-			talloc_free(smb_fname2);
++			TALLOC_FREE(fpath2);
++			TALLOC_FREE(smb_fname2);
+ 			dire = SMB_VFS_NEXT_READDIR(handle, sDIR->DIR,NULL);
+ 		}
+ 		sDIR->recheck_tries_done = 1;
+@@ -477,6 +484,8 @@
+ 		)) {
+ 		int numloops = sDIR ? sDIR->recheck_tries_done : 0;
+ 		flush_sendbuffer(handle);
++
++        retval = -1;
+ 		while (retval != 0	/*&& errno == ENOENT */
+ 		       && numloops < recheck_tries) {
+ 			DEBUG(SCANNEDONLY_DEBUG,
+@@ -491,6 +500,7 @@
+ 		if (sDIR)
+ 			sDIR->recheck_tries_done = numloops;
+ 	}
++
+ 	/* still no cachefile, or still too old, return 0 */
+ 	if (retval != 0
+ 	    || !timespec_is_newer(&smb_fname->st.st_ex_ctime,
+@@ -511,6 +521,7 @@
  					   const char *mask, uint32 attr)
  {
  	DIR *DIRp;
@@ -49,30 +143,30 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  	struct scannedonly_DIR *sDIR;
  
  	DIRp = SMB_VFS_NEXT_OPENDIR(handle, fname, mask, attr);
-@@ -518,7 +520,7 @@
+@@ -518,7 +529,11 @@
  		return NULL;
  	}
  
 -	sDIR = talloc(NULL, struct scannedonly_DIR);
-+	sDIR = talloc(handle->conn, struct scannedonly_DIR);
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++				return NULL);
++	sDIR = talloc(handle, struct scannedonly_DIR);
++	data->dir_data = sDIR;
++
  	if (fname[0] != '/') {
  		sDIR->base = construct_full_path(sDIR,handle, fname, true);
  	} else {
-@@ -528,7 +530,12 @@
+@@ -528,7 +543,8 @@
  			("scannedonly_opendir, fname=%s, base=%s\n",fname,sDIR->base));
  	sDIR->DIR = DIRp;
  	sDIR->recheck_tries_done = 0;
 -	return (DIR *) sDIR;
 +
-+	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
-+				return NULL);
-+	data->dir_data = sDIR;
-+
 +	return DIRp;
  }
  
  static DIR *scannedonly_fdopendir(vfs_handle_struct * handle,
-@@ -538,6 +545,7 @@
+@@ -538,6 +554,7 @@
  	DIR *DIRp;
  	struct scannedonly_DIR *sDIR;
  	const char *fname;
@@ -80,29 +174,33 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  
  	DIRp = SMB_VFS_NEXT_FDOPENDIR(handle, fsp, mask, attr);
  	if (!DIRp) {
-@@ -546,7 +554,7 @@
+@@ -546,7 +563,12 @@
  
  	fname = (const char *)fsp->fsp_name->base_name;
  
 -	sDIR = talloc(NULL, struct scannedonly_DIR);
-+	sDIR = talloc(handle->conn, struct scannedonly_DIR);
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++				return NULL);
++
++	sDIR = talloc(handle, struct scannedonly_DIR);
++	data->dir_data = sDIR;
++
  	if (fname[0] != '/') {
  		sDIR->base = construct_full_path(sDIR,handle, fname, true);
  	} else {
-@@ -556,7 +564,11 @@
+@@ -556,9 +578,9 @@
  			("scannedonly_fdopendir, fname=%s, base=%s\n",fname,sDIR->base));
  	sDIR->DIR = DIRp;
  	sDIR->recheck_tries_done = 0;
 -	return (DIR *) sDIR;
-+
-+	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
-+				return NULL);
-+	data->dir_data = sDIR;
+-}
+ 
 +	return DIRp;
- }
++}
  
- 
-@@ -573,8 +585,12 @@
+ static struct dirent *scannedonly_readdir(vfs_handle_struct *handle,
+ 					      DIR * dirp,
+@@ -573,8 +595,12 @@
  	struct dirent *newdirent;
  	TALLOC_CTX *ctx=talloc_tos();
  
@@ -117,7 +215,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  		return NULL;
  	}
  
-@@ -646,35 +662,20 @@
+@@ -646,35 +672,20 @@
  	return newdirent;
  }
  
@@ -162,7 +260,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  	return retval;
  }
  
-@@ -834,6 +835,7 @@
+@@ -834,6 +845,7 @@
  static int scannedonly_unlink(vfs_handle_struct * handle,
  			      const struct smb_filename *smb_fname)
  {
@@ -170,7 +268,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  	/* unlink the 'scanned' file too */
  	struct smb_filename *smb_fname_cache = NULL;
  	char * cachefile;
-@@ -844,10 +846,27 @@
+@@ -844,10 +856,27 @@
  		smb_fname->base_name,
  		STRUCTSCANO(handle->data)->p_scanned);
  	smb_fname_cache = synthetic_smb_fname(ctx, cachefile,NULL,NULL);
@@ -183,7 +281,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
 +			DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
 +						smb_fname_cache->base_name));
 +		}
-+	}
+ 	}
 +	/* unlink the 'failed' file too */
 +	cachefile = cachefile_name_f_fullpath(
 +		ctx,
@@ -196,12 +294,12 @@ Index: samba4/source3/modules/vfs_scannedonly.c
 +			DEBUG(0, ("_unlink: failed to unlink %s\n",
 +						smb_fname_cache->base_name));
 +		}
- 	}
++	}
 +
  	return SMB_VFS_NEXT_UNLINK(handle, smb_fname);
  }
  
-@@ -860,6 +879,7 @@
+@@ -860,6 +889,7 @@
  	TALLOC_CTX *ctx = talloc_tos();
  	bool only_deletable_files = true, have_files = false;
  	char *path_w_slash;
@@ -209,7 +307,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  
  	if (!STRUCTSCANO(handle->data)->rm_hidden_files_on_rmdir)
  		return SMB_VFS_NEXT_RMDIR(handle, path);
-@@ -926,12 +946,44 @@
+@@ -926,12 +956,45 @@
  		}
  	}
  	SMB_VFS_NEXT_CLOSEDIR(handle, dirp);
@@ -250,16 +348,26 @@ Index: samba4/source3/modules/vfs_scannedonly.c
 +static void free_scannedonly_data(void **datap)
  {
 -	SAFE_FREE(*data);
-+	struct Tscannedonly *data = (struct Tscannedonly *) *datap;
-+	SAFE_FREE(data);
-+	*datap = NULL;
++	struct Tscannedonly **data = (struct Tscannedonly **)datap;
++	if (!data)
++		return;
++	TALLOC_FREE(*data);
  }
  
  static int scannedonly_connect(struct vfs_handle_struct *handle,
-@@ -947,6 +999,10 @@
+@@ -940,13 +1003,16 @@
+ 
+ 	struct Tscannedonly *so;
+ 
+-	so = SMB_MALLOC_P(struct Tscannedonly);
++	so = talloc_zero(NULL, struct Tscannedonly);
+ 	if (so == NULL) {
++		SMB_VFS_NEXT_DISCONNECT(handle);
+ 		errno = ENOMEM;
+ 		return -1;
  	}
- 	handle->data = (void *)so;
- 	handle->free_data = free_scannedonly_data;
+-	handle->data = (void *)so;
+-	handle->free_data = free_scannedonly_data;
 +	SMB_VFS_HANDLE_SET_DATA(handle, so, free_scannedonly_data,
 +				struct Tscannedonly, return -1);
 +
@@ -267,7 +375,7 @@ Index: samba4/source3/modules/vfs_scannedonly.c
  	so->gsendbuffer[0]='\0';
  	so->domain_socket =
  		lp_parm_bool(SNUM(handle->conn), "scannedonly",
-@@ -1020,9 +1076,6 @@
+@@ -1020,9 +1086,6 @@
  	.opendir_fn = scannedonly_opendir,
  	.fdopendir_fn = scannedonly_fdopendir,
  	.readdir_fn = scannedonly_readdir,

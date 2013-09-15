@@ -25,7 +25,8 @@ my @advInstallPkgs;
 my @advUpdatePkgs;
 my @advRemovePkgs;
 foreach my $pkg (@eboxpkgs) {
-  ($pkg->{name} eq 'zentyal-all') and next;
+  next if ($pkg->{name} eq 'zentyal-all');
+  next if ($pkg->{name} eq 'zentyal-ids');
   ($pkg->{description} =~ m/Suite/) and next;
 
   if ($pkg->{version}) {
@@ -52,29 +53,6 @@ my %titleByAction = (
 </%init>
 
 <script type="text/javascript" src="/data/js/software-management.js">//</script>
-
-<style type="text/css">
-.head {
-% if ($sb) {
-    width: 155px;
-% } else {
-    width: 115px;
-% }
-    /*margin: 0 15px;
-    display: inline-block;
-    text-align: center;*/
-}
-
-.head h3 {
-    text-align: center;
-    margin-bottom: 2px;
-}
-
-h3 {
-    margin-top: 0;
-}
-
-</style>
 
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/tabMenu.js">//</script>
@@ -253,8 +231,8 @@ var pkgTable = new Array(
     </div>
 
     <div>
-        <div id="Gateway" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">X</a>
+        <div id="Gateway" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Gateway'); return false">&#10006;</a>
             <h3><% __s('Zentyal Gateway features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/cache.png' alt='Transparent caching' />
@@ -295,8 +273,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Infrastructure" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">X</a>
+        <div id="Infrastructure" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Infrastructure'); return false">&#10006;</a>
             <h3><% __s('Zentyal Infrastructure features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/objects.png' alt='DHCP server' />
@@ -336,8 +314,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Office" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">X</a>
+        <div id="Office" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Office'); return false">&#10006;</a>
             <h3><% __s('Zentyal Office features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/directory.png' alt='Open Directory' />
@@ -375,8 +353,8 @@ var pkgTable = new Array(
             </div>
         </div>
 
-        <div id="Communications" class="info" style="display:none">
-            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">X</a>
+        <div id="Communications" class="item-block" style="display:none">
+            <a href="#" class="close_button" onclick="Zentyal.SoftwareManagementUI.hideInfo('Communications'); return false">&#10006;</a>
             <h3><% __s('Zentyal Unified Communications features') %></h3>
             <div class='feature'>
                 <img src='/data/software/images/email.png' alt='Email' />
@@ -420,6 +398,7 @@ var pkgTable = new Array(
 %   foreach my $pkg (@eboxpkgs) {
 %        # Hide some packages (objects+services), virtual, no removables
 %        next if ($pkg->{description} =~ /Suite$/);
+%        next if ($pkg->{description} =~ /^transitional/);
 %        next if ($pkg->{description} eq 'Network Objects');
 %        next if ($pkg->{description} eq 'Network Services');
 %        next if ($pkg->{description} eq 'All Modules');
@@ -430,8 +409,8 @@ var pkgTable = new Array(
 %           $class='package_installed';
 %        }
          <div id="<% $pkg->{name} %>" class="package <% $class %>" onclick="Zentyal.SoftwareManagementUI.togglePackage('<% $pkg->{name} %>'); return false">
-            <div><img src="/data/software/images/package-icons/<% $pkg->{name} %>.png"
-                  onerror='this.onerror = null; this.src="/data/software/images/package-icons/generic.png"' /></div>
+            <div><img src="/data/images/package-icons/<% $pkg->{name} %>.png"
+                  onerror='this.onerror = null; this.src="/data/images/package-icons/generic.png"' /></div>
             <p><% $pkg->{description} %></p>
          </div>
 %   }
@@ -482,7 +461,7 @@ var pkgTable = new Array(
         </ul>
     </div>
     <div class="insideTab">
-        <div id="installBox">
+        <div id="installBox" class="item-block">
               <& .pkgTable,
                  id => 'installTable',
                  pkgs => \@advInstallPkgs,
@@ -500,7 +479,7 @@ var pkgTable = new Array(
                 popupTitle => $titleByAction{install},
               &>
         </div>
-        <div id="updateBox">
+        <div id="updateBox" class="item-block">
               <& .pkgTable,
                  id => 'updateTable',
                  pkgs => \@advUpdatePkgs,
@@ -518,7 +497,7 @@ var pkgTable = new Array(
                 popupTitle => $titleByAction{upgrade},
               &>
         </div>
-        <div id="deleteBox">
+        <div id="deleteBox" class="item-block">
              <& .pkgTable,
                 id => 'deleteTable',
                 pkgs => \@advRemovePkgs,

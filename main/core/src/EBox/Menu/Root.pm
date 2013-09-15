@@ -38,6 +38,9 @@ sub html
 {
     my $self = shift;
 
+    my $global = EBox::Global->getInstance();
+    my $copyright = $global->theme()->{'copyright_footer'};
+
     my $output;
     my $interp = HTML::Mason::Interp->new(out_method => \$output);
     my $comp = $interp->make_component(
@@ -59,9 +62,10 @@ sub html
     }
 
     my @params;
-    push(@params, 'items' => \@items);
-    push(@params, 'current' => $self->{'current'});
-    push(@params, 'currentUrl' => $self->{'currentUrl'});
+    push (@params, 'items' => \@items);
+    push (@params, 'current' => $self->{'current'});
+    push (@params, 'currentUrl' => $self->{'currentUrl'});
+    push (@params, 'copyright_footer' => $copyright);
     $interp->exec($comp, @params);
 
     return $output;

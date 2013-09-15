@@ -1149,7 +1149,7 @@ sub _overrideDaemons
 
     foreach my $daemon (@daemons) {
         my $name = $daemon->{name};
-        if ($daemon->{type} eq 'init.d') {
+        if (($daemon->{type}) and ($daemon->{type} eq 'init.d')) {
             push (@cmds, "update-rc.d $name disable");
         } else {
             push (@cmds, "echo manual > /etc/init/$name.override");

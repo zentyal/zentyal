@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Users;
 use EBox::Users::User;
+use EBox::Validate;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
@@ -43,7 +44,7 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use constant SYSMINGID      => 1900;
 use constant MINGID         => 2000;
 use constant MAXGROUPLENGTH => 128;
-use constant CORE_ATTRS     => ('member', 'description');
+use constant CORE_ATTRS     => ('objectClass', 'mail', 'member', 'description');
 
 sub new
 {
@@ -80,8 +81,8 @@ sub mainObjectClass
 sub defaultContainer
 {
     my ($class, $ro) = @_;
-    my $usersMod = EBox::Global->getInstance($ro)->modInstance('users');
-    return $usersMod->objectFromDN('ou=Groups,'.$usersMod->ldap->dn());
+    my $ldapMod = $class->_ldapMod();
+    return $ldapMod->objectFromDN('ou=Groups,' . $class->_ldap->dn());
 }
 
 # Method: _entry
@@ -156,19 +157,19 @@ sub removeAllMembers
 #
 # Parameters:
 #
-#   person - inetOrgPerson object
+#   member - member object (User, Contact, Group)
 #
 sub addMember
 {
-    my ($self, $person, $lazy) = @_;
+    my ($self, $member, $lazy) = @_;
     try {
-        $self->add('member', $person->dn(), $lazy);
+        $self->add('member', $member->dn(), $lazy);
     } catch EBox::Exceptions::LDAP with {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
         }
-        EBox::debug("Tried to add already existent member $person to group " . $self->name());
+        EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
     };
 }
 
@@ -178,21 +179,44 @@ sub addMember
 #
 # Parameters:
 #
-#   person - inetOrgPerson object
+#   member - member object (User, Contact, Group)
 #
 sub removeMember
 {
-    my ($self, $person, $lazy) = @_;
-    try {
-        $self->deleteValues('member', [$person->dn()], $lazy);
-    } catch EBox::Exceptions::LDAP with {
-        my $ex = shift;
-        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            $ex->throw();
-        }
-        EBox::debug("Tried to remove inexistent member $person to group " . $self->name());
-    };
+    my ($self, $member, $lazy) = @_;
+    $self->deleteValues('member', [$member->dn()], $lazy);
 }
+
+# Method: members
+#
+#   Return the list of members for this group
+#
+# Returns:
+#
+#   arrary ref of members
+#
+sub members
+{
+    my ($self) = @_;
+
+    my $ldapMod = $self->_ldapMod();
+    my @members = ();
+    for my $memberDN ($self->get('member')) {
+        my $member = $ldapMod->objectFromDN($memberDN);
+        if ($member and $member->exists()) {
+            push (@members, $member);
+        }
+    }
+
+    @members = sort {
+        my $aValue = $a->canonicalName();
+        my $bValue = $b->canonicalName();
+        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
+    } @members;
+
+    return \@members;
+}
+
 
 # Method: users
 #
@@ -228,8 +252,8 @@ sub _users
 {
     my ($self, $system, $invert) = @_;
 
-    my $usersMod = $self->_usersMod();
-    my $userClass = $usersMod->userClass();
+    my $ldapMod = $self->_ldapMod();
+    my $userClass = $ldapMod->userClass();
 
     my @users;
 
@@ -279,7 +303,7 @@ sub contacts
 
     my %attrs = (
         base => $self->_ldap->dn(),
-        filter => "(&(!(objectclass=posixAccount))(memberof=$self->{dn}))",
+        filter => "(&(&(!(objectclass=posixAccount))(memberof=$self->{dn})(objectclass=inetorgPerson)))",
         scope => 'sub',
     );
 
@@ -334,32 +358,6 @@ sub contactsNotIn
     return \@contacts;
 }
 
-# Method: members
-#
-#   Return the list of members for this group
-#
-# Returns:
-#
-#   arrary ref of members
-#
-sub members
-{
-    my ($self) = @_;
-
-    my $usersMod = $self->_usersMod();
-    my @members = map {
-        $usersMod->objectFromDN($_)
-    } $self->get('member');
-
-    @members = sort {
-        my $aValue = $a->canonicalName();
-        my $bValue = $b->canonicalName();
-        (lc $aValue cmp lc $bValue) or ($aValue cmp $bValue)
-    } @members;
-
-    return \@members;
-}
-
 # Catch some of the set ops which need special actions
 sub set
 {
@@ -389,7 +387,7 @@ sub add
 
 sub delete
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
@@ -402,7 +400,7 @@ sub delete
 
 sub deleteValues
 {
-    my ($self, $attr, $value) = @_;
+    my ($self, $attr, $values, $lazy) = @_;
 
     # remember changes in core attributes (notify LDAP user base modules)
     if ($attr eq any(CORE_ATTRS)) {
@@ -457,12 +455,18 @@ sub save
 #       name            - Group name.
 #       parent          - Parent container that will hold this new Group.
 #       description     - Group's description.
+#       mail            - Group's mail
 #       isSecurityGroup - If true it creates a security group, otherwise creates a distribution group. By default true.
 #       isSystemGroup   - If true it adds the group as system group, otherwise as normal group.
 #       gidNumber       - The gid number to use for this group. If not defined it will auto assigned by the system.
 #       ignoreMods      - Ldap modules to be ignored on addUser notify.
 #       ignoreSlaves    - Slaves to be ignored on addUser notify.
 #       isInternal      - Whether the group should be hidden or not.
+#
+# Exceptions:
+#
+#       TBD the remainder exceptions
+#       <EBox::Exceptions::InvalidData> - thrown if the provided mail is incorrect
 #
 sub create
 {
@@ -539,6 +543,10 @@ sub create
         push (@attr, internal => 1);
     }
     push (@attr, 'description' => $args{description}) if (defined $args{description} and $args{description});
+    if (defined $args{mail} and $args{mail}) {
+        EBox::Validate::checkEmailAddress($args{mail}, __('E-mail'));
+        push (@attr, 'mail' => $args{mail});
+    }
 
     my $res = undef;
     my $entry = undef;
@@ -637,7 +645,7 @@ sub setSecurityGroup
         unless (defined $self->get('gidNumber')) {
             my $gid = $self->_gidForNewGroup();
             $self->_checkGid($gid);
-            self->set('gidNumber', $gid, $lazy);
+            $self->set('gidNumber', $gid, $lazy);
         }
         $self->add('objectClass', 'posixGroup', $lazy);
     } else {

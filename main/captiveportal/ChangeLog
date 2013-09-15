@@ -1,3 +1,6 @@
+3.1.5
+	+ Improved reload icon
+	+ Fixed regression trying to access redis after users API changes
 3.1.4
 	+ User add-on adapted to right panel view
 	+ Added menu icon

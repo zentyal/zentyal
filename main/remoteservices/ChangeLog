@@ -5,6 +5,13 @@ HEAD
 	+ Improve proxy redirections:
 	  - Configuration from RedirectHelper modules
 	  - Added query string and referer-based patterns to redirect
+	+ Better error if we cannot register due to lack of free space
+	+ Fix links to see latest reports or its documentation on Reports tab
+	+ Set proper URL to reach Zentyal Remote dashboard from dashboard
+3.1.7
+	+ Adapt backups' list to new UI
+3.1.6
+	+ Adapt remote backup to new UI CSS
 	+ Removed implementation of the removed Desktop::ServiceProvider
 3.1.5
 	+ Adapted to updatedRowNotify call with no changes in values

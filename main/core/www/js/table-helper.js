@@ -1076,9 +1076,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
 };
 
 Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
-    var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
-    modalboxHtml += "</p></div><div class='tcenter'>";
-    modalboxHtml += "</div>";
+    var modalboxHtml = "<div><div class='warning'>" + params.message  +  '</div></div>';
 
     $(modalboxHtml).first().dialog({
         title:  params.title,

@@ -7,7 +7,8 @@ Standards-Version: 3.9.2
 
 Package: zentyal-ips
 Architecture: all
-Replaces: ebox-ips (<< 2.0.100)
+Replaces: zentyal-ids (<< 3.1)
+Breaks: zentyal-ids (<< 3.1)
 Pre-Depends: mysql-server
 Depends: zentyal-core (>= 3.1), zentyal-core (<< 3.2), zentyal-firewall, ${misc:Depends}, suricata, snort-rules-default, libtcmalloc-minimal0
 Description: Zentyal - Intrusion Prevention System

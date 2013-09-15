@@ -157,11 +157,8 @@ sub _newRequest
     my ($host) = @_;
     defined $host or $host = '10.0.0.2';
 
-    my $c = Test::MockObject->new();
-    $c->mock(remote_ip => sub { return $host });
-
     my $r = Test::MockObject->new();
-    $r->mock(connection => sub { return $c });
+    $r->mock(headers_in => sub { return { 'X-Real-IP' => $host } });
     $r->mock(subprocess_env =>  sub {
                 my $self = shift;
                 if (@_) {

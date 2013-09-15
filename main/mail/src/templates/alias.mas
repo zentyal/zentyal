@@ -54,9 +54,8 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
                                 </td>
                                 <td class='tcenter'>
                                         <input id='userMailCreateAlias_submit'
-                                               class='inputButton'
-                                               type='image'
-                                               src='/data/images/add.gif'
+                                               class='btn-only-icon btn-add'
+                                               type='submit'
                                                name='change'
                                                value="<% __('Create') %>"
                                                title="<% __('Create') %>"

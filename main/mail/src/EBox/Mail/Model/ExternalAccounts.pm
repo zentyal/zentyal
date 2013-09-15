@@ -174,7 +174,7 @@ sub _user
     my $user = $request->user();
     my $usersMod = EBox::Global->modInstance('users');
 
-    return new $usersMod->userByUID($user);
+    return $usersMod->userByUID($user);
 }
 
 sub _userExternalAccounts
