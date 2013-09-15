@@ -1,4 +1,4 @@
-HEAD
+3.1.12
 	+ Only set share permissions when there is really a permission change
 	  instead of doing it on every samba restart.
 	+ Fix provisioning flag management on error
