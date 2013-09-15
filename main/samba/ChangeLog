@@ -1,3 +1,5 @@
+HEAD
+	+ Migrate disabled accounts from 3.0
 3.1.12
 	+ Only set share permissions when there is really a permission change
 	  instead of doing it on every samba restart.

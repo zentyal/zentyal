@@ -2525,6 +2525,10 @@ sub _migrateTo32
         my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
         if ($ldapUser->exists()) {
             $ldbUser->_linkWithUsersObject($ldapUser);
+
+            if (not $ldbUser->isAccountEnabled()) {
+                $ldapUser->setAccountEnabled(0);
+            }
         }
     }
 
@@ -2535,9 +2539,6 @@ sub _migrateTo32
             $ldbGroup->_linkWithUsersObject($ldapGroup);
         }
     }
-
-    # TODO: check if exists ou=Users in LDB and create all its objects
-    # under CN=Users, then delete ou=Users after that
 }
 
 1;
