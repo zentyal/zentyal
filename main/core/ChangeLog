@@ -1,4 +1,6 @@
 HEAD
+	+ No autoscroll is done when overflow happens. This makes sortable
+	  work in chromium
 	+ Set audit after logs when enabling in first install
 	+ Avoid getting unsaved changes by using readonly instance in manage-logs
 3.1.11
