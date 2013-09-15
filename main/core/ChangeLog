@@ -1,4 +1,7 @@
 HEAD
+	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
+	  when running zentyal start, this fixes problems with leftover locks
+	  that affect dhclient hooks
 	+ Set audit after logs when enabling in first install
 	+ Avoid getting unsaved changes by using readonly instance in manage-logs
 3.1.11
