@@ -1099,9 +1099,11 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
     tableBody.sortable({
         items: '.movableRow',
         handle: '.moveRowHandle',
-        containment: 'parent',
-        tolerance: 'pointer',
+        placeholder: 'moveRowPlaceholder',
         delay: 100,
+        start: function(event, ui) {
+            ui.placeholder.height(ui.helper.outerHeight());
+        },
         helper: function(e, ui) {
             ui.children().each(function() {
                 $(this).width($(this).width());

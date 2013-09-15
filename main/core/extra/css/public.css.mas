@@ -1153,10 +1153,10 @@ TABLE LIST
         padding-left: 1%;
 }
 
-.widgetPlaceholder {
+.widgetPlaceholder, .moveRowPlaceholder {
         margin-bottom: 10px;
         border: 1px #ccc dashed;
-        background-color: whitesmoke;
+        background-color: whitesmoke !important;
 }
 
 .widgetHandle {
