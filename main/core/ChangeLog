@@ -1,4 +1,7 @@
 HEAD
+	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
+	  when running zentyal start, this fixes problems with leftover locks
+	  that affect dhclient hooks
 	+ Fixed wrong case in some class names for the save changes button
 	+ Fixed autoscroll in dashboard widgets
 	+ Added placeholder for drag & drop of table rows
