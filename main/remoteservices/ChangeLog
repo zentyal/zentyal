@@ -1,4 +1,5 @@
 HEAD
+	+ Better error if we cannot register due to lack of free space
 	+ Fix links to see latest reports or its documentation on Reports tab
 	+ Set proper URL to reach Zentyal Remote dashboard from dashboard
 3.1.7

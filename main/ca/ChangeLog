@@ -1,3 +1,6 @@
+HEAD
+	+ Fix to allow any wildcard level in DNS field of subject
+	  alternative name
 3.1.2
 	+ Adapted to new CSS styles
 3.1.1
