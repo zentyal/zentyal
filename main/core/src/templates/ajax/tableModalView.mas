@@ -5,7 +5,7 @@
   $model
   $action => 'view'
   $editid => ''
-  $hasChanged => 1
+  $hasChanged => 0
   $filter => ''
   $page => 0
   $tpages => 0
@@ -39,7 +39,7 @@ use Perl6::Junction qw(any);
   $model
   $action => 'view'
   $editid => ''
-  $hasChanged => 1
+  $hasChanged => 0
   $filter => ''
   $page => 0
   $tpages => 0

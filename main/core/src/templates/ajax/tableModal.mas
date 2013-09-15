@@ -5,7 +5,7 @@
   $model
   $action => 'view'
   $editid => ''
-  $hasChanged => 1
+  $hasChanged => 0
   $filter => ''
   $page => 0
   $tpages => 0
@@ -87,7 +87,7 @@ use POSIX;
   $model
   $action => 'view'
   $editid => ''
-  $hasChanged => 1
+  $hasChanged => 0
   $filter => ''
   $page => 0
   $tpages => 0
