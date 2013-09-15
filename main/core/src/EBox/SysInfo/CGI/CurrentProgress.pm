@@ -67,7 +67,7 @@ sub modulesChangedStateAsHash
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
-    my $state = $global->unsaved() ? 'changed' : 'notChanged';
+    my $state = $global->unsaved() ? 'changed' : 'notchanged';
     return $state;
 }
 

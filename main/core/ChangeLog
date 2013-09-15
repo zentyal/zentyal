@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wrong case in some class names for the save changes button
 	+ Fixed autoscroll in dashboard widgets
 	+ Added placeholder for drag & drop of table rows
 	+ No autoscroll is done when overflow happens. This makes sortable

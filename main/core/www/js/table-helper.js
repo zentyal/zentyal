@@ -1158,6 +1158,6 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
 };
 
 Zentyal.TableHelper.setSaveChangesButton = function(changed) {
-    var className = changed ?  'changed' : 'notChanged';
+    var className = changed ?  'changed' : 'notchanged';
     $('#changes_menu').removeClass().addClass(className);
 };
