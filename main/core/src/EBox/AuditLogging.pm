@@ -298,7 +298,6 @@ sub logShutdown
     $self->logAction('System', 'General', 'shutdown' ,$type);
     # disable audit to avoid trying to log when resources are shutted down
     $self->{dontLog} = 1;
-
 }
 
 1;

@@ -20,6 +20,7 @@ package EBox::Logs::Consolidate;
 use EBox::Global;
 use EBox::DBEngineFactory;
 
+use Error qw(:try);
 use Time::Piece;
 use Time::Seconds;
 
@@ -104,6 +105,36 @@ sub checkTimePeriod
     }
 }
 
+# Migration sub to migrate TIMESTAMP date column to DATETIME
+sub migrateConsolidateTablesTo32
+{
+    my ($class) = @_;
+
+    my $gl       = EBox::Global->getInstance(1);
+    my $dbengine = EBox::DBEngineFactory::DBEngine();
+    my $modNames = $class->_allModulesWithConsolidation();
+    foreach my $modName (@{$modNames}) {
+        foreach my $tableInfo (@{$class->_tableInfosFromMod($modName)}) {
+            while (my ($destTable, $conf) = each %{$tableInfo->{consolidate}}) {
+                foreach my $timePeriod (@{$class->timePeriods()}) {
+                    my $table = "${destTable}_$timePeriod";
+                    my $sql = qq{ALTER TABLE $table
+                                 CHANGE date
+                                 date DATETIME NOT NULL};
+                    EBox::debug($sql);
+                    try {
+                        $dbengine->do($sql);
+                    } otherwise {
+                        my ($exc) = @_;
+                        # We can't leave migration half run
+                        EBox::error($exc);
+                    };
+                }
+            }
+        }
+    }
+}
+
 sub _allModulesWithConsolidation
 {
     my ($self) = @_;
@@ -159,47 +190,47 @@ sub _consolidateTable
     my $tsGetRows = time();
     my $rows_r = $self->_sourceRows($dbengine, $sourceTable, $dateCol);
 
-   foreach my $row (@{ $rows_r }) {
-       # filter out bad rows
-       if ($filterSub) {
-           $filterSub->($row) or
-               next;
-       }
+    foreach my $row (@{ $rows_r }) {
+        # filter out bad rows
+        if ($filterSub) {
+            $filterSub->($row) or
+              next;
+        }
 
-       my %consRow;
-       my %accummulator = %accummulateColumns;
+        my %consRow;
+        my %accummulator = %accummulateColumns;
 
-       my $rowOk = 1;
-       while (my ($column, $value) = each %{ $row}) {
-           if ($column eq $dateCol) {
-               my $timeStamp =  $self->$consDateSub($value);
-               $consRow{date} = $timeStamp;
-               next;
-           }
+        my $rowOk = 1;
+        while (my ($column, $value) = each %{ $row}) {
+            if ($column eq $dateCol) {
+                my $timeStamp =  $self->$consDateSub($value);
+                $consRow{date} = $timeStamp;
+                next;
+            }
 
-           exists $consColumns{$column} or
-               next;
+            exists $consColumns{$column} or
+              next;
 
-           my $dest      = $consColumns{$column}->{destination};
+            my $dest      = $consColumns{$column}->{destination};
 
-           my $accummulateColumn = undef;
-           if ( $consColumns{$column}->{accummulate}) {
-               $accummulateColumn = $consColumns{$column}->{accummulate}->($value, $row);
-           }
+            my $accummulateColumn = undef;
+            if ( $consColumns{$column}->{accummulate}) {
+                $accummulateColumn = $consColumns{$column}->{accummulate}->($value, $row);
+            }
 
-           my $conversor = $consColumns{$column}->{conversor};
-           my $consValue = $conversor->($value, $row);
+            my $conversor = $consColumns{$column}->{conversor};
+            my $consValue = $conversor->($value, $row);
 
-           if (not defined $accummulateColumn) {
-               $consRow{$dest} = $consValue;
-           }
-           else {
-               # XXX TODO replace the warning with a die when we will be able to
-               # do a rollback
-               exists $accummulator{$accummulateColumn} or
-                   EBox::warn("Accummulatin in $accummulateColumn which was not defined as accummulate column");
-               $accummulator{$accummulateColumn} += $consValue;
-           }
+            if (not defined $accummulateColumn) {
+                $consRow{$dest} = $consValue;
+            }
+            else {
+                # XXX TODO replace the warning with a die when we will be able to
+                # do a rollback
+                exists $accummulator{$accummulateColumn} or
+                  EBox::warn("Accummulating in $accummulateColumn which was not defined as accummulate column");
+                $accummulator{$accummulateColumn} += $consValue;
+            }
 
         }
 
@@ -504,13 +535,13 @@ sub _addConsolidatedRow
     # if there is not a line for the consolidate values the update statement will
     # return 0 and we must do the insert
     if ($res == 0) {
-    while (my ($column, $amount) = each %{ $accummulator_r }) {
-        if ($amount == 0) {
-            next;
-        }
+        while (my ($column, $amount) = each %{ $accummulator_r }) {
+            if ($amount == 0) {
+                next;
+            }
 
-        $row->{$column} = $amount;
-    }
+            $row->{$column} = $amount;
+        }
 
         $dbengine->unbufferedInsert($table, $row);
     }

@@ -1,4 +1,14 @@
-HEAD
+3.1.12
+	+ Only set share permissions when there is really a permission change
+	  instead of doing it on every samba restart.
+	+ Fix provisioning flag management on error
+3.1.11
+	+ Added migration code to be executed when upgrading from 3.0
+3.1.10
+	+ Wait until all the samba services are ready before trying to connect
+	+ Removed useless and problematic enforceServiceState override
+3.1.9
+	+ Antivirus daemon unlinks the cache file before creating new one
 	+ Fix user accounts not enabled when created by s4sync
 	+ Wait for RID pool allocation after join domain as DC
 	+ Remove no longer needed workaround for DNS SPN

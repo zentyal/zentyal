@@ -67,6 +67,7 @@ sub _table
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
         help               => __('List of monitored interfaces.'),
+        checkAll           => ['enabled'],
         modelDomain        => 'BWMonitor',
         enableProperty     => 1,
         defaultEnabledValue => 0,

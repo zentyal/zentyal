@@ -113,8 +113,10 @@ sub precondition
 #       <EBox::Model::DataTable::precondition>
 sub preconditionFailMsg
 {
-    return __('You must enable the mail module in module ' .
-              'status section in order to use it.');
+    return __x('You must enable the mail module in {oh}Module ' .
+               'Status{ch} section in order to use it.',
+               oh => '<a href="/ServiceModule/StatusView">',
+               ch => '</a>');
 }
 
 sub alwaysBccByVDomain

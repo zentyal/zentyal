@@ -834,7 +834,13 @@ sub _writeCredentials
 
     my $credentialsFilePath = $self->_credentialsFilePath($name);
 
-    File::Slurp::write_file($credentialsFilePath, $serverInfoRaw);
+    try {
+        File::Slurp::write_file($credentialsFilePath, $serverInfoRaw);
+    } otherwise {
+        my ($exc) = @_;
+        throw EBox::Exceptions::External(__x("Probably lack of free space: {exc}",
+                                             exc  => $exc));
+    };
     chmod(0600, $credentialsFilePath);
 }
 

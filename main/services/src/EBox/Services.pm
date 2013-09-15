@@ -106,6 +106,14 @@ sub _defaultServices
          'internal' => 0,
         },
         {
+         'name' => 'any ICMP',
+         'printableName' => __('Any ICMP'),
+         'description' => __('Any ICMP packet'),
+         'protocol' => 'icmp',
+         'destinationPort' => 'any',
+         'internal' => 0,
+        },
+        {
          'name' => 'administration',
          'printableName' => __('Zentyal Administration'),
          'description' => __('Zentyal Administration Web Server'),

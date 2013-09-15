@@ -28,7 +28,6 @@ sub main
 {
     if (@ARGV == 1) {
         if ($ARGV[0] eq 'start') {
-            EBox::Util::Init::cleanTmpOnBoot();
             EBox::Util::Init::start();
             EBox::Sudo::root('initctl emit zentyal-started');
         }

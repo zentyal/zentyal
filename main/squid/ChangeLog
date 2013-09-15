@@ -1,3 +1,6 @@
+3.1.5
+	+ Use DATETIME type in date column for consolidation tables
+	+ Summarised report has breadcrumbs now
 3.1.4
 	+ Fixed regression on Delay Pools table triggered by changes in updatedRowNotify
 3.1.3

@@ -333,6 +333,7 @@
     font-size: 11px;
     border-collapse: collapse;
     margin-top: 0px;
+    overflow-y: scroll;
 }
 .dataTable thead > tr {
     background: <% $main_color %>;
@@ -521,7 +522,6 @@ input[type='text']:disabled {
 }
 
 body {
-    overflow-y: scroll;
     min-width: 960px;
     max-width: 1200px;
     width: 98%;
@@ -1153,10 +1153,10 @@ TABLE LIST
         padding-left: 1%;
 }
 
-.widgetPlaceholder {
+.widgetPlaceholder, .moveRowPlaceholder {
         margin-bottom: 10px;
         border: 1px #ccc dashed;
-        background-color: whitesmoke;
+        background-color: whitesmoke !important;
 }
 
 .widgetHandle {

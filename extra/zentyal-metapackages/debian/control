@@ -78,3 +78,10 @@ Description: Zentyal - Communications Suite
  .
  This metapackage installs typical modules to configure Zentyal as a
  Communication server.
+
+Package: zentyal-ids
+Depends: zentyal-ips, ${misc:Depends}
+Architecture: all
+Section: oldlibs
+Description: transitional package to zentyal-ips
+ This is a transitional package. It can safely be removed.

@@ -72,7 +72,7 @@ $.plot(
 % my $first = $series[0]->{'data'};
 % foreach my $set (@series) {
 %   my $data = $set->{'data'};
-%   pop(@{$data}); # Remove the last nan value
+%#   pop(@{$data}); # Remove the last nan value
     {
         data: [
 %   for my $i (0..$#{$data}) {
