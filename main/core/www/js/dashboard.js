@@ -24,7 +24,7 @@ Zentyal.Dashboard.createSortableDashboard = function() {
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
-                                  scroll: false,
+                                  scroll: true,
                                   start: function(event, ui) {
                                       ui.placeholder.height(ui.helper.outerHeight());
                                   },
@@ -477,7 +477,7 @@ Zentyal.Dashboard.ConfigureWidgets.createModuleWidgetsSortable = function(module
         containment: 'body',
         placeholder: 'widgetPlaceholder',
         delay: 100,
-        scroll: false,
+        scroll: true,
         opacity: 0.8,
         start: function(event, ui) {
             var id = ui.item.attr('id');
