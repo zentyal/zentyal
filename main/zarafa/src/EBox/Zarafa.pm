@@ -232,6 +232,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     # LDAP Backup.
     my $backupDir = EBox::Config::conf . "backup-zarafa-upgrade-to-32-" . time();
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
@@ -311,7 +313,7 @@ sub _migrateTo32
         }
     }
 
-    $self->_overrideDaemons() if $self->configured();
+    $self->_overrideDaemons();
 }
 
 # Method: reprovisionLDAP

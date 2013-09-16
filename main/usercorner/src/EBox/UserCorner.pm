@@ -149,8 +149,9 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
-    $self->_setupRoLDAPAccess();
+    return unless $self->configured();
 
+    $self->_setupRoLDAPAccess();
 }
 
 sub _setupRoLDAPAccess
