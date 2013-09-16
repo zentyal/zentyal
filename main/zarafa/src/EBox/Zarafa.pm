@@ -310,6 +310,8 @@ sub _migrateTo32
             EBox::error("Error deleting $ouDn: " . $updateResult->error());
         }
     }
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 # Method: reprovisionLDAP
