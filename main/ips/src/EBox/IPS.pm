@@ -600,6 +600,8 @@ sub _migrateTo32
         $redis->set($newkey, $value);
     }
     $redis->unset(@keys);
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 1;

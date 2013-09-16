@@ -1,4 +1,5 @@
 HEAD
+	+ Override daemons when migrating from 3.0
 	+ Minor enhancements to some note texts
 3.1.6
 	+ Use DATETIME type in date column for consolidation tables

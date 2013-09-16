@@ -1,3 +1,5 @@
+HEAD
+	+ Override daemons when migrating from 3.0
 3.1.9
 	+ Fix typo in setSecurityGroup when no GID is set yet
 	+ Show group in slave as read-only

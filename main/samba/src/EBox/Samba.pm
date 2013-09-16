@@ -2539,6 +2539,8 @@ sub _migrateTo32
             $ldbGroup->_linkWithUsersObject($ldapGroup);
         }
     }
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 1;

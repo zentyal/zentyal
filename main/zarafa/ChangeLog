@@ -1,3 +1,5 @@
+HEAD
+	+ Override daemons when migrating from 3.0
 3.1.4
 	+ Added migration from 3.0
 	+ Use zentyalDistributionGroup instead of posixGroup
