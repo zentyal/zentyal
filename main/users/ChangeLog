@@ -1,4 +1,5 @@
 HEAD
+	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
 3.1.9
 	+ Fix typo in setSecurityGroup when no GID is set yet
