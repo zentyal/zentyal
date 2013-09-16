@@ -1,4 +1,5 @@
 HEAD
+	+ Do not crash if /etc/timezone does not exist
 	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
 	  when running zentyal start, this fixes problems with leftover locks
 	  that affect dhclient hooks
