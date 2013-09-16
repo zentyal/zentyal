@@ -2490,6 +2490,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     # Current data backup
     my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
@@ -2525,6 +2527,10 @@ sub _migrateTo32
         my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
         if ($ldapUser->exists()) {
             $ldbUser->_linkWithUsersObject($ldapUser);
+
+            if (not $ldbUser->isAccountEnabled()) {
+                $ldapUser->setAccountEnabled(0);
+            }
         }
     }
 
@@ -2536,8 +2542,7 @@ sub _migrateTo32
         }
     }
 
-    # TODO: check if exists ou=Users in LDB and create all its objects
-    # under CN=Users, then delete ou=Users after that
+    $self->_overrideDaemons();
 }
 
 1;
