@@ -2,6 +2,26 @@ HEAD
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module
+	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
+	  when running zentyal start, this fixes problems with leftover locks
+	  that affect dhclient hooks
+	+ Fixed wrong case in some class names for the save changes button
+	+ Fixed autoscroll in dashboard widgets
+	+ Added placeholder for drag & drop of table rows
+	+ No autoscroll is done when overflow happens. This makes sortable
+	  work in chromium
+	+ Set audit after logs when enabling in first install
+	+ Avoid getting unsaved changes by using readonly instance in manage-logs
+3.1.11
+	+ Initial setup for webadmin is now executed in postinst
+	+ Fixed webadmin port migration
+3.1.10
+	+ Use DATETIME type in date column for consolidation tables
+	+ Summarised reports shows graphs again
+	+ Events summarised report has breadcrumbs now
+	+ Base EBox::Logs::Composite::SummarizedReport to let summarised
+	  reports have common breadcrumbs
+	+ Added migration from 3.0 (apache -> webadmin)
 3.1.9
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Removed some warnings in error.log

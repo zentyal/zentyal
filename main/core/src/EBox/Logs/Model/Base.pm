@@ -138,12 +138,13 @@ sub reportRows
     my $dbRows = $dbEngine->query($query);
 
     if ($limit) {
-        # with limit we have used desc order and we must retuen in asc order
+        # with limit we have used desc order and we must return in ascending order
         $dbRows = [ reverse @{ $dbRows }  ];
     }
 
     return $dbRows;
 }
+
 
 # Method: timePeriod
 #

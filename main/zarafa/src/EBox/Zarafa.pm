@@ -218,7 +218,7 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    if (defined($version) and EBox::Util::Version::compare($version, '3.1') <= 0) {
+    if (defined($version) and EBox::Util::Version::compare($version, '3.1') < 0) {
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
@@ -266,15 +266,11 @@ sub _migrateTo32
                 my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
-                    EBox::error("Reverting LDAP changes");
-                    $usersMod->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal(
                         "Found and error while updating LDAP schema!");
                 }
                 if (not $ldif->eof()) {
                     EBox::error("Found unexpected entries in $newSchema");
-                    EBox::error("Reverting LDAP changes");
-                    $usersMod->restoreConfig($backupDir);
                     throw EBox::Exceptions::Internal(
                         "Found and error while updating LDAP schema!");
                 }
@@ -282,6 +278,40 @@ sub _migrateTo32
             }
         }
     }
+
+    $self->_createVMailDomainsOUs();
+
+    my $baseDn = $usersMod->ldap()->dn();
+    $result = $ldap->search({
+        base => "ou=Users,$baseDn",
+        filter => '(objectClass=zarafa-company)',
+        scope => 'sub',
+    });
+    my @entries = $result->entries();
+    for my $ou (@entries) {
+        my $ouDn = $ou->get_value('dn');
+        $result = $ldap->search({
+            base => $ouDn,
+            filter => '(objectClass=*)',
+            scope => 'sub',
+        });
+        for my $entry ($result->entries()) {
+            my $dn = $entry->get_value('dn');
+            $dn =~ s/,ou=Users,/,ou=zarafa,/;
+            $entry->replace(dn => $dn);
+            my $updateResult = $entry->update($ldap->connection());
+            if ($updateResult->is_error()) {
+                EBox::error("Error migrating $dn: " . $updateResult->error());
+            }
+        }
+        $ou->delete();
+        my $updateResult = $ou->update($ldap->connection());
+        if ($updateResult->is_error()) {
+            EBox::error("Error deleting $ouDn: " . $updateResult->error());
+        }
+    }
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 # Method: reprovisionLDAP

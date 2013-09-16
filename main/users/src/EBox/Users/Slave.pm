@@ -61,7 +61,7 @@ sub new
 # Method: sync
 #
 #   Synchronize an action to the slave.
-#   If something fails (for example connectivity) the action
+#   If something fails (for example, connectivity) the action
 #   will be saved for later, and synchronized by slaves-sync daemon
 #
 sub sync
@@ -82,7 +82,7 @@ sub sync
 
 # method: savePendingSync
 #
-#   Save a sync operaction which failed, later slaves-sync should
+#   Save a sync operation which failed, later slave-sync should
 #   retry it by using syncFromFile
 #
 sub savePendingSync

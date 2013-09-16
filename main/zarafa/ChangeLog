@@ -1,3 +1,9 @@
+HEAD
+	+ Override daemons when migrating from 3.0
+3.1.4
+	+ Added migration from 3.0
+	+ Use zentyalDistributionGroup instead of posixGroup
+	+ Revert to uidNumber and gidNumber instead of entryUUID
 3.1.3
 	+ The Zarafa's internal OUs should not be replicated to Samba.
 3.1.2

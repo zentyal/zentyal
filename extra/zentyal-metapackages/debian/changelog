@@ -1,3 +1,9 @@
+zentyal-metapackages (3.1.2) precise; urgency=low
+
+  * Added transitional package for zentyal-ips
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 13 Sep 2013 10:41:12 +0200
+
 zentyal-metapackages (3.1.1) precise; urgency=low
 
   * Removed asterisk, pptp, ltsp and virt from metapackages

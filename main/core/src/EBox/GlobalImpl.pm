@@ -327,12 +327,14 @@ sub modNames
 #
 sub unsaved
 {
-    my $self = shift;
-    my @names = @{$self->modNames()};
-    foreach (@names) {
-        $self->modIsChanged($_) or next;
-        return 1;
+    my ($self) = @_;
+
+    foreach my $name (@{$self->modNames()}) {
+        if ($self->modIsChanged($name)) {
+            return 1;
+        }
     }
+
     return undef;
 }
 

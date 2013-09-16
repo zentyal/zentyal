@@ -65,6 +65,10 @@ else
 fi
 
 ppa-build.sh
+if [ $? -ne 0 ]; then
+    popd > /dev/null 2>&1
+    exit 1
+fi
 popd > /dev/null 2>&1
 
 cp $BUILD_DIR/samba4_$version*.{debian.tar.gz,dsc,changes} .

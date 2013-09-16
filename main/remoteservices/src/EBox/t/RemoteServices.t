@@ -28,7 +28,7 @@ use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
 use Test::Exception;
 use Test::MockObject::Extends;
-use Test::More tests => 14;
+use Test::More tests => 17;
 use POSIX;
 
 sub setUpConfiguration : Test(startup)
@@ -104,6 +104,22 @@ sub test_ensure_runnerd_running : Test(7)
     $mockedRSMod->set_true('eBoxSubscribed');
 
     ok($mockedRSMod->runRunnerd(), 'Runnerd is always meant to be run being registered');
+}
+
+sub test_control_panel_url : Test(3)
+{
+    my ($self) = @_;
+
+    my $rsMod = $self->{rsMod};
+    cmp_ok($self->{rsMod}->controlPanelURL(), 'eq', 'https://remote.zentyal.com/',
+           'Default value when not registered');
+
+    my $mockedRSMod = new Test::MockObject::Extends($rsMod);
+    $mockedRSMod->set_series('cloudDomain', 'foobar.org', 'cloud.zentyal.com');
+    cmp_ok($mockedRSMod->controlPanelURL(), 'eq', 'https://www.foobar.org/',
+           'Non-current production one');
+    cmp_ok($mockedRSMod->controlPanelURL(), 'eq', 'https://remote.zentyal.com/',
+           'Current production one');
 }
 
 1;

@@ -26,6 +26,13 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
     <input type="hidden" name="edit" value="edit">
 
           <label> <% __('Type') %> </label>
+% if ($slave) {
+%    if ($group->isSecurityGroup()) {
+            <% __('Security Group') %>
+%    } else {
+            <% __('Distribution Group') %>
+%    } 
+% } else {          
             <div class="radioGroup">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>
@@ -35,10 +42,11 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
                 <input type="radio" name="type" value="distribution" id="distribution" <% $group->isSecurityGroup() ? '' : 'checked' %>>
               <% __('Distribution Group') %></label>
             </div>
-          <label><% __('Description') %> </label>
-          <input type='text' class='inputText' name='description' value="<% $group->description() %>">
+% }
+          <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
+          <& .slaveAttr, name => 'description', value => ($group->description() or ''), slave => $slave &>
           <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
-          <input type='text' class='inputText' name='mail' value="<% $group->mail() %>">
+          <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
 %   unless ($slave) {
     <input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
@@ -48,10 +56,10 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </div>
 <div id="group_users" class="form-block half-block">
 <h4><% __("Users") %></h4>
-% unless ($slave) {
-<& .usersRW, group => $group, groupusers => \@groupusers, remainusers => \@remainusers &>
-% } else {
+% if ($slave) {
 <& .usersRO, groupusers => \@groupusers &>
+% } else {
+<& .usersRW, group => $group, groupusers => \@groupusers, remainusers => \@remainusers &>
 % }
 </div>
 
@@ -203,4 +211,17 @@ $group
  <li><% $user->name() %></li>
 % }
 </ul>
+</%def>
+
+<%def .slaveAttr>
+<%args>
+$name
+$value
+$slave
+</%args>
+% if ($slave) {
+<% $value %>
+% } else {
+ <input type='text' class='inputText' name="<% $name %>" value="<% $value %>" />
+%}
 </%def>
