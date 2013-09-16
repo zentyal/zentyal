@@ -406,6 +406,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     my $ldap = $self->ldap;
 
     # LDAP Backup.
