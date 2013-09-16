@@ -25,13 +25,19 @@ import gobject
 import dbus
 import dbus.service
 import dbus.mainloop.glib
+from time import sleep
 
 class Upgrade(dbus.service.Object):
 
     @dbus.service.method("org.zentyal.openchange.Upgrade",
                          in_signature='', out_signature='s')
     def Run(self):
-        return "OK"
+        import os
+        os.system('/home/carlos/Work/zentyal/zentyal-exchange/exchange-tools/build/src/mailboxsize -p kernevil')
+        for i in range(100):
+            self.PropertyChanged('Foo', 1)
+            sleep(0.1)
+        return 'OK'
 
     @dbus.service.method("org.zentyal.openchange.Upgrade",
                          in_signature='', out_signature='s')
