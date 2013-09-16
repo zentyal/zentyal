@@ -465,6 +465,8 @@ sub _migrateTo32
             }
         }
     }
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 sub setupKerberos
