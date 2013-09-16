@@ -1,4 +1,4 @@
-HEAD
+3.0.27
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
 	  tried to load composite as model by mistake, the bug was at least
