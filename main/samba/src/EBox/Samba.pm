@@ -2542,6 +2542,12 @@ sub _migrateTo32
         }
     }
 
+    EBox::info("Setting Administrator user as internal");
+    my $adminUser = new EBox::Users::User(uid => 'Administrator');
+    if ($adminUser->exists()) {
+        $adminUser->setInternal();
+    }
+
     $self->_overrideDaemons();
 }
 

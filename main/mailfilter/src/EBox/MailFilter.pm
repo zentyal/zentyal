@@ -39,6 +39,7 @@ use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Version;
+use EBox::Users::User;
 
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
