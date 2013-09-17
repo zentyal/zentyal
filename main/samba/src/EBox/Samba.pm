@@ -406,6 +406,7 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
+    EBox::debug("Wait samba task '$desc'");
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
