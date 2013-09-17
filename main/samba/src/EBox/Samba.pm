@@ -385,18 +385,11 @@ sub _startDaemon
             next unless $proto;
 
             my $desc = $service->{description};
-            if ($proto eq 'tcp') {
-                $self->_waitService('tcp', $port, $desc);
-                next;
-            }
-            if ($proto eq 'udp') {
-                $self->_waitService('udp', $port, $desc);
-                next;
-            }
             if ($proto eq 'tcp/udp') {
                 $self->_waitService('tcp', $port, $desc);
                 $self->_waitService('udp', $port, $desc);
-                next;
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
             }
         }
     }
