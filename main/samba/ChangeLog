@@ -1,4 +1,5 @@
 HEAD
+	+ Improve GPO code to be more robust.
 	+ Set Administrator user as internal when migrating from 3.0
 	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
