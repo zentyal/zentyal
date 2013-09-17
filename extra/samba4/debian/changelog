@@ -1,3 +1,10 @@
+samba4 (4.1.0rc3-zentyal3) precise; urgency=low
+
+  * Build errors as public library
+  * Add secdesc.h to public headers
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 17 Sep 2013 03:53:52 +0200
+
 samba4 (4.1.0rc3-zentyal2) precise; urgency=low
 
   * Fix domain join problem related to dns account for bind creation
