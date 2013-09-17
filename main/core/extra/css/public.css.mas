@@ -1318,6 +1318,11 @@ a.minBox, a.maxBox {
 
 .dashboardTable tr.highlight { background: #E58A22; }
 
+.dashboardTable + div{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 #nav li.menuSeparator{
     border-top: none;
 }
