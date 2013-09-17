@@ -27,6 +27,7 @@ use EBox::Sudo;
 use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Samba::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
@@ -87,10 +88,18 @@ startrule: IniFile
 
 # Method: new
 #
-#   Class constructor
+#   Instance an object readed from LDAP.
 #
-# Parameters:
+#   Parameters:
 #
+#      dn - Full dn for the user
+#  or
+#      ldif - Reads the entry from LDIF
+#  or
+#      entry - Net::LDAP entry for the user
+#  or
+#      objectGUID - The LDB's objectGUID.
+#  or
 #      displayName
 #
 sub new
@@ -98,13 +107,18 @@ sub new
     my ($class, %params) = @_;
 
     my $self = {};
+    bless ($self, $class);
     if ($params{displayName}) {
         $self->{displayName} = $params{displayName};
     } else {
-        $self = $class->SUPER::new(%params);
-    }
-    bless ($self, $class);
+        try {
+            $self = $class->SUPER::new(%params);
+        } catch EBox::Exceptions::MissingArgument with {
+            my ($error) = @_;
 
+            throw EBox::Exceptions::MissingArgument("$error|displayName");
+        };
+    }
     return $self;
 }
 
@@ -117,7 +131,7 @@ sub _entry
     my ($self) = @_;
 
     unless ($self->{entry}) {
-        if (defined $self->{displayName}) {
+        if (length ($self->{displayName})) {
             my $attrs = {
                 base => "CN=Policies,CN=System," . $self->_ldap->dn(),
                 filter => "(&(objectClass=GroupPolicyContainer)(diplayName=$self->{displayName}))",
@@ -131,7 +145,7 @@ sub _entry
                         count => $result->count()));
             }
             $self->{entry} = $result->entry(0);
-        } elsif (defined $self->{dn}) {
+        } elsif (length ($self->{dn})) {
             my $attrs = {
                 base => $self->{dn},
                 filter => "(&(objectClass=GroupPolicyContainer)(distinguishedName=$self->{dn}))",
