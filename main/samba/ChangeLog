@@ -1,4 +1,5 @@
 HEAD
+	+ Improve samba daemon startup wait condition
 	+ Remove dynamically allocated port (by endpoint mapper) from services
 	  array
 	+ Improve GPO code to be more robust.
