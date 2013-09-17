@@ -155,6 +155,9 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
 
     RewriteEngine On
 
+    RewriteCond %{HTTP_HOST}::%{SERVER_ADDR}:%{SERVER_PORT} !^(.+)::\1$
+    RewriteRule ^(.*)$ https://%{SERVER_ADDR}:<% $https_port %>/?redirect=%{HTTP_HOST}$1?%{QUERY_STRING} [L]
+
     # Map /zentyal/ebox.cgi to the right Perl CGI and redirect
     RewriteRule ^/ebox.cgi$ /
 
