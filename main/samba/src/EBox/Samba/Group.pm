@@ -77,6 +77,23 @@ sub setupGidMapping
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $gidNumber);
 }
 
+# Method: save
+#
+# Saves any pending change done with the lazy flag.
+# This method must be overrided or it will try to save the changes against OpenLDAP instead of SMB.
+#
+# Override:
+#   EBox::Users::Group::save
+#
+sub save
+{
+    my ($self) = @_;
+
+    shift @_;
+    $self->SUPER::save(@_);
+}
+
+
 # Method: create
 #
 #   Adds a new Samba group.

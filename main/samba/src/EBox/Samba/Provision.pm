@@ -476,11 +476,14 @@ sub _syncMembers
                 }
             }
             try {
+                EBox::debug("Adding member '$memberCanonicalName' to Samba group '$gid'...");
                 $sambaGroup->addMember($sambaMember, 1);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding member '$memberCanonicalName' to Samba group '$gid': $error");
             };
+        } else {
+            EBox::debug("Member '$memberCanonicalName' already exists on Samba group '$gid', ignored...");
         }
     }
 
@@ -507,11 +510,14 @@ sub _syncMembers
                 }
             }
             try {
+                EBox::debug("Adding member '$memberCanonicalName' to Zentyal group '$gid'...");
                 $zentyalGroup->addMember($zentyalMember, 1);
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding member '$memberCanonicalName' to Zentyal group '$gid': $error");
             };
+        } else {
+            EBox::debug("Member '$memberCanonicalName' already exists on Zentyal group '$gid', ignored...");
         }
     }
     unless ($lazy) {
