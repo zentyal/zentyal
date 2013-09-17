@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Gettext use
 3.1.2
 	+ Fixed recursive bug that tried to add two times the same
 	  interface to InterfaceRates model

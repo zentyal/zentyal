@@ -19,6 +19,7 @@ package EBox::Firewall::IptablesRule::SNAT;
 
 use base 'EBox::Firewall::IptablesRule';
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
