@@ -1,4 +1,5 @@
 HEAD
+	+ Minor CSS style fixes
 	+ Added missing use statement in EBox::Types::MultiStateAction
 3.1.12
 	+ Do not crash if /etc/timezone does not exist
