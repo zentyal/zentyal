@@ -1,3 +1,5 @@
+HEAD
+	+ Debug disabled by default for the stable release
 3.1.2
 	+ Exception stacktraces are now properly logged or shown in the interface
 	  according to the debug and dump_exceptions confkeys
