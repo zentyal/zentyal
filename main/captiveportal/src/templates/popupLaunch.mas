@@ -13,7 +13,7 @@ use EBox::Gettext;
   <script type="text/javascript">
     window.zentyal_timestamp = (new Date).getTime()
     function launch() {
-        window.open("/Popup", "zentyalcaptiveportal", "resizable=1,width=350,height=250,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no");
+        window.open("/Popup", "zentyalcaptiveportal", "resizable=1,width=400,height=300,location=no,menubar=no,scrollbars=no,status=no,titlebar=no,toolbar=no");
     }
     function continueToDst(dst)
     {
@@ -31,7 +31,7 @@ use EBox::Gettext;
 <body onload="launch()">
   <center>
    <div id="login" class="popuplaunch">
-       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block"/>
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block; width: 100%;"/>
        <div style="padding: 15px">
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </div>
