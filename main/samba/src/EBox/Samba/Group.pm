@@ -287,6 +287,7 @@ sub _membersToZentyal
 
     return unless ($zentyalGroup and $zentyalGroup->exists());
 
+    my $sambaMod = $self->_sambaMod();
     my $domainSID = $sambaMod->ldb()->domainSID();
     my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
@@ -302,7 +303,6 @@ sub _membersToZentyal
     my $sambaMembersList = $self->members();
     my $zentyalMembersList = $zentyalGroup->members();
 
-    my $sambaMod = $self->_sambaMod();
     my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
