@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-09-17 15:55+0200\n"
+"PO-Revision-Date: 2013-09-17 16:58+0200\n"
 "Last-Translator: Wanderson Carlos <force3@ig.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -266,7 +266,7 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
-"Você não pode adicionar regra de  'Permissão' ou 'Perfil' para um objeto ou "
+"Você não pode adicionar uma regra 'Permitir' ou 'Perfil' para um objeto ou "
 "endereço se você tem regras de grupo definidas"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
@@ -826,7 +826,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:185
 msgid "Maximum download rate per client"
-msgstr "Taxa máxima de download por cliente, use -1 para desativar esta opção."
+msgstr "Taxa máxima de download por cliente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "Limited download rate after maximum size is reached for each client."
@@ -3090,17 +3090,17 @@ msgid "rate"
 msgstr "taxa"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
 "your interface configuration to match, at {openhref}Network->Interfaces"
 "{closehref}"
 msgstr ""
-"O Controle de Banda é aplicado quando o Zentyal está trabalhando como um "
-"gateway. Para conseguir isso, você precisa de pelo menos uma interface "
-"interna e externa. Verifique se sua configuração de interface corresponde, "
-"em {openhref}Rede->Interfaces{closehref}"
+"O Controle de Banda é aplicado quando o Zentyal está atuando como um "
+"gateway. Para conseguir isso, você precisa de, pelo menos, uma interface "
+"interna e uma externa. Verifique se sua configuração de interface "
+"corresponde, em {openhref}Rede->Interfaces{closehref}"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InternalRules.pm:51
 msgid "Rules for internal interfaces (download)"
@@ -3169,7 +3169,6 @@ msgid "Interface Rates"
 msgstr "Taxas da Interface"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:408
-#, fuzzy
 msgid "filterType"
 msgstr "Tipo de filtro"
 
@@ -3266,9 +3265,9 @@ msgid "alias"
 msgstr "apelido"
 
 #: ../../main/dns/src/EBox/DNS.pm:1842
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The host name {x} is already defined in the domain {y}"
-msgstr "Uma estação com o nome {host} já foi registrada neste Zentyal"
+msgstr "O nome de host {x} já está definido no domínio {y}"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:86
 #, perl-brace-format
@@ -3568,9 +3567,9 @@ msgid "{srv} record"
 msgstr "{srv} registro"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "O serviço escolhido não está em {file}"
+msgstr "Serviço '{srv}' não está presente em {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format
@@ -3582,9 +3581,9 @@ msgstr ""
 "(FQDN). Você quis dizer {srv}.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:84
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
-msgstr "Já existe uma estação com o nome \"{name}\" no domínio"
+msgstr "O IP '{ip}' já está atribuído ao host '{name}' no mesmo domínio"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:111
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:126
@@ -3942,9 +3941,8 @@ msgid "Installation steps"
 msgstr "Etapas da Instalação"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "Backup remoto"
+msgstr "Escolha o Backup"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
@@ -3959,9 +3957,8 @@ msgid "Installation"
 msgstr "Instalação"
 
 #: ../../main/software/src/EBox/Software.pm:1079
-#, fuzzy
 msgid "Restore Configuration"
-msgstr "Restaurando backup da configuração"
+msgstr "Restaurar Configuração"
 
 #: ../../main/software/src/EBox/Software.pm:1081
 msgid "Initial Configuration"
@@ -4017,15 +4014,14 @@ msgstr ""
 "informações nos logs em {dir}"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:224
-#, fuzzy
 msgid ""
 "The packages installation has finished successfully. The administration "
 "interface may become unresponsive for a few seconds. Please wait patiently "
 "until the system has been fully configured."
 msgstr ""
-"A remoção dos pacotes foi finalizada com sucesso. A interface administrativa "
-"pode ficar sem resposta por alguns segundos. Por favor aguarde pacientemente "
-"até que o sistema tenha sido reiniciado totalmente"
+"A instalação dos pacotes foi finalizada com sucesso. A interface "
+"administrativa pode ficar sem resposta por alguns segundos. Por favor "
+"aguarde pacientemente até que o sistema tenha sido configurado totalmente"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:232
 msgid "Installing"
@@ -4038,9 +4034,8 @@ msgid "Installing packages"
 msgstr "Instalando pacotes"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:235
-#, fuzzy
 msgid "Click here if the redirection fails"
-msgstr "Verificação do certificado falhou"
+msgstr "Clique aqui se o redirecionamento falhar"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:236
 msgid ""
@@ -4080,9 +4075,8 @@ msgstr ""
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:270
 #: ../../main/software/src/templates/ebox.mas:50
 #: ../../main/software/src/templates/del.mas:32
-#, fuzzy
 msgid "Removing packages"
-msgstr "Removendo pacote"
+msgstr "Removendo pacotes"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:271
 msgid "Removing the selected package and its dependent packages"
@@ -4152,14 +4146,12 @@ msgid "Small Business"
 msgstr "Pequenas Empresas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
-#, fuzzy
 msgid "Enterprise Trial"
-msgstr "Enterprise"
+msgstr "Teste Enterprise"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:120
-#, fuzzy
 msgid "Zentyal Remote Client"
-msgstr "Cliente da Núvem Zentyal"
+msgstr "Cliente Remoto Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:391
 msgid "Not subscribed"
@@ -4170,14 +4162,12 @@ msgid "Subscribed"
 msgstr "Subscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:426
-#, fuzzy
 msgid "Registration"
-msgstr "Destino"
+msgstr "Registro"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:431
-#, fuzzy
 msgid "Server Registration"
-msgstr "Edição servidor"
+msgstr "Registro de Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:436
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
@@ -4206,18 +4196,16 @@ msgstr "Recuperação de Desastres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:474
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:45
-#, fuzzy
 msgid "Your Zentyal Server Account"
-msgstr "Servidores Zentyal Registrados"
+msgstr "Sua conta do servidor Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:589
-#, fuzzy
 msgid ""
 "The monitor gatherer IP addresses are only available if the host is "
 "subscribed to Zentyal Remote"
 msgstr ""
-"O monitor que coleta endereços IP está disponível somente quando o host tem "
-"subscrição para a Núvem Zentyal"
+"O monitor que coleta endereços IP está disponível somente quando o host está "
+"inscrito para Zentyal remoto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:782
 msgid "Zentyal must be subscribed to reload the bundle"
@@ -4226,7 +4214,7 @@ msgstr "O Zentyal deve estar subscrito para recarregar o pacote"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:789
 #, perl-brace-format
 msgid "Cannot reload the bundle: {reason}"
-msgstr ""
+msgstr "Não pode recarregar o conjunto: {reason}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1829
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1832
@@ -4239,9 +4227,8 @@ msgid "Connected"
 msgstr "Conectado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1841
-#, fuzzy
 msgid "In process"
-msgstr "processo"
+msgstr "Em progresso"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1844
 #, perl-brace-format
@@ -4310,43 +4297,33 @@ msgid "No data backup has been done yet"
 msgstr "Nenhum backup de dados foi feito ainda"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2281
-#, fuzzy
 msgid ""
 "The subscribed hostname is only available if the host is subscribed to "
 "Zentyal Remote"
 msgstr ""
-"O hostname subscrito só está disponível se o host tem subscrição para a "
-"Núvem Zentyal"
+"O hostname subscrito só está disponível se o host está inscrito para Zentyal "
+"remoto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2310
-#, fuzzy
 msgid "The UUID is only available if the host is subscribed to Zentyal Remote"
-msgstr ""
-"O hostname subscrito só está disponível se o host tem subscrição para a "
-"Núvem Zentyal"
+msgstr "O UUID só está disponível se o host está inscrito para Zentyal remoto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2344
-#, fuzzy
 msgid "The Zentyal Remote Domain is only available if the host is subscribed"
-msgstr ""
-"O hostname subscrito só está disponível se o host tem subscrição para a "
-"Núvem Zentyal"
+msgstr "O domínio remoto Zentyal só está disponível se o host está inscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2375
-#, fuzzy
 msgid ""
 "The Zentyal Remote Dynamic Domain is only available if the host is subscribed"
 msgstr ""
-"O hostname subscrito só está disponível se o host tem subscrição para a "
-"Núvem Zentyal"
+"O Zentyal Dynamic Domain remoto está disponível apenas se o host está "
+"inscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2404
-#, fuzzy
 msgid ""
 "The Zentyal Remote credentials are only available if the host is subscribed"
 msgstr ""
-"O monitor que coleta endereços IP está disponível somente quando o host tem "
-"subscrição para a Núvem Zentyal"
+"As credenciais remotas Zentyal só estão disponíveis se o host está inscrito"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
 msgid "Support available via"
@@ -4357,20 +4334,20 @@ msgid "Service Level Agreement"
 msgstr "Acordo de Nível de Serviço"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:72
-#, fuzzy
 msgid "Allow remote access to Zentyal support"
-msgstr "Permitir acesso remoto para o equipe Zentyal"
+msgstr "Permitir acesso remoto para o supote Zentyal"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid ""
 "Allow Zentyal support engineers to connect to your server from Zentyal "
 "Remote network."
 msgstr ""
+"Permitir que os engenheiros de suporte Zentyal para se conectar ao seu "
+"servidor de rede remota Zentyal."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:80
-#, fuzzy
 msgid "Allow access from the Internet"
-msgstr "Permite acesso de qualquer endereço internet"
+msgstr "Permitir o acesso da internet"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
 msgid ""
@@ -4378,6 +4355,9 @@ msgid ""
 "Internet to your public IP address. Only use this option if you could not "
 "connect to Zentyal Remote."
 msgstr ""
+"Permitir que os engenheiros de suporte Zentyal para se conectar ao seu "
+"servidor diretamente da Internet para o seu endereço IP público. Só use essa "
+"opção se você não pôde se conectar ao Zentyal Remoto."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:92
 msgid "Enable Remote Support Access"
@@ -4399,14 +4379,13 @@ msgstr ""
 "conectado ao {cloud}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:150
-#, fuzzy
 msgid ""
 "To restrict addresses you need that your Zentyal Server is registered to "
 "Zentyal Remote. Either register it or allow access from any address"
 msgstr ""
-"Para restringir endereços você necessita que seu Servidor Zentyal tenha "
-"subscrição para a Núvem Zentyal. Ou você faz a subscrição ou o acesso será "
-"permitido para qualquer endereço"
+"Para restringir endereços, você precisa que seu Servidor Zentyal esteja "
+"registrado no Zentyal Remoto. Ou registrá-lo ou permitir o acesso a partir "
+"de qualquer endereço"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:160
 #, perl-brace-format
@@ -4499,28 +4478,24 @@ msgid "Alerts"
 msgstr "Alertas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:107
-#, fuzzy
 msgid "External server name (Dynamic DNS)"
-msgstr "Nome de servidor externo (DynDNS)"
+msgstr "Nome de servidor externo (DNS Dinâmico)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:108
 msgid "Use this name to connect to Zentyal externally"
 msgstr "Use este nome para conectar o Zentyal externamente"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:112
-#, fuzzy
 msgid "Renovation date"
-msgstr "Data de renovação da assinatura"
+msgstr "Data de renovação"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:122
-#, fuzzy
 msgid "Server info"
-msgstr "Usuário não encontrado"
+msgstr "Informações do Servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:144
-#, fuzzy
 msgid "Not using Zentyal Dynamic DNS service"
-msgstr "Não está usando o serviço DynDNS do Zentyal Cloud"
+msgstr "Não utilizar Serviço Zentyal DNS Dinâmico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
@@ -4528,19 +4503,16 @@ msgid "Unlimited"
 msgstr "Ilimitado"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:135
-#, fuzzy
 msgid "Data to back up"
-msgstr "Dados backupeados"
+msgstr "Dados para backup"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
-#, fuzzy
 msgid "data domain"
-msgstr "Domínio estático"
+msgstr "domínio de dados"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
-#, fuzzy
 msgid "Select the data you want to back up."
-msgstr "Selecione os domínios que você deseja backupear."
+msgstr "Selecione os dados que você quer para o backup."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
@@ -4551,9 +4523,8 @@ msgid "The VPN server is reachable"
 msgstr "O servidor VPN está acessível"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
-#, fuzzy
 msgid "Zentyal Remote VPN Connectivity Check"
-msgstr "Conexão com a Núvem Zentyal"
+msgstr "Teste de Conectividade com Zentyal Remote VPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
@@ -4572,9 +4543,8 @@ msgid "Available IDS rules"
 msgstr "Regras de IDS disponíveis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
-#, fuzzy
 msgid "Select one of the available options"
-msgstr "Selecione os relatórios completos disponíveis"
+msgstr "Selecione uma das opções disponíveis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
 #, fuzzy

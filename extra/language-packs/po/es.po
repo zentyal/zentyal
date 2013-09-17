@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-08-14 16:59+0200\n"
+"PO-Revision-Date: 2013-09-17 16:57+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -4731,9 +4731,8 @@ msgid "Registering a server"
 msgstr "Registrando un servidor"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:68
-#, fuzzy
 msgid "See latest report"
-msgstr "Obtener el último informe"
+msgstr "Ver el último informe"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:72
 msgid "Last consolidation time"
@@ -4757,9 +4756,9 @@ msgid "Not registered"
 msgstr "No registrada"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:110
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Take a look on the documentation{ch}"
-msgstr "{oh}échale un vistazo al ejemplo{ch}"
+msgstr "{oh}Échale un vistazo al ejemplo{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:116
 msgid "The consolidation is disabled. No report data is gathered"
@@ -5010,7 +5009,7 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:841
 #, perl-brace-format
 msgid "Probably lack of free space: {exc}"
-msgstr ""
+msgstr "Posible falta de espacio en disco: {exc}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Types/EBoxCommonName.pm:57
 msgid ""
@@ -6023,16 +6022,14 @@ msgid "exclude or include"
 msgstr "exclusión o inclusión"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:106
-#, fuzzy
 msgid ""
 "A file or directory is included or excluded according the first match. A "
 "directory match is applied to all it contents. Anything that is not included "
 "is excluded by default."
 msgstr ""
-"Un archivo o directorio se incluye o excluye de acuerdo a la primera "
-"coincidencia. Una coincidencia de directorio se aplica a todos los "
-"contenidos. Los archivos no excluidos o incluidos explícitamente son "
-"incluidos."
+"Los ficheros o directorios se incluyen o excluyen de acuerdo a la primera "
+"coincidencia. Una coincidencia de directorio se aplica a todo su contenido. "
+"Cualquier otra cosa que no se incluya se considera excluida por defecto."
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:119
 msgid "Exclude path"
@@ -6570,9 +6567,9 @@ msgid "Invalid value for {data}: {value}."
 msgstr "{data} inválido, valor: {value}."
 
 #: ../../main/common/src/EBox/Exceptions/InvalidArgument.pm:44
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid argument: {data}"
-msgstr "Falta argumento: {data}"
+msgstr "Argumento inválido: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
 #, perl-brace-format
@@ -6887,11 +6884,12 @@ msgid ""
 msgstr "No puede ser activado debido a errores en la configuración: {error}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:228
-#, fuzzy
 msgid ""
 "Cannot be enabled when creating a new connection, you should edit the "
 "configuration before enabling it"
-msgstr "No puede ser activado debido a errores en la configuración: {error}"
+msgstr ""
+"No se puede habilitar mientras se crea una nueva conexión, debes editar la "
+"configuración antes de habilitarlo"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:242
 msgid "Blank characters are not allowed"
@@ -6987,6 +6985,8 @@ msgid ""
 "Your system is not correctly configured. We were not able to find any valid "
 "public IP address."
 msgstr ""
+"Tu sistema no está correctamente configurado. No ha sido posible encontrar "
+"ninguna IP pública válida."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:87
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:136
@@ -9309,13 +9309,12 @@ msgstr ""
 "debe asegurarse de que puede resolver el mismo dominio."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:211
-#, fuzzy
 msgid "Domain change confirmation"
-msgstr "Realizando los cambios en tu configuración"
+msgstr "Confirmación de cambio de dominio"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:212
 msgid "Changing the domain name will delete all your current Jabber data."
-msgstr ""
+msgstr "Cambiar el nombre de dominio borrará todos tus datos de Jabber."
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:55
 msgid "Jabber account enabled with administration rights"
@@ -10251,7 +10250,7 @@ msgstr "Ocurrió un error actualizando LDAP:"
 #: ../../main/samba/src/EBox/Samba/GPO.pm:299
 #, perl-brace-format
 msgid "Error getting GPO entry from LDAP: {x}"
-msgstr ""
+msgstr "Error obteniendo la entrada de la GPO desde LDAP: {x}"
 
 #: ../../main/samba/src/EBox/Samba/GPO.pm:607
 #, perl-brace-format
@@ -12936,9 +12935,8 @@ msgstr ""
 "servicios de Zentyal"
 
 #: ../../main/core/src/EBox/Logs/Composite/SummarizedReport.pm:49
-#, fuzzy
 msgid "Summarized Report"
-msgstr "Informe resumido"
+msgstr "Informe Resumido"
 
 #: ../../main/core/src/EBox/Logs/SlicedBackup.pm:103
 #, perl-brace-format
@@ -13300,9 +13298,9 @@ msgid "{n} system updates"
 msgstr "{n} actualizaciones del sistema"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "({n} security)"
-msgstr "{n} actualizaciones de seguridad"
+msgstr "({n} de seguridad)"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:160
 msgid "Begin of IP range"
@@ -14033,14 +14031,12 @@ msgid "Any TCP port"
 msgstr "Cualquier puerto TCP"
 
 #: ../../main/services/src/EBox/Services.pm:110
-#, fuzzy
 msgid "Any ICMP"
-msgstr "Cualquier TCP"
+msgstr "Cualquier ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:111
-#, fuzzy
 msgid "Any ICMP packet"
-msgstr "Cualquier puerto TCP"
+msgstr "Cualquier paquete ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:118
 #: ../../main/services/src/EBox/Services.pm:469
@@ -14825,13 +14821,13 @@ msgid "Virtual domain added. You must save changes to use this domain"
 msgstr "Dominio virtual añadido. Debes guardar cambios para usar este dominio"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable the mail module in {oh}Module Status{ch} section in order to "
 "use it."
 msgstr ""
-"Debe habilitar el módulo de correo en la sección de Estado de módulo para "
-"usarlos"
+"Debe habilitar el módulo de correo en la sección de {oh}Estado de los "
+"módulos{ch} para poder usarlo."
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:177
 #, perl-brace-format
@@ -15125,14 +15121,12 @@ msgid "Mail traffic report"
 msgstr "Informe de tráfico de correo"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:114
-#, fuzzy
 msgid "Local email account"
-msgstr "cuenta de correo"
+msgstr "Cuenta de correo local"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:119
-#, fuzzy
 msgid "Mail server port"
-msgstr "Servidor de correo"
+msgstr "Puerto del servidor de correo"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:356
 msgid "External retrieval service"
@@ -15154,7 +15148,7 @@ msgstr "El carácter \"'\" está prohibido para cuentas externas"
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:455
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
-msgstr ""
+msgstr "Protocolo de correo desconocido: {proto}"
 
 #: ../../main/mail/src/EBox/Mail/Greylist.pm:52
 msgid "To configure whitelist for greylisting"
@@ -16585,12 +16579,11 @@ msgid "PAM settings"
 msgstr "Opciones de configuración PAM"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:57
-#, fuzzy
 msgid ""
 "External AD mode cannot be set once the users module has been configured."
 msgstr ""
-"Estos parámetros no podrán ser modificados una vez que el módulo haya sido "
-"configurado."
+"El modo de Active Directory externo no se puede establecer una vez que el "
+"módulo de usuarios ha sido configurado."
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:94
 #, perl-brace-format
@@ -18287,9 +18280,8 @@ msgid "last"
 msgstr "último"
 
 #: ../../main/core/src/templates/ajax/viewer/hasManyViewer.mas:6
-#, fuzzy
 msgid "configure"
-msgstr "No configurar"
+msgstr "configurar"
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
 msgid "Current file"
@@ -19093,7 +19085,6 @@ msgstr "Grupos del usuario"
 
 #: ../../main/users/src/templates/edituser.mas:126
 #: ../../main/users/src/templates/edituser.mas:210
-#, fuzzy
 msgid "This user is not a member of any group"
 msgstr "Este usuario no es miembro de ningún grupo"
 
@@ -19107,9 +19098,8 @@ msgid "You cannot delete a group in a slave."
 msgstr "No es posible borrar un grupo desde un servidor esclavo."
 
 #: ../../main/users/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Este grupo no contiene miembros"
+msgstr "Este grupo no puede ser borrado"
 
 #: ../../main/users/src/templates/delgroup.mas:20
 msgid ""
@@ -19169,9 +19159,8 @@ msgid "Delete Organizational Unit"
 msgstr "Eliminar Unidad Organizativa"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "unidad organizativa"
+msgstr "Esta unidad organizativa no puede ser borrada"
 
 #: ../../main/users/src/templates/delou.mas:18
 msgid ""
