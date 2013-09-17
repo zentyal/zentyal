@@ -837,13 +837,7 @@ body .ui-tooltip {
 
 /* Interaction states
 ----------------------------------*/
-.ui-state-default,
-.ui-widget-content .ui-state-default,
-.ui-widget-header .ui-state-default {
-	border: 1px solid #cccccc;
-	font-weight: bold;
-	color: #1c94c4;
-}
+
 .ui-state-default a,
 .ui-state-default a:link,
 .ui-state-default a:visited {

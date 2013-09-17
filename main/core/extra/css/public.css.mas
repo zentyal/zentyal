@@ -275,7 +275,9 @@
     margin-bottom: 15px;
     margin-left:0px;
 }
-
+.summarySection .stitle{
+    padding: 10px;
+}
 .summarySection tr {
     vertical-align: center;
 }
@@ -901,6 +903,7 @@ h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
     line-height: 14px;
 }
 
+
 .trimp {
     border-bottom: 1px solid #eeeeee;
     background-color: #ffe9e8;
@@ -1243,14 +1246,14 @@ a.minBox, a.maxBox {
 }
 
 .widgetBoxIn {
-        padding:10px 0px;
+        padding:10px;
 
 }
 
 .widgetBoxIn > .summarySection {margin-bottom:0px;}
 
 .sectionContent {
-    width: 98%;
+    width: 100%;
 }
 
 
@@ -1289,17 +1292,17 @@ a.minBox, a.maxBox {
 
 .dashboardTable thead {
     color: white;
-    background-color: <% $dashboard_thead_bg_color %>;
+    background-color: #888;
 }
 
-.dashboardTable th {
-    font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
-    padding: 3px;
-    font-weight: bold;
-    vertical-align: middle;
+.dashboardTable td, .dashboardTable th {
+        padding: 5px 7px;
+        vertical-align: middle;
+        text-align: left;
+        border-right: 1px solid #ddd;
 }
-.dashboardTable td {
-        padding: 3px;
+.dashboardTable td:last-child, .dashboardTable th:last-child{
+    border-right: none;
 }
 
 .dashboardTable td a {
