@@ -454,31 +454,20 @@ sub _syncMembers
             }
             $sambaMembers{$canonicalName} = $sambaMember;
             next;
+        } else {
+            my $dn = $sambaMember->dn();
+            EBox::error("Unexpected member type ($dn)");
         }
-        my $dn = $sambaMember->dn();
-        EBox::error("Unexpected member type ($dn)");
     }
-
-#     foreach my $memberCanonicalName (keys %sambaMembers) {
-#         unless (exists $zentyalMembers{$memberCanonicalName}) {
-#             EBox::info("Removing member '$memberCanonicalName' from Samba group '$gid'");
-#             try {
-#                 $sambaGroup->removeMember($sambaMembers{$memberCanonicalName}, 1);
-#             } otherwise {
-#                 my ($error) = @_;
-#                 EBox::error("Error removing member '$memberCanonicalName' from Samba group '$gid': $error");
-#             };
-#          }
-#     }
 
     foreach my $memberCanonicalName (keys %zentyalMembers) {
         unless (exists $sambaMembers{$memberCanonicalName}) {
             EBox::info("Adding member '$memberCanonicalName' to Samba group '$gid'");
             my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberCanonicalName});
-            unless ($sambaMember and $sambaMember->exists()) {
-                if ($zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Users') or
-                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Contact') or
-                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
+            unless ($sambaMember) {
+                if ($zentyalMembers{$memberCanonicalName}->isa('EBox::User::Users') or
+                    $zentyalMembers{$memberCanonicalName}->isa('EBox::User::Contact') or
+                    $zentyalMembers{$memberCanonicalName}->isa('EBox::User::Group')) {
                     EBox::error("Cannot add member '$memberCanonicalName' to Samba group '$gid' because the member does not exist");
                     next;
                 } else {
@@ -499,7 +488,7 @@ sub _syncMembers
         unless (exists $zentyalMembers{$memberCanonicalName}) {
             EBox::info("Adding member '$memberCanonicalName' to Zentyal group '$gid'");
             my $zentyalMember = $self->{samba}->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
-            unless ($zentyalMember and $zentyalMember->exists()) {
+            unless ($zentyalMember) {
                 if ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
                     # The group is not yet syncronized, we force its sync now to retry...
                     $sambaMembers{$memberCanonicalName}->addToZentyal();
