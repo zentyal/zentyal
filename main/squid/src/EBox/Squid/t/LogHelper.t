@@ -182,6 +182,22 @@ sub tests_denied_by_internal : Test(3)
     $self->_testCases(\@cases);
 }
 
+sub tests_denied_by_auth : Test
+{
+    my ($self) = @_;
+
+    my @cases = (
+        {
+            name => 'Ignore auth required log entries',
+            file => '/var/log/squid3/access.log',
+            line => '1379459436.444    235 10.0.2.15 TCP_DENIED/407 23342 GET http://www.foobar.com/ - NONE/- text/html',
+            expected => undef,
+        },
+    );
+    $self->_testCases(\@cases);
+}
+
+
 sub tests_filtered_by_dg : Test(10)
 {
     my ($self) = @_;
