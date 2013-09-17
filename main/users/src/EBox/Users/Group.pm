@@ -645,7 +645,7 @@ sub setSecurityGroup
         unless (defined $self->get('gidNumber')) {
             my $gid = $self->_gidForNewGroup();
             $self->_checkGid($gid);
-            self->set('gidNumber', $gid, $lazy);
+            $self->set('gidNumber', $gid, $lazy);
         }
         $self->add('objectClass', 'posixGroup', $lazy);
     } else {

@@ -1,4 +1,9 @@
-HEAD
+3.1.10
+	+ Do not crash when deleting a group if LDB object does not exist
+	+ Do not try to migrate from 3.0 if module is not configured
+	+ Override daemons when migrating from 3.0
+3.1.9
+	+ Fix typo in setSecurityGroup when no GID is set yet
 	+ Show group in slave as read-only
 	+ Show in a slave when the user is not a member of any group
 	+ Check email address for a group is done

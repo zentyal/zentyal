@@ -59,7 +59,7 @@ sub _notify
         my $msg = "Job $jobId finished with exit value " . $results{exitValue};
         $msg .= $internal ? ' Internal job without CC notification)' :
                             ' CC will be notified';
-        EBox::info($msg);
+        EBox::debug($msg);
 
         if (not $internal) {
             # Notify CC
@@ -78,7 +78,7 @@ sub _notify
         }
     } otherwise {
         my ($exc) = @_;
-        EBox::error("Problem with job '$jobId'   result notification: $exc");
+        EBox::error("Problem with job '$jobId' result notification: $exc");
         unlink($jobDir);
         exit(3);
     };

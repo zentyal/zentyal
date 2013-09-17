@@ -1,4 +1,2 @@
 class: 'EBox::AuditLogging'
 
-depends:
-    - logs

@@ -143,16 +143,16 @@
   {mod_roster, []},
 % if ($sharedroster) {
   {mod_shared_roster_ldap, [
-    {ldap_filter, ""},                              
-    {ldap_rfilter, "(objectClass=posixGroup)"},     
-    {ldap_gfilter, "(&(objectClass=posixGroup)(cn=%g))"},  
-    {ldap_ufilter, "(uid=%u)"},
-    {ldap_groupattr, "cn"},                         
-    {ldap_groupdesc, "description"},                
-    {ldap_memberattr, "member"},                    
+    {ldap_filter, ""},
+    {ldap_rfilter, "(objectClass=posixGroup)"},
+    {ldap_gfilter, "(&(objectClass=posixGroup)(cn=%g))"},
+    {ldap_ufilter, "(&(uid=%u)(objectClass=userJabberAccount))"},
+    {ldap_groupattr, "cn"},
+    {ldap_groupdesc, "description"},
+    {ldap_memberattr, "member"},
     {ldap_memberattr_format, "uid=%u,<% $usersDn %>"},
-    {ldap_useruid, "uid"},                          
-    {ldap_userdesc, "cn"}                           
+    {ldap_useruid, "uid"},
+    {ldap_userdesc, "cn"}
   ]},
 % }
   {mod_sic, []},

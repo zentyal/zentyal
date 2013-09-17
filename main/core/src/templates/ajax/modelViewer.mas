@@ -389,7 +389,7 @@ my $className;
 if ($hasChanged) {
   $className = 'changed';
 } else {
-  $className = 'notChanged';
+  $className = 'notchanged';
 }
 </%perl>
 $('#changes_menu').removeClass().addClass('<% $className %>');

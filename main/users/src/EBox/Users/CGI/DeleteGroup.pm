@@ -47,7 +47,7 @@ sub _process
     my $samba = EBox::Global->modInstance('samba');
     if (defined ($samba)) {
         my $object = $samba->ldbObjectFromLDAPObject($group);
-        if ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-512$/) {
+        if (defined ($object) and ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-512$/)) {
             push (@args, 'forbid' => 1);
         }
     }
