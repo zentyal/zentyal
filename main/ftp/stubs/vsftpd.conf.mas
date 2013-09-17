@@ -77,6 +77,7 @@ ftpd_banner=<% __('Welcome to Zentyal FTP service.') %>
 #
 # Restrict local users to their home directories
 % if ($chrootUsers) {
+allow_writeable_chroot=YES
 chroot_local_user=YES
 % } else {
 chroot_local_user=NO
