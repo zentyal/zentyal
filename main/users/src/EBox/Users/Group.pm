@@ -430,14 +430,10 @@ sub deleteObject
 
 sub save
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     shift @_;
     $self->SUPER::save(@_);
-
-    if (defined ($ignore_mods) and (ref ($ignore_mods) eq 'ARRAY')) {
-        $self->setIgnoredModules($ignore_mods);
-    }
 
     if ($self->{core_changed}) {
         delete $self->{core_changed};

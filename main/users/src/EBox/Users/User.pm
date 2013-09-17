@@ -676,8 +676,10 @@ sub create
         $res->save();
     }
 
+    $defaultGroup->setIgnoredModules($args{ignoreMods});
+    $defaultGroup->setIgnoredSlaves($args{ignoreSlaves});
     $defaultGroup->addMember($res, 1);
-    $defaultGroup->save($args{ignoreMods});
+    $defaultGroup->save();
 
     # Return the new created user
     return $res;
