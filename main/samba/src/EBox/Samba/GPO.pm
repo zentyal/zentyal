@@ -27,6 +27,7 @@ use EBox::Sudo;
 use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument
 use EBox::Samba::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
