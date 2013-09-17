@@ -676,7 +676,8 @@ sub create
         $res->save();
     }
 
-    $defaultGroup->addMember($res);
+    $defaultGroup->addMember($res, 1);
+    $defaultGroup->save($args{ignoreMods});
 
     # Return the new created user
     return $res;
