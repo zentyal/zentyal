@@ -93,7 +93,6 @@ sub _requestDestination
     my $request = $r->the_request;
     my $method  = $r->method;
     my $protocol = $r->protocol;
-    EBox::info("REQUESt $request METHOD $method PROT $protocol"); # DDD
 
     my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/  );
     defined $destination or return DEFAULT_DESTINATION;
