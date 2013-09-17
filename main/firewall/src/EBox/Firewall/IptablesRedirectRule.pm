@@ -29,6 +29,7 @@ package EBox::Firewall::IptablesRedirectRule;
 use warnings;
 use strict;
 
+use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
