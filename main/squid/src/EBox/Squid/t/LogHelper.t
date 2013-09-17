@@ -182,7 +182,7 @@ sub tests_denied_by_internal : Test(3)
     $self->_testCases(\@cases);
 }
 
-sub tests_filtered_by_dg : Test(5)
+sub tests_filtered_by_dg : Test(10)
 {
     my ($self) = @_;
 
@@ -209,6 +209,32 @@ sub tests_filtered_by_dg : Test(5)
                 rfc931 => '-',   timestamp => '2013-06-30 09:49:32', peer => 'DEFAULT_PARENT/127.0.0.1',
                 url    => 'http://foo.bar/foo',
                 domain => 'foo.bar',
+            },
+        },
+        {
+            name => 'Dansguardian porn domain (external)',
+            file => '/var/log/squid3/external-access.log',
+            line => '1379459436.795    217 10.0.2.15 TCP_MISS/200 10795 GET http://www.pornsite.com/ - DIRECT/88.208.24.43 text/html',
+            expected => undef,
+        },
+        {
+            name => 'Dansguardian porn domain (internal)',
+            file => '/var/log/squid3/access.log',
+            line => '1379459436.823    375 10.0.2.15 TCP_MISS/200 23350 GET http://www.pornsite.com/ embrace@ZENTYAL-DOMAIN.LAN FIRST_UP_PARENT/localhost text/html',
+            expected => undef,
+        },
+        {
+            name => 'Dansguardian porn domain',
+            file => '/var/log/dansguardian/access.log',
+            line => '1379459436.811    234 10.0.2.15 TCP_DENIED/403 48740 GET http://www.pornsite.com embrace@zentyal-domain.lan DEFAULT_PARENT/127.0.0.1 text/html',
+            expected => {
+                bytes  => 10795,   code      => 'TCP_DENIED/403',      elapsed    => 234,
+                event => 'filtered',
+                method => 'GET', mimetype  => 'text/html',           remotehost => '10.0.2.15',
+                rfc931 => 'embrace@ZENTYAL-DOMAIN.LAN',
+                timestamp => '2013-09-18 01:10:36', peer => 'DEFAULT_PARENT/127.0.0.1',
+                url    => 'http://www.pornsite.com/',
+                domain => 'pornsite.com',
             },
         },
     );

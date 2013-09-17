@@ -17,8 +17,9 @@ use strict;
 use warnings;
 
 package EBox::Squid::LogHelper;
-
 use base 'EBox::LogHelper';
+
+use feature qw(switch);
 
 use EBox;
 use EBox::Config;
@@ -85,14 +86,21 @@ sub processLine # (file, line, logger)
     }
 
     my $event;
-    if ($fields[3] eq 'TCP_DENIED/403') {
-        if ($file eq  DANSGUARDIANLOGFILE) {
-            $event = 'filtered';
-        } else {
-            $event = 'denied';
+    given($fields[3]) {
+        when ('TCP_DENIED/403') {
+            if ($file eq  DANSGUARDIANLOGFILE) {
+                $event = 'filtered';
+            } else {
+                $event = 'denied';
+            }
         }
-    } else {
-        $event = 'accepted';
+        when ('TCP_DENIED/407') {
+            # This entry requires authentication, so ignore it
+            return;
+        }
+        default {
+            $event = 'accepted';
+        }
     }
 
     # Trim URL string as DB stores it as a varchar(1024)
@@ -100,6 +108,12 @@ sub processLine # (file, line, logger)
     if ($file eq  DANSGUARDIANLOGFILE) {
         my $time = strftime ('%Y-%m-%d %H:%M:%S', localtime $fields[0]);
         my $domain = $self->_domain($fields[6]);
+
+        if ($url =~ m/$domain$/) {
+            # Squid logs adds a final slash as dansguardian does not
+            # So we must add final slash
+            $url .= '/';
+        }
 
         $temp{$url}->{timestamp} = $time;
         $temp{$url}->{elapsed} = $fields[1];
