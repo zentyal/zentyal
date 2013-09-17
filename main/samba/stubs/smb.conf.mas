@@ -64,7 +64,8 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     guest ok = yes
     map to guest = bad user
     guest account = <% $guestAccount %>
-    auth methods = <% $customAuthMethodsForGuest %>
+# Commented out until Samba 4 supports Guests sharing or Kerberos auth fails.
+#    auth methods = <% $customAuthMethodsForGuest %>
 % }
 
 % unless ($print) {
@@ -127,8 +128,8 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   }
 % }
 
-% foreach my $share (@shares) {
 # Shares
+% foreach my $share (@shares) {
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
     path = <% $share->{path} %>
@@ -149,6 +150,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
+    acl_xattr:ignore system acls = yes
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($av) {
@@ -163,6 +165,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     recycle: <% $key %> = <% $recycle_config->{$key} %>
 %   }
 % }
+
 % }
 
 % if ($print) {

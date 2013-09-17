@@ -17,66 +17,107 @@ use strict;
 use warnings;
 
 package EBox::Samba::SmbClient;
+use base 'Samba::Smb';
 
-use Filesys::SmbClient;
-use base 'Filesys::SmbClient';
-
-use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
+
+use Error qw(:try);
+use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
+use Samba::Credentials;
+use Samba::LoadParm;
+use Samba::Smb;
 
 sub new
 {
     my ($class, %params) = @_;
 
+    my $target = delete $params{target};
+    unless (defined $target) {
+        throw EBox::Exceptions::MissingArgument('target');
+    }
+
+    my $service = delete $params{service};
+    unless (defined $service) {
+        throw EBox::Exceptions::MissingArgument('service');
+    }
+
     my $krbHelper = new EBox::Samba::AuthKrbHelper(%params);
-    my $flags = $class->SUPER::SMB_CTX_FLAG_USE_KERBEROS;
-    my $self = $class->SUPER::new(username => $krbHelper->principal(),
-                                  flags => $flags);
+
+    my $lp = new Samba::LoadParm();
+    $lp->load_default();
+
+    my $creds = new Samba::Credentials($lp);
+    $creds->kerberos_state(CRED_MUST_USE_KERBEROS);
+    $creds->guess();
+
+    my $self = $class->SUPER::new($lp, $creds);
+    try {
+        $self->connect($target, $service);
+    } otherwise {
+        my ($ex) = @_;
+        throw EBox::Exceptions::External("Error connecting with SMB server: $ex");
+    };
+
     $self->{krbHelper} = $krbHelper;
+    $self->{loadparm} = $lp;
+    $self->{credentials} = $creds;
+
     bless ($self, $class);
     return $self;
 }
 
 sub read_file
 {
-    my ($self, $path, $mode) = @_;
+    my ($self, $path) = @_;
 
-    my @stat = $self->stat($path);
-    if ($#stat) {
-        my $fileSize = $stat[7];
+    # Open file and get the size
+    my $fd = $self->open($path, O_RDONLY, Samba::Smb::DENY_NONE);
+    my $finfo = $self->getattr($fd);
+    my $fileSize = $finfo->{size};
 
-        # Open the file
-        my $fd = $self->open($path, $mode);
-        if ($fd == 0) {
-            throw EBox::Exceptions::Internal(__x('Could not open {x}: {y}',
-                x => $path, y => $!))
-        }
-
-        my $buffer;
-        my $chunkSize = 4096;
-        my $pendingBytes = $fileSize;
-        my $readBytes = 0;
-        while ($pendingBytes > 0) {
-            $chunkSize = ($pendingBytes < $chunkSize) ?
-                          $pendingBytes : $chunkSize;
-            my $ret = $self->read($fd, $chunkSize);
-            if ($ret == -1) {
-                throw EBox::Exceptions::Internal(__x('Could not read {x}: {y}',
-                    x => $path, y => $!));
-            }
-            $buffer .= $ret;
-            $readBytes += $chunkSize;
-            $pendingBytes -= $chunkSize;
-        }
-        unless ($self->close($fd) == 0) {
-            throw EBox::Exceptions::Internal(__x('Could not close {x}: {y}',
-                x => $path, y => $!));
-        }
-        return $buffer;
+    # Read to buffer
+    my $buffer;
+    my $chunkSize = 4096;
+    my $pendingBytes = $fileSize;
+    my $readBytes = 0;
+    while ($pendingBytes > 0) {
+        my $tmpBuffer;
+        $chunkSize = ($pendingBytes < $chunkSize) ?
+                      $pendingBytes : $chunkSize;
+        my $nRead = $self->read($fd, $tmpBuffer, $readBytes, $chunkSize);
+        $buffer .= $tmpBuffer;
+        $readBytes += $nRead;
+        $pendingBytes -= $nRead;
     }
-    throw EBox::Exceptions::Internal(__x('Could not stat file {x}',
-        x => $path));
+
+    # Close and return buffer
+    $self->close($fd);
+
+    return $buffer;
+}
+
+sub write_file
+{
+    my ($self, $dst, $buffer) = @_;
+
+    my $openFlags = O_CREAT | O_TRUNC | O_RDWR;
+    my $fd = $self->open($dst, $openFlags, Samba::Smb::DENY_NONE);
+
+    my $size = length ($buffer);
+    my $wrote = $self->write($fd, $buffer, $size);
+    if ($wrote == -1) {
+        throw EBox::Exceptions::Internal(
+            "Can not write $dst: $!");
+    }
+    $self->close($fd);
+
+    unless ($wrote == $size) {
+        throw EBox::Exceptions::Internal(
+            "Error writting to $dst. Sizes does not match");
+    }
 }
 
 sub copy_file_to_smb
@@ -91,15 +132,11 @@ sub copy_file_to_smb
     my $pendingBytes = $srcSize;
     my $writtenBytes = 0;
 
-    my $fd = $self->open(">$dst", '0600');
-    if ($fd == 0) {
-        throw EBox::Exceptions::Internal(
-            "Can not open $dst: $!");
-    }
+    my $openFlags = O_CREAT | O_TRUNC | O_RDWR;
+    my $fd = $self->open($dst, $openFlags, Samba::Smb::DENY_NONE);
     my $ret = open(SRC, $src);
     if ($ret == 0) {
-        throw EBox::Exceptions::Internal(
-            "Can not open $src: $!");
+        throw EBox::Exceptions::Internal("Can not open $src: $!");
     }
 
     my $buffer = undef;
@@ -109,15 +146,15 @@ sub copy_file_to_smb
                       $pendingBytes : $chunkSize;
         my $read = sysread (SRC, $buffer, $chunkSize);
         unless (defined $read) {
-            throw EBox::Exceptions::Internal(
-                "Can not read $src: $!");
+            throw EBox::Exceptions::Internal("Can not read $src: $!");
         }
         $pendingBytes -= $read;
 
-        my $wrote = $self->write($fd, $buffer);
-        if ($wrote == -1) {
+        my $bufferSize = length($buffer);
+        my $wrote = $self->write($fd, $buffer, $bufferSize);
+        unless ($wrote == $bufferSize) {
             throw EBox::Exceptions::Internal(
-                "Can not write $dst: $!");
+                "Wrote bytes does not match buffer size");
         }
         $writtenBytes += $wrote;
     }
@@ -127,38 +164,6 @@ sub copy_file_to_smb
     unless ($writtenBytes == $srcSize and $pendingBytes == 0) {
         throw EBox::Exceptions::Internal(
             "Error copying $src to $dst. Sizes does not match");
-    }
-}
-
-sub write_file
-{
-    my ($self, $dst, $buffer) = @_;
-
-    my @stat = $self->stat($dst);
-    if ($#stat) {
-        my $ret = $self->unlink($dst);
-        unless ($ret) {
-            throw EBox::Exception::Internal(
-                "Can not unlink $dst: $!");
-        }
-    }
-
-    my $fd = $self->open(">$dst", '0600');
-    if ($fd == 0) {
-        throw EBox::Exceptions::Internal(
-            "Can not open $dst: $!");
-    }
-    my $size = length ($buffer);
-    my $wrote = $self->write($fd, $buffer);
-    if ($wrote == -1) {
-        throw EBox::Exceptions::Internal(
-            "Can not write $dst: $!");
-    }
-    $self->close($fd);
-
-    unless ($wrote == $size) {
-        throw EBox::Exceptions::Internal(
-            "Error writting to $dst. Sizes does not match");
     }
 }
 

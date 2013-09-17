@@ -231,6 +231,11 @@ sub initialSetup
             EBox::warn('Network configuration import failed');
         };
     }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        $self->_overrideDaemons() if $self->configured();
+    }
 }
 
 # Method: enableActions
@@ -3292,12 +3297,17 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ddclient',
-            'type' => 'init.d',
+            'name' => 'zentyal.ddclient',
+            'type' => 'upstart',
             'pidfiles' => ['/var/run/ddclient.pid'],
             'precondition' => \&isDDNSEnabled
         }
     ];
+}
+
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'ddclient', 'type' => 'init.d' } ];
 }
 
 sub _setConf

@@ -25,44 +25,72 @@ use base qw(EBox::Module::Service
             EBox::LogObserver
             EBox::SyncFolders::Provider);
 
-use EBox::Global;
-use EBox::Service;
-use EBox::Sudo;
-use EBox::SambaLdapUser;
-use EBox::Network;
-use EBox::SambaFirewall;
-use EBox::SambaLogHelper;
-use EBox::Menu::Item;
-use EBox::Exceptions::Internal;
-use EBox::Gettext;
 use EBox::Config;
-use EBox::DBEngineFactory;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::UnwillingToPerform;
+use EBox::Gettext;
+use EBox::Global;
 use EBox::LDB;
-use EBox::SyncFolders::Folder;
-use EBox::Util::Random qw( generate );
-use EBox::Users;
-use EBox::Samba::Model::SambaShares;
-use EBox::Samba::Provision;
-use EBox::Samba::GPO;
+use EBox::Menu::Item;
 use EBox::Samba::BuiltinDomain;
 use EBox::Samba::Computer;
+use EBox::Samba::Contact;
 use EBox::Samba::Container;
-use EBox::Samba::NamingContext;
-use EBox::Exceptions::UnwillingToPerform;
-use EBox::Exceptions::Internal;
-use EBox::Util::Version;
-use EBox::DBEngineFactory;
+use EBox::Samba::GPO;
+use EBox::Samba::Group;
 use EBox::Samba::LdbObject;
+use EBox::Samba::Model::GeneralSettings;
+use EBox::Samba::NamingContext;
+use EBox::Samba::OU;
+use EBox::Samba::Provision;
+use EBox::Samba::SecurityPrincipal;
+use EBox::Samba::SmbClient;
+use EBox::Samba::User;
+use EBox::SambaLdapUser;
+use EBox::SambaLogHelper;
+use EBox::SambaFirewall;
+use EBox::Service;
+use EBox::Sudo;
+use EBox::SyncFolders::Folder;
+use EBox::Users;
+use EBox::Users::User;
+use EBox::Users::Group;
+use EBox::Util::Random qw( generate );
 
-use Perl6::Junction qw( any );
 use Error qw(:try);
+use File::Basename;
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
-use File::Basename;
-use Net::Ping;
+use JSON::XS;
 use Net::LDAP::Control::Sort;
 use Net::LDAP::Util qw(ldap_explode_dn);
-use JSON::XS;
+use Net::Ping;
+use Perl6::Junction qw( any );
+use Samba::Security::AccessControlEntry;
+use Samba::Security::Descriptor qw(
+    DOMAIN_RID_ADMINISTRATOR
+    SEC_ACE_FLAG_CONTAINER_INHERIT
+    SEC_ACE_FLAG_OBJECT_INHERIT
+    SEC_ACE_TYPE_ACCESS_ALLOWED
+    SEC_DESC_DACL_AUTO_INHERITED
+    SEC_DESC_DACL_PROTECTED
+    SEC_DESC_SACL_AUTO_INHERITED
+    SEC_FILE_EXECUTE
+    SEC_RIGHTS_FILE_ALL
+    SEC_RIGHTS_FILE_READ
+    SEC_RIGHTS_FILE_WRITE
+    SEC_STD_ALL
+    SEC_STD_DELETE
+    SECINFO_DACL
+    SECINFO_GROUP
+    SECINFO_OWNER
+    SECINFO_PROTECTED_DACL
+);
+use String::ShellQuote 'shell_quote';
+use Time::HiRes;
+use IO::Socket::INET;
 
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
@@ -79,6 +107,7 @@ use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
+use constant GUEST_DEFAULT_USER   => 'nobody';
 
 sub _create
 {
@@ -157,6 +186,12 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
 }
 
 sub enableService
@@ -175,6 +210,133 @@ sub enableService
 
     my $dns = EBox::Global->modInstance('dns');
     $dns->setAsChanged();
+}
+
+# Method: _postServiceHook
+#
+#   Override this method to set the Shares permissions once Samba is reloaded and has the shares configured
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_postServiceHook>
+#
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled) {
+
+        my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
+        unless (defined $host and length $host) {
+            throw EBox::Exceptions::Internal('Could not get DNS hostname');
+        }
+        my $sambaShares = $self->model('SambaShares');
+        my $domainSID = $self->ldb()->domainSID();
+        my $domainAdminSID = "$domainSID-500";
+        my $builtinAdministratorsSID = 'S-1-5-32-544';
+        my $domainGuestsSID = "$domainSID-514";
+        my $systemSID = "S-1-5-18";
+        my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
+        my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
+        my $writeRights = SEC_RIGHTS_FILE_WRITE | SEC_STD_DELETE;
+        my $adminRights = SEC_STD_ALL | SEC_RIGHTS_FILE_ALL;
+        my $defaultInheritance = SEC_ACE_FLAG_CONTAINER_INHERIT | SEC_ACE_FLAG_OBJECT_INHERIT;
+        for my $id (@{$sambaShares->ids()}) {
+            my $row = $sambaShares->row($id);
+            my $enabled     = $row->valueByName('enabled');
+            my $shareName   = $row->valueByName('share');
+            my $guestAccess = $row->valueByName('guest');
+
+            unless ($enabled) {
+                next;
+            }
+
+            my $state = $self->get_state();
+            if (not ((defined $state->{shares_set_rights}) and
+                     ($state->{shares_set_rights}->{$shareName}))) {
+                # share permissions didn't change, nothing needs to be done for this share.
+                next;
+            }
+
+            my $smb = new EBox::Samba::SmbClient(
+                target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
+            my $sd = new Samba::Security::Descriptor();
+            my $sdControl = $sd->type();
+            # Inherite all permissions.
+            $sdControl |= SEC_DESC_DACL_AUTO_INHERITED;
+            $sdControl |= SEC_DESC_DACL_PROTECTED;
+            $sdControl |= SEC_DESC_SACL_AUTO_INHERITED;
+            $sd->type($sdControl);
+            # Set the owner and the group. We differ here from Windows because they just set the owner to
+            # builtin/Administrators but this other setting should be compatible and better looking when using Linux
+            # console.
+            $sd->owner($domainAdminSID);
+            $sd->group($builtinAdministratorsSID);
+
+            # Always, full control to Builtin/Administrators group, Users/Administrator and System users.
+            for my $superAdminSID (@superAdminSIDs) {
+                my $ace = new Samba::Security::AccessControlEntry(
+                    $superAdminSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $adminRights, $defaultInheritance);
+                $sd->dacl_add($ace);
+            }
+
+            if ($guestAccess) {
+                my $ace = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace);
+            } else {
+                for my $subId (@{$row->subModel('access')->ids()}) {
+                    my $subRow = $row->subModel('access')->row($subId);
+                    my $permissions = $subRow->elementByName('permissions');
+
+                    my $userType = $subRow->elementByName('user_group');
+                    my $account = $userType->printableValue();
+                    my $qobject = shell_quote($account);
+
+                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                    unless ($object->exists()) {
+                        next;
+                    }
+
+                    my $sid = $object->sid();
+                    my $rights = undef;
+                    if ($permissions->value() eq 'readOnly') {
+                        $rights = $readRights;
+                    } elsif ($permissions->value() eq 'readWrite') {
+                        $rights = $readRights | $writeRights;
+                    } elsif ($permissions->value() eq 'administrator') {
+                        $rights = $adminRights;
+                    } else {
+                        my $type = $permissions->value();
+                        EBox::error("Unknown share permission type '$type'");
+                        next;
+                    }
+                    my $ace = new Samba::Security::AccessControlEntry(
+                        $sid, SEC_ACE_TYPE_ACCESS_ALLOWED, $rights, $defaultInheritance);
+                    $sd->dacl_add($ace);
+                }
+            }
+            my $relativeSharePath = '/';
+            my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
+            $smb->set_sd($relativeSharePath, $sd, $sinfo);
+            # Apply recursively the permissions.
+            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
+            # Reset the DACL_PROTECTED flag;
+            $sdControl = $sd->type();
+            $sdControl &= ~SEC_DESC_DACL_PROTECTED;
+            $sd->type($sdControl);
+            foreach my $item (@{$shareContentList}) {
+                my $itemName = $item->{name};
+                $itemName =~ s/^\/\/(.*)/\/$1/s;
+                EBox::debug($itemName);
+                $smb->set_sd($itemName, $sd, $sinfo);
+            }
+            delete $state->{shares_set_rights}->{$shareName};
+            $self->set_state($state);
+        }
+    }
+
+    return $self->SUPER::_postServiceHook($enabled);
 }
 
 # Method: _startService
@@ -207,21 +369,60 @@ sub _startService
     $self->SUPER::_startService(@_);
 }
 
-# Method: _enforceServiceState
-#
-#   Start the samba daemon is expensive and takes a while. After writing
-#   smb.conf the daemon is started to make queries to LDB, so it is not
-#   necessary to restart it after that. This method is overrided to avoid
-#   this situation and restart samba twice while saving changes.
-#
-sub _enforceServiceState
+sub _startDaemon
 {
-    my ($self) = @_;
+    my ($self, $daemon, %params) = @_;
 
-    if ($self->isEnabled() and $self->getProvision->isProvisioned()) {
-        $self->_startService() unless $self->isRunning();
-    } else {
-        $self->_stopService();
+    $self->SUPER::_startDaemon($daemon, %params);
+
+    if ($daemon->{name} eq 'samba4') {
+        my $services = $self->_services();
+        foreach my $service (@{$services}) {
+            my $port = $service->{destinationPort};
+            next unless $port;
+
+            my $proto = $service->{protocol};
+            next unless $proto;
+
+            my $desc = $service->{description};
+            if ($proto eq 'tcp/udp') {
+                $self->_waitService('tcp', $port, $desc);
+                $self->_waitService('udp', $port, $desc);
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
+            }
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+
+    EBox::debug("Wait samba task '$desc'");
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => $port,
+                                        Proto    => $proto);
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for samba service '$desc' ($proto)");
     }
 }
 
@@ -345,12 +546,6 @@ sub isProvisioned
 #
 #   It returns the custom shares
 #
-# Parameters:
-#
-#     all - return all shares regardless of their permission
-#           level. Otherwise shares without permssions or guset access are
-#           ignored. Default: false
-#
 # Returns:
 #
 #   Array ref containing hash ref with:
@@ -367,7 +562,7 @@ sub isProvisioned
 #
 sub shares
 {
-    my ($self, $all) = @_;
+    my ($self) = @_;
 
     my $shares = $self->model('SambaShares');
     my @shares = ();
@@ -409,11 +604,6 @@ sub shares
             } elsif ($permissions->value() eq 'administrator') {
                 push (@administrators, $user)
             }
-        }
-
-        if (not $all) {
-            next unless (@readOnly or @readWrite or @administrators
-                         or $shareConf->{'guest'});
         }
 
         $shareConf->{'readOnly'} = join (', ', @readOnly);
@@ -671,7 +861,7 @@ sub writeSambaConfig
     foreach my $share (@{$shares}) {
         if ($share->{guest}) {
             push (@array, 'guestAccess' => 1);
-            push (@array, 'guestAccount' => EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
+            push (@array, 'guestAccount' => GUEST_DEFAULT_USER);
             last;
         }
     }
@@ -712,7 +902,7 @@ sub _setupQuarantineDirectory
     my ($self) = @_;
 
     my $zentyalUser = EBox::Config::user();
-    my $nobodyUser  = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $nobodyUser  = GUEST_DEFAULT_USER;
     my $avModel     = $self->model('AntivirusDefault');
     my $quarantine  = $avModel->QUARANTINE_DIR();
     my @cmds;
@@ -743,7 +933,7 @@ sub _createDirectories
 
     my $zentyalUser = EBox::Config::user();
     my $group = EBox::Users::DEFAULTGROUP();
-    my $nobody = EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER();
+    my $nobody = GUEST_DEFAULT_USER;
     my $avModel = $self->model('AntivirusDefault');
     my $quarantine = $avModel->QUARANTINE_DIR();
 
@@ -1116,7 +1306,7 @@ sub defaultDescription
     my $prefix = EBox::Config::configkey('custom_prefix');
     $prefix = 'zentyal' unless $prefix;
 
-    return ucfirst($prefix) . ' File Server';
+    return ucfirst($prefix) . ' Server';
 }
 
 # Method: description
@@ -1184,6 +1374,12 @@ sub dumpConfig
 
     my @cmds;
 
+    if ($self->_s4syncCond()) {
+        try {
+            EBox::Service::manage('zentyal.s4sync', 'stop');
+        } otherwise {};
+    }
+
     my $mirror = EBox::Config::tmp() . "/samba.backup";
     my $privateDir = PRIVATE_DIR;
     if (EBox::Sudo::fileTest('-d', $privateDir)) {
@@ -1233,6 +1429,8 @@ sub dumpConfig
     } otherwise {
         my ($error) = @_;
         throw $error;
+    } finally {
+        EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
     };
 
     # Backup admin password
@@ -1617,7 +1815,7 @@ sub logHelper
 #        @{ $ldapInfo->groupShareDirectories }
 #      );
 #
-#    foreach my $sh_r (@{ $self->shares(1) }) {
+#    foreach my $sh_r (@{ $self->shares() }) {
 #        push @sharesSortedByPathLen, {path => $sh_r->{path},
 #                                      share =>  $sh_r->{share} };
 #    }
@@ -1736,7 +1934,7 @@ sub logHelper
 #    }
 #
 #    # add no-account shares to share list
-#    foreach my $sh_r (@{ $self->shares(1)  }) {
+#    foreach my $sh_r (@{ $self->shares()  }) {
 #        my $share = {
 #                     share => $sh_r->{share},
 #                     path  => $sh_r->{path},
@@ -1787,7 +1985,7 @@ sub filesystemShares
 {
     my ($self) = @_;
 
-    my $shares = $self->shares(1);
+    my $shares = $self->shares();
     my $paths = [];
 
     foreach my $share (@{$shares}) {
@@ -1842,7 +2040,7 @@ sub groupPaths
     my ($self, $group) = @_;
 
     my $groupName = $group->get('cn');
-    my $shares = $self->shares(1);
+    my $shares = $self->shares();
     my $paths = [];
 
     foreach my $share (@{$shares}) {
@@ -1865,7 +2063,7 @@ sub _updatePathsByLen
     @sharesSortedByPathLen = ();
 
     # Group and custom shares
-    foreach my $sh_r (@{ $self->shares(1) }) {
+    foreach my $sh_r (@{ $self->shares() }) {
         push @sharesSortedByPathLen, {path => $sh_r->{path},
                                       share =>  $sh_r->{share},
                                       type => ($sh_r->{'groupShare'} ? 'Group' : 'Custom')};
@@ -2028,7 +2226,7 @@ sub computers
 
     my $sort = new Net::LDAP::Control::Sort(order => 'name');
     my %args = (
-        base => $self->ldap->dn(),
+        base => $self->ldb()->dn(),
         filter => 'objectClass=computer',
         scope => 'sub',
         control => [$sort],
@@ -2128,7 +2326,6 @@ sub entryModeledObject
 
 
     EBox::warn("Ignored unknown perl object for DN: " . $entry->dn());
-    EBox::trace();
     return undef;
 }
 
@@ -2142,7 +2339,7 @@ sub relativeDN
 
     throw EBox::Exceptions::MissingArgument("dn") unless ($dn);
 
-    my $baseDN = $self->ldap()->dn();
+    my $baseDN = $self->ldb()->dn();
 
     return '' if ($dn eq $baseDN);
 
@@ -2252,12 +2449,31 @@ sub defaultNamingContext
     return new EBox::Samba::NamingContext(dn => $ldb->dn());
 }
 
-# Method: sidsToHide
+# Method: hiddenSid
 #
-#   Return the list of regexps to of SIDs to hide on the UI
-#   read from /etc/zentyal/sids-to-hide.regex
+#   Check if the specified LDB object belongs to the list of regexps
+#   of SIDs to hide on the UI read from /etc/zentyal/sids-to-hide.regex
 #
-sub sidsToHide
+sub hiddenSid
+{
+    my ($self, $object) = @_;
+
+    unless ($object->can('sid')) {
+        return 0;
+    }
+
+    unless ($self->{sidsToHide}) {
+        $self->{sidsToHide} = $self->_sidsToHide();
+    }
+
+    foreach my $ignoredSidMask (@{$self->{sidsToHide}}) {
+       return 1 if ($object->sid() =~ m/$ignoredSidMask/);
+    }
+
+    return 0;
+}
+
+sub _sidsToHide
 {
     my ($self) = @_;
 
@@ -2269,5 +2485,73 @@ sub sidsToHide
     return \@sids;
 }
 
+# Migration to 3.2
+#
+#  * Add new schema and link with existing LDAP users
+#
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    return unless $self->configured();
+
+    # Current data backup
+    my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
+    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
+    $self->dumpConfig($backupDir);
+
+    EBox::Service::manage('zentyal.s4sync', 'stop');
+
+    EBox::info("Removing posixAccount from users");
+    foreach my $user (@{$self->ldb->users()}) {
+        $user->delete('uidNumber', 1);
+        $user->remove('objectclass', 'posixAccount', 1);
+        $user->save();
+    }
+
+    EBox::info("Removing posixAccount from groups");
+    foreach my $group (@{$self->ldb->groups()}) {
+        $group->delete('gidNumber', 1);
+        $group->remove('objectclass', 'posixAccount', 1);
+        $group->save();
+    }
+
+    my $schema = 'zentyal-samba/zentyalsambalink.ldif';
+    EBox::info("Loading $schema");
+    my $usersMod = $self->global()->modInstance('users');
+    $usersMod->_loadSchema(EBox::Config::share() . $schema);
+
+    EBox::info("Map default containers");
+    my $provision = $self->getProvision();
+    $provision->mapDefaultContainers();
+
+    EBox::info("Link LDB users with LDAP");
+    foreach my $ldbUser (@{$self->ldb->users()}) {
+        my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
+        if ($ldapUser->exists()) {
+            $ldbUser->_linkWithUsersObject($ldapUser);
+
+            if (not $ldbUser->isAccountEnabled()) {
+                $ldapUser->setAccountEnabled(0);
+            }
+        }
+    }
+
+    EBox::info("Link LDB groups with LDAP");
+    foreach my $ldbGroup (@{$self->ldb->groups()}) {
+        my $ldapGroup = new EBox::Users::Group(gid => $ldbGroup->get('samAccountName'));
+        if ($ldapGroup->exists()) {
+            $ldbGroup->_linkWithUsersObject($ldapGroup);
+        }
+    }
+
+    EBox::info("Setting Administrator user as internal");
+    my $adminUser = new EBox::Users::User(uid => 'Administrator');
+    if ($adminUser->exists()) {
+        $adminUser->setInternal();
+    }
+
+    $self->_overrideDaemons();
+}
 
 1;

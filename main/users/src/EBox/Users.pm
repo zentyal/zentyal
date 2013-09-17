@@ -388,11 +388,11 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-# FIXME: uncomment when fixed the problems in ANSTE upgrades
-#    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1.3') <= 0)) {
-#        # Perform the migration to 3.2
-#        $self->_migrateTo32();
-#    }
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
+    }
 
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
@@ -406,6 +406,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     my $ldap = $self->ldap;
 
     # LDAP Backup.
@@ -414,38 +416,21 @@ sub _migrateTo32
     $self->dumpConfig($backupDir);
 
     # Load the new Zentyal LDAP schema tree.
-    try {
-        EBox::info("Loading zentyal-users/zentyal.ldif");
-        $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
-    } otherwise {
-        my ($error) = @_;
+    EBox::info("Loading zentyal-users/zentyal.ldif");
+    $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
 
-        EBox::error("Reverting LDAP changes");
-        $self->restoreConfig($backupDir);
-        throw $error;
-    };
+    EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
+    # Create a new dump to apply manual changes.
+    my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
+    mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
+    $self->dumpConfig($tempBackupDir);
 
-    try {
-        EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
-        # Create a new dump to apply manual changes.
-        my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
-        mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-        $self->dumpConfig($tempBackupDir);
-
-        # Change all existing objects to use the new ZentyalDistributionGroup
-        EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
-        # Change the schema to use the new ZentyalDistributionGroup for members
-        EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
-
-        # Restore this modified backup.
-        $self->restoreConfig($tempBackupDir);
-    } otherwise {
-        my ($error) = @_;
-
-        EBox::error("Reverting LDAP changes");
-        $self->restoreConfig($backupDir);
-        throw $error;
-    };
+    # Change all existing objects to use the new ZentyalDistributionGroup
+    EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
+    # Change the schema to use the new ZentyalDistributionGroup for members
+    EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
+    # Restore this modified backup.
+    $self->restoreConfig($tempBackupDir);
 
     # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
     my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
@@ -455,7 +440,6 @@ sub _migrateTo32
         filter => "(objectClass=olcSchemaConfig)",
         scope => 'sub',
     );
-
     my $result = $ldap->search(\%args);
 
     for my $entry ($result->entries) {
@@ -467,29 +451,24 @@ sub _migrateTo32
             if (not $ldif->eof()) {
                 my $newEntry = $ldif->read_entry();
                 if ($ldif->error()) {
-                    throw EBox::Exceptions::Internal(
-                        "Can't load LDIF file: $newSchema");
+                    throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
                 }
                 $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
                 my $updateResult = $entry->update($ldap->connection());
                 if ($updateResult->is_error()) {
                     EBox::error($updateResult->error());
-                    EBox::error("Reverting LDAP changes");
-                    $self->restoreConfig($backupDir);
-                    throw EBox::Exceptions::Internal(
-                        "Found and error while updating LDAP schema!");
+                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 if (not $ldif->eof()) {
                     EBox::error("Found unexpected entries in $newSchema");
-                    EBox::error("Reverting LDAP changes");
-                    $self->restoreConfig($backupDir);
-                    throw EBox::Exceptions::Internal(
-                        "Found and error while updating LDAP schema!");
+                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
                 }
                 $ldif->done();
             }
         }
     }
+
+    $self->_overrideDaemons() if $self->configured();
 }
 
 sub setupKerberos
@@ -1195,10 +1174,6 @@ sub users
 #
 #       Returns an array containing all the non-internal users
 #
-# Parameters:
-#
-#       withoutAdmin - filter Samba 'Administrator' user (default: false)
-#
 # Returns:
 #
 #       array ref - holding the users. Each user is represented by a
@@ -1206,15 +1181,29 @@ sub users
 #
 sub realUsers
 {
-    my ($self, $withoutAdmin) = @_;
+    my ($self) = @_;
 
     my @users = grep { not $_->isInternal() } @{$self->users()};
 
-    if ($withoutAdmin) {
-        @users = grep { $_->name() ne 'Administrator' } @users;
-    }
-
     return \@users;
+}
+
+# Method: realGroups
+#
+#       Returns an array containing all the non-internal groups
+#
+# Returns:
+#
+#       array ref - holding the groups. Each user is represented by a
+#       EBox::Users::Group object
+#
+sub realGroups
+{
+    my ($self) = @_;
+
+    my @groups = grep { not $_->isInternal() } @{$self->securityGroups()};
+
+    return \@groups;
 }
 
 # Method: contactsByName

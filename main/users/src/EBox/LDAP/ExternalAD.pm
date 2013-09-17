@@ -25,6 +25,7 @@ use EBox::Validate;
 use Error qw(:try);
 use Net::DNS::Resolver;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
 
@@ -397,7 +398,7 @@ sub _adUser
 {
     my ($self) = @_;
     my $user = $self->{user};
-    $user or throw EBox::Config::Internal('user');
+    $user or throw EBox::Exceptions::Internal('user attribute not defined');
     my $adRealm = $self->_adRealm();
     return $user . '@' . $adRealm;
 }

@@ -1,0 +1,146 @@
+HEAD
+	+ Hide Queues OU
+3.1.2
+	+ Adapter users add-on to right panel view
+	+ asterisk-ldap script fails if LDAP operation fails
+	+ Added menu icon
+	+ Updated to use renamed method EBox::Ldap::connection.
+	+ Adapted user addon to multi-OU tree view.
+	+ Updated to use the new API to find groups and users.
+	+ Added incompatiblity with external AD authentication mode.
+3.1.1
+	+ Use new EBox::Users namespace instead of EBox::UsersAndGroups
+3.1
+	+ Added Pre-Depends on mysql-server to avoid problems with upgrades
+	+ Depend on zentyal-core 3.1
+3.0.2
+	+ Added AstMD5secret LDAP attribute to ACL
+	+ Fixed LDAP reprovision
+	+ Forbid to add meeting until the module is configured
+	+ When a user extensions modification is attempted, check
+	  extension number before removing any data from LDAP
+3.0.1
+	+ Create call log file when installing module
+	+ Make sure that timestamps are compatible with MySQL
+2.3.5
+	+ Disable form autocompletion in Provider username and password
+2.3.4
+	+ Fixed authentication using AstMD5secret attribute
+	+ Fixed LDAP connection to use the proper port
+2.3.3
+	+ Adapted to new Model management framework
+2.3.2
+	+ Create tables with MyISAM engine by default
+2.3.1
+	+ Service name is now translatable
+	+ Adapted to new users implementation
+2.3
+	+ Added init.d type to _daemons
+	+ Adapted to new MySQL logs backend
+	+ Replaced autotools with zbuildtools
+	+ Fixed problems with interactions of users and groups queues
+2.1.6
+	+ Fixed regression in usercorner link
+2.1.5
+	+ Removed /zentyal prefix from URLs
+2.1.4
+	+ Fixed bug trying to change read-only instances
+2.1.3
+	+ Delete deprecated full backup methods
+2.1.2
+	+ Include asterisk.conf in /etc/zentyal
+	+ Allow to customize phone extensions range
+	+ Use custom codecs on provider SIP connection too
+	+ Allow to customize DTMF mode
+2.1.1
+	+ New Phones section to configure phone lines instead of users
+	  between 4000 and 7999
+	+ Switched to Upstart to manage Asterisk daemon
+	+ Updated templates to Asterisk 1.8
+	+ Default Music on Hold path changed to /var/lib/asterisk/moh/
+	+ Added a script to transcode MP3 for Music on Hold
+	+ Added a script to generate a global addressbook
+	+ Deleted not used kernels script
+	+ Deleted unused templates
+	+ Moved from MeetMe to ConfBridge (rooms widget disabled but deleted
+	  dependency on DAHDI)
+	+ Dialplan now includes conferences and external calls don't need a 0 prefix
+	+ Deleted useless FirewallHelper
+	+ Disabled Zentyal VoIP provider configuration
+	+ Added configuration file to set up third party codecs
+	+ Moved from MeetMe to ConfBridge:
+	    * Rooms widget disabled has not supported by ConfBridge
+	    * Deleted dependency on DAHDI
+	    * Deleted not used kernels script
+	+ Dialplan and Queues are not longer in Realtime but files
+	+ Dialplan changes:
+	    * Dialplan now includes conferences
+	    * External calls doesn't need a 0 prefix but the full number
+	    * Voicemail now is always on *1
+	    * Music On Hold is always on *4
+	    * Echo test is always on *6
+2.1
+	+ Renamed ebox-asterisk-ldap to asterisk-ldap
+	+ Use new standard enable-module script
+	+ Delete obsolete migrations and use new initialSetup method
+2.0.1
+	+ Set default order for dashboard widgets
+	+ Corrected headers package names in meetings precondition message
+1.5.5
+	+ Commercial VoIP calls message disabled until service available again
+1.5.4
+	+ Zentyal rebrand
+	+ Improve i18ned message for VoIP credit
+1.5.3
+	+ Bugfix: validatedTypedRow on Meetings model failed when making empty
+	  an existing field
+1.5.2
+	+ Delete enableService method override as it's useless
+	+ Make dahdi depend optional and show a message with instructions on
+	  how to install it
+	+ Added bridged mode support in firewall helper
+1.5.1
+	+ Updates migration script for adding service on read-only and
+	  with the same name that the menu item
+1.5
+	+ Updates modules.conf template for lucid
+	+ Bug fix: Migration script 0002_migrate_ldap_schema is not run
+	  unless the module is configured
+1.4
+	+ Bug fix: do not crash if asterisk is not available to fetch info
+1.3.17
+	+ UI change for eBox VoIP
+	+ Disable ilbc codec for external provider
+1.3.16
+	+ Bug fix: create /var/run/asterisk in upstart script
+1.3.15
+	+ Fixes migration adding Queues OU
+	+ Write asterisk configuration file as asterisk:asterisk
+1.3.14
+	+ Add call parking (extension 700 and above)
+	+ URI dialing has been deleted
+	+ Music on Hold for meetings and parking (testing on extension 400)
+	+ Add queues support mapped to user groups
+	+ Updated LDAP schemas to follow upstream changes
+	+ Bugfix: incoming calls from SIP provider go to selected extension
+	+ Add call logs
+	+ Bugfix: old voicemail extension is deleted from dialplan
+	+ Deleted IAX and IAX2 port from firewall as we are not using it
+	+ Add call transfer and recording
+1.3.13
+	+ Change menu name to keep folder open
+	+ Add AsteriskUser model to be used in users and groups default user
+	  template. Admins can select if they wish to enable the asterisk
+	  account by default when creating new users.
+1.3.12
+	+ Bugfix: usercorner model precondition to avoid show voicemail
+	screen when the user has not voip account
+	+ Add page titles
+1.3.6
+	+ Bugfix: module tried to show modules when disabled, raising error
+1.1.20
+	+ Voicemail settings in user corner
+	+ New release
+1.1.10
+	+ Initial release
+

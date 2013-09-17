@@ -31,7 +31,15 @@ sub new
     my ($class, %params) = @_;
 
     if (defined $singleton) {
-        return $singleton;
+        # Check ticket is still valid
+        my $princ = $singleton->principal();
+        my $realm = $singleton->realm();
+        if ($singleton->checkTicket($princ, $realm)) {
+            return $singleton;
+        }
+        # If ticket not valid or cache has been deleted, return new instance
+        $singleton->destroy();
+        $singleton = undef;
     }
 
     my $principal = undef;
@@ -93,10 +101,6 @@ sub new
             "match specified realm ($realm)";
         throw EBox::Exceptions::MissingArgument($error);
     }
-
-    # Set the ticket cache path
-    my $ccache = EBox::Config::tmp() . 'samba.ccache';
-    $ENV{KRB5CCNAME} = $ccache;
 
     $singleton = {};
     $singleton->{principal} = $targetPrincipal;
@@ -263,6 +267,17 @@ sub principal
     my ($self) = @_;
 
     return $self->{principal};
+}
+
+# Method: realm
+#
+#   Return the name of the realm
+#
+sub realm
+{
+    my ($self) = @_;
+
+    return $self->{realm};
 }
 
 # Method: DESTROY

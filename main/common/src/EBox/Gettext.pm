@@ -151,11 +151,7 @@ sub langs
         $langs->{'da_DK.UTF-8'} = 'Dansk';
         $langs->{'de_DE.UTF-8'} = 'Deutsch';
         $langs->{'el_GR.UTF-8'} = 'ελληνικά';
-        if (EBox::Config::configkey('english_locale')) {
-            $langs->{'en_US.UTF-8'} = 'English';
-        } else {
-            $langs->{'C'} = 'English';
-        }
+        $langs->{'en_US.UTF-8'} = 'English';
         $langs->{'eu_ES.UTF-8'} = 'Euskara';
         $langs->{'fa_IR.UTF-8'} = 'فارسی';
         $langs->{'fr_FR.UTF-8'} = 'Français';

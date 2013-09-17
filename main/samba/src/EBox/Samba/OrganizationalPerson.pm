@@ -90,6 +90,16 @@ sub description
     return $self->get('description');
 }
 
+# Method: mail
+#
+#   Return the mail of this person
+#
+sub mail
+{
+    my ($self) = @_;
+    return $self->get('mail');
+}
+
 # Method: addGroup
 #
 #   Add this person to the given group

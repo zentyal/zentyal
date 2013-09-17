@@ -55,37 +55,39 @@ sub _addUser
     my ($self, $user) = @_;
 
     # encode passwords
-    my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
-    my $userinfo = {
-        user       => $user->get('uid'),
-        fullname   => $user->get('cn'),
-        surname    => $user->get('sn'),
-        givenname  => $user->get('givenName'),
-        uidNumber  => $user->get('uidNumber'),
-        passwords  => \@passwords
-    };
+    my @passwords = map { MIME::Base64::encode($_) } @{$user->passwordHashes()};
+    my %userinfo = (
+        parentDN     => $user->parent()->dn(),
+        uid          => scalar($user->get('uid')),
+        fullname     => scalar($user->fullname()),
+        givenname    => scalar($user->firstname()),
+        initials     => scalar($user->initials()),
+        surname      => scalar($user->surname()),
+        isDisabled   => $user->isDisabled(),
+        isSystemUser => $user->isSystem(),
+        isInternal   => $user->isInternal(),
+        uidNumber    => scalar($user->get('uidNumber')),
+        passwords    => \@passwords
+    );
 
-    if ($user->get('description')) {
-        $userinfo->{comment} = $user->get('description');
-    }
-
-    # Different OU?
-    my $users = EBox::Global->modInstance('users');
-    if ($user->baseDn() ne $users->userClass()->defaultContainer()->dn()) {
-        $userinfo->{ou} = $user->baseDn();
-    }
+    my $displayname = $user->displayname();
+    $userinfo{displayname} = $displayname if ($displayname);
+    my $description = $user->description();
+    $userinfo{description} = $description if ($description);
+    my $mail = $user->mail();
+    $userinfo{mail} = $mail if ($mail);
 
     # Convert userinfo to SOAP::Data to avoid automatic conversion errors
     my @params;
-    for my $k (keys %$userinfo) {
-        if (ref($userinfo->{$k}) eq 'ARRAY') {
-            push(@params, SOAP::Data->name($k => SOAP::Data->value(@{$userinfo->{$k}})));
+    for my $k (keys %userinfo) {
+        if (ref($userinfo{$k}) eq 'ARRAY') {
+            push(@params, SOAP::Data->name($k => SOAP::Data->value(@{$userinfo{$k}})));
         } else {
-            push(@params, SOAP::Data->name($k => $userinfo->{$k}));
+            push(@params, SOAP::Data->name($k => $userinfo{$k}));
         }
     }
 
-    $userinfo = SOAP::Data->name("userinfo" => \SOAP::Data->value(@params));
+    my $userinfo = SOAP::Data->name("userinfo" => \SOAP::Data->value(@params));
     $self->soapClient->addUser($userinfo);
 
     return 0;
@@ -96,11 +98,16 @@ sub _modifyUser
     my ($self, $user, $pass) = @_;
 
     my $userinfo = {
-        dn         => $user->dn(),
-        fullname   => $user->get('cn'),
-        surname    => $user->get('sn'),
-        givenname  => $user->get('givenName'),
-        uidNumber  => $user->get('uidNumber'),
+        dn           => scalar($user->dn()),
+        fullname     => scalar($user->fullname()),
+        givenname    => scalar($user->firstname()),
+        initials     => scalar($user->initials()),
+        surname      => scalar($user->surname()),
+        displayname  => scalar($user->displayname()),
+        description  => scalar($user->description()),
+        mail         => scalar($user->mail()),
+        isDisabled   => $user->isDisabled(),
+        uidNumber    => scalar($user->get('uidNumber')),
     };
 
     if ($pass) {
@@ -108,10 +115,6 @@ sub _modifyUser
     } else {
         my @passwords = map { encode_base64($_) } @{$user->passwordHashes()};
         $userinfo->{passwords} = \@passwords;
-    }
-
-    if ($user->get('description')) {
-        $userinfo->{description} = $user->get('description');
     }
 
     $self->soapClient->modifyUser($userinfo);
@@ -122,7 +125,7 @@ sub _modifyUser
 sub _delUser
 {
     my ($self, $user) = @_;
-    $self->soapClient->delUser($user->dn());
+    $self->soapClient->delUser(scalar($user->dn()));
     return 0;
 }
 
@@ -131,8 +134,13 @@ sub _addGroup
     my ($self, $group) = @_;
 
     my $groupinfo = {
-        name     => $group->name(),
-        comment  => $group->get('description'),
+        parentDN        => scalar($group->parent()->dn()),
+        name            => scalar($group->name()),
+        description     => scalar($group->description()),
+        mail            => scalar($group->mail()),
+        isSecurityGroup => $group->isSecurityGroup(),
+        isSystemGroup   => $group->isSystem(),
+        gidNumber       => scalar($group->get('gidNumber')),
     };
 
     $self->soapClient->addGroup($groupinfo);
@@ -146,8 +154,12 @@ sub _modifyGroup
 
     my @members = $group->get('member');
     my $groupinfo = {
-        dn       => $group->dn(),
-        members  => \@members,
+        dn              => scalar($group->dn()),
+        members         => \@members,
+        description     => scalar($group->description()),
+        mail            => scalar($group->mail()),
+        isSecurityGroup => $group->isSecurityGroup(),
+        gidNumber       => scalar($group->get('gidNumber')),
     };
 
     $self->soapClient->modifyGroup($groupinfo);
@@ -158,7 +170,7 @@ sub _modifyGroup
 sub _delGroup
 {
     my ($self, $group) = @_;
-    $self->soapClient->delGroup($group->dn());
+    $self->soapClient->delGroup(scalar($group->dn()));
     return 0;
 }
 
@@ -176,7 +188,7 @@ sub soapClient
             name  => 'urn:Users/Slave',
             proxy => "https://$hostname:$port/slave/",
             certs => {
-                cert => SSL_DIR . 'ssl.pem',
+                cert => SSL_DIR . 'ssl.cert',
                 private => SSL_DIR . 'ssl.key',
                 ca => $self->{cert},
             }

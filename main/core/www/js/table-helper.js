@@ -311,8 +311,7 @@ Parameters:
     rowId  - the affected row identifier
     directory - the GConf directory where table is stored
     page        -
-    extraParams - an string with the parameters related to the
-                   action E.g.: param1=value1&param2=value2 *(Optional)*
+    extraParams - an object with extra parameter as keys and values
 
 
 */
@@ -1077,9 +1076,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
 };
 
 Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
-    var modalboxHtml = "<div class='warning'><p>" + params.message  +  '</p></div>';
-    modalboxHtml += "</p></div><div class='tcenter'>";
-    modalboxHtml += "</div>";
+    var modalboxHtml = "<div><div class='warning'>" + params.message  +  '</div></div>';
 
     $(modalboxHtml).first().dialog({
         title:  params.title,
@@ -1102,9 +1099,11 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
     tableBody.sortable({
         items: '.movableRow',
         handle: '.moveRowHandle',
-        containment: 'parent',
-        tolerance: 'pointer',
+        placeholder: 'moveRowPlaceholder',
         delay: 100,
+        start: function(event, ui) {
+            ui.placeholder.height(ui.helper.outerHeight());
+        },
         helper: function(e, ui) {
             ui.children().each(function() {
                 $(this).width($(this).width());
@@ -1159,6 +1158,6 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
 };
 
 Zentyal.TableHelper.setSaveChangesButton = function(changed) {
-    var className = changed ?  'changed' : 'notChanged';
+    var className = changed ?  'changed' : 'notchanged';
     $('#changes_menu').removeClass().addClass(className);
 };

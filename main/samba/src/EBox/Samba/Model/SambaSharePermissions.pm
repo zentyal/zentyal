@@ -63,7 +63,7 @@ sub populateUser
 {
     my $userMod = EBox::Global->modInstance('users');
     my @users = ();
-    my $list = $userMod->users();
+    my $list = $userMod->realUsers();
     foreach my $u (@{$list}) {
         my $gr = {};
         $gr->{value} = $u->get('uid');
@@ -76,8 +76,12 @@ sub populateUser
 sub populateGroup
 {
     my $userMod = EBox::Global->modInstance('users');
+
     my @groups = ();
-    my $list = $userMod->securityGroups();
+
+    push (@groups, { value => '__USERS__', printableValue => __('All users') });
+
+    my $list = $userMod->realGroups();
     foreach my $g (@{$list}) {
         my $gr = {};
         $gr->{value} = $g->get('cn');
@@ -256,6 +260,9 @@ sub filterUserGroupPrintableValue
     if ($selectedType eq 'user') {
         return __x('User: {u}', u => $value);
     } elsif ($selectedType eq 'group') {
+        if ($value eq '__USERS__') {
+            return __('All users');
+        }
         return __x('Group: {g}', g => $value);
     }
 

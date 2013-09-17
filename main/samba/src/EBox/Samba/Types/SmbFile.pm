@@ -24,6 +24,45 @@ use base 'EBox::Types::File';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
+use EBox::Samba::SmbClient;
+
+# Constructor: new
+#
+#     Create a new <EBox::Samba::Types::SmbFile> instance
+#
+# Overrides:
+#
+#     <EBox::Types::File::new>
+#
+# Parameters:
+#
+#   host - The SMB server
+#   service - The SMB share
+#
+# Returns:
+#
+#     <EBox::Samba::Types::File> - the file type instance
+#
+sub new
+{
+    my $class = shift;
+    my %opts = @_;
+
+    unless (exists $opts{host}) {
+        throw EBox::Exceptions::MissingArgument('host');
+    }
+    unless (exists $opts{service}) {
+        throw EBox::Exceptions::MissingArgument('service');
+    }
+
+    my $self = $class->SUPER::new(%opts);
+    $self->{host} = $opts{host};
+    $self->{service} = $opts{service};
+    bless($self, $class);
+
+    return $self;
+}
 
 sub _moveToPath
 {
@@ -43,8 +82,37 @@ sub _moveToPath
              "user and group combination ($user:$group) not supported");
     }
 
-    my $smb = new EBox::Samba::SmbClient(RID => 500);
+    my $host = $self->host();
+    my $service = $self->service();
+
+    my $smb = new EBox::Samba::SmbClient(target => $host, service => $service,
+        RID => 500);
     $smb->copy_file_to_smb($tmpPath, $path);
+}
+
+sub host
+{
+    my ($self) = @_;
+
+    my $hostValue = $self->{host};
+    if (ref $hostValue eq 'CODE') {
+        return &$hostValue;
+    }
+
+    return $hostValue;
+}
+
+sub service
+{
+    my ($self) = @_;
+
+    my $serviceValue = $self->{service};
+
+    if (ref $serviceValue eq 'CODE') {
+        return &$serviceValue;
+    }
+
+    return $serviceValue;
 }
 
 1;

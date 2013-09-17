@@ -18,29 +18,36 @@ use warnings;
 
 package EBox::UsersSync::SOAPSlave;
 
-use EBox::Exceptions::MissingArgument;
-use EBox::Config;
+# Class: EBox::UsersSync::SOAPSlave
+#
+#     Class to receive the modifications from Zentyal master server
+#
+
 use EBox::Global;
+use EBox::Users::Contact;
+use EBox::Users::Group;
+use EBox::Users::User;
 
 use Devel::StackTrace;
-use SOAP::Lite;
 use MIME::Base64;
-
-use EBox::Users::User;
-use EBox::Users::Group;
 
 # Group: Public class methods
 
 sub addUser
 {
-    my ($self, $user) = @_;
+    my ($class, $user) = @_;
+
+    my $self = $class->_new();
 
     # rencode passwords
     if ($user->{passwords}) {
-        my @pass = map { decode_base64($_) } @{$user->{passwords}};
+        my @pass = map { MIME::Base64::decode($_) } @{$user->{passwords}};
         $user->{passwords} = \@pass;
     }
 
+    my $parent = $self->{usersMod}->objectFromDN($user->{parentDN});
+    delete $user->{parentDN};
+    $user->{parent} = $parent;
     EBox::Users::User->create(%{$user});
 
     return $self->_soapResult(0);
@@ -52,8 +59,18 @@ sub modifyUser
 
     my $user = new EBox::Users::User(dn => $userinfo->{dn});
     $user->set('cn', $userinfo->{fullname}, 1);
-    $user->set('sn', $userinfo->{surname}, 1);
     $user->set('givenname', $userinfo->{givenname}, 1);
+    $user->set('initials', $userinfo->{initials}, 1);
+    $user->set('sn', $userinfo->{surname}, 1);
+    $user->setDisabled($userinfo->{isDisabled}, 1);
+    my @optionalAttributes = ('displayname', 'description', 'mail');
+    foreach my $item (@optionalAttributes) {
+        if ($userinfo->{$item}) {
+            $user->set($item, $userinfo->{$item}, 1);
+        } else {
+            $user->delete($item, 1);
+        }
+    }
     $user->set('uidNumber', $userinfo->{uidNumber}, 1);
 
     if ($userinfo->{password}) {
@@ -72,46 +89,52 @@ sub modifyUser
 
 sub delUser
 {
-    my ($self, $dn) = @_;
+    my ($class, $dn) = @_;
 
     my $user = new EBox::Users::User(dn => $dn);
     $user->deleteObject();
 
-    return $self->_soapResult(0);
+    return $class->_soapResult(0);
 }
 
 sub addGroup
 {
     my ($class, $group) = @_;
 
-    my %args = (
-        name        => $group->{name},
-        description => $group->{comment},
-    );
+    my $self = $class->_new();
 
-    EBox::Users::Group->create(%args);
+    my $parent = $self->{usersMod}->objectFromDN($group->{parentDN});
+    delete $group->{parentDN};
+    $group->{parent} = $parent;
+    EBox::Users::Group->create(%{$group});
 
-    return $class->_soapResult(0);
+    return $self->_soapResult(0);
 }
 
 sub modifyGroup
 {
-    my ($self, $groupinfo) = @_;
+    my ($class, $groupinfo) = @_;
 
     my $group = new EBox::Users::Group(dn => $groupinfo->{dn});
-    $group->set('member', $groupinfo->{members});
+    $group->set('member', $groupinfo->{members}, 1);
+    $group->set('description', $groupinfo->{description}, 1);
+    $group->set('mail', $groupinfo->{mail}, 1);
+    $group->set('gidNumber', $groupinfo->{gidNumber}, 1);
+    $group->setSecurityGroup($groupinfo->{isSecurityGroup}, 1);
 
-    return 1;
+    $group->save();
+
+    return $class->_soapResult(0);
 }
 
 sub delGroup
 {
-    my ($self, $dn) = @_;
+    my ($class, $dn) = @_;
 
     my $group = new EBox::Users::Group(dn => $dn);
     $group->deleteObject();
 
-    return $self->_soapResult(0);
+    return $class->_soapResult(0);
 }
 
 # Method: URI
@@ -123,6 +146,8 @@ sub delGroup
 sub URI {
     return 'urn:Users/Slave';
 }
+
+# Group: Protected methods
 
 # Method: _soapResult
 #
@@ -145,5 +170,20 @@ sub _soapResult
     }
 
 }
+
+# Group: Private methods
+
+sub _new
+{
+    my ($class) = @_;
+    my $self = {};
+
+    my $ro = 1;
+    $self->{usersMod} = EBox::Global->getInstance($ro)->modInstance('users');
+
+    bless ($self, $class);
+    return $self;
+}
+
 
 1;

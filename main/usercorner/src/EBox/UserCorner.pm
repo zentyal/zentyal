@@ -29,8 +29,6 @@ use EBox::Util::Version;
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_APACHE => EBox::Config->conf() . '/user-apache2.conf';
-use constant USERCORNER_REDIS => '/var/lib/zentyal-usercorner/conf/redis.conf';
-use constant USERCORNER_REDIS_PASS => '/var/lib/zentyal-usercorner/conf/redis.passwd';
 use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
@@ -151,8 +149,9 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
-    $self->_setupRoLDAPAccess();
+    return unless $self->configured();
 
+    $self->_setupRoLDAPAccess();
 }
 
 sub _setupRoLDAPAccess

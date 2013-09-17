@@ -17,6 +17,7 @@ use EBox::Gettext;
 use Data::Dumper;
 </%init>
 
+<div class="item-block">
 <h3><% __('Log Domain') %></h3>
         <form method="POST" action="Index">
         <div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
@@ -36,11 +37,13 @@ use Data::Dumper;
                         value="<% __('View') %>"
                         alt="<% __('View') %>" />
         </form>
+</div>
 
 % if ($selected ne 'none') {
 %       my @time = localtime(time);
 %       my $currentyear = $time[5]+1900;
 
+<div class="item-block">
 <h3><% __('Custom query') %></h3>
 <form action='Index' method='POST'>
         <input type='hidden' name='selected' value='<% $selected %>'>
@@ -240,6 +243,8 @@ use Data::Dumper;
 %           }
 %       }
 % }
+
+</div>
 
 <script type='text/javascript'>
 $(function() {

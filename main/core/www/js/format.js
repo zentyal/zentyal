@@ -1,5 +1,20 @@
 // Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
 
+
+/* *
+ * * Bytes formatter for flot library
+ * * @param float val  : the value to format
+ * * @param axis  axis : flot axis object with information about the axis
+ * */
+function getBytesFormatter(val, axis) {
+    if (typeof axis == "undefined") {
+        precision = 2;
+    } else {
+        precision = axis.tickDecimals;
+    }
+    return getBytes(val, precision);
+}
+
 /* *
  * * Get the human-readable size for an amount of bytes
  * * @param int  size      : the number of bytes to be converted
@@ -88,8 +103,8 @@ function getTimeDiffSuffix(pos) {
     }
 }
 
-function getBytesPerSec(bps) {
-    return getBytes(bps) + '/s';
+function getBytesPerSec(bps, axis) {
+    return getBytesFormatter(bps, axis) + '/s';
 }
 
 function getTime(seconds) {
@@ -105,4 +120,9 @@ function getDate(seconds) {
 function getFullDate(seconds) {
     var d = new Date(seconds * 1000);
     return d.toLocaleString();
+}
+
+function getDateTime(seconds) {
+    var d = new Date(seconds * 1000);
+    return d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
 }

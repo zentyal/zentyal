@@ -244,6 +244,7 @@ sub _table
         tableName          => 'Rules',
         printableTableName => __('Rules'),
         defaultActions     => [ 'editField', 'changeView' ],
+        checkAll           => [ 'enabled' ],
         tableDescription   => \@tableHeader,
         class              => 'dataTable',
         modelDomain        => 'IPS',

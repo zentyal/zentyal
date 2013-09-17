@@ -59,6 +59,7 @@ sub kerberosCreatePrincipals
 {
     my ($self) = @_;
 
+    my $users = EBox::Global->modInstance('users');
     my $sysinfo = EBox::Global->modInstance('sysinfo');
     my $hostname = $sysinfo->hostName();
     my $hostdomain = $sysinfo->hostDomain();

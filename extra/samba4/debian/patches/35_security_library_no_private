@@ -1,0 +1,123 @@
+Index: samba4-4.1.0rc3/libcli/security/dom_sid.h
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/dom_sid.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/dom_sid.h	2013-09-17 01:30:23.000000000 +0200
+@@ -23,7 +23,7 @@
+ #ifndef _DOM_SID_H_
+ #define _DOM_SID_H_
+ 
+-#include "librpc/gen_ndr/security.h"
++#include <gen_ndr/security.h>
+ 
+ /* Some well-known SIDs */
+ extern const struct dom_sid global_sid_World_Domain;
+Index: samba4-4.1.0rc3/libcli/security/samba-security.pc.in
+===================================================================
+--- /dev/null	1970-01-01 00:00:00.000000000 +0000
++++ samba4-4.1.0rc3/libcli/security/samba-security.pc.in	2013-09-17 01:30:23.000000000 +0200
+@@ -0,0 +1,10 @@
++prefix=@prefix@
++exec_prefix=@exec_prefix@
++libdir=@libdir@
++includedir=@includedir@
++
++Name: samba-security
++Description: Samba Security
++Version: @PACKAGE_VERSION@
++Libs: @LIB_RPATH@ -L${libdir} -lsamba-security
++Cflags: -I${includedir} -DHAVE_IMMEDIATE_STRUCTURES=1
+Index: samba4-4.1.0rc3/libcli/security/sddl.h
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/sddl.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/sddl.h	2013-09-17 01:30:23.000000000 +0200
+@@ -21,7 +21,7 @@
+ #ifndef __SDDL_H__
+ #define __SDDL_H__
+ 
+-#include "librpc/gen_ndr/security.h"
++#include <gen_ndr/security.h>
+ 
+ struct security_descriptor *sddl_decode(TALLOC_CTX *mem_ctx, const char *sddl,
+ 					const struct dom_sid *domain_sid);
+Index: samba4-4.1.0rc3/libcli/security/secace.h
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/secace.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/secace.h	2013-09-17 01:30:23.000000000 +0200
+@@ -21,7 +21,7 @@
+ #ifndef _ACE_H_
+ #define _ACE_H_
+ 
+-#include "librpc/gen_ndr/security.h"
++#include <gen_ndr/security.h>
+ 
+ bool sec_ace_object(uint8_t type);
+ void sec_ace_copy(struct security_ace *ace_dest, const struct security_ace *ace_src);
+Index: samba4-4.1.0rc3/libcli/security/security_descriptor.h
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/security_descriptor.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/security_descriptor.h	2013-09-17 01:30:23.000000000 +0200
+@@ -21,10 +21,10 @@
+ #ifndef __SECURITY_DESCRIPTOR_H__
+ #define __SECURITY_DESCRIPTOR_H__
+ 
+-#include "librpc/gen_ndr/security.h"
++#include <gen_ndr/security.h>
+ 
+ struct security_descriptor *security_descriptor_initialise(TALLOC_CTX *mem_ctx);
+-struct security_descriptor *security_descriptor_copy(TALLOC_CTX *mem_ctx, 
++struct security_descriptor *security_descriptor_copy(TALLOC_CTX *mem_ctx,
+ 						     const struct security_descriptor *osd);
+ NTSTATUS security_descriptor_sacl_add(struct security_descriptor *sd,
+ 				      const struct security_ace *ace);
+@@ -34,14 +34,14 @@
+ 				      const struct dom_sid *trustee);
+ NTSTATUS security_descriptor_sacl_del(struct security_descriptor *sd,
+ 				      const struct dom_sid *trustee);
+-bool security_ace_equal(const struct security_ace *ace1, 
++bool security_ace_equal(const struct security_ace *ace1,
+ 			const struct security_ace *ace2);
+-bool security_acl_equal(const struct security_acl *acl1, 
++bool security_acl_equal(const struct security_acl *acl1,
+ 			const struct security_acl *acl2);
+-bool security_descriptor_equal(const struct security_descriptor *sd1, 
++bool security_descriptor_equal(const struct security_descriptor *sd1,
+ 			       const struct security_descriptor *sd2);
+-bool security_descriptor_mask_equal(const struct security_descriptor *sd1, 
+-				    const struct security_descriptor *sd2, 
++bool security_descriptor_mask_equal(const struct security_descriptor *sd1,
++				    const struct security_descriptor *sd2,
+ 				    uint32_t mask);
+ struct security_descriptor *security_descriptor_append(struct security_descriptor *sd,
+ 						       ...);
+Index: samba4-4.1.0rc3/libcli/security/wscript_build
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/wscript_build	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/wscript_build	2013-09-17 03:45:58.643485712 +0200
+@@ -3,8 +3,12 @@
+ 
+ bld.SAMBA_LIBRARY('samba-security',
+                   source='dom_sid.c display_sec.c secace.c secacl.c security_descriptor.c sddl.c privileges.c security_token.c access_check.c object_tree.c create_descriptor.c util_sid.c session.c secdesc.c',
+-                  private_library=True,
+-                  deps='talloc ndr NDR_SECURITY'
++                  private_library=False,
++                  deps='talloc ndr NDR_SECURITY',
++                  public_headers='security_descriptor.h sddl.h dom_sid.h secace.h secdesc.h',
++                  header_path='security',
++	              pc_files='samba-security.pc',
++	              vnum='0.0.1',
+                   )
+ 
+ bld.SAMBA_PYTHON('pysecurity',
+Index: samba4-4.1.0rc3/libcli/security/secdesc.h
+===================================================================
+--- samba4-4.1.0rc3.orig/libcli/security/secdesc.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.0rc3/libcli/security/secdesc.h	2013-09-17 03:47:42.687607591 +0200
+@@ -24,7 +24,7 @@
+ #define _SECDESC_H_
+ 
+ /* The following definitions come from libcli/security/secdesc.c  */
+-#include "librpc/gen_ndr/security.h"
++#include <gen_ndr/security.h>
+ 
+ /*******************************************************************
+  Given a security_descriptor return the sec_info.

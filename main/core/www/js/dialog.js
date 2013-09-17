@@ -7,6 +7,7 @@ Zentyal.Dialog.DEFAULT_ID = 'load_in_dialog';
 Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
     var data = (params.data !== undefined) ? params.data : [];
     dialog.html('<img src="/data/images/ajax-loader.gif" alt="loading..." class="tcenter"/>');
+    dialog.dialog({ title: params['title'] });
     dialog.load(url, data, function(html) {
                     if (typeof(params.load) === 'function')  {
                         params.load.apply(this);

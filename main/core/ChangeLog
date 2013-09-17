@@ -1,4 +1,71 @@
-HEAD
+3.1.12
+	+ Do not crash if /etc/timezone does not exist
+	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
+	  when running zentyal start, this fixes problems with leftover locks
+	  that affect dhclient hooks
+	+ Fixed wrong case in some class names for the save changes button
+	+ Fixed autoscroll in dashboard widgets
+	+ Added placeholder for drag & drop of table rows
+	+ No autoscroll is done when overflow happens. This makes sortable
+	  work in chromium
+	+ Set audit after logs when enabling in first install
+	+ Avoid getting unsaved changes by using readonly instance in manage-logs
+3.1.11
+	+ Initial setup for webadmin is now executed in postinst
+	+ Fixed webadmin port migration
+3.1.10
+	+ Use DATETIME type in date column for consolidation tables
+	+ Summarised reports shows graphs again
+	+ Events summarised report has breadcrumbs now
+	+ Base EBox::Logs::Composite::SummarizedReport to let summarised
+	  reports have common breadcrumbs
+	+ Added migration from 3.0 (apache -> webadmin)
+3.1.9
+	+ Fixed in-place boolean edit with non-basic types different to Union
+	+ Removed some warnings in error.log
+	+ Fixed confirmation dialogs warning style
+	+ Fixed configure widgets width and drop behavior
+	+ Fixed regression in dashboard register link after jQuery migration
+	+ Always set as changed without checking RO value, this fixes some
+	  situations in which the save changes button was not enabled
+	+ Fixed regression in audit log IP addresses after nginx integration
+	+ Added datetime time formatter to JS graphs which show dates in X
+	  axis and date and time in the tracker
+	+ Fixed bug sending parameters in Zentyal.Tabs prototype
+	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
+	  tried to load composite as model by mistake, the bug was at least
+	  present sometimes when trying to generate the configuration report
+	+ Throw internal exception in valueByName if elementByName is undef
+	+ Added captiveportal icons to CSS
+	+ Restore configuration backup from file now works again after JS
+	  framework change
+	+ Configuration backup download, restore and delete from the list
+	  works again after the UI changes
+	+ Fixed regression in tabbed composites with the jQuery changes
+	+ Set proper title in dialogs when loading in an existent one
+	+ Fixed regression on dashboard which allowed to move already
+	  present dashboard widgets
+3.1.8
+	+ Always log Perl errors that are not Zentyal exceptions
+	+ Move package icons from software to core as required for the menu
+	+ Use dpkg --clear-avail to avoid incoherent updates information
+	+ Show printableModelName in DataTables when precondition fails
+	+ Fixed number of decimals in Disk Usage when unit is MB
+	+ Fixed UTF-8 encoding problems in TreeView
+	+ Copyright footer is now at the bottom of the menu
+	+ Fixed regression on logs search caused by autoFilter changes
+	+ Fix bytes formatter in graphs
+	+ Simplified CSS and improved styles and icons
+	+ Improved dashboard drag&drop behavior in Chrome
+	+ Allow to define permanentMessage directly on models
+	+ Show placeholder in dashboard widgets drag&drop
+	+ Fixed crash reloading dashboard after configure widgets
+	+ Only apply redirect port fix on administration port
+	+ Fixed regression in user interface with DataInUse exceptions
+	+ Fixed wrong behavior of software updates in dashboard widget
+	+ Always show proper language name for english locales
+	+ Fixed wrong redirects when using a non-default admin port
+	+ Fixed regression in webadmin reload after changing the language
 	+ Remove unnecessary and problematic desktop services code
 	+ Added icons for disabled users.
 3.1.7

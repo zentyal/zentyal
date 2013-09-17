@@ -45,13 +45,10 @@ use EBox::Gettext;
 			<tr class='border'>
 				<td><% $dom->{'name'} %></td>
 				<td class='tcenter'>
-					<a href="Edit?domain=<% $dom->{'id'} %>">
-					<img src='/data/images/edit.gif' alt="<% __('Edit') %>" title="<% __('Edit') %>" /></a>
-					<img src='/data/images/sep.gif' alt='-'/>
-					<a href='DelDomain?domain=<% $dom->{'id'} %>'>
-					<img src='/data/images/delete.gif'
-						title="<% __('Delete') %>"
-						alt="<% __('Delete') %>"/></a>
+					<a href="Edit?domain=<% $dom->{'id'} %>" class="btn-only-icon btn-edit" title="<% __('Edit') %>">
+					<% __('Edit') %></a>
+					<a href='DelDomain?domain=<% $dom->{'id'} %>' class="btn-only-icon btn-delete" title="<% __('Delete') %>">
+					<% __('Delete') %></a>
 				</td>
 			</tr>
 %		}

@@ -18,24 +18,11 @@ use warnings;
 
 package EBox::IPS::Composite::AlertReport;
 
-use base 'EBox::Model::Composite';
+use base 'EBox::Logs::Composite::SummarizedReport';
 
 use EBox::Gettext;
 
 # Group: Public methods
-
-# Constructor: new
-#
-#         Constructor for the general events composite
-#
-sub new
-{
-    my ($class, @params) = @_;
-
-    my $self = $class->SUPER::new(@params);
-
-    return $self;
-}
 
 # Group: Protected methods
 

@@ -179,6 +179,9 @@ sub setAccountEnabled
 {
     my ($self, $enable, $lazy) = @_;
 
+    unless (defined $enable) {
+        throw EBox::Exceptions::MissingArgument('enable');
+    }
     my $flags = $self->get('userAccountControl');
     if ($enable) {
         $flags = $flags & ~ACCOUNTDISABLE;
@@ -323,8 +326,6 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
-
-
     my $samAccountName = $args{samAccountName};
     $class->_checkAccountName($samAccountName, MAXUSERLENGTH);
 
@@ -359,10 +360,9 @@ sub create
     my $entry = undef;
     try {
         $entry = new Net::LDAP::Entry($dn, @attr);
-
         my $result = $entry->update($class->_ldap->connection());
         if ($result->is_error()) {
-            unless ($result->code == LDAP_LOCAL_ERROR and $result->error eq 'No attributes to update') {
+            unless ($result->code() == LDAP_LOCAL_ERROR and $result->error() eq 'No attributes to update') {
                 throw EBox::Exceptions::LDAP(
                     message => __('Error on person LDAP entry creation:'),
                     result => $result,
@@ -376,10 +376,10 @@ sub create
         # Set the password
         if (defined $args{clearPassword}) {
             $res->changePassword($args{clearPassword});
-            $res->setAccountEnabled();
+            $res->setAccountEnabled(1);
         } elsif (defined $args{kerberosKeys}) {
             $res->setCredentials($args{kerberosKeys});
-            $res->setAccountEnabled();
+            $res->setAccountEnabled(1);
         }
 
         if (defined $args{uidNumber}) {
@@ -470,6 +470,10 @@ sub addToZentyal
         $args{uidNumber} = $uidNumber;
         $args{isSystemUser} = ($uidNumber < EBox::Users::User->MINUID());
 
+        if ($self->isInAdvancedViewOnly() or $sambaMod->hiddenSid($self)) {
+            $args{isInternal} = 1;
+        }
+
         $zentyalUser = EBox::Users::User->create(%args);
     } catch EBox::Exceptions::DataExists with {
         EBox::debug("User $uid already in OpenLDAP database");
@@ -523,8 +527,10 @@ sub updateZentyal
     $givenName = '-' unless $givenName;
     $surname = '-' unless $surname;
 
-    $zentyalUser = new EBox::Users::User(uid => $uid);
-    throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist") unless ($zentyalUser and $zentyalUser->exists());
+    $zentyalUser = $self->_sambaMod()->ldapObjectFromLDBObject($self);
+    unless ($zentyalUser) {
+        throw EBox::Exceptions::Internal("Zentyal user '$uid' does not exist");
+    }
 
     $zentyalUser->setIgnoredModules(['samba']);
     $zentyalUser->set('cn', $fullName, 1);

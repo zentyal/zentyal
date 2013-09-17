@@ -70,7 +70,7 @@
 <%perl>
      my $showBody = 1;
      my $noDataMsg;
-     if (@{$model->ids()} == 0) {
+     if ($model->size() == 0) {
         $noDataMsg = $model->noDataMsg();
         my $actions = $model->table()->{'actions'};
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
@@ -96,6 +96,9 @@
         </div>
 %   }
 % } else  {
+%   if ($model->printableModelName()) {
+<& /title.mas, title => $model->printableModelName() &>
+%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -386,7 +389,7 @@ my $className;
 if ($hasChanged) {
   $className = 'changed';
 } else {
-  $className = 'notChanged';
+  $className = 'notchanged';
 }
 </%perl>
 $('#changes_menu').removeClass().addClass('<% $className %>');

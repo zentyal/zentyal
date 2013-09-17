@@ -87,7 +87,11 @@ sub addedRowNotify
 
 sub updatedRowNotify
 {
-    my ($self, $row) = @_;
+    my ($self, $row, $oldRow) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        return;
+    }
+
     $self->_setUndefinedValues($row);
 }
 
@@ -97,15 +101,19 @@ sub _setUndefinedValues
 
     my $toStore;
     unless ($row->valueByName('global_enabled')) {
-        $row->elementByName('size')->setValue(undef);
-        $row->elementByName('rate')->setValue(undef);
-        $toStore = 1;
+        if ($row->valueByName('size') or $row->valueByName('rate')) {
+            $row->elementByName('size')->setValue(undef);
+            $row->elementByName('rate')->setValue(undef);
+            $toStore = 1;
+        }
     }
 
     unless ($row->valueByName('clt_enabled')) {
-        $row->elementByName('clt_size')->setValue(undef);
-        $row->elementByName('clt_rate')->setValue(undef);
-        $toStore = 1;
+        if ($row->valueByName('clt_size') or $row->valueByName('clt_rate')) {
+            $row->elementByName('clt_size')->setValue(undef);
+            $row->elementByName('clt_rate')->setValue(undef);
+            $toStore = 1;
+        }
     }
 
     if ($toStore) {

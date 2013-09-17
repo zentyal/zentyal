@@ -11,11 +11,12 @@
 use EBox::Gettext;
 use JSON::XS;
 my $readOnly = $slave ? "readonly='readonly'" : "";
+my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 </%init>
 
 
 <div id="edit_user">
-<h3 class="icon-user"><% __('User') %> <% $user->name() %></h3>
+<h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
 <div id='note_editUserForm' class='note' style='display:none'></div>
 <div id='error_editUserForm' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block half-block">
@@ -41,6 +42,13 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
                                value=> ($user->description() or ''),
                                slave => $slave,
                    &>
+
+          <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
+                  <& masterSlaveUserAttr,
+                               name => 'mail',
+                               value => ($user->mail() or ''),
+                               slave => $slave,
+                   &>
           <label><% __('User quota') %> (MB)</label>
           <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
           <label><% __('Disabled account') %></label>
@@ -58,10 +66,10 @@ my $readOnly = $slave ? "readonly='readonly'" : "";
 </div>
 <div id="user_groups" class="form-block half-block">
 <h4> <% __('User groups') %></h4>
-% unless ($slave) {
-<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
-% } else {
+% if ($slave) {
 <& .groupsRO, usergroups => \@usergroups &>
+% } else {
+<& .groupsRW, user => $user, usergroups => \@usergroups, remaingroups => \@remaingroups &>
 % }
 </div>
 
@@ -141,7 +149,7 @@ $(function() {
             userGroups.detach();
             userGroups.children().remove();
             if (data.member.length === 0) {
-                userGroups.append('<div class="note"><% __('This user is not member of any group') %></div>');
+                userGroups.append('<div class="note"><% __('This user is not a member of any group') %></div>');
             }
             for (i=0; i < data.member.length; i++) {
                group = data.member[i];
@@ -224,20 +232,15 @@ $user
 <%args>
 @usergroups
 </%args>
-<%init>
-my $groupStr;
-if (@usergroups) {
-    my $firstGroup = shift @usergroups;
-    $groupStr =  $firstGroup->name();
-} else {
-   $groupStr =  __('No member of any group');
-}
-</%init>
 <ul name='userGroups' id='userGroups' class="labels-list" size='8'>
-% foreach my $group (@usergroups) {
+% if (@usergroups) {
+%    foreach my $group (@usergroups) {
       <li>
          <% $group->name() %>
       </li>
+%    }
+% } else {
+<div class="note"><% __('This user is not a member of any group') %></div>
 % }
 </ul>
 </%def>

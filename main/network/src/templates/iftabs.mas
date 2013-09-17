@@ -16,12 +16,12 @@
     }
  } @ifaces;
 </%init>
-<div class='ifaces'>
+<ul class='tabs'>
 %  foreach my $if (@ifaces) {
 %     if($if->{'name'} eq $selected) {
-	<span class='selected'><% $if->{'alias'} %></span>
+	<li><span class='current'><% $if->{'alias'} %></span></li>
 %     } else {
-	<a href='Ifaces?iface=<% $if->{'name'} %>'><% $if->{'alias'} %></a>
+	<li><a href='Ifaces?iface=<% $if->{'name'} %>'><% $if->{'alias'} %></a></li>
 %     }
 %  }
-</div>
+</ul>

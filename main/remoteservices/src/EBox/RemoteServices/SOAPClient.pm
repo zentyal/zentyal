@@ -83,8 +83,8 @@ sub instance
 
     if ( $params{proxy} =~ m/^https/
          and not defined( $params{certs} )) {
-        EBox::warn('Doing connection to web service: '
-                   . "$params{name} without credentials to $params{proxy}");
+        EBox::debug('Doing connection to web service: '
+                    . "$params{name} without credentials to $params{proxy}");
     }
 
     my $soapConn = new SOAP::Lite(

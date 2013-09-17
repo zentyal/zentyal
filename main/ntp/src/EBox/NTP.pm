@@ -146,6 +146,11 @@ sub initialSetup
         }
         $fw->saveConfigRecursive();
     }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        $self->_overrideDaemons() if $self->configured();
+    }
 }
 
 sub _syncDate

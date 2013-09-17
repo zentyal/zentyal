@@ -1,3 +1,55 @@
+samba4 (4.1.0rc3-zentyal3) precise; urgency=low
+
+  * Build errors as public library
+  * Add secdesc.h to public headers
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 17 Sep 2013 03:53:52 +0200
+
+samba4 (4.1.0rc3-zentyal2) precise; urgency=low
+
+  * Fix domain join problem related to dns account for bind creation
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 12 Sep 2013 19:41:39 +0200
+
+samba4 (4.1.0rc3-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Wed, 11 Sep 2013 18:31:03 +0200
+
+samba4 (4.1.0rc2-zentyal9) precise; urgency=low
+
+  * scannedonly VFS plugin: Do not unlink cache file when accessed file is
+    newer
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Tue, 10 Sep 2013 20:41:35 +0200
+
+samba4 (4.1.0rc2-zentyal8) precise; urgency=low
+
+  * Fix segfault in scannedonly VFS plugin
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Sun, 08 Sep 2013 17:46:08 +0200
+
+samba4 (4.1.0rc2-zentyal7) precise; urgency=low
+
+  * Fix segfault in scannedonly VFS plugin
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 05 Sep 2013 16:22:19 +0200
+
+samba4 (4.1.0rc2-zentyal6) precise; urgency=low
+
+  * Removed the .pc links to avoid conflicts with distro packages.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 20 Aug 2013 17:45:31 +0200
+
+samba4 (4.1.0rc2-zentyal5) precise; urgency=low
+
+  * Build talloc, tevent, tdb, ldb, samba-security as public libs
+  * Add dynconfig.h and ndr_security.h to public headers
+  * Add param_options and LP_RESOLVE to smbclient-raw library
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 14 Aug 2013 00:12:26 +0200
+
 samba4 (4.1.0rc2-zentyal4) precise; urgency=low
 
   * Removed link to a non existing .pc file.

@@ -75,26 +75,19 @@ sub requiredParameters
 
     if ($self->param('backup')) {
         return [qw(backup description)];
-    }
-    elsif ($self->param('bugreport')) {
+    } elsif ($self->param('bugreport')) {
         return [qw(bugreport )];
-    }
-    elsif ($self->param('restoreFromFile')) {
+    } elsif ($self->param('restoreFromFile')) {
         return [qw(restoreFromFile backupfile)];
-    }
-    elsif ($self->param('restoreFromId')) {
+    } elsif ($self->param('restoreFromId')) {
         return [qw(restoreFromId id)];
-    }
-    elsif ($self->param('download.x')) {
-        return [qw(id download.x download.y)];
-    }
-    elsif ($self->param('delete')) {
+    } elsif ($self->param('download')) {
+        return [qw(id download)];
+    } elsif ($self->param('delete')) {
         return [qw(delete id)];
-    }
-    elsif ($self->param('bugReport')) {
+    } elsif ($self->param('bugReport')) {
         return [qw(bugReport)];
-    }
-    else {
+    } else {
         return [];
     }
 }

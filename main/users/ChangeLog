@@ -1,6 +1,37 @@
-HEAD
-	+ Hide Samba objects that should be shown only on an Advance view mode.
-	+ Added support for disabled accounts.
+3.1.10
+	+ Do not crash when deleting a group if LDB object does not exist
+	+ Do not try to migrate from 3.0 if module is not configured
+	+ Override daemons when migrating from 3.0
+3.1.9
+	+ Fix typo in setSecurityGroup when no GID is set yet
+	+ Show group in slave as read-only
+	+ Show in a slave when the user is not a member of any group
+	+ Check email address for a group is done
+	+ Add group dialog can now set the e-mail
+	+ Master/Slave synchronisation works again
+3.1.8
+	+ Enable upgrade from 3.0 in initialSetup
+	+ Fixed wrong calls to isSystem() in master-slave after API changes
+	+ Fix regression trying to join slave after external AD changes
+	+ Fix regression in slave host address after nginx integration
+	+ Throw DataExists error when adding an OU which already exists
+3.1.7
+	+ Readded memberUid to the fields to index for SLAPD.
+	+ Ignored members that are not valid perl objects to avoid undef entries
+	  on EBox::Users::Group::members method.
+	+ Rewrites to share more code with samba module.
+	+ Added 'mail' field on zentyalDistributionGroup schema.
+	+ Added E-Mail field for Users and Groups when managing them from the UI.
+	+ Changed E-Mail field to optional for Contacts.
+	+ Updated master-slave sync to use the new User and Group fields.
+	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
+	+ Changed description field to be always input text instead of textarea.
+	+ Warn instead of throw exception if home directory already exists
+	+ Forbid deletion of Domain Admins group
+	+ Forbid deletion of Users, Groups and Computers OUs
+	+ Filter also internal users and groups in membership comboboxes
+	+ Hide Samba objects that should be shown only on Advance view mode
+	+ Added support for disabled accounts
 3.1.6
 	+ Ignored samba module while (re)provisioning on __USERS__ group creation.
 	+ Removed deprecated configuration file keys related with external AD

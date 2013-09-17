@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS mail_message_traffic (
-       date TIMESTAMP NOT NULL,
+       date DATETIME NOT NULL,
 
        vdomain VARCHAR(300),
        sent BIGINT DEFAULT 0,

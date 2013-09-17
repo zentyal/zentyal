@@ -1,0 +1,19 @@
+commit feb08178e83e29c6ac81bcb384c523e0da42549b
+Author: Samuel Cabrero <scabrero@zentyal.com>
+Date:   Tue Aug 13 20:28:32 2013 +0200
+
+    Add ndr_security.h to public headers
+
+Index: samba4/librpc/wscript_build
+===================================================================
+--- samba4.orig/librpc/wscript_build	2013-08-14 00:22:50.245330389 +0200
++++ samba4/librpc/wscript_build	2013-08-14 00:22:50.241330389 +0200
+@@ -339,7 +339,7 @@
+     NDR_ECHO security NDR_DNS NDR_ATSVC NDR_SPOOLSS NDR_DSSETUP
+     NDR_SERVER_ID NDR_NOTIFY''',
+     public_deps='ndr',
+-    public_headers='gen_ndr/samr.h gen_ndr/ndr_samr.h gen_ndr/lsa.h gen_ndr/netlogon.h gen_ndr/atsvc.h gen_ndr/ndr_atsvc.h gen_ndr/ndr_svcctl.h gen_ndr/svcctl.h',
++    public_headers='gen_ndr/samr.h gen_ndr/ndr_samr.h gen_ndr/lsa.h gen_ndr/netlogon.h gen_ndr/atsvc.h gen_ndr/ndr_atsvc.h gen_ndr/ndr_svcctl.h gen_ndr/svcctl.h gen_ndr/ndr_security.h',
+     header_path='gen_ndr'
+     )
+ 

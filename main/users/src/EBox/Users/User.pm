@@ -160,6 +160,13 @@ sub isInternal
     return (defined ($title) and ($title eq 'internal'));
 }
 
+sub setInternal
+{
+    my ($self) = @_;
+
+    $self->set('title', 'internal');
+}
+
 # Catch some of the set ops which need special actions
 sub set
 {
@@ -255,13 +262,15 @@ sub _groups
 {
     my ($self, $system, $invert) = @_;
 
-    shift @_;
     my @groups = @{$self->SUPER::_groups($invert)};
 
     return \@groups if ($system);
 
     my @filteredGroups = ();
     for my $group (@groups) {
+        next if ($group->name() eq EBox::Users->DEFAULTGROUP);
+        next if ($group->isInternal());
+
         push (@filteredGroups, $group) if (not $group->isSystem());
     }
     return \@filteredGroups;
@@ -301,12 +310,12 @@ sub isDisabled
 #
 sub setDisabled
 {
-    my ($self, $status) = @_;
+    my ($self, $status, $lazy) = @_;
 
     if ($status) {
-        $self->set('shadowExpire', 0);
+        $self->set('shadowExpire', 0, $lazy);
     } else {
-        $self->delete('shadowExpire');
+        $self->delete('shadowExpire', $lazy);
     }
 }
 
@@ -476,7 +485,7 @@ sub create
     }
 
     my $usersMod = EBox::Global->modInstance('users');
-    my $real_users = $usersMod->realUsers('without_admin');
+    my $real_users = $usersMod->realUsers();
 
     my $max_users = 0;
     if (EBox::Global->modExists('remoteservices')) {
@@ -526,10 +535,7 @@ sub create
 
     my $homedir = _homeDirectory($args{uid});
     if (-e $homedir) {
-        throw EBox::Exceptions::External(
-            __x('Cannot create user because the home directory {dir} already exists. Please move or remove it before creating this user',
-                dir => $homedir)
-        );
+        EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
     }
 
     # Check the password length if specified

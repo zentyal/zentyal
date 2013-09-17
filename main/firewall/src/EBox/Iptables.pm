@@ -202,8 +202,7 @@ sub _setStructure
             pf('-A INPUT -m state --state ESTABLISHED,RELATED -j iaccept'),
             pf('-N fdrop'),
             pf('-N faccept'),
-            pf('-A FORWARD -m state --state INVALID -j faccept'),
-
+            pf('-A FORWARD -m state --state INVALID -j fdrop'),
             pf('-A FORWARD -m state --state ESTABLISHED,RELATED -j faccept'),
 
             pf('-t nat -N premodules'),
@@ -218,7 +217,6 @@ sub _setStructure
             pf('-N ffwdrules'),
             pf('-N fnoexternal'),
             pf('-N fdns'),
-            pf('-N fobjects'),
             pf('-N fglobal'),
             pf('-N ftoexternalonly'),
 
@@ -230,7 +228,6 @@ sub _setStructure
             pf('-N iexternal'),
             pf('-N inoexternal'),
             pf('-N imodules'),
-            pf('-N iintservs'),
             pf('-N iglobal'),
 
             pf('-N drop'),
@@ -251,7 +248,6 @@ sub _setStructure
             pf('-A FORWARD -j ffwdrules'),
             pf('-A FORWARD -j fnoexternal'),
             pf('-A FORWARD -j fdns'),
-            pf('-A FORWARD -j fobjects'),
             pf('-A FORWARD -j fglobal'),
             pf("-A FORWARD -p icmp --icmp-type echo-request ! -f $statenew -j faccept"), # accept ping requests
             pf("-A FORWARD -p icmp --icmp-type echo-reply ! -f $statenew -j faccept"), # accept ping responses
@@ -266,7 +262,6 @@ sub _setStructure
             pf('-A INPUT -j iexternal'),
             pf('-A INPUT -j inoexternal'),
             pf('-A INPUT -j imodules'),
-            pf('-A INPUT -j iintservs'),
             pf('-A INPUT -j iglobal'),
             pf("-A INPUT -p icmp --icmp-type echo-request ! -f $statenew -j iaccept"), # accept ping requests
             pf("-A INPUT -p icmp --icmp-type echo-reply ! -f $statenew -j iaccept"), # accept ping responses
@@ -932,7 +927,7 @@ sub _drop
             pf("-I drop -j LOG -m limit --limit $limit/min " .
             "--limit-burst $burst" .
             ' --log-level ' . SYSLOG_LEVEL .
-            ' --log-prefix "ebox-firewall drop "')
+            ' --log-prefix "zentyal-firewall drop "')
         );
     }
     return \@commands;
@@ -969,7 +964,7 @@ sub _log
             pf("-I log -j LOG -m limit --limit $limit/min " .
             "--limit-burst $burst" .
             ' --log-level ' . SYSLOG_LEVEL .
-            ' --log-prefix "ebox-firewall log "')
+            ' --log-prefix "zentyal-firewall log "')
         );
     }
     return \@commands;

@@ -93,13 +93,36 @@ sub usedFiles
 #
 sub _daemons
 {
-    return [
-        {
-            'name' => 'ipsec',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/pluto/pluto.pid'],
+    my ($self) = @_;
+
+    my @daemons = ();
+    push (@daemons, {
+        'name' => 'ipsec',
+        'type' => 'init.d',
+        'pidfiles' => ['/var/run/pluto/pluto.pid'],
+    });
+
+    foreach my $tunnel (@{ $self->tunnels() }) {
+        if ($tunnel->{type} eq 'l2tp') {
+            push (@daemons, {
+                'name' => "zentyal-xl2tpd." . $tunnel->{name},
+                'type' => 'upstart',
+            });
         }
-    ];
+    }
+
+    return \@daemons;
+}
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [ { 'name' => 'xl2tpd', 'type' => 'init.d' } ];
 }
 
 # Method: initialSetup
@@ -131,6 +154,11 @@ sub initialSetup
         $firewall->setExternalService($serviceName, 'accept');
 
         $firewall->saveConfigRecursive();
+    }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        $self->_overrideDaemons() if $self->configured();
     }
 }
 

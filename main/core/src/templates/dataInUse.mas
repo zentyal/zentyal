@@ -32,16 +32,15 @@ $page = 0 unless ( $page );
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
 	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
-        '<% $page %>'); return false"/>
+        $action %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', { force: 1}); return false"/>
 % }
 % else
 % {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>" title="Change"
 	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>', 'force=1', '<% $directory %>',
-        '<% $page %>'); return false"/>
+        $action %>', '<% $rowId %>',  '<% $directory %>', '<% $page %>', { force: 1}
+        ); return false"/>
 % }
 
 <input  class='inputButton' type='submit' name='cancel'

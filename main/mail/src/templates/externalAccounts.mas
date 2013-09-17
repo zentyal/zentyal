@@ -25,7 +25,7 @@ my %printableName = (
 % if (not $params->{externalRetrievalEnabled} ){
 <div class='warning'>
 <% __x(q{Mail retrieval from external accounts service is not enabled; until you {ub}enable it{ue} your changes won't have any effect.},
-        ub => "<a href=''>",
+        ub => "<a href='/Mail/Composite/General'>",
         ue => "</a>"
       )
 %>
@@ -37,11 +37,11 @@ my %printableName = (
 <div id='error_userMailExternalAccount' class='error' style='display:none'></div>
 <div id='note_userMailExternalAccount' class='note' style='display:none'></div>
 <& .addAccount, params => $params &>
-<a href='#' class='addNew'
+<button type="button" class='btn btn-icon btn-add'
    name='add' id='addlink_userMailExternalAccounts'
          onClick='$(this).hide(); $("#userMailAddExternalAccount").show();return false'>
     <% __('Add new') %>
-  </a>
+  </button>
 <& .accountsTable,
    params  => $params,
    show    => @externalAccounts > 0

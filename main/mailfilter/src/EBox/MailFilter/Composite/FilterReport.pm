@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::MailFilter::Composite::FilterReport;
 
-use base 'EBox::Model::Composite';
+use base 'EBox::Logs::Composite::SummarizedReport';
 
 use EBox::Gettext;
 

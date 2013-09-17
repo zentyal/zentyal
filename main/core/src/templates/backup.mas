@@ -7,6 +7,7 @@
 use EBox::Gettext;
 use EBox::Config;
 </%init>
+<div class="insideTab">
 % if ($subscribed) {
   <div class='ad'>
         <% __sx('Thank you for registering your server! The configuration backup is checked on daily basis and stored automatically if any configuration changes are detected. You may check all your configuration backups {ohref}here{chref}.', ohref => '<a href="https://remote.zentyal.com/services/backup/all" target="_blank">', chref => '</a>') %>
@@ -70,7 +71,7 @@ my $backupOnClickJs =<< "ENDJS" ;
      return false
 ENDJS
 </%perl>
-                                <input class='inputButton' type='submit'
+                                <input type='submit'
                                 <% $disabledAttr %> name='backup'
                                 value="<% $backupTitle  %>"
                                 onclick="<% $backupOnClickJs %>"
@@ -91,8 +92,8 @@ my $formId    = $id . '_form';
 my $onChange = << "JS_END";
 var fileUpload = new Zentyal.FileUpload(
    { formId :   '$formId',
-     start :    function() { $('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
-     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; $('#restoreFromFile').prop('disabled', false)},
+     start :    function() { jQuery('#restoreFromFile').prop('disabled', true); Zentyal.TableHelper.setLoading('$loadingId'); },
+     complete : function() { Zentyal.TableHelper.setDone('$loadingId') ; jQuery('#restoreFromFile').prop('disabled', false)},
    }
 );
 var res = fileUpload.submit();
@@ -149,7 +150,7 @@ ENDJS
                                                 <span class='ftitle'></span>
                        </td>
                         <td>
-                  <input class='inputButton' type='submit' name='restoreFromFile' value="<% $title %>"
+                  <input type='submit' name='restoreFromFile' value="<% $title %>"
                          onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'
 
                    />
@@ -219,27 +220,26 @@ my %printableTypeById = (
                                 <td>
                                 <% $backup->{'size'} %>
                                 </td>
-                                <td width="%14">
+                                <td width="%14" class='tcenter'>
                                 <form method='POST' action='ConfirmBackup'>
                                         <input type='hidden'
                                                 name='id'
                                                 value="<% $backup->{'id'} %>"/>
-                                        <input type='image' name='restoreFromId'
-                                                src='/data/images/restore.gif'
+                                        <button name='restoreFromId'
+                                                class="btn-only-icon btn-restore"
                                                 value="Restore"
                                                 title="<% $restoreTitle %>"
                                                 alt="<% $restoreAlt %>"
                                                 onclick="<% $restoreJS %>"
-                                         />
-                                        <img src='/data/images/sep.gif' alt='-'/>
-                                        <input type='image' name='download'
-                                                src='/data/images/download.gif'
+                                        />
+                                        <button name='download'
+                                                class="btn-only-icon btn-download"
                                                 value="Download"
                                                 title="<% $downloadTitle %>"
-                                                alt="<% $downloadTitle %>"/>
-                                        <img src='/data/images/sep.gif' alt='-'/>
-                                        <input type='image' name='delete'
-                                                src='/data/images/delete.gif'
+                                                alt="<% $downloadTitle %>"
+                                        />
+                                        <button name='delete'
+                                                class="btn-only-icon btn-delete"
                                                 value="Delete"
                                                 title="<% $deleteTitle %>"
                                                 alt="<% $deleteTitle %>"
@@ -272,7 +272,8 @@ my %printableTypeById = (
 </div>
 
 <form action='Backup' method='POST'>
-                <input class='inputButton' type='submit' name='bugreport'
+                <input type='submit' name='bugreport'
                            value="<% __('Generate and Download report file') %>" />
 </form>
 </%def>
+</div>

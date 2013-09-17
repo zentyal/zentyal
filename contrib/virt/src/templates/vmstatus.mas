@@ -1,0 +1,41 @@
+<%args>
+    $namespace
+    $item
+    $i
+</%args>
+<%init>
+use EBox::Gettext;
+my $status_str;
+my $status_tip_str;
+my $status_class;
+my $model = $item->{model};
+my $name = $item->{name};
+my $id = $item->{id};
+
+if ($item->{running}) {
+    $status_str = __('Running');
+    $status_tip_str = __('The virtual machine is running');
+    $status_class = 'summaryRunning';
+} else {
+    $status_str = __('Stopped');
+    $status_tip_str = __('The virtual machine is not running');
+    $status_class = 'summaryStopped';
+}
+</%init>
+<tr>
+<td class='summaryKey'><% $name %></td>
+<td id='<% $namespace . '_' . $i %>' class='summary_value'>
+<span title='<% $status_tip_str %>' class='sleft'><% $status_str %></span>
+<form>
+    <span class='sright'>
+% if ($item->{running}) {
+        <input class="btn-dashboard btn-stop" type="submit" name="stop" value="<% __('Stop') %>"
+               onclick="<% $model->customActionClickedJS('stop', $id) %>; return false;"/>
+% } else {
+        <input class="btn-dashboard btn-start" type="submit" name="start" value="<% __('Start') %>"
+               onclick="<% $model->customActionClickedJS('start', $id) %>; return false;"/>
+% }
+    </span>
+</form>
+</td>
+</tr>

@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::SysInfo;
+use EBox::Sudo;
 
 use Error qw(:try);
 
@@ -50,40 +51,47 @@ sub _process
         $qaUpdates = $rs->subscriptionLevel() > 0;
     }
 
-    my $updatesStr  = __('No updates');
+    my $updatesStr = __('No updates');
     my $updatesType = 'good';
+
     if ($qaUpdates) {
         my $msg = $self->_secureMsg();
         $updatesStr = qq{<a title="$msg">$updatesStr</a>};
-    } else {
-        my $onlyComp = 0;
-        # [ updates, sec_updates]
-        my $updates = EBox::Util::Software::upgradablePkgsNum();
-        if ( $updates->[1] > 0 ) {
-            $updatesType = 'error';
-            $updatesStr = __x('{n} security updates', n => $updates->[1]);
-        } elsif ( $updates->[0] > 0 ) {
+    } elsif (not $ignore) {
+        my $msg = $self->_commercialMsg();
+
+        # This fixes wrong information of apt-check
+        EBox::Sudo::silentRoot('dpkg --clear-avail');
+
+        my ($nUpdates, $nSecurity) = @{EBox::Util::Software::upgradablePkgsNum()};
+        my $softwareInstalled = EBox::Global->modExists('software');
+        my $defaultURL = EBox::SysInfo->UPDATES_URL();
+
+        if ($nUpdates) {
+            $updatesStr = '';
             $updatesType = 'warning';
-            $updatesStr = __x('{n} system updates', n => $updates->[0]);
+            my $nSystem = $nUpdates;
+
             my $pkgsToUpgrade = EBox::Util::Software::upgradablePkgs();
-            my $nonCompNum = grep { $_ !~ /^zentyal-/ } @{$pkgsToUpgrade};
-            if ( $nonCompNum == 0 ) {
-                # Only components, then show components
-                $updatesStr = __x('{n} component updates', n => $updates->[0]);
-                $onlyComp = 1;
+            my $nZentyal = grep { $_ =~ /^zentyal-/ } @{$pkgsToUpgrade};
+            if ($nZentyal) {
+                $nSystem -= $nZentyal;
+                my $href = $softwareInstalled ? '/Software/EBox#update' : $defaultURL;
+                $updatesStr .= qq{<a href="$href" title="$msg">} . __x('{n} component updates', n => $nZentyal) . '</a>';
+                if ($nSystem) {
+                    $updatesStr .= ', ';
+                }
             }
-        }
-        my $href = EBox::SysInfo->UPDATES_URL();
-        if (EBox::Global->modExists('software')) {
-            if ($onlyComp) {
-                $href = '/Software/EBox#update';
-            } else {
-                $href = '/Software/Updates';
+
+            if ($nSystem) {
+                my $href = $softwareInstalled ? '/Software/Updates' : $defaultURL;
+                $updatesStr .= qq{<a href="$href" title="$msg">} . __x('{n} system updates', n => $nSystem);
+                if ($nSecurity) {
+                    $updatesType = 'error';
+                    $updatesStr .= ' ' . __x('({n} security)', n => $nSecurity);
+                }
+                $updatesStr .= '</a>';
             }
-        }
-        unless ($ignore) {
-            my $msg = $self->_commercialMsg();
-            $updatesStr = qq{<a href="$href" title="$msg">$updatesStr</a>};
         }
     }
 
@@ -96,7 +104,7 @@ sub _process
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
+    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Small Business or Enterprise Edition: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
 }
 
 sub _secureMsg

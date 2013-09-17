@@ -388,16 +388,27 @@ sub clearCache
 # Class method
 sub _ldap
 {
-    return __PACKAGE__->_usersMod()->ldap();
+    my ($class) = @_;
+    return $class->_ldapMod()->ldap();
 }
 
-
-sub _usersMod
+# Method _ldapMod
+#
+#   Return the Module implementation that calls this method (Either users or samba).
+#
+sub _ldapMod
 {
     my ($class) = @_;
 
+    return $class->_usersMod();
+
+}
+
+# Method _usersMod
+sub _usersMod
+{
     if (not $_usersMod) {
-        $_usersMod = EBox::Global->getInstance(0)->modInstance('users');
+        $_usersMod = EBox::Global->modInstance('users');
     }
 
     return $_usersMod;
@@ -512,11 +523,11 @@ sub children
     };
 
     my $result = $self->_ldap->search($attrs);
-    my $usersMod = $self->_usersMod();
+    my $ldapMod = $self->_ldapMod();
 
     my @objects = ();
     foreach my $entry ($result->entries) {
-        my $object = $usersMod->entryModeledObject($entry);
+        my $object = $ldapMod->entryModeledObject($entry);
 
         push (@objects, $object) if ($object);
     }
@@ -543,13 +554,13 @@ sub parent
 {
     my ($self) = @_;
     my $dn = $self->dn();
-    my $usersMod = $self->_usersMod();
+    my $ldapMod = $self->_ldapMod();
 
-    my $defaultNamingContext = $usersMod->defaultNamingContext();
+    my $defaultNamingContext = $ldapMod->defaultNamingContext();
     return undef if ($dn eq $defaultNamingContext->dn());
 
     my $parentDn = $self->baseDn($dn);
-    my $parent = $usersMod->objectFromDN($parentDn);
+    my $parent = $ldapMod->objectFromDN($parentDn);
 
     if ($parent) {
         return $parent;
@@ -566,8 +577,8 @@ sub relativeDN
 {
     my ($self) = @_;
 
-    my $usersMod = $self->_usersMod();
-    return $usersMod->relativeDN($self->dn());
+    my $ldapMod = $self->_ldapMod();
+    return $ldapMod->relativeDN($self->dn());
 }
 
 1;
