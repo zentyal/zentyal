@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing use statement in EBox::Types::MultiStateAction
 3.1.12
 	+ Do not crash if /etc/timezone does not exist
 	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of

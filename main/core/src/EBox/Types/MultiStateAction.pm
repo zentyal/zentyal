@@ -17,6 +17,8 @@ use warnings;
 
 package EBox::Types::MultiStateAction;
 
+use EBox::Types::Action;
+
 sub new
 {
     my $class = shift;
