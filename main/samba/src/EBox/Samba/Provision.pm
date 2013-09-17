@@ -535,6 +535,7 @@ sub provisionDC
     } otherwise {
         my ($error) = @_;
         $self->setProvisioned(0);
+        $self->setProvisioning(0);
         $self->setupDNS();
         throw $error;
     } finally {
