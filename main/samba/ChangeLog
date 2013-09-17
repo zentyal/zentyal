@@ -1,5 +1,7 @@
 3.2
 	+ Set version to 3.2
+	+ Fixed provisioning flag also in DC mode
+	+ Do not automatically start service in LDB.pm
 	+ Added missing EBox::Gettext uses
 	+ Prevent member sync between Domain Users and __USERS__ both are handled
 	  automatically.
