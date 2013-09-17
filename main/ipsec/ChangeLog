@@ -1,3 +1,6 @@
+HEAD
+	+ Removed ipsec_setup.pid from the list of pids related with ipsec because
+	  it doesn't need to be running all the time.
 2.2.1
 	+ Added ipsec_setup.pid to the list of pids related with ipsec.
 	+ Deleted confkey copied from VPN module
