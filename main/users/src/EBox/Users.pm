@@ -468,6 +468,14 @@ sub _migrateTo32
         }
     }
 
+    # Add all users as members of __USERS__ so appear as members on LDAP and not just members because the gid is the one
+    # for __USERS__.
+    my $usersGroup = new EBox::Users::Group(gid => DEFAULTGROUP);
+    for my $user (@{$usersGroup->usersNotIn(1)}) {
+        $usersGroup->addMember($user, 1);
+    }
+    $usersGroup->save();
+
     $self->_overrideDaemons() if $self->configured();
 }
 

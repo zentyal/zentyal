@@ -287,17 +287,24 @@ sub _membersToZentyal
 
     return unless ($zentyalGroup and $zentyalGroup->exists());
 
-    my $gid = $self->get('samAccountName');
-    my $sambaMembersList = $self->members();
-    my $zentyalMembersList = $zentyalGroup->members();
-
     my $sambaMod = $self->_sambaMod();
-    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
-    my %sambaMembers;
     my $domainSID = $sambaMod->ldb()->domainSID();
     my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
     my $domainAdminSID = "$domainSID-500";
+
+    if ($domainUsersSID eq $self->sid()) {
+        # Domain Users group is handled automatically by Samba, no need to sync the members
+        EBox::debug("Ignored the syncronization between 'Domain Users' and '__USERS__'");
+        return;
+    }
+
+    my $gid = $self->get('samAccountName');
+    my $sambaMembersList = $self->members();
+    my $zentyalMembersList = $zentyalGroup->members();
+
+    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
+    my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or

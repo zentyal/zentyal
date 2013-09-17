@@ -1,3 +1,6 @@
+HEAD
+	+ Prevent member sync between Domain Users and __USERS__ both are handled
+	  automatically.
 3.1.13
 	+ Improve samba daemon startup wait condition
 	+ Improve GPO code to be more robust.
