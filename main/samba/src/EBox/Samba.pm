@@ -492,6 +492,11 @@ sub _services
                 'destinationPort' => '636',
                 'description' => 'LDAP over TLS/SSL',
             },
+            { # unknown???
+                'protocol' => 'tcp',
+                'sourcePort' => 'any',
+                'destinationPort' => '1024',
+            },
             { # msft-gc
                 'protocol' => 'tcp',
                 'sourcePort' => 'any',
