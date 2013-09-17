@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2013-07-01 20:01+0200\n"
-"Last-Translator: Daniel <daniel@stoni.ch>\n"
+"PO-Revision-Date: 2013-09-15 09:30+0200\n"
+"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -15729,7 +15729,7 @@ msgstr "Eine virtuelle Domäne hinzufügen"
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:66
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:127
 msgid "External mail accounts"
-msgstr "Extnere Mail-Konten"
+msgstr "Externe Mail-Konten"
 
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:83
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:69
@@ -15940,7 +15940,7 @@ msgstr "Sicherer IMAPS-Dienst aktiviert"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:83
 msgid "Retrieve mail for external accounts"
-msgstr "E-Mails von externem Mailkonto abholen"
+msgstr "E-Mails von externen Mail-Konto abholen"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:85
 #, fuzzy
@@ -16389,9 +16389,8 @@ msgid "External account {acc} added"
 msgstr "Externes Konto hinzugefügt"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
-#, fuzzy
 msgid "External mail account"
-msgstr "Extnere Mail-Konten"
+msgstr "Externe Mail-Konten"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:59
 #, fuzzy, perl-brace-format
@@ -20452,9 +20451,10 @@ msgstr "Externes Konto löschen"
 msgid "Don't delete retrieved mail from external server"
 msgstr "Mail-Abruf von externen Accounts"
 
+# Andere Übersetzung ist in dem Kontext irreführend, gemeint ist hier "Alle Nachrichten holen" sonst werden nur die neuen Mails abgeholt.
 #: ../../main/mail/src/templates/externalAccounts.mas:19
 msgid "Fetch already read messages"
-msgstr "Nur gelesene Nachrichten holen"
+msgstr "Alle Nachrichten abholen"
 
 #: ../../main/mail/src/templates/externalAccounts.mas:26
 #, perl-brace-format
@@ -20621,7 +20621,7 @@ msgstr "Wählen Sie den Server-Typ aus"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
 msgid "Connect with external Active Directory server"
-msgstr ""
+msgstr "Verbinde mit externem Active Directory server"
 
 #: ../../main/users/src/templates/wizard/users.mas:34
 msgid "Select the domain name of the server"
@@ -20740,9 +20740,8 @@ msgid "User groups"
 msgstr "Benutzergruppen"
 
 #: ../../main/users/src/templates/edituser.mas:120
-#, fuzzy
 msgid "This user is not member of any group"
-msgstr "keine Gruppenmitglieder"
+msgstr "Dieser Benutzer ist keiner Gruppe zugeteilt"
 
 #: ../../main/users/src/templates/delgroup.mas:10
 #: ../../main/users/src/templates/delgroup.mas:27
@@ -20782,9 +20781,8 @@ msgid "Optional value"
 msgstr "Zusätzliche Informationen"
 
 #: ../../main/users/src/templates/addou.mas:7
-#, fuzzy
 msgid "Add Organizational Unit"
-msgstr "Organisationseinheit"
+msgstr "Füge Organisationseinheit hinzu"
 
 #: ../../main/users/src/templates/delcontact.mas:9
 #: ../../main/users/src/templates/delcontact.mas:20
@@ -20811,9 +20809,8 @@ msgstr ""
 
 #: ../../main/users/src/templates/delou.mas:13
 #: ../../main/users/src/templates/delou.mas:20
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Organisationseinheit"
+msgstr "Entferne Organisationseinheit"
 
 #: ../../main/users/src/templates/delou.mas:15
 #, fuzzy

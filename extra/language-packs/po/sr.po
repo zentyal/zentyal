@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-07-06 18:54+0200\n"
+"PO-Revision-Date: 2013-08-16 12:16+0200\n"
 "Last-Translator: Bojan <bojce@ubuntusrbija.org>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
@@ -112,12 +112,10 @@ msgid "Domain Name Address"
 msgstr "Адресе Имена Домена"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
 msgstr "Адресе изузете из кеширања"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
 msgstr "Изузеци кеширања"
 
@@ -128,7 +126,6 @@ msgid "domain name address"
 msgstr "адресе имена домена"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
 msgstr "Можете изузети неке адресе из кеширања"
 
@@ -2815,9 +2812,9 @@ msgstr ""
 "заштитног зида"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "Упиши у дневник нове преусмерене конекције"
+msgstr "Упиши у дневник нове преусмерене конекције {log}"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
 msgid "List of forwarded ports"
@@ -3081,13 +3078,12 @@ msgid "Application based service group"
 msgstr "Група сервиса базираних на програму"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:596
-#, fuzzy
 msgid "Based on Firewall"
-msgstr "Заштитни зид"
+msgstr "Базиран на Заштитном зиду"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:600
 msgid "Prioritize small control packets"
-msgstr ""
+msgstr "Дати приоритет малим контролним пакетима"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:615
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:208
@@ -3206,9 +3202,8 @@ msgid "Interface Rates"
 msgstr "Брзине интерфејса"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:408
-#, fuzzy
 msgid "filterType"
-msgstr "филтер"
+msgstr "filterType"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:412
 #, perl-brace-format
@@ -3906,11 +3901,11 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/services/src/EBox/Services.pm:621
 msgid "Network"
-msgstr ""
+msgstr "Мрежа"
 
 #: ../../main/software/src/EBox/Software.pm:57
 msgid "Software Management"
-msgstr ""
+msgstr "Управљање Софтвером"
 
 #: ../../main/software/src/EBox/Software.pm:467
 msgid ""
@@ -3932,11 +3927,11 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software.pm:660
 msgid "Zentyal Components"
-msgstr ""
+msgstr "Zentyal Компоненте"
 
 #: ../../main/software/src/EBox/Software.pm:662
 msgid "System Updates"
-msgstr ""
+msgstr "Системска Ажурирања"
 
 #: ../../main/software/src/EBox/Software.pm:913
 #, perl-brace-format
@@ -4085,7 +4080,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/Updates.pm:33
 msgid "System updates"
-msgstr ""
+msgstr "Системска ажурирања"
 
 #: ../../main/software/src/EBox/Software/CGI/Updates.pm:60
 msgid "The system components are up to date."
@@ -4097,7 +4092,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/Config.pm:40
 msgid "Automatic software updates"
-msgstr ""
+msgstr "Аутоматско ажурирање софтвера"
 
 #: ../../main/software/src/EBox/Software/CGI/EBox.pm:33
 msgid "Choose Zentyal packages to install"
@@ -4105,7 +4100,7 @@ msgstr ""
 
 #: ../../main/software/src/EBox/Software/CGI/EBox.pm:37
 msgid "Zentyal components"
-msgstr ""
+msgstr "Zentyal компоненте"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:92
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1491
@@ -4171,13 +4166,13 @@ msgstr "Регистрација сервера"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
-msgstr ""
+msgstr "Техничка Подршка"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:439
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
 msgid "Security Updates"
-msgstr ""
+msgstr "Сигурносна Ажурирања"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:446
 #: ../../main/ebackup/src/EBox/EBackup.pm:874
@@ -4797,9 +4792,8 @@ msgid "Inexistent backup: {n}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:439
-#, fuzzy
 msgid "Configuration backup upload corrupted"
-msgstr "Бекап конфигурације омогућен"
+msgstr "Отпремање бекап конфигурације је корумпирано"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:440
 msgid "Try the upload again"
@@ -5807,9 +5801,8 @@ msgid "You are not logged in"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:59
-#, fuzzy
 msgid "User quota set"
-msgstr "Корисничка квота"
+msgstr "Корисничка квота подешена"
 
 #: ../../main/pptp/src/EBox/PPTP/Model/Users.pm:117
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:85
@@ -6029,9 +6022,8 @@ msgid "edit row"
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:176
-#, fuzzy
 msgid "remove row"
-msgstr "уклони доле"
+msgstr "уклони ред"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:186
 msgid "exclude path"
@@ -6778,9 +6770,8 @@ msgstr ""
 # #-#-#-#-#  sr.po (ebox-ids 1.3.12)  #-#-#-#-#
 # Omogućen
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:212
-#, fuzzy
 msgid "Enabled flag"
-msgstr "Укључен"
+msgstr "Укључена заставица"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
 #, perl-brace-format
@@ -7154,28 +7145,28 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network.pm:3964
 msgid "down"
-msgstr ""
+msgstr "оборен"
 
 #: ../../main/network/src/EBox/Network.pm:3969
 #: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
-msgstr "горе"
+msgstr "подигнут"
 
 #: ../../main/network/src/EBox/Network.pm:3974
 msgid "external"
-msgstr ""
+msgstr "спољни"
 
 #: ../../main/network/src/EBox/Network.pm:3976
 msgid "internal"
-msgstr ""
+msgstr "интерни"
 
 #: ../../main/network/src/EBox/Network.pm:3982
 msgid "link ok"
-msgstr ""
+msgstr "линк је ок"
 
 #: ../../main/network/src/EBox/Network.pm:3984
 msgid "no link"
-msgstr ""
+msgstr "нема линка"
 
 #: ../../main/network/src/EBox/Network.pm:3993
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:110
@@ -7197,16 +7188,16 @@ msgstr "Статус"
 
 #: ../../main/network/src/EBox/Network.pm:4019
 msgid "Tx bytes"
-msgstr ""
+msgstr "Tx bajtovi"
 
 #: ../../main/network/src/EBox/Network.pm:4029
 msgid "Rx bytes"
-msgstr ""
+msgstr "Rx bajtovi"
 
 #: ../../main/network/src/EBox/Network.pm:4040
 #: ../../main/network/src/EBox/Network/CGI/Ifaces.pm:29
 msgid "Network Interfaces"
-msgstr ""
+msgstr "Мрежни интерфејси"
 
 #: ../../main/network/src/EBox/Network.pm:4064
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
@@ -7216,20 +7207,20 @@ msgstr "Интерфејси"
 
 #: ../../main/network/src/EBox/Network.pm:4068
 msgid "Gateways"
-msgstr ""
+msgstr "Мрежни пролази"
 
 #: ../../main/network/src/EBox/Network.pm:4076
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:211
 msgid "Static Routes"
-msgstr ""
+msgstr "Статичке Руте"
 
 #: ../../main/network/src/EBox/Network.pm:4080
 msgid "Dynamic DNS"
-msgstr ""
+msgstr "Динамички ДНС"
 
 #: ../../main/network/src/EBox/Network.pm:4084
 msgid "Tools"
-msgstr ""
+msgstr "Алати"
 
 #: ../../main/network/src/EBox/NetworkUtil.pm:54
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:294
@@ -7266,7 +7257,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:70
 #: ../../main/network/src/templates/wizard/network.mas:77
 msgid "Gateway"
-msgstr ""
+msgstr "Мрежни пролаз"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:77
 msgid "Gateways for Traffic Balance"
@@ -7275,7 +7266,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:84
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:224
 msgid "gateway"
-msgstr ""
+msgstr "мрежни пролаз"
 
 #: ../../main/network/src/EBox/Network/Model/BalanceGateways.pm:85
 msgid "Here you can choose which gateways are used to balance the traffic"
@@ -7359,11 +7350,11 @@ msgstr ""
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralOpts.pm:98
 #: ../../main/ltsp/src/EBox/LTSP/Model/GeneralClientOpts.pm:62
 msgid "Default"
-msgstr ""
+msgstr "Подразумевани"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:206
 msgid "Gateways List"
-msgstr ""
+msgstr "Листа Мрежних пролаза"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:222
 msgid ""
@@ -7768,9 +7759,8 @@ msgstr ""
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:274
 #: ../../main/users/src/EBox/Users.pm:98
-#, fuzzy
 msgid "Users and Computers"
-msgstr "корисник и лозинка"
+msgstr "Корисници и Рачунари"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:315
 msgid "User Corner web server"
@@ -7926,9 +7916,8 @@ msgid "Cannot pause a stopped machine. You have to start it first."
 msgstr ""
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:453
-#, fuzzy
 msgid "Remove virtual machine"
-msgstr "виртуелна машина"
+msgstr "Уклони виртуелну машину"
 
 #: ../../main/virt/src/EBox/Virt/Model/VirtualMachines.pm:454
 msgid ""
@@ -8103,14 +8092,12 @@ msgid "Virtual Machine Settings"
 msgstr "Подешавање Виртуалне машине"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:527
-#, fuzzy
 msgid "Windows Vista | Windows 2008 or newer"
-msgstr "Windows Vista или новије"
+msgstr "Windows Vista | Windows 2008 или новије"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:528
-#, fuzzy
 msgid "Windows XP | Windows 2003 or older"
-msgstr "Windows 2003 или старије"
+msgstr "Windows XP | Windows 2003 или старије"
 
 #: ../../main/virt/src/EBox/Virt/Libvirt.pm:529
 msgid "Linux"
@@ -8174,7 +8161,7 @@ msgstr ""
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:979
 msgid "DHCP"
-msgstr ""
+msgstr "ДХЦП"
 
 #: ../../main/dhcp/src/EBox/DHCP.pm:1091
 msgid "DHCP leases"
@@ -9523,14 +9510,12 @@ msgid "Alert"
 msgstr "Упозорење"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Нема нових ажурирања"
+msgstr "ИПС Ажурирање Правила"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Неуспешно"
+msgstr "Разлог неуспешности"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:401
@@ -9655,14 +9640,12 @@ msgid "Jabber account enabled with administration rights"
 msgstr ""
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
-#, fuzzy
 msgid "Jabber account enabled"
-msgstr "Jabber налог"
+msgstr "Jabber налог омогућен"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
-#, fuzzy
 msgid "Jabber account disabled"
-msgstr "Jabber налог"
+msgstr "Jabber налог онемогућен"
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:60
 msgid "Jabber account"
@@ -9765,47 +9748,43 @@ msgid "Group Policy Objects"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:66
-#, fuzzy
 msgid "group policy object"
-msgstr "Изворни објекат"
+msgstr "објекат полисе групе"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:126
-#, fuzzy
 msgid "User configuration disabled"
-msgstr "{server} конфигурациони документ"
+msgstr "Корисничко подешавање онемогућено"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:127
-#, fuzzy
 msgid "Computer configuration disabled"
-msgstr "Конфигурациона датотека филтера садржаја"
+msgstr "Подешавање рачунара онемогућено"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:128
 msgid "All settings disabled"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:149
-#, fuzzy
 msgid "GPO successfully created"
-msgstr "Лозинка је успешно ажурирана"
+msgstr "ГПО успешно креиран"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:171
 msgid "This is a system critical object and cannot be removed."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} removed"
-msgstr "ОЈ {ou} уклоњена"
+msgstr "ГПО {gpo} уклоњен"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {dn} not found"
-msgstr "Страница није пронађена"
+msgstr "ГПО {dn} није пронађен"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:207
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} updated"
-msgstr "{row} ажуриран"
+msgstr "ГПО {gpo} ажуриран"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:261
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:131
@@ -9851,13 +9830,12 @@ msgid "Source MSI package path"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:61
-#, fuzzy
 msgid "Software Installation"
 msgstr "Инсталирај апликацију"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:64
 msgid "software package"
-msgstr ""
+msgstr "софтверски пакет"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:138
 msgid "No shares"
@@ -10044,18 +10022,16 @@ msgid "Script type"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:51
-#, fuzzy
 msgid "Parameters"
-msgstr "Params"
+msgstr "Параметри"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:76
 msgid "Scripts"
-msgstr ""
+msgstr "Скрипте"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:77
-#, fuzzy
 msgid "script"
-msgstr "Опис"
+msgstr "скрипта"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:93
 msgid "Batch"
@@ -10195,9 +10171,8 @@ msgid "User: {u}"
 msgstr "Корисник: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:39
-#, fuzzy
 msgid "User Configuration"
-msgstr "Конфигурација"
+msgstr "Корисничка Конфигурација"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:40
 msgid ""
@@ -10206,9 +10181,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:38
-#, fuzzy
 msgid "Computer Configuration"
-msgstr "Конфигурација клијента"
+msgstr "Конфигурација Рачунара"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:40
 msgid ""
@@ -10292,14 +10266,13 @@ msgid "Account name"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:40
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} not found."
-msgstr "Страница није пронађена"
+msgstr "ГПО {x} није пронађен."
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:56
-#, fuzzy
 msgid "GPO not defined"
-msgstr "Страница није пронађена"
+msgstr "ГПО није дефинисан"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:219
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:235
@@ -10455,7 +10428,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:901
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Не могу да преузмем време са АД сервера {x} преко НТП-а."
 
@@ -10552,9 +10525,8 @@ msgid "share name"
 msgstr "име дељења"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:55
-#, fuzzy
 msgid "Group share renamed"
-msgstr "име дељења"
+msgstr "Преименовано групно дељење"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:57
 msgid "Group share added"
@@ -10565,9 +10537,8 @@ msgid "Group share removed"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:65
-#, fuzzy
 msgid "Group share set"
-msgstr "Групни ред"
+msgstr "Групно дељење подешено"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:375
 msgid "Windows group names cannot be only spaces, numbers and dots"
@@ -10578,9 +10549,8 @@ msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/User.pm:418
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr "Поље не сме садржати једино празне карактере"
+msgstr "Windows корисничка имена не смеју садржати \"@\" карактер."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:429
 #: ../../main/users/src/EBox/Users/User.pm:802
@@ -12207,7 +12177,7 @@ msgstr "{model} у {module} модул"
 #: ../../main/core/src/templates/ajax/tableModal.mas:164
 #: ../../main/mail/src/templates/externalAccounts.mas:42
 msgid "Add new"
-msgstr ""
+msgstr "Додај ново"
 
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:246
 msgid "Configure Events"
@@ -12474,7 +12444,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:77
 msgid "Language selection"
-msgstr ""
+msgstr "Одабир језика"
 
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:81
 msgid "New language selected, save changes to commit"
@@ -12795,7 +12765,7 @@ msgstr "Основна верзија"
 
 #: ../../main/core/src/EBox/SysInfo.pm:325
 msgid "Software"
-msgstr ""
+msgstr "Апликације"
 
 #: ../../main/core/src/EBox/SysInfo.pm:325
 msgid "Checking updates..."
@@ -13140,6 +13110,8 @@ msgstr ""
 msgid ""
 "You will probably have to restart some services after changing the time zone."
 msgstr ""
+"Вероватно ћете морати да поново покренете неке сервисе након промене "
+"временске зоне."
 
 #: ../../main/core/src/EBox/SysInfo/Model/TimeZone.pm:59
 #: ../../main/core/src/EBox/Types/TimeZone.pm:55
@@ -13150,6 +13122,7 @@ msgstr "Временска зона"
 msgid ""
 "A change in the date or time will cause all Zentyal services to be restarted."
 msgstr ""
+"Промена датума или времена изазваће поновно покретање свих Zentyal сервиса."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:63
 msgid "The date and time was changed successfully."
@@ -13157,13 +13130,15 @@ msgstr "Датум и време су успешно промењени."
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:68
 msgid "Date and time"
-msgstr ""
+msgstr "Датум и време"
 
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:89
 msgid ""
 "As the NTP synchronization with external servers is enabled, you cannot "
 "change the date or time."
 msgstr ""
+"Како је НТП синхронизација са спољним серверима омогућена, не можете мењати "
+"датум или време."
 
 #: ../../main/core/src/EBox/SysInfo/Model/AdminUser.pm:47
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:38
@@ -13217,7 +13192,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:60
 msgid "Hostname and Domain"
-msgstr ""
+msgstr "Име домаћина и Домен"
 
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:76
 msgid "Change hostname"
@@ -16407,14 +16382,13 @@ msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
 #: ../../main/users/src/EBox/Users.pm:1800
-#, fuzzy
 msgid "Manage"
-msgstr "Само управљање"
+msgstr "Управљање"
 
 #: ../../main/users/src/EBox/Users.pm:1803
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
-msgstr ""
+msgstr "Кориснички Шаблон"
 
 #: ../../main/users/src/EBox/Users.pm:1807
 msgid "Synchronization"
@@ -16423,7 +16397,7 @@ msgstr "Синхронизација"
 #: ../../main/users/src/EBox/Users.pm:1811
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
-msgstr ""
+msgstr "ЛДАП Подешавање"
 
 #: ../../main/users/src/EBox/Users.pm:1815
 msgid "Configure mode"
@@ -17300,7 +17274,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:148
 msgid "View advanced mode"
-msgstr ""
+msgstr "Видети напредни мод"
 
 #: ../../main/software/src/templates/ebox.mas:150
 msgid "Server roles"
@@ -17312,7 +17286,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:354
 msgid "View basic mode"
-msgstr ""
+msgstr "Видети основни мод"
 
 #: ../../main/software/src/templates/ebox.mas:467
 #: ../../main/software/src/templates/updates.mas:137
@@ -17357,7 +17331,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:9
 msgid "Perform automatic software updates"
-msgstr ""
+msgstr "Уради аутоматско ажурирање софтвера"
 
 #: ../../main/software/src/templates/config.mas:15
 msgid "Zentyal is configured to use automatic QA updates"
@@ -17365,7 +17339,7 @@ msgstr ""
 
 #: ../../main/software/src/templates/config.mas:29
 msgid "Automatic operations start time"
-msgstr ""
+msgstr "Почетно време аутоматских операција"
 
 #: ../../main/software/src/templates/del.mas:69
 msgid "Confirm packages to install"
@@ -18388,7 +18362,7 @@ msgstr "Децембар"
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:89
 msgid "Add new..."
-msgstr ""
+msgstr "Додај нов..."
 
 #: ../../main/core/src/templates/ajax/setter/selectSetter.mas:144
 msgid "No elements found. "

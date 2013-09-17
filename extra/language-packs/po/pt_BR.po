@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-07-31 17:34+0200\n"
-"Last-Translator: Jorge <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2013-09-17 15:55+0200\n"
+"Last-Translator: Wanderson Carlos <force3@ig.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -110,14 +110,12 @@ msgid "Domain Name Address"
 msgstr "Endereço do Domínio"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Exclui domínio do caching"
+msgstr "Exclui endereço da Autenticação e Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Isenções de cache"
+msgstr "Exceção de autenticação e cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -126,15 +124,14 @@ msgid "domain name address"
 msgstr "endereço do domínio"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Você pode isentar alguns domínios do caching"
+msgstr "Você pode isentar alguns domínios de autenticação e cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
 msgid "Address added"
-msgstr "Endereço acrescentado"
+msgstr "Endereço adicionado"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
@@ -178,7 +175,7 @@ msgstr "Objeto de Rede"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:65
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:114
 msgid "Users Group"
-msgstr "Grupo do Usuário"
+msgstr "Grupo de Usuários"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -213,21 +210,21 @@ msgstr "Decisão"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
-msgstr "Permitir todos"
+msgstr "Permitir Todos"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:89
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
-msgstr "Negar todos"
+msgstr "Negar Todos"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:93
 msgid "Apply Filter Profile"
-msgstr "Aplicar Perfil de Filtro"
+msgstr "Aplicar Filtro de Perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:106
 #: ../../main/squid/src/EBox/Squid.pm:1061
 msgid "Access Rules"
-msgstr "Regras de acesso"
+msgstr "Regras de Acesso"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:114
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:197
@@ -251,7 +248,7 @@ msgid ""
 "Rules are only applied during the selected time period."
 msgstr ""
 "Aqui você pode filtrar, bloquear ou permitir o acesso por grupo de usuários "
-"ou objeto de rede. As regras são aplicadas apenas durante o período "
+"ou objeto de rede. As regras só são aplicadas durante o período de tempo "
 "selecionado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:132
@@ -265,7 +262,7 @@ msgstr "Todos os usuários"
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
-"Controle de origem por grupos de usuários não é compatível com o modo de "
+"Origem correspondente por grupo de usuário não é compatível com o modo de "
 "proxy transparente"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:310
@@ -273,12 +270,16 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Você não pode adicionar regra de  'Permissão' ou 'Perfil' para um objeto ou "
+"endereço se você tem regras de grupo definidas"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Você não pode adicionar uma regra baseada em grupo se você tem regra de "
+"'Permissão' ou 'Perfil' para objetos ou endereços"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:325
 #, perl-brace-format
@@ -286,6 +287,8 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"O período de tempo da regra ({t1}) coincide com período de tempo ({t2}) de "
+"outra regra para o mesmo {sourceType}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
@@ -391,7 +394,7 @@ msgstr "Proxy Transparente"
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:58
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Habilitar Single Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
@@ -439,10 +442,8 @@ msgstr ""
 "usuários encontrada em algumas regras de acesso."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
-msgstr ""
-"Opção de proxy transparente não é compatível com a política de autorização"
+msgstr "O proxy transparente é incompatível com a autenticação Kerberos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -751,12 +752,12 @@ msgid "Filtering settings changed"
 msgstr "Configurações de filtro alteradas"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
-"Objeto {object} não tem membros. Por favor, adicione pelo menos um para "
-"adicionar regras usando este objeto."
+"Objeto {object} não tem membros. Adicione pelo menos um para usar este "
+"objeto."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""
@@ -958,19 +959,16 @@ msgid "Access requests"
 msgstr "Requisições de acesso"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
-#, fuzzy
 msgid "Category"
-msgstr "categoria"
+msgstr "Categoria"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
-#, fuzzy
 msgid "List File"
-msgstr "Escutar"
+msgstr "Listar Arquivo"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
-msgstr "Lista Presente"
+msgstr "Arquivo Presente"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
 msgid "Domain categories"
@@ -1087,14 +1085,12 @@ msgid "HTTP proxy traffic report"
 msgstr "Relatório de tráfego do proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:76
-#, fuzzy
 msgid "HTTP proxy access rules"
-msgstr "Arquivos de cache do Proxy HTTP"
+msgstr "Regras de acesso do proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
-#, fuzzy
 msgid "Supplied file is not a archive file"
-msgstr "Arquivo inexistente"
+msgstr "Arquivo fornecido não é válido"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
@@ -1219,19 +1215,16 @@ msgid "The time period must be at least active on one day"
 msgstr "O período de tempo deve estar ativo em pelo menos um dia"
 
 #: ../../main/squid/src/EBox/Squid.pm:202
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
 msgstr "Arquivo de configuração do proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:207
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
 msgstr "Arquivo de configuração do proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid.pm:212
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "Configuração de rotação de logs do Dansguardian"
+msgstr "Configuração de rotação de logs do proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:217
 msgid "Content filter configuration file"
@@ -1327,7 +1320,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:331
 msgid "Override squid upstart job"
-msgstr ""
+msgstr "Sobrepor tarefa de início do proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:332
 #: ../../main/squid/src/EBox/Squid.pm:338 ../../main/dns/src/EBox/DNS.pm:526
@@ -1546,19 +1539,16 @@ msgstr ""
 "vá para o Módulo de Autoridade de Certificação e criar novos certificados"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:338
-#, fuzzy
 msgid "revoked"
-msgstr "Revogado"
+msgstr "revogado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "expired"
-msgstr "Expirado"
+msgstr "expirado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "invalid"
-msgstr "Válido"
+msgstr "inválido"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
 #, perl-brace-format
@@ -1567,6 +1557,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Não é possivel criar um servidor chamado {name} porque já existe um "
+"certificado chamado  {certName} com o estado {state}.<br/>Escolha outro nome "
+"ou renomeie o certificado {certName}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:362
 #, perl-brace-format
@@ -1626,9 +1619,8 @@ msgid "Network Address Translation"
 msgstr "Tradução de Endereços de Rede (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
-msgstr "Ative se esta VPN é usada para se conectar a outro Zentyal"
+msgstr "Habilite se este servidor VPN não é o gateway padrão"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -1652,12 +1644,14 @@ msgstr "Senha do túnel Zentyal-para-Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Rejeitar rotas colocada pelos túneis dos clientes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Quando marcado este servidor não irá levar em consideração qualquer rota "
+"propagada por clientes"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
@@ -1977,13 +1971,12 @@ msgstr ""
 "configurado; por favor complete a configuração e tente novamente"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Lista das Redes Publicadas"
+msgstr "Lista de redes propagada para o servidor túnel"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
-msgstr ""
+msgstr "Rota propagada por clientes sobre uma interface TUN não é suportada"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client/ValidateCertificate.pm:46
 #, perl-brace-format
@@ -2300,7 +2293,7 @@ msgstr ""
 "prefixo {pf}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1256
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
 msgstr "O cliente {c} não existe"
 
@@ -2638,14 +2631,13 @@ msgid "Configure Rules"
 msgstr "Configurar regras"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:227
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "'Any' {addr} cannot have a inverse march"
-msgstr "'qualquer serviço' não pode ter uma correspondência inversa"
+msgstr "'Qualquer' {addr} não pode ter uma correspondência inversa"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:244
-#, fuzzy
 msgid "'Any' service cannot have a inverse march"
-msgstr "'qualquer serviço' não pode ter uma correspondência inversa"
+msgstr "'Qualquer' serviço não pode ter uma correspondência inversa"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:62
 msgid "Packets dropped"
@@ -2820,9 +2812,9 @@ msgstr ""
 "regras restrictivas na firewall"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "Log novas conexões enviado"
+msgstr "Fazer log de novas conexões encaminhadas para {log}"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
 msgid "List of forwarded ports"
@@ -2977,13 +2969,13 @@ msgstr ""
 msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
-msgstr ""
+msgstr "Já existe uma regra de 'priorização de pequenos pacotes' para '{iface}'"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:196
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
-msgstr ""
+msgstr "Já existe uma 'priorização de pequenos pacotes' para todas interfaces"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:264
 #: ../../main/mail/src/EBox/Mail.pm:1387 ../../main/mail/src/EBox/Mail.pm:1394
@@ -2995,6 +2987,8 @@ msgid ""
 "Priorization of small control packages will affect small ACK, SYN, FIN and "
 "RST control packages"
 msgstr ""
+"A priorização de pequenos pacotes de controle afetará pequenos pacotes de "
+"controle ACK, SYN, FIN e RST"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:274
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:181
@@ -3088,13 +3082,12 @@ msgid "Application based service group"
 msgstr "Grupo de serviço baseado em aplicação"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:596
-#, fuzzy
 msgid "Based on Firewall"
-msgstr "Firewall"
+msgstr "Baseado em Firewall"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:600
 msgid "Prioritize small control packets"
-msgstr ""
+msgstr "Priorizar pequenos pacotes de controle"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:615
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:208
@@ -3294,9 +3287,9 @@ msgid "Domain Name Service"
 msgstr "Serviço de Nomes de Domínio"
 
 #: ../../main/dns/src/EBox/DNS.pm:929
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "arquivo de configuração principal {daemon}"
+msgstr "A chave '{key}' no arquivo de configuração {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1689
 msgid "hostname"
@@ -20359,7 +20352,7 @@ msgstr ""
 #: ../../main/users/src/templates/delou.mas:20
 #, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Unidade Organizacional"
+msgstr "Deletar Unidade Organizacional"
 
 #: ../../main/users/src/templates/delou.mas:15
 #, fuzzy
@@ -20377,7 +20370,7 @@ msgstr "Apagar usuário"
 
 #: ../../main/users/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
-msgstr ""
+msgstr "Você não pode deletar um usuário em um escravo."
 
 #: ../../main/users/src/templates/deluser.mas:19
 #, fuzzy

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:25+0200\n"
-"PO-Revision-Date: 2013-06-11 21:07+0200\n"
+"PO-Revision-Date: 2013-09-03 23:48+0200\n"
 "Last-Translator: Josefa <jgonza24@ieslaferreria.net>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ca\n"
@@ -111,14 +111,12 @@ msgid "Domain Name Address"
 msgstr "Adreça del nom de domini"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Adreces que no s'han de desar a la memòria cau"
+msgstr "Adreça exempta de l'Autorització i  de la Memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Excepcions a la memòria cau"
+msgstr "Excepcions a la Memòria cau i Autorització"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -127,9 +125,8 @@ msgid "domain name address"
 msgstr "adreça del nom de domini"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Pot fer que algunes adreces no es guardin a la memòria cau"
+msgstr "Pot excloure algunes adreces de l'Autorització i Memòria cau"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -291,18 +288,20 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"El període temporal de la regla ({t1}) se superposa amb el període temporal "
+"de la regla ({t2}) pel mateix {sourceType}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "Objecte"
+msgstr "Objecte: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:617
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Group: {g}"
-msgstr "Grup"
+msgstr "Grup: {g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:628
 #, perl-brace-format
@@ -378,19 +377,16 @@ msgid "Domain or URL updated"
 msgstr "Domini o URL actualitzat"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Servidor intermediari Transparent"
+msgstr "Ometre Servidor intermediari Transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Servidor intermediari Transparent"
+msgstr "Exempcions del Servidor intermediari Transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
-#, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
-msgstr "Pot fer que algunes adreces no es guardin a la memòria cau"
+msgstr "Pot ometre algunes adreces del servidor intermediari transparent"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:44
 msgid "Transparent Proxy"
@@ -399,7 +395,7 @@ msgstr "Servidor intermediari Transparent"
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:58
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Habilitar Single Sign-On (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
@@ -439,20 +435,18 @@ msgid "Settings changed"
 msgstr "Configuració canviada"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:140
-#, fuzzy
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
 "El servidor intermediari és incompatible amb la política d'autorització "
-"trobada en alguns objectes"
+"trobada en algunes regles d'accés"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
 msgstr ""
-"L'opció del servidor intermediari transparent és incompatible amb la "
-"política d'autorització"
+"L'opció del servidor intermediari transparent és incompatible amb "
+"l'autorització per Kerberos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -465,8 +459,9 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
-"Fixi's que no pot fer servir el servidor intermediari de forma transparent. "
-"Caldrà afegir una regla al tallafocs per habilitar aquest mode."
+"Tingueu en compte que no pot fer servir el servidor intermediari HTTPS de "
+"forma transparent. Es necessitarà afegir una regla al tallafocs si habilita "
+"aquest mode."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:143
@@ -580,7 +575,7 @@ msgstr "Peticions denegades"
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:51
 msgid "Denied traffic size (Kb)"
-msgstr "Volum de trànsit denegat"
+msgstr "Volum de trànsit denegat (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:87
@@ -732,7 +727,7 @@ msgstr "No es permeten espais en els noms de perfils"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "El caràcter  '~' està reservat i no es pot utilitzar en noms de perfil"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -761,22 +756,26 @@ msgid "Filtering settings changed"
 msgstr "Configuració de filtrat canviada"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
-"L'objecte {object} no té membres. Si us plau, afegeixi almenys un per afegir "
-"regles utilitzant aquest objecte."
+"L'objecte {object} no té membres. Si us plau, afegeixi almenys un per "
+"utilitzar aquest objecte."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Si el límit global està habilitat necessita especificar la mida i els valors "
+"de taxa"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:66
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Si el límit per client està habilitat necessita especificar la mida i els "
+"valors de taxa"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:75
 #, perl-brace-format
@@ -784,6 +783,8 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"La taxa per client ({clt_rate} KB/s) no pot ser més gran que la taxa global "
+"({net_rate} KB/s)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:129
 msgid "Network object"
@@ -791,19 +792,17 @@ msgstr "Objecte de xarxa"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:138
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Habilitar el límit global per l'objecte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:145
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Mida il·limitada"
+msgstr "Mida màxims il·limitada"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:146
-#, fuzzy
 msgid "Maximum unthrottled download size for the whole network object."
 msgstr ""
-"Màxima mida de fitxer no limitada per aquesta xarxa. Utilitzi -1 per "
-"desactivar aquesta opció."
+"Mida màxima sense penalització de les descàrregues per a tot objecte de "
+"xarxa. "
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:149
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:173
@@ -812,9 +811,8 @@ msgid "MB"
 msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Ràtio de descàrrega del client"
+msgstr "Taxa màxima de descàrrega"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:155
 msgid ""
@@ -1638,9 +1636,8 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:108
-#, fuzzy
 msgid "TUN interface"
-msgstr "interfície"
+msgstr "interfície TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
@@ -2579,7 +2576,7 @@ msgstr "Gràfica del tràfic de paquets del tallafocs"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficGraph.pm:75
 msgid "Packet traffic"
-msgstr "Tràfic de paquets"
+msgstr "Trànsit de paquets"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:64
 msgid "ACCEPT"
@@ -2695,12 +2692,10 @@ msgid "Internal networks to Zentyal"
 msgstr "Xarxes internes cap a Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:56
-#, fuzzy
 msgid "SNAT address"
-msgstr "Adreça VPN"
+msgstr "Adreça SNAT "
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:64
-#, fuzzy
 msgid "Outgoing interface"
 msgstr "Interfície de sortida"
 
@@ -2752,7 +2747,7 @@ msgstr "Xarxes internes"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:64
 msgid "External networks to internal networks"
-msgstr "Configura les regles predeterminades"
+msgstr "Des de xarxes externes cap a xarxes internes"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:121
 msgid "Contradictory rule found. Remove it first"
@@ -2854,26 +2849,26 @@ msgid ""
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
-"Reemplaça l'adreça d'origen inicial de la connexió amb la direcció de "
-"Zentyal. Això pot ser necessari quan la destinació no te una ruta de retorn "
-"o si té regles restrictives al tallafocs"
+"Reemplaça l'adreça d'origen inicial de la connexió amb  l'adreça de Zentyal. "
+"Això pot ser necessari quan la destinació no té una ruta de retorn o en té "
+"regles restrictives al tallafocs"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "Enregistra les noves conexions redirigides "
+msgstr "Enregistra les noves connexions redirigides en {log}"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
 msgid "List of forwarded ports"
-msgstr "Llistat dels ports redirigits"
+msgstr "Llista de ports redirigits"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:363
 msgid "forwarding"
-msgstr "redirigint"
+msgstr "redirecció"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:64
 msgid "External networks to Zentyal"
-msgstr "Xarxes externes cap a Zentyal"
+msgstr "Des de xarxes externes cap a Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:37
 msgid "Input"
@@ -2894,11 +2889,11 @@ msgstr "Redirecció"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:41
 msgid "NAT prerouting"
-msgstr "pre-enrutat NAT"
+msgstr "Pre-encaminat NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:42
 msgid "NAT postrouting"
-msgstr "post-enrutat NAT"
+msgstr "post-encaminat NAT"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:93
 msgid "Chain creation"
@@ -2938,7 +2933,7 @@ msgstr "Informe del tràfic de paquets"
 
 #: ../../main/firewall/src/EBox/Firewall/Composite/PacketTrafficReport.pm:60
 msgid "Firewall packet traffic report"
-msgstr "Informe del tràfic de paquets del tallafocs"
+msgstr "Informe del trànsit de paquets del tallafocs"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:224
 #, perl-brace-format
@@ -2996,7 +2991,7 @@ msgstr "Índex garantit"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:126
 msgid "Limited rate"
-msgstr "Índex limitat"
+msgstr "Taxa limitada"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:146
 #, perl-brace-format
@@ -3004,13 +2999,12 @@ msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
 "this object"
 msgstr ""
-"L'objecte {object} no te membres. Si us plau, afegeixi'n al menys un per "
-"afegir regles fent servir aquest objecte."
+"L'objecte {object} no té membres. Si us plau, afegeixi'n al menys un per "
+"afegir regles utilitzant aquest objecte."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:163
 msgid "If service is any, some source or destination should be provided"
-msgstr ""
-"Si el servei és qualsevol, s'ha de proporcionar algún orígen o destinació"
+msgstr "Si el servei és qualsevol, s'ha de proporcionar algun origen o destí"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:190
 #, perl-brace-format

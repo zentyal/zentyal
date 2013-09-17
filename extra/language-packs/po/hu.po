@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2012-11-16 04:33+0200\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
+"PO-Revision-Date: 2013-09-04 21:12+0200\n"
+"Last-Translator: adam0428 <adam.szurmay@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -20189,9 +20189,8 @@ msgid "Optional value"
 msgstr "Opcionális érték"
 
 #: ../../main/users/src/templates/addou.mas:7
-#, fuzzy
 msgid "Add Organizational Unit"
-msgstr "Szervezeti egység"
+msgstr "Szervezeti egység hozzáadása"
 
 #: ../../main/users/src/templates/delcontact.mas:9
 #: ../../main/users/src/templates/delcontact.mas:20
@@ -20218,9 +20217,8 @@ msgstr ""
 
 #: ../../main/users/src/templates/delou.mas:13
 #: ../../main/users/src/templates/delou.mas:20
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Szervezeti egység"
+msgstr "Szervezeti egység törlése"
 
 #: ../../main/users/src/templates/delou.mas:15
 #, fuzzy

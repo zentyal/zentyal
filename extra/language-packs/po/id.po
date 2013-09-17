@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-02-13 08:46+0200\n"
-"Last-Translator: nurohman <maman.nurohman@gmail.com>\n"
+"PO-Revision-Date: 2013-08-15 08:39+0200\n"
+"Last-Translator: emresutisna <emresutisna@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
@@ -100,9 +100,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
-"Tidak bisa memakai nama {name} karena telah ada direktori untuk nama ini: "
-"{dir}.\n"
-" Mungkin penghapusan belum dipastikan"
+"Tidak bisa memakai nama {name} karena telah ada direktori menggunakan nama "
+"ini: {dir}.\n"
+"Mungkin proses penghapusan belum selesai"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
@@ -173,7 +173,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
 #: ../../main/core/src/EBox/Events.pm:436
 msgid "Source"
-msgstr "Asal"
+msgstr "Sumber"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 #, fuzzy
@@ -235,9 +235,8 @@ msgstr "Profil Penyaringan"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:106
 #: ../../main/squid/src/EBox/Squid.pm:1061
-#, fuzzy
 msgid "Access Rules"
-msgstr "Permintaan akses"
+msgstr "Hak Akses"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:114
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:197
