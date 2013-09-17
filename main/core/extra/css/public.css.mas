@@ -897,7 +897,6 @@ h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
 
 .stitle {
     color: #4c4c4c;
-    margin: 3px;
     font-weight: bold;
     padding: 1px;
     line-height: 14px;
@@ -1333,31 +1332,19 @@ a.minBox, a.maxBox {
 }
 
 .linksBlock {
-    display: block;
     float: left;
-    width: 170px;
-    margin-right: 12px;
-    margin-bottom: -12px;
+    width: 50%;
 }
-
-.linksTitle {
-    width: 100%;
-    color: #4c4c4c;
-    background-color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-    padding: 3px 4px 3px 4px;
-}
-
 .linksBlock a {
-    color: #03A9F0;
+    color: #00ADD0;
 }
-
+.linksBlock ul {
+    list-style: none ;
+    margin: 0;
+    padding: 0 10px 10px 10px;
+}
 .linksBlock li {
-    list-style: none;
-    margin-bottom: 14px;
-    margin-left: -18px;
-    margin-top: -8px;
+    padding: 3px 0;
 }
 
 
