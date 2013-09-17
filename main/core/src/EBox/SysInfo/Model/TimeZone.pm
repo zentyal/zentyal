@@ -67,8 +67,13 @@ sub _table
 
 sub _getTimezone
 {
-    my $tz = read_file(TZ_FILE);
-    chomp $tz;
+    my $tz;
+    try {
+        $tz = read_file(TZ_FILE);
+        chomp $tz;
+    } otherwise {
+        $tz = 'Etc/UTC';
+    };
     return $tz;
 }
 

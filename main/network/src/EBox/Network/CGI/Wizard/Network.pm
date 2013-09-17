@@ -67,7 +67,7 @@ sub _processWizard
 
     my $interfaces = $net->get_hash('interfaces');
 
-    foreach my $iface ( @{$net->ifaces} ) {
+    foreach my $iface (@{$net->ifaces}) {
         my $method = $self->param($iface . '_method');
 
         if ($method eq 'dhcp') {
@@ -85,32 +85,37 @@ sub _processWizard
             my $gw  = $self->param($iface . '_gateway');
             my $dns1 = $self->param($iface . '_dns1');
             my $dns2 = $self->param($iface . '_dns2');
+
+            EBox::info("Configuring $iface as $addr/$nmask");
             $net->setIfaceStatic($iface, $addr, $nmask, $ext, 1);
 
-            if ($gw ne '') {
+            if ($gw) {
+                EBox::info("Adding gateway $gw for iface $iface");
                 try {
                     my $name      = "gw-$iface";
                     my $defaultGw = $gwModel->size() == 0;
                     $gwModel->add(name      => $name,
                                   ip        => $gw,
-                                  interface => $iface,
                                   weight    => 1,
                                   default   => $defaultGw);
-                }
-                # ignore errors (probably gateway already exists)
-                otherwise {};
+                } otherwise {
+                    my $ex = shift;
+                    EBox::warn("Could not add gateway $gw: $ex");
+                };
             }
 
             my $dnsModel = $net->model('DNSResolver');
-            if ($dns1 ne '') {
-                try {
+            if ($dns1) {
+                unless ($dnsModel->find('nameserver' => $dns1)) {
+                    EBox::info("Adding nameserver $dns1");
                     $dnsModel->add(nameserver => $dns1);
-                } otherwise {};
+                }
             }
-            if ($dns2 ne '') {
-                try {
+            if ($dns2) {
+                unless ($dnsModel->find('nameserver' => $dns2)) {
+                    EBox::info("Adding nameserver $dns2");
                     $dnsModel->add(nameserver => $dns2);
-                } otherwise {};
+                }
             }
         }
     }
