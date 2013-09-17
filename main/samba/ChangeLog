@@ -1,6 +1,6 @@
 HEAD
-	+ Initialise __USERS__ and Domain Users members to be the union of both
-	  groups.
+	+ Prevent member sync between Domain Users and __USERS__ both are handled
+	  automatically.
 	+ Improve samba daemon startup wait condition
 	+ Improve GPO code to be more robust.
 	+ Set Administrator user as internal when migrating from 3.0

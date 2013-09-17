@@ -77,23 +77,6 @@ sub setupGidMapping
     $self->_ldap->idmap->setupNameMapping($self->sid(), $type, $gidNumber);
 }
 
-# Method: save
-#
-# Saves any pending change done with the lazy flag.
-# This method must be overrided or it will try to save the changes against OpenLDAP instead of SMB.
-#
-# Override:
-#   EBox::Users::Group::save
-#
-sub save
-{
-    my ($self) = @_;
-
-    shift @_;
-    $self->SUPER::save(@_);
-}
-
-
 # Method: create
 #
 #   Adds a new Samba group.
@@ -304,6 +287,17 @@ sub _membersToZentyal
 
     return unless ($zentyalGroup and $zentyalGroup->exists());
 
+    my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
+    my $domainAdminsSID = "$domainSID-512";
+    my $domainAdminSID = "$domainSID-500";
+
+    if ($domainUsersSID eq $self->sid()) {
+        # Domain Users group is handled automatically by Samba, no need to sync the members
+        EBox::debug("Ignored the syncronization between 'Domain Users' and '__USERS__'");
+        return;
+    }
+
     my $gid = $self->get('samAccountName');
     my $sambaMembersList = $self->members();
     my $zentyalMembersList = $zentyalGroup->members();
@@ -311,10 +305,6 @@ sub _membersToZentyal
     my $sambaMod = $self->_sambaMod();
     my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
-    my $domainSID = $sambaMod->ldb()->domainSID();
-    my $domainUsersSID = "$domainSID-513";
-    my $domainAdminsSID = "$domainSID-512";
-    my $domainAdminSID = "$domainSID-500";
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or
