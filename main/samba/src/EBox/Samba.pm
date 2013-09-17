@@ -367,28 +367,30 @@ sub _startService
     }
 
     $self->SUPER::_startService(@_);
+}
 
-    my $services = $self->_services();
-    foreach my $service (@{$services}) {
-        my $port = $service->{destinationPort};
-        next unless $port;
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
 
-        my $proto = $service->{protocol};
-        next unless $proto;
+    $self->SUPER::_startDaemon($daemon, %params);
 
-        my $desc = $service->{description};
-        if ($proto eq 'tcp') {
-            $self->_waitService('tcp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'udp') {
-            $self->_waitService('udp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'tcp/udp') {
-            $self->_waitService('tcp', $port, $desc);
-            $self->_waitService('udp', $port, $desc);
-            next;
+    if ($daemon->{name} eq 'samba4') {
+        my $services = $self->_services();
+        foreach my $service (@{$services}) {
+            my $port = $service->{destinationPort};
+            next unless $port;
+
+            my $proto = $service->{protocol};
+            next unless $proto;
+
+            my $desc = $service->{description};
+            if ($proto eq 'tcp/udp') {
+                $self->_waitService('tcp', $port, $desc);
+                $self->_waitService('udp', $port, $desc);
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
+            }
         }
     }
 }
@@ -406,6 +408,7 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
+    EBox::debug("Wait samba task '$desc'");
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
