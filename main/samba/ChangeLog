@@ -1,4 +1,4 @@
-HEAD
+3.1.13
 	+ Improve samba daemon startup wait condition
 	+ Improve GPO code to be more robust.
 	+ Set Administrator user as internal when migrating from 3.0
