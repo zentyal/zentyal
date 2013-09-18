@@ -1,5 +1,6 @@
 3.2
 	+ Set version to 3.2
+	+ Fix zarafa add-on JS to show proper values
 3.1.5
 	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
