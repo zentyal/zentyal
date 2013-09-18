@@ -67,8 +67,6 @@ $global->saveAllModules();
 
 sub importNetwork
 {
-    my $INTERFACES_FILE = '/etc/network/interfaces';
-    my $RESOLV_FILE = '/etc/resolv.conf';
     my $DEFAULT_IFACE = 'eth0';
     my $DEFAULT_GW_NAME = 'default';
     my $DEFAULT_WEIGHT = 1;
@@ -109,6 +107,8 @@ sub _readInterfaces
 {
     my ($self) = @_;
 
+    my $INTERFACES_FILE = '/etc/network/interfaces';
+
     my $ifacesFH;
     unless (open($ifacesFH, $INTERFACES_FILE)) {
         die "couldn't open $INTERFACES_FILE";
@@ -140,6 +140,8 @@ sub _readInterfaces
 
 sub _readResolv
 {
+    my $RESOLV_FILE = '/etc/resolv.conf';
+
     my $resolvFH;
     unless (open($resolvFH, $RESOLV_FILE)) {
         die "Couldn't open $RESOLV_FILE";
