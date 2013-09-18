@@ -95,7 +95,7 @@ sub _serverConfiguration
         $confString .= "$addr:$port:";
     }
 
-    my $file =  $tmpDir . '/' .  $class->serverConfigurationFile();
+    my $file = $class->serverConfigurationFile($tmpDir);
     write_file($file, $confString);
 }
 
