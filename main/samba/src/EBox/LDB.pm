@@ -184,9 +184,6 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    my $samba = EBox::Global->modInstance('samba');
-    $samba->_startService() unless $samba->isRunning();
-
     my $error = undef;
     my $lastError = undef;
     my $maxTries = 300;

@@ -2,6 +2,12 @@ HEAD
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module
+3.1.13
+	+ Added missing EBox::Gettext uses, fixes crash in view logs refresh
+	+ Minor CSS style fixes
+	+ Added missing use statement in EBox::Types::MultiStateAction
+3.1.12
+	+ Do not crash if /etc/timezone does not exist
 	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
 	  when running zentyal start, this fixes problems with leftover locks
 	  that affect dhclient hooks

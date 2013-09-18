@@ -3,6 +3,17 @@ HEAD
 	  users stored in LDB
 	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
+3.1.14
+	+ Fixed provisioning flag also in DC mode
+	+ Do not automatically start service in LDB.pm
+	+ Added missing EBox::Gettext uses
+	+ Prevent member sync between Domain Users and __USERS__ both are handled
+	  automatically.
+3.1.13
+	+ Improve samba daemon startup wait condition
+	+ Improve GPO code to be more robust.
+	+ Set Administrator user as internal when migrating from 3.0
+	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
 	+ Migrate disabled accounts from 3.0
 3.1.12

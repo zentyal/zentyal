@@ -367,28 +367,30 @@ sub _startService
     }
 
     $self->SUPER::_startService(@_);
+}
 
-    my $services = $self->_services();
-    foreach my $service (@{$services}) {
-        my $port = $service->{destinationPort};
-        next unless $port;
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
 
-        my $proto = $service->{protocol};
-        next unless $proto;
+    $self->SUPER::_startDaemon($daemon, %params);
 
-        my $desc = $service->{description};
-        if ($proto eq 'tcp') {
-            $self->_waitService('tcp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'udp') {
-            $self->_waitService('udp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'tcp/udp') {
-            $self->_waitService('tcp', $port, $desc);
-            $self->_waitService('udp', $port, $desc);
-            next;
+    if ($daemon->{name} eq 'samba4') {
+        my $services = $self->_services();
+        foreach my $service (@{$services}) {
+            my $port = $service->{destinationPort};
+            next unless $port;
+
+            my $proto = $service->{protocol};
+            next unless $proto;
+
+            my $desc = $service->{description};
+            if ($proto eq 'tcp/udp') {
+                $self->_waitService('tcp', $port, $desc);
+                $self->_waitService('udp', $port, $desc);
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
+            }
         }
     }
 }
@@ -406,6 +408,7 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
+    EBox::debug("Wait samba task '$desc'");
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
@@ -2498,6 +2501,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     # Current data backup
     my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
@@ -2548,7 +2553,13 @@ sub _migrateTo32
         }
     }
 
-    $self->_overrideDaemons() if $self->configured();
+    EBox::info("Setting Administrator user as internal");
+    my $adminUser = new EBox::Users::User(uid => 'Administrator');
+    if ($adminUser->exists()) {
+        $adminUser->setInternal();
+    }
+
+    $self->_overrideDaemons();
 }
 
 1;

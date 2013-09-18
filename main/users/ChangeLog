@@ -1,4 +1,10 @@
-HEAD
+3.1.11
+	+ Added migration code to be sure that we have all users added as members
+	  of __USERS__ group on OpenLDAP.
+	+ Fixed user creation to make all users belong to __USERS__ group
+3.1.10
+	+ Do not crash when deleting a group if LDB object does not exist
+	+ Do not try to migrate from 3.0 if module is not configured
 	+ Override daemons when migrating from 3.0
 3.1.9
 	+ Fix typo in setSecurityGroup when no GID is set yet

@@ -507,6 +507,16 @@ sub _membersToSamba
     unless ($zentyalGroup) {
         throw EBox::Exceptions::MissingArgument("zentyalGroup");
     }
+    my $domainSID = $self->{samba}->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
+    my $domainAdminsSID = "$domainSID-512";
+    my $domainAdminSID = "$domainSID-500";
+
+    if ($domainUsersSID eq $sambaGroup->sid()) {
+        # Domain Users group is handled automatically by Samba, no need to sync the members
+        EBox::debug("Ignored the syncronization between '__USERS__' and 'Domain Users'");
+        return;
+    }
 
     my $gid = $sambaGroup->get('samAccountName');
     my $sambaMembersList = $sambaGroup->members();
@@ -514,10 +524,6 @@ sub _membersToSamba
 
     my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
     my %sambaMembers;
-    my $domainSID = $self->{samba}->ldb()->domainSID();
-    my $domainUsersSID = "$domainSID-513";
-    my $domainAdminsSID = "$domainSID-512";
-    my $domainAdminSID = "$domainSID-500";
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or
