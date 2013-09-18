@@ -2502,6 +2502,13 @@ sub _migrateTo32
 
     EBox::Service::manage('zentyal.s4sync', 'stop');
 
+    my $provision = $self->getProvision();
+    my $oldProvisionFile = '/home/samba/.provisioned';
+    if ( -f $oldProvisionFile) {
+        $provision->setProvisioned(1);
+        EBox::Sudo::root("rm -f $oldProvisionFile");
+    }
+
     EBox::info("Removing posixAccount from users");
     foreach my $user (@{$self->ldb->users()}) {
         $user->delete('uidNumber', 1);
@@ -2522,8 +2529,8 @@ sub _migrateTo32
     $usersMod->_loadSchema(EBox::Config::share() . $schema);
 
     EBox::info("Map default containers");
-    my $provision = $self->getProvision();
     $provision->mapDefaultContainers();
+    $provision->mapAccounts();
 
     EBox::info("Link LDB users with LDAP");
     foreach my $ldbUser (@{$self->ldb->users()}) {

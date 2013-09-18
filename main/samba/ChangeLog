@@ -1,4 +1,6 @@
 3.2
+	+ Migrated the Samba provision status into redis.
+	+ Execute the mapping of special accounts method on migration.
 	+ Set version to 3.2
 3.1.14
 	+ Fixed provisioning flag also in DC mode
