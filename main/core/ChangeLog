@@ -1,4 +1,4 @@
-HEAD
+3.1.13
 	+ Added missing EBox::Gettext uses, fixes crash in view logs refresh
 	+ Minor CSS style fixes
 	+ Added missing use statement in EBox::Types::MultiStateAction
