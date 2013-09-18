@@ -138,7 +138,7 @@ sub syncRows
         my $id = $currentIfaces{$iface};
         my $row = $self->row($id);
 
-        next unless (defined ($row) and $row->valueByName('auto'));
+        next unless $row->valueByName('auto');
 
         $self->removeRow($id, 1);
 
