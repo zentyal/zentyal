@@ -7,14 +7,14 @@ label expert
   menu label ^Install Zentyal VERSION (expert mode)
   kernel /install/vmlinuz
   append  file=/cdrom/preseed/ubuntu-server.seed vga=788 initrd=/install/initrd.gz quiet --
-#label disaster
-#  menu label ^Recover from a disaster (delete all disk)
-#  kernel /install/vmlinuz
-#  append  file=/cdrom/preseed/disaster-recovery-auto.seed vga=788 initrd=/install/initrd.gz quiet --
-#label disaster-expert
-#  menu label ^Recover from a disaster (expert mode)
-#  kernel /install/vmlinuz
-#  append  file=/cdrom/preseed/disaster-recovery.seed vga=788 initrd=/install/initrd.gz quiet --
+label disaster
+  menu label ^Recover from a disaster (delete all disk)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery-auto.seed vga=788 initrd=/install/initrd.gz quiet --
+label disaster-expert
+  menu label ^Recover from a disaster (expert mode)
+  kernel /install/vmlinuz
+  append  file=/cdrom/preseed/disaster-recovery.seed vga=788 initrd=/install/initrd.gz quiet --
 label check
   menu label ^Check disc for defects
   kernel /install/vmlinuz

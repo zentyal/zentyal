@@ -1,3 +1,5 @@
+3.2
+	+ Set version to 3.2
 3.1.7
 	+ Include domains with final slash as filtered when required
 	+ Ignore 407 requests when auth is required in log helper
