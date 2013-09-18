@@ -40,7 +40,12 @@ EBox::init();
 
 my $global = EBox::Global->getInstance();
 
-importNetwork();
+try {
+    importNetwork();
+} otherwise {
+    my $ex = shift;
+    EBox::warn("Import network configuration failed: $ex");
+};
 
 my $rs = $global->modInstance('remoteservices');
 my $subscription = $rs->model('Subscription');
