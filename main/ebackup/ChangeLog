@@ -1,3 +1,5 @@
+3.2
+	+ Set version to 3.2
 3.1.4
 	+ Exclude / by default for coherency with the rest of modules like
 	  firewall or proxy, and also allow now to include /
