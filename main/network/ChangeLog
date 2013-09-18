@@ -1,6 +1,5 @@
 3.2
 	+ Set version to 3.2
-	+ Revert guard against undefined rows getting auto value in GatewayTable
 3.1.6
 	+ Guard against undefined rows getting auto value in GatewayTable
 3.1.5
