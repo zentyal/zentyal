@@ -226,6 +226,31 @@ sub _postServiceHook
 
     if ($enabled) {
 
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        unless ($self->mode() eq 'adc') {
+            my $netbiosName = $self->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $users = $self->ldb->users();
+            foreach my $user (@{$users}) {
+                # Set roaming profiles
+                if ($self->roamingProfiles()) {
+                    my $path = "\\\\$netbiosName.$realmName\\profiles";
+                    $user->setRoamingProfile(1, $path, 1);
+                } else {
+                    $user->setRoamingProfile(0);
+                }
+
+                # Mount user home on network drive
+                my $drivePath = "\\\\$netbiosName.$realmName";
+                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->save();
+            }
+        }
+
         my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
@@ -1019,31 +1044,6 @@ sub _setConf
     # Change group ownership of quarantine_dir to __USERS__
     if ($self->defaultAntivirusSettings()) {
         $self->_setupQuarantineDirectory();
-    }
-
-    # Only set global roaming profiles and drive letter options
-    # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings. Also skip if
-    # unmanaged_home_directory config key is defined
-    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-    unless ($self->mode() eq 'adc') {
-        my $netbiosName = $self->netbiosName();
-        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
-        my $users = $self->ldb->users();
-        foreach my $user (@{$users}) {
-            # Set roaming profiles
-            if ($self->roamingProfiles()) {
-                my $path = "\\\\$netbiosName.$realmName\\profiles";
-                $user->setRoamingProfile(1, $path, 1);
-            } else {
-                $user->setRoamingProfile(0);
-            }
-
-            # Mount user home on network drive
-            my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
-            $user->save();
-        }
     }
 }
 
