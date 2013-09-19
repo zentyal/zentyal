@@ -2539,7 +2539,7 @@ sub _migrateTo32
             $ldbUser->_linkWithUsersObject($ldapUser);
 
             if (not $ldbUser->isAccountEnabled()) {
-                $ldapUser->setAccountEnabled(0);
+                $ldapUser->setDisabled(1);
             }
         }
     }

@@ -1,5 +1,6 @@
 3.2
 	+ Migrated the Samba provision status into redis
+	+ Fixed migration of disabled accounts
 	+ Execute the mapping of special accounts method on migration
 	+ Set version to 3.2
 3.1.14
