@@ -1,3 +1,6 @@
+3.2
+	+ Set version to 3.2
+	+ Add objectClass shadowAccount in 3.0 migration to fix disabled accounts
 3.1.11
 	+ Added migration code to be sure that we have all users added as members
 	  of __USERS__ group on OpenLDAP.

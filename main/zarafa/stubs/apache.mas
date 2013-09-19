@@ -95,27 +95,6 @@ Alias /Microsoft-Server-ActiveSync /usr/share/d-push/index.php
 </IfModule>
 % }
 
-% if ($enable_sso eq 'yes') {
-<IfModule mod_auth_kerb.c>
-<Directory /usr/share/zarafa-webaccess>
-  AuthType Kerberos
-  AuthName "Kerberos Login"
-  KrbMethodNegotiate On
-  KrbMethodK5Passwd On
-  KrbServiceName ZARAFA
-  KrbAuthRealms <% $realm %>
-  Krb5KeyTab /etc/zarafa/zarafa.keytab
-  require valid-user
-</Directory>
-<Directory /usr/share/zarafa-webapp>
-  AuthType Kerberos
-  AuthName "Kerberos Login"
-  KrbMethodNegotiate On
-  KrbMethodK5Passwd On
-  KrbServiceName ZARAFA
-  KrbAuthRealms <% $realm %>
-  Krb5KeyTab /etc/zarafa/zarafa.keytab
-  require valid-user
-</Directory>
-</IfModule>
+% if ($enable_sso) {
+<& /zarafa/zarafa-web-sso.mas, realm => $realm &>
 % }

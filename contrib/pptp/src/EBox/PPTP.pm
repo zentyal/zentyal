@@ -286,7 +286,7 @@ sub _who
     my @output;
     my $error;
     try {
-        @output= @{ EBox::Sudo::root("who") };
+        @output = @{ EBox::Sudo::root("last | grep 'still logged in'") };
     } otherwise {
         $error = 1;
     };
@@ -295,13 +295,14 @@ sub _who
 
     for my $line (@output) {
         chomp($line);
-        # test     ppp0         2011-07-11 22:50 (192.168.86.2)
-        my ($username, $terminal, $date, $time, $remote) = split '\s+', $line, 5;
+        # test     ppp0         2011-07-11 22:50 (192.168.86.2) << old output by who
+        # test     ppp0         92.75.124.210    Fri Sep 13 15:10   still logged in << new output by last
+        my ($username, $terminal, $remote, $weekday, $month, $day, $time) = split '\s+', $line, 8;
         if ($terminal =~ m/^ppp\d+$/) {
             my $user = {};
             $user->{'username'} = $username;
             $user->{'iface'} = $terminal;
-            $user->{'date'} = "$date $time";
+            $user->{'date'} = "$weekday-$month-$day $time";
             $user->{'ipaddr'} = $remote;
             push(@{$users}, $user);
         }
