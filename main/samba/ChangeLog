@@ -1,4 +1,4 @@
-HEAD
+3.2.1
 	+ Fixed start of samba after reboot
 3.2
 	+ Migrated the Samba provision status into redis
