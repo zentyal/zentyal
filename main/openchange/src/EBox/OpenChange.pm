@@ -126,6 +126,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+    $self->_enableInnoDBIfNeeded();
 }
 
 sub _writeSOGoDefaultFile
@@ -207,6 +208,18 @@ sub _setupSOGoDatabase
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
     $db->sqlAsSuperuser(sql => 'flush privileges;');
+}
+
+sub _enableInnoDBIfNeeded
+{
+    my ($self) = @_;
+
+    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+        EBox::Sudo::root(
+            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
+            "restart mysql"
+        );
+    }
 }
 
 # Method: menu
