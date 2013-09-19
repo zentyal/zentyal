@@ -40,13 +40,6 @@ EBox::init();
 
 my $global = EBox::Global->getInstance();
 
-try {
-    importNetwork();
-} otherwise {
-    my $ex = shift;
-    EBox::warn("Import network configuration failed: $ex");
-};
-
 my $rs = $global->modInstance('remoteservices');
 my $subscription = $rs->model('Subscription');
 
@@ -69,103 +62,5 @@ if ($subscription->showAvailable()) {
 }
 
 $global->saveAllModules();
-
-sub importNetwork
-{
-    my $DEFAULT_IFACE = 'eth0';
-    my $DEFAULT_GW_NAME = 'default';
-    my $DEFAULT_WEIGHT = 1;
-
-    my $network = $global->modInstance('network');
-
-    my @interfaces = @{$network->_readInterfaces()};
-    foreach my $iface (@interfaces) {
-        if ($iface->{'method'} eq 'static') {
-            $network->setIfaceStatic($iface->{'name'}, $iface->{'address'},
-                    $iface->{'netmask'}, undef, 1);
-            if ($iface->{'gateway'}) {
-                my $gwModel = $network->model('GatewayTable');
-                my $defaultGwRow = $gwModel->find(name => $DEFAULT_GW_NAME);
-                if ($defaultGwRow) {
-                    EBox::info("Already a default gateway, keeping it");
-                } else {
-                    $gwModel->add(name      => $DEFAULT_GW_NAME,
-                            ip        => $iface->{'gateway'},
-                            interface => $iface->{'name'},
-                            weight    => $DEFAULT_WEIGHT,
-                            default   => 1);
-                }
-            }
-        } elsif ($iface->{'method'} eq 'dhcp') {
-            $network->setIfaceDHCP($iface->{'name'}, 0, 1);
-        }
-    }
-
-    my ($searchdomain, @dns) = @{$network->_readResolv()};
-    $network->setNameservers(@dns);
-    if ($searchdomain) {
-        $network->setSearchDomain($searchdomain);
-    }
-}
-
-sub _readInterfaces
-{
-    my ($self) = @_;
-
-    my $INTERFACES_FILE = '/etc/network/interfaces';
-
-    my $ifacesFH;
-    unless (open($ifacesFH, $INTERFACES_FILE)) {
-        die "couldn't open $INTERFACES_FILE";
-    }
-
-    my @interfaces;
-    my $iface;
-    my @fields = qw/address netmask gateway/;
-
-    for my $line (<$ifacesFH>) {
-        $line =~ s/^\s+//g;
-        my @toks = split (/\s+/, $line);
-        next unless @toks;
-        if ($toks[0] eq 'iface' and $toks[2] eq 'inet') {
-            next if ($self->_ignoreIface($toks[1]));
-            push (@interfaces, $iface) if ($iface);
-            $iface = {name   => $toks[1], method => $toks[3]};
-        }
-
-        if (grep((/^$toks[0]$/), @fields)) {
-            $iface->{$toks[0]} = $toks[1];
-        }
-    }
-    close ($ifacesFH);
-    push (@interfaces, $iface) if ($iface);
-
-    return \@interfaces;
-}
-
-sub _readResolv
-{
-    my $RESOLV_FILE = '/etc/resolv.conf';
-
-    my $resolvFH;
-    unless (open($resolvFH, $RESOLV_FILE)) {
-        die "Couldn't open $RESOLV_FILE";
-    }
-
-    my $searchdomain = undef;
-    my @dns;
-    for my $line (<$resolvFH>) {
-        $line =~ s/^\s+//g;
-        my @toks = split (/\s+/, $line);
-        if ($toks[0] eq 'nameserver') {
-            push (@dns, $toks[1]);
-        } elsif ($toks[0] eq 'search') {
-            $searchdomain = $toks[1];
-        }
-    }
-    close ($resolvFH);
-
-    return [$searchdomain, @dns];
-}
 
 1;
