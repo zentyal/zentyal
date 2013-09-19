@@ -1,6 +1,6 @@
-#/usr/bin/perl
+#!/usr/bin/perl
 #
-# D-BUS client example to request the upgrade process from Exchange to OpenChange
+# RabbitMQ client example to request the upgrade process from Exchange to OpenChange
 #
 # OpenChange Project
 #
@@ -20,39 +20,50 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 
-use warnings;
 use strict;
+use warnings;
 
-use Net::DBus;
-use Net::DBus::Reactor;
-use Carp qw(cluck carp);
-#$SIG{__WARN__} = sub { cluck $_[0] };
-#$SIG{__DIE__} = sub { carp $_[0] };
+$|++;
+use AnyEvent;
+use Net::RabbitFoot;
 
+my $conn = Net::RabbitFoot->new()->load_xml_spec()->connect(
+    host => 'localhost',
+    port => 5672,
+    user => 'guest',
+    pass => 'guest',
+    vhost => '/',
+);
 
-exit main();
+my $channel = $conn->open_channel();
 
-sub main {
-my $bus = Net::DBus->system();
+$channel->declare_exchange(
+    exchange => 'openchange_upgrade_calculation',
+    type => 'fanout',
+);
 
-my $service = $bus->get_service("org.zentyal.openchange.Upgrade");
-my $object = $service->get_object(
-    "/org/zentyal/openchange/Upgrade",
-    "org.zentyal.openchange.Upgrade");
+my $result = $channel->declare_queue( exclusive => 1, );
 
-print $object->Run() . "\n";
+my $queue_name = $result->{method_frame}->{queue};
 
-my $propertySignal = $object->connect_to_signal(
-    'PropertyChanged', \&propertyChangedSignalHandler);
+$channel->bind_queue(
+    exchange => 'openchange_upgrade_calculation',
+    queue => $queue_name,
+);
 
-print $propertySignal . "\n";
-my $reactor = Net::DBus::Reactor->main();
-$reactor->run();
+print " [*] Waiting for info. To exit press CTRL-C\n";
 
-return 0;
+sub callback {
+    my $var = shift;
+    my $body = $var->{body}->{payload};
+
+    print " [x] $body\n";
 }
 
-sub propertyChangedSignalHandler {
-    my ($property, $value) = @_;
-    print "Property $property changed its value to $value\n";
-}
+$channel->consume(
+    on_consume => \&callback,
+    queue => $queue_name,
+    no_ack => 1,
+);
+
+AnyEvent->condvar->recv;

@@ -24,10 +24,12 @@
  */
 
 #include "libmapi/libmapi.h"
-#include <dbus/dbus.h>
 #include <inttypes.h>
 #include <stdlib.h>
 #include <popt.h>
+#include <amqp_tcp_socket.h>
+#include <amqp.h>
+#include <amqp_framing.h>
 
 struct mailboxitems {
     uint32_t    total;
@@ -71,86 +73,153 @@ struct poptOption popt_openchange_version[] = {
     POPT_TABLEEND
 };
 
-DBusConnection *get_dbus_connection()
+void handle_amqp_error(amqp_rpc_reply_t x, char const *context)
 {
-    static DBusConnection *conn = NULL;
-    DBusError err;
-    int ret;
 
-    if (conn != NULL) {
-        return conn;
+    switch (x.reply_type) {
+        case AMQP_RESPONSE_NORMAL:
+            return;
+        case AMQP_RESPONSE_NONE:
+            DEBUG(0, ("%s: missing RPC reply type!\n", context));
+            break;
+        case AMQP_RESPONSE_LIBRARY_EXCEPTION:
+            DEBUG(0, ("%s: %s\n", context,
+                      amqp_error_string2(x.library_error)));
+            break;
+
+        case AMQP_RESPONSE_SERVER_EXCEPTION:
+            switch (x.reply.id) {
+                case AMQP_CONNECTION_CLOSE_METHOD: {
+                    amqp_connection_close_t *m = (
+                        amqp_connection_close_t *) x.reply.decoded;
+                    DEBUG(0, (
+                        "%s: server connection error %d, message: %.*s\n",
+                        context,
+                        m->reply_code,
+                        (int) m->reply_text.len,
+                        (char *) m->reply_text.bytes));
+                    break;
+                }
+                case AMQP_CHANNEL_CLOSE_METHOD: {
+                    amqp_channel_close_t *m = (
+                        amqp_channel_close_t *) x.reply.decoded;
+                    DEBUG(0, (
+                        "%s: server channel error %d, message: %.*s\n",
+                        context,
+                        m->reply_code,
+                        (int) m->reply_text.len,
+                        (char *) m->reply_text.bytes));
+                        break;
+                }
+                default:
+                    DEBUG(0, (
+                        "%s: unknown server error, method id 0x%08X\n",
+                        context, x.reply.id));
+                    break;
+            }
+            break;
     }
-
-    DEBUG(0, ("[+] Opening a D-BUS connection\n"));
-
-    // initialise the error value
-    dbus_error_init(&err);
-
-    // connect to the DBUS system bus, and check for errors
-    conn = dbus_bus_get(DBUS_BUS_SYSTEM, &err);
-    if (dbus_error_is_set(&err)) {
-        DEBUG(0, ("[!] D-BUS Connection Error (%s)\n", err.message));
-        dbus_error_free(&err);
-        conn = NULL;
-    }
-
-    return conn;
+    exit(1);
 }
 
-/**
- * Connect to the DBUS bus and send a broadcast signal
- */
-void send_signal(const char *name, const char* property, int value)
+amqp_connection_state_t get_amqp_connection()
 {
-    DBusMessage* msg;
-    DBusMessageIter args;
-    DBusConnection* conn;
-    DBusError err;
-    char *object_path = "/org/zentyal/openchange/Upgrade";
+    amqp_connection_state_t conn;
+    int status;
+    amqp_socket_t *socket = NULL;
 
-    DEBUG(0, (
-        "[+] Sending signal %s with property: %s (%d)\n", name, property, value));
-
-    // initialise the error value
-    dbus_error_init(&err);
-
-    conn = get_dbus_connection();
-
-    if (conn == NULL) {
-        return;
-    }
-
-    // create a signal & check for errors
-    msg = dbus_message_new_signal(
-        object_path, "org.zentyal.openchange.Upgrade", name);
-    if (NULL == msg) {
-        DEBUG(0, ("[!] D-BUS Message NULL\n"));
+    conn = amqp_new_connection();
+    socket = amqp_tcp_socket_new(conn);
+    if (!socket) {
+        DEBUG(0, ("[!] Error creating the TCP socket!\n"));
         exit(1);
     }
 
-    // append arguments onto signal
-    dbus_message_append_args(
-        msg, DBUS_TYPE_STRING, &property, DBUS_TYPE_UINT32, &value,
-        DBUS_TYPE_INVALID);
-    dbus_message_iter_init_append(msg, &args);
-
-    // send the message and flush the connection
-    if (!dbus_connection_send(conn, msg, NULL)) {
-        DEBUG(0, ("[!] D-BUS Out Of Memory!\n"));
+    status = amqp_socket_open(socket, "localhost", 5672);
+    if (status) {
+        DEBUG(0, ("[!] Error opening the TCP socket!\n"));
         exit(1);
     }
-    dbus_connection_flush(conn);
 
-    DEBUG(0, ("[+] Signal Sent\n"));
+    handle_amqp_error(
+        amqp_login(conn, "/", 0, 131072, 0, AMQP_SASL_METHOD_PLAIN,
+                   "guest", "guest"),
+        "Logging in");
+    amqp_channel_open(conn, 1);
+    handle_amqp_error(amqp_get_rpc_reply(conn), "Opening channel");
 
-    // free the message and close the connection
-    dbus_message_unref(msg);
+    return conn;
+
+}
+
+void close_amqp_connection(amqp_connection_state_t conn)
+{
+    handle_amqp_error(amqp_channel_close(conn, 1, AMQP_REPLY_SUCCESS),
+                       "Closing channel");
+    handle_amqp_error(amqp_connection_close(conn, AMQP_REPLY_SUCCESS),
+                       "Closing connection");
+    if (amqp_destroy_connection(conn) < 0) {
+        DEBUG(0, ("[!] Error ending connection\n"));
+        exit(1);
+    }
+}
+
+char *mailboxdata_as_json(TALLOC_CTX *mem_ctx, struct mailboxdata *mdata)
+{
+    return talloc_asprintf(mem_ctx, "{\n" \
+        "    \"MailboxSize\": \"%" PRId64 "\"," \
+        "    \"FolderCount\": \"%d\"," \
+        "    \"items\": {\n" \
+        "        \"total\": \"%d\"," \
+        "        \"mail\": \"%d\"," \
+        "        \"attachments\": \"%d\"," \
+        "        \"attachmentSize\": \"%d\"," \
+        "        \"stickynote\": \"%d\"," \
+        "        \"appointment\": \"%d\"," \
+        "        \"task\": \"%d\"," \
+        "        \"contact\": \"%d\"," \
+        "        \"journal\": \"%d\"," \
+        "    },\n" \
+        "}\n", mdata->MailboxSize, mdata->FolderCount, mdata->items.total,
+        mdata->items.mail, mdata->items.attachments,
+        mdata->items.attachmentSize, mdata->items.stickynote,
+        mdata->items.appointment, mdata->items.task, mdata->items.contact,
+        mdata->items.journal);
+}
+
+static enum MAPISTATUS send_calculation(
+    amqp_connection_state_t conn, struct mailboxdata *mdata,
+    TALLOC_CTX *mem_ctx)
+{
+    amqp_basic_properties_t props;
+    int result;
+    char *messagebody;
+
+    DEBUG(9, ("[+] Sending progress information\n"));
+    props._flags = (
+        AMQP_BASIC_CONTENT_TYPE_FLAG | AMQP_BASIC_DELIVERY_MODE_FLAG);
+    props.content_type = amqp_cstring_bytes("text/plain");
+    props.delivery_mode = 2; /* persistent delivery mode */
+
+    messagebody = mailboxdata_as_json(mem_ctx, mdata);
+    DEBUG(0, ("[+] DUMP:\n%s", messagebody));
+    result = amqp_basic_publish(
+        conn, 1, amqp_cstring_bytes("openchange_upgrade_calculation"),
+        amqp_cstring_bytes(""), 0, 0, &props, amqp_cstring_bytes(messagebody));
+    talloc_free(messagebody);
+    if (result < 0) {
+        DEBUG(0, ("[!] Error sending calculation update\n"));
+        exit(1);
+    }
+
+    return MAPI_E_SUCCESS;
 }
 
 static enum MAPISTATUS folder_count_attachments(TALLOC_CTX *mem_ctx,
                         mapi_object_t *obj_store,
                         mapi_object_t *obj_folder,
-                        struct mailboxdata *mdata)
+                        struct mailboxdata *mdata,
+                        amqp_connection_state_t conn)
 {
     enum MAPISTATUS     retval = MAPI_E_SUCCESS;
     mapi_object_t       obj_ctable;
@@ -225,6 +294,7 @@ static enum MAPISTATUS folder_count_attachments(TALLOC_CTX *mem_ctx,
                         filename = (const char *) find_SPropValue_data(&arowset.aRow[aindex], PidTagAttachLongFilename);
                         mdata->items.attachmentSize += *attachmentsize;
                         mdata->items.attachments += 1;
+                        send_calculation(conn, mdata, mem_ctx);
 
                         DEBUG(3, ("[+][attachment][mid=%"PRIx64"][filename=%s][size=%d]\n",
                               *msgid, filename, *attachmentsize));
@@ -243,7 +313,9 @@ static enum MAPISTATUS folder_count_attachments(TALLOC_CTX *mem_ctx,
 
 static enum MAPISTATUS folder_count_items(uint32_t contentcount,
                       const char *containerclass,
-                      struct mailboxdata *mdata)
+                      struct mailboxdata *mdata,
+                      amqp_connection_state_t conn,
+                      TALLOC_CTX *mem_ctx)
 {
     if (contentcount == 0) return MAPI_E_SUCCESS;
 
@@ -252,31 +324,22 @@ static enum MAPISTATUS folder_count_items(uint32_t contentcount,
     if (containerclass) {
         if (!strncmp(containerclass, "IPF.Note", strlen(containerclass))) {
             mdata->items.mail += contentcount;
-            send_signal("PropertyChanged", "Email", mdata->items.mail);
         } else if (!strncmp(containerclass, "IPF.StickyNote", strlen(containerclass))) {
             mdata->items.stickynote += contentcount;
-            send_signal(
-                "PropertyChanged", "StickyNote", mdata->items.stickynote);
         } else if (!strncmp(containerclass, "IPF.Appointment", strlen(containerclass))) {
             mdata->items.appointment += contentcount;
-            send_signal(
-                "PropertyChanged", "Appointment", mdata->items.appointment);
         } else if (!strncmp(containerclass, "IPF.Contact", strlen(containerclass))) {
             mdata->items.contact += contentcount;
-            send_signal(
-                "PropertyChanged", "Contact", mdata->items.contact);
         } else if (!strncmp(containerclass, "IPF.Task", strlen(containerclass))) {
             mdata->items.task += contentcount;
         } else if (!strncmp(containerclass, "IPF.Journal", strlen(containerclass))) {
             mdata->items.journal += contentcount;
-            send_signal(
-                "PropertyChanged", "Journal", mdata->items.journal);
         }
     } else {
         /* undefined items are always mail by default */
         mdata->items.mail += contentcount;
-        send_signal("PropertyChanged", "Email", mdata->items.mail);
     }
+    send_calculation(conn, mdata, mem_ctx);
 
     return MAPI_E_SUCCESS;
 }
@@ -285,7 +348,8 @@ static enum MAPISTATUS recursive_mailbox_size(TALLOC_CTX *mem_ctx,
                           mapi_object_t *obj_store,
                           mapi_object_t *parent,
                           mapi_id_t folder_id,
-                          struct mailboxdata *mdata)
+                          struct mailboxdata *mdata,
+                          amqp_connection_state_t conn)
 {
     enum MAPISTATUS     retval = MAPI_E_SUCCESS;
     mapi_object_t       obj_folder;
@@ -314,6 +378,7 @@ static enum MAPISTATUS recursive_mailbox_size(TALLOC_CTX *mem_ctx,
         return retval;
     }
     mdata->FolderCount += count;
+    send_calculation(conn, mdata, mem_ctx);
 
     SPropTagArray = set_SPropTagArray(mem_ctx, 0x6,
                       PidTagDisplayName,
@@ -338,6 +403,7 @@ static enum MAPISTATUS recursive_mailbox_size(TALLOC_CTX *mem_ctx,
 
             if (messagesize) {
                 mdata->MailboxSize += *messagesize;
+                send_calculation(conn, mdata, mem_ctx);
             } else {
                 DEBUG(1, ("[!] PidTagMessageSize unavailable for folder %s\n", name?name:""));
                 goto end;
@@ -348,19 +414,22 @@ static enum MAPISTATUS recursive_mailbox_size(TALLOC_CTX *mem_ctx,
                   contentcount?*contentcount:0));
 
             if (child && *child) {
-                retval = recursive_mailbox_size(mem_ctx, obj_store, &obj_folder, *fid, mdata);
+                retval = recursive_mailbox_size(
+                    mem_ctx, obj_store, &obj_folder, *fid, mdata, conn);
                 if (retval) goto end;
             }
 
             /* Attachment count */
             if ((!containerclass || (containerclass && !strcmp(containerclass, "IPF.Note"))) &&
                 (contentcount && *contentcount != 0)) {
-                retval = folder_count_attachments(mem_ctx, obj_store, &obj_folder, mdata);
+                retval = folder_count_attachments(mem_ctx, obj_store,
+                                                  &obj_folder, mdata, conn);
                 if (retval) goto end;
             }
 
             /* Item counters */
-            retval = folder_count_items(*contentcount, containerclass, mdata);
+            retval = folder_count_items(
+                *contentcount, containerclass, mdata, conn, mem_ctx);
             if (retval) goto end;
         }
     }
@@ -373,7 +442,8 @@ end:
 
 static enum MAPISTATUS calculate_mailboxsize(TALLOC_CTX *mem_ctx,
                          mapi_object_t *obj_store,
-                         struct mailboxdata *mdata)
+                         struct mailboxdata *mdata,
+                         amqp_connection_state_t conn)
 {
     enum MAPISTATUS     retval;
     mapi_id_t       id_mailbox;
@@ -382,7 +452,8 @@ static enum MAPISTATUS calculate_mailboxsize(TALLOC_CTX *mem_ctx,
     retval = GetDefaultFolder(obj_store, &id_mailbox, olFolderTopInformationStore);
     if (retval != MAPI_E_SUCCESS) return retval;
 
-    return recursive_mailbox_size(mem_ctx, obj_store, obj_store, id_mailbox, mdata);
+    return recursive_mailbox_size(
+        mem_ctx, obj_store, obj_store, id_mailbox, mdata, conn);
 
 }
 
@@ -415,6 +486,7 @@ int main(int argc, const char *argv[])
     mapi_object_t       obj_store;
     poptContext     pc;
     int         opt;
+    amqp_connection_state_t conn;
     bool            opt_dumpdata = false;
     const char      *opt_debug = NULL;
     const char      *opt_profdb = NULL;
@@ -524,8 +596,14 @@ int main(int argc, const char *argv[])
     }
 
     /* Step 6. Calculation task and print */
-    retval = calculate_mailboxsize(mem_ctx, &obj_store, &mdata);
-    dbus_connection_unref(get_dbus_connection());
+    conn = get_amqp_connection();
+    amqp_exchange_declare(conn, 1,
+        amqp_cstring_bytes("openchange_upgrade_calculation"),
+        amqp_cstring_bytes("fanout"),
+        0, 0, amqp_empty_table);
+    handle_amqp_error(amqp_get_rpc_reply(conn), "Declaring exchange");
+    retval = calculate_mailboxsize(mem_ctx, &obj_store, &mdata, conn);
+    close_amqp_connection(conn);
     if (retval) {
         mapi_errstr("mailbox", GetLastError());
         exit (1);
