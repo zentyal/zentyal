@@ -168,7 +168,7 @@ for my $rgroup (@{$rgroups}) {
                 gidNumber     => $rgroup->{gid},
                 isSystemGroup => 0,
                 ignoreSlaves  => IGNORE,
-            )
+            );
 
             $lgroup = EBox::Users::Group->create(%args);
         }
