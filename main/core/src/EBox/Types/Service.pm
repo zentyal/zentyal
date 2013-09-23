@@ -224,7 +224,7 @@ sub protocolsJS
 
     foreach my $proto ( @{$self->protocols()} ) {
       if ( $proto->{needPort} ) {
-        $str .= q{"} . $proto->{value} . q{", };
+        $str .= q{'} . $proto->{value} . q{', };
       }
     }
 

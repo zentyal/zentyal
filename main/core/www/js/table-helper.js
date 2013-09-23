@@ -719,7 +719,7 @@ Parameters:
 */
 Zentyal.TableHelper.showPort = function (protocolSelectId, portId, protocols) {
     var selectedValue = $('#' + protocolSelectId).val();
-    if (selectedValue in protocols) {
+    if (protocols.indexOf(selectedValue) > -1) {
         $('#' + portId).show();
     } else {
         $('#' + portId).hide();
