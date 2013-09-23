@@ -1,4 +1,4 @@
-HEAD
+2.2.2
 	+ Removed ipsec_setup.pid from the list of pids related with ipsec because
 	  it doesn't need to be running all the time.
 2.2.1
