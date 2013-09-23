@@ -316,13 +316,14 @@ sub _doProvision
                   "--firstorg='$firstOrganization' " .
                   "--firstou='$firstOrganizationUnit' ";
         my $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+        $output = join('', @{$output});
 
         $cmd = '/opt/samba4/sbin/openchange_provision --openchangedb';
-        $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+        my $output2 = EBox::Sudo::root($cmd);
+        $output .= "\n" . join('', @{$output2});
 
         $self->parentModule->setProvisioned(1);
+        EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
     } otherwise {
         my ($error) = @_;
@@ -387,11 +388,11 @@ sub _doDeprovision
         my $cmd = '/opt/samba4/sbin/openchange_provision ' .
                   '--deprovision';
         my $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+        $output = join('', @{$output});
 
         $cmd = 'rm -rf /opt/samba4/private/openchange.ldb';
-        $output = EBox::Sudo::root($cmd);
-        EBox::debug("openchange.ldb removed");
+        my $output2 = EBox::Sudo::root($cmd);
+        $output .= "\n" . join('', @{$output2});
 
         # Drop SOGo database and db user. To avoid error if it does not exists,
         # the user is created and granted harmless privileges before drop it
@@ -403,6 +404,7 @@ sub _doDeprovision
         $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 
         $self->parentModule->setProvisioned(0);
+        EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
     } otherwise {
         my ($error) = @_;
