@@ -385,7 +385,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/Users.pm:1741
+#: ../../main/users/src/EBox/Users.pm:1753
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -1051,52 +1051,52 @@ msgstr ""
 msgid "Community"
 msgstr "Comunidad"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:51
+#: ../../main/core/src/templates/dashboard/links-widget.mas:50
 msgid "Business"
 msgstr "Negocio"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:53
+#: ../../main/core/src/templates/dashboard/links-widget.mas:52
 msgid "Fully supported Zentyal server for less than 25 users"
 msgstr "Servidor Zentyal completamente soportado para menos de 25 usuarios"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:53
+#: ../../main/core/src/templates/dashboard/links-widget.mas:52
 msgid "Small Business Edition"
 msgstr "Edición Small Business"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:55
+#: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Fully supported Zentyal server for an unlimited number of users."
 msgstr ""
 "Servidor Zentyal completamente soportado para un número de usuarios "
 "ilimitado."
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:55
+#: ../../main/core/src/templates/dashboard/links-widget.mas:54
 msgid "Enterprise Edition"
 msgstr "Edición Enterprise"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:57
+#: ../../main/core/src/templates/dashboard/links-widget.mas:56
 msgid ""
 "Learn to use all Zentyal based network services in production environments."
 msgstr ""
 "Aprende a usar todos los servicios de red basados en Zentyal en entornos de "
 "producción."
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:57
+#: ../../main/core/src/templates/dashboard/links-widget.mas:56
 msgid "Certified Training"
 msgstr "Formación Certificada"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:58
+#: ../../main/core/src/templates/dashboard/links-widget.mas:57
 msgid "\"Zentyal for Network Administrators\" book in English and Spanish."
 msgstr "Libro \"Zentyal para Administradores de Redes\" en Español e Inglés."
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:58
+#: ../../main/core/src/templates/dashboard/links-widget.mas:57
 msgid "Official Manual"
 msgstr "Manual Oficial"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:72
+#: ../../main/core/src/templates/dashboard/links-widget.mas:70
 msgid "Install Zentyal Cloud Client"
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:74
+#: ../../main/core/src/templates/dashboard/links-widget.mas:72
 #, perl-brace-format
 msgid ""
 "{op}You need to install some missing packages to register your server. "
@@ -1104,11 +1104,11 @@ msgid ""
 "get install zentyal-software zentyal-remoteservices{cpre}{cp}"
 msgstr ""
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:83
+#: ../../main/core/src/templates/dashboard/links-widget.mas:81
 msgid "Register your server"
 msgstr "Registra tu servidor"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:84
+#: ../../main/core/src/templates/dashboard/links-widget.mas:82
 msgid ""
 "Gain access to benefits such as free remote configuration backup and zentyal."
 "me subdomains!"
@@ -1116,7 +1116,7 @@ msgstr ""
 "¡Obtén acceso a ventajas como el backup de configuración remoto o "
 "subdominios zentyal.me gratuitos!"
 
-#: ../../main/core/src/templates/dashboard/links-widget.mas:84
+#: ../../main/core/src/templates/dashboard/links-widget.mas:82
 msgid "Register for Free!"
 msgstr "¡Regístrate Gratis!"
 

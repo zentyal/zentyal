@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-06-16 17:59+0200\n"
+"PO-Revision-Date: 2013-09-18 04:20+0200\n"
 "Last-Translator: chinajx_dyc <chinajx_dyc@sina.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_CN\n"
@@ -110,8 +110,9 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
+#, fuzzy
 msgid "Domain Name Address"
-msgstr ""
+msgstr "域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
@@ -136,19 +137,19 @@ msgstr "只能使用主机的MAC地址"
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
 msgid "Address added"
-msgstr ""
+msgstr "地址已添加"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:64
 msgid "Address removed"
-msgstr ""
+msgstr "地址已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:65
 msgid "Address updated"
-msgstr ""
+msgstr "地址已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
@@ -274,7 +275,7 @@ msgstr "所有用户"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:279
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "根据用户组的源地址匹配不适用于透明网桥模式"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:310
 msgid ""
@@ -717,7 +718,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "保留字符 '~' 不能用于配置文件名称"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -879,8 +880,7 @@ msgstr ""
 #: ../../main/jabber/src/templates/jabber.mas:20
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:20
+#: ../../main/zarafa/src/templates/zarafa.mas:22
 #, fuzzy
 msgid "Disabled"
 msgstr ""
@@ -1422,8 +1422,7 @@ msgstr "区{zone}的配置文件"
 #: ../../main/jabber/src/templates/jabber.mas:20
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:20
+#: ../../main/zarafa/src/templates/zarafa.mas:26
 #, fuzzy
 msgid "Enabled"
 msgstr ""
@@ -1485,11 +1484,11 @@ msgstr ""
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
+msgstr "不能使用此服务器，因为设定尚未完成；请编辑设定后再试一次"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:296
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "不能创建服务器，因为缺少CA证书"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:321
 #, perl-brace-format
@@ -1501,15 +1500,15 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:338
 #, fuzzy
 msgid "revoked"
-msgstr "撤销的模块"
+msgstr "已撤销"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "expired"
-msgstr ""
+msgstr "已过期"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "invalid"
-msgstr ""
+msgstr "无效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
 #, perl-brace-format
@@ -1659,34 +1658,34 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "其他服务正在使用同一端口"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr ""
+msgstr "端口 {p}/{pr} 正被 {mod} 使用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "网络接口 {iface} 不存在"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "网络接口 {iface} 未设置"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
-msgstr ""
+msgstr "不能使用网络地址转换(NAT)，因为它需要防火墙模块。该模块可能尚未安装或激活"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
-msgstr ""
+msgstr "不能使用网络地址转换(NAT)，因为他需要启用防火墙模块。请启用它并再试一次"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
@@ -1698,12 +1697,12 @@ msgstr ""
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr ""
+msgstr "该网络接口必须为外网接口，除非已启用网络地址转换(NAT)选项"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr ""
+msgstr "{par} 不适用于 Zentyal-to-Zentyal 隧道"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
@@ -1735,36 +1734,36 @@ msgstr "服务器"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "CA's certificate"
-msgstr ""
+msgstr "CA证书"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:84
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "客户端认证"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:96
 msgid "Client's private key"
-msgstr ""
+msgstr "客户端密钥"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:114
 msgid "Server tunnel password"
-msgstr ""
+msgstr "服务器隧道密码"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:120
 msgid "Bind port for client"
-msgstr ""
+msgstr "客户端绑定端口"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:128
 msgid "Bind address for client"
-msgstr ""
+msgstr "客户端绑定地址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:135
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "指令将在路由被设置后执行"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:145
 msgid "Client configuration"
-msgstr ""
+msgstr "客户端配置"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:235
 #, perl-brace-format
@@ -1779,37 +1778,37 @@ msgstr "启用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:82
 msgid "Upload client bundle"
-msgstr ""
+msgstr "上传客户端 bundle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "List of Clients"
-msgstr ""
+msgstr "客户端列表"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:103
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN 客户端"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:147
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
+msgstr "不能启用客户端，因为它尚未设置好，请编辑配置后重试"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:181
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP 密码是强制的"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr ""
+msgstr "客户端类型"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "添加OpenVPN的安装包到bundle中"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "适用于 Microsoft Windows 的 OpenVPN 安装程序"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 #, fuzzy
@@ -1818,7 +1817,7 @@ msgstr "模块状态"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr ""
+msgstr "服务器地址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
@@ -2390,7 +2389,7 @@ msgstr "重定向"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:661
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "为以下模块添加防火墙规则而失败："
 
 #: ../../main/firewall/src/EBox/Iptables.pm:664
 msgid ""
@@ -2400,16 +2399,16 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Iptables.pm:916
 #: ../../main/firewall/src/EBox/Iptables.pm:953
-#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
-#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:70
+#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:81
+#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:71
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr "必须在ebox配置文件中设置iptables_log_limit变量"
+msgstr "您必须在ebox配置文件中设置iptables_log_limit变量"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:922
 #: ../../main/firewall/src/EBox/Iptables.pm:959
-#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
-#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:75
+#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:86
+#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:76
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr "必须在ebox配置文件中设置iptables_log_burst变量"
@@ -2633,7 +2632,7 @@ msgstr "发现矛盾的规则，先删除"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:271
-#: ../../main/trafficshaping/src/EBox/TC.pm:104
+#: ../../main/trafficshaping/src/EBox/TC.pm:105
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:406
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:845
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
@@ -2710,7 +2709,7 @@ msgstr "原始目标地址"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:116
 #: ../../main/core/src/cgi/ebox.cgi:49 ../../main/core/src/EBox/Html.pm:138
 #: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:316
-#: ../../main/core/src/templates/headerWithRefresh.mas:11
+#: ../../main/core/src/templates/headerWithRefresh.mas:14
 #: ../../main/core/src/templates/login/index.mas:15
 #, fuzzy
 msgid "Zentyal"
@@ -3077,7 +3076,7 @@ msgid ""
 "interfaces"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TC.pm:69
+#: ../../main/trafficshaping/src/EBox/TC.pm:70
 msgid "options"
 msgstr ""
 
@@ -3606,26 +3605,26 @@ msgstr ""
 msgid "Zentyal FTP Server"
 msgstr ""
 
-#: ../../main/ftp/src/EBox/FTP.pm:113
+#: ../../main/ftp/src/EBox/FTP.pm:118
 #, fuzzy
 msgid "Generate SSL certificates"
 msgstr "服务认证"
 
-#: ../../main/ftp/src/EBox/FTP.pm:114
+#: ../../main/ftp/src/EBox/FTP.pm:119
 msgid "Zentyal will self-signed SSL certificates for FTP service."
 msgstr ""
 
-#: ../../main/ftp/src/EBox/FTP.pm:132
+#: ../../main/ftp/src/EBox/FTP.pm:137
 #, fuzzy
 msgid "To configure vsftpd."
 msgstr "配置拨号规则"
 
-#: ../../main/ftp/src/EBox/FTP.pm:136
+#: ../../main/ftp/src/EBox/FTP.pm:141
 #, fuzzy
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "配置LDAP实时驱动"
 
-#: ../../main/ftp/src/EBox/FTP.pm:179
+#: ../../main/ftp/src/EBox/FTP.pm:184
 msgid "FTP"
 msgstr ""
 
@@ -4544,7 +4543,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:90
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/users/src/EBox/Users.pm:1820
+#: ../../main/users/src/EBox/Users.pm:1832
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
 #: ../../main/users/src/EBox/Users/Model/Password.pm:73
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
@@ -4924,7 +4923,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:753
-#: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:315
+#: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:316
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -6186,7 +6185,7 @@ msgstr ""
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:744
 #: ../../main/core/src/EBox/WebAdmin.pm:391
 #: ../../main/services/src/EBox/Services.pm:465
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
 msgid "port"
 msgstr "端口"
 
@@ -9675,7 +9674,7 @@ msgid ""
 "Domain, or Organizational Unit in the Active Directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:108
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:236
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
@@ -9687,27 +9686,27 @@ msgstr ""
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:179
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:180
 msgid "Windows account names cannot end with a dot"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:181
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:182
 msgid "Windows account names cannot start with a dash"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:183
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:184
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:189
 #, fuzzy, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
 msgstr "输入中存在非法字符"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:194
-#: ../../main/samba/src/EBox/Samba/Group.pm:374
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:195
+#: ../../main/samba/src/EBox/Samba/Group.pm:381
 #: ../../main/samba/src/EBox/Samba/User.pm:410
 #: ../../main/samba/src/EBox/Samba/User.pm:416
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
@@ -9715,7 +9714,7 @@ msgstr "输入中存在非法字符"
 msgid "account name"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:208
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:209
 #: ../../main/mail/src/templates/createaccount.mas:20
 msgid "Account name"
 msgstr ""
@@ -9742,7 +9741,7 @@ msgstr ""
 msgid "Cannot parse {x} file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Contact.pm:99
+#: ../../main/samba/src/EBox/Samba/Contact.pm:100
 #: ../../main/samba/src/EBox/Samba/User.pm:367
 #: ../../main/users/src/EBox/Users/InetOrgPerson.pm:352
 msgid "Error on person LDAP entry creation:"
@@ -9800,23 +9799,23 @@ msgstr ""
 msgid "The mode {mode} is not supported"
 msgstr "这个协议没有使用端口"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:611
+#: ../../main/samba/src/EBox/Samba/Provision.pm:612
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:631
+#: ../../main/samba/src/EBox/Samba/Provision.pm:632
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:652
+#: ../../main/samba/src/EBox/Samba/Provision.pm:653
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:701
+#: ../../main/samba/src/EBox/Samba/Provision.pm:702
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -9826,69 +9825,69 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:739
+#: ../../main/samba/src/EBox/Samba/Provision.pm:740
 msgid "Could not retrieve the domain information."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:748
+#: ../../main/samba/src/EBox/Samba/Provision.pm:749
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:768
+#: ../../main/samba/src/EBox/Samba/Provision.pm:769
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:787
+#: ../../main/samba/src/EBox/Samba/Provision.pm:788
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:796
+#: ../../main/samba/src/EBox/Samba/Provision.pm:797
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:831
+#: ../../main/samba/src/EBox/Samba/Provision.pm:832
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:857
+#: ../../main/samba/src/EBox/Samba/Provision.pm:858
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:878
+#: ../../main/samba/src/EBox/Samba/Provision.pm:879
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:884
+#: ../../main/samba/src/EBox/Samba/Provision.pm:885
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:911
+#: ../../main/samba/src/EBox/Samba/Provision.pm:912
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:945
 #, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:957
+#: ../../main/samba/src/EBox/Samba/Provision.pm:958
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:556
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -9896,20 +9895,20 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:996
+#: ../../main/samba/src/EBox/Samba/Provision.pm:997
 #, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1008
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1009
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1042
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1043
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1046
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1047
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
@@ -9985,7 +9984,7 @@ msgstr ""
 msgid "Group share set"
 msgstr "组队列"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:376
+#: ../../main/samba/src/EBox/Samba/Group.pm:383
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
 
@@ -9999,7 +9998,7 @@ msgid "Windows user names cannot contain the \"@\" character."
 msgstr "输入中存在非法字符"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:429
-#: ../../main/users/src/EBox/Users/User.pm:808
+#: ../../main/users/src/EBox/Users/User.pm:813
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr ""
@@ -10116,7 +10115,7 @@ msgid ""
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:863
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:869
 msgid "Sharing directory for this group"
 msgstr ""
 
@@ -10737,7 +10736,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:78
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "增加 clamav 用户到 amavis 组中"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Clamav need access to amavis fields to properly scan mail"
@@ -11612,7 +11611,7 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:22
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
-#: ../../main/zarafa/src/templates/zarafa.mas:102
+#: ../../main/zarafa/src/templates/zarafa.mas:109
 #: ../../main/users/src/templates/editgroup.mas:40
 #: ../../main/users/src/templates/editcontact.mas:23
 #: ../../main/users/src/templates/edituser.mas:47
@@ -14983,7 +14982,7 @@ msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:127
-msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgid "Enable only Single Sign-On on the Webaccess interface."
 msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:137
@@ -15560,15 +15559,15 @@ msgstr ""
 msgid "Kerberos authentication"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:643
+#: ../../main/users/src/EBox/Users.pm:655
 msgid "Error performing users initialization"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:709
+#: ../../main/users/src/EBox/Users.pm:721
 msgid "Error while creating users and groups database."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:786
+#: ../../main/users/src/EBox/Users.pm:798
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -15576,56 +15575,56 @@ msgid ""
 "changes reprovision will be attempted again.{pend}"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1100
+#: ../../main/users/src/EBox/Users.pm:1112
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1318
+#: ../../main/users/src/EBox/Users.pm:1330
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1789
+#: ../../main/users/src/EBox/Users.pm:1801
 msgid "Manage"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1792
+#: ../../main/users/src/EBox/Users.pm:1804
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1796
+#: ../../main/users/src/EBox/Users.pm:1808
 #, fuzzy
 msgid "Synchronization"
 msgstr "配置备份"
 
-#: ../../main/users/src/EBox/Users.pm:1800
+#: ../../main/users/src/EBox/Users.pm:1812
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1804
+#: ../../main/users/src/EBox/Users.pm:1816
 #, fuzzy
 msgid "Configure mode"
 msgstr "配置规则"
 
-#: ../../main/users/src/EBox/Users.pm:1992
+#: ../../main/users/src/EBox/Users.pm:2004
 #, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:2009
+#: ../../main/users/src/EBox/Users.pm:2021
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
 "Delete or rename this user and try again"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:2289
-#: ../../main/users/src/EBox/Users.pm:2298
+#: ../../main/users/src/EBox/Users.pm:2301
+#: ../../main/users/src/EBox/Users.pm:2310
 #, fuzzy
 msgid "Users data"
 msgstr "用户帐号"
@@ -16301,21 +16300,21 @@ msgstr ""
 msgid "Error on user LDAP entry creation:"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:756
+#: ../../main/users/src/EBox/Users/User.pm:761
 msgid "Maximum number of system users reached"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:761
+#: ../../main/users/src/EBox/Users/User.pm:766
 msgid "Maximum number of users reached"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:778
+#: ../../main/users/src/EBox/Users/User.pm:783
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:788
+#: ../../main/users/src/EBox/Users/User.pm:793
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -16543,29 +16542,29 @@ msgstr "取消所有选择"
 msgid "Select All"
 msgstr "选择全部"
 
-#: ../../main/software/src/templates/ebox.mas:466
-#: ../../main/core/src/templates/ajax/treeView.mas:37
+#: ../../main/software/src/templates/ebox.mas:469
+#: ../../main/core/src/templates/ajax/treeView.mas:38
 #: ../../main/core/src/templates/ajax/tableBody.mas:308
 #: ../../main/core/src/templates/ajax/tableModalView.mas:187
 msgid "Search"
 msgstr "搜索"
 
-#: ../../main/software/src/templates/ebox.mas:473
+#: ../../main/software/src/templates/ebox.mas:476
 #, fuzzy
 msgid "Select"
 msgstr "选择全部"
 
-#: ../../main/software/src/templates/ebox.mas:492
+#: ../../main/software/src/templates/ebox.mas:495
 #: ../../main/software/src/templates/updates.mas:77
 msgid "Package list updated successfully"
 msgstr "软件包列表更新成功"
 
-#: ../../main/software/src/templates/ebox.mas:497
+#: ../../main/software/src/templates/ebox.mas:500
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr ""
 
-#: ../../main/software/src/templates/ebox.mas:499
+#: ../../main/software/src/templates/ebox.mas:502
 #: ../../main/software/src/templates/updates.mas:80
 #, fuzzy
 msgid ""
@@ -17020,7 +17019,7 @@ msgid "User account"
 msgstr "用户帐号"
 
 #: ../../main/jabber/src/templates/jabber.mas:25
-#: ../../main/zarafa/src/templates/zarafa.mas:27
+#: ../../main/zarafa/src/templates/zarafa.mas:32
 msgid "Administration rights"
 msgstr ""
 
@@ -18182,56 +18181,56 @@ msgstr ""
 
 #: ../../main/mail/src/templates/alias.mas:179
 msgid "No quota"
-msgstr ""
+msgstr "无限额"
 
 #: ../../main/mail/src/templates/alias.mas:180
 msgid "Default quota"
-msgstr ""
+msgstr "默认限额"
 
 #: ../../main/mail/src/templates/alias.mas:181
 msgid "Custom quota"
-msgstr ""
+msgstr "自定义限额"
 
 #: ../../main/mail/src/templates/alias.mas:190
 #, fuzzy
 msgid "Quota type"
-msgstr "测试类型"
+msgstr "限额单位"
 
 #: ../../main/mail/src/templates/alias.mas:201
 #, fuzzy
 msgid "Maximum mailbox size in MB"
-msgstr "最大租约时间"
+msgstr "最大邮箱空间(MB)"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:36
+#: ../../main/zarafa/src/templates/zarafa.mas:41
 msgid "Enable POP3 access"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:45
+#: ../../main/zarafa/src/templates/zarafa.mas:50
 #, fuzzy
 msgid "Enable IMAP access"
 msgstr "启用动态DNS"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:53
+#: ../../main/zarafa/src/templates/zarafa.mas:58
 msgid "Auto accept meeting requests"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:63
+#: ../../main/zarafa/src/templates/zarafa.mas:68
 msgid "Decline meetings requests with conflicting times"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:72
+#: ../../main/zarafa/src/templates/zarafa.mas:77
 msgid "Decline recurring meeting requests"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:84
+#: ../../main/zarafa/src/templates/zarafa.mas:90
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:89
+#: ../../main/zarafa/src/templates/zarafa.mas:96
 msgid "Groupware contact"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:135
+#: ../../main/zarafa/src/templates/zarafa.mas:142
 #, fuzzy
 msgid ""
 "The following settings will take effect only when the Zarafa module is "
@@ -18347,7 +18346,7 @@ msgstr ""
 #: ../../main/users/src/templates/edituser.mas:42
 #, fuzzy
 msgid "User quota"
-msgstr "用户帐号"
+msgstr "用户限额"
 
 #: ../../main/users/src/templates/edituser.mas:42
 #, fuzzy
