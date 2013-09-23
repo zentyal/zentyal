@@ -247,7 +247,11 @@ sub _viewConsoleClicked
     my $viewConsoleURL = "/data/vncviewer-$name.html";
     my $viewConsoleCaption = __('View Console') . " ($name)";
 
-    return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true,}); return false",
+    if ($virt->viewNewWindow()) {
+        return "window.open('$viewConsoleURL'); return false";
+    } else {
+        return "Modalbox.show('$viewConsoleURL', {title: '$viewConsoleCaption', width: '$width', height: '$height', wideWindow : true,}); return false";
+    }
 }
 
 sub _acquirePaused

@@ -1,3 +1,5 @@
+HEAD
+	+ Add a new confkey to open Virtual Console on a new window
 3.0.8
 	+ Do not check for r/rw perms on disks as libvirt automatically fixes them
 	+ Bridges already used are skipped instead of reused to avoid conflicts
