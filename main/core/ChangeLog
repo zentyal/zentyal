@@ -1,4 +1,5 @@
 HEAD
+	+ Added enableInnoDbIfNeeded() to MyDBEngine
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
 	+ Add icon for openchange module

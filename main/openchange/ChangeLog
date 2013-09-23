@@ -1,5 +1,5 @@
 HEAD
-	+ Assure InnoDB is enabled in mysql
+	+ Use new enableInnoDbIfNeeded() from core
 	+ Disable mode select when provisioned
 3.1.1
 	+ Implement additional openchange server deployment

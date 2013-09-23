@@ -126,7 +126,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-    $self->_enableInnoDBIfNeeded();
+    EBox::MyDBEngine->enableInnoDBIfNeeded();
 }
 
 sub _writeSOGoDefaultFile

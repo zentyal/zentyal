@@ -1,3 +1,5 @@
+HEAD
+	+ Use new enableInnoDbIfNeeded() from core
 3.2
 	+ Set version to 3.2
 	+ Disable Single Sign-On on webapp as it is not working and undocumented
