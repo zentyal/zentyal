@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-09-17 16:57+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2013-09-17 18:50+0200\n"
+"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -8449,7 +8449,7 @@ msgstr "Eventos"
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:81
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:112
 msgid "Monitor Watcher"
-msgstr "Observador"
+msgstr "Observador de monitorización"
 
 #: ../../main/monitor/src/EBox/Monitor/Model/MeasureWatchers.pm:146
 msgid "Measure"

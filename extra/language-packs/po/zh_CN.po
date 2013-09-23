@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-06-16 17:59+0200\n"
+"PO-Revision-Date: 2013-09-18 04:20+0200\n"
 "Last-Translator: chinajx_dyc <chinajx_dyc@sina.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_CN\n"
@@ -110,8 +110,9 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
+#, fuzzy
 msgid "Domain Name Address"
-msgstr ""
+msgstr "域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
@@ -136,19 +137,19 @@ msgstr "只能使用主机的MAC地址"
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
 msgid "Address added"
-msgstr ""
+msgstr "地址已添加"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:64
 msgid "Address removed"
-msgstr ""
+msgstr "地址已移除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:65
 msgid "Address updated"
-msgstr ""
+msgstr "地址已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
@@ -274,7 +275,7 @@ msgstr "所有用户"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:279
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
-msgstr ""
+msgstr "根据用户组的源地址匹配不适用于透明网桥模式"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:310
 msgid ""
@@ -717,7 +718,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "保留字符 '~' 不能用于配置文件名称"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -1483,11 +1484,11 @@ msgstr ""
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
+msgstr "不能使用此服务器，因为设定尚未完成；请编辑设定后再试一次"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:296
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "不能创建服务器，因为缺少CA证书"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:321
 #, perl-brace-format
@@ -1499,15 +1500,15 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:338
 #, fuzzy
 msgid "revoked"
-msgstr "撤销的模块"
+msgstr "已撤销"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "expired"
-msgstr ""
+msgstr "已过期"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "invalid"
-msgstr ""
+msgstr "无效"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
 #, perl-brace-format
@@ -1657,34 +1658,34 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
-msgstr ""
+msgstr "其他服务正在使用同一端口"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:419
 #, perl-brace-format
 msgid "Port {p}/{pr} is in use by {mod}"
-msgstr ""
+msgstr "端口 {p}/{pr} 正被 {mod} 使用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:476
 #, perl-brace-format
 msgid "The interface {iface} does not exist"
-msgstr ""
+msgstr "网络接口 {iface} 不存在"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:481
 #, perl-brace-format
 msgid "The interface {iface} is not configured"
-msgstr ""
+msgstr "网络接口 {iface} 未设置"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:499
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module. The module is neither installed or activated"
-msgstr ""
+msgstr "不能使用网络地址转换(NAT)，因为它需要防火墙模块。该模块可能尚未安装或激活"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:506
 msgid ""
 "Cannot use Network Address translation because it requires the firewall "
 "module enabled. Please activate it and try again"
-msgstr ""
+msgstr "不能使用网络地址转换(NAT)，因为他需要启用防火墙模块。请启用它并再试一次"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:535
 msgid ""
@@ -1696,12 +1697,12 @@ msgstr ""
 msgid ""
 "The interface must be a external interface, unless Network Address "
 "Translation option is on"
-msgstr ""
+msgstr "该网络接口必须为外网接口，除非已启用网络地址转换(NAT)选项"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:592
 #, perl-brace-format
 msgid "{par} is not compatible with Zentyal-to-Zentyal tunnel"
-msgstr ""
+msgstr "{par} 不适用于 Zentyal-to-Zentyal 隧道"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
@@ -1733,36 +1734,36 @@ msgstr "服务器"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "CA's certificate"
-msgstr ""
+msgstr "CA证书"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:84
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "客户端认证"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:96
 msgid "Client's private key"
-msgstr ""
+msgstr "客户端密钥"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:114
 msgid "Server tunnel password"
-msgstr ""
+msgstr "服务器隧道密码"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:120
 msgid "Bind port for client"
-msgstr ""
+msgstr "客户端绑定端口"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:128
 msgid "Bind address for client"
-msgstr ""
+msgstr "客户端绑定地址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:135
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "指令将在路由被设置后执行"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:145
 msgid "Client configuration"
-msgstr ""
+msgstr "客户端配置"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:235
 #, perl-brace-format
@@ -1777,37 +1778,37 @@ msgstr "启用"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:82
 msgid "Upload client bundle"
-msgstr ""
+msgstr "上传客户端 bundle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "List of Clients"
-msgstr ""
+msgstr "客户端列表"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:103
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN 客户端"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:147
 msgid ""
 "Cannot activate the client because is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
+msgstr "不能启用客户端，因为它尚未设置好，请编辑配置后重试"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:181
 msgid "RIP password is mandatory"
-msgstr ""
+msgstr "RIP 密码是强制的"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr ""
+msgstr "客户端类型"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "添加OpenVPN的安装包到bundle中"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "适用于 Microsoft Windows 的 OpenVPN 安装程序"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 #, fuzzy
@@ -1816,7 +1817,7 @@ msgstr "模块状态"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr ""
+msgstr "服务器地址"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
@@ -2388,7 +2389,7 @@ msgstr "重定向"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:661
 msgid "Firewall failed to add rules for the following modules: "
-msgstr ""
+msgstr "为以下模块添加防火墙规则而失败："
 
 #: ../../main/firewall/src/EBox/Iptables.pm:664
 msgid ""
@@ -2402,7 +2403,7 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:71
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
-msgstr "必须在ebox配置文件中设置iptables_log_limit变量"
+msgstr "您必须在ebox配置文件中设置iptables_log_limit变量"
 
 #: ../../main/firewall/src/EBox/Iptables.pm:922
 #: ../../main/firewall/src/EBox/Iptables.pm:959
@@ -10735,7 +10736,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:78
 msgid "Add clamav user to amavis group"
-msgstr ""
+msgstr "增加 clamav 用户到 amavis 组中"
 
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:79
 msgid "Clamav need access to amavis fields to properly scan mail"
@@ -18180,25 +18181,25 @@ msgstr ""
 
 #: ../../main/mail/src/templates/alias.mas:179
 msgid "No quota"
-msgstr ""
+msgstr "无限额"
 
 #: ../../main/mail/src/templates/alias.mas:180
 msgid "Default quota"
-msgstr ""
+msgstr "默认限额"
 
 #: ../../main/mail/src/templates/alias.mas:181
 msgid "Custom quota"
-msgstr ""
+msgstr "自定义限额"
 
 #: ../../main/mail/src/templates/alias.mas:190
 #, fuzzy
 msgid "Quota type"
-msgstr "测试类型"
+msgstr "限额单位"
 
 #: ../../main/mail/src/templates/alias.mas:201
 #, fuzzy
 msgid "Maximum mailbox size in MB"
-msgstr "最大租约时间"
+msgstr "最大邮箱空间(MB)"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:41
 msgid "Enable POP3 access"
@@ -18345,7 +18346,7 @@ msgstr ""
 #: ../../main/users/src/templates/edituser.mas:42
 #, fuzzy
 msgid "User quota"
-msgstr "用户帐号"
+msgstr "用户限额"
 
 #: ../../main/users/src/templates/edituser.mas:42
 #, fuzzy

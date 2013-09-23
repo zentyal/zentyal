@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-11-11 00:07+0200\n"
-"Last-Translator: patz <zsdregas@sch.gr>\n"
+"PO-Revision-Date: 2013-09-22 02:41+0200\n"
+"Last-Translator: gchr <6zmqfnftrh@snkmail.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -141,7 +141,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
-msgstr "Περίοδος Χρόνου"
+msgstr "Χρονική περίοδος"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:46
 msgid "Time period when the rule is applied"
@@ -163,7 +163,6 @@ msgid "Source"
 msgstr "Πηγή"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
-#, fuzzy
 msgid "Network Object"
 msgstr "Αντικείμενο δικτύου"
 
@@ -318,7 +317,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "Το τμήμα του URL που είναι τομέας ή IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:92
 #: ../../main/squid/src/EBox/Squid.pm:1122
@@ -340,63 +339,63 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:98
 msgid "Domain or IP address"
-msgstr ""
+msgstr "Τομέας ή διεύθυνση IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:229
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "Κανόνες τομέων και URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:237
 msgid "internet domain or URL"
-msgstr ""
+msgstr "Τομέας ή URL στο διαδίκτυο"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:238
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
+"Επιτρέψτε/Αρνηθείτε την HTTP κίνηση από/προς τις περιοχές που απαριθμούνται "
+"στο διαδίκτυο και τις διευθύνσεις URL."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:240
 msgid "Domain or URL added"
-msgstr ""
+msgstr "Ο τομέας ή διεύθυνση URL προστέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:241
 msgid "Domain or URL removed"
-msgstr ""
+msgstr "Ο τομέας ή διεύθυνση URL αφαιρέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid "Domain or URL updated"
-msgstr ""
+msgstr "Ο τομέας ή διεύθυνση URL ενημερώθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
-#, fuzzy
 msgid "Skip Transparent Proxy"
-msgstr "Διαφανής POP3 Proxy"
+msgstr "Παράκαμψη του διαφανούς Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
-#, fuzzy
 msgid "Transparent Proxy Exemptions"
-msgstr "Αναφορά Διαφανούς POP Proxy"
+msgstr "Εξαιρέσεις του διαφανούς Proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
 msgid "You can exempt some addresses from transparent proxy"
-msgstr ""
+msgstr "Μπορείτε να εξαιρέσετε κάποιες διευθύνσεις απο τον διαφανή proxy"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:44
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "Διαφανής εξυπηρετητής μεσολάβησης"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:58
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "Ενεργοποίηση καθολικής εισόδου (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
-msgstr ""
+msgstr "Μπλοκάρισμα διαφημίσεων"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:67
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "Αφαιρέστε τις διαφημίσεις από όλη την κίνηση HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
@@ -413,7 +412,7 @@ msgstr "Πόρτα"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:77
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "Συνολικό μέγεθος αρχείων κρυφής μνήμης (MB)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:87
 #: ../../main/squid/src/EBox/Squid.pm:1061
@@ -435,15 +434,14 @@ msgid ""
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
-msgstr "Ομάδα που επιτρέπεται να πιστοποιηήσει"
+msgstr "Ο διαφανής proxy δεν είναι συμβατός με πιστοποίηση Kerberos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "Η {port} είναι ήδη σε χρήση. Παρακαλώ επιλέξτε μία άλλη"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:202
 msgid ""
@@ -482,7 +480,7 @@ msgstr "τύποι ΜΙΜΕ"
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
 msgid "MIME type"
-msgstr ""
+msgstr "τύπος MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:190
 msgid ""
@@ -662,15 +660,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:106
 msgid "Added filter profile"
-msgstr ""
+msgstr "Το προφίλ φίλτρου προστέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:107
 msgid "Removed filter profile"
-msgstr ""
+msgstr "Το προφίλ φίλτρου αφαιρέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:108
 msgid "Updated filter profile"
-msgstr ""
+msgstr "Το προφίλ φίλτρου ενημερώθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:74
@@ -695,15 +693,17 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:154
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Δεν επιτρέπονται κενά στα ονόματα των φίλτρων"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
+"Ο χαρακτήρας '~' είναι δεσμευμένος και δε μπορεί να χρησιμοποιηθεί στα "
+"ονόματα των προφίλ"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "Αποκλείστε τους τομείς και URL που δεν απαριθμούνται"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:53
 msgid ""
@@ -714,7 +714,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:60
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Αποκλεισμός ιστότοπων που ορίζονται μόνο με IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:68
 msgid "Domain filter settings"
@@ -755,12 +755,11 @@ msgstr "Αντικείμενο δικτύου"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:146
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Ενεργοποιήστε καθολικό όριο για το αντικείμενο"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:153
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Μέγιστο μέγεθος"
+msgstr "Μέγιστο απεριόριστο μέγεθος"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
 msgid "Maximum unthrottled download size for the whole network object."
@@ -773,9 +772,8 @@ msgid "MB"
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:162
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Διεύθυνση πελάτη"
+msgstr "Μέγιστη ταχύτητα λήψης"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 msgid ""
