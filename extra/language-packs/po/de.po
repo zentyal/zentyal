@@ -1009,17 +1009,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:218
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 #: ../../main/users/src/EBox/Users/Model/Master.pm:75
-#, fuzzy
 msgid "None"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-dhcp 0.12)  #-#-#-#-#\n"
-"Keine\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Keiner\n"
-"#-#-#-#-#  de.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Keine\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Keine"
+msgstr "Keine"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
