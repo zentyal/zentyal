@@ -3,6 +3,8 @@ HEAD
 	  users stored in LDB
 	+ Write openchange options to smb.conf if module installed
 	+ Fix precondition on GPOScripts model
+3.2.1
+	+ Fixed start of samba after reboot
 3.2
 	+ Migrated the Samba provision status into redis
 	+ Fixed migration of disabled accounts

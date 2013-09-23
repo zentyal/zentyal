@@ -896,8 +896,7 @@ msgstr "Порог фильтра содержимого изменён"
 #: ../../main/jabber/src/templates/jabber.mas:20
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:20
+#: ../../main/zarafa/src/templates/zarafa.mas:22
 msgid "Disabled"
 msgstr "Отключено"
 
@@ -1433,8 +1432,7 @@ msgstr "Загрузка пакета конфигурации"
 #: ../../main/jabber/src/templates/jabber.mas:20
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:19
-#: ../../main/zarafa/src/templates/zarafa.mas:20
+#: ../../main/zarafa/src/templates/zarafa.mas:26
 msgid "Enabled"
 msgstr "Включено"
 
@@ -2464,8 +2462,8 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Iptables.pm:916
 #: ../../main/firewall/src/EBox/Iptables.pm:953
-#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:80
-#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:70
+#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:81
+#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:71
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr ""
@@ -2474,8 +2472,8 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Iptables.pm:922
 #: ../../main/firewall/src/EBox/Iptables.pm:959
-#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:85
-#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:75
+#: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:86
+#: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:76
 msgid ""
 "You must set the iptables_log_burst variable in the ebox configuration file"
 msgstr ""
@@ -2682,7 +2680,7 @@ msgstr "Найдены противоречащие друг-другу прав
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:225
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:271
-#: ../../main/trafficshaping/src/EBox/TC.pm:104
+#: ../../main/trafficshaping/src/EBox/TC.pm:105
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:406
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:845
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:75
@@ -2748,7 +2746,7 @@ msgstr "Первоначальное назначение"
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:116
 #: ../../main/core/src/cgi/ebox.cgi:49 ../../main/core/src/EBox/Html.pm:138
 #: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:316
-#: ../../main/core/src/templates/headerWithRefresh.mas:11
+#: ../../main/core/src/templates/headerWithRefresh.mas:14
 #: ../../main/core/src/templates/login/index.mas:15
 msgid "Zentyal"
 msgstr "Zentyal"
@@ -3153,7 +3151,7 @@ msgstr ""
 "Здесь вы можете добавить правила управления трафиком для внутренних и "
 "внешних интерфейсов"
 
-#: ../../main/trafficshaping/src/EBox/TC.pm:69
+#: ../../main/trafficshaping/src/EBox/TC.pm:70
 msgid "options"
 msgstr "настройки"
 
@@ -3705,24 +3703,24 @@ msgstr "Должно быть указано валидное имя домен�
 msgid "Zentyal FTP Server"
 msgstr "FTP сервер Zentyal"
 
-#: ../../main/ftp/src/EBox/FTP.pm:113
+#: ../../main/ftp/src/EBox/FTP.pm:118
 msgid "Generate SSL certificates"
 msgstr "Сгенерировать SSL сертификаты"
 
-#: ../../main/ftp/src/EBox/FTP.pm:114
+#: ../../main/ftp/src/EBox/FTP.pm:119
 msgid "Zentyal will self-signed SSL certificates for FTP service."
 msgstr ""
 "Zentyal будет использовать самоподписанные SSL сертификаты для FTP службы."
 
-#: ../../main/ftp/src/EBox/FTP.pm:132
+#: ../../main/ftp/src/EBox/FTP.pm:137
 msgid "To configure vsftpd."
 msgstr "Настроить vsftpd."
 
-#: ../../main/ftp/src/EBox/FTP.pm:136
+#: ../../main/ftp/src/EBox/FTP.pm:141
 msgid "To configure vsftpd with LDAP authentication."
 msgstr "Настроить vsftpd с авторизацией LDAP."
 
-#: ../../main/ftp/src/EBox/FTP.pm:179
+#: ../../main/ftp/src/EBox/FTP.pm:184
 msgid "FTP"
 msgstr "FTP"
 
@@ -4639,7 +4637,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAccounts.pm:90
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:105
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:39
-#: ../../main/users/src/EBox/Users.pm:1820
+#: ../../main/users/src/EBox/Users.pm:1832
 #: ../../main/users/src/EBox/Users/Model/SlavePassword.pm:55
 #: ../../main/users/src/EBox/Users/Model/Password.pm:73
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:50
@@ -5020,7 +5018,7 @@ msgstr ""
 "разрешение имён и брандмауэр в сети"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:753
-#: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:315
+#: ../../main/remoteservices/src/EBox/RemoteServices/Connection.pm:316
 #, perl-brace-format
 msgid ""
 "Could not connect to VPN server \"{addr}:{port}/{proto}\". Check your "
@@ -6314,7 +6312,7 @@ msgstr "хост"
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:744
 #: ../../main/core/src/EBox/WebAdmin.pm:391
 #: ../../main/services/src/EBox/Services.pm:465
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:22
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
 msgid "port"
 msgstr "порт"
 
@@ -9926,7 +9924,7 @@ msgid ""
 "Domain, or Organizational Unit in the Active Directory"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:108
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:109
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:236
 #: ../../main/samba/src/EBox/Samba/GPO.pm:144
 #: ../../main/samba/src/EBox/Samba/GPO.pm:158
@@ -9938,29 +9936,29 @@ msgstr ""
 msgid "Found {count} results for, expected only one."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:179
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:180
 #, fuzzy
 msgid "Windows account names cannot end with a dot"
 msgstr "Нулем может оканчиваться только адрес сети"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:181
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:182
 #, fuzzy
 msgid "Windows account names cannot start with a dash"
 msgstr "Нулем может оканчиваться только адрес сети"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:183
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:184
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:188
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:189
 #, fuzzy, perl-brace-format
 msgid "Account name must not be longer than {maxLength} characters"
 msgstr "Имя группы не должно быть длиннее {maxGroupLength} символов"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:194
-#: ../../main/samba/src/EBox/Samba/Group.pm:374
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:195
+#: ../../main/samba/src/EBox/Samba/Group.pm:381
 #: ../../main/samba/src/EBox/Samba/User.pm:410
 #: ../../main/samba/src/EBox/Samba/User.pm:416
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
@@ -9968,7 +9966,7 @@ msgstr "Имя группы не должно быть длиннее {maxGroupL
 msgid "account name"
 msgstr "имя аккаунта"
 
-#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:208
+#: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:209
 #: ../../main/mail/src/templates/createaccount.mas:20
 msgid "Account name"
 msgstr "Имя аккаунта"
@@ -9995,7 +9993,7 @@ msgstr ""
 msgid "Cannot parse {x} file"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Contact.pm:99
+#: ../../main/samba/src/EBox/Samba/Contact.pm:100
 #: ../../main/samba/src/EBox/Samba/User.pm:367
 #: ../../main/users/src/EBox/Users/InetOrgPerson.pm:352
 msgid "Error on person LDAP entry creation:"
@@ -10053,23 +10051,23 @@ msgstr ""
 msgid "The mode {mode} is not supported"
 msgstr "Пользователь {u} не существует"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:611
+#: ../../main/samba/src/EBox/Samba/Provision.pm:612
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:631
+#: ../../main/samba/src/EBox/Samba/Provision.pm:632
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:652
+#: ../../main/samba/src/EBox/Samba/Provision.pm:653
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:701
+#: ../../main/samba/src/EBox/Samba/Provision.pm:702
 #, perl-brace-format
 msgid ""
 "Could not join to domain. The following DNS zones are stored in the main "
@@ -10079,70 +10077,70 @@ msgid ""
 "try again. Check {link} for help on how to do that."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:739
+#: ../../main/samba/src/EBox/Samba/Provision.pm:740
 #, fuzzy
 msgid "Could not retrieve the domain information."
 msgstr "Не используйте префикс www для доменов."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:748
+#: ../../main/samba/src/EBox/Samba/Provision.pm:749
 msgid ""
 "The AD forest contains more than one domain. Samba only support one domain "
 "per forest."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:768
+#: ../../main/samba/src/EBox/Samba/Provision.pm:769
 #, perl-brace-format
 msgid "The specified domain controller {x} is unreachable."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:787
+#: ../../main/samba/src/EBox/Samba/Provision.pm:788
 #, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:796
+#: ../../main/samba/src/EBox/Samba/Provision.pm:797
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:831
+#: ../../main/samba/src/EBox/Samba/Provision.pm:832
 #, perl-brace-format
 msgid ""
 "The DC {x} could not be resolved to its IP address. Please check the "
 "specified server name and DNS server."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:857
+#: ../../main/samba/src/EBox/Samba/Provision.pm:858
 #, perl-brace-format
 msgid ""
 "The specified AD server is registered on the local DNS as {x}, which matches "
 "local host name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:878
+#: ../../main/samba/src/EBox/Samba/Provision.pm:879
 msgid ""
 "The forest functional level must be Windows Server 2003 or higher. Please "
 "raise your forest functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:884
+#: ../../main/samba/src/EBox/Samba/Provision.pm:885
 msgid ""
 "The domain functional level must be Windows Server 2003 or higher. Please "
 "raise your domain functional level."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:911
+#: ../../main/samba/src/EBox/Samba/Provision.pm:912
 msgid ""
 "The domain you are trying to join has trust relationships defined. At the "
 "moment this is not supported by samba."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:944
+#: ../../main/samba/src/EBox/Samba/Provision.pm:945
 #, fuzzy, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
 msgstr "Не используйте префикс www для доменов."
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:957
+#: ../../main/samba/src/EBox/Samba/Provision.pm:958
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:556
 msgid ""
 "The clock skew with the AD server is higher than two minutes. This can cause "
@@ -10150,20 +10148,20 @@ msgid ""
 "external NTP source and try again."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:996
+#: ../../main/samba/src/EBox/Samba/Provision.pm:997
 #, fuzzy, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
 msgstr "Сертификат {cn} не существует"
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1008
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1009
 msgid "Could not determine the site of the specified server"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1042
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1043
 msgid "Could not determine the netbios domain name."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Provision.pm:1046
+#: ../../main/samba/src/EBox/Samba/Provision.pm:1047
 #, perl-brace-format
 msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
@@ -10242,7 +10240,7 @@ msgstr "{group} каталог ресурсов"
 msgid "Group share set"
 msgstr "{group} каталог ресурсов"
 
-#: ../../main/samba/src/EBox/Samba/Group.pm:376
+#: ../../main/samba/src/EBox/Samba/Group.pm:383
 #, fuzzy
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr "Нулем может оканчиваться только адрес сети"
@@ -10258,7 +10256,7 @@ msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Нулем может оканчиваться только адрес сети"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:429
-#: ../../main/users/src/EBox/Users/User.pm:808
+#: ../../main/users/src/EBox/Users/User.pm:813
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Пароль не должен быть длинее {maxPwdLength} символов"
@@ -10378,7 +10376,7 @@ msgid ""
 "additional domain controller."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:863
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:869
 msgid "Sharing directory for this group"
 msgstr "Каталог совместного доступа для этой группы"
 
@@ -11950,7 +11948,7 @@ msgstr "регулярное выражение для исключения пу
 #: ../../main/core/src/templates/enable.mas:22
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
 #: ../../main/mail/src/templates/warnvdmdsize.mas:30
-#: ../../main/zarafa/src/templates/zarafa.mas:102
+#: ../../main/zarafa/src/templates/zarafa.mas:109
 #: ../../main/users/src/templates/editgroup.mas:40
 #: ../../main/users/src/templates/editcontact.mas:23
 #: ../../main/users/src/templates/edituser.mas:47
@@ -15429,7 +15427,7 @@ msgid "Enable Active Sync (Microsoft Exchange syncronization protocol)."
 msgstr "Включить Active Sync (Microsoft Exchange syncronization protocol)."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:127
-msgid "Enable Single Sign On on the Webaccess and Webapp interface."
+msgid "Enable only Single Sign-On on the Webaccess interface."
 msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:137
@@ -16068,15 +16066,15 @@ msgstr "Облегченный протокол доступа к каталог
 msgid "Kerberos authentication"
 msgstr "Аутентификация smarthost"
 
-#: ../../main/users/src/EBox/Users.pm:643
+#: ../../main/users/src/EBox/Users.pm:655
 msgid "Error performing users initialization"
 msgstr "Ошибка выполнения инициализации пользователей"
 
-#: ../../main/users/src/EBox/Users.pm:709
+#: ../../main/users/src/EBox/Users.pm:721
 msgid "Error while creating users and groups database."
 msgstr "Ошибка при создании базы данных пользователей и групп."
 
-#: ../../main/users/src/EBox/Users.pm:786
+#: ../../main/users/src/EBox/Users.pm:798
 #, perl-brace-format
 msgid ""
 "Error on reprovision: {err}. {pbeg}Until the reprovision is done the user "
@@ -16084,42 +16082,42 @@ msgid ""
 "changes reprovision will be attempted again.{pend}"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1100
+#: ../../main/users/src/EBox/Users.pm:1112
 #, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1318
+#: ../../main/users/src/EBox/Users.pm:1330
 #, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users.pm:1789
+#: ../../main/users/src/EBox/Users.pm:1801
 #, fuzzy
 msgid "Manage"
 msgstr "Только управление"
 
-#: ../../main/users/src/EBox/Users.pm:1792
+#: ../../main/users/src/EBox/Users.pm:1804
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
 msgid "User Template"
 msgstr "Шаблон пользователя"
 
-#: ../../main/users/src/EBox/Users.pm:1796
+#: ../../main/users/src/EBox/Users.pm:1808
 #, fuzzy
 msgid "Synchronization"
 msgstr "Синхронизация включена"
 
-#: ../../main/users/src/EBox/Users.pm:1800
+#: ../../main/users/src/EBox/Users.pm:1812
 #: ../../main/users/src/EBox/Users/Composite/Settings.pm:52
 msgid "LDAP Settings"
 msgstr "Настройки LDAP"
 
-#: ../../main/users/src/EBox/Users.pm:1804
+#: ../../main/users/src/EBox/Users.pm:1816
 #, fuzzy
 msgid "Configure mode"
 msgstr "Сконфигурированные"
 
-#: ../../main/users/src/EBox/Users.pm:1992
+#: ../../main/users/src/EBox/Users.pm:2004
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
@@ -16128,7 +16126,7 @@ msgstr ""
 "Вы используете частичный режим резервного копирования и эта копия сделана в "
 "не-частичном режиме"
 
-#: ../../main/users/src/EBox/Users.pm:2009
+#: ../../main/users/src/EBox/Users.pm:2021
 #, perl-brace-format
 msgid ""
 "Cannot restore because LDAP user {user} already exists as /etc/passwd user. "
@@ -16138,8 +16136,8 @@ msgstr ""
 "как /etc/passwd пользователь. Удалите или переименуйте этого пользователя и "
 "попробуйте ещё раз"
 
-#: ../../main/users/src/EBox/Users.pm:2289
-#: ../../main/users/src/EBox/Users.pm:2298
+#: ../../main/users/src/EBox/Users.pm:2301
+#: ../../main/users/src/EBox/Users.pm:2310
 #, fuzzy
 msgid "Users data"
 msgstr "Квота пользователя"
@@ -16814,16 +16812,16 @@ msgstr ""
 msgid "Error on user LDAP entry creation:"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:756
+#: ../../main/users/src/EBox/Users/User.pm:761
 msgid "Maximum number of system users reached"
 msgstr "Достигнуто максимальное кол-во пользователей системы"
 
-#: ../../main/users/src/EBox/Users/User.pm:761
+#: ../../main/users/src/EBox/Users/User.pm:766
 #, fuzzy
 msgid "Maximum number of users reached"
 msgstr "Достигнуто максимальное кол-во пользователей системы"
 
-#: ../../main/users/src/EBox/Users/User.pm:778
+#: ../../main/users/src/EBox/Users/User.pm:783
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
@@ -16831,7 +16829,7 @@ msgstr ""
 "Некорректный UID {uid} для пользователя. UID должен быть равен или больше "
 "{min}"
 
-#: ../../main/users/src/EBox/Users/User.pm:788
+#: ../../main/users/src/EBox/Users/User.pm:793
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
@@ -17070,28 +17068,28 @@ msgstr "Снять выделение"
 msgid "Select All"
 msgstr "Выделить всё"
 
-#: ../../main/software/src/templates/ebox.mas:466
-#: ../../main/core/src/templates/ajax/treeView.mas:37
+#: ../../main/software/src/templates/ebox.mas:469
+#: ../../main/core/src/templates/ajax/treeView.mas:38
 #: ../../main/core/src/templates/ajax/tableBody.mas:308
 #: ../../main/core/src/templates/ajax/tableModalView.mas:187
 msgid "Search"
 msgstr "Найти"
 
-#: ../../main/software/src/templates/ebox.mas:473
+#: ../../main/software/src/templates/ebox.mas:476
 msgid "Select"
 msgstr "Выделить"
 
-#: ../../main/software/src/templates/ebox.mas:492
+#: ../../main/software/src/templates/ebox.mas:495
 #: ../../main/software/src/templates/updates.mas:77
 msgid "Package list updated successfully"
 msgstr "Список пакетов успешно обновлен"
 
-#: ../../main/software/src/templates/ebox.mas:497
+#: ../../main/software/src/templates/ebox.mas:500
 #, perl-brace-format
 msgid "Error updating package list.<p>{msg}</p>"
 msgstr "Ошибка обновления списка пакетов.<p>{msg}</p>"
 
-#: ../../main/software/src/templates/ebox.mas:499
+#: ../../main/software/src/templates/ebox.mas:502
 #: ../../main/software/src/templates/updates.mas:80
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
@@ -17562,7 +17560,7 @@ msgid "User account"
 msgstr "Учётная запись пользователя"
 
 #: ../../main/jabber/src/templates/jabber.mas:25
-#: ../../main/zarafa/src/templates/zarafa.mas:27
+#: ../../main/zarafa/src/templates/zarafa.mas:32
 msgid "Administration rights"
 msgstr "Права администратора"
 
@@ -18757,37 +18755,37 @@ msgstr "Тип квоты"
 msgid "Maximum mailbox size in MB"
 msgstr "Максимальный размер почтового аккаунта в MB"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:36
+#: ../../main/zarafa/src/templates/zarafa.mas:41
 #, fuzzy
 msgid "Enable POP3 access"
 msgstr "Включить шлюз POP3"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:45
+#: ../../main/zarafa/src/templates/zarafa.mas:50
 #, fuzzy
 msgid "Enable IMAP access"
 msgstr "Включить шлюз IMAP"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:53
+#: ../../main/zarafa/src/templates/zarafa.mas:58
 msgid "Auto accept meeting requests"
 msgstr "Автоматический прием приглашений на собрания"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:63
+#: ../../main/zarafa/src/templates/zarafa.mas:68
 msgid "Decline meetings requests with conflicting times"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:72
+#: ../../main/zarafa/src/templates/zarafa.mas:77
 msgid "Decline recurring meeting requests"
 msgstr ""
 
-#: ../../main/zarafa/src/templates/zarafa.mas:84
+#: ../../main/zarafa/src/templates/zarafa.mas:90
 msgid "Zarafa takes quota settings from mail account settings."
 msgstr "Zarafa берет настройки квот из настроек учетной записи почты."
 
-#: ../../main/zarafa/src/templates/zarafa.mas:89
+#: ../../main/zarafa/src/templates/zarafa.mas:96
 msgid "Groupware contact"
 msgstr "Контакт Groupware"
 
-#: ../../main/zarafa/src/templates/zarafa.mas:135
+#: ../../main/zarafa/src/templates/zarafa.mas:142
 #, fuzzy
 msgid ""
 "The following settings will take effect only when the Zarafa module is "
