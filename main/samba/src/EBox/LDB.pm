@@ -179,9 +179,6 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    my $samba = EBox::Global->modInstance('samba');
-    $samba->_startService() unless $samba->isRunning();
-
     my $error = undef;
     my $lastError = undef;
     my $maxTries = 300;
@@ -215,11 +212,33 @@ sub dn
 {
     my ($self) = @_;
 
-    unless (defined $self->{dn}) {
-        my $dse = $self->rootDse();
-
-        $self->{dn} = $dse->get_value('defaultNamingContext');
+    if ((defined $self->{dn}) and length ($self->{dn})) {
+        return $self->{dn};
     }
+
+    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' | grep -v ^GENSEC");
+    my $ldifBuffer = join ('', @{$output});
+    EBox::debug($ldifBuffer);
+
+    my $fd;
+    open $fd, '<', \$ldifBuffer;
+
+    my $ldif = Net::LDAP::LDIF->new($fd);
+    if (not $ldif->eof()) {
+        my $entry = $ldif->read_entry();
+        if ($ldif->error()) {
+            EBox::debug("Error msg: " . $ldif->error());
+            EBox::debug("Error lines:\n" . $ldif->error_lines());
+        } elsif (not $ldif->eof()) {
+            EBox::debug("Got more than one entry!");
+        } elsif ($entry) {
+            $self->{dn} = $entry->get_value('defaultNamingContext');
+        } else {
+            EBox::debug("Got an empty entry");
+        }
+    }
+    $ldif->done();
+    close $fd;
 
     return defined $self->{dn} ? $self->{dn} : '';
 }
@@ -714,21 +733,34 @@ sub dnsZones
     my $zones = [];
 
     foreach my $prefix (@zonePrefixes) {
-        my $params = {
-            base => $prefix,
-            scope => 'one',
-            filter => '(objectClass=dnsZone)',
-            attrs => ['*']
-        };
-        my $result = $self->search($params);
-        foreach my $entry ($result->entries()) {
-            my $name = $entry->get_value('name');
-            next unless defined $name;
-            next if $name eq any @ignoreZones;
-            my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
-            push (@{$zones}, $zone);
+        my $output = EBox::Sudo::root(
+            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' | grep -v ^GENSEC");
+        my $ldifBuffer = join ('', @{$output});
+        EBox::debug($ldifBuffer);
+
+        my $fd;
+        open $fd, '<', \$ldifBuffer;
+
+        my $ldif = Net::LDAP::LDIF->new($fd);
+        while (not $ldif->eof()) {
+            my $entry = $ldif->read_entry();
+            if ($ldif->error()) {
+                EBox::debug("Error msg: " . $ldif->error());
+                EBox::debug("Error lines:\n" . $ldif->error_lines());
+            } elsif ($entry) {
+                my $name = $entry->get_value('name');
+                next unless defined $name;
+                next if $name eq any @ignoreZones;
+                my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
+                push (@{$zones}, $zone);
+            } else {
+                EBox::debug("Got an empty entry");
+            }
         }
+        $ldif->done();
+        close $fd
     }
+
     return $zones;
 }
 
