@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Added retry mechanism in SmbClient to wait until samba is ready
 	+ Do not try to get domainSID in s4sync if not ready
 	+ Improve retrying log messages in safeConnect
