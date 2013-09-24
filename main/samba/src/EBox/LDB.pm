@@ -182,16 +182,19 @@ sub safeConnect
     my $error = undef;
     my $lastError = undef;
     my $maxTries = 300;
-    for (my $try=1; $try<=$maxTries; $try++) {
+    for (my $try = 1; $try <= $maxTries; $try++) {
         my $ldb = Net::LDAP->new(LDAPI);
         if (defined $ldb) {
             my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
             if (defined $dse) {
+                if ($try > 1) {
+                    EBox::info("Connection to Samba LDB successful after $try tries.");
+                }
                 return $ldb;
             }
         }
         $error = $@;
-        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)")   if (($try == 1) or (($try % 100) == 0));
+        EBox::warn("Could not connect to Samba LDB: $error, retrying. ($try attempts)") if (($try == 1) or (($try % 100) == 0));
         Time::HiRes::sleep(0.1);
     }
 

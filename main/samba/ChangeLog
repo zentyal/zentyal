@@ -1,4 +1,5 @@
 HEAD
+	+ Improve retrying log messages in safeConnect
 	+ Setup quarantine directory in postHook instead of setConf
 	+ Wait until samba4 is started to start the rest of the daemons
 	+ Don't use Samba's LDB before it's started
