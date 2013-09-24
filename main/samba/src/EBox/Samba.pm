@@ -359,6 +359,11 @@ sub _postServiceHook
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
         }
+
+        # Change group ownership of quarantine_dir to __USERS__
+        if ($self->defaultAntivirusSettings()) {
+            $self->_setupQuarantineDirectory();
+        }
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -1042,11 +1047,6 @@ sub _setConf
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
-
-    # Change group ownership of quarantine_dir to __USERS__
-    if ($self->defaultAntivirusSettings()) {
-        $self->_setupQuarantineDirectory();
-    }
 }
 
 sub _adcMode

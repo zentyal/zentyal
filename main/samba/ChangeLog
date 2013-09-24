@@ -1,4 +1,5 @@
 HEAD
+	+ Setup quarantine directory in postHook instead of setConf
 	+ Wait until samba4 is started to start the rest of the daemons
 	+ Don't use Samba's LDB before it's started
 	+ Rewrote a couple of methods to use file access directly instead of LDB
