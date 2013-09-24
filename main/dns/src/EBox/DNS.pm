@@ -638,6 +638,22 @@ sub enableService
     }
 }
 
+# Method: bootDepends
+#
+sub bootDepends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::bootDepends();
+
+    if (EBox::Global->modExists('samba')) {
+        my $sambaMod = EBox::Global->modInstance('samba');
+        if ($sambaMod->isEnabled() and
+            $sambaMod->getProvision->isProvisioned()) {
+            unshift ($depends, 'samba');
+        }
+    }
+}
+
 # Method: _setConf
 #
 # Overrides:
