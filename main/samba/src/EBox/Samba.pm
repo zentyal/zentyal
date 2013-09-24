@@ -226,6 +226,31 @@ sub _postServiceHook
 
     if ($enabled) {
 
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        unless ($self->mode() eq 'adc') {
+            my $netbiosName = $self->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $users = $self->ldb->users();
+            foreach my $user (@{$users}) {
+                # Set roaming profiles
+                if ($self->roamingProfiles()) {
+                    my $path = "\\\\$netbiosName.$realmName\\profiles";
+                    $user->setRoamingProfile(1, $path, 1);
+                } else {
+                    $user->setRoamingProfile(0);
+                }
+
+                # Mount user home on network drive
+                my $drivePath = "\\\\$netbiosName.$realmName";
+                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->save();
+            }
+        }
+
         my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
@@ -334,6 +359,11 @@ sub _postServiceHook
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
         }
+
+        # Change group ownership of quarantine_dir to __USERS__
+        if ($self->defaultAntivirusSettings()) {
+            $self->_setupQuarantineDirectory();
+        }
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -408,7 +438,11 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
-    EBox::debug("Wait samba task '$desc'");
+    if (length ($desc)) {
+        EBox::debug("Wait samba task '$desc'");
+    } else {
+        EBox::debug("Wait unknown samba task");
+    }
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
@@ -1015,36 +1049,6 @@ sub _setConf
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
-
-    # Change group ownership of quarantine_dir to __USERS__
-    if ($self->defaultAntivirusSettings()) {
-        $self->_setupQuarantineDirectory();
-    }
-
-    # Only set global roaming profiles and drive letter options
-    # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings. Also skip if
-    # unmanaged_home_directory config key is defined
-    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-    unless ($self->mode() eq 'adc') {
-        my $netbiosName = $self->netbiosName();
-        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
-        my $users = $self->ldb->users();
-        foreach my $user (@{$users}) {
-            # Set roaming profiles
-            if ($self->roamingProfiles()) {
-                my $path = "\\\\$netbiosName.$realmName\\profiles";
-                $user->setRoamingProfile(1, $path, 1);
-            } else {
-                $user->setRoamingProfile(0);
-            }
-
-            # Mount user home on network drive
-            my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
-            $user->save();
-        }
-    }
 }
 
 sub _adcMode
