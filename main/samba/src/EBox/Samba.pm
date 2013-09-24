@@ -405,20 +405,22 @@ sub _startDaemon
 
     $self->SUPER::_startDaemon($daemon, %params);
 
-    my $services = $self->_services();
-    foreach my $service (@{$services}) {
-        my $port = $service->{destinationPort};
-        next unless $port;
+    if ($daemon->{name} eq 'samba4') {
+        my $services = $self->_services();
+        foreach my $service (@{$services}) {
+            my $port = $service->{destinationPort};
+            next unless $port;
 
-        my $proto = $service->{protocol};
-        next unless $proto;
+            my $proto = $service->{protocol};
+            next unless $proto;
 
-        my $desc = $service->{description};
-        if ($proto eq 'tcp/udp') {
-            $self->_waitService('tcp', $port, $desc);
-            $self->_waitService('udp', $port, $desc);
-        } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
-            $self->_waitService($proto, $port, $desc);
+            my $desc = $service->{description};
+            if ($proto eq 'tcp/udp') {
+                $self->_waitService('tcp', $port, $desc);
+                $self->_waitService('udp', $port, $desc);
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
+            }
         }
     }
 }

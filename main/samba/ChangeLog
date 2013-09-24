@@ -3,11 +3,10 @@ HEAD
 	+ Do not try to get domainSID in s4sync if not ready
 	+ Improve retrying log messages in safeConnect
 	+ Setup quarantine directory in postHook instead of setConf
-	+ Wait until samba4 is started to start the rest of the daemons
 	+ Don't use Samba's LDB before it's started
 	+ Rewrote a couple of methods to use file access directly instead of LDB
 	  so it doesn't depend on the service running
-	+ Stop starting samba on safeConnect calls.
+	+ Stop starting samba on safeConnect calls
 3.2.1
 	+ Fixed start of samba after reboot
 3.2
