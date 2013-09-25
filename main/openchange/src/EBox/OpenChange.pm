@@ -89,11 +89,6 @@ sub _daemons
     my ($self) = @_;
 
     my $daemons = [];
-    push (@{$daemons}, {
-        name => 'sogo',
-        type => 'init.d',
-        precondition => sub { $self->isProvisioned() },
-        pidfiles => [SOGO_PID_FILE]});
     return $daemons;
 }
 
@@ -193,22 +188,6 @@ sub _writeSOGoConfFile
         $array, { uid => 0, gid => $gid, mode => '640' });
 }
 
-sub _setupSOGoDatabase
-{
-    my ($self) = @_;
-
-    my $dbUser = $self->_sogoDbUser();
-    my $dbPass = $self->_sogoDbPass();
-    my $dbName = $self->_sogoDbName();
-    my $dbHost = '127.0.0.1';
-
-    my $db = EBox::DBEngineFactory::DBEngine();
-    $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
-    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
-                               "IDENTIFIED BY \"$dbPass\";");
-    $db->sqlAsSuperuser(sql => 'flush privileges;');
-}
-
 # Method: menu
 #
 #   Add an entry to the menu with this module.
@@ -230,6 +209,10 @@ sub menu
         url       => 'OpenChange/View/Provision',
         text      => __('Provision'),
         order     => 0));
+    $folder->add(new EBox::Menu::Item(
+        url       => 'OpenChange/Migration/Connect',
+        text      => __('MailBox Migration'),
+        order     => 1));
     $root->add($folder);
 }
 
@@ -257,6 +240,22 @@ sub setProvisioned
     my $state = $self->get_state();
     $state->{isProvisioned} = $provisioned;
     $self->set_state($state);
+}
+
+sub _setupSOGoDatabase
+{
+    my ($self) = @_;
+
+    my $dbUser = $self->_sogoDbUser();
+    my $dbPass = $self->_sogoDbPass();
+    my $dbName = $self->_sogoDbName();
+    my $dbHost = '127.0.0.1';
+
+    my $db = EBox::DBEngineFactory::DBEngine();
+    $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
+    $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
+                               "IDENTIFIED BY \"$dbPass\";");
+    $db->sqlAsSuperuser(sql => 'flush privileges;');
 }
 
 sub _sogoDbName

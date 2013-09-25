@@ -343,37 +343,41 @@ sub _doProvision
         my $usersModule = $self->global->modInstance('users');
         my $users = $usersModule->users();
         foreach my $ldapUser (@{$users}) {
+            my $samAccountName = undef;
             try {
-                # Skip users with already defined mailbox
-                my $mailbox = $ldapUser->get('mailbox');
-                next if (defined $mailbox and length $mailbox);
-
-                my $samAccountName = $ldapUser->get('uid');
+                $samAccountName = $ldapUser->get('uid');
                 next unless defined $samAccountName;
 
                 my $ldbUser = new EBox::Samba::User(
-                        samAccountName => $samAccountName);
+                    samAccountName => $samAccountName);
                 next unless $ldbUser->exists();
 
                 my $critical = $ldbUser->get('isCriticalSystemObject');
                 next if (defined $critical and $critical eq 'TRUE');
 
+                # Skip users with already defined mailbox
+                my $mailbox = $ldapUser->get('mailbox');
+                unless (defined $mailbox and length $mailbox) {
+                    EBox::info("Creating user '$samAccountName' mailbox");
+                    # Call API to create mailbox in zentyal
+                    $mailUserLdap->setUserAccount($ldapUser,
+                                                  $ldapUser->get('uid'),
+                                                  $adDomain);
+                }
+
                 # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
-                next if (defined $ac and $ac == 0);
-
-                # Call API to create mailbox in zentyal
-                $mailUserLdap->setUserAccount($ldapUser,
-                                              $ldapUser->get('uid'),
-                                              $adDomain);
-
-                my $cmd = "/opt/samba4/sbin/openchange_newuser ";
-                $cmd .= " --create " if (not defined $ac);
-                $cmd .= " --enable '$samAccountName' ";
-                my $output = EBox::Sudo::root($cmd);
-                EBox::debug(join('', @{$output}));
+                unless (defined $ac and $ac == 0) {
+                    my $cmd = "/opt/samba4/sbin/openchange_newuser ";
+                    $cmd .= " --create " if (not defined $ac);
+                    $cmd .= " --enable '$samAccountName' ";
+                    my $output = EBox::Sudo::root($cmd);
+                    $output = join('', @{$output});
+                    EBox::info("Enabling user '$samAccountName':\n$output");
+                }
             } otherwise {
                 my ($error) = @_;
+                EBox::error("Error enabling user $samAccountName: $error");
                 # Try next user
             };
         }
