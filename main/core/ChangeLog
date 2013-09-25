@@ -1,6 +1,6 @@
 3.3
 	+ Set version to 3.3
-HEAD
+	+ Added enableInnoDbIfNeeded() to MyDBEngine
 	+ Fix loading on custom action buttons
 	+ Add icon for openchange module
 	+ Add missing use statement in EBox::Types::MultiStateAction
