@@ -1,3 +1,9 @@
+sogo (2.0.8-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Mon, 23 Sep 2013 15:22:15 +0200
+
 sogo (2.0.7-1zentyal2) precise; urgency=low
 
   * Set PKG_CONFIG_PATH in debian/rules

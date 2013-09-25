@@ -64,7 +64,8 @@ Multi-Arch: same
 Section: net
 Priority: extra
 Architecture: any
-Depends: sogo (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends}
+Depends: sogo (= ${binary:Version}), ${shlibs:Depends}, ${misc:Depends},
+ python-mysqldb
 Description: a modern and scalable groupware - OpenChange backend
  SOGo is a groupware server built around OpenGroupware.org (OGo) and
  the SOPE application server with focus on scalability.

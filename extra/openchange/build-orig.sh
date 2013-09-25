@@ -18,8 +18,7 @@ fi
 package_lc=${package,,}
 tar_file="$base_url/$package-$version.tar.gz"
 
-if [ "$package" = "openchange" ]
-then
+if [ "$package" = "openchange" ] && [ "$version" = "latest" ]; then
     if [ ! -d openchange-master ]; then
         git clone https://github.com/carlosperello/openchange.git openchange-master
     else
@@ -33,6 +32,27 @@ then
     generated=${package_lc}_$version.orig.tar.gz
     if [ ! -f $generated ]; then
         git archive master --prefix=${package_lc}-$version/ | gzip > ../$generated
+    else
+        echo "Skip generating orig $generated"
+    fi
+    popd > /dev/null 2>&1
+elif [[ ("$package" = "SOGo" && "$version" = "latest" ) || ("$package" = "SOPE" && "$version" = "latest") ]]; then
+    if [ ! -d zentyal-exchange ]; then
+        git clone https://github.com/Zentyal/zentyal-exchange.git zentyal-exchange
+    else
+        pushd zentyal-exchange > /dev/null 2>&1
+        git pull > /dev/null
+        popd > /dev/null 2>&1
+    fi
+    pushd zentyal-exchange/$package_lc > /dev/null 2>&1
+    source Version
+    version="$MAJOR_VERSION.$MINOR_VERSION"
+    if [ -n "$SUBMINOR_VERSION" ]; then
+        version="$version.$SUBMINOR_VERSION"
+    fi
+    generated=${package_lc}_$version.orig.tar.gz
+    if [ ! -f $generated ]; then
+        git archive master . --prefix=${package_lc}-$version/ | gzip > ../../$generated
     else
         echo "Skip generating orig $generated"
     fi
