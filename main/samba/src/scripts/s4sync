@@ -61,16 +61,17 @@ my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
 
 my $ldb = $sambaModule->ldb();
-# The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
-# Those are Zentyal system user and groups so don't appear by default on list actions.
-my $domainSID = $sambaModule->ldb()->domainSID();
-my $domainAdminSID = "$domainSID-500";
-my $domainUsersSID = "$domainSID-513";
-my $domainAdminsSID = "$domainSID-512";
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
     next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
+
+    # The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
+    # Those are Zentyal system user and groups so don't appear by default on list actions.
+    my $domainSID = $sambaModule->ldb()->domainSID();
+    my $domainAdminSID = "$domainSID-500";
+    my $domainUsersSID = "$domainSID-513";
+    my $domainAdminsSID = "$domainSID-512";
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
