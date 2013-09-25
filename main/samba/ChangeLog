@@ -1,5 +1,9 @@
 3.3
 	+ Set version to 3.3
+	+ Ignore container 'Microsoft Exchange System Objects' when quering
+	  users stored in LDB
+	+ Write openchange options to smb.conf if module installed
+	+ Fix precondition on GPOScripts model
 3.2.2
 	+ Added retry mechanism in SmbClient to wait until samba is ready
 	+ Do not try to get domainSID in s4sync if not ready

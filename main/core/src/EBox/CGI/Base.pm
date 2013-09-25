@@ -183,12 +183,12 @@ sub _print
     $self->_header;
     $self->_top;
     $self->_menu;
-    print '<div id="content">';
+    print "<div id=\"content\">\n";
     $self->_title;
     $self->_error;
     $self->_msg;
     $self->_body;
-    print '</div>';
+    print "</div>\n";
     $self->_footer;
 }
 
@@ -523,11 +523,19 @@ sub setTemplate
 }
 
 # Method: _process
-#  process the CGI
+#
+#   Process the CGI
 #
 # Default behaviour:
-#     the default behaviour is intended to standarize and ease some common operations so do not override it except for backward compability or special reasons.
-#     The default behaviour validate the peresence or absence or CGI parameters using requiredParameters and optionalParameters method, then it calls the method actuate, where the functionality of CGI resides,  and finally uses masonParameters to get the parameters needed by the html template invocation.
+#
+#   The default behaviour is intended to standarize and ease some common
+#   operations so do not override it except for backward compability or special
+#   reasons.
+#   The default behaviour validate the peresence or absence or CGI parameters
+#   using requiredParameters and optionalParameters method, then it calls the
+#   method actuate, where the functionality of CGI resides,  and finally uses
+#   masonParameters to get the parameters needed by the html template
+#   invocation.
 sub _process
 {
     my ($self) = @_;
@@ -805,18 +813,22 @@ sub requiredParameters
 
 # Method:  actuate
 #
-#  This method is the workhouse of the CGI it must be overriden by the different CGIs to achieve their objectives
+#   This method is the workhouse of the CGI it must be overriden by the
+#   different CGIs to achieve their objectives
+#
 sub actuate
 {
 }
 
 # Method: masonParameters
 #
-#    This method must be overriden by the different child to return
-#    the adequate template parameter for its state.
+#  This method must be overriden by the different child to return the adequate
+#   template parameter for its state.
 #
 # Returns:
-#  a  reference to a list which contains the names and values of the different mason parameters
+#
+#   A reference to a list which contains the names and values of the different
+#   mason parameters
 #
 sub masonParameters
 {
