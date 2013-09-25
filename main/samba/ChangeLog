@@ -1,3 +1,8 @@
+HEAD
+	+ Ignore container 'Microsoft Exchange System Objects' when quering
+	  users stored in LDB
+	+ Write openchange options to smb.conf if module installed
+	+ Fix precondition on GPOScripts model
 3.2.1
 	+ Fixed start of samba after reboot
 3.2
