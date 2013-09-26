@@ -25,7 +25,7 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mail Box Migration Progress'),
+    my $self = $class->SUPER::new(title    => __('Mailbox Migration Progress'),
                                   template => 'openchange/migration/progress.mas',
                                   @_);
     bless ($self, $class);

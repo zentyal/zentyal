@@ -16,20 +16,43 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Connect;
+package EBox::OpenChange::CGI::Migration::Estimate;
 
-use base qw(EBox::CGI::ClientBase);
+use base 'EBox::CGI::Base';
 
-use EBox::Gettext;
+use JSON::XS;
+
+# Group: Public methods
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mailbox Migration'),
-                                  template => 'openchange/migration/connect.mas',
-                                  @_);
+    my $self = $class->SUPER::new(@_);
     bless ($self, $class);
     return $self;
+}
+
+# Group: Protected methods
+
+sub _process
+{
+    my ($self) = @_;
+
+    my $postRawData = $self->unsafeParam('POSTDATA');
+    my $postData = JSON::XS->new()->decode($postRawData);
+    use Data::Dumper;
+    EBox::debug(Dumper($postData));
+
+    $self->{json} = {
+        'data' => '753 MB',
+        'mails'  => 2000,
+        'contacts' => 232,
+        'calendar' =>  32,
+        'time' => '1 hour 2 min',
+    };
+
+    # Set this on error
+    #$self->{json}->{error} = 'error msg';
 }
 
 1;

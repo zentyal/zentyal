@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Connect;
+package EBox::OpenChange::CGI::Migration::Disconnect;
 
 use base qw(EBox::CGI::ClientBase);
 
@@ -25,11 +25,29 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mailbox Migration'),
-                                  template => 'openchange/migration/connect.mas',
+    my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
                                   @_);
+    $self->{chain} = 'OpenChange/Migration/Connect';
     bless ($self, $class);
     return $self;
+}
+
+# Method: actuate
+#
+#    Kill the migration process and redirect
+#
+# Overrides:
+#
+#    <EBox::CGI::ClientBase>
+#
+sub actuate
+{
+    my ($self) = @_;
+
+    # TODO: Kill migration process
+
+    # No parameters to send to the chain
+    $self->cgi()->delete_all();
 }
 
 1;
