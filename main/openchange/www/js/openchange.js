@@ -45,7 +45,7 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
 
 Zentyal.OpenChange.initTable = function (tableClass) {
     // This is copied from z.js
-    var table = $('.' + tableClass)
+    var table = $('.' + tableClass);
     if (!table) return;
 
     var update_select_all = function(table) {
@@ -65,8 +65,8 @@ Zentyal.OpenChange.initTable = function (tableClass) {
     table.find('.table-row :checkbox').click(function (e) {
         var row = $($(this).parents('.table-row')[0]);
         row.toggleClass('row-selected');
-        var selected = row.hasClass('row-selected')
-        var check = $(this)
+        var selected = row.hasClass('row-selected');
+        var check = $(this);
         check.prop("checked", selected);
         update_select_all($(this).parents('table'));
     });
