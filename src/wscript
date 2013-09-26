@@ -78,6 +78,16 @@ def build(bld):
 
     bld.program(
         source = [
+            'migrate.c',
+            ],
+        target = 'migrate',
+        includes = ['.', '..'],
+        cflags = ['-ggdb'],
+        depends_on = [APPNAME],
+        use = [APPNAME, 'LIBMAPI', 'POPT', 'RABBITMQ'])
+
+    bld.program(
+        source = [
             'contactsummary.c',
             ],
         target = 'contactsummary',
