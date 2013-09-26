@@ -27,8 +27,10 @@
 #include <stdlib.h>
 
 #include "libmapi/libmapi.h"
+#include "libocpf/ocpf.h"
 
 struct mailboxtreeitem {
+    struct mailboxtreeitem *parent;
     struct mailboxtreeitem *children;
     struct mailboxtreeitem *next;
     struct mailboxtreeitem *prev;
@@ -415,6 +417,7 @@ static enum MAPISTATUS recursive_mailbox_size(TALLOC_CTX *mem_ctx,
                 mem_ctx, find_SPropValue_data(&aRow, PidTagDisplayName));
             element->path = talloc_asprintf(mem_ctx, "%s/%s", folder->path,
                                             element->name);
+            element->parent = folder;
             child = (const uint32_t *) find_SPropValue_data(&aRow, PidTagFolderChildCount);
             messagesize = (const uint32_t *) find_SPropValue_data(&aRow, PidTagMessageSize);
             containerclass = (const char *) find_SPropValue_data(&aRow, PidTagContainerClass);
@@ -522,6 +525,83 @@ static void print_summary(struct mailboxdata mdata)
 
 }
 
+static bool messages_dump(TALLOC_CTX *mem_ctx, mapi_object_t *obj_store,
+                          mapi_object_t *parent,
+                          struct mailboxtreeitem *folder,
+                          struct mailboxdata *mdata,
+                          amqp_connection_state_t conn)
+{
+    enum MAPISTATUS retval;
+    int ret;
+    mapi_object_t   obj_folder;
+    mapi_object_t   obj_message;
+    mapi_id_t   id_tis;
+    char    *filename = NULL;
+    struct mapi_SPropValue_array    lpProps;
+    uint32_t    context_id;
+    mapi_object_t   obj_htable;
+    struct SPropTagArray    *SPropTagArray;
+    struct SRowSet  SRowSet;
+    uint32_t    i;
+    const uint64_t  *fid;
+    const uint64_t  *mid;
+
+    /* Step 1. search the folder from Top Information Store */
+    mapi_object_init(&obj_folder);
+    retval = OpenFolder(parent, folder->id, &obj_folder);
+    MAPI_RETVAL_IF(retval, retval, NULL);
+
+    /* Step 2. search the messages */
+    mapi_object_init(&obj_message);
+    mapi_object_init(&obj_htable);
+    retval = GetContentsTable(&obj_folder, &obj_htable, 0, NULL);
+    if (retval != MAPI_E_SUCCESS) return false;
+
+    SPropTagArray = set_SPropTagArray(mem_ctx, 0x2, PR_FID, PR_MID);
+    retval = SetColumns(&obj_htable, SPropTagArray);
+    MAPIFreeBuffer(SPropTagArray);
+    if (retval != MAPI_E_SUCCESS) return false;
+
+    while (((retval = QueryRows(&obj_htable, 0x32, TBL_ADVANCE, &SRowSet)) != MAPI_E_NOT_FOUND) && SRowSet.cRows) {
+        for (i = 0; i < SRowSet.cRows; i++) {
+            fid = (const uint64_t *)find_SPropValue_data(&SRowSet.aRow[i], PR_FID);
+            mid = (const uint64_t *)find_SPropValue_data(&SRowSet.aRow[i], PR_MID);
+            retval = OpenMessage(&obj_folder, *fid, *mid, &obj_message, ReadWrite);
+            if (retval != MAPI_E_SUCCESS) {
+                mapi_object_release(&obj_htable);
+                return false;
+            }
+            /* Step 3. retrieve all message properties */
+            retval = GetPropsAll(&obj_message, MAPI_UNICODE, &lpProps);
+
+            /* Step 4. save the message */
+            ret = ocpf_init();
+
+            filename = talloc_asprintf(
+                mem_ctx, "%s/%" PRIu64 ".ocpf", folder->path, *mid);
+            DEBUG(0, ("OCPF output file: %s\n", filename));
+
+            ret = ocpf_new_context(filename, &context_id, OCPF_FLAGS_CREATE);
+            talloc_free(filename);
+            ret = ocpf_write_init(context_id, folder->id);
+
+            ret = ocpf_write_auto(context_id, &obj_message, &lpProps);
+            if (ret == OCPF_SUCCESS) {
+                ret = ocpf_write_commit(context_id);
+            }
+
+            ret = ocpf_del_context(context_id);
+
+            ret = ocpf_release();
+        }
+    }
+
+    mapi_object_release(&obj_htable);
+    mapi_object_release(&obj_message);
+    mapi_object_release(&obj_folder);
+
+    return true;
+}
 
 static enum MAPISTATUS recursive_mailbox_export(TALLOC_CTX *mem_ctx,
                                                 mapi_object_t *obj_store,
@@ -543,6 +623,8 @@ static enum MAPISTATUS recursive_mailbox_export(TALLOC_CTX *mem_ctx,
     if (ret != 0) {
         return MAPI_E_UNABLE_TO_COMPLETE;
     }
+
+    messages_dump(mem_ctx, obj_store, parent, folder, mdata, conn);
 
     for (element = folder->children; element && element->next; element = element->next) {
         retval = recursive_mailbox_export(

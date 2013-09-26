@@ -53,6 +53,12 @@ def configure(ctx):
                   msg="Checking for libmapi 2.0",
                   mandatory=True)
 
+    ctx.check_cfg(package='libocpf',
+                  args=['libocpf >= 2.0', '--cflags', '--libs'],
+                  uselib_store='LIBOCPF',
+                  msg="Checking for libocpf 2.0",
+                  mandatory=True)
+
     ctx.check_cfg(package='popt',
                   args=['popt >= 1.16', '--cflags', '--libs'],
                   uselib_store='POPT',
@@ -84,7 +90,7 @@ def build(bld):
         includes = ['.', '..'],
         cflags = ['-ggdb'],
         depends_on = [APPNAME],
-        use = [APPNAME, 'LIBMAPI', 'POPT', 'RABBITMQ'])
+        use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ'])
 
     bld.program(
         source = [
