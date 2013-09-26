@@ -106,11 +106,9 @@ Zentyal.OpenChange.estimateMigration = function(params) {
         contentType : 'json',
         success : function (data) {
             var migration = $(params.migrationBlock);
-            migration.find('#data .info-value').html(data.total);
-            migration.find('#mails .info-value').html(data.mail);
-            migration.find('#contacts .info-value').html(data.contacts);
-            migration.find('#calendar .info-value').html(data.journal);
-            migration.find('#time .info-value').html(data.time);
+            for (var property in data) {
+                migration.find('#' + property + ' .info-value').html(data[property]);
+            }
             $(params.startBtnId).fadeIn();
         }
     }).done(function() {
@@ -118,3 +116,4 @@ Zentyal.OpenChange.estimateMigration = function(params) {
     });
 
 };
+

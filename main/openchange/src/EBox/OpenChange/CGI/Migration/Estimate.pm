@@ -44,10 +44,10 @@ sub _process
     EBox::debug(Dumper($postData));
 
     $self->{json} = {
-        'total' => '753 MB',
-        'mail'  => 2000,
+        'data' => '753 MB',
+        'mails'  => 2000,
         'contacts' => 232,
-        'journal' =>  32,
+        'calendar' =>  32,
         'time' => '1 hour 2 min',
     };
 
