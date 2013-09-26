@@ -9,6 +9,7 @@ This template is used to get the migration details before going to the other sec
 use EBox::Gettext;
 </%init>
 <script type="text/javascript" src="/data/js/openchange.js"></script>
+<div id="messages"></div>
 <div class="item-block">
     <h3><% __('Select mailboxes to migrate') %></h3>
     <div class="full-width info-top">
@@ -63,48 +64,6 @@ use EBox::Gettext;
                   <img src="/data/images/ajax-loader.gif"
                        title="<% __('loading') %>"/></td>
               </tr>
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"></td> -->
-                <!--     <td></td> -->
-                <!-- </tr> -->
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"></td> -->
-                <!--     <td></td> -->
-                <!-- </tr> -->
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"><span class="green">Migrated</span></td> -->
-                <!--     <td>05-19-2013</td> -->
-                <!-- </tr> -->
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"><span class="green">Migrated</span></td> -->
-                <!--     <td>05-19-2013</td> -->
-                <!-- </tr> -->
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"><span class="red">Canceled</span></td> -->
-                <!--     <td>05-19-2013</td> -->
-                <!-- </tr> -->
-                <!-- <tr> -->
-                <!--     <td><input type='checkbox'></td> -->
-                <!--     <td class="name">Gutierres Vals, Javier </td> -->
-                <!--     <td>Jvals</td> -->
-                <!--     <td class="status"><span class="orange">User name conflict</span></td> -->
-                <!--     <td>05-19-2013</td> -->
-                <!-- </tr> -->
             </tbody>
         </table>
         </div>
@@ -161,15 +120,15 @@ use EBox::Gettext;
 <script type="text/javascript">
 $(document).ready(function() {
    Zentyal.OpenChange.setMailboxes('/OpenChange/Migration/MailboxesList', 'migration_table_container');
-});
-$( "#estimate-migration" ).click(function() {
-    Zentyal.OpenChange.estimateMigration({ 'estimateButton' : this,
-                                           'migrationBlock' : '#migration-details',
-                                           'startBtnId'     : '#start-migration',
-                                           'loadingId'      : '#loading-button',
-                                           'tableClass'     : '.migration-table' });
-});
-$( "#start-migration").click(function() {
-    window.location.href = '/OpenChange/Migration/Progress';
+   $( "#estimate-migration" ).click(function() {
+     Zentyal.OpenChange.estimateMigration({ 'estimateButton' : this,
+                                            'migrationBlock' : '#migration-details',
+                                            'startBtnId'     : '#start-migration',
+                                            'loadingId'      : '#loading-button',
+                                            'tableClass'     : '.migration-table' });
+   });
+   $( "#start-migration").click(function() {
+     window.location.href = '/OpenChange/Migration/Progress';
+   });
 });
 </script>

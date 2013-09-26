@@ -59,6 +59,8 @@ sub masonParameters
 
     # Mocked up data
     my @params = ();
+    # If something goes wrong put this in mason
+    # push(@params, error => 'foo');
     push(@params, mailboxes => [
         {
                 name     => 'Gutierres Vals, Javier',
@@ -91,8 +93,6 @@ sub masonParameters
         );
     return \@params;
 
-    # If something goes wrong
-    #$self->{json}->{error} = 'Error msg';
 }
 
 1;

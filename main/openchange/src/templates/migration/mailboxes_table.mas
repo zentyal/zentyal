@@ -2,13 +2,17 @@
   The mailboxes table to perform the migration from
 </%doc>
 <%args>
-  @mailboxes
+  @mailboxes => ()
+  $error => ''
 </%args>
 <%init>
 use EBox::Gettext;
 use feature qw(switch);
 my $nMailboxes = scalar(@mailboxes);
 </%init>
+% if ($error) {
+<div class="error"><% $error %></div>
+% } else {
 <table class="migration-table">
   <thead>
     <tr>
@@ -49,3 +53,4 @@ my $nMailboxes = scalar(@mailboxes);
 <script>
   $('span.nmailboxes').html('<% $nMailboxes %>');
 </script>
+% }

@@ -52,7 +52,7 @@ sub _process
     };
 
     # Set this on error
-    # $self->{json}->{error} = 'error msg';
+    #$self->{json}->{error} = 'error msg';
 }
 
 1;

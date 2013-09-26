@@ -21,7 +21,7 @@ Zentyal.OpenChange.updateAjaxValue = function(url, containerId) {
          },
          error: function ( jqXHR, textStatus, errorThrown ) {
             var container = $('#' + escapedId);
-            var html = '<li><span class="red">' + textStatus + '</li>';
+            var html = '<li><span class="red">' + errorThrown + '</li>';
             container.html(html);
          },
     });
@@ -38,7 +38,8 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
             Zentyal.OpenChange.initTable('migration-table');
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert(textStatus);
+            $('#messages').append('<div class="error">' + errorThrown + '</div>').fadeIn();
+            $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
         },
     });
 };
@@ -105,11 +106,17 @@ Zentyal.OpenChange.estimateMigration = function(params) {
         data : JSON.stringify({ users : usersToMigrate }),
         contentType : 'json',
         success : function (data) {
-            var migration = $(params.migrationBlock);
-            for (var property in data) {
-                migration.find('#' + property + ' .info-value').html(data[property]);
+            if ('error' in data) {
+                $('#messages').append('<div class="error">' + data.error + '</div>').fadeIn();
+                $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
+                $(params.estimateButton).fadeIn();
+            } else {
+                var migration = $(params.migrationBlock);
+                for (var property in data) {
+                    migration.find('#' + property + ' .info-value').html(data[property]);
+                }
+                $(params.startBtnId).fadeIn();
             }
-            $(params.startBtnId).fadeIn();
         }
     }).done(function() {
         $(params.loadingId).hide();
