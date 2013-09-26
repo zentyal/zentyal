@@ -26,3 +26,49 @@ Zentyal.OpenChange.updateAjaxValue = function(url, containerId) {
          },
     });
 };
+
+Zentyal.OpenChange.setMailboxes = function (url, containerId) {
+    var escapedContainerId = Zentyal.escapeSelector(containerId);
+    $.ajax( {
+        method: "GET",
+        url: url,
+        datatype : 'html',
+        success: function(data) {
+            $('#' + escapedContainerId).html(data)
+            Zentyal.OpenChange.initTable('migration-table');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert(textStatus);
+        },
+    });
+};
+
+Zentyal.OpenChange.initTable = function (tableClass) {
+    // This is copied from z.js
+    var table = $('.' + tableClass)
+    if (!table) return;
+
+    var update_select_all = function(table) {
+        var checked = table.find('.table-row :checked').length;
+        var unchecked = table.find('.table-row :checkbox:not(:checked)').length;
+        table.find(':checkbox[name="select_all"]')
+            .prop('checked', checked > 0 && unchecked == 0);
+    };
+    table.find(':checkbox[name="select_all"]').click(function (e) {
+        var checked = $(this).prop('checked');
+        $(this).parents('table').find('.table-row :checkbox').prop('checked', checked);
+//        $(this).parents('table').find('.table-row').toggleClass('selected', checked);
+        update_select_all($(this).parents('table'));
+    });
+
+    // Select on checkbox click
+    table.find('.table-row :checkbox').click(function (e) {
+        //var row = $($(this).parents('.table-row')[0]);
+        // row.toggleClass('selected');
+        // var selected = row.hasClass('selected')
+        //var check = $(this)
+        //check.prop("checked", selected);
+        update_select_all($(this).parents('table'));
+    });
+
+};
