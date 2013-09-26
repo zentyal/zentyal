@@ -43,8 +43,9 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
     });
 };
 
+/* Function to make select all works */
 Zentyal.OpenChange.initTable = function (tableClass) {
-    // This is copied from z.js
+    // This is more-or-less copied from z.js
     var table = $('.' + tableClass);
     if (!table) return;
 
@@ -74,16 +75,46 @@ Zentyal.OpenChange.initTable = function (tableClass) {
 
 };
 
+/* Function to change migration details based on mailboxes table */
 Zentyal.OpenChange.changeUsers = function(nChecked) {
-    // Change the migration block based on mailbox data
+    var estBtn = $('#estimate-migration');
     if (nChecked == 0) {
+        estBtn.prop('disabled', true);
         $('#migration-details').hide();
-        $('#migration-no-users').fadeIn();
+        $('#migration-no-mailboxes').fadeIn();
     } else {
-        $('#migration-details').find('#users .info-value').html(nChecked);
-        $('#estimate-migration').prop('disabled', false);
+        $('#migration-details').find('#mailboxes .info-value').html(nChecked);
+        estBtn.prop('disabled', false);
+        estBtn.fadeIn();
         $('#start-migration').hide();
-        $('#migration-no-users').hide();
+        $('#migration-no-mailboxes').hide();
         $('#migration-details').fadeIn();
     }
+};
+
+/* Function to launch the estimation of the migration time */
+Zentyal.OpenChange.estimateMigration = function(params) {
+    $(params.estimateButton).hide();
+    $(params.loadingId).show();
+    // Set the form params
+    var usersToMigrate = $.map($(params.tableClass).find('.table-row :checked'), function(el) { return el.value });
+    $.ajax({
+        type : "POST",
+        url  : '/OpenChange/Migration/Estimate',
+        dataType : 'json',
+        data : JSON.stringify({ users : usersToMigrate }),
+        contentType : 'json',
+        success : function (data) {
+            var migration = $(params.migrationBlock);
+            migration.find('#data .info-value').html(data.total);
+            migration.find('#mails .info-value').html(data.mail);
+            migration.find('#contacts .info-value').html(data.contacts);
+            migration.find('#calendar .info-value').html(data.journal);
+            migration.find('#time .info-value').html(data.time);
+            $(params.startBtnId).fadeIn();
+        }
+    }).done(function() {
+        $(params.loadingId).hide();
+    });
+
 };

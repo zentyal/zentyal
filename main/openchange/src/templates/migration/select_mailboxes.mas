@@ -114,19 +114,15 @@ use EBox::Gettext;
             <div class="wrapper"><h2><% __('Migration details') %></h2></div>
         </div>
         <div class="wrapper">
-          <div id="migration-no-users">
+          <div id="migration-no-mailboxes">
             <div class="info-block">
-              <span class="info-value"><% __('No users selected') %></span>
+              <span class="info-value"><% __('No mailboxes selected') %></span>
             </div>
           </div>
           <div id="migration-details" style="display: none;">
-            <div class="info-block" id="users">
-              <span class="info-label"><% __('Selected user number') %></span>
-              <span class="info-value">0</span>              
-            </div>
             <div class="info-block" id="mailboxes">
                 <span class="info-label"><% __('selected mailboxes') %></span>
-                <span class="info-value">--</span>
+                <span class="info-value">0</span>
             </div>
             <div class="info-block" id="data">
                 <span class="info-label"><% __('Total data') %></span>
@@ -153,7 +149,10 @@ use EBox::Gettext;
           </div>
             <button id="estimate-migration" class="btn btn-black btn-block btn-medium"
                     disabled="disabled"><% __('estimate migration') %></button>
-            <button id="start-migration" style="display:none;"  class="btn btn-green btn-block btn-medium"><% __('start migration') %></button>
+            <button id="start-migration" style="display:none;" class="btn btn-green btn-block btn-medium"><% __('start migration') %></button>
+            <button class="btn btn-black btn-block btn-medium" id="loading-button"
+                    style="display: none;"><img src="/data/images/ajax-loader.gif"/></button>
+            </button>
         </div>
     </div>
 
@@ -164,8 +163,11 @@ $(document).ready(function() {
    Zentyal.OpenChange.setMailboxes('/OpenChange/Migration/MailboxesList', 'migration_table_container');
 });
 $( "#estimate-migration" ).click(function() {
-    $( "#start-migration" ).show();
-    $( "#estimate-migration" ).hide();
+    Zentyal.OpenChange.estimateMigration({ 'estimateButton' : this,
+                                           'migrationBlock' : '#migration-details',
+                                           'startBtnId'     : '#start-migration',
+                                           'loadingId'      : '#loading-button',
+                                           'tableClass'     : '.migration-table' });
 });
 $( "#start-migration").click(function() {
     window.location.href = '/OpenChange/Migration/Progress';
