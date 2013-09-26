@@ -114,6 +114,16 @@ use EBox::Gettext;
             <div class="wrapper"><h2><% __('Migration details') %></h2></div>
         </div>
         <div class="wrapper">
+          <div id="migration-no-users">
+            <div class="info-block">
+              <span class="info-value"><% __('No users selected') %></span>
+            </div>
+          </div>
+          <div id="migration-details" style="display: none;">
+            <div class="info-block" id="users">
+              <span class="info-label"><% __('Selected user number') %></span>
+              <span class="info-value">0</span>              
+            </div>
             <div class="info-block" id="mailboxes">
                 <span class="info-label"><% __('selected mailboxes') %></span>
                 <span class="info-value">--</span>
@@ -140,7 +150,9 @@ use EBox::Gettext;
                 </span>
                 <span class="info-value">--</span>
             </div>
-            <button id="estimate-migration" class="btn btn-black btn-block btn-medium"><% __('estimate migration') %></button>
+          </div>
+            <button id="estimate-migration" class="btn btn-black btn-block btn-medium"
+                    disabled="disabled"><% __('estimate migration') %></button>
             <button id="start-migration" style="display:none;"  class="btn btn-green btn-block btn-medium"><% __('start migration') %></button>
         </div>
     </div>

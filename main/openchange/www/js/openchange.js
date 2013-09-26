@@ -53,6 +53,7 @@ Zentyal.OpenChange.initTable = function (tableClass) {
         var unchecked = table.find('.table-row :checkbox:not(:checked)').length;
         table.find(':checkbox[name="select_all"]')
             .prop('checked', checked > 0 && unchecked == 0);
+        Zentyal.OpenChange.changeUsers(checked);
     };
     table.find(':checkbox[name="select_all"]').click(function (e) {
         var checked = $(this).prop('checked');
@@ -71,4 +72,18 @@ Zentyal.OpenChange.initTable = function (tableClass) {
         update_select_all($(this).parents('table'));
     });
 
+};
+
+Zentyal.OpenChange.changeUsers = function(nChecked) {
+    // Change the migration block based on mailbox data
+    if (nChecked == 0) {
+        $('#migration-details').hide();
+        $('#migration-no-users').fadeIn();
+    } else {
+        $('#migration-details').find('#users .info-value').html(nChecked);
+        $('#estimate-migration').prop('disabled', false);
+        $('#start-migration').hide();
+        $('#migration-no-users').hide();
+        $('#migration-details').fadeIn();
+    }
 };
