@@ -57,17 +57,17 @@ Zentyal.OpenChange.initTable = function (tableClass) {
     table.find(':checkbox[name="select_all"]').click(function (e) {
         var checked = $(this).prop('checked');
         $(this).parents('table').find('.table-row :checkbox').prop('checked', checked);
-//        $(this).parents('table').find('.table-row').toggleClass('selected', checked);
+        $(this).parents('table').find('.table-row').toggleClass('row-selected', checked);
         update_select_all($(this).parents('table'));
     });
 
     // Select on checkbox click
     table.find('.table-row :checkbox').click(function (e) {
-        //var row = $($(this).parents('.table-row')[0]);
-        // row.toggleClass('selected');
-        // var selected = row.hasClass('selected')
-        //var check = $(this)
-        //check.prop("checked", selected);
+        var row = $($(this).parents('.table-row')[0]);
+        row.toggleClass('row-selected');
+        var selected = row.hasClass('row-selected')
+        var check = $(this)
+        check.prop("checked", selected);
         update_select_all($(this).parents('table'));
     });
 
