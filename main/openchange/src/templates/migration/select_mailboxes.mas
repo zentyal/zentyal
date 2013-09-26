@@ -13,7 +13,7 @@ use EBox::Gettext;
 <div class="item-block">
     <h3><% __('Select mailboxes to migrate') %></h3>
     <div class="full-width info-top">
-        <img class="info-block" src="data/images/contected-server.png">
+        <img class="info-block" src="/data/images/connected-server.png">
         <div class="info-block">
             <span class="info-label"><% __('Connected to') %></span>
             <span class="info-value"><% $server %></span>
