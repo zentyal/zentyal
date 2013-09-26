@@ -1,3 +1,9 @@
+samba4 (4.1.0rc3-zentyal4) precise; urgency=low
+
+  * Create /etc/ld.so.conf.d/samba4.conf in postinst
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 26 Sep 2013 18:29:37 +0200
+
 samba4 (4.1.0rc3-zentyal3) precise; urgency=low
 
   * Build errors as public library
