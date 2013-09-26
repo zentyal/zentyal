@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::SelectMailBoxes;
+package EBox::OpenChange::CGI::Migration::Disconnect;
 
 use base qw(EBox::CGI::ClientBase);
 
@@ -26,26 +26,28 @@ sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
-                                  template => 'openchange/migration/select_mailboxes.mas',
                                   @_);
+    $self->{chain} = 'OpenChange/Migration/Connect';
     bless ($self, $class);
     return $self;
 }
 
-# Method: masonParameters
+# Method: actuate
 #
-#     Return the list of mason parameters
+#    Kill the migration process and redirect
 #
-# Returns:
+# Overrides:
 #
-#     Array ref - consists of names and values for the mason template
+#    <EBox::CGI::ClientBase>
 #
-sub masonParameters
+sub actuate
 {
-    my @params = ();
-    push(@params, server => 'exchange.zentyal.com');
-    push(@params, serverIP => '192.168.2.1');
-    return \@params;
+    my ($self) = @_;
+
+    # TODO: Kill migration process
+
+    # No parameters to send to the chain
+    $self->cgi()->delete_all();
 }
 
 1;

@@ -5,7 +5,7 @@
 use EBox::Gettext;
 </%init>
 <div class="item-block">
-    <h3><% __('Select orign server') %></h3>
+    <h3><% __('Select origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
             <h6><% __('This wizard helps you to migrate users data from any server to this zentyal server') %></h6>
         </div>

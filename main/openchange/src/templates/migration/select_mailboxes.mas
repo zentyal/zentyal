@@ -1,20 +1,31 @@
+<%doc>
+This template is used to get the migration details before going to the other section
+</%doc>
+<%args>
+  $server
+  $serverIP
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
 <div class="item-block">
-    <h3>Select mailboxes to migrate</h3>            
+    <h3><% __('Select mailboxes to migrate') %></h3>
     <div class="full-width info-top">
-        <img class="info-block" src="data/images/contected-server.png"> 
+        <img class="info-block" src="data/images/contected-server.png">
         <div class="info-block">
-            <span class="info-label">Conected to</span>
-            <span class="info-value">exchange.zentyal.com</span>
+            <span class="info-label"><% __('Connected to') %></span>
+            <span class="info-value"><% $server %></span>
         </div>
         <div class="info-block">
-            <span class="info-label">IP</span>
-            <span class="info-value">192.168.2.1</span>
+            <span class="info-label"><% __('IP address') %></span>
+            <span class="info-value"><% $serverIP %></span>
         </div>
         <div class="info-block">
-            <span class="info-label">mailboxes</span>
-            <span class="info-value">53</span>
+            <span class="info-label"><% __('mailboxes') %></span>
+            <span class="info-value">--</span>
         </div>
-        <a href="castillo-migrate-mailbox.html" class="btn btn-black force-right" title="Disconnect from 192.168.2.1">DISCONNECT</a>
+        <a href="/OpenChange/Migration/Disconnect" class="btn btn-black force-right"
+           title="<% __x('Disconnect from {ip}', ip => $serverIP) %>"><% __('DISCONNECT') %></a>
     </div>
 
     <div class="select-mailbox-block">
@@ -85,7 +96,7 @@
                     <td class="status"><span class="orange">User name conflict</span></td>
                     <td>05-19-2013</td>
                 </tr>
-            </tbody>   
+            </tbody>
         </table>
     </div>
     <div class="migration-info">
