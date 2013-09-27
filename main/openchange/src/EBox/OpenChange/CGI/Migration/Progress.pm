@@ -49,19 +49,30 @@ sub masonParameters
     my @params;
     push(@params, totalData => 342342234); # Data in bytes
     push(@params, mailboxes => [
-        { name => 'Gutierres Vals, Javier',
-          username => 'jvals' },
+        {
+            name     => 'Gutierres Vals, Javier',
+            username => 'jvals',
+            total    => 23232321, # Data in bytes
+           },
         {
             name     => 'The Offspring',
             username => 'the-offspring',
+            total    => 2327882321, # Data in bytes
         },
         {
-            name     => 'The Offspring',
-            username => 'the-offspring',
+            name     => 'Arctic Monkeys',
+            username => 'arctic-monkeys',
+            total    => 234332121, # Data in bytes
+        },
+        {
+            name     => 'I wanna be yours',
+            username => 'i-wanna-be-yours',
+            total    => 2343621, # Data in bytes
         },
         {
             name     => 'Mercromina',
             username => 'mercromina',
+            total    => 232365121, # Data in bytes
         },
        ]);
     return \@params;

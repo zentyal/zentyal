@@ -37,112 +37,136 @@ $(document).ready(function() {
     </div>
 
     <div class="migration-process-block">
-        <table class="migration-table">
+      <table class="migration-table">
             <thead>
-                <tr>
-                    <th class="name">name</th>
-                    <th>user</th>
-                    <th>total data</th>
-                    <th><img src="/data/images/mail.gif" alt="mails"></th>
-                    <th><img src="/data/images/calendar.gif" alt="calendar"></th>
-                    <th><img src="/data/images/contacts.gif" alt="contacts"></th>
-                    <th>errors</th>
-                    <th>status</th>
-                    <th>details</th>
-                    <th>actions</th>
-                </tr>
+              <tr>
+                <th class="name"><% __('name') %></th>
+                <th><% __('user') %></th>
+                <th><% __('total data') %></th>
+                <th><img src="/data/images/mail.gif" alt="mails"></th>
+                <th><img src="/data/images/calendar.gif" alt="calendar"></th>
+                <th><img src="/data/images/contacts.gif" alt="contacts"></th>
+                <th><% __('errors') %></th>
+                <th><% __('status') %></th>
+                <th><% __('details') %></th>
+                <th><% __('actions') %></th>
+              </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="name">Gutierres Vals, Javier </td>
-                    <td>Jvals</td>
-                    <td>56.2 <i>MB</i></td>
-                    <td>45<i>%</i></td>
-                    <td>34<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td class="errors"><a href="#" title="see erros details">165</a></td>
-                    <td class="status stopped">
-                        <div class="progress-bar">
-                            <span class="done-value">Canceled</span>
-                            <span class="done-bar"  style="width:20%;"></span>
-                            <span class="error-bar"  style="width:50%;"></span>
-                        </div>
-                    </td>
-                    <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td>
-                    <td><button class="btn-only-icon btn-delete" disabled="disabled" title="discard">discard mailbox</button></td>
-                </tr>
-                <tr>
-                    <td class="name">Fornies Saez, Carlota</td>
-                    <td>cfsaez</td>
-                    <td>98 <i>MB</i></td>
-                    <td>100<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td class="errors"><a href="#" title="see erros details">5</a></td>
-                    <td class="status stopped">
-                        <div class="progress-bar">
-                            <span class="done-value">Migrated</span>
-                            <span class="done-bar"  style="width:95%;"></span>
-                            <span class="error-bar"  style="width:5%;"></span>
-                        </div>
-                    </td>
-                    <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td>
-                    <td><button class="btn-only-icon btn-apply-w btn-green" title="active user" disabled>active user</button> </td>
-                </tr>
-                <tr>
-                    <td class="name">Fernández-Carrion Gil, Francisco</td>
-                    <td>Jvals</td>
-                    <td>56.2 <i>MB</i></td>
-                    <td>45<i>%</i></td>
-                    <td>34<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td class="errors"><a href="#" title="see erros details">2</a></td>
-                    <td class="status stopped">
-                        <div class="progress-bar">
-                            <span class="done-value"><strong>99</strong>%</span>
-                            <span class="done-bar"  style="width:99%;"></span>
-                            <span class="error-bar"  style="width:1%;"></span>
-                        </div>
-                    </td>
-                    <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td>
-                    <td><button class="btn-only-icon btn-delete" title="discard">discard mailbox</button> <button class="btn-only-icon btn-apply-w btn-green" title="active user">active user</button> </td>
-                </tr>
-                <tr>
-                    <td class="name">Molina Pérez, Ana </td>
-                    <td>Jvals</td>
-                    <td>56.2 <i>MB</i></td>
-                    <td>45<i>%</i></td>
-                    <td>34<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td class="errors">0</td>
-                    <td class="status">
-                        <div class="progress-bar">
-                            <span class="done-value"><strong>50%</strong></span>
-                            <span class="done-bar"  style="width:50%;"></span>
-                            <span class="error-bar"  style="width:0%;"></span>  
-                        </div>
-                    </td>
-                    <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td>
-                    <td><button class="btn-only-icon btn-delete" title="cancel">Cancel mailbox</button></td>
-                </tr>
-                <tr>
-                    <td class="name">Sanz Muñoz, Maria </td>
-                    <td>msanz</td>
-                    <td>151.3 <i>MB</i></td>
-                    <td>64<i>%</i></td>
-                    <td>100<i>%</i></td>
-                    <td>80<i>%</i></td>
-                    <td class="errors">0</td>
-                    <td class="status">
-                        <div class="progress-bar">
-                            <span class="done-value">Waiting</span>
-                            <span class="done-bar"  style="width:0%;"></span>
-                            <span class="error-bar"  style="width:0%;"></span>
-                        </div>
-                    </td>
-                    <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td>
-                    <td><button class="btn-only-icon btn-delete" title="cancel">Cancel mailbox</button></td>
-                </tr>
+% foreach my $mailbox (@mailboxes) {
+              <tr>
+                <td class="name"><% $mailbox->{name} %></td>
+                <td><% $mailbox->{username} %></td>
+                <td id="<% $mailbox->{username} %>_total">
+                  <script>
+                    Zentyal.OpenChange.formatProgressBytes('#<% $mailbox->{username} %>_total', <% $mailbox->{total} %>);
+                  </script>
+                </td>
+                <td id="<% $mailbox->{username} %>_mail_pct">--</td>
+                <td id="<% $mailbox->{username} %>_calendar_pct">--</td>
+                <td id="<% $mailbox->{username} %>_contacts">--</td>
+                <td id="<% $mailbox->{username} %>_errors" class="errors">--</td>
+                <td id="<% $mailbox->{username} %>_status" class="status">--</td>
+                <td>
+                  <a class="btn-only-icon btn-log" href="#"
+                     title="<% __('See details') %>"><% __('Details') %></a>
+                </td>
+                <td>
+                  <button class="btn-only-icon btn-delete" disabled="disabled"
+                          title="<% __('discard') %>"><% __('discard mailbox') %></button>
+                </td>
+              </tr>
+% }
+                <!-- <tr> -->
+                <!--     <td class="name">Gutierres Vals, Javier </td> -->
+                <!--     <td>Jvals</td> -->
+                <!--     <td>56.2 <i>MB</i></td> -->
+                <!--     <td>45<i>%</i></td> -->
+                <!--     <td>34<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td class="errors"><a href="#" title="see erros details">165</a></td> -->
+                <!--     <td class="status stopped"> -->
+                <!--         <div class="progress-bar"> -->
+                <!--             <span class="done-value">Canceled</span> -->
+                <!--             <span class="done-bar"  style="width:20%;"></span> -->
+                <!--             <span class="error-bar"  style="width:50%;"></span> -->
+                <!--         </div> -->
+                <!--     </td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><button class="btn-only-icon btn-delete" disabled="disabled" title="discard">discard mailbox</button></td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!--     <td class="name">Fornies Saez, Carlota</td> -->
+                <!--     <td>cfsaez</td> -->
+                <!--     <td>98 <i>MB</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td class="errors"><a href="#" title="see erros details">5</a></td> -->
+                <!--     <td class="status stopped"> -->
+                <!--         <div class="progress-bar"> -->
+                <!--             <span class="done-value">Migrated</span> -->
+                <!--             <span class="done-bar"  style="width:95%;"></span> -->
+                <!--             <span class="error-bar"  style="width:5%;"></span> -->
+                <!--         </div> -->
+                <!--     </td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><button class="btn-only-icon btn-apply-w btn-green" title="active user" disabled>active user</button> </td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!--     <td class="name">Fernández-Carrion Gil, Francisco</td> -->
+                <!--     <td>Jvals</td> -->
+                <!--     <td>56.2 <i>MB</i></td> -->
+                <!--     <td>45<i>%</i></td> -->
+                <!--     <td>34<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td class="errors"><a href="#" title="see erros details">2</a></td> -->
+                <!--     <td class="status stopped"> -->
+                <!--         <div class="progress-bar"> -->
+                <!--             <span class="done-value"><strong>99</strong>%</span> -->
+                <!--             <span class="done-bar"  style="width:99%;"></span> -->
+                <!--             <span class="error-bar"  style="width:1%;"></span> -->
+                <!--         </div> -->
+                <!--     </td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><button class="btn-only-icon btn-delete" title="discard">discard mailbox</button> <button class="btn-only-icon btn-apply-w btn-green" title="active user">active user</button> </td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!--     <td class="name">Molina Pérez, Ana </td> -->
+                <!--     <td>Jvals</td> -->
+                <!--     <td>56.2 <i>MB</i></td> -->
+                <!--     <td>45<i>%</i></td> -->
+                <!--     <td>34<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td class="errors">0</td> -->
+                <!--     <td class="status"> -->
+                <!--         <div class="progress-bar"> -->
+                <!--             <span class="done-value"><strong>50%</strong></span> -->
+                <!--             <span class="done-bar"  style="width:50%;"></span> -->
+                <!--             <span class="error-bar"  style="width:0%;"></span>   -->
+                <!--         </div> -->
+                <!--     </td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><button class="btn-only-icon btn-delete" title="cancel">Cancel mailbox</button></td> -->
+                <!-- </tr> -->
+                <!-- <tr> -->
+                <!--     <td class="name">Sanz Muñoz, Maria </td> -->
+                <!--     <td>msanz</td> -->
+                <!--     <td>151.3 <i>MB</i></td> -->
+                <!--     <td>64<i>%</i></td> -->
+                <!--     <td>100<i>%</i></td> -->
+                <!--     <td>80<i>%</i></td> -->
+                <!--     <td class="errors">0</td> -->
+                <!--     <td class="status"> -->
+                <!--         <div class="progress-bar"> -->
+                <!--             <span class="done-value">Waiting</span> -->
+                <!--             <span class="done-bar"  style="width:0%;"></span> -->
+                <!--             <span class="error-bar"  style="width:0%;"></span> -->
+                <!--         </div> -->
+                <!--     </td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><button class="btn-only-icon btn-delete" title="cancel">Cancel mailbox</button></td> -->
+                <!-- </tr> -->
              </tbody>
         </table>
     </div>
