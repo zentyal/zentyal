@@ -25,11 +25,27 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
+    my $self = $class->SUPER::new(title    => __('Mailbox Migration'),
                                   template => 'openchange/migration/select_mailboxes.mas',
                                   @_);
     bless ($self, $class);
     return $self;
+}
+
+# Method: masonParameters
+#
+#     Return the list of mason parameters
+#
+# Returns:
+#
+#     Array ref - consists of names and values for the mason template
+#
+sub masonParameters
+{
+    my @params = ();
+    push(@params, server => 'exchange.zentyal.com');
+    push(@params, serverIP => '192.168.2.1');
+    return \@params;
 }
 
 1;
