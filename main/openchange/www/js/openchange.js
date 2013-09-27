@@ -196,6 +196,8 @@ Zentyal.OpenChange.progress = function(params) {
                         }
                         // Status is a different thing...
                         var status = $('#' + user.username + '_status');
+                        var discardBtn = $('#' + user.username + '_discard');
+                        var activateBtn = $('#' + user.username + '_activate');
                         if (status) {
                             if (user.status.done > 0) {
                                 status.find('.done-bar').width(user.status.done + '%');
@@ -209,21 +211,34 @@ Zentyal.OpenChange.progress = function(params) {
                                     '<strong>' + user.status.done + '</strong>' + '%'
                                 );
                                 status.removeClass().addClass('status');
+                                discardBtn.prop('disabled', false).show();
+                                activateBtn.prop('disabled', true).hide();
                                 break;
                             case 'migrated':
                             case 'cancelled':
                                 status.find('.done-value').html(user.status.printable_value);
                                 status.removeClass().addClass('status stopped');
+                                if (user.status.state == 'migrated') {
+                                    discardBtn.prop('disabled', true).hide();
+                                    activateBtn.prop('disabled', true).show();
+                                } else {
+                                    discardBtn.prop('disabled', true).show();
+                                    activateBtn.prop('disabled', true).hide();
+                                }
                                 break;
-                            case 'stopped':
+                            case 'copied':
                                 status.find('.done-value').html(
                                     '<strong>' + user.status.done + '</strong>' + '%'
                                 );
                                 status.removeClass().addClass('status stopped');
+                                discardBtn.prop('disabled', false).show();
+                                activateBtn.prop('disabled', false).show();
                                 break;
                             case 'waiting':
                                 status.find('.done-value').html(user.status.printable_value);
                                 status.removeClass().addClass('status');
+                                discardBtn.prop('disabled', false).show();
+                                activateBtn.prop('disabled', true).hide();
                                 break;
                             }
                         }

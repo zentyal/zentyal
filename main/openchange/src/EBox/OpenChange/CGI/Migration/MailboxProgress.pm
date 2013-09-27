@@ -82,9 +82,9 @@ sub _process
                 'calendar_pct' => 10, # %
                 'contacts_pct' => 34.2, # %
                 'errors'       => 21,
-                'status'       => { done  => 80, # %
+                'status'       => { done  => 90, # %
                                     error => 10,  # %
-                                    state => 'stopped',
+                                    state => 'copied',
                                 },
                },
             {
