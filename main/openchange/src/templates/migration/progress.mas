@@ -80,7 +80,7 @@ my $nMailboxes = scalar(@mailboxes);
                           title="<% __('discard mailbox') %>"><% __('discard mailbox') %></button>
                   <button class="btn-only-icon btn-apply-w btn-green" disabled="disabled"
                           style="display: none;" id="<% $mailbox->{username} %>_activate"
-                          onclick="Zentyal.OpenChange.activateMailbox('<% $mailbox->{username} %>')"
+                          onclick="Zentyal.OpenChange.activateMailbox('/OpenChange/Migration/ActivateMailbox', '<% $mailbox->{username} %>')"
                           title="<% __('activate mailbox') %>"><% __('activate mailbox') %></button>
                 </td>
               </tr>

@@ -229,6 +229,32 @@ Zentyal.OpenChange.discardMailbox = function(url, username) {
         }});
 };      
 
+// Activate mailbox after its data has been copied
+Zentyal.OpenChange.activateMailbox = function(url, username) {
+    $.ajax({
+        type : "POST",
+        url  : url,
+        dataType : 'json',
+        data : { username : username },
+        success : function(data) {
+            if ('error' in data) {
+                Zentyal.OpenChange.migrationMessage(data.error, 'error');
+                return;
+            }
+            if ('warning' in data) {
+                Zentyal.OpenChange.migrationMessage(data.warn, 'warning');
+                return;
+            }
+            if ('success' in data) {
+                Zentyal.OpenChange.migrationMessage(data.success, 'note');
+                Zentyal.OpenChange.setProgressStatus(
+                    { username : username,
+                      status : { state : 'migrated',
+                                 printable_value : data.printable_value }});
+            }
+        }});
+};      
+
 // Set progress status for a given user
 // Named parameters
 Zentyal.OpenChange.setProgressStatus = function(user) {
