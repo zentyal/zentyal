@@ -99,7 +99,7 @@ my $nMailboxes = scalar(@mailboxes);
 <script type="text/javascript">
 $(document).ready(function() {
    Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
-//   setInterval( function() {
+   var progressFunc = function() {
       Zentyal.OpenChange.progress({ url : '/OpenChange/Migration/MailboxProgress',
                                     totals : { 'total_percentage' : 'int',
                                                'n_mailboxes'      : 'int',
@@ -109,6 +109,8 @@ $(document).ready(function() {
                                               'calendar_pct' : 'percentage',
                                               'contacts_pct' : 'percentage',
                                               'errors'       : 'int' }});
-// }, 5000);
+ };
+   setInterval(progressFunc, 5000);
+   progressFunc.call();
 });
 </script>
