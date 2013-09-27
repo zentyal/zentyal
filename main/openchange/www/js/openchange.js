@@ -38,8 +38,7 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
             Zentyal.OpenChange.initTable('migration-table');
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            $('#messages').append('<div class="error">' + errorThrown + '</div>').fadeIn();
-            $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
+            Zentyal.OpenChange.migrationError(errorThrown);
         },
     });
 };
@@ -107,8 +106,7 @@ Zentyal.OpenChange.estimateMigration = function(params) {
         contentType : 'json',
         success : function (data) {
             if ('error' in data) {
-                $('#messages').append('<div class="error">' + data.error + '</div>').fadeIn();
-                $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
+                Zentyal.OpenChange.migrationError(data.error);
                 $(params.estimateButton).fadeIn();
             } else {
                 var migration = $(params.migrationBlock);
@@ -132,4 +130,59 @@ Zentyal.OpenChange.formatProgressBytes = function(id, bytes) {
     var bytStr = getBytes(bytes);
     var parts = bytStr.split(" ");
     container.html(parts[0] + ' <i>' + parts[1] + '</i>');
+};
+
+// Format the time diff in readable format within the given id
+// using this format: number_1 <i>metric_1</i> number_2 <i>metric_2</i>
+Zentyal.OpenChange.formatProgressTimeDiff = function(id, s) {
+    var container = $(id);
+    if (! container) return;
+    var timeDiffStr = s.toTimeDiffString();
+    var parts = $.trim(timeDiffStr).split(" ");
+    var resultStr = "";
+    for (var i=0; i < parts.length; i+=2) {
+        resultStr += parts[i] + ' <i>' + parts[i+1] + '</i> ';
+    }
+    container.html(resultStr);
+};
+
+
+// Call to know the progress of the mailbox migration
+Zentyal.OpenChange.progress = function(params) {
+    $.ajax({
+        type : "GET",
+        url  : params.url,
+        dataType : 'json',
+        success : function (data) {
+            if ('error' in data) {
+                Zentyal.OpenChange.migrationError(data.error);
+            } else {
+                // Expected data is explained in MailboxProgress CGI
+                if ('totals' in data) {
+                    for (var total_key in params.totals) {
+                        if (total_key in data.totals) {
+                            switch(params.totals[total_key]) {
+                            case 'bytes':
+                                Zentyal.OpenChange.formatProgressBytes('#' + total_key,
+                                                                       data.totals[total_key]);
+                                break;
+                            case 'timediff':
+                                Zentyal.OpenChange.formatProgressTimeDiff('#' + total_key,
+                                                                          data.totals[total_key]);
+                                break;
+                            case 'int':
+                            default:
+                                $('#' + total_key).html(data.totals[total_key]);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    });
+};
+
+Zentyal.OpenChange.migrationError = function(errorMsg) {
+    $('#messages').append('<div class="error">' + errorMsg + '</div>').fadeIn();
+    $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
 };

@@ -16,12 +16,11 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Estimate;
+package EBox::OpenChange::CGI::Migration::MailboxProgress;
 
-# Class: EBox::OpenChange::CGI::Migration::Estimate
+# Class: EBox::OpenChange::CGI::Migration::MailboxProgress
 #
-#   CGI which returns in a JSON structure the estimation of users
-#   after receiving the usernames as JSON POST parameter
+#    CGI to check the current progress of the mailbox migration
 #
 
 use base 'EBox::CGI::Base';
@@ -44,17 +43,15 @@ sub _process
 {
     my ($self) = @_;
 
-    my $postRawData = $self->unsafeParam('POSTDATA');
-    my $postData = JSON::XS->new()->decode($postRawData);
-    use Data::Dumper;
-    EBox::debug(Dumper($postData));
+    # Structure expected by Zentyal.OpenChange.progress function
 
     $self->{json} = {
-        'data' => '753 MB',
-        'mails'  => 2000,
-        'contacts' => 232,
-        'calendar' =>  32,
-        'time' => '1 hour 2 min',
+        'totals' => {
+            'total_percentage' => 23, # %
+            'n_mailboxes'      => 1,
+            'data_migrated'    => 232321, # in bytes
+            'time_left'        => 3700, # in seconds
+           },
     };
 
     # Set this on error

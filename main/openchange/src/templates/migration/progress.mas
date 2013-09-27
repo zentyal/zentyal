@@ -6,13 +6,9 @@
 use EBox::Gettext;
 my $nMailboxes = scalar(@mailboxes);
 </%init>
+<div id="messages"></div>
 <script type="text/javascript" src="/data/js/openchange.js"></script>
 <script type="text/javascript" src="/data/js/format.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-   Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
-});
-</script>
 <div class="item-block">
     <h3><% __('Migrating process') %></h3>
     <div class="full-width info-top">
@@ -30,7 +26,7 @@ $(document).ready(function() {
         </div>
         <div class="info-block">
             <span class="info-label"><% __('Time left') %></span>
-            <span class="info-value"><span id="time_left">1<i>h</i> 34<i>m</i></span></span>
+            <span class="info-value"><span id="time_left">--</span></span>
         </div>
         <a href="/OpenChange/Migration/Cancel" class="btn btn-black force-right"
            title="<% __('Cancel migration process') %>"><% __('Cancel') %></a>
@@ -164,25 +160,26 @@ $(document).ready(function() {
                 <!--             <span class="error-bar"  style="width:0%;"></span> -->
                 <!--         </div> -->
                 <!--     </td> -->
-                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td> -->
+                <!--     <td><a class="btn-only-icon btn-log" href="#" title="See details">Details</a></td -->
                 <!--     <td><button class="btn-only-icon btn-delete" title="cancel">Cancel mailbox</button></td> -->
                 <!-- </tr> -->
              </tbody>
         </table>
     </div>
     <div class="bottom-block">
-       <a class="btn btn-green" href="/OpenChange/Migration/Finish">DONE</a>
-       <span id="clock">FOO</span>
+       <a class="btn btn-green" href="/OpenChange/Migration/Finish"
+          style="display: none;">DONE</a>
     </div>
 </div>
 <script type="text/javascript">
-    $(function () {
-        setInterval( function() { refresh(); }, 1000);
-    });
-
-    function refresh() {
-        var d=new Date();
-        var t=d.toLocaleTimeString();
-        $("#clock").text(t);
-    }
+$(document).ready(function() {
+   Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
+//   setInterval( function() {
+      Zentyal.OpenChange.progress({ url : '/OpenChange/Migration/MailboxProgress',
+                                    totals : { 'total_percentage' : 'int',
+                                              'n_mailboxes'      : 'int',
+                                              'data_migrated'    : 'bytes',
+                                              'time_left'        : 'timediff' }});
+// }, 5000);
+});
 </script>
