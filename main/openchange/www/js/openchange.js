@@ -177,6 +177,58 @@ Zentyal.OpenChange.progress = function(params) {
                         }
                     }
                 }
+                if ('users' in data) {
+                    data.users.forEach(function(user) {
+                        for (var prop_user_key in params.users) {
+                            if (!user[prop_user_key]) continue;
+                            var prop_id = '#' + user.username + '_' + prop_user_key;
+                            var prop = $(prop_id);
+                            if (prop) {
+                                switch(params.users[prop_user_key]) {
+                                case 'percentage':
+                                    prop.html(user[prop_user_key] + '<i>%</i>');
+                                    break;
+                                case 'int':
+                                default:
+                                    prop.html(user[prop_user_key]);
+                                }
+                            }
+                        }
+                        // Status is a different thing...
+                        var status = $('#' + user.username + '_status');
+                        if (status) {
+                            if (user.status.done > 0) {
+                                status.find('.done-bar').width(user.status.done + '%');
+                            }
+                            if (user.status.error > 0) {
+                                status.find('.error-bar').width(user.status.error + '%');
+                            }
+                            switch(user.status.state) {
+                            case 'ongoing':
+                                status.find('.done-value').html(
+                                    '<strong>' + user.status.done + '</strong>' + '%'
+                                );
+                                status.removeClass().addClass('status');
+                                break;
+                            case 'migrated':
+                            case 'cancelled':
+                                status.find('.done-value').html(user.status.printable_value);
+                                status.removeClass().addClass('status stopped');
+                                break;
+                            case 'stopped':
+                                status.find('.done-value').html(
+                                    '<strong>' + user.status.done + '</strong>' + '%'
+                                );
+                                status.removeClass().addClass('status stopped');
+                                break;
+                            case 'waiting':
+                                status.find('.done-value').html(user.status.printable_value);
+                                status.removeClass().addClass('status');
+                                break;
+                            }
+                        }
+                    });
+                }
             }
         }
     });

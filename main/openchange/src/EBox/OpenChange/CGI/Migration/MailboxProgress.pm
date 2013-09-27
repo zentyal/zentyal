@@ -25,6 +25,7 @@ package EBox::OpenChange::CGI::Migration::MailboxProgress;
 
 use base 'EBox::CGI::Base';
 
+use EBox::Gettext;
 use JSON::XS;
 
 # Group: Public methods
@@ -52,6 +53,59 @@ sub _process
             'data_migrated'    => 232321, # in bytes
             'time_left'        => 3700, # in seconds
            },
+        'users' => [
+            {
+                'username'     => 'jvals',
+                'mail_pct'     => 20, # %
+                'calendar_pct' => 33.33, # %
+                'contacts_pct' => 23.12, # %
+                'errors'       => 0,
+                'status'       => { done  => 30, # %
+                                    error => 0,  # %
+                                    state => 'ongoing' },
+               },
+            {
+                'username'     => 'the-offspring',
+                'mail_pct'     => 100, # %
+                'calendar_pct' => 100, # %
+                'contacts_pct' => 100, # %
+                'errors'       => 3,
+                'status'       => { done  => 95, # %
+                                    error => 5,  # %
+                                    state => 'migrated',
+                                    printable_value => __('Migrated'),
+                                },
+               },
+            {
+                'username'     => 'arctic-monkeys',
+                'mail_pct'     => 100, # %
+                'calendar_pct' => 10, # %
+                'contacts_pct' => 34.2, # %
+                'errors'       => 21,
+                'status'       => { done  => 80, # %
+                                    error => 10,  # %
+                                    state => 'stopped',
+                                },
+               },
+            {
+                'username'     => 'i-wanna-be-yours',
+                'mail_pct'     => 10, # %
+                'calendar_pct' => 100, # %
+                'contacts_pct' => 3.1, # %
+                'errors'       => 220,
+                'status'       => { done  => 15, # %
+                                    error => 30,  # %
+                                    state => 'cancelled',
+                                    printable_value => __('Cancelled'),
+                                },
+               },
+            {
+                'username'     => 'mercromina',
+                'status'       => { state => 'waiting',
+                                    printable_value => __('Waiting'),
+                                },
+            },
+           ]
     };
 
     # Set this on error

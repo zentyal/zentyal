@@ -60,9 +60,15 @@ my $nMailboxes = scalar(@mailboxes);
                 </td>
                 <td id="<% $mailbox->{username} %>_mail_pct">--</td>
                 <td id="<% $mailbox->{username} %>_calendar_pct">--</td>
-                <td id="<% $mailbox->{username} %>_contacts">--</td>
+                <td id="<% $mailbox->{username} %>_contacts_pct">--</td>
                 <td id="<% $mailbox->{username} %>_errors" class="errors">--</td>
-                <td id="<% $mailbox->{username} %>_status" class="status">--</td>
+                <td id="<% $mailbox->{username} %>_status" class="status">
+                  <div class="progress-bar">
+                    <span class="done-value"></span>
+                    <span class="done-bar" style="width: 0%"></span>
+                    <span class="error-bar" style="width: 0%"></span>
+                  </div>
+                </td>
                 <td>
                   <a class="btn-only-icon btn-log" href="#"
                      title="<% __('See details') %>"><% __('Details') %></a>
@@ -177,9 +183,13 @@ $(document).ready(function() {
 //   setInterval( function() {
       Zentyal.OpenChange.progress({ url : '/OpenChange/Migration/MailboxProgress',
                                     totals : { 'total_percentage' : 'int',
-                                              'n_mailboxes'      : 'int',
-                                              'data_migrated'    : 'bytes',
-                                              'time_left'        : 'timediff' }});
+                                               'n_mailboxes'      : 'int',
+                                               'data_migrated'    : 'bytes',
+                                              ' time_left'        : 'timediff' },
+                                    users : { 'mail_pct'     : 'percentage',
+                                              'calendar_pct' : 'percentage',
+                                              'contacts_pct' : 'percentage',
+                                              'errors'       : 'int' }});
 // }, 5000);
 });
 </script>
