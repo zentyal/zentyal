@@ -16,17 +16,16 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Estimate;
+package EBox::OpenChange::CGI::Migration::ActivateMailbox;
 
-# Class: EBox::OpenChange::CGI::Migration::Estimate
+# Class: EBox::OpenChange::CGI::Migration::ActivateMailbox
 #
-#   CGI which returns in a JSON structure the estimation of users
-#   after receiving the usernames as JSON POST parameter
+#    CGI to activate a mailbox after copying its data
 #
 
 use base 'EBox::CGI::Base';
 
-use JSON::XS;
+use EBox::Gettext;
 
 # Group: Public methods
 
@@ -44,21 +43,21 @@ sub _process
 {
     my ($self) = @_;
 
-    my $postRawData = $self->unsafeParam('POSTDATA');
-    my $postData = JSON::XS->new()->decode($postRawData);
-    use Data::Dumper;
-    EBox::debug(Dumper($postData));
+    # TODO: Remove copied data and stop migrating this mailbox
+    my $username = $self->param('username');
+
+    # Structure expected by Zentyal.OpenChange.discardMailbox function
 
     $self->{json} = {
-        'data' => '753 MB',
-        'mails'  => 2000,
-        'contacts' => 232,
-        'calendar' =>  32,
-        'time' => '1 hour 2 min',
+        'success'         => __x('{user} mailbox activated', user => $username),
+        'printable_value' => __('Migrated'), # To have all i18n in server side
     };
 
     # Set this on error
     #$self->{json}->{error} = 'error msg';
+    # Set this on warning
+    # Impossible to discard...
+    #$self->{json}->{warning} = 'warning msg';
 }
 
 1;

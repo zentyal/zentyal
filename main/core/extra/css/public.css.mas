@@ -2690,7 +2690,7 @@ td .done-value{
     z-index: 1
 }
 td.stopped .done-bar{
-    background-image: none; /* if progres has been caceled of stopped*/
+    background-image: none; /* if progress has been canceled or copied */
 }
 
 /* errors col */

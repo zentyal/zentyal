@@ -1,0 +1,64 @@
+<%doc>
+  The details for a mailbox migration
+</%doc>
+<%args>
+  $mailbox
+  $error => ''
+</%args>
+<%init>
+use EBox::Gettext;
+use Perl6::Junction qw(any);
+use feature qw(switch);
+my $stopped = ($mailbox->{total}->{state} eq any('migrated', 'cancelled', 'copied'));
+</%init>
+% if ($error) {
+<div class="error"><% $error %></div>
+% } else {
+<table class="migration-table">
+  <tr>
+    <td colspan="4" class="status <% ($stopped ? 'stopped' : '') %>">
+      <div class="progress-bar">
+        <span class="done-value">
+%               given($mailbox->{total}->{state}) {
+%                 when (['ongoing', 'copied']) {
+                  <strong><% $mailbox->{total}->{done} %></strong>%
+%                 }
+%                 when (['migrated', 'cancelled', 'waiting']) {
+                  <% $mailbox->{total}->{printable_value} %>
+%                 }
+% }
+        </span>
+        <span class="done-bar" style="width: <% $mailbox->{total}->{done} %>%"></span>
+        <span class="error-bar" style="width: <% $mailbox->{total}->{error} %>%"></span>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td rowspan="4"></td>
+    <td><img src="/data/images/mail.gif" alt="mails"></td>
+    <td><img src="/data/images/calendar.gif" alt="calendar"></td>
+    <td><img src="/data/images/contacts.gif" alt="contacts"></td>
+  </tr>
+  <tr>
+    <td><% $mailbox->{mail}->{total} %></td>
+    <td><% $mailbox->{calendar}->{total} %></td>
+    <td><% $mailbox->{contacts}->{total} %></td>
+  </tr>
+  <tr>
+    <th><% $mailbox->{mail}->{migrated} %></th>
+    <th><% $mailbox->{calendar}->{migrated} %></th>
+    <th><% $mailbox->{contacts}->{migrated} %></th>
+  </tr>
+  <tr>
+    <td><% $mailbox->{mail}->{percentage} %><i>%</i></td>
+    <td><% $mailbox->{calendar}->{percentage} %><i>%</i></td>
+    <td><% $mailbox->{contacts}->{percentage} %><i>%</i></td>
+  </tr>
+  <tr>
+    <td><% __('Errors') %></td>
+    <td><% $mailbox->{mail}->{errors} %></td>
+    <td><% $mailbox->{calendar}->{errors} %></td>
+    <td><% $mailbox->{contacts}->{errors} %></td>
+  </tr>
+</table>
+% }

@@ -16,8 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Disconnect;
+package EBox::OpenChange::CGI::Migration::Finish;
 
+# Class: EBox::OpenChange::CGI::Migration::Finish
+#
+#   CGI where to go after migration is finished
+#
 use base qw(EBox::CGI::ClientBase);
 
 use EBox::Gettext;
@@ -25,29 +29,11 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
+    my $self = $class->SUPER::new(title    => __('Mailbox Migration'),
+                                  template => 'openchange/migration/finish.mas',
                                   @_);
-    $self->{redirect} = 'OpenChange/Migration/Connect';
     bless ($self, $class);
     return $self;
-}
-
-# Method: actuate
-#
-#    Kill the migration process and redirect
-#
-# Overrides:
-#
-#    <EBox::CGI::ClientBase>
-#
-sub actuate
-{
-    my ($self) = @_;
-
-    # TODO: Kill migration process
-
-    # No parameters to send to the chain
-    $self->cgi()->delete_all();
 }
 
 1;

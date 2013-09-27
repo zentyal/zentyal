@@ -16,49 +16,42 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Estimate;
+package EBox::OpenChange::CGI::Migration::Cancel;
 
-# Class: EBox::OpenChange::CGI::Migration::Estimate
+# Class: EBox::OpenChange::CGI::Migration::Cancel
 #
-#   CGI which returns in a JSON structure the estimation of users
-#   after receiving the usernames as JSON POST parameter
+#      Cancel migration in progress and redirect to Select Mailboxes
 #
 
-use base 'EBox::CGI::Base';
+use base qw(EBox::CGI::ClientBase);
 
-use JSON::XS;
-
-# Group: Public methods
+use EBox::Gettext;
 
 sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
+    $self->{redirect} = 'OpenChange/Migration/SelectMailBoxes';
     bless ($self, $class);
     return $self;
 }
 
-# Group: Protected methods
-
-sub _process
+# Method: actuate
+#
+#    Kill the migration process and redirect
+#
+# Overrides:
+#
+#    <EBox::CGI::ClientBase>
+#
+sub actuate
 {
     my ($self) = @_;
 
-    my $postRawData = $self->unsafeParam('POSTDATA');
-    my $postData = JSON::XS->new()->decode($postRawData);
-    use Data::Dumper;
-    EBox::debug(Dumper($postData));
+    # TODO: Kill migration process
 
-    $self->{json} = {
-        'data' => '753 MB',
-        'mails'  => 2000,
-        'contacts' => 232,
-        'calendar' =>  32,
-        'time' => '1 hour 2 min',
-    };
-
-    # Set this on error
-    #$self->{json}->{error} = 'error msg';
+    # No parameters to send to the chain
+    $self->cgi()->delete_all();
 }
 
 1;

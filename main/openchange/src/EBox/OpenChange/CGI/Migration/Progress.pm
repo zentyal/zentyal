@@ -18,6 +18,10 @@ use warnings;
 
 package EBox::OpenChange::CGI::Migration::Progress;
 
+# Class: EBox::OpenChange::CGI::Migration::Progress
+#
+#   Base CGI to start the migration process
+#
 use base qw(EBox::CGI::ClientBase);
 
 use EBox::Gettext;
@@ -30,6 +34,48 @@ sub new
                                   @_);
     bless ($self, $class);
     return $self;
+}
+
+# Method: masonParameters
+#
+#    Return the mason parameters to paint the template
+#
+# Overrides:
+#
+#    <EBox::CGI::Base::masonParameters>
+#
+sub masonParameters
+{
+    my @params;
+    push(@params, totalData => 342342234); # Data in bytes
+    push(@params, mailboxes => [
+        {
+            name     => 'Gutierres Vals, Javier',
+            username => 'jvals',
+            total    => 23232321, # Data in bytes
+           },
+        {
+            name     => 'The Offspring',
+            username => 'the-offspring',
+            total    => 2327882321, # Data in bytes
+        },
+        {
+            name     => 'Arctic Monkeys',
+            username => 'arctic-monkeys',
+            total    => 234332121, # Data in bytes
+        },
+        {
+            name     => 'I wanna be yours',
+            username => 'i-wanna-be-yours',
+            total    => 2343621, # Data in bytes
+        },
+        {
+            name     => 'Mercromina',
+            username => 'mercromina',
+            total    => 232365121, # Data in bytes
+        },
+       ]);
+    return \@params;
 }
 
 1;
