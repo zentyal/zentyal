@@ -2299,6 +2299,20 @@ input.btn-dashboard {
     color: white !important;
 }
 
+.btn-black {
+    background-color: #666666 !important;
+    border-color: #333333 !important;
+    color: #FFFFFF !important;
+}
+.btn-black:hover {
+    background-color: #333333 !important;
+    color: #FFFFFF !important;
+}
+.btn-black:disabled {
+    background-color: #CCCCCC !important;
+    color: #FFFFFF !important;
+}
+
 /********************************************************************************
 
 FORMS
