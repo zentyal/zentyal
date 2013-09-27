@@ -71,6 +71,9 @@ my $nMailboxes = scalar(@mailboxes);
                 </td>
                 <td>
                   <a class="btn-only-icon btn-log" href="#"
+                     onclick="Zentyal.Dialog.showURL('/OpenChange/Migration/MailboxDetails',
+                                                     { title : '<% $mailbox->{name} %>',
+                                                       data  : 'username=<% $mailbox->{username} %>' });"
                      title="<% __('See details') %>"><% __('Details') %></a>
                 </td>
                 <td>
