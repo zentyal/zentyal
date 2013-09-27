@@ -1,0 +1,14 @@
+dbconfig-common will use "sqlite3" driver. We map it to "sqlite". Closes: #714727
+
+diff --git a/program/lib/Roundcube/rcube_db.php b/program/lib/Roundcube/rcube_db.php
+index b3f549b..5083a0d 100644
+--- a/program/lib/Roundcube/rcube_db.php
++++ b/program/lib/Roundcube/rcube_db.php
+@@ -62,6 +62,7 @@ class rcube_db
+         $driver     = strtolower(substr($db_dsnw, 0, strpos($db_dsnw, ':')));
+         $driver_map = array(
+             'sqlite2' => 'sqlite',
++            'sqlite3' => 'sqlite',
+             'sybase'  => 'mssql',
+             'dblib'   => 'mssql',
+             'mysqli'  => 'mysql',

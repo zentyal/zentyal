@@ -1,0 +1,128 @@
+# Copyright (C) 2009 Debian Roundcube Maintainers <pkg-roundcube-maintainers@lists.alioth.debian.org>
+# This file is distributed under the same license as roundcube package.
+# Hideki Yamane (Debian-JP) <henrich@debian.or.jp>, 2009.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube 0.2~stable-1\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2009-03-06 06:26+0900\n"
+"Last-Translator: Hideki Yamane (Debian-JP) <henrich@debian.or.jp>\n"
+"Language-Team: Japanese <debian-japanese@lists.debian.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "自動的に設定するウェブサーバ:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"RoundCube は PHP をサポートしているウェブサーバであればどれでもサポートしてい"
+"ますが、自動的に設定できるのは Apache2 と lighttpd のみです。"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr "RoundCube 用の設定を自動的に実施するウェブサーバを選択してください。"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "今すぐウェブサーバを再起動しますか?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"新しい設定を反映するには、再設定したウェブサーバを再起動する必要があります。"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "RoundCube で利用する IMAP サーバ:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "RoundCube で利用する IMAP サーバを選択してください。"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"ここで入力しない場合は、ログイン時にテキストボックスが表示されます。空白で区"
+"切られたホストのリストを入力すると、プルダウンメニューが表示されます。ホスト"
+"名を一つだけ入力した場合はそのホストが強制的に利用されます。"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"SSL 接続を利用するには、'ssl://hostname:993' のようにしてホスト名を入力してく"
+"ださい。"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "標準の言語:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "RoundCube での標準の言語を入力してください。"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr "ここでの選択は、個々のユーザの個人設定で上書きできます。"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"しかし、標準に設定した言語はログイン画面とユーザの初回の接続画面に利用されま"
+"す。"

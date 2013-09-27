@@ -74,6 +74,6 @@ fi
 ARCH=$arch DIST=precise pdebuild
 popd > /dev/null 2>&1
 
-cp /var/cache/pbuilder/precise-$arch/result/roundcube_$version* .
+cp /var/cache/pbuilder/precise-$arch/result/roundcube*_$version* .
 
 rm -rf $BUILD_DIR
