@@ -38,7 +38,7 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
             Zentyal.OpenChange.initTable('migration-table');
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            Zentyal.OpenChange.migrationError(errorThrown);
+            Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
         },
     });
 };
@@ -106,7 +106,7 @@ Zentyal.OpenChange.estimateMigration = function(params) {
         contentType : 'json',
         success : function (data) {
             if ('error' in data) {
-                Zentyal.OpenChange.migrationError(data.error);
+                Zentyal.OpenChange.migrationMessage(data.error, 'error');
                 $(params.estimateButton).fadeIn();
             } else {
                 var migration = $(params.migrationBlock);
@@ -155,101 +155,134 @@ Zentyal.OpenChange.progress = function(params) {
         dataType : 'json',
         success : function (data) {
             if ('error' in data) {
-                Zentyal.OpenChange.migrationError(data.error);
-            } else {
-                // Expected data is explained in MailboxProgress CGI
-                if ('totals' in data) {
-                    for (var total_key in params.totals) {
-                        if (total_key in data.totals) {
-                            switch(params.totals[total_key]) {
-                            case 'bytes':
-                                Zentyal.OpenChange.formatProgressBytes('#' + total_key,
-                                                                       data.totals[total_key]);
-                                break;
-                            case 'timediff':
-                                Zentyal.OpenChange.formatProgressTimeDiff('#' + total_key,
-                                                                          data.totals[total_key]);
-                                break;
-                            case 'int':
-                            default:
-                                $('#' + total_key).html(data.totals[total_key]);
-                            }
+                Zentyal.OpenChange.migrationMessage(data.error, 'error');
+                return;
+            }
+            // Expected data is explained in MailboxProgress CGI
+            if ('totals' in data) {
+                for (var total_key in params.totals) {
+                    if (total_key in data.totals) {
+                        switch(params.totals[total_key]) {
+                        case 'bytes':
+                            Zentyal.OpenChange.formatProgressBytes('#' + total_key,
+                                                                   data.totals[total_key]);
+                            break;
+                        case 'timediff':
+                            Zentyal.OpenChange.formatProgressTimeDiff('#' + total_key,
+                                                                      data.totals[total_key]);
+                            break;
+                        case 'int':
+                        default:
+                            $('#' + total_key).html(data.totals[total_key]);
                         }
                     }
                 }
-                if ('users' in data) {
-                    data.users.forEach(function(user) {
-                        for (var prop_user_key in params.users) {
-                            if (!user[prop_user_key]) continue;
-                            var prop_id = '#' + user.username + '_' + prop_user_key;
-                            var prop = $(prop_id);
-                            if (prop) {
-                                switch(params.users[prop_user_key]) {
-                                case 'percentage':
-                                    prop.html(user[prop_user_key] + '<i>%</i>');
-                                    break;
-                                case 'int':
-                                default:
-                                    prop.html(user[prop_user_key]);
-                                }
+            }
+            if ('users' in data) {
+                data.users.forEach(function(user) {
+                    for (var prop_user_key in params.users) {
+                        if (!user[prop_user_key]) continue;
+                        var prop_id = '#' + user.username + '_' + prop_user_key;
+                        var prop = $(prop_id);
+                        if (prop) {
+                            switch(params.users[prop_user_key]) {
+                            case 'percentage':
+                                prop.html(user[prop_user_key] + '<i>%</i>');
+                                break;
+                            case 'int':
+                            default:
+                                prop.html(user[prop_user_key]);
                             }
                         }
-                        // Status is a different thing...
-                        var status = $('#' + user.username + '_status');
-                        var discardBtn = $('#' + user.username + '_discard');
-                        var activateBtn = $('#' + user.username + '_activate');
-                        if (status) {
-                            if (user.status.done > 0) {
-                                status.find('.done-bar').width(user.status.done + '%');
-                            }
-                            if (user.status.error > 0) {
-                                status.find('.error-bar').width(user.status.error + '%');
-                            }
-                            switch(user.status.state) {
-                            case 'ongoing':
-                                status.find('.done-value').html(
-                                    '<strong>' + user.status.done + '</strong>' + '%'
-                                );
-                                status.removeClass().addClass('status');
-                                discardBtn.prop('disabled', false).show();
-                                activateBtn.prop('disabled', true).hide();
-                                break;
-                            case 'migrated':
-                            case 'cancelled':
-                                status.find('.done-value').html(user.status.printable_value);
-                                status.removeClass().addClass('status stopped');
-                                if (user.status.state == 'migrated') {
-                                    discardBtn.prop('disabled', true).hide();
-                                    activateBtn.prop('disabled', true).show();
-                                } else {
-                                    discardBtn.prop('disabled', true).show();
-                                    activateBtn.prop('disabled', true).hide();
-                                }
-                                break;
-                            case 'copied':
-                                status.find('.done-value').html(
-                                    '<strong>' + user.status.done + '</strong>' + '%'
-                                );
-                                status.removeClass().addClass('status stopped');
-                                discardBtn.prop('disabled', false).show();
-                                activateBtn.prop('disabled', false).show();
-                                break;
-                            case 'waiting':
-                                status.find('.done-value').html(user.status.printable_value);
-                                status.removeClass().addClass('status');
-                                discardBtn.prop('disabled', false).show();
-                                activateBtn.prop('disabled', true).hide();
-                                break;
-                            }
-                        }
-                    });
-                }
+                    }
+                    // Status is a different thing...
+                    Zentyal.OpenChange.setProgressStatus(user);
+                });
             }
         }
     });
 };
 
-Zentyal.OpenChange.migrationError = function(errorMsg) {
-    $('#messages').append('<div class="error">' + errorMsg + '</div>').fadeIn();
-    $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
+// Discard migration for this user
+Zentyal.OpenChange.discardMailbox = function(url, username) {
+    $.ajax({
+        type : "POST",
+        url  : url,
+        dataType : 'json',
+        data : { username : username },
+        success : function(data) {
+            if ('error' in data) {
+                Zentyal.OpenChange.migrationMessage(data.error, 'error');
+                return;
+            }
+            if ('warning' in data) {
+                Zentyal.OpenChange.migrationMessage(data.warn, 'warning');
+                return;
+            }
+            if ('success' in data) {
+                Zentyal.OpenChange.migrationMessage(data.success, 'note');
+                Zentyal.OpenChange.setProgressStatus(
+                    { username : username,
+                      status : { state : 'cancelled',
+                                 printable_value : data.printable_value }});
+            }
+        }});
+};      
+
+// Set progress status for a given user
+// Named parameters
+Zentyal.OpenChange.setProgressStatus = function(user) {
+    var status = $('#' + user.username + '_status');
+    var discardBtn = $('#' + user.username + '_discard');
+    var activateBtn = $('#' + user.username + '_activate');
+    if (status) {
+        if (user.status.done && user.status.done > 0) {
+            status.find('.done-bar').width(user.status.done + '%');
+        }
+        if (user.status.error && user.status.error > 0) {
+            status.find('.error-bar').width(user.status.error + '%');
+        }
+        switch(user.status.state) {
+        case 'ongoing':
+            status.find('.done-value').html(
+                '<strong>' + user.status.done + '</strong>' + '%'
+            );
+            status.removeClass().addClass('status');
+            discardBtn.prop('disabled', false).show();
+            activateBtn.prop('disabled', true).hide();
+            break;
+        case 'migrated':
+        case 'cancelled':
+            status.find('.done-value').html(user.status.printable_value);
+            status.removeClass().addClass('status stopped');
+            if (user.status.state == 'migrated') {
+                discardBtn.prop('disabled', true).hide();
+                activateBtn.prop('disabled', true).show();
+            } else {
+                discardBtn.prop('disabled', true).show();
+                activateBtn.prop('disabled', true).hide();
+            }
+            break;
+        case 'copied':
+            status.find('.done-value').html(
+                '<strong>' + user.status.done + '</strong>' + '%'
+            );
+            status.removeClass().addClass('status stopped');
+            discardBtn.prop('disabled', false).show();
+            activateBtn.prop('disabled', false).show();
+            break;
+        case 'waiting':
+            status.find('.done-value').html(user.status.printable_value);
+            status.removeClass().addClass('status');
+            discardBtn.prop('disabled', false).show();
+            activateBtn.prop('disabled', true).hide();
+            break;
+        }
+    }
+};
+
+// Show migration errors in a common way
+Zentyal.OpenChange.migrationMessage = function(msg, level) {
+    $('#messages').append('<div class="' + level + '">' + msg + '</div>').fadeIn();
+    $('.' + level).delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
 };

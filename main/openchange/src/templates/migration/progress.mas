@@ -76,10 +76,12 @@ my $nMailboxes = scalar(@mailboxes);
                 <td>
                   <button class="btn-only-icon btn-delete" disabled="disabled"
                           style="display: none;" id="<% $mailbox->{username} %>_discard"
-                          title="<% __('discard') %>"><% __('discard mailbox') %></button>
+                          onclick="Zentyal.OpenChange.discardMailbox('/OpenChange/Migration/DiscardMailbox', '<% $mailbox->{username} %>')"
+                          title="<% __('discard mailbox') %>"><% __('discard mailbox') %></button>
                   <button class="btn-only-icon btn-apply-w btn-green" disabled="disabled"
                           style="display: none;" id="<% $mailbox->{username} %>_activate"
-                          title="<% __('activate user') %>"><% __('activate user') %></button>
+                          onclick="Zentyal.OpenChange.activateMailbox('<% $mailbox->{username} %>')"
+                          title="<% __('activate mailbox') %>"><% __('activate mailbox') %></button>
                 </td>
               </tr>
 % }
