@@ -89,7 +89,7 @@ my $nMailboxes = scalar(@mailboxes);
         </table>
     </div>
     <div class="bottom-block">
-       <a class="btn btn-green" href="/OpenChange/Migration/Finish"
+       <a class="btn btn-green" href="/OpenChange/Migration/Finish" id="done_btn"
           style="display: none;">DONE</a>
     </div>
 </div>

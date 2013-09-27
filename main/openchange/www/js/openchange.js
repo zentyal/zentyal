@@ -288,6 +288,7 @@ Zentyal.OpenChange.setProgressStatus = function(user) {
                 discardBtn.prop('disabled', true).show();
                 activateBtn.prop('disabled', true).hide();
             }
+            Zentyal.OpenChange.updateDone();
             break;
         case 'copied':
             status.find('.done-value').html(
@@ -304,6 +305,17 @@ Zentyal.OpenChange.setProgressStatus = function(user) {
             activateBtn.prop('disabled', true).hide();
             break;
         }
+    }
+};
+
+// Check to show DONE button once every user has been migrated or cancelled
+Zentyal.OpenChange.updateDone = function() {
+    var nStopped = $('.migration-table').find('.status.stopped').length
+    var nTotal   = $('.migration-table').find('.status').length
+    if (nStopped == nTotal) {
+        $('#done_btn').fadeIn();
+    } else {
+        $('#done_btn').fadeOut();
     }
 };
 
