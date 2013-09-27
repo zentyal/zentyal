@@ -29,6 +29,13 @@
 #include "libmapi/libmapi.h"
 #include "libocpf/ocpf.h"
 
+struct ocpf_file {
+    struct ocpf_file    *prev;
+    struct ocpf_file    *next;
+    const char  *filename;
+};
+
+
 struct mailboxtreeitem {
     struct mailboxtreeitem *parent;
     struct mailboxtreeitem *children;
@@ -37,6 +44,7 @@ struct mailboxtreeitem {
     mapi_id_t id;
     char *name;
     char *path;
+    struct ocpf_file *ocpf_files;
 };
 
 struct mailboxitems {
@@ -471,7 +479,6 @@ static enum MAPISTATUS calculate_mailboxsize(TALLOC_CTX *mem_ctx,
                          amqp_connection_state_t conn)
 {
     enum MAPISTATUS     retval;
-    mapi_id_t       id_mailbox;
     struct SPropTagArray *SPropTagArray;
     struct SPropValue    *lpProps;
     uint32_t              cValues;
@@ -545,6 +552,7 @@ static bool messages_dump(TALLOC_CTX *mem_ctx, mapi_object_t *obj_store,
     uint32_t    i;
     const uint64_t  *fid;
     const uint64_t  *mid;
+    struct ocpf_file *ocpf_file;
 
     /* Step 1. search the folder from Top Information Store */
     mapi_object_init(&obj_folder);
@@ -562,6 +570,7 @@ static bool messages_dump(TALLOC_CTX *mem_ctx, mapi_object_t *obj_store,
     MAPIFreeBuffer(SPropTagArray);
     if (retval != MAPI_E_SUCCESS) return false;
 
+    folder->ocpf_files = talloc_zero(mem_ctx, struct ocpf_file);
     while (((retval = QueryRows(&obj_htable, 0x32, TBL_ADVANCE, &SRowSet)) != MAPI_E_NOT_FOUND) && SRowSet.cRows) {
         for (i = 0; i < SRowSet.cRows; i++) {
             fid = (const uint64_t *)find_SPropValue_data(&SRowSet.aRow[i], PR_FID);
@@ -577,12 +586,13 @@ static bool messages_dump(TALLOC_CTX *mem_ctx, mapi_object_t *obj_store,
             /* Step 4. save the message */
             ret = ocpf_init();
 
-            filename = talloc_asprintf(
+            ocpf_file = talloc_zero(mem_ctx, struct ocpf_file);
+            ocpf_file->filename = talloc_asprintf(
                 mem_ctx, "%s/%" PRIu64 ".ocpf", folder->path, *mid);
-            DEBUG(0, ("OCPF output file: %s\n", filename));
+            DLIST_ADD(folder->ocpf_files, ocpf_file);
+            DEBUG(1, ("OCPF output file: %s\n", ocpf_file->filename));
 
-            ret = ocpf_new_context(filename, &context_id, OCPF_FLAGS_CREATE);
-            talloc_free(filename);
+            ret = ocpf_new_context(ocpf_file->filename, &context_id, OCPF_FLAGS_CREATE);
             ret = ocpf_write_init(context_id, folder->id);
 
             ret = ocpf_write_auto(context_id, &obj_message, &lpProps);
@@ -676,8 +686,6 @@ static enum MAPISTATUS export_mailbox(TALLOC_CTX *mem_ctx,
 {
     enum MAPISTATUS       retval;
     int                   ret;
-    mapi_id_t             id_mailbox;
-    const char           *mailbox_name;
 
     ret = create_directory(DEFAULT_EXPORT_PATH);
     if (ret != 0) {
@@ -687,6 +695,125 @@ static enum MAPISTATUS export_mailbox(TALLOC_CTX *mem_ctx,
     return recursive_mailbox_export(
         mem_ctx, obj_store, obj_store, mdata->TreeRoot , mdata, conn);
 }
+
+static bool import_folder(TALLOC_CTX *mem_ctx, mapi_object_t *obj_store,
+                          struct mailboxtreeitem *folder,
+                          struct mailboxdata *mdata,
+                          amqp_connection_state_t conn)
+{
+    enum MAPISTATUS retval;
+    int ret;
+    struct ocpf_file    *element;
+    mapi_object_t   obj_folder;
+    mapi_object_t   obj_message;
+    uint32_t    cValues = 0;
+    struct SPropValue   *lpProps;
+    uint32_t    context_id;
+
+    /* Step1. Initialize OCPF context */
+    ret = ocpf_init();
+    if (ret == -1) {
+        errno = MAPI_E_CALL_FAILED;
+        return false;
+    }
+
+    /* Step2. Parse OCPF files */
+    for (element = folder->ocpf_files; element->next; element = element->next) {
+        ret = ocpf_new_context(element->filename, &context_id, OCPF_FLAGS_READ);
+        ret = ocpf_parse(context_id);
+        if (ret == -1) {
+            errno = MAPI_E_INVALID_PARAMETER;
+            return false;
+        }
+    }
+
+    /* Step3. Open destination folder using ocpf API */
+    mapi_object_init(&obj_folder);
+    retval = ocpf_OpenFolder(context_id, obj_store, &obj_folder);
+    if (retval != MAPI_E_SUCCESS) {
+        DEBUG(0, ("[!] Unable to open destination folder...\n"));
+        return false;
+    }
+
+    /* Step4. Create the message */
+    mapi_object_init(&obj_message);
+    retval = CreateMessage(&obj_folder, &obj_message);
+    if (retval != MAPI_E_SUCCESS) {
+        DEBUG(0, ("[!] Unable to creat the new message...\n"));
+        return false;
+    }
+
+    /* Step5, Set message recipients */
+    retval = ocpf_set_Recipients(mem_ctx, context_id, &obj_message);
+    if (retval != MAPI_E_SUCCESS && GetLastError() != MAPI_E_NOT_FOUND) return false;
+    errno = MAPI_E_SUCCESS;
+
+    /* Step6. Set message properties */
+    retval = ocpf_set_SPropValue(mem_ctx, context_id, &obj_folder, &obj_message);
+    if (retval != MAPI_E_SUCCESS) {
+        DEBUG(0, ("[!] Error setting message properties...\n"));
+        return false;
+    }
+
+    /* Step7. Set message properties */
+    lpProps = ocpf_get_SPropValue(context_id, &cValues);
+
+    retval = SetProps(&obj_message, 0, lpProps, cValues);
+    MAPIFreeBuffer(lpProps);
+    if (retval != MAPI_E_SUCCESS) {
+        DEBUG(0, ("[!] Error setting message properties...\n"));
+        return false;
+    }
+
+    /* Step8. Save message */
+    retval = SaveChangesMessage(&obj_folder, &obj_message, KeepOpenReadOnly);
+    if (retval != MAPI_E_SUCCESS) {
+        DEBUG(0, ("[!] Error saving the message...\n"));
+        return false;
+    }
+
+    mapi_object_release(&obj_message);
+    mapi_object_release(&obj_folder);
+
+    ocpf_del_context(context_id);
+
+    return true;
+}
+
+static enum MAPISTATUS recursive_mailbox_import(TALLOC_CTX *mem_ctx,
+                                                mapi_object_t *obj_store,
+                                                struct mailboxtreeitem *folder,
+                                                struct mailboxdata *mdata,
+                                                amqp_connection_state_t conn)
+{
+    enum MAPISTATUS     retval = MAPI_E_SUCCESS;
+    int ret;
+    struct mailboxtreeitem *element;
+
+    import_folder(mem_ctx, obj_store, folder, mdata, conn);
+
+    for (element = folder->children; element && element->next; element = element->next) {
+        retval = recursive_mailbox_import(
+            mem_ctx, obj_store, element, mdata, conn);
+        if (retval) goto end;
+    }
+
+end:
+    return retval;
+}
+
+static enum MAPISTATUS import_mailbox(TALLOC_CTX *mem_ctx,
+                                      mapi_object_t *obj_store,
+                                      struct mailboxdata *mdata,
+                                      amqp_connection_state_t conn)
+{
+    enum MAPISTATUS       retval;
+    int                   ret;
+
+    return recursive_mailbox_import(
+        mem_ctx, obj_store, mdata->TreeRoot , mdata, conn);
+}
+
 
 int main(int argc, const char *argv[])
 {
@@ -703,15 +830,17 @@ int main(int argc, const char *argv[])
     const char      *opt_debug = NULL;
     const char      *opt_profdb = NULL;
     char            *opt_profname = NULL;
+    char            *opt_profname_import = NULL;
     const char      *opt_password = NULL;
     const char      *opt_username = NULL;
 
-    enum {OPT_PROFILE_DB=1000, OPT_PROFILE, OPT_PASSWORD, OPT_USERNAME, OPT_DEBUG, OPT_DUMPDATA };
+    enum {OPT_PROFILE_DB=1000, OPT_PROFILE, OPT_PROFILE_IMPORT, OPT_PASSWORD, OPT_USERNAME, OPT_DEBUG, OPT_DUMPDATA };
 
     struct poptOption long_options[] = {
         POPT_AUTOHELP
         {"database", 'f', POPT_ARG_STRING, NULL, OPT_PROFILE_DB, "set the profile database path", NULL },
         {"profile", 'p', POPT_ARG_STRING, NULL, OPT_PROFILE, "set the profile name", NULL },
+        {"import-profile", 'i', POPT_ARG_STRING, NULL, OPT_PROFILE_IMPORT, "set the profile name for the import", NULL },
         {"password", 'P', POPT_ARG_STRING, NULL, OPT_PASSWORD, "set the profile password", NULL },
         {"username", 'U', POPT_ARG_STRING, NULL, OPT_USERNAME, "specify the user's mailbox to calculate", NULL },
         {"debuglevel", 'd', POPT_ARG_STRING, NULL, OPT_DEBUG, "set the debug level", NULL },
@@ -742,6 +871,9 @@ int main(int argc, const char *argv[])
             break;
         case OPT_PROFILE:
             opt_profname = talloc_strdup(mem_ctx, poptGetOptArg(pc));
+            break;
+        case OPT_PROFILE_IMPORT:
+            opt_profname_import = talloc_strdup(mem_ctx, poptGetOptArg(pc));
             break;
         case OPT_PASSWORD:
             opt_password = poptGetOptArg(pc);
@@ -825,11 +957,76 @@ int main(int argc, const char *argv[])
 
     /* Step 7. Mailbox items extraction */
     retval = export_mailbox(mem_ctx, &obj_store, &mdata, conn);
+    if (retval) {
+        mapi_errstr("mailbox", GetLastError());
+        close_amqp_connection(conn);
+        exit (1);
+    }
+
+    /* Close connection with the source server */
+    mapi_object_release(&obj_store);
+    MAPIUninitialize(mapi_ctx);
+
+    DEBUG(0, ("[*] 8.1...\n"));
+    /* Step 8.1. Initialize MAPI subsystem */
+    retval = MAPIInitialize(&mapi_ctx, opt_profdb);
+    if (retval != MAPI_E_SUCCESS) {
+        mapi_errstr("[!] MAPIInitialize", GetLastError());
+        exit (1);
+    }
+
+    DEBUG(0, ("[*] 8.2...\n"));
+    /* Step 8.2. Set debug options */
+    SetMAPIDumpData(mapi_ctx, opt_dumpdata);
+    if (opt_debug) {
+        SetMAPIDebugLevel(mapi_ctx, atoi(opt_debug));
+    }
+
+    DEBUG(0, ("[*] 8.3...\n"));
+    /* Step 8.3. Profile loading */
+    if (!opt_profname_import) {
+        retval = GetDefaultProfile(mapi_ctx, &opt_profname_import);
+        if (retval != MAPI_E_SUCCESS) {
+            mapi_errstr("[!] GetDefaultProfile", GetLastError());
+            exit (1);
+        }
+    }
+
+    DEBUG(0, ("[*] 8.4...\n"));
+    /* Step 8.4. Logon into EMSMDB pipe */
+    retval = MapiLogonProvider(mapi_ctx, &session,
+                   opt_profname_import, opt_password,
+                   PROVIDER_ID_EMSMDB);
+    if (retval != MAPI_E_SUCCESS) {
+        mapi_errstr("[!] MapiLogonProvider", GetLastError());
+        exit (1);
+    }
+
+    DEBUG(0, ("[*] 8.5...\n"));
+    /* Step 8.5. Open Default Message Store */
+    mapi_object_init(&obj_store);
+    if (opt_username) {
+        retval = OpenUserMailbox(session, opt_username, &obj_store);
+        if (retval != MAPI_E_SUCCESS) {
+            mapi_errstr("[!] OpenUserMailbox", GetLastError());
+            exit (1);
+        }
+    } else {
+        retval = OpenMsgStore(session, &obj_store);
+        if (retval != MAPI_E_SUCCESS) {
+            mapi_errstr("[!] OpenMsgStore", GetLastError());
+            exit (1);
+        }
+    }
+
+    DEBUG(0, ("[*] Importing...\n"));
+    retval = import_mailbox(mem_ctx, &obj_store, &mdata, conn);
     close_amqp_connection(conn);
     if (retval) {
         mapi_errstr("mailbox", GetLastError());
         exit (1);
     }
+    DEBUG(0, ("[*] Done...\n"));
 
     poptFreeContext(pc);
     mapi_object_release(&obj_store);
