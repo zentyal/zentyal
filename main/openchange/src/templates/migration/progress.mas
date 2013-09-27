@@ -1,28 +1,39 @@
 <%args>
+  @mailboxes
+  $totalData
 </%args>
 <%init>
 use EBox::Gettext;
+my $nMailboxes = scalar(@mailboxes);
 </%init>
+<script type="text/javascript" src="/data/js/openchange.js"></script>
+<script type="text/javascript" src="/data/js/format.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+   Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
+});
+</script>
 <div class="item-block">
-    <h3>Migrating process</h3>
+    <h3><% __('Migrating process') %></h3>
     <div class="full-width info-top">
         <img class="info-block" src="/data/images/migration-process.gif">
         <div class="info-block total_percentage">
-            24<i>%</i>
+            <span id="total_percentage">--</span><i>%</i>
         </div>
         <div class="info-block">
-            <span class="info-label">Mailbox migrated</span>
-            <span class="info-value">1 <i>of</i> 3</span>
+            <span class="info-label"><% __('Mailbox migrated') %></span>
+            <span class="info-value"><span id="n_mailboxes">--</span> <i><% __('of') %></i> <% $nMailboxes %></span>
          </div>
         <div class="info-block">
-            <span class="info-label">Data migrated</span>
-            <span class="info-value">59<i>MB of</i> 335<i>MB</i></span>
+            <span class="info-label"><% __('Data migrated') %></span>
+            <span class="info-value"><span id="data_migrated">--</span> <i><% __('of') %></i> <span id="total_data">--</span></span>
         </div>
         <div class="info-block">
-            <span class="info-label">Time left</span>
-            <span class="info-value">1<i>h</i> 34<i>m</i></span>
+            <span class="info-label"><% __('Time left') %></span>
+            <span class="info-value"><span id="time_left">1<i>h</i> 34<i>m</i></span></span>
         </div>
-        <a href="castillo-select-mailboxes.html" class="btn btn-black force-right" title="Cancell migration process">Cancel</a>
+        <a href="/OpenChange/Migration/Cancel" class="btn btn-black force-right"
+           title="<% __('Cancel migration process') %>"><% __('Cancel') %></a>
     </div>
 
     <div class="migration-process-block">

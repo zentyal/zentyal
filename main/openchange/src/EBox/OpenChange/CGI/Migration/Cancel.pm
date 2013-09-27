@@ -16,7 +16,12 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::Disconnect;
+package EBox::OpenChange::CGI::Migration::Cancel;
+
+# Class: EBox::OpenChange::CGI::Migration::Cancel
+#
+#      Cancel migration in progress and redirect to Select Mailboxes
+#
 
 use base qw(EBox::CGI::ClientBase);
 
@@ -25,9 +30,8 @@ use EBox::Gettext;
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
-                                  @_);
-    $self->{redirect} = 'OpenChange/Migration/Connect';
+    my $self = $class->SUPER::new(@_);
+    $self->{redirect} = 'OpenChange/Migration/SelectMailBoxes';
     bless ($self, $class);
     return $self;
 }

@@ -124,3 +124,12 @@ Zentyal.OpenChange.estimateMigration = function(params) {
 
 };
 
+// Format the bytes in readable format within the given id
+// using this format: number <i>metric</i>
+Zentyal.OpenChange.formatProgressBytes = function(id, bytes) {
+    var container = $(id);
+    if (! container) return;
+    var bytStr = getBytes(bytes);
+    var parts = bytStr.split(" ");
+    container.html(parts[0] + ' <i>' + parts[1] + '</i>');
+};
