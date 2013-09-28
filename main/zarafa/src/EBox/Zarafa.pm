@@ -590,7 +590,7 @@ sub report
             from   => 'zarafa_user_storage_report',
             group  => 'username',
             limit  => $maxTop,
-            order  => 'size DESC',
+            order  => 'size_bytes DESC',
         });
 
     $report->{latest_storage_usage} = $self->runQuery(
