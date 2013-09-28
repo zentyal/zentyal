@@ -101,14 +101,14 @@ $(document).ready(function() {
    Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
    var progressFunc = function() {
       Zentyal.OpenChange.progress({ url : '/OpenChange/Migration/MailboxProgress',
-                                    totals : { 'total_percentage' : 'int',
-                                               'n_mailboxes'      : 'int',
-                                               'data_migrated'    : 'bytes',
-                                              ' time_left'        : 'timediff' },
-                                    users : { 'mail_pct'     : 'percentage',
-                                              'calendar_pct' : 'percentage',
-                                              'contacts_pct' : 'percentage',
-                                              'errors'       : 'int' }});
+                                    totals : { total_percentage : 'int',
+                                               n_mailboxes      : 'int',
+                                               data_migrated    : 'bytes',
+                                               time_left        : 'timediff' },
+                                    users : { mail_pct     : 'percentage',
+                                              calendar_pct : 'percentage',
+                                              contacts_pct : 'percentage',
+                                              errors       : 'int' }});
  };
    setInterval(progressFunc, 5000);
    progressFunc.call();
