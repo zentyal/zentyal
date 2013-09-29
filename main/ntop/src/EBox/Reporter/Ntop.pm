@@ -155,11 +155,9 @@ sub _consolidate
     # Turn data structure from hash to array
     foreach my $clientIP (keys(%retData)) {
         foreach my $app (keys(%{$retData{$clientIP}})) {
-            my $printableApp = $app;
-            $printableApp = undef if ($app eq 'bytes');
             foreach my $dateIdx (keys(%{$retData{$clientIP}->{$app}})) {
                 push(@retData, { 'metadata' => { 'ip'   => $clientIP,
-                                                 'app'  => $printableApp,
+                                                 'app'  => $app,
                                                  'date' => $dateIdx },
                                  'data' => $retData{$clientIP}->{$app}->{$dateIdx} });
             }
