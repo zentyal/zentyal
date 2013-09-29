@@ -114,8 +114,6 @@ sub _consolidate
             while (my $rrdName = readdir($difaceh)) {
                 my $rrdFileName = "$dirName/$rrdName";
                 next unless (-f $rrdFileName);
-                # bytes.rrd -> total traffic
-                next if ($rrdName eq 'bytes.rrd');
                 my ($time, $step, $names, $data) = RRDs::fetch($rrdFileName, 'AVERAGE',
                                                                $beginStr, $endStr);
                 my $err = RRDs::error;
@@ -157,9 +155,11 @@ sub _consolidate
     # Turn data structure from hash to array
     foreach my $clientIP (keys(%retData)) {
         foreach my $app (keys(%{$retData{$clientIP}})) {
+            my $printableApp = $app;
+            $printableApp = undef if ($app eq 'bytes');
             foreach my $dateIdx (keys(%{$retData{$clientIP}->{$app}})) {
                 push(@retData, { 'metadata' => { 'ip'   => $clientIP,
-                                                 'app'  => $app,
+                                                 'app'  => $printableApp,
                                                  'date' => $dateIdx },
                                  'data' => $retData{$clientIP}->{$app}->{$dateIdx} });
             }

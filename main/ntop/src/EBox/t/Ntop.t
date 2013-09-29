@@ -38,7 +38,7 @@ sub clearConfiguration : Test(shutdown)
 
 sub ntop_use_ok : Test(startup => 1)
 {
-    use_ok('EBox::IPS') or die;
+    use_ok('EBox::Ntop') or die;
 }
 
 1;
