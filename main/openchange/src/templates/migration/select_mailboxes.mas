@@ -129,8 +129,8 @@ $(document).ready(function() {
                                             'loadingId'      : '#loading-button',
                                             'tableClass'     : '.migration-table' });
    });
-   //$( "#start-migration").click(function() {
-   //  window.location.href = '/OpenChange/Migration/Progress';
-   //});
+   $( "#start-migration").click(function() {
+     window.location.href = '/OpenChange/Migration/Progress';
+   });
 });
 </script>
