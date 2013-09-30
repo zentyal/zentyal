@@ -1,3 +1,5 @@
+HEAD
+	+ Avoid call to mailfilter-ldap script from enableActions
 3.2
 	+ Set version to 3.2
 3.1.4
