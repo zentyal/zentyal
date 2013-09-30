@@ -34,6 +34,7 @@ use EBox::Service;
 use EBox::Exceptions::InvalidData;
 use EBox::MailFilter::FirewallHelper;
 use EBox::MailFilter::LogHelper;
+use EBox::MailFilter::VDomainsLdap;
 use EBox::MailVDomainsLdap;
 use EBox::Validate;
 use EBox::Config;
@@ -191,6 +192,51 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
     $self->SUPER::enableService($status);
 }
 
+sub _ldapSetup
+{
+    my $users = EBox::Global->modInstance('users');
+
+    my $container = EBox::Users::User->defaultContainer();
+    my @controlUsers = (
+        {
+            uid => 'spam',
+            givenname => 'Spam',
+            surname  => 'spam',
+            parent => $container,
+            isSystemUser => 1,
+            isInternal => 1,
+        },
+        {
+            uid => 'ham',
+            givenname => 'Ham',
+            surname => 'ham',
+            parent => $container,
+            isSystemUser => 1,
+            isInternal => 1,
+        },
+    );
+
+    foreach my $user_r (@controlUsers) {
+        my $username = $user_r->{uid};
+        my $user = new EBox::Users::User(uid => $username);
+        unless ($user->exists()) {
+            EBox::debug("Creating user '$username'");
+            EBox::Users::User->create(%$user_r);
+        } else {
+            unless ($user->isSystem()) {
+                die $user->name() . " is not a system user as it has to be";
+            }
+        }
+    }
+
+    my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
+    my $vdomainMail       = new EBox::MailVDomainsLdap;
+    my @vdomains = $vdomainMail->vdomains();
+    foreach my $vdomain (@vdomains) {
+        $vdomainMailfilter->_addVDomain($vdomain);
+    }
+}
+
 # Method: enableActions
 #
 #       Override EBox::Module::Service::enableActions
@@ -201,6 +247,8 @@ sub enableActions
     $self->checkUsersMode();
 
     $self->performLDAPActions();
+
+    $self->_ldapSetup();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -240,10 +288,10 @@ sub enableModDepends
 sub reprovisionLDAP
 {
     my ($self) = @_;
+
     $self->SUPER::reprovisionLDAP();
 
-    #  add special ham/spam users to LDAP
-    EBox::Sudo::root('/usr/share/zentyal-mailfilter/mailfilter-ldap update');
+    $self->_ldapSetup();
 }
 
 # Method: smtpFilter
