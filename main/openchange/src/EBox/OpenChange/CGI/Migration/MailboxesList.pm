@@ -81,11 +81,11 @@ sub masonParameters
             push (@{$mailboxes}, $mailbox);
         }
     } otherwise {
+        # If something goes wrong put this in mason
         my ($error) = @_;
         push(@{$params}, error => $error);
     };
 
-    # If something goes wrong put this in mason
     push (@{$params}, mailboxes => $mailboxes);
     return $params;
 }

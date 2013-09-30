@@ -40,7 +40,7 @@ Zentyal.OpenChange.setMailboxes = function (url, containerId) {
         },
         error: function(jqXHR, textStatus, errorThrown) {
             Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
-        },
+        }
     });
 };
 
@@ -110,7 +110,10 @@ Zentyal.OpenChange.estimateMigration = function(params) {
                 Zentyal.OpenChange.migrationMessage(data.error, 'error');
                 $(params.estimateButton).fadeIn();
             } else {
-                setInterval( function() { Zentyal.OpenChange.estimateUpdate(); }, 2000);
+                //setInterval( function() {
+                Zentyal.OpenChange.estimateUpdate({ loadingId : params.loadingId,
+                                                    startBtnId : params.startBtnId });
+                //}, 2000);
             }
         }
     });
@@ -119,21 +122,6 @@ Zentyal.OpenChange.estimateMigration = function(params) {
     //});
 };
 
-Zentyal.OpenChange.estimateUpdate = function() {
-    $.ajax({
-        type: "POST",
-        url: "/OpenChange/Migrate/Estimate",
-        dataType: "json",
-        data: JSON.stringify({ }),
-        contentType: "json",
-        success: function (data) {
-            var migration = $( "#migration-details" );
-            for (var property in data) {
-                migration.find('#' + property + ' .info-value').html(data[property]);
-            }
-        }
-    });
-    //$(params.startBtnId).fadeIn();
 // Format the bytes in readable format within the given id
 // using this format: number <i>metric</i>
 Zentyal.OpenChange.formatProgressBytes = function(id, bytes) {
@@ -335,4 +323,39 @@ Zentyal.OpenChange.updateDone = function() {
 Zentyal.OpenChange.migrationMessage = function(msg, level) {
     $('#messages').append('<div class="' + level + '">' + msg + '</div>').fadeIn();
     $('.' + level).delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
+};
+
+Zentyal.OpenChange.estimateUpdate = function(params) {
+    $.ajax({
+        type: "POST",
+        url: "/OpenChange/Migration/Estimate",
+        dataType: "json",
+        data: JSON.stringify({ }),
+        contentType: "json",
+        success: function (data) {
+            var migration = $( "#migration-details" );
+            for (var property in data.result) {
+                var formatted_val;
+                switch(data.result[property].type) {
+                case 'bytes':
+                    formatted_val = getBytes(data.result[property].value);
+                    break;
+                case 'timediff':
+                    formatted_val = data.result[property].value.toTimeDiffString();
+                    break;
+                case 'int':
+                default:
+                    formatted_val = data.result[property].value;
+                }
+                migration.find('#' + property + ' .info-value').html(formatted_val);
+            }
+            if (data.state == 'done') {
+                $(params.loadingId).hide();
+                $(params.startBtnId).fadeIn();
+            }
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
+        }
+    });
 };
