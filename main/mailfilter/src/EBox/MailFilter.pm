@@ -192,9 +192,9 @@ __('Mail server has a custom filter set, unset it before enabling Zentyal Mail F
     $self->SUPER::enableService($status);
 }
 
-sub _createMailfilterUsers
+sub _ldapSetup
 {
-    my $users =  EBox::Global->modInstance('users');
+    my $users = EBox::Global->modInstance('users');
 
     my $container = EBox::Users::User->defaultContainer();
     my @controlUsers = (
@@ -248,8 +248,7 @@ sub enableActions
 
     $self->performLDAPActions();
 
-    # Add special ham/spam users to LDAP
-    $self->_createMailfilterUsers();
+    $self->_ldapSetup();
 
     # Execute enable-module script
     $self->SUPER::enableActions();
