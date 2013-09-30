@@ -1,3 +1,9 @@
+roundcube (0.9.3-zentyal2) precise; urgency=low
+
+  * Fixed apache.conf for apache 2.2
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 30 Sep 2013 19:06:58 +0200
+
 roundcube (0.9.3-zentyal1) precise; urgency=low
 
   * Backport of roundcube 0.9.3 for zentyal-webmail
