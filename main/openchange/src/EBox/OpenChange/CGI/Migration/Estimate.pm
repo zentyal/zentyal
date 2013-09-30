@@ -18,6 +18,12 @@ use warnings;
 
 package EBox::OpenChange::CGI::Migration::Estimate;
 
+# Class: EBox::OpenChange::CGI::Migration::Estimate
+#
+#   CGI which returns in a JSON structure the estimation of users
+#   after receiving the usernames as JSON POST parameter
+#
+
 use base 'EBox::CGI::Base';
 
 use Error qw( :try );

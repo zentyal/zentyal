@@ -27,7 +27,7 @@ sub new
     my $class = shift;
     my $self = $class->SUPER::new(title    => __('Mail Box Migration'),
                                   @_);
-    $self->{chain} = 'OpenChange/Migration/Connect';
+    $self->{redirect} = 'OpenChange/Migration/Connect';
     bless ($self, $class);
     return $self;
 }

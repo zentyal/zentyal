@@ -1,0 +1,15 @@
+On Debian, the magic file is in /usr/share/file/magic.
+
+Index: b/config/main.inc.php.dist
+===================================================================
+--- a/config/main.inc.php.dist	2009-10-21 10:47:40.000000000 +0200
++++ b/config/main.inc.php.dist	2010-07-17 17:33:23.000000000 +0200
+@@ -301,7 +301,7 @@
+ $rcmail_config['identities_level'] = 0;
+ 
+ // mime magic database
+-$rcmail_config['mime_magic'] = '/usr/share/misc/magic';
++$rcmail_config['mime_magic'] = '/usr/share/file/magic';
+ 
+ // Enable DNS checking for e-mail address validation
+ $rcmail_config['email_dns_check'] = false;

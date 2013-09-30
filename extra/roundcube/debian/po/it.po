@@ -1,0 +1,132 @@
+# Italian (it) translation of debconf templates for roundcube
+# Copyright (C) 2007 Free Software Foundation, Inc.
+# This file is distributed under the same license as the roundcube package.
+# Luca Monducci <luca.mo@tiscali.it>, 2007-2009.
+# 
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube 0.2.2 italian debconf templates\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2009-08-30 12:09+0200\n"
+"Last-Translator: Luca Monducci <luca.mo@tiscali.it>\n"
+"Language-Team: Italian <debian-l10n-italian@lists.debian.org>\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "Server web da configurare automaticamente:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"RoundCube può essere usato con qualsiasi server web che supporta PHP, ma "
+"questo processo di configurazione automatica funziona solo con Apache 2 e "
+"lighttpd."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr ""
+"Selezionare quale/i server web configurare automaticamente per RoundCube."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "Riavviare il/i server web adesso?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"Per attivare la nuova configurazione è necessario riavviare il/i server web "
+"appena riconfigurato/i."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "Server IMAP da usare con RoundCube:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "Scegliere il/i server IMAP da usare con RoundCube."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"Se si lascia in bianco, viene richiesto l'inserimento nella schermata di "
+"accesso. Inserendo un elenco di host separati da degli spazi viene mostrato "
+"un menu a discesa. Inserendo un solo host, viene usato quell'host."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"Per usare connessioni SSL, inserire i nomi host nel formato \"ssl://"
+"nomehost:993\"."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "Lingua predefinita:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "Scegliere la lingua predefinita per RoundCube."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr "Gli utenti possono modificare questa scelta nelle proprie preferenze."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"La lingua predefinita viene comunque usata nella schermata d'accesso e per "
+"la prima connessione degli utenti."
