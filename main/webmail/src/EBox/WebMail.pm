@@ -87,19 +87,15 @@ sub _setConf
     }
 
     my $managesieve = $self->_managesieveEnabled();
+    my $openchange = $self->_openchangeEnabled();
 
     my $options = $self->model('Options');
-    push @{ $params },
-        (
-         managesieve => $managesieve,
-         productName => $options->productName,
-         desKey      => $self->desKey(),
-        );
-
-    my $openchange = $self->global()->modInstance('openchange');
-    if (defined ($openchange) and $openchange->isEnabled()) {
-        # TODO: add openchange params
-    }
+    push @{$params}, (
+        managesieve => $managesieve,
+        openchange  => $openchange,
+        productName => $options->productName,
+        desKey      => $self->desKey(),
+    );
 
     $self->writeConfFile(
                          MAIN_INC_FILE,
@@ -112,6 +108,14 @@ sub _setConf
     }
 
     $self->_setWebServerConf();
+}
+
+sub _openchangeEnabled
+{
+    my ($self) = @_;
+
+    my $openchange = $self->global()->modInstance('openchange');
+    return (defined ($openchange) and $openchange->isEnabled());
 }
 
 sub _managesieveEnabled
