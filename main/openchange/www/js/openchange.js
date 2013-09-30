@@ -110,10 +110,11 @@ Zentyal.OpenChange.estimateMigration = function(params) {
                 Zentyal.OpenChange.migrationMessage(data.error, 'error');
                 $(params.estimateButton).fadeIn();
             } else {
-                //setInterval( function() {
-                Zentyal.OpenChange.estimateUpdate({ loadingId : params.loadingId,
-                                                    startBtnId : params.startBtnId });
-                //}, 2000);
+                var intervalId = setInterval( function() {
+                    Zentyal.OpenChange.estimateUpdate({ loadingId : params.loadingId,
+                                                        startBtnId : params.startBtnId });
+                    }, 2000);
+                Zentyal.OpenChange.estimateIntervalId = intervalId;
             }
         }
     });
@@ -352,6 +353,9 @@ Zentyal.OpenChange.estimateUpdate = function(params) {
             if (data.state == 'done') {
                 $(params.loadingId).hide();
                 $(params.startBtnId).fadeIn();
+                clearInterval(Zentyal.OpenChange.estimateIntervalId);
+            } else {
+                $(params.loadingId).attr('title', 'Estimation ongoing');
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
