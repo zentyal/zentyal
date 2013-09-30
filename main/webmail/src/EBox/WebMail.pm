@@ -96,6 +96,11 @@ sub _setConf
          desKey      => $self->desKey(),
         );
 
+    my $openchange = $self->global()->modInstance('openchange');
+    if (defined ($openchange) and $openchange->isEnabled()) {
+        # TODO: add openchange params
+    }
+
     $self->writeConfFile(
                          MAIN_INC_FILE,
                          'webmail/main.inc.php.mas',
