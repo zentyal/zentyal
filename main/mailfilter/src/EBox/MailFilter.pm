@@ -288,7 +288,10 @@ sub enableModDepends
 sub reprovisionLDAP
 {
     my ($self) = @_;
+
     $self->SUPER::reprovisionLDAP();
+
+    $self->_ldapSetup();
 }
 
 # Method: smtpFilter
