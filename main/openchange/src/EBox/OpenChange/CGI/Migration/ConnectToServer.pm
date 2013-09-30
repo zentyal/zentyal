@@ -16,59 +16,62 @@
 use strict;
 use warnings;
 
-package EBox::OpenChange::CGI::Migration::SelectMailBoxes;
+package EBox::OpenChange::CGI::Migration::ConnectToServer;
 
-use base qw(EBox::CGI::ClientBase);
+use base 'EBox::CGI::Base';
 
+use EBox;
+use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw( :try );
+use Error qw(:try);
 
 sub new
 {
     my $class = shift;
-    my $self = $class->SUPER::new(title    => __('Mailbox Migration'),
-                                  template => 'openchange/migration/select_mailboxes.mas',
+    my $self = $class->SUPER::new('title'    => 'none',
+                                  'template' => 'none',
                                   @_);
     bless ($self, $class);
     return $self;
 }
 
-# Method: masonParameters
-#
-#     Return the list of mason parameters
-#
-# Returns:
-#
-#     Array ref - consists of names and values for the mason template
-#
-sub masonParameters
+sub _process
 {
     my ($self) = @_;
 
-    my $params = [];
     try {
-        my $request = {
-                command => 0,
-        };
+        $self->{json}->{success} = 0;
+
+        $self->_requireParam('server', __('Server'));
+        my $server = $self->unsafeParam('server');
+
+        $self->_requireParam('username', __('user name'));
+        my $username = $self->unsafeParam('username');
+
+        $self->_requireParam('password', __('password'));
+        my $password = $self->unsafeParam('password');
+
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
+        my $request = {
+            command => 1,
+            address  => $server,
+            username => $username,
+            password => $password,
+        };
         my $response = $rpc->send_command($request);
         if ($response->{code} == 0) {
-            my $server = $response->{server};
-            push (@{$params}, server => $server);
-            push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
+            $self->{json}->{success} = 1;
         } else {
-            # TODO Broken connection
-            push (@{$params}, server => '---');
-            push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
+            $self->{json}->{success} = 0;
+            $self->{json}->{mapierror} = $response->{mapierror};
         }
     } otherwise {
-        # TODO Broken connection
-        push (@{$params}, server => '---');
-        push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
-    };
+        my ($error) = @_;
 
-    return $params;
+        $self->{json}->{success} = 0;
+        $self->{json}->{error} = qq{$error};
+    };
 }
 
 1;

@@ -1,9 +1,10 @@
 <%doc>
-This template is used to get the migration details before going to the other section
+    This template is used to get the migration details before going to the
+    other section
 </%doc>
 <%args>
-  $server
-  $serverIP
+    $server
+    $serverIP
 </%args>
 <%init>
 use EBox::Gettext;
@@ -127,8 +128,8 @@ $(document).ready(function() {
                                             'loadingId'      : '#loading-button',
                                             'tableClass'     : '.migration-table' });
    });
-   $( "#start-migration").click(function() {
-     window.location.href = '/OpenChange/Migration/Progress';
-   });
+   //$( "#start-migration").click(function() {
+   //  window.location.href = '/OpenChange/Migration/Progress';
+   //});
 });
 </script>

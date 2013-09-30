@@ -17,6 +17,7 @@ Zentyal.OpenChange.updateAjaxValue = function(url, containerId) {
                 var $this = $(this);
                 var name = $this.data('server');
                 $("#server").val(name);
+                $("#server").change();
             });
          },
          error: function ( jqXHR, textStatus, errorThrown ) {
@@ -111,16 +112,28 @@ Zentyal.OpenChange.estimateMigration = function(params) {
                 $('.error').delay(10 * 1000).fadeOut('slow', function() { $(this).remove(); });
                 $(params.estimateButton).fadeIn();
             } else {
-                var migration = $(params.migrationBlock);
-                for (var property in data) {
-                    migration.find('#' + property + ' .info-value').html(data[property]);
-                }
-                $(params.startBtnId).fadeIn();
+                setInterval( function() { Zentyal.OpenChange.estimateUpdate(); }, 2000);
             }
         }
-    }).done(function() {
-        $(params.loadingId).hide();
     });
-
+    //.done(function() {
+    //    $(params.loadingId).hide();
+    //});
 };
 
+Zentyal.OpenChange.estimateUpdate = function() {
+    $.ajax({
+        type: "POST",
+        url: "/OpenChange/Migrate/Estimate",
+        dataType: "json",
+        data: JSON.stringify({ }),
+        contentType: "json",
+        success: function (data) {
+            var migration = $( "#migration-details" );
+            for (var property in data) {
+                migration.find('#' + property + ' .info-value').html(data[property]);
+            }
+        }
+    });
+    //$(params.startBtnId).fadeIn();
+};

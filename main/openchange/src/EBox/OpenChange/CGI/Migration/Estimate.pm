@@ -20,6 +20,7 @@ package EBox::OpenChange::CGI::Migration::Estimate;
 
 use base 'EBox::CGI::Base';
 
+use Error qw( :try );
 use JSON::XS;
 
 # Group: Public methods
@@ -40,19 +41,52 @@ sub _process
 
     my $postRawData = $self->unsafeParam('POSTDATA');
     my $postData = JSON::XS->new()->decode($postRawData);
-    use Data::Dumper;
-    EBox::debug(Dumper($postData));
+    my $users = $postData->{users};
+    try {
+        my $rpc = new EBox::OpenChange::MigrationRPCClient();
+        # Get status
+        my $request = { command => 0 };
+        my $response = $rpc->send_command($request);
+        if ($response->{code} != 0) {
+            $self->{json}->{error} = 'error msg';
+            return;
+        }
 
-    $self->{json} = {
-        'data' => '753 MB',
-        'mails'  => 2000,
-        'contacts' => 232,
-        'calendar' =>  32,
-        'time' => '1 hour 2 min',
-    };
+        EBox::info("The daemon is in state: " . $response->{state});
+        if ($response->{state} == 0) {
+            # Idle, start estimation
+            my $u = [];
+            foreach my $elem (@{$users}) {
+                push (@{$u}, { name => $elem });
+            }
+            EBox::info("The daemon is idle, launch estimating");
+            my $request = {
+                command => 2,
+                users => $u,
+            };
+            $rpc->dump($request);
+            my $response = $rpc->send_command($request);
+            if ($response->{code} != 0) {
+                $self->{json}->{error} = 'error msg';
+            }
+        } elsif ($response->{state} == 1) {
+            my $seconds = ($response->{totalBytes} * 8 ) / 100;
+            # Estimating, update
+            $self->{json} = {
+                'data' => $response->{totalBytes},
+                'mails'  => $response->{totalMails},
+                'contacts' => $response->{totalContacts},
+                'calendar' =>  $response->{totalCalentars},
+                'time' => "$seconds seconds",
+            }
+        } elsif ($response->{state} == 2) {
+            # Estimated done. Enable migrate button
+        }
+    } otherwise {
+        my ($error) = @_;
 
-    # Set this on error
-    #$self->{json}->{error} = 'error msg';
+        $self->{json}->{error} = $error;
+    }
 }
 
 1;
