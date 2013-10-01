@@ -9,6 +9,7 @@ bootdepends:
     - mail
 
 depends:
+    - samba
     - mail
 
 models:
