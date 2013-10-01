@@ -52,4 +52,6 @@ def __get_version(pkg):
         major, minor, mminor = versions
 	mminor = int(mminor) + 1
 	output = "%s.%s.%d" % (major, minor, mminor)
+    else:
+        output = head
     return output
