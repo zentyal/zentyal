@@ -6,16 +6,6 @@
 set -e
 
 . /usr/share/debconf/confmodule
-. /usr/share/dbconfig-common/dpkg/postinst
-dbc_generate_include=php:/etc/roundcube/debian-db.php
-dbc_generate_include_owner="root:www-data"
-dbc_generate_include_perms="640"
-dbc_dbfile_owner="www-data:www-data"
-dbc_dbfile_perms="0660"
-dbc_dbuser=roundcube
-dbc_dbname=roundcube
-
-dbc_go roundcube $@
 
 lighttpd_install() {
 	if [ ! -f /etc/lighttpd/conf-available/50-roundcube.conf ] ; then
@@ -112,44 +102,6 @@ fix_symlinks() {
 
 case "$1" in
     configure)
-
-	# We try to fix an incomplete upgrade (see #610725 and #613586)
-	if [ -n "$2" ] && dpkg --compare-versions "$2" le 0.5.1+dfsg-5; then
-	    db_get roundcube/dbconfig-upgrade || true
-	    if [ x"$RET" = x"true" ]; then
-		if [ x"$dbc_dbtype" = x"mysql" ]; then
-		    # Ok, we may need to do some upgrade steps.
-		    echo "Fixing MySQL installation..."
-		    if dpkg --compare-versions "$2" ge 0.5; then
-			# Hack (ugly) to replace "mysql" by "mysql -f"
-			real_mysql="$(which mysql)"
-			workdir="$(mktemp -d)"
-			oldpath="$PATH"
-			cat <<EOF > "$workdir/mysql"
-#!/bin/sh
-"$real_mysql" "\$@" -f
-EOF
-			chmod +x "$workdir/mysql"
-			PATH="$workdir:$PATH"
-			dbc_mysql_exec_file \
-			    /usr/share/dbconfig-common/data/roundcube/upgrade/mysql/0.5-1 || true
-			PATH="$oldpath"
-			rm -rf "$workdir"
-                    fi
-		    cat <<EOF | while read command; do dbc_mysql_exec_command "$command" || true ; done
-ALTER TABLE \`messages\` ADD INDEX \`index_index\` (\`user_id\`, \`cache_key\`, \`idx\`);
-ALTER TABLE \`contacts\`ADD INDEX \`user_contacts_index\` (\`user_id\`,\`email\`);
-ALTER TABLE \`identities\` ADD \`changed\` datetime NOT NULL DEFAULT '1000-01-01 00:00:00' AFTER \`user_id\`;
-ALTER TABLE \`identities\` ADD INDEX \`user_identities_index\` (\`user_id\`, \`del\`);
-EOF
-		fi
-	    fi
-	fi
-
-        # Fix bug 680917
-	if [ -n "$2" ] && dpkg --compare-versions "$2" lt 0.7.2-6; then
-            fix_symlinks
-        fi
 
  	CONFFILE=/etc/roundcube/main.inc.php
  	touch $CONFFILE.ucftmp

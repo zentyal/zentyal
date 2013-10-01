@@ -1,3 +1,9 @@
+roundcube (0.9.3-zentyal3) precise; urgency=low
+
+  * Do not ask question for database creation, as Zentyal will do it
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 01 Oct 2013 14:30:15 +0200
+
 roundcube (0.9.3-zentyal2) precise; urgency=low
 
   * Fixed apache.conf for apache 2.2
