@@ -1,7 +1,6 @@
-HEAD
+3.3
 	+ Added Number.prototype.toTimeDiffString in format.js
 	+ Added .btn-black CSS class
-3.3
 	+ Set version to 3.3
 	+ Added enableInnoDbIfNeeded() to MyDBEngine
 	+ Fix loading on custom action buttons
