@@ -20,7 +20,7 @@ tar_file="$base_url/$package-$version.tar.gz"
 
 if [ "$package" = "openchange" ] && [ "$version" = "latest" ]; then
     if [ ! -d openchange-master ]; then
-        git clone https://github.com/carlosperello/openchange.git openchange-master
+        git clone https://github.com/Zentyal/openchange.git openchange-master
     else
         pushd openchange-master > /dev/null 2>&1
         git pull > /dev/null
