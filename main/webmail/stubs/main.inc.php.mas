@@ -324,9 +324,39 @@ $rcmail_config['ldap_public'] = array();
 //
 // So the base_dn would be uid=%fu,ou=people,o=root
 // The bind_dn would be the same as based_dn or some super user login.
+
+/* If openchange module is enabled we have a GAL stored at the Samba
+ * Active Directory. We override the 'address_book_type' component and
+ * set the LDAP configuration parameters. Otherwise, the default config
+ * will use the MySQL Roundcube backend.
+ */
 % if ($openchange) {
-// FIXME: write real ldap conf here
+$rcmail_config['address_book_type'] = 'ldap';
+
+$rcmail_config['ldap_public'] = array();
+$rcmail_config['ldap_public']['activeDirectory'] = array(
+    'name' => 'Global Addressbook',
+    'hosts' => array('%h'),
+    'port' => 389,
+    'ldap_version' => 3,
+    'use_tls' => false,
+    'user_specific' => true,
+    'base_dn' => 'cn=Users,%dc',
+    'bind_dn' => '%fu',
+    'filter' => '(&(objectClass=user)(!(isCriticalSystemObject=*)))',
+    'writable' => false,
+
+    'fieldmap' => array(
+        'name'      => 'cn',
+        'surname'   => 'sn',
+        'firstname' => 'givenName',
+        'email'     => 'mail:*',
+        'notes'     => 'description',
+        'photo'     => 'jpegPhoto',
+    ),
+);
 % }
+
 /*
  * example config for Verisign directory
  *
