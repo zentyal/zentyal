@@ -33,4 +33,7 @@ cat <<EOT > $DB_CONF_FILE
 \$dbtype='mysql';
 EOT
 
+# Required for openchange calendar plugin
+cat /usr/share/roundcube/plugins/calendar/drivers/zentyal_openchange/SQL/mysql.initial.sql | mysql --defaults-file=/etc/mysql/debian.cnf $db_name
+
 exit 0

@@ -719,7 +719,7 @@ Parameters:
 */
 Zentyal.TableHelper.showPort = function (protocolSelectId, portId, protocols) {
     var selectedValue = $('#' + protocolSelectId).val();
-    if (selectedValue in protocols) {
+    if (protocols.indexOf(selectedValue) > -1) {
         $('#' + portId).show();
     } else {
         $('#' + portId).hide();
@@ -1099,9 +1099,11 @@ Zentyal.TableHelper.setSortableTable = function(url, tableName, directory) {
     tableBody.sortable({
         items: '.movableRow',
         handle: '.moveRowHandle',
-        containment: 'parent',
-        tolerance: 'pointer',
+        placeholder: 'moveRowPlaceholder',
         delay: 100,
+        start: function(event, ui) {
+            ui.placeholder.height(ui.helper.outerHeight());
+        },
         helper: function(e, ui) {
             ui.children().each(function() {
                 $(this).width($(this).width());
@@ -1156,6 +1158,6 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
 };
 
 Zentyal.TableHelper.setSaveChangesButton = function(changed) {
-    var className = changed ?  'changed' : 'notChanged';
+    var className = changed ?  'changed' : 'notchanged';
     $('#changes_menu').removeClass().addClass(className);
 };

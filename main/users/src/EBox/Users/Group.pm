@@ -430,7 +430,7 @@ sub deleteObject
 
 sub save
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     shift @_;
     $self->SUPER::save(@_);

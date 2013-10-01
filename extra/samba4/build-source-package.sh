@@ -2,16 +2,23 @@
 
 version=$1
 rev=$2
+changelog=$3
 
 if [ -z "$version" ]
 then
-    echo "Usage: $0 <version> <zentyal revision>"
+    echo "Usage: $0 <version> <zentyal revision> <changelog>"
     exit 1
 fi
 
 if [ -z "$rev" ]
 then
-    echo "Usage: $0 <version> <zentyal revision>"
+    echo "Usage: $0 <version> <zentyal revision> <changelog>"
+    exit 1
+fi
+
+if [ -z "$changelog" ]
+then
+    echo "Usage: $0 <version> <zentyal revision> <changelog>"
     exit 1
 fi
 
@@ -60,7 +67,7 @@ elif [ $BUILD_VERSION_GREATER -ne 0 ]; then
     exit 1
 else
     # If build version is newer than last changelog entry, update changelog
-    dch -b -v "$version-zentyal$rev" -D 'precise' --force-distribution 'New upstream release'
+    dch -b -v "$version-zentyal$rev" -D 'precise' --force-distribution "$changelog"
     cp debian/changelog $CWD/debian/
 fi
 

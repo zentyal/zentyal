@@ -1,0 +1,840 @@
+roundcube (0.9.3-zentyal3) precise; urgency=low
+
+  * Do not ask question for database creation, as Zentyal will do it
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 01 Oct 2013 14:30:15 +0200
+
+roundcube (0.9.3-zentyal2) precise; urgency=low
+
+  * Fixed apache.conf for apache 2.2
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 30 Sep 2013 19:06:58 +0200
+
+roundcube (0.9.3-zentyal1) precise; urgency=low
+
+  * Backport of roundcube 0.9.3 for zentyal-webmail
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 27 Sep 2013 16:40:39 +0200
+
+roundcube (0.9.3-0~ppa12.04+2) precise; urgency=low
+
+  * debian/rules, debian/roundcube-plugins.install : remove enigma plugin
+    related stuff, as it is not shipped in upstream sources anymore, hopefully
+    fixes building.
+
+ -- Nicolas Derive <kalon33@ubuntu.com>  Wed, 04 Sep 2013 00:38:25 +0200
+
+roundcube (0.9.3-0~ppa12.04+1) precise; urgency=low
+
+  * New upstream release 
+
+ -- Nicolas Derive <kalon33@ubuntu.com>  Tue, 03 Sep 2013 23:55:26 +0200
+
+roundcube (0.9.2-2~ppa12.04+1) precise; urgency=low
+
+  * Merge new upstream release from Debian Unstable.
+
+ -- Nicolas Derive <kalon33@ubuntu.com>  Mon, 02 Sep 2013 22:29:30 +0200
+
+roundcube (0.9.2-2) unstable; urgency=low
+
+  * Depends on php5-sqlite instead of php5-sqlite3. Closes: #714727.
+  * Add a patch to map "sqlite3" driver to "sqlite".
+  * Breaks/replaces older versions of roundcube-plugins-extra (zipdownload
+    plugin is now part of roundcube-plugins). Closes: #714135.
+  * Downgrade php5-gd and php5-pspell to Recommends. Closes: #714448.
+  * Depends on libapache2-mod-php5 | php5 to allow support of PHP FPM.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 31 Jul 2013 21:12:05 +0200
+
+roundcube (0.9.2-1) unstable; urgency=low
+
+  * New upstream version.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 22 Jun 2013 20:41:48 +0200
+
+roundcube (0.9.1-1) unstable; urgency=low
+
+  * New upstream version. Closes: #707809.
+     + Add new zipdownload plugin.
+     + Switch from MDB2 to PDO for database handling.
+     + Add support for SQLite 3.
+  * Bumps Standards-Version.
+  * Depends on php5 but only recommends a web server. The web server can
+    be installed on another host.
+  * Transition towards Apache 2.4. Closes: #669804.
+     + Also drop some old cruft (Apache configuration).
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 04 Jun 2013 22:53:45 +0200
+
+roundcube (0.8.6-1) experimental; urgency=low
+
+  * New upstream version. Closes: #684769.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 14 Apr 2013 11:21:32 +0200
+
+roundcube (0.7.2-9) unstable; urgency=high
+
+  * Fix a vulnerability allowing logged users to override any variable
+    which may be used to steal credentials of other users or read
+    arbitrary files.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 27 Mar 2013 22:01:25 +0100
+
+roundcube (0.7.2-8) unstable; urgency=low
+
+  * In roundcube-core postinst, set appropriate rights on directory
+    created when fixing symlinks.
+
+ -- Vincent Bernat <bernat@debian.org>  Thu, 21 Mar 2013 22:47:33 +0100
+
+roundcube (0.7.2-7) unstable; urgency=low
+
+  * Fix dependencies to postgresql and postgresql-client. Closes: #699604.
+  * Drop roundcube-sqlite transition package since we don't provide an
+    automatic upgrade path. The user will have to remove the package by
+    herself. Move the related NEWS entry from roundcube-sqlite to
+    roundcube-core and explain how to continue upgrade. Closes: #688634.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 16 Mar 2013 17:26:20 +0100
+
+roundcube (0.7.2-6) unstable; urgency=low
+
+  * Fix the symlink mess in postinst when upgrading from 0.5 to a more
+    recent version. Closes: #680917, #656886.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 10 Nov 2012 13:51:17 +0100
+
+roundcube (0.7.2-5) unstable; urgency=low
+
+  * Fix problem with some uuencoded attachments. Patch from Michał
+    Mirosław. Closes: #686857.
+  * Don't handle old configuration files from legacy roundcube
+    package. roundcube package is an empty metapackage since
+    Squeeze. Closes: #688230.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 29 Sep 2012 11:39:07 +0200
+
+roundcube (0.7.2-4) unstable; urgency=high
+
+  * Fix self XSS with plain signatures. CVE-2012-3508. Closes: #685475.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 26 Aug 2012 14:20:24 +0200
+
+roundcube (0.7.2-3) unstable; urgency=low
+
+  * Remove old Replaces/Breaks for roundcube-core since it is not needed
+    since Squeeze.
+  * Add back roundcube-sqlite package as a transitional package, thanks to
+    a suggestion by Andreas Beckmann. This enables one to upgrade from
+    Squeeze. Closes: #677803.
+  * Move the actual NEWS entry about dropping SQLite to the transitional
+    package. And be more verbose about it.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 23 Jun 2012 19:52:33 +0200
+
+roundcube (0.7.2-2) unstable; urgency=low
+
+  * Rotate /var/log/roundcube/session. Closes: #671472.
+  * Fix rights of files generated by UCF. Closes: #671474.
+  * Update Slovak debconf translation, thanks to Ivan Masár (Closes: #677907).
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 19 Jun 2012 08:30:20 +0200
+
+roundcube (0.7.2-1) unstable; urgency=low
+
+  * New upstream version.
+  * Bump Standards-Version. No changes required.
+  * Depends on php-mail-mime (>= 1.8.2). Closes: #656243.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 28 Apr 2012 10:29:15 +0200
+
+roundcube (0.7.1-2) unstable; urgency=high
+
+  * Remove roundcube-sqlite package since php5 package does not ship
+    SQLite 2.x support anymore. Roundcube is incompatible with SQLite 3.x.
+    Closes: #657092.
+  * Urgency set to high for php5 migration into testing.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 07 Feb 2012 17:37:52 +0100
+
+roundcube (0.7.1-1) unstable; urgency=low
+
+  * New upstream version. Closes: #656093.
+  * Add Dutch debconf translation, thanks to Jeroen Schot.
+    Closes: #656082.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 17 Jan 2012 08:57:11 +0100
+
+roundcube (0.7-3) unstable; urgency=low
+
+  * Ship jqueryui plugin. Closes: #653274.
+      + Depend on libjs-jquery-ui package (instead of builtin copy).
+      + Conflict with versions of roundcube-plugins-extra providing this
+        plugin.
+  * More SQL fixes on update. Closes: #654297.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 02 Jan 2012 21:45:42 +0100
+
+roundcube (0.7-2) unstable; urgency=low
+
+  * Fix SQLite upgrade file. Closes: #653217.
+  * Also fixes MySQL upgrade file and SQLite regular file.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 25 Dec 2011 16:14:04 +0100
+
+roundcube (0.7-1) unstable; urgency=low
+
+  * New upstream version. Closes: #652564.
+      + Does not ship SWF with TinyMCE anymore.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 23 Dec 2011 22:04:39 +0100
+
+roundcube (0.6+dfsg-1) unstable; urgency=low
+
+  * New upstream version. Closes: #643707.
+      + Repack to remove SWF file without source from TinyMCE.      
+      + Add SQL upgrade procedures.
+      + Add new plugins: acl, enigma and newmail_notifier.
+      + Update jQuery dependency to jQuery 1.6.4.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 02 Oct 2011 15:20:57 +0200
+
+roundcube (0.5.4+dfsg-1) unstable; urgency=high
+
+  [ Vincent Bernat ]
+  * New upstream version.
+     + Fix XSS vulnerability in UI messages (Closes: #641996).
+  * Switch to Git for version control thanks to Jérémy
+    Bobbio. debian/control updated.
+  * Ship INSTALL. Closes: #633698.
+
+  [ Jérémy Bobbio ]
+  * Re-add 'password' plugin to roundcube-plugins.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 13 Jul 2011 08:33:01 +0200
+
+roundcube (0.5.3+dfsg-1) unstable; urgency=low
+
+  * New upstream release.
+     + Fix identities "reply-to" and "bcc" fields have a bogus value when
+       left empty (Closes: #628553).
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 10 Jun 2011 22:48:57 +0200
+
+roundcube (0.5.2+dfsg-1) unstable; urgency=low
+
+  * New upstream release
+  * Update logrotate configuration. Closes: #619410.
+  * Make debian-db.php owned by root. This really closes: #608976.
+  * Bump Standards-Version. No changes required.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 24 Apr 2011 00:35:34 +0200
+
+roundcube (0.5.1+dfsg-7) unstable; urgency=low
+
+  * Make dbconfig-common use sqlite by default to ensure that the package
+    can be configured non-interactively in most cases. Closes: #617754.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 11 Mar 2011 09:08:32 +0100
+
+roundcube (0.5.1+dfsg-6) unstable; urgency=low
+
+  * Handle incorrect upgrade from 0.3.1-6 when "changed" column already
+    exists for table "identities". Closes: #617312.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 08 Mar 2011 07:37:56 +0100
+
+roundcube (0.5.1+dfsg-5) unstable; urgency=low
+
+  * Don't use awk. Use plain shell to modify main.inc.php.
+    Closes: #616074.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 04 Mar 2011 20:46:57 +0100
+
+roundcube (0.5.1+dfsg-4) unstable; urgency=low
+
+  * Fix debian/watch to remove "+dfsg" suffix.
+  * Use awk instead of sed to modify main.inc.php. Closes: #615277.
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 01 Mar 2011 19:59:00 +0100
+
+roundcube (0.5.1+dfsg-3) unstable; urgency=low
+
+  * Install show_additional_headers plugin in roundcube-plugins package.
+  * Use dbconfig-common to force some upgrade commands using some ugly
+    hacks. This should fix any remaining problems with MySQL
+    upgrade. Closes: #613586.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 18 Feb 2011 22:04:12 +0100
+
+roundcube (0.5.1+dfsg-2) unstable; urgency=low
+
+  * Remove all "ADD INDEX" from MySQL 0.5-1 upgrade file and put them in
+    postinst script. If you have a problem during the upgrade, please, let
+    me know. This upload is only done to prevent users who did not upgrade
+    to 0.5 yet to have a problem during their upgrade. If you already
+    upgraded to 0.5 and if the upgrade failed (or if some feature are
+    missing like identities management), please look at bug #613586.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 16 Feb 2011 20:54:48 +0100
+
+roundcube (0.5.1+dfsg-1) unstable; urgency=low
+
+  * Add plugins. Closes: #550454.
+  * Rewrite (and update) of debian/copyright.
+  * Use of yui-compressor to re-minify Javascript files.
+  * Drop correct-magic-path.patch: libmagic1 now provides a symlink to the
+    correct location since 4.24-4.
+  * Repack orig.tar.gz to remove swf file shipped with TinyMCE with no
+    sources available.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 14 Feb 2011 22:33:51 +0100
+
+roundcube (0.5.1-1) unstable; urgency=low
+
+  * New upstream version. Some bugs are corrected in this release or in a
+    previous release:
+      + when switching to HTML mode, content type is now correctly set.
+        Closes: #611321.
+      + header delimiters handling has been fixed in 0.5.
+        Closes: #603489.
+  * Don't assign "skins" directory to www-data. Closes: #612552.
+  * Add instructions on how to install and upgrade when not using
+    dbconfig-common. We do not ship UPGRADING file any more since it is
+    misleading. Closes: #612511.
+  * Fix MySQL indexes if upgrading from 0.5-2 or lesser. Closes: #610725.
+  * Rework how symlinks work. The only directory to use is
+    /var/lib/roundcube. We use symlink from /usr/share/roundcube to
+    /var/lib/roundcube and not the other way. Moreover, plugins and skins
+    are also symlinked. A user should be able to add plugins and skins in
+    /var/lib/roundcube while default ones are in
+    /usr/share/roundcube. Closes: #612553.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 09 Feb 2011 07:32:42 +0100
+
+roundcube (0.5-2) experimental; urgency=low
+
+  * If 0.3.1 was installed from scratch, upgrade does not work on MySQL
+    and PostgreSQL because we try to create an index which already
+    exists. With SQLite, the error is ignored, no fix needed. When using
+    PostgreSQL, fix this by dropping the index if it already
+    exists. Nothing similar seems to exist with MySQL. Therefore, just
+    don't create the index. We need to handle this later. See bug
+    #610725. Not closing.
+
+ -- Vincent Bernat <bernat@debian.org>  Fri, 21 Jan 2011 21:44:05 +0100
+
+roundcube (0.5-1) experimental; urgency=low
+
+  * New upstream release. Closes: #592312.
+     + Drop patches included upstream (DNS prefetching, jQuery 1.4
+       handling, email address validation, duplicate headers, incorrectly
+       formatted received headers). Adapt other patches. One of the patch
+       now correctly states to use dpkg-reconfigure roundcube-core.
+       Closes: #608977.
+     + Update SQL commands to use to upgrade database.
+       That also closes: #602922. Unfortunately, the user may get some
+       harmless error messages because there is no way to know if
+       0.3.1 was installed from scratch or upgraded from 0.3.
+     + Update dependencies to match INSTALL file. Only exception is the
+       use of Mail_Mime 1.8.0 in place of 1.8.1 which is not available in
+       Debian. We depends on jQuery 1.4.2 because 1.4.4 is not available in
+       Debian.
+     + All folders are correctly checked since 0.4. Closes: #552430.
+     + Also, closes: #553194 since it seems to have been fixed too.
+     + There is also the possibility to not top-quote since 0.4.
+       Closes: #491063.
+     + Closes: #602144. Also fixed.
+  * Move .htaccess to /etc/roundcube and use a symlink (Closes: #591369).
+  * Don't let www-data overwrite debian-db.php. Closes: #608976.
+  * Bump Standards-Version. No changes required.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 15 Jan 2011 12:40:27 +0100
+
+roundcube (0.3.1-6) unstable; urgency=low
+
+  * Update Arabic debconf translation, thanks to Ossama Khayat.
+    Closes: #596181.
+  * Update Portuguese debconf translation, thanks to Christian Perrier.
+    Closes: #599575.
+  * Add a patch to avoid duplicate boundaries in headers when adding an
+    attachment. Closes: #599586.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 18 Oct 2010 23:14:37 +0200
+
+roundcube (0.3.1-5) unstable; urgency=low
+
+  * Depends on php-mail-mime 1.7.0 or more recent to handle correctly
+    'mime_param_folding' directive. Closes: #588295.
+  * Add Danish debconf translation, thanks to Joe Dalton.
+    Closes: #593271.
+  * Add a patch to fix Received header to behave better with Spam
+    Assassin. Closes: #595204.
+
+ -- Vincent Bernat <bernat@debian.org>  Thu, 02 Sep 2010 07:54:58 +0200
+
+roundcube (0.3.1-4) unstable; urgency=low
+
+  * Update README.Debian to state that the variable to modify is
+    'htmleditor' instead of 'enable_htmleditor'. Thanks to Hans
+    Spaans. Closes: #575556.
+  * Add Brazilian Portuguese debconf translation, thanks to Eder
+    L. Marques. Closes: #581745.
+  * Switch default encoding to UTF-8 instead of ISO-8859-1.
+    Closes: #588084.
+  * Add more explanations on how to install roundcube in a Debian system
+    in README.Debian. Closes: #584458, #582894.
+  * Bump Standards-Version. No changes required.
+  * Switch to 3.0 (quilt) format.
+  * Use Breaks instead of Conflicts to move files from older roundcube
+    installations.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 17 Jul 2010 17:23:30 +0200
+
+roundcube (0.3.1-3) unstable; urgency=high
+
+  * RFC 5321, section 4.5.3.1, asks to not impose any limits on length if
+    possible. We respect this by dropping limitation of the local-part of
+    an email address. Closes: #568360, #568537.
+  * Suggests php-auth-sasl to enable use of SASL mechanisms for mail
+    servers. Closes: #567550.
+  * Disable DNS prefetching to avoid information leakage through links
+    embedded in messages. This fixes CVE-2010-0464. Closes: #569660.
+  * Bump Standards-Version. No changes required.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 13 Feb 2010 10:21:49 +0100
+
+roundcube (0.3.1-2) unstable; urgency=low
+
+  * Fix VCS links in debian/control, thanks to Torsten Landschoff.
+    Closes: #555900.
+  * Really ship NEWS.Debian.
+  * Add changesets 3170 and 3202 from upstream to handle gracefully jQuery
+    1.4. Thanks to Volker Gropp for the report. Closes: #565715.
+
+ -- Vincent Bernat <bernat@debian.org>  Mon, 18 Jan 2010 23:11:01 +0100
+
+roundcube (0.3.1-1) unstable; urgency=low
+
+  * New upstream release.
+  * Add a notice in NEWS.Debian about php.ini options that should be set
+    to get Roundcube working properly. Closes: #549428, #552508.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 07 Nov 2009 17:41:37 +0100
+
+roundcube (0.3-2) unstable; urgency=low
+
+  * Really fix #544579 since the default value is null without
+    quotes. This really Closes: #544579.
+  * Enlarge login box to accommodate sk_SK locale. Closes: #542933.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 27 Sep 2009 11:26:56 +0200
+
+roundcube (0.3-1) unstable; urgency=low
+
+  * New upstream release. Closes: #545498.
+  * Update debconf translations:
+      + Italian, thanks to Luca Monducci. Closes: #544199.
+      + Czech, thanks to Miroslav Kure. Closes: #546413.
+  * Roundcube configuration now uses 'language' instead of 'locale_string'
+    to specify the default language. Update postinst to reflect this
+    change. Thanks to Richard van den Berg for noticing this. Closes: #544579.
+  * Depends on libjs-jquery (>= 1.3) since this is now used by roundcube.
+  * Don't ship any plugins for now but ship an empty plugins directory.
+  * Ship main .htaccess since it is needed to setup correctly PHP (for
+    example, to disable PHP Suhosin cookie encryption).
+  * Bump Standards-Version. No changes required.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 27 Sep 2009 11:00:30 +0200
+
+roundcube (0.2.2-1) unstable; urgency=low
+
+  * New upstream release
+  * Bump Standards-Version. No changes required.
+  * Remove *.js.src which are not needed at runtime.
+  * Don't send email contents to Google by default by using php5-pspell
+    instead. Thanks to Anand Kumria. Closes: #529563.
+  * Update debconf translations:
+      + Basque, thanks to Piarres Beobide. Closes: #534282.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 05 Jul 2009 09:53:17 +0200
+
+roundcube (0.2.1-2) unstable; urgency=low
+
+  * Update debconf translations:
+      + German, thanks to Helge Kreutzmann. Closes: #520004.
+      + Japanese, thanks to Hideki Yamane. Closes: #520024.
+      + Spanish, thanks to Francisco Javier. Closes: #526696.
+      + Russian, thanks to Yuri Kozlov. Closes: #528796.
+  * Depend on php-mdb2-* (>= 1.5.0b2) since it is needed to fix some
+    bugs. Closes: #519104, #519293. Remove not needed any more patch from
+    debian/patches/series. Keep it in debian/patches to help backports.
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 16 May 2009 15:30:17 +0200
+
+roundcube (0.2.1-1) unstable; urgency=low
+
+  * New upstream release:
+      + Fix use_packaged_tinymce.patch to apply to this new version
+      + Remove cve-2009-0413.patch which has been applied upstream
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 14 Mar 2009 17:42:07 +0100
+
+roundcube (0.2~stable-2) unstable; urgency=low
+
+  * Update debconf translations:
+      + French, thanks to Christian Perrier. Closes: #515806.
+      + Swedish, thanks to Martin Bagge. Closes: #516683.
+  * Drop virtual package roundcube-db and add dependencies on real package
+    instead: this way, we can have versioned dependencies on those to avoid
+    version mismatch between packages.
+  * Add a patch to not use a MDB2 feature not present in the Debian
+    package. Thanks to Grzegorz Sobański for the patch. Closes: #519104.
+
+ -- Vincent Bernat <bernat@debian.org>  Wed, 11 Mar 2009 18:49:32 +0100
+
+roundcube (0.2~stable-1) unstable; urgency=low
+
+  * New upstream version. Closes: #503573, #504570.
+      + Add SQL update scripts for this new release and for
+        0.2~alpha. Remove copy of SQL upgrade script from debian/rules.
+      + Remove patch for CVE-2008-5620 which is now fixed upstream.
+      + Remove patch correcting a vulnerability in html2text.php.
+      + Remove patch fixing login issue. This is fixed upstream.
+      + Remove patch setting the default backend to db instead of mdb2:
+        this is not possible any more. We depend on php-mdb2 now.
+      + Update patch to use packaged tinymce.
+  * Upload to unstable since Lenny is out.
+  * Apply fix for XSS issue (CVE-2009-0413). Closes: #514179.
+  * Remove hack to update a SQLite table for an upgrade from a quite old
+    version of roundcube.
+  * Fix pending l10n issues:
+      + Update English debconf template. Closes: #473794.
+      + Add Swedish translation thanks to Martin Bagge. Closes: #508752.
+  * Fix debian/copyright to make lintian happy.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 15 Feb 2009 16:18:58 +0100
+
+roundcube (0.2~alpha-4) experimental; urgency=low
+
+  * Add missing ${misc:Depends} to make Lintian happy.
+  * Add description to each patch.
+  * Execute cron job only if the directory to clean exists.
+  * Reload web server configuration instead of restart, thanks to a patch
+    from Tiago Bortoletto Vaz. Closes: #508633.
+  * Fix a vulnerability in quota image generation. This fixes
+    CVE-2008-5620. Thanks to Nico Golde for reporting it. Closes: #509596.
+  * Add missing dependency on php5-gd, used for quota bar.
+  * For roundcube-pgsql, depends on postgresql-client only. This package
+    is provided by the currently supported real package.
+
+ -- Vincent Bernat <bernat@debian.org>  Thu, 25 Dec 2008 11:38:13 +0100
+
+roundcube (0.2~alpha-3) experimental; urgency=high
+
+  [ Vincent Bernat ]
+  * Fix a vulnerability in the use of preg_replace (Closes: #508628).
+  * Adapt descriptions of roundcube-database packages to refer them as
+    metapackages instead of virtual package (Closes: #495434).
+  * Add robots.txt from upstream, even if in some configuration, it will
+    not be considered (Closes: #499108).
+  * Do not ship .htaccess files. Restrictions are set in Apache or
+    Lighttpd configuration files (Closes: #500202).
+
+  [ Romain Beauxis ]
+  * Changed versioned dependency of rouncube from binary:Version to
+    source:Version since these are all architecture independent packages.  
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 13 Dec 2008 14:36:02 +0100
+
+roundcube (0.2~alpha-2) experimental; urgency=low
+
+  [ Vincent Bernat ]
+  * Fix lintian warnings introduced by previous upload
+  * Fix lighttpd.conf to make it work with latest versions (Closes: #494044)
+  * Do not prepend path to lighty util in postinst and postrm, as per
+    Policy Manual section 6.1
+  * Ship a bug/control file to have all bugs submitted against roundcube
+    metapackage
+  * Fix debian/roundcube-core.cron.daily to use
+    /etc/default/roundcube-core instead of /etc/default/roundcube which
+    should not exist any more
+
+  [ Romain Beauxis ]
+  * Versioned roundcube-core dependency for roundcube 
+
+ -- Vincent Bernat <bernat@debian.org>  Sat, 16 Aug 2008 13:22:08 +0200
+
+roundcube (0.2~alpha-1) experimental; urgency=low
+
+  * New upstream release
+  * Update debian/watch file to correctly consider those new releases
+  * Remove the following patches:
+      + messageid-headers-ordering
+      + mysql-update-fix
+      + disable-tinymce-spellchecker
+  * Update the following patches:
+      + correct_install_path
+      + use_packaged_tinymce
+  * Add a new patch to fix a login problem
+  * Depends on tinymce >= 3
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 22 Jun 2008 14:10:44 +0200
+
+roundcube (0.1.1-7) unstable; urgency=low
+
+  * Another fix for incorrect tinymce path. This should be the last one!
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 22 Jun 2008 12:36:59 +0200
+
+roundcube (0.1.1-6) unstable; urgency=low
+
+  * Fix use_packaged_tinymce patch which was incorrect after switch to
+    tinymce2 package.
+
+ -- Vincent Bernat <bernat@debian.org>  Sun, 22 Jun 2008 12:19:16 +0200
+
+roundcube (0.1.1-5) unstable; urgency=low
+
+  * Fix ordering of message-id in message headers, thanks to Reinhard
+    Tartler (Closes: #486493)
+  * Update Standards-Version to 3.8.0
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 17 Jun 2008 00:33:40 +0200
+
+roundcube (0.1.1-4) unstable; urgency=low
+
+  * Add Slovak debconf translation, thanks to Ivan Masár (Closes: #481376)
+  * Fix debian/copyright:
+     + RoundCube is GPL-2 licensed, not GPL-2+
+     + Add an explanation on the BSD license present at the top of
+       index.php (Closes: #477119)
+  * We do not support tinymce 3, yet. Depends on tinymce2 | tinymce (<<
+    3). Closes: #481145, #483053, #482295
+
+ -- Vincent Bernat <bernat@debian.org>  Tue, 20 May 2008 20:51:52 +0200
+
+roundcube (0.1.1-3) unstable; urgency=low
+
+  * Fix an error introduced when fixing bug #476803. Thanks to Micah
+    Anderson for spotting it (Closes: #479775).
+  * Avoid to pop language question at every upgrade. Thanks to Ivan Vucica
+    for spotting this. The problem lied in the use of db_metaget to get
+    the value of a key set by db_subst in a previous invocation. It seems
+    this is not possible any more (Closes: #480043). The fix implies that
+    we won't ask the question again if more languages are available since
+    last upgrade.
+
+ -- Vincent Bernat <bernat@debian.org>  Thu, 08 May 2008 09:50:24 +0200
+
+roundcube (0.1.1-2) unstable; urgency=low
+
+  * Comment by default Alias directive for tinymce in Apache configuration
+    file (Closes: #476162).
+  * Allow to preseed language value (Closes: #476803).
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat, 19 Apr 2008 16:50:28 +0200
+
+roundcube (0.1.1-1) unstable; urgency=low
+
+  * New upstream release
+    - Copy old SQL upgrade scripts into debian/sql to allow upgrade from
+      versions older than 0.1
+    - Patch new MySQL upgrade script to fix a typo
+  * Debconf translation updates:
+    - Spanish. Closes: #473788
+  * Depends on php-mail-mime (>= 1.5.0) and drop compatibility patch
+  * Install upstream changelog in /usr/share/doc/roundcube*
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat, 05 Apr 2008 18:16:33 +0200
+
+roundcube (0.1-4) unstable; urgency=low
+
+  * Debconf translation updates:
+    - French. Closes: #469802
+    - Russian. Closes: #469847
+    - Galician. Closes: #469866
+    - German. Closes: #469875
+    - Finnish. Closes: #469922
+    - Italian. Closes: #469987
+    - Czech. Closes: #470150
+    - Portuguese. Closes: #470156
+    - Spanish. Closes: #470732
+    - Basque. Closes: #470871
+    - Arabic. Closes: #471470
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat, 08 Mar 2008 11:15:00 +0100
+
+roundcube (0.1-3) unstable; urgency=low
+
+  * Fix problem with too old php-mail-mime package (Closes: #469814)
+
+ -- Vincent Bernat <bernat@luffy.cx>  Fri, 07 Mar 2008 11:06:49 +0100
+
+roundcube (0.1-2) unstable; urgency=low
+
+  * Ship bin/ directory as well. This fix conversion from HTML to text in
+    composition.
+  * Disable spellchecker for tinymce since it is not shipped with Debian
+    package of tinymce.
+
+ -- Vincent Bernat <bernat@luffy.cx>  Fri, 07 Mar 2008 09:42:39 +0100
+
+roundcube (0.1-1) unstable; urgency=low
+
+  * New upstream release (Closes: #469487).
+     - This release seems to fix failure to set some fields when replying,
+       with bincimap as IMAP server (Closes: #443562)
+     - It also fixes the deletion of multiple messages, still with
+       bincimap (Closes: #451404)
+  * Remove 'ob_gzhandler.patch' and 'xss-fix.patch'. They have been
+    merged upstream.
+  * Upstream has switched to MDB2 database backend which is not packaged
+    in Debian yet. We switch back to old backend.
+  * Fix debian/watch to handle correctly detection of new versions.
+  * Add support for lighttpd and remove support for older version of
+    Apache. The debconf question about webserver autoconfiguration is
+    reworded (Closes: #462961).
+  * Do not depend on a specific revision of cdbs.
+  * Move po-debconf from Build-Depends-Indep to Build-Depends since it is
+    needed for clean target.
+  * Correct path to /usr/share/file/magic, provided by libmagic1. Provide
+    license information about this file in debian/copyright.
+
+ -- Vincent Bernat <bernat@luffy.cx>  Wed, 05 Mar 2008 20:49:03 +0100
+
+roundcube (0.1~rc2-6) unstable; urgency=high
+
+  * Bug fix: "CVE-2007-6321: Cross-site scripting (XSS) vulnerability",
+    thanks to Micah Anderson (Closes: #455840). The patch is from
+    http://lists.roundcube.net/mail-archive/dev/2007-12/0000038.html and
+    provided by Robin Elfrink. It has been modified with some functions
+    stolen from Squirrelmail.
+  * Finnish debconf template, thanks to Esko Arajärvi (Closes: #458244).
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat, 29 Dec 2007 21:55:17 +0100
+
+roundcube (0.1~rc2-5) unstable; urgency=low
+
+  * Deal with old /etc/logrotate.d/roundcube by removing it if left
+    untouched (Closes: #456546). Also deal with /etc/default/roundcube and
+    /etc/cron.daily/roundcube.
+
+ -- Vincent Bernat <bernat@luffy.cx>  Tue, 18 Dec 2007 23:02:46 +0100
+
+roundcube (0.1~rc2-4) unstable; urgency=low
+
+  * Thightened dependencies for a safe upgrade
+  * Finally removed any circular dependency, -db packages no longer pull
+    a full roundcube install
+
+ -- Romain Beauxis <toots@rastageeks.org>  Sun, 09 Dec 2007 14:24:24 +0100
+
+roundcube (0.1~rc2-3) unstable; urgency=low
+
+  * Upload to unstable
+  * Bumped standard version to 3.7.3 (no changes) 
+
+ -- Romain Beauxis <toots@rastageeks.org>  Sun, 09 Dec 2007 14:19:28 +0100
+
+roundcube (0.1~rc2-2) experimental; urgency=low
+
+  [ Vincent Bernat ]
+  * Fix a conflict between ob_gzhandler and zlib output compression,
+    thanks to kaouete (Closes: #450482).
+
+  [ Romain Beauxis ]
+  * Fix tinymce patch and inclusion
+    Closes: #452016
+  * Splitted virtual packages to avoid circular dependencies.
+    Uploading to experimental, as this is an important change and we may
+    expect issues..
+
+ -- Romain Beauxis <toots@rastageeks.org>  Mon, 26 Nov 2007 11:54:21 +0100
+
+roundcube (0.1~rc2-1) unstable; urgency=low
+
+  * New upstream, thanks to Nicolas Stransky (Closes: #447503). This
+    release support tinymce as HTML editor. Look at README.Debian for more
+    information.
+  * Update Galician debconf template, thanks to Jacobo Tarrio (Closes: #447943).
+
+ -- Vincent Bernat <bernat@luffy.cx>  Mon, 29 Oct 2007 22:08:43 +0100
+
+roundcube (0.1~rc1-3) unstable; urgency=low
+
+  * In respect to policy 12.3, do not put main.inc.php.dist in
+    /usr/share/doc, thanks to Jonas Smedegaard (Closes: #446502).
+  * Update German and French debconf templates, thanks to Christian
+    Perrier (Closes: #446458) and Helge Kreutzmann (Closes: #446532).
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sun, 14 Oct 2007 08:41:24 +0200
+
+roundcube (0.1~rc1-2) unstable; urgency=low
+
+  * Fix dependencies by creating virtual packages for each database
+    backend, thanks to Joey Hess (Closes: #444925).
+
+ -- Vincent Bernat <bernat@luffy.cx>  Tue, 02 Oct 2007 20:09:19 +0200
+
+roundcube (0.1~rc1-1) unstable; urgency=low
+
+  * New upstream release
+  * Removed non gpl file des.inc
+
+ -- Romain Beauxis <toots@rastageeks.org>  Tue, 24 Jul 2007 13:36:20 +0200
+
+roundcube (0.1~rc1~dfsg-3) unstable; urgency=low
+
+  * Add php5-mcrypt dependency (Closes: #431177)
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat, 30 Jun 2007 19:36:21 +0200
+
+roundcube (0.1~rc1~dfsg-2) unstable; urgency=low
+
+  * Removed custom unix_timestamp for sqlite: solved upstream
+  * Debconf templates and debian/control reviewed by the debian-l10n-
+    english team as part of the Smith review project.
+    Closes: #426086, #427546, #427546
+  * Debconf translation updates:
+    - Galician. Closes: #426140
+    - Basque. Closes: #426150
+    - Czech. Closes: #426428
+    - Portuguese. Closes: #426451
+    - Arabic. Closes: #427110
+    - Italian. Closes: #427206
+    - German. Closes: #427536
+    - French. Closes: #427736
+    - Tamil. Closes: #428254
+    - Russian. Closes: #428364
+    - Spanish. Closes: #428573
+
+ -- Romain Beauxis <toots@rastageeks.org>  Tue, 05 Jun 2007 15:22:36 +0200
+
+roundcube (0.1~rc1~dfsg-1) unstable; urgency=low
+
+  [ Vincent Bernat ]
+  * New upstream release
+  * Update script for sqlite in postinst
+  [ Romain Beauxis ]
+  * Fixed dh_link calls
+    Closes: #423824
+  * Added custom patch to use php unix timestamp support
+    with sqlite since UNIX_TIMESTAMP is not supported by sqlite.
+  * Dropped php4 dependencies
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sun, 20 May 2007 13:59:44 +0200
+
+roundcube (0.1~beta2.2~dfsg-2) unstable; urgency=low
+
+  * Fix a security issue by disallowing access to logs.
+  * First upload to unstable.
+
+ -- Vincent Bernat <bernat@luffy.cx>  Sat,  5 May 2007 00:23:40 +0200
+
+roundcube (0.1~beta2.2~dfsg-1) experimental; urgency=low
+
+  * Initial release. (Closes: #333756, #344949)
+
+ -- Romain Beauxis <toots@rastageeks.org>  Tue, 13 Mar 2007 13:28:05 +0100

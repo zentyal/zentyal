@@ -275,7 +275,9 @@
     margin-bottom: 15px;
     margin-left:0px;
 }
-
+.summarySection .stitle{
+    padding: 10px;
+}
 .summarySection tr {
     vertical-align: center;
 }
@@ -333,6 +335,7 @@
     font-size: 11px;
     border-collapse: collapse;
     margin-top: 0px;
+    overflow-y: scroll;
 }
 .dataTable thead > tr {
     background: <% $main_color %>;
@@ -521,7 +524,6 @@ input[type='text']:disabled {
 }
 
 body {
-    overflow-y: scroll;
     min-width: 960px;
     max-width: 1200px;
     width: 98%;
@@ -872,6 +874,7 @@ td[class^="icon"] {
 .icon-webmail { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
 .icon-zarafa { background-image: url("/data/images/package-icons/zentyal-zarafa.png");}
+.icon-openchange { background-image: url("/data/images/package-icons/zentyal-openchange.png");}
 
 /**********************************************************************************************
  ICONS on titles
@@ -895,11 +898,11 @@ h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
 
 .stitle {
     color: #4c4c4c;
-    margin: 3px;
     font-weight: bold;
     padding: 1px;
     line-height: 14px;
 }
+
 
 .trimp {
     border-bottom: 1px solid #eeeeee;
@@ -1153,10 +1156,10 @@ TABLE LIST
         padding-left: 1%;
 }
 
-.widgetPlaceholder {
+.widgetPlaceholder, .moveRowPlaceholder {
         margin-bottom: 10px;
         border: 1px #ccc dashed;
-        background-color: whitesmoke;
+        background-color: whitesmoke !important;
 }
 
 .widgetHandle {
@@ -1243,14 +1246,14 @@ a.minBox, a.maxBox {
 }
 
 .widgetBoxIn {
-        padding:10px 0px;
+        padding:10px;
 
 }
 
 .widgetBoxIn > .summarySection {margin-bottom:0px;}
 
 .sectionContent {
-    width: 98%;
+    width: 100%;
 }
 
 
@@ -1289,17 +1292,17 @@ a.minBox, a.maxBox {
 
 .dashboardTable thead {
     color: white;
-    background-color: <% $dashboard_thead_bg_color %>;
+    background-color: #888;
 }
 
-.dashboardTable th {
-    font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
-    padding: 3px;
-    font-weight: bold;
-    vertical-align: middle;
+.dashboardTable td, .dashboardTable th {
+        padding: 5px 7px;
+        vertical-align: middle;
+        text-align: left;
+        border-right: 1px solid #ddd;
 }
-.dashboardTable td {
-        padding: 3px;
+.dashboardTable td:last-child, .dashboardTable th:last-child{
+    border-right: none;
 }
 
 .dashboardTable td a {
@@ -1316,6 +1319,11 @@ a.minBox, a.maxBox {
 
 .dashboardTable tr.highlight { background: #E58A22; }
 
+.dashboardTable + div{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 #nav li.menuSeparator{
     border-top: none;
 }
@@ -1330,31 +1338,19 @@ a.minBox, a.maxBox {
 }
 
 .linksBlock {
-    display: block;
     float: left;
-    width: 170px;
-    margin-right: 12px;
-    margin-bottom: -12px;
+    width: 50%;
 }
-
-.linksTitle {
-    width: 100%;
-    color: #4c4c4c;
-    background-color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-    padding: 3px 4px 3px 4px;
-}
-
 .linksBlock a {
-    color: #03A9F0;
+    color: #00ADD0;
 }
-
+.linksBlock ul {
+    list-style: none ;
+    margin: 0;
+    padding: 0 10px 10px 10px;
+}
 .linksBlock li {
-    list-style: none;
-    margin-bottom: 14px;
-    margin-left: -18px;
-    margin-top: -8px;
+    padding: 3px 0;
 }
 
 
@@ -2147,6 +2143,14 @@ a.btn-only-icon{
     width: 50px;
 }
 
+.btn-small{
+    height: 20px;
+    line-height: 18px;
+    font-size: 8px;
+    font-weight: normal;
+    padding: 0 5px;
+}
+
 .btn-big{
     font-size: 18px !important;
     height: 50px !important;
@@ -2293,6 +2297,20 @@ input.btn-dashboard {
 .btn-orange:disabled:hover{
     background-color: #FF7900 !important;
     color: white !important;
+}
+
+.btn-black {
+    background-color: #666666 !important;
+    border-color: #333333 !important;
+    color: #FFFFFF !important;
+}
+.btn-black:hover {
+    background-color: #333333 !important;
+    color: #FFFFFF !important;
+}
+.btn-black:disabled {
+    background-color: #CCCCCC !important;
+    color: #FFFFFF !important;
 }
 
 /********************************************************************************
@@ -2442,4 +2460,284 @@ FOLDable SECtIONS
 .buttons-group .loading-gif{
     margin-right: 10px;
     vertical-align: middle;
+}
+
+h6 {
+    color: #666666;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+}
+
+.half-width {
+    display:inline-block;
+    width: 48.5%;
+    vertical-align: top;
+}
+.half-width + .half-width{
+    margin-left: 2%;
+}
+.full-width{
+    width: 100%;
+    display: block;
+}
+.input-full-width{
+    width: 80%;
+}
+.server-list{
+    margin:0px;
+    padding: 0px;
+}
+.server-list li{
+    padding: 10px;
+    background: #EEEEEE;
+    margin-bottom: 3px;
+    display: block;
+    color: #333;
+}
+
+.server-list li span{
+    min-width: 40%;
+}
+.details{
+    padding: 0px;
+    margin: 5px 0px;
+    color: #777;
+}
+.half-width h4{
+    margin-top: 0px;
+}
+.bottom-block{
+    border-top: 2px dotted #DDDDDD;
+    display: block;
+    margin-top: 10px;
+    padding: 10px 0 0;
+    width: 100%;
+    text-align: right;
+}
+
+.orange{
+    color: #FF7900 !important;
+}
+.green{
+    color: #69BE28 !important;
+}
+.blue{
+    color: #00ADD0 !important;
+}
+.red{
+    color: #ed1c24 !important;
+}
+
+.item-block h3 {
+    font-size: 24px;
+    padding-top: 0px;
+}
+
+
+/****
+NEW BUTTONS STYLES*/
+
+.btn-block{
+    display: block;
+}
+.btn-medium{
+    font-size: 12px;
+    height: auto;
+    width: 100%;
+    padding: 5px 0px;
+    text-align:center;
+}
+.btn-apply-w{ background-image: url('/data/images/apply-w.gif')}
+.btn-log{background-image: url('/data/images/log.gif')}
+
+/*** migration layout ***/
+.info-block{
+    display: inline-block;
+    font-size: 1.5em;
+}
+
+.info-block  .info-label{
+    font-size: 0.5em;
+    color: #999;
+    display: block;
+    margin: 0px;
+}
+.info-block i {
+    font-size: 0.7em;
+    opacity: 0.5;
+    font-style: normal;
+}
+.info-top{
+    background-color: #eee;
+    padding: 10px 0px;
+}
+.info-block.total_percentage {
+    color: #69BE28;
+    font-size: 32px;
+    font-weight: bold;
+    text-shadow: 2px 2px 0px rgba(255,255,255,0.5);
+    line-height: 20px;
+}
+.info-top .info-block{
+    margin: 0 10px;
+}
+.info-top .btn {
+    margin-right: 10px;
+}
+
+.force-right{
+    float: right;
+}
+
+.select-mailbox-block{
+    width: 70%;
+    margin-top: 10px;
+    display: inline-block;
+}
+.migration-process-block{
+    margin-top: 10px;
+}
+
+/* migrste table*/
+.migration-table {
+    width: 100%;
+    border: 0px;
+    border-collapse: collapse;
+}
+.migration-table th{
+    background-color: #eee !important;
+    color: #666;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 10px;
+}
+.migration-table th, .migration-table td{
+    padding: 8px 10px;
+    background-color: whitesmoke;
+    border: 2px solid white;
+    text-align: center;
+}
+.migration-table th:first-child, .migration-table td:first-child{
+    border-left: none;
+}
+.migration-table th:last-child, .migration-table td:last-child{
+    border-right: none;
+}
+.migration-table td i{
+    color: #666;
+    font-style: normal;
+    font-size: 0.9em;
+}
+
+/* name column */
+.migration-table th.name, .migration-table td.name{
+   max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: left;
+}
+
+/* mail caledar and contacts columns*/
+
+.migration-process-block .migration-table td:nth-child(4),
+.migration-process-block .migration-table td:nth-child(5),
+.migration-process-block .migration-table td:nth-child(6){
+    font-size: 16px;
+    background-color: #eee;
+}
+
+/* progress bar*/
+.migration-table td.status{
+    font-weight: bold;
+}
+
+.migration-process-block .migration-table td.status{
+    padding: 0px;
+    min-width: 150px;
+    font-weight: normal;
+}
+td .progress-bar{
+    background-color: #ddd;
+    box-shadow: inset 0px 0px 5px rgba(0,0,0,0.2);
+    position: relative;
+    height: 45px;
+}
+td .done-bar{
+    float: left;
+    height: 100%;
+    background-color: #69BE28;
+    background-image: url("/data/images/progress-bar.gif");
+    z-index: 0;
+}
+td .error-bar{
+    float: left;
+    height: 100%;
+    background-color: #ed1c24;
+    z-index: 0;
+
+}
+td .done-value{
+    color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    left: 10px;
+    text-align: left;
+    font-size: 18px;
+    line-height: 45px;
+    margin-right: 10px;
+    z-index: 1
+}
+td.stopped .done-bar{
+    background-image: none; /* if progress has been canceled or copied */
+}
+
+/* errors col */
+.errors .info-value a, td.errors a{
+    color: #ed1c24;
+    text-decoration: none;
+    font-weight: bold;
+}
+.errors .info-value a:hover, td.errors a:hover{
+    text-decoration: underline;
+}
+
+/* migration blocks*/
+.migration-info{
+    width: 28%;
+    float: right;
+    margin-top: 10px;
+    background-color: whitesmoke;
+}
+.migration-info .info-block{
+    display: block;
+    margin-bottom: 10px;
+    float: none;
+}
+.block-header{
+    background: #eee;
+    height: 50px;
+}
+.block-header h2{
+    display: inline-block;
+    margin:0px;
+    line-height: 30px;
+}
+.wrapper{
+    padding: 10px;
+}
+@media (max-width: 1100px) {
+.migration-table th:first-child,
+.migration-table td:first-child{
+   max-width: 50px;
+}
+.migration-table td:nth-child(4),
+.migration-table td:nth-child(5),
+.migration-table td:nth-child(6){
+    font-size: 12px;
+}
+.migration-table td.status{
+    min-width: 100px;
+}
 }

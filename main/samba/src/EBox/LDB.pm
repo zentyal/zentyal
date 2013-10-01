@@ -45,6 +45,11 @@ use constant LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
 
 use constant BUILT_IN_CONTAINERS => qw(Users Computers Builtin);
 
+# The LDB containers that will be ignored when quering for users stored in LDB
+use constant QUERY_IGNORE_CONTAINERS => (
+    'Microsoft Exchange System Objects',
+);
+
 # NOTE: The list of attributes available in the different Windows Server versions
 #       is documented in http://msdn.microsoft.com/en-us/library/cc223254.aspx
 use constant ROOT_DSE_ATTRS => [
@@ -179,22 +184,22 @@ sub safeConnect
        EBox::warn('SIGPIPE received connecting to samba LDAP');
     };
 
-    my $samba = EBox::Global->modInstance('samba');
-    $samba->_startService() unless $samba->isRunning();
-
     my $error = undef;
     my $lastError = undef;
     my $maxTries = 300;
-    for (my $try=1; $try<=$maxTries; $try++) {
+    for (my $try = 1; $try <= $maxTries; $try++) {
         my $ldb = Net::LDAP->new(LDAPI);
         if (defined $ldb) {
             my $dse = $ldb->root_dse(attrs => ROOT_DSE_ATTRS);
             if (defined $dse) {
+                if ($try > 1) {
+                    EBox::info("Connection to Samba LDB successful after $try tries.");
+                }
                 return $ldb;
             }
         }
         $error = $@;
-        EBox::warn("Could not connect to samba LDAP server: $error, retrying. ($try attempts)")   if (($try == 1) or (($try % 100) == 0));
+        EBox::warn("Could not connect to Samba LDB: $error, retrying. ($try attempts)") if (($try == 1) or (($try % 100) == 0));
         Time::HiRes::sleep(0.1);
     }
 
@@ -215,11 +220,33 @@ sub dn
 {
     my ($self) = @_;
 
-    unless (defined $self->{dn}) {
-        my $dse = $self->rootDse();
-
-        $self->{dn} = $dse->get_value('defaultNamingContext');
+    if ((defined $self->{dn}) and length ($self->{dn})) {
+        return $self->{dn};
     }
+
+    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' | grep -v ^GENSEC");
+    my $ldifBuffer = join ('', @{$output});
+    EBox::debug($ldifBuffer);
+
+    my $fd;
+    open $fd, '<', \$ldifBuffer;
+
+    my $ldif = Net::LDAP::LDIF->new($fd);
+    if (not $ldif->eof()) {
+        my $entry = $ldif->read_entry();
+        if ($ldif->error()) {
+            EBox::debug("Error msg: " . $ldif->error());
+            EBox::debug("Error lines:\n" . $ldif->error_lines());
+        } elsif (not $ldif->eof()) {
+            EBox::debug("Got more than one entry!");
+        } elsif ($entry) {
+            $self->{dn} = $entry->get_value('defaultNamingContext');
+        } else {
+            EBox::debug("Got an empty entry");
+        }
+    }
+    $ldif->done();
+    close $fd;
 
     return defined $self->{dn} ? $self->{dn} : '';
 }
@@ -577,19 +604,55 @@ sub users
 {
     my ($self) = @_;
 
+    my $list = [];
+
+    # Query the users stored in the root DN
     my $params = {
         base => $self->dn(),
-        scope => 'sub',
+        scope => 'base',
         filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
                   '(!(isDeleted=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
-    my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);
         push (@{$list}, $user);
     }
+
+    # Query the containers stored in the root DN and skip the ignored ones
+    # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
+    # subclasses of 'Container'.
+    my @containers;
+    $params = {
+        base => $self->dn(),
+        scope => 'one',
+        filter => '(objectClass=Container)',
+        attrs => ['*'],
+    };
+    $result = $self->search($params);
+    foreach my $entry ($result->sorted('cn')) {
+        my $container = new EBox::Samba::Container(entry => $entry);
+        next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
+        push (@containers, $container);
+    }
+
+    # Query the users stored in the non ignored containers
+    foreach my $container (@containers) {
+        $params = {
+            base => $container->dn(),
+            scope => 'sub',
+            filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
+                      '(!(isDeleted=*)))',
+            attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+        };
+        $result = $self->search($params);
+        foreach my $entry ($result->sorted('samAccountName')) {
+            my $user = new EBox::Samba::User(entry => $entry);
+            push (@{$list}, $user);
+        }
+    }
+
     return $list;
 }
 
@@ -686,8 +749,7 @@ sub ous
     my $result = $self->search(\%args);
 
     my @ous = ();
-    foreach my $entry ($result->entries)
-    {
+    foreach my $entry ($result->entries) {
         my $ou = EBox::Samba::OU->new(entry => $entry);
         push (@ous, $ou);
     }
@@ -714,21 +776,34 @@ sub dnsZones
     my $zones = [];
 
     foreach my $prefix (@zonePrefixes) {
-        my $params = {
-            base => $prefix,
-            scope => 'one',
-            filter => '(objectClass=dnsZone)',
-            attrs => ['*']
-        };
-        my $result = $self->search($params);
-        foreach my $entry ($result->entries()) {
-            my $name = $entry->get_value('name');
-            next unless defined $name;
-            next if $name eq any @ignoreZones;
-            my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
-            push (@{$zones}, $zone);
+        my $output = EBox::Sudo::root(
+            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' | grep -v ^GENSEC");
+        my $ldifBuffer = join ('', @{$output});
+        EBox::debug($ldifBuffer);
+
+        my $fd;
+        open $fd, '<', \$ldifBuffer;
+
+        my $ldif = Net::LDAP::LDIF->new($fd);
+        while (not $ldif->eof()) {
+            my $entry = $ldif->read_entry();
+            if ($ldif->error()) {
+                EBox::debug("Error msg: " . $ldif->error());
+                EBox::debug("Error lines:\n" . $ldif->error_lines());
+            } elsif ($entry) {
+                my $name = $entry->get_value('name');
+                next unless defined $name;
+                next if $name eq any @ignoreZones;
+                my $zone = new EBox::Samba::DNS::Zone(entry => $entry);
+                push (@{$zones}, $zone);
+            } else {
+                EBox::debug("Got an empty entry");
+            }
         }
+        $ldif->done();
+        close $fd
     }
+
     return $zones;
 }
 

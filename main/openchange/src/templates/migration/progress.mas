@@ -1,0 +1,116 @@
+<%args>
+  @mailboxes
+  $totalData
+</%args>
+<%init>
+use EBox::Gettext;
+my $nMailboxes = scalar(@mailboxes);
+</%init>
+<div id="messages"></div>
+<script type="text/javascript" src="/data/js/openchange.js"></script>
+<script type="text/javascript" src="/data/js/format.js"></script>
+<div class="item-block">
+    <h3><% __('Migrating process') %></h3>
+    <div class="full-width info-top">
+        <img class="info-block" src="/data/images/migration-process.gif">
+        <div class="info-block total_percentage">
+            <span id="total_percentage">--</span><i>%</i>
+        </div>
+        <div class="info-block">
+            <span class="info-label"><% __('Mailbox migrated') %></span>
+            <span class="info-value"><span id="n_mailboxes">--</span> <i><% __('of') %></i> <% $nMailboxes %></span>
+         </div>
+        <div class="info-block">
+            <span class="info-label"><% __('Data migrated') %></span>
+            <span class="info-value"><span id="data_migrated">--</span> <i><% __('of') %></i> <span id="total_data">--</span></span>
+        </div>
+        <div class="info-block">
+            <span class="info-label"><% __('Time left') %></span>
+            <span class="info-value"><span id="time_left">--</span></span>
+        </div>
+        <a href="/OpenChange/Migration/Cancel" class="btn btn-black force-right"
+           title="<% __('Cancel migration process') %>"><% __('Cancel') %></a>
+    </div>
+
+    <div class="migration-process-block">
+      <table class="migration-table">
+            <thead>
+              <tr>
+                <th class="name"><% __('name') %></th>
+                <th><% __('user') %></th>
+                <th><% __('total data') %></th>
+                <th><img src="/data/images/mail.gif" alt="mails"></th>
+                <th><img src="/data/images/calendar.gif" alt="calendar"></th>
+                <th><img src="/data/images/contacts.gif" alt="contacts"></th>
+                <th><% __('errors') %></th>
+                <th><% __('status') %></th>
+                <th><% __('details') %></th>
+                <th><% __('actions') %></th>
+              </tr>
+            </thead>
+            <tbody>
+% foreach my $mailbox (@mailboxes) {
+              <tr>
+                <td class="name"><% $mailbox->{name} %></td>
+                <td><% $mailbox->{username} %></td>
+                <td id="<% $mailbox->{username} %>_total">
+                  <script>
+                    Zentyal.OpenChange.formatProgressBytes('#<% $mailbox->{username} %>_total', <% $mailbox->{total} %>);
+                  </script>
+                </td>
+                <td id="<% $mailbox->{username} %>_mail_pct">--</td>
+                <td id="<% $mailbox->{username} %>_calendar_pct">--</td>
+                <td id="<% $mailbox->{username} %>_contacts_pct">--</td>
+                <td id="<% $mailbox->{username} %>_errors" class="errors">--</td>
+                <td id="<% $mailbox->{username} %>_status" class="status">
+                  <div class="progress-bar">
+                    <span class="done-value"></span>
+                    <span class="done-bar" style="width: 0%"></span>
+                    <span class="error-bar" style="width: 0%"></span>
+                  </div>
+                </td>
+                <td>
+                  <a class="btn-only-icon btn-log" href="#"
+                     onclick="Zentyal.Dialog.showURL('/OpenChange/Migration/MailboxDetails',
+                                                     { title : '<% $mailbox->{name} %>',
+                                                       data  : 'username=<% $mailbox->{username} %>' });"
+                     title="<% __('See details') %>"><% __('Details') %></a>
+                </td>
+                <td>
+                  <button class="btn-only-icon btn-delete" disabled="disabled"
+                          style="display: none;" id="<% $mailbox->{username} %>_discard"
+                          onclick="Zentyal.OpenChange.discardMailbox('/OpenChange/Migration/DiscardMailbox', '<% $mailbox->{username} %>')"
+                          title="<% __('discard mailbox') %>"><% __('discard mailbox') %></button>
+                  <button class="btn-only-icon btn-apply-w btn-green" disabled="disabled"
+                          style="display: none;" id="<% $mailbox->{username} %>_activate"
+                          onclick="Zentyal.OpenChange.activateMailbox('/OpenChange/Migration/ActivateMailbox', '<% $mailbox->{username} %>')"
+                          title="<% __('activate mailbox') %>"><% __('activate mailbox') %></button>
+                </td>
+              </tr>
+% }
+             </tbody>
+        </table>
+    </div>
+    <div class="bottom-block">
+       <a class="btn btn-green" href="/OpenChange/Migration/Finish" id="done_btn"
+          style="display: none;">DONE</a>
+    </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+   Zentyal.OpenChange.formatProgressBytes('#total_data', <% $totalData %>);
+   var progressFunc = function() {
+      Zentyal.OpenChange.progress({ url : '/OpenChange/Migration/MailboxProgress',
+                                    totals : { total_percentage : 'int',
+                                               n_mailboxes      : 'int',
+                                               data_migrated    : 'bytes',
+                                               time_left        : 'timediff' },
+                                    users : { mail_pct     : 'percentage',
+                                              calendar_pct : 'percentage',
+                                              contacts_pct : 'percentage',
+                                              errors       : 'int' }});
+ };
+   setInterval(progressFunc, 5000);
+   progressFunc.call();
+});
+</script>

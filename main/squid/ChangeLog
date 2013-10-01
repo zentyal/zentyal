@@ -1,3 +1,13 @@
+3.3
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.7
+	+ Include domains with final slash as filtered when required
+	+ Ignore 407 requests when auth is required in log helper
+3.1.6
+	+ Override daemons when migrating from 3.0
+	+ Disable load_url_list by default to reduce CPU and memory usage
 3.1.5
 	+ Use DATETIME type in date column for consolidation tables
 	+ Summarised report has breadcrumbs now

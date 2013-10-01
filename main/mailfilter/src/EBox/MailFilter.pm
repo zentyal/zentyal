@@ -39,6 +39,7 @@ use EBox::Validate;
 use EBox::Config;
 use EBox::Global;
 use EBox::Util::Version;
+use EBox::Users::User;
 
 use EBox::MailFilter::Amavis;
 use EBox::MailFilter::SpamAssassin;
@@ -128,6 +129,12 @@ sub initialSetup
         my $firewall = EBox::Global->modInstance('firewall');
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
+    }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        # Perform the migration to 3.2
+        $self->_migrateTo32();
     }
 }
 
@@ -731,6 +738,21 @@ sub menu
     );
 
     $root->add($folder);
+}
+
+sub _migrateTo32
+{
+    my ($self) = @_;
+
+    my $users = $self->global()->modInstance('users');
+    return unless $users->configured();
+
+    foreach my $uid (qw(ham spam)) {
+        my $user = new EBox::Users::User(uid => $uid);
+        if ($user->exists()) {
+            $user->setInternal();
+        }
+    }
 }
 
 1;

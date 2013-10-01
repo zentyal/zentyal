@@ -1,0 +1,69 @@
+<%args>
+    $selectedServer => 'foobar'
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="item-block">
+    <h3><% __('Select origin server') %></h3>
+        <div class="full-width" style="margin-bottom:20px;">
+            <h6><% __('This wizard helps you to migrate users data from any server to this zentyal server') %></h6>
+        </div>
+        <div class="half-width">
+            <form class="formDiv">
+                <h4><% __('Enter origin server name') %></h4>
+                <p class="details"><% __('Enter server Fully qualified domain name or IP address') %></p>
+                <input id="server" type="text" class="input-full-width" placeholder="servername.company.net or XXX.XXX.XXX.XXX"/>
+
+                <div id="credentials">
+                    <h4><% __('Credential for') %> <span class="orange"><% $selectedServer %></span></h4>
+                    <p><% __('You need Admin profile user and password to be able to access this server') %></p>
+                    <label for="username"><% __('Admin user') %></label>
+                    <input type="text" id="username" placeholder="username">
+                    <label for="password"><% __('Admin password') %></label>
+                    <input type="password" id="password" placeholder="***">
+                </div>
+            </form>
+        </div>
+        <div class="half-width">
+            <h4><% __('Available servers') %></h4>
+            <ul id="server-list" class="server-list">
+                <li><span>Loading servers...</span></li>
+            </ul>
+            <script type="text/javascript" src="/data/js/openchange.js"></script>
+            <script type="text/javascript">
+                $("#credentials").hide();
+                Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
+            </script>
+        </div>
+        <div class="bottom-block">
+            <button id="connect_button" class="btn btn-green">CONNECT</button>
+            <script type="text/javascript">
+                $("#connect_button").click(function() {
+                    var serverStr =  $("#server").val();
+                    if (serverStr.length <= 0) {
+                        alert("Server required");
+                    } else {
+                        $.ajax({
+                            type: "POST",
+                            url: '/OpenChange/ConnectToServer',
+                            dataType: 'json',
+                            data: {
+                                server: serverStr,
+                            },
+                            success: function(data, textStatus) {
+                                if (data.success) {
+                                    window.location.href = '/OpenChange/Migration/SelectMailBoxes';
+                                } else {
+                                    $("#credentials").show();
+                                }
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown);
+                            },
+                        });
+                    }
+                });
+            </script>
+        </div>
+</div>

@@ -224,6 +224,11 @@ sub initialSetup
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
+
+    # Upgrade from 3.0
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
+        $self->_overrideDaemons() if $self->configured();
+    }
 }
 
 sub _serviceRules
@@ -584,6 +589,14 @@ sub _setDovecotConf
     my $gid = scalar(getgrnam('ebox'));
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
+    my $openchange = 0;
+    if ($self->global->modExists('openchange')) {
+        my $openchangeMod = $self->global->modInstance('openchange');
+        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
+            $openchange = 1;
+        }
+    }
+
     my @params = ();
     push (@params, uid => $uid);
     push (@params, gid => $gid);
@@ -595,6 +608,7 @@ sub _setDovecotConf
     push (@params, antispamPlugin => $self->_getDovecotAntispamPluginConf());
     push (@params, keytabPath => KEYTAB_FILE);
     push (@params, gssapiHostname => $gssapiHostname);
+    push (@params, openchange => $openchange);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 

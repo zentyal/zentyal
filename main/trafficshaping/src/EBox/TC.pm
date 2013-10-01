@@ -18,6 +18,7 @@ use warnings;
 
 package EBox::TC;
 
+use EBox::Gettext;
 use EBox::Sudo;
 use Error qw(:try);
 

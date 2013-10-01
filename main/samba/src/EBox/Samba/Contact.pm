@@ -24,6 +24,7 @@ package EBox::Samba::Contact;
 
 use base 'EBox::Samba::OrganizationalPerson';
 
+use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::MissingArgument;

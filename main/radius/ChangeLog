@@ -1,3 +1,9 @@
+3.3
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.2
+	+ Override daemons when migrating from 3.0
 3.1.1
 	+ Remove FirewallObserver inheritance as it is not used
 	+ Added menu icon

@@ -25,14 +25,6 @@ use EBox::ServiceManager;
 use File::Slurp;
 use Error qw(:try);
 
-sub cleanTmpOnBoot
-{
-    if (not exists $ENV{'USER'}) {
-        my $tmpdir = EBox::Config::tmp();
-        EBox::Sudo::root("rm -rf $tmpdir/*");
-    }
-}
-
 sub moduleList
 {
     print "Module list: \n";

@@ -1,6 +1,10 @@
-HEAD
+3.3
 	+ Change name to System Monitoring to avoid confussion with new
 	  Networking Monitoring module
+	+ Set version to 3.3
+3.2
+	+ Set version to 3.2
+3.1.4
 	+ Load measure manager on runtime to avoid unneccesary system calls
 	+ Set proper resolution in last week period
 3.1.3

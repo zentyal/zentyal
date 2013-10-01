@@ -1,0 +1,214 @@
+#!/bin/sh
+# postinst script for roundcube
+#
+# see: dh_installdeb(1)
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+lighttpd_install() {
+	if [ ! -f /etc/lighttpd/conf-available/50-roundcube.conf ] ; then
+		if [ -x /usr/sbin/lighty-enable-mod ] ; then
+			ln -s /etc/roundcube/lighttpd.conf /etc/lighttpd/conf-available/50-roundcube.conf
+			lighty-enable-mod roundcube fastcgi fastcgi-php
+		fi
+	fi
+}
+
+[ ! -e /usr/share/apache2/apache2-maintscript-helper ] || \
+    . /usr/share/apache2/apache2-maintscript-helper
+apache_install() {
+        if [ -e /usr/share/apache2/apache2-maintscript-helper ] ; then
+	    if [ -d /etc/apache2/conf-available ] && [ ! -e /etc/apache2/conf-available/roundcube.conf ]; then
+                ln -s /etc/roundcube/apache.conf /etc/apache2/conf-available/roundcube.conf
+	    fi
+            # Remove old symlink if present
+            if [ -d /etc/apache2/conf.d ] && [ -h /etc/apache2/conf.d/roundcube ]; then
+                rm /etc/apache2/conf.d/roundcube
+            fi
+            # Enable the configuration
+            apache2_invoke enconf roundcube.conf
+        elif  dpkg-query -f '${Version}'  -W 'apache2.2-common' > /dev/null 2>&1 ; then
+            # Old Apache
+	    if [ -d /etc/apache2/conf.d ] && [ ! -e /etc/apache2/conf.d/roundcube.conf ]; then
+                ln -s /etc/roundcube/apache.conf /etc/apache2/conf.d/roundcube.conf
+	    fi
+        fi
+}
+
+fix_symlinks() {
+    # In 0.5.1-1, symlinks have been mangled. Before this version,
+    # /var/lib/roundcube and /usr/share/roundcube were using symlinks
+    # to each other:
+    #  /usr/share/roundcube/config   -> /var/lib/roundcube/config
+    #  /usr/share/roundcube/logs     -> /var/lib/roundcube/logs
+    #  /usr/share/roundcube/plugins  -> /var/lib/roundcube/plugins
+    #  /usr/share/roundcube/skins    -> /var/lib/roundcube/skins
+    #  /usr/share/roundcube/temp     -> /var/lib/roundcube/temp
+    #  /var/lib/roundcube/logs       -> ../../log/roundcube
+    #  /var/lib/roundcube/.htaccess  -> /usr/share/roundcube/.htaccess
+    #  /var/lib/roundcube/bin        -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/index.php  -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/program    -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/robots.txt -> /usr/share/roundcube/bin
+
+    # As of 0.7.2-6, the user is expected to use /var/lib/roundcube
+    # since /usr/share/roundcube does not contain the appropriate
+    # symlinks anymore.
+    #  /var/lib/roundcube/logs       -> ../../log/roundcube
+    #  /var/lib/roundcube/.htaccess  -> /usr/share/roundcube/.htaccess
+    #  /var/lib/roundcube/index.php  -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/program    -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/robots.txt -> /usr/share/roundcube/bin
+    #  /var/lib/roundcube/plugins/*  -> /usr/share/roundcube/plugins/*
+    #  /var/lib/roundcube/skins/*    -> /usr/share/roundcube/skins/*
+
+    # Because dpkg will not overwrite a symlink but follow them, an
+    # upgrade gives a confuse situation. We have the following
+    # symlinks in /usr/share/roundcube:
+    #  /usr/share/roundcube/plugins  -> /var/lib/roundcube/plugins
+    #  /usr/share/roundcube/skins    -> /var/lib/roundcube/skins
+    # And the following are not symlinks as they should be:
+    #  /var/lib/roundcube/plugins/*  -> /usr/share/roundcube/plugins/*
+    #  /var/lib/roundcube/skins/*    -> /usr/share/roundcube/skins/*
+
+    # We detect and fix that.
+    for dir in plugins skins; do
+        [ -L /usr/share/roundcube/${dir} ] || continue
+        echo "Fixing symbolic link /usr/share/roundcube/${dir}"
+        [ ! -L /var/lib/roundcube/${dir} ] || {
+            echo "/var/lib/roundcube/${dir} is not expected to be a symbolic link. Abort."
+            exit 1
+        }
+        # Remove the symbolic link and make a real directory.
+        rm /usr/share/roundcube/${dir}
+        mkdir -m 0755 /usr/share/roundcube/${dir}
+
+        # We move each subdirectory regardless we own them or not. The
+        # ideal solution would be to leave files installed by the user
+        # in /var/lib/roundcube/${dir} but since other packages (like
+        # roundcube-plugins and roundcube-plugins-extra) may have
+        # installed files, it is something difficult to track. We do
+        # not want each package to fix this mess. What's important is
+        # that user installation will keep working as expected,
+        # despite the move.
+        for d in /var/lib/roundcube/${dir}/*; do
+            mv ${d} /usr/share/roundcube/${dir}
+            ln -s /usr/share/roundcube/${dir}/${d##*/} /var/lib/roundcube/${dir}/${d##*/}
+        done
+    done
+}
+
+case "$1" in
+    configure)
+
+ 	CONFFILE=/etc/roundcube/main.inc.php
+ 	touch $CONFFILE.ucftmp
+ 	chmod 640 $CONFFILE.ucftmp
+	chown root:www-data $CONFFILE.ucftmp
+
+	db_get roundcube/hosts || true
+	hosts="$RET"
+	if [ "$hosts" != "" ]; then
+	    hosts="array(\"$(echo $hosts | sed 's/ /\",\"/g')\")"
+	else
+	    hosts="''"
+	fi
+
+	db_get roundcube/language || true
+	language="$RET"
+
+	# Get current 3DES key from /etc/roundcube/main.inc.php
+	[ -f /etc/roundcube/main.inc.php ] && {
+	    deskey=$(sed -n "s+^\$rcmail_config\['des_key'\] = '\(.*\)';\$+\1+p" \
+		/etc/roundcube/main.inc.php)
+	}
+	# If this is the default key, forget it !
+	[ "$deskey" = "rcmail-!24ByteDESkey*Str" ] && unset deskey
+	# Generate a new one
+	while [ -z "$deskey" ]; do
+	    deskey=$(dd if=/dev/urandom bs=1 count=200 2> /dev/null | \
+		tr -c -d '[A-Za-z0-9]' | sed -n 's/\(.\{24\}\).*/\1/p')
+	done
+
+	# Put hosts, language and key in main.inc.php
+	cat /usr/share/roundcube/main.inc.php.dist | while read line; do
+	    case "$line" in
+		"\$rcmail_config['default_host'] = "*)
+		    printf "\$rcmail_config['default_host'] = %s;\n" "${hosts}"
+		    ;;
+		"\$rcmail_config['des_key'] = "*)
+		    printf "\$rcmail_config['des_key'] = '%s';\n" "${deskey}"
+		    ;;
+		"\$rcmail_config['language'] = "*)
+		    printf "\$rcmail_config['language'] = '%s';\n" "${language}"
+		    ;;
+		*)
+		    printf "%s\n" "$line"
+		    ;;
+	    esac
+	done >> $CONFFILE.ucftmp
+
+	ucf --debconf-ok $CONFFILE.ucftmp $CONFFILE
+	chown root:www-data $CONFFILE
+	[ ! -f $CONFFILE.dpkg-dist ] || chown root:www-data $CONFFILE.dpkg-dist
+	rm -f $CONFFILE.ucftmp
+	
+	# Handle webserver reconfiguration/restart ; stolen from zabbix package
+	db_get roundcube/reconfigure-webserver || true
+	webservers="$RET"
+	restart=""
+
+	for webserver in $webservers; do
+            webserver=${webserver%,}
+            case "$webserver" in
+                lighttpd)
+		    lighttpd_install
+                    ;;
+                apache2)
+		    apache_install
+                    ;;
+            esac
+            test -x /usr/sbin/$webserver || continue
+            restart="$restart $webserver"
+        done
+
+        db_get roundcube/restart-webserver || true
+	res="$RET"
+	db_stop || true
+	if [ "$res" = "true" ]; then
+            for webserver in $restart; do
+		webserver=${webserver%,}
+		# Redirection of 3 is needed because Debconf uses it and it might
+                # be inherited by webserver. See bug #446324.
+		if [ -x /usr/sbin/invoke-rc.d ]; then
+                    invoke-rc.d $webserver reload 3>/dev/null || true
+		else
+                    /etc/init.d/$webserver reload 3>/dev/null || true
+		fi
+            done
+	fi
+
+	chown -R www-data:adm /var/log/roundcube
+	chmod -R 750 /var/log/roundcube
+	chown -R www-data:www-data /var/lib/roundcube/temp
+	chmod -R 750 /var/lib/roundcube/temp
+
+    ;;
+
+    abort-upgrade|abort-remove|abort-deconfigure)
+    ;;
+
+    *)
+        echo "postinst called with unknown argument \`$1'" >&2
+        exit 1
+    ;;
+esac
+
+
+#DEBHELPER#
+
+exit 0
+
+

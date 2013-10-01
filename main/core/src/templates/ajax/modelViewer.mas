@@ -284,7 +284,7 @@ $model
 %  if (@formData and $formData[0]->model()->disableAutocomplete()) {
 %    $formAttrs = 'autocomplete="off"';
 %  }
-<form name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
+<form id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
   <table class="formTable">
     <tbody>
       <& SELF:editFormSection,
@@ -389,7 +389,7 @@ my $className;
 if ($hasChanged) {
   $className = 'changed';
 } else {
-  $className = 'notChanged';
+  $className = 'notchanged';
 }
 </%perl>
 $('#changes_menu').removeClass().addClass('<% $className %>');

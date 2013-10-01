@@ -226,6 +226,31 @@ sub _postServiceHook
 
     if ($enabled) {
 
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        unless ($self->mode() eq 'adc') {
+            my $netbiosName = $self->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $users = $self->ldb->users();
+            foreach my $user (@{$users}) {
+                # Set roaming profiles
+                if ($self->roamingProfiles()) {
+                    my $path = "\\\\$netbiosName.$realmName\\profiles";
+                    $user->setRoamingProfile(1, $path, 1);
+                } else {
+                    $user->setRoamingProfile(0);
+                }
+
+                # Mount user home on network drive
+                my $drivePath = "\\\\$netbiosName.$realmName";
+                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->save();
+            }
+        }
+
         my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
             throw EBox::Exceptions::Internal('Could not get DNS hostname');
@@ -334,6 +359,11 @@ sub _postServiceHook
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
         }
+
+        # Change group ownership of quarantine_dir to __USERS__
+        if ($self->defaultAntivirusSettings()) {
+            $self->_setupQuarantineDirectory();
+        }
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -367,28 +397,30 @@ sub _startService
     }
 
     $self->SUPER::_startService(@_);
+}
 
-    my $services = $self->_services();
-    foreach my $service (@{$services}) {
-        my $port = $service->{destinationPort};
-        next unless $port;
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
 
-        my $proto = $service->{protocol};
-        next unless $proto;
+    $self->SUPER::_startDaemon($daemon, %params);
 
-        my $desc = $service->{description};
-        if ($proto eq 'tcp') {
-            $self->_waitService('tcp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'udp') {
-            $self->_waitService('udp', $port, $desc);
-            next;
-        }
-        if ($proto eq 'tcp/udp') {
-            $self->_waitService('tcp', $port, $desc);
-            $self->_waitService('udp', $port, $desc);
-            next;
+    if ($daemon->{name} eq 'samba4') {
+        my $services = $self->_services();
+        foreach my $service (@{$services}) {
+            my $port = $service->{destinationPort};
+            next unless $port;
+
+            my $proto = $service->{protocol};
+            next unless $proto;
+
+            my $desc = $service->{description};
+            if ($proto eq 'tcp/udp') {
+                $self->_waitService('tcp', $port, $desc);
+                $self->_waitService('udp', $port, $desc);
+            } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+                $self->_waitService($proto, $port, $desc);
+            }
         }
     }
 }
@@ -406,6 +438,11 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
+    if (length ($desc)) {
+        EBox::debug("Wait samba task '$desc'");
+    } else {
+        EBox::debug("Wait unknown samba task");
+    }
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
@@ -870,6 +907,14 @@ sub writeSambaConfig
     push (@array, 'recycle_exceptions' => $self->recycleExceptions());
     push (@array, 'recycle_config' => $self->recycleConfig());
 
+    if (EBox::Global->modExists('openchange')) {
+        my $openchangeModule = EBox::Global->modInstance('openchange');
+        my $openchangeEnabled = $openchangeModule->isEnabled();
+        my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        push (@array, 'openchangeEnabled' => $openchangeEnabled);
+        push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+    }
+
     $self->writeConfFile(SAMBACONFFILE,
                          'samba/smb.conf.mas', \@array);
 
@@ -1012,36 +1057,6 @@ sub _setConf
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
-
-    # Change group ownership of quarantine_dir to __USERS__
-    if ($self->defaultAntivirusSettings()) {
-        $self->_setupQuarantineDirectory();
-    }
-
-    # Only set global roaming profiles and drive letter options
-    # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings. Also skip if
-    # unmanaged_home_directory config key is defined
-    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-    unless ($self->mode() eq 'adc') {
-        my $netbiosName = $self->netbiosName();
-        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
-        my $users = $self->ldb->users();
-        foreach my $user (@{$users}) {
-            # Set roaming profiles
-            if ($self->roamingProfiles()) {
-                my $path = "\\\\$netbiosName.$realmName\\profiles";
-                $user->setRoamingProfile(1, $path, 1);
-            } else {
-                $user->setRoamingProfile(0);
-            }
-
-            # Mount user home on network drive
-            my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
-            $user->save();
-        }
-    }
 }
 
 sub _adcMode
@@ -2490,12 +2505,21 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     # Current data backup
     my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
     $self->dumpConfig($backupDir);
 
     EBox::Service::manage('zentyal.s4sync', 'stop');
+
+    my $provision = $self->getProvision();
+    my $oldProvisionFile = '/home/samba/.provisioned';
+    if (-f $oldProvisionFile) {
+        $provision->setProvisioned(1);
+        EBox::Sudo::root("rm -f $oldProvisionFile");
+    }
 
     EBox::info("Removing posixAccount from users");
     foreach my $user (@{$self->ldb->users()}) {
@@ -2517,14 +2541,18 @@ sub _migrateTo32
     $usersMod->_loadSchema(EBox::Config::share() . $schema);
 
     EBox::info("Map default containers");
-    my $provision = $self->getProvision();
     $provision->mapDefaultContainers();
+    $provision->mapAccounts();
 
     EBox::info("Link LDB users with LDAP");
     foreach my $ldbUser (@{$self->ldb->users()}) {
         my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
         if ($ldapUser->exists()) {
             $ldbUser->_linkWithUsersObject($ldapUser);
+
+            if (not $ldbUser->isAccountEnabled()) {
+                $ldapUser->setDisabled(1);
+            }
         }
     }
 
@@ -2536,8 +2564,13 @@ sub _migrateTo32
         }
     }
 
-    # TODO: check if exists ou=Users in LDB and create all its objects
-    # under CN=Users, then delete ou=Users after that
+    EBox::info("Setting Administrator user as internal");
+    my $adminUser = new EBox::Users::User(uid => 'Administrator');
+    if ($adminUser->exists()) {
+        $adminUser->setInternal();
+    }
+
+    $self->_overrideDaemons();
 }
 
 1;

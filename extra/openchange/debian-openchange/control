@@ -11,21 +11,18 @@ Build-Depends: autoconf,
                flex,
                libboost-thread-dev,
                libical-dev,
-               libldb-dev,
                libmagic-dev,
                libparse-pidl-perl,
                libpopt-dev,
                libsqlite3-dev,
                libsubunit-dev,
-               libtalloc-dev,
-               libtevent-dev (>= 0.9.9),
                pkg-config,
                python-dev (>= 2.6.6-3),
-               samba4 (>= 4.1.0rc1),
+               samba4 (>= 4.1.0rc2-zentyal6),
                zlib1g-dev,
-	       python-paste,
-	       python-pastedeploy,
-	       python-pastescript,
+               python-paste,
+               python-pastedeploy,
+               python-pastescript,
                python-mako
 Standards-Version: 3.9.1
 Vcs-Bzr: http://bzr.debian.org/pkg-samba/openchange/unstable
@@ -51,12 +48,8 @@ Package: libmapi-dev
 Section: libdevel
 Architecture: any
 Depends: libc6-dev,
-         libldb-dev,
          libmapi0 (= ${binary:Version}),
-         libndr-dev,
-         libtalloc-dev,
-         libtevent-dev,
-         samba4 (>= 4.1.0rc1),
+         samba4 (>= 4.1.0rc2-zentyal6),
          ${misc:Depends}
 Description: Development files for the MAPI client library
  This library provides a client-side implementation of the MAPI protocol
@@ -132,7 +125,7 @@ Description: Command-line client for the MAPI (Exchange/Outlook) protocol
 Package: openchangeserver
 Architecture: any
 Pre-Depends: ${misc:Pre-Depends}
-Depends: samba4 (>= 4.1.0rc1),
+Depends: samba4 (>= 4.1.0rc2-zentyal6),
          openchangeproxy (= ${binary:Version}),
          ${misc:Depends},
          ${python:Depends},
@@ -146,7 +139,7 @@ Description: Experimental MAPI (Exchange/Outlook) server
 Package: openchangeserver-dev
 Architecture: any
 Depends: openchangeserver (= ${binary:Version}),
-         samba4 (>= 4.1.0rc1),
+         samba4 (>= 4.1.0rc2-zentyal6),
          ${misc:Depends}
 Description: Experimental MAPI (Exchange/Outlook) server - development files
  This is a plugin for Samba 4 that adds server-side support for the MAPI
@@ -156,7 +149,7 @@ Description: Experimental MAPI (Exchange/Outlook) server - development files
 
 Package: openchangeproxy
 Architecture: any
-Depends: samba4 (>= 4.1.0rc1),
+Depends: samba4 (>= 4.1.0rc2-zentyal6),
          ${misc:Depends},
          ${shlibs:Depends}
 Description: Experimental MAPI (Exchange/Outlook) proxy
@@ -231,8 +224,8 @@ Package: python-mapistore
 Section: python
 Architecture: any
 Depends: libmapistore0 (= ${binary:Version}),
-	 ${python:Depends},
-	 ${misc:Depends},
+         ${python:Depends},
+         ${misc:Depends},
          ${shlibs:Depends}
 Description: Python bindings for the mapistore library
  Those are the bindings for Python projects that want to make use of
@@ -246,9 +239,9 @@ Depends: python-paste (>= 1.7.2),
          python-pastescript (>= 1.7.3),
          python-pylons (>= 0.10),
          python-mako (>= 0.2.4),
-	 python-rpclib (>= 2.7.0),
-	 python-mapistore (= ${binary:Version}),
-         samba4 (>= 4.1.0rc1),
+         python-rpclib (>= 2.7.0),
+         python-mapistore (= ${binary:Version}),
+         samba4 (>= 4.1.0rc2-zentyal6),
          ${misc:Depends},
          ${python:Depends},
          ${shlibs:Depends}

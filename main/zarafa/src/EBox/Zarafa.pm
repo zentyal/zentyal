@@ -31,6 +31,7 @@ use EBox::Ldap;
 use EBox::Users::User;
 use EBox::WebServer;
 use EBox::ZarafaLdapUser;
+use EBox::MyDBEngine;
 
 use Encode;
 use Error qw(:try);
@@ -232,6 +233,8 @@ sub _migrateTo32
 {
     my ($self) = @_;
 
+    return unless $self->configured();
+
     # LDAP Backup.
     my $backupDir = EBox::Config::conf . "backup-zarafa-upgrade-to-32-" . time();
     mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
@@ -310,6 +313,8 @@ sub _migrateTo32
             EBox::error("Error deleting $ouDn: " . $updateResult->error());
         }
     }
+
+    $self->_overrideDaemons();
 }
 
 # Method: reprovisionLDAP
@@ -578,7 +583,7 @@ sub _setConf
 
     $self->_setSpellChecking();
     $self->_setWebServerConf();
-    $self->_enableInnoDBIfNeeded();
+    EBox::MyDBEngine->enableInnoDBIfNeeded();
     $self->_createVMailDomainsOUs();
 }
 
@@ -790,18 +795,6 @@ sub _setSpellChecking
 
     EBox::Sudo::root(EBox::Config::scripts('zarafa') .
                      'zarafa-spell ' . ($spell ? 'enable' : 'disable'));
-}
-
-sub _enableInnoDBIfNeeded
-{
-    my ($self) = @_;
-
-    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
-        EBox::Sudo::root(
-            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
-            "restart mysql"
-        );
-    }
 }
 
 sub _createVMailDomainsOUs

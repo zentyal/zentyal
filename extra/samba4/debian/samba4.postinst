@@ -20,6 +20,8 @@ if [ "$1" = "configure" ]; then
             fi
         fi
     fi
+
+    echo "/opt/samba4/lib" > /etc/ld.so.conf.d/samba4.conf
 fi
 
 #DEBHELPER#

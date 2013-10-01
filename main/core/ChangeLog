@@ -1,6 +1,31 @@
-HEAD
+3.3
 	+ RedirectHelper interface to redirect requests from Zentyal
 	  Remote to specific module HTTP applications
+	+ Added Number.prototype.toTimeDiffString in format.js
+	+ Added .btn-black CSS class
+	+ Set version to 3.3
+	+ Added enableInnoDbIfNeeded() to MyDBEngine
+	+ Fix loading on custom action buttons
+	+ Add icon for openchange module
+	+ Add missing use statement in EBox::Types::MultiStateAction
+	+ Add icon for openchange module
+	+ Service type setter works again
+3.2
+	+ Set 3.2 versions and non-beta logo
+3.1.13
+	+ Added missing EBox::Gettext uses, fixes crash in view logs refresh
+	+ Minor CSS style fixes
+	+ Added missing use statement in EBox::Types::MultiStateAction
+3.1.12
+	+ Do not crash if /etc/timezone does not exist
+	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of
+	  when running zentyal start, this fixes problems with leftover locks
+	  that affect dhclient hooks
+	+ Fixed wrong case in some class names for the save changes button
+	+ Fixed autoscroll in dashboard widgets
+	+ Added placeholder for drag & drop of table rows
+	+ No autoscroll is done when overflow happens. This makes sortable
+	  work in chromium
 	+ Set audit after logs when enabling in first install
 	+ Avoid getting unsaved changes by using readonly instance in manage-logs
 3.1.11
