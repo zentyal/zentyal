@@ -18,8 +18,17 @@ use warnings;
 
 package EBox::OpenChange::CGI::Migration::Estimate;
 
+# Class: EBox::OpenChange::CGI::Migration::Estimate
+#
+#   CGI which returns in a JSON structure the estimation of users
+#   after receiving the usernames as JSON POST parameter
+#
+
 use base 'EBox::CGI::Base';
 
+use feature qw(switch);
+
+use EBox::OpenChange::MigrationRPCClient;
 use Error qw( :try );
 use JSON::XS;
 
@@ -53,34 +62,41 @@ sub _process
         }
 
         EBox::info("The daemon is in state: " . $response->{state});
-        if ($response->{state} == 0) {
-            # Idle, start estimation
-            my $u = [];
-            foreach my $elem (@{$users}) {
-                push (@{$u}, { name => $elem });
+        given ($response->{state}) {
+            when(0) {
+                # Idle, start estimation
+                my $u = [];
+                foreach my $elem (@{$users}) {
+                    push (@{$u}, { name => $elem });
+                }
+                EBox::info("The daemon is idle, launch estimating");
+                my $request = {
+                    command => 2,
+                    users => $u,
+                };
+                $rpc->dump($request);
+                my $response = $rpc->send_command($request);
+                if ($response->{code} != 0) {
+                    $self->{json}->{error} = 'error msg';
+                }
             }
-            EBox::info("The daemon is idle, launch estimating");
-            my $request = {
-                command => 2,
-                users => $u,
-            };
-            $rpc->dump($request);
-            my $response = $rpc->send_command($request);
-            if ($response->{code} != 0) {
-                $self->{json}->{error} = 'error msg';
+            when ([1, 2]) {
+                my $state = $_;
+                # 1 - Estimation on progress
+                # 2 - Estimated done. Enable migrate button
+                my $seconds = ($response->{totalBytes} * 8 ) / (100 * 1024 * 1024);
+                # Estimating, update
+                $self->{json} = {
+                    result => {
+                        'data'     => { 'value' => $response->{totalBytes},       'type' => 'bytes' },
+                        'mails'    => { 'value' => $response->{emailItems},       'type' => 'int' },
+                        'contacts' => { 'value' => $response->{contactItems},     'type' => 'int' },
+                        'calendar' => { 'value' => $response->{appointmentItems}, 'type' => 'int' },
+                        'time'     => { 'value' => $seconds, 'type' => 'timediff' },
+                    },
+                    'state' => ($state == 1 ? 'ongoing' : 'done'),
+                }
             }
-        } elsif ($response->{state} == 1) {
-            my $seconds = ($response->{totalBytes} * 8 ) / 100;
-            # Estimating, update
-            $self->{json} = {
-                'data' => $response->{totalBytes},
-                'mails'  => $response->{totalMails},
-                'contacts' => $response->{totalContacts},
-                'calendar' =>  $response->{totalCalentars},
-                'time' => "$seconds seconds",
-            }
-        } elsif ($response->{state} == 2) {
-            # Estimated done. Enable migrate button
         }
     } otherwise {
         my ($error) = @_;

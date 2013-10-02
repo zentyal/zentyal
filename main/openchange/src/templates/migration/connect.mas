@@ -3,6 +3,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<div id="messages"></div>
 <div class="item-block">
     <h3><% __('Select origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
@@ -69,11 +70,11 @@ use EBox::Gettext;
                                 if (data.success) {
                                     window.location.href = '/OpenChange/Migration/SelectMailBoxes';
                                 } else {
-                                    alert("Error connection");
+                                    Zentyal.OpenChange.migrationMessage(data.error, 'error');
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                alert(errorThrown);
+                                Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
                             },
                         });
                     }

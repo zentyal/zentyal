@@ -1,0 +1,12 @@
+<%doc>
+This template is used to show the migration as finished
+</%doc>
+<%init>
+use EBox::Gettext;
+</%init>
+<div class="item-block">
+  <h3><% __('Migration finished!') %></h3>
+  <div class="note">
+      <% __('Migration has been finished!!') %>
+  </div>
+</div>
