@@ -1,0 +1,143 @@
+# Galician translation of roundcube's debconf templates
+# This file is distributed under the same license as the roundcube package.
+# Jacobo Tarrio <jtarrio@debian.org>, 2007, 2008.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: roundcube\n"
+"Report-Msgid-Bugs-To: roundcube@packages.debian.org\n"
+"POT-Creation-Date: 2009-02-15 17:05+0100\n"
+"PO-Revision-Date: 2008-03-07 16:27+0000\n"
+"Last-Translator: Jacobo Tarrio <jtarrio@debian.org>\n"
+"Language-Team: Galician <proxecto@trasno.net>\n"
+"Language: gl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "apache2"
+msgstr "apache2"
+
+#. Type: multiselect
+#. Choices
+#: ../templates:2001
+msgid "lighttpd"
+msgstr "lighttpd"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid "Web server(s) to configure automatically:"
+msgstr "Servidor(es) web a reconfigurar automaticamente:"
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"RoundCube supports any web server supported by PHP, however only Apache 2 "
+"and lighttpd can be configured automatically."
+msgstr ""
+"RoundCube soporta os servidores web soportados por PHP; nembargantes, só se "
+"poden configurar automaticamente Apache 2 e lighttpd."
+
+#. Type: multiselect
+#. Description
+#: ../templates:2002
+msgid ""
+"Please select the web server(s) that should be configured automatically for "
+"RoundCube."
+msgstr ""
+"Escolla o(s) servidor(es) web que se deberían configurar automaticamente "
+"para RoundCube."
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid "Should the webserver(s) be restarted now?"
+msgstr "¿Debería(n) reiniciarse o(s) servidor(es) web?"
+
+#. Type: boolean
+#. Description
+#: ../templates:3001
+msgid ""
+"In order to activate the new configuration, the reconfigured web server(s) "
+"have to be restarted."
+msgstr ""
+"Para activar a nova configuración hai que reiniciar o(s) servidor(es) web "
+"reconfigurado(s)."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid "IMAP server(s) used with RoundCube:"
+msgstr "Servidor(es) IMAP a empregar con RoundCube:"
+
+#. Type: string
+#. Description
+#: ../templates:4001
+#, fuzzy
+#| msgid "Please select the IMAP server that should be used with RoundCube."
+msgid "Please select the IMAP server(s) that should be used with RoundCube."
+msgstr "Escolla o servidor IMAP que se debería empregar con RoundCube."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"If this is left blank, a text box will be displayed at login. Entering a "
+"space-separated list of hosts will display a pull-down menu. Entering a "
+"single host will enforce using this host."
+msgstr ""
+"Se deixa isto baleiro, hase amosar unha caixa de texto ao se conectar. Se "
+"introduce unha lista de servidores separados por espazos hase amosar un menú "
+"desplegable. Se introduce un só servidor ha facer que só se empregue ese "
+"servidor."
+
+#. Type: string
+#. Description
+#: ../templates:4001
+msgid ""
+"To use SSL connections, please enter host names as 'ssl://hostname:993'."
+msgstr ""
+"Para empregar conexións SSL, introduza os nomes dos servidores coma \"ssl://"
+"servidor:993\"."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Default language:"
+msgstr "Idioma por defecto:"
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "Please choose the default language for RoundCube."
+msgstr "Escolla o idioma por defecto de RoundCube."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid "This choice can be overridden by individual users in their preferences."
+msgstr "Cada usuario pode cambiar esta opción nas súas preferencias."
+
+#. Type: select
+#. Description
+#: ../templates:5001
+msgid ""
+"However, the default language will be used for the login screen and the "
+"first connection of users."
+msgstr ""
+"Nembargantes, hase empregar o idioma por defecto na pantalla de inicio e na "
+"primeira conexión de cada usuario."
+
+#~ msgid "apache"
+#~ msgstr "apache"
+
+#~ msgid "apache-ssl"
+#~ msgstr "apache-ssl"
+
+#~ msgid "apache-perl"
+#~ msgstr "apache-perl"

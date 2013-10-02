@@ -1,0 +1,2 @@
+version=3
+opts="uversionmangle=s/-(rc|alpha|beta)/~$1/,dversionmangle=s/\+dfsg//" http://sf.net/roundcubemail/roundcubemail-([\d\.]+.*)-dep\.tar\.gz

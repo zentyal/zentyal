@@ -1,0 +1,36 @@
+This package ships with configuration files for Apache and
+lighttpd. However, it is not possible to cover all cases and you still
+need to do some manual steps to adapt the installation to your site
+configuration.
+
+You can uncomment the Alias directives in
+`/etc/roundcube/apache.conf'. You can then access your roundcube
+installation under `/roundcube' in all virtual hosts. If you want to
+create a specific virtual host, just point DocumentRoot to
+`/var/lib/roundcube'.
+
+It is important to keep in mind that the root installation of
+roundcube is `/var/lib/roundcube' and not `/usr/share/roundcube'. You
+also need to keep the configuration file provided. Otherwise, your
+installation will be non functional and insecure.
+
+For better compatibility, the schema used for MySQL is the one
+targeted at MySQL 4.0, not the one for MySQL 4.1 or MySQL 5.x.
+
+To use tinymce editor:
+ - set $rcmail_config['htmleditor'] to TRUE in
+   /etc/roundcube/main.inc.php
+
+No plugins are shipped (except core plugins) with this package of
+roundcube. Add your plugin in /var/lib/roundcube/plugins.
+
+This package makes use of dbconfig-common to setup the database. If
+you do not wish to use dbconfig-common, you can find the SQL commands
+to use to install and upgrade the database in
+`/usr/share/dbconfig-common/data/roundcube'. When upgrading, you need
+to apply each upgrade file from the version you are upgrading
+(excluded). For example, if you are using MySQL and want to upgrade
+from 0.3-1, you need to apply `mysql/0.5-1'. If you are upgrading from
+0.2~alpha-5, you need to apply `mysql/0.2~stable-1' and `mysql/0.5-1'.
+
+ -- Vincent Bernat <bernat@debian.org>, Sun, 13 Feb 2011 12:59:27 +0100

@@ -9,6 +9,7 @@
 <%init>
 use EBox::Gettext;
 </%init>
+<script type="text/javascript" src="/data/js/format.js"></script>
 <script type="text/javascript" src="/data/js/openchange.js"></script>
 <div id="messages"></div>
 <div class="item-block">
@@ -128,8 +129,8 @@ $(document).ready(function() {
                                             'loadingId'      : '#loading-button',
                                             'tableClass'     : '.migration-table' });
    });
-   //$( "#start-migration").click(function() {
-   //  window.location.href = '/OpenChange/Migration/Progress';
-   //});
+   $( "#start-migration").click(function() {
+     window.location.href = '/OpenChange/Migration/Progress';
+   });
 });
 </script>

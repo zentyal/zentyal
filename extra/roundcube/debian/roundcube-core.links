@@ -1,0 +1,16 @@
+etc/roundcube/main.inc.php var/lib/roundcube/config/main.inc.php
+usr/share/roundcube/index.php var/lib/roundcube/index.php
+usr/share/roundcube/robots.txt var/lib/roundcube/robots.txt
+usr/share/roundcube/program var/lib/roundcube/program
+usr/share/roundcube/skins/classic var/lib/roundcube/skins/classic
+usr/share/roundcube/skins/larry var/lib/roundcube/skins/larry
+
+usr/share/roundcube/plugins/filesystem_attachments var/lib/roundcube/plugins/filesystem_attachments
+usr/share/roundcube/plugins/jqueryui var/lib/roundcube/plugins/jqueryui
+usr/share/javascript/jquery-ui/jquery-ui.min.js usr/share/roundcube/plugins/jqueryui/js/jquery-ui.min.js
+usr/share/javascript/jquery-ui/ui/i18n usr/share/roundcube/plugins/jqueryui/js/i18n
+usr/share/javascript/jquery-ui/css usr/share/roundcube/plugins/jqueryui/css
+etc/roundcube/plugins/jqueryui/config.inc.php usr/share/roundcube/plugins/jqueryui/config.inc.php
+
+var/log/roundcube var/lib/roundcube/logs
+usr/share/roundcube/main.inc.php.dist usr/share/doc/roundcube/main.inc.php.dist

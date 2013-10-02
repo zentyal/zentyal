@@ -15,6 +15,7 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
                 });
 };
 
+// TODO: Doc
 Zentyal.Dialog.showURL = function(url, params) {
     var i,
         dialogParams,
