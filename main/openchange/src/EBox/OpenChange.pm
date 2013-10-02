@@ -121,7 +121,6 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-    EBox::MyDBEngine->enableInnoDBIfNeeded();
 }
 
 sub _writeSOGoDefaultFile
@@ -253,6 +252,7 @@ sub _setupSOGoDatabase
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
+    $db->enableInnoDBIfNeeded();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");
