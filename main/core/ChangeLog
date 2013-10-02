@@ -1,3 +1,5 @@
+HEAD
+	+ Upgrade to 3.2 notification in dashboard
 3.0.27
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that

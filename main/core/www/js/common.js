@@ -137,3 +137,16 @@ function toggleWithToggler(name)
     toggleClass(togglername, 'minBox', 'maxBox');
     Effect.toggle(name, 'blind', {duration: 0.5});
 }
+
+function doReleaseUpgrade() {
+    $('ok_button').hide();
+    $('ajax_loader_upgrade').show();
+    new Ajax.Request('/ReleaseUpgrade', {
+        parameters: { upgrade: 1 },
+        onSuccess: function(response) {
+            window.location = '/ReleaseUpgrade?install=1';
+        }
+    });
+
+}
+

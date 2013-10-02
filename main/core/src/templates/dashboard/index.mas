@@ -123,6 +123,22 @@ function closeNotification() {
   var url = '/SysInfo/CloseNotification';
   new Ajax.Request(url, { parameters: { message: '<% $message->{name} %>' } });
 }
+
+function releaseUpgrade(title) {
+      Modalbox.show('/ReleaseUpgrade', {
+          'title': title,
+          'transitions': false,
+          'afterHide': function() { window.location.reload(); }
+      });
+}
+
+function upgradeInstructions(title, html) {
+      Modalbox.show(html, {
+          'title': title,
+          'transitions': false,
+          'afterHide': function() { window.location.reload(); }
+      });
+}
 </script>
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
