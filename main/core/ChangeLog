@@ -1,3 +1,6 @@
+HEAD
+	+ Avoid Apache error screen in login when entering through Zentyal
+	  Remote using password
 3.0.27
 	+ Fixed in-place boolean edit with non-basic types different to Union
 	+ Fixed side-effect in Model::Manager::_modelHasMultipleInstances() that
