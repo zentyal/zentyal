@@ -141,6 +141,7 @@ function toggleWithToggler(name)
 function doReleaseUpgrade() {
     $('ok_button').hide();
     $('ajax_loader_upgrade').show();
+    Modalbox.MBclose.hide()
     new Ajax.Request('/ReleaseUpgrade', {
         parameters: { upgrade: 1 },
         onSuccess: function(response) {
