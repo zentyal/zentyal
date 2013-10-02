@@ -35,7 +35,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-$ref->{version} = '3.2';
+$ref->{version} = '3.3';
 $ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
