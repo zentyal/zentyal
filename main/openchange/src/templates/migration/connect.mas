@@ -1,9 +1,9 @@
 <%args>
-    $selectedServer => 'foobar'
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+<div id="messages"></div>
 <div class="item-block">
     <h3><% __('Select origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
@@ -16,7 +16,7 @@ use EBox::Gettext;
                 <input id="server" type="text" class="input-full-width" placeholder="servername.company.net or XXX.XXX.XXX.XXX"/>
 
                 <div id="credentials">
-                    <h4><% __('Credential for') %> <span class="orange"><% $selectedServer %></span></h4>
+                    <h4><% __('Credential for') %> <span id="server-label" class="orange"></span></h4>
                     <p><% __('You need Admin profile user and password to be able to access this server') %></p>
                     <label for="username"><% __('Admin user') %></label>
                     <input type="text" id="username" placeholder="username">
@@ -32,7 +32,13 @@ use EBox::Gettext;
             </ul>
             <script type="text/javascript" src="/data/js/openchange.js"></script>
             <script type="text/javascript">
-                $("#credentials").hide();
+                $( "#server" ).change(function() {
+                    var text = $( this ).val();
+                    $( "#server-label" ).text(text);
+                });
+                $( "#server" ).keyup(function() {
+                    $( this ).change();
+                });
                 Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
             </script>
         </div>
@@ -41,8 +47,15 @@ use EBox::Gettext;
             <script type="text/javascript">
                 $("#connect_button").click(function() {
                     var serverStr =  $("#server").val();
+                    var usernameStr = $("#username").val();
+                    var passwordStr = $("#password").val();
+
                     if (serverStr.length <= 0) {
                         alert("Server required");
+                    } else if (usernameStr.length <= 0) {
+                        alert("Username required");
+                    } else if (passwordStr.length <= 0) {
+                        alert("Password required");
                     } else {
                         $.ajax({
                             type: "POST",
@@ -50,16 +63,18 @@ use EBox::Gettext;
                             dataType: 'json',
                             data: {
                                 server: serverStr,
+                                username: usernameStr,
+                                password: passwordStr,
                             },
                             success: function(data, textStatus) {
                                 if (data.success) {
                                     window.location.href = '/OpenChange/Migration/SelectMailBoxes';
                                 } else {
-                                    $("#credentials").show();
+                                    Zentyal.OpenChange.migrationMessage(data.error, 'error');
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                alert(errorThrown);
+                                Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
                             },
                         });
                     }

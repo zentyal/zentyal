@@ -28,7 +28,7 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox;
 use EBox::Global;
 use EBox::Gettext;
-
+use EBox::OpenChange::MigrationRPCClient;
 use Error qw(:try);
 
 # Group: Public methods
@@ -57,42 +57,37 @@ sub masonParameters
 {
     my ($self) = @_;
 
-    # Mocked up data
-    my @params = ();
-    # If something goes wrong put this in mason
-    # push(@params, error => 'foo');
-    push(@params, mailboxes => [
-        {
-                name     => 'Gutierres Vals, Javier',
-                username => 'jvals',
-               },
-            {
-                name     => 'The Offspring',
-                username => 'the-offspring',
-                status   => undef,
-                },
-            {
-                name     => 'Conspiracy of One',
-                username => 'conspiracy',
-                status   => 'migrated',
-                date     => '19-05-2013', # Use the locale way of showing dates?
-                },
-            {
-                name     => 'Mercromina',
-                username => 'mercromina',
-                status   => 'cancelled',
-                date     => '18-05-2013', # Use the locale way of showing dates?
-                },
-            {
-                name     => 'Les femmes',
-                username => 'yelle',
-                status   => 'conflict',
-                date     => '17-05-2013', # Use the locale way of showing dates?
-               },
-       ]
-        );
-    return \@params;
+    my $params = [];
+    my $mailboxes = [];
+    try {
+        EBox::info("Querying mailboxes list");
+        my $rpc = new EBox::OpenChange::MigrationRPCClient();
+        my $command = {
+            command => 5
+        };
+        my $response = $rpc->send_command($command);
+        if ($response->{code} != 0) {
+            push(@{$params}, error => "RPC error");
+            return $params;
+        }
 
+        foreach my $entry (@{$response->{entries}}) {
+            my $mailbox = {
+                name => $entry->{name},
+                username => $entry->{account},
+                status => '---',
+                date => '---',
+            };
+            push (@{$mailboxes}, $mailbox);
+        }
+    } otherwise {
+        # If something goes wrong put this in mason
+        my ($error) = @_;
+        push(@{$params}, error => $error);
+    };
+
+    push (@{$params}, mailboxes => $mailboxes);
+    return $params;
 }
 
 1;

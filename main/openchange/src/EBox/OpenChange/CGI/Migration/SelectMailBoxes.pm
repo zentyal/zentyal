@@ -21,6 +21,9 @@ package EBox::OpenChange::CGI::Migration::SelectMailBoxes;
 use base qw(EBox::CGI::ClientBase);
 
 use EBox::Gettext;
+use EBox::OpenChange::MigrationRPCClient;
+use EBox::Validate;
+use Error qw( :try );
 
 sub new
 {
@@ -42,10 +45,35 @@ sub new
 #
 sub masonParameters
 {
-    my @params = ();
-    push(@params, server => 'exchange.zentyal.com');
-    push(@params, serverIP => '192.168.2.1');
-    return \@params;
+    my ($self) = @_;
+
+    my $params = [];
+    try {
+        my $request = {
+                command => 0,
+        };
+        my $rpc = new EBox::OpenChange::MigrationRPCClient();
+        my $response = $rpc->send_command($request);
+        if ($response->{code} == 0) {
+            my $server = $response->{server};
+            my $serverIP = $server;
+            if (EBox::Validate::checkIP($server)) {
+                $server = 'Exchange server';
+            }
+            push (@{$params}, server => $server);
+            push (@{$params}, serverIP => $serverIP);
+        } else {
+            # TODO Broken connection
+            push (@{$params}, server => '---');
+            push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
+        }
+    } otherwise {
+        # TODO Broken connection
+        push (@{$params}, server => '---');
+        push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
+    };
+
+    return $params;
 }
 
 1;
