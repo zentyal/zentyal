@@ -105,36 +105,6 @@ sub checkTimePeriod
     }
 }
 
-# Migration sub to migrate TIMESTAMP date column to DATETIME
-sub migrateConsolidateTablesTo32
-{
-    my ($class) = @_;
-
-    my $gl       = EBox::Global->getInstance(1);
-    my $dbengine = EBox::DBEngineFactory::DBEngine();
-    my $modNames = $class->_allModulesWithConsolidation();
-    foreach my $modName (@{$modNames}) {
-        foreach my $tableInfo (@{$class->_tableInfosFromMod($modName)}) {
-            while (my ($destTable, $conf) = each %{$tableInfo->{consolidate}}) {
-                foreach my $timePeriod (@{$class->timePeriods()}) {
-                    my $table = "${destTable}_$timePeriod";
-                    my $sql = qq{ALTER TABLE $table
-                                 CHANGE date
-                                 date DATETIME NOT NULL};
-                    EBox::debug($sql);
-                    try {
-                        $dbengine->do($sql);
-                    } otherwise {
-                        my ($exc) = @_;
-                        # We can't leave migration half run
-                        EBox::error($exc);
-                    };
-                }
-            }
-        }
-    }
-}
-
 sub _allModulesWithConsolidation
 {
     my ($self) = @_;

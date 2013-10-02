@@ -186,12 +186,6 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
 }
 
 sub enableService
@@ -2495,82 +2489,6 @@ sub _sidsToHide
     my @sids = map { s/\n//; $_; } @sidsTmp;
 
     return \@sids;
-}
-
-# Migration to 3.2
-#
-#  * Add new schema and link with existing LDAP users
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    # Current data backup
-    my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
-    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($backupDir);
-
-    EBox::Service::manage('zentyal.s4sync', 'stop');
-
-    my $provision = $self->getProvision();
-    my $oldProvisionFile = '/home/samba/.provisioned';
-    if (-f $oldProvisionFile) {
-        $provision->setProvisioned(1);
-        EBox::Sudo::root("rm -f $oldProvisionFile");
-    }
-
-    EBox::info("Removing posixAccount from users");
-    foreach my $user (@{$self->ldb->users()}) {
-        $user->delete('uidNumber', 1);
-        $user->remove('objectclass', 'posixAccount', 1);
-        $user->save();
-    }
-
-    EBox::info("Removing posixAccount from groups");
-    foreach my $group (@{$self->ldb->groups()}) {
-        $group->delete('gidNumber', 1);
-        $group->remove('objectclass', 'posixAccount', 1);
-        $group->save();
-    }
-
-    my $schema = 'zentyal-samba/zentyalsambalink.ldif';
-    EBox::info("Loading $schema");
-    my $usersMod = $self->global()->modInstance('users');
-    $usersMod->_loadSchema(EBox::Config::share() . $schema);
-
-    EBox::info("Map default containers");
-    $provision->mapDefaultContainers();
-    $provision->mapAccounts();
-
-    EBox::info("Link LDB users with LDAP");
-    foreach my $ldbUser (@{$self->ldb->users()}) {
-        my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
-        if ($ldapUser->exists()) {
-            $ldbUser->_linkWithUsersObject($ldapUser);
-
-            if (not $ldbUser->isAccountEnabled()) {
-                $ldapUser->setDisabled(1);
-            }
-        }
-    }
-
-    EBox::info("Link LDB groups with LDAP");
-    foreach my $ldbGroup (@{$self->ldb->groups()}) {
-        my $ldapGroup = new EBox::Users::Group(gid => $ldbGroup->get('samAccountName'));
-        if ($ldapGroup->exists()) {
-            $ldbGroup->_linkWithUsersObject($ldapGroup);
-        }
-    }
-
-    EBox::info("Setting Administrator user as internal");
-    my $adminUser = new EBox::Users::User(uid => 'Administrator');
-    if ($adminUser->exists()) {
-        $adminUser->setInternal();
-    }
-
-    $self->_overrideDaemons();
 }
 
 1;
