@@ -81,6 +81,10 @@ sub _process
                     $self->{json}->{error} = $response->{error};
                 } else {
                     $self->{json}->{success} = 1;
+                    my $oc = EBox::Global->modInstance('openchange');
+                    my $state = $oc->get_state();
+                    $state->{migration_users} = $u;
+                    $oc->set_state($state);
                 }
             }
             when ([1, 2]) {
