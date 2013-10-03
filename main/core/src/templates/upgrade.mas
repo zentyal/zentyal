@@ -1,0 +1,16 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+
+<div class="note">This will upgrade your Zentyal 3.0 to 3.2.<br>Close this dialog if you do not want to upgrade now.</div>
+<div class="warning">Before upgrading please read carefully the <a target="_blank" href="http://trac.zentyal.org/wiki/Document/Announcement/3.2"><b>release notes</b></a>.</div>
+
+<div>
+<center>
+<img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
+<button id="ok_button" onclick="doReleaseUpgrade(); return false;">Continue</button>
+</center>
+</div>
+
