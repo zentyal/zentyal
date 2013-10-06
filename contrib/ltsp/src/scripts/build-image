@@ -8,44 +8,62 @@ use EBox::Gettext;
 use EBox::Global;
 use Error qw(:try);
 
-if (scalar @ARGV >= 2) {
-    my $arch = $ARGV[0];
-    my $fat  = $ARGV[1];
-    my $chroot = ($fat ? "fat-$arch" : $arch);
+if (scalar @ARGV >= 3) {
+    my $chroot = $ARGV[0];
+    my $arch = $ARGV[1];
+    my $fat  = $ARGV[2];
 
     EBox::init();
 
     my $ltsp = EBox::Global->modInstance('ltsp');
+    my $state = $ltsp->get_state();
 
-    $ltsp->st_set_string('work', 'build');
-    $ltsp->st_set_string('error', '');
+    $state->{work} = 'build';
+    $state->{error} = '';
+    $state->{images}->{$chroot} = { state => 'build',
+                                    arch  => $arch,
+                                    fat   => $fat };
+    $ltsp->set_state($state);
 
     print "Building $chroot image...\n";
 
-    my $buildCmd = "ltsp-build-client --arch $arch --purge-chroot";
+    my $buildCmd = "ltsp-build-client --chroot $chroot --arch $arch --purge-chroot";
     if ($fat) {
         my $desktop;
-        if (scalar @ARGV >= 3) {
-            $desktop = $ARGV[2];
+        if (scalar @ARGV >= 4) {
+            $desktop = $ARGV[3];
         } else {
             print "You didn't enter a desktop environment, using ubuntu-desktop\n";
             $desktop = 'ubuntu-desktop';
         }
 
-        $buildCmd .= " --chroot $chroot --fat-client";
-        $buildCmd .= " --fat-client-desktop $desktop";
+        $buildCmd .= " --fat-client --fat-client-desktop $desktop";
     }
     try {
         # TODO: add more messages to ltsp.log (with timestamps)
         EBox::Sudo::root("$buildCmd >> /var/log/zentyal/ltsp.log");
-        EBox::Sudo::root('service nbd-server restart');
+        EBox::Sudo::root('service nbd-server restart >> /var/log/zentyal/ltsp.log');
     } otherwise {
-        $ltsp->st_set_string('error', __('Build image failed'));
+        $state->{error} = __('Build image failed');
+        delete $state->{images}->{$chroot};
         print "Build image failed. Check /var/log/zentyal/ltsp.log for details.\n";
     } finally {
-        $ltsp->st_set_string('work', 'none');
+        $state->{images}->{$chroot}->{state} = 'done';
+        my $work = 0;
+        my @image_list = values($state->{images});
+        for my $image (@image_list) {
+            if ($image->{state} ne 'done') {
+                $work = 1;
+                #break;
+            }
+        }
+        unless ($work)  {
+            $state->{work} = 'none';
+        }
+        $state->{work} = 'none';
+        $ltsp->set_state($state);
     };
 
 } else {
-    print "Usage: build-image arch fat? [desktop-environment]\n";
+    print "Usage: build-image name arch fat? [desktop-environment]\n";
 }

@@ -8,10 +8,8 @@ use EBox::Gettext;
 use EBox::Global;
 use Error qw(:try);
 
-if (scalar @ARGV == 2) {
-    my $arch = $ARGV[0];
-    my $fat  = $ARGV[1];
-    my $chroot = ($fat ? "fat-$arch" : $arch);
+if (scalar @ARGV == 1) {
+    my $chroot = $ARGV[0];
     if ( -f "/opt/ltsp/images/$chroot.img" ) {
         EBox::init();
 
@@ -45,5 +43,5 @@ if (scalar @ARGV == 2) {
         print "/opt/ltsp/images/$chroot.img does not exist.\n";
     }
 } else {
-    print "Usage: update-image arch fat?\n";
+    print "Usage: update-image chroot\n";
 }
