@@ -93,6 +93,7 @@ sub _dbpass
 
     unless ($self->{dbpass}) {
         my ($pass) = @{EBox::Sudo::root("/bin/cat $DB_PWD_FILE")};
+        chomp ($pass);
         $self->{dbpass} = $pass;
     }
 
