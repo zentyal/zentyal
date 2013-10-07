@@ -1,3 +1,5 @@
+HEAD
+	+ UTF8 decode DN when retrieving it from a LDAP object
 3.3
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
