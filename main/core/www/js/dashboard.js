@@ -21,6 +21,7 @@ Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
                                   placeholder: 'widgetPlaceholder',
+                                  handle: '.widgetHandle',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
