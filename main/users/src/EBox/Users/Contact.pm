@@ -96,6 +96,17 @@ sub deleteObject
     $self->SUPER::deleteObject(@_);
 }
 
+# Method: fullname
+#
+#  Overrided because we cannot use the cn
+sub fullname
+{
+    my ($self) = @_;
+    my $givenname = $self->get('givenname');
+    my $surname   = $self->get('sn');
+    return "$givenname $surname";
+}
+
 # Method: create
 #
 #       Adds a new contact

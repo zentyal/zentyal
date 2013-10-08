@@ -1,4 +1,6 @@
 HEAD
+	+ In contact edition  don't store full name in cn but use
+	  givenname and sn to get fullname.
 	+ Fixed cloud-sync script
 3.2
 	+ Set version to 3.2
