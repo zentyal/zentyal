@@ -2585,7 +2585,7 @@ sub _migrateTo32
         $state->{shares_set_rights} = {};
     }
     for my $id (@{$shares->ids()}) {
-        my $row = $self->row($id);
+        my $row = $shares->row($id);
         my $shareName = $row->valueByName('share');
         $state->{shares_set_rights}->{$shareName} = 1;
     }
