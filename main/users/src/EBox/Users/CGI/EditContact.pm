@@ -85,6 +85,7 @@ sub _process
             $contact->set('mail', $mail, 1);
 
             $contact->save();
+	    $self->{json}->{set_text} = $contact->fullname();
         }
 
         $self->{json}->{success} = 1;
