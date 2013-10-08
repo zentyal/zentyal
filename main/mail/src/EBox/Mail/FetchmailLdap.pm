@@ -247,10 +247,10 @@ sub removeExternalAccount
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
-    my @newAccount = @{ $newAccountHash};
+    my @newAccount = (user => $user, @{ $newAccountHash});
     $self->_checkFetchmailAccountParams(@newAccount);
     $self->removeExternalAccount($user, $account);
-    $self->addExternalAccount(user => $user, @newAccount);
+    $self->addExternalAccount(@newAccount);
 }
 
 sub writeConf
