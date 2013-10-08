@@ -521,10 +521,10 @@ sub children
     # internally. Paged by 500 results
     my $page = Net::LDAP::Control::Paged->new( size => 500 );
     my $attrs = {
-        base   => $self->dn(),
+        base => $self->dn(),
         filter => '(!(objectclass=organizationalRole))',
         scope  => 'one',
-	control  => [ $page ],
+        control => [ $page ],
     };
 
     my $ldapMod = $self->_ldapMod();
@@ -532,34 +532,34 @@ sub children
     my $cookie;
     my @objects = ();
     while (1) {
-	my $result = $self->_ldap->search($attrs);
-	if ($result->code() ne LDAP_SUCCESS) {
-	    last;
-	}
+        my $result = $self->_ldap->search($attrs);
+        if ($result->code() ne LDAP_SUCCESS) {
+            last;
+        }
 
-	foreach my $entry ($result->entries) {
-	    my $object = $ldapMod->entryModeledObject($entry);
-	    push (@objects, $object) if ($object);
-	}
+        foreach my $entry ($result->entries) {
+            my $object = $ldapMod->entryModeledObject($entry);
+            push (@objects, $object) if ($object);
+        }
 
-	my ($resp)  = $result->control( LDAP_CONTROL_PAGED );
-	if (not $resp) {
-	    last;
-	}
-	$cookie    = $resp->cookie;
-	if (not $cookie) {
-	    # finished
-	    last;
-	}
+        my ($resp) = $result->control( LDAP_CONTROL_PAGED );
+        if (not $resp) {
+            last;
+        }
+        $cookie = $resp->cookie;
+        if (not $cookie) {
+            # finished
+            last;
+        }
 
-	$page->cookie($cookie);
+        $page->cookie($cookie);
     }
 
     if ($cookie) {
-	# We had an abnormal exit, so let the server know we do not want any more
-	$page->cookie($cookie);
-	$page->size(0);
-	$self->_ldap->search($attrs)
+        # We had an abnormal exit, so let the server know we do not want any more
+        $page->cookie($cookie);
+        $page->size(0);
+        $self->_ldap->search($attrs)
     }
 
     # sort by dn (as it is currently the only common attribute, but maybe we can change this)
