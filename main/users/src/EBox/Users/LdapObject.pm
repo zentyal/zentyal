@@ -308,7 +308,9 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->_entry()->dn();
+    my $dn = $self->_entry()->dn();
+    utf8::decode($dn);
+    return $dn;
 }
 
 # Method: baseDn
