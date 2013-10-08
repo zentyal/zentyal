@@ -1,3 +1,6 @@
+HEAD
+	+ Fix setNameservers method in Network to avoid error in import
+      interfaces
 2.2.9
 	+ Fix bandwidth test by faking user agent
 2.2.8

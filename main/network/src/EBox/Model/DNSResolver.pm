@@ -107,4 +107,20 @@ sub _help
                'network interface configured via DHCP</p>'));
 }
 
+sub replace
+{
+    my ($self, $pos, $newIP) = @_;
+
+    my @ids = @{ $self->ids() };
+    if ($pos >= scalar @ids) {
+        throw EBox::Exceptions::Internal("Inexistent DNS resolver position $pos");
+    }
+
+    my $id = $ids[$pos];
+    my $row = $self->row($id);
+    $row->elementByName('nameserver')->setValue($newIP);
+    $row->store();
+
+}
+
 1;
