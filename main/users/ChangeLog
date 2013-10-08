@@ -1,4 +1,5 @@
 HEAD
+	+ Use paginate search when getting children nodes in LdapObject
 	+ Fixed cloud-sync script
 3.2
 	+ Set version to 3.2
