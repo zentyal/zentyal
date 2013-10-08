@@ -2578,6 +2578,19 @@ sub _migrateTo32
         $adminUser->setInternal();
     }
 
+    EBox::info("Enforcing application of share permissions");
+    my $shares = $self->model('SambaShares');
+    my $state = $self->get_state();
+    unless (defined $state->{shares_set_rights}) {
+        $state->{shares_set_rights} = {};
+    }
+    for my $id (@{$shares->ids()}) {
+        my $row = $self->row($id);
+        my $shareName = $row->valueByName('share');
+        $state->{shares_set_rights}->{$shareName} = 1;
+    }
+    $self->set_state($state);
+
     $self->_overrideDaemons();
 }
 

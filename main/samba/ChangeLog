@@ -1,3 +1,5 @@
+HEAD
+	+ Enforce set of shares ACLs when upgrading from 3.0
 3.2.3
 	+ Remove old keytab when exporting new one
 	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
