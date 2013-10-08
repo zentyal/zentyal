@@ -35,7 +35,6 @@ use Error qw(:try);
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;
-use Net::LDAP::Control::Sort;
 
 use Perl6::Junction qw(any);
 
@@ -519,25 +518,19 @@ sub children
     return [] unless $self->isContainer();
 
     # All children except for organizationalRole objects which are only used
-    # internally. Paged by 500 results and sort by dn (as it is currently the
-    # only common attribute, but maybe we can change this)
+    # internally. Paged by 500 results
     my $page = Net::LDAP::Control::Paged->new( size => 500 );
-    my $sort = Net::LDAP::Control::Sort->new(
-	order => "dn"
-       );
     my $attrs = {
         base   => $self->dn(),
         filter => '(!(objectclass=organizationalRole))',
         scope  => 'one',
-	control  => [ $page, $sort ],
+	control  => [ $page ],
     };
 
     my $ldapMod = $self->_ldapMod();
 
-    my $sortEnabled;
     my $cookie;
     my @objects = ();
-    EBox::debug("BEGIN");
     while (1) {
 	my $result = $self->_ldap->search($attrs);
 	if ($result->code() ne LDAP_SUCCESS) {
@@ -553,11 +546,6 @@ sub children
 	if (not $resp) {
 	    last;
 	}
-	if (not $sortEnabled) {
-	    my ($sortRes) = $result->control( Net::LDAP::Constant::LDAP_CONTROL_SORTRESULT );
-	    $sortEnabled  = $sortRes and ($sortRes->result() eq LDAP_SUCCESS);
-	}
-
 	$cookie    = $resp->cookie;
 	if (not $cookie) {
 	    # finished
@@ -574,16 +562,14 @@ sub children
 	$self->_ldap->search($attrs)
     }
 
-    if (not $sortEnabled) {
-	# No server-side sort availabe, we will sort manually
-	# FIXME: Fix the API so all ldapobjects have a valid name method to use here.
-	@objects = sort {
-	    my $aValue = $a->dn();
-	    my $bValue = $b->dn();
-	    (lc $aValue cmp lc $bValue) or
-		($aValue cmp $bValue)
-	    } @objects;
-    }
+    # sort by dn (as it is currently the only common attribute, but maybe we can change this)
+    # FIXME: Fix the API so all ldapobjects have a valid name method to use here.
+    @objects = sort {
+        my $aValue = $a->dn();
+        my $bValue = $b->dn();
+        (lc $aValue cmp lc $bValue) or
+        ($aValue cmp $bValue)
+    } @objects;
 
     return \@objects;
 }
