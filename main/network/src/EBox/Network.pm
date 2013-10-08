@@ -2448,6 +2448,7 @@ sub setNameservers # (one, two)
         if ($existentRow) {
             # remove it to insert it back in the wanted order
             $resolverModel->removeRow($existentRow->id(), 1);
+            $nNSS -= 1;
         }
         if ($idx < $nNSS) {
             # There is a nameserver in the position

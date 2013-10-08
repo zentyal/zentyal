@@ -1,3 +1,6 @@
+HEAD
+	+ Fix setNameservers method in Network to avoid error in import
+	  interfaces
 3.0.8
 	+ Use upstart for ddclient daemon management
 3.0.7
