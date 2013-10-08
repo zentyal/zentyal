@@ -28,6 +28,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 
+use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
 use EBox::Types::Action;
@@ -77,13 +78,18 @@ sub _table
 
     my @fields =
     (
+        new EBox::Types::Text(
+            'fieldName'     => 'name',
+            'printableName' => __('Name'),
+            'size'          => '20',
+            'editable'      => 0,
+        ),
         new EBox::Types::Select(
             'fieldName' => 'architecture',
             'printableName' => __('Architecture'),
             'populate' => \&populate_architecture,
             'editable' => 0,
         ),
-
         new EBox::Types::Boolean(
             'fieldName' => 'fat',
             'printableName' => __('Fat Image'),
@@ -147,8 +153,7 @@ sub _doUpdate
         );
     }
 
-    my $arch = $self->row($id)->valueByName('architecture');
-    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
+    my $name = $self->row($id)->valueByName('name');
 
     my $pid = fork();
     unless (defined $pid) {
@@ -160,10 +165,10 @@ sub _doUpdate
         $ltsp->st_set_string('work', 'update');
 
         EBox::WebAdmin::cleanupForExec();
-        exec("sudo /usr/share/zentyal-ltsp/update-image $arch $fat");
+        exec("sudo /usr/share/zentyal-ltsp/update-image $name");
     }
     $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
+    #$self->{customActions} = {};
 }
 
 sub _doRemove
@@ -171,7 +176,8 @@ sub _doRemove
     my ($self, $action, $id, %params) = @_;
 
     my $ltsp = $self->parentModule();
-    my $work = $ltsp->st_get_string('work');
+    my $state = $ltsp->get_state();
+    my $work = $state->{work};
 
     if ((defined $work) and ($work ne 'none')) {
         throw EBox::Exceptions::External(
@@ -180,23 +186,17 @@ sub _doRemove
         );
     }
 
-    my $arch = $self->row($id)->valueByName('architecture');
-    my $fat  = ($self->row($id)->valueByName('fat') ? 1 : 0);
-
-    my $name;
-    if ($fat) {
-        $name = "fat-$arch";
-    } else {
-        $name = $arch;
-    }
+    my $name = $self->row($id)->valueByName('name');
 
     # TODO: Use constants
-    EBox::Sudo::root("rm -r /opt/ltsp/$name >> /var/log/zentyal/ltsp.log");
-    EBox::Sudo::root("rm /opt/ltsp/images/$name.img >> /var/log/zentyal/ltsp.log");
-    EBox::Sudo::root("rm -r /var/lib/tftpboot/ltsp/$name >> /var/log/zentyal/ltsp.log");
+    EBox::Sudo::root("rm -rf /opt/ltsp/$name >> /var/log/zentyal/ltsp.log");
+    EBox::Sudo::root("rm -f /opt/ltsp/images/$name.img >> /var/log/zentyal/ltsp.log");
+    EBox::Sudo::root("rm -rf /var/lib/tftpboot/ltsp/$name >> /var/log/zentyal/ltsp.log");
+    delete $state->{images}->{$name};
+    $ltsp->set_state($state);
 
     $self->setMessage($action->message(), 'note');
-    $self->{customActions} = {};
+    #$self->{customActions} = {};
 }
 
 # Method: syncRows
@@ -209,40 +209,31 @@ sub syncRows
 
     my $rval = 0;
     my %rows;
-    my $architecture;
+    my $name;
 
     foreach my $id (@{$currentRows}) {
-        $architecture = $self->row($id)->valueByName('architecture');
-        if ($self->row($id)->valueByName('fat')) {
-            if (not -f "/opt/ltsp/images/fat-$architecture.img") {
-                # Image removal
-                $self->removeRow($id);
-                $rval = 1;
-            } else {
-                $rows{"fat-$architecture"} = 1;
-            }
+        $name = $self->row($id)->valueByName('name');
+        if (not -f "/opt/ltsp/images/$name.img") {
+            # Image removal
+            $self->removeRow($id);
+            $rval = 1;
         } else {
-            if (not -f "/opt/ltsp/images/$architecture.img") {
-                # Image removal
-                $self->removeRow($id);
-                $rval = 1;
-            } else {
-                $rows{$architecture} = 1;
-            }
-            $rows{$architecture} = 1;
+            $rows{"$name"} = 1;
         }
     }
 
+    my $ltsp = EBox::Global->modInstance('ltsp');
+    my $images = $ltsp->get_state()->{images};
+
     # New images
-    for my $arch (('i386', 'amd64')) {
-        if ((-f "/opt/ltsp/images/$arch.img") and
-            (not defined $rows{$arch}) ) {
-            $self->add(architecture => $arch, fat => 0);
-            $rval = 1;
-        }
-        if ((-f "/opt/ltsp/images/fat-$arch.img") and
-            (not defined $rows{"fat-$arch"}) ) {
-            $self->add(architecture => $arch, fat => 1);
+    for my $name (keys %{$images}) {
+        EBox::info($name);
+        #if ((-f "/opt/ltsp/images/$name.img") and
+        if (($images->{$name}->{state} eq 'done') and
+            (not defined $rows{$name}) ) {
+            $self->add(name => $name,
+                       architecture => $images->{$name}->{arch},
+                       fat => $images->{$name}->{fat});
             $rval = 1;
         }
     }
