@@ -2591,6 +2591,8 @@ sub _migrateTo32
     }
     $self->set_state($state);
 
+    EBox::Global->modChange('dns');
+
     $self->_overrideDaemons();
 }
 
