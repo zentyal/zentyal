@@ -2591,7 +2591,8 @@ sub _migrateTo32
     }
     $self->set_state($state);
 
-    EBox::Global->modChange('dns');
+    # To ensure proper writing of /etc/resolv.conf
+    EBox::Global->modChange('network');
 
     $self->_overrideDaemons();
 }
