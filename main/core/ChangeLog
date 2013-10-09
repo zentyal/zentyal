@@ -1,4 +1,5 @@
 HEAD
+	+ Fix warning comparing undefined string in DomainName type
 	+ Only allow to move dashboard widget by its handle
 	+ Service type setter works again
 3.2
