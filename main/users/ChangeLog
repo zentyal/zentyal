@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed connectWithKerberos method
 	+ Update names in tree view when either user or contact is edited
 	+ Fixed wizard error when setting external AD mode
 	+ Fixed EBox::Users::groupDn method
