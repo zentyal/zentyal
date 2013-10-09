@@ -1,4 +1,5 @@
 HEAD
+	+ Use paginated search when getting children nodes in LdapObject
 	+ UTF8 decode DN when retrieving it from a LDAP object
 	+ Fixed cloud-sync script
 3.2
