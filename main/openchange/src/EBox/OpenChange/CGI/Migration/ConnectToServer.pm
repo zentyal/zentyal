@@ -46,25 +46,38 @@ sub _process
         $self->_requireParam('server', __('Server'));
         my $server = $self->unsafeParam('server');
 
-        $self->_requireParam('username', __('user name'));
-        my $username = $self->unsafeParam('username');
+        $self->_requireParam('username-origin', __('Origin user name'));
+        my $usernameOrigin = $self->unsafeParam('username-origin');
 
-        $self->_requireParam('password', __('password'));
-        my $password = $self->unsafeParam('password');
+        $self->_requireParam('password-origin', __('Origin password'));
+        my $passwordOrigin = $self->unsafeParam('password-origin');
+
+        $self->_requireParam('username-local', __('Local user name'));
+        my $usernameLocal = $self->unsafeParam('username-local');
+
+        $self->_requireParam('password-local', __('Local password'));
+        my $passwordLocal = $self->unsafeParam('password-local');
 
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $request = {
             command => 1,
-            address  => $server,
-            username => $username,
-            password => $password,
+            remote => {
+                address  => $server,
+                username => $usernameOrigin,
+                password => $passwordOrigin
+            },
+            local => {
+                address => '127.0.0.1',
+                username => $usernameLocal,
+                password => $passwordLocal
+            }
         };
         my $response = $rpc->send_command($request);
         if ($response->{code} == 0) {
             $self->{json}->{success} = 1;
         } else {
             $self->{json}->{success} = 0;
-            $self->{json}->{mapierror} = $response->{mapierror};
+            $self->{json}->{error} = $response->{error};
         }
     } otherwise {
         my ($error) = @_;
