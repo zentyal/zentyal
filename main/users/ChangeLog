@@ -1,4 +1,6 @@
 HEAD
+	+ In contact edition do not store full name in cn but use
+	  givenname and sn to get fullname.
 	+ Use paginated search when getting children nodes in LdapObject
 	+ UTF8 decode DN when retrieving it from a LDAP object
 	+ Fixed cloud-sync script
