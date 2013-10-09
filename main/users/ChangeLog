@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wizard error when setting external AD mode
 	+ UTF8 decode DN when retrieving it from a LDAP object
 	+ Fixed cloud-sync script
 3.2
