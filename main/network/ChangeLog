@@ -1,4 +1,6 @@
 3.3
+	+ Fix setNameservers method in Network to avoid error in import
+	  interfaces
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2

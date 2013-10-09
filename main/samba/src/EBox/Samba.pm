@@ -108,6 +108,7 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
+use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 sub _create
 {
@@ -358,6 +359,9 @@ sub _postServiceHook
         if ($self->defaultAntivirusSettings()) {
             $self->_setupQuarantineDirectory();
         }
+
+        # Write DNS update list
+        $self->_writeDnsUpdateList();
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -847,6 +851,18 @@ sub sambaInterfaces
     my @moduleGeneratedIfaces = ();
     push @ifaces, @moduleGeneratedIfaces;
     return \@ifaces;
+}
+
+sub _writeDnsUpdateList
+{
+    my ($self) = @_;
+
+    my $array = [];
+    my $partitions = ['DomainDnsZones', 'ForestDnsZones'];
+    push (@{$array}, partitions => $partitions);
+    $self->writeConfFile(SAMBA_DNS_UPDATE_LIST,
+                         'samba/dns_update_list.mas', $array,
+                         { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
 sub writeSambaConfig

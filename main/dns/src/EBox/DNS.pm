@@ -632,10 +632,10 @@ sub enableService
     $self->SUPER::enableService($status);
 
     # Mark network module as changed to set localhost as the primary resolver
-    if ($self->changed()) {
-        my $net = EBox::Global->modInstance('network');
-        $net->setAsChanged();
-    }
+    my $net = EBox::Global->modInstance('network');
+    my $dnsResolv = $net->model('DNSResolver');
+    $dnsResolv->ids();
+    $net->setAsChanged();
 }
 
 # Method: _setConf

@@ -1,4 +1,9 @@
 3.3
+	+ Avoid Apache error screen in login when entering through Zentyal
+	  Remote using password
+	+ Fix warning comparing undefined string in DomainName type
+	+ Rewrite row isEqualTo method using hashElements instead of elements
+	+ Only allow to move dashboard widget by its handle
 	+ Do not fail if zentyal-mysql.passwd ends with a newline character
 	+ Removed old migration code from 3.0 to 3.2
 	+ Added Number.prototype.toTimeDiffString in format.js

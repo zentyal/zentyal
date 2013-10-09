@@ -1,4 +1,5 @@
 3.3
+	+ Fixed regression which broke external account modification
 	+ Set version to 3.3
 	+ Add openchange compatibility
 	+ Fix dovecot conf for authentication

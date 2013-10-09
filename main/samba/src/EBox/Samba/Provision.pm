@@ -280,6 +280,7 @@ sub setupDNS
 {
     my ($self) = @_;
 
+    EBox::info("Setting up DNS");
     my $samba = EBox::Global->modInstance('samba');
 
     if (EBox::Sudo::fileTest('-f', $samba->SAMBA_DNS_KEYTAB())) {
@@ -1055,6 +1056,7 @@ sub _addForestDnsZonesReplica
 {
     my ($self) = @_;
 
+    EBox::info("Adding Forest Dns replica");
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
@@ -1085,6 +1087,7 @@ sub _addDomainDnsZonesReplica
 {
     my ($self) = @_;
 
+    EBox::info("Adding Domain Dns replica");
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
@@ -1293,12 +1296,14 @@ sub provisionADC
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
-        $self->_addForestDnsZonesReplica();
-        $self->_addDomainDnsZonesReplica();
+
         $self->setupDNS();
 
         # Start managed service to let it create the LDAP socket
         $sambaModule->_startService();
+
+        $self->_addForestDnsZonesReplica();
+        $self->_addDomainDnsZonesReplica();
 
         # Wait for RID pool allocation
         EBox::info("Waiting RID pool allocation");

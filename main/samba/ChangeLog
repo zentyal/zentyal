@@ -1,4 +1,10 @@
 3.3
+	+ Delete unused updateHostnameFields() method
+	+ Mark network module as changed when upgrading from 3.0
+	+ Enforce set of shares ACLs when upgrading from 3.0
+	+ Remove old keytab when exporting new one
+	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
+	  join domain as additional domain controller
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
 	+ Ignore container 'Microsoft Exchange System Objects' when quering

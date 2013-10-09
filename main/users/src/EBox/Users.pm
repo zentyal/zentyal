@@ -897,7 +897,7 @@ sub groupDn
     my ($self, $group) = @_;
     $group or throw EBox::Exceptions::MissingArgument('group');
 
-    my $dn = "cn=$group," . EBox::Users::Group::defaultContainer()->dn();
+    my $dn = "cn=$group," . EBox::Users::Group->defaultContainer()->dn();
     return $dn;
 }
 

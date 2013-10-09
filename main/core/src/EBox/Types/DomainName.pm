@@ -73,7 +73,10 @@ sub cmp
         return undef;
     }
 
-    return uc($self->value()) cmp uc($compareType->value());
+    my $myValue = (defined $self->value()) ? $self->value() : '';
+    my $otherValue = (defined $compareType->value()) ?
+        $compareType->value() : '';
+    return uc ($myValue) cmp uc ($otherValue);
 }
 
 # Group: Protected methods

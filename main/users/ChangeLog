@@ -1,4 +1,11 @@
 3.3
+	+ Update names in tree view when either user or contact is edited
+	+ Fixed wizard error when setting external AD mode
+	+ Fixed EBox::Users::groupDn method
+	+ In contact edition do not store full name in cn but use
+	  givenname and sn to get fullname.
+	+ Use paginated search when getting children nodes in LdapObject
+	+ UTF8 decode DN when retrieving it from a LDAP object
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
 	+ Fixed cloud-sync script
