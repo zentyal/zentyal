@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed EBox::Users::groupDn method
 	+ In contact edition do not store full name in cn but use
 	  givenname and sn to get fullname.
 	+ Use paginated search when getting children nodes in LdapObject
