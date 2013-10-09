@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed wizard error when setting external AD mode
 	+ Fixed EBox::Users::groupDn method
 	+ In contact edition do not store full name in cn but use
 	  givenname and sn to get fullname.

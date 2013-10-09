@@ -68,7 +68,8 @@ sub _processExternalAD
     $self->_requireParam('dcPassword', __('User password'));
     $self->_requireParam('dcPassword2', __('Confirm user password'));
     my $dcPassword = $self->param('dcPassword');
-    if ($dcPassword ne $self->param('dcPassword2')) {
+    my $dcPassword2 = $self->param('dcPassword2');
+    if ($dcPassword ne $dcPassword2) {
         throw EBox::Exceptions::External(__('User password and confirm user password does not match'));
     }
 
@@ -80,6 +81,7 @@ sub _processExternalAD
         dcHostname => $self->param('dcHostname'),
         dcUser => $self->param('dcUser'),
         dcPassword => $dcPassword,
+        dcPassword2 => $dcPassword2
        );
 }
 
