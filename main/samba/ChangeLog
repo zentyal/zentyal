@@ -1,3 +1,5 @@
+HEAD
+	+ Delete non used updateHostnameFields function
 3.2.3
 	+ Remove old keytab when exporting new one
 	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after

@@ -87,7 +87,7 @@ sub new
     $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
 
-    bless ( $self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -401,8 +401,8 @@ sub elementByName
         }
     }
 
-    throw EBox::Exceptions::DataNotFound( data => 'element',
-                                          value => $element);
+    throw EBox::Exceptions::DataNotFound(data => 'element',
+                                         value => $element);
 }
 
 # Method: elementByIndex
@@ -478,7 +478,7 @@ sub hashElements
 #
 sub valueByName
 {
-    my ($self,$name) = @_;
+    my ($self, $name) = @_;
 
     unless ($name) {
         throw EBox::Exceptions::MissingArgument('name');
@@ -739,21 +739,26 @@ sub cloneSubModelsFrom
 sub isEqualTo
 {
     my ($self, $other) = @_;
+
     if ($self->model()->contextName() ne $other->model()->contextName()) {
         # rows for different models are differents,  we assume
-        #  rows from different instances of the same model could be equal
+        # rows from different instances of the same model could be equal
         return 0;
     }
-    my @values = @{  $self->elements() };
-    my @otherValues = @{ $other->elements() };
-    if (@values != @otherValues) {
+
+    if ($self->size() != $other->size()) {
         return 0;
     }
-    for (my $i=0; $i < @values; $i++) {
-        if (not $values[$i]->isEqualTo($otherValues[$i])) {
-            return 0;
-        }
+
+    my $myElements = $self->hashElements();
+    my $otherElements = $other->hashElements();
+    foreach my $myKey (keys %{$myElements}) {
+        return 0 unless exists $otherElements->{$myKey};
+        my $myElement = $myElements->{$myKey};
+        my $otherElement = $otherElements->{$myKey};
+        return 0 unless ($myElement->isEqualTo($otherElement));
     }
+
     return 1;
 }
 

@@ -328,18 +328,4 @@ sub viewCustomizer
     return $customizer;
 }
 
-sub updateHostnameFields
-{
-    my ($self) = @_;
-    my $global = $self->global();
-    my $newRealm = $global->modInstance('users')->kerberosRealm();
-
-    my $row = $self->row();
-    $row->elementByName('realm')->setValue($newRealm);
-    $row->elementByName('netbiosName')->setValue(EBox::Samba::defaultNetbios());
-    $row->store();
-
-    EBox::info("Changed kerberos realm in samba to $newRealm");
-}
-
 1;
