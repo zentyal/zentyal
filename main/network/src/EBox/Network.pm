@@ -271,11 +271,6 @@ sub _exposedMethods
        'addNS'    => { action => 'add',
                        path   => [ 'DNSResolver' ],
                      },
-       'setNS'    => { action   => 'set',
-                       path     => [ 'DNSResolver' ],
-                       indexes  => [ 'position' ],
-                       selector => [ 'nameserver' ],
-                     },
        'removeNS' => { action  => 'del',
                        path    => [ 'DNSResolver' ],
                        indexes => [ 'position' ],
@@ -2352,10 +2347,11 @@ sub setNameservers # (one, two)
         if ($existentRow) {
             # remove it to insert it back in the wanted order
             $resolverModel->removeRow($existentRow->id(), 1);
+            $nNSS -= 1;
         }
         if ( $idx <= $nNSS - 1) {
             # There is a nameserver in the position
-            $self->setNS($idx, $newNS);
+            $resolverModel->replace($idx, $newNS);
         } else {
             # Add a new one to the end of the list
             $resolverModel->add(nameserver => $newNS);
