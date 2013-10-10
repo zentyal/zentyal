@@ -143,7 +143,7 @@ sub connectWithKerberos
 
     my $dc = $self->dcHostname();
 
-    my $ccache = EBox::Config::tmp() . $keytab . '.ccache';
+    my $ccache = EBox::Config::tmp() . 'HTTP.keytab.ccache';
     $ENV{KRB5CCNAME} = $ccache;
 
     # Get credentials for computer account
