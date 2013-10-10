@@ -3,7 +3,6 @@
     $workgroup
     $netbiosName
     $description
-    $ifaces
     $mode
     $realm
     $domain
@@ -51,9 +50,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
 % }
     server signing = auto
-
-    interfaces = <% $ifaces %>
-    bind interfaces only = yes
 
     case sensitive = no
 
