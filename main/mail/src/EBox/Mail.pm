@@ -1193,13 +1193,12 @@ sub _dovecotService
     return 1;
 }
 
-sub _regenConfig
+sub _preSetConf
 {
     my ($self) = @_;
 
     return unless $self->configured();
 
-    $self->_preSetConfHook();
     if ($self->service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
@@ -1207,8 +1206,6 @@ sub _regenConfig
     }
 
     $self->greylist()->writeUpstartFile();
-    $self->_enforceServiceState();
-    $self->_postSetConfHook();
 }
 
 # Method: service

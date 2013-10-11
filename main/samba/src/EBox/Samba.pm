@@ -50,7 +50,6 @@ use EBox::Samba::SmbClient;
 use EBox::Samba::User;
 use EBox::SambaLdapUser;
 use EBox::SambaLogHelper;
-use EBox::SambaFirewall;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::SyncFolders::Folder;
@@ -254,6 +253,7 @@ sub _postServiceHook
         my $domainSID = $self->ldb()->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
+        my $domainUsersSID = "$domainSID-513";
         my $domainGuestsSID = "$domainSID-514";
         my $domainUsersSID = "$domainSID-513";
         my $systemSID = "S-1-5-18";
@@ -314,7 +314,7 @@ sub _postServiceHook
                     my $userType = $subRow->elementByName('user_group');
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
-                    
+
                     # Fix for Samba share ACLs for 'All users' are not written to filesystem
                     # map '__USERS__' to 'Domain Users' SID
                     my $accountShort = $userType->value();
@@ -823,53 +823,6 @@ sub recycleConfig
     return $conf;
 }
 
-# Method: sambaInterfaces
-#
-#   Return interfaces upon samba should listen
-#
-sub sambaInterfaces
-{
-    my ($self) = @_;
-
-    my @ifaces = ();
-    # Always listen on loopback interface
-    push (@ifaces, 'lo');
-
-    my $net = EBox::Global->modInstance('network');
-
-    my $listen_external = EBox::Config::configkey('listen_external');
-
-    my $netIfaces;
-    if ($listen_external eq 'yes') {
-        $netIfaces = $net->allIfaces();
-    } else {
-        $netIfaces = $net->InternalIfaces();
-    }
-
-    my %seenBridges;
-    foreach my $iface (@{$netIfaces}) {
-        push @ifaces, $iface;
-
-        if ($net->ifaceMethod($iface) eq 'bridged') {
-            my $br = $net->ifaceBridge($iface);
-            if (not $seenBridges{$br}) {
-                push (@ifaces, "br$br");
-                $seenBridges{$br} = 1;
-            }
-            next;
-        }
-
-        my $vifacesNames = $net->vifaceNames($iface);
-        if (defined $vifacesNames) {
-            push @ifaces, @{$vifacesNames};
-        }
-    }
-
-    my @moduleGeneratedIfaces = ();
-    push @ifaces, @moduleGeneratedIfaces;
-    return \@ifaces;
-}
-
 sub _writeDnsUpdateList
 {
     my ($self) = @_;
@@ -886,8 +839,6 @@ sub writeSambaConfig
 {
     my ($self) = @_;
 
-    my $interfaces = join (',', @{$self->sambaInterfaces()});
-
     my $netbiosName = $self->netbiosName();
     my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
 
@@ -903,7 +854,6 @@ sub writeSambaConfig
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
-    push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
@@ -1175,16 +1125,6 @@ sub usesPort
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
-    return undef;
-}
-
-sub firewallHelper
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled()) {
-        return new EBox::SambaFirewall();
-    }
     return undef;
 }
 

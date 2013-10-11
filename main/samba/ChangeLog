@@ -1,8 +1,12 @@
 3.3
-	+ Added new 'Apply ACLs recursively' feature - one checkbox per samba share. 
+	+ Added new 'Apply ACLs recursively' feature - one checkbox per samba share.
 	  If unchecked, changed ACLs will only be written to top-level share.
-	  Subfolders' ACLs will be left unchanged. Default is checked. 
-	  Contributed by on-jz
+	  Subfolders' ACLs will be left unchanged. Default is checked.
+	  (Contributed by on-jz)
+	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
+	+ Listen on all interfaces to avoid problems when more than one IP address
+	  is configured in the DNS module
+	+ Removed unnecessary FirewallHelper implementation
 	+ Delete unused updateHostnameFields() method
 	+ Mark network module as changed when upgrading from 3.0
 	+ Enforce set of shares ACLs when upgrading from 3.0
