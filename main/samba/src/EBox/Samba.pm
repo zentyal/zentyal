@@ -312,6 +312,13 @@ sub _postServiceHook
                     my $userType = $subRow->elementByName('user_group');
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
+                    
+                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
+                    # map 'All users' to 'Domain Users' for $object query      
+                    if ($account eq 'All users') {
+                        $account = 'Domain Users';
+                        $qobject = shell_quote($account);
+                    }
 
                     my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
                     unless ($object->exists()) {
