@@ -1,4 +1,5 @@
 HEAD
+	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification
 3.2
 	+ Set version to 3.2
