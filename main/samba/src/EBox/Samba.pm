@@ -267,6 +267,7 @@ sub _postServiceHook
             my $enabled     = $row->valueByName('enabled');
             my $shareName   = $row->valueByName('share');
             my $guestAccess = $row->valueByName('guest');
+            my $recursiveAcls = $row->valueByName('recursive_acls');
 
             unless ($enabled) {
                 next;
@@ -349,6 +350,7 @@ sub _postServiceHook
             }
             my $relativeSharePath = '/';
             my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
+            EBox::info("Applying ACLs for top-level share $shareName");
             $smb->set_sd($relativeSharePath, $sd, $sinfo);
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
@@ -356,11 +358,15 @@ sub _postServiceHook
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
             $sd->type($sdControl);
-            foreach my $item (@{$shareContentList}) {
-                my $itemName = $item->{name};
-                $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug($itemName);
-                $smb->set_sd($itemName, $sd, $sinfo);
+            ## only replace ACLs for subdirs if recursiveAcls = 1
+            if ($recursiveAcls) {
+                foreach my $item (@{$shareContentList}) {
+                    my $itemName = $item->{name};
+                    $itemName =~ s/^\/\/(.*)/\/$1/s;
+                    EBox::info("Replacing ACLs for $shareName$itemName");
+                    ## EBox::debug($itemName);
+                    $smb->set_sd($itemName, $sd, $sinfo);
+                }
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
