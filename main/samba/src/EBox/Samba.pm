@@ -259,6 +259,7 @@ sub _postServiceHook
         my $domainSID = $self->ldb()->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
+        my $domainUsersSID = "$domainSID-513";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
@@ -318,12 +319,21 @@ sub _postServiceHook
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
 
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    unless ($object->exists()) {
-                        next;
-                    }
+                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
+                    # map '__USERS__' to 'Domain Users' SID
+                    my $accountShort = $userType->value();
+                    my $sid = undef;
 
-                    my $sid = $object->sid();
+                    if ($accountShort eq '__USERS__') {
+                        $sid = $domainUsersSID;
+                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
+                    } else {
+                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                        unless ($object->exists()) {
+                            next;
+                        }
+                        $sid = $object->sid();
+                    }
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
