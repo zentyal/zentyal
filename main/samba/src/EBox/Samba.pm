@@ -255,6 +255,7 @@ sub _postServiceHook
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainGuestsSID = "$domainSID-514";
+        my $domainUsersSID = "$domainSID-513";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
         my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
@@ -266,6 +267,7 @@ sub _postServiceHook
             my $enabled     = $row->valueByName('enabled');
             my $shareName   = $row->valueByName('share');
             my $guestAccess = $row->valueByName('guest');
+            my $recursiveAcls = $row->valueByName('recursive_acls');
 
             unless ($enabled) {
                 next;
@@ -312,13 +314,23 @@ sub _postServiceHook
                     my $userType = $subRow->elementByName('user_group');
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
+                    
+                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
+                    # map '__USERS__' to 'Domain Users' SID
+                    my $accountShort = $userType->value();
+                    my $sid = undef;
 
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    unless ($object->exists()) {
-                        next;
+                    if ($accountShort eq '__USERS__') {
+                        $sid = $domainUsersSID;
+                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
+                    } else {
+                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                        unless ($object->exists()) {
+                            next;
+                        }
+
+                        $sid = $object->sid();
                     }
-
-                    my $sid = $object->sid();
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
@@ -338,6 +350,7 @@ sub _postServiceHook
             }
             my $relativeSharePath = '/';
             my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
+            EBox::info("Applying ACLs for top-level share $shareName");
             $smb->set_sd($relativeSharePath, $sd, $sinfo);
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
@@ -345,11 +358,15 @@ sub _postServiceHook
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
             $sd->type($sdControl);
-            foreach my $item (@{$shareContentList}) {
-                my $itemName = $item->{name};
-                $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug($itemName);
-                $smb->set_sd($itemName, $sd, $sinfo);
+            ## only replace ACLs for subdirs if recursiveAcls = 1
+            if ($recursiveAcls) {
+                foreach my $item (@{$shareContentList}) {
+                    my $itemName = $item->{name};
+                    $itemName =~ s/^\/\/(.*)/\/$1/s;
+                    EBox::info("Replacing ACLs for $shareName$itemName");
+                    ## EBox::debug($itemName);
+                    $smb->set_sd($itemName, $sd, $sinfo);
+                }
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
