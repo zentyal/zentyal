@@ -314,10 +314,13 @@ sub _postServiceHook
                     my $qobject = shell_quote($account);
                     
                     # Fix for Samba share ACLs for 'All users' are not written to filesystem
-                    # map 'All users' to 'Domain Users' for $object query      
-                    if ($account eq 'All users') {
+                    # map '__USERS__' to 'Domain Users' for $object query
+                    my $accountShort = $userType->value();
+
+                    if ($accountShort eq '__USERS__') {
                         $account = 'Domain Users';
                         $qobject = shell_quote($account);
+                        EBox::debug("Mapping group $accountShort to 'Domain Users'");
                     }
 
                     my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
