@@ -1,4 +1,4 @@
-HEAD
+3.2.1
 	+ Include contents of /etc/resolv.conf in bug report
 	+ Avoid Apache error screen in login when entering through Zentyal
 	  Remote using password
