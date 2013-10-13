@@ -107,6 +107,12 @@ sub dumpLog
     $res .= join('', @{ $output });
     $res .= "\n\n";
 
+    $res .= "/etc/resolv.conf\n";
+    $res .= "----------------\n\n";
+    my $resolv = read_file('/etc/resolv.conf');
+    $res .= $resolv;
+    $res .= "\n\n";
+
     $res .= "/var/log/zentyal/zentyal.log\n";
     $res .= "----------------------------\n\n";
     $res .= _joinLastLines(1000, @log);
