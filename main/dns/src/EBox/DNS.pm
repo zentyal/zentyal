@@ -601,7 +601,8 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.bind9'
+            'name' => 'bind9',
+            'type' => 'init.d'
         }
     ];
 }
