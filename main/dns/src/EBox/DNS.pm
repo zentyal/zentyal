@@ -576,6 +576,12 @@ sub initialSetup
         $self->_overrideDaemons() if $self->configured();
     }
 
+    # Upgrade from 3.2.1 to 3.2.2
+    if (defined $version and EBox::Util::Version::compare($version, '3.2.2') < 0) {
+        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.conf');
+        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.override');
+    }
+
     # Execute initial-setup script to create SQL tables
     $self->SUPER::initialSetup($version);
 }
