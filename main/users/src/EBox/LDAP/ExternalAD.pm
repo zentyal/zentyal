@@ -34,6 +34,7 @@ use Net::Ping;
 use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
+use File::Basename;
 
 # Singleton variable
 my $_instance = undef;
@@ -143,7 +144,7 @@ sub connectWithKerberos
 
     my $dc = $self->dcHostname();
 
-    my $ccache = EBox::Config::tmp() . $keytab . '.ccache';
+    my $ccache = EBox::Config::tmp() . basename($keytab) . '.ccache';
     $ENV{KRB5CCNAME} = $ccache;
 
     # Get credentials for computer account

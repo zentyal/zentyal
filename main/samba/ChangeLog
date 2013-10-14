@@ -1,4 +1,8 @@
-HEAD
+3.2.4
+	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
+	+ Listen on all interfaces to avoid problems when more than one IP address
+	  is configured in the DNS module
+	+ Removed unnecessary FirewallHelper implementation
 	+ Delete unused updateHostnameFields() method
 	+ Mark network module as changed when upgrading from 3.0
 	+ Enforce set of shares ACLs when upgrading from 3.0

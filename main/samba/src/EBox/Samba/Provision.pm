@@ -229,7 +229,7 @@ sub _domainsIP
     my @ipIds = @{$domainIPsModel->ids()};
 
     my $network = EBox::Global->modInstance('network');
-    my $ifaces = $samba->sambaInterfaces();
+    my $ifaces = $network->allIfaces();
 
     my %domainsIp;
     foreach my $iface (@{$ifaces}) {
