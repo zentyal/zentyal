@@ -75,7 +75,8 @@ sub _table
             fieldName       => 'interface',
             printableName   => __('Interface'),
             editable        => 0,
-            optional        => 1),
+            optional        => 1,
+            hidden          => 1),
     ];
 
     my $dataTable = {
