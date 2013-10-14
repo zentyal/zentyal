@@ -49,6 +49,7 @@ use Net::IP;
 use Perl6::Junction qw(any);
 use Tie::File;
 
+use constant BIND9DEFAULTFILE     => "/etc/default/bind9";
 use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
@@ -636,6 +637,18 @@ sub enableService
     my $dnsResolv = $net->model('DNSResolver');
     $dnsResolv->ids();
     $net->setAsChanged();
+}
+
+# Method: _preSetConf
+#
+#
+sub _preSetConf
+{
+    my ($self) = @_;
+
+    my $array = [];
+    $self->writeConfFile(BIND9DEFAULTFILE, 'dns/bind9.mas', $array,
+        {mode => '0644', uid => 0, gid => 0});
 }
 
 # Method: _setConf
