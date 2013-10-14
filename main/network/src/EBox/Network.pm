@@ -2700,6 +2700,11 @@ sub _generateResolvConfInterfaceOrder
         'network/resolvconf-interface-order.mas', $array,
         { mode => '0644', uid => 0, gid => 0 });
 
+    # TODO SearchDomain should be a table model. Multiple search domains
+    #      can be defined
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+
     # Second step, trigger the updates
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
@@ -2711,7 +2716,7 @@ sub _generateResolvConfInterfaceOrder
 
         next unless ($interface =~ m/^zentyal\..+$/);
         EBox::Sudo::root("resolvconf -d '$interface'");
-        EBox::Sudo::root("echo 'nameserver $resolver' | resolvconf -a '$interface'");
+        EBox::Sudo::root("echo 'nameserver $resolver\ndomain $searchDomain' | resolvconf -a '$interface'");
     }
 }
 
