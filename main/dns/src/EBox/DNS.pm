@@ -485,6 +485,11 @@ sub usedFiles
     my ($self) = @_;
     my $files = [
         {
+            'file'   => BIND9DEFAULTFILE,
+            'module' => 'dns',
+            'reason' => __('Zentyal will set the required environment variables for bind9 daemon'),
+        },
+        {
             'file'   => BIND9CONFFILE,
             'module' => 'dns',
             'reason' => __('main bind9 configuration file'),
