@@ -626,25 +626,6 @@ sub _daemonsToDisable
     ];
 }
 
-# Method: enableService
-#
-# Overrides:
-#
-#  <EBox::Module::Service::enableService>
-#
-sub enableService
-{
-    my ($self, $status) = @_;
-
-    $self->SUPER::enableService($status);
-
-    # Mark network module as changed to set localhost as the primary resolver
-    my $net = EBox::Global->modInstance('network');
-    my $dnsResolv = $net->model('DNSResolver');
-    $dnsResolv->ids();
-    $net->setAsChanged();
-}
-
 # Method: _preSetConf
 #
 #
