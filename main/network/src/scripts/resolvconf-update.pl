@@ -42,38 +42,43 @@ exit 0 unless (defined $interface and length $interface);
 exit 0 if ($interface =~ m/zentyal\..+/);
 
 my $networkModule = EBox::Global->modInstance('network');
-if ($networkModule->configured() and $networkModule->isEnabled()) {
-    my $model = $networkModule->model('DNSResolver');
+exit 0 unless ($networkModule->configured() and $networkModule->isEnabled());
 
-    if ($operation eq '-d') {
-        foreach my $id (@{$model->ids()}) {
-            my $row = $model->row($id);
-            my $modelInterface = $row->valueByName('interface');
-            if ($modelInterface eq $interface) {
-                $row->setDisabled(1);
+if (EBox::Global->modExists('dns')) {
+    my $dnsModule = EBox::Global->modInstance('dns');
+    exit 0 if ($dnsModule->configured() and $dnsModule->isEnabled());
+}
+
+my $model = $networkModule->model('DNSResolver');
+
+if ($operation eq '-d') {
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $modelInterface = $row->valueByName('interface');
+        if ($modelInterface eq $interface) {
+            $row->setDisabled(1);
+            $row->store();
+        }
+    }
+}
+
+if ($operation eq '-a') {
+    my $ifaceConfig = $model->getInterfaceResolvconfConfig($interface);
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $modelInterface = $row->valueByName('interface');
+        if ($modelInterface eq $interface) {
+            my $resolver = shift $ifaceConfig->{resolvers};
+            if (defined $resolver and length $resolver) {
+                my $e = $row->elementByName('nameserver');
+                $e->setValue($resolver);
+                $row->setDisabled(0);
                 $row->store();
             }
         }
     }
-
-    if ($operation eq '-a') {
-        my $ifaceConfig = $model->getInterfaceResolvconfConfig($interface);
-        foreach my $id (@{$model->ids()}) {
-            my $row = $model->row($id);
-            my $modelInterface = $row->valueByName('interface');
-            if ($modelInterface eq $interface) {
-                my $resolver = shift $ifaceConfig->{resolvers};
-                if (defined $resolver and length $resolver) {
-                    my $e = $row->elementByName('nameserver');
-                    $e->setValue($resolver);
-                    $row->setDisabled(0);
-                    $row->store();
-                }
-            }
-        }
-        foreach my $r (@{$ifaceConfig->{resolvers}}) {
-            $model->addRow(nameserver => $r, interface => $interface);
-        }
+    foreach my $r (@{$ifaceConfig->{resolvers}}) {
+        $model->addRow(nameserver => $r, interface => $interface);
     }
 }
 
