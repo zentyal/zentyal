@@ -869,6 +869,7 @@ sub stopService
         if ($params{restartModules}
             and $global->modExists('firewall')
             and $global->modInstance('firewall')->isEnabled()
+            and defined ($fwHelper)
             and $fwHelper->can('restartOnTemporaryStop')
             and $fwHelper->restartOnTemporaryStop()) {
             my $fw = $global->modInstance('firewall');
