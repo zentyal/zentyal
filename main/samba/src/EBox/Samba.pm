@@ -255,7 +255,6 @@ sub _postServiceHook
         my $builtinAdministratorsSID = 'S-1-5-32-544';
         my $domainUsersSID = "$domainSID-513";
         my $domainGuestsSID = "$domainSID-514";
-        my $domainUsersSID = "$domainSID-513";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
         my $readRights = SEC_FILE_EXECUTE | SEC_RIGHTS_FILE_READ;
