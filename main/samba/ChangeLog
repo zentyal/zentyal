@@ -1,4 +1,4 @@
-HEAD
+3.2.5
 	+ Fix netbios name no being updated when hostname change and samba module
 	  is not enabled
 	+ Disable debug to parse ldbsearch command output when looking for DNS
