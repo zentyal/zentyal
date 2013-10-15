@@ -84,7 +84,12 @@ sub processLine # (file, line, logger)
         return;
     }
 
-    # date is like 'Mon Nov 8 19:03:14 2004'. rmeove first day
+    if ($clientInfo =~ m/via (.*?)/) {
+        # avoid repeated line
+        return;
+    }
+
+    # date is like 'Mon Nov 8 19:03:14 2004'. remove first day
     my $format = '%a %b %e %H:%M:%S %Y';
     my $timestamp = $self->_convertTimestamp($date, $format);
 
@@ -107,22 +112,12 @@ sub processLine # (file, line, logger)
     } else {
         $client = $port = '';
     }
-    if ($clientInfo =~ m/via (.*?)/) {
+
+    if ($clientInfo =~ /cli (\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w)/) {
         $mac = $1;
-        if ($mac =~ /cli (\w+)/) {
-            $mac = $1;
-            my $s1 = substr($mac, 0, 2);
-            my $s2 = substr($mac, 2, 2);
-            my $s3 = substr($mac, 4, 2);
-            my $s4 = substr($mac, 6, 2);
-            my $s5 = substr($mac, 8, 2);
-            my $s6 = substr($mac, 10, 2);
-            $mac = sprintf("%s:%s:%s:%s:%s:%s", $s1, $s2, $s3, $s4, $s5, $s6);
-        } elsif ($mac =~ /TLS tunnel/) {
-            $mac = 'TLS tunnel';
-        } else {
-            $mac = '';
-        }
+        $mac =~ s/-/:/ig;
+    } elsif ($clientInfo =~ /TLS tunnel/) {
+        $mac = 'TLS tunnel';
     } else {
         $mac = '';
     }
