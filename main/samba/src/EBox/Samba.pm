@@ -2114,10 +2114,8 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    if ($self->configured()) {
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue('netbiosName', $newHostName);
-    }
+    my $settings = $self->model('GeneralSettings');
+    $settings->setValue('netbiosName', $newHostName);
 }
 
 # Method: hostDomainChanged
