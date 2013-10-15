@@ -1,4 +1,6 @@
 HEAD
+	+ Disable debug to parse ldbsearch command output when looking for DNS
+      zones stored in samba
 	+ Open files with minimal access mask to set the security descriptors
 3.2.4
 	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
