@@ -86,6 +86,10 @@ use Samba::Security::Descriptor qw(
     SECINFO_GROUP
     SECINFO_OWNER
     SECINFO_PROTECTED_DACL
+    SEC_STD_WRITE_OWNER
+    SEC_STD_READ_CONTROL
+    SEC_STD_WRITE_DAC
+    SEC_FILE_READ_ATTRIBUTE
 );
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
@@ -353,7 +357,9 @@ sub _postServiceHook
             }
             my $relativeSharePath = '/';
             my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
-            $smb->set_sd($relativeSharePath, $sd, $sinfo);
+            my $access_mask = SEC_STD_WRITE_OWNER | SEC_STD_READ_CONTROL | SEC_STD_WRITE_DAC | SEC_FILE_READ_ATTRIBUTE;
+            EBox::debug("Setting NT ACL on file: $relativeSharePath");
+            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
             # Apply recursively the permissions.
             my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
             # Reset the DACL_PROTECTED flag;
@@ -363,8 +369,8 @@ sub _postServiceHook
             foreach my $item (@{$shareContentList}) {
                 my $itemName = $item->{name};
                 $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug($itemName);
-                $smb->set_sd($itemName, $sd, $sinfo);
+                EBox::debug("Setting NT ACL on file: $itemName");
+                $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);

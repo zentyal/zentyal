@@ -1,3 +1,5 @@
+HEAD
+	+ Open files with minimal access mask to set the security descriptors
 3.2.4
 	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
 	+ Listen on all interfaces to avoid problems when more than one IP address
