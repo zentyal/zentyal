@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PORT=`grep ^Listen /var/lib/zentyal/conf/apache2.conf |cut -d' ' -f2`
+PORT=`grep listen /var/lib/zentyal/conf/nginx.conf | sed 's/[^0-9]//g'`
 
 if [[ $PORT == 443 ]]
 then
