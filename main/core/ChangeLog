@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed setter of EBox::Types::Service after migration to jQuery
 	+ Avoid warning when stopping a module without FirewallHelper
 3.2.1
 	+ Include contents of /etc/resolv.conf in bug report

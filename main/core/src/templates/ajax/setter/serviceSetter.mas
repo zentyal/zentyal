@@ -11,26 +11,25 @@ my $protocolsJS = $data->protocolsJS();
 <!-- Store a list with protocols which needs a port -->
 
 <span id="<% $id %>" class="<% $cssClass %>">
-	<& /input/select.mas,
-			'name'     => $id . '_protocol' ,
-			'value'    => $data->protocol(),
-			'options'  => $data->protocols(),
-			'id'       => "$id" . "_protocol",
-			'onchange' => qq/Zentyal.TableHelper.showPort('${id}_protocol', '${id}_portText', $protocolsJS)/,
-                        'disabled' => $disabled
-	&>
-	<span id="<% $id . '_portText' %>" style="display:none;">
-	  <%__('port')%>
-	  <input type="text" class="inputText"
-		 value="<% $data->port() %>"
-		 size="5" id ="<% $id . '_port' %>"
-		 name='<% $id . '_port' %>'
+    <& /input/select.mas,
+            'name'     => $id . '_protocol' ,
+            'value'    => $data->protocol(),
+            'options'  => $data->protocols(),
+            'id'       => "$id" . "_protocol",
+            'onchange' => "Zentyal.TableHelper.showPort('${id}_protocol', '${id}_portText', $protocolsJS)",
+            'disabled' => $disabled
+    &>
+    <span id="<% $id . '_portText' %>" style="display:none;">
+      <%__('port')%>
+      <input type="text" class="inputText"
+         value="<% $data->port() %>"
+         size="5" id ="<% $id . '_port' %>"
+         name='<% $id . '_port' %>'
          <% $disabled ? 'disabled' : '' %> />
-	</span>
+    </span>
 
 </span>
 
 <script type="text/javascript">
-  Zentyal.TableHelper.showPort('<% $id %>_protocol', '<% $id %>_portText',
-            <% $protocolsJS %>);
+  Zentyal.TableHelper.showPort('<% $id %>_protocol', '<% $id %>_portText', <% $protocolsJS %>);
 </script>

@@ -220,12 +220,12 @@ sub protocolsJS
 {
     my ($self) = @_;
 
-    my $str = "[ ";
+    my $str = '[ ';
 
-    foreach my $proto ( @{$self->protocols()} ) {
-      if ( $proto->{needPort} ) {
-        $str .= q{'} . $proto->{value} . q{', };
-      }
+    foreach my $proto (@{$self->protocols()}) {
+        if ($proto->{needPort}) {
+            $str .= "'$proto->{value}', ";
+        }
     }
 
     # Deleting the trailing comma value from array variable
