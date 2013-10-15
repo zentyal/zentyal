@@ -1,3 +1,10 @@
+zenbuntu-desktop (3.2.1) precise; urgency=low
+
+  * Fixed firefox launch if port is not the default one
+  * Fix lxdm start after upgrade from 3.0
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 15 Oct 2013 08:08:46 +0200
+
 zenbuntu-desktop (3.2) precise; urgency=low
 
   * Bump version to 3.2

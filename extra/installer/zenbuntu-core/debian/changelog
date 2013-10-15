@@ -1,3 +1,9 @@
+zenbuntu-core (3.2.1) precise; urgency=low
+
+  * Do initial actions only in fresh install
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 15 Oct 2013 08:08:13 +0200
+
 zenbuntu-core (3.2-1) precise; urgency=low
 
   * Fixed remote-register
