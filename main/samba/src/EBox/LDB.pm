@@ -219,7 +219,7 @@ sub dn
         return $self->{dn};
     }
 
-    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' | grep -v ^GENSEC");
+    my $output = EBox::Sudo::root("ldbsearch -H /opt/samba4/private/sam.ldb -s base -b '' -d0 | grep -v ^GENSEC");
     my $ldifBuffer = join ('', @{$output});
     EBox::debug($ldifBuffer);
 
@@ -737,7 +737,7 @@ sub dnsZones
 
     foreach my $prefix (@zonePrefixes) {
         my $output = EBox::Sudo::root(
-            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' | grep -v ^GENSEC");
+            "ldbsearch -H /opt/samba4/private/sam.ldb -s one -b '$prefix' '(objectClass=dnsZone)' -d0 | grep -v ^GENSEC");
         my $ldifBuffer = join ('', @{$output});
         EBox::debug($ldifBuffer);
 
