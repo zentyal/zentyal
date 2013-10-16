@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
+	  (Contributed by on-jz)
 3.2.5
 	+ Fix netbios name no being updated when hostname change and samba module
 	  is not enabled
