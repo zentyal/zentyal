@@ -311,6 +311,11 @@ sub _postServiceHook
             }
 
             if ($guestAccess) {
+                # Add read/write access for Domain Users
+                my $ace = new Samba::Security::AccessControlEntry(
+                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace);                
+                # Add read/write access for Domain Guests
                 my $ace = new Samba::Security::AccessControlEntry(
                     $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
