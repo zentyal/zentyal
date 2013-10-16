@@ -1,4 +1,5 @@
 HEAD
+	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
 3.2
 	+ Set version to 3.2

@@ -2347,6 +2347,11 @@ sub cloudDomain
     }
 
     unless ( defined($self->{cloudDomain}) ) {
+        # we need to check credError beause this method is used for referer check
+        my $credError = EBox::RemoteServices::Cred->credentialsFileError($self->eBoxCommonName());
+        if ($credError) {
+            return undef;
+        }
         $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
     }
     return $self->{cloudDomain};
