@@ -27,7 +27,6 @@ use base 'EBox::RemoteServices::Base';
 
 use EBox::Global;
 use EBox::RemoteServices::RESTClient;
-use EBox::Gettext;
 use File::Slurp;
 use JSON::XS;
 
@@ -40,13 +39,14 @@ sub new
     my $self = $class->SUPER::new();
 
     my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-    my $credFile = $self->_credentialsFilePath($rs->eBoxCommonName());
-    if (not -e $credFile) {
-        throw EBox::Exceptions::External(__x("Credentials file '{path}' not found. Please, unsubscribe and subscribe again", path => $credFile))
-    } elsif (not -r $credFile) {
-        throw EBox::Exceptions::External(__x("Credentials file '{path}' is not readable. Please, fix its permissions and try again", path => $credFile))
+    my $commonName = $rs->eBoxCommonName();
+
+    my $credError = $self->credentialsFileError($commonName);
+    if ($credError) {
+        throw EBox::Exceptions::External($credError);
     }
 
+    my $credFile = $self->_credentialsFilePath($commonName);
     $self->{cred} = decode_json(File::Slurp::read_file($credFile));
 
     $self->{restClient} = new EBox::RemoteServices::RESTClient(

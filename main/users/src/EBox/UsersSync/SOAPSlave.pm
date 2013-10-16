@@ -45,7 +45,14 @@ sub addUser
         $user->{passwords} = \@pass;
     }
 
-    my $parent = $self->{usersMod}->objectFromDN($user->{parentDN});
+    my $parent;
+    if ($user->{parentDN}) {
+        $parent = $self->{usersMod}->objectFromDN($user->{parentDN});
+    } else {
+        $parent = EBox::Users::User->defaultC
+    }
+
+
     delete $user->{parentDN};
     $user->{parent} = $parent;
     EBox::Users::User->create(%{$user});

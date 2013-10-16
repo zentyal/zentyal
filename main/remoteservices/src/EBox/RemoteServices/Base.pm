@@ -349,6 +349,23 @@ sub _credentialsFilePath
     return $self->_subscriptionDirPath($name) .  'server-info.json';
 }
 
+sub credentialsFileError
+{
+    my ($class, $commonName) = @_;
+    my $credFile = $class->_credentialsFilePath($commonName);
+    if (not -e $credFile) {
+        return __x("Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe{eurl} again",
+                                             path => $credFile,
+                                             ourl => '<a href="/RemoteServices/View/Subscription">',
+                                             eurl => '</a>'
+                                            );
+    } elsif (not -r $credFile) {
+        return __x("Credentials file '{path}' is not readable. Please, fix its permissions and try again", path => $credFile);
+    }
+
+    return undef;
+}
+
 # Group: Private methods
 
 sub _soapConnect
