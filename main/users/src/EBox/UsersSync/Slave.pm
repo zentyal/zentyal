@@ -143,8 +143,6 @@ sub _addGroup
         gidNumber       => scalar($group->get('gidNumber')),
     };
 
-    use Data::Dumper;
-    EBox::debug(Dumper($groupinfo));
     $self->soapClient->addGroup($groupinfo);
 
     return 0;
