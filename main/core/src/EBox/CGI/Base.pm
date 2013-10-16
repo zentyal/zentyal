@@ -703,20 +703,20 @@ sub _validateReferer
 
     my $referer = $ENV{HTTP_REFERER};
     my $hostname = $ENV{HTTP_HOST};
-    my $rshostname = $ENV{HTTP_HOST};
 
-    # allow remoteservices proxy access
-    # proxy is a valid subdomain of {domain}
+    my $rshostname = undef;
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-
         if ( $rs->eBoxSubscribed() ) {
             $rshostname = $rs->cloudDomain();
         }
     }
-    if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
-        $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//) {
-        return; # everything ok
+
+    # proxy is a valid subdomain of {domain}
+    if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\//) {
+        return; # from another page
+    } elsif ($rshostname and ($referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//)) {
+        return; # allow remoteservices proxy access
     }
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }
