@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::RadiusLogHelper;
+package EBox::Radius::LogHelper;
 
 use base 'EBox::LogHelper';
 
