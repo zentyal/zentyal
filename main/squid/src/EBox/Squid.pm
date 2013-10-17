@@ -628,8 +628,6 @@ sub _writeSquidConf
     my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $dn = $users->ldap()->dn();
-
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
@@ -644,7 +642,13 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
-    push @writeParam, ('dn' => $dn);
+
+    if (not $kerberos) {
+        my $ldap = $users->ldap();
+        push @writeParam, ('dn'       => $ldap->dn());
+        push @writeParam, ('roDn'     => $ldap->roRootDn());
+        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+    }
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
