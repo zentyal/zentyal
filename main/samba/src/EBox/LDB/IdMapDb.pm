@@ -61,7 +61,7 @@ sub getXidNumberBySID
     my ($self, $sid) = @_;
 
     EBox::debug("Searching for the XID of '$sid'");
-    my $output = EBox::Sudo::root("ldbsearch -H $self->{file} \"(&(objectClass=sidMap)(cn=$sid))\" | grep -v ^GENSEC");
+    my $output = EBox::Sudo::root("ldbsearch -H $self->{file} \"(&(objectClass=sidMap)(cn=$sid))\" -d0 | grep -v ^GENSEC");
     my $ldifBuffer = join ('', @{$output});
     EBox::debug($ldifBuffer);
 
@@ -94,7 +94,7 @@ sub consumeNextXidNumber
     my ($self) = @_;
 
     EBox::debug("Searching for the next XID Number to use");
-    my $output = EBox::Sudo::root("ldbsearch -H $self->{file} \"(distinguishedName=CN=CONFIG)\" | grep -v ^GENSEC");
+    my $output = EBox::Sudo::root("ldbsearch -H $self->{file} \"(distinguishedName=CN=CONFIG)\" -d0 | grep -v ^GENSEC");
     my $ldifBuffer = join ('', @{$output});
     EBox::debug($ldifBuffer);
 

@@ -1,3 +1,6 @@
+HEAD
+	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
+	+ Set case sensitive on a per share basis
 3.2.5
 	+ Fix netbios name no being updated when hostname change and samba module
 	  is not enabled
