@@ -1,21 +1,13 @@
 #!/bin/bash
 
-package=$1
-version=$2
-rev=$3
-arch=$4
+version=$1
+rev=$2
 
 ###
 ### Arguments validation
 ###
-if [ -z "$package" ] || [ -z "$version" ]; then
-    echo "Usage: $0 [SOPE|SOGo|openchange] <version> [rev] [arch]"
-    echo "    arch: <amd64 | i386>"
-    exit 1
-fi
-
-if [ "$package" = "openchange" ] && [ "$version" != "latest" ]; then
-    echo "We only support 'latest' version for openchange."
+if [ -z "$version" ]; then
+    echo "Usage: $0 <version> [rev]"
     exit 1
 fi
 
@@ -24,35 +16,25 @@ then
     rev=1
 fi
 
-if [ -z "$arch" ]; then
-    arch="amd64"
-fi
-
-if [ "$arch" != "i386" ] && [ "$arch" != "amd64" ]; then
-    echo "Unsupported arch"
-    exit 1
-fi
-
 ###
 ### Build orig source tarball
 ###
 CWD="$(pwd)"
 
-package_lc=${package,,}
-SRC="${package_lc}_$version.orig.tar.gz"
+SRC="sope_$version.orig.tar.gz"
 
 if [ "$version" = "latest" ]; then
-    ./build-orig.sh $package $version
+    ./build-orig.sh $version
     if [ $? -ne 0 ]; then
         exit 1
     fi
-    generated=`ls -tr ${package_lc}_*.orig.tar.gz | tail -1`
-    version=${generated/${package_lc}_/}
+    generated=`ls -tr sope_*.orig.tar.gz | tail -1`
+    version=${generated/sope_/}
     version=${version/.orig.tar.gz/}
     SRC=$generated
 else
     if ! [ -f $SRC ]; then
-        ./build-orig.sh $package $version
+        ./build-orig.sh $version
         if [ $? -ne 0 ]; then
             exit 1
         fi
@@ -60,27 +42,24 @@ else
 fi
 
 if ! [ -f $SRC ]; then
-    echo "Unable to get the origin tar ball for $package / $version."
+    echo "Unable to get the origin tar ball for sope / $version."
     exit 1
 fi
 
 ###############################################################################
 ### Set build version                                                       ###
 ###############################################################################
-BUILD_DIR="/tmp/build-${package_lc}-$$"
+BUILD_DIR="/tmp/build-sope-$$"
 mkdir $BUILD_DIR
 ln -sf $CWD/$SRC $BUILD_DIR/$SRC
 
 pushd $BUILD_DIR
 tar xzf $CWD/$SRC
-cd ${package_lc}-$version
-cp -r $CWD/debian-${package_lc} debian
+cd sope-$version
+cp -r $CWD/debian .
 
 LAST_CHANGELOG_VERSION="$(dpkg-parsechangelog | awk -F ': ' '$1=="Version" {print $2}')"
 NEW_BUILD_VERSION="$version-zentyal$rev"
-if [ "$package" = "openchange" ]; then
-    NEW_BUILD_VERSION="1:$version-zentyal$rev"
-fi
 
 dpkg --compare-versions $NEW_BUILD_VERSION gt $LAST_CHANGELOG_VERSION
 BUILD_VERSION_GREATER=$?
@@ -109,17 +88,17 @@ elif [ $BUILD_VERSION_GREATER -ne 0 ]; then
 else
     # If build version is newer than last changelog entry, update changelog
     dch -b -v "$NEW_BUILD_VERSION" -D 'precise' --force-distribution 'New upstream release'
-    cp debian/changelog $CWD/debian-${package_lc}/
+    cp debian/changelog $CWD/debian/
 fi
 
 
 ###############################################################################
 ### Build                                                                   ###
 ###############################################################################
-ARCH=$arch DIST=precise pdebuild
+ppa-build.sh
 popd > /dev/null 2>&1
 
-cp /var/cache/pbuilder/precise-$arch/result/*$NEW_BUILD_VERSION* .
+cp $BUILD_DIR/sope_*.{debian.tar.gz,dsc,changes} .
 
 rm -rf $BUILD_DIR
 
