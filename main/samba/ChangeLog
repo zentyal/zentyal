@@ -1,4 +1,6 @@
 HEAD
+	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
+	+ Set case sensitive on a per share basis
 	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
 	  (Contributed by on-jz)
 3.2.5
