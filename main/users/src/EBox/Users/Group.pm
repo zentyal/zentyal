@@ -515,7 +515,9 @@ sub create
     # Verify group exists
     my $groupExists = $usersMod->groupExists($args{name});
     if ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID()) {
-        throw EBox::Exceptions::External(__x('The group {name} already exists as built-in Windows group', name => $args{name}));
+        throw EBox::Exceptions::DataExists( text =>
+                                                __x('The group {name} already exists as built-in Windows group',
+                                                    name => $args{name}));
     } elsif ($groupExists) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
