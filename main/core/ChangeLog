@@ -1,4 +1,6 @@
 HEAD
+	+ When restoring pre-3.2 backups take in account that apache
+	  module was renamed to webadmin
 	+ Make sure that we always commit/discard audit of changes when we
 	  save/revoke all modules
 	+ Add new row attribute "disabled"
