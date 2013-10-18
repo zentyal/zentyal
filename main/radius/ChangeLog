@@ -1,6 +1,6 @@
 HEAD
 	+ Log helper changes: only check no-via lines, this avoid
-	  duplicate lines but made us lsoe the TLS tunnel MAC and 'user
+	  duplicate lines but made us lose the 'TLS tunnel' MAC and 'user
 	  not found' event. Also best treatment of MAC addresses, thanks
 	  to Gianluca Carlesso for his code for this
 3.2
