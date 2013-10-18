@@ -1,0 +1,11 @@
+<%args>
+    $interfaces => []
+</%args>
+lo.inet*
+lo.dnsmasq
+lo.pdnsd
+lo.!(pdns|pdns-recursor)
+lo
+% foreach my $interface (@{$interfaces}) {
+<% $interface %>
+% }

@@ -49,6 +49,7 @@ use Net::IP;
 use Perl6::Junction qw(any);
 use Tie::File;
 
+use constant BIND9DEFAULTFILE     => "/etc/default/bind9";
 use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
@@ -484,6 +485,11 @@ sub usedFiles
     my ($self) = @_;
     my $files = [
         {
+            'file'   => BIND9DEFAULTFILE,
+            'module' => 'dns',
+            'reason' => __('Zentyal will set the required environment variables for bind9 daemon'),
+        },
+        {
             'file'   => BIND9CONFFILE,
             'module' => 'dns',
             'reason' => __('main bind9 configuration file'),
@@ -570,6 +576,12 @@ sub initialSetup
         $self->_overrideDaemons() if $self->configured();
     }
 
+    # Upgrade from 3.2.1 to 3.2.2
+    if (defined $version and EBox::Util::Version::compare($version, '3.2.2') < 0) {
+        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.conf');
+        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.override');
+    }
+
     # Execute initial-setup script to create SQL tables
     $self->SUPER::initialSetup($version);
 }
@@ -600,7 +612,8 @@ sub _daemons
 {
     return [
         {
-            'name' => 'ebox.bind9'
+            'name' => 'bind9',
+            'type' => 'init.d'
         }
     ];
 }
@@ -619,23 +632,16 @@ sub _daemonsToDisable
     ];
 }
 
-# Method: enableService
+# Method: _preSetConf
 #
-# Overrides:
 #
-#  <EBox::Module::Service::enableService>
-#
-sub enableService
+sub _preSetConf
 {
-    my ($self, $status) = @_;
+    my ($self) = @_;
 
-    $self->SUPER::enableService($status);
-
-    # Mark network module as changed to set localhost as the primary resolver
-    my $net = EBox::Global->modInstance('network');
-    my $dnsResolv = $net->model('DNSResolver');
-    $dnsResolv->ids();
-    $net->setAsChanged();
+    my $array = [];
+    $self->writeConfFile(BIND9DEFAULTFILE, 'dns/bind9.mas', $array,
+        {mode => '0644', uid => 0, gid => 0});
 }
 
 # Method: _setConf
