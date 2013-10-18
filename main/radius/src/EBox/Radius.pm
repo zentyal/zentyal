@@ -353,7 +353,7 @@ sub tableInfo
 
     my $events = { 'Login OK' => __('Login OK'),
                    'Login incorrect' => __('Login incorrect'),
-                   'User not found' => __('User not found') };
+                  };
     return [{
             'name' => __('RADIUS'),
             'tablename' => 'radius_auth',

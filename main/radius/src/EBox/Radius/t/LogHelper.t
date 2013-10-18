@@ -28,7 +28,7 @@ use Test::Exception;
 
 use Data::Dumper;
 
-my $dumpInsertedData = 1;
+my $dumpInsertedData = 0;
 
 use constant JOB_TABLE => "printers_jobs";
 use constant PAGES_TABLE => "printers_pages";
@@ -84,9 +84,9 @@ my @cases = (
                                     'client' => '192.168.100.49/32',
                                     'timestamp' => '2013-10-17 16:34:14',
                                     '_table' => 'radius_auth',
-                                    'mac' => 'TLS tunnel',
-                                    'port' => '0',
-                                    'event' => 'User not found',
+                                    'mac' => '',
+                                    'port' => '37',
+                                    'event' => 'Login incorrect',
                                     'login' => 'mateo'
                                      },
                                ],
@@ -128,8 +128,8 @@ my @cases = (
                                     'client' => '192.168.100.49/32',
                                     'timestamp' => '2013-10-17 17:04:43',
                                     '_table' => 'radius_auth',
-                                    'mac' => 'TLS tunnel',
-                                    'port' => '0',
+                                    'mac' => '',
+                                    'port' => '2',
                                     'event' => 'Login incorrect',
                                     'login' => 'jjgarcia'
                                    },
@@ -148,8 +148,8 @@ my @cases = (
                                     'client' => '192.168.100.49/32',
                                     'timestamp' => '2013-10-17 17:03:27',
                                     '_table' => 'radius_auth',
-                                    'mac' => 'TLS tunnel',
-                                    'port' => '0',
+                                    'mac' => '',
+                                    'port' => '2',
                                     'event' => 'Login OK',
                                     'login' => 'jjgarcia'
                                 },

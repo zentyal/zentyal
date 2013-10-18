@@ -80,12 +80,12 @@ sub processLine # (file, line, logger)
     chomp($line);
 
     my ($date, $type, $event, $clientInfo) = split /\s*:\s+/, $line, 4;
-    unless (defined $type and ($type eq 'Auth') and defined $event) {
+    unless ((defined $type) and ($type eq 'Auth') and defined $event) {
         return;
     }
 
-    if ($clientInfo =~ m/via (.*?)/) {
-        # avoid repeated line
+    if ((not ($clientInfo =~ m/from client/)) or ($clientInfo =~ m/ via /) ) {
+        # avoid repeated lines
         return;
     }
 
@@ -93,9 +93,8 @@ sub processLine # (file, line, logger)
     my $format = '%a %b %e %H:%M:%S %Y';
     my $timestamp = $self->_convertTimestamp($date, $format);
 
-    if ($event =~ /User not found/) {
-        $event = 'User not found';
-    } elsif ($event =~ /Bind as user failed/) {
+
+    if (($event =~ m/Bind as user failed/) or ($event =~ m/Login incorrect/ )) {
         $event = 'Login incorrect';
     }
 
