@@ -33,14 +33,10 @@ if ($progressId) {
 
 try {
     my $global = EBox::Global->getInstance();
-    my $audit = $global->modInstance('audit');
-
     if ($action eq 'saveAllModules') {
         $global->saveAllModules(@callParams);
-        $audit->commit();
     } elsif ($action eq 'revokeAllModules') {
         $global->revokeAllModules(@callParams);
-        $audit->discard();
     }
 } otherwise {
     my $ex = shift @_;

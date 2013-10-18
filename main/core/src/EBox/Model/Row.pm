@@ -26,7 +26,12 @@
 #
 #       - 'id' =>  row id
 #       - 'order' => row order
-#               - 'readOnly' => Boolean indicating if the row is readOnly or not
+#       - 'readOnly' => Boolean indicating if the row is readOnly or not
+#       - 'disabled' => Boolean indicating if the row is disabled in the UI.
+#                       Disabled and read only are orthogonal concepts.
+#                       Read only means the row can not be modified, while
+#                       disabled means the row exists, can be modified or
+#                       deleted but it is ignored by the system.
 #       - 'values' => array ref containing objects
 #               implementing <EBox::Types::Abstract> interface
 #       - 'valueHash' => hash ref containing the same objects as
@@ -205,6 +210,36 @@ sub setReadOnly
     my ($self, $readOnly) = @_;
 
     $self->{readOnly} = $readOnly;
+}
+
+# Method: disabled
+#
+#   Row disable
+#
+# Returns:
+#
+#   boolean - true if row is disabled, false otherwise
+#
+sub disabled
+{
+    my ($self) = @_;
+
+    return $self->{disabled};
+}
+
+# Method: setDisabled
+#
+#   Set the row disabled flag
+#
+sub setDisabled
+{
+    my ($self, $disabled) = @_;
+
+    unless (defined $disabled) {
+        throw EBox::Exceptions::MissingArgument('disabled');
+    }
+
+    $self->{disabled} = $disabled;
 }
 
 # Method: dir
@@ -557,6 +592,7 @@ sub store
     $model->setTypedRow($self->id(),
                         $self->{'valueHash'},
                         readOnly => $self->readOnly(),
+                        disabled => $self->disabled(),
                         force => 1);
 }
 
@@ -588,6 +624,7 @@ sub storeElementByName
     $model->setTypedRow($self->id(),
                         {$element => $self->elementByName($element)},
                         readOnly => $self->readOnly(),
+                        disabled => $self->disabled(),
                         force => 1);
 }
 

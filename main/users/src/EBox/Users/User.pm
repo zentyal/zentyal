@@ -529,7 +529,7 @@ sub create
                name => $args{uid})
            );
     } elsif ($groupExists) {
-        throw EBox::Exceptions::External(
+        throw EBox::Exceptions::DataExists(text =>
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
                name => $args{uid})
            );

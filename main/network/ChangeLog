@@ -1,4 +1,5 @@
 HEAD
+	+ Use new resolvconf framework to manage resolvers list
 	+ Fix setNameservers method in Network to avoid error in import
 	  interfaces
 3.2
