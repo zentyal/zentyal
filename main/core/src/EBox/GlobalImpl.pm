@@ -380,6 +380,12 @@ sub revokeAllModules
         };
     }
 
+    # discard logging of revoked changes
+    my $audit = $self->modInstance($ro, 'audit');
+    if ($audit) {
+        $audit->discard();
+    }
+
     if (not $failed) {
         $progress->setAsFinished() if $progress;
         return;
@@ -605,10 +611,16 @@ sub saveAllModules
         # in first install sysinfo module is in changed state
         push @mods, 'sysinfo';
     } else {
-        # not first ime, getting changed modules
+        # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
+    }
+
+    # commit log of saved changes
+    my $audit = EBox::GlobalImpl->modInstance($ro, 'audit');
+    if ($audit) {
+        $audit->commit();
     }
 
     # run presave hooks
