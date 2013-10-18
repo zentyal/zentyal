@@ -1,4 +1,6 @@
 HEAD
+	+ Make sure that we always commit/discard audit of changes when we
+	  save/revoke all modules
 	+ Fixed JS glitch which broke the dashboard periodical updates
 	+ Better check of referer which skips cloud domain if it does not exists
 	+ Avoid warning when stopping a module without FirewallHelper
