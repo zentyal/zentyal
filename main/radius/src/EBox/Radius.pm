@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 
 use EBox::Ldap;
-use EBox::RadiusLogHelper;
+use EBox::Radius::LogHelper;
 
 use constant USERSCONFFILE => '/etc/freeradius/users';
 use constant LDAPCONFFILE => '/etc/freeradius/modules/ldap';
@@ -334,8 +334,7 @@ sub certificates
 sub logHelper
 {
     my ($self) = @_;
-
-    return (new EBox::RadiusLogHelper);
+    return EBox::Radius::LogHelper->new();
 }
 
 sub tableInfo
@@ -354,7 +353,7 @@ sub tableInfo
 
     my $events = { 'Login OK' => __('Login OK'),
                    'Login incorrect' => __('Login incorrect'),
-                   'User not found' => __('User not found') };
+                  };
     return [{
             'name' => __('RADIUS'),
             'tablename' => 'radius_auth',
