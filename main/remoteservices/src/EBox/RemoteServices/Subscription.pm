@@ -471,10 +471,12 @@ sub deleteData
 
     $cn or throw EBox::Exceptions::MissingArgument('cn');
 
-    my $rs = EBox::Global->modInstance('remoteservices');
+    my $rwGlobal = EBox::Global->getInstance(0);
+    my $rs = $rwGlobal->modInstance('remoteservices');
     if ( $rs->hasBundle() ) {
         # Remove VPN client, if exists
-        EBox::RemoteServices::Connection->new()->disconnectAndRemove();
+        my $openvpn = $rwGlobal->modInstance('openvpn');
+        EBox::RemoteServices::Connection->disconnectAndRemove($openvpn);
     }
 
     my $dirPath = $self->_subscriptionDirPath($cn);
