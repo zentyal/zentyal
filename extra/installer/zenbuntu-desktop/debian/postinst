@@ -8,4 +8,8 @@ ln -sf /lib/plymouth/themes/zentyal/zentyal.grub /etc/alternatives/default.plymo
 if [ "$1" == "configure" ]
 then
     echo 'manual' > /etc/init/lxdm.override
+else
+    # Migration from 3.0
+    rm -f /etc/init/lxdm.override
+    sed -i 's/start on zentyal-lxdm and/start on/' /etc/init/lxdm.conf
 fi

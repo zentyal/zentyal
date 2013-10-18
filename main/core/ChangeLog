@@ -1,6 +1,12 @@
-HEAD
-	+ Fixed JS glitch which broke the dashboard periodical updates
 3.3
+	+ When restoring pre-3.2 backups take in account that apache
+	  module was renamed to webadmin
+	+ Make sure that we always commit/discard audit of changes when we
+	  save/revoke all modules
+	+ Add new row attribute "disabled"
+	+ Fixed JS glitch which broke the dashboard periodical updates
+	+ Better check of referer which skips cloud domain if it does not exists
+	+ Avoid warning when stopping a module without FirewallHelper
 	+ Include contents of /etc/resolv.conf in bug report
 	+ Avoid Apache error screen in login when entering through Zentyal
 	  Remote using password

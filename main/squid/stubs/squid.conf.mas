@@ -15,7 +15,9 @@
     $auth
     $principal
     $realm
-    $dn
+    $dn           => undef
+    $roDn         => undef
+    $roPasswd     => undef
     @noAuthDomains
     @rules
     %filterProfiles
@@ -267,7 +269,7 @@ auth_param negotiate children 10
 auth_param negotiate keep_alive on
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b <% $dn %> -f "(&(uid=%s)(objectclass=posixAccount))" -p 390 -D <% $roDn %> -w <% $roPasswd %> -P
 % }
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED

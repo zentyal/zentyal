@@ -504,7 +504,7 @@ $selectCallerId
                               $row->{id}
                             %>'>
 <%perl>
-      my $rowReadOnly = $row->readOnly()   ;
+      my $rowReadOnly = $row->readOnly();
 
       my $disabled = '';
       my ($edit, $edit_msg);
@@ -526,7 +526,6 @@ $selectCallerId
           $clone = 'clone-inactive';
           $clone_msg = __('Read-only row: clone disabled');
       }
-
 </%perl>
 <& /ajax/customActions.mas, model => $model, id => $row->{id}, type => 'image' &>
 

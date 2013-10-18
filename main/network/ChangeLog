@@ -1,4 +1,5 @@
 3.3
+	+ Use new resolvconf framework to manage resolvers list
 	+ Fix setNameservers method in Network to avoid error in import
 	  interfaces
 	+ Set version to 3.3

@@ -91,6 +91,10 @@ use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
 use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
 
+use constant OBJECT_EXISTS => 1;
+use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
+
+
 sub _create
 {
     my $class = shift;
@@ -1039,8 +1043,23 @@ sub userByUID
 sub userExists
 {
     my ($self, $uid) = @_;
-    return undef unless ($self->userByUID($uid));
-    return 1;
+    my $user = $self->userByUID($uid);
+    if (not $user) {
+        return undef;
+    }
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbUser)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: users
@@ -1257,8 +1276,24 @@ sub groupByName
 sub groupExists
 {
     my ($self, $name) = @_;
-    return undef unless ($self->groupByName($name));
-    return 1;
+    my $group = $self->groupByName($name);
+    if (not $group) {
+        return undef;
+    }
+
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbGroup = $samba->ldbObjectByObjectGUID($group->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbGroup)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: groups

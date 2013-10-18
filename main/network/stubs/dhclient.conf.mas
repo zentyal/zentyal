@@ -1,41 +1,12 @@
 <%args>
-    $domainName => undef
-    $domainSearch => undef
-    $domainNameServers => []
 </%args>
-<%init>
-my $nsConfigured = @{ $domainNameServers } > 0;
-</%init>
-# Configuration file for /sbin/dhclient, which is included in Debian's
-#	dhcp3-client package.
-#
-# This is a sample configuration file for dhclient. See dhclient.conf's
-#	man page for more information about the syntax of this file
-#	and a more comprehensive list of the parameters understood by
-#	dhclient.
-#
-# Normally, if the DHCP server provides reasonable information and does
-#	not leave anything out (like the domain name, for example), then
-#	few changes must be made to this file, if any.
-#
-
-send host-name "<hostname>";
+send host-name = gethostname();
 #send dhcp-client-identifier 1:0:a0:24:ab:fb:9c;
 #send dhcp-lease-time 3600;
-% if (length ($domainName) > 0) {
-supersede domain-name "<% $domainName %>";
-% }
-% if (length ($domainSearch) > 0) {
-supersede domain-search "<% $domainSearch %>.";
-% }
-% if ($nsConfigured) {
-% my $servers = join (',', @{$domainNameServers});
-supersede domain-name-servers <% $servers %>;
-% }
 #prepend domain-name-servers 127.0.0.1;
 request subnet-mask, broadcast-address, time-offset, routers,
-	domain-name, <%  $nsConfigured ? '' :  'domain-name-servers,' %>
-	host-name, netbios-name-servers, netbios-scope;
+	domain-name, domain-name-servers, domain-search, host-name,
+	netbios-name-servers, netbios-scope;
 #require subnet-mask, domain-name-servers;
 timeout 30;
 #retry 60;

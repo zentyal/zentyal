@@ -1,3 +1,14 @@
+samba4 (4.1.0rc4-zentyal2) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 18 Oct 2013 17:57:02 +0200
+
+samba4 (4.1.0rc4-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Sat, 28 Sep 2013 17:32:57 +0200
 samba4 (4.1.0rc3-zentyal4) precise; urgency=low
 
   * Create /etc/ld.so.conf.d/samba4.conf in postinst

@@ -1,4 +1,6 @@
 3.3
+	+ userExists and groupExists discriminates between shown objects and
+	  objects hid by SID
 	+ Fixed wrong path in ExternalAD::connectWithKerberos
 	+ Update names in tree view when either user or contact is edited
 	+ Fixed wizard error when setting external AD mode

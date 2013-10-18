@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::RadiusLogHelper;
+package EBox::Radius::LogHelper;
 
 use base 'EBox::LogHelper';
 
@@ -80,17 +80,21 @@ sub processLine # (file, line, logger)
     chomp($line);
 
     my ($date, $type, $event, $clientInfo) = split /\s*:\s+/, $line, 4;
-    unless (defined $type and ($type eq 'Auth') and defined $event) {
+    unless ((defined $type) and ($type eq 'Auth') and defined $event) {
         return;
     }
 
-    # date is like 'Mon Nov 8 19:03:14 2004'. rmeove first day
+    if ((not ($clientInfo =~ m/from client/)) or ($clientInfo =~ m/ via /) ) {
+        # avoid repeated lines
+        return;
+    }
+
+    # date is like 'Mon Nov 8 19:03:14 2004'. remove first day
     my $format = '%a %b %e %H:%M:%S %Y';
     my $timestamp = $self->_convertTimestamp($date, $format);
 
-    if ($event =~ /User not found/) {
-        $event = 'User not found';
-    } elsif ($event =~ /Bind as user failed/) {
+
+    if (($event =~ m/Bind as user failed/) or ($event =~ m/Login incorrect/ )) {
         $event = 'Login incorrect';
     }
 
@@ -107,22 +111,12 @@ sub processLine # (file, line, logger)
     } else {
         $client = $port = '';
     }
-    if ($clientInfo =~ m/via (.*?)/) {
+
+    if ($clientInfo =~ /cli (\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w[:-]\w\w)/) {
         $mac = $1;
-        if ($mac =~ /cli (\w+)/) {
-            $mac = $1;
-            my $s1 = substr($mac, 0, 2);
-            my $s2 = substr($mac, 2, 2);
-            my $s3 = substr($mac, 4, 2);
-            my $s4 = substr($mac, 6, 2);
-            my $s5 = substr($mac, 8, 2);
-            my $s6 = substr($mac, 10, 2);
-            $mac = sprintf("%s:%s:%s:%s:%s:%s", $s1, $s2, $s3, $s4, $s5, $s6);
-        } elsif ($mac =~ /TLS tunnel/) {
-            $mac = 'TLS tunnel';
-        } else {
-            $mac = '';
-        }
+        $mac =~ s/-/:/ig;
+    } elsif ($clientInfo =~ /TLS tunnel/) {
+        $mac = 'TLS tunnel';
     } else {
         $mac = '';
     }
