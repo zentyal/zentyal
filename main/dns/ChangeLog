@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Enable resolvconf updates when starting and stopping bind9 daemon
 3.2.1
 	+ Enforce include of 127.0.0.1 in DNS resolvers when enabling
