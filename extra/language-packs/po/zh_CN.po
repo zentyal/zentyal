@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-09-18 04:20+0200\n"
-"Last-Translator: chinajx_dyc <chinajx_dyc@sina.com>\n"
+"PO-Revision-Date: 2013-09-28 14:42+0200\n"
+"Last-Translator: Feng <windkoo@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
@@ -97,7 +97,7 @@ msgstr "分类列表"
 msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
-msgstr ""
+msgstr "你可以提交包含分类域名列表的文件。你可以使用预置过滤器来过滤那些分类。"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:139
 #, perl-brace-format
@@ -106,6 +106,8 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"不能使用名称{name}因为该名称目录已存在：{dir}。\n"
+" 或许已迁移却未提交更改？"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
@@ -116,22 +118,21 @@ msgstr "域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
-msgstr ""
+msgstr "从Auth及Cache中排除域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
 msgid "Auth and Cache Exemptions"
-msgstr ""
+msgstr "Auth及Cache排除"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
 msgid "domain name address"
-msgstr ""
+msgstr "域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "只能使用主机的MAC地址"
+msgstr "你可以从Auth及Cache中排除一些域名地址"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -153,11 +154,11 @@ msgstr "地址已更新"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
-msgstr ""
+msgstr "时间周期"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:46
 msgid "Time period when the rule is applied"
-msgstr ""
+msgstr "规则应用周期"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:739
@@ -184,9 +185,8 @@ msgstr ""
 "来源"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
-#, fuzzy
 msgid "Network Object"
-msgstr "设置"
+msgstr "网络对象"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:65
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
@@ -262,7 +262,7 @@ msgstr "规则"
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
-msgstr ""
+msgstr "你可以在此使用用户组或者网络对象来过滤、限制或者允许访问。规则仅在选取的时间周期内应用。"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:132
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:102
@@ -281,41 +281,41 @@ msgstr "根据用户组的源地址匹配不适用于透明网桥模式"
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
-msgstr ""
+msgstr "当存在组规则时，你不能添加一条“允许”或者“属性”规则应用于一个对象或者地址。"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
-msgstr ""
+msgstr "当存在一条“允许”或者“属性”规则应用于一个对象或者地址时，你不能添加一条组规则。"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:325
 #, perl-brace-format
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
-msgstr ""
+msgstr "同一个{sourceType}的规则({t1})与规则({t2})的时间周期重叠"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Object: {o}"
-msgstr "对象"
+msgstr "对象：{o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:617
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:266
 #, perl-brace-format
 msgid "Group: {g}"
-msgstr ""
+msgstr "组：{g}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:628
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "应用 '{p}' 属性"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:34
 msgid "Domain or URL"
-msgstr ""
+msgstr "域名/URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:53
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:63
@@ -323,15 +323,15 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
 msgid "Allow"
-msgstr ""
+msgstr "Allow"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:54
 msgid "Deny"
-msgstr ""
+msgstr "Deny"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "URL中的域名或者IP地址部分"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:92
 #: ../../main/squid/src/EBox/Squid.pm:1122
@@ -358,7 +358,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "不要域名前缀www。"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:98
 msgid "Domain or IP address"
@@ -17869,18 +17869,16 @@ msgid "Reshape array"
 msgstr "重塑阵列"
 
 #: ../../main/core/src/templates/report/raid.mas:202
-#, fuzzy
 msgid "Operation type"
-msgstr "运行速度"
+msgstr "操作类型"
 
 #: ../../main/core/src/templates/report/raid.mas:204
 msgid "Percentage completed"
 msgstr "完成百分比"
 
 #: ../../main/core/src/templates/report/raid.mas:206
-#, fuzzy
 msgid "Estimated time left"
-msgstr "预计完成时间: {time}."
+msgstr "预计剩余时间"
 
 #: ../../main/core/src/templates/report/raid.mas:208
 msgid "Operation speed"
@@ -17916,7 +17914,7 @@ msgstr "空闲的RAID阵列"
 msgid ""
 "Zentyal detected that some files which need to be overwritten have been\n"
 "modified by you."
-msgstr ""
+msgstr "Zentyal检测到需要覆盖的文件已被修改。"
 
 #: ../../main/core/src/templates/configurationFiles.mas:13
 msgid "Do you wish to overwrite these files?"
@@ -17977,23 +17975,20 @@ msgid "Backup file"
 msgstr "备份文件"
 
 #: ../../main/core/src/templates/backup.mas:153
-#, fuzzy
 msgid "Restore backup"
-msgstr "正在恢复备份"
+msgstr "恢复备份"
 
 #: ../../main/core/src/templates/backup.mas:154
 msgid "Restore configuration using this file"
 msgstr "使用此文件恢复配置"
 
 #: ../../main/core/src/templates/backup.mas:156
-#, fuzzy
 msgid "Download backup file"
-msgstr "备份全部数据和配置"
+msgstr "下载备份文件"
 
 #: ../../main/core/src/templates/backup.mas:157
-#, fuzzy
 msgid "Delete backup"
-msgstr "远程备份"
+msgstr "删除备份"
 
 #: ../../main/core/src/templates/backup.mas:160
 msgid "Full"
@@ -18022,7 +18017,7 @@ msgstr ""
 
 #: ../../main/core/src/templates/backup.mas:235
 msgid "Generate and Download report file"
-msgstr ""
+msgstr "生成并下载报告文件"
 
 #: ../../main/core/src/templates/logs/index.mas:21
 msgid "Log Domain"
@@ -18056,24 +18051,23 @@ msgstr "全局选项"
 #: ../../main/mail/src/templates/groupalias.mas:19
 #: ../../main/mail/src/templates/alias.mas:27
 msgid "Mail alias"
-msgstr ""
+msgstr "邮件别名"
 
 #: ../../main/mail/src/templates/createaccount.mas:49
-#, fuzzy
 msgid "Maildir size"
-msgstr "页面大小"
+msgstr "邮件目录大小"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
 msgid "Virtual mail domain"
-msgstr ""
+msgstr "虚拟邮件域"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Set up the default virtual mail domain"
-msgstr ""
+msgstr "设置默认的虚拟邮件域"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "This will be the domain for your mail accounts"
-msgstr ""
+msgstr "这将是你的邮件帐户的域"
 
 #: ../../main/mail/src/templates/account.mas:31
 msgid ""
@@ -18463,7 +18457,7 @@ msgstr ""
 #: ../../main/users/src/templates/deluser.mas:19
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
-msgstr ""
+msgstr "此项操作将会移除该用户和所有与之相关的数据"
 
 #, fuzzy
 #~ msgid "PPTP Users"

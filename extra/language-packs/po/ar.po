@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-08-14 12:08+0200\n"
-"Last-Translator: Rachid <rachidww2@gmail.com>\n"
+"PO-Revision-Date: 2013-09-25 10:27+0200\n"
+"Last-Translator: amounem <lobra.co@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
@@ -78,7 +78,7 @@ msgstr "ملف"
 #: ../../main/squid/src/EBox/Squid.pm:98
 #: ../../main/squid/src/EBox/Squid.pm:1134
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "خادم فلترة الإنترنت"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid.pm:1070
@@ -111,7 +111,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
 msgid "Domain Name Address"
-msgstr ""
+msgstr "عنوان"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
@@ -266,18 +266,20 @@ msgstr "كل المستخدمين"
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
+"المصدرالذي يتم مطابقته من خلال مجموعة المستخدم لايتوافق مع وسيط الانترنت ( "
+"في حالة الشفافية transparent)"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:310
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
-msgstr ""
+msgstr "ملف المستخدم"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
-msgstr ""
+msgstr "سماح"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:325
 #, perl-brace-format
@@ -285,27 +287,29 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"الوقت المسموح لتطبيق القاعدة ({t1}) تم تداخله مع توقيت الفترة الزمنية لـ "
+"({t2}) باقي القواعد ستبقى بحسب ( نوع المصدر)"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
 #, perl-brace-format
 msgid "Object: {o}"
-msgstr ""
+msgstr "الكائن أو العنصر {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:617
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:266
 #, perl-brace-format
 msgid "Group: {g}"
-msgstr ""
+msgstr "المجموعة ( G)"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:628
 #, perl-brace-format
 msgid "Apply '{p}' profile"
-msgstr ""
+msgstr "ملف المستخدم "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:34
 msgid "Domain or URL"
-msgstr ""
+msgstr "إسم النطاق أو صفحة النت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:53
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:63
@@ -313,15 +317,15 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:83
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:87
 msgid "Allow"
-msgstr ""
+msgstr "سماح"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:54
 msgid "Deny"
-msgstr ""
+msgstr "منع "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:82
 msgid "Domain or IP address part of URL"
-msgstr ""
+msgstr "اسم النطاق أو عنوانه هو جزء من عنوان صفحة النت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:92
 #: ../../main/squid/src/EBox/Squid.pm:1122
@@ -339,61 +343,63 @@ msgstr "النطاق"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 msgid "You must not prefix the domain with www."
-msgstr ""
+msgstr "يجب عدم ابتداء البحث عن أي نطاق بإستخدام الدالة www."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:98
 msgid "Domain or IP address"
-msgstr ""
+msgstr "اسم النطاق أو عنوان الأي بي الخاص به"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:229
 msgid "Domains and URL rules"
-msgstr ""
+msgstr "اسم النطاق و دالة صفحة البدء"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:237
 msgid "internet domain or URL"
-msgstr ""
+msgstr "عنوان نطاق الإنترنت أو عنوان الصفحة"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:238
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
 msgstr ""
+"سماح/ منع تدفق وازدحام المعلومات لعناوين النطاقات أو صفحات الإنترنت المذكورة "
+"تالياً"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:240
 msgid "Domain or URL added"
-msgstr ""
+msgstr "اسم النطاق أو عنوان صفحة النت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:241
 msgid "Domain or URL removed"
-msgstr ""
+msgstr "اسم النطاق أو عنوان صفحة النت التي تم إزالتها"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid "Domain or URL updated"
-msgstr ""
+msgstr "اسم النطاق أو صفحة النت التي تم تحديثها"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
 msgid "Skip Transparent Proxy"
-msgstr ""
+msgstr "تخطي ملقم الوسيط - الغير مرئي"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
 msgid "Transparent Proxy Exemptions"
-msgstr ""
+msgstr "استثنائات من ملقم الوسيط - الغير مرئي ( عدم المرور من خلاله)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
 msgid "You can exempt some addresses from transparent proxy"
-msgstr ""
+msgstr "يمكنك تخطي بعض العناوين من أن تمر من خلال ملقم الوسيط - الغير مرئي"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:44
 msgid "Transparent Proxy"
-msgstr ""
+msgstr "وسيط انترنت - غير مرئي"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:58
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
 msgid "Enable Single Sign-On (Kerberos)"
-msgstr ""
+msgstr "تفعيل الدخول بإستخدام اسم مستخدم وكلمة سر موحدة (Kerberos)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:64
 msgid "Ad Blocking"
-msgstr ""
+msgstr "إضافة حظر"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:67
 msgid "Remove advertisements from all HTTP traffic"
@@ -410,46 +416,50 @@ msgstr "أزل الإعلانات من كافة بيانات HTTP"
 #: ../../main/users/src/EBox/Users/Model/Slaves.pm:59
 #: ../../main/mail/src/templates/externalAccounts.mas:16
 msgid "Port"
-msgstr ""
+msgstr "منفذ"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:77
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "حجم ملفات التخزين المؤقت ( ميجابايت)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:87
 #: ../../main/squid/src/EBox/Squid.pm:1061
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
-msgstr "إعدادات البريد الصوتي"
+msgstr "إعدادات عامة"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:92
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:88
 msgid "Settings changed"
-msgstr ""
+msgstr "تم تغير الإعدادت"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:140
 msgid ""
 "Transparent proxy is incompatible with the users group authorization policy "
 "found in some access rules"
 msgstr ""
+"وسيط الإنترنت ( الغير مرئي) غير متوافق مع مجموعة المستخدمين المسجلين ببوليصة "
+"الصلاحيات والموجودة في بعض لوائح السماح والولوج "
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
 msgid "Transparent proxy is incompatible with Kerberos authentication"
-msgstr ""
+msgstr "وسيط الإنترنت ( الغير مرئي) غير متوافق مع نظام ( Kerberos) للتحقق"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "(المنفذ), مستخدم مسبقاً , الرجاء إختيار منفذ أخر"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:202
 msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"يجب أن تنتبه..!! , لايمكنك أستخدام الوسيط ( الغير مرئي ) لتصفح , الصفحات "
+"الأمنة HTTPS , ستحتاج إلى إضافة قاعدة- سماح في الجدار الناري لتفعيله بحسب "
+"النمط السابق"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:143
@@ -617,7 +627,7 @@ msgstr "التاريخ"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:98
 msgid "Web traffic details"
-msgstr ""
+msgstr "معلومات عن ضغط وازدحام صفحات النت"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:105
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:79
@@ -625,7 +635,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:104
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:95
 msgid "traffic"
-msgstr ""
+msgstr "ضغط تدفق المعلومات"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:65
 #, perl-brace-format
@@ -634,6 +644,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"لايمكنك تفعيل مرشح الفلترة الخاص بمضاد الفيروسات بسبب أن وحدة مضاد الفيروسات "
+"معطلة .! , إذا أردت تشغيل مرشح فلترة الفيروسات أولا : اكتب {openhref} ومن "
+"ثم فعل الوحدة {closehref} ,ومن ثم إرجع لهذا الخيار مرة أخرة "
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:69
 #, perl-brace-format
@@ -642,45 +655,48 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"لايمكنك تفعيل مرشح الفلترة الخاص بمضاد الفيروسات لأن وحدة مضاد الفيروسات لم "
+"يتم تنصيبها .! , إذا أردت تشغيل مرشح فلترة الفيروسات أولا , نصب مضاد "
+"الفيروسات ومن ثم : اكتب {openhref} ومن ثم إرجع لهذا الخيار مرة أخرة"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:82
 msgid "Use antivirus"
-msgstr ""
+msgstr "إستخدام مضاد الفيروسات"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:67
 msgid "Filter virus"
-msgstr ""
+msgstr "مرشح - فلترة الفيروسات"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:42
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "الرسم البياني لحجم الضغط على تبادل الشبكة على ملقم Squid"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:68
 msgid "Traffic size"
-msgstr ""
+msgstr "حجم ضغط تبادل الشبكة"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid.pm:1067
 msgid "Filter Profiles"
-msgstr ""
+msgstr "فلترة ملفات التشكيل الجانبي"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:104
 msgid "filter profile"
-msgstr ""
+msgstr "فلترة التشكيل الجانبي"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:106
 msgid "Added filter profile"
-msgstr ""
+msgstr "إضافة فلترة لملف التشكيل الجانبي"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:107
 msgid "Removed filter profile"
-msgstr ""
+msgstr "إزالة الفلتر من على ملف التشكيل الجانبي"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:108
 msgid "Updated filter profile"
-msgstr ""
+msgstr "تحديث فلترة ملف التشكيل الجانبي"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:74
@@ -701,19 +717,21 @@ msgstr "الاعدادات"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:144
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "لقد تم تخطي العدد المسموح لإضافة فلاتر للمجموعات"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:154
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "يجب عدم ترك فراغ عند كتابة اسم \" ملف التشكيل الجانبي \""
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
+"الدالة  '~' قد تم استخدامها مسبقاً ولايمكن استخدامها الأن في نسق اسم \" ملف "
+"التشكيل الجانبي\""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "لم يتم حجب أي من الملقمات أو عناوين النت "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:53
 msgid ""
@@ -724,21 +742,23 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:60
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "حجب المواقع فقط بإستخدام عنوان الأي بي IP"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:68
 msgid "Domain filter settings"
-msgstr ""
+msgstr "إعدادات \"فلترة\" الملقمات"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:74
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "تم تغيير إعدادت الفلترة"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
+"الكائن  {object} لايوجد لديه أعضاء , الرجاء إضافة عضو- واحد على الأقل ليتم "
+"إستخدام الكائن"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""

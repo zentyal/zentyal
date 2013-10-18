@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-09-22 02:41+0200\n"
-"Last-Translator: gchr <6zmqfnftrh@snkmail.com>\n"
+"PO-Revision-Date: 2013-10-01 16:28+0200\n"
+"Last-Translator: copros <jgergian@gmail.com>\n"
 "Language-Team: none\n"
 "Language: el\n"
 "MIME-Version: 1.0\n"
@@ -69,18 +69,16 @@ msgstr "Αρχείο"
 #: ../../main/squid/src/EBox/Squid.pm:98
 #: ../../main/squid/src/EBox/Squid.pm:1134
 msgid "HTTP Proxy"
-msgstr ""
+msgstr "Mεσολαβητής HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid.pm:1070
-#, fuzzy
 msgid "Categorized Lists"
-msgstr "Κατηγορίες"
+msgstr "Κατηγοριοποιημένες Λίστες"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:79
-#, fuzzy
 msgid "categorized list"
-msgstr "Κατηγορίες"
+msgstr "κατηγοριοποιημένες λίστες"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid ""
@@ -95,6 +93,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Δεν είναι δυνατό να χρησιμοποιηθεί το όνομα {όνομα} καθώς υπάρχει ήδη "
+"φάκελος με αυτό: {φάκελος}.\n"
+"Πιθανή μη κατατεθειμένη αφαίρεση? "
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
@@ -104,12 +105,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
-msgstr ""
+msgstr "Εξαίρεσε την διεύθυνση από Auth και Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "εξαίρεση"
+msgstr "Eξαιρέσεις Auth και Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -119,25 +119,25 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr ""
+msgstr "Μπορείς να εξαιρέσεις μερικές διευθύνσεις από Auth και Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
 msgid "Address added"
-msgstr ""
+msgstr "Η διεύθυνση προστέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:64
 msgid "Address removed"
-msgstr ""
+msgstr "Η διεύθυνση αφαιρέθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:65
 msgid "Address updated"
-msgstr ""
+msgstr "Η διεύθυνση ανανεώθηκε"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
@@ -145,7 +145,7 @@ msgstr "Χρονική περίοδος"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:46
 msgid "Time period when the rule is applied"
-msgstr ""
+msgstr "Χρονική περίοδος πριν εφαρμοστεί ο κανόνας"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:51
 #: ../../main/firewall/src/EBox/Firewall.pm:739
@@ -164,13 +164,12 @@ msgstr "Πηγή"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:59
 msgid "Network Object"
-msgstr "Αντικείμενο δικτύου"
+msgstr "Αντικείμενο Δικτύου"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:65
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-#, fuzzy
 msgid "Users Group"
-msgstr "Χρήστης/Ομάδα"
+msgstr "Ομάδα Χρηστών"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -191,7 +190,7 @@ msgstr "Χρήστης/Ομάδα"
 #: ../../main/core/src/EBox/Types/PortRange.pm:286
 #: ../../main/services/src/EBox/Services.pm:86
 msgid "Any"
-msgstr ""
+msgstr "Οποιοδήποτε"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:80
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:41
@@ -200,30 +199,26 @@ msgstr ""
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:98
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 msgid "Decision"
-msgstr ""
+msgstr "Απόφαση"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
-#, fuzzy
 msgid "Allow All"
-msgstr "Επέτρεψε"
+msgstr "Επέτρεψε σε όλους"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:89
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
-#, fuzzy
 msgid "Deny All"
-msgstr "Αποεπιλογή όλων"
+msgstr "Αρνήσου τα πάντα"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:93
-#, fuzzy
 msgid "Apply Filter Profile"
-msgstr "Προφίλ Φίλτρων"
+msgstr "Υπέβαλε Προφίλ Φίλτρων"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:106
 #: ../../main/squid/src/EBox/Squid.pm:1064
-#, fuzzy
 msgid "Access Rules"
-msgstr "Αιτήσεις πρόσβασης"
+msgstr "Κανόνες Πρόσβασης"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:114
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:205
@@ -246,6 +241,9 @@ msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
 msgstr ""
+"Εδώ μπορείς να φιλτράρεις, μπλοκάρεις ή να επιτρέψεις την πρόσβαση ανά ομάδα "
+"χρηστών ή αντικειμένων δικτύου, Οι κανόνες εφαρμόζονται μόνον κατά τη "
+"διάρκεια της επιλεγμένης χρονικής περιόδου,"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:132
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:102

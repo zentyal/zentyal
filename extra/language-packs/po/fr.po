@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-06-26 16:31+0200\n"
-"Last-Translator: Xavy <jbahillo@zentyal.com>\n"
+"PO-Revision-Date: 2013-10-11 21:06+0200\n"
+"Last-Translator: dataz34 <dataz34@yopmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -436,11 +436,10 @@ msgstr ""
 "par groupe d'utilisateurs trouvée dans certaines règles."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
 msgstr ""
-"L'option du proxy transparent n'est pas compatible avec la stratégie "
-"d'autorisation"
+"L'option \"Proxy transparent\" n'est pas compatible avec le protocole "
+"d'identification de Kerberos"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -713,6 +712,8 @@ msgstr "Les espaces ne sont pas autorisés dans les noms des profils"
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
 msgstr ""
+"Le caractère '~' est réservé et ne peut pas être utilisé pour les noms des "
+"profils"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -779,9 +780,8 @@ msgid "Enable global limit for the object"
 msgstr "Activer une limite globale pour l'objet"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:153
-#, fuzzy
 msgid "Maximum unlimited size"
-msgstr "Taille illimitée"
+msgstr "Taille maximum illimitée"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
 #, fuzzy
@@ -830,10 +830,8 @@ msgstr ""
 "pour désactiver cette option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:185
-#, fuzzy
 msgid "Maximum download rate per client"
-msgstr ""
-"Taux de téléchargement par client. Utiliser -1 pour désactiver cette option."
+msgstr "Vitesse de téléchargement maximum par client."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "Limited download rate after maximum size is reached for each client."
@@ -842,9 +840,8 @@ msgstr ""
 "client est atteinte"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:195
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
-msgstr "Limitation de Bande passante"
+msgstr "Règles de limitation de la Bande passante"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
 msgid ""
@@ -946,7 +943,6 @@ msgid "Access requests"
 msgstr "Requêtes d'accès"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
-#, fuzzy
 msgid "Category"
 msgstr "Catégorie"
 
@@ -955,9 +951,8 @@ msgid "List File"
 msgstr "Fichier de listes"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
-msgstr "Ecouter"
+msgstr "Fichier éxistant"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
 #, fuzzy

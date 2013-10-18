@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-09-18 06:04+0200\n"
-"Last-Translator: Jorge <jorge@netsol.com.br>\n"
+"PO-Revision-Date: 2013-10-18 01:15+0200\n"
+"Last-Translator: djkakaroto <djkakaroto@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -9968,6 +9968,11 @@ msgid ""
 "to the hostname {host}.<br/>You can add it in the {ohref}IP addresses page "
 "for {host}{chref}"
 msgstr ""
+"Samba não pode ser provisionado se nenhum endereço IP está definido para o "
+"host {host}.<br/>Garantir que você tenha pelo menos um endereço IP atribuído "
+"para uma interface interna, e este IP deve ser atribuído ao domínio {dom} e "
+"ao nome de host {host}.<br/>Você pode adicioná-lo no {ohref} endereço IP da "
+"página para {host}{chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:257
 #, perl-brace-format
@@ -9988,14 +9993,15 @@ msgid ""
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:344
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The mode {mode} is not supported"
-msgstr "O usuário {u} não existe"
+msgstr "O modo {mode} não é suportado"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:612
 #, perl-brace-format
 msgid "Could not determine the domain of the specified AD server {x}."
 msgstr ""
+"Não foi possível determinar o domínio do especificado servidor de AD {x}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:632
 #, perl-brace-format

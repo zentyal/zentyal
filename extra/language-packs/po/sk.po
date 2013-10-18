@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-04-23 13:38+0200\n"
-"Last-Translator: ViduzZz <vido.juraj@gmail.com>\n"
+"PO-Revision-Date: 2013-10-17 10:11+0200\n"
+"Last-Translator: bino66 <tmrg@gmtrs.edu.sk>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
@@ -103,15 +103,15 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
 msgid "Domain Name Address"
-msgstr "Adresa doménovéhp názvu"
+msgstr "Adresa doménového názvu"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
-msgstr ""
+msgstr "Adresa vyňatá z Auth a Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
 msgid "Auth and Cache Exemptions"
-msgstr ""
+msgstr "Výnimky Auth a Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -120,9 +120,8 @@ msgid "domain name address"
 msgstr "adresa názvu domény"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Môžete vynechať niektoré adresy z transparentného proxy servera"
+msgstr "Môžete vynechať niektoré adresy z Auth a Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -266,8 +265,8 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
-"Nemôžete pridať pravidlá pre povolenie alebo profil pre objekt alebo adresu "
-"ak používate pravidlá pre skupiny"
+"Nemôžete pridať pravidlá pre povolenie alebo profil pre objekt alebo "
+"ktorúkoľvek adresu ak používate pravidlá pre skupiny"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
@@ -283,12 +282,14 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"Časový interval pravidla ({t1}) prekročené časovým intervalom rovnakého "
+"{sourceType} pravidla ({t2}) "
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
 #, perl-brace-format
 msgid "Object: {o}"
-msgstr "Objektt: {o}"
+msgstr "Objekt: {o}"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:617
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:266
@@ -436,11 +437,8 @@ msgstr ""
 "používateľských skupín, ktorá sa nachádza v niektorých pravidlách"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
-msgstr ""
-"Transparentná proxy nie je kompatibilná s politikou autorizácie podľa "
-"používateľských skupín, ktorá sa nachádza v niektorých pravidlách"
+msgstr "Transparentná proxy nie je kompatibilná s Kerberos autorizáciou"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -453,6 +451,8 @@ msgid ""
 "Note that you cannot proxy HTTPS transparently. You will need to add a "
 "firewall rule if you enable this mode."
 msgstr ""
+"Upozornenie: pre protokol HTTPS sa nemôže použiť transparentné proxy. Musíte "
+"pridať pravidlo do firewallu ak použijete tento mód."
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:56
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:143
@@ -460,32 +460,32 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:162
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 msgid "MIME Type"
-msgstr ""
+msgstr "MIME Typ"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr ""
+msgstr "Typ MIME musí byť v tvare: typ/podtyp"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:154
 #, perl-brace-format
 msgid "{type} is not a valid IANA type"
-msgstr ""
+msgstr "{type} nie je platný typ podľa IANA"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:165
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "podtyp {t} je v zlom tvare"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:182
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
 msgid "MIME types"
-msgstr ""
+msgstr "MIME typy"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:189
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
 msgid "MIME type"
-msgstr ""
+msgstr "MIME typ"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:190
 msgid ""
@@ -493,24 +493,27 @@ msgid ""
 "types not listed here are allowed.\n"
 "The filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Povoliť/Zakázať prevádzku HTTP súborov uvedených MIME typov. MIME typy, "
+"ktoré tu nie sú uvedené, sú povolené.\n"
+"Aby bol filter účinný je treba aby politika typu 'filter' bola aktivivaná"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:193
 msgid "MIME type added"
-msgstr ""
+msgstr "Typ MIME pridané"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:194
 msgid "MIME type removed"
-msgstr ""
+msgstr "Typ MIME odstránené"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:195
 msgid "MIME type updated"
-msgstr ""
+msgstr "Typ MIME aktualizované"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:66
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:50
 msgid "Requests"
-msgstr ""
+msgstr "Požiadavky"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
@@ -534,49 +537,48 @@ msgstr ""
 #: ../../main/samba/src/templates/ajax/viewer/shareViewer.mas:8
 #: ../../main/users/src/templates/addobject.mas:8
 #: ../../main/users/src/templates/edituser.mas:19
-#, fuzzy
 msgid "User"
 msgstr ""
 "#-#-#-#-#  sk.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Užívateľské meno\n"
+"Používateľské meno\n"
 "#-#-#-#-#  sk.po (ebox-printers 1.3.3)  #-#-#-#-#\n"
-"Užívateľ"
+"Používateľ"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:42
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:70
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:51
 msgid "Accepted requests"
-msgstr ""
+msgstr "Akceptované požiadavky"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:74
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:50
 msgid "Accepted traffic size (Kb)"
-msgstr ""
+msgstr "Veľkosť akceptovanej prevádzky (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:44
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:78
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:52
 msgid "Denied requests"
-msgstr ""
+msgstr "Odmietnuté požiadavky"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:45
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:83
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:51
 msgid "Denied traffic size (Kb)"
-msgstr ""
+msgstr "Veľkosť odmietnutej prevádzky (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:53
 msgid "Filtered requests"
-msgstr ""
+msgstr "Filtrované požiadavky"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:92
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:52
 msgid "Filtered traffic size (Kb))"
-msgstr ""
+msgstr "Veľkosť filtrovanej prevádzky (Kb)"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/squid/src/EBox/Squid.pm:1118
@@ -615,7 +617,7 @@ msgstr "Dátum"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:98
 msgid "Web traffic details"
-msgstr ""
+msgstr "Detaily webovej prevádzky"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:105
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:79
@@ -623,7 +625,7 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyDetails.pm:104
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:95
 msgid "traffic"
-msgstr ""
+msgstr "prevádzka"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:65
 #, perl-brace-format
@@ -632,6 +634,9 @@ msgid ""
 "disabled. If you want to filter virus, first {openhref}activate the module"
 "{closehref} and come back here"
 msgstr ""
+"Nemôžete aktivovat filter antivíru, lebo modul antivíru je vypnutý. Ak "
+"chcete filtrovať vírusy, musíte pred tým {openhref}aktivovať "
+"modul{closehref} a potom sa vráťte sem"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:69
 #, perl-brace-format
@@ -640,45 +645,48 @@ msgid ""
 "installed. If you want to filter virus, first install it and then {openhref}"
 "activate the module{closehref} and come back here"
 msgstr ""
+"Nemôžete aktivovať filter antivíru, lebo modul antivíru nie je "
+"nainštalovaný. Ak chcete filtrovať vírusy, predtým musíte inštalovať, potom "
+"{openhref}aktivovať modul{closehref} a potom sa vráťte sem "
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:82
 msgid "Use antivirus"
-msgstr ""
+msgstr "Používanie antivíru"
 
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:67
 msgid "Filter virus"
-msgstr ""
+msgstr "Filtrovanie vírusov"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:42
 msgid "Squid traffic size graph"
-msgstr ""
+msgstr "Graf objemu Squid prenosu"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:68
 msgid "Traffic size"
-msgstr ""
+msgstr "Objem prenosu"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid.pm:1067
 msgid "Filter Profiles"
-msgstr ""
+msgstr "Profily filtrov"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:104
 msgid "filter profile"
-msgstr ""
+msgstr "profil filtru"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:106
 msgid "Added filter profile"
-msgstr ""
+msgstr "Pridaný profil filtru"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:107
 msgid "Removed filter profile"
-msgstr ""
+msgstr "Odstránený profil filtru"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:108
 msgid "Updated filter profile"
-msgstr ""
+msgstr "Aktualizovaný profil filtru"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:125
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:74
@@ -694,33 +702,24 @@ msgstr ""
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:42
 #: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:43
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:168
-#, fuzzy
 msgid "Configuration"
-msgstr ""
-"#-#-#-#-#  sk.po (ebox-services 1.3.3)  #-#-#-#-#\n"
-"Konfigurácia\n"
-"#-#-#-#-#  sk.po (ebox-webserver 1.3.3)  #-#-#-#-#\n"
-"Konfigurácia\n"
-"#-#-#-#-#  sk.po (ebox)  #-#-#-#-#\n"
-"Nastavenie\n"
-"#-#-#-#-#  sk.po (ebox-jabber 1.3.3)  #-#-#-#-#\n"
-"Nastavenie"
+msgstr "Nastavenie"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:144
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "Dosiahnutý maximálny počet skupín filtrov"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:154
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "Medzery nie sú v menách profilov povolené "
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "Charakter '~' je rezervované a nemôžu sa používať v menách profilov"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
-msgstr ""
+msgstr "Blokovanie neuvedených domén a URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:53
 msgid ""
@@ -728,34 +727,42 @@ msgid ""
 "the <i>Domains and URLrules</i> nor in the <i>Domain list files</i> sections "
 "below will be forbidden."
 msgstr ""
+"Použitím tejto voľby budú všetky domény alebo URL neuvedené buď v "
+"sekcii<i>Pravidla domén a URL</i> alebo v sekcii <i>Súbory zoznamov "
+"domén</i> zakázané."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:60
 msgid "Block sites specified only as IP"
-msgstr ""
+msgstr "Blokovanie umiestnení udané pomocou IP adries"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:68
 msgid "Domain filter settings"
-msgstr ""
+msgstr "Nastavenia doménového filtra"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:74
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "Nastavenia filtrovania zmenené"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
+"Objekt {object} nemá členov. Prosím, pridajte aspoň jedného používateľa "
+"tohto objektu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""
 "If global limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Ak je nastavený globálny limit, je nutné zadať hodnoty veľkosti a rýchlosti"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:66
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Ak je nastavený limit na klienta, je nutné zadať hodnoty veľkosti a "
+"rýchlosti"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:75
 #, perl-brace-format
@@ -763,70 +770,73 @@ msgid ""
 "Per-client rate ({clt_rate} KB/s) cannot be greater than global rate "
 "({net_rate} KB/s)"
 msgstr ""
+"Limit rýchlosti klienta ({clt_rate} KB/s) nemôže byť väčší, ako globálny "
+"limit rýchlosti ({net_rate} KB/s)"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:137
 msgid "Network object"
-msgstr ""
+msgstr "Sieťový objekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:146
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Použiť na objekty globálny limit."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:153
 msgid "Maximum unlimited size"
-msgstr ""
+msgstr "Maximálna neobmedzená veľkosť"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
 msgid "Maximum unthrottled download size for the whole network object."
-msgstr ""
+msgstr "Maximálna veľkosť stiahnutá bez obmedzenia pre celý sieťový objekt."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:157
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:181
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:96
 msgid "MB"
-msgstr ""
+msgstr "MB"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:162
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "Stiahnuť"
+msgstr "Maximálna rýchlosť stiahnutia"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Obmedzená rýchlosť sťahovania po prekročení maximálnej veľkosti pre celý "
+"sieťový objekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:166
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:189
 msgid "KB/s"
-msgstr ""
+msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:170
-#, fuzzy
 msgid "Enable per client limit"
-msgstr "Povoliť podľa užívateľa {dirName}"
+msgstr "Povoliť limit na klienta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:177
 msgid "Maximum unlimited size per client"
-msgstr ""
+msgstr "Maximálna veľkosť na klienta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:178
 msgid "Maximum unthrottled download size for each client."
-msgstr ""
+msgstr "Maximálna veľkosť stiahnutá bez obmedzenia pre každého klienta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:185
 msgid "Maximum download rate per client"
-msgstr ""
+msgstr "Maximálna rýchlosť sťahovania na klienta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
+"Obmedzená rýchlosť sťahovania po prekročení maximálnej veľkosti pre každého "
+"klienta"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:195
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
-msgstr "Systémové aktualizácie"
+msgstr "Pravidlá obmedzenia šírky pásma"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
 msgid ""
@@ -834,23 +844,26 @@ msgid ""
 "going though the HTTP proxy. The first rule to match is applied. If a "
 "connection doesn't match any rule, then no bandwidth throttling is applied."
 msgstr ""
+"Obmedzenie pásma umožňuje upraviť rýchlosť sťahovania pre pripojenie cez "
+"HTTP proxy. Prvé pravidlo, ktoré zodpovedá sa použije. Akonáhle pripojenie "
+"nezodpovedá žiadnemu z pravidiel, tak nebude obmedzenie použité"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:39
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:353
 msgid "Threshold"
-msgstr ""
+msgstr "Prahová hodnota"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:42
 msgid "This specifies how strict the content filter is."
-msgstr ""
+msgstr "Špecifikuje citlivosť filtra obsahu"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:48
 msgid "Content filter threshold"
-msgstr ""
+msgstr "Prahová hodnota filtra obsahu"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:54
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "Prahová hodnota filtra obsahu zmenené"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:881
@@ -879,94 +892,76 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
 #: ../../main/zarafa/src/templates/zarafa.mas:22
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  sk.po (ebox-. 1.5)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  sk.po (ebox-zarafa 1.3.3)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  sk.po (libebox 1.3.3)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  sk.po (ebox-ntp 1.3.3)  #-#-#-#-#\n"
-"Zakázané\n"
-"#-#-#-#-#  sk.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  sk.po (ebox-webserver 1.3.3)  #-#-#-#-#\n"
-"Zakázaný\n"
-"#-#-#-#-#  sk.po (ebox)  #-#-#-#-#\n"
-"Vypnuté\n"
-"#-#-#-#-#  sk.po (ebox-jabber 1.3.3)  #-#-#-#-#\n"
-"Zakázaný"
+msgstr "Vypnuté"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 msgid "Very permissive"
-msgstr ""
+msgstr "Veľmi tolerantný"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:66
 msgid "Permissive"
-msgstr ""
+msgstr "Tolerantný"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 msgid "Medium"
-msgstr ""
+msgstr "Stredný"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:68
 msgid "Strict"
-msgstr ""
+msgstr "Prísny"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:69
 msgid "Very strict"
-msgstr ""
+msgstr "Veľmi prísny"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:44
 msgid "Exempt address from caching"
-msgstr ""
+msgstr "Nepoužívať pre adresu cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:52
 msgid "Cache Exemptions"
-msgstr ""
+msgstr "Výnimky z cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:61
 msgid "You can exempt some addresses from caching"
-msgstr ""
+msgstr "Môžete vyňať niektoré adresy z cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:42
 msgid "Squid traffic requests graph"
-msgstr ""
+msgstr "Graf požiadaviek Squid prevádzky"
 
 #: ../../main/squid/src/EBox/Squid/Model/RequestsGraph.pm:69
 msgid "Access requests"
-msgstr ""
+msgstr "Požiadavky prístupu"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
 msgid "Category"
-msgstr ""
+msgstr "Kategória"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
-#, fuzzy
 msgid "List File"
-msgstr "Počúvať"
+msgstr "Zoznam súborov"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
-msgstr "Počúvať"
+msgstr "Existujúci súbor"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
-#, fuzzy
 msgid "Domain categories"
-msgstr "Alias domény"
+msgstr "Doménové kategórie"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:182
 msgid "category"
-msgstr ""
+msgstr "kategória"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:184
 msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
+"Nie sú udané kategórie. Pridajte kategorizované zoznamy súborov pre "
+"filtrovanie."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1827
@@ -991,31 +986,26 @@ msgstr ""
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:218
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:89
 #: ../../main/users/src/EBox/Users/Model/Master.pm:75
-#, fuzzy
 msgid "None"
-msgstr ""
-"#-#-#-#-#  sk.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"Žiadny\n"
-"#-#-#-#-#  sk.po (ebox)  #-#-#-#-#\n"
-"Žiadne"
+msgstr "Žiadny"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
 msgid "File extension"
-msgstr ""
+msgstr "Prípona súboru"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:109
 msgid "Extension"
-msgstr ""
+msgstr "Prípona"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:135
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
 msgid "File extensions"
-msgstr ""
+msgstr "Prípony súborov"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:143
 msgid "extension"
-msgstr ""
+msgstr "prípona"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:144
 msgid ""
@@ -1023,18 +1013,21 @@ msgid ""
 "Extensions not listed here are allowed.\n"
 "The extension filter needs a 'filter' policy to be in effect"
 msgstr ""
+"Povolenie/zakázanie prevádzky HTTP pre nasledovné prípony súborov.Tu "
+"neuvádzané prípony sú povolené.Pre používanie filtra prípon, treba zriadiť "
+"politiku filtrovania "
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:147
 msgid "Extension added"
-msgstr ""
+msgstr "Prípona pridaná"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:148
 msgid "Extension removed"
-msgstr ""
+msgstr "Prípona odstránená"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:149
 msgid "Extension updated"
-msgstr ""
+msgstr "Prípona aktualizovaná"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:56
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
@@ -1044,166 +1037,162 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:65
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
-msgstr ""
+msgstr "Nastavenia"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:59
-#, fuzzy
 msgid "Domains and URLs"
-msgstr "Alias domény"
+msgstr "Domény a URL adresy"
 
 #: ../../main/squid/src/EBox/Squid/Composite/TrafficReport.pm:41
 #: ../../main/squid/src/EBox/Squid/Composite/TrafficReport.pm:42
 msgid "HTTP proxy traffic report"
-msgstr ""
+msgstr "Správa prevádzky HTTP proxy "
 
 #: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:76
 msgid "HTTP proxy access rules"
-msgstr ""
+msgstr "Pravidlá prístupu HTTP proxy"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
 msgid "Supplied file is not a archive file"
-msgstr ""
+msgstr "Udaný súbor nie je archív"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:78
 msgid "Supplied archive file has not correct list structure"
-msgstr ""
+msgstr "Udaný archívny súbor nemá správnu štruktúru zoznamu"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:97
 #, perl-brace-format
 msgid "Invalid .tar.gz file: {f}"
-msgstr ""
+msgstr "Neplatný .tar.gz súbor: {f}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:44
 msgid "M"
-msgstr ""
+msgstr "Po"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "T"
-msgstr ""
+msgstr "Ut"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "W"
-msgstr ""
+msgstr "St"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "H"
-msgstr ""
+msgstr "Št"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:48
 msgid "F"
-msgstr ""
+msgstr "Pi"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:49
 msgid "A"
-msgstr ""
+msgstr "So"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:50
 msgid "S"
-msgstr ""
+msgstr "Ne"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Monday"
-msgstr ""
+msgstr "Pondelok"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Tuesday"
-msgstr ""
+msgstr "Utorok"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Wednesday"
-msgstr ""
+msgstr "Streda"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Thursday"
-msgstr ""
+msgstr "Štvrtok"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:58
 msgid "Friday"
-msgstr ""
+msgstr "Piatok"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:59
 msgid "Saturday"
-msgstr ""
+msgstr "Sobota"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:60
 msgid "Sunday"
-msgstr ""
+msgstr "Nedeľa"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:129
 msgid "All time"
-msgstr ""
+msgstr "Hocikedy"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:205
 msgid "All week"
-msgstr ""
+msgstr "Celý týždeň"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:213
 msgid "Weekend"
-msgstr ""
+msgstr "Víkend"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:218
 msgid "Work days"
-msgstr ""
+msgstr "Pracovné dni"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:384
 msgid "From hour.."
-msgstr ""
+msgstr "Od hodiny"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:387
 msgid "to hour.."
-msgstr ""
+msgstr "do hodiny"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:391
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "Udajte dve rôzne hodiny pre rozsah"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:408
 #, perl-brace-format
 msgid "Bad hour of the day value: {h}"
-msgstr ""
+msgstr "Zlá hodnota hodiny: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:414
 #, perl-brace-format
 msgid "Bad hour of the day format: {h}"
-msgstr ""
+msgstr "Zlý formát hodiny: {h}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:421
 #, perl-brace-format
 msgid "Bad minutes value: {mi}"
-msgstr ""
+msgstr "Zlá hodnota minúty: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:427
 #, perl-brace-format
 msgid "Bad minutes format: {mi}"
-msgstr ""
+msgstr "Zlý formát minúty: {mi}"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:439
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:445
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "Koncová hodnota rozsahu je väčšie ako počiatočná"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:468
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "Časový rozsah musí byť aktívny aspoň v jednom dni"
 
 #: ../../main/squid/src/EBox/Squid.pm:205
-#, fuzzy
 msgid "Front HTTP Proxy configuration file"
-msgstr "HTTP Proxy - konfiguračný súbor"
+msgstr "Predný konfiguračný súbor HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:210
-#, fuzzy
 msgid "Back HTTP Proxy configuration file"
-msgstr "HTTP Proxy - konfiguračný súbor"
+msgstr "Zadný konfiguračný súbor HTTP Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:215
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "HTTP Proxy - konfiguračný súbor"
+msgstr "Záznam nastavenia Squid"
 
 #: ../../main/squid/src/EBox/Squid.pm:220
 msgid "Content filter configuration file"
-msgstr "Obsahový filter - konfiguračný súbor"
+msgstr "Konfiguračný súbor obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:225
 msgid "Default filter group configuration"
@@ -1211,115 +1200,116 @@ msgstr "Konfigurácia východzích filter skupín"
 
 #: ../../main/squid/src/EBox/Squid.pm:230
 msgid "Filter groups membership"
-msgstr ""
+msgstr "Člen filtrovacých skupín"
 
 #: ../../main/squid/src/EBox/Squid.pm:235
 msgid "Content filter banned extension list"
-msgstr ""
+msgstr "Zoznam zakázaných prípon obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:240
 msgid "Content filter banned mime type list"
-msgstr ""
+msgstr "Zoznam zakázaných typov MIME obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:245
 msgid "Content filter exception site list"
-msgstr ""
+msgstr "Zoznam výnimiek stránok obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:250
 msgid "Content filter grey site list"
-msgstr ""
+msgstr "Sivá listina stránok obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:255
 msgid "Content filter banned site list"
-msgstr ""
+msgstr "Zoznam zakázaných stránok obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:260
 msgid "Content filter exception URL list"
-msgstr ""
+msgstr "Zoznam výnimiek URL adries obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:265
 msgid "Content filter grey URL list"
-msgstr ""
+msgstr "Sivá listina URL adries obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:270
 msgid "Content filter banned URL list"
-msgstr ""
+msgstr "Zoznam zakázaných URL adries obsahového filtra"
 
 #: ../../main/squid/src/EBox/Squid.pm:275
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "Zoznam zakázaných výrazov"
 
 #: ../../main/squid/src/EBox/Squid.pm:280
 msgid "Exception phrases list"
-msgstr ""
+msgstr "Zoznam výnimiek výrazov"
 
 #: ../../main/squid/src/EBox/Squid.pm:285
 msgid "PICS ratings configuration"
-msgstr ""
+msgstr "Nastavenie PICS hodnotenia"
 
 #: ../../main/squid/src/EBox/Squid.pm:290
 msgid "Dansguardian's log rotation configuration"
-msgstr ""
+msgstr "Nastavenie rotácie záznamu DansGuardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:295
 msgid "Dansguardian's antivirus scanner configuration"
-msgstr ""
+msgstr "Nastavenie antivírusového skenera DansGuardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:300
 msgid "Filter groups per IP"
-msgstr ""
+msgstr "Filter skupín podľa IP"
 
 #: ../../main/squid/src/EBox/Squid.pm:305
-#, fuzzy
 msgid "Configuration of adzapper"
-msgstr "Záloha konfigurácie"
+msgstr "Nastavenie Adzapper-a"
 
 #: ../../main/squid/src/EBox/Squid.pm:310
 msgid "Set the kerberos keytab path"
-msgstr ""
+msgstr "Nastavenie cesty Kerberos keytab-u"
 
 #: ../../main/squid/src/EBox/Squid.pm:315
 msgid "Extract the service principal key"
-msgstr ""
+msgstr "Získanie kľúča účastníka služby"
 
 #: ../../main/squid/src/EBox/Squid.pm:328
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "Prepísanie šablóny blokovaných stránok"
 
 #: ../../main/squid/src/EBox/Squid.pm:329
 msgid ""
 "Dansguardian blocked page templates will be overwritten with Zentyal "
 "customized templates."
 msgstr ""
+"Prepísanie stránok blokovaných DansGuardian-om šablónami prispôsobených pre "
+"Zentyal."
 
 #: ../../main/squid/src/EBox/Squid.pm:334
 msgid "Override squid upstart job"
-msgstr ""
+msgstr "Posudzovanie Squid upstart činnosti"
 
 #: ../../main/squid/src/EBox/Squid.pm:335
 #: ../../main/squid/src/EBox/Squid.pm:341 ../../main/dns/src/EBox/DNS.pm:526
 #: ../../main/ntp/src/EBox/NTP.pm:87
 #: ../../main/webserver/src/EBox/WebServer.pm:137
 msgid "Zentyal will take care of starting and stopping the services."
-msgstr "Zentyall sa postará o spustenia a zastavenia služieb."
+msgstr "Zentyal sa postará o spustenia a zastavenia služieb."
 
 #: ../../main/squid/src/EBox/Squid.pm:340
-#, fuzzy
 msgid "Remove dansguardian init script link"
-msgstr "Odstrániť prepojenia na inicializačný skript"
+msgstr "Odstránenie prepojenia na inicializačného skriptu DansGuardian"
 
 #: ../../main/squid/src/EBox/Squid.pm:352
 msgid "You must set the cache_mem variable in the Zentyal configuration file"
-msgstr ""
+msgstr "Treba nastaviť premennú cache_mem v konfiguračnom súbore Zentyal-u"
 
 #: ../../main/squid/src/EBox/Squid.pm:361
 msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr ""
+"Treba nastaviť premennú max_object_size v konfiguračnom súbore Zentyal-u"
 
 #: ../../main/squid/src/EBox/Squid.pm:1073
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "Obmedzenie šírky pásma"
 
 #: ../../main/squid/src/EBox/Squid.pm:1119
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:96
@@ -1329,19 +1319,19 @@ msgstr ""
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
-msgstr ""
+msgstr "Hostiteľ"
 
 #: ../../main/squid/src/EBox/Squid.pm:1121
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: ../../main/squid/src/EBox/Squid.pm:1123
 msgid "Bytes"
-msgstr ""
+msgstr "Bajtov"
 
 #: ../../main/squid/src/EBox/Squid.pm:1124
 msgid "Mime/type"
-msgstr ""
+msgstr "Typ MIME"
 
 #: ../../main/squid/src/EBox/Squid.pm:1125
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1478
@@ -1360,37 +1350,35 @@ msgstr "Udalosť"
 
 #: ../../main/squid/src/EBox/Squid.pm:1130
 msgid "Accepted"
-msgstr ""
+msgstr "Akceptovaný"
 
 #: ../../main/squid/src/EBox/Squid.pm:1131
 msgid "Denied"
-msgstr ""
+msgstr "Zakázaný"
 
 #: ../../main/squid/src/EBox/Squid.pm:1132
 msgid "Filtered"
-msgstr ""
+msgstr "Filtrovaný"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
-msgstr ""
+msgstr "Udaná sieť"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:58
 msgid "Deleted daemons"
-msgstr ""
+msgstr "Démoni odstránené"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:64
 msgid "daemon"
-msgstr ""
+msgstr "démon"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:57
-#, fuzzy
 msgid "Upload configuration bundle"
-msgstr "lokálny bind9 konfiguračný súbor"
+msgstr "Nahratie konfiguračného súboru"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "lokálny bind9 konfiguračný súbor"
+msgstr "Nahratie konfiguračného súboru klientov"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
@@ -1401,9 +1389,9 @@ msgid "client"
 msgstr "klient"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "konfiguračný súbor zóny {zone}"
+msgstr "Nahratie konfiguračného súboru k: {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:58
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:881
@@ -1428,44 +1416,31 @@ msgstr "konfiguračný súbor zóny {zone}"
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
 #: ../../main/zarafa/src/templates/zarafa.mas:26
-#, fuzzy
 msgid "Enabled"
-msgstr ""
-"#-#-#-#-#  sk.po (ebox-zarafa 1.3.3)  #-#-#-#-#\n"
-"Povolený\n"
-"#-#-#-#-#  sk.po (libebox 1.3.3)  #-#-#-#-#\n"
-"Povolený\n"
-"#-#-#-#-#  sk.po (ebox-ids 1.3.3)  #-#-#-#-#\n"
-"Povolený\n"
-"#-#-#-#-#  sk.po (ebox-ntp 1.3.3)  #-#-#-#-#\n"
-"Povolené\n"
-"#-#-#-#-#  sk.po (ebox)  #-#-#-#-#\n"
-"Zapnuté\n"
-"#-#-#-#-#  sk.po (ebox-jabber 1.3.3)  #-#-#-#-#\n"
-"Povolený"
+msgstr "Zapnutý"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:83
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:73
 msgid "Advertised networks"
-msgstr ""
+msgstr "Udané sieťe"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:92
 msgid "Download client bundle"
-msgstr ""
+msgstr "Stiahnutie klientského balíka"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:104
 msgid "List of servers"
-msgstr ""
+msgstr "Zoznam serverov"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:105
 msgid "VPN servers"
-msgstr ""
+msgstr "VPN servery"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
 #: ../../main/ntp/src/EBox/NTP/Model/Servers.pm:57
 msgid "server"
-msgstr ""
+msgstr "server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:158
 #, perl-brace-format
@@ -1474,6 +1449,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}K spúštaniu VPN serverov je potrebný platný CA certifikát. "
+"{closepar}{openpar}Chodťe do modulu {openhref}  Certifikačná "
+"autorita{closehref} a obnovte. {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:165
 #, perl-brace-format
@@ -1482,20 +1460,25 @@ msgid ""
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
+"{openpar}K spúštaniu VPN serverov musíte mať vytvorený platný CA certifikát. "
+"{closepar}{openpar}Choďte do modulu {openhref} Certifikačná "
+"autorita{closehref} a vytvorte. {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:183
 msgid "Server creation"
-msgstr ""
+msgstr "Vytvorenie servera"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:288
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Nedá sa aktivovať server, lebo nie je úplne nastavený. Upravte nastavenia a "
+"skúste znova."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:296
 msgid "Cannot create a server because there is not a CA certificate"
-msgstr ""
+msgstr "Nedá sa vytvoriť server, lebo nemá CA certifikát"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:321
 #, perl-brace-format
@@ -1503,19 +1486,20 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} nie je možné, lebo certifikát sa nedá nájsť. Choďte do modulu "
+"Certifikačná autorita a vytvorte nové certifikáty. "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:338
-#, fuzzy
 msgid "revoked"
-msgstr "Zmeny boli odvolané"
+msgstr "odvolané"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "expired"
-msgstr ""
+msgstr "vypršané"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "invalid"
-msgstr ""
+msgstr "neplatné"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
 #, perl-brace-format
