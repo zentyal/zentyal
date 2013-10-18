@@ -1,4 +1,4 @@
-HEAD
+3.2.6
 	+ Set zavsd socket mode to 0777
 	+ Fix already defined variable warning
 	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
