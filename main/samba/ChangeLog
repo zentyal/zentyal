@@ -1,8 +1,10 @@
 HEAD
-	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
-	+ Set case sensitive on a per share basis
+	+ Set zavsd socket mode to 0777
+	+ Fix already defined variable warning
 	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
 	  (Contributed by on-jz)
+	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
+	+ Set case sensitive on a per share basis
 3.2.5
 	+ Fix netbios name no being updated when hostname change and samba module
 	  is not enabled

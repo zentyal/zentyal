@@ -314,11 +314,11 @@ sub _postServiceHook
                 # Add read/write access for Domain Users
                 my $ace = new Samba::Security::AccessControlEntry(
                     $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
-                $sd->dacl_add($ace);                
-                # Add read/write access for Domain Guests
-                my $ace = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
+                # Add read/write access for Domain Guests
+                my $ace2 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace2);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
