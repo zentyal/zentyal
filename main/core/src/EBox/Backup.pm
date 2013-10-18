@@ -1491,7 +1491,7 @@ sub _modulesInBackup
     my @modules = split '\s', $modulesString;
     foreach my $mod (@modules) {
         if ($mod eq 'apache') {
-            $mod = 'webserver';
+            $mod = 'webadmin';
             last;
         }
     }
