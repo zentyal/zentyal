@@ -1,4 +1,6 @@
 HEAD
+	+ When restoring pre-3.2 backups take in account that apache
+	  module was renamed to webadmin
 	+ Fixed JS glitch which broke the dashboard periodical updates
 	+ Better check of referer which skips cloud domain if it does not exists
 	+ Avoid warning when stopping a module without FirewallHelper
