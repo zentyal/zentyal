@@ -2,22 +2,23 @@
 # Hungarian translations for Zentyal
 # Copyright (C) 2009-2013 Zentyal S.L.
 # This file is distributed under the same license as the zentyal packages.
-# Automatically generated, 2011.
 #
+# Automatically generated, 2011.
+# Gabor Kelemen <kelemeng at gnome dot hu>, 2013.
 msgid ""
 msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2013-10-17 02:16+0200\n"
-"Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
-"Language-Team: zentyal-i18n@lists.zentyal.org\n"
+"PO-Revision-Date: 2013-10-17 02:13+0200\n"
+"Last-Translator: Gabor Kelemen <kelemeng at gnome dot hu>\n"
+"Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.6\n"
+"X-Generator: Lokalize 1.5\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -105,14 +106,12 @@ msgid "Domain Name Address"
 msgstr "Tartománynév címe"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Cím kizárása a gyorsítótárból"
+msgstr "Cím kizárása a hitelesítésből és a gyorsítótárból"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Gyorsítótár kivételek"
+msgstr "Hitelesítési és gyorsítótár kivételek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -121,9 +120,8 @@ msgid "domain name address"
 msgstr "tartománynév címe"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Itt adhatók meg a gyorsítótárból kizárt címek"
+msgstr "Itt adhatók meg a hitelesítésből és a gyorsítótárból kizárt címek"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -442,11 +440,8 @@ msgstr ""
 "talált felhasználóicsoport-hitelesítési házirenddel."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:149
-#, fuzzy
 msgid "Transparent proxy is incompatible with Kerberos authentication"
-msgstr ""
-"A transzparens proxy nem kompatibilis az egyes hozzáférési szabályokban "
-"talált felhasználóicsoport-hitelesítési házirenddel."
+msgstr "A transzparens proxy nem kompatibilis a Kerberos-hitelesítéssel"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:196
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
@@ -748,12 +743,12 @@ msgid "Filtering settings changed"
 msgstr "A szűrés beállításai módosítva"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
 "A(z) {object} objektumnak nincsenek tagjai. Vegyen fel legalább egyet az "
-"objektumot használó szabályok hozzáadásához."
+"objektum használatához."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""
@@ -1058,9 +1053,8 @@ msgid "HTTP proxy traffic report"
 msgstr "HTTP proxy forgalom jelentés"
 
 #: ../../main/squid/src/EBox/Squid/LdapUserImplementation.pm:76
-#, fuzzy
 msgid "HTTP proxy access rules"
-msgstr "HTTP proxy forgalom jelentés"
+msgstr "HTTP proxy hozzáférési szabályok"
 
 #: ../../main/squid/src/EBox/Squid/Types/ListArchive.pm:60
 msgid "Supplied file is not a archive file"
@@ -1197,9 +1191,8 @@ msgid "Back HTTP Proxy configuration file"
 msgstr "Hátsó HTTP proxy beállító fájl"
 
 #: ../../main/squid/src/EBox/Squid.pm:215
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "DansGuardian naplóforgatásának beállítása"
+msgstr "Squid naplóforgatásának beállítása"
 
 #: ../../main/squid/src/EBox/Squid.pm:220
 msgid "Content filter configuration file"
@@ -1929,9 +1922,8 @@ msgstr ""
 "beállítva; egészítse ki a beállításokat, és próbálja újra"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
-#, fuzzy
 msgid "List of advertised networks to tunnel server"
-msgstr "Hirdetett hálózatok listája"
+msgstr "Hirdetett hálózatok listája az alagútkiszolgáló felé"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:77
 msgid "Advestised routes for clients over a TUN interface are not supported"
@@ -2767,9 +2759,9 @@ msgstr ""
 "korlátozó tűzfalszabályok vonatkoznak rá."
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Log new forwarded connections to {log}"
-msgstr "Az új, továbbított kapcsolatok naplózása"
+msgstr "Az új, továbbított kapcsolatok naplózása ide: {log}"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
 msgid "List of forwarded ports"
@@ -3050,9 +3042,8 @@ msgid "Application based service group"
 msgstr "Alkalmazás alapú szolgáltatáscsoport"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:596
-#, fuzzy
 msgid "Based on Firewall"
-msgstr "Tűzfal"
+msgstr "Tűzfal alapú"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:600
 msgid "Prioritize small control packets"
@@ -3096,7 +3087,7 @@ msgid "rate"
 msgstr "sebesség"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:153
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Traffic Shaping is applied when Zentyal is acting as a gateway. To achieve "
 "so, you'd need, at least, one internal and one external interface. Check "
@@ -3104,8 +3095,8 @@ msgid ""
 "{closehref}"
 msgstr ""
 "A forgalomszabályozás akkor lesz alkalmazva, ha a Zentyal átjáróként "
-"működik. Ennek érdekében szükség van egy belső és egy külső csatolóra. "
-"Ellenőrizze a csatolók beállításait, a {openhref}Hálózat->Csatolók"
+"működik. Ennek érdekében szükség van legalább egy belső és egy külső "
+"csatolóra. Ellenőrizze a csatolók beállításait, a {openhref}Hálózat->Csatolók"
 "{closehref} részben"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InternalRules.pm:51
@@ -3174,7 +3165,6 @@ msgid "Interface Rates"
 msgstr "Csatolósebességek"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:408
-#, fuzzy
 msgid "filterType"
 msgstr "Szűrő típusa"
 
@@ -3256,9 +3246,9 @@ msgid "Domain Name Service"
 msgstr "Tartománynév-szolgáltatás"
 
 #: ../../main/dns/src/EBox/DNS.pm:956
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "key '{key}' in configuration file {value}"
-msgstr "A {daemon} fő beállítófájlja"
+msgstr "„{key}” kulcs a beállítófájlban: {value}"
 
 #: ../../main/dns/src/EBox/DNS.pm:1716
 msgid "hostname"
@@ -3571,9 +3561,9 @@ msgid "{srv} record"
 msgstr "{srv} rekord"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "A kiválasztott szolgáltatás nincs jelen ebben: {file}"
+msgstr "A szolgáltatás („{srv}”) nincs jelen ebben: {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format
@@ -3948,9 +3938,8 @@ msgid "Installation steps"
 msgstr "Telepítés lépései"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "Távoli biztonsági mentés"
+msgstr "Válasszon biztonsági mentést"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
@@ -3965,9 +3954,8 @@ msgid "Installation"
 msgstr "Telepítés"
 
 #: ../../main/software/src/EBox/Software.pm:1079
-#, fuzzy
 msgid "Restore Configuration"
-msgstr "Beállítások biztonsági mentésének visszaállítása"
+msgstr "Beállítások visszaállítása"
 
 #: ../../main/software/src/EBox/Software.pm:1081
 msgid "Initial Configuration"
@@ -4515,19 +4503,16 @@ msgid "Unlimited"
 msgstr "Korlátlan"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:135
-#, fuzzy
 msgid "Data to back up"
-msgstr "Adatok mentve"
+msgstr "Mentendő adatok"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
-#, fuzzy
 msgid "data domain"
-msgstr "Statikus tartomány"
+msgstr "adattartomány"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
-#, fuzzy
 msgid "Select the data you want to back up."
-msgstr "Válassza ki a menteni kívánt tartományokat."
+msgstr "Válassza ki a menteni kívánt adatokat."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
@@ -4723,9 +4708,8 @@ msgid "Registering a server"
 msgstr "Szerver regisztrációja"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:68
-#, fuzzy
 msgid "See latest report"
-msgstr "Utolsó jelentés letöltése"
+msgstr "Lásd az utolsó jelentést"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:72
 msgid "Last consolidation time"
@@ -4748,9 +4732,9 @@ msgid "Not registered"
 msgstr "Nem lett regisztrálva"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:110
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{oh}Take a look on the documentation{ch}"
-msgstr "{oh}Nézze meg a példát{ch}"
+msgstr "{oh}Nézze meg a dokumentációt{ch}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:116
 msgid "The consolidation is disabled. No report data is gathered"
@@ -4835,12 +4819,12 @@ msgstr "A beállításokról még nem készült biztonsági mentés"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:78
 #, perl-brace-format
 msgid "Enable access without password from {tool} and Support"
-msgstr "Hozzáférés engedélyezése jelszó nélkül a támogatástól és innen: {tool} "
+msgstr ""
+"Hozzáférés engedélyezése jelszó nélkül a támogatástól és innen: {tool} "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
-#, fuzzy
 msgid "Web Remote Access Settings"
-msgstr "Hozzáférési beállítások"
+msgstr "Webes távoli hozzáférési beállításai"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:92
 msgid "This is only intended for Web Administration User Interface"
@@ -4852,9 +4836,8 @@ msgid "Inexistent backup: {n}"
 msgstr "Nem létező mentés: {n}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:439
-#, fuzzy
 msgid "Configuration backup upload corrupted"
-msgstr "Beállítások biztonsági mentése engedélyezve"
+msgstr "A beállítások biztonsági mentésének feltöltése sérült"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:440
 msgid "Try the upload again"
@@ -5057,9 +5040,8 @@ msgid "Restore successful"
 msgstr "A visszaállítás sikeres"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:93
-#, fuzzy
 msgid "Click here to save changes"
-msgstr "Mentse a változtatásokat"
+msgstr "Kattintson ide a változtatások mentéséhez"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:94
 msgid ""
@@ -5263,9 +5245,8 @@ msgid "operations performed"
 msgstr "művelet elvégezve"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/DisasterRecovery.pm:31
-#, fuzzy
 msgid "Recover from a disaster"
-msgstr "Hátralévő idő a visszaállításig"
+msgstr "Helyreállítás rendszermeghibásodásból"
 
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:118
 #: ../../main/remoteservices/src/EBox/Event/Dispatcher/ControlCenter.pm:131
@@ -5902,9 +5883,8 @@ msgid "You are not logged in"
 msgstr "Nincs bejelentkezve"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:59
-#, fuzzy
 msgid "User quota set"
-msgstr "Felhasználói kvóta"
+msgstr "Felhasználói kvóta beállítva"
 
 #: ../../main/ebackup/src/EBox/Exceptions/EBackup/BadSymmetricKey.pm:32
 msgid "Incorrect symmetric key"
@@ -6008,15 +5988,14 @@ msgid "exclude or include"
 msgstr "kizárás vagy felvétel"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:106
-#, fuzzy
 msgid ""
 "A file or directory is included or excluded according the first match. A "
 "directory match is applied to all it contents. Anything that is not included "
 "is excluded by default."
 msgstr ""
 "A fájlok vagy mappák felvétele vagy kizárása az első találattól függ. Mappák "
-"esetén a teljes tartalmára vonatkozik a szabály. A ki nem zárt fájlok fel "
-"lesznek véve a mentésbe"
+"esetén a teljes tartalmára vonatkozik a szabály. A fel nem vett fájlok "
+"alapesetben ki lesznek zárva."
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:119
 msgid "Exclude path"
@@ -6039,9 +6018,8 @@ msgid "edit row"
 msgstr "Sor szerkesztése"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:154
-#, fuzzy
 msgid "remove row"
-msgstr "Eltávolítás lentről"
+msgstr "sor eltávolítása"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:164
 msgid "exclude path"
@@ -6544,9 +6522,9 @@ msgid "Invalid value for {data}: {value}."
 msgstr "Érvénytelen érték: {data}: {value}."
 
 #: ../../main/common/src/EBox/Exceptions/InvalidArgument.pm:44
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid argument: {data}"
-msgstr "Hiányzó argumentum: {data}"
+msgstr "Érvénytelen argumentum: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
 #, perl-brace-format
@@ -6599,9 +6577,9 @@ msgid "The file path must be absolute"
 msgstr "A fájlútvonalnak abszolút útvonalnak kell lennie"
 
 #: ../../main/common/src/EBox/Validate.pm:894
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error on regular expression: {err}"
-msgstr "Hibás reguláris kifejezések"
+msgstr "Hiba a reguláris kifejezésben: {err}"
 
 #: ../../main/common/src/EBox/FileSystem.pm:226
 #: ../../main/common/src/EBox/FileSystem.pm:394
@@ -6625,9 +6603,8 @@ msgstr ""
 "nélkül."
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:146
-#, fuzzy
 msgid "IPsec based VPN"
-msgstr "IPsec VPN"
+msgstr "IPsec alapú VPN"
 
 #: ../../main/ipsec/src/EBox/IPsec.pm:372
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:240
@@ -6676,14 +6653,12 @@ msgid "Phase 2"
 msgstr "2. fázis"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:147
-#, fuzzy
 msgid "Manual list of users"
-msgstr "Szerverek listája"
+msgstr "Felhasználók kézi listája"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:154
-#, fuzzy
 msgid "Users Source"
-msgstr "Erőforrás"
+msgstr "Felhasználók forrása"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:157
 msgid "Selects the provider for the users allowed to use the VPN."
@@ -6717,13 +6692,13 @@ msgstr ""
 "„{interface}”"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:159
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The Tunnel IP {localIP} is already used as a fixed address from the object "
 "member \"{name}\": {fixedIP}"
 msgstr ""
-"A(z) {from}-{to} tartomány a(z) „{name}” objektumtagból származó fix IP-"
-"címet tartalmaz: {fixedIP}"
+"A {localIP} alagút IP már használatban van a(z) „{name}” objektumtagból "
+"származó fix IP-címként: {fixedIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:172
 #, perl-brace-format
@@ -6731,10 +6706,12 @@ msgid "The Tunnel IP {localIP} is not part of any local network"
 msgstr "A {localIP} alagút IP nem része helyi hálózatnak"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:189
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Range {from}-{to} ({name}) includes the selected tunnel IP address: {localIP}"
-msgstr "A(z) {from}-{to} IP-tartomány tartalmaz egy {ifaceIP} IP-című csatolót"
+msgstr ""
+"A(z) {from}-{to} ({name}) tartomány tartalmazza a kijelölt alagút IP-címet: "
+"{localIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:205
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:128
@@ -6794,18 +6771,16 @@ msgid "Secondary nameserver"
 msgstr "Másodlagos névszerver"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:314
-#, fuzzy
 msgid ""
 "If \"Zentyal Samba\" is present and selected, Zentyal will be the WINS "
 "server for L2TP clients"
 msgstr ""
 "Ha a „Zentyal Samba” jelen van és be van jelölve, akkor a Zentyal szerver a "
-"DHCP-kliensek WINS szervere lesz"
+"L2TP-kliensek WINS szervere lesz"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:100
-#, fuzzy
 msgid "DataTable Component"
-msgstr "Zentyal komponensek"
+msgstr "DataTable komponens"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:102
 msgid "Don't know how to handle this component."
@@ -6854,9 +6829,8 @@ msgstr ""
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:215
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:225
-#, fuzzy
 msgid "Enabled flag"
-msgstr "Bekapcsolva"
+msgstr "Bekapcsolt jelző"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:218
 #, perl-brace-format
@@ -6873,19 +6847,16 @@ msgstr ""
 "azok bekapcsolása előtt"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:242
-#, fuzzy
 msgid "Blank characters are not allowed"
-msgstr "Az IP-címek nem engedélyezettek"
+msgstr "Az üres karakterek nem engedélyezettek"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:277
-#, fuzzy
 msgid "VPN Type"
-msgstr "Típus"
+msgstr "VPN típusa"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:279
-#, fuzzy
 msgid "Not supported"
-msgstr "SSL támogatás"
+msgstr "Nem támogatott"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:58
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:78
@@ -6894,9 +6865,9 @@ msgid "{from} - {to} is an invalid range"
 msgstr "Érvénytelen IP-tartomány: {from} - {to}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:77
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Range {from}-{to} includes the tunnel IP address: {localIP}"
-msgstr "A(z) {from}-{to} IP-tartomány tartalmaz egy {ifaceIP} IP-című csatolót"
+msgstr "A(z) {from}-{to} tartomány tartalmazza az alagút IP-címet: {localIP}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:105
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:139
@@ -6981,11 +6952,9 @@ msgid "undefined"
 msgstr "nem definiált"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:89
-#, fuzzy
 msgid "Must be the external IP to connect but it's not defined"
 msgstr ""
-"A csatlakozáshoz használandó külső IP-cím helyett a helyi {if} csatoló címe "
-"lett megadva"
+"A csatlakozáshoz használandó külső IP-címnek kell lennie, de nincs definiálva"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:106
 #, perl-brace-format
@@ -6997,14 +6966,12 @@ msgstr ""
 "lett megadva"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:128
-#, fuzzy
 msgid "Public IP address"
-msgstr "Zentyal nyilvános IP-címe."
+msgstr "Nyilvános IP-cím"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:132
-#, fuzzy
 msgid "Zentyal public IP address where clients will connect to."
-msgstr "Zentyal nyilvános IP-címe."
+msgstr "A Zentyal nyilvános IP-címe, amelyhez a kliensek csatlakozni fognak."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:141
 msgid "Any address"
@@ -7053,18 +7020,16 @@ msgid "IP address assigned to this user within the VPN network."
 msgstr "A VPN-hálózaton belül a felhasználóhoz rendelt IP-cím."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:91
-#, fuzzy
 msgid "L2TP/IPSec Users"
-msgstr "PPTP felhasználók"
+msgstr "L2TP/IPSec felhasználók"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:99
-#, fuzzy
 msgid ""
 "Users allowed to connect using the L2TP/IPSec VPN. This list is independant "
 "of users defined on Users and Groups."
 msgstr ""
-"Ezen felhasználóknak engedélyezve van a PPTP VPN-en való kapcsolódás. Ez a "
-"lista független a Felhasználók és csoportok alatt meghatározott LDAP "
+"Ezen felhasználóknak engedélyezve van a L2TP/IPSec VPN-en való kapcsolódás. "
+"Ez a lista független a Felhasználók és csoportok alatt meghatározott "
 "felhasználóktól."
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsIPsec.pm:75
@@ -7093,14 +7058,12 @@ msgid "Remote subnet available through the tunnel."
 msgstr "Az alagúton át elérhető távoli alhálózat."
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/UsersSettings.pm:41
-#, fuzzy
 msgid "User settings"
-msgstr "Általános beállítások"
+msgstr "Felhasználó beállításai"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/GeneralL2TPSettings.pm:43
-#, fuzzy
 msgid "General L2TP/IPSec Settings"
-msgstr "Általános beállítások"
+msgstr "Általános L2TP/IPSec beállítások"
 
 #: ../../main/ipsec/src/EBox/IPsec/Composite/Auth.pm:63
 #: ../../main/mail/src/EBox/Mail/Model/SMTPOptions.pm:112
@@ -7132,9 +7095,8 @@ msgstr ""
 "alapértelmezett útvonaltáblához. "
 
 #: ../../main/network/src/EBox/Network.pm:137
-#, fuzzy
 msgid "Disable IPv6"
-msgstr "Kikapcsolva"
+msgstr "IPv6 kikapcsolása"
 
 #: ../../main/network/src/EBox/Network.pm:138
 msgid ""
@@ -7167,9 +7129,8 @@ msgid "Zentyal will store your PPPoE passwords"
 msgstr "A Zentyal tárolni fogja a PPPoE jelszavait"
 
 #: ../../main/network/src/EBox/Network.pm:192
-#, fuzzy
 msgid "Zentyal will disable IPV6 on this system"
-msgstr "A Zentyal az LDAP felhasználóknak rendszerfiókot fog adni."
+msgstr "A Zentyal kikapcsolja az IPv6-ot ezen a rendszeren"
 
 #: ../../main/network/src/EBox/Network.pm:199
 msgid "Zentyal will add a DSL provider configuration for PPPoE"
@@ -7184,9 +7145,8 @@ msgid "Zentyal will set HTTP proxy for APT"
 msgstr "A Zentyal beállítja a HTTP proxyt az APT számára"
 
 #: ../../main/network/src/EBox/Network.pm:759
-#, fuzzy
 msgid "Argument must be a IP address"
-msgstr "Zentyal nyilvános IP-címe."
+msgstr "Az argumentumnak IP-címnek kell lennie"
 
 #: ../../main/network/src/EBox/Network.pm:1011
 #: ../../main/network/src/EBox/Network.pm:1015
@@ -7203,9 +7163,9 @@ msgid "Netmask"
 msgstr "Hálózati maszk"
 
 #: ../../main/network/src/EBox/Network.pm:1020
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Address {ip} is already in use by interface {iface}"
-msgstr "A VPN címet ({addr}) már használja a(z) {iface} csatoló"
+msgstr "A címet ({ip}) már használja a(z) {iface} csatoló"
 
 #: ../../main/network/src/EBox/Network.pm:1188
 #, perl-brace-format
@@ -7226,9 +7186,9 @@ msgstr ""
 "csatolók számára van fenntartva"
 
 #: ../../main/network/src/EBox/Network.pm:1415
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
-msgstr "A VPN címet ({addr}) már használja a(z) {iface} csatoló"
+msgstr "A(z) {ip} IP-cím már hozzá van rendelve a(z) „{iface}” csatolóhoz"
 
 #: ../../main/network/src/EBox/Network.pm:1547
 #, perl-brace-format
@@ -7283,13 +7243,13 @@ msgstr ""
 "csatolónak"
 
 #: ../../main/network/src/EBox/Network.pm:3540
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
 "belongs to the network of {iface} which is not static"
 msgstr ""
-"A(z) {gw} átjárónak egy statikus csatolón keresztül kell elérhetőnek lennie. "
-"Jelenleg ez a(z) {iface} nem statikus csatolón keresztül érhető el"
+"Az átjárónak ({gw}) ugyanabban a hálózatban kell lennie, mint egy statikus "
+"csatolónak. Jelenleg ez a(z) {iface} nem statikus hálózatához tartozik"
 
 #: ../../main/network/src/EBox/Network.pm:3974
 msgid "down"
@@ -7428,20 +7388,16 @@ msgstr ""
 "többátjárós szabályt"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:97
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Network {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"A csatlakozáshoz használandó külső IP-cím helyett a helyi {if} csatoló címe "
-"lett megadva"
+msgstr "A(z) {addr} hálózat érvénytelen, mert ez a(z) {if} csatoló címe"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:104
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"A csatlakozáshoz használandó külső IP-cím helyett a helyi {if} csatoló címe "
-"lett megadva"
+msgstr "A(z) {addr} átjáró érvénytelen, mert ez a(z) {if} csatoló címe"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:115
 #, perl-brace-format
@@ -7525,23 +7481,23 @@ msgstr ""
 "automatikusan fel lesznek ide véve."
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway address {ip} is already the address of the local interface {iface}"
-msgstr "A VPN címet ({addr}) már használja a(z) {iface} csatoló"
+msgstr "Az átjárócímet ({ip}) már használja a helyi {iface} csatoló"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:286
 msgid "You can not manually add a gateway for DHCP or PPPoE interfaces"
 msgstr "DHCP vagy PPPoE csatolók esetében nem állíthatja be kézileg az átjárót"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:288
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that a static interface. Currently "
 "it belongs to the network of {iface} which is not static"
 msgstr ""
-"A(z) {gw} átjárónak egy statikus csatolón keresztül kell elérhetőnek lennie. "
-"Jelenleg ez a(z) {iface} nem statikus csatolón keresztül érhető el"
+"Az átjárónak ({gw}) ugyanabban a hálózatban kell lennie, mint egy statikus "
+"csatolónak. Jelenleg ez a(z) {iface} nem statikus hálózatához tartozik"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:299
 msgid "Since you have not gateways you should add the first one as default"
@@ -7693,11 +7649,9 @@ msgstr ""
 "számára."
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:145
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Proxy {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"A csatlakozáshoz használandó külső IP-cím helyett a helyi {if} csatoló címe "
-"lett megadva"
+msgstr "A(z) {addr} proxy érvénytelen, mert ez a(z) {if} csatoló címe"
 
 #: ../../main/network/src/EBox/Network/Model/Proxy.pm:157
 msgid ""
@@ -7759,13 +7713,13 @@ msgid "Balance Traffic"
 msgstr "Forgalomkiegyenlítés"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
 msgstr ""
 "A szolgáltatás használatához legalább két beállított átjáróra van szükség. "
-"Ezeket <a href=\"/Network/View/GatewayTable\">itt</a> veheti fel."
+"Ezeket {oa}itt{ca} veheti fel."
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:59
 msgid "Gateways Configuration"
@@ -7836,9 +7790,8 @@ msgstr "Hálózati diagnosztikai eszközök"
 
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:89
 #: ../../main/network/src/templates/diag.mas:31
-#, fuzzy
 msgid "Broadcast address"
-msgstr "Helyi cím"
+msgstr "Broadcast cím"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:55
 msgid "method"
@@ -7873,15 +7826,13 @@ msgstr ""
 "karakterek és  /.?!&+:-_\\@$%=* illetve a szóköz engedélyezett."
 
 #: ../../main/network/src/EBox/Network/CGI/Wizard/Ifaces.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You are connecting to Zentyal through the {i} interface. If you set it as "
 "external the firewall will lock you out during the installation."
 msgstr ""
-"A Zentyalhoz ezen a csatolón keresztül csatlakozik. Ha külsőként állítja be, "
-"akkor a tűzfal ki fogja Önt zárni, hacsak nem ad meg tűzfalszabályokat "
-"{openhref}A külső hálózatokból a Zentyal felé szűrő szabályok{closehref} "
-"alatt a Zentyal adminisztrációs port, SSH stb. eléréséhez."
+"A Zentyalhoz a(z) {i} csatolón keresztül csatlakozik. Ha külsőként állítja "
+"be, akkor a tűzfal ki fogja Önt zárni a telepítéskor."
 
 #: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:158
 #, perl-brace-format
@@ -7980,9 +7931,8 @@ msgstr ""
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:273
 #: ../../main/users/src/EBox/Users.pm:98
-#, fuzzy
 msgid "Users and Computers"
-msgstr "Felhasználók és csoportok"
+msgstr "Felhasználók és számítógépek"
 
 #: ../../main/usercorner/src/EBox/UserCorner.pm:314
 msgid "User Corner web server"
@@ -9022,9 +8972,9 @@ msgstr ""
 "tárolásához"
 
 #: ../../main/printers/src/EBox/Printers.pm:66
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disable {server} upstart job"
-msgstr "{server} init szkript kikapcsolása"
+msgstr "{server} upstart feladat kikapcsolása"
 
 #: ../../main/printers/src/EBox/Printers.pm:83
 msgid "To configure cupsd"
@@ -9066,19 +9016,17 @@ msgstr ""
 "szabályhalmazokat"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:263
-#, fuzzy
 msgid "Block"
-msgstr "Reklámblokkolás"
+msgstr "Blokkolás"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
 msgstr "Naplózás és blokkolás"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:139
-#, fuzzy
 msgid "Select in which interfaces IPS system will be enabled"
 msgstr ""
-"Válassza ki, mely csatolók behatolásérzékelő rendszerei lesznek engedélyezve"
+"Válassza ki, mely csatolók behatolásmegelőző rendszerei lesznek engedélyezve"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:42
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:45
@@ -9106,58 +9054,50 @@ msgid "Alert Graph"
 msgstr "Riasztásgrafikon"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
-#, fuzzy
 msgid "IPS Alerts report"
-msgstr "Behatolásérzékelő jelentése"
+msgstr "Behatolásmegelőző jelentése"
 
 #: ../../main/ips/src/EBox/IPS/Composite/General.pm:84
-#, fuzzy
 msgid "Intrusion Detection/Prevention System"
-msgstr "Behatolásérzékelő rendszer"
+msgstr "Behatolásérzékelő/-megelőző rendszer"
 
 #: ../../main/ips/src/EBox/IPS.pm:67
 msgid "IDS/IPS"
 msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
-#, fuzzy
 msgid "Add rules to suricata configuration"
-msgstr "Modulállapot beállítása"
+msgstr "Szabályok hozzáadása a suricata beállításaihoz"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
 msgid "Enable start of suricata daemon"
 msgstr "A suricata démon indításának bekapcsolása"
 
 #: ../../main/ips/src/EBox/IPS.pm:320
-#, fuzzy
 msgid "IPS"
-msgstr "IP"
+msgstr "IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:325
 msgid "Alert"
 msgstr "Riasztás"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
-#, fuzzy
 msgid "IPS Rule Updates"
-msgstr "Rendszerfrissítések"
+msgstr "IPS szabályfrissítések"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
-#, fuzzy
 msgid "Failure reason"
-msgstr "Hiba a tartalékon"
+msgstr "A hiba oka"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:401
-#, fuzzy
 msgid "Success"
-msgstr "Vendég hozzáférés"
+msgstr "Sikerült"
 
 #: ../../main/ips/src/EBox/IPS.pm:339
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:401
-#, fuzzy
 msgid "Failure"
-msgstr "hiba"
+msgstr "Hiba"
 
 #: ../../main/ips/src/EBox/IPS.pm:518
 #, perl-brace-format
@@ -9282,9 +9222,8 @@ msgstr ""
 "tartományt."
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:211
-#, fuzzy
 msgid "Domain change confirmation"
-msgstr "A beállítások módosítása"
+msgstr "Tartományváltoztatás jóváhagyása"
 
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:212
 msgid "Changing the domain name will delete all your current Jabber data."
@@ -9295,14 +9234,12 @@ msgid "Jabber account enabled with administration rights"
 msgstr "A Jabber fiók bekapcsolva adminisztrációs jogokkal"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:58
-#, fuzzy
 msgid "Jabber account enabled"
-msgstr "Jabber fiók"
+msgstr "Jabber fiók bekapcsolva"
 
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:65
-#, fuzzy
 msgid "Jabber account disabled"
-msgstr "Jabber fiók"
+msgstr "Jabber fiók kikapcsolva"
 
 #: ../../main/jabber/src/EBox/JabberLdapUser.pm:60
 msgid "Jabber account"
@@ -9411,66 +9348,56 @@ msgid "Group Policy Objects"
 msgstr "Csoportházirend-objektumok"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:66
-#, fuzzy
 msgid "group policy object"
-msgstr "Forrás objektum"
+msgstr "csoportházirend-objektum"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:126
-#, fuzzy
 msgid "User configuration disabled"
-msgstr "{server} beállító fájl"
+msgstr "Felhasználói beállítások kikapcsolva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:127
-#, fuzzy
 msgid "Computer configuration disabled"
-msgstr "Tartalomszűrő beállító fájl"
+msgstr "Számítógép-beállítások kikapcsolva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:128
-#, fuzzy
 msgid "All settings disabled"
-msgstr "UPS beállítások és változók"
+msgstr "Minden beállítás kikapcsolva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:149
-#, fuzzy
 msgid "GPO successfully created"
-msgstr "Jelszó sikeresen frissítve"
+msgstr "GPO sikeresen létrehozva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:171
-#, fuzzy
 msgid "This is a system critical object and cannot be removed."
-msgstr "A(z) {x} objektum egy rendszerszinten kritikus objektum."
+msgstr "Ez egy rendszerszinten kritikus objektum és nem távolítható el."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:179
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} removed"
-msgstr "{ou} szervezeti egység eltávolítva"
+msgstr "{gpo} GPO eltávolítva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:188
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {dn} not found"
-msgstr "Az oldal nem található"
+msgstr "{dn} GPO nem található"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:207
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {gpo} updated"
-msgstr "{row} sor frissítve"
+msgstr "{gpo} GPO frissítve"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:261
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:131
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:146
-#, fuzzy
 msgid ""
 "You must enable the module in the module status section in order to use it."
-msgstr ""
-"A Felhasználók modult be kell kapcsolni a Modulállapot oldalon a "
-"használathoz."
+msgstr "A modult be kell kapcsolni a Modulállapot oldalon a használathoz."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:265
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:135
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:150
-#, fuzzy
 msgid "The domain has not been created yet."
-msgstr "A(z) „{a}” művelet végrehajtásra került"
+msgstr "A tartomány még nem jött létre."
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:71
 msgid "Sync all with Zentyal Cloud"
@@ -9487,9 +9414,8 @@ msgid "Cloud Sync"
 msgstr "Cloud szinkronizálás"
 
 #: ../../main/samba/src/EBox/Samba/Model/SyncShares.pm:99
-#, fuzzy
 msgid "Zentyal Cloud Files not available"
-msgstr "Zentyal Cloud szolgáltatások"
+msgstr "A Zentyal Cloud Files nem érhető el"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:47
 #: ../../main/software/src/templates/ebox.mas:101
@@ -9506,19 +9432,16 @@ msgid "Source MSI package path"
 msgstr "Forrás MSI csomag útvonala"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:61
-#, fuzzy
 msgid "Software Installation"
-msgstr "Telepítés"
+msgstr "Szoftvertelepítés"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:64
-#, fuzzy
 msgid "software package"
-msgstr "Minőségbiztosítási szoftverfrissítések"
+msgstr "szoftvercsomag"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOSoftware.pm:138
-#, fuzzy
 msgid "No shares"
-msgstr "megosztás"
+msgstr "Nincs megosztás"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
 #: ../../main/samba/src/EBox/Samba.pm:1212
@@ -9535,26 +9458,24 @@ msgid "Add new Group Policy Link"
 msgstr "Új csoportházirend-hivatkozás hozzáadása"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:187
-#, fuzzy
 msgid "Delete Group Policy Link"
-msgstr "Csoport törlése"
+msgstr "Csoportházirend-hivatkozás törlése"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:188
 msgid "Edit Group Policy Link"
 msgstr "Csoportházirend-hivatkozás szerkesztése"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:199
-#, fuzzy
 msgid "Sites"
-msgstr "Hely"
+msgstr "Webhelyek"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:258
-#, fuzzy
 msgid ""
 "You must enable the File Sharing module in the module status section in "
 "order to use it."
 msgstr ""
-"Használat előtt be kell kapcsolnia a Levelezés modult a Modulállapot oldalon."
+"A Fájlmegosztás modult be kell kapcsolni a Modulállapot oldalon a "
+"használathoz."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsLogoff.pm:39
 msgid "Logoff Scripts"
@@ -9709,43 +9630,36 @@ msgid "Additional domain controller"
 msgstr "További tartományvezérlő"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:45
-#, fuzzy
 msgid "Script type"
-msgstr "objektumtípus"
+msgstr "Parancsfájl típusa"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:51
-#, fuzzy
 msgid "Parameters"
-msgstr "Nyomtatók"
+msgstr "Paraméterek"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:84
-#, fuzzy
 msgid "Scripts"
-msgstr "Előfizetés"
+msgstr "Parancsfájlok"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:85
-#, fuzzy
 msgid "script"
-msgstr "Leírás"
+msgstr "parancsfájl"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:101
 msgid "Batch"
 msgstr "Köteg"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:102
-#, fuzzy
 msgid "PowerShell"
-msgstr "Biztonságos parancsértelmező (SSH)"
+msgstr "PowerShell"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:39
-#, fuzzy
 msgid "Shutdown Scripts"
-msgstr "Kikapcsolás ideje"
+msgstr "Leállítási parancsfájlok"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:40
-#, fuzzy
 msgid "shutdown script"
-msgstr "Kikapcsolás ideje"
+msgstr "leállítási parancsfájl"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:166
 #, perl-brace-format
@@ -9753,9 +9667,9 @@ msgid "Shutdown script {x} added"
 msgstr "{x} leállítási parancsfájl hozzáadva"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:207
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Shutdown script {x} removed"
-msgstr "Kikapcsolás ideje"
+msgstr "{x} leállítási parancsfájl eltávolítva"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusExceptions.pm:70
 #: ../../main/samba/src/EBox/Samba/Model/RecycleExceptions.pm:78
@@ -9822,11 +9736,11 @@ msgstr ""
 "fájlban"
 
 #: ../../main/samba/src/EBox/Samba/Model/AntivirusDefault.pm:100
-#, fuzzy
 msgid ""
 "Zentyal antivirus module must be installed and enabled to use this feature"
 msgstr ""
-"A(z) {pkg} csomagnak telepítve kell lennie ezen szolgáltatás használatához"
+"A Zentyal antivirus modulnak telepítve és bekapcsolva kell lennie ezen "
+"szolgáltatás használatához"
 
 #: ../../main/samba/src/EBox/Samba/Model/RecycleDefault.pm:50
 msgid "Enable recycle bin"
@@ -9886,9 +9800,8 @@ msgid "User: {u}"
 msgstr "Felhasználó: {u}"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:39
-#, fuzzy
 msgid "User Configuration"
-msgstr "Beállítások"
+msgstr "Felhasználói beállítások"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOUserConfiguration.pm:40
 msgid ""
@@ -9899,9 +9812,8 @@ msgstr ""
 "hogy melyik számítógépre jelentkeznek be."
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:38
-#, fuzzy
 msgid "Computer Configuration"
-msgstr "A kliens beállítása"
+msgstr "Számítógép beállítása"
 
 #: ../../main/samba/src/EBox/Samba/Composite/GPOComputerConfiguration.pm:40
 msgid ""
@@ -9957,24 +9869,20 @@ msgid "Found {count} results for, expected only one."
 msgstr "{count} találat, de csak egynek kellene lennie."
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:180
-#, fuzzy
 msgid "Windows account names cannot end with a dot"
 msgstr "A Windows fióknevek nem végződhetnek ponttal"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:182
-#, fuzzy
 msgid "Windows account names cannot start with a dash"
-msgstr "A Windows fióknevek nem végződhetnek ponttal"
+msgstr "A Windows fióknevek nem kezdődhetnek kötőjellel"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:184
-#, fuzzy
 msgid ""
 "To avoid problems, the account name should consist only of letters, digits, "
 "underscores, spaces, periods, and dashes"
 msgstr ""
 "A problémák elkerülése érdekében a fióknév csak betűkből, számjegyekből, "
-"aláhúzásokból, szóközökből, pontokból, kötőjelekből állhat, nem kezdődhet "
-"kötőjellel és nem végződhet pontra"
+"aláhúzásokból, szóközökből, pontokból és kötőjelekből állhat"
 
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:189
 #, perl-brace-format
@@ -9996,14 +9904,13 @@ msgid "Account name"
 msgstr "Postafiók neve"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:40
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} not found."
-msgstr "Az oldal nem található"
+msgstr "A(z) {x} GPO nem található."
 
 #: ../../main/samba/src/EBox/Samba/GPO/Extension.pm:56
-#, fuzzy
 msgid "GPO not defined"
-msgstr "Az oldal nem található"
+msgstr "A GPO nincs definiálva"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:220
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:236
@@ -10026,24 +9933,28 @@ msgstr "Hiba a személy LDAP bejegyzésének létrehozásakor:"
 #: ../../main/samba/src/EBox/Samba/Provision.pm:133
 #, perl-brace-format
 msgid "The host domain '{d}' has to be the same than the kerberos realm '{r}'"
-msgstr "A gép „{d}” tartományának egyeznie kell a(z) „{r}” kerberos zónával"
+msgstr "A gép „{d}” tartományának egyeznie kell a(z) „{r}” Kerberos zónával"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:148
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The required domain '{d}' could not be found in the dns module.<br/>You can "
 "add it in the {ohref}DNS domains page{chref}"
-msgstr "A szükséges „{d}” tartomány nem található a DNS modulban"
+msgstr ""
+"A szükséges „{d}” tartomány nem található a DNS modulban.<br/>Ezt a {ohref}"
+"DNS tartományok oldalon{chref} veheti fel"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:169
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/"
 ">You can add it in the {ohref}host names page for domain {d}{chref}."
-msgstr "A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban"
+msgstr ""
+"A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban.<br/>Ezt a"
+"(z) {ohref}{d}tartomány gépnevei oldalon{chref} veheti fel."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:205
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no internal IP addresses are set for host "
 "{host}.<br/>Ensure that you have at least a IP address assigned to an "
@@ -10051,13 +9962,13 @@ msgid ""
 "to the hostname {host}.<br/>You can add it in the {ohref}IP addresses page "
 "for {host}{chref}"
 msgstr ""
-"A Samba nem állítható be, ha nincsenek beállítva IP-címek, és a DNS "
-"tartomány nincs megfelelően beállítva. Biztosítsa, hogy legalább egy IP-cím "
-"tartozik egy belső csatolóhoz, ezt az IP-t pedig a DNS tartományban lévő "
-"gépnévhez és tartományhoz kell rendelni."
+"A Samba nem állítható be, ha nincsenek beállítva belső IP-címek a(z) {host} "
+"géphez.<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy belső "
+"csatolóhoz, és ezt az IP-t a(z) {dom} tartományhoz és {host} gépnévhez kell "
+"rendelni.<br/>Ezt a(z) {ohref}{host} IP-címei oldalon{chref} veheti fel"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:257
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Samba can't be provisioned if no internal IP addresses are set for domain "
 "{dom}.<br/>Ensure that you have at least a IP address assigned to an "
@@ -10065,10 +9976,10 @@ msgid ""
 "to the local hostname.<br/>You can assign it in the {ohref}IP addresses page "
 "for {dom}{chref}"
 msgstr ""
-"A Samba nem állítható be, ha nincsenek beállítva IP-címek, és a DNS "
-"tartomány nincs megfelelően beállítva. Biztosítsa, hogy legalább egy IP-cím "
-"tartozik egy belső csatolóhoz, ezt az IP-t pedig a DNS tartományban lévő "
-"gépnévhez és tartományhoz kell rendelni."
+"A Samba nem állítható be, ha nincsenek beállítva belső IP-címek a(z) {dom} "
+"tartományhoz<br/>Biztosítsa, hogy legalább egy IP-cím tartozik egy belső "
+"csatolóhoz, és ezt az IP-t a(z) {dom} tartományhoz és a helyi gépnévhez kell "
+"rendelni<br/>Ezt a(z) {ohref}{dom} IP-címei oldalon{chref} társíthatja"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:305
 #, perl-brace-format
@@ -10078,8 +9989,8 @@ msgid ""
 "options{chref}"
 msgstr ""
 "Nem kapcsolható be a Samba, mert ez a kiszolgáló a felhasználóit egy másik "
-"Zentyal alárendeltjeként szinkronizálja.<br/>Ezt az állapotot a "
-"{ohref}szinkronizálás beállításai{chref} között módosíthatja"
+"Zentyal alárendeltjeként szinkronizálja.<br/>Ezt az állapotot a {ohref}"
+"szinkronizálás beállításai{chref} között módosíthatja"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:344
 #, perl-brace-format
@@ -10120,9 +10031,8 @@ msgstr ""
 "próbálja újra. Ezzel kapcsolatos segítségért lásd: {link}."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:740
-#, fuzzy
 msgid "Could not retrieve the domain information."
-msgstr "A tartományhoz nem kell megadni a www előtagot."
+msgstr "A tartományinformációk nem kérhetők le."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:749
 msgid ""
@@ -10138,18 +10048,16 @@ msgid "The specified domain controller {x} is unreachable."
 msgstr "A megadott {x} tartományvezérlő nem érhető el."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:788
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The local kerberos realm {x} must match the AD server realm {y}."
 msgstr ""
-"A szerver tartományának és a Kerberos zónának meg kell egyeznie a "
-"tartománnyal, amelyhez csatlakozni próbál."
+"A helyi {x} Kerberos zónának meg kell egyeznie az AD szerver {y} zónájával."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:797
 #, perl-brace-format
 msgid "The local domain {x} must match the AD server domain {y}."
 msgstr ""
-"A helyi tartománynak ({x}) meg kell egyeznie az AD szerver {y} "
-"tartományával."
+"A helyi tartománynak ({x}) meg kell egyeznie az AD szerver {y} tartományával."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:832
 #, perl-brace-format
@@ -10194,9 +10102,9 @@ msgstr ""
 "vannak definiálva. Jelenleg a Samba ezt nem támogatja."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:945
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not retrieve time from AD server {x} via NTP."
-msgstr "A tartományhoz nem kell megadni a www előtagot."
+msgstr "Az idő nem kérhető le az AD szerverről ({x}) NTP-vel."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:958
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:556
@@ -10210,9 +10118,9 @@ msgstr ""
 "forrással, és próbálja újra."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:997
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The specified site {x} does not exists on the domain."
-msgstr "A tanúsítvány ({cn}) nem létezik"
+msgstr "A megadott oldal ({x}) nem létezik a tartományban."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:1009
 msgid "Could not determine the site of the specified server"
@@ -10237,7 +10145,6 @@ msgstr "A(z) {x} objektum egy rendszerszinten kritikus objektum."
 
 #: ../../main/samba/src/EBox/Samba/LdbObject.pm:183
 #: ../../main/users/src/EBox/Users/LdapObject.pm:277
-#, fuzzy
 msgid "There was an error updating LDAP:"
 msgstr "Hiba történt az LDAP frissítése során: "
 
@@ -10247,9 +10154,9 @@ msgid "Error getting GPO entry from LDAP: {x}"
 msgstr "Hiba a GPO bejegyzés lekérésekor az LDAP-ból: {x}"
 
 #: ../../main/samba/src/EBox/Samba/GPO.pm:607
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "GPO {x} is already linked to this container"
-msgstr "A VPN címet ({addr}) már használja a(z) {iface} csatoló"
+msgstr "A(z) {x} GPO már ehhez a konténerhez van kapcsolva"
 
 #: ../../main/samba/src/EBox/Samba/CGI/AddGPLink.pm:52
 #: ../../main/samba/src/EBox/Samba/CGI/DeleteGPLink.pm:41
@@ -10281,41 +10188,34 @@ msgid "share name"
 msgstr "megosztás neve"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:55
-#, fuzzy
 msgid "Group share renamed"
-msgstr "megosztás neve"
+msgstr "Csoportmegosztás átnevezve"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:57
 msgid "Group share added"
 msgstr "Csoportmegosztás hozzáadva"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:62
-#, fuzzy
 msgid "Group share removed"
-msgstr "Csoport neve"
+msgstr "Csoportmegosztás eltávolítva"
 
 #: ../../main/samba/src/EBox/Samba/CGI/ActiveSharing.pm:65
-#, fuzzy
 msgid "Group share set"
-msgstr "megosztás"
+msgstr "Csoportmegosztás beállítva"
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:383
-#, fuzzy
 msgid "Windows group names cannot be only spaces, numbers and dots"
 msgstr ""
-"A Windows fióknevek nem állhatnak csak szóközökből, számokból és pontokból"
+"A Windows csoportnevek nem állhatnak csak szóközökből, számokból és pontokból"
 
 #: ../../main/samba/src/EBox/Samba/User.pm:412
-#, fuzzy
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
-"A Windows fióknevek nem állhatnak csak szóközökből, számokból és pontokból"
+"A Windows felhasználónevek nem állhatnak csak szóközökből és pontokból."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:418
-#, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
-msgstr ""
-"A Windows fióknevek nem állhatnak csak szóközökből, számokból és pontokból"
+msgstr "A Windows felhasználónevek nem tartalmazhatják a „@” karaktert."
 
 #: ../../main/samba/src/EBox/Samba/User.pm:429
 #: ../../main/users/src/EBox/Users/User.pm:813
@@ -10348,9 +10248,8 @@ msgid "File sharing (Samba) protocol"
 msgstr "Fájlmegosztó protokoll (Samba)"
 
 #: ../../main/samba/src/EBox/Samba.pm:660
-#, fuzzy
 msgid "Filesystem shares"
-msgstr "Fájlrendszerhasználat"
+msgstr "Fájlrendszer-megosztások"
 
 #: ../../main/samba/src/EBox/Samba.pm:1454
 msgid ""
@@ -11574,12 +11473,11 @@ msgid "Value for subject alternative of type {type}"
 msgstr "A(z) {type} típusú alanyalternatíva értéke"
 
 #: ../../main/ca/src/EBox/CA.pm:2550
-#, fuzzy
 msgid "Subject alternative type"
-msgstr "Alternatív tárgynév"
+msgstr "Alany alternatív típusa"
 
 #: ../../main/ca/src/EBox/CA.pm:2552
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Only {dns}, {ip} and {email} are valid subject alternatives name types"
 msgstr "Csak {dns}, {ip} és {email} érvényes alternatív tárgynévként"
 
@@ -11794,9 +11692,8 @@ msgid "Disable {app} profile for {bin} binary"
 msgstr "{app} profil letiltása a(z) {bin} binárishoz"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:404
-#, fuzzy
 msgid "Antivirus DB updates"
-msgstr "Vírusirtó alapértelmezett beállításai"
+msgstr "Vírusirtó adatbázis-frissítései"
 
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:102
 msgid "Signatures"
@@ -11849,9 +11746,8 @@ msgstr ""
 "eltávolítása"
 
 #: ../../main/ntp/src/EBox/NTP.pm:92
-#, fuzzy
 msgid "Override ntpd apparmor profile"
-msgstr "A megnevezett AppArmor profil felülbírálása"
+msgstr "Az ntpd AppArmor profil felülbírálása"
 
 #: ../../main/ntp/src/EBox/NTP.pm:93
 msgid "To allow samba clients to synchronize clock with ntp server"
@@ -12011,14 +11907,12 @@ msgid "{row} updated"
 msgstr "{row} sor frissítve"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3480
-#, fuzzy
 msgid "Search rows term"
-msgstr "Keresési tartomány"
+msgstr "Kifejezés keresése sorokban"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:3482
-#, fuzzy
 msgid "Must be a valid regular expression"
-msgstr "Útvonal kizárása reguláris kifejezéssel"
+msgstr "Érvényes reguláris kifejezésnek kell lennie"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4069
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:59
@@ -12300,9 +12194,8 @@ msgstr ""
 "fájlrendszerek használata megengedett"
 
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:175
-#, fuzzy
 msgid "Free space"
-msgstr "Szabad tárolókapacitás"
+msgstr "Szabad hely"
 
 #: ../../main/core/src/EBox/Report/CGI/DiskUsage.pm:31
 #: ../../main/core/src/EBox/SysInfo.pm:129
@@ -12478,9 +12371,8 @@ msgstr ""
 "mentéseit tudja visszaállítani."
 
 #: ../../main/core/src/EBox/Backup.pm:1148
-#, fuzzy
 msgid "Installing Zentyal packages in backup..."
-msgstr "Csomagok telepítése"
+msgstr "Zentyal csomagok telepítése a mentésbe…"
 
 #: ../../main/core/src/EBox/Backup.pm:1373
 #, perl-brace-format
@@ -12921,7 +12813,6 @@ msgstr ""
 "Zentyal szolgáltatásaival kapcsolatban"
 
 #: ../../main/core/src/EBox/Logs/Composite/SummarizedReport.pm:49
-#, fuzzy
 msgid "Summarized Report"
 msgstr "Összesített jelentés"
 
@@ -13265,9 +13156,8 @@ msgid "Bug-report configuration dump"
 msgstr "Hibajelentés beállításainak kiírása"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/CreateReport.pm:43
-#, fuzzy
 msgid "Invalid email address"
-msgstr "e-mail cím"
+msgstr "Érvénytelen e-mail cím"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:54
 msgid "No updates"
@@ -13284,9 +13174,9 @@ msgid "{n} system updates"
 msgstr "{n} rendszerfrissítés"
 
 #: ../../main/core/src/EBox/SysInfo/CGI/SoftwareUpdates.pm:91
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "({n} security)"
-msgstr "{n} biztonsági frissítés"
+msgstr "({n} biztonsági)"
 
 #: ../../main/core/src/EBox/Types/IPRange.pm:160
 msgid "Begin of IP range"
@@ -13397,19 +13287,16 @@ msgid "No digit character in time component"
 msgstr "Nincs számjegy karakter az idő összetevőben"
 
 #: ../../main/core/src/EBox/Types/Time.pm:239
-#, fuzzy
 msgid "Invalid hours value"
-msgstr "Előző érték"
+msgstr "Érvénytelen óra érték"
 
 #: ../../main/core/src/EBox/Types/Time.pm:246
-#, fuzzy
 msgid "Invalid minutes value"
-msgstr "Rossz perc érték: {mi}"
+msgstr "Érvénytelen perc érték"
 
 #: ../../main/core/src/EBox/Types/Time.pm:253
-#, fuzzy
 msgid "Invalid seconds value"
-msgstr "Érvénytelen érték: {data}: {value}."
+msgstr "Érvénytelen másodperc érték"
 
 #: ../../main/core/src/EBox/Types/Int.pm:131
 msgid "Enter an integer number"
@@ -13572,10 +13459,9 @@ msgstr ""
 "beállítottnak"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:331
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "RAID array {name} has changed its state from {oldState} to {newState}"
-msgstr ""
-"{name} nevű RAID eszköz állapota megváltozott: {oldState} -> {newState}"
+msgstr "{name} nevű RAID tömb állapota megváltozott: {oldState} -> {newState}"
 
 #: ../../main/core/src/EBox/Event/Watcher/RAID.pm:358
 #, perl-brace-format
@@ -13923,13 +13809,13 @@ msgstr ""
 "értékre"
 
 #: ../../main/core/src/EBox/CGI/Base.pm:224
-#, fuzzy
 msgid ""
 "The input contains invalid characters. All alphanumeric characters, plus "
 "these non alphanumeric chars: ={},/.?&+:-@ and spaces are allowed."
 msgstr ""
-"A bemenet érvénytelen karaktereket tartalmaz. Csak alfanumerikus karakterek "
-"és /.?&+:-@ illetve a szóköz engedélyezett."
+"A megadott érték érvénytelen karaktereket tartalmaz. Minden alfanumerikus, "
+"és a következő nem alfanumerikus karakterek engedélyezettek: ={},/.?&+:-@ és "
+"a szóköz."
 
 #: ../../main/core/src/EBox/CGI/Base.pm:588
 msgid ""
@@ -14005,14 +13891,12 @@ msgid "Any TCP port"
 msgstr "Bármely TCP port"
 
 #: ../../main/services/src/EBox/Services.pm:110
-#, fuzzy
 msgid "Any ICMP"
-msgstr "Bármely TCP"
+msgstr "Bármely ICMP"
 
 #: ../../main/services/src/EBox/Services.pm:111
-#, fuzzy
 msgid "Any ICMP packet"
-msgstr "Bármely TCP port"
+msgstr "Bármely ICMP csomag"
 
 #: ../../main/services/src/EBox/Services.pm:118
 #: ../../main/services/src/EBox/Services.pm:469
@@ -14028,9 +13912,8 @@ msgid "HyperText Transport Protocol"
 msgstr "HyperText Transport Protocol (HTTP)"
 
 #: ../../main/services/src/EBox/Services.pm:143
-#, fuzzy
 msgid "HyperText Transport Protocol over SSL"
-msgstr "HyperText Transport Protocol (HTTP)"
+msgstr "HyperText Transport Protocol SSL felett (HTTPS)"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:151
 msgid "This field is usually set to any"
@@ -14796,12 +14679,13 @@ msgstr ""
 "használatához"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:116
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable the mail module in {oh}Module Status{ch} section in order to "
 "use it."
 msgstr ""
-"Használat előtt be kell kapcsolnia a Levelezés modult a Modulállapot oldalon."
+"Használat előtt be kell kapcsolnia a Levelezés modult a {oh}Modulállapot{ch} "
+"oldalon."
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:177
 #, perl-brace-format
@@ -15092,14 +14976,12 @@ msgid "Mail traffic report"
 msgstr "Levelezőforgalom-jelentés"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:114
-#, fuzzy
 msgid "Local email account"
-msgstr "postafiók"
+msgstr "Helyi postafiók"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:119
-#, fuzzy
 msgid "Mail server port"
-msgstr "Levelezőszerver"
+msgstr "Levelezőszerver portja"
 
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:356
 msgid "External retrieval service"
@@ -15136,9 +15018,9 @@ msgid "group alias mail"
 msgstr "csoportálnév levélcíme"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:54
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Alias {al} removed"
-msgstr "{ou} szervezeti egység eltávolítva"
+msgstr "{al} álnév eltávolítva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:47
 msgid "maildrop"
@@ -15155,27 +15037,26 @@ msgid "Mail protocol"
 msgstr "Levelezőprotokoll"
 
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:92
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} added"
-msgstr "Külső postafiók hozzáadva"
+msgstr "A(z) {acc} külső postafiók hozzáadva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:44
 msgid "External mail account"
 msgstr "Külső postafiók"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelExternalAccount.pm:59
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "External account {acc} removed"
-msgstr "A(z) {ac} külső postafiók törölve"
+msgstr "A(z) {acc} külső postafiók eltávolítva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:59
 msgid "Quota must be a amount of MB greter than zero"
 msgstr "A kvóta nullánál nagyobb MB érték kell legyen"
 
 #: ../../main/mail/src/EBox/Mail/CGI/SetAccountMaildirQuota.pm:66
-#, fuzzy
 msgid "Mail directory quota set"
-msgstr "Könyvtár neve"
+msgstr "A levélkönyvtár kvótája beállítva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/MQRemove.pm:41
 #: ../../main/mail/src/EBox/Mail/CGI/MQRequeue.pm:41
@@ -15188,9 +15069,9 @@ msgid "user mail"
 msgstr "felhasználói levél"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAccount.pm:55
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account removed"
-msgstr "A(z) {ac} külső postafiók törölve"
+msgstr "A(z) {acc} postafiók eltávolítva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelAlias.pm:48
 #: ../../main/mail/src/EBox/MailAliasLdap.pm:102
@@ -15212,9 +15093,9 @@ msgid "Mail address"
 msgstr "Levelezési cím"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:61
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{acc} account created"
-msgstr "Nem lett létrehozva"
+msgstr "A(z) {acc} postafiók létrehozva"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:56
 msgid ""
@@ -15463,9 +15344,8 @@ msgid "Groupware Contact"
 msgstr "Csoportmunka névjegy"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:50
-#, fuzzy
 msgid "Enable contact in the addressbook even if it has not Zarafa account."
-msgstr "A névjegy aktiválása a címlistában, még ha a fiók inaktív is."
+msgstr "A névjegy aktiválása a címlistában, még ha nincs is Zarafa fiókja."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/ZarafaUser.pm:56
 msgid "Enable POP3 Access"
@@ -15514,10 +15394,8 @@ msgstr ""
 "Active Sync (Microsoft Exchange szinkronizációs protokoll) bekapcsolása."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:127
-#, fuzzy
 msgid "Enable only Single Sign-On on the Webaccess interface."
-msgstr ""
-"Egyszeres bejelentkezés engedélyezése a Webaccess és Webapp felületeken."
+msgstr "Csak egyszeres bejelentkezés engedélyezése a Webaccess felületeken."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:137
 msgid ""
@@ -15611,19 +15489,16 @@ msgstr ""
 "http://zentyal_ip/webapp oldalon érheti el."
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:82
-#, fuzzy
 msgid "Zarafa account options set"
-msgstr "Zarafa fiók"
+msgstr "Zarafa fiók tulajdonságai beállítva"
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:86
-#, fuzzy
 msgid "Zarafa account enabled"
-msgstr "Zarafa fiók"
+msgstr "Zarafa fiók bekapcsolva"
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:101
-#, fuzzy
 msgid "Zarafa account disabled"
-msgstr "Zarafa fiók"
+msgstr "Zarafa fiók kikapcsolva"
 
 #: ../../main/zarafa/src/EBox/ZarafaLdapUser.pm:72
 msgid "Zarafa account"
@@ -15788,9 +15663,8 @@ msgid "Zentyal Web Server"
 msgstr "Zentyal webszerver"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:238
-#, fuzzy
 msgid "Configuration Settings saved."
-msgstr "Kvótabeállítások"
+msgstr "Konfigurációs beállítások mentve."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:239
 #, perl-brace-format
@@ -15800,8 +15674,8 @@ msgid ""
 "home/user directories."
 msgstr ""
 "Ne feledje, hogy a UserDir működéséhez létre kell hoznia a(z) {p} "
-"könyvtárat, és www-data végrehajtási jogosultságokat kell adnia az érintett "
-"/home/felhasználó könyvtáraknak."
+"könyvtárat, és www-data végrehajtási jogosultságokat kell adnia az érintett /"
+"home/felhasználó könyvtáraknak."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:290
 #, perl-brace-format
@@ -15850,31 +15724,31 @@ msgstr ""
 "webszervert a {ohref}Szolgáltatások tanúsítványai{chref} alatt."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:166
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
 "its IP addresses. {noDnsWarning} "
 msgstr ""
 "A(z) {vhost} virtuális szerver hozzáadva. A(z) {domain} tartomány létre lett "
-"hozva {name} leképezésnéven – IP címe: {ip}. {noDnsWarning} "
+"hozva, ellenőrizze az IP-címeit. {noDnsWarning} "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:174
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
 msgstr ""
 "A(z) {vhost} virtuális szerver hozzáadva. A(z) {domain} tartomány létre lett "
-"hozva {name} leképezésnéven – IP címe: {ip}. {noDnsWarning} "
+"hozva {name} gépnéven. Ellenőrizze a gép IP-címét. {noDnsWarning} "
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:196
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
 "Please, set the host IP address"
 msgstr ""
-"A(z) {vhost} virtuális szerver hozzáadva. A(z) {name} leképezésnév és {ip} "
-"IP-cím hozzáadva a(z) {domain} tartományhoz."
+"A(z) {vhost} virtuális szerver hozzáadva. A(z) {name} gépnév hozzáadva a(z) "
+"{domain} tartományhoz. Állítsa be a gép IP-címét"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:204
 #, perl-brace-format
@@ -15978,9 +15852,8 @@ msgstr ""
 "dokumentumgyökeréhez. Helyezze át vagy távolítsa el"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:822
-#, fuzzy
 msgid "Web server data"
-msgstr "Webszerver"
+msgstr "Webszerver adatai"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:93
 #, perl-brace-format
@@ -16008,9 +15881,8 @@ msgstr ""
 "Nem lehet kapcsolódni az AD LDAP szerverhez: „{server}”. A hiba: „{error}”"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:213
-#, fuzzy
 msgid "The domain controller must be specified as full qualified domain name"
-msgstr "A levelezőnév teljes képzésű tartománynév kell legyen"
+msgstr "A tartományvezérlőt teljes képzésű tartománynévként kell megadni"
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:217
 #, perl-brace-format
@@ -16025,8 +15897,8 @@ msgid ""
 "the {oh}resolvers list{ch}."
 msgstr ""
 "A tartományvezérlő („{x}”) nem oldható fel az IP-címére. Győződjön meg róla, "
-"hogy az AD DNS szerverek egyikét használja elsődleges feloldóként a "
-"{oh}feloldók listájában{ch}."
+"hogy az AD DNS szerverek egyikét használja elsődleges feloldóként a {oh}"
+"feloldók listájában{ch}."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:255
 #, perl-brace-format
@@ -16048,14 +15920,14 @@ msgid ""
 "but the reverse resolution of that IP has returned name '{z}'. Please fix "
 "your AD DNS records."
 msgstr ""
-"Az AD DNS szerver a megadott „{x}” tartományvezérlő-nevet a(z) „{y}” "
-"IP-címre oldotta fel, de az IP fordított feloldása a(z) „{z}” nevet adta "
+"Az AD DNS szerver a megadott „{x}” tartományvezérlő-nevet a(z) „{y}” IP-"
+"címre oldotta fel, de az IP fordított feloldása a(z) „{z}” nevet adta "
 "vissza. Javítsa az AD DNS rekordjait."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:276
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The domain controller {x} is unreachable."
-msgstr "A VPN-szerver elérhető"
+msgstr "A(z) {x} tartományvezérlő nem érhető el."
 
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:298
 #, perl-brace-format
@@ -16193,24 +16065,23 @@ msgid ""
 "changes reprovision will be attempted again.{pend}"
 msgstr ""
 "Hiba az ismételt létrehozáskor: {err}. {pbeg}Amíg az ismételt létrehozás nem "
-"történik meg a felhasználó modulban, a függőségei használhatatlanok "
-"lesznek. A változások következő mentésekor az ismételt létrehozás újra meg "
-"lesz kísérelve.{pend}"
+"történik meg a felhasználó modulban, a függőségei használhatatlanok lesznek. "
+"A változások következő mentésekor az ismételt létrehozás újra meg lesz "
+"kísérelve.{pend}"
 
 #: ../../main/users/src/EBox/Users.pm:1112
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Found {count} results for '{uid}' user, expected only one."
-msgstr "{count} találat, de csak egynek kellene lennie."
+msgstr "{count} találat „{uid}” felhasználóhoz, de csak egynek kellene lennie."
 
 #: ../../main/users/src/EBox/Users.pm:1330
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Found {count} results for '{name}' group, expected only one."
-msgstr "{count} találat, de csak egynek kellene lennie."
+msgstr "{count} találat „{name}” csoporthoz, de csak egynek kellene lennie."
 
 #: ../../main/users/src/EBox/Users.pm:1801
-#, fuzzy
 msgid "Manage"
-msgstr "Csak felügyelet"
+msgstr "Kezelés"
 
 #: ../../main/users/src/EBox/Users.pm:1804
 #: ../../main/users/src/EBox/Users/Composite/UserTemplate.pm:73
@@ -16231,13 +16102,13 @@ msgid "Configure mode"
 msgstr "Mód beállítása"
 
 #: ../../main/users/src/EBox/Users.pm:2004
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Cannot restore users module bacuse is running in mode {mode} and the backup "
 "was made in mode {bpMode}"
 msgstr ""
-"A szerveren a szeletelt mentési mód van beállítva, de ez a mentés nem "
-"szeletelt módban készült"
+"A felhasználók modul nem állítható vissza, mert {mode} módban fut, és a "
+"mentés {bpMode} módban készült"
 
 #: ../../main/users/src/EBox/Users.pm:2021
 #, perl-brace-format
@@ -16251,9 +16122,8 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users.pm:2301
 #: ../../main/users/src/EBox/Users.pm:2310
-#, fuzzy
 msgid "Users data"
-msgstr "Felhasználói kvóta"
+msgstr "Felhasználói adatok"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:167
 #, perl-brace-format
@@ -16263,12 +16133,10 @@ msgstr ""
 "A(z) {addr} elsődleges érvénytelen, mert ez a visszacsatolási felület címe"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:180
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Master {addr} is invalid because it is the address of the interface {if}"
-msgstr ""
-"A csatlakozáshoz használandó külső IP-cím helyett a helyi {if} csatoló címe "
-"lett megadva"
+msgstr "A(z) {addr} elsődleges érvénytelen, mert ez a(z) {if} felület címe"
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:280
 #, perl-brace-format
@@ -16277,7 +16145,7 @@ msgid ""
 "slave {slave}."
 msgstr ""
 "Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
-"{master}, az alárendelt: {slave}. "
+"{master}, az alárendelt: {slave}."
 
 #: ../../main/users/src/EBox/UsersSync/Master.pm:320
 msgid "Invalid password"
@@ -16363,7 +16231,7 @@ msgid ""
 "this server {slave}."
 msgstr ""
 "Az elsődleges szerver ZÓNÁJA eltér, ellenőrizze a gépneveket. Az elsődleges: "
-"{master}, ez a szerver: {slave}. "
+"{master}, ez a szerver: {slave}."
 
 #: ../../main/users/src/EBox/Users/Model/Master.pm:238
 #, perl-brace-format
@@ -16419,24 +16287,20 @@ msgstr ""
 "egységekben lévő felhasználókkal és csoportokkal működnek."
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:153
-#, fuzzy
 msgid "Disabled Users"
-msgstr "Kikapcsolva"
+msgstr "Letiltott felhasználók"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:155
-#, fuzzy
 msgid "Security Groups"
-msgstr "Biztonsági frissítés"
+msgstr "Biztonsági csoportok"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:156
-#, fuzzy
 msgid "Distribution Groups"
-msgstr "Csoportok listája"
+msgstr "Terjesztési csoportok"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:158
-#, fuzzy
 msgid "Computers"
-msgstr "Befejezve"
+msgstr "Számítógépek"
 
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:159
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:42
@@ -16498,14 +16362,14 @@ msgid "Could not bind to LDAP: {x}"
 msgstr "Nem lehet kapcsolódni az LDAP-hoz: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:126
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Could not get the user DN: {x}"
-msgstr "Nem lehet kibontani a mentés fájljait: {files}"
+msgstr "Nem lehet lekérni a felhasználó megkülönböztető nevét: {x}"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:132
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The search for user {x} returned {count} results, expected one"
-msgstr "{count} találat, de csak egynek kellene lennie."
+msgstr "{x} felhasználó keresése {count} találatot adott a várt egy helyett"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:147
 #, perl-brace-format
@@ -16581,14 +16445,12 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:110
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:72
-#, fuzzy
 msgid "User password and confirm user password does not match"
-msgstr "Az új jelszavak nem egyeznek"
+msgstr "A felhasználói és a megerősített jelszavak nem egyeznek"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:121
-#, fuzzy
 msgid "Server mode"
-msgstr "Szervernév"
+msgstr "Szervermód"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:127
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:227
@@ -16602,9 +16464,8 @@ msgstr "Ez lesz a DN utótag az LDAP fában"
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:136
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:66
 #: ../../main/users/src/templates/wizard/users.mas:52
-#, fuzzy
 msgid "Active Directory hostname"
-msgstr "Könyvtár neve"
+msgstr "Active Directory gépneve"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:137
 #: ../../main/users/src/templates/wizard/users.mas:49
@@ -16630,16 +16491,14 @@ msgstr ""
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:152
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:68
 #: ../../main/users/src/templates/wizard/users.mas:58
-#, fuzzy
 msgid "User password"
-msgstr "Felhasználó és jelszó"
+msgstr "Felhasználói jelszó"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:159
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:69
 #: ../../main/users/src/templates/wizard/users.mas:60
-#, fuzzy
 msgid "Confirm user password"
-msgstr "jelszó megerősítése"
+msgstr "Felhasználói jelszó megerősítése"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:169
 msgid "Zentyal Users"
@@ -16647,14 +16506,12 @@ msgstr "Zentyal felhasználók"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:252
 #: ../../main/users/src/templates/wizard/users.mas:12
-#, fuzzy
 msgid "Standalone server"
-msgstr "Önálló"
+msgstr "Önálló szerver"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:256
-#, fuzzy
 msgid "Use external Active Directory server"
-msgstr "külső levelezőszerver"
+msgstr "Külső Active Directory szerver használata"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:42
 msgid "Base DN"
@@ -16665,24 +16522,20 @@ msgid "Root DN"
 msgstr "Gyökér DN"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:54
-#, fuzzy
 msgid "Read-only root DN"
-msgstr "Csak olvasható sor: szerkesztés tiltva"
+msgstr "Csak olvasható gyökér megkülönböztető név"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:58
-#, fuzzy
 msgid "Read-only password"
-msgstr "Jelszó megerősítése"
+msgstr "Csak olvasható jelszó"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:62
-#, fuzzy
 msgid "Default Users DN"
-msgstr "Alapértelmezett felhasználói kvóta"
+msgstr "Alapértelmezett felhasználói megkülönböztető név"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:66
-#, fuzzy
 msgid "Default Groups DN"
-msgstr "Csoportok DN"
+msgstr "Alapértelmezett csoport megkülönböztető név"
 
 #: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:72
 msgid "LDAP information"
@@ -16745,13 +16598,12 @@ msgid ""
 "Invalid realm name. Often, the realm is the uppercase version of the local "
 "DNS domain."
 msgstr ""
-"Érvénytelen tartománynév. A tartomány gyakran a helyi DNS tartomány "
-"nagybetűs változata."
+"Érvénytelen zónanév. A zóna gyakran a helyi DNS tartomány nagybetűs "
+"változata."
 
 #: ../../main/users/src/EBox/Users/CGI/AddOU.pm:49
-#, fuzzy
 msgid "OU name"
-msgstr "Felhasználónév"
+msgstr "Szervezeti egység neve"
 
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:32
 msgid "Edit group"
@@ -16764,28 +16616,24 @@ msgstr "Csoport szerkesztése"
 #: ../../main/users/src/templates/editcontact.mas:20
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/addcontact.mas:42
-#, fuzzy
 msgid "E-Mail"
-msgstr "Levelezés"
+msgstr "E-mail"
 
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:82
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:70
 #: ../../main/users/src/EBox/Users/Group.pm:547
 #: ../../main/users/src/templates/addgroup.mas:39
-#, fuzzy
 msgid "E-mail"
-msgstr "Webmail"
+msgstr "E-mail"
 
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:90
-#, fuzzy
 msgid "Group updated"
-msgstr "{row} sor frissítve"
+msgstr "Csoport frissítve"
 
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:67
 #: ../../main/users/src/templates/wizard/users.mas:55
-#, fuzzy
 msgid "Administrative user"
-msgstr "Felhasználó adminisztrációja"
+msgstr "Adminisztrációs felhasználó"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:67
 msgid "quota"
@@ -16794,9 +16642,8 @@ msgstr "kvóta"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:71
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:46
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:67
-#, fuzzy
 msgid "first name"
-msgstr "Utónév"
+msgstr "utónév"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:72
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:47
@@ -16807,18 +16654,16 @@ msgstr "vezetéknév"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:73
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:48
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:69
-#, fuzzy
 msgid "description"
-msgstr "Leírás"
+msgstr "leírás"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
 msgid "confirm password"
 msgstr "jelszó megerősítése"
 
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:121
-#, fuzzy
 msgid "User updated"
-msgstr "Felhasználói kvóta"
+msgstr "Felhasználó frissítve"
 
 #: ../../main/users/src/EBox/Users/CGI/AddGroup.pm:52
 #: ../../main/users/src/EBox/Users/Group.pm:507
@@ -16826,24 +16671,20 @@ msgid "group name"
 msgstr "csoportnév"
 
 #: ../../main/users/src/EBox/Users/CGI/AddGroup.pm:53
-#, fuzzy
 msgid "group type"
-msgstr "csoportnév"
+msgstr "csoport típusa"
 
 #: ../../main/users/src/EBox/Users/CGI/EditContact.pm:98
-#, fuzzy
 msgid "Contact updated"
-msgstr "Egyéb csoportok"
+msgstr "Névjegy frissítve"
 
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:53
-#, fuzzy
 msgid "Given name"
-msgstr "Fájlnév"
+msgstr "Utónév"
 
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:54
-#, fuzzy
 msgid "Surname"
-msgstr "felhasználónév"
+msgstr "Vezetéknév"
 
 #: ../../main/users/src/EBox/Users/Group.pm:488
 #, perl-brace-format
@@ -16931,13 +16772,12 @@ msgstr ""
 "fájlrendszer nem támogatja a kvóta használatát."
 
 #: ../../main/users/src/EBox/Users/User.pm:477
-#, fuzzy
 msgid ""
 "To avoid problems, the uid should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
 "dot"
 msgstr ""
-"A problémák elkerülése érdekében a felhasználónév csak betűkből, "
+"A problémák elkerülése érdekében a felhasználói azonosító csak betűkből, "
 "számjegyekből, aláhúzásokból, szóközökből, pontokból, kötőjelekből állhat, "
 "nem kezdődhet kötőjellel és nem végződhet pontra"
 
@@ -16960,9 +16800,8 @@ msgid "Username already exists on the system"
 msgstr "A felhasználónév már létezik a rendszerben"
 
 #: ../../main/users/src/EBox/Users/User.pm:555
-#, fuzzy
 msgid "default group"
-msgstr "Csoport törlése"
+msgstr "alapértelmezett csoport"
 
 #: ../../main/users/src/EBox/Users/User.pm:557
 msgid "Default group must be a security group."
@@ -16996,9 +16835,8 @@ msgstr ""
 "{max}"
 
 #: ../../main/users/src/EBox/LdapUserImplementation.pm:39
-#, fuzzy
 msgid "This group contains members"
-msgstr "Ez a csoport tartalmaz felhasználókat"
+msgstr "Ez a csoport tagokat tartalmaz"
 
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:16
 msgid "Days of the week"
@@ -17264,9 +17102,8 @@ msgstr ""
 "érdekében futtassa a következő parancsot a konzolban: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/config.mas:9
-#, fuzzy
 msgid "Perform automatic software updates"
-msgstr "Automatikus szoftverfrissítések"
+msgstr "Automatikus szoftverfrissítések végrehajtása"
 
 #: ../../main/software/src/templates/config.mas:16
 msgid "Zentyal is configured to use automatic QA updates"
@@ -17372,24 +17209,20 @@ msgid "This server has been removed from your registered ones"
 msgstr "Ez a szerver el lett távolítva a regisztrált szerverek közül"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:19
-#, fuzzy
 msgid "Choose configuration backup to restore"
-msgstr "A beállítások biztonsági mentéseinek listája"
+msgstr "Válassza ki a visszaállítandó beállításmentési fájlt"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:37
-#, fuzzy
 msgid "No backups available"
-msgstr "Minden elérhető biztonsági mentési tartomány visszaállítása"
+msgstr "Nem érhető el biztonsági mentés"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:42
-#, fuzzy
 msgid "Skip recover"
-msgstr "visszaállítás"
+msgstr "Visszaállítás kihagyása"
 
 #: ../../main/remoteservices/src/templates/disaster.mas:44
-#, fuzzy
 msgid "Recover"
-msgstr "visszaállítás"
+msgstr "Visszaállítás"
 
 #: ../../main/remoteservices/src/templates/Backup/index.mas:50
 msgid "Remote Backup"
@@ -17495,9 +17328,8 @@ msgstr ""
 "kattintson {hbeg}ide{hend}, és engedélyezze."
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:39
-#, fuzzy
 msgid "Continue to your destination"
-msgstr "{hb}Tovább a célra{he}"
+msgstr "Tovább a célra"
 
 #: ../../main/captiveportal/src/templates/popupLaunch.mas:45
 #: ../../main/captiveportal/src/templates/login.mas:56
@@ -17743,9 +17575,8 @@ msgstr "Csoportházirend-objektum"
 
 #: ../../main/samba/src/templates/addgplink.mas:29
 #: ../../main/samba/src/templates/editgplink.mas:26
-#, fuzzy
 msgid "Link enabled"
-msgstr "bekapcsolva"
+msgstr "Hivatkozás bekapcsolva"
 
 #: ../../main/samba/src/templates/addgplink.mas:38
 #: ../../main/samba/src/templates/editgplink.mas:35
@@ -18158,9 +17989,8 @@ msgid "Starting..."
 msgstr "Indítás…"
 
 #: ../../main/core/src/templates/progress.mas:212
-#, fuzzy
 msgid "Loading..."
-msgstr "Betöltés"
+msgstr "Betöltés…"
 
 #: ../../main/core/src/templates/progress.mas:214
 msgid " of "
@@ -18212,9 +18042,9 @@ msgid "Enabling the module will make some modifications to the system."
 msgstr "A modul bekapcsolása változtatásokat hajt végre a rendszeren."
 
 #: ../../main/core/src/templates/configureView.mas:21
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{ohref}Click here to see the details{chref}"
-msgstr "Kattintson ide a Vezérlőpultra ugráshoz"
+msgstr "{ohref}Kattintson ide a részletek megjelenítéséhez{chref}"
 
 #: ../../main/core/src/templates/configureView.mas:33
 msgid "Actions to perform by Zentyal"
@@ -18229,9 +18059,8 @@ msgid "Accept"
 msgstr "Elfogadás"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:28
-#, fuzzy
 msgid "View all"
-msgstr "Megjelenítés"
+msgstr "Összes mutatása"
 
 #: ../../main/core/src/templates/ajax/tablePager.mas:52
 #: ../../main/core/src/templates/ajax/tablePager.mas:57
@@ -18276,9 +18105,8 @@ msgid "last"
 msgstr "utolsó"
 
 #: ../../main/core/src/templates/ajax/viewer/hasManyViewer.mas:6
-#, fuzzy
 msgid "configure"
-msgstr "Ne állítsa be"
+msgstr "beállítás"
 
 #: ../../main/core/src/templates/ajax/viewer/file.mas:18
 msgid "Current file"
@@ -18430,23 +18258,20 @@ msgid "show help"
 msgstr "súgó megjelenítése"
 
 #: ../../main/core/src/templates/logout/index.mas:9
-#, fuzzy
 msgid "There are unsaved changes. Do you really want to close the session?"
-msgstr "Ebben a munkamenetben nincsenek nem mentett módosítások."
+msgstr "Mentetlen módosítások vannak. Biztosan bezárja a munkamenetet?"
 
 #: ../../main/core/src/templates/logout/index.mas:12
 msgid "Do you really want to close the session?"
 msgstr "Biztosan bezárja a munkamenetet?"
 
 #: ../../main/core/src/templates/logout/index.mas:16
-#, fuzzy
 msgid "Discard current changes"
-msgstr "Módosítások elvetése"
+msgstr "Jelenlegi módosítások elvetése"
 
 #: ../../main/core/src/templates/headTitle.mas:10
-#, fuzzy
 msgid "Close session"
-msgstr "Alapverzió"
+msgstr "Munkamenet bezárása"
 
 #: ../../main/core/src/templates/headTitle.mas:11
 msgid "Save changes?"
@@ -18971,9 +18796,8 @@ msgid "Users and Groups"
 msgstr "Felhasználók és csoportok"
 
 #: ../../main/users/src/templates/wizard/users.mas:11
-#, fuzzy
 msgid "Select the type of the server"
-msgstr "Válassza ki a szerver tartománynevét"
+msgstr "Válassza ki a szerver típusát"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
 msgid "Connect with external Active Directory server"
@@ -18984,18 +18808,16 @@ msgid "Select the domain name of the server"
 msgstr "Válassza ki a szerver tartománynevét"
 
 #: ../../main/users/src/templates/wizard/users.mas:36
-#, fuzzy
 msgid "This will be used as the Kerberos authentication realm for your users."
-msgstr "Ez lesz felhasználóinak Kerberos hitelesítési tartománya."
+msgstr "Ez lesz felhasználóinak Kerberos hitelesítési zónája."
 
 #: ../../main/users/src/templates/wizard/users.mas:39
 msgid "Host domain name"
 msgstr "Gép tartományneve"
 
 #: ../../main/users/src/templates/wizard/users.mas:47
-#, fuzzy
 msgid "Enter your active directory settings"
-msgstr "Hangposta-beállítások módosítása"
+msgstr "Írja be Active Directory beállításait"
 
 #: ../../main/users/src/templates/wizard/users.mas:49
 msgid ""
@@ -19006,7 +18828,6 @@ msgstr ""
 "számítógépes fiók létrehozásához a tartományban"
 
 #: ../../main/users/src/templates/editgroup.mas:15
-#, fuzzy
 msgid "Group "
 msgstr "Csoport"
 
@@ -19021,67 +18842,56 @@ msgstr ""
 #: ../../main/users/src/templates/editgroup.mas:27
 #: ../../main/users/src/templates/editgroup.mas:32
 #: ../../main/users/src/templates/addgroup.mas:16
-#, fuzzy
 msgid "Security Group"
-msgstr "Biztonsági frissítés"
+msgstr "Biztonsági csoport"
 
 #: ../../main/users/src/templates/editgroup.mas:28
 #: ../../main/users/src/templates/editgroup.mas:34
 #: ../../main/users/src/templates/addgroup.mas:16
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Csoport adminisztrációja "
+msgstr "Terjesztési csoport"
 
 #: ../../main/users/src/templates/editgroup.mas:53
 #: ../../main/users/src/templates/edituser.mas:59
-#, fuzzy
 msgid "Modules configuration"
-msgstr "Modulállapot beállítása"
+msgstr "Modulkonfiguráció"
 
 #: ../../main/users/src/templates/editgroup.mas:109
-#, fuzzy
 msgid "This group has not members"
-msgstr "Ennek a csoportnak van levelező álneve"
+msgstr "A csoportnak nincs tagja"
 
 #: ../../main/users/src/templates/editgroup.mas:176
-#, fuzzy
 msgid "Add user"
 msgstr "Felhasználó hozzáadása"
 
 #: ../../main/users/src/templates/editcontact.mas:15
-#, fuzzy
 msgid "Administration of contact "
-msgstr "Csoport adminisztrációja "
+msgstr "Névjegy adminisztrációja "
 
 #: ../../main/users/src/templates/editcontact.mas:29
-#, fuzzy
 msgid "Contact groups"
-msgstr "Egyéb csoportok"
+msgstr "Névjegycsoportok"
 
 #: ../../main/users/src/templates/editcontact.mas:80
-#, fuzzy
 msgid "This contact is not member of any group"
-msgstr "Csoporton kívüli felhasználók"
+msgstr "A névjegy nem tagja egy csoportnak sem"
 
 #: ../../main/users/src/templates/editcontact.mas:143
 #: ../../main/users/src/templates/edituser.mas:195
-#, fuzzy
 msgid "Add group"
 msgstr "Csoport hozzáadása"
 
 #: ../../main/users/src/templates/editcontact.mas:157
-#, fuzzy
 msgid "No member of any group"
-msgstr "Csoporton kívüli felhasználók"
+msgstr "Nem tagja egy csoportnak sem"
 
 #: ../../main/users/src/templates/edituser.mas:42
 msgid "User quota"
 msgstr "Felhasználói kvóta"
 
 #: ../../main/users/src/templates/edituser.mas:42
-#, fuzzy
 msgid "Disabled account"
-msgstr "Jabber fiók"
+msgstr "Kikapcsolt fiók"
 
 #: ../../main/users/src/templates/edituser.mas:44
 #: ../../main/users/src/templates/adduser.mas:50
@@ -19094,9 +18904,8 @@ msgstr "Felhasználói csoportok"
 
 #: ../../main/users/src/templates/edituser.mas:126
 #: ../../main/users/src/templates/edituser.mas:210
-#, fuzzy
 msgid "This user is not a member of any group"
-msgstr "Csoporton kívüli felhasználók"
+msgstr "Ez a felhasználó nem tagja egy csoportnak sem"
 
 #: ../../main/users/src/templates/delgroup.mas:11
 #: ../../main/users/src/templates/delgroup.mas:32
@@ -19108,9 +18917,8 @@ msgid "You cannot delete a group in a slave."
 msgstr "Nem törölhet csoportot alárendelt rendszeren."
 
 #: ../../main/users/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Ennek a csoportnak van levelező álneve"
+msgstr "A csoport nem törölhető"
 
 #: ../../main/users/src/templates/delgroup.mas:20
 msgid ""
@@ -19147,22 +18955,18 @@ msgstr "Szervezeti egység hozzáadása"
 
 #: ../../main/users/src/templates/delcontact.mas:9
 #: ../../main/users/src/templates/delcontact.mas:20
-#, fuzzy
 msgid "Delete contact"
-msgstr "Biztonsági mentés törlése"
+msgstr "Névjegy törlése"
 
 #: ../../main/users/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
 msgstr "Nem törölhet névjegyet alárendelt rendszeren."
 
 #: ../../main/users/src/templates/delcontact.mas:16
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
-msgstr ""
-"Ez a művelet törli a csoportot, valamint minden vele összefüggő adatot is, "
-"például a megosztott könyvtárakat stb."
+msgstr "Ez a művelet törli a névjegyet és minden vele összefüggő beállítást."
 
 #: ../../main/users/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
@@ -19174,18 +18978,16 @@ msgid "Delete Organizational Unit"
 msgstr "Szervezeti egység törlése"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "szervezeti egység"
+msgstr "Ez a szervezeti egység nem törölhető"
 
 #: ../../main/users/src/templates/delou.mas:18
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Ez a művelet törli a felhasználót, valamint minden egyéb vele összefüggő "
-"adatát is: postafiók, saját fájlok stb."
+"Ez a művelet törli a szervezeti egységet és minden benne lévő objektumot: "
+"felhasználók, csoportok stb."
 
 #: ../../main/users/src/templates/deluser.mas:12
 #: ../../main/users/src/templates/deluser.mas:29
@@ -19197,12 +18999,10 @@ msgid "You cannot delete a user in a slave."
 msgstr "Nem törölhet felhasználót alárendelt rendszeren."
 
 #: ../../main/users/src/templates/deluser.mas:19
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Ez a művelet törli a csoportot, valamint minden vele összefüggő adatot is, "
-"például a megosztott könyvtárakat stb."
+"Ez a művelet törli a felhasználót, valamint minden vele összefüggő adatot"
 
 #~ msgid "PPTP Users"
 #~ msgstr "PPTP felhasználók"
@@ -19382,9 +19182,8 @@ msgstr ""
 #~ msgstr ""
 #~ "Nem lehet szüneteltetni egy leállított gépet. Először el kell indítani."
 
-#, fuzzy
 #~ msgid "Remove virtual machine"
-#~ msgstr "virtuális gép"
+#~ msgstr "Virtuális gép eltávolítása"
 
 #~ msgid "Hard Disk"
 #~ msgstr "Merevlemez"
@@ -19413,16 +19212,14 @@ msgstr ""
 #~ msgid "Here you can define the storage drives of the virtual machine"
 #~ msgstr "Itt adhatja meg a virtuális gép tárolóeszközeit"
 
-#, fuzzy
 #~ msgid "ISO image"
-#~ msgstr "Lemezkép"
+#~ msgstr "ISO lemezkép"
 
 #~ msgid "The CD disk image {img} should be in ISO format"
 #~ msgstr "A(z) „{img}” CD-képnek ISO formátumúnak kell lennie"
 
-#, fuzzy
 #~ msgid "Hard disk image"
-#~ msgstr "Merevlemez neve"
+#~ msgstr "Merevlemezkép"
 
 #~ msgid "The hard disk image {img} should be in qcow2 format"
 #~ msgstr "A(z) „{img}” merevlemezképnek qcow2 formátumúnak kell lennie"
@@ -19453,34 +19250,30 @@ msgstr ""
 #~ msgid "A maximum of {num} Hard Disk drives are allowed"
 #~ msgstr "Maximum {num} merevlemez eszköz engedélyezett"
 
-#, fuzzy
 #~ msgid "Device file for CD \"{f}\" does not exists"
-#~ msgstr "A tanúsítvány ({cn}) nem létezik"
+#~ msgstr "A(z) „{f}” CD eszközfájlja nem létezik"
 
 #~ msgid "HardDisk name"
 #~ msgstr "Merevlemez neve"
 
-#, fuzzy
 #~ msgid "The name should contain only characters, digits and underscores"
 #~ msgstr "A név csak betűket, számokat és aláhúzásokat tartalmazhat"
 
-#, fuzzy
 #~ msgid "You need to provide the path of a {name}"
-#~ msgstr "Meg kell adnia egy ISO lemezkép útvonalát"
+#~ msgstr "Meg kell adnia egy {name} lemezkép útvonalát"
 
-#, fuzzy
 #~ msgid ""
 #~ "The path should contain only characters, digits, dots, dashes, directory "
 #~ "separators  and underscores"
-#~ msgstr "A név csak betűket, számokat és aláhúzásokat tartalmazhat"
+#~ msgstr ""
+#~ "Az útvonal csak betűket, számokat, pontokat, kötőjeleket, "
+#~ "könyvtárelválasztókat és aláhúzásokat tartalmazhat"
 
-#, fuzzy
 #~ msgid "{name} '{img}' does not exist"
-#~ msgstr "A(z) „{img}” ISO lemezkép nem létezik"
+#~ msgstr "A(z) „{img}” {name} nem létezik"
 
-#, fuzzy
 #~ msgid "{name} '{img}' is not readable"
-#~ msgstr "A következő átjáró nem érhető el: {gw}"
+#~ msgstr "A(z) „{img}” {name} nem olvasható"
 
 #~ msgid "Operating System"
 #~ msgstr "Operációs rendszer"
@@ -19625,9 +19418,8 @@ msgstr ""
 #~ "Lemezkép frissítése. Ez a folyamat megjelenik az áttekintésben, amíg be "
 #~ "nem fejeződik."
 
-#, fuzzy
 #~ msgid "Remove Image"
-#~ msgstr "Összes levél eltávolítása"
+#~ msgstr "Lemezkép eltávolítása"
 
 #~ msgid "Available Images"
 #~ msgstr "Elérhető lemezképek"
@@ -19693,9 +19485,8 @@ msgstr ""
 #~ msgid "Image Creation"
 #~ msgstr "Lemezkép létrehozása"
 
-#, fuzzy
 #~ msgid "The image already exists."
-#~ msgstr "{data} {value} már létezik."
+#~ msgstr "A lemezkép már létezik."
 
 #~ msgid "Applications"
 #~ msgstr "Alkalmazások"
@@ -19801,7 +19592,7 @@ msgstr ""
 #~ msgstr "Hangposta"
 
 #~ msgid "Voicemail extension to forward missed calls."
-#~ msgstr "Hangposta kiegészítő a nem fogadott hívások továbbításához."
+#~ msgstr "Hangposta mellék a nem fogadott hívások továbbításához."
 
 #~ msgid "Email notified"
 #~ msgstr "E-mail értesítve"
@@ -19848,12 +19639,9 @@ msgstr ""
 #~ msgid "Meeting rooms available on the server."
 #~ msgstr "Találkozószobák érhetők el a szerveren."
 
-#, fuzzy
 #~ msgid ""
 #~ "You must enable the {name} module before to be able to configure meetings"
-#~ msgstr ""
-#~ "A Felhasználók modult be kell kapcsolni a Modulállapot oldalon a "
-#~ "használathoz."
+#~ msgstr "A(z) {name} modult be kell kapcsolni a találkozók beállításához"
 
 #~ msgid "Enable demo extensions"
 #~ msgstr "Demó mellékek engedélyezése"
@@ -19921,9 +19709,8 @@ msgstr ""
 #~ msgid "User extension"
 #~ msgstr "Felhasználó melléke"
 
-#, fuzzy
 #~ msgid "Must be a number between {min} and {max}"
-#~ msgstr "{min} és {max} közötti szám."
+#~ msgstr "{min} és {max} közötti szám kell legyen"
 
 #~ msgid "Queue extension"
 #~ msgstr "Sormellék"
@@ -19935,13 +19722,11 @@ msgstr ""
 #~ "Nincsenek felhasználók a csoportban, vagy a felhasználóknak nincs "
 #~ "Asterisk fiókjuk, így nem hozható létre sor."
 
-#, fuzzy
 #~ msgid "Asterisk group queue disabled"
-#~ msgstr "Asterisk csoportsor"
+#~ msgstr "Asterisk csoportsor kikapcsolva"
 
-#, fuzzy
 #~ msgid "Disabled Asterisk account"
-#~ msgstr "Asterisk fiók"
+#~ msgstr "Asterisk fiók kikapcsolva"
 
 #~ msgid "To configure enabled and disabled modules."
 #~ msgstr "Az engedélyezett és letiltott modulok beállítása."
@@ -21008,3 +20793,61 @@ msgstr ""
 
 #~ msgid "subscription page"
 #~ msgstr "előfizetési oldalon"
+
+#~ msgid ""
+#~ "Are you sure about removing this virtual machine?. All its data will be "
+#~ "lost. "
+#~ msgstr "Biztosan eltávolítja a virtuális gépet? Minden adata el fog veszni."
+
+#~ msgid "Use host CD drive"
+#~ msgstr "A gazda CD meghajtó használata"
+
+#~ msgid "Only one CD connected to a host drive is supported"
+#~ msgstr "Csak egy, a gazda meghajtóhoz csatlakoztatott CD támogatott"
+
+#~ msgid "Windows Vista | Windows 2008 or newer"
+#~ msgstr "Windows Vista | Windows 2008 vagy újabb"
+
+#~ msgid "Windows XP | Windows 2003 or older"
+#~ msgstr "Windows XP | Windows 2003 vagy régebbi"
+
+#~ msgid "Linux"
+#~ msgstr "Linux"
+
+#~ msgid ""
+#~ "Skipped member {name} from object {obj1} because it has the same name "
+#~ "that other member from object {obj2}. If you want to use it, change its "
+#~ "name"
+#~ msgstr ""
+#~ "{name} kihagyva a(z) {obj1} objektumból, mert a neve egyezik a(z) {obj2} "
+#~ "objektum egy másik tagjáéval. Ha használni szeretné, módosítsa a nevét"
+
+#~ msgid ""
+#~ "Skipped member {name} from object {obj1} has the same MAC address {addr} "
+#~ "that other member from object {obj2}. If you want to use it, change its "
+#~ "MAC address"
+#~ msgstr ""
+#~ "{name} kihagyva a(z) {obj1} objektumból, mert a MAC-címe ({addr}) egyezik "
+#~ "a(z) {obj2} objektum egy másik tagjáéval. Ha használni szeretné, "
+#~ "módosítsa a MAC-címét"
+
+#~ msgid "The image and its configuration have been removed."
+#~ msgstr "A lemezkép és beállításai eltávolításra kerültek."
+
+#~ msgid "Idle"
+#~ msgstr "Üresjárat"
+
+#~ msgid "Could not open {x}: {y}"
+#~ msgstr "{x} nem nyitható meg: {y}"
+
+#~ msgid "Could not read {x}: {y}"
+#~ msgstr "{x} nem olvasható: {y}"
+
+#~ msgid "Could not close {x}: {y}"
+#~ msgstr "{x} nem zárható be: {y}"
+
+#~ msgid "Asterisk group queue enabled with extension {ext}"
+#~ msgstr "Asterisk csoportsor bekapcsolva ezzel a mellékkel: {ext}"
+
+#~ msgid "Enabled Asterisk account with extension {ext}"
+#~ msgstr "Asterisk fiók bekapcsolva ezzel a mellékkel: {ext}"
