@@ -514,13 +514,22 @@ sub create
     }
 
     # Verify user exists
-    if ($usersMod->userExists($args{uid})) {
+    my $userExists = $usersMod->userExists($args{uid});
+    if ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID()) {
+        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $args{uid}));
+    } elsif ($userExists) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $args{uid});
     }
     # Verify that a group with the same name does not exists
-    if ($usersMod->groupExists($args{uid})) {
+    my $groupExists =  $usersMod->groupExists($args{uid});
+    if ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID()) {
         throw EBox::Exceptions::External(
+            __x(q{A built-in Windows group with the name '{name}' already exists. Users and groups cannot share names},
+               name => $args{uid})
+           );
+    } elsif ($groupExists) {
+        throw EBox::Exceptions::DataExists(text =>
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
                name => $args{uid})
            );

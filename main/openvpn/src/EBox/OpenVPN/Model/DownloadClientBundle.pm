@@ -378,15 +378,16 @@ sub viewCustomizer
 {
     my ($self) = @_;
 
+    my @additionalAddresses = qw(addr2 addr3);
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
            {
               clientType => {
-                  windows => { enable => ['installer'] },
-                  linux   => {disable => ['installer']},
-                  mac     => {disable => ['installer']},
-                  EBoxToEBox => {disable => ['installer', 'connStrategy']},
+                  windows =>    { show => \@additionalAddresses,enable => ['installer'] },
+                  linux   =>    { show => \@additionalAddresses, disable => ['installer']},
+                  mac     =>    { show=> \@additionalAddresses, disable => ['installer']},
+                  EBoxToEBox => { hide => \@additionalAddresses, disable => ['installer', 'connStrategy' ]},
                  }
            }  );
     return $customizer;

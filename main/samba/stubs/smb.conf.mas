@@ -51,8 +51,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 % }
     server signing = auto
 
-    case sensitive = no
-
     log level = 3
     log file = /var/log/samba/samba.log
 
@@ -77,16 +75,19 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $profilesPath %>
     browseable = no
     read only = no
+    case sensitive = yes
 %   }
 
 [netlogon]
     path = <% $sysvolPath %>/<% $domain %>/scripts
     browseable = no
     read only = yes
+    case sensitive = no
 
 [sysvol]
     path = <% $sysvolPath %>
     read only = no
+    case sensitive = no
 % }
 
 [homes]
@@ -94,6 +95,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = /home/%S
     read only = no
     browseable = no
+    case sensitive = yes
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
@@ -131,6 +133,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $share->{path} %>
     browseable = Yes
     read only = No
+    case sensitive = yes
     force create mode = 0660
     force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
@@ -169,6 +172,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     comment = Point and Print Printer Drivers
     path = /opt/samba4/var/print
     read only = No
+    case sensitive = no
 
 [printers]
     comment = All Printers
@@ -176,6 +180,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     browseable = Yes
     read only = No
     printable = Yes
+    case sensitive = no
 % }
 
 % if ($antivirus) {
@@ -184,4 +189,5 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
+    case sensitive = yes
 % }
