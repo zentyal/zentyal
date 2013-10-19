@@ -464,7 +464,7 @@ sub _normalize
                 $row->elementByName('guaranteed_rate')->setValue($guaranteedRate);
                 $row->elementByName('limited-rate')->setValue($limitedRate);
                 $row->store();
-            } otherwise {
+            } catch {
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
                 my ($exc) = @_;

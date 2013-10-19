@@ -311,7 +311,7 @@ sub allMeasuredData
                 }
             }
             $atLeastOneReady = 1;
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             my $error = $ex->stringify();
             if ($error =~ m/No such file or directory/) {
@@ -531,7 +531,7 @@ sub _setupMeasures
         $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
         $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
         $self->_registerRuntimeMeasures();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         # Catch exceptions since it is possible that the monitor
         # module has never been configured (enable once)
     }
@@ -644,7 +644,7 @@ sub _setThresholdConf
                             $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{error}->{after} = $after;
                         }
                     }
-                } catch EBox::Exceptions::DataNotFound with {
+                } catch (EBox::Exceptions::DataNotFound $e) {
                     # The measure has disappear in some moment, we ignore their thresholds them
                     my ($exc) = @_;
                     EBox::warn($exc);
@@ -769,7 +769,7 @@ sub _registerRuntimeMeasures
             $line =~ s/\s//g;
             try {
                 $self->{measureManager}->register($line);
-            } otherwise {
+            } catch {
                 # Cannot load the runtime measure
             }
         }

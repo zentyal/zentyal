@@ -63,7 +63,7 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
+        } catch (EBox::Exceptions::MissingArgument $e) {
             my ($error) = @_;
 
             throw EBox::Exceptions::MissingArgument("$error|objectGUID");

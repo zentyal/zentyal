@@ -85,7 +85,7 @@ sub reportUserCheck
                                    from     => $fileSet->{from}});
                 }
             }
-        } catch EBox::Exceptions::Command with {
+        } catch (EBox::Exceptions::Command $e) {
             ;
         }
     }
@@ -417,7 +417,7 @@ sub _sendEvent
                                                 'level_check' => $info{level} },
                                );
 
-        } catch EBox::Exceptions::External with {
+        } catch (EBox::Exceptions::External $e) {
             EBox::error('Cannot send alert regarding to weak password checker');
         }
     }

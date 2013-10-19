@@ -450,7 +450,7 @@ sub _restartAllServices
                 ($name eq 'firewall');
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
         }
     }
@@ -464,7 +464,7 @@ sub _restartAllServices
     try {
         EBox::Sudo::root('service rsyslog restart',
                          'service cron restart');
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
     }
 }
 

@@ -331,10 +331,10 @@ sub ldapOUToLDB
     try {
         $sambaOU = EBox::Samba::OU->create(name => $name, parent => $parent);
         $sambaOU->_linkWithUsersObject($ldapOU);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::warn("OU $name already in $parentDN on Samba database");
         $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
     }
@@ -406,12 +406,12 @@ sub ldapUsersToLdb
             unless ($user->isDisabled()) {
                 $sambaUser->setAccountEnabled(1);
             }
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("User $samAccountName already in Samba database");
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
             $sambaUser->setCredentials($user->kerberosKeys());
             EBox::debug("Password updated for user $samAccountName");
-        } otherwise {
+        } catch {
             my $error = shift;
             EBox::error("Error loading user '$samAccountName': $error");
         }
@@ -451,9 +451,9 @@ sub ldapContactsToLdb
             );
             my $sambaContact = EBox::Samba::Contact->create(%args);
             $sambaContact->_linkWithUsersObject($contact);
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Contact $name already in $parentDN on Samba database");
-        } otherwise {
+        } catch {
             my $error = shift;
             EBox::error("Error loading contact '$name' in '$parentDN': $error");
         }
@@ -492,9 +492,9 @@ sub ldapGroupsToLdb
             };
             $sambaGroup = EBox::Samba::Group->create(%args);
             $sambaGroup->_linkWithUsersObject($group);
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Group $name already in Samba database");
-        } otherwise {
+        } catch {
             my $error = shift;
             EBox::error("Error loading group '$name': $error");
         }
@@ -505,7 +505,7 @@ sub ldapGroupsToLdb
                 my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
                 next unless ($smbMember);
                 $sambaGroup->addMember($smbMember, 1);
-            } otherwise {
+            } catch {
                 my $error = shift;
                 EBox::error("Error adding member: $error");
             }
@@ -588,12 +588,12 @@ sub ldapServicePrincipalsToLdb
                     my $spn = "$p/$fqdn";
                     EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
                     $smbUser->addSpn($spn);
-                } otherwise {
+                } catch {
                     my $error = shift;
                     EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
                 };
             }
-        } otherwise {
+        } catch {
             my $error = shift;
             EBox::error("Error adding account '$samAccountName': $error");
         }

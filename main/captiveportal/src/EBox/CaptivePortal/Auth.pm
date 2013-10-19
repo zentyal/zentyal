@@ -222,7 +222,7 @@ sub _checkLdapPassword
             my $result = $ldap->search(%attrs);
             $authorized = ($result->count > 0);
         }
-    } otherwise {
+    } catch {
         $authorized = 0; # auth failed
     }
 

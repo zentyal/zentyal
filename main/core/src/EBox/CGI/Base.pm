@@ -277,16 +277,16 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             my $e = shift;
             throw $e;
-        } catch EBox::Exceptions::Base with {
+        } catch (EBox::Exceptions::Base $e) {
             my $e = shift;
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
             }
-        } otherwise {
+        } catch {
             my $e = shift;
             throw $e;
         }
@@ -366,11 +366,11 @@ sub run
 
     try  {
         $self->_print();
-    } catch EBox::Exceptions::Base with {
+    } catch (EBox::Exceptions::Base $e) {
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->_print_error($self->{error});
-    } otherwise {
+    } catch {
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
@@ -905,7 +905,7 @@ sub upload
         if (not defined $readStatus) {
             throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
         }
-    } otherwise {
+    } catch {
         my $ex = shift;
         unlink $filename;
         $ex->throw();

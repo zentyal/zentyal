@@ -42,7 +42,7 @@ sub restoreEBoxLogs
 
     try {
         $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp, $urlParams);
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my $ex = shift;
         my $text = $ex->stringify();
         if ($text =~ m/not found in backup/) {

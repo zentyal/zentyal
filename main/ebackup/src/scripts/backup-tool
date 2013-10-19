@@ -187,7 +187,7 @@ sub _existsFullBackup
     my $status;
     try {
         $status = $ebackup->remoteStatus();
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         my $errorMsg = _errorMessageFromDuplicityCmd($ex);
 
@@ -224,7 +224,7 @@ sub _adjustType
     # "old signatures not found" error
     try {
         $ebackup->remoteGenerateStatusCache();
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         my $errorMsg = _errorMessageFromDuplicityCmd($ex);
         _prepareAndSendEvent(0, $type, $errorMsg);
@@ -260,7 +260,7 @@ sub _removeExpiredBackups
         # Delete orphaned metadata
         my $settingsModel = $ebackup->model('RemoteSettings');
         my $method = $settingsModel->row()->valueByName('method');
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift @_;
         my $errorMsg = $ex->error()->[-1];
         chomp($errorMsg) if $errorMsg;
@@ -283,7 +283,7 @@ sub _cleanup
     EBox::debug('Trying to clean up incomplete backups');
     try {
         EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         my $error = _errorMessageFromDuplicityCmd($ex);
         EBox::error("When trying to clean up old backup sets: $error");
@@ -295,7 +295,7 @@ sub _preCheckTargetHook
     my ($ebackup, $type) = @_;
     try {
         $ebackup->preCheckTargetHook();
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         EBox::error("Error in pre-check target hook: $ex");
         _prepareAndSendEvent(0, $type, "$ex");
@@ -332,11 +332,11 @@ sub _performBackup
     my $preHookError;
     try {
         $ebackup->preBackupHook();
-    } catch  EBox::Exceptions::Sudo::Command with {
+    } catch ( EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift @_;
         my @error = @{  $ex->error() };
         $preHookError = "@error";
-    } otherwise {
+    } catch {
         my $ex = @_;
         $preHookError = "$ex";
     }
@@ -352,14 +352,14 @@ sub _performBackup
             EBox::info("Backing up files to destination: try $try");
             $successMsg = EBox::Sudo::root($backupCmd);
             $success = 1;
-        } catch  EBox::Exceptions::Sudo::Command with {
+        } catch ( EBox::Exceptions::Sudo::Command $e) {
             my $ex = shift @_;
             $success = 0;
             my @error = @{  $ex->error() };
             chomp $error[-1] if @error;
             $errorMsg = "@error";
             $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             $success = 0;
             $errorMsg = "$ex";
@@ -382,11 +382,11 @@ sub _performBackup
     my $postHookError;
     try {
         $ebackup->postBackupHook();
-    } catch  EBox::Exceptions::Sudo::Command with {
+    } catch ( EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift @_;
         my @error = @{  $ex->error() };
         $postHookError = "@error";
-    } otherwise {
+    } catch {
         my $ex = @_;
         $postHookError = "$ex";
     }
@@ -453,7 +453,7 @@ my $mustExit = 0;
 
 try {
     $ebackup->backupProcessLock()
-} otherwise {
+} catch {
     my $alreadyMsg = __('Another backup process is running, wait until it finishes and try again');
     print $alreadyMsg;
     print "\n";
@@ -473,7 +473,7 @@ try {
 
     try {
         $ebackup->checkTargetStatus($type);
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         EBox::error("Error in backup target: $ex");
         _prepareAndSendEvent(0, $type, "$ex");
@@ -484,7 +484,7 @@ try {
     if ($type eq 'full') {
         try {
             _removeExpiredBackups($ebackup);
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             EBox::error("Error trying to remove old backups: $ex");
         }
@@ -492,7 +492,7 @@ try {
 
     try {
         $ebackup->dumpExtraData($globalRO);
-    } otherwise {
+    } catch {
         my $ex = @_;
         EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     }

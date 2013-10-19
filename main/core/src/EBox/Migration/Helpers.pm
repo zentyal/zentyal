@@ -32,7 +32,7 @@ sub runQuery
     try {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do($query);
-    } otherwise {
+    } catch {
         $error = 1;
     }
     return $error;

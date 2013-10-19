@@ -95,7 +95,7 @@ sub _getStorageUsage
 
     try {
         $self->{storage} = $ebackup->storageUsage();
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my $ex = shift @_;
         my $error = $ex->error();
         foreach my $line (@{ $error }) {

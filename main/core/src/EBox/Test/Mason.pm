@@ -52,7 +52,7 @@ sub checkTemplateExecution
     try {
         $templateOutput = executeTemplate(template => $template, templateParams => $templateParams, compRoot => $compRoot);
         $templateExecutionOk = 1;
-    } otherwise {
+    } catch {
         my $ex = shift @_;
         $templateError = "$ex";
         $templateOutput = \$templateError; # templateOutput must be a scalar ref to be in the same form that the return value of executeTemplate

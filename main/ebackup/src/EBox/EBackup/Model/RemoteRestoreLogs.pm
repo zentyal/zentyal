@@ -69,7 +69,7 @@ sub precondition
     my @status;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         # ignore error, it will be shown in the same composite by the model
         # RemoteRestoreConf
     }

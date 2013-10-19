@@ -160,7 +160,7 @@ sub _searchLogs
 
     try {
         $hfilters = $self->_paramFilters();
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         $self->setErrorFromException($ex);
         $hfilters = {};

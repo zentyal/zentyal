@@ -87,7 +87,7 @@ try {
             print $write $out;
         }
     }
-} otherwise {
+} catch {
     printLog("ERROR: $@ $!");
 } finally {
     print $write 'end';

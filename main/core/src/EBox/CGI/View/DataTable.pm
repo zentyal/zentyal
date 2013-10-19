@@ -51,7 +51,7 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{tableModel}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle");
         $pageTitle = '';
     }

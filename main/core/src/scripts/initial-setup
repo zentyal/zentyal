@@ -62,7 +62,7 @@ try {
         $module->saveConfig();
     }
     $module->redis->commit();
-} otherwise {
+} catch {
     $module->redis->rollback();
     EBox::warn("Restart for $modname failed");
 }

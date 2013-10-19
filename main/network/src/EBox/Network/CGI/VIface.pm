@@ -76,7 +76,7 @@ sub _process
             $net->removeViface($iface, $viface, $force);
 
             $audit->logAction('network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             $self->{template} = 'network/confirmremove.mas';
             $self->{redirect} = undef;
             my @array = ();

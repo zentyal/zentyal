@@ -67,7 +67,7 @@ sub masonParameters
             push (@{$params}, server => '---');
             push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
         }
-    } otherwise {
+    } catch {
         # TODO Broken connection
         push (@{$params}, server => '---');
         push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');

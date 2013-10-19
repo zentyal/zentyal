@@ -71,7 +71,7 @@ sub _pendingActions
                 my $modelInstance = $mod->model($model);
                 $action->{'modeltitle'} = $modelInstance->printableName();
                 $rowName = $modelInstance->printableRowName();
-            } otherwise {
+            } catch {
                 $action->{'modeltitle'} = $action->{'model'};
             }
         } else {

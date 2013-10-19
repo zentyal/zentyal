@@ -91,7 +91,7 @@ sub readModInfo # (module)
         my $yaml;
         try {
             ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
-        } otherwise {
+        } catch {
             $yaml = undef;
         }
         $self->{mod_info}->{name} = $yaml;
@@ -375,7 +375,7 @@ sub revokeAllModules
         my $mod = $self->modInstance($ro, $name);
         try {
             $mod->revokeConfig;
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
         }
     }
@@ -599,7 +599,7 @@ sub saveAllModules
             try {
                 $module->{firstInstall} = 1;
                 $module->configureModule();
-            } otherwise {
+            } catch {
                 my ($ex) = @_;
                 my $err = $ex->text();
                 EBox::debug("Failed to enable module $name: $err");
@@ -652,10 +652,10 @@ sub saveAllModules
 
         try {
             $mod->save();
-        } catch EBox::Exceptions::External with {
+        } catch (EBox::Exceptions::External $e) {
             my $ex = shift;
             $ex->throw();
-        } otherwise {
+        } catch {
             my $ex = shift;
             EBox::error("Failed to save changes in module $name: $ex");
             $failed .= "$name ";
@@ -680,7 +680,7 @@ sub saveAllModules
         }  catch EBox::Exceptions::External with {
             my $ex = shift;
             $ex->throw();
-        } otherwise {
+        } catch {
             my $ex = shift;
             EBox::error("Failed to save changes in module webadmin: $ex");
             $failed .= "webadmin ";
@@ -698,7 +698,7 @@ sub saveAllModules
         }  catch EBox::Exceptions::External with {
             my $ex = shift;
             $ex->throw();
-        } otherwise {
+        } catch {
             my $ex = shift;
             EBox::error("Failed to restart $modName after save changes: $ex");
             $failed .= "$modName ";
@@ -757,7 +757,7 @@ sub restartAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
         }
     }
@@ -790,7 +790,7 @@ sub stopAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
         try {
             $mod->stopService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
         }
     }
@@ -1277,14 +1277,14 @@ sub _runExecFromDir
                 if ( @{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");
                 }
-            } catch EBox::Exceptions::Command with {
+            } catch (EBox::Exceptions::Command $e) {
                 my ($exc) = @_;
                 my $msg = "Command $exec failed its execution\n"
                   . 'Output: ' . @{$exc->output()} . "\n"
                   . 'Error: ' . @{$exc->error()} . "\n"
                   . 'Return value: ' . $exc->exitValue();
                 EBox::error($msg);
-            } otherwise {
+            } catch {
                 my ($exc) = @_;
                 EBox::error("Error executing $exec: $exc");
             }

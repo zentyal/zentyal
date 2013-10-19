@@ -124,7 +124,7 @@ sub setIface
 
             $audit->logAction('network', 'Interfaces', 'unsetIface', $iface, 1);
         }
-    } catch EBox::Exceptions::DataInUse with {
+    } catch (EBox::Exceptions::DataInUse $e) {
         $self->{template} = 'network/confirm.mas';
         $self->{redirect} = undef;
         my @array = ();

@@ -74,7 +74,7 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{composite}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
     }

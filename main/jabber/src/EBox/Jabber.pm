@@ -169,7 +169,7 @@ sub isRunning
     my $output;
     try {
         $output =  EBox::Sudo::root($stateCmd);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # output will be undef
     }
 

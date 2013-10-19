@@ -63,7 +63,7 @@ sub new
             if ($try > 1) {
                 EBox::info("Connection to Samba SMB successful after $try tries.");
             }
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             EBox::warn("Error connecting with SMB server: $ex, retrying ($try attempts)");
             sleep 1;

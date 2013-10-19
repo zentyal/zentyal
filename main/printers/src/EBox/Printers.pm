@@ -159,7 +159,7 @@ sub _preSetConf
     try {
         # Stop CUPS in order to force it to dump the conf to disk
         $self->stopService();
-    } otherwise {
+    } catch {
     }
 }
 
@@ -279,7 +279,7 @@ sub restoreConfig
             $self->_stopService();
             EBox::Sudo::root("tar xf $dir/etc_cups.tar -C /");
             $self->_startService();
-        } otherwise {
+        } catch {
             EBox::error("Error restoring cups config from backup");
         }
     } else {

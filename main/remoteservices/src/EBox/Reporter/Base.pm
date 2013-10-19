@@ -135,7 +135,7 @@ sub consolidate
         my $result = $self->_consolidate($beginTime, $endTime);
         $self->_storeResult($result) if ($result and (@{$result} > 0));
         $self->_beginTime($endTime);
-    } otherwise {
+    } catch {
         my ($exc) = @_;
         EBox::error("Can't consolidate " . $self->name() . " : $exc");
     }
@@ -179,7 +179,7 @@ sub log
         try {
             $ret = $self->_log();
             $self->_logTime(time());
-        } otherwise {
+        } catch {
             my ($exc) = @_;
             EBox::error('Cannot log ' . $self->name() . " : $exc");
         }

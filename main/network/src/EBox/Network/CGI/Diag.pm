@@ -92,7 +92,7 @@ sub _process
             if ( $id eq 'other' || $id eq '' ) {
                 try {
                     $self->_requireParam("mac", __("MAC address"));
-                } otherwise {
+                } catch {
                     push(@array, 'objects' => \@object_list);
                     $self->{params} = \@array;
 

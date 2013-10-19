@@ -164,7 +164,7 @@ sub showConfirmationPage
         }  else {
             throw EBox::Exceptions::Internal("Bad action: $action");
         }
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         $error = "$ex";
     }

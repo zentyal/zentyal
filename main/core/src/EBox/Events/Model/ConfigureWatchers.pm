@@ -96,7 +96,7 @@ sub syncRows
             } else {
                 $remove = 1;
             }
-        } otherwise {
+        } catch {
             $remove = 1;
         }
         if ($remove) {

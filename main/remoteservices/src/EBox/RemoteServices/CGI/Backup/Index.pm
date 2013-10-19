@@ -62,7 +62,7 @@ sub actuate
     try {
         my $backup = $self->_backupService();
         $self->{backups} =  $backup->listRemoteBackups();
-    } otherwise {
+    } catch {
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->setChain('RemoteServices/NoConnection');

@@ -113,7 +113,7 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
+        } catch (EBox::Exceptions::MissingArgument $e) {
             my ($error) = @_;
 
             throw EBox::Exceptions::MissingArgument("$error|displayName");
@@ -439,7 +439,7 @@ sub create
             Samba::Smb::DENY_NONE);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
-    } otherwise {
+    } catch {
         my ($error) = @_;
         $createdGPO->deleteObject();
         throw $error;

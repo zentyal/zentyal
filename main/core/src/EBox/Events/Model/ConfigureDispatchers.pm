@@ -98,7 +98,7 @@ sub syncRows
             if (not exists $currentEventDispatchers{$stored}) {
                 $remove = 1;
             }
-        } otherwise {
+        } catch {
             $remove = 1;
         }
         if ($remove) {

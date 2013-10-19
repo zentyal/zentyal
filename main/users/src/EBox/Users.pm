@@ -562,7 +562,7 @@ sub _internalServerEnableActions
     EBox::info('Performing first LDAP actions');
     try {
         $self->performLDAPActions();
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error performing users initialization: $error");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
@@ -627,12 +627,12 @@ sub _loadLDAP
             'chown -R openldap.openldap ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             "rm -f $LDIF_CONFIG $LDIF_DB",
         );
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         my $exception = shift;
         EBox::error('Trying to setup ldap failed, exit value: ' .
                 $exception->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Trying to setup ldap failed: $error");
     }
@@ -704,7 +704,7 @@ sub _setConfInternal
 
         try {
             $self->reprovision();
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             $self->set('need_reprovision', 1);
             throw EBox::Exceptions::External(__x(
@@ -930,7 +930,7 @@ sub initUser
                 try {
                     EBox::Sudo::root($chownCmd);
                     $chownOk = 1;
-                } otherwise {
+                } catch {
                     my ($ex) = @_;
                     if ($cnt < $chownTries) {
                         EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
@@ -956,7 +956,7 @@ sub reloadNSCD
     if ( -f '/etc/init.d/nscd' ) {
         try {
             EBox::Sudo::root('/etc/init.d/nscd force-reload');
-        } otherwise {};
+        } catch {};
    }
 }
 
@@ -1576,7 +1576,7 @@ sub isUserCorner
     try {
         my $r = Apache2::RequestUtil->request();
         $auth_type = $r->auth_type;
-    } otherwise {
+    } catch {
     }
 
     return (defined $auth_type and

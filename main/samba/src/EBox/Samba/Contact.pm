@@ -105,7 +105,7 @@ sub create
         }
 
         $res = new EBox::Samba::Contact(dn => $dn);
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);
@@ -155,9 +155,9 @@ sub addToZentyal
 
         my $zentyalContact = EBox::Users::Contact->create(%args);
         $self->_linkWithUsersObject($zentyalContact);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("Contact $name already in OpenLDAP database");
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading contact '$name': $error");
     }

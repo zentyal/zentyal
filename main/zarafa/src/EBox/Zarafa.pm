@@ -686,7 +686,7 @@ sub _setWebServerConf
     }
     try {
         EBox::Sudo::root(@cmds);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
     }
 }
 

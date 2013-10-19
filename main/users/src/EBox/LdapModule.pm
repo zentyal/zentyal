@@ -163,7 +163,7 @@ sub _loadACLDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid ACL: $acl");
         }
     }
@@ -216,7 +216,7 @@ sub _addIndexDirectory
         );
         try {
             $ldap->modify($dn, %args);
-        } otherwise {
+        } catch {
             throw EBox::Exceptions::Internal("Invalid index: $index");
         }
     }

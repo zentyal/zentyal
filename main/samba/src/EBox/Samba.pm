@@ -1002,7 +1002,7 @@ sub _createDirectories
         try {
             EBox::Sudo::root(@cmds);
             $chownOk = 1;
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             if ($cnt < $chownTries) {
                 EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
@@ -1365,7 +1365,7 @@ sub dumpConfig
     if ($self->_s4syncCond()) {
         try {
             EBox::Service::manage('zentyal.s4sync', 'stop');
-        } otherwise {
+        } catch {
         }
     }
 
@@ -1415,7 +1415,7 @@ sub dumpConfig
 
     try {
         EBox::Sudo::root(@cmds);
-    } otherwise {
+    } catch {
         my ($error) = @_;
         throw $error;
     } finally {

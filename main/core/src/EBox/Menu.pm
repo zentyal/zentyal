@@ -59,7 +59,7 @@ sub getKeywords
                     _addWord($keywords, $word, $item->{id});
                 }
             }
-        } otherwise {
+        } catch {
             EBox::debug('No model found for ' . $item->{'url'} . "\n");
         }
     }

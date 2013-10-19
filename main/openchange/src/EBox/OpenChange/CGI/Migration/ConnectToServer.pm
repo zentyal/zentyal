@@ -79,7 +79,7 @@ sub _process
             $self->{json}->{success} = 0;
             $self->{json}->{error} = $response->{error};
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         $self->{json}->{success} = 0;

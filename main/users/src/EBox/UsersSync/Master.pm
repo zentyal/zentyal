@@ -196,7 +196,7 @@ sub checkMaster
 
     try {
         $master->getDN();
-    } otherwise {
+    } catch {
         my $ex = shift;
         $self->_analyzeException($ex);
     }
@@ -251,7 +251,7 @@ sub setupSlave
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
             $client->registerSlave($webAdminMod->port(), $client_cert, 1);
-        } otherwise {
+        } catch {
             my $ex = shift;
             $self->_analyzeException($ex);
         }

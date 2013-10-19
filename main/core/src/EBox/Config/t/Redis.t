@@ -88,14 +88,14 @@ ok ($redis->{redis}->exec(), 'successful low-level exec after multi');
 try {
     $redis->{redis}->exec();
     fail('exec without multi not allowed');
-} otherwise {
+} catch {
     pass('exec without multi not allowed');
 }
 
 try {
     $redis->{redis}->discard();
     fail('discard without begin not allowed');
-} otherwise {
+} catch {
     pass('discard without begin not allowed');
 }
 

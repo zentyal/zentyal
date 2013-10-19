@@ -60,7 +60,7 @@ sub _process
                 $net->removeVlan($vlanId, $force);
 
                 $audit->logAction('network', 'Interfaces', 'removeVlan', "$iface, $vlanId", 1);
-           } catch EBox::Exceptions::DataInUse with {
+           } catch (EBox::Exceptions::DataInUse $e) {
                $self->{template} = 'network/confirmVlanDel.mas';
                $self->{redirect} = undef;
                my @masonParams = ();

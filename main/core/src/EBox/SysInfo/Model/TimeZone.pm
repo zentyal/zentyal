@@ -71,7 +71,7 @@ sub _getTimezone
     try {
         $tz = read_file(TZ_FILE);
         chomp $tz;
-    } otherwise {
+    } catch {
         $tz = 'Etc/UTC';
     }
     return $tz;

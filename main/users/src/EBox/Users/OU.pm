@@ -123,7 +123,7 @@ sub create
         $ou = EBox::Users::OU->new(dn => $dn);
         # Call modules initialization
         $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);

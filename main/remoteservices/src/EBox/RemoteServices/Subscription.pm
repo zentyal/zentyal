@@ -230,7 +230,7 @@ sub subscribeServer
     # try {
     #     $vpnSettings = $self->soapCall('vpnSettings',
     #                                    option => $option);
-    # } catch EBox::Exceptions::DataNotFound with { };
+    # } catch (EBox::Exceptions::DataNotFound $e) { };
     # unless ( defined($vpnSettings) ) {
     #     throw EBox::Exceptions::External(
     #         __x(
@@ -268,7 +268,7 @@ sub subscribeServer
     #                                      rsVersion     => $rs->version(),
     #                                      option        => $option);
     #     $new = 1;
-    # } catch EBox::Exceptions::DataExists with {
+    # } catch (EBox::Exceptions::DataExists $e) {
     #     $bundleRawData = $self->soapCall('eBoxBundle',
     #                                      canonicalName => $name,
     #                                      rsVersion     => $rs->version(),
@@ -552,7 +552,7 @@ sub _openHTTPSConnection
                             "-A ointernal -p tcp -d $site --dport 443 -j oaccept"
                            )
                          );
-                } catch EBox::Exceptions::Sudo::Command with {
+                } catch (EBox::Exceptions::Sudo::Command $e) {
                     throw EBox::Exceptions::External(
                         __x('Cannot contact to {host}. Check your connection to the Internet',
                             host => $site));
@@ -623,7 +623,7 @@ END
     try {
         EBox::Sudo::command("chmod a+x '$installCloudProf'");
         EBox::Sudo::command("bash '$tmpFilename'");
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my ($exc) = @_;
         EBox::error($exc);
     }
@@ -641,7 +641,7 @@ sub _executeBundleScripts
         try {
             EBox::Sudo::root("chmod u+x '$script'");
             EBox::Sudo::root($script);
-        } catch EBox::Exceptions::Command with {
+        } catch (EBox::Exceptions::Command $e) {
             # ignore script errors
         }
     }
@@ -715,7 +715,7 @@ sub _checkWSConnectivity
                 last;
             }
         }
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         $ok = 0;
     }
 
@@ -810,7 +810,7 @@ sub _removePkgs
 
     try {
         EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my ($exc) = @_;
         EBox::debug($exc->stringify());
     }
@@ -836,7 +836,7 @@ sub _writeCredentials
 
     try {
         File::Slurp::write_file($credentialsFilePath, $serverInfoRaw);
-    } otherwise {
+    } catch {
         my ($exc) = @_;
         throw EBox::Exceptions::External(__x("Probably lack of free space: {exc}",
                                              exc  => $exc));

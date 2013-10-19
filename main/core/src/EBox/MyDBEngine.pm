@@ -300,7 +300,7 @@ sub _multiInsertBadEncoding
     foreach my $valuesToInsert (@{ $values_r }) {
         try {
             $self->unbufferedInsert($table, $valuesToInsert );
-        } otherwise {
+        } catch {
             my $ex = shift;
             EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
         }
@@ -701,7 +701,7 @@ sub restoreDBDump
     try {
         my $superuser = _dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
-    } otherwise {
+    } catch {
         # left file were it was before
         my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");

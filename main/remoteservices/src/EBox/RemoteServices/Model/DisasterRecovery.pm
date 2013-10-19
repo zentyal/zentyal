@@ -104,7 +104,7 @@ sub viewCustomizer
     my $drOn = 0;
     try {
         $drOn = $rs->disasterRecoveryAvailable();
-    } catch EBox::Exceptions::NotConnected with {
+    } catch (EBox::Exceptions::NotConnected $e) {
     }
     unless ( $drOn ) {
         $msg .= '<br/><br/>' if ($msg);
@@ -208,7 +208,7 @@ sub _content
         my $drEnabled = 0;
         try {
             $drEnabled = $rs->disasterRecoveryAvailable();
-        } catch EBox::Exceptions::NotConnected with {
+        } catch (EBox::Exceptions::NotConnected $e) {
         }
 
         if ( $drEnabled ) {

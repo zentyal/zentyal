@@ -94,7 +94,7 @@ sub connection
         try {
             my $r = Apache2::RequestUtil->request();
             $auth_type = $r->auth_type;
-        } otherwise {
+        } catch {
         }
 
         if (defined $auth_type and
@@ -106,14 +106,14 @@ sub connection
             my $credentials = undef;
             try {
                 $credentials = EBox::UserCorner::Auth->credentials();
-            } catch EBox::Exceptions::DataNotFound with {
+            } catch (EBox::Exceptions::DataNotFound $e) {
                 # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
                 my $userCornerMod = EBox::Global->modInstance('usercorner');
                 $credentials = {
                     userDN => $userCornerMod->roRootDn(),
                     pass => $userCornerMod->getRoPassword()
                 };
-            } otherwise {
+            } catch {
                 my ($error) = @_;
                 throw $error;
             }

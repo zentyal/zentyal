@@ -279,7 +279,7 @@ sub _doProvisionAdditional
 
         $self->parentModule->setProvisioned(1);
         $self->setMessage($action->message(), 'note');
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         throw EBox::Exceptions::External("Error provisioninig: $error");
@@ -325,7 +325,7 @@ sub _doProvision
         $self->parentModule->setProvisioned(1);
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         $self->parentModule->setProvisioned(0);
@@ -375,7 +375,7 @@ sub _doProvision
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } otherwise {
+            } catch {
                 my ($error) = @_;
                 EBox::error("Error enabling user $samAccountName: $error");
                 # Try next user
@@ -410,7 +410,7 @@ sub _doDeprovision
         $self->parentModule->setProvisioned(0);
         EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         throw EBox::Exceptions::External("Error deprovisioninig: $error");

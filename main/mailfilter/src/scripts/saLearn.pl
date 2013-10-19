@@ -63,7 +63,7 @@ my @learnParams = (
 
 try {
     $mailfilter->antispam()->learn(@learnParams);
-} otherwise {
+} catch {
     my $ex = @_;
     print "$ex";
 }

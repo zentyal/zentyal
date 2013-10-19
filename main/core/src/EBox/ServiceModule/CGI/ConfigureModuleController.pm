@@ -61,7 +61,7 @@ sub _process
             } elsif (not $dep->isEnabled()) {
                 $dep->enableService(1);
             }
-        } otherwise {
+        } catch {
             my ($excep) = @_;
             if ($excep->isa("EBox::Exceptions::External")) {
 
@@ -79,7 +79,7 @@ sub _process
 
     try {
         $module->configureModule();
-    } otherwise {
+    } catch {
         my ($excep) = @_;
         if ($excep->isa("EBox::Exceptions::External")) {
             throw EBox::Exceptions::External(__x('Failed to enable: {err}',

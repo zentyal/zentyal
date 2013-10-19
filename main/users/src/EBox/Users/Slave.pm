@@ -71,7 +71,7 @@ sub sync
     try {
         my $method = '_' . $signal;
         $self->$method(@{$args});
-    } otherwise {
+    } catch {
         my $ex = shift;
         # Sync failed, save pending action
         my $name = $self->name();
@@ -144,7 +144,7 @@ sub syncFromFile
     try {
         $self->$method(@{$args});
         unlink ($file);
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         my $name = $self->name();
         EBox::error("Error notifying $name for $method: $ex");

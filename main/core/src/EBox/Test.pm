@@ -68,7 +68,7 @@ sub checkModuleInstantiation
 
     try {
         $instance = $global->modInstance($moduleName);
-    } otherwise {
+    } catch {
         $modInstanceError = 1;
     }
 
@@ -96,7 +96,7 @@ sub checkModels
     foreach my $name (@modelsNames) {
         try {
             $mod->model($name);
-        } otherwise {
+        } catch {
             push @failedModels, $name;
         }
     }
@@ -117,7 +117,7 @@ sub checkComposites
     foreach my $name (@compositesNames) {
         try {
             $mod->composite($name);
-        } otherwise {
+        } catch {
             push @failedComposites, $name;
         }
     }

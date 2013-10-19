@@ -115,7 +115,7 @@ sub _process
                                                  caKeyPassword => $caPassphrase,
                                                  days          => $expireDays);
             }
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             $self->{template} = '/ca/forceRenew.mas';
             $self->{chain} = undef;
             my $cert = $ca->getCertificateMetadata( cn => $commonName );

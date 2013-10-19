@@ -53,7 +53,7 @@ sub precondition
     my $statusFailure;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my ($ex) = @_;
         $statusFailure = $ex->text();
     }
@@ -164,7 +164,7 @@ sub _backupFile
     try {
         my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
         $ebackup->restoreFile($bakFile, $date, $tmpFile);
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my $ex = shift;
         my $text = $ex->stringify();
         if ($text =~ m/not found in backup/) {

@@ -68,7 +68,7 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{model}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Tree");
         $pageTitle = '';
     }

@@ -1033,7 +1033,7 @@ sub _dhcpLeases
         my $leases;
         try {
             $leases = Text::DHCPLeases->new(file => LEASEFILE);
-        } otherwise {
+        } catch {
            my $ex = shift;
            EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
         }

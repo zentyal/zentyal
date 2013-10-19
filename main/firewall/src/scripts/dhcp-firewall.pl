@@ -36,7 +36,7 @@ while ($timeout) {
 	try {
 		$fw->restartService();
 		exit(0);
-	} catch EBox::Exceptions::Lock with {
+	} catch (EBox::Exceptions::Lock $e) {
 		sleep 5;
 		$timeout -= 5;
 	}

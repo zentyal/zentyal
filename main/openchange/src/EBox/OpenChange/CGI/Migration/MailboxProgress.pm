@@ -173,7 +173,7 @@ sub _process
             'users' => $usersData,
         };
 
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         # Set this on error

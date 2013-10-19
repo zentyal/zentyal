@@ -74,7 +74,7 @@ sub _verifyCert
     my $cmd =  OPENSSL_PATH . " x509 -noout -in '$certPath'";
     try {
         EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__(q{File supplied as client's certificate is not valid}));
     }
 }
@@ -85,7 +85,7 @@ sub _verifyPrivKey {
     my $cmd = OPENSSL_PATH . " rsa -noout -in '$privKeyPath'";
     try {
         EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__(q{File supplied as client's private key is not valid}));
     }
 }
@@ -124,7 +124,7 @@ sub _verifyCertWithPrivKey
     try {
         my $diffCmd = DIFF_PATH . " --brief '$pubCert' '$pubKey'";
         EBox::Sudo::root($diffCmd);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
                 __(q{File supplied as client's certificate doesn't match with file supplied as certificate's private key})
         );

@@ -121,7 +121,7 @@ sub _updateHaltInProgress
     try {
         EBox::Util::Lock::lock("sysinfo-halt");
         # it is a system halt/reboot so we will not unlock this
-    } otherwise {
+    } catch {
         $haltInProgress = 1;
     }
 }

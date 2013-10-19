@@ -819,7 +819,7 @@ sub addTypedRow
         }
 
         $self->_commitTransaction();
-    } otherwise {
+    } catch {
         my $ex = shift;
         $self->_rollbackTransaction();
         throw $ex;
@@ -1097,7 +1097,7 @@ sub removeRow
         $self->deletedRowNotify($row, $force);
 
         $self->_commitTransaction();
-    } otherwise {
+    } catch {
         my $ex = shift;
         $self->_rollbackTransaction();
         throw $ex;
@@ -1362,7 +1362,7 @@ sub setTypedRow
         $self->updatedRowNotify($row, $oldRow, $force);
 
         $self->_commitTransaction();
-    } otherwise {
+    } catch {
         my $ex = shift;
         $self->_rollbackTransaction();
         throw $ex;
@@ -1474,7 +1474,7 @@ sub ids
             }
 
             $self->_commitTransaction();
-        } otherwise {
+        } catch {
             my $ex = shift;
             $self->_rollbackTransaction();
             throw $ex;

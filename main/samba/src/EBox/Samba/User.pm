@@ -385,7 +385,7 @@ sub create
         if (defined $args{uidNumber}) {
             $res->setupUidMapping($args{uidNumber});
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);
@@ -475,10 +475,10 @@ sub addToZentyal
         }
 
         $zentyalUser = EBox::Users::User->create(%args);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("User $uid already in OpenLDAP database");
         $zentyalUser = new EBox::Users::User(uid => $uid);
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading user '$uid': $error");
     }

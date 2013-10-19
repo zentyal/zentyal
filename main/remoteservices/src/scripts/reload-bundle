@@ -54,7 +54,7 @@ try {
     } elsif ( $rv == 2 ) {
         print STDERR __('Bundle reload was not possible either because is already the latest available version or because the zentyal-remoteservices module is outdated') . "\n";
     }
-} catch EBox::RemoteServices::Exceptions::NotCapable with {
+} catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
     my ($exc) = @_;
 
     print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
@@ -65,7 +65,7 @@ try {
                               dispatchTo  => [ 'ControlCenter' ]);
     my $evts = $global->modInstance('events');
     $evts->sendEvent(event => $evt);
-} catch EBox::Exceptions::External with {
+} catch (EBox::Exceptions::External $e) {
     # Bundle reload it is only possible with a subscribed Zentyal
     ;
 }

@@ -115,7 +115,7 @@ sub _process
                                                    caKeyPassword => $caPassphrase,
                                                    reason        => $reason);
             }
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             $self->{template} = '/ca/forceRevoke.mas';
             $self->{chain} = undef;
             my $cert = $ca->getCertificateMetadata( cn => $commonName );

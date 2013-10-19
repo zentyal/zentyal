@@ -177,7 +177,7 @@ sub create
 
         # Call modules initialization
         $usersMod->notifyModsLdapUserBase('addContact', $res, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);

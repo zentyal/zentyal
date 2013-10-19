@@ -80,7 +80,7 @@ sub masonParameters
             };
             push (@{$mailboxes}, $mailbox);
         }
-    } otherwise {
+    } catch {
         # If something goes wrong put this in mason
         my ($error) = @_;
         push(@{$params}, error => $error);

@@ -527,7 +527,7 @@ sub deletedDaemonCleanup
         foreach my $file( $class->daemonFiles($name) ) {
             EBox::Sudo::root("rm -rf '$file'");
         }
-    } otherwise {
+    } catch {
         my $ex = shift;
         EBox::error(
 "Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup"
@@ -589,7 +589,7 @@ sub pid
     try {
         $pid = File::Slurp::read_file($self->_pidFile());
 
-    } otherwise {
+    } catch {
         $pid = undef;
     }
 

@@ -358,7 +358,7 @@ sub create
 
         $res = new EBox::Users::InetOrgPerson(dn => $args{dn});
 
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);

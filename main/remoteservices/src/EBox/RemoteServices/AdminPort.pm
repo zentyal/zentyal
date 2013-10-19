@@ -69,7 +69,7 @@ sub setAdminPort
                                                 query => { port => $port },
                                                 retry => 1);
         $result = ($response->{result}->is_success());
-    } otherwise {
+    } catch {
         my $ex = shift;
         EBox::error("Failed to notify admin port to Remote: $ex");
     }

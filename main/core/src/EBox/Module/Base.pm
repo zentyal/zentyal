@@ -867,7 +867,7 @@ sub pidFileRunning
         if (@{$output}) {
             ($pid) = @{$output}[0] =~ m/(\d+)/;
         }
-    } otherwise {
+    } catch {
         $pid = undef;
     }
     if ($pid and $self->pidRunning($pid)) {
@@ -1076,7 +1076,7 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
             try {
                 EBox::info("Using custom template for $file: $customStub");
                 $comp = $interp->make_component(comp_file => $customStub);
-            } otherwise {
+            } catch {
                 my $ex = shift;
                 EBox::error("Falling back to default $stub due to exception " .
                             "processing custom template $customStub: $ex");
@@ -1085,7 +1085,7 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
         } else {
             $comp = $interp->make_component(comp_file => $stub);
         }
-    } otherwise {
+    } catch {
         my $ex = shift;
         throw EBox::Exceptions::Internal("Template $compname failed with $ex");
     }

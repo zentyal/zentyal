@@ -458,7 +458,7 @@ sub archive
 
     try {
         $dbengine->commandAsSuperuser("test -d $archiveDir");
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(qq{Directory $archiveDir must be readable by DB's superuser});
     }
 
@@ -524,7 +524,7 @@ sub archive
     foreach my $file (@outputFiles) {
         try {
             EBox::Sudo::root("gzip $file");
-        } catch EBox::Exceptions::Command with {
+        } catch (EBox::Exceptions::Command $e) {
             EBox::error("Cannot compress file $file. Try to do it manully. Skipping to next file.")
         }
     }

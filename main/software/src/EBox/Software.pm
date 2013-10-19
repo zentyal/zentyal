@@ -231,7 +231,7 @@ sub updatePkgList
     try {
         EBox::Sudo::root($cmd);
         return 1;
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         EBox::error("Error updating package list");
         return 0;
     }
@@ -414,7 +414,7 @@ sub _packageDepends
     my $output;
     try {
         $output = EBox::Sudo::root($aptCmd);
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my ($ex) = @_;
         my $aptError;
         foreach my $line (@{ $ex->error() }) {
@@ -460,7 +460,7 @@ sub _isAptReady
     my $unreadyMsg;
     try {
         EBox::Sudo::root($testCmd);
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my ($ex) = @_;
         my $stderr = join '', @{ $ex->error() };
         if ($stderr =~ m/Unable to lock the administration directory/) {

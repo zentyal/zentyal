@@ -84,7 +84,7 @@ sub run
 
         $cgi->run();
         $redis->commit();
-    } otherwise {
+    } catch {
         my ($ex) = @_;
 
         # Base exceptions are already logged, log the rest

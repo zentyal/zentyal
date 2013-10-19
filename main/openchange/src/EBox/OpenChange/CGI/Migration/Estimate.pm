@@ -105,7 +105,7 @@ sub _process
                 }
             }
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         $self->{json}->{error} = $error;

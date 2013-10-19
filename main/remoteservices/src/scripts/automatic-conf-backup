@@ -47,7 +47,7 @@ sub makeConfBackup
                                              __('Automatic backup'),
                                              $automatic);
             last;
-        } catch EBox::Exceptions::InvalidData with {
+        } catch (EBox::Exceptions::InvalidData $e) {
             my ($exc) = @_;
             EBox::debug("Backup corrupted in some way...");
             $exc->throw() if ($attempt == ATTEMPT_NUM);
@@ -79,7 +79,7 @@ sub checkMakeRetryConfBackup
                 # Save the timestamp for later use
                 File::Slurp::write_file(LAST_BACKUP_TIMESTAMP_FILE, time());
                 $msg = __('Automatic configuration backup done');
-            } catch EBox::Exceptions::Base with {
+            } catch (EBox::Exceptions::Base $e) {
                 my ($exc) = @_;
                 # Cannot make the backup, inform the user with an event
                 my $reason = $exc->stringify();
@@ -96,7 +96,7 @@ sub checkMakeRetryConfBackup
                                    level      => $level,
                                    additional => $additional,
                                    dispatchTo => $dispatchTo);
-            } catch EBox::Exceptions::Base with {
+            } catch (EBox::Exceptions::Base $e) {
                 EBox::error($msg);
             }
         }

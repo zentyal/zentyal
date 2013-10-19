@@ -48,7 +48,7 @@ sub _runPendingOps
         my $op;
         try {
             $op = decode_json($content);
-        } otherwise {
+        } catch {
             my ($exc) = @_;
             EBox::error("Can't parse $filePath $content: $exc");
         } finally {
@@ -58,7 +58,7 @@ sub _runPendingOps
         my $rest = new EBox::RemoteServices::Cred()->RESTClient();
         try {
             $rest->request($op->{method}, $op->{path}, $op->{query});
-        } otherwise {
+        } catch {
             my ($exc) = @_;
             EBox::error("Can't perform the request: $exc");
         }

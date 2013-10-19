@@ -148,7 +148,7 @@ sub run
             }
 
             $self->_print;
-        } otherwise {
+        } catch {
             my $ex = shift;
             my $logger = EBox::logger;
             if (isa_mason_exception($ex)) {

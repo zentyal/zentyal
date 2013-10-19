@@ -50,7 +50,7 @@ try {
         EBox::info('Uninstalling ' . join(' ', @packages));
         EBox::Sudo::root($param);
     }
-} otherwise {
+} catch {
     my ($exc) = @_;
     EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $exc->stringify());
 }

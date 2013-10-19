@@ -82,7 +82,7 @@ sub removeDirs
         }
         try {
             EBox::Sudo::root("rm -rf $path");
-        } otherwise {
+        } catch {
             EBox::warn("Couldn't remove $path");
         }
         $self->removeRow($id, 1);

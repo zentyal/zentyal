@@ -480,7 +480,7 @@ sub initKeyTabs
             EBox::Sudo::root("chown root:$keytabUser '$keytab'");
             EBox::Sudo::root("chmod 440 '$keytab'");
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
         throw EBox::Exceptions::External(
             __("Error creating computer account for Zentyal server:") .
@@ -539,7 +539,7 @@ sub _adCheckClockSkew
     my %h;
     try {
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrive time from AD server {x} via NTP.',
                 x => $adServerIp));

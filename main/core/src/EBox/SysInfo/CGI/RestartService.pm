@@ -57,12 +57,12 @@ sub _process
 
         my $audit = $global->modInstance('audit');
         $audit->logAction('Dashboard', 'Module Status', 'restartService', $name);
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         EBox::error("Restart of $name from dashboard failed because it was locked");
         $self->{msg} = __x('Service {mod} is locked by another process. Please wait its end and then try again.',
                            mod  => $name,
                           );
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         my ($ex) = @_;
         EBox::error("Restart of $name from dashboard failed: " . $ex->text);
         $self->{msg} = __x('Error restarting service {mod}. See {logs} for more information.',

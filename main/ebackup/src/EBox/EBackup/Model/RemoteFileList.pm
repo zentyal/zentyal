@@ -133,7 +133,7 @@ sub precondition
     my $statusFailure;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my ($ex) = @_;
         $statusFailure = $ex->text();
     }
@@ -286,7 +286,7 @@ sub viewCustomizer
                 __x('Remote URL to be used with duplicity for manual restores: {url}',
                     url => $url)
                );
-        } otherwise {
+        } catch {
             # could not get the URL we don't put any message
         }
     }

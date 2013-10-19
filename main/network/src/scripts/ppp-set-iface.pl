@@ -39,9 +39,9 @@ for my $tries (1 .. 10) {
         $network->setRealPPPIface($iface, $ppp_iface, $ppp_addr);
         $network->regenGateways();
         exit 0;
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         sleep 5;
-    } otherwise {
+    } catch {
         EBox::error("Call to setRealPPPIface for $iface failed");
         exit 1;
     }

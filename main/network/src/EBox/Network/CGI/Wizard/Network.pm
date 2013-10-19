@@ -98,7 +98,7 @@ sub _processWizard
                                   ip        => $gw,
                                   weight    => 1,
                                   default   => $defaultGw);
-                } otherwise {
+                } catch {
                     my $ex = shift;
                     EBox::warn("Could not add gateway $gw: $ex");
                 }

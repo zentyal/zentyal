@@ -77,9 +77,9 @@ sub addToZentyal
     try {
         my $ou = EBox::Users::OU->create(name => scalar($name), parent => $parent, ignoreMods  => ['samba']);
         $self->_linkWithUsersObject($ou);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
     }

@@ -481,7 +481,7 @@ sub _cleanupFinished
             if ($pI->finished()) {
                 $pI->destroy();
             }
-        } catch EBox::Exceptions::Base with {
+        } catch (EBox::Exceptions::Base $e) {
             # Ignore this strange case (Already cleaned up)
             ;
         }

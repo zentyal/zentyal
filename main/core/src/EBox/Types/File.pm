@@ -128,7 +128,7 @@ sub isEqualTo
             EBox::Sudo::silentRoot("diff -q $path $tmpPath");
             # diff return value 0; they are equal
             $equal = 1;
-        } otherwise {
+        } catch {
             # diff command failed, we assume they are different (cannot find
             # a reliable documentation of diff command's return values)
             $equal = 0;

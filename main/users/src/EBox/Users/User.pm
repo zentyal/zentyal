@@ -654,7 +654,7 @@ sub create
             $usersMod->notifyModsLdapUserBase(
                 'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);

@@ -72,7 +72,7 @@ sub _process
         push(@array, 'automaticUpdates' => $software->getAutomaticUpdates());
         push(@array, 'QAUpdates' => $software->QAUpdates());
         $self->{params} = \@array;
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         my @array;
         push(@array, 'automaticUpdates' => 0);
         push(@array, 'QAUpdates'        => $software->QAUpdates());

@@ -249,7 +249,7 @@ sub rootWithoutException
     my $output;
     try {
         $output =  root($cmd);
-    } catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
+    } catch (EBox::Exceptions::Sudo::Command $e) { # ignore failed commands
         my $ex = shift @_;
         $output = $ex->output();
     }
@@ -304,7 +304,7 @@ sub stat
 
     try {
         $statOutput = root($statCmd);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         $statOutput = undef;
     }
 

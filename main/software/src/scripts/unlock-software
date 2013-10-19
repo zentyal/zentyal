@@ -11,7 +11,7 @@ my $lockFile = EBox::Config::tmp() . 'ebox-software-lock';
 my $software = EBox::Global->modInstance('software');
 try {
    $software->_isModLocked();
-} otherwise {
+} catch {
    if ( -e $lockFile ) {
       unlink($lockFile);
    }

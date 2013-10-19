@@ -428,7 +428,7 @@ sub viewCustomizer
     my $mailname;
     try {
         $mailname = $mail->mailname();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         $mailname = undef;
     }
 

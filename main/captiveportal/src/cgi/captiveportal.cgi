@@ -35,7 +35,7 @@ try {
 
     binmode(STDOUT, ':utf8');
     EBox::CaptivePortal::CGI::Run->run($ENV{'script'});
-} otherwise {
+} catch {
     my $ex = shift;
     use Devel::StackTrace;
     use CGI qw/:standard/;

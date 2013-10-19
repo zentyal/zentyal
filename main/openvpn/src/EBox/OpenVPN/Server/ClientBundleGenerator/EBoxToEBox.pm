@@ -134,7 +134,7 @@ sub initParamsFromBundle
     try {
         my $extractCmd = "tar xzf '$bundleFile' -C '$tmpDir'";
         EBox::Sudo::root($extractCmd);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
 __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot unpack it)')
                                          );
@@ -152,7 +152,7 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
         push @initParams, (bundle => $bundleFile);
         push @initParams, (tmpDir => $tmpDir);
-    } otherwise {
+    } catch {
         my $ex = shift @_;
         system "rm -rf '$tmpDir'";
         $ex->throw();

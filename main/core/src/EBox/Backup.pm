@@ -241,7 +241,7 @@ sub _createPartitionsFile
     my $partitionsOutput;
     try {
         $partitionsOutput = EBox::Sudo::root('fdisk -l');
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         my $errMsg = "Zentyal could not create a partition info file because this error: $ex";
         EBox::error($errMsg);
@@ -365,7 +365,7 @@ sub _bug
     try {
         EBox::Sudo::root("/sbin/iptables -nvL > $dir/iptables-filter",
                          "/sbin/iptables -t nat -nvL > $dir/iptables-nat");
-    } catch EBox::Exceptions::Base with {
+    } catch (EBox::Exceptions::Base $e) {
     }
 
     my $eboxLogDir = EBox::Config::log();
@@ -511,7 +511,7 @@ sub _unpackArchive
         my $tarCommand = "/bin/tar xf '$archive' --same-owner --same-permissions -C '$tempDir' $filesWithPath";
         EBox::Sudo::root($tarCommand);
 
-    } otherwise {
+    } catch {
         my $ex = shift;
 
         EBox::Sudo::silentRoot("rm -rf '$tempDir'");
@@ -590,7 +590,7 @@ sub listBackups
         my $entry = undef;
         try {
             $entry = $self->backupDetails($backup);
-        } catch EBox::Exceptions::Base with {
+        } catch (EBox::Exceptions::Base $e) {
         }
         unless ($entry) {
             EBox::info("File $backupdir.$backup.tar is in backup directorty and is not a backup file");
@@ -1172,7 +1172,7 @@ sub restoreBackup
                 my $restoreOk;
                 try {
                     $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
-                } otherwise {
+                } catch {
                     my ($ex) = @_;
 
                     if ($options{continueOnModuleFail}) {
@@ -1242,7 +1242,7 @@ sub _unpackModulesRestoreData
     my $unpackCmd = "tar xzf  '$tempdir/eboxbackup/files.tgz' --same-owner --same-permissions  -C '$tempdir/eboxbackup'";
     try {
         EBox::Sudo::root($unpackCmd);
-    } otherwise {
+    } catch {
         EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         throw EBox::Exceptions::External(
                 __('Could not unpack the backup')
@@ -1347,7 +1347,7 @@ sub _revokeRestore
             $restmod->revokeConfig();
             # XXX remember non-redis changes are not revoked!
             EBox::debug("Revoked changes in $restname module");
-        } otherwise {
+        } catch {
             EBox::debug("$restname has not changes to be revoked" );
         }
     }
@@ -1392,7 +1392,7 @@ sub _preRestoreActions
                     EBox::info("Configuring previously unconfigured module $name present in the backup to restore");
                     $mod->{restoringBackup} = 1;
                     $mod->configureModule();
-                } otherwise {
+                } catch {
                     my ($ex) = @_;
                     my $err = $ex->text();
                     throw EBox::Exceptions::Internal(
@@ -1618,7 +1618,7 @@ sub _configureModules
         my $module = EBox::Global->modInstance($name);
         try {
             $module->configureModule();
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             my $err = $ex->text();
             EBox::error("Failed to enable module $name: $err");
@@ -1663,7 +1663,7 @@ sub _checkBackup
     try {
         EBox::Sudo::command("tar --list --file '$filename'");
         EBox::Sudo::command("tar --test-label --file '$filename'");
-    } catch EBox::Exceptions::Command with {
+    } catch (EBox::Exceptions::Command $e) {
         my ($exc) = @_;
         throw EBox::Exceptions::InvalidData(
             data   => 'backup',

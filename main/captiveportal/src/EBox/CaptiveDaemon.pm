@@ -93,7 +93,7 @@ sub run
             $exceededEvent =
                 $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
         }
-    } otherwise {
+    } catch {
         $exceededEvent = 0;
     }
 
@@ -215,7 +215,7 @@ sub _updateSessions
         try {
             EBox::Util::Lock::lock('firewall');
             $lockedFw = 1;
-        } otherwise {
+        } catch {
         }
 
         if ($lockedFw) {
@@ -286,7 +286,7 @@ sub _matchUser
     if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
         try {
             $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
-        } catch EBox::Exceptions::DataExists with {
+        } catch (EBox::Exceptions::DataExists $e) {
             # already in
         }
     }

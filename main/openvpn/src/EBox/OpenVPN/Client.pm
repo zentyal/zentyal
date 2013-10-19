@@ -220,7 +220,7 @@ sub _setPrivateFile
         EBox::Sudo::root("cp '$path' '$newPath'");
         EBox::Sudo::root("chmod 0400 '$newPath'");
         EBox::Sudo::root("chown 0.0 '$newPath'");
-    } otherwise {
+    } catch {
         EBox::Sudo::root("rm -f '$newPath'");
     }
 
@@ -628,7 +628,7 @@ sub restoreCertificates
                                    caCertificate => "$d/caCertificate",
                                    certificate   => "$d/certificate",
                                    certificateKey => "$d/certificateKey");
-    } otherwise {
+    } catch {
         my $e = shift;
         EBox::error(  'Error restoring certifcates for client '
                     . $self->name

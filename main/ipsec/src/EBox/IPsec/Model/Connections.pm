@@ -209,7 +209,7 @@ sub validateTypedRow
                         $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
                     }
                 }
-            } otherwise {
+            } catch {
                 my $error = shift;
                 throw EBox::Exceptions::InvalidData(
                     data => __('Enabled flag'),

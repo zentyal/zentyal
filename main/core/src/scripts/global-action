@@ -38,7 +38,7 @@ try {
     } elsif ($action eq 'revokeAllModules') {
         $global->revokeAllModules(@callParams);
     }
-} otherwise {
+} catch {
     my $ex = shift @_;
 
     if ($progress) {

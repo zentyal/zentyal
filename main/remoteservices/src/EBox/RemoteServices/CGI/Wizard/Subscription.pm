@@ -56,7 +56,7 @@ sub _masonParameters
     try {
         $res = join('', @{EBox::Sudo::command('curl --connect-timeout 5 ' . PROMO_AVAILABLE)});
         chomp($res);
-    } otherwise {
+    } catch {
         EBox::error("Could not retrieve subscription promo status: $res");
     }
 
@@ -146,7 +146,7 @@ sub _register
                               $newsletter,
                               $position,
                               $sector);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
     }
 

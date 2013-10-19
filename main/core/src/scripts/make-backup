@@ -101,7 +101,7 @@ try {
         my $reportFile = EBox::Backup->makeBugReport();
         print "Bug report stored into file $reportFile\n";
     }
-} otherwise {
+} catch {
     my $ex = shift @_;
 
     if (exists $params{progress}) {

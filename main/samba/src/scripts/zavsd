@@ -41,7 +41,7 @@ logevent('INFO', 'Zentyal Antivirus for samba started');
 
 try {
     $CONF = decode_json(read_file($CONFFILE));
-} otherwise {
+} catch {
     logevent('ERROR', "Cannot read $CONFFILE. Exiting now...");
     exit 1;
 }
@@ -72,7 +72,7 @@ try {
         or fatal("setsockopt: $!");
     chmod(0777, $zavsSocket)
 	or fatal("chmod: $!");
-} otherwise {
+} catch {
     my ($error) = @_;
     exit 1;
 }
@@ -127,7 +127,7 @@ sub work
     while (not $pingOK) {
         try {
             $pingOK = $scanner->ping();
-        } otherwise {
+        } catch {
         }
 
         unless ($pingOK) {
@@ -174,7 +174,7 @@ sub work
                 open ($FD,">>$fullPath") && close ($FD);
                 logevent('DEBUG', "Cache file '$fullPath' created");
             }
-        } catch ClamAV::Client::Error with {
+        } catch (ClamAV::Client::Error $e) {
             my ($error) = @_;
             logevent('ERROR', "Error scanning: $error");
 
@@ -183,7 +183,7 @@ sub work
             my $fullPath = "$path.failed:$name";
             unlink $fullPath if -f $fullPath;
             open ($FD,">>$fullPath") && close ($FD);
-        } otherwise {
+        } catch {
             my ($error) = @_;
             logevent('ERROR', "Unexpected error, thread ends now: $error");
             threads->exit();

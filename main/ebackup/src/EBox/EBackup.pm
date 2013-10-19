@@ -182,7 +182,7 @@ sub restoreFile
                                               );
     try {
         EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift;
         my $error = join "\n", @{ $ex->error() };
         if ($error =~ m/not found in archive, no files restored/) {
@@ -332,7 +332,7 @@ sub dumpExtraData
         }
 
         EBox::Sudo::command("mv $bakFile $extraDataDir");
-    } otherwise {
+    } catch {
         my $ex = shift;
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     }
@@ -447,7 +447,7 @@ sub remoteGenerateListFile
     try {
         EBox::Sudo::root("$collectionCmd > $tmpFile");
         $success = 1;
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift;
         my $error = join "\n", @{ $ex->error() };
         # check if there is a no-backup yet error
@@ -612,7 +612,7 @@ sub _retrieveRemoteStatus
     my $status = undef;
     try {
         $status =  EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         my $ex = shift;
         my $error = join "\n", @{  $ex->error() };
         if ($error =~ m/gpg: decryption failed: bad key/) {
@@ -636,7 +636,7 @@ sub updateStatusInBackgroundLock
     my $res;
     try {
         $res = EBox::Util::Lock::lock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__('Another process is updating the collection status. Please, wait and retry'));
     }
 

@@ -235,7 +235,7 @@ sub run
                 try {
                     $module->regenGatewaysFailover();
                     $done = 1;
-                } catch EBox::Exceptions::Lock with {
+                } catch (EBox::Exceptions::Lock $e) {
                     sleep 5;
                     $timeout -= 5;
                 }

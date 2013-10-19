@@ -372,7 +372,7 @@ sub configureModule
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         $self->setConfigured(0);
         $self->enableService(0);
@@ -466,7 +466,7 @@ sub _isDaemonRunning
         my $running = 0;
         try {
             $running = EBox::Service::running($dname);
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # If the daemon does not exist, then return false
             ;
         }

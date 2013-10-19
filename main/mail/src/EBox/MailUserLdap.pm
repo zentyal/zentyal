@@ -251,7 +251,7 @@ sub _addUser
 
     try {
         $self->setUserAccount($user, lc($user->name()), $vdomain);
-    } otherwise {
+    } catch {
        EBox::info("Creation of email account for $user failed");
     }
 }

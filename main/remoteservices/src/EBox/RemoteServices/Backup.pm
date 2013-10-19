@@ -186,7 +186,7 @@ sub prepareRestoreRemoteBackup
             deleteBackup => 1,
             dr => $dr,
         );
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         unlink($archiveFile);
         $ex->throw();
@@ -245,7 +245,7 @@ sub listRemoteBackups
             $self->_setMetainfoFootprint($footprint);
             $self->_setMetainfoCache($metainfo);
         }
-    } catch EBox::Exceptions::DataNotFound with {
+    } catch (EBox::Exceptions::DataNotFound $e) {
         # If all.info does not exist, fill fields artificially
         $self->_setMetainfoFootprint('');
         $self->_setMetainfoCache({});

@@ -176,7 +176,7 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             my $e = shift;
             if ($self->{json}) {
                 $self->setErrorFromException($e);
@@ -185,7 +185,7 @@ sub run
             }
 
             $finish = 1;
-        } otherwise {
+        } catch {
             my $e = shift;
             $self->setErrorFromException($e);
             if (not $self->{json}) {
@@ -204,11 +204,11 @@ sub run
 
     try  {
         $self->_print;
-    } catch EBox::Exceptions::Base with {
+    } catch (EBox::Exceptions::Base $e) {
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->_print_error($self->{error});
-    } otherwise {
+    } catch {
         my $ex = shift;
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {

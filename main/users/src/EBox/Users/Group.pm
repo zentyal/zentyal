@@ -164,7 +164,7 @@ sub addMember
     my ($self, $member, $lazy) = @_;
     try {
         $self->add('member', $member->dn(), $lazy);
-    } catch EBox::Exceptions::LDAP with {
+    } catch (EBox::Exceptions::LDAP $e) {
         my $ex = shift;
         if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
             $ex->throw();
@@ -589,7 +589,7 @@ sub create
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase('addGroup', $res, $args{ignoreMods}, $args{ignoreSlaves});
         }
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         EBox::error($error);

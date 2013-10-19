@@ -171,7 +171,7 @@ sub checkPassword # (user, password)
         try {
             $userDN = $userObject->dn();
             EBox::Ldap::safeBind($ldap->anonymousLdapCon(), $userDN, $password);
-        } otherwise {
+        } catch {
             # exception == auth failed
             $userDN = undef;
         }

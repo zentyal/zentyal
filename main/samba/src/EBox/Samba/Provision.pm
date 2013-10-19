@@ -533,7 +533,7 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
-    } otherwise {
+    } catch {
         my ($error) = @_;
         $self->setProvisioned(0);
         $self->setProvisioning(0);
@@ -574,7 +574,7 @@ sub provisionDC
 
         # Reset sysvol
         $self->resetSysvolACL();
-    } otherwise {
+    } catch {
         my ($error) = @_;
         $self->setProvisioned(0);
         throw EBox::Exceptions::External($error);
@@ -941,7 +941,7 @@ sub checkClockSkew
     try {
         EBox::info("Checking clock skew with AD server...");
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
@@ -1356,7 +1356,7 @@ sub provisionADC
 
         # Set provisioned flag
         $self->setProvisioned(1);
-    } otherwise {
+    } catch {
         my ($error) = @_;
         $self->setProvisioned(0);
         $self->setProvisioning(0);

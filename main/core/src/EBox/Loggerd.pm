@@ -114,7 +114,7 @@ sub _prepare # (fifo)
                                                    IN_MOVE_SELF);
                     sysopen($FH, $file, O_RDONLY);
                     sysseek($FH, 0, SEEK_END);
-                } otherwise {
+                } catch {
                     EBox::warn("Error creating inotify watch on $file: $!");
                     $skip = 1;
                 }
@@ -149,7 +149,7 @@ sub _parseLog
         for my $obj (@{$self->{'objects'}->{$file}}) {
             try {
                 $obj->processLine($file, $line, $self->{'dbengine'});
-            } otherwise {
+            } catch {
                 EBox::warn("Error processing line $line of $file: $@");
             }
         }

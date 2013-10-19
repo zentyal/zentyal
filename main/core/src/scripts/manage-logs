@@ -16,7 +16,7 @@ use constant LOCK_NAME => 'manageEBoxLogs';
 EBox::init();
 try {
     EBox::Util::Lock::lock(LOCK_NAME);
-} catch EBox::Exceptions::Lock with {
+} catch (EBox::Exceptions::Lock $e) {
     print "Already a manageEBoxLogs process running. Exiting\n";
     exit 0;
 }

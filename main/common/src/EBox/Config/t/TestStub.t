@@ -85,7 +85,7 @@ sub _checkConfigSubs
             my $actualResult;
             try {
                 $actualResult =  $sub_r->();
-            } otherwise {
+            } catch {
                 skip 1, "To retrieve key $subName is needed a eBox full installation";
                 next;
             }
@@ -103,7 +103,7 @@ sub _getConfigKeysAndValues
         my $value;
         try {
             $value = $getter->();
-        } otherwise {
+        } catch {
             diag "can not get the vaule of $_ because it needs a eBox's full installation";
             $value = undef;
         }

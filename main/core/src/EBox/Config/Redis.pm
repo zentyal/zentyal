@@ -223,7 +223,7 @@ sub export_dir_to_file
     my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
         write_file($file, { binmode => ':raw' }, @lines);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External("Error dumping $key to $file");
     }
 }
@@ -260,7 +260,7 @@ sub import_dir_from_file
 
     try {
         @lines = split ("\n\n", read_file($filename));
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
     }
 

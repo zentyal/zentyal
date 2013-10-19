@@ -61,7 +61,7 @@ sub defaultValueOk
                                defaultValue => $value,
                                @extraNewParams
                               );
-    } otherwise {
+    } catch {
         my $ex = shift @_;
         diag "$ex";
         fail "Cannot create a instance of $class with default value $value";
@@ -107,7 +107,7 @@ sub _createTest
     my $instance;
     try {
         $instance = $class->new(%params);
-    } otherwise {
+    } catch {
         $failed =1;
 
         if ($wantSuccess) {
@@ -125,7 +125,7 @@ sub _createTest
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    } otherwise {
+    } catch {
         $failed = 1;
 
         my $ex = shift @_;

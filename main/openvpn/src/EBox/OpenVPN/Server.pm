@@ -888,7 +888,7 @@ sub summary
     try {
         $localAddress = $self->localAddress();
         defined $localAddress or $localAddress = __('All external interfaces');
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         $localAddress = __('Not found');
     }
     push (@summary, (__('Local address'), $localAddress));

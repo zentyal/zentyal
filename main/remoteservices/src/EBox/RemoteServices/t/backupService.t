@@ -89,7 +89,7 @@ sub livesOk
     try {
         $sub_r->();
         pass $testName;
-    } otherwise {
+    } catch {
         my $ex = shift;
         diag "$ex";
         fail $testName;

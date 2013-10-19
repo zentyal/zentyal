@@ -55,7 +55,7 @@ sub defaultValueOk
             defaultValue => $value,
             @extraNewParams
         );
-    } otherwise {
+    } catch {
         my $ex = shift @_;
         diag "$ex";
         fail "Cannot create a instance of $class with default value $value";
@@ -101,7 +101,7 @@ sub _createTest
     my $instance;
     try {
         $instance = $class->new(%params);
-    } otherwise {
+    } catch {
         $failed =1;
 
         if ($wantSuccess) {
@@ -118,7 +118,7 @@ sub _createTest
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    } otherwise {
+    } catch {
         $failed = 1;
 
         my $ex = shift @_;
@@ -165,7 +165,7 @@ sub storeAndRestoreGConfTest
             fieldName => 'storeAndRestoreGConfTest',
             printableName => 'storeAndRestoreGConfTest',
         );
-    } otherwise {
+    } catch {
         my $ex = shift;
         die "Cannot create instance of $class";
     }
@@ -173,7 +173,7 @@ sub storeAndRestoreGConfTest
     foreach my $value (@values) {
         try {
             $instance->setValue($value)
-        } otherwise {
+        } catch {
             my $ex = shift;
             die "Cannot set value $value: $ex";
         }
@@ -184,7 +184,7 @@ sub storeAndRestoreGConfTest
 
         try {
             $instance->setValue($otherValue);
-        } otherwise {
+        } catch {
             my $ex = shift;
             die "Cannot set value $value: $ex";
         }

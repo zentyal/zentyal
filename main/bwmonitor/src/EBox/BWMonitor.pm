@@ -268,7 +268,7 @@ sub _enforceServiceState
 
     try {
         $self->_stopService();
-    } otherwise {
+    } catch {
     }
     $self->_startService() if($self->isEnabled());
 }

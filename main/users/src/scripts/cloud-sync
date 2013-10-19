@@ -125,7 +125,7 @@ for my $ruser (@{$rusers}) {
             $user{ignoreSlaves} = IGNORE;
             EBox::Users::User->create(%user);
         }
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote user ' . $ruser->{name});
     };
 }
@@ -189,7 +189,7 @@ for my $rgroup (@{$rgroups}) {
             }
         }
         $lgroup->save() if ($changed);
-    } otherwise {
+    } catch {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
     }
 }

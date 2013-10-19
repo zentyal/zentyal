@@ -48,7 +48,7 @@ sub upsVariables
     try {
         $allVars = EBox::Sudo::root("upsc $label");
         $rwVars = EBox::Sudo::root("upsrw $label");
-    } otherwise {
+    } catch {
         my $error = shift;
         my $text = join ('', @{$error->{error}});
         $self->setMessage("There was a problem reading variables. $text", 'warning');

@@ -127,12 +127,12 @@ sub moduleAction
         $mod->$action(restartModules => 1);
         $redis->commit() if ($redisTrans);
         $success = 0;
-    } catch EBox::Exceptions::Base with {
+    } catch (EBox::Exceptions::Base $e) {
         my $ex = shift;
         $success = 1;
         $errorMsg =  $ex->text();
         $redis->rollback() if ($redisTrans);
-    } otherwise {
+    } catch {
         my ($ex) = @_;
         $success = 1;
         $errorMsg = "$ex";

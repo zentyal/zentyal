@@ -99,7 +99,7 @@ sub isRunning
 
     try {
         return EBox::Service::running(AMAVIS_SERVICE);
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         return undef;
     }
 }

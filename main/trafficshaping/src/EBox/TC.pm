@@ -72,7 +72,7 @@ sub tc
 
     try {
         EBox::Sudo::root(TC_CMD . " $opts");
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # Catching exception from tc command
         my $exception = shift;
         if ( $exception->exitValue() == 2 ) {

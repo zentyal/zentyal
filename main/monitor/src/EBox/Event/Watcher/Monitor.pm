@@ -237,7 +237,7 @@ sub _parseEvent
             $hashRef->{duration}, $hashRef->{other},
            );
         $event = new EBox::Event(%{$hashRef});
-    } otherwise {
+    } catch {
         my ($exc) = @_;
         EBox::error("Cannot parse a hash ref to EBox::Event: $! $exc");
     }

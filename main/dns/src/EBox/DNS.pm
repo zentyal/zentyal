@@ -1546,7 +1546,7 @@ sub _launchNSupdate
     if ($self->_isNamedListening()) {
         try {
             EBox::Sudo::root($cmd);
-        } otherwise {
+        } catch {
             $fh->unlink_on_destroy(0); # For debug purposes
         }
     } else {

@@ -73,7 +73,7 @@ sub _process
             value => $data,
             type => 'good',
         };
-    } otherwise {
+    } catch {
         my ($error) = @_;
 
         $self->{json} = {

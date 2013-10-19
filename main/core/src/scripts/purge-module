@@ -36,7 +36,7 @@ if (EBox::Sudo::fileTest('-x', $purgeModule)) {
     try {
         EBox::Sudo::root($purgeModule);
         EBox::Sudo::root("rm -f '$purgeModule'");
-    } otherwise {
+    } catch {
         EBox::warn("Purge of module $modname failed");
     }
 }

@@ -188,7 +188,7 @@ sub enableAllModules
         my $module = $global->modInstance($modName);
         try {
             $module->configureModule();
-        } otherwise {
+        } catch {
             my ($ex) = @_;
             EBox::warn("Failed to enable module $modName: "  . $ex->text());
         }

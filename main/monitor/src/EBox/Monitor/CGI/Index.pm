@@ -77,7 +77,7 @@ sub masonParameters
 
     try {
         $measuredData = $mon->allMeasuredData();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         my $ex = shift;
         my $error = $ex->text();
 

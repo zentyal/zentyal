@@ -76,7 +76,7 @@ sub _defaultServices
     my $webAdminPort;
     try {
         $webAdminPort = $self->global()->modInstance('webadmin')->port();
-    } otherwise {
+    } catch {
         $webAdminPort = 443;
     }
 

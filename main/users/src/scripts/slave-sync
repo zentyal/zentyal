@@ -46,7 +46,7 @@ EBox::Util::Lock::lock(LOCK_NAME);
 my $slaves = $users->allSlaves();
 try {
     (@{$slaves}) or exit 0;
-} otherwise {
+} catch {
     exit 0;
 }
 
