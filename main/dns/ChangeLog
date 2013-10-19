@@ -1,3 +1,5 @@
+HEAD
+	+ Added network as enabledepend, needed by the resolvconf management
 3.2.2
 	+ Enable resolvconf updates when starting and stopping bind9 daemon
 3.2.1
