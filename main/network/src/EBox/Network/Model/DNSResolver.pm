@@ -331,9 +331,8 @@ sub importSystemResolvers
     } catch {
         my ($error) = @_;
         EBox::error("Could not import system resolvers: $error");
-    } finally {
-        $self->table->{insertPosition} = 'back';
     }
+    $self->table->{insertPosition} = 'back';
 }
 
 1;

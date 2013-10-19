@@ -32,6 +32,7 @@ $iface or exit;
 
 try {
 	$network->DHCPCleanUp($iface);
-} finally {
-	exit;
+} catch {
 }
+
+exit;

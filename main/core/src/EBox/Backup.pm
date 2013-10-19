@@ -111,10 +111,9 @@ sub _makeBackup
         $self->_createSizeFile($archiveContentsDir);
 
         $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
-    }
-    finally {
+    } finally {
         EBox::Sudo::silentRoot("rm -rf '$tempdir'");
-    };
+    }
 
     return $backupArchive;
 }
@@ -943,12 +942,11 @@ sub _checkSize
     try {
         $tempDir = $self->_unpackArchive($archive, 'size');
         $size = read_file("$tempDir/eboxbackup/size"); # unit -> 1K
-    }
-    finally {
+    } finally {
         if (defined $tempDir) {
             EBox::Sudo::silentRoot("rm -rf '$tempDir'");
         }
-    };
+    }
 
     if (not $size) {
         EBox::warn("Size file not found in the backup. Can not check if there is enough space to complete the restore");
@@ -1224,15 +1222,14 @@ sub restoreBackup
         }
 
         $progress->setAsFinished() if $progress;
-    }
-    finally {
+    } finally {
         if ($tempdir) {
             EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         }
         if ($options{deleteBackup}) {
             unlink $file;
         }
-    };
+    }
 }
 
 sub _unpackModulesRestoreData
@@ -1295,7 +1292,7 @@ sub _restoreZentyalConfFiles
         EBox::info("We cannot restore Zentyal configuration files in $etc, but the restore process will continue.");
     } finally {
         EBox::Config::refreshConfFiles();
-    };
+    }
 }
 
 sub _restoreModulePreCheck

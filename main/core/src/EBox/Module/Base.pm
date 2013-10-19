@@ -993,8 +993,7 @@ sub _writeFileCreateTmpFile
                 "Could not create temp file in " .
                 EBox::Config::tmp);
         }
-    }
-    finally {
+    } finally {
         umask $oldUmask;
     }
 

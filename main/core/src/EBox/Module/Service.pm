@@ -986,13 +986,13 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1, @params);
-    } otherwise  {
+    } catch {
         my ($ex) = @_;
         $log->error("Error restarting service: $ex");
-        throw $ex;
-    } finally {
         $self->_unlock();
+        throw $ex;
     }
+    $self->_unlock();
 }
 
 # Method: _supportActions

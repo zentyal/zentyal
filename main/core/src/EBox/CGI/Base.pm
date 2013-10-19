@@ -278,10 +278,8 @@ sub run
             $self->_validateReferer();
             $self->_process();
         } catch (EBox::Exceptions::Internal $e) {
-            my $e = shift;
             throw $e;
         } catch (EBox::Exceptions::Base $e) {
-            my $e = shift;
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
@@ -908,11 +906,12 @@ sub upload
     } catch {
         my $ex = shift;
         unlink $filename;
-        $ex->throw();
-    } finally {
         close $UPLOAD_FH;
         close $FH;
+        $ex->throw();
     }
+    close $UPLOAD_FH;
+    close $FH;
 
     # return the created file in tmp
     return $filename;

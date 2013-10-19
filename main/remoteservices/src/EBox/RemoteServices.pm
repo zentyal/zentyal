@@ -2100,9 +2100,8 @@ sub restoreConfig
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
             $backupSubscribed = 0;
-        } finally {
-            EBox::Sudo::root('rm -f /tmp/server-info.json');
         }
+        EBox::Sudo::root('rm -f /tmp/server-info.json');
     }
 
     if ($backupSubscribed) {

@@ -538,10 +538,10 @@ sub provisionDC
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
         $self->setProvisioning(0);
+        throw $error;
     }
+    $self->setProvisioning(0);
 
     try {
         # Disable password policy

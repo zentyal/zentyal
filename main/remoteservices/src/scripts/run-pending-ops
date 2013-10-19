@@ -51,9 +51,9 @@ sub _runPendingOps
         } catch {
             my ($exc) = @_;
             EBox::error("Can't parse $filePath $content: $exc");
-        } finally {
-            unlink($filePath);
         }
+        unlink($filePath);
+
         next unless (defined($op));
         my $rest = new EBox::RemoteServices::Cred()->RESTClient();
         try {

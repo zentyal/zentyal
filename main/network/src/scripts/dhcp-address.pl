@@ -44,6 +44,6 @@ try {
     $network->setDHCPAddress($iface, $address, $mask);
 } catch {
     EBox::error("Call to setDHCPAddress for $iface failed");
-} finally {
-    exit;
 }
+
+exit;

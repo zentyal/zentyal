@@ -330,11 +330,10 @@ sub _doProvision
 
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
     }
+    $self->global->modChange('mail');
+    $self->global->modChange('samba');
+    $self->global->modChange('openchange');
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -415,11 +414,10 @@ sub _doDeprovision
 
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
         $self->parentModule->setProvisioned(1);
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
     }
+    $self->global->modChange('mail');
+    $self->global->modChange('samba');
+    $self->global->modChange('openchange');
 }
 
 1;

@@ -47,6 +47,7 @@ try {
     unless (-f $ifupLock) {
         $network->regenGateways();
     }
-} finally {
-    exit;
+} catch {
 }
+
+exit;

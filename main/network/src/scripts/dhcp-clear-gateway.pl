@@ -32,6 +32,7 @@ $iface or exit;
 
 try {
 	$network->DHCPGatewayCleanUp($iface);
-} finally {
-	exit;
+} catch {
 }
+
+exit;

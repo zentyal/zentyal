@@ -89,17 +89,16 @@ try {
     }
 } catch {
     printLog("ERROR: $@ $!");
-} finally {
-    print $write 'end';
-    close ($write);
-    close ($read);
-    if (-f $DPKG_RUNNING_FILE) {
-        printLog("Deleting $DPKG_RUNNING_FILE");
-        unlink ($DPKG_RUNNING_FILE);
-    }
-    printLog("Zentyal apt-wrapper $command finished");
-    close ($log);
 }
+print $write 'end';
+close ($write);
+close ($read);
+if (-f $DPKG_RUNNING_FILE) {
+    printLog("Deleting $DPKG_RUNNING_FILE");
+    unlink ($DPKG_RUNNING_FILE);
+}
+printLog("Zentyal apt-wrapper $command finished");
+close ($log);
 
 # TODO: Move this to a common logger module
 sub printLog

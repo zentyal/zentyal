@@ -710,11 +710,16 @@ sub restoreDBDump
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
-    } finally {
+    } catch {
+        my $e = shift;
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");
+        $e->throw();
     }
+    # undo ownership and file move
+    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+    EBox::Sudo::root("mv $tmpFile $file");
 
     if ($onlySchema) {
         EBox::info('Database schema dump for ' . _dbname() . ' restored' );

@@ -603,9 +603,8 @@ sub saveAllModules
                 my ($ex) = @_;
                 my $err = $ex->text();
                 EBox::debug("Failed to enable module $name: $err");
-            } finally {
-                delete $module->{firstInstall};
             }
+            delete $module->{firstInstall};
         }
 
         # in first install sysinfo module is in changed state

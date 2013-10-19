@@ -99,23 +99,22 @@ try {
     $retValue = $exc->exitValue();
     $errorMsg = $exc->stringify();
     EBox::error($errorMsg);
-} finally {
-    $webAdminMod->enableRestartOnTrigger();
-    try {
-        EBox::info("End packages remove");
-        my $global = EBox::Global->getInstance(1);
-        my $software = $global->modInstance('software');
-        #causes the cache to be generated
-        $software->listUpgradablePkgs(1);
-        $webAdminMod->_daemon('restart');
-        $progress->setAsFinished($retValue, $errorMsg);
-    } catch (EBox::Exceptions::External $e) {
-        # Ignore if it cannot put as finished since it's possible it
-        # is already destroyed. Why?
-        EBox::warn("$progressId does not exist");
-    }
-
-    exit $retValue;
 }
+$webAdminMod->enableRestartOnTrigger();
+try {
+    EBox::info("End packages remove");
+    my $global = EBox::Global->getInstance(1);
+    my $software = $global->modInstance('software');
+    #causes the cache to be generated
+    $software->listUpgradablePkgs(1);
+    $webAdminMod->_daemon('restart');
+    $progress->setAsFinished($retValue, $errorMsg);
+} catch (EBox::Exceptions::External $e) {
+    # Ignore if it cannot put as finished since it's possible it
+    # is already destroyed. Why?
+    EBox::warn("$progressId does not exist");
+}
+
+exit $retValue;
 
 1;

@@ -177,7 +177,6 @@ sub run
             $self->_validateReferer();
             $self->_process();
         } catch (EBox::Exceptions::DataInUse $e) {
-            my $e = shift;
             if ($self->{json}) {
                 $self->setErrorFromException($e);
             } else {
