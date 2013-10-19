@@ -1,4 +1,4 @@
-HEAD
+3.0.29
 	+ Make sure that we always discard audit of changes when we revoke them
 	+ Include contents of /etc/resolv.conf in bug report
 	+ Avoid Apache error screen in login when entering through Zentyal
