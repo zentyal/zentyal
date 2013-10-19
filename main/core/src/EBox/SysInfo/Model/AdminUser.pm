@@ -23,7 +23,7 @@ package EBox::SysInfo::Model::AdminUser;
 
 use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Gettext;
 use EBox::Types::Password;

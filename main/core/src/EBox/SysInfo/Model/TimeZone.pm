@@ -23,7 +23,7 @@ use warnings;
 
 package EBox::SysInfo::Model::TimeZone;
 
-use Error qw(:try);
+use TryCatch;
 use File::Slurp;
 
 use EBox::Gettext;

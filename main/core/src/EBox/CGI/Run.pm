@@ -28,7 +28,7 @@ use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
 
-use Error qw(:try);
+use TryCatch;
 use File::Slurp;
 use Perl6::Junction qw(any);
 

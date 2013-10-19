@@ -25,7 +25,7 @@ use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Config;
 use EBox::Gettext;

@@ -39,7 +39,7 @@ use EBox::Types::Union;
 use EBox::Validate;
 
 use Cwd 'abs_path';
-use Error qw(:try);
+use TryCatch;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');

@@ -30,7 +30,7 @@ use EBox::Types::Action;
 use EBox::Samba::User;
 use EBox::Exceptions::NotImplemented;
 
-use Error qw( :try );
+use TryCatch;
 
 # Method: new
 #

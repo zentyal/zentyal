@@ -54,7 +54,7 @@ use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
-use Error qw(:try);
+use TryCatch;
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;

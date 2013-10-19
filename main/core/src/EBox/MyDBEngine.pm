@@ -37,7 +37,7 @@ use File::Basename;
 use EBox::Logs::SlicedBackup;
 use EBox::Util::SQLTypes;
 
-use Error qw(:try);
+use TryCatch;
 use Data::Dumper;
 
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';

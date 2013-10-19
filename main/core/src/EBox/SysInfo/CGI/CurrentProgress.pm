@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Config;
 use EBox::ProgressIndicator;
 
-use Error qw(:try);
+use TryCatch;
 use JSON;
 
 ## arguments:

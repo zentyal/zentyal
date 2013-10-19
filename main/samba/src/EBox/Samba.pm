@@ -58,7 +58,7 @@ use EBox::Users::User;
 use EBox::Users::Group;
 use EBox::Util::Random qw( generate );
 
-use Error qw(:try);
+use TryCatch;
 use File::Basename;
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );

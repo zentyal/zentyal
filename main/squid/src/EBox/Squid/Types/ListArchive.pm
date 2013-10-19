@@ -26,7 +26,7 @@ use EBox::Exceptions::External;
 use EBox::Sudo;
 use EBox::FileSystem;
 
-use Error qw(:try);
+use TryCatch;
 use File::Basename;
 
 my $UNPACK_PATH = '/var/lib/zentyal/files/squid/categories';

@@ -7,7 +7,7 @@ use Test::Exception;
 use EBox;
 use EBox::Global;
 use EBox::MailVDomainsLdap;
-use Error qw(:try);
+use TryCatch;
 
 diag "This test uses the Zentyal LDAP. Don't use it in production environments!!";
 

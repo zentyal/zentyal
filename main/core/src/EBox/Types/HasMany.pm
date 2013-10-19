@@ -40,7 +40,7 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Model::Manager;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

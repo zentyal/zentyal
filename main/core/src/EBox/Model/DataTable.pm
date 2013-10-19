@@ -40,7 +40,7 @@ use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
-use Error qw(:try);
+use TryCatch;
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 use List::Util;

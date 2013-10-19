@@ -40,7 +40,7 @@ use EBox::NetWrappers;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
 
-use Error qw(:try);
+use TryCatch;
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);

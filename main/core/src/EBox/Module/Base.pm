@@ -34,7 +34,7 @@ use EBox::DBEngineFactory;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
-use Error qw(:try);
+use TryCatch;
 use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);

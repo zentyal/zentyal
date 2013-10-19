@@ -32,7 +32,7 @@ use EBox::ProgressIndicator;
 use EBox::Sudo;
 
 use Digest::MD5;
-use Error qw(:try);
+use TryCatch;
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
 use AptPkg::Cache;

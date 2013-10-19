@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::Global;
 
 use MIME::Base64;
-use Error qw(:try);
+use TryCatch;
 
 use constant IGNORE => ['zentyal-cloud'];
 

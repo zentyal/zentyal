@@ -23,7 +23,7 @@ package EBox::Samba::SysvolSync;
 use EBox::Global;
 use EBox::Util::Random;
 
-use Error qw(:try);
+use TryCatch;
 use Net::Ping;
 use Net::DNS;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};

@@ -47,7 +47,7 @@ use EBox::Util::Event qw(:constants);
 use File::Slurp;
 use IO::Handle;
 use IO::Select;
-use Error qw(:try);
+use TryCatch;
 use POSIX;
 use Time::Local qw(timelocal);
 use Data::Dumper;

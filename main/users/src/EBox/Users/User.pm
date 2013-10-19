@@ -37,7 +37,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch;
 use Convert::ASN1;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 

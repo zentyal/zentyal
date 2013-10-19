@@ -29,7 +29,7 @@ use base 'EBox::RemoteServices::Cred';
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

@@ -30,7 +30,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
 use EBox::Util::GPG;
 use POSIX qw(setlocale LC_ALL);
-use Error qw(:try);
+use TryCatch;
 use Encode qw(:all);
 use Data::Dumper;
 use Perl6::Junction qw(all);

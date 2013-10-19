@@ -22,7 +22,7 @@ package EBox::RemoteServices::Run::Pending;
 use EBox;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
-use Error qw(:try);
+use TryCatch;
 use File::Slurp;
 use Getopt::Long;
 use JSON::XS qw(decode_json);

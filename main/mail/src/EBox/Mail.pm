@@ -44,7 +44,7 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 
-use Error qw( :try );
+use TryCatch;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;

@@ -3,7 +3,7 @@ use warnings;
 
 use Test::More tests => 12;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Global::TestStub;
 

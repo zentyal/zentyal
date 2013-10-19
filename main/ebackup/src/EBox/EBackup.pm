@@ -36,7 +36,7 @@ use EBox::EBackup::Password;
 use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
-use Error qw(:try);
+use TryCatch;
 use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;

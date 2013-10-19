@@ -40,7 +40,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
-use Error qw(:try);
+use TryCatch;
 
 # Constants
 use constant APACHE_INCLUDE_KEY => 'apacheIncludes';

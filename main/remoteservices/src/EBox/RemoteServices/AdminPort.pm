@@ -26,7 +26,7 @@ package EBox::RemoteServices::AdminPort;
 use base 'EBox::RemoteServices::Cred';
 
 use EBox;
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

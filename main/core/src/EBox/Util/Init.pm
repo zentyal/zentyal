@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::ServiceManager;
 use File::Slurp;
-use Error qw(:try);
+use TryCatch;
 
 sub moduleList
 {

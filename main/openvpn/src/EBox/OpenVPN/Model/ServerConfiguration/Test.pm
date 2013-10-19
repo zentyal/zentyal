@@ -29,7 +29,7 @@ use Test::MockObject;
 use Test::File;
 use Test::Differences;
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch;
 
 use lib '../../../..';
 use  EBox::OpenVPN::Model::ServerConfiguration;

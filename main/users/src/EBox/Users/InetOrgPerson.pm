@@ -33,7 +33,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch;
 use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);

@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use  EBox::Exceptions::Command;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

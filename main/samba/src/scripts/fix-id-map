@@ -21,7 +21,7 @@
 use strict;
 use warnings;
 
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Global;
 use EBox::Samba::User;

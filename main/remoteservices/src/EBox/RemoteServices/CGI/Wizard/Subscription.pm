@@ -27,7 +27,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch;
 use SOAP::Lite;
 use Sys::Hostname;
 

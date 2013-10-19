@@ -20,7 +20,7 @@ package EBox::RemoteServices::CGI::Backup::Index;
 
 use base qw(EBox::CGI::ClientBase);
 
-use Error qw(:try);
+use TryCatch;
 
 use EBox::RemoteServices::Backup;
 use EBox::Gettext;

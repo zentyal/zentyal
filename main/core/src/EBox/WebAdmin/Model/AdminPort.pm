@@ -23,7 +23,7 @@ use base 'EBox::Model::DataForm';
 use strict;
 use warnings;
 
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Gettext;
 use EBox::Types::Port;

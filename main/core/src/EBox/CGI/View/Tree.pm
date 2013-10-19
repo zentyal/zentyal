@@ -21,7 +21,7 @@ package EBox::CGI::View::Tree;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use Error qw(:try);
+use TryCatch;
 
 # Constructor: new
 #

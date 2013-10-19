@@ -30,7 +30,7 @@ use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
 use File::Basename;
 
-use Error qw(:try);
+use TryCatch;
 use Digest::MD5;
 use EBox::Sudo;
 use POSIX qw(strftime);

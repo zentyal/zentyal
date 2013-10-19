@@ -32,7 +32,7 @@ use EBox::Exceptions::InvalidData;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;
-use Error qw(:try);
+use TryCatch;
 
 # Method: mainObjectClass
 #

@@ -30,7 +30,7 @@ use feature qw(switch);
 use EBox::Gettext;
 use JSON::XS;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw( :try );
+use TryCatch;
 use POSIX;
 
 # Group: Public methods

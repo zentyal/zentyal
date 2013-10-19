@@ -42,7 +42,7 @@ use EBox::Sudo;
 
 # Core modules
 use File::Basename;
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

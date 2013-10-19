@@ -27,7 +27,7 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch;
 
 use constant INITDPATH => '/etc/init.d/';
 

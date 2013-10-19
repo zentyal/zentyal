@@ -31,7 +31,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
 
 use Encode;
-use Error qw(:try);
+use TryCatch;
 use POSIX qw(getuid);
 
 # Method: parentModule

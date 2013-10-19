@@ -20,7 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch;
 
 EBox::init();
 

@@ -41,7 +41,7 @@ use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
 use Net::IP;
-use Error qw(:try);
+use TryCatch;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 

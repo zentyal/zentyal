@@ -46,7 +46,7 @@ use EBox::Global;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Text;
 use POSIX;
-use Error qw(:try);
+use TryCatch;
 
 # Constants:
 use constant STORE_URL => 'http://store.zentyal.com/';

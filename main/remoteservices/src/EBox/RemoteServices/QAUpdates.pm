@@ -33,7 +33,7 @@ use EBox::RemoteServices::Cred;
 use EBox::Sudo;
 use Data::UUID;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

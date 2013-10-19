@@ -27,7 +27,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
-use Error qw(:try);
+use TryCatch;
 use EBox::Exceptions::External;
 
 use constant CONF_DIR => EBox::Config::conf() . '/bwmonitor/';

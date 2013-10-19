@@ -31,7 +31,7 @@ use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
 
-use Error qw(:try);
+use TryCatch;
 use Perl6::Junction qw(any);
 
 use constant VHOST_PREFIX => 'ebox-';

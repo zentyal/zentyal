@@ -37,7 +37,7 @@ use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
 use MIME::Base64;
 use Digest::MD5;
-use Error qw(:try);
+use TryCatch;
 use Fcntl qw(:flock);
 use File::Basename;
 

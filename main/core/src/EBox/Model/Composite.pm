@@ -47,7 +47,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 
 # Other modules uses
-use Error qw(:try);
+use TryCatch;
 
 #################
 # Dependencies

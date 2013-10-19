@@ -20,7 +20,7 @@ package EBox::Logs::Consolidate;
 use EBox::Global;
 use EBox::DBEngineFactory;
 
-use Error qw(:try);
+use TryCatch;
 use Time::Piece;
 use Time::Seconds;
 

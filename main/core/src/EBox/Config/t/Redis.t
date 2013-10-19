@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 use Test::More tests => 16;
-use Error qw(:try);
+use TryCatch;
 
 use lib '../../..';
 

@@ -22,7 +22,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch;
 use Net::DNS::Resolver;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;

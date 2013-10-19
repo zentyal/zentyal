@@ -29,7 +29,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

@@ -27,7 +27,7 @@ use EBox::Gettext;
 use URI::Escape;
 use File::Slurp;
 use EBox::UsersSync::Slave;
-use Error qw(:try);
+use TryCatch;
 
 # File containing password for master's web service (to register a new slave)
 use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';

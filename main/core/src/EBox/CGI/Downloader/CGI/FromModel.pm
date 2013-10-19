@@ -38,7 +38,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Model::Manager;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

@@ -22,7 +22,7 @@ use EBox::Config;
 use JSON::RPC::Client;
 use MIME::Base64;
 use File::Slurp;
-use Error qw(:try);
+use TryCatch;
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
 use constant MILESTONE => '3.3';

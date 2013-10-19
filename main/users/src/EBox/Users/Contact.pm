@@ -31,7 +31,7 @@ use EBox::Global;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
-use Error qw(:try);
+use TryCatch;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 # Method: mainObjectClass

@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch;
 use Date::Parse;
 
 sub restoreEBoxLogs

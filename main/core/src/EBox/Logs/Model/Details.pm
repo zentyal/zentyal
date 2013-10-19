@@ -22,7 +22,7 @@ use base qw(EBox::Model::DataTable EBox::Logs::Model::Base);
 
 use EBox::Gettext;
 use Perl6::Junction qw(all);
-use Error qw(:try);
+use TryCatch;
 
 # Method: ids
 #

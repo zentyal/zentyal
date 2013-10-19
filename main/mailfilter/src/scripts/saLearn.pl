@@ -22,7 +22,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use File::Temp;
-use Error qw(:try);
+use TryCatch;
 
 
 EBox::init();

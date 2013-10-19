@@ -21,7 +21,7 @@ package EBox::OpenVPN::Daemon;
 use base qw(EBox::NetworkObserver);
 
 use File::Slurp;
-use Error qw(:try);
+use TryCatch;
 
 use EBox::NetWrappers;
 use EBox::Service;

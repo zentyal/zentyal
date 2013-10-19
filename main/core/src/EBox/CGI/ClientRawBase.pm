@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
 use Apache2::RequestUtil;
-use Error qw(:try);
+use TryCatch;
 use HTML::Mason::Exceptions;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Base;

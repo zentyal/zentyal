@@ -25,7 +25,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use Error qw(:try);
+use TryCatch;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use EBox;

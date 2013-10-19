@@ -21,7 +21,7 @@ package EBox::Types::TestHelper;
 
 use Test::More;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch;
 use EBox::TestStub;
 
 sub setupFakes

@@ -23,7 +23,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 
-use Error qw(:try);
+use TryCatch;
 
 sub new
 {

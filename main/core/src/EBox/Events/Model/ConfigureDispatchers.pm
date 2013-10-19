@@ -40,7 +40,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
-use Error qw(:try);
+use TryCatch;
 
 # Group: Public methods
 

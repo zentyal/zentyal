@@ -38,7 +38,7 @@ use Net::LDAP::Util qw(ldap_explode_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Time::HiRes;
-use Error qw(:try);
+use TryCatch;
 
 sub new
 {

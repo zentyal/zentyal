@@ -31,7 +31,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
 
 use Data::Dumper;
-use Error qw(:try);
+use TryCatch;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;

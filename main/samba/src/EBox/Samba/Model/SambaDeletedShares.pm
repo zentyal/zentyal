@@ -35,7 +35,7 @@ use EBox::Global;
 use EBox::Types::Text;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch;
 
 # Dependencies
 

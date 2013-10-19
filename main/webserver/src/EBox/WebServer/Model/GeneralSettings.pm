@@ -37,7 +37,7 @@ use EBox::Validate;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
 
-use Error qw(:try);
+use TryCatch;
 
 use constant PUBLIC_DIR => 'public_html';
 

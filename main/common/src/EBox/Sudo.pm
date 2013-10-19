@@ -21,7 +21,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
-use Error qw(:try);
+use TryCatch;
 use Params::Validate;
 use Perl6::Junction;
 use File::Temp qw(tempfile);

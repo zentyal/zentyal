@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Exceptions::External;
 
 # Core modules
-use Error qw(:try);
+use TryCatch;
 use List::Util;
 
 # Group: Public methods

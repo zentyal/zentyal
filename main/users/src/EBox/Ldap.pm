@@ -28,7 +28,7 @@ use Net::LDAP;
 use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
 
-use Error qw(:try);
+use TryCatch;
 use Apache2::RequestUtil;
 use Time::HiRes;
 

@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::ServiceManager;
-use Error qw(:try);
+use TryCatch;
 
 sub new # (error=?, msg=?, cgi=?)
 {

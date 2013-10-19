@@ -34,7 +34,7 @@ use Encode qw(encode decode);
 use Parse::RecDescent;
 use Data::UUID;
 use Fcntl;
-use Error qw( :try );
+use TryCatch;
 use Net::LDAP::Control;
 use Samba::Security::Descriptor;
 

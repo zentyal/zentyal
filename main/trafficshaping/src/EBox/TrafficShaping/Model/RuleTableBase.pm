@@ -30,7 +30,7 @@ use base 'EBox::Model::DataTable';
 
 use integer;
 
-use Error qw(:try);
+use TryCatch;
 
 use EBox::Exceptions::External;
 use EBox::Gettext;

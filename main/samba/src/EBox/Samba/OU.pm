@@ -31,7 +31,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Global;
 use EBox::Users::OU;
 
-use Error qw(:try);
+use TryCatch;
 
 # Method: mainObjectClass
 #
