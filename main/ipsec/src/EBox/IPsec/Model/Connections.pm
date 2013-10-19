@@ -219,7 +219,7 @@ sub validateTypedRow
                         error => $error
                     )
                 );
-            };
+            }
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),

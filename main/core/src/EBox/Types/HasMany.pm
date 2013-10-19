@@ -145,7 +145,8 @@ sub foreignModelInstance
         } else {
             $model = $manager->model($modelName, $ro);
         }
-    } catch EBox::Exceptions::DataNotFound with { };
+    } catch EBox::Exceptions::DataNotFound with {
+    }
 
     return undef unless (defined($model));
 
@@ -340,7 +341,7 @@ sub _restoreFromHash
             $self->setDirectory($model->directory());
         } catch EBox::Exceptions::DataNotFound with {
             $self->{'view'} = '/';
-        };
+        }
     }
 }
 

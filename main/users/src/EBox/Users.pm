@@ -566,7 +566,7 @@ sub _internalServerEnableActions
         my $error = shift;
         EBox::error("Error performing users initialization: $error");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
-    };
+    }
 
     # Setup kerberos realm and DNS
     $self->setupKerberos();
@@ -635,7 +635,7 @@ sub _loadLDAP
     } otherwise {
         my $error = shift;
         EBox::error("Trying to setup ldap failed: $error");
-    };
+    }
     EBox::debug('Setup LDAP done');
 }
 
@@ -713,9 +713,7 @@ sub _setConfInternal
                pbeg => '<p>',
                pend => '</p>'
             ));
-        };
-
-
+        }
     }
 
     my $ldap = $self->ldap;
@@ -1578,7 +1576,8 @@ sub isUserCorner
     try {
         my $r = Apache2::RequestUtil->request();
         $auth_type = $r->auth_type;
-    } catch Error with {};
+    } otherwise {
+    }
 
     return (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth');

@@ -191,7 +191,7 @@ for my $rgroup (@{$rgroups}) {
         $lgroup->save() if ($changed);
     } otherwise {
         EBox::error('Failed to sync remote group ' . $rgroup->{name});
-    };
+    }
 }
 
 

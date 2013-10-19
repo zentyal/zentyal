@@ -240,7 +240,7 @@ sub _removeAptPubKey
         EBox::Sudo::root("apt-key del $id");
     } otherwise {
         EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
-    };
+    }
 }
 
 sub _removeAptQAPreferences

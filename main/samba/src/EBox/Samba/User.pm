@@ -396,7 +396,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -481,7 +481,7 @@ sub addToZentyal
     } otherwise {
         my $error = shift;
         EBox::error("Error loading user '$uid': $error");
-    };
+    }
 
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);

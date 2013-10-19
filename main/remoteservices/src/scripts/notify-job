@@ -51,7 +51,7 @@ sub _notify
             EBox::error("Cannot read $jodDir/$filePath file: $exc");
             unlink($jobDir);
             exit(2);
-        };
+        }
     }
     try {
         # local log notification
@@ -81,9 +81,8 @@ sub _notify
         EBox::error("Problem with job '$jobId' result notification: $exc");
         unlink($jobDir);
         exit(3);
-    };
+    }
     unlink($jobDir);
-
 }
 
 # MAIN

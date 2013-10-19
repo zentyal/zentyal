@@ -61,7 +61,7 @@ sub _process
             my ($ex) = @_;
             $updateListError = 1;
             $updateListErrorMsg = "$ex";
-        };
+        }
     }
 
     my @pkgs = @{$software->listEBoxPkgs()};

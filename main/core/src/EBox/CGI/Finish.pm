@@ -73,7 +73,7 @@ sub _pendingActions
                 $rowName = $modelInstance->printableRowName();
             } otherwise {
                 $action->{'modeltitle'} = $action->{'model'};
-            };
+            }
         } else {
             $action->{'modtitle'} = $modname;
         }

@@ -377,7 +377,7 @@ sub _setDfltSSLVhost
             if ( $exc->exitValue() != 1 ) {
                 throw $exc;
             }
-        };
+        }
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas",
                              [
@@ -392,10 +392,10 @@ sub _setDfltSSLVhost
         } catch EBox::Exceptions::Sudo::Command with {
             my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
+            if ($exc->exitValue() != 1) {
                 throw $exc;
             }
-        };
+        }
     } else {
         # Disable the module
         try {
@@ -403,20 +403,20 @@ sub _setDfltSSLVhost
         } catch EBox::Exceptions::Sudo::Command with {
             my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
+            if ($exc->exitValue() != 1) {
                 throw $exc;
             }
-        };
+        }
         # Disable default-ssl vhost
         try {
             EBox::Sudo::root('a2dismod ssl');
         } catch EBox::Exceptions::Sudo::Command with {
             my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
+            if ($exc->exitValue() != 1) {
                 throw $exc;
             }
-        };
+        }
     }
 }
 
@@ -458,7 +458,7 @@ sub _setUserDir
             if ( $exc->exitValue() != 1 ) {
                 throw $exc;
             }
-        };
+        }
         try {
             EBox::Sudo::root('a2enmod userdir');
         } catch EBox::Exceptions::Sudo::Command with {
@@ -467,7 +467,7 @@ sub _setUserDir
             if ( $exc->exitValue() != 1 ) {
                 throw $exc;
             }
-        };
+        }
     } else {
         # Disable the modules
         try {
@@ -478,7 +478,7 @@ sub _setUserDir
             if ( $exc->exitValue() != 1 ) {
                 throw $exc;
             }
-        };
+        }
         if ( $gl->modExists('users')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
@@ -488,7 +488,7 @@ sub _setUserDir
                 if ( $exc->exitValue() != 1 ) {
                     throw $exc;
                 }
-            };
+            }
         }
     }
 }
@@ -539,7 +539,7 @@ sub _setVHosts
                 if ( $exc->exitValue() != 1 ) {
                     throw $exc;
                 }
-            };
+            }
         }
 
     }
@@ -776,7 +776,7 @@ sub dumpConfig
             EBox::Sudo::root("cp -a $dir $sitesBackDir");
         } catch EBox::Exceptions::Sudo::Command with {
             EBox::error("Failed to do backup of the vhost custom configuration dir $dir");
-        };
+        }
     }
 }
 

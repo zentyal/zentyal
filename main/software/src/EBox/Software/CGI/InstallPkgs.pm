@@ -167,7 +167,7 @@ sub showConfirmationPage
     } otherwise {
         my ($ex) = @_;
         $error = "$ex";
-    };
+    }
 
     if ($error) {
         $self->{template} = '/ajax/simpleModalDialog.mas';

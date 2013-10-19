@@ -192,7 +192,7 @@ sub run
                 $self->_error();
             }
             $finish = 1;
-        };
+        }
     }
 
     if ($self->{json}) {

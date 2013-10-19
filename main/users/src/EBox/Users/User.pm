@@ -678,7 +678,7 @@ sub create
         $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed

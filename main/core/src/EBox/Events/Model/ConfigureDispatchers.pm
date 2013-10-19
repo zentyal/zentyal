@@ -100,7 +100,7 @@ sub syncRows
             }
         } otherwise {
             $remove = 1;
-        };
+        }
         if ($remove) {
             $self->removeRow($id);
             $modified = 1;

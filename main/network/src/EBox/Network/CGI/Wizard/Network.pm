@@ -101,7 +101,7 @@ sub _processWizard
                 } otherwise {
                     my $ex = shift;
                     EBox::warn("Could not add gateway $gw: $ex");
-                };
+                }
             }
 
             my $dnsModel = $net->model('DNSResolver');

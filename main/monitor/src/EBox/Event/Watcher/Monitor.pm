@@ -240,7 +240,7 @@ sub _parseEvent
     } otherwise {
         my ($exc) = @_;
         EBox::error("Cannot parse a hash ref to EBox::Event: $! $exc");
-    };
+    }
     return $event;
 }
 

@@ -85,7 +85,7 @@ sub addedRowNotify
     } otherwise {
         my ($error) = @_;
         EBox::error($error);
-    };
+    }
 }
 
 # Method: precondition

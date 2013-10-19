@@ -183,8 +183,8 @@ sub _paramIsValid
             data => $self->printableName(),
             value => $self->printableValue(),
             advice => "$ex",
-           );
-    };
+        );
+    }
 
     if ($range->size() > MAX_N_ADDRESS) {
         my $advice = __x(

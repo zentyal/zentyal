@@ -1036,7 +1036,7 @@ sub _dhcpLeases
         } otherwise {
            my $ex = shift;
            EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
-        };
+        }
 
         if (not $leases) {
             return $self->{'leases'};

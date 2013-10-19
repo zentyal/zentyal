@@ -87,7 +87,7 @@ sub _process
 
         $self->{json}->{success} = 0;
         $self->{json}->{error} = qq{$error};
-    };
+    }
 }
 
 1;

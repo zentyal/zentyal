@@ -52,7 +52,7 @@ sub upsVariables
         my $error = shift;
         my $text = join ('', @{$error->{error}});
         $self->setMessage("There was a problem reading variables. $text", 'warning');
-    };
+    }
 
     my $vars = {};
     foreach my $line (@{$allVars}) {

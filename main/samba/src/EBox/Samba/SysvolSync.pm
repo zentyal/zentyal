@@ -92,7 +92,7 @@ sub extractKeytab
         my ($error) = @_;
         EBox::error("Could not extract keytab: $error");
         $ok = undef;
-    };
+    }
     return $ok;
 }
 

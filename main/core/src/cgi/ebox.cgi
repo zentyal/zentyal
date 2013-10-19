@@ -134,7 +134,7 @@ try {
     }
 
     print $html;
-};
+}
 
 sub _brokenPackages
 {

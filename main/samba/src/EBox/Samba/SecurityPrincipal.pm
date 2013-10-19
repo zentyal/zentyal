@@ -68,7 +68,7 @@ sub new
             my ($error) = @_;
 
             throw EBox::Exceptions::MissingArgument("$error|samAccountName|sid");
-        };
+        }
     }
     return $self;
 }

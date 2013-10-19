@@ -131,7 +131,7 @@ sub syncRows
         } catch EBox::Exceptions::InvalidData with {
             my ($ex) = @_;
             $error = "$ex";
-        };
+        }
     }
 
     if ($error) {

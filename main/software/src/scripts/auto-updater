@@ -36,7 +36,7 @@ try {
     @pkgs = @{$software->listUpgradablePkgs(1)};
 } finally {
     $software->unlock();
-};
+}
 unless ($software->getAutomaticUpdates()) {
     exit 0;
 }
@@ -57,6 +57,6 @@ try {
     $software->setAutoUpgradePkgNo(scalar(@pkgnames));
 } finally {
     $software->unlock();
-};
+}
 
 1;

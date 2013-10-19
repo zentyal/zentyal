@@ -95,7 +95,7 @@ sub run
         }
     } otherwise {
         $exceededEvent = 0;
-    };
+    }
 
     my $timeLeft;
     while (1) {
@@ -215,7 +215,8 @@ sub _updateSessions
         try {
             EBox::Util::Lock::lock('firewall');
             $lockedFw = 1;
-        } otherwise {};
+        } otherwise {
+        }
 
         if ($lockedFw) {
             try {
@@ -227,7 +228,7 @@ sub _updateSessions
                 EBox::Sudo::root(@pending, @rules, @removeRules) ;
             } finally {
                 EBox::Util::Lock::unlock('firewall');
-            };
+            }
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
             push @{ $self->{pendingRules} }, @rules, @removeRules;
@@ -285,7 +286,9 @@ sub _matchUser
     if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
         try {
             $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
-        } catch EBox::Exceptions::DataExists with {}; # already in
+        } catch EBox::Exceptions::DataExists with {
+            # already in
+        }
     }
 }
 

@@ -167,7 +167,7 @@ sub run
                     $self->_print_error('Unknown exception');
                 }
             }
-        };
+        }
     }
 }
 

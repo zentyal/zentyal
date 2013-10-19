@@ -98,7 +98,7 @@ sub _process
 
                     my $ex = shift;
                     $ex->throw();
-                };
+                }
                 my $mac = $self->param("mac");
                 EBox::Validate::checkMAC($mac, __("MAC address"));
 

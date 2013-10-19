@@ -123,7 +123,7 @@ sub _preAddOuFailed
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting OU " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _delOU
@@ -142,7 +142,7 @@ sub _delOU
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
-    };
+    }
 }
 
 # Method: _preAddUser
@@ -212,7 +212,7 @@ sub _preAddUserFailed
     } otherwise {
         my ($error) = @_;
         EBox::info("Error removing samba user $uid: $error");
-    };
+    }
 }
 
 # Method: _addUser
@@ -277,7 +277,7 @@ sub _addUserFailed
         EBox::info("Aborted user creation, removing from samba");
         $sambaUser->deleteObject();
     } otherwise {
-    };
+    }
 }
 
 sub _modifyUser
@@ -323,7 +323,7 @@ sub _modifyUser
     } otherwise {
         my ($error) = @_;
         EBox::error("Error modifying user: $error");
-    };
+    }
 }
 
 sub _delUser
@@ -359,7 +359,7 @@ sub _delUser
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting user: $error");
-    };
+    }
 }
 
 # Method: _preAddContact
@@ -419,7 +419,7 @@ sub _preAddContactFailed
     } otherwise {
         my ($error) = @_;
         EBox::debug("Error removing contact " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _modifyContact
@@ -476,7 +476,7 @@ sub _modifyContact
     } otherwise {
         my ($error) = @_;
         EBox::error("Error modifying contact: $error");
-    };
+    }
 }
 
 sub _delContact
@@ -552,7 +552,7 @@ sub _membersToSamba
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error removing member '$memberCanonicalName' from Samba group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -576,7 +576,7 @@ sub _membersToSamba
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding member '$memberCanonicalName' to Samba group '$gid': $error");
-            };
+            }
         }
     }
     unless ($lazy) {
@@ -639,7 +639,7 @@ sub _preAddGroupFailed
     } otherwise {
         my ($error) = @_;
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 # Method: _addGroup
@@ -694,7 +694,7 @@ sub _addGroupFailed
     } otherwise {
         my ($error) = @_;
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 sub _modifyGroup
@@ -732,7 +732,7 @@ sub _modifyGroup
     } otherwise {
         my ($error) = @_;
         EBox::error("Error modifying group: $error");
-    };
+    }
 }
 
 sub _delGroup
@@ -770,7 +770,7 @@ sub _delGroup
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting group: $error");
-    };
+    }
 }
 
 # User and group addons

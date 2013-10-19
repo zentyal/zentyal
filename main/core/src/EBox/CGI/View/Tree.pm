@@ -71,7 +71,7 @@ sub _header
     } otherwise {
         EBox::error("Cannot get pageTitle for Tree");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

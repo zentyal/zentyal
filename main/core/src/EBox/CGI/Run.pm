@@ -94,7 +94,7 @@ sub run
 
         $redis->rollback();
         $ex->throw();
-    };
+    }
 }
 
 # Method: modelFromlUrl

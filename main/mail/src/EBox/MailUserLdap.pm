@@ -253,7 +253,7 @@ sub _addUser
         $self->setUserAccount($user, lc($user->name()), $vdomain);
     } otherwise {
        EBox::info("Creation of email account for $user failed");
-    };
+    }
 }
 
 sub _delGroup

@@ -556,7 +556,7 @@ sub _openHTTPSConnection
                     throw EBox::Exceptions::External(
                         __x('Cannot contact to {host}. Check your connection to the Internet',
                             host => $site));
-                };
+                }
                 my $dnsServer = EBox::RemoteServices::Configuration::DNSServer();
                 EBox::Sudo::root(
                     EBox::Iptables::pf(
@@ -626,7 +626,7 @@ END
     } catch EBox::Exceptions::Command with {
         my ($exc) = @_;
         EBox::error($exc);
-    };
+    }
 }
 
 sub _executeBundleScripts
@@ -643,7 +643,7 @@ sub _executeBundleScripts
             EBox::Sudo::root($script);
         } catch EBox::Exceptions::Command with {
             # ignore script errors
-        };
+        }
     }
 }
 
@@ -717,7 +717,7 @@ sub _checkWSConnectivity
         }
     } catch EBox::Exceptions::Command with {
         $ok = 0;
-    };
+    }
 
     unless ($ok) {
         throw EBox::Exceptions::External(
@@ -813,7 +813,7 @@ sub _removePkgs
     } catch EBox::Exceptions::Command with {
         my ($exc) = @_;
         EBox::debug($exc->stringify());
-    };
+    }
 }
 
 # Get available editions for this user/pass
@@ -840,7 +840,7 @@ sub _writeCredentials
         my ($exc) = @_;
         throw EBox::Exceptions::External(__x("Probably lack of free space: {exc}",
                                              exc  => $exc));
-    };
+    }
     chmod(0600, $credentialsFilePath);
 }
 

@@ -471,7 +471,7 @@ sub _normalize
                 EBox::warn('Row ' . $id . " is being removed. Reason: $exc");
                 $self->removeRow($id, 1);
                 $removeNum++;
-            };
+            }
         }
     }
 

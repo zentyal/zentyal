@@ -733,7 +733,7 @@ sub clone
         $dstRow->cloneSubModelsFrom($srcRow)
     } finally {
         $self->setDirectory($origDir);
-    };
+    }
 }
 
 1;

@@ -67,7 +67,7 @@ sub new
             my ($ex) = @_;
             EBox::warn("Error connecting with SMB server: $ex, retrying ($try attempts)");
             sleep 1;
-        };
+        }
     }
     if (not $ok) {
         throw EBox::Exceptions::External("Error connecting with SMB server after $maxTries tries.");

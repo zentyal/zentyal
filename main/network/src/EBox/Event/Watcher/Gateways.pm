@@ -238,7 +238,7 @@ sub run
                 } catch EBox::Exceptions::Lock with {
                     sleep 5;
                     $timeout -= 5;
-                };
+                }
                 if ($done) {
                     last;
                 }

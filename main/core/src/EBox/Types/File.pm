@@ -128,20 +128,16 @@ sub isEqualTo
             EBox::Sudo::silentRoot("diff -q $path $tmpPath");
             # diff return value 0; they are equal
             $equal = 1;
-        }
-        otherwise {
+        } otherwise {
             # diff command failed, we assume they are different (cannot find
             # a reliable documentation of diff command's return values)
             $equal = 0;
-
-        };
+        }
 
         return $equal;
-    }
-    elsif ($uploadFile) {
+    } elsif ($uploadFile) {
         return 0
-    }
-    elsif ($removeFile) {
+    } elsif ($removeFile) {
         return 0;
     }
 
@@ -622,7 +618,7 @@ sub _moveToPath
         my $ex = shift;
         EBox::Sudo::root("rm -f '$path'");
         $ex->throw();
-    };
+    }
 }
 
 1;

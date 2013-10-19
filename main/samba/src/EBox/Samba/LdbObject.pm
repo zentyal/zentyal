@@ -67,7 +67,7 @@ sub new
             my ($error) = @_;
 
             throw EBox::Exceptions::MissingArgument("$error|objectGUID");
-        };
+        }
     }
 
     return $self;

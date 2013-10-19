@@ -68,7 +68,7 @@ sub _process
         $self->{msg} = __x('Error restarting service {mod}. See {logs} for more information.',
                            mod  => $name,
                            logs => EBox::Config::logfile());
-    };
+    }
     $self->cgi()->delete_all();
 }
 

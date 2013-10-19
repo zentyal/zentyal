@@ -193,7 +193,7 @@ sub _existsFullBackup
 
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
-    };
+    }
 
     foreach my $st (@{ $status }) {
         if ($st->{type} eq 'Full') {
@@ -229,7 +229,7 @@ sub _adjustType
         my $errorMsg = _errorMessageFromDuplicityCmd($ex);
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
-    };
+    }
 
     if ($type eq 'full-only-once') {
         if (_existsFullBackup($ebackup, $type)) {
@@ -270,7 +270,7 @@ sub _removeExpiredBackups
                            . 'Internet connection prior to perform the backup');
         }
         throw EBox::Exceptions::External($errorMsg);
-    };
+    }
 }
 
 sub _cleanup
@@ -287,7 +287,7 @@ sub _cleanup
         my ($ex) = @_;
         my $error = _errorMessageFromDuplicityCmd($ex);
         EBox::error("When trying to clean up old backup sets: $error");
-    };
+    }
 }
 
 sub _preCheckTargetHook
@@ -301,7 +301,7 @@ sub _preCheckTargetHook
         _prepareAndSendEvent(0, $type, "$ex");
         $ebackup->backupProcessUnlock();
         exit 1;
-    };
+    }
 }
 
 # Try to back up with n_tries using a geometric progression
@@ -339,7 +339,7 @@ sub _performBackup
     } otherwise {
         my $ex = @_;
         $preHookError = "$ex";
-    };
+    }
     if ($preHookError) {
         $success = 0;
         $errorMsg = __x('Error running pre backup hook {err}',
@@ -363,7 +363,7 @@ sub _performBackup
             my ($ex) = @_;
             $success = 0;
             $errorMsg = "$ex";
-        };
+        }
         last if ($success);
         # Error comes from a timeout? We can only assure the exception
         # comes from the backend
@@ -389,7 +389,7 @@ sub _performBackup
     } otherwise {
         my $ex = @_;
         $postHookError = "$ex";
-    };
+    }
 
     if ($postHookError) {
         $success = 0;
@@ -459,7 +459,7 @@ try {
     print "\n";
     _prepareAndSendEvent(0, $type, $alreadyMsg);
     $mustExit= 1;
-};
+}
 if ($mustExit) {
     exit $mustExit;
 }
@@ -479,7 +479,7 @@ try {
         _prepareAndSendEvent(0, $type, "$ex");
         $ebackup->backupProcessUnlock();
         exit 1;
-    };
+    }
 
     if ($type eq 'full') {
         try {
@@ -487,7 +487,7 @@ try {
         } otherwise {
             my ($ex) = @_;
             EBox::error("Error trying to remove old backups: $ex");
-        };
+        }
     }
 
     try {
@@ -495,7 +495,7 @@ try {
     } otherwise {
         my $ex = @_;
         EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
-    };
+    }
 
     my $backupCmd = backupCmd($ebackup, $type);
     ($success, $successMsg, $errorMsg) = _performBackup($ebackup, $backupCmd);

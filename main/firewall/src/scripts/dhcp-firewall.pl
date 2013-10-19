@@ -39,7 +39,7 @@ while ($timeout) {
 	} catch EBox::Exceptions::Lock with {
 		sleep 5;
 		$timeout -= 5;
-	};
+	}
 }
 
 EBox::error("DHCP hook: Firewall module has been locked for 60 seconds, ".

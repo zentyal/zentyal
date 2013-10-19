@@ -49,4 +49,4 @@ try {
     }
 } finally {
     exit;
-};
+}

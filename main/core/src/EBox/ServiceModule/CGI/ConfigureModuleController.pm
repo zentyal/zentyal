@@ -73,7 +73,7 @@ sub _process
                 throw EBox::Exceptions::Internal('Failed to enable' . $dep->name() . ' ' .
                                                      $excep->stringify());
             }
-        };
+        }
     }
 
 
@@ -89,7 +89,7 @@ sub _process
             throw EBox::Exceptions::Internal("Failed to enable: " .
                 $excep->stringify());
         }
-    };
+    }
     $self->{redirect} = "ServiceModule/StatusView";
 }
 

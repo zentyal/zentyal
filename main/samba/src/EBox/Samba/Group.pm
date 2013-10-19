@@ -180,7 +180,7 @@ sub addToZentyal
                 } otherwise {
                     my $error = shift;
                     EBox::error("Error adding member: $error");
-                };
+                }
             }
             $self->save();
             # 2. link both objects.
@@ -235,7 +235,7 @@ sub addToZentyal
     } otherwise {
         my $error = shift;
         EBox::error("Error loading group '$name': $error");
-    };
+    }
 
     if ($zentyalGroup and $zentyalGroup->exists()) {
         $self->_membersToZentyal($zentyalGroup);
@@ -333,7 +333,7 @@ sub _membersToZentyal
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error removing member '$memberCanonicalName' from Zentyal group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -364,7 +364,7 @@ sub _membersToZentyal
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding member '$memberCanonicalName' to Zentyal group '$gid': $error");
-            };
+            }
         }
     }
 

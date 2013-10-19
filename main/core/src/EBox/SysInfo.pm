@@ -452,7 +452,7 @@ sub _restartAllServices
             $mod->restartService();
         } catch EBox::Exceptions::Internal with {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed ne "") {
         throw EBox::Exceptions::Internal("The following modules " .
@@ -465,7 +465,7 @@ sub _restartAllServices
         EBox::Sudo::root('service rsyslog restart',
                          'service cron restart');
     } catch EBox::Exceptions::Internal with {
-    };
+    }
 }
 
 my $_dashboardStatusStrings;

@@ -199,7 +199,7 @@ sub checkMaster
     } otherwise {
         my $ex = shift;
         $self->_analyzeException($ex);
-    };
+    }
 
     # Check that master's REALM is correct
     $self->_checkRealm($users, $master);
@@ -254,7 +254,7 @@ sub setupSlave
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);
-        };
+        }
 
         # Write master certificate
         # (after registering slave, this means everything went well)

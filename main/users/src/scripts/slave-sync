@@ -48,7 +48,7 @@ try {
     (@{$slaves}) or exit 0;
 } otherwise {
     exit 0;
-};
+}
 
 processDir($slaves, EBox::Config::home() . 'syncjournal/');
 

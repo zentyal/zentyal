@@ -104,7 +104,7 @@ unless ($dsServiceName =~/$schemaMaster/i) {
     } otherwise {
         my ($error) = @_;
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $domainNamingMaster = $fsmo->getDomainNamingMaster();
@@ -115,7 +115,7 @@ unless ($dsServiceName =~/$domainNamingMaster/i) {
     } otherwise {
         my ($error) = @_;
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $pdcEmulationMaster = $fsmo->getPdcEmulationMaster();
@@ -126,7 +126,7 @@ unless ($dsServiceName =~/$pdcEmulationMaster/i) {
     } otherwise {
         my ($error) = @_;
         print "ERROR: $error\n";
-    };
+    }
 }
 
 
@@ -138,7 +138,7 @@ unless ($dsServiceName =~/$ridAllocationMaster/i) {
     } otherwise {
         my ($error) = @_;
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $infrastructureMaster = $fsmo->getInfrastructureMaster();
@@ -149,7 +149,7 @@ unless ($dsServiceName =~/$infrastructureMaster/i) {
     } otherwise {
         my ($error) = @_;
         print "ERROR: $error\n";
-    };
+    }
 }
 
 print "Migrated successfully!\n";

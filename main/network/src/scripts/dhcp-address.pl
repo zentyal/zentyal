@@ -46,4 +46,4 @@ try {
     EBox::error("Call to setDHCPAddress for $iface failed");
 } finally {
     exit;
-};
+}

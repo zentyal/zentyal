@@ -77,7 +77,7 @@ sub sync
         my $name = $self->name();
         EBox::error("Error notifying $name for $signal: $ex");
         $self->savePendingSync($signal, $args);
-    };
+    }
 }
 
 # method: savePendingSync
@@ -148,7 +148,7 @@ sub syncFromFile
         my ($ex) = @_;
         my $name = $self->name();
         EBox::error("Error notifying $name for $method: $ex");
-    };
+    }
 }
 
 sub readActionInfo

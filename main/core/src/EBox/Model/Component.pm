@@ -250,7 +250,7 @@ sub executeOnBrothers
         }
     } finally {
         $self->setDirectory($dir);
-    };
+    }
 
     return $res;
 }

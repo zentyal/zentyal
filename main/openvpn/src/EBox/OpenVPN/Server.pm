@@ -890,7 +890,7 @@ sub summary
         defined $localAddress or $localAddress = __('All external interfaces');
     } catch EBox::Exceptions::External with {
         $localAddress = __('Not found');
-    };
+    }
     push (@summary, (__('Local address'), $localAddress));
 
     my $proto   = $self->proto();

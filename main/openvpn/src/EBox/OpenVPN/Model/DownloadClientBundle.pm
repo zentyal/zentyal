@@ -330,7 +330,7 @@ sub precondition
         my $ex = shift;
         $self->{addPreconditionMsg} = "$ex";
         $configured = 0;
-    };
+    }
 }
 
 # Method: pageTitle

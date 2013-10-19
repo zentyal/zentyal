@@ -170,7 +170,7 @@ sub addMember
             $ex->throw();
         }
         EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
-    };
+    }
 }
 
 # Method: removeMember
@@ -609,7 +609,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }

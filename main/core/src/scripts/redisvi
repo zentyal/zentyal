@@ -59,7 +59,7 @@ if ($? == 0) {
         print "Import of modifications failed, restoring the original...\n";
         $redis->delete_dir($dir);
         $redis->import_dir_from_file("$dumpfile.orig");
-    };
+    }
 }
 
 unlink $dumpfile;

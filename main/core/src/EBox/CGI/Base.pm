@@ -289,7 +289,7 @@ sub run
         } otherwise {
             my $e = shift;
             throw $e;
-        };
+        }
     }
 
     if (defined($self->{error})) {
@@ -912,7 +912,7 @@ sub upload
     } finally {
         close $UPLOAD_FH;
         close $FH;
-    };
+    }
 
     # return the created file in tmp
     return $filename;

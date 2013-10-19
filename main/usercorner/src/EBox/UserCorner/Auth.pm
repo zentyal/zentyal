@@ -174,7 +174,7 @@ sub checkPassword # (user, password)
         } otherwise {
             # exception == auth failed
             $userDN = undef;
-        };
+        }
     }
 
     # Force the LDAP connection clean up to prevent any other privileged query that may happen.

@@ -105,7 +105,6 @@ sub create
         }
 
         $res = new EBox::Samba::Contact(dn => $dn);
-
     } otherwise {
         my ($error) = @_;
 
@@ -117,7 +116,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -161,7 +160,7 @@ sub addToZentyal
     } otherwise {
         my $error = shift;
         EBox::error("Error loading contact '$name': $error");
-    };
+    }
 }
 
 sub updateZentyal

@@ -88,7 +88,7 @@ sub _checkConfigSubs
             } otherwise {
                 skip 1, "To retrieve key $subName is needed a eBox full installation";
                 next;
-            };
+            }
 
             is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
         }
@@ -106,7 +106,7 @@ sub _getConfigKeysAndValues
         } otherwise {
             diag "can not get the vaule of $_ because it needs a eBox's full installation";
             $value = undef;
-        };
+        }
 
         ($_ => $value)
     } @keyNames;

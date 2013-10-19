@@ -220,10 +220,9 @@ sub _setPrivateFile
         EBox::Sudo::root("cp '$path' '$newPath'");
         EBox::Sudo::root("chmod 0400 '$newPath'");
         EBox::Sudo::root("chown 0.0 '$newPath'");
-    }
-    otherwise {
+    } otherwise {
         EBox::Sudo::root("rm -f '$newPath'");
-    };
+    }
 
     $self->setConfString($type, $newPath);
 
@@ -629,15 +628,13 @@ sub restoreCertificates
                                    caCertificate => "$d/caCertificate",
                                    certificate   => "$d/certificate",
                                    certificateKey => "$d/certificateKey");
-    }
-    otherwise {
+    } otherwise {
         my $e = shift;
         EBox::error(  'Error restoring certifcates for client '
                     . $self->name
                     .'. Probably the certificates will be  inconsistents');
         $e->throw();
-    };
-
+    }
 }
 
 # Method: setCertificatesFilesForName

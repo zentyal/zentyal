@@ -69,8 +69,8 @@ sub checkModuleInstantiation
     try {
         $instance = $global->modInstance($moduleName);
     } otherwise {
-        $modInstanceError = 1;;
-    };
+        $modInstanceError = 1;
+    }
 
     if ($modInstanceError or !defined $instance) {
         $Test->ok(0, "Cannot create an instance of the EBox's module $moduleName");
@@ -98,7 +98,7 @@ sub checkModels
             $mod->model($name);
         } otherwise {
             push @failedModels, $name;
-        };
+        }
     }
 
     my $modName = $mod->name();
@@ -119,7 +119,7 @@ sub checkComposites
             $mod->composite($name);
         } otherwise {
             push @failedComposites, $name;
-        };
+        }
     }
 
     my $modName = $mod->name();

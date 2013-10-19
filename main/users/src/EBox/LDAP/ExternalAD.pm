@@ -492,7 +492,7 @@ sub initKeyTabs
         unless (defined $ok and $ok == 1) {
             EBox::error("kdestroy: " . kerror());
         }
-    };
+    }
 }
 
 
@@ -543,7 +543,7 @@ sub _adCheckClockSkew
         throw EBox::Exceptions::External(
             __x('Could not retrive time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};

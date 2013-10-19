@@ -117,7 +117,7 @@ sub _prepare # (fifo)
                 } otherwise {
                     EBox::warn("Error creating inotify watch on $file: $!");
                     $skip = 1;
-                };
+                }
                 next if $skip;
 
                 $self->{filehandlers}->{$file} = $FH;
@@ -151,7 +151,7 @@ sub _parseLog
                 $obj->processLine($file, $line, $self->{'dbengine'});
             } otherwise {
                 EBox::warn("Error processing line $line of $file: $@");
-            };
+            }
         }
         last unless ($rest);
     }

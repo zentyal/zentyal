@@ -132,11 +132,11 @@ sub precondition
     my @status;
     my $statusFailure;
     try {
-       @status = @{$self->{confmodule}->remoteStatus()};
-   } catch EBox::Exceptions::External with {
-       my ($ex) = @_;
-       $statusFailure = $ex->text();
-   };
+        @status = @{$self->{confmodule}->remoteStatus()};
+    } catch EBox::Exceptions::External with {
+        my ($ex) = @_;
+        $statusFailure = $ex->text();
+    }
 
     if ($statusFailure) {
         $self->{preconditionFailMsg} = $statusFailure;
@@ -288,7 +288,7 @@ sub viewCustomizer
                );
         } otherwise {
             # could not get the URL we don't put any message
-        };
+        }
     }
     return $customizer;
 }

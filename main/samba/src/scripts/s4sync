@@ -106,7 +106,7 @@ while (1) {
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalOUs{$canonicalName};
         } else {
@@ -115,7 +115,7 @@ while (1) {
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -144,7 +144,7 @@ while (1) {
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalUsers{$sambaUserName};
         } else {
@@ -153,7 +153,7 @@ while (1) {
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -177,7 +177,7 @@ while (1) {
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalContacts{$sambaContactCanonicalName};
         } else {
@@ -186,7 +186,7 @@ while (1) {
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -211,7 +211,7 @@ while (1) {
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalGroups{$sambaGroupName};
         } else {
@@ -220,7 +220,7 @@ while (1) {
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 

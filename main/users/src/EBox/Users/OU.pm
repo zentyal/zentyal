@@ -145,7 +145,7 @@ sub create
         $ou = undef;
         $entry = undef;
         $error->throw();
-    };
+    }
 
     return $ou;
 }

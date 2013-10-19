@@ -17,6 +17,6 @@ try {
    }
    $software->st_unset('lockedBy');
    $software->st_unset('lockerPid');
-};
+}
 
 1;

@@ -233,7 +233,7 @@ sub save
     } finally {
         $global->modRestarted($self->name);
         $self->_unlock();
-    };
+    }
 }
 
 # Method: saveConfig
@@ -246,14 +246,13 @@ sub saveConfig
 
     $self->_lock();
     try {
-      my $global = EBox::Global->getInstance();
-      my $log = EBox::logger;
-      $log->info("Saving config for module: " . $self->name);
-      $self->_saveConfig();
+        my $global = EBox::Global->getInstance();
+        my $log = EBox::logger;
+        $log->info("Saving config for module: " . $self->name);
+        $self->_saveConfig();
+    } finally {
+        $self->_unlock();
     }
-    finally {
-      $self->_unlock();
-    };
 }
 
 # Method: saveConfigRecursive
@@ -870,7 +869,7 @@ sub pidFileRunning
         }
     } otherwise {
         $pid = undef;
-    };
+    }
     if ($pid and $self->pidRunning($pid)) {
         return $pid;
     } else {
@@ -997,7 +996,7 @@ sub _writeFileCreateTmpFile
     }
     finally {
         umask $oldUmask;
-    };
+    }
 
     return ($fh, $tmpfile);
 }
@@ -1089,7 +1088,7 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     } otherwise {
         my $ex = shift;
         throw EBox::Exceptions::Internal("Template $compname failed with $ex");
-    };
+    }
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not
     # scare users. New mason version fixes this issue

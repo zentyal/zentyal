@@ -25,7 +25,7 @@ try {
     checkFileDump();
 } finally {
     finalize();
-};
+}
 
 sub startup
 {

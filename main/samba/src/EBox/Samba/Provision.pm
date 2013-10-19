@@ -541,7 +541,7 @@ sub provisionDC
         throw $error;
     } finally {
         $self->setProvisioning(0);
-    };
+    }
 
     try {
         # Disable password policy
@@ -578,7 +578,7 @@ sub provisionDC
         my ($error) = @_;
         $self->setProvisioned(0);
         throw EBox::Exceptions::External($error);
-    };
+    }
 }
 
 sub rootDseAttributes
@@ -945,7 +945,7 @@ sub checkClockSkew
         throw EBox::Exceptions::External(
             __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};
@@ -1376,7 +1376,7 @@ sub provisionADC
         EBox::Sudo::rootWithoutException('kdestroy');
 
         $self->setProvisioning(0);
-    };
+    }
 }
 
 1;

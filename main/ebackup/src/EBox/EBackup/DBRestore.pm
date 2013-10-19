@@ -53,7 +53,7 @@ sub restoreEBoxLogs
         }
 
         $ex->throw();
-    };
+    }
 
     restoreEBoxLogsFromDir($dumpDirTmp, $date);
     EBox::Sudo::root("rm -rf $dumpDirTmp");

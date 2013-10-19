@@ -494,7 +494,7 @@ sub _manageEvents # (subscribing)
             $eventMod->enableWatcher('EBox::Event::Watcher::Updates', $subscribing );
         } catch EBox::Exceptions::DataNotFound with {
             # Ignore when the event watcher is not there
-        };
+        }
     }
 }
 

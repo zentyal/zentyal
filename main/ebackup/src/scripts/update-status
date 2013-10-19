@@ -56,7 +56,7 @@ try {
 
 } finally {
     $ebackup->updateStatusInBackgroundUnlock;
-};
+}
 
 sub _oldStatus
 {

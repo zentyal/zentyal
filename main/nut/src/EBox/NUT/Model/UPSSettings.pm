@@ -49,7 +49,7 @@ sub upsVariables
         my $error = shift;
         my $text = join ('', @{$error->{error}});
         $self->setMessage("There was a problem reading settings. $text", 'warning');
-    };
+    }
 
     my $vars = {};
 
@@ -149,7 +149,7 @@ sub setTypedRow
         $self->setMessage(__x('Setting {s} successfully updated. It may take some seconds to reflect the change.', s => $id));
     } otherwise {
         $self->setMessage(__x('There was a problem updating setting {s}.', s => $id), 'warning');
-    };
+    }
 
 }
 

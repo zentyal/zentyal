@@ -93,7 +93,7 @@ sub readModInfo # (module)
             ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
         } otherwise {
             $yaml = undef;
-        };
+        }
         $self->{mod_info}->{name} = $yaml;
     }
     return $self->{mod_info}->{name};
@@ -377,7 +377,7 @@ sub revokeAllModules
             $mod->revokeConfig;
         } catch EBox::Exceptions::Internal with {
             $failed .= "$name ";
-        };
+        }
     }
 
     # discard logging of revoked changes
@@ -605,7 +605,7 @@ sub saveAllModules
                 EBox::debug("Failed to enable module $name: $err");
             } finally {
                 delete $module->{firstInstall};
-            };
+            }
         }
 
         # in first install sysinfo module is in changed state
@@ -659,7 +659,7 @@ sub saveAllModules
             my $ex = shift;
             EBox::error("Failed to save changes in module $name: $ex");
             $failed .= "$name ";
-        };
+        }
     }
 
     # Delete first time installation file (wizard)
@@ -684,7 +684,7 @@ sub saveAllModules
             my $ex = shift;
             EBox::error("Failed to save changes in module webadmin: $ex");
             $failed .= "webadmin ";
-        };
+        }
     }
 
     # TODO: tell events module to resume its watchers
@@ -702,7 +702,7 @@ sub saveAllModules
             my $ex = shift;
             EBox::error("Failed to restart $modName after save changes: $ex");
             $failed .= "$modName ";
-        };
+        }
     }
     $self->unset('post_save_modules');
 
@@ -759,7 +759,7 @@ sub restartAllModules
             $mod->restartService();
         } catch EBox::Exceptions::Internal with {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed eq "") {
         return;
@@ -792,7 +792,7 @@ sub stopAllModules
             $mod->stopService();
         } catch EBox::Exceptions::Internal with {
             $failed .= "$name ";
-        };
+        }
     }
 
     if ($failed eq "") {
@@ -1287,7 +1287,7 @@ sub _runExecFromDir
             } otherwise {
                 my ($exc) = @_;
                 EBox::error("Error executing $exec: $exc");
-            };
+            }
         }
     }
 }

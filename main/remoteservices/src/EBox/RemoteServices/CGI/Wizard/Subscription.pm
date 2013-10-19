@@ -58,7 +58,7 @@ sub _masonParameters
         chomp($res);
     } otherwise {
         EBox::error("Could not retrieve subscription promo status: $res");
-    };
+    }
 
     my $promo = ($res eq '1');
 
@@ -148,7 +148,7 @@ sub _register
                               $sector);
     } otherwise {
         throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
-    };
+    }
 
     if (not $result or $result->fault) {
         if ($result) {

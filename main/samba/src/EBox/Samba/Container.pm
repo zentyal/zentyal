@@ -82,7 +82,7 @@ sub addToZentyal
     } otherwise {
         my $error = shift;
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    };
+    }
 }
 
 sub updateZentyal

@@ -109,8 +109,7 @@ sub _getStorageUsage
         if (not $badConnection) {
             $ex->throw();
         }
-
-    };
+    }
 
     $self->{badConnection} = $badConnection;
 

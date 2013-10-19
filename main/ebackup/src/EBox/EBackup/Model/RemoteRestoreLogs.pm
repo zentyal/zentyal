@@ -72,7 +72,7 @@ sub precondition
     } catch EBox::Exceptions::External with {
         # ignore error, it will be shown in the same composite by the model
         # RemoteRestoreConf
-    };
+    }
     return 0 if not @status;
     my $logs = $self->global()->modInstance('logs');
     if (not $logs) {

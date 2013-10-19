@@ -115,7 +115,7 @@ sub precondition
    } catch EBox::Exceptions::External with {
        my ($ex) = @_;
        $statusFailure = $ex->text();
-   };
+   }
 
     if ($statusFailure) {
         $self->{preconditionFailMsg} = $statusFailure;

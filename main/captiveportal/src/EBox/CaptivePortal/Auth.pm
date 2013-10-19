@@ -224,7 +224,7 @@ sub _checkLdapPassword
         }
     } otherwise {
         $authorized = 0; # auth failed
-    };
+    }
 
     return $authorized;
 }

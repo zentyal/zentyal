@@ -443,7 +443,7 @@ sub create
         my ($error) = @_;
         $createdGPO->deleteObject();
         throw $error;
-    };
+    }
 
     return $createdGPO;
 }

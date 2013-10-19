@@ -45,7 +45,7 @@ foreach my $user (@{$ldapUsers}) {
     } otherwise {
         my ($error) = @_;
         print "\tError: $error\n";
-    };
+    }
 }
 print "\n";
 
@@ -65,7 +65,7 @@ foreach my $group (@{$ldapGroups}) {
     } otherwise {
         my ($error) = @_;
         print "\tError: $error\n";
-    };
+    }
 }
 print "\n";
 

@@ -597,15 +597,13 @@ sub monitorGathererIPAddresses
             try {
                 $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
             } catch EBox::Exceptions::Base with {
-                ;
-            };
+            }
         } else {
             try {
                 # TODO: Do not hardcode
                 $monGatherers = ['mon.' . $self->cloudDomain()];
             } catch EBox::Exceptions::External with {
-                ;
-            };
+            }
         }
     }
     return $monGatherers;
@@ -635,7 +633,8 @@ sub controlPanelURL
         if ($cloudDomain ne 'cloud.zentyal.com') {
             $url = "www.$cloudDomain";
         }
-    } otherwise {};
+    } otherwise {
+    }
 
     return "https://${url}/";
 }
@@ -794,7 +793,8 @@ sub reloadBundle
                                   dispatchTo  => [ 'ControlCenter' ]);
         my $evts = $self->global()->modInstance('events');
         $evts->sendEvent(event => $evt);
-    };
+    }
+
     return $retVal;
 }
 
@@ -850,7 +850,7 @@ sub subscriptionLevel
         $ret = $self->_getSubscriptionDetails($force)->{level};
     } otherwise {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -884,7 +884,7 @@ sub subscriptionCodename
         $ret = $self->_getSubscriptionDetails($force)->{codename};
     } otherwise {
         $ret = '';
-    };
+    }
     return $ret;
 }
 
@@ -918,7 +918,7 @@ sub technicalSupport
         $ret = $self->_getSubscriptionDetails($force)->{technical_support};
     } otherwise {
         $ret = -2;
-    };
+    }
     return $ret;
 }
 
@@ -950,7 +950,7 @@ sub renovationDate
         $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
     } otherwise {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -1049,7 +1049,7 @@ sub securityUpdatesAddOn
         $ret = $self->_getSubscriptionDetails($force)->{security_updates};
     } otherwise {
         $ret = 0;
-    };
+    }
     return $ret;
 }
 
@@ -1122,7 +1122,7 @@ sub addOnAvailable
         $ret = (exists $subsDetails->{cap}->{$addOn});
     } otherwise {
         $ret = undef;
-    };
+    }
     return $ret;
 }
 
@@ -1160,7 +1160,7 @@ sub addOnDetails
         }
     } otherwise {
         $ret = {};
-    };
+    }
     return $ret;
 }
 
@@ -1625,12 +1625,12 @@ sub _confSOAPService
     my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
-        if ( $self->hasBundle() ) {
+        if ($self->hasBundle()) {
             my @tmplParams = (
                 (soapHandler      => WS_DISPATCHER),
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
-               );
+            );
             EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
             EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
@@ -1642,13 +1642,10 @@ sub _confSOAPService
         # Do nothing if CA or include are already removed
         try {
             $webAdminMod->removeApacheInclude($confFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
             $webAdminMod->removeNginxInclude($confSSLFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
             $webAdminMod->removeCA($self->_caCertPath('force'));
         } catch EBox::Exceptions::Internal with { ; };
+        }
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();
@@ -1934,7 +1931,7 @@ sub _getSubscriptionDetails
             unless (exists $state->{subscription}->{level}) {
                 $exc->throw();
             }
-        };
+        }
 
         if ( defined($details) ) {
             $state->{subscription} = {
@@ -1951,7 +1948,8 @@ sub _getSubscriptionDetails
                 $capList = $cap->list();
                 my %capList = map { $_ => 1 } @{$capList};
                 $state->{subscription}->{cap} = \%capList;
-            } catch EBox::Exceptions::Internal with { ; };
+            } catch EBox::Exceptions::Internal with {
+            }
             $self->set_state($state);
         }
     }
@@ -1977,7 +1975,7 @@ sub _getCapabilityDetail
             unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
                 $exc->throw();
             }
-        };
+        }
         $state->{subscription}->{cap_detail}->{$capName} = $detail;
         $self->set_state($state);
     }
@@ -2088,7 +2086,7 @@ sub restoreConfig
     # cases, the server password has been modified and the backed one
     # is not valid anymore
     my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->eBoxSubscribed()) {
         try {
             # For hackers!
             EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
@@ -2104,7 +2102,7 @@ sub restoreConfig
             $backupSubscribed = 0;
         } finally {
             EBox::Sudo::root('rm -f /tmp/server-info.json');
-        };
+        }
     }
 
     if ($backupSubscribed) {
@@ -2123,7 +2121,7 @@ sub restoreConfig
             EBox::error($ex);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
-        };
+        }
     }
 
     # Mark as changed to make all things work again

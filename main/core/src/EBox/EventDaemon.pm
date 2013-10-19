@@ -170,7 +170,7 @@ sub _mainWatcherLoop
                     EBox::warn("Error executing run from $registeredEvent: $exception");
                     # Deleting from registered events
                     delete ($self->{watchers}->{$registeredEvent});
-                };
+                }
                 # An event has happened
                 if ( defined ( $eventsRef )) {
                     foreach my $event (@{$eventsRef}) {
@@ -240,7 +240,7 @@ sub _mainDispatcherLoop
                 }
             } otherwise {
                 EBox::warn("Cannot log event, Mysql is stopped");
-            };
+            }
         }
     }
 }
@@ -319,7 +319,7 @@ sub _dispatchEventByDispatcher
             my ($exc) = @_;
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
             EBox::error($exc->stringify());
-        };
+        }
     }
 }
 

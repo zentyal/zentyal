@@ -225,7 +225,7 @@ sub export_dir_to_file
         write_file($file, { binmode => ':raw' }, @lines);
     } otherwise {
         throw EBox::Exceptions::External("Error dumping $key to $file");
-    };
+    }
 }
 
 sub _keys
@@ -262,7 +262,7 @@ sub import_dir_from_file
         @lines = split ("\n\n", read_file($filename));
     } otherwise {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
-    };
+    }
 
     $self->begin();
     foreach my $line (@lines) {

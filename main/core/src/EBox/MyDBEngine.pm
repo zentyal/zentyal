@@ -303,7 +303,7 @@ sub _multiInsertBadEncoding
         } otherwise {
             my $ex = shift;
             EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
-        };
+        }
     }
 }
 
@@ -706,7 +706,7 @@ sub restoreDBDump
         my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");
         $ex->throw();
-    };
+    }
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
@@ -714,7 +714,7 @@ sub restoreDBDump
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");
-    };
+    }
 
     if ($onlySchema) {
         EBox::info('Database schema dump for ' . _dbname() . ' restored' );

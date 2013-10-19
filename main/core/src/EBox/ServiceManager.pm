@@ -191,7 +191,7 @@ sub enableAllModules
         } otherwise {
             my ($ex) = @_;
             EBox::warn("Failed to enable module $modName: "  . $ex->text());
-        };
+        }
     }
 }
 

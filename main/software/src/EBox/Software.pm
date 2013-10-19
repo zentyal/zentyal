@@ -234,7 +234,7 @@ sub updatePkgList
     } catch EBox::Exceptions::Internal with {
         EBox::error("Error updating package list");
         return 0;
-    };
+    }
 }
 
 sub _packageListFile
@@ -435,7 +435,7 @@ sub _packageDepends
         } else {
             $ex->throw();
         }
-    };
+    }
 
     my @packages = grep {
     $_ =~ m/
@@ -469,7 +469,7 @@ sub _isAptReady
             $unreadyMsg = __x('Cannot use software package manager. Error output: {err}',
                               err => $stderr);
         }
-    };
+    }
 
     if ($unreadyMsg) {
         throw EBox::Exceptions::External($unreadyMsg);

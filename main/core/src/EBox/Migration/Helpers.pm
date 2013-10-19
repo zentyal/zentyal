@@ -34,7 +34,7 @@ sub runQuery
         $dbengine->do($query);
     } otherwise {
         $error = 1;
-    };
+    }
     return $error;
 }
 

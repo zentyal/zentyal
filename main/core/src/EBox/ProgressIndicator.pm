@@ -484,7 +484,7 @@ sub _cleanupFinished
         } catch EBox::Exceptions::Base with {
             # Ignore this strange case (Already cleaned up)
             ;
-        };
+        }
     }
 
     _collectChildrens();

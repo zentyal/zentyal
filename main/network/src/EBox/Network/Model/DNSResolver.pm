@@ -302,7 +302,7 @@ sub getSystemResolvers
     } otherwise {
         my ($error) = @_;
         EBox::error("Failed to get the list of resolvconf resolvers: $error");
-    };
+    }
 
     return $resolvers;
 }
@@ -333,7 +333,7 @@ sub importSystemResolvers
         EBox::error("Could not import system resolvers: $error");
     } finally {
         $self->table->{insertPosition} = 'back';
-    };
+    }
 }
 
 1;

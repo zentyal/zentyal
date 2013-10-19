@@ -78,7 +78,7 @@ sub _process
         push(@array, 'QAUpdates'        => $software->QAUpdates());
         push(@array, 'updateStatus'     => $software->updateStatus(0));
         $self->{params} = \@array;
-    };
+    }
 }
 
 1;

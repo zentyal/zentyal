@@ -99,7 +99,7 @@ try {
     }
     printLog("Zentyal apt-wrapper $command finished");
     close ($log);
-};
+}
 
 # TODO: Move this to a common logger module
 sub printLog

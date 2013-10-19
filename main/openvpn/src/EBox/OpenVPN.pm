@@ -1140,12 +1140,11 @@ sub newClient
     my $client;
     try {
         $client = $self->_doNewClient($name, %params);
-    }
-    finally {
+    } finally {
         if ($params{bundle}) {
             system 'rm -rf ' . $params{tmpDir};
         }
-    };
+    }
 
     return $client;
 }

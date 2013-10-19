@@ -534,7 +534,7 @@ sub _setupMeasures
     } catch EBox::Exceptions::Internal with {
         # Catch exceptions since it is possible that the monitor
         # module has never been configured (enable once)
-    };
+    }
 }
 
 # Write down the main configuration file
@@ -648,7 +648,7 @@ sub _setThresholdConf
                     # The measure has disappear in some moment, we ignore their thresholds them
                     my ($exc) = @_;
                     EBox::warn($exc);
-                };
+                }
             }
         } else {
             EBox::warn('No threshold configuration is saved since monitor watcher '
@@ -771,7 +771,7 @@ sub _registerRuntimeMeasures
                 $self->{measureManager}->register($line);
             } otherwise {
                 # Cannot load the runtime measure
-            };
+            }
         }
     }
 }

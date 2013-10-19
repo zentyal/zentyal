@@ -65,6 +65,6 @@ try {
 } otherwise {
     $module->redis->rollback();
     EBox::warn("Restart for $modname failed");
-};
+}
 
 exit 0;

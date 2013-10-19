@@ -288,7 +288,7 @@ sub _doProvisionAdditional
         $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
-    };
+    }
 }
 
 sub _doProvision
@@ -334,7 +334,7 @@ sub _doProvision
         $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
-    };
+    }
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -379,7 +379,7 @@ sub _doProvision
                 my ($error) = @_;
                 EBox::error("Error enabling user $samAccountName: $error");
                 # Try next user
-            };
+            }
         }
     }
 }
@@ -419,7 +419,7 @@ sub _doDeprovision
         $self->global->modChange('mail');
         $self->global->modChange('samba');
         $self->global->modChange('openchange');
-    };
+    }
 }
 
 1;

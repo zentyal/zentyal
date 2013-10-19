@@ -109,7 +109,7 @@ sub check
             my ($exc) = @_;
             $self->{lastError} = $exc->text();
             $capable = 0;
-        };
+        }
     } else {
         delete $self->{lastError};
     }

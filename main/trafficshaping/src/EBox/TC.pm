@@ -83,7 +83,7 @@ sub tc
         else {
             $exception->throw();
         }
-    };
+    }
 }
 
 # Method: reset

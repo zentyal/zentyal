@@ -422,17 +422,14 @@ sub _setTest
         else {
             fail($name);
         }
-
-    }
-    otherwise {
+    } otherwise {
         if (not $successExpected) {
             pass($name);
         }
         else {
             fail($name);
         }
-    };
-
+    }
 }
 
 1;

@@ -337,7 +337,7 @@ sub ldapOUToLDB
     } otherwise {
         my $error = shift;
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
-    };
+    }
 
     return $sambaOU;
 }
@@ -414,7 +414,7 @@ sub ldapUsersToLdb
         } otherwise {
             my $error = shift;
             EBox::error("Error loading user '$samAccountName': $error");
-        };
+        }
     }
 }
 
@@ -456,7 +456,7 @@ sub ldapContactsToLdb
         } otherwise {
             my $error = shift;
             EBox::error("Error loading contact '$name' in '$parentDN': $error");
-        };
+        }
     }
 }
 
@@ -497,7 +497,7 @@ sub ldapGroupsToLdb
         } otherwise {
             my $error = shift;
             EBox::error("Error loading group '$name': $error");
-        };
+        }
         next unless defined $sambaGroup;
 
         foreach my $member (@{$group->members()}) {
@@ -508,7 +508,7 @@ sub ldapGroupsToLdb
             } otherwise {
                 my $error = shift;
                 EBox::error("Error adding member: $error");
-            };
+            }
         }
         $sambaGroup->save();
     }
@@ -596,7 +596,7 @@ sub ldapServicePrincipalsToLdb
         } otherwise {
             my $error = shift;
             EBox::error("Error adding account '$samAccountName': $error");
-        };
+        }
     }
 }
 

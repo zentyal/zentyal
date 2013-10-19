@@ -137,7 +137,7 @@ sub moduleAction
         $success = 1;
         $errorMsg = "$ex";
         $redis->rollback() if ($redisTrans);
-    };
+    }
 
     printModuleMessage($modname, $actionName, $success, $errorMsg);
 }

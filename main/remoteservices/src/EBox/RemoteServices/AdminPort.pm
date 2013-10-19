@@ -72,7 +72,7 @@ sub setAdminPort
     } otherwise {
         my $ex = shift;
         EBox::error("Failed to notify admin port to Remote: $ex");
-    };
+    }
 
     return $result;
 }

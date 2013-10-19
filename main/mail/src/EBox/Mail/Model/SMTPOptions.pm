@@ -430,7 +430,7 @@ sub viewCustomizer
         $mailname = $mail->mailname();
     } catch EBox::Exceptions::Internal with {
         $mailname = undef;
-    };
+    }
 
     my $msg;
     if (not defined $mailname) {

@@ -53,6 +53,6 @@ try {
 } otherwise {
     my ($exc) = @_;
     EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $exc->stringify());
-};
+}
 
 1;

@@ -69,7 +69,7 @@ if ($bugReport) {
 
 if ($progressId) {
     my $progress = EBox::ProgressIndicator->retrieve($progressId);
-    
+ 
     # put  progress indicator param
     $params{progress} = $progress;
 }
@@ -101,20 +101,15 @@ try {
         my $reportFile = EBox::Backup->makeBugReport();
         print "Bug report stored into file $reportFile\n";
     }
+} otherwise {
+    my $ex = shift @_;
 
+    if (exists $params{progress}) {
+        $params{progress}->setAsFinished(1, $ex->text);
+    }
+
+    $ex->throw();
 }
-otherwise {
-  my $ex = shift @_;
-
-  if (exists $params{progress}) {
-    $params{progress}->setAsFinished(1, $ex->text);
-  }
-
-
-  $ex->throw();
-};
-
-
 
 sub usage
 {

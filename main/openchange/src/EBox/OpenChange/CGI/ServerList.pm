@@ -80,7 +80,7 @@ sub _process
             value => qq{<li><span class="red">$error</span></li>},
             type => 'error',
         };
-    };
+    }
 }
 
 1;

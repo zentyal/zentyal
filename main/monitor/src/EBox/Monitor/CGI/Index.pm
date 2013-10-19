@@ -86,7 +86,7 @@ sub masonParameters
         } else {
             $ex->throw();
         }
-    };
+    }
 
     if ($needSaveChanges) {
             $self->setTemplate('/msg.mas');

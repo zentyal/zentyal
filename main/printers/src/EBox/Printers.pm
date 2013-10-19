@@ -159,7 +159,8 @@ sub _preSetConf
     try {
         # Stop CUPS in order to force it to dump the conf to disk
         $self->stopService();
-    } otherwise {};
+    } otherwise {
+    }
 }
 
 # Method: _setConf
@@ -280,7 +281,7 @@ sub restoreConfig
             $self->_startService();
         } otherwise {
             EBox::error("Error restoring cups config from backup");
-        };
+        }
     } else {
         # This case can happen with old backups
         EBox::warn('Backup doesn\'t contain CUPS configuration files');

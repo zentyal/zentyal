@@ -66,7 +66,7 @@ sub actuate
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->setChain('RemoteServices/NoConnection');
-    };
+    }
 }
 
 sub masonParameters

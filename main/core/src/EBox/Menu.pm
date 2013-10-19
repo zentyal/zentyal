@@ -61,7 +61,7 @@ sub getKeywords
             }
         } otherwise {
             EBox::debug('No model found for ' . $item->{'url'} . "\n");
-        };
+        }
     }
     if ($item->items()) {
         for my $i (@{$item->items()}) {

@@ -34,4 +34,4 @@ try {
 	$network->DHCPCleanUp($iface);
 } finally {
 	exit;
-};
+}

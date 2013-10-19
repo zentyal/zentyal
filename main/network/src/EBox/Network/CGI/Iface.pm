@@ -137,7 +137,7 @@ sub setIface
         push(@array, 'external' => $external);
         push(@array, 'bridge' => $bridge);
         $self->{params} = \@array;
-    };
+    }
 }
 
 sub _ppoePasswordParam

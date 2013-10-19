@@ -19,7 +19,7 @@ try {
 } catch EBox::Exceptions::Lock with {
     print "Already a manageEBoxLogs process running. Exiting\n";
     exit 0;
-};
+}
 
 try {
     my $logs = EBox::Global->getInstance(1)->modInstance('logs');
@@ -37,6 +37,6 @@ try {
     $logs->purge();
 } finally {
     EBox::Util::Lock::unlock(LOCK_NAME);
-};
+}
 
 1;

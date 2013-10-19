@@ -56,7 +56,7 @@ sub checkTemplateExecution
         my $ex = shift @_;
         $templateError = "$ex";
         $templateOutput = \$templateError; # templateOutput must be a scalar ref to be in the same form that the return value of executeTemplate
-    };
+    }
 
     ok $templateExecutionOk, $testName;
 

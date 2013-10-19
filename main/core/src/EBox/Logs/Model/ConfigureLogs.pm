@@ -344,7 +344,7 @@ sub acquireEventConfURL
         $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
     } catch EBox::Exceptions::DataNotFound with {
         $logFilteringWatcher = undef;
-    };
+    }
 
     if ( $logFilteringWatcher ) {
         return '/' . $logFilteringWatcher->menuNamespace()

@@ -108,7 +108,7 @@ try {
         $progress->setAsFinished(1, $ex->text);
     }
     $ex->throw();
-};
+}
 
 sub info
 {

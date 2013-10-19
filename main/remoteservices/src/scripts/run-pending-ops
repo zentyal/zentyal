@@ -35,7 +35,7 @@ sub _runPendingOps
 
     my @files;
     opendir(my $dir, $journalDirPath);
-    while (my $file = readdir($dir) ) {
+    while (my $file = readdir($dir)) {
         next if ( $file =~ m:^\.: );
         my $filePath = "${journalDirPath}$file";
         next unless ( -f $filePath );
@@ -53,15 +53,15 @@ sub _runPendingOps
             EBox::error("Can't parse $filePath $content: $exc");
         } finally {
             unlink($filePath);
-        };
-        next unless ( defined($op) );
+        }
+        next unless (defined($op));
         my $rest = new EBox::RemoteServices::Cred()->RESTClient();
         try {
             $rest->request($op->{method}, $op->{path}, $op->{query});
         } otherwise {
             my ($exc) = @_;
             EBox::error("Can't perform the request: $exc");
-        };
+        }
     }
 }
 

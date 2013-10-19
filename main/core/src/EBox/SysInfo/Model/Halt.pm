@@ -123,7 +123,7 @@ sub _updateHaltInProgress
         # it is a system halt/reboot so we will not unlock this
     } otherwise {
         $haltInProgress = 1;
-    };
+    }
 }
 
 sub _prepareSystemForHalt

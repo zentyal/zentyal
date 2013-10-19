@@ -68,7 +68,7 @@ try {
 } catch EBox::Exceptions::External with {
     # Bundle reload it is only possible with a subscribed Zentyal
     ;
-};
+}
 
 1;
 

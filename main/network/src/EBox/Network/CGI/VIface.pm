@@ -83,7 +83,7 @@ sub _process
             push(@array, 'iface' => $iface);
             push(@array, 'viface' => $viface);
             $self->{params} = \@array;
-        };
+        }
     }
 }
 

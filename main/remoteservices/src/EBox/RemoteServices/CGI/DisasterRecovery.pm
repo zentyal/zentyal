@@ -50,7 +50,7 @@ sub _process
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->setChain('RemoteServices/NoConnection');
-    };
+    }
 
     $self->{params} = \@array;
 }

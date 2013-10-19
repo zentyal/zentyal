@@ -162,7 +162,7 @@ sub enableActions
     } otherwise {
         my $error = shift;
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -741,7 +741,7 @@ sub _checkSquidFile
         my ($ex) = @_;
         my $error = join ' ', @{ $ex->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools

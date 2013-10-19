@@ -178,7 +178,7 @@ sub _process
 
         # Set this on error
         $self->{json}->{error} = $error;
-    };
+    }
 }
 
 1;

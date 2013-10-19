@@ -1010,7 +1010,7 @@ sub _createDirectories
             } else {
                 $ex->throw();
             }
-        };
+        }
         last if $chownOk;
     };
 }
@@ -1365,7 +1365,8 @@ sub dumpConfig
     if ($self->_s4syncCond()) {
         try {
             EBox::Service::manage('zentyal.s4sync', 'stop');
-        } otherwise {};
+        } otherwise {
+        }
     }
 
     my $mirror = EBox::Config::tmp() . "/samba.backup";
@@ -1419,7 +1420,7 @@ sub dumpConfig
         throw $error;
     } finally {
         EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
-    };
+    }
 
     # Backup admin password
     unless ($options{bug}) {

@@ -101,7 +101,7 @@ sub isRunning
         return EBox::Service::running(AMAVIS_SERVICE);
     } catch EBox::Exceptions::Internal with {
         return undef;
-    };
+    }
 }
 
 sub stopService

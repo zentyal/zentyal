@@ -90,13 +90,13 @@ try {
     fail('exec without multi not allowed');
 } otherwise {
     pass('exec without multi not allowed');
-};
+}
 
 try {
     $redis->{redis}->discard();
     fail('discard without begin not allowed');
 } otherwise {
     pass('discard without begin not allowed');
-};
+}
 
 1;

@@ -166,7 +166,7 @@ sub _backupAction
     } otherwise {
         my ($ex) = @_;
         $self->setErrorFromException($ex);
-    };
+    }
 
     if ($progressIndicator) {
         $self->_showBackupProgress($progressIndicator);
@@ -213,7 +213,7 @@ sub _restore
     } otherwise {
         my ($ex) = @_;
         $self->setErrorFromException($ex);
-    };
+    }
 
     if ($progressIndicator) {
         $self->_showRestoreProgress($progressIndicator);

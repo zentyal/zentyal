@@ -106,7 +106,7 @@ sub commandTest
     } otherwise {
         $ex = shift @_;
         pass $testName;
-    };
+    }
 
     isa_ok($ex, 'EBox::Exceptions::Command');
     is $ex->cmd(), $failCommand, 'Checking command attribute of command wich fails';

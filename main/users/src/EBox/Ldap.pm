@@ -94,7 +94,8 @@ sub connection
         try {
             my $r = Apache2::RequestUtil->request();
             $auth_type = $r->auth_type;
-        } catch Error with {};
+        } otherwise {
+        }
 
         if (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth') {
@@ -115,7 +116,7 @@ sub connection
             } otherwise {
                 my ($error) = @_;
                 throw $error;
-            };
+            }
             $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};
         } else {

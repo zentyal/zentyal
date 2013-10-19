@@ -44,7 +44,7 @@ try {
 } otherwise {
     logevent('ERROR', "Cannot read $CONFFILE. Exiting now...");
     exit 1;
-};
+}
 
 # Create the queue and launch threads
 my $q = Thread::Queue->new();
@@ -75,7 +75,7 @@ try {
 } otherwise {
     my ($error) = @_;
     exit 1;
-};
+}
 
 
 ##
@@ -127,7 +127,8 @@ sub work
     while (not $pingOK) {
         try {
             $pingOK = $scanner->ping();
-        } otherwise {};
+        } otherwise {
+        }
 
         unless ($pingOK) {
             logevent('WARN', 'clamAV daemon not responding, will try again in 10 seconds...');
@@ -186,7 +187,7 @@ sub work
             my ($error) = @_;
             logevent('ERROR', "Unexpected error, thread ends now: $error");
             threads->exit();
-        };
+        }
     }
 }
 

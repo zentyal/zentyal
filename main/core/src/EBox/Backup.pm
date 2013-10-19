@@ -365,7 +365,8 @@ sub _bug
     try {
         EBox::Sudo::root("/sbin/iptables -nvL > $dir/iptables-filter",
                          "/sbin/iptables -t nat -nvL > $dir/iptables-nat");
-    } catch EBox::Exceptions::Base with {};
+    } catch EBox::Exceptions::Base with {
+    }
 
     my $eboxLogDir = EBox::Config::log();
     # copy files from ebox logs directories...
@@ -589,7 +590,8 @@ sub listBackups
         my $entry = undef;
         try {
             $entry = $self->backupDetails($backup);
-        } catch EBox::Exceptions::Base with {};
+        } catch EBox::Exceptions::Base with {
+        }
         unless ($entry) {
             EBox::info("File $backupdir.$backup.tar is in backup directorty and is not a backup file");
             next;
@@ -1345,10 +1347,9 @@ sub _revokeRestore
             $restmod->revokeConfig();
             # XXX remember non-redis changes are not revoked!
             EBox::debug("Revoked changes in $restname module");
-        }
-        otherwise {
+        } otherwise {
             EBox::debug("$restname has not changes to be revoked" );
-        };
+        }
     }
 }
 
@@ -1400,7 +1401,7 @@ sub _preRestoreActions
                     );
                 } finally {
                     delete $mod->{restoringBackup};
-                };
+                }
             }
         } else {
             next unless $mod->can('isEnabled');
@@ -1621,7 +1622,7 @@ sub _configureModules
             my ($ex) = @_;
             my $err = $ex->text();
             EBox::error("Failed to enable module $name: $err");
-        };
+        }
     }
 }
 

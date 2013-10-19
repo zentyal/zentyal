@@ -149,10 +149,9 @@ sub sendRemoteBackup
                                automatic => $automatic,
                                size      => (-s $archive),
                                digest    => $digest);
-    }
-    finally {
+    } finally {
         unlink $archive;
-    };
+    }
 }
 
 # Restore remote configuration backup
@@ -169,7 +168,7 @@ sub restoreRemoteBackup
         if (-e $archiveFile) {
             unlink($archiveFile);
         }
-    };
+    }
 }
 
 sub prepareRestoreRemoteBackup
@@ -191,7 +190,7 @@ sub prepareRestoreRemoteBackup
         my ($ex) = @_;
         unlink($archiveFile);
         $ex->throw();
-    };
+    }
 
     return $progress;
 }

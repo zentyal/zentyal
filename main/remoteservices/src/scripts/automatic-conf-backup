@@ -51,7 +51,7 @@ sub makeConfBackup
             my ($exc) = @_;
             EBox::debug("Backup corrupted in some way...");
             $exc->throw() if ($attempt == ATTEMPT_NUM);
-        };
+        }
     }
 }
 
@@ -67,12 +67,12 @@ sub checkMakeRetryConfBackup
     my $rs = $gl->modInstance('remoteservices');
     if ( $rs->eBoxSubscribed() ) {
         my $lastBackupStamp = 0;
-        if ( -r LAST_BACKUP_TIMESTAMP_FILE ) {
+        if (-r LAST_BACKUP_TIMESTAMP_FILE) {
             $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
             chomp($lastBackupStamp);
         }
         # Make the conf backup if any change has been done to Zentyal
-        if ( $gl->lastModificationTime() > $lastBackupStamp ) {
+        if ($gl->lastModificationTime() > $lastBackupStamp) {
             my ($automatic, $level, $msg, $additional, $dispatchTo) = (1, 'info', '', {}, undef);
             try {
                 makeConfBackup();
@@ -87,7 +87,7 @@ sub checkMakeRetryConfBackup
                            reason => $reason);
                 $level = 'error';
                 $additional = { reason => $reason };
-            };
+            }
             my $evtMod = $gl->modInstance('events');
             try {
                 $dispatchTo = [ 'ControlCenter' ] if ($level ne 'info');
@@ -98,10 +98,9 @@ sub checkMakeRetryConfBackup
                                    dispatchTo => $dispatchTo);
             } catch EBox::Exceptions::Base with {
                 EBox::error($msg);
-            };
+            }
         }
     }
-
 }
 
 # MAIN

@@ -144,7 +144,7 @@ sub importSystemSearchDomain
     } otherwise {
         my ($error) = @_;
         EBox::error("Could not import system resolvers: $error");
-    };
+    }
 }
 
 1;

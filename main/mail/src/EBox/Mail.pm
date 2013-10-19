@@ -296,7 +296,7 @@ sub enableActions
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
     } otherwise {
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();

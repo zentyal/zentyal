@@ -845,7 +845,7 @@ sub clone
         }
     } finally {
         $self->setDirectory($origDir, 1);
-    };
+    }
 }
 
 1;

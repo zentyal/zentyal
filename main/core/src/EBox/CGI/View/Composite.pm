@@ -77,7 +77,7 @@ sub _header
     } otherwise {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

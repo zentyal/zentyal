@@ -138,7 +138,7 @@ sub initParamsFromBundle
         throw EBox::Exceptions::External(
 __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot unpack it)')
                                          );
-    };
+    }
 
     $class->_checkBundleContents($tmpDir);
 
@@ -152,13 +152,11 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
         push @initParams, (bundle => $bundleFile);
         push @initParams, (tmpDir => $tmpDir);
-    }
-    otherwise {
+    } otherwise {
         my $ex = shift @_;
         system "rm -rf '$tmpDir'";
         $ex->throw();
-
-    };
+    }
 
     return @initParams;
 }

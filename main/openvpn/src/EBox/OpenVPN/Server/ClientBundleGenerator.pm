@@ -171,10 +171,9 @@ sub clientBundle
 
         # create bundle itself
         $bundle  =  $class->_createBundle($server,  $tmpDir, %params);
-    }
-    finally {
+    } finally {
         system "rm -rf '$tmpDir'";
-    };
+    }
 
     return  basename($bundle);
 }
@@ -220,8 +219,7 @@ sub _createBundle
         EBox::Sudo::root("chmod 0600 '$bundle'");
         my ($egid) = split '\s+', $EGID;
         EBox::Sudo::root("chown $EUID.$egid '$bundle'");
-    }
-    otherwise {
+    } otherwise {
         my $ex = shift;
 
         if (defined $bundle) {
@@ -229,7 +227,7 @@ sub _createBundle
         }
 
         $ex->throw();
-    };
+    }
 
     return $bundle;
 }

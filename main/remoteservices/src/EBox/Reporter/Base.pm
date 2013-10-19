@@ -138,7 +138,7 @@ sub consolidate
     } otherwise {
         my ($exc) = @_;
         EBox::error("Can't consolidate " . $self->name() . " : $exc");
-    };
+    }
 }
 
 # Method: send
@@ -161,7 +161,7 @@ sub send
             # If it fails, there is a journal ops to finish up the
             # sending at some point
             unlink($file);
-        };
+        }
     }
 }
 
@@ -175,14 +175,14 @@ sub log
 
     my $logTime = $self->_logTime();
     my $ret = [];
-    if ( $logTime + $self->logPeriod() < time() ) {
+    if ($logTime + $self->logPeriod() < time()) {
         try {
             $ret = $self->_log();
             $self->_logTime(time());
         } otherwise {
             my ($exc) = @_;
             EBox::error('Cannot log ' . $self->name() . " : $exc");
-        };
+        }
     }
     return $ret;
 }

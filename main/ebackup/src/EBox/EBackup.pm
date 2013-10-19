@@ -201,7 +201,7 @@ sub restoreFile
         } else {
             $ex->throw();
         }
-    };
+    }
 }
 
 sub _duplicityRestoreFileCmd
@@ -335,7 +335,7 @@ sub dumpExtraData
     } otherwise {
         my $ex = shift;
         EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
-    };
+    }
 }
 
 # Method: includedConfigBackupPath
@@ -458,7 +458,7 @@ sub remoteGenerateListFile
         } else {
             $ex->throw();
         }
-    };
+    }
 
     if ($success) {
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
@@ -620,7 +620,7 @@ sub _retrieveRemoteStatus
         }elsif ($error =~ m/No signature chains found/) {
             $status = [];
         }
-    };
+    }
 
     foreach my $line (@{ $status  }) {
         utf8::decode($line);
@@ -637,10 +637,8 @@ sub updateStatusInBackgroundLock
     try {
         $res = EBox::Util::Lock::lock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
     } otherwise {
-        throw EBox::Exceptions::External(
-__('Another process is updating the collection status. Please, wait and retry')
-           );
-    };
+        throw EBox::Exceptions::External(__('Another process is updating the collection status. Please, wait and retry'));
+    }
 
     return $res;
 }

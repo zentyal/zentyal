@@ -164,7 +164,7 @@ sub _syncDate
             EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
         } catch EBox::Exceptions::Internal with {
             EBox::warn("Couldn't execute ntpdate $exserver");
-        };
+        }
     }
 }
 
@@ -176,7 +176,8 @@ sub _preSetConf
         $self->_stopService();
         sleep 2;
         $self->_syncDate();
-    } otherwise {};
+    } otherwise {
+    }
 }
 
 #  Method: _daemons

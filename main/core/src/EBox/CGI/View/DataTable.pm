@@ -54,7 +54,7 @@ sub _header
     } otherwise {
         EBox::error("Cannot get pageTitle");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

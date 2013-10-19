@@ -205,8 +205,7 @@ sub _run
     } otherwise {
         my ($exc) = @_;
         EBox::error($exc);
-    };
-
+    }
 }
 
 # Procedure: _notify
@@ -231,7 +230,7 @@ sub _notify
     } catch EBox::Exceptions::Command with {
         my ($exc) = @_;
         EBox::error($exc);
-    };
+    }
 }
 
 # Procedure: _actRemainder

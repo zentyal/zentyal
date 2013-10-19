@@ -73,7 +73,7 @@ sub _getTimezone
         chomp $tz;
     } otherwise {
         $tz = 'Etc/UTC';
-    };
+    }
     return $tz;
 }
 

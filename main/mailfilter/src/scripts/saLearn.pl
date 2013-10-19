@@ -49,12 +49,10 @@ if (not defined $mboxFile) {
 my $global = EBox::Global->getInstance(1);
 
 my $mailfilter = $global->modInstance('mailfilter');
-$mailfilter or 
+$mailfilter or
     die "Cannot get mailfilter module instance";
 $mailfilter->configured() or
     die 'Mail filter module is not configured. Enable it at least one time to configure it';
-
-
 
 my @learnParams = (
                    username => $account,
@@ -66,9 +64,8 @@ my @learnParams = (
 try {
     $mailfilter->antispam()->learn(@learnParams);
 } otherwise {
- my $ex = @_;
- print "$ex";
-};
-
+    my $ex = @_;
+    print "$ex";
+}
 
 1;

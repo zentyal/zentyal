@@ -459,10 +459,8 @@ sub archive
     try {
         $dbengine->commandAsSuperuser("test -d $archiveDir");
     } otherwise {
-        throw EBox::Exceptions::External(
-                 qq{Directory $archiveDir must be readable by DB's superuser}
-                                         );
-    };
+        throw EBox::Exceptions::External(qq{Directory $archiveDir must be readable by DB's superuser});
+    }
 
     # assure we that we haves a updated slicemaps
     my $period =   EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_period',
@@ -528,7 +526,7 @@ sub archive
             EBox::Sudo::root("gzip $file");
         } catch EBox::Exceptions::Command with {
             EBox::error("Cannot compress file $file. Try to do it manully. Skipping to next file.")
-        };
+        }
     }
 }
 

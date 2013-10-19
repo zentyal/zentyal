@@ -369,7 +369,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

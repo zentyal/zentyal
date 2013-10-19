@@ -67,7 +67,7 @@ sub _process
                push@masonParams, ('iface' => $iface);
                push @masonParams, (vlanid => $vlanId);
                $self->{params} = \@masonParams;
-           };
+           }
 
     } elsif (defined($self->param('add'))) {
         $net->createVlan($vlanId, $self->param('vlandesc'), $iface);

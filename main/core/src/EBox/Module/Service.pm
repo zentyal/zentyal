@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -377,7 +378,7 @@ sub configureModule
         $self->enableService(0);
         $self->setNeedsSaveAfterConfig(undef);
         $ex->throw();
-    };
+    }
 }
 
 sub setNeedsSaveAfterConfig
@@ -468,7 +469,7 @@ sub _isDaemonRunning
         } catch EBox::Exceptions::Internal with {
             # If the daemon does not exist, then return false
             ;
-        };
+        }
         return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
         my $output = EBox::Sudo::silentRoot(INITDPATH .
@@ -684,7 +685,7 @@ sub saveReload
         # Mark as changes has been saved
         $global->modRestarted($self->name());
         $self->_unlock();
-    };
+    }
 }
 
 # Method: _daemons
@@ -882,8 +883,7 @@ sub stopService
         $self->_stopService(%params);
     } finally {
         $self->_unlock();
-    };
-
+    }
 }
 
 
@@ -992,7 +992,7 @@ sub restartService
         throw $ex;
     } finally {
         $self->_unlock();
-    };
+    }
 }
 
 # Method: _supportActions

@@ -356,10 +356,10 @@ sub _setRemoteServices
             try {
                 if ( $rsMod->hasBundle() ) {
                     my %vpnSettings = %{$rsMod->vpnSettings()};
-                    push(@commands,
-                         pf("-A ointernal $statenew -p $vpnSettings{protocol} "
-                              . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
-                        );
+                    push (@commands,
+                        pf("-A ointernal $statenew -p $vpnSettings{protocol} "
+                           . "-d $vpnSettings{ipAddr} --dport $vpnSettings{port} -j oaccept")
+                    );
                 }
 
                 # Allow communications between ns and API
@@ -382,7 +382,7 @@ sub _setRemoteServices
                 my $msg = "Cannot contact Zentyal Remote: $exc";
                 EBox::error($msg);
                 $gl->addSaveMessage($msg);
-            };
+            }
         }
     }
     return \@commands;
@@ -654,7 +654,7 @@ sub _executeModuleRules
         } otherwise {
             EBox::error('Error executing firewall rules for module ' . $mod->name());
             push(@failedMods, $mod->name());
-        };
+        }
     }
 
     if (@failedMods) {

@@ -44,7 +44,7 @@ for my $tries (1 .. 10) {
     } otherwise {
         EBox::error("Call to setRealPPPIface for $iface failed");
         exit 1;
-    };
+    }
 }
 
 exit 0;

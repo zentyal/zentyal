@@ -50,12 +50,11 @@ sub _defaultConfig
             } else {
                 $value = $configKeySub_r->();
             }
+        } otherwise {
+            # ignore systems where configuration files are  not installed
+            $value = undef;
+            print "\n\nFailed: $key \n";;
         }
-        otherwise {
-          # ignore systems where configuration files are  not installed
-          $value = undef;
-          print "\n\nFailed: $key \n";;
-        };
 
         push @defaultConfig, ($key => $value );
     }

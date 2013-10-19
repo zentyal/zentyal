@@ -34,4 +34,4 @@ try {
 	$network->DHCPGatewayCleanUp($iface);
 } finally {
 	exit;
-};
+}

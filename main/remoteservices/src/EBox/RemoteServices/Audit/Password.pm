@@ -87,7 +87,7 @@ sub reportUserCheck
             }
         } catch EBox::Exceptions::Command with {
             ;
-        };
+        }
     }
 
     return \@users;
@@ -125,7 +125,7 @@ sub userCheck
         $users = _check(_systemUserFiles('recreate'), _ldapUserFiles('recreate'));
     } finally {
         unlink(DOING_CRACKING_FILE);
-    };
+    }
 
     return $users;
 }
@@ -390,7 +390,7 @@ sub _sendEvent
     my (%info) = @_;
 
     my $gl = EBox::Global->getInstance(1);
-    if ( $gl->modExists('events') ) {
+    if ($gl->modExists('events')) {
         try {
             $evtsMod = $gl->modInstance('events');
 
@@ -419,7 +419,7 @@ sub _sendEvent
 
         } catch EBox::Exceptions::External with {
             EBox::error('Cannot send alert regarding to weak password checker');
-        };
+        }
     }
 }
 

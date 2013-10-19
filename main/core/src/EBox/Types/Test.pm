@@ -59,7 +59,7 @@ sub defaultValueOk
         my $ex = shift @_;
         diag "$ex";
         fail "Cannot create a instance of $class with default value $value";
-    };
+    }
 
     is $instance->value(),
         $value,
@@ -109,7 +109,7 @@ sub _createTest
         } else {
             pass $testName
         }
-    };
+    }
 
     $failed and
         return;
@@ -129,7 +129,7 @@ sub _createTest
         } else {
             pass $testName
         }
-    };
+    }
 
     $failed and
         return;
@@ -168,7 +168,7 @@ sub storeAndRestoreGConfTest
     } otherwise {
         my $ex = shift;
         die "Cannot create instance of $class";
-    };
+    }
 
     foreach my $value (@values) {
         try {
@@ -176,7 +176,7 @@ sub storeAndRestoreGConfTest
         } otherwise {
             my $ex = shift;
             die "Cannot set value $value: $ex";
-        };
+        }
 
         lives_ok {
             $instance->storeInGConf($mod, $dir);
@@ -187,7 +187,7 @@ sub storeAndRestoreGConfTest
         } otherwise {
             my $ex = shift;
             die "Cannot set value $value: $ex";
-        };
+        }
 
         my $hash = $mod->hash_from_dir($dir);
         lives_ok {

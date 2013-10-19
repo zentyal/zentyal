@@ -35,7 +35,7 @@ try {
 
     binmode(STDOUT, ':utf8');
     EBox::UserCorner::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::HtmlBlocks');
-} otherwise  {
+} otherwise {
     my $ex = shift;
     use Devel::StackTrace;
     use CGI qw/:standard/;
@@ -120,4 +120,4 @@ try {
     print $html;
 
     print end_html;
-};
+}

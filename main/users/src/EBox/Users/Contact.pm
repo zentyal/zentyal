@@ -199,7 +199,7 @@ sub create
         $parentRes = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

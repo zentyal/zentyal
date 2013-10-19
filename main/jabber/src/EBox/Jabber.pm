@@ -171,7 +171,7 @@ sub isRunning
         $output =  EBox::Sudo::root($stateCmd);
     } catch EBox::Exceptions::Sudo::Command with {
         # output will be undef
-    };
+    }
 
     if (not $output) {
         return 0;
