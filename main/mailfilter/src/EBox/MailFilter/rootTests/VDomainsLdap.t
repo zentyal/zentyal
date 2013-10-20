@@ -26,9 +26,11 @@ try {
   testBoolAttr($vdomain, 'antispam');
   testFloatAttr($vdomain, 'spamThreshold');
   testReset($vdomain);
-} finally {
+} catch ($e) {
   _removeVDomain($vdomain);
+  $e->throw();
 }
+_removeVDomain($vdomain);
 
 
 sub _createTestVDomain

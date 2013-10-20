@@ -504,7 +504,14 @@ try {
 
     _prepareAndSendEvent($success, $type, $errorMsg);
 
-} finally {
+} catch ($e) {
+    _finally();
+    $e->throw();
+}
+_finally();
+
+sub _finally
+{
     try {
         if ($success) {
             $ebackup->waitForUpdateStatusInBackground();
@@ -514,11 +521,12 @@ try {
             # Create file list
             $ebackup->remoteGenerateListFile();
         }
-    } finally {
-        # This code must be run always
+    } catch ($e) {
         $ebackup->backupProcessUnlock();
+        $e->throw();
     }
-};
+    $ebackup->backupProcessUnlock();
+}
 
 # Parse the successMsg
 my $backupStats = undef;

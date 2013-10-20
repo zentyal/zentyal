@@ -34,9 +34,11 @@ try {
     #call listUpgradablePkgs even if we're not using them just now as this
     #causes the cache to be generated
     @pkgs = @{$software->listUpgradablePkgs(1)};
-} finally {
+} catch ($e) {
     $software->unlock();
+    $e->throw();
 }
+$software->unlock();
 unless ($software->getAutomaticUpdates()) {
     exit 0;
 }
@@ -55,8 +57,10 @@ try {
         $software->listUpgradablePkgs(1);
     }
     $software->setAutoUpgradePkgNo(scalar(@pkgnames));
-} finally {
+} catch ($e) {
     $software->unlock();
+    $e->throw();
 }
+$software->unlock();
 
 1;

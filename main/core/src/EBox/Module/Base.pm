@@ -230,10 +230,13 @@ sub save
     $self->_saveConfig();
     try {
         $self->_regenConfig();
-    } finally {
+    } catch ($e) {
         $global->modRestarted($self->name);
         $self->_unlock();
+        $e->throw();
     }
+    $global->modRestarted($self->name);
+    $self->_unlock();
 }
 
 # Method: saveConfig
@@ -250,9 +253,11 @@ sub saveConfig
         my $log = EBox::logger;
         $log->info("Saving config for module: " . $self->name);
         $self->_saveConfig();
-    } finally {
+    } catch ($e) {
         $self->_unlock();
+        $e->throw();
     }
+    $self->_unlock();
 }
 
 # Method: saveConfigRecursive
@@ -993,9 +998,11 @@ sub _writeFileCreateTmpFile
                 "Could not create temp file in " .
                 EBox::Config::tmp);
         }
-    } finally {
+    } catch ($e) {
         umask $oldUmask;
+        $e->throw();
     }
+    umask $oldUmask;
 
     return ($fh, $tmpfile);
 }

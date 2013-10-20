@@ -123,9 +123,11 @@ sub userCheck
     my $users = [];
     try {
         $users = _check(_systemUserFiles('recreate'), _ldapUserFiles('recreate'));
-    } finally {
-        unlink(DOING_CRACKING_FILE);
+    } catch($e) {
+        unlink (DOING_CRACKING_FILE);
+        $e->throw();
     }
+    unlink (DOING_CRACKING_FILE);
 
     return $users;
 }

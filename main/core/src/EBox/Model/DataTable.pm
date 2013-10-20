@@ -4428,9 +4428,11 @@ sub clone
             my $newRow = $self->row($newId);
             $newRow->cloneSubModelsFrom($srcRow)
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($selfDir);
+        $e->throw();
     }
+    $self->setDirectory($selfDir);
 }
 
 # Method: setAll

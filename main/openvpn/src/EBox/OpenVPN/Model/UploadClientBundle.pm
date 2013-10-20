@@ -107,11 +107,11 @@ sub formSubmitted
     my $openvpn = EBox::Global->modInstance('openvpn');
     try {
         $openvpn->setClientConfFromBundle($clientName, $bundle);
-    } finally {
-        if (-f $bundle) {
-            unlink $bundle;
-        }
+    } catch ($e) {
+        unlink $bundle if (-f $bundle);
+        $e->throw();
     }
+    unlink $bundle if (-f $bundle);
 }
 
 # Method: pageTitle

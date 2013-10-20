@@ -149,9 +149,11 @@ sub sendRemoteBackup
                                automatic => $automatic,
                                size      => (-s $archive),
                                digest    => $digest);
-    } finally {
+    } catch ($e) {
         unlink $archive;
+        $e->throw();
     }
+    unlink $archive;
 }
 
 # Restore remote configuration backup
@@ -164,11 +166,11 @@ sub restoreRemoteBackup
 
     try {
         EBox::Backup->restoreBackup($archiveFile);
-    } finally {
-        if (-e $archiveFile) {
-            unlink($archiveFile);
-        }
+    } catch ($e) {
+        unlink ($archiveFile) if (-e $archiveFile);
+        $e->throw();
     }
+    unlink ($archiveFile) if (-e $archiveFile);
 }
 
 sub prepareRestoreRemoteBackup

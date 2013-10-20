@@ -23,9 +23,11 @@ try {
     changeConfKeyTest();
     changeStateKeyTest();
     checkFileDump();
-} finally {
+} catch ($e) {
     finalize();
+    $e->throw();
 }
+finalize();
 
 sub startup
 {

@@ -35,8 +35,10 @@ try {
     $logs->archiveBackupSlices();
 
     $logs->purge();
-} finally {
+} catch ($e) {
     EBox::Util::Lock::unlock(LOCK_NAME);
+    $e->throw();
 }
+EBox::Util::Lock::unlock(LOCK_NAME);
 
 1;

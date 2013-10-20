@@ -279,16 +279,21 @@ sub _doProvisionAdditional
 
         $self->parentModule->setProvisioned(1);
         $self->setMessage($action->message(), 'note');
-    } catch {
-        my ($error) = @_;
-
-        throw EBox::Exceptions::External("Error provisioninig: $error");
+    } catch ($e) {
         $self->parentModule->setProvisioned(0);
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
+        $self->_markModulesAsChanged();
+        throw EBox::Exceptions::External("Error provisioninig: $e");
     }
+    $self->_markModulesAsChanged();
+}
+
+sub _markModulesAsChanged
+{
+    my ($self) = @_;
+
+    $self->global->modChange('mail');
+    $self->global->modChange('samba');
+    $self->global->modChange('openchange');
 }
 
 sub _doProvision

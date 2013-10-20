@@ -40,9 +40,11 @@ sub info
     $ebackup->_lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup');
-    } finally {
+    } catch ($e) {
         $ebackup->_unlock();
+        $e->throw();
     }
+    $ebackup->_unlock();
 }
 
 sub clean
@@ -51,7 +53,7 @@ sub clean
     $ebackup->_lock() ;
     try {
         _duplicityCommand($ebackup, 'cleanup --force');
-    } finally {
+    } catch ($e) {
         $ebackup->_unlock();
     }
 }

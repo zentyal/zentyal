@@ -106,8 +106,7 @@ sub check
             $self->_performSBChecks($commAddOn);
             delete $self->{lastError};
         } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
-            my ($exc) = @_;
-            $self->{lastError} = $exc->text();
+            $self->{lastError} = $e->text();
             $capable = 0;
         }
     } else {

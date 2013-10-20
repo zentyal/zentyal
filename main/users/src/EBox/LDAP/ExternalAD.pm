@@ -480,18 +480,17 @@ sub initKeyTabs
             EBox::Sudo::root("chown root:$keytabUser '$keytab'");
             EBox::Sudo::root("chmod 440 '$keytab'");
         }
-    } catch {
-        my ($error) = @_;
-        throw EBox::Exceptions::External(
-            __("Error creating computer account for Zentyal server:") .
-            " $error"
-        );
-    } finally {
-        # Destroy acquired credentials
+    } catch ($e) {
         my $ok = kdestroy();
         unless (defined $ok and $ok == 1) {
             EBox::error("kdestroy: " . kerror());
         }
+        throw EBox::Exceptions::External(__("Error creating computer account for Zentyal server:") .  " $e");
+    }
+    # Destroy acquired credentials
+    my $ok = kdestroy();
+    unless (defined $ok and $ok == 1) {
+        EBox::error("kdestroy: " . kerror());
     }
 }
 

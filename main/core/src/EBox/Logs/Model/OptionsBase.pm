@@ -130,12 +130,11 @@ sub setTypedRow
 
     try {
         $self->SUPER::setTypedRow(@params);
-    } finally {
-       if (not $alreadyChanged) {
-           # unmark module as changed
-           $global->modRestarted($modName);
-       }
+    } catch ($e) {
+        $global->modRestarted($modName) unless ($alreadyChanged);
+        $e->throw();
     }
+    $global->modRestarted($modName) unless ($alreadyChanged);
 }
 
 sub _messages

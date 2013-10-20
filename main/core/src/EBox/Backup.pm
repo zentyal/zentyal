@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -111,9 +112,11 @@ sub _makeBackup
         $self->_createSizeFile($archiveContentsDir);
 
         $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
-    } finally {
+    } catch ($e) {
         EBox::Sudo::silentRoot("rm -rf '$tempdir'");
+        $e->throw();
     }
+    EBox::Sudo::silentRoot("rm -rf '$tempdir'");
 
     return $backupArchive;
 }
@@ -1206,14 +1209,13 @@ sub restoreBackup
         }
 
         $progress->setAsFinished() if $progress;
-    } finally {
-        if ($tempdir) {
-            EBox::Sudo::silentRoot("rm -rf '$tempdir'");
-        }
-        if ($options{deleteBackup}) {
-            unlink $file;
-        }
+    } catch ($e) {
+        EBox::Sudo::silentRoot("rm -rf '$tempdir'") if ($tempdir);
+        unlink $file if ($options{deleteBackup});
+        $e->throw();
     }
+    EBox::Sudo::silentRoot("rm -rf '$tempdir'") if ($tempdir);
+    unlink $file if ($options{deleteBackup});
 }
 
 sub _unpackModulesRestoreData
@@ -1375,16 +1377,14 @@ sub _preRestoreActions
                     EBox::info("Configuring previously unconfigured module $name present in the backup to restore");
                     $mod->{restoringBackup} = 1;
                     $mod->configureModule();
-                } catch {
-                    my ($ex) = @_;
-                    my $err = $ex->text();
-                    throw EBox::Exceptions::Internal(
-                        __x('Cannot restore backup, error enabling module {m}: {err}',
-                            'm' => $name, 'err' => $err)
-                    );
-                } finally {
+                } catch ($e) {
                     delete $mod->{restoringBackup};
+
+                    my $err = $e->text();
+                    throw EBox::Exceptions::Internal(__x('Cannot restore backup, error enabling module {m}: {err}',
+                                                         'm' => $name, 'err' => $err));
                 }
+                delete $mod->{restoringBackup};
             }
         } else {
             next unless $mod->can('isEnabled');

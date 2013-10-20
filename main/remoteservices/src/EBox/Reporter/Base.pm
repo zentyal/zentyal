@@ -157,11 +157,13 @@ sub send
         my $result = File::Slurp::read_file($file);
         try {
             $self->{sender}->report($self->name(), $result);
-        } finally {
+        } catch ($e) {
             # If it fails, there is a journal ops to finish up the
             # sending at some point
-            unlink($file);
+            unlink ($file);
+            $e->throw();
         }
+        unlink ($file);
     }
 }
 

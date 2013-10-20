@@ -843,9 +843,11 @@ sub clone
 
             $comp->clone($compSrcDir, $compDstDir);
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir, 1);
+        $e->throw();
     }
+    $self->setDirectory($origDir, 1);
 }
 
 1;

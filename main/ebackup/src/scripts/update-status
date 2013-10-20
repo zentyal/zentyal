@@ -53,10 +53,11 @@ try {
     if ($genListFiles) {
         $ebackup->remoteGenerateListFile();
     }
-
-} finally {
-    $ebackup->updateStatusInBackgroundUnlock;
+} catch ($e) {
+    $ebackup->updateStatusInBackgroundUnlock();
+    $e->throw();
 }
+$ebackup->updateStatusInBackgroundUnlock();
 
 sub _oldStatus
 {

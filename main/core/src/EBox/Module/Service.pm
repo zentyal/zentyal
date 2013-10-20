@@ -681,11 +681,14 @@ sub saveReload
             $self->_enforceServiceState(reload => 1);
             $self->_postServiceHook($enabled);
         }
-    } finally {
-        # Mark as changes has been saved
+    } catch ($e) {
         $global->modRestarted($self->name());
         $self->_unlock();
+        $e->throw();
     }
+    # Mark as changes has been saved
+    $global->modRestarted($self->name());
+    $self->_unlock();
 }
 
 # Method: _daemons
@@ -881,9 +884,11 @@ sub stopService
     $self->_lock();
     try {
         $self->_stopService(%params);
-    } finally {
+    } catch ($e) {
         $self->_unlock();
+        $e->throw();
     }
+    $self->_unlock();
 }
 
 

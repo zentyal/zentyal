@@ -248,9 +248,11 @@ sub executeOnBrothers
                 last;
             }
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($dir);
+        $e->throw();
     }
+    $self->setDirectory($dir);
 
     return $res;
 }

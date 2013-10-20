@@ -1356,27 +1356,35 @@ sub provisionADC
 
         # Set provisioned flag
         $self->setProvisioned(1);
-    } catch {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
-        # Revert primary resolver changes
+
         if (defined $dnsFile and -f $dnsFile) {
             EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
             unlink $dnsFile;
         }
-        # Remote stashed password
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
             unlink $adminAccountPwdFile;
         }
-        # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
 
-        $self->setProvisioning(0);
+        $e->throw();
     }
+    # Revert primary resolver changes
+    if (defined $dnsFile and -f $dnsFile) {
+        EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+        unlink $dnsFile;
+    }
+    # Remote stashed password
+    if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+        unlink $adminAccountPwdFile;
+    }
+    # Destroy cached tickets
+    EBox::Sudo::rootWithoutException('kdestroy');
+
+    $self->setProvisioning(0);
 }
 
 1;
