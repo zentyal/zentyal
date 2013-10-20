@@ -676,9 +676,8 @@ sub saveAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, 'webadmin');
         try {
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
         } catch {
             my $ex = shift;
             EBox::error("Failed to save changes in module webadmin: $ex");
@@ -694,9 +693,8 @@ sub saveAllModules
 
         try {
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
         } catch {
             my $ex = shift;
             EBox::error("Failed to restart $modName after save changes: $ex");

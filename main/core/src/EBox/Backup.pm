@@ -132,18 +132,15 @@ sub _dumpModulesBackupData
         if ($progress) {
             # update progress object
             $progress->notifyTick();
-            $progress->setMessage(__x('Dumping configuration of module {m}',
-                        m => $modName));
+            $progress->setMessage(__x('Dumping configuration of module {m}', m => $modName));
         }
 
         try {
             EBox::debug("Dumping $modName backup data");
             $mod->makeBackup($auxDir, %options);
+        } catch (EBox::Exceptions::Base $e) {
+            throw EBox::Exceptions::Internal($e->text);
         }
-        catch EBox::Exceptions::Base with {
-            my $ex = shift;
-            throw EBox::Exceptions::Internal($ex->text);
-        };
     }
 
 }
@@ -942,11 +939,12 @@ sub _checkSize
     try {
         $tempDir = $self->_unpackArchive($archive, 'size');
         $size = read_file("$tempDir/eboxbackup/size"); # unit -> 1K
-    } finally {
-        if (defined $tempDir) {
-            EBox::Sudo::silentRoot("rm -rf '$tempDir'");
-        }
+    } catch {
+        my $ex = shift;
+        EBox::Sudo::silentRoot("rm -rf '$tempDir'") if (defined $tempDir);
+        $ex->throw();
     }
+    EBox::Sudo::silentRoot("rm -rf '$tempDir'") if (defined $tempDir);
 
     if (not $size) {
         EBox::warn("Size file not found in the backup. Can not check if there is enough space to complete the restore");
@@ -1286,13 +1284,16 @@ sub _restoreZentyalConfFiles
     try {
         # put restored directory in place
         EBox::Sudo::root("cp -af $tmpEtc/* $etc");
-    }  catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # continue with the restore anyway
         EBox::error("Cannot restore $etc files: $!.");
         EBox::info("We cannot restore Zentyal configuration files in $etc, but the restore process will continue.");
-    } finally {
+    } catch {
+        my $ex = shift;
         EBox::Config::refreshConfFiles();
+        $ex->throw();
     }
+    EBox::Config::refreshConfFiles();
 }
 
 sub _restoreModulePreCheck

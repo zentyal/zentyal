@@ -1644,7 +1644,7 @@ sub _confSOAPService
             $webAdminMod->removeApacheInclude($confFile);
             $webAdminMod->removeNginxInclude($confSSLFile);
             $webAdminMod->removeCA($self->_caCertPath('force'));
-        } catch (EBox::Exceptions::Internal $e) { ; };
+        } catch (EBox::Exceptions::Internal $e) {
         }
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
