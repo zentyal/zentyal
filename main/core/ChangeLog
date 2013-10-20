@@ -1,4 +1,5 @@
 3.3
+	+ Added dbus dependency to avoid problems on some minimal installations
 	+ When restoring pre-3.2 backups take in account that apache
 	  module was renamed to webadmin
 	+ Make sure that we always commit/discard audit of changes when we

@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:962
+#: ../../main/squid/src/EBox/Squid.pm:966
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1303
+#: ../../main/squid/src/EBox/Squid.pm:1307
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -75,7 +75,7 @@ msgstr "Backup de configuración"
 msgid "Communications add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2433
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2438
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -385,7 +385,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/Users.pm:1753
+#: ../../main/users/src/EBox/Users.pm:1788
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
