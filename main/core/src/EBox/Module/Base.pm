@@ -1075,18 +1075,16 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
             try {
                 EBox::info("Using custom template for $file: $customStub");
                 $comp = $interp->make_component(comp_file => $customStub);
-            } catch {
-                my $ex = shift;
+            } catch ($e) {
                 EBox::error("Falling back to default $stub due to exception " .
-                            "processing custom template $customStub: $ex");
+                            "processing custom template $customStub: $e");
                 $comp = $interp->make_component(comp_file => $stub);
             };
         } else {
             $comp = $interp->make_component(comp_file => $stub);
         }
-    } catch {
-        my $ex = shift;
-        throw EBox::Exceptions::Internal("Template $compname failed with $ex");
+    } catch ($e) {
+        throw EBox::Exceptions::Internal("Template $compname failed with $e");
     }
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not

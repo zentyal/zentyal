@@ -506,10 +506,7 @@ sub _unpackArchive
     try {
         my $tarCommand = "/bin/tar xf '$archive' --same-owner --same-permissions -C '$tempDir' $filesWithPath";
         EBox::Sudo::root($tarCommand);
-
-    } catch {
-        my $ex = shift;
-
+    } catch ($ex) {
         EBox::Sudo::silentRoot("rm -rf '$tempDir'");
         if (@files > 0) {
             throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
@@ -517,7 +514,7 @@ sub _unpackArchive
         else {
             throw EBox::Exceptions::External( __("Could not unpack the backup"));
         }
-    };
+    }
 
     return $tempDir;
 }
@@ -747,12 +744,10 @@ sub makeBackup
 
         # Check the backup is correct, if not raise EBox::Exceptions::External exception
         $self->_checkBackup($filename);
-    }
-    otherwise {
-        my $ex = shift @_;
+    } catch ($ex) {
         $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
-    };
+    }
 
     my $backupFinalPath;
     try {
@@ -769,12 +764,10 @@ sub makeBackup
         $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
         $progress->setAsFinished() if $progress;
-    }
-    otherwise {
-        my $ex = shift @_;
+    } catch ($ex) {
         $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
-    };
+    }
 
     return $backupFinalPath;
 }
@@ -863,16 +856,13 @@ sub _unpackAndVerify
         unless ($options{forceZentyalVersion}) {
             $self->_checkZentyalVersion($tempdir);
         }
-    }
-    otherwise {
-        my $ex = shift;
-
+    } catch ($ex) {
         if (defined $tempdir) {
             EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         }
 
         $ex->throw();
-    };
+    }
 
     return $tempdir;
 }
@@ -939,8 +929,7 @@ sub _checkSize
     try {
         $tempDir = $self->_unpackArchive($archive, 'size');
         $size = read_file("$tempDir/eboxbackup/size"); # unit -> 1K
-    } catch {
-        my $ex = shift;
+    } catch ($ex) {
         EBox::Sudo::silentRoot("rm -rf '$tempDir'") if (defined $tempDir);
         $ex->throw();
     }
@@ -1187,10 +1176,7 @@ sub restoreBackup
                 }
 
             }
-        }
-        otherwise {
-            my $ex = shift;
-
+        } catch ($ex) {
             my $errorMsg = 'Error while restoring: ' . $ex->text();
             EBox::error($errorMsg);
             $progress->setAsFinished(1, $errorMsg) if $progress;
@@ -1199,8 +1185,8 @@ sub restoreBackup
                 $self->_revokeRestore(\@restored);
             }
 
-            throw $ex;
-        };
+            $ex->throw();
+        }
 
         # We need to set them as changed to be sure that they are restarted
         # in the save all after restoring, if they have run any migration
@@ -1288,8 +1274,7 @@ sub _restoreZentyalConfFiles
         # continue with the restore anyway
         EBox::error("Cannot restore $etc files: $!.");
         EBox::info("We cannot restore Zentyal configuration files in $etc, but the restore process will continue.");
-    } catch {
-        my $ex = shift;
+    } catch ($ex) {
         EBox::Config::refreshConfFiles();
         $ex->throw();
     }

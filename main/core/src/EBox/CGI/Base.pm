@@ -368,8 +368,7 @@ sub run
         my $ex = shift;
         $self->setErrorFromException($ex);
         $self->_print_error($self->{error});
-    } catch {
-        my $ex = shift;
+    } catch ($ex) {
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
             $logger->error($ex->as_text);
@@ -386,7 +385,7 @@ sub run
             # will be logged in EBox::CGI::Run
             throw $ex;
         }
-    };
+    }
 }
 
 # Method: unsafeParam

@@ -652,11 +652,9 @@ sub saveAllModules
         try {
             $mod->save();
         } catch (EBox::Exceptions::External $e) {
-            my $ex = shift;
-            $ex->throw();
-        } catch {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module $name: $ex");
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to save changes in module $name: $e");
             $failed .= "$name ";
         }
     }
@@ -678,9 +676,8 @@ sub saveAllModules
             $mod->save();
         } catch (EBox::Exceptions::External $e) {
             $e->throw();
-        } catch {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module webadmin: $ex");
+        } catch ($e) {
+            EBox::error("Failed to save changes in module webadmin: $e");
             $failed .= "webadmin ";
         }
     }
@@ -695,9 +692,8 @@ sub saveAllModules
             $mod->save();
         } catch (EBox::Exceptions::External $e) {
             $e->throw();
-        } catch {
-            my $ex = shift;
-            EBox::error("Failed to restart $modName after save changes: $ex");
+        } catch ($e) {
+            EBox::error("Failed to restart $modName after save changes: $e");
             $failed .= "$modName ";
         }
     }

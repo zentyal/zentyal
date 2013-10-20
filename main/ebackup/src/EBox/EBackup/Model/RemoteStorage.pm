@@ -96,8 +96,7 @@ sub _getStorageUsage
     try {
         $self->{storage} = $ebackup->storageUsage();
     } catch (EBox::Exceptions::Command $e) {
-        my $ex = shift @_;
-        my $error = $ex->error();
+        my $error = $e->error();
         foreach my $line (@{ $error }) {
             if ($line =~ m/Connection timed out/ or
                 ($line =~  m/Connection closed by remote host/ )) {
@@ -107,7 +106,7 @@ sub _getStorageUsage
         }
 
         if (not $badConnection) {
-            $ex->throw();
+            $e->throw();
         }
     }
 

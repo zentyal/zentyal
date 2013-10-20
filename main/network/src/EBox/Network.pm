@@ -1028,12 +1028,7 @@ sub setViface
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
-        try {
-            $mod->vifaceAdded($iface, $viface, $address, $netmask);
-        } catch {
-            my $ex = shift;
-            throw $ex;
-        }
+        $mod->vifaceAdded($iface, $viface, $address, $netmask);
     }
 
     my $ifaces = $self->get_hash('interfaces');

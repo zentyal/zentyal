@@ -152,10 +152,9 @@ __('This bundle is not a valid Zentyal-to-Zentyal configuration bundle. (Cannot 
 
         push @initParams, (bundle => $bundleFile);
         push @initParams, (tmpDir => $tmpDir);
-    } catch {
-        my $ex = shift @_;
+    } catch ($e) {
         system "rm -rf '$tmpDir'";
-        $ex->throw();
+        $e->throw();
     }
 
     return @initParams;

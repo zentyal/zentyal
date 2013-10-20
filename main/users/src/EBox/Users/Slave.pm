@@ -71,11 +71,10 @@ sub sync
     try {
         my $method = '_' . $signal;
         $self->$method(@{$args});
-    } catch {
-        my $ex = shift;
+    } catch ($e) {
         # Sync failed, save pending action
         my $name = $self->name();
-        EBox::error("Error notifying $name for $signal: $ex");
+        EBox::error("Error notifying $name for $signal: $e");
         $self->savePendingSync($signal, $args);
     }
 }

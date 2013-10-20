@@ -177,12 +177,11 @@ sub _paramIsValid
     my $range;
     try {
         $range = Net::IP->new("$begin - $end");
-    } catch {
-        my $ex = shift;
+    } catch ($e) {
         throw EBox::Exceptions::InvalidData(
             data => $self->printableName(),
             value => $self->printableValue(),
-            advice => "$ex",
+            advice => "$e",
         );
     }
 
@@ -196,7 +195,7 @@ sub _paramIsValid
             data => $self->printableName(),
             value => $self->printableValue(),
             advice => $advice,
-           );
+        );
     }
 
     return 1;

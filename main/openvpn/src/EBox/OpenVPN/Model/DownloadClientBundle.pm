@@ -326,9 +326,8 @@ sub precondition
         } else {
             $configured = 0;
         }
-    } catch {
-        my $ex = shift;
-        $self->{addPreconditionMsg} = "$ex";
+    } catch ($e) {
+        $self->{addPreconditionMsg} = "$e";
         $configured = 0;
     }
 }

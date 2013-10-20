@@ -614,10 +614,9 @@ sub _moveToPath
     EBox::Sudo::root("mv '$tmpPath' '$path'");
     try {
         EBox::Sudo::root("chown $user.$group '$path'");
-    }  otherwise {
-        my $ex = shift;
+    } catch ($e) {
         EBox::Sudo::root("rm -f '$path'");
-        $ex->throw();
+        $e->throw();
     }
 }
 

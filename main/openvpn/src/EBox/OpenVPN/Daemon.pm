@@ -527,12 +527,9 @@ sub deletedDaemonCleanup
         foreach my $file( $class->daemonFiles($name) ) {
             EBox::Sudo::root("rm -rf '$file'");
         }
-    } catch {
-        my $ex = shift;
-        EBox::error(
-"Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup"
-        );
-        $ex->throw();
+    } catch ($e) {
+        EBox::error("Failure when cleaning up the deleted openvpn daemon $name. Possibly you will need to do some manual cleanup");
+        $e->throw();
     }
 }
 

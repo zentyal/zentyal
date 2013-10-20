@@ -219,14 +219,12 @@ sub _createBundle
         EBox::Sudo::root("chmod 0600 '$bundle'");
         my ($egid) = split '\s+', $EGID;
         EBox::Sudo::root("chown $EUID.$egid '$bundle'");
-    } catch {
-        my $ex = shift;
-
+    } catch ($e) {
         if (defined $bundle) {
             EBox::Sudo::root("rm -f '$bundle'");
         }
 
-        $ex->throw();
+        $e->throw();
     }
 
     return $bundle;

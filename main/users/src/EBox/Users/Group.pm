@@ -165,9 +165,8 @@ sub addMember
     try {
         $self->add('member', $member->dn(), $lazy);
     } catch (EBox::Exceptions::LDAP $e) {
-        my $ex = shift;
-        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            $ex->throw();
+        if ($e->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $e->throw();
         }
         EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
     }

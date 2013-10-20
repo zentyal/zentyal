@@ -46,9 +46,8 @@ sub _process
         if ($backups) {
             push (@array, 'backups' => $backups);
         }
-    } catch {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
         $self->setChain('RemoteServices/NoConnection');
     }
 

@@ -61,9 +61,8 @@ sub defaultValueOk
                                defaultValue => $value,
                                @extraNewParams
                               );
-    } catch {
-        my $ex = shift @_;
-        diag "$ex";
+    } catch ($e) {
+        diag "$e";
         fail "Cannot create a instance of $class with default value $value";
     }
 
@@ -94,8 +93,7 @@ sub _createTest
     if (@p % 2) {
         # odd number of elements
         $testName = pop @p;
-    }
-    else {
+    } else {
         $testName = "Creation of $class";
     }
 
@@ -112,9 +110,8 @@ sub _createTest
 
         if ($wantSuccess) {
             fail $testName;
-        }
-        else {
-            pass $testName
+        } else {
+            pass $testName;
         }
     }
 
@@ -125,17 +122,15 @@ sub _createTest
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    } catch {
+    } catch ($e) {
         $failed = 1;
 
-        my $ex = shift @_;
-        diag $ex;
+        diag $e;
 
         if ($wantSuccess) {
             fail $testName;
-        }
-        else {
-            pass $testName
+        } else {
+            pass $testName;
         }
     }
 
@@ -144,9 +139,8 @@ sub _createTest
 
     if ($wantSuccess) {
         pass $testName;
-    }
-    else {
-        fail  $testName
+    } else {
+        fail $testName;
     }
 
     return $instance;

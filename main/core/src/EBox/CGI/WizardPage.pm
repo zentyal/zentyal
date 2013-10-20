@@ -137,8 +137,7 @@ sub run
 
     if (not $self->_loggedIn) {
         $self->{redirect} = "/Login/Index";
-    }
-    else {
+    } else {
         try {
             $self->_validateReferer();
             if ($self->param('skip')) {
@@ -148,8 +147,7 @@ sub run
             }
 
             $self->_print;
-        } catch {
-            my $ex = shift;
+        } catch ($ex) {
             my $logger = EBox::logger;
             if (isa_mason_exception($ex)) {
                 $logger->error($ex->as_text);

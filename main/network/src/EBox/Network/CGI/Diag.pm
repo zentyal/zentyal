@@ -92,12 +92,11 @@ sub _process
             if ( $id eq 'other' || $id eq '' ) {
                 try {
                     $self->_requireParam("mac", __("MAC address"));
-                } catch {
+                } catch ($e) {
                     push(@array, 'objects' => \@object_list);
                     $self->{params} = \@array;
 
-                    my $ex = shift;
-                    $ex->throw();
+                    $e->throw();
                 }
                 my $mac = $self->param("mac");
                 EBox::Validate::checkMAC($mac, __("MAC address"));

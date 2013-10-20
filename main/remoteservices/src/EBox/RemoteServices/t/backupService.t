@@ -89,9 +89,8 @@ sub livesOk
     try {
         $sub_r->();
         pass $testName;
-    } catch {
-        my $ex = shift;
-        diag "$ex";
+    } catch ($e) {
+        diag "$e";
         fail $testName;
     }
 }

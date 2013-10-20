@@ -100,9 +100,7 @@ $restoreParams{installMissing}    = $installMissing;
 
 try {
     EBox::Backup->restoreBackup($file, %restoreParams);
-} catch {
-    my $ex = shift @_;
-
+} catch ($ex) {
     if (exists $restoreParams{progress}) {
         my $progress = $restoreParams{progress};
         $progress->setAsFinished(1, $ex->text);

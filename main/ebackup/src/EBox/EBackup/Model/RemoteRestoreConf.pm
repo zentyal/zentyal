@@ -165,16 +165,13 @@ sub _backupFile
         my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
         $ebackup->restoreFile($bakFile, $date, $tmpFile);
     } catch (EBox::Exceptions::External $e) {
-        my $ex = shift;
-        my $text = $ex->stringify();
+        my $text = $e->stringify();
         if ($text =~ m/not found in backup/) {
-            throw EBox::Exceptions::External(__x(
-'Configuration backup not found in backup for {d}. Maybe you could try another date?',
-                                                 d => $date
-                                                ));
+            throw EBox::Exceptions::External(__x('Configuration backup not found in backup for {d}. Maybe you could try another date?',
+                                                 d => $date));
         }
 
-        $ex->throw();
+        $e->throw();
     }
 
     return $tmpFile;

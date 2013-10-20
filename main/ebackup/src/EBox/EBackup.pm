@@ -183,8 +183,7 @@ sub restoreFile
     try {
         EBox::Sudo::root($cmd);
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift;
-        my $error = join "\n", @{ $ex->error() };
+        my $error = join "\n", @{ $e->error() };
         if ($error =~ m/not found in archive, no files restored/) {
             throw EBox::Exceptions::EBackup::FileNotFoundInBackup(
                     file => $file,
@@ -199,7 +198,7 @@ sub restoreFile
                     )
                );
         } else {
-            $ex->throw();
+            $e->throw();
         }
     }
 }
@@ -332,9 +331,8 @@ sub dumpExtraData
         }
 
         EBox::Sudo::command("mv $bakFile $extraDataDir");
-    } catch {
-        my $ex = shift;
-        EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
+    } catch ($e) {
+        EBox::error("Configuration backup failed: $e. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
     }
 }
 
@@ -448,15 +446,14 @@ sub remoteGenerateListFile
         EBox::Sudo::root("$collectionCmd > $tmpFile");
         $success = 1;
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift;
-        my $error = join "\n", @{ $ex->error() };
+        my $error = join "\n", @{ $e->error() };
         # check if there is a no-backup yet error
         if ($error =~ m/No signature chains found/ or
             $error =~ m/No such file or directory/
            ) {
             $success = 0;
         } else {
-            $ex->throw();
+            $e->throw();
         }
     }
 
@@ -613,8 +610,7 @@ sub _retrieveRemoteStatus
     try {
         $status =  EBox::Sudo::root($cmd);
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift;
-        my $error = join "\n", @{  $ex->error() };
+        my $error = join "\n", @{ $e->error() };
         if ($error =~ m/gpg: decryption failed: bad key/) {
             throw EBox::Exceptions::EBackup::BadSymmetricKey();
         }elsif ($error =~ m/No signature chains found/) {

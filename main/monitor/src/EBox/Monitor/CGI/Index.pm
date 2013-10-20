@@ -78,13 +78,12 @@ sub masonParameters
     try {
         $measuredData = $mon->allMeasuredData();
     } catch (EBox::Exceptions::Internal $e) {
-        my $ex = shift;
-        my $error = $ex->text();
+        my $error = $e->text();
 
         if ($error =~ m/Need to save changes/) {
             $needSaveChanges = 1;
         } else {
-            $ex->throw();
+            $e->throw();
         }
     }
 

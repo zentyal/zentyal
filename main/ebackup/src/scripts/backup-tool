@@ -261,8 +261,7 @@ sub _removeExpiredBackups
         my $settingsModel = $ebackup->model('RemoteSettings');
         my $method = $settingsModel->row()->valueByName('method');
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift @_;
-        my $errorMsg = $ex->error()->[-1];
+        my $errorMsg = $e->error()->[-1];
         chomp($errorMsg) if $errorMsg;
         $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         if ( $errorMsg eq 'BackendException' ) {
@@ -332,13 +331,11 @@ sub _performBackup
     my $preHookError;
     try {
         $ebackup->preBackupHook();
-    } catch ( EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift @_;
-        my @error = @{  $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my @error = @{ $e->error() };
         $preHookError = "@error";
-    } catch {
-        my $ex = @_;
-        $preHookError = "$ex";
+    } catch ($e) {
+        $preHookError = "$e";
     }
     if ($preHookError) {
         $success = 0;
@@ -353,16 +350,14 @@ sub _performBackup
             $successMsg = EBox::Sudo::root($backupCmd);
             $success = 1;
         } catch ( EBox::Exceptions::Sudo::Command $e) {
-            my $ex = shift @_;
             $success = 0;
-            my @error = @{  $ex->error() };
+            my @error = @{ $e->error() };
             chomp $error[-1] if @error;
             $errorMsg = "@error";
             $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
-        } catch {
-            my ($ex) = @_;
+        } catch ($e) {
             $success = 0;
-            $errorMsg = "$ex";
+            $errorMsg = "$e";
         }
         last if ($success);
         # Error comes from a timeout? We can only assure the exception
@@ -382,13 +377,11 @@ sub _performBackup
     my $postHookError;
     try {
         $ebackup->postBackupHook();
-    } catch ( EBox::Exceptions::Sudo::Command $e) {
-        my $ex = shift @_;
-        my @error = @{  $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my @error = @{ $e->error() };
         $postHookError = "@error";
-    } catch {
-        my $ex = @_;
-        $postHookError = "$ex";
+    } catch ($e) {
+        $postHookError = "$e";
     }
 
     if ($postHookError) {

@@ -196,9 +196,8 @@ sub checkMaster
 
     try {
         $master->getDN();
-    } catch {
-        my $ex = shift;
-        $self->_analyzeException($ex);
+    } catch ($e) {
+        $self->_analyzeException($e);
     }
 
     # Check that master's REALM is correct
@@ -251,9 +250,8 @@ sub setupSlave
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
             $client->registerSlave($webAdminMod->port(), $client_cert, 1);
-        } catch {
-            my $ex = shift;
-            $self->_analyzeException($ex);
+        } catch ($e) {
+            $self->_analyzeException($e);
         }
 
         # Write master certificate

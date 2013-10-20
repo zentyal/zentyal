@@ -300,9 +300,8 @@ sub _multiInsertBadEncoding
     foreach my $valuesToInsert (@{ $values_r }) {
         try {
             $self->unbufferedInsert($table, $valuesToInsert );
-        } catch {
-            my $ex = shift;
-            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
+        } catch ($e) {
+            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $e")
         }
     }
 }
