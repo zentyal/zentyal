@@ -1,6 +1,6 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Set version to 3.3
-HEAD
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
 3.2

@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Enable resolvconf updates when starting and stopping bind9 daemon
 	+ Enforce include of 127.0.0.1 in DNS resolvers when enabling
 	+ Set version to 3.3

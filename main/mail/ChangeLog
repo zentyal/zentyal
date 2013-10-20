@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification
 	+ Set version to 3.3

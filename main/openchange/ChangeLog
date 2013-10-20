@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
 	+ Disable mode select when provisioned

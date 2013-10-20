@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Set zavsd socket mode to 0777
 	+ Fix already defined variable warning
 	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'

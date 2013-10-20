@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ userExists and groupExists discriminates between shown objects and
 	  objects hid by SID
 	+ Fixed wrong path in ExternalAD::connectWithKerberos

@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ In the tunnel client bundle don't allow additional server
 	  addresses because they are not supported
 	+ Set version to 3.3
