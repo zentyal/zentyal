@@ -103,8 +103,8 @@ sub commandTest
     try {
         EBox::Sudo::command($failCommand);
         fail $testName;
-    } catch {
-        $ex = shift @_;
+    } catch ($e) {
+        $ex = $e;
         pass $testName;
     }
 

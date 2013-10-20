@@ -122,8 +122,8 @@ sub _commandError
         throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
     }
 
-    my $exitValue =  $childError >>  8;
-    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
+    my $exitValue = $childError >>  8;
+    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error, exitValue => $exitValue);
 }
 
 # Procedure: root
@@ -250,8 +250,7 @@ sub rootWithoutException
     try {
         $output =  root($cmd);
     } catch (EBox::Exceptions::Sudo::Command $e) { # ignore failed commands
-        my $ex = shift @_;
-        $output = $ex->output();
+        $output = $e->output();
     }
 
     return $output;
