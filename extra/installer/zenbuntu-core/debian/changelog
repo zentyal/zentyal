@@ -1,3 +1,9 @@
+zenbuntu-core (3.3) precise; urgency=low
+
+  * Added man-db as dependency
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 20 Oct 2013 20:46:04 +0200
+
 zenbuntu-core (3.2.1) precise; urgency=low
 
   * Do initial actions only in fresh install
