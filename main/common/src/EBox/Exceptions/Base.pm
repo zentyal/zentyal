@@ -23,6 +23,11 @@ use EBox::Gettext;
 
 use Log::Log4perl;
 
+use overload (
+    '""'     => 'stringify',
+    fallback => 1
+);
+
 # Constructor: new
 #
 #      Create a new exception base class
@@ -57,6 +62,12 @@ sub text
     my ($self) = @_;
 
     return $self->{text};
+}
+
+sub stringify
+{
+    my ($self) = @_;
+    return $self->{text} ? $self->{text} : 'Died';
 }
 
 sub stacktrace
