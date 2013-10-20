@@ -349,6 +349,8 @@ sub ifaceIsShapeable
         return 0;
     } elsif ($method eq 'ppp') {
         return 0;
+    } elsif ($method eq 'bundled') {
+        return 0;
     }
 
     return 1;
@@ -628,7 +630,7 @@ sub ifaceMethodChanged
 {
     my ($self, $iface, $oldMethod, $newMethod) = @_;
 
-    my @notUsedMethods = qw(notset trunk);
+    my @notUsedMethods = qw(notset trunk bundled);
     my $newUsed = grep { $_ ne $newMethod } @notUsedMethods;
     my $oldUsed = grep { $_ ne $oldMethod } @notUsedMethods;
 
@@ -1479,7 +1481,7 @@ sub _realIfaces
     my $network = $self->{'network'};
     my @ifaces = grep {
         my $method = $network->ifaceMethod($_);
-        ($method ne 'notset') and ($method ne 'trunk')
+        ($method ne 'notset') and ($method ne 'trunk') and ($method ne 'bundled')
     }  @{$network->ifaces()};
     @ifaces =  map {
         $network->realIface($_)

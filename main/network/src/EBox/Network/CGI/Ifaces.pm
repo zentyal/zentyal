@@ -55,6 +55,7 @@ sub masonParameters
 
     my @params = ();
     my @bridges = ();
+    my @bonds = ();
     my @ifaces = ();
 
     foreach (@{$tmpifaces}) {
@@ -79,9 +80,14 @@ sub masonParameters
             push(@params, 'vlans' => $net->ifaceVlans($_));
         } elsif ($net->ifaceMethod($_) eq 'bridged') {
             $iface->{'bridge'} = $net->ifaceBridge($_);
+        } elsif ($net->ifaceMethod($_) eq 'bundled') {
+            $iface->{'bond'} = $net->ifaceBond($_);
         } elsif ($net->ifaceMethod($_) eq 'ppp') {
             $iface->{'ppp_user'} = $net->ifacePPPUser($_);
             $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
+        }
+        if ($net->ifaceIsBond($_)) {
+            $iface->{'bond_mode'} = $net->bondMode($_);
         }
     }
 
@@ -98,10 +104,19 @@ sub masonParameters
         push(@bridges, $brinfo);
     }
 
+    foreach my $bond (@{$net->bonds()}) {
+        my $bondinfo = {};
+        $bondinfo->{'id'} = $bond;
+        $bondinfo->{'name'} = "bond$bond";
+        $bondinfo->{'alias'} = $net->ifaceAlias("bond$bond");
+        push(@bonds, $bondinfo);
+    }
+
     push(@params, 'externalWarning' => $externalWarning);
     push(@params, 'iface' => $iface);
     push(@params, 'ifaces' => \@ifaces);
     push(@params, 'bridges', => \@bridges);
+    push(@params, 'bonds', => \@bonds);
 
     return \@params;
 }
