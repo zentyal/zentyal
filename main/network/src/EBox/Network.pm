@@ -2684,6 +2684,15 @@ sub _generateResolvConfInterfaceOrder
         push (@{$interfaces}, $interface);
     }
 
+    # TODO SearchDomain should be a table model. Multiple search domains
+    #      can be defined
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+    my $searchDomainIface = $searchDomainModel->value('interface');
+    if ($searchDomainIface) {
+        push (@{$interfaces}, $searchDomainIface);
+    }
+
     my $ifaces = $self->ifaces();
     foreach my $iface (@{$ifaces}) {
         next unless $self->ifaceMethod($iface) eq 'dhcp';
@@ -2700,11 +2709,6 @@ sub _generateResolvConfInterfaceOrder
         'network/resolvconf-interface-order.mas', $array,
         { mode => '0644', uid => 0, gid => 0 });
 
-    # TODO SearchDomain should be a table model. Multiple search domains
-    #      can be defined
-    my $searchDomainModel = $self->model('SearchDomain');
-    my $searchDomain = $searchDomainModel->value('domain');
-
     # Second step, trigger the updates
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
@@ -2716,7 +2720,14 @@ sub _generateResolvConfInterfaceOrder
 
         next unless ($interface =~ m/^zentyal\..+$/);
         EBox::Sudo::root("resolvconf -d '$interface'");
-        EBox::Sudo::root("echo 'nameserver $resolver\ndomain $searchDomain' | resolvconf -a '$interface'");
+        EBox::Sudo::root("echo 'nameserver $resolver' | resolvconf -a '$interface'");
+    }
+
+    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
+        EBox::Sudo::root("resolvconf -d '$searchDomainIface'");
+        if ($searchDomain) {
+            EBox::Sudo::root("echo 'search $searchDomain' | resolvconf -a '$searchDomainIface'");
+        }
     }
 }
 

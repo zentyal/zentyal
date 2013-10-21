@@ -94,6 +94,31 @@ sub _table
     return $dataTable;
 }
 
+# Method: updatedRowNotify
+#
+#   This method is overrided to update the interface field.
+#
+#   When search domain is updated from the resolvconf update script
+#   (/etc/resolvconf/update.d/zentyal-resolvconf), the interface field is
+#   populated with the value used by the network configurer daemon
+#   (ifup, ifdown, etc). Otherwise, we fill with the value "zentyal_<row id>"
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $interfaceElement = $row->elementByName('interface');
+    my $id = 'zentyal.' . $row->id();
+    if ($interfaceElement->value() ne $id) {
+        $interfaceElement->setValue($id);
+        $row->store();
+    }
+}
+
 # Method: importSystemSearchDomain
 #
 #   This method populate the model with the currently configured search
