@@ -1,4 +1,5 @@
 HEAD
+	+ Moved EBox::SquidFirewallHelper to EBox::Squid::FirewallHelper
 	+ Fixed squid basic authentication to support multi-OU
 3.2
 	+ Set version to 3.2

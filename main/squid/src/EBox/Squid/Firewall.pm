@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::SquidFirewall;
+package EBox::Squid::Firewall;
 
 use base 'EBox::FirewallHelper';
 
