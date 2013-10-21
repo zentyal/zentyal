@@ -9,6 +9,8 @@
 	$ppp_pass
 	$external
 	$bridge
+	$bond
+	$bond_mode
 </%args>
 <%init>
 use EBox::Gettext;
@@ -30,6 +32,8 @@ use EBox::Gettext;
 	<input type="hidden" name="if_ppp_user"  value="<% $ppp_user %>"/>
 	<input type="hidden" name="if_ppp_pass"  value="<% $ppp_pass %>"/>
 	<input type="hidden" name="bridge"  value="<% $bridge %>"/>
+	<input type="hidden" name="bond"  value="<% $bond %>"/>
+	<input type="hidden" name="bond_mode"  value="<% $bond_mode %>"/>
 % if (defined($external)) {
 	<input type="hidden" name="external" value="yes"/>
 % }
