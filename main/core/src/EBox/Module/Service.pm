@@ -227,7 +227,7 @@ sub enableModDependsRecursive
         ($modName ne $name) ? ($modName) : ();
     } @{ $global->sortModulesEnableModDepends([$self, values %depends]) };
 
-    return [keys %depends];
+    return \@depNames;
 }
 
 
