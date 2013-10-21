@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed JS typo which disabled export backup dialog
 3.2.2
 	+ When restoring pre-3.2 backups take in account that apache
 	  module was renamed to webadmin
