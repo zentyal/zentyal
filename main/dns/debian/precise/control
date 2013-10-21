@@ -11,8 +11,8 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-dns
 Architecture: all
-Depends: zentyal-core (>= 3.2), zentyal-core (<< 3.3),
- zentyal-network (>= 3.2.1), zentyal-firewall, libdigest-hmac-perl,
+Depends: zentyal-core (>= 3.2.3), zentyal-core (<< 3.3),
+ zentyal-network (>= 3.2.2), zentyal-firewall, libdigest-hmac-perl,
  bind9 (>= 1:9.8.1.dfsg.P1-4ubuntu0.7+zentyal1), ${misc:Depends}
 Description: Zentyal - DNS Service
  Zentyal is a Linux small business server that can act as
