@@ -150,7 +150,7 @@ sub importSystemSearchDomain
             for my $line (<$fd>) {
                 $line =~ s/^\s+//g;
                 my @toks = split (/\s+/, $line);
-                if ($toks[0] eq 'domain') {
+                if (($toks[0] eq 'domain') or ($toks[0] eq 'search')) {
                     push (@{$domains{$file}}, $toks[1]);
                 }
             }
@@ -168,7 +168,7 @@ sub importSystemSearchDomain
         }
     } otherwise {
         my ($error) = @_;
-        EBox::error("Could not import system resolvers: $error");
+        EBox::error("Could not import search domain: $error");
     };
 }
 
