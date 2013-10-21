@@ -3,6 +3,7 @@
 <%args>
     $user
     $slave => 1
+    $forbid => 0
     @warns => ()
 </%args>
 <%init>
@@ -17,6 +18,9 @@ use EBox::Gettext;
     <% __('You cannot delete a user in a slave.') %>
 </div>
 % } else {
+% if ($forbid) {
+<div class='warning'><% __x('This user cannot be deleted') %></div>
+% } else {
 <div class='note'>
     <% __('This operation will cause the removal of the user and all its dependent data') %>
 %   if (@warns) {
@@ -27,12 +31,15 @@ use EBox::Gettext;
      </ul>
 %   }
 </div>
+% }
 <form action='/Users/DeleteUser' method='POST' id='delUserForm'>
 <p>
 <input type="hidden" name="dn" value="<% $user->dn() %>" />
+% unless ($forbid) {
             <input class='inputButton' type='submit' id='deluser' name='deluser'
                    value="<% __('Delete user') %>"
                    alt="<% __('Delete user') %>" />
+% }
             <& /input/dialogCancel.mas &>
 </p>
 </form>

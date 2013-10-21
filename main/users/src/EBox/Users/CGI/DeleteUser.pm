@@ -37,9 +37,25 @@ sub _process
     $self->{'title'} = __('Users');
 
     $self->_requireParam('dn', 'dn');
+
+    my @args;
+    
     my $dn = $self->unsafeParam('dn');
     my $user = new EBox::Users::User(dn => $dn);
 
+    # Prevent deletion of users Administrator, Guest
+    my $samba = EBox::Global->modInstance('samba');
+    my $sid = undef;
+    if (defined ($samba)) {
+        my $object = $samba->ldbObjectFromLDAPObject($user);
+        if (defined ($object) and ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-500$/)) {
+            push (@args, 'forbid' => 1);
+        }
+        if (defined ($object) and ($object->sid() =~ /^S-1-5-21-\d+-\d+-\d+-501$/)) {
+            push (@args, 'forbid' => 1);
+        }
+    }
+    
     if ($self->unsafeParam('deluser')) {
         $self->{json} = { success => 0 };
         $user->deleteObject();
@@ -48,8 +64,6 @@ sub _process
     } else {
         # show dialog
         my $usersandgroups = EBox::Global->getInstance()->modInstance('users');
-
-        my @args = ();
         push(@args, 'user' => $user);
         my $editable = $usersandgroups->editableMode();
         push(@args, 'slave' => not $editable);
