@@ -1,4 +1,6 @@
 3.3
+	+ mark bond slaves as not shapable and use the master bond for shaping
+	  (contribution by Vsevolod Kukol)
 	+ Show menu icon when zentyal-l7-protocols is not installed
 	+ Set version to 3.3
 3.2
