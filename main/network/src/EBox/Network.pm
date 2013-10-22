@@ -43,6 +43,7 @@ use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
+use EBox::Service;
 use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
@@ -236,6 +237,24 @@ sub initialSetup
     # Upgrade from 3.0
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
         $self->_overrideDaemons() if $self->configured();
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.2') < 0)) {
+        my $resolverModel = $self->model('DNSResolver');
+        foreach my $id (@{$resolverModel->ids()}) {
+            my $row = $resolverModel->row($id);
+            my $interfaceElement = $row->elementByName('interface');
+            my $interfaceValue = $interfaceElement->value();
+            unless (defined $interfaceValue and length $interfaceValue) {
+                $interfaceElement->setValue("zentyal.$id");
+                $row->store();
+            }
+        }
+        my $searchDomainModel = $self->model('SearchDomain');
+        my $domainRow = $searchDomainModel->row();
+        my $ifaceElement = $domainRow->elementByName('interface');
+        $ifaceElement->setValue('zentyal.' . $domainRow->id());
+        $domainRow->store();
     }
 }
 
@@ -2684,6 +2703,15 @@ sub _generateResolvConfInterfaceOrder
         push (@{$interfaces}, $interface);
     }
 
+    # TODO SearchDomain should be a table model. Multiple search domains
+    #      can be defined
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+    my $searchDomainIface = $searchDomainModel->value('interface');
+    if ($searchDomainIface) {
+        push (@{$interfaces}, $searchDomainIface);
+    }
+
     my $ifaces = $self->ifaces();
     foreach my $iface (@{$ifaces}) {
         next unless $self->ifaceMethod($iface) eq 'dhcp';
@@ -2700,11 +2728,6 @@ sub _generateResolvConfInterfaceOrder
         'network/resolvconf-interface-order.mas', $array,
         { mode => '0644', uid => 0, gid => 0 });
 
-    # TODO SearchDomain should be a table model. Multiple search domains
-    #      can be defined
-    my $searchDomainModel = $self->model('SearchDomain');
-    my $searchDomain = $searchDomainModel->value('domain');
-
     # Second step, trigger the updates
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
@@ -2716,8 +2739,19 @@ sub _generateResolvConfInterfaceOrder
 
         next unless ($interface =~ m/^zentyal\..+$/);
         EBox::Sudo::root("resolvconf -d '$interface'");
-        EBox::Sudo::root("echo 'nameserver $resolver\ndomain $searchDomain' | resolvconf -a '$interface'");
+        EBox::Sudo::root("echo 'nameserver $resolver' | resolvconf -a '$interface'");
     }
+
+    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
+        EBox::Sudo::root("resolvconf -d '$searchDomainIface'");
+        if ($searchDomain) {
+            EBox::Sudo::root("echo 'search $searchDomain' | resolvconf -a '$searchDomainIface'");
+        }
+    }
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+    EBox::Sudo::root("echo 'domain $domain' | resolvconf -a 'zentyal.domain'");
 }
 
 sub _generateProxyConfig
@@ -3241,10 +3275,13 @@ sub _preSetConf
     } catch EBox::Exceptions::Internal with {
     };
 
+    $self->{restartResolvconf} = 0;
+
     # Ensure /var/run/resolvconf/resolv.conf exists
     if (not EBox::Sudo::fileTest('-f', '/var/run/resolvconf/resolv.conf')) {
         EBox::info("Creating file /var/run/resolvconf/resolv.conf");
         EBox::Sudo::root('touch /var/run/resolvconf/resolv.conf');
+        $self->{restartResolvconf} = 1;
     }
 
     # Ensure /etc/resolv.conf is a symlink to /var/run/resolvconf/resolv.conf
@@ -3252,6 +3289,7 @@ sub _preSetConf
         EBox::info("Restoring symlink /etc/resolv.conf");
         EBox::Sudo::root('rm -f ' . RESOLV_FILE);
         EBox::Sudo::root('ln -s /var/run/resolvconf/resolv.conf ' . RESOLV_FILE);
+        $self->{restartResolvconf} = 1;
     }
 
     # Write DHCP client configuration
@@ -3296,7 +3334,17 @@ sub _preSetConf
             }
         }
     }
+}
 
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->{restartResolvconf}) {
+        EBox::Service::manage('resolvconf', 'restart');
+    }
+
+    $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _daemons

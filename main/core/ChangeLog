@@ -1,4 +1,6 @@
 3.3
+	+ Fixed error in the recursive method for getting module dependencies
+	+ Fixed JS typo which disabled export backup dialog
 	+ Added dbus dependency to avoid problems on some minimal installations
 	+ When restoring pre-3.2 backups take in account that apache
 	  module was renamed to webadmin

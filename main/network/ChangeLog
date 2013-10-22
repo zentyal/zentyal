@@ -1,4 +1,6 @@
 3.3
+	+ Added resolvconf as dependency to avoid problems in installations
+	  without the ubuntu-minimal metapackage
 	+ Use new resolvconf framework to manage resolvers list
 	+ Fix setNameservers method in Network to avoid error in import
 	  interfaces

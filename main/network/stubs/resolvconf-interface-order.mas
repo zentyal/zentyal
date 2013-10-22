@@ -6,6 +6,7 @@ lo.dnsmasq
 lo.pdnsd
 lo.!(pdns|pdns-recursor)
 lo
+zentyal.domain
 % foreach my $interface (@{$interfaces}) {
 <% $interface %>
 % }

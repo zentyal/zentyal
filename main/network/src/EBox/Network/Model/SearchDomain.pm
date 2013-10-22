@@ -94,6 +94,31 @@ sub _table
     return $dataTable;
 }
 
+# Method: updatedRowNotify
+#
+#   This method is overrided to update the interface field.
+#
+#   When search domain is updated from the resolvconf update script
+#   (/etc/resolvconf/update.d/zentyal-resolvconf), the interface field is
+#   populated with the value used by the network configurer daemon
+#   (ifup, ifdown, etc). Otherwise, we fill with the value "zentyal_<row id>"
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row) = @_;
+
+    my $interfaceElement = $row->elementByName('interface');
+    my $id = 'zentyal.' . $row->id();
+    if ($interfaceElement->value() ne $id) {
+        $interfaceElement->setValue($id);
+        $row->store();
+    }
+}
+
 # Method: importSystemSearchDomain
 #
 #   This method populate the model with the currently configured search
@@ -125,7 +150,7 @@ sub importSystemSearchDomain
             for my $line (<$fd>) {
                 $line =~ s/^\s+//g;
                 my @toks = split (/\s+/, $line);
-                if ($toks[0] eq 'domain') {
+                if (($toks[0] eq 'domain') or ($toks[0] eq 'search')) {
                     push (@{$domains{$file}}, $toks[1]);
                 }
             }
@@ -143,7 +168,7 @@ sub importSystemSearchDomain
         }
     } otherwise {
         my ($error) = @_;
-        EBox::error("Could not import system resolvers: $error");
+        EBox::error("Could not import search domain: $error");
     };
 }
 
