@@ -1,4 +1,6 @@
 HEAD
+	+ Decode givenName, sn and description before propagating it from OpenLDAP
+	  to Samba so it doesn't fail due to encoding issues
 	+ Don't put duplicate bridge interfaces in smb.conf
 	+ Don't allow a share with file system root as path
 	+ Explicitly set firewall version dependency in control file

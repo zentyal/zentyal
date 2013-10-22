@@ -186,6 +186,10 @@ sub _modifyUser
         my $gn = $zentyalUser->get('givenName');
         my $sn = $zentyalUser->get('sn');
         my $desc = $zentyalUser->get('description');
+        # Workaround for accented users problem
+        utf8::encode($gn);
+        utf8::encode($sn);
+        utf8::encode($desc);
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
         $sambaUser->set('description', $desc, 1);
@@ -330,7 +334,10 @@ sub _modifyGroup
             push (@{$sambaMembersDNs}, $sambaUser->dn());
         }
         $sambaGroup->set('member', $sambaMembersDNs, 1);
-        $sambaGroup->set('description', scalar ($zentyalGroup->get('description')), 1);
+        my $description = scalar ($zentyalGroup->get('description'));
+        # Workaround for accented users problem
+        utf8::encode($description);
+        $sambaGroup->set('description', $description, 1);
         $sambaGroup->save();
     } otherwise {
         my ($error) = @_;
