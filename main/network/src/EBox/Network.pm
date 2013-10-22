@@ -2748,6 +2748,10 @@ sub _generateResolvConfInterfaceOrder
             EBox::Sudo::root("echo 'search $searchDomain' | resolvconf -a '$searchDomainIface'");
         }
     }
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+    EBox::Sudo::root("echo 'domain $domain' | resolvconf -a 'zentyal.domain'");
 }
 
 sub _generateProxyConfig
