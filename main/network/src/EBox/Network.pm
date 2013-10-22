@@ -43,6 +43,7 @@ use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
+use EBox::Service;
 use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
@@ -3252,10 +3253,13 @@ sub _preSetConf
     } catch EBox::Exceptions::Internal with {
     };
 
+    $self->{restartResolvconf} = 0;
+
     # Ensure /var/run/resolvconf/resolv.conf exists
     if (not EBox::Sudo::fileTest('-f', '/var/run/resolvconf/resolv.conf')) {
         EBox::info("Creating file /var/run/resolvconf/resolv.conf");
         EBox::Sudo::root('touch /var/run/resolvconf/resolv.conf');
+        $self->{restartResolvconf} = 1;
     }
 
     # Ensure /etc/resolv.conf is a symlink to /var/run/resolvconf/resolv.conf
@@ -3263,6 +3267,7 @@ sub _preSetConf
         EBox::info("Restoring symlink /etc/resolv.conf");
         EBox::Sudo::root('rm -f ' . RESOLV_FILE);
         EBox::Sudo::root('ln -s /var/run/resolvconf/resolv.conf ' . RESOLV_FILE);
+        $self->{restartResolvconf} = 1;
     }
 
     # Write DHCP client configuration
@@ -3307,7 +3312,17 @@ sub _preSetConf
             }
         }
     }
+}
 
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->{restartResolvconf}) {
+        EBox::Service::manage('resolvconf', 'restart');
+    }
+
+    $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _daemons
