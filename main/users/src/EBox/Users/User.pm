@@ -171,6 +171,12 @@ sub setInternal
 sub set
 {
     my ($self, $attr, $value) = @_;
+    
+    my $uidNumber = $self->get('uidNumber');
+    my $uid = $self->get('uid');
+
+    my $AdministratorUidNumber = 0;
+    my $GuestUidNumber = 65534;
 
     if ($attr eq 'quota') {
         if ($self->_checkQuota($value)) {
@@ -178,6 +184,16 @@ sub set
                     'value' => $value,
                     'advice' => __('User quota must be an integer. To set an unlimited quota, enter zero.'),
                     );
+        }
+        
+        # Never set quota for 'Administrator' or 'Guest'
+        if ( ($uidNumber eq $AdministratorUidNumber) || ($uidNumber eq $GuestUidNumber) ) {
+            if ($value ne '0') {
+                throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                    'value' => $value,
+                    'advice' => __('User <b>' . $uid . '</b> requires unlimited quota. To set an unlimited quota, enter zero.'),
+                    );
+            }
         }
 
         # set quota on save
@@ -218,6 +234,22 @@ sub save
             $usersMod->notifyModsLdapUserBase('modifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
         }
     }
+    
+    my $uidNumber = $self->get('uidNumber');
+    my $uid = $self->get('uid');
+
+    my $AdministratorUidNumber = 0;
+    my $GuestUidNumber = 65534;
+
+    if ($changetype eq 'delete') {
+        # Prevent deletion of 'Administrator' and 'Guest'
+        if ( ($uidNumber eq $AdministratorUidNumber) || ($uidNumber eq $GuestUidNumber) ) {
+                throw EBox::Exceptions::InvalidData('data' => __('user quota'),
+                    'advice' => __('User <b>' . $uid . '</b> is a System User and cannot be deleted.'),
+                    );
+        }
+    }
+    
 }
 
 # Method: groups

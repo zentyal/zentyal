@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed Users 'Administrator' and 'Guest' - prevent deletion, 
+	  force zero quota with error message (Contributed by on-jz)
 	+ userExists and groupExists discriminates between shown objects and
 	  objects hid by SID
 3.2.1
