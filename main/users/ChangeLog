@@ -1,4 +1,7 @@
 HEAD
+	+ Don't use slave cloud sync if not subscribed
+	+ Adapted cloud sync to changes in user modules
+	+ Added childrenObjectClass parameter to EBox::Users::LdapObject::children
 	+ userExists and groupExists discriminates between shown objects and
 	  objects hid by SID
 3.2.1
