@@ -238,6 +238,24 @@ sub initialSetup
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
         $self->_overrideDaemons() if $self->configured();
     }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.2') < 0)) {
+        my $resolverModel = $self->model('DNSResolver');
+        foreach my $id (@{$resolverModel->ids()}) {
+            my $row = $resolverModel->row($id);
+            my $interfaceElement = $row->elementByName('interface');
+            my $interfaceValue = $interfaceElement->value();
+            unless (defined $interfaceValue and length $interfaceValue) {
+                $interfaceElement->setValue("zentyal.$id");
+                $row->store();
+            }
+        }
+        my $searchDomainModel = $self->model('SearchDomain');
+        my $domainRow = $searchDomainModel->row();
+        my $ifaceElement = $domainRow->elementByName('interface');
+        $ifaceElement->setValue('zentyal.' . $domainRow->id());
+        $domainRow->store();
+    }
 }
 
 # Method: enableActions
