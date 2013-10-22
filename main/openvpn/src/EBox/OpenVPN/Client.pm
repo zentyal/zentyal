@@ -435,6 +435,17 @@ sub ripDaemon
             };
 }
 
+# Method: ifaceAddress
+#
+#   Since this is a dynamic IP and we don't have in place structure like
+#   dhcp for the moment we get the address of the existent iface
+sub ifaceAddress
+{
+    my ($self) = @_;
+    return $self->actualIfaceAddress();
+}
+
+
 # Method: advertisedNets
 #
 #  gets the nets which will be advertised to the server as reachable thought the client
@@ -552,7 +563,7 @@ sub summary
     my $server = "$addr $port/\U$proto";
     push @summary,__('Connection target'), $server;
 
-    my $ifAddr = $self->ifaceAddress();
+    my $ifAddr = $self->actualIfaceaddress();
     if ($ifAddr) {
         push @summary, (__('VPN interface address'), $ifAddr);
     }else {
