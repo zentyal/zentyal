@@ -93,7 +93,7 @@ my $duplicityCommand = "/usr/bin/duplicity --timeout=$TIMEOUT @ARGV";
 if ($debug) {
     my $cmdMsg = "Duplicity command: $duplicityCommand";
     my $cmdLogFile =  EBox::Config::log() . 'duplicity-command.log';
-    system "echo $cmdMsg >> $cmdLogFile";
+    system "echo `date` $cmdMsg >> $cmdLogFile";
 }
 
 EBox::setLocaleEnvironment('C.UTF-8');
