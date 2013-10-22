@@ -1,6 +1,6 @@
 HEAD
-	+ Better behaved daemon's ifaceAddress methods
-	+ Precondition to assure they are certificate availables in
+	+ Better behavior for daemons ifaceAddress methods
+	+ Precondition to assure there are certificates available in
 	  DownloadClientBundle model
 	+ In the tunnel client bundle don't allow additional server
 	  addresses because they are not supported
