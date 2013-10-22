@@ -15,6 +15,7 @@ Pre-Depends: mysql-server
 Depends: zentyal-core (>= 3.2), zentyal-core (<< 3.3), zentyal-firewall,
  zentyal-network, zentyal-objects, zentyal-users, squid3,
  dansguardian, adduser, adzapper, msktutil, ${misc:Depends}
+Conflicts: zentyal-openvpn (<= 3.2)
 Description: Zentyal - HTTP Proxy (Cache and Filter)
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
