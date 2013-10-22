@@ -1,3 +1,5 @@
+HEAD
+	+ Use resolvconf tool to modify resolv.conf when joining as ADC
 3.2.6
 	+ Set zavsd socket mode to 0777
 	+ Fix already defined variable warning

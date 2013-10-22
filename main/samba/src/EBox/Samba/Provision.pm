@@ -1255,13 +1255,9 @@ sub provisionADC
         EBox::debug("Setting domain DNS server '$adDnsServer' as the primary resolver");
         $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
                                   DIR      => EBox::Config::tmp());
-        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile");
-        my $array = [];
-        push (@{$array}, searchDomain => $domainToJoin);
-        push (@{$array}, nameservers => [ $adDnsServer ]);
-        $sambaModule->writeConfFile(EBox::Network::RESOLV_FILE(),
-                                    'network/resolv.conf.mas',
-                                    $array);
+        EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
+                         'echo zentyal.temp > /etc/resolvconf/interface-order',
+                         "echo 'search $domainToJoin\nnameserver $adDnsServer' | resolvconf -a zentyal.temp");
 
         # Get a ticket for admin User
         my $principal = "$adUser\@$realm";
@@ -1365,7 +1361,8 @@ sub provisionADC
     } finally {
         # Revert primary resolver changes
         if (defined $dnsFile and -f $dnsFile) {
-            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                             'resolvconf -d zentyal.temp');
             unlink $dnsFile;
         }
         # Remote stashed password
