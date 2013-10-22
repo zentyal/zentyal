@@ -285,4 +285,20 @@ sub _checkSamba
     }
 }
 
+sub master
+{
+    my ($self) = @_;
+    my $master =  $self->row()->elementByName('master')->value();
+    if ($master eq 'cloud') {
+        my $remoteServices = $self->global()->modInstance('remoteservices');
+        if (not $remoteServices) {
+            return 'none';
+        }
+
+        return $remoteServices->eBoxSubscribed() ? 'cloud' : 'none';
+    }
+
+    return $master;
+}
+
 1;
