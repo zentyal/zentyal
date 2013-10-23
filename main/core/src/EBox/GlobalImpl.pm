@@ -388,6 +388,7 @@ sub revokeAllModules
 
     if (not $failed) {
         $progress->setAsFinished() if $progress;
+        $self->_assertNotChanges();
         return;
     }
 
@@ -729,6 +730,8 @@ sub saveAllModules
             EBox::info('Changes saved successfully');
         }
         $progress->setAsFinished(0, $message) if $progress;
+
+        $self->_assertNotChanges();
 
         return;
     }
