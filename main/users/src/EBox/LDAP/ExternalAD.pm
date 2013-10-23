@@ -35,6 +35,7 @@ use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 use File::Basename;
+use Authen::SASL;
 
 # Singleton variable
 my $_instance = undef;

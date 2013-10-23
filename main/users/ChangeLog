@@ -1,4 +1,5 @@
 HEAD
+	+ Add missing use to EBox::Users::LDAP::ExternalAD
 	+ Force DNS restart when users mode changed
 	+ Force service principals update on _postServiceHook in external AD mode
 	+ Don't use slave cloud sync if not subscribed
