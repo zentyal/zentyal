@@ -1,4 +1,6 @@
 HEAD
+	+ Force DNS restart when users mode changed
+	+ Force service principals update on _postServiceHook in external AD mode
 	+ Don't use slave cloud sync if not subscribed
 	+ Adapted cloud sync to changes in user modules
 	+ Added childrenObjectClass parameter to EBox::Users::LdapObject::children
