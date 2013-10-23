@@ -1,4 +1,6 @@
 HEAD
+	+ Avoid error in access rules model when using external AD and
+	  module has not been configured
 	+ Fixed squid basic authentication to support multi-OU
 3.2
 	+ Set version to 3.2
