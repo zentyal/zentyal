@@ -563,7 +563,7 @@ sub summary
     my $server = "$addr $port/\U$proto";
     push @summary,__('Connection target'), $server;
 
-    my $ifAddr = $self->actualIfaceaddress();
+    my $ifAddr = $self->actualIfaceAddress();
     if ($ifAddr) {
         push @summary, (__('VPN interface address'), $ifAddr);
     }else {

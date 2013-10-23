@@ -223,8 +223,6 @@ sub actualIfaceAddress
     return $cidrAddr;
 }
 
-
-
 #
 # Method: user
 #
