@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed the way we propagate optional fields, removing it when empty
 	+ Decode givenName, sn and description before propagating it from OpenLDAP
 	  to Samba so it doesn't fail due to encoding issues
 	+ Don't put duplicate bridge interfaces in smb.conf

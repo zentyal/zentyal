@@ -189,10 +189,16 @@ sub _modifyUser
         # Workaround for accented users problem
         utf8::encode($gn);
         utf8::encode($sn);
-        utf8::encode($desc);
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
-        $sambaUser->set('description', $desc, 1);
+
+        if ($desc) {
+            utf8::encode($desc);
+            $sambaUser->set('description', $desc, 1);
+        } else {
+            $sambaUser->delete('description', 1);
+        }
+
         if (defined($zentyalPwd)) {
             $sambaUser->changePassword($zentyalPwd, 1);
         } else {
@@ -335,9 +341,13 @@ sub _modifyGroup
         }
         $sambaGroup->set('member', $sambaMembersDNs, 1);
         my $description = scalar ($zentyalGroup->get('description'));
-        # Workaround for accented users problem
-        utf8::encode($description);
-        $sambaGroup->set('description', $description, 1);
+        if ($description) {
+            # Workaround for accented users problem
+            utf8::encode($description);
+            $sambaGroup->set('description', $description, 1);
+        } else {
+            $sambaGroup->delete('description', 1);
+        }
         $sambaGroup->save();
     } otherwise {
         my ($error) = @_;
