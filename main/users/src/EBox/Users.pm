@@ -689,6 +689,8 @@ sub _setConf
 sub _setConfExternalAD
 {
     my ($self) = @_;
+
+    # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "users/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
 }
@@ -775,6 +777,20 @@ sub _setConfInternal
 
     @params = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@params);
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->mode() eq EXTERNAL_AD_MODE) {
+        # Update services keytabs
+        my $ldap = $self->ldap();
+        my @principals = @{ $ldap->externalServicesPrincipals() };
+        if (scalar @principals) {
+            $ldap->initKeyTabs();
+        }
+    }
 }
 
 # overriden to revoke slave removals
@@ -1854,8 +1870,7 @@ sub slaves
 sub master
 {
     my ($self) = @_;
-    my $row = $self->model('Master')->row();
-    return $row->elementByName('master')->value();
+    return $self->model('Master')->master();
 }
 
 # SyncProvider implementation

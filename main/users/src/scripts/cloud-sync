@@ -58,7 +58,7 @@ EBox::debug("Asking for user list");
 my $res = $rest->GET('/v1/users/users/');
 
 # local and remote user list
-my $lusers = $users->users();
+my $lusers = $users->realUsers();
 my $rusers = $res->data();
 
 my $rusernames;
@@ -109,8 +109,8 @@ for my $ruser (@{$rusers}) {
         } else {
             EBox::info('Local user "' . $ruser->{name} . '" does not exist, creating...');
             my %user;
-            $user{user} = $ruser->{name};
-            $user{name} = $ruser->{firstname};
+            $user{uid}     = $ruser->{name};
+            $user{name}    = $ruser->{firstname};
             $user{surname} = $ruser->{lastname};
             if ($user{name}) {
                 $user{fullname} = $user{name} . ' ' . $user{surname};
@@ -123,6 +123,8 @@ for my $ruser (@{$rusers}) {
             $user{comment} = $ruser->{description};
             $user{isSystemUser} = 0;
             $user{ignoreSlaves} = IGNORE;
+            $user{parent} = $users->objectFromDN($ruser->{ou} . ',' . $users->ldap->dn());
+
             EBox::Users::User->create(%user);
         }
     } otherwise {
@@ -145,7 +147,7 @@ EBox::debug("Asking for group list");
 $res = $rest->GET('/v1/users/groups/');
 
 # local and remote user list
-my $lgroups = $users->groups();
+my $lgroups = $users->realGroups();
 my $rgroups = $res->data();
 my $rgroupnames;
 
@@ -168,6 +170,7 @@ for my $rgroup (@{$rgroups}) {
                 gidNumber     => $rgroup->{gid},
                 isSystemGroup => 0,
                 ignoreSlaves  => IGNORE,
+                parent        => $users->objectFromDN($rgroup->{ou} . ',' . $users->ldap->dn()),
             );
 
             $lgroup = EBox::Users::Group->create(%args);
