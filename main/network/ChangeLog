@@ -1,4 +1,5 @@
 HEAD
+	+ Do not disable DNSResolver model when users mode is external AD
 	+ Added resolvconf as dependency to avoid problems in installations
 	  without the ubuntu-minimal metapackage
 3.2.2
