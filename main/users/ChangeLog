@@ -1,4 +1,5 @@
 HEAD
+	+ Add missing use to EBox::Users::LDAP::ExternalAD
 	+ Don't use slave cloud sync if not subscribed
 	+ Adapted cloud sync to changes in user modules
 	+ Added childrenObjectClass parameter to EBox::Users::LdapObject::children
