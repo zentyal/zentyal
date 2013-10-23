@@ -1,3 +1,6 @@
+HEAD
+	+ Do not set localhost as primary resolver if users module is configured
+	  in external AD mode. In this case, the AD DNS server must be used.
 3.2.3
 	+ Added network as enabledepend, needed by the resolvconf management
 3.2.2
