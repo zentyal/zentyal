@@ -388,6 +388,7 @@ sub revokeAllModules
 
     if (not $failed) {
         $progress->setAsFinished() if $progress;
+        $self->_assertNotChanges();
         return;
     }
 
@@ -724,6 +725,8 @@ sub saveAllModules
         }
         $progress->setAsFinished(0, $message) if $progress;
 
+        $self->_assertNotChanges();
+
         return;
     }
 
@@ -762,6 +765,7 @@ sub restartAllModules
         };
     }
     if ($failed eq "") {
+        $self->_assertNotChanges();
         return;
     }
     throw EBox::Exceptions::Internal("The following modules failed while ".
@@ -1344,6 +1348,18 @@ sub _packageInstalled
         }
     }
     return $installed;
+}
+
+sub _assertNotChanges
+{
+    my ($self) = @_;
+    my @unsaved =  @{$self->modifiedModules('save')};
+    if (@unsaved) {
+        my $names = join ', ', map { $_->name() } @unsaved;
+        throw EBox::Exceptions::Internal("Unsaved modules: $names");
+    }
+
+    EBox::info("ASSERT All modules not changed");
 }
 
 1;
