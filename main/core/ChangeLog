@@ -1,3 +1,5 @@
+HEAD
+	+ Waiting for Zentyal ready page check is more robust now
 3.2.3
 	+ Fixed error in the recursive method for getting module dependencies
 	+ Fixed JS typo which disabled export backup dialog
