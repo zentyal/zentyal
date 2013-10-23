@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Do not set localhost as primary resolver if users module is configured
+	  in external AD mode. In this case, the AD DNS server must be used.
+	+ Added network as enabledepend, needed by the resolvconf management
 	+ Enable resolvconf updates when starting and stopping bind9 daemon
 	+ Enforce include of 127.0.0.1 in DNS resolvers when enabling
 	+ Set version to 3.3

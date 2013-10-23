@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Improve squid group membership helper script
 	+ Fixed squid basic authentication to support multi-OU
 	+ Set version to 3.3
 3.2

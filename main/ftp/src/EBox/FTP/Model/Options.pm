@@ -141,14 +141,13 @@ sub _table
                 defaultValue => 1,
                 help => __('Enable authenticated FTP access to each user home directory.'),
                ),
-         # disabled until ftp server allows it, see #4133
-         # new EBox::Types::Boolean(
-         #        fieldName => 'chrootUsers',
-         #        printableName => __('Restrict to personal directories'),
-         #        editable => 1,
-         #        defaultValue => 1,
-         #        help => __('Restrict access to each user home directory. Take into account that this restriction can be circumvented under some conditions.'),
-         #       ),
+         new EBox::Types::Boolean(
+                fieldName => 'chrootUsers',
+                printableName => __('Restrict to personal directories'),
+                editable => 1,
+                defaultValue => 1,
+                help => __('Restrict access to each user home directory. Take into account that this restriction can be circumvented under some conditions.'),
+               ),
          new EBox::Types::Select(
                 fieldName     => 'ssl',
                 printableName => __('SSL support'),

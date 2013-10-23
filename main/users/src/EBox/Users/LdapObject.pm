@@ -515,16 +515,22 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self) = @_;
+    my ($self, $childrenObjectClass) = @_;
 
     return [] unless $self->isContainer();
+    my $filter;
+    if ($childrenObjectClass) {
+        $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
+    } else {
+        $filter = '(!(objectclass=organizationalRole))';
+    }
 
     # All children except for organizationalRole objects which are only used
     # internally. Paged by 500 results
     my $page = Net::LDAP::Control::Paged->new( size => 500 );
     my $attrs = {
         base => $self->dn(),
-        filter => '(!(objectclass=organizationalRole))',
+        filter => $filter,
         scope  => 'one',
         control => [ $page ],
     };

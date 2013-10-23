@@ -1,5 +1,9 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Waiting for Zentyal ready page check is more robust now
+	+ Fixed error in the recursive method for getting module dependencies
+	+ Fixed JS typo which disabled export backup dialog
+	+ Added dbus dependency to avoid problems on some minimal installations
 	+ When restoring pre-3.2 backups take in account that apache
 	  module was renamed to webadmin
 	+ Make sure that we always commit/discard audit of changes when we

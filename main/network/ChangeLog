@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Do not disable DNSResolver model when users mode is external AD
+	+ Added resolvconf as dependency to avoid problems in installations
+	  without the ubuntu-minimal metapackage
 	+ Use new resolvconf framework to manage resolvers list
 	+ Fix setNameservers method in Network to avoid error in import
 	  interfaces

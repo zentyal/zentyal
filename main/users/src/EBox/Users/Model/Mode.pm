@@ -45,6 +45,26 @@ sub new
     return $self;
 }
 
+# Method: updatedRowNotify
+#
+#   If the mode is changed, we mark the DNS module as changed to force a
+#   resolvconf update, which will setup or not localhost as the unique
+#   resolver depending on the selected mode
+#
+# Overrides:
+#
+#   <EBox::Model::DataForm::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+
+    my $mode = $row->valueByName('mode');
+    my $oldMode = $oldRow->valueByName('mode');
+    if (not defined $oldMode or $mode ne $oldMode) {
+        $self->global->modChange('dns');
+    }
+}
 
 sub validateTypedRow
 {
@@ -97,7 +117,6 @@ sub _validateExternalADMode
               )
         );
     }
-
 
     my $user = $params->{dcUser}->value();
     if ($user =~ m/@/) {

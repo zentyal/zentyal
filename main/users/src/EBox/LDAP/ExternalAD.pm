@@ -35,6 +35,7 @@ use Net::DNS;
 use Net::NTP qw(get_ntp_response);
 use Authen::Krb5::Easy qw{kinit_pwd kdestroy kerror kinit kcheck};
 use File::Basename;
+use Authen::SASL;
 
 # Singleton variable
 my $_instance = undef;
@@ -44,8 +45,9 @@ sub _new_instance
     my $class = shift;
 
     my $self = {};
-    $self->{ldap} = undef;
     bless($self, $class);
+    $self->clearConn();
+
     return $self;
 }
 
@@ -76,17 +78,65 @@ sub instance
 
 # Method: dcHostname
 #
-#  Returns:
-#    domain controller hostname
+# Returns:
+#
+#   Domain controller hostname
+#
 sub dcHostname
 {
     my ($self) = @_;
+
     return $self->{dcHostname};
+}
+
+# Method: getPassword
+#
+# Returns:
+#
+#   Password of the configured AD administrative user
+#
+sub getPassword
+{
+    my ($self) = @_;
+
+    return $self->{password};
+}
+
+# Method: _adUser
+#
+# Returns:
+#
+#   User for bind to LDAP
+#
+sub _adUser
+{
+    my ($self) = @_;
+
+    my $user = $self->{user};
+    $user or throw EBox::Exceptions::Internal('user attribute not defined');
+
+    return $user;
+}
+
+# Method: userBindDN
+#
+#  Overrides:
+#
+#   <EBox::Ldap::userBindDN>
+#
+sub userBindDN
+{
+    my ($self, $user) = @_;
+
+    my $adRealm = $self->_adRealm();
+
+    return $user . '@' . $adRealm;
 }
 
 sub _dcLDAPConnection
 {
     my ($self) = @_;
+
     my $dc = $self->dcHostname();
     my $ldap = new Net::LDAP($dc);
     unless ($ldap) {
@@ -99,24 +149,17 @@ sub _dcLDAPConnection
 
 # Method: url
 #
-#  Overrides:
-#     EBox::Ldap::url
+# Overrides:
+#
+#   <EBox::Ldap::url>
+#
 sub url
 {
     my ($self) = @_;
+
     return $self->dcHostname();
 }
 
-# Method: userBindDN
-#
-#  Overrides:
-#     EBox::Ldap::userBindDN
-sub userBindDN
-{
-    my ($self, $user) = @_;
-    my $adRealm = $self->_adRealm();
-    return $user . '@' . $adRealm;
-}
 
 # Method: hostSamAccountName
 #
@@ -182,15 +225,6 @@ sub connectWithKerberos
     return $ldap;
 }
 
-# Method: getPassword
-#
-# Returns:
-#   password of the configured AD administrative user
-sub getPassword
-{
-    my ($self) = @_;
-    return $self->{password};
-}
 
 # Method: connection
 #
@@ -329,7 +363,7 @@ sub connection
 
     # Bind to the AD LDAP
     my $ad = $self->_dcLDAPConnection();
-    my $adUser = $self->_adUser();
+    my $adUser = $self->userBindDN($self->_adUser());
     my $bindPwd = $self->getPassword();
     my $bindResult = $ad->bind($adUser, password => $bindPwd);
     if ($bindResult->is_error()) {
@@ -338,6 +372,7 @@ sub connection
                 "Please check the supplied credentials.",
                 x => $dc, y => $bindResult->error_desc()));
     }
+
     $self->{ldap} = $ad;
     return $ad;
 }
@@ -346,7 +381,8 @@ sub connection
 sub _rootDse
 {
     my ($self) = @_;
-    if (not $self->{rootDse}) {
+
+    unless (defined $self->{rootDse}) {
         my $ad = $self->_dcLDAPConnection();
         $self->{rootDse} = $ad->root_dse(attrs => ['dnsHostName', 'defaultNamingContext']);
     }
@@ -356,6 +392,7 @@ sub _rootDse
 sub _adRealm
 {
     my ($self) = @_;
+
     my $dse = $self->_rootDse();
     my $defaultNC = $dse->get_value('defaultNamingContext');
     my @dcDnsHostname = split (/\./, $dse->get_value('dnsHostName'), 2);
@@ -391,28 +428,22 @@ sub _adRealm
 sub _adDefaultNC
 {
     my ($self) = @_;
-    my $dse = $self->_rootDse();
-    return $dse->get_value('defaultNamingContext');
-}
 
-sub _adUser
-{
-    my ($self) = @_;
-    my $user = $self->{user};
-    $user or throw EBox::Exceptions::Internal('user attribute not defined');
-    my $adRealm = $self->_adRealm();
-    return $user . '@' . $adRealm;
+    my $dse = $self->_rootDse();
+
+    return $dse->get_value('defaultNamingContext');
 }
 
 # Method: initKeyTabs
 #
-#  initializes keytabs for AD/Kerberos services
+#   Initializes keytabs for AD/Kerberos services
+#
 sub initKeyTabs
 {
     my ($self) = @_;
     my $ad = $self->connection();
 
-    my $adUser = $self->_adUser();
+    my $adUser = $self->userBindDN($self->_adUser());
     my $dc      = $self->dcHostname();
     my $defaultNC = $self->_adDefaultNC();
     my $sysinfo = EBox::Global->modInstance('sysinfo');
@@ -421,7 +452,6 @@ sub initKeyTabs
     my $hostSamAccountName = $self->hostSamAccountName();
     my $hostFQDN = $sysinfo->fqdn();
     my $hostFound = _hostInAD($ad, $defaultNC, $hostSamAccountName);
-
 
     # Extract keytab for services
     try {
@@ -442,7 +472,7 @@ sub initKeyTabs
 
         my $computerName = uc ($sysinfo->hostName());
 
-        my @servicesPrincipals = @{ $self->externalServicesPrincipals };
+        my @servicesPrincipals = @{ $self->externalServicesPrincipals() };
         foreach my $servPrincipal (@servicesPrincipals) {
             my $keytab      = $servPrincipal->{keytab};
             my $keytabFound = EBox::Sudo::fileTest('-r', $keytab);
@@ -562,17 +592,21 @@ sub _adCheckClockSkew
 # Method: externalServicesPrincipals
 #
 # Returns:
-#  reference a list of principals of services which can connect to AD/Kerberos
+#
+#  Reference to a list of service principals which can connect to AD/Kerberos
+#
 sub externalServicesPrincipals
 {
     my ($self) = @_;
-    # XXX implement, returning squid for now
-    my @servicesPrincipals;
-    my $squid = EBox::Global->modInstance('squid');
-    if ($squid->isEnabled()) {
-        push @servicesPrincipals, $squid->kerberosServicePrincipals();
+
+    my $SPNs = [];
+    if (EBox::Global->modExists('squid')) {
+        my $squid = EBox::Global->modInstance('squid');
+        if ($squid->isEnabled()) {
+            push (@{$SPNs}, $squid->kerberosServicePrincipals());
+        }
     }
-    return \@servicesPrincipals;
+    return $SPNs;
 }
 
 sub anonymousLdapCon
@@ -587,27 +621,32 @@ sub getRoPassword
 
 # Method: dn
 #
-#  Returns:
-#    base DN of the external AD
+# Returns:
+#
+#   The base DN of the external AD
+#
 sub dn
 {
     my ($self) = @_;
-    if(!defined($self->{dn})) {
+
+    unless (defined $self->{dn}) {
         $self->{dn} = $self->_adDefaultNC();
     }
 
     return defined ($self->{dn}) ? $self->{dn} : '';
-
 }
 
 # Method: clearConn
 #
-#       Closes LDAP connection and clears DN cached value
+#   Closes LDAP connection and clears DN cached value
 #
 sub clearConn
 {
     my ($self) = @_;
+
+    delete $self->{ldap};
     delete $self->{rootDse};
+    delete $self->{dn};
     $self->SUPER::clearConn();
 }
 
@@ -624,8 +663,7 @@ sub ldapConf
     my ($self) = @_;
     return {
         dn => $self->dn()
-
-       };
+    };
 }
 
 sub _dumpLdap

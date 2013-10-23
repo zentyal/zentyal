@@ -639,7 +639,16 @@ sub _preSetConf
 {
     my ($self) = @_;
 
+    my $runResolvConf = 1;
+    if ($self->global->modExists('users')) {
+        my $usersModule = $self->global->modInstance('users');
+        my $mode = $usersModule->mode();
+        if ($mode eq EBox::Users::EXTERNAL_AD_MODE()) {
+            $runResolvConf = 0;
+        }
+    }
     my $array = [];
+    push (@{$array}, runResolvConf => $runResolvConf);
     $self->writeConfFile(BIND9DEFAULTFILE, 'dns/bind9.mas', $array,
         {mode => '0644', uid => 0, gid => 0});
 }
@@ -929,7 +938,7 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ( $enabled ) {
+    if ($enabled) {
         my $nTry = 0;
         do {
             sleep(1);
@@ -941,6 +950,15 @@ sub _postServiceHook
                 unlink($filename) if -f $filename; # Remove the temporary file
             }
             delete $self->{nsupdateCmds};
+        }
+
+        if (EBox::Global->modExists('users')) {
+            my $usersModule = EBox::Global->modInstance('users');
+            my $mode = $usersModule->mode();
+            if ($mode eq EBox::Users::EXTERNAL_AD_MODE() and
+                EBox::Sudo::fileTest('-f', '/var/run/resolvconf/interface/lo.named')) {
+                EBox::Sudo::root('resolvconf -d lo.named');
+            }
         }
     }
 

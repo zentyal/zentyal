@@ -61,18 +61,18 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var description= $('#backup_description').val();
+     var description= \$('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup';
      var data = 'description='  +  escape(description);
-     data += '&backup=1&popup=1'
+     data += '&backup=1&popup=1';
 
      Zentyal.Dialog.showURL(url, {title: title, data: data});
-     return false
+     return false;
 ENDJS
 </%perl>
-                                <input type='submit'
-                                <% $disabledAttr %> name='backup'
+                                <input type="submit"
+                                <% $disabledAttr %> name="backup"
                                 value="<% $backupTitle  %>"
                                 onclick="<% $backupOnClickJs %>"
                                 />
