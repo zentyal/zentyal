@@ -799,4 +799,15 @@ sub isEqualTo
     return 1;
 }
 
+sub hashForJSON
+{
+    my ($self) = @_;
+    my %json;
+    my $myElements  = $self->hashElements();
+    while (my ($name, $element) = each %{ $myElements }) {
+        $json{$name} = $element->value();
+    }
+    return \%json;
+}
+
 1;

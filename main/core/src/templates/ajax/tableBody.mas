@@ -200,8 +200,9 @@ if ($checkAllProperty) {
          push @trClass, 'movableRow';
          $addRowMoveHandle = 1;
       }
+      my $rowId = $row->id();
 </%perl>
-      <tr class='<% "@trClass" %>' id="<% $row->id() %>">
+      <tr class='<% "@trClass" %>' id="<% $rowId %>">
 %      foreach my $td (@{$row->elements()})      {
 <%perl>
           next unless ($td->HTMLViewer());
@@ -212,7 +213,7 @@ if ($checkAllProperty) {
               push  @viewerParams, (checkAllId => $checkAllId);
           }
 </%perl>
-        <td class='tcenter'>
+        <td class='tcenter' id='<% $rowId %>_<% $td->fieldName() %>'>
 %          if ($addRowMoveHandle) {
            <span class='moveRowHandle'></span>
 %              $addRowMoveHandle = 0;

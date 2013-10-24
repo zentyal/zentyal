@@ -66,6 +66,7 @@ sub run
 
         unless ($cgi) {
             my $classname = $self->urlToClass($effectiveUrl);
+            EBox::debug("URLTOCLASS -> $classname");
             eval "use $classname";
 
             if ($@) {

@@ -196,6 +196,8 @@ sub _editField
     my $row = $model->row($id);
     my $auditId = $self->_getAuditId($id);
 
+    $self->{json} = { success => 0 };
+
     # Store old and new values before setting the row for audit log
     my %changedValues;
     for my $field (@{$tableDesc} ) {
@@ -231,6 +233,10 @@ sub _editField
 
     my $editField = $self->param('editfield');
     if (not $editField) {
+        $self->{json}->{success} = 1;
+        $self->{json}->{changed} = {
+            $id => $model->row($id)->hashForJSON()
+           };
         return;
     }
 
@@ -365,7 +371,7 @@ sub editAction
     my ($self) = @_;
     my %params = $self->getParams();
     $self->editField(%params);
-    $self->refreshTable();
+#    $self->refreshTable();
 }
 
 sub addAction
