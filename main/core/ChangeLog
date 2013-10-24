@@ -1,3 +1,6 @@
+HEAD
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
 3.0.29
 	+ Make sure that we always discard audit of changes when we revoke them
 	+ Include contents of /etc/resolv.conf in bug report
