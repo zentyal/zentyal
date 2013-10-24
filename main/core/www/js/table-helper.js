@@ -254,8 +254,28 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
 };
 
 
-Zentyal.TableHelper.setRow = function(row, values) {
+Zentyal.TableHelper.setRow = function(table, rowId, values) {
+    var row,
+        i,
+        element,
+        selector,
+    container,
+        html;
+    row = $('#' + rowId, table);
+    assert(row.length > 0);
+    for (i=0; i < values.length; i++) {
+        element = values[i];
+        selector= '#' + rowId + '_' + element.fieldName;
+        container = $(selector, row);
+        if (element.type  === 'EBox::Types::Boolean') {
+            $(':checkbox', container).prop('checked', element.value);
+        } else {
+            // default html generation
+            html = '<span>' + element.value + '</span>';
+            container.html(html);
+        }
 
+    }
 };
 
 Zentyal.TableHelper.modifyRows = function(tableId, changes) {
@@ -264,17 +284,8 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
     assert(table.length > 0);
     if ('changed' in changes) {
         for (rowId in changes.changed) {
-            var row = $('#' + rowId, table);
-            // XXX blindly demostratatin
-            var elementChanges = changes.changed[rowId];
-            var i;
-            var element;
-            for (i=0; i < elementChanges.length; i++) {
-                element = elementChanges[i];
-                var fullId = '#' + rowId + '_' + element.fieldName;
-                var html = '<span>' + element.value + '</span>';
-                $(fullId, row).html(html);
-            }
+            var values = changes.changed[rowId];
+            Zentyal.TableHelper.setRow(table, rowId, values);
         }
     }
 };

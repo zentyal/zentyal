@@ -820,7 +820,7 @@ sub schemaForJSON
     my %json = (
         fieldName => $self->fieldName(),
         value     => $self->value(),
-        htmlViewer => $self->HTMLViewer(),
+        type      => ref($self),
     );
 
     return \%json;
