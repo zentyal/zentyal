@@ -234,8 +234,9 @@ sub _editField
     my $editField = $self->param('editfield');
     if (not $editField) {
         $self->{json}->{success} = 1;
+
         $self->{json}->{changed} = {
-            $id => $model->row($id)->hashForJSON()
+            $id => $model->row($id)->schemaForJSON()
            };
         return;
     }

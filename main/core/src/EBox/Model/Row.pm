@@ -799,15 +799,16 @@ sub isEqualTo
     return 1;
 }
 
-sub hashForJSON
+
+sub schemaForJSON
 {
     my ($self) = @_;
-    my %json;
-    my $myElements  = $self->hashElements();
-    while (my ($name, $element) = each %{ $myElements }) {
-        $json{$name} = $element->value();
+    my @json;
+    foreach my $element (@{ $self->elements() }) {
+        push @json, $element->schemaForJSON();
     }
-    return \%json;
+    return \@json;
 }
+
 
 1;

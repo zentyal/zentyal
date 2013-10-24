@@ -254,6 +254,10 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
 };
 
 
+Zentyal.TableHelper.setRow = function(row, values) {
+
+};
+
 Zentyal.TableHelper.modifyRows = function(tableId, changes) {
     var rowId;
     var table = $('#' + tableId);
@@ -263,10 +267,13 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
             var row = $('#' + rowId, table);
             // XXX blindly demostratatin
             var elementChanges = changes.changed[rowId];
-            var elementId;
-            for (elementId in elementChanges) {
-                var fullId = '#' + rowId + '_' + elementId;
-                $(fullId, row).html('<span>' + elementChanges[elementId] + '</span>');
+            var i;
+            var element;
+            for (i=0; i < elementChanges.length; i++) {
+                element = elementChanges[i];
+                var fullId = '#' + rowId + '_' + element.fieldName;
+                var html = '<span>' + element.value + '</span>';
+                $(fullId, row).html(html);
             }
         }
     }
@@ -308,6 +315,8 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
             failure(response);
             return;
         }
+
+        $('#' + table + '_editForm').hide(); // XXX asure than we dont let  lot of editForms in te same page
         Zentyal.TableHelper.modifyRows(table, response);
 
     };

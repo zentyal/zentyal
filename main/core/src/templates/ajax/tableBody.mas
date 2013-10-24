@@ -124,12 +124,13 @@ if ($checkAllProperty) {
 
 %        }
 %     }
-  <span id="<% 'creatingForm_' . $tableName %>"></span>
+  <span id="creatingForm_<% $tableName %>"></span>
 %  }
 
 
 %  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %   if ($showEditForm) {
+<div id='<% $tableName  %>_editForm'>
 <& SELF:editFormTitle,
    action => $action,
    printableRowName => $printableRowName,
@@ -141,6 +142,7 @@ if ($checkAllProperty) {
    editid => $editid,
    presetParams  => \%presetParams
 &>
+</div>
 %   }
 %  }
 
