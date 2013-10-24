@@ -271,13 +271,6 @@ sub editBoolean
     $self->_editField(1, %editParams);
 
     $model->popMessage();
-
-    my $global = EBox::Global->getInstance();
-    # XXX Use JSON here This way we could just return
-    #     a json object { changes_menu: true } and get it evaled
-    if ($global->unsaved()) {
-        $self->_responseToEnableChangesMenuElement();
-    }
 }
 
 sub setAllChecks
@@ -295,15 +288,6 @@ sub checkAllControlValueAction
     my $field = $self->param('field');
     my $value = $model->checkAllControlValue($field) ? 1 : 0;
     $self->{json} = { success => $value  };
-}
-
-# prints a HTML response to enable the 'Save changes' web element
-# don't p[ritn any other HTML if you use this
-sub _responseToEnableChangesMenuElement
-{
-    my ($self) = @_;
-    $self->_header();
-    print '$("#changes_menu").removeClass().addClass("changed")';
 }
 
 sub customAction
