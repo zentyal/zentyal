@@ -18,6 +18,9 @@ function sendStatus(name, enable)
         data: params,
         success: function (response) {
           $('#modulesStatus').html(response);
+        },
+        complete: function(){
+            Zentyal.refreshSaveChangesButton();
         }
     });
 }
@@ -38,11 +41,6 @@ function configureModule(module, title)
 }
 
 $(function() {
-%# Enable changes button if needded
-% unless (defined($hasChanged) and $hasChanged eq 'notset') {
-%   my $className =  ($hasChanged) ? 'changed' : 'notchanged';
-    $('#changes_menu').removeClass().addClass('<% $className %>');
-% }
     Zentyal.stripe('#statusTable', 'even', 'odd');
 });
 </script>
