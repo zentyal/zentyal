@@ -1,4 +1,8 @@
 HEAD
+	+ Depend on new samba4 version that fixes 0-byte size problems
+	+ NT SD are now written to hidden and readonly files
+	+ Remove no longer used antivirus options
+	+ Get ldb object in s4sync after the initial wait
 	+ Use resolvconf tool to modify resolv.conf when joining as ADC
 3.2.6
 	+ Set zavsd socket mode to 0777
