@@ -161,7 +161,7 @@ sub addRow
 
 sub removeRow
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $model = $self->{'tableModel'};
 
@@ -175,6 +175,7 @@ sub removeRow
     $model->removeRow($id, $force);
 
     $self->_auditLog('del', $auditId);
+    return $id;
 }
 
 sub editField
@@ -375,8 +376,14 @@ sub addAction
 sub delAction
 {
     my ($self) = @_;
-    $self->removeRow();
-    $self->refreshTable();
+    $self->{json} = {  success => 0 };
+    my $rowId = $self->removeRow();
+    # TODO add roes to view
+    # TODO if all rows are deleted
+    $self->{json} = {
+        success => 1,
+        removed => [ $rowId ]
+       };
 }
 
 sub changeAddAction

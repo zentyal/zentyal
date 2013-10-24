@@ -259,7 +259,7 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
         i,
         element,
         selector,
-    container,
+        container,
         html;
     row = $('#' + rowId, table);
     assert(row.length > 0);
@@ -279,9 +279,25 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
 };
 
 Zentyal.TableHelper.modifyRows = function(tableId, changes) {
-    var rowId;
+    var rowId,
+        i;
+
     var table = $('#' + tableId);
     assert(table.length > 0);
+    if ('removed' in changes) {
+        for (i=0; i < changes.removed.length; i++) {
+            rowId = changes.removed[i];
+            var row = $('#' + rowId, table);
+            assert(row.length === 1);
+            row.remove();
+        }
+    }
+    if ('prepend' in changes) {
+        // TODO
+    }
+    if ('append' in changes) {
+        // TODO
+    }
     if ('changed' in changes) {
         for (rowId in changes.changed) {
             var values = changes.changed[rowId];
@@ -369,6 +385,7 @@ Parameters:
 
 */
 Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  directory, page, extraParams) {
+    var success, failure, complete, dataType;
     var params = '&action=' + action + '&id=' + rowId;
 
     if ( page != undefined ) {
@@ -384,26 +401,60 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  direct
 
     Zentyal.TableHelper.cleanError(table);
 
-    var success = function(responseText) {
-        $('#' + table).html(responseText);
+    if (action === 'del') {
+        dataType = 'json';
+    } else {
+        dataType = 'html';
+    }
 
-    };
-    var failure = function(response) {
-        $('#error_' + table).html(response.responseText).show();
-        Zentyal.TableHelper.restoreHidden('actionsCell_' + rowId, table);
-    };
-    var complete = function(response) {
-        Zentyal.stripe('.dataTable', 'even', 'odd');
-        if ( action == 'del' ) {
-            delete savedElements['actionsCell_' + rowId];
-        }
-    };
+    if (dataType === 'json') {
+        failure = function(response) {
+            var errorText;
+            if ('error' in response) {
+                errorText = response.error;
+            } else {
+                errorText = 'Unexpected failure'; // XXX lack i18n
+            }
+            $('#error_' + table).html(errorText).show();
+        };
+        success = function(response) {
+            if (! response.success) {
+                failure(response);
+                return;
+            }
+
+            Zentyal.TableHelper.modifyRows(table, response);
+        };
+        complete = function(response) {
+            Zentyal.refreshSaveChangesButton();
+            Zentyal.stripe('.dataTable', 'even', 'odd');
+            if ( action == 'del' ) {
+                delete savedElements['actionsCell_' + rowId];
+            }
+        };
+    } else if (dataType === 'html') {
+        success = function(responseText) {
+            $('#' + table).html(responseText);
+        };
+        failure = function(response) {
+            $('#error_' + table).html(response.responseText).show();
+            Zentyal.TableHelper.restoreHidden('actionsCell_' + rowId, table);
+        };
+        complete = function(response) {
+            Zentyal.stripe('.dataTable', 'even', 'odd');
+            if ( action == 'del' ) {
+                delete savedElements['actionsCell_' + rowId];
+            }
+        };
+    } else {
+        throw 'Should not be reached: Unsupported data type:' + dataType;
+    }
 
    $.ajax({
             url: url,
             data: params,
             type : 'POST',
-            dataType: 'html',
+            dataType: dataType,
             success: success,
             error: failure,
             complete: complete
@@ -413,6 +464,8 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  direct
     Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
   }
 };
+
+
 
 Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {
     var params = '&action=' + action;
@@ -1050,7 +1103,7 @@ Zentyal.TableHelper.removeSelectChoice = function (id, value, selectedIndex) {
     }
 
     var options = selectControl.options;
-    for(var i=0;i< options.length;i++){
+    for(var i=0; i < options.length; i++){
       if(options[i].value==value){
         options[i] = null;
         break;

@@ -2865,7 +2865,12 @@ sub actionClickedJS
         throw EBox::Exceptions::External("Wrong action $action");
     }
 
-    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
+    my  $function;
+    if ($action eq 'del') {
+        $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
+    } else {
+        $function =  "Zentyal.TableHelper.actionDelete('%s','%s','%s','%s','%s',%s, %s)";
+    }
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
