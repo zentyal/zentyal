@@ -1090,8 +1090,6 @@ sub _daemons
     return [
         {
             name => 'samba4',
-            type => 'init.d',
-            pidfiles => ['/opt/samba4/var/run/samba.pid'],
         },
         {
             name => 'zentyal.nmbd',
@@ -1109,6 +1107,17 @@ sub _daemons
             name => 'zentyal.zavsd',
             precondition => \&_antivirusEnabled,
         },
+    ];
+}
+
+#  Method: _daemonsToDisable
+#
+#   Overrides <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { name => 'samba4', type => 'init.d' },
     ];
 }
 
