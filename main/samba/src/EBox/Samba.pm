@@ -760,12 +760,8 @@ sub antivirusConfig
     my $conf = {
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
-        hide_nonscanned_files    => 'False',
-        scanning_message         => 'is being scanned for viruses',
         recheck_time_open        => '50',
         recheck_tries_open       => '100',
-        recheck_time_readdir     => '50',
-        recheck_tries_readdir    => '20',
         allow_nonscanned_files   => 'False',
     };
 
