@@ -318,7 +318,10 @@ sub _doProvision
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        $cmd = '/opt/samba4/sbin/openchange_provision --openchangedb';
+        $cmd = '/opt/samba4/sbin/openchange_provision ' .
+               "--openchangedb " .
+               "--firstorg='$firstOrganization' " .
+               "--firstou='$firstOrganizationUnit' ";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
 

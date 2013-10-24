@@ -1,3 +1,6 @@
+HEAD
+	+ Added the firstorg and firstou arguments also when provisioning the
+	  openchangedb part.
 3.3
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
