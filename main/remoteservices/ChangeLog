@@ -1,3 +1,5 @@
+HEAD
+	+ Honor system-wide defined HTTP Proxy in REST client
 3.0.26
 	+ Better error if we cannot register due to lack of free space
 	+ Fix links to see latest reports or its documentation on Reports tab
