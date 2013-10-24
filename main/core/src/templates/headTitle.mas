@@ -36,3 +36,8 @@ my $finishTitle = __('Save changes?');
           </a>
 % }
         </div>
+<script>
+$(function(){
+    Zentyal.refreshSaveChangesButton();
+});
+</script>
