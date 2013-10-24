@@ -35,11 +35,6 @@
    onlyBody => 1,
 &>
 % }
-% # Anyway you should call the change menu sub-component to check if
-% # any change has been done
-<& SELF:changeMenu,
-   hasChanged => $hasChanged
-&>
 
 
 <%doc>
@@ -370,30 +365,6 @@ $model
 
 </%doc>
 <%method buttons>
-</%method>
-
-<%doc>
-  Method: changeMenu
-
-     Change the CSS class from the changes menu in order to advise the
-     user some changes have been made
-
-</%doc>
-<%method changeMenu>
-<%args>
-  $hasChanged
-</%args>
-<script>
-<%perl>
-my $className;
-if ($hasChanged) {
-  $className = 'changed';
-} else {
-  $className = 'notchanged';
-}
-</%perl>
-$('#changes_menu').removeClass().addClass('<% $className %>');
-</script>
 </%method>
 
 <%doc>
