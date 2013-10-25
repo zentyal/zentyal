@@ -40,6 +40,12 @@ sub new
 
     my $self = $class->SUPER::new();
 
+    # check we have the configuration file
+    my $confFile = $self->_confFile();
+    if (not $confFile) {
+        throw EBox::Exceptions::Internal("No configuration file for remote services connection");
+    }
+
     $self->{gl} = EBox::Global->getInstance();
     $self->{rs} = $self->{gl}->modInstance('remoteservices');
     $self->{openvpn} = $self->{gl}->modInstance('openvpn');
@@ -153,20 +159,33 @@ sub connect
 
 # Method: disconnectAndRemove
 #
-#     Disconnect and remove the VPN client
+#     Disconnect and remove the VPN client. Can be called as class method
 #
+#     Parameters:
+#        openvpnMod - only needed if called a class method.
 sub disconnectAndRemove
 {
-    my ($self) = @_;
-
-    my $openvpnMod = $self->{openvpn};
-    my $client = $self->vpnClient();
-    if ( $client ) {
-        $client->stop() if $client->isRunning();
-        #     $client->delete();
-        $openvpnMod->deleteClient($client->name());
-        $openvpnMod->save();
+    my ($self, @params) = @_;
+    my ($openvpnMod, $client);
+    if (ref $self) {
+        $openvpnMod = $self->{openvpn};
+        $client = $self->vpnClient();
+    } else {
+        ($openvpnMod) = @params;
+        my $clientName = $self->clientName();
+        if ($openvpnMod->clientExists($clientName)) {
+            $client = $openvpnMod->client($clientName);
+        }
     }
+
+    if (not $client) {
+        return;
+    }
+
+    $client->stop() if $client->isRunning();
+    #     $client->delete();
+    $openvpnMod->deleteClient($client->name());
+    $openvpnMod->save();
 }
 
 # Method: vpnClient
@@ -379,9 +398,12 @@ sub _confFile
 
     my $confDir = EBox::Config::conf() . SERV_SUBDIR . '/' . $self->_cn();
     my @confFiles = <$confDir/*.conf>;
+    if (not @confFiles) {
+        EBox::warn('No remote services configuration file for ' . $self->_cn());
+        return undef;
+    }
 
     return $confFiles[0];
-
 }
 
 # Get the certificates path from the configuration file
