@@ -265,6 +265,9 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
     assert(row.length > 0);
     for (i=0; i < values.length; i++) {
         element = values[i];
+        if (element.hidden) {
+            continue;
+        }
         selector= '#' + rowId + '_' + element.fieldName;
         container = $(selector, row);
         if (element.type  === 'EBox::Types::Boolean') {
@@ -293,10 +296,30 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
         }
     }
     if ('prepend' in changes) {
-        // TODO
+        var trFirst = $('tr:first', table);
+        if (trFirst.lentgh === 0) {
+            // empty table
+            assert(0);
+        }
+        for (i=0; i < changes.prepend.length; i++) {
+            var tr = $(changes.prepend[i]);
+            assert(tr.length > 0);
+            trFirst.before(tr);
+            trFirst = tr;
+        }
     }
     if ('append' in changes) {
-        // TODO
+        var trLast = $('tr:last', table);
+        if (trLast.lentgh === 0) {
+            // empty table
+            assert(0);
+        }
+        for (i=0; i < changes.prepend.length; i++) {
+            var tr = $(changes.prepend[i]);
+            assert(tr.length > 0);
+            trLast.before(tr);
+            trLast = tr;
+        }
     }
     if ('changed' in changes) {
         for (rowId in changes.changed) {

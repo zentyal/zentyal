@@ -821,6 +821,7 @@ sub schemaForJSON
         fieldName => $self->fieldName(),
         value     => $self->value(),
         type      => ref($self),
+        hidden    => $self->hidden(),
     );
 
     return \%json;
