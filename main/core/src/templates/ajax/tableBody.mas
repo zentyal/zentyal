@@ -191,56 +191,19 @@ if ($checkAllProperty) {
       if ($displayRows > $pageSize) { next; };
         $row = $model->row($ids[$idx]);
       }
-      my $addRowMoveHandle;
-      my @trClass = qw(border);
-      if ($row->disabled()) {
-        push (@trClass, 'ui-state-disabled');
-      }
-      if ($row->readOnly()) {
-          push @trClass, 'readOnly';
-      } elsif ($movableRows) {
-         push @trClass, 'movableRow';
-         $addRowMoveHandle = 1;
-      }
-      my $rowId = $row->id();
 </%perl>
-      <tr class='<% "@trClass" %>' id="<% $rowId %>">
-%      foreach my $td (@{$row->elements()})      {
-<%perl>
-          next unless ($td->HTMLViewer());
+      <& /ajax/row.mas,
+         model => $model,
+         row   => $row,
+         movable => $movableRows,
 
-          my @viewerParams = (data => $td);
-          if ($td->isa('EBox::Types::Boolean')) {
-              my $checkAllId = $checkAllControls{$td->fieldName()};
-              push  @viewerParams, (checkAllId => $checkAllId);
-          }
-</%perl>
-        <td class='tcenter' id='<% $rowId %>_<% $td->fieldName() %>'>
-%          if ($addRowMoveHandle) {
-           <span class='moveRowHandle'></span>
-%              $addRowMoveHandle = 0;
-%         }
-          <&
-            $td->HTMLViewer(),
-             @viewerParams
-          &>
-        </td>
-%    }
+         checkAllControls => \%checkAllControls,
 
-% unless ((defined $withoutActions) and $withoutActions) {
-<& SELF:actionCell, model => $model,
-                    actions => $actions,
-
-                    row => $row,
-
-                    idx  => $idx,
-                    ids => \@ids,
-
-                    changeView => $changeView,
-                    page => $page
-                    &>
-% }
-      </tr>
+         actions        => $actions,
+         withoutActions => $withoutActions,
+         page           => $page,
+         changeView     => $changeView
+      &>
 %     if ($displayRows == $pageSize and not (defined($filter) and length($filter) > 0) ) {
 %       $matches = scalar(@ids);
 %       last;
@@ -644,7 +607,7 @@ my $checkAll  = $model->checkAllProperty();
 
 </%method>
 
-<%method actionCell>
+<%method actionCellDisabled>
 <%doc>
     Print the action cell for the row
 
