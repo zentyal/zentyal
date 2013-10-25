@@ -61,13 +61,9 @@ use Perl6::Junction qw(any);
   my $onlyCustomActions = $table->{'onlyCustomActions'};
   my $withoutActions = $table->{'withoutActions'};
 
-  my $movableRows;
   my $adaptedFilter;
   if (defined $filter and ($filter ne '')) {
      $adaptedFilter = $model->adaptRowFilter($filter);
-  } elsif (exists $table->{'order'} and ($table->{'order'} == 1)) {
-     # we can only move rows if they are unfiltered
-     $movableRows = 1;
   }
 
   my @ids;
@@ -76,9 +72,8 @@ use Perl6::Junction qw(any);
   } else {
     @ids = @{$model->customFilterIds($adaptedFilter)};
   }
-  if (@ids < 2) {
-     $movableRows = 0;
-  }
+
+  my $movableRows = $model->movableRows($filter, scalar(@ids));
   unless ($page) {
     $page = 0;
   }
