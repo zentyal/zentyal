@@ -87,15 +87,7 @@ use Perl6::Junction qw(any);
 
 my $pageSize = $model->pageSizeIntValue();
 
-my %checkAllControls;
-my $checkAllProperty = $model->checkAllProperty();
-if ($checkAllProperty) {
-   %checkAllControls = map {
-       my $field = $_;
-       my $id =  $tableName . '_'. $field . '_CheckAll';
-       ( $field => $id)
-    } @{ $checkAllProperty } ;
-}
+my %checkAllControls = %{ $model->checkAllControls()  };
 </%init>
 <& .pageTitle,
    crumbs => $model->viewCustomizer()->HTMLTitle()

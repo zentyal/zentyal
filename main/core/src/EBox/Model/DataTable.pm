@@ -4485,6 +4485,22 @@ sub checkAllProperty
     return $self->{'table'}->{'checkAll'};
 }
 
+sub checkAllControls
+{
+    my ($self) = @_;
+    my %checkAllControls;
+    my $checkAllProperty = $self->checkAllProperty();
+    if ($checkAllProperty) {
+        my $table = $self->table();
+        %checkAllControls = map {
+            my $field = $_;
+            my $id =  $table->{tableName} . '_'. $field . '_CheckAll';
+            ( $field => $id)
+        } @{ $checkAllProperty } ;
+    }
+    return \%checkAllControls;
+}
+
 sub checkAllControlValue
 {
     my ($self, $fieldName) = @_;
