@@ -581,7 +581,11 @@ sub setErrorFromException
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
-        $self->{error} .= $ex->stacktrace();
+        if ($ex->isa('HTML::Mason::Exception')) {
+            $self->{error} .= $ex->as_text();
+        } else {
+            $self->{error} .= $ex->stacktrace();
+        }
         $self->{error} .= "</pre>\n";
         $self->{error} .= "<br/>\n";
         return;
