@@ -318,31 +318,29 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
         }
     }
 
-    var tbody = ('#' + tableId + '_tbody', table);
-    if ('prepend' in changes) {
-        var trFirst = $('tr:first', table);
-        if (trFirst.lentgh === 0) {
-            // empty table
-            assert(0);
+    if ('added' in changes) {
+        var tbody = ('#' + tableId + '_tbody', table);
+        var trs   = ('tr', tbody);
+        var empty = trs.length == 0
+        assert(!empty); // XXX empty table
+        for (i=0; i < changes.added.length; i ++) {
+            var toAdd = changes.added[i];
+            var position = toAdd.position;
+            tr = $(toAdd.row);
+            if (position === 'append') {
+                tbody.append(tr);
+            } else if (position === 'prepend') {
+                tbody.prepend(tr);
+            } else {
+                // after a given row
+                var trReference  =('#' + position, tbody);
+                assert(trReference.filter('tr').length == 1);
+                trReference.after(tr);
+            }
         }
-        for (i=0; i < changes.prepend.length; i++) {
-            tr = $(changes.prepend[i]);
-            assert(tr.length > 0);
-            tbody.prepend(tr);
-        }
+
     }
-    if ('append' in changes) {
-        var trLast = $('tr:last', table);
-        if (trLast.lentgh === 0) {
-            // empty table
-            assert(0);
-        }
-        for (i=0; i < changes.prepend.length; i++) {
-            tr = $(changes.prepend[i]);
-            assert(tr.length > 0);
-            tbody.append(tr);
-        }
-    }
+
     if ('changed' in changes) {
         for (rowId in changes.changed) {
             var values = changes.changed[rowId];

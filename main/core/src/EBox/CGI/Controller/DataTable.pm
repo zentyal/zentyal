@@ -382,9 +382,9 @@ sub addAction
         my $insertPos = $model->insertPosition();
         # XXX what about ordered tables??
         if ((not $insertPos) or ($insertPos eq 'front')) {
-            $self->{json}->{prepend} = [ $rowHtml ];
+            $self->{json}->{added} = [ { position => 'prepend', row => $rowHtml } ];
         } elsif ($insertPos eq 'back') {
-            $self->{json}->{append} = [ $rowHtml ];
+            $self->{json}->{added} = [ { position => 'append', row => $rowHtml } ];
         } else {
             throw EBox::Exceptions::Internal("Invalid instert position: $insertPos");
         }
