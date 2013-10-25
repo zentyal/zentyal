@@ -313,7 +313,7 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
         for (i=0; i < changes.removed.length; i++) {
             rowId = changes.removed[i];
             var row = $('#' + rowId, table);
-            assert(row.length === 1);
+            assert(row.length === 1, 'remove #' + rowId);
             row.remove();
         }
     }

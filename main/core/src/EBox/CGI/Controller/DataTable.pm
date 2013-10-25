@@ -373,14 +373,30 @@ sub addAction
         $self->{json}->{directory} = $params{directory};
         $self->{json}->{success} = 1;
     } else {
+        # XXX add more pages when adding
         my $model  = $self->{'tableModel'};
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
+        my $pageSize = $self->param('pageSize');
         my @ids    = @{ $self->_modelIds($model, $filter) };
         my $row    = $model->row($rowId);
 
+        my $beginPrinted;
+        my $endPrinted;
+        my $needSpace = 1;
+        if ($page == 0) {
+            $beginPrinted = 0;
+        } else {
+            $beginPrinted = ($page*$pageSize) - 1;
+        }
+        $endPrinted = $beginPrinted + $pageSize;
+        if ($endPrinted > (@ids+1)) {
+            $endPrinted = @ids;
+            $needSpace  = 0;
+        }
+
         my $rowPosition;
-        for (my $i = 0; $i < @ids; $i++) {
+        for (my $i = $beginPrinted; $i < $endPrinted; $i++) {
             if ($ids[$i] eq $rowId) {
                 if ($i == 0) {
                     $rowPosition = 'prepend';
@@ -391,11 +407,19 @@ sub addAction
             }
         }
         if (not $rowPosition) {
-            throw EBox::Exceptions::Internal("Cannot found position for row $rowId");
+            # cannot seen the added row
+            $self->{json}->{success} = 1;
+            return;
         }
 
         my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
         $self->{json}->{added} = [ { position => $rowPosition, row => $rowHtml } ];
+
+        if ($needSpace) {
+            # remove last row since it would not been seen, this assummes that only
+            # one row is added at the time
+            $self->{json}->{removed} = [ $ids[$endPrinted] ];
+        }
 
 
         $self->{json}->{success} = 1;
