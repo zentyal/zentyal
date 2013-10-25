@@ -23,6 +23,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
+use EBox::Html;
 
 # Dependencies
 use Error qw(:try);
@@ -170,7 +171,7 @@ sub removeRow
     my $force = $self->param('force');
 
     # We MUST get it before remove the item or it will fail.
-    my $auditId = $self->_getAuditId($id);
+   my $auditId = $self->_getAuditId($id);
 
     $model->removeRow($id, $force);
 
@@ -363,13 +364,32 @@ sub editAction
 sub addAction
 {
     my ($self, %params) = @_;
+    $self->{json}->{success} = 0;
+
     my $rowId = $self->addRow();
     if ($params{json}) {
+        # XXX this is for dialog mode..
         $self->{json}->{rowId} = $rowId;
         $self->{json}->{directory} = $params{directory};
         $self->{json}->{success} = 1;
     } else {
-        $self->refreshTable();
+        my $model  = $self->{'tableModel'};
+        my $row    = $model->row($rowId);
+        my $filter = $self->unsafeParam('filter');
+        my $page   = $self->param('page');
+
+        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
+        my $insertPos = $model->insertPosition();
+        # XXX what about ordered tables??
+        if ((not $insertPos) or ($insertPos eq 'front')) {
+            $self->{json}->{prepend} = [ $rowHtml ];
+        } elsif ($insertPos eq 'back') {
+            $self->{json}->{append} = [ $rowHtml ];
+        } else {
+            throw EBox::Exceptions::Internal("Invalid instert position: $insertPos");
+        }
+
+        $self->{json}->{success} = 1;
     }
 }
 
@@ -573,5 +593,40 @@ sub _getAuditId
     }
     return $id;
 }
+
+sub _htmlForRow
+{
+    my ($self, $model, $row, $filter, $page) = @_;
+    my $table     = $model->table();
+
+    my $html;
+    my @params = (
+        model => $model,
+        row   => $row
+   );
+
+    my $adaptedFilter;
+    if (defined $filter and ($filter ne '')) {
+        $adaptedFilter = $model->adaptRowFilter($filter);
+    }
+    my @ids;
+    if (not $model->customFilter()) {
+        @ids =  @{$model->ids()};
+    } else {
+        @ids = @{$model->customFilterIds($adaptedFilter)};
+    }
+
+    push @params, (movable => $model->movableRows($filter, scalar(@ids)));
+    push @params, (checkAllControls => $model->checkAllControls());
+
+    push @params, (actions => $table->{actions});
+    push @params, (withoutActions => $table->{withoutActions});
+    push @params, (page => $page);
+    push @params, (changeView => $model->action('changeView'));
+
+    $html = EBox::Html::makeHtml('/ajax/row.mas', @params);
+    return $html;
+}
+
 
 1;

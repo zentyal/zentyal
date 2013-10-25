@@ -1,7 +1,7 @@
 <%args>
 $model
 $row
-$movable
+$movable => 0
 
 $checkAllControls
 
@@ -26,8 +26,7 @@ if ($row->readOnly()) {
 
 my $rowId = $row->id();
 </%init>
-
-      <tr class='<% "@trClass" %>' id="<% $rowId %>">
+<tr class='<% "@trClass" %>' id="<% $rowId %>">
 %      foreach my $td (@{$row->elements()})      {
 <%perl>
           next unless ($td->HTMLViewer());
@@ -60,8 +59,7 @@ my $rowId = $row->id();
                     page => $page
                     &>
 % }
-      </tr>
-
+</tr>
 <%method actionCell>
 <%doc>
     Print the action cell for the row

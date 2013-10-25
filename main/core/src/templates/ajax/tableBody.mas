@@ -151,7 +151,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    filter     => $filter,
 &>
 
-<table id='<% $tableName %>'  class='<%  $table->{'class'}  %>'>
+<table id='<% $tableName %>_table'  class='<%  $table->{'class'}  %>'>
 
 <& SELF:tableHead, tableHead => \@tableHead,
                    actions   => ((defined $withoutActions) ? not  $withoutActions: 1),

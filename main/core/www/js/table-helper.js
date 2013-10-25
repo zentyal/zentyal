@@ -215,6 +215,32 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
+Zentyal.TableHelper._newErrorJSONCallback = function(table) {
+    var failure = function(response) {
+        var errorText;
+        if ('error' in response) {
+            errorText = response.error;
+        } else {
+            errorText = 'Unexpected failure'; // XXX lack i18n
+        }
+        $('#error_' + table).html(errorText).show();
+    };
+    return failure;
+};
+
+Zentyal.TableHelper._newSuccessJSONCallback = function(table, failure) {
+    var success = function(response) {
+        if (! response.success) {
+            failure(response);
+            return;
+        }
+
+        $('#' + table + '_editForm').hide(); // XXX asure than we dont let  lot of editForms in te same page
+        Zentyal.TableHelper.modifyRows(table, response);
+    };
+    return success;
+};
+
 Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     var params = 'action=add&tablename=' + table + '&directory=' + directory + '&';
 
@@ -228,23 +254,18 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var success = function(responseText) {
-        $('#' + table).html(responseText);
-    };
-    var failure = function(response) {
-        $('#error_' + table).html(response.responseText).show();
-        Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-    };
+    var failure  = Zentyal.TableHelper._newErrorJSONCallback(table);
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
     var complete = function(response) {
+        Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        Zentyal.TableHelper.completedAjaxRequest();
     };
 
     $.ajax({
             url: url,
             data: params,
             type : 'POST',
-            dataType: 'html',
+            dataType: 'json',
             success: success,
             error: failure,
             complete: complete
@@ -283,9 +304,10 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
 
 Zentyal.TableHelper.modifyRows = function(tableId, changes) {
     var rowId,
+        tr,
         i;
 
-    var table = $('#' + tableId);
+    var table = $('#' + tableId + '_table');
     assert(table.length > 0);
     if ('removed' in changes) {
         for (i=0; i < changes.removed.length; i++) {
@@ -295,6 +317,8 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
             row.remove();
         }
     }
+
+    var tbody = ('#' + tableId + '_tbody', table);
     if ('prepend' in changes) {
         var trFirst = $('tr:first', table);
         if (trFirst.lentgh === 0) {
@@ -302,10 +326,9 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
             assert(0);
         }
         for (i=0; i < changes.prepend.length; i++) {
-            var tr = $(changes.prepend[i]);
+            tr = $(changes.prepend[i]);
             assert(tr.length > 0);
-            trFirst.before(tr);
-            trFirst = tr;
+            tbody.prepend(tr);
         }
     }
     if ('append' in changes) {
@@ -315,10 +338,9 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
             assert(0);
         }
         for (i=0; i < changes.prepend.length; i++) {
-            var tr = $(changes.prepend[i]);
+            tr = $(changes.prepend[i]);
             assert(tr.length > 0);
-            trLast.before(tr);
-            trLast = tr;
+            tbody.append(tr);
         }
     }
     if ('changed' in changes) {
