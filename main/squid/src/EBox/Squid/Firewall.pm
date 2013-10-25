@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::SquidFirewall;
+package EBox::Squid::Firewall;
 
 use base 'EBox::FirewallHelper';
 
@@ -61,8 +61,8 @@ sub _trans_prerouting
     my ($self) = @_;
 
     my $global = $self->_global();
-    my $sq = $global->modInstance('squid');
-    my $net = $global->modInstance('network');
+    my $sq      = $global->modInstance('squid');
+    my $net     = $global->modInstance('network');
 
     my $sqport = $sq->port();
     my @rules = ();
@@ -87,6 +87,31 @@ sub _trans_prerouting
             # redirect there
         }
     }
+
+    if ($global->modExists('openvpn')) {
+        # add openvpn interfaces
+        my $openvpn = $global->modInstance('openvpn');
+        $openvpn->initializeInterfaces();
+        my @servers = grep {
+            my $server = $_;
+
+        } $openvpn->servers();
+
+        foreach my $server (@servers) {
+            if ((not $server->isEnabled()) or ( $server->pullRoutes()) or ($server->internal())) {
+                next;
+            }
+
+            my $iface    = $server->iface();
+            my $addr     = $server->ifaceAddress();
+            if (not $addr) {
+                next;
+            }
+            my $rHttp = "-i $iface ! -d $addr -p tcp --dport 80 -j REDIRECT --to-ports $sqport";
+            push (@rules, $rHttp);
+        }
+    }
+
     return \@rules;
 }
 
