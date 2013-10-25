@@ -91,6 +91,14 @@ use Samba::Security::Descriptor qw(
     SEC_STD_WRITE_DAC
     SEC_FILE_READ_ATTRIBUTE
 );
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
+);
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
 use IO::Socket::INET;
@@ -357,13 +365,26 @@ sub _postServiceHook
                 }
             }
             my $relativeSharePath = '/';
-            my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
             EBox::info("Applying ACLs for top-level share $shareName");
-            my $access_mask = SEC_STD_WRITE_OWNER | SEC_STD_READ_CONTROL | SEC_STD_WRITE_DAC | SEC_FILE_READ_ATTRIBUTE;
+            my $sinfo = SECINFO_OWNER |
+                        SECINFO_GROUP |
+                        SECINFO_DACL |
+                        SECINFO_PROTECTED_DACL;
+            my $access_mask = SEC_STD_WRITE_OWNER |
+                              SEC_STD_READ_CONTROL |
+                              SEC_STD_WRITE_DAC |
+                              SEC_FILE_READ_ATTRIBUTE;
+            my $attributes = FILE_ATTRIBUTE_NORMAL |
+                             FILE_ATTRIBUTE_ARCHIVE |
+                             FILE_ATTRIBUTE_DIRECTORY |
+                             FILE_ATTRIBUTE_HIDDEN |
+                             FILE_ATTRIBUTE_READONLY |
+                             FILE_ATTRIBUTE_SYSTEM;
             EBox::debug("Setting NT ACL on file: $relativeSharePath");
             $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
             # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
+            my $shareContentList = $smb->list($relativeSharePath,
+                attributes => $attributes, recursive => 1);
             # Reset the DACL_PROTECTED flag;
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
@@ -760,12 +781,8 @@ sub antivirusConfig
     my $conf = {
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
-        hide_nonscanned_files    => 'False',
-        scanning_message         => 'is being scanned for viruses',
         recheck_time_open        => '50',
         recheck_tries_open       => '100',
-        recheck_time_readdir     => '50',
-        recheck_tries_readdir    => '20',
         allow_nonscanned_files   => 'False',
     };
 

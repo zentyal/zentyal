@@ -116,6 +116,21 @@ sub _table
     };
 }
 
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $squid = $self->parentModule();
+    if (($squid->authenticationMode() eq $squid->AUTH_MODE_EXTERNAL_AD) and not $squid->configured()) {
+        my $customizer = new EBox::View::Customizer();
+        $customizer->setModel($self);
+        $customizer->setPermanentMessage(__('Group selection will not be available until you enable the HTTP proxy module'), 'note');
+        return $customizer;
+    }
+
+    return $self->SUPER::viewCustomizer();
+}
+
 sub _populateGroups
 {
     my ($self) = @_;
@@ -123,6 +138,9 @@ sub _populateGroups
     my $squid = $self->parentModule();
     my $mode = $squid->authenticationMode();
     if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
+        if (not $squid->configured) {
+            return [];
+        }
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $userMod = $self->global()->modInstance('users');

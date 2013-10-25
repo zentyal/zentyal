@@ -1,3 +1,10 @@
+samba4 (4.1.0rc4-zentyal3) precise; urgency=low
+
+  * Fix VFS scannedonly reporting 0 bytes size. Folders are no longer
+    scanned when they are opened.
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 24 Oct 2013 16:35:36 +0200
+
 samba4 (4.1.0rc4-zentyal2) precise; urgency=low
 
   * New upstream release

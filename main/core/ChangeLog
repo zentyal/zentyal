@@ -1,4 +1,6 @@
 3.3
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
 	+ Fixed error in the recursive method for getting module dependencies
 	+ Fixed JS typo which disabled export backup dialog

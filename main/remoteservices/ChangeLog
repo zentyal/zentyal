@@ -1,6 +1,7 @@
 3.3
 	+ Set version to 3.3
 HEAD
+	+ Honor system-wide defined HTTP Proxy in REST client
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
 3.2

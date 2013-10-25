@@ -1,4 +1,6 @@
 3.3
+	+ Avoid error in access rules model when using external AD and
+	  module has not been configured
 	+ Improve squid group membership helper script
 	+ Fixed squid basic authentication to support multi-OU
 	+ Set version to 3.3

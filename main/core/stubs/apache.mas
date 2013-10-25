@@ -43,6 +43,7 @@ KeepAlive Off
 MaxKeepAliveRequests 500
 KeepAliveTimeout 15
 AddDefaultCharset utf-8
+PassEnv HTTP_PROXY
 
 PidFile <% $tmpdir %>/apache.pid
 
