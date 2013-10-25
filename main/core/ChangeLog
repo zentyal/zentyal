@@ -1,4 +1,6 @@
 HEAD
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
 3.2.3
 	+ Fixed error in the recursive method for getting module dependencies
