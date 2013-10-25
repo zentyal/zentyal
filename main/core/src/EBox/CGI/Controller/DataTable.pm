@@ -374,20 +374,29 @@ sub addAction
         $self->{json}->{success} = 1;
     } else {
         my $model  = $self->{'tableModel'};
-        my $row    = $model->row($rowId);
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
+        my @ids    = @{ $self->_modelIds($model, $filter) };
+        my $row    = $model->row($rowId);
 
-        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
-        my $insertPos = $model->insertPosition();
-        # XXX what about ordered tables??
-        if ((not $insertPos) or ($insertPos eq 'front')) {
-            $self->{json}->{added} = [ { position => 'prepend', row => $rowHtml } ];
-        } elsif ($insertPos eq 'back') {
-            $self->{json}->{added} = [ { position => 'append', row => $rowHtml } ];
-        } else {
-            throw EBox::Exceptions::Internal("Invalid instert position: $insertPos");
+        my $rowPosition;
+        for (my $i = 0; $i < @ids; $i++) {
+            if ($ids[$i] eq $rowId) {
+                if ($i == 0) {
+                    $rowPosition = 'prepend';
+                } else {
+                    $rowPosition = $ids[$i-1];
+                }
+                last;
+            }
         }
+        if (not $rowPosition) {
+            throw EBox::Exceptions::Internal("Cannot found position for row $rowId");
+        }
+
+        my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
+        $self->{json}->{added} = [ { position => $rowPosition, row => $rowHtml } ];
+
 
         $self->{json}->{success} = 1;
     }
@@ -596,7 +605,7 @@ sub _getAuditId
 
 sub _htmlForRow
 {
-    my ($self, $model, $row, $filter, $page) = @_;
+    my ($self, $model, $row, $ids, $filter, $page) = @_;
     my $table     = $model->table();
 
     my $html;
@@ -604,6 +613,23 @@ sub _htmlForRow
         model => $model,
         row   => $row
    );
+
+    my $nIds = scalar(@{$ids});
+    push @params, (movable => $model->movableRows($filter, $nIds));
+    push @params, (checkAllControls => $model->checkAllControls());
+
+    push @params, (actions => $table->{actions});
+    push @params, (withoutActions => $table->{withoutActions});
+    push @params, (page => $page);
+    push @params, (changeView => $model->action('changeView'));
+
+    $html = EBox::Html::makeHtml('/ajax/row.mas', @params);
+    return $html;
+}
+
+sub _modelIds
+{
+    my ($self, $model, $filter) = @_;
 
     my $adaptedFilter;
     if (defined $filter and ($filter ne '')) {
@@ -616,17 +642,7 @@ sub _htmlForRow
         @ids = @{$model->customFilterIds($adaptedFilter)};
     }
 
-    push @params, (movable => $model->movableRows($filter, scalar(@ids)));
-    push @params, (checkAllControls => $model->checkAllControls());
-
-    push @params, (actions => $table->{actions});
-    push @params, (withoutActions => $table->{withoutActions});
-    push @params, (page => $page);
-    push @params, (changeView => $model->action('changeView'));
-
-    $html = EBox::Html::makeHtml('/ajax/row.mas', @params);
-    return $html;
+    return \@ids;
 }
-
 
 1;
