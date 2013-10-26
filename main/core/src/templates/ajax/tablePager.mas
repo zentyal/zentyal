@@ -1,7 +1,7 @@
 <%args>
-	$model
-	$page
-	$tpages
+        $model
+        $page
+        $tpages
 </%args>
 <%init>
     use EBox::Gettext;
@@ -50,12 +50,12 @@
 %   if ($page != 0) {
       <button name='tofirst' type='button'
           class="btn-only-icon btn-small btn-first"
-          alt="<% __('first') %>" 
+          alt="<% __('first') %>"
           value="<% __('first') %>"
-	        onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" ></button>
-	   <button name='toprev' type='button' 
-          class="btn-only-icon btn-small btn-prev" 
-          alt="<% __('prev') %>" 
+                onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false" ></button>
+           <button name='toprev' type='button'
+          class="btn-only-icon btn-small btn-prev"
+          alt="<% __('prev') %>"
           value="<% __('prev') %>"
           onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false" ></button>
 %   } else {
@@ -64,10 +64,10 @@
             alt="<% __('first') %>"
             value="<% __('first') %>"
             disabled>First</button>
-	     <button name='toprev' type='button'
-            class="btn-only-icon btn-small btn-prev" 
-            alt="<% __('prev') %>" 
-            value="<% __('prev') %>" 
+             <button name='toprev' type='button'
+            class="btn-only-icon btn-small btn-prev"
+            alt="<% __('prev') %>"
+            value="<% __('prev') %>"
             disabled ></button>
 %   }
      <span id="<% $pageSizeId %>"></span><span class="pagination_n">
@@ -85,12 +85,12 @@
             alt="<% __('next') %>"
             value="<% __('next') %>"
             onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
-     	      $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" ></button>
+              $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false" ></button>
         <button name='tolast' type='button'
             class="btn-only-icon btn-small btn-last"
             alt="<% __('last') %>"
             value="<% __('last') %>"
-	         onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" ></button>
+                 onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false" ></button>
 %   } else {
         <button name='tonext' type='button'
             class="btn-only-icon btn-small btn-next"
