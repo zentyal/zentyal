@@ -62,15 +62,15 @@ sub _table
                               not $self->parentModule->isProvisioned() },
             populate => \&_modeOptions),
         new EBox::Types::Text(
-            fieldName => 'firstorganization',
-            printableName => __('First Organization'),
+            fieldName => 'organizationname',
+            printableName => __('Organization Name'),
             defaultValue => 'First Organization',
             editable => sub { $self->parentModule->isEnabled() and
                               not $self->parentModule->isProvisioned() }),
         new EBox::Types::Text(
-            fieldName => 'firstorganizationunit',
-            printableName => __('First Organization Unit'),
-            defaultValue => 'First Organization Unit',
+            fieldName => 'administrativegroup',
+            printableName => __('Administrative Group'),
+            defaultValue => 'First Administrative Group',
             editable => sub { $self->parentModule->isEnabled() and
                               not $self->parentModule->isProvisioned() }),
         new EBox::Types::Boolean(
@@ -227,12 +227,12 @@ sub viewCustomizer
     my $onChange = {
         mode => {
             first => {
-                show => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
+                show => ['organizationname', 'administrativegroup', 'enableUsers'],
                 hide => ['registerAsMain'],
             },
             additional => {
                 show => ['registerAsMain'],
-                hide => ['firstorganization', 'firstorganizationunit', 'enableUsers'],
+                hide => ['organizationname', 'administrativegroup', 'enableUsers'],
             },
         },
     };
@@ -296,13 +296,13 @@ sub _doProvision
     my ($self, $action, $id, %params) = @_;
 
     my $mode = $params{mode};
-    my $firstOrganization = $params{firstorganization};
-    my $firstOrganizationUnit = $params{firstorganizationunit};
+    my $organizationName = $params{organizationname};
+    my $administrativeGroup = $params{administrativegroup};
     my $enableUsers = $params{enableUsers};
 
     $self->setValue('mode', $mode);
-    $self->setValue('firstorganization', $firstOrganization);
-    $self->setValue('firstorganizationunit', $firstOrganizationUnit);
+    $self->setValue('organizationname', $organizationName);
+    $self->setValue('administrativegroup', $administrativeGroup);
     $self->setValue('enableUsers', $enableUsers);
 
     if ($mode eq 'additional') {
@@ -313,15 +313,15 @@ sub _doProvision
     try {
         my $cmd = '/opt/samba4/sbin/openchange_provision ' .
                   "--standalone " .
-                  "--firstorg='$firstOrganization' " .
-                  "--firstou='$firstOrganizationUnit' ";
+                  "--firstorg='$organizationName' " .
+                  "--firstou='$administrativeGroup' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
         $cmd = '/opt/samba4/sbin/openchange_provision ' .
                "--openchangedb " .
-               "--firstorg='$firstOrganization' " .
-               "--firstou='$firstOrganizationUnit' ";
+               "--firstorg='$organizationName' " .
+               "--firstou='$administrativeGroup' ";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
 
@@ -391,9 +391,14 @@ sub _doDeprovision
 {
     my ($self, $action, $id, %params) = @_;
 
+    my $organizationName = $params{organizationname};
+    my $administrativeGroup = $params{administrativegroup};
+
     try {
         my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  '--deprovision';
+                  '--deprovision ' .
+                  "--firstorg='$organizationName' " .
+                  "--firstou='$administrativeGroup' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
