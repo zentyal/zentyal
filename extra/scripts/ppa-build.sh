@@ -34,7 +34,13 @@ fi
 BUILD_DEB=$1
 if [ -n "$BUILD_DEB" ]
 then
-    dpkg-buildpackage -k$KEY_ID -sa
+    build_if_changelog_modified=`git ls-files -m|grep ChangeLog`
+    if [ -n "$build_if_changelog_modified" ]
+    then
+        dpkg-buildpackage -k$KEY_ID -sa
+    else
+        echo "Not building the package because the Changelog it's not modified"
+    fi
 else
     dpkg-buildpackage -k$KEY_ID -S -sa
 fi
