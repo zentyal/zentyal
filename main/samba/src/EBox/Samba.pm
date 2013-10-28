@@ -236,7 +236,7 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    if ($enabled and $self->isProvisioned()) {
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
