@@ -141,10 +141,13 @@ sub syncRows
 
     my $anyChange = undef;
     for my $id (@{$currentIds}) {
-        my $userGroup = $self->row($id)->printableValueByName('user_group');
-        unless(defined($userGroup) and length ($userGroup) > 0) {
-            $self->removeRow($id, 1);
-            $anyChange = 1;
+        my $row = $self->row($id);
+        if (defined $row) {
+            my $userGroup = $row->printableValueByName('user_group');
+            unless(defined ($userGroup) and length ($userGroup) > 0) {
+                $self->removeRow($id, 1);
+                $anyChange = 1;
+            }
         }
     }
     return $anyChange;
