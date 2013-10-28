@@ -1,3 +1,5 @@
+HEAD
+	+ Check for acl and user_xattr mount options when adding system shares
 3.2.7
 	+ Depend on new samba4 version that fixes 0-byte size problems
 	+ NT SD are now written to hidden and readonly files

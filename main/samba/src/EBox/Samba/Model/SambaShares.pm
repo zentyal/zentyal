@@ -38,6 +38,8 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Validate;
 
+use Sys::Filesystem;
+use File::Basename qw( dirname );
 use Cwd 'abs_path';
 use Error qw(:try);
 
@@ -67,6 +69,86 @@ sub new
     return $self;
 }
 
+# Method: _table
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::_table>
+#
+sub _table
+{
+    my ($self) = @_;
+
+    my $tableDesc = [
+        new EBox::Types::Boolean(
+            fieldName     => 'sync',
+            printableName => __('Sync with Zentyal Cloud'),
+            editable      => 1,
+            defaultValue  => 0,
+            help          => __('Files will be synchronized with Zentyal Cloud.'),
+            hidden        => \&_hideSyncOption),
+        new EBox::Types::Text(
+            fieldName     => 'share',
+            printableName => __('Share name'),
+            editable      => 1,
+            unique        => 1),
+        new EBox::Types::Union(
+            fieldName => 'path',
+            printableName => __('Share path'),
+            subtypes => [
+                new EBox::Types::Text(
+                    fieldName     => 'zentyal',
+                    printableName => __('Directory under Zentyal'),
+                    editable      => 1,
+                    unique        => 1),
+                new EBox::Types::Text(
+                    fieldName     => 'system',
+                    printableName => __('File system path'),
+                    editable      => 1,
+                    unique        => 1),
+            ],
+            help => _pathHelp($self->parentModule()->SHARES_DIR())),
+        new EBox::Types::Text(
+            fieldName     => 'comment',
+            printableName => __('Comment'),
+            editable      => 1),
+        new EBox::Types::Boolean(
+            fieldName     => 'guest',
+            printableName => __('Guest access'),
+            editable      => 1,
+            defaultValue  => 0,
+            help          => __('This share will not require authentication.')),
+        new EBox::Types::HasMany(
+            fieldName     => 'access',
+            printableName => __('Access control'),
+            foreignModel => 'SambaSharePermissions',
+            view => '/Samba/View/SambaSharePermissions'),
+        # This hidden field is filled with the group name when the share is configured as
+        # a group share through the group addon
+        new EBox::Types::Text(
+            fieldName => 'groupShare',
+            hidden => 1,
+            optional => 1),
+    ];
+
+    my $dataTable = {
+        tableName          => 'SambaShares',
+        printableTableName => __('Shares'),
+        modelDomain        => 'Samba',
+        defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
+        tableDescription   => $tableDesc,
+        menuNamespace      => 'Samba/View/SambaShares',
+        class              => 'dataTable',
+        help               => _sharesHelp(),
+        printableRowName   => __('share'),
+        enableProperty     => 1,
+        defaultEnabledValue => 1,
+        orderedBy          => 'share',
+    };
+
+    return $dataTable;
+}
+
 # Method: updatedRowNotify
 #
 #      Notify cloud-prof if installed to be restarted
@@ -89,97 +171,6 @@ sub updatedRowNotify
     }
 }
 
-# Method: _table
-#
-# Overrides:
-#
-#     <EBox::Model::DataTable::_table>
-#
-sub _table
-{
-    my ($self) = @_;
-
-    my @tableDesc = (
-       new EBox::Types::Boolean(
-                               fieldName     => 'sync',
-                               printableName => __('Sync with Zentyal Cloud'),
-                               editable      => 1,
-                               defaultValue  => 0,
-                               help          => __('Files will be synchronized with Zentyal Cloud.'),
-                               hidden        => \&_hideSyncOption,
-                               ),
-       new EBox::Types::Text(
-                               fieldName     => 'share',
-                               printableName => __('Share name'),
-                               editable      => 1,
-                               unique        => 1,
-                              ),
-       new EBox::Types::Union(
-                               fieldName => 'path',
-                               printableName => __('Share path'),
-                               subtypes =>
-                                [
-                                     new EBox::Types::Text(
-                                       fieldName     => 'zentyal',
-                                       printableName =>
-                                            __('Directory under Zentyal'),
-                                       editable      => 1,
-                                       unique        => 1,
-                                                        ),
-                                     new EBox::Types::Text(
-                                       fieldName     => 'system',
-                                       printableName => __('File system path'),
-                                       editable      => 1,
-                                       unique        => 1,
-                                                          ),
-                               ],
-                               help => _pathHelp($self->parentModule()->SHARES_DIR())),
-       new EBox::Types::Text(
-                               fieldName     => 'comment',
-                               printableName => __('Comment'),
-                               editable      => 1,
-                              ),
-       new EBox::Types::Boolean(
-                                   fieldName     => 'guest',
-                                   printableName => __('Guest access'),
-                                   editable      => 1,
-                                   defaultValue  => 0,
-                                   help          => __('This share will not require authentication.'),
-                                   ),
-       new EBox::Types::HasMany(
-                               fieldName     => 'access',
-                               printableName => __('Access control'),
-                               foreignModel => 'SambaSharePermissions',
-                               view => '/Samba/View/SambaSharePermissions'
-                              ),
-       # This hidden field is filled with the group name when the share is configured as
-       # a group share through the group addon
-       new EBox::Types::Text(
-            fieldName => 'groupShare',
-            hidden => 1,
-            optional => 1,
-            ),
-      );
-
-    my $dataTable = {
-                     tableName          => 'SambaShares',
-                     printableTableName => __('Shares'),
-                     modelDomain        => 'Samba',
-                     defaultActions     => [ 'add', 'del',
-                                             'editField', 'changeView' ],
-                     tableDescription   => \@tableDesc,
-                     menuNamespace      => 'Samba/View/SambaShares',
-                     class              => 'dataTable',
-                     help               => _sharesHelp(),
-                     printableRowName   => __('share'),
-                     enableProperty     => 1,
-                     defaultEnabledValue => 1,
-                     orderedBy          => 'share',
-                    };
-
-      return $dataTable;
-}
-
 # Method: validateTypedRow
 #
 #       Override <EBox::Model::DataTable::validateTypedRow> method
@@ -197,20 +188,20 @@ sub validateTypedRow
             # Check if it is an allowed system path
             my $normalized = abs_path($parms->{'path'}->value());
             if ($normalized eq '/') {
-                throw EBox::Exceptions::External(__('The file system root directory cannot be used as share'));
+                throw EBox::Exceptions::External(
+                    __('The file system root directory cannot be used as share'));
             }
             foreach my $filterPath (FILTER_PATH) {
                 if ($normalized =~ /^$filterPath/) {
                     throw EBox::Exceptions::External(
-                            __x('Path not allowed. It cannot be under {dir}',
-                                dir => $normalized
-                               )
-                    );
+                        __x('Path not allowed. It cannot be under {dir}',
+                            dir => $normalized));
                 }
             }
-            EBox::Validate::checkAbsoluteFilePath($parms->{'path'}->value(),
-                                           __('Samba share absolute path')
-                                                );
+            EBox::Validate::checkAbsoluteFilePath(
+                $parms->{'path'}->value(), __('Samba share absolute path'));
+            # Check if the filesystem is mounted with acl and user_xattr
+            $self->_checkSystemShareMountOptions($normalized);
         } else {
             # Check if it is a valid directory
             my $dir = $parms->{'path'}->value();
@@ -378,6 +369,44 @@ sub _sharesHelp
 sub headTitle
 {
     return undef;
+}
+
+sub _checkSystemShareMountOptions
+{
+    my ($self, $normalized) = @_;
+
+    # Get the mount point of the path
+    my @shareStat = stat($normalized);
+    my $shareDevice = $shareStat[0];
+
+    my $mountPoint = $normalized;
+    while ($mountPoint ne '/') {
+        my $dir = dirname($mountPoint);
+        my @dirStat = stat($dir);
+        if ($dirStat[0] != $shareDevice) {
+            # Device border crossed
+            last;
+        }
+        $mountPoint = $dir;
+    }
+
+    my $fs = new Sys::Filesystem(mtab => '/etc/mtab');
+    my @filesystems = $fs->filesystems(mounted => 1);
+    my $options = $fs->options($mountPoint);
+    my @options = split(/,/, $options);
+    unless (grep (/acl/, @options)) {
+        throw EBox::Exceptions::External(
+            __x("The mount point '$mountPoint' must be mounted with " .
+                "'acl' option. This is required for permissions to work ".
+                "properly.", mountPoint => $mountPoint));
+    }
+    unless (grep (/user_xattr/, @options)) {
+        throw EBox::Exceptions::External(
+            __x("The mount point '$mountPoint' must be mounted with " .
+                "'user_xattr' option. This is required for permissions to ".
+                "work properly.", mountPoint => $mountPoint));
+    }
+    return 1;
 }
 
 1;
