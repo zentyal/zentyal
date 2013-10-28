@@ -35,7 +35,8 @@
                             editId     => "undefined",
                             page       => 0,
                             isFilter   => 1
-                                            );
+   );
+
    my $pagerId = $tableName . '_pagerId';
    my $firstPage = ($page == 0);
    my $lastPage = ($page == $tpages);
@@ -49,16 +50,18 @@
        'onchange'    => qq{Zentyal.TableHelper.setLoading('$pageSizeId'); $changeViewJS;return false}
   &>
 
-  <button name="tofirst" type="button"
-          class="btn-only-icon btn-small btn-first"
+  <button id="<% $tableName %>_tofirst"
+          name="tofirst" type="button"
+          class="btn-only-icon btn-small btn-first tablePrevPageControl"
           alt="<% __('first') %>"
           value="<% __('first') %>"
           onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => 0, isFilter => 1) %>; return false"
           <% $firstPage ? 'disabled' : '' %>
   >
   </button>
-  <button name="toprev" type="button"
-          class="btn-only-icon btn-small btn-prev"
+  <button id="<% $tableName %>_toprev"
+          name="toprev" type="button"
+          class="btn-only-icon btn-small btn-prev tablePrevPageControl"
           alt="<% __('prev') %>"
           value="<% __('prev') %>"
           onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%  $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page - 1, isFilter => 1) %>; return false"
@@ -66,31 +69,27 @@
   >
   </button>
   <span id="<% $pageSizeId %>"></span>
-  <span class="pagination_n">
-% my $pageStr = __('Page');
-%   if ($tpages <= 0) {
-%        $pageStr = __('Page 1');
-%   } else {
-%        $pageStr = __x('Page {i} of {n}', i => $page + 1, n => $tpages +1);
-%   }
-   <% $pageStr %>
+  <span id="<% $tableName %>_page_numbers" class="pagination_n">
+   <% $model->pageNumbersText($page, $tpages+1) %>
   </span>
   <span id="<% $pagerId %>"></span>
-  <button name="tonext" type="button"
-            class="btn-only-icon btn-small btn-next"
-            alt="<% __('next') %>"
-            value="<% __('next') %>"
-            onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
+  <button id="<% $tableName %>_tonext"
+          name="tonext" type="button"
+          class="btn-only-icon btn-small btn-next tableNextPageControl"
+          alt="<% __('next') %>"
+          value="<% __('next') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>');<%
               $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $page + 1, isFilter => 1) %>; return false"
            <% $lastPage ? 'disabled' : '' %>
   >
   </button>
-  <button name="tolast" type="button"
-            class="btn-only-icon btn-small btn-last"
-            alt="<% __('last') %>"
-            value="<% __('last') %>"
-            onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false"
-           <% $lastPage ? 'disabled' : '' %>
+  <button id="<% $tableName %>_tolast"
+          name="tolast" type="button"
+          class="btn-only-icon btn-small btn-last tableNextPageControl"
+          alt="<% __('last') %>"
+          value="<% __('last') %>"
+          onclick="Zentyal.TableHelper.setLoading('<% $pagerId %>'); <% $model->changeViewJS( changeType => 'changeList', editId => 'undefined', page => $tpages, isFilter => 1) %>;return false"
+         <% $lastPage ? 'disabled' : '' %>
   >
   </button>
 </div>

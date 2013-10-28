@@ -236,7 +236,7 @@ Zentyal.TableHelper._newSuccessJSONCallback = function(table, failure) {
         }
 
         $('#' + table + '_editForm').hide(); // XXX asure than we dont let  lot of editForms in te same page
-        Zentyal.TableHelper.modifyRows(table, response);
+        Zentyal.TableHelper.modifyTable(table, response);
     };
     return success;
 };
@@ -274,6 +274,20 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
+Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersText) {
+    var pager = $('#' + tableId + '_pager');
+    assert(pager.length === 1);
+    assert(page <= nPages);
+
+    assert( $('#' + tableId + '_page_numbers', pager).length === 1);
+    assert($('.tablePrevPageControl', pager).length === 2);
+    assert($('.tableNextPageControl', pager).length === 2);
+
+
+    $('#' + tableId + '_page_numbers', pager).text(pageNumbersText);
+    $('.tablePrevPageControl', pager).prop('disabled', page != 0);
+    $('.tableNextPageControl', pager).prop('disabled', page+1 != nPages);
+};
 
 Zentyal.TableHelper.setRow = function(table, rowId, values) {
     var row,
@@ -302,7 +316,7 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
     }
 };
 
-Zentyal.TableHelper.modifyRows = function(tableId, changes) {
+Zentyal.TableHelper.modifyTable = function(tableId, changes) {
     var rowId,
         tr,
         i;
@@ -321,7 +335,7 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
     if ('added' in changes) {
         var tbody = $('#' + tableId + '_tbody', table);
         var trs   = $('tr', tbody);
-        var empty = trs.length == 0
+        var empty = trs.length === 0;
         assert(!empty); // XXX empty table
         for (i=0; i < changes.added.length; i ++) {
             var toAdd = changes.added[i];
@@ -346,6 +360,13 @@ Zentyal.TableHelper.modifyRows = function(tableId, changes) {
             var values = changes.changed[rowId];
             Zentyal.TableHelper.setRow(table, rowId, values);
         }
+    }
+
+    if ('paginationChanges' in changes) {
+        Zentyal.TableHelper.setPagination(tableId,
+                                          changes.paginationChanges.page,
+                                          changes.paginationChanges.nPages,
+                                          changes.paginationChanges.pageNumbersText);
     }
 };
 
@@ -387,7 +408,7 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         }
 
         $('#' + table + '_editForm').hide(); // XXX asure than we dont let  lot of editForms in te same page
-        Zentyal.TableHelper.modifyRows(table, response);
+        Zentyal.TableHelper.modifyTable(table, response);
 
     };
     var complete = function(response) {
@@ -466,7 +487,7 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  direct
                 return;
             }
 
-            Zentyal.TableHelper.modifyRows(table, response);
+            Zentyal.TableHelper.modifyTable(table, response);
         };
         complete = function(response) {
             Zentyal.refreshSaveChangesButton();

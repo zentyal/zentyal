@@ -24,6 +24,8 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
+use POSIX qw(ceil);
+
 
 # Dependencies
 use Error qw(:try);
@@ -373,27 +375,44 @@ sub addAction
         $self->{json}->{directory} = $params{directory};
         $self->{json}->{success} = 1;
     } else {
+        # XXX this calculations assumess than only one row is added
         # XXX add more pages when adding
+        my $nAdded = 1;
         my $model  = $self->{'tableModel'};
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
         my $pageSize = $self->param('pageSize');
         my @ids    = @{ $self->_modelIds($model, $filter) };
+        my $nPages =  ceil(scalar(@ids)/$pageSize);
         my $row    = $model->row($rowId);
 
         my $beginPrinted;
         my $endPrinted;
-        my $needSpace = 1;
+        my $needSpace;
+        my $changedNPages;
         if ($page == 0) {
             $beginPrinted = 0;
         } else {
-            $beginPrinted = ($page*$pageSize) - 1;
+            $beginPrinted = ($page*$pageSize) + 1;
         }
         $endPrinted = $beginPrinted + $pageSize;
-        if ($endPrinted > (@ids+1)) {
+        if ($endPrinted > @ids) {
             $endPrinted = @ids;
-            $needSpace  = 0;
         }
+
+        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
+        $changedNPages = $nPages != $befNPages;
+        if (($page+1) == $nPages) {
+            # to _not_ need space: be in last page and have rows left to reach
+            # page size
+            $needSpace = (($nPages*$pageSize) - @ids) < 0;
+        } else {
+            $needSpace = 1;
+        }
+
+        EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
+        EBox::debug("needSpace $needSpace");
+        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
 
         my $rowPosition;
         for (my $i = $beginPrinted; $i < $endPrinted; $i++) {
@@ -407,10 +426,12 @@ sub addAction
             }
         }
         if (not $rowPosition) {
-            # cannot seen the added row
+            # cannot find the added row
             $self->{json}->{success} = 1;
             return;
         }
+
+        EBox::debug("RowPosition $rowPosition");
 
         my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
         $self->{json}->{added} = [ { position => $rowPosition, row => $rowHtml } ];
@@ -420,7 +441,13 @@ sub addAction
             # one row is added at the time
             $self->{json}->{removed} = [ $ids[$endPrinted] ];
         }
-
+        if ($changedNPages) {
+            $self->{json}->{paginationChanges} = {
+                page => $page + 1,
+                nPages => $nPages,
+                pageNumbersText => $model->pageNumbersText($page, $nPages),
+               };
+        }
 
         $self->{json}->{success} = 1;
     }

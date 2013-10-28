@@ -4607,4 +4607,17 @@ sub movableRows
     return 0;
 }
 
+# Method: pageNumbersText
+#
+#  returns the localized string used in the pager.
+sub pageNumbersText
+{
+    my ($self, $page, $nPages) = @_;
+   if ($nPages == 1) {
+        return __('Page 1');
+   } else {
+        return __x('Page {i} of {n}', i => $page + 1, n => $nPages);
+   }
+}
+
 1;
