@@ -1,4 +1,5 @@
 HEAD
+	+ Use latest REST Remote API to register a free account
 	+`Use IPS module to know the number of IDS/IPS rules
 	+ Honor system-wide defined HTTP Proxy in REST client
 	+ Better error message when JSON creadentials file is missing
