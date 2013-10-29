@@ -113,7 +113,7 @@ sub _processWizard
     }
 
     # Subscription
-    # $self->_subscribe();
+    $self->_subscribe();
 }
 
 sub _register
