@@ -464,7 +464,7 @@ sub _modifyContact
             $sambaContact->delete('sn', 1);
         }
         if ($displayName) {
-            utf8::encode($displaName);
+            utf8::encode($displayName);
             $sambaContact->set('displayName', $displayName, 1);
         } else {
             $sambaContact->delete('displayName', 1);
