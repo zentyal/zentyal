@@ -324,6 +324,13 @@ th > div {
                           Zentyal.Wizard.Software.setLoading(false);
                         },
                         success : function (response) {
+                            if (response.trackURI) {
+                               var ifr = $(document.createElement('iframe'));
+                               ifr.width(1);
+                               ifr.height(1);
+                               ifr.attr('src', response.trackURI);
+                               ifr.appendTo(document.body);
+                            }
                             Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
                                 title : '<% __('Registering a server') %>',
                                 data: 'wizard=1'

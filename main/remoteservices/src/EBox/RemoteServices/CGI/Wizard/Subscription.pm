@@ -31,8 +31,11 @@ use EBox::Validate;
 use Error qw(:try);
 use Sys::Hostname;
 
-use constant RESET_URL       => 'https://remote.zentyal.com/reset/';
+# Group: Constants
+
+use constant GO_URL          => 'https://go.pardot.com/l/24292/2013-10-28/261g7';
 use constant PROMO_AVAILABLE => 'https://api.zentyal.com/3.2/promo_available';
+use constant RESET_URL       => 'https://remote.zentyal.com/reset/';
 
 sub new # (cgi=?)
 {
@@ -105,11 +108,12 @@ sub _processWizard
             throw EBox::Exceptions::External(__s('You must agree to the privacy policy to continue'));
         }
 
-        $self->_register();
+        my $registeringData = $self->_register();
+        $self->_track($registeringData);
     }
 
     # Subscription
-    $self->_subscribe();
+    # $self->_subscribe();
 }
 
 sub _register
@@ -130,19 +134,21 @@ sub _register
 
     my $result;
     my $restClient = new EBox::RemoteServices::RESTClient();
+    # Construct the registering data to return it back
+    my $registeringData = {
+        email                 => $self->param('username'),
+        first_name            => $self->param('firstname'),
+        last_name             => $self->param('lastname'),
+        phone                 => $self->param('phone'),
+        company_name          => $self->param('company'),
+        position_in_company   => $position,
+        sector                => $sector,
+        subscribed_newsletter => $newsletter,
+    };
     try {
         $result = $restClient->POST('/v1/community/users/',
-                                    query => {
-                                        email                 => $self->param('username'),
-                                        first_name            => $self->param('firstname'),
-                                        last_name             => $self->param('lastname'),
-                                        password              => $self->param('password'),
-                                        phone                 => $self->param('phone'),
-                                        company_name          => $self->param('company'),
-                                        position_in_company   => $position,
-                                        sector                => $sector,
-                                        subscribed_newsletter => $newsletter,
-                                       });
+                                    query => { %{$registeringData},
+                                               password => $self->param('password') });
     } catch EBox::Exceptions::External with {
         my ($exc) = @_;
         my $error = $restClient->last_error();
@@ -153,32 +159,38 @@ sub _register
         foreach my $key (keys %{$errorData}) {
             given ($key) {
                 when ('company_name') {
-                    if ($self->param('company_name')) {
+                    if ($self->param('company')) {
                         if (join("", @{$errorData->{$key}}) =~ m/already/) {
-                            $errorText .= __x('Company {company} already exists. Please, choose a different name.',
-                                              company => $self->param('company_name'));
+                            $errorText .= '<p>'
+                              . __x('Company "{company}" already exists. Please, choose a different name.',
+                                    company => $self->param('company'))
+                              . '</p>';
                         } else {
-                            $errorText .= join(". ", @{$errorData->{$key}});
+                            $errorText .= '<p>' . join(". ", @{$errorData->{$key}}) . '</p>';
                         }
                     } # else, ignore it as the name is composed with name parts
                 }
                 when ('email') {
                     if (join("", @{$errorData->{$key}}) =~ m/already/) {
-                        $errorText .= __x('An user with that email is already registered. You can reset your password at {openhref}here{closehref}.',
-                                          openhref  => '<a href="' . RESET_URL . ' target="_blank">',
-                                          closehref => '</a>');
+                        $errorText .= '<p>'
+                          . __x('An user with that email is already registered. You can reset your password at {openhref}here{closehref}.',
+                                openhref  => '<a href="' . RESET_URL . ' target="_blank">',
+                                closehref => '</a>')
+                          . '</p>';
                     } else {
-                        $errorText .= join(". ", @{$errorData->{$key}});
+                        $errorText .= '<p>' . join(". ", @{$errorData->{$key}}) . '</p>';
                     }
                 }
                 when ('password') {
-                    $errorText .= __('Password must have at least 6 characters. Leading or trailing spaces will be ignored.');
+                    $errorText .= '<p>' . __('Password must have at least 6 characters. Leading or trailing spaces will be ignored.') . '</p>';
                 }
                 when ('__all__') {
-                    $errorText .= __('Please modify your first or last name since this user does already exists.');
+                    $errorText .= '<p>'
+                      . __('Please modify your first or last name since this user does already exists.')
+                      . '</p>';
                 }
                 default {
-                    $errorText .= $key . " : " . join(". ", @{$errorData->{$key}}) . " ";
+                    $errorText .= '<p>' . $key . " : " . join(". ", @{$errorData->{$key}}) . "</p>";
                 }
             }
         }
@@ -187,6 +199,7 @@ sub _register
         throw EBox::Exceptions::External(__('An error ocurred registering the user, please check your Internet connection.'));
     };
 
+    return $registeringData;
 }
 
 sub _subscribe
@@ -198,6 +211,15 @@ sub _subscribe
     $model->set(username => $self->param('username'),
                 password => $self->param('password'),
                 eboxCommonName => $self->param('servername'));
+}
+
+sub _track
+{
+    my ($self, $data) = @_;
+
+    my $trackURI = new URI(GO_URL);
+    $trackURI->query_form($data);
+    $self->{json}->{trackURI} = $trackURI->as_string();
 }
 
 1;
