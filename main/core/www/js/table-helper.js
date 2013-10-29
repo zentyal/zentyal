@@ -1319,10 +1319,8 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
         url: url,
         data: data,
         dataType: 'json',
-        success: function (response) {
-            if (('unsavedModules' in response) && response.unsavedModules ) {
-                Zentyal.setSaveChangesButton(1);
-            }
+        complete: function (response) {
+            Zentyal.refreshSaveChangesButton();
         }
    });
 };
