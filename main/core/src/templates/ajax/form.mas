@@ -52,46 +52,12 @@
    title => $model->headTitle()
 &>
 <& SELF:messagesAndHelp, model => $model &>
-
-<h3>edit form</h3>
-<%doc>
-<& SELF:editForm,
-   modelName => $model->name(),
+<& '/ajax/formEdit.mas',
+   model    => $model,
    formData => $formDataRef
 &>
-</%doc>
 
-</%method>
 
-<%doc>
-  Method: buttons
-
-     Show the button to submit the form
-
-  Overrides:
-
-     /ajax/modelViewer.mas:buttons
-
-</%doc>
-<%method buttons>
-<%init>
-  # Getting the arguments from the first request
-  my $model = $m->caller_args(2)->{model};
-  my $id = $model->name() . '_ajaxform';
-  my $actions = $model->table()->{actions};
-  my $onClick = $model->changeRowJS($id, 0) . '; return false';
-  $onClick =  $model->confirmationJS('submit', $onClick);
-</%init>
-<td id="<% 'buttons_' . $model->modelName() %>">
-% if (defined $actions and (keys %{ $actions} > 0)) {
-  <& /input/submit.mas,
-     name => 'change',
-     value => $model->printableActionName(),
-     onclick => $onClick,
-  &>
-% }
-<& /ajax/customActions.mas, model => $model, id => $id &>
-</td>
 </%method>
 
 

@@ -51,7 +51,6 @@ $printableRowName => ''
 <& SELF:title, action => $action, printableRowName => $printableRowName &>
 <& SELF:editForm,
     model     => $model,
-    modelName => $tableName,
     action    => $action,
     editid    => $editid,
     filter    => $filter,
@@ -103,19 +102,21 @@ $printableRowName
 <%method editForm>
 <%args>
   $model
-  $modelName
   @formData
   @sections => ()
-  $action
-  $editid
-  $filter
-  $page
-  $tpages
+  $action => undef
+  $editid => undef
+  $filter => undef
+  $page   => undef
+  $tpages => undef
 </%args>
-%  my $formAttrs = '';
-%  if (@formData and $formData[0]->model()->disableAutocomplete()) {
-%    $formAttrs = 'autocomplete="off"';
-%  }
+<%init>
+my $modelName = $model->name();
+my $formAttrs = '';
+if (@formData and $formData[0]->model()->disableAutocomplete()) {
+  $formAttrs = 'autocomplete="off"';
+}
+</%init>
 <form id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
   <table class="formTable">
     <tbody>
@@ -124,8 +125,7 @@ $printableRowName
          formData => \@formData,
       &>
     </tbody>
-% foreach my $section (@sections)
-% {
+% foreach my $section (@sections) {
       <& SELF:editFormSection,
          name => $modelName,
          formData => \@formData,
