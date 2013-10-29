@@ -1,3 +1,8 @@
+HEAD
+	+ Changed field names to use the same terminology on Exchange
+	  installations
+	+ Added the firstorg and firstou arguments also when provisioning the
+	  openchangedb and newuser part
 3.3
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
