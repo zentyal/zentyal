@@ -59,7 +59,30 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    unless ($version) {
+    $self->_migrateFormKeys();
+}
+
+# Migration of form keys to better names (between development versions)
+#
+# * Migrate redis keys from firstorganization to organizationname and firstorganizationunit to administrativegroup
+#
+sub _migrateFormKeys
+{
+    my ($self) = @_;
+    my @keys = ('openchange/conf/Provision/keys/form', 'openchange/ro/Provision/keys/form');
+
+    my $redis = $self->redis();
+    foreach my $key (@keys) {
+        my $value = $redis->get($key);
+        if (defined $value->{firstorganization}) {
+            $value->{organizationname} = $value->{firstorganization};
+            delete $value->{firstorganization};
+        }
+        if (defined $value->{firstorganizationunit}) {
+            $value->{administrativegroup} = 'First Administrative Group';
+            delete $value->{firstorganizationunit};
+        }
+        $redis->set($key, $value);
     }
 }
 
