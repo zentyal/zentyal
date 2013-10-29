@@ -1,8 +1,8 @@
 Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 ===================================================================
---- samba4-4.1.0rc4.orig/source3/modules/vfs_scannedonly.c	2013-10-24 16:17:54.629269066 +0200
-+++ samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c	2013-10-24 16:32:26.467745763 +0200
-@@ -50,289 +50,251 @@
+--- samba4-4.1.0rc4.orig/source3/modules/vfs_scannedonly.c	2013-10-25 16:28:03.287241208 +0200
++++ samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c	2013-10-25 16:28:41.311277624 +0200
+@@ -50,289 +50,260 @@
  #include "includes.h"
  #include "smbd/smbd.h"
  #include "system/filesys.h"
@@ -110,39 +110,46 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  				       const char *fullpath,
  				       const char *p_scanned)
  {
-+	TALLOC_CTX *frame = talloc_stackframe();
- 	const char *base;
- 	char *tmp, *cachefile;
- 	const char *shortname;
+-	const char *base;
+-	char *tmp, *cachefile;
+-	const char *shortname;
++	char *base = NULL;
++	char *tmp = NULL;
++	char *cachefile = NULL;
++	char *shortname = NULL;;
++
  	tmp = strrchr(fullpath, '/');
  	if (tmp) {
 -		base = talloc_strndup(ctx, fullpath, (tmp - fullpath) + 1);
 -		shortname = tmp + 1;
-+		base = talloc_strndup(talloc_tos(), fullpath, (tmp - fullpath) + 1);
-+		shortname = talloc_strdup(talloc_tos(), tmp + 1);
++		base = talloc_strndup(mem_ctx, fullpath, (tmp - fullpath) + 1);
++		shortname = talloc_strdup(mem_ctx, tmp + 1);
  	} else {
 -		base = "";
 -		shortname = (const char *)fullpath;
-+		base = talloc_strdup(talloc_tos(), "");
-+		shortname = talloc_strdup(talloc_tos(), fullpath);
++		base = talloc_strdup(mem_ctx, "");
++		shortname = talloc_strdup(mem_ctx, fullpath);
  	}
 -	cachefile = cachefile_name(ctx, shortname, base, p_scanned);
 -	DEBUG(SCANNEDONLY_DEBUG,
 -	      ("cachefile_name_f_fullpath cachefile=%s\n", cachefile));
 +
 +	cachefile = cachefile_name(mem_ctx, shortname, base, p_scanned);
-+	talloc_free(frame);
++	TALLOC_FREE(shortname);
++	TALLOC_FREE(base);
 +
 +	DEBUG(SCANNEDONLY_DEBUG, ("%s: cachefile=%s\n", __func__, cachefile));
  	return cachefile;
  }
  
 -static char *construct_full_path(TALLOC_CTX *ctx, vfs_handle_struct * handle,
-+static const char *construct_full_path(TALLOC_CTX *mem_ctx, vfs_handle_struct * handle,
- 				 const char *somepath, bool ending_slash)
+-				 const char *somepath, bool ending_slash)
++static char *construct_full_path(TALLOC_CTX *mem_ctx, vfs_handle_struct *handle,
++				 char *somepath, bool ending_slash)
  {
 -	const char *tmp;
-+	const char *tmp, *retval;
++	char *tmp = NULL;
++	char *retval = NULL;
  
  	if (!somepath) {
  		return NULL;
@@ -165,65 +172,73 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	if (ending_slash) {
 -		return talloc_asprintf(ctx, "%s/%s/",
 -				       vfs_GetWd(ctx, handle->conn),tmp);
-+		TALLOC_CTX *frame = talloc_stackframe();
-+		char *aux = vfs_GetWd(talloc_tos(), handle->conn);
++		char *aux = vfs_GetWd(mem_ctx, handle->conn);
 +		retval = talloc_asprintf(mem_ctx, "%s/%s/", aux ,tmp);
-+		talloc_free(frame);
++		TALLOC_FREE(aux);
 +		return retval;
  	}
 -	return talloc_asprintf(ctx, "%s/%s",
 -			       vfs_GetWd(ctx, handle->conn),tmp);
 +
-+	TALLOC_CTX *frame = talloc_stackframe();
-+	char *aux = vfs_GetWd(talloc_tos(), handle->conn);
++	char *aux = vfs_GetWd(mem_ctx, handle->conn);
 +	retval = talloc_asprintf(mem_ctx, "%s/%s", aux, tmp);
-+	talloc_free(frame);
++	TALLOC_FREE(aux);
 +	return retval;
  }
  
 -static int connect_to_scanner(vfs_handle_struct * handle)
 +static int scannedonly_connect_to_scanner(vfs_handle_struct * handle)
  {
- 	struct Tscannedonly *so = (struct Tscannedonly *)handle->data;
+-	struct Tscannedonly *so = (struct Tscannedonly *)handle->data;
++	struct Tscannedonly *data = NULL;
  
- 	if (so->domain_socket) {
+-	if (so->domain_socket) {
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++			return -1);
++
++	if (data->domain_socket) {
  		struct sockaddr_un saun;
 -		DEBUG(SCANNEDONLY_DEBUG, ("socket=%s\n", so->socketname));
-+		DEBUG(SCANNEDONLY_DEBUG, ("%s: socket=%s\n", __func__,
-+			so->socketname));
- 		if ((so->socket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0) {
+-		if ((so->socket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0) {
 -			DEBUG(2, ("failed to create socket %s\n",
 -				  so->socketname));
 -			return -1;
++		DEBUG(SCANNEDONLY_DEBUG, ("%s: socket=%s\n", __func__,
++			data->socketname));
++		if ((data->socket = socket(AF_UNIX, SOCK_DGRAM, 0)) < 0) {
 +			DEBUG(0, ("%s: failed to create socket %s: (%d %s)\n",
-+				  __func__, so->socketname, errno, strerror(errno)));
++				  __func__, data->socketname, errno, strerror(errno)));
 +			return errno;
  		}
  		saun.sun_family = AF_UNIX;
- 		strncpy(saun.sun_path, so->socketname,
+-		strncpy(saun.sun_path, so->socketname,
++		strncpy(saun.sun_path, data->socketname,
  			sizeof(saun.sun_path) - 1);
- 		if (connect(so->socket, (struct sockaddr *)(void *)&saun,
+-		if (connect(so->socket, (struct sockaddr *)(void *)&saun,
++		if (connect(data->socket, (struct sockaddr *)(void *)&saun,
  			    SUN_LEN(&saun)) < 0) {
 -			DEBUG(2, ("failed to connect to socket %s\n",
 -				  so->socketname));
 -			return -1;
 +			DEBUG(0, ("%s: failed to connect to socket %s (%d %s)\n",
-+				  __func__, so->socketname, errno, strerror(errno)));
++				  __func__, data->socketname, errno, strerror(errno)));
 +			return errno;
  		}
 -		DEBUG(SCANNEDONLY_DEBUG,("bound %s to socket %d\n",
 -					 saun.sun_path, so->socket));
 +		DEBUG(SCANNEDONLY_DEBUG,
 +			("%s: bound %s to socket %d\n", __func__,
-+				saun.sun_path, so->socket));
++				saun.sun_path, data->socket));
  
  	} else {
- 		so->socket = open_udp_socket(so->scanhost, so->portnum);
- 		if (so->socket < 0) {
+-		so->socket = open_udp_socket(so->scanhost, so->portnum);
+-		if (so->socket < 0) {
 -			DEBUG(2,("failed to open UDP socket to %s:%d\n",
 -				 so->scanhost,so->portnum));
++		data->socket = open_udp_socket(data->scanhost, data->portnum);
++		if (data->socket < 0) {
 +			DEBUG(0, ("%s: failed to open UDP socket to %s:%d\n",
-+				 __func__, so->scanhost,so->portnum));
++				 __func__, data->scanhost,data->portnum));
  			return -1;
  		}
  	}
@@ -241,13 +256,14 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -			   (char *)&sndsize, &size);
 -		DEBUG(SCANNEDONLY_DEBUG, ("current socket buffer size=%d\n",
 -					  sndsize));
-+		getsockopt(so->socket, SOL_SOCKET, SO_RCVBUF, (char *)&sndsize,
++		getsockopt(data->socket, SOL_SOCKET, SO_RCVBUF, (char *)&sndsize,
 +			 &size);
 +		DEBUG(SCANNEDONLY_DEBUG,
 +			("%s: current socket buffer size=%d\n", __func__,
 +				sndsize));
  		sndsize = 262144;
- 		if (setsockopt(so->socket, SOL_SOCKET, SO_RCVBUF,
+-		if (setsockopt(so->socket, SOL_SOCKET, SO_RCVBUF,
++		if (setsockopt(data->socket, SOL_SOCKET, SO_RCVBUF,
  			       (char *)&sndsize,
  			       (int)sizeof(sndsize)) != 0) {
  			DEBUG(SCANNEDONLY_DEBUG,
@@ -257,38 +273,45 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +					__func__, strerror(errno), errno));
  		}
  	}
- 	set_blocking(so->socket, false);
+-	set_blocking(so->socket, false);
++	set_blocking(data->socket, false);
  	return 0;
  }
  
 -static void flush_sendbuffer(vfs_handle_struct * handle)
-+static bool scannedonly_notify_scanner(vfs_handle_struct * handle, const char *scanfile)
- {
-+	const char *tmp;
-+	char *sendbuf, *prefix;
-+	int tmplen;
-+	int ret;
-+	int offset = 0;
- 	struct Tscannedonly *so = (struct Tscannedonly *)handle->data;
+-{
+-	struct Tscannedonly *so = (struct Tscannedonly *)handle->data;
 -	int ret, len, loop = 10;
 -	if (so->gsendbuffer[0] == '\0') {
 -		return;
-+	TALLOC_CTX *frame = talloc_stackframe();
++static bool scannedonly_notify_scanner(TALLOC_CTX *mem_ctx,
++				vfs_handle_struct * handle,
++				char *scanfile)
++{
++	char *tmp = NULL;
++	char *sendbuf = NULL;
++	char *prefix = NULL;
++	int tmplen;
++	int ret;
++	int offset = 0;
++	struct Tscannedonly *data = NULL;
 +	int try = 3;
 +
++	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
++			return false);
++
 +	if (scanfile[0] != '/') {
-+		tmp = construct_full_path(talloc_tos(), handle, scanfile, false);
++		tmp = construct_full_path(mem_ctx, handle, scanfile, false);
 +	} else {
-+		tmp = talloc_strdup(talloc_tos(), scanfile);
- 	}
++		tmp = talloc_strdup(mem_ctx, scanfile);
++	}
 +	if (!tmp) {
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
 +		return false;
 +	}
-+	prefix = talloc_sub_advanced(talloc_tos(),
-+			lp_servicename(talloc_tos(), SNUM(handle->conn)),
++	prefix = talloc_sub_advanced(mem_ctx,
++			lp_servicename(mem_ctx, SNUM(handle->conn)),
 +			handle->conn->session_info->unix_info->unix_name,
 +			handle->conn->connectpath,
 +			handle->conn->session_info->unix_token->gid,
@@ -298,18 +321,19 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	if (!prefix) {
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
++		TALLOC_FREE(tmp);
 +		return false;
 +	}
-+	sendbuf = talloc_asprintf(talloc_tos(), "%s\x1E%s\n", prefix, tmp);
++	sendbuf = talloc_asprintf(mem_ctx, "%s\x1E%s\n", prefix, tmp);
++	TALLOC_FREE(prefix);
++	TALLOC_FREE(tmp);
 +	if (!sendbuf) {
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
 +		return false;
-+	}
-+	tmplen = strlen(sendbuf);
+ 	}
  
++	tmplen = strlen(sendbuf);
  	do {
 -		loop--;
 -		len = strlen(so->gsendbuffer);
@@ -317,7 +341,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		if (ret == len) {
 -			so->gsendbuffer[0] = '\0';
 +		int bytes_to_send = tmplen - offset;
-+		ret = send(so->socket, sendbuf + offset, bytes_to_send, 0);
++		ret = send(data->socket, sendbuf + offset, bytes_to_send, 0);
 +		if (ret == bytes_to_send) {
 +			/* All sent */
  			break;
@@ -355,7 +379,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +		} else if (ret == -1) {
 +			/* Error sending */
 +			DEBUG(0, ("%s: error sending on socket %d to scanner:"
-+				" %s (%d)\n", __func__, so->socket,
++				" %s (%d)\n", __func__, data->socket,
 +				strerror(errno), errno));
 +			if (errno == ECONNREFUSED ||errno == ENOTCONN
 +				|| errno == ECONNRESET)
@@ -385,7 +409,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		       "discarding files."));
 -		so->gsendbuffer[0] = '\0';
 -	}
-+	talloc_free(frame);
++	TALLOC_FREE(sendbuf);
 +	return ((offset == tmplen) && (try > 0));
  }
  
@@ -418,7 +442,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  {
  	if (shortname[0]!='.') {
  		return false;
-@@ -355,391 +317,217 @@
+@@ -355,391 +326,209 @@
  }
  
  /*
@@ -437,6 +461,18 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -loop : boolean if we should try to loop over all files in the directory
 -and send a notify to the scanner for all files that need scanning
 -*/
+-static bool scannedonly_allow_access(vfs_handle_struct * handle,
+-				     struct scannedonly_DIR *sDIR,
+-				     struct smb_filename *smb_fname,
+-				     const char *shortname,
+-				     const char *base_name,
+-				     int allow_nonexistent,
+-				     int recheck_time, int recheck_tries,
+-				     int recheck_size, int loop)
+-{
+-	struct smb_filename *cache_smb_fname;
+-	TALLOC_CTX *ctx=talloc_tos();
+-	char *cachefile;
 + * vfs_handle_struct	- handle the scannedonly handle
 + * smb_filename		- full path starting from / or a relative path to the
 + * 			  current working directory
@@ -448,24 +484,19 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 + * recheck_tries 	- the number of tries to wait
 + * recheck_size		- size in Kb of files that should not be waited for
 + */
- static bool scannedonly_allow_access(vfs_handle_struct * handle,
--				     struct scannedonly_DIR *sDIR,
- 				     struct smb_filename *smb_fname,
- 				     const char *shortname,
- 				     const char *base_name,
- 				     int allow_nonexistent,
- 				     int recheck_time, int recheck_tries,
--				     int recheck_size, int loop)
-+				     int recheck_size)
- {
--	struct smb_filename *cache_smb_fname;
--	TALLOC_CTX *ctx=talloc_tos();
--	char *cachefile;
++static bool scannedonly_allow_access(TALLOC_CTX *mem_ctx,
++				vfs_handle_struct * handle,
++				struct smb_filename *smb_fname,
++				const char *shortname,
++				const char *base_name,
++				int allow_nonexistent,
++				int recheck_time, int recheck_tries,
++				int recheck_size)
++{
 +	struct Tscannedonly *data = NULL;
 +	struct smb_filename *cache_smb_fname = NULL;
 +	char *cachefile = NULL;
  	int retval = -1;
-+	TALLOC_CTX *frame = talloc_stackframe();
 +
  	DEBUG(SCANNEDONLY_DEBUG,
 -	      ("smb_fname->base_name=%s, shortname=%s, base_name=%s\n"
@@ -479,7 +510,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	if (ISDOT(shortname) || ISDOTDOT(shortname)) {
 +        	DEBUG(SCANNEDONLY_DEBUG,
 +			("%s: Is dot or dotdot, returning true\n", __func__));
-+		talloc_free(frame);
  		return true;
  	}
 -	if (is_scannedonly_file(STRUCTSCANO(handle->data), shortname)) {
@@ -489,7 +519,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		       "return 0\n", shortname));
 +			("%s: %s is a scannedonly file, returning false\n",
 +				__func__, shortname));
-+		talloc_free(frame);
  		return false;
  	}
 -
@@ -509,7 +538,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +			DEBUG(SCANNEDONLY_DEBUG,
 +				("%s: no valid stat, return allow_nonexistent=%d\n",
 +					__func__, allow_nonexistent));
-+			talloc_free(frame);
  			return allow_nonexistent;
  		}
  	}
@@ -523,7 +551,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +			("%s: %s is not a regular file, ISDIR=%d\n",
 +				__func__, smb_fname->base_name,
 +				S_ISDIR(smb_fname->st.st_ex_mode)));
-+		talloc_free(frame);
 +		return (data->show_special_files ||
  			S_ISDIR(smb_fname->st.st_ex_mode));
  	}
@@ -532,32 +559,31 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		return true;	/* empty files cannot contain viruses ! */
 +		/* empty files cannot contain viruses ! */
 +		DEBUG(SCANNEDONLY_DEBUG,("%s: empty file, return true\n", __func__));
-+		talloc_free(frame);
 +		return true;
-+	}
-+	cachefile = cachefile_name(talloc_tos(), shortname, base_name,
-+		data->p_scanned);
-+	if (!cachefile) {
-+		DEBUG(0, ("%s: No memory\n", __func__));
-+		errno = ENOMEM;
-+		talloc_free(frame);
-+		return false;
-+	}
-+	DEBUG(SCANNEDONLY_DEBUG, ("%s: cache file name is '%s'\n", __func__,
-+		cachefile));
-+
-+	cache_smb_fname = synthetic_smb_fname(talloc_tos(), cachefile, NULL, NULL);
-+	if (!cache_smb_fname) {
-+		DEBUG(0, ("%s: No memory\n", __func__));
-+		errno = ENOMEM;
-+		talloc_free(frame);
-+		return false;
  	}
 -	cachefile = cachefile_name(ctx,
 -				   shortname,
 -				   base_name,
 -				   STRUCTSCANO(handle->data)->p_scanned);
 -	cache_smb_fname = synthetic_smb_fname(ctx, cachefile,NULL,NULL);
++	cachefile = cachefile_name(mem_ctx, shortname, base_name,
++		data->p_scanned);
++	if (!cachefile) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return false;
++	}
++	DEBUG(SCANNEDONLY_DEBUG, ("%s: cache file name is '%s'\n", __func__,
++		cachefile));
++
++	cache_smb_fname = synthetic_smb_fname(mem_ctx, cachefile, NULL, NULL);
++	TALLOC_FREE(cachefile);
++	if (!cache_smb_fname) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return false;
++	}
++
  	if (!VALID_STAT(cache_smb_fname->st)) {
 +		DEBUG(SCANNEDONLY_DEBUG, ("%s: No valid cache file stat (%s)\n",
 +			__func__, cache_smb_fname->base_name));
@@ -574,7 +600,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +			DEBUG(SCANNEDONLY_DEBUG,
 +				("%s: cache file is newer than file, allow access\n",
 +					__func__));
-+			talloc_free(frame);
  			return true;
  		}
 -		/* no cachefile or too old */
@@ -585,7 +610,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -	notify_scanner(handle, smb_fname->base_name);
 +	DEBUG(SCANNEDONLY_DEBUG, ("%s: file must be scanned, notifying scanner\n",
 +		__func__));
-+	scannedonly_notify_scanner(handle, smb_fname->base_name);
++	scannedonly_notify_scanner(mem_ctx, handle, smb_fname->base_name);
  
 -	if (loop && sDIR && sDIR->recheck_tries_done == 0) {
 -		/* check the rest of the directory and notify the
@@ -627,7 +652,6 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +		DEBUG(SCANNEDONLY_DEBUG,
 +			("%s: file size %d is greather than recheck size %d, return true\n",
 +				__func__, (int)smb_fname->st.st_ex_size, (1024 * recheck_size)));
-+		talloc_free(frame);
 +		return true;
 +	}
 +
@@ -661,10 +685,9 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		      ("retval=%d, return 0\n",retval));
 +			("%s: retval=%d, returning false\n",
 +				__func__, retval));
-+		talloc_free(frame);
  		return false;
  	}
-+	talloc_free(frame);
++	TALLOC_FREE(cache_smb_fname);
  	return true;
  }
  
@@ -839,16 +862,16 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
 -	return SMB_VFS_NEXT_TELLDIR(handle, sDIR->DIR);
 -}
--
++			("%s: Checking if %s should be hidden to the user\n",
++				__func__, d->d_name));
+ 
 -static void scannedonly_rewinddir(struct vfs_handle_struct *handle,
 -				  DIR * dirp)
 -{
 -	struct scannedonly_DIR *sDIR = (struct scannedonly_DIR *)dirp;
 -	SMB_VFS_NEXT_REWINDDIR(handle, sDIR->DIR);
 -}
-+			("%s: Checking if %s should be hidden to the user\n",
-+				__func__, d->d_name));
- 
+-
 -static int scannedonly_closedir(vfs_handle_struct * handle,
 -				DIR * dirp)
 -{
@@ -938,7 +961,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	int allowed = 0;
 +	int write_access = 0;
 +	int retval = -1;
-+	TALLOC_CTX *frame = talloc_stackframe();
++	TALLOC_CTX *mem_ctx = NULL;
 +
 +	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
 +			return -1);
@@ -946,10 +969,17 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	/* if open for writing ignore it */
  	if ((flags & O_ACCMODE) == O_WRONLY) {
  		return SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
-@@ -747,45 +535,55 @@
+@@ -747,45 +536,68 @@
  	if ((flags & O_ACCMODE) == O_RDWR) {
  		write_access = 1;
  	}
++
++	mem_ctx = talloc_new(handle);
++	if (!mem_ctx) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
++	}
 +
  	/* check if this file is scanned already */
  	tmp = strrchr(smb_fname->base_name, '/');
@@ -957,23 +987,16 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		base = talloc_strndup(ctx,smb_fname->base_name,
 -				      (tmp - smb_fname->base_name) + 1);
 -		shortname = tmp + 1;
-+		base = talloc_strndup(talloc_tos(), smb_fname->base_name,
++		base = talloc_strndup(mem_ctx, smb_fname->base_name,
 +			(tmp - smb_fname->base_name) + 1);
-+		shortname = talloc_strdup(talloc_tos(), tmp + 1);
++		shortname = talloc_strdup(mem_ctx, tmp + 1);
  	} else {
 -		base = "";
 -		shortname = (char *)smb_fname->base_name;
-+		base = talloc_strdup(talloc_tos(), "");
-+		shortname = talloc_strdup(talloc_tos(), smb_fname->base_name);
-+	}
-+	if (!base || !shortname) {
-+		DEBUG(0, ("%s: No memory\n", __func__));
-+		talloc_free(frame);
-+		errno = ENOMEM;
-+		return -1;
++		base = talloc_strdup(mem_ctx, "");
++		shortname = talloc_strdup(mem_ctx, smb_fname->base_name);
  	}
-+
- 	allowed = scannedonly_allow_access(
+-	allowed = scannedonly_allow_access(
 -		handle, NULL, smb_fname, shortname,
 -		base,
 -		write_access,
@@ -987,25 +1010,33 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -	if (allowed
 -	    || STRUCTSCANO(handle->data)->allow_nonscanned_files) {
 -		return SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
++	if (!base || !shortname) {
++		TALLOC_FREE(mem_ctx);
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
++	}
++
++	allowed = scannedonly_allow_access(mem_ctx,
 +		handle, smb_fname, shortname, base, write_access,
 +		data->recheck_time_open,
 +		data->recheck_tries_open,
 +		data->recheck_size_open);
++	TALLOC_FREE(shortname);
++	TALLOC_FREE(base);
 +
 +	DEBUG(SCANNEDONLY_DEBUG, ("%s: allow=%d for %s\n", __func__,
 +		allowed, smb_fname->base_name));
 +	if (allowed || data->allow_nonscanned_files) {
 +		retval = SMB_VFS_NEXT_OPEN(handle, smb_fname, fsp, flags, mode);
 +	} else {
-+		retval = -1;
 +		errno = EACCES;
++		retval = -1;
  	}
 -	errno = EACCES;
 -	return -1;
 +
-+	talloc_free(shortname);
-+	talloc_free(base);
-+	talloc_free(frame);
++	TALLOC_FREE(mem_ctx);
 +	return retval;
  }
  
@@ -1019,21 +1050,28 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -		TALLOC_CTX *ctx = talloc_tos();
 -		notify_scanner(handle, construct_full_path(
 -				       ctx,handle,
-+		TALLOC_CTX *frame = talloc_stackframe();
-+		scannedonly_notify_scanner(handle, construct_full_path(
-+				       talloc_tos() ,handle,
- 				       fsp->fsp_name->base_name,false));
+-				       fsp->fsp_name->base_name,false));
 -		flush_sendbuffer(handle);
-+		talloc_free(frame);
++		TALLOC_CTX *mem_ctx = talloc_new(handle);
++		if (!mem_ctx) {
++			DEBUG(0, ("%s: No memory\n", __func__));
++			errno = ENOMEM;
++			return -1;
++		}
++		char *full_path = construct_full_path(mem_ctx, handle,
++			fsp->fsp_name->base_name,false);
++		scannedonly_notify_scanner(mem_ctx, handle, full_path);
++		TALLOC_FREE(full_path);
++		TALLOC_FREE(mem_ctx);
  	}
  	return SMB_VFS_NEXT_CLOSE(handle, fsp);
  }
-@@ -794,102 +592,216 @@
+@@ -794,102 +606,240 @@
  			      const struct smb_filename *smb_fname_src,
  			      const struct smb_filename *smb_fname_dst)
  {
+-	/* rename the cache file before we pass the actual rename on */
 +	struct Tscannedonly *data = NULL;
- 	/* rename the cache file before we pass the actual rename on */
  	struct smb_filename *smb_fname_src_tmp = NULL;
  	struct smb_filename *smb_fname_dst_tmp = NULL;
 -	char *cachefile_src, *cachefile_dst;
@@ -1044,19 +1082,37 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	char *cachefile_dst = NULL;
 +	bool needscandst = false;
 +	int ret = -1;
-+	TALLOC_CTX *frame = talloc_stackframe();
++	TALLOC_CTX *mem_ctx = NULL;
 +
++	/* rename the cache file before we pass the actual rename on */
 +	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
 +			return -1);
++
++	mem_ctx = talloc_new(handle);
++	if (!mem_ctx) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
++	}
  
  	/* Setup temporary smb_filename structs. */
  	cachefile_src = cachefile_name_f_fullpath(
 -		ctx,
-+		talloc_tos(),
++		mem_ctx,
  		smb_fname_src->base_name,
 -		STRUCTSCANO(handle->data)->p_scanned);
 +		data->p_scanned);
 +	if (!cachefile_src) {
++		TALLOC_FREE(mem_ctx);
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
++	}
++
++	smb_fname_src_tmp = synthetic_smb_fname(mem_ctx, cachefile_src,
++				NULL,NULL);
++	if (!smb_fname_src_tmp) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
 +		return -1;
@@ -1064,29 +1120,22 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +
  	cachefile_dst =	cachefile_name_f_fullpath(
 -		ctx,
-+		talloc_tos(),
++		mem_ctx,
  		smb_fname_dst->base_name,
 -		STRUCTSCANO(handle->data)->p_scanned);
 -	smb_fname_src_tmp = synthetic_smb_fname(ctx, cachefile_src,NULL,NULL);
 -	smb_fname_dst_tmp = synthetic_smb_fname(ctx, cachefile_dst,NULL,NULL);
 +		data->p_scanned);
 +	if (!cachefile_dst) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
 +		return -1;
 +	}
-+
-+	smb_fname_src_tmp = synthetic_smb_fname(talloc_tos(), cachefile_src,
-+				NULL,NULL);
-+	if (!smb_fname_src_tmp) {
-+		DEBUG(0, ("%s: No memory\n", __func__));
-+		errno = ENOMEM;
-+		return -1;
-+	}
-+
-+	smb_fname_dst_tmp = synthetic_smb_fname(talloc_tos(), cachefile_dst,
++	smb_fname_dst_tmp = synthetic_smb_fname(mem_ctx, cachefile_dst,
 +				NULL,NULL);
 +	if (!smb_fname_dst_tmp) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
 +		return -1;
@@ -1110,13 +1159,13 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	if (ret == 0 && needscandst) {
 -		notify_scanner(handle, smb_fname_dst->base_name);
 -		flush_sendbuffer(handle);
-+		scannedonly_notify_scanner(handle, smb_fname_dst->base_name);
++		scannedonly_notify_scanner(mem_ctx, handle, smb_fname_dst->base_name);
  	}
-+	talloc_free(smb_fname_dst_tmp);
-+	talloc_free(smb_fname_src_tmp);
-+	talloc_free(cachefile_dst);
-+	talloc_free(cachefile_src);
-+	talloc_free(frame);
++	TALLOC_FREE(smb_fname_dst_tmp);
++	TALLOC_FREE(smb_fname_src_tmp);
++	TALLOC_FREE(cachefile_dst);
++	TALLOC_FREE(cachefile_src);
++	TALLOC_FREE(mem_ctx);
 +
  	return ret;
  }
@@ -1131,27 +1180,42 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -	char * cachefile;
 -	TALLOC_CTX *ctx = talloc_tos();
 +	char *cachefile = NULL;
-+	TALLOC_CTX *frame = talloc_stackframe();
-+
++	TALLOC_CTX *mem_ctx = NULL;
+ 
+-	cachefile = cachefile_name_f_fullpath(
+-		ctx,
+-		smb_fname->base_name,
+-		STRUCTSCANO(handle->data)->p_scanned);
+-	smb_fname_cache = synthetic_smb_fname(ctx, cachefile,NULL,NULL);
+-	if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
+-		DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
+-					  smb_fname_cache->base_name));
 +	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
 +			return -1);
 +
++	mem_ctx = talloc_new(handle);
++	if (!mem_ctx) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
+ 	}
++
 +	/* unlink the 'scanned' file too */
-+	cachefile = cachefile_name_f_fullpath(talloc_tos(),
++	cachefile = cachefile_name_f_fullpath(mem_ctx,
 +		smb_fname->base_name, data->p_scanned);
 +	if (!cachefile) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
 +
-+	smb_fname_cache = synthetic_smb_fname(talloc_tos(), cachefile, NULL, NULL);
++	smb_fname_cache = synthetic_smb_fname(mem_ctx, cachefile, NULL, NULL);
 +	if (!smb_fname_cache) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
 +
 +	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
@@ -1165,47 +1229,40 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	TALLOC_FREE(cachefile);
 +
 +	/* unlink the 'failed' file too */
-+	cachefile = cachefile_name_f_fullpath(talloc_tos(),
++	cachefile = cachefile_name_f_fullpath(mem_ctx,
 +		smb_fname->base_name, data->p_failed);
 +	if (!cachefile) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
 +		return errno;
 +	}
 +
-+	smb_fname_cache = synthetic_smb_fname(talloc_tos(), cachefile,
++	smb_fname_cache = synthetic_smb_fname(mem_ctx, cachefile,
 +		NULL, NULL);
 +	if (!smb_fname_cache) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
 +		return errno;
 +	}
- 
--	cachefile = cachefile_name_f_fullpath(
--		ctx,
--		smb_fname->base_name,
--		STRUCTSCANO(handle->data)->p_scanned);
--	smb_fname_cache = synthetic_smb_fname(ctx, cachefile,NULL,NULL);
--	if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
--		DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
--					  smb_fname_cache->base_name));
++
 +	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
 +	if (ret == 0) {
 +		if (SMB_VFS_NEXT_UNLINK(handle, smb_fname_cache) != 0) {
 +			DEBUG(0, ("%s: failed to unlink %s (%d - %s)\n", __func__,
 +				smb_fname_cache->base_name, ret, strerror(ret)));
 +		}
- 	}
++	}
 +
 +	TALLOC_FREE(smb_fname_cache);
 +	TALLOC_FREE(cachefile);
-+	talloc_free(frame);
++	TALLOC_FREE(mem_ctx);
  	return SMB_VFS_NEXT_UNLINK(handle, smb_fname);
  }
  
- static int scannedonly_rmdir(vfs_handle_struct * handle, const char *path)
+-static int scannedonly_rmdir(vfs_handle_struct * handle, const char *path)
++static int scannedonly_rmdir(vfs_handle_struct *handle, const char *path)
  {
  	/* if there are only .scanned: .virus: or .failed: files, we delete
 -	   those, because the client cannot see them */
@@ -1222,28 +1279,35 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	char *path_w_slash = NULL;
 +	int ret = -1;
 +	struct Tscannedonly *data = NULL;
-+	TALLOC_CTX *frame = talloc_stackframe();
++	TALLOC_CTX *mem_ctx = NULL;
 +
 +	SMB_VFS_HANDLE_GET_DATA(handle, data, struct Tscannedonly,
 +				return -1);
++
++	mem_ctx = talloc_new(handle);
++	if (!mem_ctx) {
++		DEBUG(0, ("%s: No memory\n", __func__));
++		errno = ENOMEM;
++		return -1;
++	}
  
 -	if (!STRUCTSCANO(handle->data)->rm_hidden_files_on_rmdir)
 +	if (!data->rm_hidden_files_on_rmdir) {
-+		talloc_free(frame);
++		TALLOC_FREE(mem_ctx);
  		return SMB_VFS_NEXT_RMDIR(handle, path);
 +	}
  
 -	path_w_slash = name_w_ending_slash(ctx,path);
-+	path_w_slash = name_w_ending_slash(talloc_tos(), path);
++	path_w_slash = name_w_ending_slash(mem_ctx, path);
 +	if (!path_w_slash) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
  	dirp = SMB_VFS_NEXT_OPENDIR(handle, path, NULL, 0);
  	if (!dirp) {
-+		talloc_free(frame);
++		TALLOC_FREE(mem_ctx);
  		return -1;
  	}
 +
@@ -1272,26 +1336,26 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 -						  dire->d_name);
 -			smb_fname = synthetic_smb_fname(ctx, fullpath,
 +			/* stat the file and see if it is a special file */
-+			fullpath = talloc_asprintf(talloc_tos(), "%s%s",
++			fullpath = talloc_asprintf(mem_ctx, "%s%s",
 +					path_w_slash, dire->d_name);
 +			if (!fullpath) {
++				TALLOC_FREE(mem_ctx);
 +				DEBUG(0, ("%s: No memory\n", __func__));
 +				errno = ENOMEM;
-+				talloc_free(frame);
-+				return errno;
++				return -1;
 +			}
-+			smb_fname = synthetic_smb_fname(talloc_tos(), fullpath,
++			smb_fname = synthetic_smb_fname(mem_ctx, fullpath,
  							NULL,NULL);
 +			if (!smb_fname) {
++				TALLOC_FREE(mem_ctx);
 +				DEBUG(0, ("%s: No memory\n", __func__));
 +				errno = ENOMEM;
-+				talloc_free(frame);
-+				return errno;
++				return -1;
 +			}
  			retval = SMB_VFS_NEXT_STAT(handle, smb_fname);
  			if (retval == 0
  			    && S_ISREG(smb_fname->st.st_ex_mode)) {
-@@ -901,37 +813,113 @@
+@@ -901,37 +851,113 @@
  		}
  	}
  	DEBUG(SCANNEDONLY_DEBUG,
@@ -1316,23 +1380,23 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  				continue;
  			}
 -			fullpath = talloc_asprintf(ctx, "%s%s", path_w_slash,
-+			fullpath = talloc_asprintf(talloc_tos(), "%s%s", path_w_slash,
++			fullpath = talloc_asprintf(mem_ctx, "%s%s", path_w_slash,
  						  dire->d_name);
 -			smb_fname = synthetic_smb_fname(ctx, fullpath,
 +			if (!fullpath) {
++				TALLOC_FREE(mem_ctx);
 +				DEBUG(0, ("%s: No memory\n", __func__));
 +				errno = ENOMEM;
-+				talloc_free(frame);
-+				return errno;
++				return -1;
 +			}
-+			smb_fname = synthetic_smb_fname(talloc_tos(), fullpath,
++			smb_fname = synthetic_smb_fname(mem_ctx, fullpath,
  							NULL,NULL);
 -			DEBUG(SCANNEDONLY_DEBUG, ("unlink %s\n", fullpath));
 +			if (!smb_fname) {
++				TALLOC_FREE(mem_ctx);
 +				DEBUG(0, ("%s: No memory\n", __func__));
 +				errno = ENOMEM;
-+				talloc_free(frame);
-+				return errno;
++				return -1;
 +			}
 +			DEBUG(SCANNEDONLY_DEBUG, ("%s: unlink %s\n", __func__, fullpath));
  			SMB_VFS_NEXT_UNLINK(handle, smb_fname);
@@ -1345,19 +1409,19 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	/* unlink the 'scanned' file too */
 +	struct smb_filename *smb_fname_cache = NULL;
 +	char *cachefile = NULL;
-+	cachefile = cachefile_name_f_fullpath(talloc_tos(), path, data->p_scanned);
++	cachefile = cachefile_name_f_fullpath(mem_ctx, path, data->p_scanned);
 +	if (!cachefile) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
-+	smb_fname_cache = synthetic_smb_fname(talloc_tos(), cachefile, NULL,NULL);
++	smb_fname_cache = synthetic_smb_fname(mem_ctx, cachefile, NULL,NULL);
 +	if (!smb_fname_cache) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
 +	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
 +	if (ret == 0) {
@@ -1371,20 +1435,20 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	TALLOC_FREE(cachefile);
 +
 +	/* unlink the 'failed' file too */
-+	cachefile = cachefile_name_f_fullpath(talloc_tos(), path, data->p_failed);
++	cachefile = cachefile_name_f_fullpath(mem_ctx, path, data->p_failed);
 +	if (!cachefile) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
 +
-+	smb_fname_cache = synthetic_smb_fname(talloc_tos(), cachefile, NULL, NULL);
++	smb_fname_cache = synthetic_smb_fname(mem_ctx, cachefile, NULL, NULL);
 +	if (!smb_fname_cache) {
++		TALLOC_FREE(mem_ctx);
 +		DEBUG(0, ("%s: No memory\n", __func__));
 +		errno = ENOMEM;
-+		talloc_free(frame);
-+		return errno;
++		return -1;
 +	}
 +
 +	ret = SMB_VFS_NEXT_STAT(handle, smb_fname_cache);
@@ -1397,7 +1461,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
 +	}
 +	TALLOC_FREE(smb_fname_cache);
 +	TALLOC_FREE(cachefile);
-+	TALLOC_FREE(frame);
++	TALLOC_FREE(mem_ctx);
 +
  	return SMB_VFS_NEXT_RMDIR(handle, path);
  }
@@ -1417,7 +1481,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  }
  
  static int scannedonly_connect(struct vfs_handle_struct *handle,
-@@ -940,14 +928,15 @@
+@@ -940,14 +966,15 @@
  
  	struct Tscannedonly *so;
  
@@ -1437,7 +1501,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	so->domain_socket =
  		lp_parm_bool(SNUM(handle->conn), "scannedonly",
  			     "domain_socket", True);
-@@ -968,17 +957,9 @@
+@@ -968,17 +995,9 @@
  	so->rm_hidden_files_on_rmdir =
  		lp_parm_bool(SNUM(handle->conn), "scannedonly",
  			     "rm_hidden_files_on_rmdir", True);
@@ -1455,7 +1519,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  	so->recheck_time_open =
  		lp_parm_int(SNUM(handle->conn), "scannedonly",
  			    "recheck_time_open", 50);
-@@ -988,12 +969,6 @@
+@@ -988,12 +1007,6 @@
  	so->recheck_size_open =
  		lp_parm_int(SNUM(handle->conn), "scannedonly",
  			    "recheck_size_open", 100);
@@ -1468,7 +1532,7 @@ Index: samba4-4.1.0rc4/source3/modules/vfs_scannedonly.c
  
  	so->p_scanned =
  		lp_parm_const_string(SNUM(handle->conn),
-@@ -1010,28 +985,27 @@
+@@ -1010,28 +1023,27 @@
  					     "scannedonly",
  					     "pref_failed",
  					     ".failed:");

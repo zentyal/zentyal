@@ -1,6 +1,7 @@
 3.3
 	+ Set version to 3.3
 HEAD
+	+`Use IPS module to know the number of IDS/IPS rules
 	+ Honor system-wide defined HTTP Proxy in REST client
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection

@@ -1,3 +1,9 @@
+samba4 (4.1.0rc4-zentyal4) precise; urgency=low
+
+  * Improve VFS scannedonly memory management
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 25 Oct 2013 17:07:03 +0200
+
 samba4 (4.1.0rc4-zentyal3) precise; urgency=low
 
   * Fix VFS scannedonly reporting 0 bytes size. Folders are no longer

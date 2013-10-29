@@ -190,6 +190,11 @@ sub ifaceType
 #    - the address in CIDR notation or undef if the interface has not address
 sub ifaceAddress
 {
+    throw EBox::Exceptions::NotImplemented('ifaceAddress');
+}
+
+sub actualIfaceAddress
+{
     my ($self) = @_;
     my $iface = $self->iface();
 

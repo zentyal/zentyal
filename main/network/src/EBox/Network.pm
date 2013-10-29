@@ -38,6 +38,9 @@ use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
 use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
 use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
+use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
+use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
+use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -164,6 +167,21 @@ sub usedFiles
     {
         'file' => RESOLVCONF_INTERFACE_ORDER,
         'reason' => __('Zentyal will set the order of systems resolvers'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_BASE,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_HEAD,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_TAIL,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
         'module' => 'network'
     },
     {
@@ -2687,7 +2705,7 @@ sub _setChanged # (interface)
     $self->set('interfaces', $ifaces);
 }
 
-# Method: _generateResolvConfInterfaceOrder
+# Method: _generateResolvconfConfig
 #
 #   This method write the /etc/resolvconf/interface-order file. This file
 #   contain the order in which the files under /var/run/resolvconf/interfaces
@@ -2697,9 +2715,20 @@ sub _setChanged # (interface)
 #   (those which interface field is zentyal.<row id>) are removed or added
 #   to the resolvconf configuration.
 #
-sub _generateResolvConfInterfaceOrder
+sub _generateResolvconfConfig
 {
     my ($self) = @_;
+
+    # Generate base, head and tail
+    $self->writeConfFile(RESOLVCONF_BASE,
+        'network/resolvconf-base.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_HEAD,
+        'network/resolvconf-head.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_TAIL,
+        'network/resolvconf-tail.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
 
     # First step, write the order list
     my $interfaces = [];
@@ -3395,7 +3424,7 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateResolvConfInterfaceOrder();
+    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 

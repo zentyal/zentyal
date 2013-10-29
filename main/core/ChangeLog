@@ -1,4 +1,6 @@
 3.3
+	+ Strip the 'C:\fakepath\' that chrome adds to the file input
+	+ Make dump_exceptions key work also for mason exceptions
 	+ Pass HTTP_PROXY system environment variable to CGIs as they are
 	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
