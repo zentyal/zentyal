@@ -293,12 +293,15 @@ sub _modifyUser
         return unless $sambaUser->exists();
 
         my $gn = $zentyalUser->get('givenName');
+        utf8::encode($gn);
         my $sn = $zentyalUser->get('sn');
+        utf8::encode($sn);
         my $description = $zentyalUser->description();
         my $mail = $zentyalUser->mail();
         $sambaUser->set('givenName', $gn, 1);
         $sambaUser->set('sn', $sn, 1);
         if ($description) {
+            utf8::encode($description);
             $sambaUser->set('description', $description, 1);
         } else {
             $sambaUser->delete('description', 1);
@@ -443,26 +446,31 @@ sub _modifyContact
         my $mail = $zentyalContact->get_value('mail');
 
         if ($givenName) {
+            utf8::encode($givenName);
             $sambaContact->set('givenName', $givenName, 1);
         } else {
             $sambaContact->delete('givenName', 1);
         }
         if ($initials) {
+            utf8::encode($initials);
             $sambaContact->set('initials', $initials, 1);
         } else {
             $sambaContact->delete('initials', 1);
         }
         if ($sn) {
+            utf8::encode($sn);
             $sambaContact->set('sn', $sn, 1);
         } else {
             $sambaContact->delete('sn', 1);
         }
         if ($displayName) {
+            utf8::encode($displaName);
             $sambaContact->set('displayName', $displayName, 1);
         } else {
             $sambaContact->delete('displayName', 1);
         }
         if ($description) {
+            utf8::encode($description);
             $sambaContact->set('description', $description, 1);
         } else {
             $sambaContact->delete('description', 1);
@@ -718,6 +726,7 @@ sub _modifyGroup
 
         my $description = $zentyalGroup->get('description');
         if ($description) {
+            utf8::encode($description);
             $sambaGroup->set('description', $description, $lazy);
         } else {
             $sambaGroup->delete('description', $lazy);
