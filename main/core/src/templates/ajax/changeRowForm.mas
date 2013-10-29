@@ -1,0 +1,352 @@
+<%args>
+$action
+$model
+$editid
+$filter
+$page
+$tpages
+%presetParams  => ()
+@customizerParams => ()
+$printableRowName => ''
+</%args>
+<%init>
+  my $tableName = $model->table()->{'tableName'};
+  my @tableHead = @{$model->table()->{'tableDescription'}};
+  if ($action eq 'add') {
+      foreach my $element (@tableHead) {
+          $element->setValue($element->defaultValue());
+      }
+  }
+
+  # Fetch the data to be displayed in setters, if we are editing a row
+  # we should show the contents of the current fields. If we are
+  # adding a new row, the fields are empty except for a preset values
+  # adding where preset contents must be shown
+  my @formData;
+  my @extraComponents;
+  my $editRow; # must be outside of if scope to not lose the element weaken reference
+  if ($editid and ($editid ne 'undefined')) {
+      $editRow = $model->row($editid);
+      @formData = @{$editRow->elements()};
+      if ($action eq 'clone') {
+          # unique fields should not be cloned
+          my @uniqFields = grep { $_->unique()  } @tableHead;
+          foreach my $uniqField (@uniqFields) {
+              foreach my $clonedField (@formData) {
+                  if ($uniqField->fieldName() eq $clonedField->fieldName()) {
+                      $clonedField = $uniqField;
+                      last;
+                  }
+              }
+          }
+      }
+  } elsif ( ((keys %presetParams) > 0)
+            and $action eq 'presetUpdate') {
+      # The preset is not empty
+      @formData = values(%presetParams);
+  } else {
+      @formData = @tableHead;
+ }
+</%init>
+<& SELF:title, action => $action, printableRowName => $printableRowName &>
+<& SELF:editForm,
+    model     => $model,
+    modelName => $tableName,
+    action    => $action,
+    editid    => $editid,
+    filter    => $filter,
+    page      => $page,
+    tpages    => $tpages,
+    formData  => \@formData,
+    sections  => $model->sections(),
+&>
+
+%    my $customizer = $formData[0]->model()->viewCustomizer(@customizerParams);
+%    if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%     }
+
+<%method title>
+<%args>
+$action
+$printableRowName
+</%args>
+<%init>
+    my $formTitle;
+    if ( $action eq 'changeAdd' )  {
+       $formTitle = __x('Adding a new {row}', row => $printableRowName);
+    } elsif ( $action eq 'changeEdit' )  {
+       $formTitle = __x('Editing {row}', row => $printableRowName);
+    } elsif ($action eq 'clone') {
+       $formTitle = __x('Cloning {row}', row => $printableRowName);
+    } else {
+       $m->abort("Unknown changerowFrom action: $action");
+    }
+</%init>
+<h3><% $formTitle %></h3>
+</%method>
+
+<%doc>
+  Method: editForm
+
+    Show the form to edit the fields from a row
+
+  Parameters:
+
+    modelName - String the model name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editForm>
+<%args>
+  $model
+  $modelName
+  @formData
+  @sections => ()
+  $action
+  $editid
+  $filter
+  $page
+  $tpages
+</%args>
+%  my $formAttrs = '';
+%  if (@formData and $formData[0]->model()->disableAutocomplete()) {
+%    $formAttrs = 'autocomplete="off"';
+%  }
+<form id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
+  <table class="formTable">
+    <tbody>
+      <& SELF:editFormSection,
+         name => $modelName,
+         formData => \@formData,
+      &>
+    </tbody>
+% foreach my $section (@sections)
+% {
+      <& SELF:editFormSection,
+         name => $modelName,
+         formData => \@formData,
+         section => $section
+      &>
+% }
+      <tr>
+        <td class="tright"
+            id="applyChanges">
+        </td>
+        <& SELF:buttons,
+           model  => $model,
+           action => $action,
+           editid => $editid,
+           filter => $filter,
+           page   => $page,
+           tpages => $tpages,
+        &>
+      </tr>
+  </table>
+</form>
+% if (@formData) {
+%   my $customizer = $formData[0]->model()->viewCustomizer();
+%   if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%    }
+% }
+</%method>
+
+
+<%doc>
+  Method: editFormSection
+
+    Show a section of an edit form
+
+  Parameters:
+
+    name - String with the name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editFormSection>
+<%args>
+  $name
+  @formData
+  $section => undef
+</%args>
+<%init>
+  my @data;
+  my $title;
+  if ($section) {
+    @data = grep {  $_->section() and ($_->section() eq $section->{'name'}) }
+        @formData;
+  } else {
+    @data = grep { not $_->section() } @formData;
+  }
+</%init>
+% if ($section) {
+%     my $sectionId = 'form_section_' . $section->{'name'};
+      <tr><td colspan="2">
+        <a id="<% $sectionId %>_toggler" href="#" onclick="toggleWithToggler('<% $sectionId %>'); return false;" class="maxBox"><span class="hidden">Toggle</span></a>
+        <h3 style="display: inline;">
+          <% $section->{'title'} %>
+        </h3>
+      </td></tr>
+      <tbody id="<% $sectionId %>" style="display: none;">
+% }
+      <& SELF:editRowFields,
+         modelName => $name,
+         formData => \@data
+      &>
+% if ($section) {
+      </tbody>
+% }
+</%method>
+
+
+
+<%doc>
+  Method: editRowFields
+
+    Show the form to edit the fields from a row
+
+  Parameters:
+
+    modelName - String the model name
+    formData - array containing <EBox::Types::Abstract> which form the
+    table row
+
+</%doc>
+<%method editRowFields>
+<%args>
+  $modelName
+  @formData
+</%args>
+% foreach my $type (grep { defined($_->HTMLSetter())} @formData) {
+<%perl>
+    my $viewCustomizer = $type->model()->viewCustomizer();
+    my $rowInit;
+    my $disableSetter = 0;
+    my $displayRow;
+    if ($viewCustomizer) {
+        $rowInit = $viewCustomizer->initHTMLStateField($type->fieldName(), \@formData);
+        if ($rowInit eq 'hide') {
+            $displayRow = 'class="hidden"';
+        } elsif ($rowInit eq 'disable') {
+            $disableSetter = 1;
+        }
+    }
+</%perl>
+
+<& $type->typeRowLayout(),
+    'modelName' => $modelName,
+    'type' => $type,
+    'displayRow' => $displayRow,
+    'disableSetter' => $disableSetter,
+&>
+% }
+
+</%method>
+
+<%doc>
+   Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%args>
+$model
+$action
+$editid
+$filter
+$page
+$tpages
+</%args>
+<%init>
+#  # Getting the arguments from the first request
+#  my $requestArgs = $m->request_args();
+#  my $model  = $requestArgs->{model};
+#  my $action = $requestArgs->{action};
+#  my $editid = $requestArgs->{editid};
+#  my $filter = $requestArgs->{filter};
+#  my $page   = $requestArgs->{page};
+#  my $tpages = $requestArgs->{tpages};
+#
+  my $modelName  = $model->modelName();
+  my $changeView = $model->action('changeView');
+  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
+  my $withoutActions = $model->table()->{'withoutActions'};
+  my $cloneId;
+
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if ( not $editid );
+      $action = 'changeEdit' if ( $editid );
+  } elsif ($action eq 'clone') {
+      $action = 'changeAdd';
+      $cloneId = $editid;
+  }
+</%init>
+% unless ((defined $withoutActions) and $withoutActions) {
+<tr>
+  <td id="applyChanges">
+  </td>
+  <td id="<% 'buttons_' .  $modelName %>">
+% unless ((defined $onlyCustomActions) and $onlyCustomActions)
+% {
+%  if ( $action eq 'changeAdd' )
+%  {
+%    # extra input for cloneId
+%    if ($cloneId)  {
+        <&/input/hidden.mas,
+              name => $modelName . '_cloneId',
+              id => $modelName . '_cloneId',
+              value => $cloneId
+         &>
+%    }
+    <& /input/submit.mas,
+        class => 'btn btn-icon btn-add',
+        type => 'submit',
+        name => 'add',
+        value => __('Add'),
+        title => 'Add',
+        onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
+    &>
+%  }
+%  elsif ($action eq 'changeEdit')
+%  {
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'change',
+        value => $model->printableActionName(),
+        title => 'Change',
+        onclick => $model->changeRowJS($editid, $page) . '; return false'
+    &>
+%  }
+%  if ($changeView)
+%  {
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'cancel',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick => $model->changeViewJS(changeType => 'changeList',
+                          editId => 'undefined',
+                          page => $page,
+                          isFilter => 0) . '; return false'
+    &>
+%  }
+% }
+  </td>
+</tr>
+% }
+</%method>
+

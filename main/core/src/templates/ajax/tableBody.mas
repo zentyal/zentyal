@@ -118,15 +118,20 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %   if ($showEditForm) {
 <div id='<% $tableName  %>_editForm'>
+<%doc>
 <& SELF:editFormTitle,
    action => $action,
    printableRowName => $printableRowName,
 &>
+</%doc>
 <& SELF:messagesAndHelp, model => $model &>
-<& SELF:editFormPopulated,
+<& /ajax/changeRowForm.mas,
    action => $action,
    model  => $model,
    editid => $editid,
+   filter => $filter,
+   page   => $page,
+   tpages => $tpages,
    presetParams  => \%presetParams
 &>
 </div>
@@ -298,177 +303,6 @@ $filter
   ></span>
 </form>
 </%method>
-
-<%method editFormTitle>
-<%args>
-$action
-$printableRowName
-</%args>
-%    my $formTitle;
-%    if ( $action eq 'changeAdd' )  {
-%       $formTitle = __x('Adding a new {row}', row => $printableRowName);
-%    } elsif ( $action eq 'changeEdit' )  {
-%       $formTitle = __x('Editing {row}', row => $printableRowName);
-%    } elsif ($action eq 'clone') {
-%       $formTitle = __x('Cloning {row}', row => $printableRowName);
-%    }
-<& PARENT:title, title => $formTitle &>
-</%method>
-
-<%method editFormPopulated>
-<%args>
-$action
-$model
-$editid
-%presetParams  => ()
-@customizerParams => ()
-</%args>
-<%init>
-  my $tableName = $model->table()->{'tableName'};
-  my @tableHead = @{$model->table()->{'tableDescription'}};
-  if ($action eq 'add') {
-      foreach my $element (@tableHead) {
-          $element->setValue($element->defaultValue());
-      }
-  }
-
-  # Fetch the data to be displayed in setters, if we are editing a row
-  # we should show the contents of the current fields. If we are
-  # adding a new row, the fields are empty except for a preset values
-  # adding where preset contents must be shown
-  my @formData;
-  my @extraComponents;
-  my $editRow; # must be outside of if scope to not lose the element weaken reference
-  if ($editid and ($editid ne 'undefined')) {
-      $editRow = $model->row($editid);
-      @formData = @{$editRow->elements()};
-      if ($action eq 'clone') {
-          # unique fields should not be cloned
-          my @uniqFields = grep { $_->unique()  } @tableHead;
-          foreach my $uniqField (@uniqFields) {
-              foreach my $clonedField (@formData) {
-                  if ($uniqField->fieldName() eq $clonedField->fieldName()) {
-                      $clonedField = $uniqField;
-                      last;
-                  }
-              }
-          }
-      }
-  } elsif ( ((keys %presetParams) > 0)
-            and $action eq 'presetUpdate') {
-      # The preset is not empty
-      @formData = values(%presetParams);
-  } else {
-      @formData = @tableHead;
- }
-</%init>
-<& PARENT:editForm,
-    modelName => $tableName,
-    formData => \@formData,
-    sections => $model->sections(),
-&>
-
-%    my $customizer = $formData[0]->model()->viewCustomizer(@customizerParams);
-%    if ($customizer) {
-<script>
-<%   $customizer->onChangeActionsJS() %>
-</script>
-%     }
-</%method>
-
-<%doc>
-   Method: buttons
-
-     Show the button to submit the form
-
-  Overrides:
-
-     /ajax/modelViewer.mas:buttons
-
-</%doc>
-<%method buttons>
-<%init>
-  # Getting the arguments from the first request
-  my $requestArgs = $m->request_args();
-  my $model  = $requestArgs->{model};
-  my $action = $requestArgs->{action};
-  my $editid = $requestArgs->{editid};
-  my $filter = $requestArgs->{filter};
-  my $page   = $requestArgs->{page};
-  my $tpages = $requestArgs->{tpages};
-
-  my $modelName  = $model->modelName();
-  my $changeView = $model->action('changeView');
-  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
-  my $withoutActions = $model->table()->{'withoutActions'};
-  my $cloneId;
-
-  if ( $action eq 'presetUpdate' ) {
-      $action = 'changeAdd' if ( not $editid );
-      $action = 'changeEdit' if ( $editid );
-  } elsif ($action eq 'clone') {
-      $action = 'changeAdd';
-      $cloneId = $editid;
-  }
-</%init>
-% unless ((defined $withoutActions) and $withoutActions) {
-<tr>
-  <td id="applyChanges">
-  </td>
-  <td id="<% 'buttons_' .  $modelName %>">
-% unless ((defined $onlyCustomActions) and $onlyCustomActions)
-% {
-%  if ( $action eq 'changeAdd' )
-%  {
-%    # extra input for cloneId
-%    if ($cloneId)  {
-        <&/input/hidden.mas,
-              name => $modelName . '_cloneId',
-              id => $modelName . '_cloneId',
-              value => $cloneId
-         &>
-%    }
-    <& /input/submit.mas,
-        class => 'btn btn-icon btn-add',
-        type => 'submit',
-        name => 'add',
-        value => __('Add'),
-        title => 'Add',
-        onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
-    &>
-%  }
-%  elsif ($action eq 'changeEdit')
-%  {
-    <& /input/submit.mas,
-        class => '',
-        type => 'submit',
-        name => 'change',
-        value => $model->printableActionName(),
-        title => 'Change',
-        onclick => $model->changeRowJS($editid, $page) . '; return false'
-    &>
-%  }
-%  if ($changeView)
-%  {
-    <& /input/submit.mas,
-        class => '',
-        type => 'submit',
-        name => 'cancel',
-        value => __('Cancel'),
-        title => 'Cancel',
-        onclick => $model->changeViewJS(changeType => 'changeList',
-                          editId => 'undefined',
-                          page => $page,
-                          isFilter => 0) . '; return false'
-    &>
-%  }
-% }
-  </td>
-</tr>
-% }
-</%method>
-
-
 
 <%method tableHead>
 <%doc>

@@ -53,10 +53,13 @@
 &>
 <& SELF:messagesAndHelp, model => $model &>
 
+<h3>edit form</h3>
+<%doc>
 <& SELF:editForm,
    modelName => $model->name(),
    formData => $formDataRef
 &>
+</%doc>
 
 </%method>
 
