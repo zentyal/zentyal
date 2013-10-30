@@ -63,7 +63,11 @@ my $usersModule = $global->modInstance('users');
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
-    next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
+    my $provision = $sambaModule->getProvision();
+    if ($provision->isProvisioning()) {
+        exit 0;
+    }
+    next unless ($sambaModule->isEnabled() and $provision->isProvisioned());
 
     # The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
     # Those are Zentyal system user and groups so don't appear by default on list actions.
