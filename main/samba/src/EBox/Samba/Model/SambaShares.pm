@@ -149,6 +149,59 @@ sub _table
     return $dataTable;
 }
 
+sub tagShareRightsReset
+{
+    my ($self, $row) = @_;
+
+    my $enabled     = $row->valueByName('enabled');
+    my $shareName   = $row->valueByName('share');
+    my $pathType    = $row->elementByName('path');
+
+    if ($enabled) {
+        my $path = undef;
+        if ($pathType->selectedType() eq 'zentyal') {
+            $path = $self->parentModule()->SHARES_DIR() . '/' . $pathType->value();
+        } elsif ($pathType->selectedType() eq 'system') {
+            $path = $pathType->value();
+        } else {
+            EBox::error("Unknown share type on share '$shareName'");
+        }
+        unless (defined $path) {
+            return;
+        }
+
+        # Don't do anything if the directory already exists and the option to manage ACLs
+        # only from Windows is set
+        if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path)) {
+            return;
+        }
+
+        EBox::info("Tagging share '$shareName' as requiring a permission reset");
+        # Store in redis that we should set acls, given the permission changed.
+        my $sambaMod = EBox::Global->modInstance('samba');
+        my $state = $sambaMod->get_state();
+        unless (defined $state->{shares_set_rights}) {
+            $state->{shares_set_rights} = {};
+        }
+        $state->{shares_set_rights}->{$shareName} = 1;
+        $sambaMod->set_state($state);
+    }
+}
+
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    # Tag this share as needing a reset of rights.
+    $self->tagShareRightsReset($row);
+}
+
 # Method: updatedRowNotify
 #
 #      Notify cloud-prof if installed to be restarted
@@ -169,6 +222,9 @@ sub updatedRowNotify
     if ( $global->modExists('cloud-prof') ) {
         $global->modChange('cloud-prof');
     }
+
+    # Tag this share as needing a reset of rights.
+    $self->tagShareRightsReset($row);
 }
 
 # Method: validateTypedRow
@@ -295,21 +351,6 @@ sub createDirs
         unless (defined $path) {
             next;
         }
-
-        # Don't do anything if the directory already exists and the option to manage ACLs
-        # only from Windows is set
-        if (EBox::Config::boolean('unmanaged_acls') and EBox::Sudo::fileTest('-d', $path)) {
-            next;
-        }
-
-        # Store in redis that we should set acls, given we just created the share.
-        my $sambaMod = EBox::Global->modInstance('samba');
-        my $state = $sambaMod->get_state();
-        unless (defined $state->{shares_set_rights}) {
-            $state->{shares_set_rights} = {};
-        }
-        $state->{shares_set_rights}->{$shareName} = 1;
-        $sambaMod->set_state($state);
 
         my @cmds = ();
         # Just create the share folder, the permissions will be set later on EBox::Samba::_postServiceHook so we are
