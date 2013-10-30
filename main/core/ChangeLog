@@ -1,6 +1,7 @@
 3.3
 	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
 	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
 	+ Strip the 'C:\fakepath\' that chrome adds to the file input
 	+ Make dump_exceptions key work also for mason exceptions
 	+ Pass HTTP_PROXY system environment variable to CGIs as they are
