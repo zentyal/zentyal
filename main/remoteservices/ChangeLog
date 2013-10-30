@@ -1,3 +1,6 @@
+HEAD
+	+ Missing use when restarting monitor using VPN as communication
+	  layer
 3.0.27
 	+ Honor system-wide defined HTTP Proxy in REST client
 3.0.26
