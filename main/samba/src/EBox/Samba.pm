@@ -1033,6 +1033,9 @@ sub _setConf
     my $prov = $self->getProvision();
     if ((not $prov->isProvisioned()) or $self->get('need_reprovision')) {
         if ($self->get('need_reprovision')) {
+            # Stop s4sync before reprovision
+            EBox::Service::manage('zentyal.s4sync', 'stop');
+
             # Current provision is not useful, change back status to not provisioned.
             $prov->setProvisioned(0);
             # The LDB connection needs to be reset so we stop using cached values.
@@ -1080,7 +1083,8 @@ sub _s4syncCond
 {
     my ($self) = @_;
 
-    return ($self->isEnabled() and $self->getProvision->isProvisioned());
+    my $prov = $self->getProvision();
+    return ($self->isEnabled() and $prov->isProvisioned() and not $prov->isProvisioning());
 }
 
 sub _antivirusEnabled
