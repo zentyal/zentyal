@@ -1,4 +1,4 @@
-HEAD
+3.2.8
 	+ Prevent _postServiceHook code execution outside Save Changes
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
 	  non ascii characters
