@@ -560,6 +560,11 @@ sub saveAllModules
 
     # TODO: tell events module to stop its watchers
 
+    foreach my $mod ($self->modInstancesOfType('EBox::Module::Config')) {
+        $mod->_saveConfig();
+        $self->modRestarted($name);
+    }
+
     if ($self->first()) {
         # First installation modules enable
         my $mgr = EBox::ServiceManager->new();
@@ -627,16 +632,15 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    my $apache = 0;
+    my $webadmin = 0;
     foreach my $name (@mods) {
         if ($name eq 'webadmin') {
-            $apache = 1;
+            $webadmin = 1;
             next;
         }
 
         if ($progress) {
-            $progress->setMessage(__x("Saving {modName} module",
-                                       modName => $name));
+            $progress->setMessage(__x("Saving {modName} module", modName => $name));
             $progress->notifyTick();
         }
 
@@ -644,11 +648,7 @@ sub saveAllModules
         if ($mod->isa('EBox::Module::Service')) {
             $mod->setInstalled();
 
-            if (not $mod->configured()) {
-                $mod->_saveConfig();
-                $self->modRestarted($name);
-                next;
-            }
+            next unless ($mod->configured());
         }
 
         try {
@@ -666,9 +666,9 @@ sub saveAllModules
     # Delete first time installation file (wizard)
     $self->deleteFirst();
 
-    # FIXME - tell the CGI to inform the user that apache is restarting
-    if ($apache) {
-        EBox::info("Saving configuration: apache");
+    # FIXME - tell the CGI to inform the user that webadmin is restarting
+    if ($webadmin) {
+        EBox::info("Saving configuration: webadmin");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
                                        modName => 'webadmin'));

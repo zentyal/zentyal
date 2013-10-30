@@ -1,4 +1,6 @@
 HEAD
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
 	+ Recover from widget function exceptions
 	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
