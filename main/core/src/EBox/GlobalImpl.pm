@@ -652,6 +652,8 @@ sub saveAllModules
         }
 
         try {
+            # FIXME: We're doing _saveConfig() again for some modules, maybe we should
+            #        avoid that, although it shouldn't introduce noticeable delay
             $mod->save();
         } catch EBox::Exceptions::External with {
             my $ex = shift;
@@ -733,74 +735,6 @@ sub saveAllModules
 
     $progress->setAsFinished(1, $errorText) if $progress;
     throw EBox::Exceptions::Internal($errorText);
-}
-
-# Method: restartAllModules
-#
-#       Force a restart for all the modules
-#
-sub restartAllModules
-{
-    my $self = shift;
-
-    my $ro = 1;
-
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Restarting all modules");
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "being restarted, their state is unknown: $failed");
-}
-
-# Method: stopAllModules
-#
-#       Stops all the modules
-#
-sub stopAllModules
-{
-    my $self = shift;
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Stopping all modules");
-
-    my $ro = 1;
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->stopService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "stopping, their state is unknown: $failed");
 }
 
 # Method: modInstances
