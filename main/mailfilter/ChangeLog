@@ -1,4 +1,4 @@
-HEAD
+3.0.7
 	+ Removed dkim_verification obsolete option from the local conf
 	+ Explicitly set firewall version dependency in control file
 3.0.6
