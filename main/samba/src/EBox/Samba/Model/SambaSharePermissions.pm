@@ -150,6 +150,40 @@ sub syncRows
     return $anyChange;
 }
 
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    # Tag this share as needing a reset of rights. 
+    my $parentRow = $self->parentRow();
+    $parentRow->model()->tagShareRightsReset($parentRow);
+}
+
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
+
+    # Tag this share as needing a reset of rights. 
+    my $parentRow = $self->parentRow();
+    $parentRow->model()->tagShareRightsReset($parentRow);
+}
+
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer> to provide a

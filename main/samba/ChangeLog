@@ -1,6 +1,7 @@
 HEAD
+	+ Prevent _postServiceHook code execution outside Save Changes
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
-	  non ascii characters.
+	  non ascii characters
 	+ Check for acl and user_xattr mount options when adding system shares
 3.2.7
 	+ Depend on new samba4 version that fixes 0-byte size problems
