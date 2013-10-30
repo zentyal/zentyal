@@ -1,4 +1,4 @@
-HEAD
+3.0.9
 	+ Set proper file name for HTTP proxy configuration for APT
 	+ Set HTTP proxy wide settings in /etc/environment
 	+ Fix setNameservers method in Network to avoid error in import
