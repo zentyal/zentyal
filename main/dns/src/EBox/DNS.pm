@@ -789,6 +789,7 @@ sub _setConf
     push(@array, 'confDir' => BIND9CONFDIR);
     push(@array, 'dynamicConfDir' => BIND9_UPDATE_ZONES);
     push(@array, 'domains' => \@domains);
+    push(@array, 'generateReverseZones' => $generateReverseZones);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
     push(@array, 'internalLocalNets' => $self->_internalLocalNets());
