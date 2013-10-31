@@ -1581,6 +1581,8 @@ sub _launchNSupdate
         try {
             EBox::Sudo::root($cmd);
         } otherwise {
+            my ($ex) = @_;
+            EBox::error("nsupdate error: $ex");
             $fh->unlink_on_destroy(0); # For debug purposes
         };
     } else {
