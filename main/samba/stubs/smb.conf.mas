@@ -127,7 +127,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   }
 % }
 
-
 # <% @shares ? "Shares\n" : "No shares configured" %>
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
