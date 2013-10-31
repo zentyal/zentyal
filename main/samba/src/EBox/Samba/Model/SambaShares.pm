@@ -149,6 +149,15 @@ sub _table
     return $dataTable;
 }
 
+
+# Method: tagShareRightsReset
+#
+#   Tag the given SambaShares' row as requiring to get the permissions applied on the file system.
+#
+#   Parameters:
+#
+#       row - The SambaShares row to tag.
+#
 sub tagShareRightsReset
 {
     my ($self, $row) = @_;
