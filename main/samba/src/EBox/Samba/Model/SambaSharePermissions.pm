@@ -187,6 +187,19 @@ sub viewCustomizer
         return $custom;
 }
 
+
+sub precondition
+{
+    return not EBox::Config::boolean('unmanaged_acls');
+}
+
+sub preconditionFailMsg
+{
+    return __x('Shares access control lists (ACLs) are in unmanaged mode. To change this mode, edit {file} and restart this module',
+               file => '/etc/zentyal/samba.conf'
+              );
+}
+
 # Group: Protected methods
 
 # Method: _table
