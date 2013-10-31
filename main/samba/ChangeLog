@@ -1,4 +1,5 @@
 HEAD
+	+ Fix regression in unmanaged ACLs option
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
 	  non ascii characters.
 	+ Check for acl and user_xattr mount options when adding system shares
