@@ -34,7 +34,7 @@ use EBox::Validate
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

@@ -36,7 +36,7 @@ use EBox::Users::User;
 
 use URI::Escape;
 use File::Slurp;
-use TryCatch;
+use TryCatch::Lite;
 use MIME::Base64;
 
 sub new

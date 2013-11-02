@@ -34,7 +34,7 @@ use EBox::ZarafaLdapUser;
 use EBox::MyDBEngine;
 
 use Encode;
-use TryCatch;
+use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Storable;
 

@@ -30,7 +30,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Users::User;
-use TryCatch;
+use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
 

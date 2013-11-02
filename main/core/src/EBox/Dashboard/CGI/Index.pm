@@ -26,7 +26,7 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
 use List::Util qw(sum);
-use TryCatch;
+use TryCatch::Lite;
 
 # TODO: Currently we can't have more than two dashboards because of
 # the design of the interface, but this could be incremented in the future

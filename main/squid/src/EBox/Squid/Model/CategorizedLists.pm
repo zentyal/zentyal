@@ -27,7 +27,7 @@ use EBox::Sudo;
 use EBox::Types::Text::WriteOnce;
 use EBox::Squid::Types::ListArchive;
 
-use TryCatch;
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 use File::Basename;
 

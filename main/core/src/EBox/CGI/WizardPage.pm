@@ -39,7 +39,7 @@ use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
 use Apache2::RequestUtil;
-use TryCatch;
+use TryCatch::Lite;
 use HTML::Mason::Exceptions;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Base;

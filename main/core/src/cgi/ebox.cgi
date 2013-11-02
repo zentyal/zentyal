@@ -18,7 +18,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-use TryCatch;
+use TryCatch::Lite;
 use POSIX qw(:signal_h);
 
 try {

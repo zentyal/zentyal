@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Exceptions::External;
 use EBox::Users::User;
 
-use TryCatch;
+use TryCatch::Lite;
 use MIME::Base64;
 
 sub new

@@ -38,7 +38,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Event;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use constant EBACKUP_CONF => EBox::Config::etc() . 'ebackup.conf';
 

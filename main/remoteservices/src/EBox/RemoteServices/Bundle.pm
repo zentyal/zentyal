@@ -27,7 +27,7 @@ package EBox::RemoteServices::Bundle;
 
 use base 'EBox::RemoteServices::Cred';
 
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

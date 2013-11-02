@@ -27,7 +27,7 @@ use base 'EBox::LdapUserBase';
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
-use TryCatch;
+use TryCatch::Lite;
 use File::Temp qw/tempfile/;
 use Time::HiRes qw(gettimeofday);
 use JSON::XS;

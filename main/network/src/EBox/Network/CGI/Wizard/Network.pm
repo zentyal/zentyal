@@ -22,7 +22,7 @@ use base 'EBox::CGI::WizardPage';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
-use TryCatch;
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {

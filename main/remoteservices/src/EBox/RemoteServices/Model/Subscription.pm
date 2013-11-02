@@ -55,7 +55,7 @@ use EBox::Validate;
 use EBox::View::Customizer;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 use Sys::Hostname;
 
 use constant STORE_URL => 'http://store.zentyal.com/';

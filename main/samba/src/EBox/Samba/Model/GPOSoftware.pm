@@ -26,7 +26,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 use File::LibMagic;
-use TryCatch;
+use TryCatch::Lite;
 
 # Method: _table
 #

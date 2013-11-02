@@ -33,7 +33,7 @@ use EBox::Network;
 use EBox::Firewall::IptablesHelper;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use TryCatch;
+use TryCatch::Lite;
 use Perl6::Junction qw( any );
 use EBox::Sudo;
 

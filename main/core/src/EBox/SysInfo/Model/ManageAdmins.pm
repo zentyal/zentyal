@@ -22,7 +22,7 @@ package EBox::SysInfo::Model::ManageAdmins;
 
 use base 'EBox::Model::DataTable';
 
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Types::Password;

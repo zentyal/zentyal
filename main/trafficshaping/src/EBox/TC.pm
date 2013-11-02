@@ -20,7 +20,7 @@ package EBox::TC;
 
 use EBox::Gettext;
 use EBox::Sudo;
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Sudo::Command;

@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

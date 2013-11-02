@@ -27,7 +27,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Validate;
-use TryCatch;
+use TryCatch::Lite;
 
 # Constants:
 use constant MIN_PASS_LENGTH => 5;

@@ -19,7 +19,7 @@ package EBox::SysInfo::CGI::Backup;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Config;
 use EBox::Backup;
 use EBox::Gettext;

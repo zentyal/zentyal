@@ -52,7 +52,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::CounterGraph;

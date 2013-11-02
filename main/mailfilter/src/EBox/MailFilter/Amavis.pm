@@ -25,7 +25,7 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;

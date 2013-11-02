@@ -27,7 +27,7 @@ use Net::LDAP;
 use EBox::Samba::AuthKrbHelper;
 use Authen::SASL;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

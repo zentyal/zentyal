@@ -25,7 +25,7 @@ use EBox::JabberLdapUser;
 use EBox::Exceptions::DataExists;
 use EBox::Users::User;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use constant EJABBERDCONFFILE => '/etc/ejabberd/ejabberd.cfg';
 use constant JABBERPORT => '5222';

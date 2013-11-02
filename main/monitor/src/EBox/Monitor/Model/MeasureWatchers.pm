@@ -30,7 +30,7 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 
 # Constants
 

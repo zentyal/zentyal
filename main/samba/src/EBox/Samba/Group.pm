@@ -40,7 +40,7 @@ use EBox::Users::Group;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
-use TryCatch;
+use TryCatch::Lite;
 
 use constant MAXGROUPLENGTH     => 128;
 use constant GROUPTYPESYSTEM    => 0x00000001;

@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub _tree
 {

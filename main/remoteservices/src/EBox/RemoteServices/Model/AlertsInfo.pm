@@ -33,7 +33,7 @@ use EBox::Global;
 use EBox::Types::Text;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

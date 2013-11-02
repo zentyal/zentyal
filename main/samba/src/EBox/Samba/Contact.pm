@@ -32,7 +32,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Users::Contact;
 
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
-use TryCatch;
+use TryCatch::Lite;
 
 sub mainObjectClass
 {

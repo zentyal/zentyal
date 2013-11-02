@@ -43,7 +43,7 @@ use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Date::Calc;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;

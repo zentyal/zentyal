@@ -26,7 +26,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 
 use POSIX ":sys_wait_h";
-use TryCatch;
+use TryCatch::Lite;
 
 my $KEY = 'progress_indicator';
 

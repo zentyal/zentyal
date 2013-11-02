@@ -28,7 +28,7 @@ use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
 use Net::CUPS::Destination;
 use Net::CUPS;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 

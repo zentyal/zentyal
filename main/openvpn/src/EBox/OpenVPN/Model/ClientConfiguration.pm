@@ -23,7 +23,7 @@ package EBox::OpenVPN::Model::ClientConfiguration;
 
 use base 'EBox::Model::DataForm';
 
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Gettext;

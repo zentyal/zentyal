@@ -21,7 +21,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
 
-use TryCatch;
+use TryCatch::Lite;
 use Net::LDAP::Constant qw(LDAP_NO_SUCH_OBJECT);
 use POSIX;
 

@@ -35,7 +35,7 @@ use EBox::Monitor::Configuration;
 
 # Core modules
 use File::Slurp;
-use TryCatch;
+use TryCatch::Lite;
 use Time::Piece;
 use Time::Seconds;
 

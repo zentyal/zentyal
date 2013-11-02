@@ -4,7 +4,7 @@ use warnings;
 use Test::More tests => 45;
 use Test::Differences;
 use Test::Exception;
-use TryCatch;
+use TryCatch::Lite;
 use File::Path;
 
 use lib  '../..';

@@ -25,7 +25,7 @@ use EBox::Exceptions::DataNotFound;
 
 use Time::Local;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub datasets
 {

@@ -27,7 +27,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Sudo;
 
-use TryCatch;
+use TryCatch::Lite;
 use JSON::XS;
 
 sub new

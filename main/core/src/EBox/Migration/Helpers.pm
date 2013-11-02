@@ -20,7 +20,7 @@ package EBox::Migration::Helpers;
 
 use EBox;
 use EBox::DBEngineFactory;
-use TryCatch;
+use TryCatch::Lite;
 
 # SQL helpers
 

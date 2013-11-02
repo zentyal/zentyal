@@ -39,7 +39,7 @@ use EBox::Types::HasMany;
 use EBox::Types::Text;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 
 # Constants
 use constant FILTERING_MODEL_NAME => 'LogWatcherFiltering';

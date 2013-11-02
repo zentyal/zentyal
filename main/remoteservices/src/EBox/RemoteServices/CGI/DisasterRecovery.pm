@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::RemoteServices::Backup;
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

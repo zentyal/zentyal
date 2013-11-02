@@ -22,7 +22,7 @@ use base 'EBox::Logs::Model::Graph';
 
 use EBox::Gettext;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

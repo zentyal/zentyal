@@ -40,7 +40,7 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Model::Manager;
 
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

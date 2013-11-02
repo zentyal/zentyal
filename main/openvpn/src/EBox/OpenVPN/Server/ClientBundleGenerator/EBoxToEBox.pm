@@ -24,7 +24,7 @@ use EBox::Gettext;
 use File::Copy;
 use File::Slurp qw(write_file read_file);
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub bundleFilename
 {

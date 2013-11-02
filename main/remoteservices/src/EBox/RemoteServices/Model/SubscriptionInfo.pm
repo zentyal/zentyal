@@ -37,7 +37,7 @@ use EBox::Types::Text;
 use EBox::Types::HTML;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 use POSIX;
 
 use constant STORE_URL => 'http://store.zentyal.com/';

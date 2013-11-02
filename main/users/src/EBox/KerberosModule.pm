@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::KerberosModule;
 
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Util::Random;
 
 sub new

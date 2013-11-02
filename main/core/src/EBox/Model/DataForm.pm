@@ -36,7 +36,7 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 
 my $ROW_ID = 'form';
 

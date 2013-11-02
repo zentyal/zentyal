@@ -24,7 +24,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
 
-use TryCatch;
+use TryCatch::Lite;
 use Fcntl qw(O_RDONLY O_CREAT O_TRUNC O_RDWR);
 use Samba::Credentials;
 use Samba::LoadParm;

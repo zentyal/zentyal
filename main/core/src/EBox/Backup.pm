@@ -31,7 +31,7 @@ use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
 use File::Basename;
 
-use TryCatch;
+use TryCatch::Lite;
 use Digest::MD5;
 use EBox::Sudo;
 use POSIX qw(strftime);

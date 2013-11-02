@@ -29,7 +29,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::CaptivePortal;
 use EBox::Sudo;
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Exceptions::DataExists;
 use EBox::Util::Lock;
 use Linux::Inotify2;

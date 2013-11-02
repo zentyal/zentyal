@@ -50,7 +50,7 @@ use EBox::Monitor::Configuration;
 use EBox::Monitor::Measure::Manager;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 use File::Spec;
 use File::Slurp;
 use JSON;

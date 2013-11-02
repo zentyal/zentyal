@@ -40,7 +40,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

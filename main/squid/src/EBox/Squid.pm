@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use TryCatch;
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 

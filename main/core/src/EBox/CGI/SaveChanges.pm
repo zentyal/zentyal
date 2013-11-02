@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
-use TryCatch;
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {

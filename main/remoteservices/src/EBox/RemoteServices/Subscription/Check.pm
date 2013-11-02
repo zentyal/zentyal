@@ -29,7 +29,7 @@ use EBox::Global;
 use EBox::RemoteServices::Capabilities;
 use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
-use TryCatch;
+use TryCatch::Lite;
 
 # Constants
 use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);

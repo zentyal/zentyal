@@ -24,7 +24,7 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 
-use TryCatch;
+use TryCatch::Lite;
 use feature "switch";
 
 # Group: Public methods

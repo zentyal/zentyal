@@ -30,7 +30,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 
-use TryCatch;
+use TryCatch::Lite;
 
 # Method: new
 #

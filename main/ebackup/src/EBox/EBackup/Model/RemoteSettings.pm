@@ -38,7 +38,7 @@ use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
 use File::Basename;
-use TryCatch;
+use TryCatch::Lite;
 
 # Constants
 use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';

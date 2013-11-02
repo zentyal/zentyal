@@ -23,7 +23,7 @@ use EBox;
 use EBox::Exceptions::External;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Jobs;
-use TryCatch;
+use TryCatch::Lite;
 use File::Basename;
 use File::Slurp;
 use Getopt::Long;

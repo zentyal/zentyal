@@ -8,7 +8,7 @@ use EBox::Backup;
 use EBox::Global;
 use EBox::ProgressIndicator;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use Getopt::Long;
 

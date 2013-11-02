@@ -37,7 +37,7 @@ use EBox::Model::Manager;
 use POSIX;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 use Time::Local;
 
 # Constants

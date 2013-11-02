@@ -20,7 +20,7 @@ package EBox::Logs::Model::SelectLog;
 
 use base 'EBox::Model::DataTable';
 
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Logs::Consolidate;

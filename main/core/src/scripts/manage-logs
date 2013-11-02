@@ -9,7 +9,7 @@ use EBox::Global;
 
 use EBox::Logs::Consolidate;
 use EBox::Util::Lock;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant LOCK_NAME => 'manageEBoxLogs';
 

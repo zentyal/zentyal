@@ -28,7 +28,7 @@ use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
 
-use TryCatch;
+use TryCatch::Lite;
 use File::Temp;
 use Params::Validate qw(validate_pos SCALAR);
 

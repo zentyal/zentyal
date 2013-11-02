@@ -22,7 +22,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Configuration;
 use EBox::Sudo;
-use TryCatch;
+use TryCatch::Lite;
 use File::Basename;
 use File::Temp;
 use Perl6::Junction qw(any);

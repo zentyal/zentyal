@@ -27,7 +27,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Sudo;
-use TryCatch;
+use TryCatch::Lite;
 
 EBox::init();
 

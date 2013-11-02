@@ -23,7 +23,7 @@ use warnings;
 
 package EBox::SysInfo::Model::Password;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Gettext;
 

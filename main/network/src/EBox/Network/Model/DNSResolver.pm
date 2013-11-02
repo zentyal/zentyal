@@ -55,7 +55,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
-use TryCatch;
+use TryCatch::Lite;
 
 # Dependencies
 

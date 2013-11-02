@@ -36,7 +36,7 @@ use EBox::Gettext;
 use Net::LDAP;
 use Net::LDAP::Util qw(ldap_error_name);
 
-use TryCatch;
+use TryCatch::Lite;
 use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;

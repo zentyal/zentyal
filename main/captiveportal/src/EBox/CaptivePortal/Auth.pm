@@ -27,7 +27,7 @@ use EBox::Ldap;
 use EBox::CaptivePortal;
 use EBox::NetWrappers qw(ip_mac);
 
-use TryCatch;
+use TryCatch::Lite;
 use Crypt::Rijndael;
 use Apache2::Connection;
 use Apache2::RequestUtil;

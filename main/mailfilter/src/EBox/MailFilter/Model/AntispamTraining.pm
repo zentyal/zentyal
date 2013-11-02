@@ -20,7 +20,7 @@ package EBox::MailFilter::Model::AntispamTraining;
 
 use base 'EBox::Model::DataForm::Action';
 
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Gettext;

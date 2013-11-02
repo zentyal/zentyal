@@ -27,7 +27,7 @@ use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Global;
-use TryCatch;
+use TryCatch::Lite;
 use Getopt::Long;
 use Pod::Usage;
 

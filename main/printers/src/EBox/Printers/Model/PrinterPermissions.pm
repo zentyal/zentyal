@@ -28,7 +28,7 @@ use EBox::Exceptions::DataExists;
 use EBox::View::Customizer;
 
 # Dependencies
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

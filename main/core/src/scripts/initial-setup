@@ -22,7 +22,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Sudo;
 use EBox::Util::SQL;
-use TryCatch;
+use TryCatch::Lite;
 
 my $restart = 1;
 if ($ARGV[0] eq '--no-restart') {

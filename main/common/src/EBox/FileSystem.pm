@@ -25,7 +25,7 @@ use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Sudo;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';

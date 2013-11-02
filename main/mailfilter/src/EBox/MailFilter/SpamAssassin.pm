@@ -25,7 +25,7 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::NetWrappers;
 use EBox::MailFilter::VDomainsLdap;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant {
   SA_LEARN_SERVICE    => 'ebox.learnspamd',

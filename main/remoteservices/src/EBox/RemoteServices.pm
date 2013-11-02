@@ -65,7 +65,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
-use TryCatch;
+use TryCatch::Lite;
 use File::Slurp;
 use JSON::XS;
 use Net::DNS;

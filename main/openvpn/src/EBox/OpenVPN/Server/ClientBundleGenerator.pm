@@ -26,7 +26,7 @@ use EBox::Exceptions::MissingArgument;
 
 use English qw(-no_match_vars);
 use File::Basename;
-use TryCatch;
+use TryCatch::Lite;
 use Params::Validate qw(validate_pos);
 use File::Slurp qw(read_file);
 

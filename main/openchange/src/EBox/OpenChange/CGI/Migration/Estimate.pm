@@ -29,7 +29,7 @@ use base 'EBox::CGI::Base';
 use feature qw(switch);
 
 use EBox::OpenChange::MigrationRPCClient;
-use TryCatch;
+use TryCatch::Lite;
 use JSON::XS;
 
 # Group: Public methods

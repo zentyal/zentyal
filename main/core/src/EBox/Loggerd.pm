@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Internal;
 
-use TryCatch;
+use TryCatch::Lite;
 use Fcntl;
 use Linux::Inotify2;
 use POSIX;

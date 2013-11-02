@@ -43,7 +43,7 @@ use EBox::Util::Nmap;
 use AptPkg::Cache;
 use Archive::Tar;
 use Cwd;
-use TryCatch;
+use TryCatch::Lite;
 use File::Copy::Recursive;
 use File::Slurp;
 use File::Temp;

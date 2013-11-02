@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Exceptions::External;
 
 # Core modules
-use TryCatch;
+use TryCatch::Lite;
 use List::Util;
 
 # Group: Public methods

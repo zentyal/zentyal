@@ -22,7 +22,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

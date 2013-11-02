@@ -30,7 +30,7 @@ use EBox::DBEngineFactory;
 use EBox::Exceptions::NotImplemented;
 use EBox::Global;
 use EBox::RemoteServices::Report;
-use TryCatch;
+use TryCatch::Lite;
 use File::Slurp;
 use File::Temp;
 use JSON::XS;

@@ -20,7 +20,7 @@ package EBox::CaptivePortal::CGI::Run;
 
 use base 'EBox::CGI::Run';
 
-use TryCatch;
+use TryCatch::Lite;
 use EBox;
 
 use EBox::CaptivePortal::CGI::Login;

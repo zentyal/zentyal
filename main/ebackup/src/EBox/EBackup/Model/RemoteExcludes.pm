@@ -33,7 +33,7 @@ use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
 use EBox::FileSystem;
-use TryCatch;
+use TryCatch::Lite;
 use String::ShellQuote;
 
 # Group: Public methods

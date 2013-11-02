@@ -30,7 +30,7 @@ use EBox::Util::Nmap;
 use EBox::Config;
 
 use Date::Calc::Object;
-use TryCatch;
+use TryCatch::Lite;
 use Net::DNS;
 use Net::Ping;
 

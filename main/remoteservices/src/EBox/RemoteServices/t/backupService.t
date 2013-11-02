@@ -33,7 +33,7 @@ use EBox::Global;
 use EBox;
 
 use Test::More tests => 12;
-use TryCatch;
+use TryCatch::Lite;
 
 EBox::init();
 

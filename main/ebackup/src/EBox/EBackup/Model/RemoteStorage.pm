@@ -31,7 +31,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Exceptions::Command;
 use EBox::Exceptions::NotConnected;
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

@@ -28,7 +28,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::Host;
 use EBox::OpenVPN::Types::Certificate;
 
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

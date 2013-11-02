@@ -32,7 +32,7 @@ use EBox::Samba::Types::Select;
 use EBox::View::Customizer;
 
 # Dependencies
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

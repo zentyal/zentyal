@@ -19,7 +19,7 @@ package EBox::CGI::View::DataTable;
 
 use base 'EBox::CGI::ClientBase';
 
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Gettext;
 use EBox::Global;
 

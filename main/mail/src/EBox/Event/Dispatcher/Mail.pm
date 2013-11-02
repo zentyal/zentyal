@@ -32,7 +32,7 @@ use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use Net::SMTP;
 

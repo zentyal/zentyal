@@ -21,7 +21,7 @@ package EBox::Logs::Model::Base;
 use EBox::DBEngineFactory;
 use EBox::Gettext;
 use Perl6::Junction qw(all);
-use TryCatch;
+use TryCatch::Lite;
 
 sub _printableDate
 {

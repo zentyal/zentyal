@@ -33,7 +33,7 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Control;
 
 use Perl6::Junction qw(any);
-use TryCatch;
+use TryCatch::Lite;
 
 my $_sambaMod;
 

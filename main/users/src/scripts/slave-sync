@@ -28,7 +28,7 @@ use EBox::Global;
 use EBox::Util::Lock;
 use File::Basename;
 
-use TryCatch;
+use TryCatch::Lite;
 
 use constant LOCK_NAME => 'zentyal-slave-sync';
 

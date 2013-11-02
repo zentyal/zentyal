@@ -26,7 +26,7 @@ use base 'EBox::Test::Class';
 use EBox::Exceptions::NotImplemented;
 use EBox::Ldap;
 
-use TryCatch;
+use TryCatch::Lite;
 use Test::More;
 use Test::Net::LDAP::Util qw(ldap_mockify);
 

@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
 use EBox::Validate;
-use TryCatch;
+use TryCatch::Lite;
 
 sub new
 {

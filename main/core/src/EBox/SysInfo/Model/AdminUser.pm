@@ -23,7 +23,7 @@ package EBox::SysInfo::Model::AdminUser;
 
 use base 'EBox::Model::DataForm';
 
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Types::Password;

@@ -20,7 +20,7 @@ package EBox::Types::Test;
 
 use Test::More;
 use Test::Exception;
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Global;
 
 # count as 3 tests

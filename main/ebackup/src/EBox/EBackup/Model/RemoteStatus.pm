@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

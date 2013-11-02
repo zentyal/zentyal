@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidData;
 use File::Basename;
-use TryCatch;
+use TryCatch::Lite;
 
 use constant CONF_FILE => EBox::Config::etc() . 'logs.conf';
 use constant SLICES_TABLE =>  'backup_slices';

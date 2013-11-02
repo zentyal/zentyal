@@ -21,7 +21,7 @@ use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;
 use Digest::SHA;
-use TryCatch;
+use TryCatch::Lite;
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;

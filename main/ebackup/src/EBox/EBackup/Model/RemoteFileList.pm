@@ -26,7 +26,7 @@ use EBox::Types::Text;
 use EBox::View::Customizer;
 use EBox::Exceptions::DataInUse;
 
-use TryCatch;
+use TryCatch::Lite;
 
 # Group: Public methods
 

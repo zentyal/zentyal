@@ -21,7 +21,7 @@ use base qw(EBox::LdapUserBase);
 
 use MIME::Base64;
 use Encode;
-use TryCatch;
+use TryCatch::Lite;
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;

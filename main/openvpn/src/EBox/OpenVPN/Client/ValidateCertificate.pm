@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
-use TryCatch;
+use TryCatch::Lite;
 use File::Temp qw(tempfile);
 use File::Slurp qw(write_file);
 

@@ -23,7 +23,7 @@ use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
 use EBox::Sudo;
 use EBox::RemoteServices::Configuration;
-use TryCatch;
+use TryCatch::Lite;
 use Getopt::Long;
 use Linux::Inotify2;
 use Log::Log4perl;
