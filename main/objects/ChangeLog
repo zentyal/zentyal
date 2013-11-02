@@ -1,5 +1,4 @@
 HEAD
-	+ Fixed regression when unrolling ip range member addresses
 	+ Only unroll member ip range addresses in the addresses() method
 3.2
 	+ Set version to 3.2

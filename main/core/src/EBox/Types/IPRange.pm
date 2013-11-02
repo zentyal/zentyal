@@ -267,7 +267,8 @@ sub addresses
 #  return the addresses from begin IP to end IP, including both
 #
 # Warning:
-# i t is not checked that begin <= end
+#   it is not checked that begin <= end
+#
 sub addressesFromBeginToEnd
 {
     my ($class, $begin, $end) = @_;
@@ -276,7 +277,7 @@ sub addressesFromBeginToEnd
     defined $end or
         throw EBox::Exceptions::MissingArgument('nd IP');
 
-    my  $ipRange = Net::IP->new("$begin - $end");
+    my $ipRange = Net::IP->new("$begin - $end");
     my @addresses;
     do {
         my $ip = $ipRange->ip();
@@ -286,7 +287,6 @@ sub addressesFromBeginToEnd
     } while (++$ipRange);
 
     return \@addresses;
-
 }
 
 sub isIPInside
