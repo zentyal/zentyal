@@ -252,12 +252,31 @@ sub _setValue # (value)
     $self->setMemValue($params);
 }
 
+
+# Method: addresses
+#
+#  return the addresses contained in the range
 sub addresses
 {
     my ($self) = @_;
+    return $self->addressesFromBeginToEnd($self->begin(), $self->end());
+}
 
-    my $ipRange = $self->_rangeObject();
+# Class method: addressesFromBeginToEnd
+#
+#  return the addresses from begin IP to end IP, including both
+#
+# Warning:
+# i t is not checked that begin <= end
+sub addressesFromBeginToEnd
+{
+    my ($class, $begin, $end) = @_;
+    defined $begin or
+        throw EBox::Exceptions::MissingArgument('begin IP');
+    defined $end or
+        throw EBox::Exceptions::MissingArgument('nd IP');
 
+    my  $ipRange = Net::IP->new("$begin - $end");
     my @addresses;
     do {
         my $ip = $ipRange->ip();
@@ -267,6 +286,7 @@ sub addresses
     } while (++$ipRange);
 
     return \@addresses;
+
 }
 
 sub isIPInside
