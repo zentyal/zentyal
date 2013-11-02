@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Fix set of dynamic attribute in domain table when samba module is enabled
+	  again
+	+ Do not write reverse zone files if generate_reverse_zones is false
 	+ Do not set localhost as primary resolver if users module is configured
 	  in external AD mode. In this case, the AD DNS server must be used.
 	+ Added network as enabledepend, needed by the resolvconf management

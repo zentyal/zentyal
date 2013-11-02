@@ -91,6 +91,14 @@ use Samba::Security::Descriptor qw(
     SEC_STD_WRITE_DAC
     SEC_FILE_READ_ATTRIBUTE
 );
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
+);
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
 use IO::Socket::INET;
@@ -222,7 +230,9 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
+    # prevent that we execute this code with every service restart or on server boot delaying such processes.
+    if ($enabled and ($0 =~ /\/global-action$/)) {
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
@@ -230,6 +240,7 @@ sub _postServiceHook
         # unmanaged_home_directory config key is defined
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
         unless ($self->mode() eq 'adc') {
+            EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
             my $users = $self->ldb->users();
@@ -282,6 +293,8 @@ sub _postServiceHook
                 # share permissions didn't change, nothing needs to be done for this share.
                 next;
             }
+
+            EBox::info("Applying new permissions to the share '$shareName'...");
 
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
@@ -357,13 +370,26 @@ sub _postServiceHook
                 }
             }
             my $relativeSharePath = '/';
-            my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
             EBox::info("Applying ACLs for top-level share $shareName");
-            my $access_mask = SEC_STD_WRITE_OWNER | SEC_STD_READ_CONTROL | SEC_STD_WRITE_DAC | SEC_FILE_READ_ATTRIBUTE;
+            my $sinfo = SECINFO_OWNER |
+                        SECINFO_GROUP |
+                        SECINFO_DACL |
+                        SECINFO_PROTECTED_DACL;
+            my $access_mask = SEC_STD_WRITE_OWNER |
+                              SEC_STD_READ_CONTROL |
+                              SEC_STD_WRITE_DAC |
+                              SEC_FILE_READ_ATTRIBUTE;
+            my $attributes = FILE_ATTRIBUTE_NORMAL |
+                             FILE_ATTRIBUTE_ARCHIVE |
+                             FILE_ATTRIBUTE_DIRECTORY |
+                             FILE_ATTRIBUTE_HIDDEN |
+                             FILE_ATTRIBUTE_READONLY |
+                             FILE_ATTRIBUTE_SYSTEM;
             EBox::debug("Setting NT ACL on file: $relativeSharePath");
             $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
             # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
+            my $shareContentList = $smb->list($relativeSharePath,
+                attributes => $attributes, recursive => 1);
             # Reset the DACL_PROTECTED flag;
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
@@ -382,12 +408,16 @@ sub _postServiceHook
         }
 
         # Change group ownership of quarantine_dir to __USERS__
+        EBox::info("Fixing quarantine_dir permissions...");
         if ($self->defaultAntivirusSettings()) {
             $self->_setupQuarantineDirectory();
         }
 
         # Write DNS update list
+        EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+    } else {
+        EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -760,12 +790,8 @@ sub antivirusConfig
     my $conf = {
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
-        hide_nonscanned_files    => 'False',
-        scanning_message         => 'is being scanned for viruses',
         recheck_time_open        => '50',
         recheck_tries_open       => '100',
-        recheck_time_readdir     => '50',
-        recheck_tries_readdir    => '20',
         allow_nonscanned_files   => 'False',
     };
 
@@ -870,6 +896,7 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');

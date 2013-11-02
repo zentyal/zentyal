@@ -104,7 +104,7 @@ sub _addGroup
 {
     my ($self, $group) = @_;
 
-    return if (not $group->isSecurityGroup());
+    return if (not $group->isSecurityGroup() or $group->isInternal());
 
     my $groupinfo = {
         name        => $group->name(),
@@ -123,7 +123,7 @@ sub _modifyGroup
 {
     my ($self, $group) = @_;
 
-    return if (not $group->isSecurityGroup());
+    return if (not $group->isSecurityGroup() or $group->isInternal());
 
     # FIXME: We should sync contacts too!
     my @members = map { $_->name() } @{$group->users()};
@@ -145,7 +145,7 @@ sub _delGroup
 {
     my ($self, $group) = @_;
 
-    return if (not $group->isSecurityGroup());
+    return if (not $group->isSecurityGroup() or $group->isInternal());
 
     my $name = $group->get('cn');
     $self->RESTClient->DELETE("/v1/users/groups/$name", retry => 1);

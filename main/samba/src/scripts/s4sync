@@ -60,7 +60,6 @@ my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
 
-my $ldb = $sambaModule->ldb();
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
@@ -68,7 +67,8 @@ while (1) {
 
     # The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
     # Those are Zentyal system user and groups so don't appear by default on list actions.
-    my $domainSID = $sambaModule->ldb()->domainSID();
+    my $ldb = $sambaModule->ldb();
+    my $domainSID = $ldb->domainSID();
     my $domainAdminSID = "$domainSID-500";
     my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";

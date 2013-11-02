@@ -302,6 +302,16 @@ sub crlVerify
     return $ca->getCurrentCRL();
 }
 
+sub ifaceAddress
+{
+    my ($self) = @_;
+    my $subnet = $self->subnet();
+    my @components = split '\.', $subnet;
+    # for now server is always first address of the subnet
+    $components[3] += 1;
+    return join('.', @components);
+}
+
 # Method: subnet
 #
 # Returns:
@@ -904,7 +914,7 @@ sub summary
     my $iface = $self->iface();
     push (@summary, (__('VPN network interface'), $iface ));
 
-    my $addr = $self->ifaceAddress();
+    my $addr = $self->actualIfaceAddress();
     unless ($addr) { $addr = __('No active') };
     push (@summary, (__('VPN interface address'), $addr));
 

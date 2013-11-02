@@ -150,6 +150,40 @@ sub syncRows
     return $anyChange;
 }
 
+# Method: addedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
+{
+    my ($self, $row) = @_;
+
+    # Tag this share as needing a reset of rights. 
+    my $parentRow = $self->parentRow();
+    $parentRow->model()->tagShareRightsReset($parentRow);
+}
+
+# Method: updatedRowNotify
+#
+# Overrides:
+#
+#      <EBox::Model::DataTable::updatedRowNotify>
+#
+sub updatedRowNotify
+{
+    my ($self, $row, $oldRow, $force) = @_;
+    if ($row->isEqualTo($oldRow)) {
+        # no need to notify changes
+        return;
+    }
+
+    # Tag this share as needing a reset of rights. 
+    my $parentRow = $self->parentRow();
+    $parentRow->model()->tagShareRightsReset($parentRow);
+}
+
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer> to provide a
@@ -185,6 +219,19 @@ sub viewCustomizer
         }
 
         return $custom;
+}
+
+
+sub precondition
+{
+    return not EBox::Config::boolean('unmanaged_acls');
+}
+
+sub preconditionFailMsg
+{
+    return __x('Shares access control lists (ACLs) are in unmanaged mode. To change this mode, edit {file} and restart this module',
+               file => '/etc/zentyal/samba.conf'
+              );
 }
 
 # Group: Protected methods

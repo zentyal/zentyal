@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Write resolvconf head, base and tail
+	+ Set proper file name for HTTP proxy configuration for APT
+	+ Set HTTP proxy wide settings in /etc/environment
 	+ Do not disable DNSResolver model when users mode is external AD
 	+ Added resolvconf as dependency to avoid problems in installations
 	  without the ubuntu-minimal metapackage

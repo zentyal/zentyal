@@ -33,7 +33,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use EBox::SquidFirewall;
+use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
 use EBox::Squid::Types::ListArchive;
@@ -1040,7 +1040,7 @@ sub firewallHelper
     my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
-        return new EBox::SquidFirewall(ro => $ro);
+        return new EBox::Squid::Firewall(ro => $ro);
     }
 
     return undef;

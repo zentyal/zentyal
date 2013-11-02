@@ -775,34 +775,11 @@ sub _setConf
         }
     }
 
-    my $reversedData = $self->_reverseData();
+    my @inaddrs;
+    my $generateReverseZones = EBox::Config::boolean('generate_reverse_zones');
+    if ($generateReverseZones) {
+        @inaddrs = @{ $self->_writeReverseFiles() };
 
-    # Remove the unused reverse files
-    $self->_removeUnusedReverseFiles($reversedData);
-
-    my @inaddrs = ();
-    foreach my $group (keys %{ $reversedData }) {
-        my $reversedDataItem = $reversedData->{$group};
-        my $file;
-        if ($reversedDataItem->{dynamic}) {
-            $file = BIND9_UPDATE_ZONES;
-        } else {
-            $file = BIND9CONFDIR;
-        }
-        $file .= "/db." . $group;
-        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem);
-        } else {
-            @array = ();
-            push (@array, 'groupip' => $group);
-            push (@array, 'rdata' => $reversedDataItem);
-            $self->writeConfFile($file, "dns/dbrev.mas", \@array);
-            EBox::Sudo::root("chown bind:bind '$file'");
-        }
-        # Store to write the zone in named.conf.local
-        push (@inaddrs, { ip       => $group,
-                          file     => $file,
-                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
     }
 
     my @domains = @{$self->domains()};
@@ -812,6 +789,7 @@ sub _setConf
     push(@array, 'confDir' => BIND9CONFDIR);
     push(@array, 'dynamicConfDir' => BIND9_UPDATE_ZONES);
     push(@array, 'domains' => \@domains);
+    push(@array, 'generateReverseZones' => $generateReverseZones);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
     push(@array, 'internalLocalNets' => $self->_internalLocalNets());
@@ -831,6 +809,44 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
+}
+
+sub _writeReverseFiles
+{
+    my ($self) = @_;
+
+    my $reversedData = $self->_reverseData();
+
+    # Remove the unused reverse files
+    $self->_removeUnusedReverseFiles($reversedData);
+
+    my @inaddrs = ();
+    foreach my $group (keys %{ $reversedData }) {
+        my $reversedDataItem = $reversedData->{$group};
+        my $file;
+        if ($reversedDataItem->{dynamic}) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= "/db." . $group;
+        EBox::debug("reverse zone data : $file");
+        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($reversedDataItem);
+        } else {
+            my @params = ();
+            push (@params, 'groupip' => $group);
+            push (@params, 'rdata' => $reversedDataItem);
+            $self->writeConfFile($file, "dns/dbrev.mas", \@params);
+            EBox::Sudo::root("chown bind:bind '$file'");
+        }
+        # Store to write the zone in named.conf.local
+        push (@inaddrs, { ip       => $group,
+                          file     => $file,
+                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
+    }
+
+    return \@inaddrs;
 }
 
 sub _reverseData
@@ -1565,6 +1581,8 @@ sub _launchNSupdate
         try {
             EBox::Sudo::root($cmd);
         } catch {
+            my ($ex) = @_;
+            EBox::error("nsupdate error: $ex");
             $fh->unlink_on_destroy(0); # For debug purposes
         }
     } else {

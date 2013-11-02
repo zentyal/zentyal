@@ -1,5 +1,9 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Transparent proxy redirection for openvpn servers' clients
+	+ Moved EBox::SquidFirewall to EBox::Squid::Firewall
+	+ Avoid error in access rules model when using external AD and
+	  module has not been configured
 	+ Improve squid group membership helper script
 	+ Fixed squid basic authentication to support multi-OU
 	+ Set version to 3.3

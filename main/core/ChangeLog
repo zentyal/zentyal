@@ -1,5 +1,11 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Set proper trial link in advertisements
+	+ Show register link in local backup when not registered
+	+ Strip the 'C:\fakepath\' that chrome adds to the file input
+	+ Make dump_exceptions key work also for mason exceptions
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
 	+ Fixed error in the recursive method for getting module dependencies
 	+ Fixed JS typo which disabled export backup dialog

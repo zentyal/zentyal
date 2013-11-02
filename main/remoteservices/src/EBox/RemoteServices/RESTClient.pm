@@ -257,6 +257,8 @@ sub request {
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
     $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rs_verify_servers'));
+    # Set HTTP proxy if it is globally set as environment variable
+    $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 
     my $req = HTTP::Request->new( $method => $self->{server} . $path );
     if ( exists $self->{credentials} ) {

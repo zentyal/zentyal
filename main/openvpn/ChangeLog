@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Better behavior for daemons ifaceAddress methods
+	+ Precondition to assure there are certificates available in
+	  DownloadClientBundle model
 	+ In the tunnel client bundle don't allow additional server
 	  addresses because they are not supported
 	+ Set version to 3.3
