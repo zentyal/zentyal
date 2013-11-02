@@ -1,4 +1,5 @@
 3.3
+	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
 	+ Set proper trial link in advertisements
 	+ Show register link in local backup when not registered
 	+ Strip the 'C:\fakepath\' that chrome adds to the file input
