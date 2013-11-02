@@ -84,9 +84,7 @@ sub run
 
         $cgi->run();
         $redis->commit();
-    } catch {
-        my ($ex) = @_;
-
+    } catch ($ex) {
         # Base exceptions are already logged, log the rest
         unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
             EBox::error("Exception trying to access $url: $ex");

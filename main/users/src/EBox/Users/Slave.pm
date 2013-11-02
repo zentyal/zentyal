@@ -143,10 +143,9 @@ sub syncFromFile
     try {
         $self->$method(@{$args});
         unlink ($file);
-    } catch {
-        my ($ex) = @_;
+    } catch ($e) {
         my $name = $self->name();
-        EBox::error("Error notifying $name for $method: $ex");
+        EBox::error("Error notifying $name for $method: $e");
     }
 }
 

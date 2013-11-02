@@ -738,8 +738,7 @@ sub _checkSquidFile
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
     } catch (EBox::Exceptions::Command $e) {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
     }
 }

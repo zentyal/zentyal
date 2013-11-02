@@ -311,15 +311,14 @@ sub allMeasuredData
                 }
             }
             $atLeastOneReady = 1;
-        } catch {
-            my ($ex) = @_;
-            my $error = $ex->stringify();
+        } catch ($e) {
+            my $error = $e->stringify();
             if ($error =~ m/No such file or directory/) {
                 # need to save changes, ignoring..
                 EBox::debug("Showing all measures: $error");
             } else {
                 # rethrow exception
-                $ex->throw();
+                $e->throw();
             }
         };
     }
@@ -646,8 +645,7 @@ sub _setThresholdConf
                     }
                 } catch (EBox::Exceptions::DataNotFound $e) {
                     # The measure has disappear in some moment, we ignore their thresholds them
-                    my ($exc) = @_;
-                    EBox::warn($exc);
+                    EBox::warn($e);
                 }
             }
         } else {

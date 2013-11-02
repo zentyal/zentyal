@@ -1029,13 +1029,12 @@ sub _createDirectories
         try {
             EBox::Sudo::root(@cmds);
             $chownOk = 1;
-        } catch {
-            my ($ex) = @_;
+        } catch ($e) {
             if ($cnt < $chownTries) {
-                EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
+                EBox::warn("chown root:$group commands failed: $e . Attempt number $cnt");
                 sleep 1;
             } else {
-                $ex->throw();
+                $e->throw();
             }
         }
         last if $chownOk;

@@ -129,8 +129,7 @@ sub syncRows
                    intrecv => $self->_format($client->{intrecv}),
                    intsent => $self->_format($client->{intsent}));
         } catch (EBox::Exceptions::InvalidData $e) {
-            my ($ex) = @_;
-            $error = "$ex";
+            $error = "$e";
         }
     }
 

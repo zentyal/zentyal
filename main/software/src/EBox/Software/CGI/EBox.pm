@@ -57,10 +57,9 @@ sub _process
             unless ($software->updatePkgList()) {
                 $updateListError = 1;
             }
-        } catch {
-            my ($ex) = @_;
+        } catch ($e) {
             $updateListError = 1;
-            $updateListErrorMsg = "$ex";
+            $updateListErrorMsg = "$e";
         }
     }
 

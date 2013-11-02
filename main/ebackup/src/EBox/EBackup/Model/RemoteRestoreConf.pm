@@ -28,17 +28,6 @@ use TryCatch::Lite;
 
 # Group: Public methods
 
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ( $self, $class );
-
-    return $self;
-}
-
 # Method: precondition
 #
 # Overrides:
@@ -54,8 +43,7 @@ sub precondition
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
     } catch (EBox::Exceptions::External $e) {
-        my ($ex) = @_;
-        $statusFailure = $ex->text();
+        $statusFailure = $e->text();
     }
 
     if ($statusFailure) {

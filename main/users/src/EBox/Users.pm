@@ -562,9 +562,8 @@ sub _internalServerEnableActions
     EBox::info('Performing first LDAP actions');
     try {
         $self->performLDAPActions();
-    } catch {
-        my $error = shift;
-        EBox::error("Error performing users initialization: $error");
+    } catch ($e) {
+        EBox::error("Error performing users initialization: $e");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
     }
 
@@ -628,13 +627,10 @@ sub _loadLDAP
             "rm -f $LDIF_CONFIG $LDIF_DB",
         );
     } catch (EBox::Exceptions::Sudo::Command $e) {
-        my $exception = shift;
-        EBox::error('Trying to setup ldap failed, exit value: ' .
-                $exception->exitValue());
+        EBox::error('Trying to setup ldap failed, exit value: ' .  $e->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
-    } catch {
-        my $error = shift;
-        EBox::error("Trying to setup ldap failed: $error");
+    } catch ($e) {
+        EBox::error("Trying to setup ldap failed: $e");
     }
     EBox::debug('Setup LDAP done');
 }
@@ -706,12 +702,11 @@ sub _setConfInternal
 
         try {
             $self->reprovision();
-        } catch {
-            my ($ex) = @_;
+        } catch ($e) {
             $self->set('need_reprovision', 1);
             throw EBox::Exceptions::External(__x(
 'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
-               err => "$ex",
+               err => "$e",
                pbeg => '<p>',
                pend => '</p>'
             ));
@@ -946,15 +941,14 @@ sub initUser
                 try {
                     EBox::Sudo::root($chownCmd);
                     $chownOk = 1;
-                } catch {
-                    my ($ex) = @_;
+                } catch ($e) {
                     if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
+                        EBox::warn("$chownCmd failed: $e . Attempt number $cnt");
                         sleep 1;
                     } else {
-                        $ex->throw();
+                        $e->throw();
                     }
-                };
+                }
                 last if $chownOk;
             };
 
@@ -972,7 +966,8 @@ sub reloadNSCD
     if ( -f '/etc/init.d/nscd' ) {
         try {
             EBox::Sudo::root('/etc/init.d/nscd force-reload');
-        } catch {};
+        } catch {
+        }
    }
 }
 

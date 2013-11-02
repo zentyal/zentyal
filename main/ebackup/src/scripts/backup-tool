@@ -187,9 +187,8 @@ sub _existsFullBackup
     my $status;
     try {
         $status = $ebackup->remoteStatus();
-    } catch {
-        my ($ex) = @_;
-        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $errorMsg = _errorMessageFromDuplicityCmd($e);
 
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
@@ -224,9 +223,8 @@ sub _adjustType
     # "old signatures not found" error
     try {
         $ebackup->remoteGenerateStatusCache();
-    } catch {
-        my ($ex) = @_;
-        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $errorMsg = _errorMessageFromDuplicityCmd($e);
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
     }
@@ -282,9 +280,8 @@ sub _cleanup
     EBox::debug('Trying to clean up incomplete backups');
     try {
         EBox::Sudo::root($cmd);
-    } catch {
-        my ($ex) = @_;
-        my $error = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $error = _errorMessageFromDuplicityCmd($e);
         EBox::error("When trying to clean up old backup sets: $error");
     }
 }
@@ -294,10 +291,9 @@ sub _preCheckTargetHook
     my ($ebackup, $type) = @_;
     try {
         $ebackup->preCheckTargetHook();
-    } catch {
-        my ($ex) = @_;
-        EBox::error("Error in pre-check target hook: $ex");
-        _prepareAndSendEvent(0, $type, "$ex");
+    } catch ($e) {
+        EBox::error("Error in pre-check target hook: $e");
+        _prepareAndSendEvent(0, $type, "$e");
         $ebackup->backupProcessUnlock();
         exit 1;
     }
@@ -466,10 +462,9 @@ try {
 
     try {
         $ebackup->checkTargetStatus($type);
-    } catch {
-        my ($ex) = @_;
-        EBox::error("Error in backup target: $ex");
-        _prepareAndSendEvent(0, $type, "$ex");
+    } catch ($e) {
+        EBox::error("Error in backup target: $e");
+        _prepareAndSendEvent(0, $type, "$e");
         $ebackup->backupProcessUnlock();
         exit 1;
     }
@@ -477,17 +472,15 @@ try {
     if ($type eq 'full') {
         try {
             _removeExpiredBackups($ebackup);
-        } catch {
-            my ($ex) = @_;
-            EBox::error("Error trying to remove old backups: $ex");
+        } catch ($e) {
+            EBox::error("Error trying to remove old backups: $e");
         }
     }
 
     try {
         $ebackup->dumpExtraData($globalRO);
-    } catch {
-        my $ex = @_;
-        EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
+    } catch ($e) {
+        EBox::error("Error dumping server metadata: $e. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
     }
 
     my $backupCmd = backupCmd($ebackup, $type);

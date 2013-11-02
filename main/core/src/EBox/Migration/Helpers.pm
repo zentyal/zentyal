@@ -28,14 +28,14 @@ sub runQuery
 {
     my ($query) = @_;
 
-    my $error = 0;
     try {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do($query);
     } catch {
-        $error = 1;
+        return 1;
     }
-    return $error;
+
+    return 0;
 }
 
 sub renameTable

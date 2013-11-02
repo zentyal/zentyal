@@ -188,10 +188,9 @@ sub prepareRestoreRemoteBackup
             deleteBackup => 1,
             dr => $dr,
         );
-    } catch {
-        my ($ex) = @_;
+    } catch ($e) {
         unlink($archiveFile);
-        $ex->throw();
+        $e->throw();
     }
 
     return $progress;

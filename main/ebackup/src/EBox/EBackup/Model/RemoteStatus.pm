@@ -113,8 +113,7 @@ sub precondition
     try {
        @status = @{$self->{confmodule}->remoteStatus()};
    } catch (EBox::Exceptions::External $e) {
-       my ($ex) = @_;
-       $statusFailure = $ex->text();
+       $statusFailure = $e->text();
    }
 
     if ($statusFailure) {

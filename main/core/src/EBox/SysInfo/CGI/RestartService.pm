@@ -36,11 +36,6 @@ sub new # (cgi=?)
     return $self;
 }
 
-sub domain
-{
-    return 'ebox';
-}
-
 sub _process
 {
     my $self = shift;
@@ -63,8 +58,7 @@ sub _process
                            mod  => $name,
                           );
     } catch (EBox::Exceptions::Internal $e) {
-        my ($ex) = @_;
-        EBox::error("Restart of $name from dashboard failed: " . $ex->text);
+        EBox::error("Restart of $name from dashboard failed: " . $e->text);
         $self->{msg} = __x('Error restarting service {mod}. See {logs} for more information.',
                            mod  => $name,
                            logs => EBox::Config::logfile());

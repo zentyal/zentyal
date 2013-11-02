@@ -372,12 +372,11 @@ sub configureModule
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
-    } catch {
-        my ($ex) = @_;
+    } catch ($e) {
         $self->setConfigured(0);
         $self->enableService(0);
         $self->setNeedsSaveAfterConfig(undef);
-        $ex->throw();
+        $e->throw();
     }
 }
 
@@ -991,11 +990,10 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1, @params);
-    } catch {
-        my ($ex) = @_;
-        $log->error("Error restarting service: $ex");
+    } catch ($e) {
+        $log->error("Error restarting service: $e");
         $self->_unlock();
-        throw $ex;
+        $e->throw();
     }
     $self->_unlock();
 }

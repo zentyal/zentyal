@@ -415,12 +415,11 @@ sub _packageDepends
     try {
         $output = EBox::Sudo::root($aptCmd);
     } catch (EBox::Exceptions::Command $e) {
-        my ($ex) = @_;
         my $aptError;
-        foreach my $line (@{ $ex->error() }) {
+        foreach my $line (@{ $e->error() }) {
             if ($line =~ m/^E: (.*)$/) {
                 # was an apt error, reformatting
-                foreach my $line (@{ $ex->output() }) {
+                foreach my $line (@{ $e->output() }) {
                     if ($line =~ m/\.\.\.$/) {
                         # current action line, ignoring
                         next;
@@ -433,7 +432,7 @@ sub _packageDepends
         if ($aptError) {
             throw EBox::Exceptions::External($aptError);
         } else {
-            $ex->throw();
+            $e->throw();
         }
     }
 
@@ -461,8 +460,7 @@ sub _isAptReady
     try {
         EBox::Sudo::root($testCmd);
     } catch (EBox::Exceptions::Command $e) {
-        my ($ex) = @_;
-        my $stderr = join '', @{ $ex->error() };
+        my $stderr = join '', @{ $e->error() };
         if ($stderr =~ m/Unable to lock the administration directory/) {
             $unreadyMsg = __('Cannot use software package manager. Probably is currently being used by another process. You can either wait or kill the process.');
         } else {

@@ -599,9 +599,8 @@ sub saveAllModules
             try {
                 $module->{firstInstall} = 1;
                 $module->configureModule();
-            } catch {
-                my ($ex) = @_;
-                my $err = $ex->text();
+            } catch ($e) {
+                my $err = $e->text();
                 EBox::debug("Failed to enable module $name: $err");
             }
             delete $module->{firstInstall};

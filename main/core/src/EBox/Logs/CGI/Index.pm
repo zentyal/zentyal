@@ -160,9 +160,8 @@ sub _searchLogs
 
     try {
         $hfilters = $self->_paramFilters();
-    } catch {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
         $hfilters = {};
     }
     if (exists $tableinfo->{autoFilter}) {

@@ -284,9 +284,6 @@ sub run
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
             }
-        } catch {
-            my $e = shift;
-            throw $e;
         }
     }
 
@@ -365,8 +362,7 @@ sub run
     try  {
         $self->_print();
     } catch (EBox::Exceptions::Base $e) {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+        $self->setErrorFromException($e);
         $self->_print_error($self->{error});
     } catch ($ex) {
         my $logger = EBox::logger;
@@ -906,12 +902,11 @@ sub upload
         if (not defined $readStatus) {
             throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
         }
-    } catch {
-        my $ex = shift;
+    } catch ($e) {
         unlink $filename;
         close $UPLOAD_FH;
         close $FH;
-        $ex->throw();
+        $e->throw();
     }
     close $UPLOAD_FH;
     close $FH;

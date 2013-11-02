@@ -240,9 +240,8 @@ sub _createPartitionsFile
     my $partitionsOutput;
     try {
         $partitionsOutput = EBox::Sudo::root('fdisk -l');
-    } catch {
-        my ($ex) = @_;
-        my $errMsg = "Zentyal could not create a partition info file because this error: $ex";
+    } catch ($e) {
+        my $errMsg = "Zentyal could not create a partition info file because this error: $e";
         EBox::error($errMsg);
         $partitionsOutput = [$errMsg];
     };
@@ -1160,9 +1159,7 @@ sub restoreBackup
                 my $restoreOk;
                 try {
                     $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
-                } catch {
-                    my ($ex) = @_;
-
+                } catch ($ex) {
                     if ($options{continueOnModuleFail}) {
                         my $warn = 'Error when restoring ' . $mod->name() .
                              ': ' . $ex->text() .
@@ -1601,8 +1598,7 @@ sub _configureModules
         my $module = EBox::Global->modInstance($name);
         try {
             $module->configureModule();
-        } catch {
-            my ($ex) = @_;
+        } catch ($ex) {
             my $err = $ex->text();
             EBox::error("Failed to enable module $name: $err");
         }

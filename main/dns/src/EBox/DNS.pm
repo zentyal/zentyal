@@ -1580,9 +1580,8 @@ sub _launchNSupdate
     if ($self->_isNamedListening()) {
         try {
             EBox::Sudo::root($cmd);
-        } catch {
-            my ($ex) = @_;
-            EBox::error("nsupdate error: $ex");
+        } catch ($e) {
+            EBox::error("nsupdate error: $e");
             $fh->unlink_on_destroy(0); # For debug purposes
         }
     } else {

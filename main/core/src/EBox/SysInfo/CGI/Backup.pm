@@ -163,9 +163,8 @@ sub _backupAction
     try {
         my $backup = EBox::Backup->new();
         $progressIndicator= $backup->prepareMakeBackup(description => $description);
-    } catch {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
     }
 
     if ($progressIndicator) {
@@ -210,9 +209,8 @@ sub _restore
     my $progressIndicator;
     try {
         $progressIndicator = $backup->prepareRestoreBackup($filename);
-    } catch {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
     }
 
     if ($progressIndicator) {

@@ -439,10 +439,9 @@ sub create
             Samba::Smb::DENY_NONE);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
-    } catch {
-        my ($error) = @_;
+    } catch ($e) {
         $createdGPO->deleteObject();
-        throw $error;
+        $e->throw();
     }
 
     return $createdGPO;
