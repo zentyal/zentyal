@@ -1,0 +1,55 @@
+--- a/debian/control
++++ b/debian/control
+@@ -40,6 +40,7 @@
+                po-debconf,
+                python-all-dev (>= 2.6.6-3),
+                python-dnspython,
++               python-netifaces,
+                python-ldb (>= 1:1.1.6~),
+                python-ldb-dev (>= 1:1.1.6~),
+                python-talloc-dev (>= 2.0.7~),
+--- a/source4/scripting/bin/samba_dnsupdate
++++ b/source4/scripting/bin/samba_dnsupdate
+@@ -24,6 +24,8 @@
+ import sys
+ import tempfile
+ import subprocess
++import re
++import netifaces
+ 
+ # ensure we get messages out immediately, so they get in the samba logs,
+ # and don't get swallowed by a timeout
+@@ -85,6 +87,33 @@
+     all_interfaces = False
+ 
+ IPs = samba.interface_ips(lp, all_interfaces)
++
++excludesre = ['^tap\d', '^tun\d']
++if (len(excludesre) > 0):
++    excluded_ifaces = {}
++    interfaces = netifaces.interfaces()
++    for exclusionStr in excludesre:
++        exclusion = re.compile(exclusionStr)
++        for iface in interfaces:
++            if exclusion.match(iface):
++                excluded_ifaces[iface] = 1
++
++    excluded_ips   = []
++    for iface in excluded_ifaces.keys():
++        addresses =  netifaces.ifaddresses(iface)
++        for addrType in [netifaces.AF_INET, netifaces.AF_INET6]:
++            if (not(addrType in addresses)):
++                continue
++            for addr in addresses[addrType]:
++                excluded_ips.append(addr['addr'])
++
++    def filterIP(ip):
++        for excluded in excluded_ips:
++            if ip == excluded:
++                return False
++        return True
++    IPs = filter(filterIP, IPs)
++
+ nsupdate_cmd = lp.get('nsupdate command')
+ 
+ if len(IPs) == 0:
