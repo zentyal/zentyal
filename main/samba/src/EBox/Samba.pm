@@ -230,7 +230,9 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
+    # prevent that we execute this code with every service restart or on server boot delaying such processes.
+    if ($enabled and ($0 =~ /\/global-action$/)) {
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
@@ -238,6 +240,7 @@ sub _postServiceHook
         # unmanaged_home_directory config key is defined
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
         unless ($self->mode() eq 'adc') {
+            EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
             my $users = $self->ldb->users();
@@ -290,6 +293,8 @@ sub _postServiceHook
                 # share permissions didn't change, nothing needs to be done for this share.
                 next;
             }
+
+            EBox::info("Applying new permissions to the share '$shareName'...");
 
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
@@ -403,12 +408,16 @@ sub _postServiceHook
         }
 
         # Change group ownership of quarantine_dir to __USERS__
+        EBox::info("Fixing quarantine_dir permissions...");
         if ($self->defaultAntivirusSettings()) {
             $self->_setupQuarantineDirectory();
         }
 
         # Write DNS update list
+        EBox::info("Writing DNS update list...");
         $self->_writeDnsUpdateList();
+    } else {
+        EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -887,6 +896,7 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');

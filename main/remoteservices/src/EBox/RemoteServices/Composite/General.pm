@@ -30,7 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
-use constant TRIAL_URL       => 'https://remote.zentyal.com/trial/';
+use constant TRIAL_URL       => 'https://remote.zentyal.com/trial/ent/';
 
 # Group: Protected methods
 

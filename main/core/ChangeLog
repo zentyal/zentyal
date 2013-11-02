@@ -1,4 +1,6 @@
 3.3
+	+ Set proper trial link in advertisements
+	+ Show register link in local backup when not registered
 	+ Strip the 'C:\fakepath\' that chrome adds to the file input
 	+ Make dump_exceptions key work also for mason exceptions
 	+ Pass HTTP_PROXY system environment variable to CGIs as they are

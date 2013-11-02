@@ -1,10 +1,12 @@
 3.3
-	+ Set version to 3.3
-HEAD
-	+`Use IPS module to know the number of IDS/IPS rules
+	+ Missing use when restarting monitor using VPN as communication
+	  layer
+	+ Set proper trial link when a community account is registered
+	+ Use IPS module to know the number of IDS/IPS rules
 	+ Honor system-wide defined HTTP Proxy in REST client
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
+	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
 3.1.9

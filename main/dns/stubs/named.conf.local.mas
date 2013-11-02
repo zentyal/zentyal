@@ -1,6 +1,7 @@
 <%args>
     @domains
     @inaddrs
+    $generateReverseZones
     @intnets
     @internalLocalNets => ()
     $confDir
@@ -11,7 +12,6 @@
 use EBox::Config;
 use Perl6::Junction qw(any);
 
-my $generateReverseZones = EBox::Config::boolean('generate_reverse_zones');
 my $rfc1918Zones = [
     "10.in-addr.arpa",
     "16.172.in-addr.arpa",
