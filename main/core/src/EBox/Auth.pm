@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Auth;
-use base qw(EBox::ThirdParty::Apache2::AuthCookie);
+use base qw(Apache2::AuthCookie);
 
 use EBox;
 use EBox::CGI::Run;
