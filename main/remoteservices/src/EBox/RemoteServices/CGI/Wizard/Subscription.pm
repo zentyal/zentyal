@@ -184,11 +184,6 @@ sub _register
                 when ('password') {
                     $errorText .= '<p>' . __('Password must have at least 6 characters. Leading or trailing spaces will be ignored.') . '</p>';
                 }
-                when ('__all__') {
-                    $errorText .= '<p>'
-                      . __('Please modify your first or last name since this user does already exists.')
-                      . '</p>';
-                }
                 default {
                     $errorText .= '<p>' . $key . " : " . join(". ", @{$errorData->{$key}}) . "</p>";
                 }
