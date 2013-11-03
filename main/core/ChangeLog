@@ -1,5 +1,7 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
+	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
 	+ Set proper trial link in advertisements
 	+ Show register link in local backup when not registered
 	+ Strip the 'C:\fakepath\' that chrome adds to the file input
