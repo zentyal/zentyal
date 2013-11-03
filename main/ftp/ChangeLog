@@ -1,4 +1,5 @@
 3.3
+	+ Delete migration code from old versions
 	+ Force depend on PPA version of vsftpd with the chroot patch
 	+ Added Support for chrooting users
 	+ Set version to 3.3
