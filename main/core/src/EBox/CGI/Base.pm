@@ -284,6 +284,9 @@ sub run
             if (defined($self->{redirect})) {
                 $self->{chain} = $self->{redirect};
             }
+        } catch ($e) {
+            my $ex = new EBox::Exceptions::Error($e);
+            $ex->throw();
         }
     }
 
@@ -364,22 +367,23 @@ sub run
     } catch (EBox::Exceptions::Base $e) {
         $self->setErrorFromException($e);
         $self->_print_error($self->{error});
-    } catch ($ex) {
+    } catch ($e) {
         my $logger = EBox::logger;
-        if (isa_mason_exception($ex)) {
-            $logger->error($ex->as_text);
+        if (isa_mason_exception($e)) {
+            $logger->error($e->as_text);
             my $error = __("An internal error related to ".
                            "a template has occurred. This is ".
                            "a bug, relevant information can ".
                            "be found in the logs.");
             $self->_print_error($error);
-        } elsif ($ex->isa('APR::Error')) {
+        } elsif ($e->isa('APR::Error')) {
             my $debug = EBox::Config::boolean('debug');
-            my $error = $debug ? $ex->confess() : $ex->strerror();
+            my $error = $debug ? $e->confess() : $e->strerror();
             $self->_print_error($error);
         } else {
             # will be logged in EBox::CGI::Run
-            throw $ex;
+            my $ex = new EBox::Exceptions::Error($e);
+            $ex->throw();
         }
     }
 }

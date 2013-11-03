@@ -106,10 +106,12 @@ try {
     }
 
     my $error;
-    if ( $ex->can('text') ) {
+    if ($ex->can('text')) {
         $error = $ex->text();
-    } elsif ( $ex->can('as_text') ) {
+    } elsif ($ex->can('as_text')) {
         $error = $ex->as_text();
+    } else {
+        $error = "$ex";
     }
     $error =~ s/"/'/g;
     $params->{error} = $error;
