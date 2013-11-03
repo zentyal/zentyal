@@ -19,12 +19,11 @@ package EBox::Auth;
 use base qw(EBox::ThirdParty::Apache2::AuthCookie);
 
 use EBox;
-use EBox::CGI::Run;
 use EBox::Config;
-use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Exceptions::Lock;
+
 use Apache2::Connection;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
@@ -56,13 +55,11 @@ sub _savesession # (session_id)
 
     my $sidFile;
     my $openMode = '>';
-    if ( -f $sessionPath ) {
+    if (-f $sessionPath) {
         $openMode = '+<';
     }
-    unless  ( open ( $sidFile, $openMode, $sessionPath )){
-        throw EBox::Exceptions::Internal(
-                "Could not open to write ".
-                EBox::Config->sessionid);
+    unless (open ($sidFile, $openMode, $sessionPath)) {
+        throw EBox::Exceptions::Internal( "Could not open to write ".  EBox::Config->sessionid);
     }
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
@@ -144,9 +141,9 @@ sub authen_cred  # (request, $user, password, fromCC)
     }
 
     my $ip = $r->headers_in->{'X-Real-IP'};
-    my $audit = EBox::Global->modInstance('audit');
+    my $audit = $self->_global()->modInstance('audit');
     # Unless it is a CC session or password does
-    if ( not (defined($fromCC) and $fromCC) ) {
+    unless ($fromCC) {
         unless ($self->checkValidUser($user, $passwd)) {
             my $log = EBox->logger();
             $log->warn("Failed login from: $ip");
@@ -177,6 +174,8 @@ sub authen_ses_key  # (request, session_key)
 {
     my ($self, $r, $session_key) = @_;
 
+    my $global = $self->_global();
+
     my ($sid, $lastime, $user) = _currentSessionId();
 
     my $expired =  _timeExpired($lastime);
@@ -186,14 +185,14 @@ sub authen_ses_key  # (request, session_key)
         _savesession(undef);
     }
     elsif (($session_key eq $sid) and (!$expired)) {
-        my $audit = EBox::Global->modInstance('audit');
+        my $audit = $global->modInstance('audit');
         $audit->setUsername($user);
 
         _savesession($sid, $user);
         return $user;
     }
     elsif ($expired) {
-        my $audit = EBox::Global->modInstance('audit');
+        my $audit = $global->modInstance('audit');
         my $ip = $r->headers_in->{'X-Real-IP'};
         $audit->logSessionEvent($user, $ip, 'expired');
 
@@ -232,8 +231,9 @@ sub loginCC
         }
         return $retVal;
     } else {
-        if ( EBox::Global->modExists('remoteservices') ) {
-            my $remoteServMod = EBox::Global->modInstance('remoteservices');
+        my $global = $self->_global();
+        if ($global->modExists('remoteservices')) {
+            my $remoteServMod = $global->modInstance('remoteservices');
             if ( $remoteServMod->eBoxSubscribed()
                  and $remoteServMod->model('AccessSettings')->passwordlessValue()) {
                 # Do what login does
@@ -260,7 +260,7 @@ sub logout
 
     $self->SUPER::logout($r);
 
-    my $audit = EBox::Global->modInstance('audit');
+    my $audit = $self->_global()->modInstance('audit');
     my $ip = $r->headers_in->{'X-Real-IP'};
     my $user = $r->user();
     $audit->logSessionEvent($user, $ip, 'logout');
@@ -274,16 +274,13 @@ sub _currentSessionId
     my $sessionPath = EBox::Config->sessionid();
     unless(-e $sessionPath) {
         unless (open ($SID_F,  ">". $sessionPath)) {
-            throw EBox::Exceptions::Internal("Could not create  " .
-                                             EBox::Config->sessionid);
+            throw EBox::Exceptions::Internal("Could not create  " . EBox::Config->sessionid);
         }
         close($SID_F);
         return;
     }
     unless (open ($SID_F, $sessionPath)) {
-        throw EBox::Exceptions::Internal(
-                "Could not open ".
-                EBox::Config->sessionid);
+        throw EBox::Exceptions::Internal("Could not open ".  EBox::Config->sessionid);
     }
 
     # Lock in shared mode for reading
@@ -336,12 +333,11 @@ sub _actionScriptSession
     }
 
     # Trying to open the script sid
-    open( $scriptSessionFile, '<', EBox::Config->scriptSession() ) or
-      throw EBox::Exceptions::Internal('Could not open ' .
-                                       EBox::Config->scriptSession());
+    open ($scriptSessionFile, '<', EBox::Config->scriptSession()) or
+      throw EBox::Exceptions::Internal('Could not open ' .  EBox::Config->scriptSession());
 
     # Lock in shared mode
-    flock($scriptSessionFile, LOCK_SH)
+    flock ($scriptSessionFile, LOCK_SH)
       or throw EBox::Exceptions::Lock($self);
 
     # The file structure is the following:
@@ -349,14 +345,26 @@ sub _actionScriptSession
     my ($timeStamp) = <$scriptSessionFile>;
 
     # Release the lock and close the file
-    flock($scriptSessionFile, LOCK_UN);
-    close($scriptSessionFile);
+    flock ($scriptSessionFile, LOCK_UN);
+    close ($scriptSessionFile);
 
     # time() return the # of seconds since an epoch (1 Jan 1970
     # typically)
 
     my $expireTime = $timeStamp + MAX_SCRIPT_SESSION;
-    return ( $expireTime >= time() );
+    return ($expireTime >= time());
+}
+
+# FIXME: workaround to avoid apache segfault after TryCatch migration
+#        when importing EBox::Global directly on EBox::Auth
+#
+#        EBox::Global is Apache::Singleton::Process so it must be
+#        related with that
+#
+sub _global
+{
+    eval 'use EBox::Global';
+    return EBox::Global->getInstance();
 }
 
 1;
