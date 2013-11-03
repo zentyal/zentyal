@@ -77,15 +77,15 @@ sub addresses
            }
         } elsif ($type eq 'iprange') {
             if (not defined $member->{addresses}) {
-                 $member->{addresses} = EBox::Types::IPRange->addressesFromBeginToEnd($member->{begin}, $member->{end});
+                $member->{addresses} = EBox::Types::IPRange->addressesFromBeginToEnd($member->{begin}, $member->{end});
             }
             if ($mask) {
                 map {
-                    [$member => 32 ]
-               }@{ $member->{addresses} }
+                    [ $_ => 32 ]
+               } @{ $member->{addresses} }
             } else {
                 map {
-                    "$member/32"
+                    "$_/32"
                 } @{ $member->{addresses} }
             }
         } else {
