@@ -552,6 +552,7 @@ sub saveAllModules
     my $modNames;
     my $ro = 0;
     my $failed = '';
+    my %modified;
 
     # Reset save messages array
     $self->{save_messages} = [];
@@ -559,11 +560,6 @@ sub saveAllModules
     my $progress = $options{progress};
 
     # TODO: tell events module to stop its watchers
-
-    foreach my $mod ($self->modInstancesOfType('EBox::Module::Config')) {
-        $mod->_saveConfig();
-        $self->modRestarted($name);
-    }
 
     if ($self->first()) {
         # First installation modules enable
@@ -619,6 +615,7 @@ sub saveAllModules
     } else {
         # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
+        %modified = map { $_ => } @mods;
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
     }
@@ -631,6 +628,11 @@ sub saveAllModules
 
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
+
+    foreach my $mod ($self->modInstancesOfType('EBox::Module::Config')) {
+        next if $modified{$mod->name()};
+        $mod->_saveConfig();
+    }
 
     my $webadmin = 0;
     foreach my $name (@mods) {
@@ -652,8 +654,6 @@ sub saveAllModules
         }
 
         try {
-            # FIXME: We're doing _saveConfig() again for some modules, maybe we should
-            #        avoid that, although it shouldn't introduce noticeable delay
             $mod->save();
         } catch EBox::Exceptions::External with {
             my $ex = shift;
