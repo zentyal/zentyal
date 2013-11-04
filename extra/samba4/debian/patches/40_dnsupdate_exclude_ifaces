@@ -24,7 +24,7 @@
  
  IPs = samba.interface_ips(lp, all_interfaces)
 +
-+excludesre = ['^tap\d', '^tun\d']
++excludesre = ['^tap\d', '^tun\d', '^ppp\d']
 +if (len(excludesre) > 0):
 +    excluded_ifaces = {}
 +    interfaces = netifaces.interfaces()
