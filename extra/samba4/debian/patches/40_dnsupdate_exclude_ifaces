@@ -1,13 +1,13 @@
 --- a/debian/control
 +++ b/debian/control
-@@ -40,6 +40,7 @@
-                po-debconf,
-                python-all-dev (>= 2.6.6-3),
+@@ -13,6 +13,7 @@
+                libreadline-dev,
+                python-dev,
                 python-dnspython,
 +               python-netifaces,
-                python-ldb (>= 1:1.1.6~),
-                python-ldb-dev (>= 1:1.1.6~),
-                python-talloc-dev (>= 2.0.7~),
+                gdb,
+                pkg-config,
+                libpopt-dev,
 --- a/source4/scripting/bin/samba_dnsupdate
 +++ b/source4/scripting/bin/samba_dnsupdate
 @@ -24,6 +24,8 @@
