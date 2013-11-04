@@ -72,7 +72,7 @@ $(function() {
         </td>
         <td class='tcenter' id="<% $name %>_status">
 %   if (not $configured) {
-%       my $title = __x("Configure module: {module}", module => $name );
+%       my $title = __x("Configure module: {module}", module => $printableName);
            <& /input/checkbox.mas,
                 'name' => $name,
                 'id' => $name,

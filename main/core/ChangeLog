@@ -1,4 +1,5 @@
 3.3
+	+ Use printableName in Configure Module popup
 	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
 	+ Set proper trial link in advertisements
