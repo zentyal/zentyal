@@ -678,6 +678,28 @@ sub _htmlForRow
     return $html;
 }
 
+sub _htmlForChangeRow
+{
+    my ($self, $model, $action, $editId, $filter, $page, $tpages, $presetParams) = @_;
+    my $table     = $model->table();
+
+    my @params = (
+        model  => $model,
+        action => $action,
+
+        editid => $editId,
+        filter => $filter,
+        page   => $page,
+        tpages => $tpages,
+        presetParams  => $presetParams
+    );
+
+    my $html;
+    $html = EBox::Html::makeHtml('/ajax/changeRow.mas', @params);
+    return $html;
+
+}
+
 sub _modelIds
 {
     my ($self, $model, $filter) = @_;
