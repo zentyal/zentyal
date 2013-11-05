@@ -107,12 +107,6 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %   if ($showEditForm) {
 <div id='<% $tableName  %>_editForm'>
-<%doc>
-<& SELF:editFormTitle,
-   action => $action,
-   printableRowName => $printableRowName,
-&>
-</%doc>
 <& SELF:messagesAndHelp, model => $model &>
 <& /ajax/changeRowForm.mas,
    action => $action,
