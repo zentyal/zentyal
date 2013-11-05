@@ -22,6 +22,7 @@ use EBox;
 use EBox::Gettext;
 
 use Log::Log4perl;
+use Devel::StackTrace;
 
 use overload (
     '""'     => 'stringify',
@@ -72,7 +73,14 @@ sub stringify
 
 sub stacktrace
 {
-    return 'FIXME: stacktrace not implemented yet';
+    my ($self) = @_;
+
+    my $trace = new Devel::StackTrace();
+    my $msg = $self->{text};
+    $msg .= ' at ';
+    $msg .= $trace->as_string();
+
+    return $msg;
 }
 
 sub throw
