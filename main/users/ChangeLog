@@ -1,3 +1,6 @@
+HEAD
+	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
+	  is installed but disabled
 3.2.2
 	+ Add missing use to EBox::Users::LDAP::ExternalAD
 	+ Force DNS restart when users mode changed
