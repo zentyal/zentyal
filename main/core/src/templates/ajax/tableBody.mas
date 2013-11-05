@@ -95,25 +95,14 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 
 %  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
 %  if (not $showEditForm)  {
-%    if ( $model->printableModelName() )  {
-       <& PARENT:title,
-          title => $model->headTitle()
-        &>
-        <& SELF:messagesAndHelp, model => $model &>
-%    }
-%    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
-%        if ($changeView) {
-           <& SELF:tableActionLinks,
-               model => $model,
-               addAction =>  (exists $actions->{'add'}),
-               page => $page,
-           &>
-
-%        }
-%     }
-  <span id="creatingForm_<% $tableName %>"></span>
-%  }
-
+<& SELF:topTable,
+   model => $model,
+   actions => $actions,
+   onlyCustomActions => $onlyCustomActions,
+   page => $page,
+   filter => $filter
+&>
+% }
 
 %  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %   if ($showEditForm) {
@@ -145,16 +134,12 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
 % if ($printableTableName) {
 <h3>
-  <% $printableTableName %>
+  XXX WITH CHANGE ADD/EDIT<% $printableTableName %>
 </h3>
 % }
 %    }
 %   }
-<& SELF:topToolbar,
-   tableName => $tableName,
-   model     => $model,
-   filter     => $filter,
-&>
+
 
 <table id='<% $tableName %>_table'  class='<%  $table->{'class'}  %>'>
 
@@ -244,6 +229,45 @@ $(function() {
 % }
 % # End body method
 </%method>
+
+<%method topTable>
+<%args>
+$model
+$actions
+$onlyCustomActions
+$page
+$filter
+</%args>
+<%init>
+my $tableName = $model->table()->{'tableName'};
+my $changeView = $model->action('changeView');
+</%init>
+<div id="<% $tableName %>_top">
+%    if ( $model->printableModelName() )  {
+       <& PARENT:title,
+          title => $model->headTitle()
+        &>
+        <& SELF:messagesAndHelp, model => $model &>
+%    }
+%    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
+%        if ($changeView) {
+           <& SELF:tableActionLinks,
+               model => $model,
+               addAction =>  (exists $actions->{'add'}),
+               page => $page,
+           &>
+
+%        }
+%     }
+  <span id="creatingForm_<% $tableName %>"></span>
+<& SELF:topToolbar,
+   tableName => $tableName,
+   model     => $model,
+   filter => $filter
+&>
+</div>
+</%method>
+
 
 <%method topToolbar>
 <%args>
@@ -416,8 +440,8 @@ my $tableName = $model->name();
 my $checkAll  = $model->checkAllProperty();
 </%init>
 % if ($addAction)  {
-  <button type="button" class='btn btn-icon btn-add'
-      name='add'
+  <button type='button' class='btn btn-icon btn-add'
+      name='add' id='<% $tableName %>_add_button'
          onClick="<%
                  $model->changeViewJS( changeType => "changeAdd",
                       editId => "undefined",
