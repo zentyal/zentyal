@@ -30,6 +30,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::UsersAndGroups::User;
 use EBox::UsersAndGroups::Group;
 
+use EBox::Samba::User;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
@@ -117,10 +118,16 @@ sub members
 {
     my ($self) = @_;
 
+    my $dn = $self->dn();
     my $members = [];
     my @membersDN = $self->get('member');
     foreach my $memberDN (@membersDN) {
         my $obj = new EBox::Samba::LdbObject(dn => $memberDN);
+	unless ($obj->exists()) {
+		EBox::warn("Samba group '$dn' contains a member '$memberDN' " .
+			   "that no longer exists, ignoring it.");
+		next;
+	}
         my @class = $obj->get('objectClass');
         if ('user' eq any @class) {
             push (@{$members}, new EBox::Samba::User(dn => $memberDN));
@@ -136,7 +143,6 @@ sub members
         }
 
         # Unknown member type
-        my $dn = $self->dn();
         EBox::warn("Unknown group member type ($memberDN) found on group $dn");
     }
 
