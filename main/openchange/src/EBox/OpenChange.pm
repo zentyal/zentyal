@@ -200,7 +200,12 @@ sub _writeSOGoConfFile
     push (@{$array}, dbHost => '127.0.0.1');
     push (@{$array}, dbPort => 3306);
 
-    push (@{$array}, ldapBaseDN => $self->ldap->dn());
+    my $baseDN = $self->ldap->dn();
+    if (EBox::Config::boolean('openchange_disable_multiou')) {
+        $baseDN = "ou=Users,$baseDN";
+    }
+
+    push (@{$array}, ldapBaseDN => $baseDN);
     push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
     push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
     push (@{$array}, ldapHost => $self->ldap->LDAPI());
