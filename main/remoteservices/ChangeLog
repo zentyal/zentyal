@@ -1,4 +1,10 @@
 3.3
+	+ reporterd query time is now 5 minutes
+	+ Default reporter granularity is set to 15 minutes
+	+ Give support to different granularities for reporters
+	+ Improve proxy redirections:
+	  - Configuration from RedirectHelper modules
+	  - Added query string and referer-based patterns to redirect
 	+ Missing use when restarting monitor using VPN as communication
 	  layer
 	+ Set proper trial link when a community account is registered

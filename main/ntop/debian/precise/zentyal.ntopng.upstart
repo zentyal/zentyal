@@ -1,0 +1,5 @@
+description "Network monitoring service"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+respawn
+exec /usr/local/bin/ntopng /etc/ntopng/ntopng.conf

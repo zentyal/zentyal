@@ -4,7 +4,7 @@ PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mockti
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid ntop"
 
 while getopts ":vjsc" opt; do
     case $opt in

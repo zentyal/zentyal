@@ -41,6 +41,30 @@ Include /etc/apache2/mods-available/proxy_http.load
    RewriteRule /(.*) <% $redir->{target} %>/$1 [P,L]
 %   }
 
+%   if ($redir->{referer_patterns}) {
+   RewriteCond %{HTTP:Via}     .
+   RewriteCond %{HTTP_REFERER} !^$
+%      my ($i, $nElem) = (1, scalar(@{$redir->{referer_patterns}}) );
+%      foreach my $pattern (@{$redir->{referer_patterns}}) {
+%         my $pattern_or = $pattern . (($i < $nElem) ? ' [OR]' : "");
+   RewriteCond %{HTTP_REFERER} <% $pattern_or %>
+%         $i++;
+%      }
+   RewriteRule /(.*) <% $redir->{target} %>/$1 [P,L]
+%   }
+
+%   if ($redir->{query_string_patterns}) {
+   RewriteCond %{HTTP:Via}     .
+   RewriteCond %{QUERY_STRING} !^$
+%      my ($i, $nElem) = (1, scalar(@{$redir->{query_string_patterns}}) );
+%      foreach my $pattern (@{$redir->{query_string_patterns}}) {
+%         my $pattern_or = $pattern . (($i < $nElem) ? ' [OR]' : "");
+   RewriteCond %{QUERY_STRING} <% $pattern_or %>
+%         $i++;
+%      }
+   RewriteRule /(.*) <% $redir->{target} %>/$1 [P,L]
+%   }
+
 % }
 </IfModule>
 </IfModule>

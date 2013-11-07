@@ -1669,22 +1669,40 @@ sub _setProxyRedirections
 
     my $confFile = SERV_DIR . 'proxy-redirections.conf';
     my $webadminMod = EBox::Global->modInstance('webadmin');
-    if ($self->eBoxSubscribed() and $self->hasBundle() and (-r REDIR_CONF_FILE)) {
-        try {
-            my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+    if ($self->eBoxSubscribed() and $self->hasBundle()) {
+        my $redirectionConfs = [];
+        # Read redirections from conf file
+        if (-r REDIR_CONF_FILE) {
+            try {
+                my $redirConf = YAML::XS::LoadFile(REDIR_CONF_FILE);
+                if (@{$redirConf}) {
+                    push(@{$redirectionConfs}, @{$redirConf});
+                }
+            } otherwise {
+                # Not proper YAML file
+                my ($exc) = @_;
+                EBox::error($exc);
+            };
+        }
+        # Read from RedirectHelper modules
+        foreach my $mod (@{EBox::Global->getInstance(1)->modInstancesOfType('EBox::RedirectHelper')}) {
+            if ($mod->isEnabled()) {
+                my $redirConf = $mod->redirectionConf();
+                if (@{$redirConf}) {
+                    push(@{$redirectionConfs}, @{$redirConf});
+                }
+            }
+        }
+        if (@{$redirectionConfs}) {
             my @tmplParams = (
-                redirections => $redirConf,
+                redirections => $redirectionConfs,
                );
             EBox::Module::Base::writeConfFileNoCheck(
                 $confFile,
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
             $webadminMod->addApacheInclude($confFile);
-        } otherwise {
-            # Not proper YAML file
-            my ($exc) = @_;
-            EBox::error($exc);
-        };
+        }
     } else {
         # Do nothing if include is already removed
         try {

@@ -1,4 +1,6 @@
 3.3
+	+ RedirectHelper interface to redirect requests from Zentyal
+	  Remote to specific module HTTP applications
 	+ Use printableName in Configure Module popup
 	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
