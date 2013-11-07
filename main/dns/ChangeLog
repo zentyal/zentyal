@@ -1,4 +1,5 @@
 3.3
+	+ Enable sortlist option by default in /etc/zentyal/dns.conf
 	+ Delete migration code from old versions
 	+ Fix set of dynamic attribute in domain table when samba module is enabled
 	  again
@@ -290,10 +291,10 @@
 0.9
 	+ Added Polish translation
 	+ Added Aragonese translation
-	+ Added German    translation
+	+ Added German translation
 
 0.8.99
-        * Add DNS server functionality
+	* Add DNS server functionality
 0.7.1
 	* Allow TCP queries
 	* Use of ebox-sudoers-friendly
