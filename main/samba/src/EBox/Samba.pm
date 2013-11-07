@@ -50,7 +50,6 @@ use EBox::Samba::SmbClient;
 use EBox::Samba::User;
 use EBox::SambaLdapUser;
 use EBox::SambaLogHelper;
-use EBox::SambaFirewall;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::SyncFolders::Folder;
@@ -87,6 +86,18 @@ use Samba::Security::Descriptor qw(
     SECINFO_GROUP
     SECINFO_OWNER
     SECINFO_PROTECTED_DACL
+    SEC_STD_WRITE_OWNER
+    SEC_STD_READ_CONTROL
+    SEC_STD_WRITE_DAC
+    SEC_FILE_READ_ATTRIBUTE
+);
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
 );
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
@@ -108,6 +119,7 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
+use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 sub _create
 {
@@ -186,12 +198,6 @@ sub initialSetup
         $firewall->setInternalService($serviceName, 'accept');
         $firewall->saveConfigRecursive();
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
 }
 
 sub enableService
@@ -224,7 +230,9 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
+    # prevent that we execute this code with every service restart or on server boot delaying such processes.
+    if ($enabled and ($0 =~ /\/global-action$/)) {
 
         # Only set global roaming profiles and drive letter options
         # if we are not replicating to another Windows Server to avoid
@@ -232,6 +240,7 @@ sub _postServiceHook
         # unmanaged_home_directory config key is defined
         my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
         unless ($self->mode() eq 'adc') {
+            EBox::info("Setting roaming profiles...");
             my $netbiosName = $self->netbiosName();
             my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
             my $users = $self->ldb->users();
@@ -259,6 +268,7 @@ sub _postServiceHook
         my $domainSID = $self->ldb()->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
+        my $domainUsersSID = "$domainSID-513";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
@@ -271,6 +281,7 @@ sub _postServiceHook
             my $enabled     = $row->valueByName('enabled');
             my $shareName   = $row->valueByName('share');
             my $guestAccess = $row->valueByName('guest');
+            my $recursiveAcls = $row->valueByName('recursive_acls');
 
             unless ($enabled) {
                 next;
@@ -282,6 +293,8 @@ sub _postServiceHook
                 # share permissions didn't change, nothing needs to be done for this share.
                 next;
             }
+
+            EBox::info("Applying new permissions to the share '$shareName'...");
 
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
@@ -306,9 +319,14 @@ sub _postServiceHook
             }
 
             if ($guestAccess) {
+                # Add read/write access for Domain Users
                 my $ace = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
+                # Add read/write access for Domain Guests
+                my $ace2 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace2);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
@@ -318,12 +336,22 @@ sub _postServiceHook
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
 
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    unless ($object->exists()) {
-                        next;
-                    }
+                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
+                    # map '__USERS__' to 'Domain Users' SID
+                    my $accountShort = $userType->value();
+                    my $sid = undef;
 
-                    my $sid = $object->sid();
+                    if ($accountShort eq '__USERS__') {
+                        $sid = $domainUsersSID;
+                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
+                    } else {
+                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                        unless ($object->exists()) {
+                            next;
+                        }
+
+                        $sid = $object->sid();
+                    }
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
@@ -342,28 +370,54 @@ sub _postServiceHook
                 }
             }
             my $relativeSharePath = '/';
-            my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
-            $smb->set_sd($relativeSharePath, $sd, $sinfo);
+            EBox::info("Applying ACLs for top-level share $shareName");
+            my $sinfo = SECINFO_OWNER |
+                        SECINFO_GROUP |
+                        SECINFO_DACL |
+                        SECINFO_PROTECTED_DACL;
+            my $access_mask = SEC_STD_WRITE_OWNER |
+                              SEC_STD_READ_CONTROL |
+                              SEC_STD_WRITE_DAC |
+                              SEC_FILE_READ_ATTRIBUTE;
+            my $attributes = FILE_ATTRIBUTE_NORMAL |
+                             FILE_ATTRIBUTE_ARCHIVE |
+                             FILE_ATTRIBUTE_DIRECTORY |
+                             FILE_ATTRIBUTE_HIDDEN |
+                             FILE_ATTRIBUTE_READONLY |
+                             FILE_ATTRIBUTE_SYSTEM;
+            EBox::debug("Setting NT ACL on file: $relativeSharePath");
+            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
             # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
+            my $shareContentList = $smb->list($relativeSharePath,
+                attributes => $attributes, recursive => 1);
             # Reset the DACL_PROTECTED flag;
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
             $sd->type($sdControl);
-            foreach my $item (@{$shareContentList}) {
-                my $itemName = $item->{name};
-                $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug($itemName);
-                $smb->set_sd($itemName, $sd, $sinfo);
+            ## only replace ACLs for subdirs if recursiveAcls = 1
+            if ($recursiveAcls) {
+                foreach my $item (@{$shareContentList}) {
+                    my $itemName = $item->{name};
+                    $itemName =~ s/^\/\/(.*)/\/$1/s;
+                    EBox::info("Replacing ACLs for $shareName$itemName");
+                    $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
+                }
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
         }
 
         # Change group ownership of quarantine_dir to __USERS__
+        EBox::info("Fixing quarantine_dir permissions...");
         if ($self->defaultAntivirusSettings()) {
             $self->_setupQuarantineDirectory();
         }
+
+        # Write DNS update list
+        EBox::info("Writing DNS update list...");
+        $self->_writeDnsUpdateList();
+    } else {
+        EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -736,12 +790,8 @@ sub antivirusConfig
     my $conf = {
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
-        hide_nonscanned_files    => 'False',
-        scanning_message         => 'is being scanned for viruses',
         recheck_time_open        => '50',
         recheck_tries_open       => '100',
-        recheck_time_readdir     => '50',
-        recheck_tries_readdir    => '20',
         allow_nonscanned_files   => 'False',
     };
 
@@ -808,58 +858,21 @@ sub recycleConfig
     return $conf;
 }
 
-# Method: sambaInterfaces
-#
-#   Return interfaces upon samba should listen
-#
-sub sambaInterfaces
+sub _writeDnsUpdateList
 {
     my ($self) = @_;
 
-    my @ifaces = ();
-    # Always listen on loopback interface
-    push (@ifaces, 'lo');
-
-    my $net = EBox::Global->modInstance('network');
-
-    my $listen_external = EBox::Config::configkey('listen_external');
-
-    my $netIfaces;
-    if ($listen_external eq 'yes') {
-        $netIfaces = $net->allIfaces();
-    } else {
-        $netIfaces = $net->InternalIfaces();
-    }
-
-    my %seenBridges;
-    foreach my $iface (@{$netIfaces}) {
-        push @ifaces, $iface;
-
-        if ($net->ifaceMethod($iface) eq 'bridged') {
-            my $br = $net->ifaceBridge($iface);
-            if (not $seenBridges{$br}) {
-                push (@ifaces, "br$br");
-                $seenBridges{$br} = 1;
-            }
-            next;
-        }
-
-        my $vifacesNames = $net->vifaceNames($iface);
-        if (defined $vifacesNames) {
-            push @ifaces, @{$vifacesNames};
-        }
-    }
-
-    my @moduleGeneratedIfaces = ();
-    push @ifaces, @moduleGeneratedIfaces;
-    return \@ifaces;
+    my $array = [];
+    my $partitions = ['DomainDnsZones', 'ForestDnsZones'];
+    push (@{$array}, partitions => $partitions);
+    $self->writeConfFile(SAMBA_DNS_UPDATE_LIST,
+                         'samba/dns_update_list.mas', $array,
+                         { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
 sub writeSambaConfig
 {
     my ($self) = @_;
-
-    my $interfaces = join (',', @{$self->sambaInterfaces()});
 
     my $netbiosName = $self->netbiosName();
     my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
@@ -876,7 +889,6 @@ sub writeSambaConfig
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
-    push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
@@ -884,6 +896,7 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
@@ -1148,16 +1161,6 @@ sub usesPort
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
-    return undef;
-}
-
-sub firewallHelper
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled()) {
-        return new EBox::SambaFirewall();
-    }
     return undef;
 }
 
@@ -2151,10 +2154,8 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    if ($self->configured()) {
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue('netbiosName', $newHostName);
-    }
+    my $settings = $self->model('GeneralSettings');
+    $settings->setValue('netbiosName', $newHostName);
 }
 
 # Method: hostDomainChanged
@@ -2495,82 +2496,6 @@ sub _sidsToHide
     my @sids = map { s/\n//; $_; } @sidsTmp;
 
     return \@sids;
-}
-
-# Migration to 3.2
-#
-#  * Add new schema and link with existing LDAP users
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    # Current data backup
-    my $backupDir = EBox::Config::conf . "backup-samba-upgrade-to-32-" . time();
-    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($backupDir);
-
-    EBox::Service::manage('zentyal.s4sync', 'stop');
-
-    my $provision = $self->getProvision();
-    my $oldProvisionFile = '/home/samba/.provisioned';
-    if (-f $oldProvisionFile) {
-        $provision->setProvisioned(1);
-        EBox::Sudo::root("rm -f $oldProvisionFile");
-    }
-
-    EBox::info("Removing posixAccount from users");
-    foreach my $user (@{$self->ldb->users()}) {
-        $user->delete('uidNumber', 1);
-        $user->remove('objectclass', 'posixAccount', 1);
-        $user->save();
-    }
-
-    EBox::info("Removing posixAccount from groups");
-    foreach my $group (@{$self->ldb->groups()}) {
-        $group->delete('gidNumber', 1);
-        $group->remove('objectclass', 'posixAccount', 1);
-        $group->save();
-    }
-
-    my $schema = 'zentyal-samba/zentyalsambalink.ldif';
-    EBox::info("Loading $schema");
-    my $usersMod = $self->global()->modInstance('users');
-    $usersMod->_loadSchema(EBox::Config::share() . $schema);
-
-    EBox::info("Map default containers");
-    $provision->mapDefaultContainers();
-    $provision->mapAccounts();
-
-    EBox::info("Link LDB users with LDAP");
-    foreach my $ldbUser (@{$self->ldb->users()}) {
-        my $ldapUser = new EBox::Users::User(uid => $ldbUser->get('samAccountName'));
-        if ($ldapUser->exists()) {
-            $ldbUser->_linkWithUsersObject($ldapUser);
-
-            if (not $ldbUser->isAccountEnabled()) {
-                $ldapUser->setDisabled(1);
-            }
-        }
-    }
-
-    EBox::info("Link LDB groups with LDAP");
-    foreach my $ldbGroup (@{$self->ldb->groups()}) {
-        my $ldapGroup = new EBox::Users::Group(gid => $ldbGroup->get('samAccountName'));
-        if ($ldapGroup->exists()) {
-            $ldbGroup->_linkWithUsersObject($ldapGroup);
-        }
-    }
-
-    EBox::info("Setting Administrator user as internal");
-    my $adminUser = new EBox::Users::User(uid => 'Administrator');
-    if ($adminUser->exists()) {
-        $adminUser->setInternal();
-    }
-
-    $self->_overrideDaemons();
 }
 
 1;

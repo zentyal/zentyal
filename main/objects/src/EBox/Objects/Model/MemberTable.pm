@@ -235,8 +235,7 @@ sub members
             my $range = $address->subtype();
             $member{begin} = $range->begin();
             $member{end} = $range->end();
-            # not sure if good idea to extract all ips now
-            $member{addresses} = $range->addresses(),
+            $member{addresses} = undef;
             $member{mask} = 32,
         }
 

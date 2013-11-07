@@ -26,6 +26,10 @@ package EBox::OpenChange::CGI::Migration::Estimate;
 
 use base 'EBox::CGI::Base';
 
+use feature qw(switch);
+
+use EBox::OpenChange::MigrationRPCClient;
+use Error qw( :try );
 use JSON::XS;
 
 # Group: Public methods
@@ -46,19 +50,66 @@ sub _process
 
     my $postRawData = $self->unsafeParam('POSTDATA');
     my $postData = JSON::XS->new()->decode($postRawData);
-    use Data::Dumper;
-    EBox::debug(Dumper($postData));
+    my $users = $postData->{users};
+    try {
+        my $rpc = new EBox::OpenChange::MigrationRPCClient();
+        # Get status
+        my $request = { command => 0 };
+        my $response = $rpc->send_command($request);
+        if ($response->{code} != 0) {
+            $self->{json}->{error} = __('Invalid RPC server state');
+            return;
+        }
 
-    $self->{json} = {
-        'data' => '753 MB',
-        'mails'  => 2000,
-        'contacts' => 232,
-        'calendar' =>  32,
-        'time' => '1 hour 2 min',
-    };
+        EBox::info("The daemon is in state: " . $response->{state});
+        given ($response->{state}) {
+            when(0) {
+                # Idle, start estimation
+                my $u = [];
+                foreach my $elem (@{$users}) {
+                    push (@{$u}, { name => $elem });
+                }
+                EBox::info("The daemon is idle, launch estimating");
+                my $request = {
+                    command => 2,
+                    users => $u,
+                };
+                $rpc->dump($request);
+                my $response = $rpc->send_command($request);
+                if ($response->{code} != 0) {
+                    $self->{json}->{success} = 0;
+                    $self->{json}->{error} = $response->{error};
+                } else {
+                    $self->{json}->{success} = 1;
+                    my $oc = EBox::Global->modInstance('openchange');
+                    my $state = $oc->get_state();
+                    $state->{migration_users} = $u;
+                    $oc->set_state($state);
+                }
+            }
+            when ([1, 2]) {
+                my $state = $_;
+                # 1 - Estimation on progress
+                # 2 - Estimated done. Enable migrate button
+                my $seconds = ($response->{totalBytes} * 8 ) / (100 * 1024 * 1024);
+                # Estimating, update
+                $self->{json} = {
+                    result => {
+                        'data'     => { 'value' => $response->{totalBytes},       'type' => 'bytes' },
+                        'mails'    => { 'value' => $response->{emailItems},       'type' => 'int' },
+                        'contacts' => { 'value' => $response->{contactItems},     'type' => 'int' },
+                        'calendar' => { 'value' => $response->{appointmentItems}, 'type' => 'int' },
+                        'time'     => { 'value' => $seconds, 'type' => 'timediff' },
+                    },
+                    'state' => ($state == 1 ? 'ongoing' : 'done'),
+                }
+            }
+        }
+    } otherwise {
+        my ($error) = @_;
 
-    # Set this on error
-    #$self->{json}->{error} = 'error msg';
+        $self->{json}->{error} = $error;
+    }
 }
 
 1;

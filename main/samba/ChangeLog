@@ -1,4 +1,40 @@
 3.3
+	+ Fix regression in unmanaged ACLs option
+	+ Prevent _postServiceHook code execution outside Save Changes
+	+ Fixed openLDAP -> samba integration for users, contacts and groups using
+	  non ascii characters
+	+ Check for acl and user_xattr mount options when adding system shares
+	+ Depend on new samba4 version that fixes 0-byte size problems
+	+ NT SD are now written to hidden and readonly files
+	+ Remove no longer used antivirus options
+	+ Get ldb object in s4sync after the initial wait
+	+ Use resolvconf tool to modify resolv.conf when joining as ADC
+	+ Set zavsd socket mode to 0777
+	+ Fix already defined variable warning
+	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
+	  (Contributed by on-jz)
+	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
+	+ Set case sensitive on a per share basis
+	+ Fix netbios name no being updated when hostname change and samba module
+	  is not enabled
+	+ Disable debug to parse ldbsearch command output when looking for DNS
+	  zones stored in samba
+	+ Open files with minimal access mask to set the security descriptors
+	+ Added new 'Apply ACLs recursively' feature - one checkbox per samba share.
+	  If unchecked, changed ACLs will only be written to top-level share.
+	  Subfolders' ACLs will be left unchanged. Default is checked.
+	  (Contributed by on-jz)
+	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
+	+ Listen on all interfaces to avoid problems when more than one IP address
+	  is configured in the DNS module
+	+ Removed unnecessary FirewallHelper implementation
+	+ Delete unused updateHostnameFields() method
+	+ Mark network module as changed when upgrading from 3.0
+	+ Enforce set of shares ACLs when upgrading from 3.0
+	+ Remove old keytab when exporting new one
+	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
+	  join domain as additional domain controller
+	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
 	+ Ignore container 'Microsoft Exchange System Objects' when quering
 	  users stored in LDB

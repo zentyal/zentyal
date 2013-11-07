@@ -312,6 +312,7 @@ sub menu # (root)
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
+                                        'icon' => 'trafficshaping',
                                         'text' => $self->printableName(),
                                         'separator' => 'Gateway',
                                         'order' => 220);

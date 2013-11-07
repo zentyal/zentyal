@@ -26,7 +26,12 @@
 #
 #       - 'id' =>  row id
 #       - 'order' => row order
-#               - 'readOnly' => Boolean indicating if the row is readOnly or not
+#       - 'readOnly' => Boolean indicating if the row is readOnly or not
+#       - 'disabled' => Boolean indicating if the row is disabled in the UI.
+#                       Disabled and read only are orthogonal concepts.
+#                       Read only means the row can not be modified, while
+#                       disabled means the row exists, can be modified or
+#                       deleted but it is ignored by the system.
 #       - 'values' => array ref containing objects
 #               implementing <EBox::Types::Abstract> interface
 #       - 'valueHash' => hash ref containing the same objects as
@@ -87,7 +92,7 @@ sub new
     $self->{'confmodule'} = $opts{confmodule};
     $self->{'values'} = [];
 
-    bless ( $self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -205,6 +210,36 @@ sub setReadOnly
     my ($self, $readOnly) = @_;
 
     $self->{readOnly} = $readOnly;
+}
+
+# Method: disabled
+#
+#   Row disable
+#
+# Returns:
+#
+#   boolean - true if row is disabled, false otherwise
+#
+sub disabled
+{
+    my ($self) = @_;
+
+    return $self->{disabled};
+}
+
+# Method: setDisabled
+#
+#   Set the row disabled flag
+#
+sub setDisabled
+{
+    my ($self, $disabled) = @_;
+
+    unless (defined $disabled) {
+        throw EBox::Exceptions::MissingArgument('disabled');
+    }
+
+    $self->{disabled} = $disabled;
 }
 
 # Method: dir
@@ -401,8 +436,8 @@ sub elementByName
         }
     }
 
-    throw EBox::Exceptions::DataNotFound( data => 'element',
-                                          value => $element);
+    throw EBox::Exceptions::DataNotFound(data => 'element',
+                                         value => $element);
 }
 
 # Method: elementByIndex
@@ -478,7 +513,7 @@ sub hashElements
 #
 sub valueByName
 {
-    my ($self,$name) = @_;
+    my ($self, $name) = @_;
 
     unless ($name) {
         throw EBox::Exceptions::MissingArgument('name');
@@ -557,6 +592,7 @@ sub store
     $model->setTypedRow($self->id(),
                         $self->{'valueHash'},
                         readOnly => $self->readOnly(),
+                        disabled => $self->disabled(),
                         force => 1);
 }
 
@@ -588,6 +624,7 @@ sub storeElementByName
     $model->setTypedRow($self->id(),
                         {$element => $self->elementByName($element)},
                         readOnly => $self->readOnly(),
+                        disabled => $self->disabled(),
                         force => 1);
 }
 
@@ -739,21 +776,26 @@ sub cloneSubModelsFrom
 sub isEqualTo
 {
     my ($self, $other) = @_;
+
     if ($self->model()->contextName() ne $other->model()->contextName()) {
         # rows for different models are differents,  we assume
-        #  rows from different instances of the same model could be equal
+        # rows from different instances of the same model could be equal
         return 0;
     }
-    my @values = @{  $self->elements() };
-    my @otherValues = @{ $other->elements() };
-    if (@values != @otherValues) {
+
+    if ($self->size() != $other->size()) {
         return 0;
     }
-    for (my $i=0; $i < @values; $i++) {
-        if (not $values[$i]->isEqualTo($otherValues[$i])) {
-            return 0;
-        }
+
+    my $myElements = $self->hashElements();
+    my $otherElements = $other->hashElements();
+    foreach my $myKey (keys %{$myElements}) {
+        return 0 unless exists $otherElements->{$myKey};
+        my $myElement = $myElements->{$myKey};
+        my $otherElement = $otherElements->{$myKey};
+        return 0 unless ($myElement->isEqualTo($otherElement));
     }
+
     return 1;
 }
 

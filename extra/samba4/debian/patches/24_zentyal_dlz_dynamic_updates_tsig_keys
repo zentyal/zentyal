@@ -1,7 +1,7 @@
-Index: samba4/source4/dns_server/dlz_bind9.c
+Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 ===================================================================
---- samba4.orig/source4/dns_server/dlz_bind9.c	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/source4/dns_server/dlz_bind9.c	2013-08-14 00:22:50.085330393 +0200
+--- samba4-4.1.0rc4.orig/source4/dns_server/dlz_bind9.c	2013-10-25 16:05:59.313923823 +0200
++++ samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c	2013-10-25 16:06:03.937928675 +0200
 @@ -37,6 +37,7 @@
  #include "messaging/messaging.h"
  #include "lib/cmdline/popt_common.h"
@@ -450,10 +450,10 @@ Index: samba4/source4/dns_server/dlz_bind9.c
  /*
    add a new record
   */
-Index: samba4/source4/dns_server/dlz_minimal.h
+Index: samba4-4.1.0rc4/source4/dns_server/dlz_minimal.h
 ===================================================================
---- samba4.orig/source4/dns_server/dlz_minimal.h	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/source4/dns_server/dlz_minimal.h	2013-08-14 00:22:50.085330393 +0200
+--- samba4-4.1.0rc4.orig/source4/dns_server/dlz_minimal.h	2013-10-25 16:05:59.369923881 +0200
++++ samba4-4.1.0rc4/source4/dns_server/dlz_minimal.h	2013-10-25 16:06:03.937928675 +0200
 @@ -22,6 +22,9 @@
    external DLZ driver, please copy this header into your own source
    tree.
@@ -501,10 +501,10 @@ Index: samba4/source4/dns_server/dlz_minimal.h
  isc_result_t dlz_delrdataset(const char *name, const char *type, void *dbdata, void *version);
 +
 +#endif
-Index: samba4/source4/dns_server/wscript_build
+Index: samba4-4.1.0rc4/source4/dns_server/wscript_build
 ===================================================================
---- samba4.orig/source4/dns_server/wscript_build	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/source4/dns_server/wscript_build	2013-08-14 00:22:50.085330393 +0200
+--- samba4-4.1.0rc4.orig/source4/dns_server/wscript_build	2013-10-25 16:05:59.337923847 +0200
++++ samba4-4.1.0rc4/source4/dns_server/wscript_build	2013-10-25 16:06:03.937928675 +0200
 @@ -12,7 +12,7 @@
  
  # a bind9 dlz module giving access to the Samba DNS SAM
@@ -532,11 +532,11 @@ Index: samba4/source4/dns_server/wscript_build
                    cflags='-DBIND_VERSION_9_8',
                    private_library=True,
                    deps='samba-hostconfig samdb-common gensec popt',
-Index: samba4/source4/dns_server/keys_parser.l
+Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.l
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/keys_parser.l	2013-08-14 00:22:50.085330393 +0200
-@@ -0,0 +1,88 @@
++++ samba4-4.1.0rc4/source4/dns_server/keys_parser.l	2013-10-25 16:13:28.594385060 +0200
+@@ -0,0 +1,59 @@
 +%{
 +#include "keys_parser.h"
 +#include "k_parser.h"
@@ -585,35 +585,6 @@ Index: samba4/source4/dns_server/keys_parser.l
 +
 +%%
 +
-+struct key_list *getAST(const char *fpath)
-+{
-+    struct key_list *kl = NULL;
-+    yyscan_t scanner;
-+
-+    FILE *fp = fopen(fpath, "r");
-+    if (!fp)
-+        goto fail;
-+
-+    if (yylex_init(&scanner))
-+        goto close;
-+
-+    yyset_in(fp, scanner);
-+
-+    if (yyparse(scanner, &kl))
-+        goto destroy;
-+
-+    yylex_destroy(scanner);
-+
-+    return kl;
-+
-+destroy:
-+    yylex_destroy(scanner);
-+close:
-+    fclose(fp);
-+fail:
-+    return NULL;
-+}
-+
 +#if 0
 +int main(void) {
 +    struct key_list *kl = NULL;
@@ -625,11 +596,11 @@ Index: samba4/source4/dns_server/keys_parser.l
 +    return 0;
 +}
 +#endif
-Index: samba4/source4/dns_server/k_lexer.c
+Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/k_lexer.c	2013-08-14 00:22:50.089330393 +0200
-@@ -0,0 +1,2205 @@
++++ samba4-4.1.0rc4/source4/dns_server/k_lexer.c	2013-10-25 16:13:37.606393864 +0200
+@@ -0,0 +1,2176 @@
 +#line 2 "k_lexer.c"
 +
 +#line 4 "k_lexer.c"
@@ -666,7 +637,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 +
 +/* C99 says to define __STDC_LIMIT_MACROS before including stdint.h,
-+ * if you want the limit (max/min) macros for int types.
++ * if you want the limit (max/min) macros for int types. 
 + */
 +#ifndef __STDC_LIMIT_MACROS
 +#define __STDC_LIMIT_MACROS 1
@@ -683,7 +654,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +typedef signed char flex_int8_t;
 +typedef short int flex_int16_t;
 +typedef int flex_int32_t;
-+typedef unsigned char flex_uint8_t;
++typedef unsigned char flex_uint8_t; 
 +typedef unsigned short int flex_uint16_t;
 +typedef unsigned int flex_uint32_t;
 +
@@ -817,7 +788,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +    /* Note: We specifically omit the test for yy_rule_can_match_eol because it requires
 +     *       access to the local variable yy_act. Since yyless() is a macro, it would break
-+     *       existing scanners that call yyless() from OUTSIDE yylex.
++     *       existing scanners that call yyless() from OUTSIDE yylex. 
 +     *       One obvious solution it to make yy_act a global. I tried that, and saw
 +     *       a 5% performance hit in a non-yylineno scanner, because yy_act is
 +     *       normally declared as a register variable-- so it is not worth it.
@@ -829,7 +800,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +                    if ( yytext[yyl] == '\n' )\
 +                        --yylineno;\
 +            }while(0)
-+
++    
 +/* Return all but the first "n" matched characters back to the input stream. */
 +#define yyless(n) \
 +	do \
@@ -891,7 +862,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +    int yy_bs_lineno; /**< The line count. */
 +    int yy_bs_column; /**< The column count. */
-+
++    
 +	/* Whether to try to fill the input buffer when we reach the
 +	 * end of it.
 +	 */
@@ -1151,7 +1122,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +/* Table of booleans, true if rule could match eol. */
 +static yyconst flex_int32_t yy_rule_can_match_eol[21] =
 +    {   0,
-+0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0,
++0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 
 +    0,     };
 +
 +/* The intent behind this definition is that it'll catch
@@ -1223,7 +1194,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +    /* This must go here because YYSTYPE and YYLTYPE are included
 +     * from bison output in section 1.*/
 +    #    define yylval yyg->yylval_r
-+
++    
 +int yylex_init (yyscan_t* scanner);
 +
 +int yylex_init_extra (YY_EXTRA_TYPE user_defined,yyscan_t* scanner);
@@ -1274,7 +1245,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +#endif
 +
 +    static void yyunput (int c,char *buf_ptr  ,yyscan_t yyscanner);
-+
++    
 +#ifndef yytext_ptr
 +static void yy_flex_strncpy (char *,yyconst char *,int ,yyscan_t yyscanner);
 +#endif
@@ -1486,7 +1457,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +			int yyl;
 +			for ( yyl = 0; yyl < yyleng; ++yyl )
 +				if ( yytext[yyl] == '\n' )
-+
++					   
 +    do{ yylineno++;
 +        yycolumn=0;
 +    }while(0)
@@ -2062,7 +2033,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +	YY_CURRENT_BUFFER_LVALUE->yy_at_bol = (c == '\n');
 +	if ( YY_CURRENT_BUFFER_LVALUE->yy_at_bol )
-+
++		   
 +    do{ yylineno++;
 +        yycolumn=0;
 +    }while(0)
@@ -2145,7 +2116,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +    YY_BUFFER_STATE yy_create_buffer  (FILE * file, int  size , yyscan_t yyscanner)
 +{
 +	YY_BUFFER_STATE b;
-+
++    
 +	b = (YY_BUFFER_STATE) yyalloc(sizeof( struct yy_buffer_state ) ,yyscanner );
 +	if ( ! b )
 +		YY_FATAL_ERROR( "out of dynamic memory in yy_create_buffer()" );
@@ -2211,7 +2182,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +    }
 +
 +        b->yy_is_interactive = 0;
-+
++    
 +	errno = oerrno;
 +}
 +
@@ -2317,9 +2288,9 @@ Index: samba4/source4/dns_server/k_lexer.c
 +								, yyscanner);
 +		if ( ! yyg->yy_buffer_stack )
 +			YY_FATAL_ERROR( "out of dynamic memory in yyensure_buffer_stack()" );
-+
++								  
 +		memset(yyg->yy_buffer_stack, 0, num_to_alloc * sizeof(struct yy_buffer_state*));
-+
++				
 +		yyg->yy_buffer_stack_max = num_to_alloc;
 +		yyg->yy_buffer_stack_top = 0;
 +		return;
@@ -2348,12 +2319,12 @@ Index: samba4/source4/dns_server/k_lexer.c
 + * @param base the character buffer
 + * @param size the size in bytes of the character buffer
 + * @param yyscanner The scanner object.
-+ * @return the newly allocated buffer state object.
++ * @return the newly allocated buffer state object. 
 + */
 +YY_BUFFER_STATE yy_scan_buffer  (char * base, yy_size_t  size , yyscan_t yyscanner)
 +{
 +	YY_BUFFER_STATE b;
-+
++    
 +	if ( size < 2 ||
 +	     base[size-2] != YY_END_OF_BUFFER_CHAR ||
 +	     base[size-1] != YY_END_OF_BUFFER_CHAR )
@@ -2389,7 +2360,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 + */
 +YY_BUFFER_STATE yy_scan_string (yyconst char * yystr , yyscan_t yyscanner)
 +{
-+
++    
 +	return yy_scan_bytes(yystr,strlen(yystr) ,yyscanner);
 +}
 +
@@ -2406,7 +2377,7 @@ Index: samba4/source4/dns_server/k_lexer.c
 +	char *buf;
 +	yy_size_t n;
 +	int i;
-+
++    
 +	/* Get memory for full buffer, including space for trailing EOB's. */
 +	n = _yybytes_len + 2;
 +	buf = (char *) yyalloc(n ,yyscanner );
@@ -2474,10 +2445,10 @@ Index: samba4/source4/dns_server/k_lexer.c
 +int yyget_lineno  (yyscan_t yyscanner)
 +{
 +    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-+
++    
 +        if (! YY_CURRENT_BUFFER)
 +            return 0;
-+
++    
 +    return yylineno;
 +}
 +
@@ -2487,10 +2458,10 @@ Index: samba4/source4/dns_server/k_lexer.c
 +int yyget_column  (yyscan_t yyscanner)
 +{
 +    struct yyguts_t * yyg = (struct yyguts_t*)yyscanner;
-+
++    
 +        if (! YY_CURRENT_BUFFER)
 +            return 0;
-+
++    
 +    return yycolumn;
 +}
 +
@@ -2551,8 +2522,8 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +        /* lineno is only valid if an input buffer exists. */
 +        if (! YY_CURRENT_BUFFER )
-+           yy_fatal_error( "yyset_lineno called with no buffer" , yyscanner);
-+
++           yy_fatal_error( "yyset_lineno called with no buffer" , yyscanner); 
++    
 +    yylineno = line_number;
 +}
 +
@@ -2566,8 +2537,8 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +        /* column is only valid if an input buffer exists. */
 +        if (! YY_CURRENT_BUFFER )
-+           yy_fatal_error( "yyset_column called with no buffer" , yyscanner);
-+
++           yy_fatal_error( "yyset_column called with no buffer" , yyscanner); 
++    
 +    yycolumn = column_no;
 +}
 +
@@ -2662,20 +2633,20 @@ Index: samba4/source4/dns_server/k_lexer.c
 +        errno = EINVAL;
 +        return 1;
 +    }
-+
++	
 +    *ptr_yy_globals = (yyscan_t) yyalloc ( sizeof( struct yyguts_t ), &dummy_yyguts );
-+
++	
 +    if (*ptr_yy_globals == NULL){
 +        errno = ENOMEM;
 +        return 1;
 +    }
-+
++    
 +    /* By setting to 0xAA, we expose bugs in
 +    yy_init_globals. Leave at 0x00 for releases. */
 +    memset(*ptr_yy_globals,0x00,sizeof(struct yyguts_t));
-+
++    
 +    yyset_extra (yy_user_defined, *ptr_yy_globals);
-+
++    
 +    return yy_init_globals ( *ptr_yy_globals );
 +}
 +
@@ -2794,35 +2765,6 @@ Index: samba4/source4/dns_server/k_lexer.c
 +
 +
 +
-+struct key_list *getAST(const char *fpath)
-+{
-+    struct key_list *kl = NULL;
-+    yyscan_t scanner;
-+
-+    FILE *fp = fopen(fpath, "r");
-+    if (!fp)
-+        goto fail;
-+
-+    if (yylex_init(&scanner))
-+        goto close;
-+
-+    yyset_in(fp,scanner);
-+
-+    if (yyparse(scanner, &kl))
-+        goto destroy;
-+
-+    yylex_destroy(scanner);
-+
-+    return kl;
-+
-+destroy:
-+    yylex_destroy(scanner);
-+close:
-+    fclose(fp);
-+fail:
-+    return NULL;
-+}
-+
 +#if 0
 +int main(void) {
 +    struct key_list *kl = NULL;
@@ -2835,10 +2777,10 @@ Index: samba4/source4/dns_server/k_lexer.c
 +}
 +#endif
 +
-Index: samba4/source4/dns_server/k_lexer.h
+Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/k_lexer.h	2013-08-14 00:22:50.089330393 +0200
++++ samba4-4.1.0rc4/source4/dns_server/k_lexer.h	2013-10-25 16:13:37.602393925 +0200
 @@ -0,0 +1,355 @@
 +#ifndef yyHEADER_H
 +#define yyHEADER_H 1
@@ -2880,7 +2822,7 @@ Index: samba4/source4/dns_server/k_lexer.h
 +#if defined (__STDC_VERSION__) && __STDC_VERSION__ >= 199901L
 +
 +/* C99 says to define __STDC_LIMIT_MACROS before including stdint.h,
-+ * if you want the limit (max/min) macros for int types.
++ * if you want the limit (max/min) macros for int types. 
 + */
 +#ifndef __STDC_LIMIT_MACROS
 +#define __STDC_LIMIT_MACROS 1
@@ -2897,7 +2839,7 @@ Index: samba4/source4/dns_server/k_lexer.h
 +typedef signed char flex_int8_t;
 +typedef short int flex_int16_t;
 +typedef int flex_int32_t;
-+typedef unsigned char flex_uint8_t;
++typedef unsigned char flex_uint8_t; 
 +typedef unsigned short int flex_uint16_t;
 +typedef unsigned int flex_uint32_t;
 +
@@ -3035,7 +2977,7 @@ Index: samba4/source4/dns_server/k_lexer.h
 +
 +    int yy_bs_lineno; /**< The line count. */
 +    int yy_bs_column; /**< The column count. */
-+
++    
 +	/* Whether to try to fill the input buffer when we reach the
 +	 * end of it.
 +	 */
@@ -3195,27 +3137,27 @@ Index: samba4/source4/dns_server/k_lexer.h
 +#line 354 "k_lexer.h"
 +#undef yyIN_HEADER
 +#endif /* yyHEADER_H */
-Index: samba4/source4/dns_server/k_parser.c
+Index: samba4-4.1.0rc4/source4/dns_server/k_parser.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/k_parser.c	2013-08-14 00:22:50.089330393 +0200
-@@ -0,0 +1,1851 @@
++++ samba4-4.1.0rc4/source4/dns_server/k_parser.c	2013-10-25 16:13:46.398402697 +0200
+@@ -0,0 +1,1882 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
 +/* Bison implementation for Yacc-like parsers in C
-+
++   
 +      Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
-+
++   
 +   This program is free software: you can redistribute it and/or modify
 +   it under the terms of the GNU General Public License as published by
 +   the Free Software Foundation, either version 3 of the License, or
 +   (at your option) any later version.
-+
++   
 +   This program is distributed in the hope that it will be useful,
 +   but WITHOUT ANY WARRANTY; without even the implied warranty of
 +   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 +   GNU General Public License for more details.
-+
++   
 +   You should have received a copy of the GNU General Public License
 +   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 +
@@ -3228,7 +3170,7 @@ Index: samba4/source4/dns_server/k_parser.c
 +   special exception, which will cause the skeleton and the resulting
 +   Bison output files to be licensed under the GNU General Public
 +   License without this special exception.
-+
++   
 +   This special exception was added by the Free Software Foundation in
 +   version 2.2 of Bison.  */
 +
@@ -5051,27 +4993,58 @@ Index: samba4/source4/dns_server/k_parser.c
 +    fprintf(stderr, "Error: %s\n", s);
 +}
 +
-Index: samba4/source4/dns_server/k_parser.h
++struct key_list *getAST(const char *fpath)
++{
++    struct key_list *kl = NULL;
++    yyscan_t scanner;
++
++    FILE *fp = fopen(fpath, "r");
++    if (!fp)
++        goto fail;
++
++    if (yylex_init(&scanner))
++        goto close;
++
++    yyset_in(fp, scanner);
++
++    if (yyparse(scanner, &kl))
++        goto destroy;
++
++    yylex_destroy(scanner);
++
++    return kl;
++
++destroy:
++    yylex_destroy(scanner);
++close:
++    fclose(fp);
++fail:
++    return NULL;
++}
++
++
++
+Index: samba4-4.1.0rc4/source4/dns_server/k_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/k_parser.h	2013-08-14 00:22:50.089330393 +0200
++++ samba4-4.1.0rc4/source4/dns_server/k_parser.h	2013-10-25 16:13:46.398402697 +0200
 @@ -0,0 +1,86 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
 +/* Bison interface for Yacc-like parsers in C
-+
++   
 +      Copyright (C) 1984, 1989-1990, 2000-2011 Free Software Foundation, Inc.
-+
++   
 +   This program is free software: you can redistribute it and/or modify
 +   it under the terms of the GNU General Public License as published by
 +   the Free Software Foundation, either version 3 of the License, or
 +   (at your option) any later version.
-+
++   
 +   This program is distributed in the hope that it will be useful,
 +   but WITHOUT ANY WARRANTY; without even the implied warranty of
 +   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 +   GNU General Public License for more details.
-+
++   
 +   You should have received a copy of the GNU General Public License
 +   along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 +
@@ -5084,7 +5057,7 @@ Index: samba4/source4/dns_server/k_parser.h
 +   special exception, which will cause the skeleton and the resulting
 +   Bison output files to be licensed under the GNU General Public
 +   License without this special exception.
-+
++   
 +   This special exception was added by the Free Software Foundation in
 +   version 2.2 of Bison.  */
 +
@@ -5142,10 +5115,10 @@ Index: samba4/source4/dns_server/k_parser.h
 +
 +
 +
-Index: samba4/source4/dns_server/keys_parser.h
+Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/keys_parser.h	2013-08-14 00:22:50.089330393 +0200
++++ samba4-4.1.0rc4/source4/dns_server/keys_parser.h	2013-10-25 16:07:51.186039458 +0200
 @@ -0,0 +1,21 @@
 +#ifndef __KEYS_PARSER_H__
 +#define __KEYS_PARSER_H__
@@ -5168,11 +5141,11 @@ Index: samba4/source4/dns_server/keys_parser.h
 +struct key_list *getAST(const char *fpath);
 +
 +#endif
-Index: samba4/source4/dns_server/keys_parser.y
+Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.y
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4/source4/dns_server/keys_parser.y	2013-08-14 00:22:50.089330393 +0200
-@@ -0,0 +1,203 @@
++++ samba4-4.1.0rc4/source4/dns_server/keys_parser.y	2013-10-25 16:13:26.642382953 +0200
+@@ -0,0 +1,234 @@
 +%{
 +#include <stdio.h>
 +#include <string.h>
@@ -5376,11 +5349,42 @@ Index: samba4/source4/dns_server/keys_parser.y
 +void yyerror(yyscan_t scanner, struct key_list **kl, const char *s) {
 +    fprintf(stderr, "Error: %s\n", s);
 +}
-Index: samba4/lib/param/param_table.c
++
++struct key_list *getAST(const char *fpath)
++{
++    struct key_list *kl = NULL;
++    yyscan_t scanner;
++
++    FILE *fp = fopen(fpath, "r");
++    if (!fp)
++        goto fail;
++
++    if (yylex_init(&scanner))
++        goto close;
++
++    yyset_in(fp, scanner);
++
++    if (yyparse(scanner, &kl))
++        goto destroy;
++
++    yylex_destroy(scanner);
++
++    return kl;
++
++destroy:
++    yylex_destroy(scanner);
++close:
++    fclose(fp);
++fail:
++    return NULL;
++}
++
++
+Index: samba4-4.1.0rc4/lib/param/param_table.c
 ===================================================================
---- samba4.orig/lib/param/param_table.c	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/lib/param/param_table.c	2013-08-14 00:22:50.093330393 +0200
-@@ -4189,6 +4189,24 @@
+--- samba4-4.1.0rc4.orig/lib/param/param_table.c	2013-10-25 16:06:02.305926962 +0200
++++ samba4-4.1.0rc4/lib/param/param_table.c	2013-10-25 16:06:03.937928675 +0200
+@@ -4199,6 +4199,24 @@
  		.enum_list	= enum_dns_update_settings,
  		.flags		= FLAG_ADVANCED,
  	},
@@ -5405,10 +5409,10 @@ Index: samba4/lib/param/param_table.c
  	{
  		.label		= "dns forwarder",
  		.type		= P_STRING,
-Index: samba4/lib/param/loadparm.c
+Index: samba4-4.1.0rc4/lib/param/loadparm.c
 ===================================================================
---- samba4.orig/lib/param/loadparm.c	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/lib/param/loadparm.c	2013-08-14 00:22:50.093330393 +0200
+--- samba4-4.1.0rc4.orig/lib/param/loadparm.c	2013-10-25 16:06:02.305926962 +0200
++++ samba4-4.1.0rc4/lib/param/loadparm.c	2013-10-25 16:06:03.941928680 +0200
 @@ -1,4 +1,4 @@
 -/* 
 +/*
@@ -5509,10 +5513,10 @@ Index: samba4/lib/param/loadparm.c
  	     * basically the equivalent of an empty file. */
  	    return lpcfg_update(lp_ctx);
      }
-Index: samba4/lib/param/param.h
+Index: samba4-4.1.0rc4/lib/param/param.h
 ===================================================================
---- samba4.orig/lib/param/param.h	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/lib/param/param.h	2013-08-14 00:22:50.093330393 +0200
+--- samba4-4.1.0rc4.orig/lib/param/param.h	2013-10-25 16:05:59.309923818 +0200
++++ samba4-4.1.0rc4/lib/param/param.h	2013-10-25 16:06:03.941928680 +0200
 @@ -1,24 +1,24 @@
 -/* 
 +/*
@@ -5583,11 +5587,11 @@ Index: samba4/lib/param/param.h
  			     struct loadparm_context *lp_ctx,
  			     const char *name);
  
-Index: samba4/lib/param/param_functions.c
+Index: samba4-4.1.0rc4/lib/param/param_functions.c
 ===================================================================
---- samba4.orig/lib/param/param_functions.c	2013-08-14 00:22:50.097330393 +0200
-+++ samba4/lib/param/param_functions.c	2013-08-14 00:22:50.093330393 +0200
-@@ -267,6 +267,8 @@
+--- samba4-4.1.0rc4.orig/lib/param/param_functions.c	2013-10-25 16:06:02.305926962 +0200
++++ samba4-4.1.0rc4/lib/param/param_functions.c	2013-10-25 16:06:03.941928680 +0200
+@@ -268,6 +268,8 @@
  FN_GLOBAL_INTEGER(afs_token_lifetime, iAfsTokenLifetime)
  FN_GLOBAL_INTEGER(algorithmic_rid_base, AlgorithmicRidBase)
  FN_GLOBAL_INTEGER(allow_dns_updates, allow_dns_updates)

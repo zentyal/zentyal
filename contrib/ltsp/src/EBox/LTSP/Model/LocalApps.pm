@@ -56,7 +56,7 @@ sub _table
             'printableName' => __('Applications'),
             'size' => '15',
             'editable' => 1,
-            'help' => 'Enter the applications separated by spaces',
+            'help' => __('Enter the applications separated by spaces'),
         ),
     );
 
@@ -99,8 +99,7 @@ sub _doInstall
         );
     }
 
-    my $arch         = $self->parentRow()->valueByName('architecture');
-    my $fat          = ($self->parentRow()->valueByName('fat') ? 1 : 0);
+    my $name         = $self->parentRow()->valueByName('name');
     my $applications = $params{'applications'};
 
     if ( $applications eq '' ) {
@@ -120,7 +119,7 @@ sub _doInstall
 
         EBox::WebAdmin::cleanupForExec();
         exec('sudo /usr/share/zentyal-ltsp/install-local-applications '
-             . "$arch $fat \"$applications\"");
+             . "$name \"$applications\"");
     }
     $self->setMessage($action->message(), 'note');
     $self->{customActions} = {};
@@ -136,10 +135,11 @@ sub viewCustomizer
     my ($self) = @_;
 
     my $row  = $self->parentRow();
+    my $name = $row->valueByName('name');
     my $arch = $row->printableValueByName('architecture');
     my $fat  = $row->valueByName('fat');
 
-    my $title = $arch;
+    my $title = "$name: $arch";
 
     if ($fat) {
         $title .= __(' (Fat Image)');

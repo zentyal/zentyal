@@ -73,12 +73,6 @@ sub _process
             my $surname = $self->param('surname');
             my $mail = $self->param('mail');
 
-            my $fullname;
-            if ($givenName) {
-                $fullname = "$givenName $surname";
-            } else {
-                $fullname = $surname;
-            }
             my $description = $self->unsafeParam('description');
             if (length ($description)) {
                 $contact->set('description', $description, 1);
@@ -88,10 +82,10 @@ sub _process
 
             $contact->set('givenname', $givenName, 1);
             $contact->set('sn', $surname, 1);
-            $contact->set('cn', $fullname, 1);
             $contact->set('mail', $mail, 1);
 
             $contact->save();
+            $self->{json}->{set_text} = $contact->fullname();
         }
 
         $self->{json}->{success} = 1;

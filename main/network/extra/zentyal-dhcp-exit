@@ -4,7 +4,6 @@ firewall_script=/usr/share/zentyal-firewall/dhcp-firewall.pl
 
 ebox_bound() {
     $libexec/dhcp-address.pl $interface $new_ip_address $new_subnet_mask
-    $libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
     $libexec/dhcp-gateway.pl $interface $ebox_routers
 
     if ( [ -x $firewall_script ] ); then
@@ -23,10 +22,6 @@ ebox_renew() {
     if [ "$change" == "yes" ] ; then
         $libexec/dhcp-address.pl $interface $new_ip_address \
                     $new_subnet_mask
-    fi
-    if [ "z$new_domain_name_servers" != "z$old_domain_name_servers" ] ; then
-        change="yes"
-        $libexec/dhcp-nameservers.pl $interface $new_domain_name_servers
     fi
     if [ "z$ebox_routers" != "z$old_routers" ] ; then
         $libexec/dhcp-gateway.pl $interface $ebox_routers

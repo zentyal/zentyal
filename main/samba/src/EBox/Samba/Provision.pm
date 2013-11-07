@@ -229,7 +229,7 @@ sub _domainsIP
     my @ipIds = @{$domainIPsModel->ids()};
 
     my $network = EBox::Global->modInstance('network');
-    my $ifaces = $samba->sambaInterfaces();
+    my $ifaces = $network->allIfaces();
 
     my %domainsIp;
     foreach my $iface (@{$ifaces}) {
@@ -280,6 +280,7 @@ sub setupDNS
 {
     my ($self) = @_;
 
+    EBox::info("Setting up DNS");
     my $samba = EBox::Global->modInstance('samba');
 
     if (EBox::Sudo::fileTest('-f', $samba->SAMBA_DNS_KEYTAB())) {
@@ -1055,6 +1056,7 @@ sub _addForestDnsZonesReplica
 {
     my ($self) = @_;
 
+    EBox::info("Adding Forest Dns replica");
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
@@ -1085,6 +1087,7 @@ sub _addDomainDnsZonesReplica
 {
     my ($self) = @_;
 
+    EBox::info("Adding Domain Dns replica");
     my $sambaModule = EBox::Global->modInstance('samba');
     my $ldb = $sambaModule->ldb();
     my $basedn = $ldb->dn();
@@ -1252,13 +1255,9 @@ sub provisionADC
         EBox::debug("Setting domain DNS server '$adDnsServer' as the primary resolver");
         $dnsFile = new File::Temp(TEMPLATE => 'resolvXXXXXX',
                                   DIR      => EBox::Config::tmp());
-        EBox::Sudo::root("cp /etc/resolv.conf $dnsFile");
-        my $array = [];
-        push (@{$array}, searchDomain => $domainToJoin);
-        push (@{$array}, nameservers => [ $adDnsServer ]);
-        $sambaModule->writeConfFile(EBox::Network::RESOLV_FILE(),
-                                    'network/resolv.conf.mas',
-                                    $array);
+        EBox::Sudo::root("cp /etc/resolvconf/interface-order $dnsFile",
+                         'echo zentyal.temp > /etc/resolvconf/interface-order',
+                         "echo 'search $domainToJoin\nnameserver $adDnsServer' | resolvconf -a zentyal.temp");
 
         # Get a ticket for admin User
         my $principal = "$adUser\@$realm";
@@ -1293,12 +1292,14 @@ sub provisionADC
             }
             throw EBox::Exceptions::External("Error joining to domain: @error");
         }
-        $self->_addForestDnsZonesReplica();
-        $self->_addDomainDnsZonesReplica();
+
         $self->setupDNS();
 
         # Start managed service to let it create the LDAP socket
         $sambaModule->_startService();
+
+        $self->_addForestDnsZonesReplica();
+        $self->_addDomainDnsZonesReplica();
 
         # Wait for RID pool allocation
         EBox::info("Waiting RID pool allocation");
@@ -1360,7 +1361,8 @@ sub provisionADC
     } finally {
         # Revert primary resolver changes
         if (defined $dnsFile and -f $dnsFile) {
-            EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+            EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
+                             'resolvconf -d zentyal.temp');
             unlink $dnsFile;
         }
         # Remote stashed password

@@ -31,8 +31,8 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
             <% __('Security Group') %>
 %    } else {
             <% __('Distribution Group') %>
-%    } 
-% } else {          
+%    }
+% } else {
             <div class="radioGroup">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>

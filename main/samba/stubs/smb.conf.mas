@@ -3,7 +3,6 @@
     $workgroup
     $netbiosName
     $description
-    $ifaces
     $mode
     $realm
     $domain
@@ -11,6 +10,7 @@
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
+    $unmanagedAcls => 0
     $print => 0
     $disableFullAudit => 0
 
@@ -54,11 +54,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
 % }
     server signing = auto
-
-    interfaces = <% $ifaces %>
-    bind interfaces only = yes
-
-    case sensitive = no
 
     log level = 3
     log file = /var/log/samba/samba.log
@@ -106,16 +101,19 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $profilesPath %>
     browseable = no
     read only = no
+    case sensitive = yes
 %   }
 
 [netlogon]
     path = <% $sysvolPath %>/<% $domain %>/scripts
     browseable = no
     read only = yes
+    case sensitive = no
 
 [sysvol]
     path = <% $sysvolPath %>
     read only = no
+    case sensitive = no
 % }
 
 [homes]
@@ -123,6 +121,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = /home/%S
     read only = no
     browseable = no
+    case sensitive = yes
     create mask = 0611
     directory mask = 0711
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'users'}));
@@ -153,13 +152,14 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   }
 % }
 
-# Shares
+# <% @shares ? "Shares\n" : "No shares configured" %>
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
     path = <% $share->{path} %>
     browseable = Yes
     read only = No
+    case sensitive = yes
     force create mode = 0660
     force directory mode = 0660
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
@@ -175,7 +175,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
-    acl_xattr:ignore system acls = yes
+    acl_xattr:ignore system acls = <%  $unmanagedAcls ? 'no' : 'yes' %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($av) {
@@ -198,6 +198,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     comment = Point and Print Printer Drivers
     path = /opt/samba4/var/print
     read only = No
+    case sensitive = no
 
 [printers]
     comment = All Printers
@@ -205,6 +206,7 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     browseable = Yes
     read only = No
     printable = Yes
+    case sensitive = no
 % }
 
 % if ($antivirus) {
@@ -213,4 +215,5 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     path = <% $antivirus_config->{quarantine_dir} %>
     browseable = Yes
     read only = No
+    case sensitive = yes
 % }

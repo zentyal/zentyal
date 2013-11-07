@@ -224,11 +224,6 @@ sub initialSetup
         # changes, so this default could be set to the hostname
         $self->set_string(BOUNCE_ADDRESS_KEY, BOUNCE_ADDRESS_DEFAULT);
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 sub _serviceRules
@@ -1193,13 +1188,12 @@ sub _dovecotService
     return 1;
 }
 
-sub _regenConfig
+sub _preSetConf
 {
     my ($self) = @_;
 
     return unless $self->configured();
 
-    $self->_preSetConfHook();
     if ($self->service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
@@ -1207,8 +1201,6 @@ sub _regenConfig
     }
 
     $self->greylist()->writeUpstartFile();
-    $self->_enforceServiceState();
-    $self->_postSetConfHook();
 }
 
 # Method: service

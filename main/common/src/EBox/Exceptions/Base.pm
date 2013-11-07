@@ -68,10 +68,20 @@ sub _logfunc # (logger, msg)
 
 sub log
 {
-    my $self = shift;
+    my ($self) = @_;
+    if ($self->{silent}) {
+        return;
+    }
+
     my $log = EBox::logger();
     $Log::Log4perl::caller_depth +=3;
-    $self->_logfunc($log, $self->stacktrace()) unless $self->{silent};
+    my $stacktrace = $self->stacktrace();
+    if ($stacktrace =~ m/^\s*EBox::.*Auth::.*$/m) {
+        # only log first line,  to avoid reveal passwords
+        $stacktrace  = (split "\n", $stacktrace)[0];
+    }
+
+    $self->_logfunc($log, $stacktrace);
     $Log::Log4perl::caller_depth -=3;
 }
 

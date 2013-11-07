@@ -110,7 +110,7 @@ Number.prototype.toTimeDiffString = function() {
     var h = Math.floor(d / 3600);
     var m = Math.floor(d % 3600 / 60);
     var s = Math.floor(d % 3600 % 60);
-    return ((h > 0 ? h + " h " : "") + (m > 0 ? + m + " m " : (s > 0 ? "0 m" : "")) + (s > 0 ? + s + " s" : ""));
+    return ((h > 0 ? h + " h " : "") + (m > 0 ? + m + " m " : (s > 0 ? "0 m " : "")) + (s > 0 ? + s + " s" : ""));
 };
 
 function getBytesPerSec(bps, axis) {

@@ -33,7 +33,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use EBox::SquidFirewall;
+use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
 use EBox::Squid::Types::ListArchive;
@@ -131,11 +131,6 @@ sub initialSetup
         # Allow clients to browse Internet by default
         $self->model('AccessRules')->add(source => { any => undef },
                                          policy => { allow => undef });
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
     }
 }
 
@@ -628,8 +623,6 @@ sub _writeSquidConf
     my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $dn = $users->ldap()->dn();
-
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
@@ -644,7 +637,13 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
-    push @writeParam, ('dn' => $dn);
+
+    if (not $kerberos) {
+        my $ldap = $users->ldap();
+        push @writeParam, ('dn'       => $ldap->dn());
+        push @writeParam, ('roDn'     => $ldap->roRootDn());
+        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+    }
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
@@ -1036,7 +1035,7 @@ sub firewallHelper
     my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
-        return new EBox::SquidFirewall(ro => $ro);
+        return new EBox::Squid::Firewall(ro => $ro);
     }
 
     return undef;

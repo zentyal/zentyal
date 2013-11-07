@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Auth;
-use base qw(EBox::ThirdParty::Apache2::AuthCookie);
+use base qw(Apache2::AuthCookie);
 
 use EBox;
 use EBox::CGI::Run;
@@ -244,7 +244,9 @@ sub loginCC
                 return HTTP_MOVED_TEMPORARILY;
             }
         }
-        return EBox::CGI::Run->run('/Login/Index', 'EBox');
+        EBox::initLogger('eboxlog.conf');
+        EBox::CGI::Run->run('/Login/Index', 'EBox');
+        return OK;
     }
 }
 

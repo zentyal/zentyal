@@ -1,65 +1,93 @@
 <%args>
-    $selectedServer => 'foobar'
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+<div id="messages"></div>
 <div class="item-block">
     <h3><% __('Select origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
             <h6><% __('This wizard helps you to migrate users data from any server to this zentyal server') %></h6>
         </div>
-        <div class="half-width">
-            <form class="formDiv">
-                <h4><% __('Enter origin server name') %></h4>
-                <p class="details"><% __('Enter server Fully qualified domain name or IP address') %></p>
-                <input id="server" type="text" class="input-full-width" placeholder="servername.company.net or XXX.XXX.XXX.XXX"/>
+        <form class="formDiv">
+            <div class="half-width">
+                    <h4><% __('Enter origin server name') %></h4>
+                    <p class="details"><% __('Enter server Fully qualified domain name or IP address') %></p>
+                    <input id="server" type="text" class="input-full-width" placeholder="servername.company.net or XXX.XXX.XXX.XXX"/>
 
-                <div id="credentials">
-                    <h4><% __('Credential for') %> <span class="orange"><% $selectedServer %></span></h4>
-                    <p><% __('You need Admin profile user and password to be able to access this server') %></p>
-                    <label for="username"><% __('Admin user') %></label>
-                    <input type="text" id="username" placeholder="username">
-                    <label for="password"><% __('Admin password') %></label>
-                    <input type="password" id="password" placeholder="***">
+                    <div id="credentials">
+                        <h4><% __('Credential for origin server') %></h4>
+                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
+                        <label for="username-origin"><% __('Admin user') %></label>
+                        <input type="text" id="username-origin" placeholder="username">
+                        <label for="password-origin"><% __('Admin password') %></label>
+                        <input type="password" id="password-origin" placeholder="***">
+                    </div>
+            </div>
+            <div class="half-width">
+                <h4><% __('Available servers') %></h4>
+                <ul id="server-list" class="server-list">
+                    <li><span>Loading servers...</span></li>
+                </ul>
+                <script type="text/javascript" src="/data/js/openchange.js"></script>
+                <script>
+                    $(document).ready(
+                        function() {
+                            Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
+                        }
+                    );
+                </script>
+                <div id="credentials-local">
+                        <h4><% __('Credential for local server') %></h4>
+                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
+                        <label for="username-local"><% __('Admin user') %></label>
+                        <input type="text" id="username-local" placeholder="username">
+                        <label for="password-local"><% __('Admin password') %></label>
+                        <input type="password" id="password-local" placeholder="***">
                 </div>
-            </form>
-        </div>
-        <div class="half-width">
-            <h4><% __('Available servers') %></h4>
-            <ul id="server-list" class="server-list">
-                <li><span>Loading servers...</span></li>
-            </ul>
-            <script type="text/javascript" src="/data/js/openchange.js"></script>
-            <script type="text/javascript">
-                $("#credentials").hide();
-                Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
-            </script>
-        </div>
+            </div>
+        </form>
         <div class="bottom-block">
             <button id="connect_button" class="btn btn-green">CONNECT</button>
             <script type="text/javascript">
                 $("#connect_button").click(function() {
                     var serverStr =  $("#server").val();
+                    var usernameOriginStr = $("#username-origin").val();
+                    var passwordOriginStr = $("#password-origin").val();
+                    var usernameLocalStr = $("#username-local").val();
+                    var passwordLocalStr = $("#password-local").val();
+
                     if (serverStr.length <= 0) {
                         alert("Server required");
+                    } else if (usernameOriginStr.length <= 0) {
+                        alert("Origin username required");
+                    } else if (passwordOriginStr.length <= 0) {
+                        alert("Origin password required");
+                    } else if (usernameLocalStr.length <= 0) {
+                        alert("Local username required");
+                    } else if (passwordLocalStr.length <= 0) {
+                        alert("Local password required");
                     } else {
                         $.ajax({
                             type: "POST",
-                            url: '/OpenChange/ConnectToServer',
+                            url: '/OpenChange/Migration/ConnectToServer',
                             dataType: 'json',
                             data: {
                                 server: serverStr,
+                                'username-origin': usernameOriginStr,
+                                'password-origin': passwordOriginStr,
+                                'username-local': usernameLocalStr,
+                                'password-local': passwordLocalStr
                             },
                             success: function(data, textStatus) {
                                 if (data.success) {
                                     window.location.href = '/OpenChange/Migration/SelectMailBoxes';
                                 } else {
-                                    $("#credentials").show();
+                                    Zentyal.OpenChange.migrationMessage(data.error, 'error');
                                 }
                             },
                             error: function (jqXHR, textStatus, errorThrown) {
-                                alert(errorThrown);
+                                Zentyal.OpenChange.migrationMessage(errorThrown, 'error');
                             },
                         });
                     }

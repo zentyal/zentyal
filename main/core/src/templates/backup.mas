@@ -14,7 +14,7 @@ use EBox::Config;
   </div>
 % } else {
   <div class='adwarning'>
-        <% __sx('Register your Zentyal server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="http://store.zentyal.com/serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=conf.backup&utm_campaign=basic.subscription" target="_blank">', chref => '</a>') %>
+        <% __sx('{ohref}Register{chref} your Zentyal server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>
@@ -61,18 +61,18 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
 <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
-     var description= $('#backup_description').val();
+     var description= \$('#backup_description').val();
      var title = '$backupTitle: ' + description;
      var url = '/SysInfo/Backup';
      var data = 'description='  +  escape(description);
-     data += '&backup=1&popup=1'
+     data += '&backup=1&popup=1';
 
      Zentyal.Dialog.showURL(url, {title: title, data: data});
-     return false
+     return false;
 ENDJS
 </%perl>
-                                <input type='submit'
-                                <% $disabledAttr %> name='backup'
+                                <input type="submit"
+                                <% $disabledAttr %> name="backup"
                                 value="<% $backupTitle  %>"
                                 onclick="<% $backupOnClickJs %>"
                                 />

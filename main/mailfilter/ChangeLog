@@ -1,4 +1,6 @@
 3.3
+	+ Avoid call to mailfilter-ldap script from enableActions
+	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2

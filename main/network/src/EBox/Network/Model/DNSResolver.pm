@@ -13,16 +13,39 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Class: EBox::Network::Model::DNSResolver
-#
-# This model configures the DNS resolvers for the host. It allows to
-# set as many name servers as you want. The single field available is
-# the following one:
-#
-#    - nameserver
-#
 use strict;
 use warnings;
+
+# Class: EBox::Network::Model::DNSResolver
+#
+#   This model configures the DNS resolvers used by the system.
+#
+#   When the Zentyal DNS module is installed, configured and enabled, this
+#   model is disabled as Zentyal is used as the unique nameserver.
+#
+#   Since Ubuntu 12.04 the resolvconf framework is used to configure the
+#   DNS resolvers. The resolver configuration file (/etc/resolv.conf) is
+#   now a symlink to /var/run/resolvconf/resolv.conf, and the last one is
+#   generated dynamically based on the information in
+#   /var/run/resolvconf/interface/*
+#
+#   The order the files in /var/run/resolvoconf are added to the dynamically
+#   generated resolv.conf is defined by the file
+#   /etc/resolvconf/interface-order
+#
+#   Resolvconf is run by network configurers, like ifup, ifdown, pppd,
+#   dhclient and dnsmasq and provide to it nameserver information for each
+#   interface. For example, dhclient receives one or more nameserver addresses
+#   during its negotiation with the DHCP server; its hook script
+#   /etc/dhcp/dhclient-enter-hooks.d/resolvconf pushes this information
+#   to a new resolvconf interface file
+#   (/var/run/resolvconf/interface/eth0.dhclient for example) and triggers a
+#   resolvconf update.
+#
+#   The update process all nameservers information, stored in
+#   /var/run/resolvconf/interface and order the nameservers and search
+#   domains according to /etc/resolvconf/interface-order. Then the file
+#   /var/run/resolvconf/resolv.conf is updated.
 
 package EBox::Network::Model::DNSResolver;
 
@@ -31,6 +54,8 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
+use EBox::Types::Text;
+use Error qw( :try );
 
 # Dependencies
 
@@ -38,22 +63,21 @@ use EBox::Types::HostIP;
 
 # Constructor: new
 #
-#     Create the new DNS resolver table
+#   Create the new DNS resolver table
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::new>
+#   <EBox::Model::DataTable::new>
 #
 # Returns:
 #
-#     <EBox::Network::Model::DNSResolver> - the newly created object
-#     instance
+#   <EBox::Network::Model::DNSResolver> - the newly created object instance
 #
 sub new
 {
     my ($class, %opts) = @_;
     my $self = $class->SUPER::new(%opts);
-    bless ( $self, $class);
+    bless ($self, $class);
 
     return $self;
 }
@@ -64,124 +88,261 @@ sub new
 #
 # Overrides:
 #
-#     <EBox::Model::DataTable::_table>
+#   <EBox::Model::DataTable::_table>
 #
 sub _table
 {
     my ($self) = @_;
 
-    my $helpHostIP = __('IP address of the DNS server that Zentyal'.
-                        ' will use to resolve names.');
-    my @tableDesc =
-      (
-       new EBox::Types::HostIP(
-                               fieldName     => 'nameserver',
-                               printableName => __('Domain Name Server'),
-                               editable      => 1,
-                               unique        => 1,
-                               help          => $helpHostIP
-                              ),
-      );
+    my $helpHostIP = __('IP address of the DNS server that Zentyal ' .
+                        'will use to resolve names.');
+    my $tableDesc = [
+        new EBox::Types::HostIP(
+            fieldName       => 'nameserver',
+            printableName   => __('Domain Name Server'),
+            editable        => 1,
+            unique          => 1,
+            help            => $helpHostIP),
+        new EBox::Types::Text(
+            fieldName       => 'interface',
+            printableName   => __('Interface'),
+            editable        => 0,
+            optional        => 1,
+            hidden          => 1),
+    ];
 
     my $dataTable = {
-                     tableName          => 'DNSResolver',
-                     printableTableName => __('Domain Name Server Resolver List'),
-                     modelDomain        => 'Network',
-                     defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
-                     tableDescription   => \@tableDesc,
-                     class              => 'dataTable',
-                     help               => _help(),
-                     printableRowName   => __('name server'),
-                     order              => 1,
-                     insertPosition     => 'back',
-                    };
+        tableName          => 'DNSResolver',
+        printableTableName => __('Domain Name Server Resolver List'),
+        modelDomain        => 'Network',
+        defaultActions     => [ 'add', 'del', 'move', 'editField', 'changeView' ],
+        tableDescription   => $tableDesc,
+        class              => 'dataTable',
+        help               => $self->_help(),
+        printableRowName   => __('name server'),
+        order              => 1,
+        insertPosition     => 'back',
+    };
 
     return $dataTable;
 }
 
+# Method: _help
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::_help>
+#
 sub _help
 {
+    my ($self) = @_;
+
     return (__('<p>Here you can add the name server resolvers that Zentyal will ' .
                'use.</p>' .
                '<p>Note that these settings may be overriden if you have any ' .
                'network interface configured via DHCP</p>'));
 }
 
-sub replace
+# Method: addedRowNotify
+#
+#   This method is overrided to add the interface field, in case it is not
+#   provided.
+#
+#   When a nameserver is added from the resolvconf update script
+#   (/etc/resolvconf/update.d/zentyal-resolvconf), the interface field is
+#   populated with the value used by the network configurer daemon
+#   (ifup, ifdown, etc). Otherwise, we fill with the value "zentyal_<row id>"
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::addedRowNotify>
+#
+sub addedRowNotify
 {
-    my ($self, $pos, $newIP) = @_;
+    my ($self, $newRow) = @_;
 
-    my @ids = @{ $self->ids() };
-    if ($pos >= scalar @ids) {
-        throw EBox::Exceptions::Internal("Inexistent DNS resolver position $pos");
+    my $interfaceElement = $newRow->elementByName('interface');
+    my $interfaceValue = $interfaceElement->value();
+    unless (defined $interfaceValue and length $interfaceValue) {
+        my $rowId = $newRow->id();
+        $interfaceElement->setValue("zentyal.$rowId");
+        $newRow->store();
     }
-
-    my $id = $ids[$pos];
-    my $row = $self->row($id);
-    $row->elementByName('nameserver')->setValue($newIP);
-    $row->store();
-
 }
 
-# Method: syncRows
+# Method: precondition
 #
-#   Overrided to set localhost as primary nameserver if the DNS module is
-#   enabled.  This works because DNS module modChange network in enableService
+#   Check if the DNS module is installed and enabled. When this occurs, only
+#   the local DNS server is used so this model has no sense.
 #
-sub syncRows
+# Overrides:
+#
+#   <EBox::Model::DataTable::precondition>
+#
+sub precondition
 {
-    my ($self, $currentIds) = @_;
-    my $global = $self->global();
-    my $changed = 0;
+    my ($self) = @_;
 
-    my $add = 0;
-
-    my $firstId  = @{$currentIds}[0];
-    my $firstRow = $self->row($firstId);
-
-    # Set localhost as primary resolver if DNS is installed and enabled
-    if ($global->modExists('dns')) {
-        my $dnsModule = $global->modInstance('dns');
-        $add = 1 if $dnsModule->isEnabled();
+    if ($self->global->modExists('dns')) {
+        my $dnsModule = $self->global->modInstance('dns');
+        if ($dnsModule->configured() and $dnsModule->isEnabled()) {
+            # Do not disable if users module is external AD, Zentyal must use
+            # the AD server as primary resolver
+            if ($self->global->modExists('users')) {
+                my $usersModule = EBox::Global->modInstance('users');
+                my $mode = $usersModule->mode();
+                if ($mode eq EBox::Users::EXTERNAL_AD_MODE()) {
+                    return 1;
+                }
+            }
+            $self->{preconditionFail} = 'dnsModuleEnabled';
+            return undef;
+        }
     }
 
-    # Do not set readonly on primary resolver if users is configured to
-    # authenticate users against external AD, the AD server must be used
-    # as primary resolver instead localhost
-    if ($global->modExists('users')) {
-        my $users = $global->modInstance('users');
-        if ($users->isEnabled()) {
-            my $mode = $users->mode();
-            if ($mode eq $users->EXTERNAL_AD_MODE()) {
-                $add = 0;
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#   Show the precondition failure message
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    my $msg = __('Unknown');
+    if ($self->{preconditionFail} eq 'dnsModuleEnabled') {
+        $msg = __x('The Zentyal DNS module is installed and enabled, so only the local DNS server will be used to resolve the queries. ' .
+                  'The queries for which this server is not authoritative and does not have the answer in its cache will be sent to ' .
+                  'the {ohref}configured forwarders{chref} in first place, and if they does not answer the query root DNS servers will be used.',
+                  ohref => '<a href="/DNS/Composite/Global">',
+                  chref => '</a>');
+    }
+    return $msg;
+}
+
+# Group: Public methods
+
+# Method: getInterfaceResolvers
+#
+#   This method get the resolvconf configuration for a given interface.
+#
+# Returns:
+#
+#   A hash reference containing:
+#       interface - The interface file
+#       resolvers - An array reference containing the resolvers for this
+#                   interface
+#
+sub getInterfaceResolvconfConfig
+{
+    my ($self, $file) = @_;
+
+    my $entry = {
+        interface => $file,
+        resolvers => [],
+    };
+
+    # Change directory to /var/run/resolvconf/interface
+    my $path = '/var/run/resolvconf/interface';
+    unless (chdir $path) {
+        EBox::warn("Failed to chdir to $path");
+        return $entry;
+    }
+
+    my $fd;
+    unless (open ($fd, $file)) {
+        EBox::warn("Couldn't open $file");
+        return $entry;
+    }
+
+    for my $line (<$fd>) {
+        $line =~ s/^\s+//g;
+        my @toks = split (/\s+/, $line);
+        if ($toks[0] eq 'nameserver') {
+            push (@{$entry->{resolvers}}, $toks[1]);
+        }
+    }
+    close ($fd);
+
+    return $entry;
+}
+
+# Method: getSystemResolvers
+#
+#   This method gets the list of currently configured system resolvers in the
+#   same way resolvconf does. It gets the orderer list of resolvconf interface
+#   files and process them to get the list.
+#
+# Returns:
+#
+#   An array reference containing structures as returned by the method
+#   getInterfaceResolvconfConfig, one for each resolvconf file returned by
+#   the list-records helper script.
+#
+sub getSystemResolvers
+{
+    my ($self) = @_;
+
+    my $resolvers = [];
+    try {
+        # Change directory to /var/run/resolvconf/interface
+        my $path = '/var/run/resolvconf/interface';
+        unless (chdir $path) {
+            EBox::warn("Failed to chdir to $path");
+            return $resolvers;
+        }
+
+        # Call to /lib/resolvconf/list-records to get the list ordered by
+        # the rules in /etc/resolvconf/interface-order
+        my $files = `/lib/resolvconf/list-records`;
+        my @files = split(/\n/, $files);
+
+        # Read each file and parse nameservers
+        foreach my $file (@files) {
+            my $entry = $self->getInterfaceResolvconfConfig($file);
+            push (@{$resolvers}, $entry);
+        }
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Failed to get the list of resolvconf resolvers: $error");
+    };
+
+    return $resolvers;
+}
+
+# Method: importSystemResolvers
+#
+#   This method populate the model with the currently configured system
+#   resolvers.
+#
+sub importSystemResolvers
+{
+    my ($self) = @_;
+
+    try {
+        my $resolvers = $self->getSystemResolvers();
+
+        # Populate the table with the obtained information
+        $self->removeAll(1);
+        foreach my $entry (@{$resolvers}) {
+            my $interface = $entry->{interface};
+            foreach my $nameserver (@{$entry->{resolvers}}) {
+                $self->addRow(interface => $interface,
+                    nameserver => $nameserver);
             }
         }
-    }
-
-    unless ($add) {
-        # Remove if it is configured as primary
-        if (defined $firstRow and $firstRow->valueByName('nameserver') eq '127.0.0.1') {
-            $self->removeRow($firstId);
-            $changed = 1;
-        }
-    }
-
-    if ($add and defined $firstRow and $firstRow->valueByName('nameserver') ne '127.0.0.1') {
-        # First delete to avoid duplicated value exception
-        foreach my $id (@{$currentIds}) {
-            my $row = $self->row($id);
-            if ($row->valueByName('nameserver') eq '127.0.0.1') {
-                $self->removeRow($id);
-                $changed = 1;
-            }
-        }
-        $self->table->{'insertPosition'} = 'front';
-        $self->addRow((nameserver => '127.0.0.1', readOnly => 1));
-        $self->table->{'insertPosition'} = 'back';
-        $changed = 1;
-    }
-
-    return $changed;
+    } otherwise {
+        my ($error) = @_;
+        EBox::error("Could not import system resolvers: $error");
+    } finally {
+        $self->table->{insertPosition} = 'back';
+    };
 }
 
 1;

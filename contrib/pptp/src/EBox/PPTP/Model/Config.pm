@@ -84,7 +84,7 @@ sub _table
              ),
          new EBox::Types::Host(
              fieldName => 'nameserver1',
-             printableName => __('Primay Nameserver'),
+             printableName => __('Primary Nameserver'),
              editable => 1,
              defaultValue  => $self->_primaryNS(),
              ),

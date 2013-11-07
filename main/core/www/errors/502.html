@@ -5,21 +5,14 @@
 <script src="/js/jquery-1.9.1.js" type="text/javascript"></script>
 <script>
 function checker() {
-    $.ajax({
-      type: "get",
-      url: '/',
-      success: function () {
+    $.ajax('/').done(function () {
         location.reload();
-      },
-      statusCode: {
-                    502: function () {
-                          setTimeout(checker, 1000);
-                    },
-                    403: function () {
-                          location.reload();
-                    }
-                   },
-      async: true
+    }).fail(function (jqXHR) {
+        if (jqXHR.status == 403) {
+            location.reload();
+        } else {
+            setTimeout(checker, 1000);
+        }
     });
 }
 

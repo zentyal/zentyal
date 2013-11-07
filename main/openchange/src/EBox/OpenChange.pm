@@ -59,7 +59,30 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-    unless ($version) {
+    $self->_migrateFormKeys();
+}
+
+# Migration of form keys to better names (between development versions)
+#
+# * Migrate redis keys from firstorganization to organizationname and firstorganizationunit to administrativegroup
+#
+sub _migrateFormKeys
+{
+    my ($self) = @_;
+    my @keys = ('openchange/conf/Provision/keys/form', 'openchange/ro/Provision/keys/form');
+
+    my $redis = $self->redis();
+    foreach my $key (@keys) {
+        my $value = $redis->get($key);
+        if (defined $value->{firstorganization}) {
+            $value->{organizationname} = $value->{firstorganization};
+            delete $value->{firstorganization};
+        }
+        if (defined $value->{firstorganizationunit}) {
+            $value->{administrativegroup} = 'First Administrative Group';
+            delete $value->{firstorganizationunit};
+        }
+        $redis->set($key, $value);
     }
 }
 
@@ -121,7 +144,6 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-    EBox::MyDBEngine->enableInnoDBIfNeeded();
 }
 
 sub _writeSOGoDefaultFile
@@ -178,7 +200,12 @@ sub _writeSOGoConfFile
     push (@{$array}, dbHost => '127.0.0.1');
     push (@{$array}, dbPort => 3306);
 
-    push (@{$array}, ldapBaseDN => $self->ldap->dn());
+    my $baseDN = $self->ldap->dn();
+    if (EBox::Config::boolean('openchange_disable_multiou')) {
+        $baseDN = "ou=Users,$baseDN";
+    }
+
+    push (@{$array}, ldapBaseDN => $baseDN);
     push (@{$array}, ldapBindDN => $self->ldap->roRootDn());
     push (@{$array}, ldapBindPwd => $self->ldap->getRoPassword());
     push (@{$array}, ldapHost => $self->ldap->LDAPI());
@@ -253,6 +280,7 @@ sub _setupSOGoDatabase
     my $dbHost = '127.0.0.1';
 
     my $db = EBox::DBEngineFactory::DBEngine();
+    $db->enableInnoDBIfNeeded();
     $db->sqlAsSuperuser(sql => "CREATE DATABASE IF NOT EXISTS $dbName");
     $db->sqlAsSuperuser(sql => "GRANT ALL ON $dbName.* TO $dbUser\@$dbHost " .
                                "IDENTIFIED BY \"$dbPass\";");

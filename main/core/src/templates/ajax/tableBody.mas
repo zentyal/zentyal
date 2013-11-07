@@ -191,7 +191,10 @@ if ($checkAllProperty) {
       }
       my $addRowMoveHandle;
       my @trClass = qw(border);
-      if ($row->readOnly) {
+      if ($row->disabled()) {
+        push (@trClass, 'ui-state-disabled');
+      }
+      if ($row->readOnly()) {
           push @trClass, 'readOnly';
       } elsif ($movableRows) {
          push @trClass, 'movableRow';
@@ -667,7 +670,7 @@ $page
                               $row->{id}
                             %>'>
 <%perl>
-      my $rowReadOnly = $row->readOnly()   ;
+      my $rowReadOnly = $row->readOnly();
 
       my $disabled = '';
       my ($edit, $edit_msg);

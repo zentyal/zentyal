@@ -91,6 +91,10 @@ use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
 use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
 
+use constant OBJECT_EXISTS => 1;
+use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
+
+
 sub _create
 {
     my $class = shift;
@@ -388,99 +392,8 @@ sub initialSetup
         $fw->saveConfigRecursive();
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
-
     # Execute initial-setup script
     $self->SUPER::initialSetup($version);
-}
-
-# Migration to 3.2
-#
-#  * Migrate current OpenLDAP schema to the new one in 3.2
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    return unless $self->configured();
-
-    my $ldap = $self->ldap;
-
-    # LDAP Backup.
-    my $backupDir = EBox::Config::conf . "backup-users-upgrade-to-32-" . time();
-    mkdir($backupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($backupDir);
-
-    # Load the new Zentyal LDAP schema tree.
-    EBox::info("Loading zentyal-users/zentyal.ldif");
-    $self->_loadSchema(EBox::Config::share() . 'zentyal-users/zentyal.ldif');
-
-    EBox::info("Applying rename from ZentyalGroup to ZentyalDistributionGroup");
-    # Create a new dump to apply manual changes.
-    my $tempBackupDir = EBox::Config::tmp . "backup-users-upgrade-to-32-" . time();
-    mkdir($tempBackupDir, 0700) or throw EBox::Exceptions::Internal("Could not create backup dir.");
-    $self->dumpConfig($tempBackupDir);
-
-    # Change all existing objects to use the new ZentyalDistributionGroup
-    EBox::Sudo::root('sed -i "s/zentyalGroup/zentyalDistributionGroup/g" ' . $tempBackupDir . '/data.ldif');
-    # Change the schema to use the new ZentyalDistributionGroup for members
-    EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
-    # Restore this modified backup.
-    $self->restoreConfig($tempBackupDir);
-
-    # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
-    my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
-
-    my %args = (
-        base => 'cn=schema,cn=config',
-        filter => "(objectClass=olcSchemaConfig)",
-        scope => 'sub',
-    );
-    my $result = $ldap->search(\%args);
-
-    for my $entry ($result->entries) {
-        if($entry->get_value('cn') =~ m/rfc2307bis/) {
-            EBox::info("Migrating " . $entry->dn() . " schema");
-            my $ldif = Net::LDAP::LDIF->new($newSchema, "r", onerror => 'undef' );
-            defined($ldif) or throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
-
-            if (not $ldif->eof()) {
-                my $newEntry = $ldif->read_entry();
-                if ($ldif->error()) {
-                    throw EBox::Exceptions::Internal("Can't load LDIF file: $newSchema");
-                }
-                $entry->replace(olcObjectClasses => $newEntry->get_value('olcObjectClasses', asref => 1));
-                my $updateResult = $entry->update($ldap->connection());
-                if ($updateResult->is_error()) {
-                    EBox::error($updateResult->error());
-                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
-                }
-                if (not $ldif->eof()) {
-                    EBox::error("Found unexpected entries in $newSchema");
-                    throw EBox::Exceptions::Internal("Found and error while updating LDAP schema!");
-                }
-                $ldif->done();
-            }
-        }
-    }
-
-    # Add all users as members of __USERS__ so appear as members on LDAP and not just members because the gid is the one
-    # for __USERS__.
-    my $usersGroup = new EBox::Users::Group(gid => DEFAULTGROUP);
-    foreach my $user (@{$usersGroup->usersNotIn(1)}) {
-        $usersGroup->addMember($user, 1);
-    }
-    $usersGroup->save();
-
-    foreach my $user (@{$self->users(1)}) {
-        $user->add('objectClass', 'shadowAccount');
-    }
-
-    $self->_overrideDaemons() if $self->configured();
 }
 
 sub setupKerberos
@@ -776,6 +689,8 @@ sub _setConf
 sub _setConfExternalAD
 {
     my ($self) = @_;
+
+    # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "users/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
 }
@@ -862,6 +777,20 @@ sub _setConfInternal
 
     @params = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@params);
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->mode() eq EXTERNAL_AD_MODE) {
+        # Update services keytabs
+        my $ldap = $self->ldap();
+        my @principals = @{ $ldap->externalServicesPrincipals() };
+        if (scalar @principals) {
+            $ldap->initKeyTabs();
+        }
+    }
 }
 
 # overriden to revoke slave removals
@@ -988,7 +917,7 @@ sub groupDn
     my ($self, $group) = @_;
     $group or throw EBox::Exceptions::MissingArgument('group');
 
-    my $dn = "cn=$group," . EBox::Users::Group::defaultContainer()->dn();
+    my $dn = "cn=$group," . EBox::Users::Group->defaultContainer()->dn();
     return $dn;
 }
 
@@ -1130,8 +1059,23 @@ sub userByUID
 sub userExists
 {
     my ($self, $uid) = @_;
-    return undef unless ($self->userByUID($uid));
-    return 1;
+    my $user = $self->userByUID($uid);
+    if (not $user) {
+        return undef;
+    }
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbUser)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: users
@@ -1348,8 +1292,24 @@ sub groupByName
 sub groupExists
 {
     my ($self, $name) = @_;
-    return undef unless ($self->groupByName($name));
-    return 1;
+    my $group = $self->groupByName($name);
+    if (not $group) {
+        return undef;
+    }
+
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbGroup = $samba->ldbObjectByObjectGUID($group->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbGroup)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: groups
@@ -1910,8 +1870,7 @@ sub slaves
 sub master
 {
     my ($self) = @_;
-    my $row = $self->model('Master')->row();
-    return $row->elementByName('master')->value();
+    return $self->model('Master')->master();
 }
 
 # SyncProvider implementation

@@ -45,10 +45,4 @@ sub new
     return $self;
 }
 
-sub _logfunc
-{
-    my ($self, $logger, $msg) = @_;
-    $logger->debug($msg);
-}
-
 1;

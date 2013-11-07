@@ -21,6 +21,7 @@ Zentyal.Dashboard.createSortableDashboard = function() {
      $('.dashboard').sortable({
                                   elements: '.widgetBox',
                                   placeholder: 'widgetPlaceholder',
+                                  handle: '.widgetHandle',
                                   dropOnEmpty: true,
                                   connectWith: '.dashboard',
                                   delay: 100,
@@ -389,7 +390,7 @@ Zentyal.Dashboard.updateWidget = function(widget) {
             if (!('items' in s)) {
                 continue;
             }
-            $.each(s.items, function(item,i) {
+            $.each(s.items, function(i, item) {
                 var itemname = sect + '_' + i;
                 var element = $('#' + Zentyal.escapeSelector(itemname));
                 if(item.type == 'value') {

@@ -1,4 +1,7 @@
 3.3
+	+ Fix error when initializing the framework without full environment (add
+	  the full path for id command)
+	+ Truncate stack traces in Auth modules to avoid reveal credentials
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2

@@ -309,6 +309,7 @@ sub _help
 #
 #   Overrides <EBox::Model::DataTable::precondition> to check if the server is
 #   properly configured if it is not we could not download any bundle file
+#   Also check that we have created
 #
 # Returns:
 #
@@ -318,7 +319,8 @@ sub precondition
 {
     my ($self) = @_;
 
-    my $configured;
+    my $addPreconditionMsg;
+    my $configured = 0;
     try {
         my $configuration = $self->row()->parentRow()->subModel('configuration');
         if ($configuration) {
@@ -328,9 +330,45 @@ sub precondition
         }
     } otherwise {
         my $ex = shift;
-        $self->{addPreconditionMsg} = "$ex";
+        $addPreconditionMsg = "$ex";
         $configured = 0;
     };
+
+    if (not $configured) {
+        my $msg = '<p>' . __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry') . '<p/>';
+        if ($addPreconditionMsg) {
+            $msg .= '<p>' . $addPreconditionMsg . '<p/>';
+        }
+        $self->{preconditionFailMsg} = $msg;
+        return 0;
+    }
+
+    my @certs = @{ $self->parentModule()->availableCertificates() };
+    if (@certs <= 1) {
+        $self->{preconditionFailMsg} = __x('There are not certificates available for this client. Please, {ohref}create one{chref}',
+                                           ohref => '<a href="/CA/Index">',
+                                           chref => '</a>'
+                                          );
+        return 0;
+    }
+
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#   Overrides <EBox::Model::DataTable::preconditionFailMsg
+#
+# Returns:
+#
+#       String - the i18ned message to inform user why this model
+#       cannot be handled
+#
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+    return $self->{preconditionFailMsg};
 }
 
 # Method: pageTitle
@@ -351,42 +389,20 @@ sub _defaultServerAddr
     return  EBox::OpenVPN::Server::ClientBundleGenerator->serverAddr($server, $self->parentModule()->isReadOnly());
 }
 
-# Method: preconditionFailMsg
-#
-#   Overrides <EBox::Model::DataTable::preconditionFailMsg
-#
-# Returns:
-#
-#       String - the i18ned message to inform user why this model
-#       cannot be handled
-#
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    my $msg = '<p>' . __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry') . '<p/>';
-
-    if ($self->{addPreconditionMsg}) {
-        $msg .= '<p>' . (delete $self->{addPreconditionMsg}) . '<p/>';
-    }
-
-    return $msg;
-}
-
 sub viewCustomizer
 {
     my ($self) = @_;
 
+    my @additionalAddresses = qw(addr2 addr3);
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     $customizer->setOnChangeActions(
            {
               clientType => {
-                  windows => { enable => ['installer'] },
-                  linux   => {disable => ['installer']},
-                  mac     => {disable => ['installer']},
-                  EBoxToEBox => {disable => ['installer', 'connStrategy']},
+                  windows =>    { show => \@additionalAddresses,enable => ['installer'] },
+                  linux   =>    { show => \@additionalAddresses, disable => ['installer']},
+                  mac     =>    { show=> \@additionalAddresses, disable => ['installer']},
+                  EBoxToEBox => { hide => \@additionalAddresses, disable => ['installer', 'connStrategy' ]},
                  }
            }  );
     return $customizer;

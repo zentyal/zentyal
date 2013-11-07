@@ -343,7 +343,7 @@ $rcmail_config['ldap_public']['activeDirectory'] = array(
     'user_specific' => true,
     'base_dn' => 'cn=Users,%dc',
     'bind_dn' => '%fu',
-    'filter' => '(&(objectClass=user)(!(isCriticalSystemObject=*)))',
+    'filter' => '(&(objectClass=user)(!(isCriticalSystemObject=*))(homeMDB=*))',
     'writable' => false,
 
     'fieldmap' => array(

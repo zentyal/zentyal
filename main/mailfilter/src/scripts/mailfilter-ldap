@@ -11,46 +11,8 @@ use EBox::Users::User;
 
 sub update
 {
-    my $users =  EBox::Global->modInstance('users');
-
-    my $container = EBox::Users::User->defaultContainer();
-    my @controlUsers = (
-        {
-            uid => 'spam',
-            givenname => 'Spam',
-            surname  => 'spam',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-        {
-            uid => 'ham',
-            givenname => 'Ham',
-            surname => 'ham',
-            parent => $container,
-            isSystemUser => 1,
-            isInternal => 1,
-        },
-    );
-
-    foreach my $user_r (@controlUsers) {
-        my $username = $user_r->{uid};
-        my $user = new EBox::Users::User(uid => $username);
-        unless ($user->exists()) {
-            EBox::debug("Creating user '$username'");
-            EBox::Users::User->create(%$user_r);
-        } else {
-            unless ($user->isSystem()) {
-                die $user->name() . " is not a system user as it has to be";
-            }
-        }
-    }
-
-    my $vdomainMailfilter = new EBox::MailFilter::VDomainsLdap;
-    my @vdomains = _vdomains();
-    foreach my $vdomain (@vdomains) {
-        $vdomainMailfilter->_addVDomain($vdomain);
-    }
+    my $mailfilter = EBox::Global->modInstance('mailfilter');
+    $mailfilter->_ldapSetup();
 }
 
 

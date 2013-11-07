@@ -159,7 +159,8 @@ sub _getTicketUsingKeytab
     }
 
     # Try to get ticket
-    if (kinit($keytab, "$principal\@$realm") == 1) {
+    my $ret = kinit($keytab, "$principal\@$realm");
+    if (defined $ret and $ret == 1) {
         return;
     } elsif ($retry) {
         # Something was wrong, maybe the password has changed and the keytab
@@ -222,6 +223,7 @@ sub _extractKeytab
     my $ownerGroup = EBox::Config::group();
 
     my @cmds;
+    push (@cmds, "rm -f '$keytab'");
     push (@cmds, "samba-tool domain exportkeytab '$keytab' " .
                  "--principal='$principal\@$realm'");
     push (@cmds, "chown '$ownerUser:$ownerGroup' '$keytab'");

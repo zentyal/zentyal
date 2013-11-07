@@ -7,5 +7,42 @@ shared-network <% $iface %> {
    iface => $iface
 &>
 
+%# TODO: Remove this when more than one config per interface is possible
+<& .thin_client_options, options => $ifaces{$iface}->{'options'} &>
+
 <& subnet.mas, info => $ifaces{$iface} &>
 }
+
+<%doc>
+  Print out the thin client options
+# TODO: Restore this when more than one config per interface is possible
+</%doc>
+<%def .thin_client_options>
+<%args>
+  %options
+</%args>
+% if (values(%options) > 0) {
+%   if ($options{nextServerIsZentyal}) {
+%       if ($options{nextServer}) {
+                next-server <% $options{nextServer} %>;
+                option tftp-server-name "<% $options{nextServer} %>";
+%       }
+                option root-path "/opt/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>";
+                if substring( option vendor-class-identifier, 0, 9 ) = "PXEClient" {
+                    filename "/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>/pxelinux.0";
+                } else {
+                    filename "/ltsp/<% ($options{fat}?'fat-':'') %><% $options{architecture} %>/nbi.img";
+                }
+%   }
+%   else {
+%       if ($options{nextServer}) {
+                next-server <% $options{nextServer} %>;
+                option tftp-server-name "<% $options{nextServer} %>";
+%       }
+%       if ( $options{filename} ) {
+                filename    "<% $options{filename} %>";
+%       }
+%   }
+% }
+</%def>
+

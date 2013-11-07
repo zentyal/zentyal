@@ -961,40 +961,4 @@ sub usesPort
     return $port == $self->port();
 }
 
-# Method: initialSetup
-#
-# Overrides:
-#
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        # Perform the migration to 3.2
-        $self->_migrateTo32();
-    }
-}
-
-# Migration to 3.2
-#
-#  * Migrate redis keys from apache to webadmin
-#
-sub _migrateTo32
-{
-    my ($self) = @_;
-
-    my $redis = $self->redis();
-    my @keys = $redis->_keys('apache/*');
-    foreach my $key (@keys) {
-        my $value = $redis->get($key);
-        my $newkey = $key;
-        $newkey =~ s{^apache}{webadmin};
-        $redis->set($newkey, $value);
-    }
-    $redis->unset(@keys);
-}
-
 1;

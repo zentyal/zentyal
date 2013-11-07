@@ -47,34 +47,22 @@ sub new
 sub masonParameters
 {
     my @params;
-    push(@params, totalData => 342342234); # Data in bytes
-    push(@params, mailboxes => [
-        {
-            name     => 'Gutierres Vals, Javier',
-            username => 'jvals',
-            total    => 23232321, # Data in bytes
-           },
-        {
-            name     => 'The Offspring',
-            username => 'the-offspring',
-            total    => 2327882321, # Data in bytes
-        },
-        {
-            name     => 'Arctic Monkeys',
-            username => 'arctic-monkeys',
-            total    => 234332121, # Data in bytes
-        },
-        {
-            name     => 'I wanna be yours',
-            username => 'i-wanna-be-yours',
-            total    => 2343621, # Data in bytes
-        },
-        {
-            name     => 'Mercromina',
-            username => 'mercromina',
-            total    => 232365121, # Data in bytes
-        },
-       ]);
+
+    my $oc = EBox::Global->modInstance('openchange');
+    my $state = $oc->get_state();
+    my $users = $state->{migration_users};
+
+    my $mailboxes = [];
+    foreach my $user (@{$users}) {
+        push (@{$mailboxes}, {
+            name => $user->{name},
+            username => $user->{name},
+            total => 0,});
+    }
+
+    push (@params, totalData => 0); # Data in bytes
+    push (@params, mailboxes => $mailboxes);
+
     return \@params;
 }
 

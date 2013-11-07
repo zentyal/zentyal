@@ -1,13 +1,15 @@
 <%doc>
-This template is used to get the migration details before going to the other section
+    This template is used to get the migration details before going to the
+    other section
 </%doc>
 <%args>
-  $server
-  $serverIP
+    $server
+    $serverIP
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+<script type="text/javascript" src="/data/js/format.js"></script>
 <script type="text/javascript" src="/data/js/openchange.js"></script>
 <div id="messages"></div>
 <div class="item-block">

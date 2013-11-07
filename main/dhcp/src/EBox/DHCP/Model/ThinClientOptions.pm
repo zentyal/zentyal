@@ -179,7 +179,7 @@ sub _table
 
     my $dataTable = {
                     tableName          => 'ThinClientOptions',
-                    printableTableName => __('Thin client'),
+                    printableTableName => __('Thin client / External TFTP-Server'),
                     modelDomain        => 'DHCP',
                     defaultActions     => [ 'add', 'del', 'editField', 'changeView' ],
                     tableDescription   => \@tableDesc,

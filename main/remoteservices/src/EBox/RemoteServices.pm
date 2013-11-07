@@ -48,8 +48,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::GlobalImpl;
 use EBox::Service;
-use EBox::RemoteServices::Audit::Password;
 use EBox::RemoteServices::AdminPort;
+use EBox::RemoteServices::Audit::Password;
+use EBox::RemoteServices::Auth;
 use EBox::RemoteServices::Backup;
 use EBox::RemoteServices::Bundle;
 use EBox::RemoteServices::Capabilities;
@@ -2365,6 +2366,11 @@ sub cloudDomain
     }
 
     unless ( defined($self->{cloudDomain}) ) {
+        # we need to check credError beause this method is used for referer check
+        my $credError = EBox::RemoteServices::Cred->credentialsFileError($self->eBoxCommonName());
+        if ($credError) {
+            return undef;
+        }
         $self->{cloudDomain} = EBox::RemoteServices::Cred->new()->cloudDomain();
     }
     return $self->{cloudDomain};

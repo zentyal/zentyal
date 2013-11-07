@@ -1,4 +1,7 @@
 3.3
+	+ Delete migration code from old versions
+	+ Fixed regression which broke DHCP next-server options being written
+	  to config (Contributed by on-jz)
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
