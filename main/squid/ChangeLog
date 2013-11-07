@@ -1,4 +1,4 @@
-HEAD
+3.2.1
 	+ Transparent proxy redirection for openvpn servers' clients
 	+ Moved EBox::SquidFirewall to EBox::Squid::Firewall
 	+ Avoid error in access rules model when using external AD and
