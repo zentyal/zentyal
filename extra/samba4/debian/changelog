@@ -1,3 +1,9 @@
+samba4 (4.1.0rc4-zentyal5) precise; urgency=low
+
+  * Improve init script
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 07 Nov 2013 18:07:15 +0100
+
 samba4 (4.1.0rc4-zentyal4) precise; urgency=low
 
   * Improve VFS scannedonly memory management
