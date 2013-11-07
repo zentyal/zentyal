@@ -1,5 +1,5 @@
-HEAD
-	+ Fixed regression which broke DHCP next-server options being written 
+3.2.1
+	+ Fixed regression which broke DHCP next-server options being written
 	  to config (Contributed by on-jz)
 3.2
 	+ Set version to 3.2

@@ -1,4 +1,4 @@
-HEAD
+3.2.3
 	+ Write resolvconf head, base and tail
 	+ Set proper file name for HTTP proxy configuration for APT
 	+ Set HTTP proxy wide settings in /etc/environment

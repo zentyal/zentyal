@@ -1,6 +1,11 @@
 HEAD
 	+ Improve GPO models preconditions to avoid cannot connect to samba
 	  LDAP
+	+ Fix regression in unmanaged ACLs option
+3.2.8
+	+ Prevent _postServiceHook code execution outside Save Changes
+	+ Fixed openLDAP -> samba integration for users, contacts and groups using
+	  non ascii characters
 	+ Check for acl and user_xattr mount options when adding system shares
 3.2.7
 	+ Depend on new samba4 version that fixes 0-byte size problems
