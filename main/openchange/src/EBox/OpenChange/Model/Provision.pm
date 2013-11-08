@@ -271,13 +271,14 @@ sub _doProvisionAdditional
             $cmd .= ' --primary-server ';
         }
         my $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+        $output = join('', @{$output});
 
         $cmd = '/opt/samba4/sbin/openchange_provision --openchangedb';
-        $output = EBox::Sudo::root($cmd);
-        EBox::debug(join('', @{$output}));
+        my $output2 = EBox::Sudo::root($cmd);
+        $output .= "\n" . join('', @{$output2});
 
         $self->parentModule->setProvisioned(1);
+        EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
     } otherwise {
         my ($error) = @_;
