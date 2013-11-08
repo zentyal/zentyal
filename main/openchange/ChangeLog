@@ -1,4 +1,5 @@
 HEAD
+	+ Added a way to retrieve existing Organization Names
 	+ Use ou=Users as baseDN in sogo.conf if openchange_disable_multiou=yes
 	+ Changed field names to use the same terminology on Exchange
 	  installations

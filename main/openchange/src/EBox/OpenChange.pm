@@ -22,8 +22,11 @@ use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Gettext;
 use EBox::Config;
-use EBox::OpenChange::LdapUser;
 use EBox::DBEngineFactory;
+use EBox::OpenChange::LdapUser;
+use EBox::OpenChange::ExchConfigurationContainer;
+use EBox::OpenChange::ExchOrganizationContainer;
+
 use String::Random;
 
 use constant SOGO_PORT => 20000;
@@ -344,6 +347,61 @@ sub _sogoDbPass
     }
 
     return $self->{sogo_db_password};
+}
+
+# Method: configurationContainer
+#
+#   Return the ExchConfigurationContainer object that models the msExchConfigurationConainer entry for this
+#   installation.
+#
+# Returns:
+#
+#   EBox::OpenChange::ExchConfigurationContainer object.
+#
+sub configurationContainer
+{
+    my ($self) = @_;
+
+    my $sambaMod = $self->global->modInstance('samba');
+    my $defaultNC = $sambaMod->ldb()->dn();
+    my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
+
+    my $object = new EBox::OpenChange::ExchConfigurationContainer(dn => $dn);
+    if ($object->exists) {
+        return $object;
+    } else {
+        return undef;
+    }
+}
+
+# Method: organizations
+#
+#   Return a list of ExchOrganizationContainer objects that belong to this installation.
+#
+# Returns:
+#
+#   An array reference of ExchOrganizationContainer objects.
+#
+sub organizations
+{
+    my ($self) = @_;
+
+    my $list = [];
+    my $sambaMod = $self->global->modInstance('samba');
+
+    my $params = {
+        base => $self->configurationContainer()->dn(),
+        scope => 'one',
+        filter => '(objectclass=msExchOrganizationContainer)',
+        attrs => ['*'],
+    };
+    my $result = $sambaMod->ldb()->search($params);
+    foreach my $entry ($result->sorted('cn')) {
+        my $organization = new EBox::OpenChange::ExchOrganizationContainer(entry => $entry);
+        push (@{$list}, $organization);
+    }
+
+    return $list;
 }
 
 1;
