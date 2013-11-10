@@ -1,4 +1,10 @@
 HEAD
+	+ Extract the list of existing organization names from AD for better user
+	  experience
+	+ Removed the selector of Administrative Group using the default one for
+	  existing organizations and falling back to the default 'First
+	  Administrative Group' for new installations. Exchange 2007 deprecated
+	  those kind of groups
 	+ Added a way to retrieve existing Organization Names
 	+ Use ou=Users as baseDN in sogo.conf if openchange_disable_multiou=yes
 	+ Changed field names to use the same terminology on Exchange

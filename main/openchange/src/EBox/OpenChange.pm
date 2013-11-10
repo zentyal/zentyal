@@ -78,12 +78,20 @@ sub _migrateFormKeys
     foreach my $key (@keys) {
         my $value = $redis->get($key);
         if (defined $value->{firstorganization}) {
-            $value->{organizationname} = $value->{firstorganization};
+            $value->{organizationname_selected} = 'neworganizationname';
+            $value->{neworganizationname} = $value->{firstorganization};
             delete $value->{firstorganization};
         }
+        if (defined $value->{organizationname}) {
+            $value->{organizationname_selected} = 'neworganizationname';
+            $value->{neworganizationname} = $value->{organizationname};
+            delete $value->{organizationname};
+        }
         if (defined $value->{firstorganizationunit}) {
-            $value->{administrativegroup} = 'First Administrative Group';
             delete $value->{firstorganizationunit};
+        }
+        if (defined $value->{administrativegroup}) {
+            delete $value->{administrativegroup};
         }
         $redis->set($key, $value);
     }

@@ -31,4 +31,13 @@ sub mainObjectClass
     return 'msExchOrganizationContainer';
 }
 
+# Method: name
+#
+sub name
+{
+    my ($self) = @_;
+
+    return $self->get('cn');
+}
+
 1;
