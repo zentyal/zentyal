@@ -1,7 +1,5 @@
-Index: samba/source3/modules/vfs_scannedonly.c
-===================================================================
---- samba.orig/source3/modules/vfs_scannedonly.c	2013-01-15 17:29:56.097867062 +0100
-+++ samba/source3/modules/vfs_scannedonly.c	2013-01-15 17:30:30.929867300 +0100
+--- a/source3/modules/vfs_scannedonly.c
++++ b/source3/modules/vfs_scannedonly.c
 @@ -311,28 +311,55 @@
  	}
  }
@@ -34,7 +32,8 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	} else {
 -		tmp = (const char *)scanfile;
 +		tmp = (char *)scanfile;
-+	}
+ 	}
+-	tmplen = strlen(tmp);
 +	prefix = zavs_prefix(ctx, handle->conn);
 +	if (!prefix) {
 +		return;
@@ -43,8 +42,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
 +	if (!msg) {
 +		TALLOC_FREE(prefix);
 +		return;
- 	}
--	tmplen = strlen(tmp);
++	}
 +
 +	msglen = strlen(msg);
  	gsendlen = strlen(so->gsendbuffer);

@@ -1,7 +1,5 @@
-Index: samba/source3/modules/wscript_build
-===================================================================
---- samba.orig/source3/modules/wscript_build	2012-12-04 13:31:41.000000000 +0100
-+++ samba/source3/modules/wscript_build	2012-12-04 15:34:57.676300584 +0100
+--- a/source3/modules/wscript_build
++++ b/source3/modules/wscript_build
 @@ -50,7 +50,7 @@
  VFS_LINUX_XFS_SGID_SRC = 'vfs_linux_xfs_sgid.c'
  VFS_TIME_AUDIT_SRC = 'vfs_time_audit.c'
@@ -11,7 +9,7 @@ Index: samba/source3/modules/wscript_build
  
  bld.SAMBA3_SUBSYSTEM('NFS4_ACLS',
                      source='nfs4_acls.c',
-@@ -481,6 +481,14 @@
+@@ -485,6 +485,14 @@
                   internal_module=bld.SAMBA3_IS_STATIC_MODULE('vfs_dfs_samba4') and bld.AD_DC_BUILD_IS_ENABLED(),
                   enabled=bld.SAMBA3_IS_ENABLED_MODULE('vfs_dfs_samba4') and bld.AD_DC_BUILD_IS_ENABLED())
  
@@ -26,10 +24,8 @@ Index: samba/source3/modules/wscript_build
  PERFCOUNT_TEST_SRC = 'perfcount_test.c'
  
  bld.SAMBA3_SUBSYSTEM('perfcount',
-Index: samba/source3/wscript
-===================================================================
---- samba.orig/source3/wscript	2012-12-04 13:32:34.000000000 +0100
-+++ samba/source3/wscript	2012-12-04 15:37:11.452295862 +0100
+--- a/source3/wscript
++++ b/source3/wscript
 @@ -26,6 +26,7 @@
      opt.SAMBA3_ADD_OPTION('swat')
      opt.SAMBA3_ADD_OPTION('ads', default=None) # None means autodetection
@@ -38,7 +34,7 @@ Index: samba/source3/wscript
      opt.SAMBA3_ADD_OPTION('cups', with_name="enable", without_name="disable")
      opt.SAMBA3_ADD_OPTION('iprint', with_name="enable", without_name="disable")
      opt.SAMBA3_ADD_OPTION('pam')
-@@ -634,6 +635,19 @@
+@@ -660,6 +661,19 @@
          conf.SET_TARGET_TYPE('ldap', 'EMPTY')
          conf.SET_TARGET_TYPE('lber', 'EMPTY')
  
@@ -58,7 +54,7 @@ Index: samba/source3/wscript
      if Options.options.with_ads == False:
          use_ads = False
          use_ads_krb5 = False
-@@ -1739,7 +1753,10 @@
+@@ -1766,7 +1780,10 @@
          default_static_modules.extend(TO_LIST('charset_macosxfs'))
  
      if conf.CONFIG_SET('HAVE_GPFS'):
@@ -68,5 +64,5 @@ Index: samba/source3/wscript
 +    if conf.CONFIG_SET('HAVE_ZAVS'):
 +        default_shared_modules.extend(TO_LIST('vfs_zavs'))
  
-     explicit_shared_modules = TO_LIST(Options.options.shared_modules, delimiter=',')
-     explicit_static_modules = TO_LIST(Options.options.static_modules, delimiter=',')
+     if conf.CONFIG_SET('SAMBA_FAM_LIBS'):
+         default_shared_modules.extend(TO_LIST('vfs_notify_fam'))

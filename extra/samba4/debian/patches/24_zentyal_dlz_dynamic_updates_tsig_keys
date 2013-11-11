@@ -1,7 +1,5 @@
-Index: samba/source4/dns_server/dlz_bind9.c
-===================================================================
---- samba.orig/source4/dns_server/dlz_bind9.c	2012-11-19 12:29:14.325037917 +0100
-+++ samba/source4/dns_server/dlz_bind9.c	2012-11-19 12:31:57.349032162 +0100
+--- a/source4/dns_server/dlz_bind9.c
++++ b/source4/dns_server/dlz_bind9.c
 @@ -37,6 +37,7 @@
  #include "messaging/messaging.h"
  #include "lib/cmdline/popt_common.h"
@@ -19,7 +17,7 @@ Index: samba/source4/dns_server/dlz_bind9.c
  	struct ldb_context *samdb;
  	struct tevent_context *ev_ctx;
  	struct loadparm_context *lp;
-@@ -463,6 +466,7 @@
+@@ -464,6 +467,7 @@
  {
  	int opt;
  	poptContext pc;
@@ -27,7 +25,7 @@ Index: samba/source4/dns_server/dlz_bind9.c
  	struct poptOption long_options[] = {
  		{ "url", 'H', POPT_ARG_STRING, &options->url, 0, "database URL", "URL" },
  		{ "debug", 'd', POPT_ARG_STRING, &options->debug, 0, "debug level", "DEBUG" },
-@@ -483,6 +487,42 @@
+@@ -484,6 +488,42 @@
  	return ISC_R_SUCCESS;
  }
  
@@ -70,7 +68,7 @@ Index: samba/source4/dns_server/dlz_bind9.c
  
  /*
   * Create session info from PAC
-@@ -622,6 +662,11 @@
+@@ -623,6 +663,11 @@
  		lpcfg_do_global_parameter(state->lp, "log level", "0");
  	}
  
@@ -82,7 +80,7 @@ Index: samba/source4/dns_server/dlz_bind9.c
  	if (smb_krb5_init_context(state, state->ev_ctx, state->lp, &state->smb_krb5_ctx) != 0) {
  		result = ISC_R_NOMEMORY;
  		goto failed;
-@@ -1175,152 +1220,231 @@
+@@ -1176,152 +1221,231 @@
  	return ISC_R_SUCCESS;
  }
  
@@ -450,10 +448,8 @@ Index: samba/source4/dns_server/dlz_bind9.c
  /*
    add a new record
   */
-Index: samba/source4/dns_server/dlz_minimal.h
-===================================================================
---- samba.orig/source4/dns_server/dlz_minimal.h	2012-11-16 01:49:12.198839475 +0100
-+++ samba/source4/dns_server/dlz_minimal.h	2012-11-19 12:29:14.405037914 +0100
+--- a/source4/dns_server/dlz_minimal.h
++++ b/source4/dns_server/dlz_minimal.h
 @@ -22,6 +22,9 @@
    external DLZ driver, please copy this header into your own source
    tree.
@@ -501,10 +497,8 @@ Index: samba/source4/dns_server/dlz_minimal.h
  isc_result_t dlz_delrdataset(const char *name, const char *type, void *dbdata, void *version);
 +
 +#endif
-Index: samba/source4/dns_server/wscript_build
-===================================================================
---- samba.orig/source4/dns_server/wscript_build	2012-11-16 01:49:12.198839475 +0100
-+++ samba/source4/dns_server/wscript_build	2012-11-19 12:29:14.405037914 +0100
+--- a/source4/dns_server/wscript_build
++++ b/source4/dns_server/wscript_build
 @@ -12,7 +12,7 @@
  
  # a bind9 dlz module giving access to the Samba DNS SAM
@@ -532,10 +526,8 @@ Index: samba/source4/dns_server/wscript_build
                    cflags='-DBIND_VERSION_9_8',
                    private_library=True,
                    deps='samba-hostconfig samdb-common gensec popt',
-Index: samba/source4/dns_server/keys_parser.l
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/keys_parser.l	2012-11-19 12:29:14.405037914 +0100
+--- /dev/null
++++ b/source4/dns_server/keys_parser.l
 @@ -0,0 +1,88 @@
 +%{
 +#include "keys_parser.h"
@@ -625,10 +617,8 @@ Index: samba/source4/dns_server/keys_parser.l
 +    return 0;
 +}
 +#endif
-Index: samba/source4/dns_server/k_lexer.c
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/k_lexer.c	2012-11-19 12:29:14.409037914 +0100
+--- /dev/null
++++ b/source4/dns_server/k_lexer.c
 @@ -0,0 +1,2205 @@
 +#line 2 "k_lexer.c"
 +
@@ -2835,10 +2825,8 @@ Index: samba/source4/dns_server/k_lexer.c
 +}
 +#endif
 +
-Index: samba/source4/dns_server/k_lexer.h
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/k_lexer.h	2012-11-19 12:29:14.409037914 +0100
+--- /dev/null
++++ b/source4/dns_server/k_lexer.h
 @@ -0,0 +1,355 @@
 +#ifndef yyHEADER_H
 +#define yyHEADER_H 1
@@ -3195,10 +3183,8 @@ Index: samba/source4/dns_server/k_lexer.h
 +#line 354 "k_lexer.h"
 +#undef yyIN_HEADER
 +#endif /* yyHEADER_H */
-Index: samba/source4/dns_server/k_parser.c
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/k_parser.c	2012-11-19 12:29:14.409037914 +0100
+--- /dev/null
++++ b/source4/dns_server/k_parser.c
 @@ -0,0 +1,1851 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5051,10 +5037,8 @@ Index: samba/source4/dns_server/k_parser.c
 +    fprintf(stderr, "Error: %s\n", s);
 +}
 +
-Index: samba/source4/dns_server/k_parser.h
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/k_parser.h	2012-11-19 12:29:14.413037913 +0100
+--- /dev/null
++++ b/source4/dns_server/k_parser.h
 @@ -0,0 +1,86 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5142,10 +5126,8 @@ Index: samba/source4/dns_server/k_parser.h
 +
 +
 +
-Index: samba/source4/dns_server/keys_parser.h
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/keys_parser.h	2012-11-19 12:29:14.413037913 +0100
+--- /dev/null
++++ b/source4/dns_server/keys_parser.h
 @@ -0,0 +1,21 @@
 +#ifndef __KEYS_PARSER_H__
 +#define __KEYS_PARSER_H__
@@ -5168,10 +5150,8 @@ Index: samba/source4/dns_server/keys_parser.h
 +struct key_list *getAST(const char *fpath);
 +
 +#endif
-Index: samba/source4/dns_server/keys_parser.y
-===================================================================
---- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba/source4/dns_server/keys_parser.y	2012-11-19 12:29:14.413037913 +0100
+--- /dev/null
++++ b/source4/dns_server/keys_parser.y
 @@ -0,0 +1,203 @@
 +%{
 +#include <stdio.h>
@@ -5376,11 +5356,9 @@ Index: samba/source4/dns_server/keys_parser.y
 +void yyerror(yyscan_t scanner, struct key_list **kl, const char *s) {
 +    fprintf(stderr, "Error: %s\n", s);
 +}
-Index: samba/lib/param/param_table.c
-===================================================================
---- samba.orig/lib/param/param_table.c	2012-11-19 12:29:14.373037915 +0100
-+++ samba/lib/param/param_table.c	2012-11-19 12:29:14.413037913 +0100
-@@ -4224,6 +4224,24 @@
+--- a/lib/param/param_table.c
++++ b/lib/param/param_table.c
+@@ -4215,6 +4215,24 @@
  		.enum_list	= enum_dns_update_settings,
  		.flags		= FLAG_ADVANCED,
  	},
@@ -5405,10 +5383,8 @@ Index: samba/lib/param/param_table.c
  	{
  		.label		= "dns forwarder",
  		.type		= P_STRING,
-Index: samba/lib/param/loadparm.c
-===================================================================
---- samba.orig/lib/param/loadparm.c	2012-11-19 12:29:14.377037915 +0100
-+++ samba/lib/param/loadparm.c	2012-11-19 12:29:14.417037913 +0100
+--- a/lib/param/loadparm.c
++++ b/lib/param/loadparm.c
 @@ -1,4 +1,4 @@
 -/* 
 +/*
@@ -5460,7 +5436,7 @@ Index: samba/lib/param/loadparm.c
  					      (const char **)def_ptr);
  		case P_STRING:
  		case P_USTRING:
-@@ -2214,8 +2214,10 @@
+@@ -2223,8 +2223,10 @@
  	lpcfg_do_global_parameter(lp_ctx, "rndc command", "/usr/sbin/rndc");
  	lpcfg_do_global_parameter(lp_ctx, "nsupdate command", "/usr/bin/nsupdate -g");
  
@@ -5473,7 +5449,7 @@ Index: samba/lib/param/loadparm.c
  
      lpcfg_do_global_parameter(lp_ctx, "ldap privileged socket mode", "0750");
  
-@@ -2256,7 +2258,7 @@
+@@ -2265,7 +2267,7 @@
  /**
   * Initialise the global parameter structure.
   */
@@ -5482,7 +5458,7 @@ Index: samba/lib/param/loadparm.c
  					  const struct loadparm_s3_helpers *s3_fns)
  {
  	struct loadparm_context *loadparm_context = talloc_zero(mem_ctx, struct loadparm_context);
-@@ -2281,7 +2283,7 @@
+@@ -2290,7 +2292,7 @@
  }
  
  /**
@@ -5491,8 +5467,8 @@ Index: samba/lib/param/loadparm.c
   * have changed.
   */
  static bool lpcfg_update(struct loadparm_context *lp_ctx)
-@@ -2307,7 +2309,7 @@
- 	settings.timestamp_logs = true;
+@@ -2323,7 +2325,7 @@
+ 	settings.debug_class = lp_ctx->globals->bDebugClass;
  	debug_set_settings(&settings);
  
 -	/* FIXME: This is a bit of a hack, but we can't use a global, since 
@@ -5500,7 +5476,7 @@ Index: samba/lib/param/loadparm.c
  	 * not everything that uses lp also uses the socket library */
  	if (lpcfg_parm_bool(lp_ctx, NULL, "socket", "testnonblock", false)) {
  		setenv("SOCKET_TESTNONBLOCK", "1", 1);
-@@ -2325,7 +2327,7 @@
+@@ -2341,7 +2343,7 @@
      path = lp_default_path();
  
      if (!file_exist(path)) {
@@ -5509,10 +5485,8 @@ Index: samba/lib/param/loadparm.c
  	     * basically the equivalent of an empty file. */
  	    return lpcfg_update(lp_ctx);
      }
-Index: samba/lib/param/param.h
-===================================================================
---- samba.orig/lib/param/param.h	2012-11-16 01:49:12.198839475 +0100
-+++ samba/lib/param/param.h	2012-11-19 12:29:14.417037913 +0100
+--- a/lib/param/param.h
++++ b/lib/param/param.h
 @@ -1,24 +1,24 @@
 -/* 
 +/*
@@ -5583,10 +5557,8 @@ Index: samba/lib/param/param.h
  			     struct loadparm_context *lp_ctx,
  			     const char *name);
  
-Index: samba/lib/param/param_functions.c
-===================================================================
---- samba.orig/lib/param/param_functions.c	2012-11-19 12:29:14.377037915 +0100
-+++ samba/lib/param/param_functions.c	2012-11-19 12:29:14.417037913 +0100
+--- a/lib/param/param_functions.c
++++ b/lib/param/param_functions.c
 @@ -270,6 +270,8 @@
  FN_GLOBAL_INTEGER(afs_token_lifetime, iAfsTokenLifetime)
  FN_GLOBAL_INTEGER(algorithmic_rid_base, AlgorithmicRidBase)

@@ -1,7 +1,5 @@
-Index: samba/source3/modules/vfs_scannedonly.c
-===================================================================
---- samba.orig/source3/modules/vfs_scannedonly.c	2013-01-15 17:29:56.097867062 +0100
-+++ samba/source3/modules/vfs_scannedonly.c	2013-01-15 17:30:30.929867300 +0100
+--- a/source3/modules/vfs_scannedonly.c
++++ b/source3/modules/vfs_scannedonly.c
 @@ -50,6 +50,7 @@
  #include "includes.h"
  #include "smbd/smbd.h"
@@ -42,7 +40,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  #define SCANNEDONLY_DEBUG 9
  /*********************/
  /* utility functions */
-@@ -511,6 +541,7 @@
+@@ -511,6 +514,7 @@
  					   const char *mask, uint32 attr)
  {
  	DIR *DIRp;
@@ -50,7 +48,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	struct scannedonly_DIR *sDIR;
  
  	DIRp = SMB_VFS_NEXT_OPENDIR(handle, fname, mask, attr);
-@@ -518,7 +549,7 @@
+@@ -518,7 +522,7 @@
  		return NULL;
  	}
  
@@ -59,7 +57,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	if (fname[0] != '/') {
  		sDIR->base = construct_full_path(sDIR,handle, fname, true);
  	} else {
-@@ -528,7 +559,12 @@
+@@ -528,7 +532,12 @@
  			("scannedonly_opendir, fname=%s, base=%s\n",fname,sDIR->base));
  	sDIR->DIR = DIRp;
  	sDIR->recheck_tries_done = 0;
@@ -73,7 +71,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  }
  
  static DIR *scannedonly_fdopendir(vfs_handle_struct * handle,
-@@ -538,6 +574,7 @@
+@@ -538,6 +547,7 @@
  	DIR *DIRp;
  	struct scannedonly_DIR *sDIR;
  	const char *fname;
@@ -81,7 +79,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  
  	DIRp = SMB_VFS_NEXT_FDOPENDIR(handle, fsp, mask, attr);
  	if (!DIRp) {
-@@ -546,7 +583,7 @@
+@@ -546,7 +556,7 @@
  
  	fname = (const char *)fsp->fsp_name->base_name;
  
@@ -90,7 +88,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	if (fname[0] != '/') {
  		sDIR->base = construct_full_path(sDIR,handle, fname, true);
  	} else {
-@@ -556,7 +593,11 @@
+@@ -556,7 +566,11 @@
  			("scannedonly_fdopendir, fname=%s, base=%s\n",fname,sDIR->base));
  	sDIR->DIR = DIRp;
  	sDIR->recheck_tries_done = 0;
@@ -103,7 +101,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  }
  
  
-@@ -572,9 +613,12 @@
+@@ -572,9 +586,12 @@
  	int namelen;
  	struct dirent *newdirent;
  	TALLOC_CTX *ctx=talloc_tos();
@@ -119,7 +117,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  		return NULL;
  	}
  
-@@ -647,35 +691,20 @@
+@@ -647,35 +664,20 @@
  	return newdirent;
  }
  
@@ -164,7 +162,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	return retval;
  }
  
-@@ -837,6 +866,7 @@
+@@ -837,6 +839,7 @@
  static int scannedonly_unlink(vfs_handle_struct * handle,
  			      const struct smb_filename *smb_fname)
  {
@@ -172,7 +170,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	/* unlink the 'scanned' file too */
  	struct smb_filename *smb_fname_cache = NULL;
  	char * cachefile;
-@@ -848,10 +878,29 @@
+@@ -848,10 +851,29 @@
  		STRUCTSCANO(handle->data)->p_scanned);
  	create_synthetic_smb_fname(ctx, cachefile,NULL,NULL,
  				   &smb_fname_cache);
@@ -185,7 +183,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
 +			DEBUG(SCANNEDONLY_DEBUG, ("_unlink: failed to unlink %s\n",
 +						smb_fname_cache->base_name));
 +		}
- 	}
++	}
 +
 +	/* unlink the 'failed' file too */
 +	cachefile = cachefile_name_f_fullpath(
@@ -200,12 +198,12 @@ Index: samba/source3/modules/vfs_scannedonly.c
 +			DEBUG(0, ("_unlink: failed to unlink %s\n",
 +						smb_fname_cache->base_name));
 +		}
-+	}
+ 	}
 +
  	return SMB_VFS_NEXT_UNLINK(handle, smb_fname);
  }
  
-@@ -864,6 +913,7 @@
+@@ -864,6 +886,7 @@
  	TALLOC_CTX *ctx = talloc_tos();
  	bool only_deletable_files = true, have_files = false;
  	char *path_w_slash;
@@ -213,7 +211,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  
  	if (!STRUCTSCANO(handle->data)->rm_hidden_files_on_rmdir)
  		return SMB_VFS_NEXT_RMDIR(handle, path);
-@@ -930,12 +980,45 @@
+@@ -930,12 +953,45 @@
  		}
  	}
  	SMB_VFS_NEXT_CLOSEDIR(handle, dirp);
@@ -261,7 +259,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  }
  
  static int scannedonly_connect(struct vfs_handle_struct *handle,
-@@ -949,8 +1032,10 @@
+@@ -949,8 +1005,10 @@
  		errno = ENOMEM;
  		return -1;
  	}
@@ -274,7 +272,7 @@ Index: samba/source3/modules/vfs_scannedonly.c
  	so->gsendbuffer[0]='\0';
  	so->domain_socket =
  		lp_parm_bool(SNUM(handle->conn), "scannedonly",
-@@ -1024,9 +1109,6 @@
+@@ -1024,9 +1082,6 @@
  	.opendir_fn = scannedonly_opendir,
  	.fdopendir_fn = scannedonly_fdopendir,
  	.readdir_fn = scannedonly_readdir,
