@@ -1,4 +1,6 @@
 HEAD
+	+ Improve GPO models preconditions to avoid cannot connect to samba
+	  LDAP
 	+ Fix regression in unmanaged ACLs option
 3.2.8
 	+ Prevent _postServiceHook code execution outside Save Changes

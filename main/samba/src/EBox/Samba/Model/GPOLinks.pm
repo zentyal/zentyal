@@ -240,23 +240,44 @@ sub precondition
 {
     my ($self) = @_;
 
-    return $self->parentModule->configured();
+    unless ($self->parentModule->configured()) {
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
+    }
+
+    unless ($self->parentModule->isEnabled()) {
+        $self->{preconditionFail} = 'notEnabled';
+        return undef;
+    }
+
+    unless ($self->parentModule->isProvisioned()) {
+        $self->{preconditionFail} = 'notProvisioned';
+        return undef;
+    }
+
+    return 1;
 }
 
 # Method: preconditionFailMsg
 #
-# Check if the module is configured
+#   Check if the module is configured
 #
 # Overrides:
 #
-# <EBox::Model::Model::preconditionFailMsg>
+#   <EBox::Model::Model::preconditionFailMsg>
 #
 sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    return __('You must enable the File Sharing module in the module status ' .
-              'section in order to use it.');
+    if ($self->{preconditionFail} eq 'notConfigured' or
+        $self->{preconditionFail} eq 'notEnabled') {
+        return __('You must enable the File Sharing module in the module ' .
+                'status section in order to use it.');
+    }
+    if ($self->{preconditionFail} eq 'notProvisioned') {
+        return __('The domain has not been created yet.');
+    }
 }
 
 1;
