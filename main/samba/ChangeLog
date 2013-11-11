@@ -1,4 +1,4 @@
-HEAD
+3.2.9
 	+ Depend on the new Samba 4.1.1, also with fixed init script
 	+ Improve GPO models preconditions to avoid cannot connect to samba
 	  LDAP
