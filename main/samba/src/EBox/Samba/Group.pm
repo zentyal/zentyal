@@ -123,11 +123,11 @@ sub members
     my @membersDN = $self->get('member');
     foreach my $memberDN (@membersDN) {
         my $obj = new EBox::Samba::LdbObject(dn => $memberDN);
-	unless ($obj->exists()) {
-		EBox::warn("Samba group '$dn' contains a member '$memberDN' " .
-			   "that no longer exists, ignoring it.");
-		next;
-	}
+        unless ($obj->exists()) {
+            EBox::warn("Samba group '$dn' contains a member '$memberDN' " .
+                       "that no longer exists, ignoring it.");
+            next;
+        }
         my @class = $obj->get('objectClass');
         if ('user' eq any @class) {
             push (@{$members}, new EBox::Samba::User(dn => $memberDN));
