@@ -28,6 +28,7 @@ use File::Temp qw(tempfile);
 use Authen::SASL qw(Perl);
 use Authen::Krb5::Easy qw(kinit kdestroy kerror);
 use Net::LDAP;
+use Net::LDAP::Util qw(escape_filter_value canonical_dn);
 use Data::Hexdumper;
 use Time::HiRes;
 use POSIX;
@@ -216,10 +217,15 @@ sub check
     # objects all the way to the root until it finds a match. This reveals
     # group nesting. It is available only on domain controllers with
     # Windows Server 2003 SP2 or above
+    $userDN = canonical_dn($userDN);
+    $groupDN = canonical_dn($groupDN);
+    $groupDN = escape_filter_value($groupDN);
+    my $filter = "(memberOf:1.2.840.113556.1.4.1941:=$groupDN)";
+    logevent(LOG_DEBUG, "LDAP search filter is '$filter'");
     $result = $ldap->search(
         base => $userDN,
         scope => 'base',
-        filter => "(memberOf:1.2.840.113556.1.4.1941:=$groupDN)",
+        filter => $filter,
         attrs => ['*']);
     if ($result->is_error()) {
         logevent(LOG_ERROR, "Error in LDAP search: " . $result->error_desc());
