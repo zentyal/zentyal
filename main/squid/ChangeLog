@@ -1,4 +1,6 @@
 HEAD
+	+ Fix group based filter access rules in external AD mode, retrieving
+	  members of nested groups
 	+ Correctly escape DNs and search filters or external ACL helper script
 	+ Explicitly specify to listen on all IPv4 interfaces
 	+ Add new config key auth_ad_negative_acl_ttl to configure negative ACL
