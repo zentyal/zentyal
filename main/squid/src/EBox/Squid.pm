@@ -90,6 +90,7 @@ use constant AUTH_AD_DC_KEY   => 'auth_ad_dc';
 use constant AUTH_AD_BIND_DN_KEY   => 'auth_ad_bind_dn';
 use constant AUTH_AD_BIND_PWD_KEY  => 'auth_ad_bind_pwd';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
 use constant AUTH_AD_SKIP_SYSTEM_GROUPS_KEY => 'auth_ad_skip_system_groups';
 
 use constant AUTH_MODE_INTERNAL    => 'internal';
@@ -972,10 +973,14 @@ sub _writeSquidConf
         my $dc = EBox::Config::configkeyFromFile(AUTH_AD_DC_KEY, SQUID_ZCONF_FILE);
         my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = uc ($sysinfo->hostName()) . '$';
+        my $adNegativeAclTtl =
+            EBox::Config::configkeyFromFile(
+                AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
         push (@writeParam, (adAclTTL    => $adAclTtl));
+        push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
         push (@writeParam, (adPrincipal => $adPrincipal));
     }
 
