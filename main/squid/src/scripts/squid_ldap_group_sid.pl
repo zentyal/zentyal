@@ -48,9 +48,14 @@ sub logevent
     my $timestamp = POSIX::strftime("%Y-%m-%d %H:%M:%S", localtime ($x));
     $timestamp .= ".$y";
 
-    $level = 'DEBUG' if ($level == LOG_DEBUG);
-    $level = 'INFO'  if ($level == LOG_INFO);
-    $level = 'ERROR' if ($level == LOG_ERROR);
+    if ($level == LOG_DEBUG) {
+        $level = 'DEBUG';
+    } elsif ($level == LOG_INFO) {
+        $level = 'INFO';
+    } elsif ($level == LOG_ERROR) {
+        $level = 'ERROR';
+    }
+
     $msg = "$timestamp $level> $msg\n";
 
 	print STDERR $msg;
