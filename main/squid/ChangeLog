@@ -1,4 +1,6 @@
 HEAD
+	+ Fix group based filter access rules in external AD mode, retrieving
+	  members of nested groups
 	+ Improve squid group membership helper script
 3.0.15
 	+ Added support for external squid in SBE editions
