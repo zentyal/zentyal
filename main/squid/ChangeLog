@@ -1,4 +1,5 @@
 HEAD
+	+ Explicitly specify to listen on all IPv4 interfaces
 	+ Add new config key auth_ad_negative_acl_ttl to configure negative ACL
 	  cache time in external AD mode
 	+ Transparent proxy redirection for openvpn servers' clients
