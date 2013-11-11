@@ -71,7 +71,7 @@ sub _table
     my $tableDesc = [
         new EBox::Types::Union(
             fieldName     => 'organizationname',
-            printableName => __('Organizationname'),
+            printableName => __('Organization Name'),
             editable      => $self->_provisioned(),
             subtypes      => [
                 new EBox::Types::Select(
@@ -292,17 +292,13 @@ sub _doProvision
     EBox::info(Dumper(\%params));
 
     my $organizationNameSelected = $params{organizationname_selected};
-    my $existingOrganizationName = $params{existingorganizationname};
-    my $newOrganizationName = $params{neworganizationname};
+    my $organizationName = $params{$organizationNameSelected};
     my $enableUsers = $params{enableUsers};
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
-    my $organizationName = $params{$organizationNameSelected};
 
-#    $self->setValue('organizationname', $organizationNameSelected);
-#    $self->setValue('existingorganizationname', $existingOrganizationName);
-#    $self->setValue('neworganizationname', $newOrganizationName);
-#    $self->setValue('enableUsers', $enableUsers);
+    $self->setValue('organizationname', { $organizationNameSelected => $params{$organizationNameSelected});
+    $self->setValue('enableUsers', $enableUsers);
 
     foreach my $organization (@{$self->{organizations}}) {
         if ($organization->name() eq $organizationName) {
