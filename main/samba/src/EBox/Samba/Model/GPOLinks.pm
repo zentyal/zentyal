@@ -241,18 +241,18 @@ sub precondition
     my ($self) = @_;
 
     unless ($self->parentModule->configured()) {
-	$self->{preconditionFail} = 'notConfigured';
-	return undef;
+        $self->{preconditionFail} = 'notConfigured';
+        return undef;
     }
 
     unless ($self->parentModule->isEnabled()) {
-	$self->{preconditionFail} = 'notEnabled';
-	return undef;
+        $self->{preconditionFail} = 'notEnabled';
+        return undef;
     }
 
     unless ($self->parentModule->isProvisioned()) {
-	$self->{preconditionFail} = 'notProvisioned';
-	return undef;
+        $self->{preconditionFail} = 'notProvisioned';
+        return undef;
     }
 
     return 1;
@@ -271,9 +271,9 @@ sub preconditionFailMsg
     my ($self) = @_;
 
     if ($self->{preconditionFail} eq 'notConfigured' or
-	$self->{preconditionFail} eq 'notEnabled') {
+        $self->{preconditionFail} eq 'notEnabled') {
         return __('You must enable the File Sharing module in the module ' .
-	          'status section in order to use it.');
+                'status section in order to use it.');
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
         return __('The domain has not been created yet.');
