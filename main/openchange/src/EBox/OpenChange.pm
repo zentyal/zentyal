@@ -22,8 +22,11 @@ use base qw(EBox::Module::Service EBox::LdapModule);
 
 use EBox::Gettext;
 use EBox::Config;
-use EBox::OpenChange::LdapUser;
 use EBox::DBEngineFactory;
+use EBox::OpenChange::LdapUser;
+use EBox::OpenChange::ExchConfigurationContainer;
+use EBox::OpenChange::ExchOrganizationContainer;
+
 use String::Random;
 
 use constant SOGO_PORT => 20000;
@@ -69,20 +72,33 @@ sub initialSetup
 sub _migrateFormKeys
 {
     my ($self) = @_;
-    my @keys = ('openchange/conf/Provision/keys/form', 'openchange/ro/Provision/keys/form');
+    my $modelName = 'Provision';
+    my @keys = ("openchange/conf/$modelName/keys/form", "openchange/ro/$modelName/keys/form");
 
+    my $state = $self->get_state();
+    my $keyField = 'organizationname';
     my $redis = $self->redis();
     foreach my $key (@keys) {
         my $value = $redis->get($key);
         if (defined $value->{firstorganization}) {
-            $value->{organizationname} = $value->{firstorganization};
+            $state->{$modelName}->{$keyField} = $value->{firstorganization};
             delete $value->{firstorganization};
         }
+        if (defined $value->{organizationname}) {
+            $state->{$modelName}->{$keyField} = $value->{organizationname};
+            delete $value->{organizationname};
+        }
         if (defined $value->{firstorganizationunit}) {
-            $value->{administrativegroup} = 'First Administrative Group';
             delete $value->{firstorganizationunit};
         }
+        if (defined $value->{administrativegroup}) {
+            delete $value->{administrativegroup};
+        }
         $redis->set($key, $value);
+    }
+    if ($self->isProvisioned()) {
+        # The organization name is only useful if the server is already provisioned.
+        $self->set_state($state);
     }
 }
 
@@ -344,6 +360,67 @@ sub _sogoDbPass
     }
 
     return $self->{sogo_db_password};
+}
+
+# Method: configurationContainer
+#
+#   Return the ExchConfigurationContainer object that models the msExchConfigurationConainer entry for this
+#   installation.
+#
+# Returns:
+#
+#   EBox::OpenChange::ExchConfigurationContainer object.
+#
+sub configurationContainer
+{
+    my ($self) = @_;
+
+    my $sambaMod = $self->global->modInstance('samba');
+    unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
+        return undef;
+    }
+    my $defaultNC = $sambaMod->ldb()->dn();
+    my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
+
+    my $object = new EBox::OpenChange::ExchConfigurationContainer(dn => $dn);
+    if ($object->exists) {
+        return $object;
+    } else {
+        return undef;
+    }
+}
+
+# Method: organizations
+#
+#   Return a list of ExchOrganizationContainer objects that belong to this installation.
+#
+# Returns:
+#
+#   An array reference of ExchOrganizationContainer objects.
+#
+sub organizations
+{
+    my ($self) = @_;
+
+    my $list = [];
+    my $sambaMod = $self->global->modInstance('samba');
+    my $configurationContainer = $self->configurationContainer();
+
+    return $list unless ($configurationContainer);
+
+    my $params = {
+        base => $configurationContainer->dn(),
+        scope => 'one',
+        filter => '(objectclass=msExchOrganizationContainer)',
+        attrs => ['*'],
+    };
+    my $result = $sambaMod->ldb()->search($params);
+    foreach my $entry ($result->sorted('cn')) {
+        my $organization = new EBox::OpenChange::ExchOrganizationContainer(entry => $entry);
+        push (@{$list}, $organization);
+    }
+
+    return $list;
 }
 
 1;
