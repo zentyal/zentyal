@@ -89,7 +89,14 @@ sub _migrateFormKeys
     }
 }
 
-# Method: enableActions
+
+sub enableActions
+{
+    my ($self) = @_;
+    $self->_setupDNS();
+}
+
+# Method: enableService
 #
 #   Override EBox::Module::Service::enableService to notify samba
 #
@@ -419,6 +426,50 @@ sub _sogoDbPass
     }
 
     return $self->{sogo_db_password};
+}
+
+# setup the dns to add autodiscover host
+sub _setupDNS
+{
+    my ($self) = @_;
+    my $sysinfo    = $self->global()->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
+    my $autodiscoverAlias = 'autodiscover';
+    if ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
+        # strangely the hostname is already the autodiscover name
+        return;
+    }
+
+    my $dns = $self->global()->modInstance('dns');
+
+    my $domainRow = $dns->model('DomainTable')->find(domain => $hostDomain);
+    if (not $domainRow) {
+        throw EBox::Exceptions::External(
+            __x("The expected domain '{d}' could not be found in the dns module",
+                d => $hostDomain
+               )
+           );
+    }
+
+    my $hostRow = $domainRow->subModel('hostnames')->find(hostname => $hostName);
+    if (not $hostRow) {
+        throw EBox::Exceptions::External(
+          __x("The required host record '{h}' could not be found in " .
+              "the domain '{d}'.<br/>",
+              h => $hostName,
+              d => $hostDomain
+             )
+         );
+    }
+
+    my $aliasModel = $hostRow->subModel('alias');
+    if ($aliasModel->find(alias => $autodiscoverAlias)) {
+        # already added, nothing to do
+        return;
+    }
+    # add the autodiscover alias
+    $aliasModel->addRow(alias => $autodiscoverAlias);
 }
 
 1;
