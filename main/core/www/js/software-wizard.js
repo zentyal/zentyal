@@ -71,7 +71,7 @@ Zentyal.Wizard.Software.loadPage = function(index) {
         var showed = $("#wizardPage" + showedNumber);
         showed.show(0).html(code).slideDown(Zentyal.Wizard.Software.DURATION);
         var form = $('#wizardPage' + showedNumber + ' form')[0];
-        // avoid automatic form submition (by enter press)
+        // avoid automatic form submission (by enter press)
         if ( form ) {
             $(form).submit(function() { return false; });
         }

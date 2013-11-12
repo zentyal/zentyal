@@ -158,9 +158,9 @@ sub _setConf
         $self->_setUpAuditEnvironment();
         $self->_establishVPNConnection();
         $self->_vpnClientAdjustLocalAddress();
-        $self->_writeCronFile();
         $self->_reportAdminPort();
     }
+    $self->_writeCronFile();
     $self->_setQAUpdates();
     $self->_setRemoteSupportAccessConf();
     $self->_setInventoryAgentConf();
@@ -1744,28 +1744,32 @@ sub _writeCronFile
 {
     my ($self) = @_;
 
-    my $hours = $self->get_list('rand_hours');
-    unless ( @{$hours} > 0 ) {
-        # Set the random times when scripts must ask for information
-        my @randHours = map
-          { my $r = int(rand(9)) - 2; $r += 24 if ($r < 0); $r }
-            0 .. 10;
-        my @randMins  = map { int(rand(60)) } 0 .. 10;
-        $self->set_list('rand_hours', 'int', \@randHours);
-        $self->set_list('rand_mins' , 'int',  \@randMins);
-        $hours = \@randHours;
+    if ($self->eBoxSubscribed()) {
+        my $hours = $self->get_list('rand_hours');
+        unless ( @{$hours} > 0 ) {
+            # Set the random times when scripts must ask for information
+            my @randHours = map
+              { my $r = int(rand(9)) - 2; $r += 24 if ($r < 0); $r }
+                0 .. 10;
+            my @randMins  = map { int(rand(60)) } 0 .. 10;
+            $self->set_list('rand_hours', 'int', \@randHours);
+            $self->set_list('rand_mins' , 'int',  \@randMins);
+            $hours = \@randHours;
+        }
+
+        my $mins = $self->get_list('rand_mins');
+
+        my @tmplParams = (
+            ( hours => $hours), (mins => $mins)
+           );
+
+        EBox::Module::Base::writeConfFileNoCheck(
+            CRON_FILE,
+            'remoteservices/zentyal-remoteservices.cron.mas',
+            \@tmplParams);
+    } elsif (-e CRON_FILE) {
+        EBox::Sudo::root("rm -f '" . CRON_FILE . "'");
     }
-
-    my $mins = $self->get_list('rand_mins');
-
-    my @tmplParams = (
-        ( hours => $hours), (mins => $mins)
-       );
-
-    EBox::Module::Base::writeConfFileNoCheck(
-        CRON_FILE,
-        'remoteservices/zentyal-remoteservices.cron.mas',
-        \@tmplParams);
 }
 
 sub _setUpAuditEnvironment
