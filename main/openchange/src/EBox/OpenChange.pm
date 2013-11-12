@@ -267,15 +267,6 @@ sub _setAutodiscoverConf
     my $sysinfo = $global->modInstance('sysinfo');
     my $samba   = $global->modInstance('samba');
 
-    my $upstartParams = [
-        mailServer => $sysinfo->hostDomain()
-    ];
-    $self->writeConfFile(OCSMANAGER_UPSTART_FILE,
-                         'openchange/ocsmanager.conf.mas',
-                         $upstartParams,
-                         { uid => 0, gid => 0, mode => '644' }
-                        );
-
     my $confFileParams = [
         bindDn   => 'cn=Administrator',
         bindPwd  => $samba->administratorPassword(),
@@ -289,12 +280,18 @@ sub _setAutodiscoverConf
                          { uid => 0, gid => 0, mode => '640' }
                         );
 
-    # finally add the nginx include file
+    # manage the nginx include file
     my $webadmin = $global->modInstance('webadmin');
     if ($self->isEnabled()) {
         my $confDir = EBox::Config::conf() . 'openchange';
-        EBox::Sudo::root("mkdir -p '$confDir'",
-                         "cp '" . EBox::Config::stubs() . "openchange/ocsmanager.nginx.mas' '" . OCSMANAGER_INC_FILE . "'"
+        EBox::Sudo::root("mkdir -p '$confDir'");
+        my $incParams = [
+            server => $sysinfo->hostDomain()
+           ];
+        $self->writeConfFile(OCSMANAGER_INC_FILE,
+                             "openchange/ocsmanager.nginx.mas",
+                             $incParams,
+                             { uid => 0, gid => 0, mode => '644' }
                         );
         $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
     } else {

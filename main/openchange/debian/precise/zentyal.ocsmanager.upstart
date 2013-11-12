@@ -1,6 +1,3 @@
-<%args>
-$mailServer
-</%args>
 # openchange-ocsmanager
 description "Zentyal usptart for ocsmanager application"
 author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
@@ -12,7 +9,6 @@ env USER=root
 env CONFFILE=/etc/ocsmanager/ocsmanager.ini
 env PIDFILE=/var/run/ocsmanager/ocsmanager.pid
 env LOGFILE=/var/log/ocsmanager/ocsmanager.log
-env HTTP_X_FORWARDED_SERVER=<% $mailServer %>
 
 pre-start script
         # Ensure directory's existence and permissions
@@ -20,4 +16,6 @@ pre-start script
         install -o $USER -g adm -m 750 -d /var/log/ocsmanager
 end script
 
-exec  /usr/bin/paster serve $CONFFILE  --pid-file $PIDFILE --log-file $LOGFILE
+script
+  /usr/bin/paster serve $CONFFILE  --pid-file $PIDFILE --log-file $LOGFILE
+end script
