@@ -669,21 +669,12 @@ sub _setConf
     my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and
-            $sambaModule->getProvision->isProvisioned()) {
+        if ($sambaModule->isEnabled() and (
+            $sambaModule->getProvision->isProvisioned() or
+            $sambaModule->getProvision->isProvisioning())) {
             # Get the zones stored in the samba LDB
             my $ldb = $sambaModule->ldb();
             @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
-
-            # Get the DNS keytab path used for GSSTSIG zone updates
-            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
-                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
-            }
-        } elsif ($sambaModule->isEnabled() and
-                 $sambaModule->getProvision->isProvisioning()) {
-            my $sysinfo = $self->global->modInstance('sysinfo');
-            my $adDomain = $sysinfo->hostDomain();
-            $sambaZones = [ $adDomain ];
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
