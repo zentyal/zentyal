@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
 3.2.1
 	+ Fixed regression which broke DHCP next-server options being written
 	  to config (Contributed by on-jz)
