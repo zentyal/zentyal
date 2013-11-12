@@ -22,6 +22,8 @@ if [ "$1" = "configure" ]; then
     fi
 fi
 
+chmod 600 /opt/samba4/private/tls/key.pem || true
+
 #DEBHELPER#
 
 exit 0
