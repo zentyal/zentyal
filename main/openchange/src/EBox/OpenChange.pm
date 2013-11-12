@@ -34,6 +34,9 @@ use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
 use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
 use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
+use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
+use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+use constant OCSMANAGER_UPSTART_FILE => '/etc/init/zentyal.ocsmanager.conf';
 
 # Method: _create
 #
@@ -96,23 +99,52 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
+        my $global = $self->global();
         # Mark mail as changed to make dovecot listen IMAP protocol at least
         # on localhost
-        my $mail = $self->global->modInstance('mail');
+        my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
 
         # Mark samba as changed to write smb.conf
-        my $samba = $self->global->modInstance('samba');
+        my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
+
+        # Mark webadmin as changed so we are sure nginx configuration is
+        # refreshed with the new includes
+        $global->modInstance('webadmin')->setAsChanged();
     }
+}
+
+sub _daemonsToDisable
+{
+    my ($self) = @_;
+
+    my $daemons = [
+        {
+            name => 'openchange-ocsmanager',
+            type => 'init.d',
+        }
+       ];
+    return $daemons;
 }
 
 sub _daemons
 {
     my ($self) = @_;
-
-    my $daemons = [];
+    my $daemons = [
+        {
+            name => 'zentyal.ocsmanager',
+            type => 'upstart',
+            precondtion => sub { return $self->_autodiscoverEnabled() },
+           }
+       ];
     return $daemons;
+}
+
+sub _autodiscoverEnabled
+{
+    my ($self) = @_;
+    return $self->isProvisioned();
 }
 
 sub usedFiles
@@ -144,6 +176,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
+    $self->_setAutodiscoverConf();
 }
 
 sub _writeSOGoDefaultFile
@@ -214,6 +247,48 @@ sub _writeSOGoConfFile
     $self->writeConfFile(SOGO_CONF_FILE,
         'openchange/sogo.conf.mas',
         $array, { uid => 0, gid => $gid, mode => '640' });
+}
+
+sub _setAutodiscoverConf
+{
+    my ($self) = @_;
+    my $global  = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
+    my $samba   = $global->modInstance('samba');
+
+    my $upstartParams = [
+        mailServer => $sysinfo->hostDomain()
+    ];
+    $self->writeConfFile(OCSMANAGER_UPSTART_FILE,
+                         'openchange/ocsmanager.conf.mas',
+                         $upstartParams,
+                         { uid => 0, gid => 0, mode => '644' }
+                        );
+
+    my $confFileParams = [
+        bindDn   => 'cn=Administrator',
+        bindPwd  => $samba->administratorPassword(),
+        baseDn   => 'CN=Users,' . $samba->ldb()->dn(),
+        port     => 389,
+    ];
+
+    $self->writeConfFile(OCSMANAGER_CONF_FILE,
+                         'openchange/ocsmanager.ini.mas',
+                         $confFileParams,
+                         { uid => 0, gid => 0, mode => '640' }
+                        );
+
+    # finally add the nginx include file
+    my $webadmin = $global->modInstance('webadmin');
+    if ($self->isEnabled()) {
+        my $confDir = EBox::Config::conf() . 'openchange';
+        EBox::Sudo::root("mkdir -p '$confDir'",
+                         "cp '" . EBox::Config::stubs() . "openchange/ocsmanager.nginx.mas' '" . OCSMANAGER_INC_FILE . "'"
+                        );
+        $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
+    } else {
+        $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
+    }
 }
 
 # Method: menu
