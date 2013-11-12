@@ -72,19 +72,20 @@ sub initialSetup
 sub _migrateFormKeys
 {
     my ($self) = @_;
-    my @keys = ('openchange/conf/Provision/keys/form', 'openchange/ro/Provision/keys/form');
+    my $modelName = 'Provision';
+    my @keys = ("openchange/conf/$modelName/keys/form", "openchange/ro/$modelName/keys/form");
 
+    my $state = $self->get_state();
+    my $keyField = 'organizationname';
     my $redis = $self->redis();
     foreach my $key (@keys) {
         my $value = $redis->get($key);
         if (defined $value->{firstorganization}) {
-            $value->{organizationname_selected} = 'neworganizationname';
-            $value->{neworganizationname} = $value->{firstorganization};
+            $state->{$modelName}->{$keyField} = $value->{firstorganization};
             delete $value->{firstorganization};
         }
         if (defined $value->{organizationname}) {
-            $value->{organizationname_selected} = 'neworganizationname';
-            $value->{neworganizationname} = $value->{organizationname};
+            $state->{$modelName}->{$keyField} = $value->{organizationname};
             delete $value->{organizationname};
         }
         if (defined $value->{firstorganizationunit}) {
@@ -94,6 +95,10 @@ sub _migrateFormKeys
             delete $value->{administrativegroup};
         }
         $redis->set($key, $value);
+    }
+    if ($self->isProvisioned()) {
+        # The organization name is only useful if the server is already provisioned.
+        $self->set_state($state);
     }
 }
 
