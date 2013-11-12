@@ -89,10 +89,14 @@ sub _migrateFormKeys
     }
 }
 
-
+# Method: enableActions
+#
+# Action to do when openchange module is enabled for first time
+#
 sub enableActions
 {
     my ($self) = @_;
+    $self->SUPER::enableActions();
     $self->_setupDNS();
 }
 
