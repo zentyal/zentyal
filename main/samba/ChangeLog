@@ -1,4 +1,5 @@
 3.3
+	+ Fixed a typo in a info message
 	+ Fix regression in unmanaged ACLs option
 	+ Prevent _postServiceHook code execution outside Save Changes
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
