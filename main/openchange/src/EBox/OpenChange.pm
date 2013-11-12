@@ -36,7 +36,6 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
-use constant OCSMANAGER_UPSTART_FILE => '/etc/init/zentyal.ocsmanager.conf';
 
 # Method: _create
 #
