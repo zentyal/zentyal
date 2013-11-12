@@ -154,10 +154,6 @@ sub precondition
 {
     my ($self) = @_;
 
-    if ($self->parentModule->isEnabled() and $self->parentModule->isProvisioned()) {
-        # No need to check anything, already provisioned.
-        return 1;
-    }
     my $samba = $self->global->modInstance('samba');
     unless ($samba->configured()) {
         $self->{preconditionFail} = 'notConfigured';
@@ -191,7 +187,7 @@ sub precondition
     }
 
     # Check there are not unsaved changes
-    if ($self->global->unsaved()) {
+    if ($self->global->unsaved() and (not $self->parentModule->isProvisioned())) {
         $self->{preconditionFail} = 'unsavedChanges';
         return undef;
     }

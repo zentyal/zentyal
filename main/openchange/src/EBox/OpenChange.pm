@@ -371,6 +371,9 @@ sub configurationContainer
     my ($self) = @_;
 
     my $sambaMod = $self->global->modInstance('samba');
+    unless ($sambaMod->isEnabled() and $sambaMod->isProvisioned()) {
+        return undef;
+    }
     my $defaultNC = $sambaMod->ldb()->dn();
     my $dn = "CN=Microsoft Exchange,CN=Services,CN=Configuration,$defaultNC";
 
@@ -396,9 +399,12 @@ sub organizations
 
     my $list = [];
     my $sambaMod = $self->global->modInstance('samba');
+    my $configurationContainer = $self->configurationContainer();
+
+    return $list unless ($configurationContainer);
 
     my $params = {
-        base => $self->configurationContainer()->dn(),
+        base => $configurationContainer->dn(),
         scope => 'one',
         filter => '(objectclass=msExchOrganizationContainer)',
         attrs => ['*'],
