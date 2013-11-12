@@ -26,6 +26,7 @@ use Error qw(:try);
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
 use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::OU;

@@ -33,6 +33,7 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
 
 use EBox::Users::User;
 use EBox::Users::Group;
