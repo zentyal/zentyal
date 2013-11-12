@@ -33,6 +33,8 @@ use integer;
 use Error qw(:try);
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;

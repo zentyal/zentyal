@@ -33,6 +33,9 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;

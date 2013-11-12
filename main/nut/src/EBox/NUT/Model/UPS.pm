@@ -24,6 +24,7 @@ use EBox::Types::Text;
 use EBox::Types::Select;
 use EBox::Types::HasMany;
 use EBox::NUT::Types::DriverPicker;
+use EBox::Exceptions::External;
 
 sub new
 {

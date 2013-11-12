@@ -23,6 +23,7 @@ use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::Validate;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 
 use English qw(-no_match_vars);
 use File::Basename;

@@ -78,6 +78,8 @@ use EBox::Types::HasMany;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
 use base 'EBox::Model::DataTable';
 

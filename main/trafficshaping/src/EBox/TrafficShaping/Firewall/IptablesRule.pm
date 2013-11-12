@@ -32,6 +32,8 @@ use strict;
 
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
 use Perl6::Junction qw( any );
 

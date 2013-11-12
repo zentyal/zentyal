@@ -21,6 +21,8 @@ package EBox::Types::Int;
 use base 'EBox::Types::Basic';
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 
 # Group: Public methods

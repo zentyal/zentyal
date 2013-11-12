@@ -28,6 +28,7 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::SysInfo::Types::DomainName;
 use EBox::Types::Host;
+use EBox::Exceptions::InvalidData;
 
 use Data::Validate::Domain qw(is_domain);
 

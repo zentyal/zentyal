@@ -24,6 +24,7 @@ use EBox;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

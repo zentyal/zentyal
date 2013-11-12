@@ -27,6 +27,8 @@ use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
 use EBox::Users::User;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 # LDAP schema
 use constant SCHEMAS => ('/etc/ldap/schema/amavis.schema',

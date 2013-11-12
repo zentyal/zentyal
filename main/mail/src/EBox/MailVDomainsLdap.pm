@@ -26,6 +26,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataNotFound;
 use EBox::Gettext;
 use EBox::MailAliasLdap;
 

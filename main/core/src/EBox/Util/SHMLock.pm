@@ -21,6 +21,7 @@ package EBox::Util::SHMLock;
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
 use Fcntl qw(:flock);
 
 sub init

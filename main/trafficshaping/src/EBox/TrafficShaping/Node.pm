@@ -19,6 +19,7 @@ use warnings;
 package EBox::TrafficShaping::Node;
 
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
 
 #       Node is an abstract class.  An abstract node which
 #       comprises rules' tree. The product in a Builder pattern

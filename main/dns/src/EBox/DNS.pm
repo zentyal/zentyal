@@ -39,6 +39,8 @@ use EBox::NetWrappers;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 
 use Error qw(:try);
 use File::Temp;

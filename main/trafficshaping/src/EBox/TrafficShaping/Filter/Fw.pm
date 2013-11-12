@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 use EBox::TrafficShaping::Firewall::IptablesRule;
 use EBox::TrafficShaping;
 

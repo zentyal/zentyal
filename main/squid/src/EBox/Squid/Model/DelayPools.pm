@@ -30,6 +30,7 @@ use EBox::Global;
 use EBox::Types::Select;
 use EBox::Types::Boolean;
 use EBox::Squid::Types::UnlimitedInt;
+use EBox::Exceptions::External;
 
 use Math::BigInt;
 

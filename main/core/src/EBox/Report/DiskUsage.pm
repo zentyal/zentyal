@@ -19,6 +19,8 @@ use warnings;
 package EBox::Report::DiskUsage;
 
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
  use EBox::Backup;
  use EBox::FileSystem;
 

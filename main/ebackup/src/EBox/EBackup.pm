@@ -44,6 +44,8 @@ use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::EBackup::FileNotFoundInBackup;
 use EBox::Exceptions::EBackup::BadSymmetricKey;
 use EBox::Exceptions::EBackup::TargetNotReady;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';

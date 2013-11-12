@@ -35,6 +35,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);

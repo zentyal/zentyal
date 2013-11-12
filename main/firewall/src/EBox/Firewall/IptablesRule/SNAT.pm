@@ -23,6 +23,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::NetWrappers;
 
 use Perl6::Junction qw( any );

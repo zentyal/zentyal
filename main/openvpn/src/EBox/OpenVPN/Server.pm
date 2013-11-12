@@ -29,6 +29,9 @@ use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
 use EBox::Validate
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
   qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
 
 use List::Util qw(first);

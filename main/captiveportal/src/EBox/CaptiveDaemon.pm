@@ -31,6 +31,7 @@ use EBox::CaptivePortal;
 use EBox::Sudo;
 use Error qw(:try);
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
 use EBox::Util::Lock;
 use Linux::Inotify2;
 use EBox::Gettext;

@@ -28,6 +28,8 @@ use constant LEVEL_VALUES => qw(info warn error fatal);
 
 # eBox uses
 use EBox::Config;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
 
 ##################
 # Core modules

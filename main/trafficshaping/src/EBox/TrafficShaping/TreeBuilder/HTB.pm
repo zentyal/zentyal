@@ -32,6 +32,10 @@ use EBox::TrafficShaping::QueueDiscipline::HTB;
 use EBox::TrafficShaping::QueueDiscipline::SFQ;
 
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidType;
 
 use EBox::Iptables;
 
