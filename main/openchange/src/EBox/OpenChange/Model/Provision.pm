@@ -91,7 +91,6 @@ sub _table
             printableName => __('Outgoing Mail Domain'),
             foreignModel  => $self->modelGetter('mail', 'VDomains'),
             foreignField  => 'vdomain',
-            unique        => 1,
             editable      => 1)
         );
         push (@tableDesc, new EBox::Types::Boolean(
