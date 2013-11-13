@@ -11,6 +11,7 @@ use_ok ('EBox::CGI::Base');
 use EBox::Test::CGI ':all';
 use EBox::TestStub;
 use EBox::Global::TestStub;
+use EBox::Exceptions::External;
 
 EBox::TestStub::fake();
 EBox::Global::TestStub::fake();

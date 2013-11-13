@@ -26,6 +26,7 @@ use File::Basename;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 
 use constant ZONES_DIR  => '/usr/share/zoneinfo';
 use constant ZONES_FILE => ZONES_DIR . '/zone.tab';

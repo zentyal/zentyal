@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing EBox::Exceptions uses
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
 3.2.4
 	+ Set proper trial link in advertisements

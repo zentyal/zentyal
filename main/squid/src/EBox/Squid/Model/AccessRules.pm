@@ -21,6 +21,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;

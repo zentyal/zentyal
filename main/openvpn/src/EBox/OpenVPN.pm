@@ -42,6 +42,9 @@ use EBox::CA;
 use EBox::CA::DN;
 use EBox::NetWrappers qw();
 use EBox::FileSystem;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
 use File::Slurp;

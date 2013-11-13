@@ -29,6 +29,8 @@ use EBox::Gettext;
 
 use Error qw(:try);
 use EBox::Exceptions::Base;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 sub new
 {

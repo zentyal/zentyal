@@ -32,6 +32,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Service;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 use EBox::MailFilter::FirewallHelper;
 use EBox::MailFilter::LogHelper;
 use EBox::MailFilter::VDomainsLdap;

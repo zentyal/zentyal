@@ -35,6 +35,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::InvalidData;
 use EBox;
 use EBox::CA::Certificates;
 use EBox::Validate;

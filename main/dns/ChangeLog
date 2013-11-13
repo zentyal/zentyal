@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
 3.2.4
 	+ Fix set of dynamic attribute in domain table when samba module is enabled
 	  again

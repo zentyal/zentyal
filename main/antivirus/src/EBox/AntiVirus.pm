@@ -32,6 +32,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::Exceptions::Internal;
 
 use constant CLAMAV_PID_DIR => '/var/run/clamav/';
 

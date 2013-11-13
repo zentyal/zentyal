@@ -20,6 +20,7 @@ package EBox::Validate;
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::NetWrappers qw();
 use Net::IP;

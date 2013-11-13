@@ -25,6 +25,9 @@ use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
 
 use constant FSTAB_PATH => '/etc/fstab';

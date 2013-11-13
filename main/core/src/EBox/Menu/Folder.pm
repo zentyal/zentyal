@@ -20,6 +20,7 @@ package EBox::Menu::Folder;
 use base 'EBox::Menu::TextNode';
 
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 sub new

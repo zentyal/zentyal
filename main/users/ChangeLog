@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
 3.2.3
 	+ Remove undefined warnings on users/group creation
 	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba

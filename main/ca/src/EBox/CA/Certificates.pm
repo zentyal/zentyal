@@ -21,6 +21,7 @@ use base qw(EBox::CA::Observer);
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::Internal;
 
 use File::Temp qw(tempfile);
 

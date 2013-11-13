@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::External;
 
 use Error qw(:try);
 

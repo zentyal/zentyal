@@ -26,6 +26,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
 use Error qw(:try);
 use EBox::Config;
 use EBox::Gettext;

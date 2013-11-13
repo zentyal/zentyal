@@ -30,6 +30,9 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 
 use IO::Socket::INET;
 
