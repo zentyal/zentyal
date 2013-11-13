@@ -409,7 +409,7 @@ sub _setMailConf
     push (@array, 'greylist',     $greylist->isEnabled() );
     push (@array, 'greylistAddr', $greylist->address());
     push (@array, 'greylistPort', $greylist->port());
-    push (@array, 'openchangeEnabled', $self->openchangeEnabled());
+    push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
@@ -1806,14 +1806,14 @@ sub slaveSetupWarning
     return __('The mail domains and its accounts will be removed when the slave setup is complete');
 }
 
-sub openchangeEnabled
+sub openchangeProvisioned
 {
     my ($self) = @_;
 
     my $globalInstance = $self->global();
     if ( $globalInstance->modExists('openchange') ) {
         my $openchange = $globalInstance->modInstance('openchange');
-        return $openchange->isEnabled();
+        return ($openchange->isEnabled() and $openchangeMod->isProvisioned());
     }
 
     return 0;
