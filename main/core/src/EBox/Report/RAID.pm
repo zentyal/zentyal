@@ -339,6 +339,9 @@ sub _processDeviceMainLine
     my ($line) = @_;
     my %deviceInfo;
 
+    # Remove extra state info like "(read-only)" and "(auto-read-only)"
+    $line =~ s/\s+\(\S*\)//;
+    
     my ($activeTag, $raidType, @raidDevicesTags) = split '\s', $line;
 
     $deviceInfo{active}= ($activeTag eq 'active') ? 1 : 0;
