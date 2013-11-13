@@ -1,3 +1,6 @@
+HEAD
+	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
+	  objectGUID unique id to be 100% sure we match the right objects
 3.2.9
 	+ Depend on the new Samba 4.1.1, also with fixed init script
 	+ Improve GPO models preconditions to avoid cannot connect to samba
