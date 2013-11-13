@@ -316,7 +316,7 @@ sub _membersToZentyal
     }
 
     foreach my $memberUniqueID (keys %zentyalMembers) {
-        my $canonicalName = $zentyalMembers->{$memberUniqueID}->canonicalName(1);
+        my $canonicalName = $zentyalMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $sambaMembers{$memberUniqueID}) {
             EBox::info("Removing member '$canonicalName' from Zentyal group '$gid'");
             try {
@@ -329,7 +329,7 @@ sub _membersToZentyal
     }
 
     foreach my $memberUniqueID (keys %sambaMembers) {
-        my $canonicalName = $sambaMembers->{$memberUniqueID}->canonicalName(1);
+        my $canonicalName = $sambaMembers{$memberUniqueID}->canonicalName(1);
         unless (exists $zentyalMembers{$memberUniqueID}) {
             EBox::info("Adding member '$canonicalName' to Zentyal group '$gid'");
             my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberUniqueID});
