@@ -67,6 +67,7 @@ sub _table
             volatile      => 1,
             editable      => 0)
         );
+
     } else {
         push (@tableDesc, new EBox::Types::Union(
             fieldName     => 'organizationname',
@@ -84,6 +85,14 @@ sub _table
                     populate      => \&_existingOrganizationNames,
                     editable      => 1),
             ])
+        );
+        push (@tableDesc, new EBox::Types::Select(
+            fieldName     => 'outgoingDomain',
+            printableName => __('Outgoing Mail Domain'),
+            foreignModel  => $self->modelGetter('mail', 'VDomains'),
+            foreignField  => 'vdomain',
+            unique        => 1,
+            editable      => 1)
         );
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
