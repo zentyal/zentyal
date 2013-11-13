@@ -3,6 +3,7 @@ $bindDn
 $bindPwd
 $baseDn
 $port
+$adminMail
 </%args>
 #
 # ocsmanager - Pylons configuration
@@ -11,9 +12,9 @@ $port
 #
 [DEFAULT]
 debug = true
-email_to = you@yourdomain.com
+email_to = <% $adminMail %>
 smtp_server = localhost
-error_email_from = paste@localhost
+error_email_from = <% $adminMail %>
 
 [main]
 # Possible authentication system

@@ -159,24 +159,25 @@ sub _autodiscoverEnabled
 
 sub usedFiles
 {
-    my $files = [];
+    my @files = (
+        {
+            file => SOGO_DEFAULT_FILE,
+            reason => __('To configure sogo daemon'),
+            module => 'openchange'
+       },
+       {
+           file => SOGO_CONF_FILE,
+           reason => __('To configure sogo parameters'),
+           module => 'openchange'
+       },
+       {
+           file => OCSMANAGER_CONF_FILE,
+           reason => __('To configure autodiscovery service'),
+           module => 'openchange'
+       }
+      );
 
-    my $sogoDefaultFile = {
-        file => SOGO_DEFAULT_FILE,
-        reason => __('To configure sogo daemon'),
-        module => 'openchange'
-    };
-
-    my $sogoConfFile = {
-        file => SOGO_CONF_FILE,
-        reason => __('To configure sogo parameters'),
-        module => 'openchange'
-    };
-
-    push (@{$files}, $sogoDefaultFile);
-    push (@{$files}, $sogoConfFile);
-
-    return $files;
+    return \@files;
 }
 
 sub _setConf
@@ -265,12 +266,19 @@ sub _setAutodiscoverConf
     my $global  = $self->global();
     my $sysinfo = $global->modInstance('sysinfo');
     my $samba   = $global->modInstance('samba');
+    my $mail    = $global->modInstance('mail');
 
+    my $server    = $sysinfo->hostDomain();
+    my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
+    if ($adminMail eq 'postmasterRoot') {
+        $adminMail = 'postaster@' . $server;
+    }
     my $confFileParams = [
-        bindDn   => 'cn=Administrator',
-        bindPwd  => $samba->administratorPassword(),
-        baseDn   => 'CN=Users,' . $samba->ldb()->dn(),
-        port     => 389,
+        bindDn    => 'cn=Administrator',
+        bindPwd   => $samba->administratorPassword(),
+        baseDn    => 'CN=Users,' . $samba->ldb()->dn(),
+        port      => 389,
+        adminMail => $adminMail,
     ];
 
     $self->writeConfFile(OCSMANAGER_CONF_FILE,
@@ -285,7 +293,7 @@ sub _setAutodiscoverConf
         my $confDir = EBox::Config::conf() . 'openchange';
         EBox::Sudo::root("mkdir -p '$confDir'");
         my $incParams = [
-            server => $sysinfo->hostDomain()
+            server => $server
            ];
         $self->writeConfFile(OCSMANAGER_INC_FILE,
                              "openchange/ocsmanager.nginx.mas",
