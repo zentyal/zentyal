@@ -152,9 +152,14 @@ http {
         location ~ /\.ht {
            deny all;
         }
-% foreach my $includeFile (@includes) {
 
+        location = /errors/nginx-default-50x.html {
+             root /usr/share/nginx/www;
+        }
+
+% foreach my $includeFile (@includes) {
         include <% $includeFile %>;
 % }
+
     }
 }
