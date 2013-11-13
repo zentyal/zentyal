@@ -1,5 +1,4 @@
 HEAD
-	+ Added nginx location for its standard 50x error page
 	+ EBox::WebServer::removeNginxInclude does not longer throws
 	  a exception if the path to remove is not included
 3.3
