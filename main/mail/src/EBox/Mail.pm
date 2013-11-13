@@ -1813,7 +1813,7 @@ sub openchangeProvisioned
     my $globalInstance = $self->global();
     if ( $globalInstance->modExists('openchange') ) {
         my $openchange = $globalInstance->modInstance('openchange');
-        return ($openchange->isEnabled() and $openchangeMod->isProvisioned());
+        return ($openchange->isEnabled() and $openchange->isProvisioned());
     }
 
     return 0;
