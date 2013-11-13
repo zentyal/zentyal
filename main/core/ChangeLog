@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in selectSetter which hitted selects on DataForm with
+	  'unique' option enabled
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
 3.2.4
 	+ Set proper trial link in advertisements

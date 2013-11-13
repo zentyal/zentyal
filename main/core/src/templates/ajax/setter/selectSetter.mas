@@ -33,7 +33,7 @@ if ($data->unique()) {
     # Filter the options in other just to show the ones allowed
     my $model = $data->model();
 
-    if ( defined ( $model )) {
+    if ( defined ( $model ) and not $model->isa('EBox::Model::DataForm')) {
         my $field  = $data->fieldName();
 
         foreach my $id (@{$model->ids()}) {
