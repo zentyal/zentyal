@@ -248,9 +248,6 @@ sub _writeRewritePolicy
     push @rewriteParams, ('defaultDomain' => $defaultDomain);
     push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-
-use  Data
-
     $self->writeConfFile(REWRITE_POLICY_FILE,
         'openchange/rewriteDomainPolicy.mas',
         \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
