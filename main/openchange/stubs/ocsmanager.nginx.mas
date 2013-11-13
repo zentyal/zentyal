@@ -5,5 +5,6 @@ $server
 location ~* ^/autodiscover/ {
        proxy_pass http://127.0.0.1:5000;
        proxy_set_header  X_FORWARDED_SERVER <% $server %>;
+       error_page 502 /50x.html;
 }
 
