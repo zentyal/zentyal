@@ -1,3 +1,9 @@
+samba4 (4.1.1-zentyal2) precise; urgency=low
+
+  * Fixed key permissions regression in 4.1.1
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 12 Nov 2013 12:23:17 +0100
+
 samba4 (4.1.1-zentyal1) precise; urgency=low
 
   * New upstream release
