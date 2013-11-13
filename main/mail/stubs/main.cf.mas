@@ -31,6 +31,8 @@
         $greylist
         $greylistAddr
         $greylistPort
+
+        $openchangeEnabled
 </%args>
 <%init>
 use EBox::Gettext;
@@ -203,3 +205,6 @@ sender_bcc_maps = <% $bccMaps %>
 recipient_bcc_maps = <% $bccMaps %>
 % }
 
+% if ($openchangeEnabled) {
+smtp_generic_maps = hash:/etc/postfix/generic
+% }
