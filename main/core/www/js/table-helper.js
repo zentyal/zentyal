@@ -382,6 +382,10 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
                                           changes.paginationChanges.nPages,
                                           changes.paginationChanges.pageNumbersText);
     }
+
+    // restore normal table header
+    $('#' + tableId + '_top').show();
+    $('#' + tableId + '_editForm').hide();
 };
 
 

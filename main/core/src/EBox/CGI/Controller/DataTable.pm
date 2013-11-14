@@ -516,8 +516,9 @@ sub showChangeRowForm
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
-    my $id     = $self->unsafeParam('id');
+    my $id     = $self->unsafeParam('editid');
     my $action =  $self->{'action'};
+
     my $filter = $self->unsafeParam('filter');
     my $page = $self->param('page');
     my $pageSize = $self->param('pageSize');
@@ -547,7 +548,9 @@ sub changeListAction
 sub changeEditAction
 {
     my ($self) = @_;
-    $self->_requireUnsafeParam('id');
+    if (not defined $self->param('editid')) {
+        throw EBox::Exceptions::DataMissing(data => 'row ID');
+    }
     $self->showChangeRowForm();
 }
 
