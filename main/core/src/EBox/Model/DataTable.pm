@@ -2659,6 +2659,47 @@ sub changeViewJS
                     $isFilter);
 }
 
+# Method: showChangeRowFormJS
+#
+#     Return the javascript function to change view to
+#     add a row
+#
+# Parameters:
+#
+#    (NAMED)
+#    changeType - changeAdd or changeList
+#    editId - edit id
+#     page - page number
+#       isFilter - boolean indicating if comes from filtering
+#
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub showChangeRowFormJS
+{
+    my ($self, %args) = @_;
+
+    my ($type, $editId, $page, $isFilter) = ($args{changeType},
+            $args{editId},
+            $args{page},
+            $args{isFilter},
+            );
+
+    my $function = "Zentyal.TableHelper.showChangeRowForm('%s','%s','%s','%s','%s', %s, %s)";
+
+    my $table = $self->table();
+    return sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
+}
+
+
 # Method: modalChangeViewJS
 #
 #     Return the javascript function to change view

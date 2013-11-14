@@ -215,8 +215,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
 };
 
-Zentyal.TableHelper._newErrorJSONCallback = function(table) {
-    var failure = function(response) {
+Zentyal.TableHelper.setErrorFromJSON = function(table, response) {
         var errorText;
         if ('error' in response) {
             errorText = response.error;
@@ -224,6 +223,11 @@ Zentyal.TableHelper._newErrorJSONCallback = function(table) {
             errorText = 'Unexpected failure'; // XXX lack i18n
         }
         $('#error_' + table).html(errorText).show();
+};
+
+Zentyal.TableHelper._newErrorJSONCallback = function(table) {
+    var failure = function(response) {
+        Zentyal.TableHelper.setErrorFromJSON (table, response);
     };
     return failure;
 };
@@ -285,8 +289,8 @@ Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersT
 
 
     $('#' + tableId + '_page_numbers', pager).text(pageNumbersText);
-    $('.tablePrevPageControl', pager).prop('disabled', page != 0);
-    $('.tableNextPageControl', pager).prop('disabled', page+1 != nPages);
+    $('.tablePrevPageControl', pager).prop('disabled', page !== 0);
+    $('.tableNextPageControl', pager).prop('disabled', page+1 !== nPages);
 };
 
 Zentyal.TableHelper.setRow = function(table, rowId, values) {
@@ -321,9 +325,13 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
         tr,
        i, values;
 
+    // exclusive changes, if fired other changes are ignored
     if ('reload' in changes) {
-        // reload al lthe table, other changes are ignored
         $('#' + tableId).html(changes.reload);
+        return;
+    } else if ('changeRowForm' in changes) {
+        $('#' + tableId + '_top').hide();
+        $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         return;
     }
 
@@ -375,6 +383,8 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
                                           changes.paginationChanges.pageNumbersText);
     }
 };
+
+
 
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, extraParams) {
     var params;
@@ -586,6 +596,80 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     $('#' + id + ' .customActions').each(function(index, element) {
         Zentyal.TableHelper.setLoading(element.id, table, true);
     });
+};
+
+
+Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action, id, page, isFilter) {
+    var params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
+    params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
+    params += '&page=' + page;
+
+    Zentyal.TableHelper.cleanError(table);
+    if ( action == 'changeAdd' ) {
+      Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
+    } else if ( action == 'changeList' ) {
+        if ( ! isFilter ) {
+            Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
+        }
+    } else if ( action == 'changeEdit' ) {
+      Zentyal.TableHelper.setLoading('actionsCell_' + id, table, true);
+    } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+       var selector = 'input[id^="' + table + '_' + id + '_"]';
+       $(selector).each(function(i, e) {
+           Zentyal.TableHelper.setLoading(e.parentNode.id, table, true);
+       });
+
+       Zentyal.TableHelper.setLoading(table + '_' + id + '_div_CheckAll', table, true);
+   }
+
+    var failure = function(response) {
+        Zentyal.TableHelper.setErrorFromJSON(table, response);
+        if ( action == 'changeAdd' ) {
+            Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
+        } else if ( action == 'changeList' ) {
+            if (! isFilter ) {
+                Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
+            }
+        }  else if ( action == 'changeEdit' ) {
+            Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
+        } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+            var selector = 'input[id^="' + table + '_' + id + '_"]';
+            $(selector).each(function(index, element) {
+                Zentyal.TableHelper.restoreHidden(element.parentNode.id, table);
+            });
+
+            Zentyal.TableHelper.restoreHidden(table + '_' + id + '_div_CheckAll', table);
+        }
+    };
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var complete = function(response) {
+        // Highlight the element
+        if (id != undefined) {
+            Zentyal.TableHelper.highlightRow(id, true);
+        }
+        // Zentyal.Stripe again the table
+        Zentyal.stripe('.dataTable', 'even', 'odd');
+        if ( action == 'changeEdit' ) {
+            Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
+        }
+        Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
+    };
+
+
+
+    $.ajax({
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'json',
+            success: success,
+            error: failure,
+            complete: complete
+    });
+
+
 };
 
 Zentyal.TableHelper.changeView = function (url, table, directory, action, id, page, isFilter) {

@@ -10,6 +10,8 @@ $tpages
 $printableRowName => ''
 </%args>
 <%init>
+  use EBox::Gettext;
+
   my $tableName = $model->table()->{'tableName'};
   my @tableHead = @{$model->table()->{'tableDescription'}};
   if ($action eq 'add') {

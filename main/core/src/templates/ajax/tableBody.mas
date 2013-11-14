@@ -438,7 +438,7 @@ my $checkAll  = $model->checkAllProperty();
   <button type='button' class='btn btn-icon btn-add'
       name='add' id='<% $tableName %>_add_button'
          onClick="<%
-                 $model->changeViewJS( changeType => "changeAdd",
+                 $model->showChangeRowFormJS( changeType => "changeAdd",
                       editId => "undefined",
                       page => $page,
                       isFilter => 0)

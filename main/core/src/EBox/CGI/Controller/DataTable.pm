@@ -474,37 +474,79 @@ sub delAction
     my ($self) = @_;
     $self->{json} = {  success => 0 };
     my $rowId = $self->removeRow();
+
+    my $reload = 0;
     my $model  = $self->{'tableModel'};
-    if ($model->size() == 0) {
+    my $nRows  = $model->size();
+
+    if ($nRows == 0) {
         # all table rows removed, need to reload the table
-        $self->{json}->{reload} = $self->_htmlForRefreshTable();
-        $self->{json}->{success} = 1;
-        return;
+        $reload = 1;
+    } else {
+        my $page   = $self->param('page');
+        my $pageSize = $self->param('pageSize');
+        my $nPagesBefore =  ceil(($nRows+1)/$pageSize);
+        if (($page > 0) + (($page+1) >= $nPagesBefore ) ) {
+        # TODO pagination changes du to removal in lastl page
+
+            $reload = 1;
+        } else {
+        # TODO row changes whne removing rows and there are more pages left
+        }
+
     }
 
-    # TODO pagination changes du to removal
+
+    if ($reload) {
+        $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        $self->{json}->{success} = 1;
+    } else {
+        $self->{json} = {
+            success => 1,
+            removed => [ $rowId ]
+       };
+    }
+}
+
+sub showChangeRowForm
+{
+    my ($self) = @_;
+    my $model = $self->{'tableModel'};
+    my $global = EBox::Global->getInstance();
+
+    my $id     = $self->unsafeParam('id');
+    my $action =  $self->{'action'};
+    my $filter = $self->unsafeParam('filter');
+    my $page = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my $tpages   = ceil($model->size()/$pageSize);
+
+    my $presetParams = {};
+    my $html = $self->_htmlForChangeRow($model, $action, $id, $filter, $page, $tpages, $presetParams);
     $self->{json} = {
         success => 1,
-        removed => [ $rowId ]
-       };
+        changeRowForm => $html,
+    };
 }
 
 sub changeAddAction
 {
     my ($self) = @_;
-    $self->refreshTable();
+    $self->showChangeRowForm();
 }
 
 sub changeListAction
 {
     my ($self) = @_;
+    # XXX?
     $self->refreshTable();
 }
 
 sub changeEditAction
 {
     my ($self) = @_;
-    $self->refreshTable();
+    $self->_requireUnsafeParam('id');
+    $self->showChangeRowForm();
 }
 
 # This action will show the whole table (including the
@@ -718,7 +760,7 @@ sub _htmlForChangeRow
     );
 
     my $html;
-    $html = EBox::Html::makeHtml('/ajax/changeRow.mas', @params);
+    $html = EBox::Html::makeHtml('/ajax/changeRowForm.mas', @params);
     return $html;
 
 }

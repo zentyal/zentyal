@@ -145,7 +145,7 @@ $page
               title="<% $edit_msg %>"
               class='btn-only-icon btn-edit'
               onClick="<%
-                       $model->changeViewJS(
+                       $model->showChangeRowFormJS(
                              changeType => 'changeEdit',
                              editId => $row->{'id'},
                              page => $page,
