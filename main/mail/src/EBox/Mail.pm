@@ -1811,7 +1811,7 @@ sub openchangeProvisioned
     my ($self) = @_;
 
     my $globalInstance = $self->global();
-    if ( $globalInstance->modExists('openchange') ) {
+    if ($globalInstance->modExists('openchange')) {
         my $openchange = $globalInstance->modInstance('openchange');
         return ($openchange->isEnabled() and $openchange->isProvisioned());
     }
