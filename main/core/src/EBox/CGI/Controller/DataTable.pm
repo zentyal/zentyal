@@ -316,7 +316,7 @@ sub customAction
     $self->_auditLog('action', $id, $action);
 }
 
-# Method to refresh the table by calling rows method
+# Method to refresh the table using standard print CGI method
 sub refreshTable
 {
     my ($self) = @_;
@@ -327,7 +327,7 @@ sub _htmlForRefreshTable
 {
     my ($self) = @_;
     my $params = $self->_paramsForRefreshTable();
-    my $html = EBox::Html::makeHtml($self->{template}, $params);
+    my $html = EBox::Html::makeHtml($self->{template}, @{ $params});
     return $html;
 }
 
