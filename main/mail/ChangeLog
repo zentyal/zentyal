@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
 3.2.1
 	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification

@@ -1,4 +1,5 @@
 HEAD
+	+ Added missing EBox::Exceptions uses
 	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
 	  objectGUID unique id to be 100% sure we match the right objects
 3.2.9

@@ -25,6 +25,8 @@ use EBox::Config;
 use EBox::Service;
 use EBox::Module::Base;
 use EBox::Util::SHMLock;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);

@@ -36,6 +36,7 @@ use EBox::Model::Manager;
 use EBox::Types::Abstract;
 use EBox::Types::HasMany;
 use EBox::Types::Text;
+use EBox::Exceptions::DataInUse;
 
 {
     my $rowIdUsed;

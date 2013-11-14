@@ -29,6 +29,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
 use Error qw(:try);

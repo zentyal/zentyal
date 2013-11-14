@@ -19,6 +19,7 @@ use warnings;
 package EBox::NetworkUtil;
 
 use EBox::Network;
+use EBox::Exceptions::External;
 
 BEGIN {
 	use Exporter ();

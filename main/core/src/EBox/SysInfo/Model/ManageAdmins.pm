@@ -27,6 +27,9 @@ use Error qw(:try);
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::Action;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
 my $ADMIN_GROUP = 'sudo';
 

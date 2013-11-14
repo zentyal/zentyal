@@ -22,6 +22,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 use EBox;
 
 # Method: new

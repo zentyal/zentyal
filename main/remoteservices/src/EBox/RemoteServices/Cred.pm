@@ -27,6 +27,7 @@ use base 'EBox::RemoteServices::Base';
 
 use EBox::Global;
 use EBox::RemoteServices::RESTClient;
+use EBox::Exceptions::External;
 use File::Slurp;
 use JSON::XS;
 

@@ -19,6 +19,7 @@ use warnings;
 package EBox::Util::SHMLock::Fake;
 
 use EBox::Util::SHMLock;
+use EBox::Exceptions::Lock;
 use Test::MockObject;
 use Test::MockModule;
 

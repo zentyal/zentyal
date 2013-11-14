@@ -29,6 +29,9 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Samba::GPO;
 
 # Method: _table

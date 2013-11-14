@@ -28,6 +28,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
+use EBox::Exceptions::External;
 
 # Constants
 use constant SERV_SUBDIR => 'remoteservices/subscription';

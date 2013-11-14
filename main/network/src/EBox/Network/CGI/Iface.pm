@@ -21,6 +21,7 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::External;
 use Error qw(:try);
 
 sub new # (cgi=?)

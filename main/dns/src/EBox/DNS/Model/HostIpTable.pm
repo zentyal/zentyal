@@ -33,6 +33,7 @@ use EBox::Gettext;
 
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

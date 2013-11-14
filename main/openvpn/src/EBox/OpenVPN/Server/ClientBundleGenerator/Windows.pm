@@ -22,6 +22,7 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 # package:
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 
 use File::Glob ':glob';
 use File::Slurp;

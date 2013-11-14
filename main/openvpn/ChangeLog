@@ -1,3 +1,5 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
 3.2.1
 	+ Better behavior for daemons ifaceAddress methods
 	+ Precondition to assure there are certificates available in

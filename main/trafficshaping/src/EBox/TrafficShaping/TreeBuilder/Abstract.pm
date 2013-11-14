@@ -19,6 +19,8 @@ use warnings;
 package EBox::TrafficShaping::TreeBuilder::Abstract;
 
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use Tree;
 
 #       TreeBuilder::Abstract is an abstract class.  It is an

@@ -25,6 +25,7 @@ use EBox::Global;
 use EBox::Menu::Root;
 use EBox::UserCorner;
 use EBox::Util::Version;
+use EBox::Exceptions::External;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
