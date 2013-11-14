@@ -319,8 +319,21 @@ sub customAction
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
-    my $self = shift;
+    my ($self) = @_;
+    $self->{'params'} = $self->_paramsForRefreshTable();
+}
 
+sub _htmlForRefreshTable
+{
+    my ($self) = @_;
+    my $params = $self->_paramsForRefreshTable();
+    my $html = EBox::Html::makeHtml($self->{template}, $params);
+    return $html;
+}
+
+sub _paramsForRefreshTable
+{
+    my ($self) = @_;
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
@@ -352,18 +365,7 @@ sub refreshTable
     push(@params, 'page' => $page);
     push(@params, 'tpages' => $tpages);
 
-    $self->{'params'} = \@params;
-}
-
-sub _htmlForRefreshTable
-{
-    my ($self) = @_;
-    $self->refreshTable();
-    # get params intended for print method which will
-    # be used to buidl the htm,l
-    my $params = delete $self->{params};
-    my $html = EBox::Html::makeHtml($self->{template}, @{ $params});
-    return $html;
+    return \@params;
 }
 
 sub editAction
