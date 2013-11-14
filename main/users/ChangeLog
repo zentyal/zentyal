@@ -1,3 +1,5 @@
+HEAD
+	+ Better error handling when we get a LdapObject that doesn't exists
 3.2.3
 	+ Remove undefined warnings on users/group creation
 	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
