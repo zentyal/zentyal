@@ -180,7 +180,7 @@ sub editField
 {
     my ($self, %params) = @_;
 
-    $self->_editField(0, %params);
+    return $self->_editField(0, %params);
 }
 
 sub _editField
@@ -194,8 +194,6 @@ sub _editField
     my $id = $params{id};
     my $row = $model->row($id);
     my $auditId = $self->_getAuditId($id);
-
-    $self->{json} = { success => 0 };
 
     # Store old and new values before setting the row for audit log
     my %changedValues;
@@ -232,12 +230,7 @@ sub _editField
 
     my $editField = $self->param('editfield');
     if (not $editField) {
-        $self->{json}->{success} = 1;
-
-        $self->{json}->{changed} = {
-            $id => $model->row($id)->schemaForJSON()
-           };
-        return;
+        return $id;
     }
 
     foreach my $field (@{$tableDesc}) {
@@ -250,6 +243,8 @@ sub _editField
             $self->{'to_print'} = $params{$fieldName};
         }
     }
+
+    return $id;
 }
 
 sub editBoolean
@@ -366,9 +361,28 @@ sub _paramsForRefreshTable
 sub editAction
 {
     my ($self) = @_;
+
+    my $editField = $self->param('editfield');
+    if (not $editField) {
+        $self->{json} = { success => 0 };
+    }
+
     my %params = $self->getParams();
-    $self->editField(%params);
-#    $self->refreshTable();
+    my $id = $self->editField(%params);
+    if (not $editField) {
+        my $model  = $self->{'tableModel'};
+        my $filter = $self->unsafeParam('filter');
+        my $page   = $self->param('page');
+        my @ids    = @{ $self->_modelIds($model, $filter) };
+        my $row    = $model->row($id);
+
+        $self->{json}->{success} = 1;
+        $self->{json}->{changed} = {
+            $id => $self->_htmlForRow($model, $row, \@ids, $filter, $page)
+           };
+        return;
+    }
+
 }
 
 sub addAction

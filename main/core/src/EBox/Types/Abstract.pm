@@ -813,20 +813,6 @@ sub _setValue # (value)
     return;
 }
 
-
-sub schemaForJSON
-{
-    my ($self) = @_;
-    my %json = (
-        fieldName => $self->fieldName(),
-        value     => $self->value(),
-        type      => ref($self),
-        hidden    => $self->hidden(),
-    );
-
-    return \%json;
-}
-
 # Group: Private functions
 
 # Function: _identity

@@ -799,16 +799,4 @@ sub isEqualTo
     return 1;
 }
 
-
-sub schemaForJSON
-{
-    my ($self) = @_;
-    my @json;
-    foreach my $element (@{ $self->elements() }) {
-        push @json, $element->schemaForJSON();
-    }
-    return \@json;
-}
-
-
 1;
