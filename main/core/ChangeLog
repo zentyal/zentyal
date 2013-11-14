@@ -1,4 +1,6 @@
 HEAD
+	+ EBox::WebServer::removeNginxInclude does not longer throws
+	  a exception if the path to remove is not included
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
 	+ Support for redirection when loading URL in existent dialog
