@@ -287,7 +287,7 @@ sub _setAutodiscoverConf
     my $server    = $sysinfo->hostDomain();
     my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
     if ($adminMail eq 'postmasterRoot') {
-        $adminMail = 'postaster@' . $server;
+        $adminMail = 'postmaster@' . $server;
     }
     my $confFileParams = [
         bindDn    => 'cn=Administrator',
