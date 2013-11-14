@@ -24,10 +24,8 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
+
 use POSIX qw(ceil);
-
-
-# Dependencies
 use Error qw(:try);
 
 sub new
