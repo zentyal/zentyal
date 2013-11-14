@@ -383,12 +383,14 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
                                           changes.paginationChanges.pageNumbersText);
     }
 
-    // restore normal table header
-    $('#' + tableId + '_top').show();
-    $('#' + tableId + '_editForm').hide();
+    Zentyal.TableHelper.restoreTop(tableId);
 };
 
-
+Zentyal.TableHelper.restoreTop = function(tableId) {
+    $('#' + tableId + '_top').show();
+    $('#' + tableId + '_editForm').hide();
+    $('#creatingForm_' + tableId).html('');
+};
 
 Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, extraParams) {
     var params;
@@ -1095,7 +1097,7 @@ Parameters:
                 Default value: true
 
 */
-// XXX Seein it with elmentId = udnef!!
+// XXX Seein it with elmentId = undef!!
 Zentyal.TableHelper.highlightRow = function (elementId, enable) {
   // If enable has value null or undefined
     if ( (enable === null) || (enable === undefined)) {

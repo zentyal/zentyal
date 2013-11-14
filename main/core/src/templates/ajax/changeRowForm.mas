@@ -285,6 +285,11 @@ $tpages
       $action = 'changeAdd';
       $cloneId = $editid;
   }
+
+my $cancelJS =  "Zentyal.TableHelper.restoreTop('$modelName'); return false";
+if ($action eq 'changeEdit') {
+    $cancelJS = "Zentyal.TableHelper.highlightRow('$editid', false);" . $cancelJS;
+}
 </%init>
 % unless ((defined $withoutActions) and $withoutActions) {
 <tr>
@@ -331,10 +336,7 @@ $tpages
         name => 'cancel',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick => $model->changeViewJS(changeType => 'changeList',
-                          editId => 'undefined',
-                          page => $page,
-                          isFilter => 0) . '; return false'
+        onclick => $cancelJS
     &>
 %  }
 % }
