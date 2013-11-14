@@ -127,9 +127,7 @@ $page
               alt="Del"
               class='btn-only-icon btn-delete'
               onClick="<%
-                          $model->actionClickedJS('del',
-                             $row->{id},
-                              $page)
+                          $model->deleteActionClickedJS($row->{id}, $page)
                        %>"
           ><% $delete_msg %></button>
 
@@ -167,9 +165,11 @@ $page
               alt="Clone"
               class='btn-only-icon btn-clone'
               onClick="<%
-                          $model->actionClickedJS('clone',
-                             $row->{id},
-                              $page)
+                       $model->showChangeRowFormJS(
+                             changeType => 'changeClone',
+                             editId => $row->{'id'},
+                             page => $page,
+                             isFilter => 0)
                        %>"
           ><% $clone_msg  %></button>
 

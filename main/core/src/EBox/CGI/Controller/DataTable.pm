@@ -71,11 +71,6 @@ sub getParams
     $params{'id'} = $self->unsafeParam('id');
     $params{'filter'} = $self->unsafeParam('filter');
 
-    my $cloneId = $self->unsafeParam('cloneId');
-    if ($cloneId) {
-        $params{cloneId} = $cloneId;
-    }
-
     return %params;
 }
 
@@ -550,6 +545,15 @@ sub changeEditAction
     my ($self) = @_;
     if (not defined $self->param('editid')) {
         throw EBox::Exceptions::DataMissing(data => 'row ID');
+    }
+    $self->showChangeRowForm();
+}
+
+sub changeCloneAction
+{
+    my ($self) = @_;
+    if (not defined $self->param('editid')) {
+        throw EBox::Exceptions::DataMissing(data => 'clone row ID');
     }
     $self->showChangeRowForm();
 }

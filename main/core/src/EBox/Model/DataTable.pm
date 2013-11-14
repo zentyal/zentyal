@@ -2884,34 +2884,24 @@ sub _paramsToJSON
     return $paramString;
 }
 
-# Method: actionClicked
+# Method: deleteActionClickedJS
 #
-#     Return the javascript function for actionClicked
+#     Return the javascript function for click on delete action
 #
 # Parameters:
 #
-#    (POSITIONAL)
-#    action - move or del
-#    editId - row id to edit
+#    id - row to remove
 #    page - page number
 #
 # Returns:
 #
 #     string - holding a javascript funcion
-sub actionClickedJS
+sub deleteActionClickedJS
 {
-    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $id, $page, $modal, @extraParams) = @_;
+    my $action = 'del';
+    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s, %s)";
 
-    unless (($action eq 'del') or ($action eq 'clone')) {
-        throw EBox::Exceptions::External("Wrong action $action");
-    }
-
-    my  $function;
-    if ($action eq 'del') {
-        $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
-    } else {
-        $function =  "Zentyal.TableHelper.actionDelete('%s','%s','%s','%s','%s',%s, %s)";
-    }
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
@@ -2927,8 +2917,7 @@ sub actionClickedJS
     return sprintf ($function,
                     $actionUrl,
                     $tablename,
-                    $action,
-                    $editId,
+                    $id,
                     $table->{'confdir'},
                     $page,
                     $extraParamsJS);

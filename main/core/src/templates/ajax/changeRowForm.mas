@@ -30,7 +30,7 @@ $printableRowName => ''
   if ($editid and ($editid ne 'undefined')) {
       $editRow = $model->row($editid);
       @formData = @{$editRow->elements()};
-      if ($action eq 'clone') {
+      if ($action eq 'changeClone') {
           # unique fields should not be cloned
           my @uniqFields = grep { $_->unique()  } @tableHead;
           foreach my $uniqField (@uniqFields) {
@@ -80,7 +80,7 @@ $printableRowName
        $formTitle = __x('Adding a new {row}', row => $printableRowName);
     } elsif ( $action eq 'changeEdit' )  {
        $formTitle = __x('Editing {row}', row => $printableRowName);
-    } elsif ($action eq 'clone') {
+    } elsif ($action eq 'changeClone') {
        $formTitle = __x('Cloning {row}', row => $printableRowName);
     } else {
        $m->abort("Unknown changerowFrom action: $action");
@@ -281,7 +281,7 @@ $tpages
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
       $action = 'changeEdit' if ( $editid );
-  } elsif ($action eq 'clone') {
+  } elsif ($action eq 'changeClone') {
       $action = 'changeAdd';
       $cloneId = $editid;
   }

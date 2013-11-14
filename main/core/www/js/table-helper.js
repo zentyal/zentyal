@@ -239,7 +239,6 @@ Zentyal.TableHelper._newSuccessJSONCallback = function(table, failure) {
             return;
         }
 
-        $('#' + table + '_editForm').hide(); // XXX asure than we dont let  lot of editForms in te same page
         Zentyal.TableHelper.modifyTable(table, response);
     };
     return success;
@@ -454,9 +453,9 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
 
 
 /*
-Function: actionClicked
+Function: deleteActionClicked
 
-        Callback function when an action on the table is clicked
+        Callback function when a delete action on the table is clicked
 
 Parameters:
 
@@ -470,14 +469,11 @@ Parameters:
 
 
 */
-Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  directory, page, extraParams) {
-    var success, failure, complete, dataType;
-    var params = '&action=' + action + '&id=' + rowId;
-
+Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  directory, page, extraParams) {
+    var params = '&action=del&id=' + rowId;
     if ( page != undefined ) {
         params += '&page=' + page;
     }
-
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
@@ -485,73 +481,33 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  direct
         params += '&' + name + '=' + extraParams[name];
     }
 
+    var actionsCellId = 'actionsCell_' + rowId;
+    var failure = function(response) {
+        Zentyal.TableHelper.setErrorFromJSON (table, response);
+        Zentyal.TableHelper.restoreHidden(actionsCellId);
+    };
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var complete = function(response) {
+        Zentyal.refreshSaveChangesButton();
+        Zentyal.stripe('.dataTable', 'even', 'odd');
+        if (actionsCellId in savedElements) {
+            delete savedElements['actionsCell_' + rowId];
+        }
+    };
+
     Zentyal.TableHelper.cleanError(table);
+    Zentyal.TableHelper.setLoading(actionsCellId, table, true);
 
-    if (action === 'del') {
-        dataType = 'json';
-    } else {
-        dataType = 'html';
-    }
-
-    if (dataType === 'json') {
-        failure = function(response) {
-            var errorText;
-            if ('error' in response) {
-                errorText = response.error;
-            } else {
-                errorText = 'Unexpected failure'; // XXX lack i18n
-            }
-            $('#error_' + table).html(errorText).show();
-        };
-        success = function(response) {
-            if (! response.success) {
-                failure(response);
-                return;
-            }
-
-            Zentyal.TableHelper.modifyTable(table, response);
-        };
-        complete = function(response) {
-            Zentyal.refreshSaveChangesButton();
-            Zentyal.stripe('.dataTable', 'even', 'odd');
-            if ( action == 'del' ) {
-                delete savedElements['actionsCell_' + rowId];
-            }
-        };
-    } else if (dataType === 'html') {
-        success = function(responseText) {
-            $('#' + table).html(responseText);
-        };
-        failure = function(response) {
-            $('#error_' + table).html(response.responseText).show();
-            Zentyal.TableHelper.restoreHidden('actionsCell_' + rowId, table);
-        };
-        complete = function(response) {
-            Zentyal.stripe('.dataTable', 'even', 'odd');
-            if ( action == 'del' ) {
-                delete savedElements['actionsCell_' + rowId];
-            }
-        };
-    } else {
-        throw 'Should not be reached: Unsupported data type:' + dataType;
-    }
-
-   $.ajax({
+    $.ajax({
             url: url,
             data: params,
             type : 'POST',
-            dataType: dataType,
+            dataType: 'json',
             success: success,
             error: failure,
             complete: complete
    });
-
-  if ( action == 'del' ) {
-    Zentyal.TableHelper.setLoading('actionsCell_' + rowId, table, true);
-  }
 };
-
-
 
 Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {
     var params = '&action=' + action;
