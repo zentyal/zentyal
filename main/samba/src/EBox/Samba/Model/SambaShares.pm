@@ -265,6 +265,11 @@ sub validateTypedRow
             }
             EBox::Validate::checkAbsoluteFilePath(
                 $parms->{'path'}->value(), __('Samba share absolute path'));
+
+            unless (EBox::Sudo::fileTest('-d', $normalized)) {
+                throw EBox::Exceptions::External(__x('Path {p} is not a directory', p => $normalized));
+            }
+
             # Check if the filesystem is mounted with acl and user_xattr
             $self->_checkSystemShareMountOptions($normalized);
         } else {

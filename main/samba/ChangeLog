@@ -1,4 +1,5 @@
 HEAD
+	+ Check if file system share path is a directory
 	+ Fixed unhandled exception when checking filesystem options
 	+ Added missing EBox::Exceptions uses
 	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
