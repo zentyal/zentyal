@@ -1,3 +1,6 @@
+HEAD
+	+ Fix error in backup or clicking on edit GPO when server is ADC and
+	  sysvol is not yet replicated
 3.2.9
 	+ Depend on the new Samba 4.1.1, also with fixed init script
 	+ Improve GPO models preconditions to avoid cannot connect to samba
