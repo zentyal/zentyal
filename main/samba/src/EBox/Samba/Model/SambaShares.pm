@@ -442,7 +442,12 @@ sub _checkSystemShareMountOptions
 
     my $fs = new Sys::Filesystem(mtab => '/etc/mtab');
     my @filesystems = $fs->filesystems(mounted => 1);
-    my $options = $fs->options($mountPoint);
+    my $options;
+    try {
+        $options = $fs->options($mountPoint);
+    } otherwise {
+        throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
+    };
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(
