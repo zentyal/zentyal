@@ -1,4 +1,6 @@
 HEAD
+	+ Stat system share paths to validate them
+	+ Strip trailing slash from system share path
 	+ Check if file system share path is a directory
 	+ Fixed unhandled exception when checking filesystem options
 	+ Added missing EBox::Exceptions uses

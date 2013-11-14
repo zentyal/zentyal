@@ -249,9 +249,21 @@ sub validateTypedRow
 
     if (exists $parms->{'path'}) {
         my $path = $parms->{'path'}->selectedType();
+        my $value = $parms->{'path'}->value();
         if ($path eq 'system') {
+            # Strip leading '/' if supplied by user, otherwise abs_path will
+            # return undef
+            $value =~ s/[\/]?$//;
+
+            # Stat directory
+            my @s = stat($value);
+            unless (@s) {
+                throw EBox::Exceptions::External(
+                    __x('Error on stat specified path: {x}', x => $!));
+            }
+
             # Check if it is an allowed system path
-            my $normalized = abs_path($parms->{'path'}->value());
+            my $normalized = abs_path($value);
             if ($normalized eq '/') {
                 throw EBox::Exceptions::External(
                     __('The file system root directory cannot be used as share'));
@@ -263,8 +275,7 @@ sub validateTypedRow
                             dir => $normalized));
                 }
             }
-            EBox::Validate::checkAbsoluteFilePath(
-                $parms->{'path'}->value(), __('Samba share absolute path'));
+            EBox::Validate::checkAbsoluteFilePath($value, __('Samba share absolute path'));
 
             unless (EBox::Sudo::fileTest('-d', $normalized)) {
                 throw EBox::Exceptions::External(__x('Path {p} is not a directory', p => $normalized));
@@ -274,8 +285,7 @@ sub validateTypedRow
             $self->_checkSystemShareMountOptions($normalized);
         } else {
             # Check if it is a valid directory
-            my $dir = $parms->{'path'}->value();
-            EBox::Validate::checkFilePath($dir, __('Samba share directory'));
+            EBox::Validate::checkFilePath($value, __('Samba share directory'));
         }
     }
 }
