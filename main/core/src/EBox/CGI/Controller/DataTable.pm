@@ -474,8 +474,15 @@ sub delAction
     my ($self) = @_;
     $self->{json} = {  success => 0 };
     my $rowId = $self->removeRow();
-    # TODO add roes to view
-    # TODO if all rows are deleted
+    my $model  = $self->{'tableModel'};
+    if ($model->size() == 0) {
+        # all table rows removed, need to reload the table
+        $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        $self->{json}->{success} = 1;
+        return;
+    }
+
+    # TODO pagination changes du to removal
     $self->{json} = {
         success => 1,
         removed => [ $rowId ]
