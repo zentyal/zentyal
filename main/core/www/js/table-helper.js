@@ -319,7 +319,13 @@ Zentyal.TableHelper.setRow = function(table, rowId, values) {
 Zentyal.TableHelper.modifyTable = function(tableId, changes) {
     var rowId,
         tr,
-        i;
+       i, values;
+
+    if ('reload' in changes) {
+        // reload al lthe table, other changes are ignored
+        $('#' + tableId).html(changes.reload);
+        return;
+    }
 
     var table = $('#' + tableId + '_table');
     assert(table.length > 0, '#' + tableId + '_table');
@@ -357,7 +363,7 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
 
     if ('changed' in changes) {
         for (rowId in changes.changed) {
-            var values = changes.changed[rowId];
+            values = changes.changed[rowId];
             Zentyal.TableHelper.setRow(table, rowId, values);
         }
     }

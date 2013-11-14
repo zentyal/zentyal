@@ -30,7 +30,7 @@ use POSIX qw(ceil);
 # Dependencies
 use Error qw(:try);
 
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
     my %params = @_;
@@ -355,6 +355,17 @@ sub refreshTable
     $self->{'params'} = \@params;
 }
 
+sub _htmlForRefreshTable
+{
+    my ($self) = @_;
+    $self->refreshTable();
+    # get params intended for print method which will
+    # be used to buidl the htm,l
+    my $params = delete $self->{params};
+    my $html = EBox::Html::makeHtml($self->{template}, @{ $params});
+    return $html;
+}
+
 sub editAction
 {
     my ($self) = @_;
@@ -369,16 +380,21 @@ sub addAction
     $self->{json}->{success} = 0;
 
     my $rowId = $self->addRow();
+
+    my $model  = $self->{'tableModel'};
     if ($params{json}) {
         # XXX this is for dialog mode..
         $self->{json}->{rowId} = $rowId;
         $self->{json}->{directory} = $params{directory};
         $self->{json}->{success} = 1;
+    } elsif ($model->size() == 1) {
+        # this was the first added row, reload all the table
+        $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        $self->{json}->{success} = 1;
     } else {
         # XXX this calculations assumess than only one row is added
         # XXX add more pages when adding
         my $nAdded = 1;
-        my $model  = $self->{'tableModel'};
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
         my $pageSize = $self->param('pageSize');
