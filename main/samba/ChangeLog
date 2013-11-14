@@ -1,4 +1,7 @@
 HEAD
+	+ Add precondition to GPO models, do not allow edition if server is ADC
+	+ Fix error in backup or clicking on edit GPO when server is ADC and
+	  sysvol is not yet replicated
 	+ Check if file system share path is a directory
 	+ Fixed unhandled exception when checking filesystem options
 	+ Added missing EBox::Exceptions uses
