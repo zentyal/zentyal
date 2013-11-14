@@ -1,0 +1,21 @@
+# openchange-ocsmanager
+description "Zentyal usptart for ocsmanager application"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+respawn
+
+# OCSManager must be run as root, for now
+env USER=root
+env CONFFILE=/etc/ocsmanager/ocsmanager.ini
+env PIDFILE=/var/run/ocsmanager/ocsmanager.pid
+env LOGFILE=/var/log/ocsmanager/ocsmanager.log
+
+pre-start script
+        # Ensure directory's existence and permissions
+        install -o $USER -g adm -m 755 -d /var/run/ocsmanager
+        install -o $USER -g adm -m 750 -d /var/log/ocsmanager
+end script
+
+script
+  /usr/bin/paster serve $CONFFILE  --pid-file $PIDFILE --log-file $LOGFILE
+end script

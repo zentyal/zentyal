@@ -1,4 +1,5 @@
 HEAD
+	+ Added autodiscovery of server parameters
 	+ Removed the deprovision option, it needs more work to be useful
 	+ Extract the list of existing organization names from AD for better user
 	  experience
