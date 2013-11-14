@@ -100,7 +100,8 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    actions => $actions,
    onlyCustomActions => $onlyCustomActions,
    page => $page,
-   filter => $filter
+   filter => $filter,
+   nIds   => scalar @ids
 &>
 % }
 
@@ -232,6 +233,7 @@ $actions
 $onlyCustomActions
 $page
 $filter
+$nIds
 </%args>
 <%init>
 my $tableName = $model->table()->{'tableName'};
@@ -255,27 +257,15 @@ my $changeView = $model->action('changeView');
 %        }
 %     }
   <span id="creatingForm_<% $tableName %>"></span>
-<& SELF:topToolbar,
-   tableName => $tableName,
-   model     => $model,
-   filter => $filter
-&>
-</div>
-</%method>
-
-
-<%method topToolbar>
-<%args>
-$tableName
-$model
-$filter => undef
-</%args>
-<div class="tableSearch">
+% if ($nIds > 0) {
+  <div class="tableSearch">
          <& SELF:filterForm,
             tableName => $tableName,
             model     => $model,
             filter    => $filter,
          &>
+  </div>
+% }
 </div>
 </%method>
 
