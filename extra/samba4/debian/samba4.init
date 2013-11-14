@@ -48,10 +48,10 @@ case "$1" in
 	stop)
 		log_daemon_msg "Stopping Samba 4 daemon" "samba"
 
-		start-stop-daemon --stop --quiet --name samba $SAMBAPID
-		# Wait a little and remove stale PID file
-		sleep 1
+		# Send TERM signal, wait 2 seconds and if still alive send KILL
+		start-stop-daemon --stop --signal TERM --retry 2 --name samba
 
+		# Remove stale PID file
 		if [ -f $SAMBAPID ] && ! ps h `cat $SAMBAPID` > /dev/null
 		then
 			# Stale PID file (samba was succesfully stopped),

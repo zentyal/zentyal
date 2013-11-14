@@ -24,6 +24,8 @@ if [ "$1" = "configure" ]; then
     echo "/opt/samba4/lib" > /etc/ld.so.conf.d/samba4.conf
 fi
 
+chmod 600 /opt/samba4/private/tls/key.pem || true
+
 #DEBHELPER#
 
 exit 0

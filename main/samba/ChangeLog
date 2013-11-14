@@ -1,4 +1,8 @@
 3.3
+	+ Fixed a typo in a info message
+	+ Depend on the new Samba 4.1.1, also with fixed init script
+	+ Improve GPO models preconditions to avoid cannot connect to samba
+	  LDAP
 	+ Fix regression in unmanaged ACLs option
 	+ Prevent _postServiceHook code execution outside Save Changes
 	+ Fixed openLDAP -> samba integration for users, contacts and groups using
