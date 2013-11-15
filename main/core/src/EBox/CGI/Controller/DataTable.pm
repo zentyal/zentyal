@@ -419,19 +419,12 @@ sub addAction
         my $nPages =  ceil(scalar(@ids)/$pageSize);
         my $row    = $model->row($rowId);
 
-        my $beginPrinted;
-        my $endPrinted;
-        my $needSpace = 1;
-        if ($page == 0) {
-            $beginPrinted = 0;
-        } else {
-            $beginPrinted = ($page*$pageSize) + 1;
-        }
-        $endPrinted = $beginPrinted + $pageSize;
+        my $beginPrinted = $page*$pageSize;
+        my $endPrinted   = $beginPrinted + $pageSize -1;
         if ($endPrinted > (@ids-1)) {
             $endPrinted = @ids -1;
         }
-
+        my $needSpace = 1;
 
         my $idPosition = undef;
         for (my $i = 0; $i < @ids; $i++) {
@@ -480,6 +473,7 @@ sub addAction
         if ($needSpace) {
             # remove last row since it would not been seen, this assummes that only
             # one row is added at the time
+            EBox::debug("To remove " . $ids[$endPrinted] );
             $self->{json}->{removed} = [ $ids[$endPrinted] ];
         }
         if ($changedNPages) {
@@ -497,37 +491,53 @@ sub delAction
     my ($self) = @_;
     $self->{json} = {  success => 0 };
     my $rowId = $self->removeRow();
+    $self->{json}->{success} = 1;
 
     my $reload = 0;
     my $model  = $self->{'tableModel'};
     my $nRows  = $model->size();
 
     if ($nRows == 0) {
-        # all table rows removed, need to reload the table
-        $reload = 1;
-    } else {
-        my $page   = $self->param('page');
-        my $pageSize = $self->param('pageSize');
-        my $nPagesBefore =  ceil(($nRows+1)/$pageSize);
-        if (($page > 0) + (($page+1) >= $nPagesBefore ) ) {
-        # TODO pagination changes du to removal in lastl page
-            $reload = 1;
-        } else {
-        # TODO row changes wnhe removing rows and there are more pages left
-        }
-
-    }
-
-
-    if ($reload) {
+        # no rows left in the table, reload
         $self->{json}->{reload} = $self->_htmlForRefreshTable();
-        $self->{json}->{success} = 1;
-    } else {
-        $self->{json} = {
-            success => 1,
-            removed => [ $rowId ]
-       };
+        return;
     }
+
+    # op 1 - remove row from last
+    # op2  - remove from last and destroy page
+    # op3 - remove row from middle
+    # op4 - remove row from middle and destroy page
+
+    my $page   = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my $nPages       = ceil(($nRows)/$pageSize);
+    my $nPagesBefore = ceil(($nRows+1)/$pageSize);
+    my $pageChange   = ($nPages != $nPagesBefore);
+    if ($pageChange and ($page+1 >= $nPagesBefore)) {
+        # removed last page
+        my $newPage = $page > 0 ? $page - 1 : 0;
+        $self->{json}->{reload} = $self->_htmlForRefreshTable($newPage);
+        $self->{json}->{success} = 1;
+        return;
+    }
+
+    if ($pageChange) {
+        $self->{json}->{paginationChanges} = {
+            page => $page,
+            nPages => $nPages,
+            pageNumbersText => $model->pageNumbersText($page, $nPages),
+        };
+    }
+
+    if (($page + 1) < $nPages) {
+        # no last page we should get a new row
+        # XXX TODO
+    }
+
+
+
+    $self->{json}->{removed} = [ $rowId ];
+
 }
 
 sub showChangeRowForm
