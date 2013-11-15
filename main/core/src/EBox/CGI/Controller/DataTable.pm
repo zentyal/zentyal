@@ -422,36 +422,24 @@ sub addAction
         my $beginPrinted;
         my $endPrinted;
         my $needSpace = 1;
-        my $changedNPages;
         if ($page == 0) {
             $beginPrinted = 0;
         } else {
             $beginPrinted = ($page*$pageSize) + 1;
         }
         $endPrinted = $beginPrinted + $pageSize;
-        if ($endPrinted > @ids) {
-            $endPrinted = @ids;
+        if ($endPrinted > (@ids-1)) {
+            $endPrinted = @ids -1;
         }
 
-
-        # if (($page+1) == $nPages) {
-        #     # to _not_ need space: be in last page and have rows left to reach
-        #     # page size
-        #     $needSpace = (($nPages*$pageSize) - @ids) < 0;
-        # } else {
-        #     $needSpace = 1;
-        # }
-
-
-
         my $idPosition = undef;
-        use Data::Dumper; # DDD
-        EBox::debug("rowId: $rowId ids " . Dumper(\@ids)); # DDD
         for (my $i = 0; $i < @ids; $i++) {
             if ($ids[$i] eq $rowId) {
                 $idPosition = $i;
+                EBox::debug("$i -> " . $ids[$i] . '  <-- found'); # DDD
                 last;
             }
+            EBox::debug("$i -> " . $ids[$i]); # DDD
         }
         EBox::debug("idPosition: $idPosition"); # DDD
         if (not defined $idPosition) {
@@ -478,7 +466,7 @@ sub addAction
         }
 
         my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
-        $changedNPages = $nPages != $befNPages;
+        my $changedNPages = $nPages != $befNPages;
 
         EBox::debug("RElativeRowPosition $relativePosition");
         EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
