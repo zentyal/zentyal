@@ -457,7 +457,7 @@ sub addAction
         if (not defined $idPosition) {
             EBox::warn("Cannot find table position for new row $rowId");
             return;
-        } elsif (($idPosition >= $beginPrinted) and ($idPosition < $endPrinted))  {
+        } elsif (($idPosition < $beginPrinted) or ($idPosition >= $endPrinted))  {
             # XXX row is not shown in the actual page, go to its page
             my $newPage = floor($idPosition/$pageSize);
             EBox::debug("NEwPAge $newPage");
@@ -495,7 +495,7 @@ sub addAction
         }
         if ($changedNPages) {
             $self->{json}->{paginationChanges} = {
-                page => $page + 1,
+                page => $page,
                 nPages => $nPages,
                 pageNumbersText => $model->pageNumbersText($page, $nPages),
                };

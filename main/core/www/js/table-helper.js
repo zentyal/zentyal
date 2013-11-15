@@ -287,8 +287,8 @@ Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersT
 
 
     $('#' + tableId + '_page_numbers', pager).text(pageNumbersText);
-    $('.tablePrevPageControl', pager).prop('disabled', page !== 0);
-    $('.tableNextPageControl', pager).prop('disabled', page+1 !== nPages);
+    $('.tablePrevPageControl', pager).prop('disabled', page === 0);
+    $('.tableNextPageControl', pager).prop('disabled', (page+1) === nPages);
 };
 
 Zentyal.TableHelper.modifyTable = function(tableId, changes) {
