@@ -244,10 +244,9 @@ Zentyal.TableHelper._newSuccessJSONCallback = function(table, failure) {
     return success;
 };
 
-Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
+Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
     var params = 'action=add&tablename=' + table + '&directory=' + directory + '&';
-
-    params += '&page=0';
+    params += '&page=' + page;
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
 
