@@ -127,7 +127,8 @@ sub addTypedRow
         $audit->logAction('System', 'General', 'addAdmin', $user, 0);
     }
 
-    $self->SUPER::addTypedRow($params);
+    my $id = getpwnam($user);
+    return $id;
 }
 
 sub setTypedRow
@@ -137,7 +138,7 @@ sub setTypedRow
     my $oldRow = $self->row($id);
 
     my $user = $params->{username}->value();
-    my $oldName = $oldRow->valueByName('username');
+    my $oldName = getpwuid($id);
 
     if ($user ne $oldName) {
         EBox::Sudo::root("usermod -l $user $oldName");
@@ -158,14 +159,13 @@ sub removeRow
     my ($self, $id) = @_;
 
     my $row = $self->row($id);
+    my $user = getpwuid($id);
 
-    my $user = $row->valueByName('username');
     EBox::Sudo::root("deluser $user $ADMIN_GROUP");
 
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'delAdmin', $user, 0);
 
-    $self->SUPER::removeRow($id);
 }
 
 sub _changePassword
