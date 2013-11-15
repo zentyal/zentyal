@@ -300,6 +300,9 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
     // exclusive changes, if fired other changes are ignored
     if ('reload' in changes) {
         $('#' + tableId).html(changes.reload);
+        if ('highlightRowAfterReload' in changes) {
+            $('#' + changes.highlightRowAfterReload).effect('highlight');
+        }
         return;
     } else if ('changeRowForm' in changes) {
         $('#' + tableId + '_top').hide();
@@ -337,6 +340,7 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
                 assert(trReference.length == 1, '#' + position);
                 trReference.after(tr);
             }
+            tr.effect('highlight');
         }
 
     }
@@ -344,6 +348,7 @@ Zentyal.TableHelper.modifyTable = function(tableId, changes) {
     if ('changed' in changes) {
         for (rowId in changes.changed) {
             $('#' + rowId, table).replaceWith(changes.changed[rowId]);
+            $('#' + rowId, table).effect('highlight');
         }
     }
 

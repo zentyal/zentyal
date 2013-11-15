@@ -25,7 +25,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
-use POSIX qw(ceil);
+use POSIX qw(ceil floor);
 use Error qw(:try);
 
 sub new
@@ -311,23 +311,28 @@ sub refreshTable
     $self->{'params'} = $self->_paramsForRefreshTable();
 }
 
+#  Method: _htmlForRefreshTable
+#
+#  Parameters:
+#     page - optional parameter for force the rendering of arbitrary page
+#            instead of the actual one
 sub _htmlForRefreshTable
 {
-    my ($self) = @_;
-    my $params = $self->_paramsForRefreshTable();
+    my ($self, $page) = @_;
+    my $params = $self->_paramsForRefreshTable($page);
     my $html = EBox::Html::makeHtml($self->{template}, @{ $params});
     return $html;
 }
 
 sub _paramsForRefreshTable
 {
-    my ($self) = @_;
+    my ($self, $forcePage) = @_;
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
     my $action =  $self->{'action'};
     my $filter = $self->unsafeParam('filter');
-    my $page = $self->param('page');
+    my $page = $forcePage ? $forcePage : $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {
         $model->setPageSize($pageSize);
@@ -392,6 +397,7 @@ sub addAction
 
     my $model  = $self->{'tableModel'};
     if ($params{json}) {
+        die "Must not be reached for now";
         # XXX this is for dialog mode..
         $self->{json}->{rowId} = $rowId;
         $self->{json}->{directory} = $params{directory};
@@ -399,8 +405,10 @@ sub addAction
     } elsif ($model->size() == 1) {
         # this was the first added row, reload all the table
         $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        $self->{json}->{highlightRowAfterReload} = $rowId;
         $self->{json}->{success} = 1;
     } else {
+        $self->{json}->{success} = 1;
         # XXX this calculations assumess than only one row is added
         # XXX add more pages when adding
         my $nAdded = 1;
@@ -425,41 +433,60 @@ sub addAction
             $endPrinted = @ids;
         }
 
-        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
-        $changedNPages = $nPages != $befNPages;
-        if (($page+1) == $nPages) {
-            # to _not_ need space: be in last page and have rows left to reach
-            # page size
-            $needSpace = (($nPages*$pageSize) - @ids) < 0;
-        } else {
-            $needSpace = 1;
-        }
 
-        EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
-        EBox::debug("needSpace $needSpace");
-        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
+        # if (($page+1) == $nPages) {
+        #     # to _not_ need space: be in last page and have rows left to reach
+        #     # page size
+        #     $needSpace = (($nPages*$pageSize) - @ids) < 0;
+        # } else {
+        #     $needSpace = 1;
+        # }
 
-        my $rowPosition;
-        for (my $i = $beginPrinted; $i < $endPrinted; $i++) {
+
+
+        my $idPosition = undef;
+        use Data::Dumper; # DDD
+        EBox::debug("rowId: $rowId ids " . Dumper(\@ids)); # DDD
+        for (my $i = 0; $i < @ids; $i++) {
             if ($ids[$i] eq $rowId) {
-                if ($i == 0) {
-                    $rowPosition = 'prepend';
-                } else {
-                    $rowPosition = $ids[$i-1];
-                }
+                $idPosition = $i;
                 last;
             }
         }
-        if (not $rowPosition) {
-            # cannot find the added row
-            $self->{json}->{success} = 1;
+        EBox::debug("idPosition: $idPosition"); # DDD
+        if (not defined $idPosition) {
+            EBox::warn("Cannot find table position for new row $rowId");
+            return;
+        } elsif (($idPosition >= $beginPrinted) and ($idPosition < $endPrinted))  {
+            # XXX row is not shown in the actual page, go to its page
+            my $newPage = floor($idPosition/$pageSize);
+            EBox::debug("NEwPAge $newPage");
+            $self->{json}->{reload}  = $self->_htmlForRefreshTable($newPage);
             return;
         }
 
-        EBox::debug("RowPosition $rowPosition");
+        my $relativePosition;
+        if ($idPosition == 0) {
+            $relativePosition = 'prepend';
+        } else {
+            $relativePosition = $ids[$idPosition-1];
+            if (($idPosition+1) == @ids) {
+                # last element in the last page, and page is seen so not need
+                # space
+                $needSpace = 0;
+            }
+        }
+
+        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
+        $changedNPages = $nPages != $befNPages;
+
+        EBox::debug("RElativeRowPosition $relativePosition");
+        EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
+        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
+        EBox::debug("needSpace $needSpace");
 
         my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
-        $self->{json}->{added} = [ { position => $rowPosition, row => $rowHtml } ];
+        $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
 
         if ($needSpace) {
             # remove last row since it would not been seen, this assummes that only
@@ -473,8 +500,6 @@ sub addAction
                 pageNumbersText => $model->pageNumbersText($page, $nPages),
                };
         }
-
-        $self->{json}->{success} = 1;
     }
 }
 
@@ -497,10 +522,9 @@ sub delAction
         my $nPagesBefore =  ceil(($nRows+1)/$pageSize);
         if (($page > 0) + (($page+1) >= $nPagesBefore ) ) {
         # TODO pagination changes du to removal in lastl page
-
             $reload = 1;
         } else {
-        # TODO row changes whne removing rows and there are more pages left
+        # TODO row changes wnhe removing rows and there are more pages left
         }
 
     }
