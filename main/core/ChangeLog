@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed errors with row ID in ManageAdmins table
 	+ Added missing EBox::Exceptions uses
 	+ Fixed bug in selectSetter which hitted selects on DataForm with
 	  'unique' option enabled
