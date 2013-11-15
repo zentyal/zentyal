@@ -493,25 +493,22 @@ sub delAction
     my $rowId = $self->removeRow();
     $self->{json}->{success} = 1;
 
-    my $reload = 0;
+    # With the current UI is assumed that the delAction is done in the same page
+    # that is shown
     my $model  = $self->{'tableModel'};
-    my $nRows  = $model->size();
+    my $filter = $self->unsafeParam('filter');
+    my @ids    = @{ $self->_modelIds($model, $filter) };
 
-    if ($nRows == 0) {
+    if (@ids == 0) {
         # no rows left in the table, reload
         $self->{json}->{reload} = $self->_htmlForRefreshTable();
         return;
     }
 
-    # op 1 - remove row from last
-    # op2  - remove from last and destroy page
-    # op3 - remove row from middle
-    # op4 - remove row from middle and destroy page
-
     my $page   = $self->param('page');
     my $pageSize = $self->param('pageSize');
-    my $nPages       = ceil(($nRows)/$pageSize);
-    my $nPagesBefore = ceil(($nRows+1)/$pageSize);
+    my $nPages       = ceil(@ids/$pageSize);
+    my $nPagesBefore = ceil((@ids+1)/$pageSize);
     my $pageChange   = ($nPages != $nPagesBefore);
     if ($pageChange and ($page+1 >= $nPagesBefore)) {
         # removed last page
@@ -530,14 +527,17 @@ sub delAction
     }
 
     if (($page + 1) < $nPages) {
-        # no last page we should get a new row
-        # XXX TODO
+        # no last page we should add new row to the table to replace the removed one
+        my $positionToAdd = ($pageSize -1) + $page*$pageSize;
+        my $idToAdd = $ids[$positionToAdd];
+        my $addAfter = $ids[$positionToAdd-1];
+        my $row    = $model->row($idToAdd);
+        my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
+        $self->{json}->{added} = [ { position => $addAfter, row => $rowHtml } ];
+        EBox::debug("positionToAdd $positionToAdd after " . ($positionToAdd -1 ) .   " idToAdd $idToAdd after $addAfter");
     }
 
-
-
     $self->{json}->{removed} = [ $rowId ];
-
 }
 
 sub showChangeRowForm
