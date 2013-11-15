@@ -421,7 +421,7 @@ sub addAction
 
         my $beginPrinted;
         my $endPrinted;
-        my $needSpace;
+        my $needSpace = 1;
         my $changedNPages;
         if ($page == 0) {
             $beginPrinted = 0;
