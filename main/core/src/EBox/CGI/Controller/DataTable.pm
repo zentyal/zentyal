@@ -332,7 +332,7 @@ sub _paramsForRefreshTable
 
     my $action =  $self->{'action'};
     my $filter = $self->unsafeParam('filter');
-    my $page = $forcePage ? $forcePage : $self->param('page');
+    my $page   = defined $forcePage ? $forcePage : $self->param('page');
     my $pageSize = $self->param('pageSize');
     if ( defined ( $pageSize )) {
         $model->setPageSize($pageSize);
@@ -432,12 +432,13 @@ sub addAction
             $endPrinted = @ids -1;
         }
 
+
         my $idPosition = undef;
         for (my $i = 0; $i < @ids; $i++) {
             if ($ids[$i] eq $rowId) {
                 $idPosition = $i;
                 EBox::debug("$i -> " . $ids[$i] . '  <-- found'); # DDD
-                last;
+#                last; # DDD commented by debug purposes
             }
             EBox::debug("$i -> " . $ids[$i]); # DDD
         }
