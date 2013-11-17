@@ -1111,20 +1111,22 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     }
 
     element.hide();
-    Zentyal.TableHelper.setLoading(elementId + '_loading', model, true);
+    var loadingId = elementId + '_loading';
+    Zentyal.TableHelper.setLoading(loadingId, model, true);
 
     var success = function (responseText) {
         eval(responseText);
     };
     var failure = function(response) {
-        Zentyal.TableHelper.setError(table, response.responseText);
+        Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
         element.prop(befChecked);
     };
     var complete = function(response) {
         Zentyal.TableHelper.completedAjaxRequest();
         element.show();
-        $('#' + elementId + '_loading').html('');
+        Zentyal.TableHelper.restoreHidden(loadingId);
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
