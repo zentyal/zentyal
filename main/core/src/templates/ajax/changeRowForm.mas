@@ -286,7 +286,7 @@ $tpages
       $cloneId = $editid;
   }
 
-my $cancelJS =  "Zentyal.TableHelper.restoreTop('$modelName'); return false";
+my $cancelJS =  "Zentyal.TableHelper.cleanError('$modelName'); Zentyal.TableHelper.restoreTop('$modelName'); return false";
 if ($action eq 'changeEdit') {
     $cancelJS = "Zentyal.TableHelper.highlightRow('$editid', false);" . $cancelJS;
 }
