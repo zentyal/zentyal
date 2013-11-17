@@ -345,10 +345,7 @@ sub _paramsForRefreshTable
         $editId = $self->param('editid');
     }
 
-    my $rows = undef;
-    my $tpages = 1000;
     my @params;
-    push(@params, 'data' => $rows);
     push(@params, 'dataTable' => $model->table());
     push(@params, 'model' => $model);
     push(@params, 'action' => $action);
@@ -356,7 +353,6 @@ sub _paramsForRefreshTable
     push(@params, 'hasChanged' => $global->unsaved());
     push(@params, 'filter' => $filter);
     push(@params, 'page' => $page);
-    push(@params, 'tpages' => $tpages);
 
     return \@params;
 }
@@ -575,7 +571,6 @@ sub changeAddAction
 sub changeListAction
 {
     my ($self) = @_;
-    # XXX?
     $self->refreshTable();
 }
 

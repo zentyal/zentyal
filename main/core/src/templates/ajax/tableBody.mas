@@ -74,8 +74,12 @@ use Perl6::Junction qw(any);
   }
 
   my $movableRows = $model->movableRows($filter, scalar(@ids));
-  unless ($page) {
+  my $pageSize = $model->pageSizeIntValue();
+  if (not $page) {
     $page = 0;
+  } elsif ($page == -1) {
+    # go to last page
+    $page = POSIX::floor(@ids/$pageSize);
   }
 
   # If the action is a preset update, choose for an edition or an
@@ -84,8 +88,6 @@ use Perl6::Junction qw(any);
       $action = 'changeAdd' if (not $editid);
       $action = 'changeEdit' if ( $editid );
   }
-
-my $pageSize = $model->pageSizeIntValue();
 
 my %checkAllControls = %{ $model->checkAllControls()  };
 </%init>
