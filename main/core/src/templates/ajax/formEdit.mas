@@ -30,8 +30,9 @@ $model
 <%init>
   my $id = $model->name() . '_ajaxform';
   my $actions = $model->table()->{actions};
-  my $onClick = $model->changeRowJS($id, 0) . '; return false';
+  my $onClick = $model->formSubmitJS($id);
   $onClick =  $model->confirmationJS('submit', $onClick);
+  $onClick .= "; return false;";
 </%init>
 <td id="<% 'buttons_' . $model->modelName() %>">
 % if (defined $actions and (keys %{ $actions} > 0)) {

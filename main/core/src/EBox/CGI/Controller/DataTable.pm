@@ -360,7 +360,7 @@ sub _paramsForRefreshTable
 sub editAction
 {
     my ($self) = @_;
-
+    my $isForm    = $self->param('form');
     my $editField = $self->param('editfield');
     if (not $editField) {
         $self->{json} = { success => 0 };
@@ -368,14 +368,17 @@ sub editAction
 
     my %params = $self->getParams();
     my $id = $self->editField(%params);
-    if (not $editField) {
+    if (not $editField)  {
+        $self->{json}->{success} = 1;
+        if ($isForm) {
+            return;
+        }
         my $model  = $self->{'tableModel'};
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
         my @ids    = @{ $self->_modelIds($model, $filter) };
         my $row    = $model->row($id);
 
-        $self->{json}->{success} = 1;
         $self->{json}->{changed} = {
             $id => $self->_htmlForRow($model, $row, \@ids, $filter, $page)
            };
