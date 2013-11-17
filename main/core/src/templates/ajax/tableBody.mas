@@ -95,6 +95,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
 
+<div id='<% $tableName %>_message'></div>
 %  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
 %  if (not $showEditForm)  {
 <& SELF:topTable,

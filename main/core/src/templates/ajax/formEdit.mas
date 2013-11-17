@@ -8,6 +8,7 @@ inherit =>  '/ajax/changeRowForm.mas'
 $model
 $formData
 </%args>
+<div id='<% $model->table()->{tableName} %>_message'></div>
 <& SELF:editForm,
    model     => $model,
    formData => $formData

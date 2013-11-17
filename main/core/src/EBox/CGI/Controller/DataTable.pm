@@ -357,6 +357,18 @@ sub _paramsForRefreshTable
     return \@params;
 }
 
+sub _setJSONSuccess
+{
+    my ($self, $model) = @_;
+    if (not exists $self->{json}) {
+        $self->{json} = {};
+    }
+
+    $self->{json}->{success} = 1;
+    $self->{json}->{messageClass} = $model->messageClass();
+    $self->{json}->{message}  = $model->popMessage();
+}
+
 sub editAction
 {
     my ($self) = @_;
@@ -369,11 +381,12 @@ sub editAction
     my %params = $self->getParams();
     my $id = $self->editField(%params);
     if (not $editField)  {
-        $self->{json}->{success} = 1;
+        my $model  = $self->{'tableModel'};
+        $self->_setJSONSuccess($model);
         if ($isForm) {
             return;
         }
-        my $model  = $self->{'tableModel'};
+
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
         my @ids    = @{ $self->_modelIds($model, $filter) };
@@ -395,6 +408,7 @@ sub addAction
     my $rowId = $self->addRow();
 
     my $model  = $self->{'tableModel'};
+        $self->_setJSONSuccess($model);
     if ($params{json}) {
         die "Must not be reached for now";
         # XXX this is for dialog mode..
@@ -405,9 +419,7 @@ sub addAction
         # this was the first added row, reload all the table
         $self->{json}->{reload} = $self->_htmlForRefreshTable();
         $self->{json}->{highlightRowAfterReload} = $rowId;
-        $self->{json}->{success} = 1;
     } else {
-        $self->{json}->{success} = 1;
         # XXX this calculations assumess than only one row is added
         # XXX add more pages when adding
         my $nAdded = 1;
@@ -428,7 +440,7 @@ sub addAction
             if ($ids[$i] eq $rowId) {
                 $idPosition = $i;
                 EBox::debug("$i -> " . $ids[$i] . '  <-- found'); # DDD
-#                last; # DDD commented by debug purposes
+                last;
             }
             EBox::debug("$i -> " . $ids[$i]); # DDD
         }
@@ -450,14 +462,20 @@ sub addAction
         } else {
             $relativePosition = $ids[$idPosition-1];
         }
+        my $nPages =  ceil(scalar(@ids)/$pageSize);
         my $needSpace;
-        if ($idPosition == $lastIdPosition) {
-            # last element in the last page, and page is seen so not need
-            # space
-            $needSpace = 0;
-        } else {
-            # no need space if we havent yet filled the page
+        # if ($idPosition == $lastIdPosition) {
+        #     # last element in the last page, and page is seen so not need
+        #     # space
+        #     $needSpace = 0;
+        # } else {
+        #     # no need space if we havent yet filled the page
+        #     $needSpace = $endPrinted >= ($page+1)*$pageSize;
+        # }
+        if (($page + 1) == $nPages) {
             $needSpace = $endPrinted >= ($page+1)*$pageSize;
+        } else {
+            $needSpace = 1;
         }
 
 
@@ -476,7 +494,7 @@ sub addAction
             $self->{json}->{removed} = [ $ids[$endPrinted] ];
         }
 
-        my $nPages =  ceil(scalar(@ids)/$pageSize);
+
         my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
         EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
         if ($nPages != $befNPages) {
@@ -487,6 +505,7 @@ sub addAction
                };
         }
     }
+
 }
 
 sub delAction
@@ -494,11 +513,12 @@ sub delAction
     my ($self) = @_;
     $self->{json} = {  success => 0 };
     my $rowId = $self->removeRow();
-    $self->{json}->{success} = 1;
+    my $model  = $self->{'tableModel'};
+    $self->_setJSONSuccess($model);
 
     # With the current UI is assumed that the delAction is done in the same page
     # that is shown
-    my $model  = $self->{'tableModel'};
+
     my $filter = $self->unsafeParam('filter');
     my @ids    = @{ $self->_modelIds($model, $filter) };
 
