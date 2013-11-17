@@ -504,6 +504,7 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     };
     var complete = function(response){
         $('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
