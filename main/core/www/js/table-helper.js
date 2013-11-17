@@ -277,7 +277,10 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
 };
 
 Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersText) {
-    var pager = $('#' + tableId + '_pager');
+    var pager  = $('#' + tableId + '_pager');
+    page   = parseInt(page);
+    nPages = parseInt(nPages);
+
     assert(pager.length === 1);
     assert(page < nPages);
     assert(page >= 0);
@@ -285,7 +288,6 @@ Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersT
     assert( $('#' + tableId + '_page_numbers', pager).length === 1);
     assert($('.tablePrevPageControl', pager).length === 2);
     assert($('.tableNextPageControl', pager).length === 2);
-
 
     $('#' + tableId + '_page_numbers', pager).text(pageNumbersText);
     $('.tablePrevPageControl', pager).prop('disabled', page === 0);
