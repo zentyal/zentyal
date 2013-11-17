@@ -640,6 +640,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
         }
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
