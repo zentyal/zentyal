@@ -279,7 +279,8 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
 Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersText) {
     var pager = $('#' + tableId + '_pager');
     assert(pager.length === 1);
-    assert(page <= nPages);
+    assert(page < nPages);
+    assert(page >= 0);
 
     assert( $('#' + tableId + '_page_numbers', pager).length === 1);
     assert($('.tablePrevPageControl', pager).length === 2);

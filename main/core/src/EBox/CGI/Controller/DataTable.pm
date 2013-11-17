@@ -416,15 +416,13 @@ sub addAction
         my $page   = $self->param('page');
         my $pageSize = $self->param('pageSize');
         my @ids    = @{ $self->_modelIds($model, $filter) };
-        my $nPages =  ceil(scalar(@ids)/$pageSize);
-        my $row    = $model->row($rowId);
+        my $lastIdPosition = @ids -1;
 
         my $beginPrinted = $page*$pageSize;
         my $endPrinted   = $beginPrinted + $pageSize -1;
-        if ($endPrinted > (@ids-1)) {
-            $endPrinted = @ids -1;
+        if ($endPrinted > $lastIdPosition) {
+            $endPrinted = $lastIdPosition;
         }
-        my $needSpace = 1;
 
         my $idPosition = undef;
         for (my $i = 0; $i < @ids; $i++) {
@@ -452,21 +450,23 @@ sub addAction
             $relativePosition = 'prepend';
         } else {
             $relativePosition = $ids[$idPosition-1];
-            if (($idPosition+1) == @ids) {
-                # last element in the last page, and page is seen so not need
-                # space
-                $needSpace = 0;
-            }
+        }
+        my $needSpace;
+        if ($idPosition == $lastIdPosition) {
+            # last element in the last page, and page is seen so not need
+            # space
+            $needSpace = 0;
+        } else {
+            # no need space if we havent yet filled the page
+            $needSpace = $endPrinted >= ($page+1)*$pageSize;
         }
 
-        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
-        my $changedNPages = $nPages != $befNPages;
 
         EBox::debug("RElativeRowPosition $relativePosition");
         EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
-        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
         EBox::debug("needSpace $needSpace");
 
+        my $row     = $model->row($rowId);
         my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
         $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
 
@@ -476,7 +476,11 @@ sub addAction
             EBox::debug("To remove " . $ids[$endPrinted] );
             $self->{json}->{removed} = [ $ids[$endPrinted] ];
         }
-        if ($changedNPages) {
+
+        my $nPages =  ceil(scalar(@ids)/$pageSize);
+        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
+        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
+        if ($nPages != $befNPages) {
             $self->{json}->{paginationChanges} = {
                 page => $page,
                 nPages => $nPages,
