@@ -30,6 +30,7 @@ def configure(ctx):
     ctx.check(header_name='syslog.h')
     ctx.check(header_name='iconv.h')
     ctx.check(header_name='ctype.h')
+    ctx.check(header_name='bsd/libutil.h')
 
     # Check types
     ctx.check(type_name='uint8_t')
@@ -68,7 +69,7 @@ def configure(ctx):
     ctx.check_cfg(package='librabbitmq',
                   args=['librabbitmq >= 0.4.1', '--cflags', '--libs'],
                   uselib_store='RABBITMQ',
-                  msg="Check for librabbitmq 1.16",
+                  msg="Check for librabbitmq 0.4.1",
                   mandatory=True)
 
     ctx.check_cfg(package='json',
@@ -97,7 +98,8 @@ def build(bld):
             ],
         target = 'migrate',
         includes = ['.', '..'],
-        cflags = ['-ggdb', '-Wall', '-lpthread'],
+        cflags = ['-ggdb', '-Wall'],
+        lib = ['pthread', 'bsd'],
         depends_on = [APPNAME],
         use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ', 'JSON'])
 
