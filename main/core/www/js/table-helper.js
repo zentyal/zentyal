@@ -180,16 +180,20 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
 
             if (rowId && directory) {
                 var nameParts = nextPageContextName.split('/');
-                var baseUrl = '/zentyal/' + nameParts[1] + '/';
-                baseUrl += 'ModalController/' + nameParts[2];
+//                var baseUrl = '/zentyal/' + nameParts[1] + '/';
+                var baseUrl = '/' + nameParts[1] + '/';
+//                baseUrl += 'ModalController/' + nameParts[2];
+//                baseUrl += 'View/' + nameParts[2];
+                baseUrl += 'Controller/' + nameParts[2];
                 var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
                 var nextPageUrl = baseUrl;
                 var nextPageData = 'directory=' + newDirectory;
-                nextPageData += '&firstShow=0';
-                nextPageData += '&action=viewAndAdd';
-                nextPageData += "&selectCallerId=" + selectCallerId;
-
-                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData});
+//                nextPageData += '&firstShow=0';
+                nextPageData += '&action=view';
+//                nextPageData += "&selectCallerId=" + selectCallerId;
+                var closeButton = [ { text: extraParams.closeButtonText, click: function() { $( this ).dialog( "close" ); } } ];
+                Zentyal.Dialog.close();
+                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, buttons: closeButton});
             } else {
                 Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
                 Zentyal.TableHelper.restoreHidden('buttons_' + table, table);

@@ -19,7 +19,7 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 Zentyal.Dialog.showURL = function(url, params) {
     var i,
         dialogParams,
-    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass'];
+    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass', 'buttons'];
     if (params === undefined) {
         params = {};
     }

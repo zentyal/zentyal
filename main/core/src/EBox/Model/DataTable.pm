@@ -2818,6 +2818,7 @@ sub modalAddNewRowJS
         $url =~ s/Controller/ModalController/;
     }
 
+    push @extraParams, 'closeButtonText' => __('Close');
     my $extraParamsJS = _paramsToJSON(@extraParams);
 
     my $tableId = $table->{'tableName'};
