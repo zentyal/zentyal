@@ -812,7 +812,9 @@ sub _htmlForChangeRow
         filter => $filter,
         page   => $page,
         tpages => $tpages,
-        presetParams  => $presetParams
+        presetParams  => $presetParams,
+
+        printableRowName => $model->printableRowName
     );
 
     my $html;
