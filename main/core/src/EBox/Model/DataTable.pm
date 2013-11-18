@@ -2506,10 +2506,10 @@ sub modalViewer
     my ($self, $showTable) = @_;
 
     if ($showTable) {
-        return  '/ajax/tableModalView.mas';
+        return  '/ajax/modal/table.mas';
     } else {
         # for the moment only we have modal for adding elements out of their page
-        return '/ajax/addElementModal.mas';
+        return '/ajax/modal/addElement.mas';
     }
 }
 

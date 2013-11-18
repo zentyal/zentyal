@@ -1,5 +1,5 @@
 <%flags>
-  inherit => '/ajax/tableModal.mas'
+  inherit => '/ajax/modal/base.mas'
 </%flags>
 <%args>
   $model

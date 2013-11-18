@@ -82,7 +82,7 @@ use POSIX;
      /ajax/modelViewer.mas:_body
 
 </%doc>
-<%method _body>
+<%method _bodyDisabled>
 <%args>
   $model
   $action => 'changeAdd'

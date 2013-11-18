@@ -1,0 +1,106 @@
+<%flags>
+inherit => '/ajax/changeRowForm.mas'
+</%flags>
+<& SELF:_exec, @_ &>
+
+<%doc>
+We dont want title so we override this
+</%doc>
+<%method title>
+</%method>
+
+
+<%doc>
+   Method: buttons
+
+     Show the button to submit the form
+
+  Overrides:
+
+     /ajax/modelViewer.mas:buttons
+
+</%doc>
+<%method buttons>
+<%args>
+$model
+$action
+$editid
+$filter
+$page
+$tpages
+</%args>
+<%init>
+  my $modelName  = $model->modelName();
+  my $changeView = $model->action('changeView');
+  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
+  my $withoutActions = $model->table()->{'withoutActions'};
+  my $cloneId;
+
+  if ( $action eq 'presetUpdate' ) {
+      $action = 'changeAdd' if ( not $editid );
+      $action = 'changeEdit' if ( $editid );
+  } elsif ($action eq 'changeClone') {
+      $action = 'changeAdd';
+      $cloneId = $editid;
+  }
+
+my $cancelJS =  "Zentyal.TableHelper.cleanMessage('$modelName'); Zentyal.TableHelper.restoreTop('$modelName'); return false";
+if ($action eq 'changeEdit') {
+    $cancelJS = "Zentyal.TableHelper.highlightRow('$editid', false);" . $cancelJS;
+}
+</%init>
+BUTTONS SSSDSD
+% unless ((defined $withoutActions) and $withoutActions) {
+<tr>
+  <td id="applyChanges">
+  </td>
+  <td id="<% 'buttons_' .  $modelName %>">
+% unless ((defined $onlyCustomActions) and $onlyCustomActions)
+% {
+%  if ( $action eq 'changeAdd' )
+%  {
+%    # extra input for cloneId
+%    if ($cloneId)  {
+        <&/input/hidden.mas,
+              name => $modelName . '_cloneId',
+              id => $modelName . '_cloneId',
+              value => $cloneId
+         &>
+%    }
+    <& /input/submit.mas,
+        class => 'btn btn-icon btn-add',
+        type => 'submit',
+        name => 'add',
+        value => __('Add'),
+        title => 'Add',
+        onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
+    &>
+%  }
+%  elsif ($action eq 'changeEdit')
+%  {
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'change',
+        value => $model->printableActionName(),
+        title => 'Change',
+        onclick => $model->changeRowJS($editid, $page) . '; return false'
+    &>
+%  }
+%  if ($changeView)
+%  {
+    <& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'cancel',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick => $cancelJS
+    &>
+%  }
+% }
+  </td>
+</tr>
+% }
+</%method>
+

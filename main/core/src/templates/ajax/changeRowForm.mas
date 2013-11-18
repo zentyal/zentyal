@@ -1,3 +1,6 @@
+<& SELF:_exec, @_ &>
+
+<%method _exec>
 <%args>
 $action
 $model
@@ -15,6 +18,7 @@ $printableRowName => ''
   my $tableName = $model->table()->{'tableName'};
   my @tableHead = @{$model->table()->{'tableDescription'}};
   if ($action eq 'add') {
+      die 'XXX to remove';
       foreach my $element (@tableHead) {
           $element->setValue($element->defaultValue());
       }
@@ -68,6 +72,7 @@ $printableRowName => ''
 <%   $customizer->onChangeActionsJS() %>
 </script>
 %     }
+</%method>
 
 <%method title>
 <%args>

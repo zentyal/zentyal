@@ -1,5 +1,5 @@
 <%flags>
-  inherit => '/ajax/tableModal.mas'
+  inherit => '/ajax/modal/base.mas'
 </%flags>
 <%args>
   $model
@@ -85,7 +85,7 @@ if ( ((keys %presetParams) > 0)
     <tbody>
      <col width="1*" />
      <col width="auto" />
-       <& /ajax/changeRowForm.mas,
+       <& /ajax/modal/changeRowForm.mas,
           action => $action,
           model  => $model,
           editid => undef,
