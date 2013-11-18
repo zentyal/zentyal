@@ -119,8 +119,8 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var wantJSON = 0;
     var params;
 
-    Zentyal.TableHelper.clenMessage(table);
-    Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
+    Zentyal.TableHelper.cleanMessage(table);
+    Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
 
     params = 'action=add&tablename=' + table + '&directory=' + directory ;
     if (nextPage){
@@ -128,8 +128,8 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
         params +=  '&json=1';
     } else {
         params += '&page=0';
-        params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
-        params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
+        params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_modal_filter');
+        params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_modal_pageSize');
     }
     if (fields) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);

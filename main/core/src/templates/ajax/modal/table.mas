@@ -99,7 +99,7 @@ my $requestArgs = $m->request_args();
 my $selectCallerId  = $requestArgs->{selectCallerId};
 </%init>
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
-<div id='<% $model->modelName() | hu %>_error_modal'></div>
+<div id='<% $model->modelName() | hu %>_modal_error'></div>
 <div id="<% $model->modelName() %>_modal">
 <& .pageTitle &>
 
@@ -432,7 +432,7 @@ $forceAction => undef
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="<% 'buttons_' . $model->modelName() . '_modal'%>">
+  <td id="<% $model->modelName() . '_modal_buttons'%>">
 % if ( $action eq 'changeAdd' or $action eq 'viewAndAdd') {
     <& /input/submit.mas,
         class => 'btn btn-icon btn-add',

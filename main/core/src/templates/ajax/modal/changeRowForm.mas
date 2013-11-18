@@ -30,77 +30,80 @@ $page
 $tpages
 </%args>
 <%init>
-  my $modelName  = $model->modelName();
+  # Getting the arguments from the first request
+  my $requestArgs = $m->request_args();
+#  my $model  = $requestArgs->{model};
+#  my $action = $requestArgs->{action};
+#  my $editid = $requestArgs->{editid};
+#  my $filter = $requestArgs->{filter};
+#  my $page   = $requestArgs->{page};
+#  my $tpages = $requestArgs->{tpages};
+  my $selectCallerId = $requestArgs->{selectCallerId};
+  my $selectForeignField = $requestArgs->{selectForeignField};
+  my $nextPageContextName  = $requestArgs->{nextPageContextName};
+  my $foreignNextPageField  = $requestArgs->{foreignNextPageField};
   my $changeView = $model->action('changeView');
-  my $onlyCustomActions = $model->table()->{'onlyCustomActions'};
-  my $withoutActions = $model->table()->{'withoutActions'};
-  my $cloneId;
 
   if ( $action eq 'presetUpdate' ) {
       $action = 'changeAdd' if ( not $editid );
       $action = 'changeEdit' if ( $editid );
-  } elsif ($action eq 'changeClone') {
-      $action = 'changeAdd';
-      $cloneId = $editid;
   }
-
-my $cancelJS =  "Zentyal.TableHelper.cleanMessage('$modelName'); Zentyal.TableHelper.restoreTop('$modelName'); return false";
-if ($action eq 'changeEdit') {
-    $cancelJS = "Zentyal.TableHelper.highlightRow('$editid', false);" . $cancelJS;
-}
 </%init>
-BUTTONS SSSDSD
-% unless ((defined $withoutActions) and $withoutActions) {
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="<% 'buttons_' .  $modelName %>">
-% unless ((defined $onlyCustomActions) and $onlyCustomActions)
-% {
-%  if ( $action eq 'changeAdd' )
-%  {
-%    # extra input for cloneId
-%    if ($cloneId)  {
-        <&/input/hidden.mas,
-              name => $modelName . '_cloneId',
-              id => $modelName . '_cloneId',
-              value => $cloneId
-         &>
-%    }
+  <td id="<% $model->modelName() . '_modal_buttons' %>">
+% if ( $action eq 'changeAdd' ) {
+<%perl>
+my $addOnClick;
+if ($foreignNextPageField) {
+    $addOnClick = $model->modalAddNewRowJS($page, $foreignNextPageField,
+                                           selectCallerId => $selectCallerId,
+                                           selectForeignField => $selectForeignField,
+                                           nextPageContextName =>  $nextPageContextName,
+                                                 );
+    $addOnClick .= ';';
+} else {
+    $addOnClick .=   'Zentyal.Dialog.close();' ;
+}
+$addOnClick .=  'return false';
+</%perl>
     <& /input/submit.mas,
         class => 'btn btn-icon btn-add',
         type => 'submit',
         name => 'add',
         value => __('Add'),
         title => 'Add',
-        onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
+        onclick => $addOnClick,
     &>
-%  }
-%  elsif ($action eq 'changeEdit')
-%  {
+% } elsif ($action eq 'changeEdit')  {
+<%perl>
+ my $editOnClick =  $model->changeRowJS($editid, $page) . ';' .
+                   'Zentyal.Dialog.close();' .
+                   'return false';
+</%perl>
+    <& /ajax/customActions.mas, model => $model, id => $editid &>
     <& /input/submit.mas,
         class => '',
         type => 'submit',
         name => 'change',
-        value => $model->printableActionName(),
+        value => __('Change'),
         title => 'Change',
-        onclick => $model->changeRowJS($editid, $page) . '; return false'
+       onclick => $editOnClick
     &>
-%  }
-%  if ($changeView)
-%  {
+% }
+% if ($changeView) {
     <& /input/submit.mas,
         class => '',
         type => 'submit',
         name => 'cancel',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick => $cancelJS
+        onclick  => 'Zentyal.Dialog.close(); return false'
     &>
-%  }
 % }
   </td>
 </tr>
-% }
+
 </%method>
 

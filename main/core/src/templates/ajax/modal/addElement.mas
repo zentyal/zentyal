@@ -76,7 +76,7 @@ if ( ((keys %presetParams) > 0)
 </%init>
 
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
-<div id='<% $model->modelName() | hu %>_error_modal'></div>
+<div id='<% $model->modelName() | hu %>_modal_error'></div>
 
 <div id="<% $model->modelName() %>_modal">
 <& SELF:messagesAndHelp, model => $model &>
