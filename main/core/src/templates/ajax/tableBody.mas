@@ -109,9 +109,11 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 % }
 
 <div id='<% $tableName  %>_editForm'>
+
+
 %  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %   if ($showEditForm) {
-
+%     die 'XXX to remove';
 <& SELF:messagesAndHelp, model => $model &>
 <& /ajax/changeRowForm.mas,
    action => $action,

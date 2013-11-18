@@ -18,7 +18,8 @@ use warnings;
 
 package EBox::CGI::Controller::Modal;
 
-use base 'EBox::CGI::ClientRawBase';
+#use base 'EBox::CGI::ClientRawBase';
+use base 'EBox::CGI::Controller::DataTable';
 
 use EBox::Gettext;
 use EBox::Global;
@@ -154,51 +155,54 @@ sub customAction
 sub refreshTable
 {
     my ($self, $showTable, $action, @extraParams) = @_;
+    my @params = @{ $self->_paramsForRefreshTable() };
+
 
     my $model = $self->{'tableModel'};
-    my $global = EBox::Global->getInstance();
+    # my $global = EBox::Global->getInstance();
 
-    my $rows = undef;
+    # my $rows = undef;
 
-    my $editId;
-    if ($action eq 'clone') {
-        $editId = $self->param('id');
-    } else {
-        $editId = $self->param('editid');
-    }
-    my $page     = $self->param('page');
-    my $pageSize = $self->param('pageSize');
-    if ( defined $pageSize) {
-        $model->setPageSize($pageSize);
-    }
+    # my $editId;
+    # if ($action eq 'clone') {
+    #     $editId = $self->param('id');
+    # } else {
+    #     $editId = $self->param('editid');
+    # }
+    # my $page     = $self->param('page');
+    # my $pageSize = $self->param('pageSize');
+    # if ( defined $pageSize) {
+    #     $model->setPageSize($pageSize);
+    # }
 
-    my $filter = $self->unsafeParam('filter');
-    if (not defined $filter) {
-        $filter = '';
-    }
+    # my $filter = $self->unsafeParam('filter');
+    # if (not defined $filter) {
+    #     $filter = '';
+    # }
 
     my $selectCallerId = $self->param('selectCallerId');
 
-    my $tpages = 1000;
     $self->{template} = $model->modalViewer($showTable);
 
-    my @params = (
-        'data' => $rows,
-        'dataTable' => $model->table(),
-        'model' => $model,
-        'action' => $action,
-        'editid' => $editId,
-        'hasChanged' => $global->unsaved(),
-        'filter' => $filter,
-        'page' => $page,
-        'tpages' => $tpages,
-       );
+    # my @params = (
+    #     'data' => $rows,
+    #     'dataTable' => $model->table(),
+    #     'model' => $model,
+    #     'action' => $action,
+    #     'editid' => $editId,
+    #     'hasChanged' => $global->unsaved(),
+    #     'filter' => $filter,
+    #     'page' => $page,
+    #     'tpages' => $tpages,
+    #    );
 
     if ($selectCallerId) {
         push @params, (selectCallerId => $selectCallerId);
     }
 
     push @params, @extraParams;
+
+    EBox::debug("refreshTable " . $self->{template});
 
     $self->{'params'} = \@params;
 }

@@ -3,7 +3,7 @@
 </%flags>
 <%args>
   $model
-  $action => 'view'
+  $action => 'changeAdd'
   $editid => ''
   $hasChanged => 1
   $filter => ''
@@ -85,7 +85,7 @@ use POSIX;
 <%method _body>
 <%args>
   $model
-  $action => 'view'
+  $action => 'changeAdd'
   $editid => ''
   $hasChanged => 1
   $filter => ''
@@ -97,6 +97,8 @@ use POSIX;
 
   use EBox::Gettext;
 
+  $action = 'changeAdd';
+
   # Fetch table head from model
   my @tableHead = @{$model->table()->{'tableDescription'}};
   # Pointer to different values for convenience
@@ -106,35 +108,45 @@ use POSIX;
   my $tableName = $model->table()->{'tableName'} . '_modal';
   my $printableTableName = $model->table()->{'printableTableName'};
 
-  # Fetch the edited row if we are editing one
-  my $rowEdit;
-  if ($editid and ($editid ne 'undefined')) {
-          $rowEdit = $model->row($editid);
-  }
+#  # Fetch the edited row if we are editing one
+#  my $rowEdit;
+#  if ($editid and ($editid ne 'undefined')) {
+#          $rowEdit = $model->row($editid);
+#  }
 
   # Fetch the data to be displayed in setters, if we are editing a row
   # we should show the contents of the current fields. If we are
   # adding a new row, the fields are empty except for a preset values
   # adding where preset contents must be shown
   my @formData = @tableHead;
-  if ($rowEdit) {
-      @formData = @{$rowEdit->elements()};
-  } elsif ( ((keys %presetParams) > 0)
+#  if ($rowEdit) {
+#      @formData = @{$rowEdit->elements()};
+#  } elsif ( ((keys %presetParams) > 0)
+#            and $action eq 'presetUpdate') {
+#      # The preset is not empty
+#      @formData = values(%presetParams);
+#  }
+#
+  if ( ((keys %presetParams) > 0)
             and $action eq 'presetUpdate') {
       # The preset is not empty
       @formData = values(%presetParams);
   }
-  # If the action is a preset update, choose for an edition or an
-  # addition whether the editid is set or not
-  if ( $action eq 'presetUpdate' ) {
-      $action = 'changeAdd' if (not $editid);
-      $action = 'changeEdit' if ( $editid );
-  }
+#  # If the action is a preset update, choose for an edition or an
+#  # addition whether the editid is set or not
+#  if ( $action eq 'presetUpdate' ) {
+#      $action = 'changeAdd' if (not $editid);
+#      $action = 'changeEdit' if ( $editid );
+#  }
 </%init>
 
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
 <div id='<% $model->modelName() | hu %>_error_modal'></div>
+
 <div id="<% $model->modelName() %>_modal">
+<& SELF:messagesAndHelp, model => $model &>
+<%doc>
+XXX remove
 % if ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();
 %      my $msg = $viewCustomizer ? $viewCustomizer->permanentMessage() : undef;
@@ -159,8 +171,9 @@ use POSIX;
 </div>
 % }
 
-%  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )
-%  {
+</%doc>
+<%doc>
+%  if ( $action ne 'changeAdd' and $action ne 'changeEdit' )  {
 %    if ( $model->printableModelName() )
 %    {
 <& PARENT:title,
@@ -182,9 +195,9 @@ use POSIX;
 %    }
   <span id="<% 'creatingForm_' . $tableName %>"></span>
 %  }
-
-%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )
-%  {
+</%doc>
+<%doc>
+%  if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
 %   if ( $action eq 'changeAdd' )
 %    {
 %     my $addingStr = __x('Adding a new {row}', row => $printableRowName);
@@ -195,17 +208,23 @@ use POSIX;
 %     my $editingStr = __x('Editing {row}', row => $printableRowName);
 <& PARENT:title, title => $editingStr &>
 %   }
+</%doc>
 
 <form name="<% $tableName . '_modalform' %>">
   <table class='formTable'>
     <tbody>
      <col width="1*" />
      <col width="auto" />
-      <& PARENT:editRowFields,
-         modelName => $tableName,
-         formData => \@formData
-      &>
-      <& SELF:buttons &>
+       <& /ajax/changeRowForm.mas,
+          action => $action,
+          model  => $model,
+          editid => $editid,
+          filter => $filter,
+          page   => $page,
+          tpages => $tpages,
+          presetParams  => \%presetParams,
+          printableRowName => $model->printableRowName
+       &>
     </tbody>
   </table>
 </form>
@@ -216,7 +235,8 @@ use POSIX;
 <%   $customizer->onChangeActionsJS() %>
 </script>
 %    }
-%  }
+
+%#  }
 
 </div>
 % # End body method
