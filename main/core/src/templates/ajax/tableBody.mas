@@ -73,7 +73,7 @@ use Perl6::Junction qw(any);
     @ids = @{$model->customFilterIds($adaptedFilter)};
   }
 
-  my $movableRows = $model->movableRows($filter, scalar(@ids));
+  my $movableRows = $model->movableRows($filter);
   my $pageSize = $model->pageSizeIntValue();
   if (not $page) {
     $page = 0;

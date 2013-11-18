@@ -389,11 +389,10 @@ sub editAction
 
         my $filter = $self->unsafeParam('filter');
         my $page   = $self->param('page');
-        my @ids    = @{ $self->_modelIds($model, $filter) };
         my $row    = $model->row($id);
 
         $self->{json}->{changed} = {
-            $id => $self->_htmlForRow($model, $row, \@ids, $filter, $page)
+            $id => $self->_htmlForRow($model, $row, $filter, $page)
            };
         return;
     }
@@ -476,7 +475,7 @@ sub addAction
         EBox::debug("needSpace $needSpace");
 
         my $row     = $model->row($rowId);
-        my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
+        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
         $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
 
         if ($needSpace) {
@@ -779,7 +778,7 @@ sub _getAuditId
 
 sub _htmlForRow
 {
-    my ($self, $model, $row, $ids, $filter, $page) = @_;
+    my ($self, $model, $row, $filter, $page) = @_;
     my $table     = $model->table();
 
     my $html;
@@ -788,8 +787,7 @@ sub _htmlForRow
         row   => $row
    );
 
-    my $nIds = scalar(@{$ids});
-    push @params, (movable => $model->movableRows($filter, $nIds));
+    push @params, (movable => $model->movableRows($filter));
     push @params, (checkAllControls => $model->checkAllControls());
 
     push @params, (actions => $table->{actions});

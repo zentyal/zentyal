@@ -4623,14 +4623,14 @@ sub setSortableTableJS
 #    - whether the rows of this data table can be moved by the user
 sub movableRows
 {
-    my ($self, $filter, $nIdsAfterFilter) = @_;
+    my ($self, $filter) = @_;
     if ($filter) {
-        # we can only move rows if they are unfiltered
+        # we can only move rows if they are unfiltered,
         return 0;
     } else {
         my $table = $self->table();
         if (exists $table->{'order'} and ($table->{'order'} == 1)) {
-            return $nIdsAfterFilter > 1;
+            return 1;
         }
     }
 
