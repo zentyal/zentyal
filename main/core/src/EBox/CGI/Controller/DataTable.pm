@@ -540,13 +540,13 @@ sub delAction
         };
     }
 
-    if (($page + 1) < $nPages) {
+    if (($page+1) < $nPagesBefore) {
         # no last page we should add new row to the table to replace the removed one
         my $positionToAdd = ($pageSize -1) + $page*$pageSize;
         my $idToAdd = $ids[$positionToAdd];
-        my $addAfter = $ids[$positionToAdd-1];
+        my $addAfter = 'append';
         my $row    = $model->row($idToAdd);
-        my $rowHtml = $self->_htmlForRow($model, $row, \@ids, $filter, $page);
+        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
         $self->{json}->{added} = [ { position => $addAfter, row => $rowHtml } ];
         EBox::debug("positionToAdd $positionToAdd after " . ($positionToAdd -1 ) .   " idToAdd $idToAdd after $addAfter");
     }
