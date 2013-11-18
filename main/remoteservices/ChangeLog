@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Added missing EBox::Exceptions uses
 	+ Remove cron jobs when unregistering
 	+ Use latest REST Remote API to register a free account
