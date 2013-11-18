@@ -71,6 +71,12 @@ def configure(ctx):
                   msg="Check for librabbitmq 1.16",
                   mandatory=True)
 
+    ctx.check_cfg(package='json',
+                  args=['json >= 0.9', '--cflags', '--libs'],
+                  uselib_store='JSON',
+                  msg="Check for json 0.9",
+                  mandatory=True)
+
 def build(bld):
     bld.program(
         source = [
@@ -84,13 +90,16 @@ def build(bld):
 
     bld.program(
         source = [
-            'migrate.c',
+            'main.c',
+            'rpc.c',
+            'control.c',
+            'mbox.c',
             ],
         target = 'migrate',
         includes = ['.', '..'],
-        cflags = ['-ggdb'],
+        cflags = ['-ggdb', '-Wall', '-lpthread'],
         depends_on = [APPNAME],
-        use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ'])
+        use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ', 'JSON'])
 
     bld.program(
         source = [
