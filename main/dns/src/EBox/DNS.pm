@@ -1919,6 +1919,17 @@ sub hostDomainChangedDone
     if (defined $row) {
         $row->elementByName('domain')->setValue($newDomainName);
         $row->store();
+        my $txtModel = $row->subModel('txt');
+        foreach my $id (@{$txtModel->ids()}) {
+            my $txtRow = $txtModel->row($id);
+            my $hostNameElement = $txtRow->elementByName('hostName');
+            if (defined $hostNameElement and $hostNameElement->value() eq '_kerberos') {
+                my $dataElement = $txtRow->elementByName('txt_data');
+                $dataElement->setValue($newDomainName);
+                $txtRow->store();
+                last;
+            }
+        }
     }
 }
 
