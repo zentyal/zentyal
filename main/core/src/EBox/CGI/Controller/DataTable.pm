@@ -448,8 +448,8 @@ sub addAction
         if (not defined $idPosition) {
             EBox::warn("Cannot find table position for new row $rowId");
             return;
-        } elsif (($idPosition < $beginPrinted) or ($idPosition >= $endPrinted))  {
-            # XXX row is not shown in the actual page, go to its page
+        } elsif (($idPosition < $beginPrinted) or ($idPosition > $endPrinted))  {
+            # row is not shown in the actual page, go to its page
             my $newPage = floor($idPosition/$pageSize);
             EBox::debug("NEwPAge $newPage");
             $self->{json}->{reload}  = $self->_htmlForRefreshTable($newPage);
@@ -464,15 +464,7 @@ sub addAction
         }
         my $nPages =  ceil(scalar(@ids)/$pageSize);
         my $needSpace;
-        # if ($idPosition == $lastIdPosition) {
-        #     # last element in the last page, and page is seen so not need
-        #     # space
-        #     $needSpace = 0;
-        # } else {
-        #     # no need space if we havent yet filled the page
-        #     $needSpace = $endPrinted >= ($page+1)*$pageSize;
-        # }
-        if (($page + 1) == $nPages) {
+       if (($page + 1) == $nPages) {
             $needSpace = $endPrinted >= ($page+1)*$pageSize;
         } else {
             $needSpace = 1;
