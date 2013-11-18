@@ -2735,7 +2735,7 @@ sub modalChangeViewJS
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
     $url =~ s/Controller/ModalController/;
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $js =  sprintf ($function,
             $url,
@@ -2820,7 +2820,7 @@ sub modalAddNewRowJS
 
     my $extraParamsJS = _paramsToJSON(@extraParams);
 
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
@@ -2856,7 +2856,6 @@ sub changeRowJS
     my $actionUrl =  $table->{'actions'}->{'editField'};
     my $modalResize = 0;
     if ($modal) {
-        $tablename .= '_modal';
         $actionUrl =~ s/Controller/ModalController/;
     }
 
@@ -2909,7 +2908,6 @@ sub deleteActionClickedJS
     my $tablename = $table->{'tableName'};
     if ($modal) {
         $actionUrl =~ s/Controller/ModalController/;
-        $tablename .= '_modal';
     }
 
     my $extraParamsJS =  _paramsToJSON(@extraParams);

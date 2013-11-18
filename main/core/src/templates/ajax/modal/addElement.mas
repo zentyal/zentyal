@@ -62,7 +62,7 @@ use POSIX;
   my $actions = $model->table()->{'actions'};
   my $changeView = $model->action('changeView');
   my $printableRowName = $model->table()->{'printableRowName'};
-  my $tableName = $model->table()->{'tableName'} . '_modal';
+  my $tableName = $model->table()->{'tableName'};
   my $printableTableName = $model->table()->{'printableTableName'};
 
 if ( ((keys %presetParams) > 0)
@@ -75,12 +75,12 @@ if ( ((keys %presetParams) > 0)
 }
 </%init>
 
-<div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
 <div id='<% $model->modelName() | hu %>_modal_error'></div>
 
-<div id="<% $model->modelName() %>_modal">
+<div id="<% $model->modelName() %>">
 <& SELF:messagesAndHelp, model => $model &>
-<form name="<% $tableName . '_modalform' %>">
+<form name="<% $tableName . '_form' %>">
   <table class='formTable'>
     <tbody>
      <col width="1*" />
@@ -91,7 +91,7 @@ if ( ((keys %presetParams) > 0)
           editid => undef,
           filter => $filter,
           page   => 0,
-          tpages => 0,
+          tpages => 1,
           presetParams  => \%presetParams,
           printableRowName => $model->printableRowName
        &>

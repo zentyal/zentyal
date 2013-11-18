@@ -52,7 +52,7 @@ $tpages
 <tr>
   <td id="applyChanges">
   </td>
-  <td id="<% $model->modelName() . '_modal_buttons' %>">
+  <td id="<% $model->modelName() . '_buttons' %>">
 % if ( $action eq 'changeAdd' ) {
 <%perl>
 my $addOnClick;

@@ -41,7 +41,7 @@ use POSIX;
    model => $model
 &>
 % if ( $model->precondition() ) {
-<div id="<% $model->modelName() %>_modal">
+<div id="<% $model->modelName() %>">
   <& SELF:body,
      model      => $model
   &>
@@ -65,9 +65,9 @@ use POSIX;
 <& SELF:headerScriptSection &>
 <!-- Element to hide the elements while Asynchronous request are -->
 <!-- working. Find more information at "table-helper.js"  -->
-<div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
 
-<div id='<% $model->modelName() | hu %>_modal_error'></div>
+<div id='<% $model->modelName() | hu %>_error'></div>
 </%method>
 
 
@@ -105,7 +105,7 @@ use POSIX;
   my $actions = $model->table()->{'actions'};
   my $changeView = $model->action('changeView');
   my $printableRowName = $model->table()->{'printableRowName'};
-  my $tableName = $model->table()->{'tableName'} . '_modal';
+  my $tableName = $model->table()->{'tableName'};
   my $printableTableName = $model->table()->{'printableTableName'};
 
 #  # Fetch the edited row if we are editing one
@@ -140,10 +140,10 @@ use POSIX;
 #  }
 </%init>
 
-<div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
-<div id='<% $model->modelName() | hu %>_modal_error'></div>
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
+<div id='<% $model->modelName() | hu %>_error'></div>
 
-<div id="<% $model->modelName() %>_modal">
+<div id="<% $model->modelName() %>">
 <& SELF:messagesAndHelp, model => $model &>
 <%doc>
 XXX remove
@@ -210,7 +210,7 @@ XXX remove
 %   }
 </%doc>
 
-<form name="<% $tableName . '_modalform' %>">
+<form name="<% $tableName . '_form' %>">
   <table class='formTable'>
     <tbody>
      <col width="1*" />

@@ -125,7 +125,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     params = 'action=add&tablename=' + table + '&directory=' + directory ;
     if (nextPage){
         wantJSON = 1;
-        params +=  '&json=1';
+        params +=  '&modal=1';
     } else {
         params += '&page=0';
         params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_modal_filter');

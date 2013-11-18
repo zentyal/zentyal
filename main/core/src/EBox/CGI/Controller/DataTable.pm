@@ -66,7 +66,7 @@ sub getParams
         }
     }
 
-    $params{'id'} = $self->unsafeParam('id');
+    $params{'id'}     = $self->unsafeParam('id');
     $params{'filter'} = $self->unsafeParam('filter');
 
     return %params;
@@ -114,12 +114,11 @@ sub _auditLog
 
 sub addRow
 {
-    my ($self) = @_;
+    my ($self, $modal) = @_;
 
     my $model = $self->{'tableModel'};
     my %params = $self->getParams();
-
-    if ($self->{json}) {
+    if ($modal) {
         $self->{json}->{callParams} = \%params;
     }
 
@@ -404,13 +403,11 @@ sub addAction
     my ($self, %params) = @_;
     $self->{json}->{success} = 0;
 
-    my $rowId = $self->addRow();
+    my $rowId = $self->addRow($params{modal});
 
     my $model  = $self->{'tableModel'};
         $self->_setJSONSuccess($model);
-    if ($params{json}) {
-        die "Must not be reached for now";
-        # XXX this is for dialog mode..
+    if ($params{modal}) {
         $self->{json}->{rowId} = $rowId;
         $self->{json}->{directory} = $params{directory};
         $self->{json}->{success} = 1;
@@ -707,17 +704,13 @@ sub _process
         $model->setDirectory($directory);
     }
 
-    my $json = $self->param('json');
-    if ($json) {
-        $self->{json} = { success => 0  };
-    }
-
+    my $modal = $self->param('modal');
     my $actionSub = $action . 'Action';
     if ($self->can($actionSub)) {
         $self->$actionSub(
             model => $model,
             directory => $directory,
-            json      => $json,
+            modal      => $modal,
            );
     } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
@@ -726,7 +719,7 @@ sub _process
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
 
-    # json mode should not put messages in UI
+    # json return  should not put messages in UI
     if ($self->{json}) {
         $model->setMessage('');
     }
