@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ Added missing EBox::Exceptions uses
 	+ Fix group based filter access rules in external AD mode, retrieving
 	  members of nested groups
