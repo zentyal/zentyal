@@ -99,7 +99,7 @@ my $requestArgs = $m->request_args();
 my $selectCallerId  = $requestArgs->{selectCallerId};
 </%init>
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
-<div id='error_<% $model->modelName() | hu %>_modal'></div>
+<div id='<% $model->modelName() | hu %>_error_modal'></div>
 <div id="<% $model->modelName() %>_modal">
 <& .pageTitle &>
 

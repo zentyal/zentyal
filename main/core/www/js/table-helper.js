@@ -16,7 +16,7 @@ $(document).ajaxError(function(event, jqxhr, settings, exception) {
 
 Zentyal.TableHelper.cleanMessage = function (table) {
     $('#' + table + '_message').html('').removeClass();
-    $('#error_' + table).html('').removeClass();
+    $('#' + table + '_error').html('').removeClass();
 };
 
 Zentyal.TableHelper.setMessage = function (table, html) {
@@ -24,7 +24,7 @@ Zentyal.TableHelper.setMessage = function (table, html) {
 };
 
 Zentyal.TableHelper.setError = function (table, html) {
-    $('#error_' + table).removeClass().addClass('error').html(html);
+    $('#' + table + '_error').removeClass().addClass('error').html(html);
 };
 
 // Function: setEnableRecursively

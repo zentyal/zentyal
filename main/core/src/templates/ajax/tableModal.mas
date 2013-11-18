@@ -67,7 +67,7 @@ use POSIX;
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
 
-<div id='error_<% $model->modelName() | hu %>_modal'></div>
+<div id='<% $model->modelName() | hu %>_error_modal'></div>
 </%method>
 
 
@@ -133,7 +133,7 @@ use POSIX;
 </%init>
 
 <div id="<% 'hiddenDiv_' . $model->name() | h %>_modal" class="hidden"></div>
-<div id='error_<% $model->modelName() | hu %>_modal'></div>
+<div id='<% $model->modelName() | hu %>_error_modal'></div>
 <div id="<% $model->modelName() %>_modal">
 % if ( $model->pageTitle() ) {
 %      my $viewCustomizer = $model->viewCustomizer();

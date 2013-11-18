@@ -121,7 +121,7 @@
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
 
-<div id='error_<% $model->modelName() | hu %>'></div>
+<div id='<% $model->modelName() | hu %>_error'></div>
 </%method>
 
 <%method headerScriptSection>
