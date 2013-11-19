@@ -111,125 +111,6 @@ Zentyal.TableHelper.encodeFields = function (table, fields) {
     return pars.join('&');
 };
 
-Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  nextPage, extraParams) {
-    var title = '';
-    var selectForeignField;
-    var selectCallerId;
-    var nextPageContextName;
-    var params;
-
-    assert(nextPage, "Missing next page");
-
-    Zentyal.TableHelper.cleanMessage(table);
-    Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
-    var buttonsOnNextPage = $('#buttons_on_next_page').detach();
-
-    params = 'action=add&tablename=' + table + '&directory=' + directory ;
-    if (fields) {
-        params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
-    }
-    if (extraParams) {
-        selectCallerId        = extraParams['selectCallerId'];
-        if (selectCallerId) {
-            params += '&selectCallerId=' + selectCallerId;
-        }
-
-        selectForeignField    = extraParams['selectForeignField'];
-        nextPageContextName =  extraParams['nextPageContextName'];
-    }
-
-    assert(nextPageContextName, 'missing nextpagecontextname');
-
-    var success =  function(text) {
-        Zentyal.stripe('.dataTable', 'even', 'odd');
-
-        var json = text;
-        if (!json.success) {
-            var error = json.error;
-            if (!error) {
-                error = 'Unknown error';
-            }
-            Zentyal.TableHelper.setError(table, error);
-            Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-            return;
-        }
-
-
-        var nextDirectory = json.directory;
-        var rowId = json.rowId;
-        if (selectCallerId && selectForeignField){
-            var printableValue = json.callParams[selectForeignField];
-            Zentyal.TableHelper.addSelectChoice(selectCallerId, rowId, printableValue, true);
-            // hide 'Add a new one' element
-            var newLink  = document.getElementById(selectCallerId + '_empty');
-            if (newLink) {
-                newLink.style.display = 'none';
-                document.getElementById(selectCallerId).style.display ='inline';
-            }
-        }
-
-        if (rowId && directory) {
-                var nameParts = nextPageContextName.split('/');
-                var baseUrl = '/' + nameParts[1] + '/';
-                baseUrl += 'Controller/' + nameParts[2];
-                var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
-                var nextPageUrl = baseUrl;
-                var nextPageData = 'directory=' + newDirectory;
-                nextPageData += '&action=view';
-                var addButtons = function () {
-                    var mainDiv =  $('#load_in_dialog');
-                    $('.item-block', mainDiv).removeClass('item-block');
-                    $('#cancel_add', buttonsOnNextPage).data('rowId', rowId);
-                    buttonsOnNextPage.show();
-                    mainDiv.append(buttonsOnNextPage);
-                    mainDiv.addClass('item-block');
-                };
-                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
-        } else {
-            Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
-            Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-        }
-    };
-    var complete = function () {
-        Zentyal.TableHelper.completedAjaxRequest();
-    };
-    var error = function (jqxhr) {
-        Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-    };
-
-   $.ajax({
-            url: url,
-            data: params,
-            type : 'POST',
-            success: success,
-            error: error,
-            complete: complete
-    });
-};
-
-Zentyal.TableHelper.modalCancelAddRow  = function(url, table, elementWithId, directory, selectCaller) {
-    var params, success, rowId;
-    rowId = $(elementWithId).data('rowId');
-    params =  "action=cancelAdd&id=" + rowId + "&directory=" + directory;
-
-    success = function(response) {
-        if (response.success) {
-            if (selectCaller ) {
-                Zentyal.TableHelper.removeSelectChoice(selectCaller, rowId, 2);
-            }
-            Zentyal.Dialog.close();
-        }
-    };
-
-    $.ajax({
-        url:       url,
-        type:     'post',
-        dataType: 'json',
-        data:     params,
-        success:  success
-    });
-};
-
 Zentyal.TableHelper.setErrorFromJSON = function(table, response) {
     var errorText;
     if ('error' in response) {
@@ -677,38 +558,6 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
 
        Zentyal.TableHelper.setLoading(table + '_' + id + '_div_CheckAll', table, true);
    }
-};
-
-Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, id, extraParams)
-{
-    var title = '';
-    var params;
-
-    if ( action == 'changeAdd' ) {
-        Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
-    } else {
-        throw "Unsupported action: " + action;
-    }
-
-    params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
-    for (name in extraParams) {
-      if (name == 'title') {
-        title = extraParams['title'];
-      } else {
-        params += '&' + name + '=' + extraParams[name];
-      }
-    }
-
-    Zentyal.Dialog.showURL(url, {title: title,
-                                 data: params,
-                                 load: function() {
-                                     // fudge for pootle bug
-                                     var badText = document.getElementById('ServiceTable_modal_name');
-                                     if (badText){
-                                         badText.value = '';
-                                     }
-                                 }
-                                });
 };
 
 /*
@@ -1290,4 +1139,155 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
             Zentyal.refreshSaveChangesButton();
         }
    });
+};
+
+Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, id, extraParams)
+{
+    var title = '';
+    var params;
+
+    if ( action == 'changeAdd' ) {
+        Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
+    } else {
+        throw "Unsupported action: " + action;
+    }
+
+    params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
+    for (name in extraParams) {
+      if (name == 'title') {
+        title = extraParams['title'];
+      } else {
+        params += '&' + name + '=' + extraParams[name];
+      }
+    }
+
+    Zentyal.Dialog.showURL(url, {title: title,
+                                 data: params,
+                                 load: function() {
+                                     // fudge for pootle bug
+                                     var badText = document.getElementById('ServiceTable_modal_name');
+                                     if (badText){
+                                         badText.value = '';
+                                     }
+                                 }
+                                });
+};
+
+Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  nextPage, extraParams) {
+    var title = '';
+    var selectForeignField;
+    var selectCallerId;
+    var nextPageContextName;
+    var params;
+
+    assert(nextPage, "Missing next page");
+
+    Zentyal.TableHelper.cleanMessage(table);
+    Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
+    var buttonsOnNextPage = $('#buttons_on_next_page').detach();
+
+    params = 'action=add&tablename=' + table + '&directory=' + directory ;
+    if (fields) {
+        params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
+    }
+    if (extraParams) {
+        selectCallerId        = extraParams['selectCallerId'];
+        if (selectCallerId) {
+            params += '&selectCallerId=' + selectCallerId;
+        }
+
+        selectForeignField    = extraParams['selectForeignField'];
+        nextPageContextName =  extraParams['nextPageContextName'];
+    }
+
+    assert(nextPageContextName, 'missing nextpagecontextname');
+
+    var success =  function(text) {
+        Zentyal.stripe('.dataTable', 'even', 'odd');
+
+        var json = text;
+        if (!json.success) {
+            var error = json.error;
+            if (!error) {
+                error = 'Unknown error';
+            }
+            Zentyal.TableHelper.setError(table, error);
+            Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
+            return;
+        }
+
+
+        var nextDirectory = json.directory;
+        var rowId = json.rowId;
+        if (selectCallerId && selectForeignField){
+            var printableValue = json.callParams[selectForeignField];
+            Zentyal.TableHelper.addSelectChoice(selectCallerId, rowId, printableValue, true);
+            // hide 'Add a new one' element
+            var newLink  = document.getElementById(selectCallerId + '_empty');
+            if (newLink) {
+                newLink.style.display = 'none';
+                document.getElementById(selectCallerId).style.display ='inline';
+            }
+        }
+
+        if (rowId && directory) {
+                var nameParts = nextPageContextName.split('/');
+                var baseUrl = '/' + nameParts[1] + '/';
+                baseUrl += 'Controller/' + nameParts[2];
+                var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
+                var nextPageUrl = baseUrl;
+                var nextPageData = 'directory=' + newDirectory;
+                nextPageData += '&action=view';
+                var addButtons = function () {
+                    var mainDiv =  $('#load_in_dialog');
+                    $('.item-block', mainDiv).removeClass('item-block');
+                    $('#cancel_add', buttonsOnNextPage).data('rowId', rowId);
+                    buttonsOnNextPage.show();
+                    mainDiv.append(buttonsOnNextPage);
+                    mainDiv.addClass('item-block');
+                };
+                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
+        } else {
+            Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
+            Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
+        }
+    };
+    var complete = function () {
+        Zentyal.TableHelper.completedAjaxRequest();
+    };
+    var error = function (jqxhr) {
+        Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
+    };
+
+   $.ajax({
+            url: url,
+            data: params,
+            type : 'POST',
+            success: success,
+            error: error,
+            complete: complete
+    });
+};
+
+Zentyal.TableHelper.modalCancelAddRow  = function(url, table, elementWithId, directory, selectCaller) {
+    var params, success, rowId;
+    rowId = $(elementWithId).data('rowId');
+    params =  "action=cancelAdd&id=" + rowId + "&directory=" + directory;
+
+    success = function(response) {
+        if (response.success) {
+            if (selectCaller ) {
+                Zentyal.TableHelper.removeSelectChoice(selectCaller, rowId, 2);
+            }
+            Zentyal.Dialog.close();
+        }
+    };
+
+    $.ajax({
+        url:       url,
+        type:     'post',
+        dataType: 'json',
+        data:     params,
+        success:  success
+    });
 };
