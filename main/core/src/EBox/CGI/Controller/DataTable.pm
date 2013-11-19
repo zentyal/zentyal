@@ -114,14 +114,10 @@ sub _auditLog
 
 sub addRow
 {
-    my ($self, $modal) = @_;
+    my ($self) = @_;
 
     my $model = $self->{'tableModel'};
     my %params = $self->getParams();
-    if ($modal) {
-        $self->{json}->{callParams} = \%params;
-    }
-
     my $id = $model->addRow(%params);
 
     my $cloneId =delete $params{cloneId};
@@ -403,97 +399,93 @@ sub addAction
     my ($self, %params) = @_;
     $self->{json}->{success} = 0;
 
-    my $rowId = $self->addRow($params{modal});
+    my $rowId = $self->addRow();
 
     my $model  = $self->{'tableModel'};
-        $self->_setJSONSuccess($model);
-    if ($params{modal}) {
-        $self->{json}->{rowId} = $rowId;
-        $self->{json}->{directory} = $params{directory};
-        $self->{json}->{success} = 1;
-    } elsif ($model->size() == 1) {
+    $self->_setJSONSuccess($model);
+
+    if ($model->size() == 1) {
         # this was the first added row, reload all the table
         $self->{json}->{reload} = $self->_htmlForRefreshTable();
         $self->{json}->{highlightRowAfterReload} = $rowId;
-    } else {
-        # XXX this calculations assumess than only one row is added
-        # XXX add more pages when adding
-        my $nAdded = 1;
-        my $filter = $self->unsafeParam('filter');
-        my $page   = $self->param('page');
-        my $pageSize = $self->param('pageSize');
-        my @ids    = @{ $self->_modelIds($model, $filter) };
-        my $lastIdPosition = @ids -1;
-
-        my $beginPrinted = $page*$pageSize;
-        my $endPrinted   = $beginPrinted + $pageSize -1;
-        if ($endPrinted > $lastIdPosition) {
-            $endPrinted = $lastIdPosition;
-        }
-
-        my $idPosition = undef;
-        for (my $i = 0; $i < @ids; $i++) {
-            if ($ids[$i] eq $rowId) {
-                $idPosition = $i;
-                EBox::debug("$i -> " . $ids[$i] . '  <-- found'); # DDD
-                last;
-            }
-            EBox::debug("$i -> " . $ids[$i]); # DDD
-        }
-        EBox::debug("idPosition: $idPosition"); # DDD
-        if (not defined $idPosition) {
-            EBox::warn("Cannot find table position for new row $rowId");
-            return;
-        } elsif (($idPosition < $beginPrinted) or ($idPosition > $endPrinted))  {
-            # row is not shown in the actual page, go to its page
-            my $newPage = floor($idPosition/$pageSize);
-            EBox::debug("NEwPAge $newPage");
-            $self->{json}->{reload}  = $self->_htmlForRefreshTable($newPage);
-            return;
-        }
-
-        my $relativePosition;
-        if ($idPosition == 0) {
-            $relativePosition = 'prepend';
-        } else {
-            $relativePosition = $ids[$idPosition-1];
-        }
-        my $nPages =  ceil(scalar(@ids)/$pageSize);
-        my $needSpace;
-       if (($page + 1) == $nPages) {
-            $needSpace = $endPrinted >= ($page+1)*$pageSize;
-        } else {
-            $needSpace = 1;
-        }
-
-
-        EBox::debug("RElativeRowPosition $relativePosition");
-        EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
-        EBox::debug("needSpace $needSpace");
-
-        my $row     = $model->row($rowId);
-        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
-        $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
-
-        if ($needSpace) {
-            # remove last row since it would not been seen, this assummes that only
-            # one row is added at the time
-            EBox::debug("To remove " . $ids[$endPrinted] );
-            $self->{json}->{removed} = [ $ids[$endPrinted] ];
-        }
-
-
-        my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
-        EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
-        if ($nPages != $befNPages) {
-            $self->{json}->{paginationChanges} = {
-                page => $page,
-                nPages => $nPages,
-                pageNumbersText => $model->pageNumbersText($page, $nPages),
-               };
-        }
+        return;
     }
 
+    # XXX this calculations assumess than only one row is added
+    # XXX add more pages when adding
+    my $nAdded = 1;
+    my $filter = $self->unsafeParam('filter');
+    my $page   = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my @ids    = @{ $self->_modelIds($model, $filter) };
+    my $lastIdPosition = @ids -1;
+
+    my $beginPrinted = $page*$pageSize;
+    my $endPrinted   = $beginPrinted + $pageSize -1;
+    if ($endPrinted > $lastIdPosition) {
+        $endPrinted = $lastIdPosition;
+    }
+
+    my $idPosition = undef;
+    for (my $i = 0; $i < @ids; $i++) {
+        if ($ids[$i] eq $rowId) {
+            $idPosition = $i;
+            EBox::debug("$i -> " . $ids[$i] . '  <-- found'); # DDD
+            last;
+        }
+        EBox::debug("$i -> " . $ids[$i]); # DDD
+    }
+    EBox::debug("idPosition: $idPosition"); # DDD
+    if (not defined $idPosition) {
+        EBox::warn("Cannot find table position for new row $rowId");
+        return;
+    } elsif (($idPosition < $beginPrinted) or ($idPosition > $endPrinted))  {
+        # row is not shown in the actual page, go to its page
+        my $newPage = floor($idPosition/$pageSize);
+        EBox::debug("NEwPAge $newPage");
+        $self->{json}->{reload}  = $self->_htmlForRefreshTable($newPage);
+        return;
+    }
+
+    my $relativePosition;
+    if ($idPosition == 0) {
+        $relativePosition = 'prepend';
+    } else {
+        $relativePosition = $ids[$idPosition-1];
+    }
+    my $nPages =  ceil(scalar(@ids)/$pageSize);
+    my $needSpace;
+    if (($page + 1) == $nPages) {
+        $needSpace = $endPrinted >= ($page+1)*$pageSize;
+    } else {
+        $needSpace = 1;
+    }
+
+
+    EBox::debug("RElativeRowPosition $relativePosition");
+    EBox::debug("nIds: " . scalar(@ids) . " pageSize: $pageSize: beginPrinted: $beginPrinted endPrinted: $endPrinted" );
+    EBox::debug("needSpace $needSpace");
+
+    my $row     = $model->row($rowId);
+    my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
+    $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
+
+    if ($needSpace) {
+        # remove last row since it would not been seen, this assummes that only
+        # one row is added at the time
+        EBox::debug("To remove " . $ids[$endPrinted] );
+            $self->{json}->{removed} = [ $ids[$endPrinted] ];
+    }
+
+    my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
+    EBox::debug("page: $page nPages $nPages befNPages: $befNPages:");
+    if ($nPages != $befNPages) {
+        $self->{json}->{paginationChanges} = {
+            page => $page,
+            nPages => $nPages,
+            pageNumbersText => $model->pageNumbersText($page, $nPages),
+        };
+    }
 }
 
 sub delAction
@@ -704,13 +696,12 @@ sub _process
         $model->setDirectory($directory);
     }
 
-    my $modal = $self->param('modal');
     my $actionSub = $action . 'Action';
     if ($self->can($actionSub)) {
         $self->$actionSub(
             model => $model,
             directory => $directory,
-            modal      => $modal,
+
            );
     } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);

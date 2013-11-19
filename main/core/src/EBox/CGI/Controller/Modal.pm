@@ -38,32 +38,6 @@ sub new
     return  $self;
 }
 
-sub getParams
-{
-    my ($self) = @_;
-
-    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
-
-    my %params;
-    foreach my $field (@{$tableDesc}) {
-        foreach my $fieldName ($field->fields()) {
-            my $value;
-            if ( $field->allowUnsafeChars() ) {
-                $value = $self->unsafeParam($fieldName);
-            } else {
-                $value = $self->param($fieldName);
-            }
-            # TODO Review code to see if we are actually checking
-            # types which are not optional
-            $params{$fieldName} = $value;
-        }
-    }
-
-    $params{'id'} = $self->param('id');
-    $params{'filter'} = $self->unsafeParam('filter');
-
-    return %params;
-}
 
 # Method to refresh the table by calling rows method
 sub refreshTable
@@ -99,7 +73,19 @@ sub cancelAdd
     $self->{json}->{rowId} = $id;
 }
 
-# Group: Protected methods
+sub addAction
+{
+    my ($self, %params) = @_;
+    my %callParams = $self->getParams();
+    $self->{json}->{success} = 0;
+    $self->{json}->{callParams} = \%callParams;
+    $self->{json}->{directory} = $params{directory};
+
+    my $rowId = $self->addRow();
+
+    $self->{json}->{rowId} = $rowId;
+    $self->{json}->{success} = 1;
+}
 
 sub _process
 {
@@ -136,6 +122,8 @@ sub _process
         $self->refreshTable($showTable, $action, @extraParams);
     } elsif ($action eq 'cancelAdd') {
         $self->cancelAdd($model);
+    } elsif ($action eq 'add') {
+        $self->addAction(directory => $directory);
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }

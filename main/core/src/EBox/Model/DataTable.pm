@@ -2814,11 +2814,8 @@ sub modalAddNewRowJS
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
-    if (not $nextPage) {
-        $url =~ s/Controller/ModalController/;
-    }
+    $url =~ s/Controller/ModalController/;
 
-    push @extraParams, 'closeButtonText' => __('Close');
     my $extraParamsJS = _paramsToJSON(@extraParams);
 
     my $tableId = $table->{'tableName'};
