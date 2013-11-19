@@ -125,7 +125,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var buttonsOnNextPage = $('#buttons_on_next_page').detach();
 
     params = 'action=add&tablename=' + table + '&directory=' + directory ;
-    params +=  '&modal=1';
     if (fields) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
