@@ -23,6 +23,7 @@ package EBox::NetWrappers::TestStub;
 
 use Test::MockObject;
 use EBox::NetWrappers;
+use EBox::Exceptions::DataNotFound;
 
 my %fakeIfaces;
 my %fakeRoutes;

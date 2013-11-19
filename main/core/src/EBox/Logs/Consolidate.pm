@@ -19,6 +19,7 @@ package EBox::Logs::Consolidate;
 
 use EBox::Global;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Internal;
 
 use Error qw(:try);
 use Time::Piece;

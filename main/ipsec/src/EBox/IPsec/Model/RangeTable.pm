@@ -34,6 +34,7 @@ use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
 use EBox::Validate;
+use EBox::Exceptions::External;
 
 # Method: validateTypedRow
 #

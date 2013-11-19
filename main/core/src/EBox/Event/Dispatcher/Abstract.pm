@@ -29,6 +29,7 @@ use base 'EBox::Event::Component';
 
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Event;
 use EBox::Gettext;
 use EBox::Model::Manager;

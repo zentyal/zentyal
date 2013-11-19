@@ -41,6 +41,7 @@ use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 use EBox::Util::Version;
 use EBox::Util::Software;
+use EBox::Exceptions::Internal;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 use constant UPDATES_URL => 'http://update.zentyal.org/updates';

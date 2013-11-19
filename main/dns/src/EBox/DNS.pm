@@ -39,6 +39,8 @@ use EBox::NetWrappers;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 
 use Error qw(:try);
 use File::Temp;
@@ -571,17 +573,6 @@ sub initialSetup
         $firewall->saveConfigRecursive();
     }
 
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
-
-    # Upgrade from 3.2.1 to 3.2.2
-    if (defined $version and EBox::Util::Version::compare($version, '3.2.2') < 0) {
-        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.conf');
-        EBox::Sudo::root('rm -f /etc/init/ebox.bind9.override');
-    }
-
     # Execute initial-setup script to create SQL tables
     $self->SUPER::initialSetup($version);
 }
@@ -669,21 +660,12 @@ sub _setConf
     my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and
-            $sambaModule->getProvision->isProvisioned()) {
+        if ($sambaModule->isEnabled() and (
+            $sambaModule->getProvision->isProvisioned() or
+            $sambaModule->getProvision->isProvisioning())) {
             # Get the zones stored in the samba LDB
             my $ldb = $sambaModule->ldb();
             @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
-
-            # Get the DNS keytab path used for GSSTSIG zone updates
-            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
-                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
-            }
-        } elsif ($sambaModule->isEnabled() and
-                 $sambaModule->getProvision->isProvisioning()) {
-            my $sysinfo = $self->global->modInstance('sysinfo');
-            my $adDomain = $sysinfo->hostDomain();
-            $sambaZones = [ $adDomain ];
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
@@ -775,34 +757,11 @@ sub _setConf
         }
     }
 
-    my $reversedData = $self->_reverseData();
+    my @inaddrs;
+    my $generateReverseZones = EBox::Config::boolean('generate_reverse_zones');
+    if ($generateReverseZones) {
+        @inaddrs = @{ $self->_writeReverseFiles() };
 
-    # Remove the unused reverse files
-    $self->_removeUnusedReverseFiles($reversedData);
-
-    my @inaddrs = ();
-    foreach my $group (keys %{ $reversedData }) {
-        my $reversedDataItem = $reversedData->{$group};
-        my $file;
-        if ($reversedDataItem->{dynamic}) {
-            $file = BIND9_UPDATE_ZONES;
-        } else {
-            $file = BIND9CONFDIR;
-        }
-        $file .= "/db." . $group;
-        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
-            $self->_updateDynReverseZone($reversedDataItem);
-        } else {
-            @array = ();
-            push (@array, 'groupip' => $group);
-            push (@array, 'rdata' => $reversedDataItem);
-            $self->writeConfFile($file, "dns/dbrev.mas", \@array);
-            EBox::Sudo::root("chown bind:bind '$file'");
-        }
-        # Store to write the zone in named.conf.local
-        push (@inaddrs, { ip       => $group,
-                          file     => $file,
-                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
     }
 
     my @domains = @{$self->domains()};
@@ -812,6 +771,7 @@ sub _setConf
     push(@array, 'confDir' => BIND9CONFDIR);
     push(@array, 'dynamicConfDir' => BIND9_UPDATE_ZONES);
     push(@array, 'domains' => \@domains);
+    push(@array, 'generateReverseZones' => $generateReverseZones);
     push(@array, 'inaddrs' => \@inaddrs);
     push(@array, 'intnets' => \@intnets);
     push(@array, 'internalLocalNets' => $self->_internalLocalNets());
@@ -831,6 +791,44 @@ sub _setConf
         $self->writeConfFile($file, 'dns/keys.mas', \@array,
             {uid => 'root', 'gid' => 'dhcpd', mode => '640'});
     }
+}
+
+sub _writeReverseFiles
+{
+    my ($self) = @_;
+
+    my $reversedData = $self->_reverseData();
+
+    # Remove the unused reverse files
+    $self->_removeUnusedReverseFiles($reversedData);
+
+    my @inaddrs = ();
+    foreach my $group (keys %{ $reversedData }) {
+        my $reversedDataItem = $reversedData->{$group};
+        my $file;
+        if ($reversedDataItem->{dynamic}) {
+            $file = BIND9_UPDATE_ZONES;
+        } else {
+            $file = BIND9CONFDIR;
+        }
+        $file .= "/db." . $group;
+        EBox::debug("reverse zone data : $file");
+        if ($reversedDataItem->{dynamic} and -e "${file}.jnl" ) {
+            $self->_updateDynReverseZone($reversedDataItem);
+        } else {
+            my @params = ();
+            push (@params, 'groupip' => $group);
+            push (@params, 'rdata' => $reversedDataItem);
+            $self->writeConfFile($file, "dns/dbrev.mas", \@params);
+            EBox::Sudo::root("chown bind:bind '$file'");
+        }
+        # Store to write the zone in named.conf.local
+        push (@inaddrs, { ip       => $group,
+                          file     => $file,
+                          keyNames => [ $reversedDataItem->{'tsigKeyName'} ] } );
+    }
+
+    return \@inaddrs;
 }
 
 sub _reverseData
@@ -1565,6 +1563,8 @@ sub _launchNSupdate
         try {
             EBox::Sudo::root($cmd);
         } otherwise {
+            my ($ex) = @_;
+            EBox::error("nsupdate error: $ex");
             $fh->unlink_on_destroy(0); # For debug purposes
         };
     } else {
@@ -1908,6 +1908,17 @@ sub hostDomainChangedDone
     if (defined $row) {
         $row->elementByName('domain')->setValue($newDomainName);
         $row->store();
+        my $txtModel = $row->subModel('txt');
+        foreach my $id (@{$txtModel->ids()}) {
+            my $txtRow = $txtModel->row($id);
+            my $hostNameElement = $txtRow->elementByName('hostName');
+            if (defined $hostNameElement and $hostNameElement->value() eq '_kerberos') {
+                my $dataElement = $txtRow->elementByName('txt_data');
+                $dataElement->setValue($newDomainName);
+                $txtRow->store();
+                last;
+            }
+        }
     }
 }
 

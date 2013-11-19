@@ -9,9 +9,10 @@ Package: zentyal-openchange
 Architecture: all
 Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
  zentyal-mail, zentyal-samba,
- openchangeserver (>= 1:2.0-QUADRANT-56-g995d0ea-zentyal1),
+ openchangeserver (>= 1:2.0-QUADRANT-371-g4dd336c-0zentyal0),
+ openchange-ocsmanager (>= 1:2.0-QUADRANT-371-g4dd336c-0zentyal0),
  libstring-random-perl,
- sogo-openchange (>= 2.0.8-zentyal1),
+ sogo-openchange (>= 2.1.0-zentyal6),
  sope4.9-gdl1-mysql (>= 4.9-zentyal1),
  libuuid-tiny-perl,
  libanyevent-perl,

@@ -69,6 +69,11 @@
     SOGoMailingMechanism = smtp;
     SOGoSMTPServer = <% $smtpServer %>;
 
+    /* Sieve configuration */
+    SOGoVacationEnabled = YES;
+    SOGoSieveScriptsEnabled = YES;
+    SOGoForwardEnabled = YES;
+
     /* LDAP authentication */
     SOGoUserSources = (
         {

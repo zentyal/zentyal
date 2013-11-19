@@ -20,6 +20,8 @@ package EBox::Network;
 
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
+# Group: Constants
+
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
@@ -32,10 +34,13 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
-use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
+use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
+use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
 use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
+use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
+use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
+use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -52,6 +57,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::DataNotFound;
 use Error qw(:try);
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
@@ -165,6 +171,21 @@ sub usedFiles
         'module' => 'network'
     },
     {
+        'file' => RESOLVCONF_BASE,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_HEAD,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_TAIL,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
         'file' => DHCLIENTCONF_FILE,
         'reason' => __('Zentyal will set your DHCP client configuration'),
         'module' => 'network'
@@ -204,7 +225,7 @@ sub usedFiles
 
     my $proxy = $self->model('Proxy');
     if ($proxy->serverValue() and $proxy->portValue()) {
-        push (@files, { 'file' => ENV_PROXY_FILE,
+        push (@files, { 'file' => ENV_FILE,
                         'reason' => __('Zentyal will set HTTP proxy for all users'),
                         'module' => 'network' });
         push (@files, { 'file' => APT_PROXY_FILE,
@@ -232,29 +253,6 @@ sub initialSetup
         } otherwise {
             EBox::warn('Network configuration import failed');
         };
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
-
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.2') < 0)) {
-        my $resolverModel = $self->model('DNSResolver');
-        foreach my $id (@{$resolverModel->ids()}) {
-            my $row = $resolverModel->row($id);
-            my $interfaceElement = $row->elementByName('interface');
-            my $interfaceValue = $interfaceElement->value();
-            unless (defined $interfaceValue and length $interfaceValue) {
-                $interfaceElement->setValue("zentyal.$id");
-                $row->store();
-            }
-        }
-        my $searchDomainModel = $self->model('SearchDomain');
-        my $domainRow = $searchDomainModel->row();
-        my $ifaceElement = $domainRow->elementByName('interface');
-        $ifaceElement->setValue('zentyal.' . $domainRow->id());
-        $domainRow->store();
     }
 }
 
@@ -2679,7 +2677,7 @@ sub _setChanged # (interface)
     $self->set('interfaces', $ifaces);
 }
 
-# Method: _generateResolvConfInterfaceOrder
+# Method: _generateResolvconfConfig
 #
 #   This method write the /etc/resolvconf/interface-order file. This file
 #   contain the order in which the files under /var/run/resolvconf/interfaces
@@ -2689,9 +2687,20 @@ sub _setChanged # (interface)
 #   (those which interface field is zentyal.<row id>) are removed or added
 #   to the resolvconf configuration.
 #
-sub _generateResolvConfInterfaceOrder
+sub _generateResolvconfConfig
 {
     my ($self) = @_;
+
+    # Generate base, head and tail
+    $self->writeConfFile(RESOLVCONF_BASE,
+        'network/resolvconf-base.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_HEAD,
+        'network/resolvconf-head.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_TAIL,
+        'network/resolvconf-tail.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
 
     # First step, write the order list
     my $interfaces = [];
@@ -2754,6 +2763,7 @@ sub _generateResolvConfInterfaceOrder
     EBox::Sudo::root("echo 'domain $domain' | resolvconf -a 'zentyal.domain'");
 }
 
+# Generate the configuration if a HTTP proxy has been set
 sub _generateProxyConfig
 {
     my ($self) = @_;
@@ -2769,10 +2779,26 @@ sub _generateProxyConfig
         }
     }
 
-    $self->writeConfFile(ENV_PROXY_FILE,
-                        'network/zentyal-proxy.sh.mas',
-                        [ proxyConf => $proxyConf ],
-                        { 'uid' => 0, 'gid' => 0, mode => '755' });
+    # Write environment file by edition not overwritting
+    my @contents = File::Slurp::read_file(ENV_FILE);
+    my @finalContents = ();
+    my $inMark = 0;
+    foreach my $line (@contents) {
+        if ($inMark) {
+            $inMark = ($line !~ m/^#\s*END Zentyal Proxy Settings\s*$/);
+            next;
+        }
+        $inMark = ($line =~ m/^#\s*Zentyal Proxy Settings\s*$/);
+        push(@finalContents, $line) unless ($inMark);
+    }
+    if ($proxyConf) {
+        push(@finalContents, "# Zentyal Proxy Settings\n",
+                             qq{http_proxy="$proxyConf"\n},
+                             qq{HTTP_PROXY="$proxyConf"\n},
+                             "# END Zentyal Proxy Settings\n");
+    }
+    EBox::Module::Base::writeFile(ENV_FILE, join("", @finalContents));
+
     $self->writeConfFile(APT_PROXY_FILE,
                         'network/99proxy.conf.mas',
                         [ proxyConf => $proxyConf ]);
@@ -3370,7 +3396,7 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateResolvConfInterfaceOrder();
+    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 

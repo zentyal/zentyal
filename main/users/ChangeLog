@@ -1,4 +1,9 @@
 3.3
+	+ Added missing EBox::Exceptions uses
+	+ Better error handling when we get a LdapObject that doesn't exists
+	+ Remove undefined warnings on users/group creation
+	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
+	  is installed but disabled
 	+ Add missing use to EBox::Users::LDAP::ExternalAD
 	+ Force DNS restart when users mode changed
 	+ Force service principals update on _postServiceHook in external AD mode

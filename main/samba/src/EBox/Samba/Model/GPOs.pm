@@ -29,6 +29,9 @@ use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Samba::GPO;
 
 # Method: _table
@@ -237,6 +240,10 @@ sub precondition
         $self->{preconditionFail} = 'notConfigured';
         return undef;
     }
+    unless ($samba->isEnabled()) {
+        $self->{preconditionFail} = 'notEnabled';
+        return undef;
+    }
     unless ($samba->isProvisioned()) {
         $self->{preconditionFail} = 'notProvisioned';
         return undef;
@@ -257,9 +264,10 @@ sub preconditionFailMsg
 {
     my ($self) = @_;
 
-    if ($self->{preconditionFail} eq 'notConfigured') {
-        return __('You must enable the module in the module ' .
-                'status section in order to use it.');
+    if ($self->{preconditionFail} eq 'notConfigured' or
+	$self->{preconditionFail} eq 'notEnabled') {
+        return __('You must enable the File Sharing module in the module ' .
+	          'status section in order to use it.');
     }
     if ($self->{preconditionFail} eq 'notProvisioned') {
         return __('The domain has not been created yet.');

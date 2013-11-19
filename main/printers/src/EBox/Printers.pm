@@ -112,11 +112,6 @@ sub initialSetup
                            );
         $firewall->saveConfigRecursive();
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 # Method: enableActions

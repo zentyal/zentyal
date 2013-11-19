@@ -32,6 +32,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 use EBox::Types::Text;
 use EBox::Types::HostIP;
+use EBox::Exceptions::External;
 
 use base 'EBox::Model::DataTable';
 

@@ -25,6 +25,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 
 # Constants
 use constant MEASURE_ATTRS => qw(measureInstance typeInstance dataSource);

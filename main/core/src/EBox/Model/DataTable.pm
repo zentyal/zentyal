@@ -34,6 +34,8 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;

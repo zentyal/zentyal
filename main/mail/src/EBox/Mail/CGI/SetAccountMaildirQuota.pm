@@ -22,6 +22,7 @@ use base 'EBox::CGI::ClientPopupBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Users::User;
 
 sub new

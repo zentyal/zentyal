@@ -24,6 +24,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;

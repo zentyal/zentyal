@@ -38,6 +38,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 
 # Core modules
@@ -463,7 +464,11 @@ sub _setMemValue
     my $homePathParam = $self->fieldName() . '_path';
     my $removeParam = $self->fieldName() . '_remove';
 
-    $self->{userPath} = $params->{$homePathParam};
+    # Chrome adds C:\fakepath\ to the file path for security reasons
+    my $path = $params->{$homePathParam};
+    $path =~ s/^c:\\fakepath\\//i;
+
+    $self->{userPath} = $path;
     $self->{remove} = $params->{$removeParam};
 }
 

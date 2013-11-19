@@ -30,6 +30,7 @@ use EBox::Types::Text;
 use EBox::Types::DomainName;
 use EBox::Types::Boolean;
 use EBox::CA;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

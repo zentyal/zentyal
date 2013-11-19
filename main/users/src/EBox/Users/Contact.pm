@@ -30,6 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 
 use Error qw(:try);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);

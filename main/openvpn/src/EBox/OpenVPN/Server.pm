@@ -28,8 +28,10 @@ use EBox::NetWrappers;
 use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
-use EBox::Validate
-  qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
@@ -300,6 +302,16 @@ sub crlVerify
 
     my $ca = EBox::Global->modInstance('ca');
     return $ca->getCurrentCRL();
+}
+
+sub ifaceAddress
+{
+    my ($self) = @_;
+    my $subnet = $self->subnet();
+    my @components = split '\.', $subnet;
+    # for now server is always first address of the subnet
+    $components[3] += 1;
+    return join('.', @components);
 }
 
 # Method: subnet
@@ -904,7 +916,7 @@ sub summary
     my $iface = $self->iface();
     push (@summary, (__('VPN network interface'), $iface ));
 
-    my $addr = $self->ifaceAddress();
+    my $addr = $self->actualIfaceAddress();
     unless ($addr) { $addr = __('No active') };
     push (@summary, (__('VPN interface address'), $addr));
 

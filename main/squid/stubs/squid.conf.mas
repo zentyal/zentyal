@@ -26,6 +26,7 @@
     $adPrincipal => undef
     $adDC => undef
     $adAclTTL => 3600
+    $adNegativeAclTTL => 10
 </%args>
 <%shared>
 our $objectPrefix = 'obj~';
@@ -233,7 +234,7 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % if ($https) {
 %   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
-http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
+http_port 0.0.0.0:<% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
 
@@ -303,11 +304,15 @@ never_direct allow all
 ##
 ## Authorization
 ##
-external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
-    --strip-realm \
-    --host "<% $adDC %>" \
-    --keytab /etc/squid3/HTTP.keytab \
-    --principal <% $adPrincipal %>
+external_acl_type InetGroup ipv4 children=5 \
+    negative_ttl=<% $adNegativeAclTTL %> \
+    ttl=<% $adAclTTL %> \
+    %LOGIN \
+    /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+        --strip-realm \
+        --host "<% $adDC %>" \
+        --keytab /etc/squid3/HTTP.keytab \
+        --principal <% $adPrincipal %>
 % }
 
 ##

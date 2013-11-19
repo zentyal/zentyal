@@ -1,4 +1,25 @@
 3.3
+	+ Add precondition to GPO models, do not allow edition if server is ADC
+	+ Fix error in backup or clicking on edit GPO when server is ADC and
+	  sysvol is not yet replicated
+	+ Check if file system share path is a directory
+	+ Fixed unhandled exception when checking filesystem options
+	+ Added missing EBox::Exceptions uses
+	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
+	  objectGUID unique id to be 100% sure we match the right objects
+	+ Fixed a typo in a info message
+	+ Depend on the new Samba 4.1.1, also with fixed init script
+	+ Improve GPO models preconditions to avoid cannot connect to samba
+	  LDAP
+	+ Fix regression in unmanaged ACLs option
+	+ Prevent _postServiceHook code execution outside Save Changes
+	+ Fixed openLDAP -> samba integration for users, contacts and groups using
+	  non ascii characters
+	+ Check for acl and user_xattr mount options when adding system shares
+	+ Depend on new samba4 version that fixes 0-byte size problems
+	+ NT SD are now written to hidden and readonly files
+	+ Remove no longer used antivirus options
+	+ Get ldb object in s4sync after the initial wait
 	+ Use resolvconf tool to modify resolv.conf when joining as ADC
 	+ Set zavsd socket mode to 0777
 	+ Fix already defined variable warning

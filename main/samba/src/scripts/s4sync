@@ -60,7 +60,6 @@ my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
 
-my $ldb = $sambaModule->ldb();
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
     sleep (30);
@@ -68,16 +67,17 @@ while (1) {
 
     # The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
     # Those are Zentyal system user and groups so don't appear by default on list actions.
-    my $domainSID = $sambaModule->ldb()->domainSID();
+    my $ldb = $sambaModule->ldb();
+    my $domainSID = $ldb->domainSID();
     my $domainAdminSID = "$domainSID-500";
     my $domainUsersSID = "$domainSID-513";
     my $domainAdminsSID = "$domainSID-512";
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
-    my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$ldb->users()};
-    my %sambaContacts = map { $_->canonicalName(1) => $_ } @{$ldb->contacts()};
-    my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$ldb->groups()};
+    my %sambaUsers = map { $_->objectGUID() => $_ } @{$ldb->users()};
+    my %sambaContacts = map { $_->objectGUID() => $_ } @{$ldb->contacts()};
+    my %sambaGroups = map { $_->objectGUID() => $_ } @{$ldb->groups()};
     my @orderSambaOUs;
     my %sambaOUs;
     foreach my $ou (@{$ldb->ous()}) {
@@ -85,33 +85,36 @@ while (1) {
         if (ignoreOU($canonicalName)) {
             next;
         }
-        push @orderSambaOUs, $canonicalName;
-        $sambaOUs{$canonicalName} = $ou;
+        my $uniqueID = $ou->objectGUID();
+        push @orderSambaOUs, $uniqueID;
+        $sambaOUs{$uniqueID} = $ou;
     }
 
     write_file($sambaTimestampFile, getTimestamp());
 
-    my %zentyalUsers = map { $_->get('uid') => $_ } @{$usersModule->users()};
-    my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
-    my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
-    my %zentyalOUs    = map { $_->canonicalName(1) => $_ } @{$usersModule->ous()};
+    my %zentyalUsers = map { $_->get('msdsObjecGUID') => $_ } @{$usersModule->users()};
+    my %zentyalContacts = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->contacts()};
+    my %zentyalGroups = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->groups()};
+    my %zentyalOUs    = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->ous()};
+    my %zentyalOUMapping = map { $_->canonicalName(1) => $_->get('msdsObjectGUID') } @{$usersModule->ous()};
 
-    foreach my $canonicalName (@orderSambaOUs) {
-        if (exists $zentyalOUs{$canonicalName}) {
-            my $changed = $sambaOUs{$canonicalName}->get('whenChanged');
+    foreach my $uniqueID (@orderSambaOUs) {
+        my $canonicalName = $sambaOUs{$uniqueID}->canonicalName(1);
+        if (exists $zentyalOUs{$uniqueID}) {
+            my $changed = $sambaOUs{$uniqueID}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaOUs{$canonicalName}->updateZentyal();
+                    $sambaOUs{$uniqueID}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
                 };
             }
-            delete $zentyalOUs{$canonicalName};
+            delete $zentyalOUs{$uniqueID};
         } else {
             try {
-                $sambaOUs{$canonicalName}->addToZentyal();
+                $sambaOUs{$uniqueID}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
@@ -119,37 +122,38 @@ while (1) {
         }
     }
 
-    my @orderZentyalOus = reverse sort keys %zentyalOUs;
-    foreach my $ouCanonicalName (reverse sort keys %zentyalOUs) {
+    foreach my $ouCanonicalName (reverse sort keys %zentyalOUMapping) {
+        my $uniqueID = $zentyalOUMapping{$ouCanonicalName};
         if (ignoreOU($ouCanonicalName)) {
             next;
         }
-        EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$ouCanonicalName}->dn() . "'");
-        $zentyalOUs{$ouCanonicalName}->setIgnoredModules(['samba']);
-        $zentyalOUs{$ouCanonicalName}->deleteObject();
+        EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$uniqueID}->dn() . "'");
+        $zentyalOUs{$uniqueID}->setIgnoredModules(['samba']);
+        $zentyalOUs{$uniqueID}->deleteObject();
     }
 
     #################################################
     #### Sync users
     #################################################
     # Add users that exists in samba but not in Zentyal
-    foreach my $sambaUserName (sort keys %sambaUsers) {
-        if ((exists $zentyalUsers{$sambaUserName}) or
-            ($domainAdminSID eq $sambaUsers{$sambaUserName}->sid())) {
-            my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
+    foreach my $uniqueID (sort keys %sambaUsers) {
+        my $sambaUserName = $sambaUsers{$uniqueID}->get('samAccountName');
+        if ((exists $zentyalUsers{$uniqueID}) or
+            ($domainAdminSID eq $sambaUsers{$uniqueID}->sid())) {
+            my $changed = $sambaUsers{$uniqueID}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaUsers{$sambaUserName}->updateZentyal();
+                    $sambaUsers{$uniqueID}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
                 };
             }
-            delete $zentyalUsers{$sambaUserName};
+            delete $zentyalUsers{$uniqueID};
         } else {
             try {
-                $sambaUsers{$sambaUserName}->addToZentyal();
+                $sambaUsers{$uniqueID}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
@@ -157,66 +161,71 @@ while (1) {
         }
     }
 
-    foreach my $zentyalUserName (sort keys %zentyalUsers) {
+    foreach my $uniqueID (sort keys %zentyalUsers) {
+        my $zentyalUserName = $zentyalUsers{$uniqueID}->get('uid');
         EBox::info("Deleting Zentyal user '$zentyalUserName'");
-        $zentyalUsers{$zentyalUserName}->setIgnoredModules(['samba']);
-        $zentyalUsers{$zentyalUserName}->deleteObject();
+        $zentyalUsers{$uniqueID}->setIgnoredModules(['samba']);
+        $zentyalUsers{$uniqueID}->deleteObject();
     }
 
     #################################################
     #### Sync contacts
     #################################################
     # Add contacts that exists in samba but not in Zentyal
-    foreach my $sambaContactCanonicalName (sort keys %sambaContacts) {
-        if (exists $zentyalContacts{$sambaContactCanonicalName}) {
-            my $changed = $sambaContacts{$sambaContactCanonicalName}->get('whenChanged');
+    foreach my $uniqueID (sort keys %sambaContacts) {
+        my $canonicalName = $sambaContacts{$uniqueID}->canonicalName(1);
+        if (exists $zentyalContacts{$uniqueID}) {
+            my $changed = $sambaContacts{$uniqueID}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaContacts{$sambaContactCanonicalName}->updateZentyal();
+                    $sambaContacts{$uniqueID}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
-                    EBox::error("Error updating contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
+                    EBox::error("Error updating contact $canonicalName: $error. s4sync will try again in next synchronization");
                 };
             }
-            delete $zentyalContacts{$sambaContactCanonicalName};
+            delete $zentyalContacts{$uniqueID};
         } else {
             try {
-                $sambaContacts{$sambaContactCanonicalName}->addToZentyal();
+                $sambaContacts{$uniqueID}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
+                EBox::error("Error adding contact $canonicalName: $error. s4sync will try again in next synchronization");
             };
         }
     }
 
-    foreach my $zentyalContactCanonicalName (sort keys %zentyalContacts) {
-        EBox::debug("Deleting Zentyal contact '$zentyalContactCanonicalName'");
-        $zentyalContacts{$zentyalContactCanonicalName}->setIgnoredModules(['samba']);
-        $zentyalContacts{$zentyalContactCanonicalName}->deleteObject();
+    foreach my $uniqueID (sort keys %zentyalContacts) {
+        my $canonicalName = $zentyalContacts{$uniqueID}->canonicalName(1);
+        EBox::debug("Deleting Zentyal contact '$canonicalName'");
+        $zentyalContacts{$uniqueID}->setIgnoredModules(['samba']);
+        $zentyalContacts{$uniqueID}->deleteObject();
     }
 
     #################################################
     #### Sync groups
     #################################################
-    foreach my $sambaGroupName (sort keys %sambaGroups) {
-        if ((exists $zentyalGroups{$sambaGroupName}) or
-            ($domainAdminsSID eq $sambaGroups{$sambaGroupName}->sid()) or
-            ($domainUsersSID eq $sambaGroups{$sambaGroupName}->sid())) {
-            my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
+    foreach my $uniqueID (sort keys %sambaGroups) {
+        my $sambaGroupName = $sambaGroups{$uniqueID}->get('samAccountName');
+        if ((exists $zentyalGroups{$uniqueID}) or
+            ($domainAdminsSID eq $sambaGroups{$uniqueID}->sid()) or
+            ($domainUsersSID eq $sambaGroups{$uniqueID}->sid())) {
+
+            my $changed = $sambaGroups{$uniqueID}->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaGroups{$sambaGroupName}->updateZentyal();
+                    $sambaGroups{$uniqueID}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
                 };
             }
-            delete $zentyalGroups{$sambaGroupName};
+            delete $zentyalGroups{$uniqueID};
         } else {
             try {
-                $sambaGroups{$sambaGroupName}->addToZentyal();
+                $sambaGroups{$uniqueID}->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
@@ -224,9 +233,10 @@ while (1) {
         }
     }
 
-    foreach my $zentyalGroupName (sort keys %zentyalGroups) {
+    foreach my $uniqueID (sort keys %zentyalGroups) {
+        my $zentyalGroupName = $zentyalGroups{$uniqueID}->get('cn');
         EBox::debug("Deleting Zentyal group '$zentyalGroupName'");
-        $zentyalGroups{$zentyalGroupName}->setIgnoredModules(['samba']);
-        $zentyalGroups{$zentyalGroupName}->deleteObject();
+        $zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
+        $zentyalGroups{$uniqueID}->deleteObject();
     }
 }

@@ -1,4 +1,19 @@
 3.3
+	+ Fixed errors with row ID in ManageAdmins table
+	+ Added missing EBox::Exceptions uses
+	+ Fixed bug in selectSetter which hitted selects on DataForm with
+	  'unique' option enabled
+	+ EBox::WebServer::removeNginxInclude does not longer throws
+	  a exception if the path to remove is not included
+	+ Use printableName in Configure Module popup
+	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
+	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
+	+ Set proper trial link in advertisements
+	+ Show register link in local backup when not registered
+	+ Strip the 'C:\fakepath\' that chrome adds to the file input
+	+ Make dump_exceptions key work also for mason exceptions
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
 	+ Waiting for Zentyal ready page check is more robust now
 	+ Fixed error in the recursive method for getting module dependencies
 	+ Fixed JS typo which disabled export backup dialog

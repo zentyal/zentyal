@@ -26,6 +26,7 @@ use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Types::Int;
+use EBox::Exceptions::External;
 
 sub new
 {

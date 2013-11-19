@@ -25,6 +25,7 @@ package EBox::SysInfo::Types::DomainName;
 use base 'EBox::Types::DomainName';
 
 use EBox::Gettext;
+use EBox::Exceptions::InvalidData;
 
 use Data::Validate::Domain qw(is_domain);
 

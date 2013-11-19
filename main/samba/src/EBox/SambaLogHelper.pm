@@ -68,19 +68,17 @@ sub processLine # (file, line, logger)
     my %dataToInsert;
 
     if ($file eq SAMBA_ANTIVIRUS) {
-
-        my ($date_virus) = $line =~ m{^(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d) .* .*VIRUS.*$};
-        my ($date_quarantine) = $line =~ m{^(\d\d/\d\d/\d\d\d\d \d\d:\d\d:\d\d) .* .*QUARANTINE.*$};
+        my ($date_virus) = $line =~ m{^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d).* VIRUS.*$};
+        my ($date_quarantine) = $line =~ m{^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d).* QUARANTINE.*$};
 
         if ($date_virus or $date_quarantine) {
-            my $raw_date;
+            my $date;
             if ($date_virus) {
-                $raw_date = $date_virus;
+                $date = $date_virus;
             } else {
-                $raw_date = $date_quarantine;
+                $date = $date_quarantine;
             }
-            my $date = $raw_date . ' ' . (${[localtime(time)]}[5] + 1900);
-            my $timestamp = $self->_convertTimestamp($date, '%d/%m/%Y %H:%M:%S');
+            my $timestamp = $self->_convertTimestamp($date, '%Y-%m-%d %H:%M:%S');
             $dataToInsert{timestamp} = $timestamp;
 
             my @fields = split(/\|/, $line);

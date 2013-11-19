@@ -28,6 +28,7 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
 
 # Constant

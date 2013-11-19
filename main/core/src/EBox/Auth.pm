@@ -16,7 +16,7 @@ use strict;
 use warnings;
 
 package EBox::Auth;
-use base qw(EBox::ThirdParty::Apache2::AuthCookie);
+use base qw(Apache2::AuthCookie);
 
 use EBox;
 use EBox::CGI::Run;
@@ -25,6 +25,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::External;
 use Apache2::Connection;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 

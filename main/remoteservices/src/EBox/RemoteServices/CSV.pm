@@ -19,6 +19,7 @@ use warnings;
 package EBox::RemoteServices::CSV;
 
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use Text::CSV;
 

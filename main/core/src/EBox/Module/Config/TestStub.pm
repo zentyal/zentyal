@@ -22,6 +22,7 @@ use Test::MockObject;
 use List::Util qw(first);
 use Params::Validate;
 use EBox::Module::Config;
+use EBox::Exceptions::Internal;
 
 my %config;
 

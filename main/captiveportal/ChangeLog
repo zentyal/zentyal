@@ -1,4 +1,6 @@
 3.3
+	+ Added missing EBox::Exceptions uses
+	+ Use upstream Apache2::AuthCookie instead of forked version
 	+ Set version to 3.3
 3.2
 	+ Set version to 3.2
