@@ -1441,10 +1441,9 @@ sub dumpConfig
 
     try {
         EBox::Sudo::root(@cmds);
-    } catch {
-        my ($error) = @_;
+    } catch ($e) {
         EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
-        throw $error;
+        $e->throw();
     }
     EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
 

@@ -173,9 +173,7 @@ sub _process
             'users' => $usersData,
         };
 
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         # Set this on error
         $self->{json}->{error} = $error;
     }

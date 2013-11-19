@@ -73,8 +73,7 @@ sub _process
             value => $data,
             type => 'good',
         };
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error($error);
         $self->{json} = {
             value => qq{<li><span class="red">$error</span></li>},

@@ -42,8 +42,7 @@ foreach my $user (@{$ldapUsers}) {
     try {
         print "Updating uidNumber mapping for user '$uid' (uidNumber: $uidNumber)\n";
         $sambaUser->setupUidMapping($uidNumber);
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "\tError: $error\n";
     }
 }
@@ -62,8 +61,7 @@ foreach my $group (@{$ldapGroups}) {
     try {
         print "Updating gidNumber mapping for group '$gid' (gidNumber: $gidNumber)\n";
         $sambaGroup->setupGidMapping($gidNumber);
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "\tError: $error\n";
     }
 }

@@ -101,8 +101,7 @@ unless ($dsServiceName =~/$schemaMaster/i) {
     try {
         print "Transferring Schema Master role from owner: $schemaMaster\n";
         $fsmo->transferSchemaMaster();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
     }
 }
@@ -112,8 +111,7 @@ unless ($dsServiceName =~/$domainNamingMaster/i) {
     try {
         print "Transferring Domain Naming Master role from owner: $domainNamingMaster\n";
         $fsmo->transferDomainNamingMaster();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
     }
 }
@@ -123,8 +121,7 @@ unless ($dsServiceName =~/$pdcEmulationMaster/i) {
     try {
         print "Transferring PDC Emulation Master role from owner: $pdcEmulationMaster\n";
         $fsmo->transferPdcEmulationMaster();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
     }
 }
@@ -135,8 +132,7 @@ unless ($dsServiceName =~/$ridAllocationMaster/i) {
     try {
         print "Transferring RID Allocation Master role from owner: $ridAllocationMaster\n";
         $fsmo->transferRidAllocationMaster();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
     }
 }
@@ -146,8 +142,7 @@ unless ($dsServiceName =~/$infrastructureMaster/i) {
     try {
         print "Transferring Infrastructure Master role from owner: $infrastructureMaster\n";
         $fsmo->transferInfrastructureMaster();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
     }
 }

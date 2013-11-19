@@ -308,8 +308,7 @@ sub getSystemResolvers
             my $entry = $self->getInterfaceResolvconfConfig($file);
             push (@{$resolvers}, $entry);
         }
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Failed to get the list of resolvconf resolvers: $error");
     }
 
@@ -337,8 +336,7 @@ sub importSystemResolvers
                     nameserver => $nameserver);
             }
         }
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Could not import system resolvers: $error");
     }
     $self->table->{insertPosition} = 'back';

@@ -113,9 +113,6 @@ sub connection
                     userDN => $userCornerMod->roRootDn(),
                     pass => $userCornerMod->getRoPassword()
                 };
-            } catch {
-                my ($error) = @_;
-                throw $error;
             }
             $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};

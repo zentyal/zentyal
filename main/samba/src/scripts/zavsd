@@ -73,7 +73,6 @@ try {
     chmod(0777, $zavsSocket)
 	or fatal("chmod: $!");
 } catch {
-    my ($error) = @_;
     exit 1;
 }
 
@@ -175,17 +174,15 @@ sub work
                 logevent('DEBUG', "Cache file '$fullPath' created");
             }
         } catch (ClamAV::Client::Error $e) {
-            my ($error) = @_;
-            logevent('ERROR', "Error scanning: $error");
+            logevent('ERROR', "Error scanning: $e");
 
             my $path = $data->{path};
             my $name = $data->{name};
             my $fullPath = "$path.failed:$name";
             unlink $fullPath if -f $fullPath;
             open ($FD,">>$fullPath") && close ($FD);
-        } catch {
-            my ($error) = @_;
-            logevent('ERROR', "Unexpected error, thread ends now: $error");
+        } catch ($e) {
+            logevent('ERROR', "Unexpected error, thread ends now: $e");
             threads->exit();
         }
     }

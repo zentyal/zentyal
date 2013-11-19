@@ -121,8 +121,7 @@ sub _preAddOuFailed
 
         EBox::info("Aborted OU creation, removing from samba");
         $sambaOU->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU " . $entry->dn() . ": $error");
     }
 }
@@ -140,8 +139,7 @@ sub _delOU
     }
     try {
         $sambaOU->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
     }
 }
@@ -210,8 +208,7 @@ sub _preAddUserFailed
 
         EBox::info("Aborted User creation, removing from samba");
         $sambaUser->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::info("Error removing samba user $uid: $error");
     }
 }
@@ -324,8 +321,7 @@ sub _modifyUser
             $sambaUser->setAccountEnabled(1);
         }
         $sambaUser->save();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying user: $error");
     }
 }
@@ -360,8 +356,7 @@ sub _delUser
                 }
             }
         }
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting user: $error");
     }
 }
@@ -420,8 +415,7 @@ sub _preAddContactFailed
 
         EBox::info("Aborted Contact creation, removing from samba");
         $sambaContact->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::debug("Error removing contact " . $entry->dn() . ": $error");
     }
 }
@@ -482,8 +476,7 @@ sub _modifyContact
             $sambaContact->delete('mail', 1);
         }
         $sambaContact->save();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying contact: $error");
     }
 }
@@ -500,10 +493,9 @@ sub _delContact
         my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
         return unless $sambaContact->exists();
         $sambaContact->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting contact: $error");
-    };
+    }
 }
 
 sub _membersToSamba
@@ -635,8 +627,7 @@ sub _preAddGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
     }
 }
@@ -690,8 +681,7 @@ sub _addGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
     }
 }
@@ -729,8 +719,7 @@ sub _modifyGroup
             $sambaGroup->delete('mail', $lazy);
         }
         $sambaGroup->save();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying group: $error");
     }
 }
@@ -767,8 +756,7 @@ sub _delGroup
                 }
             }
         }
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting group: $error");
     }
 }

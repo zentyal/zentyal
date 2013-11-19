@@ -88,8 +88,7 @@ sub extractKeytab
         } else {
             EBox::error("kinit error: " . kerror());
         }
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Could not extract keytab: $error");
         $ok = undef;
     }

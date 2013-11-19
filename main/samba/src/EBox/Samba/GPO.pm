@@ -115,10 +115,8 @@ sub new
         try {
             $self = $class->SUPER::new(%params);
         } catch (EBox::Exceptions::MissingArgument $e) {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|displayName");
-        };
+            throw EBox::Exceptions::MissingArgument("$e|displayName");
+        }
     }
     return $self;
 }

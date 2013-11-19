@@ -167,7 +167,6 @@ sub importSystemSearchDomain
             }
         }
     } catch ($e) {
-        my ($error) = @_;
         EBox::error("Could not import search domain: $e");
     }
 }

@@ -125,9 +125,7 @@ sub create
         $ou = EBox::Users::OU->new(dn => $dn);
         # Call modules initialization
         $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP

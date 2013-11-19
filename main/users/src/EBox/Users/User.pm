@@ -656,9 +656,7 @@ sub create
             $usersMod->notifyModsLdapUserBase(
                 'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
         }
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP

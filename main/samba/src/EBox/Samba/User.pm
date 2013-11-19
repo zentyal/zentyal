@@ -386,9 +386,7 @@ sub create
         if (defined $args{uidNumber}) {
             $res->setupUidMapping($args{uidNumber});
         }
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {

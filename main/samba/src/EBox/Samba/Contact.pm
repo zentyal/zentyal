@@ -107,9 +107,7 @@ sub create
         }
 
         $res = new EBox::Samba::Contact(dn => $dn);
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {

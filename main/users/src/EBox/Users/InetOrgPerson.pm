@@ -359,9 +359,7 @@ sub create
 
         $res = new EBox::Users::InetOrgPerson(dn => $args{dn});
 
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {

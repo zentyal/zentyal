@@ -376,9 +376,7 @@ sub _doProvision
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } catch {
-        my ($error) = @_;
-
+    } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
     }
@@ -421,8 +419,7 @@ sub _doProvision
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } catch {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
             }
@@ -459,9 +456,7 @@ sub _doProvision
 #        $self->parentModule->setProvisioned(0);
 #        EBox::info("Openchange deprovisioned:\n$output");
 #        $self->setMessage($action->message(), 'note');
-#    } catch {
-#        my ($error) = @_;
-#
+#    } catch ($error) {
 #        throw EBox::Exceptions::External("Error deprovisioninig: $error");
 #        $self->parentModule->setProvisioned(1);
 #    }

@@ -65,9 +65,7 @@ sub new
         try {
             $self = $class->SUPER::new(%params);
         } catch (EBox::Exceptions::MissingArgument $e) {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|samAccountName|sid");
+            throw EBox::Exceptions::MissingArgument("$e|samAccountName|sid");
         }
     }
     return $self;

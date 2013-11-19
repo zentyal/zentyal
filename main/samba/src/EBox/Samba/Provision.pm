@@ -533,13 +533,12 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
-    } catch {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
         $self->setProvisioning(0);
-        throw $error;
+        $e->throw();
     }
     $self->setProvisioning(0);
 
@@ -574,8 +573,7 @@ sub provisionDC
 
         # Reset sysvol
         $self->resetSysvolACL();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         $self->setProvisioned(0);
         throw EBox::Exceptions::External($error);
     }

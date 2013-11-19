@@ -82,8 +82,7 @@ sub addedRowNotify
 #    my $author = $row->elementByName('service');
 #    $service->setValue(0);
 #    $row->store();
-    } catch {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error($error);
     }
 }
