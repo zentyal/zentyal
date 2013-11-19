@@ -6,7 +6,7 @@ from waflib.TaskGen import extension
 from waflib.Tools import c_config
 import os
 
-APPNAME = 'ZentyalMigration'
+APPNAME = 'ZentyalExchangeUpgrade'
 VERSION	= '0.9'
 
 def options(ctx):
@@ -30,7 +30,7 @@ def configure(ctx):
     ctx.check(header_name='syslog.h')
     ctx.check(header_name='iconv.h')
     ctx.check(header_name='ctype.h')
-    ctx.check(header_name='bsd/libutil.h')
+    ctx.check(header_name='pthread.h')
 
     # Check types
     ctx.check(type_name='uint8_t')
@@ -47,6 +47,9 @@ def configure(ctx):
     ctx.check(type_name='bool', header_name='stdbool.h')
 
     # Check external libraries and packages
+    ctx.check(compiler='compiler_c', lib='pthread',
+              mandatory=True, uselib_store='PTHREAD')
+
     ctx.check_cfg(atleast_pkgconfig_version='0.20')
     ctx.check_cfg(package='libmapi',
                   args=['libmapi >= 2.0', '--cflags', '--libs'],
@@ -78,6 +81,18 @@ def configure(ctx):
                   msg="Check for json 0.9",
                   mandatory=True)
 
+    ctx.check_cfg(package='libbsd',
+                  args=['libbsd >= 0.3.0', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libbsd 0.3.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='tdb',
+                  args=['tdb', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libtdb",
+                  mandatory=True)
+
 def build(bld):
     bld.program(
         source = [
@@ -91,17 +106,19 @@ def build(bld):
 
     bld.program(
         source = [
-            'main.c',
+            'migrate.c',
             'rpc.c',
             'control.c',
-            'mbox.c',
+            'estimate.c',
+            'export.c',
+            'import.c',
             ],
         target = 'migrate',
         includes = ['.', '..'],
         cflags = ['-ggdb', '-Wall'],
-        lib = ['pthread', 'bsd'],
         depends_on = [APPNAME],
-        use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ', 'JSON'])
+        use = [APPNAME, 'PTHREAD', 'LIBMAPI', 'LIBOCPF', 'POPT', 
+               'RABBITMQ', 'JSON', 'BSD'])
 
     bld.program(
         source = [
