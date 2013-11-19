@@ -54,8 +54,8 @@ void set_debug_level(TALLOC_CTX *mem_ctx, struct status *status, char *opt)
 		fprintf(stderr, "[!] Error parsing debug option\n");
 	}
 	talloc_free(opttmp);
-	status->local.dumpdata = val;
-	status->remote.dumpdata = val;
+	status->local.debug_level = val;
+	status->remote.debug_level = val;
 }
 
 int main(int argc, const char *argv[])
@@ -88,7 +88,7 @@ int main(int argc, const char *argv[])
 	}
 
 	/* Parse command line options */
-	pc = poptGetContext("mailboxsize", argc, argv, long_options, 0);
+	pc = poptGetContext("migrate", argc, argv, long_options, 0);
 	while ((opt = poptGetNextOpt(pc)) != -1) {
 		switch (opt) {
 			case OPT_DUMPDATA:
