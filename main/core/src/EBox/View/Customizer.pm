@@ -312,15 +312,10 @@ sub  onChangeActionOnFieldJS
 #    A string containing js code or an empty string in case this field
 #    doesn't need to trigger anything
 #
-sub  onChangeActionsJS
+sub onChangeActionsJS
 {
-    my ($self, %params) = @_;
-    my $modal = $params{modal};
-
+    my ($self) = @_;
     my $tableName = $self->model()->table()->{'tableName'};
-    if ($modal) {
-        $tableName .= '_modal';
-    }
 
     my $jsCode;
     for my $fieldName (@{$self->model()->fields()}) {
