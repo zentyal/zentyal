@@ -119,14 +119,18 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var wantJSON = 0;
     var params;
 
+    assert(nextPage, "Missing next page");
+
     Zentyal.TableHelper.cleanMessage(table);
     Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
+    var buttonsOnNextPage = $('#buttons_on_next_page').detach();
 
     params = 'action=add&tablename=' + table + '&directory=' + directory ;
     if (nextPage){
         wantJSON = 1;
         params +=  '&modal=1';
     } else {
+        assert(0, 'Should not use nextPAge = 0');
         params += '&page=0';
         params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_modal_filter');
         params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_modal_pageSize');
@@ -191,9 +195,13 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
 //                nextPageData += '&firstShow=0';
                 nextPageData += '&action=view';
 //                nextPageData += "&selectCallerId=" + selectCallerId;
-                var closeButton = [ { text: extraParams.closeButtonText, click: function() { $( this ).dialog( "close" ); } } ];
-                Zentyal.Dialog.close();
-                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, buttons: closeButton});
+//                var closeButton = [ { text: extraParams.closeButtonText, click: function() { $( this ).dialog( "close" ); } } ];
+
+//                Zentyal.Dialog.close();
+                var addButtons = function () {
+                    $('#load_in_dialog').append(buttonsOnNextPage.show());
+                };
+                Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
             } else {
                 Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
                 Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
@@ -680,6 +688,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
    }
 };
 
+// XXX remove
 Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, id, extraParams)
 {
     var title = '';

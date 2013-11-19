@@ -43,7 +43,7 @@ use POSIX;
 % if ( $model->precondition() ) {
 <div id="<% $model->modelName() %>">
   <& SELF:body,
-     model      => $model
+     @_
   &>
 </div>
 % }

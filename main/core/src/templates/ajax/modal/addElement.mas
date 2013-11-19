@@ -27,8 +27,8 @@ use POSIX;
    action     => 'changeAdd',
    selectCallerId => $selectCallerId,
    selectForeignField => $selectForeignField,
-  nextPageContextName => $nextPageContextName,
-  foreignNextPageField    => $foreignNextPageField,
+   nextPageContextName => $nextPageContextName,
+   foreignNextPageField    => $foreignNextPageField,
 &>
 
 <%doc>
@@ -51,6 +51,7 @@ use POSIX;
   $page => 0
   $tpages => 0
   %presetParams => ()
+  $selectCallerId
 </%args>
 <%init>
   use EBox::Gettext;
@@ -73,6 +74,8 @@ if ( ((keys %presetParams) > 0)
       my @tableHead = @{$model->table()->{'tableDescription'}};
       @formData = @tableHead;
 }
+
+my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
 </%init>
 
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
@@ -106,6 +109,30 @@ if ( ((keys %presetParams) > 0)
 %    }
 
 
+</div>
+
+<div id='buttons_on_next_page' style='display:none'>
+<p>
+<table>
+ <tr>
+    <td><& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'done',
+        value => __('Done'),
+        title => 'Done',
+        onclick => 'Zentyal.Dialog.close(); return false'
+    &></td>
+    <td><& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'cancel',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick => $cancelJs . '; Zentyal.Dialog.close(); return false',
+    &></td>
+ </tr>
+</table>
 </div>
 % # End body method
 </%method>

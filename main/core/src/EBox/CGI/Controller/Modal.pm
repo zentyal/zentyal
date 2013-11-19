@@ -73,7 +73,7 @@ sub addRow
     $model->addRow($self->getParams());
 }
 
-sub removeRow
+sub removeRowDisabled
 {
     my $self = shift;
 
@@ -86,7 +86,7 @@ sub removeRow
     $model->removeRow($id, $force);
 }
 
-sub editField
+sub editFieldDisabled
 {
     my $self = shift;
 
@@ -114,7 +114,7 @@ sub editField
 
 }
 
-sub editBoolean
+sub editBooleanDisabled
 {
     my $self = shift;
 
@@ -267,22 +267,22 @@ sub _process
         }
         $self->setMsg('');
         $self->refreshTable($showTable, $action, @extraParams);
-    } elsif ($action eq 'changeList') {
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'changeEdit') {
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'clone') {
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'view') {
-        # This action will show the whole table (including the
-        # table header similarly View Base CGI but inheriting
-        # from ClientRawBase instead of ClientBase
-        $self->refreshTable(1, $action);
-     } elsif ($action eq 'editBoolean') {
-         delete $self->{template};
-         $self->editBoolean();
-    } elsif ($action eq 'viewAndAdd') {
-        $self->refreshTable(1, $action);
+    # } elsif ($action eq 'changeList') {
+    #     $self->refreshTable(1, $action);
+    # } elsif ($action eq 'changeEdit') {
+    #     $self->refreshTable(1, $action);
+    # } elsif ($action eq 'clone') {
+    #     $self->refreshTable(1, $action);
+    # } elsif ($action eq 'view') {
+    #     # This action will show the whole table (including the
+    #     # table header similarly View Base CGI but inheriting
+    #     # from ClientRawBase instead of ClientBase
+    #     $self->refreshTable(1, $action);
+    #  } elsif ($action eq 'editBoolean') {
+    #      delete $self->{template};
+    #      $self->editBoolean();
+    # } elsif ($action eq 'viewAndAdd') {
+    #    $self->refreshTable(1, $action);
     } elsif ($action eq 'cancelAdd') {
         $self->cancelAdd($model);
 #     } elsif ($model->customActions($action, $self->param('id'))) {
