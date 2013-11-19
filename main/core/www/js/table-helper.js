@@ -181,7 +181,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
                     $('.item-block', mainDiv).removeClass('item-block');
                     $('#cancel_add', buttonsOnNextPage).data('rowId', rowId);
                     buttonsOnNextPage.show();
-                    mainDiv.append(buttonsOnNextPage)
+                    mainDiv.append(buttonsOnNextPage);
                     mainDiv.addClass('item-block');
                 };
                 Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
@@ -1290,47 +1290,4 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
             Zentyal.refreshSaveChangesButton();
         }
    });
-};
-
-Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, extraParams) {
-    var params;
-
-    Zentyal.TableHelper.cleanMessage(table);
-    Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
-
-    params = '&action=edit&tablename=' + table;
-    params +=  '&directory='  + directory + '&id=' + id + '&';
-    if ( page != undefined ) params += '&page=' + page;
-
-    params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
-    params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
-    if (force) {
-          params += '&force=1';
-    }
-    if (fields) {
-      params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
-    }
-    for (name in extraParams) {
-        params += '&' + name + '=' + extraParams[name];
-    }
-
-    var failure = Zentyal.TableHelper._newErrorJSONCallback(table);
-    var success = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
-    var complete = function(response) {
-        Zentyal.refreshSaveChangesButton();
-        Zentyal.TableHelper.highlightRow( id, false);
-        Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-        Zentyal.stripe('.dataTable', 'even', 'odd');
-    };
-
-    $.ajax({
-        url: url,
-        data: params,
-        type : 'POST',
-        dataType: 'json',
-        success: success,
-        error: failure,
-        complete: complete
-    });
-
 };
