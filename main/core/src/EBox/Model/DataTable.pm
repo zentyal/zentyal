@@ -2840,20 +2840,15 @@ sub modalAddNewRowJS
 #     string - holding a javascript funcion
 sub changeRowJS
 {
-    my ($self, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $editId, $page) = @_;
 
-    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, [])";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
     my $actionUrl =  $table->{'actions'}->{'editField'};
-    my $modalResize = 0;
-    if ($modal) {
-        $actionUrl =~ s/Controller/ModalController/;
-    }
 
     my $force =0;
-    my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,
@@ -2862,8 +2857,7 @@ sub changeRowJS
                     $table->{'confdir'},
                     $editId,
                     $page,
-                    $force,
-                    $extraParamsJS);
+                    $force);
 }
 
 sub _paramsToJSON
@@ -2891,19 +2885,14 @@ sub _paramsToJSON
 #     string - holding a javascript funcion
 sub deleteActionClickedJS
 {
-    my ($self, $id, $page, $modal, @extraParams) = @_;
+    my ($self, $id, $page) = @_;
     my $action = 'del';
-    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s, %s)";
+    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s, [])";
 
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
     my $tablename = $table->{'tableName'};
-    if ($modal) {
-        $actionUrl =~ s/Controller/ModalController/;
-    }
-
-    my $extraParamsJS =  _paramsToJSON(@extraParams);
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
@@ -2911,8 +2900,7 @@ sub deleteActionClickedJS
                     $tablename,
                     $id,
                     $table->{'confdir'},
-                    $page,
-                    $extraParamsJS);
+                    $page);
 }
 
 sub actionHandlerUrl
