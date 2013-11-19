@@ -2844,7 +2844,7 @@ sub changeRowJS
 {
     my ($self, $editId, $page) = @_;
 
-    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, [])";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
@@ -2889,7 +2889,7 @@ sub deleteActionClickedJS
 {
     my ($self, $id, $page) = @_;
     my $action = 'del';
-    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s, [])";
+    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s)";
 
 
     my $table = $self->table();

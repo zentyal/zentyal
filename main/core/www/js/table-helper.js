@@ -391,7 +391,7 @@ Zentyal.TableHelper.restoreTop = function(tableId) {
     $('#creatingForm_' + tableId).html('');
 };
 
-Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force, extraParams) {
+Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, page, force) {
     var params;
 
     Zentyal.TableHelper.cleanMessage(table);
@@ -408,9 +408,6 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
     }
     if (fields) {
       params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
-    }
-    for (name in extraParams) {
-        params += '&' + name + '=' + extraParams[name];
     }
 
     var failure = Zentyal.TableHelper._newErrorJSONCallback(table);
@@ -452,7 +449,7 @@ Parameters:
 
 
 */
-Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  directory, page, extraParams) {
+Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  directory, page) {
     var params;
     var actionsCellId = 'actionsCell_' + rowId;
 
@@ -466,10 +463,6 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
-    for (name in extraParams) {
-        params += '&' + name + '=' + extraParams[name];
-    }
-
 
     var failure = function(response) {
         Zentyal.TableHelper.setErrorFromJSON (table, response);
