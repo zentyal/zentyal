@@ -1,4 +1,5 @@
 3.3
+	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
 	+ Fixed errors with row ID in ManageAdmins table
 	+ Added missing EBox::Exceptions uses
