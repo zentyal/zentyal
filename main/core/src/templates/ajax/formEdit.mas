@@ -35,7 +35,7 @@ $model
   $onClick =  $model->confirmationJS('submit', $onClick);
   $onClick .= "; return false;";
 </%init>
-<td id="<% 'buttons_' . $model->modelName() %>">
+<td id="<%  $model->modelName() %>_buttons">
 % if (defined $actions and (keys %{ $actions} > 0)) {
   <& /input/submit.mas,
      name => 'change',
