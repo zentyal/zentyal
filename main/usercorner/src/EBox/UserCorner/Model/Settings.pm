@@ -26,6 +26,7 @@ package EBox::UserCorner::Model::Settings;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Types::Port;
+use EBox::Exceptions::DataExists;
 
 use base 'EBox::Model::DataForm';
 

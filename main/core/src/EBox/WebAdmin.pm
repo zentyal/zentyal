@@ -33,6 +33,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Util::Version;

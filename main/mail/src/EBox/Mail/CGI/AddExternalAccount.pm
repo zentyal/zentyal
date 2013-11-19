@@ -23,6 +23,7 @@ use EBox::Global;
 use EBox::Mail;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Users::User;
 use EBox::Validate;
 

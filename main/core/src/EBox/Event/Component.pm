@@ -24,6 +24,7 @@ use warnings;
 package EBox::Event::Component;
 
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 # Group: Public methods
 

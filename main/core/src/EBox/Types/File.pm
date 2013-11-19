@@ -38,6 +38,7 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 use EBox::Sudo;
 
 # Core modules

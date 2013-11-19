@@ -27,6 +27,8 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use Error qw(:try);
 use File::Temp;

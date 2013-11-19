@@ -27,6 +27,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Users::Types::Password;
+use EBox::Exceptions::External;
 
 use File::Temp qw/tempfile/;
 use Encode;

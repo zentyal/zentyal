@@ -22,6 +22,8 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use Nmap::Parser;
 

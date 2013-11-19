@@ -21,6 +21,8 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use Error qw( :try );
 

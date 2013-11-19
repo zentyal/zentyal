@@ -27,6 +27,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 ###################

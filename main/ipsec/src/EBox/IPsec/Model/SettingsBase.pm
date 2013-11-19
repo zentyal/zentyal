@@ -26,6 +26,8 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::Validate;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 # Group: Public methods
 

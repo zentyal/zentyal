@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::RemoteServices::SupportAccess;
+use EBox::Exceptions::External;
 
 # Constants
 

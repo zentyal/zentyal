@@ -36,6 +36,7 @@ use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 use EBox::Test::RedisMock;
+use EBox::Exceptions::Internal;
 
 our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );

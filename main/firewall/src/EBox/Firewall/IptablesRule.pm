@@ -32,6 +32,9 @@ use Clone::Fast;
 use EBox::Validate qw( checkCIDR );
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use Perl6::Junction qw( any );
 
 sub new

@@ -21,6 +21,8 @@ use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Gettext;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use Error qw(:try);
 
 ## arguments:

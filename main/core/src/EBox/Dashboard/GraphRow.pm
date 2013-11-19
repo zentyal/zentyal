@@ -20,6 +20,7 @@ package EBox::Dashboard::GraphRow;
 use base 'EBox::Dashboard::Item';
 
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
 
 sub new  # (name, value)
 {

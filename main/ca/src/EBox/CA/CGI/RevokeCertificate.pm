@@ -25,6 +25,8 @@ use EBox::Global;
 # For exceptions
 use Error qw(:try);
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
 # Method: new
 #

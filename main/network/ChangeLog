@@ -1,4 +1,5 @@
 3.3
+	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Write resolvconf head, base and tail
 	+ Set proper file name for HTTP proxy configuration for APT

@@ -21,6 +21,7 @@ package EBox::Model::ImageControl;
 use base 'EBox::Model::DataForm';
 
 use EBox::Gettext;
+use EBox::Exceptions::NotImplemented;
 
 sub new
 {

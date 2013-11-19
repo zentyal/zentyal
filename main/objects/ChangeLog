@@ -1,4 +1,5 @@
 3.3
+	+ Added missing EBox::Exceptions uses
 	+ Only unroll member ip range addresses in the addresses() method
 	+ Set version to 3.3
 3.2

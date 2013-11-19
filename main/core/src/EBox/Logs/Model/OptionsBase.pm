@@ -22,6 +22,7 @@ use base qw(EBox::Model::DataForm);
 
 use EBox::Gettext;
 use EBox::Types::Select;
+use EBox::Exceptions::NotImplemented;
 use Error qw(:try);
 
 sub periods

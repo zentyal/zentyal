@@ -23,6 +23,8 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::InvalidType;
 
 use Error qw(:try);
 use feature "switch";

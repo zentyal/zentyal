@@ -1,4 +1,5 @@
 3.3
+	+ Added missing EBox::Exceptions uses
 	+ Fix error when initializing the framework without full environment (add
 	  the full path for id command)
 	+ Truncate stack traces in Auth modules to avoid reveal credentials

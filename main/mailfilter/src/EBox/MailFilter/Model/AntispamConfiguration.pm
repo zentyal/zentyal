@@ -28,6 +28,7 @@ use EBox::Types::Text;
 use EBox::MailFilter::Types::AntispamThreshold;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 # XX TODO:
 #  disable autolearnSpamThreshold and autolearnHamThreshold when autolearn is off
