@@ -116,7 +116,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var selectForeignField;
     var selectCallerId;
     var nextPageContextName;
-    var wantJSON = 0;
     var params;
 
     assert(nextPage, "Missing next page");
@@ -126,15 +125,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var buttonsOnNextPage = $('#buttons_on_next_page').detach();
 
     params = 'action=add&tablename=' + table + '&directory=' + directory ;
-    if (nextPage){
-        wantJSON = 1;
-        params +=  '&modal=1';
-    } else {
-        assert(0, 'Should not use nextPAge = 0');
-        params += '&page=0';
-        params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_modal_filter');
-        params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_modal_pageSize');
-    }
+    params +=  '&modal=1';
     if (fields) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
@@ -145,17 +136,13 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
         }
 
         selectForeignField    = extraParams['selectForeignField'];
-        nextPageContextName = extraParams['nextPageContextName'];
+        nextPageContextName =  extraParams['nextPageContextName'];
     }
 
+    assert(nextPageContextName, 'missing nextpagecontextname');
+
     var success =  function(text) {
-        if (!nextPage) {
-            $('#' + table).html(text);
-        }
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        if (!wantJSON) {
-            return;
-        }
 
         var json = text;
         if (!json.success) {
@@ -168,57 +155,41 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             return;
         }
 
-        if (nextPage && nextPageContextName) {
-            var nextDirectory = json.directory;
-            var rowId = json.rowId;
-            if (selectCallerId && selectForeignField){
-                var printableValue = json.callParams[selectForeignField];
-                Zentyal.TableHelper.addSelectChoice(selectCallerId, rowId, printableValue, true);
-                // hide 'Add a new one' element
-                var newLink  = document.getElementById(selectCallerId + '_empty');
-                if (newLink) {
-                    newLink.style.display = 'none';
-                    document.getElementById(selectCallerId).style.display ='inline';
-                }
-            }
 
-            if (rowId && directory) {
+        var nextDirectory = json.directory;
+        var rowId = json.rowId;
+        if (selectCallerId && selectForeignField){
+            var printableValue = json.callParams[selectForeignField];
+            Zentyal.TableHelper.addSelectChoice(selectCallerId, rowId, printableValue, true);
+            // hide 'Add a new one' element
+            var newLink  = document.getElementById(selectCallerId + '_empty');
+            if (newLink) {
+                newLink.style.display = 'none';
+                document.getElementById(selectCallerId).style.display ='inline';
+            }
+        }
+
+        if (rowId && directory) {
                 var nameParts = nextPageContextName.split('/');
-//                var baseUrl = '/zentyal/' + nameParts[1] + '/';
                 var baseUrl = '/' + nameParts[1] + '/';
-//                baseUrl += 'ModalController/' + nameParts[2];
-//                baseUrl += 'View/' + nameParts[2];
                 baseUrl += 'Controller/' + nameParts[2];
                 var newDirectory = nextDirectory + '/keys/' +  rowId + '/' + nextPage;
                 var nextPageUrl = baseUrl;
                 var nextPageData = 'directory=' + newDirectory;
-//                nextPageData += '&firstShow=0';
                 nextPageData += '&action=view';
-//                nextPageData += "&selectCallerId=" + selectCallerId;
-//                var closeButton = [ { text: extraParams.closeButtonText, click: function() { $( this ).dialog( "close" ); } } ];
-
-//                Zentyal.Dialog.close();
                 var addButtons = function () {
                     $('#load_in_dialog').append(buttonsOnNextPage.show());
                 };
                 Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
-            } else {
-                Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
-                Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-               }
-            return;
+        } else {
+            Zentyal.TableHelper.setError(table, 'Cannot get next page URL');
+            Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
         }
-
-        //sucesss and not next page
-        Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
     };
     var complete = function () {
         Zentyal.TableHelper.completedAjaxRequest();
     };
     var error = function (jqxhr) {
-        if (!nextPage) {
-          Zentyal.TableHelper.setError(table, jqchr.responseText);
-        }
         Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
     };
 

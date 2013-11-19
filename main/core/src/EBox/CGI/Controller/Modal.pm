@@ -65,144 +65,20 @@ sub getParams
     return %params;
 }
 
-sub addRow
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-    $model->addRow($self->getParams());
-}
-
-sub removeRowDisabled
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-
-    $self->_requireParam('id');
-    my $id = $self->param('id');
-    my $force = $self->param('force');
-
-    $model->removeRow($id, $force);
-}
-
-sub editFieldDisabled
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-    my %params = $self->getParams();
-    my $force = $self->param('force');
-    $model->setRow($force, %params);
-
-    my $editField = $self->param('editfield');
-    if (not $editField) {
-        return;
-    }
-
-    my $tableDesc = $self->{'tableModel'}->table()->{'tableDescription'};
-    foreach my $field (@{$tableDesc}) {
-        my $fieldName = $field->{'fieldName'};
-        if ($editField ne $fieldName) {
-            next;
-        }
-        my $fieldType = $field->{'type'};
-        if ($fieldType  eq 'text' or $fieldType eq 'int') {
-            $self->{'to_print'} = $params{$fieldName};
-        }
-    }
-
-}
-
-sub editBooleanDisabled
-{
-    my $self = shift;
-
-    my $model = $self->{'tableModel'};
-    my $id = $self->param('id');
-    my $field = $self->param('field');
-    my $value = 0;
-    if ($self->param('value')) {
-        $value = 1;
-    }
-
-    my $currentRow = $model->row($id);
-    my $element = $currentRow->elementByName($field);
-    $element->setValue($value);
-    $model->setTypedRow( $id, { $field => $element}, readOnly => 0);
-    $model->popMessage();
-    my $global = EBox::Global->getInstance();
-    # XXX Factor this class to be able to print 'application/json'
-    #     and 'text/html' headers. This way we could just return
-    #     a json object { changes_menu: true } and get it evaled
-    #     using prototype. That's the right way :)
-    if ($global->unsaved()) {
-        $self->_responseToEnableChangesMenuElement();
-    }
-}
-
-sub customAction
-{
-    my ($self, $action) = @_;
-    my $model = $self->{'tableModel'};
-    my %params = $self->getParams();
-    my $id = $params{id};
-    my $customAction = $model->customActions($action, $id);
-    $customAction->handle($id, %params);
-}
-
 # Method to refresh the table by calling rows method
 sub refreshTable
 {
     my ($self, $showTable, $action, @extraParams) = @_;
     my @params = @{ $self->_paramsForRefreshTable() };
 
-
     my $model = $self->{'tableModel'};
-    # my $global = EBox::Global->getInstance();
-
-    # my $rows = undef;
-
-    # my $editId;
-    # if ($action eq 'clone') {
-    #     $editId = $self->param('id');
-    # } else {
-    #     $editId = $self->param('editid');
-    # }
-    # my $page     = $self->param('page');
-    # my $pageSize = $self->param('pageSize');
-    # if ( defined $pageSize) {
-    #     $model->setPageSize($pageSize);
-    # }
-
-    # my $filter = $self->unsafeParam('filter');
-    # if (not defined $filter) {
-    #     $filter = '';
-    # }
-
-    my $selectCallerId = $self->param('selectCallerId');
-
     $self->{template} = $model->modalViewer($showTable);
-
-    # my @params = (
-    #     'data' => $rows,
-    #     'dataTable' => $model->table(),
-    #     'model' => $model,
-    #     'action' => $action,
-    #     'editid' => $editId,
-    #     'hasChanged' => $global->unsaved(),
-    #     'filter' => $filter,
-    #     'page' => $page,
-    #     'tpages' => $tpages,
-    #    );
-
+    my $selectCallerId = $self->param('selectCallerId');
     if ($selectCallerId) {
         push @params, (selectCallerId => $selectCallerId);
     }
 
     push @params, @extraParams;
-
-    EBox::debug("refreshTable " . $self->{template});
 
     $self->{'params'} = \@params;
 }
@@ -246,16 +122,7 @@ sub _process
         $model->setDirectory($directory);
     }
 
-    if ($action eq 'edit') {
-        $self->editField();
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'add') {
-        $self->addRow();
-        $self->refreshTable(1, $action);
-    } elsif ($action eq 'del') {
-        $self->removeRow();
-        $self->refreshTable(1, $action);
-   } elsif ($action eq 'changeAdd') {
+    if ($action eq 'changeAdd') {
         my $showTable = not $firstShow;
         my @extraParams;
         if ($selectCallerId and $firstShow) {
@@ -267,31 +134,11 @@ sub _process
         }
         $self->setMsg('');
         $self->refreshTable($showTable, $action, @extraParams);
-    # } elsif ($action eq 'changeList') {
-    #     $self->refreshTable(1, $action);
-    # } elsif ($action eq 'changeEdit') {
-    #     $self->refreshTable(1, $action);
-    # } elsif ($action eq 'clone') {
-    #     $self->refreshTable(1, $action);
-    # } elsif ($action eq 'view') {
-    #     # This action will show the whole table (including the
-    #     # table header similarly View Base CGI but inheriting
-    #     # from ClientRawBase instead of ClientBase
-    #     $self->refreshTable(1, $action);
-    #  } elsif ($action eq 'editBoolean') {
-    #      delete $self->{template};
-    #      $self->editBoolean();
-    # } elsif ($action eq 'viewAndAdd') {
-    #    $self->refreshTable(1, $action);
     } elsif ($action eq 'cancelAdd') {
         $self->cancelAdd($model);
-#     } elsif ($model->customActions($action, $self->param('id'))) {
-#         $self->customAction($action);
-#         $self->refreshTable();
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
-
 }
 
 1;
