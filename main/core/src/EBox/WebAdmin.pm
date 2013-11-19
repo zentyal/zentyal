@@ -33,6 +33,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Util::Version;
@@ -616,7 +617,8 @@ sub addModuleStatus
 
 # Method: addNginxInclude
 #
-#      Add an "include" directive to the nginx configuration
+#      Add an "include" directive to the nginx configuration. If it is already
+#      added, it does nothing
 #
 #      Added only in the main virtual host
 #
@@ -655,7 +657,9 @@ sub addNginxInclude
 
 # Method: removeNginxInclude
 #
-#      Remove an "include" directive to the nginx configuration
+#      Remove an "include" directive to the nginx configuration. If the
+#      "include" was not in the configuration, it does nothing
+#
 #
 # Parameters:
 #
@@ -667,8 +671,6 @@ sub addNginxInclude
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
-#      <EBox::Exceptions::Internal> - thrown if the given file has not
-#      been included previously
 #
 sub removeNginxInclude
 {
@@ -680,8 +682,7 @@ sub removeNginxInclude
     my @includes = @{$self->_nginxIncludes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
     if ( @newIncludes == @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
-                                         silent => 1);
+        return;
     }
     $self->set_list(NGINX_INCLUDE_KEY, 'string', \@newIncludes);
 

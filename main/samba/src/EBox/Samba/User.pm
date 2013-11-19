@@ -31,6 +31,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 
 use EBox::Samba::Credentials;
 

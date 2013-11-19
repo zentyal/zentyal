@@ -31,6 +31,7 @@ use EBox::Types::Port;
 use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::External;
 use EBox::View::Customizer;
 
 use constant VIEW_CUSTOMIZER => {

@@ -57,6 +57,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::DataNotFound;
 use TryCatch::Lite;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
@@ -252,35 +253,6 @@ sub initialSetup
         } catch {
             EBox::warn('Network configuration import failed');
         }
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
-
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.2') < 0)) {
-        my $resolverModel = $self->model('DNSResolver');
-        foreach my $id (@{$resolverModel->ids()}) {
-            my $row = $resolverModel->row($id);
-            my $interfaceElement = $row->elementByName('interface');
-            my $interfaceValue = $interfaceElement->value();
-            unless (defined $interfaceValue and length $interfaceValue) {
-                $interfaceElement->setValue("zentyal.$id");
-                $row->store();
-            }
-        }
-        my $searchDomainModel = $self->model('SearchDomain');
-        my $domainRow = $searchDomainModel->row();
-        my $ifaceElement = $domainRow->elementByName('interface');
-        $ifaceElement->setValue('zentyal.' . $domainRow->id());
-        $domainRow->store();
-    }
-
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.3') < 0)) {
-        my @cmds = ('rm -f /etc/profile.d/zentyal-proxy.sh',
-                    'rm -f /etc/apt/apt.conf.d/99proxy.conf');
-        EBox::Sudo::silentRoot(@cmds);
     }
 }
 

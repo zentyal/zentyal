@@ -31,6 +31,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 use Net::LDAP;

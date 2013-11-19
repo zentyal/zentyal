@@ -37,6 +37,9 @@ use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use File::Basename;
 use TryCatch::Lite;
 

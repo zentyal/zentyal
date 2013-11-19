@@ -32,6 +32,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Service;
+use EBox::Exceptions::Internal;
 
 use constant CLAMAV_PID_DIR => '/var/run/clamav/';
 
@@ -410,25 +411,6 @@ sub tableInfo
         'events'    => $events,
         'eventcol'  => 'event',
     }];
-}
-
-# Method: initialSetup
-#
-# Overrides:
-#
-#   EBox::Module::Base::initialSetup
-#
-sub initialSetup
-{
-    my ($self, $version) = @_;
-
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 1;

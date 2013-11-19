@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Users;
 use EBox::Users::User;
 use EBox::Gettext;
+use EBox::Exceptions::External;
 
 sub new
 {

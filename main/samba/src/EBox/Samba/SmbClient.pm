@@ -21,6 +21,7 @@ use base 'Samba::Smb';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
 

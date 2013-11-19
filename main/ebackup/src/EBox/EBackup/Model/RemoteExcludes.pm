@@ -32,6 +32,8 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::FileSystem;
 use TryCatch::Lite;
 use String::ShellQuote;

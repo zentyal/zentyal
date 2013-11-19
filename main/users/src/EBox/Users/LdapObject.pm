@@ -29,6 +29,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
 use TryCatch::Lite;
@@ -310,7 +311,16 @@ sub dn
 {
     my ($self) = @_;
 
-    my $dn = $self->_entry()->dn();
+    my $entry = $self->_entry();
+    unless ($entry) {
+        my $message = "Got an unexisting LDAP Object!";
+        if (defined $self->{dn}) {
+            $message .= " (" . $self->{dn} . ")";
+        }
+        throw EBox::Exceptions::Internal($message);
+    }
+
+    my $dn = $entry->dn();
     utf8::decode($dn);
     return $dn;
 }

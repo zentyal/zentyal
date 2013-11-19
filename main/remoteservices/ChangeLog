@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
+	+ Remove cron jobs when unregistering
+	+ Use latest REST Remote API to register a free account
 	+ Missing use when restarting monitor using VPN as communication
 	  layer
 	+ Set proper trial link when a community account is registered

@@ -24,6 +24,7 @@ use EBox::Util::SHM;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use POSIX ":sys_wait_h";
 use TryCatch::Lite;

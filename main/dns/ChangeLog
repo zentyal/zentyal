@@ -1,5 +1,10 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Update TXT _kerberos record on domain rename
+	+ Added missing EBox::Exceptions uses
+	+ Read DNS zones from samba database while provisioning
+	+ Enable sortlist option by default in /etc/zentyal/dns.conf
+	+ Delete migration code from old versions
 	+ Fix set of dynamic attribute in domain table when samba module is enabled
 	  again
 	+ Do not write reverse zone files if generate_reverse_zones is false
@@ -290,10 +295,10 @@
 0.9
 	+ Added Polish translation
 	+ Added Aragonese translation
-	+ Added German    translation
+	+ Added German translation
 
 0.8.99
-        * Add DNS server functionality
+	* Add DNS server functionality
 0.7.1
 	* Allow TCP queries
 	* Use of ebox-sudoers-friendly

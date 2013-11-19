@@ -21,6 +21,7 @@ package EBox::OpenVPN::Model::InterfaceTable;
 use EBox::Types::Text;
 use EBox::Types::Int;
 use EBox::Global;
+use EBox::Exceptions::Internal;
 
 use constant IFACE_TYPE_DEFAULT => 'tap';
 use constant IFACE_NUMBER_DEFAULT => -1;

@@ -25,6 +25,8 @@ use EBox::Config;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Item;
@@ -159,11 +161,6 @@ sub initialSetup
         push (@cmds, 'chown root:dhcpd ' . KEYS_DIR);
         push (@cmds, 'chmod 0750 ' . KEYS_DIR);
         EBox::Sudo::root(@cmds);
-    }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
     }
 }
 

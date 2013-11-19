@@ -28,6 +28,8 @@ use TryCatch::Lite;
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::Action;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
 sub new
 {

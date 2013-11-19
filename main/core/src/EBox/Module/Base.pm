@@ -27,6 +27,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;

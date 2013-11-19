@@ -27,6 +27,7 @@ use EBox::Types::Password;
 use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::View::Customizer;
+use EBox::Exceptions::External;
 
 # Dependencies
 

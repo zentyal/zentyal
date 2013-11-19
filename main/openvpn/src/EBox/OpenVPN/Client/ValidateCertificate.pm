@@ -21,6 +21,7 @@ package EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::Sudo qw(root);
 use EBox::Config;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 
 use TryCatch::Lite;

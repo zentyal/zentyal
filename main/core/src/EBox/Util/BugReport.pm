@@ -19,6 +19,7 @@ use warnings;
 package EBox::Util::BugReport;
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 use JSON::RPC::Client;
 use MIME::Base64;
 use File::Slurp;

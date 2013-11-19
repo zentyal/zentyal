@@ -173,11 +173,6 @@ sub initialSetup
         $settings->setValue(port      => $port);
         $settings->setValue(enableDir => EBox::WebServer::Model::GeneralSettings::DefaultEnableDir());
     }
-
-    # Upgrade from 3.0
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
-        $self->_overrideDaemons() if $self->configured();
-    }
 }
 
 # Method: depends

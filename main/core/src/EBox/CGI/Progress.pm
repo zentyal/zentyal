@@ -34,6 +34,7 @@ use Encode;
 use File::Slurp;
 use JSON::XS;
 use EBox::ProgressIndicator;
+use EBox::Exceptions::Internal;
 
 ## arguments:
 ##  title [required]

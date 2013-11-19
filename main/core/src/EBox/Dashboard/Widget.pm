@@ -19,6 +19,7 @@ use warnings;
 package EBox::Dashboard::Widget;
 
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
 
 sub new # (title?)
 {

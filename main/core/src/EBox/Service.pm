@@ -19,6 +19,7 @@ use warnings;
 package EBox::Service;
 
 use EBox::Sudo;
+use EBox::Exceptions::Internal;
 
 #   Function: manage
 #

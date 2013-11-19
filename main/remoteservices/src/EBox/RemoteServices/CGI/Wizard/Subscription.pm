@@ -26,14 +26,17 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::External;
+use EBox::RemoteServices::RESTClient;
 use EBox::Validate;
-use TryCatch::Lite;
 use SOAP::Lite;
+use TryCatch::Lite;
 use Sys::Hostname;
 
-use constant SOAP_URI => 'http://www.zentyal.com';
-use constant SOAP_PROXY => 'https://api.zentyal.com/3.0/';
-use constant PROMO_AVAILABLE => 'https://api.zentyal.com/3.0/promo_available';
+# Group: Constants
+
+use constant GO_URL          => 'https://go.pardot.com/l/24292/2013-10-28/261g7';
+use constant PROMO_AVAILABLE => 'https://api.zentyal.com/3.2/promo_available';
+use constant RESET_URL       => 'https://remote.zentyal.com/reset/';
 
 sub new # (cgi=?)
 {
@@ -83,7 +86,7 @@ sub _processWizard
     my $rs = EBox::Global->modInstance('remoteservices');
     if ( $rs->eBoxSubscribed() ) {
         throw EBox::Exceptions::External('You cannot register a server if you are already registered. '
-                                         . 'Deregister first to go on');
+                                         . 'Unregister first, to go on');
     }
 
     $self->_requireParam('username', __('Email Address'));
@@ -106,7 +109,8 @@ sub _processWizard
             throw EBox::Exceptions::External(__s('You must agree to the privacy policy to continue'));
         }
 
-        $self->_register();
+        my $registeringData = $self->_register();
+        $self->_track($registeringData);
     }
 
     # Subscription
@@ -118,59 +122,79 @@ sub _register
     my ($self) = @_;
 
     my $user = $self->param('username');
-    EBox::info("Registering a new basic subscription ($user)");
+    EBox::info("Registering a new community subscription ($user)");
 
-    my $position   = $self->param('position');
-    $position = "" unless (defined($position));
+    my $position = $self->param('position');
+    $position = 'other' unless ($position);
 
-    my $sector   = $self->param('sector');
-    $sector = "" unless (defined($sector));
+    my $sector = $self->param('sector');
+    $sector = 'other' unless ($sector);
 
     my $newsletter = $self->param('newsletter');
     $newsletter = "off" unless(defined($newsletter));
 
     my $result;
+    my $restClient = new EBox::RemoteServices::RESTClient();
+    # Construct the registering data to return it back
+    my $registeringData = {
+        email                 => $self->param('username'),
+        first_name            => $self->param('firstname'),
+        last_name             => $self->param('lastname'),
+        phone                 => $self->param('phone'),
+        company_name          => $self->param('company'),
+        position_in_company   => $position,
+        sector                => $sector,
+        subscribed_newsletter => $newsletter,
+    };
     try {
-        $result  = SOAP::Lite
-             ->uri(SOAP_URI)
-             ->proxy(SOAP_PROXY)
-             ->autotype(0)
-             ->encoding('iso-8859-1')
-             ->register_basic($self->param('firstname'),
-                              $self->param('lastname'),
-                              '', # country no longer sent
-                              $self->param('username'),
-                              $self->param('password'),
-                              $self->param('phone'),
-                              $self->param('company'),
-                              $newsletter,
-                              $position,
-                              $sector);
+        $result = $restClient->POST('/v1/community/users/',
+                                    query => { %{$registeringData},
+                                               password => $self->param('password') });
+    } catch (EBox::Exceptions::External $exc) {
+        my $error = $restClient->last_error();
+        EBox::error('Error registering user: ' . $exc->stringify());
+        my $errorData = $error->data();
+        # We assume a single error by key
+        my $errorText = "";
+        foreach my $key (keys %{$errorData}) {
+            given ($key) {
+                when ('company_name') {
+                    if ($self->param('company')) {
+                        if (join("", @{$errorData->{$key}}) =~ m/already/) {
+                            $errorText .= '<p>'
+                              . __x('Company "{company}" already exists. Please, choose a different name.',
+                                    company => $self->param('company'))
+                              . '</p>';
+                        } else {
+                            $errorText .= '<p>' . join(". ", @{$errorData->{$key}}) . '</p>';
+                        }
+                    } # else, ignore it as the name is composed with name parts
+                }
+                when ('email') {
+                    if (join("", @{$errorData->{$key}}) =~ m/already/) {
+                        $errorText .= '<p>'
+                          . __x('An user with that email is already registered. You can reset your password at {openhref}here{closehref}.',
+                                openhref  => '<a href="' . RESET_URL . ' target="_blank">',
+                                closehref => '</a>')
+                          . '</p>';
+                    } else {
+                        $errorText .= '<p>' . join(". ", @{$errorData->{$key}}) . '</p>';
+                    }
+                }
+                when ('password') {
+                    $errorText .= '<p>' . __('Password must have at least 6 characters. Leading or trailing spaces will be ignored.') . '</p>';
+                }
+                default {
+                    $errorText .= '<p>' . $key . " : " . join(". ", @{$errorData->{$key}}) . "</p>";
+                }
+            }
+        }
+        throw EBox::Exceptions::External($errorText);
     } catch {
-        throw EBox::Exceptions::External(__('An error ocurred registering the subscription, please check your Internet connection.'));
+        throw EBox::Exceptions::External(__('An error ocurred registering the user, please check your Internet connection.'));
     }
 
-    if (not $result or $result->fault) {
-        if ($result) {
-            EBox::error('Error subscribing [' . $result->faultcode .
-                        '] ' .  $result->faultstring);
-        }
-        throw EBox::Exceptions::External(__('An unknown error ocurred registering the subscription'));
-    }
-
-    if ($result->result > 0) {
-        given ($result->result() ) {
-            when ( 1 ) {
-                throw EBox::Exceptions::External(__('An user with that email is already registered. You can check your account data at ') . '<a href="https://store.zentyal.com">store.zentyal.com</a>');
-            }
-            when ( 2 ) {
-                throw EBox::Exceptions::External(__('Password must have at least 6 characters. Leading or trailing spaces will be ignored.'));
-            }
-            default {
-                throw EBox::Exceptions::External(__('Sorry, an unknown exception has ocurred. Try again later or contact info@zentyal.com'));
-            }
-        }
-    }
+    return $registeringData;
 }
 
 sub _subscribe
@@ -182,6 +206,15 @@ sub _subscribe
     $model->set(username => $self->param('username'),
                 password => $self->param('password'),
                 eboxCommonName => $self->param('servername'));
+}
+
+sub _track
+{
+    my ($self, $data) = @_;
+
+    my $trackURI = new URI(GO_URL);
+    $trackURI->query_form($data);
+    $self->{json}->{trackURI} = $trackURI->as_string();
 }
 
 1;

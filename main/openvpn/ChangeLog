@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Better behavior for daemons ifaceAddress methods
 	+ Precondition to assure there are certificates available in
 	  DownloadClientBundle model

@@ -21,6 +21,7 @@ use EBox;
 use EBox::Config;
 use EBox::Exceptions::Command;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Sudo;
 use EBox::RemoteServices::Configuration;
 use TryCatch::Lite;

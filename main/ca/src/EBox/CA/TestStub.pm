@@ -22,6 +22,9 @@ package EBox::CA::TestStub;
 use EBox::CA;
 use Test::MockObject;
 use EBox::Gettext;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox;
 
 # Method: fake

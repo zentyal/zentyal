@@ -19,6 +19,7 @@ use warnings;
 package EBox::Model::Manager::Fake;
 
 use EBox::Model::Manager;
+use EBox::Exceptions::DataInUse;
 use Test::MockModule;
 use Test::MockObject::Extends;
 

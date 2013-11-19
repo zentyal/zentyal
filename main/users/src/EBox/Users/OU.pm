@@ -29,6 +29,8 @@ use EBox::Global;
 use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;

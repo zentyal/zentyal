@@ -26,6 +26,7 @@ use EBox::Validate;
 use EBox::Sudo;
 use EBox::Types::Text::WriteOnce;
 use EBox::Squid::Types::ListArchive;
+use EBox::Exceptions::External;
 
 use TryCatch::Lite;
 use Perl6::Junction qw(any);

@@ -28,6 +28,7 @@ use EBox::Exceptions::Base;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::MissingArgument;
 use EBox::Util::GPG;
 use POSIX qw(setlocale LC_ALL);
 use TryCatch::Lite;

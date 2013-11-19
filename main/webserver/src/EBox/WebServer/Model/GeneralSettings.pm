@@ -36,6 +36,7 @@ use EBox::Types::Union::Text;
 use EBox::Validate;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
 use TryCatch::Lite;
 

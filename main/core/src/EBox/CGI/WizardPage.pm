@@ -21,12 +21,17 @@
 # A wizard page CGI has 2 types of calls differentiated by HTTP request method:
 #
 #   - GET - The page will show a form that the user must fill
+#           This information is normally written in a template with the
+#           parameters returned by <_masonParameters> method.
+#
 #   - POST - That form will sent to this CGI for processing.
+#            The <_processWizard> method should be overriden to perform
+#            the action. If form processing fails, POST request must
+#            response with an error code and print error messages
+#            user will see (usually using an exception). If status is OK,
+#            the wizard will step into next wizard page. You can
+#            return a JSON response using json object property.
 #
-# If form processing fails POST request must response with an error code and
-# print an error messages that user will see
-#
-# If status is OK the wizard will step into next wizard page.
 
 use strict;
 use warnings;

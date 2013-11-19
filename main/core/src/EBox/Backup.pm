@@ -22,6 +22,8 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;

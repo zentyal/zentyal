@@ -21,6 +21,7 @@ package EBox::MailFilter::Types::Policy;
 use base 'EBox::Types::Select';
 
 use EBox::Gettext;
+use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(all);
 

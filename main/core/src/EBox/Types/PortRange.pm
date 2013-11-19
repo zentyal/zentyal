@@ -42,6 +42,8 @@ use EBox;
 use EBox::Validate qw(checkPort);
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 
 # Constructor: new

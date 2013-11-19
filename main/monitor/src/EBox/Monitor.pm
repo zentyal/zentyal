@@ -44,6 +44,7 @@ use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
 
 use EBox::Monitor::Configuration;
 # Measures

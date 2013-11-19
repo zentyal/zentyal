@@ -24,6 +24,8 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use TryCatch::Lite;
 use Date::Parse;
 

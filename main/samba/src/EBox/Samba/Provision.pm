@@ -960,7 +960,7 @@ sub checkClockSkew
                'This can cause problems with kerberos authentication, please ' .
                'sync both clocks with an external NTP source and try again.'));
     }
-    EBox::info("Clock skew below two minutes, should be enought.");
+    EBox::info("Clock skew below two minutes, should be enough.");
 }
 
 sub checkADServerSite

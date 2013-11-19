@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Show menu icon when zentyal-l7-protocols is not installed
 	+ Set version to 3.3
 3.2

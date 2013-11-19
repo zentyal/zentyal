@@ -47,6 +47,9 @@ use EBox::Model::Manager;
 # Used exceptions
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 # Command wrappers
 use EBox::TC;
 use EBox::Iptables;

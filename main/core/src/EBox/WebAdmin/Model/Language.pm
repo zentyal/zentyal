@@ -30,6 +30,7 @@ use EBox;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Global;
+use EBox::Exceptions::External;
 
 # Method: validateTypedRow
 #

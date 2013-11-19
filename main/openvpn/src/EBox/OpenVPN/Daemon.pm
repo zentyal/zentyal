@@ -25,6 +25,9 @@ use TryCatch::Lite;
 
 use EBox::NetWrappers;
 use EBox::Service;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::NotImplemented;
 
 use constant UPSTART_DIR => '/etc/init';
 use constant RUN_DIR     => '/var/run/';

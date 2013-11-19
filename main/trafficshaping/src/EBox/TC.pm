@@ -24,6 +24,7 @@ use TryCatch::Lite;
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::MissingArgument;
 
 # Constants
 use constant TC_CMD => '/sbin/tc';

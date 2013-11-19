@@ -31,6 +31,7 @@ use EBox::Users::Group;
 
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
 use TryCatch::Lite;

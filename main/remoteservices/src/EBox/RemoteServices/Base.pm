@@ -28,6 +28,8 @@ use EBox::Global;
 use EBox::RemoteServices::SOAPClient;
 use EBox::Util::Nmap;
 use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::NotImplemented;
 
 use Date::Calc::Object;
 use TryCatch::Lite;

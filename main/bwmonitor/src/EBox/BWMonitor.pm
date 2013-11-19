@@ -29,6 +29,7 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use TryCatch::Lite;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use constant CONF_DIR => EBox::Config::conf() . '/bwmonitor/';
 use constant UPSTART_DIR => '/etc/init/';

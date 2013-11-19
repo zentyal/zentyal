@@ -28,6 +28,8 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::LDAP;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 use EBox::Users::Contact;
 

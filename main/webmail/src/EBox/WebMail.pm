@@ -30,6 +30,7 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::Config;
 use EBox::WebServer;
+use EBox::Exceptions::External;
 use File::Slurp;
 
 use constant {
@@ -115,7 +116,7 @@ sub _openchangeEnabled
     my ($self) = @_;
 
     my $openchange = $self->global()->modInstance('openchange');
-    return (defined ($openchange) and $openchange->isEnabled());
+    return (defined ($openchange) and $openchange->isEnabled() and $openchange->isProvisioned());
 }
 
 sub _managesieveEnabled

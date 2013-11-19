@@ -26,6 +26,8 @@ package EBox::Model::Image;
 use base 'EBox::Model::DataForm';
 
 use EBox::CGI::Temp;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 
 sub new
 {

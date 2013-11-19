@@ -21,6 +21,7 @@ use base 'EBox::OpenVPN::Server::ClientBundleGenerator';
 
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Exceptions::External;
 use File::Copy;
 use File::Slurp qw(write_file read_file);
 

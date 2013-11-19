@@ -29,6 +29,7 @@ use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 use Encode;
 use TryCatch::Lite;

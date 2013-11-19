@@ -52,6 +52,7 @@ use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::DataNotFound;
 
 use TryCatch::Lite;
 

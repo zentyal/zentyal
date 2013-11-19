@@ -28,8 +28,10 @@ use EBox::NetWrappers;
 use EBox::NetWrappers;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Linux;
 use EBox::OpenVPN::Server::ClientBundleGenerator::Windows;
-use EBox::Validate
-  qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Validate qw(checkPort checkAbsoluteFilePath checkIP checkNetmask checkIPNetmask);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
