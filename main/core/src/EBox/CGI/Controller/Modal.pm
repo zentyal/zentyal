@@ -62,11 +62,8 @@ sub cancelAdd
         success => 0,
     };
 
-    my $parent    = $model->parent();
-    my $id = $model->parentRow()->id();
-    $parent->removeRow($id);
+    $model->removeRow($params{id});
     $self->{json}->{success} = 1;
-    $self->{json}->{rowId} = $id;
 }
 
 sub addAction

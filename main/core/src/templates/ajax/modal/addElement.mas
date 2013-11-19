@@ -123,13 +123,13 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
         title => 'Done',
         onclick => 'Zentyal.Dialog.close(); return false'
     &></td>
-    <td><& /input/submit.mas,
+    <td><& /input/button.mas,
         class => '',
-        type => 'submit',
-        name => 'cancel',
+        name => 'cancel_add',
+        id   => 'cancel_add',
         value => __('Cancel'),
         title => 'Cancel',
-        onclick => $cancelJs . '; Zentyal.Dialog.close(); return false',
+        onclick => $cancelJs . '; return false',
     &></td>
  </tr>
 </table>

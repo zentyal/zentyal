@@ -178,6 +178,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
                 var nextPageData = 'directory=' + newDirectory;
                 nextPageData += '&action=view';
                 var addButtons = function () {
+                    $('#cancel_add', buttonsOnNextPage).data('rowId', rowId);
                     $('#load_in_dialog').append(buttonsOnNextPage.show());
                 };
                 Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
@@ -200,6 +201,29 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             success: success,
             error: error,
             complete: complete
+    });
+};
+
+Zentyal.TableHelper.modalCancelAddRow  = function(url, table, elementWithId, directory, selectCaller) {
+    var params, success, rowId;
+    rowId = $(elementWithId).data('rowId');
+    params =  "action=cancelAdd&id=" + rowId + "&directory=" + directory;
+
+    success = function(response) {
+        if (response.success) {
+            if (selectCaller ) {
+                Zentyal.TableHelper.removeSelectChoice(selectCaller, rowId, 2);
+            }
+            Zentyal.Dialog.close();
+        }
+    };
+
+    $.ajax({
+        url:       url,
+        type:     'post',
+        dataType: 'json',
+        data:     params,
+        success:  success
     });
 };
 

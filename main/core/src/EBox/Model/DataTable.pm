@@ -2747,23 +2747,23 @@ sub modalChangeViewJS
 sub modalCancelAddJS
 {
     my ($self, %params) = @_;
-    my $table = $self->table();
-    my $url = $table->{'actions'}->{'changeView'}; # url
-    $url =~ s/Controller/ModalController/;
+    my $table   = $self->table();
+    my $tableId = $table->{'tableName'};
+
+    my $url = $table->{'actions'}->{'changeView'};
+    $url    =~ s/Controller/ModalController/;
 
     my $directory = $self->directory();
-    my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $success='';
-    if ($selectCallerId) {
-        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
-    }
 
-    my $js = "\$.ajax('{url: $url', type: 'post', data: '$params'";
-    if ($success) {
-        $js .= ", success: $success";
-    }
-    $js.= '});';
+    my  $function = "Zentyal.TableHelper.modalCancelAddRow('%s', '%s', this, '%s', '%s')";
+    my $js =  sprintf ($function,
+                       $url,
+                       $tableId,
+                       $directory,
+                       $selectCallerId
+                      );
+
     return $js;
 }
 
