@@ -178,8 +178,12 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
                 var nextPageData = 'directory=' + newDirectory;
                 nextPageData += '&action=view';
                 var addButtons = function () {
+                    var mainDiv =  $('#load_in_dialog');
+                    $('.item-block', mainDiv).removeClass('item-block');
                     $('#cancel_add', buttonsOnNextPage).data('rowId', rowId);
-                    $('#load_in_dialog').append(buttonsOnNextPage.show());
+                    buttonsOnNextPage.show();
+                    mainDiv.append(buttonsOnNextPage)
+                    mainDiv.addClass('item-block');
                 };
                 Zentyal.Dialog.showURL(nextPageUrl, {data: nextPageData, load: addButtons });
         } else {
