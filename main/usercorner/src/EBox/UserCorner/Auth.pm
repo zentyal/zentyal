@@ -21,15 +21,10 @@ package EBox::UserCorner::Auth;
 use base qw(Apache2::AuthCookie);
 
 use EBox;
-use EBox::CGI::Run;
-use EBox::Config;
-use EBox::Gettext;
-use EBox::Global;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
-use EBox::UserCorner;
 use Crypt::Rijndael;
 use Apache2::Connection;
 use Apache2::RequestUtil;
@@ -65,7 +60,7 @@ sub _savesession
 {
     my ($user, $passwd, $userDN, $sid, $key) = @_;
 
-    if(not defined($sid)) {
+    unless (defined($sid)) {
         my $rndStr;
         for my $i (1..64) {
             $rndStr .= rand (2**32);
@@ -95,9 +90,8 @@ sub _savesession
     my $encodedcryptedpass = MIME::Base64::encode($cryptedpass, '');
     my $sidFile;
     my $filename = EBox::UserCorner::usersessiondir() . $user;
-    unless  ( open ( $sidFile, '>', $filename )){
-        throw EBox::Exceptions::Internal(
-                "Could not open to write ".  $filename);
+    unless (open ($sidFile, '>', $filename)) {
+        throw EBox::Exceptions::Internal("Could not open to write: $filename");
     }
     # Lock the file in exclusive mode
     flock($sidFile, LOCK_EX)
@@ -157,6 +151,8 @@ sub checkPassword # (user, password)
 {
     my ($self, $user, $password) = @_;
 
+    eval 'use EBox::Global';
+
     # We connect to the LDAP with a read only account to lookup the user.
     my $usersMod = EBox::Global->modInstance('users');
 
@@ -195,6 +191,7 @@ sub updatePassword
     my ($self, $user, $passwd, $userDN) = @_;
     my $r = Apache2::RequestUtil->request();
 
+    eval 'use EBox::UserCorner';
     my $session_info = EBox::UserCorner::Auth->key($r);
     my $sid = substr($session_info, 0, 32);
     my $key = substr($session_info, 32, 32);
@@ -235,6 +232,7 @@ sub credentials
 
     my $user = $r->user();
 
+    eval 'use EBox::UserCorner';
     my $session_info = EBox::UserCorner::Auth->key($r);
 
     if ($session_info) {
@@ -253,7 +251,7 @@ sub _credentials
     my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
 
     my $SID_F;
-    my $sess_file  = EBox::UserCorner::usersessiondir() . $user;
+    my $sess_file = EBox::UserCorner::usersessiondir() . $user;
     unless (open ($SID_F,  '<', $sess_file)) {
         throw EBox::Exceptions::Internal("Could not open $sess_file");
     }
@@ -290,7 +288,9 @@ sub authen_ses_key  # (request, session_key)
     my $user = undef;
     my $expired;
 
-    for my $sess_file (glob(EBox::UserCorner::usersessiondir() . '*')) {
+    eval 'use EBox::UserCorner';
+
+    for my $sess_file (glob (EBox::UserCorner::usersessiondir() . '*')) {
         unless (open ($SID_F,  '<', $sess_file)) {
             EBox::error("Could not open '$sess_file|'");
             next;
@@ -313,14 +313,14 @@ sub authen_ses_key  # (request, session_key)
 
         defined($user) and last;
     }
-    if(defined($user) and !$expired) {
+    if (defined($user) and !$expired) {
         my $ldap = EBox::Ldap->instance();
         $ldap->refreshLdap();
         _updatesession($user);
         return $user;
     } elsif (defined($user) and $expired) {
         $r->subprocess_env(LoginReason => "Expired");
-        unlink(EBox::UserCorner::usersessiondir() . $user);
+        unlink (EBox::UserCorner::usersessiondir() . $user);
     } else {
         $r->subprocess_env(LoginReason => "NotLoggedIn");
     }
@@ -346,6 +346,7 @@ sub logout # (request)
 {
     my ($self, $r) = @_;
 
+    eval 'use EBox::UserCorner';
     my $filename = EBox::UserCorner::usersessiondir() . $r->user;
     unlink($filename);
 
