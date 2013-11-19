@@ -367,10 +367,9 @@ sub _setDfltSSLVhost
         try {
             EBox::Sudo::root('a2enmod ssl');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
         # Overwrite the default-ssl vhost file
@@ -385,10 +384,9 @@ sub _setDfltSSLVhost
         try {
             EBox::Sudo::root('a2ensite default-ssl');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ($exc->exitValue() != 1) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
     } else {
@@ -396,20 +394,18 @@ sub _setDfltSSLVhost
         try {
             EBox::Sudo::root('a2dissite default-ssl');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ($exc->exitValue() != 1) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw()
             }
         }
         # Disable default-ssl vhost
         try {
             EBox::Sudo::root('a2dismod ssl');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ($exc->exitValue() != 1) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
     }
@@ -448,19 +444,17 @@ sub _setUserDir
         try {
             EBox::Sudo::root('a2enmod ldap_userdir');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
         try {
             EBox::Sudo::root('a2enmod userdir');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
     } else {
@@ -468,20 +462,18 @@ sub _setUserDir
         try {
             EBox::Sudo::root('a2dismod userdir');
         } catch (EBox::Exceptions::Sudo::Command $e) {
-            my ($exc) = @_;
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
         }
-        if ( $gl->modExists('users')) {
+        if ($gl->modExists('users')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
             } catch (EBox::Exceptions::Sudo::Command $e) {
-                my ($exc) = @_;
                 # Already disabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
+                if ($e->exitValue() != 1) {
+                    $e->throw();
                 }
             }
         }
@@ -529,10 +521,9 @@ sub _setVHosts
             try {
                 EBox::Sudo::root("a2ensite $vhostfile");
             } catch (EBox::Exceptions::Sudo::Command $e) {
-                my ($exc) = @_;
                 # Already enabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
+                if ($e->exitValue() != 1) {
+                    $e->throw();
                 }
             }
         }

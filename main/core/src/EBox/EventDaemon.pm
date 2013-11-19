@@ -316,9 +316,8 @@ sub _dispatchEventByDispatcher
             EBox::info("Send event to $dispatcher");
             $dispatcher->send($event);
         } catch (EBox::Exceptions::External $e) {
-            my ($exc) = @_;
             EBox::warn($dispatcher->name() . ' is not enabled to send messages');
-            EBox::error($exc->stringify());
+            EBox::error($e->stringify());
         }
     }
 }

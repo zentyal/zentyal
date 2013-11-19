@@ -624,8 +624,7 @@ END
         EBox::Sudo::command("chmod a+x '$installCloudProf'");
         EBox::Sudo::command("bash '$tmpFilename'");
     } catch (EBox::Exceptions::Command $e) {
-        my ($exc) = @_;
-        EBox::error($exc);
+        EBox::error($e);
     }
 }
 
@@ -811,8 +810,7 @@ sub _removePkgs
     try {
         EBox::Sudo::command('at -f "' . $fh->filename() . '" now+1hour');
     } catch (EBox::Exceptions::Command $e) {
-        my ($exc) = @_;
-        EBox::debug($exc->stringify());
+        EBox::debug($e->stringify());
     }
 }
 
@@ -836,10 +834,8 @@ sub _writeCredentials
 
     try {
         File::Slurp::write_file($credentialsFilePath, $serverInfoRaw);
-    } catch {
-        my ($exc) = @_;
-        throw EBox::Exceptions::External(__x("Probably lack of free space: {exc}",
-                                             exc  => $exc));
+    } catch ($e) {
+        throw EBox::Exceptions::External(__x("Probably lack of free space: {exc}", exc => $e));
     }
     chmod(0600, $credentialsFilePath);
 }

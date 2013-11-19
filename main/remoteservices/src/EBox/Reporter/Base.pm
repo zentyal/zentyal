@@ -135,9 +135,8 @@ sub consolidate
         my $result = $self->_consolidate($beginTime, $endTime);
         $self->_storeResult($result) if ($result and (@{$result} > 0));
         $self->_beginTime($endTime);
-    } catch {
-        my ($exc) = @_;
-        EBox::error("Can't consolidate " . $self->name() . " : $exc");
+    } catch ($e) {
+        EBox::error("Can't consolidate " . $self->name() . " : $e");
     }
 }
 
@@ -181,9 +180,8 @@ sub log
         try {
             $ret = $self->_log();
             $self->_logTime(time());
-        } catch {
-            my ($exc) = @_;
-            EBox::error('Cannot log ' . $self->name() . " : $exc");
+        } catch ($e) {
+            EBox::error('Cannot log ' . $self->name() . " : $e");
         }
     }
     return $ret;

@@ -1271,15 +1271,13 @@ sub _runExecFromDir
                     EBox::info("Output from $exec: @{$output}");
                 }
             } catch (EBox::Exceptions::Command $e) {
-                my ($exc) = @_;
                 my $msg = "Command $exec failed its execution\n"
-                  . 'Output: ' . @{$exc->output()} . "\n"
-                  . 'Error: ' . @{$exc->error()} . "\n"
+                  . 'Output: ' . @{$e->output()} . "\n"
+                  . 'Error: ' . @{$e->error()} . "\n"
                   . 'Return value: ' . $exc->exitValue();
                 EBox::error($msg);
-            } catch {
-                my ($exc) = @_;
-                EBox::error("Error executing $exec: $exc");
+            } catch ($e) {
+                EBox::error("Error executing $exec: $e");
             }
         }
     }

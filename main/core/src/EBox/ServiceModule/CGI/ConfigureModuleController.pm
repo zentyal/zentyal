@@ -63,33 +63,24 @@ sub _process
             } elsif (not $dep->isEnabled()) {
                 $dep->enableService(1);
             }
-        } catch {
-            my ($excep) = @_;
+        } catch ($e) {
             if ($excep->isa("EBox::Exceptions::External")) {
-
-                throw EBox::Exceptions::External(__x('Failed to enable {mod}: {err}',
-                                                     mod => $dep->printableName(),
-                                                     err => $excep->stringify()
-                                                    ));
+                throw EBox::Exceptions::External(
+                    __x('Failed to enable {mod}: {err}', mod => $dep->printableName(), err => $e->stringify())
+                );
             } else {
-                throw EBox::Exceptions::Internal('Failed to enable' . $dep->name() . ' ' .
-                                                     $excep->stringify());
+                throw EBox::Exceptions::Internal('Failed to enable' . $dep->name() . ' ' .  $e->stringify());
             }
         }
     }
 
-
     try {
         $module->configureModule();
-    } catch {
-        my ($excep) = @_;
-        if ($excep->isa("EBox::Exceptions::External")) {
-            throw EBox::Exceptions::External(__x('Failed to enable: {err}',
-                                                  err =>   $excep->stringify()
-                                                 ));
+    } catch ($e) {
+        if ($e->isa("EBox::Exceptions::External")) {
+            throw EBox::Exceptions::External(__x('Failed to enable: {err}', err => $e->stringify()));
         } else {
-            throw EBox::Exceptions::Internal("Failed to enable: " .
-                $excep->stringify());
+            throw EBox::Exceptions::Internal("Failed to enable: " .  $e->stringify());
         }
     }
     $self->{redirect} = "ServiceModule/StatusView";

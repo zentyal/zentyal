@@ -95,9 +95,8 @@ try {
     } until($break);
 
 } catch (Error $e) {
-   my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    $errorMsg = $exc->stringify();
+    $retValue = $e->exitValue();
+    $errorMsg = $e->stringify();
     EBox::error($errorMsg);
 }
 $webAdminMod->enableRestartOnTrigger();

@@ -784,11 +784,9 @@ sub reloadBundle
     } catch (EBox::Exceptions::Internal $e) {
         $retVal = 0;
     } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
-        my ($exc) = @_;
-
-        print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+        print STDERR __x('Cannot reload the bundle: {reason}', reason => $e->text()) . "\n";
         # Send the event to ZC
-        my $evt = new EBox::Event(message     => $exc->text(),
+        my $evt = new EBox::Event(message     => $e->text(),
                                   source      => 'not-capable',
                                   level       => 'fatal',
                                   dispatchTo  => [ 'ControlCenter' ]);
@@ -1677,17 +1675,17 @@ sub _setProxyRedirections
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
             $webadminMod->addApacheInclude($confFile);
-        } catch {
+        } catch ($e) {
             # Not proper YAML file
-            my ($exc) = @_;
-            EBox::error($exc);
+            EBox::error($e);
         };
     } else {
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
             $webadminMod->removeApacheInclude($confFile);
-        } catch (EBox::Exceptions::Internal $e) { ; };
+        } catch (EBox::Exceptions::Internal $e) {
+        }
     }
     # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
@@ -1706,9 +1704,8 @@ sub _establishVPNConnection
             $authConnection->create();
             $authConnection->connect();
         } catch (EBox::Exceptions::External $e) {
-            my ($exc) = @_;
-            EBox::error("Cannot contact to Zentyal Remote: $exc");
-        };
+            EBox::error("Cannot contact to Zentyal Remote: $e");
+        }
     }
 }
 
@@ -1932,9 +1929,8 @@ sub _getSubscriptionDetails
         } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the new state
             # Get cached data
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{level}) {
-                $exc->throw();
+                $e->throw();
             }
         }
 
@@ -1976,9 +1972,8 @@ sub _getCapabilityDetail
         } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the current state
             # Get cached data if any, if there is not, then raise the exception
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
-                $exc->throw();
+                $e->throw();
             }
         }
         $state->{subscription}->{cap_detail}->{$capName} = $detail;
@@ -2098,10 +2093,9 @@ sub restoreConfig
             my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
             # If matches, then skip to restore the server-info.json
             $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
-        } catch {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
             $backupSubscribed = 0;
@@ -2119,10 +2113,9 @@ sub restoreConfig
                         "chown ebox.adm '$subscriptionDir'",
                         "chown -R ebox.ebox $subscriptionDir/*");
             EBox::Sudo::root(@cmds);
-        } catch {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
         }

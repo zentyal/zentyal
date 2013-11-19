@@ -118,10 +118,9 @@ try {
     } until($break);
 
     EBox::info('Package installation process finished');
-} catch {
-    my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    $errorMsg = $exc->stringify();
+} catch ($e) {
+    $retValue = $e->exitValue();
+    $errorMsg = $e->stringify();
     EBox::error($errorMsg);
 }
 $webAdminMod->enableRestartOnTrigger();

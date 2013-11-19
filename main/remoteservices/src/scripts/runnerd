@@ -203,9 +203,8 @@ sub _run
             symlink( $realJobDir, OUTCOMING_DIR . $jobId);
         }
         unlink($jobDir);
-    } catch {
-        my ($exc) = @_;
-        EBox::error($exc);
+    } catch ($e) {
+        EBox::error($e);
     }
 }
 
@@ -229,8 +228,7 @@ sub _notify
     try {
         EBox::Sudo::command("/usr/share/zentyal-remoteservices/notify-job $jobDir");
     } catch (EBox::Exceptions::Command $e) {
-        my ($exc) = @_;
-        EBox::error($exc);
+        EBox::error($e);
     }
 }
 

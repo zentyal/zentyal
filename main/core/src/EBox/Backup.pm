@@ -1645,10 +1645,9 @@ sub _checkBackup
         EBox::Sudo::command("tar --list --file '$filename'");
         EBox::Sudo::command("tar --test-label --file '$filename'");
     } catch (EBox::Exceptions::Command $e) {
-        my ($exc) = @_;
         throw EBox::Exceptions::InvalidData(
             data   => 'backup',
-            value  => $exc->stringify(),
+            value  => $e->stringify(),
             advice => __('Try to back up again as the created backup is corrupted')
            );
     };
