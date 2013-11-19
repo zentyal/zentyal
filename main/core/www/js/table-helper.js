@@ -659,99 +659,36 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
    }
 };
 
-// XXX remove
 Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, id, extraParams)
 {
     var title = '';
-    var page = 1;
-    var firstShow = false;
-    var isFilter= false;
     var params;
 
     if ( action == 'changeAdd' ) {
         Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
-    } else if ( action == 'changeList' ) {
-        if ( ! isFilter ) {
-            Zentyal.TableHelper.setLoading('buttons_' + table, table, true);
-        }
-    } else if ( action == 'changeEdit' ) {
-        Zentyal.TableHelper.setLoading('actionsCell_' + id, table, true);
+    } else {
+        throw "Unsupported action: " + action;
     }
 
     params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
     for (name in extraParams) {
       if (name == 'title') {
         title = extraParams['title'];
-      } else if (name == 'page') {
-        page = extraParams['page'];
-      } else if (name == 'firstShow') {
-        firstShow = extraParams['firstShow'];
-        params += '&firstShow=' + extraParams['firstShow'];
       } else {
         params += '&' + name + '=' + extraParams[name];
       }
-
-    }
-    if (! firstShow ) {
-        params += '&firstShow=0';
     }
 
-    params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
-    params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
-    params += '&page=' + page;
-
-  if (firstShow) {
-      Zentyal.Dialog.showURL(url, {title: title,
-                                   data: params,
-                                   load: function() {
-                                       // fudge for pootle bug
-                                       var badText = document.getElementById('ServiceTable_modal_name');
-                                       if (badText){
-                                           badText.value = '';
-                                       }
-                                   }
-      });
-  } else {
-      Zentyal.TableHelper.cleanMessage(table);
-      var success = function(responseText) {
-          $('#' + table).html(responseText);
-      };
-      var failure = function(response) {
-          Zentyal.TableHelper.setError(table, response.responseText);
-          if ( action == 'changeAdd' ) {
-              Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
-          } else if ( action == 'changeList' ) {
-              if (! isFilter ) {
-                  Zentyal.TableHelper.restoreHidden('buttons_' + table, table);
-              }
-          }
-          else if ( action == 'changeEdit' ) {
-              Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
-          }
-      };
-      var complete = function() {
-          // Highlight the element
-          if (id != undefined) {
-              Zentyal.TableHelper.highlightRow(id, true);
-          }
-          // Zentyal.Stripe again the table
-          Zentyal.stripe('.dataTable', 'even', 'odd');
-          if ( action == 'changeEdit' ) {
-              Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
-          }
-          Zentyal.TableHelper.completedAjaxRequest();
-      };
-
-      $.ajax({
-            url: url,
-            data: params,
-            type : 'POST',
-            dataType: 'html',
-            success: success,
-            error: failure,
-            complete: complete
-      });
-  }
+    Zentyal.Dialog.showURL(url, {title: title,
+                                 data: params,
+                                 load: function() {
+                                     // fudge for pootle bug
+                                     var badText = document.getElementById('ServiceTable_modal_name');
+                                     if (badText){
+                                         badText.value = '';
+                                     }
+                                 }
+                                });
 };
 
 /*

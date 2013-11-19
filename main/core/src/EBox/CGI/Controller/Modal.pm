@@ -17,8 +17,6 @@ use strict;
 use warnings;
 
 package EBox::CGI::Controller::Modal;
-
-#use base 'EBox::CGI::ClientRawBase';
 use base 'EBox::CGI::Controller::DataTable';
 
 use EBox::Gettext;
@@ -26,7 +24,6 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
-# Dependencies
 use Error qw(:try);
 
 sub new
@@ -38,15 +35,14 @@ sub new
     return  $self;
 }
 
-
-# Method to refresh the table by calling rows method
 sub refreshTable
 {
-    my ($self, $showTable, $action, @extraParams) = @_;
+    my ($self, $action, @extraParams) = @_;
     my @params = @{ $self->_paramsForRefreshTable() };
 
     my $model = $self->{'tableModel'};
-    $self->{template} = $model->modalViewer($showTable);
+    $self->{template} = $model->modalViewer();
+
     my $selectCallerId = $self->param('selectCallerId');
     if ($selectCallerId) {
         push @params, (selectCallerId => $selectCallerId);
@@ -93,7 +89,6 @@ sub _process
 
     $self->_requireParam('action');
     my $action = $self->param('action');
-    my $firstShow = $self->param('firstShow');
 
     my $selectCallerId = $self->param('selectCallerId');
     my $selectForeignField = $self->param('selectForeignField');
@@ -109,17 +104,13 @@ sub _process
     }
 
     if ($action eq 'changeAdd') {
-        my $showTable = not $firstShow;
-        my @extraParams;
-        if ($selectCallerId and $firstShow) {
-            @extraParams = (
+        my @extraParams = (
                             selectForeignField => $selectForeignField,
                             foreignNextPageField => $foreignNextPageField,
                             nextPageContextName => $nextPageContextName,
                            );
-        }
         $self->setMsg('');
-        $self->refreshTable($showTable, $action, @extraParams);
+        $self->refreshTable($action, @extraParams);
     } elsif ($action eq 'cancelAdd') {
         $self->cancelAdd($model);
     } elsif ($action eq 'add') {

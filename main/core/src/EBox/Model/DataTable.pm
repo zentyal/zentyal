@@ -2503,14 +2503,9 @@ sub Viewer
 
 sub modalViewer
 {
-    my ($self, $showTable) = @_;
-
-    if ($showTable) {
-        return  '/ajax/modal/table.mas';
-    } else {
-        # for the moment only we have modal for adding elements out of their page
-        return '/ajax/modal/addElement.mas';
-    }
+    my ($self) = @_;
+    # for the moment only we have modal for adding elements out of their page
+    return '/ajax/modal/addElement.mas';
 }
 
 # Method: automaticRemoveMsg
