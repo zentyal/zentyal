@@ -909,9 +909,11 @@ Parameters:
 Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, field, element) {
     var elementId = element.id;
     element = $(element);
-
     Zentyal.TableHelper.startAjaxRequest();
     Zentyal.TableHelper.cleanMessage(model);
+    element.hide();
+    var loadingId = elementId + '_loading';
+    Zentyal.TableHelper.setLoading(loadingId, model, true);
 
     var params = 'action=editBoolean';
     params += '&model=' + model;
@@ -921,14 +923,6 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     if (element.prop('checked')) {
        params += '&value=1';
     }
-
-    element.hide();
-    var loadingId = elementId + '_loading';
-    Zentyal.TableHelper.setLoading(loadingId, model, true);
-
-    var success = function (responseText) {
-        eval(responseText);
-    };
     var error = function(response) {
         Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
@@ -946,7 +940,6 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
        data: params,
        type : 'POST',
        dataType: 'html',
-       success: success,
        error: error,
        complete: complete
    });
