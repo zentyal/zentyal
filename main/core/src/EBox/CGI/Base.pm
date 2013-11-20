@@ -279,7 +279,7 @@ sub run
             $self->_validateReferer();
             $self->_process();
         } catch (EBox::Exceptions::Internal $e) {
-            throw $e;
+            $e->throw();
         } catch (EBox::Exceptions::Base $e) {
             $self->setErrorFromException($e);
             if (defined($self->{redirect})) {
@@ -368,6 +368,10 @@ sub run
     } catch (EBox::Exceptions::Base $e) {
         $self->setErrorFromException($e);
         $self->_print_error($self->{error});
+    } catch (APR::Error $e) {
+        my $debug = EBox::Config::boolean('debug');
+        my $error = $debug ? $e->confess() : $e->strerror();
+        $self->_print_error($error);
     } catch ($e) {
         my $logger = EBox::logger;
         if (isa_mason_exception($e)) {
@@ -376,10 +380,6 @@ sub run
                            "a template has occurred. This is ".
                            "a bug, relevant information can ".
                            "be found in the logs.");
-            $self->_print_error($error);
-        } elsif ($e->isa('APR::Error')) {
-            my $debug = EBox::Config::boolean('debug');
-            my $error = $debug ? $e->confess() : $e->strerror();
             $self->_print_error($error);
         } else {
             # will be logged in EBox::CGI::Run
