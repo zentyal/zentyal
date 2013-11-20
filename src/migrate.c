@@ -41,7 +41,9 @@ void set_debug_level(TALLOC_CTX *mem_ctx, struct status *status, char *opt)
 {
 	char *opttmp = NULL;
 	char *endptr = NULL;
+	char *debuglevel;
 	int val = 0;
+	struct loadparm_context *lp_ctx;
 
 	opttmp = talloc_strdup(mem_ctx, opt);
 	val = strtol(opttmp, &endptr, 10);
@@ -54,6 +56,12 @@ void set_debug_level(TALLOC_CTX *mem_ctx, struct status *status, char *opt)
 		fprintf(stderr, "[!] Error parsing debug option\n");
 	}
 	talloc_free(opttmp);
+
+	lp_ctx = loadparm_init_global(true);
+	debuglevel = talloc_asprintf(mem_ctx, "%u", val);
+	lpcfg_set_cmdline(lp_ctx, "log level", debuglevel);
+	talloc_free(debuglevel);
+
 	status->local.debug_level = val;
 	status->remote.debug_level = val;
 }

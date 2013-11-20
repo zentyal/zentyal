@@ -51,6 +51,12 @@ def configure(ctx):
               mandatory=True, uselib_store='PTHREAD')
 
     ctx.check_cfg(atleast_pkgconfig_version='0.20')
+    ctx.check_cfg(package='samba-hostconfig',
+                  args=['samba-hostconfig', '--cflags', '--libs'],
+                  uselib_store='SAMBAHOSTCONFIG',
+                  msg="Checking for samba-hostconfig",
+                  mandatory=True)
+
     ctx.check_cfg(package='libmapi',
                   args=['libmapi >= 2.0', '--cflags', '--libs'],
                   uselib_store='LIBMAPI',
@@ -118,7 +124,7 @@ def build(bld):
         cflags = ['-ggdb', '-Wall'],
         depends_on = [APPNAME],
         use = [APPNAME, 'PTHREAD', 'LIBMAPI', 'LIBOCPF', 'POPT', 
-               'RABBITMQ', 'JSON', 'BSD'])
+               'RABBITMQ', 'JSON', 'BSD', 'SAMBAHOSTCONFIG'])
 
     bld.program(
         source = [
