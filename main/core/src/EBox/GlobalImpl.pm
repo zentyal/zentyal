@@ -614,7 +614,7 @@ sub saveAllModules
     } else {
         # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
-        %modified = map { $_ => } @mods;
+        %modified = map { $_ =>  1} @mods;
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
     }
