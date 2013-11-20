@@ -464,7 +464,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
     var complete = function(response) {
         // Highlight the element
         if (id != undefined) {
-            Zentyal.TableHelper.highlightRow(id, true);
+            Zentyal.TableHelper.highlightRow(id, true, table);
         }
         // Zentyal.Stripe again the table
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -539,7 +539,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
     var complete = function(response) {
         // Highlight the element
         if (id != undefined) {
-            Zentyal.TableHelper.highlightRow(id, true);
+            Zentyal.TableHelper.highlightRow(id, true, table);
         }
         // Zentyal.Stripe again the table
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -811,18 +811,23 @@ Function: highlightRow
 Parameters:
 
         elementId - the row identifier to highlight
-    enable    - if enables/disables the highlight *(Optional)*
+        enable  - if enables/disables the highlight *(Optional)*
                 Default value: true
+        table  - if enable is true, it sunhighlights all row from this table
+                 before highlightinh *(Optional*)
 
 */
 // XXX Seein it with elmentId = undef!!
-Zentyal.TableHelper.highlightRow = function (elementId, enable) {
+Zentyal.TableHelper.highlightRow = function (elementId, enable, table) {
   // If enable has value null or undefined
     if ( (enable === null) || (enable === undefined)) {
         enable = true;
     }
     if (enable) {
-        // Highlight the element putting the CSS class which does so
+        var row;
+        if (table) {
+            $('#' + table + '_table tr').removeClass('highlight');
+        }
         $('#' + elementId).addClass("highlight");
     } else {
         $('#' + elementId).removeClass("highlight");

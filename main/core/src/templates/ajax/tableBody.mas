@@ -135,7 +135,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 %    if ( $action eq 'changeAdd' or $action eq 'changeEdit' )  {
 % if ($printableTableName) {
 <h3>
-  XXX WITH CHANGE ADD/EDIT<% $printableTableName %>
+  <% $printableTableName %>
 </h3>
 % }
 %    }
@@ -218,14 +218,14 @@ $(function() {
 
 % } else {
 <input type="hidden"
-  id="<% $model->tableName() . '_pageSize' %>"
+  id="<% $tableName . '_pageSize' %>"
   value="<% $model->pageSize() %>"
 >
 % }
 
 % unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %  if ( $action eq 'changeEdit' and $editid ) {
-<script>Zentyal.TableHelper.highlightRow('<% $editid %>', 1);</script>
+<script>Zentyal.TableHelper.highlightRow('<% $editid %>', true, <% $tableName %>);</script>
 %  }
 % }
 % # End body method
