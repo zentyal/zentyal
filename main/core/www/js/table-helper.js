@@ -1188,6 +1188,56 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
                                 });
 };
 
+Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, directory, id, page) {
+    var params;
+
+    Zentyal.TableHelper.cleanMessage(table);
+    /* while the ajax udpater is running the active row is shown as loading
+and the other table rows input are disabled to avoid running two custom
+actions at the same time */
+    $('tr:not(#' + id + ') .customActions input').prop('disabled', true).addClass('disabledCustomAction');
+    $('#' + id + ' .customActions').each(function(index, element) {
+        Zentyal.TableHelper.setLoading(element.id, table, true);
+    });
+
+    params = '&action=' + action;
+    params += '&tablename=' + table;
+    params += '&directory=' + directory;
+    params += '&id=' + id;
+    if (page) {
+        params += '&page=' + page;
+    }
+    params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
+    params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
+    if (fields) {
+        params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
+    }
+
+    var success = function(responseText) {
+        $('#' + table).html(responseText);
+    };
+    var failure = function(response) {
+        $('#error_' + table).html(response.responseText).show();
+        $('#' + id + ' .customActions').each(function(index, element) {
+            Zentyal.TableHelper.restoreHidden(element.id, table);
+        });
+    };
+    var complete = function(response){
+        $('tr:not(#' + id + ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
+        Zentyal.refreshSaveChangesButton();
+    };
+
+   $.ajax({
+            url: url,
+            data: params,
+            type : 'POST',
+            dataType: 'html',
+            success: success,
+            error: failure,
+            complete: complete
+    });
+};
+
 Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  nextPage, extraParams) {
     var title = '';
     var selectForeignField;
