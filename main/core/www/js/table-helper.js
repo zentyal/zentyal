@@ -122,16 +122,16 @@ Zentyal.TableHelper.setErrorFromJSON = function(table, response) {
 };
 
 Zentyal.TableHelper._newErrorJSONCallback = function(table) {
-    var failure = function(response) {
+    var error = function(response) {
         Zentyal.TableHelper.setErrorFromJSON (table, response);
     };
-    return failure;
+    return error;
 };
 
-Zentyal.TableHelper._newSuccessJSONCallback = function(table, failure) {
+Zentyal.TableHelper._newSuccessJSONCallback = function(table, error) {
     var success = function(response) {
         if (! response.success) {
-            failure(response);
+            error(response);
             return;
         }
 
@@ -155,8 +155,8 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var failure  = Zentyal.TableHelper._newErrorJSONCallback(table);
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var error  = Zentyal.TableHelper._newErrorJSONCallback(table);
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -169,7 +169,7 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
             type : 'POST',
             dataType: 'json',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
@@ -292,8 +292,8 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
       params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var failure = Zentyal.TableHelper._newErrorJSONCallback(table);
-    var success = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var error = Zentyal.TableHelper._newErrorJSONCallback(table);
+    var success = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.TableHelper.highlightRow( id, false);
@@ -307,7 +307,7 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         type : 'POST',
         dataType: 'json',
         success: success,
-        error: failure,
+        error: error,
         complete: complete
     });
 
@@ -345,11 +345,11 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
 
-    var failure = function(response) {
+    var error = function(response) {
         Zentyal.TableHelper.setErrorFromJSON (table, response);
         Zentyal.TableHelper.restoreHidden(actionsCellId);
     };
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -364,7 +364,7 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
             type : 'POST',
             dataType: 'json',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
    });
 };
@@ -438,7 +438,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&page=' + page;
 
-    var failure = function(response) {
+    var error = function(response) {
         Zentyal.TableHelper.setErrorFromJSON(table, response);
         if ( action == 'changeAdd' ) {
             Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
@@ -450,7 +450,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
             Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
         }
     };
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
     var complete = function(response) {
         // Highlight the element
         if (id != undefined) {
@@ -471,7 +471,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
             type : 'POST',
             dataType: 'json',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
@@ -495,7 +495,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
     var success = function(responseText) {
         $('#' + table).html(responseText);
     };
-    var failure = function(response) {
+    var error = function(response) {
         Zentyal.TableHelper.setError(table, response.responseText);
         if ( action == 'changeList' ) {
             if (! isFilter ) {
@@ -520,7 +520,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             type : 'POST',
             dataType: 'html',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
@@ -543,7 +543,7 @@ Zentyal.TableHelper.checkAll = function (url, table, directory, field, checkAllV
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
     };
-    var failure = function(response) {
+    var error = function(response) {
         restore();
         Zentyal.TableHelper.setError(table, response.error);
     };
@@ -552,7 +552,7 @@ Zentyal.TableHelper.checkAll = function (url, table, directory, field, checkAllV
             restore();
             checkboxesParents.find(':checkbox').prop('checked', response.checkAllValue == 1 ? true : false);
         } else {
-            failure(response);
+            error(response);
         }
     };
     var complete = function(response) {
@@ -567,7 +567,7 @@ Zentyal.TableHelper.checkAll = function (url, table, directory, field, checkAllV
             type : 'POST',
             dataType: 'json',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
@@ -602,7 +602,7 @@ Zentyal.TableHelper.hangTable = function (successId, errorId, url, formId, loadi
     var success = function(responseText) {
         $('#' + successId).html(responseText);
     };
-    var failure = function(response) {
+    var error = function(response) {
         $('#' + errorId).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden(loadingId, '', true);
     };
@@ -617,7 +617,7 @@ Zentyal.TableHelper.hangTable = function (successId, errorId, url, formId, loadi
         type : 'POST',
         dataType: 'html',
         success: success,
-        error: failure,
+        error: error,
         complete: complete
     });
 };
@@ -653,7 +653,7 @@ Zentyal.TableHelper.selectComponentToHang = function (successId, errorId, formId
         $('#' + successId).html(responseText);
         Zentyal.TableHelper.restoreHidden(loadingId);
     };
-    var failure = function(response) {
+    var error = function(response) {
         $('#' + errorId).html(response.responseText).show();
         Zentyal.TableHelper.restoreHidden(loadingId);
     };
@@ -667,7 +667,7 @@ Zentyal.TableHelper.selectComponentToHang = function (successId, errorId, formId
         type : 'POST',
         dataType: 'html',
         success: success,
-        error: failure,
+        error: error,
         complete: complete
     });
 
@@ -929,7 +929,7 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
     var success = function (responseText) {
         eval(responseText);
     };
-    var failure = function(response) {
+    var error = function(response) {
         Zentyal.TableHelper.setError(model, response.responseText);
         var befChecked = ! element.prop('checked');
         element.prop(befChecked);
@@ -947,7 +947,7 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
        type : 'POST',
        dataType: 'html',
        success: success,
-       error: failure,
+       error: error,
        complete: complete
    });
 };
@@ -1056,7 +1056,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
             wantDialog = false;
         }
     };
-    var failure = function() {
+    var error = function() {
           dialogTitle = '';
           dialogMsg = 'Are you sure?';
     };
@@ -1068,7 +1068,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
        type : 'POST',
        dataType: 'html',
        success: success,
-       error: failure
+       error: error
    });
 
   return {
@@ -1218,7 +1218,7 @@ actions at the same time */
     var success = function(responseText) {
         $('#' + table).html(responseText);
     };
-    var failure = function(response) {
+    var error = function(response) {
         $('#error_' + table).html(response.responseText).show();
         $('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
@@ -1235,7 +1235,7 @@ actions at the same time */
             type : 'POST',
             dataType: 'html',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
