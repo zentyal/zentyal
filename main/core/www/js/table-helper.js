@@ -313,7 +313,6 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
 
 };
 
-
 /*
 Function: deleteActionClicked
 
@@ -379,21 +378,24 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
     params += '&tablename=' + table;
     params += '&directory=' + directory;
     params += '&id=' + id;
-
     if (fields) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
+    var error  = function(response) {
+        Zentyal.TableHelper.setErrorFromJSON(table, response);
+    };
     var success = function(response) {
+        if (!response.success) {
+            error(response);
+            return;
+        }
         if ('message' in response) {
             Zentyal.TableHelper.setMessage(table, response.message);
         }
         $('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
-    };
-    var failure = function(response) {
-        Zentyal.TableHelper.setErrorFromJSON(table, response);
     };
     var complete = function(response){
         Zentyal.refreshSaveChangesButton();
@@ -409,7 +411,7 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
             type : 'POST',
             dataType: 'json',
             success: success,
-            error: failure,
+            error: error,
             complete: complete
     });
 };
