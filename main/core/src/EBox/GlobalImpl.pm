@@ -232,7 +232,6 @@ sub modIsChanged
 
     $self->modExists($name) or return undef;
 
-    my $info = $self->readModInfo($name);
     return $self->get_bool("modules/$name/changed");
 }
 
@@ -628,7 +627,7 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    foreach my $mod (@{ $self->modInstancesOfType('EBox::Module::Config') }) {
+    foreach my $mod (@{ $self->modInstancesOfType($ro, 'EBox::Module::Config') }) {
         next if $modified{$mod->name()};
         $mod->_saveConfig();
     }
@@ -1279,7 +1278,7 @@ sub _assertNotChanges
     my ($self) = @_;
     my @unsaved =  @{$self->modifiedModules('save')};
     if (@unsaved) {
-        my $names = join ', ', map { $_->name() } @unsaved;
+        my $names = join ', ',  @unsaved;
         throw EBox::Exceptions::Internal("Unsaved modules: $names");
     }
 
