@@ -23,7 +23,7 @@ use EBox::Config;
 use EBox::Sudo;
 use EBox::ServiceManager;
 use File::Slurp;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub moduleList
 {
@@ -127,17 +127,15 @@ sub moduleAction
         $mod->$action(restartModules => 1);
         $redis->commit() if ($redisTrans);
         $success = 0;
-    } catch EBox::Exceptions::Base with {
-        my $ex = shift;
+    } catch (EBox::Exceptions::Base $e) {
         $success = 1;
-        $errorMsg =  $ex->text();
+        $errorMsg =  $e->text();
         $redis->rollback() if ($redisTrans);
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         $success = 1;
-        $errorMsg = "$ex";
+        $errorMsg = "$e";
         $redis->rollback() if ($redisTrans);
-    };
+    }
 
     printModuleMessage($modname, $actionName, $success, $errorMsg);
 }

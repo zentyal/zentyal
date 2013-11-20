@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
 	+ Better error handling when we get a LdapObject that doesn't exists
 	+ Remove undefined warnings on users/group creation

@@ -31,7 +31,7 @@ use File::Slurp;
 use File::Basename;
 use Perl6::Junction qw(any);
 use JSON::XS;
-use Error qw/:try/;
+use TryCatch::Lite;
 
 # Constants
 use constant REDIS_CONF => 'conf/redis.conf';
@@ -225,9 +225,9 @@ sub export_dir_to_file
     my @lines = sort (map { "$_->{key}: $_->{value}\n" } @keys);
     try {
         write_file($file, { binmode => ':raw' }, @lines);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External("Error dumping $key to $file");
-    };
+    }
 }
 
 sub _keys
@@ -262,9 +262,9 @@ sub import_dir_from_file
 
     try {
         @lines = split ("\n\n", read_file($filename));
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External("Error parsing YAML:$filename");
-    };
+    }
 
     $self->begin();
     foreach my $line (@lines) {

@@ -29,7 +29,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -80,11 +80,11 @@ sub masonParameters
             };
             push (@{$mailboxes}, $mailbox);
         }
-    } otherwise {
+    } catch {
         # If something goes wrong put this in mason
         my ($error) = @_;
         push(@{$params}, error => $error);
-    };
+    }
 
     push (@{$params}, mailboxes => $mailboxes);
     return $params;

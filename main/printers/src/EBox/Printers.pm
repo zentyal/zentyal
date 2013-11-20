@@ -28,7 +28,7 @@ use EBox::PrinterFirewall;
 use EBox::Printers::LogHelper;
 use Net::CUPS::Destination;
 use Net::CUPS;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant CUPSD => '/etc/cups/cupsd.conf';
 
@@ -154,7 +154,8 @@ sub _preSetConf
     try {
         # Stop CUPS in order to force it to dump the conf to disk
         $self->stopService();
-    } otherwise {};
+    } catch {
+    }
 }
 
 # Method: _setConf
@@ -273,9 +274,9 @@ sub restoreConfig
             $self->_stopService();
             EBox::Sudo::root("tar xf $dir/etc_cups.tar -C /");
             $self->_startService();
-        } otherwise {
+        } catch {
             EBox::error("Error restoring cups config from backup");
-        };
+        }
     } else {
         # This case can happen with old backups
         EBox::warn('Backup doesn\'t contain CUPS configuration files');

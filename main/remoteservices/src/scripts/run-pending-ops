@@ -22,7 +22,7 @@ package EBox::RemoteServices::Run::Pending;
 use EBox;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Cred;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use Getopt::Long;
 use JSON::XS qw(decode_json);
@@ -35,7 +35,7 @@ sub _runPendingOps
 
     my @files;
     opendir(my $dir, $journalDirPath);
-    while (my $file = readdir($dir) ) {
+    while (my $file = readdir($dir)) {
         next if ( $file =~ m:^\.: );
         my $filePath = "${journalDirPath}$file";
         next unless ( -f $filePath );
@@ -48,20 +48,18 @@ sub _runPendingOps
         my $op;
         try {
             $op = decode_json($content);
-        } otherwise {
-            my ($exc) = @_;
-            EBox::error("Can't parse $filePath $content: $exc");
-        } finally {
-            unlink($filePath);
-        };
-        next unless ( defined($op) );
+        } catch ($e) {
+            EBox::error("Can't parse $filePath $content: $e");
+        }
+        unlink($filePath);
+
+        next unless (defined($op));
         my $rest = new EBox::RemoteServices::Cred()->RESTClient();
         try {
             $rest->request($op->{method}, $op->{path}, $op->{query});
-        } otherwise {
-            my ($exc) = @_;
-            EBox::error("Can't perform the request: $exc");
-        };
+        } catch ($e) {
+            EBox::error("Can't perform the request: $e");
+        }
     }
 }
 

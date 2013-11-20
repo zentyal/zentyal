@@ -38,7 +38,7 @@ use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _create
 {
@@ -77,9 +77,9 @@ sub _defaultServices
     my $webAdminPort;
     try {
         $webAdminPort = $self->global()->modInstance('webadmin')->port();
-    } otherwise {
+    } catch {
         $webAdminPort = 443;
-    };
+    }
 
     return [
         {

@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Users;
 use EBox::Types::Action;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _tree
 {

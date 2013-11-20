@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
-use Error qw(:try);
+use TryCatch::Lite;
 use JSON -convert_blessed_universally;
 
 sub new # (error=?, msg=?, cgi=?)

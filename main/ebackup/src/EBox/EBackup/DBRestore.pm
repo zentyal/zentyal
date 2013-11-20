@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
-use Error qw(:try);
+use TryCatch::Lite;
 use Date::Parse;
 
 sub restoreEBoxLogs
@@ -44,18 +44,15 @@ sub restoreEBoxLogs
 
     try {
         $ebackup->restoreFile($dumpDir, $date, $dumpDirTmp, $urlParams);
-    } catch EBox::Exceptions::External with {
-        my $ex = shift;
-        my $text = $ex->stringify();
+    } catch (EBox::Exceptions::External $e) {
+        my $text = $e->stringify();
         if ($text =~ m/not found in backup/) {
-            throw EBox::Exceptions::External(__x(
-'Logs backup data not found in backup for {d}. Maybe you could try another date?',
-                                                 d => $date
-                                                ));
+            throw EBox::Exceptions::External(__x('Logs backup data not found in backup for {d}. Maybe you could try another date?',
+                                                 d => $date));
         }
 
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     restoreEBoxLogsFromDir($dumpDirTmp, $date);
     EBox::Sudo::root("rm -rf $dumpDirTmp");

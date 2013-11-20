@@ -28,7 +28,7 @@ use Net::LDAP;
 use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Apache2::RequestUtil;
 use Time::HiRes;
 
@@ -94,7 +94,8 @@ sub connection
         try {
             my $r = Apache2::RequestUtil->request();
             $auth_type = $r->auth_type;
-        } catch Error with {};
+        } catch {
+        }
 
         if (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth') {
@@ -105,17 +106,14 @@ sub connection
             my $credentials = undef;
             try {
                 $credentials = EBox::UserCorner::Auth->credentials();
-            } catch EBox::Exceptions::DataNotFound with {
+            } catch (EBox::Exceptions::DataNotFound $e) {
                 # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
                 my $userCornerMod = EBox::Global->modInstance('usercorner');
                 $credentials = {
                     userDN => $userCornerMod->roRootDn(),
                     pass => $userCornerMod->getRoPassword()
                 };
-            } otherwise {
-                my ($error) = @_;
-                throw $error;
-            };
+            }
             $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};
         } else {

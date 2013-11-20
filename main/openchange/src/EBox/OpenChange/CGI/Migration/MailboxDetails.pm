@@ -31,7 +31,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 

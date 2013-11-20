@@ -40,7 +40,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -98,9 +98,9 @@ sub syncRows
             if (not exists $currentEventDispatchers{$stored}) {
                 $remove = 1;
             }
-        } otherwise {
+        } catch {
             $remove = 1;
-        };
+        }
         if ($remove) {
             $self->removeRow($id);
             $modified = 1;

@@ -42,7 +42,7 @@ use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);
@@ -1559,14 +1559,13 @@ sub _launchNSupdate
     my ($self, $fh) = @_;
 
     my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-    if ( $self->_isNamedListening() ) {
+    if ($self->_isNamedListening()) {
         try {
             EBox::Sudo::root($cmd);
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error("nsupdate error: $ex");
+        } catch ($e) {
+            EBox::error("nsupdate error: $e");
             $fh->unlink_on_destroy(0); # For debug purposes
-        };
+        }
     } else {
         $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
         push(@{$self->{nsupdateCmds}}, $cmd);

@@ -28,7 +28,7 @@ use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use Perl6::Junction qw(any);
 
@@ -84,9 +84,7 @@ sub run
 
         $cgi->run();
         $redis->commit();
-    } otherwise {
-        my ($ex) = @_;
-
+    } catch ($ex) {
         # Base exceptions are already logged, log the rest
         unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
             EBox::error("Exception trying to access $url: $ex");
@@ -94,7 +92,7 @@ sub run
 
         $redis->rollback();
         $ex->throw();
-    };
+    }
 }
 
 # Method: modelFromlUrl

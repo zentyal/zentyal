@@ -35,7 +35,7 @@ use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::FileSystem;
-use Error qw(:try);
+use TryCatch::Lite;
 use String::ShellQuote;
 
 # Group: Public methods

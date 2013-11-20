@@ -8,7 +8,7 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Exceptions::Internal;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -38,9 +38,7 @@ try {
     } elsif ($action eq 'revokeAllModules') {
         $global->revokeAllModules(@callParams);
     }
-} otherwise {
-    my $ex = shift @_;
-
+} catch ($ex) {
     if ($progress) {
         my $errorTxt = $ex->text();
         if (EBox::Config::boolean('debug')) {
@@ -50,6 +48,6 @@ try {
     }
 
     $ex->throw();
-};
+}
 
 1;

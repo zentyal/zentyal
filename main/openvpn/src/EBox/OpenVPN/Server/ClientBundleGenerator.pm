@@ -27,7 +27,7 @@ use EBox::Exceptions::External;
 
 use English qw(-no_match_vars);
 use File::Basename;
-use Error qw(:try);
+use TryCatch::Lite;
 use Params::Validate qw(validate_pos);
 use File::Slurp qw(read_file);
 
@@ -172,12 +172,13 @@ sub clientBundle
 
         # create bundle itself
         $bundle  =  $class->_createBundle($server,  $tmpDir, %params);
-    }
-    finally {
+    } catch ($e) {
         system "rm -rf '$tmpDir'";
-    };
+        $e->throw();
+    }
+    system "rm -rf '$tmpDir'";
 
-    return  basename($bundle);
+    return basename($bundle);
 }
 
 sub _createBundleContents
@@ -221,16 +222,13 @@ sub _createBundle
         EBox::Sudo::root("chmod 0600 '$bundle'");
         my ($egid) = split '\s+', $EGID;
         EBox::Sudo::root("chown $EUID.$egid '$bundle'");
-    }
-    otherwise {
-        my $ex = shift;
-
+    } catch ($e) {
         if (defined $bundle) {
             EBox::Sudo::root("rm -f '$bundle'");
         }
 
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     return $bundle;
 }

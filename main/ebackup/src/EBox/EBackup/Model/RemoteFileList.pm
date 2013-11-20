@@ -26,7 +26,7 @@ use EBox::Types::Text;
 use EBox::View::Customizer;
 use EBox::Exceptions::DataInUse;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -132,11 +132,10 @@ sub precondition
     my @status;
     my $statusFailure;
     try {
-       @status = @{$self->{confmodule}->remoteStatus()};
-   } catch EBox::Exceptions::External with {
-       my ($ex) = @_;
-       $statusFailure = $ex->text();
-   };
+        @status = @{$self->{confmodule}->remoteStatus()};
+    } catch (EBox::Exceptions::External $e) {
+        $statusFailure = $e->text();
+    }
 
     if ($statusFailure) {
         $self->{preconditionFailMsg} = $statusFailure;
@@ -286,9 +285,9 @@ sub viewCustomizer
                 __x('Remote URL to be used with duplicity for manual restores: {url}',
                     url => $url)
                );
-        } otherwise {
+        } catch {
             # could not get the URL we don't put any message
-        };
+        }
     }
     return $customizer;
 }

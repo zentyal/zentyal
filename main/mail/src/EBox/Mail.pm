@@ -46,7 +46,7 @@ use EBox::ServiceManager;
 use EBox::DBEngineFactory;
 use EBox::SyncFolders::Folder;
 
-use Error qw( :try );
+use TryCatch::Lite;
 use Proc::ProcessTable;
 use Perl6::Junction qw(all);
 use File::Slurp;
@@ -292,8 +292,8 @@ sub enableActions
     try {
         my $cmd = 'cp /usr/share/zentyal-mail/dovecot-pam /etc/pam.d/dovecot';
         EBox::Sudo::root($cmd);
-    } otherwise {
-    };
+    } catch {
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();

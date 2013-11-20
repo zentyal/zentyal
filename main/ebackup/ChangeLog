@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
 	+ Add date to duplicity-command.log
 	+ Set version to 3.3

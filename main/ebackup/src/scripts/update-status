@@ -4,7 +4,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 my %urlParams = @ARGV;
 
@@ -53,10 +53,11 @@ try {
     if ($genListFiles) {
         $ebackup->remoteGenerateListFile();
     }
-
-} finally {
-    $ebackup->updateStatusInBackgroundUnlock;
-};
+} catch ($e) {
+    $ebackup->updateStatusInBackgroundUnlock();
+    $e->throw();
+}
+$ebackup->updateStatusInBackgroundUnlock();
 
 sub _oldStatus
 {

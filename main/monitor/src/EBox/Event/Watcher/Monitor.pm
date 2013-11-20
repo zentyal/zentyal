@@ -35,7 +35,7 @@ use EBox::Monitor::Configuration;
 
 # Core modules
 use File::Slurp;
-use Error qw(:try);
+use TryCatch::Lite;
 use Time::Piece;
 use Time::Seconds;
 
@@ -237,10 +237,9 @@ sub _parseEvent
             $hashRef->{duration}, $hashRef->{other},
            );
         $event = new EBox::Event(%{$hashRef});
-    } otherwise {
-        my ($exc) = @_;
-        EBox::error("Cannot parse a hash ref to EBox::Event: $! $exc");
-    };
+    } catch ($e) {
+        EBox::error("Cannot parse a hash ref to EBox::Event: $! $e");
+    }
     return $event;
 }
 

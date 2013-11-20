@@ -22,7 +22,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::DNS::Resolver;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
@@ -510,19 +510,18 @@ sub initKeyTabs
             EBox::Sudo::root("chown root:$keytabUser '$keytab'");
             EBox::Sudo::root("chmod 440 '$keytab'");
         }
-    } otherwise {
-        my ($error) = @_;
-        throw EBox::Exceptions::External(
-            __("Error creating computer account for Zentyal server:") .
-            " $error"
-        );
-    } finally {
-        # Destroy acquired credentials
+    } catch ($e) {
         my $ok = kdestroy();
         unless (defined $ok and $ok == 1) {
             EBox::error("kdestroy: " . kerror());
         }
-    };
+        throw EBox::Exceptions::External(__("Error creating computer account for Zentyal server:") .  " $e");
+    }
+    # Destroy acquired credentials
+    my $ok = kdestroy();
+    unless (defined $ok and $ok == 1) {
+        EBox::error("kdestroy: " . kerror());
+    }
 }
 
 
@@ -569,11 +568,11 @@ sub _adCheckClockSkew
     my %h;
     try {
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrive time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};

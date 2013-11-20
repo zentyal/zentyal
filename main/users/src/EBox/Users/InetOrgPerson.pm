@@ -34,7 +34,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 use Convert::ASN1;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -359,9 +359,7 @@ sub create
 
         $res = new EBox::Users::InetOrgPerson(dn => $args{dn});
 
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -370,7 +368,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

@@ -20,7 +20,7 @@ use strict;
 use EBox::GlobalImpl;
 use EBox::Config;
 use Date::Format;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant LOG_FILE => EBox::Config::log() . 'software.log';
 my $DPKG_RUNNING_FILE = EBox::GlobalImpl::DPKG_RUNNING_FILE;
@@ -87,19 +87,18 @@ try {
             print $write $out;
         }
     }
-} otherwise {
+} catch {
     printLog("ERROR: $@ $!");
-} finally {
-    print $write 'end';
-    close ($write);
-    close ($read);
-    if (-f $DPKG_RUNNING_FILE) {
-        printLog("Deleting $DPKG_RUNNING_FILE");
-        unlink ($DPKG_RUNNING_FILE);
-    }
-    printLog("Zentyal apt-wrapper $command finished");
-    close ($log);
-};
+}
+print $write 'end';
+close ($write);
+close ($read);
+if (-f $DPKG_RUNNING_FILE) {
+    printLog("Deleting $DPKG_RUNNING_FILE");
+    unlink ($DPKG_RUNNING_FILE);
+}
+printLog("Zentyal apt-wrapper $command finished");
+close ($log);
 
 # TODO: Move this to a common logger module
 sub printLog

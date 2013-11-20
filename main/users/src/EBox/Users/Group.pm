@@ -38,7 +38,7 @@ use EBox::Exceptions::LDAP;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -166,13 +166,12 @@ sub addMember
     my ($self, $member, $lazy) = @_;
     try {
         $self->add('member', $member->dn(), $lazy);
-    } catch EBox::Exceptions::LDAP with {
-        my $ex = shift;
-        if ($ex->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
-            $ex->throw();
+    } catch (EBox::Exceptions::LDAP $e) {
+        if ($e->errorName ne 'LDAP_TYPE_OR_VALUE_EXISTS') {
+            $e->throw();
         }
         EBox::debug("Tried to add already existent member " . $member->dn() . " from group " . $self->name());
-    };
+    }
 }
 
 # Method: removeMember
@@ -591,9 +590,7 @@ sub create
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase('addGroup', $res, $args{ignoreMods}, $args{ignoreSlaves});
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -611,7 +608,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }

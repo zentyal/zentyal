@@ -9,17 +9,17 @@ use EBox::Global;
 
 use EBox::Logs::Consolidate;
 use EBox::Util::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant LOCK_NAME => 'manageEBoxLogs';
 
 EBox::init();
 try {
     EBox::Util::Lock::lock(LOCK_NAME);
-} catch EBox::Exceptions::Lock with {
+} catch (EBox::Exceptions::Lock $e) {
     print "Already a manageEBoxLogs process running. Exiting\n";
     exit 0;
-};
+}
 
 try {
     my $logs = EBox::Global->getInstance(1)->modInstance('logs');
@@ -35,8 +35,10 @@ try {
     $logs->archiveBackupSlices();
 
     $logs->purge();
-} finally {
+} catch ($e) {
     EBox::Util::Lock::unlock(LOCK_NAME);
-};
+    $e->throw();
+}
+EBox::Util::Lock::unlock(LOCK_NAME);
 
 1;

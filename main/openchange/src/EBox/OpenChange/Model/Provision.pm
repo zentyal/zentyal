@@ -29,7 +29,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -308,7 +308,7 @@ sub _acquireOrganizationNameFromState
     my $modelName = $model->name();
     my $keyField  = 'organizationname';
     my $value = $state->{$modelName}->{$keyField};
-    if ( defined($value) and ($value ne '') ) {
+    if (defined($value) and ($value ne '')) {
         return $value;
     }
     return undef;
@@ -376,16 +376,13 @@ sub _doProvision
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
-    };
+    }
+    $self->global->modChange('mail');
+    $self->global->modChange('samba');
+    $self->global->modChange('openchange');
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -422,11 +419,10 @@ sub _doProvision
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
-            };
+            }
         }
     }
 }
@@ -460,16 +456,10 @@ sub _doProvision
 #        $self->parentModule->setProvisioned(0);
 #        EBox::info("Openchange deprovisioned:\n$output");
 #        $self->setMessage($action->message(), 'note');
-#    } otherwise {
-#        my ($error) = @_;
-#
+#    } catch ($error) {
 #        throw EBox::Exceptions::External("Error deprovisioninig: $error");
 #        $self->parentModule->setProvisioned(1);
-#    } finally {
-#        $self->global->modChange('mail');
-#        $self->global->modChange('samba');
-#        $self->global->modChange('openchange');
-#    };
+#    }
 #}
 
 1;

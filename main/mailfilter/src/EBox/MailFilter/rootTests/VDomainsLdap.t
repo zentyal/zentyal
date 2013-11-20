@@ -7,7 +7,7 @@ use Test::Exception;
 use EBox;
 use EBox::Global;
 use EBox::MailVDomainsLdap;
-use Error qw(:try);
+use TryCatch::Lite;
 
 diag "This test uses the Zentyal LDAP. Don't use it in production environments!!";
 
@@ -26,10 +26,11 @@ try {
   testBoolAttr($vdomain, 'antispam');
   testFloatAttr($vdomain, 'spamThreshold');
   testReset($vdomain);
-}
-finally {
+} catch ($e) {
   _removeVDomain($vdomain);
-};
+  $e->throw();
+}
+_removeVDomain($vdomain);
 
 
 sub _createTestVDomain

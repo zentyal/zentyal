@@ -31,7 +31,7 @@ use EBox::Exceptions::Internal;
 
 # Core modules
 use File::Basename;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Dependencies
 use File::MMagic;

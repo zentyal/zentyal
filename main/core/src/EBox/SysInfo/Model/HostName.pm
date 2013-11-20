@@ -23,7 +23,7 @@ package EBox::SysInfo::Model::HostName;
 
 use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::SysInfo::Types::DomainName;

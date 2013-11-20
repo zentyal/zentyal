@@ -43,7 +43,7 @@ use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
 
 use Net::IP;
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 use Text::DHCPLeases;
 
@@ -1030,10 +1030,9 @@ sub _dhcpLeases
         my $leases;
         try {
             $leases = Text::DHCPLeases->new(file => LEASEFILE);
-        } otherwise {
-           my $ex = shift;
-           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $ex");
-        };
+        } catch ($e) {
+           EBox::error('Error parsing DHCP leases file (' . LEASEFILE . "): $e");
+        }
 
         if (not $leases) {
             return $self->{'leases'};

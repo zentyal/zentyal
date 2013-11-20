@@ -18,7 +18,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX qw(:signal_h);
 
 try {
@@ -34,8 +34,7 @@ try {
     binmode(STDOUT, ':utf8');
 
     EBox::CGI::Run->run($ENV{'script'});
-} otherwise {
-    my $ex = shift;
+} catch ($ex) {
     use Devel::StackTrace;
     use CGI qw/:standard/;
     use Data::Dumper;
@@ -107,10 +106,12 @@ try {
     }
 
     my $error;
-    if ( $ex->can('text') ) {
+    if ($ex->can('text')) {
         $error = $ex->text();
-    } elsif ( $ex->can('as_text') ) {
+    } elsif ($ex->can('as_text')) {
         $error = $ex->as_text();
+    } else {
+        $error = "$ex";
     }
     $error =~ s/"/'/g;
     $params->{error} = $error;
@@ -134,7 +135,7 @@ try {
     }
 
     print $html;
-};
+}
 
 sub _brokenPackages
 {

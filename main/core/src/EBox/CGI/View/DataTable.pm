@@ -19,7 +19,7 @@ package EBox::CGI::View::DataTable;
 
 use base 'EBox::CGI::ClientBase';
 
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Gettext;
 use EBox::Global;
 
@@ -51,10 +51,10 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{tableModel}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions
 	+ Added missing EBox::Exceptions uses
 	+ Fix group based filter access rules in external AD mode, retrieving

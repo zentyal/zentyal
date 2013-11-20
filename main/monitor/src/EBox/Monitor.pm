@@ -51,7 +51,7 @@ use EBox::Monitor::Configuration;
 use EBox::Monitor::Measure::Manager;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Spec;
 use File::Slurp;
 use JSON;
@@ -312,15 +312,14 @@ sub allMeasuredData
                 }
             }
             $atLeastOneReady = 1;
-        } otherwise {
-            my ($ex) = @_;
-            my $error = $ex->stringify();
+        } catch ($e) {
+            my $error = $e->stringify();
             if ($error =~ m/No such file or directory/) {
                 # need to save changes, ignoring..
                 EBox::debug("Showing all measures: $error");
             } else {
                 # rethrow exception
-                $ex->throw();
+                $e->throw();
             }
         };
     }
@@ -532,10 +531,10 @@ sub _setupMeasures
         $self->{measureManager}->register('EBox::Monitor::Measure::Memory');
         $self->{measureManager}->register('EBox::Monitor::Measure::Thermal');
         $self->_registerRuntimeMeasures();
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         # Catch exceptions since it is possible that the monitor
         # module has never been configured (enable once)
-    };
+    }
 }
 
 # Write down the main configuration file
@@ -645,11 +644,10 @@ sub _setThresholdConf
                             $persistAfterThresholds{$threshold{measure}}->{$threshold{instance}}->{$threshold{type}}->{$threshold{typeInstance}}->{error}->{after} = $after;
                         }
                     }
-                } catch EBox::Exceptions::DataNotFound with {
+                } catch (EBox::Exceptions::DataNotFound $e) {
                     # The measure has disappear in some moment, we ignore their thresholds them
-                    my ($exc) = @_;
-                    EBox::warn($exc);
-                };
+                    EBox::warn($e);
+                }
             }
         } else {
             EBox::warn('No threshold configuration is saved since monitor watcher '
@@ -770,9 +768,9 @@ sub _registerRuntimeMeasures
             $line =~ s/\s//g;
             try {
                 $self->{measureManager}->register($line);
-            } otherwise {
+            } catch {
                 # Cannot load the runtime measure
-            };
+            }
         }
     }
 }

@@ -29,7 +29,7 @@ use EBox::Config;
 use EBox::Global;
 use EBox::CaptivePortal;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
 use EBox::Util::Lock;
@@ -94,9 +94,9 @@ sub run
             $exceededEvent =
                 $events->isEnabledWatcher('EBox::Event::Watcher::CaptivePortalQuota');
         }
-    } otherwise {
+    } catch {
         $exceededEvent = 0;
-    };
+    }
 
     my $timeLeft;
     while (1) {
@@ -216,7 +216,8 @@ sub _updateSessions
         try {
             EBox::Util::Lock::lock('firewall');
             $lockedFw = 1;
-        } otherwise {};
+        } catch {
+        }
 
         if ($lockedFw) {
             try {
@@ -226,9 +227,12 @@ sub _updateSessions
                     $self->{pendingRules} = undef;
                 }
                 EBox::Sudo::root(@pending, @rules, @removeRules) ;
-            } finally {
+            } catch {
+                my $e = shift;
                 EBox::Util::Lock::unlock('firewall');
-            };
+                $e->throw();
+            }
+            EBox::Util::Lock::unlock('firewall');
         } else {
             $self->{pendingRules} or $self->{pendingRules} = [];
             push @{ $self->{pendingRules} }, @rules, @removeRules;
@@ -286,7 +290,9 @@ sub _matchUser
     if ($self->{bwmonitor} and $self->{bwmonitor}->isEnabled()) {
         try {
             $self->{bwmonitor}->addUserIP($user->{user}, $user->{ip});
-        } catch EBox::Exceptions::DataExists with {}; # already in
+        } catch (EBox::Exceptions::DataExists $e) {
+            # already in
+        }
     }
 }
 

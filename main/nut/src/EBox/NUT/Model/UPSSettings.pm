@@ -24,7 +24,7 @@ use EBox::Types::Text;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use Error qw( :try );
+use TryCatch::Lite;
 
 sub new
 {
@@ -47,11 +47,11 @@ sub upsVariables
     my $rwVars = [];
     try {
         $rwVars = EBox::Sudo::root("upsrw $label");
-    } otherwise {
+    } catch {
         my $error = shift;
         my $text = join ('', @{$error->{error}});
         $self->setMessage("There was a problem reading settings. $text", 'warning');
-    };
+    }
 
     my $vars = {};
 
@@ -149,9 +149,9 @@ sub setTypedRow
     try {
         EBox::Sudo::root("upsrw -s '$var=$value' -u upsmon -p upsmon '$label'");
         $self->setMessage(__x('Setting {s} successfully updated. It may take some seconds to reflect the change.', s => $id));
-    } otherwise {
+    } catch {
         $self->setMessage(__x('There was a problem updating setting {s}.', s => $id), 'warning');
-    };
+    }
 
 }
 

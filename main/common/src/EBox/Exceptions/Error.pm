@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,24 +13,34 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-use strict;
-use warnings;
+package EBox::Exceptions::Error;
 
-package EBox::UserCorner::CGI::Dashboard::Index;
+use base 'EBox::Exceptions::Base';
 
-use base 'EBox::CGI::ClientBase';
-
+use Log::Log4perl;
 use EBox::Gettext;
-use EBox::Global;
-use TryCatch::Lite;
 
-sub new # (error=?, msg=?, cgi=?)
+sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('User'));
-    $self->{redirect} = "Users/View/Password";
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+
+    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Debug = 1;
+
+    $self = $class->SUPER::new(@_);
+    bless ($self, $class);
+
+    $Log::Log4perl::caller_depth++;
+    $self->log;
+    $Log::Log4perl::caller_depth--;
+
+    return $self;
+}
+
+sub _logfunc # (logger, msg)
+{
+    my ($self, $logger, $msg) = @_;
+    $logger->error($msg);
 }
 
 1;

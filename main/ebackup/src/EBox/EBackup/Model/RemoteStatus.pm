@@ -23,7 +23,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Types::Text;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -112,10 +112,9 @@ sub precondition
     my $statusFailure;
     try {
        @status = @{$self->{confmodule}->remoteStatus()};
-   } catch EBox::Exceptions::External with {
-       my ($ex) = @_;
-       $statusFailure = $ex->text();
-   };
+   } catch (EBox::Exceptions::External $e) {
+       $statusFailure = $e->text();
+   }
 
     if ($statusFailure) {
         $self->{preconditionFailMsg} = $statusFailure;

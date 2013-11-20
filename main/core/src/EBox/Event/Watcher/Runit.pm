@@ -35,7 +35,7 @@ use EBox::Service;
 use EBox::Global;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use Fcntl qw(:flock); # Import LOCK * constants
 
 # Group: Public methods

@@ -59,7 +59,7 @@ use EBox::TrafficShaping::TreeBuilder::Default;
 use EBox::TrafficShaping::TreeBuilder::HTB;
 
 # Dependencies
-use Error qw(:try);
+use TryCatch::Lite;
 use List::Util;
 use Perl6::Junction qw(none);
 
