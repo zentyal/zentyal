@@ -25,13 +25,8 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
-<<<<<<< HEAD
 use POSIX qw(ceil floor);
-use Error qw(:try);
-=======
-# Dependencies
 use TryCatch::Lite;
->>>>>>> master
 
 sub new
 {

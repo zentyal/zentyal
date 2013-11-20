@@ -24,12 +24,7 @@ use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
-<<<<<<< HEAD
-use Error qw(:try);
-=======
-# Dependencies
 use TryCatch::Lite;
->>>>>>> master
 
 sub new
 {
