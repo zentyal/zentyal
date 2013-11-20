@@ -1267,10 +1267,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
 
     assert(nextPageContextName, 'missing nextpagecontextname');
 
-    var success =  function(text) {
-        Zentyal.stripe('.dataTable', 'even', 'odd');
-
-        var json = text;
+    var success =  function(json) {
         if (!json.success) {
             var error = json.error;
             if (!error) {
@@ -1280,7 +1277,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
             Zentyal.TableHelper.restoreHidden(table + '_buttons', table);
             return;
         }
-
 
         var nextDirectory = json.directory;
         var rowId = json.rowId;
