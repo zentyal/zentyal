@@ -629,7 +629,7 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    foreach my $mod ($self->modInstancesOfType('EBox::Module::Config')) {
+    foreach my $mod (@{ $self->modInstancesOfType('EBox::Module::Config') }) {
         next if $modified{$mod->name()};
         $mod->_saveConfig();
     }
