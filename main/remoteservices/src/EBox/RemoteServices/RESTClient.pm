@@ -35,7 +35,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::RemoteServices::RESTResult;
 use URI;
 use LWP::UserAgent;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
@@ -45,7 +45,7 @@ use EBox::Exceptions::InvalidData;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::RESTResult;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp;
 use HTTP::Status qw(HTTP_BAD_REQUEST HTTP_UNAUTHORIZED);
 use IO::Socket::SSL;

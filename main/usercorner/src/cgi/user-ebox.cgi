@@ -18,7 +18,7 @@ use strict;
 use warnings;
 
 use EBox::Gettext;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
 try {
@@ -35,8 +35,7 @@ try {
 
     binmode(STDOUT, ':utf8');
     EBox::UserCorner::CGI::Run->run($ENV{'script'}, 'EBox::UserCorner::HtmlBlocks');
-} otherwise  {
-    my $ex = shift;
+} catch ($ex) {
     use Devel::StackTrace;
     use CGI qw/:standard/;
     use Data::Dumper;
@@ -120,4 +119,4 @@ try {
     print $html;
 
     print end_html;
-};
+}

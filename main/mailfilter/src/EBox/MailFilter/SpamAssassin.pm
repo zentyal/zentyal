@@ -29,7 +29,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant {
   SA_LEARN_SERVICE    => 'ebox.learnspamd',

@@ -27,7 +27,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Sudo;
 use EBox::Ldap;
 use EBox::CaptivePortalFirewall;

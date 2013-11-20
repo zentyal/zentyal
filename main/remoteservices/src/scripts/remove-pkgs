@@ -27,7 +27,7 @@ use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -50,9 +50,8 @@ try {
         EBox::info('Uninstalling ' . join(' ', @packages));
         EBox::Sudo::root($param);
     }
-} otherwise {
-    my ($exc) = @_;
-    EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $exc->stringify());
-};
+} catch ($e) {
+    EBox::error('These packages ' . join(' ', @packages) . ' cannot be uninstalled: ' . $e->stringify());
+}
 
 1;

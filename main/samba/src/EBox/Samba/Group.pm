@@ -42,7 +42,7 @@ use EBox::Users::Group;
 use EBox::Samba::Contact;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAXGROUPLENGTH     => 128;
 use constant GROUPTYPESYSTEM    => 0x00000001;
@@ -179,10 +179,10 @@ sub addToZentyal
                     my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
                     next unless ($smbMember);
                     $self->addMember($smbMember, 1);
-                } otherwise {
+                } catch {
                     my $error = shift;
                     EBox::error("Error adding member: $error");
-                };
+                }
             }
             $self->save();
             # 2. link both objects.
@@ -228,16 +228,16 @@ sub addToZentyal
 
         $zentyalGroup = EBox::Users::Group->create(@params);
         $self->_linkWithUsersObject($zentyalGroup);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("Group $name already in Zentyal database");
         $zentyalGroup = $sambaMod->ldapObjectFromLDBObject($self);
         unless ($zentyalGroup) {
             EBox::error("The group $name exists in Zentyal but is not linked with Samba!");
         }
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading group '$name': $error");
-    };
+    }
 
     if ($zentyalGroup and $zentyalGroup->exists()) {
         $self->_membersToZentyal($zentyalGroup);
@@ -323,10 +323,9 @@ sub _membersToZentyal
             EBox::info("Removing member '$canonicalName' from Zentyal group '$gid'");
             try {
                 $zentyalGroup->removeMember($zentyalMembers{$memberUniqueID}, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error removing member '$canonicalName' from Zentyal group '$gid': $error");
-            };
+            }
          }
     }
 
@@ -355,10 +354,9 @@ sub _membersToZentyal
             }
             try {
                 $zentyalGroup->addMember($zentyalMember, 1);
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding member '$canonicalName' to Zentyal group '$gid': $error");
-            };
+            }
         }
     }
 

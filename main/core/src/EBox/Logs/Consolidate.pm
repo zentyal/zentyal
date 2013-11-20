@@ -21,7 +21,7 @@ use EBox::Global;
 use EBox::DBEngineFactory;
 use EBox::Exceptions::Internal;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Time::Piece;
 use Time::Seconds;
 

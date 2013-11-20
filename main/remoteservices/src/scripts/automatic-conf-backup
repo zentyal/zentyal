@@ -26,7 +26,7 @@ use EBox::Exceptions::Base;
 use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::RemoteServices::Backup;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use Getopt::Long;
 use Pod::Usage;
@@ -47,11 +47,10 @@ sub makeConfBackup
                                              __('Automatic backup'),
                                              $automatic);
             last;
-        } catch EBox::Exceptions::InvalidData with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::InvalidData $e) {
             EBox::debug("Backup corrupted in some way...");
-            $exc->throw() if ($attempt == ATTEMPT_NUM);
-        };
+            $e->throw() if ($attempt == ATTEMPT_NUM);
+        }
     }
 }
 
@@ -67,27 +66,26 @@ sub checkMakeRetryConfBackup
     my $rs = $gl->modInstance('remoteservices');
     if ( $rs->eBoxSubscribed() ) {
         my $lastBackupStamp = 0;
-        if ( -r LAST_BACKUP_TIMESTAMP_FILE ) {
+        if (-r LAST_BACKUP_TIMESTAMP_FILE) {
             $lastBackupStamp = File::Slurp::read_file(LAST_BACKUP_TIMESTAMP_FILE);
             chomp($lastBackupStamp);
         }
         # Make the conf backup if any change has been done to Zentyal
-        if ( $gl->lastModificationTime() > $lastBackupStamp ) {
+        if ($gl->lastModificationTime() > $lastBackupStamp) {
             my ($automatic, $level, $msg, $additional, $dispatchTo) = (1, 'info', '', {}, undef);
             try {
                 makeConfBackup();
                 # Save the timestamp for later use
                 File::Slurp::write_file(LAST_BACKUP_TIMESTAMP_FILE, time());
                 $msg = __('Automatic configuration backup done');
-            } catch EBox::Exceptions::Base with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Base $e) {
                 # Cannot make the backup, inform the user with an event
-                my $reason = $exc->stringify();
+                my $reason = $e->stringify();
                 $msg = __x('Cannot make the automatic backup. {reason}',
                            reason => $reason);
                 $level = 'error';
                 $additional = { reason => $reason };
-            };
+            }
             my $evtMod = $gl->modInstance('events');
             try {
                 $dispatchTo = [ 'ControlCenter' ] if ($level ne 'info');
@@ -96,12 +94,11 @@ sub checkMakeRetryConfBackup
                                    level      => $level,
                                    additional => $additional,
                                    dispatchTo => $dispatchTo);
-            } catch EBox::Exceptions::Base with {
+            } catch (EBox::Exceptions::Base $e) {
                 EBox::error($msg);
-            };
+            }
         }
     }
-
 }
 
 # MAIN

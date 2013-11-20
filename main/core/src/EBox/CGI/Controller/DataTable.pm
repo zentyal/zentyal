@@ -25,7 +25,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
 # Dependencies
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {

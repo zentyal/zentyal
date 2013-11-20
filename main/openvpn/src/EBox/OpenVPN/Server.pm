@@ -36,7 +36,7 @@ use EBox::Exceptions::MissingArgument;
 use List::Util qw(first);
 use Params::Validate qw(validate_pos validate SCALAR ARRAYREF);
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -900,9 +900,9 @@ sub summary
     try {
         $localAddress = $self->localAddress();
         defined $localAddress or $localAddress = __('All external interfaces');
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         $localAddress = __('Not found');
-    };
+    }
     push (@summary, (__('Local address'), $localAddress));
 
     my $proto   = $self->proto();

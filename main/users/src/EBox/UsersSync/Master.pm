@@ -27,7 +27,7 @@ use EBox::Gettext;
 use URI::Escape;
 use File::Slurp;
 use EBox::UsersSync::Slave;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # File containing password for master's web service (to register a new slave)
 use constant MASTER_PASSWORDS_FILE => EBox::Config::conf() . 'users/master.htaccess';
@@ -196,10 +196,9 @@ sub checkMaster
 
     try {
         $master->getDN();
-    } otherwise {
-        my $ex = shift;
-        $self->_analyzeException($ex);
-    };
+    } catch ($e) {
+        $self->_analyzeException($e);
+    }
 
     # Check that master's REALM is correct
     $self->_checkRealm($users, $master);
@@ -251,10 +250,9 @@ sub setupSlave
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
             $client->registerSlave($webAdminMod->port(), $client_cert, 1);
-        } otherwise {
-            my $ex = shift;
-            $self->_analyzeException($ex);
-        };
+        } catch ($e) {
+            $self->_analyzeException($e);
+        }
 
         # Write master certificate
         # (after registering slave, this means everything went well)

@@ -27,7 +27,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 
 use POSIX ":sys_wait_h";
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $KEY = 'progress_indicator';
 
@@ -482,10 +482,10 @@ sub _cleanupFinished
             if ($pI->finished()) {
                 $pI->destroy();
             }
-        } catch EBox::Exceptions::Base with {
+        } catch (EBox::Exceptions::Base $e) {
             # Ignore this strange case (Already cleaned up)
             ;
-        };
+        }
     }
 
     _collectChildrens();

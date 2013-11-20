@@ -23,7 +23,7 @@ use EBox::Gettext;
 use EBox::Types::Action;
 use EBox::DBEngineFactory;
 use EBox::Util::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $haltInProgress;
 
@@ -121,9 +121,9 @@ sub _updateHaltInProgress
     try {
         EBox::Util::Lock::lock("sysinfo-halt");
         # it is a system halt/reboot so we will not unlock this
-    } otherwise {
+    } catch {
         $haltInProgress = 1;
-    };
+    }
 }
 
 sub _prepareSystemForHalt

@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use Time::gmtime;
 
@@ -106,19 +106,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaOUs{$uniqueID}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalOUs{$uniqueID};
         } else {
             try {
                 $sambaOUs{$uniqueID}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } otherwise ($error) {
                 EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -145,19 +143,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaUsers{$uniqueID}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalUsers{$uniqueID};
         } else {
             try {
                 $sambaUsers{$uniqueID}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -180,19 +176,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaContacts{$uniqueID}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } catch ($error) {
                     EBox::error("Error updating contact $canonicalName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalContacts{$uniqueID};
         } else {
             try {
                 $sambaContacts{$uniqueID}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error adding contact $canonicalName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 
@@ -217,19 +211,17 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaGroups{$uniqueID}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
+                } otherwise ($error) {
                     EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
-                };
+                }
             }
             delete $zentyalGroups{$uniqueID};
         } else {
             try {
                 $sambaGroups{$uniqueID}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
+            } otherwise ($error) {
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
-            };
+            }
         }
     }
 

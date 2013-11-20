@@ -23,7 +23,7 @@ use warnings;
 
 package EBox::SysInfo::Model::TimeZone;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 
 use EBox::Gettext;
@@ -71,9 +71,9 @@ sub _getTimezone
     try {
         $tz = read_file(TZ_FILE);
         chomp $tz;
-    } otherwise {
+    } catch {
         $tz = 'Etc/UTC';
-    };
+    }
     return $tz;
 }
 

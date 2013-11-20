@@ -20,7 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -32,6 +32,7 @@ $iface or exit;
 
 try {
 	$network->DHCPCleanUp($iface);
-} finally {
-	exit;
-};
+} catch {
+}
+
+exit;

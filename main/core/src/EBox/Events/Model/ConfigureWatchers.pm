@@ -41,7 +41,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=events&utm_campaign=smallbusiness_edition';
 use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=events&utm_campaign=enterprise_edition';
@@ -96,9 +96,9 @@ sub syncRows
             } else {
                 $remove = 1;
             }
-        } otherwise {
+        } catch {
             $remove = 1;
-        };
+        }
         if ($remove) {
             $self->removeRow($id);
             $modified = 1;

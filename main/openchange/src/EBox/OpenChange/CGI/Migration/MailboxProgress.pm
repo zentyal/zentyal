@@ -30,7 +30,7 @@ use feature qw(switch);
 use EBox::Gettext;
 use JSON::XS;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw( :try );
+use TryCatch::Lite;
 use POSIX;
 
 # Group: Public methods
@@ -173,12 +173,10 @@ sub _process
             'users' => $usersData,
         };
 
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         # Set this on error
         $self->{json}->{error} = $error;
-    };
+    }
 }
 
 1;

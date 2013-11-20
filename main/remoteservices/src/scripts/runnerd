@@ -24,7 +24,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Sudo;
 use EBox::RemoteServices::Configuration;
-use Error qw(:try);
+use TryCatch::Lite;
 use Getopt::Long;
 use Linux::Inotify2;
 use Log::Log4perl;
@@ -203,11 +203,9 @@ sub _run
             symlink( $realJobDir, OUTCOMING_DIR . $jobId);
         }
         unlink($jobDir);
-    } otherwise {
-        my ($exc) = @_;
-        EBox::error($exc);
-    };
-
+    } catch ($e) {
+        EBox::error($e);
+    }
 }
 
 # Procedure: _notify
@@ -229,10 +227,9 @@ sub _notify
 
     try {
         EBox::Sudo::command("/usr/share/zentyal-remoteservices/notify-job $jobDir");
-    } catch EBox::Exceptions::Command with {
-        my ($exc) = @_;
-        EBox::error($exc);
-    };
+    } catch (EBox::Exceptions::Command $e) {
+        EBox::error($e);
+    }
 }
 
 # Procedure: _actRemainder

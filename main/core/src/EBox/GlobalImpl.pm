@@ -27,7 +27,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::External;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::ProgressIndicator;
@@ -92,9 +92,9 @@ sub readModInfo # (module)
         my $yaml;
         try {
             ($yaml) = YAML::XS::LoadFile(EBox::Config::modules() . "$name.yaml");
-        } otherwise {
+        } catch {
             $yaml = undef;
-        };
+        }
         $self->{mod_info}->{name} = $yaml;
     }
     return $self->{mod_info}->{name};
@@ -376,9 +376,9 @@ sub revokeAllModules
         my $mod = $self->modInstance($ro, $name);
         try {
             $mod->revokeConfig;
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
 
     # discard logging of revoked changes
@@ -600,13 +600,11 @@ sub saveAllModules
             try {
                 $module->{firstInstall} = 1;
                 $module->configureModule();
-            } otherwise {
-                my ($ex) = @_;
-                my $err = $ex->text();
+            } catch ($e) {
+                my $err = $e->text();
                 EBox::debug("Failed to enable module $name: $err");
-            } finally {
-                delete $module->{firstInstall};
-            };
+            }
+            delete $module->{firstInstall};
         }
 
         # in first install sysinfo module is in changed state
@@ -653,14 +651,12 @@ sub saveAllModules
 
         try {
             $mod->save();
-        } catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module $name: $ex");
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to save changes in module $name: $e");
             $failed .= "$name ";
-        };
+        }
     }
 
     # Delete first time installation file (wizard)
@@ -678,14 +674,12 @@ sub saveAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, 'webadmin');
         try {
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to save changes in module webadmin: $ex");
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to save changes in module webadmin: $e");
             $failed .= "webadmin ";
-        };
+        }
     }
 
     # TODO: tell events module to resume its watchers
@@ -696,14 +690,12 @@ sub saveAllModules
 
         try {
             $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to restart $modName after save changes: $ex");
+        } catch (EBox::Exceptions::External $e) {
+            $e->throw();
+        } catch ($e) {
+            EBox::error("Failed to restart $modName after save changes: $e");
             $failed .= "$modName ";
-        };
+        }
     }
     $self->unset('post_save_modules');
 
@@ -758,9 +750,9 @@ sub restartAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed eq "") {
         return;
@@ -791,9 +783,9 @@ sub stopAllModules
         my $mod = EBox::GlobalImpl->modInstance($ro, $name);
         try {
             $mod->stopService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
 
     if ($failed eq "") {
@@ -1275,20 +1267,18 @@ sub _runExecFromDir
                     $progress->notifyTick();
                 }
                 my $output = EBox::Sudo::command("$exec $modNames");
-                if ( @{$output} > 0) {
+                if (@{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");
                 }
-            } catch EBox::Exceptions::Command with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Command $e) {
                 my $msg = "Command $exec failed its execution\n"
-                  . 'Output: ' . @{$exc->output()} . "\n"
-                  . 'Error: ' . @{$exc->error()} . "\n"
-                  . 'Return value: ' . $exc->exitValue();
+                  . 'Output: ' . @{$e->output()} . "\n"
+                  . 'Error: ' . @{$e->error()} . "\n"
+                  . 'Return value: ' . $e->exitValue();
                 EBox::error($msg);
-            } otherwise {
-                my ($exc) = @_;
-                EBox::error("Error executing $exec: $exc");
-            };
+            } catch ($e) {
+                EBox::error("Error executing $exec: $e");
+            }
         }
     }
 }

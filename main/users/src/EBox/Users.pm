@@ -57,7 +57,7 @@ use Digest::SHA;
 use Digest::MD5;
 use Sys::Hostname;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Copy;
 use File::Slurp;
 use File::Temp qw/tempfile/;
@@ -565,11 +565,10 @@ sub _internalServerEnableActions
     EBox::info('Performing first LDAP actions');
     try {
         $self->performLDAPActions();
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error performing users initialization: $error");
+    } catch ($e) {
+        EBox::error("Error performing users initialization: $e");
         throw EBox::Exceptions::External(__('Error performing users initialization'));
-    };
+    }
 
     # Setup kerberos realm and DNS
     $self->setupKerberos();
@@ -630,15 +629,12 @@ sub _loadLDAP
             'chown -R openldap.openldap ' . LDAP_CONFDIR . ' ' . LDAP_DATADIR,
             "rm -f $LDIF_CONFIG $LDIF_DB",
         );
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $exception = shift;
-        EBox::error('Trying to setup ldap failed, exit value: ' .
-                $exception->exitValue());
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::error('Trying to setup ldap failed, exit value: ' .  $e->exitValue());
         throw EBox::Exceptions::External(__('Error while creating users and groups database.'));
-    } otherwise {
-        my $error = shift;
-        EBox::error("Trying to setup ldap failed: $error");
-    };
+    } catch ($e) {
+        EBox::error("Trying to setup ldap failed: $e");
+    }
     EBox::debug('Setup LDAP done');
 }
 
@@ -709,18 +705,15 @@ sub _setConfInternal
 
         try {
             $self->reprovision();
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($e) {
             $self->set('need_reprovision', 1);
             throw EBox::Exceptions::External(__x(
 'Error on reprovision: {err}. {pbeg}Until the reprovision is done the user module and it is dependencies will be unusable. In the next saving of changes reprovision will be attempted again.{pend}',
-               err => "$ex",
+               err => "$e",
                pbeg => '<p>',
                pend => '</p>'
             ));
-        };
-
-
+        }
     }
 
     my $ldap = $self->ldap;
@@ -951,15 +944,14 @@ sub initUser
                 try {
                     EBox::Sudo::root($chownCmd);
                     $chownOk = 1;
-                } otherwise {
-                    my ($ex) = @_;
+                } catch ($e) {
                     if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
+                        EBox::warn("$chownCmd failed: $e . Attempt number $cnt");
                         sleep 1;
                     } else {
-                        $ex->throw();
+                        $e->throw();
                     }
-                };
+                }
                 last if $chownOk;
             };
 
@@ -977,7 +969,8 @@ sub reloadNSCD
     if ( -f '/etc/init.d/nscd' ) {
         try {
             EBox::Sudo::root('/etc/init.d/nscd force-reload');
-        } otherwise {};
+        } catch {
+        }
    }
 }
 
@@ -1597,7 +1590,8 @@ sub isUserCorner
     try {
         my $r = Apache2::RequestUtil->request();
         $auth_type = $r->auth_type;
-    } catch Error with {};
+    } catch {
+    }
 
     return (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth');

@@ -37,7 +37,7 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $ROW_ID = 'form';
 
@@ -732,9 +732,11 @@ sub clone
 
         $dstRow->store();
         $dstRow->cloneSubModelsFrom($srcRow)
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir);
 }
 
 1;

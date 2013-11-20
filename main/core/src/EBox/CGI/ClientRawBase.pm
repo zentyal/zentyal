@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
 use Apache2::RequestUtil;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason::Exceptions;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Base;
@@ -176,8 +176,7 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch EBox::Exceptions::DataInUse with {
-            my $e = shift;
+        } catch (EBox::Exceptions::DataInUse $e) {
             if ($self->{json}) {
                 $self->setErrorFromException($e);
             } else {
@@ -185,14 +184,14 @@ sub run
             }
 
             $finish = 1;
-        } otherwise {
+        } catch {
             my $e = shift;
             $self->setErrorFromException($e);
             if (not $self->{json}) {
                 $self->_error();
             }
             $finish = 1;
-        };
+        }
     }
 
     if ($self->{json}) {
@@ -204,12 +203,10 @@ sub run
 
     try  {
         $self->_print;
-    } catch EBox::Exceptions::Base with {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+    } catch (EBox::Exceptions::Base $e) {
+        $self->setErrorFromException($e);
         $self->_print_error($self->{error});
-    } otherwise {
-        my $ex = shift;
+    } catch ($ex) {
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
             $logger->error($ex->as_text);
@@ -227,7 +224,7 @@ sub run
 
             throw $ex;
         }
-    };
+    }
 }
 
 1;

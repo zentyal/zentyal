@@ -23,7 +23,7 @@ use EBox;
 use EBox::Exceptions::External;
 use EBox::RemoteServices::Configuration;
 use EBox::RemoteServices::Jobs;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Slurp;
 use Getopt::Long;
@@ -46,12 +46,11 @@ sub _notify
     foreach my $filePath (qw(stdout stderr exitValue)) {
         try {
             $results{$filePath} = File::Slurp::read_file("$jobDir/$filePath");
-        } otherwise {
-            my ($exc) = @_;
-            EBox::error("Cannot read $jodDir/$filePath file: $exc");
+        } catch ($e) {
+            EBox::error("Cannot read $jodDir/$filePath file: $e");
             unlink($jobDir);
             exit(2);
-        };
+        }
     }
     try {
         # local log notification
@@ -76,14 +75,12 @@ sub _notify
                                      exitValue => $results{exitValue});
             }
         }
-    } otherwise {
-        my ($exc) = @_;
-        EBox::error("Problem with job '$jobId' result notification: $exc");
+    } catch ($e) {
+        EBox::error("Problem with job '$jobId' result notification: $e");
         unlink($jobDir);
         exit(3);
-    };
+    }
     unlink($jobDir);
-
 }
 
 # MAIN

@@ -25,7 +25,7 @@ use EBox::Samba::FSMO;
 
 use Net::Ping;
 use Net::DNS;
-use Error qw(:try);
+use TryCatch::Lite;
 
 ##
 ##  Init Zentyal framework
@@ -101,10 +101,9 @@ unless ($dsServiceName =~/$schemaMaster/i) {
     try {
         print "Transferring Schema Master role from owner: $schemaMaster\n";
         $fsmo->transferSchemaMaster();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $domainNamingMaster = $fsmo->getDomainNamingMaster();
@@ -112,10 +111,9 @@ unless ($dsServiceName =~/$domainNamingMaster/i) {
     try {
         print "Transferring Domain Naming Master role from owner: $domainNamingMaster\n";
         $fsmo->transferDomainNamingMaster();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $pdcEmulationMaster = $fsmo->getPdcEmulationMaster();
@@ -123,10 +121,9 @@ unless ($dsServiceName =~/$pdcEmulationMaster/i) {
     try {
         print "Transferring PDC Emulation Master role from owner: $pdcEmulationMaster\n";
         $fsmo->transferPdcEmulationMaster();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
-    };
+    }
 }
 
 
@@ -135,10 +132,9 @@ unless ($dsServiceName =~/$ridAllocationMaster/i) {
     try {
         print "Transferring RID Allocation Master role from owner: $ridAllocationMaster\n";
         $fsmo->transferRidAllocationMaster();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
-    };
+    }
 }
 
 my $infrastructureMaster = $fsmo->getInfrastructureMaster();
@@ -146,10 +142,9 @@ unless ($dsServiceName =~/$infrastructureMaster/i) {
     try {
         print "Transferring Infrastructure Master role from owner: $infrastructureMaster\n";
         $fsmo->transferInfrastructureMaster();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "ERROR: $error\n";
-    };
+    }
 }
 
 print "Migrated successfully!\n";

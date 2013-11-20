@@ -19,7 +19,7 @@ package EBox::SysInfo::CGI::Backup;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Config;
 use EBox::Backup;
 use EBox::Gettext;
@@ -163,10 +163,9 @@ sub _backupAction
     try {
         my $backup = EBox::Backup->new();
         $progressIndicator= $backup->prepareMakeBackup(description => $description);
-    } otherwise {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
-    };
+    } catch ($e) {
+        $self->setErrorFromException($e);
+    }
 
     if ($progressIndicator) {
         $self->_showBackupProgress($progressIndicator);
@@ -210,10 +209,9 @@ sub _restore
     my $progressIndicator;
     try {
         $progressIndicator = $backup->prepareRestoreBackup($filename);
-    } otherwise {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
-    };
+    } catch ($e) {
+        $self->setErrorFromException($e);
+    }
 
     if ($progressIndicator) {
         $self->_showRestoreProgress($progressIndicator);

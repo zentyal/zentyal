@@ -1,4 +1,5 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Update TXT _kerberos record on domain rename
 	+ Added missing EBox::Exceptions uses
 	+ Read DNS zones from samba database while provisioning

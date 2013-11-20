@@ -50,7 +50,7 @@ use EBox::Util::Event qw(:constants);
 # Core modules
 use Data::Dumper;
 #use File::Temp qw(tempfile);
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants:
 #

@@ -20,7 +20,7 @@ package EBox::TC;
 
 use EBox::Gettext;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Sudo::Command;
@@ -73,7 +73,7 @@ sub tc
 
     try {
         EBox::Sudo::root(TC_CMD . " $opts");
-    } catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # Catching exception from tc command
         my $exception = shift;
         if ( $exception->exitValue() == 2 ) {
@@ -84,7 +84,7 @@ sub tc
         else {
             $exception->throw();
         }
-    };
+    }
 }
 
 # Method: reset

@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 
@@ -155,10 +155,10 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -738,11 +738,10 @@ sub _checkSquidFile
 
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools

@@ -20,7 +20,7 @@ package EBox::Types::Test;
 
 use Test::More;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Global;
 
 # count as 3 tests
@@ -55,11 +55,10 @@ sub defaultValueOk
             defaultValue => $value,
             @extraNewParams
         );
-    } otherwise {
-        my $ex = shift @_;
-        diag "$ex";
+    } catch ($e) {
+        diag "$e";
         fail "Cannot create a instance of $class with default value $value";
-    };
+    }
 
     is $instance->value(),
         $value,
@@ -101,7 +100,7 @@ sub _createTest
     my $instance;
     try {
         $instance = $class->new(%params);
-    } otherwise {
+    } catch {
         $failed =1;
 
         if ($wantSuccess) {
@@ -109,7 +108,7 @@ sub _createTest
         } else {
             pass $testName
         }
-    };
+    }
 
     $failed and
         return;
@@ -118,18 +117,17 @@ sub _createTest
         unless ($noSetCheck) {
             $instance->setValue($instance->printableValue);
         }
-    } otherwise {
+    } catch ($e) {
         $failed = 1;
 
-        my $ex = shift @_;
-        diag $ex;
+        diag $e;
 
         if ($wantSuccess) {
             fail $testName;
         } else {
             pass $testName
         }
-    };
+    }
 
     $failed and
         return;
@@ -165,18 +163,16 @@ sub storeAndRestoreGConfTest
             fieldName => 'storeAndRestoreGConfTest',
             printableName => 'storeAndRestoreGConfTest',
         );
-    } otherwise {
-        my $ex = shift;
-        die "Cannot create instance of $class";
-    };
+    } catch ($e) {
+        die "Cannot create instance of $class: $e";
+    }
 
     foreach my $value (@values) {
         try {
             $instance->setValue($value)
-        } otherwise {
-            my $ex = shift;
-            die "Cannot set value $value: $ex";
-        };
+        } catch ($e) {
+            die "Cannot set value $value: $e";
+        }
 
         lives_ok {
             $instance->storeInGConf($mod, $dir);
@@ -184,10 +180,9 @@ sub storeAndRestoreGConfTest
 
         try {
             $instance->setValue($otherValue);
-        } otherwise {
-            my $ex = shift;
-            die "Cannot set value $value: $ex";
-        };
+        } catch ($e) {
+            die "Cannot set value $value: $e";
+        }
 
         my $hash = $mod->hash_from_dir($dir);
         lives_ok {

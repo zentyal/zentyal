@@ -20,7 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -42,8 +42,8 @@ EBox::debug("mask: $mask");
 
 try {
     $network->setDHCPAddress($iface, $address, $mask);
-} otherwise {
+} catch {
     EBox::error("Call to setDHCPAddress for $iface failed");
-} finally {
-    exit;
-};
+}
+
+exit;

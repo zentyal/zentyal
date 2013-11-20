@@ -44,7 +44,7 @@ use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Date::Calc;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -386,9 +386,7 @@ sub create
         if (defined $args{uidNumber}) {
             $res->setupUidMapping($args{uidNumber});
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -397,7 +395,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -476,13 +474,13 @@ sub addToZentyal
         }
 
         $zentyalUser = EBox::Users::User->create(%args);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("User $uid already in OpenLDAP database");
         $zentyalUser = new EBox::Users::User(uid => $uid);
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error loading user '$uid': $error");
-    };
+    }
 
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);

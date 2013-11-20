@@ -31,7 +31,7 @@ use EBox::WebServer::Model::GeneralSettings;
 use EBox::WebServer::Model::VHostTable;
 use EBox::WebServer::Composite::General;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 
 use constant VHOST_PREFIX => 'ebox-';
@@ -366,13 +366,12 @@ sub _setDfltSSLVhost
         # Enable the SSL module
         try {
             EBox::Sudo::root('a2enmod ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas",
                              [
@@ -384,34 +383,31 @@ sub _setDfltSSLVhost
         # Enable default-ssl vhost
         try {
             EBox::Sudo::root('a2ensite default-ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     } else {
         # Disable the module
         try {
             EBox::Sudo::root('a2dissite default-ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw()
             }
-        };
+        }
         # Disable default-ssl vhost
         try {
             EBox::Sudo::root('a2dismod ssl');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     }
 }
 
@@ -447,43 +443,39 @@ sub _setUserDir
         # Enable the modules
         try {
             EBox::Sudo::root('a2enmod ldap_userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
         try {
             EBox::Sudo::root('a2enmod userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
+        }
     } else {
         # Disable the modules
         try {
             EBox::Sudo::root('a2dismod userdir');
-        } catch EBox::Exceptions::Sudo::Command with {
-            my ($exc) = @_;
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             # Already enabled?
-            if ( $exc->exitValue() != 1 ) {
-                throw $exc;
+            if ($e->exitValue() != 1) {
+                $e->throw();
             }
-        };
-        if ( $gl->modExists('users')) {
+        }
+        if ($gl->modExists('users')) {
             try {
                 EBox::Sudo::root('a2dismod ldap_userdir');
-            } catch EBox::Exceptions::Sudo::Command with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Sudo::Command $e) {
                 # Already disabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
+                if ($e->exitValue() != 1) {
+                    $e->throw();
                 }
-            };
+            }
         }
     }
 }
@@ -528,13 +520,12 @@ sub _setVHosts
             my $vhostfile = VHOST_PREFIX . $vHostName;
             try {
                 EBox::Sudo::root("a2ensite $vhostfile");
-            } catch EBox::Exceptions::Sudo::Command with {
-                my ($exc) = @_;
+            } catch (EBox::Exceptions::Sudo::Command $e) {
                 # Already enabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
+                if ($e->exitValue() != 1) {
+                    $e->throw();
                 }
-            };
+            }
         }
 
     }
@@ -769,9 +760,9 @@ sub dumpConfig
        $dir =~ s/$toReplace/$replacement/;
         try {
             EBox::Sudo::root("cp -a $dir $sitesBackDir");
-        } catch EBox::Exceptions::Sudo::Command with {
+        } catch (EBox::Exceptions::Sudo::Command $e) {
             EBox::error("Failed to do backup of the vhost custom configuration dir $dir");
-        };
+        }
     }
 }
 
