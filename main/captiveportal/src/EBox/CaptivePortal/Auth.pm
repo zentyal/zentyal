@@ -34,6 +34,7 @@ use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
+use TryCatch::Lite;
 
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007; # (Bond, James Bond)
