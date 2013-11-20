@@ -272,10 +272,12 @@ sub editBoolean
 
 sub setAllChecks
 {
-    my ($self, $value) = @_;
+    my ($self) = @_;
     my $model = $self->{'tableModel'};
     my $field = $self->param('editid');
+    my $value = $self->param($field);
     $model->setAll($field, $value);
+    return $value;
 }
 
 sub checkAllControlValueAction
@@ -619,12 +621,15 @@ sub cloneAction
     $self->refreshTable();
 }
 
-sub checkboxSetAllAction
+sub checkAllAction
 {
     my ($self) = @_;
-    $self->setAllChecks(1);
-    $self->refreshTable();
-
+    $self->{json}->{success} = 0;
+    my $value = $self->setAllChecks();
+    $self->{json} = {
+        success => 1,
+        checkAllValue => $value
+   };
 }
 
 sub checkboxUnsetAllAction

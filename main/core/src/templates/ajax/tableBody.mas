@@ -396,16 +396,8 @@ my $divId = $id;
 $divId =~ s/_CheckAll$/_div_CheckAll/;
 
 
-my $checkAllJS=  $model->changeViewJS( changeType => "checkboxSetAll",
-                      editId =>  $fieldName,
-                      page => $page,
-                      isFilter => 0);
-my $uncheckAllJS=  $model->changeViewJS( changeType => "checkboxUnsetAll",
-                      editId => $fieldName,
-                      page => $page,
-                      isFilter => 0);
-my $onChangeJS =qq|if (this.checked) {$checkAllJS } else {$uncheckAllJS;} |;
-my @htmlAttrs = (onchange => $onChangeJS);
+my $checkAllJS = $model->checkAllJS($fieldName);
+my @htmlAttrs = (onchange => "$checkAllJS; return false");
 push @htmlAttrs, (id => $id);
 if ( $model->checkAllControlValue($fieldName)) {
   push @htmlAttrs, ('checked' => 'checked');

@@ -4526,6 +4526,20 @@ sub checkAllControlValue
     return 1;
 }
 
+sub checkAllJS
+{
+    my ($self, $fieldName) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.checkAll('%s', '%s', '%s', '%s', this.checked)";
+    my $call =  sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $fieldName
+                    );
+    return $call;
+}
+
 sub _confirmationDialogForAction
 {
     my ($self, $action, $params_r) = @_;
