@@ -1267,14 +1267,14 @@ sub _runExecFromDir
                     $progress->notifyTick();
                 }
                 my $output = EBox::Sudo::command("$exec $modNames");
-                if ( @{$output} > 0) {
+                if (@{$output} > 0) {
                     EBox::info("Output from $exec: @{$output}");
                 }
             } catch (EBox::Exceptions::Command $e) {
                 my $msg = "Command $exec failed its execution\n"
                   . 'Output: ' . @{$e->output()} . "\n"
                   . 'Error: ' . @{$e->error()} . "\n"
-                  . 'Return value: ' . $exc->exitValue();
+                  . 'Return value: ' . $e->exitValue();
                 EBox::error($msg);
             } catch ($e) {
                 EBox::error("Error executing $exec: $e");
