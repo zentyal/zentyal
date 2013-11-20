@@ -427,13 +427,8 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
         }
     } else if ( action == 'changeEdit' ) {
       Zentyal.TableHelper.setLoading('actionsCell_' + id, table, true);
-    } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
-        var selector = 'input[id^="' + table + '_' + id + '_"]';
-        $(selector).each(function(i, e) {
-            Zentyal.TableHelper.setLoading(e.parentNode.id, table, true);
-        });
-
-        Zentyal.TableHelper.setLoading(table + '_' + id + '_div_CheckAll', table, true);
+    } else {
+        throw "Unsupported action: " + action;
     }
 
     params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
@@ -451,13 +446,6 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
             }
         }  else if ( action == 'changeEdit' ) {
             Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
-        } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
-            var selector = 'input[id^="' + table + '_' + id + '_"]';
-            $(selector).each(function(index, element) {
-                Zentyal.TableHelper.restoreHidden(element.parentNode.id, table);
-            });
-
-            Zentyal.TableHelper.restoreHidden(table + '_' + id + '_div_CheckAll', table);
         }
     };
     var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, failure);
@@ -493,22 +481,20 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
 
     Zentyal.TableHelper.cleanMessage(table);
 
-    if ( action == 'changeAdd' ) {
-      Zentyal.TableHelper.setLoading('creatingForm_' + table, table, true);
-    } else if ( action == 'changeList' ) {
+    if ( action == 'changeList' ) {
         if ( ! isFilter ) {
             Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
         }
-    } else if ( action == 'changeEdit' ) {
-      Zentyal.TableHelper.setLoading('actionsCell_' + id, table, true);
-   } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
-       var selector = 'input[id^="' + table + '_' + id + '_"]';
-       $(selector).each(function(i, e) {
+    } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
+        var selector = 'input[id^="' + table + '_' + id + '_"]';
+        $(selector).each(function(i, e) {
            Zentyal.TableHelper.setLoading(e.parentNode.id, table, true);
-       });
+        });
 
-       Zentyal.TableHelper.setLoading(table + '_' + id + '_div_CheckAll', table, true);
-   }
+        Zentyal.TableHelper.setLoading(table + '_' + id + '_div_CheckAll', table, true);
+    } else {
+        throw "Unsupported action: " + action;
+    }
 
     params = 'action=' + action + '&tablename=' + table + '&directory=' + directory + '&editid=' + id;
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
@@ -519,14 +505,10 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
     };
     var failure = function(response) {
         Zentyal.TableHelper.setError(table, response.responseText);
-        if ( action == 'changeAdd' ) {
-            Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
-        } else if ( action == 'changeList' ) {
+        if ( action == 'changeList' ) {
             if (! isFilter ) {
                 Zentyal.TableHelper.restoreHidden(table + '_buttons', table);
             }
-        }  else if ( action == 'changeEdit' ) {
-            Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
         } else if ( (action == 'checkboxSetAll') || (action == 'checkboxUnsetAll') ) {
             var selector = 'input[id^="' + table + '_' + id + '_"]';
             $(selector).each(function(index, element) {
@@ -543,9 +525,6 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
         }
         // Zentyal.Stripe again the table
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        if ( action == 'changeEdit' ) {
-            Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
-        }
         Zentyal.TableHelper.completedAjaxRequest();
         Zentyal.refreshSaveChangesButton();
     };
