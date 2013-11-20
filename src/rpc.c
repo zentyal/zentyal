@@ -74,9 +74,11 @@ bool rpc_open(struct status *status)
 	bool retval = false;
 	int ret = 0;
 
+	DEBUG(2, ("[*] Opening RPC\n"));
+
 	/* Adquire lock */
 	ret = pthread_spin_lock(&status->lock);
-	if (!ret) {
+	if (ret) {
 		fprintf(stderr, "[!] pthread_spin_lock: %s\n", strerror(ret));
 		return false;
 	}
@@ -131,9 +133,11 @@ void rpc_close(struct status *status)
 {
 	int ret = 0;
 
+	DEBUG(2, ("[*] Closing RPC\n"));
+
 	/* Adquire lock */
 	ret = pthread_spin_lock(&status->lock);
-	if (!ret) {
+	if (ret) {
 		fprintf(stderr, "[!] pthread_spin_lock: %s\n", strerror(ret));
 		return;
 	}
@@ -178,6 +182,8 @@ void rpc_run(struct status *status)
 {
 	int	ret;
 
+	DEBUG(2, ("[*] Running RPC command\n"));
+
 	/* Init command control */
 	if (!control_init(status)) {
 		return;
@@ -190,6 +196,7 @@ void rpc_run(struct status *status)
 		amqp_basic_properties_t response_header;
 		amqp_bytes_t		response_body;
 
+		response_header._flags = 0;
 		amqp_maybe_release_buffers(status->conn);
 		result = amqp_consume_message(status->conn, &envelope, NULL, 0);
 		if (result.reply_type != AMQP_RESPONSE_NORMAL) {
