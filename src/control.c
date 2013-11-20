@@ -21,6 +21,9 @@
 
 #include <pthread.h>
 #include <sys/time.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <libgen.h>
 #include "migrate.h"
 
 enum rpc_command
@@ -452,6 +455,10 @@ static bool connect_to_server(TALLOC_CTX *mem_ctx,
 	char			*cpid_str;
 	char			*lcid_str;
 	const char		*locale;
+    const char      *defaultldifpath;
+    char            *profdbcopy;
+    char            errorbuffer[256];
+    int             error;
 	struct mapi_profile	*profile = NULL;
 
 	/* If mapi context is initialized, close and reconnect */
@@ -467,7 +474,31 @@ static bool connect_to_server(TALLOC_CTX *mem_ctx,
 	profname = control_gen_profile_name(mem_ctx);
 	profile = talloc_zero(mem_ctx, struct mapi_profile);
 
+    DEBUG(0, ("Preparing Profile Store at %s\n", profdb));
+    /* Creates an initial profile store if it doesn't exist yet */
+    if (access(profdb, F_OK) != 0) {
+        DEBUG(2, ("Creating Profile Store at %s...\n", profdb));
+        profdbcopy = talloc_strdup(mem_ctx, profdb);
+        error = mkdir(dirname(profdbcopy), 0700);
+        talloc_free(profdbcopy);
+        if ((error == -1) && (errno != EEXIST)) {
+            conn->error = talloc_asprintf(
+                mem_ctx, "mkdir: %s", strerror_r(error, errorbuffer, 256));
+                goto fail;
+        }
+
+        defaultldifpath = talloc_strdup(mem_ctx, mapi_profile_get_ldif_path());
+        retval = CreateProfileStore(profdb, defaultldifpath);
+        if (retval != MAPI_E_SUCCESS) {
+                conn->error = talloc_asprintf(
+                    mem_ctx, "CreateProfileStore: %s",
+                    mapi_get_errstr(GetLastError()));
+                goto fail;
+        }
+    }
+
 	/* Initialize MAPI subsystem */
+    DEBUG(2, ("Initialising Profile Store at %s...\n", profdb));
 	retval = MAPIInitialize(&conn->mapi_ctx, profdb);
 	if (retval != MAPI_E_SUCCESS) {
 		conn->error = talloc_asprintf(mem_ctx, "MAPIInitialize: %s",
@@ -884,6 +915,7 @@ struct json_object *control_handle_get_users(struct status *status, struct json_
 	uint32_t		totalRecs = 0;
 	uint32_t		i = 0;
 	int 			ret = 0;
+ 	enum MAPISTATUS mapiretval;
 
 	jresponse = json_object_new_object();
 
@@ -895,7 +927,12 @@ struct json_object *control_handle_get_users(struct status *status, struct json_
 		return jresponse;
 	}
 
-	GetGALTableCount(status->remote.session, &totalRecs);
+	mapiretval = GetGALTableCount(status->remote.session, &totalRecs);
+	if (mapiretval != MAPI_E_SUCCESS) {
+		DEBUG(0, ("[!] Error counting the number of users: %s\n",
+                  mapi_get_errstr(mapiretval)));
+        totalRecs = 0;
+    }
 	json_object_object_add(jresponse, "count", json_object_new_int(totalRecs));
 	DEBUG(4, ("[*] Total Number of entries in GAL: %d\n", totalRecs));
 	if (totalRecs <= 0 ) {
