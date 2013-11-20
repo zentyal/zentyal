@@ -64,7 +64,7 @@ sub _process
                 $dep->enableService(1);
             }
         } catch ($e) {
-            if ($excep->isa("EBox::Exceptions::External")) {
+            if ($e->isa("EBox::Exceptions::External")) {
                 throw EBox::Exceptions::External(
                     __x('Failed to enable {mod}: {err}', mod => $dep->printableName(), err => $e->stringify())
                 );
