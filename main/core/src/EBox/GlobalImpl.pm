@@ -602,8 +602,7 @@ sub saveAllModules
                 $module->{firstInstall} = 1;
                 $module->configureModule();
             } catch ($e) {
-                my $err = $e->text();
-                EBox::debug("Failed to enable module $name: $err");
+                EBox::debug("Failed to enable module $name: $e");
             }
             delete $module->{firstInstall};
         }
