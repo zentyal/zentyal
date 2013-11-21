@@ -1,3 +1,5 @@
+HEAD
+	+ Pinning kernels so they are updated with QA updates active
 3.2.2
 	+ Added missing EBox::Exceptions uses
 	+ Remove cron jobs when unregistering
