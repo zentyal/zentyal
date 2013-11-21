@@ -630,9 +630,6 @@ sub saveAllModules
     foreach my $mod (@{ $self->modInstancesOfType($ro, 'EBox::Module::Config') }) {
         next if $modified{$mod->name()};
         $mod->_saveConfig();
-        if ($mod->isa('EBox::Module::Service') and (not $mod->configured())) {
-            $self->modRestarted($mod->name);
-        }
     }
 
     my $webadmin = 0;
@@ -651,7 +648,10 @@ sub saveAllModules
         if ($mod->isa('EBox::Module::Service')) {
             $mod->setInstalled();
 
-            next unless ($mod->configured());
+            if (not $mod->configured()) {
+                $self->modRestarted($mod->name);
+                next;
+            }
         }
 
         try {
