@@ -629,7 +629,8 @@ sub saveAllModules
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
     foreach my $mod (@{ $self->modInstancesOfType($ro, 'EBox::Module::Config') }) {
-        next if $modified{$mod->name()};
+        my $name = $mod->name();
+        next if ($modified{$name} or ($name eq 'global'));
         $mod->_saveConfig();
     }
 
