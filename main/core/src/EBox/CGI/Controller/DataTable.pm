@@ -418,7 +418,6 @@ sub editBooleanAction
     my ($self) = @_;
     delete $self->{template}; # to not print standard response
     $self->editBoolean();
-
 }
 
 sub cloneAction
