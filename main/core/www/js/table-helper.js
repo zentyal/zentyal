@@ -124,7 +124,7 @@ Zentyal.TableHelper.setErrorFromJSON = function(table, response) {
 Zentyal.TableHelper._newSuccessJSONCallback = function(table, afterSetError) {
     var success = function(response) {
         if (! response.success) {
-            setErrorFromJSON(response);
+            Zentyal.TableHelper.setErrorFromJSON(response);
             if (afterSetError) {
                 afterSetError(response);
             }
@@ -389,7 +389,7 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
     var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText)  };
     var success = function(response) {
         if (!response.success) {
-            setErrorFromJSON(response);
+            Zentyal.TableHelper.setErrorFromJSON(response);
             return;
         }
         if ('message' in response) {
