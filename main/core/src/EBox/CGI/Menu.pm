@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox::Config;
 use EBox::Menu;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Storable qw(retrieve);
 
 sub new # (error=?, msg=?, cgi=?)

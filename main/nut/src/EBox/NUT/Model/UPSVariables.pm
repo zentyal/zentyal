@@ -21,8 +21,10 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
 use EBox::Types::Text;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
-use Error qw( :try );
+use TryCatch::Lite;
 
 sub new
 {
@@ -48,11 +50,11 @@ sub upsVariables
     try {
         $allVars = EBox::Sudo::root("upsc $label");
         $rwVars = EBox::Sudo::root("upsrw $label");
-    } otherwise {
+    } catch {
         my $error = shift;
         my $text = join ('', @{$error->{error}});
         $self->setMessage("There was a problem reading variables. $text", 'warning');
-    };
+    }
 
     my $vars = {};
     foreach my $line (@{$allVars}) {

@@ -32,8 +32,10 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::FileSystem;
-use Error qw(:try);
+use TryCatch::Lite;
 use String::ShellQuote;
 
 # Group: Public methods

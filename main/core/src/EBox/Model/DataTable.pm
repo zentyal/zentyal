@@ -34,13 +34,15 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 use List::Util;
@@ -742,90 +744,87 @@ sub addTypedRow
     $self->_checkCompulsoryFields($paramsRef);
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        my $checkRowUnique = $self->rowUnique();
 
-    my $checkRowUnique = $self->rowUnique();
+        # Check field uniqueness if any
+        my @userData = ();
+        my $userData = {};
+        while ( my ($paramName, $param) = each (%{$paramsRef})) {
+            # Check uniqueness
+            if ($param->unique()) {
+                # No need to check if the entire row is unique if
+                # any of the fields are already checked
+                $checkRowUnique = 0;
 
-    # Check field uniqueness if any
-    my @userData = ();
-    my $userData = {};
-    while ( my ($paramName, $param) = each (%{$paramsRef})) {
-        # Check uniqueness
-        if ($param->unique()) {
-            # No need to check if the entire row is unique if
-            # any of the fields are already checked
-            $checkRowUnique = 0;
-
-            $self->_checkFieldIsUnique($param);
-        }
-        push(@userData, $param);
-        $row->addElement($param);
-    }
-
-    unless ($optParams{noValidateRow}) {
-        $self->validateTypedRow('add', $paramsRef, $paramsRef);
-    }
-
-    # Check if the new row is unique, only if needed
-    if ($checkRowUnique) {
-        $self->_checkRowIsUnique(undef, $paramsRef);
-    }
-
-    my $hash = {};
-    foreach my $data (@userData) {
-        $data->storeInHash($hash);
-        $data = undef;
-    }
-
-    unless ($optParams{noOrder}) {
-        # Insert the element in order
-        if ($self->table()->{'order'}) {
-            my $pos = 0;
-            my $insertPos = $self->insertPosition();
-            if (defined($insertPos)) {
-                if ( $insertPos eq 'front' ) {
-                    $pos = 0;
-                } elsif ( $insertPos eq 'back' ) {
-                    $pos = $#{$self->order()} + 1;
-                }
+                $self->_checkFieldIsUnique($param);
             }
-            $self->_insertPos($id, $pos);
-        } else {
-            my $order = $confmod->get_list($self->{'order'});
-            push (@{$order}, $id);
-            $confmod->set($self->{'order'}, $order);
+            push(@userData, $param);
+            $row->addElement($param);
         }
-    }
 
-    if ($readOnly) {
-        $hash->{readOnly} = 1;
-    }
-    if ($disabled) {
-        $hash->{disabled} = 1;
-    }
+        unless ($optParams{noValidateRow}) {
+            $self->validateTypedRow('add', $paramsRef, $paramsRef);
+        }
 
-    $confmod->set("$dir/$id", $hash);
+        # Check if the new row is unique, only if needed
+        if ($checkRowUnique) {
+            $self->_checkRowIsUnique(undef, $paramsRef);
+        }
 
-    my $newRow = $self->row($id);
+        my $hash = {};
+        foreach my $data (@userData) {
+            $data->storeInHash($hash);
+            $data = undef;
+        }
 
-    $self->setMessage($self->message('add'));
-    $self->addedRowNotify($newRow);
-    $self->_notifyManager('add', $newRow);
+        unless ($optParams{noOrder}) {
+            # Insert the element in order
+            if ($self->table()->{'order'}) {
+                my $pos = 0;
+                my $insertPos = $self->insertPosition();
+                if (defined($insertPos)) {
+                    if ( $insertPos eq 'front' ) {
+                        $pos = 0;
+                    } elsif ( $insertPos eq 'back' ) {
+                        $pos = $#{$self->order()} + 1;
+                    }
+                }
+                $self->_insertPos($id, $pos);
+            } else {
+                my $order = $confmod->get_list($self->{'order'});
+                push (@{$order}, $id);
+                $confmod->set($self->{'order'}, $order);
+            }
+        }
 
-    # check if there are files to delete if revoked
-    my $filesToRemove =   $self->filesPathsForRow($newRow);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->{confmodule}->addFileToRemoveIfRevoked($file);
-    }
+        if ($readOnly) {
+            $hash->{readOnly} = 1;
+        }
+        if ($disabled) {
+            $hash->{disabled} = 1;
+        }
 
-    $self->_commitTransaction();
+        $confmod->set("$dir/$id", $hash);
 
-    } otherwise {
-        my $ex = shift;
+        my $newRow = $self->row($id);
+
+        $self->setMessage($self->message('add'));
+        $self->addedRowNotify($newRow);
+        $self->_notifyManager('add', $newRow);
+
+        # check if there are files to delete if revoked
+        my $filesToRemove =   $self->filesPathsForRow($newRow);
+        foreach my $file (@{  $filesToRemove }) {
+            $self->{confmodule}->addFileToRemoveIfRevoked($file);
+        }
+
+        $self->_commitTransaction();
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        $e->throw();
+    }
 
     return $id;
 }
@@ -1053,61 +1052,56 @@ sub removeRow
     }
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        # If force != true and automaticRemove is enabled it means
+        # the model has to automatically check if the row which is
+        # about to removed is referenced elsewhere. In that
+        # case throw a DataInUse exceptions to iform the user about
+        # the effects its actions will have.
+        if ((not $force) and $self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $manager->warnIfIdIsUsed($self->contextName(), $id);
+        }
 
-    # If force != true and automaticRemove is enabled it means
-    # the model has to automatically check if the row which is
-    # about to removed is referenced elsewhere. In that
-    # case throw a DataInUse exceptions to iform the user about
-    # the effects its actions will have.
-    if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $manager->warnIfIdIsUsed($self->contextName(), $id);
-    }
+        $self->_checkRowExist($id, '');
+        my $row = $self->row($id);
+        $self->validateRowRemoval($row, $force);
 
-    $self->_checkRowExist($id, '');
-    my $row = $self->row($id);
-    $self->validateRowRemoval($row, $force);
+        # check if there are files to delete
+        my $filesToRemove =   $self->filesPathsForRow($row);
+        foreach my $file (@{  $filesToRemove }) {
+            $self->{confmodule}->addFileToRemoveIfCommitted($file);
+        }
 
-    # check if there are files to delete
-    my $filesToRemove =   $self->filesPathsForRow($row);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->{confmodule}->addFileToRemoveIfCommitted($file);
-    }
+        $self->_removeRow($id);
 
-    $self->_removeRow($id);
-
-    my $userMsg = $self->message('del');
-    # Dependant models may return some message to inform the user
-    my $depModelMsg = $self->_notifyManager('del', $row);
-    $self->_notifyManager('del', $row);
-    if ( defined( $depModelMsg ) and $depModelMsg ne ''
-       and $depModelMsg ne '<br><br>') {
-        $userMsg .= "<br><br>$depModelMsg";
-    }
-    # If automaticRemove is enabled then remove all rows using referencing
-    # this row in other models
-    if ($self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
-                                                   $id);
-        if ( defined( $depModelMsg ) and $depModelMsg ne ''
-           and $depModelMsg ne '<br><br>') {
+        my $userMsg = $self->message('del');
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyManager('del', $row);
+        $self->_notifyManager('del', $row);
+        if (defined($depModelMsg) and $depModelMsg ne '' and $depModelMsg ne '<br><br>') {
             $userMsg .= "<br><br>$depModelMsg";
         }
-    }
+        # If automaticRemove is enabled then remove all rows using referencing
+        # this row in other models
+        if ($self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
+                    $id);
+            if (defined( $depModelMsg ) and $depModelMsg ne '' and $depModelMsg ne '<br><br>') {
+                $userMsg .= "<br><br>$depModelMsg";
+            }
+        }
 
-    $self->setMessage($userMsg);
-    $self->deletedRowNotify($row, $force);
+        $self->setMessage($userMsg);
+        $self->deletedRowNotify($row, $force);
 
-    $self->_commitTransaction();
-
-    } otherwise {
-        my $ex = shift;
+        $self->_commitTransaction();
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        $e->throw();
+    }
 }
 
 # Method: removeAll
@@ -1368,11 +1362,10 @@ sub setTypedRow
         $self->updatedRowNotify($row, $oldRow, $force);
 
         $self->_commitTransaction();
-    } otherwise {
-        my $ex = shift;
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        throw $e;
+    }
 }
 
 # Method: enabledRows
@@ -1480,11 +1473,10 @@ sub ids
             }
 
             $self->_commitTransaction();
-        } otherwise {
-            my $ex = shift;
+        } catch ($e) {
             $self->_rollbackTransaction();
-            throw $ex;
-        };
+            $e->throw();
+        }
     }
 
     if ($changed) {
@@ -4438,9 +4430,11 @@ sub clone
             my $newRow = $self->row($newId);
             $newRow->cloneSubModelsFrom($srcRow)
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($selfDir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($selfDir);
 }
 
 # Method: setAll

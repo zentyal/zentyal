@@ -9,7 +9,7 @@ use EBox::ProgressIndicator;
 use Getopt::Long;
 
 use English qw(-no-match-vars);
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -100,15 +100,13 @@ $restoreParams{installMissing}    = $installMissing;
 
 try {
     EBox::Backup->restoreBackup($file, %restoreParams);
-} otherwise {
-    my $ex = shift @_;
-
+} catch ($ex) {
     if (exists $restoreParams{progress}) {
         my $progress = $restoreParams{progress};
         $progress->setAsFinished(1, $ex->text);
     }
     $ex->throw();
-};
+}
 
 sub info
 {

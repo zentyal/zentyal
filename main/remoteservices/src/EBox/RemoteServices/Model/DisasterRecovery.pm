@@ -46,7 +46,7 @@ use EBox::Global;
 use EBox::RemoteServices::Types::EBoxCommonName;
 use EBox::Types::Text;
 use POSIX;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants:
 use constant STORE_URL => 'http://store.zentyal.com/';
@@ -104,7 +104,8 @@ sub viewCustomizer
     my $drOn = 0;
     try {
         $drOn = $rs->disasterRecoveryAvailable();
-    } catch EBox::Exceptions::NotConnected with { };
+    } catch (EBox::Exceptions::NotConnected $e) {
+    }
     unless ( $drOn ) {
         $msg .= '<br/><br/>' if ($msg);
         $msg .= _DRmessage();
@@ -207,7 +208,8 @@ sub _content
         my $drEnabled = 0;
         try {
             $drEnabled = $rs->disasterRecoveryAvailable();
-        } catch EBox::Exceptions::NotConnected with { };
+        } catch (EBox::Exceptions::NotConnected $e) {
+        }
 
         if ( $drEnabled ) {
             $dr = __('Full Disaster Recovery enabled');

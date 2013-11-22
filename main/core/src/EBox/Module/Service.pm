@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -27,7 +28,7 @@ use EBox::Sudo;
 use EBox::AuditLogging;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant INITDPATH => '/etc/init.d/';
 
@@ -371,13 +372,12 @@ sub configureModule
         $self->enableActions();
         $self->enableService(1);
         $self->setNeedsSaveAfterConfig(1) if not defined $needsSaveAfterConfig;
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         $self->setConfigured(0);
         $self->enableService(0);
         $self->setNeedsSaveAfterConfig(undef);
-        $ex->throw();
-    };
+        $e->throw();
+    }
 }
 
 sub setNeedsSaveAfterConfig
@@ -465,10 +465,10 @@ sub _isDaemonRunning
         my $running = 0;
         try {
             $running = EBox::Service::running($dname);
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # If the daemon does not exist, then return false
             ;
-        };
+        }
         return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
         my $output = EBox::Sudo::silentRoot(INITDPATH .
@@ -680,11 +680,14 @@ sub saveReload
             $self->_enforceServiceState(reload => 1);
             $self->_postServiceHook($enabled);
         }
-    } finally {
-        # Mark as changes has been saved
+    } catch ($e) {
         $global->modRestarted($self->name());
         $self->_unlock();
-    };
+        $e->throw();
+    }
+    # Mark as changes has been saved
+    $global->modRestarted($self->name());
+    $self->_unlock();
 }
 
 # Method: _daemons
@@ -880,10 +883,11 @@ sub stopService
     $self->_lock();
     try {
         $self->_stopService(%params);
-    } finally {
+    } catch ($e) {
         $self->_unlock();
-    };
-
+        $e->throw();
+    }
+    $self->_unlock();
 }
 
 
@@ -986,13 +990,12 @@ sub restartService
     $log->info("Restarting service for module: " . $self->name);
     try {
         $self->_regenConfig('restart' => 1, @params);
-    } otherwise  {
-        my ($ex) = @_;
-        $log->error("Error restarting service: $ex");
-        throw $ex;
-    } finally {
+    } catch ($e) {
+        $log->error("Error restarting service: $e");
         $self->_unlock();
-    };
+        $e->throw();
+    }
+    $self->_unlock();
 }
 
 # Method: _supportActions

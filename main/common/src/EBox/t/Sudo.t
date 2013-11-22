@@ -4,7 +4,7 @@ use warnings;
 use Test::More tests => 45;
 use Test::Differences;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Path;
 
 use lib  '../..';
@@ -103,10 +103,10 @@ sub commandTest
     try {
         EBox::Sudo::command($failCommand);
         fail $testName;
-    } otherwise {
-        $ex = shift @_;
+    } catch ($e) {
+        $ex = $e;
         pass $testName;
-    };
+    }
 
     isa_ok($ex, 'EBox::Exceptions::Command');
     is $ex->cmd(), $failCommand, 'Checking command attribute of command wich fails';

@@ -31,7 +31,7 @@ use EBox::Gettext;
 use EBox::Validate;
 use EBox::Exceptions::Lock;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -235,10 +235,10 @@ sub run
                 try {
                     $module->regenGatewaysFailover();
                     $done = 1;
-                } catch EBox::Exceptions::Lock with {
+                } catch (EBox::Exceptions::Lock $e) {
                     sleep 5;
                     $timeout -= 5;
-                };
+                }
                 if ($done) {
                     last;
                 }

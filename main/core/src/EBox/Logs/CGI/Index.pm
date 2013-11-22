@@ -26,7 +26,7 @@ use EBox::Model::Manager;
 use EBox::Validate;
 use EBox::Html;
 use POSIX qw(ceil);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PAGESIZE => 15;
 
@@ -160,11 +160,10 @@ sub _searchLogs
 
     try {
         $hfilters = $self->_paramFilters();
-    } otherwise {
-        my ($ex) = @_;
-        $self->setErrorFromException($ex);
+    } catch ($e) {
+        $self->setErrorFromException($e);
         $hfilters = {};
-    };
+    }
     if (exists $tableinfo->{autoFilter}) {
         while (my ($field, $value) = each $tableinfo->{autoFilter}) {
             (exists $hfilters->{$field}) and next;

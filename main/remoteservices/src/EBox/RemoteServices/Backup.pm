@@ -21,11 +21,14 @@ use base 'EBox::RemoteServices::Cred';
 
 use Data::Dumper;
 use Digest::SHA;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Backup;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::RemoteServices::Cred;
@@ -149,10 +152,11 @@ sub sendRemoteBackup
                                automatic => $automatic,
                                size      => (-s $archive),
                                digest    => $digest);
-    }
-    finally {
+    } catch ($e) {
         unlink $archive;
-    };
+        $e->throw();
+    }
+    unlink $archive;
 }
 
 # Restore remote configuration backup
@@ -165,11 +169,11 @@ sub restoreRemoteBackup
 
     try {
         EBox::Backup->restoreBackup($archiveFile);
-    } finally {
-        if (-e $archiveFile) {
-            unlink($archiveFile);
-        }
-    };
+    } catch ($e) {
+        unlink ($archiveFile) if (-e $archiveFile);
+        $e->throw();
+    }
+    unlink ($archiveFile) if (-e $archiveFile);
 }
 
 sub prepareRestoreRemoteBackup
@@ -187,11 +191,10 @@ sub prepareRestoreRemoteBackup
             deleteBackup => 1,
             dr => $dr,
         );
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         unlink($archiveFile);
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     return $progress;
 }
@@ -246,7 +249,7 @@ sub listRemoteBackups
             $self->_setMetainfoFootprint($footprint);
             $self->_setMetainfoCache($metainfo);
         }
-    } catch EBox::Exceptions::DataNotFound with {
+    } catch (EBox::Exceptions::DataNotFound $e) {
         # If all.info does not exist, fill fields artificially
         $self->_setMetainfoFootprint('');
         $self->_setMetainfoCache({});

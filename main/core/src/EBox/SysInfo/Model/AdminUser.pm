@@ -23,11 +23,13 @@ package EBox::SysInfo::Model::AdminUser;
 
 use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Types::Password;
 use EBox::Types::Action;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
 sub new
 {

@@ -36,8 +36,9 @@ use EBox::Types::Union::Text;
 use EBox::Validate;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PUBLIC_DIR => 'public_html';
 

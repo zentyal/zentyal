@@ -37,7 +37,7 @@ use EBox::Validate;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(none);
 
 # Group: Public methods

@@ -25,7 +25,7 @@ use strict;
 
 use EBox;
 use EBox::Exceptions::MissingArgument;
-use Error qw(:try);
+use TryCatch::Lite;
 use JSON::XS;
 
 # Method: new

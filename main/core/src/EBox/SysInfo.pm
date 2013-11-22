@@ -25,7 +25,7 @@ use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Config;
 use EBox::Gettext;
@@ -41,6 +41,7 @@ use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 use EBox::Util::Version;
 use EBox::Util::Software;
+use EBox::Exceptions::Internal;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 use constant UPDATES_URL => 'http://update.zentyal.org/updates';
@@ -450,9 +451,9 @@ sub _restartAllServices
                 ($name eq 'firewall');
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed ne "") {
         throw EBox::Exceptions::Internal("The following modules " .
@@ -464,8 +465,8 @@ sub _restartAllServices
     try {
         EBox::Sudo::root('service rsyslog restart',
                          'service cron restart');
-    } catch EBox::Exceptions::Internal with {
-    };
+    } catch (EBox::Exceptions::Internal $e) {
+    }
 }
 
 my $_dashboardStatusStrings;

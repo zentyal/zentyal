@@ -30,6 +30,7 @@ use EBox::Service;
 use EBox::Sudo;
 use EBox::Config;
 use EBox::WebServer;
+use EBox::Exceptions::External;
 use File::Slurp;
 
 use constant {

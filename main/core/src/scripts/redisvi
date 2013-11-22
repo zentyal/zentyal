@@ -20,7 +20,7 @@ use strict;
 use EBox;
 use EBox::Config::Redis;
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $dir = '';
 
@@ -55,11 +55,11 @@ if ($? == 0) {
     $redis->delete_dir($dir);
     try {
         $redis->import_dir_from_file($dumpfile);
-    } otherwise {
+    } catch {
         print "Import of modifications failed, restoring the original...\n";
         $redis->delete_dir($dir);
         $redis->import_dir_from_file("$dumpfile.orig");
-    };
+    }
 }
 
 unlink $dumpfile;

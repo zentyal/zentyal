@@ -27,7 +27,7 @@ use base 'EBox::LdapUserBase';
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp qw/tempfile/;
 use Time::HiRes qw(gettimeofday);
 use JSON::XS;
@@ -71,13 +71,12 @@ sub sync
     try {
         my $method = '_' . $signal;
         $self->$method(@{$args});
-    } otherwise {
-        my $ex = shift;
+    } catch ($e) {
         # Sync failed, save pending action
         my $name = $self->name();
-        EBox::error("Error notifying $name for $signal: $ex");
+        EBox::error("Error notifying $name for $signal: $e");
         $self->savePendingSync($signal, $args);
-    };
+    }
 }
 
 # method: savePendingSync
@@ -144,11 +143,10 @@ sub syncFromFile
     try {
         $self->$method(@{$args});
         unlink ($file);
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($e) {
         my $name = $self->name();
-        EBox::error("Error notifying $name for $method: $ex");
-    };
+        EBox::error("Error notifying $name for $method: $e");
+    }
 }
 
 sub readActionInfo

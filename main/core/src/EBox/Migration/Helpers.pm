@@ -20,7 +20,7 @@ package EBox::Migration::Helpers;
 
 use EBox;
 use EBox::DBEngineFactory;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # SQL helpers
 
@@ -28,14 +28,14 @@ sub runQuery
 {
     my ($query) = @_;
 
-    my $error = 0;
     try {
         my $dbengine = EBox::DBEngineFactory::DBEngine();
         $dbengine->do($query);
-    } otherwise {
-        $error = 1;
-    };
-    return $error;
+    } catch {
+        return 1;
+    }
+
+    return 0;
 }
 
 sub renameTable

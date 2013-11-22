@@ -24,7 +24,7 @@ use EBox::Global;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {
@@ -34,11 +34,6 @@ sub new # (cgi=?)
     $self->{errorchain} = "/Dashboard/Index";
     $self->{redirect} = "/Dashboard/Index";
     return $self;
-}
-
-sub domain
-{
-    return 'ebox';
 }
 
 sub _process
@@ -57,18 +52,17 @@ sub _process
 
         my $audit = $global->modInstance('audit');
         $audit->logAction('Dashboard', 'Module Status', 'restartService', $name);
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         EBox::error("Restart of $name from dashboard failed because it was locked");
         $self->{msg} = __x('Service {mod} is locked by another process. Please wait its end and then try again.',
                            mod  => $name,
                           );
-    } catch EBox::Exceptions::Internal with {
-        my ($ex) = @_;
-        EBox::error("Restart of $name from dashboard failed: " . $ex->text);
+    } catch (EBox::Exceptions::Internal $e) {
+        EBox::error("Restart of $name from dashboard failed: " . $e->text);
         $self->{msg} = __x('Error restarting service {mod}. See {logs} for more information.',
                            mod  => $name,
                            logs => EBox::Config::logfile());
-    };
+    }
     $self->cgi()->delete_all();
 }
 

@@ -35,9 +35,11 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 use Convert::ASN1;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
@@ -654,9 +656,7 @@ sub create
             $usersMod->notifyModsLdapUserBase(
                 'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -678,7 +678,7 @@ sub create
         $entry = undef;
         EBox::Sudo::root("rm -rf $homedir") if (-e $homedir);
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         # save() will be take also of saving password if it is changed

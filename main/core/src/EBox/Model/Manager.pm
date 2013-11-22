@@ -28,7 +28,8 @@ use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
-use Error qw(:try);
+use EBox::Exceptions::MissingArgument;
+use TryCatch::Lite;
 
 # Constant
 use constant MAX_INT => 32767;

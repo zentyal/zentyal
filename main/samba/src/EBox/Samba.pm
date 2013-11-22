@@ -58,7 +58,7 @@ use EBox::Users::User;
 use EBox::Users::Group;
 use EBox::Util::Random qw( generate );
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Slurp;
 use File::Temp qw( tempfile tempdir );
@@ -1029,15 +1029,14 @@ sub _createDirectories
         try {
             EBox::Sudo::root(@cmds);
             $chownOk = 1;
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($e) {
             if ($cnt < $chownTries) {
-                EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
+                EBox::warn("chown root:$group commands failed: $e . Attempt number $cnt");
                 sleep 1;
             } else {
-                $ex->throw();
+                $e->throw();
             }
-        };
+        }
         last if $chownOk;
     };
 }
@@ -1392,7 +1391,8 @@ sub dumpConfig
     if ($self->_s4syncCond()) {
         try {
             EBox::Service::manage('zentyal.s4sync', 'stop');
-        } otherwise {};
+        } catch {
+        }
     }
 
     my $mirror = EBox::Config::tmp() . "/samba.backup";
@@ -1441,12 +1441,11 @@ sub dumpConfig
 
     try {
         EBox::Sudo::root(@cmds);
-    } otherwise {
-        my ($error) = @_;
-        throw $error;
-    } finally {
+    } catch ($e) {
         EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
-    };
+        $e->throw();
+    }
+    EBox::Service::manage('zentyal.s4sync', 'start') if $self->_s4syncCond();
 
     # Backup admin password
     unless ($options{bug}) {

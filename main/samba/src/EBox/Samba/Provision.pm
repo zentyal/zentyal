@@ -38,7 +38,7 @@ use Net::LDAP::Util qw(ldap_explode_dn);
 use File::Temp qw( tempfile tempdir );
 use File::Slurp;
 use Time::HiRes;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -533,15 +533,14 @@ sub provisionDC
         }
         $self->setupDNS();
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
         $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    $self->setProvisioning(0);
 
     try {
         # Disable password policy
@@ -574,11 +573,10 @@ sub provisionDC
 
         # Reset sysvol
         $self->resetSysvolACL();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         $self->setProvisioned(0);
         throw EBox::Exceptions::External($error);
-    };
+    }
 }
 
 sub rootDseAttributes
@@ -941,11 +939,11 @@ sub checkClockSkew
     try {
         EBox::info("Checking clock skew with AD server...");
         %h = get_ntp_response($adServerIp);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(
             __x('Could not retrieve time from AD server {x} via NTP.',
                 x => $adServerIp));
-    };
+    }
 
     my $t0 = time;
     my $T1 = $t0; # $h{'Originate Timestamp'};
@@ -1352,28 +1350,36 @@ sub provisionADC
 
         # Set provisioned flag
         $self->setProvisioned(1);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $self->setProvisioned(0);
         $self->setProvisioning(0);
         $self->setupDNS();
-        throw $error;
-    } finally {
-        # Revert primary resolver changes
+
         if (defined $dnsFile and -f $dnsFile) {
             EBox::Sudo::root("cp $dnsFile /etc/resolvconf/interface-order",
                              'resolvconf -d zentyal.temp');
             unlink $dnsFile;
         }
-        # Remote stashed password
         if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
             unlink $adminAccountPwdFile;
         }
-        # Destroy cached tickets
         EBox::Sudo::rootWithoutException('kdestroy');
 
-        $self->setProvisioning(0);
-    };
+        $e->throw();
+    }
+    # Revert primary resolver changes
+    if (defined $dnsFile and -f $dnsFile) {
+        EBox::Sudo::root("cp $dnsFile /etc/resolv.conf");
+        unlink $dnsFile;
+    }
+    # Remote stashed password
+    if (defined $adminAccountPwdFile and -f $adminAccountPwdFile) {
+        unlink $adminAccountPwdFile;
+    }
+    # Destroy cached tickets
+    EBox::Sudo::rootWithoutException('kdestroy');
+
+    $self->setProvisioning(0);
 }
 
 1;

@@ -30,7 +30,7 @@ package EBox::CGI::View::Composite;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constructor: new
 #
@@ -74,10 +74,10 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{composite}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

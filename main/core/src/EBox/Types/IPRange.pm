@@ -23,8 +23,9 @@ use base 'EBox::Types::Abstract';
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 use Net::IP;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAX_N_ADDRESS => 16777216; # we choose as max the number of
                                         # addresses for a net of class A
@@ -177,14 +178,13 @@ sub _paramIsValid
     my $range;
     try {
         $range = Net::IP->new("$begin - $end");
-    } otherwise {
-        my $ex = shift;
+    } catch ($e) {
         throw EBox::Exceptions::InvalidData(
             data => $self->printableName(),
             value => $self->printableValue(),
-            advice => "$ex",
-           );
-    };
+            advice => "$e",
+        );
+    }
 
     if ($range->size() > MAX_N_ADDRESS) {
         my $advice = __x(
@@ -196,7 +196,7 @@ sub _paramIsValid
             data => $self->printableName(),
             value => $self->printableValue(),
             advice => $advice,
-           );
+        );
     }
 
     return 1;

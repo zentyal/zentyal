@@ -33,6 +33,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Util::Version;
@@ -40,7 +41,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants
 use constant APACHE_INCLUDE_KEY => 'apacheIncludes';

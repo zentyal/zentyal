@@ -21,7 +21,8 @@ use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
 use EBox::Gettext;
-use Error qw(:try);
+use EBox::Exceptions::External;
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {
@@ -124,7 +125,7 @@ sub setIface
 
             $audit->logAction('network', 'Interfaces', 'unsetIface', $iface, 1);
         }
-    } catch EBox::Exceptions::DataInUse with {
+    } catch (EBox::Exceptions::DataInUse $e) {
         $self->{template} = 'network/confirm.mas';
         $self->{redirect} = undef;
         my @array = ();
@@ -137,7 +138,7 @@ sub setIface
         push(@array, 'external' => $external);
         push(@array, 'bridge' => $bridge);
         $self->{params} = \@array;
-    };
+    }
 }
 
 sub _ppoePasswordParam

@@ -31,6 +31,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 use EBox::Mail::Types::WriteOnceDomain;
 use EBox::Types::HasMany;

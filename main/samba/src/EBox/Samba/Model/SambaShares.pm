@@ -41,7 +41,7 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
                              '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
@@ -271,6 +271,11 @@ sub validateTypedRow
             }
             EBox::Validate::checkAbsoluteFilePath(
                 $parms->{'path'}->value(), __('Samba share absolute path'));
+
+            unless (EBox::Sudo::fileTest('-d', $normalized)) {
+                throw EBox::Exceptions::External(__x('Path {p} is not a directory', p => $normalized));
+            }
+
             # Check if the filesystem is mounted with acl and user_xattr
             $self->_checkSystemShareMountOptions($normalized);
         } else {
@@ -448,7 +453,12 @@ sub _checkSystemShareMountOptions
 
     my $fs = new Sys::Filesystem(mtab => '/etc/mtab');
     my @filesystems = $fs->filesystems(mounted => 1);
-    my $options = $fs->options($mountPoint);
+    my $options;
+    try {
+        $options = $fs->options($mountPoint);
+    } otherwise {
+        throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
+    };
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(

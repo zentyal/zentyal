@@ -22,7 +22,8 @@ use base qw(EBox::Model::DataForm);
 
 use EBox::Gettext;
 use EBox::Types::Select;
-use Error qw(:try);
+use EBox::Exceptions::NotImplemented;
+use TryCatch::Lite;
 
 sub periods
 {
@@ -130,14 +131,11 @@ sub setTypedRow
 
     try {
         $self->SUPER::setTypedRow(@params);
+    } catch ($e) {
+        $global->modRestarted($modName) unless ($alreadyChanged);
+        $e->throw();
     }
-    finally {
-       if (not $alreadyChanged) {
-           # unmark module as changed
-           $global->modRestarted($modName);
-       }
-    };
-
+    $global->modRestarted($modName) unless ($alreadyChanged);
 }
 
 sub _messages

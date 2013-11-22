@@ -29,10 +29,12 @@ use EBox::Global;
 use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: mainObjectClass
 #
@@ -123,9 +125,7 @@ sub create
         $ou = EBox::Users::OU->new(dn => $dn);
         # Call modules initialization
         $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -145,7 +145,7 @@ sub create
         $ou = undef;
         $entry = undef;
         $error->throw();
-    };
+    }
 
     return $ou;
 }

@@ -27,7 +27,7 @@ sub update
             $user->set('jabberAdmin', 'FALSE', 1);
             try {
                 $user->save();
-            } otherwise {
+            } catch {
                 warn "Error updating user: $username\n";
             }
         } else {

@@ -29,7 +29,7 @@ use Test::MockObject;
 use Test::File;
 use Test::Differences;
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use lib '../../../..';
 use  EBox::OpenVPN::Model::ServerConfiguration;
@@ -422,17 +422,14 @@ sub _setTest
         else {
             fail($name);
         }
-
-    }
-    otherwise {
+    } catch {
         if (not $successExpected) {
             pass($name);
         }
         else {
             fail($name);
         }
-    };
-
+    }
 }
 
 1;

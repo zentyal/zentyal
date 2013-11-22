@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::DomainName;
 use EBox::Types::Text;
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Dependencies
 
@@ -166,10 +166,9 @@ sub importSystemSearchDomain
                 $self->setValue('domain', $domain);
             }
         }
-    } otherwise {
-        my ($error) = @_;
-        EBox::error("Could not import search domain: $error");
-    };
+    } catch ($e) {
+        EBox::error("Could not import search domain: $e");
+    }
 }
 
 1;

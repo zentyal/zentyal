@@ -12,6 +12,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
@@ -21,6 +22,8 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ProgressIndicator;
@@ -30,7 +33,7 @@ use File::Copy qw(copy move);
 use File::Slurp qw(read_file write_file);
 use File::Basename;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Digest::MD5;
 use EBox::Sudo;
 use POSIX qw(strftime);
@@ -111,10 +114,11 @@ sub _makeBackup
         $self->_createSizeFile($archiveContentsDir);
 
         $self->_createBackupArchive($backupArchive, $tempdir, $archiveContentsDirRelative);
-    }
-    finally {
+    } catch ($e) {
         EBox::Sudo::silentRoot("rm -rf '$tempdir'");
-    };
+        $e->throw();
+    }
+    EBox::Sudo::silentRoot("rm -rf '$tempdir'");
 
     return $backupArchive;
 }
@@ -133,18 +137,15 @@ sub _dumpModulesBackupData
         if ($progress) {
             # update progress object
             $progress->notifyTick();
-            $progress->setMessage(__x('Dumping configuration of module {m}',
-                        m => $modName));
+            $progress->setMessage(__x('Dumping configuration of module {m}', m => $modName));
         }
 
         try {
             EBox::debug("Dumping $modName backup data");
             $mod->makeBackup($auxDir, %options);
+        } catch (EBox::Exceptions::Base $e) {
+            throw EBox::Exceptions::Internal($e->text);
         }
-        catch EBox::Exceptions::Base with {
-            my $ex = shift;
-            throw EBox::Exceptions::Internal($ex->text);
-        };
     }
 
 }
@@ -241,9 +242,8 @@ sub _createPartitionsFile
     my $partitionsOutput;
     try {
         $partitionsOutput = EBox::Sudo::root('fdisk -l');
-    } otherwise {
-        my ($ex) = @_;
-        my $errMsg = "Zentyal could not create a partition info file because this error: $ex";
+    } catch ($e) {
+        my $errMsg = "Zentyal could not create a partition info file because this error: $e";
         EBox::error($errMsg);
         $partitionsOutput = [$errMsg];
     };
@@ -365,7 +365,8 @@ sub _bug
     try {
         EBox::Sudo::root("/sbin/iptables -nvL > $dir/iptables-filter",
                          "/sbin/iptables -t nat -nvL > $dir/iptables-nat");
-    } catch EBox::Exceptions::Base with {};
+    } catch (EBox::Exceptions::Base $e) {
+    }
 
     my $eboxLogDir = EBox::Config::log();
     # copy files from ebox logs directories...
@@ -509,10 +510,7 @@ sub _unpackArchive
     try {
         my $tarCommand = "/bin/tar xf '$archive' --same-owner --same-permissions -C '$tempDir' $filesWithPath";
         EBox::Sudo::root($tarCommand);
-
-    } otherwise {
-        my $ex = shift;
-
+    } catch ($ex) {
         EBox::Sudo::silentRoot("rm -rf '$tempDir'");
         if (@files > 0) {
             throw EBox::Exceptions::External( __x("Could not extract the requested backup files: {files}", files => "@files"));
@@ -520,7 +518,7 @@ sub _unpackArchive
         else {
             throw EBox::Exceptions::External( __("Could not unpack the backup"));
         }
-    };
+    }
 
     return $tempDir;
 }
@@ -589,7 +587,8 @@ sub listBackups
         my $entry = undef;
         try {
             $entry = $self->backupDetails($backup);
-        } catch EBox::Exceptions::Base with {};
+        } catch (EBox::Exceptions::Base $e) {
+        }
         unless ($entry) {
             EBox::info("File $backupdir.$backup.tar is in backup directorty and is not a backup file");
             next;
@@ -749,12 +748,10 @@ sub makeBackup
 
         # Check the backup is correct, if not raise EBox::Exceptions::External exception
         $self->_checkBackup($filename);
-    }
-    otherwise {
-        my $ex = shift @_;
+    } catch ($ex) {
         $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
-    };
+    }
 
     my $backupFinalPath;
     try {
@@ -771,12 +768,10 @@ sub makeBackup
         $backupFinalPath = $self->_moveToArchives($filename, $backupdir, $dest);
 
         $progress->setAsFinished() if $progress;
-    }
-    otherwise {
-        my $ex = shift @_;
+    } catch ($ex) {
         $progress->setAsFinished(1, $ex->text) if $progress;
         $ex->throw();
-    };
+    }
 
     return $backupFinalPath;
 }
@@ -865,16 +860,13 @@ sub _unpackAndVerify
         unless ($options{forceZentyalVersion}) {
             $self->_checkZentyalVersion($tempdir);
         }
-    }
-    otherwise {
-        my $ex = shift;
-
+    } catch ($ex) {
         if (defined $tempdir) {
             EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         }
 
         $ex->throw();
-    };
+    }
 
     return $tempdir;
 }
@@ -941,12 +933,11 @@ sub _checkSize
     try {
         $tempDir = $self->_unpackArchive($archive, 'size');
         $size = read_file("$tempDir/eboxbackup/size"); # unit -> 1K
+    } catch ($ex) {
+        EBox::Sudo::silentRoot("rm -rf '$tempDir'") if (defined $tempDir);
+        $ex->throw();
     }
-    finally {
-        if (defined $tempDir) {
-            EBox::Sudo::silentRoot("rm -rf '$tempDir'");
-        }
-    };
+    EBox::Sudo::silentRoot("rm -rf '$tempDir'") if (defined $tempDir);
 
     if (not $size) {
         EBox::warn("Size file not found in the backup. Can not check if there is enough space to complete the restore");
@@ -1170,9 +1161,7 @@ sub restoreBackup
                 my $restoreOk;
                 try {
                     $restoreOk = $self->_restoreModule($mod, $tempdir, \%options);
-                } otherwise {
-                    my ($ex) = @_;
-
+                } catch ($ex) {
                     if ($options{continueOnModuleFail}) {
                         my $warn = 'Error when restoring ' . $mod->name() .
                              ': ' . $ex->text() .
@@ -1189,10 +1178,7 @@ sub restoreBackup
                 }
 
             }
-        }
-        otherwise {
-            my $ex = shift;
-
+        } catch ($ex) {
             my $errorMsg = 'Error while restoring: ' . $ex->text();
             EBox::error($errorMsg);
             $progress->setAsFinished(1, $errorMsg) if $progress;
@@ -1201,8 +1187,8 @@ sub restoreBackup
                 $self->_revokeRestore(\@restored);
             }
 
-            throw $ex;
-        };
+            $ex->throw();
+        }
 
         # We need to set them as changed to be sure that they are restarted
         # in the save all after restoring, if they have run any migration
@@ -1222,15 +1208,13 @@ sub restoreBackup
         }
 
         $progress->setAsFinished() if $progress;
+    } catch ($e) {
+        EBox::Sudo::silentRoot("rm -rf '$tempdir'") if ($tempdir);
+        unlink $file if ($options{deleteBackup});
+        $e->throw();
     }
-    finally {
-        if ($tempdir) {
-            EBox::Sudo::silentRoot("rm -rf '$tempdir'");
-        }
-        if ($options{deleteBackup}) {
-            unlink $file;
-        }
-    };
+    EBox::Sudo::silentRoot("rm -rf '$tempdir'") if ($tempdir);
+    unlink $file if ($options{deleteBackup});
 }
 
 sub _unpackModulesRestoreData
@@ -1240,7 +1224,7 @@ sub _unpackModulesRestoreData
     my $unpackCmd = "tar xzf  '$tempdir/eboxbackup/files.tgz' --same-owner --same-permissions  -C '$tempdir/eboxbackup'";
     try {
         EBox::Sudo::root($unpackCmd);
-    } otherwise {
+    } catch {
         EBox::Sudo::silentRoot("rm -rf '$tempdir'");
         throw EBox::Exceptions::External(
                 __('Could not unpack the backup')
@@ -1287,13 +1271,15 @@ sub _restoreZentyalConfFiles
     try {
         # put restored directory in place
         EBox::Sudo::root("cp -af $tmpEtc/* $etc");
-    }  catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         # continue with the restore anyway
         EBox::error("Cannot restore $etc files: $!.");
         EBox::info("We cannot restore Zentyal configuration files in $etc, but the restore process will continue.");
-    } finally {
+    } catch ($ex) {
         EBox::Config::refreshConfFiles();
-    };
+        $ex->throw();
+    }
+    EBox::Config::refreshConfFiles();
 }
 
 sub _restoreModulePreCheck
@@ -1345,10 +1331,9 @@ sub _revokeRestore
             $restmod->revokeConfig();
             # XXX remember non-redis changes are not revoked!
             EBox::debug("Revoked changes in $restname module");
-        }
-        otherwise {
+        } catch {
             EBox::debug("$restname has not changes to be revoked" );
-        };
+        }
     }
 }
 
@@ -1391,16 +1376,14 @@ sub _preRestoreActions
                     EBox::info("Configuring previously unconfigured module $name present in the backup to restore");
                     $mod->{restoringBackup} = 1;
                     $mod->configureModule();
-                } otherwise {
-                    my ($ex) = @_;
-                    my $err = $ex->text();
-                    throw EBox::Exceptions::Internal(
-                        __x('Cannot restore backup, error enabling module {m}: {err}',
-                            'm' => $name, 'err' => $err)
-                    );
-                } finally {
+                } catch ($e) {
                     delete $mod->{restoringBackup};
-                };
+
+                    my $err = $e->text();
+                    throw EBox::Exceptions::Internal(__x('Cannot restore backup, error enabling module {m}: {err}',
+                                                         'm' => $name, 'err' => $err));
+                }
+                delete $mod->{restoringBackup};
             }
         } else {
             next unless $mod->can('isEnabled');
@@ -1617,11 +1600,10 @@ sub _configureModules
         my $module = EBox::Global->modInstance($name);
         try {
             $module->configureModule();
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($ex) {
             my $err = $ex->text();
             EBox::error("Failed to enable module $name: $err");
-        };
+        }
     }
 }
 
@@ -1662,11 +1644,10 @@ sub _checkBackup
     try {
         EBox::Sudo::command("tar --list --file '$filename'");
         EBox::Sudo::command("tar --test-label --file '$filename'");
-    } catch EBox::Exceptions::Command with {
-        my ($exc) = @_;
+    } catch (EBox::Exceptions::Command $e) {
         throw EBox::Exceptions::InvalidData(
             data   => 'backup',
-            value  => $exc->stringify(),
+            value  => $e->stringify(),
             advice => __('Try to back up again as the created backup is corrupted')
            );
     };

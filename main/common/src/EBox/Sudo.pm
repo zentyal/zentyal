@@ -21,7 +21,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use File::stat qw();
-use Error qw(:try);
+use TryCatch::Lite;
 use Params::Validate;
 use Perl6::Junction;
 use File::Temp qw(tempfile);
@@ -122,8 +122,8 @@ sub _commandError
         throw EBox::Exceptions::Internal("$cmd died with signal $signal $coredump");
     }
 
-    my $exitValue =  $childError >>  8;
-    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error,  exitValue => $exitValue);
+    my $exitValue = $childError >>  8;
+    throw EBox::Exceptions::Command(cmd => $cmd, output => $output, error => $error, exitValue => $exitValue);
 }
 
 # Procedure: root
@@ -249,11 +249,9 @@ sub rootWithoutException
     my $output;
     try {
         $output =  root($cmd);
+    } catch (EBox::Exceptions::Sudo::Command $e) { # ignore failed commands
+        $output = $e->output();
     }
-    catch EBox::Exceptions::Sudo::Command with { # ignore failed commands
-        my $ex = shift @_;
-        $output = $ex->output();
-    };
 
     return $output;
 }
@@ -305,10 +303,9 @@ sub stat
 
     try {
         $statOutput = root($statCmd);
-    }
-    catch EBox::Exceptions::Sudo::Command with {
+    } catch (EBox::Exceptions::Sudo::Command $e) {
         $statOutput = undef;
-    };
+    }
 
     return undef if !defined $statOutput;
 

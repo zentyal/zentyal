@@ -25,7 +25,7 @@ use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -94,28 +94,26 @@ try {
         close $read;
     } until($break);
 
-} catch Error with {
-   my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    $errorMsg = $exc->stringify();
+} catch (Error $e) {
+    $retValue = $e->exitValue();
+    $errorMsg = $e->stringify();
     EBox::error($errorMsg);
-} finally {
-    $webAdminMod->enableRestartOnTrigger();
-    try {
-        EBox::info("End packages remove");
-        my $global = EBox::Global->getInstance(1);
-        my $software = $global->modInstance('software');
-        #causes the cache to be generated
-        $software->listUpgradablePkgs(1);
-        $webAdminMod->_daemon('restart');
-        $progress->setAsFinished($retValue, $errorMsg);
-    } catch EBox::Exceptions::External with {
-        # Ignore if it cannot put as finished since it's possible it
-        # is already destroyed. Why?
-        EBox::warn("$progressId does not exist");
-    };
+}
+$webAdminMod->enableRestartOnTrigger();
+try {
+    EBox::info("End packages remove");
+    my $global = EBox::Global->getInstance(1);
+    my $software = $global->modInstance('software');
+    #causes the cache to be generated
+    $software->listUpgradablePkgs(1);
+    $webAdminMod->_daemon('restart');
+    $progress->setAsFinished($retValue, $errorMsg);
+} catch (EBox::Exceptions::External $e) {
+    # Ignore if it cannot put as finished since it's possible it
+    # is already destroyed. Why?
+    EBox::warn("$progressId does not exist");
+}
 
-    exit $retValue;
-};
+exit $retValue;
 
 1;

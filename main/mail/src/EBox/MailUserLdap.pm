@@ -27,10 +27,12 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Users::User;
-use Error qw( :try );
+use TryCatch::Lite;
 
 use Perl6::Junction qw(any);
 
@@ -251,9 +253,9 @@ sub _addUser
 
     try {
         $self->setUserAccount($user, lc($user->name()), $vdomain);
-    } otherwise {
+    } catch {
        EBox::info("Creation of email account for $user failed");
-    };
+    }
 }
 
 sub _delGroup

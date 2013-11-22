@@ -21,7 +21,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Util::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -47,6 +47,7 @@ try {
     unless (-f $ifupLock) {
         $network->regenGateways();
     }
-} finally {
-    exit;
-};
+} catch {
+}
+
+exit;

@@ -29,7 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HostIP::BCast;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -128,10 +128,9 @@ sub syncRows
                    extsent => $self->_format($client->{extsent}),
                    intrecv => $self->_format($client->{intrecv}),
                    intsent => $self->_format($client->{intsent}));
-        } catch EBox::Exceptions::InvalidData with {
-            my ($ex) = @_;
-            $error = "$ex";
-        };
+        } catch (EBox::Exceptions::InvalidData $e) {
+            $error = "$e";
+        }
     }
 
     if ($error) {

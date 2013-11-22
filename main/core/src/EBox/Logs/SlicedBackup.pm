@@ -22,8 +22,11 @@ use EBox;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use File::Basename;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant CONF_FILE => EBox::Config::etc() . 'logs.conf';
 use constant SLICES_TABLE =>  'backup_slices';
@@ -458,11 +461,9 @@ sub archive
 
     try {
         $dbengine->commandAsSuperuser("test -d $archiveDir");
-    } otherwise {
-        throw EBox::Exceptions::External(
-                 qq{Directory $archiveDir must be readable by DB's superuser}
-                                         );
-    };
+    } catch {
+        throw EBox::Exceptions::External(qq{Directory $archiveDir must be readable by DB's superuser});
+    }
 
     # assure we that we haves a updated slicemaps
     my $period =   EBox::Config::configkeyFromFile('eboxlogs_sliced_backup_period',
@@ -526,9 +527,9 @@ sub archive
     foreach my $file (@outputFiles) {
         try {
             EBox::Sudo::root("gzip $file");
-        } catch EBox::Exceptions::Command with {
+        } catch (EBox::Exceptions::Command $e) {
             EBox::error("Cannot compress file $file. Try to do it manully. Skipping to next file.")
-        };
+        }
     }
 }
 

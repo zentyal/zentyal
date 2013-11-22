@@ -20,14 +20,11 @@ use base qw(Apache2::AuthCookie);
 
 use EBox;
 use EBox::Config;
-use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 use EBox::Ldap;
-use EBox::CaptivePortal;
 use EBox::NetWrappers qw(ip_mac);
 
-use Error qw(:try);
 use Crypt::Rijndael;
 use Apache2::Connection;
 use Apache2::RequestUtil;
@@ -37,6 +34,7 @@ use Digest::MD5;
 use Fcntl qw(:flock);
 use File::Basename;
 use YAML::XS;
+use TryCatch::Lite;
 
 # Session files dir, +rw for captiveportal & zentyal
 use constant UMASK => 0007; # (Bond, James Bond)
@@ -176,6 +174,8 @@ sub checkPassword # (user, password)
 {
     my ($self, $user, $password) = @_;
 
+    eval 'use EBox::CaptivePortal';
+
     my $CONF_FILE = EBox::CaptivePortal->LDAP_CONF;
 
     my $url = EBox::Config::configkeyFromFile('ldap_url', $CONF_FILE);
@@ -222,9 +222,9 @@ sub _checkLdapPassword
             my $result = $ldap->search(%attrs);
             $authorized = ($result->count > 0);
         }
-    } otherwise {
+    } catch {
         $authorized = 0; # auth failed
-    };
+    }
 
     return $authorized;
 }
@@ -259,6 +259,8 @@ sub authen_ses_key  # (request, session_key)
 
     my $user = undef;
 
+    eval 'use EBox::CaptivePortal';
+
     my $sess_file = EBox::CaptivePortal->SIDS_DIR . $session_key;
     return unless (-r $sess_file);
 
@@ -280,7 +282,7 @@ sub authen_ses_key  # (request, session_key)
     flock($sidFile, LOCK_UN);
     close($sidFile);
 
-    if(defined($user)) {
+    if (defined($user)) {
         updateSession($session_key, $r->connection->remote_ip());
         return $user;
     } else {
@@ -297,6 +299,8 @@ sub authen_ses_key  # (request, session_key)
 sub logout # (request)
 {
     my ($self, $r) = @_;
+
+    eval 'use EBox::CaptivePortal';
 
     # expire session
     my $session_key = substr($self->key($r), 0, 32);

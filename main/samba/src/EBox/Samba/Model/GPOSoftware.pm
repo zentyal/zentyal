@@ -26,7 +26,7 @@ use base 'EBox::Model::DataTable';
 use EBox::Gettext;
 use EBox::Types::Text;
 use File::LibMagic;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: _table
 #
@@ -82,10 +82,9 @@ sub addedRowNotify
 #    my $author = $row->elementByName('service');
 #    $service->setValue(0);
 #    $row->store();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error($error);
-    };
+    }
 }
 
 # Method: precondition

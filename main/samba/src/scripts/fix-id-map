@@ -21,7 +21,7 @@
 use strict;
 use warnings;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Samba::User;
@@ -42,10 +42,9 @@ foreach my $user (@{$ldapUsers}) {
     try {
         print "Updating uidNumber mapping for user '$uid' (uidNumber: $uidNumber)\n";
         $sambaUser->setupUidMapping($uidNumber);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "\tError: $error\n";
-    };
+    }
 }
 print "\n";
 
@@ -62,10 +61,9 @@ foreach my $group (@{$ldapGroups}) {
     try {
         print "Updating gidNumber mapping for group '$gid' (gidNumber: $gidNumber)\n";
         $sambaGroup->setupGidMapping($gidNumber);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         print "\tError: $error\n";
-    };
+    }
 }
 print "\n";
 

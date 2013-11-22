@@ -47,7 +47,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 
 # Other modules uses
-use Error qw(:try);
+use TryCatch::Lite;
 
 #################
 # Dependencies
@@ -843,9 +843,11 @@ sub clone
 
             $comp->clone($compSrcDir, $compDstDir);
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir, 1);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir, 1);
 }
 
 1;

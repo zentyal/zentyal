@@ -266,6 +266,12 @@ sub read
     my $smb = new EBox::Samba::SmbClient(
         target => $host, service => 'sysvol', RID => 500);
 
+    # If the gpoFilesystemPath does not exists, it means that sysvol has not
+    # been replicated yet, so return empty data
+    unless ($smb->chkpath($gpoFilesystemPath)) {
+        return $data;
+    }
+
     # Create folder hierachy if not exists
     $smb->mkdir("$gpoFilesystemPath/User/Scripts") unless
         $smb->chkpath("$gpoFilesystemPath/User/Scripts");

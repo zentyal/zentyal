@@ -47,6 +47,9 @@ use EBox::Model::Manager;
 # Used exceptions
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 # Command wrappers
 use EBox::TC;
 use EBox::Iptables;
@@ -56,7 +59,7 @@ use EBox::TrafficShaping::TreeBuilder::Default;
 use EBox::TrafficShaping::TreeBuilder::HTB;
 
 # Dependencies
-use Error qw(:try);
+use TryCatch::Lite;
 use List::Util;
 use Perl6::Junction qw(none);
 

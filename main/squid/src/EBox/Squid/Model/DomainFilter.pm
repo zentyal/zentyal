@@ -25,6 +25,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 
 sub _tableHeader
 {

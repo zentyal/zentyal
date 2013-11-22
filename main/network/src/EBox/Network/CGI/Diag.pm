@@ -22,7 +22,8 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate;
-use Error qw(:try);
+use EBox::Exceptions::InvalidData;
+use TryCatch::Lite;
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -92,13 +93,12 @@ sub _process
             if ( $id eq 'other' || $id eq '' ) {
                 try {
                     $self->_requireParam("mac", __("MAC address"));
-                } otherwise {
+                } catch ($e) {
                     push(@array, 'objects' => \@object_list);
                     $self->{params} = \@array;
 
-                    my $ex = shift;
-                    $ex->throw();
-                };
+                    $e->throw();
+                }
                 my $mac = $self->param("mac");
                 EBox::Validate::checkMAC($mac, __("MAC address"));
 

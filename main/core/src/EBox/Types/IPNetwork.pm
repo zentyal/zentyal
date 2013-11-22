@@ -24,6 +24,7 @@ package EBox::Types::IPNetwork;
 use EBox::Validate qw(:all);
 use EBox::Gettext;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 
 use base 'EBox::Types::IPAddr';
 

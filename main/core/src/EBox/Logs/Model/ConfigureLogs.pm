@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Exceptions::External;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use List::Util;
 
 # Group: Public methods
@@ -342,9 +342,9 @@ sub acquireEventConfURL
     my $logFilteringWatcher;
     try {
         $logFilteringWatcher = $modelManager->model("/events/LogWatcherFiltering/$logDomain");
-    } catch EBox::Exceptions::DataNotFound with {
+    } catch (EBox::Exceptions::DataNotFound $e) {
         $logFilteringWatcher = undef;
-    };
+    }
 
     if ( $logFilteringWatcher ) {
         return '/' . $logFilteringWatcher->menuNamespace()

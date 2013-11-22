@@ -1,4 +1,6 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification

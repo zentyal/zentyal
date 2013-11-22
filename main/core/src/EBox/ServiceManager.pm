@@ -32,7 +32,7 @@ use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 
 use constant CONF_DIR => 'ServiceModule/';
@@ -188,10 +188,9 @@ sub enableAllModules
         my $module = $global->modInstance($modName);
         try {
             $module->configureModule();
-        } otherwise {
-            my ($ex) = @_;
-            EBox::warn("Failed to enable module $modName: "  . $ex->text());
-        };
+        } catch ($e) {
+            EBox::warn("Failed to enable module $modName: "  . $e->text());
+        }
     }
 }
 

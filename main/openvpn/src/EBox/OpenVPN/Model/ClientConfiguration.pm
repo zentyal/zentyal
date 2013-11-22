@@ -23,13 +23,14 @@ package EBox::OpenVPN::Model::ClientConfiguration;
 
 use base 'EBox::Model::DataForm';
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use EBox::Types::Select;
 use EBox::Types::Host;

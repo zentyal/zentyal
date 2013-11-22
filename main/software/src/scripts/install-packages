@@ -21,11 +21,12 @@ use warnings;
 use EBox;
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Global;
 use EBox::ProgressIndicator;
 use EBox::Sudo;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _regenSoftwareLists
 {
@@ -117,28 +118,26 @@ try {
     } until($break);
 
     EBox::info('Package installation process finished');
-} otherwise {
-    my ($exc) = @_;
-    $retValue = $exc->exitValue();
-    $errorMsg = $exc->stringify();
+} catch ($e) {
+    $retValue = $e->exitValue();
+    $errorMsg = $e->stringify();
     EBox::error($errorMsg);
-} finally {
-    $webAdminMod->enableRestartOnTrigger();
-    if ( $pid != 0 ) {
-        waitpid($pid, 0);
-        if ( ${^CHILD_ERROR_NATIVE} != 0 ) {
-            EBox::error('apt-wrapper install was exited with ' . ${^CHILD_ERROR_NATIVE});
-        }
+}
+$webAdminMod->enableRestartOnTrigger();
+if ( $pid != 0 ) {
+    waitpid($pid, 0);
+    if ( ${^CHILD_ERROR_NATIVE} != 0 ) {
+        EBox::error('apt-wrapper install was exited with ' . ${^CHILD_ERROR_NATIVE});
     }
-    try {
-        $webAdminMod->restartService();
-        $progress->setAsFinished($retValue, $errorMsg);
-    } catch EBox::Exceptions::External with {
-        # Ignore if it cannot put as finished since it's possible it
-        # is already destroyed. Why?
-        EBox::warn("$progressId does not exist");
-    };
-};
+}
+try {
+    $webAdminMod->restartService();
+    $progress->setAsFinished($retValue, $errorMsg);
+} catch (EBox::Exceptions::External $e) {
+    # Ignore if it cannot put as finished since it's possible it
+    # is already destroyed. Why?
+    EBox::warn("$progressId does not exist");
+}
 
 _regenSoftwareLists(); # XXX maybe this could be put bef_ the end of progress
                        # indicator to avoid problems

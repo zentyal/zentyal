@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Text;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 
 use Perl6::Junction qw(all);
 

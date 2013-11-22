@@ -40,7 +40,7 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Model::Manager;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -145,7 +145,8 @@ sub foreignModelInstance
         } else {
             $model = $manager->model($modelName, $ro);
         }
-    } catch EBox::Exceptions::DataNotFound with { };
+    } catch (EBox::Exceptions::DataNotFound $e) {
+    }
 
     return undef unless (defined($model));
 
@@ -338,9 +339,9 @@ sub _restoreFromHash
 
             $self->{'view'} = '/' . $model->menuNamespace();
             $self->setDirectory($model->directory());
-        } catch EBox::Exceptions::DataNotFound with {
+        } catch (EBox::Exceptions::DataNotFound $e) {
             $self->{'view'} = '/';
-        };
+        }
     }
 }
 

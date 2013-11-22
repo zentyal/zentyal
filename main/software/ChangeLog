@@ -1,4 +1,6 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2.1
 	+ Check for 3.2 archive repository instead of 3.1

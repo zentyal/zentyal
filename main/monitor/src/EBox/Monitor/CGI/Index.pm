@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox::Global;
 use  EBox::Exceptions::Command;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -77,16 +77,15 @@ sub masonParameters
 
     try {
         $measuredData = $mon->allMeasuredData();
-    } catch EBox::Exceptions::Internal with {
-        my $ex = shift;
-        my $error = $ex->text();
+    } catch (EBox::Exceptions::Internal $e) {
+        my $error = $e->text();
 
         if ($error =~ m/Need to save changes/) {
             $needSaveChanges = 1;
         } else {
-            $ex->throw();
+            $e->throw();
         }
-    };
+    }
 
     if ($needSaveChanges) {
             $self->setTemplate('/msg.mas');

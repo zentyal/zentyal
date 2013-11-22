@@ -47,7 +47,7 @@ use EBox::Sudo;
 use EBox::Gettext;
 use EBox::Util::Version;
 use EBox;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason;
 use File::Basename;
 
@@ -88,6 +88,7 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
@@ -154,10 +155,10 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         my $error = shift;
         EBox::error("Error creating squid default file: $error");
-    };
+    }
 
     # Execute enable-module script
     $self->SUPER::enableActions();
@@ -649,12 +650,17 @@ sub _writeSquidConf
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
         my $externalAD = $self->global()->modInstance('users')->ldap();
         my $dc = $externalAD->dcHostname();
-        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
+        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
+            SQUID_ZCONF_FILE);
+        my $adNegativeAclTtl =
+            EBox::Config::configkeyFromFile(
+                AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = $externalAD->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
         push (@writeParam, (adAclTTL    => $adAclTtl));
+        push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
         push (@writeParam, (adPrincipal => $adPrincipal));
     }
 
@@ -732,11 +738,10 @@ sub _checkSquidFile
 
     try {
         EBox::Sudo::root("squid3 -k parse $confFile");
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $error = join ' ', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $error = join ' ', @{ $e->error() };
         throw EBox::Exceptions::Internal("Error in squid configuration file $confFile: $error");
-    };
+    }
 }
 
 sub _objectsDelayPools

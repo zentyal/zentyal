@@ -1,4 +1,8 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Update TXT _kerberos record on domain rename
+	+ Added missing EBox::Exceptions uses
+	+ Read DNS zones from samba database while provisioning
 	+ Enable sortlist option by default in /etc/zentyal/dns.conf
 	+ Delete migration code from old versions
 	+ Fix set of dynamic attribute in domain table when samba module is enabled

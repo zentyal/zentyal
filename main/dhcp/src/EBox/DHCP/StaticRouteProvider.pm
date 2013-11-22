@@ -19,6 +19,7 @@ use warnings;
 package EBox::DHCP::StaticRouteProvider;
 
 use EBox::Global;
+use EBox::Exceptions::Internal;
 
 #  Method: staticRoutes
 #

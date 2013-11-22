@@ -38,7 +38,7 @@ use EBox::Gettext;
 use EBox::Sudo;
 use EBox::Event;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant EBACKUP_CONF => EBox::Config::etc() . 'ebackup.conf';
 
@@ -187,13 +187,12 @@ sub _existsFullBackup
     my $status;
     try {
         $status = $ebackup->remoteStatus();
-    } otherwise {
-        my ($ex) = @_;
-        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $errorMsg = _errorMessageFromDuplicityCmd($e);
 
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
-    };
+    }
 
     foreach my $st (@{ $status }) {
         if ($st->{type} eq 'Full') {
@@ -224,12 +223,11 @@ sub _adjustType
     # "old signatures not found" error
     try {
         $ebackup->remoteGenerateStatusCache();
-    } otherwise {
-        my ($ex) = @_;
-        my $errorMsg = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $errorMsg = _errorMessageFromDuplicityCmd($e);
         _prepareAndSendEvent(0, $type, $errorMsg);
         die $errorMsg;
-    };
+    }
 
     if ($type eq 'full-only-once') {
         if (_existsFullBackup($ebackup, $type)) {
@@ -260,9 +258,8 @@ sub _removeExpiredBackups
         # Delete orphaned metadata
         my $settingsModel = $ebackup->model('RemoteSettings');
         my $method = $settingsModel->row()->valueByName('method');
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $ex = shift @_;
-        my $errorMsg = $ex->error()->[-1];
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my $errorMsg = $e->error()->[-1];
         chomp($errorMsg) if $errorMsg;
         $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
         if ( $errorMsg eq 'BackendException' ) {
@@ -270,7 +267,7 @@ sub _removeExpiredBackups
                            . 'Internet connection prior to perform the backup');
         }
         throw EBox::Exceptions::External($errorMsg);
-    };
+    }
 }
 
 sub _cleanup
@@ -283,11 +280,10 @@ sub _cleanup
     EBox::debug('Trying to clean up incomplete backups');
     try {
         EBox::Sudo::root($cmd);
-    } otherwise {
-        my ($ex) = @_;
-        my $error = _errorMessageFromDuplicityCmd($ex);
+    } catch ($e) {
+        my $error = _errorMessageFromDuplicityCmd($e);
         EBox::error("When trying to clean up old backup sets: $error");
-    };
+    }
 }
 
 sub _preCheckTargetHook
@@ -295,13 +291,12 @@ sub _preCheckTargetHook
     my ($ebackup, $type) = @_;
     try {
         $ebackup->preCheckTargetHook();
-    } otherwise {
-        my ($ex) = @_;
-        EBox::error("Error in pre-check target hook: $ex");
-        _prepareAndSendEvent(0, $type, "$ex");
+    } catch ($e) {
+        EBox::error("Error in pre-check target hook: $e");
+        _prepareAndSendEvent(0, $type, "$e");
         $ebackup->backupProcessUnlock();
         exit 1;
-    };
+    }
 }
 
 # Try to back up with n_tries using a geometric progression
@@ -332,14 +327,12 @@ sub _performBackup
     my $preHookError;
     try {
         $ebackup->preBackupHook();
-    } catch  EBox::Exceptions::Sudo::Command with {
-        my $ex = shift @_;
-        my @error = @{  $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my @error = @{ $e->error() };
         $preHookError = "@error";
-    } otherwise {
-        my $ex = @_;
-        $preHookError = "$ex";
-    };
+    } catch ($e) {
+        $preHookError = "$e";
+    }
     if ($preHookError) {
         $success = 0;
         $errorMsg = __x('Error running pre backup hook {err}',
@@ -352,18 +345,16 @@ sub _performBackup
             EBox::info("Backing up files to destination: try $try");
             $successMsg = EBox::Sudo::root($backupCmd);
             $success = 1;
-        } catch  EBox::Exceptions::Sudo::Command with {
-            my $ex = shift @_;
+        } catch ( EBox::Exceptions::Sudo::Command $e) {
             $success = 0;
-            my @error = @{  $ex->error() };
+            my @error = @{ $e->error() };
             chomp $error[-1] if @error;
             $errorMsg = "@error";
             $errorMsg = _mangleDuplicityErrorMsg($errorMsg);
-        } otherwise {
-            my ($ex) = @_;
+        } catch ($e) {
             $success = 0;
-            $errorMsg = "$ex";
-        };
+            $errorMsg = "$e";
+        }
         last if ($success);
         # Error comes from a timeout? We can only assure the exception
         # comes from the backend
@@ -382,14 +373,12 @@ sub _performBackup
     my $postHookError;
     try {
         $ebackup->postBackupHook();
-    } catch  EBox::Exceptions::Sudo::Command with {
-        my $ex = shift @_;
-        my @error = @{  $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my @error = @{ $e->error() };
         $postHookError = "@error";
-    } otherwise {
-        my $ex = @_;
-        $postHookError = "$ex";
-    };
+    } catch ($e) {
+        $postHookError = "$e";
+    }
 
     if ($postHookError) {
         $success = 0;
@@ -453,13 +442,13 @@ my $mustExit = 0;
 
 try {
     $ebackup->backupProcessLock()
-} otherwise {
+} catch {
     my $alreadyMsg = __('Another backup process is running, wait until it finishes and try again');
     print $alreadyMsg;
     print "\n";
     _prepareAndSendEvent(0, $type, $alreadyMsg);
     $mustExit= 1;
-};
+}
 if ($mustExit) {
     exit $mustExit;
 }
@@ -473,29 +462,26 @@ try {
 
     try {
         $ebackup->checkTargetStatus($type);
-    } otherwise {
-        my ($ex) = @_;
-        EBox::error("Error in backup target: $ex");
-        _prepareAndSendEvent(0, $type, "$ex");
+    } catch ($e) {
+        EBox::error("Error in backup target: $e");
+        _prepareAndSendEvent(0, $type, "$e");
         $ebackup->backupProcessUnlock();
         exit 1;
-    };
+    }
 
     if ($type eq 'full') {
         try {
             _removeExpiredBackups($ebackup);
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error("Error trying to remove old backups: $ex");
-        };
+        } catch ($e) {
+            EBox::error("Error trying to remove old backups: $e");
+        }
     }
 
     try {
         $ebackup->dumpExtraData($globalRO);
-    } otherwise {
-        my $ex = @_;
-        EBox::error("Error dumping server metadata: $ex. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
-    };
+    } catch ($e) {
+        EBox::error("Error dumping server metadata: $e. Backup process continues but you could not be able to restore the server configuration or other extra data with this backup");
+    }
 
     my $backupCmd = backupCmd($ebackup, $type);
     ($success, $successMsg, $errorMsg) = _performBackup($ebackup, $backupCmd);
@@ -511,7 +497,14 @@ try {
 
     _prepareAndSendEvent($success, $type, $errorMsg);
 
-} finally {
+} catch ($e) {
+    _finally();
+    $e->throw();
+}
+_finally();
+
+sub _finally
+{
     try {
         if ($success) {
             $ebackup->waitForUpdateStatusInBackground();
@@ -521,11 +514,12 @@ try {
             # Create file list
             $ebackup->remoteGenerateListFile();
         }
-    } finally {
-        # This code must be run always
+    } catch ($e) {
         $ebackup->backupProcessUnlock();
+        $e->throw();
     }
-};
+    $ebackup->backupProcessUnlock();
+}
 
 # Parse the successMsg
 my $backupStats = undef;

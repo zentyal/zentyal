@@ -57,7 +57,8 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
-use Error qw(:try);
+use EBox::Exceptions::DataNotFound;
+use TryCatch::Lite;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::CounterGraph;
@@ -249,9 +250,9 @@ sub initialSetup
     unless ($version) {
         try {
             $self->importInterfacesFile();
-        } otherwise {
+        } catch {
             EBox::warn('Network configuration import failed');
-        };
+        }
     }
 }
 
@@ -1044,12 +1045,7 @@ sub setViface
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
-        try {
-            $mod->vifaceAdded($iface, $viface, $address, $netmask);
-        } otherwise {
-            my $ex = shift;
-            throw $ex;
-        };
+        $mod->vifaceAdded($iface, $viface, $address, $netmask);
     }
 
     my $ifaces = $self->get_hash('interfaces');
@@ -2985,14 +2981,14 @@ sub _generatePPPConfig
     my $file;
     try {
         $file = read_file(CHAP_SECRETS_FILE);
-    } otherwise {
+    } catch {
         # Write it with permissions for ebox if we can't read it
         my $gid = getgrnam('ebox');
         $self->writeConfFile(CHAP_SECRETS_FILE,
                              'network/chap-secrets.mas', [],
                              { mode => '0660', gid => $gid });
         $file = read_file(CHAP_SECRETS_FILE);
-    };
+    }
     my $pppoeConf = '';
     foreach my $user (keys %{$pppSecrets}) {
         $pppoeConf .= "$user * $pppSecrets->{$user}\n";
@@ -3263,7 +3259,8 @@ sub _multigwRoutes
         }
 
         EBox::Sudo::root(@fcmds);
-    } otherwise {};
+    } catch {
+    }
 }
 
 sub isRunning
@@ -3297,8 +3294,8 @@ sub _preSetConf
             '/sbin/modprobe 8021q',
             '/sbin/vconfig set_name_type VLAN_PLUS_VID_NO_PAD'
         );
-    } catch EBox::Exceptions::Internal with {
-    };
+    } catch (EBox::Exceptions::Internal $e) {
+    }
 
     $self->{restartResolvconf} = 0;
 
@@ -3341,8 +3338,8 @@ sub _preSetConf
                     }
                 }
                 EBox::Sudo::root(@cmds);
-            } catch EBox::Exceptions::Internal with {
-            };
+            } catch (EBox::Exceptions::Internal $e) {
+            }
             #remove if empty
             if ($self->_isEmpty($if)) {
                 unless ($self->isReadOnly()) {
@@ -3447,11 +3444,11 @@ sub _enforceServiceState
     if ($cmd) {
         try {
             EBox::Sudo::root($cmd);
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             throw EBox::Exceptions::External("An error happened ".
                     "trying to set the default gateway. Make sure the ".
                     "gateway you specified is reachable.");
-        };
+        }
     }
 
     $self->_generateRoutes();
@@ -3502,7 +3499,8 @@ sub _stopService
                 push @cmds, "/sbin/ip address flush label $if:*";
             }
             push @cmds, "/sbin/ifdown --force -i $file $ifname";
-        } catch EBox::Exceptions::Internal with {};
+        } catch (EBox::Exceptions::Internal $e) {
+        }
     }
 
     EBox::Sudo::root(@cmds);
@@ -4288,10 +4286,10 @@ sub regenGateways
         try {
             EBox::Util::Lock::lock('network');
             $locked = 1;
-        } catch EBox::Exceptions::Lock with {
+        } catch (EBox::Exceptions::Lock $e) {
             sleep 5;
             $timeout -= 5;
-        };
+        }
     }
 
     unless ($locked) {
@@ -4313,9 +4311,9 @@ sub regenGateways
 
     try {
         EBox::Sudo::root(@commands);
-    } otherwise {
+    } catch {
         EBox::error('Something bad happened reseting default gateways');
-    };
+    }
     $self->_multigwRoutes();
 
     EBox::Sudo::root('/sbin/ip route flush cache');

@@ -21,7 +21,7 @@ package EBox::CGI::View::Tree;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constructor: new
 #
@@ -68,10 +68,10 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{model}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Tree");
         $pageTitle = '';
-    };
+    }
     print EBox::Html::header($pageTitle);
 }
 

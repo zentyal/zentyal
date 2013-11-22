@@ -29,9 +29,10 @@ use EBox::Gettext;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX qw(getuid);
 
 # Method: parentModule
@@ -248,9 +249,11 @@ sub executeOnBrothers
                 last;
             }
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($dir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($dir);
 
     return $res;
 }

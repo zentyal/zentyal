@@ -32,7 +32,7 @@ use EBox::Global;
 use EBox::FileSystem;
 
 use Filesys::Df;
-use Error qw(:try);
+use TryCatch::Lite;
 use Perl6::Junction qw(any);
 
 use constant SPACE_THRESHOLD => 1024; # a file system is considered full with it has

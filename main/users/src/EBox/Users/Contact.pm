@@ -30,8 +30,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 # Method: mainObjectClass
@@ -177,9 +178,7 @@ sub create
 
         # Call modules initialization
         $usersMod->notifyModsLdapUserBase('addContact', $res, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -199,7 +198,7 @@ sub create
         $parentRes = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

@@ -28,7 +28,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Types::Host;
 use EBox::OpenVPN::Types::Certificate;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -328,11 +328,10 @@ sub precondition
         } else {
             $configured = 0;
         }
-    } otherwise {
-        my $ex = shift;
-        $addPreconditionMsg = "$ex";
+    } catch ($e) {
+        $addPreconditionMsg = "$e";
         $configured = 0;
-    };
+    }
 
     if (not $configured) {
         my $msg = '<p>' . __('Cannot make a bundle because the server  is not fully configured; please complete the configuration and retry') . '<p/>';

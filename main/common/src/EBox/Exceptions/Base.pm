@@ -13,14 +13,21 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::Exceptions::Base;
+use strict;
+use warnings;
 
-use base 'Error';
+package EBox::Exceptions::Base;
 
 use EBox;
 use EBox::Gettext;
 
 use Log::Log4perl;
+use Devel::StackTrace;
+
+use overload (
+    '""'     => 'stringify',
+    fallback => 1
+);
 
 # Constructor: new
 #
@@ -40,10 +47,7 @@ sub new # (text)
     my $text = shift;
     my (%opts) = @_;
 
-    local $Error::Depth = $Error::Depth + 1;
-    local $Error::Debug = 1;
-
-    $self = $class->SUPER::new(-text => $text, @_);
+    my $self = { text => $text };
     if (exists $opts{silent} and $opts{silent}) {
         $self->{silent} = 1;
     } else {
@@ -54,9 +58,45 @@ sub new # (text)
     return $self;
 }
 
-sub toStderr
+sub text
+{
+    my ($self) = @_;
+
+    return $self->{text};
+}
+
+sub stringify
+{
+    my ($self) = @_;
+    return $self->{text} ? $self->{text} : 'Died';
+}
+
+sub stacktrace
+{
+    my ($self) = @_;
+
+    my $trace = new Devel::StackTrace();
+    my $msg = $self->{text};
+    $msg .= ' at ';
+    $msg .= $trace->as_string();
+
+    return $msg;
+}
+
+sub throw
 {
     my $self = shift;
+
+    unless (ref $self) {
+        $self = $self->new(@_);
+    }
+
+    die $self;
+}
+
+sub toStderr
+{
+    my ($self) = @_;
     print STDERR "[EBox::Exceptions] ". $self->stringify() ."\n";
 }
 

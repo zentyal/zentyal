@@ -25,7 +25,11 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::NetWrappers;
 use EBox::MailFilter::VDomainsLdap;
-use Error qw(:try);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
+use TryCatch::Lite;
 
 use constant {
   SA_LEARN_SERVICE    => 'ebox.learnspamd',

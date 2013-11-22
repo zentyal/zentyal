@@ -23,8 +23,10 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HasMany;
 use EBox::Types::Select;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::InvalidType;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use feature "switch";
 
 # Group: Public methods
@@ -209,7 +211,7 @@ sub validateTypedRow
                         $model->validateTypedRow('update', $row->hashElements(), $row->hashElements());
                     }
                 }
-            } otherwise {
+            } catch {
                 my $error = shift;
                 throw EBox::Exceptions::InvalidData(
                     data => __('Enabled flag'),
@@ -219,7 +221,7 @@ sub validateTypedRow
                         error => $error
                     )
                 );
-            };
+            }
         } else {
             throw EBox::Exceptions::InvalidData(
                 data => __('Enabled flag'),

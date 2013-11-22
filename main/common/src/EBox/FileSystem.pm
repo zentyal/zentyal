@@ -25,7 +25,10 @@ use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Sudo;
-use Error qw(:try);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
+use TryCatch::Lite;
 
 use constant FSTAB_PATH => '/etc/fstab';
 use constant MTAB_PATH => '/etc/mtab';
