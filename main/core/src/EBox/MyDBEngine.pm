@@ -701,17 +701,15 @@ sub restoreDBDump
     try {
         my $superuser = _dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
-    } catch {
+    } catch ($e) {
         # left file were it was before
-        my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");
-        $ex->throw();
+        $e->throw();
     }
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
-    } catch {
-        my $e = shift;
+    } catch ($e) {
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");

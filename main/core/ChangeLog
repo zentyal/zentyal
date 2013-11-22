@@ -1,6 +1,7 @@
 HEAD
 	+ Use more granullar ajax for table actions
 	+ Use stand-alone ajax call to refresh save change buttons
+	+ Added missing use to EBox::CGI::Base
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Fixed errors with row ID in ManageAdmins table

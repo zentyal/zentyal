@@ -165,9 +165,8 @@ sub _mainWatcherLoop
                 try {
                     # Run the event
                     $eventsRef = $queueElementRef->{instance}->run();
-                } catch {
-                    my $exception = shift;
-                    EBox::warn("Error executing run from $registeredEvent: $exception");
+                } catch ($e) {
+                    EBox::warn("Error executing run from $registeredEvent: $e");
                     # Deleting from registered events
                     delete ($self->{watchers}->{$registeredEvent});
                 }

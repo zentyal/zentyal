@@ -184,8 +184,13 @@ sub run
             }
 
             $finish = 1;
+<<<<<<< HEAD
         } catch($ex) {
             $self->setErrorFromException($ex);
+=======
+        } catch ($e) {
+            $self->setErrorFromException($e);
+>>>>>>> master
             if (not $self->{json}) {
                 $self->_error();
             }

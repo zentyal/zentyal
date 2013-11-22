@@ -47,9 +47,8 @@ sub upsVariables
     my $rwVars = [];
     try {
         $rwVars = EBox::Sudo::root("upsrw $label");
-    } catch {
-        my $error = shift;
-        my $text = join ('', @{$error->{error}});
+    } catch ($e) {
+        my $text = join ('', @{$e->{error}});
         $self->setMessage("There was a problem reading settings. $text", 'warning');
     }
 

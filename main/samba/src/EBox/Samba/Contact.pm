@@ -157,9 +157,8 @@ sub addToZentyal
         $self->_linkWithUsersObject($zentyalContact);
     } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("Contact $name already in OpenLDAP database");
-    } catch {
-        my $error = shift;
-        EBox::error("Error loading contact '$name': $error");
+    } catch ($e) {
+        EBox::error("Error loading contact '$name': $e");
     }
 }
 

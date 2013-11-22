@@ -84,8 +84,7 @@ sub addToZentyal
         $self->_linkWithUsersObject($zentyalOU);
     } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("OU $name already in $parentDN on OpenLDAP database");
-    } catch {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error loading OU '$name' in '$parentDN': $error");
     }
 }
