@@ -24,7 +24,7 @@ use EBox::Gettext;
 use EBox;
 use EBox::Global;
 use EBox::CGI::Run;
-use EBox::Exceptions::Base;
+use EBox::Exceptions::Error;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
