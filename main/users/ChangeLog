@@ -1,4 +1,6 @@
 HEAD
+	+ Add error, errorText and errorDescription methods to
+	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses
 	+ Better error handling when we get a LdapObject that doesn't exists
 3.2.3
