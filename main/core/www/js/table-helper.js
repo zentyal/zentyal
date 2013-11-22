@@ -121,17 +121,13 @@ Zentyal.TableHelper.setErrorFromJSON = function(table, response) {
     Zentyal.TableHelper.setError(table, errorText);
 };
 
-Zentyal.TableHelper._newErrorJSONCallback = function(table) {
-    var error = function(response) {
-        Zentyal.TableHelper.setErrorFromJSON (table, response);
-    };
-    return error;
-};
-
-Zentyal.TableHelper._newSuccessJSONCallback = function(table, error) {
+Zentyal.TableHelper._newSuccessJSONCallback = function(table, afterSetError) {
     var success = function(response) {
         if (! response.success) {
-            error(response);
+            setErrorFromJSON(response);
+            if (afterSetError) {
+                afterSetError(response);
+            }
             return;
         }
 
@@ -155,8 +151,8 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory, page) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var error  = Zentyal.TableHelper._newErrorJSONCallback(table);
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
+    var error    =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText) };
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -297,8 +293,8 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
       params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var error = Zentyal.TableHelper._newErrorJSONCallback(table);
-    var success = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
+    var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText); };
+    var success = Zentyal.TableHelper._newSuccessJSONCallback(table);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.TableHelper.highlightRow( id, false);
@@ -350,11 +346,14 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
 
-    var error = function(response) {
-        Zentyal.TableHelper.setErrorFromJSON (table, response);
+    var afterSetError = function () {
         Zentyal.TableHelper.restoreHidden(actionsCellId);
     };
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
+    var error = function(response) {
+        Zentyal.TableHelper.setError(table, response.responseText);
+        afterSetError();
+    };
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, afterSetError);
     var complete = function(response) {
         Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -387,12 +386,10 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var error  = function(response) {
-        Zentyal.TableHelper.setErrorFromJSON(table, response);
-    };
+    var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText)  };
     var success = function(response) {
         if (!response.success) {
-            error(response);
+            setErrorFromJSON(response);
             return;
         }
         if ('message' in response) {
@@ -443,8 +440,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&page=' + page;
 
-    var error = function(response) {
-        Zentyal.TableHelper.setErrorFromJSON(table, response);
+    var afterSetError = function () {
         if ( action == 'changeAdd' ) {
             Zentyal.TableHelper.restoreHidden('creatingForm_' + table, table);
         } else if ( action == 'changeList' ) {
@@ -455,7 +451,10 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
             Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
         }
     };
-    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, error);
+    var error = function(response) {
+        Zentyal.TableHelper.setError(table, response.responseText);
+    }
+    var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, afterSetError);
     var complete = function(response) {
         // Highlight the element
         if (id != undefined) {
