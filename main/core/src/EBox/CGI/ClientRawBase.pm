@@ -184,9 +184,8 @@ sub run
             }
 
             $finish = 1;
-        } catch {
-            my $e = shift;
-            $self->setErrorFromException($e);
+        } catch($ex) {
+            $self->setErrorFromException($ex);
             if (not $self->{json}) {
                 $self->_error();
             }
