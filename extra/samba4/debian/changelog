@@ -1,3 +1,9 @@
+samba4 (4.1.2-zentyal2) precise; urgency=low
+
+  * Include apport hook
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 22 Nov 2013 22:12:18 +0100
+
 samba4 (4.1.2-zentyal1) precise; urgency=low
 
   * New upstream release
