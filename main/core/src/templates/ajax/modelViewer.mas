@@ -120,8 +120,6 @@
 <!-- Element to hide the elements while Asynchronous request are -->
 <!-- working. Find more information at "table-helper.js"  -->
 <div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
-
-<div id='<% $model->modelName() | hu %>_error'></div>
 </%method>
 
 <%method headerScriptSection>
