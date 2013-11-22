@@ -1,4 +1,5 @@
-HEAD
+3.3
+	+ Updated to use the new communication protocol with the upgrade tool.
 	+ Added sieve features
 	+ Added autodiscovery of server parameters
 	+ Removed the deprovision option, it needs more work to be useful
@@ -14,7 +15,6 @@ HEAD
 	  installations
 	+ Added the firstorg and firstou arguments also when provisioning the
 	  openchangedb and newuser part
-3.3
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
 	+ Disable mode select when provisioned

@@ -23,6 +23,16 @@ use Net::RabbitFoot;
 use UUID::Tiny;
 use JSON;
 
+use constant RPC_COMMAND_STATUS    => 1;
+use constant RPC_COMMAND_EXIT      => 2;
+use constant RPC_COMMAND_CANCEL    => 3;
+use constant RPC_COMMAND_CONNECT   => 4;
+use constant RPC_COMMAND_GET_USERS => 5;
+use constant RPC_COMMAND_SET_USERS => 6;
+use constant RPC_COMMAND_ESTIMATE  => 7;
+use constant RPC_COMMAND_EXPORT    => 8;
+use constant RPC_COMMAND_IMPORT    => 9;
+
 my $_instance = undef;
 
 sub _new_instance

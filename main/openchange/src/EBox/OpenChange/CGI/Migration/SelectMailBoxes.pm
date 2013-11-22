@@ -50,7 +50,7 @@ sub masonParameters
     my $params = [];
     try {
         my $request = {
-                command => 0,
+                command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS(),
         };
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $response = $rpc->send_command($request);
