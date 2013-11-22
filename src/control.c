@@ -442,6 +442,26 @@ struct json_object *control_handle_status(struct status *status,
     return jresponse;
 }
 
+static uint32_t callback(struct SRowSet *rowset, void *private)
+{
+    uint32_t             i;
+    struct SPropValue   *lpProp;
+    const char          *username = (const char *)private;
+
+    for (i = 0; i < rowset->cRows; i++) {
+        lpProp = get_SPropValue_SRow(&(rowset->aRow[i]), PR_ACCOUNT);
+        if (lpProp && lpProp->value.lpszA) {
+            if (strcmp(lpProp->value.lpszA, username) == 0) {
+                return i;
+            }
+        }
+    }
+    /* The user was not found, "abuse" of MAPI_E_USER_CANCEL error to signal
+     * it.
+     */
+    return rowset->cRows;
+}
+
 static bool connect_to_server(TALLOC_CTX *mem_ctx,
                 struct connection *conn,
                 const char *profdb,
@@ -526,7 +546,8 @@ static bool connect_to_server(TALLOC_CTX *mem_ctx,
             mapi_get_errstr(GetLastError()));
         goto fail;
     }
-    DEBUG(4, ("[*] Profile created\n"));
+    DEBUG(4, ("[*] Profile '%s' created for user '%s' on '%s'\n",
+              profname, username, profdb));
 
     /* Fill some options */
     mapi_profile_add_string_attr(conn->mapi_ctx, profname, "binding", address);
@@ -552,10 +573,18 @@ static bool connect_to_server(TALLOC_CTX *mem_ctx,
         goto fail;
     }
 
-    retval = ProcessNetworkProfile(conn->session, username, NULL, NULL);
+    retval = ProcessNetworkProfile(conn->session, username,
+                                   (mapi_profile_callback_t) callback,
+                                   username);
     if (retval != MAPI_E_SUCCESS && retval != 0x1) {
-        conn->error = talloc_asprintf(mem_ctx, "ProcessNetworkProfile: %s",
-            mapi_get_errstr(GetLastError()));
+        if (retval == MAPI_E_USER_CANCEL) {
+            conn->error = talloc_asprintf(mem_ctx,
+                "ProcessNetworkProfile: We had a problem looking up '%s' user",
+                username);
+        } else {
+            conn->error = talloc_asprintf(mem_ctx, "ProcessNetworkProfile: %s",
+                mapi_get_errstr(GetLastError()));
+        }
         goto fail;
     }
 
