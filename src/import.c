@@ -411,8 +411,6 @@ static void import_mailbox(TALLOC_CTX *mem_ctx,
         if (retval != MAPI_E_SUCCESS) {
         const char *error = mapi_get_errstr(GetLastError());
         DEBUG(0, ("[!] OpenUserMailbox: %s\n", error));
-        tdb_close(mdata->tdb_foldermap);
-        tdb_close(mdata->tdb_sysfolder);
         goto fail;
     }
 
