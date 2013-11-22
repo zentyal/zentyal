@@ -227,8 +227,7 @@ sub _updateSessions
                     $self->{pendingRules} = undef;
                 }
                 EBox::Sudo::root(@pending, @rules, @removeRules) ;
-            } catch {
-                my $e = shift;
+            } catch ($e) {
                 EBox::Util::Lock::unlock('firewall');
                 $e->throw();
             }

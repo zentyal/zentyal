@@ -179,8 +179,7 @@ sub addToZentyal
                     my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
                     next unless ($smbMember);
                     $self->addMember($smbMember, 1);
-                } catch {
-                    my $error = shift;
+                } catch ($error) {
                     EBox::error("Error adding member: $error");
                 }
             }
@@ -234,8 +233,7 @@ sub addToZentyal
         unless ($zentyalGroup) {
             EBox::error("The group $name exists in Zentyal but is not linked with Samba!");
         }
-    } catch {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error loading group '$name': $error");
     }
 

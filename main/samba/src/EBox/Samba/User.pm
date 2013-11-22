@@ -477,9 +477,8 @@ sub addToZentyal
     } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("User $uid already in OpenLDAP database");
         $zentyalUser = new EBox::Users::User(uid => $uid);
-    } catch {
-        my $error = shift;
-        EBox::error("Error loading user '$uid': $error");
+    } catch ($e) {
+        EBox::error("Error loading user '$uid': $e");
     }
 
     if ($zentyalUser) {

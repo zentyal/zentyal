@@ -155,8 +155,7 @@ sub enableActions
         my $lines = join ('\n', @lines);
         my $cmd = "echo '$lines' >> " . SQUID3_DEFAULT_FILE;
         EBox::Sudo::root($cmd);
-    } catch {
-        my $error = shift;
+    } catch ($error) {
         EBox::error("Error creating squid default file: $error");
     }
 

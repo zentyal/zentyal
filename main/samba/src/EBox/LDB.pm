@@ -335,9 +335,8 @@ sub ldapOUToLDB
     } catch (EBox::Exceptions::DataExists $e) {
         EBox::warn("OU $name already in $parentDN on Samba database");
         $sambaOU = $sambaMod->ldbObjectFromLDAPObject($ldapOU);
-    } catch {
-        my $error = shift;
-        EBox::error("Error loading OU '$name' in '$parentDN': $error");
+    } catch ($e) {
+        EBox::error("Error loading OU '$name' in '$parentDN': $e");
     }
 
     return $sambaOU;
@@ -412,8 +411,7 @@ sub ldapUsersToLdb
             my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
             $sambaUser->setCredentials($user->kerberosKeys());
             EBox::debug("Password updated for user $samAccountName");
-        } catch {
-            my $error = shift;
+        } catch ($error) {
             EBox::error("Error loading user '$samAccountName': $error");
         }
     }
@@ -454,8 +452,7 @@ sub ldapContactsToLdb
             $sambaContact->_linkWithUsersObject($contact);
         } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Contact $name already in $parentDN on Samba database");
-        } catch {
-            my $error = shift;
+        } catch ($error) {
             EBox::error("Error loading contact '$name' in '$parentDN': $error");
         }
     }
@@ -495,9 +492,8 @@ sub ldapGroupsToLdb
             $sambaGroup->_linkWithUsersObject($group);
         } catch (EBox::Exceptions::DataExists $e) {
             EBox::debug("Group $name already in Samba database");
-        } catch {
-            my $error = shift;
-            EBox::error("Error loading group '$name': $error");
+        } catch ($e) {
+            EBox::error("Error loading group '$name': $e");
         }
         next unless defined $sambaGroup;
 
@@ -506,8 +502,7 @@ sub ldapGroupsToLdb
                 my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
                 next unless ($smbMember);
                 $sambaGroup->addMember($smbMember, 1);
-            } catch {
-                my $error = shift;
+            } catch ($error) {
                 EBox::error("Error adding member: $error");
             }
         }
@@ -589,13 +584,11 @@ sub ldapServicePrincipalsToLdb
                     my $spn = "$p/$fqdn";
                     EBox::info("Adding SPN '$spn' to user " . $smbUser->dn());
                     $smbUser->addSpn($spn);
-                } catch {
-                    my $error = shift;
+                } catch ($error) {
                     EBox::error("Error adding SPN '$p' to account '$samAccountName': $error");
-                };
+                }
             }
-        } catch {
-            my $error = shift;
+        } catch ($error) {
             EBox::error("Error adding account '$samAccountName': $error");
         }
     }
