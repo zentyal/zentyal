@@ -13,3 +13,6 @@
 37_ndr_security_header
 38_fix_domain_join
 39_errors_library_no_private
+40-s4-libcli-raw-Add-new-command-to-set-per-packet-case
+41-s4-libcli-raw-Add-test-for-per-packet-case-sensitive.patch
+42-s4-libcli-raw-pysmb-Raise-exception-on-failed-case_s.patch
