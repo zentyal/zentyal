@@ -38,6 +38,7 @@
   $model
 </%args>
 <%init>
+  my $tableName = $model->tableName();
   my $formDataRef;
   if ( defined ( $model->row() )) {
       $formDataRef = $model->row()->{'values'};
@@ -45,6 +46,8 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
+<div id='<% $tableName %>_error'></div>
+<div id='<% $tableName %>_message'></div>
 <& /title.mas,
     crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
@@ -52,6 +55,7 @@
    title => $model->headTitle()
 &>
 <& SELF:messagesAndHelp, model => $model &>
+
 <& '/ajax/formEdit.mas',
    model    => $model,
    formData => $formDataRef

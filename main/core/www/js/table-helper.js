@@ -395,11 +395,11 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         if ('message' in response) {
             Zentyal.TableHelper.setMessage(table, response.message);
         }
+    };
+    var complete = function(response){
         $('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
-    };
-    var complete = function(response){
         Zentyal.refreshSaveChangesButton();
     };
 
