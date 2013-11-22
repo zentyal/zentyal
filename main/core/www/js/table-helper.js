@@ -195,21 +195,29 @@ Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersT
 Zentyal.TableHelper.updateTable = function(tableId, changes) {
     var rowId,
         tr,
-       i, values;
+        i, values;
+    var noMoreRowChanges = false;
 
-    // exclusive changes, if fired other changes are ignored
+    // exclusive row changes, if fired other row changes are ignored
     if ('reload' in changes) {
         $('#' + tableId).html(changes.reload);
         if ('highlightRowAfterReload' in changes) {
             $('#' + changes.highlightRowAfterReload).effect('highlight');
         }
-        return;
+        noMoreRowChanges = true;
     } else if ('changeRowForm' in changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
+        noMoreRowChanges = true;
+    }
 
+    if ('message' in changes) {
+        Zentyal.TableHelper.setMessage(tableId, changes.message);
+    }
+    if (noMoreRowChanges) {
         return;
     }
+
 
     var table = $('#' + tableId + '_table');
     assert(table.length > 0, '#' + tableId + '_table');
@@ -260,9 +268,6 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
                                           changes.paginationChanges.pageNumbersText);
     }
 
-    if ('message' in changes) {
-        Zentyal.TableHelper.setMessage(tableId, changes.message);
-    }
     Zentyal.TableHelper.restoreTop(tableId);
 };
 
