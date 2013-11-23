@@ -1,4 +1,5 @@
 HEAD
+	+ Update user CN on user modifications
 	+ Show user friendly error creating system shares
 	+ Add precondition to GPO models, do not allow edition if server is ADC
 	+ Fix error in backup or clicking on edit GPO when server is ADC and
