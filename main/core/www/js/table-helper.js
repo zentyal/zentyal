@@ -386,7 +386,7 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         params += '&' + Zentyal.TableHelper.encodeFields(table, fields);
     }
 
-    var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText)  };
+    var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText) };
     var success = function(response) {
         if (!response.success) {
             Zentyal.TableHelper.setErrorFromJSON(table, response);
