@@ -461,9 +461,9 @@ sub _checkSystemShareMountOptions
     my $options;
     try {
         $options = $fs->options($mountPoint);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
-    };
+    }
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(

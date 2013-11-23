@@ -97,11 +97,9 @@ sub changePassword
     $self->set('unicodePwd', $passwd, 1);
     try {
         $self->save() unless $lazy;
-    } otherwise {
-        my ($error) = @_;
-
-        throw EBox::Exceptions::External($error->error());
-    };
+    } catch ($e) {
+        throw EBox::Exceptions::External($e->error());
+    }
 }
 
 # Method: setCredentials
