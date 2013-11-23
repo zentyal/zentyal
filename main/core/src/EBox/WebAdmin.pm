@@ -209,7 +209,7 @@ sub _enforceServiceState
 
     $self->_daemon('restart');
 
-    EBox::Service::manage('apport', 'restart');
+    EBox::Sudo::silentRoot('service apport restart');
 }
 
 sub _nginxConfFile
