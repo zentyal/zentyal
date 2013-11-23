@@ -98,7 +98,7 @@ sub changePassword
     try {
         $self->save() unless $lazy;
     } catch ($e) {
-        throw EBox::Exceptions::External($e->error());
+        throw EBox::Exceptions::External("$e");
     }
 }
 
