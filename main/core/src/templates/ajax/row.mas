@@ -37,7 +37,7 @@ my $rowId = $row->id();
               push  @viewerParams, (checkAllId => $checkAllId);
           }
 </%perl>
-        <td class='tcenter' id='<% $rowId %>_<% $td->fieldName() %>'>
+        <td class='tcenter'>
 %          if ($addRowMoveHandle) {
            <span class='moveRowHandle'></span>
 %              $addRowMoveHandle = 0;
