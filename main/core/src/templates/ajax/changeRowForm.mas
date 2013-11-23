@@ -91,7 +91,7 @@ $printableRowName
        $m->abort("Unknown changerowFrom action: $action");
     }
 </%init>
-<h3><% $formTitle %></h3>
+<h4><% $formTitle %></h4>
 </%method>
 
 <%doc>
@@ -301,10 +301,8 @@ if ($action eq 'changeEdit') {
   <td id="applyChanges">
   </td>
   <td id="<% $modelName %>_buttons">
-% unless ((defined $onlyCustomActions) and $onlyCustomActions)
-% {
-%  if ( $action eq 'changeAdd' )
-%  {
+% unless ((defined $onlyCustomActions) and $onlyCustomActions) {
+%  if ( $action eq 'changeAdd' ) {
 %    # extra input for cloneId
 %    if ($cloneId)  {
         <&/input/hidden.mas,
@@ -321,9 +319,7 @@ if ($action eq 'changeEdit') {
         title => 'Add',
         onclick => $model->addNewRowJS($page, cloneId => $cloneId) . '; return false'
     &>
-%  }
-%  elsif ($action eq 'changeEdit')
-%  {
+%  } elsif ($action eq 'changeEdit') {
     <& /input/submit.mas,
         class => '',
         type => 'submit',
@@ -333,8 +329,7 @@ if ($action eq 'changeEdit') {
         onclick => $model->changeRowJS($editid, $page) . '; return false'
     &>
 %  }
-%  if ($changeView)
-%  {
+%  if ($changeView) {
     <& /input/submit.mas,
         class => '',
         type => 'submit',

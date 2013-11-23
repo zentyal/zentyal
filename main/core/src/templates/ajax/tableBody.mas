@@ -97,6 +97,9 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 
 <div id='<% $tableName %>_error'></div>
 <div id='<% $tableName %>_message'></div>
+<& PARENT:title,
+      title => $model->headTitle()
+&>
 %  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
 %  if (not $showEditForm)  {
 <& SELF:topTable,
@@ -246,12 +249,7 @@ my $tableName = $model->table()->{'tableName'};
 my $changeView = $model->action('changeView');
 </%init>
 <div id="<% $tableName %>_top">
-%    if ( $model->printableModelName() )  {
-       <& PARENT:title,
-          title => $model->headTitle()
-        &>
-        <& SELF:messagesAndHelp, model => $model &>
-%    }
+    <& SELF:messagesAndHelp, model => $model &>
 %    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
 %        if ($changeView) {
            <& SELF:tableActionLinks,
