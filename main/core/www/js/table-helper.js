@@ -175,14 +175,6 @@ Zentyal.TableHelper.setPagination = function(tableId, page, nPages, pageNumbersT
     page   = parseInt(page, 10);
     nPages = parseInt(nPages, 10);
 
-    assert(pager.length === 1);
-    assert(page < nPages);
-    assert(page >= 0);
-
-    assert( $('#' + tableId + '_page_numbers', pager).length === 1);
-    assert($('.tablePrevPageControl', pager).length === 2);
-    assert($('.tableNextPageControl', pager).length === 2);
-
     $('#' + tableId + '_page_numbers', pager).text(pageNumbersText);
     $('.tablePrevPageControl', pager).prop('disabled', page === 0);
     $('.tableNextPageControl', pager).prop('disabled', (page+1) === nPages);
@@ -216,12 +208,10 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
 
 
     var table = $('#' + tableId + '_table');
-    assert(table.length > 0, '#' + tableId + '_table');
     if ('removed' in changes) {
         for (i=0; i < changes.removed.length; i++) {
             rowId = changes.removed[i];
             var row = $('#' + rowId, table);
-            assert(row.length === 1, 'remove #' + rowId);
             row.remove();
         }
     }
@@ -230,7 +220,6 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         var tbody = $('#' + tableId + '_tbody', table);
         var trs   = $('tr', tbody);
         var empty = trs.length === 0;
-        assert(!empty); // XXX empty table
         for (i=0; i < changes.added.length; i ++) {
             var toAdd = changes.added[i];
             var position = toAdd.position;
@@ -242,7 +231,6 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
             } else {
                 // after a given row
                 var trReference  = $('#' + position, tbody);
-                assert(trReference.length == 1, '#' + position);
                 trReference.after(tr);
             }
             tr.effect('highlight');
@@ -1244,7 +1232,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     var nextPageContextName;
     var params;
 
-    assert(nextPage, "Missing next page");
 
     Zentyal.TableHelper.cleanMessage(table);
     Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
@@ -1263,8 +1250,6 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
         selectForeignField    = extraParams['selectForeignField'];
         nextPageContextName =  extraParams['nextPageContextName'];
     }
-
-    assert(nextPageContextName, 'missing nextpagecontextname');
 
     var success =  function(json) {
         if (!json.success) {

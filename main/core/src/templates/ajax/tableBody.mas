@@ -47,8 +47,6 @@ use Perl6::Junction qw(any);
   %presetParams => ()
 </%args>
 <%init>
-  use EBox::Gettext;
-
   # Fetch table head from model
   my $table     = $model->table();
   my @tableHead = @{$table->{'tableDescription'}};
@@ -82,13 +80,6 @@ use Perl6::Junction qw(any);
     $page = POSIX::floor(@ids/$pageSize);
   }
 
-  # If the action is a preset update, choose for an edition or an
-  # addition whether the editid is set or not
-  if ( $action eq 'presetUpdate' ) {
-      $action = 'changeAdd' if (not $editid);
-      $action = 'changeEdit' if ( $editid );
-  }
-
 my %checkAllControls = %{ $model->checkAllControls()  };
 </%init>
 <& .pageTitle,
@@ -100,8 +91,6 @@ my %checkAllControls = %{ $model->checkAllControls()  };
 <& PARENT:title,
       title => $model->headTitle()
 &>
-%  my $showEditForm =  $action eq any('changeAdd', 'changeEdit', 'clone');
-%  if (not $showEditForm)  {
 <& SELF:topTable,
    model => $model,
    actions => $actions,
@@ -110,28 +99,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    filter => $filter,
    nIds   => scalar @ids
 &>
-% }
-
-<div id='<% $tableName  %>_editForm'>
-
-
-%  unless ((defined $onlyCustomActions) and $onlyCustomActions) {
-%   if ($showEditForm) {
-%     die 'XXX to remove';
-<& SELF:messagesAndHelp, model => $model &>
-<& /ajax/changeRowForm.mas,
-   action => $action,
-   model  => $model,
-   editid => $editid,
-   filter => $filter,
-   page   => $page,
-   tpages => $tpages,
-   presetParams  => \%presetParams
-&>
-%   }
-%  }
-</div>
-
+<div id='<% $tableName  %>_editForm'></div>
 
 % if (@ids or length($filter) > 0)  {
 %
