@@ -174,7 +174,7 @@ sub _register
                     if (join("", @{$errorData->{$key}}) =~ m/already/) {
                         $errorText .= '<p>'
                           . __x('An user with that email is already registered. You can reset your password at {openhref}here{closehref}.',
-                                openhref  => '<a href="' . RESET_URL . ' target="_blank">',
+                                openhref  => '<a href="' . RESET_URL . '" target="_blank">',
                                 closehref => '</a>')
                           . '</p>';
                     } else {
