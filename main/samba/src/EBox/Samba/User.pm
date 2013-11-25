@@ -95,7 +95,11 @@ sub changePassword
 
     # The password will be changed on save
     $self->set('unicodePwd', $passwd, 1);
-    $self->save() unless $lazy;
+    try {
+        $self->save() unless $lazy;
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
 }
 
 # Method: setCredentials

@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Pinning kernels so they are updated with QA updates active
 	+ Added missing EBox::Exceptions uses
 	+ Remove cron jobs when unregistering
 	+ Use latest REST Remote API to register a free account

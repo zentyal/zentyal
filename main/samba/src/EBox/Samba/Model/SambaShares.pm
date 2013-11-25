@@ -254,10 +254,16 @@ sub validateTypedRow
     return unless ($action eq 'add' or $action eq 'update');
 
     if (exists $parms->{'path'}) {
-        my $path = $parms->{'path'}->selectedType();
-        if ($path eq 'system') {
+        my $pathType = $parms->{'path'}->selectedType();
+        my $pathValue = $parms->{'path'}->value();
+        if ($pathType eq 'system') {
             # Check if it is an allowed system path
-            my $normalized = abs_path($parms->{'path'}->value());
+            my $normalized = abs_path($pathValue);
+            unless (defined $normalized) {
+                throw EBox::Exceptions::External(
+                    __x("Zentyal could not access to directory '{x}': {y}",
+                        x => $pathValue, y => $!));
+            }
             if ($normalized eq '/') {
                 throw EBox::Exceptions::External(
                     __('The file system root directory cannot be used as share'));
@@ -280,8 +286,7 @@ sub validateTypedRow
             $self->_checkSystemShareMountOptions($normalized);
         } else {
             # Check if it is a valid directory
-            my $dir = $parms->{'path'}->value();
-            EBox::Validate::checkFilePath($dir, __('Samba share directory'));
+            EBox::Validate::checkFilePath($pathValue, __('Samba share directory'));
         }
     }
 }
@@ -456,9 +461,9 @@ sub _checkSystemShareMountOptions
     my $options;
     try {
         $options = $fs->options($mountPoint);
-    } otherwise {
+    } catch {
         throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
-    };
+    }
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(

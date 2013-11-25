@@ -193,6 +193,13 @@ sub _setConf
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
     $self->enableRestartOnTrigger();
+
+    my $apportEnabled = 0;
+    if (EBox::Config::boolean('debug')) {
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        $apportEnabled = $sysinfo->model('Debug')->value('enabled');
+    }
+    EBox::Sudo::root("sed -i 's/^enabled=.*/enabled=$apportEnabled/' /etc/default/apport");
 }
 
 sub _enforceServiceState
@@ -200,6 +207,8 @@ sub _enforceServiceState
     my ($self) = @_;
 
     $self->_daemon('restart');
+
+    EBox::Sudo::silentRoot('service apport restart');
 }
 
 sub _nginxConfFile
