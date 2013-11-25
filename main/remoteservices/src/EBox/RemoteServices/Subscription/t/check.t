@@ -20,128 +20,194 @@
 use strict;
 use warnings;
 
+package EBox::RemoteServices::Subscription::Check::Test;
+
+use base 'Test::Class';
+
 use EBox::Global::TestStub;
 use EBox::TestStubs;
-use Test::More tests => 36;
+use Test::MockModule;
+use Test::MockObject;
+use Test::More tests => 22;
 
 BEGIN {
     diag('A unit test for EBox::RemoteServices::Subscription::Check');
+}
+
+my $pop = 0;
+my $push = 0;
+
+sub setUpConfiguration : Test(startup)
+{
+    EBox::Global::TestStub::fake();
+}
+
+sub use_module_ok : Test(startup => 1)
+{
     use_ok('EBox::RemoteServices::Subscription::Check')
       or die;
 }
 
-EBox::Global::TestStub::fake();
+sub get_checker : Test(setup)
+{
+    my ($self) = @_;
+    $self->{checker} = new EBox::RemoteServices::Subscription::Check();
+    $self->{det} = {
+        basic => { capabilities => { serverusers => { max => undef }}},
+        prof => { capabilities => { serverusers => { max => 25 }}},
+        busi => { capabilities => { serverusers => { max => 75 }}},
+        prem => { capabilities => { serverusers => { max => 300 }}}}
+}
 
-my $checker = new EBox::RemoteServices::Subscription::Check();
-isa_ok($checker, 'EBox::RemoteServices::Subscription::Check');
+sub mock_rs : Test(setup)
+{
+    EBox::TestStubs::fakeModule(
+        name => 'remoteservices',
+        subs => [ 'pushAdMessage' => sub { $push++; },
+                  'popAdMessage' => sub { $pop++; },
+                  'i18nServerEdition' => sub { '' } ]);
+}
 
-# Test: Mail module enabled
-# Fake mail module
-EBox::TestStubs::fakeModule(
-    name => 'mail',
-    subs => [ 'isEnabled' => sub { return 1; } ]);
+sub mock_cap_getter : Test(setup)
+{
+    my ($self) = @_;
 
-cmp_ok($checker->check('sb', 0), '==', 0, 'Mail module cannot be enabled with SB');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+    $self->{cap_getter} = new Test::MockModule('EBox::RemoteServices::Capabilities');
+    $self->{cap_getter_ins} = new Test::MockObject();
+    $self->{cap_getter_ins}->mock('subscriptionDetails', sub { $self->{det}->{prof} });
+    $self->{cap_getter}->mock('new' => $self->{cap_getter_ins});
+}
 
-ok($checker->check('sb', 1),
-   'Mail module can be enabled with SB edition with Communications add-on');
-is($checker->lastError(), undef, 'There is nothing in last error');
+sub test_use_ok: Test
+{
+    my ($self) = @_;
+    isa_ok($self->{checker}, 'EBox::RemoteServices::Subscription::Check');
+}
 
-ok($checker->check('enterprise'),
-   'Mail module can be enabled with Enterprise edition');
-is($checker->lastError(), undef, 'There is nothing in last error');
+sub test_no_users: Test(2)
+{
+    my ($self) = @_;
+    cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
+           'No problem without users module');
 
-# Un-fake mail module
-EBox::TestStubs::fakeModule(
-    name => 'mail',
-    subs => [ 'isEnabled' => sub { return 0; } ]);
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 0; } ]);
 
-# Test: Nusers > 25 in master mode
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'none' },
-              'realUsers' => sub { return [ ('user') x 26 ]; } ]);
+    cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
+           'No problem without disabled users module');
+}
 
-cmp_ok($checker->check('sb', 0), '==', 0, 'SB edition cannot have more than 25 users in master mode');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+sub test_no_limit: Test(2)
+{
+    my ($self) = @_;
 
-cmp_ok($checker->check('sb', 1), '==', 0, 'SB edition cannot have more than 25 users in master mode even with Communications Add-On');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 240]; }]);
 
-ok($checker->check('enterprise'),
-   '> 25 users in master mode with Enterprise edition');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    my $nPops = $pop;
+    cmp_ok($self->{checker}->check($self->{det}->{basic}), '==', 1,
+           'Basic community has no problems');
+    cmp_ok($pop, '>', $nPops, 'popAdMessage was called');
+}
 
-# Test: Nusers > 25 in zentyal cloud slave mode
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'cloud' },
-              'realUsers' => sub { return [ ('user') x 26 ]; } ]);
-cmp_ok($checker->check('sb', 0), '==', 0, 'SB edition cannot have more than 25 users in Zentyal Cloud slave mode');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+sub test_prof: Test(4)
+{
+    my ($self) = @_;
 
-cmp_ok($checker->check('sb', 1), '==', 0, 'SB edition cannot have more than 25 users in Zentyal Cloud slave mode even with Communications Add-On');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 240]; } ]);
 
-ok($checker->check('enterprise'),
-   '> 25 users in Zentyal Cloud with Enterprise edition');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    my $nPops = $pop;
+    my $nPushes = $push;
+    cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
+           'Professional has a warning');
+    cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
 
-# Test: Nusers > 25 in zentyal slave mode
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'zentyal' },
-              'realUsers' => sub { return [ ('user') x 26 ]; } ]);
-ok($checker->check('sb', 0), 'SB edition can have more than 25 users in Zentyal slave mode');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 20] } ]);
+    cmp_ok($self->{checker}->check($self->{det}->{prof}), '==', 1,
+           'Professional has no warning');
+    cmp_ok($pop, '>', $nPops, 'popAdMessage was called');
+}
 
-ok($checker->check('enterprise'),
-   '> 25 users in Zentyal slave mode with Enterprise edition');
-is($checker->lastError(), undef, 'There is nothing in last error');
+sub test_busi: Test(4)
+{
+    my ($self) = @_;
 
-# Test: n slaves > 0 without master
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'none' },
-              'realUsers' => sub { return [ ('user') x 20 ]; },
-              'slaves'    => sub { return [ 'slave1', 'slave2' ] }]);
-cmp_ok($checker->check('sb', 0), '==', 0, 'SB edition cannot have Zentyal slaves without master');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 240]; } ]);
 
-ok($checker->check('enterprise'),
-   'Enterprise edition can have slaves');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    my $nPops = $pop;
+    my $nPushes = $push;
+    cmp_ok($self->{checker}->check($self->{det}->{busi}), '==', 1,
+           'Business has a warning');
+    cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
 
-# Test: n slaves > 0 with Zentyal Cloud as slave
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'cloud' },
-              'realUsers' => sub { return [ ('user') x 20 ]; },
-              'slaves'    => sub { return [ 'cloud-slave1' ] } ]);
-ok($checker->check('sb', 0), 'SB edition can have Zentyal Cloud as slave');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 50]; } ]);
+    cmp_ok($self->{checker}->check($self->{det}->{busi}), '==', 1,
+           'Business has no warning');
+    cmp_ok($pop, '>', $nPops, 'popAdMessage was called');
 
-ok($checker->check('enterprise'),
-   'Enterprise edition can have slaves');
-is($checker->lastError(), undef, 'There is nothing in last error');
+}
 
-EBox::TestStubs::fakeModule(
-    name => 'users',
-    subs => [ 'isEnabled' => sub { return 1; },
-              'master'    => sub { return 'cloud' },
-              'realUsers' => sub { return [ ('user') x 20 ]; },
-              'slaves'    => sub { return [ 'cloud-slave1', 'slave1' ] } ]);
-cmp_ok($checker->check('sb', 0), '==', 0, 'SB edition cannot have Zentyal slaves having cloud as master');
-ok($checker->lastError(), 'There is something in last error: ' . $checker->lastError() );
+sub test_prem: Test(4)
+{
+    my ($self) = @_;
 
-ok($checker->check('enterprise'),
-   'Enterprise edition can have slaves');
-is($checker->lastError(), undef, 'There is nothing in last error');
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 440]; } ]);
+
+    my $nPops = $pop;
+    my $nPushes = $push;
+    cmp_ok($self->{checker}->check($self->{det}->{prem}), '==', 1,
+           'Premium has a warning');
+    cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
+
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 140]; } ]);
+    cmp_ok($self->{checker}->check($self->{det}->{prem}), '==', 1,
+           'Premium has no warning');
+    cmp_ok($pop, '>', $nPops, 'popAdMessage was called');
+}
+
+sub test_check_from_cloud: Test(4)
+{
+    my ($self) = @_;
+
+    EBox::TestStubs::fakeModule(
+        name => 'users',
+        subs => [ 'isEnabled' => sub { return 1; },
+                  'realUsers' => sub { return [('user') x 440]; } ]);
+    $self->{cap_getter_ins}->mock('list', sub { ['disaster-recovery'] });
+    my $nPops = $pop;
+    cmp_ok($self->{checker}->checkFromCloud(), '==', 1, 'Basic has no warning from Remote');
+    cmp_ok($pop, '>', $nPops, 'popAdMessage was called');
+
+    $self->{cap_getter_ins}->mock('list', sub { ['serverusers', 'disaster-recovery'] });
+    $self->{cap_getter_ins}->mock('detail', sub {{ 'max' => 20 }} );
+    my $nPushes = $push;
+    cmp_ok($self->{checker}->checkFromCloud(), '==', 1, 'Other has warning from Remote');
+    cmp_ok($push, '>', $nPushes, 'pushAdMessage was called');
+}
 
 1;
+
+END {
+    EBox::RemoteServices::Subscription::Check::Test->runtests();
+}
