@@ -1,4 +1,6 @@
 HEAD
+	+ Revert case sensitive shares. Use new SMB raw client library feature
+	  per packet case sensitive.
 	+ Throw external exception instead internal if error changing user password
 	+ Show user friendly error creating system shares
 	+ Add precondition to GPO models, do not allow edition if server is ADC

@@ -1,0 +1,253 @@
+From 822bab9b7c6ecb512e36ba2a8baf81d2dfdd2325 Mon Sep 17 00:00:00 2001
+From: Samuel Cabrero <scabrero@zentyal.com>
+Date: Tue, 19 Nov 2013 19:44:43 +0100
+Subject: [PATCH 1/3] s4:libcli/raw: Add new command to set per packet case
+ sensitive flag
+
+Signed-off-by: Samuel Cabrero <scabrero@zentyal.com>
+---
+ source4/libcli/cliconnect.c       | 21 +++++++++++++++++++++
+ source4/libcli/libcli.h           |  5 +++++
+ source4/libcli/pysmb.c            | 28 ++++++++++++++++++++++++++++
+ source4/libcli/raw/clitransport.c |  9 +++++++++
+ source4/libcli/raw/libcliraw.h    |  1 +
+ source4/libcli/raw/rawrequest.c   | 20 ++++++++++++++++++--
+ source4/libcli/raw/rawtrans.c     | 18 ++++++++++++++++++
+ source4/libcli/smb2/transport.c   |  9 +++++++++
+ source4/param/loadparm.c          |  1 +
+ 9 files changed, 110 insertions(+), 2 deletions(-)
+
+diff --git a/source4/libcli/cliconnect.c b/source4/libcli/cliconnect.c
+index 1715192..d104631 100644
+--- a/source4/libcli/cliconnect.c
++++ b/source4/libcli/cliconnect.c
+@@ -277,5 +277,26 @@ bool smbcli_parse_unc(const char *unc_name, TALLOC_CTX *mem_ctx,
+ 	return false;
+ }
+ 
++NTSTATUS smbcli_set_case_sensitive(struct smbcli_tree *tree, bool case_sensitive)
++{
++	struct smbcli_session *session = NULL;
++	struct smbcli_transport *transport = NULL;
++
++	if (!tree) {
++		return NT_STATUS_UNSUCCESSFUL;
++	}
++	session = tree->session;
++
++	if (!session) {
++		return NT_STATUS_UNSUCCESSFUL;
++	}
++	transport = session->transport;
++
++	if (!transport) {
++		return NT_STATUS_UNSUCCESSFUL;
++	}
++	transport->options.case_sensitive = case_sensitive;
+ 
++	return NT_STATUS_OK;
++}
+ 
+diff --git a/source4/libcli/libcli.h b/source4/libcli/libcli.h
+index 9e81740..47094b2 100644
+--- a/source4/libcli/libcli.h
++++ b/source4/libcli/libcli.h
+@@ -125,6 +125,11 @@ bool smbcli_parse_unc(const char *unc_name, TALLOC_CTX *mem_ctx,
+ 		      char **hostname, char **sharename);
+ 
+ /****************************************************************************
++ Set the case sensitivity flag on the packets. Returns old state.
++****************************************************************************/
++NTSTATUS smbcli_set_case_sensitive(struct smbcli_tree *tree, bool case_sensitive);
++
++/****************************************************************************
+  Symlink a file (UNIX extensions).
+ ****************************************************************************/
+ NTSTATUS smbcli_unix_symlink(struct smbcli_tree *tree, const char *fname_src, 
+diff --git a/source4/libcli/pysmb.c b/source4/libcli/pysmb.c
+index fb981c7..a24dbd8 100644
+--- a/source4/libcli/pysmb.c
++++ b/source4/libcli/pysmb.c
+@@ -528,6 +528,31 @@ static PyObject *py_close_file(pytalloc_Object *self, PyObject *args, PyObject *
+ 	Py_RETURN_NONE;
+ }
+ 
++/*
++ * Set the case sensitive flag on the packets
++ */
++static PyObject *py_smb_case_sensitive(pytalloc_Object *self, PyObject *args)
++{
++	NTSTATUS status;
++	char s;
++	bool sensitive;
++	struct smb_private_data *spdata;
++
++	if (!PyArg_ParseTuple(args, "b:case_sensitive", &s)) {
++		return NULL;
++	}
++	sensitive = s ? true : false;
++
++	spdata = self->ptr;
++	status = smbcli_set_case_sensitive(spdata->tree, sensitive);
++
++	if (NT_STATUS_IS_OK(status)) {
++		Py_RETURN_TRUE;
++	}
++
++	Py_RETURN_FALSE;
++}
++
+ static PyMethodDef py_smb_methods[] = {
+ 	{ "loadfile", (PyCFunction)py_smb_loadfile, METH_VARARGS,
+ 		"loadfile(path) -> file contents as a string\n\n \
+@@ -567,6 +592,9 @@ static PyMethodDef py_smb_methods[] = {
+ 	{ "close_file", (PyCFunction)py_close_file, METH_VARARGS,
+ 		"close_file(fnum) -> None\n\n \
+ 		Close the file based on fnum."},
++	{ "case_sensitive", (PyCFunction)py_smb_case_sensitive, METH_VARARGS,
++		"case_sensitive(sensitive) -> True of False\n\n \
++		Set the case sensitive flag on the packets." },
+ 	{ NULL },
+ };
+ 
+diff --git a/source4/libcli/raw/clitransport.c b/source4/libcli/raw/clitransport.c
+index f9d96b5..0843cb3 100644
+--- a/source4/libcli/raw/clitransport.c
++++ b/source4/libcli/raw/clitransport.c
+@@ -228,6 +228,15 @@ struct tevent_req *smbcli_transport_setup_subreq(struct smbcli_request *req)
+ 	clear_flags = ~additional_flags;
+ 	clear_flags2 = ~additional_flags2;
+ 
++	if (transport->options.case_sensitive) {
++                additional_flags &= ~FLAG_CASELESS_PATHNAMES;
++                clear_flags |= FLAG_CASELESS_PATHNAMES;
++        } else {
++                /* Default setting, case insensitive. */
++                additional_flags |= FLAG_CASELESS_PATHNAMES;
++                clear_flags &= ~FLAG_CASELESS_PATHNAMES;
++	}
++
+ 	if (req->session) {
+ 		session = req->session->smbXcli;
+ 	}
+diff --git a/source4/libcli/raw/libcliraw.h b/source4/libcli/raw/libcliraw.h
+index a246ade..f8a363d 100644
+--- a/source4/libcli/raw/libcliraw.h
++++ b/source4/libcli/raw/libcliraw.h
+@@ -95,6 +95,7 @@ struct smbcli_options {
+ 	unsigned int use_spnego:1;
+ 	unsigned int unicode:1;
+ 	unsigned int ntstatus_support:1;
++	unsigned int case_sensitive:1;
+ 	int max_protocol;
+ 	uint32_t max_xmit;
+ 	uint16_t max_mux;
+diff --git a/source4/libcli/raw/rawrequest.c b/source4/libcli/raw/rawrequest.c
+index 9cabea5..0407325 100644
+--- a/source4/libcli/raw/rawrequest.c
++++ b/source4/libcli/raw/rawrequest.c
+@@ -116,7 +116,15 @@ struct smbcli_request *smbcli_request_setup_transport(struct smbcli_transport *t
+ 	memcpy(req->out.hdr, "\377SMB", 4);
+ 	SCVAL(req->out.hdr,HDR_COM,command);
+ 
+-	SCVAL(req->out.hdr,HDR_FLG, FLAG_CASELESS_PATHNAMES);
++	if (transport != NULL) {
++		if (transport->options.case_sensitive) {
++			SCVAL(req->out.hdr, HDR_FLG, 0);
++		} else {
++			SCVAL(req->out.hdr, HDR_FLG, FLAG_CASELESS_PATHNAMES);
++		}
++	} else {
++		SCVAL(req->out.hdr, HDR_FLG, FLAG_CASELESS_PATHNAMES);
++	}
+ 	SSVAL(req->out.hdr,HDR_FLG2, 0);
+ 
+ 	/* copy the pid, uid and mid to the request */
+@@ -298,7 +306,15 @@ NTSTATUS smbcli_chained_request_setup(struct smbcli_request *req,
+ 	memcpy(req->out.hdr, "\377SMB", 4);
+ 	SCVAL(req->out.hdr,HDR_COM,command);
+ 
+-	SCVAL(req->out.hdr,HDR_FLG, FLAG_CASELESS_PATHNAMES);
++	if (req->transport != NULL) {
++		if (req->transport->options.case_sensitive) {
++			SCVAL(req->out.hdr,HDR_FLG, 0);
++		} else {
++			SCVAL(req->out.hdr,HDR_FLG, FLAG_CASELESS_PATHNAMES);
++		}
++	} else {
++		SCVAL(req->out.hdr,HDR_FLG, FLAG_CASELESS_PATHNAMES);
++	}
+ 	SSVAL(req->out.hdr,HDR_FLG2, 0);
+ 
+ 	/* copy the pid, uid and mid to the request */
+diff --git a/source4/libcli/raw/rawtrans.c b/source4/libcli/raw/rawtrans.c
+index 3a12fd3..390685a 100644
+--- a/source4/libcli/raw/rawtrans.c
++++ b/source4/libcli/raw/rawtrans.c
+@@ -66,6 +66,15 @@ static struct smbcli_request *smb_raw_trans_backend_send(struct smbcli_tree *tre
+ 	clear_flags = ~additional_flags;
+ 	clear_flags2 = ~additional_flags2;
+ 
++	if (req->transport->options.case_sensitive) {
++                additional_flags &= ~FLAG_CASELESS_PATHNAMES;
++                clear_flags |= FLAG_CASELESS_PATHNAMES;
++        } else {
++                /* Default setting, case insensitive. */
++                additional_flags |= FLAG_CASELESS_PATHNAMES;
++                clear_flags &= ~FLAG_CASELESS_PATHNAMES;
++	}
++
+ 	timeout_msec = req->transport->options.request_timeout * 1000;
+ 
+ 	for (s=0; s < parms->in.setup_count; s++) {
+@@ -294,6 +303,15 @@ struct smbcli_request *smb_raw_nttrans_send(struct smbcli_tree *tree,
+ 	clear_flags = ~additional_flags;
+ 	clear_flags2 = ~additional_flags2;
+ 
++	if (req->transport->options.case_sensitive) {
++                additional_flags &= ~FLAG_CASELESS_PATHNAMES;
++                clear_flags |= FLAG_CASELESS_PATHNAMES;
++        } else {
++                /* Default setting, case insensitive. */
++                additional_flags |= FLAG_CASELESS_PATHNAMES;
++                clear_flags &= ~FLAG_CASELESS_PATHNAMES;
++	}
++
+ 	timeout_msec = req->transport->options.request_timeout * 1000;
+ 
+ 	memcpy(req->out.vwv,
+diff --git a/source4/libcli/smb2/transport.c b/source4/libcli/smb2/transport.c
+index 2ad16a9..2d2f10d 100644
+--- a/source4/libcli/smb2/transport.c
++++ b/source4/libcli/smb2/transport.c
+@@ -174,6 +174,15 @@ void smb2_transport_send(struct smb2_request *req)
+ 		additional_flags |= SMB2_HDR_FLAG_CHAINED;
+ 	}
+ 
++	if (transport->options.case_sensitive) {
++                additional_flags &= ~FLAG_CASELESS_PATHNAMES;
++                clear_flags |= FLAG_CASELESS_PATHNAMES;
++        } else {
++                /* Default setting, case insensitive. */
++                additional_flags |= FLAG_CASELESS_PATHNAMES;
++                clear_flags &= ~FLAG_CASELESS_PATHNAMES;
++	}
++
+ 	hdr_ofs = PTR_DIFF(req->out.hdr, req->out.buffer);
+ 	pdu_len = req->out.size - hdr_ofs;
+ 	body.data = req->out.body;
+diff --git a/source4/param/loadparm.c b/source4/param/loadparm.c
+index 3fbf852..9783680 100644
+--- a/source4/param/loadparm.c
++++ b/source4/param/loadparm.c
+@@ -43,6 +43,7 @@ void lpcfg_smbcli_options(struct loadparm_context *lp_ctx,
+ 	options->unicode = lpcfg_unicode(lp_ctx);
+ 	options->use_oplocks = true;
+ 	options->use_level2_oplocks = true;
++	options->case_sensitive = false;
+ }
+ 
+ void lpcfg_smbcli_session_options(struct loadparm_context *lp_ctx,
+-- 
+1.8.3.2
+
