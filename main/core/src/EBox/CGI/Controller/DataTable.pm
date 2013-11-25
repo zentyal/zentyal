@@ -83,15 +83,13 @@ sub _auditLog
     unless (defined $self->{audit}) {
         $self->{audit} = EBox::Global->modInstance('audit');
     }
-
     return unless $self->{audit}->isEnabled();
 
-    my $model = $self->{tableModel};
-    $value = '' unless defined $value;
-    $oldValue = '' unless defined $oldValue;
 
+    my $model = $self->{tableModel};
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
+
     my $row = $model->row($rowId);
     if (defined ($row)) {
         my $element;
@@ -112,7 +110,6 @@ sub _auditLog
             $oldValue = '****' if $oldValue;
         }
     }
-
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
 
