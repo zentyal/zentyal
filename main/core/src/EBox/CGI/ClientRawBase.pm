@@ -105,7 +105,7 @@ sub _print_error
     # We send a ERROR_STATUS code. This is necessary in order to trigger
     # onFailure functions on Ajax code
     my $r = Apache2::RequestUtil->request();
-    my $filename = EBox::Config::templates . '/error.mas';
+    my $filename = 'error.mas';
     my @params =  ('error' => $text);
     my $output = EBox::Html::makeHtml($filename, @params);
 
