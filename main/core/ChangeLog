@@ -1,9 +1,8 @@
-HEAD
+3.3
 	+ Use the same Mason interpeter for most HTML templates
 	+ Use more granullar ajax for table actions
 	+ Use stand-alone ajax call to refresh save change buttons
 	+ Added missing use to EBox::CGI::Base
-3.3
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
 	+ Fixed errors with row ID in ManageAdmins table
