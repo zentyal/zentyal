@@ -1637,18 +1637,26 @@ sub popAdMessage
 #
 #    Get the adMessages set by <pushAdMessage>
 #
+# Parameters:
+#
+#    plain - Boolean to indicate if we want the text without formatting
+#
 # Returns:
 #
 #    String - the messages enclosed in <p> tag
 #
 sub adMessages
 {
-    my ($self) = @_;
+    my ($self, $plain) = @_;
 
     my $adMessages = $self->get_state()->{ad_messages};
     my $retVal = "";
     foreach my $adMsgKey (keys(%{$adMessages})) {
-        $retVal .= '<p>' . $adMessages->{$adMsgKey} . '</p>';
+        if ($plain) {
+            $retVal .= $adMessages->{$adMsgKey} . ' ';
+        } else {
+            $retVal .= '<p>' . $adMessages->{$adMsgKey} . '</p>';
+        }
     }
     return $retVal;
 }

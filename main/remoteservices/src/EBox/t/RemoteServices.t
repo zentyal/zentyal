@@ -134,7 +134,7 @@ sub test_ad_messages : Test(11)
     lives_ok { $rsMod->pushAdMessage('gas', 'drummers') } 'Pushing an ad message';
     lives_ok { $rsMod->pushAdMessage('miss', 'caffeina') } 'Pushing another message';
     like($rsMod->adMessages(), qr{<p>drummers</p>}, 'Ad messages with p tag enclosed');
-    like($rsMod->adMessages(), qr{<p>caffeina</p>}, 'Ad messages with p tag enclosed');
+    unlike($rsMod->adMessages('plain'), qr{<p>.*</p>}, 'Ad messages in plain text');
 
     cmp_ok($rsMod->popAdMessage('gas'), 'eq', 'drummers', 'Pop a valid ad message');
     is($rsMod->popAdMessage('gas'), undef, 'You can only pop out once');
