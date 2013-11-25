@@ -211,7 +211,7 @@ sub subscribeServer
                     # for the available options
                     throw EBox::RemoteServices::Exceptions::NotCapable(
                         __('None of the available bundles are valid for this server')
-                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError() )
+                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError())
                        );
                 }
             }

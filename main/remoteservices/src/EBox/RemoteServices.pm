@@ -979,14 +979,12 @@ sub maxUsers
     # unlimited
     my $max_users = 0;
 
-    # Small business
-    if ($self->subscriptionLevel($force) == 5) {
-        $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
+    if ($self->addOnAvailable('serverusers', $force)) {
+        $max_users = $self->addOnDetails('serverusers', $force)->{max};
     }
 
     return $max_users;
 }
-
 
 # Method: maxCloudUsers
 #
