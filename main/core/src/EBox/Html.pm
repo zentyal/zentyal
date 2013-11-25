@@ -156,16 +156,20 @@ sub header # (title)
 
 }
 
+my $output;
+my $interp;
 sub makeHtml
 {
     my ($filename, @params) = @_;
 
     my $filePath = EBox::Config::templates . "/$filename";
 
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
-    my $comp = $interp->make_component(comp_file => $filePath);
+    $output = '';
+    if (not $interp) {
+        $interp = HTML::Mason::Interp->new(comp_root => EBox::Config::templates, out_method => \$output,);
+    }
 
+    my $comp = $interp->make_component(comp_file => $filePath);
     $interp->exec($comp, @params);
     return $output;
 }
