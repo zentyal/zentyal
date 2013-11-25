@@ -64,6 +64,17 @@ sub new
     return $self;
 }
 
+# Method: error
+#
+#   Returns the error message in the result message from the server
+#
+sub error
+{
+    my ($self) = @_;
+
+    return $self->{result}->error();
+}
+
 # Method: errorName
 #
 #  Returns:
@@ -71,7 +82,32 @@ sub new
 sub errorName
 {
     my ($self) = @_;
+
     return $self->{result}->error_name();
+}
+
+# Method: errorText
+#
+#   Returns the short text description of the error code in the result message
+#   from the server
+#
+sub errorText
+{
+    my ($self) = @_;
+
+    return $self->{result}->error_text();
+}
+
+# Method: errorDescription
+#
+#   Returns a long text description of the error code in the result message
+#   from the server
+#
+sub errorDescription
+{
+    my ($self) = @_;
+
+    return $self->{result}->error_desc();
 }
 
 1;
