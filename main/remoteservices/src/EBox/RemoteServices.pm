@@ -77,10 +77,12 @@ use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
-                   '1'  => __('Professional'),
-                   '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
-                   '10' => __('Enterprise'));
+                   '6'  => __('Professional'),
+                   '7'  => __('Business'),
+                   '8'  => __('Enterprise Trial'),
+                   '10' => __('Enterprise'),
+                   '20' => __('Premium'));
 
 # Group: Protected methods
 
