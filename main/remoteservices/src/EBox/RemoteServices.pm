@@ -93,11 +93,12 @@ use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas'
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
-                   '1'  => __('Professional'),
-                   '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
+                   '6'  => __('Professional'),
+                   '7'  => __('Business'),
                    '8'  => __('Enterprise Trial'),
-                   '10' => __('Enterprise'));
+                   '10' => __('Enterprise'),
+                   '20' => __('Premium'));
 
 # Group: Protected methods
 
