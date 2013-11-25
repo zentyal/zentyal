@@ -653,7 +653,11 @@ sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
 
-    return if ($isSecurityGroup && $self->isSecurityGroup());
+    if (($isSecurityGroup and $self->isSecurityGroup()) or
+        (not ($isSecurityGroup or $self->isSecurityGroup()))) {
+        # Do nothing if the new status matches current status.
+        return;
+    }
 
     if ($isSecurityGroup) {
         unless (defined $self->get('gidNumber')) {

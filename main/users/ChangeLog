@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed distribution group edition.
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses
