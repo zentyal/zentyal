@@ -1615,6 +1615,89 @@ sub ensureRunnerdRunning
     $self->set_bool('runnerd_always_running', $run);
 }
 
+# Method: pushAdMessage
+#
+#    Push an ad message to be shown in the dashboard
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It will be used to pop it out in <popAdMessage>
+#    msg - String the message itself
+#
+sub pushAdMessage
+{
+    my ($self, $key, $msg) = @_;
+
+    my $state = $self->get_state();
+    $state->{ad_messages}->{$key} = $msg;
+}
+
+# Method: popAdMessage
+#
+#    Pop out an ad message. Opposite to <pushAdMessage>
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It should used to push out in <popAdMessage>
+#
+# Returns:
+#
+#    undef - if there were no message with that key
+#
+#    msg - String the deleted message
+#
+sub popAdMessage
+{
+    my ($self, $key) = @_;
+
+    my $state = $self->get_state();
+    return undef unless(exists($state->{ad_messages}));
+    my $deletedMsg = delete $state->{ad_messages}->{$key};
+    $self->set_state($state);
+    return $deletedMsg;
+}
+
+# Method: adMessages
+#
+#    Get the adMessages set by <pushAdMessage>
+#
+# Returns:
+#
+#    String - the messages enclosed in <p> tag
+#
+sub adMessages
+{
+    my ($self) = @_;
+
+    my $adMessages = $self->get_state()->{ad_messages};
+    my $retVal = "";
+    foreach my $adMsgKey (keys(%{$adMessages})) {
+        $retVal .= '<p>' . $adMessages->{$adMsgKey} . '</p>';
+    }
+    return $retVal;
+}
+
+# Method: checkAdMessages
+#
+#    Check if we have to remove any ad message
+#
+sub checkAdMessages
+{
+    my ($self) = @_;
+
+    if ($self->eBoxSubscribed()) {
+        # Launch our checker to see if the max_users message disappear
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        my $state = $self->get_state();
+        my $maxUsers = $self->addOnDetails('serverusers');
+        my $det = $state->{subscription};
+        $det->{capabilities}->{serverusers} = $maxUsers;
+        $checker->check($det);
+    }
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
