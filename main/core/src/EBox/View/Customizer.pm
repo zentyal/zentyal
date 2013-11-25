@@ -275,6 +275,8 @@ sub skipField
 #    A string containing js code or an empty string in case this field
 #    doesn't need to trigger anything
 #
+my $interp;
+my $output;
 sub  onChangeActionOnFieldJS
 {
     my ($self, $tableName, $fieldName) = @_;
@@ -288,10 +290,15 @@ sub  onChangeActionOnFieldJS
     return '' unless (defined($actions));
 
     my $filename = EBox::Config::templates . '/js/onchange.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
+    # cannot use EBox::Html::makeHtml here
+    $output = '';
+    if (not $interp) {
+        $interp = HTML::Mason::Interp->new(
+            comp_root => EBox::Config::templates,
+            out_method => \$output
+           );
+    }
+
     my $comp = $interp->make_component(comp_file => $filename);
     my @params = ();
     push(@params, tableName => $tableName,

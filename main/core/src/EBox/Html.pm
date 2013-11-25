@@ -107,7 +107,7 @@ sub menu
         $mod->menu($root);
     }
 
-    return $root->html;
+    return EBox::Html::makeHtml($root->htmlParams());
 }
 
 # Method: footer
