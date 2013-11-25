@@ -1083,27 +1083,6 @@ sub disasterRecoveryAvailable
     return ( scalar(keys(%{$ret})) > 0);
 }
 
-# Method: commAddOn
-#
-#      Get whether server has communications add-on or not
-#
-# Parameters:
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether it has SB mail add-on or not
-#
-sub commAddOn
-{
-    my ($self, $force) = @_;
-
-    my $ret = $self->addOnDetails('zarafa', $force);
-    return ( defined($ret->{sb}) and $ret->{sb} == 1 );
-}
-
 # Method: addOnAvailable
 #
 #      Return 1 if addon is available, undef if not
@@ -1495,11 +1474,7 @@ sub i18nServerEdition
 
 
     if ( exists($i18nLevels{$level}) ) {
-        my $ret = $i18nLevels{$level};
-        if ( $self->commAddOn() ) {
-            $ret .= ' + ' . __s('Communications Add-on');
-        }
-        return $ret;
+        return $i18nLevels{$level};
     } else {
         return __('Unknown');
     }
@@ -1915,8 +1890,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
-      ( __('None'), '', '', 'info', '', __('Disabled'), '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', __('Disabled'));
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1973,8 +1948,6 @@ sub _ccConnectionWidget
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
 
-        $commAddOn = $self->commAddOn();
-
     } else {
         $connValue      = __sx('Not registered - {oh}Register now!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
@@ -1999,10 +1972,6 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
-    if ( $commAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
-                                                 __('Enabled')));
-    }
 }
 
 # Set the subscription details
