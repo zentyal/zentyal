@@ -4489,6 +4489,10 @@ sub checkAllProperty
     return $self->{'table'}->{'checkAll'};
 }
 
+# Method: checkAllControls
+#
+# return a hash with all the 'check all' controls of the table, indexed by
+# their field
 sub checkAllControls
 {
     my ($self) = @_;
