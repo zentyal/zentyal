@@ -129,12 +129,12 @@ sub test_ad_messages : Test(11)
 
     my $rsMod = $self->{rsMod};
     is($rsMod->popAdMessage('tais-toi'), undef, 'No message with this name');
-    cmp_ok($rsMod->adMessages(), 'eq', "", 'No ad messages');
+    cmp_ok($rsMod->adMessages()->{text}, 'eq', "", 'No ad messages');
+    cmp_ok($rsMod->adMessages()->{name}, 'eq', 'remoteservices', 'The ad-message name');
 
     lives_ok { $rsMod->pushAdMessage('gas', 'drummers') } 'Pushing an ad message';
     lives_ok { $rsMod->pushAdMessage('miss', 'caffeina') } 'Pushing another message';
-    like($rsMod->adMessages(), qr{<p>drummers</p>}, 'Ad messages with p tag enclosed');
-    unlike($rsMod->adMessages('plain'), qr{<p>.*</p>}, 'Ad messages in plain text');
+    like($rsMod->adMessages()->{text}, qr{drummers}, 'Ad messages');
 
     cmp_ok($rsMod->popAdMessage('gas'), 'eq', 'drummers', 'Pop a valid ad message');
     is($rsMod->popAdMessage('gas'), undef, 'You can only pop out once');

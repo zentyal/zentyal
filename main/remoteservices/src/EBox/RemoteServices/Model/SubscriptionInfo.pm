@@ -167,7 +167,7 @@ sub _content
         }
     }
     if ($rs->adMessages()) {
-        $msg = $rs->adMessages('plain');
+        $msg = $rs->adMessages()->{text};
     }
 
     return {

@@ -1605,6 +1605,7 @@ sub pushAdMessage
 
     my $state = $self->get_state();
     $state->{ad_messages}->{$key} = $msg;
+    $self->set_state($state);
 }
 
 # Method: popAdMessage
@@ -1637,28 +1638,23 @@ sub popAdMessage
 #
 #    Get the adMessages set by <pushAdMessage>
 #
-# Parameters:
-#
-#    plain - Boolean to indicate if we want the text without formatting
-#
 # Returns:
 #
-#    String - the messages enclosed in <p> tag
+#    Hash ref - containing the following keys:
+#
+#       name - 'remoteservices'
+#       text - the text itself
 #
 sub adMessages
 {
     my ($self, $plain) = @_;
 
     my $adMessages = $self->get_state()->{ad_messages};
-    my $retVal = "";
+    my $rsMsg = "";
     foreach my $adMsgKey (keys(%{$adMessages})) {
-        if ($plain) {
-            $retVal .= $adMessages->{$adMsgKey} . ' ';
-        } else {
-            $retVal .= '<p>' . $adMessages->{$adMsgKey} . '</p>';
-        }
+        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
     }
-    return $retVal;
+    return { name => 'remoteservices', text => $rsMsg };
 }
 
 # Method: checkAdMessages

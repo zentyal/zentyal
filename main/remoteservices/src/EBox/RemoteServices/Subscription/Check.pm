@@ -184,7 +184,7 @@ sub _usersCheck
                 $rsMod->pushAdMessage(
                     'max_users',
                     __sx('Please note that the maximum number of users for {edition} is {max} '
-                         . 'and you currently have {nUsers}',
+                         . 'and you currently have {nUsers}.',
                          edition => $rsMod->i18nServerEdition($details->{level}),
                          max => $maxUsers, nUsers => scalar(@{$users})));
             } else {

@@ -157,7 +157,7 @@ sub masonParameters
         # Re-check for changes
         $rs->checkAdMessages();
         my $rsMsg = $rs->adMessages();
-        push (@params, 'message' => $rsMsg) if ($rsMsg);
+        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
     }
 
     if ($showMessage) {
