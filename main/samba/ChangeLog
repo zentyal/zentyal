@@ -1,3 +1,5 @@
+HEAD
+	+ Update user CN on user modifications
 3.2.10
 	+ Revert case sensitive shares. Use new SMB raw client library feature
 	  per packet case sensitive.
