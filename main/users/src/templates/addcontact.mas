@@ -5,7 +5,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Contact') %></h3>
-    <div id='error_addContactForm' class='error' style='display:none'></div>
+    <div id='addContactForm_error' class='error' style='display:none'></div>
     <form action='/Users/AddContact' method='POST' id='addContactForm'>
     <input type="hidden" name="dn" value="<% $dn %>">
     <table class='formTable'>

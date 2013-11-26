@@ -16,7 +16,7 @@ use EBox::Gettext;
 % if ($forbid) {
 <div class='warning'><% __x('This organizational unit cannot be deleted') %></div>
 % } else {
-<div id='error_delOuForm' class='error' style='display:none'></div>
+<div id='delOuForm_error' class='error' style='display:none'></div>
 <div class='note'>
         <% __('This operation will cause the removal of the OU and all objects inside it, including users, groups, etc.') %>
 </div>
