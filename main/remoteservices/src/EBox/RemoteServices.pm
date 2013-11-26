@@ -1790,9 +1790,10 @@ sub _ccConnectionWidget
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
-                            '0'  => __('Essential'),
-                            '1'  => __('Standard'),
-                            '2'  => __('Premium'));
+                            '0'  => __('Standard 2 days'),
+                            '1'  => __('Standard 1 day'),
+                            '2'  => __('Standard 4 hours'),
+                            '3'  => __('Premium'));
         $supportValue = $i18nSupport{$self->technicalSupport()};
 
         if ( $self->securityUpdatesAddOn() ) {
