@@ -1,4 +1,4 @@
-HEAD
+3.2.4
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses
