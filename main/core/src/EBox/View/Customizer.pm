@@ -277,7 +277,7 @@ sub skipField
 #
 my $interp;
 my $output;
-sub  onChangeActionOnFieldJS
+sub onChangeActionOnFieldJS
 {
     my ($self, $tableName, $fieldName) = @_;
 
@@ -296,14 +296,14 @@ sub  onChangeActionOnFieldJS
         $interp = HTML::Mason::Interp->new(
             comp_root => EBox::Config::templates,
             out_method => \$output
-           );
+        );
     }
 
     my $comp = $interp->make_component(comp_file => $filename);
     my @params = ();
     push(@params, tableName => $tableName,
-        JSONActions => to_json($actions),
-        fieldName => $fieldName);
+                  JSONActions => to_json($actions),
+                  fieldName => $fieldName);
 
     $interp->exec($comp, @params);
     return $output;

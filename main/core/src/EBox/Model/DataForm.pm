@@ -739,7 +739,6 @@ sub clone
     $self->setDirectory($origDir);
 }
 
-
 sub formSubmitJS
 {
     my ($self, $editId) = @_;
@@ -757,6 +756,5 @@ sub formSubmitJS
                     $table->{'confdir'},
                     $editId);
 }
-
 
 1;

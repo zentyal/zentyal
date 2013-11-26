@@ -327,11 +327,11 @@ sub _paramsForRefreshTable
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
-    my $action =  $self->{'action'};
+    my $action = $self->{'action'};
     my $filter = $self->unsafeParam('filter');
-    my $page   = defined $forcePage ? $forcePage : $self->param('page');
+    my $page = defined $forcePage ? $forcePage : $self->param('page');
     my $pageSize = $self->param('pageSize');
-    if ( defined ( $pageSize )) {
+    if (defined ($pageSize)) {
         $model->setPageSize($pageSize);
     }
 
@@ -369,6 +369,7 @@ sub _setJSONSuccess
 sub editAction
 {
     my ($self) = @_;
+
     my $isForm    = $self->param('form');
     my $editField = $self->param('editfield');
     if (not $editField) {
@@ -390,15 +391,15 @@ sub editAction
 
         $self->{json}->{changed} = {
             $id => $self->_htmlForRow($model, $row, $filter, $page)
-           };
+        };
         return;
     }
-
 }
 
 sub addAction
 {
     my ($self, %params) = @_;
+
     $self->{json}->{success} = 0;
 
     my $rowId = $self->addRow();
@@ -413,7 +414,7 @@ sub addAction
         return;
     }
 
-    # this calculations assumess than only one row is added
+    # this calculations assume than only one row is added
     my $nAdded = 1;
     my $filter = $self->unsafeParam('filter');
     my $page   = $self->param('page');
@@ -481,6 +482,7 @@ sub addAction
 sub delAction
 {
     my ($self) = @_;
+
     $self->{json} = {  success => 0 };
     my $rowId = $self->removeRow();
     my $model  = $self->{'tableModel'};
@@ -535,6 +537,7 @@ sub delAction
 sub showChangeRowForm
 {
     my ($self) = @_;
+
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
@@ -777,7 +780,8 @@ sub _htmlForRow
 sub _htmlForChangeRow
 {
     my ($self, $model, $action, $editId, $filter, $page, $tpages, $presetParams) = @_;
-    my $table     = $model->table();
+
+    my $table = $model->table();
 
     my @params = (
         model  => $model,
@@ -794,8 +798,8 @@ sub _htmlForChangeRow
 
     my $html;
     $html = EBox::Html::makeHtml('/ajax/changeRowForm.mas', @params);
-    return $html;
 
+    return $html;
 }
 
 sub _modelIds
