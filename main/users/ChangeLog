@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed distribution group edition.
 3.2.4
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
