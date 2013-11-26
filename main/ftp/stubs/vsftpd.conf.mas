@@ -122,3 +122,7 @@ force_local_data_ssl=<% ($ssl eq 'forcessl') ? 'YES' : 'NO' %>
 % } else {
 ssl_enable=NO
 % }
+#
+# Disable seccomp sandboxing new feature because it causes errors
+# https://bugs.launchpad.net/ubuntu/+source/vsftpd/+bug/1195816
+seccomp_sandbox=NO

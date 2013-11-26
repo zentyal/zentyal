@@ -114,6 +114,12 @@ sub menu
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
 
+    if (EBox::Config::boolean('debug')) {
+        $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Debug',
+                                          'text' => __('Debug'),
+                                          'order' => 55));
+    }
+
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                                       'text' => __('Halt/Reboot'),
                                       'order' => 60));

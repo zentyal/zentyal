@@ -641,9 +641,8 @@ sub restoreCertificates
                                    caCertificate => "$d/caCertificate",
                                    certificate   => "$d/certificate",
                                    certificateKey => "$d/certificateKey");
-    } catch {
-        my $e = shift;
-        EBox::error(  'Error restoring certifcates for client '
+    } catch ($e) {
+        EBox::error('Error restoring certifcates for client '
                     . $self->name
                     .'. Probably the certificates will be  inconsistents');
         $e->throw();

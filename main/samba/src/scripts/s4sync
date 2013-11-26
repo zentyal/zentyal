@@ -114,7 +114,7 @@ while (1) {
         } else {
             try {
                 $sambaOUs{$uniqueID}->addToZentyal();
-            } otherwise ($error) {
+            } catch ($error) {
                 EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
             }
         }
@@ -211,7 +211,7 @@ while (1) {
             if ($changed > $sambaTimestamp) {
                 try {
                     $sambaGroups{$uniqueID}->updateZentyal();
-                } otherwise ($error) {
+                } catch ($error) {
                     EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
                 }
             }
@@ -219,7 +219,7 @@ while (1) {
         } else {
             try {
                 $sambaGroups{$uniqueID}->addToZentyal();
-            } otherwise ($error) {
+            } catch ($error) {
                 EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
             }
         }
