@@ -1349,6 +1349,90 @@ sub i18nServerEdition
     }
 }
 
+# Method: pushAdMessage
+#
+#    Push an ad message to be shown in the dashboard
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It will be used to pop it out in <popAdMessage>
+#    msg - String the message itself
+#
+sub pushAdMessage
+{
+    my ($self, $key, $msg) = @_;
+
+    $self->st_set_string("ad_messages/$key", $msg);
+}
+
+# Method: popAdMessage
+#
+#    Pop out an ad message. Opposite to <pushAdMessage>
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It should used to push out in <popAdMessage>
+#
+# Returns:
+#
+#    undef - if there were no message with that key
+#
+#    msg - String the deleted message
+#
+sub popAdMessage
+{
+    my ($self, $key) = @_;
+
+    return undef unless($self->st_entry_exists("ad_messages/$key"));
+    my $deletedMsg = $self->st_get_string("ad_messages/$key");
+    $self->st_unset("ad_messages/$key");
+    return $deletedMsg;
+}
+
+# Method: adMessages
+#
+#    Get the adMessages set by <pushAdMessage>
+#
+# Returns:
+#
+#    Hash ref - containing the following keys:
+#
+#       name - 'remoteservices'
+#       text - the text itself
+#
+sub adMessages
+{
+    my ($self, $plain) = @_;
+
+    my $adMessages = $self->st_hash_from_dir('ad_messages');
+    my $rsMsg = "";
+    foreach my $adMsgKey (keys(%{$adMessages})) {
+        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
+    }
+    return { name => 'remoteservices', text => $rsMsg };
+}
+
+# Method: checkAdMessages
+#
+#    Check if we have to remove any ad message
+#
+sub checkAdMessages
+{
+    my ($self) = @_;
+
+    # if ($self->eBoxSubscribed()) {
+    #     # Launch our checker to see if the max_users message disappear
+    #     my $checker = new EBox::RemoteServices::Subscription::Check();
+    #     my $state = $self->get_state();
+    #     my $maxUsers = $self->addOnDetails('serverusers');
+    #     my $det = $state->{subscription};
+    #     $det->{capabilities}->{serverusers} = $maxUsers;
+    #     $checker->check($det);
+    # }
+}
+
 # Group: Public methods related to reporting
 
 # Method: logReportInfo
