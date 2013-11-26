@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2012 eBox Technologies S.L.
+# Copyright (C) 2011-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -19,8 +19,9 @@
 #
 #     - server name
 #     - server edition
+#     - zentyal.me name
 #     - subscription renovation date
-#     - Central Monitoring & management
+#     - ad messages, if apply
 #
 
 package EBox::RemoteServices::Model::SubscriptionInfo;
@@ -114,8 +115,8 @@ sub _table
            printableName => __('Subscription renovation date'),
           ),
        new EBox::Types::Text(
-           fieldName     => 'mm',
-           printableName => __('Central monitoring & management'),
+           fieldName     => 'messages',
+           printableName => __('Messages')
           ),
       );
 
@@ -142,12 +143,12 @@ sub _content
 
     my $rs = $self->{gconfmodule};
 
-    my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
+    my ($serverName, $fqdn, $subs, $renovationDate, $msg) =
       ( __('None'), __('Not using Zentyal Cloud DynDNS service'),
         __sx('<span>None - {ohb}Get Free Basic Subscription{ch}</span>',
              ohb => '<a href="' . BASIC_URL . '" target="_blank">',
              ch  => '</a>'),
-        __('None'), __('Disabled'));
+        __('None'), __('None'));
 
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
@@ -167,8 +168,9 @@ sub _content
                 $renovationDate = POSIX::strftime("%c", localtime($renovationDate));
             }
         }
-
-        $mm = __('Enabled') if ($rs->subscriptionLevel() >= 2);
+    }
+    if ($rs->adMessages()->{text}) {
+        $msg = $rs->adMessages()->{text};
     }
 
     return {
@@ -176,7 +178,7 @@ sub _content
         external_server_name => $fqdn,
         edition              => $subs,
         renovation_date      => $renovationDate,
-        mm                   => $mm,
+        messages             => $msg,
        };
 }
 

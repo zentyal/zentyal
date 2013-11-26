@@ -1,4 +1,7 @@
 HEAD
+	+ Update support information due to offer 2013
+	+ Update messages in info models
+	+ Show ad messages in SubscriptionInfo model
 	+ Remove useless code due to offer 2013
 	+ Added new i18n editions
 	+ Store an ad message instead of enforcing max number of users
