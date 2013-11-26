@@ -653,8 +653,7 @@ sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
 
-    if (($isSecurityGroup and $self->isSecurityGroup()) or
-        (not ($isSecurityGroup or $self->isSecurityGroup()))) {
+    if (not ($isSecurityGroup xor $self->isSecurityGroup())) {
         # Do nothing if the new status matches current status.
         return;
     }
