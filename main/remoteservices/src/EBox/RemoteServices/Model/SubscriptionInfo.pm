@@ -166,7 +166,7 @@ sub _content
             }
         }
     }
-    if ($rs->adMessages()) {
+    if ($rs->adMessages()->{text}) {
         $msg = $rs->adMessages()->{text};
     }
 
