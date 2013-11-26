@@ -32,12 +32,6 @@ $tpages
 <%init>
   # Getting the arguments from the first request
   my $requestArgs = $m->request_args();
-#  my $model  = $requestArgs->{model};
-#  my $action = $requestArgs->{action};
-#  my $editid = $requestArgs->{editid};
-#  my $filter = $requestArgs->{filter};
-#  my $page   = $requestArgs->{page};
-#  my $tpages = $requestArgs->{tpages};
   my $selectCallerId = $requestArgs->{selectCallerId};
   my $selectForeignField = $requestArgs->{selectForeignField};
   my $nextPageContextName  = $requestArgs->{nextPageContextName};
