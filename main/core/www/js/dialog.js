@@ -62,7 +62,7 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
     var form = $(formSelector);
     var url  = form.attr('action');
     var data = form.serialize();
-    var errorSelector = '#error_' + form.attr('id');
+    var errorSelector = '#' + form.attr('id') + '_error';
     if (params == undefined) {
         params = {};
     }
