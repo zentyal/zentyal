@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -202,7 +202,7 @@ sub subscribeEBox
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_comm_add_on}) } @{$availables};
+        my @availables = grep { $checker->check($_) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -234,7 +234,7 @@ sub subscribeEBox
             __x(
                 'Cannot retrieve VPN settings needed for subscription. Check your {openurl}{brand} profile{closeurl} to check your VPN server settings.',
                 brand    => 'Zentyal Cloud',
-                openurl  => q{<a href='https://cloud.zentyal.com/services/profile/'>},
+                openurl  => q{<a href='https://remote.zentyal.com/services/profile/'>},
                 closeurl => q{</a>}
                )
            );

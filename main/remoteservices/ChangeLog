@@ -1,4 +1,6 @@
 HEAD
+	+ Store an ad message instead of enforcing max number of users
+	  in the registration check
 	+ Now the module has support to store ad messages
 2.2.15
 	+ Show a note when no backup credentials are found even if

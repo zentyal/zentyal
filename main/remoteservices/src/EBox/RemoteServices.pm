@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -625,7 +625,7 @@ sub reloadBundle
     $force = 0 unless (defined($force));
 
     if ( $self->isConnected() ) {
-        EBox::RemoteServices::Subscription::Check->new()->subscribe();
+        EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
         my $version       = $self->version();
         my $bundleVersion = $self->bundleVersion();
         my $bundleGetter  = new EBox::RemoteServices::Bundle();

@@ -162,8 +162,11 @@ sub technicalSupport
 
 # Method: renovationDate
 #
-#     Check the if the zentyal server has technical support
-#     for this company
+#     Date when the edition expires
+#
+# Returns:
+#
+#     Int - seconds since epoch
 #
 sub renovationDate
 {
@@ -179,6 +182,33 @@ sub renovationDate
 
     return $result;
 }
+
+# Method: serverUsers
+#
+#     Maximum number of users this server may have according to its
+#     edition
+#
+# Returns:
+#
+#     Int - the maximum number of users
+#
+#     undef - means unlimited
+#
+sub serverUsers
+{
+    my ($self) = @_;
+
+    my $result = undef;
+
+    try {
+        $result = $self->soapCall('serverUsers');
+    } otherwise {
+        EBox::warn("SOAP call serverUsers failed: $@");
+    };
+
+    return $result;
+}
+
 
 # Group: Protected methods
 
