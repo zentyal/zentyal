@@ -169,9 +169,11 @@ sub renovationDate
 #
 # Returns:
 #
-#     Int - the maximum number of users
+#     Int - the maximum number of users (always >= 0)
 #
 #     undef - means unlimited
+#
+#     -1 - no possible to get a reply this information
 #
 sub serverUsers
 {
@@ -183,6 +185,7 @@ sub serverUsers
         $result = $self->soapCall('serverUsers');
     } otherwise {
         EBox::warn("SOAP call serverUsers failed: $@");
+        $result = -1;
     };
 
     return $result;

@@ -937,6 +937,46 @@ sub disasterRecoveryAddOn
     return '';
 }
 
+# Method: serverUsers
+#
+#      Get the maximum number of users for this server
+#
+# Parameters:
+#
+#      force - Boolean check against server
+#              *(Optional)* Default value: false
+#
+# Returns:
+#
+#      An integer with the following possible values:
+#
+#      undef : unlimited
+#         -1 : unknown
+#        >=0 : maximum number of users
+#
+sub serverUsers
+{
+    my ($self, $force) = @_;
+
+    $force = 0 unless defined($force);
+
+    if ( (not $force)
+         and ($self->st_entry_exists('subscription/server_users')) ) {
+        return $self->st_get_int('subscription/server_users');
+    } else {
+        # Ask to the cloud if connected
+        if ( $self->isConnected() ) {
+            my $cap = new EBox::RemoteServices::Capabilities();
+            my $maxUsers = $cap->serverUsers();
+            if ( not defined($maxUsers) or ($maxUsers > -1) ) {
+                $self->st_set_int('subscription/server_users', $maxUsers);
+            }
+            return $maxUsers;
+        }
+    }
+    return -1;
+}
+
 # Method: backupCredentials
 #
 #     Get the backup credentials if the server is connected to Zentyal
@@ -1383,15 +1423,16 @@ sub checkAdMessages
 {
     my ($self) = @_;
 
-    # if ($self->eBoxSubscribed()) {
-    #     # Launch our checker to see if the max_users message disappear
-    #     my $checker = new EBox::RemoteServices::Subscription::Check();
-    #     my $state = $self->get_state();
-    #     my $maxUsers = $self->addOnDetails('serverusers');
-    #     my $det = $state->{subscription};
-    #     $det->{capabilities}->{serverusers} = $maxUsers;
-    #     $checker->check($det);
-    # }
+    if ($self->eBoxSubscribed()) {
+        # Launch our checker to see if the max_users message disappear
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        my $maxUsers = $self->serverUsers();
+        if (not defined($maxUsers) or $maxUsers >= 0) {
+            my $det = { level => $self->subscriptionLevel(), codename => $self->subscriptionCodename() };
+            $det->{capabilities}->{serverusers}->{max} = $maxUsers;
+            $checker->check($det);
+        }  # else not check as the value is unknown
+    }
 }
 
 # Group: Public methods related to reporting

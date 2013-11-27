@@ -55,6 +55,7 @@ if ( $disRecOn ) {
 $rs->subscriptionLevel('force');
 $rs->technicalSupport('force');
 $rs->renovationDate('force');
+$rs->serverUsers('force');
 
 1;
 
