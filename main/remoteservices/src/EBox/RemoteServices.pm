@@ -937,43 +937,6 @@ sub disasterRecoveryAddOn
     return '';
 }
 
-# Method: commAddOn
-#
-#      Get whether server has communications add-on or not
-#
-# Parameters:
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether it has SB mail add-on or not
-#                undef means impossible to know
-#
-sub commAddOn
-{
-    my ($self, $force) = @_;
-
-    $force = 0 unless defined($force);
-
-    if ( (not $force)
-         and ($self->st_entry_exists('subscription/sb_comm_add_on')) ) {
-        return $self->st_get_bool('subscription/sb_comm_add_on');
-    } else {
-        # Ask to the cloud if connected
-        if ( $self->isConnected() ) {
-            my $cap = new EBox::RemoteServices::Capabilities();
-            my $sbCommAddOn = $cap->commAddOn();
-            if ( defined($sbCommAddOn) ) {
-                $self->st_set_bool('subscription/sb_comm_add_on', $sbCommAddOn);
-            }
-            return $sbCommAddOn;
-        }
-    }
-    return '';
-}
-
 # Method: backupCredentials
 #
 #     Get the backup credentials if the server is connected to Zentyal
@@ -1341,11 +1304,7 @@ sub i18nServerEdition
 
 
     if ( exists($i18nLevels{$level}) ) {
-        my $ret = $i18nLevels{$level};
-        if ( $self->commAddOn() ) {
-            $ret .= ' + ' . __s('Communications Add-on');
-        }
-        return $ret;
+        return $i18nLevels{$level};
     } else {
         return __('Unknown');
     }
@@ -1801,8 +1760,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
-      ( __('None'), '', '', 'info', '', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1863,8 +1822,6 @@ sub _ccConnectionWidget
             }
         }
 
-        $commAddOn = $self->commAddOn();
-
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
@@ -1892,10 +1849,6 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-    if ( $commAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
-                                                 __('Enabled')));
-    }
 }
 
 # Set the subscription level

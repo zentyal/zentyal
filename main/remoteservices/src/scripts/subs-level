@@ -45,7 +45,6 @@ EBox::init();
 my $rs = EBox::Global->modInstance('remoteservices');
 
 $rs->securityUpdatesAddOn('force');
-$rs->commAddOn('force');
 my $disRecOn = $rs->disasterRecoveryAddOn('force');
 if ( $disRecOn ) {
     try {

@@ -119,27 +119,6 @@ sub disasterRecoveryAddOn
     return $result;
 }
 
-# Method: commAddOn
-#
-#     Check whether the SB communications add-on is available for this
-#     server or not
-#
-sub commAddOn
-{
-    my ($self) = @_;
-
-    my $result = undef;
-
-    try {
-        # Remote procedure name is kept for old compatibility reasons
-        $result = $self->soapCall('sbMailAddOn');
-    } otherwise {
-        EBox::warn("SOAP call sbMailAddOn failed: $@");
-    };
-
-    return $result;
-}
-
 # Method: technicalSupport
 #
 #     Check the if the zentyal server has technical support
