@@ -117,14 +117,11 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
   $formAttrs = 'autocomplete="off"';
 }
 </%init>
-<form id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
-  <table class="formTable">
-    <tbody>
+<form class="formDiv" id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
       <& SELF:editFormSection,
          name => $modelName,
          formData => \@formData,
       &>
-    </tbody>
 % foreach my $section (@sections) {
       <& SELF:editFormSection,
          name => $modelName,
@@ -132,10 +129,8 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
          section => $section
       &>
 % }
-      <tr>
-        <td class="tright"
-            id="applyChanges">
-        </td>
+      <fieldset>
+        <span id="applyChanges"> </span>
         <& SELF:buttons,
            model  => $model,
            action => $action,
@@ -144,8 +139,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
            page   => $page,
            tpages => $tpages,
         &>
-      </tr>
-  </table>
+      </fieldset>
 </form>
 % if (@formData) {
 %   my $customizer = $formData[0]->model()->viewCustomizer();
@@ -188,20 +182,18 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
 </%init>
 % if ($section) {
 %     my $sectionId = 'form_section_' . $section->{'name'};
-      <tr><td colspan="2">
-        <a id="<% $sectionId %>_toggler" href="#" onclick="toggleWithToggler('<% $sectionId %>'); return false;" class="maxBox"><span class="hidden">Toggle</span></a>
+      <a id="<% $sectionId %>_toggler" href="#" onclick="toggleWithToggler('<% $sectionId %>'); return false;" class="maxBox"><span class="hidden">Toggle</span></a>
         <h3 style="display: inline;">
           <% $section->{'title'} %>
         </h3>
-      </td></tr>
-      <tbody id="<% $sectionId %>" style="display: none;">
+      <fieldset id="<% $sectionId %>" style="display: none;">
 % }
       <& SELF:editRowFields,
          modelName => $name,
          formData => \@data
       &>
 % if ($section) {
-      </tbody>
+      </fieldset>
 % }
 </%method>
 
@@ -290,10 +282,9 @@ if ($action eq 'changeEdit') {
 }
 </%init>
 % unless ((defined $withoutActions) and $withoutActions) {
-<tr>
-  <td id="applyChanges">
-  </td>
-  <td id="<% $modelName %>_buttons">
+  <span id="applyChanges">
+  </span>
+  <div id="<% $modelName %>_buttons">
 % unless ((defined $onlyCustomActions) and $onlyCustomActions) {
 %  if ( $action eq 'changeAdd' ) {
 %    # extra input for cloneId
@@ -333,8 +324,7 @@ if ($action eq 'changeEdit') {
     &>
 %  }
 % }
-  </td>
-</tr>
+  </div>
 % }
 </%method>
 

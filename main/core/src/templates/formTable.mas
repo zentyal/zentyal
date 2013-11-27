@@ -55,14 +55,9 @@ else {
 % if (not $inputComponent =~ m/hidden\.mas$/ ) {
   <& .div, type => 'warning', content => $warning &>
   <& .div, type => 'note', content => $note &>
-  <tr>
-       <& .labelTd, printableName => $printableName, optional => $ARGS{optional} &>
-     <td>
-        <& $inputComponent, %ARGS  &>
-        <& .div, type => 'field_help', content => $help &>
-     </td>
-
-  </tr>
+       <label><& .labelTd, printableName => $printableName, optional => $ARGS{optional} &></label>
+            <& $inputComponent, %ARGS  &>
+        <& .div, type => 'field_help', content => $help &>       
 % }
 % else {
   <& $inputComponent, %ARGS &>
@@ -79,13 +74,13 @@ if ($printableName ne '') {
     $printableName .= ':';
 }
 </%init>
-     <td class='tright' >
+     <label >
          <% "$printableName" %>
 % if ( $optional ) {
 %    my $optionalText = __('Optional');
-     <div class="optional_field"><% $optionalText %></div>
+     <span class="optional_field"><% $optionalText %></span>
 % }
-     </td>
+     </label>
 </%def>
 
 <%def .div>

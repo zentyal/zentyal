@@ -99,7 +99,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    filter => $filter,
    nIds   => scalar @ids
 &>
-<div id='<% $tableName  %>_editForm'></div>
+<div id='<% $tableName  %>_editForm' class="dropdownForm"></div>
 
 % if (@ids or length($filter) > 0)  {
 %

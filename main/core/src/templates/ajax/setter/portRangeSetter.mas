@@ -9,7 +9,7 @@ my $id = $tableName . '_' . $data->fieldName();
 my $typeSelected = $data->rangeType();
 </%init>
 
-<span id="<% $id %>" class="<% $cssClass %>">
+<div id="<% $id %>" class="<% $cssClass %>">
     <& /input/select.mas,
             'name'     => $id . '_range_type' ,
             'value'    => $data->rangeType(),
@@ -19,7 +19,7 @@ my $typeSelected = $data->rangeType();
             'disabled'  =>  $disabled
 
     &>
-    <span id="<% $id . '_range' %>" class="<% ($typeSelected eq 'range') ? '' : 'hidden' %>">
+    <span id="<% $id . '_range' %>" class="inline-input <% ($typeSelected eq 'range') ? '' : 'hidden' %>">
       <%__('From')%>
       <input type="text" class="inputText"
          value="<% $data->from() %>"
@@ -40,4 +40,4 @@ my $typeSelected = $data->rangeType();
          name='<% $id . '_single_port' %>'
          <% $disabled ?  'disabled' : '' %> />
     </span>
-</span>
+</div>

@@ -71,7 +71,7 @@
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
         if ($showBody) {
            unless ($model->message) {
-              $model->setMessage($noDataMsg);
+              $model->setMessage($noDataMsg,'emptynote');
            }
         }
      }
@@ -86,7 +86,7 @@
 %   } elsif ($noDataMsg) {
         <& SELF:permanentMessage, model => $model &>
         <& SELF:regularMessage, model => $model &>
-        <div class="note">
+        <div class="emptynote">
             <% $noDataMsg %>
         </div>
 %   }
@@ -266,7 +266,7 @@ $model
 % if ( $model->message() ) {
      <& /msg.mas,
         msg => $model->popMessage(),
-       class => $model->messageClass()
+        class => $model->messageClass()
      &>
 % }
 </%method>
