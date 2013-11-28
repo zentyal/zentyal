@@ -562,7 +562,8 @@ sub create
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
     unless ($defaultGroup) {
-        throw EBox::Exceptions::Internal(__("The default group '" . EBox::Users->DEFAULTGROUP . "' cannot be found!"));
+        throw EBox::Exceptions::Internal(
+            __x("The default group '{defaultgroup}' cannot be found!", defaultgroup => EBox::Users->DEFAULTGROUP));
     }
     if (not $defaultGroup->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
