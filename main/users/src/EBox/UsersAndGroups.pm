@@ -532,7 +532,7 @@ sub _services
             'destinationPort' => '390',
             'description' => 'Lightweight Directory Access Protocol',
         });
-    elsif ($daemon eq 'zentyal.heimdal-kdc') {
+    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
         # KDC
         push (@services, {
             'protocol' => 'tcp/udp',
@@ -585,7 +585,6 @@ sub _loadLDAP
     };
     EBox::debug('done');
 }
-
 
 # Generate, store in the given file and return a password
 sub _genPassword
