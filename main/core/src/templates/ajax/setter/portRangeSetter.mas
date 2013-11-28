@@ -20,13 +20,13 @@ my $typeSelected = $data->rangeType();
 
     &>
     <span id="<% $id . '_range' %>" class="inline-input <% ($typeSelected eq 'range') ? '' : 'hidden' %>">
-      <%__('From')%>
+      <span><%__('From')%></span>
       <input type="text" class="inputText"
          value="<% $data->from() %>"
          size="5" id ="<% $id . '_from_port' %>"
          name='<% $id . '_from_port' %>',
          <% $disabled ?  'disabled' : '' %> />
-      <%__('To')%>
+      <span><%__('To')%></span>
       <input type="text" class="inputText"
          value="<% $data->to() %>"
          size="5" id ="<% $id . '_to_port' %>"

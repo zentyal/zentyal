@@ -55,9 +55,13 @@ else {
 % if (not $inputComponent =~ m/hidden\.mas$/ ) {
   <& .div, type => 'warning', content => $warning &>
   <& .div, type => 'note', content => $note &>
-       <label><& .labelTd, printableName => $printableName, optional => $ARGS{optional} &></label>
-            <& $inputComponent, %ARGS  &>
-        <& .div, type => 'field_help', content => $help &>       
+  <div>
+    <label>
+      <& .labelTd, printableName => $printableName, optional => $ARGS{optional} &>
+      <& .span, type => 'field_help', content => $help &>
+    </label>
+    <& $inputComponent, %ARGS  &>
+  </div>       
 % }
 % else {
   <& $inputComponent, %ARGS &>
@@ -69,18 +73,11 @@ else {
 $printableName
 $optional => 0
 </%args>
-<%init>
-if ($printableName ne '') {
-    $printableName .= ':';
-}
-</%init>
-     <label >
-         <% "$printableName" %>
+     <% "$printableName" %>
 % if ( $optional ) {
 %    my $optionalText = __('Optional');
      <span class="optional_field"><% $optionalText %></span>
 % }
-     </label>
 </%def>
 
 <%def .div>
@@ -89,13 +86,20 @@ $content
 $type
 </%args>
 % if (defined $content) {
-<tr>
-<td/>
-<td>
-   <div class ='<% $type %>'>
-   <% $content %>
-   </div>
-   </td>
-</tr>
+  <div class ='<% $type %>'>
+     <% $content %>
+  </div>
+% }
+</%def>
+
+<%def .span>
+<%args>
+$content
+$type
+</%args>
+% if (defined $content) {
+  <span class ='<% $type %>'>
+     <% $content %>
+  </span>
 % }
 </%def>

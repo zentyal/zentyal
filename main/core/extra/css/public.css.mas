@@ -748,11 +748,28 @@ h3[class^="icon"]{
     background-repeat: no-repeat;
     padding-left: 45px !important;
 }
-h3.icon-user{ background-image: url('/data/images/treeview/user-big.png')}
-h3.icon-duser{ background-image: url('/data/images/treeview/duser-big.png')}
-h3.icon-group{ background-image: url('/data/images/treeview/group-big.png')}
-h3.icon-dgroup{ background-image: url('/data/images/treeview/dgroup-big.png')}
-h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
+h4[class^="icon"]{
+    background-position: 5px center;
+    background-repeat: no-repeat;
+    padding-left: 45px !important;
+}
+h3.icon-user,
+h4.icon-user{ 
+    background-image: url('/data/images/treeview/user-big.png')
+}
+h3.icon-duser,
+h4.icon-duser{
+ background-image: url('/data/images/treeview/duser-big.png')
+}
+h3.icon-group,
+h4.icon-group{
+ background-image: url('/data/images/treeview/group-big.png')}
+h3.icon-dgroup,
+h4.icon-dgroup{
+ background-image: url('/data/images/treeview/dgroup-big.png')}
+h3.icon-contact,
+h4.icon-contact{
+ background-image: url('/data/images/treeview/contact-big.png')}
 .sleft { float: left; }
 .sright { float: right; }
 .stitle {
@@ -1827,14 +1844,16 @@ add new pop up
 #addform{
     background: none repeat scroll 0 0 #FFFFFF;
     float: left;
-    margin-left: 4%;
+    margin: -0.5em -1em;
     padding: 4%;
-    width: 56%;
+    width: 50%;
+}
+#addform h4{
+    font-size: 25px;
 }
 .addselector{
     float: left;
-    padding: 1%;
-    width: 30%;
+    width: 46%;
 }
 .addselector label{
     display: block;
@@ -1842,8 +1861,12 @@ add new pop up
     margin: 6px 0;
 }
 .addselector label input{
-    margin-right: 3px;
+    margin-right: 5px;
 }
+.ui-dialog{
+    padding:0px !important;
+}
+
 /********************************************************************************
 
 BUTTONS
@@ -2167,6 +2190,7 @@ textarea:disabled,
 select:disabled {
     border-color:#eee;
     background-color:#f5f5f5;
+    color: #999;
 }
 select {
     font-size: 14px;
@@ -2175,13 +2199,7 @@ select {
     border-radius: 3px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
-    padding:5px;
-}
-.inline-input input,
-.inline-input select,
-.inline-input span
-{ 
-    display: inline-block;
+    padding:4px 5px 3px;
 }
 .multiselect {
     margin: 2px;
@@ -2231,10 +2249,22 @@ form.formDiv .checkbox-group label{
     font-weight: normal;
     color: #666;
 }
+/* inline stuff */
 form.formDiv .inline-field{
     display: inline-block;
+    vertical-align: bottom;
 }
-
+.inline-input input,
+.inline-input select,
+.inline-input span
+{ 
+    display: inline-block;
+    vertical-align: middle;
+}
+.inline-label{
+    display: inline-block;
+    vertical-align: middle;
+}
 /********************************************************************************
 
 FOLDable SECtIONS

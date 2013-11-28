@@ -129,7 +129,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
          section => $section
       &>
 % }
-      <fieldset>
+      <div class="form-buttons">
         <span id="applyChanges"> </span>
         <& SELF:buttons,
            model  => $model,
@@ -139,7 +139,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
            page   => $page,
            tpages => $tpages,
         &>
-      </fieldset>
+      </div>
 </form>
 % if (@formData) {
 %   my $customizer = $formData[0]->model()->viewCustomizer();
