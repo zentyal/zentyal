@@ -1,3 +1,9 @@
+samba4 (4.1.2-zentyal3) precise; urgency=low
+
+  * Include patchset for guest access to shares
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 28 Nov 2013 11:16:23 +0100
+
 samba4 (4.1.2-zentyal2) precise; urgency=low
 
   * Include patch for s4 libcli raw library to set per packet case sensitive
