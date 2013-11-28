@@ -10,7 +10,7 @@ defined $cssClass or
 % my $id = $tableName . '_' . $data->fieldName() . '_inverseMatch';
 			<& '/ajax/setter/selectSetter.mas', 'data' => $data, 'tableName' => $tableName, 'cssClass' => $cssClass, %args &>
             
-            <% __('Inverse match') . ':' %>
+            
 			<& /input/checkbox.mas,
 			  'name'  => "$id", 
 			  'value' => $data->inverseMatch(),
@@ -18,5 +18,5 @@ defined $cssClass or
 			  'class' => "$cssClass",
                           %args
 			&>
-
+			<% __('Inverse match')%>
 

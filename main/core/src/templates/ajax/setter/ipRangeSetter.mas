@@ -6,7 +6,7 @@ $disabled => undef
 </%args>
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="<% $cssClass %> inline-input">
   <input type="text" class="inputText" value="<% $data->begin() %>"
         size="16" id='<% $id . '_begin' %>' name='<% $id . '_begin' %>'
     <% $disabled ? 'disabled' : '' %> />

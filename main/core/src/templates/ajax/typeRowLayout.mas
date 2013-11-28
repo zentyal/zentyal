@@ -27,7 +27,7 @@
     </span>
 % }
 % if ($type->help()) {
- <strong class="orange">|</strong><span class="field_help">
+<span class="field_help">
     <% $type->help() %>
 </span>
 % }

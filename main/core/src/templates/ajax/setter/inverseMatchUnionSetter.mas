@@ -6,10 +6,11 @@ $cssClass => ''
 % my $id = $tableName . '_' . $data->fieldName() . '_inverseMatch';
 			<& '/ajax/setter/unionSetter.mas', 'data' => $data, 'tableName' => $tableName, 'cssClass' => $cssClass &>
             
-            <% __('Inverse match') . ':' %>
+            
 			<& /input/checkbox.mas,
 			  'name'  => "$id", 
 			  'value' => $data->inverseMatch(),
 			  'id'    => "$id",
 			  'class' => "$cssClass",
 			&>
+			<% __('Inverse match')%>

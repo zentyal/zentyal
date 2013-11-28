@@ -554,7 +554,7 @@ TABS options
 }
 .insideTab {
     margin: 0px;
-    padding: 10px;
+    padding: 15px;
     background: white;
 }
 .insideTab .item-block{
@@ -562,6 +562,11 @@ TABS options
     box-shadow: none;
     margin: 0px;
     padding: 0px;
+}
+.insideTab .item-block h3{
+    margin-left:0px;
+    margin-right: 0px;
+    margin-top: 0px;
 }
 .selected {
     border-top: 1px solid #787878;
@@ -1078,9 +1083,7 @@ a.minBox, a.maxBox {
     font-weight: normal;
 }
 .optional_field {
-    color: #005AA3;
-    clear: both;
-    font-size: 10px;
+    color: #00ADD0;
     font-style: italic;
     padding-right: 3px;
 }
@@ -1811,14 +1814,36 @@ ul.labels-list li .close{
     vertical-align: top;
 }
 .jstree-default a.jstree-search{
-    color: #00ADD0 !important;
+    color: #0087A5 !important;
     font-style: normal !important;
     font-weight: bold !important;
 }
 .jstree a > ins {
     height: 18px !important;
 }
-
+/**********************************
+add new pop up
+**********************************/
+#addform{
+    background: none repeat scroll 0 0 #FFFFFF;
+    float: left;
+    margin-left: 4%;
+    padding: 4%;
+    width: 56%;
+}
+.addselector{
+    float: left;
+    padding: 1%;
+    width: 30%;
+}
+.addselector label{
+    display: block;
+    font-size: 17px;
+    margin: 6px 0;
+}
+.addselector label input{
+    margin-right: 3px;
+}
 /********************************************************************************
 
 BUTTONS
@@ -2099,9 +2124,11 @@ form.formDiv fieldset {
 form.formDiv > div {
     margin-top: 20px;
 }
-form.formDiv label {
+form.formDiv label,
+form.formDiv .radio-group strong, 
+form.formDiv .checkbox-group strong {
     display: block;
-    color: #555;
+    color: #333;
     margin-bottom: 3px;
     font-weight: bold;
 }
@@ -2110,7 +2137,7 @@ form.formDiv label .field_help:before {
     font-weight: bold;
     color: #ff7900;
 }
-form.formDiv label input{
+form.formDiv input[type="checkbox"]{
     margin-left: 0px;
 }
 input[type='password'],
@@ -2153,7 +2180,9 @@ select {
 .inline-input input,
 .inline-input select,
 .inline-input span
-{ display: inline-block !important;}
+{ 
+    display: inline-block;
+}
 .multiselect {
     margin: 2px;
     height: 10em;
@@ -2181,19 +2210,29 @@ form.formDiv textarea{
     box-shadow: inset 0px 0px 5px #ddd;
 }
 form.formDiv .optional_field {
-    margin-left: 10px;
     font-weight: normal;
 }
 form.formDiv input[type="radio"] {
     display: inline-block;
-    margin-bottom: 0;
+    margin-left: 0;
 }
-.radioGroup{
+.radio-group{
     margin-bottom: 10px;
 }
-form.formDiv .radioGroup label{
-    font-weight: normal;
+form.formDiv .radio-group strong, 
+form.formDiv .checkbox-group strong{
     color: #333;
+    display: block;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+form.formDiv .radio-group label, 
+form.formDiv .checkbox-group label{
+    font-weight: normal;
+    color: #666;
+}
+form.formDiv .inline-field{
+    display: inline-block;
 }
 
 /********************************************************************************

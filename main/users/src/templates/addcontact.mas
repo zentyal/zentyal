@@ -4,36 +4,42 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Add Contact') %></h3>
+<h4><% __('Add Contact') %></h4>
     <div id='error_addContactForm' class='error' style='display:none'></div>
     <form action='/Users/AddContact' method='POST' id='addContactForm' class="formDiv">
     <input type="hidden" name="dn" value="<% $dn %>">
-            <label>
-                <% __('First name') %>
-            </label>
-            <input type='text' class='inputText' name='givenname'>
-
-            <label>
-                <% __('Last name') %>
-            </label>
-            <input type='text' class='inputText' name='surname'>
-            
-            <label>
-                <% __('Description') %>
-                <span class="optional_field">
-                    <% __('Optional') %>
-                </span>
-            </label>
+            <div class="inline-field">
+                <label>
+                    <% __('First name') %>
+                </label>
+                <input type='text' class='inputText' name='givenname'>
+            </div>
+            <div class="inline-field">
+                <label>
+                    <% __('Last name') %>
+                </label>
+                <input type='text' class='inputText' name='surname'>
+            </div>
+            <div>
+                <label>
+                    <% __('Description') %>
+                    <span class="optional_field">
+                        <% __('Optional') %>
+                    </span>
+                </label>
                 <input type='text' class='inputText' name='description'>
-            
-            <label>
-                <% __('E-Mail') %>:
-            </label>
+            </div>
+            <div>
+                <label>
+                    <% __('E-Mail') %>:
+                </label>
                 <input type='text' class='inputText' name='mail'>
-
-            <input class='inputButton' type='submit' name='add'
+            </div>
+            <div>
+                <input class='inputButton' type='submit' name='add'
                        value="<% __('Add') %>"
                        alt="<% __('Add') %>"/>
+            </div>
     </form>
 
 <script>
