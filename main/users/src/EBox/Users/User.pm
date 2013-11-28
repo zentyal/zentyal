@@ -561,6 +561,9 @@ sub create
     $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
+    unless ($defaultGroup) {
+        throw EBox::Exceptions::Internal(__("The default group '" . EBox::Users->DEFAULTGROUP . "' cannot be found!"));
+    }
     if (not $defaultGroup->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('default group'),
