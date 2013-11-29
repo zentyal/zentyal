@@ -8,7 +8,7 @@
 use EBox::Gettext;
 </%init>
 
-<form id='userMailCreateAccount' name='createaccount' action='/Mail/CreateAccount' method='POST'>
+<form id='userMailCreateAccount' name='createaccount' action='/Mail/CreateAccount' method='POST' class="formDiv">
 
     <input type="hidden" name="user" id="user" value="<% $params->{'user'}->dn() %>">
         <h3><% __('Create mail account') %></h3>
@@ -17,44 +17,37 @@ use EBox::Gettext;
           <& /mail/moduleDisabled.mas &>
 %      }
 
-        <table class="formTable">
-        <tr>
-                <td class="tright" width="170px"><% __('Account name') %>:</td>
-                <td><input type='text' class='inputText' name='lhs'></td>
-        </tr>
-        <tr>
-                <td class="tright"><% __('Domain name') %>:</td>
-                <td>
-                        <select name="vdomain">
+        <div>
+            <label><% __('Account name') %></label>
+            <input type='text' class='inputText' name='lhs'>
+        </div>
+        <div>
+            <label><% __('Domain name') %></label>
+            <select name="vdomain">
 %                       my @kvd = @{ $params->{'vdomains'} };
 %                       foreach my $vd (@kvd) {
 %                               my $printableValue = '@' . $vd;
                                 <option value= <% $vd %> > <% $printableValue %> </option>
 %                       }
-                        </select>
-                </td>
-        </tr>
+            </select>
+        </div>
 
-        <tr>
-                <td></td>
-                <td>
-                        <input class='inputButton' type='submit' name='change'
-                               id='userMailCreateAccount_submit'
-                               value="<% __('Create') %>"
-                               alt="<% __('Create') %>"
-                         />
-                </td>
-        </tr>
-        </table>
+        <div class="form-buttons">
+            <input class='inputButton' type='submit' name='change'
+               id='userMailCreateAccount_submit'
+               value="<% __('Create') %>"
+               alt="<% __('Create') %>"
+            />
+        </div>
 </form>
 
 <%def .maildirSize>
 <%args>
 $params
 </%args>
-        <tr>
-        <td class='tright'><% __('Maildir size') %>:</td>
-        <td><input type='text' class='inputText' name='mdsize'
+    <div>
+        <label><% __('Maildir size') %></label>
+        <input type='text' class='inputText' name='mdsize'
                                 id='mdsize'
                                 size="15"
 %               if($params->{'mdsize'} eq 0) {
@@ -64,19 +57,17 @@ $params
                         enabled
                         value='<% $params->{'mdsize'} %>'
 %               }
-                /> (Mb)
-        </td>
-        </tr>
-
-        <tr>
-        <td class='tright'><% __('Unlimited size') %></td>
-        <td><input type='checkbox' name='ummsize' id='ummsize'
+                /> <span>(Mb)</span>
+    </div>
+    <div>
+        <label><% __('Unlimited size') %></label>
+        <input type='checkbox' name='ummsize' id='ummsize'
                         value='0' onclick="updateMDSize()"
 %                               if($params->{'mdsize'} eq 0) {
                         checked
 %                               }
-        ></td>
-        </tr>
+        >
+    </div>
 </%def>
 
 <script>

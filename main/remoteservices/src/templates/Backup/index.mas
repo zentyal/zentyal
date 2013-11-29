@@ -115,13 +115,9 @@ if ($restricted) {
 % }
 
 <p>
-<table class='formTable'>
-    <tbody>
-        <form action='<% $formAction %>' method='POST'>
-             <& /formTable.mas, rows => \@formElements &>
-        </form>
-    </tbody>
-</table>
+<form action='<% $formAction %>' method='POST' class="formDiv">
+    <& /formTable.mas, rows => \@formElements &>
+</form>
 </p>
 </%def>
 

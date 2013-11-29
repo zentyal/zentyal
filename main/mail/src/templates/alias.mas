@@ -7,16 +7,21 @@ use JSON::XS;
 my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 </%init>
 
-<form action='/Mail/DelAccount' id='userMailDelAccount' method='POST'>
+<form action='/Mail/DelAccount' id='userMailDelAccount' method='POST' class="formDiv">
         <input type="hidden" name="mail" id="userMailDelAccount_mail" value="<% $params->{'mail'} %>">
         <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-        <% __('Mail address') %>:<span class='stitle' id='userMailDelAccount_mailLabel'><% $params->{'mail'} %></span>
-        <input class='inputButton' type='submit' name='change'
+        <div>
+            <label><% __('Mail address') %></label>
+            <span id='userMailDelAccount_mailLabel'><% $params->{'mail'} %></span>
+        </div>
+        <div>
+          <input class='inputButton' type='submit' name='change'
                id='userMailDelAccount_submit'
                value="<% __('Delete') %>"
                title="<% __('Delete') %>"
                alt="<% __('Delete') %>"
-        />
+          />
+        </div>
 </form>
 
 <& .updateMaildirQuotaJs, params => $params &>
@@ -24,47 +29,48 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 
 <div id='error_userMailAlias' class='error' style='display:none'></div>
 <div id='note_userMailAlias' class='note' style='display:none'></div>
-<form action='/Mail/CreateAlias' id='userMailCreateAlias' method='POST'>
+<form action='/Mail/CreateAlias' id='userMailCreateAlias' method='POST' class="formDiv">
     <input type="hidden" id='userMailCreateAlias_maildrop' name="maildrop" value="<% $params->{'mail'} %>">
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-
-                <h3><% __('Create mail aliases') %></h3>
-                <table cellspacing='0' class='dataTable' id='userMailAliasTable'>
-                        <thead>
-                                <tr>
-                                        <th width='66%' class='tleft'>
-                                                <% __('Mail alias') %>
-                                        </th>
-                                        <th class='thOptions'>
-                                                <% __('Action') %>
-                                        </th>
-                                </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                                <td>
-                                        <input type='text' class='inputText' name='lhs'>
-                                         @
-                                        <select name="rhs" enabled>
+    <h4><% __('Create mail aliases') %></h4>
+      <table cellspacing='0' class='dataTable' id='userMailAliasTable'>
+            <thead>
+                <tr>
+                    <th width='66%' class='tleft'>
+                            <% __('Mail alias') %>
+                    </th>
+                    <th class='thOptions'>
+                            <% __('Action') %>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr>
+                    <td>
+                          <div class="inline-input">
+                          <input type='text' class='inputText' name='lhs'>
+                          <span>@</span>
+                          <select name="rhs" enabled>
 %                                       my @kvd = @{ $params->{'vdomains'} };
 %                                       foreach my $vd (@kvd) {
                                                 <option value= <% $vd %> > <% __($vd) %> </option>
 %                                       }
                                         </select>
-                                </td>
-                                <td class='tcenter'>
-                                        <input id='userMailCreateAlias_submit'
-                                               class='btn-only-icon btn-add'
-                                               type='submit'
-                                               name='change'
-                                               value="<% __('Create') %>"
-                                               title="<% __('Create') %>"
-                                               alt="<% __('Create') %>"
-                                        />
-                                </td>
-                        </tr>
-                        </tbody>
-                </table>
+                          </div>
+                    </td>
+                    <td class='tcenter'>
+                            <input id='userMailCreateAlias_submit'
+                                   class='btn-only-icon btn-add'
+                                   type='submit'
+                                   name='change'
+                                   value="<% __('Create') %>"
+                                   title="<% __('Create') %>"
+                                   alt="<% __('Create') %>"
+                            />
+                    </td>
+            </tr>
+            </tbody>
+    </table>
 </form>
 
 <script>
@@ -204,9 +210,9 @@ my @quotaTypeOptions = (
 
 <div id='error_userMailSetMaildirQuota' class='error' style='display:none'></div>
 <div id='note_userMailSetMaildirQuota' class='note' style='display:none'></div>
-<form action='/Mail/SetAccountMaildirQuota' id='userMailSetMaildirQuota' method='POST'>
+<form action='/Mail/SetAccountMaildirQuota' id='userMailSetMaildirQuota' method='POST' class="formDiv">
   <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-    <div>
+    <div class="inline-field">
       <label><% __('Quota type') %></label>
         <& /input/select.mas,
                 name => 'quotaType',
@@ -217,8 +223,8 @@ my @quotaTypeOptions = (
         &>
     </div>
 
-    <div>
-        <label><% __('Maximum mailbox size in MB') %></label>
+    <div class="inline-field inline-input">
+        <label><% __('Maximum mailbox size') %></label>
         <input type='text' class='inputText' name='maildirQuota'
                                 id='maildirQuota'
                                 size="15"
@@ -229,6 +235,7 @@ my @quotaTypeOptions = (
                         enabled
                         value='<% $params->{'maildirQuota'} %>'>
 %                               }
+        <span> Mb</span>
     </div>
     <div class="form-buttons">
         <input class='inputButton' type='submit' name='change'

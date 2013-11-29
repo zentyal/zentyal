@@ -83,23 +83,17 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
 
 <div id="<% $model->modelName() %>">
 <& SELF:messagesAndHelp, model => $model &>
-<form name="<% $tableName . '_form' %>">
-  <table class='formTable'>
-    <tbody>
-     <col width="1*" />
-     <col width="auto" />
+<form name="<% $tableName . '_form' %>" class="formDiv"> 
        <& /ajax/modal/changeRowForm.mas,
-          action => $action,
-          model  => $model,
-          editid => undef,
-          filter => $filter,
-          page   => 0,
-          tpages => 1,
-          presetParams  => \%presetParams,
-          printableRowName => $model->printableRowName
-       &>
-    </tbody>
-  </table>
+              action => $action,
+              model  => $model,
+              editid => undef,
+              filter => $filter,
+              page   => 0,
+              tpages => 1,
+              presetParams  => \%presetParams,
+              printableRowName => $model->printableRowName
+           &>
 </form>
 %   my $customizer = $formData[0]->model()->viewCustomizer();
 %   if ($customizer) {
