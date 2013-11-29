@@ -2257,14 +2257,19 @@ form.formDiv .inline-field{
 .inline-input input,
 .inline-input select,
 .inline-input span,
+.inline-input .checkbox,
 .changeRow div input,
 .changeRow div select,
-.changeRow div span
-{ 
+.changeRow div span, 
+.changeRow div .checkbox { 
     display: inline-block;
     vertical-align: middle;
 }
-
+.inline-input .checkbox,
+.changeRow div .checkbox{
+    font-weight: normal;
+    color: #666;
+}
 
 .inline-label{
     display: inline-block;
