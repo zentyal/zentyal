@@ -59,6 +59,7 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     $self->{cgi} = delete $opts{cgi};
     $self->{template} = delete $opts{template};
     unless (defined($self->{cgi})) {
+        CGI::initialize_globals();
         $self->{cgi} = new CGI;
     }
     $self->{paramsKept} = ();
