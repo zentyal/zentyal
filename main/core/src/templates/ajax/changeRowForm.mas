@@ -117,7 +117,7 @@ if (@formData and $formData[0]->model()->disableAutocomplete()) {
   $formAttrs = 'autocomplete="off"';
 }
 </%init>
-<form class="formDiv" id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
+<form class="formDiv changeRow" id="<% $modelName . '_ajaxform' %>" name="<% $modelName . '_ajaxform' %>" <% $formAttrs %>>
       <& SELF:editFormSection,
          name => $modelName,
          formData => \@formData,

@@ -2256,11 +2256,16 @@ form.formDiv .inline-field{
 }
 .inline-input input,
 .inline-input select,
-.inline-input span
+.inline-input span,
+.changeRow div input,
+.changeRow div select,
+.changeRow div span
 { 
     display: inline-block;
     vertical-align: middle;
 }
+
+
 .inline-label{
     display: inline-block;
     vertical-align: middle;
