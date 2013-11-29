@@ -51,9 +51,6 @@
 </%init>
 <div id='<% $tableName %>_error'></div>
 <div id='<% $tableName %>_message'></div>
-<& /title.mas,
-    crumbs => $model->viewCustomizer()->HTMLTitle()
-&>
 <& PARENT:title,
    title => $model->headTitle()
 &>

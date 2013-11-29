@@ -77,6 +77,9 @@
      }
 </%perl>
 %   if ($showBody) {
+       <& .pageTitle,
+           crumbs => $model->viewCustomizer()->HTMLTitle()
+       &>
        <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
@@ -102,6 +105,8 @@
 %   }
 % }
 </%method>
+
+
 
 <%doc>
   Method: header
@@ -152,12 +157,6 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
-<%doc>
-% unless ( $model->pageTitle() ) {
-   <& SELF:permanentMessage, model => $model &>
-   <& SELF:regularMessage, model => $model &>
-% }
-</%doc>
 <& SELF:_body,
    model => $model,
    @childArgs
@@ -270,3 +269,24 @@ $model
      &>
 % }
 </%method>
+
+<%doc>
+  Method: pageTitle
+
+     Set the page title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%def .pageTitle>
+<%args>
+  $title => undef
+  $crumbs => undef
+</%args>
+<& /title.mas,
+    title => $title,
+    crumbs => $crumbs
+&>
+</%def>
