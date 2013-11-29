@@ -60,6 +60,10 @@
    model => $model
 &>
 
+<& .pageTitle,
+      crumbs => $model->viewCustomizer()->HTMLTitle()
+&>
+<& /disabledModuleWarn.mas, model => $model &>
 
 % if ($model->precondition()) {
 <%perl>
@@ -77,9 +81,6 @@
      }
 </%perl>
 %   if ($showBody) {
-       <& .pageTitle,
-           crumbs => $model->viewCustomizer()->HTMLTitle()
-       &>
        <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
@@ -87,16 +88,9 @@
              &>
        </div>
 %   } elsif ($noDataMsg) {
-        <& SELF:permanentMessage, model => $model &>
-        <& SELF:regularMessage, model => $model &>
-        <div class="emptynote">
-            <% $noDataMsg %>
-        </div>
+        <& SELF:helpAndMessages, model => $model &>
 %   }
 % } else  {
-%   if ($model->printableModelName()) {
-<& /title.mas, title => $model->printableModelName() &>
-%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -163,26 +157,18 @@
 &>
 </%method>
 
-<%method messagesAndHelp>
+<%method helpAndMessages>
 <%args>
 $model
 </%args>
+%  my $help = $model->help();
+%  if ($help) {
+<div class="help">
+  <% $model->help() %>
+</div>
+%  }
 <& SELF:permanentMessage, model => $model &>
 <& SELF:regularMessage, model => $model &>
-
-% my $help = $model->help();
-% if ($help) {
-     <div class="help">
-       <% $help %>
-     </div>
-% }
-
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-     <div class="warning">
-        <% $disabledModuleWarning %>
-      </div>
-% }
 </%method>
 
 <%doc>

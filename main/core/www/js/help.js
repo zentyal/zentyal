@@ -12,7 +12,7 @@ Zentyal.Help.showHelp = function () {
 
 Zentyal.Help.initHelp = function () {
     var hasHelp = $('.help').length > 0;
-    $('#helpbutton').show(hasHelp);
+    $('#helpbutton').toggle(hasHelp);
 };
 
 $(function(){

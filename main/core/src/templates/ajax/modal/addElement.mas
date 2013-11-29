@@ -82,7 +82,7 @@ my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
 <div id='<% $model->modelName() | hu %>_modal_error'></div>
 
 <div id="<% $model->modelName() %>">
-<& SELF:messagesAndHelp, model => $model &>
+<& SELF:helpAndMessages, model => $model &>
 <form name="<% $tableName . '_form' %>" class="formDiv"> 
        <& /ajax/modal/changeRowForm.mas,
               action => $action,
