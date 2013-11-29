@@ -205,11 +205,9 @@ my @quotaTypeOptions = (
 <div id='error_userMailSetMaildirQuota' class='error' style='display:none'></div>
 <div id='note_userMailSetMaildirQuota' class='note' style='display:none'></div>
 <form action='/Mail/SetAccountMaildirQuota' id='userMailSetMaildirQuota' method='POST'>
-<table class='formTable'>
-<input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-        <tr>
-        <td class='tright'><% __('Quota type') %></td>
-        <td>
+  <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
+    <div>
+      <label><% __('Quota type') %></label>
         <& /input/select.mas,
                 name => 'quotaType',
                 id => 'quotaType',
@@ -217,12 +215,11 @@ my @quotaTypeOptions = (
                 value => $quotaType,
                  onChange => 'updateMaildirQuota()',
         &>
-        </td>
-        </tr>
+    </div>
 
-        <tr>
-        <td class='tright'><% __('Maximum mailbox size in MB') %>:</td>
-        <td><input type='text' class='inputText' name='maildirQuota'
+    <div>
+        <label><% __('Maximum mailbox size in MB') %></label>
+        <input type='text' class='inputText' name='maildirQuota'
                                 id='maildirQuota'
                                 size="15"
 %                               if($params->{'maildirType'} ne 'custom') {
@@ -232,17 +229,13 @@ my @quotaTypeOptions = (
                         enabled
                         value='<% $params->{'maildirQuota'} %>'>
 %                               }
-        </td>
-        </tr>
-        <tr>
-        <td>
+    </div>
+    <div class="form-buttons">
         <input class='inputButton' type='submit' name='change'
                id='userMailSetMaildirQuota_submit'
                value="<% __('Modify') %>"
                alt="<% __('Modify') %>">
-        </td>
-        </tr>
-</table>
+    </div>
 </form>
 
 </%def>
