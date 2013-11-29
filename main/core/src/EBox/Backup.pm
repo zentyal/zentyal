@@ -1472,12 +1472,6 @@ sub _modulesInBackup
     my $modulesString = read_file("$tempDir/eboxbackup/modules");
 
     my @modules = split '\s', $modulesString;
-    foreach my $mod (@modules) {
-        if ($mod eq 'apache') {
-            $mod = 'webadmin';
-            last;
-        }
-    }
 
     return \@modules;
 }

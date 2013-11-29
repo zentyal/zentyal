@@ -2,8 +2,7 @@ PORT=443
 
 stop_ebox_processes() {
     stop ebox.redis 2>/dev/null || true
-    OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
-    kill $OLD_APACHE_PID 2>/dev/null || true
+    stop zentyal.webadmin-nginx || true
     pkill -9 -u ebox || true
 }
 

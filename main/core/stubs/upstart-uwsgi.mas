@@ -1,0 +1,17 @@
+<%args>
+    $socket
+    $script
+</%args>
+
+description     "uWSGI daemon for Zentyal web admin"
+author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+start on (filesystem
+          and static-network-up
+          and runlevel [2345])
+stop on runlevel [016]
+
+respawn
+respawn limit 10 5
+
+exec uwsgi --plugins psgi --uid ebox -s <% $socket %> --psgi <% $script %>

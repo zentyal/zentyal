@@ -624,10 +624,10 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    my $apache = 0;
+    my $webadmin = 0;
     foreach my $name (@mods) {
         if ($name eq 'webadmin') {
-            $apache = 1;
+            $webadmin = 1;
             next;
         }
 
@@ -661,9 +661,9 @@ sub saveAllModules
     # Delete first time installation file (wizard)
     $self->deleteFirst();
 
-    # FIXME - tell the CGI to inform the user that apache is restarting
-    if ($apache) {
-        EBox::info("Saving configuration: apache");
+    # FIXME - tell the CGI to inform the user that webadmin is restarting
+    if ($webadmin) {
+        EBox::info("Saving configuration: webadmin");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
                                        modName => 'webadmin'));

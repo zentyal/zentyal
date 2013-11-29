@@ -1,6 +1,6 @@
-HEAD
-	+ Added missing use to EBox::CGI::Base
 3.3
+	+ Use uWSGI instead of Apache mod_perl for running CGIs
+	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
 	+ Fixed errors with row ID in ManageAdmins table

@@ -104,44 +104,6 @@ throws_ok {
 my @includes = ( '/bin/true', '/bin/false' );
 my @deviantIncludes = ( '/bin/dafdfa' );
 
-# Apache includes.
-throws_ok {
-    $webAdminMod->addApacheInclude();
-} 'EBox::Exceptions::MissingArgument', 'No file to include';
-
-throws_ok {
-    $webAdminMod->addApacheInclude($deviantIncludes[0]);
-} 'EBox::Exceptions::Internal', 'File to include does not exits';
-
-lives_ok {
-    $webAdminMod->addApacheInclude($_) foreach (@includes);
-} 'Adding some includes';
-
-cmp_deeply($webAdminMod->_apacheIncludes(), \@includes,
-       'The two includes added');
-
-lives_ok {
-    $webAdminMod->addApacheInclude($_) foreach (@includes);
-} 'Trying to add the same again';
-
-cmp_deeply($webAdminMod->_apacheIncludes(), \@includes,
-           'Only the two includes are there');
-
-throws_ok {
-    $webAdminMod->removeApacheInclude();
-} 'EBox::Exceptions::MissingArgument', 'No file to exclude';
-
-throws_ok {
-    $webAdminMod->removeApacheInclude($deviantIncludes[0]);
-} 'EBox::Exceptions::Internal', 'No file to remove';
-
-lives_ok {
-    $webAdminMod->removeApacheInclude($_) foreach (@includes);
-} 'Removing all the include files';
-
-cmp_ok(@{$webAdminMod->_apacheIncludes()}, '==', 0,
-       'Nothing has been left');
-
 # Nginx includes.
 throws_ok {
     $webAdminMod->addNginxInclude();
