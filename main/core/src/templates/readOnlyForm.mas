@@ -13,26 +13,13 @@
   $hasChanged
   $action => 'view'
 </%args>
-<%init>
-  use EBox::Gettext;
-  use EBox::Model::DataTable;
-</%init>
+<%attr>
+ editSectionTemplate => '/ajax/formShowReadOnly.mas'
+</%attr>
 <& PARENT:view,
    model => $model,
    hasChanged => $hasChanged,
    action     => $action,
 &>
-<%doc>
-  Method: buttons
-
-     No buttons to show
-
-  Overrides:
-
-     /ajax/form.mas:buttons
-
-</%doc>
-<%method buttons>
-</%method>
 
 
