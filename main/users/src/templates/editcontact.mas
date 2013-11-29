@@ -13,8 +13,8 @@ use JSON::XS;
 <div id="edit_contact">
 
 <h3 class="icon-contact"><% __('Administration of contact ') %> <span class='stitle'><% $contact->fullname() %></span></h3>
-<div id='note_editContactForm' class='note' style='display:none'></div>
-<div id='error_editContactForm' class='error' style='display:none'></div>
+<div id='editContactForm_message' class='note' style='display:none'></div>
+<div id='editContactForm_error' class='error' style='display:none'></div>
 <div id="contact_attrs" class="form-block half-block">
     <form class="formDiv" action='/Users/EditContact' method='POST' id='editContactForm'>
         <input type="hidden" name="dn" value="<% $contact->dn() %>">
@@ -60,7 +60,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 </%init>
 
 <& .addToGroup, contact => $contact &>
-<div id='error_removeContactFromGroup' class='error' style='display:none'></div>
+<div id='removeContactFromGroup_error' class='error' style='display:none'></div>
 <ul class="labels-list" name='contactGroups' id='contactGroups'>
 </ul>
 
@@ -69,15 +69,15 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 "use strict";
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#editContactForm', {
-        noteDiv: '#note_editContactForm',
-        errorDiv: '#error_editContactForm',
+        noteDiv: '#editContactForm_message',
+        errorDiv: '#editContactForm_error',
         submitButton: '#submitEditContactForm',
         success: function(response) {
               if ('set_text' in response) {
                          var tree =  $("#tree_Manage");
                          var selected = tree.jstree("get_selected")[0];
                          tree.jstree("set_text", selected, response.set_text);
-		    }
+              }
        }
 
    });
@@ -109,7 +109,7 @@ $(function() {
                                   '>delete</span>' +   '</li>'
                                  );
             }
-            contactGroups.insertAfter('#error_removeContactFromGroup');
+            contactGroups.insertAfter('#removeContactFromGroup_error');
 
 
    };
@@ -130,17 +130,17 @@ $(function() {
        var url = '/Users/EditContact';
        var data = 'delgroupfromcontact=1&dn=<% $contact->dn() %>';
        data += '&delgroup=' + event.target.getAttribute('data-group-name');
-       $('#error_removeContactFromGroup').html('').hide();
+       $('#removeContactFromGroup_error').html('').hide();
        $.ajax({
           url: url,
           data: data,
           dataType: 'json',
           error: function(jqXHR) {
-             $('#error_removeContactFromGroup').html(jqXHR.responseText).show();
+             $('#removeContactFromGroup_error').html(jqXHR.responseText).show();
           },
           success: function(response) {
              if (!response.success) {
-                $('#error_removeContactFromGroup').html(response.error).show();
+                $('#removeContactFromGroup_error').html(response.error).show();
              }
           },
           complete: function() {
@@ -161,7 +161,7 @@ $(function() {
 <%args>
 $contact
 </%args>
-<div id='error_addContactToGroup' class='error' style='display:none'></div>
+<div id='addContactToGroup_error' class='error' style='display:none'></div>
 <form action='/Users/EditContact' method='POST' id='addContactToGroup' >
   <select name="addgroup" id="addgroup">
   </select>

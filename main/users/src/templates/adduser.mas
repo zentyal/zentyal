@@ -9,7 +9,7 @@ use EBox::Gettext;
 use EBox::Global;
 </%init>
 <h4 class="icon-user"><% __('Add User') %></h4>
-    <div id='error_addUserForm' class='error' style='display:none'></div>
+    <div id='addUserForm_error' class='error' style='display:none'></div>
         <form action='/Users/AddUser' method='POST' autocomplete='off' id='addUserForm' class="formDiv">
             <input type="hidden" name="dn" value="<% $dn %>">
             <div>

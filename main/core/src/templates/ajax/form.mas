@@ -8,6 +8,9 @@
 <%flags>
   inherit => '/ajax/modelViewer.mas'
 </%flags>
+<%attr>
+ editSectionTemplate => '/ajax/formEdit.mas'
+</%attr>
 <%args>
   $model
   $hasChanged
@@ -55,8 +58,7 @@
    title => $model->headTitle()
 &>
 <& SELF:messagesAndHelp, model => $model &>
-
-<& '/ajax/formEdit.mas',
+<& $m->base_comp->attr('editSectionTemplate'),
    model    => $model,
    formData => $formDataRef
 &>
