@@ -18,6 +18,7 @@
 <& .pageTitle,
    crumbs => $model->HTMLTitle()
 &>
+<& /disabledModuleWarn.mas, model => $model &>
 <%perl>
   # Annotate we are in composite after printing own title
   $m->notes('composite', 1);
@@ -36,13 +37,7 @@
   <% $model->help() %>
 </div>
 %    }
-%    # Print the disabled module warning if needed
-%    my $disabledModuleWarning = $model->disabledModuleWarning();
-%    if ($disabledModuleWarning) {
-<div class="warning">
-  <% $disabledModuleWarning %>
-</div>
-%    }
+
 %    # Print the permanent message if any
 %    my $permanentMessage = $model->permanentMessage();
 %    my $permanentMessageType = $model->permanentMessageType();

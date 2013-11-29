@@ -63,6 +63,7 @@
 <& .pageTitle,
       crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
+<& /disabledModuleWarn.mas, model => $model &>
 
 % if ($model->precondition()) {
 <%perl>
@@ -172,13 +173,6 @@ $model
      <div class="help">
        <% $help %>
      </div>
-% }
-
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-     <div class="warning">
-        <% $disabledModuleWarning %>
-      </div>
 % }
 </%method>
 
