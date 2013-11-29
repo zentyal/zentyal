@@ -83,7 +83,7 @@ sub help
 {
     my ($self) = @_;
     my $editionEnabled = $self->_enabledSub()->();
-    return not $editionEnabled ? __('A change in the date or time will cause all Zentyal services to be restarted.'): '';
+    return $editionEnabled ? __('A change in the date or time will cause all Zentyal services to be restarted.'): '';
 }
 
 # Method: viewCustomizer
