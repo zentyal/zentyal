@@ -60,6 +60,9 @@
    model => $model
 &>
 
+<& .pageTitle,
+      crumbs => $model->viewCustomizer()->HTMLTitle()
+&>
 
 % if ($model->precondition()) {
 <%perl>
@@ -77,9 +80,6 @@
      }
 </%perl>
 %   if ($showBody) {
-       <& .pageTitle,
-           crumbs => $model->viewCustomizer()->HTMLTitle()
-       &>
        <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
@@ -94,9 +94,6 @@
         </div>
 %   }
 % } else  {
-%   if ($model->printableModelName()) {
-<& /title.mas, title => $model->printableModelName() &>
-%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
