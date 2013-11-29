@@ -54,7 +54,7 @@
 <& PARENT:title,
    title => $model->headTitle()
 &>
-<& SELF:messagesAndHelp, model => $model &>
+<& SELF:helpAndMessages, model => $model &>
 <& $m->base_comp->attr('editSectionTemplate'),
    model    => $model,
    formData => $formDataRef

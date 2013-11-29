@@ -88,11 +88,7 @@
              &>
        </div>
 %   } elsif ($noDataMsg) {
-        <& SELF:permanentMessage, model => $model &>
-        <& SELF:regularMessage, model => $model &>
-        <div class="emptynote">
-            <% $noDataMsg %>
-        </div>
+        <& SELF:helpAndMessages, model => $model &>
 %   }
 % } else  {
 %   my $failMsg =  $model->preconditionFailMsg();
@@ -161,19 +157,18 @@
 &>
 </%method>
 
-<%method messagesAndHelp>
+<%method helpAndMessages>
 <%args>
 $model
 </%args>
+%  my $help = $model->help();
+%  if ($help) {
+<div class="help">
+  <% $model->help() %>
+</div>
+%  }
 <& SELF:permanentMessage, model => $model &>
 <& SELF:regularMessage, model => $model &>
-
-% my $help = $model->help();
-% if ($help) {
-     <div class="help">
-       <% $help %>
-     </div>
-% }
 </%method>
 
 <%doc>

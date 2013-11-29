@@ -213,7 +213,7 @@ my $tableName = $model->table()->{'tableName'};
 my $changeView = $model->action('changeView');
 </%init>
 <div id="<% $tableName %>_top">
-    <& SELF:messagesAndHelp, model => $model &>
+    <& SELF:helpAndMessages, model => $model &>
 %    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
 %        if ($changeView) {
            <& SELF:tableActionLinks,
