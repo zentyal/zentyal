@@ -16,4 +16,4 @@ $disabled => undef
    'class'   => "$cssClass",
    'disabled' => $disabled,
 &>
-<% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
