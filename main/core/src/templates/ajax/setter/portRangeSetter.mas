@@ -19,7 +19,7 @@ my $typeSelected = $data->rangeType();
             'disabled'  =>  $disabled
 
     &>
-    <span id="<% $id . '_range' %>" class="inline-input <% ($typeSelected eq 'range') ? '' : 'hidden' %>">
+    <span id="<% $id . '_range' %>" class="inline-input" <% ($typeSelected eq 'range') ? '' : 'style="display:none"' %>>
       <span><%__('From')%></span>
       <input type="text" class="inputText"
          value="<% $data->from() %>"
@@ -33,7 +33,7 @@ my $typeSelected = $data->rangeType();
          name='<% $id . '_to_port' %>'
          <% $disabled ?  'disabled' : '' %> />
     </span>
-    <span id="<% $id . '_single' %>" class="<% ($typeSelected eq 'single') ? '' : 'hidden' %>">
+    <span id="<% $id . '_single' %>" <% ($typeSelected eq 'single') ? '' : 'style="display:none"' %>>
       <input type="text" class="inputText"
          value="<% $data->single() %>"
          size="5" id ="<% $id . '_single_port' %>"

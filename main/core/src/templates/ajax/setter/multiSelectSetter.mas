@@ -6,7 +6,6 @@ $disabled => undef
 </%args>
 
 % my $id = $tableName . '_' . $data->fieldName();
-% # my $onChange = "eval('OnChangeOn$id(this)')";
 % my $onChange = "OnChangeOn$id(this)";
 <& /input/multiSelect.mas,
    'name'    => "$id" ,

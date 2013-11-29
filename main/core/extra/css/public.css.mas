@@ -2147,6 +2147,9 @@ form.formDiv fieldset {
 form.formDiv > div {
     margin-top: 20px;
 }
+.form-buttons{
+    margin-top: 20px;
+}
 form.formDiv label,
 form.formDiv .radio-group strong, 
 form.formDiv .checkbox-group strong {
