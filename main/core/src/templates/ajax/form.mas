@@ -8,6 +8,9 @@
 <%flags>
   inherit => '/ajax/modelViewer.mas'
 </%flags>
+<%attr>
+ editSectionTemplate => '/ajax/formEdit.mas'
+</%attr>
 <%args>
   $model
   $hasChanged
@@ -38,6 +41,7 @@
   $model
 </%args>
 <%init>
+  my $tableName = $model->tableName();
   my $formDataRef;
   if ( defined ( $model->row() )) {
       $formDataRef = $model->row()->{'values'};
@@ -45,6 +49,8 @@
       $formDataRef = $model->table()->{'tableDescription'};
   }
 </%init>
+<div id='<% $tableName %>_error'></div>
+<div id='<% $tableName %>_message'></div>
 <& /title.mas,
     crumbs => $model->viewCustomizer()->HTMLTitle()
 &>
@@ -52,43 +58,12 @@
    title => $model->headTitle()
 &>
 <& SELF:messagesAndHelp, model => $model &>
-
-<& SELF:editForm,
-   modelName => $model->name(),
+<& $m->base_comp->attr('editSectionTemplate'),
+   model    => $model,
    formData => $formDataRef
 &>
 
-</%method>
 
-<%doc>
-  Method: buttons
-
-     Show the button to submit the form
-
-  Overrides:
-
-     /ajax/modelViewer.mas:buttons
-
-</%doc>
-<%method buttons>
-<%init>
-  # Getting the arguments from the first request
-  my $model = $m->caller_args(2)->{model};
-  my $id = $model->name() . '_ajaxform';
-  my $actions = $model->table()->{actions};
-  my $onClick = $model->changeRowJS($id, 0) . '; return false';
-  $onClick =  $model->confirmationJS('submit', $onClick);
-</%init>
-<td id="<% 'buttons_' . $model->modelName() %>">
-% if (defined $actions and (keys %{ $actions} > 0)) {
-  <& /input/submit.mas,
-     name => 'change',
-     value => $model->printableActionName(),
-     onclick => $onClick,
-  &>
-% }
-<& /ajax/customActions.mas, model => $model, id => $id &>
-</td>
 </%method>
 
 

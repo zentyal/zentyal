@@ -11,13 +11,6 @@
    hasChanged => $hasChanged,
    action => $action,
 &>
-<%doc>
-% # Anyway you should call the change menu sub-component to check if
-% # any change has been done
-<& SELF:changeMenu,
-   hasChanged => $hasChanged
-&>
-</%doc>
 
 <%method _body>
 <%args>

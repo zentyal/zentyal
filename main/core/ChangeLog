@@ -1,6 +1,8 @@
-HEAD
-	+ Added missing use to EBox::CGI::Base
 3.3
+	+ Use the same Mason interpreter for most HTML templates
+	+ Use more granular AJAX for table actions
+	+ Use stand-alone AJAX call to refresh save changes button
+	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
 	+ Fixed errors with row ID in ManageAdmins table
@@ -9,6 +11,9 @@ HEAD
 	  'unique' option enabled
 	+ EBox::WebServer::removeNginxInclude does not longer throws
 	  a exception if the path to remove is not included
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
 	+ Use printableName in Configure Module popup
 	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method

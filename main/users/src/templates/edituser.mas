@@ -17,8 +17,8 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
-<div id='note_editUserForm' class='note' style='display:none'></div>
-<div id='error_editUserForm' class='error' style='display:none'></div>
+<div id='editUserForm_message' class='note' style='display:none'></div>
+<div id='editUserForm_error' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block half-block">
       <form class="formDiv" action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
@@ -118,7 +118,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 </%init>
 
 <& .addToGroup, user => $user &>
-<div id='error_removeUserFromGroup' class='error' style='display:none'></div>
+<div id='removeUserFromGroup_error' class='error' style='display:none'></div>
 <ul name='userGroups' id='userGroups' class="labels-list">
 </ul>
 
@@ -128,8 +128,8 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 "use strict";
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#editUserForm', {
-        noteDiv: '#note_editUserForm',
-        errorDiv: '#error_editUserForm',
+        noteDiv: '#editUserForm_message',
+        errorDiv: '#editUserForm_error',
         submitButton: '#submitEditUserForm',
         success: function(response) {
             if ('set_text' in response) {
@@ -167,7 +167,7 @@ $(function() {
                                   '>delete</span>' +   '</li>'
                                  );
             }
-            userGroups.insertAfter('#error_removeUserFromGroup');
+            userGroups.insertAfter('#removeUserFromGroup_error');
 
 
    };
@@ -188,17 +188,17 @@ $(function() {
        var url = '/Users/EditUser';
        var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
        data += '&delgroup=' + event.target.getAttribute('data-group-name');
-       $('#error_removeUserFromGroup').html('').hide();
+       $('#removeUserFromGroup_error').html('').hide();
        $.ajax({
           url: url,
           data: data,
           dataType: 'json',
           error: function(jqXHR) {
-             $('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+             $('#removeUserFromGroup_error').html(jqXHR.responseText).show();
           },
           success: function(response) {
              if (!response.success) {
-                $('#error_removeUserFromGroup').html(response.error).show();
+                $('#removeUserFromGroup_error').html(response.error).show();
              }
           },
           complete: function() {
@@ -225,7 +225,7 @@ $(function() {
 <%args>
 $user
 </%args>
-<div id='error_addUserToGroup' class='error' style='display:none'></div>
+<div id='addUserToGroup_error' class='error' style='display:none'></div>
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup">
   </select>

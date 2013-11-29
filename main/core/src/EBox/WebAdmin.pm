@@ -25,7 +25,6 @@ use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
 use EBox::Menu;
-use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::Internal;

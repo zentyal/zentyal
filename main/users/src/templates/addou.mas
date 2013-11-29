@@ -5,7 +5,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Organizational Unit') %></h3>
-    <div id='error_addOuForm' class='error' style='display:none'></div>
+    <div id='addOuForm_error' class='error' style='display:none'></div>
 	<form action='/Users/AddOU' method='POST' id='addOuForm'>
     <input type="hidden" name="dn" value="<% $dn %>">
 	<table class='formTable'>

@@ -7,16 +7,16 @@
 </%args>
 <%init>
 use EBox::Gettext;
- my $logoutTitle = __('Close session');
+my $logoutTitle = __('Close session');
 my $finishTitle = __('Save changes?');
 </%init>
 <div id="top"></div>
-	<div id="header">
+        <div id="header">
           <a href="/">
             <img src="<% $image_title %>" alt="title"/>
           </a>
         </div>
-	<div id="hmenu">
+        <div id="hmenu">
 % if ( $remoteServicesURL ne '' ) {
           <a id="remote_services_link" href="<% $remoteServicesURL %>">
             <% __('Zentyal Remote') %>
@@ -30,9 +30,14 @@ my $finishTitle = __('Save changes?');
      </a>
 % }
 % if ( $save ne '' ) {
-	  <a class="<% $finishClass %>" id="changes_menu" href="#"
+          <a class="<% $finishClass %>" id="changes_menu" href="#"
           onclick="Zentyal.Dialog.showURL('/Finish', { title: '<% $finishTitle %>',  load: function() { $('#save', this).focus()} }); return false">
               <% $save %>
           </a>
 % }
-	</div>
+        </div>
+<script>
+$(function(){
+    Zentyal.refreshSaveChangesButton();
+});
+</script>
