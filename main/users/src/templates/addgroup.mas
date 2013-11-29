@@ -5,7 +5,7 @@
 use EBox::Gettext;
 </%init>
 <h4 class="icon-group"><% __('Add Group') %></h4>
-    <div id='error_addGroupForm' class='error' style='display:none'></div>
+    <div id='addGroupForm_error' class='error' style='display:none'></div>
     <form action='/Users/AddGroup' method='POST' id='addGroupForm' class="formDiv">
     <input type="hidden" name="dn" value="<% $dn %>">
         <div class="checkbox-group">
@@ -16,24 +16,24 @@ use EBox::Gettext;
         <div>
             <label><% __('Group name') %></label>
             <input type='text' class='inputText' name='groupname'>
-        </div> 
-        <div> 
+        </div>
+        <div>
             <label><% __('Description') %>
                 <span class="optional_field"><% __('Optional value') %></span>
             </label>
-            <input type='text' class='inputText' name='description'>    
-        </div>                
+            <input type='text' class='inputText' name='description'>
+        </div>
         <div>
             <label><% __('E-mail') %>
                 <span class="optional_field"><% __('Optional value') %></span>
             </label>
             <input type='text' class='inputText' name='mail'>
         </div>
-        <div>   
+        <div>
             <input class='inputButton'  type='submit' name='add'
                        value="<% __('Add') %>"
                        alt="<% __('Add') %>"/>
-       </div>   
+       </div>
     </form>
 
 <script>
