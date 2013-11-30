@@ -770,9 +770,6 @@ sub addApacheInclude
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
-#      <EBox::Exceptions::Internal> - thrown if the given file has not
-#      been included previously
-#
 sub removeApacheInclude
 {
     my ($self, $includeFilePath) = @_;
@@ -783,8 +780,7 @@ sub removeApacheInclude
     my @includes = @{$self->_apacheIncludes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
     if ( @newIncludes == @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
-                                         silent => 1);
+        return;
     }
     $self->set_list(APACHE_INCLUDE_KEY, 'string', \@newIncludes);
 
