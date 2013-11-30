@@ -1,0 +1,25 @@
+<%args>
+$debug => 0
+</%args>
+<%init>
+my $rpcproxyPath = '/opt/samba4/lib/openchange/web/rpcproxy';
+</%init>
+
+## The extremely high timeout is required by outlook
+KeepAliveTimeout 120
+
+WSGILazyInitialization On
+WSGIPythonPath  <% $rpcproxyPath %>
+
+
+<Directory <% $rpcproxyPath %>>
+  SetEnv RPCPROXY_LOGLEVEL <% $debug ? 'DEBUG' : 'INFO' %>
+  SetEnv NTLMAUTHHANDLER_WORKDIR /var/cache/ntlmauthhandler
+  SetEnv SAMBA_HOST 127.0.0.1
+  WSGIPassAuthorization On
+  WSGIProcessGroup %{GLOBAL}
+</Directory>
+
+WSGIScriptAlias /rpc/rpcproxy.dll <% $rpcproxyPath %>/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll   <% $rpcproxyPath %>/rpcproxy.wsgi
+

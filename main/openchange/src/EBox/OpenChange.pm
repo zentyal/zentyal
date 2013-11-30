@@ -40,6 +40,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
+use constant RPCPROXY_INC_FILE  => '/var/lib/zentyal/conf/openchange/rpcproxy.conf';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -173,6 +175,13 @@ sub _autodiscoverEnabled
     return $self->isProvisioned();
 }
 
+sub _rpcproxyEnabled
+{
+    my ($self) = @_;
+    # TODO return correct value
+    return 1;
+}
+
 sub usedFiles
 {
     my @files = (
@@ -204,6 +213,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+    $self->_setRpcProxyConf();
 }
 
 sub _writeSOGoDefaultFile
@@ -321,6 +331,24 @@ sub _setAutodiscoverConf
         $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
     }
 }
+
+sub _setRpcProxyConf
+{
+    my ($self) = @_;
+    # XXX TODO nginx integration
+    my $webadmin = $self->global()->modInstance('webadmin');
+    if ($self->_rpcproxyEnabled()) {
+        $self->writeConfFile(RPCPROXY_INC_FILE,
+                             "openchange/rpcproxy.conf.mas",
+                             [],
+                             { uid => 0, gid => 0, mode => '644' }
+                            );
+        $webadmin->addApacheInclude(RPCPROXY_INC_FILE);
+    } else {
+        $webadmin->removeApacheInclude(RPCPROXY_INC_FILE);
+    }
+}
+
 
 # Method: menu
 #
