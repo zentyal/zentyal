@@ -16,13 +16,8 @@ use EBox::Gettext;
 <div id="login">
 <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
 <form name='login' action='/LOGIN' method='post'>
-                <h2 style="color: #333"><% __('Captive portal') %></h2>
-            <div class="warning" id="capsWarning" style="display: none">
-                  <% __('Warning: Caps Lock is enabled')%>
-            </div>
-%               if(length($reason)){
-                        <div id='reason'><% $reason %></div>
-%               }
+      <h1><% __('Captive portal') %></h1>
+
           <label><% __('Username') %></label>
           <input  class='inputTextLogin' type='text'
                     name='credential_0'
@@ -33,6 +28,12 @@ use EBox::Gettext;
                     name='credential_1'
                     id='credential_1'
                     />
+          <div class="warning" id="capsWarning" style="display: none">
+                  <% __('Warning: Caps Lock is enabled')%>
+          </div>
+%     if(length($reason)){
+          <div id='reason'><% $reason %></div>
+%     }
           <input type='hidden' name='destination'
                     value='<% $destination %>' />
           <input type='hidden' name='origDestination'

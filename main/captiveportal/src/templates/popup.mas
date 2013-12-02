@@ -34,11 +34,11 @@ use EBox::Gettext;
 </head>
 <body style="margin: 0">
    <div id="login" class="popup">
-       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block; width: 100%"/>
-       <div style="padding: 15px">
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
+       <p>
          <% __('Keep this window open while using your Internet connection.') %>
-       </div>
-       <div id="logout"><a class="btn" href="#" onclick="logout(); return false"><% __('Logout') %></a></div>
+       </p>
+      <a class="btn" href="#" onclick="logout(); return false"><% __('Logout') %></a>
      </div>
 </body>
 </html>
