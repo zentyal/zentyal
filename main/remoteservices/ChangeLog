@@ -1,4 +1,5 @@
 HEAD
+	+ Widget recovers from latestRemoteConfBackup connection errors
 	+ Missing use when restarting monitor using VPN as communication
 	  layer
 3.0.27
