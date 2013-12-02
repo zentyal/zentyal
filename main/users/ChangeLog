@@ -1,3 +1,5 @@
+HEAD
+	+ Remove useless warning when deleting a user or group with offer 2013
 3.0.23
 	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
 3.0.22
