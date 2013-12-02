@@ -1,3 +1,7 @@
+HEAD
+	+ Revert useless chown workaround
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
 3.0.23
 	+ Look for ssl.cert instead of ssl.pem in Slave::soapClient()
 3.0.22
