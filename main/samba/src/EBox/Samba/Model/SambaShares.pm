@@ -44,7 +44,8 @@ use Cwd 'abs_path';
 use Error qw(:try);
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
-                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
+                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr',
+                             '/opt');
 
 use constant FILTER_FS_TYPES => ('vfat', 'msdos');
 

@@ -1,4 +1,5 @@
 HEAD
+	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications
 3.2.10
