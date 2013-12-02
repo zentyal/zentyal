@@ -1,4 +1,4 @@
-HEAD
+3.2.11
 	+ Remove useless chown workaround
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
