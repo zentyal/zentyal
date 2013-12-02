@@ -34,11 +34,11 @@ my $NUM_DASHBOARDS = 2;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('Dashboard'),
+    my $class = shift;
+    my $self = $class->SUPER::new(@_, title => __('Dashboard'),
                                  'template' => '/dashboard/index.mas');
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 my $widgetsToHide = undef;
