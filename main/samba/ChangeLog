@@ -1,4 +1,5 @@
 HEAD
+	+ Remove useless chown workaround
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications
