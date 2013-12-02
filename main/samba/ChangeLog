@@ -1,4 +1,5 @@
 HEAD
+	+ Remove useless chown workaround
 	+ Add object exists check listing group members
 	+ Fixed the way we propagate optional fields, removing it when empty
 	+ Decode givenName, sn and description before propagating it from OpenLDAP
