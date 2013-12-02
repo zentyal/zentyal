@@ -73,10 +73,8 @@
         $noDataMsg = $model->noDataMsg();
         my $actions = $model->table()->{'actions'};
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
-        if ($showBody) {
-           unless ($model->message) {
-              $model->setMessage($noDataMsg,'emptynote');
-           }
+        unless ($model->message) {
+           $model->setMessage($noDataMsg,'emptynote');
         }
      }
 </%perl>
