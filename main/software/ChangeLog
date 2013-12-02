@@ -1,4 +1,6 @@
 HEAD
+	+ Remove style in zentyal package list when sb is set as it is not
+	  longer applied
 	+ Remove restricted modules to get info
 2.2.7
 	+ Make required changes for new communications add-on
