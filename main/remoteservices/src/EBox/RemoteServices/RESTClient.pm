@@ -337,7 +337,7 @@ sub request {
                 if ($retry) {
                     $self->_storeInJournal($method, $path, $query, $res);
                 }
-                throw EBox::Exceptions::Internal($res->code() . " : " . $res->content());
+                throw EBox::Exceptions::NotConnected($res->code() . " : " . $res->content());
             }
         }
 
