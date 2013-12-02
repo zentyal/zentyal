@@ -462,6 +462,7 @@ var pkgTable = new Array(
     </div>
     <div class="insideTab">
         <div id="installBox" class="item-block">
+%         if (@advInstallPkgs) {
               <& .pkgTable,
                  id => 'installTable',
                  pkgs => \@advInstallPkgs,
@@ -478,8 +479,12 @@ var pkgTable = new Array(
                 popup => $popup,
                 popupTitle => $titleByAction{install},
               &>
+%       } else {
+            <& .pkgTableEmpty, msg => __('No packages available for install')  &>
+%       }
         </div>
         <div id="updateBox" class="item-block">
+%          if (@advUpdatePkgs) {
               <& .pkgTable,
                  id => 'updateTable',
                  pkgs => \@advUpdatePkgs,
@@ -496,8 +501,12 @@ var pkgTable = new Array(
                 popup=> $popup,
                 popupTitle => $titleByAction{upgrade},
               &>
+%         } else {
+            <& .pkgTableEmpty, msg => __('No upgrades available')  &>
+%         }
         </div>
         <div id="deleteBox" class="item-block">
+%          if (@advRemovePkgs) {
              <& .pkgTable,
                 id => 'deleteTable',
                 pkgs => \@advRemovePkgs,
@@ -514,6 +523,9 @@ var pkgTable = new Array(
                popup => $popup,
                popupTitle => $titleByAction{remove},
              &>
+%         } else {
+            <& .pkgTableEmpty, msg => __('No installed packages to remove')  &>
+%         }
         </div>
 </div>
 </div>
@@ -623,6 +635,15 @@ $buttonId
 % }
 </tbody>
 </table>
+</%def>
+
+<%def .pkgTableEmpty>
+<%args>
+$msg
+</%args>
+<div class='emptynote'>
+<% $msg %>
+</div>
 </%def>
 
 <%def .updateList>
