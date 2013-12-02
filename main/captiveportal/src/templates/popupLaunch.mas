@@ -29,23 +29,18 @@ use EBox::Gettext;
   </script>
 </head>
 <body onload="launch()">
-  <center>
    <div id="login" class="popuplaunch">
        <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block; width: 100%;"/>
-       <div style="padding: 15px">
+       <p>
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
-       </div>
+       </p>
 %      if ($dst) {
-       <div style="padding: 15px">
-         <a href="#" onclick="continueToDst('<% $dst %>'); return false">
+         <a  class="btn" href="#" onclick="continueToDst('<% $dst %>'); return false">
            <% __('Continue to your destination')  %>
          </a>
-       </div>
 %      }
      </div>
-  </center>
-
-  <div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %></div>
+<div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %></div>
 </body>
 </html>
 
