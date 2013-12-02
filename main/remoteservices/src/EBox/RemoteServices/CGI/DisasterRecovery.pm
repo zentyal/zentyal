@@ -42,7 +42,6 @@ sub _process
 
     try {
         my $backups = EBox::RemoteServices::Backup->new()->listRemoteBackups();
-        use Data::Dumper;
         if ($backups) {
             push (@array, 'backups' => $backups);
         }

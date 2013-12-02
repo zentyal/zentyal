@@ -1,3 +1,5 @@
+HEAD
+	+ Widget recovers from latestRemoteConfBackup connection errors
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Pinning kernels so they are updated with QA updates active
