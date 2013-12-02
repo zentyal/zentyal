@@ -1,4 +1,5 @@
 HEAD
+	+ Make external AD auth available for offer 2013
 	+ Add new config key auth_ad_negative_acl_ttl to configure negative ACL
 	  cache time in external AD mode
 	+ Explicitly specify to listen on all IPv4 interfaces

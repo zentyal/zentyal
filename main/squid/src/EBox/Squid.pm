@@ -1624,11 +1624,11 @@ sub authenticationMode
         return AUTH_MODE_INTERNAL;
     } elsif ($mode eq AUTH_MODE_EXTERNAL_AD) {
         my $edition = EBox::Global->edition();
-        if (($edition eq 'enterprise') or ($edition eq 'sb')) {
-            return AUTH_MODE_EXTERNAL_AD;
-        } else {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for Enterprise or Small Business editions');
+        if (($edition eq 'basic') or ($edition eq 'community')) {
+            EBox::warn('Falling back to internal auth as External AD auth is only available for commercial editions');
             return AUTH_MODE_INTERNAL;
+        } else {
+            return AUTH_MODE_EXTERNAL_AD;
         }
     } else {
         my $error = __x("Invalid value for key '{key}' in configuration file {value}",
