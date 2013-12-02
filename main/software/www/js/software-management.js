@@ -131,14 +131,9 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
     }
 };
 
-Zentyal.SoftwareManagementUI.selectAll = function(table, actionButton) {
-    $('#' + table  + ' :checkbox').prop('checked', true);
-    $('#' + actionButton).prop('disabled', false);
-};
-
-Zentyal.SoftwareManagementUI.deselectAll = function(table, actionButton) {
-    $('#' + table  + ' :checkbox').prop('checked', false);
-    $('#' + actionButton).prop('disabled', true);
+Zentyal.SoftwareManagementUI.checkAll = function(table, checkAllId) {
+    var checkAllValue = $('#' + checkAllId).prop('checked');
+    $('#' + table  + ' :checkbox').prop('checked', checkAllValue);
 };
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
@@ -206,7 +201,7 @@ Zentyal.SoftwareManagementUI.filterTable = function(tableId, filterId) {
     }
 
     tableTr.each(function (index, tr) {
-        tr = $(tr)
+        tr = $(tr);
         if (tr.text().toLowerCase().indexOf(filterText) >= 0 ) {
             tr.show();
         } else {
