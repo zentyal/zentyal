@@ -63,6 +63,7 @@ use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Time::HiRes;
 use Fcntl qw(:flock);
 
 
@@ -698,6 +699,99 @@ sub enableService
     if ($status) {
         $self->_setConf(1);
     }
+}
+
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
+
+    $self->SUPER::_startDaemon($daemon, %params);
+
+    my $services = $self->_services($daemon->{name});
+    foreach my $service (@{$services}) {
+        my $port = $service->{destinationPort};
+        next unless $port;
+
+        my $proto = $service->{protocol};
+        next unless $proto;
+
+        my $desc = $service->{description};
+        if ($proto eq 'tcp/udp') {
+            $self->_waitService('tcp', $port, $desc);
+            $self->_waitService('udp', $port, $desc);
+        } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+            $self->_waitService($proto, $port, $desc);
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+
+    if (length ($desc)) {
+        EBox::debug("Wait users task '$desc'");
+    } else {
+        EBox::debug("Wait unknown users task");
+    }
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => $port,
+                                        Proto    => $proto);
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for users service '$desc' ($proto)");
+    }
+}
+
+sub _services
+{
+    my ($self, $daemon) = @_;
+    my @services = ();
+
+    if ($daemon eq 'ebox.slapd') {
+        # LDAP
+        push (@services, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => '390',
+            'description' => 'Lightweight Directory Access Protocol',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
+        # KDC
+        push (@services, {
+            'protocol' => 'tcp/udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KERBEROS_PORT,
+            'description' => 'Kerberos Key Distribution Center',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kpasswd') {
+        # KPASSWD
+        push (@services, {
+            'protocol' => 'udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KPASSWD_PORT,
+            'description' => 'Kerberos Password Changing Server',
+        });
+    }
+
+    return \@services;
 }
 
 # Load LDAP from config + data files

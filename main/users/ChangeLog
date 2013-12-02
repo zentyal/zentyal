@@ -1,4 +1,6 @@
 HEAD
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
 	+ Better error handling when the default group is not found
 	+ Fixed distribution group edition
 3.2.4
