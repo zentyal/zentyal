@@ -1,4 +1,6 @@
 HEAD
+	+ Lowercase LDB domains for comparision
+	+ Update TXT _kerberos record on domain rename
 	+ Added missing EBox::Exceptions uses
 	+ Read DNS zones from samba database while provisioning
 3.2.4

@@ -676,7 +676,7 @@ sub _setConf
             $sambaModule->getProvision->isProvisioning())) {
             # Get the zones stored in the samba LDB
             my $ldb = $sambaModule->ldb();
-            @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
+            @{$sambaZones} = map { lc $_->name() } @{$ldb->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
@@ -1919,6 +1919,17 @@ sub hostDomainChangedDone
     if (defined $row) {
         $row->elementByName('domain')->setValue($newDomainName);
         $row->store();
+        my $txtModel = $row->subModel('txt');
+        foreach my $id (@{$txtModel->ids()}) {
+            my $txtRow = $txtModel->row($id);
+            my $hostNameElement = $txtRow->elementByName('hostName');
+            if (defined $hostNameElement and $hostNameElement->value() eq '_kerberos') {
+                my $dataElement = $txtRow->elementByName('txt_data');
+                $dataElement->setValue($newDomainName);
+                $txtRow->store();
+                last;
+            }
+        }
     }
 }
 

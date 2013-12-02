@@ -1,3 +1,16 @@
+samba4 (4.1.2-zentyal2) precise; urgency=low
+
+  * Include patch for s4 libcli raw library to set per packet case sensitive
+    flag
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 20 Nov 2013 12:13:17 +0100
+
+samba4 (4.1.2-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 22 Nov 2013 13:12:32 +0100
+
 samba4 (4.1.1-zentyal2) precise; urgency=low
 
   * Fixed key permissions regression in 4.1.1

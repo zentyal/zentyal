@@ -1,4 +1,5 @@
 HEAD
+	+ Added precondition check for existing 'external' interface.
 	+ Added missing EBox::Exceptions uses
 3.2
 	+ Set version to 3.2

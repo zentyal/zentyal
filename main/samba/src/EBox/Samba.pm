@@ -303,6 +303,14 @@ sub _postServiceHook
 
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
+
+            # Set the client to case sensitive mode. The directory listing can
+            # contain files inside folders with the same name but different
+            # casing, so when trying to open them the library failes with a
+            # NT_STATUS_OBJECT_NAME_NOT_FOUND error code. Setting the library
+            # to case sensitive avoids this problem.
+            $smb->case_sensitive(1);
+
             my $sd = new Samba::Security::Descriptor();
             my $sdControl = $sd->type();
             # Inherite all permissions.
