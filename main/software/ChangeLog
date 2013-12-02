@@ -1,4 +1,6 @@
 HEAD
+	+ Remove style in zentyal package list when sb is set as it is not
+	  longer applied
 	+ Remove restricted modules to get info
 3.0.6
 	+ Set proper permissions to preferences file when QA updates are
