@@ -38,7 +38,7 @@ use EBox::Gettext;
        <div style="padding: 15px">
          <% __('Keep this window open while using your Internet connection.') %>
        </div>
-       <div id="logout"><a href="#" onclick="logout(); return false"><% __('Logout') %></a></div>
+       <div id="logout"><a class="btn" href="#" onclick="logout(); return false"><% __('Logout') %></a></div>
      </div>
 </body>
 </html>

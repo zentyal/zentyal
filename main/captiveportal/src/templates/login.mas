@@ -13,55 +13,37 @@ use EBox::Gettext;
 </head>
 <body onload="document.getElementById('credential_0').focus();">
 <script src="/data/js/capsLock.js" type="text/javascript">//</script>
-<center>
-        <form name='login' action='/LOGIN' method='post'>
-                <div class="warning" id="capsWarning" style="display: none">
-                  <% __('Warning: Caps Lock is enabled')%>
-                </div>
-
-        <table id="login">
-          <tr>
-            <td rowspan="4" id="logotd">
-              <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
-            </td>
-            <td colspan="2">
-                <center><h2 style="color: #333"><% __('Captive portal') %></h2></center>
+<div id="login">
+<img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
+<form name='login' action='/LOGIN' method='post'>
+                <h2 style="color: #333"><% __('Captive portal') %></h2>
             <div class="warning" id="capsWarning" style="display: none">
-                Warning: Caps Lock is enabled
+                  <% __('Warning: Caps Lock is enabled')%>
             </div>
 %               if(length($reason)){
                         <div id='reason'><% $reason %></div>
 %               }
-          </tr>
-          <tr>
-            <td class="labeltd"><% __('Username') %></td>
-            <td><input  class='inputTextLogin' type='text'
+          <label><% __('Username') %></label>
+          <input  class='inputTextLogin' type='text'
                     name='credential_0'
                     id='credential_0'
-                    /></td>
-          </tr>
-          <tr>
-            <td class="labeltd"><% __('Password') %></td>
-            <td><input class='inputTextLogin' type='password'
+                    />
+          <label><% __('Password') %></label>
+          <input class='inputTextLogin' type='password'
                     name='credential_1'
                     id='credential_1'
-                    /></td>
-                <input type='hidden' name='destination'
+                    />
+          <input type='hidden' name='destination'
                     value='<% $destination %>' />
-                <input type='hidden' name='origDestination'
+          <input type='hidden' name='origDestination'
                     value='<% $origDestination %>' />
-          </tr>
-          <tr>
-            <td></td>
-            <td><input class='inputButton' type='submit'
+          <input class='btn' type='submit'
                     id='loginButton'
-                    value="<% __('Enter') %>"/></td>
-          </tr>
-        </table>
+                    value="<% __('Enter') %>"/>
     </form>
-        </div>
-</center>
-<div id="footer"><% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %>
+</div>
+<div id="footer">
+<% __x("Created by {href}", href => "<a href='http://www.zentyal.com/'>Zentyal S.L.</a>") %>
 </div>
 </body>
 </html>
