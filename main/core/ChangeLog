@@ -1,3 +1,5 @@
+HEAD
+	+ Recover from widget function exceptions
 3.3
 	+ Use the same Mason interpreter for most HTML templates
 	+ Use more granular AJAX for table actions
