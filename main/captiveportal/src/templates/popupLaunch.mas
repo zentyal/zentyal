@@ -30,7 +30,7 @@ use EBox::Gettext;
 </head>
 <body onload="launch()">
    <div id="login" class="popuplaunch">
-       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block; width: 100%;"/>
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo"/>
        <p>
          <% __x('You have logged in successfully. If your web browser blocked the popup click {hbeg}here{hend} and allow it.', hbeg => "<a href='javascript:launch()'>", hend => "</a>") %>
        </p>
