@@ -66,12 +66,10 @@ sub _table
         { 'value' => 'master', 'printableValue' => __('Master') },
     );
 
-    if (EBox::Global->edition() ne 'sb') {
-        push (@options, {
-            'value' => 'slave',
-            'printableValue' => __('Slave'),
-        });
-    }
+    push (@options, {
+        'value' => 'slave',
+        'printableValue' => __('Slave'),
+    });
 
     push (@options, {
         'value' => 'ad-slave',
