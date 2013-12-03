@@ -1085,7 +1085,7 @@ sub addSaveMessage
 #
 #   Subscription level as string. Current possible values:
 #
-#     'community', 'basic', 'sb', 'professional', 'enterprise'
+#     'community', 'basic', 'trial', 'professional', 'business' or 'premium'
 #
 sub edition
 {
