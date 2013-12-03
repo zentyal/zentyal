@@ -598,7 +598,6 @@ $buttonId
 </%args>
 <%init>
  my $filterId   = $id . '_filter';
- my $checkAllId = $id. '_checkAll';
 </%init>
 <div class="tableSearch">
        <input type='text' id='<% $filterId %>'/>
@@ -618,8 +617,8 @@ $buttonId
     <th class='thOptions'>
       <% __('Select') %>
       <div>
-      <input type='checkbox' id='<% $checkAllId %>'
-             onchange='Zentyal.SoftwareManagementUI.checkAll("<% $id %>",  "<% $checkAllId %>");'
+      <input type='checkbox'
+             onchange='Zentyal.SoftwareManagementUI.checkAll("<% $id %>", $(this).prop("checked"));'
        />
       </div>
     </th>
