@@ -2167,9 +2167,8 @@ form.formDiv label,
 form.formDiv .radio-group strong, 
 form.formDiv .checkbox-group strong {
     display: block;
-    color: #333;
+    color: #000;
     margin-bottom: 3px;
-    font-weight: bold;
 }
 form.formDiv label .field_help:before {
     content: "|";
