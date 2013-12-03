@@ -752,6 +752,8 @@ h4[class^="icon"]{
     background-position: 5px center;
     background-repeat: no-repeat;
     padding-left: 45px !important;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 h3.icon-user,
 h4.icon-user{ 
@@ -770,6 +772,15 @@ h4.icon-dgroup{
 h3.icon-contact,
 h4.icon-contact{
  background-image: url('/data/images/treeview/contact-big.png')}
+h3.icon-originS,
+h4.icon-originS{ 
+    background-image: url('/data/images/origin-server.png')
+}
+h3.icon-destinationS,
+h4.icon-destinationS{ 
+    background-image: url('/data/images/destination-server.png')
+}
+
 .sleft { float: left; }
 .sright { float: right; }
 .stitle {
@@ -1647,7 +1658,8 @@ width: 80%;
 .form-block{
     background-color: #FAFAFA;
     margin: 1%;
-    padding: 1.5%;
+    padding: 1.3%;
+    border: 1px solid #eee;
 }
 .half-block {
     float: left;
@@ -2144,7 +2156,9 @@ form.formDiv fieldset {
     border: none;
     margin: 20px 0px 0px 0px;
 }
-form.formDiv > div {
+form.formDiv > div, 
+form.formDiv div.form-field,
+form.formDiv .half-width > div {
     margin-top: 20px;
 }
 .form-buttons{
@@ -2278,6 +2292,11 @@ form.formDiv .inline-field{
     display: inline-block;
     vertical-align: middle;
 }
+
+form.formDiv .half-width{
+    margin-top: inherit;
+}
+
 /********************************************************************************
 
 FOLDable SECtIONS

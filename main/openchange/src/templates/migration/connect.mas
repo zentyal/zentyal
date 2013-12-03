@@ -5,46 +5,50 @@ use EBox::Gettext;
 </%init>
 <div id="messages"></div>
 <div class="item-block">
-    <h3><% __('Select origin server') %></h3>
+    <h3><% __('Connect to origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
             <h6><% __('This wizard helps you to migrate users data from any server to this zentyal server') %></h6>
         </div>
         <form class="formDiv">
-            <div class="half-width">
-                    <h4><% __('Enter origin server name') %></h4>
-                    <p class="details"><% __('Enter server Fully qualified domain name or IP address') %></p>
-                    <input id="server" type="text" class="input-full-width" placeholder="servername.company.net or XXX.XXX.XXX.XXX"/>
-
-                    <div id="credentials">
-                        <h4><% __('Credential for origin server') %></h4>
-                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
-                        <label for="username-origin"><% __('Admin user') %></label>
-                        <input type="text" id="username-origin" placeholder="username">
-                        <label for="password-origin"><% __('Admin password') %></label>
-                        <input type="password" id="password-origin" placeholder="***">
+            <div class="half-width form-block" style="margin: 0px;">
+                    <h4 class="icon-originS"><% __('Origin server') %></h4>
+                    <div>
+                    <label>Server name or IP <span class="field_help"> <% __('Enter server Fully qualified domain name or IP address') %></span></label>
+                    <input id="server" type="text" class="input-full-width" />
                     </div>
-            </div>
-            <div class="half-width">
-                <h4><% __('Available servers') %></h4>
-                <ul id="server-list" class="server-list">
+                    <div>
+                    <label><% __('OR select a server from the list') %></label>
+                    <ul id="server-list" class="server-list">
                     <li><span>Loading servers...</span></li>
-                </ul>
-                <script type="text/javascript" src="/data/js/openchange.js"></script>
-                <script>
-                    $(document).ready(
+                    </ul>
+                    <script type="text/javascript" src="/data/js/openchange.js"></script>
+                    <script>
+                        $(document).ready(
                         function() {
                             Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
-                        }
-                    );
-                </script>
-                <div id="credentials-local">
-                        <h4><% __('Credential for local server') %></h4>
-                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
+                             }
+                         );
+                    </script>
+                    </div>
+                    <div>
+                        <label for="username-origin"><% __('Admin user') %> <span class="field_help"> <% __('You need Admin profile user to be able to perform the migration') %></span></label>
+                        <input type="text" id="username-origin" placeholder="username">
+                    </div>
+                    <div>
+                        <label for="password-origin"><% __('Admin password') %></label>
+                        <input type="password" id="password-origin" placeholder="*******">
+                    </div>
+            </div>
+            <div class="half-width form-block" style="margin: 0px 0px 0px 2%; width: 42%;">
+                    <h4 class="icon-destinationS"><% __('Credential for this server') %></h4>
+                    <div>
                         <label for="username-local"><% __('Admin user') %></label>
                         <input type="text" id="username-local" placeholder="username">
+                    </div>
+                    <div>
                         <label for="password-local"><% __('Admin password') %></label>
-                        <input type="password" id="password-local" placeholder="***">
-                </div>
+                        <input type="password" id="password-local" placeholder="*******">
+                    </div>
             </div>
         </form>
         <div class="bottom-block">
