@@ -4,7 +4,8 @@ $smtpPort => 25
 $smtpUser => ''
 $smtpPassword => ''
 
-$imapServer => '127.0.0.1'
+# Do not change to 127.0.0.1 nor localhost
+$imapServer => 'ssl://127.0.2.1'
 $imapPort => 143
 $imapAuthType => undef
 
@@ -17,7 +18,7 @@ $desKey
 </%args>
 <%init>
 my $enableCaching;
-if (($imapServer eq '127.0.0.1') or ($imapServer eq 'localhost')) {
+if ((index($imapServer, '127.0') != -1) or ($imapServer eq 'localhost')) {
    $enableCaching = 0;
 }  else {
    $enableCaching = 1;

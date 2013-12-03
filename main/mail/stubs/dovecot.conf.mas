@@ -69,13 +69,13 @@ userdb {
 }
 
 passdb {
-    driver = static
-    args = nopassword=y allow_nets=127.0.0.1/32
+    driver = ldap
+    args = /etc/dovecot/dovecot-ldap.conf
 }
 
 passdb {
-    driver = ldap
-    args = /etc/dovecot/dovecot-ldap.conf
+    driver = static
+    args = nopassword=y allow_nets=127.0.0.1/32
 }
 
 disable_plaintext_auth = yes
