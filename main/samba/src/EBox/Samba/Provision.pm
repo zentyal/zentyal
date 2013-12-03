@@ -437,44 +437,16 @@ sub mapAccounts
     my $admGID = 4;
 
     EBox::info("Mapping domain administrator account");
-    my $domainAdmin = new EBox::Samba::User(sid => $domainAdminSID);
-    my $domainAdminZentyal = new EBox::Users::User(uid => $domainAdmin->get('samAccountName'));
-    if ($domainAdmin->exists()) {
-        if ($domainAdminZentyal->exists()) {
-            $domainAdmin->_linkWithUsersObject($domainAdminZentyal);
-        } else {
-            $domainAdmin->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminSID, $typeUID, $rootUID);
 
     EBox::info("Mapping domain administrators group account");
-    my $domainAdmins = new EBox::Samba::Group(sid => $domainAdminsSID);
-    my $domainAdminsZentyal = new EBox::Users::Group(gid => $domainAdmins->get('samAccountName'));
-    if ($domainAdmins->exists()) {
-        if ($domainAdminsZentyal->exists()) {
-            $domainAdmins->_linkWithUsersObject($domainAdminsZentyal);
-        } else {
-            $domainAdmins->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainAdminsSID, $typeBOTH, $admGID);
 
     EBox::info("Mapping domain users group account");
-    my $usersModule = EBox::Global->modInstance('users');
     # FIXME Why is this not working during first intall???
     #my $usersGID = getpwnam($usersModule->DEFAULTGROUP());
     my $usersGID = 1901;
     my $domainUsersSID = "$domainSID-513";
-    my $domainUsers = new EBox::Samba::Group(sid => $domainUsersSID);
-    my $domainUsersZentyal = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
-    if ($domainUsers->exists()) {
-        if ($domainUsersZentyal->exists()) {
-            $domainUsers->_linkWithUsersObject($domainUsersZentyal);
-        } else {
-            $domainUsers->addToZentyal();
-        }
-    }
     $sambaModule->ldb->idmap->setupNameMapping($domainUsersSID, $typeGID, $usersGID);
 
     # Map domain guest account to nobody user

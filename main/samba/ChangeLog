@@ -1,4 +1,7 @@
 HEAD
+	+ s4sync fix typo causing users not being synced
+	+ Do not import accounts while provisioning or joining a domain, rely on
+	  s4sync
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications
