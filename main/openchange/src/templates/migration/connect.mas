@@ -5,13 +5,13 @@ use EBox::Gettext;
 </%init>
 <div id="messages"></div>
 <div class="item-block">
-    <h3><% __('Connect to origin server') %></h3>
+    <h3><% __('Connect to source server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
             <h6><% __('This wizard helps you to migrate users data from any server to this zentyal server') %></h6>
         </div>
         <form class="formDiv">
             <div class="half-width form-block" style="margin: 0px;">
-                    <h4 class="icon-originS"><% __('Origin server') %></h4>
+                    <h4 class="icon-originS"><% __('Source server') %></h4>
                     <div>
                     <label>Server name or IP <span class="field_help"> <% __('Enter server Fully qualified domain name or IP address') %></span></label>
                     <input id="server" type="text" class="input-full-width" />
@@ -19,7 +19,7 @@ use EBox::Gettext;
                     <div>
                     <label><% __('OR select a server from the list') %></label>
                     <ul id="server-list" class="server-list">
-                    <li><span>Loading servers...</span></li>
+                        <li><span>Loading servers...</span></li>
                     </ul>
                     <script type="text/javascript" src="/data/js/openchange.js"></script>
                     <script>
@@ -39,10 +39,10 @@ use EBox::Gettext;
                         <input type="password" id="password-origin" placeholder="*******">
                     </div>
             </div>
-            <div class="half-width form-block" style="margin: 0px 0px 0px 2%; width: 42%;">
-                    <h4 class="icon-destinationS"><% __('Credential for this server') %></h4>
+            <div class="half-width form-block" style="margin: 0px 0px 0px 2%; width: 43%;">
+                    <h4 class="icon-destinationS"><% __('Destination server (this)') %></h4>
                     <div>
-                        <label for="username-local"><% __('Admin user') %></label>
+                        <label for="username-local"><% __('Admin user') %> <span class="field_help"> <% __('You need to introduce this server credentials to perform the migration') %></span></label>
                         <input type="text" id="username-local" placeholder="username">
                     </div>
                     <div>
