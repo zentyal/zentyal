@@ -699,22 +699,31 @@ sub _showSaveChanges
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
+      Zentyal.TableHelper.cleanMessage('$tableName');
+      Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
        \$.ajax({
                       url: '/RemoteServices/Controller/Subscription',
-                      type: 'post',
+                      type: 'get',
                       data: 'action=edit&tablename=$tableName&directory=$tableName&id=form&' +  Zentyal.TableHelper.encodeFields('$tableName', $fieldsArrayJS ),
-                      success: function(responseText) {
-                           \$('#$tableName').html(responseText);
-                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
+                      dataType: 'json',
+                      success: function(response) {
+                           if (!response.success) {
+                                  Zentyal.TableHelper.setError('$tableName', response.error);
+                                  Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                                 return;
+                           }
+
+                           Zentyal.setMessage('$tableName', response.msg);
+                           if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
                                Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
-                            }
+                           }
                       },
                       error : function(t) {
+                            Zentyal.TableHelper.setError('$tableName', t.responseText);
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
-                            \$('#$tableName_error').html(t.responseText);
                       }
                   });
-Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+
 return false
 JS
     return $jsStr;
