@@ -12,6 +12,8 @@ HEAD
 	              AD DIT, as OU=Users is linked to CN=Users.
 	+ Do not import accounts while provisioning or joining a domain, rely on
 	  s4sync
+3.2.11
+	+ Remove useless chown workaround
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications

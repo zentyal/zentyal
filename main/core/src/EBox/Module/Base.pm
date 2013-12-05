@@ -696,7 +696,13 @@ sub widget
         $widget->{'default'} = $winfo->{'default'};
         $widget->{'order'} = $winfo->{'order'};
         my $wfunc = $winfo->{'widget'};
-        &$wfunc($self, $widget, $winfo->{'parameter'});
+        try {
+            $wfunc->($self, $widget, $winfo->{'parameter'});
+        } otherwise {
+            my $ex = shift @_;
+            EBox::error("Error loading widget $name from module " . $self->name() . ": $ex");
+            $widget = undef;
+        };
         return $widget;
     } else {
         return undef;
