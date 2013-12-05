@@ -191,6 +191,7 @@ void        estimate_data_free(void *);
 void        *estimate_start_thread(void *);
 void        *export_start_thread(void *);
 void        *import_start_thread(void *);
+void        import_mailbox(TALLOC_CTX *mem_ctx, struct mapi_session *session, struct mbox_data *mdata);
 
 /* definitions from rpc.c */
 bool        rpc_open(struct status *);

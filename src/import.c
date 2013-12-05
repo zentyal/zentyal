@@ -50,9 +50,10 @@ char *import_get_folder_name(const struct mbox_data *mdata,
         return NULL;
     }
     value = tdb_fetch(mdata->tdb_foldermap, key);
-    DEBUG(4, ("[*] Folder '%s' mapped to name '%s'\n", folder_id, value.dptr));
 
     folderName = talloc_strndup(mdata, (char *)value.dptr, value.dsize);
+    free(value.dptr);
+    DEBUG(4, ("[*] Folder '%s' mapped to name '%s'\n", folder_id, folderName));
     return folderName;
 }
 
@@ -69,6 +70,7 @@ char* import_is_system_folder(const struct mbox_data *mdata,
     }
     value = tdb_fetch(mdata->tdb_sysfolder, key);
     result = talloc_strndup(mdata, (char *)value.dptr, value.dsize);
+    free(value.dptr);
 
     DEBUG(5, ("[*] Folder '%s' is a system folder with id '%s'\n", folder_id, result));
 
@@ -163,7 +165,9 @@ static enum MAPISTATUS import_ocpf_file(TALLOC_CTX *mem_ctx,
 
     /* Set message properties */
     retval = ocpf_set_SPropValue(mem_ctx, context_id, obj_folder, &obj_message);
-    if (retval != MAPI_E_SUCCESS) {
+    if (retval == MAPI_W_ERRORS_RETURNED) {
+        DEBUG(0, ("[!] ocpf_set_SPropValue: %s\n", mapi_get_errstr(retval)));
+    } else if (retval != MAPI_E_SUCCESS) {
         DEBUG(0, ("[!] ocpf_set_SPropValue: %s\n", mapi_get_errstr(retval)));
         mapi_object_release(&obj_message);
         return retval;
@@ -214,6 +218,10 @@ static enum MAPISTATUS import_directory(TALLOC_CTX *mem_ctx,
     mapi_id_t   id_folder;
     char        *folder_id;
     char        *olFolderSrc;
+    struct SPropTagArray        *SPropTagArray;
+    struct SPropValue   *lpProps;
+    uint32_t        cValues = 0;
+    struct SRow          aRow;
 
     DEBUG(5,("[*] Importing directory %s\n", base_path));
 
@@ -290,6 +298,12 @@ static enum MAPISTATUS import_directory(TALLOC_CTX *mem_ctx,
 #if 1
     olFolderSrc = import_is_system_folder(mdata, folder_id);
     if (olFolderSrc) {
+        char *folder_name = import_get_folder_name(mdata, folder_id);
+        if (folder_name) {
+            DEBUG(5, ("[*] Origin Folder '%s' mapped to name '%s'\n", folder_id, folder_name));
+            talloc_free(folder_name);
+            folder_name = NULL;
+        }
         /* This is a system folder, then I am calling GetDefaultFolder
         to retrieve the id then I open the folder */
         uint32_t olFolder = atoi(olFolderSrc);
@@ -305,6 +319,19 @@ static enum MAPISTATUS import_directory(TALLOC_CTX *mem_ctx,
         if (retval != MAPI_E_SUCCESS) {
             DEBUG(0, ("[!] OpenFolder: %s\n", mapi_get_errstr(GetLastError())));
             return retval;
+        }
+
+
+        SPropTagArray = set_SPropTagArray(mem_ctx, 0x1, PidTagDisplayName);
+        retval = GetProps(&obj_folder, MAPI_UNICODE, SPropTagArray, &lpProps, &cValues);
+        MAPIFreeBuffer(SPropTagArray);
+        if (retval == MAPI_E_SUCCESS) {
+            aRow.cValues = cValues;
+            aRow.lpProps = lpProps;
+            folder_name = (char *) find_SPropValue_data(&aRow, PidTagDisplayName);
+            if (folder_name) {
+                DEBUG(5, ("[*] Destination Folder: '%s'\n", folder_name));
+            }
         }
     } else {
         /*  this is not a system folder, I know what is the root base where
@@ -365,7 +392,7 @@ static enum MAPISTATUS import_directory(TALLOC_CTX *mem_ctx,
     return retval;
 }
 
-static void import_mailbox(TALLOC_CTX *mem_ctx,
+void import_mailbox(TALLOC_CTX *mem_ctx,
                struct mapi_session *session,
                struct mbox_data *mdata)
 {
@@ -462,6 +489,7 @@ void *import_start_thread(void *arg)
 
     for (i = 0; i < array_list_length(status->mbox_list); i++) {
         data = (struct mbox_data *) array_list_get_idx(status->mbox_list, i);
+        // FIXME: first argument should be a TALLOC_CTX *mem_ctx!!!
         import_mailbox(data, status->local.session, data);
     }
     status->state = STATE_IMPORTED;

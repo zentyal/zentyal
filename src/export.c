@@ -27,6 +27,9 @@
 #include <tdb.h>
 #include <libocpf/ocpf.h>
 #include <libmapi/libmapi.h>
+#include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #include "migrate.h"
 
@@ -70,19 +73,44 @@ static int export_create_directory(TALLOC_CTX *mem_ctx, const char *path)
 {
     int     retval;
     struct stat sb;
+    time_t t;
+    struct tm *local_time;
+    char datestr[200];
+    char *backup_path;
 
-    DEBUG(5, ("[+] Creating the directory %s\n", path));
+    DEBUG(5, ("[+] Creating the export directory %s\n", path));
     retval = stat(path, &sb);
     if (retval == 0) {
         if (sb.st_mode & S_IFDIR) {
-            DEBUG(3, ("[+] Already exists\n"));
-            return 0;
-        }
-        if (sb.st_mode & S_IFREG) {
+            DEBUG(5, ("[+] Already exists, moving as a backup folder...\n"));
+            t = time(NULL);
+            local_time = localtime(&t);
+            if (local_time == NULL) {
+                DEBUG(0, ("[!] Unable to clean previous export!"));
+                return -1;
+            }
+
+            if (strftime(datestr, sizeof(datestr), "%Y%m%d%H%M%S", local_time) == 0) {
+                DEBUG(0, ("[!] Unable to clean previous export!"));
+                return -1;
+            }
+            backup_path = talloc_asprintf(mem_ctx, "%s-%s", path, datestr);
+            if (rename(path, backup_path)) {
+                talloc_free(backup_path);
+                backup_path = NULL;
+                DEBUG(0, ("[!] Unable to clean previous export!"));
+                return -1;
+            }
+            talloc_free(backup_path);
+            retval = stat(path, &sb);
+            if (retval == 0) {
+                DEBUG(0, ("[!] Unable to clean previous export!"));
+                return -1;
+            }
+        } else if (sb.st_mode & S_IFREG) {
             DEBUG(0, ("[!] '%s' is a file instead of a folder!\n", path));
             return -1;
         }
-        return -1;
     }
 
     if (errno == ENOENT) {
@@ -284,50 +312,54 @@ static enum MAPISTATUS export_mbox_recursive(TALLOC_CTX *mem_ctx,
     mapi_object_init(&obj_folder);
     retval = OpenFolder(parent, folder->id, &obj_folder);
     MAPI_RETVAL_IF(retval, retval, NULL);
-    mdata->counters.exported_total_folders++;
 
+    path = talloc_asprintf(mdata, "%s/0x%"PRIx64, base_path, folder->id);
     /* Check if folder is system folder */
-    if (IsMailboxFolder(obj_store, folder->id, &olFolder) == true) {
-        tkey.dptr = (unsigned char *)talloc_asprintf(mem_ctx, "0x%"PRIx64, folder->id);
+    if ((IsMailboxFolder(obj_store, folder->id, &olFolder) == true) &&
+        (olFolder == olFolderCalendar || olFolder == olFolderContacts ||
+         olFolder == olFolderTopInformationStore)) {
+        /* TODO: Support more folder types. */
+         tkey.dptr = (unsigned char *)talloc_asprintf(mem_ctx, "0x%"PRIx64, folder->id);
         tkey.dsize = strlen((char *)tkey.dptr);
         tval.dptr = (unsigned char *)talloc_asprintf(mem_ctx, "%d", olFolder);
         tval.dsize = strlen((char *)tval.dptr);
         ret = tdb_store(mdata->tdb_sysfolder, tkey, tval, TDB_INSERT);
         talloc_free(tkey.dptr);
         talloc_free(tval.dptr);
+
+        mdata->counters.exported_total_folders++;
+
+        ret = export_create_directory(mdata, path);
+        if (ret == -1) {
+            retval = MAPI_E_UNABLE_TO_COMPLETE;
+            goto end;
+        }
+
+        SPropTagArray = set_SPropTagArray(mem_ctx, 0x1, PidTagDisplayName);
+        retval = GetProps(&obj_folder, MAPI_UNICODE, SPropTagArray, &lpProps, &cValues);
+        MAPIFreeBuffer(SPropTagArray);
+        if (retval != MAPI_E_SUCCESS) {
+            goto end;
+        }
+
+        aRow.cValues = cValues;
+        aRow.lpProps = lpProps;
+        folder_name = find_SPropValue_data(&aRow, PidTagDisplayName);
+        if (!folder_name) {
+            retval = MAPI_E_NOT_FOUND;
+            goto end;
+        }
+
+        tkey.dptr = (unsigned char *)talloc_asprintf(mem_ctx, "0x%"PRIx64, folder->id);
+        tkey.dsize = strlen((char *) tkey.dptr);
+        tval.dptr = (unsigned char *)folder_name;
+        tval.dsize = strlen((char *)tval.dptr);
+
+        ret = tdb_store(mdata->tdb_foldermap, tkey, tval, TDB_INSERT);
+        talloc_free(tkey.dptr);
+
+        messages_dump(mem_ctx, obj_store, parent, folder, mdata, path);
     }
-
-    path = talloc_asprintf(mdata, "%s/0x%"PRIx64, base_path, folder->id);
-    ret = export_create_directory(mdata, path);
-    if (ret == -1) {
-        retval = MAPI_E_UNABLE_TO_COMPLETE;
-        goto end;
-    }
-
-    SPropTagArray = set_SPropTagArray(mem_ctx, 0x1, PidTagDisplayName);
-    retval = GetProps(&obj_folder, MAPI_UNICODE, SPropTagArray, &lpProps, &cValues);
-    MAPIFreeBuffer(SPropTagArray);
-    if (retval != MAPI_E_SUCCESS) {
-        goto end;
-    }
-
-    aRow.cValues = cValues;
-    aRow.lpProps = lpProps;
-    folder_name = find_SPropValue_data(&aRow, PidTagDisplayName);
-    if (!folder_name) {
-        retval = MAPI_E_NOT_FOUND;
-        goto end;
-    }
-
-    tkey.dptr = (unsigned char *)talloc_asprintf(mem_ctx, "0x%"PRIx64, folder->id);
-    tkey.dsize = strlen((char *) tkey.dptr);
-    tval.dptr = (unsigned char *)folder_name;
-    tval.dsize = strlen((char *)tval.dptr);
-
-    ret = tdb_store(mdata->tdb_foldermap, tkey, tval, TDB_INSERT);
-    talloc_free(tkey.dptr);
-
-    messages_dump(mem_ctx, obj_store, parent, folder, mdata, path);
 
     for (element = folder->children; element && element->next; element = element->next) {
         retval = export_mbox_recursive(mem_ctx, obj_store, &obj_folder, element, mdata, path);
@@ -339,7 +371,9 @@ static enum MAPISTATUS export_mbox_recursive(TALLOC_CTX *mem_ctx,
 
 end:
     mapi_object_release(&obj_folder);
-    talloc_free(path);
+    if (path) {
+        talloc_free(path);
+    }
     return retval;
 }
 
@@ -375,53 +409,62 @@ static int export_mbox(TALLOC_CTX *mem_ctx,
                struct mbox_data *mdata)
 {
     enum MAPISTATUS     retval;
-    int         ret;
     mapi_object_t       obj_store;
     const char      *error;
     char            *base_path;
+    int         ret = 0;
 
+    mdata->tdb_foldermap = NULL;
+    mdata->tdb_sysfolder = NULL;
     mapi_object_init(&obj_store);
 
     retval = OpenUserMailbox(session, mdata->username, &obj_store);
     if (retval != MAPI_E_SUCCESS) {
         error = mapi_get_errstr(GetLastError());
         DEBUG(0, ("[!] OpenUserMailbox: %s\n", error));
-        return -1;
+        ret = -1;
+        goto end;
     }
 
     base_path = talloc_asprintf(mdata, "%s/%s", DEFAULT_EXPORT_PATH, mdata->username);
-    ret = export_create_directory(mdata, base_path);
-    if (ret) {
-        mapi_object_release(&obj_store);
-        return -1;
+    if (export_create_directory(mdata, base_path)) {
+        ret = -1;
+        goto end;
     }
 
     /* Create systemfolder database */
     mdata->tdb_sysfolder = tdb_open_database(mdata, base_path, TDB_SYSFOLDER);
     if (!mdata->tdb_sysfolder) {
-        mapi_object_release(&obj_store);
-        return -1;
+        ret = -1;
+        goto end;
     }
 
     /* Create PidTagFolderID to FolderName database */
     mdata->tdb_foldermap = tdb_open_database(mdata, base_path, TDB_FOLDERMAP);
     if (!mdata->tdb_foldermap) {
-        mapi_object_release(&obj_store);
-        return -1;
+        ret = -1;
+        goto end;
     }
 
     export_mbox_recursive(mem_ctx, &obj_store, &obj_store,
                   mdata->tree_root, mdata, base_path);
 
-    tdb_close(mdata->tdb_foldermap);
-    mdata->tdb_foldermap = NULL;
-    tdb_close(mdata->tdb_sysfolder);
-    mdata->tdb_sysfolder = NULL;
+end:
+    if (mdata->tdb_foldermap) {
+        tdb_close(mdata->tdb_foldermap);
+        mdata->tdb_foldermap = NULL;
+    }
+    if (mdata->tdb_sysfolder) {
+        tdb_close(mdata->tdb_sysfolder);
+        mdata->tdb_sysfolder = NULL;
+    }
     mapi_object_release(&obj_store);
+    if (base_path) {
+        talloc_free(base_path);
+        base_path = NULL;
+    }
 
-    talloc_free(base_path);
-
-    return 0;
+    return ret;
 }
 
 void *export_start_thread(void *arg)
