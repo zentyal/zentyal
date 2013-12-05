@@ -91,7 +91,7 @@ use EBox::CA::DN;
 % } else {
   <h3><% __('Issue a New Certificate')  %></h3>
 % }
-<form action="IssueCertificate" method="post" >
+<form class="formDiv" action="IssueCertificate" method="post" >
   <& formTable.mas, rows => \@issueTable &>
 </form>
 </div>

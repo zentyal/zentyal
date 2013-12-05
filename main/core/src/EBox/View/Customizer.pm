@@ -433,7 +433,7 @@ sub HTMLTitle
     my ($self) = @_;
 
     if ($self->{htmlTitle}) {
-    return $self->{htmlTitle};
+        return $self->{htmlTitle};
     }
     my @crumbs;
     my $model = $self->model();

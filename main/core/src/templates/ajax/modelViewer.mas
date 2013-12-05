@@ -60,6 +60,10 @@
    model => $model
 &>
 
+<& .pageTitle,
+      crumbs => $model->viewCustomizer()->HTMLTitle()
+&>
+<& /disabledModuleWarn.mas, model => $model &>
 
 % if ($model->precondition()) {
 <%perl>
@@ -69,10 +73,8 @@
         $noDataMsg = $model->noDataMsg();
         my $actions = $model->table()->{'actions'};
         $showBody = exists $actions->{add} ? $actions->{add} : 0;
-        if ($showBody) {
-           unless ($model->message) {
-              $model->setMessage($noDataMsg);
-           }
+        unless ($model->message) {
+           $model->setMessage($noDataMsg,'emptynote');
         }
      }
 </%perl>
@@ -84,16 +86,9 @@
              &>
        </div>
 %   } elsif ($noDataMsg) {
-        <& SELF:permanentMessage, model => $model &>
-        <& SELF:regularMessage, model => $model &>
-        <div class="note">
-            <% $noDataMsg %>
-        </div>
+        <& SELF:helpAndMessages, model => $model &>
 %   }
 % } else  {
-%   if ($model->printableModelName()) {
-<& /title.mas, title => $model->printableModelName() &>
-%   }
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -102,6 +97,8 @@
 %   }
 % }
 </%method>
+
+
 
 <%doc>
   Method: header
@@ -152,38 +149,24 @@
   my $requestCaller = $onlyBody ? 1 : 2;
   my @childArgs = $m->caller_args($requestCaller);
 </%init>
-<%doc>
-% unless ( $model->pageTitle() ) {
-   <& SELF:permanentMessage, model => $model &>
-   <& SELF:regularMessage, model => $model &>
-% }
-</%doc>
 <& SELF:_body,
    model => $model,
    @childArgs
 &>
 </%method>
 
-<%method messagesAndHelp>
+<%method helpAndMessages>
 <%args>
 $model
 </%args>
+%  my $help = $model->help();
+%  if ($help) {
+<div class="help">
+  <% $model->help() %>
+</div>
+%  }
 <& SELF:permanentMessage, model => $model &>
 <& SELF:regularMessage, model => $model &>
-
-% my $help = $model->help();
-% if ($help) {
-     <div class="help">
-       <% $help %>
-     </div>
-% }
-
-% my $disabledModuleWarning = $model->disabledModuleWarning();
-% if ($disabledModuleWarning) {
-     <div class="warning">
-        <% $disabledModuleWarning %>
-      </div>
-% }
 </%method>
 
 <%doc>
@@ -266,7 +249,28 @@ $model
 % if ( $model->message() ) {
      <& /msg.mas,
         msg => $model->popMessage(),
-       class => $model->messageClass()
+        class => $model->messageClass()
      &>
 % }
 </%method>
+
+<%doc>
+  Method: pageTitle
+
+     Set the page title
+
+  Parameters:
+
+     title - String the title
+
+</%doc>
+<%def .pageTitle>
+<%args>
+  $title => undef
+  $crumbs => undef
+</%args>
+<& /title.mas,
+    title => $title,
+    crumbs => $crumbs
+&>
+</%def>
