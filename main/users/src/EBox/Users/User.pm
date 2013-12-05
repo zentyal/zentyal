@@ -701,8 +701,8 @@ sub create
 }
 
 sub _checkUserName
- {
-     my ($name) = @_;
+{
+    my ($name) = @_;
     if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }
