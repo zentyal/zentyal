@@ -1,4 +1,5 @@
 HEAD
+	+ Always reload page after saving changes
 	+ Recover from widget function exceptions
 	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
