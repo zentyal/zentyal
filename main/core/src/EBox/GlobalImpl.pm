@@ -696,20 +696,31 @@ sub saveAllModules
 
     # TODO: tell events module to resume its watchers
 
-    foreach my $modName (@{$self->get_list('post_save_modules')}) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
-        next unless defined ($mod);
+    my @postsaveModules = @{$self->get_list('post_save_modules')};
+    for (1 .. 3) {
+        my %seen;
+        push @postsaveModules, @{$self->modifiedModules('save')};
+        @postsaveModules or last;
+        foreach my $modName (@postsaveModules) {
+            my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
+            next unless defined ($mod);
+            if ($seen{$modName}) {
+                next;
+            }
 
-        try {
-            $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to restart $modName after save changes: $ex");
-            $failed .= "$modName ";
-        };
+            $seen{$modName}= 1;
+            try {
+                $mod->save();
+            }  catch EBox::Exceptions::External with {
+                my $ex = shift;
+                $ex->throw();
+            } otherwise {
+                my $ex = shift;
+                EBox::error("Failed to restart $modName after save changes: $ex");
+                $failed .= "$modName ";
+            };
+        }
+        @postsaveModules = ();
     }
     $self->unset('post_save_modules');
 
