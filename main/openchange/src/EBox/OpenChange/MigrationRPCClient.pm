@@ -112,8 +112,8 @@ sub send_command
         body => encode_json($command),
     );
 
-    $timer = AnyEvent->timer( after => 60, cb => sub {
-        EBox::info("Command timed out");
+    $timer = AnyEvent->timer( after => 120, cb => sub {
+        EBox::Error("Command timed out!");
         $cv->send();
     });
 
