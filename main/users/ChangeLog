@@ -1,5 +1,9 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
+	+ Better error handling when the default group is not found
+	+ Fixed distribution group edition
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses

@@ -11,7 +11,7 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </%init>
 <script type="text/javascript" src="/data/js/form.js" />
 
-<div id="edit_user">
+<div id="edit_group">
 <h3 class="<% $iconclass %>"><% __('Group ') %> <% $group->name() %></h3>
 <div id='editGroupForm_message' class='note' style='display:none'></div>
 <div id='editGroupForm_error' class='error' style='display:none'></div>
