@@ -739,4 +739,22 @@ sub clone
     $self->setDirectory($origDir);
 }
 
+sub formSubmitJS
+{
+    my ($self, $editId) = @_;
+
+    my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s', '%s')";
+
+    my $table = $self->table();
+    my $tablename =  $table->{'tableName'};
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $fields = $self->_paramsWithSetterJS();
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $fields,
+                    $table->{'confdir'},
+                    $editId);
+}
+
 1;

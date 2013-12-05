@@ -20,7 +20,6 @@ package EBox::Menu::Root;
 use base 'EBox::Menu::Node';
 
 use EBox::Gettext;
-use HTML::Mason::Interp;
 
 sub new
 {
@@ -34,17 +33,14 @@ sub new
     return $self;
 }
 
-sub html
+sub htmlParams
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $global = EBox::Global->getInstance();
     my $copyright = $global->theme()->{'copyright_footer'};
 
-    my $output;
-    my $interp = HTML::Mason::Interp->new(out_method => \$output);
-    my $comp = $interp->make_component(
-            comp_file => (EBox::Config::templates . '/menu.mas'));
+    my $comp = 'menu.mas';
 
     # Add separators
     my @items;
@@ -66,9 +62,7 @@ sub html
     push (@params, 'current' => $self->{'current'});
     push (@params, 'currentUrl' => $self->{'currentUrl'});
     push (@params, 'copyright_footer' => $copyright);
-    $interp->exec($comp, @params);
-
-    return $output;
+    return ($comp, @params);
 }
 
 1;

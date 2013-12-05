@@ -275,7 +275,9 @@ sub skipField
 #    A string containing js code or an empty string in case this field
 #    doesn't need to trigger anything
 #
-sub  onChangeActionOnFieldJS
+my $interp;
+my $output;
+sub onChangeActionOnFieldJS
 {
     my ($self, $tableName, $fieldName) = @_;
 
@@ -288,15 +290,20 @@ sub  onChangeActionOnFieldJS
     return '' unless (defined($actions));
 
     my $filename = EBox::Config::templates . '/js/onchange.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
+    # cannot use EBox::Html::makeHtml here
+    $output = '';
+    if (not $interp) {
+        $interp = HTML::Mason::Interp->new(
+            comp_root => EBox::Config::templates,
+            out_method => \$output
+        );
+    }
+
     my $comp = $interp->make_component(comp_file => $filename);
     my @params = ();
     push(@params, tableName => $tableName,
-        JSONActions => to_json($actions),
-        fieldName => $fieldName);
+                  JSONActions => to_json($actions),
+                  fieldName => $fieldName);
 
     $interp->exec($comp, @params);
     return $output;
@@ -312,15 +319,10 @@ sub  onChangeActionOnFieldJS
 #    A string containing js code or an empty string in case this field
 #    doesn't need to trigger anything
 #
-sub  onChangeActionsJS
+sub onChangeActionsJS
 {
-    my ($self, %params) = @_;
-    my $modal = $params{modal};
-
+    my ($self) = @_;
     my $tableName = $self->model()->table()->{'tableName'};
-    if ($modal) {
-        $tableName .= '_modal';
-    }
 
     my $jsCode;
     for my $fieldName (@{$self->model()->fields()}) {

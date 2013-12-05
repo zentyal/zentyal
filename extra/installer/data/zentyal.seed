@@ -5,10 +5,8 @@
 ##
 
 # add zentyal repository
-d-i apt-setup/local0/repository string http://ppa.launchpad.net/zentyal/3.2/ubuntu precise main
-d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-3.2-ppa.asc
-d-i apt-setup/local1/repository string http://archive.zentyal.org/zentyal 3.2 main extra
-d-i apt-setup/local1/key string http://keys.zentyal.org/zentyal-3.2-archive.asc
+d-i apt-setup/local0/repository string http://archive.zentyal.org/zentyal 3.3 main extra
+d-i apt-setup/local0/key string http://keys.zentyal.org/zentyal-3.3-archive.asc
 
 # ignore error downloading key if not internet connection
 d-i apt-setup/local/key-error select Ignore

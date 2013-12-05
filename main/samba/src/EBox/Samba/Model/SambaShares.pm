@@ -44,7 +44,10 @@ use Cwd 'abs_path';
 use TryCatch::Lite;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
-                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
+                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr',
+                             '/opt');
+
+use constant FILTER_FS_TYPES => ('vfat', 'msdos');
 
 # Constructor: new
 #
@@ -458,6 +461,22 @@ sub _checkSystemShareMountOptions
 
     my $fs = new Sys::Filesystem(mtab => '/etc/mtab');
     my @filesystems = $fs->filesystems(mounted => 1);
+
+    # Get FS type and throw exception if it is VFAT. This FS does not support
+    # ACLs
+    my $type;
+    try {
+        $type = $fs->type($mountPoint);
+    } catch {
+        throw EBox::Exceptions::External(__x('Error getting filesystem format in {m}', m => $mountPoint));
+    }
+    foreach my $filter (FILTER_FS_TYPES) {
+        if ($type =~ /^$filter/) {
+            throw EBox::Exceptions::External(
+                __x("Filesystem format '{x}' does not support storing ACLs.", x => $type));
+        }
+    }
+
     my $options;
     try {
         $options = $fs->options($mountPoint);

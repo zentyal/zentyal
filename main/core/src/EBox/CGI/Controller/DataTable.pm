@@ -23,11 +23,12 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
+use EBox::Html;
 
-# Dependencies
+use POSIX qw(ceil floor);
 use TryCatch::Lite;
 
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
     my %params = @_;
@@ -65,13 +66,8 @@ sub getParams
         }
     }
 
-    $params{'id'} = $self->unsafeParam('id');
+    $params{'id'}     = $self->unsafeParam('id');
     $params{'filter'} = $self->unsafeParam('filter');
-
-    my $cloneId = $self->unsafeParam('cloneId');
-    if ($cloneId) {
-        $params{cloneId} = $cloneId;
-    }
 
     return %params;
 }
@@ -83,15 +79,13 @@ sub _auditLog
     unless (defined $self->{audit}) {
         $self->{audit} = EBox::Global->modInstance('audit');
     }
-
     return unless $self->{audit}->isEnabled();
 
-    my $model = $self->{tableModel};
-    $value = '' unless defined $value;
-    $oldValue = '' unless defined $oldValue;
 
+    my $model = $self->{tableModel};
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
+
     my $row = $model->row($rowId);
     if (defined ($row)) {
         my $element;
@@ -112,7 +106,6 @@ sub _auditLog
             $oldValue = '****' if $oldValue;
         }
     }
-
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
 
@@ -122,11 +115,6 @@ sub addRow
 
     my $model = $self->{'tableModel'};
     my %params = $self->getParams();
-
-    if ($self->{json}) {
-        $self->{json}->{callParams} = \%params;
-    }
-
     my $id = $model->addRow(%params);
 
     my $cloneId =delete $params{cloneId};
@@ -161,7 +149,7 @@ sub addRow
 
 sub removeRow
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $model = $self->{'tableModel'};
 
@@ -170,18 +158,19 @@ sub removeRow
     my $force = $self->param('force');
 
     # We MUST get it before remove the item or it will fail.
-    my $auditId = $self->_getAuditId($id);
+   my $auditId = $self->_getAuditId($id);
 
     $model->removeRow($id, $force);
 
     $self->_auditLog('del', $auditId);
+    return $id;
 }
 
 sub editField
 {
     my ($self, %params) = @_;
 
-    $self->_editField(0, %params);
+    return $self->_editField(0, %params);
 }
 
 sub _editField
@@ -231,7 +220,7 @@ sub _editField
 
     my $editField = $self->param('editfield');
     if (not $editField) {
-        return;
+        return $id;
     }
 
     foreach my $field (@{$tableDesc}) {
@@ -244,6 +233,8 @@ sub _editField
             $self->{'to_print'} = $params{$fieldName};
         }
     }
+
+    return $id;
 }
 
 sub editBoolean
@@ -274,21 +265,16 @@ sub editBoolean
     $self->_editField(1, %editParams);
 
     $model->popMessage();
-
-    my $global = EBox::Global->getInstance();
-    # XXX Use JSON here This way we could just return
-    #     a json object { changes_menu: true } and get it evaled
-    if ($global->unsaved()) {
-        $self->_responseToEnableChangesMenuElement();
-    }
 }
 
 sub setAllChecks
 {
-    my ($self, $value) = @_;
+    my ($self) = @_;
     my $model = $self->{'tableModel'};
     my $field = $self->param('editid');
+    my $value = $self->param($field);
     $model->setAll($field, $value);
+    return $value;
 }
 
 sub checkAllControlValueAction
@@ -298,15 +284,6 @@ sub checkAllControlValueAction
     my $field = $self->param('field');
     my $value = $model->checkAllControlValue($field) ? 1 : 0;
     $self->{json} = { success => $value  };
-}
-
-# prints a HTML response to enable the 'Save changes' web element
-# don't p[ritn any other HTML if you use this
-sub _responseToEnableChangesMenuElement
-{
-    my ($self) = @_;
-    $self->_header();
-    print '$("#changes_menu").removeClass().addClass("changed")';
 }
 
 sub customAction
@@ -321,19 +298,37 @@ sub customAction
     $self->_auditLog('action', $id, $action);
 }
 
-# Method to refresh the table by calling rows method
+# Method to refresh the table using standard print CGI method
 sub refreshTable
 {
-    my $self = shift;
+    my ($self) = @_;
+    $self->{'params'} = $self->_paramsForRefreshTable();
+}
 
+#  Method: _htmlForRefreshTable
+#
+#  Parameters:
+#     page - optional parameter for force the rendering of arbitrary page
+#            instead of the actual one
+sub _htmlForRefreshTable
+{
+    my ($self, $page) = @_;
+    my $params = $self->_paramsForRefreshTable($page);
+    my $html = EBox::Html::makeHtml($self->{template}, @{ $params});
+    return $html;
+}
+
+sub _paramsForRefreshTable
+{
+    my ($self, $forcePage) = @_;
     my $model = $self->{'tableModel'};
     my $global = EBox::Global->getInstance();
 
-    my $action =  $self->{'action'};
+    my $action = $self->{'action'};
     my $filter = $self->unsafeParam('filter');
-    my $page = $self->param('page');
+    my $page = defined $forcePage ? $forcePage : $self->param('page');
     my $pageSize = $self->param('pageSize');
-    if ( defined ( $pageSize )) {
+    if (defined ($pageSize)) {
         $model->setPageSize($pageSize);
     }
 
@@ -344,10 +339,7 @@ sub refreshTable
         $editId = $self->param('editid');
     }
 
-    my $rows = undef;
-    my $tpages = 1000;
     my @params;
-    push(@params, 'data' => $rows);
     push(@params, 'dataTable' => $model->table());
     push(@params, 'model' => $model);
     push(@params, 'action' => $action);
@@ -355,43 +347,217 @@ sub refreshTable
     push(@params, 'hasChanged' => $global->unsaved());
     push(@params, 'filter' => $filter);
     push(@params, 'page' => $page);
-    push(@params, 'tpages' => $tpages);
 
-    $self->{'params'} = \@params;
+    return \@params;
+}
+
+sub _setJSONSuccess
+{
+    my ($self, $model) = @_;
+    if (not exists $self->{json}) {
+        $self->{json} = {};
+    }
+
+    $self->{json}->{success} = 1;
+    $self->{json}->{messageClass} = $model->messageClass();
+    $self->{json}->{message}  = $model->popMessage();
 }
 
 sub editAction
 {
     my ($self) = @_;
+
+    my $isForm    = $self->param('form');
+    my $editField = $self->param('editfield');
+    if (not $editField) {
+        $self->{json} = { success => 0 };
+    }
+
     my %params = $self->getParams();
-    $self->editField(%params);
-    $self->refreshTable();
+    my $id = $self->editField(%params);
+    if (not $editField)  {
+        my $model  = $self->{'tableModel'};
+        $self->_setJSONSuccess($model);
+        if ($isForm) {
+            return;
+        }
+
+        my $filter = $self->unsafeParam('filter');
+        my $page   = $self->param('page');
+        my $row    = $model->row($id);
+
+        $self->{json}->{changed} = {
+            $id => $self->_htmlForRow($model, $row, $filter, $page)
+        };
+        return;
+    }
 }
 
 sub addAction
 {
     my ($self, %params) = @_;
+
+    $self->{json}->{success} = 0;
+
     my $rowId = $self->addRow();
-    if ($params{json}) {
-        $self->{json}->{rowId} = $rowId;
-        $self->{json}->{directory} = $params{directory};
-        $self->{json}->{success} = 1;
+
+    my $model  = $self->{'tableModel'};
+    $self->_setJSONSuccess($model);
+
+    if ($model->size() == 1) {
+        # this was the first added row, reload all the table
+        $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        $self->{json}->{highlightRowAfterReload} = $rowId;
+        return;
+    }
+
+    # this calculations assume than only one row is added
+    my $nAdded = 1;
+    my $filter = $self->unsafeParam('filter');
+    my $page   = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my @ids    = @{ $self->_modelIds($model, $filter) };
+    my $lastIdPosition = @ids -1;
+
+    my $beginPrinted = $page*$pageSize;
+    my $endPrinted   = $beginPrinted + $pageSize -1;
+    if ($endPrinted > $lastIdPosition) {
+        $endPrinted = $lastIdPosition;
+    }
+
+    my $idPosition = undef;
+    for (my $i = 0; $i < @ids; $i++) {
+        if ($ids[$i] eq $rowId) {
+            $idPosition = $i;
+            last;
+        }
+    }
+    if (not defined $idPosition) {
+        EBox::warn("Cannot find table position for new row $rowId");
+        return;
+    } elsif (($idPosition < $beginPrinted) or ($idPosition > $endPrinted))  {
+        # row is not shown in the actual page, go to its page
+        my $newPage = floor($idPosition/$pageSize);
+        $self->{json}->{reload}  = $self->_htmlForRefreshTable($newPage);
+        return;
+    }
+
+    my $relativePosition;
+    if ($idPosition == 0) {
+        $relativePosition = 'prepend';
     } else {
-        $self->refreshTable();
+        $relativePosition = $ids[$idPosition-1];
+    }
+    my $nPages =  ceil(scalar(@ids)/$pageSize);
+    my $needSpace;
+    if (($page + 1) == $nPages) {
+        $needSpace = $endPrinted >= ($page+1)*$pageSize;
+    } else {
+        $needSpace = 1;
+    }
+
+    my $row     = $model->row($rowId);
+    my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
+    $self->{json}->{added} = [ { position => $relativePosition, row => $rowHtml } ];
+
+    if ($needSpace) {
+        # remove last row since it would not been seen, this assummes that only
+        # one row is added at the time
+        $self->{json}->{removed} = [ $ids[$endPrinted] ];
+    }
+
+    my $befNPages =  ceil((@ids - $nAdded)/$pageSize);
+    if ($nPages != $befNPages) {
+        $self->{json}->{paginationChanges} = {
+            page => $page,
+            nPages => $nPages,
+            pageNumbersText => $model->pageNumbersText($page, $nPages),
+        };
     }
 }
 
 sub delAction
 {
     my ($self) = @_;
-    $self->removeRow();
-    $self->refreshTable();
+
+    $self->{json} = {  success => 0 };
+    my $rowId = $self->removeRow();
+    my $model  = $self->{'tableModel'};
+    $self->_setJSONSuccess($model);
+
+    # With the current UI is assumed that the delAction is done in the same page
+    # that is shown
+
+    my $filter = $self->unsafeParam('filter');
+    my @ids    = @{ $self->_modelIds($model, $filter) };
+
+    if (@ids == 0) {
+        # no rows left in the table, reload
+        $self->{json}->{reload} = $self->_htmlForRefreshTable();
+        return;
+    }
+
+    my $page   = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my $nPages       = ceil(@ids/$pageSize);
+    my $nPagesBefore = ceil((@ids+1)/$pageSize);
+    my $pageChange   = ($nPages != $nPagesBefore);
+    if ($pageChange and ($page+1 >= $nPagesBefore)) {
+        # removed last page
+        my $newPage = $page > 0 ? $page - 1 : 0;
+        $self->{json}->{reload} = $self->_htmlForRefreshTable($newPage);
+        $self->{json}->{success} = 1;
+        return;
+    }
+
+    if ($pageChange) {
+        $self->{json}->{paginationChanges} = {
+            page => $page,
+            nPages => $nPages,
+            pageNumbersText => $model->pageNumbersText($page, $nPages),
+        };
+    }
+
+    if (($page+1) < $nPagesBefore) {
+        # no last page we should add new row to the table to replace the removed one
+        my $positionToAdd = ($pageSize -1) + $page*$pageSize;
+        my $idToAdd = $ids[$positionToAdd];
+        my $addAfter = 'append';
+        my $row    = $model->row($idToAdd);
+        my $rowHtml = $self->_htmlForRow($model, $row, $filter, $page);
+        $self->{json}->{added} = [ { position => $addAfter, row => $rowHtml } ];
+    }
+
+    $self->{json}->{removed} = [ $rowId ];
+}
+
+sub showChangeRowForm
+{
+    my ($self) = @_;
+
+    my $model = $self->{'tableModel'};
+    my $global = EBox::Global->getInstance();
+
+    my $id     = $self->unsafeParam('editid');
+    my $action =  $self->{'action'};
+
+    my $filter = $self->unsafeParam('filter');
+    my $page = $self->param('page');
+    my $pageSize = $self->param('pageSize');
+    my $tpages   = ceil($model->size()/$pageSize);
+
+    my $presetParams = {};
+    my $html = $self->_htmlForChangeRow($model, $action, $id, $filter, $page, $tpages, $presetParams);
+    $self->{json} = {
+        success => 1,
+        changeRowForm => $html,
+    };
 }
 
 sub changeAddAction
 {
     my ($self) = @_;
-    $self->refreshTable();
+    $self->showChangeRowForm();
 }
 
 sub changeListAction
@@ -403,7 +569,19 @@ sub changeListAction
 sub changeEditAction
 {
     my ($self) = @_;
-    $self->refreshTable();
+    if (not defined $self->param('editid')) {
+        throw EBox::Exceptions::DataMissing(data => 'row ID');
+    }
+    $self->showChangeRowForm();
+}
+
+sub changeCloneAction
+{
+    my ($self) = @_;
+    if (not defined $self->param('editid')) {
+        throw EBox::Exceptions::DataMissing(data => 'clone row ID');
+    }
+    $self->showChangeRowForm();
 }
 
 # This action will show the whole table (including the
@@ -421,7 +599,6 @@ sub editBooleanAction
     my ($self) = @_;
     delete $self->{template}; # to not print standard response
     $self->editBoolean();
-
 }
 
 sub cloneAction
@@ -430,12 +607,15 @@ sub cloneAction
     $self->refreshTable();
 }
 
-sub checkboxSetAllAction
+sub checkAllAction
 {
     my ($self) = @_;
-    $self->setAllChecks(1);
-    $self->refreshTable();
-
+    $self->{json}->{success} = 0;
+    my $value = $self->setAllChecks();
+    $self->{json} = {
+        success => 1,
+        checkAllValue => $value
+   };
 }
 
 sub checkboxUnsetAllAction
@@ -507,17 +687,12 @@ sub _process
         $model->setDirectory($directory);
     }
 
-    my $json = $self->param('json');
-    if ($json) {
-        $self->{json} = { success => 0  };
-    }
-
     my $actionSub = $action . 'Action';
     if ($self->can($actionSub)) {
         $self->$actionSub(
             model => $model,
             directory => $directory,
-            json      => $json,
+
            );
     } elsif ($model->customActions($action, $self->unsafeParam('id'))) {
         $self->customAction($action);
@@ -526,7 +701,7 @@ sub _process
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
 
-    # json mode should not put messages in UI
+    # json return  should not put messages in UI
     if ($self->{json}) {
         $model->setMessage('');
     }
@@ -574,6 +749,72 @@ sub _getAuditId
         }
     }
     return $id;
+}
+
+sub _htmlForRow
+{
+    my ($self, $model, $row, $filter, $page) = @_;
+    my $table     = $model->table();
+
+    my $html;
+    my @params = (
+        model => $model,
+        row   => $row
+   );
+
+    push @params, (movable => $model->movableRows($filter));
+    push @params, (checkAllControls => $model->checkAllControls());
+
+    push @params, (actions => $table->{actions});
+    push @params, (withoutActions => $table->{withoutActions});
+    push @params, (page => $page);
+    push @params, (changeView => $model->action('changeView'));
+
+    $html = EBox::Html::makeHtml('/ajax/row.mas', @params);
+    return $html;
+}
+
+sub _htmlForChangeRow
+{
+    my ($self, $model, $action, $editId, $filter, $page, $tpages, $presetParams) = @_;
+
+    my $table = $model->table();
+
+    my @params = (
+        model  => $model,
+        action => $action,
+
+        editid => $editId,
+        filter => $filter,
+        page   => $page,
+        tpages => $tpages,
+        presetParams  => $presetParams,
+
+        printableRowName => $model->printableRowName
+    );
+
+    my $html;
+    $html = EBox::Html::makeHtml('/ajax/changeRowForm.mas', @params);
+
+    return $html;
+}
+
+sub _modelIds
+{
+    my ($self, $model, $filter) = @_;
+
+    my $adaptedFilter;
+    if (defined $filter and ($filter ne '')) {
+        $adaptedFilter = $model->adaptRowFilter($filter);
+    }
+    my @ids;
+    if (not $model->customFilter()) {
+        @ids =  @{$model->ids()};
+    } else {
+        @ids = @{$model->customFilterIds($adaptedFilter)};
+    }
+
+    return \@ids;
 }
 
 1;

@@ -9,7 +9,7 @@ use EBox::Gettext;
 </%init>
 
 <h3><% __('Delete group') %></h3>
-<div id='error_delGroupForm' class='error' style='display:none'></div>
+<div id='delGroupForm_error' class='error' style='display:none'></div>
 
 % if ($slave) {
 <div class='warning'>

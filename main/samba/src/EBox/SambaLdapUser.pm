@@ -22,11 +22,13 @@ use base qw(EBox::LdapUserBase);
 use MIME::Base64;
 use Encode;
 use TryCatch::Lite;
+use Net::LDAP::Util qw(canonical_dn ldap_explode_dn);
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::OU;
@@ -289,6 +291,34 @@ sub _modifyUser
     try {
         my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
         return unless $sambaUser->exists();
+
+        # Check if CN has changed. In this case, we have to change the user DN
+        if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
+            my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+            my $rdn = shift (@{$dn});
+            foreach my $key (keys %{$rdn}) {
+                if ($key == 'CN') {
+                    $rdn->{CN} = $zentyalUser->get('cn');
+                    utf8::encode($rdn->{CN});
+                    last;
+                }
+            }
+            unshift (@{$dn}, $rdn);
+
+            my $newrdn = canonical_dn([ $rdn ]);
+            my $ldapCon = $sambaUser->_ldap->connection();
+            my $entry = $sambaUser->_entry();
+            my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
+            if ($result->is_error()) {
+                throw EBox::Exceptions::LDAP(
+                    message => __('There was an error updating LDAP:'),
+                    result =>   $result,
+                    opArgs   => "New RDN: $newrdn");
+            }
+
+            $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
+            return unless $sambaUser->exists();
+        }
 
         my $gn = $zentyalUser->get('givenName');
         utf8::encode($gn);

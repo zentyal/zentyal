@@ -20,7 +20,6 @@ package EBox::SysInfo;
 
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
-use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
@@ -30,6 +29,7 @@ use TryCatch::Lite;
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Html;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
@@ -368,14 +368,7 @@ sub linksWidget
         softwarePackage => $global->modExists('software'),
     );
 
-    my $html;
-    my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
-                                         out_method => sub { $html .= $_[0] });
-    my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
-       );
-    $interp->exec($component, @params);
-
+    my $html = EBox::Html::makeHtml('dashboard/links-widget.mas', @params);
     $section->add(new EBox::Dashboard::HTML($html));
 }
 

@@ -5,7 +5,7 @@
 use EBox::Gettext;
 </%init>
 <h3><% __('Add Group') %></h3>
-    <div id='error_addGroupForm' class='error' style='display:none'></div>
+    <div id='addGroupForm_error' class='error' style='display:none'></div>
     <form action='/Users/AddGroup' method='POST' id='addGroupForm'>
     <input type="hidden" name="dn" value="<% $dn %>">
     <table class='formTable'>

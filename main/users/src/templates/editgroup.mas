@@ -11,10 +11,10 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </%init>
 <script type="text/javascript" src="/data/js/form.js" />
 
-<div id="edit_user">
+<div id="edit_group">
 <h3 class="<% $iconclass %>"><% __('Group ') %> <% $group->name() %></h3>
-<div id='note_editGroupForm' class='note' style='display:none'></div>
-<div id='error_editGroupForm' class='error' style='display:none'></div>
+<div id='editGroupForm_message' class='note' style='display:none'></div>
+<div id='editGroupForm_error' class='error' style='display:none'></div>
 % unless (@groupusers or @remainusers) {
 <div class='note'>
     <% __("There are no users at the moment. You need at least one to manage this group properly.")%>
@@ -94,7 +94,7 @@ my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember}
 </%init>
 
 <& .addToGroup, group => $group &>
-<div id='error_removeUserFromGroup' class='error' style='display:none'></div>
+<div id='removeUserFromGroup_error' class='error' style='display:none'></div>
 <ul name='groupUsers' id='groupUsers'  class='labels-list' size='8'>
 </ul>
 
@@ -103,8 +103,8 @@ my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember}
 "use strict";
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#editGroupForm', {
-        noteDiv: '#note_editGroupForm',
-        errorDiv: '#error_editGroupForm',
+        noteDiv: '#editGroupForm_message',
+        errorDiv: '#editGroupForm_error',
         submitButton: '#submitEditGroupForm',
    });
 
@@ -135,7 +135,7 @@ $(function() {
                             '>delete</span>' +   '</li>'
                            );
       }
-      groupUsers.insertAfter('#error_removeUserFromGroup');
+      groupUsers.insertAfter('#removeUserFromGroup_error');
   };
 
    var refreshUsers = function (groupInfo) {
@@ -154,17 +154,17 @@ $(function() {
     var url = '/Users/EditGroup';
     var data = 'deluserfromgroup=1&dn=<% $group->dn() %>';
     data += '&deluser=' + event.target.getAttribute('data-user-name');
-    $('#error_removeUserFromGroup').html('').hide();
+    $('#removeUserFromGroup_error').html('').hide();
     $.ajax({
        url: url,
        data: data,
        dataType: 'json',
        error: function(jqXHR) {
-          $('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+          $('#removeUserFromGroup_error').html(jqXHR.responseText).show();
        },
        success: function(response) {
           if (!response.success) {
-             $('#error_removeUserFromGroup').html(response.error).show();
+             $('#removeUserFromGroup_error').html(response.error).show();
           }
        },
        complete: function() {
@@ -192,7 +192,7 @@ $(function() {
 <%args>
 $group
 </%args>
-<div id='error_addUserToGroup' class='error' style='display:none'></div>
+<div id='addUserToGroup_error' class='error' style='display:none'></div>
 <form action='/Users/EditGroup' method='POST' id='addUserToGroup' >
   <select name="adduser" id="adduser">
   </select>

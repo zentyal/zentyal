@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox;
 use EBox::Global;
 use EBox::CGI::Run;
+use EBox::Html;
 use EBox::Exceptions::Error;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -86,13 +87,9 @@ sub _title
     my $title = $self->{title};
     my $crumbs = $self->{crumbs};
 
-    my $filename = EBox::Config::templates . '/title.mas';
-    my $interp = $self->_masonInterp();
-    my $comp = $interp->make_component(comp_file => $filename);
-
+    my $filename = 'title.mas';
     my @params = (title => $title, crumbs => $crumbs);
-
-    $interp->exec($comp, @params);
+    print EBox::Html::makeHtml($filename, @params);
 }
 
 sub _print_error # (text)
@@ -100,12 +97,9 @@ sub _print_error # (text)
     my ($self, $text) = @_;
     $text or return;
     ($text ne "") or return;
-    my $filename = EBox::Config::templates . '/error.mas';
-    my $interp = $self->_masonInterp();
-    my $comp = $interp->make_component(comp_file => $filename);
-    my @params = ();
-    push(@params, 'error' => $text);
-    $interp->exec($comp, @params);
+    my $filename = 'error.mas';
+    my @params = ('error' => $text);
+    print EBox::Html::makeHtml($filename, @params);
 }
 
 sub _error #
@@ -119,12 +113,9 @@ sub _msg
 {
     my $self = shift;
     defined($self->{msg}) or return;
-    my $filename = EBox::Config::templates . '/msg.mas';
-    my $interp = $self->_masonInterp();
-    my $comp = $interp->make_component(comp_file => $filename);
-    my @params = ();
-    push(@params, 'msg' => $self->{msg});
-    $interp->exec($comp, @params);
+    my $filename = 'msg.mas';
+    my @params = ('msg' => $self->{msg});
+    print EBox::Html::makeHtml($filename, @params);
 }
 
 sub _body
@@ -132,8 +123,8 @@ sub _body
     my $self = shift;
     defined($self->{template}) or return;
 
-    my $filename = EBox::Config::templates . $self->{template};
-    if (-f "$filename.custom") {
+    my $filename = $self->{template};
+    if (-f (EBox::Config::templates() . "/$filename.custom")) {
         # Check signature
         if (EBox::Util::GPG::checkSignature("$filename.custom")) {
             $filename = "$filename.custom";
@@ -143,29 +134,8 @@ sub _body
         }
 
     }
-    my $interp = $self->_masonInterp();
-    my $comp = $interp->make_component(comp_file => $filename);
-    $interp->exec($comp, @{$self->{params}});
+    print EBox::Html::makeHtml($filename, @{ $self->{params} });
 }
-
-MASON_INTERP: {
-    my $masonInterp;
-
-    sub _masonInterp
-    {
-        my ($self) = @_;
-
-        return $masonInterp if defined $masonInterp;
-
-        $masonInterp = HTML::Mason::Interp->new(
-            comp_root => EBox::Config::templates,
-            escape_flags => {
-                h => \&HTML::Mason::Escapes::basic_html_escape,
-            },
-        );
-        return $masonInterp;
-    }
-};
 
 sub _footer
 {
