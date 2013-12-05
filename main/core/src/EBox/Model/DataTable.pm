@@ -4263,8 +4263,9 @@ sub _filterFields
     $newRow->setOrder($row->order());
 
     my @modelFields = @{$self->fields()};
+    my $anyModelFields = any(@modelFields);
     foreach my $fieldName ( @{$fieldNames} ) {
-        unless ( $fieldName eq any(@modelFields) ) {
+        unless ($fieldName eq $anyModelFields) {
             throw EBox::Exceptions::Internal(
                     'Trying to get a field which does exist in this model. These fields ' .
                     'are available: ' . join ( ', ', @modelFields));

@@ -195,6 +195,7 @@ Zentyal.TableHelper.modalAddNewRow = function (url, table, fields, directory,  n
     };
     var complete = function () {
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
     var error = function (jqxhr) {
         if (!nextPage) {
@@ -238,6 +239,7 @@ Zentyal.TableHelper.addNewRow = function (url, table, fields, directory) {
     var complete = function(response) {
         Zentyal.stripe('.dataTable', 'even', 'odd');
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -282,6 +284,7 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
     var complete = function(response) {
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.stripe('.dataTable', 'even', 'odd');
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -344,6 +347,7 @@ Zentyal.TableHelper.actionClicked = function (url, table, action, rowId,  direct
         if ( action == 'del' ) {
             delete savedElements['actionsCell_' + rowId];
         }
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
@@ -391,6 +395,7 @@ Zentyal.TableHelper.customActionClicked = function (action, url, table, fields, 
     };
     var complete = function(response){
         $('tr:not(#' + id +  ') .customActions input').prop('disabled', false).removeClass('disabledCustomAction');
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
@@ -453,6 +458,7 @@ Zentyal.TableHelper.changeView = function (url, table, directory, action, id, pa
             Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
         }
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
@@ -551,6 +557,7 @@ Zentyal.TableHelper.modalChangeView = function (url, table, directory, action, i
               Zentyal.TableHelper.restoreHidden('actionsCell_' + id, table);
           }
           Zentyal.TableHelper.completedAjaxRequest();
+          Zentyal.refreshSaveChangesButton();
       };
 
       $.ajax({
@@ -612,6 +619,7 @@ Zentyal.TableHelper.hangTable = function (successId, errorId, url, formId, loadi
     var complete = function(response) {
         Zentyal.stripe('.dataTable', 'even', 'odd');
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -665,6 +673,7 @@ Zentyal.TableHelper.selectComponentToHang = function (successId, errorId, formId
     };
     var complete = function(response) {
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -937,6 +946,7 @@ Zentyal.TableHelper.sendInPlaceBooleanValue = function (url, model, id, dir, fie
         Zentyal.TableHelper.completedAjaxRequest();
         element.show();
         $('#' + elementId + '_loading').html('');
+        Zentyal.refreshSaveChangesButton();
     };
 
    $.ajax({
@@ -1019,6 +1029,7 @@ Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, cont
         Zentyal.TableHelper.completedAjaxRequest();
         var json = $.parseJSON(response.responseText);
         $('#' + controlId).prop('checked', json.success);
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -1058,6 +1069,7 @@ Zentyal.TableHelper.confirmationDialog = function (url, table, directory, action
           dialogTitle = '';
           dialogMsg = 'Are you sure?';
     };
+
    $.ajax({
        url: url,
        async: false,
@@ -1085,6 +1097,7 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
         buttons: {
             Ok: function() {
                 acceptMethod();
+                Zentyal.refreshSaveChangesButton();
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
@@ -1150,14 +1163,8 @@ Zentyal.TableHelper.changeOrder = function(url, table, directory, movedId, order
         data: data,
         dataType: 'json',
         success: function (response) {
-            if (('unsavedModules' in response) && response.unsavedModules ) {
-                Zentyal.TableHelper.setSaveChangesButton(1);
-            }
+            Zentyal.refreshSaveChangesButton();
         }
    });
 };
 
-Zentyal.TableHelper.setSaveChangesButton = function(changed) {
-    var className = changed ?  'changed' : 'notchanged';
-    $('#changes_menu').removeClass().addClass(className);
-};

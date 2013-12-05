@@ -232,7 +232,6 @@ sub modIsChanged
 
     $self->modExists($name) or return undef;
 
-    my $info = $self->readModInfo($name);
     return $self->get_bool("modules/$name/changed");
 }
 
@@ -389,6 +388,7 @@ sub revokeAllModules
 
     if (not $failed) {
         $progress->setAsFinished() if $progress;
+        $self->_assertNotChanges();
         return;
     }
 
@@ -552,6 +552,7 @@ sub saveAllModules
     my $modNames;
     my $ro = 0;
     my $failed = '';
+    my %modified;
 
     # Reset save messages array
     $self->{save_messages} = [];
@@ -614,6 +615,7 @@ sub saveAllModules
     } else {
         # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
+        %modified = map { $_ =>  1} @mods;
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
     }
@@ -627,16 +629,21 @@ sub saveAllModules
     # run presave hooks
     $self->_runExecFromDir(PRESAVE_SUBDIR, $progress, $modNames);
 
-    my $apache = 0;
+    foreach my $mod (@{ $self->modInstancesOfType($ro, 'EBox::Module::Config') }) {
+        my $name = $mod->name();
+        next if ($modified{$name} or ($name eq 'global'));
+        $mod->_saveConfig();
+    }
+
+    my $webadmin = 0;
     foreach my $name (@mods) {
         if ($name eq 'webadmin') {
-            $apache = 1;
+            $webadmin = 1;
             next;
         }
 
         if ($progress) {
-            $progress->setMessage(__x("Saving {modName} module",
-                                       modName => $name));
+            $progress->setMessage(__x("Saving {modName} module", modName => $name));
             $progress->notifyTick();
         }
 
@@ -645,8 +652,7 @@ sub saveAllModules
             $mod->setInstalled();
 
             if (not $mod->configured()) {
-                $mod->_saveConfig();
-                $self->modRestarted($name);
+                $self->modRestarted($mod->name);
                 next;
             }
         }
@@ -666,9 +672,9 @@ sub saveAllModules
     # Delete first time installation file (wizard)
     $self->deleteFirst();
 
-    # FIXME - tell the CGI to inform the user that apache is restarting
-    if ($apache) {
-        EBox::info("Saving configuration: apache");
+    # FIXME - tell the CGI to inform the user that webadmin is restarting
+    if ($webadmin) {
+        EBox::info("Saving configuration: webadmin");
         if ($progress) {
             $progress->setMessage(__x("Saving {modName} module",
                                        modName => 'webadmin'));
@@ -690,20 +696,31 @@ sub saveAllModules
 
     # TODO: tell events module to resume its watchers
 
-    foreach my $modName (@{$self->get_list('post_save_modules')}) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
-        next unless defined ($mod);
+    my @postsaveModules = @{$self->get_list('post_save_modules')};
+    for (1 .. 3) {
+        my %seen;
+        push @postsaveModules, @{$self->modifiedModules('save')};
+        @postsaveModules or last;
+        foreach my $modName (@postsaveModules) {
+            my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
+            next unless defined ($mod);
+            if ($seen{$modName}) {
+                next;
+            }
 
-        try {
-            $mod->save();
-        }  catch EBox::Exceptions::External with {
-            my $ex = shift;
-            $ex->throw();
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Failed to restart $modName after save changes: $ex");
-            $failed .= "$modName ";
-        };
+            $seen{$modName}= 1;
+            try {
+                $mod->save();
+            }  catch EBox::Exceptions::External with {
+                my $ex = shift;
+                $ex->throw();
+            } otherwise {
+                my $ex = shift;
+                EBox::error("Failed to restart $modName after save changes: $ex");
+                $failed .= "$modName ";
+            };
+        }
+        @postsaveModules = ();
     }
     $self->unset('post_save_modules');
 
@@ -725,6 +742,8 @@ sub saveAllModules
         }
         $progress->setAsFinished(0, $message) if $progress;
 
+        $self->_assertNotChanges();
+
         return;
     }
 
@@ -733,74 +752,6 @@ sub saveAllModules
 
     $progress->setAsFinished(1, $errorText) if $progress;
     throw EBox::Exceptions::Internal($errorText);
-}
-
-# Method: restartAllModules
-#
-#       Force a restart for all the modules
-#
-sub restartAllModules
-{
-    my $self = shift;
-
-    my $ro = 1;
-
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Restarting all modules");
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "being restarted, their state is unknown: $failed");
-}
-
-# Method: stopAllModules
-#
-#       Stops all the modules
-#
-sub stopAllModules
-{
-    my $self = shift;
-    my @names = @{$self->modNames};
-    my $log = EBox::logger();
-    my $failed = "";
-    $log->info("Stopping all modules");
-
-    my $ro = 1;
-
-    unless ($self->isReadOnly) {
-        $self->{'mod_instances_rw'} = {};
-    }
-
-    foreach my $name (@names) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $name);
-        try {
-            $mod->stopService();
-        } catch EBox::Exceptions::Internal with {
-            $failed .= "$name ";
-        };
-    }
-
-    if ($failed eq "") {
-        return;
-    }
-    throw EBox::Exceptions::Internal("The following modules failed while ".
-            "stopping, their state is unknown: $failed");
 }
 
 # Method: modInstances
@@ -1345,6 +1296,16 @@ sub _packageInstalled
         }
     }
     return $installed;
+}
+
+sub _assertNotChanges
+{
+    my ($self) = @_;
+    my @unsaved =  @{$self->modifiedModules('save')};
+    if (@unsaved) {
+        my $names = join ', ',  @unsaved;
+        throw EBox::Exceptions::Internal("There have been moules which remain in unsaved state after saving changes operatios: $names");
+    }
 }
 
 1;

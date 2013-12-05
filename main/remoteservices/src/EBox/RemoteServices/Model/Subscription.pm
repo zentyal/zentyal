@@ -712,6 +712,9 @@ sub _showSaveChanges
                       error : function(t) {
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
                             \$('#error_$tableName').html(t.responseText);
+                      },
+                      complete: function(t) {
+                            Zentyal.refreshSaveChangesButton();
                       }
                   });
 Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
