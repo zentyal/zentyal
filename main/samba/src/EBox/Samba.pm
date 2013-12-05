@@ -204,6 +204,15 @@ sub initialSetup
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
+
+    # Upgrade from 3.2.11 to 3.2.12
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.12') < 0)) {
+        # Ensure default containers properly linked
+        $self->getProvision->mapDefaultContainers();
+
+        # Accounts holding SPNs should be linked to LDAP service principals
+        $self->ldb->ldapServicePrincipalsToLdb();
+    }
 }
 
 sub enableService
