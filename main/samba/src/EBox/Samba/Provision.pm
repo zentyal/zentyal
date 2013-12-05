@@ -1209,7 +1209,6 @@ sub _waitForRidPoolAllocation
 {
     my ($self) = @_;
 
-    use Data::Dumper; # TODO Remove
     my $allocated = 0;
     my $maxTries = 300;
     my $sleepSeconds = 0.1;
@@ -1412,8 +1411,7 @@ sub provisionADC
             $zentyalGroup->setIgnoredModules(['samba']);
             $zentyalGroup->deleteObject();
         }
-        foreach my $zentyalOU (@{$ous}) {
-            # TODO
+        foreach my $zentyalOU (reverse @{$ous}) {
             # Do not remove any OU under these bases, won't be synced to LDB
             #   (zarafa module) OU=zarafa,$baseDN
             #   (mail module)   OU=postfix,$baseDN
@@ -1422,14 +1420,30 @@ sub provisionADC
             #   (users module)  OU=groups
             #   (users module)  OU=computers
             #   (users module)  OU=Kerberos
-            next if (grep { lc $_ eq lc $zentyalOU->name() } @{
-                ['kerberos', 'users', 'groups', 'computers',
-                 'postfix', 'mailalias', 'vdomains', 'fetchmail',
-                 'zarafa']
+            my $dn = ldap_explode_dn($zentyalOU->dn(), reverse => 1);
+            my $rdn;
+            do {
+                $rdn = shift (@{$dn});
+            } while (scalar @{$dn} and not defined $rdn->{OU});
+            my $ouName = lc $rdn->{OU};
+
+            # Skip removal of any OU under OU=zarafa and OU=postfix
+            next if (grep { $_ eq $ouName } @{
+                [ 'postfix', 'zarafa' ]
             });
 
+            # Skip the removal of kerberos, users, groups and computers, but
+            # remove any OU inside them
+            next if (grep { $_ eq $ouName } @{
+                [ 'kerberos', 'users', 'groups', 'computers' ]
+            } and not scalar @{$dn});
+
+            # As we iterate the array in reverse order, we should not remove
+            # a parent before a child, but just in case, check for object
+            # before delete
+            $zentyalOU->clearCache();
             $zentyalOU->setIgnoredModules(['samba']);
-            $zentyalOU->deleteObject();
+            $zentyalOU->deleteObject() if $zentyalOU->exists();
         }
 
         # Map defaultContainers
