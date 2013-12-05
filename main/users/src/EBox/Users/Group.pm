@@ -548,7 +548,7 @@ sub create
     );
 
     if ($isSecurityGroup) {
-        my $gid = exists $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
+        my $gid = defined $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
         $class->_checkGid($gid, $isSystemGroup);
         push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);

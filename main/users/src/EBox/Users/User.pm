@@ -555,9 +555,9 @@ sub create
         $class->_checkPwdLength($passwd);
     }
 
-    my $uidNumber = exists $args{uidNumber} ?
-                           $args{uidNumber} :
-                           $class->_newUserUidNumber($isSystemUser);
+    my $uidNumber = defined $args{uidNumber} ?
+                            $args{uidNumber} :
+                            $class->_newUserUidNumber($isSystemUser);
     $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
