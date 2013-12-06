@@ -39,7 +39,7 @@ use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
-use Encode;
+use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);

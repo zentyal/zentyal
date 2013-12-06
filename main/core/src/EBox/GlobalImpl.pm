@@ -711,7 +711,7 @@ sub saveAllModules
             $seen{$modName}= 1;
             try {
                 $mod->save();
-            }  catch EBox::Exceptions::External with {
+            } catch EBox::Exceptions::External with {
                 my $ex = shift;
                 $ex->throw();
             } otherwise {
