@@ -99,18 +99,7 @@ sub saveAllModulesAction
         }
     } else {
         push @params, @popupProgressParams;
-
-        my $sysinfo = $global->modInstance('sysinfo');
-        my $needReload = $sysinfo->reloadPageAfterSavingChanges();
-        my $nextStepUrlOnClick;
-        if ($needReload) {
-            $nextStepUrlOnClick = $jsCloseDialogAndReload;
-            $sysinfo->setReloadPageAfterSavingChanges(0);
-        } else {
-            $nextStepUrlOnClick = "Zentyal.Dialog.close(); \$('#changes_menu').removeClass('changed').addClass('notchanged'); return false";
-        }
-
-        push @params, nextStepUrlOnclick => $nextStepUrlOnClick;
+        push @params, nextStepUrlOnclick => $jsCloseDialogAndReload;
     }
 
     $self->showProgress(@params);
@@ -139,7 +128,7 @@ sub revokeAllModulesAction
         push @params, (title => __('Revoking changes'));
     } else {
         push @params, @popupProgressParams;
-        push @params, nextStepUrlOnclick => "Zentyal.Dialog.close(); window.location.reload(); return false";
+        push @params, nextStepUrlOnclick => $jsCloseDialogAndReload;
     }
 
     $self->showProgress(@params);
