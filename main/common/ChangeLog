@@ -1,4 +1,4 @@
-HEAD
+3.0.8
 	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
 	+ EBox::Validate::checkEmailAddress does not ignore any longer white spaces
 	  at the begin and end og the address
