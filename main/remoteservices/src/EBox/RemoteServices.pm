@@ -1879,7 +1879,12 @@ sub _ccConnectionWidget
         }
 
         $DRValue = __x('Configuration backup enabled');
-        my $date = $self->latestRemoteConfBackup();
+        my $date;
+        try {
+            $date = $self->latestRemoteConfBackup();
+        } otherwise {
+            $date = 'unknown';
+        };
         if ( $date ne 'unknown' ) {
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }

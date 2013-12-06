@@ -79,7 +79,7 @@ sub name
 # Parameters:
 #
 #   args - Named parameters:
-#      name    - Organizational Unit name
+#       name    - Organizational Unit name
 #       parent - Parent container that will hold this new OU.
 #
 sub create

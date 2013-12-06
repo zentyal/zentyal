@@ -555,9 +555,9 @@ sub create
         $class->_checkPwdLength($passwd);
     }
 
-    my $uidNumber = exists $args{uidNumber} ?
-                           $args{uidNumber} :
-                           $class->_newUserUidNumber($isSystemUser);
+    my $uidNumber = defined $args{uidNumber} ?
+                            $args{uidNumber} :
+                            $class->_newUserUidNumber($isSystemUser);
     $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
@@ -701,8 +701,8 @@ sub create
 }
 
 sub _checkUserName
- {
-     my ($name) = @_;
+{
+    my ($name) = @_;
     if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }

@@ -3389,6 +3389,8 @@ sub _preSetConf
             }
         }
     }
+
+    EBox::NetWrappers::clean_ifaces_list_cache();
 }
 
 sub _postServiceHook
@@ -3469,6 +3471,7 @@ sub _enforceServiceState
         }
         EBox::Util::Lock::unlock('ifup');
     }
+    EBox::NetWrappers::clean_ifaces_list_cache();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');

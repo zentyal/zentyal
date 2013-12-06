@@ -1,5 +1,6 @@
 HEAD
 	+ Always reload page after saving changes
+	+ Workaround against modules changed when saving all changes
 	+ Recover from widget function exceptions
 	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
