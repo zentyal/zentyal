@@ -1,5 +1,6 @@
 HEAD
 	+ Recover from widget function exceptions
+	+ Fixed mdstat output processing to remove "(auto-read-only)"
 	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
 	+ Added missing EBox::Exceptions uses
