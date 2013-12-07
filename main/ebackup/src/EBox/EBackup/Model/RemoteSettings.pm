@@ -147,7 +147,7 @@ sub viewCustomizer
             { method =>
                 {
                 file => { hide => $userPass , show => ['target'] },
-                rsync => { show => $allFields },
+                rsync => { hide => ['password'], show => ['user', 'target'] },
                 scp => { show => $allFields },
                 ftp => { show => $allFields },
                 }

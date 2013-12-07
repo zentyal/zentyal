@@ -172,21 +172,9 @@ sub addToZentyal
 
         $zentyalGroup = new EBox::Users::Group(gid => $usersName);
         if ($zentyalGroup->exists()) {
-            # The special __USERS__ group already exists in Zentyal:
-            # 1. Copy its members list into Samba.
-            foreach my $member (@{$zentyalGroup->members()}) {
-                try {
-                    my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
-                    next unless ($smbMember);
-                    $self->addMember($smbMember, 1);
-                } catch ($error) {
-                    EBox::error("Error adding member: $error");
-                }
-            }
-            $self->save();
-            # 2. link both objects.
+            # Link both objects.
             $self->_linkWithUsersObject($zentyalGroup);
-            # 3. Update its fields.
+            # Update its fields.
             $self->updateZentyal();
             return;
         } else {

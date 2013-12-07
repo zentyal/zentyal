@@ -1,7 +1,7 @@
-HEAD
-	+ Adapted to new AJAX update of save changes button
 3.3
+	+ Adapted to new AJAX update of save changes button
 	+ Switch from Error to TryCatch for exception handling
+	+ Widget recovers from latestRemoteConfBackup connection errors
 	+ Fix reset URL in subscription wizard error
 	+ Pinning kernels so they are updated with QA updates active
 	+ Added missing EBox::Exceptions uses

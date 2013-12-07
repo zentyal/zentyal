@@ -1030,24 +1030,8 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            # FIXME: workaroung against mysterious chown bug
             my $chownCmd = "chown -R $quser:$group $qhome";
-            my $chownTries = 10;
-            foreach my $cnt (1 .. $chownTries) {
-                my $chownOk = 0;
-                try {
-                    EBox::Sudo::root($chownCmd);
-                    $chownOk = 1;
-                } catch ($e) {
-                    if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $e . Attempt number $cnt");
-                        sleep 1;
-                    } else {
-                        $e->throw();
-                    }
-                }
-                last if $chownOk;
-            };
+            EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -1070,38 +1054,41 @@ sub reloadNSCD
 
 # Method: ous
 #
-#       Returns an array containing all the OUs sorted by canonicalName
+#   Returns an array containing all the OUs. The array ir ordered in a
+#   hierarquical way. Parents before childs.
 #
 # Returns:
 #
-#       array ref - holding the OUs. Each user is represented by a
-#       EBox::Users::OU object
+#   array ref - holding the OUs. Each user is represented by a
+#   EBox::Users::OU object
 #
 sub ous
 {
-    my ($self) = @_;
+    my ($self, $baseDN) = @_;
 
     return [] if (not $self->isEnabled());
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
-        scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @ous = ();
-    foreach my $entry ($result->entries)
-    {
-        my $ou = $self->{ouClass}->new(entry => $entry);
-        push (@ous, $ou);
+    unless (defined $baseDN) {
+        $baseDN = $self->ldap->dn();
     }
 
-    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my $searchArgs = {
+        base => $baseDN,
+        filter => "objectclass=$objectClass",
+        scope => 'one',
+    };
 
-    return \@sortedOUs;
+    my $ous = [];
+    my $result = $self->ldap->search($searchArgs);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: userByUID
