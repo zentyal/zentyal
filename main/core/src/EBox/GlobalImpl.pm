@@ -691,7 +691,7 @@ sub saveAllModules
 
     my @postsaveModules = @{$self->get_list('post_save_modules')};
     for (1 .. 3) {
-        my %seen;
+        my %seen = ();
         push @postsaveModules, @{$self->modifiedModules('save')};
         @postsaveModules or last;
         foreach my $modName (@postsaveModules) {
@@ -700,6 +700,7 @@ sub saveAllModules
             if ($seen{$modName}) {
                 next;
             }
+            $seen{$modName} = 1;
 
             try {
                 $mod->save();
