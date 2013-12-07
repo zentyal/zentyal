@@ -126,7 +126,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __('File Sharing'),
+        printableName => __('File Sharing and Domain Services'),
         @_);
     bless ($self, $class);
     return $self;
@@ -1201,13 +1201,14 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder(name      => 'Samba',
-                                        text      => $self->printableName(),
-                                        icon      => 'samba',
+    my $folder = new EBox::Menu::Folder(name  => 'Domain',
+                                        text      => __('Domain'),
+                                        icon      => 'domain',
                                         separator => 'Office',
-                                        order     => 540);
-    $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
-                                      text  => __('General'),
+                                        order     => 535);
+
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GeneralSettings',
+                                      text  => __('Settings'),
                                       order => 10));
     $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
                                       text  => __('Group Policy Objects'),
@@ -1215,6 +1216,13 @@ sub menu
     $folder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
                                       text  => __('Group Policy Links'),
                                       order => 30));
+
+    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                    url       => 'Samba/Composite/General',
+                                    icon      => 'samba',
+                                    separator => 'Office',
+                                    order     => 540));
+
     $root->add($folder);
 }
 

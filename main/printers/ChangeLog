@@ -1,4 +1,5 @@
 3.3
+	+ Rename 'Printer Sharing' to 'Printers'
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions
 	+ Set version to 3.3

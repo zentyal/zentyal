@@ -722,6 +722,7 @@ td[class^="icon"] {
 .icon-register { background-image: url("/data/images/package-icons/zentyal-register.png");}
 .icon-remoteservices { background-image: url("/data/images/package-icons/zentyal-remoteservices.png");}
 .icon-samba { background-image: url("/data/images/package-icons/zentyal-samba.png");}
+.icon-domain { background-image: url("/data/images/package-icons/zentyal-domain.png");}
 .icon-status { background-image: url("/data/images/package-icons/zentyal-mstatus.png");}
 .icon-system { background-image: url("/data/images/package-icons/zentyal-system.png");}
 .icon-software  { background-image: url("/data/images/package-icons/zentyal-software.png");}
@@ -754,7 +755,7 @@ h4[class^="icon"]{
     padding-left: 45px !important;
 }
 h3.icon-user,
-h4.icon-user{ 
+h4.icon-user{
     background-image: url('/data/images/treeview/user-big.png')
 }
 h3.icon-duser,
@@ -2151,7 +2152,7 @@ form.formDiv > div {
     margin-top: 20px;
 }
 form.formDiv label,
-form.formDiv .radio-group strong, 
+form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong {
     display: block;
     color: #333;
@@ -2240,14 +2241,14 @@ form.formDiv input[type="radio"] {
 .radio-group{
     margin-bottom: 10px;
 }
-form.formDiv .radio-group strong, 
+form.formDiv .radio-group strong,
 form.formDiv .checkbox-group strong{
     color: #333;
     display: block;
     font-weight: bold;
     margin-bottom: 3px;
 }
-form.formDiv .radio-group label, 
+form.formDiv .radio-group label,
 form.formDiv .checkbox-group label{
     font-weight: normal;
     color: #666;
@@ -2263,8 +2264,8 @@ form.formDiv .inline-field{
 .inline-input .checkbox,
 .changeRow div input,
 .changeRow div select,
-.changeRow div span, 
-.changeRow div .checkbox { 
+.changeRow div span,
+.changeRow div .checkbox {
     display: inline-block;
     vertical-align: middle;
 }

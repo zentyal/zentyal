@@ -34,7 +34,7 @@ models:
 composites:
     RecycleBin: [RecycleDefault, RecycleExceptions]
     Antivirus: [AntivirusDefault, AntivirusExceptions]
-    General: [GeneralSettings, SambaShares, RecycleBin, Antivirus]
+    General: [SambaShares, RecycleBin, Antivirus]
     GPOComputerConfiguration: [GPOScriptsStartup, GPOScriptsShutdown]
     GPOUserConfiguration: [GPOScriptsLogin, GPOScriptsLogoff]
     GPO: [GPOComputerConfiguration, GPOUserConfiguration]

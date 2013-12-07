@@ -341,7 +341,7 @@ sub menu
         order => $order);
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/View/Provision',
-        text      => __('Provision'),
+        text      => __('Setup'),
         order     => 0));
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/Migration/Connect',
