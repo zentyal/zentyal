@@ -1,5 +1,9 @@
 HEAD
 	+ Always reload page after saving changes
+	+ Use AJAX call to refresh save change buttons
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
 	+ Workaround against modules changed when saving all changes
 	+ Recover from widget function exceptions
 	+ Fixed audit logging of delete actions
