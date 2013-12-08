@@ -4,63 +4,36 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Add Group') %></h3>
+<h4 class="icon-group"><% __('Add Group') %></h4>
     <div id='addGroupForm_error' class='error' style='display:none'></div>
-    <form action='/Users/AddGroup' method='POST' id='addGroupForm'>
+    <form action='/Users/AddGroup' method='POST' id='addGroupForm' class="formDiv">
     <input type="hidden" name="dn" value="<% $dn %>">
-    <table class='formTable'>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
-                    <% __('Type') %>:
-                </span>
-            </td>
-            <td>
-                <input type="radio" name="type" value="security" checked><% __('Security Group') %>
-                <input type="radio" name="type" value="distribution"><% __('Distribution Group') %>
-            </td>
-        </tr>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
-                    <% __('Group name') %>:
-                </span>
-            </td>
-            <td>
-                <input type='text' class='inputText' name='groupname'>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class="ftitle">
-                    <% __('Description') %>:
-                </span>
-            </td>
-            <td>
-                <input type='text' class='inputText' name='description'>
-                <div class="description">(<% __('Optional value') %>)</div>
-            </td>
-        </tr>
-        <tr>
-            <td class='tright'>
-                <span class="ftitle">
-                    <% __('E-mail') %>:
-                </span>
-            </td>
-            <td>
-                <input type='text' class='inputText' name='mail'>
-                <div class="description">(<% __('Optional value') %>)</div>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
-                <input class='inputButton'  type='submit' name='add'
+        <div class="checkbox-group">
+            <strong><% __('Type') %></strong>
+            <label><input type="radio" name="type" value="security" checked><% __('Security Group') %></label>
+            <label><input type="radio" name="type" value="distribution"><% __('Distribution Group') %></label>
+        </div>
+        <div>
+            <label><% __('Group name') %></label>
+            <input type='text' class='inputText' name='groupname'>
+        </div>
+        <div>
+            <label><% __('Description') %>
+                <span class="optional_field"><% __('Optional value') %></span>
+            </label>
+            <input type='text' class='inputText' name='description'>
+        </div>
+        <div>
+            <label><% __('E-mail') %>
+                <span class="optional_field"><% __('Optional value') %></span>
+            </label>
+            <input type='text' class='inputText' name='mail'>
+        </div>
+        <div>
+            <input class='inputButton'  type='submit' name='add'
                        value="<% __('Add') %>"
                        alt="<% __('Add') %>"/>
-            </td>
-        </tr>
-    </table>
+       </div>
     </form>
 
 <script>

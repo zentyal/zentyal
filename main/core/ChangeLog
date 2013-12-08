@@ -1,12 +1,14 @@
-HEAD
-	+ Recover from widget function exceptions
 3.3
+	+ Workaround against modules changed when saving all changes
+	+ Recover from widget function exceptions
 	+ Use the same Mason interpreter for most HTML templates
 	+ Use more granular AJAX for table actions
 	+ Use stand-alone AJAX call to refresh save changes button
 	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
+	+ Recover from widget function exceptions
+	+ Fixed mdstat output processing to remove "(auto-read-only)"
 	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
 	+ Added missing EBox::Exceptions uses

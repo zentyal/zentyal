@@ -18,6 +18,7 @@
 <& .pageTitle,
    crumbs => $model->HTMLTitle()
 &>
+<& /disabledModuleWarn.mas, model => $model &>
 <%perl>
   # Annotate we are in composite after printing own title
   $m->notes('composite', 1);
@@ -29,30 +30,8 @@
 %    # Define the components when we are sure the precondition is
 %    # matched
 %    my $componentsRef = $model->components();
-%    # Print the help if any
-%    my $help = $model->help();
-%    if ($help) {
-<div class="help">
-  <% $model->help() %>
-</div>
-%    }
-%    # Print the disabled module warning if needed
-%    my $disabledModuleWarning = $model->disabledModuleWarning();
-%    if ($disabledModuleWarning) {
-<div class="warning">
-  <% $disabledModuleWarning %>
-</div>
-%    }
-%    # Print the permanent message if any
-%    my $permanentMessage = $model->permanentMessage();
-%    my $permanentMessageType = $model->permanentMessageType();
-%    if ($permanentMessage) {
-<div class="<% $permanentMessageType %>">
-  <% $permanentMessage %>
-</div>
-%    }
-%    if ( $model->layout() eq 'tabbed' )
-%    {
+     <& .helpAndMessages, model => $model &>
+%    if ( $model->layout() eq 'tabbed' )  {
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
@@ -60,9 +39,7 @@
    tabName    => $model->name(),
    directory  => $model->directory(),
 &>
-%    }
-%    elsif ( $model->layout() eq 'top-bottom' )
-%    {
+%    } elsif ( $model->layout() eq 'top-bottom' ) {
 %       foreach my $component (@{$componentsRef}) {
 <& $component->Viewer(),
    model => $component,
@@ -70,17 +47,13 @@
    action => 'view',
 &>
 %       }
-%    }
-%    elsif ( $model->layout() eq 'select' )
-%    {
+%    } elsif ( $model->layout() eq 'select' )  {
 <& /ajax/selector.mas,
    composite => $model,
    hasChanged => $hasChanged,
 &>
 %    }
-% }
-% else
-% {
+% } else {
 %   my $failMsg =  $model->preconditionFailMsg();
 %   if ($failMsg) {
 <div class="note">
@@ -134,6 +107,25 @@ Parameters:
   <% $title %>
 </h3>
 % }
-
 </%def>
 
+<%def .helpAndMessages>
+<%args>
+$model
+</%args>
+%  # Print the help if any
+%  my $help = $model->help();
+%  if ($help) {
+<div class="help">
+  <% $model->help() %>
+</div>
+%  }
+%  # Print the permanent message if any
+%  my $permanentMessage = $model->permanentMessage();
+%  my $permanentMessageType = $model->permanentMessageType();
+%  if ($permanentMessage) {
+<div class="<% $permanentMessageType %>">
+  <% $permanentMessage %>
+</div>
+%  }
+</%def>

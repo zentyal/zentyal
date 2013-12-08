@@ -51,13 +51,10 @@
 </%init>
 <div id='<% $tableName %>_error'></div>
 <div id='<% $tableName %>_message'></div>
-<& /title.mas,
-    crumbs => $model->viewCustomizer()->HTMLTitle()
-&>
 <& PARENT:title,
    title => $model->headTitle()
 &>
-<& SELF:messagesAndHelp, model => $model &>
+<& SELF:helpAndMessages, model => $model &>
 <& $m->base_comp->attr('editSectionTemplate'),
    model    => $model,
    formData => $formDataRef

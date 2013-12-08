@@ -21,7 +21,7 @@ my %printableName = (
 
 
 </%shared>
-<h3><% __('Mail retrieval from external accounts') %></h3>
+<h4><% __('Mail retrieval from external accounts') %></h4>
 % if (not $params->{externalRetrievalEnabled} ){
 <div class='warning'>
 <% __x(q{Mail retrieval from external accounts service is not enabled; until you {ub}enable it{ue} your changes won't have any effect.},

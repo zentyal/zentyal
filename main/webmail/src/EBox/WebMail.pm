@@ -165,14 +165,18 @@ sub _confFromMail
     my $mail = EBox::Global->modInstance('mail');
     my @conf;
 
+    my $ip = $self->_getNonLocalhostIp();
+
+    # Do not change the imapServer to 127.0.0.1 nor localhost
+    # Users would do login with incorrect passwords
     if ($mail->imap()) {
         @conf = (
-                 imapServer => '127.0.0.1',
+                 imapServer => $ip,
                  imapPort   => 143,
                 );
     } elsif ($mail->imaps()) {
         @conf = (
-                 imapServer => 'ssl://127.0.0.1',
+                 imapServer => 'ssl://' . $ip,
                  imapPort => 993,
                 );
     } elsif ($self->isEnabled) {
@@ -185,6 +189,26 @@ sub _confFromMail
                 );
 
     return \@conf;
+}
+
+sub _getNonLocalhostIp
+{
+    my ($self) = @_;
+
+    my @allIPAddresses = ();
+    my $network = $self->global()->modInstance('network');
+
+    my $internalIPAddresses = $network->internalIpAddresses();
+    foreach my $ipaddress (@{$internalIPAddresses}) {
+        push (@allIPAddresses, $ipaddress);
+    }
+
+    my $externalIPAddresses = $network->externalIpAddresses();
+    foreach my $ipaddress (@{$externalIPAddresses}) {
+        push (@allIPAddresses, $ipaddress);
+    }
+
+    return (@allIPAddresses ? shift(@allIPAddresses) : '127.0.2.1');
 }
 
 sub _confForRemoteServer

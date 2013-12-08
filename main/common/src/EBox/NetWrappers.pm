@@ -86,6 +86,16 @@ sub list_ifaces
     return @ifaceList;
 }
 
+# Function clean_ifaces_list_cache
+#
+#  invalidates the ifaces name cache, must be call after adding, removing
+#  or renaming interfaces
+#
+sub clean_ifaces_list_cache
+{
+    @ifaceList = ();
+}
+
 # Function: iface_is_up
 #
 #   Checks if a given interface is up.

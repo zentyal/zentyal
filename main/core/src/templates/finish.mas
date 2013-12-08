@@ -9,7 +9,11 @@
 use EBox::Gettext;
 </%init>
 % if($unsaved eq 'yes') {
-
+%    if (@actions) {
+<p>
+<% __('The following changes are pending. You can save or discard them.') %>
+</p>
+%    }
 <div class='warning'>
 %   if (@disabledModules) {
         <% __x('The following modules have unsaved changes but are <b>disabled</b>. If you need to enable them go to {openref}Module Status{closeref}.', openref => '<a href="/ServiceModule/StatusView">', closeref => '</a>') %>
@@ -26,10 +30,8 @@ use EBox::Gettext;
     <%__('If you made changes to the network interfaces or the administration port, you may need to manually rewrite the url in order to access this administration interface again.') %>
 </div>
 % if (@actions) {
-<div class='note'>
-<% __('The following changes are pending. You can save or discard them.') %>
-</div>
-<div style='display: block; overflow: auto; height: 70px;'>
+
+<div style='display: block; overflow: auto; height: 140px;'>
   <table class='dataTable' cellspacing='0'>
     <thead>
          <th class='tleft'><% __('Date') %></th>

@@ -11,11 +11,12 @@ Zentyal.Help.showHelp = function () {
 };
 
 Zentyal.Help.initHelp = function () {
-    if($('.help').length > 0) {
-        $('#helpbutton').show();
-    }
+    var hasHelp = $('.help').length > 0;
+    $('#helpbutton').toggle(hasHelp);
 };
 
-Zentyal.Help.initHelp();
+$(function(){
+    Zentyal.Help.initHelp();
+});
 $('body').bind('DOMNodeInserted', Zentyal.Help.initHelp, false);
 

@@ -1,5 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ The "sub ous" return the OUs hierarquically ordered
+	+ Check for defined uidNumber and gidNumber creating users and groups
+	+ Revert useless chown workaround
 	+ Wait for the services before ending the start daemon action to prevent
 	  its usage before being ready
 	+ Better error handling when the default group is not found
