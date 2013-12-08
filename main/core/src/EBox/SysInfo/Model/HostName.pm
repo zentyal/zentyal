@@ -236,6 +236,8 @@ sub updatedRowNotify
         $obs->hostNameChangedDone($oldHostName, $newHostName) if $hostNameChanged;
         $obs->fqdnChangedDone($oldFqdn, $newFqdn);
     }
+
+    $global->modInstance('webadmin')->setAsChanged();
 }
 
 1;
