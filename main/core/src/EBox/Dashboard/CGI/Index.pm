@@ -176,11 +176,11 @@ sub masonParameters
         my $report = $sysinfo->model('Debug')->value('enabled');
         # TODO: currently apport reports are only enabled for openchange
         if ($report and EBox::Global->modExists('openchange')) {
-            EBox::Sudo::silentRoot('ls /var/crash | grep -q ^samba');
+            EBox::Sudo::silentRoot('ls /var/crash | grep -q ^_opt_samba4');
             if ($? == 0) {
                 my $style = 'margin-top: 10px; margin-bottom: -6px;';
                 my $text = __sx('Crash report found! Click the button if you want to send the following files anonymously to help fixing the issue: {p}. Although Zentyal will make a good use of this information, please review the files if you want to be sure they do not contain any sensible information. {oc}{obs}Submit crash report{cb} {obd}Discard{cb}{cc}',
-                                p  => '/var/crash/samba*',
+                                p  => '/var/crash/_opt_samba4_*',
                                 obs => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.report()\">",
                                 obd => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.discard()\">",
                                 cb => '</button>', oc => '<center>', cc => '</center>');
