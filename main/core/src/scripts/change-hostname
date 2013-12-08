@@ -28,3 +28,8 @@ fi
 echo $NEW > /etc/hostname
 
 hostname $NEW
+
+# create Zentyal webadmin certificate with the new hostname
+CERT_DIR=/var/lib/zentyal/conf/ssl
+rm -rf $CERT_DIR
+/usr/share/zentyal/create-certificate $CERT_DIR $NEW.$DOMAIN > /dev/null 2>&1
