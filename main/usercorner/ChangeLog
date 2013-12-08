@@ -1,4 +1,5 @@
 HEAD
+	+ Remove menu search from usercorner menu
 	+ Fix regresion on showing usercorner menu
 3.3
 	+ Switch from Error to TryCatch for exception handling
