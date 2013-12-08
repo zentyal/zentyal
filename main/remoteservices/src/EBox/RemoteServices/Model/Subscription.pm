@@ -726,18 +726,14 @@ sub _subscribeAction
                                                        title: '$caption',
                                                        close: function() { window.location.reload(); }
                                                      });
+                           } else {
+                                Zentyal.refreshSaveChangesButton();
                            }
                       },
                       error : function(t) {
                             Zentyal.TableHelper.setError('$tableName', t.responseText);
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
-<<<<<<< HEAD
-=======
-                            \$('#error_$tableName').html(t.responseText);
-                      },
-                      complete: function(t) {
                             Zentyal.refreshSaveChangesButton();
->>>>>>> master
                       }
                   });
 
