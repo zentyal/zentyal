@@ -66,7 +66,10 @@ sub menu
     my ($self, $current) = @_;
 
     my $root = EBox::UserCorner::Menu::menu($current);
-    return EBox::Html::makeHtml($root->htmlParams());
+    my ($template, @params) = $root->htmlParams();
+    # replace template with a version without menuSearch
+    $template = 'usercorner/menu.mas';
+    return EBox::Html::makeHtml($template, @params);
 }
 
 1;
