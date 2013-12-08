@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2011 eBox Technologies S.L.
+# Copyright (C) 2005-2007 Warp Networks S.L
+# Copyright (C) 2008-2011 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 #
