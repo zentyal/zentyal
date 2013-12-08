@@ -38,11 +38,11 @@ sub new
 
 # Method: title
 #
-#	Returns the html code for the title
+#       Returns the html code for the title
 #
 # Returns:
 #
-#	string - containg the html code for the title
+#       string - containg the html code for the title
 #
 sub title
 {
@@ -55,18 +55,21 @@ sub title
 
 # Method: menu
 #
-#	Returns the html code for the menu
+#       Returns the html code for the menu
 #
 # Returns:
 #
-#      	string - containg the html code for the menu
+#       string - containg the html code for the menu
 #
 sub menu
 {
     my ($self, $current) = @_;
 
     my $root = EBox::UserCorner::Menu::menu($current);
-    return $root->html;
+    my ($template, @params) = $root->htmlParams();
+    # replace template with a version without menuSearch
+    $template = 'usercorner/menu.mas';
+    return EBox::Html::makeHtml($template, @params);
 }
 
 1;
