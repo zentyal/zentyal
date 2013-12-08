@@ -9,10 +9,10 @@ my $destDir = $ARGV[0];
 my $RSA_LENGTH = 1024;
 
 my %COMPROMISED_FILES_SUMS = (
-			'key' => '554056bd16e9f34db567dfd613b706bd',
-			'crt'=> 'c2b7b96aa141f8e0e415f6a977193433',
-			'pem' => '9b51c428fe86e6ac03fc1427c5bc0958',
-		       );
+                        'key' => '554056bd16e9f34db567dfd613b706bd',
+                        'crt'=> 'c2b7b96aa141f8e0e415f6a977193433',
+                        'pem' => '9b51c428fe86e6ac03fc1427c5bc0958',
+                       );
 
 unless (defined($destDir)) {
    print "Usage:$0 prefix destDir\n";
@@ -32,7 +32,7 @@ sub _checkCredentials
   if ($EUID != 0) {
     die "This script can only be run by root";
   }
-  
+
   my ($gid) = split '\s', $EGID;
   if ($gid != 0) {
     die "To run this script your primary group must be set to root";
@@ -60,9 +60,9 @@ sub _generateRSAKey
   return  ($keyFile, 0)  if   $alreadyExists;
 
   my @cmds = (
-	      "openssl genrsa $RSA_LENGTH > $keyFile",
-	      "chmod 0400 $keyFile",
-	     );
+              "openssl genrsa $RSA_LENGTH > $keyFile",
+              "chmod 0400 $keyFile",
+             );
 
   foreach (@cmds) {
     system $_;
@@ -87,9 +87,9 @@ sub _generateCert
   my $subject = q{/CN=eBox\ Server/};
 
   my @cmds = (
-	      "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
-	      "chmod 0400 $certFile",
-	     );
+              "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
+              "chmod 0400 $certFile",
+             );
 
   foreach (@cmds) {
     system $_;
@@ -113,9 +113,9 @@ sub _generatePem
   return $pemFile if $alreadyExists;
 
   my @cmds = (
-	      "cat $certFile $keyFile > $pemFile",
-	      "chmod 0400 $pemFile",
-	     );
+              "cat $certFile $keyFile > $pemFile",
+              "chmod 0400 $pemFile",
+             );
 
   foreach (@cmds) {
     system $_;
@@ -143,9 +143,9 @@ sub _generateFileInfraestructure
   }
 
   my  @cmds =  (
-		"touch $file",
-		 "chmod 0600 $file",
-		 );
+                "touch $file",
+                 "chmod 0600 $file",
+                 );
 
 
   foreach (@cmds) {
@@ -189,14 +189,14 @@ sub _correctFileExists
       my ($fileSum) = split '\s', $md5sumOutput; # removing file name
 
       if ($fileSum eq $compromisedSum) {
-	print "File $file was compromissed. Removing it\n";
+        print "File $file was compromissed. Removing it\n";
       }
       elsif ($alwaysDelete) {
-	print "File $file is not updated. Removing it\n";
+        print "File $file is not updated. Removing it\n";
       }
       else {
-	# left file untouched...
-	return 1;
+        # left file untouched...
+        return 1;
       }
 
     }
