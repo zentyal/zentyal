@@ -381,7 +381,12 @@ sub _table
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal registration details');
         $actionName = __('Unregister');
-        $defaultActions = [ 'editField', 'changeView' ];
+        push(@{$customActions}, new EBox::Types::Action(
+            model          => $self,
+            name           => 'unsubscribe',
+            printableValue => $actionName,
+            onclick        => \&_subscribeAction,
+           ));
     } else {
         splice(@tableDesc, 1, 0, $passType);
         $printableTableName = __('Register your Zentyal Server');
@@ -390,7 +395,7 @@ sub _table
             model          => $self,
             name           => 'subscribe',
             printableValue => $actionName,
-            onclick        => \&_showSaveChanges,
+            onclick        => \&_subscribeAction,
             template       => '/remoteservices/register_button.mas',
            ));
     }
@@ -685,7 +690,7 @@ sub _populateOptions
 }
 
 # Show save changes JS code
-sub _showSaveChanges
+sub _subscribeAction
 {
     my ($self, $id) = @_;
 
@@ -717,7 +722,10 @@ sub _showSaveChanges
                            Zentyal.TableHelper.changeView(url, '$tableName', '$tableName', 'changeList');
                            Zentyal.TableHelper.setMessage('$tableName', response.msg);
                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
-                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
+                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
+                                                       title: '$caption',
+                                                       close: function() { window.location.reload(); }
+                                                     });
                            }
                       },
                       error : function(t) {

@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression error after table-helper.js changes
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Fix reset URL in subscription wizard error
