@@ -381,7 +381,12 @@ sub _table
     if ( $self->eBoxSubscribed() ) {
         $printableTableName = __('Zentyal registration details');
         $actionName = __('Unregister');
-        $defaultActions = [ 'editField', 'changeView' ];
+        push(@{$customActions}, new EBox::Types::Action(
+            model          => $self,
+            name           => 'unsubscribe',
+            printableValue => $actionName,
+            onclick        => \&_subscribeAction,
+           ));
     } else {
         splice(@tableDesc, 1, 0, $passType);
         $printableTableName = __('Register your Zentyal Server');
@@ -390,7 +395,7 @@ sub _table
             model          => $self,
             name           => 'subscribe',
             printableValue => $actionName,
-            onclick        => \&_showSaveChanges,
+            onclick        => \&_subscribeAction,
             template       => '/remoteservices/register_button.mas',
            ));
     }
@@ -685,7 +690,7 @@ sub _populateOptions
 }
 
 # Show save changes JS code
-sub _showSaveChanges
+sub _subscribeAction
 {
     my ($self, $id) = @_;
 
@@ -699,25 +704,39 @@ sub _showSaveChanges
 
     # Simulate changeRow but showing modal box on success
     my $jsStr = <<JS;
+      var url =  '/RemoteServices/Controller/Subscription';
+      Zentyal.TableHelper.cleanMessage('$tableName');
+      Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
        \$.ajax({
-                      url: '/RemoteServices/Controller/Subscription',
-                      type: 'post',
+                      url: url,
+                      type: 'get',
                       data: 'action=edit&tablename=$tableName&directory=$tableName&id=form&' +  Zentyal.TableHelper.encodeFields('$tableName', $fieldsArrayJS ),
-                      success: function(responseText) {
-                           \$('#$tableName').html(responseText);
-                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
-                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', { title : '$caption' });
-                            }
+                      dataType: 'json',
+                      success: function(response) {
+                           if (!response.success) {
+                                  Zentyal.TableHelper.setError('$tableName', response.error);
+                                  Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
+                                 return;
+                           }
+
+                           Zentyal.TableHelper.changeView(url, '$tableName', '$tableName', 'changeList');
+                           Zentyal.TableHelper.setMessage('$tableName', response.msg);
+                           if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
+                               Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
+                                                       title: '$caption',
+                                                       close: function() { window.location.reload(); }
+                                                     });
+                           } else {
+                                Zentyal.refreshSaveChangesButton();
+                           }
                       },
                       error : function(t) {
+                            Zentyal.TableHelper.setError('$tableName', t.responseText);
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
-                            \$('#error_$tableName').html(t.responseText);
-                      },
-                      complete: function(t) {
                             Zentyal.refreshSaveChangesButton();
                       }
                   });
-Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);
+
 return false
 JS
     return $jsStr;
