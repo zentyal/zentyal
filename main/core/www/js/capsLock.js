@@ -1,4 +1,5 @@
-// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+// Copyright (C) 2007 Warp Networks S.L
+// Copyright (C) 2008-2012 Zentyal S.L. licensed under the GPLv2
 
 /* capslock is class which is used to determine if a user has pressed
    the Caps Lock while he's entering the password to log in.
