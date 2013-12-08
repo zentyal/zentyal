@@ -365,6 +365,7 @@ sub connection
     my $ad = $self->_dcLDAPConnection();
     my $adUser = $self->userBindDN($self->_adUser());
     my $bindPwd = $self->getPassword();
+    EBox::debug(" login |$adUser/$bindPwd|");
     my $bindResult = $ad->bind($adUser, password => $bindPwd);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
@@ -648,6 +649,8 @@ sub clearConn
     delete $self->{ldap};
     delete $self->{rootDse};
     delete $self->{dn};
+    delete $self->{user};
+    delete $self->{dcHostname};
     $self->SUPER::clearConn();
 }
 
