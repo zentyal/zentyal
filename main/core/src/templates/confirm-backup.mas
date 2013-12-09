@@ -28,7 +28,7 @@ if ($popup) {
             $data .= '&backupfile=' . uri_escape($backup->{file});
         }
         $data .= "&popup=1";
-        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url', {title:'$title', data:'$data'}); return false"};
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('$url', {title:'$title', data:'$data', showCloseButton: false}); return false"};
     } elsif ($action eq 'delete') {
         $data .= '&id=' . $backup->{id};
         $onclickSubmit = qq(onclick="Zentyal.Dialog.close(); window.location='$url?$data'; return false");
@@ -56,7 +56,7 @@ if ($popup) {
         <span><% $backup->{'size'} %></span>
     <div>
 %                }
-    <div class="form-buttons"> 
+    <div class="form-buttons">
         <input class='inputButton' type='submit'
                         name='<%$action%>'
                         value='<%$actiontext%>'

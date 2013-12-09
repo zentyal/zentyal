@@ -1,4 +1,5 @@
 3.3
+	+ Hide close button on saving changes and backup progess dialogs
 	+ Fix error when pageSize paramter is not supplied to the model controller
 	+ Workaround against modules changed when saving all changes
 	+ Recover from widget function exceptions
