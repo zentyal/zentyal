@@ -1,4 +1,5 @@
 3.3
+	+ Fix error when pageSize paramter is not supplied to the model controller
 	+ Workaround against modules changed when saving all changes
 	+ Recover from widget function exceptions
 	+ Use the same Mason interpreter for most HTML templates
