@@ -724,6 +724,7 @@ sub _subscribeAction
                            if ( document.getElementById('${tableName}_password') == null || $subscribed ) {
                                Zentyal.Dialog.showURL('/RemoteServices/Subscription', {
                                                        title: '$caption',
+                                                       showCloseButton: false,
                                                        close: function() { window.location.reload(); }
                                                      });
                            } else {
