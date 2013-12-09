@@ -57,7 +57,7 @@ my $backupOnClickJs =<< "ENDJS" ;
      var data = 'description='  +  escape(description);
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false;
 ENDJS
 </%perl>
@@ -106,7 +106,7 @@ ENDJS
 <div class='help'>
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
-                  
+
 <div id="<% $id %>">
   <form action="/Uploader"
         method="POST"
@@ -127,7 +127,7 @@ ENDJS
       <div class="form-buttons">
             <input type='submit' name='restoreFromFile' value="<% $title %>"
                          onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
-     </div> 
+     </div>
   </form>
 </%def>
 

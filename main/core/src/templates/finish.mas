@@ -63,10 +63,10 @@ my $mboxDiscardTitle = __('Discarding changes');
  <p>
     <input class='inputButton' type='submit' name='save' id='save'
                    value="<% __('Save') %>"
-                   onclick="Zentyal.Dialog.showURL('/SaveChanges', {title: '<% $mboxSaveTitle %>', data:'save=1', load: function() {$('.ui-dialog-titlebar-close', this).hide()}}); return false" />
+                   onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('/SaveChanges', {title:'<% $mboxSaveTitle %>', data:'save=1', showCloseButton: false}); return false" />
     <input class='inputButton' type='submit' name='cancel'
                    value="<% __('Discard changes') %>"
-                   onclick="Zentyal.Dialog.showURL('/SaveChanges', {title: '<% $mboxDiscardTitle %>', data:'cancel=1', load: function() {$('.ui-dialog-titlebar-close', this).hide()}}); return false" />
+                   onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('/SaveChanges', {title: '<% $mboxDiscardTitle %>', data:'cancel=1', showCloseButton: false}); return false" />
  </p>
 </form>
 % }else{
