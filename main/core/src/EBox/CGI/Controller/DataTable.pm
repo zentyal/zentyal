@@ -73,6 +73,16 @@ sub getParams
     return %params;
 }
 
+sub _pageSize
+{
+    my ($self) = @_;
+    my $pageSize = $self->param('pageSize');
+    if ($pageSize) {
+        return $pageSize;
+    }
+    return $self->{tableModel}->pageSize();
+}
+
 sub _auditLog
 {
     my ($self, $event, $id, $value, $oldValue) = @_;
@@ -328,9 +338,9 @@ sub _paramsForRefreshTable
     my $action = $self->{'action'};
     my $filter = $self->unsafeParam('filter');
     my $page = defined $forcePage ? $forcePage : $self->param('page');
-    my $pageSize = $self->param('pageSize');
-    if (defined ($pageSize)) {
-        $model->setPageSize($pageSize);
+    my $pageSizeParam = $self->param('pageSize');
+    if (defined ($pageSizeParam)) {
+        $model->setPageSize($pageSizeParam);
     }
 
     my $editId;
@@ -416,7 +426,7 @@ sub addAction
     my $nAdded = 1;
     my $filter = $self->unsafeParam('filter');
     my $page   = $self->param('page');
-    my $pageSize = $self->param('pageSize');
+    my $pageSize = $self->_pageSize();
     my @ids    = @{ $self->_modelIds($model, $filter) };
     my $lastIdPosition = @ids -1;
 
@@ -499,7 +509,7 @@ sub delAction
     }
 
     my $page   = $self->param('page');
-    my $pageSize = $self->param('pageSize');
+    my $pageSize = $self->_pageSize();
     my $nPages       = ceil(@ids/$pageSize);
     my $nPagesBefore = ceil((@ids+1)/$pageSize);
     my $pageChange   = ($nPages != $nPagesBefore);
@@ -544,7 +554,7 @@ sub showChangeRowForm
 
     my $filter = $self->unsafeParam('filter');
     my $page = $self->param('page');
-    my $pageSize = $self->param('pageSize');
+    my $pageSize = $self->_pageSize();
     my $tpages   = ceil($model->size()/$pageSize);
 
     my $presetParams = {};
