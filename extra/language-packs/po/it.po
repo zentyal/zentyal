@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2011-11-08 18:38+0200\n"
-"Last-Translator: lemorragia <lemorragia@yahoo.it>\n"
+"PO-Revision-Date: 2013-10-27 13:51+0200\n"
+"Last-Translator: antonmarco <tonino.cocco@siriotel.biz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -174,9 +174,8 @@ msgstr "Oggetto di rete"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:65
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
-#, fuzzy
 msgid "Users Group"
-msgstr "Utente/Gruppo"
+msgstr "Gruppo utenti"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:74
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:112
@@ -728,7 +727,7 @@ msgstr "Gli spazi non sono consentiti nei nomi di profilo"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "Il carattere '~' è riservato e non può essere usato nei nomi di profilo"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -1409,9 +1408,8 @@ msgid "Upload configuration bundle"
 msgstr "Carica pacchetto di configurazione"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:66
-#, fuzzy
 msgid "Upload client configuration bundle"
-msgstr "Carica pacchetto di configurazione"
+msgstr "Carica pacchetto di configurazione del client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:72
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:151
@@ -1422,9 +1420,9 @@ msgid "client"
 msgstr "client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Upload configuration bundle for {na}"
-msgstr "Carica pacchetto di configurazione"
+msgstr "Carica pacchetto di configurazione per {na}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:58
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:881
@@ -1657,14 +1655,12 @@ msgid "Makes Zentyal the default gateway for the client"
 msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
-#, fuzzy
 msgid "First nameserver"
-msgstr "nome"
+msgstr "Primo Nameserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Secod nameserver"
-msgstr "Nameserver secondario"
+msgstr "Secondo Nameserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:167
 #: ../../main/dhcp/src/EBox/DHCP/Model/Options.pm:434
@@ -1831,9 +1827,8 @@ msgid "Enable"
 msgstr "Abilita"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:82
-#, fuzzy
 msgid "Upload client bundle"
-msgstr "Scarica il pacchetto di files per il client"
+msgstr "Carica il pacchetto di files per il client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "List of Clients"
@@ -1907,7 +1902,7 @@ msgstr "Scarica"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Casuale"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 #, fuzzy
@@ -2543,9 +2538,8 @@ msgid "Source IP"
 msgstr "IP sorgente"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:119
-#, fuzzy
 msgid "Source MAC"
-msgstr "Sorgente"
+msgstr "MAC Sorgente"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:123
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:83
@@ -2801,9 +2795,8 @@ msgid "Other"
 msgstr "Altro"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:320
-#, fuzzy
 msgid "Replace source address"
-msgstr "Indirizzo IP interfaccia"
+msgstr "Sostituisci indirizzo di origine"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:323
 msgid ""
@@ -3195,6 +3188,8 @@ msgid ""
 "Here you can add the traffic shaping rules for your internal and external "
 "interfaces"
 msgstr ""
+"Quì si possono aggiungere le regole di definizione del traffico per le "
+"interfaccie interne ed esterne"
 
 #: ../../main/trafficshaping/src/EBox/TC.pm:70
 msgid "options"
@@ -3624,9 +3619,9 @@ msgid "{srv} record"
 msgstr "record {srv}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "Il servizio non è "
+msgstr "Il servizio '{srv}' non è presente in {file}"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, fuzzy, perl-brace-format
@@ -3893,7 +3888,7 @@ msgstr "membro"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:132
 msgid "Only network addresses can end with a zero"
-msgstr ""
+msgstr "Solo gli indirizzi di rete possono terminare con uno Zero"
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:137
 msgid "You can only use MAC addresses with hosts"
@@ -4000,9 +3995,8 @@ msgid "Installation steps"
 msgstr "Installazione"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "Backup remoto"
+msgstr "Scelta del Backup"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
@@ -4096,9 +4090,8 @@ msgid "Installing packages"
 msgstr "Installando pacchetti"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:235
-#, fuzzy
 msgid "Click here if the redirection fails"
-msgstr "Verifica certificato fallita"
+msgstr "Clicca quì se il reindirizzamento fallisce"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:236
 msgid ""
@@ -4194,30 +4187,25 @@ msgstr "Sconosciuto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
-#, fuzzy
 msgid "Community"
-msgstr "Commento"
+msgstr "Comunità"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
-#, fuzzy
 msgid "Professional"
-msgstr "Permessi"
+msgstr "Professional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:96
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
-#, fuzzy
 msgid "Enterprise"
-msgstr "Entra"
+msgstr "Enterprise"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
-#, fuzzy
 msgid "Small Business"
-msgstr "tutti i servizi"
+msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
-#, fuzzy
 msgid "Enterprise Trial"
-msgstr "Entra"
+msgstr "Enterprise di prova"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:120
 #, fuzzy
@@ -4233,20 +4221,18 @@ msgid "Subscribed"
 msgstr "Iscritto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:426
-#, fuzzy
 msgid "Registration"
-msgstr "Destinazione"
+msgstr "Registrazione"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:431
-#, fuzzy
 msgid "Server Registration"
-msgstr "Creazione server"
+msgstr "Registrazione del server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:436
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
-msgstr ""
+msgstr "Supporto Tecnico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:440
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
@@ -4309,9 +4295,9 @@ msgid "In process"
 msgstr "processo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1844
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Non connesso.Controlla i log della VPN in {path}"
+msgstr "Non connesso. {oh}Controlla la connessione VPN {ch} e i log {path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
 msgid "Essential"
@@ -4326,20 +4312,19 @@ msgid "Premium"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1872
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Last update: {date}"
-msgstr "L'ultimo aggiornamento è fallito."
+msgstr "Ultimo aggiornamento: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1876
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr "Backup configurazione"
+msgstr "Backup della configurazione abilitato"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1879
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "- Latest conf backup: {date}"
-msgstr "Backup inesistente:{n}"
+msgstr "- Ultimo backup della configurazione: {date}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1893
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:111
@@ -4372,12 +4357,12 @@ msgstr "Creazione server"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
 msgid "Technical support"
-msgstr ""
+msgstr "Supporto tecnico"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1992
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
-msgstr ""
+msgstr "Il backup dei dati non è stato ancora fatto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2281
 #, fuzzy
@@ -4530,44 +4515,41 @@ msgid "Latest QA software update"
 msgstr "Aggiornamenti software automatici"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:127
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "{date}. {num} updated packages"
-msgstr "Aggiorna tutti i pacchetti"
+msgstr "{date}. {num} Pacchetti aggiornati"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:132
 msgid "No update has been done"
-msgstr ""
+msgstr "Nessun aggiornamento è stato fatto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:136
-#, fuzzy
 msgid "Software module is not installed"
-msgstr "Il modulo di condivisione files non è abilitato."
+msgstr "Il modulo software non è installato"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "Avvisi generati nell'ultimo mese"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
-#, fuzzy
 msgid "Information-level alerts"
-msgstr "Informativo"
+msgstr "Avvisi di informazione"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
-msgstr ""
+msgstr "Avvisi di Attenzione"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:101
 msgid "Error-level alerts"
-msgstr ""
+msgstr "Avvisi di Errore"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:105
 msgid "Fatal-level alerts"
-msgstr ""
+msgstr "Avvisi di Livello Fatale"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:111
-#, fuzzy
 msgid "Alerts"
-msgstr "Avviso"
+msgstr "Avvisi"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:107
 #, fuzzy
@@ -4736,9 +4718,8 @@ msgid "Password"
 msgstr "Password"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
-#, fuzzy
 msgid "Available Options"
-msgstr "Spazio disponibile"
+msgstr "Opzioni disponibili"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:373
 msgid "Select one of your purchases"

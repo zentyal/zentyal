@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-09-23 09:30+0200\n"
+"PO-Revision-Date: 2013-10-18 23:16+0200\n"
 "Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
@@ -3220,6 +3220,7 @@ msgstr "dominio"
 #: ../../main/dns/src/EBox/DNS.pm:490
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
+"Zentyal establecerá las variables de entorno requeridas por el demonio bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "main bind9 configuration file"
@@ -5044,6 +5045,8 @@ msgid ""
 "Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe"
 "{eurl} again"
 msgstr ""
+"El fichero de credenciales '{path}' no se ha encontrado. Por favor, "
+"{ourl}desuscribe y vuelve a suscribir{eurl} de nuevo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:363
 #, perl-brace-format
@@ -5051,6 +5054,8 @@ msgid ""
 "Credentials file '{path}' is not readable. Please, fix its permissions and "
 "try again"
 msgstr ""
+"El fichero de credenciales '{path}' no es legible. Por favor, arregla sus "
+"permisos y prueba de nuevo"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "Cannot create SOAP connection"
@@ -7177,9 +7182,8 @@ msgid "Zentyal will set your network configuration"
 msgstr "Zentyal establecerá su configuración de red"
 
 #: ../../main/network/src/EBox/Network.pm:163
-#, fuzzy
 msgid "Zentyal will set the order of systems resolvers"
-msgstr "Zentyal almacenará sus contraseñas de PPPoE"
+msgstr "Zentyal establecerá el orden de los servidores DNS"
 
 #: ../../main/network/src/EBox/Network.pm:168
 msgid "Zentyal will set your DHCP client configuration"
@@ -7682,6 +7686,11 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they does not answer the query root DNS servers will be used."
 msgstr ""
+"El módulo DNS de Zentyal está instalado y habilitado, por tanto únicamente "
+"este se usará para la resolución. Las consultas para las que este servidor "
+"no sea autoritativo y no tenga cacheada la respuesta, se enviarán a los "
+"{ohref}redireccionadores configurados{chref} en primer lugar, o a los "
+"servidores DNS raíz si los redireccionadores no tienen la respuesta."
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:57
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:134
@@ -8208,9 +8217,8 @@ msgid "Thin client file path"
 msgstr "Ruta del fichero de cliente ligero"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
-#, fuzzy
 msgid "Thin client / External TFTP-Server"
-msgstr "Servidores NTP externos"
+msgstr "Cliente ligero / Servidor TFTP externo"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:187
 #, perl-brace-format
@@ -16903,7 +16911,7 @@ msgstr ""
 #: ../../main/users/src/EBox/Users/Group.pm:519
 #, perl-brace-format
 msgid "The group {name} already exists as built-in Windows group"
-msgstr ""
+msgstr "El grupo {name} ya existe como grupo predeterminado de Windows"
 
 #: ../../main/users/src/EBox/Users/Group.pm:531
 #, fuzzy, perl-brace-format

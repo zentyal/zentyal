@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-10-11 21:06+0200\n"
-"Last-Translator: dataz34 <dataz34@yopmail.com>\n"
+"PO-Revision-Date: 2013-12-02 13:10+0200\n"
+"Last-Translator: KIhelaf <mahrez.khelaf@openxnet.dz>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -96,6 +96,9 @@ msgid ""
 "{dir}.\n"
 " Maybe a uncommited removal?."
 msgstr ""
+"Vous ne pouvez pas utiliser le nom {name]. Un répertoire portant ce nom "
+"existe déjà.Si ce n'est pas le cas, il s'agit vraisemblablement d'une "
+"suppression non finalisée"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
@@ -104,14 +107,12 @@ msgid "Domain Name Address"
 msgstr "Adresse du nom de domaine"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Ne pas mettre l'adresse en cache"
+msgstr "Adresse exemptés de Auth et Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
-msgstr "Exclusions du cache"
+msgstr "Auth et Cache Exemptions"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
@@ -120,9 +121,8 @@ msgid "domain name address"
 msgstr "adresse du nom de domaine"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Vous pouvez exclure certaines adresses du cache"
+msgstr "Vous pouvez exempter certaines adresses de Auth et Cache"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -269,12 +269,16 @@ msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
+"Vous ne pouvez pas ajouter de règle de type \"Autoriser\" ou \"Profil\" pour un "
+"objet ou une adresse en utilisant des règles pour les groupes"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:315
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
+"Vous ne pouvez pas ajouter une règle basée sur les groupes si vous disposez "
+"des règles \"Autoriser\" ou \"Profil\" pour un objet ou une adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:325
 #, perl-brace-format
@@ -282,6 +286,8 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
+"La période de temps de la règle ({t1}) se superpose à la période de temps de "
+"la règle ({t2}) alors que la source {sourceType} est identique"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:615
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:174
@@ -742,12 +748,12 @@ msgid "Filtering settings changed"
 msgstr "Paramètres de filtrage modifiés"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to use this object."
 msgstr ""
 "L'objet {object} n'a pas de membres. Ajoutez-en au moins un pour pourvoir "
-"ajouter des règles à cet objet."
+"utiliser cet objet."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:60
 msgid ""
@@ -784,11 +790,8 @@ msgid "Maximum unlimited size"
 msgstr "Taille maximum illimitée"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
-#, fuzzy
 msgid "Maximum unthrottled download size for the whole network object."
-msgstr ""
-"Taille de téléchargement maximum non limitée pour ce réseau. Utiliser -1 "
-"pour désactiver cette option."
+msgstr "Taille de téléchargement maximum non limitée pour ce réseau"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:157
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:181
@@ -968,8 +971,8 @@ msgid ""
 "There are no categories defined. You need to add categorized lists files if "
 "you want to filter by category."
 msgstr ""
-"Il n'y a pas de catégorie définie. Vous devez ajouter un fichier de leste de "
-"catégories si vous voulez filtrer par catégorie."
+"Il n'y a pas de catégories définies. Vous devez ajouter un fichier contenant "
+"des listes de catégories si vous voulez filtrer par catégorie."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:191
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1827
@@ -19513,17 +19516,16 @@ msgid "Groupware contact"
 msgstr "Compte du logiciel de groupe de travail"
 
 #: ../../main/zarafa/src/templates/zarafa.mas:142
-#, fuzzy
 msgid ""
 "The following settings will take effect only when the Zarafa module is "
 "enabled."
 msgstr ""
-"Les paramètres suivants ne prendront effets que lorsque le module de "
-"courrier sera activé"
+"Les paramètres suivants ne prendront effets que lorsque le module Zarafa "
+"sera activé"
 
 #: ../../main/users/src/templates/addobject.mas:8
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: ../../main/users/src/templates/wizard/users.mas:7
 msgid "Users and Groups"
@@ -19531,38 +19533,39 @@ msgstr "Utilisateurs et Groupes"
 
 #: ../../main/users/src/templates/wizard/users.mas:11
 msgid "Select the type of the server"
-msgstr "Sélectionner le type du serveur"
+msgstr "Sélectionner le type de serveur"
 
 #: ../../main/users/src/templates/wizard/users.mas:12
 msgid "Connect with external Active Directory server"
-msgstr ""
+msgstr "Connexion à un serveur Active Directory externe"
 
 #: ../../main/users/src/templates/wizard/users.mas:34
-#, fuzzy
 msgid "Select the domain name of the server"
-msgstr "Sélectionner le type du serveur"
+msgstr "Sélectionner le nom de domaine du serveur"
 
 #: ../../main/users/src/templates/wizard/users.mas:36
 msgid "This will be used as the Kerberos authentication realm for your users."
 msgstr ""
+"Ceci sera utilisé comme domaine d'authentification Kerberos pour vos "
+"utilisateurs"
 
 #: ../../main/users/src/templates/wizard/users.mas:39
 msgid "Host domain name"
 msgstr "Nom d'hôte dans le domaine"
 
 #: ../../main/users/src/templates/wizard/users.mas:47
-#, fuzzy
 msgid "Enter your active directory settings"
-msgstr "Paramètres du moniteur de trafic"
+msgstr "Entrez vos paramètres Active Directory "
 
 #: ../../main/users/src/templates/wizard/users.mas:49
 msgid ""
 "The administrative user has to have enough permissions to create a computer "
 "account in the domain"
 msgstr ""
+"Le compte administrateur doit avoir les droits nécessaires pour créer un "
+"compte de type machine dans le domaine"
 
 #: ../../main/users/src/templates/editgroup.mas:15
-#, fuzzy
 msgid "Group "
 msgstr "Groupe"
 
@@ -19577,9 +19580,8 @@ msgstr ""
 #: ../../main/users/src/templates/editgroup.mas:27
 #: ../../main/users/src/templates/editgroup.mas:32
 #: ../../main/users/src/templates/addgroup.mas:16
-#, fuzzy
 msgid "Security Group"
-msgstr "Mise à jour de sécurité"
+msgstr "Groupe de sécurité"
 
 #: ../../main/users/src/templates/editgroup.mas:28
 #: ../../main/users/src/templates/editgroup.mas:34
@@ -19601,9 +19603,8 @@ msgid "Modules configuration"
 msgstr "Configuration de l'état du module"
 
 #: ../../main/users/src/templates/editgroup.mas:109
-#, fuzzy
 msgid "This group has not members"
-msgstr "Ce groupe a un alias de courrier"
+msgstr "Ce groupe n'a pas de membres"
 
 #: ../../main/users/src/templates/editgroup.mas:176
 #, fuzzy
@@ -19622,14 +19623,12 @@ msgstr ""
 "Droits d'administration"
 
 #: ../../main/users/src/templates/editcontact.mas:29
-#, fuzzy
 msgid "Contact groups"
-msgstr "Autres groupes"
+msgstr "Groupes de contacts"
 
 #: ../../main/users/src/templates/editcontact.mas:88
-#, fuzzy
 msgid "This contact is not member of any group"
-msgstr "Utilisateurs PAS dans groupe"
+msgstr "Ce contact n'est membre d'aucun groupe"
 
 #: ../../main/users/src/templates/editcontact.mas:151
 #: ../../main/users/src/templates/edituser.mas:202
@@ -19643,14 +19642,12 @@ msgid "No member of any group"
 msgstr "Utilisateurs PAS dans groupe"
 
 #: ../../main/users/src/templates/edituser.mas:42
-#, fuzzy
 msgid "User quota"
-msgstr "Le quota utilisateur a été dépassé"
+msgstr "Quota utilisateur"
 
 #: ../../main/users/src/templates/edituser.mas:42
-#, fuzzy
 msgid "Disabled account"
-msgstr "Compte Jabber"
+msgstr "Compte désactivé"
 
 #: ../../main/users/src/templates/edituser.mas:44
 #: ../../main/users/src/templates/adduser.mas:50
@@ -19663,23 +19660,21 @@ msgstr "Groupes d'utilisateurs"
 
 #: ../../main/users/src/templates/edituser.mas:133
 #: ../../main/users/src/templates/edituser.mas:217
-#, fuzzy
 msgid "This user is not a member of any group"
-msgstr "Utilisateurs PAS dans groupe"
+msgstr "Ce compte n'est membre d'aucun groupe"
 
 #: ../../main/users/src/templates/delgroup.mas:11
 #: ../../main/users/src/templates/delgroup.mas:32
 msgid "Delete group"
-msgstr "Effacer le groupe"
+msgstr "Supprimer le groupe"
 
 #: ../../main/users/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
-msgstr ""
+msgstr "Vous ne pouvez pas supprimer un groupe sur le serveur esclave"
 
 #: ../../main/users/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Ce groupe a un alias de courrier"
+msgstr "Ce groupe ne peut pas être supprimé"
 
 #: ../../main/users/src/templates/delgroup.mas:20
 msgid ""
@@ -19737,26 +19732,24 @@ msgstr ""
 #: ../../main/users/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
 msgstr ""
+"Vous ne pouvez pas supprimer une unité d'organisation sur un serveur esclave"
 
 #: ../../main/users/src/templates/delou.mas:14
 #: ../../main/users/src/templates/delou.mas:25
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Nom de l'organisation"
+msgstr "supprimer l'unité d'organisation"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "Nom de l'organisation"
+msgstr "Cette unité d’organisation ne peut pas être supprimée"
 
 #: ../../main/users/src/templates/delou.mas:18
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Cette opération entraînera la suppression de l'utilisateur et de toutes ses "
-"données liées comme les comptes de courrier, fichiers utilisateurs, etc."
+"Cette opération entraînera la suppression de l'unité d'organisation et de "
+"toutes ses objets, y compris les utilisateurs, les groupes, etc."
 
 #: ../../main/users/src/templates/deluser.mas:12
 #: ../../main/users/src/templates/deluser.mas:29
@@ -19766,14 +19759,14 @@ msgstr "Supprimer l'utilisateur"
 #: ../../main/users/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
 msgstr ""
+"Vous ne pouvez pas supprimer un compte utilisateur sur le serveur esclave"
 
 #: ../../main/users/src/templates/deluser.mas:19
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Cette opération entraînera la suppression du groupe et de toutes les données "
-"liées comme les répertoires partagés, etc."
+"Cette opération entraînera la suppression de l'utilisateur et de toutes ses "
+"données liées"
 
 #~ msgid "Zentyal will set your DNS configuration"
 #~ msgstr "Zentyal va appliquer votre configuration DNS"

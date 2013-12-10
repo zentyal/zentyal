@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-10-18 01:15+0200\n"
+"PO-Revision-Date: 2013-10-21 22:54+0200\n"
 "Last-Translator: djkakaroto <djkakaroto@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
@@ -243,8 +243,8 @@ msgid ""
 "Rules are only applied during the selected time period."
 msgstr ""
 "Aqui você pode filtrar, bloquear ou permitir o acesso por grupo de usuários "
-"ou objeto de rede. As regras só são aplicadas durante o período de tempo "
-"selecionado."
+"ou objeto de rede. As regras somente são aplicadas durante o período de "
+"tempo selecionado."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:132
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:102
@@ -3209,6 +3209,7 @@ msgstr "domínio"
 #: ../../main/dns/src/EBox/DNS.pm:490
 msgid "Zentyal will set the required environment variables for bind9 daemon"
 msgstr ""
+"Zentyal definirá as variáveis de ambiente necessárias para o daemon bind9"
 
 #: ../../main/dns/src/EBox/DNS.pm:495
 msgid "main bind9 configuration file"
@@ -5026,6 +5027,8 @@ msgid ""
 "Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe"
 "{eurl} again"
 msgstr ""
+"Arquivo de Credenciais '{path}' não encontrado. Por favor, {ourl} "
+"descadastrar e inscrever novamente {eurl}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:363
 #, perl-brace-format
@@ -5033,6 +5036,8 @@ msgid ""
 "Credentials file '{path}' is not readable. Please, fix its permissions and "
 "try again"
 msgstr ""
+"Arquivo de Credencias '{path}' não está legível. Por favor, corrija suas "
+"permissões e tentar novamente"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Base.pm:401
 msgid "Cannot create SOAP connection"
@@ -7135,9 +7140,8 @@ msgid "Zentyal will set your network configuration"
 msgstr "Zentyal vai efetuar a sua configuração de rede"
 
 #: ../../main/network/src/EBox/Network.pm:163
-#, fuzzy
 msgid "Zentyal will set the order of systems resolvers"
-msgstr "Zentyal vai armazenar suas senhas PPPoE"
+msgstr "Zentyal definirá a ordem dos resolvedores de sistemas"
 
 #: ../../main/network/src/EBox/Network.pm:168
 msgid "Zentyal will set your DHCP client configuration"

@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2013-09-15 09:30+0200\n"
-"Last-Translator: sixstone <ejhernandez@zentyal.com>\n"
+"PO-Revision-Date: 2013-11-06 18:29+0200\n"
+"Last-Translator: FCS <mail@floriansteinhardt.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -106,12 +106,10 @@ msgid "Domain Name Address"
 msgstr "Domänen-Namen-Adresse"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
-#, fuzzy
 msgid "Exempt address from Auth and Cache"
-msgstr "Adresse vom Zwischenspeichern ausschließen"
+msgstr "Adresse vom Authentifizieren und Zwischenspeichern ausschließen"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
-#, fuzzy
 msgid "Auth and Cache Exemptions"
 msgstr "Ausnahmen von Zwischenspeicherung"
 
@@ -209,7 +207,6 @@ msgstr "Entscheidung"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:85
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
-#, fuzzy
 msgid "Allow All"
 msgstr "Alle Erlauben"
 
@@ -775,6 +772,8 @@ msgstr ""
 msgid ""
 "If per-client limit is enabled you need to specifiy its size and rate values"
 msgstr ""
+"Wenn pro Client ein Limit aktiviert ist, müssen Sie Werte für Größe und Rate "
+"festlegen."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:75
 #, perl-brace-format
@@ -791,7 +790,7 @@ msgstr "Netzwerkobjekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:146
 msgid "Enable global limit for the object"
-msgstr ""
+msgstr "Aktivieren Sie ein globales Objektlimit."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:153
 #, fuzzy
@@ -956,7 +955,6 @@ msgid "Access requests"
 msgstr "Zugriffs-Anforderungen"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
-#, fuzzy
 msgid "Category"
 msgstr "Kategorie"
 
@@ -1262,11 +1260,11 @@ msgstr "Inhaltsfilter Liste für verbannte URLs"
 
 #: ../../main/squid/src/EBox/Squid.pm:275
 msgid "Forbidden phrases list"
-msgstr "Liste für verbotene Begriffe"
+msgstr "Liste verbotener Begriffe"
 
 #: ../../main/squid/src/EBox/Squid.pm:280
 msgid "Exception phrases list"
-msgstr "Liste für ausgenommene Begriffe"
+msgstr "Liste ausgenommener Begriffe"
 
 #: ../../main/squid/src/EBox/Squid.pm:285
 msgid "PICS ratings configuration"
@@ -1465,7 +1463,7 @@ msgstr "Serverliste"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:105
 msgid "VPN servers"
-msgstr "OpenVPN-Server"
+msgstr "VPN-Server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
@@ -1597,9 +1595,8 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:108
-#, fuzzy
 msgid "TUN interface"
-msgstr "Schnittstelle"
+msgstr "TUN Schnittstelle"
 
 # NAT is in german speaking countries the most used expression
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
@@ -1607,11 +1604,9 @@ msgid "Network Address Translation"
 msgstr "Network Address Translation (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
-#, fuzzy
 msgid "Enable it if this VPN server is not the default gateway"
 msgstr ""
-"Aktivieren Sie es, falls dieses VPN genutzt wird um zu einem anderen Zentyal-"
-"Server zu verbinden"
+"Aktivieren Sie es, falls dieser VPN-Server nicht das default Gateway ist"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
@@ -1639,21 +1634,22 @@ msgstr "Zentyal-zu-Zentyal-Tunnel Passwort"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
-msgstr ""
+msgstr "Verwerfe Routen, die durch Zentyal Tunnel Clients gepushed werden."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:135
 msgid ""
 "When checked this server will not take any route advertised by its client"
 msgstr ""
+"Wenn ausgewählt wird dieser Server keine bekanntgegebene Route seines "
+"Clients verwenden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:140
 msgid "Interface to listen on"
-msgstr "Auf diese Netzwerkkarte reagieren"
+msgstr "Auf dieser Schnittstelle lauschen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:147
-#, fuzzy
 msgid "Redirect gateway"
-msgstr "Standardgateway"
+msgstr "Umleitung des Defaultgateways"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
@@ -1664,7 +1660,6 @@ msgid "First nameserver"
 msgstr "Erster Nameserver"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:161
-#, fuzzy
 msgid "Secod nameserver"
 msgstr "Zweiter Nameserver"
 
@@ -1692,14 +1687,15 @@ msgid "Zentyal to Zentyal tunnel option requires a RIP password"
 msgstr "Zentyal-zu-Zentyal-Tunnel benötigt ein RIP-Passwort"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:323
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The VPN address {addr} is already used by interface {iface}"
-msgstr "Der Port {port} wird bereits vom Modul {mod} verwendet"
+msgstr ""
+"Die VPN Adresse {addr} wird bereits von der Schnittstelle {iface} verwendet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:348
-#, fuzzy
 msgid "Other server is using the same VPN address, please choose another"
-msgstr "Anderer Server lauscht am gleichen Port"
+msgstr ""
+"Ein anderer Server nutzt die gleiche VPN Adresse, bitte eine andere wählen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:378
 msgid "Other server is listening on the same port"
@@ -1874,9 +1870,8 @@ msgstr ""
 "OpenVPN-Installationsprogramm für Microsoft Windows zum Paket hinzufügen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
-#, fuzzy
 msgid "Connection strategy"
-msgstr "Verbindungsstatus"
+msgstr "Verbindungsstrategie"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
@@ -2289,7 +2284,7 @@ msgstr ""
 "interne Verwendung reserviert"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:660
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Invalid name {name}. An internal daemon must have a name which begins with "
 "the prefix {pf}"
@@ -2298,9 +2293,9 @@ msgstr ""
 "Präfix {pf} beginnen"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1256
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Client {c} does not exist"
-msgstr "Der Client {c} ist nicht vorhanden"
+msgstr "Der Benutzer {c} ist nicht vorhanden"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1284
 msgid "Servers"
@@ -2348,11 +2343,11 @@ msgstr "Typ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1481
 msgid "Remote IP"
-msgstr "IP-Adresse des Gegenübers"
+msgstr "IP-Adresse der Gegenstelle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1482
 msgid "Remote Certificate"
-msgstr "Zertifikat des Gegenübers"
+msgstr "Zertifikat der Gegenstelle"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1487
 #: ../../main/ipsec/src/EBox/IPsec.pm:377
@@ -2554,9 +2549,8 @@ msgid "Source IP"
 msgstr "Quell-IP"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:119
-#, fuzzy
 msgid "Source MAC"
-msgstr "Quelle"
+msgstr "Quell-MAC"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:123
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:83
@@ -2650,14 +2644,12 @@ msgid "Internal networks to Zentyal"
 msgstr "Interne Netzwerke zu Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:56
-#, fuzzy
 msgid "SNAT address"
-msgstr "VPN-Adresse"
+msgstr "SNAT-Adresse"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:64
-#, fuzzy
 msgid "Outgoing interface"
-msgstr "Ausgang-Netzwerkkarte"
+msgstr "Ausgangsschnittstelle"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:103
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:240
@@ -2675,19 +2667,8 @@ msgstr "IP Adresse"
 #: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:193
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:140
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:93
-#, fuzzy
 msgid "Object"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-squid 0.12)  #-#-#-#-#\n"
-"Objekt\n"
-"#-#-#-#-#  de.po (ebox-firewall 0.12)  #-#-#-#-#\n"
-"Computergruppe\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Objekt\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Computergruppe\n"
-"#-#-#-#-#  de.po (ebox-objects 0.12)  #-#-#-#-#\n"
-"Computergruppe"
+msgstr "Objekt"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:131
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:329
@@ -2707,9 +2688,8 @@ msgid "Source Network Address Translation rules"
 msgstr "Network Address Translation (NAT)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:164
-#, fuzzy
 msgid "SNAT rule"
-msgstr "Testregeln"
+msgstr "SNAT Regel"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:62
 msgid "Internal networks"
@@ -2807,9 +2787,8 @@ msgstr "Ursprüngliches Ziel"
 #: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:316
 #: ../../main/core/src/templates/headerWithRefresh.mas:14
 #: ../../main/core/src/templates/login/index.mas:15
-#, fuzzy
 msgid "Zentyal"
-msgstr "Zentyal Cloud"
+msgstr "Zentyal"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:262
 msgid "Original destination port"
@@ -2975,17 +2954,16 @@ msgstr ""
 "können die maximale Bandbreite für diese Netzwerkkarte auch erhöhen."
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/ExternalRules.pm:50
-#, fuzzy
 msgid "Rules for external interfaces (upload)"
-msgstr "Alle externen Netzwerkkarten"
+msgstr "Regeln für externe Schnittstellen (upload)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:122
 msgid "Guaranteed rate"
-msgstr "Mindest-Bandbreite"
+msgstr "Garantierte Bandbreite"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:126
 msgid "Limited rate"
-msgstr "begrenzte Bandbreite"
+msgstr "Begrenzte Bandbreite"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:146
 #, perl-brace-format
@@ -3652,9 +3630,9 @@ msgid "{srv} record"
 msgstr "{srv} Eintrag"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:291
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Service '{srv}' is not present in {file}"
-msgstr "Der gewählte Dienst ist nicht in {file} enthalten"
+msgstr "Der Dienst '{srv}' ist nicht in {file} enthalten"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:309
 #, perl-brace-format
@@ -3666,10 +3644,11 @@ msgstr ""
 "{srv}.{name}?"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:84
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The IP '{ip}' is already assigned to host '{name}' in the same domain"
 msgstr ""
-"Es gibt bereits einen Computer mit dem Namen \"{name}\" in dieser Domäne"
+"Die IP '{ip}' ist schon dem Rechner '{name}' in der gleichen Domäne "
+"zugewiesen"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:111
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:126
@@ -3684,14 +3663,14 @@ msgstr "IP"
 
 #: ../../main/dns/src/EBox/DNS/Model/HostIpTable.pm:132
 msgid "The host name will be resolved to this list of IP addresses."
-msgstr ""
+msgstr "Der Rechnername wird zu dieser Liste von IP-Adressen aufgelöst"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:70
 #, perl-brace-format
 msgid ""
 "An alias cannot be the nameserver host name \"{ns}\". Use a hostname instead"
 msgstr ""
-"Ein Alias kann nicht der Hostname des Name-Server \"{ns}\" sein. Verwenden "
+"Ein Alias kann nicht der Hostname \"{ns}\" des Name-Servers sein. Verwenden "
 "Sie stattdessen einen anderen Hostnamen"
 
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:83
@@ -3887,8 +3866,8 @@ msgstr ""
 "lesen kann muss die Berechtigung der Dateien auf Lesen gestellt werden "
 "(chmod o+r /srv/ftp/*). Wenn Sie auch Schreibzugriffe erlauben wollen, "
 "müssen Sie ein Verzeichnis mit Schreibberechtigungen für jeden Benutzer "
-"erstellen, z.B. mit: mkdir /srv/ftp/incoming ; sudo chmod o+rwx /srv/ftp/"
-"incoming. "
+"erstellen, z.B. mit: mkdir /srv/ftp/incoming ; sudo chmod o+rwx "
+"/srv/ftp/incoming."
 
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:80
 #, fuzzy
@@ -4030,18 +4009,16 @@ msgstr ""
 "Sie es später nochmals"
 
 #: ../../main/software/src/EBox/Software.pm:1069
-#, fuzzy
 msgid "Installation steps"
-msgstr "Installation"
+msgstr "Installationsschritte"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "Sicherung im Netzwerk"
+msgstr "Sicherung auswählen"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
-msgstr "Paketselektion"
+msgstr "Paketauswahl"
 
 #: ../../main/software/src/EBox/Software.pm:1076
 msgid "Confirmation"
@@ -4052,13 +4029,12 @@ msgid "Installation"
 msgstr "Installation"
 
 #: ../../main/software/src/EBox/Software.pm:1079
-#, fuzzy
 msgid "Restore Configuration"
-msgstr "Stelle die Zentyal Sicherungskonfiguration wieder her"
+msgstr "Konfiguration wiederherstellen"
 
 #: ../../main/software/src/EBox/Software.pm:1081
 msgid "Initial Configuration"
-msgstr "Anfangseinstellungen"
+msgstr "Anfangskonfiguration"
 
 #: ../../main/software/src/EBox/Software.pm:1083
 msgid "Save Changes"
@@ -4167,24 +4143,23 @@ msgstr ""
 "komplett neu gestartet hat."
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:259
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The packages removal has not finished correctly . More information on the "
 "logs in {dir}"
 msgstr ""
 "Die Paket-Entfernung wurde nicht erfolgreich beendet. Weitere Informationen "
-"in den Logdateien"
+"in den Logdateien in {dir}"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:270
 #: ../../main/software/src/templates/ebox.mas:50
 #: ../../main/software/src/templates/del.mas:32
-#, fuzzy
 msgid "Removing packages"
-msgstr "Entferne Paket"
+msgstr "Entferne Pakete"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:271
 msgid "Removing the selected package and its dependent packages"
-msgstr "Entferne das ausgewählte Paket und abhängige Pakete"
+msgstr "Entferne das ausgewählte Paket und davon abhängige Pakete"
 
 #: ../../main/software/src/EBox/Software/CGI/Enable.pm:41
 msgid "automatic updates configuration"
@@ -4234,28 +4209,21 @@ msgstr "Unbekannt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:94
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
-#, fuzzy
 msgid "Community"
-msgstr "Kommentar"
+msgstr "Community"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
-#, fuzzy
 msgid "Professional"
-msgstr "Berechtigungen"
+msgstr "Professional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:96
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
-#, fuzzy
 msgid "Enterprise"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Enter\n"
-"#-#-#-#-#  de.po (ebox 0.12)  #-#-#-#-#\n"
-"Eingeben"
+msgstr "Enterprise"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:97
 msgid "Small Business"
-msgstr "Klein- und Kleinstunternehmen"
+msgstr "Small Business"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
 #, fuzzy
@@ -4280,14 +4248,12 @@ msgid "Subscribed"
 msgstr "abonniert"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:426
-#, fuzzy
 msgid "Registration"
-msgstr "Ziel"
+msgstr "Registrierung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:431
-#, fuzzy
 msgid "Server Registration"
-msgstr "Server Erstellung"
+msgstr "Serverregistrierung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:436
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
@@ -4298,9 +4264,8 @@ msgstr "Technischer Support"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:440
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "Sicherheitsaktualisierung"
+msgstr "Sicherheitsaktualisierungen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:447
 #: ../../main/ebackup/src/EBox/EBackup.pm:874
@@ -4318,9 +4283,8 @@ msgstr "Wiederherstellung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:474
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:45
-#, fuzzy
 msgid "Your Zentyal Server Account"
-msgstr "Zentyal FTP Server"
+msgstr "Ihr Zentyal Server Konto"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:589
 #, fuzzy
@@ -4351,18 +4315,19 @@ msgid "Connected"
 msgstr "Verbunden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1841
-#, fuzzy
 msgid "In process"
-msgstr "Prozess"
+msgstr "In Bearbeitung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1844
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Not connected. {oh}Check VPN connection{ch} and logs in {path}"
-msgstr "Nicht verbunden. Prüfen Sie die VPN-Logs in {path}"
+msgstr ""
+"Nicht verbunden. {oh}Prüfen Sie die VPN-Verbindung{ch} und die Logs in "
+"{path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
 msgid "Essential"
-msgstr ""
+msgstr "Notwendig"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1864
 msgid "Standard"
@@ -4370,7 +4335,7 @@ msgstr "Standard"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1865
 msgid "Premium"
-msgstr ""
+msgstr "Premium"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1872
 #, perl-brace-format
@@ -4569,18 +4534,16 @@ msgid "No update has been done"
 msgstr "Die Aktualisierung konnte nicht durchgeführt werden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:136
-#, fuzzy
 msgid "Software module is not installed"
-msgstr "Dateifreigabe-Modul ist nicht aktiviert."
+msgstr "Software-Modul ist nicht installiert"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
 msgstr "Während des letzten Monats generierte Alarmmeldungen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
-#, fuzzy
 msgid "Information-level alerts"
-msgstr "Informationen"
+msgstr "Informations Meldung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
@@ -4600,15 +4563,13 @@ msgid "Alerts"
 msgstr "Alarm"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:107
-#, fuzzy
 msgid "External server name (Dynamic DNS)"
-msgstr "Externe Serververbindung"
+msgstr "Externer Servername (Dynamic DNS)"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:108
 msgid "Use this name to connect to Zentyal externally"
 msgstr ""
-"Benutzen Sie bitte diesen Namen um sich mit dem externen Formular mit "
-"Zentyal zu verbinden"
+"Benutzen Sie diesen Namen um sich von außerhalb mit Zentyal zu verbinden"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:112
 #, fuzzy
@@ -4616,45 +4577,37 @@ msgid "Renovation date"
 msgstr "Abonnement für Zentyal-Cloud"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:122
-#, fuzzy
 msgid "Server info"
-msgstr "Die Seite wurde nicht gefunden"
+msgstr "Serverinformationen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:144
-#, fuzzy
 msgid "Not using Zentyal Dynamic DNS service"
-msgstr "Sie benutzen nicht den DynDNS Service der Zentyal Cloud"
+msgstr "Sie benutzen nicht den Zentyal Dynamic DNS Service"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
-#, fuzzy
 msgid "Unlimited"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"Unbegrenzte Größe\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Uneingeschränkt"
+msgstr "unbeschränkt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:135
-#, fuzzy
 msgid "Data to back up"
-msgstr "Datenbankfehler"
+msgstr "Daten zum Sichern"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
 msgid "data domain"
-msgstr "Statische Domain"
+msgstr "Daten Domäne"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
 msgid "Select the data you want to back up."
-msgstr ""
+msgstr "Wählen Sie die zu sichernden Daten aus."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
-msgstr ""
+msgstr "VPN Verbindungstest"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
-msgstr ""
+msgstr "Der VPN-Server ist erreichbar"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
 #, fuzzy
@@ -4668,9 +4621,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
-#, fuzzy
 msgid "Latest security update"
-msgstr "Sicherheitsaktualisierung"
+msgstr "Neueste Sicherheitsaktualisierung"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
 #, fuzzy
@@ -4678,9 +4630,8 @@ msgid "Available IDS rules"
 msgstr "Verfügbarer Bereich"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
-#, fuzzy
 msgid "Select one of the available options"
-msgstr "Verfügbare Komplett-Berichte auswählen"
+msgstr "Wählen sie eine der verfügbaren Optionen aus"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:125
 #, fuzzy
@@ -5078,9 +5029,8 @@ msgid "Skipping bad formed line: {l}"
 msgstr "Übergehe schlecht formulierte Zeile: {l}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Exceptions/NotCapable.pm:31
-#, fuzzy
 msgid "This server is not able to do this action."
-msgstr "Der Dienst ist in Zentyal nicht eingeschaltet"
+msgstr "Dieser Server kann diese Aktion nicht ausführen."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:224
 #: ../../main/monitor/src/EBox/Monitor/Measure/CPU.pm:79
@@ -5104,7 +5054,7 @@ msgstr "Kein {level} Passworte bei Benutzer gefunden "
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:406
 #, perl-brace-format
 msgid "The following users have {level} passwords: {users}."
-msgstr "Die folgenden Benutzer haben {level} Passworte:{users}."
+msgstr "Die folgenden Benutzer haben {level} Passworte: {users}."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:124
 msgid "Key for web subscription service not found"
@@ -5334,7 +5284,6 @@ msgid "Import/Export Configuration Remotely"
 msgstr "Derzeitige Einstellungen importieren/exportieren"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:89
-#, fuzzy
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
@@ -5359,12 +5308,10 @@ msgid "Phone number"
 msgstr "Telefonnummer"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:99
-#, fuzzy
 msgid "Repeated password"
-msgstr "Passwort erneut eingeben"
+msgstr "Passwort wiederholen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:102
-#, fuzzy
 msgid "Introduced passwords do not match"
 msgstr "Die Passwörter stimmen nicht überein"
 
@@ -5385,27 +5332,28 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:167
-#, fuzzy
 msgid ""
 "Password must have at least 6 characters. Leading or trailing spaces will be "
 "ignored."
-msgstr "Ihr Passwort muss mindestens 6 Zeichen lang sein"
+msgstr ""
+"Ihr Passwort muss mindestens 6 Zeichen lang sein. Leerzeichen am Anfang und "
+"am Ende werden ignoriert."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:170
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
 msgstr ""
+"Ein Fehler ist aufgetreten. Versuchen Sie es später nocheinmal oder "
+"kontaktieren Sie info@zentyal.com"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:74
-#, fuzzy
 msgid "Registering your server"
-msgstr "Zentyal FTP Server"
+msgstr "Ihren Server registrieren"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:75
-#, fuzzy
 msgid "Registration finished"
-msgstr "Installation abgeschlossen"
+msgstr "Registrierung abgeschlossen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:76
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:83
@@ -5418,24 +5366,21 @@ msgstr ""
 "Informationen finden Sie in den Logs in {dir}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:81
-#, fuzzy
 msgid "Unregistering your server"
-msgstr "Serverliste"
+msgstr "Registrierung ihres Servers löschen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:82
-#, fuzzy
 msgid "Unregistration finished"
-msgstr "Installation abgeschlossen"
+msgstr "Löschen der Registrierung abgeschlossen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:91
-#, fuzzy
 msgid "Making changes in your configuration"
-msgstr "Benutze Standard-Profil Konfiguration"
+msgstr "Änderungen Ihrer Konfiguration vornehmen"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:93
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
 msgid "operations performed"
-msgstr "Änderungen ausgeführt"
+msgstr "Vorgang ausgeführt"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/DisasterRecovery.pm:31
 msgid "Recover from a disaster"
@@ -5656,13 +5601,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
 #: ../../main/core/src/cgi/ebox.cgi:91
 msgid "Describe in English what you where doing"
-msgstr ""
+msgstr "Beschreiben Sie auf Englisch was Sie getan haben"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:81
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:81
 #: ../../main/core/src/cgi/ebox.cgi:93
 msgid "Couldn't send the report"
-msgstr ""
+msgstr "Konnte den Bericht nicht senden"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
@@ -5671,18 +5616,21 @@ msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
 msgstr ""
+"Der Bericht wurde gesendet. Sie können ihn unter diesem Ticket verfolgen:"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:84
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:84
 #: ../../main/core/src/cgi/ebox.cgi:96
 msgid "To do a manual report, please follow these instructions:"
 msgstr ""
+"Folgen Sie diesen Anweisungen um einen selbstgeschriebenen Bericht zu "
+"verfassen:"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
 #: ../../main/core/src/cgi/ebox.cgi:97
 msgid "Create a new ticket in the Zentyal trac by clicking "
-msgstr ""
+msgstr "Erzeugen Sie ein neues Ticket im Zentyal trac durch klicken auf "
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
@@ -5690,13 +5638,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
 #: ../../main/core/src/cgi/ebox.cgi:97 ../../main/core/src/cgi/ebox.cgi:101
 msgid "here"
-msgstr ""
+msgstr "hier"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/core/src/cgi/ebox.cgi:98
 msgid "Write a short description of the problem in the summary field"
-msgstr ""
+msgstr "Schreiben Sie eine kurze Problembeschreibung im Zusammenfassungsfeld"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
@@ -5705,18 +5653,22 @@ msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
 msgstr ""
+"Beschreiben Sie ausführlich was sie gemacht haben bevor der Fehler "
+"aufgetreten ist im Beschreibungsfeld"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
 #: ../../main/core/src/cgi/ebox.cgi:101
 msgid "Download the log file with additional information by clicking"
 msgstr ""
+"Laden sie das Logfile mit zusätzlichen Informationen herunter. Klicken Sie "
+"auf"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:102
 msgid "Attach the downloaded file in the ticket"
-msgstr ""
+msgstr "Fügen Sie die heruntergeladene Datei zum Ticket hinzu"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:50
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
@@ -5851,14 +5803,12 @@ msgid "user"
 msgstr "Benutzer"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:178
-#, fuzzy
 msgid "List of current logged in users."
-msgstr "Du bist nicht angemeldet"
+msgstr "Liste der angemeldeten Benutzer."
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:181
-#, fuzzy
 msgid "No users logged in"
-msgstr "Warne Benutzer bei über"
+msgstr "Keine Benutzer angemeldet"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:194
 msgid "Captive portal must be enabled in order to see current users list."
@@ -6251,16 +6201,15 @@ msgstr "Pfad einbeziehen"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:150
 msgid "add row"
-msgstr ""
+msgstr "Zeile hinzufügen"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:152
 msgid "edit row"
-msgstr "Reihe bearbeiten"
+msgstr "Zeile bearbeiten"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:154
-#, fuzzy
 msgid "remove row"
-msgstr "nach unten bewegen"
+msgstr "Zeile löschen"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:164
 msgid "exclude path"
@@ -6402,7 +6351,7 @@ msgstr "am letzten Tag"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:511
 msgid "File System"
-msgstr ""
+msgstr "Dateisystem"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:549
 msgid "1 week"
@@ -6589,19 +6538,19 @@ msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:170
 msgid "Used storage"
-msgstr ""
+msgstr "Benutzter Speicherplatz"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:174
 msgid "Available storage"
-msgstr ""
+msgstr "Verfügbarer Speicherplatz"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:178
 msgid "Total storage"
-msgstr ""
+msgstr "Gesamter Speicherplatz"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:185
 msgid "Remote Storage Usage"
-msgstr ""
+msgstr "Benutzter Remote-Speicherplatz"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:186
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:172
@@ -6744,17 +6693,18 @@ msgstr "{data} ist leer"
 #: ../../main/common/src/EBox/Exceptions/MissingArgument.pm:43
 #, perl-brace-format
 msgid "Missing argument: {data}"
-msgstr ""
+msgstr "Fehlendes Argument: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/NotConnected.pm:30
-#, fuzzy
 msgid "Cannot connect to Zentyal Cloud. Check your Internet connection."
-msgstr "Kann {host} nicht kontaktieren. Prüfgen Sie ihre Internetverbindung."
+msgstr ""
+"Es kann keine Verbindung zur Zentyal Cloud hergestelt werden. Prüfen Sie "
+"ihre Internetverbindung."
 
 #: ../../main/common/src/EBox/Exceptions/DataExists.pm:47
 #, perl-brace-format
 msgid "{data} {value} already exists."
-msgstr "{data} {value} gibt es schon"
+msgstr "{data} {value} gibt es schon."
 
 #: ../../main/common/src/EBox/Exceptions/InvalidData.pm:37
 #, perl-brace-format
@@ -6762,14 +6712,15 @@ msgid "Invalid value for {data}: {value}."
 msgstr "Ungültiger Wert für {data}: {value}"
 
 #: ../../main/common/src/EBox/Exceptions/InvalidArgument.pm:44
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Invalid argument: {data}"
-msgstr "Ungültige .tar.gz-Datei: {f}"
+msgstr "Ungültiges Argument: {data}"
 
 #: ../../main/common/src/EBox/Exceptions/UnwillingToPerform.pm:37
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The requested action cannot be performed. Reason: {r}"
-msgstr "Löschen konnte nicht vollständig durchgeführt werden. Grund:"
+msgstr ""
+"Die gewünschte Aktion kann aus diesem Grund nicht durchgeführt werden: {r}"
 
 #: ../../main/common/src/EBox/Config.pm:158
 #, perl-brace-format
@@ -8117,13 +8068,12 @@ msgid "bridge"
 msgstr ""
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:148
-#, fuzzy
 msgid ""
 "The PPPoE password contains invalid characters. All alphanumeric characters, "
 "plus these non alphanumeric chars: /.?!&+:-_\\@$%=* and spaces are allowed."
 msgstr ""
 "Die Eingabe enthält ungültige Zeichen. Alle Buchstaben (A-Z, a-z), die "
-"Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt"
+"Zahlen (0-9) und diese Zeichen (/.?&+:-@) sowie Leerzeichen sind erlaubt."
 
 #: ../../main/network/src/EBox/Network/CGI/Wizard/Ifaces.pm:59
 #, perl-brace-format
@@ -10561,7 +10511,6 @@ msgid "Create Samba home directory for shares and groups"
 msgstr "Erstelle Samba Home-Verzeichnis für Benutzer und Gruppen"
 
 #: ../../main/samba/src/EBox/Samba.pm:136
-#, fuzzy
 msgid ""
 "Zentyal will create the directories for Samba shares and groups under /home/"
 "samba."
@@ -11965,7 +11914,7 @@ msgid ""
 "default /webmail url."
 msgstr ""
 "Virtueller Host auf dem Webmail installiert wird. Die Option deaktiviert die "
-"Standard-URL für Webmail. "
+"Standard-URL /webmail für Webmail. "
 
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:66
 #: ../../main/webmail/src/EBox/WebMail.pm:64
@@ -14647,16 +14596,15 @@ msgstr "Um courier so zu konfigurieren, dass es sich am LDAP authentifiziert"
 
 #: ../../main/mail/src/EBox/Mail.pm:239
 msgid "Outgoing Mail (SMTP protocol)."
-msgstr ""
+msgstr "Postausgang (SMTP Protokoll)"
 
 #: ../../main/mail/src/EBox/Mail.pm:248
 msgid "Incoming Mail"
-msgstr ""
+msgstr "Posteingang"
 
 #: ../../main/mail/src/EBox/Mail.pm:249
-#, fuzzy
 msgid "POP, IMAP and SIEVE protocols"
-msgstr "POP, IMAP and SIEVE Protokolle"
+msgstr "POP, IMAP und SIEVE-Protokolle"
 
 #: ../../main/mail/src/EBox/Mail.pm:258
 msgid "Mail Submission"
@@ -14687,7 +14635,6 @@ msgid "The mail name and virtual mail domain name are equal"
 msgstr ""
 
 #: ../../main/mail/src/EBox/Mail.pm:1306
-#, fuzzy
 msgid "SMTP service"
 msgstr "SMTP-Dienst"
 
@@ -14754,9 +14701,8 @@ msgid "Relay"
 msgstr "Weiterleitung"
 
 #: ../../main/mail/src/EBox/Mail.pm:1493
-#, fuzzy
 msgid "Message type"
-msgstr "Nachricht"
+msgstr "Nachrichtentyp"
 
 #: ../../main/mail/src/EBox/Mail.pm:1496
 #, fuzzy
@@ -14772,7 +14718,6 @@ msgid "Maximum message size exceeded"
 msgstr "Maximale Nachrichtengrösse überschritten"
 
 #: ../../main/mail/src/EBox/Mail.pm:1509
-#, fuzzy
 msgid "User quota exceeded"
 msgstr "Speicherplatz des Benutzers überschritten"
 
@@ -15042,9 +14987,8 @@ msgid "POP3 service enabled"
 msgstr "POP3-Dienst aktiviert"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:65
-#, fuzzy
 msgid "Secure POP3S service enabled"
-msgstr "POP3S-Dienst aktiviert"
+msgstr "Sicherer POP3S-Dienst aktiviert"
 
 #: ../../main/mail/src/EBox/Mail/Model/RetrievalServices.pm:71
 #, fuzzy
@@ -15114,26 +15058,16 @@ msgstr "Einstellungen des E-Mail Konto"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:75
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:163
-#, fuzzy
 msgid "List of Domains"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-dns 0.12)  #-#-#-#-#\n"
-"Domänenliste\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuelle Mail-Domänen"
+msgstr "Domänenliste"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:84
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAccount.pm:49
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:63
 #: ../../main/mail/src/EBox/MailVDomainsLdap.pm:114
 #: ../../main/zarafa/src/EBox/Zarafa/Model/VMailDomains.pm:169
-#, fuzzy
 msgid "virtual domain"
-msgstr ""
-"#-#-#-#-#  de.po (ebox-mailfilter 0.12)  #-#-#-#-#\n"
-"Virtuelle Domäne\n"
-"#-#-#-#-#  de.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"Virtuelle Domänen"
+msgstr "Virtuelle Domäne"
 
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:86
 msgid "Virtual domain added. You must save changes to use this domain"
@@ -15489,7 +15423,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/FetchmailLdap.pm:455
 #, perl-brace-format
 msgid "Unknown mail protocol: {proto}"
-msgstr ""
+msgstr "Unbekanntes Mail-Protokoll: {proto}"
 
 #: ../../main/mail/src/EBox/Mail/Greylist.pm:52
 msgid "To configure whitelist for greylisting"
@@ -15504,9 +15438,9 @@ msgid "group alias mail"
 msgstr "E-Mail Alias für Gruppe"
 
 #: ../../main/mail/src/EBox/Mail/CGI/DelGroupAlias.pm:54
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Alias {al} removed"
-msgstr "OU {ou} gelöscht"
+msgstr "Alias {al} gelöscht"
 
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:47
 msgid "maildrop"
@@ -15888,12 +15822,11 @@ msgid "Enable only Single Sign-On on the Webaccess interface."
 msgstr "aktiviere Single-Sign-On (Kerberos)"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:137
-#, fuzzy
 msgid ""
 "Enable Zarafa access only on this virtual host under /webaccess and /webapp."
 msgstr ""
-"Ermöglichen Sie Zarafa-Zugriff ausschließlich auf diesen Virtuellen Host "
-"unter /webaccess und /webaccess-mobile"
+"Aktiviere Zarafa-Zugriff ausschließlich auf diesen Virtuellen Host unter "
+"/webaccess und /webapp."
 
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:149
 msgid "General Zarafa server configuration settings updated."
@@ -16080,9 +16013,8 @@ msgid "To properly configure Zarafa webaccess."
 msgstr "Um den Zarafa Webzugriff richtig zu konfigurieren"
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:136
-#, fuzzy
 msgid "To properly configure Zarafa XMPP integration."
-msgstr "Um die Zarafa LDAP-Anbindung richtig zu konfigurieren"
+msgstr "Um die Zarafa XMPP-Anbindung richtig zu konfigurieren."
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:141
 msgid "To properly configure Zarafa gateway server."

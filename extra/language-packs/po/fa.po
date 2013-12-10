@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-11-09 20:02+0200\n"
-"Last-Translator: mehranweb <mehranweb@gmail.com>\n"
+"PO-Revision-Date: 2013-12-03 09:02+0200\n"
+"Last-Translator: Ebrahimi <scraps_g@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:46
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -59,7 +59,7 @@ msgstr "نام"
 #: ../../main/core/src/templates/configureView.mas:50
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
-msgstr "پوشه"
+msgstr "فایل"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:71
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:105
@@ -146,7 +146,7 @@ msgstr "آدرس های به روز شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:45
 msgid "Time period"
-msgstr "مدت دوره"
+msgstr "مدت زمان"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:46
 msgid "Time period when the rule is applied"
@@ -218,7 +218,7 @@ msgstr "منع کردن همه"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:93
 msgid "Apply Filter Profile"
-msgstr "فیلتر کردن پروفایل را اعمال کن"
+msgstr "اعمال فیلتر پروفایل"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:106
 #: ../../main/squid/src/EBox/Squid.pm:1068
@@ -351,12 +351,12 @@ msgstr "قوانین دامین ها و URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:237
 msgid "internet domain or URL"
-msgstr "دامین یا URL اینترنتی"
+msgstr "دامنه اینترنتی یا URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:238
 msgid ""
 "Allow/Deny the HTTP traffic from/to the listed internet domains and URLs."
-msgstr "صدوراجازه برای ترافیک HTTP از/به فهرست آدرسهای اینترنتی "
+msgstr "اجازه/رد ترافیک HTTP از/به فهرست دامنه های اینترنتی "
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:240
 msgid "Domain or URL added"
@@ -368,7 +368,7 @@ msgstr "حذف نمودن دامین یا URL"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid "Domain or URL updated"
-msgstr "به روز نمودن دامین یا URL"
+msgstr " دامنه یا URL به روز شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
 msgid "Skip Transparent Proxy"
@@ -397,7 +397,7 @@ msgstr "قفل کردن"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:67
 msgid "Remove advertisements from all HTTP traffic"
-msgstr ""
+msgstr "حذف تمام تبلیغات در تمام ترافیک اچ تی تی پی"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:71
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:899
@@ -414,13 +414,12 @@ msgstr "پورت"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:77
 msgid "Cache files size (MB)"
-msgstr ""
+msgstr "حجم فایل های کش (مگابایت)"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:87
 #: ../../main/squid/src/EBox/Squid.pm:1065
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
-#, fuzzy
 msgid "General Settings"
 msgstr "تنظیمات عمومی"
 
@@ -443,7 +442,7 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:155
 #, perl-brace-format
 msgid "{port} is already in use. Please choose another"
-msgstr ""
+msgstr "{درگاه} مورد نظر در حال استفاده است. لطفاً درگاه دیگری انتخاب نمایید."
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:202
 msgid ""
@@ -457,11 +456,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:162
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:77
 msgid "MIME Type"
-msgstr ""
+msgstr "نوع MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:145
 msgid "A MIME Type must follow this syntax: type/subtype"
-msgstr ""
+msgstr "یک گروه MIME باید به ترکیب گروه/زیر گروه باشد"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:154
 #, perl-brace-format
@@ -471,18 +470,18 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:165
 #, perl-brace-format
 msgid "{t} subtype has a wrong syntax"
-msgstr ""
+msgstr "{t} زیر گروه  دارای اشتباه نحوی است"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:182
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:92
 msgid "MIME types"
-msgstr ""
+msgstr "گرههای MIME"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:189
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/MIMETypeACL.pm:100
 #: ../../main/mailfilter/src/EBox/MailFilter/Types/MIMEType.pm:57
 msgid "MIME type"
-msgstr ""
+msgstr "نوع Mime"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:190
 msgid ""
@@ -493,15 +492,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:193
 msgid "MIME type added"
-msgstr ""
+msgstr "گروه MIME اضافه شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:194
 msgid "MIME type removed"
-msgstr ""
+msgstr "گروه MIME حذف شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:195
 msgid "MIME type updated"
-msgstr ""
+msgstr "گروه MIME به روز رسانی شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:40
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:66
@@ -645,7 +644,7 @@ msgstr "استفاده از آنتی ویروس"
 #: ../../main/squid/src/EBox/Squid/Model/AntiVirus.pm:104
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:67
 msgid "Filter virus"
-msgstr ""
+msgstr "فیلتر ویروس"
 
 #: ../../main/squid/src/EBox/Squid/Model/TrafficSizeGraph.pm:42
 msgid "Squid traffic size graph"
@@ -659,11 +658,11 @@ msgstr "حجم ترافیک"
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid.pm:1071
 msgid "Filter Profiles"
-msgstr ""
+msgstr "فیلتر پروفایل ها"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:104
 msgid "filter profile"
-msgstr ""
+msgstr "فیلتر پروفایل"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:106
 msgid "Added filter profile"
@@ -696,15 +695,15 @@ msgstr "پیکربندی"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:144
 msgid "Maximum number of filter groups reached"
-msgstr ""
+msgstr "تعداد گروه های فیلتر به بیشترین حد خود رسیده است"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:154
 msgid "No spaces are allowed in profile names"
-msgstr ""
+msgstr "فاصله در نام پروفایل مجاز نیست"
 
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:158
 msgid "The '~' character is reserved and cannot be used in profile names"
-msgstr ""
+msgstr "کاراکتر \"~\" رزرو شده و نمی توان در نام پروفایل از آن استفاده کرد"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:50
 msgid "Block not listed domains and URLs"
@@ -727,7 +726,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterSettings.pm:74
 msgid "Filtering settings changed"
-msgstr ""
+msgstr "تنظیمات فیلتر تغییر یافت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:52
 #, fuzzy, perl-brace-format
@@ -778,12 +777,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:181
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:96
 msgid "MB"
-msgstr ""
+msgstr "مگابایت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:162
-#, fuzzy
 msgid "Maximum download rate"
-msgstr "نشانی کلاینت"
+msgstr "حداکثر سرعت دانلود"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:163
 msgid ""
@@ -824,9 +822,8 @@ msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:195
-#, fuzzy
 msgid "Bandwidth Throttling Rules"
-msgstr "ﺖﻨﻇیﻡﺎﺗ ﺪﺴﺗﺮﺳی"
+msgstr "قوانین گلوگاه پهنای باند"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
 msgid ""
@@ -846,11 +843,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:48
 msgid "Content filter threshold"
-msgstr ""
+msgstr "آستانه فیلتر محتوا"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:54
 msgid "Content filter threshold changed"
-msgstr ""
+msgstr "آستانه فیلتر محتوا تغییر یافت"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:881
@@ -879,15 +876,8 @@ msgstr ""
 #: ../../main/core/src/templates/enable.mas:18
 #: ../../main/core/src/templates/enable.mas:19
 #: ../../main/zarafa/src/templates/zarafa.mas:22
-#, fuzzy
 msgid "Disabled"
-msgstr ""
-"#-#-#-#-#  fa.po (libebox 0.12.100)  #-#-#-#-#\n"
-"غیر فعال شده\n"
-"#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
-"غیرفعال\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"غیرفعال"
+msgstr "غیرفعال شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 msgid "Very permissive"
@@ -895,11 +885,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:66
 msgid "Permissive"
-msgstr ""
+msgstr "مجاز"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:67
 msgid "Medium"
-msgstr ""
+msgstr "متوسط"
 
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:68
 msgid "Strict"
@@ -932,7 +922,7 @@ msgstr "درخواست‌های دسترسی"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:143
 msgid "Category"
-msgstr ""
+msgstr "دسته"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:149
 #, fuzzy
@@ -945,13 +935,12 @@ msgid "File Present"
 msgstr "لیست سرویس ها"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
-#, fuzzy
 msgid "Domain categories"
-msgstr "سرویس دهنده نام"
+msgstr "دسته های سرویس دهنده نام"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:182
 msgid "category"
-msgstr ""
+msgstr "دسته"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:184
 msgid ""
@@ -988,20 +977,21 @@ msgstr "هیچ‌کدام"
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:58
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:81
 msgid "File extension"
-msgstr ""
+msgstr "پسوند فایل"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:109
 msgid "Extension"
-msgstr ""
+msgstr "پسوند"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:135
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/FileExtensionACL.pm:96
+#, fuzzy
 msgid "File extensions"
-msgstr ""
+msgstr "پسوندهای فایل"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:143
 msgid "extension"
-msgstr ""
+msgstr "پسوند"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:144
 msgid ""
@@ -1012,15 +1002,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:147
 msgid "Extension added"
-msgstr ""
+msgstr "پسوندهای اضافه شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:148
 msgid "Extension removed"
-msgstr ""
+msgstr "پسوندهای حذف شده"
 
 #: ../../main/squid/src/EBox/Squid/Model/Extensions.pm:149
 msgid "Extension updated"
-msgstr ""
+msgstr "پسوندهای به روزشده"
 
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:56
 #: ../../main/dns/src/EBox/DNS/Model/Settings.pm:84
@@ -1030,7 +1020,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:65
 #: ../../main/software/src/templates/config.mas:14
 msgid "Settings"
-msgstr ""
+msgstr "تنظیمات"
 
 #: ../../main/squid/src/EBox/Squid/Composite/Domains.pm:59
 #, fuzzy
@@ -1066,15 +1056,15 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:45
 msgid "T"
-msgstr ""
+msgstr "T"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:46
 msgid "W"
-msgstr ""
+msgstr "W"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:47
 msgid "H"
-msgstr ""
+msgstr "H"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:48
 msgid "F"
@@ -1090,59 +1080,59 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:54
 msgid "Monday"
-msgstr ""
+msgstr "دوشنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:55
 msgid "Tuesday"
-msgstr ""
+msgstr "سه شنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:56
 msgid "Wednesday"
-msgstr ""
+msgstr "چهارشنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:57
 msgid "Thursday"
-msgstr ""
+msgstr "پنج شنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:58
 msgid "Friday"
-msgstr ""
+msgstr "جمعه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:59
 msgid "Saturday"
-msgstr ""
+msgstr "شنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:60
 msgid "Sunday"
-msgstr ""
+msgstr "یک شنبه"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:129
 msgid "All time"
-msgstr ""
+msgstr "هر وقت"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:205
 msgid "All week"
-msgstr ""
+msgstr "تمام هفته"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:213
 msgid "Weekend"
-msgstr ""
+msgstr "اخر هفته"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:218
 msgid "Work days"
-msgstr ""
+msgstr "روزهای کاری"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:384
 msgid "From hour.."
-msgstr ""
+msgstr "از ساعت"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:387
 msgid "to hour.."
-msgstr ""
+msgstr "تا ساعت"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:391
 msgid "You must specify two diffrent hours to the range"
-msgstr ""
+msgstr "شما باید دو ساعت متفاوت وارد کنید"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:408
 #, perl-brace-format
@@ -1167,11 +1157,11 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:439
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:445
 msgid "The end of the range is greater than the begin"
-msgstr ""
+msgstr "پایان بازه از ابتدا بزرگتر است"
 
 #: ../../main/squid/src/EBox/Squid/Types/TimePeriod.pm:468
 msgid "The time period must be at least active on one day"
-msgstr ""
+msgstr "دوره زمانی باید یک روز فعال داشته باشد"
 
 #: ../../main/squid/src/EBox/Squid.pm:205
 #, fuzzy
@@ -1190,19 +1180,19 @@ msgstr "ذخیره پیکربندی"
 
 #: ../../main/squid/src/EBox/Squid.pm:220
 msgid "Content filter configuration file"
-msgstr ""
+msgstr "فایل پیکربندی فیلتر محتوا"
 
 #: ../../main/squid/src/EBox/Squid.pm:225
 msgid "Default filter group configuration"
-msgstr ""
+msgstr "پیکربندی پیش فرض گروه فیلتر"
 
 #: ../../main/squid/src/EBox/Squid.pm:230
 msgid "Filter groups membership"
-msgstr ""
+msgstr "اعضا گروه فیلتر"
 
 #: ../../main/squid/src/EBox/Squid.pm:235
 msgid "Content filter banned extension list"
-msgstr ""
+msgstr "فهرست پسوندهای فیلتر محتوا"
 
 #: ../../main/squid/src/EBox/Squid.pm:240
 msgid "Content filter banned mime type list"
@@ -1210,7 +1200,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:245
 msgid "Content filter exception site list"
-msgstr ""
+msgstr "فیلتر محتوا به جز سایت های لیست شده"
 
 #: ../../main/squid/src/EBox/Squid.pm:250
 msgid "Content filter grey site list"
@@ -1234,11 +1224,11 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:275
 msgid "Forbidden phrases list"
-msgstr ""
+msgstr "لیست عبارات ممنوع"
 
 #: ../../main/squid/src/EBox/Squid.pm:280
 msgid "Exception phrases list"
-msgstr ""
+msgstr "به جز لیست عبارات "
 
 #: ../../main/squid/src/EBox/Squid.pm:285
 msgid "PICS ratings configuration"
@@ -1275,7 +1265,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:328
 msgid "Overwrite blocked page templates"
-msgstr ""
+msgstr "بازنویسی قالب های صفحات مسدود"
 
 #: ../../main/squid/src/EBox/Squid.pm:329
 msgid ""
@@ -1309,7 +1299,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:1077
 msgid "Bandwidth Throttling"
-msgstr ""
+msgstr "گلوگاه پهنای باند"
 
 #: ../../main/squid/src/EBox/Squid.pm:1123
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:96
@@ -1350,19 +1340,19 @@ msgstr "رویداد"
 
 #: ../../main/squid/src/EBox/Squid.pm:1134
 msgid "Accepted"
-msgstr ""
+msgstr "پذیرفته شده"
 
 #: ../../main/squid/src/EBox/Squid.pm:1135
 msgid "Denied"
-msgstr ""
+msgstr "رد شده"
 
 #: ../../main/squid/src/EBox/Squid.pm:1136
 msgid "Filtered"
-msgstr ""
+msgstr "فیلتر شده"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworksBase.pm:53
 msgid "Advertised Network"
-msgstr ""
+msgstr "شبکه اگهی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:58
 msgid "Deleted daemons"
@@ -1388,7 +1378,7 @@ msgstr "ذخیره پیکربندی"
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:87
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:125
 msgid "client"
-msgstr ""
+msgstr "گلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/UploadClientBundle.pm:127
 #, fuzzy, perl-brace-format
@@ -1429,7 +1419,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:83
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:73
 msgid "Advertised networks"
-msgstr ""
+msgstr "شبکه های اگهی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:92
 msgid "Download client bundle"
@@ -1437,11 +1427,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:104
 msgid "List of servers"
-msgstr ""
+msgstr "فهرست سرورها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:105
 msgid "VPN servers"
-msgstr ""
+msgstr "سرورهای VPN "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:112
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:189
@@ -1473,7 +1463,7 @@ msgstr ""
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
-msgstr ""
+msgstr "سرور فعال نمیشود زیرا تنظیمات کامل نشده است."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:296
 msgid "Cannot create a server because there is not a CA certificate"
@@ -1493,11 +1483,11 @@ msgstr "ماجول‌ها ابطال شدند"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
 msgid "expired"
-msgstr ""
+msgstr "منقضی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
 msgid "invalid"
-msgstr ""
+msgstr "نامعتبر"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:347
 #, perl-brace-format
@@ -1521,23 +1511,23 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:67
 msgid "Server port"
-msgstr ""
+msgstr "پورت سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:69
 msgid "VPN address"
-msgstr ""
+msgstr "ادرس VPN "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:71
 msgid "Use a network address which is not used by this machine"
-msgstr ""
+msgstr "از ادرس شبکه ای استفاده کنید که توسط ماشین استفاده نشده"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:77
 msgid "Server certificate"
-msgstr ""
+msgstr "مجوز سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:84
 msgid "Client authorization by common name"
-msgstr ""
+msgstr "مجوز کلاینت با این نام"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:86
 msgid ""
@@ -1564,7 +1554,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:101
 msgid "Network Address Translation"
-msgstr ""
+msgstr "ترجمه ادرس شبکه (NAT)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:104
 msgid "Enable it if this VPN server is not the default gateway"
@@ -1572,7 +1562,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:108
 msgid "Allow client-to-client connections"
-msgstr ""
+msgstr "مجوز ارتباط کلاینت به کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:111
 msgid "Enable it to allow client machines of this VPN to see each other"
@@ -1580,7 +1570,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:116
 msgid "Allow Zentyal-to-Zentyal tunnels"
-msgstr ""
+msgstr "مجوز تونل زنتیل به زنتیل"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:119
 msgid "Enable it if this VPN is used to connect to another Zentyal"
@@ -1588,7 +1578,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:124
 msgid "Zentyal-to-Zentyal tunnel password"
-msgstr ""
+msgstr "کلمه عبور تونل زنتیل به زنتیل"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:132
 msgid "Reject routes pushed by Zentyal tunnel clients"
@@ -1610,7 +1600,7 @@ msgstr "گذرگاه پیش‌فرض"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:150
 msgid "Makes Zentyal the default gateway for the client"
-msgstr ""
+msgstr "تبدیل زنتیل به گذرگاه پیش فرض کلاینت ها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:154
 #, fuzzy
@@ -1636,11 +1626,11 @@ msgstr "سرور بعدی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:183
 msgid "Server configuration"
-msgstr ""
+msgstr "پیکربندی سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:246
 msgid "All network interfaces"
-msgstr ""
+msgstr "تمام رابط های شبکه"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:297
 msgid "Zentyal to Zentyal tunnel option requires a RIP password"
@@ -1705,12 +1695,12 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:44
 msgid "List of Advertised Networks"
-msgstr ""
+msgstr "فهرست شبکه های اگهی شده"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:50
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:49
 msgid "Advertised network"
-msgstr ""
+msgstr "شبکه های اگهی شده"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ExposedNetworks.pm:62
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:60
@@ -1729,7 +1719,7 @@ msgstr ""
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:40
 #: ../../main/mail/src/templates/externalAccounts.mas:15
 msgid "Server"
-msgstr ""
+msgstr "سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:72
 msgid "CA's certificate"
@@ -1738,7 +1728,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:84
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "مجوز کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:96
 msgid "Client's private key"
@@ -1746,7 +1736,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:114
 msgid "Server tunnel password"
-msgstr ""
+msgstr "کلمه عبور تونل سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:120
 msgid "Bind port for client"
@@ -1762,7 +1752,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:145
 msgid "Client configuration"
-msgstr ""
+msgstr "پیکربندی کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:235
 #, perl-brace-format
@@ -1773,7 +1763,7 @@ msgstr ""
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:42
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:301
 msgid "Enable"
-msgstr ""
+msgstr "فعال"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:82
 msgid "Upload client bundle"
@@ -1781,11 +1771,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:102
 msgid "List of Clients"
-msgstr ""
+msgstr "فهرست کلاینت ها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:103
 msgid "VPN Clients"
-msgstr ""
+msgstr "VPN کلاینت ها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:147
 msgid ""
@@ -1799,7 +1789,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr ""
+msgstr "انواع کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
@@ -1816,7 +1806,7 @@ msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr ""
+msgstr "ادرس سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
@@ -1826,11 +1816,11 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
-msgstr ""
+msgstr "ادرس سرور اضافی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr ""
+msgstr "ادرس دوم سرور "
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
@@ -1846,7 +1836,7 @@ msgstr "دانلود"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "تصادفی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
 msgid "Failover"
@@ -1854,7 +1844,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "تونل زنتیل به زنتیل"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
@@ -1878,7 +1868,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "بسته نصبی فقط برای کلاینت های ویندوز موجود است"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
 msgid ""
@@ -1980,7 +1970,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:608
 msgid "OpenVPN servers cannot be used for internal services"
-msgstr ""
+msgstr "سرورهای OpenVPN را نمیتوان به جای سرویس های داخلی استفاده کرد"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:636
 #, perl-brace-format
@@ -1990,7 +1980,7 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:879
 #, perl-brace-format
 msgid "Server {name}"
-msgstr ""
+msgstr "سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:882
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:542
@@ -2024,7 +2014,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:890
 msgid "All external interfaces"
-msgstr ""
+msgstr "تمام رابط های خارجی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:892
 #, fuzzy
@@ -2032,8 +2022,9 @@ msgid "Not found"
 msgstr "صفحه مورد نظر یافت نشد"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
+#, fuzzy
 msgid "Local address"
-msgstr ""
+msgstr "ادرس محلی"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:902
 msgid "VPN subnet"
@@ -2041,24 +2032,24 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:905
 msgid "VPN network interface"
-msgstr ""
+msgstr "رابط شبکه VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:908
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:559
 msgid "No active"
-msgstr ""
+msgstr "فعال نیست"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:909
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:559
 msgid "VPN interface address"
-msgstr ""
+msgstr "ادرس رابط VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1375
 msgid "disabled"
-msgstr ""
+msgstr "غیرفعال"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:139
 msgid ""
@@ -2120,15 +2111,15 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:539
 #, perl-brace-format
 msgid "Client {name}"
-msgstr ""
+msgstr "کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:553
 msgid "Connection target"
-msgstr ""
+msgstr "ارتباط مقصد"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:69
 msgid "VPN"
-msgstr ""
+msgstr "VPN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:114
 msgid "To configure Quagga to run ripd and zebra"
@@ -2188,15 +2179,15 @@ msgstr "گروه {g} وجود ندارد"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1284
 msgid "Servers"
-msgstr ""
+msgstr "سرور ها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1291
 msgid "Clients"
-msgstr ""
+msgstr "کلاینت ها"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1312
 msgid "Common name"
-msgstr ""
+msgstr "نام رایج"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1312
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:663
@@ -2210,7 +2201,7 @@ msgstr "متصل تاکنون"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1339
 msgid "No users connected to the VPN"
-msgstr ""
+msgstr "هیچ کاربری به VPN وصل نیست"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1379
 msgid "OpenVPN daemons"
@@ -2253,23 +2244,23 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1491
 msgid "Certificate verification failed"
-msgstr ""
+msgstr "تایید ناموفق مجوز "
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1493
 msgid "Client connection initiated"
-msgstr ""
+msgstr "اغاز ارتباط کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1494
 msgid "Client connection terminated"
-msgstr ""
+msgstr "رد ارتباط کلاینت"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1496
 msgid "Connection to server initiated"
-msgstr ""
+msgstr "اغاز ارتباط با سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1497
 msgid "Server connection terminated"
-msgstr ""
+msgstr "رد ارتباط با سرور"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1525
 msgid "You must set insecure_rip_conf to yes or no"
@@ -2851,7 +2842,7 @@ msgstr ""
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:143
 msgid "Condition"
-msgstr ""
+msgstr "شرایط"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:157
 #: ../../main/firewall/src/templates/filter.mas:60
@@ -3079,7 +3070,7 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:208
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:216
 msgid "All"
-msgstr ""
+msgstr "همه"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:93
 #, fuzzy
@@ -3088,15 +3079,15 @@ msgstr "{iface} (رابط خارجی)"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:99
 msgid "Upload"
-msgstr ""
+msgstr "بارگذاری"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:103
 msgid "Upload rate in Kbits/s through this interface"
-msgstr ""
+msgstr "نرخ بارگذاری از این رابط برحسب کیلوبیت/ثانیه"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:111
 msgid "Download rate in Kbits/s through this interface"
-msgstr ""
+msgstr "نرخ دانلود از این رابط برحسب کیلوبیت/ثانیه"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:118
 #, fuzzy
@@ -3112,7 +3103,7 @@ msgstr "شکل‌دهی ترافیک"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:126
 msgid "rate"
-msgstr ""
+msgstr "نرخ"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:153
 #, fuzzy, perl-brace-format
@@ -3229,7 +3220,7 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS.pm:386 ../../main/dns/src/EBox/DNS.pm:1696
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:635
 msgid "domain"
-msgstr ""
+msgstr "دامین"
 
 #: ../../main/dns/src/EBox/DNS.pm:490
 msgid "Zentyal will set the required environment variables for bind9 daemon"
@@ -3249,7 +3240,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS.pm:510
 msgid "Keys configuration file"
-msgstr ""
+msgstr "فایل پیکربندی کلیدها"
 
 #: ../../main/dns/src/EBox/DNS.pm:525
 #, perl-brace-format
@@ -3290,7 +3281,7 @@ msgstr "نام میزبان"
 #: ../../main/dns/src/EBox/DNS.pm:1727
 #: ../../main/dns/src/EBox/DNS/Model/AliasTable.pm:197
 msgid "alias"
-msgstr ""
+msgstr "نام مستعار"
 
 #: ../../main/dns/src/EBox/DNS.pm:1848
 #, perl-brace-format
@@ -3357,7 +3348,7 @@ msgstr "سفارشی"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:211
 msgid "Preference"
-msgstr ""
+msgstr "ویزگی ها"
 
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:220
 msgid "Mail exchangers"
@@ -3541,7 +3532,7 @@ msgstr "نام سرویس"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:148
 msgid "Lower value is greater priority"
-msgstr ""
+msgstr "مقدار کمتر اولویت بیشتری دارد"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:152
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:185
@@ -3555,13 +3546,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:163
-#, fuzzy
 msgid "Target port"
-msgstr "پورت مبدأ"
+msgstr "پورت مقصد"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:168
 msgid "Target"
-msgstr ""
+msgstr "مقصد"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:170
 msgid ""
@@ -3782,7 +3772,7 @@ msgstr "تنظیمات عمومی پیکربندی"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:165
 msgid "FTP Server"
-msgstr ""
+msgstr "سرور FTP"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:169
 msgid ""
@@ -3933,22 +3923,20 @@ msgstr ""
 "نمایید"
 
 #: ../../main/software/src/EBox/Software.pm:1069
-#, fuzzy
 msgid "Installation steps"
-msgstr "نصب"
+msgstr "مراحل نصب"
 
 #: ../../main/software/src/EBox/Software.pm:1072
-#, fuzzy
 msgid "Choose Backup"
-msgstr "پشتیبان راه‌دور"
+msgstr "انتخاب پشتیبان"
 
 #: ../../main/software/src/EBox/Software.pm:1074
 msgid "Package Selection"
-msgstr ""
+msgstr "انتخاب بسته"
 
 #: ../../main/software/src/EBox/Software.pm:1076
 msgid "Confirmation"
-msgstr ""
+msgstr "پذیرفتن"
 
 #: ../../main/software/src/EBox/Software.pm:1077
 #, fuzzy
@@ -3971,22 +3959,17 @@ msgstr "پیکربندی به‌روزرسانی‌های خودکار"
 
 #: ../../main/software/src/EBox/Software.pm:1083
 msgid "Save Changes"
-msgstr ""
+msgstr "ذخیره تغییرات"
 
 #: ../../main/software/src/EBox/Software.pm:1084
 #: ../../main/core/src/templates/wizard/wizard.mas:26
 msgid "Finish"
-msgstr ""
+msgstr "پایان"
 
 #: ../../main/software/src/EBox/Software/CGI/CurrentPackage.pm:31
 #: ../../main/core/src/EBox/SysInfo/CGI/CurrentProgress.pm:37
-#, fuzzy
 msgid "Upgrading"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-software 0.12.100)  #-#-#-#-#\n"
-"ارتقا\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"به روز رسانی"
+msgstr "ارتقا"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:113
 msgid "There were no packages to update"
@@ -4000,7 +3983,7 @@ msgstr "بسته‌هایی برای به‌روزرسانی باقی نماند
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:67
 #: ../../main/core/src/templates/ajax/simpleModalDialog.mas:9
 msgid "OK"
-msgstr ""
+msgstr "تایید"
 
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:213
 #: ../../main/software/src/EBox/Software/CGI/InstallPkgs.pm:253
@@ -4178,46 +4161,38 @@ msgstr "مولفه‌های ای‌باکس"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:391
 msgid "Not subscribed"
-msgstr ""
+msgstr "مشترک نشده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:393
 msgid "Subscribed"
-msgstr ""
+msgstr "مشترک"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:426
-#, fuzzy
 msgid "Registration"
-msgstr "مقصد"
+msgstr "ثبت شده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:431
-#, fuzzy
 msgid "Server Registration"
-msgstr "ﺺﻔﺤﻫ ﺎﺸﺗﺭﺍک"
+msgstr "ثبت نام سرور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:436
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:129
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/Technical.pm:43
 msgid "Technical Support"
-msgstr ""
+msgstr "پشتیبانی فنی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:440
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:120
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:140
-#, fuzzy
 msgid "Security Updates"
-msgstr "به‌روزرسانی‌های سامانه"
+msgstr "به روزرسانی های امنیتی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:447
 #: ../../main/ebackup/src/EBox/EBackup.pm:874
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:179
 #: ../../main/core/src/EBox/SysInfo.pm:105
-#, fuzzy
 msgid "System"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-ntp 0.12.100)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"فشار سامانه"
+msgstr "سیستم"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:455
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:134
@@ -4228,9 +4203,8 @@ msgstr "بازیابی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:474
 #: ../../main/remoteservices/src/EBox/RemoteServices/Composite/General.pm:45
-#, fuzzy
 msgid "Your Zentyal Server Account"
-msgstr "سرویس وب"
+msgstr "اکانت سرور زنتیل شما"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:589
 msgid ""
@@ -4254,13 +4228,12 @@ msgid "Disabled - {oh}Enable{ch}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1837
-#, fuzzy
 msgid "Connected"
-msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
+msgstr "متصل"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1841
 msgid "In process"
-msgstr ""
+msgstr "در حال اجرا"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1844
 #, perl-brace-format
@@ -4269,11 +4242,11 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
 msgid "Essential"
-msgstr ""
+msgstr "ضروری"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1864
 msgid "Standard"
-msgstr ""
+msgstr "استاندارد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1865
 msgid "Premium"
@@ -4286,13 +4259,8 @@ msgstr "آخرین به‌روز‌رسانی ناموفق بود."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1876
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:202
-#, fuzzy
 msgid "Configuration backup enabled"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"پﺶﺗیﺏﺎﻧ پیکﺮﺒﻧﺩی\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"پشتیبان پیکربندی"
+msgstr "پشتیبان گیری از پیکربندی فعال است"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1879
 #, fuzzy, perl-brace-format
@@ -4305,37 +4273,33 @@ msgstr "پﺶﺗیﺏﺎﻧ ﻡﻮﺟﻭﺩ ﻥیﺲﺗ: {n}"
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:112
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:132
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:91
-#, fuzzy
 msgid "Server name"
-msgstr "ﻥﺎﻣ ﻢﺗﺩﺍﻮﻟ ﺍی<200c>ﺏﺍکﺱ"
+msgstr "نام سرور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1894
-#, fuzzy
 msgid "Connection status"
-msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
+msgstr "وضعیت اتصال"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1897
-#, fuzzy
 msgid "External server name"
-msgstr "نام سرور Jabber"
+msgstr "نام سرور خارجی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1900
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:115
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:103
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:116
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:136
-#, fuzzy
 msgid "Server edition"
-msgstr "ﺺﻔﺤﻫ ﺎﺸﺗﺭﺍک"
+msgstr "نسخه سرور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1902
 msgid "Technical support"
-msgstr ""
+msgstr "پشتیبانی فنی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1992
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:221
 msgid "No data backup has been done yet"
-msgstr ""
+msgstr "هنوز اطلاعات پشتیبانی وجود ندارد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:2281
 msgid ""
@@ -4363,15 +4327,15 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:119
 msgid "Support available via"
-msgstr ""
+msgstr "پشتیبانی با"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/TechnicalInfo.pm:123
 msgid "Service Level Agreement"
-msgstr ""
+msgstr "سطح خدمات مورد قبول"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:72
 msgid "Allow remote access to Zentyal support"
-msgstr ""
+msgstr "مجوز دسترسی راه دور به پشتیبان زنتیل"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:75
 msgid ""
@@ -4381,7 +4345,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:80
 msgid "Allow access from the Internet"
-msgstr ""
+msgstr "مجوز دسترسی از اینترنت"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/RemoteSupportAccess.pm:83
 msgid ""
@@ -4461,21 +4425,19 @@ msgstr "به‌روزرسانی "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:132
 msgid "No update has been done"
-msgstr ""
+msgstr "به روزرسانی انجام نشده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:136
-#, fuzzy
 msgid "Software module is not installed"
-msgstr "ماجول اشتراک‌گذاری فایل"
+msgstr "مازول نرم افزاری نصب نشده است"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:89
 msgid "Alerts generated during last month"
-msgstr ""
+msgstr "هشدارهای ایجاد شده در ماه اخیر"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:93
-#, fuzzy
 msgid "Information-level alerts"
-msgstr "اطلاعات RAID"
+msgstr "هشدارهای سطح اطلاعات"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AlertsInfo.pm:97
 msgid "Warning-level alerts"
@@ -4508,9 +4470,8 @@ msgid "Renovation date"
 msgstr "ﻢﻠﺤﻗ<200c>ﺷﺪﻧ ﺐﻫ ﺱﺭﻭیﺱ<200c>ﻫﺍی ﺭﺎﻫ<200c>ﺩﻭﺭ"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:122
-#, fuzzy
 msgid "Server info"
-msgstr "صفحه مورد نظر یافت نشد"
+msgstr "اطلاعات سرور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:144
 msgid "Not using Zentyal Dynamic DNS service"
@@ -4519,34 +4480,31 @@ msgstr ""
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:163
 #: ../../main/squid/src/templates/ajax/viewer/unlimitedIntViewer.mas:10
 msgid "Unlimited"
-msgstr ""
+msgstr "نامحدود"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:135
-#, fuzzy
 msgid "Data to back up"
-msgstr "حذف گروه"
+msgstr "اطلاعات برای پشتیبان گیری"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:142
-#, fuzzy
 msgid "data domain"
-msgstr "جستجوی دامنه"
+msgstr "اطلاعات دامین"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:143
 msgid "Select the data you want to back up."
-msgstr ""
+msgstr "انتخاب اطلاعاتی که میخواهید پشتیبان گیرید"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:61
 msgid "VPN Connectivity Check"
-msgstr ""
+msgstr "بررسی ارتباط VPN"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:64
 msgid "The VPN server is reachable"
-msgstr ""
+msgstr "سرور VPN در دسترس است"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:71
-#, fuzzy
 msgid "Zentyal Remote VPN Connectivity Check"
-msgstr "ﻡﺭکﺯ کﻦﺗﺮﻟ"
+msgstr "بررسی ارتباط VPN زنتیل راه دور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/VPNConnectivityCheck.pm:75
 msgid ""
@@ -4555,9 +4513,8 @@ msgid ""
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:124
-#, fuzzy
 msgid "Latest security update"
-msgstr "به‌روزرسانی‌های سامانه"
+msgstr "اخرین به روزرسانی امنیتی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
 #, fuzzy
@@ -4640,19 +4597,8 @@ msgstr ""
 #: ../../main/mail/src/templates/externalAccounts.mas:14
 #: ../../main/users/src/templates/edituser.mas:43
 #: ../../main/users/src/templates/adduser.mas:44
-#, fuzzy
 msgid "Password"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-usersandgroups 0.12.100Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-mail 0.12.100)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-webmail 1.3)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"گذرواژه جدید\n"
-"#-#-#-#-#  fa.po (ebox-ebackup 1.3.3)  #-#-#-#-#\n"
+msgstr "گذرواژه جدید"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:371
 #, fuzzy
@@ -4670,30 +4616,27 @@ msgstr "ﺝﺰﺋیﺎﺗ ﻢﻠﺤﻗ ﺵﺪﻧ ﺍی<200c>ﺏﺍکﺱ"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:383
 msgid "Unregister"
-msgstr ""
+msgstr "ثبت نشده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:387
-#, fuzzy
 msgid "Register your Zentyal Server"
-msgstr "سرویس وب"
+msgstr "ثبت سرور زنتیل شما"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:388
 msgid "Register"
-msgstr ""
+msgstr "ثبت نام"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:607
-#, fuzzy
 msgid " module"
-msgstr "ﻡﺎﺟﻮﻟ"
+msgstr "مازول"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
 msgid " and "
-msgstr ""
+msgstr " و "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:613
-#, fuzzy
 msgid " modules"
-msgstr "ﻡﺎﺟﻮﻟ"
+msgstr "مازول"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:629
 #: ../../main/samba/src/EBox/Samba.pm:1533
@@ -4779,7 +4722,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:109
 msgid "Not registered"
-msgstr ""
+msgstr "ثبت نشده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/ReportsInfo.pm:110
 #, perl-brace-format
@@ -4821,11 +4764,11 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:152
 msgid "Latest data backup"
-msgstr ""
+msgstr "اخرین اطلاعات پشتیبانی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:156
 msgid "Data backed up"
-msgstr ""
+msgstr "اطلاعات پشتیبان گیری شده"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:160
 #, fuzzy
@@ -4857,9 +4800,8 @@ msgid "{size} MB"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:260
-#, fuzzy
 msgid "No backup done yet"
-msgstr "پﺶﺗیﺏﺎﻧ ﺡﺬﻓ ﺵﺩ"
+msgstr "هنوز پشتیبانی گرفته نشده است"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:272
 #, perl-brace-format
@@ -4872,13 +4814,8 @@ msgid "{time} minutes - Configuration Backup Only"
 msgstr "پشتیبان پیکربندی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:284
-#, fuzzy
 msgid "No configuration backup has been done yet"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"پﺶﺗیﺏﺎﻧ پیکﺮﺒﻧﺩی\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"پشتیبان پیکربندی"
+msgstr "هنوز از پیکربندی پشتیبان گیری نشده است"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:78
 #, perl-brace-format
@@ -4886,9 +4823,8 @@ msgid "Enable access without password from {tool} and Support"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:87
-#, fuzzy
 msgid "Web Remote Access Settings"
-msgstr "ﺖﻨﻇیﻡﺎﺗ ﺪﺴﺗﺮﺳی"
+msgstr "تنظیمات دسترسی راه دور وب"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AccessSettings.pm:92
 msgid "This is only intended for Web Administration User Interface"
@@ -4910,41 +4846,33 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:440
 msgid "Try the upload again"
-msgstr ""
+msgstr "مجدد بارگذاری کنید"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:454
-#, fuzzy
 msgid "Server not found"
-msgstr "صفحه مورد نظر یافت نشد"
+msgstr "سرور یافت نشد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:457
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:35
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:172
-#, fuzzy
 msgid "Configuration backup"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"پﺶﺗیﺏﺎﻧ پیکﺮﺒﻧﺩی\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"پشتیبان پیکربندی"
+msgstr "پشتیبان پیکربندی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:461
 msgid "Some argument is missing"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:463
-#, fuzzy
 msgid "Internal Server Error"
-msgstr "پورت خروجی"
+msgstr "خطا سرور داخلی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:465
-#, fuzzy
 msgid "Forbidden request"
-msgstr "درخواست‌های فیلتر شده"
+msgstr "درخواست‌های ممنوع"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Backup.pm:467
 msgid "An error has occurred"
-msgstr ""
+msgstr "با خطا روبرو شد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:363
 #, perl-brace-format
@@ -4996,11 +4924,11 @@ msgstr "سیستم"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:290
 msgid "average"
-msgstr ""
+msgstr "میانگین"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:294
 msgid "weak"
-msgstr ""
+msgstr "ضعیف"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Audit/Password.pm:401
 #, perl-brace-format
@@ -5014,7 +4942,7 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:124
 msgid "Key for web subscription service not found"
-msgstr "کﻝیﺩ ﺏﺭﺍی ﺱﺭﻭیﺱ ﻊﺿﻭیﺕ ﻮﺑ یﺎﻔﺗ ﻦﺷﺩ"
+msgstr "کلیدی برای سرویس اشتراک وب یافت نشد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Subscription.pm:214
 msgid "None of the available bundles are valid for this server"
@@ -5095,34 +5023,28 @@ msgstr "ﻩیچ کﻝیﺩ ﺩﺎﻤﻨﻫ<200c>ﺍی ﺏﺭﺍی ﺍیﻥ ﺱ�
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/NoConnection.pm:28
 msgid "Connection error"
-msgstr "ﺦﻃﺍی ﺎﺘﺻﺎﻟ"
+msgstr "خطای اتصال"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:80
 msgid "Restoring remote backup"
-msgstr "ﺏﺍﺯیﺎﺑی پﺶﺗیﺏﺎﻧ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+msgstr "بازنشانی پشتیبان از راه دور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:81
 msgid "Restoring modules from remote backup"
-msgstr "ﺏﺍﺯیﺎﺑی ﻡﺎﺟﻮﻟ<200c>ﻫﺍ ﺍﺯ پﺶﺗیﺏﺎﻧ ﺭﺎﻫ ﺩﻭﺭ"
+msgstr "بازنشانی ماژول از پشتیبان راه دور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:83
 msgid "modules left to restore"
-msgstr "ﻡﺎﺟﻮﻟ<200c>ﻫﺍی ﺏﺎﻗیﻡﺎﻧﺪﻫ ﺏﺭﺍی ﺏﺍﺰﺑیﻥی"
+msgstr "ماژول های باقی مانده برای بازنشانی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:87
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:263
-#, fuzzy
 msgid "Restore successful"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﺏﺍﺯیﺎﺑی ﻡﻮﻔﻗ ﺏﻭﺩ\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"بازیابی موفق بود"
+msgstr "بازنشانی موفق"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:93
-#, fuzzy
 msgid "Click here to save changes"
-msgstr "ذخیره تغییرات"
+msgstr "برای ذخیره تغییرات اینجا را کلیک کنید"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/RestoreRemoteBackup.pm:94
 msgid ""
@@ -5132,45 +5054,30 @@ msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/DeleteRemoteBackup.pm:63
 msgid "Backup deleted"
-msgstr "پﺶﺗیﺏﺎﻧ ﺡﺬﻓ ﺵﺩ"
+msgstr "پشتیبان حذف شد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:79
 msgid "Making remote backup"
-msgstr "ﺍیﺝﺍﺩ پﺶﺗیﺏﺎﻧ ﺭﺎﻫ<200c>ﺩﻭﺭ"
+msgstr "تهیه پشتیبان از راه دور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:80
 msgid "Backing up modules "
-msgstr "پﺶﺗیﺏﺎﻧ<200c>گیﺭی ﻡﺎﺟﻮﻟ<200c>ﻫﺍ"
+msgstr "پشتیبان گیری ماژول ها"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:81
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:240
-#, fuzzy
 msgid "Operation"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﻊﻣﻮﻣی\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"عمل"
+msgstr "عملیات"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:82
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:241
-#, fuzzy
 msgid "operations left to finish backup"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﺎﻗﺩﺎﻣﺎﺗ ﺏﺭﺍی ﺎﺘﻣﺎﻣ پﺶﺗیﺏﺎﻧ<200c>گیﺭی ﺏﺎﻗی<200c>ﻡﺎﻧﺩ\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"اقدامات برای اتمام پشتیبان‌گیری باقی‌ماند"
+msgstr "عملیات باقی مانده تا پایان پشتیبان گیری"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/MakeRemoteBackup.pm:83
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:242
-#, fuzzy
 msgid "Backup successful"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﺥﻭﺎﻨﻧﺪﻫ<200c>ﻫﺍی ﻢﺟﺍﺯ\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"پشتیبان‌گیری موفق بود"
+msgstr "پشتیبان‌گیری موفق"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:80
 #, fuzzy
@@ -5185,17 +5092,12 @@ msgstr "لطفا تایید نمایید که شما می‌خواهید فای�
 #: ../../main/core/src/EBox/SysInfo/CGI/ConfirmBackup.pm:134
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:69
 #: ../../main/core/src/templates/backup.mas:92
-#, fuzzy
 msgid "Restore"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﺏﺍﺯیﺎﺑی\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"بازیابی"
+msgstr "بازنشانی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:92
 msgid "Please confirm that you want to delete the following remote backup:"
-msgstr ""
+msgstr "لطفا تایید نمایید که شما می‌خواهید فایل پشتیبان راه دور را حذف نمایید:"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:98
 #: ../../main/core/src/EBox/Model/TreeView.pm:268
@@ -5217,20 +5119,8 @@ msgstr ""
 #: ../../main/mail/src/templates/warnvd.mas:25
 #: ../../main/mail/src/templates/alias.mas:13
 #: ../../main/mail/src/templates/alias.mas:71
-#, fuzzy
 msgid "Delete"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-usersandgroups 0.12.100Report-Msgid-Bugs-To: "
-"developers@zentyal.org)  #-#-#-#-#\n"
-"حذف\n"
-"#-#-#-#-#  fa.po (ebox-dhcp 0.12.100)  #-#-#-#-#\n"
-"حذف\n"
-"#-#-#-#-#  fa.po (ebox-samba 0.12.100)  #-#-#-#-#\n"
-"حذف\n"
-"#-#-#-#-#  fa.po (ebox-remoteservices 1.1)  #-#-#-#-#\n"
-"ﺡﺬﻓ\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"حذف"
+msgstr "حذف"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:104
 #, fuzzy
@@ -5241,7 +5131,7 @@ msgstr "لطفا تایید نمایید که شما می‌خواهید فای�
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:110
 msgid "Overwrite"
-msgstr ""
+msgstr "بازنویسی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Confirm.pm:130
 #, perl-brace-format
@@ -5249,63 +5139,56 @@ msgid "Inexistent action: {a}"
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Backup/Index.pm:36
-#, fuzzy
 msgid "Import/Export Configuration Remotely"
-msgstr "اقدامات کنونی"
+msgstr "ورود/خروج پیکربندی از راه دور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:89
-#, fuzzy
 msgid "Email Address"
-msgstr "آدرس شبکه"
+msgstr "آدرس ایمیل"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:96
 #: ../../main/users/src/templates/editcontact.mas:20
 #: ../../main/users/src/templates/edituser.mas:24
 #: ../../main/users/src/templates/adduser.mas:23
 #: ../../main/users/src/templates/addcontact.mas:13
-#, fuzzy
 msgid "First name"
-msgstr "نام کاربری"
+msgstr "اسم"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:97
 #: ../../main/users/src/templates/editcontact.mas:20
 #: ../../main/users/src/templates/edituser.mas:28
 #: ../../main/users/src/templates/adduser.mas:30
 #: ../../main/users/src/templates/addcontact.mas:22
-#, fuzzy
 msgid "Last name"
-msgstr "نام کاربری"
+msgstr "فامیل"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:98
-#, fuzzy
 msgid "Phone number"
-msgstr "نوامبر"
+msgstr "تلفن"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:99
-#, fuzzy
 msgid "Repeated password"
-msgstr "گذرواژه جدید"
+msgstr "تکرار گلمه عبور"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:102
-#, fuzzy
 msgid "Introduced passwords do not match"
-msgstr "گذرواژه‌های جدید مطابقت ندارند."
+msgstr "کلمات عبور مطابقت ندارند."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:150
 msgid ""
 "An error ocurred registering the subscription, please check your Internet "
 "connection."
-msgstr ""
+msgstr "خطایی در اشتراک پیش امد اتصال اینترنت خود را چک کنید"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:158
 msgid "An unknown error ocurred registering the subscription"
-msgstr ""
+msgstr "خطایی در اشتراک پیش امد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:164
 msgid ""
 "An user with that email is already registered. You can check your account "
 "data at "
-msgstr ""
+msgstr "کاربری با این ادرس ایمیل وجود دارد."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:167
 #, fuzzy
@@ -5318,39 +5201,35 @@ msgstr "گذرواژه بایستی دارای طول حداقل ۶ کاراکت
 msgid ""
 "Sorry, an unknown exception has ocurred. Try again later or contact "
 "info@zentyal.com"
-msgstr ""
+msgstr "متاسفانه با خطا روبرو شدید."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:74
-#, fuzzy
 msgid "Registering your server"
-msgstr "بازیابی ماجول‌ها"
+msgstr "ثبت نام سرور شما"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:75
-#, fuzzy
 msgid "Registration finished"
-msgstr "نصب"
+msgstr "پایان ثبت نام"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:76
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:83
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "There was an error in the registration. There are more information in the "
 "logs directory {dir}"
-msgstr "نصب بسته‌ها به‌درستی خاتمه نیافت. اطلاعات بیشتر در وقایع ثبت‌شده"
+msgstr "خطایی در ثبت نام به وجود امد"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:81
 msgid "Unregistering your server"
-msgstr ""
+msgstr "لغو ثبت سرور شما"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:82
-#, fuzzy
 msgid "Unregistration finished"
-msgstr "نصب"
+msgstr "پایان لغو ثبت نام"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:91
-#, fuzzy
 msgid "Making changes in your configuration"
-msgstr "پیکربندی حالت ماجول"
+msgstr "اعمال تغییرات در پیکربندی"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:93
 #: ../../main/core/src/EBox/CGI/SaveChanges.pm:83
@@ -5372,38 +5251,34 @@ msgstr "صفحه اصلی eBox"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:42
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Composite/General.pm:53
 msgid "Bandwidth Monitor"
-msgstr ""
+msgstr "مشاهده پهنای باند"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:302
 #: ../../main/samba/src/EBox/Samba.pm:1531
 #: ../../main/samba/src/EBox/Samba.pm:1551
 #: ../../main/samba/src/EBox/Samba.pm:1562
 msgid "Client address"
-msgstr ""
+msgstr "ادرس کلاینت"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:305
-#, fuzzy
 msgid "External recv"
-msgstr "{iface} (رابط خارجی)"
+msgstr "دریافت خارجی"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:306
-#, fuzzy
 msgid "External sent"
-msgstr "{iface} (رابط خارجی)"
+msgstr "ارسال خارجی"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:307
-#, fuzzy
 msgid "Internal recv"
-msgstr "اینترنت"
+msgstr "دریافت داخلی"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:308
-#, fuzzy
 msgid "Internal sent"
-msgstr "اینترنت"
+msgstr "ارسال داخلی"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:319
 msgid "Bandwidth usage"
-msgstr ""
+msgstr "پهنای باند مصرفی"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:57
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:208
@@ -5413,17 +5288,12 @@ msgstr ""
 #: ../../main/core/src/EBox/SysInfo/Model/ManageAdmins.pm:176
 #: ../../main/captiveportal/src/templates/login.mas:34
 #: ../../main/core/src/templates/login/index.mas:48
-#, fuzzy
 msgid "Username"
-msgstr ""
-"#-#-#-#-#  fa.po (ebox-network 0.12.100)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-asterisk 1.1)  #-#-#-#-#\n"
-"#-#-#-#-#  fa.po (ebox-ebox 0.12.100)  #-#-#-#-#\n"
-"نام میزبان"
+msgstr "نام کاربری"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:71
 msgid "IPs assigned to users"
-msgstr ""
+msgstr "ای پی های واگذار شده به کاربران"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:72
 #, fuzzy
@@ -5432,12 +5302,11 @@ msgstr "کاربر"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/UserIPMap.pm:75
 msgid "List of IPs assigned to each user."
-msgstr ""
+msgstr "فهرست ای پی های واگذار شده به هر کاربر"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:65
-#, fuzzy
 msgid "Configure interfaces"
-msgstr "واسط های شبکه"
+msgstr "پیکربندی رابط ها"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:66
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:66
@@ -5445,18 +5314,15 @@ msgstr "واسط های شبکه"
 #: ../../main/printers/src/EBox/Printers/Model/CUPS.pm:142
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:137
 msgid "interface"
-msgstr ""
+msgstr "رابط"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:69
-#, fuzzy
 msgid "List of monitored interfaces."
-msgstr "واسط شبکه"
+msgstr "فهرست رابط های مشاهده شده"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:74
-#, fuzzy
 msgid "There aren't any internal interfaces to monitor"
-msgstr ""
-"هر اندازه گیری ای ممکن است سطوح آستانه مختلقی برای مانیتور کردن داشته باشد"
+msgstr "هیچ رابط داخلی برای مشاهده وجود ندارد"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/Interfaces.pm:134
 #, perl-brace-format
@@ -5485,19 +5351,19 @@ msgstr "اینترنت"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:86
 msgid "Last hour bandwidth usage"
-msgstr ""
+msgstr "پهنای باند مصرفی در ساعات اخیر"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:90
 msgid "There is no data to show yet, the values are updated every 10 minutes"
-msgstr ""
+msgstr "اطلاعاتی برای نمایش وجود ندارد."
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:91
 msgid "Bandwidth usage for each connected client."
-msgstr ""
+msgstr "پهنای باند مصرفی برای هر ارتباط کلاینت"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:106
 msgid "Bandwidth Monitor must be enabled in order to get data."
-msgstr ""
+msgstr "مشاهده پهنای باند باید فعال باشد"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor/Model/BWUsage.pm:138
 #, perl-brace-format
@@ -5518,31 +5384,31 @@ msgstr "اقدامات"
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:69
 #: ../../main/core/src/cgi/ebox.cgi:68
 msgid "Go back"
-msgstr ""
+msgstr "برگشت"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:70
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:70
 #: ../../main/core/src/cgi/ebox.cgi:69
 msgid "Sorry, an unexpected error has occurred"
-msgstr ""
+msgstr "با خطا مواجه شدید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:72
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:72
 #: ../../main/core/src/cgi/ebox.cgi:73
 msgid "Please contact support."
-msgstr ""
+msgstr "با پشتیبانی تماس بگیرید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:75
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:75
 #: ../../main/core/src/cgi/ebox.cgi:81 ../../main/core/src/cgi/ebox.cgi:87
 msgid "Show technical details"
-msgstr ""
+msgstr "نمایش جزییات فنی"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:76
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:76
 #: ../../main/core/src/cgi/ebox.cgi:88
 msgid "Report the problem"
-msgstr ""
+msgstr "گزارش مشکل"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:77
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:77
@@ -5574,13 +5440,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:79
 #: ../../main/core/src/cgi/ebox.cgi:91
 msgid "Describe in English what you where doing"
-msgstr ""
+msgstr "کاری که انجام میدهید را به انگلیسی توضیح دهید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:81
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:81
 #: ../../main/core/src/cgi/ebox.cgi:93
 msgid "Couldn't send the report"
-msgstr ""
+msgstr "نمیتواند گزارش را ارسال کند"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:82
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:82
@@ -5588,19 +5454,19 @@ msgstr ""
 msgid ""
 "The report has been successfully sent, you can keep track of it in the "
 "following ticket:"
-msgstr ""
+msgstr "گزارش با موفقیت ارسال شد"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:84
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:84
 #: ../../main/core/src/cgi/ebox.cgi:96
 msgid "To do a manual report, please follow these instructions:"
-msgstr ""
+msgstr "برای گزارش دستی مراحل زیر را دنبال کنید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:85
 #: ../../main/core/src/cgi/ebox.cgi:97
 msgid "Create a new ticket in the Zentyal trac by clicking "
-msgstr ""
+msgstr "یک تیکت جدید ایجاد کنید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:85
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
@@ -5608,13 +5474,13 @@ msgstr ""
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
 #: ../../main/core/src/cgi/ebox.cgi:97 ../../main/core/src/cgi/ebox.cgi:101
 msgid "here"
-msgstr ""
+msgstr "اینجا"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:86
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:86
 #: ../../main/core/src/cgi/ebox.cgi:98
 msgid "Write a short description of the problem in the summary field"
-msgstr ""
+msgstr "در فیلد خلاصه توضیح مختصری از مشکل را بنویسید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:87
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:87
@@ -5622,19 +5488,19 @@ msgstr ""
 msgid ""
 "Write a detailed report of what you were doing before this problem ocurred "
 "in the description field"
-msgstr ""
+msgstr "در فیلد توضیح گزارشی از کاری که قبل از وقوع مشکل انجام میدادید بنویسید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:88
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:88
 #: ../../main/core/src/cgi/ebox.cgi:101
 msgid "Download the log file with additional information by clicking"
-msgstr ""
+msgstr "با کلیک کردن فایل لاگ و اطلاعات اضافی را دانلود کنید"
 
 #: ../../main/captiveportal/src/cgi/captiveportal.cgi:89
 #: ../../main/usercorner/src/cgi/user-ebox.cgi:89
 #: ../../main/core/src/cgi/ebox.cgi:102
 msgid "Attach the downloaded file in the ticket"
-msgstr ""
+msgstr "فایل دانلودی را به تیکت ضمیمه کنید"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:50
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:75
@@ -5836,24 +5702,23 @@ msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:107
 msgid "Day"
-msgstr ""
+msgstr "روز"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:111
 msgid "Week"
-msgstr ""
+msgstr "هفته"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:115
 msgid "Month"
-msgstr ""
+msgstr "ماه"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:122
 msgid "Period"
-msgstr ""
+msgstr "دوره"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:131
-#, fuzzy
 msgid "Bandwidth Settings"
-msgstr "ﺖﻨﻇیﻡﺎﺗ ﺪﺴﺗﺮﺳی"
+msgstr "تنظیمات پهنای باند"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/BWSettings.pm:135
 msgid "Here you can setup bandwidth usage quota for captive portal users."
@@ -5870,22 +5735,20 @@ msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:54
 #: ../../main/captiveportal/src/templates/useraddon.mas:39
-#, fuzzy
 msgid "Use default"
-msgstr "پیش فرض"
+msgstr "استفاده از پیش فرض"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:58
 #: ../../main/captiveportal/src/templates/useraddon.mas:40
-#, fuzzy
 msgid "No limit"
-msgstr "محدودیت سهمیه"
+msgstr "نامحدود"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:62
 #: ../../main/zarafa/src/EBox/Zarafa/Model/Quota.pm:86
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:56
 #: ../../main/captiveportal/src/templates/useraddon.mas:41
 msgid "Limited to"
-msgstr ""
+msgstr "محدود به"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/CaptiveUser.pm:64
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:58
@@ -16253,11 +16116,11 @@ msgstr "گذرواژه‌ها مطابقت ندارند"
 #: ../../main/users/src/EBox/Users/Model/Password.pm:176
 #, perl-brace-format
 msgid "User {x} not found in LDAP database"
-msgstr ""
+msgstr "نام کاربری {x} در پایگاه داده LDAP یافت نشد"
 
 #: ../../main/users/src/EBox/Users/Model/Password.pm:188
 msgid "Password successfully updated"
-msgstr ""
+msgstr "گذرواژه با موفقیت به روزرسانی شد"
 
 #: ../../main/users/src/EBox/Users/Model/PAM.pm:82
 #, perl-brace-format
@@ -16268,7 +16131,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/Model/PAM.pm:124
 msgid "Enable PAM"
-msgstr ""
+msgstr "فعال سازی PAM"
 
 #: ../../main/users/src/EBox/Users/Model/PAM.pm:127
 msgid "Make LDAP users have system account."
@@ -16284,7 +16147,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/Model/PAM.pm:146
 msgid "PAM settings"
-msgstr ""
+msgstr "تنظیمات PAM"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:57
 msgid ""
@@ -16306,19 +16169,17 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:110
 #: ../../main/users/src/EBox/Users/CGI/Wizard/Users.pm:73
-#, fuzzy
 msgid "User password and confirm user password does not match"
 msgstr "گذرواژه‌های جدید مطابقت ندارند."
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:121
-#, fuzzy
 msgid "Server mode"
-msgstr "ﻥﺎﻣ ﻢﺗﺩﺍﻮﻟ ﺍی<200c>ﺏﺍکﺱ"
+msgstr "حالت سرویس دهنده"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:127
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:227
 msgid "LDAP DN"
-msgstr ""
+msgstr "LDAP DN"
 
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:132
 msgid "This will be the DN suffix in LDAP tree"
