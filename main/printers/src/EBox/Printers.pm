@@ -37,7 +37,7 @@ sub _create
 {
     my $class = shift;
     my $self = $class->SUPER::_create(name => 'printers',
-                                      printableName => __('Printer Sharing'),
+                                      printableName => __('Printers'),
                                       @_);
     bless ($self, $class);
     $self->{'cups'} = new Net::CUPS;
@@ -230,8 +230,7 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $item = new EBox::Menu::Item('name' => 'Printers Sharing',
-                                    'url' => 'Printers/Composite/General',
+    my $item = new EBox::Menu::Item('url' => 'Printers/Composite/General',
                                     'icon' => 'printers',
                                     'text' => $self->printableName(),
                                     'separator' => 'Office',
