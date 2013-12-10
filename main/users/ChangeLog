@@ -1,4 +1,5 @@
 HEAD
+	+ Show system but not internal groups in user edition form
 	+ The "sub ous" return the OUs hierarquically ordered
 	+ Check for defined uidNumber and gidNumber creating users and groups
 3.2.5

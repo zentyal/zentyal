@@ -51,7 +51,7 @@ sub _process
 
     my $components = $users->allUserAddOns($user);
     my $usergroups = $user->groups();
-    my $remaingroups = $user->groupsNotIn();
+    my $remaingroups = $user->groupsNotIn(internal => 0, system => 1);
 
     my $editable = $users->editableMode();
 
