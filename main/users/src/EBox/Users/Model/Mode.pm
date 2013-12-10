@@ -165,21 +165,21 @@ sub _table
             help          =>
                __('This user has to have enough permissions to create a computer account in the domain'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         ),
         EBox::Types::Password->new(
             fieldName => 'dcPassword',
             printableName => __('User password'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         ),
         EBox::Types::Password->new(
             fieldName => 'dcPassword2',
             printableName => __('Confirm user password'),
             editable => 1,
-            unsafeParam => 1,
+            allowUnsafeChars => 1,
             optional => 1,
         )
     );
