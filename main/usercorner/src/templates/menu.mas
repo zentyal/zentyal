@@ -1,0 +1,17 @@
+<%args>
+@items
+$current => 'none'
+$currentUrl => ''
+$copyright_footer
+</%args>
+<div id='menu'>
+    <ul id='nav'>
+% foreach my $item (@items) {
+        <% $item->html($current, $currentUrl) %>
+% }
+</ul>
+    <div id="footer">
+        <% $copyright_footer %>
+    </div>
+</div>
+
