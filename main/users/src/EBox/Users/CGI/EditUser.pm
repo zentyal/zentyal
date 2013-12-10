@@ -50,7 +50,7 @@ sub _process
     my $user = new EBox::Users::User(dn => $dn);
 
     my $components = $users->allUserAddOns($user);
-    my $usergroups = $user->groups();
+    my $usergroups = $user->groups(internal => 0, system => 1);
     my $remaingroups = $user->groupsNotIn(internal => 0, system => 1);
 
     my $editable = $users->editableMode();
