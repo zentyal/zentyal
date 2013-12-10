@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
 	+ The "sub ous" return the OUs hierarquically ordered
 	+ Check for defined uidNumber and gidNumber creating users and groups
 3.2.5

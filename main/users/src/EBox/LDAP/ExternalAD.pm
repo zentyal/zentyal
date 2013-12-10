@@ -236,6 +236,9 @@ sub connectWithKerberos
 sub connection
 {
     my ($self) = @_;
+    if ($self->connected()) {
+        return $self->{ldap};
+    }
 
     EBox::info("Setting AD connection");
 
@@ -365,7 +368,6 @@ sub connection
     my $ad = $self->_dcLDAPConnection();
     my $adUser = $self->userBindDN($self->_adUser());
     my $bindPwd = $self->getPassword();
-    EBox::debug(" login |$adUser/$bindPwd|");
     my $bindResult = $ad->bind($adUser, password => $bindPwd);
     if ($bindResult->is_error()) {
         throw EBox::Exceptions::External(
