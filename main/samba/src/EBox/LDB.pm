@@ -649,7 +649,7 @@ sub users
         base => $self->dn(),
         scope => 'sub',
         filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(isDeleted=*)))',
+                  '(!(isDeleted=*))(!(servicePrincipalName=*)))',
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
     my $result = $self->search($params);
