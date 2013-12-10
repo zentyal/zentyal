@@ -73,15 +73,15 @@ sub _table
             printableName => __('Organization Name'),
             editable      => 1,
             subtypes      => [
-                new EBox::Types::Select(
-                    fieldName     => 'existingorganizationname',
-                    printableName => __('Existing One'),
-                    populate      => \&_existingOrganizationNames,
-                    editable      => 1),
                 new EBox::Types::Text(
                     fieldName     => 'neworganizationname',
                     printableName => __('New One'),
                     defaultValue  => $self->_defaultOrganizationName(),
+                    editable      => 1),
+                new EBox::Types::Select(
+                    fieldName     => 'existingorganizationname',
+                    printableName => __('Existing One'),
+                    populate      => \&_existingOrganizationNames,
                     editable      => 1),
             ])
         );
@@ -340,6 +340,10 @@ sub _doProvision
     my $enableUsers = $params{enableUsers};
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
+
+    unless ($organizationName) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
 
     foreach my $organization (@{$self->{organizations}}) {
         if ($organization->name() eq $organizationName) {
