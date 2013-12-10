@@ -236,7 +236,7 @@ while (1) {
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    # $sambaGroups{$uniqueID}->updateZentyal();
+                    $sambaGroups{$uniqueID}->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating group $canonicalName: $error");
@@ -281,8 +281,8 @@ while (1) {
     foreach my $uniqueID (sort keys %zentyalGroups) {
         my $canonicalName = $zentyalGroups{$uniqueID}->canonicalName(1);
         try {
-            #$zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
-            #$zentyalGroups{$uniqueID}->deleteObject();
+            $zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalGroups{$uniqueID}->deleteObject();
         } otherwise {
             my ($error) = @_;
             EBox::error("Error deleting group $canonicalName: $error");
