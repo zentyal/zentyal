@@ -1,5 +1,6 @@
 3.3
-	+ Hide close button on saving changes and backup progess dialogs
+	+ Hide close button on saving changes and backup progess
+	  dialogs. Don't allow to close it with esc key on those cases.
 	+ Fix error when pageSize paramter is not supplied to the model controller
 	+ Workaround against modules changed when saving all changes
 	+ Recover from widget function exceptions
