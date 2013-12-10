@@ -1003,19 +1003,19 @@ sub _createDirectories
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    #push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    #push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    #push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
@@ -1024,10 +1024,6 @@ sub _createDirectories
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
 
     EBox::Sudo::root(@cmds);
 }
