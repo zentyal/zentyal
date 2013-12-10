@@ -52,6 +52,7 @@ Zentyal.Dialog.showURL = function(url, params) {
     }
     if (('showCloseButton' in params) & (!params.showCloseButton)) {
         dialogParams['dialogClass'] = 'no-close';
+        dialogParams['closeOnEscape'] = false;
     }
 
     $('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
