@@ -480,13 +480,13 @@ sub _checkSystemShareMountOptions
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(
-            __x("The mount point '$mountPoint' must be mounted with " .
+            __x("The mount point '{mountPoint}' must be mounted with " .
                 "'acl' option. This is required for permissions to work ".
                 "properly.", mountPoint => $mountPoint));
     }
     unless (grep (/user_xattr/, @options)) {
         throw EBox::Exceptions::External(
-            __x("The mount point '$mountPoint' must be mounted with " .
+            __x("The mount point '{mountPoint}' must be mounted with " .
                 "'user_xattr' option. This is required for permissions to ".
                 "work properly.", mountPoint => $mountPoint));
     }
