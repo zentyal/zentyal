@@ -637,7 +637,7 @@ sub _internalServerEnableActions
     $self->_loadLDAP($dn, $LDIF_CONFIG, $LDIF_DB);
     $self->_manageService('start');
 
-    $self->ldap->clearConn();
+    $self->cleanLdapConn();
 
     # Setup NSS (needed if some user is added before save changes)
     $self->_setConf(1);
@@ -1086,7 +1086,7 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState();
 
     # Clear LDAP connection
-    $self->ldap->clearConn();
+    $self->cleanLdapConn();
 }
 
 # Method: groupDn
@@ -2190,7 +2190,7 @@ sub restoreConfig
     chmod(0600, "$dir/ldap.passwd", "$dir/ldap_ro.passwd");
 
     $self->_manageService('start');
-    $self->ldap->clearConn();
+    $self->cleanLdapConn();
 
     # Save conf to enable NSS (and/or) PAM
     $self->_setConf();

@@ -62,6 +62,14 @@ sub ldap
     return $self->{ldap};
 }
 
+sub cleanLdapConn
+{
+    my ($self) = @_;
+    $self->{ldap} or return;
+    $self->{ldap}->cleanLdapConn();
+    $self->{ldap} = undef;
+}
+
 # Method: _loadSchema
 #
 #      loads an LDAP schema from an LDIF file
