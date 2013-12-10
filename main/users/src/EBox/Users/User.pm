@@ -231,7 +231,7 @@ sub _groups
     my $defaultGroup = EBox::Users->DEFAULTGROUP();
     my $filteredGroups = [];
     for my $group (@groups) {
-        next if ($group->name() eq $defaultGroup and not $params{system});
+        next if ($group->name() eq $defaultGroup and not $params{internal});
         next if ($group->isInternal() and not $params{internal});
         next if ($group->isSystem() and not $params{system});
 
