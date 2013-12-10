@@ -1,4 +1,5 @@
 3.3
+	+ Added Slovenian and Vietnamese languages
 	+ Switch from Error to TryCatch for exception handling
 	+ New EBox::Exceptions::Error to encapsulate generic Perl errors
 	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
