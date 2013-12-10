@@ -72,7 +72,7 @@ sub _header
         EBox::error("Cannot get pageTitle for Tree");
         $pageTitle = '';
     }
-    print EBox::Html::header($pageTitle);
+    print EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

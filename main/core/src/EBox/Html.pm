@@ -132,9 +132,9 @@ sub footer
 #
 #   string - containg the html code for the header page
 #
-sub header # (title)
+sub header
 {
-    my ($title) = @_;
+    my ($title, $folder) = @_;
 
     my $serverName = __('Zentyal');
     my $global = EBox::Global->getInstance();
@@ -152,7 +152,7 @@ sub header # (title)
     }
 
     my $favicon = $global->theme()->{'favicon'};
-    my $html = makeHtml('header.mas', title => $title, favicon => $favicon );
+    my $html = makeHtml('header.mas', title => $title, favicon => $favicon, folder => $folder);
     return $html;
 
 }

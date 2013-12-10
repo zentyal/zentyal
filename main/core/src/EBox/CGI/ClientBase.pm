@@ -89,7 +89,7 @@ sub _header
 {
     my $self = shift;
     print($self->cgi()->header(-charset=>'utf-8'));
-    print(EBox::Html::header($self->{title}));
+    print(EBox::Html::header($self->{title}, $self->menuFolder()));
 }
 
 sub _top
