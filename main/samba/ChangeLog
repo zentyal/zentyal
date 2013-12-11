@@ -1,6 +1,5 @@
 HEAD
-	+ Do not automatically start service in LDB.pm
-	+ Remove unused guest access code
+	+ Fix share guest access, based on domain guest account enabled status
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
 	+ OU - Improve cration code

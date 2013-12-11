@@ -114,6 +114,9 @@ use EBox::Gettext;
     read only = No
     force create mode = 0660
     force directory mode = 0660
+% if ($share->{guest}) {
+    guest ok = yes
+% }
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr';
