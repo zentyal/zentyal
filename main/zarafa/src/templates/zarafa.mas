@@ -12,14 +12,14 @@
     <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
     <div>
       <label><% __('User account') %></label>
-      <select name="active" enabled>
+      <select name="active" id="zarafaUserOptions_active">
         <option
-%    if (not $params->{'active'}) { 
+%    if (not $params->{'active'}) {
                  selected
 %    }
                  value="no" ><% __('Disabled') %></option>
         <option
-%    if ($params->{'active'}) { 
+%    if ($params->{'active'}) {
                 selected
 %    }
                 value="yes" ><% __('Enabled') %></option>
@@ -27,7 +27,7 @@
     </div>
     <div class='zarafaEnabled'>
          <label>
-            <input type="checkbox" name="is_admin" id="external" value="yes"
+            <input type="checkbox" name="is_admin"  value="yes"
                    <% $params->{'is_admin'} ? 'checked' : '' %>
                     />
             <% __('Administration rights') %>
@@ -35,7 +35,7 @@
     </div>
     <div class='zarafaEnabled'>
        <label>
-          <input type="checkbox" name="has_pop3" id="external" value="yes"
+          <input type="checkbox" name="has_pop3"  value="yes"
                    <% $params->{'has_pop3'} ? 'checked' : '' %>
                 />
           <% __('Enable POP3 access') %>
@@ -43,7 +43,7 @@
     </div>
     <div class='zarafaEnabled'>
             <label>
-              <input type="checkbox" name="has_imap" id="external" value="yes"
+              <input type="checkbox" name="has_imap"  value="yes"
                        <% $params->{'has_imap'} ? 'checked' : '' %>
                  />
               <% __('Enable IMAP access') %>
@@ -51,7 +51,7 @@
     </div>
     <div class="zarafaEnabled">
             <label>
-              <input type="checkbox" name="meeting_autoaccept" id="external" value="yes"
+              <input type="checkbox" name="meeting_autoaccept" id="ZarafaUserOptions_meetingAutoaccept" value="yes"
                        <% $params->{'meeting_autoaccept'} ? 'checked' : '' %>
                 />
               <% __('Auto accept meeting requests') %>
@@ -59,7 +59,7 @@
     </div>
     <div class='autoAcceptEnabled'>
             <label>
-              <input type="checkbox" name="meeting_declineconflict" id="external" value="yes"
+              <input type="checkbox" name="meeting_declineconflict"  value="yes"
                       <% $params->{'meeting_declineconflict'} ? 'checked' : '' %>
                />
               <% __('Decline meetings requests with conflicting times') %>
@@ -68,7 +68,7 @@
 
     <div class="autoAcceptEnabled">
            <label>
-              <input type="checkbox" name="meeting_declinerecurring" id="external" value="yes"
+              <input type="checkbox" name="meeting_declinerecurring"  value="yes"
                    <% $params->{'meeting_declinerecurring'} ?  'checked' : '' %>
                />
               <% __('Decline recurring meeting requests') %>
@@ -80,7 +80,7 @@
 
     <div class='zarafaDisabled'>
         <label>
-            <input type="checkbox" name="contact" id="external" value="yes"
+            <input type="checkbox" name="contact" value="yes"
                <%  $params->{'contact'} ? 'checked' : '' %>
             />
             <% __('Groupware contact') %>
@@ -100,7 +100,7 @@ $(function() {
  var updateForm = function(enabled, autoAcceptMeeting) {
     $('#zarafaUserOptions .zarafaEnabled').toggle(enabled);
     $('#zarafaUserOptions .zarafaDisabled').toggle(!enabled);
-    $('#zarafaUserOptions .autoAcceptEnabled').toggle(autoAcceptMeeting);
+    $('#zarafaUserOptions .autoAcceptEnabled').toggle(enabled && autoAcceptMeeting);
  };
 
  Zentyal.Form.setupAjaxSubmit('#zarafaUserOptions', {
@@ -111,6 +111,12 @@ $(function() {
            updateForm(response.enabled === 1, response.meeting_autoaccept === 1);
        }
  });
+
+  $('#zarafaUserOptions_active, #ZarafaUserOptions_meetingAutoaccept').on('change', function () {
+          var enabled = $('#zarafaUserOptions_active').val() === 'yes'
+          var autoAcceptMeeting = $('#ZarafaUserOptions_meetingAutoaccept').prop('checked');
+          updateForm(enabled, autoAcceptMeeting);
+  });
 
   updateForm(<% $params->{active} ? 'true' : 'false' %>, <% $params->{'meeting_autoaccept'} ? 'true' : 'false' %>);
 });
