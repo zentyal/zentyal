@@ -1,3 +1,6 @@
+HEAD
+	+ Added http_allow to internal squid stub so proxy event does not need
+	  an explicit rule
 3.2.2
 	+ Added missing EBox::Exceptions uses
 	+ Fix group based filter access rules in external AD mode, retrieving
