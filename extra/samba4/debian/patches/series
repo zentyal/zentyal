@@ -15,3 +15,8 @@
 40-s4-libcli-raw-Add-new-command-to-set-per-packet-case.patch
 41-s4-libcli-raw-Add-test-for-per-packet-case-sensitive.patch
 42-s4-libcli-raw-pysmb-Raise-exception-on-failed-case_s.patch
+43-auth-Fallback-to-guest-account-if-user-not-found-in-.patch
+44-python-samba-tool-Do-not-toggle-UF_PASSWD_NOTREQD-en.patch
+45-python-samba-tool-Print-message-on-success-disabling.patch
+46-Add-test-for-guest-access-to-SMB-and-LDAP.patch
+47-Test-guest-access-in-domain-member-environment.patch
