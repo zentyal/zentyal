@@ -169,9 +169,13 @@ sub isInternal
 
 sub setInternal
 {
-    my ($self) = @_;
+    my ($self, $internal) = @_;
 
-    $self->set('title', 'internal');
+    if ($internal) {
+        $self->set('title', 'internal');
+    } else {
+        $self->set('title', undef);
+    }
 }
 
 # Catch some of the set ops which need special actions
