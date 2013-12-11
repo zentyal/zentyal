@@ -62,11 +62,11 @@ sub ldap
     return $self->{ldap};
 }
 
-sub cleanLdapConn
+sub clearLdapConn
 {
     my ($self) = @_;
     $self->{ldap} or return;
-    $self->{ldap}->cleanLdapConn();
+    $self->{ldap}->clearConn();
     $self->{ldap} = undef;
 }
 
