@@ -135,7 +135,7 @@ sub initialSetup
     }
 }
 
-#  mailfilter can be ysed without mail so this methods reflects that
+#  mailfilter can be used without mail so this methods reflects that
 sub depends
 {
     my ($self) = @_;
