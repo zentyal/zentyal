@@ -1,0 +1,25 @@
+From 814ad651e5b08ddc9c67dc0c5bd411526542f103 Mon Sep 17 00:00:00 2001
+From: Samuel Cabrero <scabrero@zentyal.com>
+Date: Thu, 31 Oct 2013 16:41:14 +0100
+Subject: [PATCH] python samba-tool: Print message on success disabling an
+ account
+
+---
+ python/samba/netcmd/user.py | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/python/samba/netcmd/user.py b/python/samba/netcmd/user.py
+index b98ec34..425f1f0 100644
+--- a/python/samba/netcmd/user.py
++++ b/python/samba/netcmd/user.py
+@@ -381,6 +381,7 @@ class cmd_user_disable(Command):
+             samdb.disable_account(filter)
+         except Exception, msg:
+             raise CommandError("Failed to disable user '%s': %s" % (username or filter, msg))
++        self.outf.write("Disabled user '%s'\n" % (username or filter))
+ 
+ 
+ class cmd_user_setexpiry(Command):
+-- 
+1.8.3.2
+
