@@ -1,4 +1,5 @@
 HEAD
+	+ Show system but not internal groups in user edition form
 	+ Allow unsafe characters for user and password in external AD mode.
 	+ Fixed bug in external AD connection. Reuse already estabished
 	  external AD connection.
