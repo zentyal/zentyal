@@ -436,7 +436,7 @@ body {
 }
 
 body#OpenChange {
-    background: url("/images/technology-preview.png");
+    background-image: url("/images/technology-preview.png");
 }
 
 h1 {
