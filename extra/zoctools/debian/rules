@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+
+DESTDIR = $(CURDIR)/debian/zoctools
+BUILDDIR = $(CURDIR)/debian/zoctools-build
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	$(CURDIR)/bin/waf distclean
+
+override_dh_auto_configure:
+	PKG_CONFIG_PATH=/opt/samba4/lib/pkgconfig $(CURDIR)/bin/waf configure -o $(BUILDDIR) --prefix=/usr
+
+override_dh_auto_install:
+	$(CURDIR)/bin/waf install --destdir=$(DESTDIR)
+
+override_dh_strip:
+	dh_strip --dbg-package=zoctools-dbg

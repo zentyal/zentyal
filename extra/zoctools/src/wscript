@@ -6,8 +6,8 @@ from waflib.TaskGen import extension
 from waflib.Tools import c_config
 import os
 
-APPNAME = 'ZentyalExchangeUpgrade'
-VERSION	= '0.9'
+APPNAME = 'zoctools'
+VERSION	= '0.1'
 
 def options(ctx):
     ctx.load('compiler_c')
