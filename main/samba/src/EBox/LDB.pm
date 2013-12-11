@@ -643,15 +643,17 @@ sub ldapServicePrincipalsToLdb
 
 sub users
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
+    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
     my $params = {
         base => $self->dn(),
         scope => 'sub',
-        filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(isDeleted=*))(!(servicePrincipalName=*)))',
+        filter => $filter,
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
+
     my $result = $self->search($params);
     my $list = [];
     foreach my $entry ($result->sorted('samAccountName')) {

@@ -1,7 +1,7 @@
 HEAD
-	+ Filter out Samba specific Kerberos user accounts from the list of users
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization
+	+ LDB - Do not return users holding a servicePrincipalName by default
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
 	+ OU - Improve creation code

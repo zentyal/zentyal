@@ -1,4 +1,8 @@
 HEAD
+	+ Show system but not internal groups in user edition form
+	+ Allow unsafe characters for user and password in external AD mode.
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
 	+ The "sub ous" return the OUs hierarquically ordered
 	+ Check for defined uidNumber and gidNumber creating users and groups
 3.2.5

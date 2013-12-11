@@ -48,7 +48,6 @@ my $ro = 1;
 my $global = EBox::Global->getInstance($ro);
 my $sambaModule = $global->modInstance('samba');
 my $usersModule = $global->modInstance('users');
-my $sysinfo = $global->modInstance('sysinfo');
 
 while (1) {
     # Sleeping at the loop start gives time to samba daemon to fully start
@@ -175,8 +174,6 @@ while (1) {
             delete $zentyalUsers{$uniqueID};
         } else {
             my $samAccountName = $sambaUsers{$uniqueID}->get('samAccountName');
-            my $hostname = $sysinfo->hostName();
-
             try {
                 $sambaUsers{$uniqueID}->addToZentyal();
             } otherwise {
