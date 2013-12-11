@@ -9,7 +9,8 @@ Build-Depends: debhelper (>> 9),
                librabbitmq-dev (>= 0.4.1),
                libpopt-dev (>= 1.16),
                libocpf-dev (>= 2.0),
-               libmapi-dev (>= 2.0)
+               libmapi-dev (>= 2.0),
+               libbsd-dev (>= 0.3.0)
 Standards-Version: 3.9.3
 Homepage: http://ww.zentyal.org
 
@@ -22,6 +23,7 @@ Depends: ${shlibs:Depends},
          libocpf0,
          libmapi0,
          libmapiproxy0,
+         libbsd0,
          ${misc:Depends}
 Description: Zentyal OpenChange tools
  This tool is used by Zentyal to handle the MAPI server migrations.
