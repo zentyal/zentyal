@@ -1,4 +1,6 @@
 3.3
+	+ Mark bond slaves as not shapable and use the master bond for shaping
+	  (contribution by Vsevolod Kukol)
 	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
 	+ Show menu icon when zentyal-l7-protocols is not installed

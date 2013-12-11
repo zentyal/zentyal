@@ -1,4 +1,6 @@
 3.3
+	+ Ignore bond slaves when looking for enabled interfaces
+	  (contribution by Vsevolod Kukol)
 	+ Switch from Error to TryCatch for exception handling
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
