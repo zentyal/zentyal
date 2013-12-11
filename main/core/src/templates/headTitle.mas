@@ -4,6 +4,7 @@
     $finishClass => ''
     $remoteServicesURL => ''
     $image_title
+    $version
 </%args>
 <%init>
 use EBox::Gettext;
@@ -15,6 +16,7 @@ my $finishTitle = __('Save changes?');
           <a href="/">
             <img src="<% $image_title %>" alt="title"/>
           </a>
+          <span><% $version %></span>
         </div>
         <div id="hmenu">
 % if ( $remoteServicesURL ne '' ) {

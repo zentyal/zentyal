@@ -79,7 +79,7 @@ sub _header
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
     }
-    print EBox::Html::header($pageTitle);
+    print EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

@@ -293,6 +293,7 @@ acl <% "$name $params" %>
 
 http_access allow to_localhost
 follow_x_forwarded_for allow from_localhost
+http_access allow from_localhost
 forwarded_for on
 log_uses_indirect_client on
 always_direct allow to_localhost

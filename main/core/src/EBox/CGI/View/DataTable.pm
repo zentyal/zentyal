@@ -56,7 +56,7 @@ sub _header
         EBox::error("Cannot get pageTitle");
         $pageTitle = '';
     }
-    print EBox::Html::header($pageTitle);
+    print EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

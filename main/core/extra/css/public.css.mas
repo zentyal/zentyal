@@ -48,12 +48,21 @@
     margin: 0;
     color: transparent;
 }
+#header a {
+    float: left;
+}
 #header a:hover {
     background: transparent;
     color: black;
 }
 #header img {
     <% $header_img_padding %>
+}
+#header span {
+    font-size: 14px;
+    color: #999;
+    float: left;
+    margin-top: 30px;
 }
 #hmenu {
     position: absolute;
@@ -425,6 +434,11 @@ body {
     position: relative;
     behavior: url(/data/js/csshover.htc);
 }
+
+body#OpenChange {
+    background: url("/images/technology-preview.png");
+}
+
 h1 {
     display: inline;
     color: <% $main_color %>;
@@ -515,7 +529,8 @@ TABS options
     margin-right: -5px;
 }
 .tabs li:first-child > a, .tabs li:first-child > span{
-    border-radius: 5px 0px 0px 5px;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
 }
 .tabs li > a, .tabs li > span {
     background: none repeat scroll 0 0 #EEEEEE;
@@ -528,7 +543,8 @@ TABS options
     border: 1px solid #CCCCCC;
 }
 .tabs li:last-child > a, .tabs li:last-child > span{
-    border-radius: 0px 5px 5px 0px;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .tabs li > a:hover, .tabs li > span:hover{
     background-color: #ddd;

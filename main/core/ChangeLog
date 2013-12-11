@@ -1,4 +1,6 @@
 3.3
+	+ Add version to header logo
+	+ HTML body can now have different styles based on the menu section
 	+ Hide close button on saving changes and backup progess
 	  dialogs. Don't allow to close it with esc key on those cases.
 	+ Fix error when pageSize paramter is not supplied to the model controller
