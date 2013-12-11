@@ -1,5 +1,5 @@
-zentyal-exchange
-================
+zoctools
+========
 
 Build dependencies
 ==================
@@ -20,8 +20,8 @@ Runtime dependencies
     - libmapi0
     - libmapiproxy0
 
-How to build exchange-tools:
-============================
+How to build zoctools:
+======================
     $ ./bin/waf configure
     $ ./bin/waf build
 
