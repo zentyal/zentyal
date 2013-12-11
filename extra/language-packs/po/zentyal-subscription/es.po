@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:209
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:210
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:966
+#: ../../main/squid/src/EBox/Squid.pm:972
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1307
+#: ../../main/squid/src/EBox/Squid.pm:1313
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -49,33 +49,33 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1491
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1492
 msgid "Communications Add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1885
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1895
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1888
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1898
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1904
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1914
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1906
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1916
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1919
 msgid "Communications add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2438
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:2448
 #, perl-brace-format
 msgid "This is a Zentyal Server {edition} edition."
 msgstr ""
@@ -124,7 +124,7 @@ msgstr ""
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
 msgstr "<span>Ninguna - {oh}¡Regístrate Gratis!{ch}</span>"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:205
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:200
 #, perl-brace-format
 msgid ""
 "Want to offer enterprise-level security for your organization? Get the {ohs}"
@@ -225,7 +225,7 @@ msgstr ""
 "Por favor, ten en cuenta que la edición Small Business no puede tener "
 "esclavos."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:106
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:108
 msgid "You must agree to the privacy policy to continue"
 msgstr "Debes aceptar la política de privacidad para continuar"
 
@@ -385,7 +385,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/Users.pm:1788
+#: ../../main/users/src/EBox/Users.pm:1887
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -394,7 +394,7 @@ msgstr ""
 "permitidos en esta edición. Si necesitas añadir más usuarios, por favor "
 "actualiza la edición."
 
-#: ../../main/users/src/EBox/Users/User.pm:504
+#: ../../main/users/src/EBox/Users/User.pm:506
 #, fuzzy, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -1132,10 +1132,11 @@ msgstr ""
 "Puedes comprobar todos tus backups de configuración {ohref}aquí{chref}."
 
 #: ../../main/core/src/templates/backup.mas:16
+#, fuzzy, perl-brace-format
 msgid ""
-"Register your Zentyal server for free! And gain access to the following "
-"benefits: Remote configuration backup, customized zentyal.me subdomain, "
-"recorded webinars, whitepapers, trials and much more coming!"
+"{ohref}Register{chref} your Zentyal server for free! And gain access to the "
+"following benefits: Remote configuration backup, customized zentyal.me "
+"subdomain, recorded webinars, whitepapers, trials and much more coming!"
 msgstr ""
 "¡Registra tu servidor Zentyal de forma gratuita! Y gana acceso a los "
 "siguientes servicios: Configuración de backup remota, subdominio zentyal.me "
