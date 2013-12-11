@@ -3,7 +3,9 @@ Section: net
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
 Build-Depends: debhelper (>> 9),
+               pkg-config,
                libjson0-dev (>= 0.9),
+               libssl-dev,
                librabbitmq-dev (>= 0.4.1),
                libpopt-dev (>= 1.16),
                libocpf-dev (>= 2.0),

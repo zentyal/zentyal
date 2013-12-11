@@ -8,6 +8,7 @@ BUILDDIR = $(CURDIR)/debian/zoctools-build
 
 override_dh_auto_clean:
 	$(CURDIR)/bin/waf distclean
+	rm -Rf $(BUILDDIR)
 
 override_dh_auto_configure:
 	PKG_CONFIG_PATH=/opt/samba4/lib/pkgconfig $(CURDIR)/bin/waf configure -o $(BUILDDIR) --prefix=/usr

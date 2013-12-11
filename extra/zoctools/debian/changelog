@@ -1,3 +1,16 @@
+zoctools (0.1-2) precise; urgency=low
+
+  * Added a dependency on libssl-dev due to a bug on pkg-config's
+    Requires.private.
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 21:25:40 +0100
+
+zoctools (0.1-1) precise; urgency=low
+
+  * Added a missing build dependency on pkg-config
+
+ -- Carlos Perelló Marín <cperello@zentyal.com>  Wed, 11 Dec 2013 20:53:19 +0100
+
 zoctools (0.1) precise; urgency=low
 
   * Initial release
