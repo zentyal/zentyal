@@ -105,4 +105,11 @@ sub isFWEnabled
     return $fwEnabled;
 }
 
+sub formSubmitted
+{
+    my ($self) = @_;
+    # request firewall restart to update NAT rules
+    $self->global()->modInstance('firewall')->setAsChanged(1);
+}
+
 1;
