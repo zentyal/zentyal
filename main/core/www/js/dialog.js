@@ -50,6 +50,10 @@ Zentyal.Dialog.showURL = function(url, params) {
             dialogParams[paramName] = params[paramName];
         }
     }
+    if (('showCloseButton' in params) & (!params.showCloseButton)) {
+        dialogParams['dialogClass'] = 'no-close';
+        dialogParams['closeOnEscape'] = false;
+    }
 
     $('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
@@ -97,6 +101,6 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
         },
         error: function(jqXHR){
             $(errorSelector).html(jqXHR.responseText).show();
-        },
+        }
     });
 };

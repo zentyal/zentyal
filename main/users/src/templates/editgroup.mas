@@ -33,7 +33,7 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
             <% __('Distribution Group') %>
 %    }
 % } else {
-            <div class="radioGroup">
+            <div class="radio-group">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>
                 <% __('Security Group') %>
@@ -43,14 +43,19 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
               <% __('Distribution Group') %></label>
             </div>
 % }
+        <div>
           <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
           <& .slaveAttr, name => 'description', value => ($group->description() or ''), slave => $slave &>
+        </div>
+        <div>
           <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
           <& .slaveAttr, name => 'mail', value => ($group->mail() or ''), slave => $slave &>
+        </div>
 %   unless ($slave) {
-    <input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
+    <div class="form-button"><input class='btn btn-submit' id='submitEditGroupForm' type='submit' name='user'
                        value="<% __('Change') %>"
                        alt="<% __('Change') %>">
+    </div>
 %   }
 </form>
 </div>

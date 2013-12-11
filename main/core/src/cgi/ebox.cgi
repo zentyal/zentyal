@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2010-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify

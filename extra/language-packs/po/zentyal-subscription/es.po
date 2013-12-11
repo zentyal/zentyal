@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:209
+#: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:210
 #, perl-brace-format
 msgid ""
 "Want to remove ads from the websites your users browse? Get the {ohs}Small "
@@ -28,7 +28,7 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise{ch} que mantendrán tus "
 "reglas de Bloqueo de Anuncios siempre actualizadas."
 
-#: ../../main/squid/src/EBox/Squid.pm:966
+#: ../../main/squid/src/EBox/Squid.pm:965
 #, perl-brace-format
 msgid ""
 "This is an unsupported Community Edition. Get the fully supported {ohs}Small "
@@ -38,7 +38,7 @@ msgstr ""
 "Business{ch} o {ohe}Enterprise{ch} completamente soportada para "
 "actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1307
+#: ../../main/squid/src/EBox/Squid.pm:1306
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small "
@@ -49,29 +49,29 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} que mantendrán tus "
 "reglas de Filtrado de Contenidos siempre actualizadas."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1491
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1490
 msgid "Communications Add-on"
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1885
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1889
 #, perl-brace-format
 msgid "Not registered - {oh}Register now!{ch}"
 msgstr "No registrado - {oh}¡Regístrate ahora!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1888
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1892
 #, perl-brace-format
 msgid "None - {oh}Register for Free!{ch}"
 msgstr "Ninguna - {oh}¡Regístrate Gratis!{ch}"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1904
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1908
 msgid "Security Updates"
 msgstr "Actualizaciones de Seguridad"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1906
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1910
 msgid "Configuration backup"
 msgstr "Backup de configuración"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1909
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1913
 msgid "Communications add-on"
 msgstr ""
 
@@ -124,7 +124,7 @@ msgstr ""
 msgid "<span>None - {oh}Register for Free!{ch}</span>"
 msgstr "<span>Ninguna - {oh}¡Regístrate Gratis!{ch}</span>"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:205
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:200
 #, perl-brace-format
 msgid ""
 "Want to offer enterprise-level security for your organization? Get the {ohs}"
@@ -149,7 +149,7 @@ msgstr ""
 "remota (Zentyal Remote) aquí. Obtén una {ohf}cuenta gratuita{ch} o usa las "
 "credenciales de tu edición {ohs}Small Business{ch} o {ohe}Enterprise {ch}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:173
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:174
 msgid ""
 "As to the estimated time to recover from a disaster, estimation consists of "
 "45 minutes to install Zentyal server, upper bound of the backup size and "
@@ -160,7 +160,7 @@ msgstr ""
 "calculado para descargar la copia de seguridad, dependiendo de su tamaño y "
 "la velocidad de descarga."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:306
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:308
 #, perl-brace-format
 msgid ""
 "Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to ensure the "
@@ -173,7 +173,7 @@ msgstr ""
 "momento! O comienza con el {ohf}registro gratuito{ch} que permitirá guardar "
 "una copia de seguridad remota de tu configuración."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:315
+#: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecovery.pm:317
 #, perl-brace-format
 msgid ""
 "Want to ensure that your business critical data and system configuration is "
@@ -202,14 +202,14 @@ msgid ""
 "free 30-day trial{ch}."
 msgstr ""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:190
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:189
 #, fuzzy, perl-brace-format
 msgid ""
 "Communications add-on is required in order to enable {mod} in the Small "
 "Business Edition."
 msgstr "El módulo {mod} no está soportado en la edición Small Business."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:210
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:209
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for Small Business Edition is "
@@ -218,14 +218,14 @@ msgstr ""
 "Por favor, ten en cuenta que el máximo número de usuarios para la edición "
 "Small Business es {max} y tienes {nUsers}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:219
+#: ../../main/remoteservices/src/EBox/RemoteServices/Subscription/Check.pm:218
 #, fuzzy
 msgid "Please note that the Small Business Edition cannot have Zentyal slaves."
 msgstr ""
 "Por favor, ten en cuenta que la edición Small Business no puede tener "
 "esclavos."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:106
+#: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:109
 msgid "You must agree to the privacy policy to continue"
 msgstr "Debes aceptar la política de privacidad para continuar"
 
@@ -295,28 +295,38 @@ msgstr ""
 "edición {ohs}Small Business{ch} o {ohe}Enterprise {ch} para activar todas "
 "las alertas automáticas."
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:190
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:182
+#, perl-brace-format
+msgid ""
+"Crash report found! Click the button if you want to send the following files "
+"anonymously to help fixing the issue: {p}. Although Zentyal will make a good "
+"use of this information, please review the files if you want to be sure they "
+"do not contain any sensible information. {oc}{obs}Submit crash report{cb} "
+"{obd}Discard{cb}{cc}"
+msgstr ""
+
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:206
 #, perl-brace-format
 msgid ""
 "Do you want a remote configuration backup of your Zentyal server? Set it up "
 "{oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:195
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:211
 #, perl-brace-format
 msgid ""
 "Do you want to use a subdomain, such as <i>yourserver.zentyal.me</i>? Set it "
 "up {oh}here{ch} for FREE!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:200
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:216
 #, perl-brace-format
 msgid ""
 "Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a "
 "FREE 30-day trial!"
 msgstr ""
 
-#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:205
+#: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:221
 #, perl-brace-format
 msgid ""
 "Are you a happy Zentyal user? Do you want to help the project? Get involved "
@@ -385,7 +395,7 @@ msgstr ""
 "{ohe}Enterprise{ch} y adquiere Zarafa Small Business como un servicio "
 "adicional!"
 
-#: ../../main/users/src/EBox/Users.pm:1788
+#: ../../main/users/src/EBox/Users.pm:1791
 msgid ""
 "Please note that you have reached the maximum of users for this server "
 "edition. If you need to run Zentyal with more users please upgrade."
@@ -394,7 +404,7 @@ msgstr ""
 "permitidos en esta edición. Si necesitas añadir más usuarios, por favor "
 "actualiza la edición."
 
-#: ../../main/users/src/EBox/Users/User.pm:504
+#: ../../main/users/src/EBox/Users/User.pm:506
 #, fuzzy, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -1132,10 +1142,11 @@ msgstr ""
 "Puedes comprobar todos tus backups de configuración {ohref}aquí{chref}."
 
 #: ../../main/core/src/templates/backup.mas:16
+#, fuzzy, perl-brace-format
 msgid ""
-"Register your Zentyal server for free! And gain access to the following "
-"benefits: Remote configuration backup, customized zentyal.me subdomain, "
-"recorded webinars, whitepapers, trials and much more coming!"
+"{ohref}Register{chref} your Zentyal server for free! And gain access to the "
+"following benefits: Remote configuration backup, customized zentyal.me "
+"subdomain, recorded webinars, whitepapers, trials and much more coming!"
 msgstr ""
 "¡Registra tu servidor Zentyal de forma gratuita! Y gana acceso a los "
 "siguientes servicios: Configuración de backup remota, subdominio zentyal.me "

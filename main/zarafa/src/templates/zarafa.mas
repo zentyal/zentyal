@@ -6,17 +6,13 @@
 </%init>
     <& .zarafaDisabledWarning, $params &>
 
-    <div id='note_zarafaUserOptions'  class='note'  style='display:none'></div>
-    <div id='error_zarafaUserOptions' class='error' style='display:none'></div>
-    <form action="/Zarafa/ZarafaUserOptions" id='zarafaUserOptions' method="post">
-    <table class="formTable" id='zarafaUserOptions_table'>
-        <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
-    <tr>
-    <td class="tright">
-        <span class="ftitle"><% __('User account') %>:</span>
-    </td>
-    <td>
-        <select name="active" enabled>
+  <div id='note_zarafaUserOptions'  class='note'  style='display:none'></div>
+  <div id='error_zarafaUserOptions' class='error' style='display:none'></div>
+  <form action="/Zarafa/ZarafaUserOptions" id='zarafaUserOptions' method="post" class="formDiv">
+    <input type="hidden" name="user" value="<% $params->{'user'}->dn() %>">
+    <div>
+      <label><% __('User account') %></label>
+      <select name="active" enabled>
         <option
 %    if (not $params->{'active'}) { 
                  selected
@@ -27,118 +23,84 @@
                 selected
 %    }
                 value="yes" ><% __('Enabled') %></option>
-        </select>
-    </td>
-    </tr>
-
-     <tr class='zarafaEnabled'>
-         <td class="tright">
-              <span class="ftitle"><% __('Administration rights') %>:</span>
-          </td>
-          <td>
-                <input type="checkbox" name="is_admin" id="external" value="yes"
+      </select>
+    </div>
+    <div class='zarafaEnabled'>
+         <label>
+            <input type="checkbox" name="is_admin" id="external" value="yes"
                    <% $params->{'is_admin'} ? 'checked' : '' %>
-                />
-            </td>
-        </tr>
-
-        <tr class='zarafaEnabled'>
-            <td class="tright">
-                <span class="ftitle"><% __('Enable POP3 access') %>:</span>
-            </td>
-            <td>
-                <input type="checkbox" name="has_pop3" id="external" value="yes"
+                    />
+            <% __('Administration rights') %>
+            </label>
+    </div>
+    <div class='zarafaEnabled'>
+       <label>
+          <input type="checkbox" name="has_pop3" id="external" value="yes"
                    <% $params->{'has_pop3'} ? 'checked' : '' %>
                 />
-            </td>
-          </tr>
-
-          <tr class='zarafaEnabled'>
-            <td class="tright">
-                <span class="ftitle"><% __('Enable IMAP access') %>:</span>
-            </td>
-            <td>
-                <input type="checkbox" name="has_imap" id="external" value="yes"
+          <% __('Enable POP3 access') %>
+        </label>
+    </div>
+    <div class='zarafaEnabled'>
+            <label>
+              <input type="checkbox" name="has_imap" id="external" value="yes"
                        <% $params->{'has_imap'} ? 'checked' : '' %>
                  />
-            </td>
-        </tr>
-        <tr class="zarafaEnabled">
-            <td  class="tright">
-                <span class="ftitle"><% __('Auto accept meeting requests') %>:</span>
-            </td>
-            <td>
-                <input type="checkbox" name="meeting_autoaccept" id="external" value="yes"
+              <% __('Enable IMAP access') %>
+            </label>
+    </div>
+    <div class="zarafaEnabled">
+            <label>
+              <input type="checkbox" name="meeting_autoaccept" id="external" value="yes"
                        <% $params->{'meeting_autoaccept'} ? 'checked' : '' %>
                 />
-            </td>
-        </tr>
-
-
-        <tr class='autoAcceptEnabled'>
-           <td class="tright">
-               <span class="ftitle"><% __('Decline meetings requests with conflicting times') %>:</span>
-           </td>
-           <td>
-               <input type="checkbox" name="meeting_declineconflict" id="external" value="yes"
+              <% __('Auto accept meeting requests') %>
+            </label>
+    </div>
+    <div class='autoAcceptEnabled'>
+            <label>
+              <input type="checkbox" name="meeting_declineconflict" id="external" value="yes"
                       <% $params->{'meeting_declineconflict'} ? 'checked' : '' %>
                />
-           </td>
-        </tr>
-
-        <tr class="autoAcceptEnabled">
-           <td class="tright">
-               <span class="ftitle"><% __('Decline recurring meeting requests') %>:</span>
-           </td>
-           <td>
-               <input type="checkbox" name="meeting_declinerecurring" id="external" value="yes"
-                   <% $params->{'meeting_declinerecurring'} ?  'checked' : '' %>
-               />
-           </td>
-        </tr>
+              <% __('Decline meetings requests with conflicting times') %>
+            </label>
     </div>
 
-  </div>
+    <div class="autoAcceptEnabled">
+           <label>
+              <input type="checkbox" name="meeting_declinerecurring" id="external" value="yes"
+                   <% $params->{'meeting_declinerecurring'} ?  'checked' : '' %>
+               />
+              <% __('Decline recurring meeting requests') %>
+              <span class="field_help">
+                  <% __('Zarafa takes quota settings from mail account settings.') %>
+              </span>
+            </label>
+    </div>
 
-    <tr>
-        <td>
-            <span class="field_help">
-              <% __('Zarafa takes quota settings from mail account settings.') %>
-            </span>
-        </td>
-    </tr>
-
-    <tr class='zarafaDisabled'>
-        <td class="tright ">
-            <span class="ftitle"><% __('Groupware contact') %>:</span>
-        </td>
-        <td>
+    <div class='zarafaDisabled'>
+        <label>
             <input type="checkbox" name="contact" id="external" value="yes"
                <%  $params->{'contact'} ? 'checked' : '' %>
             />
-        </td>
-    </tr>
-  </div>
+            <% __('Groupware contact') %>
+        </label>
+    </div>
 
-    <tr>
-    <td></td>
-    <td>
+    <div class="formDiv">
         <input class="inputButton" type="submit" name="change"
                id='zarafaUserOptions_submit'
                value="<% __('Change') %>"
                alt="<% __('Change') %>" />
-    </td>
-    </tr>
-    </form>
-    </table>
+    </div>
+  </form>
 
 <script>
 $(function() {
  var updateForm = function(enabled, autoAcceptMeeting) {
-    var table= $('#zarafaUserOptions_table');
-    $('.zarafaEnabled', table).toggle(enabled);
-    $('.zarafaDisabled', table).toggle(!enabled);
-    $('.autoAcceptEnabled', table).toggle(autoAcceptMeeting);
+    $('#zarafaUserOptions .zarafaEnabled').toggle(enabled);
+    $('#zarafaUserOptions .zarafaDisabled').toggle(!enabled);
+    $('#zarafaUserOptions .autoAcceptEnabled').toggle(autoAcceptMeeting);
  };
 
  Zentyal.Form.setupAjaxSubmit('#zarafaUserOptions', {

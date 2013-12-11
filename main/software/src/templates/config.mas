@@ -22,22 +22,14 @@ my ($hour, $minutes) = split ':', $automaticTime;
 %  }
 <& enable.mas, title => $enableTitle, active => $automatic &>
 % }
-<form action='AutomaticOptions' method='POST'>
-<table class='formTable'>
-<thead>
-</thead>
-<tbody>
-<tr>
-<td><% __('Automatic operations start time')  %> </td>
-<td><& .timeSelect, name => 'automaticHour', value => $hour, maxValue => 23 &>:<& .timeSelect,
-name => 'automaticMinute', value => $minutes, maxValue => 59 &></td>
-</tr>
-<tr>
-<td></td>
-<td><& /input/submit.mas, name => 'submit', value => __('Change') &></td>
-</tr>
-</tbody>
-</table>
+<form action='AutomaticOptions' method='POST' class="formDiv">
+	<div class="inline-input">
+	<label><% __('Automatic operations start time')  %> </label>
+		<& .timeSelect, name => 'automaticHour', value => $hour, maxValue => 23 &>
+		<span>:</span>
+		<& .timeSelect, name => 'automaticMinute', value => $minutes, maxValue => 59 &>
+		<& /input/submit.mas, name => 'submit', value => __('Change') &>
+	</div>
 </form>
 </div>
 <%def .timeSelect >

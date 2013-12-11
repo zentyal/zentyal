@@ -1,5 +1,21 @@
 3.3
+	+ Renamed printableName to File Sharing and Domain Services
+	+ Split settings in two menu entries: Domain and File Sharing
 	+ Switch from Error to TryCatch for exception handling
+	+ Provision - Improve the LDAP OUs purge after join domain
+	+ s4sync - Serveral fixes to make it more robust
+	+ OU - Improve cration code
+	+ LDB - Return OUs ordered, parents before childs
+	+ Provision - Link accounts holding zentyal service principals
+	+ Provision - Improve OU loading, skip zentyal internal OUs and linked
+	+ Provision - Link containers at provision stage, creating them if not
+	              exists. Ignore not linked OUs for sync operations.
+	+ Provision - Set kerberos linked OU as visible only in advanced mode
+	+ Provision - Check no OUs are created below OU=Users. This violate the
+	              AD DIT, as OU=Users is linked to CN=Users.
+	+ Do not import accounts while provisioning or joining a domain, rely on
+	  s4sync
+	+ Remove useless chown workaround
 	+ Forbid sharing '/opt'
 	+ Add filesystem format check defining system shares
 	+ Update user CN on user modifications

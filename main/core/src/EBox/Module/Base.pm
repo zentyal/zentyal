@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -693,7 +694,7 @@ sub widget
     my ($self, $name) = @_;
     my $widgets = $self->widgets();
     my $winfo = $widgets->{$name};
-    if(defined($winfo)) {
+    if (defined $winfo) {
         my $widget = new EBox::Dashboard::Widget($winfo->{'title'},$self->{'name'},$name);
         #fill the widget
         $widget->{'module'} = $self->{'name'};
@@ -702,11 +703,11 @@ sub widget
         my $wfunc = $winfo->{'widget'};
         try {
             $wfunc->($self, $widget, $winfo->{'parameter'});
+            return $widget;
         } catch ($ex) {
             EBox::error("Error loading widget $name from module " . $self->name() . ": $ex");
             return undef;
         }
-        return $widget;
     } else {
         return undef;
     }

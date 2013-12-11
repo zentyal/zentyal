@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -689,17 +690,29 @@ sub saveAllModules
 
     # TODO: tell events module to resume its watchers
 
-    foreach my $modName (@{$self->get_list('post_save_modules')}) {
-        my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
-        next unless defined ($mod);
+    my @postsaveModules = @{$self->get_list('post_save_modules')};
+    for (1 .. 3) {
+        my %seen = ();
+        push @postsaveModules, @{$self->modifiedModules('save')};
+        @postsaveModules or last;
+        foreach my $modName (@postsaveModules) {
+            my $mod = EBox::GlobalImpl->modInstance($ro, $modName);
+            next unless defined ($mod);
+            if ($seen{$modName}) {
+                next;
+            }
+            $seen{$modName} = 1;
 
-        try {
-            $mod->save();
-        } catch (EBox::Exceptions::External $e) {
-            $e->throw();
-        } catch ($e) {
-            EBox::error("Failed to restart $modName after save changes: $e");
-            $failed .= "$modName ";
+            try {
+                $mod->save();
+            } catch (EBox::Exceptions::External $e) {
+                $e->throw();
+            } catch ($e) {
+                EBox::error("Failed to restart $modName after save changes: $e");
+                $failed .= "$modName ";
+            }
+
+            @postsaveModules = ();
         }
     }
     $self->unset('post_save_modules');

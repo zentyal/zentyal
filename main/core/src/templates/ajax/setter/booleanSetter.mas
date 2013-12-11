@@ -17,4 +17,4 @@ if (not $data->editable() or $disabled) {
 }
 </%perl>
 <& /input/checkbox.mas, %args &>
-<% $data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>

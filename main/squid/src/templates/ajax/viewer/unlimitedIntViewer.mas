@@ -6,7 +6,7 @@ use EBox::Gettext;
 </%init>
 % if ( defined ($data->value()) and ($data->value() >= 0)) {
 <span><% $data->printableValue() %></span>
- <%$data->trailingText() %>
+<& /trailingText.mas, trailingText => $data->trailingText() &>
 % }
 % else {
 <span><% __('Unlimited') %></span>

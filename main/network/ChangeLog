@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Flush interfaces list cache after all ifups and all ifdowns
 	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Write resolvconf head, base and tail

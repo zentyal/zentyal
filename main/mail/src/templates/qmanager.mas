@@ -10,7 +10,7 @@ use EBox::Gettext;
 </%init>
 
 % if (@{$mqlist}) {
-
+<div class="item-block">
 <table class='dataTable' cellspacing='0'>
 	<thead>
 		<tr>
@@ -38,7 +38,7 @@ use EBox::Gettext;
 %                  }
 
 %	}
-		<td class='tcenter'>
+		<td class='tcenter' style="width:120px;">
 			<a href="MQRequeue?qid=<% $row->{'qid'} %>"
 				class="btn-only-icon btn-requeue"
 				title="<% __('Requeue') %>">
@@ -74,34 +74,17 @@ use EBox::Gettext;
 	</tbody>
 </table>
 
-<table class='formTable' >
-
-<tr>
-
-<td>
- <form action='MQFlushAll' method='POST'>
+<div class="bDataTable">
+ <form action='MQFlushAll' method='POST' style="float:left">
    <input type='submit' value='<% __('Attempt to deliver all queued mail') %>'
    size=30 />
  </form>
-</td>
-
-<td>
-   <form action='MQRemoveAll' method='POST'>
+ <form action='MQRemoveAll' method='POST' style="float:left">
       <input type='submit' value='<% __('Remove all messages') %>' size=30 />
-  </form>
-</td>
-</tr>
+</form>
 
-</table>
-
-<form action='QueueManager' method='POST'>
+<form action='QueueManager' method='POST' style="float:right;>
 <input type='hidden' name='page' value='<% $page %>'>
-<br style="clear:both;"/>
-
-<table width="100%">
-	<tr>
-	<td style="widht: 5%">
-
 %	if ($page != 0) {
 		<input name='tofirst' type='submit'
             class="btn-only-icon btn-first"
@@ -112,20 +95,11 @@ use EBox::Gettext;
 			alt="<% __('prev') %>"
 			value='<% __('prev') %>'>
 %	}
-
-	</td>
-
-	<td style="width:90%; text-align: center;">
 %	if ($tpages <= 0) {
 		<% __('Page') %> <% $page %>
 %	} else {
 		<% __('Page') %> <% $page %> <% __('of') %> <%$tpages%>
 %	}
-
-	</td>
-
-	<td class='tright' style="widht: 5%">
-
 %	if ($page != $tpages) {
 		<input name='tonext' type='submit'
             class="btn-only-icon btn-next"
@@ -136,17 +110,13 @@ use EBox::Gettext;
 			alt="<% __('last') %>"
 			value='<% __('last') %>'>
 %	}
-
-	</td>
-	</tr>
-</table>
 </form>
-
+</div>
 % } else {
 <div class='note'>
 	<% __('There are no messages in queue or the service is stopped') %>
 </div>
 % }
-
+</div>
 
 

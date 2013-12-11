@@ -35,7 +35,7 @@ JS_END
     </span>
   </form>
   <input type='hidden' id='<% $id %>_remove' id='<% $id %>_remove' value='0'/>
-<form>
+<form class="formDiv">
 </div>
 % if ( $data->showFileWhenEditing() and $data->exist()) {
   <& $data->HTMLViewer(), data => $data &>

@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -126,7 +127,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name => 'samba',
-        printableName => __('File Sharing'),
+        printableName => __('File Sharing and Domain Services'),
         @_);
     bless ($self, $class);
     return $self;
@@ -1002,19 +1003,19 @@ sub _createDirectories
 
     my @cmds;
     push (@cmds, 'mkdir -p ' . SAMBA_DIR);
-    #push (@cmds, "chown root:$group " . SAMBA_DIR);
+    push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chmod 770 " . SAMBA_DIR);
     push (@cmds, "setfacl -b " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SAMBA_DIR);
     push (@cmds, "setfacl -m u:$zentyalUser:rwx " . SAMBA_DIR);
 
     push (@cmds, 'mkdir -p ' . PROFILES_DIR);
-    #push (@cmds, "chown root:$group " . PROFILES_DIR);
+    push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chmod 770 " . PROFILES_DIR);
     push (@cmds, "setfacl -b " . PROFILES_DIR);
 
     push (@cmds, 'mkdir -p ' . SHARES_DIR);
-    #push (@cmds, "chown root:$group " . SHARES_DIR);
+    push (@cmds, "chown root:$group " . SHARES_DIR);
     push (@cmds, "chmod 770 " . SHARES_DIR);
     push (@cmds, "setfacl -b " . SHARES_DIR);
     push (@cmds, "setfacl -m u:$nobody:rx " . SHARES_DIR);
@@ -1023,30 +1024,8 @@ sub _createDirectories
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    EBox::Sudo::root(@cmds);
 
-    # FIXME: Workaround attempt for the issue of failed chown with __USERS__ group
-    #        remove this and uncomment the three chowns above when fixed for real
-    my $chownTries = 10;
-    @cmds = ();
-    push (@cmds, "chown root:$group " . SAMBA_DIR);
-    push (@cmds, "chown root:$group " . PROFILES_DIR);
-    push (@cmds, "chown root:$group " . SHARES_DIR);
-    foreach my $cnt (1 .. $chownTries) {
-        my $chownOk = 0;
-        try {
-            EBox::Sudo::root(@cmds);
-            $chownOk = 1;
-        } catch ($e) {
-            if ($cnt < $chownTries) {
-                EBox::warn("chown root:$group commands failed: $e . Attempt number $cnt");
-                sleep 1;
-            } else {
-                $e->throw();
-            }
-        }
-        last if $chownOk;
-    };
+    EBox::Sudo::root(@cmds);
 }
 
 sub _setConf
@@ -1219,13 +1198,14 @@ sub menu
 {
     my ($self, $root) = @_;
 
-    my $folder = new EBox::Menu::Folder(name      => 'Samba',
-                                        text      => $self->printableName(),
-                                        icon      => 'samba',
+    my $folder = new EBox::Menu::Folder(name  => 'Domain',
+                                        text      => __('Domain'),
+                                        icon      => 'domain',
                                         separator => 'Office',
-                                        order     => 540);
-    $folder->add(new EBox::Menu::Item(url   => 'Samba/Composite/General',
-                                      text  => __('General'),
+                                        order     => 535);
+
+    $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GeneralSettings',
+                                      text  => __('Settings'),
                                       order => 10));
     $folder->add(new EBox::Menu::Item(url   => 'Samba/View/GPOs',
                                       text  => __('Group Policy Objects'),
@@ -1233,6 +1213,13 @@ sub menu
     $folder->add(new EBox::Menu::Item(url   => 'Samba/Tree/GPOLinks',
                                       text  => __('Group Policy Links'),
                                       order => 30));
+
+    $root->add(new EBox::Menu::Item(text      => __('File Sharing'),
+                                    url       => 'Samba/Composite/General',
+                                    icon      => 'samba',
+                                    separator => 'Office',
+                                    order     => 540));
+
     $root->add($folder);
 }
 

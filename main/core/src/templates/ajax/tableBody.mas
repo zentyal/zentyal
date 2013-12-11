@@ -82,10 +82,6 @@ use Perl6::Junction qw(any);
 
 my %checkAllControls = %{ $model->checkAllControls()  };
 </%init>
-<& .pageTitle,
-   crumbs => $model->viewCustomizer()->HTMLTitle()
-&>
-
 <div id='<% $tableName %>_error'></div>
 <div id='<% $tableName %>_message'></div>
 <& PARENT:title,
@@ -99,7 +95,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
    filter => $filter,
    nIds   => scalar @ids
 &>
-<div id='<% $tableName  %>_editForm'></div>
+<div id='<% $tableName  %>_editForm' class="dropdownForm"></div>
 
 % if (@ids or length($filter) > 0)  {
 %
@@ -217,7 +213,7 @@ my $tableName = $model->table()->{'tableName'};
 my $changeView = $model->action('changeView');
 </%init>
 <div id="<% $tableName %>_top">
-    <& SELF:messagesAndHelp, model => $model &>
+    <& SELF:helpAndMessages, model => $model &>
 %    unless ((defined $onlyCustomActions) and $onlyCustomActions)  {
 %        if ($changeView) {
            <& SELF:tableActionLinks,
@@ -400,28 +396,6 @@ my $checkAll  = $model->checkAllProperty();
 % }
 
 </%method>
-
-<%doc>
-  Method: pageTitle
-
-     Set the page title
-
-  Parameters:
-
-     title - String the title
-
-</%doc>
-<%def .pageTitle>
-<%args>
-  $title => undef
-  $crumbs => undef
-</%args>
-<& /title.mas,
-    title => $title,
-    crumbs => $crumbs
-&>
-</%def>
-
 
 <%method legend>
 <%doc>

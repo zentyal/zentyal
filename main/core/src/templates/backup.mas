@@ -42,23 +42,13 @@ my $disabledAttr = $modulesChanged ? 'disabled' : '';
   </div>
 % }
 <p>
-<table class='formTable'>
-    <tbody>
-       <form action='Backup' method='POST'>
-                <tr>
-                        <td class='tright'>
-                                <span class='ftitle'><% __('Description') %>:</span>
-                        </td>
-                        <td>
-                                        <input type='text' class='inputText' name='description' id='backup_description' size='52' />
-                        </td>
-                </tr>
-                <tr>
-                        <td class='tright'>
-                                                <span class='ftitle'></span>
-                       </td>
-                        <td>
-<%perl>
+<form action='Backup' class="formDiv" method='POST'>
+    <div>
+        <label><% __('Description') %></label>
+        <input type='text' class='inputText' name='description' id='backup_description' size='52' />
+    </div>
+    <div class="form-buttons">
+                        <%perl>
 my $backupTitle = __('Backup');
 my $backupOnClickJs =<< "ENDJS" ;
      var description= \$('#backup_description').val();
@@ -67,20 +57,17 @@ my $backupOnClickJs =<< "ENDJS" ;
      var data = 'description='  +  escape(description);
      data += '&backup=1&popup=1';
 
-     Zentyal.Dialog.showURL(url, {title: title, data: data});
+     Zentyal.Dialog.showURL(url, {title: title, data: data, showCloseButton: false});
      return false;
 ENDJS
 </%perl>
-                                <input type="submit"
-                                <% $disabledAttr %> name="backup"
-                                value="<% $backupTitle  %>"
-                                onclick="<% $backupOnClickJs %>"
-                                />
-                        </td>
-                </tr>
-        </form>
-    </tbody>
-</table>
+          <input type="submit"
+              <% $disabledAttr %> name="backup"
+              value="<% $backupTitle  %>"
+              onclick="<% $backupOnClickJs %>"
+              />
+    </div>
+</form>
 </p>
 </%def>
 
@@ -120,47 +107,28 @@ ENDJS
         <% __('You can upload a backup file from your computer. When uploading files you should be warned that some web browsers cannot handle huge files (>= 1 Gb).') %>
 </div>
 
-  <table class='formTable'>
-    <tbody>
-
-                <tr>
-                        <td class='tright'>
-                                <span class='ftitle'><% __('Backup file') %>:</span>
-                        </td>
-
-                        <td>
 <div id="<% $id %>">
- <form action="/Uploader"
+  <form action="/Uploader"
         method="POST"
         enctype="multipart/form-data"
-        id="<% $id . '_form' %>">
-    <& /input/file.mas,
-       name => $id . '_path',
-       id   => $id . '_path',
-       onchange => $onChange,
-    &>
-    <span id="<% $id . '_loading'%>">
-    </span>
+        id="<% $id . '_form' %>"
+        class="formDiv" >
+      <div>
+          <label><% __('Backup file') %></label>
+          <& /input/file.mas,
+             name => $id . '_path',
+             id   => $id . '_path',
+             onchange => $onChange,
+          &>
+          <span id="<% $id . '_loading'%>"></span>
+      </div>
   </form>
-                        </td>
-                </tr>
-     <form action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
-                <tr>
-                        <td class='tright'>
-                                                <span class='ftitle'></span>
-                       </td>
-                        <td>
-                  <input type='submit' name='restoreFromFile' value="<% $title %>"
-                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'
-
-                   />
-                        </td>
-                </tr>
-
-       </form>
-   </tbody>
-</table>
-
+  <form action='ConfirmBackup' method='POST' enctype="multipart/form-data" id='<% $formId %>' >
+      <div class="form-buttons">
+            <input type='submit' name='restoreFromFile' value="<% $title %>"
+                         onclick="<% $onClickJs %>" disabled='disabled' id='restoreFromFile'/>
+     </div>
+  </form>
 </%def>
 
 
