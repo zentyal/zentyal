@@ -1,4 +1,5 @@
 3.3
+	+ Take in account mail dependency if mail module is enabled
 	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
 	+ Avoid call to mailfilter-ldap script from enableActions

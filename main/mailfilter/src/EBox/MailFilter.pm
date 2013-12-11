@@ -135,6 +135,19 @@ sub initialSetup
     }
 }
 
+#  mailfilter can be used without mail so this methods reflects that
+sub depends
+{
+    my ($self) = @_;
+    my @depends = ('firewall');
+    my $mail = $self->global()->modInstance('mail');
+    if ($mail and $mail->enabled()) {
+        push @depends, 'mail';
+    }
+
+    return \@depends;
+}
+
 sub _serviceRules
 {
     my ($self) = @_;
