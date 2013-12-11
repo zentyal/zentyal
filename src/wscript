@@ -6,7 +6,7 @@ from waflib.TaskGen import extension
 from waflib.Tools import c_config
 import os
 
-APPNAME = 'ZentyalMigration'
+APPNAME = 'ZentyalExchangeUpgrade'
 VERSION	= '0.9'
 
 def options(ctx):
@@ -30,6 +30,7 @@ def configure(ctx):
     ctx.check(header_name='syslog.h')
     ctx.check(header_name='iconv.h')
     ctx.check(header_name='ctype.h')
+    ctx.check(header_name='pthread.h')
 
     # Check types
     ctx.check(type_name='uint8_t')
@@ -46,7 +47,16 @@ def configure(ctx):
     ctx.check(type_name='bool', header_name='stdbool.h')
 
     # Check external libraries and packages
+    ctx.check(compiler='compiler_c', lib='pthread',
+              mandatory=True, uselib_store='PTHREAD')
+
     ctx.check_cfg(atleast_pkgconfig_version='0.20')
+    ctx.check_cfg(package='samba-hostconfig',
+                  args=['samba-hostconfig', '--cflags', '--libs'],
+                  uselib_store='SAMBAHOSTCONFIG',
+                  msg="Checking for samba-hostconfig",
+                  mandatory=True)
+
     ctx.check_cfg(package='libmapi',
                   args=['libmapi >= 2.0', '--cflags', '--libs'],
                   uselib_store='LIBMAPI',
@@ -68,13 +78,25 @@ def configure(ctx):
     ctx.check_cfg(package='librabbitmq',
                   args=['librabbitmq >= 0.4.1', '--cflags', '--libs'],
                   uselib_store='RABBITMQ',
-                  msg="Check for librabbitmq 1.16",
+                  msg="Check for librabbitmq 0.4.1",
                   mandatory=True)
 
     ctx.check_cfg(package='json',
                   args=['json >= 0.9', '--cflags', '--libs'],
                   uselib_store='JSON',
                   msg="Check for json 0.9",
+                  mandatory=True)
+
+    ctx.check_cfg(package='libbsd',
+                  args=['libbsd >= 0.3.0', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libbsd 0.3.0",
+                  mandatory=True)
+
+    ctx.check_cfg(package='tdb',
+                  args=['tdb', '--cflags', '--libs'],
+                  uselib_store='BSD',
+                  msg="Check for libtdb",
                   mandatory=True)
 
 def build(bld):
@@ -90,16 +112,19 @@ def build(bld):
 
     bld.program(
         source = [
-            'main.c',
+            'migrate.c',
             'rpc.c',
             'control.c',
-            'mbox.c',
+            'estimate.c',
+            'export.c',
+            'import.c',
             ],
         target = 'migrate',
         includes = ['.', '..'],
-        cflags = ['-ggdb', '-Wall', '-lpthread'],
+        cflags = ['-ggdb', '-Wall'],
         depends_on = [APPNAME],
-        use = [APPNAME, 'LIBMAPI', 'LIBOCPF', 'POPT', 'RABBITMQ', 'JSON'])
+        use = [APPNAME, 'PTHREAD', 'LIBMAPI', 'LIBOCPF', 'POPT', 
+               'RABBITMQ', 'JSON', 'BSD', 'SAMBAHOSTCONFIG'])
 
     bld.program(
         source = [

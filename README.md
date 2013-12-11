@@ -4,21 +4,25 @@ zentyal-exchange
 Build dependencies
 ==================
 
-    - libdbus-1-dev
-    - libpopt-dev
+    - libjson0-dev >= 0.9
+    - librabbitmq-dev >= 0.4.1
+    - libpopt-dev >= 1.16
+    - libocpf >= 2.0
     - libmapi-dev >= 2.0
 
 Runtime dependencies
 ====================
 
+    - libjson0
+    - librabbitmq1
     - libpopt0
-    - libdbus-1-3
+    - libocpf0
     - libmapi0
     - libmapiproxy0
 
 How to build exchange-tools:
 ============================
-	$ ./bin/waf configure
-	$ ./bin/waf build
+    $ ./bin/waf configure
+    $ ./bin/waf build
 
 Binaries are in build/src/
