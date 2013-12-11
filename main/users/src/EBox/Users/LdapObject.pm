@@ -525,7 +525,7 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self, $childrenObjectClass) = @_;
+    my ($self, $childrenObjectClass, $customFilter) = @_;
 
     return [] unless $self->isContainer();
     my $filter;
@@ -533,6 +533,9 @@ sub children
         $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
     } else {
         $filter = '(!(objectclass=organizationalRole))';
+    }
+    if ($customFilter) {
+        $filter = '(&' . $filter . "($customFilter))";
     }
 
     # All children except for organizationalRole objects which are only used
@@ -627,6 +630,22 @@ sub relativeDN
 
     my $ldapMod = $self->_ldapMod();
     return $ldapMod->relativeDN($self->dn());
+}
+
+sub checkCN
+{
+    my ($class, $parent, $cn)= @_;
+    my @children = @{ $parent->children(undef, "cn=$cn") };
+    if (@children) {
+        my ($sameCN) = @children;
+        my $type = $sameCN->printableName();
+        throw EBox::Exceptions::External(
+            __x("There exists already a object of type {type} with CN={cn} in this container",
+                type => $type,
+                cn => $cn
+               )
+           );
+    }
 }
 
 1;

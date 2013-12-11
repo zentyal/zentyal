@@ -79,6 +79,11 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+sub printableName
+{
+    return __('user');
+}
+
 # Clss method: defaultContainer
 #
 #   Parameters:
@@ -536,6 +541,9 @@ sub create
                name => $args{uid})
            );
     }
+
+    my $cn = $args{givenname} . ' ' . $args{surname};
+    $class->checkCN($args{parent}, $cn);
 
     my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
 
