@@ -213,6 +213,15 @@ sub initialSetup
 
         # Accounts holding SPNs should be linked to LDAP service principals
         $self->ldb->ldapServicePrincipalsToLdb();
+
+        # Do not hide domain guest account, as the share access is based on
+        # the enabled status of this account
+        if ($self->isEnabled() and $self->isProvisioned()) {
+            my $domainSid = $self->ldb->domainSID();
+            my $ldbGuest = new EBox::Users::User(sid => "$domainSid-501");
+            my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
+            $ldapGuest->setInternal(0);
+        }
     }
 }
 

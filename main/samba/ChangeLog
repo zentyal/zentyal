@@ -1,4 +1,5 @@
 HEAD
+	+ Do not hide domain guest account
 	+ Fix share guest access, based on domain guest account enabled status
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
