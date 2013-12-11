@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed bug which made impossible to change weights on pppoe gateways
+	+ Fixed bug which made impossible to edit pppoe gateways
 	+ Flush interfaces list cache after all ifups and all ifdowns
 3.0.9
 	+ Set proper file name for HTTP proxy configuration for APT
