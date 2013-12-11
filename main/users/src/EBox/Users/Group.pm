@@ -73,6 +73,11 @@ sub mainObjectClass
     return 'zentyalDistributionGroup';
 }
 
+sub printableType
+{
+    return __('group');
+}
+
 # Class method: defaultContainer
 #
 #   Parameters:
@@ -479,6 +484,8 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
+    my $name = $args{name};
+    my $parent = $args{parent};
     my $isSecurityGroup = 1;
     if (defined $args{isSecurityGroup}) {
         $isSecurityGroup = $args{isSecurityGroup};
@@ -487,62 +494,65 @@ sub create
     if ((not $isSecurityGroup) and $isSystemGroup) {
         throw EBox::Exceptions::External(
             __x('While creating a new group \'{group}\': A group cannot be a distribution group and a system group at ' .
-                'the same time.', group => $args{name}));
+                'the same time.', group => $name));
     }
     my $isInternal = 0;
     if (defined $args{isInternal}) {
         $isInternal = $args{isInternal};
     }
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
-    if (length ($args{name}) > MAXGROUPLENGTH) {
+    if (length ($name) > MAXGROUPLENGTH) {
         throw EBox::Exceptions::External(
             __x("Groupname must not be longer than {maxGroupLength} characters", maxGroupLength => MAXGROUPLENGTH));
     }
 
-    unless (_checkGroupName($args{name})) {
+    unless (_checkGroupName($name)) {
         my $advice = __('To avoid problems, the group name should consist ' .
                         'only of letters, digits, underscores, spaces, ' .
                         'periods, dashs and not start with a dash. They ' .
                         'could not contain only number, spaces and dots.');
         throw EBox::Exceptions::InvalidData(
             'data' => __('group name'),
-            'value' => $args{name},
+            'value' => $name,
             'advice' => $advice
            );
     }
-
     my $usersMod = EBox::Global->modInstance('users');
 
     # Verify group exists
-    my $groupExists = $usersMod->groupExists($args{name});
+    my $groupExists = $usersMod->groupExists($name);
     if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
         throw EBox::Exceptions::DataExists( text =>
                                                 __x('The group {name} already exists as built-in Windows group',
-                                                    name => $args{name}));
+                                                    name => $name));
     } elsif ($groupExists) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
-            'value' => $args{name});
+            'value' => $name);
     }
 
     # Verify that a user with the same name does not exists
-    my $userExists = $usersMod->userExists($args{name});
+    my $userExists = $usersMod->userExists($name);
     if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
         throw EBox::Exceptions::External(
             __x(q{A built-in Windows user with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{name})
+               name => $name)
            );
     } elsif ($userExists) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{name})
+               name => $name)
            );
     }
 
-    my $dn = 'cn=' . $args{name} . ',' . $args{parent}->dn();
+    $class->checkCN($parent, $name);
+
+    my $dn = 'cn=' . $name . ',' . $parent->dn();
 
     my @attr = (
-        'cn'          => $args{name},
+        'cn'          => $name,
         'objectclass' => ['zentyalDistributionGroup'],
     );
 
@@ -568,7 +578,7 @@ sub create
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attr);
         $usersMod->notifyModsPreLdapUserBase(
-            'preAddGroup', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+            'preAddGroup', [$entry, $parent], $ignoreMods, $ignoreSlaves);
 
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
@@ -588,7 +598,7 @@ sub create
             $usersMod->reloadNSCD();
 
             # Call modules initialization
-            $usersMod->notifyModsLdapUserBase('addGroup', $res, $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroup', $res, $ignoreMods, $ignoreSlaves);
         }
     } catch ($error) {
         EBox::error($error);
@@ -599,11 +609,11 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addGroupFailed', [ $res ], $ignoreMods, $ignoreSlaves);
             $res->SUPER::deleteObject(@_);
         } else {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddGroupFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddGroupFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
         }
         $res = undef;
         $entry = undef;

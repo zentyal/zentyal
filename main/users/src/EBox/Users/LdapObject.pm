@@ -632,13 +632,28 @@ sub relativeDN
     return $ldapMod->relativeDN($self->dn());
 }
 
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+# Method: checkCN
+#
+#  Check if the given CN is correct.
+#  The default implementation just checks that there is no other object with
+#  the same CN in the container
 sub checkCN
 {
-    my ($class, $parent, $cn)= @_;
-    my @children = @{ $parent->children(undef, "cn=$cn") };
+    my ($class, $container, $cn)= @_;
+    my @children = @{ $container->children(undef, "cn=$cn") };
     if (@children) {
         my ($sameCN) = @children;
-        my $type = $sameCN->printableName();
+        my $type = $sameCN->printableType();
         throw EBox::Exceptions::External(
             __x("There exists already a object of type {type} with CN={cn} in this container",
                 type => $type,
