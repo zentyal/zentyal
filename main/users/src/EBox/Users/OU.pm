@@ -92,21 +92,25 @@ sub create
         throw EBox::Exceptions::MissingArgument('parent');
     $args{parent}->isContainer() or
         throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
+    my $name = $args{name};
+    my $parent = $args{parent};
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
     my @attrs = (
             'objectclass' => ['organizationalUnit'],
-            'ou' => $args{name},
+            'ou' => $name,
            );
 
     my $entry;
     my $ou;
-    my $dn = "ou=$args{name}," . $args{parent}->dn();
+    my $dn = "ou=$name," . $parent->dn();
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attrs);
         $usersMod->notifyModsPreLdapUserBase(
-            'preAddOU', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+            'preAddOU', [$entry, $parent], $ignoreMods, $ignoreSlaves);
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
         my $result = $entry->update($class->_ldap->{ldap});
@@ -124,7 +128,7 @@ sub create
 
         $ou = EBox::Users::OU->new(dn => $dn);
         # Call modules initialization
-        $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
+        $usersMod->notifyModsLdapUserBase('addOU', $ou, $ignoreMods, $ignoreSlaves);
     } catch ($error) {
         EBox::error($error);
 
@@ -134,13 +138,13 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($ou and $ou->exists()) {
-            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $ignoreMods, $ignoreSlaves);
             $ou->SUPER::deleteObject(@_);
         } else {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddOUFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddOUFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
             throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
-                                               'value' => $args{name});
+                                               'value' => $name);
         }
         $ou = undef;
         $entry = undef;
