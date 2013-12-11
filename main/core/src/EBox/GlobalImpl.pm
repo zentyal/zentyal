@@ -1175,6 +1175,21 @@ sub edition
     return 'community';
 }
 
+# Method: communityEdition
+#
+# Returns:
+#
+#    boolean - true if community edition, false if commercial
+#
+sub communityEdition
+{
+    my ($self) = @_;
+
+    my $edition = $self->edition();
+
+    return (($edition eq 'community') or ($edition eq 'basic'));
+}
+
 # Method: _runExecFromDir
 #
 #      Run executables files from a directory using

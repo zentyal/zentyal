@@ -1,4 +1,5 @@
 HEAD
+	+ Added new communityEdition() helper method in EBox::Global
 	+ Add version to header logo
 	+ Always reload page after saving changes
 	+ Use AJAX call to refresh save change buttons
