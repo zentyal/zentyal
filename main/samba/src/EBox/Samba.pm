@@ -213,6 +213,15 @@ sub initialSetup
 
         # Accounts holding SPNs should be linked to LDAP service principals
         $self->ldb->ldapServicePrincipalsToLdb();
+
+        # Do not hide domain guest account, as the share access is based on
+        # the enabled status of this account
+        if ($self->isEnabled() and $self->isProvisioned()) {
+            my $domainSid = $self->ldb->domainSID();
+            my $ldbGuest = new EBox::Users::User(sid => "$domainSid-501");
+            my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
+            $ldapGuest->setInternal(0);
+        }
     }
 }
 
@@ -921,15 +930,7 @@ sub writeSambaConfig
         push (@array, 'print' => 1) if ($printersModule->isEnabled());
     }
 
-    my $shares = $self->shares();
-    push (@array, 'shares' => $shares);
-    foreach my $share (@{$shares}) {
-        if ($share->{guest}) {
-            push (@array, 'guestAccess' => 1);
-            push (@array, 'guestAccount' => GUEST_DEFAULT_USER);
-            last;
-        }
-    }
+    push (@array, 'shares' => $self->shares());
 
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());

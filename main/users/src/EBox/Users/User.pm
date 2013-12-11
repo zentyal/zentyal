@@ -164,9 +164,13 @@ sub isInternal
 
 sub setInternal
 {
-    my ($self) = @_;
+    my ($self, $internal) = @_;
 
-    $self->set('title', 'internal');
+    if ($internal) {
+        $self->set('title', 'internal');
+    } else {
+        $self->set('title', undef);
+    }
 }
 
 # Catch some of the set ops which need special actions
@@ -222,60 +226,22 @@ sub save
     }
 }
 
-# Method: groups
-#
-#   Groups this user belongs to
-#
-#   Parameters:
-#
-#       system - return also system groups (default: false) *optional*
-#
-#   Returns:
-#
-#       array ref of EBox::Users::Group objects
-#
-sub groups
-{
-    my ($self, $system) = @_;
-
-    return $self->_groups($system);
-}
-
-# Method: groupsNotIn
-#
-#   Groups this user does not belong to
-#
-#   Parameters:
-#
-#       system - return also system groups (default: false) *optional*
-#
-#   Returns:
-#
-#       array ref of EBox::Users::Group objects
-#
-sub groupsNotIn
-{
-    my ($self, $system) = @_;
-
-    return $self->_groups($system, 1);
-}
-
 sub _groups
 {
-    my ($self, $system, $invert) = @_;
+    my ($self, %params) = @_;
 
-    my @groups = @{$self->SUPER::_groups($invert)};
+    my @groups = @{$self->SUPER::_groups(%params)};
 
-    return \@groups if ($system);
-
-    my @filteredGroups = ();
+    my $defaultGroup = EBox::Users->DEFAULTGROUP();
+    my $filteredGroups = [];
     for my $group (@groups) {
-        next if ($group->name() eq EBox::Users->DEFAULTGROUP);
-        next if ($group->isInternal());
+        next if ($group->name() eq $defaultGroup and not $params{internal});
+        next if ($group->isInternal() and not $params{internal});
+        next if ($group->isSystem() and not $params{system});
 
-        push (@filteredGroups, $group) if (not $group->isSystem());
+        push (@{$filteredGroups}, $group);
     }
-    return \@filteredGroups;
+    return $filteredGroups;
 }
 
 # Method: isSystem
