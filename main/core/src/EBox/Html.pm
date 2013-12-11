@@ -65,6 +65,7 @@ sub title
                         finishClass => $finishClass,
                         remoteServicesURL => $remoteServicesURL,
                         image_title => $image_title,
+                        version => EBox::Config::version(),
                        );
     return $html;
 }
@@ -84,7 +85,7 @@ sub titleNoAction
 
     my $html = makeHtml('headTitle.mas',
                         image_title => $image_title,
-                       );
+                        version => EBox::Config::version());
     return $html;
 }
 

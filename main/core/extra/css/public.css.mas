@@ -48,12 +48,21 @@
     margin: 0;
     color: transparent;
 }
+#header a {
+    float: left;
+}
 #header a:hover {
     background: transparent;
     color: black;
 }
 #header img {
     <% $header_img_padding %>
+}
+#header span {
+    font-size: 14px;
+    color: #999;
+    float: left;
+    margin-top: 30px;
 }
 #hmenu {
     position: absolute;
