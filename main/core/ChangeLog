@@ -1,4 +1,5 @@
 HEAD
+	+ Add version to header logo
 	+ Always reload page after saving changes
 	+ Use AJAX call to refresh save change buttons
 	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
