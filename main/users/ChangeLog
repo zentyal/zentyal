@@ -1,4 +1,6 @@
 3.3
+	+ Forbid and print specific  error message when trying to put two
+	  objects with the same CN in the same container
 	+ Switch from Error to TryCatch for exception handling
 	+ Show system but not internal groups in user edition form
 	+ Allow unsafe characters for user and password in external AD mode.
