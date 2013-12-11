@@ -1,3 +1,7 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2
+	+ Set version to 3.2
 3.1.4
 	+ Load measure manager on runtime to avoid unneccesary system calls
 	+ Set proper resolution in last week period

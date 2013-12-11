@@ -34,6 +34,8 @@ use EBox::Types::Select;
 use EBox::Types::Port;
 use EBox::Global;
 use EBox::Validate;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use Apache2::RequestUtil;
 

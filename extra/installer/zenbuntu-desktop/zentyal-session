@@ -1,6 +1,6 @@
 #!/bin/bash
 
-firefox https://localhost &
+/usr/share/zenbuntu-desktop/firefox-launcher &
 
 xset s off
 xset -dpms

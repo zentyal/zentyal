@@ -24,6 +24,7 @@ use EBox::Global;
 use EBox::Users;
 use EBox::Users::User;
 use EBox::Gettext;
+use EBox::Exceptions::External;
 
 sub new
 {
@@ -63,6 +64,7 @@ sub _process
     $self->{params} = \@args;
 
     if ($self->param('edit')) {
+        my $setText = 0;
         $self->{json} = { success => 0 };
         $self->_requireParamAllowEmpty('quota', __('quota'));
         $user->set('quota', $self->param('quota'), 1);
@@ -85,6 +87,11 @@ sub _process
             } else {
                 $fullname = $surname;
             }
+
+            if ($fullname ne $user->get('cn')) {
+                $setText = $user->get('uid') . " ($fullname)";
+            }
+
             my $description = $self->unsafeParam('description');
             if (length ($description)) {
                 $user->set('description', $description, 1);
@@ -119,6 +126,9 @@ sub _process
 
         $self->{json}->{success} = 1;
         $self->{json}->{msg} = __('User updated');
+        if ($setText) {
+            $self->{json}->{set_text} = $setText;
+        }
     } elsif ($self->param('addgrouptouser')) {
         $self->{json} = { success => 0 };
 

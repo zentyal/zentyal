@@ -275,7 +275,9 @@
     margin-bottom: 15px;
     margin-left:0px;
 }
-
+.summarySection .stitle{
+    padding: 10px;
+}
 .summarySection tr {
     vertical-align: center;
 }
@@ -895,11 +897,11 @@ h3.icon-contact{ background-image: url('/data/images/treeview/contact-big.png')}
 
 .stitle {
     color: #4c4c4c;
-    margin: 3px;
     font-weight: bold;
     padding: 1px;
     line-height: 14px;
 }
+
 
 .trimp {
     border-bottom: 1px solid #eeeeee;
@@ -1243,14 +1245,14 @@ a.minBox, a.maxBox {
 }
 
 .widgetBoxIn {
-        padding:10px 0px;
+        padding:10px;
 
 }
 
 .widgetBoxIn > .summarySection {margin-bottom:0px;}
 
 .sectionContent {
-    width: 98%;
+    width: 100%;
 }
 
 
@@ -1289,17 +1291,17 @@ a.minBox, a.maxBox {
 
 .dashboardTable thead {
     color: white;
-    background-color: <% $dashboard_thead_bg_color %>;
+    background-color: #888;
 }
 
-.dashboardTable th {
-    font-family: Verdana, 'Bitstream Vera Sans', sans-serif;
-    padding: 3px;
-    font-weight: bold;
-    vertical-align: middle;
+.dashboardTable td, .dashboardTable th {
+        padding: 5px 7px;
+        vertical-align: middle;
+        text-align: left;
+        border-right: 1px solid #ddd;
 }
-.dashboardTable td {
-        padding: 3px;
+.dashboardTable td:last-child, .dashboardTable th:last-child{
+    border-right: none;
 }
 
 .dashboardTable td a {
@@ -1316,6 +1318,11 @@ a.minBox, a.maxBox {
 
 .dashboardTable tr.highlight { background: #E58A22; }
 
+.dashboardTable + div{
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
 #nav li.menuSeparator{
     border-top: none;
 }
@@ -1330,31 +1337,19 @@ a.minBox, a.maxBox {
 }
 
 .linksBlock {
-    display: block;
     float: left;
-    width: 170px;
-    margin-right: 12px;
-    margin-bottom: -12px;
+    width: 50%;
 }
-
-.linksTitle {
-    width: 100%;
-    color: #4c4c4c;
-    background-color: #ffffff;
-    text-align: left;
-    font-weight: bold;
-    padding: 3px 4px 3px 4px;
-}
-
 .linksBlock a {
-    color: #03A9F0;
+    color: #00ADD0;
 }
-
+.linksBlock ul {
+    list-style: none ;
+    margin: 0;
+    padding: 0 10px 10px 10px;
+}
 .linksBlock li {
-    list-style: none;
-    margin-bottom: 14px;
-    margin-left: -18px;
-    margin-top: -8px;
+    padding: 3px 0;
 }
 
 

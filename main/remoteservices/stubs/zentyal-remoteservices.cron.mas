@@ -16,7 +16,7 @@ PATH=/usr/bin:/bin
 # Run the automatic backup
 <% $mins[1] %> <% $hours[1] %> * * * root /usr/share/zentyal-remoteservices/automatic-conf-backup > /dev/null 2>&1
 
-# Get a new bundle if available from Zentyal Cloud each week
+# Get a new bundle if available from Zentyal Remote each week
 <% $mins[2] %> <% $hours[2] %> * * 7 root /usr/share/zentyal-remoteservices/reload-bundle > /dev/null 2>&1
 
 # Check subscription levels and add-ons once a day

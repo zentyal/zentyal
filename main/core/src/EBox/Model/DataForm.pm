@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 ###################
@@ -324,7 +326,8 @@ sub setRow
     $self->setTypedRow($ROW_ID,
                        $changedData,
                        force => $force,
-                       readOnly => $params{'readOnly'});
+                       readOnly => $params{'readOnly'},
+                       disabled => $params{'disabled'});
 }
 
 # Method: setTypedRow
@@ -371,6 +374,9 @@ sub setTypedRow
 #      readOnly - Boolean indicating if the row becomes a read only
 #      kind one *(Optional)* Default value: false
 #
+#      disabled - Boolean indicating if the row is disabled in the UI
+#                 *(Optional)* Default value: false
+#
 # Exceptions:
 #
 #     <EBox::Exceptions::MissingArgument> - thrown if no params are
@@ -383,6 +389,8 @@ sub set
     $force = 0 unless defined($force);
     my $readOnly = delete $params{readOnly};
     $readOnly = 0 unless defined($readOnly);
+    my $disabled = delete $params{disabled};
+    $disabled = 0 unless defined ($disabled);
 
     unless ( keys %params > 0 ) {
         throw EBox::Exceptions::MissingArgument('Missing parameters to set their value');
@@ -391,7 +399,8 @@ sub set
     my $typedParams = $self->_fillTypes(\%params, 1);
 
     $self->setTypedRow($ROW_ID, $typedParams, force => $force,
-                       readOnly => $readOnly);
+                       readOnly => $readOnly,
+                       disabled => $disabled);
 }
 
 # Method: order

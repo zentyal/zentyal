@@ -26,6 +26,7 @@ use base 'EBox::Types::DomainName';
 
 use EBox::Validate;
 use EBox::Gettext;
+use EBox::Exceptions::InvalidData;
 
 # Group: Public methods
 

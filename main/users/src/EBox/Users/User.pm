@@ -35,6 +35,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
 
 use Perl6::Junction qw(any);
 use Error qw(:try);
@@ -514,13 +516,22 @@ sub create
     }
 
     # Verify user exists
-    if ($usersMod->userExists($args{uid})) {
+    my $userExists = $usersMod->userExists($args{uid});
+    if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
+        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $args{uid}));
+    } elsif ($userExists) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
                                            'value' => $args{uid});
     }
     # Verify that a group with the same name does not exists
-    if ($usersMod->groupExists($args{uid})) {
+    my $groupExists =  $usersMod->groupExists($args{uid});
+    if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
         throw EBox::Exceptions::External(
+            __x(q{A built-in Windows group with the name '{name}' already exists. Users and groups cannot share names},
+               name => $args{uid})
+           );
+    } elsif ($groupExists) {
+        throw EBox::Exceptions::DataExists(text =>
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
                name => $args{uid})
            );
@@ -544,12 +555,16 @@ sub create
         $class->_checkPwdLength($passwd);
     }
 
-    my $uidNumber = exists $args{uidNumber} ?
-                           $args{uidNumber} :
-                           $class->_newUserUidNumber($isSystemUser);
+    my $uidNumber = defined $args{uidNumber} ?
+                            $args{uidNumber} :
+                            $class->_newUserUidNumber($isSystemUser);
     $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
+    unless ($defaultGroup) {
+        throw EBox::Exceptions::Internal(
+            __x("The default group '{defaultgroup}' cannot be found!", defaultgroup => EBox::Users->DEFAULTGROUP));
+    }
     if (not $defaultGroup->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('default group'),
@@ -676,13 +691,18 @@ sub create
         $res->save();
     }
 
+    $defaultGroup->setIgnoredModules($args{ignoreMods});
+    $defaultGroup->setIgnoredSlaves($args{ignoreSlaves});
+    $defaultGroup->addMember($res, 1);
+    $defaultGroup->save();
+
     # Return the new created user
     return $res;
 }
 
 sub _checkUserName
- {
-     my ($name) = @_;
+{
+    my ($name) = @_;
     if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }

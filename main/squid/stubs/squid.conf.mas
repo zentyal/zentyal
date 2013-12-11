@@ -15,7 +15,9 @@
     $auth
     $principal
     $realm
-    $dn
+    $dn           => undef
+    $roDn         => undef
+    $roPasswd     => undef
     @noAuthDomains
     @rules
     %filterProfiles
@@ -24,6 +26,7 @@
     $adPrincipal => undef
     $adDC => undef
     $adAclTTL => 3600
+    $adNegativeAclTTL => 10
 </%args>
 <%shared>
 our $objectPrefix = 'obj~';
@@ -231,7 +234,7 @@ http_access <% $policy %> <% $timeAcls %> <% $acl %>
 % if ($https) {
 %   $sslBumpOptions = 'ssl-bump cert=/etc/squid3/self_signed_cert.pem  key=/etc/squid3/self_signed_key.pem options=ALL';
 % }
-http_port <% $port %> <% $transKey%> <% $sslBumpOptions %>
+http_port 0.0.0.0:<% $port %> <% $transKey%> <% $sslBumpOptions %>
 # END_TAG #
 
 
@@ -267,7 +270,7 @@ auth_param negotiate children 10
 auth_param negotiate keep_alive on
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b ou=Users,<% $dn %> -u uid -p 390
+auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b <% $dn %> -f "(&(uid=%s)(objectclass=posixAccount))" -p 390 -D <% $roDn %> -w <% $roPasswd %> -P
 % }
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED
@@ -301,11 +304,15 @@ never_direct allow all
 ##
 ## Authorization
 ##
-external_acl_type InetGroup ipv4 children=5 ttl=<% $adAclTTL %> %LOGIN /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
-    --strip-realm \
-    --host "<% $adDC %>" \
-    --keytab /etc/squid3/HTTP.keytab \
-    --principal <% $adPrincipal %>
+external_acl_type InetGroup ipv4 children=5 \
+    negative_ttl=<% $adNegativeAclTTL %> \
+    ttl=<% $adAclTTL %> \
+    %LOGIN \
+    /usr/share/zentyal-squid/squid_ldap_group_sid.pl \
+        --strip-realm \
+        --host "<% $adDC %>" \
+        --keytab /etc/squid3/HTTP.keytab \
+        --principal <% $adPrincipal %>
 % }
 
 ##

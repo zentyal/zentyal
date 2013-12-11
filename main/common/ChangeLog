@@ -1,3 +1,13 @@
+HEAD
+	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
+	+ Added missing EBox::Exceptions uses
+3.2.1
+	+ Fix error when initializing the framework without full environment (add
+	  the full path for id command)
+	+ Truncate stack traces in Auth modules to avoid reveal credentials
+3.2
+	+ Set version to 3.2
+	+ Debug disabled by default for the stable release
 3.1.2
 	+ Exception stacktraces are now properly logged or shown in the interface
 	  according to the debug and dump_exceptions confkeys

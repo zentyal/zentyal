@@ -5,8 +5,9 @@ $cssClass => ''
 $disabled => undef
 </%args>
 <%init>
+my $id = $tableName . '_' . $data->fieldName();
+my $protocolsJS = $data->protocolsJS();
 </%init>
-% my $id = $tableName . '_' . $data->fieldName();
 <!-- Store a list with protocols which needs a port -->
 
 <span id="<% $id %>" class="<% $cssClass %>">
@@ -15,13 +16,10 @@ $disabled => undef
 			'value'    => $data->protocol(),
 			'options'  => $data->protocols(),
 			'id'       => "$id" . "_protocol",
-			'onchange' => qq{showPort("$id} .
-                                      qq{_protocol", "$id} .
-                                      qq{_portText", } .
-                                      $data->protocolsJS() . ")",
-            'disabled' => $disabled
+			'onchange' => qq/Zentyal.TableHelper.showPort('${id}_protocol', '${id}_portText', $protocolsJS)/,
+                        'disabled' => $disabled
 	&>
-	<span id="<% $id . '_portText' %>" class="hidden">
+	<span id="<% $id . '_portText' %>" style="display:none;">
 	  <%__('port')%>
 	  <input type="text" class="inputText"
 		 value="<% $data->port() %>"
@@ -34,5 +32,5 @@ $disabled => undef
 
 <script type="text/javascript">
   Zentyal.TableHelper.showPort('<% $id %>_protocol', '<% $id %>_portText',
-            <% $data->protocolsJS() %>);
+            <% $protocolsJS %>);
 </script>

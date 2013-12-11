@@ -29,6 +29,8 @@ package EBox::Monitor::Measure::Manager;
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::MissingArgument;
 
 # Singleton variable
 my $_instance = undef;

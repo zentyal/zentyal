@@ -1,3 +1,59 @@
+samba4 (4.1.2-zentyal2) precise; urgency=low
+
+  * Include patch for s4 libcli raw library to set per packet case sensitive
+    flag
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 20 Nov 2013 12:13:17 +0100
+
+samba4 (4.1.2-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Fri, 22 Nov 2013 13:12:32 +0100
+
+samba4 (4.1.1-zentyal2) precise; urgency=low
+
+  * Fixed key permissions regression in 4.1.1
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 12 Nov 2013 12:23:17 +0100
+
+samba4 (4.1.1-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Mon, 11 Nov 2013 11:45:20 +0100
+
+samba4 (4.1.0rc4-zentyal5) precise; urgency=low
+
+  * Improve init script
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 07 Nov 2013 18:07:15 +0100
+
+samba4 (4.1.0rc4-zentyal4) precise; urgency=low
+
+  * Improve VFS scannedonly memory management
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 25 Oct 2013 17:07:03 +0200
+
+samba4 (4.1.0rc4-zentyal3) precise; urgency=low
+
+  * Fix VFS scannedonly reporting 0 bytes size. Folders are no longer
+    scanned when they are opened.
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Thu, 24 Oct 2013 16:35:36 +0200
+
+samba4 (4.1.0rc4-zentyal2) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 18 Oct 2013 17:57:02 +0200
+
+samba4 (4.1.0rc4-zentyal1) precise; urgency=low
+
+  * New upstream release
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Sat, 28 Sep 2013 17:32:57 +0200
+
 samba4 (4.1.0rc3-zentyal3) precise; urgency=low
 
   * Build errors as public library

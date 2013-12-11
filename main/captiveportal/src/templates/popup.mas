@@ -34,7 +34,7 @@ use EBox::Gettext;
 </head>
 <body style="margin: 0">
    <div id="login" class="popup">
-       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block"/>
+       <img src="/data/images/title-login.png" alt="Zentyal Logo" id="logo" style="float: none; margin: 0 auto; display: block; width: 100%"/>
        <div style="padding: 15px">
          <% __('Keep this window open while using your Internet connection.') %>
        </div>

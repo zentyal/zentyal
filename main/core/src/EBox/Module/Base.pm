@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
@@ -695,7 +697,13 @@ sub widget
         $widget->{'default'} = $winfo->{'default'};
         $widget->{'order'} = $winfo->{'order'};
         my $wfunc = $winfo->{'widget'};
-        &$wfunc($self, $widget, $winfo->{'parameter'});
+        try {
+            $wfunc->($self, $widget, $winfo->{'parameter'});
+        } otherwise {
+            my $ex = shift @_;
+            EBox::error("Error loading widget $name from module " . $self->name() . ": $ex");
+            $widget = undef;
+        };
         return $widget;
     } else {
         return undef;

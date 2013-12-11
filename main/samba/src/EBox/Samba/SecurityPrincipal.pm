@@ -24,6 +24,7 @@ use warnings;
 package EBox::Samba::SecurityPrincipal;
 use base 'EBox::Samba::OrganizationalPerson';
 
+use EBox::Gettext;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;

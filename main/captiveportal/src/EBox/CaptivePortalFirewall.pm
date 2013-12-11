@@ -57,8 +57,9 @@ sub prerouting
     my ($self) = @_;
     my @rules = ();
 
-    # Redirect HTTP traffic to redirecter
+    # Redirect HTTP and HTTPS traffic to redirecter
     my $port = $self->{captiveportal}->httpPort();
+    my $captiveport = $self->{captiveportal}->httpsPort();
     my $ifaces = $self->{captiveportal}->ifaces();
     my @exRules =  @{$self->_exceptionsRules('captive')};
 
@@ -77,6 +78,8 @@ sub prerouting
 
         $r = "$input -p tcp --dport 80 -j REDIRECT --to-ports $port";
         push(@rules, { 'rule' => $r, 'chain' => 'captive' });
+        $r = "$input -p tcp --dport 443 -j REDIRECT --to-ports $captiveport";
+        push(@rules, { 'rule' => $r, 'chain' => 'captive' });
     }
     return \@rules;
 }
@@ -87,6 +90,7 @@ sub postrouting
     my @rules = ();
 
     my $port = $self->{captiveportal}->httpPort();
+    my $captiveport = $self->{captiveportal}->httpsPort();
     my $ifaces = $self->{captiveportal}->ifaces();
     my $net = $self->{network};
 
@@ -96,6 +100,8 @@ sub postrouting
         foreach my $add (@{$net->ifaceAddresses($ifc)}) {
             my $ip = $add->{'address'};
             my $r = "$input -p tcp --sport $port -j SNAT --to-source $ip:$port";
+            push(@rules, $r);
+            $r = "$input -p tcp --sport $captiveport -j SNAT --to-source $ip:$captiveport";
             push(@rules, $r);
         }
     }
@@ -147,8 +153,6 @@ sub forward
     my ($self) = @_;
     my @rules = ();
 
-    my $port = $self->{captiveportal}->httpPort();
-    my $captiveport = $self->{captiveportal}->httpPort();
     my $ifaces = $self->{captiveportal}->ifaces();
     my @exRules =  @{$self->_exceptionsRules('fcaptive')};
 

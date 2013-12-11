@@ -1,4 +1,5 @@
-// Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
+// Copyright (C) 2007 Warp Networks S.L.
+// Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
 
 // TODO
 //      - Refactor addNewRow and actionClicked, they do almost the same
@@ -719,7 +720,7 @@ Parameters:
 */
 Zentyal.TableHelper.showPort = function (protocolSelectId, portId, protocols) {
     var selectedValue = $('#' + protocolSelectId).val();
-    if (selectedValue in protocols) {
+    if (protocols.indexOf(selectedValue) > -1) {
         $('#' + portId).show();
     } else {
         $('#' + portId).hide();

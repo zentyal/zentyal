@@ -23,6 +23,12 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Types::Int;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
@@ -138,7 +144,7 @@ sub syncRows
         my $id = $currentIfaces{$iface};
         my $row = $self->row($id);
 
-        next unless $row->valueByName('auto');
+        next unless (defined ($row) and $row->valueByName('auto'));
 
         $self->removeRow($id, 1);
 

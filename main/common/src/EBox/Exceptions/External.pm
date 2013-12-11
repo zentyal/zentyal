@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -43,12 +44,6 @@ sub new
     $Log::Log4perl::caller_depth--;
 
     return $self;
-}
-
-sub _logfunc
-{
-    my ($self, $logger, $msg) = @_;
-    $logger->debug($msg);
 }
 
 1;

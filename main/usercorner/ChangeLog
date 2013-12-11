@@ -1,3 +1,7 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2
+	+ Set version to 3.2
 3.1.5
 	+ Do not try to migrate from 3.0 if module is not configured
 3.1.4

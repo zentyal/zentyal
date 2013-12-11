@@ -28,6 +28,8 @@ use EBox::Global;
 use EBox::RemoteServices::SOAPClient;
 use EBox::Util::Nmap;
 use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::NotImplemented;
 
 use Date::Calc::Object;
 use Error qw(:try);
@@ -347,6 +349,23 @@ sub _credentialsFilePath
     my ($self, $name) = @_;
 
     return $self->_subscriptionDirPath($name) .  'server-info.json';
+}
+
+sub credentialsFileError
+{
+    my ($class, $commonName) = @_;
+    my $credFile = $class->_credentialsFilePath($commonName);
+    if (not -e $credFile) {
+        return __x("Credentials file '{path}' not found. Please, {ourl}unsubscribe and subscribe{eurl} again",
+                                             path => $credFile,
+                                             ourl => '<a href="/RemoteServices/View/Subscription">',
+                                             eurl => '</a>'
+                                            );
+    } elsif (not -r $credFile) {
+        return __x("Credentials file '{path}' is not readable. Please, fix its permissions and try again", path => $credFile);
+    }
+
+    return undef;
 }
 
 # Group: Private methods

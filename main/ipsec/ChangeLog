@@ -1,3 +1,8 @@
+HEAD
+	+ Added precondition check for existing 'external' interface.
+	+ Added missing EBox::Exceptions uses
+3.2
+	+ Set version to 3.2
 3.1.6
 	+ Override daemons when migrating from 3.0
 3.1.5

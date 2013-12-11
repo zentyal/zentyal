@@ -7,18 +7,21 @@ cp /usr/share/zenbuntu-core/motd.tail /etc/motd.tail
 
 # Import PPA keys to avoid warnings
 apt-key add /usr/share/zenbuntu-desktop/zentyal-ppa.asc >> $LOG 2>&1
-apt-key add /usr/share/zenbuntu-desktop/zentyal-3.0-archive.asc >> $LOG 2>&1
-
-cp /etc/rc.local /usr/share/zenbuntu-core/
-cp /usr/share/zenbuntu-core/first-boot.sh /etc/rc.local
+apt-key add /usr/share/zenbuntu-desktop/zentyal-3.2-archive.asc >> $LOG 2>&1
 
 ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 
-if [ -f /etc/default/grub ]
+if [ "$1" == "configure" ]
 then
-    if ! grep -q splash /etc/default/grub
+    cp /etc/rc.local /usr/share/zenbuntu-core/
+    cp /usr/share/zenbuntu-core/first-boot.sh /etc/rc.local
+
+    if [ -f /etc/default/grub ]
     then
-        sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
-        update-grub
+        if ! grep -q splash /etc/default/grub
+        then
+            sed -i 's/\(GRUB_CMDLINE_LINUX_DEFAULT=".*\)"/\1 splash"/' /etc/default/grub
+            update-grub
+        fi
     fi
 fi

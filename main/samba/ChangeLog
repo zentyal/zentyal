@@ -1,6 +1,100 @@
 HEAD
 	+ Do not automatically start service in LDB.pm
 	+ Remove unused guest access code
+	+ Provision - Improve the LDAP OUs purge after join domain
+	+ s4sync - Serveral fixes to make it more robust
+	+ OU - Improve cration code
+	+ LDB - Return OUs ordered, parents before childs
+	+ Provision - Link accounts holding zentyal service principals
+	+ Provision - Improve OU loading, skip zentyal internal OUs and linked
+	+ Provision - Link containers at provision stage, creating them if not
+	              exists. Ignore not linked OUs for sync operations.
+	+ Provision - Set kerberos linked OU as visible only in advanced mode
+	+ Provision - Check no OUs are created below OU=Users. This violate the
+	              AD DIT, as OU=Users is linked to CN=Users.
+	+ Do not import accounts while provisioning or joining a domain, rely on
+	  s4sync
+3.2.11
+	+ Remove useless chown workaround
+	+ Forbid sharing '/opt'
+	+ Add filesystem format check defining system shares
+	+ Update user CN on user modifications
+3.2.10
+	+ Revert case sensitive shares. Use new SMB raw client library feature
+	  per packet case sensitive.
+	+ Throw external exception instead internal if error changing user password
+	+ Show user friendly error creating system shares
+	+ Add precondition to GPO models, do not allow edition if server is ADC
+	+ Fix error in backup or clicking on edit GPO when server is ADC and
+	  sysvol is not yet replicated
+	+ Check if file system share path is a directory
+	+ Fixed unhandled exception when checking filesystem options
+	+ Added missing EBox::Exceptions uses
+	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
+	  objectGUID unique id to be 100% sure we match the right objects
+3.2.9
+	+ Depend on the new Samba 4.1.1, also with fixed init script
+	+ Improve GPO models preconditions to avoid cannot connect to samba
+	  LDAP
+	+ Fix regression in unmanaged ACLs option
+3.2.8
+	+ Prevent _postServiceHook code execution outside Save Changes
+	+ Fixed openLDAP -> samba integration for users, contacts and groups using
+	  non ascii characters
+	+ Check for acl and user_xattr mount options when adding system shares
+3.2.7
+	+ Depend on new samba4 version that fixes 0-byte size problems
+	+ NT SD are now written to hidden and readonly files
+	+ Remove no longer used antivirus options
+	+ Get ldb object in s4sync after the initial wait
+	+ Use resolvconf tool to modify resolv.conf when joining as ADC
+3.2.6
+	+ Set zavsd socket mode to 0777
+	+ Fix already defined variable warning
+	+ Fixed Samba share ACLs for guest-shares do not contain 'Domain Users'
+	  (Contributed by on-jz)
+	+ Disable debug to parse ldbsearch command output when looking on idmap.ldb
+	+ Set case sensitive on a per share basis
+3.2.5
+	+ Fix netbios name no being updated when hostname change and samba module
+	  is not enabled
+	+ Disable debug to parse ldbsearch command output when looking for DNS
+	  zones stored in samba
+	+ Open files with minimal access mask to set the security descriptors
+3.2.4
+	+ Fixed Samba share ACLs for 'All users' are not written to filesystem
+	+ Listen on all interfaces to avoid problems when more than one IP address
+	  is configured in the DNS module
+	+ Removed unnecessary FirewallHelper implementation
+	+ Delete unused updateHostnameFields() method
+	+ Mark network module as changed when upgrading from 3.0
+	+ Enforce set of shares ACLs when upgrading from 3.0
+3.2.3
+	+ Remove old keytab when exporting new one
+	+ Add ForestDnsZones and DomainDnsZones partitions DNS records after
+	  join domain as additional domain controller
+3.2.2
+	+ Added retry mechanism in SmbClient to wait until samba is ready
+	+ Do not try to get domainSID in s4sync if not ready
+	+ Improve retrying log messages in safeConnect
+	+ Setup quarantine directory in postHook instead of setConf
+	+ Don't use Samba's LDB before it's started
+	+ Rewrote a couple of methods to use file access directly instead of LDB
+	  so it doesn't depend on the service running
+	+ Stop starting samba on safeConnect calls
+3.2.1
+	+ Fixed start of samba after reboot
+3.2
+	+ Migrated the Samba provision status into redis
+	+ Fixed migration of disabled accounts
+	+ Execute the mapping of special accounts method on migration
+	+ Set version to 3.2
+3.1.14
+	+ Fixed provisioning flag also in DC mode
+	+ Do not automatically start service in LDB.pm
+	+ Added missing EBox::Gettext uses
+	+ Prevent member sync between Domain Users and __USERS__ both are handled
+	  automatically.
 3.1.13
 	+ Improve samba daemon startup wait condition
 	+ Improve GPO code to be more robust.

@@ -117,7 +117,7 @@ automatically as scheduled') %>
                                      onclick="$('#<% $pkg->{name} %>_changelog').toggle()
                                                              return false;"
                                 />
-%         }                            
+%         }
                                 <%$pkg->{name}%>
                                 </td>
                                 <td><%$pkg->{description}%></td>
@@ -158,10 +158,9 @@ automatically as scheduled') %>
         <div class="bDataTable">
         <button class='btn btn-icon btn-update' disabled='disabled' id='upgradeButton' onclick="doUpdates('<%__('Upgrading system packages') %>'); return false"><%__('Update')%></button>
 % }
-        <button class='btn btn-icon btn-reload' onclick='document.updateList.submit()'><%__('Update list')%></button>
+        <button class='btn btn-icon btn-reload' onclick="$('#updateList').submit()"><%__('Update list')%></button>
         </div>
-        <form name='updateList' action='Updates' method='post'>
+        <form id='updateList' name='updateList' action='Updates' method='post'>
                 <input type='hidden' name='updatePkgs' value="yes"/>
         </form>
-
 </div>

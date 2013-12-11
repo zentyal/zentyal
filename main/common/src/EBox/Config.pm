@@ -35,7 +35,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-$ref->{version} = '3.1';
+$ref->{version} = '3.2';
 $ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
@@ -172,8 +172,8 @@ sub user
 sub gids
 {
     my $user = user();
-    my $gids = `id -G $user`;
-    chomp ($gids);
+    my $gids = `/usr/bin/id -G $user`;
+    chomp ($gids) if defined $gids;
     return $gids;
 }
 

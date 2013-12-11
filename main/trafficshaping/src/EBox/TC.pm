@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -18,11 +19,13 @@ use warnings;
 
 package EBox::TC;
 
+use EBox::Gettext;
 use EBox::Sudo;
 use Error qw(:try);
 
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::MissingArgument;
 
 # Constants
 use constant TC_CMD => '/sbin/tc';

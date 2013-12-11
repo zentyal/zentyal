@@ -30,6 +30,7 @@ use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::FileSystem;
 use File::Slurp;
 use File::Copy;

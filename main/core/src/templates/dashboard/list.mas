@@ -18,11 +18,11 @@ use EBox::Gettext;
 % } else {
 %   $list_display = 'none';
 % }
-<table id='<% $namespace . '_' . $i . '_table' %>' style='display: <% $list_display %>;' class='dashboardTable'>
+<table id='<% $namespace . '_' . $i . '_table' %>' class='dashboardTable'>
 <thead>
 <tr>
 % foreach my $colTitle (@{$item->{colTitles}}) {
-    <td><% $colTitle %></td>
+    <th><% $colTitle %></th>
 % }
 </tr>
 </thead>

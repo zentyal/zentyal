@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,9 @@ use Params::Validate;
 use EBox::Validate;
 use EBox::Gettext;
 use EBox::Sudo;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
 
 use constant FSTAB_PATH => '/etc/fstab';

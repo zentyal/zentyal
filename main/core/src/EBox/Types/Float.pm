@@ -27,6 +27,7 @@ package EBox::Types::Float;
 use base 'EBox::Types::Int';
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 
 # Core modules

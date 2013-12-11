@@ -567,13 +567,16 @@ $popupTitle
 <button  type="button" class="btn btn-icon btn-<% $icon %>" id="<% $id %>" onclick="Zentyal.SoftwareManagementUI.sendForm('<% $action %>', '<% $table%>', <% $popup %>, '<% $popupTitle %>')">
                   <% $text %>
 </button>
-<button type="button" class="btn btn-icon btn-reload" onclick='location.reload()'><% __('Update list') %></button>
+<button class='btn btn-icon btn-reload' onclick="$('#updateList').submit()"><%__('Update list')%></button>
 <button type="button" class="btn btn-icon btn-deselect" onclick="Zentyal.SoftwareManagementUI.deselectAll('<% $table %>' , '<% $id %>')">
       <% __('Deselect All') %>
 </button>
 <button type="button" class="btn btn-icon btn-apply" onclick="Zentyal.SoftwareManagementUI.selectAll('<% $table %>', '<% $id %>')">
     <% __('Select All') %>
 </button>
+<form id='updateList' name='updateList' action='EBox' method='post'>
+        <input type='hidden' name='updatePkgs' value="yes"/>
+</form>
 </div>
 </td></tr></tbody>
 </table>

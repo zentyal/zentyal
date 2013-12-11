@@ -46,6 +46,9 @@ use EBox::UsersSync::Slave;
 use EBox::CloudSync::Slave;
 use EBox::Exceptions::UnwillingToPerform;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::SyncFolders::Folder;
 use EBox::Util::Version;
 use EBox::Users::NamingContext;
@@ -60,6 +63,7 @@ use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Time::HiRes;
 use Fcntl qw(:flock);
 
 
@@ -90,6 +94,10 @@ use constant KPASSWD_PORT => 8464;
 use constant KRB5_CONF_FILE => '/etc/krb5.conf';
 use constant KDC_CONF_FILE  => '/etc/heimdal-kdc/kdc.conf';
 use constant KDC_DEFAULT_FILE => '/etc/default/heimdal-kdc';
+
+use constant OBJECT_EXISTS => 1;
+use constant OBJECT_EXISTS_AND_HIDDEN_SID => 2;
+
 
 sub _create
 {
@@ -468,6 +476,18 @@ sub _migrateTo32
         }
     }
 
+    # Add all users as members of __USERS__ so appear as members on LDAP and not just members because the gid is the one
+    # for __USERS__.
+    my $usersGroup = new EBox::Users::Group(gid => DEFAULTGROUP);
+    foreach my $user (@{$usersGroup->usersNotIn(1)}) {
+        $usersGroup->addMember($user, 1);
+    }
+    $usersGroup->save();
+
+    foreach my $user (@{$self->users(1)}) {
+        $user->add('objectClass', 'shadowAccount');
+    }
+
     $self->_overrideDaemons() if $self->configured();
 }
 
@@ -681,6 +701,99 @@ sub enableService
     }
 }
 
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
+
+    $self->SUPER::_startDaemon($daemon, %params);
+
+    my $services = $self->_services($daemon->{name});
+    foreach my $service (@{$services}) {
+        my $port = $service->{destinationPort};
+        next unless $port;
+
+        my $proto = $service->{protocol};
+        next unless $proto;
+
+        my $desc = $service->{description};
+        if ($proto eq 'tcp/udp') {
+            $self->_waitService('tcp', $port, $desc);
+            $self->_waitService('udp', $port, $desc);
+        } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+            $self->_waitService($proto, $port, $desc);
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+
+    if (length ($desc)) {
+        EBox::debug("Wait users task '$desc'");
+    } else {
+        EBox::debug("Wait unknown users task");
+    }
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => $port,
+                                        Proto    => $proto);
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for users service '$desc' ($proto)");
+    }
+}
+
+sub _services
+{
+    my ($self, $daemon) = @_;
+    my @services = ();
+
+    if ($daemon eq 'ebox.slapd') {
+        # LDAP
+        push (@services, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => '390',
+            'description' => 'Lightweight Directory Access Protocol',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
+        # KDC
+        push (@services, {
+            'protocol' => 'tcp/udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KERBEROS_PORT,
+            'description' => 'Kerberos Key Distribution Center',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kpasswd') {
+        # KPASSWD
+        push (@services, {
+            'protocol' => 'udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KPASSWD_PORT,
+            'description' => 'Kerberos Password Changing Server',
+        });
+    }
+
+    return \@services;
+}
+
 # Load LDAP from config + data files
 sub _loadLDAP
 {
@@ -764,6 +877,8 @@ sub _setConf
 sub _setConfExternalAD
 {
     my ($self) = @_;
+
+    # Install cron file to update the squid keytab in the case keys change
     $self->writeConfFile(CRONFILE_EXTERNAL_AD_MODE, "users/zentyal-users-external-ad.cron.mas", []);
     EBox::Sudo::root('chmod a+x ' . CRONFILE_EXTERNAL_AD_MODE);
 }
@@ -850,6 +965,20 @@ sub _setConfInternal
 
     @params = ();
     $self->writeConfFile(KDC_DEFAULT_FILE, 'users/heimdal-kdc.mas', \@params);
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->mode() eq EXTERNAL_AD_MODE) {
+        # Update services keytabs
+        my $ldap = $self->ldap();
+        my @principals = @{ $ldap->externalServicesPrincipals() };
+        if (scalar @principals) {
+            $ldap->initKeyTabs();
+        }
+    }
 }
 
 # overriden to revoke slave removals
@@ -976,7 +1105,7 @@ sub groupDn
     my ($self, $group) = @_;
     $group or throw EBox::Exceptions::MissingArgument('group');
 
-    my $dn = "cn=$group," . EBox::Users::Group::defaultContainer()->dn();
+    my $dn = "cn=$group," . EBox::Users::Group->defaultContainer()->dn();
     return $dn;
 }
 
@@ -999,25 +1128,8 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            # FIXME: workaroung against mysterious chown bug
             my $chownCmd = "chown -R $quser:$group $qhome";
-            my $chownTries = 10;
-            foreach my $cnt (1 .. $chownTries) {
-                my $chownOk = 0;
-                try {
-                    EBox::Sudo::root($chownCmd);
-                    $chownOk = 1;
-                } otherwise {
-                    my ($ex) = @_;
-                    if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
-                        sleep 1;
-                    } else {
-                        $ex->throw();
-                    }
-                };
-                last if $chownOk;
-            };
+            EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -1039,38 +1151,41 @@ sub reloadNSCD
 
 # Method: ous
 #
-#       Returns an array containing all the OUs sorted by canonicalName
+#   Returns an array containing all the OUs. The array ir ordered in a
+#   hierarquical way. Parents before childs.
 #
 # Returns:
 #
-#       array ref - holding the OUs. Each user is represented by a
-#       EBox::Users::OU object
+#   array ref - holding the OUs. Each user is represented by a
+#   EBox::Users::OU object
 #
 sub ous
 {
-    my ($self) = @_;
+    my ($self, $baseDN) = @_;
 
     return [] if (not $self->isEnabled());
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
-        scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @ous = ();
-    foreach my $entry ($result->entries)
-    {
-        my $ou = $self->{ouClass}->new(entry => $entry);
-        push (@ous, $ou);
+    unless (defined $baseDN) {
+        $baseDN = $self->ldap->dn();
     }
 
-    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my $searchArgs = {
+        base => $baseDN,
+        filter => "objectclass=$objectClass",
+        scope => 'one',
+    };
 
-    return \@sortedOUs;
+    my $ous = [];
+    my $result = $self->ldap->search($searchArgs);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: userByUID
@@ -1118,8 +1233,23 @@ sub userByUID
 sub userExists
 {
     my ($self, $uid) = @_;
-    return undef unless ($self->userByUID($uid));
-    return 1;
+    my $user = $self->userByUID($uid);
+    if (not $user) {
+        return undef;
+    }
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbUser = $samba->ldbObjectByObjectGUID($user->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbUser)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: users
@@ -1336,8 +1466,24 @@ sub groupByName
 sub groupExists
 {
     my ($self, $name) = @_;
-    return undef unless ($self->groupByName($name));
-    return 1;
+    my $group = $self->groupByName($name);
+    if (not $group) {
+        return undef;
+    }
+
+    if ($self->global()->modExists('samba')) {
+        # check if it is a reserved user
+        my $samba = $self->global()->modInstance('samba');
+        if (not $samba->isProvisioned()) {
+            return OBJECT_EXISTS;
+        }
+        my $ldbGroup = $samba->ldbObjectByObjectGUID($group->get('msdsObjectGUID'));
+        if ($samba->hiddenSid($ldbGroup)) {
+            return OBJECT_EXISTS_AND_HIDDEN_SID;
+        }
+    }
+
+    return OBJECT_EXISTS;
 }
 
 # Method: groups
@@ -1898,8 +2044,7 @@ sub slaves
 sub master
 {
     my ($self) = @_;
-    my $row = $self->model('Master')->row();
-    return $row->elementByName('master')->value();
+    return $self->model('Master')->master();
 }
 
 # SyncProvider implementation

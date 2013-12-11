@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -50,7 +51,6 @@ use EBox::Samba::SmbClient;
 use EBox::Samba::User;
 use EBox::SambaLdapUser;
 use EBox::SambaLogHelper;
-use EBox::SambaFirewall;
 use EBox::Service;
 use EBox::Sudo;
 use EBox::SyncFolders::Folder;
@@ -87,6 +87,18 @@ use Samba::Security::Descriptor qw(
     SECINFO_GROUP
     SECINFO_OWNER
     SECINFO_PROTECTED_DACL
+    SEC_STD_WRITE_OWNER
+    SEC_STD_READ_CONTROL
+    SEC_STD_WRITE_DAC
+    SEC_FILE_READ_ATTRIBUTE
+);
+use Samba::Smb qw(
+    FILE_ATTRIBUTE_NORMAL
+    FILE_ATTRIBUTE_ARCHIVE
+    FILE_ATTRIBUTE_DIRECTORY
+    FILE_ATTRIBUTE_HIDDEN
+    FILE_ATTRIBUTE_READONLY
+    FILE_ATTRIBUTE_SYSTEM
 );
 use String::ShellQuote 'shell_quote';
 use Time::HiRes;
@@ -108,6 +120,7 @@ use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
 use constant GUEST_DEFAULT_USER   => 'nobody';
+use constant SAMBA_DNS_UPDATE_LIST => PRIVATE_DIR . 'dns_update_list';
 
 sub _create
 {
@@ -192,6 +205,15 @@ sub initialSetup
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
+
+    # Upgrade from 3.2.11 to 3.2.12
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.12') < 0)) {
+        # Ensure default containers properly linked
+        $self->getProvision->mapDefaultContainers();
+
+        # Accounts holding SPNs should be linked to LDAP service principals
+        $self->ldb->ldapServicePrincipalsToLdb();
+    }
 }
 
 sub enableService
@@ -224,7 +246,35 @@ sub _postServiceHook
 {
     my ($self, $enabled) = @_;
 
-    if ($enabled) {
+    # Execute the hook actions *only* if Samba module is enabled and we were invoked from the web application, this will
+    # prevent that we execute this code with every service restart or on server boot delaying such processes.
+    if ($enabled and ($0 =~ /\/global-action$/)) {
+
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+        unless ($self->mode() eq 'adc') {
+            EBox::info("Setting roaming profiles...");
+            my $netbiosName = $self->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            my $users = $self->ldb->users();
+            foreach my $user (@{$users}) {
+                # Set roaming profiles
+                if ($self->roamingProfiles()) {
+                    my $path = "\\\\$netbiosName.$realmName\\profiles";
+                    $user->setRoamingProfile(1, $path, 1);
+                } else {
+                    $user->setRoamingProfile(0);
+                }
+
+                # Mount user home on network drive
+                my $drivePath = "\\\\$netbiosName.$realmName";
+                $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
+                $user->save();
+            }
+        }
 
         my $host = $self->ldb()->rootDse()->get_value('dnsHostName');
         unless (defined $host and length $host) {
@@ -234,6 +284,7 @@ sub _postServiceHook
         my $domainSID = $self->ldb()->domainSID();
         my $domainAdminSID = "$domainSID-500";
         my $builtinAdministratorsSID = 'S-1-5-32-544';
+        my $domainUsersSID = "$domainSID-513";
         my $domainGuestsSID = "$domainSID-514";
         my $systemSID = "S-1-5-18";
         my @superAdminSIDs = ($builtinAdministratorsSID, $domainAdminSID, $systemSID);
@@ -258,8 +309,18 @@ sub _postServiceHook
                 next;
             }
 
+            EBox::info("Applying new permissions to the share '$shareName'...");
+
             my $smb = new EBox::Samba::SmbClient(
                 target => $host, service => $shareName, RID => DOMAIN_RID_ADMINISTRATOR);
+
+            # Set the client to case sensitive mode. The directory listing can
+            # contain files inside folders with the same name but different
+            # casing, so when trying to open them the library failes with a
+            # NT_STATUS_OBJECT_NAME_NOT_FOUND error code. Setting the library
+            # to case sensitive avoids this problem.
+            $smb->case_sensitive(1);
+
             my $sd = new Samba::Security::Descriptor();
             my $sdControl = $sd->type();
             # Inherite all permissions.
@@ -281,9 +342,14 @@ sub _postServiceHook
             }
 
             if ($guestAccess) {
+                # Add read/write access for Domain Users
                 my $ace = new Samba::Security::AccessControlEntry(
-                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                    $domainUsersSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
                 $sd->dacl_add($ace);
+                # Add read/write access for Domain Guests
+                my $ace2 = new Samba::Security::AccessControlEntry(
+                    $domainGuestsSID, SEC_ACE_TYPE_ACCESS_ALLOWED, $readRights | $writeRights, $defaultInheritance);
+                $sd->dacl_add($ace2);
             } else {
                 for my $subId (@{$row->subModel('access')->ids()}) {
                     my $subRow = $row->subModel('access')->row($subId);
@@ -293,12 +359,21 @@ sub _postServiceHook
                     my $account = $userType->printableValue();
                     my $qobject = shell_quote($account);
 
-                    my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
-                    unless ($object->exists()) {
-                        next;
-                    }
+                    # Fix for Samba share ACLs for 'All users' are not written to filesystem
+                    # map '__USERS__' to 'Domain Users' SID
+                    my $accountShort = $userType->value();
+                    my $sid = undef;
 
-                    my $sid = $object->sid();
+                    if ($accountShort eq '__USERS__') {
+                        $sid = $domainUsersSID;
+                        EBox::debug("Mapping group $accountShort to 'Domain Users' SID $sid");
+                    } else {
+                        my $object = new EBox::Samba::SecurityPrincipal(samAccountName => $account);
+                        unless ($object->exists()) {
+                            next;
+                        }
+                        $sid = $object->sid();
+                    }
                     my $rights = undef;
                     if ($permissions->value() eq 'readOnly') {
                         $rights = $readRights;
@@ -317,10 +392,25 @@ sub _postServiceHook
                 }
             }
             my $relativeSharePath = '/';
-            my $sinfo = SECINFO_OWNER | SECINFO_GROUP | SECINFO_DACL | SECINFO_PROTECTED_DACL;
-            $smb->set_sd($relativeSharePath, $sd, $sinfo);
+            my $sinfo = SECINFO_OWNER |
+                        SECINFO_GROUP |
+                        SECINFO_DACL |
+                        SECINFO_PROTECTED_DACL;
+            my $access_mask = SEC_STD_WRITE_OWNER |
+                              SEC_STD_READ_CONTROL |
+                              SEC_STD_WRITE_DAC |
+                              SEC_FILE_READ_ATTRIBUTE;
+            my $attributes = FILE_ATTRIBUTE_NORMAL |
+                             FILE_ATTRIBUTE_ARCHIVE |
+                             FILE_ATTRIBUTE_DIRECTORY |
+                             FILE_ATTRIBUTE_HIDDEN |
+                             FILE_ATTRIBUTE_READONLY |
+                             FILE_ATTRIBUTE_SYSTEM;
+            EBox::debug("Setting NT ACL on file: $relativeSharePath");
+            $smb->set_sd($relativeSharePath, $sd, $sinfo, $access_mask);
             # Apply recursively the permissions.
-            my $shareContentList = $smb->list($relativeSharePath, recursive => 1);
+            my $shareContentList = $smb->list($relativeSharePath,
+                attributes => $attributes, recursive => 1);
             # Reset the DACL_PROTECTED flag;
             $sdControl = $sd->type();
             $sdControl &= ~SEC_DESC_DACL_PROTECTED;
@@ -328,12 +418,24 @@ sub _postServiceHook
             foreach my $item (@{$shareContentList}) {
                 my $itemName = $item->{name};
                 $itemName =~ s/^\/\/(.*)/\/$1/s;
-                EBox::debug($itemName);
-                $smb->set_sd($itemName, $sd, $sinfo);
+                EBox::debug("Setting NT ACL on file: $itemName");
+                $smb->set_sd($itemName, $sd, $sinfo, $access_mask);
             }
             delete $state->{shares_set_rights}->{$shareName};
             $self->set_state($state);
         }
+
+        # Change group ownership of quarantine_dir to __USERS__
+        EBox::info("Fixing quarantine_dir permissions...");
+        if ($self->defaultAntivirusSettings()) {
+            $self->_setupQuarantineDirectory();
+        }
+
+        # Write DNS update list
+        EBox::info("Writing DNS update list...");
+        $self->_writeDnsUpdateList();
+    } else {
+        EBox::debug("Ignoring Samba's _postServiceHook code because it was not invoked from the web application.");
     }
 
     return $self->SUPER::_postServiceHook($enabled);
@@ -408,7 +510,11 @@ sub _waitService
     my $sleepSeconds = 0.1;
     my $listening = 0;
 
-    EBox::debug("Wait samba task '$desc'");
+    if (length ($desc)) {
+        EBox::debug("Wait samba task '$desc'");
+    } else {
+        EBox::debug("Wait unknown samba task");
+    }
     while (not $listening and $maxTries > 0) {
         my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
                                         PeerPort => $port,
@@ -702,12 +808,8 @@ sub antivirusConfig
     my $conf = {
         show_special_files       => 'True',
         rm_hidden_files_on_rmdir => 'True',
-        hide_nonscanned_files    => 'False',
-        scanning_message         => 'is being scanned for viruses',
         recheck_time_open        => '50',
         recheck_tries_open       => '100',
-        recheck_time_readdir     => '50',
-        recheck_tries_readdir    => '20',
         allow_nonscanned_files   => 'False',
     };
 
@@ -774,58 +876,21 @@ sub recycleConfig
     return $conf;
 }
 
-# Method: sambaInterfaces
-#
-#   Return interfaces upon samba should listen
-#
-sub sambaInterfaces
+sub _writeDnsUpdateList
 {
     my ($self) = @_;
 
-    my @ifaces = ();
-    # Always listen on loopback interface
-    push (@ifaces, 'lo');
-
-    my $net = EBox::Global->modInstance('network');
-
-    my $listen_external = EBox::Config::configkey('listen_external');
-
-    my $netIfaces;
-    if ($listen_external eq 'yes') {
-        $netIfaces = $net->allIfaces();
-    } else {
-        $netIfaces = $net->InternalIfaces();
-    }
-
-    my %seenBridges;
-    foreach my $iface (@{$netIfaces}) {
-        push @ifaces, $iface;
-
-        if ($net->ifaceMethod($iface) eq 'bridged') {
-            my $br = $net->ifaceBridge($iface);
-            if (not $seenBridges{$br}) {
-                push (@ifaces, "br$br");
-                $seenBridges{$br} = 1;
-            }
-            next;
-        }
-
-        my $vifacesNames = $net->vifaceNames($iface);
-        if (defined $vifacesNames) {
-            push @ifaces, @{$vifacesNames};
-        }
-    }
-
-    my @moduleGeneratedIfaces = ();
-    push @ifaces, @moduleGeneratedIfaces;
-    return \@ifaces;
+    my $array = [];
+    my $partitions = ['DomainDnsZones', 'ForestDnsZones'];
+    push (@{$array}, partitions => $partitions);
+    $self->writeConfFile(SAMBA_DNS_UPDATE_LIST,
+                         'samba/dns_update_list.mas', $array,
+                         { 'uid' => '0', 'gid' => '0', mode => '644' });
 }
 
 sub writeSambaConfig
 {
     my ($self) = @_;
-
-    my $interfaces = join (',', @{$self->sambaInterfaces()});
 
     my $netbiosName = $self->netbiosName();
     my $realmName   = EBox::Global->modInstance('users')->kerberosRealm();
@@ -842,7 +907,6 @@ sub writeSambaConfig
     push (@array, 'workgroup'   => $self->workgroup());
     push (@array, 'netbiosName' => $netbiosName);
     push (@array, 'description' => $self->description());
-    push (@array, 'ifaces'      => $interfaces);
     push (@array, 'mode'        => 'dc');
     push (@array, 'realm'       => $realmName);
     push (@array, 'domain'      => $hostDomain);
@@ -850,6 +914,7 @@ sub writeSambaConfig
     push (@array, 'profilesPath' => PROFILES_DIR);
     push (@array, 'sysvolPath'  => SYSVOL_DIR);
     push (@array, 'disableFullAudit' => EBox::Config::boolean('disable_fullaudit'));
+    push (@array, 'unmanagedAcls'    => EBox::Config::boolean('unmanaged_acls'));
 
     if (EBox::Global->modExists('printers')) {
         my $printersModule = EBox::Global->modInstance('printers');
@@ -952,31 +1017,12 @@ sub _createDirectories
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    EBox::Sudo::root(@cmds);
 
-    # FIXME: Workaround attempt for the issue of failed chown with __USERS__ group
-    #        remove this and uncomment the three chowns above when fixed for real
-    my $chownTries = 10;
-    @cmds = ();
     push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chown root:$group " . SHARES_DIR);
-    foreach my $cnt (1 .. $chownTries) {
-        my $chownOk = 0;
-        try {
-            EBox::Sudo::root(@cmds);
-            $chownOk = 1;
-        } otherwise {
-            my ($ex) = @_;
-            if ($cnt < $chownTries) {
-                EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
-                sleep 1;
-            } else {
-                $ex->throw();
-            }
-        };
-        last if $chownOk;
-    };
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _setConf
@@ -1007,36 +1053,6 @@ sub _setConf
     $self->model('SambaDeletedShares')->removeDirs();
     # Create shares
     $self->model('SambaShares')->createDirs();
-
-    # Change group ownership of quarantine_dir to __USERS__
-    if ($self->defaultAntivirusSettings()) {
-        $self->_setupQuarantineDirectory();
-    }
-
-    # Only set global roaming profiles and drive letter options
-    # if we are not replicating to another Windows Server to avoid
-    # overwritting already existing per-user settings. Also skip if
-    # unmanaged_home_directory config key is defined
-    my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
-    unless ($self->mode() eq 'adc') {
-        my $netbiosName = $self->netbiosName();
-        my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
-        my $users = $self->ldb->users();
-        foreach my $user (@{$users}) {
-            # Set roaming profiles
-            if ($self->roamingProfiles()) {
-                my $path = "\\\\$netbiosName.$realmName\\profiles";
-                $user->setRoamingProfile(1, $path, 1);
-            } else {
-                $user->setRoamingProfile(0);
-            }
-
-            # Mount user home on network drive
-            my $drivePath = "\\\\$netbiosName.$realmName";
-            $user->setHomeDrive($self->drive(), $drivePath, 1) unless $unmanagedHomes;
-            $user->save();
-        }
-    }
 }
 
 sub _adcMode
@@ -1128,16 +1144,6 @@ sub usesPort
         return 1 if ($port eq $smbport->{destinationPort});
     }
 
-    return undef;
-}
-
-sub firewallHelper
-{
-    my ($self) = @_;
-
-    if ($self->isEnabled()) {
-        return new EBox::SambaFirewall();
-    }
     return undef;
 }
 
@@ -2131,10 +2137,8 @@ sub hostNameChangedDone
 {
     my ($self, $oldHostName, $newHostName) = @_;
 
-    if ($self->configured()) {
-        my $settings = $self->model('GeneralSettings');
-        $settings->setValue('netbiosName', $newHostName);
-    }
+    my $settings = $self->model('GeneralSettings');
+    $settings->setValue('netbiosName', $newHostName);
 }
 
 # Method: hostDomainChanged
@@ -2494,6 +2498,13 @@ sub _migrateTo32
 
     EBox::Service::manage('zentyal.s4sync', 'stop');
 
+    my $provision = $self->getProvision();
+    my $oldProvisionFile = '/home/samba/.provisioned';
+    if (-f $oldProvisionFile) {
+        $provision->setProvisioned(1);
+        EBox::Sudo::root("rm -f $oldProvisionFile");
+    }
+
     EBox::info("Removing posixAccount from users");
     foreach my $user (@{$self->ldb->users()}) {
         $user->delete('uidNumber', 1);
@@ -2514,8 +2525,8 @@ sub _migrateTo32
     $usersMod->_loadSchema(EBox::Config::share() . $schema);
 
     EBox::info("Map default containers");
-    my $provision = $self->getProvision();
     $provision->mapDefaultContainers();
+    $provision->mapAccounts();
 
     EBox::info("Link LDB users with LDAP");
     foreach my $ldbUser (@{$self->ldb->users()}) {
@@ -2524,7 +2535,7 @@ sub _migrateTo32
             $ldbUser->_linkWithUsersObject($ldapUser);
 
             if (not $ldbUser->isAccountEnabled()) {
-                $ldapUser->setAccountEnabled(0);
+                $ldapUser->setDisabled(1);
             }
         }
     }
@@ -2542,6 +2553,22 @@ sub _migrateTo32
     if ($adminUser->exists()) {
         $adminUser->setInternal();
     }
+
+    EBox::info("Enforcing application of share permissions");
+    my $shares = $self->model('SambaShares');
+    my $state = $self->get_state();
+    unless (defined $state->{shares_set_rights}) {
+        $state->{shares_set_rights} = {};
+    }
+    for my $id (@{$shares->ids()}) {
+        my $row = $shares->row($id);
+        my $shareName = $row->valueByName('share');
+        $state->{shares_set_rights}->{$shareName} = 1;
+    }
+    $self->set_state($state);
+
+    # To ensure proper writing of /etc/resolv.conf
+    EBox::Global->modChange('network');
 
     $self->_overrideDaemons();
 }

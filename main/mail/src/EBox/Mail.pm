@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -38,6 +39,8 @@ use EBox::Mail::Greylist;
 use EBox::Mail::FetchmailLdap;
 use EBox::Service;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Dashboard::ModuleStatus;
 use EBox::Dashboard::Section;
 use EBox::ServiceManager;
@@ -1184,13 +1187,12 @@ sub _dovecotService
     return 1;
 }
 
-sub _regenConfig
+sub _preSetConf
 {
     my ($self) = @_;
 
     return unless $self->configured();
 
-    $self->_preSetConfHook();
     if ($self->service) {
         $self->_setMailConf;
         my $vdomainsLdap = new EBox::MailVDomainsLdap;
@@ -1198,8 +1200,6 @@ sub _regenConfig
     }
 
     $self->greylist()->writeUpstartFile();
-    $self->_enforceServiceState();
-    $self->_postSetConfHook();
 }
 
 # Method: service

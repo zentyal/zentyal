@@ -12,8 +12,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::RemoteServices::Cred;
+use warnings;
+use strict;
 
 # Class: EBox::RemoteServices::Cred
 #
@@ -22,13 +22,12 @@ package EBox::RemoteServices::Cred;
 #       required and you already have the required credentials
 #
 
-use warnings;
-use strict;
-
+package EBox::RemoteServices::Cred;
 use base 'EBox::RemoteServices::Base';
 
 use EBox::Global;
 use EBox::RemoteServices::RESTClient;
+use EBox::Exceptions::External;
 use File::Slurp;
 use JSON::XS;
 
@@ -41,8 +40,14 @@ sub new
     my $self = $class->SUPER::new();
 
     my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-    my $credFile = $self->_credentialsFilePath($rs->eBoxCommonName());
+    my $commonName = $rs->eBoxCommonName();
 
+    my $credError = $self->credentialsFileError($commonName);
+    if ($credError) {
+        throw EBox::Exceptions::External($credError);
+    }
+
+    my $credFile = $self->_credentialsFilePath($commonName);
     $self->{cred} = decode_json(File::Slurp::read_file($credFile));
 
     $self->{restClient} = new EBox::RemoteServices::RESTClient(

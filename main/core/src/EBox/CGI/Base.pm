@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,6 +29,7 @@ use EBox::Exceptions::Base;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::MissingArgument;
 use EBox::Util::GPG;
 use POSIX qw(setlocale LC_ALL);
 use Error qw(:try);
@@ -573,7 +575,11 @@ sub setErrorFromException
         $self->{error} = $ex->stringify() if $ex->can('stringify');
         $self->{error} .= "<br/>\n";
         $self->{error} .= "<pre>\n";
-        $self->{error} .= $ex->stacktrace();
+        if ($ex->isa('HTML::Mason::Exception')) {
+            $self->{error} .= $ex->as_text();
+        } else {
+            $self->{error} .= $ex->stacktrace();
+        }
         $self->{error} .= "</pre>\n";
         $self->{error} .= "<br/>\n";
         return;
@@ -703,20 +709,20 @@ sub _validateReferer
 
     my $referer = $ENV{HTTP_REFERER};
     my $hostname = $ENV{HTTP_HOST};
-    my $rshostname = $ENV{HTTP_HOST};
 
-    # allow remoteservices proxy access
-    # proxy is a valid subdomain of {domain}
+    my $rshostname = undef;
     if (EBox::Global->modExists('remoteservices')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-
         if ( $rs->eBoxSubscribed() ) {
             $rshostname = $rs->cloudDomain();
         }
     }
-    if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\// or
-        $referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//) {
-        return; # everything ok
+
+    # proxy is a valid subdomain of {domain}
+    if ($referer =~ m/^https:\/\/$hostname(:[0-9]*)?\//) {
+        return; # from another page
+    } elsif ($rshostname and ($referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//)) {
+        return; # allow remoteservices proxy access
     }
     throw EBox::Exceptions::External( __("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }

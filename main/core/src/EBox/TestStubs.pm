@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -36,6 +37,7 @@ use EBox::Module::Config::TestStub;
 use EBox::Global::TestStub;
 use EBox::NetWrappers::TestStub;
 use EBox::Test::RedisMock;
+use EBox::Exceptions::Internal;
 
 our @EXPORT_OK = qw(activateEBoxTestStubs fakeModule setConfig setConfigKeys);
 our %EXPORT_TAGS = ( all => \@EXPORT_OK );

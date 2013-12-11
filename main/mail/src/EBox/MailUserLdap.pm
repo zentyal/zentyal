@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,8 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Model::Manager;
 use EBox::Gettext;
 use EBox::Users::User;

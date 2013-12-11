@@ -1,9 +1,0 @@
-<%args>
-    $proxyConf
-</%args>
-#!/bin/sh -e
-
-# Zentyal defined HTTP Proxy
-% if ($proxyConf) {
-export http_proxy=<% $proxyConf %>
-% }

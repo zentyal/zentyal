@@ -17,6 +17,9 @@ use warnings;
 
 package EBox::Types::MultiStateAction;
 
+use EBox::Types::Action;
+use EBox::Exceptions::MissingArgument;
+
 sub new
 {
     my $class = shift;

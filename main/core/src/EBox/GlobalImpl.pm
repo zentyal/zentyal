@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,6 +27,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::External;
 use Error qw(:try);
 use EBox::Config;
 use EBox::Gettext;
@@ -380,6 +382,12 @@ sub revokeAllModules
         };
     }
 
+    # discard logging of revoked changes
+    my $audit = $self->modInstance($ro, 'audit');
+    if ($audit) {
+        $audit->discard();
+    }
+
     if (not $failed) {
         $progress->setAsFinished() if $progress;
         return;
@@ -605,10 +613,16 @@ sub saveAllModules
         # in first install sysinfo module is in changed state
         push @mods, 'sysinfo';
     } else {
-        # not first ime, getting changed modules
+        # not first time, getting changed modules
         @mods = @{$self->modifiedModules('save')};
         $modNames = join (' ', @mods);
         EBox::info("Saving config and restarting services: @mods");
+    }
+
+    # commit log of saved changes
+    my $audit = EBox::GlobalImpl->modInstance($ro, 'audit');
+    if ($audit) {
+        $audit->commit();
     }
 
     # run presave hooks

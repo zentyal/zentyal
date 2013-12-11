@@ -37,6 +37,9 @@ use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use File::Basename;
 use Error qw(:try);
 
@@ -144,7 +147,7 @@ sub viewCustomizer
             { method =>
                 {
                 file => { hide => $userPass , show => ['target'] },
-                rsync => { show => $allFields },
+                rsync => { hide => ['password'], show => ['user', 'target'] },
                 scp => { show => $allFields },
                 ftp => { show => $allFields },
                 }

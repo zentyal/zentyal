@@ -1,3 +1,23 @@
+3.2.2
+	+ Added missing EBox::Exceptions uses
+	+ Fix group based filter access rules in external AD mode, retrieving
+	  members of nested groups
+	+ Correctly escape DNs and search filters or external ACL helper script
+	+ Explicitly specify to listen on all IPv4 interfaces
+	+ Add new config key auth_ad_negative_acl_ttl to configure negative ACL
+	  cache time in external AD mode
+3.2.1
+	+ Transparent proxy redirection for openvpn servers' clients
+	+ Moved EBox::SquidFirewall to EBox::Squid::Firewall
+	+ Avoid error in access rules model when using external AD and
+	  module has not been configured
+	+ Improve squid group membership helper script
+	+ Fixed squid basic authentication to support multi-OU
+3.2
+	+ Set version to 3.2
+3.1.7
+	+ Include domains with final slash as filtered when required
+	+ Ignore 407 requests when auth is required in log helper
 3.1.6
 	+ Override daemons when migrating from 3.0
 	+ Disable load_url_list by default to reduce CPU and memory usage

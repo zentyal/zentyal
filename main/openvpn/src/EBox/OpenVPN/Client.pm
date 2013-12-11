@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,8 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use Error qw(:try);
 use File::Temp;
@@ -435,6 +438,17 @@ sub ripDaemon
             };
 }
 
+# Method: ifaceAddress
+#
+#   Since this is a dynamic IP and we don't have in place structure like
+#   dhcp for the moment we get the address of the existent iface
+sub ifaceAddress
+{
+    my ($self) = @_;
+    return $self->actualIfaceAddress();
+}
+
+
 # Method: advertisedNets
 #
 #  gets the nets which will be advertised to the server as reachable thought the client
@@ -552,7 +566,7 @@ sub summary
     my $server = "$addr $port/\U$proto";
     push @summary,__('Connection target'), $server;
 
-    my $ifAddr = $self->ifaceAddress();
+    my $ifAddr = $self->actualIfaceAddress();
     if ($ifAddr) {
         push @summary, (__('VPN interface address'), $ifAddr);
     }else {

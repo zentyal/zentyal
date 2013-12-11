@@ -2,7 +2,6 @@
 24_zentyal_dlz_dynamic_updates_tsig_keys
 25_zentyal_heimdal_api_changes
 26_zentyal_scannedonly
-27_zentyal_scannedonly_extra_info
 29_fix_enable_developer
 30_standalone_talloc
 31_standalone_tevent
@@ -12,5 +11,7 @@
 35_security_library_no_private
 36_smbcliraw_missing_deps
 37_ndr_security_header
-38_fix_domain_join
 39_errors_library_no_private
+40-s4-libcli-raw-Add-new-command-to-set-per-packet-case.patch
+41-s4-libcli-raw-Add-test-for-per-packet-case-sensitive.patch
+42-s4-libcli-raw-pysmb-Raise-exception-on-failed-case_s.patch

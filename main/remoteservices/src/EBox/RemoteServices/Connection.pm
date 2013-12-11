@@ -25,8 +25,10 @@ use base 'EBox::RemoteServices::Base';
 #
 
 use EBox::Config;
+use EBox::Gettext;
 use EBox::Global;
 use EBox::NetWrappers;
+use EBox::Exceptions::External;
 
 # Constants
 use constant SERV_SUBDIR => 'remoteservices/subscription';
@@ -306,7 +308,7 @@ sub checkVPNConnectivity
         $ok = $self->_checkHostPort($host, $proto, $port);
     } else {
         # we use echo service to make sure no firewall stands on our way
-         $ok = $self->_checkUDPEchoService($host, $proto, $port);
+        $ok = $self->_checkUDPEchoService($host, $proto, $port);
     }
 
     if (not $ok) {

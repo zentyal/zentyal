@@ -1,3 +1,21 @@
+zenbuntu-core (3.2.1) precise; urgency=low
+
+  * Do initial actions only in fresh install
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 15 Oct 2013 08:08:13 +0200
+
+zenbuntu-core (3.2-1) precise; urgency=low
+
+  * Fixed remote-register
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 19 Sep 2013 03:54:21 +0200
+
+zenbuntu-core (3.2) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 17 Sep 2013 14:10:24 +0200
+
 zenbuntu-core (3.1.1) precise; urgency=low
 
   * New upstream release

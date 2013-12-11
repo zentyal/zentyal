@@ -17,13 +17,16 @@
     </td>
     <td>
         <select name="active" enabled>
-%    if ($params->{'active'}) {
-        <option value="no" ><% __('Disabled') %></option>
-        <option selected value="yes" ><% __('Enabled') %></option>
-%    } else {
-        <option selected value="no" ><% __('Disabled') %></option>
-        <option value="yes" ><% __('Enabled') %></option>
+        <option
+%    if (not $params->{'active'}) { 
+                 selected
 %    }
+                 value="no" ><% __('Disabled') %></option>
+        <option
+%    if ($params->{'active'}) { 
+                selected
+%    }
+                value="yes" ><% __('Enabled') %></option>
         </select>
     </td>
     </tr>
@@ -99,7 +102,9 @@
 
     <tr>
         <td>
-            <span class="ftitle"><% __('Zarafa takes quota settings from mail account settings.') %></span>
+            <span class="field_help">
+              <% __('Zarafa takes quota settings from mail account settings.') %>
+            </span>
         </td>
     </tr>
 
@@ -145,7 +150,7 @@ $(function() {
        }
  });
 
-  updateForm(<% $params->{enabled} ? 'true' : 'false' %>, <% $params->{'meeting_autoaccept'} ? 'true' : 'false' %>);
+  updateForm(<% $params->{active} ? 'true' : 'false' %>, <% $params->{'meeting_autoaccept'} ? 'true' : 'false' %>);
 });
 </script>
 

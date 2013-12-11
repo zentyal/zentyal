@@ -1,3 +1,47 @@
+HEAD
+	+ Recover from widget function exceptions
+	+ Fixed mdstat output processing to remove "(auto-read-only)"
+	+ Fixed audit logging of delete actions
+	+ Fixed errors with row ID in ManageAdmins table
+	+ Added missing EBox::Exceptions uses
+	+ Fixed bug in selectSetter which hitted selects on DataForm with
+	  'unique' option enabled
+	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method
+3.2.4
+	+ Set proper trial link in advertisements
+	+ Show register link in local backup when not registered
+	+ Strip the 'C:\fakepath\' that chrome adds to the file input
+	+ Make dump_exceptions key work also for mason exceptions
+	+ Pass HTTP_PROXY system environment variable to CGIs as they are
+	  used in Zentyal modules
+	+ Waiting for Zentyal ready page check is more robust now
+3.2.3
+	+ Fixed error in the recursive method for getting module dependencies
+	+ Fixed JS typo which disabled export backup dialog
+	+ Added dbus dependency to avoid problems on some minimal installations
+3.2.2
+	+ When restoring pre-3.2 backups take in account that apache
+	  module was renamed to webadmin
+	+ Make sure that we always commit/discard audit of changes when we
+	  save/revoke all modules
+	+ Add new row attribute "disabled"
+	+ Fixed JS glitch which broke the dashboard periodical updates
+	+ Better check of referer which skips cloud domain if it does not exists
+	+ Avoid warning when stopping a module without FirewallHelper
+3.2.1
+	+ Include contents of /etc/resolv.conf in bug report
+	+ Avoid Apache error screen in login when entering through Zentyal
+	  Remote using password
+	+ Fix warning comparing undefined string in DomainName type
+	+ Rewrite row isEqualTo method using hashElements instead of elements
+	+ Only allow to move dashboard widget by its handle
+	+ Service type setter works again
+3.2
+	+ Set 3.2 versions and non-beta logo
+3.1.13
+	+ Added missing EBox::Gettext uses, fixes crash in view logs refresh
+	+ Minor CSS style fixes
+	+ Added missing use statement in EBox::Types::MultiStateAction
 3.1.12
 	+ Do not crash if /etc/timezone does not exist
 	+ Clean /var/lib/zentyal/tmp at the first moments of boot instead of

@@ -3,7 +3,6 @@
     $workgroup
     $netbiosName
     $description
-    $ifaces
     $mode
     $realm
     $domain
@@ -11,6 +10,7 @@
     $roamingProfiles => 0
     $profilesPath
     $sysvolPath
+    $unmanagedAcls => 0
     $print => 0
     $disableFullAudit => 0
 
@@ -41,11 +41,6 @@ use EBox::Gettext;
     server services = smb, rpc, wrepl, ldap, cldap, kdc, drepl, winbind, ntp_signd, kcc, dnsupdate
 % }
     server signing = auto
-
-    interfaces = <% $ifaces %>
-    bind interfaces only = yes
-
-    case sensitive = no
 
     log level = 3
     log file = /var/log/samba/samba.log
@@ -110,7 +105,7 @@ use EBox::Gettext;
 %   }
 % }
 
-# Shares
+# <% @shares ? "Shares\n" : "No shares configured" %>
 % foreach my $share (@shares) {
 [<% $share->{share} %>]
     comment = <% $share->{comment} %>
@@ -132,7 +127,7 @@ use EBox::Gettext;
 %   $objects .= ' recycle';
 % }
     vfs objects = <% $objects %>
-    acl_xattr:ignore system acls = yes
+    acl_xattr:ignore system acls = <%  $unmanagedAcls ? 'no' : 'yes' %>
     full_audit:success = connect opendir disconnect unlink mkdir rmdir open rename
     full_audit:failure = connect opendir disconnect unlink mkdir rmdir open rename
 % if ($av) {

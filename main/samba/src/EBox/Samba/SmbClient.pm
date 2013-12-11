@@ -21,6 +21,7 @@ use base 'Samba::Smb';
 
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Samba::AuthKrbHelper;
 
@@ -54,12 +55,24 @@ sub new
     $creds->guess();
 
     my $self = $class->SUPER::new($lp, $creds);
-    try {
-        $self->connect($target, $service);
-    } otherwise {
-        my ($ex) = @_;
-        throw EBox::Exceptions::External("Error connecting with SMB server: $ex");
-    };
+    my $ok = 0;
+    my $maxTries = 10;
+    for (my $try = 1; ($try <= $maxTries) and (not $ok); $try++) {
+        try {
+            $self->connect($target, $service);
+            $ok = 1;
+            if ($try > 1) {
+                EBox::info("Connection to Samba SMB successful after $try tries.");
+            }
+        } otherwise {
+            my ($ex) = @_;
+            EBox::warn("Error connecting with SMB server: $ex, retrying ($try attempts)");
+            sleep 1;
+        };
+    }
+    if (not $ok) {
+        throw EBox::Exceptions::External("Error connecting with SMB server after $maxTries tries.");
+    }
 
     $self->{krbHelper} = $krbHelper;
     $self->{loadparm} = $lp;

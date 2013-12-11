@@ -19,6 +19,8 @@ use warnings;
 package EBox::Util::Lock;
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::Lock;
 
 use Fcntl qw(:flock);
 

@@ -33,7 +33,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
 
-use EBox::SquidFirewall;
+use EBox::Squid::Firewall;
 use EBox::Squid::LogHelper;
 use EBox::Squid::LdapUserImplementation;
 use EBox::Squid::Types::ListArchive;
@@ -88,6 +88,7 @@ use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
+use constant AUTH_AD_NEGATIVE_ACL_TTL_KEY   => 'auth_ad_negative_acl_ttl';
 use constant AUTH_MODE_INTERNAL    => 'internal';
 use constant AUTH_MODE_EXTERNAL_AD => 'external_ad';
 
@@ -628,8 +629,6 @@ sub _writeSquidConf
     my $krbRealm = $kerberos ? $users->kerberosRealm() : '';
     my $krbPrincipal = 'HTTP/' . $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
-    my $dn = $users->ldap()->dn();
-
     my @writeParam = ();
     push @writeParam, ('filter' => $filter);
     push @writeParam, ('port'  => $self->port());
@@ -644,18 +643,29 @@ sub _writeSquidConf
     push @writeParam, ('principal' => $krbPrincipal);
     push @writeParam, ('realm'     => $krbRealm);
     push @writeParam, ('noAuthDomains' => $self->_noAuthDomains());
-    push @writeParam, ('dn' => $dn);
+
+    if (not $kerberos) {
+        my $ldap = $users->ldap();
+        push @writeParam, ('dn'       => $ldap->dn());
+        push @writeParam, ('roDn'     => $ldap->roRootDn());
+        push @writeParam, ('roPasswd' => $ldap->getRoPassword());
+    }
 
     my $mode = $self->authenticationMode();
     if ($mode eq AUTH_MODE_EXTERNAL_AD) {
         my $externalAD = $self->global()->modInstance('users')->ldap();
         my $dc = $externalAD->dcHostname();
-        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY, SQUID_ZCONF_FILE);
+        my $adAclTtl = EBox::Config::configkeyFromFile(AUTH_AD_ACL_TTL_KEY,
+            SQUID_ZCONF_FILE);
+        my $adNegativeAclTtl =
+            EBox::Config::configkeyFromFile(
+                AUTH_AD_NEGATIVE_ACL_TTL_KEY, SQUID_ZCONF_FILE);
         my $adPrincipal = $externalAD->hostSamAccountName();
 
         push (@writeParam, (authModeExternalAD => 1));
         push (@writeParam, (adDC        => $dc));
         push (@writeParam, (adAclTTL    => $adAclTtl));
+        push (@writeParam, (adNegativeAclTTL => $adNegativeAclTtl));
         push (@writeParam, (adPrincipal => $adPrincipal));
     }
 
@@ -1036,7 +1046,7 @@ sub firewallHelper
     my $ro = $self->isReadOnly();
 
     if ($self->isEnabled()) {
-        return new EBox::SquidFirewall(ro => $ro);
+        return new EBox::Squid::Firewall(ro => $ro);
     }
 
     return undef;

@@ -29,6 +29,8 @@ use EBox::Global;
 use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;
@@ -77,7 +79,7 @@ sub name
 # Parameters:
 #
 #   args - Named parameters:
-#      name    - Organizational Unit name
+#       name    - Organizational Unit name
 #       parent - Parent container that will hold this new OU.
 #
 sub create

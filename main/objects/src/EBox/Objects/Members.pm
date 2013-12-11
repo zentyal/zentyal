@@ -33,6 +33,8 @@ use warnings;
 
 package EBox::Objects::Members;
 
+use EBox::Types::IPRange;
+
 sub new
 {
     my ($class, $membersList) = @_;
@@ -63,24 +65,28 @@ sub addresses
     my $mask = $params{mask};
 
     my @ips = map {
-        my $type = $_->{type};
+        my $member = $_;
+        my $type = $member->{type};
         if ($type eq 'ipaddr') {
             if ($mask) {
-                my $ipAddr = $_->{'ipaddr'};
+                my $ipAddr = $member->{'ipaddr'};
                 $ipAddr =~ s:/.*$::g;
-                [ $ipAddr =>  $_->{'mask'}]
+                [ $ipAddr =>  $member->{'mask'}]
             } else {
-               $_->{'ipaddr'}
+               $member->{'ipaddr'}
            }
         } elsif ($type eq 'iprange') {
+            if (not defined $member->{addresses}) {
+                $member->{addresses} = EBox::Types::IPRange->addressesFromBeginToEnd($member->{begin}, $member->{end});
+            }
             if ($mask) {
                 map {
-                    [$_ => 32 ]
-               }@{ $_->{addresses} }
+                    [ $_ => 32 ]
+               } @{ $member->{addresses} }
             } else {
                 map {
                     "$_/32"
-                } @{  $_->{addresses} }
+                } @{ $member->{addresses} }
             }
         } else {
             ()

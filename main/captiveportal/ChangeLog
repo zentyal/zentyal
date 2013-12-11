@@ -1,3 +1,9 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2
+	+ Set version to 3.2
+3.1.6
+	+ Allow login when accessing an HTTPS page
 3.1.5
 	+ Improved reload icon
 	+ Fixed regression trying to access redis after users API changes

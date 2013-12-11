@@ -2,6 +2,7 @@
   $model
 </%args>
 <%init>
+  use EBox::Gettext;
   my %types = %{$model->nodeTypes()};
   my $treeId = "tree_" . $model->name();
   my $treeViewerId = "treeviewer_" . $model->name();

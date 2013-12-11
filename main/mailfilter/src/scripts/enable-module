@@ -24,8 +24,6 @@ fi
 #/usr/share/zentyal-users/init-ldap genconfig
 #/etc/init.d/slapd restart
 
-/usr/share/zentyal-mailfilter/mailfilter-ldap update
-
 /usr/share/zentyal-mailfilter/create-spamassassin-db
 
 exit 0;

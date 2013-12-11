@@ -29,11 +29,14 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
 use Error qw(:try);
 use Net::LDAP::LDIF;
-use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
+use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
+use Net::LDAP::Control::Paged;
+
 use Perl6::Junction qw(any);
 
 my $_usersMod; # cached users module
@@ -308,7 +311,18 @@ sub dn
 {
     my ($self) = @_;
 
-    return $self->_entry()->dn();
+    my $entry = $self->_entry();
+    unless ($entry) {
+        my $message = "Got an unexisting LDAP Object!";
+        if (defined $self->{dn}) {
+            $message .= " (" . $self->{dn} . ")";
+        }
+        throw EBox::Exceptions::Internal($message);
+    }
+
+    my $dn = $entry->dn();
+    utf8::decode($dn);
+    return $dn;
 }
 
 # Method: baseDn
@@ -511,25 +525,59 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self) = @_;
+    my ($self, $childrenObjectClass) = @_;
 
     return [] unless $self->isContainer();
+    my $filter;
+    if ($childrenObjectClass) {
+        $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
+    } else {
+        $filter = '(!(objectclass=organizationalRole))';
+    }
 
-    # All children except for organizationalRole objects which are only used internally
+    # All children except for organizationalRole objects which are only used
+    # internally. Paged by 500 results
+    my $page = Net::LDAP::Control::Paged->new( size => 500 );
     my $attrs = {
-        base   => $self->dn(),
-        filter => '(!(objectclass=organizationalRole))',
+        base => $self->dn(),
+        filter => $filter,
         scope  => 'one',
+        control => [ $page ],
     };
 
-    my $result = $self->_ldap->search($attrs);
     my $ldapMod = $self->_ldapMod();
 
+    my $cookie;
     my @objects = ();
-    foreach my $entry ($result->entries) {
-        my $object = $ldapMod->entryModeledObject($entry);
+    while (1) {
+        my $result = $self->_ldap->search($attrs);
+        if ($result->code() ne LDAP_SUCCESS) {
+            last;
+        }
 
-        push (@objects, $object) if ($object);
+        foreach my $entry ($result->entries) {
+            my $object = $ldapMod->entryModeledObject($entry);
+            push (@objects, $object) if ($object);
+        }
+
+        my ($resp) = $result->control( LDAP_CONTROL_PAGED );
+        if (not $resp) {
+            last;
+        }
+        $cookie = $resp->cookie;
+        if (not $cookie) {
+            # finished
+            last;
+        }
+
+        $page->cookie($cookie);
+    }
+
+    if ($cookie) {
+        # We had an abnormal exit, so let the server know we do not want any more
+        $page->cookie($cookie);
+        $page->size(0);
+        $self->_ldap->search($attrs)
     }
 
     # sort by dn (as it is currently the only common attribute, but maybe we can change this)

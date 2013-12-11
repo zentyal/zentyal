@@ -34,11 +34,11 @@ my $NUM_DASHBOARDS = 2;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('Dashboard'),
+    my $class = shift;
+    my $self = $class->SUPER::new(@_, title => __('Dashboard'),
                                  'template' => '/dashboard/index.mas');
-	bless($self, $class);
-	return $self;
+    bless($self, $class);
+    return $self;
 }
 
 my $widgetsToHide = undef;
@@ -197,7 +197,7 @@ sub _periodicMessages
         },
         {
          name => 'trial',
-         text => __sx('Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a FREE 30-day trial!', oh => '<a href="https://remote.zentyal.com/trial/">', ch => '</a>'),
+         text => __sx('Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a FREE 30-day trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
          days => 23,
         },
         {

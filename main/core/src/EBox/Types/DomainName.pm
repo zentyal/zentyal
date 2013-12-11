@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -26,6 +27,7 @@ use base 'EBox::Types::Text';
 
 use EBox::Validate;
 use EBox::Gettext;
+use EBox::Exceptions::InvalidData;
 
 # Group: Public methods
 
@@ -73,7 +75,10 @@ sub cmp
         return undef;
     }
 
-    return uc($self->value()) cmp uc($compareType->value());
+    my $myValue = (defined $self->value()) ? $self->value() : '';
+    my $otherValue = (defined $compareType->value()) ?
+        $compareType->value() : '';
+    return uc ($myValue) cmp uc ($otherValue);
 }
 
 # Group: Protected methods

@@ -1,3 +1,13 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2.1
+	+ Better behavior for daemons ifaceAddress methods
+	+ Precondition to assure there are certificates available in
+	  DownloadClientBundle model
+	+ In the tunnel client bundle don't allow additional server
+	  addresses because they are not supported
+3.2
+	+ Set version to 3.2
 3.1.2
 	+ Upgraded OpenVPN installer for Windows to 2.3.2
 3.1.1

@@ -39,6 +39,7 @@ unless ($name) {
 EBox::init();
 
 my $global = EBox::Global->getInstance();
+
 my $rs = $global->modInstance('remoteservices');
 my $subscription = $rs->model('Subscription');
 

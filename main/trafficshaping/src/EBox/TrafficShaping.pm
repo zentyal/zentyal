@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -47,6 +48,9 @@ use EBox::Model::Manager;
 # Used exceptions
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 # Command wrappers
 use EBox::TC;
 use EBox::Iptables;
@@ -312,6 +316,7 @@ sub menu # (root)
     my ($self, $root) = @_;
 
     my $folder = new EBox::Menu::Folder('name' => 'TrafficShaping',
+                                        'icon' => 'trafficshaping',
                                         'text' => $self->printableName(),
                                         'separator' => 'Gateway',
                                         'order' => 220);

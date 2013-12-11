@@ -19,13 +19,14 @@ use warnings;
 package EBox::Util::BugReport;
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 use JSON::RPC::Client;
 use MIME::Base64;
 use File::Slurp;
 use Error qw(:try);
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
-use constant MILESTONE => '3.1.X';
+use constant MILESTONE => '3.2.X';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 
@@ -105,6 +106,12 @@ sub dumpLog
     $res .= "------------------\n\n";
     my $output = EBox::Sudo::root("dpkg -l | grep zentyal | awk '{ print " . '$1 " " $2 ": " $3 ' . "}'");
     $res .= join('', @{ $output });
+    $res .= "\n\n";
+
+    $res .= "/etc/resolv.conf\n";
+    $res .= "----------------\n\n";
+    my $resolv = read_file('/etc/resolv.conf');
+    $res .= $resolv;
     $res .= "\n\n";
 
     $res .= "/var/log/zentyal/zentyal.log\n";

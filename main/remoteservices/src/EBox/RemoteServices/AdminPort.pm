@@ -61,11 +61,20 @@ sub setAdminPort
     my ($self, $port) = @_;
 
     my $uuid = $self->{cred}->{uuid};
-    my $response = $self->RESTClient()->PUT("/v1/servers/$uuid/adminport/",
-                                            query => { port => $port },
-                                            retry => 1);
 
-    return ($response->{result}->is_success());
+    my $result = undef;
+
+    try {
+        my $response = $self->RESTClient()->PUT("/v1/servers/$uuid/adminport/",
+                                                query => { port => $port },
+                                                retry => 1);
+        $result = ($response->{result}->is_success());
+    } otherwise {
+        my $ex = shift;
+        EBox::error("Failed to notify admin port to Remote: $ex");
+    };
+
+    return $result;
 }
 
 1;

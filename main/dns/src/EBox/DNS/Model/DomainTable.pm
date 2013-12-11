@@ -33,6 +33,9 @@ use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataExists;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use EBox::Types::Boolean;
 use EBox::Types::DomainName;
@@ -682,32 +685,30 @@ sub syncRows
 
     my $changed;
     foreach my $id (@{$currentIds}) {
-        my $newValue = undef;
+        my $newDynValue = undef;
+        my $rowStore = 0;
         my $row = $self->row($id);
+
         my $dynamicElement = $row->elementByName('dynamic');
         my $dynamicValue   = $dynamicElement->value();
         if ($dynamicValue) {
-            $newValue = 0 if (not $dynamicDomainsIds{$id});
+            $newDynValue = 0 if (not $dynamicDomainsIds{$id});
         } else {
-            $newValue = 1 if ($dynamicDomainsIds{$id});
-        }
-
-        if (defined $newValue) {
-            $dynamicElement->setValue($newValue);
-            $row->store();
-            $changed = 1;
+            $newDynValue = 1 if ($dynamicDomainsIds{$id});
         }
 
         my $sambaElement = $row->elementByName('samba');
         my $domainName = $row->valueByName('domain');
         # If the domain is not marked as stored in LDB and is present in
         # samba zones array, mark
-        if ($sambaEnabled and exists $sambaZones{$domainName} and
-            not $sambaElement->value())
-        {
-            $sambaElement->setValue(1);
-            $row->store();
-            $changed = 1;
+        if ($sambaEnabled and exists $sambaZones{$domainName})    {
+            if (not $sambaElement->value()) {
+                $sambaElement->setValue(1);
+                $rowStore = 1;
+            }
+            if (not $dynamicValue) {
+                $newDynValue = 1;
+            }
         }
 
         # If the domain is marked as stored in LDB and is not present in
@@ -716,9 +717,19 @@ sub syncRows
             $sambaElement->value()))
         {
             $sambaElement->setValue(0);
+            $rowStore = 1;
+        }
+
+        if (defined $newDynValue) {
+            $dynamicElement->setValue($newDynValue);
+            $rowStore = 1;
+        }
+
+        if ($rowStore) {
             $row->store();
             $changed = 1;
         }
+
         delete $sambaZones{$domainName};
     }
 

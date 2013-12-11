@@ -72,6 +72,14 @@ $(function() {
         noteDiv: '#note_editContactForm',
         errorDiv: '#error_editContactForm',
         submitButton: '#submitEditContactForm',
+        success: function(response) {
+              if ('set_text' in response) {
+                         var tree =  $("#tree_Manage");
+                         var selected = tree.jstree("get_selected")[0];
+                         tree.jstree("set_text", selected, response.set_text);
+		    }
+       }
+
    });
 
    var updateGroupsWidgets = function(data) {

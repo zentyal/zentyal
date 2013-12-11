@@ -1,3 +1,10 @@
+HEAD
+	+ Log helper changes: only check no-via lines, this avoid
+	  duplicate lines but made us lose the 'TLS tunnel' MAC and 'user
+	  not found' event. Also best treatment of MAC addresses, thanks
+	  to Gianluca Carlesso for his code for this
+3.2
+	+ Set version to 3.2
 3.1.2
 	+ Override daemons when migrating from 3.0
 3.1.1

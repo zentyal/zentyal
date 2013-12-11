@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -20,6 +21,8 @@ package EBox::Network;
 
 use base qw(EBox::Module::Service EBox::Events::WatcherProvider);
 
+# Group: Constants
+
 # Interfaces list which will be ignored
 use constant ALLIFACES => qw(sit tun tap lo irda eth wlan vlan);
 use constant IGNOREIFACES => qw(sit tun tap lo irda ppp virbr vboxnet vnet);
@@ -32,9 +35,13 @@ use constant DHCLIENTCONF_FILE => '/etc/dhcp/dhclient.conf';
 use constant PPP_PROVIDER_FILE => '/etc/ppp/peers/zentyal-ppp-';
 use constant CHAP_SECRETS_FILE => '/etc/ppp/chap-secrets';
 use constant PAP_SECRETS_FILE => '/etc/ppp/pap-secrets';
-use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy.conf';
-use constant ENV_PROXY_FILE => '/etc/profile.d/zentyal-proxy.sh';
+use constant APT_PROXY_FILE => '/etc/apt/apt.conf.d/99proxy';
+use constant ENV_FILE       => '/etc/environment';
 use constant SYSCTL_FILE => '/etc/sysctl.conf';
+use constant RESOLVCONF_INTERFACE_ORDER => '/etc/resolvconf/interface-order';
+use constant RESOLVCONF_BASE => '/etc/resolvconf/resolv.conf.d/base';
+use constant RESOLVCONF_HEAD => '/etc/resolvconf/resolv.conf.d/head';
+use constant RESOLVCONF_TAIL => '/etc/resolvconf/resolv.conf.d/tail';
 
 use Net::IP;
 use IO::Interface::Simple;
@@ -42,6 +49,7 @@ use Perl6::Junction qw(any);
 use EBox::NetWrappers qw(:all);
 use EBox::Validate qw(:all);
 use EBox::Config;
+use EBox::Service;
 use EBox::ServiceManager;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::DataExists;
@@ -50,6 +58,7 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::DataNotFound;
 use Error qw(:try);
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
@@ -158,8 +167,23 @@ sub usedFiles
         'module' => 'network'
     },
     {
-        'file' => RESOLV_FILE,
-        'reason' => __('Zentyal will set your DNS configuration'),
+        'file' => RESOLVCONF_INTERFACE_ORDER,
+        'reason' => __('Zentyal will set the order of systems resolvers'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_BASE,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_HEAD,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
+        'module' => 'network'
+    },
+    {
+        'file' => RESOLVCONF_TAIL,
+        'reason' => __('Zentyal will set the resolvconf configuration'),
         'module' => 'network'
     },
     {
@@ -202,7 +226,7 @@ sub usedFiles
 
     my $proxy = $self->model('Proxy');
     if ($proxy->serverValue() and $proxy->portValue()) {
-        push (@files, { 'file' => ENV_PROXY_FILE,
+        push (@files, { 'file' => ENV_FILE,
                         'reason' => __('Zentyal will set HTTP proxy for all users'),
                         'module' => 'network' });
         push (@files, { 'file' => APT_PROXY_FILE,
@@ -235,6 +259,30 @@ sub initialSetup
     # Upgrade from 3.0
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.1') < 0)) {
         $self->_overrideDaemons() if $self->configured();
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.2') < 0)) {
+        my $resolverModel = $self->model('DNSResolver');
+        foreach my $id (@{$resolverModel->ids()}) {
+            my $row = $resolverModel->row($id);
+            my $interfaceElement = $row->elementByName('interface');
+            my $interfaceValue = $interfaceElement->value();
+            unless (defined $interfaceValue and length $interfaceValue) {
+                $interfaceElement->setValue("zentyal.$id");
+                $row->store();
+            }
+        }
+        my $searchDomainModel = $self->model('SearchDomain');
+        my $domainRow = $searchDomainModel->row();
+        my $ifaceElement = $domainRow->elementByName('interface');
+        $ifaceElement->setValue('zentyal.' . $domainRow->id());
+        $domainRow->store();
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.3') < 0)) {
+        my @cmds = ('rm -f /etc/profile.d/zentyal-proxy.sh',
+                    'rm -f /etc/apt/apt.conf.d/99proxy.conf');
+        EBox::Sudo::silentRoot(@cmds);
     }
 }
 
@@ -2514,57 +2562,6 @@ sub nameserverTwo
     return '';
 }
 
-# Method: setNameservers
-#
-#   Set a set of name server resolvers
-#
-# Parameters:
-#
-#       array - a list of IP addresses which are the name server
-#       resolvers
-#
-sub setNameservers # (one, two)
-{
-    my ($self, @dns) = @_;
-
-    my $nss = $self->nameservers();
-    my $resolverModel = $self->model('DNSResolver');
-    my $nNSS = scalar(@{$nss});
-    for(my $idx = 0; $idx < @dns; $idx++) {
-        my $newNS = $dns[$idx];
-        my $existentRow = $resolverModel->find(nameserver => $newNS);
-        if ($existentRow) {
-            # remove it to insert it back in the wanted order
-            $resolverModel->removeRow($existentRow->id(), 1);
-        }
-        if ($idx < $nNSS) {
-            # There is a nameserver in the position
-            $resolverModel->replace($idx, $newNS);
-        } else {
-            # Add a new one to the end of the list
-            $resolverModel->add(nameserver => $newNS);
-        }
-    }
-}
-
-# Method: setSearchDomain
-#
-#   Set the search domain
-#
-# Parameters:
-#
-#       domain - string with the domain name
-#
-sub setSearchDomain
-{
-    my ($self, $domain) = @_;
-
-    my $model = $self->model('SearchDomain');
-    my $row = $model->row();
-    $row->elementByName('domain')->setValue($domain);
-    $row->storeElementByName('domain');
-}
-
 # Method: gateway
 #
 #       Returns the default gateway's ip address
@@ -2710,27 +2707,93 @@ sub _setChanged # (interface)
     $self->set('interfaces', $ifaces);
 }
 
-# Generate the '/etc/resolv.conf' configuration file and modify
-# the '/etc/dhcp/dhclient.conf' to request nameservers only
-# if there are no manually configured ones.
-sub _generateDNSConfig
+# Method: _generateResolvconfConfig
+#
+#   This method write the /etc/resolvconf/interface-order file. This file
+#   contain the order in which the files under /var/run/resolvconf/interfaces
+#   are processes and finally result en the resolver order in /etc/resolv.conf
+#
+#   After write the order, resolvers manually configured in the webadmin
+#   (those which interface field is zentyal.<row id>) are removed or added
+#   to the resolvconf configuration.
+#
+sub _generateResolvconfConfig
 {
     my ($self) = @_;
 
-    my $sysinfo = EBox::Global->modInstance('sysinfo');
-    $self->writeConfFile(RESOLV_FILE,
-                         'network/resolv.conf.mas',
-                         [ searchDomain => $self->searchdomain(),
-                           domainName => $sysinfo->hostDomain(),
-                           nameservers  => $self->nameservers() ]);
+    # Generate base, head and tail
+    $self->writeConfFile(RESOLVCONF_BASE,
+        'network/resolvconf-base.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_HEAD,
+        'network/resolvconf-head.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
+    $self->writeConfFile(RESOLVCONF_TAIL,
+        'network/resolvconf-tail.mas', [],
+        { mode => '0644', uid => 0, gid => 0 });
 
-    $self->writeConfFile(DHCLIENTCONF_FILE,
-                         'network/dhclient.conf.mas',
-                         [ domainNameServers => $self->nameservers(),
-                           domainName => $sysinfo->hostDomain(),
-                           domainSearch => $self->searchdomain() ]);
+    # First step, write the order list
+    my $interfaces = [];
+    my $model = $self->model('DNSResolver');
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $interface = $row->valueByName('interface');
+        next unless defined $interface and length $interface;
+        push (@{$interfaces}, $interface);
+    }
+
+    # TODO SearchDomain should be a table model. Multiple search domains
+    #      can be defined
+    my $searchDomainModel = $self->model('SearchDomain');
+    my $searchDomain = $searchDomainModel->value('domain');
+    my $searchDomainIface = $searchDomainModel->value('interface');
+    if ($searchDomainIface) {
+        push (@{$interfaces}, $searchDomainIface);
+    }
+
+    my $ifaces = $self->ifaces();
+    foreach my $iface (@{$ifaces}) {
+        next unless $self->ifaceMethod($iface) eq 'dhcp';
+
+        $iface = "$iface.dhclient";
+        next if grep (/$iface/, @{$interfaces});
+
+        push (@{$interfaces}, $iface);
+    }
+
+    my $array = [];
+    push (@{$array}, interfaces => $interfaces);
+    $self->writeConfFile(RESOLVCONF_INTERFACE_ORDER,
+        'network/resolvconf-interface-order.mas', $array,
+        { mode => '0644', uid => 0, gid => 0 });
+
+    # Second step, trigger the updates
+    foreach my $id (@{$model->ids()}) {
+        my $row = $model->row($id);
+        my $interface = $row->valueByName('interface');
+        next unless defined $interface and length $interface;
+
+        my $resolver = $row->valueByName('nameserver');
+        next unless defined $resolver and length $resolver;
+
+        next unless ($interface =~ m/^zentyal\..+$/);
+        EBox::Sudo::root("resolvconf -d '$interface'");
+        EBox::Sudo::root("echo 'nameserver $resolver' | resolvconf -a '$interface'");
+    }
+
+    if ($searchDomainIface and ($searchDomainIface =~ m/^zentyal\..+$/)) {
+        EBox::Sudo::root("resolvconf -d '$searchDomainIface'");
+        if ($searchDomain) {
+            EBox::Sudo::root("echo 'search $searchDomain' | resolvconf -a '$searchDomainIface'");
+        }
+    }
+
+    my $sysinfo = EBox::Global->modInstance('sysinfo');
+    my $domain = $sysinfo->hostDomain();
+    EBox::Sudo::root("echo 'domain $domain' | resolvconf -a 'zentyal.domain'");
 }
 
+# Generate the configuration if a HTTP proxy has been set
 sub _generateProxyConfig
 {
     my ($self) = @_;
@@ -2746,10 +2809,26 @@ sub _generateProxyConfig
         }
     }
 
-    $self->writeConfFile(ENV_PROXY_FILE,
-                        'network/zentyal-proxy.sh.mas',
-                        [ proxyConf => $proxyConf ],
-                        { 'uid' => 0, 'gid' => 0, mode => '755' });
+    # Write environment file by edition not overwritting
+    my @contents = File::Slurp::read_file(ENV_FILE);
+    my @finalContents = ();
+    my $inMark = 0;
+    foreach my $line (@contents) {
+        if ($inMark) {
+            $inMark = ($line !~ m/^#\s*END Zentyal Proxy Settings\s*$/);
+            next;
+        }
+        $inMark = ($line =~ m/^#\s*Zentyal Proxy Settings\s*$/);
+        push(@finalContents, $line) unless ($inMark);
+    }
+    if ($proxyConf) {
+        push(@finalContents, "# Zentyal Proxy Settings\n",
+                             qq{http_proxy="$proxyConf"\n},
+                             qq{HTTP_PROXY="$proxyConf"\n},
+                             "# END Zentyal Proxy Settings\n");
+    }
+    EBox::Module::Base::writeFile(ENV_FILE, join("", @finalContents));
+
     $self->writeConfFile(APT_PROXY_FILE,
                         'network/99proxy.conf.mas',
                         [ proxyConf => $proxyConf ]);
@@ -3236,6 +3315,7 @@ sub _supportActions
 sub _preSetConf
 {
     my ($self, %opts) = @_;
+
     # Don't do anything during boot to avoid bringing down interfaces
     # which are already bringed up by the networking service
     return unless exists $ENV{'USER'};
@@ -3250,6 +3330,26 @@ sub _preSetConf
         );
     } catch EBox::Exceptions::Internal with {
     };
+
+    $self->{restartResolvconf} = 0;
+
+    # Ensure /var/run/resolvconf/resolv.conf exists
+    if (not EBox::Sudo::fileTest('-f', '/var/run/resolvconf/resolv.conf')) {
+        EBox::info("Creating file /var/run/resolvconf/resolv.conf");
+        EBox::Sudo::root('touch /var/run/resolvconf/resolv.conf');
+        $self->{restartResolvconf} = 1;
+    }
+
+    # Ensure /etc/resolv.conf is a symlink to /var/run/resolvconf/resolv.conf
+    if (not EBox::Sudo::fileTest('-L', RESOLV_FILE)) {
+        EBox::info("Restoring symlink /etc/resolv.conf");
+        EBox::Sudo::root('rm -f ' . RESOLV_FILE);
+        EBox::Sudo::root('ln -s /var/run/resolvconf/resolv.conf ' . RESOLV_FILE);
+        $self->{restartResolvconf} = 1;
+    }
+
+    # Write DHCP client configuration
+    $self->writeConfFile(DHCLIENTCONF_FILE, 'network/dhclient.conf.mas', []);
 
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
@@ -3291,6 +3391,18 @@ sub _preSetConf
         }
     }
 
+    EBox::NetWrappers::clean_ifaces_list_cache();
+}
+
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    if ($enabled and $self->{restartResolvconf}) {
+        EBox::Service::manage('resolvconf', 'restart');
+    }
+
+    $self->SUPER::_postServiceHook($enabled);
 }
 
 sub _daemons
@@ -3316,7 +3428,7 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateDNSConfig();
+    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 
@@ -3360,6 +3472,7 @@ sub _enforceServiceState
         }
         EBox::Util::Lock::unlock('ifup');
     }
+    EBox::NetWrappers::clean_ifaces_list_cache();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
@@ -4422,11 +4535,10 @@ sub importInterfacesFile
         }
     }
 
-    my ($searchdomain, @dns) = @{$self->_readResolv()};
-    $self->setNameservers(@dns);
-    if ($searchdomain) {
-        $self->setSearchDomain($searchdomain);
-    }
+    my $resolverModel = $self->model('DNSResolver');
+    $resolverModel->importSystemResolvers();
+    my $searchDomainModel = $self->model('SearchDomain');
+    $searchDomainModel->importSystemSearchDomain();
 
     $self->saveConfig();
 }
@@ -4465,30 +4577,6 @@ sub _readInterfaces
     push (@interfaces, $iface) if ($iface);
 
     return \@interfaces;
-}
-
-sub _readResolv
-{
-    my $resolvFH;
-    unless (open($resolvFH, RESOLV_FILE)) {
-        EBox::warn("Couldn't open " . RESOLV_FILE);
-        return [];
-    }
-
-    my $searchdomain = undef;
-    my @dns;
-    for my $line (<$resolvFH>) {
-        $line =~ s/^\s+//g;
-        my @toks = split (/\s+/, $line);
-        if ($toks[0] eq 'nameserver') {
-            push (@dns, $toks[1]);
-        } elsif ($toks[0] eq 'search') {
-            $searchdomain = $toks[1];
-        }
-    }
-    close ($resolvFH);
-
-    return [$searchdomain, @dns];
 }
 
 1;

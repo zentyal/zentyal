@@ -1,3 +1,9 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2
+	+ Set version to 3.2
+3.1.7
+	+ Added missing EBox::Gettext uses
 3.1.6
 	+ Use common prefix (zentyal-firewall) for logging redirections,
 	  snat, drop and log rules

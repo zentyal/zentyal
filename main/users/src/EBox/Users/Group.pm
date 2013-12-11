@@ -35,6 +35,8 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::Internal;
 
 use Error qw(:try);
 use Perl6::Junction qw(any);
@@ -430,7 +432,7 @@ sub deleteObject
 
 sub save
 {
-    my ($self, $ignore_mods) = @_;
+    my ($self) = @_;
 
     shift @_;
     $self->SUPER::save(@_);
@@ -513,13 +515,25 @@ sub create
     my $usersMod = EBox::Global->modInstance('users');
 
     # Verify group exists
-    if ($usersMod->groupExists($args{name})) {
+    my $groupExists = $usersMod->groupExists($args{name});
+    if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
+        throw EBox::Exceptions::DataExists( text =>
+                                                __x('The group {name} already exists as built-in Windows group',
+                                                    name => $args{name}));
+    } elsif ($groupExists) {
         throw EBox::Exceptions::DataExists(
             'data' => __('group'),
             'value' => $args{name});
     }
+
     # Verify that a user with the same name does not exists
-    if ($usersMod->userExists($args{name})) {
+    my $userExists = $usersMod->userExists($args{name});
+    if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
+        throw EBox::Exceptions::External(
+            __x(q{A built-in Windows user with the name '{name}' already exists. Users and groups cannot share names},
+               name => $args{name})
+           );
+    } elsif ($userExists) {
         throw EBox::Exceptions::External(
             __x(q{A user account with the name '{name}' already exists. Users and groups cannot share names},
                name => $args{name})
@@ -534,7 +548,7 @@ sub create
     );
 
     if ($isSecurityGroup) {
-        my $gid = exists $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
+        my $gid = defined $args{gidNumber} ? $args{gidNumber}: $class->_gidForNewGroup($isSystemGroup);
         $class->_checkGid($gid, $isSystemGroup);
         push (@attr, objectclass => 'posixGroup');
         push (@attr, gidNumber => $gid);
@@ -639,7 +653,10 @@ sub setSecurityGroup
 {
     my ($self, $isSecurityGroup, $lazy) = @_;
 
-    return if ($isSecurityGroup && $self->isSecurityGroup());
+    if (not ($isSecurityGroup xor $self->isSecurityGroup())) {
+        # Do nothing if the new status matches current status.
+        return;
+    }
 
     if ($isSecurityGroup) {
         unless (defined $self->get('gidNumber')) {

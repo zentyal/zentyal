@@ -26,6 +26,8 @@ use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Validate;
 use EBox::MailVDomainsLdap;
@@ -247,10 +249,10 @@ sub removeExternalAccount
 sub modifyExternalAccount
 {
     my ($self, $user, $account, $newAccountHash) = @_;
-    my @newAccount = @{ $newAccountHash};
+    my @newAccount = (user => $user, @{ $newAccountHash});
     $self->_checkFetchmailAccountParams(@newAccount);
     $self->removeExternalAccount($user, $account);
-    $self->addExternalAccount(user => $user, @newAccount);
+    $self->addExternalAccount(@newAccount);
 }
 
 sub writeConf

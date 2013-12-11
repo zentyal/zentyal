@@ -1,3 +1,10 @@
+3.2.1
+	+ Force depend on PPA version of vsftpd with the chroot patch
+	+ Added Support for chrooting users
+3.2
+	+ Set version to 3.2
+3.1.4
+	+ Fixed redefinition of initialSetup()
 3.1.3
 	+ Override daemons when migrating from 3.0
 3.1.2

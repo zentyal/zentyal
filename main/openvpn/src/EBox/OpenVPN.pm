@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free softwa re; you can redistribute it and/or modify
@@ -42,6 +43,9 @@ use EBox::CA;
 use EBox::CA::DN;
 use EBox::NetWrappers qw();
 use EBox::FileSystem;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 
 use Perl6::Junction qw(any);
 use File::Slurp;

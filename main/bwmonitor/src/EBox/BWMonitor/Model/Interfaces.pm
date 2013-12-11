@@ -29,6 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

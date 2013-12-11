@@ -33,6 +33,8 @@ use EBox::Gettext;
 use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::Internal;
 
 use EBox::Users::User;
 use EBox::Users::Group;
@@ -170,22 +172,9 @@ sub addToZentyal
 
         $zentyalGroup = new EBox::Users::Group(gid => $usersName);
         if ($zentyalGroup->exists()) {
-            # The special __USERS__ group already exists in Zentyal:
-            # 1. Copy its members list into Samba.
-            foreach my $member (@{$zentyalGroup->members()}) {
-                try {
-                    my $smbMember = $sambaMod->ldbObjectFromLDAPObject($member);
-                    next unless ($smbMember);
-                    $self->addMember($smbMember, 1);
-                } otherwise {
-                    my $error = shift;
-                    EBox::error("Error adding member: $error");
-                };
-            }
-            $self->save();
-            # 2. link both objects.
+            # Link both objects.
             $self->_linkWithUsersObject($zentyalGroup);
-            # 3. Update its fields.
+            # Update its fields.
             $self->updateZentyal();
             return;
         } else {
@@ -287,68 +276,67 @@ sub _membersToZentyal
 
     return unless ($zentyalGroup and $zentyalGroup->exists());
 
+    my $sambaMod = $self->_sambaMod();
+    my $domainSID = $sambaMod->ldb()->domainSID();
+    my $domainUsersSID = "$domainSID-513";
+
+    if ($domainUsersSID eq $self->sid()) {
+        # Domain Users group is handled automatically by Samba, no need to sync the members
+        EBox::debug("Ignored the syncronization between 'Domain Users' and '__USERS__'");
+        return;
+    }
+
     my $gid = $self->get('samAccountName');
     my $sambaMembersList = $self->members();
     my $zentyalMembersList = $zentyalGroup->members();
 
-    my $sambaMod = $self->_sambaMod();
-    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
+    my %zentyalMembers = map { $_->get('msdsObjectGUID') => $_ } @{$zentyalMembersList};
     my %sambaMembers;
-    my $domainSID = $sambaMod->ldb()->domainSID();
-    my $domainUsersSID = "$domainSID-513";
-    my $domainAdminsSID = "$domainSID-512";
-    my $domainAdminSID = "$domainSID-500";
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or
             $sambaMember->isa('EBox::Samba::Group')) {
-            my $canonicalName = undef;
-            if ($domainAdminsSID eq $sambaMember->sid()) {
-                # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
-                # This is required so both canonical names match on Zentyal's OpenLDAP and Samba.
-                my $parent = EBox::Users::Group->defaultContainer();
-                $canonicalName = $parent->canonicalName(1) . '/' . $sambaMember->baseName();
-            } else {
-                $canonicalName = $sambaMember->canonicalName(1);
-            }
-            $sambaMembers{$canonicalName} = $sambaMember;
+            my $uniqueID = $sambaMember->objectGUID();
+            $sambaMembers{$uniqueID} = $sambaMember;
             next;
         }
         my $dn = $sambaMember->dn();
         EBox::error("Unexpected member type ($dn)");
     }
 
-    foreach my $memberCanonicalName (keys %zentyalMembers) {
-        unless (exists $sambaMembers{$memberCanonicalName}) {
-            EBox::info("Removing member '$memberCanonicalName' from Zentyal group '$gid'");
+    foreach my $memberUniqueID (keys %zentyalMembers) {
+        my $canonicalName = $zentyalMembers{$memberUniqueID}->canonicalName(1);
+        unless (exists $sambaMembers{$memberUniqueID}) {
+            EBox::info("Removing member '$canonicalName' from Zentyal group '$gid'");
             try {
-                $zentyalGroup->removeMember($zentyalMembers{$memberCanonicalName}, 1);
+                $zentyalGroup->removeMember($zentyalMembers{$memberUniqueID}, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error removing member '$memberCanonicalName' from Zentyal group '$gid': $error");
+                EBox::error("Error removing member '$canonicalName' from Zentyal group '$gid': $error");
             };
          }
     }
 
-    foreach my $memberCanonicalName (keys %sambaMembers) {
-        unless (exists $zentyalMembers{$memberCanonicalName}) {
-            EBox::info("Adding member '$memberCanonicalName' to Zentyal group '$gid'");
-            my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+    foreach my $memberUniqueID (keys %sambaMembers) {
+        my $canonicalName = $sambaMembers{$memberUniqueID}->canonicalName(1);
+        unless (exists $zentyalMembers{$memberUniqueID}) {
+            EBox::info("Adding member '$canonicalName' to Zentyal group '$gid'");
+            my $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberUniqueID});
             unless ($zentyalMember and $zentyalMember->exists()) {
-                if ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
+                if ($sambaMembers{$memberUniqueID}->isa('EBox::Samba::Group')) {
                     # The group is not yet syncronized, we force its sync now to retry...
-                    $sambaMembers{$memberCanonicalName}->addToZentyal();
-                    $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberCanonicalName});
+                    $sambaMembers{$memberUniqueID}->addToZentyal();
+                    $zentyalMember = $sambaMod->ldapObjectFromLDBObject($sambaMembers{$memberUniqueID});
                     unless ($zentyalMember and $zentyalMember->exists()) {
-                        EBox::error("Cannot add member '$memberCanonicalName' to group '$gid' because the member does not exist");
+                        EBox::error("Cannot add member '$canonicalName' to group '$gid' because the member does not exist");
                         next;
                     }
-                } elsif ($sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Users') or
-                         $sambaMembers{$memberCanonicalName}->isa('EBox::Samba::Contact')) {
-                    EBox::error("Cannot add member '$memberCanonicalName' to Zentyal group '$gid' because the member does not exist");
+                } elsif ($sambaMembers{$memberUniqueID}->isa('EBox::Samba::Users') or
+                         $sambaMembers{$memberUniqueID}->isa('EBox::Samba::Contact')) {
+                    EBox::error("Cannot add member '$canonicalName' to Zentyal group '$gid' because the member does not exist");
                     next;
                 } else {
-                    EBox::error("Cannot add member '$memberCanonicalName' to Zentyal group '$gid' because it's not a known object.");
+                    EBox::error("Cannot add member '$canonicalName' to Zentyal group '$gid' because it's not a known object.");
                     next;
                 }
             }
@@ -356,7 +344,7 @@ sub _membersToZentyal
                 $zentyalGroup->addMember($zentyalMember, 1);
             } otherwise {
                 my ($error) = @_;
-                EBox::error("Error adding member '$memberCanonicalName' to Zentyal group '$gid': $error");
+                EBox::error("Error adding member '$canonicalName' to Zentyal group '$gid': $error");
             };
         }
     }

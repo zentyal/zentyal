@@ -1,3 +1,9 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2.1
+	+ Avoid call to mailfilter-ldap script from enableActions
+3.2
+	+ Set version to 3.2
 3.1.4
 	+ Set ham and spam users as internal when migrating from 3.0
 3.1.3

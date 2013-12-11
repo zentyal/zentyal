@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -34,6 +35,8 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;
@@ -690,6 +693,7 @@ sub addRow
 
     return $self->addTypedRow($userData,
                               readOnly => $params{'readOnly'},
+                              disabled => $params{'disabled'},
                               id => $params{'id'});
 }
 
@@ -703,6 +707,9 @@ sub addRow
 #     <EBox::Types::Abstract> with content indexed by field name
 #
 #     readOnly - boolean indicating if the new row is read only or not
+#     *(Optional)* Default value: false
+#
+#     disabled - boolean indicating if the new row is disabled or not
 #     *(Optional)* Default value: false
 #
 #     id - String the possible identifier to set *(Optional)* Default
@@ -719,6 +726,9 @@ sub addTypedRow
     my $dir = $self->{'directory'};
     my $confmod = $self->{'confmodule'};
     my $readOnly = delete $optParams{'readOnly'};
+    $readOnly = 0 unless defined $readOnly;
+    my $disabled = delete $optParams{'disabled'};
+    $disabled = 0 unless defined $disabled;
     my $id = delete $optParams{'id'};
 
     unless (defined ($id) and length ($id) > 0) {
@@ -727,6 +737,7 @@ sub addTypedRow
 
     my $row = EBox::Model::Row->new(dir => $dir, confmodule => $confmod);
     $row->setReadOnly($readOnly);
+    $row->setDisabled($disabled);
     $row->setModel($self);
     $row->setId($id);
 
@@ -793,6 +804,9 @@ sub addTypedRow
     if ($readOnly) {
         $hash->{readOnly} = 1;
     }
+    if ($disabled) {
+        $hash->{disabled} = 1;
+    }
 
     $confmod->set("$dir/$id", $hash);
 
@@ -847,7 +861,15 @@ sub row
 
     $row->setId($id);
     my $hash = $confmod->get_hash("$dir/$id");
-    $row->setReadOnly($hash->{'readOnly'});
+
+    my $disabled = $hash->{'disabled'};
+    $disabled = 0 unless defined $disabled;
+
+    my $readOnly = $hash->{'readOnly'};
+    $readOnly = 0 unless defined $readOnly;
+
+    $row->setReadOnly($readOnly);
+    $row->setDisabled($disabled);
     $row->setModel($self);
 
     # If element is volatile we set its value after the rest
@@ -902,6 +924,28 @@ sub isRowReadOnly
     return undef unless ($row);
 
     return $row->{'readOnly'};
+}
+
+# Method: isRowDisabled
+#
+#   Given a row it returns if it is disabled or not
+#
+# Parameters:
+#
+#   id - The row id
+#
+# Returns:
+#
+#   boolean - true if the row is disabled, false otherwise
+#
+sub isRowDisabled
+{
+    my ($self, $id) = @_;
+
+    my $row = $self->row($id);
+    return undef unless $row;
+
+    return $row->{'disabled'};
 }
 
 sub _selectOptions
@@ -1184,7 +1228,8 @@ sub setRow
 
     $self->setTypedRow( $id, $changedData,
                         force => $force,
-                        readOnly => $params{'readOnly'});
+                        readOnly => $params{'readOnly'},
+                        disabled => $params{'disabled'});
 }
 
 # Method: setTypedRow
@@ -1204,6 +1249,9 @@ sub setRow
 #      readOnly - Boolean indicating if the row becomes a read only
 #      kind one *(Optional)* Default value: false
 #
+#      disabled - Boolean indicating if the row is disabled in the UI.
+#                 *(Optional)* Default value: false
+#
 #     - Optional parameters are NAMED
 #
 # Exceptions:
@@ -1216,6 +1264,9 @@ sub setTypedRow
 
     my $force = delete $optParams{'force'};
     my $readOnly = delete $optParams{'readOnly'};
+    $readOnly = 0 unless defined $readOnly;
+    my $disabled = delete $optParams{'disabled'};
+    $disabled = 0 unless defined $disabled;
 
     $self->_checkRowExist($id, '');
 
@@ -1295,8 +1346,17 @@ sub setTypedRow
             delete $hash->{readOnly};
         }
 
+        # Update disabled if change
+        my $oldDisabled = $hash->{disabled};
+        if (defined $disabled and $disabled) {
+            $hash->{disabled} = 1;
+        } else {
+            delete $hash->{disabled};
+        }
+
         # Update row hash if needed
-        if ($modified or ($hash->{readOnly} xor $oldRO)) {
+        if ($modified or ($hash->{readOnly} xor $oldRO) or
+            ($hash->{disabled} xor $oldDisabled)) {
             $confmod->set($key, $hash);
         }
 

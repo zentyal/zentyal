@@ -1,3 +1,23 @@
+HEAD
+	+ Flush interfaces list cache after all ifups and all ifdowns
+	+ Added missing EBox::Exceptions uses
+3.2.3
+	+ Write resolvconf head, base and tail
+	+ Set proper file name for HTTP proxy configuration for APT
+	+ Set HTTP proxy wide settings in /etc/environment
+	+ Do not disable DNSResolver model when users mode is external AD
+	+ Added resolvconf as dependency to avoid problems in installations
+	  without the ubuntu-minimal metapackage
+3.2.2
+	+ Fixed search domain regression after resolvconf changes
+3.2.1
+	+ Use new resolvconf framework to manage resolvers list
+	+ Fix setNameservers method in Network to avoid error in import
+	  interfaces
+3.2
+	+ Set version to 3.2
+3.1.6
+	+ Guard against undefined rows getting auto value in GatewayTable
 3.1.5
 	+ Fix addition of gateways in initial configuration wizard
 	+ Override daemons when migrating from 3.0

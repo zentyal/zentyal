@@ -21,6 +21,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Select;
@@ -30,6 +31,7 @@ use EBox::Squid::Types::TimePeriod;
 
 use Net::LDAP;
 use Net::LDAP::Control::Sort;
+use Net::LDAP::Util qw(canonical_dn escape_filter_value);
 use Authen::SASL qw(Perl);
 
 use constant MAX_DG_GROUP => 99; # max group number allowed by dansguardian
@@ -116,6 +118,21 @@ sub _table
     };
 }
 
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $squid = $self->parentModule();
+    if (($squid->authenticationMode() eq $squid->AUTH_MODE_EXTERNAL_AD) and not $squid->configured()) {
+        my $customizer = new EBox::View::Customizer();
+        $customizer->setModel($self);
+        $customizer->setPermanentMessage(__('Group selection will not be available until you enable the HTTP proxy module'), 'note');
+        return $customizer;
+    }
+
+    return $self->SUPER::viewCustomizer();
+}
+
 sub _populateGroups
 {
     my ($self) = @_;
@@ -123,6 +140,9 @@ sub _populateGroups
     my $squid = $self->parentModule();
     my $mode = $squid->authenticationMode();
     if ($mode eq $squid->AUTH_MODE_EXTERNAL_AD()) {
+        if (not $squid->configured) {
+            return [];
+        }
         return $self->_populateGroupsFromExternalAD();
     } else {
         my $userMod = $self->global()->modInstance('users');
@@ -241,19 +261,37 @@ sub _adGroupMembers
     my $ldap = $self->_adLdap();
     my $dse = $ldap->root_dse(attrs => ['defaultNamingContext', '*']);
     my $defaultNC = $dse->get_value('defaultNamingContext');
+    $defaultNC = canonical_dn($defaultNC);
+    $group = escape_filter_value($group);
+    my $filter = "(&(objectClass=group)(objectSid=$group))";
     my $result = $ldap->search(base => $defaultNC,
                                scope => 'sub',
-                               filter => "(&(objectClass=group)(objectSid=$group))",
+                               filter => $filter,
                                attrs => ['member']);
     foreach my $groupEntry ($result->entries()) {
         my @members = $groupEntry->get_value('member');
         next unless @members;
         foreach my $memberDN (@members) {
-            my $result2 = $ldap->search(base => $defaultNC,
-                                        scope => 'sub',
-                                        filter => "(&(objectClass=user)(distinguishedName=$memberDN))",
+            $memberDN = canonical_dn($memberDN);
+
+            # Get nested groups
+            my $result2 = $ldap->search(base => $memberDN,
+                                        scope => 'base',
+                                        filter => '(objectClass=group)',
+                                        attrs => ['objectSid']);
+            foreach my $nestedGroupEntry ($result2->entries()) {
+                my $nestedGroupSid = $nestedGroupEntry->get_value('objectSid');
+                next unless defined $nestedGroupSid;
+                my $nestedMembers = $self->_adGroupMembers($nestedGroupSid);
+                push (@{$members}, @{$nestedMembers});
+            }
+
+            # Get users
+            my $result3 = $ldap->search(base => $memberDN,
+                                        scope => 'base',
+                                        filter => "(objectClass=user)",
                                         attrs => ['samAccountName']);
-            foreach my $userEntry ($result2->entries()) {
+            foreach my $userEntry ($result3->entries()) {
                 my $samAccountName = $userEntry->get_value('samAccountName');
                 next unless defined $samAccountName;
                 push (@{$members}, $samAccountName);

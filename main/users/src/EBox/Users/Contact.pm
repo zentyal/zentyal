@@ -30,6 +30,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 
 use Error qw(:try);
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -94,6 +95,17 @@ sub deleteObject
     # Call super implementation
     shift @_;
     $self->SUPER::deleteObject(@_);
+}
+
+# Method: fullname
+#
+#  Overrided because we cannot use the cn
+sub fullname
+{
+    my ($self) = @_;
+    my $givenname = $self->get('givenname');
+    my $surname   = $self->get('sn');
+    return "$givenname $surname";
 }
 
 # Method: create

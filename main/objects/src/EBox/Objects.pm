@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -37,7 +38,6 @@ sub _create
     my $self = $class->SUPER::_create(name => 'objects',
                                       printableName => __('Objects'),
                                       @_);
-
     bless($self, $class);
 
     return $self;
@@ -141,10 +141,12 @@ sub objectAddresses
         throw EBox::Exceptions::MissingArgument("id");
     }
 
-    my $object = $self->model('ObjectTable')->row($id);
-    return undef unless defined($object);
+    my $members = $self->objectMembers($id);
+    if (not $members) {
+        return undef;
+    }
 
-    return $object->subModel('members')->addresses(@params);
+    return $members->addresses(@params);
 }
 
 # Method: objectDescription

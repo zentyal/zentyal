@@ -34,6 +34,7 @@ use EBox::Gettext;
 use EBox::Types::DomainName;
 use EBox::Types::Select;
 use EBox::Types::Union;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

@@ -1,3 +1,10 @@
+HEAD
+	+ Added missing EBox::Exceptions uses
+3.2.1
+	+ Preservice and postservice hooks now should work properly
+	+ Fixed regression which broke external account modification
+3.2
+	+ Set version to 3.2
 3.1.7
 	+ Override daemons when migrating from 3.0
 	+ Minor enhancements to some note texts

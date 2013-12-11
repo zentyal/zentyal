@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::External;
 use Apache2::Connection;
 use Apache2::Const qw(:common HTTP_FORBIDDEN HTTP_MOVED_TEMPORARILY);
 
@@ -244,7 +246,9 @@ sub loginCC
                 return HTTP_MOVED_TEMPORARILY;
             }
         }
-        return EBox::CGI::Run->run('/Login/Index', 'EBox');
+        EBox::initLogger('eboxlog.conf');
+        EBox::CGI::Run->run('/Login/Index', 'EBox');
+        return OK;
     }
 }
 

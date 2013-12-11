@@ -21,6 +21,7 @@ package EBox::Logs::Model::Details;
 use base qw(EBox::Model::DataTable EBox::Logs::Model::Base);
 
 use EBox::Gettext;
+use EBox::Exceptions::NotImplemented;
 use Perl6::Junction qw(all);
 use Error qw(:try);
 

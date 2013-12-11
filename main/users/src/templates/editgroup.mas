@@ -11,7 +11,7 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
 </%init>
 <script type="text/javascript" src="/data/js/form.js" />
 
-<div id="edit_user">
+<div id="edit_group">
 <h3 class="<% $iconclass %>"><% __('Group ') %> <% $group->name() %></h3>
 <div id='note_editGroupForm' class='note' style='display:none'></div>
 <div id='error_editGroupForm' class='error' style='display:none'></div>
@@ -31,8 +31,8 @@ my $iconclass = $group->isSecurityGroup() ? 'icon-group' : 'icon-dgroup';
             <% __('Security Group') %>
 %    } else {
             <% __('Distribution Group') %>
-%    } 
-% } else {          
+%    }
+% } else {
             <div class="radioGroup">
               <label>
                 <input type="radio" name="type" value="security" id="security" <% $group->isSecurityGroup() ? 'checked' : '' %>>

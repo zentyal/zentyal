@@ -124,7 +124,7 @@ __('Enable Active Sync (Microsoft Exchange syncronization protocol).'),
                                 editable      => 1,
                                 defaultValue  => 0,
                                 help =>
-__('Enable Single Sign On on the Webaccess and Webapp interface.'),
+                                  __('Enable only Single Sign-On on the Webaccess interface.'),
                                ),
        new EBox::Types::Select(
                                 fieldName     => 'vHost',

@@ -31,6 +31,7 @@ use EBox::Types::Port;
 use EBox::Types::Boolean;
 use EBox::Types::Password;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::External;
 use EBox::View::Customizer;
 
 use constant VIEW_CUSTOMIZER => {
@@ -283,6 +284,22 @@ sub _checkSamba
     if ($samba->configured()) {
         throw EBox::Exceptions::External(__('Cannot synchronize users with other Zentyal if Samba is either in use or provisioned'));
     }
+}
+
+sub master
+{
+    my ($self) = @_;
+    my $master =  $self->row()->elementByName('master')->value();
+    if ($master eq 'cloud') {
+        my $remoteServices = $self->global()->modInstance('remoteservices');
+        if (not $remoteServices) {
+            return 'none';
+        }
+
+        return $remoteServices->eBoxSubscribed() ? 'cloud' : 'none';
+    }
+
+    return $master;
 }
 
 1;

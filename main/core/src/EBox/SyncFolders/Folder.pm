@@ -23,6 +23,7 @@ use warnings;
 package EBox::SyncFolders::Folder;
 
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::InvalidData;
 use Perl6::Junction qw(any);
 
 use constant TYPE_OPTIONS => ('share', 'user', 'group', 'recovery');

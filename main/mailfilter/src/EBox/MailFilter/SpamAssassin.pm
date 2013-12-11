@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,10 @@ use EBox::Service;
 use EBox::Gettext;
 use EBox::NetWrappers;
 use EBox::MailFilter::VDomainsLdap;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use Error qw(:try);
 
 use constant {

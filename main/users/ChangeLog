@@ -1,3 +1,47 @@
+HEAD
+	+ The "sub ous" return the OUs hierarquically ordered
+	+ Check for defined uidNumber and gidNumber creating users and groups
+3.2.5
+	+ Revert useless chown workaround
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
+	+ Better error handling when the default group is not found
+	+ Fixed distribution group edition
+3.2.4
+	+ Add error, errorText and errorDescription methods to
+	  EBox::Exceptions::LDAP
+	+ Added missing EBox::Exceptions uses
+	+ Better error handling when we get a LdapObject that doesn't exists
+3.2.3
+	+ Remove undefined warnings on users/group creation
+	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
+	  is installed but disabled
+3.2.2
+	+ Add missing use to EBox::Users::LDAP::ExternalAD
+	+ Force DNS restart when users mode changed
+	+ Force service principals update on _postServiceHook in external AD mode
+	+ Don't use slave cloud sync if not subscribed
+	+ Adapted cloud sync to changes in user modules
+	+ Added childrenObjectClass parameter to EBox::Users::LdapObject::children
+	+ userExists and groupExists discriminates between shown objects and
+	  objects hid by SID
+3.2.1
+	+ Fixed wrong path in ExternalAD::connectWithKerberos
+	+ Update names in tree view when either user or contact is edited
+	+ Fixed wizard error when setting external AD mode
+	+ Fixed EBox::Users::groupDn method
+	+ In contact edition do not store full name in cn but use
+	  givenname and sn to get fullname.
+	+ Use paginated search when getting children nodes in LdapObject
+	+ UTF8 decode DN when retrieving it from a LDAP object
+	+ Fixed cloud-sync script
+3.2
+	+ Set version to 3.2
+	+ Add objectClass shadowAccount in 3.0 migration to fix disabled accounts
+3.1.11
+	+ Added migration code to be sure that we have all users added as members
+	  of __USERS__ group on OpenLDAP.
+	+ Fixed user creation to make all users belong to __USERS__ group
 3.1.10
 	+ Do not crash when deleting a group if LDB object does not exist
 	+ Do not try to migrate from 3.0 if module is not configured

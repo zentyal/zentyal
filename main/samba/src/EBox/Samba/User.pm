@@ -31,6 +31,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 
 use EBox::Samba::Credentials;
 
@@ -38,7 +39,7 @@ use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
-use Encode;
+use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -94,7 +95,13 @@ sub changePassword
 
     # The password will be changed on save
     $self->set('unicodePwd', $passwd, 1);
-    $self->save() unless $lazy;
+    try {
+        $self->save() unless $lazy;
+    } otherwise {
+        my ($error) = @_;
+
+        throw EBox::Exceptions::External($error->error());
+    };
 }
 
 # Method: setCredentials
