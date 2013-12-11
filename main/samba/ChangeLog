@@ -1,4 +1,5 @@
 HEAD
+	+ LDB - Do not return users holding a servicePrincipalName by default
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
 	+ OU - Improve cration code
