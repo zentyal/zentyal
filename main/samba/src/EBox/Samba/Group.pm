@@ -329,9 +329,9 @@ sub _membersToZentyal
                         EBox::error("Cannot add member '$canonicalName' to group '$gid' because the member does not exist");
                         next;
                     }
-                } elsif ($sambaMembers{$memberUniqueID}->isa('EBox::Samba::Users') or
+                } elsif ($sambaMembers{$memberUniqueID}->isa('EBox::Samba::User') or
                          $sambaMembers{$memberUniqueID}->isa('EBox::Samba::Contact')) {
-                    EBox::error("Cannot add member '$canonicalName' to Zentyal group '$gid' because the member does not exist");
+                    EBox::warn("Cannot add member '$canonicalName' to Zentyal group '$gid' because the member does not exist");
                     next;
                 } else {
                     EBox::error("Cannot add member '$canonicalName' to Zentyal group '$gid' because it's not a known object.");

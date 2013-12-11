@@ -58,6 +58,27 @@ sub instance
     return $_instance;
 }
 
+sub connected
+{
+    my ($self) = @_;
+    if ($self->{ldap}) {
+        # Workaround to detect if connection is broken and force reconnection
+        my $mesg = $self->{ldap}->search(
+                base   => '',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
+            $self->{ldap}->unbind;
+            return 0;
+        }
+
+        return 1;
+    }
+
+    return 0;
+}
+
 # Method: connection
 #
 #   Return the Net::LDAP connection used by the module
@@ -73,21 +94,7 @@ sub connection
 {
     my ($self) = @_;
 
-    # Workaround to detect if connection is broken and force reconnection
-    my $reconnect;
-    if ($self->{ldap}) {
-        my $mesg = $self->{ldap}->search(
-                base   => '',
-                scope => 'base',
-                filter => "(cn=*)",
-                );
-        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
-            $self->{ldap}->unbind;
-            $reconnect = 1;
-        }
-    }
-
-    if ((not defined $self->{ldap}) or $reconnect) {
+    if (not $self->connected()) {
         $self->{ldap} = $self->anonymousLdapCon();
 
         my ($dn, $pass);
@@ -123,6 +130,7 @@ sub connection
         }
         safeBind($self->{ldap}, $dn, $pass);
     }
+
     return $self->{ldap};
 }
 

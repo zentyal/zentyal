@@ -236,6 +236,9 @@ sub connectWithKerberos
 sub connection
 {
     my ($self) = @_;
+    if ($self->connected()) {
+        return $self->{ldap};
+    }
 
     EBox::info("Setting AD connection");
 
@@ -647,6 +650,8 @@ sub clearConn
     delete $self->{ldap};
     delete $self->{rootDse};
     delete $self->{dn};
+    delete $self->{user};
+    delete $self->{dcHostname};
     $self->SUPER::clearConn();
 }
 

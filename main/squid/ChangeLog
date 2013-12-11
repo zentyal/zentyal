@@ -1,6 +1,8 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions
+	+ Added http_allow to internal squid stub so proxy event does not need
+	  an explicit rule
 	+ Added missing EBox::Exceptions uses
 	+ Fix group based filter access rules in external AD mode, retrieving
 	  members of nested groups

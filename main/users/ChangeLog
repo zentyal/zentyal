@@ -1,5 +1,9 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Show system but not internal groups in user edition form
+	+ Allow unsafe characters for user and password in external AD mode.
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
 	+ The "sub ous" return the OUs hierarquically ordered
 	+ Check for defined uidNumber and gidNumber creating users and groups
 	+ Revert useless chown workaround

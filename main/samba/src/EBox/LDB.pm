@@ -641,18 +641,19 @@ sub ldapServicePrincipalsToLdb
 
 sub users
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
     my $list = [];
 
-    # Query the users stored in the root DN
+    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
     my $params = {
         base => $self->dn(),
-        scope => 'base',
-        filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                  '(!(isDeleted=*)))',
+        scope => 'sub',
+        filter => $filter,
         attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
     };
+
     my $result = $self->search($params);
     foreach my $entry ($result->sorted('samAccountName')) {
         my $user = new EBox::Samba::User(entry => $entry);

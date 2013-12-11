@@ -2,6 +2,7 @@
 	+ Renamed printableName to File Sharing and Domain Services
 	+ Split settings in two menu entries: Domain and File Sharing
 	+ Switch from Error to TryCatch for exception handling
+	+ LDB - Do not return users holding a servicePrincipalName by default
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
 	+ OU - Improve cration code
