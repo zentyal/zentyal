@@ -25,21 +25,11 @@
     $prefix => 'Zentyal'
     $backup_path => '/tmp'
 
-    $guestAccess => 0
-    $guestAccount => 'nobody'
-
     $openchangeEnabled => undef
     $openchangeProvisioned => undef
 </%args>
 <%init>
 use EBox::Gettext;
-use EBox::Samba;
-use EBox::Config;
-
-my $customAuthMethodsForGuest = 'guest sam_ignoredomain';
-if (EBox::Config::boolean('join_vista_with_guest_shares')) {
-    $customAuthMethodsForGuest .= ' samba4';
-}
 </%init>
 [global]
     workgroup = <% $workgroup %>
@@ -57,14 +47,6 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
 
     log level = 3
     log file = /var/log/samba/samba.log
-
-% if ($guestAccess) {
-    guest ok = yes
-    map to guest = bad user
-    guest account = <% $guestAccount %>
-# Commented out until Samba 4 supports Guests sharing or Kerberos auth fails.
-#    auth methods = <% $customAuthMethodsForGuest %>
-% }
 
 % unless ($print) {
     load printers = no
@@ -157,6 +139,9 @@ if (EBox::Config::boolean('join_vista_with_guest_shares')) {
     read only = No
     force create mode = 0660
     force directory mode = 0660
+% if ($share->{guest}) {
+    guest ok = yes
+% }
 % my $av = ($antivirus xor defined($antivirus_exceptions->{'share'}->{$share->{'share'}}));
 % my $rb = ($recycle xor defined($recycle_exceptions->{'share'}->{$share->{'share'}}));
 % my $objects = 'acl_xattr';

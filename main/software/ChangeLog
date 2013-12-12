@@ -2,6 +2,9 @@ HEAD
 	+ Replace select/deselect all buttons with column checkbox
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Remove style in zentyal package list when sb is set as it is not
+	  longer applied
+	+ Remove restricted modules to get info
 	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2.1

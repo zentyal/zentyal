@@ -141,7 +141,7 @@ sub depends
     my ($self) = @_;
     my @depends = ('firewall');
     my $mail = $self->global()->modInstance('mail');
-    if ($mail and $mail->enabled()) {
+    if ($mail and $mail->isEnabled()) {
         push @depends, 'mail';
     }
 
