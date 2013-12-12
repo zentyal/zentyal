@@ -98,10 +98,13 @@ sub masonParameters
         push(@bridges, $brinfo);
     }
 
-    push(@params, 'externalWarning' => $externalWarning);
-    push(@params, 'iface' => $iface);
-    push(@params, 'ifaces' => \@ifaces);
-    push(@params, 'bridges', => \@bridges);
+    @params = (
+        'network'         => $net,
+        'externalWarning' => $externalWarning,
+        'iface'           => $iface,
+        'ifaces'          => \@ifaces,
+        'bridges'         => \@bridges,
+    );
 
     return \@params;
 }
