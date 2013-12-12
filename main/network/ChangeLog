@@ -1,4 +1,5 @@
 HEAD
+	+ ppp-set-iface.pl script should not regen gateway if we are saving changes
 	+ Flush interfaces list cache after all ifups and all ifdowns
 	+ Added missing EBox::Exceptions uses
 3.2.3
