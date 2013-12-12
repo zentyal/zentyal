@@ -1445,6 +1445,25 @@ sub provisionADC
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject() if $zentyalOU->exists();
         }
+        # Special cases that should be deleted from LDAP are those not
+        # returned from the users() or groups() functions
+        #   - Administrator user
+        #   - Domain Admins group
+        #   - Guest user
+        for my $gid (('Domain Admins')) {
+            my $zGroup = new EBox::Users::Group(gid => $gid);
+            if ($zGroup->exists()) {
+                $zGroup->setIgnoredModules(['samba']);
+                $zGroup->deleteObject();
+            }
+        }
+        for my $uid (('Administrator', 'Guest')) {
+            my $zUser = new EBox::Users::User(uid => $uid);
+            if ($zUser->exists()) {
+                $zUser->setIgnoredModules(['samba']);
+                $zUser->deleteObject();
+            }
+        }
 
         # Map defaultContainers
         $self->mapDefaultContainers();

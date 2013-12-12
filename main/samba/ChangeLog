@@ -1,4 +1,6 @@
 HEAD
+	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
+	              when reprovisioning as additional DC
 	+ Do not hide domain guest account
 	+ Fix share guest access, based on domain guest account enabled status
 	+ LDB - Do not return users holding a servicePrincipalName by default
