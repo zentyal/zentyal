@@ -302,14 +302,7 @@ sub disabledModuleWarning
         return '';
     }
 
-    if ($module->isEnabled()) {
-        return '';
-    } else {
-        # TODO: If someday we implement the auto-enable for dependencies with one single click
-        # we could replace the Module Status link with a "Click here to enable it" one
-        return __x("{mod} module is disabled. Don't forget to enable it on the {oh}Module Status{ch} section, otherwise your changes won't have any effect.",
-                   mod => $module->printableName(), oh => '<a href="/ServiceModule/StatusView">', ch => '</a>');
-    }
+    return $module->disabledModuleWarning();
 }
 
 # Method: userCorner

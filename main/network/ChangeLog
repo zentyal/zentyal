@@ -1,4 +1,5 @@
 3.3
+	+ Add module not enabled warning to interfaces page
 	+ Switch from Error to TryCatch for exception handling
 	+ Flush interfaces list cache after all ifups and all ifdowns
 	+ Added missing EBox::Exceptions uses
