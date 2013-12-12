@@ -468,8 +468,7 @@ sub create
         my $rs = EBox::Global->modInstance('remoteservices');
         if ($usersMod->master() eq 'cloud') {
             $max_users = $rs->maxCloudUsers();
-        }
-        else {
+        } else {
             $max_users = $rs->maxUsers();
         }
     }

@@ -23,8 +23,9 @@ use v5.10;
 #
 #     - server name
 #     - server edition
+#     - zentyal.me name
 #     - subscription renovation date
-#     - Central Monitoring & management
+#     - ad messages, if apply
 #
 
 package EBox::RemoteServices::Model::SubscriptionInfo;
@@ -111,10 +112,10 @@ sub _table
            fieldName     => 'renovation_date',
            printableName => __('Renovation date'),
           ),
-       # new EBox::Types::Text(
-       #     fieldName     => 'mm',
-       #     printableName => __('Central monitoring & management'),
-       #    ),
+       new EBox::Types::Text(
+           fieldName => 'messages',
+           printableName => __('Messages')
+          ),
       );
 
     my $dataForm = {
@@ -140,12 +141,12 @@ sub _content
 
     my $rs = $self->{confmodule};
 
-    my ($serverName, $fqdn, $subs, $renovationDate, $mm) =
+    my ($serverName, $fqdn, $subs, $renovationDate, $msg) =
       ( __('None'), __('Not using Zentyal Dynamic DNS service'),
         __sx('<span>None - {oh}Register for Free!{ch}</span>',
              oh => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
              ch  => '</a>'),
-        __('None'), __('Disabled'));
+        __('None'), __('None'));
 
     if ( $rs->eBoxSubscribed() ) {
         $serverName = $rs->eBoxCommonName();
@@ -165,8 +166,9 @@ sub _content
                 $renovationDate = POSIX::strftime("%c", localtime($renovationDate));
             }
         }
-
-        $mm = __('Enabled') if ($rs->subscriptionLevel() >= 2);
+    }
+    if ($rs->adMessages()->{text}) {
+        $msg = $rs->adMessages()->{text};
     }
 
     return {
@@ -174,7 +176,7 @@ sub _content
         external_server_name => $fqdn,
         edition              => $subs,
         renovation_date      => $renovationDate,
-        # mm                   => $mm,
+        messages             => $msg,
        };
 }
 

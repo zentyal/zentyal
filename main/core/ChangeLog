@@ -12,6 +12,7 @@
 	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
+	+ Display remote services messages if they exist on Dashboard
 	+ Recover from widget function exceptions
 	+ Fixed mdstat output processing to remove "(auto-read-only)"
 	+ Fixed audit logging of delete actions

@@ -31,10 +31,6 @@ use EBox::RemoteServices::Exceptions::NotCapable;
 use EBox::RemoteServices::Subscription;
 use TryCatch::Lite;
 
-# Constants
-use constant COMM_MODULES   => qw(asterisk jabber mail webmail zarafa);
-use constant MAX_SB_USERS   => 25;
-
 # Group: Public methods
 
 # Constructor: new
@@ -88,9 +84,7 @@ sub unsubscribeIsAllowed
 #
 # Parameters:
 #
-#    edition - String the subscription edition
-#
-#    commAddOn - Boolean Communications add-on
+#    subscriptionDetails - Hash ref subscription details to check data from
 #
 # Returns:
 #
@@ -98,19 +92,15 @@ sub unsubscribeIsAllowed
 #
 sub check
 {
-    my ($self, $edition, $commAddOn) = @_;
+    my ($self, $subscriptionDetails) = @_;
 
     my $capable = 1;
-    if ($edition eq 'sb') {
-        try {
-            $self->_performSBChecks($commAddOn);
-            delete $self->{lastError};
-        } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
-            $self->{lastError} = $e->text();
-            $capable = 0;
-        }
-    } else {
+    try {
+        $self->_performUsersCheck($subscriptionDetails);
         delete $self->{lastError};
+    } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
+        $self->{lastError} = $e->text();
+        $capable = 0;
     }
 
     return $capable;
@@ -154,68 +144,50 @@ sub checkFromCloud
 
     my $capabilitiesGetter = new EBox::RemoteServices::Capabilities();
     my $det = $capabilitiesGetter->subscriptionDetails();
-
-    if ( $det->{codename} eq 'sb' ) {
-        $self->_performSBChecks($det->{sb_comm_add_on});
+    if (grep { $_ eq 'serverusers' } @{$capabilitiesGetter->list()}) {
+        $det->{capabilities}->{serverusers} = $capabilitiesGetter->detail('serverusers');
+    } else {
+        $det->{capabilities}->{serverusers} = { 'max' => undef };
     }
+
+    $self->_performUsersCheck($det);
+
     return 1;
 }
 
 # Group: Private methods
 
 # Perform the required checks for SB edition
-sub _performSBChecks
+sub _performUsersCheck
 {
-    my ($self, $commAddOn) = @_;
+    my ($self, $details) = @_;
 
     my $gl = EBox::Global->getInstance();
-    $self->_modCheck($gl, $commAddOn);
-    $self->_usersCheck($gl);
+    $self->_usersCheck($gl, $details);
 }
 
-# Check no communication profile is enabled
-sub _modCheck
-{
-    my ($self, $gl, $commAddOn) = @_;
-
-    my @mod = ();
-    push(@mod, COMM_MODULES) unless ( $commAddOn );
-
-    foreach my $modName (@mod) {
-        if ( $gl->modExists($modName) ) {
-            my $mod = $gl->modInstance($modName);
-            if ( $mod->isEnabled() ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('Communications add-on is required in order to enable '
-                         . '{mod} in the Small Business Edition.',
-                         mod => $mod->printableName()));
-            }
-        }
-    }
-}
-
-# Check number of users and M/S configuration
+# Check number of users
 sub _usersCheck
 {
-    my ($self, $gl) = @_;
+    my ($self, $gl, $details) = @_;
 
     if ( $gl->modExists('users') ) {
         my $usersMod = $gl->modInstance('users');
-        if ( $usersMod->isEnabled() and ($usersMod->master() ne 'zentyal') ) {
+        my $rsMod = $gl->modInstance('remoteservices');
+        if ($usersMod->isEnabled()) {
             # This check must be done if the server is master or Zentyal Cloud is
-            my $users = $usersMod->realUsers();
-            if ( scalar(@{$users}) > MAX_SB_USERS ) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __sx('Please note that the maximum number of users for Small Business Edition is {max} '
-                         . 'and you currently have {nUsers}',
-                         max => MAX_SB_USERS, nUsers => scalar(@{$users})));
-            }
-            my $master  = $usersMod->master();
-            my $nSlaves = scalar(@{$usersMod->slaves()});
-            $nSlaves-- if ($master eq 'cloud'); # Do not count with Zentyal Cloud slave
-            if ($nSlaves > 0) {
-                throw EBox::RemoteServices::Exceptions::NotCapable(
-                    __s('Please note that the Small Business Edition cannot have Zentyal slaves.'));
+            my $users = $usersMod->realUsers('without_admin');
+            my $maxUsers = $details->{capabilities}->{serverusers}->{max};
+            if (defined($maxUsers) and scalar(@{$users}) > $maxUsers ) {
+                # throw Ebox::RemoteServices::Exceptions::NotCapable
+                $rsMod->pushAdMessage(
+                    'max_users',
+                    __sx('Please note that the maximum number of users for {edition} is {max} '
+                         . 'and you currently have {nUsers}.',
+                         edition => $rsMod->i18nServerEdition($details->{level}),
+                         max => $maxUsers, nUsers => scalar(@{$users})));
+            } else {
+                $rsMod->popAdMessage('max_users');
             }
         }
     }
