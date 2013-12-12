@@ -163,12 +163,11 @@ sub _checkParent
                                             value => $parentDN,
                                             advice => 'Parent should be a container'
                                            );
-    EBox::debug("parentDN $parentDN");
+
     my $baseDN    = $class->_ldap->dn();
     my @forbidden = qw(ou=Users ou=Groups ou=Computers);
     foreach my $ouPortion (@forbidden) {
         my $dn = $ouPortion . ',' . $baseDN;
-        EBox::debug("FORBID DN $dn");
         if ($parentDN eq $dn) {
             throw  EBox::Exceptions::InvalidData(data => 'parent',
                                             value => $parentDN,
