@@ -11,7 +11,7 @@ use EBox::Gettext;
 use EBox::NetWrappers qw(:all);
 @vlans = sort { $a->{id} <=> $b->{id} } @vlans;
 </%init>
-<& /notConfigured.mas, module => $network &>
+<& /moduleNotEnabled.mas, module => $network &>
 <div class='help'>
 <% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
     <br/>
