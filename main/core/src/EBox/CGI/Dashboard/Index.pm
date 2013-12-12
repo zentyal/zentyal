@@ -155,6 +155,10 @@ sub masonParameters
     my $rs = EBox::Global->modInstance('remoteservices');
     if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
         $showMessage = 0;
+        # Re-check for changes
+        $rs->checkAdMessages();
+        my $rsMsg = $rs->adMessages();
+        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
     }
 
     if ($showMessage) {
