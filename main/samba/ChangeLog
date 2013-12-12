@@ -1,4 +1,6 @@
 HEAD
+	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
+                  adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
 	              when reprovisioning as additional DC
 	+ Do not hide domain guest account

@@ -1464,6 +1464,17 @@ sub provisionADC
                 $zUser->deleteObject();
             }
         }
+        # Clear the link from __USERS__ group, otherwise it will be deleted
+        # by s4sync
+        my $group = new EBox::Users::Group(gid => EBox::Users::DEFAULTGROUP());
+        if ($group->exists()) {
+            my $link = $group->get('msdsObjectGUID');
+            if (defined $link) {
+                $group->delete('msdsObjectGUID', 1);
+                $group->deleteValues('objectClass', 'zentyalSambaLink', 1);
+                $group->save();
+            }
+        }
 
         # Map defaultContainers
         $self->mapDefaultContainers();
