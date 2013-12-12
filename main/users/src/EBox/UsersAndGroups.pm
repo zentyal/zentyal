@@ -997,7 +997,8 @@ sub addUser # (user, system)
     my $edition = EBox::Global->edition();
     if (($edition ne 'basic') and ($edition ne 'community')) {
         my $rs = EBox::Global->modInstance('remoteservices');
-        if ((scalar $self->users()) >= $rs->serverUsers()) {
+        my $serverUsers = $rs->serverUsers();
+        if (defined($serverUsers) and $serverUsers >= 0 and ((scalar $self->users()) >= $serverUsers)) {
             throw EBox::Exceptions::External(
                 __s('You have reached the maximum of users for this subscription level. If you need to run Zentyal with more users please upgrade.'));
 
