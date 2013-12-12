@@ -258,7 +258,7 @@ sub _modsVDomainModule
     return \@modules;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #  Returns all the the warnings provided by the modules when a certain
 #  virtual domain is going to be deleted. Function _delVDomainWarning

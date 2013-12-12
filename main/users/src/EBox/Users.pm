@@ -79,7 +79,6 @@ use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
-use constant MAX_SB_USERS   => 25;
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
@@ -1858,7 +1857,7 @@ sub allGroupAddOns
     return \@components;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #       Returns all the the warnings provided by the modules when a certain
 #       user, group is going to be deleted. Function _delUserWarning or
@@ -1879,15 +1878,6 @@ sub allWarnings
 
     # TODO: Extend it for ous and contacts.
     return [] unless (($object eq 'user') or ($object eq 'group'));
-
-    # Check for maximum users
-    if (EBox::Global->edition() eq 'sb') {
-        if (length(@{$self->users()}) >= MAX_SB_USERS) {
-            throw EBox::Exceptions::External(
-                __s('Please note that you have reached the maximum of users for this server edition. If you need to run Zentyal with more users please upgrade.'));
-
-        }
-    }
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @allWarns;
