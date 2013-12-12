@@ -27,10 +27,7 @@ use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
 use EBox::Global;
-
-# Constants
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=IPS&utm_campaign=enterprise_edition';
+use EBox::Config;
 
 # Group: Public methods
 
@@ -93,10 +90,8 @@ sub _description
 # Commercial message
 sub _commercialMsg
 {
-    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that include the IPS feature in the automatic security updates.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to protect your system against the latest security threats, hacking attempts and attacks on security vulnerabilities? Get  one of the {oh}Commercial Editions{ch} that include the IPS feature in the automatic security updates.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

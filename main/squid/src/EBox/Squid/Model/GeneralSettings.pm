@@ -32,9 +32,6 @@ use EBox::Sudo;
 
 use EBox::Exceptions::External;
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy_general&utm_campaign=enterprise_edition';
-
 sub _table
 {
     my ($self) = @_;
@@ -207,10 +204,8 @@ sub _transparentHelp
 
 sub _commercialMsg
 {
-    return __sx('Want to remove ads from the websites your users browse? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that will keep your Ad blocking rules always up-to-date.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to remove ads from the websites your users browse? Get the {oh}Commercial editions{ch} that will keep your Ad blocking rules always up-to-date.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 sub _sslSupportNotAvailable

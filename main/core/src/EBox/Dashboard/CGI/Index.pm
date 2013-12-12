@@ -191,7 +191,7 @@ sub _periodicMessages
     return [
         {
          name => 'backup',
-         text => __sx('Do you want a remote configuration backup of your Zentyal server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
          days => 1,
         },
         {
@@ -201,12 +201,12 @@ sub _periodicMessages
         },
         {
          name => 'trial',
-         text => __sx('Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a FREE 30-day trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
          days => 23,
         },
         {
          name => 'community',
-         text => __sx('Are you a happy Zentyal user? Do you want to help the project? Get involved in the {oh}community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
          days => 30,
         },
     ];

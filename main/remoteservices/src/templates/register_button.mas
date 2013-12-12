@@ -12,5 +12,5 @@
    id     => $id,
    type   => $type &>
 <div>
-  <% __sx('Introduce Small Business or Enterprise credentials, or {ohb}register{ch} a FREE account!', ohb => '<a href="' . $SUBS_WIZARD_URL . '">', ch  => '</a>') %>
+  <% __sx('Introduce Professional, Business or Premium credentials, or {ohb}register{ch} a FREE account!', ohb => '<a href="' . $SUBS_WIZARD_URL . '">', ch  => '</a>') %>
 </div>
