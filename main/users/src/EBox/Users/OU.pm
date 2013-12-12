@@ -90,8 +90,8 @@ sub create
 
     $args{parent} or
         throw EBox::Exceptions::MissingArgument('parent');
-    $args{parent}->isContainer() or
-        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
+    $class->_checkParent($args{parent});
+
     my $name = $args{name};
     my $parent = $args{parent};
     my $ignoreMods   = $args{ignoreMods};
@@ -152,6 +152,30 @@ sub create
     }
 
     return $ou;
+}
+
+sub _checkParent
+{
+    my ($class, $parent) = @_;
+    my $parentDN  = $parent->dn();
+    $parent->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => 'Parent should be a container'
+                                           );
+    EBox::debug("parentDN $parentDN");
+    my $baseDN    = $class->_ldap->dn();
+    my @forbidden = qw(ou=Users ou=Groups ou=Computers);
+    foreach my $ouPortion (@forbidden) {
+        my $dn = $ouPortion . ',' . $baseDN;
+        EBox::debug("FORBID DN $dn");
+        if ($parentDN eq $dn) {
+            throw  EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => __('Creation of OUs inside either Users, Groups or Computer default OUs is not supported')
+                                           );
+        }
+    }
 }
 
 # Method: deleteObject
