@@ -119,27 +119,6 @@ sub disasterRecoveryAddOn
     return $result;
 }
 
-# Method: commAddOn
-#
-#     Check whether the SB communications add-on is available for this
-#     server or not
-#
-sub commAddOn
-{
-    my ($self) = @_;
-
-    my $result = undef;
-
-    try {
-        # Remote procedure name is kept for old compatibility reasons
-        $result = $self->soapCall('sbMailAddOn');
-    } otherwise {
-        EBox::warn("SOAP call sbMailAddOn failed: $@");
-    };
-
-    return $result;
-}
-
 # Method: technicalSupport
 #
 #     Check the if the zentyal server has technical support
@@ -162,8 +141,11 @@ sub technicalSupport
 
 # Method: renovationDate
 #
-#     Check the if the zentyal server has technical support
-#     for this company
+#     Date when the edition expires
+#
+# Returns:
+#
+#     Int - seconds since epoch
 #
 sub renovationDate
 {
@@ -179,6 +161,36 @@ sub renovationDate
 
     return $result;
 }
+
+# Method: serverUsers
+#
+#     Maximum number of users this server may have according to its
+#     edition
+#
+# Returns:
+#
+#     Int - the maximum number of users (always >= 0)
+#
+#     undef - means unlimited
+#
+#     -1 - no possible to get a reply this information
+#
+sub serverUsers
+{
+    my ($self) = @_;
+
+    my $result = undef;
+
+    try {
+        $result = $self->soapCall('serverUsers');
+    } otherwise {
+        EBox::warn("SOAP call serverUsers failed: $@");
+        $result = -1;
+    };
+
+    return $result;
+}
+
 
 # Group: Protected methods
 

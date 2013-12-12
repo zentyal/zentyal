@@ -77,10 +77,12 @@ use constant RELEASE_UPGRADE_MOTD => '/etc/update-motd.d/91-release-upgrade';
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
-                   '1'  => __('Professional'),
-                   '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
-                   '10' => __('Enterprise'));
+                   '6'  => __('Professional'),
+                   '7'  => __('Business'),
+                   '8'  => __('Enterprise Trial'),
+                   '10' => __('Enterprise'),
+                   '20' => __('Premium'));
 
 # Group: Protected methods
 
@@ -625,7 +627,7 @@ sub reloadBundle
     $force = 0 unless (defined($force));
 
     if ( $self->isConnected() ) {
-        EBox::RemoteServices::Subscription::Check->new()->subscribe();
+        EBox::RemoteServices::Subscription::Check->new()->checkFromCloud();
         my $version       = $self->version();
         my $bundleVersion = $self->bundleVersion();
         my $bundleGetter  = new EBox::RemoteServices::Bundle();
@@ -935,41 +937,44 @@ sub disasterRecoveryAddOn
     return '';
 }
 
-# Method: commAddOn
+# Method: serverUsers
 #
-#      Get whether server has communications add-on or not
+#      Get the maximum number of users for this server
 #
 # Parameters:
 #
-#      force - Boolean check against the cloud
+#      force - Boolean check against server
 #              *(Optional)* Default value: false
 #
 # Returns:
 #
-#      Boolean - indicating whether it has SB mail add-on or not
-#                undef means impossible to know
+#      An integer with the following possible values:
 #
-sub commAddOn
+#      undef : unlimited
+#         -1 : unknown
+#        >=0 : maximum number of users
+#
+sub serverUsers
 {
     my ($self, $force) = @_;
 
     $force = 0 unless defined($force);
 
     if ( (not $force)
-         and ($self->st_entry_exists('subscription/sb_comm_add_on')) ) {
-        return $self->st_get_bool('subscription/sb_comm_add_on');
+         and ($self->st_entry_exists('subscription/server_users')) ) {
+        return $self->st_get_int('subscription/server_users');
     } else {
         # Ask to the cloud if connected
         if ( $self->isConnected() ) {
             my $cap = new EBox::RemoteServices::Capabilities();
-            my $sbCommAddOn = $cap->commAddOn();
-            if ( defined($sbCommAddOn) ) {
-                $self->st_set_bool('subscription/sb_comm_add_on', $sbCommAddOn);
+            my $maxUsers = $cap->serverUsers();
+            if ( not defined($maxUsers) or ($maxUsers > -1) ) {
+                $self->st_set_int('subscription/server_users', $maxUsers);
             }
-            return $sbCommAddOn;
+            return $maxUsers;
         }
     }
-    return '';
+    return -1;
 }
 
 # Method: backupCredentials
@@ -1339,13 +1344,94 @@ sub i18nServerEdition
 
 
     if ( exists($i18nLevels{$level}) ) {
-        my $ret = $i18nLevels{$level};
-        if ( $self->commAddOn() ) {
-            $ret .= ' + ' . __s('Communications Add-on');
-        }
-        return $ret;
+        return $i18nLevels{$level};
     } else {
         return __('Unknown');
+    }
+}
+
+# Method: pushAdMessage
+#
+#    Push an ad message to be shown in the dashboard
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It will be used to pop it out in <popAdMessage>
+#    msg - String the message itself
+#
+sub pushAdMessage
+{
+    my ($self, $key, $msg) = @_;
+
+    $self->st_set_string("ad_messages/$key", $msg);
+}
+
+# Method: popAdMessage
+#
+#    Pop out an ad message. Opposite to <pushAdMessage>
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It should used to push out in <popAdMessage>
+#
+# Returns:
+#
+#    undef - if there were no message with that key
+#
+#    msg - String the deleted message
+#
+sub popAdMessage
+{
+    my ($self, $key) = @_;
+
+    return undef unless($self->st_entry_exists("ad_messages/$key"));
+    my $deletedMsg = $self->st_get_string("ad_messages/$key");
+    $self->st_unset("ad_messages/$key");
+    return $deletedMsg;
+}
+
+# Method: adMessages
+#
+#    Get the adMessages set by <pushAdMessage>
+#
+# Returns:
+#
+#    Hash ref - containing the following keys:
+#
+#       name - 'remoteservices'
+#       text - the text itself
+#
+sub adMessages
+{
+    my ($self, $plain) = @_;
+
+    my $adMessages = $self->st_hash_from_dir('ad_messages');
+    my $rsMsg = "";
+    foreach my $adMsgKey (keys(%{$adMessages})) {
+        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
+    }
+    return { name => 'remoteservices', text => $rsMsg };
+}
+
+# Method: checkAdMessages
+#
+#    Check if we have to remove any ad message
+#
+sub checkAdMessages
+{
+    my ($self) = @_;
+
+    if ($self->eBoxSubscribed()) {
+        # Launch our checker to see if the max_users message disappear
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        my $maxUsers = $self->serverUsers();
+        if (not defined($maxUsers) or $maxUsers >= 0) {
+            my $det = { level => $self->subscriptionLevel(), codename => $self->subscriptionCodename() };
+            $det->{capabilities}->{serverusers}->{max} = $maxUsers;
+            $checker->check($det);
+        }  # else not check as the value is unknown
     }
 }
 
@@ -1715,8 +1801,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
-      ( __('None'), '', '', 'info', '', '', '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', '');
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1745,9 +1831,10 @@ sub _ccConnectionWidget
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
-                            '0'  => __('Essential'),
-                            '1'  => __('Standard'),
-                            '2'  => __('Premium'));
+                            '0'  => __('Standard 2 days'),
+                            '1'  => __('Standard 1 day'),
+                            '2'  => __('Standard 4 hours'),
+                            '3'  => __('Premium'));
         $supportValue = $i18nSupport{$self->technicalSupport()};
 
         if ( $self->securityUpdatesAddOn() ) {
@@ -1777,8 +1864,6 @@ sub _ccConnectionWidget
             }
         }
 
-        $commAddOn = $self->commAddOn();
-
     } else {
         $connValue      = __sx('Not subscribed - {oh}Subscribe now!{ch}',
                                oh => '<a href="/RemoteServices/Composite/General">',
@@ -1806,10 +1891,6 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Disaster Recovery'),
                                              $DRValue));
-    if ( $commAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
-                                                 __('Enabled')));
-    }
 }
 
 # Set the subscription level
