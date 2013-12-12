@@ -341,7 +341,6 @@ sub menu
             text => $self->printableName(),
             separator => $separator,
             url       => 'OpenChange/View/Provision',
-            text      => __('Setup'),
             order     => $order)
     );
 }

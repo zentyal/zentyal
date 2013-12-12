@@ -2,6 +2,7 @@
     $uid
     $gid
 
+    $openchange
     %protocols
 
     $firstValidUid
@@ -22,7 +23,7 @@ my @protocolsReduced;
 if ($protocols{pop3} or $protocols{pop3s}) {
     push @protocolsReduced, 'pop3';
 }
-if ($protocols{imap} or $protocols{imaps}) {
+if ($openchange or $protocols{imap} or $protocols{imaps}) {
     push @protocolsReduced, 'imap';
 }
 if ($protocols{managesieve}) {
@@ -70,6 +71,11 @@ userdb {
 passdb {
     driver = ldap
     args = /etc/dovecot/dovecot-ldap.conf
+}
+
+passdb {
+    driver = static
+    args = nopassword=y allow_nets=127.0.0.1/32
 }
 
 disable_plaintext_auth = yes
@@ -126,8 +132,9 @@ mail_home     = <% $sieveDir %>/%d/%u
 ##
 ## dbox-specific settings
 ##
-% if ($protocols{'imap'} or $protocols{'imaps'}) {
+% if ($openchange or $protocols{'imap'} or $protocols{'imaps'}) {
    <& .imap,
+      openchange => $openchange,
       imap => $protocols{'imap'},
       imaps => $protocols{'imaps'},
       antispamPlugin => $antispamPlugin,
@@ -198,13 +205,16 @@ plugin {
 
 <%def .imap>
 <%args>
+$openchange
 $imap
 $imaps
 $antispamPlugin
 </%args>
 <%init>
-my $imapPort = $imap ? 143: 0;
-my $imapsPort = $imaps ? 993: 0;
+my $imapAddress = $imap ? '*' : '127.0.0.1';
+my $imapPort = ($imap or $openchange) ? 143: 0;
+my $imapsAddress = $imaps ? '*' : '127.0.0.1';
+my $imapsPort = ($imaps or $openchange) ? 993: 0;
 my @imapPlugins = qw(quota imap_quota autocreate);
 push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};
 </%init>
@@ -213,9 +223,11 @@ push @imapPlugins, 'antispam' if $antispamPlugin->{enabled};
 ##
 service imap-login {
   inet_listener imap {
+    address = <% $imapAddress %>
     port = <% $imapPort %>
   }
   inet_listener imaps {
+    address = <% $imapsAddress %>
     port = <% $imapsPort %>
   }
 }

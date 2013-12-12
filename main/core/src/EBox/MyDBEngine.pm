@@ -764,6 +764,20 @@ sub commandAsSuperuser
     EBox::Sudo::root($cmd);
 }
 
+# Method: enableInnoDBIfNeeded
+#
+#   Enable InnoDB if it's not enabled already
+#
+sub enableInnoDBIfNeeded
+{
+    if (system ("mysql -e \"SHOW VARIABLES LIKE 'have_innodb'\" | grep -q DISABLED") == 0) {
+        EBox::Sudo::root(
+            "sed -i 's/innodb = off/innodb = on/' /etc/mysql/conf.d/zentyal.cnf",
+            "restart mysql"
+        );
+    }
+}
+
 sub _superuserTmpFile
 {
     my ($create) = @_;
