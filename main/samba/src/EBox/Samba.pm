@@ -1,4 +1,5 @@
-# Copyright (C) 2012 eBox Technologies S.L.
+# Copyright (C) 2005-2007 Warp Networks S.L
+# Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -787,31 +788,12 @@ sub _createDirectories
     push (@cmds, "mkdir -p '$quarantine'");
     push (@cmds, "chown -R $zentyalUser.adm '$quarantine'");
     push (@cmds, "chmod 770 '$quarantine'");
-    EBox::Sudo::root(@cmds);
 
-    # FIXME: Workaround attempt for the issue of failed chown with __USERS__ group
-    #        remove this and uncomment the three chowns above when fixed for real
-    my $chownTries = 10;
-    @cmds = ();
     push (@cmds, "chown root:$group " . SAMBA_DIR);
     push (@cmds, "chown root:$group " . PROFILES_DIR);
     push (@cmds, "chown root:$group " . SHARES_DIR);
-    foreach my $cnt (1 .. $chownTries) {
-        my $chownOk = 0;
-        try {
-            EBox::Sudo::root(@cmds);
-            $chownOk = 1;
-        } otherwise {
-            my ($ex) = @_;
-            if ($cnt < $chownTries) {
-                EBox::warn("chown root:$group commands failed: $ex . Attempt number $cnt");
-                sleep 1;
-            } else {
-                $ex->throw();
-            }
-        };
-        last if $chownOk;
-    };
+
+    EBox::Sudo::root(@cmds);
 }
 
 sub _setConf

@@ -1709,7 +1709,8 @@ sub firewallHelper
     my ($self) = @_;
 
     if ($self->isEnabled()) {
-        return EBox::DNS::FirewallHelper->new();
+        my $network = $self->global()->modInstance('network');
+        return EBox::DNS::FirewallHelper->new(network => $network, dns => $self);
     }
 
     return undef;

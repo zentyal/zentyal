@@ -8,6 +8,7 @@ HEAD
 	+ Store an ad message instead of enforcing max number of users
 	  in the registration check
 	+ Now the module has support to store ad messages
+	+ Widget recovers from latestRemoteConfBackup connection errors
 	+ Missing use when restarting monitor using VPN as communication
 	  layer
 3.0.27

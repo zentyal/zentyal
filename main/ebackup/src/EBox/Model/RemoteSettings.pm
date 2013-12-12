@@ -1,4 +1,4 @@
-# Copyright (C) 2009-2012 eBox Technologies S.L.
+# Copyright (C) 2009-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -148,7 +148,7 @@ sub viewCustomizer
             { method =>
                 {
                 file => { hide => $userPass , show => ['target'] },
-                rsync => { show => $allFields },
+                rsync => { hide => ['password'], show => ['user', 'target'] },
                 scp => { show => $allFields },
                 ftp => { show => $allFields },
                 }

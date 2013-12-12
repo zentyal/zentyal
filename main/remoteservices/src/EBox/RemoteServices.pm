@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 eBox Technologies S.L.
+# Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1948,7 +1948,12 @@ sub _ccConnectionWidget
 
 
         $DRValue = __x('Configuration backup enabled');
-        my $date = $self->latestRemoteConfBackup();
+        my $date;
+        try {
+            $date = $self->latestRemoteConfBackup();
+        } otherwise {
+            $date = 'unknown';
+        };
         if ( $date ne 'unknown' ) {
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }

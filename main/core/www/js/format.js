@@ -1,4 +1,4 @@
-// Copyright (C) 2004-2012 eBox Technologies S.L. licensed under the GPLv2
+// Copyright (C) 2008-2012 Zentyal S.L. licensed under the GPLv2
 
 /* *
  * * Get the human-readable size for an amount of bytes

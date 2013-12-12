@@ -1,5 +1,8 @@
 HEAD
 	+ Display remote services messages if they exist on Dashboard
+	+ Fixed mdstat output processing to remove "(auto-read-only)"
+3.0.31
+	+ Fixed audit logging of delete actions
 3.0.30
 	+ Pass HTTP_PROXY system environment variable to CGIs as they are
 	  used in Zentyal modules

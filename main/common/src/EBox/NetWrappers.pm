@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2005-2007 Warp Networks S.L
+# Copyright (C) 2008-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -84,6 +85,16 @@ sub list_ifaces
         @ifaceList = sort @ifaceList;
     }
     return @ifaceList;
+}
+
+# Function clean_ifaces_list_cache
+#
+#  invalidates the ifaces name cache, must be call after adding, removing
+#  or renaming interfaces
+#
+sub clean_ifaces_list_cache
+{
+    @ifaceList = ();
 }
 
 # Function: iface_is_up

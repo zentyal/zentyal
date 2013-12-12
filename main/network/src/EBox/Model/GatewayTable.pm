@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2007 Warp Networks S.L
+# Copyright (C) 2008-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -252,18 +253,19 @@ sub validateRow
         $self->checkGWName($params{name});
     }
 
-    my $network = EBox::Global->modInstance('network');
-    my $ifaceForAddress = $network->ifaceByAddress($ip);
-    if ($ifaceForAddress) {
-        throw EBox::Exceptions::External(__x(
-            "Gateway address {ip} is already the address of the local interface {iface}",
-            ip => $ip,
-            iface => $ifaceForAddress
-           ));
-    }
-
     # Do not check for valid IP in case of auto-added ifaces
     unless ($auto) {
+        my $network = EBox::Global->modInstance('network');
+
+        my $ifaceForAddress = $network->ifaceByAddress($ip);
+        if ($ifaceForAddress) {
+            throw EBox::Exceptions::External(__x(
+                "Gateway address {ip} is already the address of the local interface {iface}",
+                ip => $ip,
+                iface => $ifaceForAddress
+               ));
+        }
+
         my $printableName = __('IP address');
         unless ($ip) {
             throw EBox::Exceptions::MissingArgument($printableName);

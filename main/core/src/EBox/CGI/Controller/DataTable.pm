@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2007 Warp Networks S.L
+# Copyright (C) 2008-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -83,15 +84,13 @@ sub _auditLog
     unless (defined $self->{audit}) {
         $self->{audit} = EBox::Global->modInstance('audit');
     }
-
     return unless $self->{audit}->isEnabled();
 
-    my $model = $self->{tableModel};
-    $value = '' unless defined $value;
-    $oldValue = '' unless defined $oldValue;
 
+    my $model = $self->{tableModel};
     my ($rowId, $elementId) = split (/\//, $id);
     $elementId = $rowId unless defined ($elementId);
+
     my $row = $model->row($rowId);
     if (defined ($row)) {
         my $element;
@@ -112,7 +111,6 @@ sub _auditLog
             $oldValue = '****' if $oldValue;
         }
     }
-
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
 

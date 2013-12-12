@@ -24,6 +24,19 @@ use EBox::Global;
 
 use constant DNS_PORT => 53;
 
+sub new
+{
+    my $class = shift;
+    my %params = @_;
+    my $net = $params{network};
+    my $dns = $params{dns};
+    my $self = $class->SUPER::new(%params);
+    $self->{net} = $net;
+    $self->{dns} = $dns;
+    bless($self, $class);
+    return $self;
+}
+
 # Method: prerouting
 #
 #   To set transparent DNS cache if it is enabled
@@ -36,13 +49,12 @@ sub prerouting
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance(1); # Read-only
-    my $dns    = $global->modInstance('dns');
+    my $dns    = $self->{dns};
     my @rules  = ();
     unless ($dns->temporaryStopped()) {
         if ( $dns->model('Settings')->row()->valueByName('transparent') ) {
             # The transparent cache DNS setting is enabled
-            my $net = $global->modInstance('network');
+            my $net = $self->{'net'};
             foreach my $iface (@{$net->InternalIfaces()}) {
                 my $addrs = $net->ifaceAddresses($iface);
                 my $input = $self->_inputIface($iface);

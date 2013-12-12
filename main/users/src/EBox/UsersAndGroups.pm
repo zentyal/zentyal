@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2004-2007 Warp Networks S.L
+# Copyright (C) 2008-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -56,6 +57,7 @@ use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Time::HiRes;
 use Fcntl qw(:flock);
 
 use constant USERSDN        => 'ou=Users';
@@ -458,6 +460,98 @@ sub enableService
     }
 }
 
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
+
+    $self->SUPER::_startDaemon($daemon, %params);
+
+    my $services = $self->_services($daemon->{name});
+    foreach my $service (@{$services}) {
+        my $port = $service->{destinationPort};
+        next unless $port;
+
+        my $proto = $service->{protocol};
+        next unless $proto;
+
+        my $desc = $service->{description};
+        if ($proto eq 'tcp/udp') {
+            $self->_waitService('tcp', $port, $desc);
+            $self->_waitService('udp', $port, $desc);
+        } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+            $self->_waitService($proto, $port, $desc);
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+
+    if (length ($desc)) {
+        EBox::debug("Wait users task '$desc'");
+    } else {
+        EBox::debug("Wait unknown users task");
+    }
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => $port,
+                                        Proto    => $proto);
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for users service '$desc' ($proto)");
+    }
+}
+
+sub _services
+{
+    my ($self, $daemon) = @_;
+    my @services = ();
+
+    if ($daemon eq 'ebox.slapd') {
+        # LDAP
+        push (@services, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => '390',
+            'description' => 'Lightweight Directory Access Protocol',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
+        # KDC
+        push (@services, {
+            'protocol' => 'tcp/udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KERBEROS_PORT,
+            'description' => 'Kerberos Key Distribution Center',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kpasswd') {
+        # KPASSWD
+        push (@services, {
+            'protocol' => 'udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KPASSWD_PORT,
+            'description' => 'Kerberos Password Changing Server',
+        });
+    }
+
+    return \@services;
+}
 
 # Load LDAP from config + data files
 sub _loadLDAP
@@ -491,7 +585,6 @@ sub _loadLDAP
     };
     EBox::debug('done');
 }
-
 
 # Generate, store in the given file and return a password
 sub _genPassword
@@ -788,25 +881,8 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            # FIXME: workaroung against mysterious chown bug
             my $chownCmd = "chown -R $quser:$group $qhome";
-            my $chownTries = 10;
-            foreach my $cnt (1 .. $chownTries) {
-                my $chownOk = 0;
-                try {
-                    EBox::Sudo::root($chownCmd);
-                    $chownOk = 1;
-                } otherwise {
-                    my ($ex) = @_;
-                    if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $ex . Attempt number $cnt");
-                        sleep 1;
-                    } else {
-                        $ex->throw();
-                    }
-                };
-                last if $chownOk;
-            };
+            EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);

@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2012 eBox Technologies S.L.
+# Copyright (C) 2004-2007 Warp Networks S.L
+# Copyright (C) 2008-2012 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -3230,6 +3231,8 @@ sub _preSetConf
             }
         }
     }
+
+    EBox::NetWrappers::clean_ifaces_list_cache();
 }
 
 sub _daemons
@@ -3292,6 +3295,7 @@ sub _enforceServiceState
         }
         unlink (IFUP_LOCK_FILE);
     }
+    EBox::NetWrappers::clean_ifaces_list_cache();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
