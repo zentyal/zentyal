@@ -1,5 +1,8 @@
 HEAD
 	+ Updated installer slides
+	+ Remove style in zentyal package list when sb is set as it is not
+	  longer applied
+	+ Remove restricted modules to get info
 	+ Added missing EBox::Exceptions uses
 3.2.1
 	+ Check for 3.2 archive repository instead of 3.1
