@@ -1,0 +1,56 @@
+<%doc>
+  The mailboxes table to perform the migration from
+</%doc>
+<%args>
+  @mailboxes => ()
+  $error => ''
+</%args>
+<%init>
+use EBox::Gettext;
+use feature qw(switch);
+my $nMailboxes = scalar(@mailboxes);
+</%init>
+% if ($error) {
+<div class="error"><% $error %></div>
+% } else {
+<table class="migration-table">
+  <thead>
+    <tr>
+      <th class="col-select"><input name="select_all" value="select_all" type='checkbox'/></th>
+      <th class="name"><% __('name') %></th>
+      <th><% __('user') %></th>
+      <th><% __('status') %></th>
+      <th><% __('date') %></th>
+    </tr>
+  </thead>
+  <tbody>
+% foreach my $mailbox (@mailboxes) {
+    <tr class="table-row">
+      <td class="col-select">
+        <input name="item" value="<% $mailbox->{username} %>" type="checkbox"/>
+      </td>
+      <td class="name"><% $mailbox->{name} %></td>
+      <td><% $mailbox->{username} %></td>
+      <td class="status">
+%       given($mailbox->{status}) {
+%          when ('migrated') {
+             <span class="green"><% __('Migrated') %></span>
+%          }
+%          when ('cancelled') {
+             <span class="red"><% __('Canceled') %></span>
+%          }
+%          when ('conflict') {
+             <span class="orange"><% __('User name conflict') %></span>
+%          }
+%          default { }
+%       }
+      </td>
+      <td><% $mailbox->{date} %></td>
+    </tr>
+% }
+  </tbody>
+</table>
+<script>
+  $('span.nmailboxes').html('<% $nMailboxes %>');
+</script>
+% }
