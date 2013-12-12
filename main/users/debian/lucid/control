@@ -11,6 +11,7 @@ Vcs-Svn: http://svn.zentyal.org/zentyal/trunk/
 Package: zentyal-users
 Architecture: all
 Replaces: ebox-usersandgroups (<< 2.0.100)
+Breaks: zentyal-remoteservices (<< 2.2.16)
 Depends: zentyal-core (>= 2.2), zentyal-core (<< 2.2.100), slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config, zentyal-firewall, libnet-ldap-perl, libcrypt-rijndael-perl, libcrypt-smbhash-perl, adduser, quota, libquota-perl, ${misc:Depends}
 Description: Zentyal - Users and Groups
  Zentyal is a Linux small business server that can act as
