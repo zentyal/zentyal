@@ -1,4 +1,5 @@
 HEAD
+	+ Display remote services messages if they exist on Dashboard
 	+ Recover from widget function exceptions
 	+ Fixed mdstat output processing to remove "(auto-read-only)"
 	+ Fixed audit logging of delete actions

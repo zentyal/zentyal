@@ -40,13 +40,10 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use POSIX;
 
-# Constants:
-
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=security_updates&utm_campaign=smallbusiness_edition';
-use constant ENT_URL   => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=security_updates&utm_campaign=enterprise_edition';
-
 # Group: Public methods
+
+# Constants
+use constant SMB_URL => 'http://www.zentyal.com/smb-editions/';
 
 # Constructor: new
 #
@@ -197,10 +194,9 @@ sub _content
 
 sub _message
 {
-    return __sx('Want to offer enterprise-level security for your organization? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}: both include automatic security updates so you can stop worrying about the Antivirus, Antispam, IDS and the Content Filtering System.',
+    return __sx('Want to offer enterprise-level security for your organization? Get a {oh}SMB edition{ch} which includes automatic security updates so you can stop worrying about the Antivirus, Antispam, IDS and the Content Filtering System.',
                 ch => '</a>',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">');
+                oh => '<a href="' . SMB_URL . '" target="_blank">');
 }
 
 1;
