@@ -151,7 +151,7 @@ sub _usersCheck
         if ($usersMod->isEnabled()) {
             my $users = $usersMod->usersList();
             my $maxUsers = $details->{capabilities}->{serverusers}->{max};
-            if (defined($maxUsers) and scalar(@{$users}) > $maxUsers ) {
+            if (defined($maxUsers) and $maxUsers >= 0 and scalar(@{$users}) > $maxUsers ) {
                 # throw Ebox::RemoteServices::Exceptions::NotCapable
                 $rsMod->pushAdMessage(
                     'max_users',
