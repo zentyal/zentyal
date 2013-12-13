@@ -1,0 +1,101 @@
+<%args>
+$bindDn
+$bindPwd
+$baseDn
+$port
+$adminMail
+</%args>
+#
+# ocsmanager - Pylons configuration
+#
+# The %(here)s variable will be replaced with the parent directory of this file
+#
+[DEFAULT]
+debug = true
+email_to = <% $adminMail %>
+smtp_server = localhost
+error_email_from = <% $adminMail %>
+
+[main]
+# Possible authentication system
+# auth = file
+#auth = ldap
+auth = ldap
+mapistore_root = /opt/samba4/private
+mapistore_data = /opt/samba4/private/mapistore
+debug = no
+
+[auth:file]
+#file =
+
+[auth:ldap]
+host = ldap://127.0.0.1
+
+port = <% $port %>
+bind_dn = <% $bindDn %>
+bind_pw = <% $bindPwd %>
+basedn =  <% $baseDn %>
+filter = (cn=%s)
+#attrs = userPassword, x-isActive
+
+[auth:single]
+username = openchange
+# password is test
+password = {SSHA}I6Hy5Wv0wuxyXvMBFWFQDVVN12_CLaX9
+
+[server:main]
+use = egg:Paste#http
+host = 127.0.0.1
+port = 5000
+protocol_version = HTTP/1.1
+
+[app:main]
+use = egg:ocsmanager
+full_stack = true
+static_files = true
+cache_dir = %(here)s/data
+beaker.session.key = ocsmanager
+beaker.session.secret = SDyKK3dKyDgW0mlpqttTMGU1f
+app_instance_uuid = {ee533ebc-f266-49d1-ae10-d017ee6aa98c}
+NTLMAUTHHANDLER_WORKDIR = /var/cache/ntlmauthhandler
+SAMBA_HOST = 127.0.0.1
+
+[rpcproxy:ldap]
+host = localhost
+port = <% $port %>
+basedn = <% $baseDn %>
+
+# If you'd like to fine-tune the individual locations of the cache data dirs
+# for the Cache data, or the Session saves, un-comment the desired settings
+# here:
+#beaker.cache.data_dir = %(here)s/data/cache
+#beaker.session.data_dir = %(here)s/data/sessions
+
+# WARNING: *THE LINE BELOW MUST BE UNCOMMENTED ON A PRODUCTION ENVIRONMENT*
+# Debug mode will enable the interactive debugging tool, allowing ANYONE to
+# execute malicious code after an exception is raised.
+#set debug = false
+
+
+# Logging configuration
+[loggers]
+keys = root
+
+[handlers]
+keys = console
+
+[formatters]
+keys = generic
+
+[logger_root]
+level = INFO
+handlers = console
+
+[handler_console]
+class = StreamHandler
+args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[formatter_generic]
+format = %(asctime)s %(levelname)-5.5s [%(name)s] [%(threadName)s] %(message)s

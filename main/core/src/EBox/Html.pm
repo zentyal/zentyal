@@ -65,7 +65,7 @@ sub title
                         finishClass => $finishClass,
                         remoteServicesURL => $remoteServicesURL,
                         image_title => $image_title,
-                       );
+                        version => _htmlVersion());
     return $html;
 }
 
@@ -84,7 +84,7 @@ sub titleNoAction
 
     my $html = makeHtml('headTitle.mas',
                         image_title => $image_title,
-                       );
+                        version => _htmlVersion());
     return $html;
 }
 
@@ -169,6 +169,17 @@ sub makeHtml
 
     $interp->exec($comp, @params);
     return $output;
+}
+
+sub _htmlVersion
+{
+    my $version = EBox::Config::version();
+
+    unless (EBox::Global->communityEdition()) {
+        $version .= ' <em>Service Pack 1</em>';
+    }
+
+    return $version;
 }
 
 1;

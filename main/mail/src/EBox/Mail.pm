@@ -592,6 +592,14 @@ sub _setDovecotConf
     my $gid = scalar(getgrnam('ebox'));
     my $gssapiHostname = $sysinfo->hostName() . '.' . $sysinfo->hostDomain();
 
+    my $openchange = 0;
+    if ($self->global->modExists('openchange')) {
+        my $openchangeMod = $self->global->modInstance('openchange');
+        if ($openchangeMod->isEnabled() and $openchangeMod->isProvisioned()) {
+            $openchange = 1;
+        }
+    }
+
     my @params = ();
     push (@params, uid => $uid);
     push (@params, gid => $gid);
@@ -603,6 +611,7 @@ sub _setDovecotConf
     push (@params, antispamPlugin => $self->_getDovecotAntispamPluginConf());
     push (@params, keytabPath => KEYTAB_FILE);
     push (@params, gssapiHostname => $gssapiHostname);
+    push (@params, openchange => $openchange);
 
     $self->writeConfFile(DOVECOT_CONFFILE, "mail/dovecot.conf.mas",\@params);
 

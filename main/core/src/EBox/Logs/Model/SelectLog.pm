@@ -26,9 +26,6 @@ use EBox::Gettext;
 use EBox::Logs::Consolidate;
 use EBox::Types::Link;
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=logs&utm_campaign=enterprise_edition';
-
 sub new
 {
     my $class = shift;
@@ -214,10 +211,8 @@ sub viewCustomizer
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Want to know what is your system status and usage? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to create regular system reports.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to know what is your system status and usage? Get one of the {oh}Commercial Editions{ch} to create regular system reports.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

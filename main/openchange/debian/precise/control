@@ -1,0 +1,24 @@
+Source: zentyal-openchange
+Section: web
+Priority: optional
+Maintainer: José Antonio Calvo <jacalvo@zentyal.org>
+Build-Depends: zbuildtools
+Standards-Version: 3.9.2
+
+Package: zentyal-openchange
+Architecture: all
+Depends: zentyal-core (>= 3.2), zentyal-core (<< 3.3),
+ zentyal-mail, zentyal-samba,
+ openchangeserver (>= 1:2.0-QUADRANT-371-g4dd336c-0zentyal0),
+ libstring-random-perl,
+ sogo-openchange (>= 2.1.0-zentyal6),
+ sope4.9-gdl1-mysql (>= 4.9-zentyal1),
+ libuuid-tiny-perl
+Description: Zentyal - OpenChange server
+ Zentyal is a Linux small business server that can act as
+ a Gateway, Unified Threat Manager, Office Server, Infrastructure
+ Manager, Unified Communications Server or a combination of them. One
+ single, easy-to-use platform to manage all your network services.
+ .
+ This module provides a complete solution to interoperate with Microsoft
+ Outlook clients or Microsoft Exchange servers.

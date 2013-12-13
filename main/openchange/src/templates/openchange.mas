@@ -1,0 +1,44 @@
+<%args>
+    $params
+</%args>
+<%init>
+    use EBox::Gettext;
+</%init>
+    <div id='note_OpenChangeUserOptions' class='note' style='display:none'></div>
+    <div id='error_OpenChangeUserOptions' class='error' style='display:none'></div>
+
+    <form id='OpenChangeUserOptions' action="/OpenChange/OpenChangeUserOptions" method="post" class="formDiv">
+        <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
+        <div>
+            <label><% __('Account status') %></label>
+            <select name="active" enabled>
+% if ($params->{'active'}) {
+                <option value="no" ><% __('Disabled') %></option>
+                <option selected value="yes" ><% __('Enabled') %></option>
+% } else {
+                <option selected value="no" ><% __('Disabled') %></option>
+                <option value="yes" ><% __('Enabled') %></option>
+% }
+            </select>
+        </div>
+        <div class="form-buttons">
+            <input
+                class="inputButton"
+                type="submit"
+                name="change"
+                id="OpenChangeUserOptions_submit"
+                value="<% __('Change') %>"
+                alt="<% __('Change') %>" />
+        </div>
+    </form>
+<script>
+$(function() {
+   Zentyal.Form.setupAjaxSubmit('#OpenChangeUserOptions', {
+        noteDiv: '#note_OpenChangeUserOptions',
+        errorDiv: '#error_OpenChangeUserOptions',
+        submitButton: '#OpenChangeUserOptions_submit',
+        success: function(response) {
+        }
+    });
+});
+</script>

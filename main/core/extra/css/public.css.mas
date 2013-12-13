@@ -48,12 +48,21 @@
     margin: 0;
     color: transparent;
 }
+#header a {
+    float: left;
+}
 #header a:hover {
     background: transparent;
     color: black;
 }
 #header img {
     <% $header_img_padding %>
+}
+#header span {
+    font-size: 14px;
+    color: #999;
+    float: left;
+    margin-top: 30px;
 }
 #hmenu {
     position: absolute;
@@ -861,6 +870,7 @@ td[class^="icon"] {
 .icon-register { background-image: url("/data/images/package-icons/zentyal-register.png");}
 .icon-remoteservices { background-image: url("/data/images/package-icons/zentyal-remoteservices.png");}
 .icon-samba { background-image: url("/data/images/package-icons/zentyal-samba.png");}
+.icon-domain { background-image: url("/data/images/package-icons/zentyal-domain.png");}
 .icon-status { background-image: url("/data/images/package-icons/zentyal-mstatus.png");}
 .icon-system { background-image: url("/data/images/package-icons/zentyal-system.png");}
 .icon-software  { background-image: url("/data/images/package-icons/zentyal-software.png");}
@@ -874,6 +884,7 @@ td[class^="icon"] {
 .icon-webmail { background-image: url("/data/images/package-icons/zentyal-webmail.png");}
 .icon-webserver { background-image: url("/data/images/package-icons/zentyal-webserver.png");}
 .icon-zarafa { background-image: url("/data/images/package-icons/zentyal-zarafa.png");}
+.icon-openchange { background-image: url("/data/images/package-icons/zentyal-openchange.png");}
 
 /**********************************************************************************************
  ICONS on titles

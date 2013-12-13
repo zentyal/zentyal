@@ -174,10 +174,10 @@ sub _content
                            );
             $supportVia = $i18nVia{$techSupportLevel};
 
-            my %i18nSLA = ( '0' => __s('2 Business Days'),
-                            '1' => __s('Next Business Day'),
-                            '2' => __s('4 hours'),
-                            '3' => __s('1 hour') );
+            my %i18nSLA = ('0' => __s('2 Business Days'),
+                           '1' => __s('1 Business Day'),
+                           '2' => __s('4 hours'),
+                           '3' => __s('1 hour'));
             $sla = $i18nSLA{$techSupportLevel};
         }
 
@@ -188,14 +188,14 @@ sub _content
         edition      => $subscription,
         support_via  => $supportVia,
         sla          => $sla,
-       };
+    };
 }
 
 # Group: Private methods
 
 sub _message
 {
-    return __sx('Zentyal is full-featured Linux server that you can use for free without technical support or quality assured updates, or you can get it fully supported for an {oh}affordable monthly fee{ch}.',
+    return __sx('Zentyal is a full-featured Linux server that you can use for free without cloud services, technical support or quality assured updates, or you can get it fully supported for an {oh}affordable monthly fee{ch} through your local Authorized Partner.',
                 oh => '<a href="http://www.zentyal.com/smb-editions/" target="_blank">',
                 ch => '</a>');
 }
