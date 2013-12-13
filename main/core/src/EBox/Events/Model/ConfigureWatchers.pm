@@ -43,9 +43,6 @@ use EBox::Types::Union::Text;
 
 use TryCatch::Lite;
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=events&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=events&utm_campaign=enterprise_edition';
-
 # Group: Public methods
 
 # Method: syncRows
@@ -502,10 +499,8 @@ sub _checkWatcherHidden
 # Return the commercial message
 sub _commercialMsg
 {
-    return __sx('Want to receive an alert when something has gone wrong in your system? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to enable all automatic alerts.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to receive an alert when something has gone wrong in your system? Get one of the {oh}Commercial Editions{ch} to enable all automatic alerts.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

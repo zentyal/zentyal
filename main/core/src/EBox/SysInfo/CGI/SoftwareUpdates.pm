@@ -104,7 +104,8 @@ sub _process
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Small Business or Enterprise Edition: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
+    return __sx('Warning: These are untested community updates that might harm your system. In production environments we recommend using the {oh}Professional, Business or Premium Editions{ch}: commercial Zentyal Server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 sub _secureMsg

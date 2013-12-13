@@ -206,23 +206,6 @@ sub aroundRestoreConfig
     my ($self, $dir, @extraOptions) = @_;
     $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
     $self->_load_state_from_file($dir);
-    $self->setReloadPageAfterSavingChanges(0);
-}
-
-sub setReloadPageAfterSavingChanges
-{
-    my ($self, $reload) = @_;
-    my $state = $self->get_state;
-    $state->{reloadPageAfterSavingChanges} = $reload;
-    $self->set_state($state);
-}
-
-# return wether we should reload the page after saving changes
-sub reloadPageAfterSavingChanges
-{
-    my ($self) = @_;
-    my $state = $self->get_state;
-    return $state->{reloadPageAfterSavingChanges};
 }
 
 #

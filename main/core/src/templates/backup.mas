@@ -14,7 +14,7 @@ use EBox::Config;
   </div>
 % } else {
   <div class='adwarning'>
-        <% __sx('{ohref}Register{chref} your Zentyal server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription" target="_blank">', chref => '</a>') %>
+        <% __sx('{ohref}Register{chref} your Zentyal Server for free! And gain access to the following benefits: Remote configuration backup, customized zentyal.me subdomain, recorded webinars, whitepapers, trials and much more coming!', ohref => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription" target="_blank">', chref => '</a>') %>
   </div>
 % }
 <& .backupSection, modulesChanged => $modulesChanged &>

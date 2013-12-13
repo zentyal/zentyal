@@ -7,7 +7,7 @@ ARCH=$1
 ISO_IMAGE="$ISO_IMAGE_BASE-$ARCH.iso"
 CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
 
-mkisofs -r -V "Zentyal $EBOX_VERSION$EBOX_APPEND $ARCH" \
+mkisofs -r -V "Zentyal $VERSION $ARCH" \
             -cache-inodes \
             -J -l -b isolinux/isolinux.bin \
             -c isolinux/boot.cat -no-emul-boot \

@@ -1443,6 +1443,36 @@ sub provisionADC
             $zentyalOU->setIgnoredModules(['samba']);
             $zentyalOU->deleteObject() if $zentyalOU->exists();
         }
+        # Special cases that should be deleted from LDAP are those not
+        # returned from the users() or groups() functions
+        #   - Administrator user
+        #   - Domain Admins group
+        #   - Guest user
+        for my $gid (('Domain Admins')) {
+            my $zGroup = new EBox::Users::Group(gid => $gid);
+            if ($zGroup->exists()) {
+                $zGroup->setIgnoredModules(['samba']);
+                $zGroup->deleteObject();
+            }
+        }
+        for my $uid (('Administrator', 'Guest')) {
+            my $zUser = new EBox::Users::User(uid => $uid);
+            if ($zUser->exists()) {
+                $zUser->setIgnoredModules(['samba']);
+                $zUser->deleteObject();
+            }
+        }
+        # Clear the link from __USERS__ group, otherwise it will be deleted
+        # by s4sync
+        my $group = new EBox::Users::Group(gid => EBox::Users::DEFAULTGROUP());
+        if ($group->exists()) {
+            my $link = $group->get('msdsObjectGUID');
+            if (defined $link) {
+                $group->delete('msdsObjectGUID', 1);
+                $group->deleteValues('objectClass', 'zentyalSambaLink', 1);
+                $group->save();
+            }
+        }
 
         # Map defaultContainers
         $self->mapDefaultContainers();

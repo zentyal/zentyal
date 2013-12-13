@@ -42,9 +42,6 @@ use POSIX;
 
 # Group: Public methods
 
-# Constants
-use constant SMB_URL => 'http://www.zentyal.com/smb-editions/';
-
 # Constructor: new
 #
 #     Create the subscription form
@@ -194,9 +191,8 @@ sub _content
 
 sub _message
 {
-    return __sx('Want to offer enterprise-level security for your organization? Get a {oh}SMB edition{ch} which includes automatic security updates so you can stop worrying about the Antivirus, Antispam, IDS and the Content Filtering System.',
-                ch => '</a>',
-                oh => '<a href="' . SMB_URL . '" target="_blank">');
+    return __sx('Want to offer enterprise-level security for your organization? Get one of the {oh}Commercial Editions{ch}, that include automatic security updates so you can stop worrying about the Antivirus, Antispam, IDS and the Content Filtering System.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

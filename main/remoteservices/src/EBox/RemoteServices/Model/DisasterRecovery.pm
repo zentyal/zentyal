@@ -48,10 +48,6 @@ use EBox::Types::Text;
 use POSIX;
 use TryCatch::Lite;
 
-# Constants:
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=disaster_recovery&utm_campaign=smallbusiness_edition';
-use constant ENT_URL   => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=disaster_recovery&utm_campaign=enterprise_edition';
 use constant SUBS_WIZARD_URL => '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
@@ -171,7 +167,7 @@ sub _table
                     pageTitle          => __('Disaster Recovery'),
                     modelDomain        => 'RemoteServices',
                     tableDescription   => \@tableDesc,
-                    help               => __s('As to the estimated time to recover from a disaster, estimation consists of 45 minutes to install Zentyal server, upper bound of the backup size and average download time obtained from the latest Network report statistics.'),
+                    help               => __s('As to the estimated time to recover from a disaster, estimation consists of 45 minutes to install Zentyal Server, upper bound of the backup size and average download time obtained from the latest Network report statistics.'),
                 };
 
     return $dataForm;
@@ -305,19 +301,15 @@ sub _content
 
 sub _CBmessage
 {
-    return __sx('Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to ensure the availability of your business critical data at all times! Or start with the {ohf}free registration{ch} that lets you to store one remote configuration backup.',
-                ch => '</a>',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
+    return __sx('Get one of the {oh}Commercial Editions{ch} to ensure the availability of your business critical data at all times! Or start with the {ohf}free registration{ch} that lets you to store one remote configuration backup.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>',
                 ohf => '<a href="' . SUBS_WIZARD_URL  . '">');
 }
 
 sub _DRmessage
 {
-    return __sx('Want to ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch}!',
-                ch => '</a>',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">');
+    return __sx('Want to ensure that your business critical data and system configuration is stored in a safe remote location and can be easily restored in case of a disaster? Get one of the {oh}Commercial Editions{ch}!',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 # Estimate the backup size using volume number
