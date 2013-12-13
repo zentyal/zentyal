@@ -1,0 +1,6 @@
+description "Zentyal OpenChange migration backend"
+author      "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+expect fork
+exec /usr/lib/zoctools/libexec/migrate
+respawn

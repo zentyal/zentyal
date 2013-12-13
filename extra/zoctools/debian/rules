@@ -15,6 +15,10 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	$(CURDIR)/bin/waf install --destdir=$(DESTDIR)
+	install -d $(DESTDIR)/usr/lib/zoctools/libexec
+	mv $(DESTDIR)/usr/bin/migrate $(DESTDIR)/usr/lib/zoctools/libexec
+	install -d $(DESTDIR)/etc/init
+	cp $(CURDIR)/debian/zoc-migrate.upstart $(DESTDIR)/etc/init/zentyal.zoc-migrate.conf
 
 override_dh_strip:
 	dh_strip --dbg-package=zoctools-dbg
