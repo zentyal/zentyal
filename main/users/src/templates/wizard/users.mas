@@ -8,9 +8,9 @@ my $hostDomain = $sysinfo->hostDomain();
 <form method="post" action="./Users/Wizard/Users" style="text-align: center" class="formDiv">
         <img src="/data/software/images/users.png" />
         <h4><% __('Select the type of the server') %></h4>
-        <fielset style="margin: 20px auto; width: 40%; text-align: left">
-          <div>
-              <label for="standalone">
+        <fielset style="margin: 20px auto; display:block; width: 40%; text-align: left">
+          <div class="inline-input">
+              <label class="inline-label" for="standalone">
                <input type="radio" name="standalone" id="standaloneRadio" value="1" checked="true" />
                <% __('Standalone server') %>
               </label>
@@ -22,8 +22,8 @@ my $hostDomain = $sysinfo->hostDomain();
             </label>
           </div>
         </fielset>
-         <& .standaloneSection, hostDomain => $hostDomain &>
-         <& .externalADSection &>
+        <& .standaloneSection, hostDomain => $hostDomain &>
+        <& .externalADSection &>
 </form>
 <script>
 $(function() {
