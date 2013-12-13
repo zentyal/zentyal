@@ -387,4 +387,9 @@ sub hideExternalLinks
     return configkey('custom_prefix');
 }
 
+sub urlEditions
+{
+    return 'http://bit.ly/1e83s5u';
+}
+
 1;

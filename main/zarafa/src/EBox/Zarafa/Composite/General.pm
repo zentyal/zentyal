@@ -23,9 +23,6 @@ use base 'EBox::Model::Composite';
 use EBox::Global;
 use EBox::Gettext;
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=zarafa&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=zarafa&utm_campaign=enterprise_edition';
-
 # Group: Protected methods
 
 # Method: _description
@@ -46,39 +43,6 @@ sub _description
     };
 
     return $description;
-}
-
-# Method: permanentMessage
-#
-#     Override to show a message depending on the subscription status
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::permanentMessage>
-#
-sub permanentMessage
-{
-    my ($self) = @_;
-
-    my $edition = EBox::Global->edition();
-    if (($edition eq 'community') or ($edition eq 'basic')) {
-        $self->{permanentMessage} = $self->_commercialMsg();
-    }
-
-    return $self->{permanentMessage};
-}
-
-sub permanentMessageType
-{
-    return 'ad';
-}
-
-sub _commercialMsg
-{
-    return __sx('Get all the advantages of Microsoft Exchange and only 50% of the costs! Zentyal fully integrates Zarafa groupware solution, an alternative to MS Exchange Server and Outlook. Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} and purchase the Zarafa Small Business add-on!',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
 }
 
 1;

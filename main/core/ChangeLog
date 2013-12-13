@@ -1,4 +1,5 @@
 3.3
+	+ Refactored module not enabled warning
 	+ Add version to header logo
 	+ HTML body can now have different styles based on the menu section
 	+ Hide close button on saving changes and backup progess
@@ -12,6 +13,14 @@
 	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
+	+ Added new communityEdition() helper method in EBox::Global
+	+ Add version to header logo
+	+ Always reload page after saving changes
+	+ Use AJAX call to refresh save change buttons
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
+	+ Workaround against modules changed when saving all changes
 	+ Display remote services messages if they exist on Dashboard
 	+ Recover from widget function exceptions
 	+ Fixed mdstat output processing to remove "(auto-read-only)"

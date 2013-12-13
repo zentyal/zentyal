@@ -1,6 +1,7 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions
+	+ Update strings to new offering
 	+ Make external AD auth available for offer 2013
 	+ Added http_allow to internal squid stub so proxy event does not need
 	  an explicit rule

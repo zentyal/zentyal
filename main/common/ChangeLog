@@ -2,6 +2,7 @@
 	+ Added Slovenian and Vietnamese languages
 	+ Switch from Error to TryCatch for exception handling
 	+ New EBox::Exceptions::Error to encapsulate generic Perl errors
+	+ New urlEditions() helper method in EBox::Config
 	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
 	+ Added missing EBox::Exceptions uses
 	+ Fix error when initializing the framework without full environment (add

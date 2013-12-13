@@ -289,6 +289,7 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.TableHelper.restoreHidden(buttonsId, table);
         Zentyal.stripe('.dataTable', 'even', 'odd');
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -349,6 +350,7 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
         if (actionsCellId in savedElements) {
             delete savedElements['actionsCell_' + rowId];
         }
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -389,6 +391,7 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         $('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });
+>>>>>>> 3.2
         Zentyal.refreshSaveChangesButton();
     };
 
@@ -602,6 +605,7 @@ Zentyal.TableHelper.hangTable = function (successId, errorId, url, formId, loadi
     var complete = function(response) {
         Zentyal.stripe('.dataTable', 'even', 'odd');
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -652,6 +656,7 @@ Zentyal.TableHelper.selectComponentToHang = function (successId, errorId, formId
     };
     var complete = function(response) {
         Zentyal.TableHelper.completedAjaxRequest();
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -1007,6 +1012,7 @@ Zentyal.TableHelper.checkAllControlValue = function (url, table, directory, cont
         Zentyal.TableHelper.completedAjaxRequest();
         var json = $.parseJSON(response.responseText);
         $('#' + controlId).prop('checked', json.success);
+        Zentyal.refreshSaveChangesButton();
     };
 
     $.ajax({
@@ -1074,6 +1080,7 @@ Zentyal.TableHelper.showConfirmationDialog = function (params, acceptMethod) {
         buttons: {
             Ok: function() {
                 acceptMethod();
+                Zentyal.refreshSaveChangesButton();
                 $( this ).dialog( "close" );
             },
             Cancel: function() {
@@ -1337,3 +1344,5 @@ Zentyal.TableHelper.modalCancelAddRow  = function(url, table, elementWithId, dir
         success:  success
     });
 };
+=======
+>>>>>>> 3.2

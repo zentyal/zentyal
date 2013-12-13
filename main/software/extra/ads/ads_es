@@ -1,6 +1,6 @@
 [
   {
-    "title": "&iexcl;Gracias por elegir el servidor Zentyal!",
+    "title": "&iexcl;Gracias por elegir el Servidor Zentyal!",
     "paragraphs": [
               "Zentyal es un servidor Linux f&aacute;cil de usar para pymes. &iquest;Tienes el tiempo y conocimientos para mantenerlo? &iexcl;Zentyal Community Edition es para ti! Y si no, elige una de las ediciones comerciales.",
               "Para soporte de comunidad, echa un vistazo a la documentaci&oacute;n oficial y el Foro Oficial de Zentyal!"
@@ -9,8 +9,8 @@
   },
 
   {
-    "title": "&iexcl;Registra tu servidor Zentyal de forma gratuita!",
-    "paragraphs": [ "Registra tu servidor Zentyal de forma gratuita y gana acceso a los siguientes servicios:" ],
+    "title": "&iexcl;Registra tu Servidor Zentyal de forma gratuita!",
+    "paragraphs": [ "Registra tu Servidor Zentyal de forma gratuita y gana acceso a los siguientes servicios:" ],
     "items": [
               "Backup remoto de la configuraci&oacute;n",
               "Subdominio zentyal.me personalizado",
@@ -21,39 +21,62 @@
   },
 
   {
-    "title": "Small Business Edition",
+    "title": "Edici&oacute;n Professional",
     "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 25 usuarios!" ],
     "items": [
-              "Oficialmente respaldado por Ubuntu/Canonical",
-              "Soporte t&eacute;cnico comercial ilimitado",
-              "Recuperaci&oacute;n de desastres en la nube",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota del servidor"
+              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
+              "Espacio de almacenamiento en la nube: 5 Gb",
+              "Tiempo m&aacute;ximo de respuesta de soporte: 2 d&iacute;as laborables",
+              "Oficialmente respaldado por Ubuntu/Canonical"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
 
   {
-    "title": "Enterprise Edition",
-    "paragraphs": [ "&iexcl;Un servidor para pymes con m&aacute;s de 25 usuarios!" ],
+    "title": "Edici&oacute;n Business",
+    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 75 usuarios!" ],
     "items": [
-              "Oficialmente respaldado por Ubuntu/Canonical",
-              "Soporte t&eacute;cnico comercial ilimitado",
-              "Recuperaci&oacute;n de desastres en la nube",
-              "Monitorizaci&oacute;n y gesti&oacute;n remota del servidor"
+              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
+              "Espacio de almacenamiento en la nube: 15 Gb",
+              "Tiempo m&aacute;ximo de respuesta de soporte: 1 d&iacute;a laborable",
+              "Oficialmente respaldado por Ubuntu/Canonical"
              ],
     "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
   },
 
   {
-    "title": "Compatibilidad con clientes Outlook",
-    "paragraphs": [ "&iexcl;Todas las ventajas de Microsoft Exchange por s&oacute;lo el 50% de los costes!" ],
+    "title": "Edici&oacute;n Premium",
+    "paragraphs": [ "&iexcl;Un servidor para pymes con menos de 300 usuarios!" ],
     "items": [
+              "Servicios de nube h&iacute;bridos: Compartici&oacute;n de ficheros, Gesti&oacute;n de usuarios, Server sync",
+              "Espacio de almacenamiento en la nube: 25 Gb",
+              "Tiempo m&aacute;ximo de respuesta de soporte: 4 horas",
+              "Oficialmente respaldado por Ubuntu/Canonical"
+             ],
+    "endText": "&iexcl;Pide un trial gratuito en www.zentyal.com!"
+  },
+
+  {
+    "title": "Compatibilidad nativa con Microsoft Active Directory",
+    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Windows Server!" ],
+    "items": [
+              "Migra de forma transparente y apaga tus Servidores Windows",
+              "Soporte a GPO y OU en los m&oacute;dulos m&aacute;s importantes",
+              "Migra a trav&eacute;s de una interfaz gr&aacute;fica f&aacute;cil de usar"
+             ],
+    "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
+  },
+
+  {
+    "title": "Compatibilidad nativa con Microsoft Exchange Server",
+    "paragraphs": [ "&iexcl;Integraci&oacute;n transparente en entornos de Microsoft Exchange Server!" ],
+    "items": [
+              "Migra de forma transparente y apaga tu Microsoft Exchange Server",
               "Tus usuarios de MS Outlook pueden continuar usando su cliente de correo",
-              "Sincronizaci&oacute;n con tel&eacute;fonos m&oacute;viles",
-              "Disponible para ediciones comerciales del servidor Zentyal",
-              "Basada en la soluci&oacute;n groupware de Zarafa"
+              "Herramienta de migraci&oacute;n de 3 pasos para Microsoft Exchange Server",
+              "&iexcl;Una alternativa &uacute;nica!"
              ],
-    "endText": "&iexcl;Obt&eacute;n este servicio adicional en store.zentyal.com!"
+    "endText": "&iexcl;Aprende m&aacute;s en doc.zentyal.org!"
   },
 
   {
@@ -61,7 +84,7 @@
     "paragraphs": [ "&iexcl;Plataforma de monitorizaci&oacute;n y gesti&oacute;n remota de servidores para proveedores TIC!" ],
     "items": [
               "Mantenimiento f&aacute;cil y automatizado",
-              "Resuelve incidencias r&aacute;pidamente y antes de que afecten a tus usuarios",
+              "Resuelve incidencias r&aacute;pidamente y antes de que afecten a los usuarios",
               "Acceso remoto a servidores Zentyal",
               "Inventariado de equipos y software"
              ],
@@ -70,7 +93,7 @@
 
   {
     "title": "Formaci&oacute;n Certificada en Zentyal",
-    "paragraphs": [ "&iexcl;Aprende c&oacute;mo gestionar el servidor Zentyal!" ],
+    "paragraphs": [ "&iexcl;Aprende c&oacute;mo gestionar el Servidor Zentyal!" ],
     "items": [
               "Cursos on-line oficiales",
               "Por profesores certificados",
@@ -82,7 +105,7 @@
 
   {
     "title": "Gu&iacute;a Oficial de Zentyal",
-    "paragraphs": [ "&iexcl;Aprende c&oacute;mo configurar y administrar el servidor Zentyal!" ],
+    "paragraphs": [ "&iexcl;Aprende c&oacute;mo configurar y administrar el Servidor Zentyal!" ],
     "items": [
               "Cubre todos los aspectos m&aacute;s relevantes",
               "Buenas pr&aacute;cticas para mantenimiento efectivo y seguro",

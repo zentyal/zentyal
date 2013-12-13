@@ -692,7 +692,7 @@ sub saveAllModules
 
     my @postsaveModules = @{$self->get_list('post_save_modules')};
     for (1 .. 3) {
-        my %seen = ();
+        my %seen;
         push @postsaveModules, @{$self->modifiedModules('save')};
         @postsaveModules or last;
         foreach my $modName (@postsaveModules) {
@@ -1165,6 +1165,21 @@ sub edition
     }
 
     return 'community';
+}
+
+# Method: communityEdition
+#
+# Returns:
+#
+#    boolean - true if community edition, false if commercial
+#
+sub communityEdition
+{
+    my ($self) = @_;
+
+    my $edition = $self->edition();
+
+    return (($edition eq 'community') or ($edition eq 'basic'));
 }
 
 # Method: _runExecFromDir

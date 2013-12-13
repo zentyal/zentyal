@@ -1,6 +1,6 @@
 [
   {
-    "title": "Thank you for choosing Zentyal server!",
+    "title": "Thank you for choosing Zentyal Server!",
     "paragraphs": [
               "Zentyal is an easy-to-use Linux server for small and medium businesses. Do you have the time and the skills to maintain it? The Community Edition is for you! And if not, choose one of the commercial editions.",
               "For community support, check out the official documentation and the Zentyal Forum!"
@@ -9,8 +9,8 @@
   },
 
   {
-    "title": "Register your Zentyal server for free!",
-    "paragraphs": [ "Register your Zentyal server for free and gain access to the following benefits:" ],
+    "title": "Register your Zentyal Server for free!",
+    "paragraphs": [ "Register your Zentyal Server for free and gain access to the following benefits:" ],
     "items": [
               "Remote configuration backup",
               "Customized zentyal.me subdomain",
@@ -21,39 +21,62 @@
   },
 
   {
-    "title": "Small Business Edition",
-    "paragraphs": [ "All-in-one server for SMBs with less than 25 users!" ],
+    "title": "Professional Edition",
+    "paragraphs": [ "For SMBs with less than 25 users!" ],
     "items": [
-              "Officially supported by Ubuntu/Canonical",
-              "Unlimited commercial technical support",
-              "Full disaster recovery",
-              "Remote monitoring and management of the server"
+              "Hybrid cloud services: File sharing, User management, Server sync",
+              "Cloud storage space: 5 Gb",
+              "Technical support SLA: 2 business days",
+              "Officially supported by Ubuntu/Canonical"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
   },
 
   {
-    "title": "Enterprise Edition",
-    "paragraphs": [ "Full-featured server for SMBs with more than 25 users!" ],
+    "title": "Business Edition",
+    "paragraphs": [ "For SMBs with less than 75 users!" ],
     "items": [
-              "Officially supported by Ubuntu/Canonical",
-              "Unlimited commercial technical support",
-              "Full disaster recovery",
-              "Remote monitoring and management of the server"
+              "Hybrid cloud services: File sharing, User management, Server sync",
+              "Cloud storage space: 15 Gb",
+              "Technical support SLA: 1 business day",
+              "Officially supported by Ubuntu/Canonical"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"
   },
 
   {
-    "title": "Compatibility with Outlook clients",
-    "paragraphs": [ "All the advantages of Microsoft Exchange and only 50% of the costs!" ],
+    "title": "Premium Edition",
+    "paragraphs": [ "For SMBs with less than 300 users!" ],
     "items": [
+              "Hybrid cloud services: File sharing, User management, Server sync",
+              "Cloud storage space: 25 Gb",
+              "Technical support SLA: 4 hours",
+              "Officially supported by Ubuntu/Canonical"
+             ],
+    "endText": "Ask for a free trial at www.zentyal.com!"
+  },
+
+  {
+    "title": "Native compatibility with Microsoft Active Directory",
+    "paragraphs": [ "Transparent integration in Windows Server environments" ],
+    "items": [
+              "Migrate transparently and turn off your Windows Servers",
+              "GPO and OU support for the most important modules",
+              "Whole migration through an easy-to-use graphical interface"
+             ],
+    "endText": "Learn more at doc.zentyal.org!"
+  },
+
+  {
+    "title": "Native compatibility with Microsoft Exchange Server",
+    "paragraphs": [ "Transparent integration in Microsoft Exchange environments" ],
+    "items": [
+              "Migrate transparently and turn off your Microsoft Exchange Server",
               "Your MS Outlook users can continue using their email client",
-              "Synchronization with mobile phones",
-              "Available for commercial Zentyal server editions",
-              "Based on Zarafa groupware solution"
+              "3-step Microsoft Exchange Server migration tool",
+              "Unique alternative!"
              ],
-    "endText": "Purchase the add-on at store.zentyal.com!"
+    "endText": "Learn more at doc.zentyal.org!"
   },
 
   {
@@ -62,7 +85,7 @@
     "items": [
               "Easy and automated maintenance",
               "Resolve incidents quickly and before they affect your users",
-              "Remote access to Zentyal Servers",
+              "Remote access to Zentyal servers",
               "Inventory of network devices and software"
              ],
     "endText": "Ask for a free trial at www.zentyal.com!"

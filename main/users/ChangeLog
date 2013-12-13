@@ -1,4 +1,6 @@
 3.3
+	+ Forbid to create OUs inside Users, Groups or Computer OUs
+	  because we not support them when Samba is enabled
 	+ Forbid and print specific  error message when trying to put two
 	  objects with the same CN in the same container
 	+ Switch from Error to TryCatch for exception handling

@@ -1,6 +1,7 @@
 3.3
 	+ Dovecot passdb reordering and typo
 	+ Switch from Error to TryCatch for exception handling
+	+ Added required code to integrate with OpenChange
 	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Preservice and postservice hooks now should work properly
