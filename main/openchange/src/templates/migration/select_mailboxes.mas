@@ -89,7 +89,7 @@ use EBox::Gettext;
                 <span class="info-label"><% __('Total data') %></span>
                 <span class="info-value">--</span>
             </div>
-            <div class="info-block" id="mails">
+            <div class="info-block" style="display:none" id="mails">
                 <span class="info-label"><% __('Total mails') %></span>
                 <span class="info-value">--</span>
             </div>
