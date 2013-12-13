@@ -1,8 +1,16 @@
 <%args>
+  $openchangeMod
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
+% unless ($openchangeMod->isProvisioned()) {
+<div class="note">
+  <% __x('You must provision the {x} module database before being able to use the migration.',
+         x => $openchangeMod->printableName()) %>
+</div>
+% return
+% }
 <div id="messages"></div>
 <div class="item-block">
     <h3><% __('Select origin server') %></h3>
