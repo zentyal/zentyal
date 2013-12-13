@@ -1,4 +1,5 @@
 3.3
+	+ Allow to use vdomains table when module is unconfigured
 	+ Dovecot passdb reordering and typo
 	+ Switch from Error to TryCatch for exception handling
 	+ Added required code to integrate with OpenChange
