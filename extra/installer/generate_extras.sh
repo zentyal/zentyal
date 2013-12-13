@@ -19,7 +19,7 @@ test -d $EXTRAS_DIR || mkdir $EXTRAS_DIR
 sudo rm -fr $CHROOT
 mkdir $CHROOT
 
-sudo debootstrap --arch=$ARCH $VERSION $CHROOT
+sudo debootstrap --arch=$ARCH $DIST $CHROOT
 
 sudo cp sources.list $CHROOT/etc/apt/sources.list
 
