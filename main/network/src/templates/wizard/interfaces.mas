@@ -6,7 +6,7 @@ use EBox::Gettext;
 </%init>
 <h3><% __('Network interfaces') %></h3>
 <div id="wizard_error"></div>
-<form method="post" action="./Network/Wizard/Ifaces" style="text-align: center">
+<form method="post" action="./Network/Wizard/Ifaces" style="text-align: center" class="formDiv">
         <div><img src="/data/images/interfaces.png" /></div>
         <h4><% __('Configure interface types') %></h4>
         <div><% __('External interfaces connect to networks that are not under your control (typically the Internet), traffic coming from external networks is not trusted by default, thus, you will not be able to connect to Zentyal administration page through them') %></div>
@@ -18,7 +18,8 @@ use EBox::Gettext;
                 <label for="<% $iface %>_scopeI">Internal</label>
                 <input type="radio" id="<% $iface %>_scopeE" name="<% $iface %>_scope" value="external" />
                 <label for="<% $iface %>_scopeE">External</label>
-            </div></div>
+            </div>
+            </div>
 % }
 
         </div>
