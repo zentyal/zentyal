@@ -214,10 +214,9 @@ sub _checkLdapPassword
             my $dn = EBox::Ldap::dn();
             my $userDN = "uid=$user,ou=Users,$dn";
             # check also the group for the user
-            my $groupId = "cn=$group,$groupsdn";
             my %attrs = (
-                base => $bind,
-                filter => "&(uid=$user)(memberOf=$groupId)",
+                base => $groupDN,
+                filter => "(member=$userDN)",
                 scope => 'base'
             );
             my $result = $ldap->search(%attrs);
