@@ -21,6 +21,7 @@ package EBox::OpenChange::CGI::Migration::Connect;
 use base qw(EBox::CGI::ClientBase);
 
 use EBox::Gettext;
+use EBox::Global;
 
 sub new
 {
@@ -30,6 +31,29 @@ sub new
                                   @_);
     bless ($self, $class);
     return $self;
+}
+
+# Method: masonParameters
+#
+#  Return the adequate template parameter for its state.
+#
+# Returns:
+#
+#   A reference to a list which contains the names and values of the different
+#   mason parameters
+#
+# Overrides: <EBox::CGI::Base>
+#
+sub masonParameters
+{
+    my ($self) = @_;
+
+    if (exists $self->{params}) {
+        return $self->{params};
+    }
+
+    my $openchangeMod = EBox::Global->modInstance('openchange');
+    return ['openchangeMod' => $openchangeMod];
 }
 
 1;
