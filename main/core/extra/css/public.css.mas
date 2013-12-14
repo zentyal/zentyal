@@ -2301,7 +2301,7 @@ form.formDiv .inline-field{
 }
 
 .inline-label{
-    display: inline-block;
+    display: inline-block !important;
     vertical-align: middle;
 }
 /********************************************************************************

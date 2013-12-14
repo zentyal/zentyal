@@ -93,9 +93,6 @@ do
 
     pushd $SCRIPTS_DIR
 
-    ./gen_locales.pl $DATA_DIR || (echo "locales files autogeneration failed.";
-                                   echo "make sure you have libebox installed."; false) || exit 1
-
     for SCRIPT in [0-9][0-9]_*.sh; do
         ./$SCRIPT $ARCH || (echo "$SCRIPT failed"; false) || exit 1
     done

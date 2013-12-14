@@ -60,6 +60,10 @@ rm -rf $CD_ZENTYAL_DIR/*
 
 TMPDIR=/tmp/zentyal-installer-data-$$
 cp -r $DATA_DIR $TMPDIR
+
+./gen_locales.pl $TMPDIR || (echo "locales files autogeneration failed.";
+                             echo "make sure you have zentyal-common installed."; false) || exit 1
+
 cp -r $TMPDIR/* $CD_ZENTYAL_DIR/
 
 rm -rf $TMPDIR

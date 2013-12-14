@@ -110,33 +110,6 @@ sub validateTypedRow
     }
 }
 
-# Method: precondition
-#
-#       Check if the module is configured
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-sub precondition
-{
-    my ($self)= @_;
-    my $mail = $self->global()->modInstance('mail');
-    return $mail->configured();
-}
-
-# Method: preconditionFailMsg
-#
-#       Check if the module is configured
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-sub preconditionFailMsg
-{
-        return __('You must enable the mail module in module ' .
-                  'status section in order to use it.');
-}
-
 sub deletedRowNotify
 {
     my ($self, $row, $force) = @_;
