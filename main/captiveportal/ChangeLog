@@ -1,4 +1,5 @@
 3.3
+	+ Fixed regression on restricted authentication to group
 	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses
 	+ Use upstream Apache2::AuthCookie instead of forked version

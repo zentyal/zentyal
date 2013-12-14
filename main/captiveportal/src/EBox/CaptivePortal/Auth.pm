@@ -210,13 +210,10 @@ sub _checkLdapPassword
         if ($authorized and $groupDN) {
             # we have not finished
             $authorized = 0;
-
-            my $dn = EBox::Ldap::dn();
-            my $userDN = "uid=$user,ou=Users,$dn";
             # check also the group for the user
             my %attrs = (
-                base => $groupDN,
-                filter => "(member=$userDN)",
+                base => $bind,
+                filter => "&(uid=$user)(memberOf=$groupDN)",
                 scope => 'base'
             );
             my $result = $ldap->search(%attrs);
