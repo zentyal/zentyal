@@ -54,7 +54,7 @@ sub _process
     try {
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         # Get status
-        my $request = { command => 0 };
+        my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS() };
         my $response = $rpc->send_command($request);
         if ($response->{code} != 0) {
             $self->{json}->{error} = __('Invalid RPC server state');
@@ -71,7 +71,7 @@ sub _process
                 }
                 EBox::info("The daemon is idle, launch estimating");
                 my $request = {
-                    command => 2,
+                    command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_ESTIMATE(),
                     users => $u,
                 };
                 $rpc->dump($request);

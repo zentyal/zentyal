@@ -1,0 +1,24 @@
+#!/usr/bin/make -f
+
+DESTDIR = $(CURDIR)/debian/zoctools
+BUILDDIR = $(CURDIR)/debian/zoctools-build
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	$(CURDIR)/bin/waf distclean
+	rm -Rf $(BUILDDIR)
+
+override_dh_auto_configure:
+	PKG_CONFIG_PATH=/opt/samba4/lib/pkgconfig $(CURDIR)/bin/waf configure -o $(BUILDDIR) --prefix=/usr
+
+override_dh_auto_install:
+	$(CURDIR)/bin/waf install --destdir=$(DESTDIR)
+	install -d $(DESTDIR)/usr/lib/zoctools/libexec
+	mv $(DESTDIR)/usr/bin/migrate $(DESTDIR)/usr/lib/zoctools/libexec
+	install -d $(DESTDIR)/etc/init
+	cp $(CURDIR)/debian/zoc-migrate.upstart $(DESTDIR)/etc/init/zentyal.zoc-migrate.conf
+
+override_dh_strip:
+	dh_strip --dbg-package=zoctools-dbg

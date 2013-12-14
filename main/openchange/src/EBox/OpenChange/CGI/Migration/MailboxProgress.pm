@@ -52,7 +52,7 @@ sub _process
     try {
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         # Get status
-        my $request = { command => 0 };
+        my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS() };
         my $response = $rpc->send_command($request);
         if ($response->{code} != 0) {
             $self->{json}->{error} = __('Invalid RPC server state');
@@ -62,7 +62,7 @@ sub _process
         my $state = $response->{state};
         if ($state == 2) {
             # Start export
-            my $request = { command => 3 };
+            my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_EXPORT() };
             my $response = $rpc->send_command($request);
             if ($response->{code} != 0) {
                 $self->{json}->{error} = __('Invalid RPC server state');
@@ -155,7 +155,7 @@ sub _process
 
             if ($state == 4) {
                 # Start import
-                 my $request = { command => 4 };
+                 my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_IMPORT() };
                  my $response = $rpc->send_command($request);
                  if ($response->{code} != 0) {
                      $self->{json}->{error} = __('Invalid RPC server state');

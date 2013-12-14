@@ -50,12 +50,12 @@ sub masonParameters
     my $params = [];
     try {
         my $request = {
-                command => 0,
+                command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS(),
         };
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $response = $rpc->send_command($request);
         if ($response->{code} == 0) {
-            my $server = $response->{server};
+            my $server = $response->{remote};
             my $serverIP = $server;
             if (EBox::Validate::checkIP($server)) {
                 $server = 'Exchange server';
