@@ -272,9 +272,9 @@ sub _isSubscribed
 
 sub _message
 {
-    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get one of the {ohs}Commercial Editions{ch} to obtain zentyal.me subdomain for your server.",
+    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get one of the {oh}Commercial Editions{ch} to obtain zentyal.me subdomain for your server.",
                 ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
-                openhref  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', closehref => '</a>');
+                oh  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

@@ -200,7 +200,7 @@ sub run
 
         # Commercial msg
         $msg .= "\n\n";
-        $msg .= __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {ohs}Professional, Business or Premium Editions{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.",
+        $msg .= __sx("Warning: These are untested community updates that might harm your system. In production environments we recommend using the {oh}Professional, Business or Premium Editions{ch}: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.",
                      oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
         return [
             new EBox::Event(message => $msg,
