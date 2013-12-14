@@ -33,6 +33,14 @@ use constant RPC_COMMAND_ESTIMATE  => 7;
 use constant RPC_COMMAND_EXPORT    => 8;
 use constant RPC_COMMAND_IMPORT    => 9;
 
+use constant RPC_STATE_IDLE       => 0;
+use constant RPC_STATE_ESTIMATING => 1;
+use constant RPC_STATE_ESTIMATED  => 2;
+use constant RPC_STATE_EXPORTING  => 3;
+use constant RPC_STATE_EXPORTED   => 4;
+use constant RPC_STATE_IMPORTING  => 5;
+use constant RPC_STATE_IMPORTED   => 6;
+
 my $_instance = undef;
 
 sub _new_instance
