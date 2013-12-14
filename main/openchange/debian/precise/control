@@ -20,7 +20,7 @@ Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
  libnet-rabbitfoot-perl,
  librabbitmq1,
  rabbitmq-server,
- zoctools
+ zoctools (>= 0.1-4)
 Description: Zentyal - OpenChange Server
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
