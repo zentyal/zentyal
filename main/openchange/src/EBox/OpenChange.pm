@@ -154,16 +154,27 @@ sub _daemonsToDisable
     return $daemons;
 }
 
+# Method: _daemons
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     my ($self) = @_;
     my $daemons = [
         {
-            name => 'zentyal.ocsmanager',
-            type => 'upstart',
-            precondtion => sub { return $self->_autodiscoverEnabled() },
-           }
-       ];
+            name         => 'zentyal.ocsmanager',
+            type         => 'upstart',
+            precondition => sub { return $self->_autodiscoverEnabled() },
+        },
+        {
+            name         => 'zentyal.zoc-migrate',
+            type         => 'upstart',
+            precondition => sub { return $self->isProvisioned() },
+        },
+    ];
     return $daemons;
 }
 
