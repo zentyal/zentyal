@@ -110,7 +110,7 @@ sub noDataMsg
 {
     my ($self) = @_;
     if (not @{ $self->parentModule->ifaces()}) {
-        return __(q{Bandwith Monitor is not configured to monitor any interface. Enable them in the 'Configure interfaces' tab});
+        return __(q{Bandwidth Monitor is not configured to monitor any interface. You can enable interfaces in the 'Configure interfaces' tab});
     }
     return $self->SUPER::noDataMsg();
 }
