@@ -1,4 +1,4 @@
-HEAD
+3.2.2
 	+ New urlEditions() helper method in EBox::Config
 	+ Added EBox::NetWrappers::clean_ifaces_list_cache function
 	+ Added missing EBox::Exceptions uses
