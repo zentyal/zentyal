@@ -194,7 +194,8 @@ sub _table
     my $dataTable =
     {
         tableName          => 'GeneralSettings',
-        printableTableName => __('General settings'),
+        pageTitle          => __('Domain'),
+        printableTableName => __('Settings'),
         modelDomain        => 'Samba',
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHead,
@@ -281,15 +282,6 @@ sub _drive_letters
     return $letters;
 }
 
-# Method: headTile
-#
-#   Overrides <EBox::Model::DataTable::headTitle>
-#
-sub headTitle
-{
-    return undef;
-}
-
 # Method: viewCustomizer
 #
 #   Overrides <EBox::Model::DataTable::viewCustomizer>
@@ -322,7 +314,6 @@ sub viewCustomizer
     my $customizer = new EBox::View::Customizer();
     $customizer->setModel($self);
     $customizer->setOnChangeActions($actions);
-    $customizer->setHTMLTitle([]);
     $customizer->setInitHTMLStateOrder(['mode']);
 
     return $customizer;
