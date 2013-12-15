@@ -1,4 +1,4 @@
-HEAD
+3.2.1
 	+ Log helper changes: only check no-via lines, this avoid
 	  duplicate lines but made us lose the 'TLS tunnel' MAC and 'user
 	  not found' event. Also best treatment of MAC addresses, thanks
