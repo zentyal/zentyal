@@ -1,5 +1,6 @@
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Adapted strings to new offering
 	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2
