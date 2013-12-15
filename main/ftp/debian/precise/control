@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-ftp
 Architecture: all
 Replaces: ebox-ftp (<< 2.0.100)
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-network, zentyal-firewall, zentyal-users, ${misc:Depends}, vsftpd (>= 2.3.5-1ubuntu2ppa1)
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-network, zentyal-firewall, zentyal-users, ${misc:Depends}, vsftpd (>= 2.3.5-1ubuntu2ppa1)
 Description: Zentyal - FTP
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

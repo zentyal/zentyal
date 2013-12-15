@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-printers
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-samba, cups, libexporter-cluster-perl, libnet-cups-perl, foomatic-db, foomatic-db-engine, foomatic-filters, adduser, hplip, ${misc:Depends}
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-samba, cups, libexporter-cluster-perl, libnet-cups-perl, foomatic-db, foomatic-db-engine, foomatic-filters, adduser, hplip, ${misc:Depends}
 Description: Zentyal - Printer Sharing Service
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

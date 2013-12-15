@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-mailfilter
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-firewall, zentyal-users, zentyal-mail, zentyal-antivirus, amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl, arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl, ${misc:Depends}
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-firewall, zentyal-users, zentyal-mail, zentyal-antivirus, amavisd-new, spamassassin, spamc, dovecot-antispam, libnet-dns-perl, arj, unrar-free, p7zip, razor, pyzor, libmail-spf-perl, ${misc:Depends}
 Description: Zentyal - Mail Filter
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

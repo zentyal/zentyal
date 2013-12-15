@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-users
 Architecture: all
 Pre-Depends: slapd
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4),
   zentyal-firewall, zentyal-dns, zentyal-ntp, slapd (>= 2.4.15), ldap-utils (>= 2.4.15), ldap-auth-config,
   slapd-smbk5pwd, libnet-ldap-perl, adduser, quota, libquota-perl,
   liburi-encode-perl, heimdal-kdc, libpam-heimdal, auth-client-config,

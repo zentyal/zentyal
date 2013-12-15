@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-remoteservices
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-monitor, zentyal-openvpn, zentyal-software, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl, libtext-csv-perl, screen, john, libapt-pkg-perl, apache2, curl, at, libwww-perl, libfile-copy-recursive-perl, libossp-uuid-perl, apt-transport-https, ocsinventory-agent, pciutils, dmidecode, ${misc:Depends}
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-monitor, zentyal-openvpn, zentyal-software, libarchive-tar-perl, libsoap-lite-perl, libnet-dns-perl, liblinux-inotify2-perl, libdigest-sha-perl, libdate-calc-perl, libtext-csv-perl, screen, john, libapt-pkg-perl, apache2, curl, at, libwww-perl, libfile-copy-recursive-perl, libossp-uuid-perl, apt-transport-https, ocsinventory-agent, pciutils, dmidecode, ${misc:Depends}
 Description: Zentyal - Cloud Client
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

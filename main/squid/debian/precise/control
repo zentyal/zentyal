@@ -12,7 +12,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 Package: zentyal-squid
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-firewall,
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-firewall,
  zentyal-network, zentyal-objects, zentyal-users, squid3,
  dansguardian, adduser, adzapper, msktutil, libdata-hexdumper-perl,
  ${misc:Depends}
