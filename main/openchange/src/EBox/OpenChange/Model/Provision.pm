@@ -87,7 +87,7 @@ sub _table
         );
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
-            printableName => __('Enable all users after provision'),
+            printableName => __('Enable OpenChange account for all existing users'),
             defaultValue  => 1,
             editable      => 1)
         );
