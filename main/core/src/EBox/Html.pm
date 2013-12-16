@@ -179,9 +179,9 @@ sub _htmlVersion
 {
     my $version = EBox::Config::version();
 
-    unless (EBox::Global->communityEdition()) {
-        $version .= ' <em>Service Pack 1</em>';
-    }
+#    unless (EBox::Global->communityEdition()) {
+#        $version .= ' <em>Service Pack 1</em>';
+#    }
 
     return $version;
 }
