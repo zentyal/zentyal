@@ -208,6 +208,9 @@ sub initialSetup
 
     # Upgrade from 3.2.11 to 3.2.12
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.12') < 0)) {
+        # Start samba4 if not running
+        EBox::Sudo::silentRoot('service samba4 start');
+
         # Ensure default containers properly linked
         $self->getProvision->mapDefaultContainers();
 
