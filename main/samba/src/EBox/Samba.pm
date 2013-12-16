@@ -218,7 +218,7 @@ sub initialSetup
         # the enabled status of this account
         if ($self->isEnabled() and $self->isProvisioned()) {
             my $domainSid = $self->ldb->domainSID();
-            my $ldbGuest = new EBox::Users::User(sid => "$domainSid-501");
+            my $ldbGuest = new EBox::Samba::User(sid => "$domainSid-501");
             my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
             $ldapGuest->setInternal(0);
         }
