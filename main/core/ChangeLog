@@ -1,4 +1,5 @@
 HEAD
+	+ Upgrade to 3.3 notification in dashboard
 	+ Added new communityEdition() helper method in EBox::Global
 	+ Add version to header logo
 	+ Always reload page after saving changes

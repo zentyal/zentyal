@@ -187,8 +187,24 @@ sub _periodicMessages
         $WIZARD_URL = 'https://remote.zentyal.com/register/';
     }
 
+    my $RELEASE_ANNOUNCEMENT_URL = 'http://trac.zentyal.org/wiki/Document/Announcement/3.3';
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.3')";
+    unless (EBox::Global->modExists('software')) {
+        my $instructionsHtml = '<p>To be able to upgrade from the Zentyal interface you need to install the zentyal-software package with:</p>' .
+                               '<pre>sudo apt-get install zentyal-software</pre>' .
+                               '<p>Alternatively, you can also do an upgrade from the shell following the instructions in the release notes.</p>';
+        $upgradeAction = "upgradeInstructions('Upgrading to Zentyal 3.3', '$instructionsHtml')";
+    }
+
     # FIXME: Close the message also when clicking the URL, not only with the close button
     return [
+        {
+         name => 'upgrade',
+         text => __sx('{oh}Zentyal 3.3{ch} is available! {ob}Upgrade now{cb}',
+                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
+                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
+         days => 0,
+        },
         {
          name => 'backup',
          text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
