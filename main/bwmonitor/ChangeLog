@@ -1,3 +1,6 @@
+HEAD
+	+ Remind the user to enable interfaces if none is configured and
+	  the usage table is empty
 3.0.1
 	+ Logrotate preserves interface log file
 	+ Adapted to improvement of EBox::Module::Service::isRunning method
