@@ -1,4 +1,4 @@
-HEAD
+2.2.10
 	+ Apply user restrictions from offer 2013
 2.2.9
 	+ Remove olcSizeLimit from config ldif to be able to restore LDAP

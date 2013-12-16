@@ -1,4 +1,4 @@
-AC_INIT([zentyal-users], [2.2.9])
+AC_INIT([zentyal-users], [2.2.10])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/UsersAndGroups.pm])
