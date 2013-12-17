@@ -685,8 +685,7 @@ sub setPositionAction
 
 sub _process
 {
-    my $self = shift;
-
+    my ($self) = @_;
     $self->_requireParam('action');
     my $action = $self->param('action');
     $self->{'action'} = $action;
@@ -711,11 +710,6 @@ sub _process
     } else {
         throw EBox::Exceptions::Internal("Action '$action' not supported");
     }
-
-    # json return  should not put messages in UI
-    if ($self->{json}) {
-        $model->setMessage('');
-    }
 }
 
 sub _redirect
@@ -724,7 +718,7 @@ sub _redirect
 
     my $model = $self->{'tableModel'};
 
-    return unless (defined($model));
+    return undef unless (defined($model));
 
     return $model->popRedirection();
 }
@@ -732,7 +726,7 @@ sub _redirect
 # TODO: Move this function to the proper place
 sub _printRedirect
 {
-    my $self = shift;
+    my ($self) = @_;
     my $url = $self->_redirect();
     return unless (defined($url));
     print "<script>window.location.href='$url'</script>";
@@ -740,11 +734,25 @@ sub _printRedirect
 
 sub _print
 {
-    my $self = shift;
+    my ($self) = @_;
     $self->SUPER::_print();
     unless ($self->{json}) {
         $self->_printRedirect;
     }
+}
+
+sub JSONReply
+{
+    my ($self, $json) = @_;
+    # json return  should not put messages in the model object
+    $self->{tableModel}->setMessage('');
+
+    my $redirect = $self->_redirect();
+    if ($redirect) {
+        $json->{redirect} = $redirect;
+    }
+
+    return $self->SUPER::JSONReply($json);
 }
 
 sub _getAuditId
@@ -765,7 +773,7 @@ sub _getAuditId
 sub _htmlForRow
 {
     my ($self, $model, $row, $filter, $page) = @_;
-    my $table     = $model->table();
+    my $table = $model->table();
 
     my $html;
     my @params = (

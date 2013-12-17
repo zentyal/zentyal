@@ -199,11 +199,14 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
     }
-
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);
     }
+
     if (noMoreRowChanges) {
+        if ('redirect' in changes) {
+            window.location.href= changes.redirect;
+        }
         return;
     }
 
@@ -254,6 +257,10 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
     }
 
     Zentyal.TableHelper.restoreTop(tableId);
+
+    if ('redirect' in changes) {
+        window.location.href= changes.redirect;
+    }
 };
 
 Zentyal.TableHelper.restoreTop = function(tableId) {
@@ -385,6 +392,9 @@ Zentyal.TableHelper.formSubmit = function (url, table, fields, directory, id) {
         }
         if ('message' in response) {
             Zentyal.TableHelper.setMessage(table, response.message);
+        }
+        if ('redirect' in response) {
+            window.location.href= response.redirect;
         }
     };
     var complete = function(response){
