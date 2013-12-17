@@ -26,7 +26,7 @@ use File::Slurp;
 use TryCatch::Lite;
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
-use constant MILESTONE => '3.3';
+use constant MILESTONE => '3.3.X';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 
