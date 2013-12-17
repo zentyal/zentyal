@@ -77,10 +77,15 @@ sub _pageSize
 {
     my ($self) = @_;
     my $pageSize = $self->param('pageSize');
-    if ($pageSize) {
-        return $pageSize;
+    if (not $pageSize) {
+        $pageSize = $self->{tableModel}->pageSize();
     }
-    return $self->{tableModel}->pageSize();
+    if ($pageSize eq '_all') {
+        return 9223372036854775807; # could also be size but maximum int avoids
+                                    # the call
+    }
+
+    return $pageSize;
 }
 
 sub _auditLog
