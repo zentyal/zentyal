@@ -223,7 +223,10 @@ sub initialSetup
             my $domainSid = $self->ldb->domainSID();
             my $ldbGuest = new EBox::Samba::User(sid => "$domainSid-501");
             my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
-            $ldapGuest->setInternal(0);
+            if ($ldapGuest) {
+                # The guest user exists, we should set it visible.
+                $ldapGuest->setInternal(0);
+            }
         }
     }
 }
