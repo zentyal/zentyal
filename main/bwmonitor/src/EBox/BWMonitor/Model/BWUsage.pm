@@ -106,6 +106,16 @@ sub preconditionFailMsg
     return __('Bandwidth Monitor must be enabled in order to get data.');
 }
 
+sub noDataMsg
+{
+    my ($self) = @_;
+
+    unless (@{$self->parentModule->ifaces()}) {
+        return __(q{Bandwidth Monitor is not configured to monitor any interface. You can enable interfaces in the 'Configure interfaces' tab});
+    }
+    return $self->SUPER::noDataMsg();
+}
+
 sub syncRows
 {
     my ($self, $currentRows)  = @_;

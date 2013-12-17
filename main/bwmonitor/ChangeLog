@@ -1,3 +1,6 @@
+HEAD
+	+ Show reminder to enable interfaces when there are none enabled and
+	  the usage table is empty
 3.2.1
 	+ Added missing EBox::Exceptions uses
 3.2
