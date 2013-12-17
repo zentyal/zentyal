@@ -50,7 +50,7 @@ if (scalar @ifaces == 1) {
                        <option value='static'>Static</option>
                      </select>
                 </div>
-                <tbody id="<% $iface %>_static" style="display: none">
+                <div id="<% $iface %>_static" style="display: none">
                 <div class="inline-input  form-buttons">
                   <label class="inline-label"><% __('IP address') %></label>
                   <input type='text' size='16' name="<% $iface %>_address" />
@@ -91,6 +91,7 @@ if (scalar @ifaces == 1) {
                   <input type='text' size='16' name="<% $iface %>_dns2" />
                 </div>
 % }
+                </div>
        </div>
 %     $counter++;
 % }
