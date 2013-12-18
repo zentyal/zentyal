@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in rsync method (contribution by billfarrow)
 3.0.7
 	+ Hide password field for rsync method
 3.0.6
