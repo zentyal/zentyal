@@ -26,7 +26,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
-use POSIX qw(ceil floor);
+use POSIX qw(ceil floor INT_MAX);
 use TryCatch::Lite;
 
 sub new
@@ -81,8 +81,7 @@ sub _pageSize
         $pageSize = $self->{tableModel}->pageSize();
     }
     if ($pageSize eq '_all') {
-        return 9223372036854775807; # could also be size but maximum int avoids
-                                    # the call
+        return INT_MAX; # could also be size but maximum int avoids the call
     }
 
     return $pageSize;
