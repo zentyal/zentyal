@@ -26,7 +26,7 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
-use POSIX qw(ceil floor);
+use POSIX qw(ceil floor INT_MAX);
 use TryCatch::Lite;
 
 sub new
@@ -77,10 +77,14 @@ sub _pageSize
 {
     my ($self) = @_;
     my $pageSize = $self->param('pageSize');
-    if ($pageSize) {
-        return $pageSize;
+    if (not $pageSize) {
+        $pageSize = $self->{tableModel}->pageSize();
     }
-    return $self->{tableModel}->pageSize();
+    if ($pageSize eq '_all') {
+        return INT_MAX; # could also be size but maximum int avoids the call
+    }
+
+    return $pageSize;
 }
 
 sub _auditLog
