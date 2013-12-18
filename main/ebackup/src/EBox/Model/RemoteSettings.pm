@@ -926,6 +926,12 @@ sub configurationIsComplete
     if (not $user) {
         return 0;
     }
+
+    if ($method eq 'rsync') {
+        # rsync does not need password
+        return 1;
+    }
+
     my $password = $row->valueByName('password');
     if (not $password) {
         return 0;
