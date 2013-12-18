@@ -1,3 +1,5 @@
+HEAD
+	+ Added support for haproxy
 3.2.5
 	+ Upgrade to 3.3 notification in dashboard
 	+ Added new communityEdition() helper method in EBox::Global
