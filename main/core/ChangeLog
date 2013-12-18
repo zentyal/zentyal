@@ -1,3 +1,6 @@
+HEAD
+	+ Fixed general widget packages to avoid error on 'packages to
+	  upgrade' section
 3.2.5
 	+ Upgrade to 3.3 notification in dashboard
 	+ Added new communityEdition() helper method in EBox::Global
