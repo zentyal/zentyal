@@ -25,7 +25,7 @@ sub new
 {
     my $class = shift;
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     $self = $class->SUPER::new(@_);

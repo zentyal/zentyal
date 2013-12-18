@@ -75,7 +75,7 @@ sub new
   my $exitValue = $params{exitValue};
   my $cmdType = $params{cmdType};
 
-  local $Error::Depth = $Error::Depth + 1;
+  local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
   local $Error::Debug = 1;
 
 # we need this ugly workaround because Exceptions::Internal constructor logs the error parameter
