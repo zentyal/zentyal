@@ -36,7 +36,7 @@ sub new # (data=>string)
 
     my $error = __x("{data} is empty.", data => $data);
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;
