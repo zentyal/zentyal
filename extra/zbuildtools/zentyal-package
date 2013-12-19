@@ -22,8 +22,6 @@ use Cwd qw(getcwd realpath);
 
 my $REPO = getcwd;
 
-$ENV{DEBIAN_VERSION} = '';
-
 my $DEST;
 if (not $ENV{DESTINATION_DIR}) {
     $DEST =  "$REPO/debs-ppa";
@@ -47,18 +45,7 @@ unless (-d $DEST) {
 my $TMPDIR = "/tmp/zentyal-package-$$";
 
 my $cwd;
-my $dist = $ARGV[1];
-unless ($dist) {
-    $dist = 'precise';
-}
-my $version = $ARGV[2];
-unless ($version) {
-    $version = 'trunk';
-}
-my $svnRevision = $ARGV[3];
 my $pkgVersion;
-my $appendDebianVersion = $ENV{'DEBIAN_VERSION'};
-defined($appendDebianVersion) or $appendDebianVersion = '';
 
 my $SOURCE_BUILD = $ENV{SOURCE_BUILD};
 
@@ -80,18 +67,6 @@ sub export
     system("find $exportDir -name t | xargs rm -rf");
 }
 
-sub export_debian
-{
-    my ($svndir, $destdir, $package) = @_;
-
-    system("rm -rf $destdir/debian") if (-d "$destdir/debian");
-
-    my $dir = $REPO;
-    my $source = "$dir/$package/debian/$dist/";
-    system("cp -r $source $destdir/debian")
-        and die "couldn't copy debian dir";
-}
-
 sub add_changelog_entry
 {
     my ($dir) = @_;
@@ -107,7 +82,9 @@ sub add_changelog_entry
         $version = "$major.$minor";
     }
 
-    system("dch -b -v '$version${appendDebianVersion}' -D 'precise' --force-distribution 'New upstream release'");
+    my $dist = `head -1 debian/changelog | cut -d' ' -f3 | cut -d';' -f1`;
+    chomp ($dist);
+    system("dch -b -v '$version' -D '$dist' --force-distribution 'New upstream release'");
 }
 
 sub build_package
@@ -190,8 +167,6 @@ sub packageIt
     die "package does not exists" unless (-e $dir);
 
     export($dir, $exportDir);
-
-    export_debian($dir, $exportDir, $package);
 
     add_changelog_entry($exportDir);
 
