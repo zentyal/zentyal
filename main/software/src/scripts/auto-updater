@@ -20,6 +20,7 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use EBox::Gettext;
 
 use Error qw(:try);
 
@@ -56,6 +57,18 @@ try {
         $software->listUpgradablePkgs(1);
     }
     $software->setAutoUpgradePkgNo(scalar(@pkgnames));
+
+    # Check if a reboot is required
+    if(-e '/var/run/reboot-required') {
+        my $events = $global->getInstance(1)->modInstance('events');
+        if ((defined $events) and ($events->isRunning())) {
+            $events->sendEvent(
+                        message => __x('A reboot is required in the machine to complete the installation of packages'),
+                        source  => 'reboot-required',
+                        level   => 'info'
+                    );
+        }
+    }
 } finally {
     $software->unlock();
 };
