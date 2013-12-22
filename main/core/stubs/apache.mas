@@ -47,6 +47,8 @@ PassEnv HTTP_PROXY
 
 PidFile <% $tmpdir %>/apache.pid
 
+Include /etc/apache2/mods-available/mpm_prefork.load
+
 <IfModule mpm_prefork_module>
     StartServers             1
     MinSpareServers          1
@@ -75,7 +77,7 @@ PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load
-Include /etc/apache2/mods-available/authz_default.load
+Include /etc/apache2/mods-available/authz_core.load
 Include /etc/apache2/mods-available/authz_groupfile.load
 Include /etc/apache2/mods-available/authz_host.load
 Include /etc/apache2/mods-available/authz_user.load
@@ -182,8 +184,7 @@ ServerTokens Min
         ExpiresActive On
         ExpiresDefault "access plus 5 hours"
         AllowOverride None
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     <Directory /var/lib/zentyal/dynamicwww>
@@ -191,8 +192,7 @@ ServerTokens Min
         ExpiresActive On
         ExpiresDefault "access plus 5 hours"
         AllowOverride None
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     CustomLog /var/log/zentyal/access-perl.log combined
@@ -212,16 +212,11 @@ ServerTokens Min
     PerlSetVar AuthCookieDebug 0
 
     <Files LOGIN>
-        AuthType EBox::Auth
-        AuthName EBox
         SetHandler perl-script
         PerlHandler EBox::Auth->login
     </Files>
 
     <Directory /usr/share/zentyal/cgi/>
-
-        AuthType EBox::Auth
-        AuthName EBox
         PerlAuthenHandler EBox::Auth->authenticate
         PerlAuthzHandler  EBox::Auth->authorize
         require valid-user
@@ -230,8 +225,7 @@ ServerTokens Min
         PerlSendHeader On
         AllowOverride None
         Options +ExecCGI
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     RewriteEngine On
