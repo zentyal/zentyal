@@ -1,4 +1,5 @@
 3.4
+	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
 	+ Fixed regression when table size is set to 'view all'
 	+ Set version to 3.4
