@@ -76,6 +76,7 @@ Include /etc/apache2/mods-available/mpm_prefork.load
 PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
+Include /etc/apache2/mods-available/authn_core.load
 Include /etc/apache2/mods-available/authn_file.load
 Include /etc/apache2/mods-available/authz_core.load
 Include /etc/apache2/mods-available/authz_groupfile.load
@@ -199,7 +200,7 @@ ServerTokens Min
 
 % if ($debug eq 'yes') {
 # Yes, this is useless right now.
-#PerlInitHandler	Apache2::Reload
+#PerlInitHandler    Apache2::Reload
 % }
     PerlWarn On
 
@@ -212,11 +213,15 @@ ServerTokens Min
     PerlSetVar AuthCookieDebug 0
 
     <Files LOGIN>
+        AuthType EBox::Auth
+        AuthName EBox
         SetHandler perl-script
         PerlHandler EBox::Auth->login
     </Files>
 
     <Directory /usr/share/zentyal/cgi/>
+        AuthType EBox::Auth
+        AuthName EBox
         PerlAuthenHandler EBox::Auth->authenticate
         PerlAuthzHandler  EBox::Auth->authorize
         require valid-user
