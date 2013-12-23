@@ -2,11 +2,11 @@ Source: zbwmonitor
 Section: net
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: cdbs, debhelper (>= 4.0.0), libconfig++8-dev, libpcap0.8-dev
+Build-Depends: cdbs, debhelper (>= 4.0.0), libconfig++9-dev, libpcap0.8-dev
 Standards-Version: 3.7.3
 
 Package: zbwmonitor
 Architecture: any
-Depends: ${shlibs:Depends}, libconfig++8, libpcap0.8 ${misc:Depends}
+Depends: ${shlibs:Depends}, libconfig++9, libpcap0.8, ${misc:Depends}
 Description: Zentyal bandwith monitor tool
  This tool is used by Zentyal to keep track of bandwith usage.
