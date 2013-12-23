@@ -1,17 +1,15 @@
 #!/bin/bash -x
 
 SOURCES_LIST=/etc/apt/sources.list
-#PPA_URL="http://ppa.launchpad.net/zentyal/3.2/ubuntu"
-#ZENTYAL_SOURCES="deb $PPA_URL precise main"
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.3 main extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.4 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
 create_repository()
 {
     # without this apt-ftparchive gives lots of "too many open files" errors
-    # for some reason this worked flawlessly in lucid but not now in precise
+    # for some reason this worked flawlessly in lucid but not in more recent versions
     ulimit -n 30000
 
     if ! [ -d $PKG_DIR ]; then
