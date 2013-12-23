@@ -22,7 +22,7 @@ do
     changelog="$i/debian/changelog"
     git co $changelog
     echo "Building package $i..."
-    zentyal-package $i || exit 1
+    $cwd/../extra/zbuildtools/zentyal-package $i || exit 1
     cd debs-ppa
     dpkg-source -x zentyal-${i}_*.dsc || exit 1
     cd zentyal-${i}-*
