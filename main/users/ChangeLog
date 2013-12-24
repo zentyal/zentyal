@@ -1,4 +1,5 @@
 3.4
+	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
 3.3
 	+ Forbid to create OUs inside Users, Groups or Computer OUs
