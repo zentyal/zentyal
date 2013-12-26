@@ -258,18 +258,19 @@ sub validateRow
         $self->checkGWName($params{name});
     }
 
-    my $network = EBox::Global->modInstance('network');
-    my $ifaceForAddress = $network->ifaceByAddress($ip);
-    if ($ifaceForAddress) {
-        throw EBox::Exceptions::External(__x(
-            "Gateway address {ip} is already the address of the local interface {iface}",
-            ip => $ip,
-            iface => $ifaceForAddress
-           ));
-    }
-
     # Do not check for valid IP in case of auto-added ifaces
     unless ($auto) {
+        my $network = EBox::Global->modInstance('network');
+
+        my $ifaceForAddress = $network->ifaceByAddress($ip);
+        if ($ifaceForAddress) {
+            throw EBox::Exceptions::External(__x(
+                "Gateway address {ip} is already the address of the local interface {iface}",
+                ip => $ip,
+                iface => $ifaceForAddress
+               ));
+        }
+
         my $printableName = __('IP address');
         unless ($ip) {
             throw EBox::Exceptions::MissingArgument($printableName);
