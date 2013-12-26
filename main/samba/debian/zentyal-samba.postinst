@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart samba $2
 
         # restart module
-        invoke-rc.d zentyal samba restart || true
+        service zentyal samba restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

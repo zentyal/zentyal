@@ -12,7 +12,7 @@ case "$1" in
     remove)
         # openvpn changes network interfaces so we must restart network module
         # to propagate the changes
-        invoke-rc.d zentyal network restart || true
+        service zentyal network restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

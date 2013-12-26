@@ -3,7 +3,7 @@
 # stop services
 SERVICES="amavis spamassassin"
 for SERVICE in $SERVICES; do
-    invoke-rc.d  $SERVICE stop || true
+    service $SERVICE stop || true
 done
 
 # move out old amavis conf files

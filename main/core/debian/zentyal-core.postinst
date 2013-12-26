@@ -96,7 +96,7 @@ case "$1" in
         /usr/share/zentyal/sudoers-friendly
 
         # stop disable default nginx init.d script
-        invoke-rc.d nginx stop > /dev/null 2>&1
+        service nginx stop > /dev/null 2>&1
         update-rc.d nginx disable > /dev/null 2>&1
 
         if [ -z "$2" ]; then
@@ -104,7 +104,7 @@ case "$1" in
             set_ebox_port
 
             # Write redis configuration
-            invoke-rc.d zentyal webadmin start || true
+            service zentyal webadmin start || true
         fi
 
         # create logs & reports database

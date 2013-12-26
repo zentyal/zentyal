@@ -1,5 +1,5 @@
 pre-start script
-    invoke-rc.d dansguardian stop || true
+    service dansguardian stop || true
 end script
 
 start on runlevel [2345]

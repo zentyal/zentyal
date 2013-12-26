@@ -6,7 +6,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup trafficshaping $2
 
         # restart module
-        invoke-rc.d zentyal trafficshaping restart || true
+        service zentyal trafficshaping restart || true
 
         dpkg-trigger --no-await zentyal-core
 		;;

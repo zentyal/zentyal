@@ -1,4 +1,5 @@
 3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Fixed soap.conf for apache 2.4
 	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4

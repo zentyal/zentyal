@@ -6,7 +6,7 @@ set -e
 
 # FIXME: check if this works properly
 if [ "$1" = remove ] || [ "$1" = purge ]; then
-    invoke-rc.d zentyal stop || true
+    service zentyal stop || true
 fi
 
 exit 0

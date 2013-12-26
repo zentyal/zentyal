@@ -1,5 +1,5 @@
 pre-start script
-    invoke-rc.d collectd stop || true
+    service collectd stop || true
 end script
 respawn
 script

@@ -6,7 +6,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart openchange $2
 
         # restart module
-        invoke-rc.d zentyal openchange restart || true
+        service zentyal openchange restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

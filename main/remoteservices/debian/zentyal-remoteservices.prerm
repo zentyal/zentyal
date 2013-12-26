@@ -2,7 +2,7 @@
 
 case "$1" in
     remove)
-        invoke-rc.d zentyal remoteservices stop
+        service zentyal remoteservices stop
         /usr/share/zentyal-remoteservices/unsubscribe
     ;;
 esac

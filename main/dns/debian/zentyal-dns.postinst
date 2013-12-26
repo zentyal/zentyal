@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart dns $2
 
         # restart module
-        invoke-rc.d zentyal dns restart || true
+        service zentyal dns restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

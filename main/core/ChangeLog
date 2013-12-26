@@ -1,4 +1,5 @@
 3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6

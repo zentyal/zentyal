@@ -1,5 +1,5 @@
 pre-start script
-    invoke-rc.d amavis stop || true
+    service amavis stop || true
     # Create /var/run/amavis directory. Taken from /etc/init.d/amavis
     createdir() {
         # $1 = user

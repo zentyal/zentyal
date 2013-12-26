@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart printers $2
 
         # restart module
-        invoke-rc.d zentyal printers restart || true
+        service zentyal printers restart || true
 
         dpkg-trigger --no-await zentyal-core
      ;;

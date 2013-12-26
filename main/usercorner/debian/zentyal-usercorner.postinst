@@ -14,7 +14,7 @@ case "$1" in
         rm -f /var/lib/zentyal-usercorner/menucache || true
 
         #restart the usercorner apache
-        invoke-rc.d zentyal usercorner restart || true
+        service zentyal usercorner restart || true
     ;;
 esac
 

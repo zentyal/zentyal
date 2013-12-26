@@ -8,10 +8,6 @@
         delaycompress
         notifempty
         postrotate
-                if [ -x /usr/sbin/invoke-rc.d ]; then \
-                        invoke-rc.d zentyal usercorner restart > /dev/null; \
-                else \
-                        /etc/init.d/zentyal usercorner restart > /dev/null; \
-                fi; \
+                service zentyal usercorner restart > /dev/null; \
         endscript
 }

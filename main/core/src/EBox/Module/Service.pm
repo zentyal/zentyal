@@ -1135,7 +1135,7 @@ sub disableApparmorProfile
             }
             my $cmd = "ln -s $profPath $disPath";
             EBox::Sudo::root($cmd);
-            EBox::Sudo::root('invoke-rc.d apparmor restart');
+            EBox::Sudo::root('service apparmor restart');
         }
     }
 }

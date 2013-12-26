@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup firewall $2
 
         # restart module
-        invoke-rc.d zentyal firewall restart || true
+        service zentyal firewall restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;

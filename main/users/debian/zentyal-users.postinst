@@ -10,7 +10,7 @@ case "$1" in
         /usr/share/zentyal/initial-setup --no-restart users $2
 
         # restart module
-        invoke-rc.d zentyal users restart || true
+        service zentyal users restart || true
 
         dpkg-trigger --no-await zentyal-core
     ;;
