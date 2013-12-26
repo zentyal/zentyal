@@ -38,23 +38,21 @@ use EBox::Exceptions::Internal;
 sub manage # (daemon,action)
 {
     my ($daemon, $action) = @_;
-    (-f "/etc/init/$daemon.conf") or
-        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-    if ( $action eq 'start' ) {
+    unless (-f "/etc/init/$daemon.conf") {
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
+    }
+
+    if ($action eq 'start') {
         EBox::Sudo::root("/sbin/start '$daemon'");
-    }
-    elsif ( $action eq 'stop' ) {
+    } elsif ($action eq 'stop') {
         EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
-    }
-    elsif ( $action eq 'restart') {
+    } elsif ($action eq 'restart') {
         EBox::Sudo::root("/sbin/stop '$daemon'") if (running($daemon));
         EBox::Sudo::root("/sbin/start '$daemon'");
-    }
-    elsif ( $action eq 'reload') {
+    } elsif ($action eq 'reload') {
         EBox::Sudo::root("/sbin/reload '$daemon'") if (running($daemon));
-    }
-    else {
+    } else {
         throw EBox::Exceptions::Internal("Bad argument: $action");
     }
 }

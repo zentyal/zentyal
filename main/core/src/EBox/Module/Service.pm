@@ -31,8 +31,6 @@ use EBox::Gettext;
 use Perl6::Junction qw(any);
 use TryCatch::Lite;
 
-use constant INITDPATH => '/etc/init.d/';
-
 # Method: usedFiles
 #
 #   This method is mainly used to show information to the user
@@ -485,8 +483,7 @@ sub _isDaemonRunning
         }
         return $running;
     } elsif(daemon_type($daemon) eq 'init.d') {
-        my $output = EBox::Sudo::silentRoot(INITDPATH .
-                $dname . ' ' . 'status');
+        my $output = EBox::Sudo::silentRoot("service $dname status");
         if ($? != 0) {
             return 0;
         }
@@ -751,44 +748,36 @@ sub _daemons
 
 sub _startDaemon
 {
-    my($self, $daemon, %params) = @_;
+    my ($self, $daemon, %params) = @_;
 
-    my $isRunning = $self->_isDaemonRunning($daemon->{'name'});
-
-    my $restartAction = 'restart';
-    $restartAction = 'reload' if ((exists $params{reload}) and $params{reload});
-
-    if(daemon_type($daemon) eq 'upstart') {
-        if($isRunning) {
-            EBox::Service::manage($daemon->{'name'}, $restartAction);
-        } else {
-            EBox::Service::manage($daemon->{'name'},'start');
-        }
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'};
-        if($isRunning) {
-            $script = $script . ' ' . $restartAction;
-        } else {
-            $script = $script . ' ' . 'start';
-        }
-        EBox::Sudo::root($script);
-    } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+    my $action = 'start';
+    if ($self->_isDaemonRunning($daemon->{name}) {
+        $action = $params{reload} ? 'reload' : 'restart';
     }
+
+    $self->_manageDaemon($daemon, $action);
 }
 
 sub _stopDaemon
 {
-    my($self, $daemon) = @_;
-    if(daemon_type($daemon) eq 'upstart') {
-        EBox::Service::manage($daemon->{'name'},'stop');
-    } elsif(daemon_type($daemon) eq 'init.d') {
-        my $script = INITDPATH . $daemon->{'name'} . ' ' . 'stop';
-        EBox::Sudo::root($script);
+    my ($self, $daemon) = @_;
+
+    $self->_manageDaemon($daemon, 'stop');
+}
+
+sub _manageDaemon
+{
+    my ($self, $daemon, $action) = @_;
+
+    my $dname = $daemon->{name};
+    my $type = daemon_type($daemon);
+
+    if ($type eq 'upstart') {
+        EBox::Service::manage($dname, $action);
+    } elsif ($type eq 'init.d') {
+        EBox::Sudo::root("service $dname $action");
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
