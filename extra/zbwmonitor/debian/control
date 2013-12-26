@@ -2,7 +2,7 @@ Source: zbwmonitor
 Section: net
 Priority: optional
 Maintainer: Zentyal Packaging Maintainers <pkg-team@zentyal.com>
-Build-Depends: cdbs, debhelper (>= 4.0.0), libconfig++9-dev, libpcap0.8-dev
+Build-Depends: cdbs, debhelper (>= 4.0.0), libconfig++-dev, libpcap0.8-dev
 Standards-Version: 3.7.3
 
 Package: zbwmonitor
