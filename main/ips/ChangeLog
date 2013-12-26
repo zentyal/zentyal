@@ -1,4 +1,6 @@
 3.4
+	+ Ignore bond slaves when looking for enabled interfaces
+	  (contribution by Vsevolod Kukol)
 	+ Depend on new tcmalloc version in saucy
 	+ Set version to 3.4
 3.3

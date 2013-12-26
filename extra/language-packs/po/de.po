@@ -18277,6 +18277,16 @@ msgid "External (WAN)"
 msgstr "Extern (WAN)"
 
 #: ../../main/network/src/templates/ifaces.mas:79
+#: ../../main/network/src/templates/ifaces.mas:117
+#: ../../main/network/src/templates/ifaces.mas:118
+msgid "Bundled"
+msgstr "Gebündelt"
+
+#: ../../main/network/src/templates/ifaces.mas:44
+msgid "Bonding Mode"
+msgstr "Modus"
+
+#: ../../main/network/src/templates/ifaces.mas:98
 msgid ""
 "Check this if you are using Zentyal as a gateway and this interface is "
 "connected to your Internet router."
@@ -18287,6 +18297,10 @@ msgstr ""
 #: ../../main/network/src/templates/ifaces.mas:115
 msgid "Bridge"
 msgstr "Netzwerk-Brücke"
+
+#: ../../main/network/src/templates/ifaces.mas:214
+msgid "Bonding"
+msgstr "Bündel"
 
 #: ../../main/network/src/templates/ifaces.mas:138
 msgid "VLAN List"

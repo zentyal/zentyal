@@ -1,4 +1,5 @@
 3.4
+	+ Added bonding support (contribution by Vsevolod Kukol)
 	+ Fix regresion in the installer wizard that made options for static
 	  interfaces be always shown
 	+ Set version to 3.4
