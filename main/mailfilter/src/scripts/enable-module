@@ -18,12 +18,6 @@ if [ $? != 0 ]; then
   addgroup clamav amavis
 fi
 
-## copy LDAP schemas
-#cp /usr/share/zentyal-mailfilter/*.schema /etc/ldap/schema
-## update ldap
-#/usr/share/zentyal-users/init-ldap genconfig
-#/etc/init.d/slapd restart
-
 /usr/share/zentyal-mailfilter/create-spamassassin-db
 
 exit 0;

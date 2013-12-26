@@ -56,7 +56,6 @@ use constant BIND9CONFDIR         => "/etc/bind";
 use constant BIND9CONFFILE        => "/etc/bind/named.conf";
 use constant BIND9CONFOPTIONSFILE => "/etc/bind/named.conf.options";
 use constant BIND9CONFLOCALFILE   => "/etc/bind/named.conf.local";
-use constant BIND9INIT            => "/etc/init.d/bind9";
 use constant BIND9_UPDATE_ZONES   => "/var/lib/bind";
 
 use constant PIDFILE       => "/var/run/bind/run/named.pid";

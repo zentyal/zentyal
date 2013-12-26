@@ -1126,7 +1126,7 @@ sub disableApparmorProfile
 {
     my ($self, $profile) = @_;
 
-    if ( -f '/etc/init.d/apparmor' ) {
+    if (-f '/etc/init.d/apparmor') {
         my $profPath = "/etc/apparmor.d/$profile";
         my $disPath = "/etc/apparmor.d/disable/$profile";
         if (-f $profPath and not -f $disPath) {

@@ -379,7 +379,7 @@ sub _enforceServiceState
 #FIXME    $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
-    EBox::Sudo::root('/etc/init.d/postfix restart');
+    EBox::Sudo::root('service postfix restart');
 }
 
 #

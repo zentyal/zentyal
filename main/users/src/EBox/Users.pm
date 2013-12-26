@@ -1043,9 +1043,9 @@ sub initUser
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd force-reload');
+            EBox::Sudo::root('service nscd force-reload');
         } catch {
         }
    }

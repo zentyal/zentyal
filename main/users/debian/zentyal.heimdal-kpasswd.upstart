@@ -1,7 +1,7 @@
 respawn
 
 pre-start script
-    /etc/init.d/heimdal-kdc stop || true
+    service heimdal-kdc stop || true
 end script
 
 script
