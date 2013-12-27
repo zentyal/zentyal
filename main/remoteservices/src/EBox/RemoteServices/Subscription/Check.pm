@@ -99,7 +99,12 @@ sub check
         my ($exc) = @_;
         $self->{lastError} = $exc->text();
         $capable = 0;
+    } otherwise {
+        my ($exc) = @_;
+        EBox::error($exc);
+        # We are not modifying the capable value as an exception was raised
     };
+
     return $capable;
 }
 
