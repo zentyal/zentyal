@@ -751,7 +751,7 @@ sub _startDaemon
     my ($self, $daemon, %params) = @_;
 
     my $action = 'start';
-    if ($self->_isDaemonRunning($daemon->{name}) {
+    if ($self->_isDaemonRunning($daemon->{name})) {
         $action = $params{reload} ? 'reload' : 'restart';
     }
 
