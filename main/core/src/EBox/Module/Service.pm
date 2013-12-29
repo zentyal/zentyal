@@ -490,9 +490,11 @@ sub _isDaemonRunning
         my $status = join ("\n", @{$output});
         if ($status =~ m{$dname .* running}) {
             return 1;
+        } elsif ($status =~ m{$dname .* \[ RUNNING \]}) {
+            return 1;
         } elsif ($status =~ m{ is running}) {
             return 1;
-        } elsif ($status =~ m{$dname .* [ OK ]}) {
+        } elsif ($status =~ m{$dname .* \[ OK \]}) {
             return 1;
         } elsif ($status =~ m{$dname .*done}s) {
             return 1;
