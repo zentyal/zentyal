@@ -1,5 +1,5 @@
 3.4
-	+ Adapt init.d running checks to Ubuntu 13.10
+	+ Adapt init.d and upstart running checks to Ubuntu 13.10
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API

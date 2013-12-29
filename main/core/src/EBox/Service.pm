@@ -72,20 +72,13 @@ sub manage # (daemon,action)
 sub running # (daemon)
 {
     my ($daemon) = @_;
-    (-f "/etc/init/$daemon.conf") or
-        throw EBox::Exceptions::Internal("No such daemon: $daemon");
 
-    my $status = `/sbin/status '$daemon'`;
-    # TODO: Parse different exit status:
-    #       Pre-start
-    #       Post-start
-    #       ....
-    #       Not it's running or stopped
-    if ($status =~ m{^$daemon start/running.*}) {
-        return 1;
-    } else {
-        return undef;
+    unless (-f "/etc/init/$daemon.conf") {
+        throw EBox::Exceptions::Internal("No such daemon: $daemon");
     }
+
+    my $status = EBox::Sudo::silentRoot("/sbin/status '$daemon'");
+    return $status->[0] =~ m{^$daemon start/running};
 }
 
 1;
