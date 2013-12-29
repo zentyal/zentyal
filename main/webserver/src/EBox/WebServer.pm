@@ -241,11 +241,12 @@ sub menu
 sub _daemons
 {
     return [
-        {
-            'name' => 'apache2',
-            'type' => 'init.d',
-            'pidfiles' => ['/var/run/apache2.pid'],
-        }
+# FIXME: temporary disabled until fixed
+#        {
+#            'name' => 'apache2',
+#            'type' => 'init.d',
+#            'pidfiles' => ['/var/run/apache2.pid'],
+#        }
     ];
 }
 
