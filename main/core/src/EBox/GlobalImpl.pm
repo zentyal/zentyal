@@ -1310,7 +1310,7 @@ sub _assertNotChanges
     my @unsaved =  @{$self->modifiedModules('save')};
     if (@unsaved) {
         my $names = join ', ',  @unsaved;
-        throw EBox::Exceptions::Internal("There have been moules which remain in unsaved state after saving changes operatios: $names");
+        throw EBox::Exceptions::Internal("The following modules remain unsaved after save changes: $names");
     }
 }
 
