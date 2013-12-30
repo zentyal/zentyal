@@ -454,18 +454,15 @@ sub disabledModuleWarning
 sub _isDaemonRunning
 {
     my ($self, $dname) = @_;
-    my $daemons = $self->_daemons();
 
-    my $daemon;
-    my @ds = grep { $_->{'name'} eq $dname } @{$daemons};
-    if(@ds) {
-        $daemon = $ds[0];
+    my $daemons = $self->_daemons();
+    my ($daemon) = grep { $_->{'name'} eq $dname } @{$daemons};
+    unless (defined $daemon) {
+        my $modname = $self->name();
+        throw EBox::Exceptions::Internal("Daemon $dname is not defined in $modname module");
     }
-    if(!defined($daemon)) {
-        throw EBox::Exceptions::Internal(
-            "no such daemon defined in this module: " . $dname);
-    }
-    if(defined($daemon->{'pidfiles'})) {
+
+    if ($daemon->{'pidfiles'}) {
         foreach my $pidfile (@{$daemon->{'pidfiles'}}) {
             unless ($self->pidFileRunning($pidfile)) {
                 return 0;
@@ -473,16 +470,14 @@ sub _isDaemonRunning
         }
         return 1;
     }
-    if(daemon_type($daemon) eq 'upstart') {
-        my $running = 0;
+
+    if (daemon_type($daemon) eq 'upstart') {
         try {
-            $running = EBox::Service::running($dname);
+            return EBox::Service::running($dname);
         } catch (EBox::Exceptions::Internal $e) {
-            # If the daemon does not exist, then return false
-            ;
+            return 0;
         }
-        return $running;
-    } elsif(daemon_type($daemon) eq 'init.d') {
+    } elsif (daemon_type($daemon) eq 'init.d') {
         my $output = EBox::Sudo::silentRoot("service $dname status");
         if ($? != 0) {
             return 0;
@@ -502,8 +497,7 @@ sub _isDaemonRunning
             return 0;
         }
     } else {
-        throw EBox::Exceptions::Internal(
-            "Service type must be either 'upstart' or 'init.d'");
+        throw EBox::Exceptions::Internal("Service type must be either 'upstart' or 'init.d'");
     }
 }
 
