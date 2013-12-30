@@ -962,7 +962,9 @@ sub serverUsers
 
     if ( (not $force)
          and ($self->st_entry_exists('subscription/server_users')) ) {
-        return $self->st_get_int('subscription/server_users');
+        my $serverUsers = $self->st_get_int('subscription/server_users');
+        $serverUsers = undef if ($serverUsers eq "");  # undef is stored as empty string...
+        return $serverUsers;
     } else {
         # Ask to the cloud if connected
         if ( $self->isConnected() ) {
