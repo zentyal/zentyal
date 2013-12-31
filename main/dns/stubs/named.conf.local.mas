@@ -51,7 +51,7 @@ acl "internal-local-nets" {
 
 % if (defined $sambaZones and scalar @{$sambaZones}) {
 dlz "AD DNS Zone" {
-    database "dlopen /opt/samba4/lib/bind9/dlz_bind9.so";
+    database "dlopen /opt/samba4/lib/bind9/dlz_bind9_9.so";
 };
 % }
 
