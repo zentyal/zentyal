@@ -27,7 +27,7 @@ use Net::LDAP;
 use EBox::Samba::AuthKrbHelper;
 use Authen::SASL;
 
-use TryCatch::Lite;
+use Error qw(:try);
 
 sub new
 {
@@ -82,10 +82,11 @@ sub _process
         }
 
         $self->{json}->{success} = 1;
-    } catch ($error) {
+    } otherwise {
+        my $error = shift;
         $self->{json}->{success} = 0;
         $self->{json}->{error} = qq{$error};
-    }
+    };
 }
 
 1;

@@ -29,7 +29,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 
-use TryCatch::Lite;
+use Error qw(:try);
 
 # Method: new
 #
@@ -380,10 +380,11 @@ sub _doProvision
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } catch ($error) {
+    } otherwise {
+        my $error = shift;
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    }
+    };
     $self->global->modChange('mail');
     $self->global->modChange('samba');
     $self->global->modChange('openchange');
@@ -423,10 +424,11 @@ sub _doProvision
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } catch ($error) {
+            } otherwise {
+                my $error = shift;
                 EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
-            }
+            };
         }
     }
 }
