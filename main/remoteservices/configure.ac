@@ -1,4 +1,4 @@
-AC_INIT([zentyal-remoteservices], [2.2.16])
+AC_INIT([zentyal-remoteservices], [2.2.17])
 
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_SRCDIR([src/EBox/RemoteServices.pm])
