@@ -42,6 +42,13 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    if (EBox::Util::Software::errorOnPkgs()) {
+        $self->{json} = {
+            value => __('You have broken packages installed, fix them before upgrading'),
+            type => 'error',
+        };
+        return;
+    }
 
     my $qaUpdates = 0;
     my $ignore = EBox::Config::boolean('widget_ignore_updates');

@@ -1,6 +1,7 @@
 3.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Check if objects are system critical before deletion
 3.3
 	+ Renamed printableName to File Sharing and Domain Services
 	+ Split settings in two menu entries: Domain and File Sharing

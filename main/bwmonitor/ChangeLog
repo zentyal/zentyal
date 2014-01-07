@@ -1,5 +1,7 @@
 3.4
 	+ Set version to 3.4
+	+ Show reminder to enable interfaces when there are none enabled and
+	  the usage table is empty
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Added missing EBox::Exceptions uses

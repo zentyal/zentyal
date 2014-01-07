@@ -4,6 +4,8 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Fixed general widget packages to avoid error on 'packages to
+	  upgrade' section
 	+ Fixed regression when table size is set to 'view all'
 	+ Set version to 3.4
 3.3.1
