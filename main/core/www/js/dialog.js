@@ -58,6 +58,10 @@ Zentyal.Dialog.showURL = function(url, params) {
     $('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
 };
 
+Zentyal.Dialog.showHTML = function(html, params) {
+    $('#' + Zentyal.Dialog.DEFAULT_ID).html(html).dialog(params);
+};
+
 Zentyal.Dialog.close = function() {
     $('#' + Zentyal.Dialog.DEFAULT_ID).dialog('close');
 };

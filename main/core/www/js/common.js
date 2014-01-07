@@ -50,6 +50,7 @@ Zentyal.setSaveChangesButton = function(changed) {
     $('#changes_menu').removeClass().addClass(className);
 };
 
+
 /*
 Function: stripe
 
@@ -200,6 +201,5 @@ Zentyal.MenuSearch.filterMenu = function(event) {
     } else {
         Zentyal.MenuSearch.showAllMenuEntries();
     }
-
 };
 

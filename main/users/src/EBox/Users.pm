@@ -2052,7 +2052,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $ignoreUserInitialization) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2088,6 +2088,8 @@ sub restoreConfig
 
     # Save conf to enable NSS (and/or) PAM
     $self->_setConf();
+
+    return if $ignoreUserInitialization;
 
     for my $user (@{$self->users()}) {
 

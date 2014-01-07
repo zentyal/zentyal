@@ -1,7 +1,10 @@
+HEAD
+	+ Check if objects are system critical before deletion
 3.3
 	+ Renamed printableName to File Sharing and Domain Services
 	+ Split settings in two menu entries: Domain and File Sharing
 	+ Switch from Error to TryCatch for exception handling
+	+ Improved migration code from 3.2.11
 	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
                   adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP

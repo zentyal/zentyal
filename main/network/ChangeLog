@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed bug which made impossible to edit pppoe gateways
 	+ Fix regresion in the installer wizard that made options for static
 	  interfaces be always shown
 3.3

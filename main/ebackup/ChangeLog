@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression in rsync method (contribution by billfarrow)
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Hide password field for rsync method
