@@ -108,7 +108,7 @@ sub usedFiles
         my $vHost = $vHostModel->row($id);
         # access to the field values for every virtual host
         my $vHostName = $vHost->valueByName('name');
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         push(@{$files}, { 'file' => $destFile, 'module' => 'webserver',
                           'reason' => "To configure $vHostName virtual host." });
     }
@@ -503,7 +503,7 @@ sub _setVHosts
         my $vHostName  = $vHost->{'name'};
         my $sslSupport = $vHost->{'ssl'};
 
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         delete $sitesToRemove{$destFile};
         $self->writeConfFile($destFile,
                              "webserver/vhost.mas",
