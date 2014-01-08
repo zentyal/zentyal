@@ -46,8 +46,8 @@ use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR => CONF_DIR . '/sites-enabled/';
 use constant GLOBAL_CONF_DIR => CONF_DIR . '/conf.d/';
 
-use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
-use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl';
+use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . '000-default.conf';
+use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl.conf';
 use constant SSL_DIR => CONF_DIR . '/ssl/';
 
 # Constructor: _create
@@ -228,8 +228,7 @@ sub menu
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
-                                      order => 570
-                                     );
+                                      order => 570);
       $root->add($item);
 }
 
@@ -528,7 +527,6 @@ sub _setVHosts
                 }
             }
         }
-
     }
 
     # Remove not used old dirs

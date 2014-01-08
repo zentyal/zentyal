@@ -18,41 +18,22 @@
 	ServerAdmin webmaster@<% $hostname %>
 
 	DocumentRoot /var/www
-	<Directory />
-		Options FollowSymLinks
-		AllowOverride None
-	</Directory>
-	<Directory /var/www/>
-		Options Indexes FollowSymLinks MultiViews
-		AllowOverride All
-		Order allow,deny
-		Allow from all
-	</Directory>
 
-	ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-	<Directory "/usr/lib/cgi-bin">
-		AllowOverride None
-		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-		Order allow,deny
-		Allow from all
-	</Directory>
+    # Available loglevels: trace8, ..., trace1, debug, info, notice, warn,
+    # error, crit, alert, emerg.
+    # It is also possible to configure the loglevel for particular
+    # modules, e.g.
+    #LogLevel info ssl:warn
 
-	ErrorLog /var/log/apache2/error.log
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
 
-	# Possible values include: debug, info, notice, warn, error, crit,
-	# alert, emerg.
-	LogLevel warn
-
-	CustomLog /var/log/apache2/ssl_access.log combined
-
-	Alias /doc/ "/usr/share/doc/"
-	<Directory "/usr/share/doc/">
-		Options Indexes MultiViews FollowSymLinks
-		AllowOverride None
-		Order deny,allow
-		Deny from all
-		Allow from 127.0.0.0/255.0.0.0 ::1/128
-	</Directory>
+    # For most configuration files from conf-available/, which are
+    # enabled or disabled at a global level, it is possible to
+    # include a line for only one particular virtual host. For example the
+    # following line enables the CGI configuration for this host only
+    # after it has been globally disabled with "a2disconf".
+    #Include conf-available/serve-cgi-bin.conf
 
 	#   SSL Engine Switch:
 	#   Enable/Disable SSL for this virtual host.
