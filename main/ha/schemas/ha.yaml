@@ -1,0 +1,10 @@
+class: EBox::HA
+
+depends:
+    - network
+
+enabledepends:
+    - network
+
+models:
+    - Cluster
