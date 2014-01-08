@@ -46,6 +46,17 @@ sub latestUpdate
     return $status->mtime();
 }
 
+# Function: errorOnPkgs
+#
+#   return whether there is a error in the software packages
+sub errorOnPkgs
+{
+    my @output = `$APT_CHECK 2>&1`;
+    my $line = $output[0];
+    chomp($line);
+    return $line =~ m/^E:/;
+}
+
 # Function: upgradablePkgsNum
 #
 #     Return the number of packages that are upgradable with the

@@ -11,7 +11,6 @@
     $updateList
     $updateListError
     $updateListErrorMsg
-    $sb
 </%args>
 <%init>
 use EBox::Gettext;
@@ -203,11 +202,7 @@ var pkgTable = new Array(
             </div>
         </div>
 
-% if ($sb) {
-        <div id="Communications_head" class="head" style="display:none">
-% } else {
         <div id="Communications_head" class="head">
-% }
 % unless ($isCommunication) {
             <div class="image" id="Communications_image"
                  onclick="Zentyal.SoftwareManagementUI.tick('Communications', 1); return false">
@@ -250,7 +245,7 @@ var pkgTable = new Array(
                 <img src='/data/software/images/loadbalance.png' alt='Load balancing and availability' />
                 <h4><% __s('Load Balancing and Availability') %> </h4>
                 <p><strong><% __s("Always connected!") %></strong><br />
-                <% __s('If you have multiple Internet connections, distribute the traffic transparently and stay connected even if one of the connections is down. You can also define specific connections for VoIP, between offices, etc.') %></p>
+                <% __s('If you have multiple Internet connections, distribute the traffic transparently and stay connected even if one of the connections is down. You can also define specific connections for specific traffic, between offices, etc.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/filter.png' alt='Content Filter' />
@@ -280,7 +275,7 @@ var pkgTable = new Array(
                 <img src='/data/software/images/objects.png' alt='DHCP server' />
                 <h4><% __s('DHCP Server') %></h4>
                 <p><strong><% __s('Automatic network configuration!') %></strong><br />
-                <% __s('Configure all the basic settings as devices are connected to the LAN: IP, mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases with PXE for thin clients or VoIP phones.') %></p>
+                <% __s('Configure all the basic settings as devices are connected to the LAN: IP, mask, gateway, DNS, NTP, WINS servers and advanced setups like static leases with PXE.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/dns.png' alt='DNS server' />
@@ -292,7 +287,7 @@ var pkgTable = new Array(
                 <img src='/data/software/images/www.png' alt='Web Server' />
                 <h4><% __s('Web Server') %></h4>
                 <p><strong><% __s('Powered by Apache!') %></strong><br />
-                <% __s('Zentyal server integrates the Apache web server, one of the most popular on the Internet. This module will help you to deploy all kind of internal web applications on your network.') %></p>
+                <% __s('Zentyal Server integrates the Apache web server, one of the most popular on the Internet. This module will help you to deploy all kind of internal web applications on your network.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/cert.png' alt='Enterprise-grade SSL' />
@@ -309,7 +304,6 @@ var pkgTable = new Array(
                     <li><% __s('Certification Authority: Certificate management, Zentyal service integration.') %></li>
                     <li><% __s('Web server: HTTP and HTTPS support, Multiple virtual hosts, Integration with DNS.') %></li>
                     <li><% __s('FTP server: Anonymous FTP, Authenticated FTP.') %></li>
-                    <li><% __s('VM management') %></li>
                 </ul>
             </div>
         </div>
@@ -322,12 +316,6 @@ var pkgTable = new Array(
                 <h4><% __s('Directory Service') %></h4>
                 <p><strong><% __s('All your users in one place!') %></strong><br />
                 <% __s('Manage users, groups and privileges from a single point. Replicate the directory over multiple servers for service distribution and high availability or synchronize against an existing Active Directory.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/cal.png' alt='Calendar, contacts and tasks' />
-                <h4><% __s('Groupware') %></h4>
-                <p><strong><% __s('Easy on-line collaboration!') %></strong><br />
-                <% __s('Allow your users to access their email, share their calendars, contacts and tasks. Help the employees to work together while located remotely and enable more effective team collaboration. The perfect Exchange replacement!') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/sharing.png' alt='File and printer sharing' />
@@ -360,7 +348,7 @@ var pkgTable = new Array(
                 <img src='/data/software/images/email.png' alt='Email' />
                 <h4><% __s('Email') %></h4>
                 <p><strong><% __s('With your favorite email client!') %></strong><br />
-                <% __s('Zentyal includes a complete email solution, with antispam and antivirus, as well as webmail. All the current standards are supported, so your users can keep using their favorite email clients.') %></p>
+                <% __s('Zentyal includes a complete email server that is natively compatible with Microsoft Exchange Server. All the current standars are supported, so your users can keep using their favorite email clients.') %></p>
             </div>
             <div class='feature'>
                 <img src='/data/software/images/im.png' alt='Instant messaging' />
@@ -368,25 +356,11 @@ var pkgTable = new Array(
                 <p><strong><% __s('When email is not enough!') %></strong><br />
                 <% __s('Allow your users to communicate quickly, efficiently and safely with colleagues and customers. The XMPP/Jabber protocol used allows the use of any of the existing clients on most platforms, even on cell phones.') %></p>
             </div>
-            <div class='feature'>
-                <img src='/data/software/images/voip.png' alt='VoIP' />
-                <h4><% __s('VoIP') %></h4>
-                <p><strong><% __s('When you need to call!') %></strong><br />
-                <% __s('Provide your employees with extensions and make internal calls and conferences easily. With third-party providers, you can also get real phone numbers to make and receive external calls at very low prices.') %></p>
-            </div>
-            <div class='feature'>
-                <img src='/data/software/images/cal.png' alt='Groupware' />
-                <h4><% __s('Groupware') %></h4>
-                <p><strong><% __s('Your data everywhere!') %></strong><br />
-                <% __s('Thanks to the groupware service your users can access email and other data wherever they go no matter the device they use: email client, web browser or mobile devices. Migrating from Exchange was never this easy!') %></p>
-            </div>
             <div class="full-features">
                 <h3><% __s('Full feature list') %></h3>
                 <ul>
                     <li><% __s('Mail server: SMTP with TLS, POP3-IMAP4 with SSL, Webmail, Server side filtering (SIEVE), External mail retrieval, Antispam, Antivirus, Greylisting, Virtual domains, User quota support.') %></li>
-                    <li><% __s('Groupware: Mail, Shared calendar, Shared contacts, Shared tasks, Mobile devices synchronization.)') %></li>
                     <li><% __s('Instant Messaging server: XMPP/Jabber server, Conference rooms.)') %></li>
-                    <li><% __s('Voice over IP server: SIP users and phones, Calls through an external provider, Conference rooms, Voicemail, Call transfers and parking, Music on hold, Queues, Logs.') %></li>
                 </ul>
             </div>
         </div>

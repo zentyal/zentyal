@@ -5,7 +5,7 @@
 ARCH=$1
 
 CD_BUILD_DIR="$CD_BUILD_DIR_BASE-$ARCH"
-CD_EBOX_DIR=$CD_BUILD_DIR/zentyal
+CD_ZENTYAL_DIR=$CD_BUILD_DIR/zentyal
 
 test -d $CD_BUILD_DIR || (echo "cd build directory not found."; false) || exit 1
 test -d $DATA_DIR  || (echo "data directory not found."; false) || exit 1
@@ -48,18 +48,22 @@ then
 
     cp $DATA_DIR/isolinux-zentyal-debug.cfg $CD_BUILD_DIR/isolinux/txt.cfg
 else
-    sed -e s:VERSION:$EBOX_VERSION$EBOX_APPEND: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
+    sed -e s:VERSION:$VERSION: < $DATA_DIR/isolinux-zentyal.cfg.template > $CD_BUILD_DIR/isolinux/txt.cfg
 fi
 
 USB_SUPPORT="cdrom-detect\/try-usb=true"
 sed -i "s/gz quiet/gz $USB_SUPPORT quiet/g" $CD_BUILD_DIR/isolinux/txt.cfg
 
-test -d $CD_EBOX_DIR || mkdir -p $CD_EBOX_DIR
+test -d $CD_ZENTYAL_DIR || mkdir -p $CD_ZENTYAL_DIR
 
-rm -rf $CD_EBOX_DIR/*
+rm -rf $CD_ZENTYAL_DIR/*
 
 TMPDIR=/tmp/zentyal-installer-data-$$
 cp -r $DATA_DIR $TMPDIR
-cp -r $TMPDIR/* $CD_EBOX_DIR/
+
+./gen_locales.pl $TMPDIR || (echo "locales files autogeneration failed.";
+                             echo "make sure you have zentyal-common installed."; false) || exit 1
+
+cp -r $TMPDIR/* $CD_ZENTYAL_DIR/
 
 rm -rf $TMPDIR

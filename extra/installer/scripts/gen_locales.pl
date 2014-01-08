@@ -24,36 +24,35 @@ use constant FILE_NAME => 'locale.gen';
 
 my ($dstDir) = @ARGV;
 if (not $dstDir) {
-  $dstDir = './';
-  warn "No destination dir provided using actual directory";
+    $dstDir = './';
+    warn "No destination dir provided using actual directory";
 }
 
-my $path= "$dstDir/" . FILE_NAME;
+my $path = "$dstDir/" . FILE_NAME;
 
 my $langs = EBox::Gettext::langs();
 
 open my $FH, ">$path" or
-  die  "Cannot open $path: $!";
+die  "Cannot open $path: $!";
 
-my  @locales = sort keys %{ $langs };
+my @locales = sort keys %{ $langs };
 
-foreach my $locale ( @locales ) {
-  if ($locale eq 'C') {
-    # standard locale 'C' dont need to be generated so we skip it
-    next;
-  }
+foreach my $locale (@locales) {
+    if ($locale eq 'C') {
+        # standard locale 'C' dont need to be generated so we skip it
+        next;
+    }
 
-  my $encoding = '';
-  if ($locale =~  m/UTF-8/) {
-    $encoding = ' UTF-8';
-  }
+    my $encoding = '';
+    if ($locale =~  m/UTF-8/) {
+        $encoding = ' UTF-8';
+    }
 
-  print $FH $locale, $encoding, "\n" or
-    die $!;
+    print $FH $locale, $encoding, "\n" or
+        die $!;
 }
 
-
 close $FH or
-  die "Cannot close $path: $!";
+die "Cannot close $path: $!";
 
 1;

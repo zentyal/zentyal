@@ -58,10 +58,6 @@ use EBox::View::Customizer;
 use Error qw(:try);
 use Sys::Hostname;
 
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant SB_URL  => STORE_URL . 'small-business-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => STORE_URL . 'enterprise-edition/?utm_source=zentyal&utm_medium=subscription&utm_campaign=smallbusiness_edition';
-
 my $subsWizardURL = '/Wizard?page=RemoteServices/Wizard/Subscription';
 
 # Group: Public methods
@@ -246,11 +242,9 @@ sub help
 
     my $msg = '';
     if (not $self->eBoxSubscribed()) {
-        $msg = __sx("Register your Zentyal server to Zentyal's remote monitoring and management platform (Zentyal Remote) here. Get a {ohf}free account{ch} or use the credentials of your {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for full access.",
+        $msg = __sx("Register your Zentyal Server to Zentyal's remote monitoring and management platform (Zentyal Remote) here. Get a {ohf}free account{ch} or use the credentials of your {oh}Commercial Edition{ch} for full access.",
             ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
-            ohs => '<a href="' . SB_URL . '" target="_blank">',
-            ohe => '<a href="' . ENT_URL . '" target="_blank">',
-            ch => '</a>');
+            oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
         $msg .= '<br/><br/>';
 
         #my $modChanges = $self->_modulesToChange();
@@ -712,6 +706,9 @@ sub _showSaveChanges
                       error : function(t) {
                             Zentyal.TableHelper.restoreHidden('customActions_${tableName}_submit_form', '$tableName');
                             \$('#error_$tableName').html(t.responseText);
+                      },
+                      complete: function(t) {
+                            Zentyal.refreshSaveChangesButton();
                       }
                   });
 Zentyal.TableHelper.setLoading('customActions_${tableName}_submit_form', '$tableName', true);

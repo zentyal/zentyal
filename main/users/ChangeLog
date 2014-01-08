@@ -1,4 +1,8 @@
 HEAD
+	+ Fixed excesive restrictive validation of external AD password in wizard
+	+ Fixed 3.0 -> 3.2 migration when there are other modules extending LDAP
+3.2.6
+	+ Remove useless warning when deleting a user or group with offer 2013
 	+ Show system but not internal groups in user edition form
 	+ Allow unsafe characters for user and password in external AD mode.
 	+ Fixed bug in external AD connection. Reuse already estabished

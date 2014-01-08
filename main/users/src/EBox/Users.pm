@@ -79,7 +79,6 @@ use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
-use constant MAX_SB_USERS   => 25;
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
@@ -438,7 +437,8 @@ sub _migrateTo32
     # Change the schema to use the new ZentyalDistributionGroup for members
     EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
     # Restore this modified backup.
-    $self->restoreConfig($tempBackupDir);
+    my $ignoreUserInitialization = 1;
+    $self->restoreConfig($tempBackupDir, $ignoreUserInitialization);
 
     # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
     my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
@@ -1858,7 +1858,7 @@ sub allGroupAddOns
     return \@components;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #       Returns all the the warnings provided by the modules when a certain
 #       user, group is going to be deleted. Function _delUserWarning or
@@ -1879,15 +1879,6 @@ sub allWarnings
 
     # TODO: Extend it for ous and contacts.
     return [] unless (($object eq 'user') or ($object eq 'group'));
-
-    # Check for maximum users
-    if (EBox::Global->edition() eq 'sb') {
-        if (length(@{$self->users()}) >= MAX_SB_USERS) {
-            throw EBox::Exceptions::External(
-                __s('Please note that you have reached the maximum of users for this server edition. If you need to run Zentyal with more users please upgrade.'));
-
-        }
-    }
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @allWarns;
@@ -2158,7 +2149,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $ignoreUserInitialization) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2194,6 +2185,8 @@ sub restoreConfig
 
     # Save conf to enable NSS (and/or) PAM
     $self->_setConf();
+
+    return if $ignoreUserInitialization;
 
     for my $user (@{$self->users()}) {
 

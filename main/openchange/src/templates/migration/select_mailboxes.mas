@@ -1,0 +1,136 @@
+<%doc>
+    This template is used to get the migration details before going to the
+    other section
+</%doc>
+<%args>
+    $server
+    $serverIP
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript" src="/data/js/format.js"></script>
+<script type="text/javascript" src="/data/js/openchange.js"></script>
+<div id="messages"></div>
+<div class="item-block">
+    <h3><% __('Select mailboxes to migrate') %></h3>
+    <div class="full-width info-top">
+        <img class="info-block" src="/data/images/connected-server.png">
+        <div class="info-block">
+            <span class="info-label"><% __('Connected to') %></span>
+            <span class="info-value"><% $server %></span>
+        </div>
+        <div class="info-block">
+            <span class="info-label"><% __('IP address') %></span>
+            <span class="info-value"><% $serverIP %></span>
+        </div>
+        <div class="info-block">
+            <span class="info-label"><% __('mailboxes') %></span>
+            <span class="info-value nmailboxes">--</span>
+        </div>
+        <a href="/OpenChange/Migration/Disconnect" class="btn btn-black force-right"
+           title="<% __x('Disconnect from {ip}', ip => $serverIP) %>"><% __('DISCONNECT') %></a>
+    </div>
+
+    <div class="select-mailbox-block">
+        <div class="block-header">
+            <div class="wrapper">
+                <h2><span class="nmailboxes">--</span> <% __('mailboxes') %></h2>
+
+                <!-- Search is for now disabled 
+                <div class="tableSearch">
+                    <form action="javascript:void(0)">
+                        <input type="text" value="">
+                        <input type="submit" name="" value="Search" title="Apply">
+                        <span id="GatewayTable_filterLoading"></span>
+                    </form>
+                </div>
+                <button class="btn btn-only-icon btn-filter force-right"></button>
+                -->
+            </div>
+        </div>
+        <div id="migration_table_container">
+        <table class="migration-table">
+            <thead>
+                <tr>
+                    <th><input type='checkbox'></th>
+                    <th class="name"><% __('name') %></th>
+                    <th><% __('user') %></th>
+                    <th><% __('status') %></th>
+                    <th><% __('date') %></th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td colspan="5">
+                  <img src="/data/images/ajax-loader.gif"
+                       title="<% __('loading') %>"/></td>
+              </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    <div class="migration-info">
+        <div class="block-header">
+            <div class="wrapper"><h2><% __('Migration details') %></h2></div>
+        </div>
+        <div class="wrapper">
+          <div id="migration-no-mailboxes">
+            <div class="info-block">
+              <span class="info-value"><% __('No mailboxes selected') %></span>
+            </div>
+          </div>
+          <div id="migration-details" style="display: none;">
+            <div class="info-block" id="mailboxes">
+                <span class="info-label"><% __('selected mailboxes') %></span>
+                <span class="info-value">0</span>
+            </div>
+            <div class="info-block" id="data">
+                <span class="info-label"><% __('Total data') %></span>
+                <span class="info-value">--</span>
+            </div>
+            <div class="info-block" id="mails">
+                <span class="info-label"><% __('Total mails') %></span>
+                <span class="info-value">--</span>
+            </div>
+            <div class="info-block" id="contacts">
+                <span class="info-label"><% __('Total contacts') %></span>
+                <span class="info-value">--</span>
+            </div>
+            <div class="info-block" id="calendar">
+                <span class="info-label"><% __('Total calendar') %></span>
+                <span class="info-value">--</span>
+            </div>
+            <div class="info-block" id="time">
+                <span class="info-label">
+                  <% __('Estimate time (100mb/s)') %>
+                </span>
+                <span class="info-value">--</span>
+            </div>
+          </div>
+            <button id="estimate-migration" class="btn btn-black btn-block btn-medium"
+                    disabled="disabled"><% __('estimate migration') %></button>
+            <button id="start-migration" style="display:none;" class="btn btn-green btn-block btn-medium"><% __('start migration') %></button>
+            <button class="btn btn-black btn-block btn-medium" id="loading-button"
+                    style="display: none;"><img src="/data/images/ajax-loader.gif"/></button>
+            </button>
+        </div>
+    </div>
+
+
+</div>
+<script type="text/javascript">
+$(document).ready(function() {
+   Zentyal.OpenChange.setMailboxes('/OpenChange/Migration/MailboxesList', 'migration_table_container');
+   $( "#estimate-migration" ).click(function() {
+     Zentyal.OpenChange.estimateMigration({ 'estimateButton' : this,
+                                            'migrationBlock' : '#migration-details',
+                                            'startBtnId'     : '#start-migration',
+                                            'loadingId'      : '#loading-button',
+                                            'tableClass'     : '.migration-table' });
+   });
+   $( "#start-migration").click(function() {
+     window.location.href = '/OpenChange/Migration/Progress';
+   });
+});
+</script>

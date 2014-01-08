@@ -159,13 +159,14 @@ while (1) {
     #   - The guest account
     #
     foreach my $uniqueID (keys %sambaUsers) {
-        my $canonicalName = $sambaUsers{$uniqueID}->canonicalName(1);
+        my $sambaUser = $sambaUsers{$uniqueID};
+        my $canonicalName = $sambaUser->canonicalName(1);
         if ((exists $zentyalUsers{$uniqueID})) {
-            my $changed = $sambaUsers{$uniqueID}->get('whenChanged');
+            my $changed = $sambaUser->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaUsers{$uniqueID}->updateZentyal();
+                    $sambaUser->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating user $canonicalName: $error");
@@ -173,9 +174,8 @@ while (1) {
             }
             delete $zentyalUsers{$uniqueID};
         } else {
-            my $samAccountName = $sambaUsers{$uniqueID}->get('samAccountName');
             try {
-                $sambaUsers{$uniqueID}->addToZentyal();
+                $sambaUser->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding user $canonicalName: $error");
@@ -188,13 +188,14 @@ while (1) {
     #################################################
     # Same algorithm as users. No exceptions here.
     foreach my $uniqueID (keys %sambaContacts) {
-        my $canonicalName = $sambaContacts{$uniqueID}->canonicalName(1);
+        my $sambaContact = $sambaContacts{$uniqueID};
+        my $canonicalName = $sambaContact->canonicalName(1);
         if (exists $zentyalContacts{$uniqueID}) {
-            my $changed = $sambaContacts{$uniqueID}->get('whenChanged');
+            my $changed = $sambaContact->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaContacts{$uniqueID}->updateZentyal();
+                    $sambaContact->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating contact $canonicalName: $error");
@@ -203,7 +204,7 @@ while (1) {
             delete $zentyalContacts{$uniqueID};
         } else {
             try {
-                $sambaContacts{$uniqueID}->addToZentyal();
+                $sambaContact->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding contact $canonicalName: $error");
@@ -215,13 +216,14 @@ while (1) {
     #### Sync groups
     #################################################
     foreach my $uniqueID (keys %sambaGroups) {
-        my $canonicalName = $sambaGroups{$uniqueID}->canonicalName(1);
+        my $sambaGroup = $sambaGroups{$uniqueID};
+        my $canonicalName = $sambaGroup->canonicalName(1);
         if ((exists $zentyalGroups{$uniqueID})) {
-            my $changed = $sambaGroups{$uniqueID}->get('whenChanged');
+            my $changed = $sambaGroup->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaGroups{$uniqueID}->updateZentyal();
+                    $sambaGroup->updateZentyal();
                 } otherwise {
                     my ($error) = @_;
                     EBox::error("Error updating group $canonicalName: $error");
@@ -242,7 +244,7 @@ while (1) {
             next if ($result->count() > 0);
 
             try {
-                $sambaGroups{$uniqueID}->addToZentyal();
+                $sambaGroup->addToZentyal();
             } otherwise {
                 my ($error) = @_;
                 EBox::error("Error adding group $canonicalName: $error");
@@ -264,10 +266,11 @@ while (1) {
     # The groups in the %zentyalGroups hash contain Zentyal groups
     # linked to samba groups that no longer exists in samba. Delete them.
     foreach my $uniqueID (sort keys %zentyalGroups) {
-        my $canonicalName = $zentyalGroups{$uniqueID}->canonicalName(1);
+        my $zentyalGroup = $zentyalGroups{$uniqueID};
+        my $canonicalName = $zentyalGroup->canonicalName(1);
         try {
-            $zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
-            $zentyalGroups{$uniqueID}->deleteObject();
+            $zentyalGroup->setIgnoredModules(['samba']);
+            $zentyalGroup->deleteObject();
         } otherwise {
             my ($error) = @_;
             EBox::error("Error deleting group $canonicalName: $error");
@@ -277,10 +280,11 @@ while (1) {
     # The contacts in the %zentyalContacts hash contain Zentyal contacts
     # linked to samba contacts that no longer exists in samba. Delete them.
     foreach my $uniqueID (sort keys %zentyalContacts) {
-        my $canonicalName = $zentyalContacts{$uniqueID}->canonicalName(1);
+        my $zentyalContact = $zentyalContacts{$uniqueID};
+        my $canonicalName = $zentyalContact->canonicalName(1);
         try {
-            $zentyalContacts{$uniqueID}->setIgnoredModules(['samba']);
-            $zentyalContacts{$uniqueID}->deleteObject();
+            $zentyalContact->setIgnoredModules(['samba']);
+            $zentyalContact->deleteObject();
         } otherwise {
             my ($error) = @_;
             EBox::error("Error deleting contact $canonicalName: $error");
@@ -290,10 +294,11 @@ while (1) {
     # The users in the %zentyalUsers hash contain Zentyal users linked to
     # samba users that no longer exists in samba. Delete them.
     foreach my $uniqueID (keys %zentyalUsers) {
-        my $canonicalName = $zentyalUsers{$uniqueID}->canonicalName(1);
+        my $zentyalUser = $zentyalUsers{$uniqueID};
+        my $canonicalName = $zentyalUser->canonicalName(1);
         try {
-            $zentyalUsers{$uniqueID}->setIgnoredModules(['samba']);
-            $zentyalUsers{$uniqueID}->deleteObject();
+            $zentyalUser->setIgnoredModules(['samba']);
+            $zentyalUser->deleteObject();
         } otherwise {
             my ($error) = @_;
             EBox::error("Error deleting user $canonicalName: $error");
@@ -323,14 +328,14 @@ while (1) {
         # the parent OU before than one of its childs. When deleting an OU
         # all of its childs are also deleted, so check the OU still exists in
         # LDAP to avoid errors trying to delete objects that does not exits
-        my $ou = $zentyalOUs{$uniqueID};
-        $ou->clearCache();
-        next unless ($ou->exists());
+        my $zentyalOU = $zentyalOUs{$uniqueID};
+        $zentyalOU->clearCache();
+        next unless ($zentyalOU->exists());
 
-        my $canonicalName = $ou->canonicalName(1);
+        my $canonicalName = $zentyalOU->canonicalName(1);
         try {
-            $zentyalOUs{$uniqueID}->setIgnoredModules(['samba']);
-            $zentyalOUs{$uniqueID}->deleteObject();
+            $zentyalOU->setIgnoredModules(['samba']);
+            $zentyalOU->deleteObject();
         } otherwise {
             my ($error) = @_;
             EBox::error("Error removing OU $canonicalName: $error");

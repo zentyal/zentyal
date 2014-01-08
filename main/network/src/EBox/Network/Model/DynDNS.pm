@@ -28,11 +28,6 @@ use EBox::Types::Password;
 use EBox::Types::Select;
 use EBox::Types::Text;
 
-use constant STORE_URL => 'http://store.zentyal.com/';
-use constant BASIC_URL => STORE_URL . 'serversubscriptions/subscription-basic.html?utm_source=zentyal&utm_medium=network&utm_campaign=dynamicdns';
-use constant SB_URL => STORE_URL . 'small-business-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => STORE_URL . 'enterprise-edition.html/?utm_source=zentyal&utm_medium=dyndns&utm_campaign=enterprise_edition';
-
 our %SERVICES = (
     dyndns => {
         printableValue => 'DynDNS',
@@ -277,12 +272,9 @@ sub _isSubscribed
 
 sub _message
 {
-    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} to obtain zentyal.me subdomain for your server.",
+    return __sx("You can configure your Dynamic DNS provider here. If your server is already registered, you provider is Zentyal. {ohf}Register your server for free{ch}, or get one of the {oh}Commercial Editions{ch} to obtain zentyal.me subdomain for your server.",
                 ohf => '<a href="/Wizard?page=RemoteServices/Wizard/Subscription">',
-                ohb => '<a href="' . BASIC_URL . '" target="_blank">',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch  => '</a>');
+                oh  => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 1;

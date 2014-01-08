@@ -1,0 +1,17 @@
+class: 'EBox::OpenChange'
+
+enabledepends:
+    - samba
+    - mail
+
+bootdepends:
+    - samba
+    - mail
+
+depends:
+    - samba
+    - mail
+
+models:
+    - Provision
+    - OpenChangeUser

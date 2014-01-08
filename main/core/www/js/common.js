@@ -23,9 +23,33 @@ if (!('Zentyal' in  window)) {
     };
 }
 
+function assert(condition, text) {
+    if (!condition) {
+        var exText = "Assert failed";
+        if (text) {
+            exText += ': ' + text;
+        }
+        console.trace();
+        throw exText;
+    }
+}
+
 Zentyal.escapeSelector = function(selector) {
     return  selector.replace(/([;&,\.\+\*\~':"\!\^#$%@\[\]\(\)=>\|])/g, '\\$1');
 };
+
+Zentyal.refreshSaveChangesButton = function() {
+    $.getJSON('/SysInfo/HasUnsavedChanges',  function(response) {
+                Zentyal.setSaveChangesButton(response.changed);
+             }
+    );
+};
+
+Zentyal.setSaveChangesButton = function(changed) {
+    var className = changed ?  'changed' : 'notchanged';
+    $('#changes_menu').removeClass().addClass(className);
+};
+
 
 /*
 Function: stripe
@@ -177,6 +201,5 @@ Zentyal.MenuSearch.filterMenu = function(event) {
     } else {
         Zentyal.MenuSearch.showAllMenuEntries();
     }
-
 };
 

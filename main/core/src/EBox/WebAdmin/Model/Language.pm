@@ -113,8 +113,6 @@ sub updatedRowNotify
     my ($self, $row, $oldRow) = @_;
 
     my $global = $self->global();
-    my $sysinfo = $global->modInstance('sysinfo');
-    $sysinfo->setReloadPageAfterSavingChanges(1);
     my $webAdmin = $global->modInstance('webadmin');
     $webAdmin->setHardRestart(1);
 }

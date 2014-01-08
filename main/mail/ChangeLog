@@ -1,4 +1,7 @@
 HEAD
+	+ Nopass dovecot policy enabled only when Openchange provisioned
+3.2.2
+	+ Added required code to integrate with OpenChange
 	+ Added missing EBox::Exceptions uses
 3.2.1
 	+ Preservice and postservice hooks now should work properly
