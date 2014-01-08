@@ -1,4 +1,5 @@
 3.4
+	+ Change Include to InlcudeOptional in vhosts configuration
 	+ Added .conf extension to sites configuration files
 	+ Removed deprecated NameVirtualHost directive
 	+ Set version to 3.4

@@ -34,7 +34,7 @@
         CustomLog /var/log/apache2/<% $vHostName %>-access.log combined
 
         # Custom configuration goes in this file
-        Include <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
+        IncludeOptional <% $etcPath %>/sites-available/<%  'user-' . "$vHostPrefix$vHostName" %>/*
 
         # SSL
         SSLEngine on
