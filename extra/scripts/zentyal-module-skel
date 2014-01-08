@@ -11,6 +11,8 @@ fi
 
 MODULENAME=$1
 DESTDIR=$2
+DIST=saucy
+VERSION=3.4
 
 PKGNAME=$(basename $DESTDIR)
 
@@ -269,11 +271,12 @@ include /usr/share/zbuildtools/1/rules/zentyal.mk
 EOF
 
 cat >$DESTDIR/debian/changelog <<EOF
-zentyal-$PKGNAME (3.0) precise; urgency=low
+zentyal-$PKGNAME ($VERSION~1) $DIST; urgency=low
 
   * New upstream release
 
  -- YOURNAME <youremail@yourdomain>  Fri, 25 Jan 2013 02:53:07 +0100
+
 EOF
 
 cat >$DESTDIR/debian/control <<EOF
@@ -287,7 +290,7 @@ Homepage: http://www.zentyal.org/
 
 Package: zentyal-$PKGNAME
 Architecture: all
-Depends: zentyal-core (>= 3.4), \${misc:Depends}
+Depends: zentyal-core (>= $VERSION~1), \${misc:Depends}
 Description: Zentyal - $MODULENAME module
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
@@ -298,7 +301,7 @@ Description: Zentyal - $MODULENAME module
 EOF
 
 cat >$DESTDIR/ChangeLog <<EOF
-3.4
+$VERSION
 	+ Initial release
 EOF
 
