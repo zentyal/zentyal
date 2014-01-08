@@ -1,4 +1,5 @@
 3.4
+	+ Removed deprecated NameVirtualHost directive
 	+ Set version to 3.4
 3.3
 	+ Switch from Error to TryCatch for exception handling
