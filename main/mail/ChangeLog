@@ -1,3 +1,5 @@
+HEAD
+	+ Nopass dovecot policy enabled only when Openchange provisioned
 3.3
 	+ Allow to use vdomains table when module is unconfigured
 	+ Dovecot passdb reordering and typo
