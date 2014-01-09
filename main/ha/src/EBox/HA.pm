@@ -96,12 +96,18 @@ sub menu
 #
 sub _daemons
 {
+    # Order is *very* important here
     my $daemons = [
        {
            name => 'corosync',
            type => 'init.d',
            pidfiles => ['/run/corosync.pid']
        },
+       {
+           name => 'pacemaker',
+           type => 'init.d',
+           pidfiles => ['/run/pacemakerd.pid']
+       }
     ];
 
     return $daemons;
@@ -121,7 +127,7 @@ sub _setConf
 
     my $iface = $clusterSettings->interfaceValue();
     my $network = EBox::Global->getInstance()->modInstance('network');
-    # TODO: Launch exception when network addr is undef
+    # TODO: Launch exception when network addr is undef / Which exception?
     my $ifaces = [ { iface => $iface, netAddr => $network->ifaceNetwork($iface) }];
     my $localNodeAddr = $network->ifaceAddress($iface);
     if (ref($localNodeAddr) eq 'ARRAY') {
