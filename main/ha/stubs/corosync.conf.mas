@@ -7,7 +7,10 @@
                netAddr - the network address for this interface
   transport - String indicating if the transport method.
               Possible values: 'udpu' and 'udp'
-  multicastConf - Hash with the multicast configuration
+  multicastConf - Hash with the multicast configuration with the following keys:
+                  addr - the multicast addr
+                  port - the multicast receiver port
+                  expected_votes - the number of expected votes to reach the quorum
   nodes - Array the node that are members of the cluster.
           An array of hashes where the keys are:
           addr - the IP address
@@ -46,7 +49,9 @@ totem {
         # Limit generated nodeids to 31-bits (positive signed integers)
         clear_node_high_bit: yes
 
-        <%doc>TODO: Auth</%doc>
+        <%doc>
+        TODO: Auth
+        </%doc>
         # Disable encryption
         crypto_hash: none
         crypto_cipher: none
@@ -66,9 +71,10 @@ totem {
                 # The following values need to be set based on your environment 
                 ringnumber: <% $ringNumber %>
                 bindnetaddr: <% $iface->{netAddr} %>
-                <%doc>TODO: Multicast</%doc>
-                #mcastaddr: 226.94.1.1
-                mcastport: 5405
+%    if ($multicastConf{addr}) {
+                mcastaddr: <% $multicastConf{addr} %>
+                mcastport: <% $multicastConf{port} %>
+%    }
         }
 %    $ringNumber++;
 % }
@@ -91,7 +97,13 @@ amf {
 quorum {
         # Quorum for the Pacemaker Cluster Resource Manager
         provider: corosync_votequorum
-% if (scalar(@nodes) == 2) {
+% if ($multicastConf{expected_votes}) {
+        expected_votes: <% $multicastConf{expected_votes} %>
+%    if ($multicastConf{expected_votes} == 2) {
+        two_node: 1
+%    }
+% }
+% elsif (scalar(@nodes) == 2) {
         two_node: 1
 % }
 }

@@ -28,12 +28,16 @@ package EBox::HA;
 
 use base qw(EBox::Module::Service);
 
+use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Sudo;
 
 # Constants
-use constant COROSYNC_CONF_FILE => '/etc/corosync/corosync.conf';
+use constant {
+    COROSYNC_CONF_FILE => '/etc/corosync/corosync.conf',
+    DEFAULT_MCAST_PORT => 5405,
+};
 
 # Constructor: _create
 #
@@ -123,6 +127,16 @@ sub _setConf
 {
     my ($self) = @_;
 
+    $self->_corosyncSetConf();
+}
+
+# Group: Private methods
+
+# Corosync configuration
+sub _corosyncSetConf
+{
+    my ($self) = @_;
+
     my $clusterSettings = $self->model('Cluster');
 
     my $iface = $clusterSettings->interfaceValue();
@@ -133,10 +147,27 @@ sub _setConf
     if (ref($localNodeAddr) eq 'ARRAY') {
         $localNodeAddr = $localNodeAddr->[0];  # Take the first option
     }
-    my $nodes = [ { addr => $localNodeAddr, name => 'local' }];
+    my $nodes = [];
+    my $multicastConf = {};
+    my $transport;
+    my $multicastAddr = EBox::Config::configkey('ha_multicast_addr');
+    if ($multicastAddr) {
+        # Multicast configuration
+        my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
+        $multicastConf = { addr => $multicastAddr,
+                           port => $multicastPort,
+                           expected_votes => 1 };                 # TODO: Number of nodes got from cluster state
+        $transport = 'udp';
+    } else {
+        # Unicast configuration
+        $nodes = [ { addr => $localNodeAddr, name => 'local' }];  # TODO: Nodo data from cluster state
+        $transport = 'udpu';
+    }
     my @params = (
-        interfaces => $ifaces,
-        nodes      => $nodes,
+        interfaces    => $ifaces,
+        nodes         => $nodes,
+        transport     => $transport,
+        multicastConf => $multicastConf,
     );
 
     $self->writeConfFile(
