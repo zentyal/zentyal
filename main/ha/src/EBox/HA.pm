@@ -31,6 +31,7 @@ use base qw(EBox::Module::Service);
 use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::HA::NodeList;
 use EBox::Sudo;
 
 # Constants
@@ -90,6 +91,26 @@ sub menu
     $root->add($system);
 }
 
+# Method: widgets
+#
+#   Display the node list
+#
+# Overrides:
+#
+#    <EBox::Module::Base::widgets>
+#
+sub widgets
+{
+    return {
+        'nodelist' => {
+            'title' => __("Cluster nodes"),
+            'widget' => \&nodeListWidget,
+            'order' => 5,
+            'default' => 1
+        }
+    };
+}
+
 # Group: Protected methods
 
 # Method: _daemons
@@ -130,6 +151,25 @@ sub _setConf
     $self->_corosyncSetConf();
 }
 
+# Group: subroutines
+
+sub nodeListWidget
+{
+    my ($self, $widget) = @_;
+
+    my $section = new EBox::Dashboard::Section('nodelist');
+    $widget->add($section);
+    my $titles = [__('Host name'),__('IP address')];
+
+    my $list = new EBox::HA::NodeList(EBox::Global->getInstance()->modInstance('ha'))->list();
+
+    my @ids = map { $_->{name} } @{$list};
+    my %rows = map { $_->{name} => [$_->{name}, $_->{addr}] } @{$list};
+
+    $section->add(new EBox::Dashboard::List(undef, $titles, \@ids, \%rows,
+                                            __('Cluster is not configured')));
+}
+
 # Group: Private methods
 
 # Corosync configuration
@@ -147,6 +187,11 @@ sub _corosyncSetConf
     if (ref($localNodeAddr) eq 'ARRAY') {
         $localNodeAddr = $localNodeAddr->[0];  # Take the first option
     }
+
+    if ($clusterSettings->configurationValue() eq 'start_new') {
+        $self->_bootstrapNodes($localNodeAddr);
+    }
+
     my $nodes = [];
     my $multicastConf = {};
     my $transport;
@@ -156,11 +201,12 @@ sub _corosyncSetConf
         my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
         $multicastConf = { addr => $multicastAddr,
                            port => $multicastPort,
-                           expected_votes => 1 };                 # TODO: Number of nodes got from cluster state
+                           expected_votes => scalar(@{new EBox::HA::NodeList($self)->list()}),
+                          };
         $transport = 'udp';
     } else {
         # Unicast configuration
-        $nodes = [ { addr => $localNodeAddr, name => 'local' }];  # TODO: Nodo data from cluster state
+        $nodes = new EBox::HA::NodeList($self)->list(),
         $transport = 'udpu';
     }
     my @params = (
@@ -176,6 +222,16 @@ sub _corosyncSetConf
         \@params,
         { uid => '0', gid => '0', mode => '644' }
     );
+}
+
+# Bootstrap a node list
+sub _bootstrapNodes
+{
+    my ($self, $localNodeAddr) = @_;
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    # TODO: set proper name and port
+    $nodeList->set(name => 'local', addr => $localNodeAddr, webAdminPort => 443);
 }
 
 1;
