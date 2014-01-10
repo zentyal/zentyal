@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,39 +16,33 @@
 use strict;
 use warnings;
 
-package EBox::Dashboard::List;
+package EBox::HA::Composite::HA;
 
-use base 'EBox::Dashboard::Item';
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
+use EBox::Global;
 
-# Constructor: new
-#
-# Parameters:
-#
-#      title - String the list title
-#      colTitles - Array ref the column titles
-#      ids - Array ref the row identifiers
-#      rows - Hash ref the rows to show indexed by id
-#      none_text - String the text to show when the list is empty
-#
-sub new
-{
-	my $class = shift;
-	my $self = $class->SUPER::new();
-	$self->{title} = shift;
-	$self->{colTitles} = shift;
-	$self->{ids} = shift;
-	$self->{rows} = shift;
-	$self->{none_text} = shift;
-	$self->{type} = 'list';
-	bless($self, $class);
-	return $self;
-}
+# Group: Public methods
 
-sub HTMLViewer()
+# Group: Protected methods
+
+# Method: _description
+#
+# Overrides:
+#
+#     <EBox::Model::Composite::_description>
+#
+sub _description
 {
-    return '/dashboard/list.mas';
+    my $description = {
+        layout          => 'top-bottom',
+        pageTitle       => __('High Availability Cluster'),
+        compositeDomain => 'ha',
+        name            => 'HA',
+    };
+
+    return $description;
 }
 
 1;
