@@ -89,7 +89,6 @@ sub _table
     {
         tableName => 'Cluster',
         printableTableName => __('Cluster configuration'),
-        pageTitle => $self->parentModule()->printableName(),
         defaultActions => [ 'editField' ],
         modelDomain => 'HA',
         tableDescription => \@fields,

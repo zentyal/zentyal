@@ -8,3 +8,7 @@ enabledepends:
 
 models:
     - Cluster
+    - FloatingIP
+
+composites:
+    HA: [Cluster, FloatingIP]

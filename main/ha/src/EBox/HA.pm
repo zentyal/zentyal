@@ -82,7 +82,7 @@ sub menu
            );
 
     $system->add(new EBox::Menu::Item(
-        url => 'HA/View/Cluster',
+        url => 'HA/Composite/HA',
         text => $self->printableName(),
         separator => 'Core',
         order => 50,
