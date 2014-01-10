@@ -108,7 +108,7 @@ sub _checkDescriptionString
         throw EBox::Exceptions::External(__('Description string is empty'));
     }
     if (length ($description) > MAXDESCRIPTIONLENGTH) {
-        throw EBox::Exceptions::Externam(__('Description string is too long'));
+        throw EBox::Exceptions::External(__('Description string is too long'));
     }
 }
 
