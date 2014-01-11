@@ -1,3 +1,9 @@
+samba4 (4.0.13-zentyal2) precise; urgency=low
+
+  * Include patch set for guest access
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Wed, 18 Dec 2013 16:21:32 +0100
+
 samba4 (4.0.13-zentyal1) precise; urgency=low
 
   * New upstream release

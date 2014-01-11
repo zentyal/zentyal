@@ -423,7 +423,47 @@ sub createDirs
     }
 }
 
+# Method: viewCustomizer
+#
+#   Overrided to show a warning when guest access is enabled for any share
+#   and the domain guest account is disabled.
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    # Return if domain not yet provisioned or disabled
+    my $sambaModule = $self->parentModule();
+    unless ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+        return $customizer;
+    }
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('guest') and not $self->_guestAccountEnabled()) {
+            my $msg = __('Domain guest account must be enabled for guest ' .
+                    'access to shares. You can enable it through Microsoft ' .
+                    'RSAT tools or executing "sudo samba-tool user enable guest" on the shell.');
+            $customizer->setPermanentMessage($msg, 'warning');
+            last;
+        }
+    }
+    return $customizer;
+}
+
 # Private methods
+
+sub _guestAccountEnabled
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->parentModule->ldb->domainSID();
+    my $domainGuestSid = "$domainSid-501";
+    my $user = new EBox::Samba::User(sid => $domainGuestSid);
+    return $user->isAccountEnabled();
+}
 
 sub _hideSyncOption
 {

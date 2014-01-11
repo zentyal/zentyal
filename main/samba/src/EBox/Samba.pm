@@ -684,16 +684,7 @@ sub writeSambaConfig
         push (@array, 'print' => 1) if ($printersModule->isEnabled());
     }
 
-    my $shares = $self->shares();
-    push (@array, 'shares' => $shares);
-    foreach my $share (@{$shares}) {
-        if ($share->{guest}) {
-            push (@array, 'guestAccess' => 1);
-            push (@array, 'guestAccount' => EBox::Samba::Model::SambaShares::GUEST_DEFAULT_USER());
-            last;
-        }
-    }
-
+    push (@array, 'shares' => $self->shares());
     push (@array, 'antivirus' => $self->defaultAntivirusSettings());
     push (@array, 'antivirus_exceptions' => $self->antivirusExceptions());
     push (@array, 'antivirus_config' => $self->antivirusConfig());

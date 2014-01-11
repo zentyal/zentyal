@@ -7,3 +7,8 @@
 27_zentyal_scannedonly_extra_info
 fix-enable-developer.diff
 28_zentyal_fix_zavs_warning
+43-auth-Fallback-to-guest-account-if-user-not-found-in-.patch
+44-python-samba-tool-Do-not-toggle-UF_PASSWD_NOTREQD-en.patch
+45-python-samba-tool-Print-message-on-success-disabling.patch
+46-Add-test-for-guest-access-to-SMB-and-LDAP.patch
+47-Test-guest-access-in-domain-member-environment.patch

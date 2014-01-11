@@ -1,3 +1,6 @@
+HEAD
+	+ Remove guest access related config keys after patches merged in samba4
+	  package
 3.0.22
 	+ Remove useless chown workaround
 	+ Add object exists check listing group members
