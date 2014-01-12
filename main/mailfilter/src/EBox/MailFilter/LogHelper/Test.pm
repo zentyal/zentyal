@@ -25,7 +25,6 @@ use EBox::Test;
 use Perl6::Junction qw(any all);
 
 use Test::Exception;
-use Test::More skip_all => 'FIXME';
 use Test::More;
 use Test::MockObject;
 
@@ -60,7 +59,7 @@ sub setTableName
 
 my %_notNullsByTable = (
                         'mailfilter_smtp' => [ qw( timestamp event action
-                                                 from_address to_address spam_hits)
+                                                 from_address to_address )
                                              ],
                        );
 
