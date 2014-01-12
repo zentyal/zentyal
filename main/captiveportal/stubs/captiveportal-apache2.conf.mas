@@ -11,6 +11,8 @@ AddDefaultCharset utf-8
 
 PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
 
+Include /etc/apache2/mods-available/mpm_prefork.load
+
 <IfModule mpm_prefork_module>
     StartServers          1
     MinSpareServers       1
@@ -38,8 +40,9 @@ PidFile /var/lib/zentyal-captiveportal/captive-apache.pid
 PerlInterpMaxRequests 10000
 
 Include /etc/apache2/mods-available/auth_basic.load
+Include /etc/apache2/mods-available/authn_core.load
 Include /etc/apache2/mods-available/authn_file.load
-Include /etc/apache2/mods-available/authz_default.load
+Include /etc/apache2/mods-available/authz_core.load
 Include /etc/apache2/mods-available/authz_groupfile.load
 Include /etc/apache2/mods-available/authz_host.load
 Include /etc/apache2/mods-available/authz_user.load
@@ -105,15 +108,13 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
     <Directory /usr/share/zentyal/www/>
         Options Indexes MultiViews FollowSymLinks
         AllowOverride None
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     <Directory /var/lib/zentyal/dynamicwww>
         Options Indexes MultiViews
         AllowOverride None
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     SSLEngine on
@@ -149,8 +150,7 @@ CustomLog /var/log/zentyal-captiveportal/access.log combined
         PerlSendHeader On
         AllowOverride None
         Options +ExecCGI
-        Order allow,deny
-        Allow from all
+        Require all granted
     </Directory>
 
     RewriteEngine On
