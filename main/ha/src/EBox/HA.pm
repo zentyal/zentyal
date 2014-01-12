@@ -111,6 +111,45 @@ sub widgets
     };
 }
 
+# Method: clusterConfiguration
+#
+#     Return the cluster configuration
+#
+# Returns:
+#
+#     Hash ref - the cluster configuration
+#
+#        - transport: String 'udp' for multicast and 'udpu' for unicast
+#        - multicastConf: Hash ref with addr, port and expected_votes as keys
+#        - nodes: Array ref the node list including IP address, name and webadmin port
+#                 Only for unicast configuration
+#
+sub clusterConfiguration
+{
+    my ($self) = @_;
+
+    # TODO: Store everything in Redis state
+    my ($multicastConf, $transport, $nodes) = ({}, undef, []);
+    my $multicastAddr = EBox::Config::configkey('ha_multicast_addr');
+    if ($multicastAddr) {
+        # Multicast configuration
+        my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
+        $multicastConf = { addr => $multicastAddr,
+                           port => $multicastPort,
+                           expected_votes => scalar(@{new EBox::HA::NodeList($self)->list()}),
+                          };
+        $transport = 'udp';
+    } else {
+        # Unicast configuration
+        $nodes = new EBox::HA::NodeList($self)->list(),
+        $transport = 'udpu';
+    }
+
+    return { transport     => $transport,
+             multicastConf => $multicastConf,
+             nodes         => $nodes };
+}
+
 # Group: Protected methods
 
 # Method: _daemons
@@ -189,31 +228,15 @@ sub _corosyncSetConf
     }
 
     if ($clusterSettings->configurationValue() eq 'start_new') {
-        $self->_bootstrapNodes($localNodeAddr);
+        $self->_bootstrap($localNodeAddr);
     }
 
-    my $nodes = [];
-    my $multicastConf = {};
-    my $transport;
-    my $multicastAddr = EBox::Config::configkey('ha_multicast_addr');
-    if ($multicastAddr) {
-        # Multicast configuration
-        my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
-        $multicastConf = { addr => $multicastAddr,
-                           port => $multicastPort,
-                           expected_votes => scalar(@{new EBox::HA::NodeList($self)->list()}),
-                          };
-        $transport = 'udp';
-    } else {
-        # Unicast configuration
-        $nodes = new EBox::HA::NodeList($self)->list(),
-        $transport = 'udpu';
-    }
+    my $clusterConf = $self->clusterConfiguration();
     my @params = (
         interfaces    => $ifaces,
-        nodes         => $nodes,
-        transport     => $transport,
-        multicastConf => $multicastConf,
+        nodes         => $clusterConf->{nodes},
+        transport     => $clusterConf->{transport},
+        multicastConf => $clusterConf->{multicastConf},
     );
 
     $self->writeConfFile(
@@ -224,8 +247,9 @@ sub _corosyncSetConf
     );
 }
 
-# Bootstrap a node list
-sub _bootstrapNodes
+# Bootstrap a cluster
+#  * Start node list
+sub _bootstrap
 {
     my ($self, $localNodeAddr) = @_;
 
