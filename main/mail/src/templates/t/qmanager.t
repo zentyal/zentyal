@@ -4,13 +4,12 @@ use Cwd;
 
 use File::Slurp qw(read_file);
 
-use lib '../..';
 use EBox::Test::Mason;
 
 
 use Test::More qw(no_plan);
 
-my $template = '../qmanager.mas';
+my $template = 'mail/src/templates/qmanager.mas';
 
 my $printOutput = 0;
 my $outputFileBase  = '/tmp/qmanager.html';  # XXX FIXME file separator in mason tests
