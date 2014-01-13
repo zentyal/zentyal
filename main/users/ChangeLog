@@ -1,4 +1,5 @@
 HEAD
+	+ Print slave-sync output to zentyal.log instead of stdout
 	+ Fixed excesive restrictive validation of external AD password in wizard
 	+ Fixed 3.0 -> 3.2 migration when there are other modules extending LDAP
 3.2.6
