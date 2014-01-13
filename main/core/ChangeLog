@@ -1,4 +1,5 @@
 HEAD
+	+ Show confirmation dialog before upgrading to 3.3
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
 3.2.5
