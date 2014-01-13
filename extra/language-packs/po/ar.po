@@ -18777,12 +18777,12 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid "Admin user"
-msgstr "كل المستخدمين"
+#~ msgid "Admin user"
+#~ msgstr "كل المستخدمين"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "خادم DNS"
+#~ msgid "Available servers"
+#~ msgstr "خادم DNS"
 
 #, fuzzy
 #~ msgid "User not found"
@@ -19472,44 +19472,6 @@ msgstr "خادم DNS"
 #~ msgid "Subscription failed: {message}"
 #~ msgstr "{message} غير قادر على انشاء النسخة الاحتياطية"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
-msgid "Essential"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:117
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order to "
-"use it."
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/core/src/templates/notConfigured.mas:8
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status section "
-"{closehref} in order to use it."
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "كلمة سر جديدة"
+#~ msgid "Admin password"
+#~ msgstr "كلمة سر جديدة"

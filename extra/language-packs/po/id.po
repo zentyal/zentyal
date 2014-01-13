@@ -19325,16 +19325,16 @@ msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "Seting berikut hanya akan berjalan ketika modul surat aktif"
 
-msgid "Essential"
-msgstr "Penting"
+#~ msgid "Essential"
+#~ msgstr "Penting"
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Tambah User"
+#~ msgid "Admin user"
+#~ msgstr "Tambah User"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Tersedia IDS rules"
+#~ msgid "Available servers"
+#~ msgstr "Tersedia IDS rules"
 
 #~ msgid "Deselect All"
 #~ msgstr "Lepas pilihan Semua"
@@ -20866,40 +20866,9 @@ msgstr "Tersedia IDS rules"
 #~ "menggunakan pertemuan.{br} Silahkan jalankan perintah berikut: sudo apt-"
 #~ "get install {kernels} dahdi."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr "Baku"
+#~ msgid "Standard"
+#~ msgstr "Baku"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-
-#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:117
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order to "
-"use it."
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/core/src/templates/notConfigured.mas:8
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status section "
-"{closehref} in order to use it."
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "Kata sandi baru"
+#~ msgid "Admin password"
+#~ msgstr "Kata sandi baru"

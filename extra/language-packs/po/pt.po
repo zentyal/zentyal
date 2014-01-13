@@ -20241,28 +20241,28 @@ msgstr ""
 "activado"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Deve activar o módulo de correio electrónico no estado dos módulos para o "
-"poder usar"
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Deve activar o módulo de correio electrónico no estado dos módulos para o "
+#~ "poder usar"
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Deve activar o módulo de utilizadores na secção de status do módulo para "
-"o poder usar"
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Deve activar o módulo de utilizadores na secção de status do módulo para "
+#~ "o poder usar"
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Adicionar utilizador"
+#~ msgid "Admin user"
+#~ msgstr "Adicionar utilizador"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Armazenamento disponível"
+#~ msgid "Available servers"
+#~ msgstr "Armazenamento disponível"
 
 #~ msgid "General settings"
 #~ msgstr "Definições gerais"
@@ -23337,36 +23337,15 @@ msgstr "Armazenamento disponível"
 #~ "armazenamento \"#~ \"que necessita na {ohref}loja on-line Zentyal "
 #~ "{chref}\""
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
-msgid "Essential"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
 #, fuzzy
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
-"apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
-"informação das cópias de segurança"
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
+#~ "apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
+#~ "informação das cópias de segurança"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "Palavra-passe do Active Directory"
+#~ msgid "Admin password"
+#~ msgstr "Palavra-passe do Active Directory"

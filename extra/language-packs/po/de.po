@@ -18714,8 +18714,9 @@ msgid ""
 "allow access to the Zentyal administration port, SSH, ..."
 msgstr ""
 
-#~ msgid "Bonding Mode"
-#~ msgstr "Modus"
+#: ../../main/network/src/templates/ifaces.mas:38
+msgid "Bonding Mode"
+msgstr "Modus"
 
 #: ../../main/network/src/templates/ifaces.mas:40
 #: ../../main/network/src/templates/ifaces.mas:41
@@ -18740,8 +18741,10 @@ msgstr "Virtuelles LAN (802.1q)"
 msgid "Bridged"
 msgstr "mit Netzwerk-Brücke"
 
-#~ msgid "Bundled"
-#~ msgstr "Gebündelt"
+#: ../../main/network/src/templates/ifaces.mas:100
+#: ../../main/network/src/templates/ifaces.mas:101
+msgid "Bundled"
+msgstr "Gebündelt"
 
 #: ../../main/network/src/templates/ifaces.mas:105
 #: ../../main/network/src/templates/ifaces.mas:106
@@ -18764,8 +18767,9 @@ msgstr ""
 msgid "Bridge"
 msgstr "Netzwerk-Brücke"
 
-#~ msgid "Bonding"
-#~ msgstr "Bündel"
+#: ../../main/network/src/templates/ifaces.mas:166
+msgid "Bonding"
+msgstr "Bündel"
 
 #: ../../main/network/src/templates/ifaces.mas:190
 msgid "VLAN List"
@@ -20320,32 +20324,32 @@ msgstr ""
 "Die folgenden Einstellungen werden nur angewendet, wenn der E-Mail-Dienst "
 "aktiviert ist"
 
-msgid "Essential"
-msgstr "Notwendig"
+#~ msgid "Essential"
+#~ msgstr "Notwendig"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Sie müssen das Mail-Modul im Bereich Modul-Status aktivieren um es zu "
-"nutzen."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Sie müssen das Mail-Modul im Bereich Modul-Status aktivieren um es zu "
+#~ "nutzen."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
-"benutzen zu können."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Sie müssen das Modul Benutzer im Bereich Modul Status aktivieren um es "
+#~ "benutzen zu können."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Benutzer hinzufügen"
+#~ msgid "Admin user"
+#~ msgstr "Benutzer hinzufügen"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Verfügbarer Speicherplatz"
+#~ msgid "Available servers"
+#~ msgstr "Verfügbarer Speicherplatz"
 
 #~ msgid "General settings"
 #~ msgstr "Allgemeine Einstellungen"
@@ -20377,32 +20381,18 @@ msgstr "Verfügbarer Speicherplatz"
 #~ msgid "User not found"
 #~ msgstr "Die Seite wurde nicht gefunden"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr "Standard"
+#~ msgid "Standard"
+#~ msgstr "Standard"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
 #, fuzzy
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Keine Sicherungarchive gefunden. Vielleicht wurden Sie gelöscht. Starten Sie "
-"'/etc/init.d/ebox ebackup restart' um die Sicherungsinformationen zu "
-"aktualisieren."
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Keine Sicherungarchive gefunden. Vielleicht wurden Sie gelöscht. Starten "
+#~ "Sie '/etc/init.d/ebox ebackup restart' um die Sicherungsinformationen zu "
+#~ "aktualisieren."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "Administrator"
+#~ msgid "Admin password"
+#~ msgstr "Administrator"

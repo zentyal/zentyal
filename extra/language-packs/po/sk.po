@@ -19363,28 +19363,28 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Pred konfiguráciou tlačiarní musíte povoliť modul v {openref}Module Status"
-"{closeref}  sekcii a potom uložiť zmeny."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Pred konfiguráciou tlačiarní musíte povoliť modul v {openref}Module Status"
+#~ "{closeref}  sekcii a potom uložiť zmeny."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Pred konfiguráciou tlačiarní musíte povoliť modul v {openref}Module Status"
-"{closeref}  sekcii a potom uložiť zmeny."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Pred konfiguráciou tlačiarní musíte povoliť modul v {openref}Module Status"
+#~ "{closeref}  sekcii a potom uložiť zmeny."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Všetci užívatelia"
+#~ msgid "Admin user"
+#~ msgstr "Všetci užívatelia"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Menné servery"
+#~ msgid "Available servers"
+#~ msgstr "Menné servery"
 
 #, fuzzy
 #~ msgid "User not found"
@@ -20452,32 +20452,6 @@ msgstr "Menné servery"
 #~ msgid "Local Backup"
 #~ msgstr "Úplná záloha"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
-msgid "Essential"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "Nové heslo"
+#~ msgid "Admin password"
+#~ msgstr "Nové heslo"

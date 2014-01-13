@@ -20222,31 +20222,31 @@ msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "Følgende innstillinger vil kun fungere når epostmodulen er aktivert"
 
-msgid "Essential"
-msgstr "Essensiell"
+#~ msgid "Essential"
+#~ msgstr "Essensiell"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Du må aktivere epost modulen i modulstatusseksjonen for å bruke den."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Du må aktivere epost modulen i modulstatusseksjonen for å bruke den."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Du må aktivere modulen Brukere i modulstatusseksjonen for å kunne bruke "
-"den."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Du må aktivere modulen Brukere i modulstatusseksjonen for å kunne bruke "
+#~ "den."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Legg til Bruker"
+#~ msgid "Admin user"
+#~ msgstr "Legg til Bruker"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Tilgjengelig lagrings plass"
+#~ msgid "Available servers"
+#~ msgstr "Tilgjengelig lagrings plass"
 
 #~ msgid "General settings"
 #~ msgstr "Generelle innstillinger"
@@ -23108,29 +23108,10 @@ msgstr "Tilgjengelig lagrings plass"
 #~ "har på dine Zentyal servere. Kjøp sikkerhetskopi lagringsplassen du "
 #~ "trenger på {ohref}Zentyal on-line store{chref}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr "Standar"
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
+#~ msgid "Standard"
+#~ msgstr "Standar"
 
 # "AD password" should be translated as "AD-passord"
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "AD-passord"
+#~ msgid "Admin password"
+#~ msgstr "AD-passord"

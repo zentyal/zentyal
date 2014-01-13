@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
-"100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
+"%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -19737,29 +19737,29 @@ msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "Sekantys nustatymai bus pritaikyti tik kai pašto modulis įjungtas"
 
-msgid "Essential"
-msgstr "Esminis"
+#~ msgid "Essential"
+#~ msgstr "Esminis"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr "Turite įjungti pašto modulį modulių statuose norint naudoti."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr "Turite įjungti pašto modulį modulių statuose norint naudoti."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Turite įjungti Vartotojų modulį modulių srityje norėdami panaudoti jį."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Turite įjungti Vartotojų modulį modulių srityje norėdami panaudoti jį."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Įkelti vartotoją"
+#~ msgid "Admin user"
+#~ msgstr "Įkelti vartotoją"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Pasiekiama atmintis"
+#~ msgid "Available servers"
+#~ msgstr "Pasiekiama atmintis"
 
 #~ msgid "General settings"
 #~ msgstr "Pagrindiniai nustatymai"
@@ -23066,30 +23066,16 @@ msgstr "Pasiekiama atmintis"
 #~ msgid "To configure freshclam updater"
 #~ msgstr "Freshclam naujinimo konfigūravimas"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr "Standartas"
+#~ msgid "Standard"
+#~ msgstr "Standartas"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Nėra kopijų archyvo. Gal būt jie buvo ištrinti? Paleiskite "
-"'/etc/init.d/zentyal ebackup restart'  atnaujinti kopijos informacijai."
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nėra kopijų archyvo. Gal būt jie buvo ištrinti? Paleiskite '/etc/init.d/"
+#~ "zentyal ebackup restart'  atnaujinti kopijos informacijai."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "AD slaptažodis"
+#~ msgid "Admin password"
+#~ msgstr "AD slaptažodis"

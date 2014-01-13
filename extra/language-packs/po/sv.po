@@ -20059,27 +20059,27 @@ msgstr ""
 "aktiverad"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Du måste aktivera e-postmodulen i modulstatussektionen för att använda "
-"den."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Du måste aktivera e-postmodulen i modulstatussektionen för att använda "
+#~ "den."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Du måste aktivera modulen Användare i modulen status för att använda den."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Du måste aktivera modulen Användare i modulen status för att använda den."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Lägg till användare"
+#~ msgid "Admin user"
+#~ msgstr "Lägg till användare"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Tillgängligt intervall"
+#~ msgid "Available servers"
+#~ msgstr "Tillgängligt intervall"
 
 #~ msgid "General settings"
 #~ msgstr "Allmänna inställningar"
@@ -22945,36 +22945,15 @@ msgstr "Tillgängligt intervall"
 #~ "på eBox servrar. Köp plats för säkerhetskopiering du behöver på {ohref}"
 #~ "eBox on-line store{chref}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
-msgid "Essential"
-msgstr ""
-
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr ""
-
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
 #, fuzzy
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör "
-"\"/etc/init.d/ebox ebackup restart\" för att uppdatera informationen för "
-"säkerhetskopieringen."
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör \"/etc/"
+#~ "init.d/ebox ebackup restart\" för att uppdatera informationen för "
+#~ "säkerhetskopieringen."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "lösenord"
+#~ msgid "Admin password"
+#~ msgstr "lösenord"

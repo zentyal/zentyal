@@ -19951,32 +19951,32 @@ msgstr ""
 "Les següents modificacions només tindran efecte quan el mòdul de correu "
 "estigui habilitat"
 
-msgid "Essential"
-msgstr "Essencial"
+#~ msgid "Essential"
+#~ msgstr "Essencial"
 
 #, fuzzy
-msgid ""
-"You must enable the mail module in {oh}Module Status{ch} section in order "
-"to use it."
-msgstr ""
-"Ha d'habilitar el mòdul de correu a la secció d'estat dels mòduls per tal "
-"d'utilitzar-lo."
+#~ msgid ""
+#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
+#~ "to use it."
+#~ msgstr ""
+#~ "Ha d'habilitar el mòdul de correu a la secció d'estat dels mòduls per tal "
+#~ "d'utilitzar-lo."
 
 #, fuzzy
-msgid ""
-"You must enable the {module} module on the {openhref} Module Status "
-"section {closehref} in order to use it."
-msgstr ""
-"Ha d'activar el mòdul d'Usuaris a la secció d'estat del mòdul per poder "
-"usar-lo."
+#~ msgid ""
+#~ "You must enable the {module} module on the {openhref} Module Status "
+#~ "section {closehref} in order to use it."
+#~ msgstr ""
+#~ "Ha d'activar el mòdul d'Usuaris a la secció d'estat del mòdul per poder "
+#~ "usar-lo."
 
 #, fuzzy
-msgid "Admin user"
-msgstr "Afegir usuari"
+#~ msgid "Admin user"
+#~ msgstr "Afegir usuari"
 
 #, fuzzy
-msgid "Available servers"
-msgstr "Emmagatzemament disponible"
+#~ msgid "Available servers"
+#~ msgstr "Emmagatzemament disponible"
 
 #~ msgid "General settings"
 #~ msgstr "Paràmetres generals"
@@ -23238,31 +23238,16 @@ msgstr "Emmagatzemament disponible"
 #~ "ràpid i segur. Compri l'espai de còpia necessari a {ohref}botiga on-line "
 #~ "de Zentyal{chref}."
 
-#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
-msgid "Standard"
-msgstr "Estàndard"
+#~ msgid "Standard"
+#~ msgstr "Estàndard"
 
-#: ../../main/ebackup/src/EBox/EBackup.pm:198
-msgid ""
-"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
-"ebackup restart' to refresh backup's information."
-msgstr ""
-"No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi "
-"'/etc/init.d/ebox ebackup restart' per refrescar la informació de les "
-"còpies."
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi '/etc/"
+#~ "init.d/ebox ebackup restart' per refrescar la informació de les còpies."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
-msgid "Enable all users after provision"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:15
-#: ../../main/openchange/src/templates/migration/connect.mas:32
-msgid ""
-"You need Admin profile user and password to be able to access this server"
-msgstr ""
-
-#: ../../main/openchange/src/templates/migration/connect.mas:16
-#: ../../main/openchange/src/templates/migration/connect.mas:33
 #, fuzzy
-msgid "Admin password"
-msgstr "Contrasenya AD"
+#~ msgid "Admin password"
+#~ msgstr "Contrasenya AD"
