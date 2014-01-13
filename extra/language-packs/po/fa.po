@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-12-03 09:02+0200\n"
+"PO-Revision-Date: 2013-12-11 08:42+0200\n"
 "Last-Translator: Ebrahimi <scraps_g@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: fa\n"
@@ -310,7 +310,7 @@ msgstr "پروفایل '{p}' را اعمال کن"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:36
 msgid "Domain or URL"
-msgstr "دامنه(Domain) یا آدرس اینترنتی(URL)"
+msgstr "دامنه یا آدرس اینترنت"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:55
 #: ../../main/squid/src/EBox/Squid/Model/MIME.pm:64
@@ -346,11 +346,11 @@ msgstr "دامنه"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:96
 msgid "You must not prefix the domain with www."
-msgstr "شما نباید درابتدای دامنه .www را قرار دهید."
+msgstr "شما نباید درابتدای دامنه .www قرار دهید."
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:100
 msgid "Domain or IP address"
-msgstr "دامنه و یا آدرس IP"
+msgstr "دامنه و یا آدرس آی پی"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:231
 msgid "Domains and URL rules"
@@ -367,31 +367,31 @@ msgstr "اجازه/رد ترافیک HTTP از/به فهرست دامنه های
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:242
 msgid "Domain or URL added"
-msgstr "اضافه کردن دامین یا URL"
+msgstr "دامنه یا URL اضافه شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:243
 msgid "Domain or URL removed"
-msgstr "حذف نمودن دامین یا URL"
+msgstr "دامنه یا URL حذف شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:244
 msgid "Domain or URL updated"
-msgstr " دامنه یا URL به روز شد"
+msgstr "دامنه یا URL به روز شد"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
 msgid "Skip Transparent Proxy"
-msgstr "از پروکسی (Transparent Proxy) گذر کن"
+msgstr "ردکردن پروکسی شفاف"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
 msgid "Transparent Proxy Exemptions"
-msgstr "معافیت های پروکسی (Transparent Proxy)"
+msgstr "معافیت های پروکسی شفاف"
 
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
 msgid "You can exempt some addresses from transparent proxy"
-msgstr "شما می توانید در این پروکسی بعضی از آدرس ها را مورد استثنا قرار دهید."
+msgstr "شما می توانید بعضی از آدرس ها را از پروکسی شفاف استثنا قرار دهید"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:45
 msgid "Transparent Proxy"
-msgstr "پروکسی (Transparent Proxy)"
+msgstr "پروکسی شفاف"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:59
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:123
@@ -400,7 +400,7 @@ msgstr ""
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:65
 msgid "Ad Blocking"
-msgstr "قفل کردن"
+msgstr "بلوکه کردن تبلیغات"
 
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:68
 msgid "Remove advertisements from all HTTP traffic"

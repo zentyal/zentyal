@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2013-10-21 22:54+0200\n"
-"Last-Translator: djkakaroto <djkakaroto@gmail.com>\n"
+"PO-Revision-Date: 2014-01-03 16:37+0200\n"
+"Last-Translator: FabioCA <fabioramirocarvalho@yahoo.com.br>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1949,6 +1949,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Não existem certificados disponíveis para este cliente. Por favor, {ohref} "
+"crie um{chref}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
@@ -4581,9 +4583,8 @@ msgid "Latest security update"
 msgstr "Últimas atualizações de segurança"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS/IPS rules"
-msgstr "Regras de IDS disponíveis"
+msgstr "Regras de IDS/IPS disponíveis"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 msgid "Select one of the available options"
@@ -5244,12 +5245,12 @@ msgid "Company \"{company}\" already exists. Please, choose a different name."
 msgstr ""
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:176
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "An user with that email is already registered. You can reset your password "
 "at {openhref}here{closehref}."
 msgstr ""
-"Um usuário com este email já foi registrado. Você pode checar os dados da "
+"Um usuário com este e-mail já foi registrado. Você pode checar os dados da "
 "conta a partir de "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:185
@@ -5261,7 +5262,6 @@ msgstr ""
 "ignorados."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:194
-#, fuzzy
 msgid ""
 "An error ocurred registering the user, please check your Internet connection."
 msgstr ""
@@ -6926,15 +6926,14 @@ msgid "Not supported"
 msgstr "Não suportado"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:304
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"O Controle de Banda é aplicado quando o Zentyal está trabalhando como um "
-"gateway. Para conseguir isso, você precisa de pelo menos uma interface "
-"interna e externa. Verifique se sua configuração de interface corresponde, "
-"em {openhref}Rede->Interfaces{closehref}"
+"IPsec pode ser configurado somente em interfaces marcadas como \"externo\". "
+"Verifique se sua configuração de interface  está correta em "
+"{openhref}Rede->Interfaces{closehref}"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:59
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
@@ -7191,9 +7190,8 @@ msgstr "Zentyal definirá a ordem dos resolvedores de sistemas"
 #: ../../main/network/src/EBox/Network.pm:176
 #: ../../main/network/src/EBox/Network.pm:181
 #: ../../main/network/src/EBox/Network.pm:186
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
-msgstr "Zentyal vai efetuar a sua configuração de rede"
+msgstr "Zentyal efetuará a configuração do resolvconf"
 
 #: ../../main/network/src/EBox/Network.pm:191
 msgid "Zentyal will set your DHCP client configuration"
@@ -7680,6 +7678,11 @@ msgid ""
 "be sent to the {ohref}configured forwarders{chref} in first place, and if "
 "they does not answer the query root DNS servers will be used."
 msgstr ""
+"O módulo Zentyal DNS está instalado e habilitado, portanto, apenas o "
+"servidor DNS local será utilizado para resolver as consultas. As consultas "
+"para o qual este servidor não tem autoridade e não tem a resposta em seu "
+"cache será enviado para os {ohref}redirecionadores configurados{chref} caso "
+"os mesmos não respondam os servidores DNS raiz serão utilizados. "
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:57
 #: ../../main/monitor/src/EBox/Monitor/Types/MeasureAttribute.pm:135
@@ -8186,9 +8189,8 @@ msgid "Thin client file path"
 msgstr "Caminho do thin client"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:182
-#, fuzzy
 msgid "Thin client / External TFTP-Server"
-msgstr "Servidores NTP externos"
+msgstr "Thin client/Servidor TFTP Externo"
 
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:187
 #, perl-brace-format
@@ -9380,11 +9382,13 @@ msgstr "Este compartilhamento não requer autenticação."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
 msgid "Apply ACLs recursively"
-msgstr ""
+msgstr "Aplicar ACLs de forma recursiva"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
 msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr ""
+"Alterações de ACL substituirão todas as permissões nas subpastas deste "
+"compartilhamento."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:205
@@ -9399,16 +9403,16 @@ msgstr "compartilhamento"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:267
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
-msgstr ""
+msgstr "O Zentyal não conseguiu acessar o diretório '{x}': {y}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
 msgid "Samba share absolute path"
 msgstr "Caminho absoluto do compartilhamento samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Path {p} is not a directory"
-msgstr "Não é possivel restaurar para {d}: {dd} não é um diretório"
+msgstr "Caminho {p} não é um diretório"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:292
 msgid "Samba share directory"
@@ -9443,17 +9447,18 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:471
 #, perl-brace-format
 msgid "Error getting filesystem format in {m}"
-msgstr ""
+msgstr "Erro obtendo o formato do sistema de arquivos em {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:476
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
 msgstr ""
+"O formato do sistema de arquivos '{x}' não suporta o armazenamento de ACLs."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
-msgstr ""
+msgstr "Erro lendo as opções de montagem em {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:489
 #, perl-brace-format
@@ -9461,6 +9466,8 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
+"O ponto de montagem '{mountPoint}' deve ser montado com a opção 'acl'. Isto "
+"é requerido para que as permissões funcionem adequadamente."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:495
 #, perl-brace-format
@@ -9468,6 +9475,9 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
 "This is required for permissions to work properly."
 msgstr ""
+"O ponto de montagem '{mountPoint}' deve ser montado com a opção "
+"'user_xattr'. Isto é requerido para que as permissões funcionem "
+"adequadamente."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:57
 msgid "GPO Editor"
@@ -9787,6 +9797,9 @@ msgid ""
 "This server is an additional domain controller. In order not to break sysvol "
 "replication, GPOs must be modified in the domain root server."
 msgstr ""
+"Este servidor é um controlador de domínio adicional. De forma a não "
+"interromper a replicação do sysvol, as GPOs devem ser modificadas no "
+"servidor root do domínio."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:39
 msgid "Shutdown Scripts"
@@ -9926,6 +9939,8 @@ msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
 msgstr ""
+"As listas de controle de acesso (ACLs) dos compartilhamentos estão no modo "
+"não-gerenciado. Para alterar este modo, edite {file} e reinicie este módulo."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:298
 msgid ""
@@ -10118,6 +10133,11 @@ msgid ""
 "to the local hostname.<br/>You can assign it in the {ohref}IP addresses page "
 "for {dom}{chref}"
 msgstr ""
+"Samba não pode ser provisionado se nenhum endereço IP interno for "
+"configurado no domínio {dom}.<br/>Certifique-se de ter ao menos um endereço "
+"IP atribuído a uma interface interna, ao domínio {dom} e ao hostname "
+"local.<br/>Você pode atribuí-lo na página {ohref} de endereços IP para "
+"{dom}{chref} "
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:309
 #, perl-brace-format
@@ -10126,6 +10146,9 @@ msgid ""
 "of other Zentyal.<br/>You can change this state at {ohref}synchronization "
 "options{chref}"
 msgstr ""
+"Não é possível habilitar o Samba porque este servidor está sincronizando "
+"seus usuários como um escravo de outro Zentyal.<br/>Você pode alterar este "
+"estado em {ohref}, opções de sincronização {chref}"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:348
 #, perl-brace-format
@@ -10138,6 +10161,9 @@ msgid ""
 "'Users'. This is not supported and will cause the import of LDAP entries to "
 "samba to fail."
 msgstr ""
+"Há unidades organizacionais aninhadas criadas dentro da unidade "
+"organizacional 'Users'. Isto não é suportado e causará falha na importação "
+"de entradas LDAP para o Samba."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:572
 msgid ""
@@ -10145,6 +10171,9 @@ msgid ""
 "'Computers'. This is not supported and will cause the import of LDAP entries "
 "to samba to fail."
 msgstr ""
+"Há unidades organizacionais aninhadas criadas dentro da unidade "
+"organizacional 'Computers'. Isto não é suportado e causará falha na "
+"importação de entradas LDAP para o Samba"
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:693
 #, perl-brace-format
@@ -10155,13 +10184,15 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Provision.pm:713
 #, perl-brace-format
 msgid "Could not determine the realm of the specified AD server {x}."
-msgstr ""
+msgstr "Não é possível determinar o realm do servidor AD {x} especificado."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:734
 #, perl-brace-format
 msgid ""
 "Could not bind to AD LDAP server ({x}).Please check the supplied credentials."
 msgstr ""
+"Não foi possível vincular ao servidor AD LDAP ({x}). Favor verificar as "
+"credenciais fornecidas."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:783
 #, perl-brace-format

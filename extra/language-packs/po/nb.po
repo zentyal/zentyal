@@ -3874,7 +3874,6 @@ msgid "Enable authenticated FTP access to each user home directory."
 msgstr "Aktiver FTP tilgang for hver bruker til sin /home mappe"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
 msgstr "Personlige mapper"
 

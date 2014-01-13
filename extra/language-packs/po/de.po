@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 17:04+0200\n"
-"PO-Revision-Date: 2013-11-06 18:29+0200\n"
-"Last-Translator: FCS <mail@floriansteinhardt.de>\n"
+"PO-Revision-Date: 2014-01-12 17:27+0200\n"
+"Last-Translator: weißnix <alegat@web.de>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -85,8 +85,8 @@ msgid ""
 "You can upload files with categorized lists of domains. You will be able to "
 "filter by those categories in each filter profile."
 msgstr ""
-"Sie können Dateien mit kategorisierten Listen von Domains hochladen. Sie "
-"werden nach diesen Kategorien in jedem Filter-Profil filtern können."
+"Sie können kategorisierten Listen von Domains als Datei hochladen. Sie "
+"werden in jedem Filterprofil nach diesen Kategorien filtern können."
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:140
 #, perl-brace-format
@@ -97,13 +97,14 @@ msgid ""
 msgstr ""
 "Kann den Namen {name} nicht benutzen da schon ein anderer Ordner mit dem "
 "Namen {dir} vorhanden ist.\n"
-"Ohne Rückfrage löschen?"
+"Eventuell ist dies durch einen unvollständigen Löschvorgang verursacht "
+"worden!"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
 msgid "Domain Name Address"
-msgstr "Domänen-Namen-Adresse"
+msgstr "Adresse des Names der Domäne"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:44
 msgid "Exempt address from Auth and Cache"
@@ -111,18 +112,19 @@ msgstr "Adresse vom Authentifizieren und Zwischenspeichern ausschließen"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:52
 msgid "Auth and Cache Exemptions"
-msgstr "Ausnahmen von Zwischenspeicherung"
+msgstr "Ausnahmen von Authentifizierung und Zwischenspeicherung"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
 msgid "domain name address"
-msgstr "Domännamen-Adresse"
+msgstr "Adresse des Domänennamens"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:61
-#, fuzzy
 msgid "You can exempt some addresses from Auth and Cache"
-msgstr "Sie können Adressen von der Zwischenspeicherung ausschließen"
+msgstr ""
+"Sie können einige Adressen von der Authentifizierung und Zwischenspeicherung "
+"ausschließen."
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
@@ -145,11 +147,11 @@ msgstr "Adresse aktualisiert"
 # correct!
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:47
 msgid "Time period"
-msgstr "Zeitrahmen"
+msgstr "Zeitspanne"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:48
 msgid "Time period when the rule is applied"
-msgstr "Zeitfenster, in dem die Regel angewendet wird"
+msgstr "Zeitspanne, in der die Regel angewendet wird"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
 #: ../../main/firewall/src/EBox/Firewall.pm:740
@@ -208,13 +210,13 @@ msgstr "Entscheidung"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:87
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
-msgstr "Alle Erlauben"
+msgstr "Alles Erlauben"
 
 # correct
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:91
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
-msgstr "Alle verweigern"
+msgstr "Alles Verweigern"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
 msgid "Apply Filter Profile"
@@ -223,7 +225,7 @@ msgstr "Filter-Profil anwenden"
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:108
 #: ../../main/squid/src/EBox/Squid.pm:1067
 msgid "Access Rules"
-msgstr "Zugriffs-Regeln"
+msgstr "Zugriffsregeln"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
@@ -254,6 +256,8 @@ msgstr ""
 msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr ""
+"Die Auswahl von Gruppen ist erst nach Aktivierung des HTTP-Proxy-Moduls "
+"verfügbar."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:103
@@ -267,24 +271,24 @@ msgstr "Alle Benutzer"
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
-"Quellenzuordnung durch Benutzer-Gruppen-Regeln sind nicht kompatibel mit dem "
-"transparenten Proxy-Modus"
+"Die Zuordnung von Quellen über Benutzer-Gruppen ist nicht mit dem "
+"transparenten Proxy-Modus kompatibel."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:348
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
 msgstr ""
-"Sie können keine 'Zulassen'- oder 'Profil'-Regel für ein Object oder eine "
-"Adresse hinzufügen, wenn Gruppenregeln existieren"
+"Sie können keine 'Erlauben'- oder 'Profil'-Regel für ein Objekt oder eine "
+"Adresse hinzufügen, wenn bereits Gruppenregeln existieren."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:353
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
 msgstr ""
-"Sie können keine Grupperegeln hinzufügen, wenn 'Zulassen'- oder 'Profil'-"
-"Regeln für Objekte oder Adressen definiert sind."
+"Sie können keine Grupperegeln hinzufügen, wenn bereits 'Erlauben'- oder "
+"'Profil'-Regeln für Objekte oder Adressen definiert sind."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:363
 #, perl-brace-format
@@ -292,8 +296,8 @@ msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
-"Die Zeitdauer der Regel ({t1}) überlappt mit der Zeitdauer ({t2}) andere "
-"Regel für die gleiche {sourceType}."
+"Die Zeitdauer der Regel ({t1}) überlappt mit der Zeitdauer ({t2}) der "
+"anderen Regel für die gleiche {sourceType}."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:653
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:175
@@ -798,7 +802,7 @@ msgstr "Netzwerkobjekt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:147
 msgid "Enable global limit for the object"
-msgstr "Aktivieren Sie ein globales Objektlimit."
+msgstr "globales Objektlimit aktivieren"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:154
 #, fuzzy
@@ -810,11 +814,10 @@ msgstr ""
 "Uneingeschränkt"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:155
-#, fuzzy
 msgid "Maximum unthrottled download size for the whole network object."
 msgstr ""
-"Maximale Downloadgröße aus diesem Netzwerk bis Begrenzung aktiv wird . -1 "
-"zum deaktivieren der Option."
+"Maximales ungedrosseltes Volumen für das gesamte Netzwerkobjekt. -1 zum "
+"deaktivieren der Option."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:158
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:182
@@ -831,6 +834,8 @@ msgid ""
 "Limited download rate after maximum size is reached for the whole network "
 "object."
 msgstr ""
+"Gedrosselte Übertragungsrate für das gesamte Netzwerkobjekt nach erreichen "
+"des max. ungedrosselten Volumens."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:167
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:190
@@ -838,9 +843,8 @@ msgid "KB/s"
 msgstr "KB/s"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:171
-#, fuzzy
 msgid "Enable per client limit"
-msgstr "Aktiviere Papierkorb"
+msgstr "per Client Limit aktivieren"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:178
 msgid "Maximum unlimited size per client"
@@ -848,17 +852,17 @@ msgstr "Maximale unbeschränkte Größe je Client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:179
 msgid "Maximum unthrottled download size for each client."
-msgstr "Maximale ungedrosselte Downloadgröße für jeden Client."
+msgstr "Maximale ungedrosseltes Volumen pro Client."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:186
 msgid "Maximum download rate per client"
-msgstr "Maximale Download-Bandbreite je Client"
+msgstr "Maximale Übertragungsrate je Client"
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:187
 msgid "Limited download rate after maximum size is reached for each client."
 msgstr ""
-"Begrenzte Download-Rate, wenn die maximale Größe für jeden Client erreicht "
-"ist."
+"Gedrosselte Übertragungsrate pro Client nach erreichen des max. "
+"ungedrosselten Volumens."
 
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:196
 msgid "Bandwidth Throttling Rules"
@@ -974,9 +978,8 @@ msgid "List File"
 msgstr "Datei auflisten"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:155
-#, fuzzy
 msgid "File Present"
-msgstr "Horchen"
+msgstr "Datei vorhanden"
 
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:175
 msgid "Domain categories"
@@ -1222,9 +1225,8 @@ msgid "Back HTTP Proxy configuration file"
 msgstr "Konfigurationsdatei des HTTP-Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:210
-#, fuzzy
 msgid "Squid's log rotation configuration"
-msgstr "Log-Rotation Einstellungen von DansGuardian"
+msgstr "Log-Rotations Einstellungen des Proxy"
 
 #: ../../main/squid/src/EBox/Squid.pm:215
 msgid "Content filter configuration file"
@@ -2521,6 +2523,8 @@ msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
+"Wahrscheinlich wurde dies durch eine fehlende Verbindung verursacht. "
+"Überprüfen Sie Ihre Konfiguration oder deaktivieren dieses Modul."
 
 #: ../../main/firewall/src/EBox/Iptables.pm:917
 #: ../../main/firewall/src/EBox/Iptables.pm:954
@@ -6557,14 +6561,13 @@ msgid ""
 msgstr ""
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:850
-#, fuzzy
 msgid ""
 "SCP method selected. Remember to add your target host to the list of known "
 "hosts by SSH"
 msgstr ""
 "Allgemeine Absicherungsserverkonfiguration aktualisiert. SCP Methode "
-"ausgewählt; <em>Bitte daran denken</em> den Zielhost zur Liste der bekannten "
-"Hosts für SSH hinzuzufügen"
+"ausgewählt; Bitte den Zielhost zur Liste der bekannten Hosts für SSH "
+"hinzzufügen"
 
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStorage.pm:152
 msgid "Error connecting to backup server. Storage status unknown"
@@ -8009,14 +8012,13 @@ msgid "Balance Traffic"
 msgstr "Netzverkehr verteilen"
 
 #: ../../main/network/src/EBox/Network/Composite/MultiGw.pm:71
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "To be able to use this feature you need at least two enabled gateways. You "
 "can add them {oa}here{ca} first."
 msgstr ""
 "Um diese Funktion verwenden zu können, brauchen sie mindestens zwei "
-"aktivierte Gateways. Sie können diese <a href=\"/Network/View/GatewayTable"
-"\">hier</a> hinzufügen"
+"aktivierte Gateways. Sie können diese {oa}hier{ca} hinzufügen"
 
 #: ../../main/network/src/EBox/Network/Composite/GatewaysGeneral.pm:59
 #, fuzzy
@@ -9270,11 +9272,11 @@ msgstr "ACL"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:247
 msgid " (user)"
-msgstr "Benutzer"
+msgstr " (Benutzer)"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:249
 msgid " (group)"
-msgstr "Gruppe"
+msgstr " (Gruppe)"
 
 #: ../../main/printers/src/EBox/Printers/Composite/General.pm:41
 msgid "Printer Sharing"
@@ -11321,7 +11323,7 @@ msgstr "Die virtuelle Maildomäne {vd} gibt es nicht"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:59
 msgid " To configure spamassassin daemon"
-msgstr "Dienst Spamassasin konfigurieren"
+msgstr " um den SpamAssassin-Dämon zu konfigurieren."
 
 #: ../../main/mailfilter/src/EBox/MailFilter/SpamAssassin.pm:325
 msgid "It must be a number(decimal point allowed)"
@@ -11357,7 +11359,7 @@ msgstr ""
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:59
 msgid " To configure p3scan"
-msgstr "Um p3scan zu konfigurieren"
+msgstr " um p3scan zu konfigurieren"
 
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:64
 #, fuzzy
@@ -12111,7 +12113,7 @@ msgstr "Füge einen Webmail-Link auf ein www-Datenverzeichnis hinzu."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:318
 msgid "Webmail will be accesible at http://ip/webmail/."
-msgstr "Webmail wird unter http://ip/webmail erreichbar sein."
+msgstr "Webmail wird unter http://ip/webmail/ erreichbar sein."
 
 #: ../../main/webmail/src/EBox/WebMail.pm:340
 #, fuzzy, perl-brace-format
@@ -12133,7 +12135,7 @@ msgstr ""
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:167
 msgid " To configure clamd daemon"
-msgstr "Um den clamd-Dienst zu konfigurieren"
+msgstr " um den clamd-Dienst zu konfigurieren"
 
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:172
 msgid "To schedule the launch of the updater"
@@ -12305,8 +12307,8 @@ msgid ""
 "The data you are modifying is being used by\n"
 "\t\t\tthe following sections:"
 msgstr ""
-"Die Daten, welche Sie verändern möchten werden von folgenden Tabellen "
-"benutzt:"
+"Die von Ihnen veränderten Daten werden von\n"
+"\t \t \t folgenden Bereichen benutzt:"
 
 #: ../../main/core/src/EBox/Model/DataForm.pm:534
 #, perl-brace-format
@@ -16052,12 +16054,11 @@ msgid "Groupware (Zarafa)"
 msgstr "Groupware (Zarafa)"
 
 #: ../../main/zarafa/src/EBox/Zarafa/Composite/General.pm:45
-#, fuzzy
 msgid ""
 "You can access the Zarafa web interface at http://zentyal_ip/webaccess and "
 "the new version at http://zentyal_ip/webapp."
 msgstr ""
-"Sie können das Zarafa Webinterface mit http://[zentyal_ip]/webaccess und die "
+"Sie können das Zarafa Webinterface mit http://zentyal_ip/webaccess und die "
 "mobile Version mit http://[zentyal_ip]/webaccess-mobile erreichen."
 
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:82
@@ -17712,13 +17713,12 @@ msgid "Filtering rules from external networks to Zentyal"
 msgstr "Filter-Regeln zwischen internen Netzwerken"
 
 #: ../../main/firewall/src/templates/filter.mas:32
-#, fuzzy
 msgid ""
 "These rules allow you to control access from external networks to sevices "
 "running on your Zentyal machine."
 msgstr ""
-"Diese Regeln erlauben Ihnen den Zugriff auf Dienste der Zentyal für externe "
-"Netzwerke zu konfigurieren"
+"Diese Regeln erlauben Ihnen für externe Netzwerke den Zugriff auf Zentyal-"
+"Dienste zu konfigurieren. "
 
 #: ../../main/firewall/src/templates/filter.mas:40
 msgid "Filtering rules from external networks to internal networks"
@@ -17891,13 +17891,12 @@ msgstr ""
 
 #: ../../main/software/src/templates/ebox.mas:528
 #: ../../main/software/src/templates/updates.mas:80
-#, fuzzy
 msgid ""
 "Error updating package list.<p>Please try to execute the following command "
 "in a console to see the problem: sudo apt-get update</p>"
 msgstr ""
-"Fehler bei der Aktualisierung der Paketliste. Bitte versuchen Sie das "
-"folgende Kommando in der Terminal-Komandozeile: sudo apt-get update"
+"Fehler bei der Aktualisierung der Paketliste. <p>Bitte versuchen Sie das "
+"folgende Kommando in der Terminal-Komandozeile: sudo apt-get update</p>"
 
 #: ../../main/software/src/templates/config.mas:9
 #, fuzzy
@@ -18276,15 +18275,11 @@ msgstr "Nicht konfigurieren"
 msgid "External (WAN)"
 msgstr "Extern (WAN)"
 
-#: ../../main/network/src/templates/ifaces.mas:79
-#: ../../main/network/src/templates/ifaces.mas:117
-#: ../../main/network/src/templates/ifaces.mas:118
-msgid "Bundled"
-msgstr "Gebündelt"
+#~ msgid "Bundled"
+#~ msgstr "Gebündelt"
 
-#: ../../main/network/src/templates/ifaces.mas:44
-msgid "Bonding Mode"
-msgstr "Modus"
+#~ msgid "Bonding Mode"
+#~ msgstr "Modus"
 
 #: ../../main/network/src/templates/ifaces.mas:98
 msgid ""
@@ -18298,9 +18293,8 @@ msgstr ""
 msgid "Bridge"
 msgstr "Netzwerk-Brücke"
 
-#: ../../main/network/src/templates/ifaces.mas:214
-msgid "Bonding"
-msgstr "Bündel"
+#~ msgid "Bonding"
+#~ msgstr "Bündel"
 
 #: ../../main/network/src/templates/ifaces.mas:138
 msgid "VLAN List"
@@ -19940,6 +19934,8 @@ msgid ""
 "The administrative user has to have enough permissions to create a computer "
 "account in the domain"
 msgstr ""
+"Der Administrator Account benötigt ausreichende Rechte um ein Computer Konto "
+"in der Domäne anlegen zu können"
 
 #: ../../main/users/src/templates/editgroup.mas:15
 #, fuzzy
@@ -20089,10 +20085,9 @@ msgstr "Daten löschen"
 
 #: ../../main/users/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
-msgstr ""
+msgstr "Du kannst keinen Benutzer in Abhängigkeit löschen."
 
 #: ../../main/users/src/templates/delcontact.mas:16
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
@@ -20102,7 +20097,7 @@ msgstr ""
 
 #: ../../main/users/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
-msgstr ""
+msgstr "Du kannst keine OU löschen in dieser Abhängigkeit"
 
 #: ../../main/users/src/templates/delou.mas:14
 #: ../../main/users/src/templates/delou.mas:25
@@ -20110,18 +20105,16 @@ msgid "Delete Organizational Unit"
 msgstr "Entferne Organisationseinheit"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "Name der Organisation"
+msgstr "Der Name der Organisation kann nicht gelöscht weden"
 
 #: ../../main/users/src/templates/delou.mas:18
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Dieser Vorgang löscht den Benutzer und alle zugehörigen Daten wie E-Mails, "
-"Benutzerdateien, ..."
+"Dieser Vorgang löscht die Organisationseinheit und alle Objekte sowie alle "
+"zugehörigen Daten wie Benutzer, Gruppen, ..."
 
 #: ../../main/users/src/templates/deluser.mas:12
 #: ../../main/users/src/templates/deluser.mas:29

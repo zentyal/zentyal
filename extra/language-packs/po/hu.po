@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-02 18:14+0200\n"
-"PO-Revision-Date: 2013-10-20 01:00+0200\n"
+"PO-Revision-Date: 2013-12-24 04:53+0200\n"
 "Last-Translator: kelemeng <kelemeng@ubuntu.com>\n"
 "Language-Team: Hungarian <openscope at googlegroups dot com>\n"
 "Language: hu\n"
@@ -251,6 +251,8 @@ msgstr ""
 msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr ""
+"A csoportkijelölés nem lesz elérhető, amíg nem engedélyezte a HTTP proxy "
+"modult."
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:103
@@ -1943,6 +1945,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"Nincs elérhető tanúsítvány ehhez a klienshez. {ohref}Hozzon létre "
+"egyet{chref}."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
@@ -3792,15 +3796,16 @@ msgstr ""
 "könyvtárhoz."
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
-msgstr "Személyes könyvtárak"
+msgstr "Korlátozás a személyes könyvtárakra"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:149
 msgid ""
 "Restrict access to each user home directory. Take into account that this "
 "restriction can be circumvented under some conditions."
 msgstr ""
+"Hozzáférés korlátozása az egyes felhasználók saját könyvtáraira. Vegye "
+"figyelembe, hogy ez a korlátozás bizonyos körülmények között megkerülhető."
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:153
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
@@ -4579,9 +4584,8 @@ msgid "Latest security update"
 msgstr "Legutóbbi biztonsági frissítés"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS/IPS rules"
-msgstr "Elérhető IDS szabályok"
+msgstr "Elérhető IDS/IPS szabályok"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 msgid "Select one of the available options"
@@ -5236,16 +5240,16 @@ msgstr "Az új jelszavak nem egyeznek"
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:165
 #, perl-brace-format
 msgid "Company \"{company}\" already exists. Please, choose a different name."
-msgstr ""
+msgstr "„{company}” cég már létezik. Válasszon másik nevet."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:176
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "An user with that email is already registered. You can reset your password "
 "at {openhref}here{closehref}."
 msgstr ""
 "Már van regisztrálva felhasználó ezzel az e-mail címmel. A fiók adatait "
-"megnézheti itt:"
+"megnézheti {openhref}itt{closehref}:"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:185
 msgid ""
@@ -5256,11 +5260,10 @@ msgstr ""
 "kívül maradnak."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:194
-#, fuzzy
 msgid ""
 "An error ocurred registering the user, please check your Internet connection."
 msgstr ""
-"Az előfizetés regisztrálása során hiba történt, ellenőrizze az "
+"A felhasználó regisztrálása során hiba történt, ellenőrizze az "
 "internetkapcsolatát."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:74
@@ -6918,15 +6921,13 @@ msgid "Not supported"
 msgstr "Nem támogatott"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:304
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
 msgstr ""
-"A forgalomszabályozás akkor lesz alkalmazva, ha a Zentyal átjáróként "
-"működik. Ennek érdekében szükség van egy belső és egy külső csatolóra. "
-"Ellenőrizze a csatolók beállításait, a {openhref}Hálózat->Csatolók"
-"{closehref} részben"
+"Az IPsec csak külsőként megcímkézett csatolókon állítható be. Ellenőrizze a "
+"csatolók beállításait a {openhref}Hálózat->Csatolók{closehref} részben"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:59
 #: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:79
@@ -7186,9 +7187,8 @@ msgstr "A Zentyal be fogja állítani a rendszer feloldóinak sorrendjét"
 #: ../../main/network/src/EBox/Network.pm:176
 #: ../../main/network/src/EBox/Network.pm:181
 #: ../../main/network/src/EBox/Network.pm:186
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
-msgstr "A Zentyal elvégzi a hálózati beállításokat"
+msgstr "A Zentyal elvégzi a resolvconf beállításokat"
 
 #: ../../main/network/src/EBox/Network.pm:191
 msgid "Zentyal will set your DHCP client configuration"
@@ -9381,11 +9381,13 @@ msgstr "Ez a megosztás nem igényel hitelesítést."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:126
 msgid "Apply ACLs recursively"
-msgstr ""
+msgstr "ACL-ek rekurzív alkalmazása"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:129
 msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr ""
+"Az ACL módosítások lecserélik az összes jogosultságot a megosztás "
+"almappáiban."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:205
@@ -9400,16 +9402,16 @@ msgstr "megosztás"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:267
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
-msgstr ""
+msgstr "A Zentyal nem fér hozzá a(z) „{x}”: {y} könyvtárhoz."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
 msgid "Samba share absolute path"
 msgstr "Samba-megosztás abszolút útvonala"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Path {p} is not a directory"
-msgstr "Nem lehet visszaállítani erre: {d}: {dd} nem könyvtár"
+msgstr "Az útvonal ({p}) nem könyvtár"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:292
 msgid "Samba share directory"
@@ -9441,19 +9443,19 @@ msgstr ""
 "nevét, és a Zentyal létrehozza azt."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:471
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Error getting filesystem format in {m}"
-msgstr "Hiba a GPO bejegyzés lekérésekor az LDAP-ból: {x}"
+msgstr "Hiba a fájlrendszer formátumának lekérésekor ebben: {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:476
 #, perl-brace-format
 msgid "Filesystem format '{x}' does not support storing ACLs."
-msgstr ""
+msgstr "A fájlrendszer-formátum ({x}) nem támogatja az ACL-ek tárolását."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
-msgstr ""
+msgstr "Hiba a csatolási beállítások olvasásakor: {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:489
 #, perl-brace-format
@@ -9461,6 +9463,8 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'acl' option. This is "
 "required for permissions to work properly."
 msgstr ""
+"A csatolási pontot ({mountPoint}) az „acl” beállítással kell csatolni. Ez a "
+"jogosultságok megfelelő működéséhez szükséges."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:495
 #, perl-brace-format
@@ -9468,6 +9472,8 @@ msgid ""
 "The mount point '{mountPoint}' must be mounted with 'user_xattr' option. "
 "This is required for permissions to work properly."
 msgstr ""
+"A csatolási pontot  ({mountPoint}) a „user_xattr” beállítással kell "
+"csatolni. Ez a jogosultságok megfelelő működéséhez szükséges."
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:57
 msgid "GPO Editor"
@@ -9786,6 +9792,9 @@ msgid ""
 "This server is an additional domain controller. In order not to break sysvol "
 "replication, GPOs must be modified in the domain root server."
 msgstr ""
+"Ez a szerver egy további tartományvezérlő. A sysvol replikáció működésének "
+"fenntartása érdekében a GPO-kat a tartomány gyökérszerverén kell módosítani. "
+""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScriptsShutdown.pm:39
 msgid "Shutdown Scripts"
@@ -9926,6 +9935,9 @@ msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
 msgstr ""
+"A megosztások hozzáférés-vezérlési listái (ACL) felügyeletlen módban vannak. "
+"Ezen mód megváltoztatásához szerkessze a(z) {file} fájlt, és indítsa újra "
+"ezt a modult."
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:298
 msgid ""
@@ -10144,6 +10156,9 @@ msgid ""
 "'Users'. This is not supported and will cause the import of LDAP entries to "
 "samba to fail."
 msgstr ""
+"Beágyazott szervezeti egységek vannak létrehozva a „Users” szervezeti "
+"egységen belül. Ez nem támogatott, és emiatt az LDAP-bejegyzések importálása "
+"a Sambaba sikertelen lesz."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:572
 msgid ""
@@ -10151,6 +10166,9 @@ msgid ""
 "'Computers'. This is not supported and will cause the import of LDAP entries "
 "to samba to fail."
 msgstr ""
+"Beágyazott szervezeti egységek vannak létrehozva a „Computers” szervezeti "
+"egységen belül. Ez nem támogatott, és emiatt az LDAP-bejegyzések importálása "
+"a Sambaba sikertelen lesz."
 
 #: ../../main/samba/src/EBox/Samba/Provision.pm:693
 #, perl-brace-format
@@ -10305,9 +10323,8 @@ msgid "There was an error updating LDAP:"
 msgstr "Hiba történt az LDAP frissítése során: "
 
 #: ../../main/samba/src/EBox/Samba/OU.pm:141
-#, fuzzy
 msgid "Error creating entry:"
-msgstr "Hiba a fájl létrehozásakor"
+msgstr "Hiba a bejegyzés létrehozásakor:"
 
 #: ../../main/samba/src/EBox/Samba/GPO.pm:298
 #, perl-brace-format
@@ -10385,9 +10402,8 @@ msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "A jelszó nem lehet hosszabb {maxPwdLength} karakternél"
 
 #: ../../main/samba/src/EBox/Samba.pm:130
-#, fuzzy
 msgid "File Sharing and Domain Services"
-msgstr "Fájlmegosztási beállítások"
+msgstr "Fájlmegosztási és tartománybeállítások"
 
 #: ../../main/samba/src/EBox/Samba.pm:144
 msgid "Create Samba home directory for shares and groups"
@@ -12102,14 +12118,13 @@ msgid "Change"
 msgstr "Módosítás"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4640
-#, fuzzy
 msgid "Page 1"
-msgstr "Oldal"
+msgstr "1. oldal"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4642
 #, perl-brace-format
 msgid "Page {i} of {n}"
-msgstr ""
+msgstr "{i}. oldal, összesen: {n}"
 
 #: ../../main/core/src/EBox/Model/Base.pm:87
 #, perl-brace-format
@@ -12707,7 +12722,7 @@ msgstr "Beállítások importálása/exportálása"
 #: ../../main/core/src/EBox/SysInfo.pm:119
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:46
 msgid "Debug"
-msgstr ""
+msgstr "Hibakeresés"
 
 #: ../../main/core/src/EBox/SysInfo.pm:124
 msgid "Halt/Reboot"
@@ -13262,9 +13277,8 @@ msgid "administrator"
 msgstr "rendszergazda"
 
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:39
-#, fuzzy
 msgid "Enable bug report for daemon crashes"
-msgstr "FTP SSL támogatás engedélyezése a bejelentkezett felhasználóknak."
+msgstr "Hibajelentés engedélyezése a démonok összeomlásakor"
 
 #: ../../main/core/src/EBox/SysInfo/Types/DomainName.pm:96
 #: ../../main/core/src/EBox/Types/DomainName.pm:121
@@ -15797,193 +15811,170 @@ msgid "Zarafa Gateway Server"
 msgstr "Zarafa átjárószerver"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:181
-#, fuzzy
 msgid "To configure sogo daemon"
-msgstr "Clamd démon beállítása"
+msgstr "Sogo démon beállítása"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:186
-#, fuzzy
 msgid "To configure sogo parameters"
-msgstr "A gép levelezési nevének beállítása"
+msgstr "A Sogo paramétereinek beállítása"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:191
-#, fuzzy
 msgid "To configure autodiscovery service"
-msgstr "A Dovecot beállítása"
+msgstr "Az automatikus feltérképezési szolgáltatás beállítása"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:344
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:126
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:137
 msgid "Setup"
-msgstr ""
+msgstr "Beállítás"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:348
-#, fuzzy
 msgid "MailBox Migration"
-msgstr "Levélszűrő beállításai"
+msgstr "Postafiók migrálása"
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:473
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
-msgstr ""
-"A szükséges „{d}” tartomány nem található a DNS modulban.<br/>Ezt a {ohref}"
-"DNS tartományok oldalon{chref} veheti fel"
+msgstr "A várt „{d}” tartomány nem található a DNS modulban."
 
 #: ../../main/openchange/src/EBox/OpenChange.pm:482
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
-msgstr ""
-"A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban.<br/>Ezt a"
-"(z) {ohref}{d}tartomány gépnevei oldalon{chref} veheti fel."
+msgstr "A szükséges „{h}” géprekord nem található a(z) „{d}” tartományban.<br/>"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
 msgid "Existing One"
-msgstr ""
+msgstr "Meglévő"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:83
-#, fuzzy
 msgid "New One"
-msgstr "Új {name}"
+msgstr "Új"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
 msgid "Enable all users after provision"
-msgstr ""
+msgstr "Minden felhasználó engedélyezése létesítés után"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:129
-#, fuzzy
 msgid "Database configured"
-msgstr "Ne állítsa be"
+msgstr "Adatbázis beállítva"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:138
 msgid "OpenChange Server Provision"
-msgstr ""
+msgstr "OpenChange szerver létesítése"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:143
 msgid "Setup an OpenChange Groupware server."
-msgstr ""
+msgstr "OpenChange csoportmunkaszerver beállítása."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:208
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
 "provisioning {y} module database."
-msgstr "A modult be kell kapcsolni a Modulállapot oldalon a használathoz."
+msgstr ""
+"A(z) {x} modult be kell kapcsolni a Modulállapot oldalon a(z) {y} modul "
+"adatbázisának létesítése előtt."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
 "Domains page{chref}."
 msgstr ""
-"A szükséges „{d}” tartomány nem található a DNS modulban.<br/>Ezt a {ohref}"
-"DNS tartományok oldalon{chref} veheti fel"
+"A virtuális „{d}” tartomány nincs definiálva. Ezt a {ohref}Virtuális "
+"tartományok oldalon{chref} veheti fel."
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
-#, fuzzy
 msgid "There are unsaved changes. Please save them before provision"
-msgstr "Mentetlen módosítások vannak. Biztosan bezárja a munkamenetet?"
+msgstr "Mentetlen módosítások vannak. A létesítés előtt mentse ezeket. "
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:33
-#, fuzzy
 msgid "Enable OpenChange account"
-msgstr "Külső postafiók"
+msgstr "OpenChange fiók bekapcsolása"
 
 #: ../../main/openchange/src/EBox/OpenChange/Model/OpenChangeUser.pm:40
-#, fuzzy
 msgid "OpenChange"
-msgstr "Módosítás"
+msgstr "OpenChange"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:68
-#, fuzzy
 msgid "OpenChange Account"
-msgstr "Csoportmunka fiók"
+msgstr "OpenChange fiók"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:97
 #, perl-brace-format
 msgid "Unknown value for msExchUserAccountControl: {x}"
-msgstr ""
+msgstr "Az msExchUserAccountControl értéke ismeretlen: {x}"
 
 #: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:165
-#, fuzzy
 msgid "This user has a openchange account."
-msgstr "Ennek a felhasználónak van levelező fiókja"
+msgstr "Ennek a felhasználónak van OpenChange fiókja."
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Connect.pm:28
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/SelectMailBoxes.pm:31
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Finish.pm:32
-#, fuzzy
 msgid "Mailbox Migration"
-msgstr "Postafiók tartalma"
+msgstr "Postafiók migrálása"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ActivateMailbox.pm:52
 #, perl-brace-format
 msgid "{user} mailbox activated"
-msgstr ""
+msgstr "{user} postafiókja aktiválva"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ActivateMailbox.pm:53
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:142
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:28
-#, fuzzy
 msgid "Migrated"
-msgstr "sebesség"
+msgstr "Migrálva"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Disconnect.pm:28
-#, fuzzy
 msgid "Mail Box Migration"
-msgstr "Alapértelmezett beállítások"
+msgstr "Postafiók migrálása"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ServerList.pm:59
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ServerList.pm:59
-#, fuzzy
 msgid "No servers found"
-msgstr "A szerver nem található"
+msgstr "Nem találhatók szerverek"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Progress.pm:32
 msgid "Mailbox Migration Progress"
-msgstr ""
+msgstr "Postafiók migrálásának előrehaladása"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Estimate.pm:60
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:58
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:68
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:161
-#, fuzzy
 msgid "Invalid RPC server state"
-msgstr "Érvénytelen Gépnév érték"
+msgstr "Érvénytelen RPC-szerverállapot"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:53
 #, perl-brace-format
 msgid "{user} mailbox discarded"
-msgstr ""
+msgstr "{user} postafiókja eldobva"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:54
-#, fuzzy
 msgid "Cancelled"
 msgstr "Megszakítva"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:49
-#, fuzzy
 msgid "Origin user name"
-msgstr "felhasználónév"
+msgstr "Eredeti felhasználónév"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:52
-#, fuzzy
 msgid "Origin password"
-msgstr "Felhasználói jelszó"
+msgstr "Eredeti jelszó"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:55
-#, fuzzy
 msgid "Local user name"
-msgstr "felhasználónév"
+msgstr "Helyi felhasználónév"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ConnectToServer.pm:58
-#, fuzzy
 msgid "Local password"
-msgstr "Érvénytelen jelszó"
+msgstr "Helyi jelszó"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:142
 msgid "on going"
-msgstr ""
+msgstr "folyamatban"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/ConnectToServer.pm:58
 #: ../../main/users/src/EBox/LDAP/ExternalAD.pm:205
@@ -16010,14 +16001,12 @@ msgstr ""
 "Nem lehet kapcsolódni az AD LDAP szerverhez: „{server}”. A hiba: „{error}”"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:62
-#, fuzzy
 msgid "OpenChange account enabled"
-msgstr "Jabber fiók bekapcsolva"
+msgstr "OpenChange fiók bekapcsolva"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:66
-#, fuzzy
 msgid "OpenChange account disabled"
-msgstr "Jabber fiók kikapcsolva"
+msgstr "OpenChange fiók kikapcsolva"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:102
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:269
@@ -17215,9 +17204,9 @@ msgid "Username already exists on the system"
 msgstr "A felhasználónév már létezik a rendszerben"
 
 #: ../../main/users/src/EBox/Users/User.pm:566
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The default group '{defaultgroup}' cannot be found!"
-msgstr "Az oldal nem található"
+msgstr "Az alapértelmezett {defaultgroup} csoport nem található!"
 
 #: ../../main/users/src/EBox/Users/User.pm:570
 msgid "default group"
@@ -19185,237 +19174,204 @@ msgstr ""
 "kapcsolva."
 
 #: ../../main/openchange/src/templates/openchange.mas:12
-#, fuzzy
 msgid "Account status"
-msgstr "Postafiók neve"
+msgstr "Fiók állapota"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:7
-#, fuzzy
 msgid "Migration finished!"
-msgstr "Regisztráció kész"
+msgstr "A migráció kész!"
 
 #: ../../main/openchange/src/templates/migration/finish.mas:8
-#, fuzzy
 msgid "Migration has been finished!!"
-msgstr "Regisztráció kész"
+msgstr "A migráció befejeződött!"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:13
-#, fuzzy
 msgid "Migrating process"
-msgstr "Folyamatban"
+msgstr "Migrációs folyamat"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:19
-#, fuzzy
 msgid "Mailbox migrated"
-msgstr "Postafiókok"
+msgstr "Postafiók migrálva"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:21
 msgid "Data migrated"
-msgstr ""
+msgstr "Adatok migrálva"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:23
-#, fuzzy
 msgid "Time left"
-msgstr "elem van hátra"
+msgstr "Hátralévő idő"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:26
-#, fuzzy
 msgid "Cancel migration process"
-msgstr "Beállítások változásai"
+msgstr "A migrációs folyamat leállítása"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:32
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
-#, fuzzy
 msgid "name"
-msgstr "Átnevezés"
+msgstr "név"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:32
-#, fuzzy
 msgid "total data"
-msgstr "{txt} adat"
+msgstr "adat összesen"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "errors"
-msgstr "Hiba"
+msgstr "hibák"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
-#, fuzzy
 msgid "status"
-msgstr "Állapot"
+msgstr "állapot"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "details"
-msgstr "Riasztás részletei"
+msgstr "részletek"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:35
-#, fuzzy
 msgid "actions"
-msgstr "Műveletek"
+msgstr "műveletek"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:52
-#, fuzzy
 msgid "See details"
-msgstr "Riasztás részletei"
+msgstr "Részletek"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:52
-#, fuzzy
 msgid "Details"
-msgstr "Riasztás részletei"
+msgstr "Részletek"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:55
 msgid "discard mailbox"
-msgstr ""
+msgstr "postafiók eldobása"
 
 #: ../../main/openchange/src/templates/migration/progress.mas:56
 msgid "activate mailbox"
-msgstr ""
+msgstr "postafiók aktiválása"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:8
-#, fuzzy
 msgid "Select origin server"
-msgstr "Válassza ki a szerver típusát"
+msgstr "Válassza ki az eredeti szervert"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:9
 msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
 msgstr ""
+"Ez a varázsló segít a felhasználói adatok migrálásában bármely szerverről "
+"erre a Zentyal szerverre"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:12
-#, fuzzy
 msgid "Enter origin server name"
-msgstr "Külső szerver neve"
+msgstr "Írja be az eredeti szerver nevét"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:12
 msgid "Enter server Fully qualified domain name or IP address"
-msgstr ""
+msgstr "Adja meg a szerver teljes képzésű tartománynevét (FDQN) vagy IP-címét"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:15
 msgid "Credential for origin server"
-msgstr ""
+msgstr "Hitelesítési adatok az eredeti szerverhez"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:15
 #: ../../main/openchange/src/templates/migration/connect.mas:32
 msgid ""
 "You need Admin profile user and password to be able to access this server"
 msgstr ""
+"Rendszergazda profilú felhasználó és jelszó szükséges a szerver eléréséhez"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:15
 #: ../../main/openchange/src/templates/migration/connect.mas:32
-#, fuzzy
 msgid "Admin user"
-msgstr "Felhasználó hozzáadása"
+msgstr "Rendszergazda felhasználó"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:16
 #: ../../main/openchange/src/templates/migration/connect.mas:33
-#, fuzzy
 msgid "Admin password"
 msgstr "Rendszergazdai jelszó"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:20
-#, fuzzy
 msgid "Available servers"
-msgstr "Elérhető tárhely"
+msgstr "Elérhető szerverek"
 
 #: ../../main/openchange/src/templates/migration/connect.mas:32
-#, fuzzy
 msgid "Credential for local server"
-msgstr "külső levelezőszerver"
+msgstr "Hitelesítési adatok a helyi szerverhez"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:15
-#, fuzzy
 msgid "Select mailboxes to migrate"
-msgstr "Válassza ki a visszaállítandó biztonsági mentési tartományokat"
+msgstr "Válassza ki a migrálandó postafiókokat"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:18
-#, fuzzy
 msgid "Connected to"
 msgstr "Csatlakozva"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:22
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:30
-#, fuzzy
 msgid "mailboxes"
-msgstr "Postafiókok"
+msgstr "postafiókok"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Disconnect from {ip}"
-msgstr "Bontás"
+msgstr "Kapcsolat bontása: {ip}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:25
 msgid "DISCONNECT"
-msgstr ""
+msgstr "BONTÁS"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:48
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:18
-#, fuzzy
 msgid "date"
-msgstr "Frissítés"
+msgstr "dátum"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:54
-#, fuzzy
 msgid "loading"
-msgstr "Betöltés…"
+msgstr "betöltés"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:61
-#, fuzzy
 msgid "Migration details"
-msgstr "Levélforgalom részletei"
+msgstr "Migráció részletei"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:65
-#, fuzzy
 msgid "No mailboxes selected"
-msgstr "Nincsenek kiválasztva csomagok"
+msgstr "Nincs kiválasztva postafiók"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:69
-#, fuzzy
 msgid "selected mailboxes"
-msgstr "Elutasított levelek"
+msgstr "kiválasztott postafiókok"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:72
-#, fuzzy
 msgid "Total data"
-msgstr "Összes tárhely"
+msgstr "Összes adat"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:75
-#, fuzzy
 msgid "Total mails"
-msgstr "Összes jelölés"
+msgstr "Összes levél"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:78
-#, fuzzy
 msgid "Total contacts"
-msgstr "Összes jelölés"
+msgstr "Összes névjegy"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:81
 msgid "Total calendar"
-msgstr ""
+msgstr "Összes naptár"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Becsült hátralévő idő"
+msgstr "Becsült idő (100 Mb/s)"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "estimate migration"
-msgstr "Beállítások visszaállítása"
+msgstr "migráció becslése"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "start migration"
-msgstr "Beállítások visszaállítása"
+msgstr "migráció kezdése"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:32
-#, fuzzy
 msgid "User name conflict"
-msgstr "Felhasználónév"
+msgstr "Felhasználónév-ütközés"
 
 #: ../../main/users/src/templates/addobject.mas:10
 msgid "Contact"

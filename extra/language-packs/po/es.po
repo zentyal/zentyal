@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2013-10-18 23:16+0200\n"
-"Last-Translator: jacalvo <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2014-01-10 05:02+0200\n"
+"Last-Translator: Exgard <lexahu@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -251,6 +251,8 @@ msgstr ""
 msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr ""
+"La selección de group no estará disponible hasta que se habilite el módulo "
+"Proxy HTTP"
 
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:103
@@ -1956,6 +1958,8 @@ msgid ""
 "There are not certificates available for this client. Please, {ohref}create "
 "one{chref}"
 msgstr ""
+"No hay certificados disponibles para este cliente. Por favor, {ohref}crea "
+"uno{chref}."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientExposedNetworks.pm:43
 msgid "List of advertised networks to tunnel server"
@@ -4600,9 +4604,8 @@ msgid "Latest security update"
 msgstr "Ultima actualización de seguridad"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:133
-#, fuzzy
 msgid "Available IDS/IPS rules"
-msgstr "Reglas IDS disponibles"
+msgstr "Reglas IDS/IPS disponibles"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:120
 msgid "Select one of the available options"
@@ -5262,15 +5265,16 @@ msgstr "Las contraseñas introducidas no coinciden."
 #, perl-brace-format
 msgid "Company \"{company}\" already exists. Please, choose a different name."
 msgstr ""
+"La empresa \"{company}\" ya existe. Por favor, selecciona u nombre diferente."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:176
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "An user with that email is already registered. You can reset your password "
 "at {openhref}here{closehref}."
 msgstr ""
-"Un usuario con esa dirección de correo electrónico ya está registrado. Puede "
-"revisar los datos de la cuenta en"
+"Un usuario con esa dirección de correo electrónico ya está registrado. "
+"Puedes reestablecer tu contraseña {openhref}aquí{closehref}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:185
 msgid ""
@@ -5281,11 +5285,10 @@ msgstr ""
 "serán ignorados"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Wizard/Subscription.pm:194
-#, fuzzy
 msgid ""
 "An error ocurred registering the user, please check your Internet connection."
 msgstr ""
-"Ha ocurrido un error registrando la suscripción, por favor, comprueba tu "
+"Ha ocurrido un error registrando el usuario, por favor, comprueba tu "
 "conexión a Internet."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/CGI/Subscription.pm:74
@@ -6963,7 +6966,7 @@ msgid "Not supported"
 msgstr "No soportado"
 
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:304
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "IPsec can only be configured on interfaces tagged as 'external' Check your "
 "interface configuration to match, at {openhref}Network->Interfaces{closehref}"
@@ -9487,16 +9490,16 @@ msgstr "recurso compartido"
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:267
 #, perl-brace-format
 msgid "Zentyal could not access to directory '{x}': {y}"
-msgstr ""
+msgstr "Zentyal no puede acceder al directorio '{x}': {y}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:282
 msgid "Samba share absolute path"
 msgstr "Ruta absoluta del directorio compartido de Samba"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:285
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "Path {p} is not a directory"
-msgstr "No se puede restaurar a {d}: {dd} no es un directorio"
+msgstr "La ruta {d}: {dd} no es un directorio"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:292
 msgid "Samba share directory"
@@ -9540,7 +9543,7 @@ msgstr ""
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:484
 #, perl-brace-format
 msgid "Error reading mount options in {m}"
-msgstr ""
+msgstr "Error al leer las opciones de montaje en {m}"
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:489
 #, perl-brace-format

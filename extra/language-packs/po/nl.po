@@ -3813,7 +3813,6 @@ msgid "Enable authenticated FTP access to each user home directory."
 msgstr "FTP toegang verlenen aan elke gebruiker voor zijn  /home folder."
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
 msgstr "Persoonlijke folders"
 

@@ -5,15 +5,15 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-12-10 14:04+0100\n"
-"Last-Translator: josh <jacalvo@zentyal.com>\n"
+"PO-Revision-Date: 2013-12-15 12:08+0200\n"
+"Last-Translator: vothailam <vothailam@lactien.com>\n"
 "Language-Team: Vietnamese\n"
 "Language: vi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Pootle 2.1.4\n"
+"X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:47
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:120
@@ -46,7 +46,7 @@ msgstr ""
 #: ../../main/ca/src/templates/index.mas:99
 #: ../../main/users/src/templates/addou.mas:10
 msgid "Name"
-msgstr ""
+msgstr "Tên"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:53
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:655
@@ -55,7 +55,7 @@ msgstr ""
 #: ../../main/core/src/templates/configureView.mas:50
 #: ../../main/core/src/templates/configurationFiles.mas:22
 msgid "File"
-msgstr ""
+msgstr "Tập tin"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
 #: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:107
@@ -70,7 +70,7 @@ msgstr ""
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 #: ../../main/squid/src/EBox/Squid.pm:1073
 msgid "Categorized Lists"
-msgstr ""
+msgstr "Danh sách các danh mục"
 
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:80
 msgid "categorized list"

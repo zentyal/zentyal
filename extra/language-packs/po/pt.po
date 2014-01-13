@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-08-16 03:02+0200\n"
-"Last-Translator: ddune <paulo.ad@gmail.com>\n"
+"PO-Revision-Date: 2013-12-19 00:50+0200\n"
+"Last-Translator: Nuno <nuno.filipe.pereira@live.com.pt>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -2372,7 +2372,7 @@ msgstr "Firewall"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:78
 msgid "Flush previous firewall rules"
-msgstr "Descarte as regras prévias da firewall"
+msgstr "Descartar as regras prévias da firewall"
 
 #: ../../main/firewall/src/EBox/Firewall.pm:79
 msgid ""
@@ -3791,7 +3791,6 @@ msgid "Enable authenticated FTP access to each user home directory."
 msgstr "Activar acesso FTP para cada utilizador ao seu directório /home"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
 msgstr "Directórios pessoais"
 
@@ -19759,71 +19758,56 @@ msgid "date"
 msgstr "Actualizar"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:54
-#, fuzzy
 msgid "loading"
-msgstr "Carregando ..."
+msgstr "Carregando"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:61
-#, fuzzy
 msgid "Migration details"
-msgstr "Detalhes do tráfego de correio electrónico"
+msgstr "Detalhes de migração"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:65
-#, fuzzy
 msgid "No mailboxes selected"
-msgstr "Não foi seleccionado domínio"
+msgstr "Não foi selecionado nenhuma caixa de correio"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:69
-#, fuzzy
 msgid "selected mailboxes"
-msgstr "Mensagens rejeitadas"
+msgstr "caixas de correio selecionadas"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:72
-#, fuzzy
 msgid "Total data"
-msgstr "Armazenamento total"
+msgstr "Todos os dados"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:75
-#, fuzzy
 msgid "Total mails"
-msgstr "Total de marcas"
+msgstr "Total os emails"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:78
-#, fuzzy
 msgid "Total contacts"
-msgstr "Total de marcas"
+msgstr "Todos os contactos"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:81
 msgid "Total calendar"
-msgstr ""
+msgstr "Todos os calendários"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:85
-#, fuzzy
 msgid "Estimate time (100mb/s)"
-msgstr "Tempo estimado para finalização: {time}"
+msgstr "Tempo estimado: {time}"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "estimate migration"
-msgstr "Restaurar configuração da Zentyal a partir de uma cópia de segurança"
+msgstr "estimativa de migração"
 
 #: ../../main/openchange/src/templates/migration/select_mailboxes.mas:90
-#, fuzzy
 msgid "start migration"
-msgstr "Restaurar configuração da Zentyal a partir de uma cópia de segurança"
+msgstr "Iniciar migração"
 
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:32
-#, fuzzy
 msgid "User name conflict"
-msgstr ""
-"#-#-#-#-#  pt.po (ebox-network 0.12)  #-#-#-#-#\n"
-"Utilizador\n"
-"#-#-#-#-#  pt.po (ebox-usersandgroups 0.12)  #-#-#-#-#\n"
-"Nome do utilizador"
+msgstr "Conflito no nome de utilizador"
 
 #: ../../main/users/src/templates/addobject.mas:10
 msgid "Contact"
-msgstr ""
+msgstr "Contacto"
 
 #: ../../main/users/src/templates/wizard/users.mas:7
 msgid "Users and Groups"
@@ -19838,34 +19822,32 @@ msgid "Connect with external Active Directory server"
 msgstr "Conecte-se com um servidor externo Active Directory"
 
 #: ../../main/users/src/templates/wizard/users.mas:34
-#, fuzzy
 msgid "Select the domain name of the server"
-msgstr "Seleccionar o tipo de servidor"
+msgstr "Seleccionar o nome do servidor de domínio"
 
 #: ../../main/users/src/templates/wizard/users.mas:36
 msgid "This will be used as the Kerberos authentication realm for your users."
 msgstr ""
+"Isto será utilizado como a autenticação de Kerberos para os seus "
+"utilizadores"
 
 #: ../../main/users/src/templates/wizard/users.mas:39
-#, fuzzy
 msgid "Host domain name"
-msgstr "Nome da máquina de correio electrónico"
+msgstr "Nome do domínio anfitrião"
 
 #: ../../main/users/src/templates/wizard/users.mas:47
-#, fuzzy
 msgid "Enter your active directory settings"
-msgstr "Definições de monitorização da taxa de tráfego"
+msgstr "Introduza as configurações da Active Directory "
 
 #: ../../main/users/src/templates/wizard/users.mas:49
 msgid ""
 "The administrative user has to have enough permissions to create a computer "
 "account in the domain"
 msgstr ""
-"O utilizador de administração não tem permissões suficientes para criar uma "
-"conta de computador no dominio"
+"O utilizador administrativo necessita de ter permissões suficientes para "
+"criar uma conta de computador no domínio"
 
 #: ../../main/users/src/templates/editgroup.mas:15
-#, fuzzy
 msgid "Group "
 msgstr "Grupo"
 
@@ -19875,73 +19857,61 @@ msgid ""
 "properly."
 msgstr ""
 "Actualmente não existem utilizadores. Precisa de pelo menos um para gerir "
-"este grupo"
+"este grupo."
 
 #: ../../main/users/src/templates/editgroup.mas:27
 #: ../../main/users/src/templates/editgroup.mas:32
 #: ../../main/users/src/templates/addgroup.mas:10
-#, fuzzy
 msgid "Security Group"
-msgstr "Actualização de segurança"
+msgstr "Grupo de Segurança"
 
 #: ../../main/users/src/templates/editgroup.mas:28
 #: ../../main/users/src/templates/editgroup.mas:34
 #: ../../main/users/src/templates/addgroup.mas:10
-#, fuzzy
 msgid "Distribution Group"
-msgstr "Direitos de administração"
+msgstr "Grupo de Distribuição"
 
 #: ../../main/users/src/templates/editgroup.mas:58
 #: ../../main/users/src/templates/edituser.mas:79
-#, fuzzy
 msgid "Modules configuration"
-msgstr "Configuração do estado do módulo"
+msgstr "Configuração dos módulos"
 
 #: ../../main/users/src/templates/editgroup.mas:114
-#, fuzzy
 msgid "This group has not members"
-msgstr "Este grupo tem um pseudónimo de correio electrónico"
+msgstr "Este grupo não tem membros"
 
 #: ../../main/users/src/templates/editgroup.mas:181
-#, fuzzy
 msgid "Add user"
 msgstr "Adicionar utilizador"
 
 #: ../../main/users/src/templates/editcontact.mas:15
-#, fuzzy
 msgid "Administration of contact "
-msgstr "Direitos de administração"
+msgstr "Contacto para administração"
 
 #: ../../main/users/src/templates/editcontact.mas:29
-#, fuzzy
 msgid "Contact groups"
-msgstr "Outros grupos"
+msgstr "Grupos de contacto"
 
 #: ../../main/users/src/templates/editcontact.mas:88
-#, fuzzy
 msgid "This contact is not member of any group"
-msgstr "Utilizadores fora do grupo"
+msgstr "Este contacto não é membro de nenhum grupo"
 
 #: ../../main/users/src/templates/editcontact.mas:151
 #: ../../main/users/src/templates/edituser.mas:222
-#, fuzzy
 msgid "Add group"
 msgstr "Adicionar grupo"
 
 #: ../../main/users/src/templates/editcontact.mas:165
-#, fuzzy
 msgid "No member of any group"
-msgstr "Utilizadores fora do grupo"
+msgstr "Não é membro de nenhum grupo"
 
 #: ../../main/users/src/templates/edituser.mas:50
-#, fuzzy
 msgid "User quota"
-msgstr "Quota de utilizador excedida"
+msgstr "Quota de utilizador"
 
 #: ../../main/users/src/templates/edituser.mas:53
-#, fuzzy
 msgid "Disabled account"
-msgstr "Conta Jabber"
+msgstr "Conta desactivada "
 
 #: ../../main/users/src/templates/edituser.mas:61
 #: ../../main/users/src/templates/adduser.mas:30
@@ -19950,13 +19920,12 @@ msgstr "Reintroduza palavra-passe"
 
 #: ../../main/users/src/templates/edituser.mas:70
 msgid "User groups"
-msgstr "Grupos de utilizadores"
+msgstr "Grupo de utilizadores"
 
 #: ../../main/users/src/templates/edituser.mas:153
 #: ../../main/users/src/templates/edituser.mas:237
-#, fuzzy
 msgid "This user is not a member of any group"
-msgstr "Utilizadores fora do grupo"
+msgstr "Este utilizador não é membro de nenhum grupo"
 
 #: ../../main/users/src/templates/delgroup.mas:11
 #: ../../main/users/src/templates/delgroup.mas:32
@@ -19965,20 +19934,19 @@ msgstr "Apagar grupo"
 
 #: ../../main/users/src/templates/delgroup.mas:15
 msgid "You cannot delete a group in a slave."
-msgstr ""
+msgstr "Não pode apagar um grupo dado como escravo"
 
 #: ../../main/users/src/templates/delgroup.mas:18
-#, fuzzy
 msgid "This group cannot be deleted"
-msgstr "Este grupo tem um pseudónimo de correio electrónico"
+msgstr "Este grupo não pode ser apagado"
 
 #: ../../main/users/src/templates/delgroup.mas:20
 msgid ""
 "This operation will cause the removal of the group and all dependent data "
 "such as shared directory, etc."
 msgstr ""
-"Esta operação removerá o grupo e todos os dados relacionados tais como "
-"directórios partilhados, etc."
+"Esta operação irá remover o grupo e respectivas informações dependentes tais "
+"como directorias partilhadas, etc."
 
 #: ../../main/users/src/templates/adduser.mas:11
 msgid "Add User"
@@ -19986,7 +19954,7 @@ msgstr "Adicionar utilizador"
 
 #: ../../main/users/src/templates/addcontact.mas:7
 msgid "Add Contact"
-msgstr ""
+msgstr "Adicionar contacto"
 
 #: ../../main/users/src/templates/addgroup.mas:7
 msgid "Add Group"
@@ -20002,52 +19970,46 @@ msgid "Optional value"
 msgstr "Valor opcional"
 
 #: ../../main/users/src/templates/addou.mas:7
-#, fuzzy
 msgid "Add Organizational Unit"
-msgstr "Nome da Organização"
+msgstr "Adicionar Unidade Organizacional"
 
 #: ../../main/users/src/templates/delcontact.mas:9
 #: ../../main/users/src/templates/delcontact.mas:20
-#, fuzzy
 msgid "Delete contact"
-msgstr "Apagar dados"
+msgstr "Apagar contacto"
 
 #: ../../main/users/src/templates/delcontact.mas:13
 msgid "You cannot delete a contact in a slave."
-msgstr ""
+msgstr "Não pode apagar contacto dado como escravo."
 
 #: ../../main/users/src/templates/delcontact.mas:16
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the contact and any dependent "
 "configuration."
 msgstr ""
-"Esta operação removerá o grupo e todos os dados relacionados tais como "
-"directórios partilhados, etc."
+"Esta operação irá remover o contacto e todas as configurações dela "
+"dependentes."
 
 #: ../../main/users/src/templates/delou.mas:12
 msgid "You cannot delete a OU in a slave."
-msgstr ""
+msgstr "Não pode apagar a OU enquanto escravo."
 
 #: ../../main/users/src/templates/delou.mas:14
 #: ../../main/users/src/templates/delou.mas:25
-#, fuzzy
 msgid "Delete Organizational Unit"
-msgstr "Nome da Organização"
+msgstr "Apagar a Unidade Organizacional"
 
 #: ../../main/users/src/templates/delou.mas:15
-#, fuzzy
 msgid "This organizational unit cannot be deleted"
-msgstr "Nome da Organização"
+msgstr "Esta Unidade Organizacional não pode ser apagada"
 
 #: ../../main/users/src/templates/delou.mas:18
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the OU and all objects inside it, "
 "including users, groups, etc."
 msgstr ""
-"Esta operação removerá o utilizador e todos os dados relacionados tais com "
-"contas de correio, ficheiros do utilizador, etc."
+"Esta operação removerá a Unidade Organizacional e todos os objectos nela "
+"contidos, incluindo utilizadores, grupos, etc."
 
 #: ../../main/users/src/templates/deluser.mas:12
 #: ../../main/users/src/templates/deluser.mas:29
@@ -20056,15 +20018,13 @@ msgstr "Apagar utilizador"
 
 #: ../../main/users/src/templates/deluser.mas:16
 msgid "You cannot delete a user in a slave."
-msgstr ""
+msgstr "Não pode apagar um utilizador dado como escravo"
 
 #: ../../main/users/src/templates/deluser.mas:19
-#, fuzzy
 msgid ""
 "This operation will cause the removal of the user and all its dependent data"
 msgstr ""
-"Esta operação removerá o grupo e todos os dados relacionados tais como "
-"directórios partilhados, etc."
+"Esta operação irá remover o utilizador e todos os dados dele dependentes"
 
 #~ msgid "General settings"
 #~ msgstr "Definições gerais"

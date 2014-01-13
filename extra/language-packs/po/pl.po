@@ -3957,7 +3957,6 @@ msgid "Enable authenticated FTP access to each user home directory."
 msgstr "Włącz dostęp FTP dla każdego użytkownika do jego katalogu w /home"
 
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:146
-#, fuzzy
 msgid "Restrict to personal directories"
 msgstr "Katalogi osobiste"
 
