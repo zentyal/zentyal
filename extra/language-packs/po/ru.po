@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%"
+"10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Pootle 2.1.6\n"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
@@ -19852,30 +19852,30 @@ msgid ""
 msgstr ""
 "Настройки вступят в действие только когда почтовый модуль будет включен"
 
-#~ msgid "Essential"
-#~ msgstr "Основной"
+msgid "Essential"
+msgstr "Основной"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "Включите почтовый модуль, в модуле состояния, для его использования."
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"Включите почтовый модуль, в модуле состояния, для его использования."
 
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "Для использования модуля {module}, необходимо включить его в секции "
-#~ "{openhref} Статус модуля {closehref}."
-
-#, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Добавить пользователя"
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"Для использования модуля {module}, необходимо включить его в секции "
+"{openhref} Статус модуля {closehref}."
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "Доступное место"
+msgid "Admin user"
+msgstr "Добавить пользователя"
+
+#, fuzzy
+msgid "Available servers"
+msgstr "Доступное место"
 
 #~ msgid "General settings"
 #~ msgstr "Общие настройки"
@@ -23462,3 +23462,32 @@ msgstr ""
 #~ "{oi}{brand}{ci} - быстрое и безопасное удалённое хранилище для "
 #~ "обеспечения сохранности данных ваших серверов Zentyal. Приобретайте место "
 #~ "для бэкапа в {ohref}онлайн-магазине Zentyal{chref}."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr "Стандартный"
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Не найдены архивы резервных копий. Возможно они были удалены?. Запустите "
+"'/etc/init.d/zentyal ebackup restart' для обновления информации о резервных "
+"копиях."
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "AD пароль"

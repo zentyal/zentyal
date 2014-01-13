@@ -20128,24 +20128,24 @@ msgid ""
 msgstr "以下的設定只會影響到當郵件模組是啟用的情況時"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr "為了使用郵件模組您必須在模組狀態中啟用它。"
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr "為了使用郵件模組您必須在模組狀態中啟用它。"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr "為了要使用您必須要在模組狀態功能中啟用使用者模組"
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "新增使用者"
+msgid "Admin user"
+msgstr "新增使用者"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "可用的範圍"
+msgid "Available servers"
+msgstr "可用的範圍"
 
 #~ msgid "General settings"
 #~ msgstr "一般設定值"
@@ -22540,3 +22540,34 @@ msgstr "以下的設定只會影響到當郵件模組是啟用的情況時"
 #~ msgstr ""
 #~ "{oi}{brand}{ci}是安全且快速的遠端資料存放位置，如須購買備份儲存空間，您可"
 #~ "以上{ohref}eBox on-line store{chref}"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+#, fuzzy
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr "未發現備份結構。也許已被刪除，請執行'/etc/init.d/ebox ebackup restart'以更新備份資訊。"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "密碼"

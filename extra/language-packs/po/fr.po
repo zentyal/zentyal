@@ -20591,32 +20591,32 @@ msgstr ""
 "Les paramètres suivants ne prendront effets que lorsque le module de "
 "courrier sera activé"
 
-#~ msgid "Essential"
-#~ msgstr "Essentiel"
+msgid "Essential"
+msgstr "Essentiel"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "Vous devez activer le module de courrier email dans la section \"status "
-#~ "des modules\" pour pouvoir l'utiliser"
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"Vous devez activer le module de courrier email dans la section \"status "
+"des modules\" pour pouvoir l'utiliser"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "Vous devez activer le module \"Utilisateurs\" dans la section \"Statut "
-#~ "des modules\" pour pouvoir l'utiliser."
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"Vous devez activer le module \"Utilisateurs\" dans la section \"Statut "
+"des modules\" pour pouvoir l'utiliser."
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Ajouter un utilisateur"
+msgid "Admin user"
+msgstr "Ajouter un utilisateur"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "Stockage disponible"
+msgid "Available servers"
+msgstr "Stockage disponible"
 
 #~ msgid "General settings"
 #~ msgstr "Paramètres généraux"
@@ -23773,3 +23773,32 @@ msgstr ""
 #~ "données que vous stockez sur vos serveurs Zentyal. Achetez de l'espace de "
 #~ "stockage dont vous avez besoin pour vos sauvegardes à l'adresse {ohref}"
 #~ "Boutique en ligne Zentyal{chref}."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr "Standard"
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Aucune archive de sauvegarde trouvée. Elles ont pu être effacées. Exécuter "
+"'/etc/init.d/ebox ebackup restart' pour rafraichir les informations sur les "
+"sauvegardes."
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "mot de passe Active Directory"

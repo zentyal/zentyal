@@ -19860,32 +19860,32 @@ msgstr ""
 "De volgende instellingen worden alleen gebruikt wanneer de mail module is "
 "geactiveerd"
 
-#~ msgid "Essential"
-#~ msgstr "Essentieel"
+msgid "Essential"
+msgstr "Essentieel"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "Module Gebruikers moet geselecteerd worden in de module-status sectie om "
-#~ "het te kunnen gebruiken "
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"Module Gebruikers moet geselecteerd worden in de module-status sectie om "
+"het te kunnen gebruiken "
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "Module Gebruikers moet geselecteerd worden in de module-status sectie om "
-#~ "het te kunnen gebruiken "
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"Module Gebruikers moet geselecteerd worden in de module-status sectie om "
+"het te kunnen gebruiken "
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Gebruiker toevoegen"
+msgid "Admin user"
+msgstr "Gebruiker toevoegen"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "Beschikbaar bereik"
+msgid "Available servers"
+msgstr "Beschikbaar bereik"
 
 #~ msgid "General settings"
 #~ msgstr "Algemene instellingen"
@@ -22216,3 +22216,33 @@ msgstr ""
 #~ "{oi}{brand}{ci} is snelle en betrouwbare externe opslag voor de gegevens "
 #~ "op je eBox servers. Bestel jouw backup-opslagcapaciteit op {ohref}eBox on-"
 #~ "line store{chref}."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr "Standaard"
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+#, fuzzy
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Geen backup bestanden gevonden. Mogelijk zijn ze verwijderd? Voer de "
+"opdrachtregel '/etc/init.d/ebox ebackup restart' uit voor een vernieuwde "
+"backup-overzicht."
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "AD wachtwoord"

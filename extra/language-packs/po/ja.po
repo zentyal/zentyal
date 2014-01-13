@@ -19936,28 +19936,28 @@ msgid ""
 msgstr "メールモジュール有効のときのみ以下の設定が適用されます"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "使用するためにはモジュール状態セクションからユーザモジュールを有効にする必"
-#~ "要があります。"
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"使用するためにはモジュール状態セクションからユーザモジュールを有効にする必"
+"要があります。"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "使用するためにはモジュール状態セクションからユーザモジュールを有効にする必"
-#~ "要があります。"
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"使用するためにはモジュール状態セクションからユーザモジュールを有効にする必"
+"要があります。"
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "ユーザを追加"
+msgid "Admin user"
+msgstr "ユーザを追加"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "利用可能範囲"
+msgid "Available servers"
+msgstr "利用可能範囲"
 
 #, fuzzy
 #~ msgid "General settings"
@@ -21817,3 +21817,33 @@ msgstr "メールモジュール有効のときのみ以下の設定が適用さ
 #, fuzzy
 #~ msgid "Local Backup"
 #~ msgstr "全てバックアップ"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "パスワード"

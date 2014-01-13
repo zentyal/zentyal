@@ -18452,12 +18452,12 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "অ্যাডমিন জ্যাবর অ্যাকাউন্ট"
+msgid "Admin user"
+msgstr "অ্যাডমিন জ্যাবর অ্যাকাউন্ট"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "জ্যাবর সার্ভার"
+msgid "Available servers"
+msgstr "জ্যাবর সার্ভার"
 
 #, fuzzy
 #~ msgid "To configure PPTP options."
@@ -18552,3 +18552,45 @@ msgstr ""
 
 #~ msgid "composite title"
 #~ msgstr "শিরোনাম লিখুন"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:117
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order to "
+"use it."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/core/src/templates/notConfigured.mas:8
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status section "
+"{closehref} in order to use it."
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "অ্যাডমিন জ্যাবর অ্যাকাউন্ট"

@@ -19362,26 +19362,26 @@ msgstr ""
 "Následující nastavení se projeví pouze tehdy, pokud je povolen mail modul"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"Musíte povolit mail modul v sekci modulů, aby jste ho mohli používat."
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Všichni uživatelé"
+msgid "Admin user"
+msgstr "Všichni uživatelé"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "K dispozici rozsah"
+msgid "Available servers"
+msgstr "K dispozici rozsah"
 
 #~ msgid "Maximum mailbox size in MB"
 #~ msgstr "Maximální velikost schránky v MB"
@@ -20574,3 +20574,33 @@ msgstr ""
 
 #~ msgid "To configure freshclam updater"
 #~ msgstr "Konfigurovat freschclam updater"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "Heslo uživatele"

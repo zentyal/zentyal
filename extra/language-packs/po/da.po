@@ -20221,28 +20221,28 @@ msgstr ""
 "Disse indstillinger vil kun være aktive, hvis mail modulet er slået til"
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the mail module in {oh}Module Status{ch} section in order "
-#~ "to use it."
-#~ msgstr ""
-#~ "Du skal have slået modulet Brugere til i modul status, for at kunne "
-#~ "bruger det."
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order "
+"to use it."
+msgstr ""
+"Du skal have slået modulet Brugere til i modul status, for at kunne "
+"bruger det."
 
 #, fuzzy
-#~ msgid ""
-#~ "You must enable the {module} module on the {openhref} Module Status "
-#~ "section {closehref} in order to use it."
-#~ msgstr ""
-#~ "Du skal have slået modulet Brugere til i modul status, for at kunne "
-#~ "bruger det."
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status "
+"section {closehref} in order to use it."
+msgstr ""
+"Du skal have slået modulet Brugere til i modul status, for at kunne "
+"bruger det."
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Tilføj bruger"
+msgid "Admin user"
+msgstr "Tilføj bruger"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "Tilgængeligt område"
+msgid "Available servers"
+msgstr "Tilgængeligt område"
 
 #, fuzzy
 #~ msgid "General settings"
@@ -22169,3 +22169,36 @@ msgstr ""
 #~ "{oi}{brand}{ci} er en hurtig og sikker fjern location, til at gemme de "
 #~ "data du har på din eBox server. Køb den backup plads du behøver hos "
 #~ "{ohref}eBox on-line store{chref}."
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+#, fuzzy
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+"Ingen backup arkiver fundet. Måske er de slettet?. Kør '/etc/init.d/ebox "
+"ebackup restart' for at opdatere backuppens information."
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "password"

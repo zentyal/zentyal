@@ -19689,12 +19689,12 @@ msgid ""
 msgstr ""
 
 #, fuzzy
-#~ msgid "Admin user"
-#~ msgstr "Adibir usuario"
+msgid "Admin user"
+msgstr "Adibir usuario"
 
 #, fuzzy
-#~ msgid "Available servers"
-#~ msgstr "Ran disponible"
+msgid "Available servers"
+msgstr "Ran disponible"
 
 #, fuzzy
 #~ msgid "General settings"
@@ -20832,3 +20832,45 @@ msgstr ""
 #, fuzzy
 #~ msgid "Local Backup"
 #~ msgstr "Backup completo"
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1862
+msgid "Essential"
+msgstr ""
+
+#: ../../main/remoteservices/src/EBox/RemoteServices.pm:1863
+msgid "Standard"
+msgstr ""
+
+#: ../../main/ebackup/src/EBox/EBackup.pm:198
+msgid ""
+"No backup archives found. Maybe they were deleted?. Run '/etc/init.d/zentyal "
+"ebackup restart' to refresh backup's information."
+msgstr ""
+
+#: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:117
+msgid ""
+"You must enable the mail module in {oh}Module Status{ch} section in order to "
+"use it."
+msgstr ""
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+msgid "Enable all users after provision"
+msgstr ""
+
+#: ../../main/core/src/templates/notConfigured.mas:8
+msgid ""
+"You must enable the {module} module on the {openhref} Module Status section "
+"{closehref} in order to use it."
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:15
+#: ../../main/openchange/src/templates/migration/connect.mas:32
+msgid ""
+"You need Admin profile user and password to be able to access this server"
+msgstr ""
+
+#: ../../main/openchange/src/templates/migration/connect.mas:16
+#: ../../main/openchange/src/templates/migration/connect.mas:33
+#, fuzzy
+msgid "Admin password"
+msgstr "parabra de paso"
