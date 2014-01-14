@@ -26,7 +26,7 @@ PATH=/usr/bin:/bin
 <% $mins[4] %> <% $hours[4] %> * * 6 root /usr/share/zentyal-remoteservices/password-checker.pl > /dev/null 2>&1
 
 # Run unattended operations every X minutes
-*/5 * * * * root (pgrep -u root,ebox run-pending-ops || /usr/share/zentyal-remoteservices/run-pending-ops) > /dev/null 2>&1
+*/5 * * * * root (pgrep -u root,ebox run-pending-ops || /usr/share/zentyal/run-pending-ops) > /dev/null 2>&1
 
 # Log data for report hourly
 @hourly root (pgrep -u root,ebox reporter-log || /usr/share/zentyal-remoteservices/reporter-log) > /dev/null 2>&1

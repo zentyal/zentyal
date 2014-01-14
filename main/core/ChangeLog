@@ -1,4 +1,8 @@
 3.4
+	+ Move run-pending-ops script from remoteservices to core
+	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result
+	+ Move EBox::RemoteServices::RESTClient to EBox::RESTClient as it
+	  is used in ha and remoteservices module.
 	+ Adapt init.d and upstart running checks to Ubuntu 13.10
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Adapted apache configuration to 2.4
