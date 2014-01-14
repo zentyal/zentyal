@@ -1,4 +1,7 @@
 3.4
+	+ Move run-pending-ops script to core
+	+ Move EBox::RemoteServices::RESTClient and RESTResult to core
+	  and uses it as base in specific behaviour
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 	+ Fix warning on last inside an eval on automatic-conf-backup script
