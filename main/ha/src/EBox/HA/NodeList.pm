@@ -95,6 +95,29 @@ sub remove
     }
 }
 
+# Method: empty
+#
+#      Empty the node list. That is, remove every node in the list
+#
+# Returns:
+#
+#      Int - the number of nodes removed from the list
+#
+sub empty
+{
+    my ($self) = @_;
+
+    my $state = $self->{ha}->get_state();
+    my $nElements = scalar(keys(%{$state->{nodes}}));
+
+    if ($nElements > 0) {
+        delete $state->{nodes};
+        $self->{ha}->set_state($state);
+    }
+
+    return $nElements;
+}
+
 # Method: list
 #
 #    Return the node list

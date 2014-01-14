@@ -98,6 +98,17 @@ sub test_remove : Test(6)
     cmp_deeply($nl->list(), [], 'list is empty again');
 }
 
+sub test_empty : Test(3)
+{
+    my ($self) = @_;
+
+    my $nl = $self->{nodeList};
+    cmp_ok($nl->empty(), '==', 0);
+    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    cmp_ok($nl->empty(), '==', 1);
+    cmp_deeply($nl->list(), [], 'list is empty');
+}
+
 1;
 
 
