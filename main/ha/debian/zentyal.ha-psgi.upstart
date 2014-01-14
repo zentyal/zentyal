@@ -1,0 +1,2 @@
+exec /usr/bin/plackup /usr/share/zentyal/psgi/ha.psgi
+respawn
