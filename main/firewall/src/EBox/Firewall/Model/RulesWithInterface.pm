@@ -20,6 +20,8 @@ use warnings;
 
 package EBox::Firewall::Model::RulesWithInterface;
 
+use EBox::Gettext;
+
 sub interfacePopulateSub
 {
     my ($self) = @_;
@@ -39,11 +41,16 @@ sub interfacePopulateSub
             my $printableValue =  $net->ifaceAlias($iface);
             my @vifacesNames = @{ $net->vifaceNames($iface) };
             if (@vifacesNames) {
-                $printableValue = join ', ', ($printableValue, @vifacesNames);
+                EBox::debug("vifaces @vifacesNames");
+                EBox::debug(join(', ', @vifacesNames));
+                $printableValue = __x('{iface} (including {vifaces})',
+                                      iface => $printableValue,
+                                      vifaces => join(', ', @vifacesNames)
+                                     );
             }
 
-            push(@options, { 'value' => $iface,
-                             'printableValue' => $printableValue  });
+            push @options, { 'value' => $iface,
+                             'printableValue' => $printableValue  };
         }
 
         return \@options;

@@ -63,6 +63,7 @@ sub _fieldDescription
              'fieldName' => 'interface',
              'printableName' => __('Outgoing interface'),
              'populate' => $self->interfacePopulateSub,
+             'disableCache' => 1,
              'editable' => 1);
     push (@tableHead, $iface);
 
