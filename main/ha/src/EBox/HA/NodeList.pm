@@ -56,15 +56,22 @@ sub new
 #
 #    webAdminPort - Int the webadmin listening port
 #
+#    localNode - Boolean to indicate if it is a local node *(Optional)*
+#                Default value: False
+#
 sub set
 {
     my ($self, %params) = @_;
 
     my $state = $self->{ha}->get_state();
+    my $localNode = $params{localNode};
+    $localNode = 0 unless ($localNode);
 
     $state->{nodes}->{$params{name}} = { name => $params{name},
                                          addr => $params{addr},
-                                         webAdminPort => $params{webAdminPort} };
+                                         webAdminPort => $params{webAdminPort},
+                                         localNode => $localNode
+                                     };
 
     $self->{ha}->set_state($state);
 }
@@ -129,6 +136,7 @@ sub empty
 #       addr - String the IP address
 #       name - String the node name
 #       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
 #
 sub list
 {

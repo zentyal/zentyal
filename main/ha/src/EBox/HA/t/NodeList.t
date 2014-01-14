@@ -68,12 +68,12 @@ sub test_set : Test(5)
     lives_ok {
         $nl->set(addr => '10.1.1.1', name => 'a', webAdminPort => 443);
     } 'Add a new node';
-    is_deeply($nl->list(), [{addr => '10.1.1.1', name => 'a', webAdminPort => 443}],
-             'list has this member');
+    cmp_deeply($nl->list(), [{addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0}],
+               'list has this member');
     lives_ok {
-        $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+        $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1);
     } 'Update a node';
-    cmp_deeply($nl->list(), [{addr => '10.1.1.2', name => 'a', webAdminPort => 443}],
+    cmp_deeply($nl->list(), [{addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1}],
              'list has an updated member');
 }
 
