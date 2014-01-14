@@ -22,6 +22,7 @@ use warnings;
 use feature qw(switch);
 use EBox;
 use EBox::HA::Server::Router;
+use Hash::MultiValue;
 use JSON::XS;
 use Plack::Request;
 use Plack::Response;
@@ -35,15 +36,17 @@ my $app = sub {
     my $req = new Plack::Request($env);
     my $res = new Plack::Response();
     my $ret;
-    if (exists($EBox::HA::Server::Router::routes->{$req->path_info()})) {
-        my $routeConf = $EBox::HA::Server::Router::routes->{$req->path_info()};
+    my $pathInfo = $req->path_info();
+    if (EBox::HA::Server::Router::routeExists($pathInfo)) {
+        my ($routeConf, $namedPathParams) = EBox::HA::Server::Router::routeConf($pathInfo);
         if (exists($routeConf->{$req->method()})) {
             my $body;
-            if (($req->content_type() eq 'application/json') and ($req->raw_body())) {
+            if (($req->content_type() ~~ 'application/json') and ($req->raw_body())) {
                 $body = new JSON::XS()->decode($req->raw_body());
             }
+            my $joinedParams = new Hash::MultiValue($req->parameters()->flatten(), %{$namedPathParams});
             $ret = EBox::HA::Server::Router::route($routeConf->{$req->method()},
-                                                   $req->parameters(),
+                                                   $joinedParams,
                                                    $body,
                                                    $req->uploads());
             $res->status(200);
