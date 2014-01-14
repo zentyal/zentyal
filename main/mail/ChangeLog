@@ -1,4 +1,5 @@
 HEAD
+	+ Added sieve_dir plugin parameter
 	+ Nopass dovecot policy enabled only when Openchange provisioned
 3.3
 	+ Allow to use vdomains table when module is unconfigured
