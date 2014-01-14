@@ -171,6 +171,10 @@ sub _daemons
            name => 'pacemaker',
            type => 'init.d',
            pidfiles => ['/run/pacemakerd.pid']
+       },
+       {
+           name => 'zentyal.ha-psgi',
+           type => 'upstart'
        }
     ];
 
