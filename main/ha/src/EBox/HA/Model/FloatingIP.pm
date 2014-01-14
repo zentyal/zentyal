@@ -45,6 +45,7 @@ sub validateTypedRow
     my ($self, $action, $oldParams, $newParams) = @_;
 
     my $name = $newParams->{'name'}->value();
+    my $ip = $newParams->{'floating_ip'}->value();
 
     my $nameLength = length ($name);
     if ($nameLength > MAX_NAME_LENGTH) {
@@ -56,6 +57,52 @@ sub validateTypedRow
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
+    if (my $error_message = $self->_ipCollides($ip)) {
+        throw EBox::Exceptions::External(__($error_message));
+    }
+}
+
+# Method: _ipCollides
+#
+# Returns a message if the given IP collides with an existing one
+#   Otherwise it returns an empty string, with won't raise an exception
+#
+sub _ipCollides
+{
+    my ($self, $ip) = @_;
+
+    my $ip_collision_reason = "";
+
+    if ($self->_checkNetworkIpCollision($ip)) {
+        $ip_collision_reason = "IP collision with a Network interface.";
+    } elsif ($self->_checkDhcpFixedIpCollision($ip)) {
+        $ip_collision_reason = "Fixed DHCP IP collision.";
+    }
+
+    return $ip_collision_reason;
+}
+
+sub _checkNetworkIpCollision
+{
+    my ($self, $ip) = @_;
+
+    my $network = EBox::Global->modInstance('network');
+    my @network_ips= ( @{$network->internalIpAddresses()}, @{$network->externalIpAddresses()} );
+
+    foreach my $iface_ip (@network_ips) {
+        if ($ip eq $iface_ip) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub _checkDhcpFixedIpCollision
+{
+    my ($self, $ip) = @_;
+
+    return 0;
 }
 
 # Group: Protected methods
