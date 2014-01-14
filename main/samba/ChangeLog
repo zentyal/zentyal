@@ -1,6 +1,9 @@
 3.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
+	  defer it until s4sync does the synchronization
+	+ Typo fix in netbios validation
 	+ Check if objects are system critical before deletion
 3.3
 	+ Renamed printableName to File Sharing and Domain Services
@@ -8,6 +11,7 @@
 	+ Switch from Error to TryCatch for exception handling
 	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
 				  adc
+	  adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
 	              when reprovisioning as additional DC
 	+ Do not hide domain guest account
@@ -15,7 +19,7 @@
 	+ LDB - Do not return users holding a servicePrincipalName by default
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
-	+ OU - Improve cration code
+	+ OU - Improve creation code
 	+ LDB - Return OUs ordered, parents before childs
 	+ Provision - Link accounts holding zentyal service principals
 	+ Provision - Improve OU loading, skip zentyal internal OUs and linked

@@ -246,12 +246,18 @@ sub _postServiceHook
             my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
             my $users = $self->ldb->users();
             foreach my $user (@{$users}) {
+                unless ($self->ldapObjectFromLDBObject($user)) {
+                    # This user is not yet synced with OpenLDAP, ignore it, s4sync will do the job once it's synced.
+                    EBox::debug("Deferring profile and user home mount configuration for '". $user->name() . "'");
+                    next;
+                }
+
                 # Set roaming profiles
                 if ($self->roamingProfiles()) {
                     my $path = "\\\\$netbiosName.$realmName\\profiles";
                     $user->setRoamingProfile(1, $path, 1);
                 } else {
-                    $user->setRoamingProfile(0);
+                    $user->setRoamingProfile(0, undef, 1);
                 }
 
                 # Mount user home on network drive
