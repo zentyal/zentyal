@@ -1,3 +1,5 @@
+HEAD
+	+ Update nginx template to allow access to /ews/oof
 3.2.1
 	+ Use Error instead of TryCatch::Lite
 3.2
