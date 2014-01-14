@@ -180,22 +180,31 @@ sub addNode
 {
     my ($self, $params, $body) = @_;
 
+    # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
     $list->set(%{$body});
 }
 
-# Method: removeNode
+# Method: deleteNode
 #
-#     Get the active nodes from a cluster
+#    Delete node from the cluster
+#
+# Parameters:
+#
+#    params - hash ref containing the node to delete in the key 'name'
 #
 # Returns:
 #
 #     Array ref - See <EBox::HA::NodeList::list> for details
 #
-sub removeNode
+sub deleteNode
 {
-    my ($self) = @_;
+    my ($self, $params) = @_;
+
+    # TODO: Check incoming data
+    my $list = new EBox::HA::NodeList($self);
+    $list->remove($params->{name});
 }
 
 # Group: Protected methods

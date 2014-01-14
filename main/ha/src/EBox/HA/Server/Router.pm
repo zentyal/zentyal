@@ -19,6 +19,7 @@ use warnings;
 
 package EBox::HA::Server::Router;
 
+use EBox::Exceptions::DataNotFound;
 use EBox::Global;
 use EBox::HA;
 
@@ -27,12 +28,63 @@ use EBox::HA;
 #   Router in the middle of the PSGI app and the HA module
 #
 
-our $routes = {
-    '/cluster/configuration' => { 'GET' => \&EBox::HA::clusterConfiguration },
-    '/cluster/nodes'         => { 'GET'    => \&EBox::HA::nodes,
-                                  'POST'   => \&EBox::HA::addNode,
+my $routes = {
+    qr{/cluster/configuration$} => { 'GET' => \&EBox::HA::clusterConfiguration },
+    qr{/cluster/nodes$}         => { 'GET'    => \&EBox::HA::nodes,
+                                     'POST'   => \&EBox::HA::addNode },
+    qr{/cluster/nodes/(?<name>[a-zA-Z0-9\-\.]+)$} => {
                                   'DELETE' => \&EBox::HA::deleteNode },
 };
+
+# FIXME: This copies Tie::RegexpHash
+
+# Function: routeExists
+#
+#     Return if a route exists
+#
+# Parameters:
+#
+#     route - String
+#
+sub routeExists
+{
+    my ($route) = @_;
+
+    my @ret =  grep { $route =~ $_ } keys %{$routes};
+    return scalar(@ret);
+}
+
+# Function: routeConf
+#
+#     Return if the configuration for the first matched route
+#
+# Parameters:
+#
+#     route - String
+#
+# Returns:
+#
+#     Array - the first element is a hash ref with supported methods
+#             and the second one is the named parameters substitution
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::DataNotFound> - thrown if the route does not exist
+#
+sub routeConf
+{
+    my ($route) = @_;
+
+    my @routeKeys = grep { $route =~ $_ } keys %{$routes};
+    if (scalar(@routeKeys) < 1) {
+        throw EBox::Exceptions::DataNotFound(data => 'route', value => $route);
+    }
+    my $routeKey = $routeKeys[0];
+    $route =~ $routeKey;
+    # Catch named captures
+    my %namedParams = %+;
+    return ($routes->{$routeKey}, \%namedParams);
+}
 
 # Procedure: route
 #
@@ -42,7 +94,7 @@ our $routes = {
 #
 #     sub - Code ref to the sub to call
 #
-#     params - <Hash::MultiValue> the merged POST/GET parameters
+#     params - <Hash::MultiValue> the merged POST/GET parameters and named parameters from path
 #
 #     body - the decoded data if a JSON is posted
 #
