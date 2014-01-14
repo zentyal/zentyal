@@ -171,6 +171,14 @@ sub _setConf
     }
 }
 
+# Method: fqdn
+#
+#    Return the fully qualified domain name (hostname + domain)
+#
+# Returns:
+#
+#    String - the fully qualified domain name
+#
 sub fqdn
 {
     my ($self) = @_;
@@ -182,6 +190,14 @@ sub fqdn
     return $fqdn;
 }
 
+# Method: hostName
+#
+#    Return the hostname without domain
+#
+# Returns:
+#
+#    String - the hostname
+#
 sub hostName
 {
     my ($self) = @_;
