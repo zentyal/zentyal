@@ -114,7 +114,7 @@ sub _table
 
 sub timePeriodModelPath
 {
-    return '/mailfilter/FilterReportOptions';
+    return 'FilterReportOptions';
 }
 
 1;
