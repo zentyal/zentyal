@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,26 +13,28 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-package EBox::RemoteServices::RESTResult;
+use warnings;
+use strict;
 
-# Class: EBox::RemoteServices::RESTResult
+package EBox::RESTClient::Result;
+
+# Class: EBox::RESTClient::Result
 #
 #   Result from a REST query
 #
-
-use warnings;
-use strict;
 
 use EBox;
 use EBox::Exceptions::MissingArgument;
 use TryCatch::Lite;
 use JSON::XS;
 
-# Method: new
+# Constructor: new
 #
-#   Zentyal Cloud REST client. It provides a common
-#   interface to access Zentyal Cloud services
+#   Create the REST result
 #
+# Parameters:
+#
+#   result - <HTTP::Result>
 #
 sub new
 {
@@ -50,7 +52,7 @@ sub new
 # Method: as_string
 #
 #   Return the result as string
-
+#
 sub as_string
 {
     my ($self) = @_;

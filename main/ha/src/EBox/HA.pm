@@ -32,7 +32,9 @@ use EBox::Config;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::HA::NodeList;
+use EBox::RESTClient;
 use EBox::Sudo;
+use JSON::XS;
 
 # Constants
 use constant {
@@ -148,6 +150,52 @@ sub clusterConfiguration
     return { transport     => $transport,
              multicastConf => $multicastConf,
              nodes         => $nodes };
+}
+
+# Method: nodes
+#
+#     Get the active nodes from a cluster
+#
+# Returns:
+#
+#     Array ref - See <EBox::HA::NodeList::list> for details
+#
+sub nodes
+{
+    my ($self) = @_;
+
+    return new EBox::HA::NodeList($self)->list();
+}
+
+# Method: addNode
+#
+#     Add a node to the cluster
+#
+# Parameters:
+#
+#     params - <Hash::MultiValue>, see <EBox::HA::NodeList::set> for details
+#     body   - Decoded content from JSON request
+#
+sub addNode
+{
+    my ($self, $params, $body) = @_;
+
+    my $list = new EBox::HA::NodeList($self);
+    $params->{localNode} = 0;  # Local node is always set manually
+    $list->set(%{$body});
+}
+
+# Method: removeNode
+#
+#     Get the active nodes from a cluster
+#
+# Returns:
+#
+#     Array ref - See <EBox::HA::NodeList::list> for details
+#
+sub removeNode
+{
+    my ($self) = @_;
 }
 
 # Group: Protected methods

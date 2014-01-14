@@ -30,3 +30,10 @@
       sslportNumber => $sslportNumber,
       sslSupport => $sslSupport,
 &>
+
+<Directory /srv/www/<% $vHostName %>>
+      Options Indexes FollowSymLinks
+      AllowOverride None
+      Require all granted
+</Directory>
+

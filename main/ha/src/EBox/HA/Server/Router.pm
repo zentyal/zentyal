@@ -28,7 +28,10 @@ use EBox::HA;
 #
 
 our $routes = {
-    '/cluster/configuration' => { 'GET' => \&EBox::HA::clusterConfiguration }
+    '/cluster/configuration' => { 'GET' => \&EBox::HA::clusterConfiguration },
+    '/cluster/nodes'         => { 'GET'    => \&EBox::HA::nodes,
+                                  'POST'   => \&EBox::HA::addNode,
+                                  'DELETE' => \&EBox::HA::deleteNode },
 };
 
 # Procedure: route
@@ -41,6 +44,8 @@ our $routes = {
 #
 #     params - <Hash::MultiValue> the merged POST/GET parameters
 #
+#     body - the decoded data if a JSON is posted
+#
 #     uploads - <Hash::MultiValue> the uploads which are <Plack::Request::Upload> objects
 #
 # Returns:
@@ -49,10 +54,10 @@ our $routes = {
 #
 sub route
 {
-    my ($sub, $params, $uploads) = @_;
+    my ($sub, $params, $body, $uploads) = @_;
 
     my $haMod = EBox::Global->getInstance(1)->modInstance('ha');
-    return $sub->($haMod);
+    return $sub->($haMod, $params, $body, $uploads);
 }
 
 1;

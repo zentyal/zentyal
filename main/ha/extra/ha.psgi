@@ -38,8 +38,13 @@ my $app = sub {
     if (exists($EBox::HA::Server::Router::routes->{$req->path_info()})) {
         my $routeConf = $EBox::HA::Server::Router::routes->{$req->path_info()};
         if (exists($routeConf->{$req->method()})) {
+            my $body;
+            if (($req->content_type() eq 'application/json') and ($req->raw_body())) {
+                $body = new JSON::XS()->decode($req->raw_body());
+            }
             $ret = EBox::HA::Server::Router::route($routeConf->{$req->method()},
                                                    $req->parameters(),
+                                                   $body,
                                                    $req->uploads());
             $res->status(200);
         } else {
@@ -52,11 +57,17 @@ my $app = sub {
         $res->content_type('text/plain');
         $res->body('404 Not Found');
     }
-    if ($res->status() == 200 and defined($ret)) {
-        my $retJSON = JSON::XS->new()->encode($ret);
-        $res->body($retJSON);
-        $res->content_length(length($retJSON));
-        $res->content_type('application/json');
+    if ($res->status() == 200) {
+        if (defined($ret) and ref($ret)) {
+            my $retJSON = JSON::XS->new()->encode($ret);
+            $res->body($retJSON);
+            $res->content_length(length($retJSON));
+            $res->content_type('application/json');
+        } else {
+            # Simple scalar, then return it as it is
+            $res->body($ret);
+            $res->content_type('text/plain');
+        }
     }
     return $res->finalize();
 };
