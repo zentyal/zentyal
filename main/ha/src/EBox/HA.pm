@@ -35,6 +35,8 @@ use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
 use JSON::XS;
+use File::Temp;
+use File::Slurp;
 
 # Constants
 use constant {
@@ -196,6 +198,49 @@ sub addNode
 sub removeNode
 {
     my ($self) = @_;
+}
+
+sub confReplicationStatus
+{
+    my ($self) = @_;
+
+    return { errors => 0 };
+}
+
+sub replicateConf
+{
+    my ($self, $params, $body, $uploads) = @_;
+
+    # FIXME: EBox::tmp()
+    my $tmpdir = mkdtemp('/tmp/replication-bundle-XXXX');
+
+    my $file = $uploads->get('file');
+    my $path = $file->path;
+    system ("tar xzf $path -C $tmpdir");
+
+    my $modules = decode_json(read_file("$tmpdir/modules.json"));
+    print "MODULES TO RESTORE:\n";
+    foreach my $module (@{$modules}) {
+        print "$module\n";
+    }
+
+    EBox::Sudo::root("rm -rf $tmpdir");
+}
+
+sub askForReplication
+{
+    my ($self) = @_;
+
+    #FIXME
+    my $tarfile = 'bundle.tar.gz';
+    my $tmpdir = mkdtemp('/tmp/replication-bundle-XXXX');
+    my $json = [qw(network firewall users)];
+    write_file("$tmpdir/modules.json", encode_json($json));
+    system ("cd $tmpdir; tar czf $tarfile *");
+    my $fullpath = "$tmpdir/$tarfile";
+    system ("curl -F file=\@$fullpath http://localhost:5000/conf/replication");
+
+    #EBox::Sudo::root("rm -rf $tmpdir");
 }
 
 # Group: Protected methods

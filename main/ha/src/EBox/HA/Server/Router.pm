@@ -32,6 +32,8 @@ our $routes = {
     '/cluster/nodes'         => { 'GET'    => \&EBox::HA::nodes,
                                   'POST'   => \&EBox::HA::addNode,
                                   'DELETE' => \&EBox::HA::deleteNode },
+    '/conf/replication' => { 'GET' => \&EBox::HA::confReplicationStatus,
+                             'POST' => \&EBox::HA::replicateConf },
 };
 
 # Procedure: route
