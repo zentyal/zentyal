@@ -37,6 +37,8 @@ use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
 use constant SOGO_PID_FILE => '/var/run/sogo/sogo.pid';
 use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
+use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
+
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
@@ -205,6 +207,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 #    $self->_setAutodiscoverConf();
+    $self->_writeRewritePolicy();
 }
 
 sub _writeSOGoDefaultFile
@@ -321,6 +324,26 @@ sub _setAutodiscoverConf
     } else {
         $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
     }
+}
+
+sub _writeRewritePolicy
+{
+    my ($self) = @_;
+
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my $defaultDomain = $sysinfo->hostDomain();
+
+    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+
+    my @rewriteParams;
+    push @rewriteParams, ('defaultDomain' => $defaultDomain);
+    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+
+    $self->writeConfFile(REWRITE_POLICY_FILE,
+        'openchange/rewriteDomainPolicy.mas',
+        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+
+    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
 }
 
 # Method: menu
