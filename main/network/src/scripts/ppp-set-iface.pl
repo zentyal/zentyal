@@ -21,7 +21,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Exceptions::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -37,14 +37,18 @@ EBox::debug("ppp_addr: $ppp_addr") if $ppp_addr;
 for my $tries (1 .. 10) {
     try {
         $network->setRealPPPIface($iface, $ppp_iface, $ppp_addr);
-        $network->regenGateways();
+        # Do not call regenGateways if we are restarting changes,
+        my $ifupLock = EBox::Util::Lock::_lockFile('ifup');
+        unless (-f $ifupLock) {
+            $network->regenGateways();
+        }
         exit 0;
-    } catch EBox::Exceptions::Lock with {
+    } catch (EBox::Exceptions::Lock $e) {
         sleep 5;
-    } otherwise {
+    } catch {
         EBox::error("Call to setRealPPPIface for $iface failed");
         exit 1;
-    };
+    }
 }
 
 exit 0;

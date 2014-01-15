@@ -23,6 +23,7 @@ use EBox::Gettext;
 use EBox::Types::Int;
 use EBox::Types::Select;
 use EBox::View::Customizer;
+use EBox::Exceptions::InvalidData;
 
 # Group: Public methods
 

@@ -21,7 +21,9 @@ use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
 use EBox::Global;
 use EBox::Gettext;
-use Error qw(:try);
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use TryCatch::Lite;
 
 ## arguments:
 ##  title [required]
@@ -164,10 +166,9 @@ sub showConfirmationPage
         }  else {
             throw EBox::Exceptions::Internal("Bad action: $action");
         }
-    } otherwise {
-        my ($ex) = @_;
-        $error = "$ex";
-    };
+    } catch ($e) {
+        $error = "$e";
+    }
 
     if ($error) {
         $self->{template} = '/ajax/simpleModalDialog.mas';

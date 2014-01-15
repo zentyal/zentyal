@@ -23,8 +23,10 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Gettext;
 use EBox::Global;
 # For exceptions
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
 
 # Method: new
 #
@@ -33,36 +35,31 @@ use EBox::Exceptions::DataInUse;
 # Returns:
 #
 #       RevokeCertificate - The object recently created
-
 sub new
-  {
-
+{
     my $class = shift;
 
-    my $self = $class->SUPER::new('title' => __('Certification Authority'),
-				  @_);
+    my $self = $class->SUPER::new('title' => __('Certification Authority'), @_);
 
     $self->{chain} = "CA/Index";
     bless($self, $class);
 
     return $self;
-
-  }
+}
 
 # Process the HTTP query
 # Templates that come from: forceRevoke.mas and formRevoke.mas
 
 sub _process
-  {
-
+{
     my $self = shift;
 
     # If it comes from forceRevoke with a cancel button
-    if ( defined($self->param('cancel')) ) {
-      $self->setRedirect( 'CA/Index' );
-      $self->setMsg( __("The certificate has NOT been revoked.") );
-      $self->cgi()->delete_all();
-      return;
+    if (defined($self->param('cancel'))) {
+        $self->setRedirect('CA/Index');
+        $self->setMsg( __("The certificate has NOT been revoked.") );
+        $self->cgi()->delete_all();
+        return;
     }
 
     my $ca = EBox::Global->modInstance('ca');
@@ -72,15 +69,15 @@ sub _process
 
     my $commonName = $self->unsafeParam('commonName');
     # We have to check it manually
-    if ( not defined($commonName) or $commonName eq '' ) {
-      throw EBox::Exceptions::DataMissing(data => __('Common Name'));
+    if (not defined($commonName) or $commonName eq '') {
+        throw EBox::Exceptions::DataMissing(data => __('Common Name'));
     }
     # Only valid chars minus '/' plus '*' --> security risk
-    unless ( $commonName =~ m{^[\w .?&+:\-\@\*]*$} ) {
+    unless ($commonName =~ m{^[\w .?&+:\-\@\*]*$}) {
         throw EBox::Exceptions::External(__('The input contains invalid ' .
-                                            'characters. All alphanumeric characters, ' .
-					    'plus these non alphanumeric chars: .?&+:-@* ' .
-					    'and spaces are allowed.'));
+                    'characters. All alphanumeric characters, ' .
+                    'plus these non alphanumeric chars: .?&+:-@* ' .
+                    'and spaces are allowed.'));
     }
 
     # Transform %40 in @
@@ -91,57 +88,55 @@ sub _process
     my $isCACert = $self->param('isCACert');
     my $reason = $self->param('reason');
     my $caPassphrase = $self->param('caPassphrase');
-    $caPassphrase = undef if ( $caPassphrase eq '' );
+    $caPassphrase = undef if ($caPassphrase eq '');
     my @array = ();
 
     my $retValue;
     my $retFromCatch = undef;
 
-    if ( defined($self->param("revokeForce")) ) {
-    # If comes from a forceRevoke with forceRevoke button
-      if ( $isCACert ) {
-	$ca->revokeCACertificate(reason        => $reason,
-                                 caKeyPassword => $caPassphrase,
-				 force         => 1);
-      } else {
-	$ca->revokeCertificate(commonName    => $commonName,
-			       reason        => $reason,
-                               caKeyPassword => $caPassphrase,
-			       force         => 1);
-      }
+    if (defined($self->param("revokeForce"))) {
+        # If comes from a forceRevoke with forceRevoke button
+        if ($isCACert) {
+            $ca->revokeCACertificate(reason        => $reason,
+                                     caKeyPassword => $caPassphrase,
+                                     force         => 1);
+        } else {
+            $ca->revokeCertificate(commonName    => $commonName,
+                                   reason        => $reason,
+                                   caKeyPassword => $caPassphrase,
+                                   force         => 1);
+        }
     } else {
-      # If it comes from a formRevoke.mas
-      try {
-	if ( $isCACert ) {
-	  $retValue = $ca->revokeCACertificate( reason => $reason,
-                                                caKeyPassword => $caPassphrase,
-                                              );
-	} else {
-	  $retValue = $ca->revokeCertificate( commonName    => $commonName,
-                                              caKeyPassword => $caPassphrase,
-					      reason        => $reason);
-	}
-      } catch EBox::Exceptions::DataInUse with {
-	$self->{template} = '/ca/forceRevoke.mas';
-	$self->{chain} = undef;
-	my $cert = $ca->getCertificateMetadata( cn => $commonName );
-	push (@array, 'metaDataCert' => $cert);
-	push (@array, 'isCACert'   => $isCACert);
-	push (@array, 'reason'     => $reason);
-        push (@array, 'caPassphrase' => $caPassphrase);
-	$self->{params} = \@array;
-	$retFromCatch = 1;
-      };
+        # If it comes from a formRevoke.mas
+        try {
+            if ($isCACert) {
+                $retValue = $ca->revokeCACertificate(reason => $reason,
+                                                     caKeyPassword => $caPassphrase);
+            } else {
+                $retValue = $ca->revokeCertificate(commonName    => $commonName,
+                                                   caKeyPassword => $caPassphrase,
+                                                   reason        => $reason);
+            }
+        } catch (EBox::Exceptions::DataInUse $e) {
+            $self->{template} = '/ca/forceRevoke.mas';
+            $self->{chain} = undef;
+            my $cert = $ca->getCertificateMetadata( cn => $commonName );
+            push (@array, 'metaDataCert' => $cert);
+            push (@array, 'isCACert'   => $isCACert);
+            push (@array, 'reason'     => $reason);
+            push (@array, 'caPassphrase' => $caPassphrase);
+            $self->{params} = \@array;
+            $retFromCatch = 1;
+        }
     }
 
     if (not $retFromCatch) {
-      my $msg = __("The certificate has been revoked");
-      $msg = __("The CA certificate has been revoked") if ($isCACert);
-      $self->setMsg($msg);
-      # No parameters to send to CA/Index
-      $self->cgi()->delete_all();
+        my $msg = __("The certificate has been revoked");
+        $msg = __("The CA certificate has been revoked") if ($isCACert);
+        $self->setMsg($msg);
+        # No parameters to send to CA/Index
+        $self->cgi()->delete_all();
     }
-
-  }
+}
 
 1;

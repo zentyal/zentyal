@@ -1,10 +1,10 @@
 #!/bin/bash -x
 
 SOURCES_LIST=/etc/apt/sources.list
-PPA_URL="http://ppa.launchpad.net/zentyal/3.2/ubuntu"
-ZENTYAL_SOURCES="deb $PPA_URL precise main"
+#PPA_URL="http://ppa.launchpad.net/zentyal/3.2/ubuntu"
+#ZENTYAL_SOURCES="deb $PPA_URL precise main"
 ARCHIVE_URL="http://archive.zentyal.org/zentyal"
-ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.2 main extra"
+ARCHIVE_SOURCES="deb $ARCHIVE_URL 3.3 main extra"
 PKG_DIR=/var/tmp/zentyal-packages
 LOCAL_SOURCES="deb file:$PKG_DIR ./"
 
@@ -81,10 +81,10 @@ gen_locales()
 
 create_repository # Set up local package repository
 
-if ! grep -q ${PPA_URL} ${SOURCES_LIST}
-then
-    echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
-fi
+#if ! grep -q ${PPA_URL} ${SOURCES_LIST}
+#then
+#    echo ${ZENTYAL_SOURCES} >> ${SOURCES_LIST} # add ppa sources
+#fi
 
 if ! grep -q ${ARCHIVE_URL} ${SOURCES_LIST}
 then

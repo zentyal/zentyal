@@ -1,5 +1,12 @@
 HEAD
 	+ Added vdomain selection for outgoing mail at provision screen
+3.3
+	+ Added a dependency on the zoctools package to handle the server migration
+	+ Updated to use the new communication protocol with the upgrade tool
+	+ Show new organization selector by default and block Provision submit
+	  with empty Organization Names
+	+ Added sieve features
+	+ Added autodiscovery of server parameters
 	+ Removed the deprovision option, it needs more work to be useful
 	+ Extract the list of existing organization names from AD for better user
 	  experience
@@ -13,7 +20,7 @@ HEAD
 	  installations
 	+ Added the firstorg and firstou arguments also when provisioning the
 	  openchangedb and newuser part
-3.3
+	+ Switch from Error to TryCatch for exception handling
 	+ Use new enableInnoDbIfNeeded() from core
 	+ Mailbox migration user interface
 	+ Disable mode select when provisioned

@@ -1,4 +1,46 @@
+HEAD
+	+ Check if objects are system critical before deletion
 3.3
+	+ Renamed printableName to File Sharing and Domain Services
+	+ Split settings in two menu entries: Domain and File Sharing
+	+ Switch from Error to TryCatch for exception handling
+	+ Improved migration code from 3.2.11
+	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
+                  adc
+	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
+	              when reprovisioning as additional DC
+	+ Do not hide domain guest account
+	+ Fix share guest access, based on domain guest account enabled status
+	+ LDB - Do not return users holding a servicePrincipalName by default
+	+ Provision - Improve the LDAP OUs purge after join domain
+	+ s4sync - Serveral fixes to make it more robust
+	+ OU - Improve cration code
+	+ LDB - Return OUs ordered, parents before childs
+	+ Provision - Link accounts holding zentyal service principals
+	+ Provision - Improve OU loading, skip zentyal internal OUs and linked
+	+ Provision - Link containers at provision stage, creating them if not
+	              exists. Ignore not linked OUs for sync operations.
+	+ Provision - Set kerberos linked OU as visible only in advanced mode
+	+ Provision - Check no OUs are created below OU=Users. This violate the
+	              AD DIT, as OU=Users is linked to CN=Users.
+	+ Do not import accounts while provisioning or joining a domain, rely on
+	  s4sync
+	+ Remove useless chown workaround
+	+ Forbid sharing '/opt'
+	+ Add filesystem format check defining system shares
+	+ Update user CN on user modifications
+	+ Revert case sensitive shares. Use new SMB raw client library feature
+	  per packet case sensitive.
+	+ Throw external exception instead internal if error changing user password
+	+ Show user friendly error creating system shares
+	+ Add precondition to GPO models, do not allow edition if server is ADC
+	+ Fix error in backup or clicking on edit GPO when server is ADC and
+	  sysvol is not yet replicated
+	+ Check if file system share path is a directory
+	+ Fixed unhandled exception when checking filesystem options
+	+ Added missing EBox::Exceptions uses
+	+ Group membership mapping between OpenLDAP and Samba is using now Samba's
+	  objectGUID unique id to be 100% sure we match the right objects
 	+ Fixed a typo in a info message
 	+ Depend on the new Samba 4.1.1, also with fixed init script
 	+ Improve GPO models preconditions to avoid cannot connect to samba

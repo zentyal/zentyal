@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-ebackup
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-common, duplicity, libstring-shellquote-perl, libtimedate-perl, libdate-calc-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, python-paramiko, ${misc:Depends}
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-common, duplicity, libstring-shellquote-perl, libtimedate-perl, libdate-calc-perl, cron, ncftp, sshpass, libterm-readkey-perl, ntpdate, python-paramiko, ${misc:Depends}
 Description: Zentyal - Backup
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

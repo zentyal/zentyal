@@ -52,8 +52,9 @@ use EBox::Model::Manager;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidType;
+use EBox::Exceptions::DataNotFound;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Dependencies
 
@@ -662,9 +663,9 @@ sub subModel
     my $model;
     try {
         $model = $element->foreignModelInstance();
-    } catch EBox::Exceptions::DataNotFound with {
+    } catch (EBox::Exceptions::DataNotFound $e) {
         EBox::warn("Couldn't fetch foreign model: " . $element->foreignModel());
-    };
+    }
 
     return $model;
 }

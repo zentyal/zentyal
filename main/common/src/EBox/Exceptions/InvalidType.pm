@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -40,7 +41,7 @@ sub new # (arg, type)
     my $class = shift;
     my ($arg, $type) = @_;
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     my $argType = ref ($arg);

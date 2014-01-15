@@ -30,6 +30,7 @@ use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::FileSystem;
 use File::Slurp;
 use File::Copy;
@@ -37,7 +38,7 @@ use File::Basename;
 use EBox::Logs::SlicedBackup;
 use EBox::Util::SQLTypes;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Data::Dumper;
 
 my $DB_PWD_FILE = '/var/lib/zentyal/conf/zentyal-mysql.passwd';
@@ -300,10 +301,9 @@ sub _multiInsertBadEncoding
     foreach my $valuesToInsert (@{ $values_r }) {
         try {
             $self->unbufferedInsert($table, $valuesToInsert );
-        } otherwise {
-            my $ex = shift;
-            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $ex")
-        };
+        } catch ($e) {
+            EBox::error("Error in unbuffered insert from multiInsert with encoding problems: $e")
+        }
     }
 }
 
@@ -701,20 +701,23 @@ sub restoreDBDump
     try {
         my $superuser = _dbsuperuser();
         EBox::Sudo::root("chown $superuser:$superuser $tmpFile");
-    } otherwise {
+    } catch ($e) {
         # left file were it was before
-        my $ex =shift;
         EBox::Sudo::root("mv $tmpFile $file");
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     try {
         $self->sqlAsSuperuser(file => $tmpFile);
-    } finally {
+    } catch ($e) {
         # undo ownership and file move
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
         EBox::Sudo::root("mv $tmpFile $file");
-    };
+        $e->throw();
+    }
+    # undo ownership and file move
+    EBox::Sudo::root("chown ebox:ebox $tmpFile");
+    EBox::Sudo::root("mv $tmpFile $file");
 
     if ($onlySchema) {
         EBox::info('Database schema dump for ' . _dbname() . ' restored' );

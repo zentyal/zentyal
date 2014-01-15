@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,8 @@ use EBox::MailVDomainsLdap;
 use EBox::MailAliasLdap;
 use EBox::MailFilter::Types::AntispamThreshold;
 use EBox::Users::User;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 # LDAP schema
 use constant SCHEMAS => ('/etc/ldap/schema/amavis.schema',

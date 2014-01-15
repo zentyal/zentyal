@@ -66,7 +66,7 @@ use EBox::RemoteServices::QAUpdates;
 use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Validate;
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use JSON::XS;
 use Net::DNS;
@@ -93,11 +93,12 @@ use constant OCS_CRON_MAS_FILE   => 'remoteservices/ocsinventory-agent.cron.mas'
 
 my %i18nLevels = ( '-1' => __('Unknown'),
                    '0'  => __('Community'),
-                   '1'  => __('Professional'),
-                   '2'  => __('Enterprise'),
                    '5'  => __('Small Business'),
+                   '6'  => __('Professional'),
+                   '7'  => __('Business'),
                    '8'  => __('Enterprise Trial'),
-                   '10' => __('Enterprise'));
+                   '10' => __('Enterprise'),
+                   '20' => __('Premium'));
 
 # Group: Protected methods
 
@@ -597,16 +598,14 @@ sub monitorGathererIPAddresses
         if (EBox::Config::boolean('monitoring_inside_vpn')) {
             try {
                 $monGatherers = EBox::RemoteServices::Auth->new()->monitorGatherers();
-            } catch EBox::Exceptions::Base with {
-                ;
-            };
+            } catch (EBox::Exceptions::Base $e) {
+            }
         } else {
             try {
                 # TODO: Do not hardcode
                 $monGatherers = ['mon.' . $self->cloudDomain()];
-            } catch EBox::Exceptions::External with {
-                ;
-            };
+            } catch (EBox::Exceptions::External $e) {
+            }
         }
     }
     return $monGatherers;
@@ -636,7 +635,8 @@ sub controlPanelURL
         if ($cloudDomain ne 'cloud.zentyal.com') {
             $url = "www.$cloudDomain";
         }
-    } otherwise {};
+    } catch {
+    }
 
     return "https://${url}/";
 }
@@ -782,20 +782,19 @@ sub reloadBundle
         } else {
             throw EBox::Exceptions::External(__('Zentyal must be subscribed to reload the bundle'));
         }
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         $retVal = 0;
-    } catch EBox::RemoteServices::Exceptions::NotCapable with {
-        my ($exc) = @_;
-
-        print STDERR __x('Cannot reload the bundle: {reason}', reason => $exc->text()) . "\n";
+    } catch (EBox::RemoteServices::Exceptions::NotCapable $e) {
+        print STDERR __x('Cannot reload the bundle: {reason}', reason => $e->text()) . "\n";
         # Send the event to ZC
-        my $evt = new EBox::Event(message     => $exc->text(),
+        my $evt = new EBox::Event(message     => $e->text(),
                                   source      => 'not-capable',
                                   level       => 'fatal',
                                   dispatchTo  => [ 'ControlCenter' ]);
         my $evts = $self->global()->modInstance('events');
         $evts->sendEvent(event => $evt);
-    };
+    }
+
     return $retVal;
 }
 
@@ -849,9 +848,9 @@ sub subscriptionLevel
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{level};
-    } otherwise {
+    } catch {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -883,9 +882,9 @@ sub subscriptionCodename
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{codename};
-    } otherwise {
+    } catch {
         $ret = '';
-    };
+    }
     return $ret;
 }
 
@@ -917,9 +916,9 @@ sub technicalSupport
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{technical_support};
-    } otherwise {
+    } catch {
         $ret = -2;
-    };
+    }
     return $ret;
 }
 
@@ -949,9 +948,9 @@ sub renovationDate
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{renovation_date};
-    } otherwise {
+    } catch {
         $ret = -1;
-    };
+    }
     return $ret;
 }
 
@@ -972,9 +971,8 @@ sub maxUsers
     # unlimited
     my $max_users = 0;
 
-    # Small business
-    if ($self->subscriptionLevel($force) == 5) {
-        $max_users = EBox::RemoteServices::Subscription::Check->MAX_SB_USERS;
+    if ($self->addOnAvailable('serverusers', $force)) {
+        $max_users = $self->addOnDetails('serverusers', $force)->{max};
     }
 
     return $max_users;
@@ -1048,9 +1046,9 @@ sub securityUpdatesAddOn
     my $ret;
     try {
         $ret = $self->_getSubscriptionDetails($force)->{security_updates};
-    } otherwise {
+    } catch {
         $ret = 0;
-    };
+    }
     return $ret;
 }
 
@@ -1074,27 +1072,6 @@ sub disasterRecoveryAvailable
 
     my $ret = $self->addOnDetails('disaster-recovery', $force);
     return ( scalar(keys(%{$ret})) > 0);
-}
-
-# Method: commAddOn
-#
-#      Get whether server has communications add-on or not
-#
-# Parameters:
-#
-#      force - Boolean check against the cloud
-#              *(Optional)* Default value: false
-#
-# Returns:
-#
-#      Boolean - indicating whether it has SB mail add-on or not
-#
-sub commAddOn
-{
-    my ($self, $force) = @_;
-
-    my $ret = $self->addOnDetails('zarafa', $force);
-    return ( defined($ret->{sb}) and $ret->{sb} == 1 );
 }
 
 # Method: addOnAvailable
@@ -1121,9 +1098,9 @@ sub addOnAvailable
             $subsDetails = $self->_getSubscriptionDetails('force'); # Forcing
         }
         $ret = (exists $subsDetails->{cap}->{$addOn});
-    } otherwise {
+    } catch {
         $ret = undef;
-    };
+    }
     return $ret;
 }
 
@@ -1159,9 +1136,9 @@ sub addOnDetails
             my $detail = $self->_getCapabilityDetail($addOn, $force);
             $ret = $detail;
         }
-    } otherwise {
+    } catch {
         $ret = {};
-    };
+    }
     return $ret;
 }
 
@@ -1437,7 +1414,7 @@ sub DDNSServerIP
         if ( $hostname ) {
             try {
                 $ret = $self->queryInternalNS($hostname, 'random');
-            } otherwise { };
+            } catch { };
         }
     }
     return $ret;
@@ -1487,11 +1464,7 @@ sub i18nServerEdition
     $level = $self->subscriptionLevel() unless (defined($level));
 
     if ( exists($i18nLevels{$level}) ) {
-        my $ret = $i18nLevels{$level};
-        if ( $self->commAddOn() ) {
-            $ret .= ' + ' . __s('Communications Add-on');
-        }
-        return $ret;
+        return $i18nLevels{$level};
     } else {
         return __('Unknown');
     }
@@ -1606,6 +1579,93 @@ sub ensureRunnerdRunning
     $self->set_bool('runnerd_always_running', $run);
 }
 
+# Method: pushAdMessage
+#
+#    Push an ad message to be shown in the dashboard
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It will be used to pop it out in <popAdMessage>
+#    msg - String the message itself
+#
+sub pushAdMessage
+{
+    my ($self, $key, $msg) = @_;
+
+    my $state = $self->get_state();
+    $state->{ad_messages}->{$key} = $msg;
+    $self->set_state($state);
+}
+
+# Method: popAdMessage
+#
+#    Pop out an ad message. Opposite to <pushAdMessage>
+#
+# Parameters:
+#
+#    key - String the unique key for this ad message
+#          It should used to push out in <popAdMessage>
+#
+# Returns:
+#
+#    undef - if there were no message with that key
+#
+#    msg - String the deleted message
+#
+sub popAdMessage
+{
+    my ($self, $key) = @_;
+
+    my $state = $self->get_state();
+    return undef unless(exists($state->{ad_messages}));
+    my $deletedMsg = delete $state->{ad_messages}->{$key};
+    $self->set_state($state);
+    return $deletedMsg;
+}
+
+# Method: adMessages
+#
+#    Get the adMessages set by <pushAdMessage>
+#
+# Returns:
+#
+#    Hash ref - containing the following keys:
+#
+#       name - 'remoteservices'
+#       text - the text itself
+#
+sub adMessages
+{
+    my ($self, $plain) = @_;
+
+    my $adMessages = $self->get_state()->{ad_messages};
+    my $rsMsg = "";
+    foreach my $adMsgKey (keys(%{$adMessages})) {
+        $rsMsg .= $adMessages->{$adMsgKey} . ' ';
+    }
+    return { name => 'remoteservices', text => $rsMsg };
+}
+
+# Method: checkAdMessages
+#
+#    Check if we have to remove any ad message
+#
+sub checkAdMessages
+{
+    my ($self) = @_;
+
+    if ($self->eBoxSubscribed()) {
+        # Launch our checker to see if the max_users message disappear
+        my $checker = new EBox::RemoteServices::Subscription::Check();
+        my $state = $self->get_state();
+        my $maxUsers = $self->addOnDetails('serverusers');
+        my $det = $state->{subscription};
+        $det->{capabilities}->{serverusers} = $maxUsers;
+        $checker->check($det);
+    }
+}
+
 # Group: Private methods
 
 # Configure the SOAP server
@@ -1626,12 +1686,12 @@ sub _confSOAPService
     my $confSSLFile = SERV_DIR . 'soap-loc-ssl.conf';
     my $webAdminMod = EBox::Global->modInstance('webadmin');
     if ($self->eBoxSubscribed()) {
-        if ( $self->hasBundle() ) {
+        if ($self->hasBundle()) {
             my @tmplParams = (
                 (soapHandler      => WS_DISPATCHER),
                 (caDomain         => $self->_confKeys()->{caDomain}),
                 (allowedClientCNs => $self->_allowedClientCNRegexp()),
-               );
+            );
             EBox::Module::Base::writeConfFileNoCheck($confFile, 'remoteservices/soap-loc.conf.mas', \@tmplParams);
             EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'remoteservices/soap-loc-ssl.conf.mas', \@tmplParams);
 
@@ -1643,13 +1703,10 @@ sub _confSOAPService
         # Do nothing if CA or include are already removed
         try {
             $webAdminMod->removeApacheInclude($confFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
             $webAdminMod->removeNginxInclude($confSSLFile);
-        } catch EBox::Exceptions::Internal with { ; };
-        try {
             $webAdminMod->removeCA($self->_caCertPath('force'));
-        } catch EBox::Exceptions::Internal with { ; };
+        } catch (EBox::Exceptions::Internal $e) {
+        }
     }
     # We have to save web admin changes to load the CA certificates file for SSL validation.
     $webAdminMod->save();
@@ -1680,17 +1737,17 @@ sub _setProxyRedirections
                 'remoteservices/proxy-redirections.conf.mas',
                 \@tmplParams);
             $webadminMod->addApacheInclude($confFile);
-        } otherwise {
+        } catch ($e) {
             # Not proper YAML file
-            my ($exc) = @_;
-            EBox::error($exc);
+            EBox::error($e);
         };
     } else {
         # Do nothing if include is already removed
         try {
             unlink($confFile) if (-f $confFile);
             $webadminMod->removeApacheInclude($confFile);
-        } catch EBox::Exceptions::Internal with { ; };
+        } catch (EBox::Exceptions::Internal $e) {
+        }
     }
     # We have to save Apache changes:
     # From GUI, it is assumed that it is done at the end of the process
@@ -1708,10 +1765,9 @@ sub _establishVPNConnection
             my $authConnection = new EBox::RemoteServices::Connection();
             $authConnection->create();
             $authConnection->connect();
-        } catch EBox::Exceptions::External with {
-            my ($exc) = @_;
-            EBox::error("Cannot contact to Zentyal Remote: $exc");
-        };
+        } catch (EBox::Exceptions::External $e) {
+            EBox::error("Cannot contact to Zentyal Remote: $e");
+        }
     }
 }
 
@@ -1828,8 +1884,8 @@ sub _ccConnectionWidget
     my $section = new EBox::Dashboard::Section('cloud_section');
     $widget->add($section);
 
-    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue, $commAddOn) =
-      ( __('None'), '', '', 'info', '', __('Disabled'), '');
+    my ($serverName, $fqdn, $connValue, $connValueType, $subsLevelValue, $DRValue) =
+      ( __('None'), '', '', 'info', '', __('Disabled'));
 
     my $ASUValue = __x('Disabled - {oh}Enable{ch}',
                        oh => '<a href="/RemoteServices/View/AdvancedSecurityUpdates">',
@@ -1865,9 +1921,10 @@ sub _ccConnectionWidget
 
         my %i18nSupport = ( '-2' => __('Unknown'),
                             '-1' => $supportValue,
-                            '0'  => __('Essential'),
-                            '1'  => __('Standard'),
-                            '2'  => __('Premium'));
+                            '0'  => __('Standard 2 days'),
+                            '1'  => __('Standard 1 day'),
+                            '2'  => __('Standard 4 hours'),
+                            '3'  => __('Premium'));
         $supportValue = $i18nSupport{$self->technicalSupport()};
 
         if ( $self->securityUpdatesAddOn() ) {
@@ -1879,12 +1936,15 @@ sub _ccConnectionWidget
         }
 
         $DRValue = __x('Configuration backup enabled');
-        my $date = $self->latestRemoteConfBackup();
+        my $date;
+        try {
+            $date = $self->latestRemoteConfBackup();
+        } catch {
+            $date = 'unknown';
+        }
         if ( $date ne 'unknown' ) {
             $DRValue .= ' ' . __x('- Latest conf backup: {date}', date => $date);
         }
-
-        $commAddOn = $self->commAddOn();
 
     } else {
         $connValue      = __sx('Not registered - {oh}Register now!{ch}',
@@ -1910,10 +1970,6 @@ sub _ccConnectionWidget
                                              $ASUValue));
     $section->add(new EBox::Dashboard::Value(__s('Configuration backup'),
                                              $DRValue));
-    if ( $commAddOn ) {
-        $section->add(new EBox::Dashboard::Value(__s('Communications add-on'),
-                                                 __('Enabled')));
-    }
 }
 
 # Set the subscription details
@@ -1932,14 +1988,13 @@ sub _getSubscriptionDetails
         my $details;
         try {
             $details = $cap->subscriptionDetails();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the new state
             # Get cached data
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{level}) {
-                $exc->throw();
+                $e->throw();
             }
-        };
+        }
 
         if ( defined($details) ) {
             $state->{subscription} = {
@@ -1956,7 +2011,8 @@ sub _getSubscriptionDetails
                 $capList = $cap->list();
                 my %capList = map { $_ => 1 } @{$capList};
                 $state->{subscription}->{cap} = \%capList;
-            } catch EBox::Exceptions::Internal with { ; };
+            } catch (EBox::Exceptions::Internal $e) {
+            }
             $self->set_state($state);
         }
     }
@@ -1975,14 +2031,13 @@ sub _getCapabilityDetail
         my $detail;
         try {
             $detail = $cap->detail($capName);
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             # Impossible to know the current state
             # Get cached data if any, if there is not, then raise the exception
-            my ($exc) = @_;
             unless (exists $state->{subscription}->{cap_detail}->{$capName}) {
-                $exc->throw();
+                $e->throw();
             }
-        };
+        }
         $state->{subscription}->{cap_detail}->{$capName} = $detail;
         $self->set_state($state);
     }
@@ -2093,23 +2148,21 @@ sub restoreConfig
     # cases, the server password has been modified and the backed one
     # is not valid anymore
     my ($backupSubscribed, $excludeServerInfo) = (EBox::Sudo::fileTest('-r', $tarPath), 0);
-    if ( $self->eBoxSubscribed() ) {
+    if ($self->eBoxSubscribed()) {
         try {
             # For hackers!
             EBox::Sudo::root("tar xf '$tarPath' --no-anchored --strip-components=7 -C /tmp server-info.json");
             my $backupedServerInfo = decode_json(File::Slurp::read_file('/tmp/server-info.json'));
             # If matches, then skip to restore the server-info.json
             $excludeServerInfo = ($backupedServerInfo->{uuid} eq new EBox::RemoteServices::Cred()->subscribedUUID());
-        } otherwise {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
             $backupSubscribed = 0;
-        } finally {
-            EBox::Sudo::root('rm -f /tmp/server-info.json');
-        };
+        }
+        EBox::Sudo::root('rm -f /tmp/server-info.json');
     }
 
     if ($backupSubscribed) {
@@ -2122,13 +2175,12 @@ sub restoreConfig
                         "chown ebox.adm '$subscriptionDir'",
                         "chown -R ebox.ebox $subscriptionDir/*");
             EBox::Sudo::root(@cmds);
-        } otherwise {
-            my ($ex) = shift;
+        } catch ($e) {
             EBox::error("Error restoring subscription. Reverting back to unsubscribed status");
-            EBox::error($ex);
+            EBox::error($e);
             $self->clearCache();
             $self->st_set_bool('subscribed', 0);
-        };
+        }
     }
 
     # Mark as changed to make all things work again

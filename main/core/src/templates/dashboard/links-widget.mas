@@ -4,11 +4,13 @@ $softwarePackage => 0
 </%args>
 <%init>
  use EBox::Gettext;
+ use EBox::Config;
  my $lang = 'en';
  if (substr ($ENV{LANG}, 0, 2) eq 'es') {
     $lang = 'es';
  }
  my $BOOK_URL = "https://store.zentyal.com/book-admin-$lang.html?utm_source=zentyal&utm_medium=dashboard&utm_campaign=book_$lang";
+ my $EDITIONS_URL = EBox::Config::urlEditions();
 </%init>
 % unless ($rsPackage and $softwarePackage) {
 <script type="text/javascript">
@@ -57,13 +59,9 @@ function installSoftware(title, html) {
 <div class="linksBlock">
       <div class="stitle"><% __s('Business') %></div>
         <ul>
-            <li><a target="_blank" href="http://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition"
-                   title="<% __s('Fully supported Zentyal server for less than 25 users') %>">
-                   <% __s('Small Business Edition') %></a>
-            </li>
-            <li><a target="_blank" href="http://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=smallbusiness_edition"
-                   title="<% __s('Fully supported Zentyal server for an unlimited number of users.') %>">
-                   <% __s('Enterprise Edition') %></a>
+            <li><a target="_blank" href="<% $EDITIONS_URL %>"
+                   title="<% __s('Fully supported Zentyal Server editions') %>">
+                   <% __s('Commercial Editions') %></a>
             </li>
             <li><a target="_blank" href="http://www.zentyal.com/training/?utm_source=zentyal&utm_medium=dashboard&utm_campaign=training"
                    title="<% __s('Learn to use all Zentyal based network services in production environments.') %>">

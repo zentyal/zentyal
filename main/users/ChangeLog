@@ -1,4 +1,27 @@
+HEAD
+	+ Fixed excesive restrictive validation of external AD password in wizard
 3.3
+	+ Forbid to create OUs inside Users, Groups or Computer OUs
+	  because we not support them when Samba is enabled
+	+ Forbid and print specific  error message when trying to put two
+	  objects with the same CN in the same container
+	+ Switch from Error to TryCatch for exception handling
+	+ Remove useless warning when deleting a user or group with offer 2013
+	+ Show system but not internal groups in user edition form
+	+ Allow unsafe characters for user and password in external AD mode.
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
+	+ The "sub ous" return the OUs hierarquically ordered
+	+ Check for defined uidNumber and gidNumber creating users and groups
+	+ Revert useless chown workaround
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
+	+ Better error handling when the default group is not found
+	+ Fixed distribution group edition
+	+ Add error, errorText and errorDescription methods to
+	  EBox::Exceptions::LDAP
+	+ Added missing EBox::Exceptions uses
+	+ Better error handling when we get a LdapObject that doesn't exists
 	+ Remove undefined warnings on users/group creation
 	+ Fix 'Cannot connect to samba LDAP' error in manage model when samba
 	  is installed but disabled

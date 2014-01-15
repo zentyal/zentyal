@@ -1,7 +1,10 @@
 3.3
+	+ Available options correctly updated in user addon
+	+ Switch from Error to TryCatch for exception handling
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3
 	+ Use new enableInnoDbIfNeeded() from core
+	+ Update strings to new offering
 3.2
 	+ Set version to 3.2
 	+ Disable Single Sign-On on webapp as it is not working and undocumented

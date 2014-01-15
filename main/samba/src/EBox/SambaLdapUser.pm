@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,11 +22,14 @@ use base qw(EBox::LdapUserBase);
 
 use MIME::Base64;
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
+use Net::LDAP::Util qw(canonical_dn ldap_explode_dn);
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::OU;
@@ -120,10 +124,9 @@ sub _preAddOuFailed
 
         EBox::info("Aborted OU creation, removing from samba");
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _delOU
@@ -137,12 +140,16 @@ sub _delOU
     unless ($sambaOU and $sambaOU->exists()) {
         return;
     }
+    unless ($sambaOU->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__('The object is a ' .
+            'critical system object and can not be deleted.'));
+    }
+
     try {
         $sambaOU->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting OU '" . $sambaOU->dn() . "': $error");
-    };
+    }
 }
 
 # Method: _preAddUser
@@ -209,10 +216,9 @@ sub _preAddUserFailed
 
         EBox::info("Aborted User creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::info("Error removing samba user $uid: $error");
-    };
+    }
 }
 
 # Method: _addUser
@@ -276,8 +282,8 @@ sub _addUserFailed
         return unless $sambaUser->exists();
         EBox::info("Aborted user creation, removing from samba");
         $sambaUser->deleteObject();
-    } otherwise {
-    };
+    } catch {
+    }
 }
 
 sub _modifyUser
@@ -291,6 +297,34 @@ sub _modifyUser
     try {
         my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
         return unless $sambaUser->exists();
+
+        # Check if CN has changed. In this case, we have to change the user DN
+        if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
+            my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+            my $rdn = shift (@{$dn});
+            foreach my $key (keys %{$rdn}) {
+                if ($key == 'CN') {
+                    $rdn->{CN} = $zentyalUser->get('cn');
+                    utf8::encode($rdn->{CN});
+                    last;
+                }
+            }
+            unshift (@{$dn}, $rdn);
+
+            my $newrdn = canonical_dn([ $rdn ]);
+            my $ldapCon = $sambaUser->_ldap->connection();
+            my $entry = $sambaUser->_entry();
+            my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
+            if ($result->is_error()) {
+                throw EBox::Exceptions::LDAP(
+                    message => __('There was an error updating LDAP:'),
+                    result =>   $result,
+                    opArgs   => "New RDN: $newrdn");
+            }
+
+            $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
+            return unless $sambaUser->exists();
+        }
 
         my $gn = $zentyalUser->get('givenName');
         utf8::encode($gn);
@@ -323,10 +357,9 @@ sub _modifyUser
             $sambaUser->setAccountEnabled(1);
         }
         $sambaUser->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying user: $error");
-    };
+    }
 }
 
 sub _delUser
@@ -336,11 +369,18 @@ sub _delUser
         return;
 
     my $dn = $zentyalUser->dn();
+    my $samAccountName = $zentyalUser->get('uid');
+    my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+    return unless $sambaUser->exists();
+
+    unless ($sambaUser->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__x('The object {x} is a ' .
+            'critical system object and can not be deleted.',
+            x => $samAccountName));
+    }
+
     EBox::debug("Deleting user '$dn' from samba");
     try {
-        my $samAccountName = $zentyalUser->get('uid');
-        my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
-        return unless $sambaUser->exists();
         $sambaUser->deleteObject();
 
         # Remove user from share ACL's
@@ -359,10 +399,9 @@ sub _delUser
                 }
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting user: $error");
-    };
+    }
 }
 
 # Method: _preAddContact
@@ -419,10 +458,9 @@ sub _preAddContactFailed
 
         EBox::info("Aborted Contact creation, removing from samba");
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::debug("Error removing contact " . $entry->dn() . ": $error");
-    };
+    }
 }
 
 sub _modifyContact
@@ -481,10 +519,9 @@ sub _modifyContact
             $sambaContact->delete('mail', 1);
         }
         $sambaContact->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying contact: $error");
-    };
+    }
 }
 
 sub _delContact
@@ -494,15 +531,20 @@ sub _delContact
         return;
 
     my $dn = $zentyalContact->dn();
+    my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
+    return unless $sambaContact->exists();
+
+    unless ($sambaContact->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__('The object is a ' .
+            'critical system object and can not be deleted.'));
+    }
+
     EBox::debug("Deleting contact '$dn' from samba");
     try {
-        my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
-        return unless $sambaContact->exists();
         $sambaContact->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting contact: $error");
-    };
+    }
 }
 
 sub _membersToSamba
@@ -517,8 +559,6 @@ sub _membersToSamba
     }
     my $domainSID = $self->{samba}->ldb()->domainSID();
     my $domainUsersSID = "$domainSID-513";
-    my $domainAdminsSID = "$domainSID-512";
-    my $domainAdminSID = "$domainSID-500";
 
     if ($domainUsersSID eq $sambaGroup->sid()) {
         # Domain Users group is handled automatically by Samba, no need to sync the members
@@ -530,61 +570,53 @@ sub _membersToSamba
     my $sambaMembersList = $sambaGroup->members();
     my $zentyalMembersList = $zentyalGroup->members();
 
-    my %zentyalMembers = map { $_->canonicalName(1) => $_ } @{$zentyalMembersList};
+    my %zentyalMembers = map { $_->get('msdsObjectGUID') => $_ } @{$zentyalMembersList};
     my %sambaMembers;
     foreach my $sambaMember (@{$sambaMembersList}) {
         if ($sambaMember->isa('EBox::Samba::User') or
             $sambaMember->isa('EBox::Samba::Contact') or
             $sambaMember->isa('EBox::Samba::Group')) {
-            my $canonicalName = undef;
-            if ($domainAdminsSID eq $sambaMember->sid()) {
-                # TODO: We must stop moving this Samba group from the Users container to the legacy's Group OU in Zentyal.
-                # This is required so both canonical names match on Zentyal's OpenLDAP and Samba.
-                my $parent = EBox::Users::Group->defaultContainer();
-                $canonicalName = $parent->canonicalName(1) . '/' . $sambaMember->baseName();
-            } else {
-                $canonicalName = $sambaMember->canonicalName(1);
-            }
-            $sambaMembers{$canonicalName} = $sambaMember;
+            my $uniqueID = $sambaMember->objectGUID();
+            $sambaMembers{$uniqueID} = $sambaMember;
             next;
         }
         my $dn = $sambaMember->dn();
         EBox::error("Unexpected member type ($dn)");
     }
 
-    foreach my $memberCanonicalName (keys %sambaMembers) {
-        unless (exists $zentyalMembers{$memberCanonicalName}) {
-            EBox::info("Removing member '$memberCanonicalName' from Samba group '$gid'");
+    foreach my $memberUniqueID (keys %sambaMembers) {
+        my $canonicalName = $sambaMembers{$memberUniqueID}->canonicalName(1);
+        unless (exists $zentyalMembers{$memberUniqueID}) {
+            EBox::info("Removing member '$canonicalName' from Samba group '$gid'");
             try {
-                $sambaGroup->removeMember($sambaMembers{$memberCanonicalName}, 1);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error removing member '$memberCanonicalName' from Samba group '$gid': $error");
-            };
+                $sambaGroup->removeMember($sambaMembers{$memberUniqueID}, 1);
+            } catch ($error) {
+                EBox::error("Error removing member '$canonicalName' from Samba group '$gid': $error");
+            }
          }
     }
 
-    foreach my $memberCanonicalName (keys %zentyalMembers) {
-        unless (exists $sambaMembers{$memberCanonicalName}) {
-            EBox::info("Adding member '$memberCanonicalName' to Samba group '$gid'");
-            my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberCanonicalName});
+    foreach my $memberUniqueID (keys %zentyalMembers) {
+        my $canonicalName = $zentyalMembers{$memberUniqueID}->canonicalName(1);
+        unless (exists $sambaMembers{$memberUniqueID}) {
+            EBox::info("Adding member '$canonicalName' to Samba group '$gid'");
+            my $sambaMember = $self->{samba}->ldbObjectFromLDAPObject($zentyalMembers{$memberUniqueID});
             unless ($sambaMember and $sambaMember->exists()) {
-                if ($zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Users') or
-                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Contact') or
-                    $zentyalMembers{$memberCanonicalName}->isa('EBox::Samba::Group')) {
-                    EBox::error("Cannot add member '$memberCanonicalName' to Samba group '$gid' because the member does not exist");
+                if ($zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Users') or
+                    $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Contact') or
+                    $zentyalMembers{$memberUniqueID}->isa('EBox::Samba::Group')) {
+                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because the member does not exist");
                     next;
                 } else {
-                    EBox::error("Cannot add member '$memberCanonicalName' to Samba group '$gid' because it's not a known object.");
+                    EBox::error("Cannot add member '$canonicalName' to Samba group '$gid' because it's not a known object.");
                     next;
                 }
             }
             try {
                 $sambaGroup->addMember($sambaMember, 1);
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding member '$memberCanonicalName' to Samba group '$gid': $error");
-            };
+            } catch ($error) {
+                EBox::error("Error adding member '$canonicalName' to Samba group '$gid': $error");
+            }
         }
     }
     unless ($lazy) {
@@ -644,10 +676,9 @@ sub _preAddGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 # Method: _addGroup
@@ -699,10 +730,9 @@ sub _addGroupFailed
         }
         EBox::info("Aborted group creation, removing from samba");
         $sambaGroup->deleteObject();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error removig group $samAccountName: $error")
-    };
+    }
 }
 
 sub _modifyGroup
@@ -738,10 +768,9 @@ sub _modifyGroup
             $sambaGroup->delete('mail', $lazy);
         }
         $sambaGroup->save();
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error modifying group: $error");
-    };
+    }
 }
 
 sub _delGroup
@@ -751,13 +780,20 @@ sub _delGroup
         return;
 
     my $dn = $zentyalGroup->dn();
+    my $samAccountName = $zentyalGroup->get('cn');
+    my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+    unless ($sambaGroup and $sambaGroup->exists()) {
+        return;
+    }
+
+    unless ($sambaGroup->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__x('The object {x} is a ' .
+            'critical system object and can not be deleted.',
+            x => $samAccountName));
+    }
+
     EBox::debug("Deleting group '$dn' from samba");
     try {
-        my $samAccountName = $zentyalGroup->get('cn');
-        my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
-        unless ($sambaGroup and $sambaGroup->exists()) {
-            return;
-        }
         $sambaGroup->deleteObject();
 
         # Remove group from shares ACLs
@@ -776,10 +812,9 @@ sub _delGroup
                 }
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Error deleting group: $error");
-    };
+    }
 }
 
 # User and group addons

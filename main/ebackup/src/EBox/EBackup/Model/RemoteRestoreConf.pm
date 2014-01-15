@@ -23,21 +23,11 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::External;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
-
-sub new
-{
-    my $class = shift;
-
-    my $self = $class->SUPER::new(@_);
-
-    bless ( $self, $class );
-
-    return $self;
-}
 
 # Method: precondition
 #
@@ -53,10 +43,9 @@ sub precondition
     my $statusFailure;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
-    } catch EBox::Exceptions::External with {
-        my ($ex) = @_;
-        $statusFailure = $ex->text();
-    };
+    } catch (EBox::Exceptions::External $e) {
+        $statusFailure = $e->text();
+    }
 
     if ($statusFailure) {
         $self->{preconditionFailMsg} = $statusFailure;
@@ -164,18 +153,15 @@ sub _backupFile
     try {
         my $bakFile  =   EBox::EBackup::extraDataDir()  . '/confbackup.tar';
         $ebackup->restoreFile($bakFile, $date, $tmpFile);
-    } catch EBox::Exceptions::External with {
-        my $ex = shift;
-        my $text = $ex->stringify();
+    } catch (EBox::Exceptions::External $e) {
+        my $text = $e->stringify();
         if ($text =~ m/not found in backup/) {
-            throw EBox::Exceptions::External(__x(
-'Configuration backup not found in backup for {d}. Maybe you could try another date?',
-                                                 d => $date
-                                                ));
+            throw EBox::Exceptions::External(__x('Configuration backup not found in backup for {d}. Maybe you could try another date?',
+                                                 d => $date));
         }
 
-        $ex->throw();
-    };
+        $e->throw();
+    }
 
     return $tmpFile;
 }

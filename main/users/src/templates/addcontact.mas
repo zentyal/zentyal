@@ -4,64 +4,42 @@
 <%init>
 use EBox::Gettext;
 </%init>
-<h3><% __('Add Contact') %></h3>
-    <div id='error_addContactForm' class='error' style='display:none'></div>
-    <form action='/Users/AddContact' method='POST' id='addContactForm'>
+<h4 class="icon-contact"><% __('Add Contact') %></h4>
+    <div id='addContactForm_error' class='error' style='display:none'></div>
+    <form action='/Users/AddContact' method='POST' id='addContactForm' class="formDiv">
     <input type="hidden" name="dn" value="<% $dn %>">
-    <table class='formTable'>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
-                    <% __('First name') %>:
-                </span>
-            </td>
-            <td>
+            <div class="inline-field">
+                <label>
+                    <% __('First name') %>
+                </label>
                 <input type='text' class='inputText' name='givenname'>
-            </td>
-        </tr>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
-                    <% __('Last name') %>:
-                </span>
-            </td>
-            <td>
+            </div>
+            <div class="inline-field">
+                <label>
+                    <% __('Last name') %>
+                </label>
                 <input type='text' class='inputText' name='surname'>
-            </td>
-        </tr>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
-                    <% __('Description') %>:
-                </span>
-                <div class="optional_field">
-                    <% __('Optional') %>
-                </div>
-            </td>
-            <td>
+            </div>
+            <div>
+                <label>
+                    <% __('Description') %>
+                    <span class="optional_field">
+                        <% __('Optional') %>
+                    </span>
+                </label>
                 <input type='text' class='inputText' name='description'>
-            </td>
-        </tr>
-        <tr>
-            <td  class='tright'>
-                <span class="ftitle">
+            </div>
+            <div>
+                <label>
                     <% __('E-Mail') %>:
-                </span>
-            </td>
-            <td>
+                </label>
                 <input type='text' class='inputText' name='mail'>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td>
+            </div>
+            <div>
                 <input class='inputButton' type='submit' name='add'
                        value="<% __('Add') %>"
                        alt="<% __('Add') %>"/>
-
-            </td>
-        </tr>
-    </table>
+            </div>
     </form>
 
 <script>

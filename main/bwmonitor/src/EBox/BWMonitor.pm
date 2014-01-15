@@ -27,8 +27,9 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Menu::Item;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use constant CONF_DIR => EBox::Config::conf() . '/bwmonitor/';
 use constant UPSTART_DIR => '/etc/init/';
@@ -268,7 +269,8 @@ sub _enforceServiceState
 
     try {
         $self->_stopService();
-    } otherwise {};
+    } catch {
+    }
     $self->_startService() if($self->isEnabled());
 }
 

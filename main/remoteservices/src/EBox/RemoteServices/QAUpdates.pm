@@ -33,7 +33,7 @@ use EBox::RemoteServices::Cred;
 use EBox::Sudo;
 use Data::UUID;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -238,9 +238,9 @@ sub _removeAptPubKey
     my $id = 'ebox-qa';
     try {
         EBox::Sudo::root("apt-key del $id");
-    } otherwise {
+    } catch {
         EBox::error("Removal of apt-key $id failed. Check it and if it exists remove it manually");
-    };
+    }
 }
 
 sub _removeAptQAPreferences

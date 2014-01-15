@@ -25,7 +25,7 @@ use EBox::Types::Select;
 use EBox::Exceptions::DataInUse;
 use EBox::EBackup::DBRestore;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -69,10 +69,10 @@ sub precondition
     my @status;
     try {
         @status = @{$self->{confmodule}->remoteStatus()};
-    } catch EBox::Exceptions::External with {
+    } catch (EBox::Exceptions::External $e) {
         # ignore error, it will be shown in the same composite by the model
         # RemoteRestoreConf
-    };
+    }
     return 0 if not @status;
     my $logs = $self->global()->modInstance('logs');
     if (not $logs) {

@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,7 @@ use base 'EBox::Model::DataTable';
 
 use EBox::Model::Row;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 
 ###################
@@ -36,7 +38,7 @@ use Perl6::Junction qw(any);
 use NEXT;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $ROW_ID = 'form';
 
@@ -731,9 +733,29 @@ sub clone
 
         $dstRow->store();
         $dstRow->cloneSubModelsFrom($srcRow)
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir);
+}
+
+sub formSubmitJS
+{
+    my ($self, $editId) = @_;
+
+    my  $function = "Zentyal.TableHelper.formSubmit('%s','%s',%s,'%s','%s', '%s')";
+
+    my $table = $self->table();
+    my $tablename =  $table->{'tableName'};
+    my $actionUrl =  $table->{'actions'}->{'editField'};
+    my $fields = $self->_paramsWithSetterJS();
+    return sprintf ($function,
+                    $actionUrl,
+                    $tablename,
+                    $fields,
+                    $table->{'confdir'},
+                    $editId);
 }
 
 1;

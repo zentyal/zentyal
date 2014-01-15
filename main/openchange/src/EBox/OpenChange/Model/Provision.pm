@@ -29,7 +29,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Types::Union;
 
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -74,21 +74,21 @@ sub _table
             printableName => __('Organization Name'),
             editable      => 1,
             subtypes      => [
-                new EBox::Types::Select(
-                    fieldName     => 'existingorganizationname',
-                    printableName => __('Existing One'),
-                    populate      => \&_existingOrganizationNames,
-                    editable      => 1),
                 new EBox::Types::Text(
                     fieldName     => 'neworganizationname',
                     printableName => __('New One'),
                     defaultValue  => $self->_defaultOrganizationName(),
                     editable      => 1),
+                new EBox::Types::Select(
+                    fieldName     => 'existingorganizationname',
+                    printableName => __('Existing One'),
+                    populate      => \&_existingOrganizationNames,
+                    editable      => 1),
             ])
         );
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
-            printableName => __('Enable all users after provision'),
+            printableName => __('Enable OpenChange account for all existing users'),
             defaultValue  => 1,
             editable      => 1)
         );
@@ -117,26 +117,26 @@ sub _table
 #            states => {
 #                provisioned => {
 #                    name => 'deprovision',
-#                    printableValue => __('Deprovision'),
+#                    printableValue => __('Unconfigure'),
 #                    handler => \&_doDeprovision,
-#                    message => __('Database deprovisioned'),
+#                    message => __('Database unconfigured'),
 #                    enabled => sub { $self->parentModule->isEnabled() },
 #                },
 #                notProvisioned => {
 #                    name => 'provision',
-#                    printableValue => __('Provision'),
+#                    printableValue => __('Setup'),
 #                    handler => \&_doProvision,
-#                    message => __('Database provisioned'),
+#                    message => __('Database configured'),
 #                    enabled => sub { $self->parentModule->isEnabled() },
 #                },
 #            }
 #        ),
         new EBox::Types::Action(
             name           => 'provision',
-            printableValue => __('Provision'),
+            printableValue => __('Setup'),
             model          => $self,
             handler        => \&_doProvision,
-            message        => __('Database provisioned'),
+            message        => __('Database configured'),
             enabled        => sub { not $self->parentModule->isProvisioned() },
         ),
     ];
@@ -144,13 +144,13 @@ sub _table
 
     my $dataForm = {
         tableName          => 'Provision',
-        printableTableName => __('Provision'),
+        printableTableName => __('Setup'),
         pageTitle          => __('OpenChange Server Provision'),
         modelDomain        => 'OpenChange',
         #defaultActions     => [ 'editField' ],
         customActions      => $customActions,
         tableDescription   => \@tableDesc,
-        help               => __('Provisions an OpenChange Groupware server.'),
+        help               => __('Setup an OpenChange Groupware server.'),
     };
 
     return $dataForm;
@@ -318,7 +318,7 @@ sub _acquireOrganizationNameFromState
     my $modelName = $model->name();
     my $keyField  = 'organizationname';
     my $value = $state->{$modelName}->{$keyField};
-    if ( defined($value) and ($value ne '') ) {
+    if (defined($value) and ($value ne '')) {
         return $value;
     }
     return undef;
@@ -350,6 +350,10 @@ sub _doProvision
     my $enableUsers = $params{enableUsers};
 #    my $registerAsMain = $params{registerAsMain};
     my $additionalInstallation = 0;
+
+    unless ($organizationName) {
+        throw EBox::Exceptions::DataMissing(data => __('Organization Name'));
+    }
 
     foreach my $organization (@{$self->{organizations}}) {
         if ($organization->name() eq $organizationName) {
@@ -386,16 +390,13 @@ sub _doProvision
         $self->reloadTable();
         EBox::info("Openchange provisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         $self->parentModule->setProvisioned(0);
         throw EBox::Exceptions::External("Error provisioninig: $error");
-    } finally {
-        $self->global->modChange('mail');
-        $self->global->modChange('samba');
-        $self->global->modChange('openchange');
-    };
+    }
+    $self->global->modChange('mail');
+    $self->global->modChange('samba');
+    $self->global->modChange('openchange');
 
     if ($enableUsers) {
         my $mailUserLdap = new EBox::MailUserLdap();
@@ -432,11 +433,10 @@ sub _doProvision
                     $output = join('', @{$output});
                     EBox::info("Enabling user '$samAccountName':\n$output");
                 }
-            } otherwise {
-                my ($error) = @_;
+            } catch ($error) {
                 EBox::error("Error enabling user " . $ldapUser->name() . ": $error");
                 # Try next user
-            };
+            }
         }
     }
 }
@@ -470,16 +470,10 @@ sub _doProvision
 #        $self->parentModule->setProvisioned(0);
 #        EBox::info("Openchange deprovisioned:\n$output");
 #        $self->setMessage($action->message(), 'note');
-#    } otherwise {
-#        my ($error) = @_;
-#
+#    } catch ($error) {
 #        throw EBox::Exceptions::External("Error deprovisioninig: $error");
 #        $self->parentModule->setProvisioned(1);
-#    } finally {
-#        $self->global->modChange('mail');
-#        $self->global->modChange('samba');
-#        $self->global->modChange('openchange');
-#    };
+#    }
 #}
 
 1;

@@ -140,9 +140,9 @@ sub removeGroup
 #
 sub groups
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    return $self->_groups();
+    return $self->_groups(%params);
 }
 
 # Method: groupsNotIn
@@ -155,18 +155,20 @@ sub groups
 #
 sub groupsNotIn
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    return $self->_groups(1);
+    $params{invert} = 1;
+
+    return $self->_groups(%params);
 }
 
 sub _groups
 {
-    my ($self, $invert) = @_;
+    my ($self, %params) = @_;
 
     my $dn = $self->dn();
     my $filter;
-    if ($invert) {
+    if ($params{invert}) {
         $filter = "(&(objectclass=group)(!(member=$dn)))";
     } else {
         $filter = "(&(objectclass=group)(member=$dn))";

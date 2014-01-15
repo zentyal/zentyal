@@ -33,7 +33,7 @@ use EBox::Types::Select;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::View::Customizer;
-use Error qw(try);
+use TryCatch::Lite;
 
 # Dependencies
 

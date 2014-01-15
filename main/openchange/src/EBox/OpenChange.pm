@@ -39,6 +39,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
+use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
+use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
 # Method: _create
 #
@@ -106,6 +108,17 @@ sub _migrateFormKeys
 
 # Method: enableActions
 #
+# Action to do when openchange module is enabled for first time
+#
+sub enableActions
+{
+    my ($self) = @_;
+    $self->SUPER::enableActions();
+    $self->_setupDNS();
+}
+
+# Method: enableService
+#
 #   Override EBox::Module::Service::enableService to notify samba
 #
 sub enableService
@@ -114,45 +127,86 @@ sub enableService
 
     $self->SUPER::enableService($status);
     if ($self->changed()) {
+        my $global = $self->global();
         # Mark mail as changed to make dovecot listen IMAP protocol at least
         # on localhost
-        my $mail = $self->global->modInstance('mail');
+        my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
 
         # Mark samba as changed to write smb.conf
-        my $samba = $self->global->modInstance('samba');
+        my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
+
+        # Mark webadmin as changed so we are sure nginx configuration is
+        # refreshed with the new includes
+        $global->modInstance('webadmin')->setAsChanged();
     }
 }
 
-sub _daemons
+sub _daemonsToDisable
 {
     my ($self) = @_;
 
-    my $daemons = [];
+    my $daemons = [
+        {
+            name => 'openchange-ocsmanager',
+            type => 'init.d',
+        }
+       ];
     return $daemons;
+}
+
+# Method: _daemons
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_daemons>
+#
+sub _daemons
+{
+    my ($self) = @_;
+    my $daemons = [
+        {
+            name         => 'zentyal.ocsmanager',
+            type         => 'upstart',
+            precondition => sub { return $self->_autodiscoverEnabled() },
+        },
+        {
+            name         => 'zentyal.zoc-migrate',
+            type         => 'upstart',
+            precondition => sub { return $self->isProvisioned() },
+        },
+    ];
+    return $daemons;
+}
+
+sub _autodiscoverEnabled
+{
+    my ($self) = @_;
+    return $self->isProvisioned();
 }
 
 sub usedFiles
 {
-    my $files = [];
+    my @files = (
+        {
+            file => SOGO_DEFAULT_FILE,
+            reason => __('To configure sogo daemon'),
+            module => 'openchange'
+       },
+       {
+           file => SOGO_CONF_FILE,
+           reason => __('To configure sogo parameters'),
+           module => 'openchange'
+       },
+       {
+           file => OCSMANAGER_CONF_FILE,
+           reason => __('To configure autodiscovery service'),
+           module => 'openchange'
+       }
+      );
 
-    my $sogoDefaultFile = {
-        file => SOGO_DEFAULT_FILE,
-        reason => __('To configure sogo daemon'),
-        module => 'openchange'
-    };
-
-    my $sogoConfFile = {
-        file => SOGO_CONF_FILE,
-        reason => __('To configure sogo parameters'),
-        module => 'openchange'
-    };
-
-    push (@{$files}, $sogoDefaultFile);
-    push (@{$files}, $sogoConfFile);
-
-    return $files;
+    return \@files;
 }
 
 sub _setConf
@@ -163,6 +217,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_writeRewritePolicy();
+    $self->_setAutodiscoverConf();
 }
 
 sub _writeSOGoDefaultFile
@@ -255,6 +310,52 @@ sub _writeRewritePolicy
     EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
 }
 
+sub _setAutodiscoverConf
+{
+    my ($self) = @_;
+    my $global  = $self->global();
+    my $sysinfo = $global->modInstance('sysinfo');
+    my $samba   = $global->modInstance('samba');
+    my $mail    = $global->modInstance('mail');
+
+    my $server    = $sysinfo->hostDomain();
+    my $adminMail = $mail->model('SMTPOptions')->value('postmasterAddress');
+    if ($adminMail eq 'postmasterRoot') {
+        $adminMail = 'postmaster@' . $server;
+    }
+    my $confFileParams = [
+        bindDn    => 'cn=Administrator',
+        bindPwd   => $samba->administratorPassword(),
+        baseDn    => 'CN=Users,' . $samba->ldb()->dn(),
+        port      => 389,
+        adminMail => $adminMail,
+    ];
+
+    $self->writeConfFile(OCSMANAGER_CONF_FILE,
+                         'openchange/ocsmanager.ini.mas',
+                         $confFileParams,
+                         { uid => 0, gid => 0, mode => '640' }
+                        );
+
+    # manage the nginx include file
+    my $webadmin = $global->modInstance('webadmin');
+    if ($self->isEnabled()) {
+        my $confDir = EBox::Config::conf() . 'openchange';
+        EBox::Sudo::root("mkdir -p '$confDir'");
+        my $incParams = [
+            server => $server
+           ];
+        $self->writeConfFile(OCSMANAGER_INC_FILE,
+                             "openchange/ocsmanager.nginx.mas",
+                             $incParams,
+                             { uid => 0, gid => 0, mode => '644' }
+                        );
+        $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
+    } else {
+        $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
+    }
+}
+
 # Method: menu
 #
 #   Add an entry to the menu with this module.
@@ -274,12 +375,14 @@ sub menu
         order => $order);
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/View/Provision',
-        text      => __('Provision'),
+        text      => __('Setup'),
         order     => 0));
-    $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/Migration/Connect',
-        text      => __('MailBox Migration'),
-        order     => 1));
+    if ($self->isProvisioned()) {
+        $folder->add(new EBox::Menu::Item(
+            url       => 'OpenChange/Migration/Connect',
+            text      => __('MailBox Migration'),
+            order     => 1));
+    }
     $root->add($folder);
 }
 
@@ -384,6 +487,51 @@ sub _sogoDbPass
 
     return $self->{sogo_db_password};
 }
+
+# setup the dns to add autodiscover host
+sub _setupDNS
+{
+    my ($self) = @_;
+    my $sysinfo    = $self->global()->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
+    my $autodiscoverAlias = 'autodiscover';
+    if ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
+        # strangely the hostname is already the autodiscover name
+        return;
+    }
+
+    my $dns = $self->global()->modInstance('dns');
+
+    my $domainRow = $dns->model('DomainTable')->find(domain => $hostDomain);
+    if (not $domainRow) {
+        throw EBox::Exceptions::External(
+            __x("The expected domain '{d}' could not be found in the dns module",
+                d => $hostDomain
+               )
+           );
+    }
+
+    my $hostRow = $domainRow->subModel('hostnames')->find(hostname => $hostName);
+    if (not $hostRow) {
+        throw EBox::Exceptions::External(
+          __x("The required host record '{h}' could not be found in " .
+              "the domain '{d}'.<br/>",
+              h => $hostName,
+              d => $hostDomain
+             )
+         );
+    }
+
+    my $aliasModel = $hostRow->subModel('alias');
+    if ($aliasModel->find(alias => $autodiscoverAlias)) {
+        # already added, nothing to do
+        return;
+    }
+    # add the autodiscover alias
+    $aliasModel->addRow(alias => $autodiscoverAlias);
+}
+
 
 # Method: configurationContainer
 #

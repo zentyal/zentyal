@@ -203,6 +203,7 @@ ServerTokens Min
 % }
     PerlWarn On
 
+    PerlModule Devel::Declare
     PerlModule EBox::Auth
     PerlSetVar EBoxPath /
     PerlSetVar EBoxLoginScript /Login/Index

@@ -1,0 +1,152 @@
+From 97851c6ce4445831a96757a8e53660447e18dd5c Mon Sep 17 00:00:00 2001
+From: Samuel Cabrero <scabrero@zentyal.com>
+Date: Wed, 20 Nov 2013 11:58:16 +0100
+Subject: [PATCH 2/3] s4:libcli/raw: Add test for per packet case sensitive
+ flag
+
+Signed-off-by: Samuel Cabrero <scabrero@zentyal.com>
+---
+ source3/selftest/tests.py            |  2 +-
+ source4/selftest/tests.py            |  2 +-
+ source4/torture/raw/case_sensitive.c | 76 ++++++++++++++++++++++++++++++++++++
+ source4/torture/raw/raw.c            |  1 +
+ source4/torture/wscript_build        |  2 +-
+ 5 files changed, 80 insertions(+), 3 deletions(-)
+ create mode 100644 source4/torture/raw/case_sensitive.c
+
+diff --git a/source3/selftest/tests.py b/source3/selftest/tests.py
+index e8a08d9..14f9893 100755
+--- a/source3/selftest/tests.py
++++ b/source3/selftest/tests.py
+@@ -252,7 +252,7 @@ raw = ["raw.acls", "raw.chkpath", "raw.close", "raw.composite", "raw.context", "
+        "raw.qfileinfo", "raw.qfsinfo", "raw.read", "raw.rename", "raw.search", "raw.seek",
+        "raw.sfileinfo.base", "raw.sfileinfo.bug", "raw.streams", "raw.unlink", "raw.write",
+        "raw.samba3hide", "raw.samba3badpath", "raw.sfileinfo.rename", "raw.session",
+-       "raw.samba3caseinsensitive", "raw.samba3posixtimedlock",
++       "raw.samba3caseinsensitive", "raw.samba3posixtimedlock", "raw.case_sensitive",
+        "raw.samba3rootdirfid", "raw.sfileinfo.end-of-file",
+        "raw.bench-oplock", "raw.bench-lock", "raw.bench-open", "raw.bench-tcon",
+        "raw.samba3checkfsp", "raw.samba3closeerr", "raw.samba3oplocklogoff", "raw.samba3badnameblob"]
+diff --git a/source4/selftest/tests.py b/source4/selftest/tests.py
+index e738d1d..560356a 100755
+--- a/source4/selftest/tests.py
++++ b/source4/selftest/tests.py
+@@ -224,7 +224,7 @@ ntvfsargs = ["--option=torture:sharedelay=10000", "--option=torture:oplocktimeou
+ 
+ smb2 = smbtorture4_testsuites("smb2.")
+ #The QFILEINFO-IPC test needs to be on ipc$
+-raw = filter(lambda x: "raw.qfileinfo.ipc" not in x, smbtorture4_testsuites("raw."))
++raw = filter(lambda x: x not in ["raw.case_sensitive", "raw.qfileinfo.ipc"], smbtorture4_testsuites("raw."))
+ base = smbtorture4_testsuites("base.")
+ 
+ netapi = smbtorture4_testsuites("netapi.")
+diff --git a/source4/torture/raw/case_sensitive.c b/source4/torture/raw/case_sensitive.c
+new file mode 100644
+index 0000000..d2d3413
+--- /dev/null
++++ b/source4/torture/raw/case_sensitive.c
+@@ -0,0 +1,76 @@
++/* 
++   Unix SMB/CIFS implementation.
++   chkpath individual test suite
++   Copyright (C) Andrew Tridgell 2003
++   
++   This program is free software; you can redistribute it and/or modify
++   it under the terms of the GNU General Public License as published by
++   the Free Software Foundation; either version 3 of the License, or
++   (at your option) any later version.
++   
++   This program is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++   GNU General Public License for more details.
++   
++   You should have received a copy of the GNU General Public License
++   along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*/
++
++#include "includes.h"
++#include "system/locale.h"
++#include "libcli/raw/libcliraw.h"
++#include "libcli/libcli.h"
++#include "torture/util.h"
++#include "torture/raw/proto.h"
++
++#define BASEDIR "\\rawcasesensitive"
++
++static bool test_chkpath(struct smbcli_state *cli, struct torture_context *tctx)
++{
++	NTSTATUS status;
++	bool ret = true;
++
++	/* Set case insensitive and check */
++	status = smbcli_set_case_sensitive(cli->tree, false);
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK, "smbcli_set_case_sensitive failed!");
++	status = smbcli_chkpath(cli->tree, BASEDIR "\\foobar");
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK, "smbcli_chkpath failed!");
++
++	/* Set case sensitive and check */
++	status = smbcli_set_case_sensitive(cli->tree, true);
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK, "smbcli_set_case_sensitive failed!");
++	status = smbcli_chkpath(cli->tree, BASEDIR "\\foobar");
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OBJECT_NAME_NOT_FOUND, "smbcli_chkpath failed!");
++
++	/* Set case insensitive and check */
++	status = smbcli_set_case_sensitive(cli->tree, false);
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK, "smbcli_set_case_sensitive failed!");
++	status = smbcli_chkpath(cli->tree, BASEDIR "\\foobar");
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK, "smbcli_chkpath failed!");
++
++	return ret;
++}
++
++/*
++ Basic testing of case sensitive calls
++*/
++bool torture_raw_case_sensitive(struct torture_context *torture,
++			struct smbcli_state *cli)
++{
++	bool ret = true;
++
++	torture_assert(torture, torture_setup_dir(cli, BASEDIR), "Failed to setup up test directory: " BASEDIR);
++
++	if (NT_STATUS_IS_ERR(smbcli_mkdir(cli->tree, BASEDIR "\\fooBAR"))) {
++		printf("Failed to create " BASEDIR " - %s\n", smbcli_errstr(cli->tree));
++		return false;
++	}
++
++	ret &= test_chkpath(cli, torture);
++
++	smbcli_deltree(cli->tree, BASEDIR);
++	smb_raw_exit(cli->session);
++
++	return ret;
++}
+diff --git a/source4/torture/raw/raw.c b/source4/torture/raw/raw.c
+index bda463b..80032f8 100644
+--- a/source4/torture/raw/raw.c
++++ b/source4/torture/raw/raw.c
+@@ -76,6 +76,7 @@ NTSTATUS torture_raw_init(void)
+ 	torture_suite_add_1smb_test(suite, "samba3posixtimedlock",
+ 				      torture_samba3_posixtimedlock);
+ 	torture_suite_add_simple_test(suite, "scan-eamax", torture_max_eas);
++	torture_suite_add_1smb_test(suite, "case_sensitive", torture_raw_case_sensitive);
+ 
+ 	suite->description = talloc_strdup(suite, "Tests for the raw SMB interface");
+ 
+diff --git a/source4/torture/wscript_build b/source4/torture/wscript_build
+index 5297f1c..fd437c3 100755
+--- a/source4/torture/wscript_build
++++ b/source4/torture/wscript_build
+@@ -19,7 +19,7 @@ bld.SAMBA_MODULE('TORTURE_BASIC',
+ 
+ 
+ bld.SAMBA_MODULE('TORTURE_RAW',
+-	source='raw/qfsinfo.c raw/qfileinfo.c raw/setfileinfo.c raw/search.c raw/close.c raw/open.c raw/mkdir.c raw/oplock.c raw/notify.c raw/mux.c raw/ioctl.c raw/chkpath.c raw/unlink.c raw/read.c raw/context.c raw/session.c raw/write.c raw/lock.c raw/pingpong.c raw/lockbench.c raw/lookuprate.c raw/tconrate.c raw/openbench.c raw/rename.c raw/eas.c raw/streams.c raw/acls.c raw/seek.c raw/samba3hide.c raw/samba3misc.c raw/composite.c raw/raw.c raw/offline.c',
++	source='raw/qfsinfo.c raw/qfileinfo.c raw/setfileinfo.c raw/search.c raw/close.c raw/open.c raw/mkdir.c raw/oplock.c raw/notify.c raw/mux.c raw/ioctl.c raw/chkpath.c raw/case_sensitive.c raw/unlink.c raw/read.c raw/context.c raw/session.c raw/write.c raw/lock.c raw/pingpong.c raw/lockbench.c raw/lookuprate.c raw/tconrate.c raw/openbench.c raw/rename.c raw/eas.c raw/streams.c raw/acls.c raw/seek.c raw/samba3hide.c raw/samba3misc.c raw/composite.c raw/raw.c raw/offline.c',
+ 	autoproto='raw/proto.h',
+ 	subsystem='smbtorture',
+ 	init_function='torture_raw_init',
+-- 
+1.8.3.2
+

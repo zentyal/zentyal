@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -40,7 +41,7 @@ use base 'EBox::Types::Abstract';
 
 use EBox::Model::Manager;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -145,7 +146,8 @@ sub foreignModelInstance
         } else {
             $model = $manager->model($modelName, $ro);
         }
-    } catch EBox::Exceptions::DataNotFound with { };
+    } catch (EBox::Exceptions::DataNotFound $e) {
+    }
 
     return undef unless (defined($model));
 
@@ -338,9 +340,9 @@ sub _restoreFromHash
 
             $self->{'view'} = '/' . $model->menuNamespace();
             $self->setDirectory($model->directory());
-        } catch EBox::Exceptions::DataNotFound with {
+        } catch (EBox::Exceptions::DataNotFound $e) {
             $self->{'view'} = '/';
-        };
+        }
     }
 }
 

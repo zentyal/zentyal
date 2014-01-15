@@ -30,7 +30,7 @@ sub new
         $text = __('Cannot connect to Zentyal Cloud. Check your Internet connection.');
     }
 
-    local $Error::Depth = $Error::Depth + 1;
+    local $Error::Depth = defined $Error::Depth ? $Error::Depth + 1 : 1;
     local $Error::Debug = 1;
 
     $Log::Log4perl::caller_depth++;

@@ -1,4 +1,21 @@
 3.3
+	+ Hide close button on subscription progress dialog
+	+ Adapted to new AJAX update of save changes button
+	+ Switch from Error to TryCatch for exception handling
+	+ Adapted to new AJAX update of save changes button
+	+ Update support information due to offer 2013
+	+ Update messages in info models
+	+ Show ad messages in SubscriptionInfo model
+	+ Remove useless code due to offer 2013
+	+ Retrieve the maximum users from Zentyal Remote
+	+ Added new i18n editions
+	+ Store an ad message instead of enforcing max number of users
+	  in the registration check
+	+ Now the module has support to store ad messages
+	+ Widget recovers from latestRemoteConfBackup connection errors
+	+ Fix reset URL in subscription wizard error
+	+ Pinning kernels so they are updated with QA updates active
+	+ Added missing EBox::Exceptions uses
 	+ Remove cron jobs when unregistering
 	+ Use latest REST Remote API to register a free account
 	+ Missing use when restarting monitor using VPN as communication
@@ -6,6 +23,7 @@
 	+ Set proper trial link when a community account is registered
 	+ Use IPS module to know the number of IDS/IPS rules
 	+ Honor system-wide defined HTTP Proxy in REST client
+	+ Set version to 3.3
 	+ Better error message when JSON creadentials file is missing
 	+ Missing EBox::Gettext use in EBox::RemoteServices::Connection
 	+ Set version to 3.3

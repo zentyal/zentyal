@@ -29,7 +29,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::HostIP::BCast;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -106,6 +106,16 @@ sub preconditionFailMsg
     return __('Bandwidth Monitor must be enabled in order to get data.');
 }
 
+sub noDataMsg
+{
+    my ($self) = @_;
+
+    unless (@{$self->parentModule->ifaces()}) {
+        return __(q{Bandwidth Monitor is not configured to monitor any interface. You can enable interfaces in the 'Configure interfaces' tab});
+    }
+    return $self->SUPER::noDataMsg();
+}
+
 sub syncRows
 {
     my ($self, $currentRows)  = @_;
@@ -128,10 +138,9 @@ sub syncRows
                    extsent => $self->_format($client->{extsent}),
                    intrecv => $self->_format($client->{intrecv}),
                    intsent => $self->_format($client->{intsent}));
-        } catch EBox::Exceptions::InvalidData with {
-            my ($ex) = @_;
-            $error = "$ex";
-        };
+        } catch (EBox::Exceptions::InvalidData $e) {
+            $error = "$e";
+        }
     }
 
     if ($error) {

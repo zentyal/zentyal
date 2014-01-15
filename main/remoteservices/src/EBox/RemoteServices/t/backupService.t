@@ -33,7 +33,7 @@ use EBox::Global;
 use EBox;
 
 use Test::More tests => 12;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -49,18 +49,17 @@ livesOk( sub { $backupServ->makeRemoteBackup($name2); }, 'Making a second remote
 
 my $backupList;
 
-
 foreach (0 .. 1) {
-  diag ' we execute the following two tests  two times in a rowto force to use the cached results';
-  livesOk(
-	  sub {  $backupList = $backupServ->listRemoteBackups(); },
-	  'listing remote backups'
-  );
+    diag ' we execute the following two tests  two times in a rowto force to use the cached results';
+    livesOk(
+            sub {  $backupList = $backupServ->listRemoteBackups(); },
+            'listing remote backups'
+    );
 
-  diag "Backup list " . Dumper $backupList;
+    diag "Backup list " . Dumper $backupList;
 
-  my $bothExists = (exists $backupList->{$name}) and (exists $backupList->{$name2});
-  ok $bothExists, 'Checking if the backups are in the backup list';
+    my $bothExists = (exists $backupList->{$name}) and (exists $backupList->{$name2});
+    ok $bothExists, 'Checking if the backups are in the backup list';
 }
 
 livesOk(sub { $backupServ->restoreRemoteBackup($name);}, 'Restoring remote backup');
@@ -85,17 +84,15 @@ $global->saveAllModules();
 
 sub livesOk
 {
-  my ($sub_r, $testName) = @_;
+    my ($sub_r, $testName) = @_;
 
-  try {
-    $sub_r->();
-    pass $testName;
-  }
-  otherwise {
-    my $ex = shift;
-    diag "$ex";
-    fail $testName;
-  };
+    try {
+        $sub_r->();
+        pass $testName;
+    } catch ($e) {
+        diag "$e";
+        fail $testName;
+    }
 }
 
 1;

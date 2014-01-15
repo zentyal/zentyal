@@ -24,12 +24,9 @@ use EBox::Global;
 use EBox::Users::Group;
 use EBox::Users::User;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Slurp;
 use Time::gmtime;
-
-my %ignoreOUs = map {( $_ => $_)} qw(Users Groups Computers Builtin Kerberos postfix zarafa Extensions Queues);
-my @ignoreChildrenOUs = qw(postfix Kerberos zarafa Extensions);
 
 sub getTimestamp
 {
@@ -38,14 +35,6 @@ sub getTimestamp
         $time->year + 1900, $time->mon + 1, $time->mday,
         $time->hour, $time->min, $time->sec);
     return $timestamp;
-}
-
-sub ignoreOU
-{
-    my ($ouName) = @_;
-
-    return ((exists $ignoreOUs{$ouName}) or
-            (grep { $ouName =~ /^$_\// } @ignoreChildrenOUs));
 }
 
 EBox::init();
@@ -65,8 +54,7 @@ while (1) {
     sleep (30);
     next unless ($sambaModule->isEnabled() and $sambaModule->getProvision->isProvisioned());
 
-    # The Administrator user, 'Domain Users' and 'Domain admins' groups are special case entries.
-    # Those are Zentyal system user and groups so don't appear by default on list actions.
+    my $ldap = $usersModule->ldap();
     my $ldb = $sambaModule->ldb();
     my $domainSID = $ldb->domainSID();
     my $domainAdminSID = "$domainSID-500";
@@ -75,158 +63,278 @@ while (1) {
 
     my $sambaTimestamp = read_file($sambaTimestampFile);
 
-    my %sambaUsers = map { $_->get('samAccountName') => $_ } @{$ldb->users()};
-    my %sambaContacts = map { $_->canonicalName(1) => $_ } @{$ldb->contacts()};
-    my %sambaGroups = map { $_->get('samAccountName') => $_ } @{$ldb->groups()};
-    my @orderSambaOUs;
-    my %sambaOUs;
-    foreach my $ou (@{$ldb->ous()}) {
-        my $canonicalName = $ou->canonicalName(1);
-        if (ignoreOU($canonicalName)) {
-            next;
-        }
-        push @orderSambaOUs, $canonicalName;
-        $sambaOUs{$canonicalName} = $ou;
-    }
+    my %sambaUsers    = map { $_->objectGUID() => $_ } @{$ldb->users()};
+    my %sambaContacts = map { $_->objectGUID() => $_ } @{$ldb->contacts()};
+    my %sambaGroups   = map { $_->objectGUID() => $_ } @{$ldb->groups()};
+    my @sambaOUs      = @{$ldb->ous()};
+    my %sambaOUs      = map { $_->objectGUID() => $_ } @sambaOUs;
 
     write_file($sambaTimestampFile, getTimestamp());
 
-    my %zentyalUsers = map { $_->get('uid') => $_ } @{$usersModule->users()};
-    my %zentyalContacts = map { $_->canonicalName(1) => $_ } @{$usersModule->contacts()};
-    my %zentyalGroups = map { $_->get('cn') => $_ } @{$usersModule->groups()};
-    my %zentyalOUs    = map { $_->canonicalName(1) => $_ } @{$usersModule->ous()};
-
-    foreach my $canonicalName (@orderSambaOUs) {
-        if (exists $zentyalOUs{$canonicalName}) {
-            my $changed = $sambaOUs{$canonicalName}->get('whenChanged');
-            $changed =~ s/\.\d+Z//;
-            if ($changed > $sambaTimestamp) {
-                try {
-                    $sambaOUs{$canonicalName}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error updating OU $canonicalName: $error. s4sync will try again in next synchronization");
-                };
-            }
-            delete $zentyalOUs{$canonicalName};
-        } else {
-            try {
-                $sambaOUs{$canonicalName}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding OU $canonicalName: $error. s4sync will try again in next synchronization");
-            };
+    my %zentyalUsers    = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->users()};
+    my %zentyalContacts = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->contacts()};
+    my %zentyalGroups   = map { $_->get('msdsObjectGUID') => $_ } @{$usersModule->groups()};
+    my @zentyalOUs      = @{$usersModule->ous()};
+    my %zentyalOUs;
+    foreach my $zou (@zentyalOUs) {
+        my $guid = $zou->get('msdsObjectGUID');
+        # We ignore non linked OUs, such OU=zarafa or OU=postfix, they are
+        # internal to Zentyal and does not exists in the samba database
+        if (defined $guid) {
+            $zentyalOUs{$guid} = $zou;
         }
     }
 
-    my @orderZentyalOus = reverse sort keys %zentyalOUs;
-    foreach my $ouCanonicalName (reverse sort keys %zentyalOUs) {
-        if (ignoreOU($ouCanonicalName)) {
-            next;
+    # The following samba entries are special cases, not returned by users or
+    # groups functions because they are considered system users or groups.
+    # These entries are the 'Administrator' user and the 'Domain Users' and
+    # 'Domain admins' groups. Query for them specifically and push to hashes
+    my $defaultGroup = new EBox::Users::Group(gid => $usersModule->DEFAULTGROUP());
+    if ($defaultGroup->exists()) {
+        my $defaultGroupLink = $defaultGroup->get('msdsObjectGUID');
+        if (defined $defaultGroupLink) {
+            $zentyalGroups{$defaultGroupLink} = $defaultGroup;
         }
-        EBox::debug("Deleting Zentyal OU '" . $zentyalOUs{$ouCanonicalName}->dn() . "'");
-        $zentyalOUs{$ouCanonicalName}->setIgnoredModules(['samba']);
-        $zentyalOUs{$ouCanonicalName}->deleteObject();
+    }
+    my $admGroup = new EBox::Users::Group(gid => 'Domain Admins');
+    if ($admGroup->exists()) {
+        my $admGroupLink = $admGroup->get('msdsObjectGUID');
+        if (defined $admGroupLink) {
+            $zentyalGroups{$admGroupLink} = $admGroup;
+        }
+    }
+    my $admUser = new EBox::Users::User(uid => 'Administrator');
+    if ($admUser->exists()) {
+        my $admUserLink = $admUser->get('msdsObjectGUID');
+        if (defined $admUserLink) {
+            $zentyalUsers{$admUserLink} = $admUser;
+        }
+    }
+
+    #################################################
+    #### Sync OUs
+    #################################################
+    # The array @sambaOUs contain the OUs in samba stored in a hirarquical way.
+    # If there is an element in the array that does not exists in Zentyal, it
+    # means we have to import it to LDAP.
+    # If it is already in LDAP, check if it has been updated since the last
+    # s4sync iteration and propagate the changes.
+    foreach my $ou (@sambaOUs) {
+        my $canonicalName = $ou->canonicalName(1);
+        my $uniqueID = $ou->objectGUID();
+
+        if (exists $zentyalOUs{$uniqueID}) {
+            my $changed = $sambaOUs{$uniqueID}->get('whenChanged');
+            $changed =~ s/\.\d+Z//;
+            if ($changed > $sambaTimestamp) {
+                try {
+                    $ou->updateZentyal();
+                } catch ($error) {
+                    EBox::error("Error updating OU $canonicalName: $error");
+                }
+            }
+            delete $zentyalOUs{$uniqueID};
+        } else {
+            try {
+                $ou->addToZentyal();
+            } catch ($error) {
+                EBox::error("Error adding OU $canonicalName: $error");
+            }
+        }
     }
 
     #################################################
     #### Sync users
     #################################################
-    # Add users that exists in samba but not in Zentyal
-    foreach my $sambaUserName (sort keys %sambaUsers) {
-        if ((exists $zentyalUsers{$sambaUserName}) or
-            ($domainAdminSID eq $sambaUsers{$sambaUserName}->sid())) {
-            my $changed = $sambaUsers{$sambaUserName}->get('whenChanged');
+    # The %sambaUsers hash contains all objects of objectclass type user,
+    # indexed by samba objectGUID. If this GUID is not linked to any Zentyal
+    # user, import it to LDAP. Otherwise, if exists and it is linked,
+    # propagate the changes if the entry is modified since last s4sync
+    # iteration.
+    #
+    # There are special cases, some users in the %sambaUsers hash should not
+    # be imported to LDAP, as they are internal to samba:
+    #   - The krbtgt account
+    #   - The dns-{hostname} account
+    #   - The accounts created after provision to hold the Zentyal SPNs, such:
+    #       - mail-{hostname} account
+    #       - http-{hostname} account
+    #
+    # The samba internal users that are imported to Zentyal are:
+    #   - The administrator account
+    #   - The guest account
+    #
+    foreach my $uniqueID (keys %sambaUsers) {
+        my $sambaUser = $sambaUsers{$uniqueID};
+        my $canonicalName = $sambaUser->canonicalName(1);
+        if ((exists $zentyalUsers{$uniqueID})) {
+            my $changed = $sambaUser->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaUsers{$sambaUserName}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error updating user $sambaUserName: $error. s4sync will try again in next synchronization");
-                };
+                    $sambaUsers{$uniqueID}->updateZentyal();
+                } catch ($error) {
+                    EBox::error("Error updating user $canonicalName: $error");
+                }
             }
-            delete $zentyalUsers{$sambaUserName};
+            delete $zentyalUsers{$uniqueID};
         } else {
             try {
-                $sambaUsers{$sambaUserName}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding user $sambaUserName: $error. s4sync will try again in next synchronization");
-            };
+                $sambaUsers{$uniqueID}->addToZentyal();
+            } catch ($error) {
+                EBox::error("Error adding user $canonicalName: $error");
+            }
         }
-    }
-
-    foreach my $zentyalUserName (sort keys %zentyalUsers) {
-        EBox::info("Deleting Zentyal user '$zentyalUserName'");
-        $zentyalUsers{$zentyalUserName}->setIgnoredModules(['samba']);
-        $zentyalUsers{$zentyalUserName}->deleteObject();
     }
 
     #################################################
     #### Sync contacts
     #################################################
-    # Add contacts that exists in samba but not in Zentyal
-    foreach my $sambaContactCanonicalName (sort keys %sambaContacts) {
-        if (exists $zentyalContacts{$sambaContactCanonicalName}) {
-            my $changed = $sambaContacts{$sambaContactCanonicalName}->get('whenChanged');
+    # Same algorithm as users. No exceptions here.
+    foreach my $uniqueID (keys %sambaContacts) {
+        my $sambaContact = $sambaContacts{$uniqueID};
+        my $canonicalName = $sambaContact->canonicalName(1);
+        if (exists $zentyalContacts{$uniqueID}) {
+            my $changed = $sambaContact->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaContacts{$sambaContactCanonicalName}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error updating contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
-                };
+                    $sambaContacts{$uniqueID}->updateZentyal();
+                } catch ($error) {
+                    EBox::error("Error updating contact $canonicalName: $error");
+                }
             }
-            delete $zentyalContacts{$sambaContactCanonicalName};
+            delete $zentyalContacts{$uniqueID};
         } else {
             try {
-                $sambaContacts{$sambaContactCanonicalName}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding contact $sambaContactCanonicalName: $error. s4sync will try again in next synchronization");
-            };
+                $sambaContacts{$uniqueID}->addToZentyal();
+            } catch ($error) {
+                EBox::error("Error adding contact $canonicalName: $error");
+            }
         }
-    }
-
-    foreach my $zentyalContactCanonicalName (sort keys %zentyalContacts) {
-        EBox::debug("Deleting Zentyal contact '$zentyalContactCanonicalName'");
-        $zentyalContacts{$zentyalContactCanonicalName}->setIgnoredModules(['samba']);
-        $zentyalContacts{$zentyalContactCanonicalName}->deleteObject();
     }
 
     #################################################
     #### Sync groups
     #################################################
-    foreach my $sambaGroupName (sort keys %sambaGroups) {
-        if ((exists $zentyalGroups{$sambaGroupName}) or
-            ($domainAdminsSID eq $sambaGroups{$sambaGroupName}->sid()) or
-            ($domainUsersSID eq $sambaGroups{$sambaGroupName}->sid())) {
-            my $changed = $sambaGroups{$sambaGroupName}->get('whenChanged');
+    foreach my $uniqueID (keys %sambaGroups) {
+        my $sambaGroup = $sambaGroups{$uniqueID};
+        my $canonicalName = $sambaGroup->canonicalName(1);
+        if ((exists $zentyalGroups{$uniqueID})) {
+            my $changed = $sambaGroup->get('whenChanged');
             $changed =~ s/\.\d+Z//;
             if ($changed > $sambaTimestamp) {
                 try {
-                    $sambaGroups{$sambaGroupName}->updateZentyal();
-                } otherwise {
-                    my ($error) = @_;
-                    EBox::error("Error updating group $sambaGroupName: $error. s4sync will try again in next synchronization");
-                };
+                    $sambaGroups{$uniqueID}->updateZentyal();
+                } catch ($error) {
+                    EBox::error("Error updating group $canonicalName: $error");
+                }
             }
-            delete $zentyalGroups{$sambaGroupName};
+            delete $zentyalGroups{$uniqueID};
         } else {
-            try {
-                $sambaGroups{$sambaGroupName}->addToZentyal();
-            } otherwise {
-                my ($error) = @_;
-                EBox::error("Error adding group $sambaGroupName: $error. s4sync will try again in next synchronization");
+            # While importing group A, can happen the group has been already
+            # imported if group A was a member of a group imported before A.
+            # Before importing a group, check if it has been already imported
+            # to avoid errors.
+            my $searchParams = {
+                base => $ldap->dn(),
+                scope => 'sub',
+                filter => "msdsObjectGUID=$uniqueID",
             };
+            my $result = $ldap->search($searchParams);
+            next if ($result->count() > 0);
+
+            try {
+                $sambaGroups{$uniqueID}->addToZentyal();
+            } catch ($error) {
+                EBox::error("Error adding group $canonicalName: $error");
+            }
         }
     }
 
-    foreach my $zentyalGroupName (sort keys %zentyalGroups) {
-        EBox::debug("Deleting Zentyal group '$zentyalGroupName'");
-        $zentyalGroups{$zentyalGroupName}->setIgnoredModules(['samba']);
-        $zentyalGroups{$zentyalGroupName}->deleteObject();
+    #################################################
+    #### Delete section
+    #################################################
+    # Delete objects in reverse order, otherwise we can delete an OU and
+    # after that try to remove a user inside it, getting an error. Delete in
+    # this order:
+    #   - Groups
+    #   - Contacts
+    #   - Users
+    #   - OUs
+
+    # The groups in the %zentyalGroups hash contain Zentyal groups
+    # linked to samba groups that no longer exists in samba. Delete them.
+    foreach my $uniqueID (sort keys %zentyalGroups) {
+        my $zentyalGroup = $zentyalGroups{$uniqueID};
+        my $canonicalName = $zentyalGroup->canonicalName(1);
+        try {
+            $zentyalGroups{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalGroups{$uniqueID}->deleteObject();
+        } catch ($error) {
+            EBox::error("Error deleting group $canonicalName: $error");
+        }
+    }
+
+    # The contacts in the %zentyalContacts hash contain Zentyal contacts
+    # linked to samba contacts that no longer exists in samba. Delete them.
+    foreach my $uniqueID (sort keys %zentyalContacts) {
+        my $zentyalContact = $zentyalContacts{$uniqueID};
+        my $canonicalName = $zentyalContact->canonicalName(1);
+        try {
+            $zentyalContacts{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalContacts{$uniqueID}->deleteObject();
+        } catch ($error) {
+            EBox::error("Error deleting contact $canonicalName: $error");
+        }
+    }
+
+    # The users in the %zentyalUsers hash contain Zentyal users linked to
+    # samba users that no longer exists in samba. Delete them.
+    foreach my $uniqueID (keys %zentyalUsers) {
+        my $zentyalUser = $zentyalUsers{$uniqueID};
+        my $canonicalName = $zentyalUser->canonicalName(1);
+        try {
+            $zentyalUsers{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalUsers{$uniqueID}->deleteObject();
+        } catch ($error) {
+            EBox::error("Error deleting user $canonicalName: $error");
+        }
+    }
+
+    # In the hash %zentyalOUs are the linked OUs that does not exists in samba.
+    # Two cases here:
+    #   - It is an OU linked to a samba container object class, like:
+    #       - OU=Computers  =>  CN=Computers
+    #       - OU=Builtin    =>  CN=Builtin
+    #       - OU=Users      =>  CN=Users
+    #   - The OU has been removed from samba and we have to delete from
+    #     LDAP
+    # We check the object GUID still exists in samba, and if it does not,
+    # then delete the OU. Otherwise, it is an OU linked to a samba container.
+    foreach my $uniqueID (keys %zentyalOUs) {
+        my $searchParams = {
+            base => $ldb->dn(),
+            scope => 'sub',
+            filter => "(objectGUID=$uniqueID)",
+        };
+        my $result = $ldb->search($searchParams);
+        next if ($result->count() > 0);
+
+        # As we are iterating the keys of the hash, it is posible to delete
+        # the parent OU before than one of its childs. When deleting an OU
+        # all of its childs are also deleted, so check the OU still exists in
+        # LDAP to avoid errors trying to delete objects that does not exits
+        my $zentyalOU = $zentyalOUs{$uniqueID};
+        $zentyalOU->clearCache();
+        next unless ($zentyalOU->exists());
+
+        my $canonicalName = $zentyalOU->canonicalName(1);
+        try {
+            $zentyalOUs{$uniqueID}->setIgnoredModules(['samba']);
+            $zentyalOUs{$uniqueID}->deleteObject();
+        } catch ($error) {
+            EBox::error("Error removing OU $canonicalName: $error");
+        }
     }
 }

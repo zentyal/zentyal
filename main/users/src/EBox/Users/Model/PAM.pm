@@ -26,6 +26,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Gettext;
 use EBox::Types::Boolean;
 use EBox::Types::Select;
+use EBox::Exceptions::External;
 use File::Basename;
 
 use constant DEFAULT_SHELL => '/bin/bash';

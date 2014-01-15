@@ -28,9 +28,11 @@ use EBox::Global;
 use EBox::RemoteServices::SOAPClient;
 use EBox::Util::Nmap;
 use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::NotImplemented;
 
 use Date::Calc::Object;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::DNS;
 use Net::Ping;
 

@@ -1,3 +1,21 @@
+zentyal-core (3.3.2) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Thu, 19 Dec 2013 11:36:42 +0100
+
+zentyal-core (3.3.1) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Tue, 17 Dec 2013 13:25:43 +0100
+
+zentyal-core (3.3) precise; urgency=low
+
+  * New upstream release
+
+ -- José A. Calvo <jacalvo@zentyal.com>  Sun, 15 Dec 2013 01:38:29 +0100
+
 zentyal-core (3.2.4) precise; urgency=low
 
   * New upstream release
@@ -891,11 +909,11 @@ ebox (0.12.4-0ubuntu1) jaunty; urgency=low
   * debian/patches/01_add_apache_authcookie.dpatch
     - Patch to backport AuthCookie authentication for jaunty (LP: #255368).
   * debian/patches/02_dbus_gconf.dpatch
-    - Patch to make gconf classes work with new gconf using dbus 
+    - Patch to make gconf classes work with new gconf using dbus
       (LP: #314606).
   * debian/patches/03_js_libraries.dpatch
     - Patch to use javascript libraries that are already package for
-      Jaunty 
+      Jaunty
 
  -- Mathias Gug <mathiaz@ubuntu.com>  Mon, 26 Jan 2009 18:21:18 -0500
 
@@ -909,14 +927,14 @@ ebox (0.11.99-0ubuntu11) hardy; urgency=low
 
 ebox (0.11.99-0ubuntu10) hardy; urgency=low
 
-  * debian/patches/14_fix_backup_creation_mask.dpatch 
+  * debian/patches/14_fix_backup_creation_mask.dpatch
 
  -- Chuck Short <zulcss@ubuntu.com>  Thu, 10 Apr 2008 11:29:02 -0400
 
 ebox (0.11.99-0ubuntu9) hardy; urgency=low
 
   * Fix permissions on /var/lib/zentyal/conf/ebox.sid. To prevent cookies from
-    being read. 
+    being read.
 
  -- Chuck Short <zulcss@ubuntu.com>  Wed, 09 Apr 2008 10:51:36 -0400
 
@@ -938,7 +956,7 @@ ebox (0.11.99-0ubuntu7) hardy; urgency=low
     - Check to see if a service is up when it shouldn't be.
   * debian/ebox.postinst
     - Cosmetic changes to ebox.postinst
-    - Wait for apache to stop completely. 
+    - Wait for apache to stop completely.
 
  -- Chuck Short <zulcss@ubuntu.com>  Mon, 31 Mar 2008 08:39:04 -0400
 
@@ -946,18 +964,18 @@ ebox (0.11.99-0ubuntu6) hardy; urgency=low
 
   * Add default value to ebox/port_used template.
   * Run db_input "|| true" to avoid issues with questions without default
-    and noninteractive install. 
+    and noninteractive install.
 
  -- Chuck Short <zulcss@ubuntu.com>  Thu, 27 Mar 2008 10:04:23 -0400
 
 ebox (0.11.99-0ubuntu5) hardy; urgency=low
 
   * debian/patches/08_fix_apache_pid_file.dpatch
-    - Store apache's pid file under eBox directory to not interfere with 
+    - Store apache's pid file under eBox directory to not interfere with
       the main apache instance.
   * debian/patches/09_fix_apache_watcher.dpatch
     - Fix the state watcher by checking if apache port is accesible.
-  * Ask user which port eBox apache must use in config using debconf. 
+  * Ask user which port eBox apache must use in config using debconf.
 
  -- Chuck Short <zulcss@ubuntu.com>  Wed, 26 Mar 2008 09:13:44 -0400
 
@@ -969,7 +987,7 @@ ebox (0.11.99-0ubuntu4) hardy; urgency=low
     - Fix symlink creation.
   * debian/patches/06_reduce_rss_items.dpatch
     - Reduce the number of RSS entries to 500.
-  * debian/patches/07_intialise_log_statement.dpatch 
+  * debian/patches/07_intialise_log_statement.dpatch
     - Fix log queries.
   * debian/ebox.cron.hourly
     - Install in the right place.
@@ -983,13 +1001,13 @@ ebox (0.11.99-0ubuntu2) hardy; urgency=low
   * debian/patches/01_fix_memory_leak_events.dpatch,
     debian/patches/02_fix_backup_parameter.dpatch,
     debian/patches/03_fix_apache_restart.dpatch:
-    - Added patch from upstream to fix various issues. 
+    - Added patch from upstream to fix various issues.
 
  -- Chuck Short <zulcss@ubuntu.com>  Tue, 11 Mar 2008 08:42:21 -0400
 
 ebox (0.11.99-0ubuntu1) hardy; urgency=low
 
-  * Added libfile-copy-recursive-perl to depends. 
+  * Added libfile-copy-recursive-perl to depends.
 
  -- Chuck Short <zulcss@ubuntu.com>  Fri, 29 Feb 2008 09:40:52 -0500
 
@@ -1073,7 +1091,7 @@ ebox (0.9.1) unstable; urgency=low
 
 ebox (0.9) unstable; urgency=low
 
-  * New upstream release 
+  * New upstream release
 
  -- Javier Amor Garcia <javier.amor.garcia@warp.es>  Wed, 21 Mar 2007 09:21:13 +0100
 
@@ -1128,7 +1146,7 @@ ebox (0.4-3) unstable; urgency=low
 
 ebox (0.4-2) unstable; urgency=low
 
-  * Added libapache-mod-ssl in Depends: 
+  * Added libapache-mod-ssl in Depends:
 
  -- Isaac Clerencia <isaac@sindominio.net>  Sat,  4 Dec 2004 16:33:09 +0100
 

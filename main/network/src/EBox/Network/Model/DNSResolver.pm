@@ -55,7 +55,7 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
-use Error qw( :try );
+use TryCatch::Lite;
 
 # Dependencies
 
@@ -308,10 +308,9 @@ sub getSystemResolvers
             my $entry = $self->getInterfaceResolvconfConfig($file);
             push (@{$resolvers}, $entry);
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Failed to get the list of resolvconf resolvers: $error");
-    };
+    }
 
     return $resolvers;
 }
@@ -337,12 +336,10 @@ sub importSystemResolvers
                     nameserver => $nameserver);
             }
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Could not import system resolvers: $error");
-    } finally {
-        $self->table->{insertPosition} = 'back';
-    };
+    }
+    $self->table->{insertPosition} = 'back';
 }
 
 1;

@@ -1,4 +1,7 @@
 3.3
+	+ Remove menu search from usercorner menu
+	+ Switch from Error to TryCatch for exception handling
+	+ Added missing EBox::Exceptions uses
 	+ Use upstream Apache2::AuthCookie instead of forked version
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3

@@ -22,7 +22,7 @@ use EBox;
 use EBox::Global;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use Sys::Hostname;
 
 my ($username, $password, $name, $bundleId) = @ARGV;

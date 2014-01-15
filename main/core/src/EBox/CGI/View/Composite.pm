@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -30,7 +31,7 @@ package EBox::CGI::View::Composite;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constructor: new
 #
@@ -74,11 +75,11 @@ sub _header
     my $pageTitle;
     try {
         $pageTitle = $self->{composite}->pageTitle();
-    } otherwise {
+    } catch {
         EBox::error("Cannot get pageTitle for Composite");
         $pageTitle = '';
-    };
-    print EBox::Html::header($pageTitle);
+    }
+    print EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

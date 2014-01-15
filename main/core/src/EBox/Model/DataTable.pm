@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -34,13 +35,15 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::DeprecatedMethod;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::WebAdmin::UserConfiguration;
 
 use Clone::Fast;
 use Encode;
-use Error qw(:try);
+use TryCatch::Lite;
 use POSIX qw(ceil);
 use Perl6::Junction qw(all any);
 use List::Util;
@@ -742,90 +745,87 @@ sub addTypedRow
     $self->_checkCompulsoryFields($paramsRef);
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        my $checkRowUnique = $self->rowUnique();
 
-    my $checkRowUnique = $self->rowUnique();
+        # Check field uniqueness if any
+        my @userData = ();
+        my $userData = {};
+        while ( my ($paramName, $param) = each (%{$paramsRef})) {
+            # Check uniqueness
+            if ($param->unique()) {
+                # No need to check if the entire row is unique if
+                # any of the fields are already checked
+                $checkRowUnique = 0;
 
-    # Check field uniqueness if any
-    my @userData = ();
-    my $userData = {};
-    while ( my ($paramName, $param) = each (%{$paramsRef})) {
-        # Check uniqueness
-        if ($param->unique()) {
-            # No need to check if the entire row is unique if
-            # any of the fields are already checked
-            $checkRowUnique = 0;
-
-            $self->_checkFieldIsUnique($param);
-        }
-        push(@userData, $param);
-        $row->addElement($param);
-    }
-
-    unless ($optParams{noValidateRow}) {
-        $self->validateTypedRow('add', $paramsRef, $paramsRef);
-    }
-
-    # Check if the new row is unique, only if needed
-    if ($checkRowUnique) {
-        $self->_checkRowIsUnique(undef, $paramsRef);
-    }
-
-    my $hash = {};
-    foreach my $data (@userData) {
-        $data->storeInHash($hash);
-        $data = undef;
-    }
-
-    unless ($optParams{noOrder}) {
-        # Insert the element in order
-        if ($self->table()->{'order'}) {
-            my $pos = 0;
-            my $insertPos = $self->insertPosition();
-            if (defined($insertPos)) {
-                if ( $insertPos eq 'front' ) {
-                    $pos = 0;
-                } elsif ( $insertPos eq 'back' ) {
-                    $pos = $#{$self->order()} + 1;
-                }
+                $self->_checkFieldIsUnique($param);
             }
-            $self->_insertPos($id, $pos);
-        } else {
-            my $order = $confmod->get_list($self->{'order'});
-            push (@{$order}, $id);
-            $confmod->set($self->{'order'}, $order);
+            push(@userData, $param);
+            $row->addElement($param);
         }
-    }
 
-    if ($readOnly) {
-        $hash->{readOnly} = 1;
-    }
-    if ($disabled) {
-        $hash->{disabled} = 1;
-    }
+        unless ($optParams{noValidateRow}) {
+            $self->validateTypedRow('add', $paramsRef, $paramsRef);
+        }
 
-    $confmod->set("$dir/$id", $hash);
+        # Check if the new row is unique, only if needed
+        if ($checkRowUnique) {
+            $self->_checkRowIsUnique(undef, $paramsRef);
+        }
 
-    my $newRow = $self->row($id);
+        my $hash = {};
+        foreach my $data (@userData) {
+            $data->storeInHash($hash);
+            $data = undef;
+        }
 
-    $self->setMessage($self->message('add'));
-    $self->addedRowNotify($newRow);
-    $self->_notifyManager('add', $newRow);
+        unless ($optParams{noOrder}) {
+            # Insert the element in order
+            if ($self->table()->{'order'}) {
+                my $pos = 0;
+                my $insertPos = $self->insertPosition();
+                if (defined($insertPos)) {
+                    if ( $insertPos eq 'front' ) {
+                        $pos = 0;
+                    } elsif ( $insertPos eq 'back' ) {
+                        $pos = $#{$self->order()} + 1;
+                    }
+                }
+                $self->_insertPos($id, $pos);
+            } else {
+                my $order = $confmod->get_list($self->{'order'});
+                push (@{$order}, $id);
+                $confmod->set($self->{'order'}, $order);
+            }
+        }
 
-    # check if there are files to delete if revoked
-    my $filesToRemove =   $self->filesPathsForRow($newRow);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->{confmodule}->addFileToRemoveIfRevoked($file);
-    }
+        if ($readOnly) {
+            $hash->{readOnly} = 1;
+        }
+        if ($disabled) {
+            $hash->{disabled} = 1;
+        }
 
-    $self->_commitTransaction();
+        $confmod->set("$dir/$id", $hash);
 
-    } otherwise {
-        my $ex = shift;
+        my $newRow = $self->row($id);
+
+        $self->setMessage($self->message('add'));
+        $self->addedRowNotify($newRow);
+        $self->_notifyManager('add', $newRow);
+
+        # check if there are files to delete if revoked
+        my $filesToRemove =   $self->filesPathsForRow($newRow);
+        foreach my $file (@{  $filesToRemove }) {
+            $self->{confmodule}->addFileToRemoveIfRevoked($file);
+        }
+
+        $self->_commitTransaction();
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        $e->throw();
+    }
 
     return $id;
 }
@@ -1053,61 +1053,56 @@ sub removeRow
     }
 
     try {
+        $self->_beginTransaction();
 
-    $self->_beginTransaction();
+        # If force != true and automaticRemove is enabled it means
+        # the model has to automatically check if the row which is
+        # about to removed is referenced elsewhere. In that
+        # case throw a DataInUse exceptions to iform the user about
+        # the effects its actions will have.
+        if ((not $force) and $self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $manager->warnIfIdIsUsed($self->contextName(), $id);
+        }
 
-    # If force != true and automaticRemove is enabled it means
-    # the model has to automatically check if the row which is
-    # about to removed is referenced elsewhere. In that
-    # case throw a DataInUse exceptions to iform the user about
-    # the effects its actions will have.
-    if ((not $force) and $self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $manager->warnIfIdIsUsed($self->contextName(), $id);
-    }
+        $self->_checkRowExist($id, '');
+        my $row = $self->row($id);
+        $self->validateRowRemoval($row, $force);
 
-    $self->_checkRowExist($id, '');
-    my $row = $self->row($id);
-    $self->validateRowRemoval($row, $force);
+        # check if there are files to delete
+        my $filesToRemove =   $self->filesPathsForRow($row);
+        foreach my $file (@{  $filesToRemove }) {
+            $self->{confmodule}->addFileToRemoveIfCommitted($file);
+        }
 
-    # check if there are files to delete
-    my $filesToRemove =   $self->filesPathsForRow($row);
-    foreach my $file (@{  $filesToRemove }) {
-        $self->{confmodule}->addFileToRemoveIfCommitted($file);
-    }
+        $self->_removeRow($id);
 
-    $self->_removeRow($id);
-
-    my $userMsg = $self->message('del');
-    # Dependant models may return some message to inform the user
-    my $depModelMsg = $self->_notifyManager('del', $row);
-    $self->_notifyManager('del', $row);
-    if ( defined( $depModelMsg ) and $depModelMsg ne ''
-       and $depModelMsg ne '<br><br>') {
-        $userMsg .= "<br><br>$depModelMsg";
-    }
-    # If automaticRemove is enabled then remove all rows using referencing
-    # this row in other models
-    if ($self->table()->{'automaticRemove'}) {
-        my $manager = EBox::Model::Manager->instance();
-        $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
-                                                   $id);
-        if ( defined( $depModelMsg ) and $depModelMsg ne ''
-           and $depModelMsg ne '<br><br>') {
+        my $userMsg = $self->message('del');
+        # Dependant models may return some message to inform the user
+        my $depModelMsg = $self->_notifyManager('del', $row);
+        $self->_notifyManager('del', $row);
+        if (defined($depModelMsg) and $depModelMsg ne '' and $depModelMsg ne '<br><br>') {
             $userMsg .= "<br><br>$depModelMsg";
         }
-    }
+        # If automaticRemove is enabled then remove all rows using referencing
+        # this row in other models
+        if ($self->table()->{'automaticRemove'}) {
+            my $manager = EBox::Model::Manager->instance();
+            $depModelMsg = $manager->removeRowsUsingId($self->contextName(),
+                    $id);
+            if (defined( $depModelMsg ) and $depModelMsg ne '' and $depModelMsg ne '<br><br>') {
+                $userMsg .= "<br><br>$depModelMsg";
+            }
+        }
 
-    $self->setMessage($userMsg);
-    $self->deletedRowNotify($row, $force);
+        $self->setMessage($userMsg);
+        $self->deletedRowNotify($row, $force);
 
-    $self->_commitTransaction();
-
-    } otherwise {
-        my $ex = shift;
+        $self->_commitTransaction();
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        $e->throw();
+    }
 }
 
 # Method: removeAll
@@ -1368,11 +1363,10 @@ sub setTypedRow
         $self->updatedRowNotify($row, $oldRow, $force);
 
         $self->_commitTransaction();
-    } otherwise {
-        my $ex = shift;
+    } catch ($e) {
         $self->_rollbackTransaction();
-        throw $ex;
-    };
+        throw $e;
+    }
 }
 
 # Method: enabledRows
@@ -1480,11 +1474,10 @@ sub ids
             }
 
             $self->_commitTransaction();
-        } otherwise {
-            my $ex = shift;
+        } catch ($e) {
             $self->_rollbackTransaction();
-            throw $ex;
-        };
+            $e->throw();
+        }
     }
 
     if ($changed) {
@@ -2503,13 +2496,9 @@ sub Viewer
 
 sub modalViewer
 {
-    my ($self, $showTable) = @_;
-
-    if ($showTable) {
-        return  '/ajax/tableModalView.mas';
-    } else {
-        return '/ajax/tableModal.mas';
-    }
+    my ($self) = @_;
+    # for the moment only we have modal for adding elements out of their page
+    return '/ajax/modal/addElement.mas';
 }
 
 # Method: automaticRemoveMsg
@@ -2659,6 +2648,47 @@ sub changeViewJS
                     $isFilter);
 }
 
+# Method: showChangeRowFormJS
+#
+#     Return the javascript function to change view to
+#     add a row
+#
+# Parameters:
+#
+#    (NAMED)
+#    changeType - changeAdd or changeList
+#    editId - edit id
+#     page - page number
+#       isFilter - boolean indicating if comes from filtering
+#
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub showChangeRowFormJS
+{
+    my ($self, %args) = @_;
+
+    my ($type, $editId, $page, $isFilter) = ($args{changeType},
+            $args{editId},
+            $args{page},
+            $args{isFilter},
+            );
+
+    my $function = "Zentyal.TableHelper.showChangeRowForm('%s','%s','%s','%s','%s', %s, %s)";
+
+    my $table = $self->table();
+    return sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
+}
+
+
 # Method: modalChangeViewJS
 #
 #     Return the javascript function to change view
@@ -2693,7 +2723,7 @@ sub modalChangeViewJS
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
     $url =~ s/Controller/ModalController/;
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $js =  sprintf ($function,
             $url,
@@ -2710,23 +2740,23 @@ sub modalChangeViewJS
 sub modalCancelAddJS
 {
     my ($self, %params) = @_;
-    my $table = $self->table();
-    my $url = $table->{'actions'}->{'changeView'}; # url
-    $url =~ s/Controller/ModalController/;
+    my $table   = $self->table();
+    my $tableId = $table->{'tableName'};
+
+    my $url = $table->{'actions'}->{'changeView'};
+    $url    =~ s/Controller/ModalController/;
 
     my $directory = $self->directory();
-    my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $success='';
-    if ($selectCallerId) {
-        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
-    }
 
-    my $js = "\$.ajax('{url: $url', type: 'post', data: '$params'";
-    if ($success) {
-        $js .= ", success: $success";
-    }
-    $js.= '});';
+    my  $function = "Zentyal.TableHelper.modalCancelAddRow('%s', '%s', this, '%s', '%s')";
+    my $js =  sprintf ($function,
+                       $url,
+                       $tableId,
+                       $directory,
+                       $selectCallerId
+                      );
+
     return $js;
 }
 
@@ -2772,13 +2802,11 @@ sub modalAddNewRowJS
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
-    if (not $nextPage) {
-        $url =~ s/Controller/ModalController/;
-    }
+    $url =~ s/Controller/ModalController/;
 
     my $extraParamsJS = _paramsToJSON(@extraParams);
 
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
@@ -2805,21 +2833,15 @@ sub modalAddNewRowJS
 #     string - holding a javascript funcion
 sub changeRowJS
 {
-    my ($self, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $editId, $page) = @_;
 
-    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
     my $actionUrl =  $table->{'actions'}->{'editField'};
-    my $modalResize = 0;
-    if ($modal) {
-        $tablename .= '_modal';
-        $actionUrl =~ s/Controller/ModalController/;
-    }
 
     my $force =0;
-    my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,
@@ -2828,8 +2850,7 @@ sub changeRowJS
                     $table->{'confdir'},
                     $editId,
                     $page,
-                    $force,
-                    $extraParamsJS);
+                    $force);
 }
 
 sub _paramsToJSON
@@ -2843,49 +2864,36 @@ sub _paramsToJSON
     return $paramString;
 }
 
-# Method: actionClicked
+# Method: deleteActionClickedJS
 #
-#     Return the javascript function for actionClicked
+#     Return the javascript function for click on delete action
 #
 # Parameters:
 #
-#    (POSITIONAL)
-#    action - move or del
-#    editId - row id to edit
+#    id - row to remove
 #    page - page number
 #
 # Returns:
 #
 #     string - holding a javascript funcion
-sub actionClickedJS
+sub deleteActionClickedJS
 {
-    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $id, $page) = @_;
+    my $action = 'del';
+    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s)";
 
-    unless (($action eq 'del') or ($action eq 'clone')) {
-        throw EBox::Exceptions::External("Wrong action $action");
-    }
-
-    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
     my $tablename = $table->{'tableName'};
-    if ($modal) {
-        $actionUrl =~ s/Controller/ModalController/;
-        $tablename .= '_modal';
-    }
-
-    my $extraParamsJS =  _paramsToJSON(@extraParams);
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,
                     $tablename,
-                    $action,
-                    $editId,
+                    $id,
                     $table->{'confdir'},
-                    $page,
-                    $extraParamsJS);
+                    $page);
 }
 
 sub actionHandlerUrl
@@ -4261,8 +4269,9 @@ sub _filterFields
     $newRow->setOrder($row->order());
 
     my @modelFields = @{$self->fields()};
+    my $anyModelFields = any(@modelFields);
     foreach my $fieldName ( @{$fieldNames} ) {
-        unless ( $fieldName eq any(@modelFields) ) {
+        unless ($fieldName eq $anyModelFields) {
             throw EBox::Exceptions::Internal(
                     'Trying to get a field which does exist in this model. These fields ' .
                     'are available: ' . join ( ', ', @modelFields));
@@ -4438,9 +4447,11 @@ sub clone
             my $newRow = $self->row($newId);
             $newRow->cloneSubModelsFrom($srcRow)
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($selfDir);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($selfDir);
 }
 
 # Method: setAll
@@ -4479,6 +4490,26 @@ sub checkAllProperty
     return $self->{'table'}->{'checkAll'};
 }
 
+# Method: checkAllControls
+#
+# return a hash with all the 'check all' controls of the table, indexed by
+# their field
+sub checkAllControls
+{
+    my ($self) = @_;
+    my %checkAllControls;
+    my $checkAllProperty = $self->checkAllProperty();
+    if ($checkAllProperty) {
+        my $table = $self->table();
+        %checkAllControls = map {
+            my $field = $_;
+            my $id =  $table->{tableName} . '_'. $field . '_CheckAll';
+            ( $field => $id)
+        } @{ $checkAllProperty } ;
+    }
+    return \%checkAllControls;
+}
+
 sub checkAllControlValue
 {
     my ($self, $fieldName) = @_;
@@ -4490,6 +4521,20 @@ sub checkAllControlValue
     }
 
     return 1;
+}
+
+sub checkAllJS
+{
+    my ($self, $fieldName) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.checkAll('%s', '%s', '%s', '%s', this.checked)";
+    my $call =  sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $fieldName
+                    );
+    return $call;
 }
 
 sub _confirmationDialogForAction
@@ -4563,6 +4608,39 @@ sub setSortableTableJS
                     $table->{'confdir'},
                     );
     return $call;
+}
+
+# Method: movableRows
+#
+#  Returns:
+#    - whether the rows of this data table can be moved by the user
+sub movableRows
+{
+    my ($self, $filter) = @_;
+    if ($filter) {
+        # we can only move rows if they are unfiltered,
+        return 0;
+    } else {
+        my $table = $self->table();
+        if (exists $table->{'order'} and ($table->{'order'} == 1)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+# Method: pageNumbersText
+#
+#  returns the localized string used in the pager.
+sub pageNumbersText
+{
+    my ($self, $page, $nPages) = @_;
+   if ($nPages == 1) {
+        return __('Page 1');
+   } else {
+        return __x('Page {i} of {n}', i => $page + 1, n => $nPages);
+   }
 }
 
 1;

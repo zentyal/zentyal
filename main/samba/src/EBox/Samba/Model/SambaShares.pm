@@ -41,10 +41,13 @@ use EBox::Validate;
 use Sys::Filesystem;
 use File::Basename qw( dirname );
 use Cwd 'abs_path';
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant FILTER_PATH => ('/bin', '/boot', '/dev', '/etc', '/lib', '/root',
-                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr');
+                             '/proc', '/run', '/sbin', '/sys', '/var', '/usr',
+                             '/opt');
+
+use constant FILTER_FS_TYPES => ('vfat', 'msdos');
 
 # Constructor: new
 #
@@ -254,10 +257,16 @@ sub validateTypedRow
     return unless ($action eq 'add' or $action eq 'update');
 
     if (exists $parms->{'path'}) {
-        my $path = $parms->{'path'}->selectedType();
-        if ($path eq 'system') {
+        my $pathType = $parms->{'path'}->selectedType();
+        my $pathValue = $parms->{'path'}->value();
+        if ($pathType eq 'system') {
             # Check if it is an allowed system path
-            my $normalized = abs_path($parms->{'path'}->value());
+            my $normalized = abs_path($pathValue);
+            unless (defined $normalized) {
+                throw EBox::Exceptions::External(
+                    __x("Zentyal could not access to directory '{x}': {y}",
+                        x => $pathValue, y => $!));
+            }
             if ($normalized eq '/') {
                 throw EBox::Exceptions::External(
                     __('The file system root directory cannot be used as share'));
@@ -271,12 +280,16 @@ sub validateTypedRow
             }
             EBox::Validate::checkAbsoluteFilePath(
                 $parms->{'path'}->value(), __('Samba share absolute path'));
+
+            unless (EBox::Sudo::fileTest('-d', $normalized)) {
+                throw EBox::Exceptions::External(__x('Path {p} is not a directory', p => $normalized));
+            }
+
             # Check if the filesystem is mounted with acl and user_xattr
             $self->_checkSystemShareMountOptions($normalized);
         } else {
             # Check if it is a valid directory
-            my $dir = $parms->{'path'}->value();
-            EBox::Validate::checkFilePath($dir, __('Samba share directory'));
+            EBox::Validate::checkFilePath($pathValue, __('Samba share directory'));
         }
     }
 }
@@ -375,7 +388,49 @@ sub createDirs
     }
 }
 
+# Method: viewCustomizer
+#
+#   Overrided to show a warning when guest access is enabled for any share
+#   and the domain guest account is disabled.
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $customizer = $self->SUPER::viewCustomizer();
+
+    # Return if domain not yet provisioned or disabled
+    my $sambaModule = $self->parentModule();
+    unless ($sambaModule->isEnabled() and $sambaModule->isProvisioned()) {
+        return $customizer;
+    }
+
+    foreach my $id (@{$self->ids()}) {
+        my $row = $self->row($id);
+        if ($row->valueByName('guest') and not $self->_guestAccountEnabled()) {
+            my $msg = __x('Domain guest account should be enabled for guest ' .
+                          'access to shares. You can enable it in the ' .
+                          '{oh}users and groups manager{ch}.',
+                          oh => "<a href='/Users/Tree/Manage'>",
+                          ch => "</a>");
+            $customizer->setPermanentMessage($msg, 'warning');
+            last;
+        }
+    }
+    return $customizer;
+}
+
 # Private methods
+
+sub _guestAccountEnabled
+{
+    my ($self) = @_;
+
+    my $domainSid = $self->parentModule->ldb->domainSID();
+    my $domainGuestSid = "$domainSid-501";
+    my $user = new EBox::Samba::User(sid => $domainGuestSid);
+    return $user->isAccountEnabled();
+}
 
 sub _hideSyncOption
 {
@@ -448,17 +503,38 @@ sub _checkSystemShareMountOptions
 
     my $fs = new Sys::Filesystem(mtab => '/etc/mtab');
     my @filesystems = $fs->filesystems(mounted => 1);
-    my $options = $fs->options($mountPoint);
+
+    # Get FS type and throw exception if it is VFAT. This FS does not support
+    # ACLs
+    my $type;
+    try {
+        $type = $fs->type($mountPoint);
+    } catch {
+        throw EBox::Exceptions::External(__x('Error getting filesystem format in {m}', m => $mountPoint));
+    }
+    foreach my $filter (FILTER_FS_TYPES) {
+        if ($type =~ /^$filter/) {
+            throw EBox::Exceptions::External(
+                __x("Filesystem format '{x}' does not support storing ACLs.", x => $type));
+        }
+    }
+
+    my $options;
+    try {
+        $options = $fs->options($mountPoint);
+    } catch {
+        throw EBox::Exceptions::External(__x('Error reading mount options in {m}', m => $mountPoint));
+    }
     my @options = split(/,/, $options);
     unless (grep (/acl/, @options)) {
         throw EBox::Exceptions::External(
-            __x("The mount point '$mountPoint' must be mounted with " .
+            __x("The mount point '{mountPoint}' must be mounted with " .
                 "'acl' option. This is required for permissions to work ".
                 "properly.", mountPoint => $mountPoint));
     }
     unless (grep (/user_xattr/, @options)) {
         throw EBox::Exceptions::External(
-            __x("The mount point '$mountPoint' must be mounted with " .
+            __x("The mount point '{mountPoint}' must be mounted with " .
                 "'user_xattr' option. This is required for permissions to ".
                 "work properly.", mountPoint => $mountPoint));
     }

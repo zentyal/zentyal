@@ -5,27 +5,62 @@
     $disableSetter
 </%args>
 
-<tr id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
+<div id="<% $modelName . '_' . $type->fieldName() . '_row' %>" <% $displayRow %> >
 
-  <td class='tright'>
-% if (defined ($type->printableName())) {
-    <% $type->printableName() %>:
-% }
-% if ($type->optionalLabel()) {
-    <div class='optional_field'>
-        <% __('Optional') %>
-    </div>
-% }
-  </td>
-  <td>
-    <&
+% if ($type->isa('EBox::Types::Boolean')) {
+
+<label>
+  <&
       $type->HTMLSetter(),
       'data' => $type,
       'tableName' => "$modelName",
       'disabled' =>  $disableSetter
-    &>
-    <div class="field_help">
+  &>
+
+% if (defined ($type->printableName())) {
+    <% $type->printableName() %>
+% }
+
+% if ($type->optionalLabel()) {
+    <span class='optional_field'>
+      <% __('Optional') %>
+    </span>
+% }
+% if ($type->help()) {
+<span class="field_help">
     <% $type->help() %>
-    </div>
-  </td>
-</tr>
+</span>
+% }
+    </label>
+
+
+% } else {
+ <label>
+% if (defined ($type->printableName())) {
+    <% $type->printableName() %>
+% }
+
+% if ($type->optionalLabel()) {
+    <span class='optional_field'>
+      <% __('Optional') %>
+    </span>
+% }
+
+% if ($type->help()) {
+ <span class="field_help">
+    <% $type->help() %>
+</span>
+% }
+</label>
+
+
+
+  <&
+    $type->HTMLSetter(),
+    'data' => $type,
+    'tableName' => "$modelName",
+    'disabled' =>  $disableSetter
+  &>
+
+% }   
+</div>

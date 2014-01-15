@@ -29,10 +29,12 @@ use EBox::Global;
 use EBox::Users;
 
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::DataExists;
+use EBox::Exceptions::MissingArgument;
 
 use Net::LDAP::Entry;
 use Net::LDAP::Constant;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: mainObjectClass
 #
@@ -77,7 +79,7 @@ sub name
 # Parameters:
 #
 #   args - Named parameters:
-#      name    - Organizational Unit name
+#       name    - Organizational Unit name
 #       parent - Parent container that will hold this new OU.
 #
 sub create
@@ -88,23 +90,27 @@ sub create
 
     $args{parent} or
         throw EBox::Exceptions::MissingArgument('parent');
-    $args{parent}->isContainer() or
-        throw EBox::Exceptions::InvalidData(data => 'parent', value => $args{parent}->dn());
+    $class->_checkParent($args{parent});
+
+    my $name = $args{name};
+    my $parent = $args{parent};
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
     my @attrs = (
             'objectclass' => ['organizationalUnit'],
-            'ou' => $args{name},
+            'ou' => $name,
            );
 
     my $entry;
     my $ou;
-    my $dn = "ou=$args{name}," . $args{parent}->dn();
+    my $dn = "ou=$name," . $parent->dn();
     try {
         # Call modules initialization. The notified modules can modify the entry,
         # add or delete attributes.
         $entry = new Net::LDAP::Entry($dn, @attrs);
         $usersMod->notifyModsPreLdapUserBase(
-            'preAddOU', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+            'preAddOU', [$entry, $parent], $ignoreMods, $ignoreSlaves);
         my $changetype =  $entry->changetype();
         my $changes = [$entry->changes()];
         my $result = $entry->update($class->_ldap->{ldap});
@@ -122,10 +128,8 @@ sub create
 
         $ou = EBox::Users::OU->new(dn => $dn);
         # Call modules initialization
-        $usersMod->notifyModsLdapUserBase('addOU', $ou, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
-        my ($error) = @_;
-
+        $usersMod->notifyModsLdapUserBase('addOU', $ou, $ignoreMods, $ignoreSlaves);
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -134,20 +138,43 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if ($ou and $ou->exists()) {
-            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addOUFailed', [ $ou ], $ignoreMods, $ignoreSlaves);
             $ou->SUPER::deleteObject(@_);
         } else {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddOUFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddOUFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
             throw EBox::Exceptions::DataExists('data' => __('Organizational Unit'),
-                                               'value' => $args{name});
+                                               'value' => $name);
         }
         $ou = undef;
         $entry = undef;
         $error->throw();
-    };
+    }
 
     return $ou;
+}
+
+sub _checkParent
+{
+    my ($class, $parent) = @_;
+    my $parentDN  = $parent->dn();
+    $parent->isContainer() or
+        throw EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => 'Parent should be a container'
+                                           );
+
+    my $baseDN    = $class->_ldap->dn();
+    my @forbidden = qw(ou=Users ou=Groups ou=Computers);
+    foreach my $ouPortion (@forbidden) {
+        my $dn = $ouPortion . ',' . $baseDN;
+        if ($parentDN eq $dn) {
+            throw  EBox::Exceptions::InvalidData(data => 'parent',
+                                            value => $parentDN,
+                                            advice => __('Creation of OUs inside either Users, Groups or Computer default OUs is not supported')
+                                           );
+        }
+    }
 }
 
 # Method: deleteObject

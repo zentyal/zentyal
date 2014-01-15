@@ -1,4 +1,8 @@
 3.3
+	+ Take in account mail dependency if mail module is enabled
+	+ Switch from Error to TryCatch for exception handling
+	+ Update strings to new offering
+	+ Added missing EBox::Exceptions uses
 	+ Avoid call to mailfilter-ldap script from enableActions
 	+ Removed old migration code from 3.0 to 3.2
 	+ Set version to 3.3

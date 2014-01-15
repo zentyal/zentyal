@@ -19,7 +19,7 @@ package EBox::Util::GPG;
 use warnings;
 
 use EBox::Sudo;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant GPGV_PROGRAM  => '/usr/bin/gpgv';
 use constant KEYRING => '/usr/share/zentyal/keyring.gpg';

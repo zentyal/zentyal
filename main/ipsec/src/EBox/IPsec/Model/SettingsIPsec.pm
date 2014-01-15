@@ -22,6 +22,8 @@ use base 'EBox::IPsec::Model::SettingsBase';
 use EBox::Gettext;
 use EBox::Types::IPAddr;
 use EBox::NetWrappers;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 # Group: Public methods
 #

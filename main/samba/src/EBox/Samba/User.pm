@@ -31,6 +31,7 @@ use EBox::Exceptions::External;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::Internal;
 
 use EBox::Samba::Credentials;
 
@@ -38,12 +39,12 @@ use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
-use Encode;
+use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Date::Calc;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAXUSERLENGTH  => 128;
 use constant MAXPWDLENGTH   => 512;
@@ -94,7 +95,11 @@ sub changePassword
 
     # The password will be changed on save
     $self->set('unicodePwd', $passwd, 1);
-    $self->save() unless $lazy;
+    try {
+        $self->save() unless $lazy;
+    } catch ($e) {
+        throw EBox::Exceptions::External("$e");
+    }
 }
 
 # Method: setCredentials
@@ -385,9 +390,7 @@ sub create
         if (defined $args{uidNumber}) {
             $res->setupUidMapping($args{uidNumber});
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         EBox::error($error);
 
         if (defined $res and $res->exists()) {
@@ -396,7 +399,7 @@ sub create
         $res = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     return $res;
 }
@@ -475,13 +478,12 @@ sub addToZentyal
         }
 
         $zentyalUser = EBox::Users::User->create(%args);
-    } catch EBox::Exceptions::DataExists with {
+    } catch (EBox::Exceptions::DataExists $e) {
         EBox::debug("User $uid already in OpenLDAP database");
         $zentyalUser = new EBox::Users::User(uid => $uid);
-    } otherwise {
-        my $error = shift;
-        EBox::error("Error loading user '$uid': $error");
-    };
+    } catch ($e) {
+        EBox::error("Error loading user '$uid': $e");
+    }
 
     if ($zentyalUser) {
         $zentyalUser->setIgnoredModules(['samba']);

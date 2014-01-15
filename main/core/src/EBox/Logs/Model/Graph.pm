@@ -22,10 +22,11 @@ use base ( 'EBox::Model::DataTable', 'EBox::Logs::Model::Base',);
 
 use EBox::Gettext;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
 
 use Time::Local;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub datasets
 {

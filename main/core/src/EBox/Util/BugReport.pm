@@ -19,13 +19,14 @@ use warnings;
 package EBox::Util::BugReport;
 
 use EBox::Config;
+use EBox::Exceptions::Internal;
 use JSON::RPC::Client;
 use MIME::Base64;
 use File::Slurp;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
-use constant MILESTONE => '3.3';
+use constant MILESTONE => '3.3.X';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 

@@ -33,7 +33,7 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 use Net::LDAP::Control;
 
 use Perl6::Junction qw(any);
-use Error qw(:try);
+use TryCatch::Lite;
 
 my $_sambaMod;
 
@@ -63,11 +63,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|objectGUID");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|objectGUID");
+        }
     }
 
     return $self;

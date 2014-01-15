@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,6 +28,7 @@ use EBox::Global;
 use EBox::Sudo;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
+use EBox::Exceptions::InvalidArgument;
 use EBox::Gettext;
 use EBox::FileSystem;
 use EBox::ServiceManager;
@@ -34,7 +36,7 @@ use EBox::DBEngineFactory;
 use HTML::Mason;
 use File::Temp qw(tempfile);
 use Fcntl qw(:flock);
-use Error qw(:try);
+use TryCatch::Lite;
 use Time::Local;
 use File::Slurp;
 use Perl6::Junction qw(any);
@@ -230,10 +232,13 @@ sub save
     $self->_saveConfig();
     try {
         $self->_regenConfig();
-    } finally {
+    } catch ($e) {
         $global->modRestarted($self->name);
         $self->_unlock();
-    };
+        $e->throw();
+    }
+    $global->modRestarted($self->name);
+    $self->_unlock();
 }
 
 # Method: saveConfig
@@ -246,14 +251,15 @@ sub saveConfig
 
     $self->_lock();
     try {
-      my $global = EBox::Global->getInstance();
-      my $log = EBox::logger;
-      $log->info("Saving config for module: " . $self->name);
-      $self->_saveConfig();
+        my $global = EBox::Global->getInstance();
+        my $log = EBox::logger;
+        $log->info("Saving config for module: " . $self->name);
+        $self->_saveConfig();
+    } catch ($e) {
+        $self->_unlock();
+        $e->throw();
     }
-    finally {
-      $self->_unlock();
-    };
+    $self->_unlock();
 }
 
 # Method: saveConfigRecursive
@@ -688,15 +694,20 @@ sub widget
     my ($self, $name) = @_;
     my $widgets = $self->widgets();
     my $winfo = $widgets->{$name};
-    if(defined($winfo)) {
+    if (defined $winfo) {
         my $widget = new EBox::Dashboard::Widget($winfo->{'title'},$self->{'name'},$name);
         #fill the widget
         $widget->{'module'} = $self->{'name'};
         $widget->{'default'} = $winfo->{'default'};
         $widget->{'order'} = $winfo->{'order'};
         my $wfunc = $winfo->{'widget'};
-        &$wfunc($self, $widget, $winfo->{'parameter'});
-        return $widget;
+        try {
+            $wfunc->($self, $widget, $winfo->{'parameter'});
+            return $widget;
+        } catch ($ex) {
+            EBox::error("Error loading widget $name from module " . $self->name() . ": $ex");
+            return undef;
+        }
     } else {
         return undef;
     }
@@ -868,9 +879,9 @@ sub pidFileRunning
         if (@{$output}) {
             ($pid) = @{$output}[0] =~ m/(\d+)/;
         }
-    } otherwise {
+    } catch {
         $pid = undef;
-    };
+    }
     if ($pid and $self->pidRunning($pid)) {
         return $pid;
     } else {
@@ -994,10 +1005,11 @@ sub _writeFileCreateTmpFile
                 "Could not create temp file in " .
                 EBox::Config::tmp);
         }
-    }
-    finally {
+    } catch ($e) {
         umask $oldUmask;
-    };
+        $e->throw();
+    }
+    umask $oldUmask;
 
     return ($fh, $tmpfile);
 }
@@ -1077,19 +1089,17 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
             try {
                 EBox::info("Using custom template for $file: $customStub");
                 $comp = $interp->make_component(comp_file => $customStub);
-            } otherwise {
-                my $ex = shift;
+            } catch ($e) {
                 EBox::error("Falling back to default $stub due to exception " .
-                            "processing custom template $customStub: $ex");
+                            "processing custom template $customStub: $e");
                 $comp = $interp->make_component(comp_file => $stub);
             };
         } else {
             $comp = $interp->make_component(comp_file => $stub);
         }
-    } otherwise {
-        my $ex = shift;
-        throw EBox::Exceptions::Internal("Template $compname failed with $ex");
-    };
+    } catch ($e) {
+        throw EBox::Exceptions::Internal("Template $compname failed with $e");
+    }
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not
     # scare users. New mason version fixes this issue

@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,7 +26,7 @@ use EBox::Gettext;
 use EBox::Service;
 use EBox::Menu::Item;
 use EBox::Menu::Folder;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Validate qw(:all);
 use EBox::Sudo;
 use EBox;
@@ -157,9 +158,9 @@ sub _syncDate
         return unless $exserver;
         try {
             EBox::Sudo::root("/usr/sbin/ntpdate $exserver");
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             EBox::warn("Couldn't execute ntpdate $exserver");
-        };
+        }
     }
 }
 
@@ -171,7 +172,8 @@ sub _preSetConf
         $self->_stopService();
         sleep 2;
         $self->_syncDate();
-    } otherwise {};
+    } catch {
+    }
 }
 
 #  Method: _daemons

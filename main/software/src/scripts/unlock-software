@@ -3,7 +3,7 @@
 use EBox;
 use EBox::Config;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -11,12 +11,12 @@ my $lockFile = EBox::Config::tmp() . 'ebox-software-lock';
 my $software = EBox::Global->modInstance('software');
 try {
    $software->_isModLocked();
-} otherwise {
+} catch {
    if ( -e $lockFile ) {
       unlink($lockFile);
    }
    $software->st_unset('lockedBy');
    $software->st_unset('lockerPid');
-};
+}
 
 1;

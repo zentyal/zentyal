@@ -30,8 +30,9 @@ use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 
 # Method: mainObjectClass
@@ -39,6 +40,11 @@ use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
 sub mainObjectClass
 {
     return 'inetOrgPerson';
+}
+
+sub printableType
+{
+    return __('contact');
 }
 
 # Class method: defaultContainer
@@ -136,6 +142,10 @@ sub create
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
     my $fullName = $args{fullname};
+    my $parent = $args{parent};
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
+
     $fullName = $class->generatedFullName(%args) unless ($fullName);
 
     unless ($fullName) {
@@ -146,9 +156,11 @@ sub create
         );
     }
 
+    $class->checkCN($parent, $fullName);
+
     my $usersMod = EBox::Global->modInstance('users');
 
-    my $dn = 'cn=' . $args{fullname} . ',' . $args{parent}->dn();
+    my $dn = 'cn=' . $fullName . ',' . $parent->dn();
 
     my $res = undef;
     my $parentRes = undef;
@@ -160,7 +172,7 @@ sub create
         # Call modules initialization. The notified modules can modify the entry, add or delete attributes.
         $entry = $parentRes->_entry();
         $usersMod->notifyModsPreLdapUserBase(
-            'preAddContact', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+            'preAddContact', [$entry, $parent], $ignoreMods, $ignoreSlaves);
 
         my $result = $entry->update($class->_ldap->{ldap});
         if ($result->is_error()) {
@@ -176,10 +188,8 @@ sub create
         $res = new EBox::Users::Contact(dn => $dn);
 
         # Call modules initialization
-        $usersMod->notifyModsLdapUserBase('addContact', $res, $args{ignoreMods}, $args{ignoreSlaves});
-    } otherwise {
-        my ($error) = @_;
-
+        $usersMod->notifyModsLdapUserBase('addContact', $res, $ignoreMods, $ignoreSlaves);
+    } catch ($error) {
         EBox::error($error);
 
         # A notified module has thrown an exception. Delete the object from LDAP
@@ -188,18 +198,18 @@ sub create
         #      commitTransaction and rollbackTransaction. This will allow modules to
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
-            $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $args{ignoreMods}, $args{ignoreSlaves});
+            $usersMod->notifyModsLdapUserBase('addContactFailed', $res, $ignoreMods, $ignoreSlaves);
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddContactFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddContactFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
             $parentRes->deleteObject(@_);
         }
         $res = undef;
         $parentRes = undef;
         $entry = undef;
         throw $error;
-    };
+    }
 
     if ($res->{core_changed}) {
         $res->save();

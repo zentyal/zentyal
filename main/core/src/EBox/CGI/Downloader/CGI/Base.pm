@@ -27,10 +27,11 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 # Core modules
 use File::Basename;
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Dependencies
 use File::MMagic;

@@ -20,16 +20,16 @@ package EBox::SysInfo;
 
 use base qw(EBox::Module::Config EBox::Report::DiskUsageProvider);
 
-use HTML::Mason;
 use HTML::Entities;
 use Sys::Hostname;
 use Sys::CpuLoad;
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Config;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::Html;
 use EBox::Dashboard::Widget;
 use EBox::Dashboard::Section;
 use EBox::Dashboard::List;
@@ -41,6 +41,7 @@ use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
 use EBox::Util::Version;
 use EBox::Util::Software;
+use EBox::Exceptions::Internal;
 
 use constant LATEST_VERSION => '/var/lib/zentyal/latestversion';
 use constant UPDATES_URL => 'http://update.zentyal.org/updates';
@@ -112,6 +113,12 @@ sub menu
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/Backup',
                                       'text' => __('Import/Export Configuration'),
                                       'order' => 50));
+
+    if (EBox::Config::boolean('debug')) {
+        $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Debug',
+                                          'text' => __('Debug'),
+                                          'order' => 55));
+    }
 
     $system->add(new EBox::Menu::Item('url' => 'SysInfo/View/Halt',
                                       'text' => __('Halt/Reboot'),
@@ -199,23 +206,6 @@ sub aroundRestoreConfig
     my ($self, $dir, @extraOptions) = @_;
     $self->SUPER::aroundRestoreConfig($dir, @extraOptions);
     $self->_load_state_from_file($dir);
-    $self->setReloadPageAfterSavingChanges(0);
-}
-
-sub setReloadPageAfterSavingChanges
-{
-    my ($self, $reload) = @_;
-    my $state = $self->get_state;
-    $state->{reloadPageAfterSavingChanges} = $reload;
-    $self->set_state($state);
-}
-
-# return wether we should reload the page after saving changes
-sub reloadPageAfterSavingChanges
-{
-    my ($self) = @_;
-    my $state = $self->get_state;
-    return $state->{reloadPageAfterSavingChanges};
 }
 
 #
@@ -361,14 +351,7 @@ sub linksWidget
         softwarePackage => $global->modExists('software'),
     );
 
-    my $html;
-    my $interp = new HTML::Mason::Interp(comp_root  => EBox::Config::templates(),
-                                         out_method => sub { $html .= $_[0] });
-    my $component = $interp->make_component(
-        comp_file => EBox::Config::templates() . 'dashboard/links-widget.mas'
-       );
-    $interp->exec($component, @params);
-
+    my $html = EBox::Html::makeHtml('dashboard/links-widget.mas', @params);
     $section->add(new EBox::Dashboard::HTML($html));
 }
 
@@ -450,9 +433,9 @@ sub _restartAllServices
                 ($name eq 'firewall');
         try {
             $mod->restartService();
-        } catch EBox::Exceptions::Internal with {
+        } catch (EBox::Exceptions::Internal $e) {
             $failed .= "$name ";
-        };
+        }
     }
     if ($failed ne "") {
         throw EBox::Exceptions::Internal("The following modules " .
@@ -464,8 +447,8 @@ sub _restartAllServices
     try {
         EBox::Sudo::root('service rsyslog restart',
                          'service cron restart');
-    } catch EBox::Exceptions::Internal with {
-    };
+    } catch (EBox::Exceptions::Internal $e) {
+    }
 }
 
 my $_dashboardStatusStrings;

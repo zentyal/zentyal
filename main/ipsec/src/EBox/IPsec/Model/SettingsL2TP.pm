@@ -24,6 +24,7 @@ use EBox::Gettext;
 use EBox::Types::HostIP;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
+use EBox::Exceptions::External;
 
 # Group: Public methods
 

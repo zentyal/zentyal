@@ -21,11 +21,11 @@ my @tableHead = @{$dataTable->{'tableDescription'}};
 </div>
 
 
-	<div id='error_<% $dataTable->{'tableName'} %>'></div>
+	<div id='<% $dataTable->{'tableName'} %>_error'></div>
 
 	<div id="<% $dataTable->{'tableName'} %>">
-	
-		<& /ajax/tableBody.mas, 
+
+		<& /ajax/tableBody.mas,
 						'data' => \@data,
 						'dataTable' => $dataTable,
 						'model' => $model,

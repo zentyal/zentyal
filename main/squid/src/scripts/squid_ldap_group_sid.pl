@@ -28,6 +28,7 @@ use File::Temp qw(tempfile);
 use Authen::SASL qw(Perl);
 use Authen::Krb5::Easy qw(kinit kdestroy kerror);
 use Net::LDAP;
+use Net::LDAP::Util qw(escape_filter_value canonical_dn);
 use Data::Hexdumper;
 use Time::HiRes;
 use POSIX;
@@ -48,12 +49,17 @@ sub logevent
     my $timestamp = POSIX::strftime("%Y-%m-%d %H:%M:%S", localtime ($x));
     $timestamp .= ".$y";
 
-    $level = 'DEBUG' if ($level == LOG_DEBUG);
-    $level = 'INFO'  if ($level == LOG_INFO);
-    $level = 'ERROR' if ($level == LOG_ERROR);
+    if ($level == LOG_DEBUG) {
+        $level = 'DEBUG';
+    } elsif ($level == LOG_INFO) {
+        $level = 'INFO';
+    } elsif ($level == LOG_ERROR) {
+        $level = 'ERROR';
+    }
+
     $msg = "$timestamp $level> $msg\n";
 
-	print STDERR $msg;
+    print STDERR $msg;
     if (length $opt{l}) {
         open (my $log, '>>', $opt{l}) or return;
         print $log $msg;
@@ -146,11 +152,11 @@ sub check
     logevent(LOG_DEBUG, "\n" . hexdump(data => $user, suppress_warnings => 1));
     logevent(LOG_DEBUG, "\n" . hexdump(data => $groupSID, suppress_warnings => 1));
 
-	if ($opt{K} && ($user =~ m/\@/)) {
-		my @tmpuser = split (/\@/, $user);
-		$user = $tmpuser[0];
+    if ($opt{K} && ($user =~ m/\@/)) {
+        my @tmpuser = split (/\@/, $user);
+        $user = $tmpuser[0];
         logevent(LOG_DEBUG, "Realm strip enabled, username changed to '$user'");
-	}
+    }
 
     unless (defined $groupSID and length $groupSID) {
         logevent(LOG_ERROR, "Undefined group SID");
@@ -216,10 +222,15 @@ sub check
     # objects all the way to the root until it finds a match. This reveals
     # group nesting. It is available only on domain controllers with
     # Windows Server 2003 SP2 or above
+    $userDN = canonical_dn($userDN);
+    $groupDN = canonical_dn($groupDN);
+    $groupDN = escape_filter_value($groupDN);
+    my $filter = "(memberOf:1.2.840.113556.1.4.1941:=$groupDN)";
+    logevent(LOG_DEBUG, "LDAP search filter is '$filter'");
     $result = $ldap->search(
         base => $userDN,
         scope => 'base',
-        filter => "(memberOf:1.2.840.113556.1.4.1941:=$groupDN)",
+        filter => $filter,
         attrs => ['*']);
     if ($result->is_error()) {
         logevent(LOG_ERROR, "Error in LDAP search: " . $result->error_desc());
@@ -270,14 +281,14 @@ sub init
 
 sub usage
 {
-	print "Usage: squid_ldap_group_sid.pl [options]\n";
-	print "\t--host <host>              LDAP server to connect to\n";
+    print "Usage: squid_ldap_group_sid.pl [options]\n";
+    print "\t--host <host>              LDAP server to connect to\n";
     print "\t--keytab <path>            Keytab path to use to bind to LDAP\n";
     print "\t--principal <principal>    Principal name to use from keytab\n";
-	print "\t--strip-realm              Strip Kerberos realm from user names\n";
-	print "\t--debug                    Enable debugging\n";
+    print "\t--strip-realm              Strip Kerberos realm from user names\n";
+    print "\t--debug                    Enable debugging\n";
     print "\t--log <path>               Log file path\n";
-	exit;
+    exit;
 }
 
 # Disable output buffering
@@ -290,20 +301,20 @@ while (<STDIN>) {
     # Remove trailing \n
     chomp ($_);
 
-	logevent(LOG_INFO, "Received request from squid '$_'");
+    logevent(LOG_INFO, "Received request from squid '$_'");
     logevent(LOG_DEBUG, "\n" . hexdump(data => $_, suppress_warnings => 1));
 
     # Split the user and groups SIDs to check against
     my ($user, @groups) = split(/\s+/);
 
- 	# Test membership for each received group
+    # Test membership for each received group
     my $ans = 'ERR';
- 	foreach my $group (@groups) {
- 		$ans = check($user, $group);
- 		last if $ans eq "OK";
- 	}
-	logevent(LOG_INFO, "Returning '$ans' to squid");
-	print STDOUT "$ans\n";
+    foreach my $group (@groups) {
+        $ans = check($user, $group);
+        last if $ans eq "OK";
+    }
+    logevent(LOG_INFO, "Returning '$ans' to squid");
+    print STDOUT "$ans\n";
 }
 
 exit 0;

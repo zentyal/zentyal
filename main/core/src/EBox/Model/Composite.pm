@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -47,7 +48,7 @@ use EBox::Gettext;
 use EBox::Model::Manager;
 
 # Other modules uses
-use Error qw(:try);
+use TryCatch::Lite;
 
 #################
 # Dependencies
@@ -843,9 +844,11 @@ sub clone
 
             $comp->clone($compSrcDir, $compDstDir);
         }
-    } finally {
+    } catch ($e) {
         $self->setDirectory($origDir, 1);
-    };
+        $e->throw();
+    }
+    $self->setDirectory($origDir, 1);
 }
 
 1;

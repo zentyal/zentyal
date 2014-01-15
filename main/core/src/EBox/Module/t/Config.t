@@ -3,7 +3,7 @@ use warnings;
 
 use Test::More tests => 12;
 use Test::Exception;
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Global::TestStub;
 
@@ -23,9 +23,11 @@ try {
     changeConfKeyTest();
     changeStateKeyTest();
     checkFileDump();
-} finally {
+} catch ($e) {
     finalize();
-};
+    $e->throw();
+}
+finalize();
 
 sub startup
 {

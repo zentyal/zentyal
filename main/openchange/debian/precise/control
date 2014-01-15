@@ -7,9 +7,10 @@ Standards-Version: 3.9.2
 
 Package: zentyal-openchange
 Architecture: all
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4),
  zentyal-mail, zentyal-samba,
- openchangeserver (>= 1:2.0-QUADRANT-371-g4dd336c-0zentyal0),
+ openchangeserver (>= 1:2.0-QUADRANT-385-g1dd55ee-0zentyal0),
+ openchange-ocsmanager (>= 1:2.0-QUADRANT-385-g1dd55ee-0zentyal0),
  libstring-random-perl,
  sogo-openchange (>= 2.1.0-zentyal6),
  sope4.9-gdl1-mysql (>= 4.9-zentyal1),
@@ -18,8 +19,9 @@ Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
  libanyevent-rabbitmq-perl,
  libnet-rabbitfoot-perl,
  librabbitmq1,
- rabbitmq-server
-Description: Zentyal - OpenChange server
+ rabbitmq-server,
+ zoctools (>= 0.1-4)
+Description: Zentyal - OpenChange Server
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
  Manager, Unified Communications Server or a combination of them. One

@@ -23,7 +23,7 @@ package EBox::Samba::SysvolSync;
 use EBox::Global;
 use EBox::Util::Random;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::Ping;
 use Net::DNS;
 use Authen::Krb5::Easy qw{kinit kcheck kdestroy kerror kexpires};
@@ -88,11 +88,10 @@ sub extractKeytab
         } else {
             EBox::error("kinit error: " . kerror());
         }
-    } otherwise {
-        my ($error) = @_;
+    } catch ($error) {
         EBox::error("Could not extract keytab: $error");
         $ok = undef;
-    };
+    }
     return $ok;
 }
 

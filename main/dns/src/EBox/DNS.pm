@@ -39,8 +39,10 @@ use EBox::NetWrappers;
 
 use EBox::Exceptions::Sudo::Command;
 use EBox::Exceptions::UnwillingToPerform;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::MissingArgument;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp;
 use File::Slurp;
 use Fcntl qw(:seek);
@@ -658,21 +660,12 @@ sub _setConf
     my $sambaZones = undef;
     if (EBox::Global->modExists('samba')) {
         my $sambaModule = EBox::Global->modInstance('samba');
-        if ($sambaModule->isEnabled() and
-            $sambaModule->getProvision->isProvisioned()) {
+        if ($sambaModule->isEnabled() and (
+            $sambaModule->getProvision->isProvisioned() or
+            $sambaModule->getProvision->isProvisioning())) {
             # Get the zones stored in the samba LDB
             my $ldb = $sambaModule->ldb();
-            @{$sambaZones} = map { $_->name() } @{$ldb->dnsZones()};
-
-            # Get the DNS keytab path used for GSSTSIG zone updates
-            if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
-                $keytabPath = EBox::Samba::SAMBA_DNS_KEYTAB();
-            }
-        } elsif ($sambaModule->isEnabled() and
-                 $sambaModule->getProvision->isProvisioning()) {
-            my $sysinfo = $self->global->modInstance('sysinfo');
-            my $adDomain = $sysinfo->hostDomain();
-            $sambaZones = [ $adDomain ];
+            @{$sambaZones} = map { lc $_->name() } @{$ldb->dnsZones()};
 
             # Get the DNS keytab path used for GSSTSIG zone updates
             if (EBox::Sudo::fileTest('-f', $sambaModule->SAMBA_DNS_KEYTAB())) {
@@ -1566,14 +1559,13 @@ sub _launchNSupdate
     my ($self, $fh) = @_;
 
     my $cmd = NS_UPDATE_CMD . ' -l -t 10 ' . $fh->filename();
-    if ( $self->_isNamedListening() ) {
+    if ($self->_isNamedListening()) {
         try {
             EBox::Sudo::root($cmd);
-        } otherwise {
-            my ($ex) = @_;
-            EBox::error("nsupdate error: $ex");
+        } catch ($e) {
+            EBox::error("nsupdate error: $e");
             $fh->unlink_on_destroy(0); # For debug purposes
-        };
+        }
     } else {
         $self->{nsupdateCmds} = [] unless exists $self->{nsupdateCmds};
         push(@{$self->{nsupdateCmds}}, $cmd);
@@ -1915,6 +1907,17 @@ sub hostDomainChangedDone
     if (defined $row) {
         $row->elementByName('domain')->setValue($newDomainName);
         $row->store();
+        my $txtModel = $row->subModel('txt');
+        foreach my $id (@{$txtModel->ids()}) {
+            my $txtRow = $txtModel->row($id);
+            my $hostNameElement = $txtRow->elementByName('hostName');
+            if (defined $hostNameElement and $hostNameElement->value() eq '_kerberos') {
+                my $dataElement = $txtRow->elementByName('txt_data');
+                $dataElement->setValue($newDomainName);
+                $txtRow->store();
+                last;
+            }
+        }
     }
 }
 

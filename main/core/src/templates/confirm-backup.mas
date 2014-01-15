@@ -28,7 +28,7 @@ if ($popup) {
             $data .= '&backupfile=' . uri_escape($backup->{file});
         }
         $data .= "&popup=1";
-        $onclickSubmit = qq{onclick="Zentyal.Dialog.showURL('$url', {title:'$title', data:'$data'}); return false"};
+        $onclickSubmit = qq{onclick="Zentyal.Dialog.close(); Zentyal.Dialog.showURL('$url', {title:'$title', data:'$data', showCloseButton: false}); return false"};
     } elsif ($action eq 'delete') {
         $data .= '&id=' . $backup->{id};
         $onclickSubmit = qq(onclick="Zentyal.Dialog.close(); window.location='$url?$data'; return false");
@@ -39,62 +39,38 @@ if ($popup) {
 }
 </%init>
 
-<br/>
-<table class='formTable'>
-        <tbody>
-                <tr>
-                        <td class='tright'>
-                                <span class='ftitle'><% __('Date') %>:</span>
-                        </td>
-                        <td>
-                                <% $backup->{'date'} %>
-                        </td>
-                </tr>
-                <tr>
-                        <td class='tright'>
-                                <span class='ftitle'><% __('Description') %>:</span>
-                        </td>
-                        <td>
-                                <% $backup->{'description'} %>
-                        </td>
-                </tr>
+<form action='Backup' method='POST' class="formDiv">
+    <& /input/hidden.mas, name => 'popup', value => $popup &>
+    <& .backupIdentifier, backup => $backup &>
+    <div>
+        <label><% __('Date') %></label>
+        <span><% $backup->{'date'} %></span>
+    </div>
+    <div>
+        <label><% __('Description') %></label>
+        <span><% $backup->{'description'} %></span>
+    </div>
 %               if (exists $backup->{'size'}) {
-                 <tr>
-                        <td class='tright'>
-                                <span class='ftitle'><% __('Archive size') %>:</span>
-                        </td>
-                        <td>
-                                <% $backup->{'size'} %>
-                        </td>
-                 </tr>
+    <div>
+        <label><% __('Archive size') %></label>
+        <span><% $backup->{'size'} %></span>
+    <div>
 %                }
-
-        <form action='Backup' method='POST'>
-          <& /input/hidden.mas, name => 'popup', value => $popup &>
-                <tr>
-                        <td></td>
-                        <td>
-                                        <& .backupIdentifier, backup => $backup &>
-
-
-                                        <input class='inputButton' type='submit'
-                                                        name='<%$action%>'
-                                                        value='<%$actiontext%>'
-                                                        alt='<%$actiontext%>'
-                                          <% $onclickSubmit  %>
-                                         />
-                                        <input class='inputButton' type='submit'
-                                                        name='cancel'
-                                                        value="<%__('Cancel')%>"
-                                                        alt="<%__('Cancel')%>"
-                                          <% $onclickCancel %>
-                                        />
-                                </form>
-                        </td>
-                </tr>
-        </tbody>
-</table>
-<br/>
+    <div class="form-buttons">
+        <input class='inputButton' type='submit'
+                        name='<%$action%>'
+                        value='<%$actiontext%>'
+                        alt='<%$actiontext%>'
+          <% $onclickSubmit  %>
+         />
+        <input class='inputButton' type='submit'
+                        name='cancel'
+                        value="<%__('Cancel')%>"
+                        alt="<%__('Cancel')%>"
+          <% $onclickCancel %>
+        />
+    </div>
+</form>
 
 <%def .backupIdentifier >
 <%args>

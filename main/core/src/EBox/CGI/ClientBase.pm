@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -88,7 +89,7 @@ sub _header
 {
     my $self = shift;
     print($self->cgi()->header(-charset=>'utf-8'));
-    print(EBox::Html::header($self->{title}));
+    print(EBox::Html::header($self->{title}, $self->menuFolder()));
 }
 
 sub _top

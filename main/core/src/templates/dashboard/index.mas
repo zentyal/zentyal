@@ -5,6 +5,7 @@
     @brokenPackages
     $softwareInstalled => 0
     $message => undef
+    $crashreport => undef
 </%args>
 <%init>
 use utf8;
@@ -13,11 +14,17 @@ use EBox::SysInfo;
 
 my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStrings());
 </%init>
-<script type="text/javascript"  src="/data/js/dashboard.js">//</script>
+<script type="text/javascript" src="/data/js/dashboard.js">//</script>
+<script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>
-% if ($message) {
+% if ($crashreport) {
+<script type="text/javascript"  src="/data/js/crashreport.js">//</script>
+<div id="notification_container" class='warning'>
+<span id="notification_text"><% $crashreport %></span>
+</div>
+% } elsif ($message) {
 <div id="notification_container" class='tip'>
 <span id="notification_text"><% $message->{text} %></span>
 <a id="popx" onclick="Zentyal.Dashboard.closeNotification('<% $message->{name} %>'); return false">×</a>

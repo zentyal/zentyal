@@ -25,7 +25,7 @@ package EBox::IPS;
 
 use base qw(EBox::Module::Service EBox::LogObserver EBox::FirewallObserver);
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Gettext;
 use EBox::Service;

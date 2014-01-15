@@ -28,13 +28,14 @@ use EBox::Samba::AuthKrbHelper;
 use EBox::Samba::SmbClient;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Samba::LDAP::Control::SDFlags;
 
 use Encode qw(encode decode);
 use Parse::RecDescent;
 use Data::UUID;
 use Fcntl;
-use Error qw( :try );
+use TryCatch::Lite;
 use Net::LDAP::Control;
 use Samba::Security::Descriptor;
 
@@ -113,11 +114,9 @@ sub new
     } else {
         try {
             $self = $class->SUPER::new(%params);
-        } catch EBox::Exceptions::MissingArgument with {
-            my ($error) = @_;
-
-            throw EBox::Exceptions::MissingArgument("$error|displayName");
-        };
+        } catch (EBox::Exceptions::MissingArgument $e) {
+            throw EBox::Exceptions::MissingArgument("$e|displayName");
+        }
     }
     return $self;
 }
@@ -439,11 +438,10 @@ sub create
             Samba::Smb::DENY_NONE);
         $smb->write($fd, $gptContent, length($gptContent));
         $smb->close($fd);
-    } otherwise {
-        my ($error) = @_;
+    } catch ($e) {
         $createdGPO->deleteObject();
-        throw $error;
-    };
+        $e->throw();
+    }
 
     return $createdGPO;
 }

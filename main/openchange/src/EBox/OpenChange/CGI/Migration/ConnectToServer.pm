@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new
 {
@@ -60,7 +60,7 @@ sub _process
 
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $request = {
-            command => 1,
+            command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_CONNECT(),
             remote => {
                 address  => $server,
                 username => $usernameOrigin,
@@ -79,12 +79,10 @@ sub _process
             $self->{json}->{success} = 0;
             $self->{json}->{error} = $response->{error};
         }
-    } otherwise {
-        my ($error) = @_;
-
+    } catch ($error) {
         $self->{json}->{success} = 0;
         $self->{json}->{error} = qq{$error};
-    };
+    }
 }
 
 1;

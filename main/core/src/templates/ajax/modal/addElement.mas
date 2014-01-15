@@ -1,0 +1,132 @@
+<%flags>
+  inherit => '/ajax/modal/base.mas'
+</%flags>
+<%args>
+  $model
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+  %presetParams => ()
+  $hideTable => 1
+  $selectCallerId => undef
+  $selectForeignField => undef
+  $nextPageContextName => undef
+  $foreignNextPageField    => undef
+</%args>
+<%init>
+use EBox::Gettext;
+use EBox::Model::DataTable;
+use POSIX;
+</%init>
+
+<& SELF:view,
+   model      => $model,
+   hasChanged => $hasChanged,
+   action     => 'changeAdd',
+   selectCallerId => $selectCallerId,
+   selectForeignField => $selectForeignField,
+   nextPageContextName => $nextPageContextName,
+   foreignNextPageField    => $foreignNextPageField,
+&>
+
+<%doc>
+  Method: _body
+
+     Set the model viewer body. Check the overridden method very
+     carefully.
+
+  Overrides:
+
+     /ajax/modelViewer.mas:_body
+
+</%doc>
+<%method _body>
+<%args>
+  $model
+  $editid => ''
+  $hasChanged => 1
+  $filter => ''
+  $page => 0
+  $tpages => 0
+  %presetParams => ()
+  $selectCallerId
+</%args>
+<%init>
+  use EBox::Gettext;
+
+  my $action = 'changeAdd';
+  my @formData;
+  # Fetch table head from model
+  # Pointer to different values for convenience
+  my $actions = $model->table()->{'actions'};
+  my $changeView = $model->action('changeView');
+  my $printableRowName = $model->table()->{'printableRowName'};
+  my $tableName = $model->table()->{'tableName'};
+  my $printableTableName = $model->table()->{'printableTableName'};
+
+if ( ((keys %presetParams) > 0)
+            and $action eq 'presetUpdate') {
+      # The preset is not empty
+      @formData = values(%presetParams);
+} else {
+      my @tableHead = @{$model->table()->{'tableDescription'}};
+      @formData = @tableHead;
+}
+
+my $cancelJs =$model->modalCancelAddJS(selectCallerId => $selectCallerId);
+</%init>
+
+<div id="<% 'hiddenDiv_' . $model->name() | h %>" class="hidden"></div>
+<div id='<% $model->modelName() | hu %>_modal_error'></div>
+
+<div id="<% $model->modelName() %>">
+<& SELF:helpAndMessages, model => $model &>
+<form name="<% $tableName . '_form' %>" class="formDiv"> 
+       <& /ajax/modal/changeRowForm.mas,
+              action => $action,
+              model  => $model,
+              editid => undef,
+              filter => $filter,
+              page   => 0,
+              tpages => 1,
+              presetParams  => \%presetParams,
+              printableRowName => $model->printableRowName
+           &>
+</form>
+%   my $customizer = $formData[0]->model()->viewCustomizer();
+%   if ($customizer) {
+<script>
+<%   $customizer->onChangeActionsJS() %>
+</script>
+%    }
+
+
+</div>
+
+<div id='buttons_on_next_page' style='display:none'>
+<p>
+<table>
+ <tr>
+    <td><& /input/submit.mas,
+        class => '',
+        type => 'submit',
+        name => 'done',
+        value => __('Done'),
+        title => 'Done',
+        onclick => 'Zentyal.Dialog.close(); return false'
+    &></td>
+    <td><& /input/button.mas,
+        class => '',
+        name => 'cancel_add',
+        id   => 'cancel_add',
+        value => __('Cancel'),
+        title => 'Cancel',
+        onclick => $cancelJs . '; return false',
+    &></td>
+ </tr>
+</table>
+</div>
+% # End body method
+</%method>

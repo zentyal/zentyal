@@ -110,18 +110,20 @@ $group
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
+                                    <div class="inline-input">
                                         <input type='text' class='inputText' name='lhs'>
+                                        <span>@</span>
                                         <select name="rhs" enabled>
 %                                       foreach my $vd (@vdomains) {
                                                 <option value= <% $vd %> > <% __($vd) %> </option>
 %                                       }
                                         </select>
+                                      </div>
                                 </td>
                                 <td class='tcenter'>
-                                        <input class='inputButton'
+                                        <input class='btn-only-icon btn-add'
                                                id='mailCreateAlias_submit'
-                                               type='image'
-                                               src='/data/images/add.gif'
+                                               type='submit'
                                                name='change'
                                                value="<% __('Create') %>"
                                                title="<% __('Create') %>"

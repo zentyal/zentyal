@@ -29,7 +29,7 @@ if (scalar @ifaces == 1) {
     }
 </script>
 <h3><% __('Network interfaces') %></h3>
-<form method="post" action="./Network/Wizard/Network" style="text-align: center">
+<form method="post" action="./Network/Wizard/Network" style="text-align: center" class="formDiv">
         <div><img src="/data/images/interfaces.png" /></div>
         <h4><% __('Configure network for external interfaces') %></h4>
         <div><% __('Now you can set IP addresses and networks for each interface') %></div>
@@ -39,31 +39,24 @@ if (scalar @ifaces == 1) {
 % # Limit internal ifaces options if there is any external
 % my $limit = ($counter >= $numExt) && ($numExt > 0);
         <div style="margin: 30px">
-            <table style="margin: 0 auto; text-align: left">
-                <tr>
-                   <td><h3 style="text-align: left"><% $iface %></h3></td>
-                   <td></td>
-                </tr>
-                <tr>
-                   <td><% __('Method') %>:</td>
-                   <td>
-                     <select id='<% $iface %>_method' name='<% $iface %>_method' onchange="changeState('<% $iface %>')">
+          <h3 style="text-align: left"><% $iface %></h3>
+            <div class="inline-input form-buttons">
+              <label class="inline-label"><% __('Method') %></label>
+              <select id='<% $iface %>_method' name='<% $iface %>_method' onchange="changeState('<% $iface %>')">
                        <option <% $selectedNotSet %> value='notset'><% __('Don\'t configure') %></option>
 % unless ($limit) {
                        <option <% $selectedDHCP %> value='dhcp'>DHCP</option>
 % }
                        <option value='static'>Static</option>
                      </select>
-                   </td>
-                </tr>
-                <tbody id="<% $iface %>_static" style="display: none">
-                <tr>
-                  <td><% __('IP address') %>:</td>
-                  <td><input type='text' size='16' name="<% $iface %>_address" /></td>
-                </tr>
-                <tr>
-                  <td><% __('Netmask') %>:</td>
-                  <td>
+                </div>
+                <div id="<% $iface %>_static" style="display: none">
+                <div class="inline-input  form-buttons">
+                  <label class="inline-label"><% __('IP address') %></label>
+                  <input type='text' size='16' name="<% $iface %>_address" />
+                </div>
+                <div class="inline-input  form-buttons">
+                  <label class="inline-label"><% __('Netmask') %></label>
                    <select name="<% $iface %>_netmask">
                     <option selected value='255.255.255.0'>255.255.255.0</option>
                     <option value='255.255.255.252'>255.255.255.252</option>
@@ -83,24 +76,22 @@ if (scalar @ifaces == 1) {
                     <option value='255.255.0.0'>255.255.0.0</option>
                     <option value='255.0.0.0'>255.0.0.0</option>
                    </select>
-                  </td>
-                </tr>
+                </div>
 % unless ($limit) {
-                <tr>
-                  <td><% __('Gateway') %>:</td>
-                  <td><input type='text' size='16' name="<% $iface %>_gateway" /></td>
-                </tr>
-                <tr>
-                  <td><% __('Domain Name Server') %> 1:</td>
-                  <td><input type='text' size='16' name="<% $iface %>_dns1" /></td>
-                </tr>
-                <tr>
-                  <td><% __('Domain Name Server') %> 2:</td>
-                  <td><input type='text' size='16' name="<% $iface %>_dns2" /></td>
-                </tr>
+                <div class="inline-input  form-buttons">
+                  <label class="inline-label"><% __('Gateway') %></label>
+                  <input type='text' size='16' name="<% $iface %>_gateway" />
+                </div>
+                <div class="inline-input  form-buttons">
+                  <label class="inline-label"><% __('Domain Name Server') %> 1</label>
+                  <input type='text' size='16' name="<% $iface %>_dns1" />
+                </div>
+                <div class="inline-input  form-buttons">
+                  <label class="inline-label"><% __('Domain Name Server') %> 2</label>
+                  <input type='text' size='16' name="<% $iface %>_dns2" />
+                </div>
 % }
-            </tbody>
-            </table>
+                </div>
        </div>
 %     $counter++;
 % }

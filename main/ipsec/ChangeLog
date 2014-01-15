@@ -1,4 +1,7 @@
 3.3
+	+ Switch from Error to TryCatch for exception handling
+	+ Added precondition check for existing 'external' interface.
+	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Set version to 3.3
 3.2

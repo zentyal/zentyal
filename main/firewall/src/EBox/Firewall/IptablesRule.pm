@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -32,6 +33,9 @@ use Clone::Fast;
 use EBox::Validate qw( checkCIDR );
 use EBox::Model::Manager;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 use Perl6::Junction qw( any );
 
 sub new

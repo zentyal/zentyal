@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,7 +29,7 @@ use File::Slurp;
 use File::Basename;
 use HTML::Mason;
 use Test::More;
-use Error qw(:try);
+use TryCatch::Lite;
 use Dir::Self;
 use Cwd 'abs_path';
 
@@ -52,11 +53,10 @@ sub checkTemplateExecution
     try {
         $templateOutput = executeTemplate(template => $template, templateParams => $templateParams, compRoot => $compRoot);
         $templateExecutionOk = 1;
-    } otherwise {
-        my $ex = shift @_;
-        $templateError = "$ex";
+    } catch ($e) {
+        $templateError = "$e";
         $templateOutput = \$templateError; # templateOutput must be a scalar ref to be in the same form that the return value of executeTemplate
-    };
+    }
 
     ok $templateExecutionOk, $testName;
 

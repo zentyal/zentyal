@@ -26,7 +26,7 @@ use EBox::Dashboard::Widget;
 use EBox::Dashboard::Item;
 use POSIX qw(INT_MAX);
 use List::Util qw(sum);
-use Error qw(:try);
+use TryCatch::Lite;
 
 # TODO: Currently we can't have more than two dashboards because of
 # the design of the interface, but this could be incremented in the future
@@ -34,11 +34,11 @@ my $NUM_DASHBOARDS = 2;
 
 sub new
 {
-	my $class = shift;
-	my $self = $class->SUPER::new(@_, title => __('Dashboard'),
-                                 'template' => '/dashboard/index.mas');
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(@_, title => __('Dashboard'),
+                                  'template' => '/dashboard/index.mas');
+    bless($self, $class);
+    return $self;
 }
 
 my $widgetsToHide = undef;
@@ -154,10 +154,13 @@ sub masonParameters
     my $rs = EBox::Global->modInstance('remoteservices');
     if (defined ($rs) and $rs->subscriptionLevel() >= 0) {
         $showMessage = 0;
+        # Re-check for changes
+        $rs->checkAdMessages();
+        my $rsMsg = $rs->adMessages();
+        push (@params, 'message' => $rsMsg) if ($rsMsg->{text});
     }
 
     if ($showMessage) {
-        my $sysinfo = EBox::Global->modInstance('sysinfo');
         my $state = $sysinfo->get_state();
         my $lastTime = $state->{lastMessageTime};
         my $currentTime = time();
@@ -173,6 +176,23 @@ sub masonParameters
         }
     }
 
+    if (EBox::Config::boolean('debug')) {
+        my $report = $sysinfo->model('Debug')->value('enabled');
+        # TODO: currently apport reports are only enabled for openchange
+        if ($report and EBox::Global->modExists('openchange')) {
+            EBox::Sudo::silentRoot('ls /var/crash | grep -q ^_opt_samba4');
+            if ($? == 0) {
+                my $style = 'margin-top: 10px; margin-bottom: -6px;';
+                my $text = __sx('Crash report found! Click the button if you want to send the following files anonymously to help fixing the issue: {p}. Although Zentyal will make a good use of this information, please review the files if you want to be sure they do not contain any sensible information. {oc}{obs}Submit crash report{cb} {obd}Discard{cb}{cc}',
+                                p  => '/var/crash/_opt_samba4_*',
+                                obs => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.report()\">",
+                                obd => "<button style=\"$style\" onclick=\"Zentyal.CrashReport.discard()\">",
+                                cb => '</button>', oc => '<center>', cc => '</center>');
+                push (@params, 'crashreport' => $text);
+            }
+        }
+    }
+
     return \@params;
 }
 
@@ -183,11 +203,27 @@ sub _periodicMessages
         $WIZARD_URL = 'https://remote.zentyal.com/register/';
     }
 
+    my $RELEASE_ANNOUNCEMENT_URL = 'http://trac.zentyal.org/wiki/Document/Announcement/3.3';
+    my $upgradeAction = "releaseUpgrade('Upgrading to Zentyal 3.3')";
+    unless (EBox::Global->modExists('software')) {
+        my $instructionsHtml = '<p>To be able to upgrade from the Zentyal interface you need to install the zentyal-software package with:</p>' .
+                               '<pre>sudo apt-get install zentyal-software</pre>' .
+                               '<p>Alternatively, you can also do an upgrade from the shell following the instructions in the release notes.</p>';
+        $upgradeAction = "upgradeInstructions('Upgrading to Zentyal 3.3', '$instructionsHtml')";
+    }
+
     # FIXME: Close the message also when clicking the URL, not only with the close button
     return [
+#        {
+#         name => 'upgrade',
+#         text => __sx('{oh}Zentyal 3.3{ch} is available! {ob}Upgrade now{cb}',
+#                      oh => "<a target=\"_blank\" href=\"$RELEASE_ANNOUNCEMENT_URL\">", ch => '</a>',
+#                      ob => "<button style=\"margin-left: 20px; margin-top: -6px; margin-bottom: -6px;\" onclick=\"$upgradeAction\">", cb => '</button>'),
+#         days => 0,
+#        },
         {
          name => 'backup',
-         text => __sx('Do you want a remote configuration backup of your Zentyal server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
+         text => __sx('Do you want a remote configuration backup of your Zentyal Server? Set it up {oh}here{ch} for FREE!', oh => "<a href=\"$WIZARD_URL\">", ch => '</a>'),
          days => 1,
         },
         {
@@ -197,12 +233,12 @@ sub _periodicMessages
         },
         {
          name => 'trial',
-         text => __sx('Are you interested in the commercial Zentyal server edition? {oh}Get{ch} a FREE 30-day trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
+         text => __sx('Are you interested in a commercial Zentyal Server edition? {oh}Get{ch} a FREE 30-day Trial!', oh => '<a href="https://remote.zentyal.com/trial/ent/">', ch => '</a>'),
          days => 23,
         },
         {
          name => 'community',
-         text => __sx('Are you a happy Zentyal user? Do you want to help the project? Get involved in the {oh}community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
+         text => __sx('Are you a happy Zentyal Server user? Do you want to help the project? Get involved in the {oh}Community{ch}!', oh => '<a href="http://www.zentyal.org">', ch => '</a>'),
          days => 30,
         },
     ];

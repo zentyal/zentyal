@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -27,8 +28,10 @@ use EBox::FileSystem;
 use EBox::Gettext;
 use EBox::OpenVPN::Client::ValidateCertificate;
 use EBox::OpenVPN::Server::ClientBundleGenerator::EBoxToEBox;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Temp;
 use Params::Validate qw(validate_pos SCALAR);
 
@@ -220,10 +223,9 @@ sub _setPrivateFile
         EBox::Sudo::root("cp '$path' '$newPath'");
         EBox::Sudo::root("chmod 0400 '$newPath'");
         EBox::Sudo::root("chown 0.0 '$newPath'");
-    }
-    otherwise {
+    } catch {
         EBox::Sudo::root("rm -f '$newPath'");
-    };
+    }
 
     $self->setConfString($type, $newPath);
 
@@ -640,15 +642,12 @@ sub restoreCertificates
                                    caCertificate => "$d/caCertificate",
                                    certificate   => "$d/certificate",
                                    certificateKey => "$d/certificateKey");
-    }
-    otherwise {
-        my $e = shift;
-        EBox::error(  'Error restoring certifcates for client '
+    } catch ($e) {
+        EBox::error('Error restoring certifcates for client '
                     . $self->name
                     .'. Probably the certificates will be  inconsistents');
         $e->throw();
-    };
-
+    }
 }
 
 # Method: setCertificatesFilesForName

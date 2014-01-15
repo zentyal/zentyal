@@ -37,13 +37,11 @@ use EBox::Types::Password;
 use EBox::View::Customizer;
 use EBox::Validate;
 use EBox::Exceptions::NotConnected;
+use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use File::Basename;
-use Error qw(:try);
-
-# Constants
-use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=enterprise_edition';
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -144,7 +142,7 @@ sub viewCustomizer
             { method =>
                 {
                 file => { hide => $userPass , show => ['target'] },
-                rsync => { show => $allFields },
+                rsync => { hide => ['password'], show => ['user', 'target'] },
                 scp => { show => $allFields },
                 ftp => { show => $allFields },
                 }
@@ -888,6 +886,12 @@ sub configurationIsComplete
     if (not $user) {
         return 0;
     }
+
+    if ($method eq 'rsync') {
+        # rsync does not need password
+        return 1;
+    }
+
     my $password = $row->valueByName('password');
     if (not $password) {
         return 0;

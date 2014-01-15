@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,7 +23,7 @@ use EBox;
 use EBox::Sudo;
 
 use File::Slurp qw(read_file);
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant PROC_MDSTAT => '/proc/mdstat';
 # see t/testdata fpr examples of mdstat files
@@ -336,6 +337,9 @@ sub _processDeviceMainLine
 {
     my ($line) = @_;
     my %deviceInfo;
+
+    # Remove extra state info like "(read-only)" and "(auto-read-only)"
+    $line =~ s/\s+\(\S*read-only\)//;
 
     my ($activeTag, $raidType, @raidDevicesTags) = split '\s', $line;
 

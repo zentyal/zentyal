@@ -17,18 +17,21 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
 
 <div id="edit_user">
 <h3 class="<% $iconClass %>"><% __('User') %> <% $user->name() %></h3>
-<div id='note_editUserForm' class='note' style='display:none'></div>
-<div id='error_editUserForm' class='error' style='display:none'></div>
+<div id='editUserForm_message' class='note' style='display:none'></div>
+<div id='editUserForm_error' class='error' style='display:none'></div>
 <div id="user_attrs" class="form-block half-block">
       <form class="formDiv" action='/Users/EditUser' method='POST' autocomplete='off' id='editUserForm'>
         <input type="hidden" name="dn" value="<% $user->dn() %>">
         <input type="hidden" name="edit" value="edit">
+          <div>
           <label><% __('First name') %></label>
                   <& masterSlaveUserAttr,
                                name => 'givenname',
                                value => $user->firstname(),
                                slave => $slave,
                    &>
+          </div>
+          <div>
           <label><% __('Last name') %></label>
 
                   <& masterSlaveUserAttr,
@@ -36,32 +39,49 @@ my $iconClass = $user->isDisabled() ? 'icon-duser' : 'icon-user';
                                value=> $user->surname(),
                                slave => $slave,
                    &>
+          </div>
+          <div>
           <label><% __('Description') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'description',
                                value=> ($user->description() or ''),
                                slave => $slave,
                    &>
-
+          </div>
+          <div>
           <label><% __('E-Mail') %><span class="optional_field"><% __('Optional') %></span></label>
                   <& masterSlaveUserAttr,
                                name => 'mail',
                                value => ($user->mail() or ''),
                                slave => $slave,
                    &>
+          </div>
+          <div>
           <label><% __('User quota') %> (MB)</label>
           <input type='text' class='inputText' name='quota' value="<% $user->quota() %>">
-          <label><% __('Disabled account') %></label>
-          <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
+          </div>
+          <div>
+          <label>
+            <input type='checkbox' name='disabled' <% $user->isDisabled() ? "checked" : "" %>>
+            <% __('Disabled account') %>
+          </label>
+          </div>
+          
 %   unless ($slave) {
-          <label><% __('Password') %></label>
-          <input type='password' class='inputText' name='password'>
-          <label><% __('Retype password') %></label>
-          <input type='password' class='inputText' name='repassword'>
+          <div>
+            <label><% __('Password') %></label>
+            <input type='password' class='inputText' name='password'>
+          </div>
+          <div>
+            <label><% __('Retype password') %></label>
+            <input type='password' class='inputText' name='repassword'> 
+          </div>
 % }
+          <div>
           <input class='btn btn-submit' id='submitEditUserForm' type='submit' name='user'
                            value="<% __('Change') %>"
                            alt="<% __('Change') %>">
+          </div>   
      </form>
 </div>
 <div id="user_groups" class="form-block half-block">
@@ -118,7 +138,7 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 </%init>
 
 <& .addToGroup, user => $user &>
-<div id='error_removeUserFromGroup' class='error' style='display:none'></div>
+<div id='removeUserFromGroup_error' class='error' style='display:none'></div>
 <ul name='userGroups' id='userGroups' class="labels-list">
 </ul>
 
@@ -128,8 +148,8 @@ my $groupDataJSON =  $json->encode({  member => \@member, noMember => \@noMember
 "use strict";
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#editUserForm', {
-        noteDiv: '#note_editUserForm',
-        errorDiv: '#error_editUserForm',
+        noteDiv: '#editUserForm_message',
+        errorDiv: '#editUserForm_error',
         submitButton: '#submitEditUserForm',
         success: function(response) {
             if ('set_text' in response) {
@@ -167,7 +187,7 @@ $(function() {
                                   '>delete</span>' +   '</li>'
                                  );
             }
-            userGroups.insertAfter('#error_removeUserFromGroup');
+            userGroups.insertAfter('#removeUserFromGroup_error');
 
 
    };
@@ -188,17 +208,17 @@ $(function() {
        var url = '/Users/EditUser';
        var data = 'delgroupfromuser=1&dn=<% $user->dn() %>';
        data += '&delgroup=' + event.target.getAttribute('data-group-name');
-       $('#error_removeUserFromGroup').html('').hide();
+       $('#removeUserFromGroup_error').html('').hide();
        $.ajax({
           url: url,
           data: data,
           dataType: 'json',
           error: function(jqXHR) {
-             $('#error_removeUserFromGroup').html(jqXHR.responseText).show();
+             $('#removeUserFromGroup_error').html(jqXHR.responseText).show();
           },
           success: function(response) {
              if (!response.success) {
-                $('#error_removeUserFromGroup').html(response.error).show();
+                $('#removeUserFromGroup_error').html(response.error).show();
              }
           },
           complete: function() {
@@ -225,7 +245,7 @@ $(function() {
 <%args>
 $user
 </%args>
-<div id='error_addUserToGroup' class='error' style='display:none'></div>
+<div id='addUserToGroup_error' class='error' style='display:none'></div>
 <form action='/Users/EditUser' method='POST' id='addUserToGroup' >
   <select name="addgroup" id="addgroup">
   </select>

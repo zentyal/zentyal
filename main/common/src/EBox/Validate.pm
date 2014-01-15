@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -20,6 +21,7 @@ package EBox::Validate;
 
 use EBox::Config;
 use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::NetWrappers qw();
 use Net::IP;

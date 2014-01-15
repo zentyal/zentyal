@@ -7,7 +7,7 @@ Standards-Version: 3.9.2
 
 Package: zentyal-nut
 Architecture: all
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), nut-server, libtext-csv-xs-perl
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), nut-server, libtext-csv-xs-perl
 Description: Zentyal - UPS Management
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

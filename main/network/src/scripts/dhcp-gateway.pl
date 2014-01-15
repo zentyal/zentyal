@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -21,7 +22,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use EBox::Util::Lock;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 
@@ -47,6 +48,7 @@ try {
     unless (-f $ifupLock) {
         $network->regenGateways();
     }
-} finally {
-    exit;
-};
+} catch {
+}
+
+exit;

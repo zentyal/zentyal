@@ -36,7 +36,7 @@ use EBox::EBackup::Password;
 use MIME::Base64;
 use String::ShellQuote;
 use Date::Parse;
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Util::Lock;
 
 use EBox::Exceptions::MissingArgument;
@@ -44,6 +44,8 @@ use EBox::Exceptions::NotConnected;
 use EBox::Exceptions::EBackup::FileNotFoundInBackup;
 use EBox::Exceptions::EBackup::BadSymmetricKey;
 use EBox::Exceptions::EBackup::TargetNotReady;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 
 use constant EBACKUP_CONF_FILE => EBox::Config::etc() . 'ebackup.conf';
 use constant DUPLICITY_WRAPPER => EBox::Config::share() . '/zentyal-ebackup/duplicity-wrapper';
@@ -182,9 +184,8 @@ sub restoreFile
                                               );
     try {
         EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $ex = shift;
-        my $error = join "\n", @{ $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my $error = join "\n", @{ $e->error() };
         if ($error =~ m/not found in archive, no files restored/) {
             throw EBox::Exceptions::EBackup::FileNotFoundInBackup(
                     file => $file,
@@ -199,9 +200,9 @@ sub restoreFile
                     )
                );
         } else {
-            $ex->throw();
+            $e->throw();
         }
-    };
+    }
 }
 
 sub _duplicityRestoreFileCmd
@@ -332,10 +333,9 @@ sub dumpExtraData
         }
 
         EBox::Sudo::command("mv $bakFile $extraDataDir");
-    } otherwise {
-        my $ex = shift;
-        EBox::error("Configuration backup failed: $ex. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
-    };
+    } catch ($e) {
+        EBox::error("Configuration backup failed: $e. It will not be possible to restore the configuration from this backup, but the data will be backed up.");
+    }
 }
 
 # Method: includedConfigBackupPath
@@ -447,18 +447,17 @@ sub remoteGenerateListFile
     try {
         EBox::Sudo::root("$collectionCmd > $tmpFile");
         $success = 1;
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $ex = shift;
-        my $error = join "\n", @{ $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my $error = join "\n", @{ $e->error() };
         # check if there is a no-backup yet error
         if ($error =~ m/No signature chains found/ or
             $error =~ m/No such file or directory/
            ) {
             $success = 0;
         } else {
-            $ex->throw();
+            $e->throw();
         }
-    };
+    }
 
     if ($success) {
         EBox::Sudo::root("chown ebox:ebox $tmpFile");
@@ -612,15 +611,14 @@ sub _retrieveRemoteStatus
     my $status = undef;
     try {
         $status =  EBox::Sudo::root($cmd);
-    } catch EBox::Exceptions::Sudo::Command with {
-        my $ex = shift;
-        my $error = join "\n", @{  $ex->error() };
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        my $error = join "\n", @{ $e->error() };
         if ($error =~ m/gpg: decryption failed: bad key/) {
             throw EBox::Exceptions::EBackup::BadSymmetricKey();
         }elsif ($error =~ m/No signature chains found/) {
             $status = [];
         }
-    };
+    }
 
     foreach my $line (@{ $status  }) {
         utf8::decode($line);
@@ -636,11 +634,9 @@ sub updateStatusInBackgroundLock
     my $res;
     try {
         $res = EBox::Util::Lock::lock(UPDATE_STATUS_IN_BACKGROUND_LOCK);
-    } otherwise {
-        throw EBox::Exceptions::External(
-__('Another process is updating the collection status. Please, wait and retry')
-           );
-    };
+    } catch {
+        throw EBox::Exceptions::External(__('Another process is updating the collection status. Please, wait and retry'));
+    }
 
     return $res;
 }

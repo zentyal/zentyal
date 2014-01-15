@@ -22,7 +22,7 @@ use strict;
 use EBox;
 use EBox::Util::Init;
 use EBox::Global;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::init();
 

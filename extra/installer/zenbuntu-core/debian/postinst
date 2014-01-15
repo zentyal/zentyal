@@ -6,8 +6,8 @@ LOG=/var/tmp/zentyal-installer.log
 cp /usr/share/zenbuntu-core/motd.tail /etc/motd.tail
 
 # Import PPA keys to avoid warnings
-apt-key add /usr/share/zenbuntu-desktop/zentyal-ppa.asc >> $LOG 2>&1
-apt-key add /usr/share/zenbuntu-desktop/zentyal-3.2-archive.asc >> $LOG 2>&1
+#apt-key add /usr/share/zenbuntu-desktop/zentyal-ppa.asc >> $LOG 2>&1
+apt-key add /usr/share/zenbuntu-desktop/zentyal-3.3-archive.asc >> $LOG 2>&1
 
 ln -sf /lib/plymouth/themes/zentyal-text/zentyal-text.plymouth /etc/alternatives/text.plymouth
 

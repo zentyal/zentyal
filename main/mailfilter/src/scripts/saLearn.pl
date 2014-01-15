@@ -1,5 +1,6 @@
 #!/usr/bin/perl
 # script to invoke the learning method without using the web UI
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,7 +23,7 @@ use warnings;
 use EBox;
 use EBox::Global;
 use File::Temp;
-use Error qw(:try);
+use TryCatch::Lite;
 
 
 EBox::init();
@@ -49,12 +50,10 @@ if (not defined $mboxFile) {
 my $global = EBox::Global->getInstance(1);
 
 my $mailfilter = $global->modInstance('mailfilter');
-$mailfilter or 
+$mailfilter or
     die "Cannot get mailfilter module instance";
 $mailfilter->configured() or
     die 'Mail filter module is not configured. Enable it at least one time to configure it';
-
-
 
 my @learnParams = (
                    username => $account,
@@ -65,10 +64,9 @@ my @learnParams = (
 
 try {
     $mailfilter->antispam()->learn(@learnParams);
-} otherwise {
- my $ex = @_;
- print "$ex";
-};
-
+} catch {
+    my $ex = @_;
+    print "$ex";
+}
 
 1;

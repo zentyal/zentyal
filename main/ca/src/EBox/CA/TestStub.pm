@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,6 +23,9 @@ package EBox::CA::TestStub;
 use EBox::CA;
 use Test::MockObject;
 use EBox::Gettext;
+use EBox::Exceptions::DataMissing;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox;
 
 # Method: fake

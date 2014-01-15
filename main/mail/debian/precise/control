@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-mail
 Architecture: all
 Pre-Depends: mysql-server
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4), zentyal-firewall, zentyal-users, postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common, dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap, dovecot-gssapi, postgrey, fetchmail, archivemail, ${misc:Depends}
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4), zentyal-firewall, zentyal-users, postfix, postfix-ldap, postfix-pcre, ssl-cert, libsasl2-modules, dovecot-common, dovecot-imapd, dovecot-pop3d, dovecot-sieve, dovecot-managesieved, dovecot-ldap, dovecot-gssapi, postgrey, fetchmail, archivemail, ${misc:Depends}
 Description: Zentyal - Mail Service
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure

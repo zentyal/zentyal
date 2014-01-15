@@ -1,4 +1,5 @@
 <%args>
+    $network
     @ifaces
     $iface
     @vlans => ()
@@ -10,6 +11,7 @@ use EBox::Gettext;
 use EBox::NetWrappers qw(:all);
 @vlans = sort { $a->{id} <=> $b->{id} } @vlans;
 </%init>
+<& /moduleNotEnabled.mas, module => $network &>
 <div class='help'>
 <% __('Remember that changing the network interfaces configuration may cause you to lose access to the administration page.') %>
     <br/>
@@ -25,28 +27,17 @@ use EBox::NetWrappers qw(:all);
   closehref => '</a>') %>
 </div>
 % }
-<form action='Iface' method='post'>
+<form action='Iface' method='post' class="formDiv">
     <input type="hidden" name="ifname" value="<% $iface->{"name"} %>"/>
-    <table class='formTable'>
 %   if (iface_exists($iface->{'name'}) or $iface->{'name'} =~ /^br/) {
-    <tr>
-        <td class='tright'>
-            <span class="ftitle">
-                <%__('Name')%>:
-            </span>
-        </td>
-        <td>
+    <div>
+        <label class="ftitle"><%__('Name')%></label>
             <input type='text' name='ifalias' value='<% $iface->{'alias'} %>'/>
-        </td>
-    </tr>
+    </div>
 %   }
-    <tr>
-        <td class='tright'>
-            <span class="ftitle">
-                <%__('Method')%>:
-            </span>
-        </td>
-        <td>
+    <div>
+        <label><%__('Method')%></label>
+
             <select name='method' id='method'>
 % if ($iface->{'method'} eq 'static') {
                 <option selected value='static'><% __('Static') %></option>
@@ -90,52 +81,32 @@ use EBox::NetWrappers qw(:all);
                 <option value='notset'><% __('Not set') %></option>
 % }
             </select>
-        </td>
-    </tr>
+    </div>
 % unless ($iface->{'name'} =~ /^br/) {
-    <tr id="external">
-        <td class='tright'>
-            <div id="external1">
-            <span class="ftitle">
-                <%__('External (WAN)')%>:
-            </span>
-            </div>
-        </td>
-        <td>
-            <div id="external2">
+    <div id="external">
+        <label>
             <input type='checkbox'
 %                   if ($iface->{'external'} eq 'yes') {
                     checked \
 %                   }
                 name="external" />
-            <div class="field_help">
+            <%__('External (WAN)')%>
+            <span class="field_help">
             <% __('Check this if you are using Zentyal as a gateway and this interface is connected to your Internet router.') %>
-            </div>
-        </td>
-    </tr>
+            </span>
+        </label>
+
+
+    </div>
 % }
-    <tr id="ipaddr">
-        <td class='tright'>
-            <div id="static1">
-                <span class='ftitle'><% __('IP address') %>:</span>
-            </div>
-        </td>
-        <td>
-            <div id="static2">
-            <input class='inputText' type='text' size='16' name='if_address'
+    <div id="ipaddr" class="inline-field">
+        <label><% __('IP address') %></label>
+        <input class='inputText' type='text' size='16' name='if_address'
                    alt='if_name' value='<% $iface->{'address'} %>' />
-            </div>
-        </td>
-    </tr>
-    <tr id="netmask">
-        <td class='tright'>
-            <div id="static3">
-                <span class='ftitle'><% __('Netmask') %>:</span>
-            </div>
-        </td>
-        <td>
-            <div id="static4">
-            <select name="if_netmask">
+    </div>
+    <div id="netmask" class="inline-field">
+      <label><% __('Netmask') %></label>
+       <select name="if_netmask">
 %   my $netmask;
 %   if (defined($iface->{'netmask'})) {
 %       $netmask = $iface->{'netmask'};
@@ -160,18 +131,10 @@ use EBox::NetWrappers qw(:all);
                 <option value='255.255.0.0'>255.255.0.0</option>
                 <option value='255.0.0.0'>255.0.0.0</option>
             </select>
-            </div>
-        </td>
-    </tr>
-    <tr id="bridged">
-        <td class='tright'>
-            <div>
-                <span class='ftitle'><% __('Bridge') %>:</span>
-            </div>
-        </td>
-        <td>
-            <div>
-            <select name="bridge">
+    </div>
+    <div id="bridged">
+        <label><% __('Bridge') %></label>
+        <select name="bridge">
 %   foreach my $bridge ( @bridges ) {
 %       if ( $bridge->{id} == $iface->{bridge} ) {
                 <option value='<% $bridge->{id} %>' selected="true"><% $bridge->{alias} %></option>
@@ -180,44 +143,23 @@ use EBox::NetWrappers qw(:all);
 %       }
 %   }
                 <option value='-1'>New bridge</option>
-            </select>
-            </div>
-        </td>
-    </tr>
-    <tr id="ppp_user">
-        <td class='tright'>
-            <div id="ppp_user1">
-                <span class='ftitle'><% __('User name') %>:</span>
-            </div>
-        </td>
-        <td>
-            <div id="ppp_user2">
+        </select>
+    </div>
+    <div id="ppp_user">
+                <label><% __('User name') %></label>
             <input class='inputText' type='text' size='16' name='if_ppp_user'
                    alt='if_ppp_user' value='<% $iface->{'ppp_user'} %>' />
-            </div>
-        </td>
-    </tr>
-    <tr id="ppp_pass">
-        <td class='tright'>
-            <div id="ppp_pass1">
-                <span class='ftitle'><% __('Password') %>:</span>
-            </div>
-        </td>
-        <td>
-            <div id="ppp_pass2">
+    </div>
+    <div id="ppp_pass">
+            <label><% __('Password') %></label>
             <input class='inputText' type='password' size='16' name='if_ppp_pass'
                    alt='if_ppp_pass' value='<% $iface->{'ppp_pass'} %>' />
-            </div>
-        </td>
-    </tr>
-    <tr>
-        <td></td>
-        <td>
-            <input class='inputButton' type='submit'
+    </div>
+    <div>
+        <input class='inputButton' type='submit'
                 name='accept' value="<% __('Change') %>" />
-        </td>
-    </tr>
-    </table>
+
+    </div>
 </form>
 
 <div id='trunk'>

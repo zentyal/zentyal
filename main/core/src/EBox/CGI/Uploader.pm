@@ -23,9 +23,10 @@ use base 'EBox::CGI::ClientRawBase';
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::Internal;
 
 # Core modules
-use Error qw(:try);
+use TryCatch::Lite;
 use File::Basename;
 use File::Copy;
 

@@ -71,6 +71,11 @@ sub _process
 
             my $givenName = $self->param('firstname');
             my $surname = $self->param('surname');
+            my $fullname = "$givenName $surname";
+            if ($fullname ne $contact->get('cn')) {
+                $contact->checkCN($contact->parent(), $fullname);
+            }
+
             my $mail = $self->param('mail');
 
             my $description = $self->unsafeParam('description');

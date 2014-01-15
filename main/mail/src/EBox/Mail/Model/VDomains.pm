@@ -31,6 +31,7 @@ use EBox::Global;
 use EBox::Gettext;
 use EBox::Validate qw(:all);
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
 
 use EBox::Mail::Types::WriteOnceDomain;
 use EBox::Types::HasMany;
@@ -89,34 +90,6 @@ sub _table
     };
 
     return $dataTable;
-}
-
-# Method: precondition
-#
-#       Check if the module is configured
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-sub precondition
-{
-    my $mail = EBox::Global->modInstance('mail');
-    return $mail->configured();
-}
-
-# Method: preconditionFailMsg
-#
-#       Check if the module is configured
-#
-# Overrides:
-#
-#       <EBox::Model::DataTable::precondition>
-sub preconditionFailMsg
-{
-    return __x('You must enable the mail module in {oh}Module ' .
-               'Status{ch} section in order to use it.',
-               oh => '<a href="/ServiceModule/StatusView">',
-               ch => '</a>');
 }
 
 sub alwaysBccByVDomain

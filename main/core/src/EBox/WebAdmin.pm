@@ -25,7 +25,6 @@ use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
 use EBox::Menu;
-use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::Internal;
@@ -33,6 +32,7 @@ use EBox::Exceptions::DataExists;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Config;
 use EBox::Util::Version;
@@ -40,7 +40,7 @@ use English qw(-no_match_vars);
 use File::Basename;
 use File::Slurp;
 use POSIX qw(setsid setlocale LC_ALL);
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Constants
 use constant APACHE_INCLUDE_KEY => 'apacheIncludes';
@@ -193,6 +193,18 @@ sub _setConf
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
     $self->enableRestartOnTrigger();
+
+    my $apportEnabled = 0;
+    if (EBox::Config::boolean('debug')) {
+        my $sysinfo = EBox::Global->modInstance('sysinfo');
+        $apportEnabled = $sysinfo->model('Debug')->value('enabled');
+        if ($apportEnabled) {
+            # FIXME: this patch is required because apport in 12.04 does not include /opt in the whitelist
+            #        remove as soon as proper apport package is provided
+            EBox::Sudo::root(qq{sed -i "s/pkg_whitelist = \\['\\/bin/pkg_whitelist = ['\\/opt', '\\/bin/" /usr/share/pyshared/apport/fileutils.py});
+        }
+    }
+    EBox::Sudo::root("sed -i 's/^enabled=.*/enabled=$apportEnabled/' /etc/default/apport");
 }
 
 sub _enforceServiceState
@@ -200,6 +212,8 @@ sub _enforceServiceState
     my ($self) = @_;
 
     $self->_daemon('restart');
+
+    EBox::Sudo::silentRoot('service apport restart');
 }
 
 sub _nginxConfFile
@@ -616,7 +630,8 @@ sub addModuleStatus
 
 # Method: addNginxInclude
 #
-#      Add an "include" directive to the nginx configuration
+#      Add an "include" directive to the nginx configuration. If it is already
+#      added, it does nothing
 #
 #      Added only in the main virtual host
 #
@@ -655,7 +670,9 @@ sub addNginxInclude
 
 # Method: removeNginxInclude
 #
-#      Remove an "include" directive to the nginx configuration
+#      Remove an "include" directive to the nginx configuration. If the
+#      "include" was not in the configuration, it does nothing
+#
 #
 # Parameters:
 #
@@ -667,8 +684,6 @@ sub addNginxInclude
 #      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
 #      argument is missing
 #
-#      <EBox::Exceptions::Internal> - thrown if the given file has not
-#      been included previously
 #
 sub removeNginxInclude
 {
@@ -680,8 +695,7 @@ sub removeNginxInclude
     my @includes = @{$self->_nginxIncludes(0)};
     my @newIncludes = grep { $_ ne $includeFilePath } @includes;
     if ( @newIncludes == @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
-                                         silent => 1);
+        return;
     }
     $self->set_list(NGINX_INCLUDE_KEY, 'string', \@newIncludes);
 

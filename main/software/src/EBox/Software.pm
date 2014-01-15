@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,6 +25,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::InvalidData;
 use EBox::Gettext;
 use EBox::Menu::Folder;
 use EBox::Menu::Item;
@@ -32,7 +34,7 @@ use EBox::ProgressIndicator;
 use EBox::Sudo;
 
 use Digest::MD5;
-use Error qw(:try);
+use TryCatch::Lite;
 use Storable qw(fd_retrieve store retrieve);
 use Fcntl qw(:flock);
 use AptPkg::Cache;
@@ -231,10 +233,10 @@ sub updatePkgList
     try {
         EBox::Sudo::root($cmd);
         return 1;
-    } catch EBox::Exceptions::Internal with {
+    } catch (EBox::Exceptions::Internal $e) {
         EBox::error("Error updating package list");
         return 0;
-    };
+    }
 }
 
 sub _packageListFile
@@ -414,13 +416,12 @@ sub _packageDepends
     my $output;
     try {
         $output = EBox::Sudo::root($aptCmd);
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
+    } catch (EBox::Exceptions::Command $e) {
         my $aptError;
-        foreach my $line (@{ $ex->error() }) {
+        foreach my $line (@{ $e->error() }) {
             if ($line =~ m/^E: (.*)$/) {
                 # was an apt error, reformatting
-                foreach my $line (@{ $ex->output() }) {
+                foreach my $line (@{ $e->output() }) {
                     if ($line =~ m/\.\.\.$/) {
                         # current action line, ignoring
                         next;
@@ -433,9 +434,9 @@ sub _packageDepends
         if ($aptError) {
             throw EBox::Exceptions::External($aptError);
         } else {
-            $ex->throw();
+            $e->throw();
         }
-    };
+    }
 
     my @packages = grep {
     $_ =~ m/
@@ -460,16 +461,15 @@ sub _isAptReady
     my $unreadyMsg;
     try {
         EBox::Sudo::root($testCmd);
-    } catch EBox::Exceptions::Command with {
-        my ($ex) = @_;
-        my $stderr = join '', @{ $ex->error() };
+    } catch (EBox::Exceptions::Command $e) {
+        my $stderr = join '', @{ $e->error() };
         if ($stderr =~ m/Unable to lock the administration directory/) {
             $unreadyMsg = __('Cannot use software package manager. Probably is currently being used by another process. You can either wait or kill the process.');
         } else {
             $unreadyMsg = __x('Cannot use software package manager. Error output: {err}',
                               err => $stderr);
         }
-    };
+    }
 
     if ($unreadyMsg) {
         throw EBox::Exceptions::External($unreadyMsg);
@@ -776,20 +776,12 @@ sub _getInfoEBoxPkgs
 {
     my ($self) = @_;
 
-    my %restricted;
-    if (EBox::Global->edition() eq 'sb') {
-        my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-        %restricted = map { $_ => 1 } @COMM_PKGS unless ( $rs->commAddOn() );
-    }
-
     my $cache = $self->_cache(1);
     my @list;
 
     my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
-            next if $restricted{$pack};
-
             if ($seen{$pack}) {
                 next;
             } else {

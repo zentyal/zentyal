@@ -30,9 +30,11 @@ use base 'EBox::Model::DataTable';
 
 use integer;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use EBox::Exceptions::External;
+use EBox::Exceptions::InvalidData;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::Int;
@@ -464,14 +466,14 @@ sub _normalize
                 $row->elementByName('guaranteed_rate')->setValue($guaranteedRate);
                 $row->elementByName('limited-rate')->setValue($limitedRate);
                 $row->store();
-            } otherwise {
+            } catch {
                 # The updated rule is fucking everything up (min guaranteed
                 # rate reached and more!)
                 my ($exc) = @_;
                 EBox::warn('Row ' . $id . " is being removed. Reason: $exc");
                 $self->removeRow($id, 1);
                 $removeNum++;
-            };
+            }
         }
     }
 

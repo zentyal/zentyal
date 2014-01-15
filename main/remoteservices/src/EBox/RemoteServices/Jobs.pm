@@ -28,7 +28,7 @@ use base qw(EBox::RemoteServices::Cred);
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
 
-use Error qw(:try);
+use TryCatch::Lite;
 
 use constant MAX_SIZE => 65524;
 

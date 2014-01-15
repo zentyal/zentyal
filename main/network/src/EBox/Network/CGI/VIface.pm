@@ -23,7 +23,7 @@ use base 'EBox::CGI::ClientBase';
 use EBox::Global;
 use EBox::Gettext;
 use EBox::Exceptions::DataInUse;
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub new # (cgi=?)
 {
@@ -76,14 +76,14 @@ sub _process
             $net->removeViface($iface, $viface, $force);
 
             $audit->logAction('network', 'Interfaces', 'removeViface', "$iface:$viface", 1);
-        } catch EBox::Exceptions::DataInUse with {
+        } catch (EBox::Exceptions::DataInUse $e) {
             $self->{template} = 'network/confirmremove.mas';
             $self->{redirect} = undef;
             my @array = ();
             push(@array, 'iface' => $iface);
             push(@array, 'viface' => $viface);
             $self->{params} = \@array;
-        };
+        }
     }
 }
 

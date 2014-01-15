@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -24,10 +25,11 @@ use EBox::Gettext;
 use EBox::Html;
 use HTML::Mason::Exceptions;
 use Apache2::RequestUtil;
-use Error qw(:try);
+use TryCatch::Lite;
 use HTML::Mason::Exceptions;
 use EBox::Exceptions::DataInUse;
 use EBox::Exceptions::Base;
+use EBox::Html;
 
 use constant ERROR_STATUS => '500';
 use constant DATA_IN_USE_STATUS => '501';
@@ -104,20 +106,13 @@ sub _print_error
     # We send a ERROR_STATUS code. This is necessary in order to trigger
     # onFailure functions on Ajax code
     my $r = Apache2::RequestUtil->request();
-    my $filename = EBox::Config::templates . '/error.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
-    my $comp = $interp->make_component(comp_file => $filename);
-    my @params = ();
-    push(@params, 'error' => $text);
-    $interp->exec($comp, @params);
+    my $filename = 'error.mas';
+    my @params =  ('error' => $text);
+    my $output = EBox::Html::makeHtml($filename, @params);
 
     $r->status(ERROR_STATUS);
     $r->subprocess_env('suppress-error-charset' => 1) ;
     $r->custom_response(ERROR_STATUS, $output);
-
 }
 
 sub _print_warning
@@ -131,18 +126,12 @@ sub _print_warning
     $r->status(DATA_IN_USE_STATUS);
     $r->custom_response(DATA_IN_USE_STATUS, "");
 
-    my $filename = EBox::Config::templates . '/dataInUse.mas';
-    my $output;
-    my $interp = HTML::Mason::Interp->new(comp_root =>
-                        EBox::Config::templates,
-                        out_method => \$output);
-
-    my $comp = $interp->make_component(comp_file => $filename);
+    my $filename = 'dataInUse.mas';
     my @params = ();
     push(@params, 'warning' => $text);
     push(@params, 'url' => _requestURL());
     push(@params, 'params' => $self->paramsAsHash());
-    $interp->exec($comp, @params);
+    my $output = EBox::Html::makeHtml($filename, @params);
 
     $r->status(DATA_IN_USE_STATUS);
     $r->subprocess_env('suppress-error-charset' => 1) ;
@@ -176,8 +165,7 @@ sub run
         try {
             $self->_validateReferer();
             $self->_process();
-        } catch EBox::Exceptions::DataInUse with {
-            my $e = shift;
+        } catch (EBox::Exceptions::DataInUse $e) {
             if ($self->{json}) {
                 $self->setErrorFromException($e);
             } else {
@@ -185,14 +173,13 @@ sub run
             }
 
             $finish = 1;
-        } otherwise {
-            my $e = shift;
+        } catch ($e) {
             $self->setErrorFromException($e);
             if (not $self->{json}) {
                 $self->_error();
             }
             $finish = 1;
-        };
+        }
     }
 
     if ($self->{json}) {
@@ -204,12 +191,10 @@ sub run
 
     try  {
         $self->_print;
-    } catch EBox::Exceptions::Base with {
-        my $ex = shift;
-        $self->setErrorFromException($ex);
+    } catch (EBox::Exceptions::Base $e) {
+        $self->setErrorFromException($e);
         $self->_print_error($self->{error});
-    } otherwise {
-        my $ex = shift;
+    } catch ($ex) {
         my $logger = EBox::logger;
         if (isa_mason_exception($ex)) {
             $logger->error($ex->as_text);
@@ -227,7 +212,7 @@ sub run
 
             throw $ex;
         }
-    };
+    }
 }
 
 1;

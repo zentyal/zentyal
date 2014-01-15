@@ -19,7 +19,7 @@ Zentyal.Dialog.loadInExistent = function(dialog, url, params) {
 Zentyal.Dialog.showURL = function(url, params) {
     var i,
         dialogParams,
-    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass'];
+    dialogParamsAllowed = ['title', 'width', 'height', 'dialogClass', 'buttons'];
     if (params === undefined) {
         params = {};
     }
@@ -50,8 +50,16 @@ Zentyal.Dialog.showURL = function(url, params) {
             dialogParams[paramName] = params[paramName];
         }
     }
+    if (('showCloseButton' in params) & (!params.showCloseButton)) {
+        dialogParams['dialogClass'] = 'no-close';
+        dialogParams['closeOnEscape'] = false;
+    }
 
     $('<div id="' + Zentyal.Dialog.DEFAULT_ID + '"></div>').dialog(dialogParams);
+};
+
+Zentyal.Dialog.showHTML = function(html, params) {
+    $('#' + Zentyal.Dialog.DEFAULT_ID).html(html).dialog(params);
 };
 
 Zentyal.Dialog.close = function() {
@@ -62,7 +70,7 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
     var form = $(formSelector);
     var url  = form.attr('action');
     var data = form.serialize();
-    var errorSelector = '#error_' + form.attr('id');
+    var errorSelector = '#' + form.attr('id') + '_error';
     if (params == undefined) {
         params = {};
     }
@@ -97,6 +105,6 @@ Zentyal.Dialog.submitForm = function(formSelector, params) {
         },
         error: function(jqXHR){
             $(errorSelector).html(jqXHR.responseText).show();
-        },
+        }
     });
 };

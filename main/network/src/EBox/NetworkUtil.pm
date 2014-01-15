@@ -1,3 +1,4 @@
+# Copyright (C) 2006-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -19,6 +20,7 @@ use warnings;
 package EBox::NetworkUtil;
 
 use EBox::Network;
+use EBox::Exceptions::External;
 
 BEGIN {
 	use Exporter ();

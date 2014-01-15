@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -28,7 +29,7 @@ use Net::LDAP;
 use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
 
-use Error qw(:try);
+use TryCatch::Lite;
 use Apache2::RequestUtil;
 use Time::HiRes;
 
@@ -57,6 +58,27 @@ sub instance
     return $_instance;
 }
 
+sub connected
+{
+    my ($self) = @_;
+    if ($self->{ldap}) {
+        # Workaround to detect if connection is broken and force reconnection
+        my $mesg = $self->{ldap}->search(
+                base   => '',
+                scope => 'base',
+                filter => "(cn=*)",
+                );
+        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
+            $self->{ldap}->unbind;
+            return 0;
+        }
+
+        return 1;
+    }
+
+    return 0;
+}
+
 # Method: connection
 #
 #   Return the Net::LDAP connection used by the module
@@ -72,21 +94,7 @@ sub connection
 {
     my ($self) = @_;
 
-    # Workaround to detect if connection is broken and force reconnection
-    my $reconnect;
-    if ($self->{ldap}) {
-        my $mesg = $self->{ldap}->search(
-                base   => '',
-                scope => 'base',
-                filter => "(cn=*)",
-                );
-        if (ldap_error_name($mesg) ne 'LDAP_SUCCESS' ) {
-            $self->{ldap}->unbind;
-            $reconnect = 1;
-        }
-    }
-
-    if ((not defined $self->{ldap}) or $reconnect) {
+    if (not $self->connected()) {
         $self->{ldap} = $self->anonymousLdapCon();
 
         my ($dn, $pass);
@@ -94,7 +102,8 @@ sub connection
         try {
             my $r = Apache2::RequestUtil->request();
             $auth_type = $r->auth_type;
-        } catch Error with {};
+        } catch {
+        }
 
         if (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth') {
@@ -105,17 +114,14 @@ sub connection
             my $credentials = undef;
             try {
                 $credentials = EBox::UserCorner::Auth->credentials();
-            } catch EBox::Exceptions::DataNotFound with {
+            } catch (EBox::Exceptions::DataNotFound $e) {
                 # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
                 my $userCornerMod = EBox::Global->modInstance('usercorner');
                 $credentials = {
                     userDN => $userCornerMod->roRootDn(),
                     pass => $userCornerMod->getRoPassword()
                 };
-            } otherwise {
-                my ($error) = @_;
-                throw $error;
-            };
+            }
             $dn = $credentials->{'userDN'};
             $pass = $credentials->{'pass'};
         } else {
@@ -124,6 +130,7 @@ sub connection
         }
         safeBind($self->{ldap}, $dn, $pass);
     }
+
     return $self->{ldap};
 }
 

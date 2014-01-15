@@ -20,8 +20,10 @@ package EBox::Logs::Model::Base;
 
 use EBox::DBEngineFactory;
 use EBox::Gettext;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::NotImplemented;
 use Perl6::Junction qw(all);
-use Error qw(:try);
+use TryCatch::Lite;
 
 sub _printableDate
 {

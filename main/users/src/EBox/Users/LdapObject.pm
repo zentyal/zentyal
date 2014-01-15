@@ -29,9 +29,10 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::LDAP;
+use EBox::Exceptions::NotImplemented;
 
 use Data::Dumper;
-use Error qw(:try);
+use TryCatch::Lite;
 use Net::LDAP::LDIF;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR LDAP_CONTROL_PAGED LDAP_SUCCESS);
 use Net::LDAP::Control::Paged;
@@ -310,7 +311,16 @@ sub dn
 {
     my ($self) = @_;
 
-    my $dn = $self->_entry()->dn();
+    my $entry = $self->_entry();
+    unless ($entry) {
+        my $message = "Got an unexisting LDAP Object!";
+        if (defined $self->{dn}) {
+            $message .= " (" . $self->{dn} . ")";
+        }
+        throw EBox::Exceptions::Internal($message);
+    }
+
+    my $dn = $entry->dn();
     utf8::decode($dn);
     return $dn;
 }
@@ -515,7 +525,7 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self, $childrenObjectClass) = @_;
+    my ($self, $childrenObjectClass, $customFilter) = @_;
 
     return [] unless $self->isContainer();
     my $filter;
@@ -523,6 +533,9 @@ sub children
         $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
     } else {
         $filter = '(!(objectclass=organizationalRole))';
+    }
+    if ($customFilter) {
+        $filter = '(&' . $filter . "($customFilter))";
     }
 
     # All children except for organizationalRole objects which are only used
@@ -617,6 +630,37 @@ sub relativeDN
 
     my $ldapMod = $self->_ldapMod();
     return $ldapMod->relativeDN($self->dn());
+}
+
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+# Method: checkCN
+#
+#  Check if the given CN is correct.
+#  The default implementation just checks that there is no other object with
+#  the same CN in the container
+sub checkCN
+{
+    my ($class, $container, $cn)= @_;
+    my @children = @{ $container->children(undef, "cn=$cn") };
+    if (@children) {
+        my ($sameCN) = @children;
+        my $type = $sameCN->printableType();
+        throw EBox::Exceptions::External(
+            __x("There exists already a object of type {type} with CN={cn} in this container",
+                type => $type,
+                cn => $cn
+               )
+           );
+    }
 }
 
 1;

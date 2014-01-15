@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2009-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -25,6 +26,7 @@ use EBox::Types::Select;
 use EBox::Types::Text;
 use EBox::Validate;
 use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidData;
 
 sub _tableHeader
 {

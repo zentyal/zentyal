@@ -7,7 +7,7 @@ use Test::Exception;
 use lib '../../..';
 
 use EBox::TestStub;
-use Error qw(:try);
+use TryCatch::Lite;
 
 EBox::TestStub::fake();
 
@@ -85,10 +85,10 @@ sub _checkConfigSubs
             my $actualResult;
             try {
                 $actualResult =  $sub_r->();
-            } otherwise {
+            } catch {
                 skip 1, "To retrieve key $subName is needed a eBox full installation";
                 next;
-            };
+            }
 
             is $actualResult, $expectedResult, "Checking result of $subName (was: $actualResult expected: $expectedResult)";
         }
@@ -103,10 +103,10 @@ sub _getConfigKeysAndValues
         my $value;
         try {
             $value = $getter->();
-        } otherwise {
+        } catch {
             diag "can not get the vaule of $_ because it needs a eBox's full installation";
             $value = undef;
-        };
+        }
 
         ($_ => $value)
     } @keyNames;

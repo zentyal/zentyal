@@ -11,7 +11,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-network
 Architecture: all
-Depends: zentyal-core (>= 3.3~1), zentyal-core (<< 3.4),
+Depends: zentyal-core (>= 3.3), zentyal-core (<< 3.4),
  zentyal-common (>= 3.2.1), zentyal-objects, zentyal-services,
  iproute, vlan, net-tools, dnsutils, libnet-ip-perl, dhcp3-client, iptables,
  libnet-arp-perl, wget, traceroute, ddclient, ppp, libio-interface-perl,

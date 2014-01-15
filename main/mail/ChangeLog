@@ -1,5 +1,12 @@
-3.3
+HEAD
 	+ Added openchange outgoing mail rewriting
+3.3
+	+ Nopass dovecot policy enabled only when Openchange provisioned
+	+ Allow to use vdomains table when module is unconfigured
+	+ Dovecot passdb reordering and typo
+	+ Switch from Error to TryCatch for exception handling
+	+ Added required code to integrate with OpenChange
+	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Preservice and postservice hooks now should work properly
 	+ Fixed regression which broke external account modification
