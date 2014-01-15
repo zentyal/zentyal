@@ -21,6 +21,7 @@ package EBox::OpenChange::Model::Provision;
 use base 'EBox::Model::DataForm';
 
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Gettext;
 use EBox::MailUserLdap;
 use EBox::Samba::User;
@@ -88,7 +89,7 @@ sub _table
         push (@tableDesc, new EBox::Types::Boolean(
             fieldName     => 'enableUsers',
             printableName => __('Enable OpenChange account for all existing users'),
-            defaultValue  => 1,
+            defaultValue  => 0,
             editable      => 1)
         );
 # TODO: Disabled because we need some extra migration work to be done to promote an OpenChange server as the primary server.
@@ -117,7 +118,7 @@ sub _table
                     printableValue => __('Setup'),
                     handler => \&_doProvision,
                     message => __('Database configured'),
-                    enabled => sub { $self->parentModule->isProvisioned() },
+                    enabled => sub { not $self->parentModule->isProvisioned() },
                 },
             }
         ),
@@ -446,8 +447,17 @@ sub _doDeprovision
         $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
 
         $self->parentModule->setProvisioned(0);
+
+        $self->global->modChange('mail');
+        $self->global->modChange('samba');
+        $self->global->modChange('openchange');
+
+        $self->reloadTable();
         EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
+        $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
     } catch ($error) {
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
         $self->parentModule->setProvisioned(1);
