@@ -217,6 +217,8 @@ sub replicateConf
     my $path = $file->path;
     system ("tar xzf $path -C $tmpdir");
 
+    # TODO: extract /etc/zentyal and /var/lib/zentyal/CA
+
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
 
     foreach my $modname (@{$modules}) {
@@ -232,7 +234,7 @@ sub askForReplication
 {
     my ($self) = @_;
 
-    my @REPLICATE_MODULES = qw(dhcp dns firewall ips network objects services squid trafficshaping);
+    my @REPLICATE_MODULES = qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
 
     my $tarfile = 'bundle.tar.gz';
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
@@ -250,6 +252,8 @@ sub askForReplication
         my $mod = EBox::Global->modInstance($modname);
         $mod->makeBackup($tmpdir);
     }
+
+    # TODO: include /etc/zentyal and /var/lib/zentyal/CA
 
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";
