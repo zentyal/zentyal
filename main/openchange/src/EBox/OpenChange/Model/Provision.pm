@@ -100,6 +100,15 @@ sub _table
 #        );
     }
 
+    push (@tableDesc, new EBox::Types::Select(
+        fieldName     => 'outgoingDomain',
+        printableName => __('Outgoing Mail Domain'),
+        foreignModel  => $self->modelGetter('mail', 'VDomains'),
+        foreignField  => 'vdomain',
+        editable      => ($self->parentModule->isProvisioned() ? 0 : 1),
+        hidden        => ($self->parentModule->isProvisioned() ? 1 : 0))
+    );
+
     my $customActions = [
 #        new EBox::Types::MultiStateAction(
 #            acquirer => \&_acquireProvisioned,
