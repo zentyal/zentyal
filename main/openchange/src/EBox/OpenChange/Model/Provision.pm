@@ -101,33 +101,25 @@ sub _table
     }
 
     my $customActions = [
-#        new EBox::Types::MultiStateAction(
-#            acquirer => \&_acquireProvisioned,
-#            model => $self,
-#            states => {
-#                provisioned => {
-#                    name => 'deprovision',
-#                    printableValue => __('Unconfigure'),
-#                    handler => \&_doDeprovision,
-#                    message => __('Database unconfigured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#                notProvisioned => {
-#                    name => 'provision',
-#                    printableValue => __('Setup'),
-#                    handler => \&_doProvision,
-#                    message => __('Database configured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#            }
-#        ),
-        new EBox::Types::Action(
-            name           => 'provision',
-            printableValue => __('Setup'),
-            model          => $self,
-            handler        => \&_doProvision,
-            message        => __('Database configured'),
-            enabled        => sub { not $self->parentModule->isProvisioned() },
+        new EBox::Types::MultiStateAction(
+            acquirer => \&_acquireProvisioned,
+            model => $self,
+            states => {
+                provisioned => {
+                    name => 'deprovision',
+                    printableValue => __('Unconfigure'),
+                    handler => \&_doDeprovision,
+                    message => __('Database unconfigured'),
+                    enabled => sub { $self->parentModule->isProvisioned() },
+                },
+                notProvisioned => {
+                    name => 'provision',
+                    printableValue => __('Setup'),
+                    handler => \&_doProvision,
+                    message => __('Database configured'),
+                    enabled => sub { $self->parentModule->isProvisioned() },
+                },
+            }
         ),
     ];
 
@@ -431,39 +423,35 @@ sub _doProvision
     }
 }
 
-#sub _doDeprovision
-#{
-#    my ($self, $action, $id, %params) = @_;
-#
-#    my $organizationName = $params{organizationname};
-#
-#    try {
-#        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-#                  '--deprovision ' .
-#                  "--firstorg='$organizationName' ";
-#        my $output = EBox::Sudo::root($cmd);
-#        $output = join('', @{$output});
-#
-#        $cmd = 'rm -rf /opt/samba4/private/openchange.ldb';
-#        my $output2 = EBox::Sudo::root($cmd);
-#        $output .= "\n" . join('', @{$output2});
-#
-#        # Drop SOGo database and db user. To avoid error if it does not exists,
-#        # the user is created and granted harmless privileges before drop it
-#        my $db = EBox::DBEngineFactory::DBEngine();
-#        my $dbName = $self->parentModule->_sogoDbName();
-#        my $dbUser = $self->parentModule->_sogoDbUser();
-#        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
-#        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
-#        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
-#
-#        $self->parentModule->setProvisioned(0);
-#        EBox::info("Openchange deprovisioned:\n$output");
-#        $self->setMessage($action->message(), 'note');
-#    } catch ($error) {
-#        throw EBox::Exceptions::External("Error deprovisioninig: $error");
-#        $self->parentModule->setProvisioned(1);
-#    }
-#}
+sub _doDeprovision
+{
+    my ($self, $action, $id, %params) = @_;
+
+    my $organizationName = $params{organizationname};
+
+    try {
+        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
+                  '--deprovision ' .
+                  "--firstorg='$organizationName' ";
+        my $output = EBox::Sudo::root($cmd);
+        $output = join('', @{$output});
+
+        # Drop SOGo database and db user. To avoid error if it does not exists,
+        # the user is created and granted harmless privileges before drop it
+        my $db = EBox::DBEngineFactory::DBEngine();
+        my $dbName = $self->parentModule->_sogoDbName();
+        my $dbUser = $self->parentModule->_sogoDbUser();
+        $db->sqlAsSuperuser(sql => "DROP DATABASE IF EXISTS $dbName");
+        $db->sqlAsSuperuser(sql => "GRANT USAGE ON *.* TO $dbUser");
+        $db->sqlAsSuperuser(sql => "DROP USER $dbUser");
+
+        $self->parentModule->setProvisioned(0);
+        EBox::info("Openchange deprovisioned:\n$output");
+        $self->setMessage($action->message(), 'note');
+    } catch ($error) {
+        throw EBox::Exceptions::External("Error deprovisioninig: $error");
+        $self->parentModule->setProvisioned(1);
+    }
+}
 
 1;
