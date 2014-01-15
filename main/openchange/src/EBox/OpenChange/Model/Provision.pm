@@ -67,7 +67,6 @@ sub _table
             volatile      => 1,
             editable      => 0)
         );
-
     } else {
         push (@tableDesc, new EBox::Types::Union(
             fieldName     => 'organizationname',
