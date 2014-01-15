@@ -211,17 +211,18 @@ sub replicateConf
 {
     my ($self, $params, $body, $uploads) = @_;
 
-    # FIXME: EBox::tmp()
-    my $tmpdir = mkdtemp('/tmp/replication-bundle-XXXX');
+    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
     my $file = $uploads->get('file');
     my $path = $file->path;
     system ("tar xzf $path -C $tmpdir");
 
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
-    print "MODULES TO RESTORE:\n";
-    foreach my $module (@{$modules}) {
-        print "$module\n";
+
+    foreach my $modname (@{$modules}) {
+        print "Restoring module $modname...\n";
+        my $mod = EBox::Global->modInstance($modname);
+        $mod->restoreBackup("$tmpdir/$modname.bak");
     }
 
     EBox::Sudo::root("rm -rf $tmpdir");
@@ -231,16 +232,30 @@ sub askForReplication
 {
     my ($self) = @_;
 
-    #FIXME
+    my @REPLICATE_MODULES = qw(dhcp dns firewall ips network objects services squid trafficshaping);
+
     my $tarfile = 'bundle.tar.gz';
-    my $tmpdir = mkdtemp('/tmp/replication-bundle-XXXX');
-    my $json = [qw(network firewall users)];
-    write_file("$tmpdir/modules.json", encode_json($json));
+    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
+
+    my $modules = [];
+    for my $modname (@REPLICATE_MODULES) {
+        # FIXME: only if unsaved
+        if (EBox::Global->modExists($modname)) {
+            push (@{$modules}, $modname);
+        }
+    }
+    write_file("$tmpdir/modules.json", encode_json($modules));
+
+    foreach my $modname (@{$modules}) {
+        my $mod = EBox::Global->modInstance($modname);
+        $mod->makeBackup($tmpdir);
+    }
+
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";
     system ("curl -F file=\@$fullpath http://localhost:5000/conf/replication");
 
-    #EBox::Sudo::root("rm -rf $tmpdir");
+    EBox::Sudo::root("rm -rf $tmpdir");
 }
 
 # Group: Protected methods
