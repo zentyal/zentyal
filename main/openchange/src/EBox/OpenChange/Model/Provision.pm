@@ -457,13 +457,17 @@ sub _doDeprovision
         $self->reloadTable();
         EBox::info("Openchange deprovisioned:\n$output");
         $self->setMessage($action->message(), 'note');
-    } catch (EBox::Exceptions::Sudo::Command $e) {
+    } catch EBox::Exceptions::Sudo::Command with {
+        my $e = shift;
+
         EBox::debug("Openchange cannot be deprovisioned:\n" . join ('\n', @{ $e->error() }));
         $self->setMessage("Openchange cannot be deprovisioned:<br />" . join ('<br />', @{ $e->error() }), 'error');
-    } catch ($error) {
+    } otherwise {
+        my $error = shift;
+
         throw EBox::Exceptions::External("Error deprovisioninig: $error");
         $self->parentModule->setProvisioned(1);
-    }
+    };
 }
 
 1;
