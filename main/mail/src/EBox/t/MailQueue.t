@@ -22,7 +22,6 @@ use EBox::Sudo;
 use File::Slurp;
 use Data::Dumper;
 
-use lib '../..';
 use EBox::MailQueue;
 
 sub testMailQueueList
@@ -54,7 +53,7 @@ sub testMailQueueList
 
    sub EBox::Sudo::root
    {
-       my @mailqOutput = File::Slurp::read_file('testdata/mailqoutput.txt');
+       my @mailqOutput = File::Slurp::read_file('mail/src/EBox/t/testdata/mailqoutput.txt');
        return \@mailqOutput;
    }
 }

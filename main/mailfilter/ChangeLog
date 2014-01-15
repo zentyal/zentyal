@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed logs summarized report
 3.3
 	+ Take in account mail dependency if mail module is enabled
 	+ Switch from Error to TryCatch for exception handling

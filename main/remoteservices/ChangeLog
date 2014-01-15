@@ -1,3 +1,5 @@
+HEAD
+	+ Fix warning on last inside an eval on automatic-conf-backup script
 3.3
 	+ Hide close button on subscription progress dialog
 	+ Adapted to new AJAX update of save changes button
