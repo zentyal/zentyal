@@ -1,4 +1,4 @@
-HEAD
+3.3.1
 	+ Fixed regression in VLANs interface (contribution by Chris Pitchford)
 	+ Fixed bug which made impossible to edit pppoe gateways
 	+ Fix regresion in the installer wizard that made options for static
