@@ -29,7 +29,7 @@ use base 'EBox::CGI::Base';
 use feature qw(switch);
 
 use EBox::OpenChange::MigrationRPCClient;
-use TryCatch::Lite;
+use Error qw(:try);
 use JSON::XS;
 
 # Group: Public methods
@@ -105,9 +105,10 @@ sub _process
                 }
             }
         }
-    } catch ($error) {
+    } otherwise {
+        my $error = shift;
         $self->{json}->{error} = $error;
-    }
+    };
 }
 
 1;

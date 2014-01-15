@@ -20,8 +20,14 @@ use EBox::Gettext;
     }
 </script>
 
-<div class="note">This will upgrade your Zentyal 3.2 to 3.3.<br>Close this dialog if you do not want to upgrade now.</div>
-<div class="warning">Before upgrading please read carefully the <a target="_blank" href="http://trac.zentyal.org/wiki/Document/Announcement/3.3"><b>release notes</b></a>.</div>
+<div class="note">
+<p>This will upgrade your Zentyal 3.2 to Zentyal 3.3 Community Edition.</p>
+<p>Close this dialog if you do not want to upgrade now.</p>
+</div>
+<div class="warning">
+<p>Zentyal 3.2 commercial editions will receive upgrades through the Service Packs available through our customers repository. Check the <a href="http://www.zentyal.com/zentyal-release-policy/"><b>Zentyal Release Policy</b></a> for more information.</p>
+<p>Before upgrading please read also carefully the <a target="_blank" href="http://trac.zentyal.org/wiki/Document/Announcement/3.3"><b>release notes</b>.</p>
+</div>
 
 <div>
 <center>

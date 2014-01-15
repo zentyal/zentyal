@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed bug which made impossible to edit pppoe gateways
 3.2.4
 	+ Update strings to new offering
 	+ ppp-set-iface.pl script should not regen gateway if we are saving changes

@@ -1,5 +1,9 @@
 HEAD
 	+ Added support for haproxy
+3.2.6
+	+ Show confirmation dialog before upgrading to 3.3
+	+ Fixed general widget packages to avoid error on 'packages to
+	  upgrade' section
 3.2.5
 	+ Upgrade to 3.3 notification in dashboard
 	+ Added new communityEdition() helper method in EBox::Global

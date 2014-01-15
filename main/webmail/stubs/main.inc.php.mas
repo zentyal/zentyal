@@ -8,19 +8,15 @@ $imapServer => '127.0.0.1'
 $imapPort => 143
 $imapAuthType => undef
 
+# If you change the imapServer to a external one, you should enable this
+$enableCaching => 0
+
 $managesieve
 
 $productName
 $desKey
 </%args>
 <%init>
-my $enableCaching;
-if (($imapServer eq '127.0.0.1') or ($imapServer eq 'localhost')) {
-   $enableCaching = 0;
-}  else {
-   $enableCaching = 1;
-}
-
 my @plugins = (q{'markasjunk'});
 if ($managesieve) {
     push @plugins, q{'managesieve'};

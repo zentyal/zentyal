@@ -94,7 +94,7 @@ then
     # JSON formatting seems to change, so we remove all new lines
     RESPONSE=$(echo "$RESPONSE" | tr "\n" ' ')
 
-    echo $RESPONSE | sed "s/},/\n/g" | while read line
+    echo $RESPONSE | sed "s/},\s*{/\n/g" | while read line
     do
         company=$(get_field "$line" company)
         name=$(get_field "$line" name)

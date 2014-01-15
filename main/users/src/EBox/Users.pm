@@ -437,7 +437,8 @@ sub _migrateTo32
     # Change the schema to use the new ZentyalDistributionGroup for members
     EBox::Sudo::root('sed -i "s/olcMemberOfGroupOC: zentyalGroup/olcMemberOfGroupOC: zentyalDistributionGroup/g" ' . $tempBackupDir . '/config.ldif');
     # Restore this modified backup.
-    $self->restoreConfig($tempBackupDir);
+    my $ignoreUserInitialization = 1;
+    $self->restoreConfig($tempBackupDir, $ignoreUserInitialization);
 
     # zentyalGroup object is not required anymore, we refresh the objects in the old schema location to remove it.
     my $newSchema = EBox::Config::share() . 'zentyal-users/rfc2307bis.ldif';
@@ -2148,7 +2149,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $ignoreUserInitialization) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2184,6 +2185,8 @@ sub restoreConfig
 
     # Save conf to enable NSS (and/or) PAM
     $self->_setConf();
+
+    return if $ignoreUserInitialization;
 
     for my $user (@{$self->users()}) {
 

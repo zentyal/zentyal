@@ -1,3 +1,5 @@
+3.2.2
+	+ Fix regression in rsync method (contribution by billfarrow)
 3.2.1
 	+ Hide password field for rsync method
 	+ Added missing EBox::Exceptions uses

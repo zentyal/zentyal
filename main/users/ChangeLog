@@ -1,3 +1,7 @@
+3.2.7
+	+ Print slave-sync output to zentyal.log instead of stdout
+	+ Fixed excesive restrictive validation of external AD password in wizard
+	+ Fixed 3.0 -> 3.2 migration when there are other modules extending LDAP
 3.2.6
 	+ Remove useless warning when deleting a user or group with offer 2013
 	+ Show system but not internal groups in user edition form

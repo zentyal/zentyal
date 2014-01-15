@@ -1,6 +1,12 @@
+3.2.13
+	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
+	  defer it until s4sync does the synchronization
+	+ Typo fix in netbios validation
+	+ Check if objects are system critical before deletion
+	+ Improved migration code from 3.2.11
 3.2.12
 	+ Provision - Clear link attribute on __USERS__ entry when provisioning as
-                  adc
+	  adc
 	+ Provision - Remove DomainAdmins,Administrator and Guest from openLDAP
 	              when reprovisioning as additional DC
 	+ Do not hide domain guest account
@@ -8,7 +14,7 @@
 	+ LDB - Do not return users holding a servicePrincipalName by default
 	+ Provision - Improve the LDAP OUs purge after join domain
 	+ s4sync - Serveral fixes to make it more robust
-	+ OU - Improve cration code
+	+ OU - Improve creation code
 	+ LDB - Return OUs ordered, parents before childs
 	+ Provision - Link accounts holding zentyal service principals
 	+ Provision - Improve OU loading, skip zentyal internal OUs and linked

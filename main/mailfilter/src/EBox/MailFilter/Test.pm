@@ -19,24 +19,21 @@ use warnings;
 
 package EBox::MailFilter::Test;
 
-use base 'EBox::Test::Class';
+use base 'Test::Class';
 
 # package:
 
-use EBox::Test;
-
-use Perl6::Junction qw(any all);
+use EBox::Global::TestStub;
+use EBox::Module::Config::TestStub;
 
 use Test::Exception;
 use Test::More;
 
-use lib '../..';
-
-sub setUpConfiguration : Test(setup)
+sub setUpConfiguration : Test(startup)
 {
     my ($self) = @_;
 
-    EBox::Global::TestStub::setModule('mailfilter' => 'EBox::MailFilter');
+    EBox::Global::TestStub::fake();
 }
 
 sub clearConfiguration : Test(teardown)
@@ -44,9 +41,9 @@ sub clearConfiguration : Test(teardown)
     EBox::Module::Config::TestStub::setConfig();
 }
 
-sub _moduleInstantiationTest : Test
+sub mailfilter_use_ok: Test
 {
-    EBox::Test::checkModuleInstantiation('mailfilter', 'EBox::MailFilter');
+     use_ok('EBox::MailFilter') or die;
 }
 
 1;

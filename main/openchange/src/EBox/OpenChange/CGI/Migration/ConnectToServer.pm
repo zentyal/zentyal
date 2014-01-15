@@ -24,7 +24,7 @@ use EBox;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
-use TryCatch::Lite;
+use Error qw(:try);
 
 sub new
 {
@@ -79,10 +79,11 @@ sub _process
             $self->{json}->{success} = 0;
             $self->{json}->{error} = $response->{error};
         }
-    } catch ($error) {
+    } otherwise {
+        my $error = shift;
         $self->{json}->{success} = 0;
         $self->{json}->{error} = qq{$error};
-    }
+    };
 }
 
 1;

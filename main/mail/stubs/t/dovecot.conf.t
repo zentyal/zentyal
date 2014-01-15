@@ -4,19 +4,18 @@ use Cwd;
 
 use File::Slurp qw(read_file);
 
-use lib '../..';
 use EBox::Test::Mason;
 
 use Test::More tests => 1;
 
-my $template = '../dovecot.conf.mas';
+my $template = 'mail/stubs/dovecot.conf.mas';
 
 my $printOutput = 0;
 my $outputFileBase  = '/tmp/dovecot.conf';  # XXX FIXME file separator in mason tests
 system "rm -rf $outputFileBase*";
 
 my @cases = (
-             [ uid => 1000, gid => 1000, protocols => ['pop', 'imap'] ],
+             [ uid => 1000, gid => 1000, protocols => ['pop', 'imap'], openchange => 1, firstValidUid => 1000, firstValidGid => 1000, mailboxesDir => '/var/mail', postmasterAddress => 'postmaster@example.com', antispamPlugin => {name => 'amavis'}, keytabPath => '/var/keytab', gssapiHostname => { value1 => 'gssapiHostname' } ],
             );
 
 my $fileCounter = 0;  # XXX FIXME file separator in mason tests

@@ -23,7 +23,7 @@ use base qw(EBox::CGI::ClientBase);
 use EBox::Gettext;
 use EBox::OpenChange::MigrationRPCClient;
 use EBox::Validate;
-use TryCatch::Lite;
+use Error qw(:try);
 
 sub new
 {
@@ -67,11 +67,11 @@ sub masonParameters
             push (@{$params}, server => '---');
             push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
         }
-    } catch {
+    } otherwise {
         # TODO Broken connection
         push (@{$params}, server => '---');
         push (@{$params}, serverIP => 'xxx.xxx.xxx.xxx');
-    }
+    };
 
     return $params;
 }
