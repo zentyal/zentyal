@@ -5,7 +5,7 @@
 </%doc>
 <%args>
   $model
-  $hasChanged
+  $hasChanged => 0
   $action => 'view'
 </%args>
 <%init>
