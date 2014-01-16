@@ -29,6 +29,7 @@ use base 'EBox::Model::Base';
 
 use EBox::Exceptions::MissingArgument;
 use EBox::Exceptions::NotImplemented;
+use Perl6::Junction qw(any);
 
 # Constructor: new
 #
@@ -55,6 +56,22 @@ sub new
     bless ($self, $class);
 
     return $self;
+}
+
+# Method: modelName
+#
+# Overrides:
+#
+#    <EBox::Model::Base::modelName>
+#
+# Returns:
+#
+#    String - the model name always the package name
+#
+sub modelName
+{
+    my ($self) = @_;
+    return _nameFromClass($self);
 }
 
 # Class method: Viewer
@@ -105,6 +122,60 @@ sub directory
     return $self->{directory};
 }
 
+# Method: action
+#
+#      Accessor to the URLs where the actions are published to
+#      run. In a template type, two actions are possible:
+#      - view - show the template within the whole Zentyal menu
+#      - changeView - show the template type isolated. I.e. the HTML
+#                     dumped from the composite Viewer
+#
+# Parameters:
+#
+#      actionName - String the action name
+#
+# Returns:
+#
+#      String - URL where the action will be called
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::InvalidData> - thrown if the action name
+#       is not one of the allowed ones
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if the action name
+#       has not defined action
+#
+sub action
+{
+    my ($self, $actionName) = @_;
+
+    unless ($actionName eq any('view', 'changeView')) {
+        throw EBox::Exceptions::InvalidData(data => __('Action'),
+                                            value => $actionName,
+                                            advice => __x('Actions to be taken ' .
+                                                          'allowed are: {view} and ' .
+                                                          '{cView}',
+                                                          view => 'view',
+                                                          cView => 'changeView',
+                                                         ));
+    }
+
+    unless (exists($self->{actions})) {
+        $self->{actions} = $self->_setDefaultActions();
+    }
+
+    my $actionsRef = $self->{actions};
+
+    if (exists ($actionsRef->{$actionName})) {
+        return $actionsRef->{$actionName};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => __('Action'),
+                                             value => $actionName);
+    }
+
+}
+
 # Group: Methods to be overriden
 
 # Method: templateName
@@ -134,6 +205,27 @@ sub templateName
 sub templateContext
 {
     throw EBox::Exceptions::NotImplemented();
+}
+
+# Group: Private methods
+
+sub _setDefaultActions
+{
+    my ($self) = @_;
+
+    my $URL = '/' . _nameFromClass($self->{confmodule}) . '/Template/' . $self->name();
+    return { changeView => $URL,
+             view       => $URL };
+}
+
+sub _nameFromClass
+{
+    my ($obj) = @_;
+    my $class = ref($obj);
+    $class = $obj unless ($class);
+
+    my @namespaces = split('::', $class);
+    return pop(@namespaces);
 }
 
 1;

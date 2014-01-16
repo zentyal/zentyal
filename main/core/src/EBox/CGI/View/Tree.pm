@@ -31,8 +31,7 @@ use TryCatch::Lite;
 #
 #       <EBox::CGI::ClientBase::new> the parent parameters
 #
-#       modelModel - <EBox::Model::Tree> the model model
-#       to show
+#       model - <EBox::Model::Tree> the tree model to show
 #
 # Returns:
 #
@@ -69,7 +68,7 @@ sub _header
     try {
         $pageTitle = $self->{model}->pageTitle();
     } catch {
-        EBox::error("Cannot get pageTitle for Tree");
+        EBox::error("Cannot get pageTitle for model");
         $pageTitle = '';
     }
     print EBox::Html::header($pageTitle, $self->menuFolder());
