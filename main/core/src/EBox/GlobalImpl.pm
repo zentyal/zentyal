@@ -718,6 +718,14 @@ sub saveAllModules
     $self->unset('post_save_modules');
 
     if (not $failed) {
+        # Replicate conf if there are more HA servers
+        if ($self->modExists('ha')) {
+            my $ha = $self->modInstance(0, 'ha');
+            if ($ha->isEnabled()) {
+                $ha->askForReplication(\@mods);
+            }
+        }
+
         # post save hooks
         $self->_runExecFromDir(POSTSAVE_SUBDIR, $progress, $modNames);
         # Store a timestamp with the time of the ending

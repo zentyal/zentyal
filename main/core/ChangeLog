@@ -1,4 +1,5 @@
 3.4
+	+ Integration with HA module in save changes process
 	+ Added icon for new zentyal-ha module
 	+ Move run-pending-ops script from remoteservices to core
 	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result

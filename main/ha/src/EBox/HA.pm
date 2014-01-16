@@ -44,6 +44,8 @@ use constant {
     DEFAULT_MCAST_PORT => 5405,
 };
 
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
+
 # Constructor: _create
 #
 # Overrides:
@@ -222,43 +224,38 @@ sub replicateConf
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
 
     foreach my $modname (@{$modules}) {
-        print "Restoring module $modname...\n";
+        EBox::info("Replicating conf of module: $modname");
         my $mod = EBox::Global->modInstance($modname);
         $mod->restoreBackup("$tmpdir/$modname.bak");
     }
+
+    EBox::Global->saveAllModules();
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
 
 sub askForReplication
 {
-    my ($self) = @_;
+    my ($self, $modules) = @_;
 
+    # FIXME: skip myself
     foreach my $node (@{$self->nodes()}) {
         my $addr = $node->{addr};
-        $self->askForReplicationInNode($addr);
+        $self->askForReplicationInNode($addr, $modules);
     }
 }
 
 sub askForReplicationInNode
 {
-    my ($self, $addr) = @_;
-
-    my @REPLICATE_MODULES = qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
+    my ($self, $addr, $modules) = @_;
 
     my $tarfile = 'bundle.tar.gz';
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
-    my $modules = [];
-    for my $modname (@REPLICATE_MODULES) {
-        # FIXME: only if unsaved
-        if (EBox::Global->modExists($modname)) {
-            push (@{$modules}, $modname);
-        }
-    }
     write_file("$tmpdir/modules.json", encode_json($modules));
 
     foreach my $modname (@{$modules}) {
+        next unless $REPLICATE_MODULES{$modname};
         my $mod = EBox::Global->modInstance($modname);
         $mod->makeBackup($tmpdir);
     }
