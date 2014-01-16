@@ -226,7 +226,16 @@ sub _editField
         };
     }
 
-    $model->setRow($force, %params);
+    try {
+        $model->setRow($force, %params);
+    } catch (EBox::Exceptions::DataInUse $e) {
+        $self->{json}->{success} = 1;
+        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+            $model->table()->{actions}->{editField},
+            "$e",
+           );
+        return;
+    }
 
     for my $fieldName (keys %changedValues) {
         my $value = $changedValues{$fieldName};
@@ -502,9 +511,6 @@ sub delAction
         $rowId = $self->removeRow();
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        EBox::debug("URL " . $model->table()->{actions}->{del});
-        use Data::Dumper;
-        EBox::debug(Dumper($model->table()->{actions}));
         $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{del},
             "$e",
