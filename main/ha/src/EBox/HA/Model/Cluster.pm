@@ -31,8 +31,44 @@ use EBox::Types::Composite;
 use EBox::Types::Host;
 use EBox::Types::Port;
 use EBox::Types::Select;
+use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
+use EBox::View::Customizer;
+
+# Group: Public methods
+
+# Method: viewCustomizer
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::viewCustomizer>
+#
+sub viewCustomizer
+{
+    my ($self) = @_;
+
+    my $actions = {
+        configuration => {
+            create => {
+                show => ['name'],
+                hide => ['cluster_zentyal', 'secret'],
+            },
+            join => {
+                show => ['cluster_zentyal', 'secret'],
+                hide => ['name'],
+            },
+        },
+    };
+
+    my $customizer = new EBox::View::Customizer();
+    $customizer->setModel($self);
+    $customizer->setOnChangeActions($actions);
+    $customizer->setInitHTMLStateOrder(['configuration']);
+
+    return $customizer;
+}
+
 
 # Group: Protected methods
 
@@ -49,39 +85,45 @@ sub _table
     # TODO: Once it is already configured
 
     my @fields = (
-        new EBox::Types::Union(
+        new EBox::Types::Select(
             fieldName     => 'configuration',
             printableName => __('Cluster configuration'),
             editable      => 1,
-            subtypes      => [
-                new EBox::Types::Union::Text(
-                    fieldName     => 'start_new',
-                    printableName => __('Start a new cluster')
-                   ),
-                new EBox::Types::Composite(
-                    fieldName     => 'join',
-                    printableName => __('Join to an existing cluster'),
+            populate      => \&_populateConfOpts,
+        ),
+        new EBox::Types::Composite(
+            fieldName     => 'cluster_zentyal',
+            editable      => 1,
+            showTypeName  => 1,
+            types         => [
+                new EBox::Types::Host(
+                    fieldName     => 'zentyal_host',
+                    printableName => __('Cluster host'),
+                    size          => 20,
+                    editable      => 1),
+                new EBox::Types::Port(
+                    fieldName     => 'zentyal_port',
+                    printableName => __('Port'),
                     editable      => 1,
-                    showTypeName  => 1,
-                    types => [
-                        new EBox::Types::Host(
-                            fieldName     => 'zentyal_host',
-                            printableName => __('Zentyal host'),
-                            size          => 20,
-                            editable      => 1),
-                        new EBox::Types::Port(
-                            fieldName     => 'zentyal_webadmin_port',
-                            printableName => __('WebAdmin port'),
-                            editable      => 1,
-                            defaultValue  => 443),
-                        ],
-                   ),
+                    defaultValue  => 443),
                ]),
+        new EBox::Types::Text(
+            fieldName     => 'secret',
+            printableName => __('Cluster secret'),
+            editable      => 1,
+            size          => 32,
+           ),
+        new EBox::Types::Text(
+            fieldName     => 'name',
+            printableName => __('Cluster name'),
+            editable      => 1,
+            size          => 20,
+           ),
         new EBox::Types::Select(
             fieldName     => 'interface',
-            printableName => __('Interface for communication'),
+            printableName => __('Choose network interface'),
             populate      => \&_populateIfaces,
-            help          => __('Use a static configured interface is highly recommended'),
+            help          => __('It will be used as communication channel between the cluster members.'),
             editable      => 1),
        );
 
@@ -99,6 +141,14 @@ sub _table
 }
 
 # Group: Subroutines
+
+sub _populateConfOpts
+{
+    return [
+        { value => 'create', printableValue => __('Create a new cluster') },
+        { value => 'join', printableValue => __('Join this node to an existing cluster') }
+       ];
+}
 
 sub _populateIfaces
 {
