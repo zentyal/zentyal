@@ -243,7 +243,7 @@ sub _daemons
         {
             'name' => 'apache2',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/apache2.pid'],
+            'pidfiles' => ['/var/run/apache2/apache2.pid'],
         }
     ];
 }
