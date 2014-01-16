@@ -234,6 +234,16 @@ sub askForReplication
 {
     my ($self) = @_;
 
+    foreach my $node (@{$self->nodes()}) {
+        my $addr = $node->{addr};
+        $self->askForReplicationInNode($addr);
+    }
+}
+
+sub askForReplicationInNode
+{
+    my ($self, $addr) = @_;
+
     my @REPLICATE_MODULES = qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
 
     my $tarfile = 'bundle.tar.gz';
@@ -257,7 +267,7 @@ sub askForReplication
 
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";
-    system ("curl -F file=\@$fullpath http://localhost:5000/conf/replication");
+    system ("curl -F file=\@$fullpath http://$addr:5000/conf/replication");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
