@@ -931,8 +931,10 @@ sub writeSambaConfig
         my $openchangeModule = EBox::Global->modInstance('openchange');
         my $openchangeEnabled = $openchangeModule->isEnabled();
         my $openchangeProvisioned = $openchangeModule->isProvisioned();
+        my $openchangeConnectionString = $openchangeModule->connectionString();
         push (@array, 'openchangeEnabled' => $openchangeEnabled);
         push (@array, 'openchangeProvisioned' => $openchangeProvisioned);
+        push (@array, 'openchangeConnectionString' => $openchangeConnectionString);
     }
 
     $self->writeConfFile(SAMBACONFFILE,

@@ -1,4 +1,5 @@
 HEAD
+	+ Write openchange options to use mysql as backend
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization
 	+ Typo fix in netbios validation
