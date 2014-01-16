@@ -330,6 +330,7 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId, directory
 
     Zentyal.TableHelper.cleanMessage(table);
     Zentyal.TableHelper.setLoading(actionsCellId, table, true);
+    Zentyal.TableHelper.highlightRow(rowId, true, table);
 
     params = '&action=del&id=' + rowId;
     if ( page != undefined ) {
@@ -826,7 +827,7 @@ Parameters:
         elementId - the row identifier to highlight
         enable  - if enables/disables the highlight *(Optional)*
                 Default value: true
-        table  - if enable is true, it sunhighlights all row from this table
+        table  - if enable is true, it unhighlights all row from this table
                  before highlightinh *(Optional*)
 
 */
