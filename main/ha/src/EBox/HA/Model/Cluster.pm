@@ -69,6 +69,35 @@ sub viewCustomizer
     return $customizer;
 }
 
+# Method: precondition
+#
+#     If we already set up the configuration, then we *cannot* edit this model
+#
+# Overrides:
+#
+#     <EBox::Model::precondition>
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    my $ha = $self->parentModule();
+    my $state = $ha->get_state();
+    return (not $state->{configured});
+}
+
+# Method: preconditionFailMsg
+#
+# Overrides:
+#
+#     <EBox::Model::preconditionFailMsg>
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    return __('You must leave the current cluster, to set up the cluster configuration again');
+}
 
 # Group: Protected methods
 
@@ -81,8 +110,6 @@ sub viewCustomizer
 sub _table
 {
     my ($self) = @_;
-
-    # TODO: Once it is already configured
 
     my @fields = (
         new EBox::Types::Select(
@@ -119,6 +146,7 @@ sub _table
             editable      => 1,
             size          => 20,
            ),
+        # TODO: Be able to configure this once configured
         new EBox::Types::Select(
             fieldName     => 'interface',
             printableName => __('Choose network interface'),
