@@ -592,7 +592,7 @@ $buttonId
       <% __('Select') %>
       <div>
       <input type='checkbox'
-             onchange='Zentyal.SoftwareManagementUI.checkAll("<% $id %>", $(this).prop("checked"));'
+             onchange='Zentyal.SoftwareManagementUI.checkAll("<% $id %>", $(this).prop("checked"), "<% $buttonId %> ");'
        />
       </div>
     </th>

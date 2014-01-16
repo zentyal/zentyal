@@ -131,8 +131,9 @@ Zentyal.SoftwareManagementUI.updateTicks = function() {
     }
 };
 
-Zentyal.SoftwareManagementUI.checkAll = function(table, value) {
+Zentyal.SoftwareManagementUI.checkAll = function(table, value, buttonId) {
     $('#' + table  + ' :checkbox').prop('checked', value);
+    Zentyal.SoftwareManagementUI.updateActionButton(table, buttonId);
 };
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
