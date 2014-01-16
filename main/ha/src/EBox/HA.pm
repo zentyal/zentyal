@@ -150,6 +150,41 @@ sub clusterConfiguration
     }
 }
 
+# Method: updateClusterConfiguration
+#
+#    Update cluster configuration after a change in other node of the cluster
+#
+# Parameters:
+#
+#    params - nothing
+#    body   - Hash ref new cluster configuration from another node in the cluster
+#
+sub updateClusterConfiguration
+{
+    my ($self, $params, $body) = @_;
+
+    # FIXME: TODO
+}
+
+# Method: leaveCluster
+#
+#    Leave the cluster and empty the current configuration
+#    and mark the module as changed
+#
+sub leaveCluster
+{
+    my ($self) = @_;
+
+    # FIXME: Do this in saving changes?
+    my $state = $self->get_state();
+    $state->{configured} = 0;
+    delete $state->{cluster_conf};
+    $self->set_state();
+
+    $self->setAsChanged();
+}
+
+
 # Method: nodes
 #
 #     Get the active nodes from a cluster
