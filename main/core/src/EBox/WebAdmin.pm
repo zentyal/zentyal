@@ -232,7 +232,6 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (port => $self->port());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
@@ -275,7 +274,6 @@ sub _writeHttpdConfFile
     my $template = 'core/apache.mas';
 
     my @confFileParams = ();
-    #push @confFileParams, ( port => $self->port());
     push @confFileParams, ( user => EBox::Config::user());
     push @confFileParams, ( group => EBox::Config::group());
     push @confFileParams, ( serverroot => $self->serverroot());

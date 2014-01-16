@@ -1,5 +1,6 @@
 HEAD
 	+ Added support for haproxy
+	+ Moved nginx to listen on localhost
 3.2.6
 	+ Show confirmation dialog before upgrading to 3.3
 	+ Fixed general widget packages to avoid error on 'packages to
