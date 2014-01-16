@@ -217,6 +217,7 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
             rowId = changes.removed[i];
             var row = $('#' + rowId, table);
             row.remove();
+            delete savedElements['actionsCell_' + rowId];
         }
     }
 
@@ -355,11 +356,7 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId, directory
     };
     var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, afterSetError);
     var complete = function(response) {
-        Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        if (actionsCellId in savedElements) {
-            delete savedElements['actionsCell_' + rowId];
-        }
         Zentyal.refreshSaveChangesButton();
     };
 
