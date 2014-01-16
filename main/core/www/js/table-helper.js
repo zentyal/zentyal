@@ -1,9 +1,5 @@
 // Copyright (C) 2007 Warp Networks S.L.
 // Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
-
-// TODO
-//      - Refactor addNewRow and actionClicked, they do almost the same
-//      - Implement a generic function for the onComplete stage
 "use strict";
 
 Zentyal.namespace('TableHelper');
@@ -198,6 +194,10 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
+    } else if ('dataInUseForm' in changes) {
+        $('#' + tableId + '_top').hide();
+        $('#' + tableId + '_editForm').html(changes.dataInUseForm).show();
+        noMoreRowChanges = true;
     }
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);
@@ -217,6 +217,7 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
             rowId = changes.removed[i];
             var row = $('#' + rowId, table);
             row.remove();
+            delete savedElements['actionsCell_' + rowId];
         }
     }
 
@@ -292,7 +293,6 @@ Zentyal.TableHelper.changeRow = function (url, table, fields, directory, id, pag
     var error  =  function(jqXHR) { Zentyal.TableHelper.setError(table, jqXHR.responseText); };
     var success = Zentyal.TableHelper._newSuccessJSONCallback(table);
     var complete = function(response) {
-        Zentyal.refreshSaveChangesButton();
         Zentyal.TableHelper.highlightRow( id, false);
         Zentyal.TableHelper.restoreHidden(buttonsId, table);
         Zentyal.stripe('.dataTable', 'even', 'odd');
@@ -328,7 +328,7 @@ Parameters:
 
 
 */
-Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  directory, page) {
+Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId, directory, page, force) {
     var params;
     var actionsCellId = 'actionsCell_' + rowId;
 
@@ -342,6 +342,9 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
+    if (force) {
+          params += '&force=1';
+    }
 
     var afterSetError = function () {
         Zentyal.TableHelper.restoreHidden(actionsCellId);
@@ -352,11 +355,7 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     };
     var success  = Zentyal.TableHelper._newSuccessJSONCallback(table, afterSetError);
     var complete = function(response) {
-        Zentyal.refreshSaveChangesButton();
         Zentyal.stripe('.dataTable', 'even', 'odd');
-        if (actionsCellId in savedElements) {
-            delete savedElements['actionsCell_' + rowId];
-        }
         Zentyal.refreshSaveChangesButton();
     };
 

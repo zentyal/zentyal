@@ -1,24 +1,29 @@
 <%args>
-	$warning
-	$url
-	$params
+$warning
+$url
+$params
+$ajax => 0
 </%args>
 <%init>
 use EBox::Gettext;
-use Data::Dumper;
 my $table = delete $params->{'tablename'};
 my $action = delete $params->{'action'};
 my $directory = delete $params->{'directory'};
 my $rowId = delete $params->{'id'};
 my $page = delete $params->{'page'};
 $page = 0 unless ( $page );
+my $cancelJS;
+if ($ajax) {
+    $cancelJS =  "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
+    $cancelJS .= "Zentyal.TableHelper.restoreHidden('actionsCell_" . "$rowId');return false";
+} else {
+    $cancelJS = "Zentyal.TableHelper.changeView('$url', '$table', '$directory', 'changeList')";
+}
 </%init>
-
 <div class='warning'>
 <% $warning %>
 </div>
-% if ( $action eq 'edit' )
-% {
+% if ( $action eq 'edit' ) {
 %    my @fields = map { "'" . $_ . "'" } keys %{$params};
 <input class='inputButton' type='submit' name='change'
        value="<% __('Change') %>"
@@ -26,24 +31,15 @@ $page = 0 unless ( $page );
        [ <% join(', ', @fields) %> ], '<% $directory %>',
        '<% $rowId %>', <% $page %>, true); return false"
 />
-% }
-% elsif ($action eq 'del')
-% {
+% } elsif ($action eq 'del') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
-	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', { force: 1}); return false"/>
-% }
-% else
-% {
-<input class='inputButton' type='submit' name='change'
-       value="<% __('Change') %>" title="Change"
-	onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>',  '<% $directory %>', '<% $page %>', { force: 1}
-        ); return false"/>
+        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', true); return false"/>
+% } else {
+%   $m->abort("Unexpected $action in dataInUse.mas template");
 % }
 
 <input  class='inputButton' type='submit' name='cancel'
-		value="<% __('Cancel') %>" title="Cancel"
-		onclick="Zentyal.TableHelper.changeView('<% $url %>', '<% $table %>', '<% $directory %>', 'changeList')" />
+                value="<% __('Cancel') %>" title="Cancel"
+                onclick="<% $cancelJS %>" />
 
