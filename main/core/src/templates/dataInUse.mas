@@ -34,14 +34,9 @@ if ($ajax) {
 % } elsif ($action eq 'del') {
 <input class='inputButton' type='submit' name='change'
        value="<% __('Delete') %>" title="Delete"
-        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', 1); return false"/>
+        onclick="Zentyal.TableHelper.deleteActionClicked('<% $url %>', '<% $table %>', '<% $rowId %>', '<% $directory %>', '<% $page %>', true); return false"/>
 % } else {
-% # XXX DEPRECATED!
-<input class='inputButton' type='submit' name='change'
-       value="<% __('Change') %>" title="Change"
-        onclick="Zentyal.TableHelper.actionClicked('<% $url %>', '<% $table %>', '<%
-        $action %>', '<% $rowId %>',  '<% $directory %>', '<% $page %>', { force: 1}
-        ); return false"/>
+%   $m->abort("Unexpected $action in dataInUse.mas template");
 % }
 
 <input  class='inputButton' type='submit' name='cancel'
