@@ -159,7 +159,7 @@ sub _table
     {
         tableName => 'Cluster',
         printableTableName => __('Cluster configuration'),
-        defaultActions => [ 'editField' ],
+        defaultActions => [ 'editField', 'changeView' ],
         modelDomain => 'HA',
         tableDescription => \@fields,
         help => __('Configure how this server will start a cluster or it will join to an existing one'),
