@@ -14,7 +14,8 @@ my $page = delete $params->{'page'};
 $page = 0 unless ( $page );
 my $cancelJS;
 if ($ajax) {
-    $cancelJS =  "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
+    $cancelJS = "Zentyal.TableHelper.highlightRow('$rowId', false);";
+    $cancelJS .=  "Zentyal.TableHelper.cleanMessage('$table'); Zentyal.TableHelper.restoreTop('$table');";
     $cancelJS .= "Zentyal.TableHelper.restoreHidden('actionsCell_" . "$rowId');return false";
 } else {
     $cancelJS = "Zentyal.TableHelper.changeView('$url', '$table', '$directory', 'changeList')";
