@@ -494,10 +494,24 @@ sub addAction
 sub delAction
 {
     my ($self) = @_;
-
-    $self->{json} = {  success => 0 };
-    my $rowId = $self->removeRow();
     my $model  = $self->{'tableModel'};
+    $self->{json} = { success => 0 };
+
+    my $rowId;
+    try {
+        $rowId = $self->removeRow();
+    } catch (EBox::Exceptions::DataInUse $e) {
+        $self->{json}->{success} = 1;
+        EBox::debug("URL " . $model->table()->{actions}->{del});
+        use Data::Dumper;
+        EBox::debug(Dumper($model->table()->{actions}));
+        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+            $model->table()->{actions}->{del},
+            "$e",
+           );
+        return;
+    };
+
     $self->_setJSONSuccess($model);
 
     # With the current UI is assumed that the delAction is done in the same page
@@ -821,6 +835,20 @@ sub _htmlForChangeRow
 
     return $html;
 }
+
+
+sub _htmlForDataInUse
+{
+    my ($self, $url, $msg) = @_;
+    my $params = $self->paramsAsHash;
+    return EBox::Html::makeHtml('/dataInUse.mas',
+                                warning => $msg,
+                                url     => $url,
+                                params  => $params,
+                                ajax    => 1,
+                               );
+}
+
 
 sub _modelIds
 {

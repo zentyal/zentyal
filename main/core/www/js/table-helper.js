@@ -1,9 +1,5 @@
 // Copyright (C) 2007 Warp Networks S.L.
 // Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
-
-// TODO
-//      - Refactor addNewRow and actionClicked, they do almost the same
-//      - Implement a generic function for the onComplete stage
 "use strict";
 
 Zentyal.namespace('TableHelper');
@@ -198,6 +194,10 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
+    } else if ('dataInUseForm') {
+        $('#' + tableId + '_top').hide();
+        $('#' + tableId + '_editForm').html(changes.dataInUseForm).show();
+        noMoreRowChanges = true;
     }
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);
@@ -328,7 +328,7 @@ Parameters:
 
 
 */
-Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  directory, page) {
+Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId, directory, page, force) {
     var params;
     var actionsCellId = 'actionsCell_' + rowId;
 
@@ -342,6 +342,9 @@ Zentyal.TableHelper.deleteActionClicked = function (url, table, rowId,  director
     params += '&filter=' + Zentyal.TableHelper.inputValue(table + '_filter');
     params += '&pageSize=' + Zentyal.TableHelper.inputValue(table + '_pageSize');
     params += '&directory=' + directory + '&tablename=' + table;
+    if (force) {
+          params += '&force=1';
+    }
 
     var afterSetError = function () {
         Zentyal.TableHelper.restoreHidden(actionsCellId);
