@@ -194,10 +194,6 @@ Zentyal.TableHelper.updateTable = function(tableId, changes) {
         $('#' + tableId + '_top').hide();
         $('#' + tableId + '_editForm').html(changes.changeRowForm).show();
         noMoreRowChanges = true;
-    } else if ('dataInUseForm' in changes) {
-        $('#' + tableId + '_top').hide();
-        $('#' + tableId + '_editForm').html(changes.dataInUseForm).show();
-        noMoreRowChanges = true;
     }
     if ('message' in changes) {
         Zentyal.TableHelper.setMessage(tableId, changes.message);

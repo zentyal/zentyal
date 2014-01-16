@@ -230,7 +230,7 @@ sub _editField
         $model->setRow($force, %params);
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{editField},
             "$e",
            );
@@ -511,7 +511,7 @@ sub delAction
         $rowId = $self->removeRow();
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{json}->{success} = 1;
-        $self->{json}->{dataInUseForm} = $self->_htmlForDataInUse(
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
             $model->table()->{actions}->{del},
             "$e",
            );
