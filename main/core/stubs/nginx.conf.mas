@@ -9,6 +9,7 @@ Parameters:
            Default value: 61080
     tmpdir - String the path to the WebAdmin temporary directory.
     zentyalconfdir - String the path to the WebAdmin configuration folder.
+    includes - Array. The list of configuration files to include
 
 # FIXME: unhardcode paths passing them as args...
 </%doc>
@@ -17,7 +18,6 @@ Parameters:
     $port => 61080
     $tmpdir
     $zentyalconfdir
-    $caFile
     @includes => ()
 </%args>
 
@@ -86,13 +86,7 @@ http {
     #}
 
     server {
-        listen <% $bind_address $>:<% $port %>;
-
-% if ($caFile) {
-#        ssl_client_certificate <% $caFile %>;
-#        ssl_verify_client optional;
-#        ssl_verify_depth 1;
-% }
+        listen <% $bind_address %>:<% $port %>;
 
         access_log /var/log/zentyal/access.log;
 
@@ -140,7 +134,7 @@ http {
         }
 % foreach my $includeFile (@includes) {
 
-        include <% $includeFile %>;
+        #include <% $includeFile %>;
 % }
     }
 }

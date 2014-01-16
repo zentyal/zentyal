@@ -225,9 +225,6 @@ sub _writeNginxConfFile
 {
     my ($self) = @_;
 
-    # Write CA links
-    $self->_writeCAFiles();
-
     my $nginxconf = $self->_nginxConfFile();
     my $templateConf = 'core/nginx.conf.mas';
 
@@ -235,11 +232,6 @@ sub _writeNginxConfFile
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
-    if (@{$self->_CAs(1)}) {
-        push @confFileParams, (caFile => CA_CERT_FILE);
-    } else {
-        push @confFileParams, (caFile => undef);
-    }
 
     my $permissions = {
         uid => EBox::Config::user(),

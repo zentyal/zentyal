@@ -1,0 +1,35 @@
+<%doc>
+   Template to set the haproxy configuration file for Zentyal
+
+Parameters:
+
+    bind_address - String the bind address.
+                   Default value: 0.0.0.0
+    zentyalconfdir - String the path to the HAProxy configuration folder.
+    caFile         - String the CA pem file to validate SSL certificate against.
+
+</%doc>
+<%args>
+    $bind_address => '0.0.0.0'
+    $zentyalconfdir
+    $caFile
+</%args>
+global
+  tune.ssl.lifetime 300
+
+defaults
+ log 127.0.0.1 local0
+ option tcplog
+
+frontend ft_zentyal
+  mode http
+% if ($caFile) {
+  bind <% $bind_address %>:443 ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+% } else {
+  bind <% $bind_address %>:443 ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM
+% }
+  default_backend bk_zentyal_webadmin
+
+backend bk_zentyal_webadmin
+ mode http
+ server srvxlc 127.0.0.1:61080
