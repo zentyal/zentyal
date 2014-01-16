@@ -1,4 +1,6 @@
 HEAD
+	+ Fixed regression in AJAX changes with raised error when a
+	  data in use exception was found
 	+ Fixed css error that hide information in the logs tables
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
