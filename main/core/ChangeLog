@@ -1,5 +1,5 @@
 HEAD
-	+ Added support for haproxy
+	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
 3.2.6
 	+ Show confirmation dialog before upgrading to 3.3
