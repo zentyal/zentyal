@@ -46,7 +46,12 @@ sub _table
             fieldName     => 'bootstraped',
             editable      => 1,
             defaultValue  => 0,
-        )
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'leaveRequest',
+            editable      => 1,
+            defaultValue  => 0,
+        ),
     );
     my $dataTable =
     {
