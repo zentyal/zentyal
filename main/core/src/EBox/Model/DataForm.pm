@@ -84,6 +84,11 @@ sub _ids
 #
 #       Set the value of a element and store the row
 #
+# Parameters:
+#
+#       element - String the element's name
+#       value   - the value to set. The type depends on the element's type
+#
 sub setValue
 {
     my ($self, $element, $value) = @_;
@@ -96,6 +101,14 @@ sub setValue
 # Method: value
 #
 #       Get the value of a element of the row
+#
+# Parameters:
+#
+#       element - String the element's name
+#
+# Returns:
+#
+#       the value. The type depends on the element's type
 #
 sub value
 {
@@ -118,10 +131,9 @@ sub _checkTable
     my @unallowedSuperParams = qw(sortedBy order);
     foreach my $param (@unallowedSuperParams) {
         if (exists $table->{$param}) {
-            # FIXME: WTF is this?
             throw EBox::Exceptions::Internal(
-
-                                            );
+                "$param is not allowed in description of " . $self->name()
+            );
         }
     }
 }
@@ -183,7 +195,7 @@ sub row
     if ($self->_rowStored()) {
         return $self->SUPER::row($ROW_ID);
     } else {
-        $self->_defaultRow();
+        return $self->_defaultRow();
     }
 
 }
