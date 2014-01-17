@@ -1,3 +1,6 @@
+HEAD
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 3.0.32
 	+ Display remote services messages if they exist on Dashboard
 	+ Fixed mdstat output processing to remove "(auto-read-only)"
