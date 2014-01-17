@@ -194,7 +194,10 @@ sub leaveCluster
 {
     my ($self) = @_;
 
-    $self->model('ClusterState')->setValue('bootstraped', 0);
+    my $row = $self->model('ClusterState')->row();
+    $row->elementByName('bootstraped')->setValue(0);
+    $row->elementByName('leaveRequest')->setValue(1);
+    $row->store();
 }
 
 # Method: nodes
@@ -288,6 +291,11 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
+
+    if ($self->model('ClusterState')->leaveRequestValue()) {
+        # TODO: Notify to other cluster members
+        $self->model('ClusterState')->setValue('leaveRequest', 0);
+    }
 
     unless($self->clusterBootstraped()) {
         $self->_corosyncSetConf();
