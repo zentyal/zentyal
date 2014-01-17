@@ -54,42 +54,6 @@ sub _create
     return $self;
 }
 
-# Method: usedFiles
-#
-#   Defines the set of system files that HAProxy will change.
-#
-# Overrides:
-#
-#       <EBox::Module::Service::_usedFiles>
-#
-#sub _usedFiles
-#{
-#    return [
-#        {
-#            'file'   => HAPROXY_DEFAULT_FILE,
-#            'module' => 'haproxy',
-#            'reason' => __('To set the haproxy boot configuration'),
-#        }
-#    ]
-#}
-
-# Method: actions
-#
-# Overrides:
-#
-#       <EBox::Module::Service::actions>
-#
-#sub actions
-#{
-#    return [
-#        {
-#            'action' => __('Enable HAProxy daemon'),
-#            'module' => 'haproxy',
-#            'reason' => __('To start the HAProxy daemon.')
-#        },
-#    ];
-#}
-
 # Method: _daemons
 #
 #   Defines the set of daemons provided by HAProxy.
