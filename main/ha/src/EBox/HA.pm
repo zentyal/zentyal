@@ -142,6 +142,7 @@ sub clusterBootstraped
 #
 #     Hash ref - the cluster configuration, if bootstrapped
 #
+#        - name: String the cluster name
 #        - transport: String 'udp' for multicast and 'udpu' for unicast
 #        - multicastConf: Hash ref with addr, port and expected_votes as keys
 #        - nodes: Array ref the node list including IP address, name and webadmin port
@@ -162,9 +163,12 @@ sub clusterConfiguration
         } elsif ($transport eq 'udpu') {
             $multicastConf = {};
         }
-        return { transport     => $transport,
-                 multicastConf => $multicastConf,
-                 nodes         => $nodeList };
+        return {
+            name          => $self->model('Cluster')->nameValue(),
+            transport     => $transport,
+            multicastConf => $multicastConf,
+            nodes         => $nodeList
+        };
     } else {
         return {};
     }

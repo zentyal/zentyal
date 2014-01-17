@@ -118,6 +118,7 @@ sub _table
             printableName => __('Cluster name'),
             editable      => 1,
             size          => 20,
+            defaultValue  => 'my cluster',
             hidden        => \&_isBootstraped,
            ),
         new EBox::Types::Select(
