@@ -14,7 +14,7 @@
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 package EBox::WebAdmin;
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
 
 use strict;
 use warnings;
@@ -229,6 +229,8 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
+    push @confFileParams, (bind_address => $self->targetHAProxyIP());
+    push @confFileParams, (port => $self->targetHAProxyPort());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
@@ -986,6 +988,94 @@ sub _migrateTo32
         $redis->set($newkey, $value);
     }
     $redis->unset(@keys);
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: allowDisableHAProxyService
+#
+#   Webadmin must be always on so users don't lose access to the web admin UI.
+#
+# Returns:
+#
+#   boolean - Whether this service may be disabled from the reverse proxy.
+#
+sub allowDisableHAProxyService
+{
+    return undef;
+}
+
+# Method: HAProxyServiceId
+#
+#   This method must be always overrided by services implementing this interface.
+#
+# Returns:
+#
+#   string - A unique ID across Zentyal that identifies this HAProxy service.
+#
+sub HAProxyServiceId
+{
+    return 'webadminHAProxyId';
+}
+
+# Method: defaultHAProxySSLPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#
+sub defaultHAProxySSLPort
+{
+    return 443;
+}
+
+# Method: blockHAProxyPort
+#
+#   Always return True to prevent that webadmin is served without SSL.
+#
+# Returns:
+#
+#   boolean - Whether the port may be customised or not.
+#
+sub blockHAProxyPort
+{
+    return 1;
+}
+
+# Method: targetHAProxyIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#
+sub targetHAProxyIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHAProxyPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxyPort>
+#
+sub targetHAProxyPort
+{
+    return 61080;
 }
 
 1;
