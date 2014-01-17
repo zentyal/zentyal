@@ -280,7 +280,11 @@ sub _daemons
            name => 'pacemaker',
            type => 'init.d',
            pidfiles => ['/run/pacemakerd.pid']
-       }
+       },
+       {
+           name => 'zentyal.ha-psgi',
+           type => 'upstart'
+       },
     ];
 
     return $daemons;
@@ -302,7 +306,7 @@ sub _setConf
     }
 
     $self->_corosyncSetConf();
-    if ($self->global()->modIsChanged($self->name())) {
+    if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
 }
