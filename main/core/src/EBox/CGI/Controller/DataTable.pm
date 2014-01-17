@@ -26,7 +26,9 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
 # Dependencies
+use Data::Dumper;
 use Error qw(:try);
+use Perl6::Junction qw(all any);
 
 sub new # (cgi=?)
 {
@@ -109,7 +111,15 @@ sub _auditLog
         } elsif (($type and ($type eq 'password')) or ($elementId eq 'password')) {
             $value = '****' if $value;
             $oldValue = '****' if $oldValue;
+        } elsif (ref($value) or ref($oldValue)) {
+            {
+                local $Data::Dumper::Indent = 0;  # Most compacted output
+                local $Data::Dumper::Terse  = 1;  # Do not use VARn when possible
+                $value = Dumper($value) if ref($value);
+                $oldValue = Dumper($oldValue) if ref($oldValue);
+            }
         }
+
     }
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
@@ -205,13 +215,15 @@ sub _editField
         }
 
         unless ($field->isa('EBox::Types::Boolean')) {
-            next unless defined $params{$fieldName};
+            next unless (all($field->fields()) eq any(keys(%params)));
         }
 
-        my $newValue = $params{$fieldName};
+        my $newField = $field->clone();
+        $newField->setMemValue(\%params);
+        my $newValue = $newField->value();
         my $oldValue = $row->valueByName($fieldName);
 
-        next if ($newValue eq $oldValue);
+        next if ($row->elementByName($fieldName)->isEqualTo($newField));
 
         $changedValues{$fieldName} = {
             id => $id ? "$auditId/$fieldName" : $fieldName,
