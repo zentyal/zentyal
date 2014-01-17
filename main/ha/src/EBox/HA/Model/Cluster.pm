@@ -69,36 +69,6 @@ sub viewCustomizer
     return $customizer;
 }
 
-# Method: precondition
-#
-#     If we already set up the configuration, then we *cannot* edit this model
-#
-# Overrides:
-#
-#     <EBox::Model::precondition>
-#
-sub precondition
-{
-    my ($self) = @_;
-
-    my $ha = $self->parentModule();
-    my $state = $ha->get_state();
-    return (not $state->{configured});
-}
-
-# Method: preconditionFailMsg
-#
-# Overrides:
-#
-#     <EBox::Model::preconditionFailMsg>
-#
-sub preconditionFailMsg
-{
-    my ($self) = @_;
-
-    return __('You must leave the current cluster, to set up the cluster configuration again');
-}
-
 # Group: Protected methods
 
 # Method: _table
@@ -117,11 +87,13 @@ sub _table
             printableName => __('Cluster configuration'),
             editable      => 1,
             populate      => \&_populateConfOpts,
+            hidden        => \&_isBootstraped,
         ),
         new EBox::Types::Composite(
             fieldName     => 'cluster_zentyal',
             editable      => 1,
             showTypeName  => 1,
+            hidden        => \&_isBootstraped,
             types         => [
                 new EBox::Types::Host(
                     fieldName     => 'zentyal_host',
@@ -139,21 +111,22 @@ sub _table
             printableName => __('Cluster secret'),
             editable      => 1,
             size          => 32,
+            hidden        => \&_isBootstraped,
            ),
         new EBox::Types::Text(
             fieldName     => 'name',
             printableName => __('Cluster name'),
             editable      => 1,
             size          => 20,
+            hidden        => \&_isBootstraped,
            ),
-        # TODO: Be able to configure this once configured
         new EBox::Types::Select(
             fieldName     => 'interface',
             printableName => __('Choose network interface'),
             populate      => \&_populateIfaces,
             help          => __('It will be used as communication channel between the cluster members.'),
             editable      => 1),
-       );
+    );
 
     my $dataTable =
     {
@@ -188,6 +161,12 @@ sub _populateIfaces
         push(@options, { value => $iface, printableValue => $iface });
     }
     return \@options;
+}
+
+sub _isBootstraped
+{
+    my $ha = EBox::Global->getInstance()->modInstance('ha');
+    return $ha->clusterBootstraped();
 }
 
 1;

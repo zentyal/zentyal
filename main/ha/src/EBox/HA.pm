@@ -114,26 +114,41 @@ sub widgets
     };
 }
 
+# Method: clusterBootstraped
+#
+#     Return if the cluster was bootstraped
+#
+# Returns:
+#
+#     Boolean - true if the cluster was bootstraped once
+#
+sub clusterBootstraped
+{
+    my ($self) = @_;
+
+    return $self->model('ClusterState')->bootstrapedValue();
+}
+
 # Method: clusterConfiguration
 #
 #     Return the cluster configuration
 #
 # Returns:
 #
-#     Hash ref - the cluster configuration, if configured
+#     Hash ref - the cluster configuration, if bootstrapped
 #
 #        - transport: String 'udp' for multicast and 'udpu' for unicast
 #        - multicastConf: Hash ref with addr, port and expected_votes as keys
 #        - nodes: Array ref the node list including IP address, name and webadmin port
 #
-#     Empty hash ref if the cluster is not configured.
+#     Empty hash ref if the cluster is not bootstraped.
 #
 sub clusterConfiguration
 {
     my ($self) = @_;
 
     my $state = $self->get_state();
-    if ($state->{configured}) {
+    if ($self->clusterBootstraped()) {
         my $transport = $state->{cluster_conf}->{transport};
         my $multicastConf = $state->{cluster_conf}->{multicast};
         my $nodeList = new EBox::HA::NodeList($self)->list();
@@ -168,22 +183,14 @@ sub updateClusterConfiguration
 
 # Method: leaveCluster
 #
-#    Leave the cluster and empty the current configuration
-#    and mark the module as changed
+#    Leave the cluster by setting the cluster not boostraped
 #
 sub leaveCluster
 {
     my ($self) = @_;
 
-    # FIXME: Do this in saving changes?
-    my $state = $self->get_state();
-    $state->{configured} = 0;
-    delete $state->{cluster_conf};
-    $self->set_state();
-
-    $self->setAsChanged();
+    $self->model('ClusterState')->setValue('bootstraped', 0);
 }
-
 
 # Method: nodes
 #
@@ -277,9 +284,9 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $state = $self->get_state();
-    unless($state->{configured}) {
+    unless($self->clusterBootstraped()) {
         $self->_corosyncSetConf();
+        $self->saveConfig();
     }
 }
 
@@ -347,7 +354,7 @@ sub _corosyncSetConf
 # Bootstrap a cluster
 #  * Start node list
 #  * Store the transport method in State
-#  * Store the cluster as configured
+#  * Store the cluster as bootstraped
 sub _bootstrap
 {
     my ($self, $localNodeAddr, $hostname) = @_;
@@ -377,11 +384,11 @@ sub _bootstrap
     $state->{cluster_conf}->{transport} = $transport;
     $state->{cluster_conf}->{multicast} = $multicastConf;
 
-    $state->{configured} = 1;
-
     # Finally, store it in Redis
     $self->set_state($state);
 
+    # Set as bootstraped
+    $self->model('ClusterState')->setValue('bootstraped', 1);
 }
 
 1;
