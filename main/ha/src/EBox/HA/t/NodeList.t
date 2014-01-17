@@ -109,8 +109,26 @@ sub test_empty : Test(3)
     cmp_deeply($nl->list(), [], 'list is empty');
 }
 
-1;
+sub test_local_node : Test(3)
+{
+    my ($self) = @_;
 
+    my $nl = $self->{nodeList};
+    throws_ok {
+        $nl->localNode()
+    } 'EBox::Exceptions::DataNotFound', 'Not local node in an empty list';
+    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    throws_ok {
+        $nl->localNode()
+    } 'EBox::Exceptions::DataNotFound', 'Not local node in a non-empty list';
+    $nl->set(addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1);
+    cmp_deeply($nl->localNode(),
+               { addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1 });
+    $nl->empty()
+
+}
+
+1;
 
 END {
     EBox::HA::NodeList::Test->runtests();

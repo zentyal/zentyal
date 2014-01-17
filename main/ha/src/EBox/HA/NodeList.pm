@@ -146,4 +146,35 @@ sub list
     return \@nodeList;
 }
 
+# Method: localNode
+#
+#    Return the local node data
+#
+# Returns:
+#
+#    Hash ref - with the configuration for the local node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if there is no local node
+#
+sub localNode
+{
+    my ($self) = @_;
+
+    my $list = $self->list();
+    my @local = grep { $_->{localNode} } @{$list};
+    if (@local > 0) {
+        return $local[0];
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'node',
+                                             value => 'localNode');
+    }
+}
+
 1;

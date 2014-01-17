@@ -297,8 +297,8 @@ sub _setConf
         $self->model('ClusterState')->setValue('leaveRequest', 0);
     }
 
-    unless($self->clusterBootstraped()) {
-        $self->_corosyncSetConf();
+    $self->_corosyncSetConf();
+    if ($self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
 }
@@ -331,6 +331,7 @@ sub _corosyncSetConf
 
     my $clusterSettings = $self->model('Cluster');
 
+    # Calculate the localnetaddr
     my $iface = $clusterSettings->interfaceValue();
     my $network = EBox::Global->getInstance()->modInstance('network');
     my $ifaces = [ { iface => $iface, netAddr => $network->ifaceNetwork($iface) }];
@@ -343,9 +344,20 @@ sub _corosyncSetConf
                                              iface => $iface));
     }
 
-    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
-    if ($clusterSettings->configurationValue() eq 'create') {
-        $self->_bootstrap($localNodeAddr, $hostname);
+    # Do bootstraping, if required
+    unless ($self->clusterBootstraped()) {
+        my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+        if ($clusterSettings->configurationValue() eq 'create') {
+            $self->_bootstrap($localNodeAddr, $hostname);
+        }
+    }
+
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    if ($localNodeAddr ne $localNode->{addr}) {
+        $list->set(name => $localNode->{name}, addr => $localNodeAddr,
+                   webAdminPort => 443, localNode => 1);
+        # TODO: Notify to other peers
     }
 
     my $clusterConf = $self->clusterConfiguration();
