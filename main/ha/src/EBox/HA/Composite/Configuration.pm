@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::HA;
+package EBox::HA::Composite::Configuration;
 
 use base 'EBox::Model::Composite';
 
@@ -37,9 +37,9 @@ sub _description
 {
     my $description = {
         layout          => 'top-bottom',
-        pageTitle       => __('High Availability Cluster'),
+        pageTitle       => __('High Availability'),
         compositeDomain => 'ha',
-        name            => 'HA',
+        name            => 'Configuration',
     };
 
     return $description;

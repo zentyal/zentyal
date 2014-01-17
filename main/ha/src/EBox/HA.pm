@@ -84,8 +84,13 @@ sub menu
             'order' => 30
            );
 
+    my $menuURL = 'HA/Composite/Initial';
+    if ($self->clusterBootstraped()) {
+        $menuURL = 'HA/Composite/Configuration';
+    }
+
     $system->add(new EBox::Menu::Item(
-        url => 'HA/Composite/HA',
+        url => $menuURL,
         text => $self->printableName(),
         separator => 'Core',
         order => 50,
