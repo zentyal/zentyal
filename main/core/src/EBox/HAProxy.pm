@@ -12,16 +12,20 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::HAProxy;
-use base qw(EBox::Module::Service);
-
 use strict;
 use warnings;
+
+# Class: EBox::HAProxy
+#
+#   Zentyal Service to configure HAProxy as a reverse proxy for other services.
+#
+package EBox::HAProxy;
+use base qw(EBox::Module::Service);
 
 use EBox;
 use EBox::Config;
 use EBox::Gettext;
+use EBox::Menu::Item;
 use EBox::Module::Base;
 use EBox::Sudo;
 use Error qw(:try);
@@ -46,7 +50,7 @@ sub _create
     my $class = shift;
     my $self = $class->SUPER::_create(
         name   => 'haproxy',
-        printableName => __('Zentyal HAProxy'),
+        printableName => __('Reverse Proxy'),
         @_
     );
 
@@ -176,6 +180,54 @@ sub _enforceServiceState
 
     my $script = $self->INITDPATH() . 'haproxy restart';
     EBox::Sudo::root($script);
+}
+
+# Method: menu
+#
+# Overrides:
+#
+#       <EBox::Module::Base::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $separator = 'Core';
+    # Between System and Network.
+    my $order = 35;
+
+    my $item = new EBox::Menu::Item(
+        url       => 'HAProxy/View/Services',
+        icon      => 'rproxy',
+        text      => $self->printableName(),
+        order     => $order,
+        separator => $separator);
+
+    $root->add($item);
+}
+
+# Method: modsWithHAProxyService
+#
+#   All configured service modules (EBox::Module::Service) which implement EBox::HAProxy::ServiceBase interface.
+#
+# Returns:
+#
+#       A ref to array with all the Module::Service names
+#
+sub modsWithHAProxyService
+{
+    my ($self) = @_;
+
+    my @allModules = @{$self->global()->modInstancesOfType('EBox::Module::Service')};
+
+    my @mods;
+    foreach my $module (@allModules) {
+        $module->configured() or next;
+        if ($module->isa('EBox::HAProxy::ServiceBase')) {
+            push (@mods, $module);
+        }
+    }
+    return \@mods;
 }
 
 1;
