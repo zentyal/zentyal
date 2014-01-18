@@ -247,7 +247,8 @@ sub nodes
 #
 #     * Store the new node
 #     * Send info to other members of the cluster (TODO)
-#     * Save ha module
+#     * Write corosync conf
+#     * Dynamically add the new node
 #
 # Parameters:
 #
@@ -266,16 +267,33 @@ sub addNode
     $params->{localNode} = 0;  # Local node is always set manually
     $list->set(%{$params});
 
-    $self->save();
+    # Write corosync conf
+    $self->_corosyncSetConf();
+
+    # Dynamically add the new node to corosync
+    my $newNode = $list->node($params->{name});
+    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.nodeid u32 ' . $newNode->{nodeid},
+                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.name str ' . $newNode->{name},
+                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.ring0_addr str ' . $newNode->{addr});
+
 }
 
 # Method: deleteNode
 #
-#    Delete node from the cluster
+#    Delete node from the cluster.
+#
+#    * Delete the node
+#    * Send cluster configuration to other members (TODO)
+#    * Write corosync conf
+#    * Dynamically add the new node
 #
 # Parameters:
 #
-#    params - hash ref containing the node to delete in the key 'name'
+#    params - <Hash::MultiValue> containing the node to delete in the
+#             key 'name'
 #
 # Returns:
 #
@@ -285,9 +303,24 @@ sub deleteNode
 {
     my ($self, $params) = @_;
 
+    use Data::Dumper;
+    EBox::info('delete node (params): ' . Dumper($params));
+
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
+    my $deletedNode = $list->node($params->{name});
     $list->remove($params->{name});
+    # TODO: Notify other members
+
+    # Write corosync conf
+    $self->_corosyncSetConf();
+
+    # Dynamically remove the new node to corosync
+    EBox::Sudo::root(
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.ring0_addr',
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.name',
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.nodeid');
+
 }
 
 # Group: Protected methods
@@ -332,8 +365,8 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->model('ClusterState')->leaveRequestValue()) {
-        # TODO: Notify to other cluster members
         $self->model('ClusterState')->setValue('leaveRequest', 0);
+        $self->_notifyLeave();
     }
 
     $self->_corosyncSetConf();
@@ -513,6 +546,34 @@ sub _join
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Notify the leave to a member of the cluster
+# Take one of the on-line members
+sub _notifyLeave
+{
+    my ($self) = @_;
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    my $localNode = $nodeList->localNode();
+    foreach my $node (@{$nodeList->list()}) {
+        next if ($node->{localNode});
+        # TODO: Check the node is on-line
+        my $last = 0;
+        my $client = new EBox::RESTClient(server => $node->{addr});
+        $client->setPort(5000); # $node->{port});
+        # FIXME: Delete this line and not verify servers when using HAProxy
+        $client->setScheme('http');
+        try {
+            EBox::info('Notify leaving cluster to ' . $node->{name});
+            $client->DELETE('/cluster/nodes/' . $localNode->{name});
+            $last = 1;
+        } catch ($e) {
+            # Catch any exception
+            EBox::error($e->text());
+        }
+        last if ($last);
+    }
 }
 
 1;
