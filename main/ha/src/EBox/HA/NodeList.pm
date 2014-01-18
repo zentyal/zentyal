@@ -164,6 +164,40 @@ sub list
     return \@nodeList;
 }
 
+# Method: node
+#
+#    Return the required node
+#
+# Parameters:
+#
+#    name - String the node name
+#
+# Returns:
+#
+#    Hash ref - with the node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::DataNotFound> - thrown if the node is not in
+#                                        the list
+sub node
+{
+    my ($self, $name) = @_;
+
+    my $nodes = $self->{ha}->get_state()->{cluster_conf}->{nodes};
+    if (exists($nodes->{$name})) {
+        return $nodes->{$name};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'node', value => $name);
+    }
+}
+
 # Method: localNode
 #
 #    Return the local node data
