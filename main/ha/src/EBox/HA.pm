@@ -28,6 +28,8 @@ package EBox::HA;
 
 use base qw(EBox::Module::Service);
 
+use feature qw(switch);
+
 use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Global;
@@ -221,7 +223,11 @@ sub nodes
 
 # Method: addNode
 #
-#     Add a node to the cluster
+#     Add a node to the cluster.
+#
+#     * Store the new node
+#     * Send info to other members of the cluster (TODO)
+#     * Save ha module
 #
 # Parameters:
 #
@@ -232,10 +238,15 @@ sub addNode
 {
     my ($self, $params, $body) = @_;
 
+    use Data::Dumper;
+    EBox::info('Add node (params): ' . Dumper($params));
+
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
-    $list->set(%{$body});
+    $list->set(%{$params});
+
+    $self->save();
 }
 
 # Method: deleteNode
@@ -355,8 +366,9 @@ sub _corosyncSetConf
     # Do bootstraping, if required
     unless ($self->clusterBootstraped()) {
         my $hostname = $self->global()->modInstance('sysinfo')->hostName();
-        if ($clusterSettings->configurationValue() eq 'create') {
-            $self->_bootstrap($localNodeAddr, $hostname);
+        given ($clusterSettings->configurationValue()) {
+            when ('create') { $self->_bootstrap($localNodeAddr, $hostname); }
+            when ('join') { $self->_join($clusterSettings, $localNodeAddr, $hostname); }
         }
     }
 
@@ -418,6 +430,62 @@ sub _bootstrap
     $state->{cluster_conf}->{multicast} = $multicastConf;
 
     # Finally, store it in Redis
+    $self->set_state($state);
+
+    # Set as bootstraped
+    $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Join to a existing cluster
+# Params:
+#    clusterSettings : the cluster configuration settings model
+#    localNodeAddr: the local node address
+#    hostname: the local hostname
+# Actions:
+#  * Get the configuration from the cluster
+#  * Notify for adding ourselves in the cluster
+#  * Set node list (overriding current values)
+#  * Add local node
+#  * Store cluster name and configuration
+sub _join
+{
+    my ($self, $clusterSettings, $localNodeAddr, $hostname) = @_;
+
+    my $remoteHost = $clusterSettings->row()->valueByName('cluster_zentyal');
+    my $client = new EBox::RESTClient(server => $remoteHost->{zentyal_host});
+    $client->setPort($remoteHost->{zentyal_port});
+    # FIXME: Delete this line and not verify servers when using HAProxy
+    $client->setScheme('http');
+    # TODO: Add secret
+    my $response = $client->GET('/cluster/configuration');
+
+    my $clusterConf = new JSON::XS()->decode($response->as_string());
+
+    # TODO: set proper port
+    my $localNode = { name => $hostname,
+                      addr => $localNodeAddr,
+                      webAdminPort => 443 };
+
+    $response = $client->POST('/cluster/nodes',
+                              query => $localNode);
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    $nodeList->empty();
+    foreach my $nodeConf (@{$clusterConf->{nodes}}) {
+        $nodeConf->{localNode} = 0;  # Always set as remote node
+        $nodeList->set(%{$nodeConf});
+    }
+    # Add local node
+    $nodeList->set(%{$localNode}, localNode => 1);
+
+    # Store cluster configuration
+    my $row = $clusterSettings->row();
+    $row->elementByName('name')->setValue($clusterConf->{name});
+    $row->store();
+
+    my $state = $self->get_state();
+    $state->{cluster_conf}->{transport} = $clusterConf->{transport};
+    $state->{cluster_conf}->{multicast} = $clusterConf->{multicastConf};
     $self->set_state($state);
 
     # Set as bootstraped
