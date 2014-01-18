@@ -57,7 +57,7 @@ sub getParams
     foreach my $field (@{$tableDesc}) {
         foreach my $fieldName ($field->fields()) {
             my $value;
-            if ( $field->allowUnsafeChars() ) {
+	    if ( $field->allowUnsafeChars() ) {
                 $value = $self->unsafeParam($fieldName);
             } else {
                 $value = $self->param($fieldName);
@@ -204,9 +204,16 @@ sub _editField
     my $row = $model->row($id);
     my $auditId = $self->_getAuditId($id);
 
+    my $viewCustomizer = $model->viewCustomizer();
+    my $triggerFields = $viewCustomizer->onChangeFields();
+    # Fetch trigger fields
+    foreach my $name (keys %{$triggerFields}) {
+        $triggerFields->{$name} = $params{$name};
+    }
+
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    for my $field (@{$tableDesc} ) {
+    for my $field (@{$tableDesc}) {
         my $fieldName = $field->fieldName();
 
         if ($inPlace and (not $field->isa('EBox::Types::Basic'))) {
@@ -217,6 +224,9 @@ sub _editField
         unless ($field->isa('EBox::Types::Boolean')) {
             next unless (all($field->fields()) eq any(keys(%params)));
         }
+
+        # Skip fields that are hidden or disabled by the view customizer
+        next if($viewCustomizer->skipField($fieldName, $triggerFields));
 
         my $newField = $field->clone();
         $newField->setMemValue(\%params);
