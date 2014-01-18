@@ -38,10 +38,12 @@ use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
 use JSON::XS;
+use TryCatch::Lite;
 
 # Constants
 use constant {
-    COROSYNC_CONF_FILE => '/etc/corosync/corosync.conf',
+    COROSYNC_CONF_FILE    => '/etc/corosync/corosync.conf',
+    COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
     DEFAULT_MCAST_PORT => 5405,
 };
 
@@ -119,6 +121,24 @@ sub widgets
             'default' => 1
         }
     };
+}
+
+# Method: usedFiles
+#
+# Overrides:
+#
+#      <EBox::Module::Service::usedFiles>
+#
+sub usedFiles
+{
+    return [
+        { 'file'   => COROSYNC_CONF_FILE,
+         'reason' => __('To configure corosync daemon'),
+         'module' => 'ha' },
+        { 'file'   => COROSYNC_DEFAULT_FILE,
+         'reason' => __('To start corosync at boot'),
+         'module' => 'ha' },
+    ];
 }
 
 # Method: clusterBootstraped
@@ -394,6 +414,9 @@ sub _corosyncSetConf
         \@params,
         { uid => '0', gid => '0', mode => '644' }
     );
+    $self->writeConfFile(
+        COROSYNC_DEFAULT_FILE,
+        'ha/default-corosync.mas');
 }
 
 # Bootstrap a cluster
