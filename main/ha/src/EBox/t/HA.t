@@ -74,7 +74,8 @@ sub test_cluster_configuration : Test(5)
                {'name' => 'my cluster',
                 'transport' => 'udpu',
                 'multicastConf' => {},
-                'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1}]},
+                'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443,
+                             localNode => 1, nodeid => 1}]},
                'Default unicast configuration');
 
     {
@@ -87,7 +88,7 @@ sub test_cluster_configuration : Test(5)
                    {'name' => 'my cluster',
                     'transport' => 'udp',
                     'multicastConf' => { addr => '239.255.1.1', port => 5405, expected_votes => 1 },
-                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1}]},
+                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}]},
                    'Multicast configuration');
     }
 }

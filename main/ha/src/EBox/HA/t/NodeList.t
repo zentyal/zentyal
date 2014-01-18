@@ -133,6 +133,22 @@ sub test_empty : Test(3)
     cmp_deeply($nl->list(), [], 'list is empty');
 }
 
+sub test_node : Test(2)
+{
+    my ($self) = @_;
+
+    my $nl = $self->{nodeList};
+    throws_ok {
+        $nl->node('foobar');
+    } 'EBox::Exceptions::DataNotFound', 'Node not found in empty list';
+    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    cmp_deeply($nl->node('a'),
+               {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 0,
+                nodeid => 1}, 'Node found');
+    $nl->empty();
+
+}
+
 sub test_local_node : Test(3)
 {
     my ($self) = @_;
