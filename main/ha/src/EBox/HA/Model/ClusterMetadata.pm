@@ -49,10 +49,12 @@ sub templateName
 #
 sub templateContext
 {
+    my ($self) = @_;
+
     return {
         metadata => [
             # name => value
-            [ __('Cluster name')   => 'incubus'],
+            [ __('Cluster name')   => $self->parentModule()->model('Cluster')->nameValue()],
             [ __('Cluster secret') => 'raro'],
             [ __('Current DC')     => 'local'],
            ],
