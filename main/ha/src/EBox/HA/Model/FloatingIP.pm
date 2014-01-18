@@ -125,7 +125,7 @@ sub _existsDhcpFixedIpCollision
 
         my $fixedAddresses = $dhcp->fixedAddresses($iface, 0);
         foreach my $fixedAddr (@{$fixedAddresses}) {
-            $fixedIP = new Net::IP($fixedAddr->{ip});
+            my $fixedIP = new Net::IP($fixedAddr->{ip});
             if ($floatingIP->overlaps($fixedIP)) {
                 return 1;
             }
