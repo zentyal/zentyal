@@ -129,6 +129,11 @@ sub _table
             editable      => 1),
     );
 
+    my $helpMsg = __('Configure how this server will start a cluster or it will join to an existing one');
+    if (_isBootstraped()) {
+        $helpMsg = __('If you change any setting, you may suffer a service cluster disruption,');
+    }
+
     my $dataTable =
     {
         tableName => 'Cluster',
@@ -136,7 +141,7 @@ sub _table
         defaultActions => [ 'editField', 'changeView' ],
         modelDomain => 'HA',
         tableDescription => \@fields,
-        help => __('Configure how this server will start a cluster or it will join to an existing one'),
+        help => $helpMsg,
     };
 
     return $dataTable;
