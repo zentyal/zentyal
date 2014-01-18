@@ -1,4 +1,5 @@
 HEAD
+	+ Take into account view customizer on audit logging
 	+ Show complex types (more than one field) in audit log
 	  while editing by storing the dump of the value
 3.0.32
