@@ -25,11 +25,13 @@ package EBox::HA::Model::FloatingIP;
 
 use base 'EBox::Model::DataTable';
 
+use EBox;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use Net::IP;
 
 use constant MIN_NAME_LENGTH => 5;
 use constant MAX_NAME_LENGTH => 64;
@@ -47,6 +49,10 @@ sub validateTypedRow
     my $name = $newParams->{'name'}->value();
     my $ip = $newParams->{'floating_ip'}->value();
 
+    my $haModule = EBox::Global->getInstance()->modInstance('ha');
+    my $clusterSettings = $haModule->model('Cluster');
+    my $iface = $clusterSettings->interfaceValue();
+
     my $nameLength = length ($name);
     if ($nameLength > MAX_NAME_LENGTH) {
         throw EBox::Exceptions::External(__x('Name is too long. Maximum length is {max}.', max => MAX_NAME_LENGTH));
@@ -57,7 +63,7 @@ sub validateTypedRow
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
-    if (my $error_message = $self->_ipCollides($ip)) {
+    if (my $error_message = $self->_ipCollides($iface, $ip)) {
         throw EBox::Exceptions::External(__($error_message));
     }
 }
@@ -69,28 +75,31 @@ sub validateTypedRow
 #
 sub _ipCollides
 {
-    my ($self, $ip) = @_;
+    my ($self, $iface, $ip) = @_;
 
-    my $ip_collision_reason = "";
+    my $ipCollisionReason = "";
 
-    if ($self->_checkNetworkIpCollision($ip)) {
-        $ip_collision_reason = "IP collision with a Network interface.";
-    } elsif ($self->_checkDhcpFixedIpCollision($ip)) {
-        $ip_collision_reason = "Fixed DHCP IP collision.";
+    if ($self->_existsNetworkIpCollision($iface, $ip)) {
+        $ipCollisionReason = "IP collision with a Network interface.";
+    } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
+        $ipCollisionReason = "Fixed DHCP IP collision.";
     }
 
-    return $ip_collision_reason;
+    return $ipCollisionReason;
 }
 
-sub _checkNetworkIpCollision
+sub _existsNetworkIpCollision
 {
-    my ($self, $ip) = @_;
+    my ($self, $iface, $ip) = @_;
 
-    my $network = EBox::Global->modInstance('network');
-    my @network_ips= ( @{$network->internalIpAddresses()}, @{$network->externalIpAddresses()} );
+    my $floatingIP = new Net::IP($ip);
 
-    foreach my $iface_ip (@network_ips) {
-        if ($ip eq $iface_ip) {
+    my $network = EBox::Global->getInstance()->modInstance('network');
+    my @netIPs = @{ $network->ifaceAddresses($iface) };
+
+    foreach my $ifaceIP (@netIPs) {
+        $ifaceIP = new Net::IP($ifaceIP->{address});
+        if ($floatingIP->overlaps($ifaceIP)) {
             return 1;
         }
     }
@@ -98,9 +107,30 @@ sub _checkNetworkIpCollision
     return 0;
 }
 
-sub _checkDhcpFixedIpCollision
+sub _existsDhcpFixedIpCollision
 {
-    my ($self, $ip) = @_;
+    my ($self, $iface, $ip) = @_;
+
+    my $global = EBox::Global->getInstance();
+
+    if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
+        # If the iface is not static we don't need any further checking
+        my $network = $global->modInstance('network');
+        if ($network->ifaceMethod($iface) ne 'static') {
+            return 0;
+        }
+
+        my $dhcp = $global->modInstance('dhcp');
+        my $floatingIP = new Net::IP($ip);
+
+        my $fixedAddresses = $dhcp->fixedAddresses($iface, 0);
+        foreach my $fixedAddr (@{$fixedAddresses}) {
+            $fixedIP = new Net::IP($fixedAddr->{ip});
+            if ($floatingIP->overlaps($fixedIP)) {
+                return 1;
+            }
+        }
+    }
 
     return 0;
 }
