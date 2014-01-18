@@ -261,7 +261,7 @@ sub request {
     my $ua = LWP::UserAgent->new;
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
-    $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('verify_servers'));
+    $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rest_verify_servers'));
     # Set HTTP proxy if it is globally set as environment variable
     $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 

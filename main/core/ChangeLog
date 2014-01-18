@@ -1,4 +1,6 @@
 3.4
+	+ Migrate rs_verify_servers in remoteservices.conf to
+	  rest_verify_servers core.conf
 	+ Include basic support to free-format Template models to be
 	  included in Composites
 	+ Move run-pending-ops script from remoteservices to core
