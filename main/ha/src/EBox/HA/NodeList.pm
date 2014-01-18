@@ -25,6 +25,7 @@ use warnings;
 package EBox::HA::NodeList;
 
 use EBox::Exceptions::DataNotFound;
+use List::Util qw(max);
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -59,18 +60,34 @@ sub new
 #    localNode - Boolean to indicate if it is a local node *(Optional)*
 #                Default value: False
 #
+#    nodeid - Int the node identifier delivered to the cluster
+#             membership service *(Optional)* If it is not set, then
+#             the max of nodeid plus
+#
 sub set
 {
     my ($self, %params) = @_;
 
     my $state = $self->{ha}->get_state();
+
     my $localNode = $params{localNode};
     $localNode = 0 unless ($localNode);
+    my $nodeId = $params{nodeid};
+    unless (defined($nodeId)) {
+        if (exists($state->{cluster_conf}->{nodes}->{$params{name}})) {
+            $nodeId = $state->{cluster_conf}->{nodes}->{$params{name}}->{nodeid};
+        } else {
+            $nodeId = max(map { $_->{nodeid} } @{$self->list()});
+            $nodeId = 0 unless(defined($nodeId));
+            $nodeId++;
+        }
+    }
 
     $state->{cluster_conf}->{nodes}->{$params{name}} = { name => $params{name},
                                                          addr => $params{addr},
                                                          webAdminPort => $params{webAdminPort},
-                                                         localNode => $localNode
+                                                         localNode => $localNode,
+                                                         nodeid => $nodeId
                                                         };
 
     $self->{ha}->set_state($state);
@@ -137,6 +154,7 @@ sub empty
 #       name - String the node name
 #       webAdminPort - Int the web admin port
 #       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
 #
 sub list
 {
@@ -158,6 +176,7 @@ sub list
 #       name - String the node name
 #       webAdminPort - Int the web admin port
 #       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
 #
 # Exceptions:
 #
