@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,6 +39,7 @@ use EBox::Menu::Item;
 use EBox::Menu::Folder;
 use EBox::Report::DiskUsage;
 use EBox::Report::RAID;
+use EBox::Sudo;
 use EBox::Util::Version;
 use EBox::Util::Software;
 use EBox::Exceptions::Internal;
@@ -71,6 +72,10 @@ sub initialSetup
         $state->{lastMessageTime} = time();
         $state->{closedMessages} = {};
         $self->set_state($state);
+    }
+
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateConfKeys();
     }
 }
 
@@ -502,5 +507,21 @@ sub dashboardStatusStrings
     return $_dashboardStatusStrings;
 }
 
+# Migrate conf keys
+#   - rs_verify_servers => rest_verify_servers
+sub _migrateConfKeys
+{
+    my ($self) = @_;
+
+    my $rsConfFile = EBox::Config::etc() . 'remoteservices.conf';
+    if (-e $rsConfFile) {
+        my $output = EBox::Sudo::command("grep 'rs_verify_servers' $rsConfFile | cut -f2 -d'=' | sed 's/ //g'");
+        chomp($output->[0]);
+        EBox::info('Migrating rs_verify_servers = ' . $output->[0]);
+        my $verifyServers = $output->[0];
+        my $coreConfFile = EBox::Config::etc() . 'core.conf';
+        EBox::Sudo::root("sed -i 's/rest_verify_servers.*\$/rest_verify_servers = $verifyServers/' $coreConfFile");
+    }
+}
 
 1;
