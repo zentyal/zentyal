@@ -67,7 +67,9 @@ use constant JOURNAL_OPS_DIR => EBox::Config::conf() . 'ops-journal/';
 #                 (Optional)
 #   scheme - String the valid scheme *(Optional)* Default value: https
 #   uri - String the complete URI (host + scheme). Using this is incompatible
-#               with server and scheme arguments
+#         with server and scheme arguments
+#   verifyHostname - Boolean verify hostname when using https scheme.
+#                    *(Optional)* Default value: rest_verify_servers configuration key
 #
 sub new
 {
@@ -82,6 +84,11 @@ sub new
         { credentials => $params{credentials},
           uri => $uri},
         $class);
+
+    $self->{verifyHostname} = $params{verifyHostname};
+    unless (defined($self->{verifyHostname})) {
+        $self->{verifyHostname} = EBox::Config::boolean('rest_verify_servers');
+    }
 
     unless (defined($params{uri})) {
         my $scheme = $params{scheme};
@@ -261,7 +268,7 @@ sub request {
     my $ua = LWP::UserAgent->new;
     my $version = EBox::Config::version();
     $ua->agent("ZentyalServer $version");
-    $ua->ssl_opts('verify_hostname' => EBox::Config::boolean('rest_verify_servers'));
+    $ua->ssl_opts('verify_hostname' => $self->{verifyHostname});
     # Set HTTP proxy if it is globally set as environment variable
     $ua->proxy('https', $ENV{HTTP_PROXY}) if (exists $ENV{HTTP_PROXY});
 
