@@ -431,7 +431,7 @@ sub _bootstrap
     # TODO: set port
     $nodeList->empty();
     $nodeList->set(name => $hostname, addr => $localNodeAddr, webAdminPort => 443,
-                   localNode => 1);
+                   localNode => 1, nodeid => 1);
 
     # Store the transport and its configuration in state
     my $state = $self->get_state();

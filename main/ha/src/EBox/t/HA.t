@@ -60,7 +60,7 @@ sub test_isa_ok : Test
     isa_ok($self->{mod}, 'EBox::HA');
 }
 
-sub test_cluster_configuration : Tests
+sub test_cluster_configuration : Test(5)
 {
     my ($self) = @_;
 
