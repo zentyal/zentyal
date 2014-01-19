@@ -174,7 +174,7 @@ sub cmp
 
     return undef unless ( scalar(@selfTypes) == scalar(@comparedTypes) );
     my $returnValue = undef;
-    for( my $idx = 0; $idx < $#selfTypes; $idx++) {
+    for( my $idx = 0; $idx <= $#selfTypes; $idx++) {
         my $singleCmp = $selfTypes[$idx]->cmp($comparedTypes[$idx]);
         if ( not defined($returnValue) ) {
             $returnValue = $singleCmp;
