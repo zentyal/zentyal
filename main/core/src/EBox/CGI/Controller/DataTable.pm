@@ -57,7 +57,7 @@ sub getParams
     foreach my $field (@{$tableDesc}) {
         foreach my $fieldName ($field->fields()) {
             my $value;
-	    if ( $field->allowUnsafeChars() ) {
+            if ($field->allowUnsafeChars()) {
                 $value = $self->unsafeParam($fieldName);
             } else {
                 $value = $self->param($fieldName);
