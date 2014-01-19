@@ -164,19 +164,18 @@ sub value
 #
 sub cmp
 {
-
     my ($self, $compareType) = @_;
 
-    return undef unless ( $self->type() eq $compareType->type() );
+    return undef unless ($self->type() eq $compareType->type());
 
     my @selfTypes = @{$self->types()};
     my @comparedTypes = @{$compareType->types()};
 
     return undef unless ( scalar(@selfTypes) == scalar(@comparedTypes) );
     my $returnValue = undef;
-    for( my $idx = 0; $idx < $#selfTypes; $idx++) {
+    for (my $idx = 0; $idx <= $#selfTypes; $idx++) {
         my $singleCmp = $selfTypes[$idx]->cmp($comparedTypes[$idx]);
-        if ( not defined($returnValue) ) {
+        if (not defined($returnValue)) {
             $returnValue = $singleCmp;
         } else {
             return undef unless ($singleCmp == $returnValue);
