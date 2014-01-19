@@ -170,6 +170,32 @@ sub nodeListWidget
                                             __('Cluster is not configured')));
 }
 
+# Method: floatingIPs
+#
+#       Return the existing floating IPs
+#
+# Returns:
+#
+#   array ref - each element contains a hash ref with keys:
+#
+#          name - the name of the given floating IP
+#          address - the IP address
+#
+sub floatingIPs
+{
+    my ($self) = @_;
+
+    my $floatingIpModel = $self->model('FloatingIP');
+    my @floatingIps;
+    for my $id (@{$floatingIpModel->ids()}) {
+        my $row = $floatingIpModel->row($id);
+        push (@floatingIps, { name => $row->printableValueByName('name'),
+                address  => $row->printableValueByName('floating_ip')});
+    }
+
+    return \@floatingIps;
+}
+
 # Group: Private methods
 
 # Corosync configuration
