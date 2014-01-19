@@ -3,6 +3,8 @@ HEAD
 	+ Fixed regression in AJAX changes with raised error when a
 	  data in use exception was found
 	+ Fixed css error that hide information in the logs tables
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
 3.3.2
