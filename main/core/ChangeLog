@@ -1,4 +1,6 @@
 HEAD
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
 	+ Fix EBox::Types::Composite::cmp to store changes when only last type
 	  is modified
 3.0.32
