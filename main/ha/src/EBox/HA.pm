@@ -280,8 +280,8 @@ sub askForReplication
 {
     my ($self, $modules) = @_;
 
-    # FIXME: skip myself
     foreach my $node (@{$self->nodes()}) {
+        next if ($node->{localNode});
         my $addr = $node->{addr};
         $self->askForReplicationInNode($addr, $modules);
     }
