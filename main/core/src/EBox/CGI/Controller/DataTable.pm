@@ -25,8 +25,8 @@ use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::Internal;
 
 # Dependencies
-use Data::Dumper;
 use Error qw(:try);
+use JSON::XS;
 use Perl6::Junction qw(all any);
 
 sub new # (cgi=?)
@@ -111,12 +111,9 @@ sub _auditLog
             $value = '****' if $value;
             $oldValue = '****' if $oldValue;
         } elsif (ref($value) or ref($oldValue)) {
-            {
-                local $Data::Dumper::Indent = 0;  # Most compacted output
-                local $Data::Dumper::Terse  = 1;  # Do not use VARn when possible
-                $value = Dumper($value) if ref($value);
-                $oldValue = Dumper($oldValue) if ref($oldValue);
-            }
+            my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+            $value = $encoder->encode($value) if ref($value);
+            $oldValue = $encoder->encode($oldValue) if ref($oldValue);
         }
 
     }
