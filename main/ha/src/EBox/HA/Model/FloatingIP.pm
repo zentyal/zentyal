@@ -80,9 +80,11 @@ sub _ipCollides
     my $ipCollisionReason = "";
 
     if ($self->_existsNetworkIpCollision($iface, $ip)) {
-        $ipCollisionReason = "IP collision with a Network interface.";
+        $ipCollisionReason = "There is a a Network interface with the given IP address.";
     } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
-        $ipCollisionReason = "Fixed DHCP IP collision.";
+        $ipCollisionReason = "There is a fixed DHCP object with the given IP address.";
+    } elsif ($self->_existsDhcpRangesCollision($iface, $ip)) {
+        $ipCollisionReason = "There is a DHCP range that include the given IP address.";
     }
 
     return $ipCollisionReason;
@@ -134,6 +136,33 @@ sub _existsDhcpFixedIpCollision
 
     return 0;
 }
+
+sub _existsDhcpRangesCollision
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $global = EBox::Global->getInstance();
+
+    if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
+        my $dhcp = $global->modInstance('dhcp');
+        my $rangeModel = $dhcp->_getModel('RangeTable', $iface);
+
+        my $floatingIP = new Net::IP($ip);
+
+        foreach my $id (@{$rangeModel->ids()}) {
+            my $rangeRow = $rangeModel->row($id);
+            my $from     = $rangeRow->valueByName('from');
+            my $to       = $rangeRow->valueByName('to');
+            my $range    = new Net::IP( $from . '-' . $to);
+            if ($floatingIP->overlaps($range)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 
 # Group: Protected methods
 
