@@ -9,6 +9,7 @@ enabledepends:
 models:
     - Cluster
     - FloatingIP
+    - ClusterMetadata
 
 composites:
-    HA: [Cluster, FloatingIP]
+    HA: [Cluster, FloatingIP, ClusterMetadata]

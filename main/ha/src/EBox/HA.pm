@@ -29,6 +29,7 @@ package EBox::HA;
 use base qw(EBox::Module::Service);
 
 use EBox::Config;
+use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
 use EBox::HA::NodeList;
@@ -123,38 +124,70 @@ sub widgets
 #
 # Returns:
 #
-#     Hash ref - the cluster configuration
+#     Hash ref - the cluster configuration, if configured
 #
 #        - transport: String 'udp' for multicast and 'udpu' for unicast
 #        - multicastConf: Hash ref with addr, port and expected_votes as keys
 #        - nodes: Array ref the node list including IP address, name and webadmin port
-#                 Only for unicast configuration
+#
+#     Empty hash ref if the cluster is not configured.
 #
 sub clusterConfiguration
 {
     my ($self) = @_;
 
-    # TODO: Store everything in Redis state
-    my ($multicastConf, $transport, $nodes) = ({}, undef, []);
-    my $multicastAddr = EBox::Config::configkey('ha_multicast_addr');
-    if ($multicastAddr) {
-        # Multicast configuration
-        my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
-        $multicastConf = { addr => $multicastAddr,
-                           port => $multicastPort,
-                           expected_votes => scalar(@{new EBox::HA::NodeList($self)->list()}),
-                          };
-        $transport = 'udp';
+    my $state = $self->get_state();
+    if ($state->{configured}) {
+        my $transport = $state->{cluster_conf}->{transport};
+        my $multicastConf = $state->{cluster_conf}->{multicast};
+        my $nodeList = new EBox::HA::NodeList($self)->list();
+        if ($transport eq 'udp') {
+            $multicastConf->{expected_votes} = scalar(@{$nodeList});
+        } elsif ($transport eq 'udpu') {
+            $multicastConf = {};
+        }
+        return { transport     => $transport,
+                 multicastConf => $multicastConf,
+                 nodes         => $nodeList };
     } else {
-        # Unicast configuration
-        $nodes = new EBox::HA::NodeList($self)->list(),
-        $transport = 'udpu';
+        return {};
     }
-
-    return { transport     => $transport,
-             multicastConf => $multicastConf,
-             nodes         => $nodes };
 }
+
+# Method: updateClusterConfiguration
+#
+#    Update cluster configuration after a change in other node of the cluster
+#
+# Parameters:
+#
+#    params - nothing
+#    body   - Hash ref new cluster configuration from another node in the cluster
+#
+sub updateClusterConfiguration
+{
+    my ($self, $params, $body) = @_;
+
+    # FIXME: TODO
+}
+
+# Method: leaveCluster
+#
+#    Leave the cluster and empty the current configuration
+#    and mark the module as changed
+#
+sub leaveCluster
+{
+    my ($self) = @_;
+
+    # FIXME: Do this in saving changes?
+    my $state = $self->get_state();
+    $state->{configured} = 0;
+    delete $state->{cluster_conf};
+    $self->set_state();
+
+    $self->setAsChanged();
+}
+
 
 # Method: nodes
 #
@@ -184,22 +217,31 @@ sub addNode
 {
     my ($self, $params, $body) = @_;
 
+    # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
     $list->set(%{$body});
 }
 
-# Method: removeNode
+# Method: deleteNode
 #
-#     Get the active nodes from a cluster
+#    Delete node from the cluster
+#
+# Parameters:
+#
+#    params - hash ref containing the node to delete in the key 'name'
 #
 # Returns:
 #
 #     Array ref - See <EBox::HA::NodeList::list> for details
 #
-sub removeNode
+sub deleteNode
 {
-    my ($self) = @_;
+    my ($self, $params) = @_;
+
+    # TODO: Check incoming data
+    my $list = new EBox::HA::NodeList($self);
+    $list->remove($params->{name});
 }
 
 sub confReplicationStatus
@@ -310,7 +352,10 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $self->_corosyncSetConf();
+    my $state = $self->get_state();
+    unless($state->{configured}) {
+        $self->_corosyncSetConf();
+    }
 }
 
 # Group: subroutines
@@ -343,15 +388,19 @@ sub _corosyncSetConf
 
     my $iface = $clusterSettings->interfaceValue();
     my $network = EBox::Global->getInstance()->modInstance('network');
-    # TODO: Launch exception when network addr is undef / Which exception?
     my $ifaces = [ { iface => $iface, netAddr => $network->ifaceNetwork($iface) }];
     my $localNodeAddr = $network->ifaceAddress($iface);
     if (ref($localNodeAddr) eq 'ARRAY') {
         $localNodeAddr = $localNodeAddr->[0];  # Take the first option
     }
+    unless ($localNodeAddr) {
+        throw EBox::Exceptions::External(__x('{iface} does not have IP address to use',
+                                             iface => $iface));
+    }
 
-    if ($clusterSettings->configurationValue() eq 'start_new') {
-        $self->_bootstrap($localNodeAddr);
+    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+    if ($clusterSettings->configurationValue() eq 'create') {
+        $self->_bootstrap($localNodeAddr, $hostname);
     }
 
     my $clusterConf = $self->clusterConfiguration();
@@ -372,13 +421,42 @@ sub _corosyncSetConf
 
 # Bootstrap a cluster
 #  * Start node list
+#  * Store the transport method in State
+#  * Store the cluster as configured
 sub _bootstrap
 {
-    my ($self, $localNodeAddr) = @_;
+    my ($self, $localNodeAddr, $hostname) = @_;
 
     my $nodeList = new EBox::HA::NodeList($self);
-    # TODO: set proper name and port
-    $nodeList->set(name => 'local', addr => $localNodeAddr, webAdminPort => 443);
+    # TODO: set port
+    $nodeList->empty();
+    $nodeList->set(name => $hostname, addr => $localNodeAddr, webAdminPort => 443,
+                   localNode => 1);
+
+    # Store the transport and its configuration in state
+    my $state = $self->get_state();
+
+    my ($multicastConf, $transport);
+    my $multicastAddr = EBox::Config::configkey('ha_multicast_addr');
+    if ($multicastAddr) {
+        # Multicast configuration
+        my $multicastPort = EBox::Config::configkey('ha_multicast_port') || DEFAULT_MCAST_PORT;
+        $multicastConf = { addr => $multicastAddr,
+                           port => $multicastPort,
+                          };
+        $transport = 'udp';
+    } else {
+        # Unicast configuration
+        $transport = 'udpu';
+    }
+    $state->{cluster_conf}->{transport} = $transport;
+    $state->{cluster_conf}->{multicast} = $multicastConf;
+
+    $state->{configured} = 1;
+
+    # Finally, store it in Redis
+    $self->set_state($state);
+
 }
 
 1;

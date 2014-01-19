@@ -173,7 +173,7 @@ sub _parseModelUrl
         $namespace = $module->name();
     }
 
-    if ($type eq any(qw(Composite View Controller ModalController Tree))) {
+    if ($type eq any(qw(Composite View Controller ModalController Tree Template))) {
         return ($model, $namespace, $type, $action);
     }
 
@@ -241,7 +241,7 @@ sub _instanceModelCGI
         $menuNamespace = $model->menuNamespace();
         if ($type eq 'View') {
             $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
-        } elsif ($type eq 'Tree') {
+        } elsif ($type eq 'Tree' or $type eq 'Template') {
             $cgi = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Controller') {
             $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);

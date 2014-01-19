@@ -1,6 +1,8 @@
 3.4
 	+ Integration with HA module in save changes process
 	+ Added icon for new zentyal-ha module
+	+ Include basic support to free-format Template models to be
+	  included in Composites
 	+ Move run-pending-ops script from remoteservices to core
 	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result
 	+ Move EBox::RemoteServices::RESTClient to EBox::RESTClient as it

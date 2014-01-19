@@ -67,11 +67,11 @@ sub set
     my $localNode = $params{localNode};
     $localNode = 0 unless ($localNode);
 
-    $state->{nodes}->{$params{name}} = { name => $params{name},
-                                         addr => $params{addr},
-                                         webAdminPort => $params{webAdminPort},
-                                         localNode => $localNode
-                                     };
+    $state->{cluster_conf}->{nodes}->{$params{name}} = { name => $params{name},
+                                                         addr => $params{addr},
+                                                         webAdminPort => $params{webAdminPort},
+                                                         localNode => $localNode
+                                                        };
 
     $self->{ha}->set_state($state);
 }
@@ -94,8 +94,8 @@ sub remove
 
     my $state = $self->{ha}->get_state();
 
-    if (defined($state->{nodes}->{$name})) {
-        delete $state->{nodes}->{$name};
+    if (defined($state->{cluster_conf}->{nodes}->{$name})) {
+        delete $state->{cluster_conf}->{nodes}->{$name};
         $self->{ha}->set_state($state);
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'node', value => $name);
@@ -115,10 +115,10 @@ sub empty
     my ($self) = @_;
 
     my $state = $self->{ha}->get_state();
-    my $nElements = scalar(keys(%{$state->{nodes}}));
+    my $nElements = scalar(keys(%{$state->{cluster_conf}->{nodes}}));
 
     if ($nElements > 0) {
-        delete $state->{nodes};
+        delete $state->{cluster_conf}->{nodes};
         $self->{ha}->set_state($state);
     }
 
@@ -142,7 +142,7 @@ sub list
 {
     my ($self) = @_;
 
-    my @nodeList = values(%{$self->{ha}->get_state()->{nodes}});
+    my @nodeList = values(%{$self->{ha}->get_state()->{cluster_conf}->{nodes}});
     return \@nodeList;
 }
 

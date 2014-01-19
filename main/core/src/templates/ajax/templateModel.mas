@@ -1,0 +1,16 @@
+<%doc>
+   Viewer for EBox::Model::Template to show custom HTML inside a composite
+
+   See <ajax/modelViewer.mas> for parameters details
+</%doc>
+<%args>
+  $model
+  $hasChanged => 0
+  $action => 'view'
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+<& $model->templateName(),
+   context => $model->templateContext()
+&>
