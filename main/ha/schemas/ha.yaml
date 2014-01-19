@@ -10,6 +10,8 @@ models:
     - Cluster
     - FloatingIP
     - ClusterMetadata
+    - ClusterState
 
 composites:
-    HA: [Cluster, FloatingIP, ClusterMetadata]
+    Initial: [Cluster, FloatingIP]
+    Configuration: [ClusterMetadata, FloatingIP, Cluster]

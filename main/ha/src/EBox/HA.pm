@@ -28,6 +28,8 @@ package EBox::HA;
 
 use base qw(EBox::Module::Service);
 
+use feature qw(switch);
+
 use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Global;
@@ -38,10 +40,12 @@ use EBox::Sudo;
 use JSON::XS;
 use File::Temp;
 use File::Slurp;
+use TryCatch::Lite;
 
 # Constants
 use constant {
-    COROSYNC_CONF_FILE => '/etc/corosync/corosync.conf',
+    COROSYNC_CONF_FILE    => '/etc/corosync/corosync.conf',
+    COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
     DEFAULT_MCAST_PORT => 5405,
 };
 
@@ -88,8 +92,13 @@ sub menu
             'order' => 30
            );
 
+    my $menuURL = 'HA/Composite/Initial';
+    if ($self->clusterBootstraped()) {
+        $menuURL = 'HA/Composite/Configuration';
+    }
+
     $system->add(new EBox::Menu::Item(
-        url => 'HA/Composite/HA',
+        url => $menuURL,
         text => $self->printableName(),
         separator => 'Core',
         order => 50,
@@ -118,26 +127,60 @@ sub widgets
     };
 }
 
+# Method: usedFiles
+#
+# Overrides:
+#
+#      <EBox::Module::Service::usedFiles>
+#
+sub usedFiles
+{
+    return [
+        { 'file'   => COROSYNC_CONF_FILE,
+         'reason' => __('To configure corosync daemon'),
+         'module' => 'ha' },
+        { 'file'   => COROSYNC_DEFAULT_FILE,
+         'reason' => __('To start corosync at boot'),
+         'module' => 'ha' },
+    ];
+}
+
+# Method: clusterBootstraped
+#
+#     Return if the cluster was bootstraped
+#
+# Returns:
+#
+#     Boolean - true if the cluster was bootstraped once
+#
+sub clusterBootstraped
+{
+    my ($self) = @_;
+
+    return $self->model('ClusterState')->bootstrapedValue();
+}
+
 # Method: clusterConfiguration
 #
 #     Return the cluster configuration
 #
 # Returns:
 #
-#     Hash ref - the cluster configuration, if configured
+#     Hash ref - the cluster configuration, if bootstrapped
 #
+#        - name: String the cluster name
 #        - transport: String 'udp' for multicast and 'udpu' for unicast
 #        - multicastConf: Hash ref with addr, port and expected_votes as keys
 #        - nodes: Array ref the node list including IP address, name and webadmin port
 #
-#     Empty hash ref if the cluster is not configured.
+#     Empty hash ref if the cluster is not bootstraped.
 #
 sub clusterConfiguration
 {
     my ($self) = @_;
 
     my $state = $self->get_state();
-    if ($state->{configured}) {
+    if ($self->clusterBootstraped()) {
         my $transport = $state->{cluster_conf}->{transport};
         my $multicastConf = $state->{cluster_conf}->{multicast};
         my $nodeList = new EBox::HA::NodeList($self)->list();
@@ -146,9 +189,12 @@ sub clusterConfiguration
         } elsif ($transport eq 'udpu') {
             $multicastConf = {};
         }
-        return { transport     => $transport,
-                 multicastConf => $multicastConf,
-                 nodes         => $nodeList };
+        return {
+            name          => $self->model('Cluster')->nameValue(),
+            transport     => $transport,
+            multicastConf => $multicastConf,
+            nodes         => $nodeList
+        };
     } else {
         return {};
     }
@@ -172,22 +218,17 @@ sub updateClusterConfiguration
 
 # Method: leaveCluster
 #
-#    Leave the cluster and empty the current configuration
-#    and mark the module as changed
+#    Leave the cluster by setting the cluster not boostraped
 #
 sub leaveCluster
 {
     my ($self) = @_;
 
-    # FIXME: Do this in saving changes?
-    my $state = $self->get_state();
-    $state->{configured} = 0;
-    delete $state->{cluster_conf};
-    $self->set_state();
-
-    $self->setAsChanged();
+    my $row = $self->model('ClusterState')->row();
+    $row->elementByName('bootstraped')->setValue(0);
+    $row->elementByName('leaveRequest')->setValue(1);
+    $row->store();
 }
-
 
 # Method: nodes
 #
@@ -206,7 +247,12 @@ sub nodes
 
 # Method: addNode
 #
-#     Add a node to the cluster
+#     Add a node to the cluster.
+#
+#     * Store the new node
+#     * Send info to other members of the cluster (TODO)
+#     * Write corosync conf
+#     * Dynamically add the new node
 #
 # Parameters:
 #
@@ -217,19 +263,41 @@ sub addNode
 {
     my ($self, $params, $body) = @_;
 
+    use Data::Dumper;
+    EBox::info('Add node (params): ' . Dumper($params));
+
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
-    $list->set(%{$body});
+    $list->set(%{$params});
+
+    # Write corosync conf
+    $self->_corosyncSetConf();
+
+    # Dynamically add the new node to corosync
+    my $newNode = $list->node($params->{name});
+    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.nodeid u32 ' . $newNode->{nodeid},
+                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.name str ' . $newNode->{name},
+                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
+                     . '.ring0_addr str ' . $newNode->{addr});
+
 }
 
 # Method: deleteNode
 #
-#    Delete node from the cluster
+#    Delete node from the cluster.
+#
+#    * Delete the node
+#    * Send cluster configuration to other members (TODO)
+#    * Write corosync conf
+#    * Dynamically add the new node
 #
 # Parameters:
 #
-#    params - hash ref containing the node to delete in the key 'name'
+#    params - <Hash::MultiValue> containing the node to delete in the
+#             key 'name'
 #
 # Returns:
 #
@@ -239,9 +307,24 @@ sub deleteNode
 {
     my ($self, $params) = @_;
 
+    use Data::Dumper;
+    EBox::info('delete node (params): ' . Dumper($params));
+
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
+    my $deletedNode = $list->node($params->{name});
     $list->remove($params->{name});
+    # TODO: Notify other members
+
+    # Write corosync conf
+    $self->_corosyncSetConf();
+
+    # Dynamically remove the new node to corosync
+    EBox::Sudo::root(
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.ring0_addr',
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.name',
+        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.nodeid');
+
 }
 
 sub confReplicationStatus
@@ -336,7 +419,7 @@ sub _daemons
        {
            name => 'zentyal.ha-psgi',
            type => 'upstart'
-       }
+       },
     ];
 
     return $daemons;
@@ -352,9 +435,14 @@ sub _setConf
 {
     my ($self) = @_;
 
-    my $state = $self->get_state();
-    unless($state->{configured}) {
-        $self->_corosyncSetConf();
+    if ($self->model('ClusterState')->leaveRequestValue()) {
+        $self->model('ClusterState')->setValue('leaveRequest', 0);
+        $self->_notifyLeave();
+    }
+
+    $self->_corosyncSetConf();
+    if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
+        $self->saveConfig();
     }
 }
 
@@ -386,6 +474,7 @@ sub _corosyncSetConf
 
     my $clusterSettings = $self->model('Cluster');
 
+    # Calculate the localnetaddr
     my $iface = $clusterSettings->interfaceValue();
     my $network = EBox::Global->getInstance()->modInstance('network');
     my $ifaces = [ { iface => $iface, netAddr => $network->ifaceNetwork($iface) }];
@@ -398,9 +487,21 @@ sub _corosyncSetConf
                                              iface => $iface));
     }
 
-    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
-    if ($clusterSettings->configurationValue() eq 'create') {
-        $self->_bootstrap($localNodeAddr, $hostname);
+    # Do bootstraping, if required
+    unless ($self->clusterBootstraped()) {
+        my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+        given ($clusterSettings->configurationValue()) {
+            when ('create') { $self->_bootstrap($localNodeAddr, $hostname); }
+            when ('join') { $self->_join($clusterSettings, $localNodeAddr, $hostname); }
+        }
+    }
+
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    if ($localNodeAddr ne $localNode->{addr}) {
+        $list->set(name => $localNode->{name}, addr => $localNodeAddr,
+                   webAdminPort => 443, localNode => 1);
+        # TODO: Notify to other peers
     }
 
     my $clusterConf = $self->clusterConfiguration();
@@ -417,12 +518,15 @@ sub _corosyncSetConf
         \@params,
         { uid => '0', gid => '0', mode => '644' }
     );
+    $self->writeConfFile(
+        COROSYNC_DEFAULT_FILE,
+        'ha/default-corosync.mas');
 }
 
 # Bootstrap a cluster
 #  * Start node list
 #  * Store the transport method in State
-#  * Store the cluster as configured
+#  * Store the cluster as bootstraped
 sub _bootstrap
 {
     my ($self, $localNodeAddr, $hostname) = @_;
@@ -431,7 +535,7 @@ sub _bootstrap
     # TODO: set port
     $nodeList->empty();
     $nodeList->set(name => $hostname, addr => $localNodeAddr, webAdminPort => 443,
-                   localNode => 1);
+                   localNode => 1, nodeid => 1);
 
     # Store the transport and its configuration in state
     my $state = $self->get_state();
@@ -452,11 +556,95 @@ sub _bootstrap
     $state->{cluster_conf}->{transport} = $transport;
     $state->{cluster_conf}->{multicast} = $multicastConf;
 
-    $state->{configured} = 1;
-
     # Finally, store it in Redis
     $self->set_state($state);
 
+    # Set as bootstraped
+    $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Join to a existing cluster
+# Params:
+#    clusterSettings : the cluster configuration settings model
+#    localNodeAddr: the local node address
+#    hostname: the local hostname
+# Actions:
+#  * Get the configuration from the cluster
+#  * Notify for adding ourselves in the cluster
+#  * Set node list (overriding current values)
+#  * Add local node
+#  * Store cluster name and configuration
+sub _join
+{
+    my ($self, $clusterSettings, $localNodeAddr, $hostname) = @_;
+
+    my $remoteHost = $clusterSettings->row()->valueByName('cluster_zentyal');
+    my $client = new EBox::RESTClient(server => $remoteHost->{zentyal_host});
+    $client->setPort($remoteHost->{zentyal_port});
+    # FIXME: Delete this line and not verify servers when using HAProxy
+    $client->setScheme('http');
+    # TODO: Add secret
+    my $response = $client->GET('/cluster/configuration');
+
+    my $clusterConf = new JSON::XS()->decode($response->as_string());
+
+    # TODO: set proper port
+    my $localNode = { name => $hostname,
+                      addr => $localNodeAddr,
+                      webAdminPort => 443 };
+
+    $response = $client->POST('/cluster/nodes',
+                              query => $localNode);
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    $nodeList->empty();
+    foreach my $nodeConf (@{$clusterConf->{nodes}}) {
+        $nodeConf->{localNode} = 0;  # Always set as remote node
+        $nodeList->set(%{$nodeConf});
+    }
+    # Add local node
+    $nodeList->set(%{$localNode}, localNode => 1);
+
+    # Store cluster configuration
+    my $row = $clusterSettings->row();
+    $row->elementByName('name')->setValue($clusterConf->{name});
+    $row->store();
+
+    my $state = $self->get_state();
+    $state->{cluster_conf}->{transport} = $clusterConf->{transport};
+    $state->{cluster_conf}->{multicast} = $clusterConf->{multicastConf};
+    $self->set_state($state);
+
+    # Set as bootstraped
+    $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Notify the leave to a member of the cluster
+# Take one of the on-line members
+sub _notifyLeave
+{
+    my ($self) = @_;
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    my $localNode = $nodeList->localNode();
+    foreach my $node (@{$nodeList->list()}) {
+        next if ($node->{localNode});
+        # TODO: Check the node is on-line
+        my $last = 0;
+        my $client = new EBox::RESTClient(server => $node->{addr});
+        $client->setPort(5000); # $node->{port});
+        # FIXME: Delete this line and not verify servers when using HAProxy
+        $client->setScheme('http');
+        try {
+            EBox::info('Notify leaving cluster to ' . $node->{name});
+            $client->DELETE('/cluster/nodes/' . $localNode->{name});
+            $last = 1;
+        } catch ($e) {
+            # Catch any exception
+            EBox::error($e->text());
+        }
+        last if ($last);
+    }
 }
 
 1;

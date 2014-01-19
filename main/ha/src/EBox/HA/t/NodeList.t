@@ -59,7 +59,7 @@ sub test_isa_ok  : Test
     isa_ok($self->{nodeList}, 'EBox::HA::NodeList');
 }
 
-sub test_set : Test(5)
+sub test_set : Test(9)
 {
     my ($self) = @_;
 
@@ -68,13 +68,37 @@ sub test_set : Test(5)
     lives_ok {
         $nl->set(addr => '10.1.1.1', name => 'a', webAdminPort => 443);
     } 'Add a new node';
-    cmp_deeply($nl->list(), [{addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0}],
+    cmp_deeply($nl->list(),
+               [{addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0, nodeid => 1}],
+               'list has this member');
+    lives_ok {
+        $nl->set(addr => '10.1.1.3', name => 'b', webAdminPort => 443);
+    } 'Adding another node';
+    cmp_deeply($nl->list(),
+               bag(
+        {addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0, nodeid => 1 },
+        {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 }
+       ),
                'list has this member');
     lives_ok {
         $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1);
     } 'Update a node';
-    cmp_deeply($nl->list(), [{addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1}],
-             'list has an updated member');
+    cmp_deeply($nl->list(),
+               bag(
+      {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1, nodeid => 1 },
+      {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 }
+     ),
+               'list has an updated member');
+    lives_ok {
+        $nl->set(addr => '10.1.1.5', name => 'c', webAdminPort => 443, nodeid => 23);
+    } 'Set a node with id';
+    cmp_deeply($nl->list(),
+               bag(
+      {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1, nodeid => 1 },
+      {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 },
+      {addr => '10.1.1.5', name => 'c', webAdminPort => 443, localNode => 0, nodeid => 23}
+     ),
+               'list has a new member with custom nodeid');
 }
 
 sub test_remove : Test(6)
@@ -109,8 +133,43 @@ sub test_empty : Test(3)
     cmp_deeply($nl->list(), [], 'list is empty');
 }
 
-1;
+sub test_node : Test(2)
+{
+    my ($self) = @_;
 
+    my $nl = $self->{nodeList};
+    throws_ok {
+        $nl->node('foobar');
+    } 'EBox::Exceptions::DataNotFound', 'Node not found in empty list';
+    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    cmp_deeply($nl->node('a'),
+               {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 0,
+                nodeid => 1}, 'Node found');
+    $nl->empty();
+
+}
+
+sub test_local_node : Test(3)
+{
+    my ($self) = @_;
+
+    my $nl = $self->{nodeList};
+    throws_ok {
+        $nl->localNode()
+    } 'EBox::Exceptions::DataNotFound', 'Not local node in an empty list';
+    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    throws_ok {
+        $nl->localNode()
+    } 'EBox::Exceptions::DataNotFound', 'Not local node in a non-empty list';
+    $nl->set(addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1);
+    cmp_deeply($nl->localNode(),
+               { addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1,
+                 nodeid => 2 });
+    $nl->empty()
+
+}
+
+1;
 
 END {
     EBox::HA::NodeList::Test->runtests();

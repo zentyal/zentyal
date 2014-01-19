@@ -25,6 +25,7 @@ use warnings;
 package EBox::HA::NodeList;
 
 use EBox::Exceptions::DataNotFound;
+use List::Util qw(max);
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -59,18 +60,34 @@ sub new
 #    localNode - Boolean to indicate if it is a local node *(Optional)*
 #                Default value: False
 #
+#    nodeid - Int the node identifier delivered to the cluster
+#             membership service *(Optional)* If it is not set, then
+#             the max of nodeid plus
+#
 sub set
 {
     my ($self, %params) = @_;
 
     my $state = $self->{ha}->get_state();
+
     my $localNode = $params{localNode};
     $localNode = 0 unless ($localNode);
+    my $nodeId = $params{nodeid};
+    unless (defined($nodeId)) {
+        if (exists($state->{cluster_conf}->{nodes}->{$params{name}})) {
+            $nodeId = $state->{cluster_conf}->{nodes}->{$params{name}}->{nodeid};
+        } else {
+            $nodeId = max(map { $_->{nodeid} } @{$self->list()});
+            $nodeId = 0 unless(defined($nodeId));
+            $nodeId++;
+        }
+    }
 
     $state->{cluster_conf}->{nodes}->{$params{name}} = { name => $params{name},
                                                          addr => $params{addr},
                                                          webAdminPort => $params{webAdminPort},
-                                                         localNode => $localNode
+                                                         localNode => $localNode,
+                                                         nodeid => $nodeId
                                                         };
 
     $self->{ha}->set_state($state);
@@ -137,6 +154,7 @@ sub empty
 #       name - String the node name
 #       webAdminPort - Int the web admin port
 #       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
 #
 sub list
 {
@@ -144,6 +162,72 @@ sub list
 
     my @nodeList = values(%{$self->{ha}->get_state()->{cluster_conf}->{nodes}});
     return \@nodeList;
+}
+
+# Method: node
+#
+#    Return the required node
+#
+# Parameters:
+#
+#    name - String the node name
+#
+# Returns:
+#
+#    Hash ref - with the node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::DataNotFound> - thrown if the node is not in
+#                                        the list
+sub node
+{
+    my ($self, $name) = @_;
+
+    my $nodes = $self->{ha}->get_state()->{cluster_conf}->{nodes};
+    if (exists($nodes->{$name})) {
+        return $nodes->{$name};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'node', value => $name);
+    }
+}
+
+# Method: localNode
+#
+#    Return the local node data
+#
+# Returns:
+#
+#    Hash ref - with the configuration for the local node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if there is no local node
+#
+sub localNode
+{
+    my ($self) = @_;
+
+    my $list = $self->list();
+    my @local = grep { $_->{localNode} } @{$list};
+    if (@local > 0) {
+        return $local[0];
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'node',
+                                             value => 'localNode');
+    }
 }
 
 1;

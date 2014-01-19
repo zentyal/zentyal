@@ -23,6 +23,7 @@ package EBox::HA::Server::Router::Test;
 use base 'Test::Class';
 
 use EBox::HA;
+use Test::Deep;
 use Test::Exception;
 use Test::More;
 
@@ -47,10 +48,12 @@ sub test_route_conf : Test(3)
     } 'EBox::Exceptions::DataNotFound', 'Route does not exist';
 
     my @conf = EBox::HA::Server::Router::routeConf('/cluster/configuration');
-    is_deeply(\@conf,
-              [{'GET' => \&EBox::HA::clusterConfiguration}, {}], 'Simple route conf');
+    cmp_deeply(\@conf,
+              [{'GET' => \&EBox::HA::clusterConfiguration,
+                'PUT' => \&EBox::HA::updateClusterConfiguration}, {}
+              ], 'Simple route conf');
     @conf = EBox::HA::Server::Router::routeConf('/cluster/nodes/foo');
-    is_deeply(\@conf,
+    cmp_deeply(\@conf,
               [{'DELETE' => \&EBox::HA::deleteNode}, {name => 'foo'}], 'Complex route conf');
 }
 
