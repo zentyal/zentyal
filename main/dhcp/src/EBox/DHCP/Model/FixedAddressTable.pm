@@ -242,6 +242,7 @@ sub addresses
 #  * The IP address must be in range available for the given interface
 #  * It must be not used by in the range for the given interface
 #  * It must be not the interface address
+#  * It must be not a HA floating IP
 #  * The member name must be unique in the object realm
 #  * The MAC address must be unique for subnet
 #
