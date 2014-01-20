@@ -251,7 +251,7 @@ sub localNode
 #
 #        new - nodes that are in the other and not in self
 #        old - nodes that are in self and not in other
-#        change - nodes that are in both with different parameters
+#        changed - nodes that are in both with different parameters
 #
 # Exceptions:
 #
@@ -293,7 +293,7 @@ sub diff
         push(@old, $myNode) unless (exists($other{$myNode}));
     }
 
-    return (0, {new => \@new, old => \@old, changes => \@changes});
+    return (0, {new => \@new, old => \@old, changed => \@changes});
 
 }
 

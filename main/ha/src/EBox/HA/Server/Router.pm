@@ -110,7 +110,7 @@ sub route
 {
     my ($sub, $params, $body, $uploads) = @_;
 
-    my $haMod = EBox::Global->getInstance(1)->modInstance('ha');
+    my $haMod = EBox::Global->getInstance()->modInstance('ha');
     return $sub->($haMod, $params, $body, $uploads);
 }
 

@@ -181,29 +181,28 @@ sub test_diff : Test(7)
 
     cmp_ok(($nl->diff([]))[0], '==', 1, 'No differences in empty list');
     my @diff = $nl->diff([{name => 'jetplane-landing'}]);
-    cmp_deeply(\@diff, [0, {new => ['jetplane-landing'], old => [], changes => []}],
+    cmp_deeply(\@diff, [0, {new => ['jetplane-landing'], old => [], changed => []}],
                'New node in arriving list');
 
     $nl->set(addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1);
     @diff = $nl->diff([]);
-    cmp_deeply(\@diff, [0, {new => [], old => ['ab'], changes => []}],
+    cmp_deeply(\@diff, [0, {new => [], old => ['ab'], changed => []}],
                'Old node in removed list');
 
     @diff = $nl->diff([{addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1}]);
     cmp_ok($diff[0], '==', 1, 'localNode attr is ignored');
 
     @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1}]);
-    cmp_deeply(\@diff, [0, {new => [], old => [], changes => ['ab']}],
-               'Changes on node addr attribute');
+    cmp_deeply(\@diff, [0, {new => [], old => [], changed => ['ab']}],
+               'Changed on node addr attribute');
 
     # Testing all together
     $nl->set(addr => '10.1.1.232', name => 'old', webAdminPort => 443, localNode => 1);
     @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1},
                        {addr => '10.1.1.1', name => 'new', webAdminPort => 443, localNode => 0, nodeid => 3}]);
-    cmp_deeply(\@diff, [0, {new => ['new'], old => ['old'], changes => ['ab']}],
+    cmp_deeply(\@diff, [0, {new => ['new'], old => ['old'], changed => ['ab']}],
                'Testing all together');
-    $nl->empty(); # TODO: Teardown it
-
+    $nl->empty();
 }
 
 1;
