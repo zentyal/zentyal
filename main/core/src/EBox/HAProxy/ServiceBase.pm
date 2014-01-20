@@ -115,6 +115,18 @@ sub blockHAProxyPort
     return undef;
 }
 
+# Method: targetHAProxyDomains
+#
+# Returns:
+#
+#   list - List of domains that the target service will handle. If empty, this service will be used as the default
+#          traffic destination for the configured ports.
+#
+sub targetHAProxyDomains
+{
+    return [];
+}
+
 # Method: targetHAProxyIP
 #
 #   This method must be always overrided by services implementing this interface.
