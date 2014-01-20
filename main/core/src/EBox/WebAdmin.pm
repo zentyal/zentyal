@@ -20,7 +20,7 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::Validate qw( :all );
+use EBox::Validate qw( checkPort );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
@@ -358,80 +358,7 @@ sub _reportAdminPort
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('remoteservices')) {
         my $rs = $global->modInstance('remoteservices');
-        $rs->reportAdminPort($self->port());
-    }
-}
-
-sub port
-{
-    my ($self) = @_;
-
-    return $self->model('AdminPort')->value('port');
-}
-
-# Method: setPort
-#
-#     Set the listening port for the apache perl
-#
-# Parameters:
-#
-#     port - Int the new listening port
-#
-sub setPort # (port)
-{
-    my ($self, $port) = @_;
-
-    checkPort($port, __("port"));
-
-    my $adminPortModel = $self->model('AdminPort');
-    my $oldPort = $adminPortModel->value('port');
-
-    return if ($oldPort == $port);
-
-    $self->checkAdminPort($port);
-
-    $adminPortModel->setValue('port', $port);
-    $self->updateAdminPortService($port);
-}
-
-sub checkAdminPort
-{
-    my ($self, $port) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $fw = $global->modInstance('firewall');
-    if (defined($fw)) {
-        unless ($fw->availablePort("tcp",$port)) {
-            throw EBox::Exceptions::External(__x(
-'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
-                p => $port
-               ));
-        }
-    }
-
-    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
-    foreach my $line (@{ $netstatLines }) {
-        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) =
-            split '\s+', $line, 7;
-        if ($localAddr =~ m/:$port$/) {
-            my ($pid, $program) = split '/', $PIDProgram;
-            throw EBox::Exceptions::External(__x(
-q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
-                p => $port,
-                pr => $program,
-              )
-            );
-        }
-    }
-}
-
-sub updateAdminPortService
-{
-    my ($self, $port) = @_;
-    my $global = $self->global();
-    if ($global->modExists('services')) {
-        my $services = $global->modInstance('services');
-        $services->setAdministrationPort($port);
+        $rs->reportAdminPort($self->usedHAProxySSLPort());
     }
 }
 
@@ -951,7 +878,7 @@ sub usesPort
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->port();
+    return $port == $self->usedHAProxySSLPort();
 }
 
 # Method: initialSetup

@@ -129,21 +129,6 @@ sub disableService
     }
 }
 
-# Method: setServiceRO
-#
-#   Set service as read-only.
-#
-sub setServiceRO
-{
-    my ($self, $serviceId, $ro) = @_;
-
-    my $row = $self->find(serviceId => $serviceId);
-    if ($row) {
-        $row->setReadOnly($ro);
-        $row->store();
-    }
-}
-
 # Method: isEnabledService
 #
 #   Whether a given service is enabled in the model or not.
@@ -238,7 +223,7 @@ sub _table
 
     my $dataTable = {
         tableName          => 'Services',
-        printableTableName => __('Reverse proxy services'),
+        printableTableName => __('Zentyal Administration port and other reverse proxy service ports'),
         printableRowName   => __('service'),
         defaultActions     => [ 'editField', 'changeView' ],
         tableDescription   => \@tableHeader,
@@ -255,28 +240,87 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r) = @_;
 
-#    if ($action eq 'update') {
-#        if (exists $params_r->{cn}) {
-#            if (not $actual_r->{allowCustomCN}->value()) {
-#                throw EBox::Exceptions::External(
-#                    __('This service does not allow to change the certificate common name')
-#                   );
-#            }
-#        }
-#    }
+    my $enabled = $actual_r->{enable}->value();
+    if ($action eq 'update') {
+        if (exists $params_r->{port}) {
+            if ($actual_r->{blockPort}->value()) {
+                throw EBox::Exceptions::External(
+                    __('This service does not allow to change the http port.')
+                );
+            }
+        }
+        if (exists $params_r->{sslPort}) {
+            if ($actual_r->{blockSSLPort}->value()) {
+                throw EBox::Exceptions::External(
+                    __('This service does not allow to change the https port.')
+                );
+            }
+        }
+        if (exists $params_r->{enable}) {
+            if (not $actual_r->{canBeDisabled}->value()) {
+                throw EBox::Exceptions::External(
+                    __('This service cannot be disabled.')
+                );
+            } else {
+                $enabled = $params_r->{enable};
+            }
+        }
+    }
+
+    my $haproxyMod = $self->parentModule();
+    my $haproxyPorts = $haproxyMod->ports();
+    if ($enabled and (($action eq 'update') or ($action eq 'add'))) {
+        if (exists $params_r->{port}) {
+            if (exists $haproxyPorts{$params_r->{port}}) {
+                if ($haproxyPorts{$params_r->{port}}->{isSSL}) {
+                    throw EBox::Exceptions::External(__x(
+                        'The port {port} is used already for SSL, you cannot use it as a non SSL port.',
+                        port => $params_r->{port}
+                    ));
+                }
+            } else {
+                $haproxyMod->checkServicePort($params_r->{port});
+            }
+        }
+        if (exists $params_r->{sslPort}) {
+            if (exists $haproxyPorts{$params_r->{sslPort}}) {
+                if (not $haproxyPorts{$params_r->{sslPort}}->{isSSL}) {
+                    throw EBox::Exceptions::External(__x(
+                        'The port {port} is used already for non SSL, you cannot use it as a SSL port.',
+                        port => $params_r->{sslPort}
+                    ));
+                }
+            } else {
+                $haproxyMod->checkServicePort($params_r->{sslPort});
+            }
+        }
+    }
 }
 
 sub updatedRowNotify
 {
     my ($self, $row, $oldRow, $force) = @_;
-#    if ($row->isEqualTo($oldRow)) {
-#        # no need to set module as changed
-#        return;
-#    }
-#
-#    my $modName = $row->valueByName('module');
-#    my $mod = EBox::Global->modInstance($modName);
-#    $mod->setAsChanged();
+
+    my $enabled = $row->valueByName('enable');
+    unless ($enabled) {
+        # The row is not enabled, we can ignore it.
+        return;
+    }
+
+    my $oldPort = $oldRow->valueByName('port');
+    my $port = $row->valueByName('port');
+    my $oldSSLPort = $oldRow->valueByName('sslPort');
+    my $sslPort = $row->valueByName('sslPort');
+    if (($oldPort eq $port) and ($oldSSLPort eq $sslPort)) {
+        # no need to do anything
+        return;
+    }
+
+    my @ports = ();
+    push (@ports, $port) if ($port);
+    push (@ports, $sslPort) if ($sslPort);
+    my $modName = $row->valueByName('module');
+    $self->parentModule()->updateServicePorts($modName, \@ports);
 }
 
 # Method: viewCustomizer

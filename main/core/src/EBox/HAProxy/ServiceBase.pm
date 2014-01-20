@@ -27,6 +27,7 @@ package EBox::HAProxy::ServiceBase;
 
 use EBox::Exceptions::NotImplemented;
 use EBox::Gettext;
+use EBox::Global;
 
 # Constructor: new
 #
@@ -42,6 +43,54 @@ sub new
     my $self = {};
     bless ($self, $class);
     return $self;
+}
+
+# Method: usedHAProxyPort
+#
+#   Provides the HTTP port assigned to this service on the ha proxy
+#
+# Returns:
+#
+#   integer - The HTTP port used by this service.
+#
+sub usedHAProxyPort
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance(1);
+    my $haproxyMod = $global->modInstance('haproxy');
+    my $services = $haproxyMod->model('Services');
+    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+
+    if (defined $moduleRow) {
+        return $moduleRow->valueByName('port');
+    } else {
+        return $self->defaultHAProxyPort();
+    }
+}
+
+# Method: usedHAProxySSLPort
+#
+#   Provides the HTTPS port assigned to this service on the ha proxy
+#
+# Returns:
+#
+#   integer - The HTTPS port used by this service.
+#
+sub usedHAProxySSLPort
+{
+    my ($self) = @_;
+
+    my $global = EBox::Global->getInstance(1);
+    my $haproxyMod = $global->modInstance('haproxy');
+    my $services = $haproxyMod->model('Services');
+    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+
+    if (defined $moduleRow) {
+        return $moduleRow->valueByName('sslPort');
+    } else {
+        return $self->defaultHAProxySSLPort();
+    }
 }
 
 # Method: allowDisableHAProxyService

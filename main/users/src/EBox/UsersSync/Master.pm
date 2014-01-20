@@ -250,7 +250,7 @@ sub setupSlave
 
         my $client_cert = read_file(SSL_DIR . 'ssl.cert');
         try {
-            $client->registerSlave($webAdminMod->port(), $client_cert, 1);
+            $client->registerSlave($webAdminMod->usedHAProxySSLPort(), $client_cert, 1);
         } otherwise {
             my $ex = shift;
             $self->_analyzeException($ex);

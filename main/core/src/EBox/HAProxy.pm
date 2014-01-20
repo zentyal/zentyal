@@ -28,6 +28,7 @@ use EBox::Gettext;
 use EBox::Menu::Item;
 use EBox::Module::Base;
 use EBox::Sudo;
+use EBox::Validate qw( checkPort );
 use Error qw(:try);
 
 use constant HAPROXY_DEFAULT_FILE => '/etc/default/haproxy';
@@ -75,21 +76,6 @@ sub _daemons
             'pidfiles' => ['/var/run/haproxy.pid'],
         }
     ]
-}
-
-# Method: _daemonsToDisable
-#
-#   Defines the set of daemons that should not be started on boot but handled by Zentyal.
-#
-# Overrides:
-#
-#       <EBox::Module::Service::_daemonsToDisable>
-#
-sub _daemonsToDisable
-{
-    my ($self) = @_;
-
-    return $self->_daemons();
 }
 
 # Method: ports
@@ -241,30 +227,6 @@ sub _enforceServiceState
     EBox::Sudo::root($script);
 }
 
-# Method: menu
-#
-# Overrides:
-#
-#       <EBox::Module::Base::menu>
-#
-sub menu
-{
-    my ($self, $root) = @_;
-
-    my $separator = 'Core';
-    # Between System and Network.
-    my $order = 35;
-
-    my $item = new EBox::Menu::Item(
-        url       => 'HAProxy/View/Services',
-        icon      => 'rproxy',
-        text      => $self->printableName(),
-        order     => $order,
-        separator => $separator);
-
-    $root->add($item);
-}
-
 # Method: modsWithHAProxyService
 #
 #   All configured service modules (EBox::Module::Service) which implement EBox::HAProxy::ServiceBase interface.
@@ -289,6 +251,167 @@ sub modsWithHAProxyService
     return \@mods;
 }
 
+# Method: checkServicePort
+#
+#   Check whether a given port is being used outside HAProxy.
+#
+# Parameters:
+#
+#   port    - The port we want to check for usage.
+#
+sub checkServicePort
+{
+    my ($self, $port) = @_;
+
+    my $haproxyPorts = $self->ports();
+
+    if (exists $haproxyPorts{$port}) {
+        # It's a port handled by haproxy, we accept it.
+        return;
+    }
+
+    my $global = $self->global();
+    my $firewallMod = $global->modInstance('firewall');
+    if (defined $firewallMod) {
+        unless ($firewallMod->availablePort("tcp", $port)) {
+            throw EBox::Exceptions::External(__x(
+                'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
+                p => $port
+            ));
+        }
+    }
+
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) = split '\s+', $line, 7;
+        if ($localAddr =~ m/:$port$/) {
+            my ($pid, $program) = split '/', $PIDProgram;
+            throw EBox::Exceptions::External(__x(
+                q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
+                p => $port,
+                pr => $program,
+            ));
+        }
+    }
+}
+
+# Method: setServicePorts
+#
+#   Sets the given ports as the ones to be used for the service module provided.
+#
+# Parameters:
+#
+#   modName - The module name that handles the service
+#   port    - The port where this service should listen for connections or undef.
+#   sslPort - The SSL port where this service should listen for connections or undef.
+#   enable  - Whether this service should be enabled.
+#   force   - Whether this service ports should be used even if are set as used elsewhere.
+#
+sub setServicePorts
+{
+    my ($self, $modName, $port, $sslPort, $enable, $force) = @_;
+
+    unless ($force) {
+        $self->checkServicePort($port) if ($port);
+        $self->checkServicePort($sslPort) if ($sslPort);
+    }
+
+    my $module = $self->global()->modInstance($modName);
+    my $services = $self->model('Services');
+    my $moduleRow = $services->find(serviceId => $module->HAProxyServiceId());
+
+    if (defined $moduleRow) {
+        if ($module->blockHAProxyPort()) {
+            if (defined $port) {
+                EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable");
+            }
+        } else {
+            my $port = $moduleRow->elementByName('port');
+            $port->setValue($port);
+        }
+        if ($module->blockHAProxySSLPort()) {
+            if (defined $sslPort) {
+                EBox::error("Tried to set the HTTPS port of '$modName' to '$sslPort' but it's not editable");
+            }
+        } else {
+            my $sslPort = $moduleRow->elementByName('sslPort');
+            $sslPort->setValue($sslPort);
+        }
+        $moduleRow->store();
+    } else {
+        # There isn't yet a definition for the module Service, we add it now.
+        if ($module->blockHAProxyPort()) {
+            if (defined $port) {
+                EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable");
+            }
+            $port = $module->defaultHAProxyPort();
+        }
+        if ($module->blockHAProxySSLPort()) {
+            if (defined $sslPort) {
+                EBox::error("Tried to set the HTTPS port of '$modName' to '$sslPort' but it's not editable");
+            }
+            $sslPort = $module->defaultHAProxySSLPort();
+        }
+
+        $services->add(
+            module        => $module->name(),
+            serviceId     => $module->HAProxyServiceId(),
+            service       => $module->printableName(),
+            port          => $port,
+            blockPort     => $module->blockHAProxyPort(),
+            sslPort       => $sslPort,
+            blockSSLPort  => $module->blockHAProxySSLPort(),
+            canBeDisabled => $module->allowDisableHAProxyService(),
+            enable        => $enable);
+    }
+
+    $self->updateServicePorts($modName, [$port, $sslPort]);
+}
+
+# Method: updateServicePorts
+#
+#   Adds or updates Zentyal's service to point to the given ports.
+#
+# Parameters:
+#
+#   modName - The module name that handles the service.
+#   ports   - A list reference of ports to be handled by this service.
+#
+sub updateServicePorts
+{
+    my ($self, $modName, $ports) = @_;
+
+    my $global = $self->global();
+    if ($global->modExists('services')) {
+        my $services = $global->modInstance('services');
+        my $module = $global->modInstance($modName);
+
+        my @servicePorts = ();
+        foreach my $port (@{$ports}) {
+            EBox::Validate::checkPort($port, __("port"));
+
+            my $servicePort = {
+                protocol        => 'tcp',
+                sourcePort      => 'any',
+                destinationPort => $port
+            };
+
+            push(@servicePorts, $servicePort);
+        }
+
+        if (@servicePorts) {
+            $services->setMultipleService(
+                'name'          => "zentyal_$modName",
+                'printableName' => $module->printableName(),
+                'description' => __x('{modName} Web Server', modName => $module->printableName()),
+                'services' => \@servicePorts,
+                'internal' => 1,
+                'readOnly' => 1
+            );
+        }
+    }
+}
+
 # Method: initialSetup
 #
 # Overrides:
@@ -298,73 +421,39 @@ sub modsWithHAProxyService
 sub initialSetup
 {
     my ($self, $version) = @_;
-    # We don't take a look to $version because the webadmin module may be already migrated to 3.2.
 
     my $redis = $self->redis();
-    my @keys = $redis->_keys('*/*/AdminPort/keys/form');
-    if (@keys) {
-        # There are keys to migrate...
-
-        my $webadminMod = $self->global()->modInstance('webadmin');
-        my $services = $self->model('Services');
-        my $webadminRow = undef;
-        for my $rowId (@{$services->ids()}) {
-            my $row = $services->row($rowId);
-            my $serviceId = $row->elementByName('serviceId')->value();
-            if ($serviceId eq $webadminMod->HAProxyServiceId()) {
-                $webadminRow = $row;
-            }
-        }
-
-        my @keysToRemove = ();
-        my @confDirs = ('ro', 'conf');
-        foreach my $confDir (@confDirs) {
-            # Try to upgrade from older 3.2
-            my $key = "webadmin/$confDir/AdminPort/keys/form";
-            my $value = $redis->get($key);
-            unless ($value) {
-                # The old 3.2 key doesn't exist, try the 3.0 one.
-                $key = "apache/$confDir/AdminPort/keys/form";
-                $value = $redis->get($key);
-            }
-            if ($value) {
-                my $adminPort = $value->{port};
-                $self->_migrateWebadminPort($adminPort, $webadminRow);
-                if ($confDir eq 'ro') {
-                    # Save module's config to match the original 'ro' conf key.
-                    $self->_saveConfig();
-                }
-                push (@keysToRemove, $key);
-            }
-        }
-        if (@keysToRemove) {
-            $redis->unset(@keysToRemove);
-        }
+    my $key = 'webadmin/conf/AdminPort/keys/form';
+    my $value = $redis->get($key);
+    unless ($value) {
+        # Fallback to the 'ro' version.
+        $key = 'webadmin/ro/AdminPort/keys/form';
+        $value = $redis->get($key);
     }
-}
+    if ($value) {
+        if (defined $value->{port}) {
+            # There are keys to migrate...
+            $self->setServicePorts('webadmin', undef, $value->{port}, 1, 1);
+        }
 
-sub _migrateWebadminPort
-{
-    my ($self, $adminPort, $webadminRow) = @_;
+        my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
+        $redis->unset(@keysToRemove);
+    }
 
-    if ($webadminRow) {
-        my $sslPort = $webadminRow->elementByName('sslPort');
-        $sslPort->setValue($adminPort);
-        $webadminRow->store();
-    } else {
-        # There isn't yet a definition for the webadmin Service, we add it now.
-        my $webadminMod = $self->global()->modInstance('webadmin');
-        my $services = $self->model('Services');
-        $services->add(
-            module        => $webadminMod->name(),
-            serviceId     => $webadminMod->HAProxyServiceId(),
-            service       => $webadminMod->printableName(),
-            port          => $webadminMod->defaultHAProxyPort(),
-            blockPort     => $webadminMod->blockHAProxyPort(),
-            sslPort       => $adminPort,
-            blockSSLPort  => $webadminMod->blockHAProxySSLPort(),
-            canBeDisabled => $webadminMod->allowDisableHAProxyService(),
-            enable        => 1);
+    # Migrate the webadmin zentyal's service definition to follow the new layout.
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    my $servicesKeys = $redis->_keys('services/*/ServiceTable/keys/*');
+    foreach my $key (@keys) {
+        my $value = $redis->get($key);
+        unless ($value->{internal} and $value->{readOnly}) {
+            next;
+        }
+        if ($value->{name} == 'administration') {
+            $value->{name} = 'zentyal_' . $webadminMod->name();
+            $value->{printableName} = $webadminMod->printableName(),
+            $value->{description} = __x('{modName} Web Server', modName => $webadminMod->printableName()),
+            $redis->set($key, $value);
+        }
     }
 }
 

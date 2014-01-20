@@ -27,7 +27,6 @@ package EBox::Services;
 
 use base qw(EBox::Module::Config);
 
-use EBox::Validate qw( :all );
 use EBox::Services::Model::ServiceConfigurationTable;
 use EBox::Services::Model::ServiceTable;
 use EBox::Gettext;
@@ -75,11 +74,12 @@ sub _defaultServices
 {
     my ($self) = @_;
 
+    my $webadminMod = $self->global()->modInstance('webadmin');
     my $webAdminPort;
     try {
-        $webAdminPort = $self->global()->modInstance('webadmin')->port();
+        $webAdminPort = $webadminMod->usedHAProxySSLPort();
     } otherwise {
-        $webAdminPort = 443;
+        $webAdminPort = $webadminMod->defaultHAProxySSLPort();
     };
 
     return [
@@ -450,32 +450,6 @@ sub setMultipleService
     my ($self, %params) = @_;
 
     $self->model('ServiceTable')->setMultipleService(%params);
-}
-
-# Method: setAdministrationPort
-#
-#       Set administration port on service
-#
-# Parameters:
-#
-#       port - port
-#
-sub setAdministrationPort
-{
-    my ($self, $port) = @_;
-
-    checkPort($port, __("port"));
-
-    $self->setService(
-            'name' => 'administration',
-            'printableName' => __('Zentyal Administration'),
-            'description' => __('Zentyal Administration Web Server'),
-            'protocol' => 'tcp',
-            'sourcePort' => 'any',
-            'destinationPort' => $port,
-            'internal' => 1,
-            'readOnly' => 1
-    );
 }
 
 # Method: availablePort

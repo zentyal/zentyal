@@ -21,7 +21,7 @@ fetch_ebox_port()
             EBox::init();
 
             my $webadmin = EBox::Global->modInstance('webadmin');
-            print $webadmin->port();
+            print $webadmin->usedHAProxySSLPort();
             exit 0;
             ' 2> /dev/null );
 
@@ -90,9 +90,9 @@ set_ebox_port()
             EBox::init();
             my $port = $ARGV[0];
             my $global = EBox::Global->getInstance();
-            my $webadmin = $global->modInstance('webadmin');
-            $webadmin->setPort($port);
-            $webadmin->saveConfig();
+            my $haproxy = $global->modInstance('haproxy');
+            $haproxy->setServicePorts('webadmin', undef, $port, 1);
+            $haproxy->saveConfig();
             if ($global->modExists('services')) {
                 $global->modInstance('services')->saveConfig();
             }
