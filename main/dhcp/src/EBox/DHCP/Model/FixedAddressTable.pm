@@ -373,6 +373,16 @@ sub _allowedMemberInFixedAddress
         }
     }
 
+    # Check the member IP address is not a HA floating IP
+    if ($gl->modExists('ha') and $gl->modInstance('ha')->isEnabled()) {
+        my $ha = $gl->modInstance('ha');
+        if ($ha->isFloatingIP($iface, $memberIP->{address})) {
+            EBox::debug('IP addess ' . $memberIP->print() . 'is a HA floating IP.');
+
+            return 0;
+        }
+    }
+
     return 1;
 }
 
