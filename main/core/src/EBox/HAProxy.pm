@@ -92,6 +92,64 @@ sub _daemonsToDisable
     return $self->_daemons();
 }
 
+# Method: ports
+#
+#   Hash of ports configured to be used by HAProxy with the services attached to them.
+#
+# Returns:
+#
+#   hash - All configured ports with the services attached with the following format:
+#               - $port:
+#                   - isSSL:    Boolean  - Whether this port requires SSL usage.
+#                   - services: Array    - Array of services attached to this port:
+#                       - isDefault:  Boolean - Wether this service is the default for this port.
+#                       - name:       String  - The name of this service (without spaces).
+#                       - domains:    List    - List of domain names that this service will handle. If it's empty,
+#                                               the isDefault flag will be true.
+#                       - targetIP:   String  - IP Address where this service is listening on.
+#                       - targetPort: String  - Port number where this service is listening on.
+#
+sub ports
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    my $services = $self->model('Services');
+    my %ports = ();
+
+    for my $id (@{$services->enabledRows()}) {
+        my $row = $services->row($id);
+        my $serviceId = $row->elementByName('serviceId')->value();
+        my $module = $global->modInstance($row->elementByName('module')->value());
+
+        my $service = {};
+        $service->{isDefault} = 1; # FIXME!
+        $service->{name} = $serviceId;
+        $service->{domains} = $module->targetHAProxyDomains();
+        $service->{targetIP} = $module->targetHAProxyIP();
+        $service->{targetPort} = $module->targetHAProxyPort();
+
+        my $port = $row->elementByName('port')->value();
+        if ($port) {
+            if (not exists ($ports{$port})) {
+                $ports{$port}->{isSSL} = undef;
+                $ports{$port}->{services} = [];
+            }
+            push (@{$ports{$port}->{services}}, $service);
+        }
+
+        my $sslPort = $row->elementByName('sslPort')->value();
+        if ($sslPort) {
+            if (not exists ($ports{$sslPort})) {
+                $ports{$sslPort}->{isSSL} = 1;
+                $ports{$sslPort}->{services} = [];
+            }
+            push (@{$ports{$sslPort}->{services}}, $service);
+        }
+    }
+    return \%ports;
+}
+
 # Method: _setConf
 #
 #   Write the haproxy configuration.
@@ -114,6 +172,7 @@ sub _setConf
 
     @params = ();
     push (@params, zentyalconfdir => EBox::Config::conf());
+    push (@params, ports => $self->ports());
     if (@{$webadminMod->_CAs(1)}) {
         push (@params, caFile => $webadminMod->CA_CERT_FILE());
     } else {

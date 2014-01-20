@@ -3,33 +3,63 @@
 
 Parameters:
 
-    bind_address - String the bind address.
-                   Default value: 0.0.0.0
+    bind_address   - String the bind address.
+                     Default value: 0.0.0.0
     zentyalconfdir - String the path to the HAProxy configuration folder.
     caFile         - String the CA pem file to validate SSL certificate against.
+    ports          - Hash of ports used by services.
 
 </%doc>
 <%args>
     $bind_address => '0.0.0.0'
     $zentyalconfdir
     $caFile
+    $ports
 </%args>
+% if (%{$ports}) {
+% my %dumped_services = ();
 global
   tune.ssl.lifetime 300
 
 defaults
- log 127.0.0.1 local0
- option tcplog
+  timeout client 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
 
-frontend ft_zentyal
+%   foreach my $portNumber (keys %{$ports}) {
+frontend ft_zentyal_<% $portNumber %>
   mode http
-% if ($caFile) {
-  bind <% $bind_address %>:443 ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
-% } else {
-  bind <% $bind_address %>:443 ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM
-% }
-  default_backend bk_zentyal_webadmin
+%     if ($ports->{$portNumber}->{isSSL}) {
+%       if ($caFile) {
+  bind <% $bind_address %>:<% $portNumber %> ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+%       } else {
+  bind <% $bind_address %>:<% $portNumber %> ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM
+%       }
+%     } else {
+  bind <% $bind_address %>:<% $portNumber %>
+%     }
+%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       foreach my $domain (@{$service->{domains}}) {
+%         if ($ports->{$portNumber}->{isSSL}) {
+  use_backend bk_zentyal_<% $service->{name} %> if { ssl_fc_sni <% $domain %> }
+%         } else {
+  use_backend bk_zentyal_<% $service->{name} %> if { hdr(host) -i <% $domain %> }
+%         }
+%       }
+%       if ($service->{isDefault}) {
+  default_backend bk_zentyal_<% $service->{name} %>
+%       }
+%     }
 
-backend bk_zentyal_webadmin
+%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       if (exists $dumped_services{$service->{name}}) {
+%         next;
+%       } else {
+%         $dumped_services{$service->{name}} = 1;
+%       }
+backend bk_zentyal_<% $service->{name} %>
  mode http
- server srvxlc 127.0.0.1:61080
+ server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
+%     }
+%   }
+% }
