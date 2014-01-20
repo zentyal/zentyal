@@ -344,7 +344,7 @@ sub replicateConf
     my $path = $file->path;
     system ("tar xzf $path -C $tmpdir");
 
-    # TODO: extract /etc/zentyal and /var/lib/zentyal/CA
+    EBox::Sudo::root("cp -a $tmpdir/files/* /");
 
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
 
@@ -385,7 +385,10 @@ sub askForReplicationInNode
         $mod->makeBackup($tmpdir);
     }
 
-    # TODO: include /etc/zentyal and /var/lib/zentyal/CA
+    system ("mkdir -p $tmpdir/files");
+    foreach my $dir (@{EBox::Config::list('ha_conf_dirs')}) {
+        EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
+    }
 
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";

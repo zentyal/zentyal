@@ -112,6 +112,19 @@ sub boolean
     return (configkey($key) eq 'yes');
 }
 
+sub list
+{
+    my ($key) = @_;
+
+    my $val = configkey($key);
+    if ($val) {
+        my @values = split (' ', $val);
+        return \@values;
+    } else {
+        return [];
+    }
+}
+
 sub configkeys # (key)
 {
     my ($key) = @_;
