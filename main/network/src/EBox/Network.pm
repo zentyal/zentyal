@@ -1119,6 +1119,16 @@ sub setViface
     }
 
     my $global = EBox::Global->getInstance();
+
+    # Check the virtual interface IP  address is not a HA floating IP
+    if ($global->modExists('ha') and $global->modInstance('ha')->isEnabled()) {
+        my $ha = $global->modInstance('ha');
+        if ($ha->isFloatingIP($iface, $address)) {
+            throw EBox::Exceptions::External("The IP: " . $address . " is already".
+                                            " a HA floating IP.");
+        }
+    }
+
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
         $mod->vifaceAdded($iface, $viface, $address, $netmask);
