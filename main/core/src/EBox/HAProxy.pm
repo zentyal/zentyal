@@ -289,4 +289,83 @@ sub modsWithHAProxyService
     return \@mods;
 }
 
+# Method: initialSetup
+#
+# Overrides:
+#
+#   <EBox::Module::Base::initialSetup>
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+    # We don't take a look to $version because the webadmin module may be already migrated to 3.2.
+
+    my $redis = $self->redis();
+    my @keys = $redis->_keys('*/*/AdminPort/keys/form');
+    if (@keys) {
+        # There are keys to migrate...
+
+        my $webadminMod = $self->global()->modInstance('webadmin');
+        my $services = $self->model('Services');
+        my $webadminRow = undef;
+        for my $rowId (@{$services->ids()}) {
+            my $row = $services->row($rowId);
+            my $serviceId = $row->elementByName('serviceId')->value();
+            if ($serviceId eq $webadminMod->HAProxyServiceId()) {
+                $webadminRow = $row;
+            }
+        }
+
+        my @keysToRemove = ();
+        my @confDirs = ('ro', 'conf');
+        foreach my $confDir (@confDirs) {
+            # Try to upgrade from older 3.2
+            my $key = "webadmin/$confDir/AdminPort/keys/form";
+            my $value = $redis->get($key);
+            unless ($value) {
+                # The old 3.2 key doesn't exist, try the 3.0 one.
+                $key = "apache/$confDir/AdminPort/keys/form";
+                $value = $redis->get($key);
+            }
+            if ($value) {
+                my $adminPort = $value->{port};
+                $self->_migrateWebadminPort($adminPort, $webadminRow);
+                if ($confDir eq 'ro') {
+                    # Save module's config to match the original 'ro' conf key.
+                    $self->_saveConfig();
+                }
+                push (@keysToRemove, $key);
+            }
+        }
+        if (@keysToRemove) {
+            $redis->unset(@keysToRemove);
+        }
+    }
+}
+
+sub _migrateWebadminPort
+{
+    my ($self, $adminPort, $webadminRow) = @_;
+
+    if ($webadminRow) {
+        my $sslPort = $webadminRow->elementByName('sslPort');
+        $sslPort->setValue($adminPort);
+        $webadminRow->store();
+    } else {
+        # There isn't yet a definition for the webadmin Service, we add it now.
+        my $webadminMod = $self->global()->modInstance('webadmin');
+        my $services = $self->model('Services');
+        $services->add(
+            module        => $webadminMod->name(),
+            serviceId     => $webadminMod->HAProxyServiceId(),
+            service       => $webadminMod->printableName(),
+            port          => $webadminMod->defaultHAProxyPort(),
+            blockPort     => $webadminMod->blockHAProxyPort(),
+            sslPort       => $adminPort,
+            blockSSLPort  => $webadminMod->blockHAProxySSLPort(),
+            canBeDisabled => $webadminMod->allowDisableHAProxyService(),
+            enable        => 1);
+    }
+}
+
 1;
