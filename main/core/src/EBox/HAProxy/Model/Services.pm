@@ -271,8 +271,8 @@ sub validateTypedRow
     my $haproxyPorts = $haproxyMod->ports();
     if ($enabled and (($action eq 'update') or ($action eq 'add'))) {
         if (exists $params_r->{port}) {
-            if (exists $haproxyPorts{$params_r->{port}}) {
-                if ($haproxyPorts{$params_r->{port}}->{isSSL}) {
+            if (exists $haproxyPorts->{$params_r->{port}}) {
+                if ($haproxyPorts->{$params_r->{port}}->{isSSL}) {
                     throw EBox::Exceptions::External(__x(
                         'The port {port} is used already for SSL, you cannot use it as a non SSL port.',
                         port => $params_r->{port}
@@ -283,8 +283,8 @@ sub validateTypedRow
             }
         }
         if (exists $params_r->{sslPort}) {
-            if (exists $haproxyPorts{$params_r->{sslPort}}) {
-                if (not $haproxyPorts{$params_r->{sslPort}}->{isSSL}) {
+            if (exists $haproxyPorts->{$params_r->{sslPort}}) {
+                if (not $haproxyPorts->{$params_r->{sslPort}}->{isSSL}) {
                     throw EBox::Exceptions::External(__x(
                         'The port {port} is used already for non SSL, you cannot use it as a SSL port.',
                         port => $params_r->{sslPort}

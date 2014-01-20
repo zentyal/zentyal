@@ -265,7 +265,7 @@ sub checkServicePort
 
     my $haproxyPorts = $self->ports();
 
-    if (exists $haproxyPorts{$port}) {
+    if (exists $haproxyPorts->{$port}) {
         # It's a port handled by haproxy, we accept it.
         return;
     }
@@ -442,13 +442,17 @@ sub initialSetup
 
     # Migrate the webadmin zentyal's service definition to follow the new layout.
     my $webadminMod = $self->global()->modInstance('webadmin');
-    my $servicesKeys = $redis->_keys('services/*/ServiceTable/keys/*');
-    foreach my $key (@keys) {
+    my @servicesKeys = $redis->_keys('services/*/ServiceTable/keys/*');
+    foreach my $key (@servicesKeys) {
         my $value = $redis->get($key);
-        unless ($value->{internal} and $value->{readOnly}) {
+        unless (ref $value eq 'HASH') {
             next;
         }
-        if ($value->{name} == 'administration') {
+        unless ((defined $value->{internal}) and $value->{internal} and
+                (defined $value->{readOnly}) and $value->{readOnly}) {
+            next;
+        }
+        if ($value->{name} eq 'administration') {
             $value->{name} = 'zentyal_' . $webadminMod->name();
             $value->{printableName} = $webadminMod->printableName(),
             $value->{description} = __x('{modName} Web Server', modName => $webadminMod->printableName()),
