@@ -24,8 +24,11 @@ use warnings;
 
 package EBox::HA::NodeList;
 
+use Clone::Fast;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::InvalidType;
 use List::Util qw(max);
+use Test::Deep qw(ignore eq_deeply);
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -228,6 +231,70 @@ sub localNode
         throw EBox::Exceptions::DataNotFound(data  => 'node',
                                              value => 'localNode');
     }
+}
+
+# Method: diff
+#
+#     Get the difference between the object and a hash ref which is
+#     the result of another object <EBox::HA::NodeList::list>
+#
+# Parameters:
+#
+#     other - Array ref the contents of <list> applies here
+#
+# Returns:
+#
+#     Tuple:
+#
+#     equal - Boolean indicating if they are both equal
+#     Hash ref - containing the diff, if any, following keys:
+#
+#        new - nodes that are in the other and not in self
+#        old - nodes that are in self and not in other
+#        change - nodes that are in both with different parameters
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::InvalidType> - thrown if the hash ref within
+#     the array type are invalid
+#
+sub diff
+{
+    my ($self, $other) = @_;
+
+    if (ref($other) ne 'ARRAY') {
+        throw EBox::Exceptions::InvalidType('other', 'ARRAY ref');
+    }
+
+    my $state = $self->{ha}->get_state();
+
+    my %other = map { $_->{name} => $_ } @{$other};
+    my %mine = ();
+    if (exists($state->{cluster_conf}->{nodes})) {
+        %mine = %{Clone::Fast::clone($state->{cluster_conf}->{nodes})};
+    }
+
+    my $equal = Test::Deep::eq_deeply(\%mine, \%other);
+    return (1, {}) if ($equal);
+
+    my @new = ();
+    my @old = ();
+    my @changes = ();
+    foreach my $otherNode (keys %other) {
+        if (exists($mine{$otherNode})) {
+            # Ignore localNode param
+            $mine{$otherNode}->{localNode} = ignore();
+            push(@changes, $otherNode) unless (Test::Deep::eq_deeply($other{$otherNode}, $mine{$otherNode}));
+        } else {
+            push(@new, $otherNode);
+        }
+    }
+    foreach my $myNode (keys %mine) {
+        push(@old, $myNode) unless (exists($other{$myNode}));
+    }
+
+    return (0, {new => \@new, old => \@old, changes => \@changes});
+
 }
 
 1;
