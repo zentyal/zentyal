@@ -329,7 +329,9 @@ sub updateClusterConfiguration
     my $state = $self->get_state();
     my $currentClusterConf = $state->{cluster_conf};
     unless (($currentClusterConf->{transport} eq $body->{transport})
-            and ($currentClusterConf->{multicast} ~~ $body->{multicastConf})) {
+            and (($currentClusterConf->{multicast} ~~ $body->{multicastConf})
+                 or (not(defined($currentClusterConf->{multicast})) and $body->{multicastConf} ~~ {}))
+           ) {
         EBox::warn('Change in multicast or transport is not supported');
     }
 

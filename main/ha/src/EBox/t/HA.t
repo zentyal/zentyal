@@ -140,7 +140,7 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
                                           transport => 'udpu',
-                                          multicastConf => undef,
+                                          multicastConf => {},
                                           nodes => [
                                               {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443}
                                              ]});
@@ -151,7 +151,7 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
                                           transport => 'udpu',
-                                          multicastConf => undef,
+                                          multicastConf => {},
                                           nodes => [
                                               {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443},
                                               {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
@@ -163,7 +163,7 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
                                           transport => 'udpu',
-                                          multicastConf => undef,
+                                          multicastConf => {},
                                           nodes => [
                                               {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
                                               {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
@@ -175,7 +175,7 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
                                           transport => 'udpu',
-                                          multicastConf => undef,
+                                          multicastConf => {},
                                           nodes => [
                                               {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
 
