@@ -387,6 +387,7 @@ sub askForReplicationInNode
 
     system ("mkdir -p $tmpdir/files");
     foreach my $dir (@{EBox::Config::list('ha_conf_dirs')}) {
+        next unless (-d $dir);
         EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
     }
 
