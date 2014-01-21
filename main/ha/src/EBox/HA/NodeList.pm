@@ -297,4 +297,19 @@ sub diff
 
 }
 
+# Method: size
+#
+#    Return the list size (number of elements)
+#
+# Returns:
+#
+#    Int - the number of elements from the list
+#
+sub size
+{
+    my ($self) = @_;
+
+    return scalar(keys(%{$self->{ha}->get_state()->{cluster_conf}->{nodes}}));
+}
+
 1;

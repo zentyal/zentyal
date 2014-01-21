@@ -205,6 +205,22 @@ sub test_diff : Test(7)
     $nl->empty();
 }
 
+sub test_size : Test(4)
+{
+    my ($self) = @_;
+
+    my $nl = $self->{nodeList};
+    $nl->empty();
+    cmp_ok($nl->size(), '==', 0, 'Empty list equals to 0');
+    $nl->set(addr => '10.1.1.2', name => 'graham', webAdminPort => 443, localNode => 1);
+    cmp_ok($nl->size(), '==', 1, 'A list with 1 element');
+    $nl->set(addr => '10.1.1.3', name => 'coxon', webAdminPort => 443, localNode => 0);
+    cmp_ok($nl->size(), '==', 2, 'A list with 2 elements');
+    $nl->remove('coxon');
+    cmp_ok($nl->size(), '==', 1, 'A list after removal');
+    $nl->empty();
+}
+
 1;
 
 END {
