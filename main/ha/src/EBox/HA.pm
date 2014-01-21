@@ -256,11 +256,17 @@ sub addNode
     $self->_corosyncSetConf();
 
     # TODO: Multicast
-    my $newNode = $list->node($params->{name});
-    $self->_addCorosyncNode($newNode);
+    if ($self->_isDaemonRunning('corosync')) {
+        my $newNode = $list->node($params->{name});
+        $self->_addCorosyncNode($newNode);
+    }
 
-    # Notify to other cluster nodes skipping the new added node
-    $self->_notifyClusterConfChange($list, [$params->{name}]);
+    try {
+        # Notify to other cluster nodes skipping the new added node
+        $self->_notifyClusterConfChange($list, [$params->{name}]);
+    } catch ($e) {
+        EBox::error("Notifying cluster conf change: $e");
+    }
 }
 
 # Method: deleteNode
@@ -296,11 +302,17 @@ sub deleteNode
     $self->_corosyncSetConf();
 
     # TODO: Multicast
-    # Dynamically remove the new node to corosync
-    $self->_deleteCorosyncNode($deletedNode);
+    if ($self->_isDaemonRunning('corosync')) {
+        # Dynamically remove the new node to corosync
+        $self->_deleteCorosyncNode($deletedNode);
+    }
 
     # Notify to other cluster nodes skipping the new added node
-    $self->_notifyClusterConfChange($list);
+    try {
+        $self->_notifyClusterConfChange($list);
+    } catch ($e) {
+        EBox::error("Notifying cluster conf change: $e");
+    }
 }
 
 # Method: updateClusterConfiguration
