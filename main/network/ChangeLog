@@ -1,3 +1,6 @@
+HEAD
+	+ When adding a new IP (viface or static iface) it is checked to avoid
+	  collision with the current HA floating IPs
 3.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Added bonding support (contribution by Vsevolod Kukol)
