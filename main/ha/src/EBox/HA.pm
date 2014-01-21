@@ -575,9 +575,9 @@ sub _join
 {
     my ($self, $clusterSettings, $localNodeAddr, $hostname) = @_;
 
-    my $remoteHost = $clusterSettings->row()->valueByName('cluster_zentyal');
-    my $client = new EBox::RESTClient(server => $remoteHost->{zentyal_host});
-    $client->setPort($remoteHost->{zentyal_port});
+    my $row = $clusterSettings->row();
+    my $client = new EBox::RESTClient(server => $row->valueByName('zentyal_host'));
+    $client->setPort($row->valueByName('zentyal_port'));
     # FIXME: Delete this line and not verify servers when using HAProxy
     $client->setScheme('http');
     # TODO: Add secret
@@ -603,7 +603,6 @@ sub _join
     $nodeList->set(%{$localNode}, localNode => 1);
 
     # Store cluster configuration
-    my $row = $clusterSettings->row();
     $row->elementByName('name')->setValue($clusterConf->{name});
     $row->store();
 
