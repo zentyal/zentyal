@@ -27,11 +27,10 @@ create_db()
     echo "Creating the $db_name database"
     echo "CREATE DATABASE $db_name;
           GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";
+          UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';
           FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
-
-    mysqladmin -u root password "$PASSWD"
 }
 
 if ! [ -d /var/lib/mysql/$db_name ]; then
