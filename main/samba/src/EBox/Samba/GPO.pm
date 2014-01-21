@@ -197,24 +197,6 @@ sub deleteObject
 
     # TODO: Remove all links to this GPO in the domain
 
-    # Remove subcontainers
-    my $gpoDN = $self->get('distinguishedName');
-    my $userDN = "CN=User,$gpoDN";
-    my $machineDN = "CN=Machine,$gpoDN";
-    my $result;
-    $result = $self->_ldap->delete($userDN);
-    if ($result->is_error()) {
-        my $msg = $result->error_desc();
-        throw EBox::Exceptions::Internal(
-            "Can not create GPO. LDAP error: $msg");
-    }
-    $result = $self->_ldap->delete($machineDN);
-    if ($result->is_error()) {
-        my $msg = $result->error_desc();
-        throw EBox::Exceptions::Internal(
-            "Can not create GPO. LDAP error: $msg");
-    }
-
     # Remove GPC from LDAP
     $self->SUPER::deleteObject();
 
