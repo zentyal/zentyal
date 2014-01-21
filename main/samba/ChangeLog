@@ -1,3 +1,5 @@
+HEAD
+	+ Samba log helper is now aware of utf8
 3.2.13
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization

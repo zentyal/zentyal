@@ -20,6 +20,7 @@ package EBox::SambaLogHelper;
 use base 'EBox::LogHelper';
 
 use EBox::Gettext;
+use utf8;
 
 use constant SAMBA_LOGFILE => '/var/log/syslog';
 use constant SAMBA_ANTIVIRUS => '/var/log/zentyal/samba-antivirus.log';
@@ -68,6 +69,8 @@ sub processLine # (file, line, logger)
     my %dataToInsert;
 
     if ($file eq SAMBA_ANTIVIRUS) {
+        utf8::decode($line);
+
         my ($date_virus) = $line =~ m{^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d).* VIRUS.*$};
         my ($date_quarantine) = $line =~ m{^(\d\d\d\d-\d\d-\d\d \d\d:\d\d:\d\d).* QUARANTINE.*$};
 
@@ -88,6 +91,7 @@ sub processLine # (file, line, logger)
 
             $dataToInsert{username} = $fields[1];
             $dataToInsert{client} = $fields[2];
+
             $dataToInsert{filename} = $fields[3];
 
             if ($date_virus) {
@@ -102,11 +106,16 @@ sub processLine # (file, line, logger)
             return;
         }
     } else {
-        unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*(smbd|zavs).*?: (.+)/) {
+        unless ($line =~ m/smbd/) {
             return;
         }
+        utf8::decode($line);
+        unless ($line =~ /^(\w+\s+\d+ \d\d:\d\d:\d\d) .*smbd.*?: (.+)/) {
+            return;
+        }
+
         my $date = $1 . ' ' . (${[localtime(time)]}[5] + 1900);
-        my $message = $3;
+        my $message = $2;
 
         my $timestamp = $self->_convertTimestamp($date, '%b %e %H:%M:%S %Y');
         $dataToInsert{timestamp} = $timestamp;
@@ -158,7 +167,6 @@ sub processLine # (file, line, logger)
 
     if (exists $dataToInsert{resource} and defined $dataToInsert{resource}) {
         $dataToInsert{resource} =~ s/\s+$//;
-
         if ($dataToInsert{resource} eq 'IPC$') {
             return;
         }
