@@ -34,6 +34,7 @@ use EBox::Exceptions::Lock;
 use Error qw(:try);
 
 use constant PING_PATTERN => '7a6661696c6f76657274657374';
+use constant PING_PATTERN_TEXT => 'zfailovertest';
 
 # Group: Public methods
 
@@ -395,7 +396,7 @@ sub _setIptablesRule
         my $rule =  "/sbin/iptables -t mangle -A $chain ";
         if (($type eq 'gw_ping') or ($type eq 'host_ping')) {
             $rule .= '--proto icmp --icmp-type echo-request ';
-#            $rule .= '-m string --algo bm  --hex-string ' . PING_PATTERN . ' ';
+            $rule .= '-m string --algo bm  --string ' . PING_PATTERN_TEXT . ' ';
         } elsif ($type eq 'dns') {
             $rule .= '--proto udp --dport 53 ';
         } elsif ($type eq 'http') {
