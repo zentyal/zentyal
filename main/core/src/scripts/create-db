@@ -5,6 +5,7 @@ db_user="zentyal"
 
 create_db()
 {
+    NO_PASSWD=0
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
     # Do not disable innodb if there are other databases previous to the
@@ -22,6 +23,7 @@ create_db()
         PASSWD=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
         echo -n $PASSWD > $PASSWD_FILE
         chmod 400 $PASSWD_FILE
+        NO_PASSWD=1
     fi
 
     echo "Creating the $db_name database"
@@ -31,7 +33,9 @@ create_db()
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
 
-    mysqladmin -u root password "$PASSWD"
+    if [ $NO_PASSWD == 1  ]; then
+        mysqladmin -u root password "$PASSWD"
+    fi
 }
 
 if ! [ -d /var/lib/mysql/$db_name ]; then
