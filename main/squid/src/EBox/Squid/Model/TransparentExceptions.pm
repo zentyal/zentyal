@@ -38,9 +38,8 @@ sub validateRow
 {
     my ($self, $action, %params) = @_;
 
-    my $domain = $params{domain};
-    unless (gethostbyname($domain)) {
-        throw EBox::Exceptions::External(__("The domain '$domain' could not be resolved."));
+    unless (gethostbyname($params{domain})) {
+        throw EBox::Exceptions::External(__x("The domain '{domain}' could not be resolved.", domain => $params{domain}));
     }
 }
 
