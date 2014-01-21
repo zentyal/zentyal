@@ -1,4 +1,6 @@
 HEAD
+	+ Create log database using utf8 charset
+	+ Decode to utf8 the results of search in logs
 	+ Fix EBox::Types::Composite::cmp to store changes when only last type
 	  is modified
 3.2.6
