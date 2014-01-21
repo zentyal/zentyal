@@ -52,10 +52,10 @@ sub viewCustomizer
         configuration => {
             create => {
                 show => ['name'],
-                hide => ['cluster_zentyal', 'secret'],
+                hide => ['zentyal_host', 'zentyal_port', 'secret'],
             },
             join => {
-                show => ['cluster_zentyal', 'secret'],
+                show => ['zentyal_host', 'zentyal_port', 'secret'],
                 hide => ['name'],
             },
         },
@@ -89,23 +89,19 @@ sub _table
             populate      => \&_populateConfOpts,
             hidden        => \&_isBootstraped,
         ),
-        new EBox::Types::Composite(
-            fieldName     => 'cluster_zentyal',
-            editable      => 1,
-            showTypeName  => 1,
+        new EBox::Types::Host(
+            fieldName     => 'zentyal_host',
+            printableName => __('Cluster host'),
+            size          => 20,
             hidden        => \&_isBootstraped,
-            types         => [
-                new EBox::Types::Host(
-                    fieldName     => 'zentyal_host',
-                    printableName => __('Cluster host'),
-                    size          => 20,
-                    editable      => 1),
-                new EBox::Types::Port(
-                    fieldName     => 'zentyal_port',
-                    printableName => __('Port'),
-                    editable      => 1,
-                    defaultValue  => 443),
-               ]),
+            editable      => 1),
+        new EBox::Types::Port(
+            fieldName     => 'zentyal_port',
+            printableName => __('Cluster host port'),
+            hidden        => \&_isBootstraped,
+            editable      => 1,
+            defaultValue  => 443,
+       ),
         new EBox::Types::Text(
             fieldName     => 'secret',
             printableName => __('Cluster secret'),
