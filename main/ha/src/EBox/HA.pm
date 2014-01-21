@@ -255,10 +255,15 @@ sub addNode
     # Write corosync conf
     $self->_corosyncSetConf();
 
-    # TODO: Multicast
     if ($self->_isDaemonRunning('corosync')) {
-        my $newNode = $list->node($params->{name});
-        $self->_addCorosyncNode($newNode);
+        if ($self->_multicast()) {
+            # Multicast
+            my $expectedVotes = $list->size();
+            EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
+        } else {
+            my $newNode = $list->node($params->{name});
+            $self->_addCorosyncNode($newNode);
+        }
     }
 
     try {
@@ -301,10 +306,15 @@ sub deleteNode
     # Write corosync conf
     $self->_corosyncSetConf();
 
-    # TODO: Multicast
     if ($self->_isDaemonRunning('corosync')) {
-        # Dynamically remove the new node to corosync
-        $self->_deleteCorosyncNode($deletedNode);
+        if ($self->_multicast()) {
+            # Multicast
+            my $expectedVotes = $list->size();
+            EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
+        } else {
+            # Dynamically remove the new node to corosync
+            $self->_deleteCorosyncNode($deletedNode);
+        }
     }
 
     # Notify to other cluster nodes skipping the new added node
@@ -374,18 +384,25 @@ sub updateClusterConfiguration
 
         # Store conf to apply between restarts
         $self->_corosyncSetConf();
-        # TODO: Multicast
         if ($self->_isDaemonRunning('corosync')) {
-            foreach my $changedNodeName (@{$diff->{changed}}) {
-                if ($nodes{$changedNodeName}->{addr} ne $currentNodes{$changedNodeName}->{addr}) {
-                    $self->_updateCorosyncNode($nodes{$changedNodeName});
+            if ($self->_multicast()) {
+                # Multicast
+                unless (scalar(keys(%currentNodes)) == scalar(keys(%nodes))) {
+                    my $expectedVotes = $list->size();
+                    EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
                 }
-            }
-            foreach my $addedNodeName (@{$diff->{new}}) {
-                $self->_addCorosyncNode($nodes{$addedNodeName});
-            }
-            foreach my $deletedNodeName (@{$diff->{old}}) {
-                $self->_deleteCorosyncNode($nodes{$deletedNodeName});
+            } else {
+                foreach my $changedNodeName (@{$diff->{changed}}) {
+                    if ($nodes{$changedNodeName}->{addr} ne $currentNodes{$changedNodeName}->{addr}) {
+                        $self->_updateCorosyncNode($nodes{$changedNodeName});
+                    }
+                }
+                foreach my $addedNodeName (@{$diff->{new}}) {
+                    $self->_addCorosyncNode($nodes{$addedNodeName});
+                }
+                foreach my $deletedNodeName (@{$diff->{old}}) {
+                    $self->_deleteCorosyncNode($nodes{$deletedNodeName});
+                }
             }
         }
     }
@@ -650,17 +667,22 @@ sub _notifyClusterConfChange
 
     my $conf = $self->clusterConfiguration();
     foreach my $node (@{$list->list()}) {
-        next if ($node->{localNode});
-        next if ($node->{name} ~~ @{$excludes});
-        my $client = new EBox::RESTClient(server => $node->{addr});
-        $client->setPort(5000);  # TODO: Use real port
-        # FIXME: Delete this line and not verify servers when using HAProxy
-        $client->setScheme('http');
-        # TODO: Add secret
-        # Use JSON as there is more than one level of depth to use x-form-urlencoded
-        my $JSONConf = new JSON::XS()->utf8()->encode($conf);
-        my $response = $client->PUT('/cluster/configuration',
-                                    query => $JSONConf);
+        try {
+            next if ($node->{localNode});
+            next if ($node->{name} ~~ @{$excludes});
+            EBox::info('Notifying cluster conf changes to ' . $node->{name});
+            my $client = new EBox::RESTClient(server => $node->{addr});
+            $client->setPort(5000);  # TODO: Use real port
+            # FIXME: Delete this line and not verify servers when using HAProxy
+            $client->setScheme('http');
+            # TODO: Add secret
+            # Use JSON as there is more than one level of depth to use x-form-urlencoded
+            my $JSONConf = new JSON::XS()->utf8()->encode($conf);
+            my $response = $client->PUT('/cluster/configuration',
+                                        query => $JSONConf);
+        } catch ($e) {
+            EBox::error('Error notifying ' . $node->{name} . " :$e");
+        }
     }
 }
 
@@ -700,6 +722,14 @@ sub _deleteCorosyncNode
         'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.name',
         'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.nodeid');
 
+}
+
+# Shortcut for knowing the multicast
+sub _multicast
+{
+    my ($self) = @_;
+
+    return ($self->get_state()->{cluster_conf}->{transport} == 'udp');
 }
 
 1;
