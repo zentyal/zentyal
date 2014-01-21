@@ -40,17 +40,19 @@ sub makeConfBackup
     my $backupService = new EBox::RemoteServices::Backup();
     my $automatic     = 1;
     my $backupName    = 'automatic-backup-' . time();
+    my $success       = 0;
     foreach my $attempt (1 .. ATTEMPT_NUM) {
         EBox::debug("Attempt $attempt to make the backup");
         try {
             $backupService->makeRemoteBackup($backupName,
                                              __('Automatic backup'),
                                              $automatic);
-            last;
+            $success = 1;
         } catch (EBox::Exceptions::InvalidData $e) {
             EBox::debug("Backup corrupted in some way...");
             $e->throw() if ($attempt == ATTEMPT_NUM);
         }
+        last if ($success);
     }
 }
 

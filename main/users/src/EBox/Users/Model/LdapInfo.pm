@@ -92,30 +92,26 @@ sub menuFolder
 sub _content
 {
     my ($self) = @_;
+    my %info;
 
     my $users = $self->parentModule();
+    my $mode = $users->mode();
     my $ldap = $users->ldap();
 
-    my ($roRootDn, $roPassword);
-    if ($users->mode() eq $users->EXTERNAL_AD_MODE) {
-        $roRootDn = __('Not available in external AD mode');
-        $roPassword = __('Not available in external AD mode');
-    } else {
-        $roRootDn   = $ldap->roRootDn();
-        $roPassword = $ldap->getRoPassword();
-    }
-
-    return {
+    %info = (
         dn => $ldap->dn(),
         rootDn => $ldap->rootDn(),
         password => $ldap->getPassword(),
+       );
 
-        roRootDn => $roRootDn,
-        roPassword => $roPassword,
+    if ($mode ne $users->EXTERNAL_AD_MODE) {
+        $info{roRootDn}  = $ldap->roRootDn();
+        $info{roPassword} = $ldap->getRoPassword();
+        $info{usersDn}   = $users->userClass()->defaultContainer()->dn();
+        $info{groupsDn}  = $users->groupClass()->defaultContainer()->dn();
+    }
 
-        usersDn => $users->userClass()->defaultContainer()->dn(),
-        groupsDn => $users->groupClass()->defaultContainer()->dn(),
-    };
+    return \%info;
 }
 
 # Method: precondition

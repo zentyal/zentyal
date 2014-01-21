@@ -152,14 +152,6 @@ while (1) {
     # propagate the changes if the entry is modified since last s4sync
     # iteration.
     #
-    # There are special cases, some users in the %sambaUsers hash should not
-    # be imported to LDAP, as they are internal to samba:
-    #   - The krbtgt account
-    #   - The dns-{hostname} account
-    #   - The accounts created after provision to hold the Zentyal SPNs, such:
-    #       - mail-{hostname} account
-    #       - http-{hostname} account
-    #
     # The samba internal users that are imported to Zentyal are:
     #   - The administrator account
     #   - The guest account

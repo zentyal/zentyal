@@ -24480,3 +24480,18 @@ msgstr ""
 #~ "{oi}{brand}{ci} es un espacio remoto, rápido y seguro para almacenar los "
 #~ "datos de tus servidores Zentyal. Compra el espacio de backup que "
 #~ "necesites en la {ohref}tienda on-line de Zentyal{chref}"
+
+#~ msgid "Standard"
+#~ msgstr "Estándar"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "No se han encontrado copias de seguridad. ¿Tal vez han sido borradas? "
+#~ "Ejecuta '/etc/init.d/zentyal ebackup restart' para recargar la "
+#~ "información sobre las copias de seguridad."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Contraseña del AD"

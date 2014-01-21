@@ -23336,3 +23336,16 @@ msgstr ""
 #~ "dados \"#~ \"que mantém nos seus servidores Zentyal. Adquira espaço de "
 #~ "armazenamento \"#~ \"que necessita na {ohref}loja on-line Zentyal "
 #~ "{chref}\""
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Não foram encontrados ficheiros de cópia de segurança. Poderão ter sido "
+#~ "apagados? Corra '/etc/init.d/ebox ebackup restart' para actualizar a "
+#~ "informação das cópias de segurança"
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Palavra-passe do Active Directory"

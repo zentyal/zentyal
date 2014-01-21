@@ -21862,3 +21862,20 @@ msgstr ""
 #~ "{oi}{brand}{ci} este o locatie sigura si rapida in care sa stocati datele "
 #~ "pe care le aveti pe serverele Zentyal. Cumparati spatiu de stocare "
 #~ "necesar dumneavoastra la {ohref}magazinul Zentyal on-line{chref}."
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nu au fost gasite arhive de backup. Poate au fost sterse?. Rulati '/etc/"
+#~ "init.d/ebox ebackup restart' pentru a inprospata informatiile de backup"
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr ""
+#~ "#-#-#-#-#  ro.po (ebox-network 0.12.99)  #-#-#-#-#\n"
+#~ "parolă\n"
+#~ "#-#-#-#-#  ro.po (ebox-usersandgroups 0.12.99Report-Msgid-Bugs-To: "
+#~ "developers@zentyal.org)  #-#-#-#-#\n"
+#~ "Parola"

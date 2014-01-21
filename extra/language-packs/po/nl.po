@@ -22216,3 +22216,19 @@ msgstr ""
 #~ "{oi}{brand}{ci} is snelle en betrouwbare externe opslag voor de gegevens "
 #~ "op je eBox servers. Bestel jouw backup-opslagcapaciteit op {ohref}eBox on-"
 #~ "line store{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Standaard"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Geen backup bestanden gevonden. Mogelijk zijn ze verwijderd? Voer de "
+#~ "opdrachtregel '/etc/init.d/ebox ebackup restart' uit voor een vernieuwde "
+#~ "backup-overzicht."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "AD wachtwoord"

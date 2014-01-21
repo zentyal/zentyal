@@ -23462,3 +23462,18 @@ msgstr ""
 #~ "{oi}{brand}{ci} - быстрое и безопасное удалённое хранилище для "
 #~ "обеспечения сохранности данных ваших серверов Zentyal. Приобретайте место "
 #~ "для бэкапа в {ohref}онлайн-магазине Zentyal{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Стандартный"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Не найдены архивы резервных копий. Возможно они были удалены?. Запустите "
+#~ "'/etc/init.d/zentyal ebackup restart' для обновления информации о "
+#~ "резервных копиях."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "AD пароль"

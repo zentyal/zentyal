@@ -23773,3 +23773,18 @@ msgstr ""
 #~ "données que vous stockez sur vos serveurs Zentyal. Achetez de l'espace de "
 #~ "stockage dont vous avez besoin pour vos sauvegardes à l'adresse {ohref}"
 #~ "Boutique en ligne Zentyal{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Standard"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Aucune archive de sauvegarde trouvée. Elles ont pu être effacées. "
+#~ "Exécuter '/etc/init.d/ebox ebackup restart' pour rafraichir les "
+#~ "informations sur les sauvegardes."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "mot de passe Active Directory"

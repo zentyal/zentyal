@@ -20380,3 +20380,19 @@ msgstr ""
 #, fuzzy
 #~ msgid "User not found"
 #~ msgstr "Die Seite wurde nicht gefunden"
+
+#~ msgid "Standard"
+#~ msgstr "Standard"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Keine Sicherungarchive gefunden. Vielleicht wurden Sie gelöscht. Starten "
+#~ "Sie '/etc/init.d/ebox ebackup restart' um die Sicherungsinformationen zu "
+#~ "aktualisieren."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Administrator"

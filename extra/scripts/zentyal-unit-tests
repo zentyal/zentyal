@@ -1,10 +1,10 @@
 #!/bin/bash
 
-PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc test-net-ldap soap-lite string-shellquote trycatch-lite"
+PERLLIBS="test-mockmodule test-mockobject test-differences test-file test-mocktime test-tester test-cmd test-output test-class log-log4perl devel-stacktrace gd-gd2 config-tiny params-validate perl6-junction file-slurp readonly mail-rfc822-address io-interface data-validate-domain clone-fast html-mason proc-processtable test-deep dbi json json-xs yaml-libyaml redis linux-inotify2 sys-cpuload filesys-df authen-simple-pam nmap-parser dir-self file-readbackwards apache-singleton chart date-calc test-net-ldap soap-lite string-shellquote trycatch-lite string-random"
 
 ADDITIONAL_ARGS=""
 EXTRA_ARGS="-j4"
-MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid ha"
+MODULES_WITH_TESTS="common core users samba ebackup firewall antivirus remoteservices ips squid mail mailfilter ha"
 
 while getopts ":vjsc" opt; do
     case $opt in

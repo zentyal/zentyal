@@ -22944,3 +22944,16 @@ msgstr ""
 #~ "{oi}{brand}{ci} är en snabb och säker plats att lagra den data du lagrar "
 #~ "på eBox servrar. Köp plats för säkerhetskopiering du behöver på {ohref}"
 #~ "eBox on-line store{chref}."
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Kunde inte hitta några säkerhetsarkiv. Har någon raderat dem? Kör \"/etc/"
+#~ "init.d/ebox ebackup restart\" för att uppdatera informationen för "
+#~ "säkerhetskopieringen."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "lösenord"

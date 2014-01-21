@@ -14,6 +14,17 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Use same JSON reply file for changeRowForm and dataInUse
+	+ Fixed regression in AJAX changes with raised error when a
+	  data in use exception was found
+	+ Fixed css error that hide information in the logs tables
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 	+ Fixed general widget packages to avoid error on 'packages to
 	  upgrade' section
 	+ Fixed regression when table size is set to 'view all'

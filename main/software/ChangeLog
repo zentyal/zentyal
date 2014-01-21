@@ -1,6 +1,7 @@
 3.4
 	+ Remove useless initial-setup script
 	+ Set version to 3.4
+	+ Update install button when clicking select all checkbox
 	+ Send an alert if a restart is required after performing an automatic
 	  update with auto-updater
 3.3

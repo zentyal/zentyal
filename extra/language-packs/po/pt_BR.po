@@ -23543,3 +23543,18 @@ msgstr ""
 #~ "que você quiser dos seus servidores Zentyal. Compre espaço de "
 #~ "armazenamento de backup que você precisa na {ohref}loja on-line Zentyal"
 #~ "{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Padrão"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nenhum dos arquivos de backup foi encontrado. Talvez eles foram "
+#~ "apagados?. Execute '/etc/init.d/zentyal ebackup restart' para atualizar "
+#~ "as informações de backup."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Senha do Active Directory"

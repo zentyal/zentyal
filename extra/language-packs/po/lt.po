@@ -23065,3 +23065,17 @@ msgstr "Sekantys nustatymai bus pritaikyti tik kai pašto modulis įjungtas"
 
 #~ msgid "To configure freshclam updater"
 #~ msgstr "Freshclam naujinimo konfigūravimas"
+
+#~ msgid "Standard"
+#~ msgstr "Standartas"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nėra kopijų archyvo. Gal būt jie buvo ištrinti? Paleiskite '/etc/init.d/"
+#~ "zentyal ebackup restart'  atnaujinti kopijos informacijai."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "AD slaptažodis"

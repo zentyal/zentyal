@@ -21691,3 +21691,22 @@ msgstr ""
 
 #~ msgid "Enabled Asterisk account with extension {ext}"
 #~ msgstr "Asterisk fiók bekapcsolva ezzel a mellékkel: {ext}"
+
+#~ msgid "Standard"
+#~ msgstr "Standard"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nem találhatók biztonsági mentések. Talán törölve lettek? Adja ki az „/"
+#~ "etc/init.d/zentyal ebackup restart” parancsot a mentési információk "
+#~ "frissítéséhez."
+
+#~ msgid ""
+#~ "You need Admin profile user and password to be able to access this server"
+#~ msgstr ""
+#~ "Rendszergazda profilú felhasználó és jelszó szükséges a szerver eléréséhez"
+
+#~ msgid "Admin password"
+#~ msgstr "Rendszergazdai jelszó"

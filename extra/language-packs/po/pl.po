@@ -22897,3 +22897,15 @@ msgstr ""
 #~ "{oi}{brand}{ci} jest szybkim i bezpiecznym zdalnym miejscem do tworzenia "
 #~ "kopii zapasowej. Możesz kupić miejsce, którego potrzebujesz na {ohref}"
 #~ "Zentyal on-line store{chref}"
+
+#, fuzzy
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "Nie znaleziono archiwów kopii zapasowej. Mogły zostać usunięte. Uruchom "
+#~ "ponownie kopię zapasową poleceniem '/etc/init.d/ebox ebackup restart'"
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Hasło ActiveDirectory"

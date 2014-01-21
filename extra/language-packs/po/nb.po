@@ -23107,3 +23107,11 @@ msgstr "Følgende innstillinger vil kun fungere når epostmodulen er aktivert"
 #~ "{oi}{brand}{ci} er en rask og sikker ekstern plass til å lagre data du "
 #~ "har på dine Zentyal servere. Kjøp sikkerhetskopi lagringsplassen du "
 #~ "trenger på {ohref}Zentyal on-line store{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Standar"
+
+# "AD password" should be translated as "AD-passord"
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "AD-passord"

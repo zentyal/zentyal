@@ -23237,3 +23237,17 @@ msgstr ""
 #~ "{oi}{brand}{ci} és un lloc d'emmagatzematge de dades de Zentyal remot "
 #~ "ràpid i segur. Compri l'espai de còpia necessari a {ohref}botiga on-line "
 #~ "de Zentyal{chref}."
+
+#~ msgid "Standard"
+#~ msgstr "Estàndard"
+
+#~ msgid ""
+#~ "No backup archives found. Maybe they were deleted?. Run '/etc/init.d/"
+#~ "zentyal ebackup restart' to refresh backup's information."
+#~ msgstr ""
+#~ "No s'han trobat arxius de còpia. Potser s'han esborrat?. Executi '/etc/"
+#~ "init.d/ebox ebackup restart' per refrescar la informació de les còpies."
+
+#, fuzzy
+#~ msgid "Admin password"
+#~ msgstr "Contrasenya AD"

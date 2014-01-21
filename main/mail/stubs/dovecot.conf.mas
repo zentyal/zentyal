@@ -188,6 +188,7 @@ plugin {
   sieve = <% $sieveDir %>/%d/%u/sieve-script
   sieve_global_path = <% $sieveDir %>/default.sieve
   sieve_storage = <% $sieveDir %>/%d/%u
+  sieve_dir     = <% $sieveDir %>/%d/%u
 
   autocreate = Trash
   autocreate2 = Spam
