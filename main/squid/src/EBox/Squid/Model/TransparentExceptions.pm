@@ -1,4 +1,4 @@
-# Copyright (C) 2012-2013 Zentyal S.L.
+# Copyright (C) 2012-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -26,6 +26,23 @@ use EBox::Gettext;
 use EBox::Types::DomainName;
 use EBox::Types::Boolean;
 use EBox::Validate;
+use Socket;
+
+# Method: validateRow
+#
+# Overrides:
+#
+#       <EBox::Model::DataTable::validateRow>
+#
+sub validateRow
+{
+    my ($self, $action, %params) = @_;
+
+    my $domain = $params{domain};
+    unless (gethostbyname($domain)) {
+        throw EBox::Exceptions::External(__("The domain '$domain' could not be resolved."));
+    }
+}
 
 # Method: _table
 #
