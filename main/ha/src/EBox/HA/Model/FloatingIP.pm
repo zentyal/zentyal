@@ -49,7 +49,7 @@ sub validateTypedRow
     my $name = $newParams->{'name'}->value();
     my $ip = $newParams->{'floating_ip'}->value();
 
-    my $haModule = EBox::Global->getInstance()->modInstance('ha');
+    my $haModule = $self->parentModule();
     my $clusterSettings = $haModule->model('Cluster');
     my $iface = $clusterSettings->interfaceValue();
 
@@ -96,7 +96,8 @@ sub _existsNetworkIpCollision
 
     my $floatingIP = new Net::IP($ip);
 
-    my $network = EBox::Global->getInstance()->modInstance('network');
+    my $global = $self->global();
+    my $network = $global->modInstance('network');
     my @netIPs = @{ $network->ifaceAddresses($iface) };
 
     foreach my $ifaceIP (@netIPs) {
@@ -113,7 +114,7 @@ sub _existsDhcpFixedIpCollision
 {
     my ($self, $iface, $ip) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         # If the iface is not static we don't need any further checking
@@ -141,7 +142,7 @@ sub _existsDhcpRangesCollision
 {
     my ($self, $iface, $ip) = @_;
 
-    my $global = EBox::Global->getInstance();
+    my $global = $self->global();
 
     if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         my $dhcp = $global->modInstance('dhcp');
