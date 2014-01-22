@@ -1,4 +1,6 @@
 HEAD
+	+ User addon - remove check that require AD domain to be the same as mail
+	  virtual domain
 	+ Added basic deprovision option
 	+ Added vdomain selection for outgoing mail at provision screen
 3.3
