@@ -1,4 +1,4 @@
-HEAD
+3.0.10
 	+ Fixed bug which made impossible to edit pppoe gateways
 	+ Flush interfaces list cache after all ifups and all ifdowns
 3.0.9
