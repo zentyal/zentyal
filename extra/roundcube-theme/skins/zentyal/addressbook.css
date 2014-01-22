@@ -1,0 +1,339 @@
+/**
+ * Roundcube webmail styles for the Address Book section
+ *
+ * Copyright (c) 2012, The Roundcube Dev Team
+ * Screendesign by FLINT / Büro für Gestaltung, bueroflint.com
+ *
+ * The contents are subject to the Creative Commons Attribution-ShareAlike
+ * License. It is allowed to copy, distribute, transmit and to adapt the work
+ * by keeping credits to the original autors in the README file.
+ * See http://creativecommons.org/licenses/by-sa/3.0/ for details.
+ *
+ * $Id$
+ */
+
+#addressview-left {
+	position: absolute;
+	top: 88px;
+	left: 0;
+	width: 220px;
+	bottom: 0;
+	z-index: 2;
+}
+
+#addressview-right {
+	position: absolute;
+	top: 88px;
+	left: 232px;
+	right: 0;
+	bottom: 0;
+	z-index: 3;
+}
+
+#addressbooktoolbar {
+	position: absolute;
+	top: 33px;
+	left: 0;
+	right: 260px;
+	height: 55px;
+	white-space: nowrap;
+	z-index: 10;
+	background-color: white;
+}
+
+#directorylistbox {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 100%;
+	bottom: 0;
+	border-top: 2px dotted #ccc;
+}
+
+#addresslist {
+	position: absolute;
+	top: 0px;
+	left: 0;
+	width: 280px;
+	bottom: 0;
+	border-top: 2px dotted #ccc;
+}
+
+#contacts-box {
+	position: absolute;
+	top: 0px;
+	left: 292px;
+	right: 0;
+	bottom: 0;
+	border-top: 2px dotted #ccc;
+}
+
+#addressview-left #quicksearchbar input {
+	width: 156px;
+}
+
+#directorylist li a,
+#contacts-table .contact td.name {
+	background-image: url(images/listicons.png);
+	background-position: -100px 0;
+	background-repeat: no-repeat;
+	overflow: hidden;
+	padding-left: 36px;
+	text-overflow: ellipsis;
+}
+
+#contacts-table .contact.readonly td {
+	font-style: italic;
+}
+
+#directorylist li.addressbook a {
+	background-position: 6px -763px;
+}
+
+#directorylist li.addressbook.selected a {
+	background-position: 6px -787px;
+}
+
+#directorylist li.contactgroup a {
+	padding-left: 62px;
+	background-position: 32px -1550px;
+}
+
+#directorylist li.contactgroup.selected a {
+	background-position: 32px -1575px;
+}
+
+#directorylist li.contactgroup input {
+	margin-left: 36px;
+}
+
+#directorylist li.contactsearch a {
+	background-position: 6px -1647px;
+}
+
+#directorylist li.contactsearch.selected a {
+	background-position: 6px -1671px;
+}
+
+#directorylist li.contactsearch input {
+	margin-left: 8px;
+}
+
+#contacts-table .contact td.name {
+	background-position: 6px -1601px;
+}
+
+#contacts-table .contact.selected td.name,
+#contacts-table .contact.unfocused td.name {
+	background-position: 6px -1625px;
+	font-weight: bold;
+}
+
+#contact-frame {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 28px;
+	border: 0;
+	border-radius: 4px;
+}
+
+#headerbuttons {
+	position: absolute;
+	top: 48px;
+	right: 10px;
+	width: auto;
+	z-index: 10;
+}
+
+#sourcename {
+	color: #999;
+	font-size: 10px;
+	margin: -5px 0 8px 2px;
+}
+
+#contactphoto {
+	float: left;
+	margin: 0 18px 20px 0;
+	width: 20%;
+	min-width: 150px;
+	position: relative;
+}
+#contactphoto:hover .formlinks{
+	display: block;
+}
+#contactphoto .formlinks{
+	position: absolute;
+	display: none;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+}
+#contactphoto .formlinks a{
+	width: 100%;
+	text-align: center;
+	background-color: rgba(0,0,0,0.5);
+	height: 30px;
+	line-height: 30px;
+	background-image: none;
+	font-size: 14px;
+	position: absolute;
+	left: 0px;
+	padding: 0px;
+	color: white;
+}
+#contactphoto .formlinks a:hover{
+	background-color: rgba(0,0,0,0.7);
+}
+#contactphoto .formlinks .upload{
+	top: 0px;
+}
+#contactphoto .formlinks .delete{
+	bottom: 0px;
+}
+#contactpic {
+	width: 100%;
+	min-height: 150px;
+
+	background: white;
+}
+
+#contactpic img {
+	width: 100%;
+	min-height: 150px;
+	min-width: 150px;
+}
+
+#contacthead {
+	border: 0;
+	margin: 0 16em 1em 0;
+	padding: 0;
+	line-height: 1.5em;
+	font-size: 12px;
+}
+
+form #contacthead {
+	margin-right: 0;
+}
+
+#contacthead .names span.namefield,
+#contacthead .names input {
+	font-size: 140%;
+	font-weight: bold;
+}
+
+#contacthead .displayname span.namefield {
+	font-size: 120%;
+	font-weight: bold;
+}
+
+#contacthead span.nickname:before,
+#contacthead span.nickname:after {
+	content: '"';
+}
+
+#contacthead input {
+	margin-right: 6px;
+	margin-bottom: 0.2em;
+}
+
+#contacthead .names input,
+#contacthead .addnames input {
+	width: 180px;
+}
+
+#contacthead input.ff_prefix,
+#contacthead input.ff_suffix {
+	width: 90px;
+}
+
+.contactfieldgroup {
+	border: 0;
+	border-radius: 5px;
+	background: #f7f7f7;
+	background: -moz-linear-gradient(top, #f7f7f7 0%, #eee 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#eee));
+	background: -o-linear-gradient(top, #f7f7f7 0%, #eee 100%);
+	background: -ms-linear-gradient(top, #f7f7f7 0%, #eee 100%);
+	background: linear-gradient(top, #f7f7f7 0%, #eee 100%);
+	margin: 0 0 12px 0;
+	padding: 8px;
+}
+
+.contactfieldgroup legend {
+	display: block;
+	margin: 0 -8px;
+	width: 100%;
+	font-weight: bold;
+	text-shadow: 0px 1px 1px #fff;
+	padding: 6px 8px 3px 8px;
+	background: #f0f0f0;
+	background: -moz-linear-gradient(top, #f0f0f0 0%, #d6d6d6 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f0f0f0), color-stop(100%,#d6d6d6));
+	background: -o-linear-gradient(top, #f0f0f0 0%, #d6d6d6 100%);
+	background: -ms-linear-gradient(top, #f0f0f0 0%, #d6d6d6 100%);
+	background: linear-gradient(top, #f0f0f0 0%, #d6d6d6 100%);
+	border-bottom: 1px solid #cfcfcf;
+	border-radius: 5px 5px 0 0;
+}
+
+.contactfieldgroup .row {
+	position: relative;
+	margin: 0.2em 0;
+}
+
+.contactfieldgroup .contactfieldlabel {
+	position: absolute;
+	top: 0;
+	left: 2px;
+	width: 110px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #666;
+}
+
+.contactfieldgroup .contactfieldlabel select {
+	width: 100%;
+	color: #666;
+}
+
+.contactfieldgroup .contactfieldcontent {
+	padding-left: 120px;
+	min-height: 1em;
+	line-height: 1.3em;
+}
+
+.contactfieldgroup .contactfield {
+	line-height: 1.3em;
+}
+
+.contactcontrolleraddress .contactfieldcontent input {
+	margin-bottom: 0.1em;
+}
+
+.contactfieldcontent.composite {
+	padding-bottom: 8px;
+}
+
+.contactfieldcontent .contactfieldbutton {
+	vertical-align: middle;
+	margin-left: 0.5em;
+}
+
+.contactfield .ff_notes {
+	width: 99%;
+}
+
+a.deletebutton {
+	position: relative;
+	left: 5px;
+	top: -3px;
+	display: inline-block;
+	width: 24px;
+	height: 18px;
+	text-decoration: none;
+	text-indent: -5000px;
+	background: url(images/buttons.png) -7px -377px no-repeat;
+}

@@ -1,0 +1,17 @@
+<roundcube:object name="doctype" value="html5" />
+<html>
+    <head>
+        <meta name="Robots" content="noindex,nofollow" />
+
+        <script language="javascript" type="text/javascript">
+            function redirect(){
+                window.location = '/logout/';
+            }
+        </script>
+    </head>
+
+    <body onLoad="redirect()">
+        <form name="form" action="./" method="post"></form>
+        <h3 style="margin:20px;">Redirecting to <a href="/login/">login</a></h3>
+    </body>
+</html>
