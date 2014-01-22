@@ -156,6 +156,8 @@ then
         touch $DATA_DIR/COMMERCIAL_EDITION
     else
         echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
+        error=$(get_field "$RESPONSE" __all__)
+        db_subst zinstaller-remote/error_register ERROR "$error"
         db_input high zinstaller-remote/error_register
         db_go
         exit 0
