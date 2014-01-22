@@ -1,22 +1,22 @@
 <%args>
   $hostname
-  $portNumber
   $hostnameVhost
-  $sslportNumber
+  $port
+  $sslPort
 </%args>
 ServerName <% $hostname %>
 
 % if ($hostnameVhost) {
   <& /webserver/vhostHttp.mas,
-       hostname => $hostname,
-       vHostName => $hostname,
-       portNumber => $portNumber,
-       sslportNumber => $sslportNumber,
-       sslSupport => $hostnameVhost->{ssl},
+       hostname    => $hostname,
+       vHostName   => $hostname,
+       port        => $port,
+       sslPort     => $sslPort,
+       sslSupport  => $hostnameVhost->{ssl},
    &>
 % }
 
-<VirtualHost *:<% $portNumber %>>
+<VirtualHost *:<% $port %>>
 	ServerAdmin webmaster@<% $hostname %>
 
 	DocumentRoot /var/www/

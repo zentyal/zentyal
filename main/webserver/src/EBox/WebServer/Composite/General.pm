@@ -28,6 +28,41 @@ use base 'EBox::Model::Composite';
 use EBox::Gettext;
 use EBox::Global;
 
+# Method: precondition
+#
+#   Check that Apache ports are configured in the reverse proxy
+#
+sub precondition
+{
+    my ($self) = @_;
+
+    my $webserverMod = $self->parentModule();
+    unless ($webserverMod->isPortEnabledInHAProxy() or $webserverMod->isSSLPortEnabledInHAProxy()) {
+        $self->{preconditionFail} = 'notEnabledInHAProxy';
+        return undef;
+    }
+
+    return 1;
+}
+
+# Method: preconditionFailMsg
+#
+#   Show the precondition failure message
+#
+sub preconditionFailMsg
+{
+    my ($self) = @_;
+
+    if ($self->{preconditionFail} eq 'notEnabledInHAProxy') {
+        return __x('You must enable {module} ports on the Zentyal\'s reverse proxy configuration at ' .
+                   '{ohref}System\'s General configuration page{chref}.',
+                   module => $self->parentModule()->printableName(),
+                   ohref  => '<a href="/SysInfo/Composite/General">',
+                   chref  => '</a>'
+        );
+    }
+}
+
 # Group: Protected methods
 
 # Method: _description

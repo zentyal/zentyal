@@ -108,10 +108,12 @@ sub validateTypedRow
                     __('You need to enable Listening SSL port.')
                 );
             }
-            unless ($certificates->isEnabledService('Web Server')) {
+            my $webserverMod = $self->parentModule();
+            unless ($certificates->isEnabledService('zentyal_' . $webserverMod->name())) {
                 throw EBox::Exceptions::External(
-                    __x('You need to enable Web Server on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
-                        ohref => '<a href="/CA/View/Certificates">', chref => '</a>')
+                    __x('You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL on a virtal host.',
+                        module => $webserverMod->printableName(), ohref => '<a href="/CA/View/Certificates">',
+                        chref => '</a>')
                     );
             }
         }

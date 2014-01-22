@@ -2,17 +2,20 @@
   ports.conf.mas writes the listening port used by apache virtual host
   to serve Web pages.
 
-  Parameters:
+Parameters:
 
-  portNumber - Int the port number to listen to Web requests
+    bindAddress - String - The bind address.
+    port        - Int the port number to listen to Web requests
+    sslPort     - Int the port number to listen to Web requests over SSL
 
 </%doc>
 <%args>
-  $portNumber
-  $sslportNumber
+  $bindAddress
+  $port
+  $sslPort
 </%args>
-NameVirtualHost *:<% $portNumber %>
-Listen <% $portNumber %>
-% if ($sslportNumber) {
-Listen <% $sslportNumber %>
+NameVirtualHost *:<% $port %>
+Listen <% $bindAddress %>:<% $port %>
+% if ($sslPort) {
+Listen <% $bindAddress %>:<% $sslPort %>
 % }
