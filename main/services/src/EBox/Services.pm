@@ -116,9 +116,9 @@ sub _defaultServices
          'internal' => 0,
         },
         {
-         'name' => 'administration',
-         'printableName' => __('Zentyal Administration'),
-         'description' => __('Zentyal Administration Web Server'),
+         'name' => 'zentyal_' . $webadminMod->name(),
+         'printableName' => $webadminMod->printableName(),
+         'description' => $webadminMod->printableName(),
          'protocol' => 'tcp',
          'destinationPort' => $webAdminPort,
          'internal' => 1,
