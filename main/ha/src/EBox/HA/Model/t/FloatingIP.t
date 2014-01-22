@@ -77,7 +77,6 @@ sub setUpInstance : Test(setup)
     # We are not testing DHCP code, so we skip any validation
     $dhcpModel->set_true('validateTypedRow');
     $self->{dhcpModel} = $dhcpModel;
-    
 }
 
 sub test_mocking : Test(1)
