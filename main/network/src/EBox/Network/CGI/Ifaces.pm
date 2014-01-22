@@ -56,6 +56,7 @@ sub masonParameters
     my @params = ();
     my @bridges = ();
     my @ifaces = ();
+    my $vlans = ();
 
     foreach (@{$tmpifaces}) {
         my $ifinfo = {};
@@ -76,7 +77,7 @@ sub masonParameters
             $iface->{'netmask'} = $net->ifaceNetmask($_);
             $iface->{'virtual'} = $net->vifacesConf($_);
         } elsif ($net->ifaceMethod($_) eq 'trunk') {
-            push(@params, 'vlans' => $net->ifaceVlans($_));
+            $vlans = $net->ifaceVlans($_);
         } elsif ($net->ifaceMethod($_) eq 'bridged') {
             $iface->{'bridge'} = $net->ifaceBridge($_);
         } elsif ($net->ifaceMethod($_) eq 'ppp') {
@@ -104,6 +105,7 @@ sub masonParameters
         'iface'           => $iface,
         'ifaces'          => \@ifaces,
         'bridges'         => \@bridges,
+        'vlans'           => $vlans
     );
 
     return \@params;

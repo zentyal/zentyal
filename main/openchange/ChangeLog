@@ -1,5 +1,6 @@
 HEAD
 	+ Added basic deprovision option
+	+ Added vdomain selection for outgoing mail at provision screen
 3.3
 	+ Added a dependency on the zoctools package to handle the server migration
 	+ Updated to use the new communication protocol with the upgrade tool

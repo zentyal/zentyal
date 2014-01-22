@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in LDAP info page for external AD mode
 	+ Print slave-sync output to zentyal.log instead of stdout
 	+ Fixed excesive restrictive validation of external AD password in wizard
 3.3
