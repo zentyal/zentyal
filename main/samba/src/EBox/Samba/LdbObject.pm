@@ -158,6 +158,19 @@ sub deleteObject
                           x => $self->dn()));
     }
 
+    # Delete all entry childs or LDAP server will refuse to delete the entry
+    my $searchParam = {
+        base => $self->_entry->dn(),
+        scope => 'one',
+        filter => '(objectClass=*)',
+        attrs => ['*'],
+    };
+    my $result = $self->_ldap->search($searchParam);
+    foreach my $entry ($result->entries()) {
+        my $obj = new EBox::Samba::LdbObject(entry => $entry);
+        $obj->deleteObject();
+    }
+
     $self->SUPER::deleteObject();
 }
 

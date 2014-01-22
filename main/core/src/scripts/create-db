@@ -5,7 +5,6 @@ db_user="zentyal"
 
 create_db()
 {
-    NO_PASSWD=0
     PASSWD_FILE='/var/lib/zentyal/conf/zentyal-mysql.passwd'
 
     # Do not disable innodb if there are other databases previous to the
@@ -23,19 +22,15 @@ create_db()
         PASSWD=`tr -dc A-Za-z0-9 < /dev/urandom | head -c8`
         echo -n $PASSWD > $PASSWD_FILE
         chmod 400 $PASSWD_FILE
-        NO_PASSWD=1
     fi
 
     echo "Creating the $db_name database"
     echo "CREATE DATABASE $db_name CHARACTER SET utf8 COLLATE utf8_unicode_ci;
           GRANT ALL ON $db_name.* TO '$db_user'@'localhost' IDENTIFIED BY \"$PASSWD\";
+          UPDATE mysql.user SET Password=PASSWORD('$PASSWD') WHERE User='root';
           FLUSH PRIVILEGES;" | mysql --defaults-file=/etc/mysql/debian.cnf
 
     perl -MEBox -MEBox::Util::SQL -e'EBox::init(); EBox::Util::SQL::createCoreTables(); 1';
-
-    if [ $NO_PASSWD == 1  ]; then
-        mysqladmin -u root password "$PASSWD"
-    fi
 }
 
 if ! [ -d /var/lib/mysql/$db_name ]; then

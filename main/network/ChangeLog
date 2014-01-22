@@ -1,4 +1,5 @@
 HEAD
+	+ Changed failover firewall rules to not use owner module
 	+ Fixed bug which made impossible to edit pppoe gateways
 3.2.4
 	+ Update strings to new offering

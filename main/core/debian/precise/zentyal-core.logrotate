@@ -7,6 +7,7 @@
         missingok
         delaycompress
         notifempty
+        sharedscripts
         postrotate
                 /usr/share/zentyal/restart-trigger
         endscript

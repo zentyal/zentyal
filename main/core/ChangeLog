@@ -1,6 +1,12 @@
 HEAD
 	+ Create log database using utf8 charset
 	+ Decode to utf8 the results of search in logs
+	+ Better way to set MySQL password for all the root accounts
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
 	+ Fix EBox::Types::Composite::cmp to store changes when only last type
 	  is modified
 3.2.6
