@@ -81,14 +81,17 @@ totem {
          transport: <% $transport %>
 }
 
+% unless ($multicastConf{addr}) {
 nodelist {
-% foreach my $node (@nodes) {
+%   foreach my $node (@nodes) {
         node {
            ring0_addr: <% $node->{addr} %>
            name: <% $node->{name} %>
+           nodeid: <% $node->{nodeid} %>
         }
-% }
+%   }
 }
+% }
 
 amf {
         mode: disabled

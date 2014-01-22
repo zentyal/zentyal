@@ -24,7 +24,11 @@ use warnings;
 
 package EBox::HA::NodeList;
 
+use Clone::Fast;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::InvalidType;
+use List::Util qw(max);
+use Test::Deep qw(ignore eq_deeply);
 use TryCatch::Lite;
 
 # Group: Public methods
@@ -56,15 +60,38 @@ sub new
 #
 #    webAdminPort - Int the webadmin listening port
 #
+#    localNode - Boolean to indicate if it is a local node *(Optional)*
+#                Default value: False
+#
+#    nodeid - Int the node identifier delivered to the cluster
+#             membership service *(Optional)* If it is not set, then
+#             the max of nodeid plus
+#
 sub set
 {
     my ($self, %params) = @_;
 
     my $state = $self->{ha}->get_state();
 
-    $state->{nodes}->{$params{name}} = { name => $params{name},
-                                         addr => $params{addr},
-                                         webAdminPort => $params{webAdminPort} };
+    my $localNode = $params{localNode};
+    $localNode = 0 unless ($localNode);
+    my $nodeId = $params{nodeid};
+    unless (defined($nodeId)) {
+        if (exists($state->{cluster_conf}->{nodes}->{$params{name}})) {
+            $nodeId = $state->{cluster_conf}->{nodes}->{$params{name}}->{nodeid};
+        } else {
+            $nodeId = max(map { $_->{nodeid} } @{$self->list()});
+            $nodeId = 0 unless(defined($nodeId));
+            $nodeId++;
+        }
+    }
+
+    $state->{cluster_conf}->{nodes}->{$params{name}} = { name => $params{name},
+                                                         addr => $params{addr},
+                                                         webAdminPort => $params{webAdminPort},
+                                                         localNode => $localNode,
+                                                         nodeid => $nodeId
+                                                        };
 
     $self->{ha}->set_state($state);
 }
@@ -87,12 +114,35 @@ sub remove
 
     my $state = $self->{ha}->get_state();
 
-    if (defined($state->{nodes}->{$name})) {
-        delete $state->{nodes}->{$name};
+    if (defined($state->{cluster_conf}->{nodes}->{$name})) {
+        delete $state->{cluster_conf}->{nodes}->{$name};
         $self->{ha}->set_state($state);
     } else {
         throw EBox::Exceptions::DataNotFound(data => 'node', value => $name);
     }
+}
+
+# Method: empty
+#
+#      Empty the node list. That is, remove every node in the list
+#
+# Returns:
+#
+#      Int - the number of nodes removed from the list
+#
+sub empty
+{
+    my ($self) = @_;
+
+    my $state = $self->{ha}->get_state();
+    my $nElements = scalar(keys(%{$state->{cluster_conf}->{nodes}}));
+
+    if ($nElements > 0) {
+        delete $state->{cluster_conf}->{nodes};
+        $self->{ha}->set_state($state);
+    }
+
+    return $nElements;
 }
 
 # Method: list
@@ -106,13 +156,160 @@ sub remove
 #       addr - String the IP address
 #       name - String the node name
 #       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
 #
 sub list
 {
     my ($self) = @_;
 
-    my @nodeList = values(%{$self->{ha}->get_state()->{nodes}});
+    my @nodeList = values(%{$self->{ha}->get_state()->{cluster_conf}->{nodes}});
     return \@nodeList;
+}
+
+# Method: node
+#
+#    Return the required node
+#
+# Parameters:
+#
+#    name - String the node name
+#
+# Returns:
+#
+#    Hash ref - with the node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::DataNotFound> - thrown if the node is not in
+#                                        the list
+sub node
+{
+    my ($self, $name) = @_;
+
+    my $nodes = $self->{ha}->get_state()->{cluster_conf}->{nodes};
+    if (exists($nodes->{$name})) {
+        return $nodes->{$name};
+    } else {
+        throw EBox::Exceptions::DataNotFound(data => 'node', value => $name);
+    }
+}
+
+# Method: localNode
+#
+#    Return the local node data
+#
+# Returns:
+#
+#    Hash ref - with the configuration for the local node
+#
+#       addr - String the IP address
+#       name - String the node name
+#       webAdminPort - Int the web admin port
+#       localNode - Boolean local node flag
+#       nodeid - Int the node identifier
+#
+# Exceptions:
+#
+#       <EBox::Exceptions::DataNotFound> - thrown if there is no local node
+#
+sub localNode
+{
+    my ($self) = @_;
+
+    my $list = $self->list();
+    my @local = grep { $_->{localNode} } @{$list};
+    if (@local > 0) {
+        return $local[0];
+    } else {
+        throw EBox::Exceptions::DataNotFound(data  => 'node',
+                                             value => 'localNode');
+    }
+}
+
+# Method: diff
+#
+#     Get the difference between the object and a hash ref which is
+#     the result of another object <EBox::HA::NodeList::list>
+#
+# Parameters:
+#
+#     other - Array ref the contents of <list> applies here
+#
+# Returns:
+#
+#     Tuple:
+#
+#     equal - Boolean indicating if they are both equal
+#     Hash ref - containing the diff, if any, following keys:
+#
+#        new - nodes that are in the other and not in self
+#        old - nodes that are in self and not in other
+#        changed - nodes that are in both with different parameters
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::InvalidType> - thrown if the hash ref within
+#     the array type are invalid
+#
+sub diff
+{
+    my ($self, $other) = @_;
+
+    if (ref($other) ne 'ARRAY') {
+        throw EBox::Exceptions::InvalidType('other', 'ARRAY ref');
+    }
+
+    my $state = $self->{ha}->get_state();
+
+    my %other = map { $_->{name} => $_ } @{$other};
+    my %mine = ();
+    if (exists($state->{cluster_conf}->{nodes})) {
+        %mine = %{Clone::Fast::clone($state->{cluster_conf}->{nodes})};
+    }
+
+    my $equal = Test::Deep::eq_deeply(\%mine, \%other);
+    return (1, {}) if ($equal);
+
+    my @new = ();
+    my @old = ();
+    my @changes = ();
+    foreach my $otherNode (keys %other) {
+        if (exists($mine{$otherNode})) {
+            # Ignore localNode param
+            $mine{$otherNode}->{localNode} = ignore();
+            push(@changes, $otherNode) unless (Test::Deep::eq_deeply($other{$otherNode}, $mine{$otherNode}));
+        } else {
+            push(@new, $otherNode);
+        }
+    }
+    foreach my $myNode (keys %mine) {
+        push(@old, $myNode) unless (exists($other{$myNode}));
+    }
+
+    return (0, {new => \@new, old => \@old, changed => \@changes});
+
+}
+
+# Method: size
+#
+#    Return the list size (number of elements)
+#
+# Returns:
+#
+#    Int - the number of elements from the list
+#
+sub size
+{
+    my ($self) = @_;
+
+    return scalar(keys(%{$self->{ha}->get_state()->{cluster_conf}->{nodes}}));
 }
 
 1;

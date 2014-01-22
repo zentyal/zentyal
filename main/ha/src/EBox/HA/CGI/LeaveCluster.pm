@@ -16,33 +16,44 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::HA;
+package EBox::HA::CGI::LeaveCluster;
 
-use base 'EBox::Model::Composite';
+# Class: EBox::HA::CGI::LeaveCluster
+#
+#      Leave the cluster and redirect to Cluster configuration page
+#
+
+use base qw(EBox::CGI::ClientBase);
 
 use EBox::Gettext;
 use EBox::Global;
 
-# Group: Public methods
+sub new
+{
+    my $class = shift;
+    my $self = $class->SUPER::new(@_);
+    $self->{redirect} = 'HA/Composite/Initial';
+    bless ($self, $class);
+    return $self;
+}
 
-# Group: Protected methods
-
-# Method: _description
+# Method: actuate
+#
+#    Leave the cluster and redirect
 #
 # Overrides:
 #
-#     <EBox::Model::Composite::_description>
+#    <EBox::CGI::ClientBase>
 #
-sub _description
+sub actuate
 {
-    my $description = {
-        layout          => 'top-bottom',
-        pageTitle       => __('High Availability Cluster'),
-        compositeDomain => 'ha',
-        name            => 'HA',
-    };
+    my ($self) = @_;
 
-    return $description;
+    my $ha = EBox::Global->getInstance()->modInstance('ha');
+    $ha->leaveCluster();
+
+    # No parameters to send to the chain
+    $self->cgi()->delete_all();
 }
 
 1;
