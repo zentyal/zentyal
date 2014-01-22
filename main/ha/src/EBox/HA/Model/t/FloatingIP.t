@@ -23,8 +23,8 @@ package EBox::HA::Model::FloatingIP::Test;
 use base 'Test::Class';
 
 use EBox::Global::TestStub;
-use EBox::HA;
 use EBox::DHCP;
+use EBox::HA;
 use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
 use EBox::TestStubs;
@@ -73,16 +73,11 @@ sub setUpInstance : Test(setup)
     # Create DHCP module
     my $dhcp = EBox::DHCP->_create(redis => $redis);
     my $dhcpModel = $dhcp->model('RangeTable');
+    $dhcpModel = new Test::MockObject::Extends($dhcpModel);
+    # We are not testing DHCP code, so we skip any validation
+    $dhcpModel->set_true('validateTypedRow');
     $self->{dhcpModel} = $dhcpModel;
-
-    my ($dhcpNameElement) = grep { $_->{fieldName} eq 'name' } @{$dhcpModel->table()->{'tableDescription'}};
-    $self->{dhcpNameElement} = $dhcpNameElement;
-
-    my ($dhcpFromElement) = grep { $_->{fieldName} eq 'from' } @{$dhcpModel->table()->{'tableDescription'}};
-    $self->{dhcpFromElement} = $dhcpFromElement;
-
-    my ($dhcpToElement) = grep { $_->{fieldName} eq 'to' } @{$dhcpModel->table()->{'tableDescription'}};
-    $self->{dhcpToElement} = $dhcpToElement;
+    
 }
 
 sub test_mocking : Test(1)
@@ -137,7 +132,7 @@ sub test_validate_row_format_exceptions :  Test(3)
     } 'EBox::Exceptions::External', 'Bad name, it is too short';
 }
 
-sub test_validate_row_collision_exceptions : Test(2)
+sub test_validate_row_collision_exceptions : Test(3)
 {
     my ($self) = @_;
 
@@ -193,16 +188,19 @@ sub test_validate_row_collision_exceptions : Test(2)
     $self->{nameElement}->setValue('testIP');
     $self->{floating_ipElement}->setValue('1.1.1.100');
 
-    $self->{dhcpNameElement}->setValue('testRange');
-    $self->{dhcpFromElement}->setValue('1.1.1.95');
-    $self->{dhcpToElement}->setValue('1.1.1.105');
+    my $rowId = $self->{dhcpModel}->add(name => 'testRange',
+                                        from => '1.1.1.95',
+                                        to   => '1.1.1.105');
 
-#    throws_ok {
-#        $model->validateTypedRow('add', undef, {
-#                                    name => $self->{nameElement},
-#                                    floating_ip => $self->{floating_ipElement}
-#                                });
-#    } 'EBox::Exceptions::External', 'IP collides with DHCP ranges';
+    throws_ok {
+        $model->validateTypedRow('add', undef, {
+            name => $self->{nameElement},
+            floating_ip => $self->{floating_ipElement}
+           });
+    } 'EBox::Exceptions::External', 'IP collides with DHCP ranges';
+
+    # To be consistent to the initial state
+    $self->{dhcpModel}->removeRow($rowId);
 }
 
 1;

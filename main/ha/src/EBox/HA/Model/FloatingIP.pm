@@ -146,6 +146,7 @@ sub _existsDhcpRangesCollision
 
     if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         my $dhcp = $global->modInstance('dhcp');
+        # FIXME: Move this code to DHCP
         my $rangeModel = $dhcp->_getModel('RangeTable', $iface);
 
         my $floatingIP = new Net::IP($ip);
