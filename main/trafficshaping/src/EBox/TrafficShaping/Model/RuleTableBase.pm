@@ -278,6 +278,7 @@ sub _table
                     fieldName => 'iface',
                     printableName => __('Interface'),
                     populate => $self->_populateIfacesSub(),
+                    editable => 1,
                     help => __('Interface connected to this gateway')
          ),
          new EBox::Types::Union(
