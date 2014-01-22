@@ -12,12 +12,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
 
 package EBox::WebAdmin;
 use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
-
-use strict;
-use warnings;
 
 use EBox;
 use EBox::Validate qw( checkPort );
@@ -229,8 +228,8 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (bind_address => $self->targetHAProxyIP());
-    push @confFileParams, (port => $self->targetHAProxyPort());
+    push @confFileParams, (bindaddress => $self->targetHAProxyIP());
+    push @confFileParams, (port => $self->targetHAProxySSLPort());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
@@ -834,7 +833,7 @@ sub certificates
             {
              serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
-             path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
+             path    =>  $self->pathHAProxySSLCertificate(),
              user => EBox::Config::user(),
              group => EBox::Config::group(),
              mode => '0600',
@@ -896,6 +895,12 @@ sub initialSetup
         # Perform the migration to 3.2
         $self->_migrateTo32();
     }
+
+    # Upgrade from pre 3.2SP2
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.7') < 0)) {
+        # Perform the migration to 3.2SP2
+        $self->_migrateTo32SP2();
+    }
 }
 
 # Migration to 3.2
@@ -915,6 +920,64 @@ sub _migrateTo32
         $redis->set($newkey, $value);
     }
     $redis->unset(@keys);
+}
+
+# Migration to 3.2SP2
+#
+#  * Migrate redis keys to use haproxy.
+#
+sub _migrateTo32SP2
+{
+    my ($self) = @_;
+
+    my $haproxyMod = $self->global()->modInstance('haproxy');
+    my $redis = $self->redis();
+    my $key = 'webadmin/conf/AdminPort/keys/form';
+    my $value = $redis->get($key);
+    unless ($value) {
+        # Fallback to the 'ro' version.
+        $key = 'webadmin/ro/AdminPort/keys/form';
+        $value = $redis->get($key);
+    }
+    if ($value) {
+        if (defined $value->{port}) {
+            # There are keys to migrate...
+            my @args = ();
+            push (@args, modName        => $self->name);
+            push (@args, sslPort        => $value->{port});
+            push (@args, enableSSLPort  => 1);
+            push (@args, defaultSSLPort => 1);
+            push (@args, force          => 1);
+            $haproxyMod->setHAProxyServicePorts(@args);
+        }
+
+        my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
+        $redis->unset(@keysToRemove);
+    } else {
+        # This case should not happen, but it's added just as a sanity help.
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
+
+    # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+    my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
+    foreach my $key (@caKeys) {
+        my $value = $redis->get($key);
+        unless (ref $value eq 'HASH') {
+            next;
+        }
+        if ($value->{serviceId} eq 'Zentyal Administration Web Server') {
+            # WebServer.
+            $value->{name} = 'zentyal_' . $self->name();
+            $value->{service} = $self->printableName(),
+            $redis->set($key, $value);
+        }
+    }
 }
 
 #
@@ -975,6 +1038,17 @@ sub blockHAProxyPort
     return 1;
 }
 
+# Method: pathHAProxySSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHAProxySSLCertificate
+{
+    return '/var/lib/zentyal/conf/ssl/ssl.pem';
+}
+
 # Method: targetHAProxyIP
 #
 # Returns:
@@ -990,19 +1064,19 @@ sub targetHAProxyIP
     return '127.0.0.1';
 }
 
-# Method: targetHAProxyPort
+# Method: targetHAProxySSLPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyPort>
+#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
 #
-sub targetHAProxyPort
+sub targetHAProxySSLPort
 {
-    return 61080;
+    return 61443;
 }
 
 1;

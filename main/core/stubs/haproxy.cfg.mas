@@ -3,7 +3,7 @@
 
 Parameters:
 
-    bind_address   - String the bind address.
+    bindaddress   - String the bind address.
                      Default value: 0.0.0.0
     zentyalconfdir - String the path to the HAProxy configuration folder.
     caFile         - String the CA pem file to validate SSL certificate against.
@@ -11,13 +11,13 @@ Parameters:
 
 </%doc>
 <%args>
-    $bind_address => '0.0.0.0'
+    $bindaddress => '0.0.0.0'
     $zentyalconfdir
     $caFile
     $ports
 </%args>
 % if (%{$ports}) {
-% my %dumped_services = ();
+% my %dumpedservices = ();
 global
   tune.ssl.lifetime 300
 
@@ -30,34 +30,45 @@ defaults
 frontend ft_zentyal_<% $portNumber %>
   mode http
 %     if ($ports->{$portNumber}->{isSSL}) {
+%       my $certificates = '';
+%       foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%           my $newCrt = 'crt ' . $service->{pathSSLCert};
+%           if ($service->{isDefault}) {
+%               $certificates = "$newCrt $certificates";
+%           } else {
+%               $certificates = "$certificates $newCrt";
+%           }
+%       }
 %       if ($caFile) {
-  bind <% $bind_address %>:<% $portNumber %> ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
 %       } else {
-  bind <% $bind_address %>:<% $portNumber %> ssl crt <% $zentyalconfdir %>ssl/ssl.pem ciphers HIGH:MEDIUM
+  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM
 %       }
 %     } else {
-  bind <% $bind_address %>:<% $portNumber %>
+  bind <% $bindaddress %>:<% $portNumber %>
 %     }
 %     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
 %       foreach my $domain (@{$service->{domains}}) {
 %         if ($ports->{$portNumber}->{isSSL}) {
-  use_backend bk_zentyal_<% $service->{name} %> if { ssl_fc_sni <% $domain %> }
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { ssl_fc_sni <% $domain %> }
 %         } else {
-  use_backend bk_zentyal_<% $service->{name} %> if { hdr(host) -i <% $domain %> }
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { hdr(host) -i <% $domain %> }
 %         }
 %       }
 %       if ($service->{isDefault}) {
-  default_backend bk_zentyal_<% $service->{name} %>
+  default_backend bk_zentyal_<% $serviceNameWithPort %>
 %       }
 %     }
 
 %     foreach my $service (@{$ports->{$portNumber}->{services}}) {
-%       if (exists $dumped_services{$service->{name}}) {
+%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%       if (exists $dumpedservices{$serviceNameWithPort}) {
 %         next;
 %       } else {
-%         $dumped_services{$service->{name}} = 1;
+%         $dumpedservices{$serviceNameWithPort} = 1;
 %       }
-backend bk_zentyal_<% $service->{name} %>
+backend bk_zentyal_<% $serviceNameWithPort %>
  mode http
  server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
 %     }

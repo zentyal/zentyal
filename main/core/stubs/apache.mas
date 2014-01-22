@@ -4,7 +4,7 @@
 
 Parameters:
 
-   bind_address - String the bind address.
+   bindaddress - String the bind address.
                   Default value: 127.0.0.1
    port - Int the listening port.
           Default value: 60080
@@ -26,7 +26,7 @@ Parameters:
 # FIXME: unhardcode paths passing them as args...
 </%doc>
 <%args>
-    $bind_address => '127.0.0.1'
+    $bindaddress => '127.0.0.1'
     $port => 60080
     $group
     $user
@@ -94,7 +94,7 @@ Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 Include /etc/apache2/mods-available/expires.load
 
-Listen <% $bind_address %>:<% $port %>
+Listen <% $bindaddress %>:<% $port %>
 User <% $user %>
 Group <% $group %>
 

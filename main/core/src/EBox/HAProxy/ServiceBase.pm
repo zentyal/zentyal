@@ -45,13 +45,34 @@ sub new
     return $self;
 }
 
+# Method: isPortEnabledInHAProxy
+#
+#   Whether this service is enabled in haproxy for non SSL traffic.
+#
+# Returns:
+#
+#   boolean - True if is enabled for non SSL traffice or False.
+#
+sub isPortEnabledInHAProxy
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    my $haproxyMod = $global->modInstance('haproxy');
+    my $services = $haproxyMod->model('Services');
+    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+
+    my $portItem = $moduleRow->elementByName('port');
+    return ($portItem->selectedType() eq 'port_number');
+}
+
 # Method: usedHAProxyPort
 #
 #   Provides the HTTP port assigned to this service on the ha proxy
 #
 # Returns:
 #
-#   integer - The HTTP port used by this service.
+#   integer - The HTTP port used by this service or undef if not active.
 #
 sub usedHAProxyPort
 {
@@ -62,11 +83,32 @@ sub usedHAProxyPort
     my $services = $haproxyMod->model('Services');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
 
-    if (defined $moduleRow) {
+    if ($self->isPortEnabledInHAProxy()) {
         return $moduleRow->valueByName('port');
     } else {
-        return $self->defaultHAProxyPort();
+        return undef;
     }
+}
+
+# Method: isSSLPortEnabledInHAProxy
+#
+#   Whether this service is enabled in haproxy for SSL traffic.
+#
+# Returns:
+#
+#   boolean - True if is enabled for SSL traffice or False.
+#
+sub isSSLPortEnabledInHAProxy
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    my $haproxyMod = $global->modInstance('haproxy');
+    my $services = $haproxyMod->model('Services');
+    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+
+    my $sslPortItem = $moduleRow->elementByName('sslPort');
+    return ($sslPortItem->selectedType() eq 'sslPort_number');
 }
 
 # Method: usedHAProxySSLPort
@@ -86,10 +128,10 @@ sub usedHAProxySSLPort
     my $services = $haproxyMod->model('Services');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
 
-    if (defined $moduleRow) {
+    if ($self->isSSLPortEnabledInHAProxy()) {
         return $moduleRow->valueByName('sslPort');
     } else {
-        return $self->defaultHAProxySSLPort();
+        return undef;
     }
 }
 
@@ -164,6 +206,17 @@ sub blockHAProxyPort
     return undef;
 }
 
+# Method: pathHAProxySSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy or undef.
+#
+sub pathHAProxySSLCertificate
+{
+    return undef;
+}
+
 # Method: targetHAProxyDomains
 #
 # Returns:
@@ -192,7 +245,8 @@ sub targetHAProxyIP
 
 # Method: targetHAProxyPort
 #
-#   This method must be always overrided by services implementing this interface.
+#   This method must be always overrided by services implementing this interface if defaultHAProxyPort is not undef
+#   or blockHAProxyPort is False.
 #
 # Returns:
 #
@@ -200,8 +254,33 @@ sub targetHAProxyIP
 #
 sub targetHAProxyPort
 {
-    throw EBox::Exceptions::NotImplemented(
-        'All EBox::HAProxy::ServiceBase implementations MUST specify the target port');
+    my ($self) = @_;
+
+    if ($self->defaultHAProxyPort() or (not $self->blockHAProxyPort())) {
+        throw EBox::Exceptions::NotImplemented(
+            'All EBox::HAProxy::ServiceBase implementations MUST specify the target port');
+    }
+}
+
+# Method: targetHAProxySSLPort
+#
+#   This method must be always overrided by services implementing this interface if defaultHAProxySSLPort is not
+#   undef or blockHAProxySSLPort is False.
+#
+#   This port should not be using SSL itself, HAProxy will decode all SSL traffic before redirecting it there.
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#
+sub targetHAProxySSLPort
+{
+    my ($self) = @_;
+
+    if ($self->defaultHAProxySSLPort() or (not $self->blockHAProxySSLPort())) {
+        throw EBox::Exceptions::NotImplemented(
+            'All EBox::HAProxy::ServiceBase implementations MUST specify the target port');
+    }
 }
 
 1;

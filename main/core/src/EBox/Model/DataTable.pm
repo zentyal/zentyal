@@ -2162,9 +2162,9 @@ sub findAll
 #
 sub findValue
 {
-    my ($self, $fieldName, $value) = @_;
+    my ($self, $fieldName, $value, $nosync) = @_;
 
-    $self->findValueMultipleFields({ $fieldName => $value });
+    $self->findValueMultipleFields({ $fieldName => $value }, $nosync);
 }
 
 # Method: findValueMultipleFields
@@ -2194,9 +2194,9 @@ sub findValue
 #
 sub findValueMultipleFields
 {
-    my ($self, $fields) = @_;
+    my ($self, $fields, $nosync) = @_;
 
-    my @matched = @{$self->_find($fields, undef, 'value')};
+    my @matched = @{$self->_find($fields, undef, 'value', $nosync)};
 
     if (@matched) {
         return $self->row($matched[0]);

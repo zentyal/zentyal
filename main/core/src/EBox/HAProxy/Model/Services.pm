@@ -23,13 +23,19 @@ use warnings;
 package EBox::HAProxy::Model::Services;
 use base 'EBox::Model::DataTable';
 
+use EBox;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::MissingArgument;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::HAProxy::View::ServicesTableCustomizer;
+use EBox::Sudo;
 use EBox::Types::Boolean;
 use EBox::Types::Port;
 use EBox::Types::Text;
+use EBox::Types::Union;
+use EBox::Types::Union::Text;
 
 # Constructor: new
 #
@@ -77,19 +83,30 @@ sub syncRows
     my @srvsToAdd = grep { not exists $currentSrvs{$_->HAProxyServiceId()} } @mods;
 
     my $modified = 0;
-    my $enabled = 0;
     for my $srv (@srvsToAdd) {
-        $enabled = $srv->allowDisableHAProxyService() ? 0 : 1;
-        $self->add(
-            module        => $srv->name(),
-            serviceId     => $srv->HAProxyServiceId(),
-            service       => $srv->printableName(),
-            port          => $srv->defaultHAProxyPort(),
-            blockPort     => $srv->blockHAProxyPort(),
-            sslPort       => $srv->defaultHAProxySSLPort(),
-            blockSSLPort  => $srv->blockHAProxySSLPort(),
-            canBeDisabled => $srv->allowDisableHAProxyService(),
-            enable        => $enabled);
+        my $enabledPort = 0;
+        if (not $srv->allowDisableHAProxyService() and (defined $srv->defaultHAProxyPort())) {
+            $enabledPort = 1;
+        }
+        my $enabledSSLPort = 0;
+        if (not $srv->allowDisableHAProxyService() and (defined $srv->defaultHAProxySSLPort())) {
+            $enabledSSLPort = 1;
+        }
+        my $isDefaultPort = ($enabledPort and $srv->defaultHAProxyPort() and (not $srv->targetHAProxyDomains()));
+        my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHAProxySSLPort() and (not $srv->targetHAProxyDomains()));
+        my @args = ();
+        push (@args, module         => $srv->name());
+        push (@args, serviceId      => $srv->HAProxyServiceId());
+        push (@args, service        => $srv->printableName());
+        push (@args, port           => $enabledPort ? { port_number => $srv->defaultHAProxyPort() } : { port_disabled => undef });
+        push (@args, blockPort      => $srv->blockHAProxyPort());
+        push (@args, defaultPort    => $isDefaultPort);
+        push (@args, sslPort        => $enabledSSLPort ? { sslPort_number => $srv->defaultHAProxySSLPort() } : { sslPort_disabled => undef });
+        push (@args, blockSSLPort   => $srv->blockHAProxySSLPort());
+        push (@args, defaultSSLPort => $isDefaultSSLPort);
+        push (@args, canBeDisabled  => $srv->allowDisableHAProxyService());
+
+        $self->add(@args);
         $modified = 1;
     }
 
@@ -114,38 +131,6 @@ sub syncRows
     return $modified;
 }
 
-# Method: disableService
-#
-#   Disables given service in the model.
-#
-sub disableService
-{
-    my ($self, $serviceId) = @_;
-
-    my $row = $self->find(serviceId => $serviceId);
-    if ($row) {
-        $row->elementByName('enable')->setValue(0);
-        $row->store();
-    }
-}
-
-# Method: isEnabledService
-#
-#   Whether a given service is enabled in the model or not.
-#
-# Returns:
-#
-#   boolean - True if the service is enabled, undef otherwise
-#
-sub isEnabledService
-{
-    my ($self, $serviceId) = @_;
-
-    my $row = $self->find(serviceId=> $serviceId);
-    return $row->valueByName('enable') if ($row);
-    return undef;
-}
-
 # Method: _table
 #
 # Overrides:
@@ -166,6 +151,7 @@ sub _table
             fieldName     => 'module',
             printableName => __('Module'),
             unique        => 0,
+            hidden        => 1,
             editable      => 0,
             filter => sub {
                 my ($self)  = @_;
@@ -183,11 +169,27 @@ sub _table
             editable      => 0,
             allowUnsafeChars => 1,
         ),
-        new EBox::Types::Port(
+        new EBox::Types::Union(
             fieldName     => 'port',
             printableName => __('HTTP port'),
             editable      => 1,
-            optional      => 1,
+            subtypes      => [
+                new EBox::Types::Union::Text(
+                    fieldName => 'port_disabled',
+                    printableName => __('Disabled'),
+                ),
+                new EBox::Types::Port(
+                    fieldName     => 'port_number',
+                    printableName => __('Enabled'),
+                    editable      => 1,
+                ),
+            ],
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'defaultPort',
+            printableName => __('Default for Non-SSL'),
+            editable      => 1,
+            help          => __('Make this service the default for the non-SSL traffic'),
         ),
         new EBox::Types::Boolean(
             fieldName     => 'blockPort',
@@ -195,23 +197,33 @@ sub _table
             hidden        => 1,
             editable      => 0,
         ),
-        new EBox::Types::Port(
+        new EBox::Types::Union(
             fieldName     => 'sslPort',
             printableName => __('HTTPS port'),
             editable      => 1,
-            optional      => 1,
+            subtypes      => [
+                new EBox::Types::Union::Text(
+                    fieldName => 'sslPort_disabled',
+                    printableName => __('Disabled'),
+                ),
+                new EBox::Types::Port(
+                    fieldName     => 'sslPort_number',
+                    printableName => __('Enabled'),
+                    editable      => 1,
+                ),
+            ],
+        ),
+        new EBox::Types::Boolean(
+            fieldName     => 'defaultSSLPort',
+            printableName => __('Default for SSL'),
+            editable      => 1,
+            help          => __('Make this service the default for the SSL traffic'),
         ),
         new EBox::Types::Boolean(
             fieldName     => 'blockSSLPort',
             printableName => 'blockSSLPort',
             hidden        => 1,
             editable      => 0,
-        ),
-        new EBox::Types::Boolean(
-            fieldName     => 'enable',
-            printableName => __('Enable'),
-            editable      => 1,
-            help          => __('Make this service accesible form the reverse proxy'),
         ),
         new EBox::Types::Boolean(
             fieldName     => 'canBeDisabled',
@@ -238,9 +250,14 @@ sub _table
 
 sub validateTypedRow
 {
-    my ($self, $action, $params_r, $actual_r) = @_;
+    my ($self, $action, $params_r, $actual_r, $force) = @_;
 
-    my $enabled = $actual_r->{enable}->value();
+    # FIXME: Find a way so we don't need to remove port checking with force = 1
+    $force = 1;
+    my $enabledPort = ($actual_r->{port}->selectedType() eq 'port_number');
+    my $enabledSSLPort = ($actual_r->{sslPort}->selectedType() eq 'sslPort_number');
+    my $port = $enabledPort ? $actual_r->{port}->value(): undef;
+    my $sslPort = $enabledSSLPort ? $actual_r->{sslPort}->value() : undef;
     if ($action eq 'update') {
         if (exists $params_r->{port}) {
             if ($actual_r->{blockPort}->value()) {
@@ -256,42 +273,107 @@ sub validateTypedRow
                 );
             }
         }
-        if (exists $params_r->{enable}) {
+        if ((exists $params_r->{port}) and
+            ($params_r->{port}->selectedType() eq 'port_disabled') and
+            (exists $params_r->{sslPort}) and
+            ($params_r->{sslPort}->selectedType() eq 'sslPort_disabled')) {
             if (not $actual_r->{canBeDisabled}->value()) {
                 throw EBox::Exceptions::External(
-                    __('This service cannot be disabled.')
+                    __('This service cannot have both ports disabled.')
                 );
             } else {
-                $enabled = $params_r->{enable};
+                $enabledPort = 0;
+                $enabledSSLPort = 0;
+            }
+        }
+        if (exists $params_r->{port}) {
+            if ($params_r->{port}->selectedType() eq 'port_number') {
+                $enabledPort = 1;
+                $port = $params_r->{port}->value();
+            } else {
+                $enabledPort = 0;
+            }
+        }
+        if (exists $params_r->{sslPort}){
+            if ($params_r->{sslPort}->selectedType() eq 'sslPort_number') {
+                $enabledSSLPort = 1;
+                $sslPort = $params_r->{sslPort}->value();
+            } else {
+                $enabledSSLPort = 0;
             }
         }
     }
 
-    my $haproxyMod = $self->parentModule();
-    my $haproxyPorts = $haproxyMod->ports();
-    if ($enabled and (($action eq 'update') or ($action eq 'add'))) {
-        if (exists $params_r->{port}) {
-            if (exists $haproxyPorts->{$params_r->{port}}) {
-                if ($haproxyPorts->{$params_r->{port}}->{isSSL}) {
-                    throw EBox::Exceptions::External(__x(
-                        'The port {port} is used already for SSL, you cannot use it as a non SSL port.',
-                        port => $params_r->{port}
-                    ));
-                }
-            } else {
-                $haproxyMod->checkServicePort($params_r->{port});
+    if ($enabledPort and (not defined $port)) {
+        throw EBox::Exceptions::External(__('The port must be defined before enable it.'));
+    }
+    if ($enabledSSLPort and (not defined $sslPort)) {
+        throw EBox::Exceptions::External(__('The SSL port must be defined before enable it.'));
+    }
+    if ($enabledPort and $enabledSSLPort and ($port == $sslPort)) {
+        throw EBox::Exceptions::External(__('Both SSL and non-SSL ports cannot be enabled with the same number.'));
+    }
+
+    if (($enabledPort or $enabledSSLPort) and (($action eq 'update') or ($action eq 'add'))) {
+        if ($enabledPort) {
+            if ($self->findValue('sslPort', $port, 1)) {
+                throw EBox::Exceptions::External(__x(
+                    'The port {port} is used already for SSL, you cannot use it as a non SSL port.',
+                    port => $port
+                ));
+            }
+            if ((exists $params_r->{defaultPort}) and $params_r->{defaultPort}->value and
+                $self->findValueMultipleFields({ port => $port, defaultPort => 1 }, 1)) {
+                throw EBox::Exceptions::External(__x(
+                    'The port {port} already has a default service defined.', port => $port
+                ));
+            }
+            unless ($force) {
+                $self->checkServicePort($port);
             }
         }
-        if (exists $params_r->{sslPort}) {
-            if (exists $haproxyPorts->{$params_r->{sslPort}}) {
-                if (not $haproxyPorts->{$params_r->{sslPort}}->{isSSL}) {
+        if ($enabledSSLPort) {
+            if ($self->findValue('port', $sslPort, 1)) {
+                throw EBox::Exceptions::External(__x(
+                    'The port {port} is used already for non-SSL, you cannot use it as a SSL port.',
+                    port => $sslPort
+                ));
+            }
+            if ((exists $params_r->{defaultSSLPort}) and $params_r->{defaultSSLPort}->value and
+                $self->findValueMultipleFields({ sslPort => $sslPort, defaultPort => 1 }, 1)) {
+                throw EBox::Exceptions::External(__x(
+                    'The port {port} already has a default service defined.', port => $port
+                ));
+            }
+            unless ($force) {
+                $self->checkServicePort($sslPort);
+            }
+
+            # SSL certificate checking.
+            my $moduleName = $actual_r->{module}->value();
+            my $module = EBox::Global->modInstance($moduleName);
+            unless ($module->pathHAProxySSLCertificate()) {
+                throw EBox::Exceptions::Internal(
+                    'The module {module} cannot be used over SSL because it does not define a certificate.',
+                    module => $module->name()
+                );
+            }
+            unless (-e $module->pathHAProxySSLCertificate()) {
+                if (EBox::Global->modExists('ca')) {
+                    my $ca = EBox::Global->modInstance('ca');
+                    my $certificates = $ca->model('Certificates');
+                    unless ($certificates->isEnabledService($module->printableName())) {
+                        throw EBox::Exceptions::External(__x(
+                            'You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL for it.',
+                            module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
+                        ));
+                    }
+                } else {
                     throw EBox::Exceptions::External(__x(
-                        'The port {port} is used already for non SSL, you cannot use it as a SSL port.',
-                        port => $params_r->{sslPort}
+                        'The SSL certificate {module} does not exists, you cannot enable SSL for this service.',
+                        module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
                     ));
                 }
-            } else {
-                $haproxyMod->checkServicePort($params_r->{sslPort});
             }
         }
     }
@@ -299,28 +381,37 @@ sub validateTypedRow
 
 sub updatedRowNotify
 {
-    my ($self, $row, $oldRow, $force) = @_;
+    my ($self, $row, $oldRow) = @_;
 
-    my $enabled = $row->valueByName('enable');
-    unless ($enabled) {
-        # The row is not enabled, we can ignore it.
+    my $item = $row->elementByName('port');
+    my $enabledPort = ($item->selectedType() eq 'port_number');
+    $item = $row->elementByName('sslPort');
+    my $enabledSSLPort = ($item->selectedType() eq 'sslPort_number');
+    unless ($enabledPort or $enabledSSLPort) {
+        # The row has not enabled ports, we can ignore it.
         return;
     }
 
-    my $oldPort = $oldRow->valueByName('port');
-    my $port = $row->valueByName('port');
-    my $oldSSLPort = $oldRow->valueByName('sslPort');
-    my $sslPort = $row->valueByName('sslPort');
-    if (($oldPort eq $port) and ($oldSSLPort eq $sslPort)) {
+    $item = $oldRow->elementByName('port');
+    my $oldEnabledPort = ($item->selectedType() eq 'port_number');
+    $item = $oldRow->elementByName('sslPort');
+    my $oldEnabledSSLPort = ($item->selectedType() eq 'sslPort_number');
+    my $oldPort = $oldEnabledPort ? $oldRow->valueByName('port') : undef;
+    my $port = $enabledPort ? $row->valueByName('port') : undef;
+    my $oldSSLPort = $oldEnabledSSLPort ? $oldRow->valueByName('sslPort') : undef;
+    my $sslPort = $enabledSSLPort ? $row->valueByName('sslPort') : undef;
+    if (($oldEnabledPort == $enabledPort) and ($oldEnabledSSLPort == $enabledSSLPort)) {
         # no need to do anything
         return;
     }
 
     my @ports = ();
-    push (@ports, $port) if ($port);
-    push (@ports, $sslPort) if ($sslPort);
+    push (@ports, $port) if ($enabledPort);
+    push (@ports, $sslPort) if ($enabledSSLPort);
     my $modName = $row->valueByName('module');
-    $self->parentModule()->updateServicePorts($modName, \@ports);
+    if (@ports) {
+        $self->parentModule()->updateServicePorts($modName, \@ports);
+    }
 }
 
 # Method: viewCustomizer
@@ -337,6 +428,192 @@ sub viewCustomizer
     $customizer->setModel($self);
 
     return $customizer;
+}
+
+# Method: checkServicePort
+#
+#   Check whether a given port is being used outside HAProxy.
+#
+# Parameters:
+#
+#   port    - The port we want to check for usage.
+#
+sub checkServicePort
+{
+    my ($self, $port) = @_;
+
+    my $global = $self->global();
+    if ($global->modExists('firewall')) {
+        my $firewallMod = $global->modInstance('firewall');
+        unless ($firewallMod->availablePort("tcp", $port)) {
+            throw EBox::Exceptions::External(__x(
+                'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
+                p => $port
+            ));
+        }
+    }
+
+    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
+    foreach my $line (@{ $netstatLines }) {
+        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) = split '\s+', $line, 7;
+        if ($localAddr =~ m/:$port$/) {
+            my ($pid, $program) = split '/', $PIDProgram;
+            throw EBox::Exceptions::External(__x(
+                q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
+                p => $port,
+                pr => $program,
+            ));
+        }
+    }
+}
+
+# Method: setServicePorts
+#
+#   Sets the given ports as the ones to be used for the service module provided.
+#
+# Parameters:
+#
+#   args - Named parameters:
+#       modName        - The module name that handles the service
+#       port           - The port where this service should listen for connections or undef.
+#       enablePort     - Whether this service's non SSL port should be enabled.
+#       defaultPort    - Wehther this service's non SSL port should be the default.
+#       sslPort        - The SSL port where this service should listen for connections or undef.
+#       enableSSLPort  - Whether this service's SSL port should be enabled.
+#       defaultSSLPort - Wehther this service's SSL port should be the default.
+#       force          - Whether this service ports should be used even if are set as used elsewhere.
+#
+sub setServicePorts
+{
+    my ($self, %args) = @_;
+
+    # Check for required arguments.
+    unless ($args{modName}) {
+        throw EBox::Exceptions::MissingArgument('modName');
+    }
+    if ($args{enablePort} and (not exists $args{port})) {
+        throw EBox::Exceptions::MissingArgument('port');
+    }
+    if ($args{enableSSLPort} and (not exists $args{sslPort})) {
+        throw EBox::Exceptions::MissingArgument('port');
+    }
+    if ($args{default}) {
+        if (not exists $args{enablePort}) {
+           throw EBox::Exceptions::MissingArgument('enablePort');
+        }
+        if (not exists $args{port}) {
+            throw EBox::Exceptions::MissingArgument('port');
+        }
+    }
+    if ($args{defaultSSLPort}) {
+        if (not exists $args{enableSSLPort}) {
+           throw EBox::Exceptions::MissingArgument('enableSSLPort');
+        }
+        if (not exists $args{sslPort}) {
+            throw EBox::Exceptions::MissingArgument('sslPort');
+        }
+    }
+    unless ((exists $args{port}) or (exists $args{sslPort})) {
+        throw EBox::Exceptions::MissingArgument('port | sslPort');
+    }
+
+    # Do ports validation.
+    my $modName = $args{modName};
+    my $port = $args{port};
+    my $sslPort = $args{sslPort};
+    unless ($args{force}) {
+        $self->checkServicePort($port) if ($args{enablePort});
+        $self->checkServicePort($sslPort) if ($args{enableSSLPort});
+    }
+
+    my $module = $self->global()->modInstance($modName);
+    my $moduleRow = $self->find(serviceId => $module->HAProxyServiceId());
+    if ($module->blockHAProxyPort() and $port) {
+        EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable. Ignored...");
+        if (defined $moduleRow) {
+            my $item = $moduleRow->elementByName('port');
+            if ($item->selectedType() eq 'port_number') {
+                $port = $item->value();
+            } else {
+                $port = undef;
+            }
+        } else {
+            $port = undef;
+        }
+    }
+    if ($module->blockHAProxySSLPort() and $sslPort) {
+        EBox::error("Tried to set the HTTPS port of '$modName' to '$sslPort' but it's not editable. Ignored...");
+        if (defined $moduleRow) {
+            my $item = $moduleRow->elementByName('sslPort');
+            if ($item->selectedType() eq 'sslPort_number') {
+                $sslPort = $item->value();
+            } else {
+                $sslPort = undef;
+            }
+        } else {
+            $sslPort = undef;
+        }
+    }
+
+    if (defined $moduleRow) {
+        my $portItem = $moduleRow->elementByName('port');
+        if ($args{enablePort}) {
+            if (not $module->blockHAProxyPort()) {
+                $portItem->setValue({ port_number => $port });
+            } else {
+                $portItem->setValue({ port_disabled => undef });
+            }
+        }
+        my $defaultItem = $moduleRow->elementByName('defaultPort');
+        if ($args{defaultPort}) {
+            $defaultItem->setValue(1);
+        } else {
+            $defaultItem->setValue(0);
+        }
+        my $sslPortItem = $moduleRow->elementByName('sslPort');
+        if ($args{enableSSLPort}) {
+            if (not $module->blockHAProxySSLPort()) {
+                $sslPortItem->setValue({ sslPort_number => $sslPort });
+            } else {
+                $sslPortItem->setValue({ sslPort_disabled => undef });
+            }
+        }
+        my $defaultSSLItem = $moduleRow->elementByName('defaultSSLPort');
+        if ($args{defaultSSLPort}) {
+            $defaultSSLItem->setValue(1);
+        } else {
+            $defaultSSLItem->setValue(0);
+        }
+        $moduleRow->store();
+    } else {
+        # There isn't yet a definition for the module Service, we add it now.
+        if (not $module->blockHAProxyPort()) {
+            $port = $module->defaultHAProxyPort();
+        }
+        if (not $module->blockHAProxySSLPort()) {
+            $sslPort = $module->defaultHAProxySSLPort();
+        }
+        my @args = ();
+        push (@args, module         => $module->name());
+        push (@args, serviceId      => $module->HAProxyServiceId());
+        push (@args, service        => $module->printableName());
+        push (@args, port           => $args{enablePort} ? { port_number => $port } : { port_disabled => undef });
+        push (@args, blockPort      => $module->blockHAProxyPort());
+        push (@args, defaultPort    => $args{defaultPort});
+        push (@args, sslPort        => $args{enableSSLPort} ? { sslPort_number => $sslPort } : { sslPort_disabled => undef });
+        push (@args, blockSSLPort   => $module->blockHAProxySSLPort());
+        push (@args, defaultSSLPort => $args{defaultSSLPort});
+        push (@args, canBeDisabled  => $module->allowDisableHAProxyService());
+
+        $self->add(@args);
+    }
+
+    my @ports = ();
+    push (@ports, $port) if ($args{enablePort});
+    push (@ports, $sslPort) if ($args{enableSSLPort});
+    if (@ports) {
+        $self->parentModule()->updateServicePorts($modName, \@ports);
+    }
 }
 
 1;

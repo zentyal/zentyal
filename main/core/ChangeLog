@@ -1,4 +1,5 @@
 HEAD
+	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
 3.2.6
