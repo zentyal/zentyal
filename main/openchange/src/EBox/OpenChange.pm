@@ -163,7 +163,7 @@ sub _daemons
         {
             name => 'zentyal.ocsmanager',
             type => 'upstart',
-            precondtion => sub { return $self->_autodiscoverEnabled() },
+            precondition => sub { return $self->_autodiscoverEnabled() },
            }
        ];
     return $daemons;
