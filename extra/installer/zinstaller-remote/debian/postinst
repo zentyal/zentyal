@@ -121,11 +121,14 @@ then
     elif [ $NUM_BUNDLES -eq 1 ]
     then
         BUNDLE_ID=$(cut -d: -f1 $DATA_DIR/BUNDLE_IDS)
-        if grep "Enterprise" $DATA_DIR/BUNDLE_IDS
+        if grep "Premium" $DATA_DIR/BUNDLE_IDS
         then
-            db_input high zinstaller-remote/auth_ok_enterprise
+            db_input high zinstaller-remote/auth_ok_premium
+        elif grep "Business" $DATA_DIR/BUNDLE_IDS
+        then
+            db_input high zinstaller-remote/auth_ok_business
         else
-            db_input high zinstaller-remote/auth_ok_sb
+            db_input high zinstaller-remote/auth_ok_professional
         fi
         db_go
     else
