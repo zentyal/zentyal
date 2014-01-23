@@ -127,8 +127,6 @@ sub _connect
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
     }
 
-#    $dbh->do("SET NAMES 'utf8'");
-
     $self->{'dbh'} = $dbh;
 }
 
