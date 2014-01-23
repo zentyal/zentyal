@@ -121,11 +121,13 @@ sub _connect
     return if ($self->{'dbh'});
 
     my $dbh = DBI->connect('dbi:mysql:' . $self->_dbname(), $self->_dbuser(),
-                           $self->_dbpass(), { RaiseError => 1});
+                           $self->_dbpass(), { RaiseError => 1, mysql_enable_utf8 => 1});
 
     unless ($dbh) {
         throw EBox::Exceptions::Internal("Connection DB Error: $DBI::errstr\n");
     }
+
+#    $dbh->do("SET NAMES 'utf8'");
 
     $self->{'dbh'} = $dbh;
 }

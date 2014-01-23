@@ -1,6 +1,6 @@
 HEAD
+	+ Decode to utf8 the MySQL database results
 	+ Create log database using utf8 charset
-	+ Decode to utf8 the results of search in logs
 	+ Better way to set MySQL password for all the root accounts
 	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
 	  in every log file
