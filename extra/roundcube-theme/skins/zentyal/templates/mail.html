@@ -14,28 +14,14 @@
 <body>
 
 <div class="minwidth">
-<div id="header" class="mail_head">
-	<div id="topnav">
-		<a id="toplogo" href=".">
-	        <roundcube:object name="logo" src="/images/zentyal_w_logo.png" border="0" alt="Logo" />mail
-	    </a>
-	    <button class="droptopnav"></button>
-		<div id="taskbar">
-			<roundcube:container name="taskbar" id="taskbar" />
-			<roundcube:button command="mail" label="mail" class="button-mail" classSel="button-mail button-selected" innerClass="button-inner" />
-			<roundcube:button command="addressbook" label="contacts" class="button-addressbook" classSel="button-addressbook button-selected" innerClass="button-inner" />
-		</div>
-	</div>
+<roundcube:include file="/includes/left-header.html" />
 	<div class="toolbar">
 		<roundcube:button command="compose" type="link" class="button compose disabled" classAct="button compose" classSel="button compose pressed" label="compose" title="writenewmessage" />
 		<roundcube:button command="checkmail" type="link" class="button checkmail disabled" classAct="button checkmail" classSel="button checkmail pressed" label="refresh" title="checkmail" />
 	  <roundcube:include file="/includes/mailtoolbar.html" />
 	</div>
-	<div class="userbar">
-		<roundcube:button command="settings" label="settings" class="button-settings" classSel="button-settings button-selected" innerClass="button-inner" />
-		<roundcube:object name="user_box" />
-	</div>
-</div>
+<roundcube:include file="/includes/right-header.html" />
+
 
 <div id="mainscreen">
 

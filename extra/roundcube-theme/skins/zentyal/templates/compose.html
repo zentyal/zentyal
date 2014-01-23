@@ -10,10 +10,13 @@
 <body>
 
 <div class="minwidth">
-<roundcube:include file="/includes/header.html" />
+<roundcube:include file="/includes/left-header.html" />
+	<div class="toolbar">
+	  <roundcube:include file="/includes/mailtoolbar.html" />
+	</div>
+<roundcube:include file="/includes/right-header.html" />
 
 <div id="mainscreen">
-<div class="mainscreen_head mail_head"><h2>MAIL</h2></div>
 <div id="composeview-left">
 
 <!-- inline address book -->
