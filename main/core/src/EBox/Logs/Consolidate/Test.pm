@@ -30,8 +30,6 @@ use Test::MockObject;
 
 use Data::Dumper;
 
-use lib '../../..';
-
 use EBox::Global::TestStub;
 use EBox::Logs::Consolidate;
 use EBox::TestStubs;
@@ -258,7 +256,7 @@ sub _setupDB
 
     my @dbRows    = @{ $dbRows_r };
 
-    setFakeDB($tableInfo->{tablename}, \@dbRows);
+    setFakeDB(@$tableInfo[0]->{tablename}, \@dbRows);
 
     setFakeTableInfoForMod($modName => $tableInfo);
 }

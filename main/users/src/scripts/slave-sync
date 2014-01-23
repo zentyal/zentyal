@@ -69,12 +69,12 @@ sub processSlaveDir
     my $name = $slave->name;
 
     if ($mode eq 'list') {
-        print "Slave: $name\n";
+        EBox::info("Slave: $name");
     }
 
     my $dh;
     opendir($dh, $dir) or
-        die "Can't open the journal dir: $dir\n";
+        die "Can't open the journal dir: $dir";
 
     my @files;
     while (defined(my $file = readdir($dh))) {
@@ -93,12 +93,12 @@ sub processFile
     my ($slave, $file) = @_;
 
     if ($mode eq 'run') {
-        print "Syncing $file...\n";
+        EBox::info("Syncing $file...");
         $slave->syncFromFile($file);
 
     } elsif ($mode eq 'list') {
         my $name = basename($file);
-        print " * $name\n";
+        EBox::info(" * $name");
     }
 }
 
@@ -107,12 +107,12 @@ sub processDir
     my ($slaves, $journaldir) = @_;
 
     unless (-d $journaldir) {
-        print "Slave journal dir does not exist: $journaldir\n";
+        EBox::info("Slave journal dir does not exist: $journaldir");
         return;
     }
 
     my $jdir;
-    opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir\n";
+    opendir($jdir, $journaldir) or die "Can't open the journal dir: $journaldir";
 
     foreach my $slave (@{$slaves}) {
         my $name = $slave->name();
@@ -128,13 +128,13 @@ sub processUserCornerDir
     my ($dir) = @_;
 
     unless (-d $dir) {
-        print "User corner journal dir does not exist: $dir\n";
+        EBox::info("User corner journal dir does not exist: $dir");
         return;
     }
 
     my $dh;
     opendir($dh, $dir) or
-        die "Can't open the usercorner journal dir: $dir\n";
+        die "Can't open the usercorner journal dir: $dir";
 
     my @files;
     while (defined(my $file = readdir($dh))) {
@@ -158,14 +158,14 @@ sub processUserCornerFile
 
         foreach my $slave (@{$slaves}) {
             my $name = $slave->name();
-            print "Syncing $file to $name...\n";
+            EBox::info("Syncing $file to $name...");
             $slave->sync($action->{signal}, $action->{args});
         }
         EBox::Sudo::root("rm $file");
 
     } elsif ($mode eq 'list') {
         my $name = basename($file);
-        print " * $name\n";
+        EBox::info(" * $name");
     }
 }
 1;

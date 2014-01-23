@@ -28,6 +28,8 @@ use EBox::Html;
 
 use POSIX qw(ceil floor INT_MAX);
 use TryCatch::Lite;
+use JSON::XS;
+use Perl6::Junction qw(all any);
 
 sub new
 {
@@ -56,7 +58,7 @@ sub getParams
     foreach my $field (@{$tableDesc}) {
         foreach my $fieldName ($field->fields()) {
             my $value;
-            if ( $field->allowUnsafeChars() ) {
+            if ($field->allowUnsafeChars()) {
                 $value = $self->unsafeParam($fieldName);
             } else {
                 $value = $self->param($fieldName);
@@ -119,7 +121,12 @@ sub _auditLog
         } elsif (($type and ($type eq 'password')) or ($elementId eq 'password')) {
             $value = '****' if $value;
             $oldValue = '****' if $oldValue;
+        } elsif (ref($value) or ref($oldValue)) {
+            my $encoder = new JSON::XS()->utf8()->allow_blessed(1)->convert_blessed(1);
+            $value = $encoder->encode($value) if ref($value);
+            $oldValue = $encoder->encode($oldValue) if ref($oldValue);
         }
+
     }
     $self->{audit}->logModelAction($model, $event, $id, $value, $oldValue);
 }
@@ -200,9 +207,16 @@ sub _editField
     my $row = $model->row($id);
     my $auditId = $self->_getAuditId($id);
 
+    my $viewCustomizer = $model->viewCustomizer();
+    my $triggerFields = $viewCustomizer->onChangeFields();
+    # Fetch trigger fields
+    foreach my $name (keys %{$triggerFields}) {
+        $triggerFields->{$name} = $params{$name};
+    }
+
     # Store old and new values before setting the row for audit log
     my %changedValues;
-    for my $field (@{$tableDesc} ) {
+    for my $field (@{$tableDesc}) {
         my $fieldName = $field->fieldName();
 
         if ($inPlace and (not $field->isa('EBox::Types::Basic'))) {
@@ -211,13 +225,18 @@ sub _editField
         }
 
         unless ($field->isa('EBox::Types::Boolean')) {
-            next unless defined $params{$fieldName};
+            next unless (all($field->fields()) eq any(keys(%params)));
         }
 
-        my $newValue = $params{$fieldName};
+        # Skip fields that are hidden or disabled by the view customizer
+        next if($viewCustomizer->skipField($fieldName, $triggerFields));
+
+        my $newField = $field->clone();
+        $newField->setMemValue(\%params);
+        my $newValue = $newField->value();
         my $oldValue = $row->valueByName($fieldName);
 
-        next if ($newValue eq $oldValue);
+        next if ($row->elementByName($fieldName)->isEqualTo($newField));
 
         $changedValues{$fieldName} = {
             id => $id ? "$auditId/$fieldName" : $fieldName,
@@ -226,7 +245,16 @@ sub _editField
         };
     }
 
-    $model->setRow($force, %params);
+    try {
+        $model->setRow($force, %params);
+    } catch (EBox::Exceptions::DataInUse $e) {
+        $self->{json}->{success} = 1;
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
+            $model->table()->{actions}->{editField},
+            "$e",
+           );
+        return;
+    }
 
     for my $fieldName (keys %changedValues) {
         my $value = $changedValues{$fieldName};
@@ -494,10 +522,21 @@ sub addAction
 sub delAction
 {
     my ($self) = @_;
-
-    $self->{json} = {  success => 0 };
-    my $rowId = $self->removeRow();
     my $model  = $self->{'tableModel'};
+    $self->{json} = { success => 0 };
+
+    my $rowId;
+    try {
+        $rowId = $self->removeRow();
+    } catch (EBox::Exceptions::DataInUse $e) {
+        $self->{json}->{success} = 1;
+        $self->{json}->{changeRowForm} = $self->_htmlForDataInUse(
+            $model->table()->{actions}->{del},
+            "$e",
+           );
+        return;
+    };
+
     $self->_setJSONSuccess($model);
 
     # With the current UI is assumed that the delAction is done in the same page
@@ -821,6 +860,20 @@ sub _htmlForChangeRow
 
     return $html;
 }
+
+
+sub _htmlForDataInUse
+{
+    my ($self, $url, $msg) = @_;
+    my $params = $self->paramsAsHash;
+    return EBox::Html::makeHtml('/dataInUse.mas',
+                                warning => $msg,
+                                url     => $url,
+                                params  => $params,
+                                ajax    => 1,
+                               );
+}
+
 
 sub _modelIds
 {

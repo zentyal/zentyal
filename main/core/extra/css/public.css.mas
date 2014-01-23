@@ -304,6 +304,10 @@
     padding-right: 10px;
     color: #999;
 }
+.dataTableDiv {
+    width: 100%;
+    overflow: auto;
+}
 .dataTable {
     width: 100%;
     color:#000000;

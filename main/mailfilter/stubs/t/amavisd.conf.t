@@ -4,12 +4,11 @@ use Cwd;
 
 use File::Slurp qw(read_file);
 
-use lib '../..';
 use EBox::Test::Mason;
 
 use Test::More tests => 4;
 
-my $template = '../amavisd.conf.mas';
+my $template = 'mailfilter/stubs/amavisd.conf.mas';
 
 my $printOutput = 0;
 my $outputFileBase  = '/tmp/amavisd.conf';  # XXX FIXME file separator in mason tests

@@ -46,8 +46,8 @@ use constant SITES_AVAILABLE_DIR => CONF_DIR . '/sites-available/';
 use constant SITES_ENABLED_DIR => CONF_DIR . '/sites-enabled/';
 use constant GLOBAL_CONF_DIR => CONF_DIR . '/conf.d/';
 
-use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . 'default';
-use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl';
+use constant VHOST_DFLT_FILE => SITES_AVAILABLE_DIR . '000-default.conf';
+use constant VHOST_DFLTSSL_FILE => SITES_AVAILABLE_DIR . 'default-ssl.conf';
 use constant SSL_DIR => CONF_DIR . '/ssl/';
 
 # Constructor: _create
@@ -108,7 +108,7 @@ sub usedFiles
         my $vHost = $vHostModel->row($id);
         # access to the field values for every virtual host
         my $vHostName = $vHost->valueByName('name');
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         push(@{$files}, { 'file' => $destFile, 'module' => 'webserver',
                           'reason' => "To configure $vHostName virtual host." });
     }
@@ -228,8 +228,7 @@ sub menu
                                       text  => $self->printableName(),
                                       separator => 'Office',
                                       url   => 'WebServer/Composite/General',
-                                      order => 570
-                                     );
+                                      order => 570);
       $root->add($item);
 }
 
@@ -244,7 +243,7 @@ sub _daemons
         {
             'name' => 'apache2',
             'type' => 'init.d',
-            'pidfiles' => ['/var/run/apache2.pid'],
+            'pidfiles' => ['/var/run/apache2/apache2.pid'],
         }
     ];
 }
@@ -503,7 +502,7 @@ sub _setVHosts
         my $vHostName  = $vHost->{'name'};
         my $sslSupport = $vHost->{'ssl'};
 
-        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . $vHostName;
+        my $destFile = SITES_AVAILABLE_DIR . VHOST_PREFIX . "$vHostName.conf";
         delete $sitesToRemove{$destFile};
         $self->writeConfFile($destFile,
                              "webserver/vhost.mas",
@@ -528,7 +527,6 @@ sub _setVHosts
                 }
             }
         }
-
     }
 
     # Remove not used old dirs

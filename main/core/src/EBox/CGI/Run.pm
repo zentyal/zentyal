@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -173,7 +173,7 @@ sub _parseModelUrl
         $namespace = $module->name();
     }
 
-    if ($type eq any(qw(Composite View Controller ModalController Tree))) {
+    if ($type eq any(qw(Composite View Controller ModalController Tree Template))) {
         return ($model, $namespace, $type, $action);
     }
 
@@ -241,7 +241,7 @@ sub _instanceModelCGI
         $menuNamespace = $model->menuNamespace();
         if ($type eq 'View') {
             $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
-        } elsif ($type eq 'Tree') {
+        } elsif ($type eq 'Tree' or $type eq 'Template') {
             $cgi = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Controller') {
             $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);

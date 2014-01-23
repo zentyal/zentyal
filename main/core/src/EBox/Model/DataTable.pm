@@ -1148,7 +1148,7 @@ sub warnIfIdUsed
 # Method: warnOnChangeOnId
 #
 #       This method must be overriden in case you want to advise the
-#       eBox user about the change on a observable model. Note that
+#       Zentyal user about the change on a observable model. Note that
 #       models manage this situation automatically if you are using
 #       <EBox::Types::Select> or <EBox::Types::HasMany> types. This
 #       method is intended to be used by models which use
