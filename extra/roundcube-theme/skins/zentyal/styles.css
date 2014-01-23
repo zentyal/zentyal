@@ -53,7 +53,6 @@ body {
 	font-family: "Aller", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 	font-size: 11px;
 	color: #333;
-	background-color: #eee !important;
 	margin: 0;
 }
 
@@ -448,11 +447,10 @@ a.iconlink.upload {
 	right: 0;
 	height: 27px;
 	padding-left: 8px;
-	/*border-top: 2px dotted #ccc;*/
+	border-top: 1px solid #ccc;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	background-color: #eee
 }
 
 .ui-dialog.error .ui-dialog-title,
@@ -664,11 +662,6 @@ float: left;
 	border-top: 2px dotted #ccc;
 }
 
-.uibox {
-	//overflow: hidden;
-	background: #fff;
-}
-
 .minwidth {
 	position: absolute;
 	top: 0;
@@ -768,7 +761,7 @@ float: left;
 	color: #333;
 	text-decoration: none;
 	cursor: default;
-	padding: 7px 10px 8px 35px;
+	padding: 8px 10px 8px 35px;
 	font-size: 14px;
 	height: 17px; /* doesn't affect table-cells in FF */
 	white-space: nowrap;
@@ -777,8 +770,8 @@ float: left;
 .listbox .listitem a:hover,
 .listbox .tablink a:hover,
 .listing tbody td:hover,
-.listing li a:hover {
-	background-color: #eee;
+.listing li > a:hover {
+	background-color: #ddd;
 }
 
 .listing tbody td {
@@ -798,9 +791,8 @@ float: left;
 .listbox .tablink.selected > a,
 .listing tbody tr.unfocused td,
 .listing tbody tr.selected td,
-.listing li.selected > a {
+.listing li.selected > a{
 	color: white;
-	font-weight: bold;
 	background-color: #888888;
 }
 
@@ -1398,6 +1390,7 @@ ul.proplist li {
     text-overflow: ellipsis;
     text-shadow: none;
     white-space: nowrap;
+    float: left;
 }
 .toolbar a.button:hover,
 .userbar a:hover{
@@ -1554,8 +1547,7 @@ a.menuselector .handle {
 	height: 20px;
 	line-height: 19px;
 	text-shadow: 0px 1px 1px #fff;
-	background: url(images/selector.png) right center no-repeat;
-	border-radius: 4px;
+	border-radius: 2px;
 }
 
 a.menuselector:active {
@@ -1665,7 +1657,6 @@ select.decorated option:last-child {
 ul.toolbarmenu li a {
 	display: block;
 	color: #666;
-	text-shadow: 0px 1px 1px #333;
 	text-decoration: none;
 	min-height: 14px;
 	padding: 6px 10px 6px 10px;
@@ -1831,12 +1822,12 @@ ul.toolbarmenu li span.conversation {
 }
 
 .splitter-h {
-	height: 10px;
+	height: 9px;
 	width: 100%;
 	cursor: n-resize;
 	cursor: row-resize;
 	background-position: center 0;
-	background-color: #eee;
+	border-top: 1px solid #CCCCCC;
 }
 
 .splitter-v {
@@ -1845,7 +1836,6 @@ ul.toolbarmenu li span.conversation {
 	cursor: e-resize;
 	cursor: col-resize;
 	background-position: 0 center;
-	background-color: #eee;
 }
 
 #rcmdraglayer {

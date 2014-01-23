@@ -14,6 +14,7 @@
 
 #mailview-left {
 	position: absolute;
+	box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.3) inset;
 	top: 0px;
 	left: 0;
 	width: 220px;
@@ -63,7 +64,7 @@
 	left: 0;
 	width: 100%;
 	bottom: 0;
-	border-top: 2px dotted #DDD;
+	border-top: 1px solid #eee;
 }
 
 #messagelistcontainer {
@@ -79,7 +80,6 @@
 	right: 0;
 	height: 22px;
 	padding: 4px 8px;
-	border-top: 2px dotted #ccc;
 }
 
 #mailview-top.fullheight #messagelistfooter {
@@ -130,17 +130,12 @@ a.iconbutton.threadmode.selected {
 	background-repeat: no-repeat;
 	background-position: 6px 2px;
 }
-
-#mailboxlist li:first-child {
-	border-radius: 4px 4px 0 0;
-}
-
 #mailboxlist li.mailbox a {
-	padding-left: 36px;
+	padding-left: 25px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	background-image: url(images/listicons.png);
+	/*background-image: url(images/listicons.png);*/
 	background-repeat: no-repeat;
 	background-position: 6px 6px;
 }
@@ -217,11 +212,10 @@ a.iconbutton.threadmode.selected {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	border-top: 1px solid #bbd3da;
 }
 
 #mailboxlist li.mailbox ul li {
-	padding-left: 26px;
+	margin-left: 26px;
 }
 
 #mailboxlist li.mailbox ul li a {
@@ -239,31 +233,24 @@ a.iconbutton.threadmode.selected {
 #mailboxlist li.mailbox div.collapsed,
 #mailboxlist li.mailbox div.expanded {
 	position: absolute;
-	top: 13px;
-	left: 19px;
-	width: 13px;
-	height: 13px;
-	background: url(images/listicons.png) -3px -144px no-repeat;
+	top: 0px;
+	left: 0px;
+	width: 25px;
+	height: 33px;
+	background: url(images/listicons.png) 3px -133px no-repeat;
 	cursor: pointer;
 }
 
 #mailboxlist li.mailbox div.expanded {
-	background-position: -3px -168px;
+	background-position: 3px -158px;
 }
 
 #mailboxlist li.mailbox.selected > div.collapsed {
-	background-position: -23px -142px;
+	background-position: -20px -133px;
 }
 
 #mailboxlist li.mailbox.selected > div.expanded {
-	background-position: -23px -168px;
-}
-
-
-#mailboxlist li.mailbox ul li div.collapsed,
-#mailboxlist li.mailbox ul li div.expanded {
-	left: 43px;
-	top: 14px;
+	background-position: -20px -158px;
 }
 
 #mailboxlist li.mailbox .unreadcount {
