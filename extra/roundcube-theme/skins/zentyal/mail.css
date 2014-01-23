@@ -14,16 +14,17 @@
 
 #mailview-left {
 	position: absolute;
-	top: 33px;
+	top: 0px;
 	left: 0;
 	width: 220px;
 	bottom: 0;
 	z-index: 2;
+	background-color: #eee;
 }
 
 #mailview-right {
 	position: absolute;
-	top: 33px;
+	top: 0px;
 	left: 232px;
 	right: 0;
 	bottom: 0;

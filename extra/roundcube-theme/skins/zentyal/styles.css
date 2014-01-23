@@ -509,12 +509,21 @@ a.iconlink.upload {
 	color: #aaa;
 }
 
-#topnav {
-	position: relative;
-	height: 90px;
-	padding: 0 0 0 20px;
-	background: #white;
+.droptopnav{
+	float:left;
+	height: 50px;
+	padding: 0px 15px;
+	border: none;
+	color: white;
+	cursor: pointer;
+	background: url(images/arrow-down-w.png) no-repeat center center;
 }
+
+#topnav {
+	height: 50px;
+	display: inline-block;
+}
+
 
 #topline a,
 #topnav a {
@@ -525,9 +534,18 @@ a.iconlink.upload {
 #topline a:hover {
 	text-decoration: underline;
 }
-
+#topnav a:hover,
+#topnav button:hover{
+	background-color: rgba(0,0,0,0.1);
+}
 #toplogo {
-	padding-top: 10px;
+	float: left;
+	padding-right: 15px;
+	line-height: 50px;
+	font-size: 16px;
+}
+#toplogo img{
+float: left;
 }
 
 .topleft {
@@ -562,31 +580,36 @@ a.iconlink.upload {
 
 
 /*** taskbar ***/
-#taskbar{
-	margin-top: 10px;
-}
 
+#taskbar{
+	background-color: #46962D;
+	right: 0px;
+	z-index: 100;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	padding: 10px;
+	display: none;
+
+}
 #taskbar a span.button-inner {
-    background-color: white;
+    background-color: #69BE28;
     background-image: url("images/nav-buttons.png");
     background-repeat: no-repeat;
-    border-color: white;
-    border-radius: 2px;
-    border-top: 2px solid white;
-    color: #333333;
-    display: block;
-    padding: 28px 15px 0;
-    text-shadow: none !important;
-    line-height: 20px;
-    font-size: 12px;
-
+    border-bottom-color: #FFFFFF;
+    border-left-color: #FFFFFF;
+    border-right-color: #FFFFFF;
+    color: #fff;
+    float: left;
+    font-size: 14px;
+    margin-right: 2px;
+    padding: 45px 0 10px;
+    text-align: center;
+    width: 90px;
 }
-
 #taskbar a.button-selected  span.button-inner,
 #taskbar a:hover span.button-inner {
-  	border-color: #69BE28 !important;
-    color: #69BE28 !important;
-    background-color: white !important;
+    background-color: rgba(105, 190, 40,0.7) !important;
 }
 
 #taskbar a.button-mail span.button-inner {
@@ -612,40 +635,14 @@ a.iconlink.upload {
 #taskbar a.button-desktop span.button-inner {
 	background-position: center -265px;
 }
-
-
 #mainscreen {
 	position: absolute;
-	top: 90px;
-	left: 20px;
-	right: 20px;
-	bottom: 20px;
+	top: 50px;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
 	background-color: white;
-	-moz-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-	-webkit-box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
-	box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3);
 }
-
-.mainscreen_head{
-	height: 33px;
-	font-size: 16px;
-	position:  relative;
-	z-index: 11;
-}
-
-.mainscreen_head > h2 {
-	color: white;
-	text-decoration: none;
-	height: 33px;
-	float: left;
-	line-height: 33px;
-	margin: 0px;
-	padding-left:15px;
-	font-size: 18px;
-	border-bottom: none ;
-	color: white;
-}
-
 .mail_head{
 	background-color: #69BE28;
 }
@@ -1367,37 +1364,30 @@ ul.proplist li {
 }
 
 .toolbar a.button {
-	text-align: center;
-	font-size: 11px;
-	color: #1A1A1A;
-	min-width: 50px;
-	max-width: 75px;
-	line-height: 20px;
-	margin: 0px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	padding: 33px 10px 2px 10px;
-	box-shadow: none;
-	-moz-box-shadow: none;
-	-webkit-box-shadow: none;
-	-o-box-shadow: none;
-	background: url(images/buttons.png) -100px 0 no-repeat transparent;
-	border: 0;
-	border-radius: 0px;
+    background-color:transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    color: #FFFFFF;
+    font-size: 16px;
+    line-height: 50px;
+    margin: 0;
+    max-width: 75px;
+    min-width: 50px;
+    overflow: hidden;
+    padding: 0 10px;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-shadow: none;
+    white-space: nowrap;
 }
 .toolbar a.button:hover{
-	background-color: #EEEEEE;
+	background-color: rgba(0,0,0,0.2);
 }
 
 .toolbar a.button.disabled {
-	opacity: 0.4;
-	filter: alpha(opacity=40);
+	display: none
 }
-.toolbar a.button.disabled:hover {
-	background-color: inherit;
-}
-
 .dropbutton {
 	display: inline-block;
 	position: relative;
@@ -1420,8 +1410,7 @@ ul.proplist li {
 }
 
 .dropbutton a.button.disabled + .dropbuttontip {
-	opacity: 0.5;
-	filter: alpha(opacity=50);
+	display: none;
 }
 
 .dropbutton a.button.disabled + .dropbuttontip:hover {
@@ -1437,6 +1426,11 @@ ul.proplist li {
 .dropbutton:hover{
 	background-color: #eee;
 }
+
+.toolbar{
+	display: inline-block;
+}
+
 .toolbar a.button.back {
 	background-position: center -1565px;
 }
