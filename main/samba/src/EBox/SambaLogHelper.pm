@@ -20,7 +20,6 @@ package EBox::SambaLogHelper;
 use base 'EBox::LogHelper';
 
 use EBox::Gettext;
-use utf8;
 
 use constant SAMBA_LOGFILE => '/var/log/syslog';
 use constant SAMBA_ANTIVIRUS => '/var/log/zentyal/samba-antivirus.log';
