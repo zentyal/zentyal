@@ -2,6 +2,14 @@ HEAD
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
+	+ Better way to set MySQL password for all the root accounts
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
 3.2.6
 	+ Show confirmation dialog before upgrading to 3.3
 	+ Fixed general widget packages to avoid error on 'packages to

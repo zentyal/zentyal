@@ -1,4 +1,6 @@
-HEAD
+3.2.3
+	+ Fixed a typo that makes openchange appear always off on Dashboard
+3.2.2
 	+ Added vdomain selection for outgoing mail at provision screen
 3.2.1
 	+ Use Error instead of TryCatch::Lite
