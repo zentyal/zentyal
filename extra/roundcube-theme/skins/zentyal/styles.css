@@ -521,7 +521,7 @@ a.iconlink.upload {
 
 #topnav {
 	height: 50px;
-	display: inline-block;
+	float: left;
 }
 
 
@@ -588,50 +588,54 @@ float: left;
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	padding: 10px;
 	display: none;
 
 }
 #taskbar a span.button-inner {
-    background-color: #69BE28;
     background-image: url("images/nav-buttons.png");
     background-repeat: no-repeat;
     border-bottom-color: #FFFFFF;
     border-left-color: #FFFFFF;
     border-right-color: #FFFFFF;
-    color: #fff;
+    color: rgba(255,255,255,0.8);
     float: left;
-    font-size: 14px;
+    font-size: 12px;
+    text-transform: uppercase;
     margin-right: 2px;
-    padding: 45px 0 10px;
+    padding: 75px 0 10px;
     text-align: center;
-    width: 90px;
+    width: 105px;
+    transition: background-color 0.2s;
+    o-transition:background-color 0.2s;;
+    moz-transition:background-color 0.2s;;
+    webkit-transition:background-color 0.2s;;
 }
 #taskbar a.button-selected  span.button-inner,
 #taskbar a:hover span.button-inner {
+	transition: background-color 0.2s;
+    o-transition:background-color 0.2s;;
+    moz-transition:background-color 0.2s;;
+    webkit-transition:background-color 0.2s;;	
     background-color: rgba(105, 190, 40,0.7) !important;
 }
 
 #taskbar a.button-mail span.button-inner {
-	background-position: center -47px;
-}
-
-#taskbar a.button-addressbook span.button-inner {
-	background-position: center -100px;
-}
-
-#taskbar a.button-settings span.button-inner {
-	background-position: center -317px;
-}
-
-#taskbar a.button-calendar span.button-inner {
-	background-position: center -154px;
-}
-
-#taskbar a.button-files span.button-inner {
 	background-position: center 4px;
 }
 
+#taskbar a.button-addressbook span.button-inner {
+	background-position: center -307px;
+}
+
+#taskbar a.button-calendar span.button-inner {
+	background-position: center -101px;
+}
+#taskbar a.button-tasklist span.button-inner{
+	background-position: 0 -204px;
+}
+#taskbar a.button-files span.button-inner {
+	background-position: center 2px;
+}
 #taskbar a.button-desktop span.button-inner {
 	background-position: center -265px;
 }
@@ -645,6 +649,7 @@ float: left;
 }
 .mail_head{
 	background-color: #69BE28;
+	overflow: hidden;
 }
 .mail_settings{
 	background-color: #333;
@@ -1352,8 +1357,21 @@ ul.proplist li {
 	top: 11px;
 	right: 0px;
 }
-
-
+/*** userbar ***/
+.userbar {
+    float: right;
+}
+.userbar a{
+	float: left;
+	height: 50px;
+	width: 50px;
+	color: transparent;
+}
+.userbar a.button-settings{
+	background-image: url("images/nav-buttons.png");
+	background-position: center -737px;
+	background-repeat: no-repeat;
+}
 /*** toolbar ***/
 
 .toolbar .spacer {
@@ -1381,7 +1399,8 @@ ul.proplist li {
     text-shadow: none;
     white-space: nowrap;
 }
-.toolbar a.button:hover{
+.toolbar a.button:hover,
+.userbar a:hover{
 	background-color: rgba(0,0,0,0.2);
 }
 
@@ -1406,9 +1425,14 @@ ul.proplist li {
 
 .dropbutton .dropbuttontip:hover {
 	background-position: -26px -1680px;
-	background-color: #ccc;
+	background-color: rgba(0, 0, 0, 0.2);
 }
-
+.dropbutton:hover {
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.dropbutton:hover a.button:hover{
+	background: transparent;
+}
 .dropbutton a.button.disabled + .dropbuttontip {
 	display: none;
 }
@@ -1423,12 +1447,9 @@ ul.proplist li {
     margin-right: 18px;
     padding-right: 0;
 }
-.dropbutton:hover{
-	background-color: #eee;
-}
 
 .toolbar{
-	display: inline-block;
+	float: left;
 }
 
 .toolbar a.button.back {
