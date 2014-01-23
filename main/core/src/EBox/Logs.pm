@@ -464,13 +464,6 @@ sub search
     }
 
     my @ret = @{$dbengine->query($self->_sqlStmnt())};
-
-    # foreach my $row (@ret) {
-    #     foreach my $val (values %$row) {
-    #         utf8::decode($val);
-    #     }
-    # }
-
     my $hashret = {
                    'totalret' => $tcount,
                    'arrayret' => \@ret
