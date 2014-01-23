@@ -1,4 +1,6 @@
 HEAD
+	+ Give support to groups with more than 1500 members and more than
+	  1000 groups in external AD mode
 	+ Added validation of the domains added to the transparent proxy
 	  exceptions
 3.2.3
