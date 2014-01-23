@@ -23,10 +23,10 @@ use EBox::Gettext;
 
 sub new
 {
-        my $class = shift;
-        my $self = {};
-        bless($self, $class);
-        return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: staticIfaceAddressChanged
@@ -52,7 +52,7 @@ sub new
 #       false
 sub staticIfaceAddressChanged # (iface, oldaddr, oldmask, newaddr, newmask)
 {
-        return undef;
+    return undef;
 }
 
 # Method: externalDhcpIfaceAddressChangedDone
@@ -194,7 +194,7 @@ sub ifaceExternalChanged # (iface)
 #
 sub vifaceDelete # (iface, viface)
 {
-        return undef;
+    return undef;
 }
 
 # Method: vifaceAdded
@@ -217,7 +217,7 @@ sub vifaceDelete # (iface, viface)
 #       false
 sub vifaceAdded # (iface, viface, address, netmask)
 {
-        return undef;
+    return undef;
 }
 
 # Method: changeIfaceExternalProperty
