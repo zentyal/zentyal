@@ -184,7 +184,7 @@ sub initialSetup
     }
 
     # Upgrade from pre 3.2SP2
-    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.1') <= 0)) {
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.1') < 3.2.2)) {
         # Disable the ssl module in Apache, haproxy handles it now.
         try {
             EBox::Sudo::root('a2dismod ssl');
