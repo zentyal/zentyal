@@ -208,18 +208,18 @@ sub initialSetup
 
     # Upgrade from 3.2.11 to 3.2.12
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.2.12') < 0)) {
-        # Start samba4 if not running
-        EBox::Sudo::silentRoot('service samba4 start');
-
-        # Ensure default containers properly linked
-        $self->getProvision->mapDefaultContainers();
-
-        # Accounts holding SPNs should be linked to LDAP service principals
-        $self->ldb->ldapServicePrincipalsToLdb();
-
         # Do not hide domain guest account, as the share access is based on
         # the enabled status of this account
         if ($self->isEnabled() and $self->isProvisioned()) {
+            # Start samba4 if not running
+            EBox::Sudo::silentRoot('service samba4 start');
+
+            # Ensure default containers properly linked
+            $self->getProvision->mapDefaultContainers();
+
+            # Accounts holding SPNs should be linked to LDAP service principals
+            $self->ldb->ldapServicePrincipalsToLdb();
+
             my $domainSid = $self->ldb->domainSID();
             my $ldbGuest = new EBox::Samba::User(sid => "$domainSid-501");
             my $ldapGuest = $self->ldapObjectFromLDBObject($ldbGuest);
