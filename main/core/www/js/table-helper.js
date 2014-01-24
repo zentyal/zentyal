@@ -426,7 +426,7 @@ Zentyal.TableHelper.showChangeRowForm = function (url, table, directory, action,
         if ( ! isFilter ) {
             Zentyal.TableHelper.setLoading(table + '_buttons', table, true);
         }
-    } else if ( action == 'changeEdit' ) {
+    } else if ( (action == 'changeEdit') || (action == 'changeClone') ) {
       Zentyal.TableHelper.setLoading('actionsCell_' + id, table, true);
     } else {
         throw "Unsupported action: " + action;

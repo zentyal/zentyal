@@ -2,6 +2,10 @@
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ User addon - remove check that require AD domain to be the same as mail
+	  virtual domain
+	+ Added basic deprovision option
+	+ Fixed a typo that makes openchange appear always off on Dashboard
 	+ Added vdomain selection for outgoing mail at provision screen
 3.3
 	+ Added a dependency on the zoctools package to handle the server migration

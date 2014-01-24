@@ -4,6 +4,8 @@ HEAD
 3.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Don't use owner module in external-ip.pl script
+	+ Changed failover firewall rules to not use owner module
 	+ Fixed regression in VLANs interface (contribution by Chris Pitchford)
 	+ Fixed bug which made impossible to edit pppoe gateways
 	+ Fix regresion in the installer wizard that made options for static

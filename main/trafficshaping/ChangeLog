@@ -1,4 +1,5 @@
 3.4
+	+ Unallow edition of interface in rules until it is supported
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Mark bond slaves as not shapable and use the master bond for shaping
 	  (contribution by Vsevolod Kukol)

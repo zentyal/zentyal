@@ -3,6 +3,7 @@
 	+ Fixed soap.conf for apache 2.4
 	+ Depend on apache2-utils, required to run htpasswd
 	+ Set version to 3.4
+	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
 	+ Fixed regression in LDAP info page for external AD mode
 	+ Print slave-sync output to zentyal.log instead of stdout
 	+ Fixed excesive restrictive validation of external AD password in wizard

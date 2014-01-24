@@ -645,32 +645,17 @@ sub users
 
     my $list = [];
 
-    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
-    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
-    my $params = {
-        base => $self->dn(),
-        scope => 'sub',
-        filter => $filter,
-        attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
-    };
-
-    my $result = $self->search($params);
-    foreach my $entry ($result->sorted('samAccountName')) {
-        my $user = new EBox::Samba::User(entry => $entry);
-        push (@{$list}, $user);
-    }
-
     # Query the containers stored in the root DN and skip the ignored ones
     # Note that 'OrganizationalUnit' and 'msExchSystemObjectsContainer' are
     # subclasses of 'Container'.
     my @containers;
-    $params = {
+    my $params = {
         base => $self->dn(),
         scope => 'one',
         filter => '(objectClass=Container)',
         attrs => ['*'],
     };
-    $result = $self->search($params);
+    my $result = $self->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $container = new EBox::Samba::Container(entry => $entry);
         next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
@@ -678,13 +663,14 @@ sub users
     }
 
     # Query the users stored in the non ignored containers
+    my $spFilter = $params{servicePrincipals} ? '' : '(!(servicePrincipalName=*))';
+    my $filter = "(&(&(objectclass=user)(!(objectclass=computer)))(!(isDeleted=*))$spFilter)";
     foreach my $container (@containers) {
         $params = {
-            base => $container->dn(),
-            scope => 'sub',
-            filter => '(&(&(objectclass=user)(!(objectclass=computer)))' .
-                      '(!(isDeleted=*)))',
-            attrs => ['*', 'unicodePwd', 'supplementalCredentials'],
+            base   => $container->dn(),
+            scope  => 'sub',
+            filter => $filter,
+            attrs  => ['*', 'unicodePwd', 'supplementalCredentials'],
         };
         $result = $self->search($params);
         foreach my $entry ($result->sorted('samAccountName')) {

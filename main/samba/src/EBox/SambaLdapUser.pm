@@ -812,6 +812,10 @@ sub _delGroup
                 }
             }
         }
+
+        if ($self->_groupShareEnabled($zentyalGroup)) {
+            $self->removeGroupShare($zentyalGroup);
+        }
     } catch ($error) {
         EBox::error("Error deleting group: $error");
     }

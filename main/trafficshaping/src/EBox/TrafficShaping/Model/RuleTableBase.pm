@@ -80,12 +80,12 @@ sub new
 
 # Method: priority
 #
-#	Return select options for the priority field
+#       Return select options for the priority field
 #
 # Returns:
 #
-#	Array ref containing hash ref with value, printable
-#	value and selected status
+#       Array ref containing hash ref with value, printable
+#       value and selected status
 #
 sub priority
 {
@@ -119,6 +119,12 @@ sub priority
 sub validateTypedRow
 {
     my ($self, $action, $changedParams, $params) = @_;
+    if (exists $changedParams->{iface}) {
+        throw EBox::Exceptions::External(
+            __('Changing rules interface is not supported. Remove the rule and add another for the desired interface')
+           );
+    }
+
     if ( defined ( $params->{guaranteed_rate} )) {
         $self->_checkRate( $params->{guaranteed_rate},
                 __('Guaranteed rate'));
