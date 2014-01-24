@@ -1,4 +1,5 @@
 HEAD
+	+ Set the setShareRightsReset flag on SambaSharesPermissions row deletion
 	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
 	  deletion
 3.2.13
