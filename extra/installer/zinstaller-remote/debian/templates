@@ -70,7 +70,7 @@ Type: note
 _Description: Error
  A problem ocurred while trying to register your server. Please contact support.
  Community edition will be installed if you want to continue:
- "${ERROR}"
+ ${ERROR}
 
 Template: zinstaller-remote/error_dr
 Type: note

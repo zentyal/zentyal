@@ -143,8 +143,8 @@ then
     fi
 
     # Get subscription data
-    RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
-    if [ $? -eq 0 ] && ! echo "$RESPONSE" | grep -q "__all__"
+    RESPONSE=$(curl -f -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
+    if [ $? -eq 0 ]
     then
         COMPANY=$(get_field "$RESPONSE" company)
         QA_USERNAME="$COMPANY-$SERVERNAME"
@@ -155,9 +155,12 @@ then
         echo $QA_PASSWORD > $DATA_DIR/QA_PASSWORD
         touch $DATA_DIR/COMMERCIAL_EDITION
     else
+        # Repeat getting the error (without -f)
+        RESPONSE=$(curl -u $USERNAME:$PASSWORD -k --data "name=$SERVERNAME&bundle=$BUNDLE_ID&sync=1" https://$URL/v1/servers/)
+        echo $RESPONSE
         echo "$RESPONSE" > $DATA_DIR/REGISTER_ERROR
-        error=$(get_field "$RESPONSE" __all__)
-        db_subst zinstaller-remote/error_register ERROR "$error"
+        lines=$(echo $RESPONSE | tr ']' "\n" | cut -d[ -s -f2)
+        db_subst zinstaller-remote/error_register ERROR "$lines"
         db_input high zinstaller-remote/error_register
         db_go
         exit 0
