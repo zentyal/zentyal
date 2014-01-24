@@ -1,5 +1,6 @@
 HEAD
 	+ Set the setShareRightsReset flag on SambaSharesPermissions row deletion
+	+ Samba log helper is now aware of utf8
 	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
 	  deletion
 3.2.13
