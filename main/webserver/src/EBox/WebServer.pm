@@ -251,7 +251,7 @@ sub initialSetup
             }
             if ($value->{serviceId} eq 'Web Server') {
                 # WebServer.
-                $value->{name} = 'zentyal_' . $self->name();
+                $value->{serviceId} = 'zentyal_' . $self->name();
                 $value->{service} = $self->printableName(),
                 $redis->set($key, $value);
             }
