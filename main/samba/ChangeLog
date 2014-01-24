@@ -1,4 +1,5 @@
 HEAD
+	+ Remove group share on group deletion
 	+ Samba log helper is now aware of utf8
 	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
 	  deletion
