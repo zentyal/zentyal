@@ -25,6 +25,7 @@ defaults
   timeout client 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  option forwardfor
 
 %   foreach my $portNumber (keys %{$ports}) {
 frontend ft_zentyal_<% $portNumber %>
@@ -46,6 +47,11 @@ frontend ft_zentyal_<% $portNumber %>
 %       }
 %     } else {
   bind <% $bindaddress %>:<% $portNumber %>
+%     }
+%     if ($ports->{$portNumber}->{isSSL}) {
+  reqadd X-Forwarded-Proto:\ https
+%     } else {
+  reqadd X-Forwarded-Proto:\ http
 %     }
 %     foreach my $service (@{$ports->{$portNumber}->{services}}) {
 %       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
