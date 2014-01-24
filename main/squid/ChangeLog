@@ -1,4 +1,6 @@
 HEAD
+	+ Synchronise AD groups every 30 min if using external AD and any
+	  filter profile includes an AD group
 	+ Manage errors when AD failed on fulfill our requests in external
 	  AD mode
 	+ Give support to groups with more than 1500 members and more than
