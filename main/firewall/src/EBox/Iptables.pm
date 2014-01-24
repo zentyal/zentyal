@@ -498,10 +498,6 @@ sub start
 
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
-            my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
-            foreach my $srv (@{$dnsSrvs}) {
-                push(@commands, @{$self->_setDNS($srv)});
-            }
         } else {
             # Anti-spoof rules only for static interfaces
             my $addrs = $self->{net}->ifaceAddresses($ifc);
