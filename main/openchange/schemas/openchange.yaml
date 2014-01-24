@@ -3,14 +3,17 @@ class: 'EBox::OpenChange'
 enabledepends:
     - samba
     - mail
+    - webserver
 
 bootdepends:
     - samba
     - mail
+    - webserver
 
 depends:
     - samba
     - mail
+    - webserver
 
 models:
     - Provision

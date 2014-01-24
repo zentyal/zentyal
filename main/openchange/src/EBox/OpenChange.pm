@@ -26,6 +26,7 @@ use EBox::DBEngineFactory;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::WebServer;
 
 use String::Random;
 
@@ -39,6 +40,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
+
+use constant RPCPROXY_CONF_FILE => EBox::WebServer::GLOBAL_CONF_DIR . 'rpcproxy.conf';
 
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
@@ -178,23 +181,27 @@ sub _autodiscoverEnabled
 
 sub usedFiles
 {
-    my @files = (
-        {
-            file => SOGO_DEFAULT_FILE,
-            reason => __('To configure sogo daemon'),
-            module => 'openchange'
-       },
-       {
-           file => SOGO_CONF_FILE,
-           reason => __('To configure sogo parameters'),
-           module => 'openchange'
-       },
-#       {
-#           file => OCSMANAGER_CONF_FILE,
-#           reason => __('To configure autodiscovery service'),
-#           module => 'openchange'
-#       }
-      );
+    my @files = ();
+    push (@files, {
+        file => SOGO_DEFAULT_FILE,
+        reason => __('To configure sogo daemon'),
+        module => 'openchange'
+    });
+    push (@files, {
+        file => SOGO_CONF_FILE,
+        reason => __('To configure sogo parameters'),
+        module => 'openchange'
+    });
+#    push (@files, {
+#        file => OCSMANAGER_CONF_FILE,
+#        reason => __('To configure autodiscovery service'),
+#        module => 'openchange'
+#    });
+    push (@files, {
+        file => RPCPROXY_CONF_FILE,
+        reason => __('To configure Outlook Anywhere service'),
+        module => 'openchange'
+    });
 
     return \@files;
 }
@@ -207,6 +214,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
 #    $self->_setAutodiscoverConf();
+    $self->_setRPCProxyConf();
     $self->_writeRewritePolicy();
 }
 
@@ -323,6 +331,17 @@ sub _setAutodiscoverConf
         $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
     } else {
         $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
+    }
+}
+
+sub _setRPCProxyConf
+{
+    my ($self) = @_;
+
+    if ($self->isEnabled()) {
+        $self->writeConfFile(RPCPROXY_CONF_FILE, 'openchange/apache-rpcproxy.mas', []);
+    } else {
+        EBox::Sudo::root(['rm -f ' . RPCPROXY_CONF_FILE]);
     }
 }
 
