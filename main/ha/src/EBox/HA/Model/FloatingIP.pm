@@ -64,7 +64,7 @@ sub validateTypedRow
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
     if (my $error_message = $self->_ipCollides($iface, $ip)) {
-        throw EBox::Exceptions::External(__($error_message));
+        throw EBox::Exceptions::External($error_message);
     }
 }
 
@@ -80,11 +80,11 @@ sub _ipCollides
     my $ipCollisionReason = "";
 
     if ($self->_existsNetworkIpCollision($iface, $ip)) {
-        $ipCollisionReason = "There is a a Network interface with the given IP address.";
+        $ipCollisionReason = __('There is a a Network interface with the given IP address.');
     } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
-        $ipCollisionReason = "There is a fixed DHCP object with the given IP address.";
+        $ipCollisionReason = __('There is a fixed DHCP object with the given IP address.');
     } elsif ($self->_existsDhcpRangesCollision($iface, $ip)) {
-        $ipCollisionReason = "There is a DHCP range that include the given IP address.";
+        $ipCollisionReason = __('There is a DHCP range that include the given IP address.');
     }
 
     return $ipCollisionReason;
