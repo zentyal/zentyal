@@ -48,7 +48,7 @@ sub initHTMLStateField
     my ($self, $fieldName, $fields) = @_;
 
     if (defined $fieldName) {
-        if ($fieldName eq 'port') {
+        if (($fieldName eq 'port') or ($fieldName eq 'defaultPort')) {
             foreach my $field (@{$fields}) {
                 next unless $field->fieldName() eq 'blockPort';
                 if ($field->value()) {
@@ -57,19 +57,10 @@ sub initHTMLStateField
                     last;
                 }
             }
-        } elsif ($fieldName eq 'sslPort') {
+        } elsif (($fieldName eq 'sslPort') or ($fieldName eq 'defaultSSLPort')) {
             foreach my $field (@{$fields}) {
                 next unless $field->fieldName() eq 'blockSSLPort';
                 if ($field->value()) {
-                    return 'disable';
-                } else {
-                    last;
-                }
-            }
-        } elsif ($fieldName eq 'enable') {
-            foreach my $field (@{$fields}) {
-                next unless $field->fieldName() eq 'canBeDisabled';
-                if (not $field->value()) {
                     return 'disable';
                 } else {
                     last;
