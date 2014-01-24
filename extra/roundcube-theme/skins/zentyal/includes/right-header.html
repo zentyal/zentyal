@@ -1,5 +1,8 @@
 	<div class="userbar">
 		<roundcube:button command="settings" label="settings" class="button-settings" classSel="button-settings button-selected" innerClass="button-inner" />
-		<roundcube:object name="user_box" />
+		<roundcube:container name="topline-right" id="topline-right" />
+		<roundcube:if condition="!env:extwin &amp;&amp; !env:framed" />
+			<span class="username"><roundcube:object name="username" /></span>
+			<roundcube:button command="logout" label="logout" class="button-logout" />
 	</div>
 </div>
