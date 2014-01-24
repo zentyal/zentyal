@@ -226,9 +226,7 @@ sub preconditionFailMsg
     return $msg;
 }
 
-# Group: Public methods
-
-# Method: getInterfaceResolvers
+# Method: getInterfaceResolvconfConfig
 #
 #   This method get the resolvconf configuration for a given interface.
 #

@@ -3891,58 +3891,6 @@ sub DHCPNetmask
     return $self->get_state()->{dhcp}->{$iface}->{mask};
 }
 
-# Method: DHCPNetmask
-#
-#   Sets the nameserver obtained from a DHCP configured interface
-#
-# Parameters:
-#
-#   interface - interface name
-#   nameservers - array ref holding the nameservers
-#
-# Returns:
-#
-#   string - network mask
-#
-sub setDHCPNameservers
-{
-    my ($self, $iface, $servers) = @_;
-
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
-    foreach (@{$servers}) {
-        checkIP($_, __("IP address"));
-    }
-
-    my $state = $self->get_state();
-    $state->{dhcp}->{$iface}->{nameservers} = $servers;
-    $self->set_state($state);
-}
-
-# Method: DHCPNameservers
-#
-#   Get the nameservers obtained from a DHCP configured interface
-#
-# Parameters:
-#
-#   interface - interface name
-#
-# Returns:
-#
-#   array ref - holding the nameservers
-#
-sub DHCPNameservers
-{
-    my ($self, $iface) = @_;
-
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
-
-    return $self->get_state()->{dhcp}->{$iface}->{nameservers};
-}
-
 # Method: ping
 #
 #   Performs a ping test and returns the output

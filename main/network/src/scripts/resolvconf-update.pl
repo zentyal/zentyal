@@ -41,44 +41,50 @@ exit 0 unless (defined $interface and length $interface);
 # set to "zentyal.<row id>"
 exit 0 if ($interface =~ m/zentyal\..+/);
 
-my $networkModule = EBox::Global->modInstance('network');
-exit 0 unless ($networkModule->configured() and $networkModule->isEnabled());
-
-if (EBox::Global->modExists('dns')) {
-    my $dnsModule = EBox::Global->modInstance('dns');
+my $globalRO = EBox::Global->getInstance(1);
+my $networkROModule = $globalRO->modInstance('network');
+exit 0 unless ($networkROModule->configured() and $networkROModule->isEnabled());
+if ($globalRO->modExists('dns')) {
+    my $dnsModule = $globalRO->modInstance('dns');
     exit 0 if ($dnsModule->configured() and $dnsModule->isEnabled());
 }
 
-my $model = $networkModule->model('DNSResolver');
 
+my $networkModule = EBox::Global->getInstance(0)->modInstance('network');
+my $model = $networkModule->model('DNSResolver');
 if ($operation eq '-d') {
+    my @toDelete;
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
-            $row->setDisabled(1);
-            $row->store();
+            push @toDelete, $id;
         }
+    }
+    foreach my $id (@toDelete) {
+        $model->removeRow($id, 1);
     }
 }
 
+
 if ($operation eq '-a') {
     my $ifaceConfig = $model->getInterfaceResolvconfConfig($interface);
+    my @resolvers = @{$ifaceConfig->{resolvers}};
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
-            my $resolver = shift $ifaceConfig->{resolvers};
-            if (defined $resolver and length $resolver) {
+            my $resolver = shift @resolvers;
+            if ((defined $resolver) and length($resolver)) {
                 my $e = $row->elementByName('nameserver');
                 $e->setValue($resolver);
-                $row->setDisabled(0);
+                $row->setReadOnly(1);
                 $row->store();
             }
         }
     }
-    foreach my $r (@{$ifaceConfig->{resolvers}}) {
-        $model->addRow(nameserver => $r, interface => $interface);
+    foreach my $r (@resolvers) {
+        $model->addRow(nameserver => $r, interface => $interface, readOnly => 1);
     }
 }
 
