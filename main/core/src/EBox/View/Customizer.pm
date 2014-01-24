@@ -224,7 +224,7 @@ sub onChangeFields
 #
 # Parameters:
 #
-#   (POSTIONAL)
+#   (POSITIONAL)
 #
 #   fieldName - string
 #   onChangeValues - hash ref containing the field names
