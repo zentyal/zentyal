@@ -1,4 +1,5 @@
 HEAD
+	+ Fixed regression in clone action
 	+ Better way to set MySQL password for all the root accounts
 	+ Use same JSON reply file for changeRowForm and dataInUse
 	+ Fixed regression in AJAX changes with raised error when a
