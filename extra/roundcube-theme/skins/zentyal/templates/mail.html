@@ -26,6 +26,14 @@
 <div id="mainscreen">
 
 <div id="mailview-left">
+<!-- search box -->
+<div id="composequicksearch">
+	<div class="searchbox">
+		<roundcube:object name="searchform" id="quicksearchbox" />
+		<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
+		<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+	</div>
+</div>
 <!-- folders list -->
 <div id="folderlist-header"></div>
 <div id="mailboxcontainer" class="uibox listbox">
@@ -44,19 +52,20 @@
 
 <div id="mailview-right">
 <div id="messagesearchtools">
-
 <!-- search filter -->
 <div id="searchfilter">
 	<roundcube:object name="searchfilter" class="searchfilter decorated" />
 </div>
+	<a href="#preview" id="mailpreviewtoggle" title="<roundcube:label name='previewpane' />"></a>
+	<div id="listcontrols">
+		<roundcube:if condition="env:threads" />
+			<a href="#threads" class="iconbutton threadmode" id="mailthreadmode" title="<roundcube:label name='threads' />">Threads</a>
+			<a href="#threads" id="threadselectmenulink" class="menuselector" style="display:none;"onclick="UI.show_popup('threadselectmenu');return false"><span class="handle"><roundcube:label name="threads" /></span></a>
+		<roundcube:else />
+			<a href="#threads" class="iconbutton threadmode disabled" title="<roundcube:label name='threads' />" onclick="return false">Threads</a>
+		<roundcube:endif />
 
-<!-- search box -->
-<div id="quicksearchbar">
-<roundcube:object name="searchform" id="quicksearchbox" />
-<roundcube:button name="searchmenulink" id="searchmenulink" class="iconbutton searchoptions" onclick="UI.show_popup('searchmenu');return false" title="searchmod" content=" " />
-<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
-</div>
-
+	</div>
 </div>
 
 <roundcube:if condition="config:preview_pane == true" />
@@ -75,21 +84,8 @@
 
 <!-- list footer -->
 <div id="messagelistfooter">
-	<div id="listcontrols">
-		<roundcube:if condition="env:threads" />
-			<a href="#list" class="iconbutton listmode" id="maillistmode" title="<roundcube:label name='list' />">List</a>
-			<a href="#threads" class="iconbutton threadmode" id="mailthreadmode" title="<roundcube:label name='threads' />">Threads</a>
-		<roundcube:else />
-			<a href="#list" class="iconbutton listmode selected" title="<roundcube:label name='list' />" onclick="return false">List</a>
-			<a href="#threads" class="iconbutton threadmode disabled" title="<roundcube:label name='threads' />" onclick="return false">Threads</a>
-		<roundcube:endif />
-	</div>
-	
 	<div id="listselectors">
 	<a href="#select" id="listselectmenulink" class="menuselector" onclick="UI.show_popup('listselectmenu');return false"><span class="handle"><roundcube:label name="select" /></span></a>
-	<roundcube:if condition="env:threads" />
-		&nbsp; <a href="#threads" id="threadselectmenulink" class="menuselector" onclick="UI.show_popup('threadselectmenu');return false"><span class="handle"><roundcube:label name="threads" /></span></a>
-	<roundcube:endif />
 	</div>
 
 	<div id="countcontrols" class="pagenav dark">
@@ -103,8 +99,6 @@
 	</div>
 
 	<roundcube:container name="listcontrols" id="listcontrols" />
-
-	<a href="#preview" id="mailpreviewtoggle" title="<roundcube:label name='previewpane' />"></a>
 </div>
 
 </div><!-- end mailview-top -->

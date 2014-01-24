@@ -60,11 +60,10 @@
 #mailboxcontainer,
 #messagelistcontainer {
 	position: absolute;
-	top: 55px;
+	top: 50px;
 	left: 0;
 	width: 100%;
 	bottom: 0;
-	border-top: 1px solid #eee;
 }
 
 #messagelistcontainer {
@@ -91,7 +90,7 @@
 }
 
 #messagelistfooter #countcontrols {
-	display: inline-block;
+	float: right;
 }
 
 #messagelistfooter #listcontrols,
@@ -105,6 +104,10 @@
 	margin-top: -2px;
 }
 
+#listcontrols {
+    float: left;
+    margin-left: 10px;
+}
 a.iconbutton.listmode {
 	width: 26px;
 	height: 20px;
@@ -112,8 +115,11 @@ a.iconbutton.listmode {
 }
 
 a.iconbutton.threadmode {
-	width: 26px;
-	height: 20px;
+    float: left;
+    height: 19px;
+    margin-right: 10px;
+    margin-top: 7px;
+    width: 26px;
 	background-position: 0 -497px;
 }
 
@@ -285,14 +291,13 @@ a.iconbutton.threadmode.selected {
 }
 
 #searchfilter {
-	position: absolute;
-	right: 256px;
+	float: left;
 	width: auto;
-	top: 7px;
+	position: relative;
 }
 
 #searchfilter select {
-	height: 26px;
+	height: 35px;
 }
 
 #mailview-left select.mailboxlist {
@@ -328,9 +333,9 @@ a.iconbutton.threadmode.selected {
 
 #messagesearchtools {
 	position: absolute;
-	right: 20px;
-	top: 7px;
-	width: 240px;
+	left: 0px;
+	top: 10px;
+	right: 0px;
 }
 
 #mailpreviewtoggle {
@@ -680,10 +685,11 @@ h2.subject {
 }
 
 h3.subject {
-	font-size: 14px;
+	font-size: 25px;
 	margin: 0 12em 0 0;
 	padding: 8px 8px 4px 8px;
 	white-space: nowrap;
+	font-weight: normal;
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
@@ -830,7 +836,7 @@ div.hide-headers {
 	position: relative;
 	height: auto;
 	min-height: 52px;
-	padding: 0 0 3px 26px;
+	padding: 0 0 10px 26px;
 }
 
 #messageheader.previewheader h3.subject {
@@ -1138,7 +1144,7 @@ div.message-part blockquote blockquote blockquote {
 
 #composeoptionsbox {
 	padding: 4px 8px 0 8px;
-	border-bottom: 1px dashed #ccc;
+	border-bottom: 1px solid	 #ccc;
 	white-space: nowrap;
 }
 

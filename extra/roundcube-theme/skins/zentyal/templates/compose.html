@@ -12,9 +12,8 @@
 <div class="minwidth">
 <roundcube:include file="/includes/left-header.html" />
 	<div class="toolbar">
-	  <roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="cancel" condition="!env:extwin" />
-	<roundcube:button command="close" type="link" class="button close disabled" classAct="button close" classSel="button close pressed" label="cancel" condition="env:extwin" />
 	<roundcube:button command="send" type="link" class="button send" classAct="button send" classSel="button send pressed" label="send" title="sendmessage" />
+	<roundcube:button name="addattachment" type="link" class="button attach" classAct="button attach" classSel="button attach pressed" label="attach" title="addattachment" onclick="UI.show_uploadform();return false" />
 	<roundcube:button command="savedraft" type="link" class="button savedraft" classAct="button savedraft" classSel="button savedraft pressed" label="save" title="savemessage" />
 	<roundcube:if condition="config:enable_spellcheck" />
 	<span class="dropbutton">
@@ -22,9 +21,9 @@
 		<span class="dropbuttontip" id="spellmenulink" onclick="UI.show_popup('spellmenu');return false"></span>
 	</span>
 	<roundcube:endif />
-	<roundcube:button name="addattachment" type="link" class="button attach" classAct="button attach" classSel="button attach pressed" label="attach" title="addattachment" onclick="UI.show_uploadform();return false" />
 	<roundcube:button command="insert-sig" type="link" class="button insertsig disabled" classAct="button insertsig" classSel="button insertsig pressed" label="signature" title="insertsignature" />
 	<roundcube:container name="toolbar" id="compose-toolbar" />
+	<roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="cancel" condition="!env:extwin" />
 	</div>
 <roundcube:include file="/includes/right-header.html" />
 

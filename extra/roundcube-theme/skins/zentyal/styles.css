@@ -242,26 +242,17 @@ a.button.disabled span.inner {
 
 .pagenav.dark a.button {
 	font-weight: bold;
-	border-color: #e6e6e6;
-	background: #d8d8d8;
-	background: -moz-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d8d8d8), color-stop(100%,#bababa));
-	background: -o-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: -ms-linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	background: linear-gradient(top, #d8d8d8 0%, #bababa 100%);
-	box-shadow: 0 1px 1px 0 #999;
-	-o-box-shadow: 0 1px 1px 0 #999;
-	-webkit-box-shadow: 0 1px 1px 0 #999;
-	-moz-box-shadow: 0 1px 1px 0 #999;
+	border: 0px;
+	background: none;
+	box-shadow: none;
+	-o-box-shadow: none;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+
 }
 
 .pagenav.dark a.button.pressed {
-	background: #bababa;
-	background: -moz-linear-gradient(top, #bababa 0%, #d8d8d8 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bababa), color-stop(100%,#d8d8d8));
-	background: -o-linear-gradient(top, #bababa 0%, #d8d8d8 100%);
-	background: -ms-linear-gradient(top, #bababa 0%, #d8d8d8 100%);
-	background: linear-gradient(top, #bababa 0%, #d8d8d8 100%);
+	background: #bababa;	
 }
 
 .pagenav a.button {
@@ -269,6 +260,9 @@ a.button.disabled span.inner {
 	height: 16px;
 	vertical-align: middle;
 	margin-bottom: 1px;
+}
+.pagenav a.button.disabled{
+	display: none;
 }
 
 .pagenav a.button span.inner {
@@ -319,8 +313,6 @@ a.button.disabled span.inner {
 .pagenav .countdisplay {
 	display: inline-block;
 	padding: 3px 1em 0 1em;
-	text-shadow: 0px 1px 1px #fff;
-	min-width: 16em;
 }
 
 .pagenavbuttons {
@@ -522,6 +514,7 @@ a.iconlink.upload {
 #topnav {
 	height: 50px;
 	float: left;
+	margin-right: 30px;
 }
 
 
@@ -540,9 +533,9 @@ a.iconlink.upload {
 }
 #toplogo {
     float: left;
-    font-size: 25px;
+    font-size: 20px;
     line-height: 50px;
-    padding-right: 15px;
+    padding-right: 10px;
     text-transform: uppercase;
 }
 #toplogo img{
@@ -751,7 +744,7 @@ float: left;
 	display: block;
 	cursor: default;
 	font-weight: normal;
-	margin: 1px 0px;
+	margin:0px;
 }
 
 .listbox .listitem a,
@@ -983,7 +976,7 @@ table.records-table {
 .records-table thead td {
 	color: #999;
 	font-size: 11px;
-	font-weight: bold;
+	font-weight: normal;
 	background: #FFF;
 	/*border-left: 1px solid #eee;*/
 	border-bottom:1px dashed #EEE;
@@ -1424,12 +1417,11 @@ font-size: 12px;}
     border-radius: 0;
     box-shadow: none;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 14px;
     line-height: 50px;
     margin: 0;
-    min-width: 50px;
     overflow: hidden;
-    padding: 0 10px;
+    padding: 0 15px;
     text-align: center;
     text-shadow: none;
     white-space: nowrap;
@@ -1444,7 +1436,7 @@ font-size: 12px;}
 	display: none
 }
 .dropbutton {
-	display: inline-block;
+	float: left;
 	position: relative;
 }
 
@@ -1569,14 +1561,9 @@ font-size: 12px;}
 
 a.menuselector {
 	display: inline-block;
-	border: 1px solid #ababab;
+	border: 1px solid #ccc;
 	border-radius: 4px;
-	background: #f8f8f8;
-	background: -moz-linear-gradient(top, #f8f8f8 0%, #dddddd 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f8f8f8), color-stop(100%,#dddddd));
-	background: -o-linear-gradient(top, #f8f8f8 0%, #dddddd 100%);
-	background: -ms-linear-gradient(top, #f9f9f9 0%, #dddddd 100%);
-	background: linear-gradient(top, #f8f8f8 0%, #dddddd 100%);
+	background: #FFF;
 	text-decoration: none;
 	color: #333;
 	cursor: pointer;
@@ -1587,8 +1574,8 @@ a.menuselector .handle {
 	background: url(images/selector.png) right center no-repeat;
 	display: inline-block;
 	padding: 0 32px 0 6px;
-	height: 20px;
-	line-height: 19px;
+	height: 28px;
+	line-height: 28px;
 	text-shadow: 0px 1px 1px #fff;
 	border-radius: 2px;
 }
