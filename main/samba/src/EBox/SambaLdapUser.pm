@@ -825,6 +825,10 @@ sub _delGroup
                 }
             }
         }
+
+        if ($self->_groupShareEnabled($zentyalGroup)) {
+            $self->removeGroupShare($zentyalGroup);
+        }
     } otherwise {
         my ($error) = @_;
         EBox::error("Error deleting group: $error");
