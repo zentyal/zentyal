@@ -30,12 +30,17 @@ use EBox::HA;
 
 # The URL dispatcher
 my $routes = {
-    qr{/cluster/configuration$} => { 'GET' => \&EBox::HA::clusterConfiguration,
-                                     'PUT' => \&EBox::HA::updateClusterConfiguration},
+    qr{/cluster/configuration$} => { 'GET'    => \&EBox::HA::clusterConfiguration,
+                                     'PUT'    => \&EBox::HA::updateClusterConfiguration },
+
     qr{/cluster/nodes$}         => { 'GET'    => \&EBox::HA::nodes,
                                      'POST'   => \&EBox::HA::addNode },
-    qr{/cluster/nodes/(?<name>[a-zA-Z0-9\-\.]+)$} => {
-                                  'DELETE' => \&EBox::HA::deleteNode },
+
+    qr{/cluster/nodes/(?<name>[a-zA-Z0-9\-\.]+)$}
+                                => { 'DELETE' => \&EBox::HA::deleteNode },
+
+    qr{/conf/replication$}      => { 'GET'    => \&EBox::HA::confReplicationStatus,
+                                     'POST'   => \&EBox::HA::replicateConf },
 };
 
 # FIXME: This copies Tie::RegexpHash

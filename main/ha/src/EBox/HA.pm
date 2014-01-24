@@ -40,6 +40,8 @@ use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
 use JSON::XS;
+use File::Temp;
+use File::Slurp;
 use TryCatch::Lite;
 
 # Constants
@@ -48,6 +50,8 @@ use constant {
     COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
     DEFAULT_MCAST_PORT => 5405,
 };
+
+my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
 
 # Constructor: _create
 #
@@ -323,6 +327,77 @@ sub deleteNode
     } catch ($e) {
         EBox::error("Notifying cluster conf change: $e");
     }
+}
+
+sub confReplicationStatus
+{
+    my ($self) = @_;
+
+    return { errors => 0 };
+}
+
+sub replicateConf
+{
+    my ($self, $params, $body, $uploads) = @_;
+
+    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
+
+    my $file = $uploads->get('file');
+    my $path = $file->path;
+    system ("tar xzf $path -C $tmpdir");
+
+    EBox::Sudo::root("cp -a $tmpdir/files/* /");
+
+    my $modules = decode_json(read_file("$tmpdir/modules.json"));
+
+    foreach my $modname (@{$modules}) {
+        EBox::info("Replicating conf of module: $modname");
+        my $mod = EBox::Global->modInstance($modname);
+        $mod->restoreBackup("$tmpdir/$modname.bak");
+    }
+
+    EBox::Global->saveAllModules();
+
+    EBox::Sudo::root("rm -rf $tmpdir");
+}
+
+sub askForReplication
+{
+    my ($self, $modules) = @_;
+
+    foreach my $node (@{$self->nodes()}) {
+        next if ($node->{localNode});
+        my $addr = $node->{addr};
+        $self->askForReplicationInNode($addr, $modules);
+    }
+}
+
+sub askForReplicationInNode
+{
+    my ($self, $addr, $modules) = @_;
+
+    my $tarfile = 'bundle.tar.gz';
+    my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
+
+    write_file("$tmpdir/modules.json", encode_json($modules));
+
+    foreach my $modname (@{$modules}) {
+        next unless $REPLICATE_MODULES{$modname};
+        my $mod = EBox::Global->modInstance($modname);
+        $mod->makeBackup($tmpdir);
+    }
+
+    system ("mkdir -p $tmpdir/files");
+    foreach my $dir (@{EBox::Config::list('ha_conf_dirs')}) {
+        next unless (-d $dir);
+        EBox::Sudo::root("cp -a --parents $dir $tmpdir/files/");
+    }
+
+    system ("cd $tmpdir; tar czf $tarfile *");
+    my $fullpath = "$tmpdir/$tarfile";
+    system ("curl -F file=\@$fullpath http://$addr:5000/conf/replication");
+
+    EBox::Sudo::root("rm -rf $tmpdir");
 }
 
 # Method: updateClusterConfiguration
