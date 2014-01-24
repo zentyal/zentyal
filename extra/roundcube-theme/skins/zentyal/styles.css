@@ -342,7 +342,9 @@ a.iconbutton.disabled {
 	filter: alpha(opacity=40);
 	cursor: default;
 }
-
+a.iconbutton.search{
+	background-position: -31px -339px;
+}
 a.iconbutton.searchoptions {
 	background-position: -2px -317px;
 }
@@ -525,7 +527,7 @@ a.iconlink.upload {
 
 #topline a,
 #topnav a {
-	color: #eee;
+	color: #fff;
 	text-decoration: none;
 }
 
@@ -537,10 +539,11 @@ a.iconlink.upload {
 	background-color: rgba(0,0,0,0.1);
 }
 #toplogo {
-	float: left;
-	padding-right: 15px;
-	line-height: 50px;
-	font-size: 16px;
+    float: left;
+    font-size: 25px;
+    line-height: 50px;
+    padding-right: 15px;
+    text-transform: uppercase;
 }
 #toplogo img{
 float: left;
@@ -719,15 +722,13 @@ float: left;
 
 .boxtitle,
 .uibox .listing thead td {
-	font-size: 16px;
-	font-weight: bold;
+	font-size: 20px;
+	font-weight: normal;
 	padding: 0 0 0 10px;
-	height: 33px;
-	line-height: 33px;
+	height: 40px;
+	line-height: 40px;
 	margin: 0;
-	color: #BBB;
-	text-shadow: 0px 1px 1px #FFF;
-	border-bottom: 1px dashed #EEE;
+	color: #333;
 	white-space: nowrap;
 }
 
@@ -916,7 +917,7 @@ table.layout td {
 
 .boxpagenav {
 	position: absolute;
-	top: 10px;
+	top: 14px;
 	right: 6px;
 	width: auto;
 }
@@ -933,11 +934,11 @@ table.layout td {
 }
 
 .boxpagenav a.icon.prevpage {
-	background-position: -4px -301px;
+	background-position: -4px -302px;
 }
 
 .boxpagenav a.icon.nextpage {
-	background-position: -28px -301px;
+	background-position: -27px -302px;
 }
 
 .boxpagenav a.icon.lastpage {
@@ -945,8 +946,7 @@ table.layout td {
 }
 
 .boxpagenav a.icon.disabled {
-	opacity: 0.4;
-	filter: alpha(opacity=40);
+	display: none;
 }
 
 .centerbox {
@@ -1319,14 +1319,15 @@ ul.proplist li {
 
 /*** quicksearch **/
 
-#quicksearchbar {
+#quicksearchbar,
+#composequicksearch {
 	position: absolute;
 	right: 0px;
 	top: 0;
 	width: 240px;
 }
 
-#quicksearchbar input {
+#quicksearchbar input{
 	width: 176px;
 	margin: 0;
 	margin-top: 7px;
@@ -1338,15 +1339,49 @@ ul.proplist li {
 	font-size: 11px;
 }
 
-#quicksearchbar #searchmenulink {
+#quicksearchbar #searchmenulink{
 	position: absolute;
 	top: 12px;
 	left: 6px;
 }
 
-#quicksearchbar #searchreset {
+#quicksearchbar #searchreset{
 	position: absolute;
 	top: 11px;
+	right: 0px;
+}
+
+
+#composequicksearch{
+	width: 100%;
+}
+#composequicksearch .searchbox {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #CCCCCC;
+    border-radius: 3px;
+    left: 10px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+#composequicksearch input{
+    background-color:transparent;
+    border: 0 none;
+    box-shadow: none;
+    font-size: 12px;
+    height: 20px;
+    margin-left: 35px;
+    padding: 5px 0;
+    width: 75%;
+}
+#composequicksearch #searchmenulink{
+	position: absolute;
+	top: 7px;
+	left: 6px;
+}
+#composequicksearch #searchreset{
+	position: absolute;
+	top: 6px;
 	right: 0px;
 }
 /*** userbar ***/
@@ -1364,6 +1399,16 @@ ul.proplist li {
 	background-position: center -737px;
 	background-repeat: no-repeat;
 }
+.userbar a.button-logout{
+	background-image: url("images/nav-buttons.png");
+	background-position: center -685px;
+	background-repeat: no-repeat;
+}
+.userbar .username{
+color: white;
+line-height: 50px;
+padding: 0px 20px;
+font-size: 12px;}
 /*** toolbar ***/
 
 .toolbar .spacer {
@@ -1374,7 +1419,7 @@ ul.proplist li {
 }
 
 .toolbar a.button {
-    background-color:transparent;
+    background:transparent;
     border: 0 none;
     border-radius: 0;
     box-shadow: none;
@@ -1382,12 +1427,10 @@ ul.proplist li {
     font-size: 16px;
     line-height: 50px;
     margin: 0;
-    max-width: 75px;
     min-width: 50px;
     overflow: hidden;
     padding: 0 10px;
     text-align: center;
-    text-overflow: ellipsis;
     text-shadow: none;
     white-space: nowrap;
     float: left;
@@ -1410,14 +1453,13 @@ ul.proplist li {
 	position: absolute;
 	right: 0;
 	top: 0;
-	height: 55px;
-	width: 18px;
+	height: 50px;
+	width: 20px;
 	background: url(images/buttons.png) 0 -1680px no-repeat;
 	cursor: pointer;
 }
 
 .dropbutton .dropbuttontip:hover {
-	background-position: -26px -1680px;
 	background-color: rgba(0, 0, 0, 0.2);
 }
 .dropbutton:hover {
@@ -1437,7 +1479,7 @@ ul.proplist li {
 .dropbutton a.button {
     margin-left: 0;
     padding-left: 10px;
-    margin-right: 18px;
+    margin-right: 25px;
     padding-right: 0;
 }
 
@@ -1542,6 +1584,7 @@ a.menuselector {
 }
 
 a.menuselector .handle {
+	background: url(images/selector.png) right center no-repeat;
 	display: inline-block;
 	padding: 0 32px 0 6px;
 	height: 20px;

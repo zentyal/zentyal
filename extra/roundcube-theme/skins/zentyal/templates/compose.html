@@ -12,7 +12,19 @@
 <div class="minwidth">
 <roundcube:include file="/includes/left-header.html" />
 	<div class="toolbar">
-	  <roundcube:include file="/includes/mailtoolbar.html" />
+	  <roundcube:button command="list" type="link" class="button back disabled" classAct="button back" classSel="button back pressed" label="cancel" condition="!env:extwin" />
+	<roundcube:button command="close" type="link" class="button close disabled" classAct="button close" classSel="button close pressed" label="cancel" condition="env:extwin" />
+	<roundcube:button command="send" type="link" class="button send" classAct="button send" classSel="button send pressed" label="send" title="sendmessage" />
+	<roundcube:button command="savedraft" type="link" class="button savedraft" classAct="button savedraft" classSel="button savedraft pressed" label="save" title="savemessage" />
+	<roundcube:if condition="config:enable_spellcheck" />
+	<span class="dropbutton">
+		<roundcube:button command="spellcheck" type="link" class="button spellcheck disabled" classAct="button spellcheck" classSel="button spellcheck pressed" label="spellcheck" title="checkspelling" />
+		<span class="dropbuttontip" id="spellmenulink" onclick="UI.show_popup('spellmenu');return false"></span>
+	</span>
+	<roundcube:endif />
+	<roundcube:button name="addattachment" type="link" class="button attach" classAct="button attach" classSel="button attach pressed" label="attach" title="addattachment" onclick="UI.show_uploadform();return false" />
+	<roundcube:button command="insert-sig" type="link" class="button insertsig disabled" classAct="button insertsig" classSel="button insertsig pressed" label="signature" title="insertsignature" />
+	<roundcube:container name="toolbar" id="compose-toolbar" />
 	</div>
 <roundcube:include file="/includes/right-header.html" />
 
@@ -20,7 +32,15 @@
 <div id="composeview-left">
 
 <!-- inline address book -->
+<div id="composequicksearch">
+	<div class="searchbox">
+		<roundcube:object name="searchform" id="contactsearchbox" />
+		<a id="searchmenulink" class="iconbutton search"> </a>
+		<roundcube:button command="reset-search" id="searchreset" class="iconbutton reset" title="resetsearch" content=" " />
+	</div>
+</div>
 <div id="compose-contacts" class="uibox listbox">
+
 <h2 class="boxtitle"><roundcube:label name="contacts" /></h2>
 	<roundcube:object name="addressbooks" id="directorylist" class="listing" />
 	<div class="scroller withfooter">
@@ -40,22 +60,6 @@
 </div>
 
 <div id="composeview-right">
-
-<!-- toolbar -->
-<div id="messagetoolbar" class="fullwidth">
-<div id="mailtoolbar" class="toolbar">
-	<roundcube:if condition="config:enable_spellcheck" />
-	<span class="dropbutton">
-		<roundcube:button command="spellcheck" type="link" class="button spellcheck disabled" classAct="button spellcheck" classSel="button spellcheck pressed" label="spellcheck" title="checkspelling" />
-		<span class="dropbuttontip" id="spellmenulink" onclick="UI.show_popup('spellmenu');return false"></span>
-	</span>
-	<roundcube:endif />
-	<roundcube:button name="addattachment" type="link" class="button attach" classAct="button attach" classSel="button attach pressed" label="attach" title="addattachment" onclick="UI.show_uploadform();return false" />
-	<roundcube:button command="insert-sig" type="link" class="button insertsig disabled" classAct="button insertsig" classSel="button insertsig pressed" label="signature" title="insertsignature" />
-	<roundcube:container name="toolbar" id="compose-toolbar" />
-</div>
-</div>
-
 <form name="form" action="./" method="post" id="compose-content" class="uibox">
 
 <!-- message headers -->
@@ -110,13 +114,6 @@
 	</tr>
 </tbody>
 </table>
-
-<div id="composebuttons" class="formbuttons">
-	<roundcube:button type="input" command="send" class="button mainaction" label="sendmessage" tabindex="11" />
-	<roundcube:button type="input" command="savedraft" class="button" label="savemessage" tabindex="12" />
-	<roundcube:button type="input" command="list" class="button" label="cancel" tabindex="13" />
-</div>
-
 </div>
 
 <!-- (collapsable) message options -->

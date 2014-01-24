@@ -972,11 +972,13 @@ div.message-part blockquote blockquote blockquote {
 /*** message composition ***/
 
 #composeview-left {
+	box-shadow: -5px 0 5px -5px rgba(0, 0, 0, 0.3) inset;
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 250px;
 	bottom: 0;
+	background-color: #eee;
 }
 
 #composeview-right {
@@ -989,19 +991,18 @@ div.message-part blockquote blockquote blockquote {
 
 #compose-contacts {
 	position: absolute;
-	top: 33px;
+	top: 50px;
 	left: 0;
 	width: 100%;
 	bottom: 0;
 }
 
 #compose-contacts #directorylist {
-	border-bottom: 4px solid #c7e3ef;
+	border-bottom: 1px solid #ccc;
 }
 
 #compose-contacts .scroller {
 	top: 65px;
-	border-top: 1px solid #fff;
 }
 
 #contacts-table {
@@ -1017,7 +1018,9 @@ div.message-part blockquote blockquote blockquote {
 }
 
 #compose-contacts li a, #contacts-table td {
-	background: url(images/listicons.png) -100px 0 no-repeat;
+	background-image: url(images/listicons.png);
+	background-position: -100px 0;
+	background-repeat: no-repeat;
 	overflow: hidden;
 	padding-left: 36px;
 	text-overflow: ellipsis;
@@ -1056,7 +1059,7 @@ div.message-part blockquote blockquote blockquote {
 
 #compose-content {
 	position: absolute;
-	top: 88px;
+	top: 0px;
 	left: 0;
 	width: 100%;
 	bottom: 28px;
