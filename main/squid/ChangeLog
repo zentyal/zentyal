@@ -1,3 +1,7 @@
+HEAD
+	+ Fixed regression in authenticationMode method
+	+ Added validation of the domains added to the transparent proxy
+	  exceptions
 3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions

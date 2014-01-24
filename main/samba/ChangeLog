@@ -1,6 +1,11 @@
 HEAD
 	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
 	  OpenLDAP. Those users are ignored on EBox::LDB::users method
+	+ Remove group share on group deletion
+	+ Set the setShareRightsReset flag on SambaSharesPermissions row deletion
+	+ Samba log helper is now aware of utf8
+	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
+	  deletion
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization
 	+ Typo fix in netbios validation

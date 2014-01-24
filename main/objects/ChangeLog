@@ -1,3 +1,5 @@
+HEAD
+	+ Clearer error when calling objectMembers with a invalid object id
 3.3
 	+ Added missing EBox::Exceptions uses
 	+ Only unroll member ip range addresses in the addresses() method

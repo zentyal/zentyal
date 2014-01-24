@@ -1310,13 +1310,7 @@ sub authenticationMode
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
     } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
-        my $edition = EBox::Global->edition();
-        if (($edition eq 'basic') or ($edition eq 'community')) {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for commercial editions');
-            return AUTH_MODE_INTERNAL;
-        } else {
-            return AUTH_MODE_EXTERNAL_AD;
-        }
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;

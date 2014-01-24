@@ -1,3 +1,6 @@
+HEAD
+	+ Don't use owner module in external-ip.pl script
+	+ Changed failover firewall rules to not use owner module
 3.3.1
 	+ Fixed regression in VLANs interface (contribution by Chris Pitchford)
 	+ Fixed bug which made impossible to edit pppoe gateways
