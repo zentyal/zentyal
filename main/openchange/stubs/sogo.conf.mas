@@ -43,7 +43,7 @@
     SOGoLanguage = English;                 // User can override parameter
 
     /* Mail preferences */
-    SOGoAppointmentSendEMailNotifications = NO;
+    SOGoAppointmentSendEMailNotifications = YES;
     SOGoACLsSendEMailNotifications = NO;
 
     /* Database configuration */

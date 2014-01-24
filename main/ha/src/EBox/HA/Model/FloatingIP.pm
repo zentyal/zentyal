@@ -25,11 +25,13 @@ package EBox::HA::Model::FloatingIP;
 
 use base 'EBox::Model::DataTable';
 
+use EBox;
 use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Types::HostIP;
 use EBox::Types::Text;
+use Net::IP;
 
 use constant MIN_NAME_LENGTH => 5;
 use constant MAX_NAME_LENGTH => 64;
@@ -45,6 +47,11 @@ sub validateTypedRow
     my ($self, $action, $oldParams, $newParams) = @_;
 
     my $name = $newParams->{'name'}->value();
+    my $ip = $newParams->{'floating_ip'}->value();
+
+    my $haModule = $self->parentModule();
+    my $clusterSettings = $haModule->model('Cluster');
+    my $iface = $clusterSettings->interfaceValue();
 
     my $nameLength = length ($name);
     if ($nameLength > MAX_NAME_LENGTH) {
@@ -56,7 +63,108 @@ sub validateTypedRow
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
+    if (my $error_message = $self->_ipCollides($iface, $ip)) {
+        throw EBox::Exceptions::External($error_message);
+    }
 }
+
+# Method: _ipCollides
+#
+# Returns a message if the given IP collides with an existing one
+#   Otherwise it returns an empty string, with won't raise an exception
+#
+sub _ipCollides
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $ipCollisionReason = "";
+
+    if ($self->_existsNetworkIpCollision($iface, $ip)) {
+        $ipCollisionReason = __('There is a a Network interface with the given IP address.');
+    } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
+        $ipCollisionReason = __('There is a fixed DHCP object with the given IP address.');
+    } elsif ($self->_existsDhcpRangesCollision($iface, $ip)) {
+        $ipCollisionReason = __('There is a DHCP range that include the given IP address.');
+    }
+
+    return $ipCollisionReason;
+}
+
+sub _existsNetworkIpCollision
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $floatingIP = new Net::IP($ip);
+
+    my $global = $self->global();
+    my $network = $global->modInstance('network');
+    my @netIPs = @{ $network->ifaceAddresses($iface) };
+
+    foreach my $ifaceIP (@netIPs) {
+        $ifaceIP = new Net::IP($ifaceIP->{address});
+        if ($floatingIP->overlaps($ifaceIP)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+sub _existsDhcpFixedIpCollision
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $global = $self->global();
+
+    if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
+        # If the iface is not static we don't need any further checking
+        my $network = $global->modInstance('network');
+        if ($network->ifaceMethod($iface) ne 'static') {
+            return 0;
+        }
+
+        my $dhcp = $global->modInstance('dhcp');
+        my $floatingIP = new Net::IP($ip);
+
+        my $fixedAddresses = $dhcp->fixedAddresses($iface, 0);
+        foreach my $fixedAddr (@{$fixedAddresses}) {
+            my $fixedIP = new Net::IP($fixedAddr->{ip});
+            if ($floatingIP->overlaps($fixedIP)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+sub _existsDhcpRangesCollision
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $global = $self->global();
+
+    if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
+        my $dhcp = $global->modInstance('dhcp');
+        # FIXME: Move this code to DHCP
+        my $rangeModel = $dhcp->_getModel('RangeTable', $iface);
+
+        my $floatingIP = new Net::IP($ip);
+
+        foreach my $id (@{$rangeModel->ids()}) {
+            my $rangeRow = $rangeModel->row($id);
+            my $from     = $rangeRow->valueByName('from');
+            my $to       = $rangeRow->valueByName('to');
+            my $range    = new Net::IP( $from . '-' . $to);
+            if ($floatingIP->overlaps($range)) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
 
 # Group: Protected methods
 

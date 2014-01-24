@@ -14,6 +14,7 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Better way to set MySQL password for all the root accounts
 	+ Use same JSON reply file for changeRowForm and dataInUse
 	+ Fixed regression in AJAX changes with raised error when a
 	  data in use exception was found

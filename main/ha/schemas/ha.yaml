@@ -11,7 +11,8 @@ models:
     - FloatingIP
     - ClusterMetadata
     - ClusterState
+    - Nodes
 
 composites:
     Initial: [Cluster, FloatingIP]
-    Configuration: [ClusterMetadata, FloatingIP, Cluster]
+    Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]

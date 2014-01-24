@@ -29,11 +29,13 @@ use EBox::Test::RedisMock;
 use Test::Deep;
 use Test::Exception;
 use Test::MockModule;
+use Test::MockObject::Extends;
 use Test::More;
 
 sub setUpConfiguration : Test(startup)
 {
     EBox::Global::TestStub::fake();
+    EBox::Config::TestStub::fake();
 }
 
 sub clearConfiguration : Test(shutdown)
@@ -91,6 +93,97 @@ sub test_cluster_configuration : Test(5)
                     'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}]},
                    'Multicast configuration');
     }
+}
+
+sub test_update_cluster_configuration : Test(14)
+{
+    my ($self) = @_;
+
+    my $mod = new Test::MockObject::Extends($self->{mod});
+    $mod->set_true('_corosyncSetConf', 'saveConfig');
+    $mod->set_false('_isDaemonRunning');
+
+    $mod->set_false('clusterBootstraped');
+    throws_ok {
+        $mod->updateClusterConfiguration();
+    } 'EBox::Exceptions::Internal', 'Update a non-bootstraped cluster';
+    $mod->set_true('clusterBootstraped');
+
+    # Test warns and name change
+    {
+        my ($called, $icalled) = (0, 0);
+        my $fakedEBox = new Test::MockModule('EBox');
+        $fakedEBox->mock('warn' => sub { $called++ },
+                         'info' => sub { $icalled++ });
+        $mod->set_state({cluster_conf => {transport => 'udpu', multicast => undef, nodes => {}}});
+        lives_ok {
+            $mod->updateClusterConfiguration(undef,
+                                             {name => 'foo',
+                                              transport => 'udp',
+                                              multicastConf => {addr => '1.1.1.1'},
+                                              nodes => []});
+        } 'Updating cluster configuration';
+        cmp_ok($called, '==', 1, 'Warning launched');
+        cmp_ok($icalled, '==', 2, 'Info changing the names + params');
+        lives_ok {
+            $mod->updateClusterConfiguration(undef,
+                                             {name => 'foobar',
+                                              transport => 'udpu',
+                                              multicastConf => {addr => '1.1.1.1'},
+                                              nodes => []});
+        } 'Updating cluster transport';
+        cmp_ok($called, '==', 2, 'Warning launched');
+        cmp_ok($mod->model('Cluster')->nameValue(), 'eq', 'foobar', 'Cluster name updated');
+    }
+
+    lives_ok {
+        $mod->updateClusterConfiguration(undef,
+                                         {name => 'foo',
+                                          transport => 'udpu',
+                                          multicastConf => {},
+                                          nodes => [
+                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443}
+                                             ]});
+    } 'Add a new node';
+    cmp_deeply($mod->clusterConfiguration()->{nodes}, [{addr => '1.1.1.1', name => 'new', nodeid => 1,
+                                                        webAdminPort => 443, localNode => 0}]);
+    lives_ok {
+        $mod->updateClusterConfiguration(undef,
+                                         {name => 'foo',
+                                          transport => 'udpu',
+                                          multicastConf => {},
+                                          nodes => [
+                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443},
+                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
+
+                                             ]});
+    } 'Add another node';
+    cmp_ok(scalar(@{$mod->clusterConfiguration()->{nodes}}), '==', 2);
+    lives_ok {
+        $mod->updateClusterConfiguration(undef,
+                                         {name => 'foo',
+                                          transport => 'udpu',
+                                          multicastConf => {},
+                                          nodes => [
+                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
+                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
+
+                                             ]});
+    } 'Update a node';
+
+    lives_ok {
+        $mod->updateClusterConfiguration(undef,
+                                         {name => 'foo',
+                                          transport => 'udpu',
+                                          multicastConf => {},
+                                          nodes => [
+                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
+
+                                             ]});
+    } 'Remove a node';
+    cmp_deeply($mod->clusterConfiguration()->{nodes}, [{addr => '1.1.1.3', name => 'new', nodeid => 1,
+                                                        webAdminPort => 443, localNode => 0}]);
+
 }
 
 1;

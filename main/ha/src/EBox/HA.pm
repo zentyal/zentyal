@@ -20,8 +20,9 @@ use warnings;
 #
 #    HA module is responsible to have Zentyal server in a cluster.
 #
-#    It manages the cluster membership configuration (corosync) and
-#    cluster resource managing (pacemaker)
+#    It manages the cluster membership configuration (corosync),
+#    cluster resource managing (pacemaker) and the layer for conf
+#    replication and corosync synchronisation (PSGI server).
 #
 
 package EBox::HA;
@@ -30,6 +31,7 @@ use base qw(EBox::Module::Service);
 
 use feature qw(switch);
 
+use Data::Dumper;
 use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Global;
@@ -157,7 +159,7 @@ sub clusterBootstraped
 {
     my ($self) = @_;
 
-    return $self->model('ClusterState')->bootstrapedValue();
+    return ($self->model('ClusterState')->bootstrapedValue() == 1);
 }
 
 # Method: clusterConfiguration
@@ -200,22 +202,6 @@ sub clusterConfiguration
     }
 }
 
-# Method: updateClusterConfiguration
-#
-#    Update cluster configuration after a change in other node of the cluster
-#
-# Parameters:
-#
-#    params - nothing
-#    body   - Hash ref new cluster configuration from another node in the cluster
-#
-sub updateClusterConfiguration
-{
-    my ($self, $params, $body) = @_;
-
-    # FIXME: TODO
-}
-
 # Method: leaveCluster
 #
 #    Leave the cluster by setting the cluster not boostraped
@@ -250,7 +236,7 @@ sub nodes
 #     Add a node to the cluster.
 #
 #     * Store the new node
-#     * Send info to other members of the cluster (TODO)
+#     * Send info to other members of the cluster
 #     * Write corosync conf
 #     * Dynamically add the new node
 #
@@ -263,7 +249,6 @@ sub addNode
 {
     my ($self, $params, $body) = @_;
 
-    use Data::Dumper;
     EBox::info('Add node (params): ' . Dumper($params));
 
     # TODO: Check incoming data
@@ -274,15 +259,23 @@ sub addNode
     # Write corosync conf
     $self->_corosyncSetConf();
 
-    # Dynamically add the new node to corosync
-    my $newNode = $list->node($params->{name});
-    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
-                     . '.nodeid u32 ' . $newNode->{nodeid},
-                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
-                     . '.name str ' . $newNode->{name},
-                     'corosync-cmapctl -s nodelist.node.' . ($newNode->{nodeid} - 1)
-                     . '.ring0_addr str ' . $newNode->{addr});
+    if ($self->_isDaemonRunning('corosync')) {
+        if ($self->_multicast()) {
+            # Multicast
+            my $expectedVotes = $list->size();
+            EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
+        } else {
+            my $newNode = $list->node($params->{name});
+            $self->_addCorosyncNode($newNode);
+        }
+    }
 
+    try {
+        # Notify to other cluster nodes skipping the new added node
+        $self->_notifyClusterConfChange($list, [$params->{name}]);
+    } catch ($e) {
+        EBox::error("Notifying cluster conf change: $e");
+    }
 }
 
 # Method: deleteNode
@@ -290,7 +283,7 @@ sub addNode
 #    Delete node from the cluster.
 #
 #    * Delete the node
-#    * Send cluster configuration to other members (TODO)
+#    * Send cluster configuration to other members
 #    * Write corosync conf
 #    * Dynamically add the new node
 #
@@ -307,24 +300,33 @@ sub deleteNode
 {
     my ($self, $params) = @_;
 
-    use Data::Dumper;
     EBox::info('delete node (params): ' . Dumper($params));
 
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
     my $deletedNode = $list->node($params->{name});
     $list->remove($params->{name});
-    # TODO: Notify other members
 
     # Write corosync conf
     $self->_corosyncSetConf();
 
-    # Dynamically remove the new node to corosync
-    EBox::Sudo::root(
-        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.ring0_addr',
-        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.name',
-        'corosync-cmapctl -D nodelist.node.' . ($deletedNode->{nodeid} - 1) . '.nodeid');
+    if ($self->_isDaemonRunning('corosync')) {
+        if ($self->_multicast()) {
+            # Multicast
+            my $expectedVotes = $list->size();
+            EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
+        } else {
+            # Dynamically remove the new node to corosync
+            $self->_deleteCorosyncNode($deletedNode);
+        }
+    }
 
+    # Notify to other cluster nodes skipping the new added node
+    try {
+        $self->_notifyClusterConfChange($list);
+    } catch ($e) {
+        EBox::error("Notifying cluster conf change: $e");
+    }
 }
 
 sub confReplicationStatus
@@ -398,6 +400,89 @@ sub askForReplicationInNode
     EBox::Sudo::root("rm -rf $tmpdir");
 }
 
+# Method: updateClusterConfiguration
+#
+#    Update cluster configuration after a change in other node of the cluster
+#
+# Parameters:
+#
+#    params - <Hash::MultiValue> see <clusterConfiguration> for details
+#    body   - Decoded content from JSON request
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if the cluster is not bootstraped
+sub updateClusterConfiguration
+{
+    my ($self, $params, $body) = @_;
+
+    EBox::info('Update cluster conf (body): ' . Dumper($body));
+
+    # TODO: Check incoming data
+    unless ($self->clusterBootstraped()) {
+        throw EBox::Exceptions::Internal('Cannot a non-bootstraped module');
+    }
+
+    my $state = $self->get_state();
+    my $currentClusterConf = $state->{cluster_conf};
+    unless (($currentClusterConf->{transport} eq $body->{transport})
+            and (($currentClusterConf->{multicast} ~~ $body->{multicastConf})
+                 or (not(defined($currentClusterConf->{multicast})) and $body->{multicastConf} ~~ {}))
+           ) {
+        EBox::warn('Change in multicast or transport is not supported');
+    }
+
+    # Update name if required
+    my $clusterRow = $self->model('Cluster')->row();
+    if ($body->{name} ne $clusterRow->valueByName('name')) {
+        EBox::info("Updating cluster name to " . $body->{name});
+        $clusterRow->elementByName('name')->setValue($body->{name});
+        $clusterRow->storeElementByName('name');
+        $self->saveConfig();
+    }
+
+    my $list = new EBox::HA::NodeList($self);
+    my ($equal, $diff) = $list->diff($body->{nodes});
+    unless ($equal) {
+        my %currentNodes = map { $_->{name} => $_ } @{$list->list()};
+        my %nodes = map { $_->{name} => $_ } @{$body->{nodes}};
+        # Update NodeList
+        foreach my $nodeName (@{$diff->{new}}, @{$diff->{changed}}) {
+            my $node = $nodes{$nodeName};
+            $node->{localNode} = 0;  # Supposed the notifications
+                                     # never comes from self
+            $list->set(%{$node});
+        }
+        foreach my $nodeName (@{$diff->{old}}) {
+            $list->remove($nodeName);
+        }
+
+        # Store conf to apply between restarts
+        $self->_corosyncSetConf();
+        if ($self->_isDaemonRunning('corosync')) {
+            if ($self->_multicast()) {
+                # Multicast
+                unless (scalar(keys(%currentNodes)) == scalar(keys(%nodes))) {
+                    my $expectedVotes = $list->size();
+                    EBox::Sudo::root("corosync-quorumtool -e $expectedVotes");
+                }
+            } else {
+                foreach my $changedNodeName (@{$diff->{changed}}) {
+                    if ($nodes{$changedNodeName}->{addr} ne $currentNodes{$changedNodeName}->{addr}) {
+                        $self->_updateCorosyncNode($nodes{$changedNodeName});
+                    }
+                }
+                foreach my $addedNodeName (@{$diff->{new}}) {
+                    $self->_addCorosyncNode($nodes{$addedNodeName});
+                }
+                foreach my $deletedNodeName (@{$diff->{old}}) {
+                    $self->_deleteCorosyncNode($nodes{$deletedNodeName});
+                }
+            }
+        }
+    }
+}
+
 # Group: Protected methods
 
 # Method: _daemons
@@ -469,6 +554,73 @@ sub nodeListWidget
                                             __('Cluster is not configured')));
 }
 
+# Method: floatingIPs
+#
+#       Return the existing floating IPs
+#
+# Returns:
+#
+#   array ref - each element contains a hash ref with keys:
+#
+#          name - the name of the given floating IP
+#          address - the IP address
+#
+sub floatingIPs
+{
+    my ($self) = @_;
+
+    my $floatingIpModel = $self->model('FloatingIP');
+    my @floatingIps;
+    for my $id (@{$floatingIpModel->ids()}) {
+        my $row = $floatingIpModel->row($id);
+        push (@floatingIps, { name => $row->printableValueByName('name'),
+                address  => $row->printableValueByName('floating_ip')});
+    }
+
+    return \@floatingIps;
+}
+
+# Method: isFloatingIP
+#
+#       Return if the given IP from the given interface already exists
+#       as one of the HA module flaoting IPs
+#
+# Parameters:
+#
+# iface - interface name
+# ip - IP address we want to check
+#
+# Returns:
+#
+#   boolean - weather the IP already exists or not
+#
+sub isFloatingIP
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $clusterSettings = $self->model('Cluster');
+    my $haIface = $clusterSettings->interfaceValue();
+
+    my $zentyalIP = new Net::IP($ip);
+
+    # Ifaces must be the same to take place an overlapping
+    if ($iface ne $haIface) {
+        return 0;
+    }
+
+    # Compare the IP with all the existing floating IPs
+    my $floatingIPs = $self->floatingIPs();
+    foreach my $floatingIPRow (@{$floatingIPs}) {
+        my $floatingIP = new Net::IP($floatingIPRow->{address});
+
+        if ($zentyalIP->overlaps($floatingIP)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 # Group: Private methods
 
 # Corosync configuration
@@ -505,7 +657,7 @@ sub _corosyncSetConf
     if ($localNodeAddr ne $localNode->{addr}) {
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
                    webAdminPort => 443, localNode => 1);
-        # TODO: Notify to other peers
+        $self->_notifyClusterConfChange($list);
     }
 
     my $clusterConf = $self->clusterConfiguration();
@@ -648,6 +800,78 @@ sub _notifyLeave
         }
         last if ($last);
     }
+}
+
+# Notify cluster conf change
+sub _notifyClusterConfChange
+{
+    my ($self, $list, $excludes) = @_;
+
+    my $conf = $self->clusterConfiguration();
+    foreach my $node (@{$list->list()}) {
+        try {
+            next if ($node->{localNode});
+            next if ($node->{name} ~~ @{$excludes});
+            EBox::info('Notifying cluster conf changes to ' . $node->{name});
+            my $client = new EBox::RESTClient(server => $node->{addr});
+            $client->setPort(5000);  # TODO: Use real port
+            # FIXME: Delete this line and not verify servers when using HAProxy
+            $client->setScheme('http');
+            # TODO: Add secret
+            # Use JSON as there is more than one level of depth to use x-form-urlencoded
+            my $JSONConf = new JSON::XS()->utf8()->encode($conf);
+            my $response = $client->PUT('/cluster/configuration',
+                                        query => $JSONConf);
+        } catch ($e) {
+            EBox::error('Error notifying ' . $node->{name} . " :$e");
+        }
+    }
+}
+
+
+# Dynamically update a corosync node
+# Only update on addr is supported
+sub _updateCorosyncNode
+{
+    my ($self, $node) = @_;
+
+    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
+                     . '.ring0_addr str ' . $node->{addr});
+
+}
+
+# Dynamically add a corosync node
+sub _addCorosyncNode
+{
+    my ($self, $node) = @_;
+
+    EBox::Sudo::root('corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
+                     . '.nodeid u32 ' . $node->{nodeid},
+                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
+                     . '.name str ' . $node->{name},
+                     'corosync-cmapctl -s nodelist.node.' . ($node->{nodeid} - 1)
+                     . '.ring0_addr str ' . $node->{addr});
+
+}
+
+# Dynamically delete a corosync node
+sub _deleteCorosyncNode
+{
+    my ($self, $node) = @_;
+
+    EBox::Sudo::root(
+        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.ring0_addr',
+        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.name',
+        'corosync-cmapctl -D nodelist.node.' . ($node->{nodeid} - 1) . '.nodeid');
+
+}
+
+# Shortcut for knowing the multicast
+sub _multicast
+{
+    my ($self) = @_;
+
+    return ($self->get_state()->{cluster_conf}->{transport} == 'udp');
 }
 
 1;

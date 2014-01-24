@@ -1118,6 +1118,9 @@ sub setViface
            );
     }
 
+    # Check the virtual interface IP  address is not a HA floating IP
+    $self->_checkHAFloatingIPCollision($iface, $address);
+
     my $global = EBox::Global->getInstance();
     my @mods = @{$global->modInstancesOfType('EBox::NetworkObserver')};
     foreach my $mod (@mods) {
@@ -1510,6 +1513,9 @@ sub setIfaceStatic
                    ));
         }
     }
+
+    # Check the interface IP  address is not a HA floating IP
+    $self->_checkHAFloatingIPCollision($name, $address);
 
     if ($oldm eq any('dhcp', 'ppp')) {
         $self->DHCPCleanUp($name);
@@ -4958,6 +4964,22 @@ sub _readInterfaces
     push (@interfaces, $iface) if ($iface);
 
     return \@interfaces;
+}
+
+# Check the IP  address is not a HA floating IP
+sub _checkHAFloatingIPCollision
+{
+    my ($self, $iface, $address) = @_;
+
+    my $global = EBox::Global->getInstance();
+
+    if ($global->modExists('ha') and $global->modInstance('ha')->isEnabled()) {
+        my $ha = $global->modInstance('ha');
+        if ($ha->isFloatingIP($iface, $address)) {
+            throw EBox::Exceptions::External("The IP: " . $address . " is already".
+                    " a HA floating IP.");
+        }
+    }
 }
 
 1;
