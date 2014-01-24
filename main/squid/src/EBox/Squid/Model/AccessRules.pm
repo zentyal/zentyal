@@ -219,6 +219,7 @@ sub _populateGroupsFromExternalAD
     my $ad = $self->_adLdap();
     my $dse = $ad->root_dse(attrs => ['defaultNamingContext', '*']);
     my $defaultNC = $dse->get_value('defaultNamingContext');
+    $defaultNC = canonical_dn($defaultNC);
     my $sort = new Net::LDAP::Control::Sort(order => 'samAccountName');
     my $filter = $skip ?
         '(&(objectClass=group)(!(isCriticalSystemObject=*)))':
@@ -283,6 +284,9 @@ sub _adGroupMembers
                                         scope => 'base',
                                         filter => '(objectClass=group)',
                                         attrs => ['objectSid']);
+            unless ($result2->code() eq LDAP_SUCCESS) {
+                $self->_ADException($result2);
+            }
             foreach my $nestedGroupEntry ($result2->entries()) {
                 my $nestedGroupSid = $nestedGroupEntry->get_value('objectSid');
                 next unless defined $nestedGroupSid;
@@ -295,6 +299,9 @@ sub _adGroupMembers
                                         scope => 'base',
                                         filter => "(objectClass=user)",
                                         attrs => ['samAccountName']);
+            unless ($result3->code() eq LDAP_SUCCESS) {
+                $self->_ADException($result3);
+            }
             foreach my $userEntry ($result3->entries()) {
                 my $samAccountName = $userEntry->get_value('samAccountName');
                 next unless defined $samAccountName;
@@ -340,7 +347,9 @@ sub _pagedSearch
     while (1) {
         # Perform the search
         my $msg = $ldap->search(%search);
-        last unless ($msg->code() eq LDAP_SUCCESS);
+        unless ($msg->code() eq LDAP_SUCCESS) {
+            $self->_ADException($msg);
+        }
 
         foreach my $entry ($msg->entries()) {
             $entry = $self->_rangeAttrSearch($ldap, $searchParams, $entry);
@@ -384,7 +393,9 @@ sub _rangeAttrSearch
                                         scope  => $searchParams->{scope},
                                         filter => $searchParams->{filter},
                                         attrs  => [$rangeAttr]);
-                # TODO: Manage errors
+                unless ($msg->code() eq LDAP_SUCCESS) {
+                    $self->_ADException($msg);
+                }
                 foreach my $rangeEntry ($msg->entries()) {
                     ($rangeAttr) = grep { $_ =~ m/;range/ } $rangeEntry->attributes();
                     push(@attrValues, $rangeEntry->get_values($rangeAttr));
@@ -395,6 +406,17 @@ sub _rangeAttrSearch
         }
     }
     return $entry;
+}
+
+# Launch an external exception if the AD cannot fulfil our request
+sub _ADException
+{
+    my ($self, $msg) = @_;
+
+    throw EBox::Exceptions::External(
+        __x('AD Error {error_name}: {error_desc}. If you think this error is temporary, please try again later',
+            error_name => $msg->error_name(),
+            error_desc => $msg->error_desc()))
 }
 
 sub validateTypedRow
