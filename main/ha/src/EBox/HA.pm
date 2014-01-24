@@ -479,6 +479,73 @@ sub nodeListWidget
                                             __('Cluster is not configured')));
 }
 
+# Method: floatingIPs
+#
+#       Return the existing floating IPs
+#
+# Returns:
+#
+#   array ref - each element contains a hash ref with keys:
+#
+#          name - the name of the given floating IP
+#          address - the IP address
+#
+sub floatingIPs
+{
+    my ($self) = @_;
+
+    my $floatingIpModel = $self->model('FloatingIP');
+    my @floatingIps;
+    for my $id (@{$floatingIpModel->ids()}) {
+        my $row = $floatingIpModel->row($id);
+        push (@floatingIps, { name => $row->printableValueByName('name'),
+                address  => $row->printableValueByName('floating_ip')});
+    }
+
+    return \@floatingIps;
+}
+
+# Method: isFloatingIP
+#
+#       Return if the given IP from the given interface already exists
+#       as one of the HA module flaoting IPs
+#
+# Parameters:
+#
+# iface - interface name
+# ip - IP address we want to check
+#
+# Returns:
+#
+#   boolean - weather the IP already exists or not
+#
+sub isFloatingIP
+{
+    my ($self, $iface, $ip) = @_;
+
+    my $clusterSettings = $self->model('Cluster');
+    my $haIface = $clusterSettings->interfaceValue();
+
+    my $zentyalIP = new Net::IP($ip);
+
+    # Ifaces must be the same to take place an overlapping
+    if ($iface ne $haIface) {
+        return 0;
+    }
+
+    # Compare the IP with all the existing floating IPs
+    my $floatingIPs = $self->floatingIPs();
+    foreach my $floatingIPRow (@{$floatingIPs}) {
+        my $floatingIP = new Net::IP($floatingIPRow->{address});
+
+        if ($zentyalIP->overlaps($floatingIP)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
 # Group: Private methods
 
 # Corosync configuration
