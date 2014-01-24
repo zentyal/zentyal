@@ -1,4 +1,5 @@
-HEAD
+3.2.4
+	+ Fixed regression in authenticationMode method
 	+ Added validation of the domains added to the transparent proxy
 	  exceptions
 3.2.3
