@@ -95,18 +95,31 @@ sub syncRows
         my $isDefaultPort = ($enabledPort and $srv->defaultHAProxyPort() and (not $srv->targetHAProxyDomains()));
         my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHAProxySSLPort() and (not $srv->targetHAProxyDomains()));
         my @args = ();
-        push (@args, module         => $srv->name());
-        push (@args, serviceId      => $srv->HAProxyServiceId());
-        push (@args, service        => $srv->printableName());
-        push (@args, port           => $enabledPort ? { port_number => $srv->defaultHAProxyPort() } : { port_disabled => undef });
-        push (@args, blockPort      => $srv->blockHAProxyPort());
-        push (@args, defaultPort    => $isDefaultPort);
-        push (@args, sslPort        => $enabledSSLPort ? { sslPort_number => $srv->defaultHAProxySSLPort() } : { sslPort_disabled => undef });
-        push (@args, blockSSLPort   => $srv->blockHAProxySSLPort());
-        push (@args, defaultSSLPort => $isDefaultSSLPort);
-        push (@args, canBeDisabled  => $srv->allowDisableHAProxyService());
+        push (@args, module           => $srv->name());
+        push (@args, serviceId        => $srv->HAProxyServiceId());
+        push (@args, service          => $srv->printableName());
+        if ($enabledPort) {
+            push (@args, port_selected => 'port_number');
+            push (@args, port_number   => $srv->defaultHAProxyPort());
+        } else {
+            push (@args, port_selected => 'port_disabled');
+        }
+        push (@args, blockPort        => $srv->blockHAProxyPort());
+        push (@args, defaultPort      => $isDefaultPort);
+        if ($enabledSSLPort) {
+            push (@args, sslPort_selected => 'sslPort_number');
+            push (@args, sslPort_number   => $srv->defaultHAProxySSLPort());
+        } else {
+            push (@args, sslPort_selected => 'sslPort_disabled');
+        }
+        push (@args, blockSSLPort     => $srv->blockHAProxySSLPort());
+        push (@args, defaultSSLPort   => $isDefaultSSLPort);
+        push (@args, canBeDisabled    => $srv->allowDisableHAProxyService());
 
-        $self->add(@args);
+        # Warn the validators that we are doing a forced edition / addition.
+        $self->{force} = 1;
+
+        $self->addRow(@args);
         $modified = 1;
     }
 
@@ -149,24 +162,16 @@ sub _table
         ),
         new EBox::Types::Text(
             fieldName     => 'module',
-            printableName => __('Module'),
+            printableName => 'module',
             unique        => 0,
             hidden        => 1,
             editable      => 0,
-            filter => sub {
-                my ($self)  = @_;
-                my $modName = $self->value();
-                my $mod = EBox::Global->modInstance($modName);
-                # return modname if the module was uninstalled
-                return $modName unless defined ($mod);
-                return $mod->title();
-            },
         ),
         new EBox::Types::Text(
-            fieldName     => 'service',
-            printableName => __('Service'),
-            unique        => 1,
-            editable      => 0,
+            fieldName        => 'service',
+            printableName    => __('Service'),
+            unique           => 1,
+            editable         => 0,
             allowUnsafeChars => 1,
         ),
         new EBox::Types::Union(
@@ -175,13 +180,14 @@ sub _table
             editable      => 1,
             subtypes      => [
                 new EBox::Types::Union::Text(
-                    fieldName => 'port_disabled',
+                    fieldName     => 'port_disabled',
                     printableName => __('Disabled'),
                 ),
                 new EBox::Types::Port(
                     fieldName     => 'port_number',
                     printableName => __('Enabled'),
                     editable      => 1,
+                    defaultValue  => 80,
                 ),
             ],
         ),
@@ -210,6 +216,7 @@ sub _table
                     fieldName     => 'sslPort_number',
                     printableName => __('Enabled'),
                     editable      => 1,
+                    defaultValue  => 443,
                 ),
             ],
         ),
@@ -252,8 +259,10 @@ sub validateTypedRow
 {
     my ($self, $action, $params_r, $actual_r, $force) = @_;
 
-    # FIXME: Find a way so we don't need to remove port checking with force = 1
-    $force = 1;
+    if ($self->{force}) {
+        # Either syncRows method or setServicePorts methods forced the addition / edition of this field.
+        $force = delete $self->{force};
+    }
     my $enabledPort = ($actual_r->{port}->selectedType() eq 'port_number');
     my $enabledSSLPort = ($actual_r->{sslPort}->selectedType() eq 'sslPort_number');
     my $port = $enabledPort ? $actual_r->{port}->value(): undef;
@@ -555,6 +564,11 @@ sub setServicePorts
         }
     }
 
+    if ($args{force}) {
+        # Warn the validators that we are doing a forced edition / addition.
+        $self->{force} = 1;
+    }
+
     if (defined $moduleRow) {
         my $portItem = $moduleRow->elementByName('port');
         if ($args{enablePort}) {
@@ -594,18 +608,28 @@ sub setServicePorts
             $sslPort = $module->defaultHAProxySSLPort();
         }
         my @args = ();
-        push (@args, module         => $module->name());
-        push (@args, serviceId      => $module->HAProxyServiceId());
-        push (@args, service        => $module->printableName());
-        push (@args, port           => $args{enablePort} ? { port_number => $port } : { port_disabled => undef });
-        push (@args, blockPort      => $module->blockHAProxyPort());
-        push (@args, defaultPort    => $args{defaultPort});
-        push (@args, sslPort        => $args{enableSSLPort} ? { sslPort_number => $sslPort } : { sslPort_disabled => undef });
-        push (@args, blockSSLPort   => $module->blockHAProxySSLPort());
-        push (@args, defaultSSLPort => $args{defaultSSLPort});
-        push (@args, canBeDisabled  => $module->allowDisableHAProxyService());
+        push (@args, module           => $module->name());
+        push (@args, serviceId        => $module->HAProxyServiceId());
+        push (@args, service          => $module->printableName());
+        if ($args{enablePort}) {
+            push (@args, port_selected => 'port_number');
+            push (@args, port_number   => $port);
+        } else {
+            push (@args, port_selected => 'port_disabled');
+        }
+        push (@args, blockPort        => $module->blockHAProxyPort());
+        push (@args, defaultPort      => $args{defaultPort});
+        if ($args{enableSSLPort}) {
+            push (@args, sslPort_selected => 'sslPort_number');
+            push (@args, sslPort_number   => $sslPort);
+        } else {
+            push (@args, sslPort_selected => 'sslPort_disabled');
+        }
+        push (@args, blockSSLPort     => $module->blockHAProxySSLPort());
+        push (@args, defaultSSLPort   => $args{defaultSSLPort});
+        push (@args, canBeDisabled    => $module->allowDisableHAProxyService());
 
-        $self->add(@args);
+        $self->addRow(@args);
     }
 
     my @ports = ();
