@@ -4,6 +4,9 @@ HEAD
 	  container and already exists
 	+ Check for duplicated DN on user creation and show a proper error, not
 	  an internal exception.
+	+ Samba log helper is now aware of utf8
+	+ EBox::Samba::LdbObject::deleteObject - Delete all childs before self
+	  deletion
 3.2.13
 	+ User profiles are only created if the OpenLDAP sync exists, otherwise,
 	  defer it until s4sync does the synchronization

@@ -53,7 +53,8 @@ my $gwMark = $marks->{$gwId};
 # Add the iptables marks
 my @rules = ("/sbin/iptables -t mangle -F $CHAIN || true",
              "/sbin/iptables -t mangle -A $CHAIN -d $DST_HOST " .
-             "-m owner --gid-owner ebox -j MARK --set-mark $gwMark");
+             "-p tcp --dport 80 " .
+             "-j MARK --set-mark $gwMark ");
 EBox::Sudo::root(@rules);
 
 # Perform the query as ebox
