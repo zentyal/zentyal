@@ -655,7 +655,7 @@ sub users
         filter => '(objectClass=Container)',
         attrs => ['*'],
     };
-    $result = $self->search($params);
+    my $result = $self->search($params);
     foreach my $entry ($result->sorted('cn')) {
         my $container = new EBox::Samba::Container(entry => $entry);
         next if $container->get('cn') eq any QUERY_IGNORE_CONTAINERS;
