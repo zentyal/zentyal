@@ -374,11 +374,11 @@ sub _rangeAttrSearch
     foreach my $attr ($entry->attributes()) {
         if ($attr =~ /;range=/) {
             my ($pureAttr, $range) = split(/;/, $attr, 2);
-            my ($first, $last) = $range =~ m/range=(.*)-(.*)$/;
+            my ($last) = $range =~ m/range=\d+-(.*)$/;
             my @attrValues = $entry->get_value($pureAttr);
             push(@attrValues, $entry->get_value($attr));
             while( $last ne '*' ) {
-                my $rangeAttr = "$pureAttr;range=" . ($last + 1) . '-' . ($last + $last - $first + 1);
+                my $rangeAttr = "$pureAttr;range=" . ($last + 1) . '-*';
                 # Simple query
                 my $msg = $ldap->search(base   => $searchParams->{base},
                                         scope  => $searchParams->{scope},
@@ -389,7 +389,7 @@ sub _rangeAttrSearch
                     ($rangeAttr) = grep { $_ =~ m/;range/ } $rangeEntry->attributes();
                     push(@attrValues, $rangeEntry->get_values($rangeAttr));
                 }
-                ($first, $last) = $rangeAttr =~ m/range=(.*)-(.*)$/;  # To calculate new range
+                ($last) = $rangeAttr =~ m/range=\d+-(.*)$/;  # To calculate new range
             }
             $entry->replace($pureAttr, \@attrValues);
         }
