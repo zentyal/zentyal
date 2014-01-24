@@ -160,7 +160,7 @@ sub addedRowNotify
 {
     my ($self, $row) = @_;
 
-    # Tag this share as needing a reset of rights. 
+    # Tag this share as needing a reset of rights.
     my $parentRow = $self->parentRow();
     $parentRow->model()->tagShareRightsReset($parentRow);
 }
@@ -179,9 +179,23 @@ sub updatedRowNotify
         return;
     }
 
-    # Tag this share as needing a reset of rights. 
+    # Tag this share as needing a reset of rights.
     my $parentRow = $self->parentRow();
     $parentRow->model()->tagShareRightsReset($parentRow);
+}
+
+# Method: deletedRowNotify
+#
+# Overrides:
+#
+#   <EBox::Model::DataTable::deletedRowNotify>
+#
+sub deletedRowNotify
+{
+    my ($self, $row, $force) = @_;
+
+    my $parentRow = $self->parentRow();
+    $parentRow->model->tagShareRightsReset($parentRow);
 }
 
 # Method: viewCustomizer
