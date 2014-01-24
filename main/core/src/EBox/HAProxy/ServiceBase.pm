@@ -59,7 +59,7 @@ sub isPortEnabledInHAProxy
 
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('Services');
+    my $services = $haproxyMod->model('HAProxyServices');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
 
     my $portItem = $moduleRow->elementByName('port');
@@ -80,7 +80,7 @@ sub usedHAProxyPort
 
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('Services');
+    my $services = $haproxyMod->model('HAProxyServices');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
 
     if ($self->isPortEnabledInHAProxy()) {
@@ -104,8 +104,12 @@ sub isSSLPortEnabledInHAProxy
 
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('Services');
+    my $services = $haproxyMod->model('HAProxyServices');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+
+    unless ($moduleRow) {
+        return undef;
+    }
 
     my $sslPortItem = $moduleRow->elementByName('sslPort');
     return ($sslPortItem->selectedType() eq 'sslPort_number');
@@ -125,7 +129,7 @@ sub usedHAProxySSLPort
 
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
-    my $services = $haproxyMod->model('Services');
+    my $services = $haproxyMod->model('HAProxyServices');
     my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
 
     if ($self->isSSLPortEnabledInHAProxy()) {

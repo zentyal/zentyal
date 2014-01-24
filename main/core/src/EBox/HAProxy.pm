@@ -101,7 +101,7 @@ sub ports
     my ($self) = @_;
 
     my $global = $self->global();
-    my $services = $self->model('Services');
+    my $services = $self->model('HAProxyServices');
     my %ports = ();
 
     for my $id (@{$services->enabledRows()}) {
@@ -279,7 +279,7 @@ sub setHAProxyServicePorts
 {
     my ($self, %args) = @_;
 
-    my $services = $self->model('Services');
+    my $services = $self->model('HAProxyServices');
     $services->setServicePorts(%args);
 }
 

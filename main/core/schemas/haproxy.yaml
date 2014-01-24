@@ -1,4 +1,4 @@
 class: 'EBox::HAProxy'
 
 models:
-    - Services
+    - HAProxyServices
