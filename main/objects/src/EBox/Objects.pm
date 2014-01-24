@@ -113,7 +113,12 @@ sub objectMembers # (object)
     }
 
     my $object = $self->model('ObjectTable')->row($id);
-    return undef unless defined($object);
+    if (not $object) {
+        throw EBox::Exceptions::DataNotFound(
+                        data   => __('network object'),
+                        value  => $id
+           );
+    }
 
     return $object->subModel('members')->members();
 }
@@ -142,10 +147,6 @@ sub objectAddresses
     }
 
     my $members = $self->objectMembers($id);
-    if (not $members) {
-        return undef;
-    }
-
     return $members->addresses(@params);
 }
 
