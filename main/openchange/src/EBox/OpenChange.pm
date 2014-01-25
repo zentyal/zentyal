@@ -26,7 +26,6 @@ use EBox::DBEngineFactory;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
-use EBox::WebServer;
 
 use String::Random;
 
@@ -40,8 +39,6 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
-
-use constant RPCPROXY_CONF_FILE => EBox::WebServer::GLOBAL_CONF_DIR . 'rpcproxy.conf';
 
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
@@ -140,6 +137,12 @@ sub enableService
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
 
+        if ($global->modExists('webserver')) {
+            my $webserverMod = $global->modInstance("webserver");
+            # Mark webserver as changed to load the configuration of Outlook Anywhere.
+            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        }
+
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
@@ -197,11 +200,19 @@ sub usedFiles
 #        reason => __('To configure autodiscovery service'),
 #        module => 'openchange'
 #    });
-    push (@files, {
-        file => RPCPROXY_CONF_FILE,
-        reason => __('To configure Outlook Anywhere service'),
-        module => 'openchange'
-    });
+#
+    my $global = EBox::Global->getInstance();
+    if ($global->modExists('webserver')) {
+        my $webserverMod = $global->modInstance("webserver");
+        if ($webserverMod->isEnabled()) {
+            my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
+            push (@files, {
+                file => $rpcproxyConfFile,
+                reason => __('To configure Outlook Anywhere service'),
+                module => 'openchange'
+            });
+        }
+    }
 
     return \@files;
 }
@@ -338,10 +349,15 @@ sub _setRPCProxyConf
 {
     my ($self) = @_;
 
-    if ($self->isEnabled()) {
-        $self->writeConfFile(RPCPROXY_CONF_FILE, 'openchange/apache-rpcproxy.mas', []);
-    } else {
-        EBox::Sudo::root(['rm -f ' . RPCPROXY_CONF_FILE]);
+    my $global = $self->global();
+    if ($global->modExists('webserver')) {
+        my $webserverMod = $global->modInstance("webserver");
+        my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
+        if ($webserverMod->isEnabled() and $self->isEnabled()) {
+            $self->writeConfFile($rpcproxyConfFile, 'openchange/apache-rpcproxy.mas', []);
+        } else {
+            EBox::Sudo::root(['rm -f ' . $rpcproxyConfFile]);
+        }
     }
 }
 
