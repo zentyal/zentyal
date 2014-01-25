@@ -314,32 +314,30 @@ sub updateServicePorts
             push(@servicePorts, $servicePort);
         }
 
-        if (@servicePorts) {
+        my $readOnly = 0;
+        if ($modName eq 'webadmin') {
+            $readOnly = 1;
+        }
+        my $serviceName = "zentyal_$modName";
+        my @serviceParams = ();
+        push (@serviceParams, name          => $serviceName);
+        push (@serviceParams, printableName => $module->printableName());
+        push (@serviceParams, description   => $module->printableName());
+        push (@serviceParams, services      => \@servicePorts);
+        push (@serviceParams, internal      => 1);
+        push (@serviceParams, readOnly      => $readOnly);
+        push (@serviceParams, allowEmpty    => 1);
 
-            my $readOnly = 0;
-            if ($modName eq 'webadmin') {
-                $readOnly = 1;
-            }
-            my $serviceName = "zentyal_$modName";
-            my @serviceParams = ();
-            push (@serviceParams, name          => $serviceName);
-            push (@serviceParams, printableName => $module->printableName());
-            push (@serviceParams, description   => $module->printableName());
-            push (@serviceParams, services      => \@servicePorts);
-            push (@serviceParams, internal      => 1);
-            push (@serviceParams, readOnly      => $readOnly);
-
-            if ($servicesMod->serviceExists(name => $serviceName)) {
-                # The service already exists, we just update it.
-                $servicesMod->setMultipleService(@serviceParams);
-            } else {
-                # Add the new internal service.
-                $servicesMod->addMultipleService(@serviceParams);
-                if ($global->modExists('firewall')) {
-                    # Allow access from the internal networks to this service by default.
-                    my $firewallMod = $global->modInstance('firewall');
-                    $firewallMod->setInternalService($serviceName, 'accept');
-                }
+        if ($servicesMod->serviceExists(name => $serviceName)) {
+            # The service already exists, we just update it.
+            $servicesMod->setMultipleService(@serviceParams);
+        } else {
+            # Add the new internal service.
+            $servicesMod->addMultipleService(@serviceParams);
+            if ($global->modExists('firewall')) {
+                # Allow access from the internal networks to this service by default.
+                my $firewallMod = $global->modInstance('firewall');
+                $firewallMod->setInternalService($serviceName, 'accept');
             }
         }
     }
