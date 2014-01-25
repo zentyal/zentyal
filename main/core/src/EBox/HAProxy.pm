@@ -109,17 +109,17 @@ sub ports
         my $serviceId = $row->valueByName('serviceId');
         my $module = $global->modInstance($row->valueByName('module'));
 
-        my $service = {};
-        $service->{name} = $serviceId;
-        $service->{domains} = $module->targetHAProxyDomains();
-        $service->{targetIP} = $module->targetHAProxyIP();
-
         my $enabledPort = $module->isPortEnabledInHAProxy();
         my $port = undef;
         if ($enabledPort) {
+            my $service = {};
+            $service->{name} = $serviceId;
+            $service->{domains} = $module->targetHAProxyDomains();
+            $service->{targetIP} = $module->targetHAProxyIP();
+
             $port = $module->usedHAProxyPort();
             if (not exists ($ports{$port})) {
-                $ports{$port}->{isSSL} = undef;
+                $ports{$port}->{isSSL} = 0;
                 $ports{$port}->{services} = [];
             }
             $service->{isDefault} = $row->valueByName('defaultPort');
@@ -130,6 +130,11 @@ sub ports
         my $enabledSSLPort = $module->isSSLPortEnabledInHAProxy();
         my $sslPort = undef;
         if ($enabledSSLPort) {
+            my $service = {};
+            $service->{name} = $serviceId;
+            $service->{domains} = $module->targetHAProxyDomains();
+            $service->{targetIP} = $module->targetHAProxyIP();
+
             $sslPort = $module->usedHAProxySSLPort();
             if (not exists ($ports{$sslPort})) {
                 $ports{$sslPort}->{isSSL} = 1;
@@ -139,6 +144,13 @@ sub ports
             $service->{pathSSLCert} = $module->pathHAProxySSLCertificate();
             $service->{targetPort} = $module->targetHAProxySSLPort();
             push (@{$ports{$sslPort}->{services}}, $service);
+        }
+    }
+
+    foreach my $port (keys %ports) {
+        if (scalar @{ $ports{$port}->{services} } == 1) {
+            # Force all services that are alone in a port, to be the default.
+            $ports{$port}->{services}->[0]->{isDefault} = 1;
         }
     }
     return \%ports;
