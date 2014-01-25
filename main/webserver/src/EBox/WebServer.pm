@@ -208,6 +208,7 @@ sub initialSetup
         my $port = $self->defaultHAProxyPort();
         my $sslPort = $self->defaultHAProxySSLPort();
         my $sslEnabled = 0;
+        my $defaultSSLPort = 0;
         if ($value) {
             if (defined $value->{port}) {
                 $port = $value->{port};
@@ -216,6 +217,8 @@ sub initialSetup
             if (defined $value->{ssl_selected}) {
                 if ($value->{ssl_selected} eq 'ssl_port' and defined $value->{ssl_port}) {
                     $sslEnabled = 1;
+                    # At this point, the SSL port is not being shared yet, so we set it as the default one.
+                    $defaultSSLPort = 1;
                 }
                 delete $value->{ssl_selected};
             }
@@ -232,7 +235,7 @@ sub initialSetup
         push (@args, defaultPort    => 1);
         push (@args, sslPort        => $sslPort);
         push (@args, enableSSLPort  => $sslEnabled);
-        push (@args, defaultSSLPort => 1);
+        push (@args, defaultSSLPort => $defaultSSLPort);
         push (@args, force          => 1);
 
         $haproxyMod->setHAProxyServicePorts(@args);
@@ -252,7 +255,9 @@ sub initialSetup
             if ($value->{serviceId} eq 'Web Server') {
                 # WebServer.
                 $value->{serviceId} = 'zentyal_' . $self->name();
-                $value->{service} = $self->printableName(),
+                $value->{service} = $self->printableName();
+                # Zentyal handles this service automatically
+                $value->{readOnly} = 1;
                 $redis->set($key, $value);
             }
         }
@@ -426,7 +431,7 @@ sub _setDfltVhost
 
     my @params = ();
     push (@params, hostname      => $hostname);
-    push (@params, hostnameVHost => $hostnameVhost);
+    push (@params, hostnameVhost => $hostnameVhost);
     push (@params, port          => $self->targetHAProxyPort());
     push (@params, sslPort       => $self->targetHAProxySSLPort());
 
@@ -442,7 +447,7 @@ sub _setDfltSSLVhost
     if ($self->usedHAProxySSLPort()) {
         my @params = ();
         push (@params, hostname      => $hostname);
-        push (@params, hostnameVHost => $hostnameVhost);
+        push (@params, hostnameVhost => $hostnameVhost);
         push (@params, sslPort       => $self->targetHAProxySSLPort());
 
         # Overwrite the default-ssl vhost file
