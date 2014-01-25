@@ -974,7 +974,7 @@ sub _migrateTo32SP2
         if ($value->{serviceId} eq 'Zentyal Administration Web Server') {
             # WebServer.
             $value->{serviceId} = 'zentyal_' . $self->name();
-            $value->{service} = $self->printableName(),
+            $value->{service} = $self->printableName();
             $redis->set($key, $value);
         }
     }
