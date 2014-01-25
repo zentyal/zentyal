@@ -314,10 +314,6 @@ sub updateServicePorts
             push(@servicePorts, $servicePort);
         }
 
-        my $readOnly = 0;
-        if ($modName eq 'webadmin') {
-            $readOnly = 1;
-        }
         my $serviceName = "zentyal_$modName";
         my @serviceParams = ();
         push (@serviceParams, name          => $serviceName);
@@ -325,7 +321,7 @@ sub updateServicePorts
         push (@serviceParams, description   => $module->printableName());
         push (@serviceParams, services      => \@servicePorts);
         push (@serviceParams, internal      => 1);
-        push (@serviceParams, readOnly      => $readOnly);
+        push (@serviceParams, readOnly      => 1);
         push (@serviceParams, allowEmpty    => 1);
 
         if ($servicesMod->serviceExists(name => $serviceName)) {
