@@ -1,7 +1,7 @@
-Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
+Index: samba4-4.1.4/source4/dns_server/dlz_bind9.c
 ===================================================================
---- samba4-4.1.0rc4.orig/source4/dns_server/dlz_bind9.c	2013-10-25 16:05:59.313923823 +0200
-+++ samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c	2013-10-25 16:06:03.937928675 +0200
+--- samba4-4.1.4.orig/source4/dns_server/dlz_bind9.c	2013-12-05 10:16:48.000000000 +0100
++++ samba4-4.1.4/source4/dns_server/dlz_bind9.c	2014-01-24 18:49:56.173919664 +0100
 @@ -37,6 +37,7 @@
  #include "messaging/messaging.h"
  #include "lib/cmdline/popt_common.h"
@@ -82,7 +82,7 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
  	if (smb_krb5_init_context(state, state->ev_ctx, state->lp, &state->smb_krb5_ctx) != 0) {
  		result = ISC_R_NOMEMORY;
  		goto failed;
-@@ -1176,152 +1221,231 @@
+@@ -1176,151 +1221,238 @@
  	return ISC_R_SUCCESS;
  }
  
@@ -109,7 +109,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -	struct ldb_result *res;
 -	const char * attrs[] = { NULL };
 -	uint32_t access_mask;
--
++	char *wkey;
++	char *tok;
++	int ktype;
+ 
 -	/* Remove cached credentials, if any */
 -	if (state->session_info) {
 -		talloc_free(state->session_info);
@@ -119,18 +122,32 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(state->update_name);
 -		state->update_name = NULL;
 -	}
-+    char *wkey;
-+    char *tok;
-+    int ktype;
++	if (key != NULL) {
++		wkey = strdup(key);
++		if (wkey == NULL) {
++			state->log(ISC_LOG_ERROR, "samba_dlz: no memory");
++			return -1;
++		}
  
 -	tmp_ctx = talloc_new(NULL);
 -	if (tmp_ctx == NULL) {
-+    wkey = strdup(key);
-+    if (wkey == NULL) {
- 		state->log(ISC_LOG_ERROR, "samba_dlz: no memory");
+-		state->log(ISC_LOG_ERROR, "samba_dlz: no memory");
 -		return ISC_FALSE;
--	}
--
++		tok = strtok(wkey, "/");
++		if (tok == NULL) {
++			return DST_ALG_UNKNOWN;
++		}
++		tok = strtok(NULL, "/");
++		if (tok == NULL) {
++			return DST_ALG_UNKNOWN;
++		}
++		ktype = (int) strtol(tok, NULL, 10);
++		free(wkey);
++		return ktype;
+ 	}
++	return DST_ALG_UNKNOWN;
++}
+ 
 -	ap_req = data_blob_const(keydata, keydatalen);
 -	server_credentials = cli_credentials_init(tmp_ctx);
 -	if (!server_credentials) {
@@ -138,10 +155,23 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
--
++static bool b9_check_keys(struct dlz_bind9_data *state, const char *signer, const char *keydata)
++{
++    struct key_list *kl = state->keys;
+ 
 -	cli_credentials_set_krb5_context(server_credentials, state->smb_krb5_ctx);
 -	cli_credentials_set_conf(server_credentials, state->lp);
--
++    if (signer != NULL && keydata != NULL) {
++        while (kl != NULL) {
++            struct key *k = kl->k;
++            if ((strcmp(k->name, signer) == 0) && strcmp(k->secret, keydata) == 0) {
++                return true;
++            }
++            kl = kl->next;
++        }
++    }
++    state->log(ISC_LOG_ERROR, "samba_dlz: disallowing update of signer=%s, invalid key", signer);
+ 
 -	keytab_name = talloc_asprintf(tmp_ctx, "file:%s/dns.keytab",
 -					lpcfg_private_dir(state->lp));
 -	ret = cli_credentials_set_keytab_name(server_credentials, state->lp, keytab_name,
@@ -153,7 +183,9 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		return ISC_FALSE;
 -	}
 -	talloc_free(keytab_name);
--
++    return false;
++}
+ 
 -	nt_status = gensec_server_start(tmp_ctx,
 -					lpcfg_gensec_settings(tmp_ctx, state->lp),
 -					state->auth_context, &gensec_ctx);
@@ -162,30 +194,55 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
--
++static bool b9_init_session_info_gssapi(struct dlz_bind9_data *state, TALLOC_CTX *tmp_ctx,
++        uint32_t keydatalen, uint8_t *keydata,
++        struct auth_session_info **session_info)
++{
++    DATA_BLOB ap_req;
++    struct cli_credentials *server_credentials;
++    char *keytab_name;
++    int ret;
++    NTSTATUS nt_status;
++    struct gensec_security *gensec_ctx;
+ 
 -	gensec_set_credentials(gensec_ctx, server_credentials);
--
++    ap_req = data_blob_const(keydata, keydatalen);
+ 
 -	nt_status = gensec_start_mech_by_name(gensec_ctx, "spnego");
 -	if (!NT_STATUS_IS_OK(nt_status)) {
 -		state->log(ISC_LOG_ERROR, "samba_dlz: failed to start spnego");
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
--
++    server_credentials = cli_credentials_init(tmp_ctx);
++    if (!server_credentials) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: failed to init server credentials");
++        return false;
++    }
+ 
 -	nt_status = gensec_update(gensec_ctx, tmp_ctx, state->ev_ctx, ap_req, &ap_req);
 -	if (!NT_STATUS_IS_OK(nt_status)) {
 -		state->log(ISC_LOG_ERROR, "samba_dlz: spnego update failed");
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
--
++    cli_credentials_set_krb5_context(server_credentials, state->smb_krb5_ctx);
++    cli_credentials_set_conf(server_credentials, state->lp);
+ 
 -	nt_status = gensec_session_info(gensec_ctx, tmp_ctx, &session_info);
 -	if (!NT_STATUS_IS_OK(nt_status)) {
 -		state->log(ISC_LOG_ERROR, "samba_dlz: failed to create session info");
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
--
++    keytab_name = talloc_asprintf(tmp_ctx, "file:%s/dns.keytab", lpcfg_private_dir(state->lp));
++    ret = cli_credentials_set_keytab_name(server_credentials, state->lp, keytab_name, CRED_SPECIFIED);
++    if (ret != 0) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: failed to obtain server credentials from %s", keytab_name);
++        return false;
++    }
++    talloc_free(keytab_name);
+ 
 -	/* Get the DN from name */
 -	result = b9_find_name_dn(state, name, tmp_ctx, &dn);
 -	if (result != ISC_R_SUCCESS) {
@@ -193,7 +250,12 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
-+        return -1;
++    nt_status = gensec_server_start(tmp_ctx,
++            lpcfg_gensec_settings(tmp_ctx, state->lp),
++            state->auth_context, &gensec_ctx);
++    if (!NT_STATUS_IS_OK(nt_status)) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: failed to start gensec server");
++        return false;
 +    }
  
 -	/* make sure the dn exists, or find parent dn in case new object is being added */
@@ -210,89 +272,7 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
-+    tok = strtok(wkey, "/");
-+    tok = strtok(NULL, "/");
-+    ktype = (int) strtol(tok, NULL, 10);
-+    free(wkey);
-+
-+    return ktype;
-+}
-+
-+static bool b9_check_keys(struct dlz_bind9_data *state, const char *signer, const char *keydata)
-+{
-+    struct key_list *kl = state->keys;
-+
-+    if (signer != NULL && keydata != NULL) {
-+        while (kl != NULL) {
-+            struct key *k = kl->k;
-+            if ((strcmp(k->name, signer) == 0) && strcmp(k->secret, keydata) == 0) {
-+                return true;
-+            }
-+            kl = kl->next;
-+        }
-+    }
-+    state->log(ISC_LOG_ERROR, "samba_dlz: disallowing update of signer=%s, invalid key", signer);
-+
-+    return false;
-+}
-+
-+static bool b9_init_session_info_gssapi(struct dlz_bind9_data *state, TALLOC_CTX *tmp_ctx,
-+        uint32_t keydatalen, uint8_t *keydata,
-+        struct auth_session_info **session_info)
-+{
-+    DATA_BLOB ap_req;
-+    struct cli_credentials *server_credentials;
-+    char *keytab_name;
-+    int ret;
-+    NTSTATUS nt_status;
-+    struct gensec_security *gensec_ctx;
-+
-+    ap_req = data_blob_const(keydata, keydatalen);
-+
-+    server_credentials = cli_credentials_init(tmp_ctx);
-+    if (!server_credentials) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: failed to init server credentials");
-+        return false;
-+    }
-+
-+    cli_credentials_set_krb5_context(server_credentials, state->smb_krb5_ctx);
-+    cli_credentials_set_conf(server_credentials, state->lp);
-+
-+    keytab_name = talloc_asprintf(tmp_ctx, "file:%s/dns.keytab", lpcfg_private_dir(state->lp));
-+    ret = cli_credentials_set_keytab_name(server_credentials, state->lp, keytab_name, CRED_SPECIFIED);
-+    if (ret != 0) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: failed to obtain server credentials from %s", keytab_name);
-+        return false;
-+    }
-+    talloc_free(keytab_name);
-+
-+    nt_status = gensec_server_start(tmp_ctx,
-+            lpcfg_gensec_settings(tmp_ctx, state->lp),
-+            state->auth_context, &gensec_ctx);
-+    if (!NT_STATUS_IS_OK(nt_status)) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: failed to start gensec server");
-+        return false;
-+    }
-+
 +    gensec_set_credentials(gensec_ctx, server_credentials);
-+
-+    nt_status = gensec_start_mech_by_name(gensec_ctx, "spnego");
-+    if (!NT_STATUS_IS_OK(nt_status)) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: failed to start spnego");
-+        return false;
-+    }
-+
-+    nt_status = gensec_update(gensec_ctx, tmp_ctx, state->ev_ctx, ap_req, &ap_req);
-+    if (!NT_STATUS_IS_OK(nt_status)) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: spnego update failed");
-+        return false;
-+    }
-+
-+    nt_status = gensec_session_info(gensec_ctx, tmp_ctx, session_info);
-+    if (!NT_STATUS_IS_OK(nt_status)) {
-+        state->log(ISC_LOG_ERROR, "samba_dlz: failed to create session info");
-+        return false;
-+    }
  
 -	/* Do ACL check */
 -	ldb_ret = dsdb_check_access_on_dn(state->samdb, tmp_ctx, dn,
@@ -305,8 +285,11 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		talloc_free(tmp_ctx);
 -		return ISC_FALSE;
 -	}
-+    return true;
-+}
++    nt_status = gensec_start_mech_by_name(gensec_ctx, "spnego");
++    if (!NT_STATUS_IS_OK(nt_status)) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: failed to start spnego");
++        return false;
++    }
  
 -	/* Cache session_info, so it can be used in the actual add/delete operation */
 -	state->update_name = talloc_strdup(state, name);
@@ -316,6 +299,25 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 -		return ISC_FALSE;
 -	}
 -	state->session_info = talloc_steal(state, session_info);
++    nt_status = gensec_update(gensec_ctx, tmp_ctx, state->ev_ctx, ap_req, &ap_req);
++    if (!NT_STATUS_IS_OK(nt_status)) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: spnego update failed");
++        return false;
++    }
+ 
+-	state->log(ISC_LOG_INFO, "samba_dlz: allowing update of signer=%s name=%s tcpaddr=%s type=%s key=%s",
+-		   signer, name, tcpaddr, type, key);
++    nt_status = gensec_session_info(gensec_ctx, tmp_ctx, session_info);
++    if (!NT_STATUS_IS_OK(nt_status)) {
++        state->log(ISC_LOG_ERROR, "samba_dlz: failed to create session info");
++        return false;
++    }
+ 
+-	talloc_free(tmp_ctx);
+-	return ISC_TRUE;
++    return true;
+ }
+ 
 +/*
 +   authorize a zone update
 + */
@@ -434,26 +436,20 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_bind9.c
 +        return ISC_FALSE;
 +    }
 +    state->session_info = talloc_steal(state, session_info);
- 
--	state->log(ISC_LOG_INFO, "samba_dlz: allowing update of signer=%s name=%s tcpaddr=%s type=%s key=%s",
--		   signer, name, tcpaddr, type, key);
++
 +    state->log(ISC_LOG_INFO, "samba_dlz: allowing update of signer=%s name=%s tcpaddr=%s type=%s key=%s",
 +            signer, name, tcpaddr, type, key);
- 
--	talloc_free(tmp_ctx);
--	return ISC_TRUE;
++
 +    talloc_free(tmp_ctx);
 +    return ISC_TRUE;
- }
++}
  
--
  /*
    add a new record
-  */
-Index: samba4-4.1.0rc4/source4/dns_server/dlz_minimal.h
+Index: samba4-4.1.4/source4/dns_server/dlz_minimal.h
 ===================================================================
---- samba4-4.1.0rc4.orig/source4/dns_server/dlz_minimal.h	2013-10-25 16:05:59.369923881 +0200
-+++ samba4-4.1.0rc4/source4/dns_server/dlz_minimal.h	2013-10-25 16:06:03.937928675 +0200
+--- samba4-4.1.4.orig/source4/dns_server/dlz_minimal.h	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.4/source4/dns_server/dlz_minimal.h	2014-01-24 18:34:26.000000000 +0100
 @@ -22,6 +22,9 @@
    external DLZ driver, please copy this header into your own source
    tree.
@@ -501,10 +497,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/dlz_minimal.h
  isc_result_t dlz_delrdataset(const char *name, const char *type, void *dbdata, void *version);
 +
 +#endif
-Index: samba4-4.1.0rc4/source4/dns_server/wscript_build
+Index: samba4-4.1.4/source4/dns_server/wscript_build
 ===================================================================
---- samba4-4.1.0rc4.orig/source4/dns_server/wscript_build	2013-10-25 16:05:59.337923847 +0200
-+++ samba4-4.1.0rc4/source4/dns_server/wscript_build	2013-10-25 16:06:03.937928675 +0200
+--- samba4-4.1.4.orig/source4/dns_server/wscript_build	2013-06-13 11:21:02.000000000 +0200
++++ samba4-4.1.4/source4/dns_server/wscript_build	2014-01-24 18:34:26.000000000 +0100
 @@ -12,7 +12,7 @@
  
  # a bind9 dlz module giving access to the Samba DNS SAM
@@ -532,10 +528,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/wscript_build
                    cflags='-DBIND_VERSION_9_8',
                    private_library=True,
                    deps='samba-hostconfig samdb-common gensec popt',
-Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.l
+Index: samba4-4.1.4/source4/dns_server/keys_parser.l
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/keys_parser.l	2013-10-25 16:13:28.594385060 +0200
++++ samba4-4.1.4/source4/dns_server/keys_parser.l	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,59 @@
 +%{
 +#include "keys_parser.h"
@@ -596,10 +592,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.l
 +    return 0;
 +}
 +#endif
-Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.c
+Index: samba4-4.1.4/source4/dns_server/k_lexer.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/k_lexer.c	2013-10-25 16:13:37.606393864 +0200
++++ samba4-4.1.4/source4/dns_server/k_lexer.c	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,2176 @@
 +#line 2 "k_lexer.c"
 +
@@ -2777,10 +2773,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.c
 +}
 +#endif
 +
-Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.h
+Index: samba4-4.1.4/source4/dns_server/k_lexer.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/k_lexer.h	2013-10-25 16:13:37.602393925 +0200
++++ samba4-4.1.4/source4/dns_server/k_lexer.h	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,355 @@
 +#ifndef yyHEADER_H
 +#define yyHEADER_H 1
@@ -3137,10 +3133,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/k_lexer.h
 +#line 354 "k_lexer.h"
 +#undef yyIN_HEADER
 +#endif /* yyHEADER_H */
-Index: samba4-4.1.0rc4/source4/dns_server/k_parser.c
+Index: samba4-4.1.4/source4/dns_server/k_parser.c
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/k_parser.c	2013-10-25 16:13:46.398402697 +0200
++++ samba4-4.1.4/source4/dns_server/k_parser.c	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,1882 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5024,10 +5020,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/k_parser.c
 +
 +
 +
-Index: samba4-4.1.0rc4/source4/dns_server/k_parser.h
+Index: samba4-4.1.4/source4/dns_server/k_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/k_parser.h	2013-10-25 16:13:46.398402697 +0200
++++ samba4-4.1.4/source4/dns_server/k_parser.h	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,86 @@
 +/* A Bison parser, made by GNU Bison 2.5.  */
 +
@@ -5115,10 +5111,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/k_parser.h
 +
 +
 +
-Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.h
+Index: samba4-4.1.4/source4/dns_server/keys_parser.h
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/keys_parser.h	2013-10-25 16:07:51.186039458 +0200
++++ samba4-4.1.4/source4/dns_server/keys_parser.h	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,21 @@
 +#ifndef __KEYS_PARSER_H__
 +#define __KEYS_PARSER_H__
@@ -5141,10 +5137,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.h
 +struct key_list *getAST(const char *fpath);
 +
 +#endif
-Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.y
+Index: samba4-4.1.4/source4/dns_server/keys_parser.y
 ===================================================================
 --- /dev/null	1970-01-01 00:00:00.000000000 +0000
-+++ samba4-4.1.0rc4/source4/dns_server/keys_parser.y	2013-10-25 16:13:26.642382953 +0200
++++ samba4-4.1.4/source4/dns_server/keys_parser.y	2014-01-24 18:34:26.000000000 +0100
 @@ -0,0 +1,234 @@
 +%{
 +#include <stdio.h>
@@ -5380,10 +5376,10 @@ Index: samba4-4.1.0rc4/source4/dns_server/keys_parser.y
 +}
 +
 +
-Index: samba4-4.1.0rc4/lib/param/param_table.c
+Index: samba4-4.1.4/lib/param/param_table.c
 ===================================================================
---- samba4-4.1.0rc4.orig/lib/param/param_table.c	2013-10-25 16:06:02.305926962 +0200
-+++ samba4-4.1.0rc4/lib/param/param_table.c	2013-10-25 16:06:03.937928675 +0200
+--- samba4-4.1.4.orig/lib/param/param_table.c	2014-01-24 18:34:26.000000000 +0100
++++ samba4-4.1.4/lib/param/param_table.c	2014-01-24 18:34:26.000000000 +0100
 @@ -4199,6 +4199,24 @@
  		.enum_list	= enum_dns_update_settings,
  		.flags		= FLAG_ADVANCED,
@@ -5409,10 +5405,10 @@ Index: samba4-4.1.0rc4/lib/param/param_table.c
  	{
  		.label		= "dns forwarder",
  		.type		= P_STRING,
-Index: samba4-4.1.0rc4/lib/param/loadparm.c
+Index: samba4-4.1.4/lib/param/loadparm.c
 ===================================================================
---- samba4-4.1.0rc4.orig/lib/param/loadparm.c	2013-10-25 16:06:02.305926962 +0200
-+++ samba4-4.1.0rc4/lib/param/loadparm.c	2013-10-25 16:06:03.941928680 +0200
+--- samba4-4.1.4.orig/lib/param/loadparm.c	2014-01-24 18:34:26.000000000 +0100
++++ samba4-4.1.4/lib/param/loadparm.c	2014-01-24 18:34:26.000000000 +0100
 @@ -1,4 +1,4 @@
 -/* 
 +/*
@@ -5513,10 +5509,10 @@ Index: samba4-4.1.0rc4/lib/param/loadparm.c
  	     * basically the equivalent of an empty file. */
  	    return lpcfg_update(lp_ctx);
      }
-Index: samba4-4.1.0rc4/lib/param/param.h
+Index: samba4-4.1.4/lib/param/param.h
 ===================================================================
---- samba4-4.1.0rc4.orig/lib/param/param.h	2013-10-25 16:05:59.309923818 +0200
-+++ samba4-4.1.0rc4/lib/param/param.h	2013-10-25 16:06:03.941928680 +0200
+--- samba4-4.1.4.orig/lib/param/param.h	2013-12-05 10:16:48.000000000 +0100
++++ samba4-4.1.4/lib/param/param.h	2014-01-24 18:34:26.000000000 +0100
 @@ -1,24 +1,24 @@
 -/* 
 +/*
@@ -5587,10 +5583,10 @@ Index: samba4-4.1.0rc4/lib/param/param.h
  			     struct loadparm_context *lp_ctx,
  			     const char *name);
  
-Index: samba4-4.1.0rc4/lib/param/param_functions.c
+Index: samba4-4.1.4/lib/param/param_functions.c
 ===================================================================
---- samba4-4.1.0rc4.orig/lib/param/param_functions.c	2013-10-25 16:06:02.305926962 +0200
-+++ samba4-4.1.0rc4/lib/param/param_functions.c	2013-10-25 16:06:03.941928680 +0200
+--- samba4-4.1.4.orig/lib/param/param_functions.c	2014-01-24 18:34:26.000000000 +0100
++++ samba4-4.1.4/lib/param/param_functions.c	2014-01-24 18:34:26.000000000 +0100
 @@ -268,6 +268,8 @@
  FN_GLOBAL_INTEGER(afs_token_lifetime, iAfsTokenLifetime)
  FN_GLOBAL_INTEGER(algorithmic_rid_base, AlgorithmicRidBase)
