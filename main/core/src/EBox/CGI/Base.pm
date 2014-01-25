@@ -353,7 +353,7 @@ sub run
             }
             $url .= "/$self->{redirect}";
         } else {
-            if ($request->subprocess_env('https')) {
+            if (((defined $fwproto) and ($fwproto eq 'https')) or $request->subprocess_env('https')) {
                 $protocol = 'https';
             } else {
                 $protocol = 'http';
