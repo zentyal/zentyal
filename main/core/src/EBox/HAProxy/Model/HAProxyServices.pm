@@ -351,7 +351,7 @@ sub validateTypedRow
             if ((exists $params_r->{defaultSSLPort}) and $params_r->{defaultSSLPort}->value and
                 $self->findValueMultipleFields({ sslPort => $sslPort, defaultPort => 1 }, 1)) {
                 throw EBox::Exceptions::External(__x(
-                    'The port {port} already has a default service defined.', port => $port
+                    'The port {port} already has a default service defined.', port => $sslPort
                 ));
             }
             unless ($force) {
