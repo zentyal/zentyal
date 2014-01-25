@@ -392,35 +392,21 @@ sub updatedRowNotify
 {
     my ($self, $row, $oldRow) = @_;
 
-    my $item = $row->elementByName('port');
-    my $enabledPort = ($item->selectedType() eq 'port_number');
-    $item = $row->elementByName('sslPort');
-    my $enabledSSLPort = ($item->selectedType() eq 'sslPort_number');
-    unless ($enabledPort or $enabledSSLPort) {
-        # The row has not enabled ports, we can ignore it.
-        return;
-    }
-
-    $item = $oldRow->elementByName('port');
-    my $oldEnabledPort = ($item->selectedType() eq 'port_number');
-    $item = $oldRow->elementByName('sslPort');
-    my $oldEnabledSSLPort = ($item->selectedType() eq 'sslPort_number');
-    my $oldPort = $oldEnabledPort ? $oldRow->valueByName('port') : undef;
+    my $enabledPort = ($row->elementByName('port')->selectedType() eq 'port_number');
     my $port = $enabledPort ? $row->valueByName('port') : undef;
-    my $oldSSLPort = $oldEnabledSSLPort ? $oldRow->valueByName('sslPort') : undef;
+    my $oldEnabledPort = ($oldRow->elementByName('port')->selectedType() eq 'port_number');
+    my $oldPort = $oldEnabledPort ? $oldRow->valueByName('port') : undef;
+
+    my $enabledSSLPort = ($row->elementByName('sslPort')->selectedType() eq 'sslPort_number');
     my $sslPort = $enabledSSLPort ? $row->valueByName('sslPort') : undef;
-    if (($oldEnabledPort == $enabledPort) and ($oldEnabledSSLPort == $enabledSSLPort)) {
-        # no need to do anything
-        return;
-    }
+    my $oldEnabledSSLPort = ($oldRow->elementByName('sslPort')->selectedType() eq 'sslPort_number');
+    my $oldSSLPort = $oldEnabledSSLPort ? $oldRow->valueByName('sslPort') : undef;
 
     my @ports = ();
     push (@ports, $port) if ($enabledPort);
     push (@ports, $sslPort) if ($enabledSSLPort);
     my $modName = $row->valueByName('module');
-    if (@ports) {
-        $self->parentModule()->updateServicePorts($modName, \@ports);
-    }
+    $self->parentModule()->updateServicePorts($modName, \@ports);
 }
 
 # Method: viewCustomizer
@@ -450,6 +436,11 @@ sub viewCustomizer
 sub checkServicePort
 {
     my ($self, $port) = @_;
+
+    if ($self->find(port => $port) or $self->find(sslPort => $port)) {
+        # This port is being used by us so can be shared.
+        return;
+    }
 
     my $global = $self->global();
     if ($global->modExists('firewall')) {
