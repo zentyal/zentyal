@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -225,7 +225,10 @@ sub _editField
         }
 
         unless ($field->isa('EBox::Types::Boolean')) {
-            next unless (all($field->fields()) eq any(keys(%params)));
+            # Check all fields are in the params
+            my @fields = $field->fields();
+            my $seen = grep { defined ($params{$_})} @fields;
+            next if ($seen != scalar(@fields));
         }
 
         # Skip fields that are hidden or disabled by the view customizer

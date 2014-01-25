@@ -1,3 +1,9 @@
+samba4 (4.1.4-zentyal2) precise; urgency=low
+
+  * Fix segfault on DLZ if no key type provided
+
+ -- Samuel Cabrero <scabrero@zentyal.com>  Fri, 24 Jan 2014 19:15:54 +0100
+
 samba4 (4.1.4-zentyal1) precise; urgency=low
 
   * New upstream release
