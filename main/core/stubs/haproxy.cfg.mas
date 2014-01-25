@@ -26,8 +26,8 @@ defaults
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
-
 %   foreach my $portNumber (keys %{$ports}) {
+
 frontend ft_zentyal_<% $portNumber %>
   mode http
 %     if ($ports->{$portNumber}->{isSSL}) {
@@ -66,7 +66,6 @@ frontend ft_zentyal_<% $portNumber %>
   default_backend bk_zentyal_<% $serviceNameWithPort %>
 %       }
 %     }
-
 %     foreach my $service (@{$ports->{$portNumber}->{services}}) {
 %       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
 %       if (exists $dumpedservices{$serviceNameWithPort}) {
@@ -74,6 +73,7 @@ frontend ft_zentyal_<% $portNumber %>
 %       } else {
 %         $dumpedservices{$serviceNameWithPort} = 1;
 %       }
+
 backend bk_zentyal_<% $serviceNameWithPort %>
  mode http
  server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
