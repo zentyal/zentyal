@@ -130,7 +130,7 @@ http {
         }
 % foreach my $includeFile (@includes) {
 
-        #include <% $includeFile %>;
+        include <% $includeFile %>;
 % }
     }
 }
