@@ -1,4 +1,4 @@
-HEAD
+3.3.2
 	+ Synchronise AD groups every 30 min if using external AD and any
 	  filter profile includes an AD group
 	+ Manage errors when AD failed on fulfill our requests in external
