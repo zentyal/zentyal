@@ -12,15 +12,14 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
-package EBox::WebAdmin;
-use base qw(EBox::Module::Service);
-
 use strict;
 use warnings;
 
+package EBox::WebAdmin;
+use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
+
 use EBox;
-use EBox::Validate qw( :all );
+use EBox::Validate qw( checkPort );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
@@ -238,22 +237,15 @@ sub _writeNginxConfFile
 {
     my ($self) = @_;
 
-    # Write CA links
-    $self->_writeCAFiles();
-
     my $nginxconf = $self->_nginxConfFile();
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (port => $self->port());
+    push @confFileParams, (bindaddress => $self->targetHAProxyIP());
+    push @confFileParams, (port => $self->targetHAProxySSLPort());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
-    if (@{$self->_CAs(1)}) {
-        push @confFileParams, (caFile => CA_CERT_FILE);
-    } else {
-        push @confFileParams, (caFile => undef);
-    }
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -288,7 +280,6 @@ sub _writeHttpdConfFile
     my $template = 'core/apache.mas';
 
     my @confFileParams = ();
-    #push @confFileParams, ( port => $self->port());
     push @confFileParams, ( user => EBox::Config::user());
     push @confFileParams, ( group => EBox::Config::group());
     push @confFileParams, ( serverroot => $self->serverroot());
@@ -379,80 +370,7 @@ sub _reportAdminPort
     my $global = EBox::Global->getInstance(1);
     if ($global->modExists('remoteservices')) {
         my $rs = $global->modInstance('remoteservices');
-        $rs->reportAdminPort($self->port());
-    }
-}
-
-sub port
-{
-    my ($self) = @_;
-
-    return $self->model('AdminPort')->value('port');
-}
-
-# Method: setPort
-#
-#     Set the listening port for the apache perl
-#
-# Parameters:
-#
-#     port - Int the new listening port
-#
-sub setPort # (port)
-{
-    my ($self, $port) = @_;
-
-    checkPort($port, __("port"));
-
-    my $adminPortModel = $self->model('AdminPort');
-    my $oldPort = $adminPortModel->value('port');
-
-    return if ($oldPort == $port);
-
-    $self->checkAdminPort($port);
-
-    $adminPortModel->setValue('port', $port);
-    $self->updateAdminPortService($port);
-}
-
-sub checkAdminPort
-{
-    my ($self, $port) = @_;
-
-    my $global = EBox::Global->getInstance();
-    my $fw = $global->modInstance('firewall');
-    if (defined($fw)) {
-        unless ($fw->availablePort("tcp",$port)) {
-            throw EBox::Exceptions::External(__x(
-'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
-                p => $port
-               ));
-        }
-    }
-
-    my $netstatLines = EBox::Sudo::root('netstat -tlnp');
-    foreach my $line (@{ $netstatLines }) {
-        my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) =
-            split '\s+', $line, 7;
-        if ($localAddr =~ m/:$port$/) {
-            my ($pid, $program) = split '/', $PIDProgram;
-            throw EBox::Exceptions::External(__x(
-q{Port {p} is already in use by program '{pr}'. Choose another port or free it and retry.},
-                p => $port,
-                pr => $program,
-              )
-            );
-        }
-    }
-}
-
-sub updateAdminPortService
-{
-    my ($self, $port) = @_;
-    my $global = $self->global();
-    if ($global->modExists('services')) {
-        my $services = $global->modInstance('services');
-        $services->setAdministrationPort($port);
+        $rs->reportAdminPort($self->usedHAProxySSLPort());
     }
 }
 
@@ -928,7 +846,7 @@ sub certificates
             {
              serviceId =>  'Zentyal Administration Web Server',
              service =>  __('Zentyal Administration Web Server'),
-             path    =>  '/var/lib/zentyal/conf/ssl/ssl.pem',
+             path    =>  $self->pathHAProxySSLCertificate(),
              user => EBox::Config::user(),
              group => EBox::Config::group(),
              mode => '0600',
@@ -972,7 +890,180 @@ sub usesPort
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->port();
+    return $port == $self->usedHAProxySSLPort();
+}
+
+# Method: initialSetup
+#
+# Overrides:
+#
+#   EBox::Module::Base::initialSetup
+#
+sub initialSetup
+{
+    my ($self, $version) = @_;
+
+    # Upgrade from 3.3
+    if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
+        $self->_migrateTo34();
+    }
+}
+
+# Migration to 3.4
+#
+#  * Migrate redis keys to use haproxy.
+#
+sub _migrateTo34
+{
+    my ($self) = @_;
+
+    my $haproxyMod = $self->global()->modInstance('haproxy');
+    my $redis = $self->redis();
+    my $key = 'webadmin/conf/AdminPort/keys/form';
+    my $value = $redis->get($key);
+    unless ($value) {
+        # Fallback to the 'ro' version.
+        $key = 'webadmin/ro/AdminPort/keys/form';
+        $value = $redis->get($key);
+    }
+    if ($value) {
+        if (defined $value->{port}) {
+            # There are keys to migrate...
+            my @args = ();
+            push (@args, modName        => $self->name);
+            push (@args, sslPort        => $value->{port});
+            push (@args, enableSSLPort  => 1);
+            push (@args, defaultSSLPort => 1);
+            push (@args, force          => 1);
+            $haproxyMod->setHAProxyServicePorts(@args);
+        }
+
+        my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
+        $redis->unset(@keysToRemove);
+    } else {
+        # This case should not happen, but it's added just as a sanity help.
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
+
+    # Migrate the existing zentyal ca definition to follow the new layout used by HAProxy.
+    my @caKeys = $redis->_keys('ca/*/Certificates/keys/*');
+    foreach my $key (@caKeys) {
+        my $value = $redis->get($key);
+        unless (ref $value eq 'HASH') {
+            next;
+        }
+        if ($value->{serviceId} eq 'Zentyal Administration Web Server') {
+            # WebServer.
+            $value->{serviceId} = 'zentyal_' . $self->name();
+            $value->{service} = $self->printableName();
+            $redis->set($key, $value);
+        }
+    }
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: allowDisableHAProxyService
+#
+#   Webadmin must be always on so users don't lose access to the web admin UI.
+#
+# Returns:
+#
+#   boolean - Whether this service may be disabled from the reverse proxy.
+#
+sub allowDisableHAProxyService
+{
+    return undef;
+}
+
+# Method: HAProxyServiceId
+#
+#   This method must be always overrided by services implementing this interface.
+#
+# Returns:
+#
+#   string - A unique ID across Zentyal that identifies this HAProxy service.
+#
+sub HAProxyServiceId
+{
+    return 'webadminHAProxyId';
+}
+
+# Method: defaultHAProxySSLPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#
+sub defaultHAProxySSLPort
+{
+    return 443;
+}
+
+# Method: blockHAProxyPort
+#
+#   Always return True to prevent that webadmin is served without SSL.
+#
+# Returns:
+#
+#   boolean - Whether the port may be customised or not.
+#
+sub blockHAProxyPort
+{
+    return 1;
+}
+
+# Method: pathHAProxySSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHAProxySSLCertificate
+{
+    return '/var/lib/zentyal/conf/ssl/ssl.pem';
+}
+
+# Method: targetHAProxyIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#
+sub targetHAProxyIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHAProxySSLPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#
+sub targetHAProxySSLPort
+{
+    return 61443;
 }
 
 1;
