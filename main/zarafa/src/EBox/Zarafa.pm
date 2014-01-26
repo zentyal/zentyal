@@ -783,7 +783,7 @@ sub _setWebServerConf
     try {
         EBox::Sudo::root(@cmds);
     } catch EBox::Exceptions::Sudo::Command with {
-    }
+    };
 }
 
 sub _setSpellChecking
