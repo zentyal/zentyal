@@ -1,4 +1,5 @@
 HEAD
+	+ Implement replicationExcludeKeys() to avoid replication of ifaces in HA
 	+ When adding a new IP (viface or static iface) it is checked to avoid
 	  collision with the current HA floating IPs
 3.4

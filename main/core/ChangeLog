@@ -1,4 +1,5 @@
 3.4
+	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Integration with HA module in save changes process
 	+ Added icon for new zentyal-ha module
 	+ Migrate rs_verify_servers in remoteservices.conf to

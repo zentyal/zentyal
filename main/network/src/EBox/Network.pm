@@ -4746,6 +4746,15 @@ sub regenGateways
     EBox::Util::Lock::unlock('network');
 }
 
+# Method: replicationExcludeKeys
+#
+#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#
+sub replicationExcludeKeys
+{
+    return [ 'interfaces' ];
+}
+
 sub _pppoeRules
 {
     my ($self, $flush) = @_;
