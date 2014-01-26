@@ -689,13 +689,10 @@ sub _nameservers
 sub nameserversUpdated
 {
     my ($self, $nameservers, $oldNameservers)= @_;
-    use Data::Dumper;
-    EBox::debug("nameserversUpdated" . Dumper($nameservers) );
     my $users = $self->global()->modInstance('users');
     if ($users->mode() eq $users->STANDALONE_MODE) {
         return;
     }
-
 
     $self->restartService();
 }
