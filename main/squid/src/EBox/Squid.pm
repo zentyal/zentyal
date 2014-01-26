@@ -631,7 +631,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
@@ -674,6 +673,33 @@ sub _writeSquidConf
     $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
 }
 
+sub _nameservers
+{
+    my ($self) = @_;
+    my $global = $self->global();
+    my $users = $global->modInstance('users');
+    if ($users->mode() eq $users->STANDALONE_MODE) {
+        return ['127.0.0.1']
+    }
+
+    my $network = $global->modInstance('network');
+    return $network->nameservers()
+}
+
+sub nameserversUpdated
+{
+    my ($self, $nameservers, $oldNameservers)= @_;
+    use Data::Dumper;
+    EBox::debug("nameserversUpdated" . Dumper($nameservers) );
+    my $users = $self->global()->modInstance('users');
+    if ($users->mode() eq $users->STANDALONE_MODE) {
+        return;
+    }
+
+
+    $self->restartService();
+}
+
 sub _writeSquidExternalConf
 {
     my ($self) = @_;
@@ -709,7 +735,7 @@ sub _writeSquidExternalConf
 
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     push (@{$writeParam}, cacheDirSize => $cacheDirSize);
-    push (@{$writeParam}, nameservers => $network->nameservers());
+    push (@{$writeParam}, nameservers => $self->_nameservers());
 
     my $cache_host   = $network->model('Proxy')->serverValue();
     my $cache_port   = $network->model('Proxy')->portValue();
@@ -1317,13 +1343,7 @@ sub authenticationMode
     if ($usersMode eq $users->STANDALONE_MODE) {
         return AUTH_MODE_INTERNAL;
     } elsif ($usersMode eq $users->EXTERNAL_AD_MODE) {
-        my $edition = EBox::Global->edition();
-        if (($edition eq 'basic') or ($edition eq 'community')) {
-            EBox::warn('Falling back to internal auth as External AD auth is only available for commercial editions');
-            return AUTH_MODE_INTERNAL;
-        } else {
-            return AUTH_MODE_EXTERNAL_AD;
-        }
+        return AUTH_MODE_EXTERNAL_AD;
     } else {
         EBox::warn("Unknown users mode: $usersMode. Falling back to squid internal authorization mode");
         return AUTH_MODE_INTERNAL;
