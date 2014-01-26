@@ -20,13 +20,20 @@ package EBox::OpenChange;
 
 use base qw(EBox::Module::Service EBox::LdapModule);
 
-use EBox::Gettext;
 use EBox::Config;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::External;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Menu::Item;
+use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::Sudo;
 
+use Error qw(:try);
 use String::Random;
 
 use constant SOGO_PORT => 20000;
@@ -40,6 +47,7 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
+use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 # Method: _create
@@ -353,10 +361,41 @@ sub _setRPCProxyConf
     if ($global->modExists('webserver')) {
         my $webserverMod = $global->modInstance("webserver");
         my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-        if ($webserverMod->isEnabled() and $self->isEnabled()) {
-            $self->writeConfFile($rpcproxyConfFile, 'openchange/apache-rpcproxy.mas', []);
-        } else {
-            EBox::Sudo::root(['rm -f ' . $rpcproxyConfFile]);
+        if ($webserverMod->isEnabled()) {
+            if ($self->isProvisioned()) {
+                try {
+                    EBox::Sudo::root('a2enmod wsgi');
+                } catch EBox::Exceptions::Sudo::Command with {
+                    my ($exc) = @_;
+                    # Already enabled?
+                    if ( $exc->exitValue() != 1 ) {
+                        throw $exc;
+                    }
+                };
+                $self->writeConfFile(
+                    $rpcproxyConfFile, 'openchange/apache-rpcproxy.mas',
+                    [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+
+                my @cmds;
+                push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+                push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+                push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+                EBox::Sudo::root(@cmds);
+            } else {
+                EBox::Sudo::root('rm -f ' . $rpcproxyConfFile);
+                # Disable the module
+                try {
+                    EBox::Sudo::root('a2dismod wsgi');
+                } catch EBox::Exceptions::Sudo::Command with {
+                    my ($exc) = @_;
+                    # Already enabled?
+                    if ( $exc->exitValue() != 1 ) {
+                        throw $exc;
+                    }
+                };
+            }
+            # Force webserver reload
+            $webserverMod->setAsChanged();
         }
     }
 }

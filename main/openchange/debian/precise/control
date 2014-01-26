@@ -10,6 +10,7 @@ Architecture: all
 Depends: zentyal-core (>= 3.2), zentyal-core (<< 3.3),
  zentyal-mail, zentyal-samba, zentyal-webserver,
  openchangeserver (>= 2:2.0+zentyal1),
+ openchange-rpcproxy,
  libstring-random-perl,
  sogo-openchange (>= 2.1.0-zentyal6),
  sope4.9-gdl1-mysql (>= 4.9-zentyal1),
