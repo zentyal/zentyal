@@ -1,4 +1,5 @@
 HEAD
+	+ Added nameserversUpdated callback to network observer
 	+ Fixed some issues with showing of DHCP nameservers and removed
 	  related dead code
 	+ Don't use owner module in external-ip.pl script

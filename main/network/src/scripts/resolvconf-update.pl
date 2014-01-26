@@ -50,8 +50,12 @@ if ($globalRO->modExists('dns')) {
 }
 
 
-my $networkModule = EBox::Global->getInstance(0)->modInstance('network');
+my $globalRW = EBox::Global->getInstance();
+my $networkModule = $globalRW->modInstance('network');
 my $model = $networkModule->model('DNSResolver');
+my $oldNameservers = $model->nameservers();
+my $changed = 0;
+
 if ($operation eq '-d') {
     my @toDelete;
     foreach my $id (@{$model->ids()}) {
@@ -59,6 +63,7 @@ if ($operation eq '-d') {
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
             push @toDelete, $id;
+            $changed = 1;
         }
     }
     foreach my $id (@toDelete) {
@@ -76,15 +81,30 @@ if ($operation eq '-a') {
         if ($modelInterface eq $interface) {
             my $resolver = shift @resolvers;
             if ((defined $resolver) and length($resolver)) {
-                my $e = $row->elementByName('nameserver');
-                $e->setValue($resolver);
-                $row->setReadOnly(1);
-                $row->store();
+                my $el = $row->elementByName('nameserver');
+                if ($el->value() ne $resolver) {
+                    $el->setValue($resolver);
+                    $row->setReadOnly(1);
+                    $row->store();
+                    $changed = 1;
+                }
             }
         }
     }
     foreach my $r (@resolvers) {
         $model->addRow(nameserver => $r, interface => $interface, readOnly => 1);
+        $changed = 1;
+    }
+}
+
+EBox::debug("changed $changed");
+if ($changed) {
+    # notify observers
+    my @observers = @{ $globalRW->modInstancesOfType('EBox::NetworkObserver') };
+    foreach my $obs (@observers) {
+        use Data::Dumper;
+        EBox::debug("notify $obs");
+        $obs->nameserversUpdated($model->nameservers(), $oldNameservers);
     }
 }
 

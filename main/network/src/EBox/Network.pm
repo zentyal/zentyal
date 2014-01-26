@@ -2510,11 +2510,7 @@ sub ifaceBroadcast # (interface)
 sub nameservers
 {
     my ($self) = @_;
-
-    my $resolverModel = $self->model('DNSResolver');
-    my $ids = $resolverModel->ids();
-    my @array = map { $resolverModel->row($_)->valueByName('nameserver') } @{$ids};
-    return \@array;
+    return $self->model('DNSResolver')->nameservers();
 }
 
 sub searchdomain
