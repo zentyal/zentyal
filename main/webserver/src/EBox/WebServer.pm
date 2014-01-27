@@ -171,6 +171,7 @@ sub initialSetup
         push (@args, sslPort        => $self->defaultHAProxySSLPort());
         push (@args, enableSSLPort  => 0);
         push (@args, defaultSSLPort => 0);
+        push (@args, force          => 1);
 
         $haproxyMod->setHAProxyServicePorts(@args);
 
