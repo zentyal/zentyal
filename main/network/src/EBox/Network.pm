@@ -2510,6 +2510,11 @@ sub ifaceBroadcast # (interface)
 sub nameservers
 {
     my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    if ($users and ($users->mode() eq $users->STANDALONE_MODE)) {
+        return ['127.0.0.1']
+    }
+
     return $self->model('DNSResolver')->nameservers();
 }
 
