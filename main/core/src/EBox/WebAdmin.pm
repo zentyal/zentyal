@@ -19,7 +19,7 @@ package EBox::WebAdmin;
 use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
 
 use EBox;
-use EBox::Validate qw( checkPort );
+use EBox::Validate qw( checkPort checkCIDR );
 use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
@@ -430,7 +430,7 @@ sub setRestrictedResource
         $allowedIPs = ['nobody'];
     } else {
         # Check the given list is a list of IPs
-        my $notIPs = grep { ! checkCIDR($_) } @{$allowedIPs};
+        my $notIPs = grep { ! EBox::Validate::checkCIDR($_) } @{$allowedIPs};
         if ( $notIPs > 0 ) {
             throw EBox::Exceptions::Internal('Some of the given allowed IP'
                                              . 'addresses are not in CIDR format');
