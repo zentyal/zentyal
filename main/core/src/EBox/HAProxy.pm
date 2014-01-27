@@ -243,8 +243,7 @@ sub _enforceServiceState
 {
     my ($self) = @_;
 
-    my $script = $self->INITDPATH() . 'haproxy restart';
-    EBox::Sudo::root($script);
+    EBox::Sudo::root('service haproxy restart');
 }
 
 # Method: modsWithHAProxyService
