@@ -13,8 +13,7 @@ Package: zentyal-core
 Architecture: all
 Pre-Depends: mysql-server
 Breaks: zentyal-remoteservices (<< 3.2.3)
-Depends: ${misc:Depends},
-         adduser,
+Depends: adduser,
          anacron,
          apache2-mpm-prefork | apache2-mpm-worker,
          cron,
@@ -57,7 +56,8 @@ Depends: ${misc:Depends},
          redis-server,
          update-notifier-common,
          zentyal-common (>= 3.2),
-         zentyal-common (<< 3.3)
+         zentyal-common (<< 3.3),
+         ${misc:Depends}
 Description: Zentyal - Core
  Zentyal is a Linux small business server that can act as
  a Gateway, Unified Threat Manager, Office Server, Infrastructure
