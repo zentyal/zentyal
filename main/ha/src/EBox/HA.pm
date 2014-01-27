@@ -353,17 +353,27 @@ sub replicateConf
     foreach my $modname (@{$modules}) {
         EBox::info("Replicating conf of module: $modname");
         my $mod = EBox::Global->modInstance($modname);
-        my %excludeKeys;
+        my %keysToReplace;
+        my @keysToDelete;
+
         # TODO: need to differentiate conf/ro ?
         foreach my $key (@{$mod->replicationExcludeKeys()}) {
-            $excludeKeys{$key} = $mod->get($key);
+            my $value = $mod->get($key);
+            if (defined ($value)) {
+                $keysToReplace{$key} = $value;
+            } else {
+                push (@keysToDelete, $key);
+            }
         }
+
         $mod->restoreBackup("$tmpdir/$modname.bak");
-        foreach my $key (keys %excludeKeys) {
-            $mod->set($key, $excludeKeys{$key});
+
+        foreach my $key (keys %keysToReplace) {
+            $mod->set($key, $keysToReplace{$key});
         }
-        # TODO: delete excluded keys that does not exists in this server
-        #       but may be restored from the replication bundle
+        foreach my $key (@keysToDelete) {
+            $mod->unset($key);
+        }
     }
 
     EBox::Global->saveAllModules();
