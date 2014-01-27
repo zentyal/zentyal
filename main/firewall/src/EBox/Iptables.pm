@@ -472,8 +472,10 @@ sub start
     push(@commands, @{$self->_setStructure()});
 
     my @dns = @{$self->{net}->nameservers()};
-    foreach (@dns) {
-        push(@commands, @{$self->_setDNS($_)});
+    foreach my $ns (@dns) {
+        if ($ns ne '127.0.0.1') {
+            push(@commands, @{$self->_setDNS($ns)});
+        }
     }
 
     foreach my $object (@{$self->{objects}->objects}) {
