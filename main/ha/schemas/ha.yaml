@@ -1,0 +1,18 @@
+class: EBox::HA
+
+depends:
+    - network
+
+enabledepends:
+    - network
+
+models:
+    - Cluster
+    - FloatingIP
+    - ClusterMetadata
+    - ClusterState
+    - Nodes
+
+composites:
+    Initial: [Cluster, FloatingIP]
+    Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]

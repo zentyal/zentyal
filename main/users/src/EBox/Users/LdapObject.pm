@@ -105,14 +105,21 @@ sub get
 {
     my ($self, $attr) = @_;
 
+    my $entry = $self->_entry();
+    unless (defined $entry) {
+        my $dn = $self->{dn} ? $self->{dn} : "Unknown";
+        my $msg = "get method called but entry does not exists ($dn)";
+        throw EBox::Exceptions::Internal($msg);
+    }
+
     if (wantarray()) {
-        my @value = $self->_entry->get_value($attr);
+        my @value = $entry->get_value($attr);
         foreach my $el (@value) {
             utf8::decode($el);
         }
         return @value;
     } else {
-        my $value = $self->_entry->get_value($attr);
+        my $value = $entry->get_value($attr);
         utf8::decode($value);
         return $value;
     }
@@ -525,7 +532,7 @@ sub isInDefaultContainer
 #
 sub children
 {
-    my ($self, $childrenObjectClass) = @_;
+    my ($self, $childrenObjectClass, $customFilter) = @_;
 
     return [] unless $self->isContainer();
     my $filter;
@@ -533,6 +540,9 @@ sub children
         $filter = "(&(!(objectclass=organizationalRole))(objectclass=$childrenObjectClass))";
     } else {
         $filter = '(!(objectclass=organizationalRole))';
+    }
+    if ($customFilter) {
+        $filter = '(&' . $filter . "($customFilter))";
     }
 
     # All children except for organizationalRole objects which are only used
@@ -627,6 +637,37 @@ sub relativeDN
 
     my $ldapMod = $self->_ldapMod();
     return $ldapMod->relativeDN($self->dn());
+}
+
+# Method: printableType
+#
+#   Override in subclasses to return the printable type name.
+#   By default returns the class name
+sub printableType
+{
+    my ($self) = @_;
+    return ref($self);
+}
+
+# Method: checkCN
+#
+#  Check if the given CN is correct.
+#  The default implementation just checks that there is no other object with
+#  the same CN in the container
+sub checkCN
+{
+    my ($class, $container, $cn)= @_;
+    my @children = @{ $container->children(undef, "cn=$cn") };
+    if (@children) {
+        my ($sameCN) = @children;
+        my $type = $sameCN->printableType();
+        throw EBox::Exceptions::External(
+            __x("There exists already a object of type {type} with CN={cn} in this container",
+                type => $type,
+                cn => $cn
+               )
+           );
+    }
 }
 
 1;

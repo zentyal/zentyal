@@ -23,6 +23,7 @@ use base 'EBox::Model::DataForm::ReadOnly';
 
 use feature 'switch';
 
+use EBox::Config;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
@@ -31,10 +32,6 @@ use EBox::Types::Int;
 use EBox::Types::Text;
 use EBox::Types::Boolean;
 use Date::Calc;
-
-# Constants
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=antivirus&utm_campaign=enterprise_edition';
 
 use constant CLAMAV_LOG_FILE => '/var/log/clamav/clamav.log';
 use constant FRESHCLAM_LOG_FILE => '/var/log/clamav/freshclam.log';
@@ -201,10 +198,8 @@ sub _formatDate
 
 sub _commercialMsg
 {
-    return __sx('Want to protect your system against scams, spear phishing, frauds and other junk? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} that will keep your Antvirus database always up-to-date.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to protect your system against scams, spear phishing, frauds and other junk? Get one of the {oh}Commercial Editions{ch} that will keep your Antvirus database always up-to-date.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 # Get the number of signatures from clamav log file

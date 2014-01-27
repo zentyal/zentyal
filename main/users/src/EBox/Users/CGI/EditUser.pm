@@ -50,8 +50,8 @@ sub _process
     my $user = new EBox::Users::User(dn => $dn);
 
     my $components = $users->allUserAddOns($user);
-    my $usergroups = $user->groups();
-    my $remaingroups = $user->groupsNotIn();
+    my $usergroups = $user->groups(internal => 0, system => 1);
+    my $remaingroups = $user->groupsNotIn(internal => 0, system => 1);
 
     my $editable = $users->editableMode();
 
@@ -81,14 +81,9 @@ sub _process
             my $surname = $self->param('surname');
             my $disabled = $self->param('disabled');
 
-            my $fullname;
-            if ($givenName) {
-                $fullname = "$givenName $surname";
-            } else {
-                $fullname = $surname;
-            }
-
+            my $fullname = "$givenName $surname";
             if ($fullname ne $user->get('cn')) {
+                $user->checkCN($user->parent(), $fullname);
                 $setText = $user->get('uid') . " ($fullname)";
             }
 

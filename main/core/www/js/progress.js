@@ -1,4 +1,5 @@
-// Copyright (C) 2004-2013 Zentyal S.L. licensed under the GPLv2
+// Copyright (C) 2007 Warp Networks S.L.
+// Copyright (C) 2008-2013 Zentyal S.L. licensed under the GPLv2
 
 // code used by progress.mas
 

@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -1147,7 +1148,7 @@ sub warnIfIdUsed
 # Method: warnOnChangeOnId
 #
 #       This method must be overriden in case you want to advise the
-#       eBox user about the change on a observable model. Note that
+#       Zentyal user about the change on a observable model. Note that
 #       models manage this situation automatically if you are using
 #       <EBox::Types::Select> or <EBox::Types::HasMany> types. This
 #       method is intended to be used by models which use
@@ -2495,13 +2496,9 @@ sub Viewer
 
 sub modalViewer
 {
-    my ($self, $showTable) = @_;
-
-    if ($showTable) {
-        return  '/ajax/tableModalView.mas';
-    } else {
-        return '/ajax/tableModal.mas';
-    }
+    my ($self) = @_;
+    # for the moment only we have modal for adding elements out of their page
+    return '/ajax/modal/addElement.mas';
 }
 
 # Method: automaticRemoveMsg
@@ -2651,6 +2648,47 @@ sub changeViewJS
                     $isFilter);
 }
 
+# Method: showChangeRowFormJS
+#
+#     Return the javascript function to change view to
+#     add a row
+#
+# Parameters:
+#
+#    (NAMED)
+#    changeType - changeAdd or changeList
+#    editId - edit id
+#     page - page number
+#       isFilter - boolean indicating if comes from filtering
+#
+#
+# Returns:
+#
+#     string - holding a javascript funcion
+sub showChangeRowFormJS
+{
+    my ($self, %args) = @_;
+
+    my ($type, $editId, $page, $isFilter) = ($args{changeType},
+            $args{editId},
+            $args{page},
+            $args{isFilter},
+            );
+
+    my $function = "Zentyal.TableHelper.showChangeRowForm('%s','%s','%s','%s','%s', %s, %s)";
+
+    my $table = $self->table();
+    return sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $type,
+                    $editId,
+                    $page,
+                    $isFilter);
+}
+
+
 # Method: modalChangeViewJS
 #
 #     Return the javascript function to change view
@@ -2685,7 +2723,7 @@ sub modalChangeViewJS
     my $table = $self->table();
     my $url = $table->{'actions'}->{'changeView'}; # url
     $url =~ s/Controller/ModalController/;
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $js =  sprintf ($function,
             $url,
@@ -2702,23 +2740,23 @@ sub modalChangeViewJS
 sub modalCancelAddJS
 {
     my ($self, %params) = @_;
-    my $table = $self->table();
-    my $url = $table->{'actions'}->{'changeView'}; # url
-    $url =~ s/Controller/ModalController/;
+    my $table   = $self->table();
+    my $tableId = $table->{'tableName'};
+
+    my $url = $table->{'actions'}->{'changeView'};
+    $url    =~ s/Controller/ModalController/;
 
     my $directory = $self->directory();
-    my $params =  "action=cancelAdd&directory=$directory";
     my $selectCallerId = $params{selectCallerId};
-    my $success='';
-    if ($selectCallerId) {
-        $success = "function(t) {  var json = t.responseText.evalJSON(true); if (json.success) { Zentyal.TableHelper.removeSelectChoice('$selectCallerId', json.rowId, 2) } }";
-    }
 
-    my $js = "\$.ajax('{url: $url', type: 'post', data: '$params'";
-    if ($success) {
-        $js .= ", success: $success";
-    }
-    $js.= '});';
+    my  $function = "Zentyal.TableHelper.modalCancelAddRow('%s', '%s', this, '%s', '%s')";
+    my $js =  sprintf ($function,
+                       $url,
+                       $tableId,
+                       $directory,
+                       $selectCallerId
+                      );
+
     return $js;
 }
 
@@ -2764,13 +2802,11 @@ sub modalAddNewRowJS
 
     my $table = $self->table();
     my $url = $table->{'actions'}->{'add'};
-    if (not $nextPage) {
-        $url =~ s/Controller/ModalController/;
-    }
+    $url =~ s/Controller/ModalController/;
 
     my $extraParamsJS = _paramsToJSON(@extraParams);
 
-    my $tableId = $table->{'tableName'} . '_modal';
+    my $tableId = $table->{'tableName'};
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
@@ -2797,21 +2833,15 @@ sub modalAddNewRowJS
 #     string - holding a javascript funcion
 sub changeRowJS
 {
-    my ($self, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $editId, $page) = @_;
 
-    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s, %s)";
+    my  $function = "Zentyal.TableHelper.changeRow('%s','%s',%s,'%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $tablename =  $table->{'tableName'};
     my $actionUrl =  $table->{'actions'}->{'editField'};
-    my $modalResize = 0;
-    if ($modal) {
-        $tablename .= '_modal';
-        $actionUrl =~ s/Controller/ModalController/;
-    }
 
     my $force =0;
-    my $extraParamsJS = _paramsToJSON(@extraParams);
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,
@@ -2820,8 +2850,7 @@ sub changeRowJS
                     $table->{'confdir'},
                     $editId,
                     $page,
-                    $force,
-                    $extraParamsJS);
+                    $force);
 }
 
 sub _paramsToJSON
@@ -2835,49 +2864,36 @@ sub _paramsToJSON
     return $paramString;
 }
 
-# Method: actionClicked
+# Method: deleteActionClickedJS
 #
-#     Return the javascript function for actionClicked
+#     Return the javascript function for click on delete action
 #
 # Parameters:
 #
-#    (POSITIONAL)
-#    action - move or del
-#    editId - row id to edit
+#    id - row to remove
 #    page - page number
 #
 # Returns:
 #
 #     string - holding a javascript funcion
-sub actionClickedJS
+sub deleteActionClickedJS
 {
-    my ($self, $action, $editId, $page, $modal, @extraParams) = @_;
+    my ($self, $id, $page) = @_;
+    my $action = 'del';
+    my $function = "Zentyal.TableHelper.deleteActionClicked('%s','%s','%s','%s',%s)";
 
-    unless (($action eq 'del') or ($action eq 'clone')) {
-        throw EBox::Exceptions::External("Wrong action $action");
-    }
-
-    my  $function = "Zentyal.TableHelper.actionClicked('%s','%s','%s','%s','%s',%s, %s)";
 
     my $table = $self->table();
     my $actionUrl = $table->{'actions'}->{$action};
     my $tablename = $table->{'tableName'};
-    if ($modal) {
-        $actionUrl =~ s/Controller/ModalController/;
-        $tablename .= '_modal';
-    }
-
-    my $extraParamsJS =  _paramsToJSON(@extraParams);
 
     my $fields = $self->_paramsWithSetterJS();
     return sprintf ($function,
                     $actionUrl,
                     $tablename,
-                    $action,
-                    $editId,
+                    $id,
                     $table->{'confdir'},
-                    $page,
-                    $extraParamsJS);
+                    $page);
 }
 
 sub actionHandlerUrl
@@ -4253,8 +4269,9 @@ sub _filterFields
     $newRow->setOrder($row->order());
 
     my @modelFields = @{$self->fields()};
+    my $anyModelFields = any(@modelFields);
     foreach my $fieldName ( @{$fieldNames} ) {
-        unless ( $fieldName eq any(@modelFields) ) {
+        unless ($fieldName eq $anyModelFields) {
             throw EBox::Exceptions::Internal(
                     'Trying to get a field which does exist in this model. These fields ' .
                     'are available: ' . join ( ', ', @modelFields));
@@ -4473,6 +4490,26 @@ sub checkAllProperty
     return $self->{'table'}->{'checkAll'};
 }
 
+# Method: checkAllControls
+#
+# return a hash with all the 'check all' controls of the table, indexed by
+# their field
+sub checkAllControls
+{
+    my ($self) = @_;
+    my %checkAllControls;
+    my $checkAllProperty = $self->checkAllProperty();
+    if ($checkAllProperty) {
+        my $table = $self->table();
+        %checkAllControls = map {
+            my $field = $_;
+            my $id =  $table->{tableName} . '_'. $field . '_CheckAll';
+            ( $field => $id)
+        } @{ $checkAllProperty } ;
+    }
+    return \%checkAllControls;
+}
+
 sub checkAllControlValue
 {
     my ($self, $fieldName) = @_;
@@ -4484,6 +4521,20 @@ sub checkAllControlValue
     }
 
     return 1;
+}
+
+sub checkAllJS
+{
+    my ($self, $fieldName) = @_;
+    my $table = $self->table();
+    my $function = "Zentyal.TableHelper.checkAll('%s', '%s', '%s', '%s', this.checked)";
+    my $call =  sprintf ($function,
+                    $table->{'actions'}->{'changeView'},
+                    $table->{'tableName'},
+                    $table->{'confdir'},
+                    $fieldName
+                    );
+    return $call;
 }
 
 sub _confirmationDialogForAction
@@ -4557,6 +4608,39 @@ sub setSortableTableJS
                     $table->{'confdir'},
                     );
     return $call;
+}
+
+# Method: movableRows
+#
+#  Returns:
+#    - whether the rows of this data table can be moved by the user
+sub movableRows
+{
+    my ($self, $filter) = @_;
+    if ($filter) {
+        # we can only move rows if they are unfiltered,
+        return 0;
+    } else {
+        my $table = $self->table();
+        if (exists $table->{'order'} and ($table->{'order'} == 1)) {
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+# Method: pageNumbersText
+#
+#  returns the localized string used in the pager.
+sub pageNumbersText
+{
+    my ($self, $page, $nPages) = @_;
+   if ($nPages == 1) {
+        return __('Page 1');
+   } else {
+        return __x('Page {i} of {n}', i => $page + 1, n => $nPages);
+   }
 }
 
 1;

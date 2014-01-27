@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2012-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,11 +23,13 @@ use base qw(EBox::LdapUserBase);
 use MIME::Base64;
 use Encode;
 use TryCatch::Lite;
+use Net::LDAP::Util qw(canonical_dn ldap_explode_dn);
 
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::NotImplemented;
 use EBox::Exceptions::MissingArgument;
+use EBox::Exceptions::LDAP;
 use EBox::Sudo;
 use EBox::Samba;
 use EBox::Samba::OU;
@@ -137,6 +140,11 @@ sub _delOU
     unless ($sambaOU and $sambaOU->exists()) {
         return;
     }
+    unless ($sambaOU->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__('The object is a ' .
+            'critical system object and can not be deleted.'));
+    }
+
     try {
         $sambaOU->deleteObject();
     } catch ($error) {
@@ -290,6 +298,34 @@ sub _modifyUser
         my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
         return unless $sambaUser->exists();
 
+        # Check if CN has changed. In this case, we have to change the user DN
+        if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
+            my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+            my $rdn = shift (@{$dn});
+            foreach my $key (keys %{$rdn}) {
+                if ($key == 'CN') {
+                    $rdn->{CN} = $zentyalUser->get('cn');
+                    utf8::encode($rdn->{CN});
+                    last;
+                }
+            }
+            unshift (@{$dn}, $rdn);
+
+            my $newrdn = canonical_dn([ $rdn ]);
+            my $ldapCon = $sambaUser->_ldap->connection();
+            my $entry = $sambaUser->_entry();
+            my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
+            if ($result->is_error()) {
+                throw EBox::Exceptions::LDAP(
+                    message => __('There was an error updating LDAP:'),
+                    result =>   $result,
+                    opArgs   => "New RDN: $newrdn");
+            }
+
+            $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
+            return unless $sambaUser->exists();
+        }
+
         my $gn = $zentyalUser->get('givenName');
         utf8::encode($gn);
         my $sn = $zentyalUser->get('sn');
@@ -333,11 +369,18 @@ sub _delUser
         return;
 
     my $dn = $zentyalUser->dn();
+    my $samAccountName = $zentyalUser->get('uid');
+    my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
+    return unless $sambaUser->exists();
+
+    unless ($sambaUser->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__x('The object {x} is a ' .
+            'critical system object and can not be deleted.',
+            x => $samAccountName));
+    }
+
     EBox::debug("Deleting user '$dn' from samba");
     try {
-        my $samAccountName = $zentyalUser->get('uid');
-        my $sambaUser = new EBox::Samba::User(samAccountName => $samAccountName);
-        return unless $sambaUser->exists();
         $sambaUser->deleteObject();
 
         # Remove user from share ACL's
@@ -488,10 +531,16 @@ sub _delContact
         return;
 
     my $dn = $zentyalContact->dn();
+    my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
+    return unless $sambaContact->exists();
+
+    unless ($sambaContact->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__('The object is a ' .
+            'critical system object and can not be deleted.'));
+    }
+
     EBox::debug("Deleting contact '$dn' from samba");
     try {
-        my $sambaContact = $self->{samba}->ldbObjectFromLDAPObject($zentyalContact);
-        return unless $sambaContact->exists();
         $sambaContact->deleteObject();
     } catch ($error) {
         EBox::error("Error deleting contact: $error");
@@ -731,13 +780,20 @@ sub _delGroup
         return;
 
     my $dn = $zentyalGroup->dn();
+    my $samAccountName = $zentyalGroup->get('cn');
+    my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
+    unless ($sambaGroup and $sambaGroup->exists()) {
+        return;
+    }
+
+    unless ($sambaGroup->checkObjectErasability()) {
+        throw EBox::Exceptions::External(__x('The object {x} is a ' .
+            'critical system object and can not be deleted.',
+            x => $samAccountName));
+    }
+
     EBox::debug("Deleting group '$dn' from samba");
     try {
-        my $samAccountName = $zentyalGroup->get('cn');
-        my $sambaGroup = $self->{samba}->ldbObjectFromLDAPObject($zentyalGroup);
-        unless ($sambaGroup and $sambaGroup->exists()) {
-            return;
-        }
         $sambaGroup->deleteObject();
 
         # Remove group from shares ACLs
@@ -755,6 +811,10 @@ sub _delGroup
                     $acls->removeRow($aclId);
                 }
             }
+        }
+
+        if ($self->_groupShareEnabled($zentyalGroup)) {
+            $self->removeGroupShare($zentyalGroup);
         }
     } catch ($error) {
         EBox::error("Error deleting group: $error");

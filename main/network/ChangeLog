@@ -1,5 +1,22 @@
+HEAD
+	+ When adding a new IP (viface or static iface) it is checked to avoid
+	  collision with the current HA floating IPs
+3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Added bonding support (contribution by Vsevolod Kukol)
+	+ Don't use owner module in external-ip.pl script
+	+ Changed failover firewall rules to not use owner module
+	+ Fixed regression in VLANs interface (contribution by Chris Pitchford)
+	+ Fixed bug which made impossible to edit pppoe gateways
+	+ Fix regresion in the installer wizard that made options for static
+	  interfaces be always shown
+	+ Set version to 3.4
 3.3
+	+ Add module not enabled warning to interfaces page
 	+ Switch from Error to TryCatch for exception handling
+	+ Update strings to new offering
+	+ ppp-set-iface.pl script should not regen gateway if we are saving changes
+	+ Flush interfaces list cache after all ifups and all ifdowns
 	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Write resolvconf head, base and tail

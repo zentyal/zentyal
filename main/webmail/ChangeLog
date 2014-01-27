@@ -1,4 +1,7 @@
+3.4
+	+ Set version to 3.4
 3.3
+	+ Non localhost IPs are used in the Roundcube config file
 	+ Added missing EBox::Exceptions uses
 	+ Integration with the OpenChange module
 	+ Set version to 3.3

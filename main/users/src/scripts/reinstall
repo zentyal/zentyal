@@ -5,8 +5,8 @@ echo "All your LDAP data and the Zentyal modules depending on it are going to be
 echo "Press Control-C now if you are not sure of what you are doing."
 read
 
-invoke-rc.d zentyal users stop
-(dpkg -l zentyal-samba 2>/dev/null 1>/dev/null && invoke-rc.d zentyal samba stop) || true
+service zentyal users stop
+(dpkg -l zentyal-samba 2>/dev/null 1>/dev/null && service zentyal samba stop) || true
 
 INSTALLED_MODULES=`dpkg -l | grep 'zentyal-' | grep ^ii | cut -d' ' -f3| xargs`
 

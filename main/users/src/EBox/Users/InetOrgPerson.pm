@@ -187,35 +187,49 @@ sub removeGroup
 #
 #   Groups this inetOrgPerson belongs to
 #
-#   Returns:
+# Parameters:
 #
-#       array ref of EBox::Users::Group objects
+#   %params - Hash to control which groups to skip or include.
+#       - internal
+#       - system
+#
+# Returns:
+#
+#   Array ref of EBox::Users::Group objects
 #
 sub groups
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    return $self->_groups();
+    return $self->_groups(%params);
 }
 
 # Method: groupsNotIn
 #
 #   Groups this inetOrgPerson does not belong to
 #
-#   Returns:
+# Parameters:
 #
-#       array ref of EBox::Users::Group objects
+#   %params - Hash to control which groups to skip or include.
+#       - internal
+#       - system
+#
+# Returns:
+#
+#   Array ref of EBox::Users::Group objects
 #
 sub groupsNotIn
 {
-    my ($self) = @_;
+    my ($self, %params) = @_;
 
-    return $self->_groups(1);
+    $params{invert} = 1;
+
+    return $self->_groups(%params);
 }
 
 sub _groups
 {
-    my ($self, $invert) = @_;
+    my ($self, %params) = @_;
 
     my $filter;
     my $dn = $self->dn();
@@ -223,7 +237,7 @@ sub _groups
     my $usersMod = $self->_usersMod();
     my $groupClass = $usersMod->groupClass();
     my $groupObjectClass = $groupClass->mainObjectClass();
-    if ($invert) {
+    if ($params{invert}) {
         $filter = "(&(objectclass=$groupObjectClass)(!(member=$dn)))";
     } else {
         $filter = "(&(objectclass=$groupObjectClass)(member=$dn))";

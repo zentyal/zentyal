@@ -25,7 +25,7 @@ $disabled
 my $zones = $data->zones();
 my $id = $tableName . '_' . $data->fieldName();
 </%init>
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="inline-input <% $cssClass %>">
     <select name=<% $id . '_continent' %>
             id=<% $id . '_continent' %>
             onChange='continentChanged(this)'

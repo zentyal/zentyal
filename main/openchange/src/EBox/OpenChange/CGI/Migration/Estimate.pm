@@ -54,7 +54,7 @@ sub _process
     try {
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         # Get status
-        my $request = { command => 0 };
+        my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS() };
         my $response = $rpc->send_command($request);
         if ($response->{code} != 0) {
             $self->{json}->{error} = __('Invalid RPC server state');
@@ -63,7 +63,9 @@ sub _process
 
         EBox::info("The daemon is in state: " . $response->{state});
         given ($response->{state}) {
-            when(0) {
+            when([
+                EBox::OpenChange::MigrationRPCClient->RPC_STATE_IDLE(),
+                EBox::OpenChange::MigrationRPCClient->RPC_STATE_IMPORTED()]) {
                 # Idle, start estimation
                 my $u = [];
                 foreach my $elem (@{$users}) {
@@ -71,7 +73,7 @@ sub _process
                 }
                 EBox::info("The daemon is idle, launch estimating");
                 my $request = {
-                    command => 2,
+                    command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_ESTIMATE(),
                     users => $u,
                 };
                 $rpc->dump($request);
@@ -87,7 +89,9 @@ sub _process
                     $oc->set_state($state);
                 }
             }
-            when ([1, 2]) {
+            when ([
+                EBox::OpenChange::MigrationRPCClient->RPC_STATE_ESTIMATING(),
+                EBox::OpenChange::MigrationRPCClient->RPC_STATE_ESTIMATED()]) {
                 my $state = $_;
                 # 1 - Estimation on progress
                 # 2 - Estimated done. Enable migrate button
@@ -101,7 +105,7 @@ sub _process
                         'calendar' => { 'value' => $response->{appointmentItems}, 'type' => 'int' },
                         'time'     => { 'value' => $seconds, 'type' => 'timediff' },
                     },
-                    'state' => ($state == 1 ? 'ongoing' : 'done'),
+                    'state' => ($state == EBox::OpenChange::MigrationRPCClient->RPC_STATE_ESTIMATING() ? 'ongoing' : 'done'),
                 }
             }
         }

@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -59,6 +60,14 @@ sub ldap
         $self->{ldap} = EBox::Global->modInstance('users')->newLDAP();
     }
     return $self->{ldap};
+}
+
+sub clearLdapConn
+{
+    my ($self) = @_;
+    $self->{ldap} or return;
+    $self->{ldap}->clearConn();
+    $self->{ldap} = undef;
 }
 
 # Method: _loadSchema

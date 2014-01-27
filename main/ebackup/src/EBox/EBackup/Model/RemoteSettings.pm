@@ -43,11 +43,6 @@ use EBox::Exceptions::MissingArgument;
 use File::Basename;
 use TryCatch::Lite;
 
-# Constants
-use constant URL => 'https://store.zentyal.com/other/disaster-recovery.html';
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=backup&utm_campaign=enterprise_edition';
-
 # Group: Public methods
 
 # Constructor: new
@@ -147,7 +142,7 @@ sub viewCustomizer
             { method =>
                 {
                 file => { hide => $userPass , show => ['target'] },
-                rsync => { show => $allFields },
+                rsync => { hide => ['password'], show => ['user', 'target'] },
                 scp => { show => $allFields },
                 ftp => { show => $allFields },
                 }
@@ -206,7 +201,7 @@ sub _table
                 ),
 # XXX asymmetric key disabled until we could support it in disaster-recovery if
 #     you want to use it uncomment the following lines and execute
-#     '/etc/init.d/zentyal apache restart
+#     service zentyal webadmin restart
 
 #    new EBox::Types::Select( fieldName =>
 #     'asymmetric', printableName => __('GPG Key'), editable => 1, populate =>
@@ -891,6 +886,12 @@ sub configurationIsComplete
     if (not $user) {
         return 0;
     }
+
+    if ($method eq 'rsync') {
+        # rsync does not need password
+        return 1;
+    }
+
     my $password = $row->valueByName('password');
     if (not $password) {
         return 0;

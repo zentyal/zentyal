@@ -265,12 +265,12 @@ cache_peer localhost parent 3130 0 no-query proxy-only login=*:nopassword
 % }
 
 % if ($realm) {
-auth_param negotiate program /usr/lib/squid3/squid_kerb_auth -i -s <% $principal %>@<% $realm %>
+auth_param negotiate program /usr/lib/squid3/negotiate_kerberos_auth -i -s <% $principal %>@<% $realm %>
 auth_param negotiate children 10
 auth_param negotiate keep_alive on
 % } else {
 auth_param basic realm Zentyal HTTP proxy
-auth_param basic program /usr/lib/squid3/squid_ldap_auth -v 3 -b <% $dn %> -f "(&(uid=%s)(objectclass=posixAccount))" -p 390 -D <% $roDn %> -w <% $roPasswd %> -P
+auth_param basic program /usr/lib/squid3/basic_ldap_auth -v 3 -b <% $dn %> -f "(&(uid=%s)(objectclass=posixAccount))" -p 390 -D <% $roDn %> -w <% $roPasswd %> -P
 % }
 acl_uses_indirect_client on
 acl authorized proxy_auth REQUIRED
@@ -293,6 +293,7 @@ acl <% "$name $params" %>
 
 http_access allow to_localhost
 follow_x_forwarded_for allow from_localhost
+http_access allow from_localhost
 forwarded_for on
 log_uses_indirect_client on
 always_direct allow to_localhost

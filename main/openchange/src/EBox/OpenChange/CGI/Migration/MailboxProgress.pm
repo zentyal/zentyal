@@ -52,7 +52,7 @@ sub _process
     try {
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         # Get status
-        my $request = { command => 0 };
+        my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_STATUS() };
         my $response = $rpc->send_command($request);
         if ($response->{code} != 0) {
             $self->{json}->{error} = __('Invalid RPC server state');
@@ -62,7 +62,7 @@ sub _process
         my $state = $response->{state};
         if ($state == 2) {
             # Start export
-            my $request = { command => 3 };
+            my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_EXPORT() };
             my $response = $rpc->send_command($request);
             if ($response->{code} != 0) {
                 $self->{json}->{error} = __('Invalid RPC server state');
@@ -89,12 +89,13 @@ sub _process
 
         if ($state == 3 || $state == 4 || $state == 5 || $state == 6) {
             my $totalBytes = $response->{totalBytes};
-            my $exportedBytes = $response->{exportedTotalBytes};
-            my $importedBytes = $response->{importedTotalBytes};
-            if ($totalBytes > 0) {
-                $donePercentage = floor(($exportedBytes + $importedBytes) / ($totalBytes) * 100);
+            my $totalItems = $response->{totalItems};
+            my $exportedItems = $response->{exportedTotalItems};
+            my $importedItems = $response->{importedTotalItems};
+            if ($totalItems > 0) {
+                $donePercentage = floor(($exportedItems + $importedItems) / ($totalItems) * 100);
             }
-            my $errorPercentage = 0;
+            my $errorPercentage = 100 - $donePercentage;
 
             my $totalMigratedBytes = $response->{importedTotalBytes} + $response->{exportedTotalBytes};
 
@@ -113,28 +114,28 @@ sub _process
                 }
 
 #"calendars": { "appointmentBytes": 382, "appointmentItems": 1, "exportedAppointmentItems": 0, "exportedAppointmentBytes": 0, "importedAppointmentItems": 0, "importedAppointmentBytes": 0 },
-                my $calendarBytes = $user->{calendars}->{appointmentBytes};
-                my $exportedCalendarBytes = $user->{calendars}->{exportedAppointmentBytes};
-                my $importedCalendarBytes = $user->{calendars}->{importedAppointmentBytes};
+                my $calendarItems = $user->{calendars}->{appointmentItems};
+                my $exportedCalendarItems = $user->{calendars}->{exportedAppointmentItems};
+                my $importedCalendarItems = $user->{calendars}->{importedAppointmentItems};
                 my $calendarPercentage = 0;
-                if ($calendarBytes > 0) {
-                    $calendarPercentage = floor(($exportedCalendarBytes + $importedCalendarBytes) / ($calendarBytes * 2) * 100);
+                if ($calendarItems > 0) {
+                    $calendarPercentage = floor(($exportedCalendarItems + $importedCalendarItems) / ($calendarItems * 2) * 100);
                 } else {
                     $calendarPercentage = 100;
                 }
 
 #"contacts": { "contactBytes": 123098, "contactItems": 232, "exportedContactItems": 0, "exportedContactBytes": 0, "importedContactItems": 0, "importedContactBytes": 0 },
-                my $contactsBytes = $user->{contacts}->{contactBytes};
-                my $importedContactBytes = $user->{contacts}->{importedContactBytes};
-                my $exportedContactBytes = $user->{contacts}->{exportedContactBytes};
+                my $contactsItems = $user->{contacts}->{contactItems};
+                my $importedContactItems = $user->{contacts}->{importedContactItems};
+                my $exportedContactItems = $user->{contacts}->{exportedContactItems};
                 my $contactsPercentage = 0;
-                if ($contactsBytes > 0) {
-                    $contactsPercentage = floor(($exportedContactBytes + $importedContactBytes) / ($contactsBytes) * 100);
+                if ($contactsItems > 0) {
+                    $contactsPercentage = floor(($exportedContactItems + $importedContactItems) / ($contactsItems) * 100);
                 } else {
                     $contactsPercentage = 100;
                 }
 
-                my $errorCount = 0;
+                my $errorCount = $totalItems - $exportedItems;
                 my $status = {
                     done => $donePercentage,
                     error => $errorPercentage,
@@ -147,7 +148,7 @@ sub _process
                     'mail_pct'     => $mailPercentage,
                     'calendar_pct' => $calendarPercentage,
                     'contacts_pct' => $contactsPercentage,
-                    'errors'       => 0,
+                    'errors'       => $errorCount,
                     'status'       => $status
                 };
                 push (@{$usersData}, $data);
@@ -155,7 +156,7 @@ sub _process
 
             if ($state == 4) {
                 # Start import
-                 my $request = { command => 4 };
+                 my $request = { command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_IMPORT() };
                  my $response = $rpc->send_command($request);
                  if ($response->{code} != 0) {
                      $self->{json}->{error} = __('Invalid RPC server state');
@@ -167,7 +168,7 @@ sub _process
             'totals' => {
                 'total_percentage' => $donePercentage,
                 'n_mailboxes'      => $nMailBoxes,
-                'data_migrated'    => $totalMigratedBytes,
+                'data_migrated'    => 0,
                 'time_left'        => $secondsLeft
             },
             'users' => $usersData,

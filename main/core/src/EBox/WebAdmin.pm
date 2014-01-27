@@ -25,7 +25,6 @@ use EBox::Sudo;
 use EBox::Global;
 use EBox::Service;
 use EBox::Menu;
-use HTML::Mason::Interp;
 use EBox::Exceptions::InvalidData;
 use EBox::Exceptions::InvalidType;
 use EBox::Exceptions::Internal;
@@ -156,6 +155,11 @@ sub _setConf
     if (EBox::Config::boolean('debug')) {
         my $sysinfo = EBox::Global->modInstance('sysinfo');
         $apportEnabled = $sysinfo->model('Debug')->value('enabled');
+        if ($apportEnabled) {
+            # FIXME: this patch is required because apport in 12.04 does not include /opt in the whitelist
+            #        remove as soon as proper apport package is provided
+            EBox::Sudo::root(qq{sed -i "s/pkg_whitelist = \\['\\/bin/pkg_whitelist = ['\\/opt', '\\/bin/" /usr/share/pyshared/apport/fileutils.py});
+        }
     }
     EBox::Sudo::root("sed -i 's/^enabled=.*/enabled=$apportEnabled/' /etc/default/apport");
 }

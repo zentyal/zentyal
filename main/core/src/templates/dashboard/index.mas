@@ -14,7 +14,8 @@ use EBox::SysInfo;
 
 my $statusStringJson = JSON::XS->new()->encode(EBox::SysInfo::dashboardStatusStrings());
 </%init>
-<script type="text/javascript"  src="/data/js/dashboard.js">//</script>
+<script type="text/javascript" src="/data/js/dashboard.js">//</script>
+<script type="text/javascript" src="/data/js/dialog.js">//</script>
 <script type="text/javascript" src="/data/js/table-helper.js">//</script>
 <script type="text/javascript" src="/data/js/format.js">//</script>
 <script type="text/javascript" src="/data/js/jquery.flot.js">//</script>

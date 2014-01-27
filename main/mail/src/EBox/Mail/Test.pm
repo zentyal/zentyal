@@ -1,3 +1,4 @@
+# Copyright (C) 2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -22,20 +23,18 @@ use base 'EBox::Test::Class';
 
 # Description:
 
-use File::Slurp::Tree;
+use Test::More skip_all => 'FIXME';
 use Test::More;
 use Test::Exception;
 use Test::Differences;
 use Test::MockObject;
-use EBox::Global;
+use EBox::Global::TestStub;
 use EBox::Test qw(checkModuleInstantiation);
 use EBox::TestStubs qw(fakeModule);
 
 use Perl6::Junction qw(all any);
 
 use EBox::NetWrappers::TestStub;
-
-use lib '../..';
 
 sub testDir
 {
@@ -54,6 +53,7 @@ sub cleanTestDir : Test(startup)
 sub setUpConfiguration : Test(setup)
 {
     my ($self) = @_;
+    EBox::Global::TestStub::fake();
 
     my @config = (
                   '/ebox/modules/mail/active'  => 1,

@@ -13,12 +13,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-# Auxlilaire base class for firewall rules which use interface
+# Auxiliar base class for firewall rules which use interface
 
 use strict;
 use warnings;
 
 package EBox::Firewall::Model::RulesWithInterface;
+
+use EBox::Gettext;
 
 sub interfacePopulateSub
 {
@@ -39,11 +41,16 @@ sub interfacePopulateSub
             my $printableValue =  $net->ifaceAlias($iface);
             my @vifacesNames = @{ $net->vifaceNames($iface) };
             if (@vifacesNames) {
-                $printableValue = join ', ', ($printableValue, @vifacesNames);
+                EBox::debug("vifaces @vifacesNames");
+                EBox::debug(join(', ', @vifacesNames));
+                $printableValue = __x('{iface} (including {vifaces})',
+                                      iface => $printableValue,
+                                      vifaces => join(', ', @vifacesNames)
+                                     );
             }
 
-            push(@options, { 'value' => $iface,
-                             'printableValue' => $printableValue  });
+            push @options, { 'value' => $iface,
+                             'printableValue' => $printableValue  };
         }
 
         return \@options;

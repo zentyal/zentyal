@@ -8,6 +8,6 @@ chmod 600 /etc/ldap.secret
 /usr/share/zentyal-users/enable-quotas
 
 # This might fail if the fs does not support quotas
-invoke-rc.d quota restart
+service quota restart
 
 exit 0

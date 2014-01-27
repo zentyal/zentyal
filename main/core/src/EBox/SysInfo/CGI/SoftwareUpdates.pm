@@ -42,6 +42,13 @@ sub new
 sub _process
 {
     my ($self) = @_;
+    if (EBox::Util::Software::errorOnPkgs()) {
+        $self->{json} = {
+            value => __('You have broken packages installed, fix them before upgrading'),
+            type => 'error',
+        };
+        return;
+    }
 
     my $qaUpdates = 0;
     my $ignore = EBox::Config::boolean('widget_ignore_updates');
@@ -104,7 +111,7 @@ sub _process
 # Return commercial message for QA updates
 sub _commercialMsg
 {
-    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Small Business or Enterprise Edition: commercial Zentyal server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
+    return __s('Warning: These are untested community updates that might harm your system. In production environments we recommend using the Professional, Business or Premium Editions: commercial Zentyal Server editions fully supported by Zentyal S.L. and Canonical/Ubuntu.');
 }
 
 sub _secureMsg

@@ -40,6 +40,8 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
+use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
+
 # Method: _create
 #
 #   The constructor, instantiate module
@@ -154,16 +156,28 @@ sub _daemonsToDisable
     return $daemons;
 }
 
+# Method: _daemons
+#
+# Overrides:
+#
+#      <EBox::Module::Service::_daemons>
+#
 sub _daemons
 {
     my ($self) = @_;
     my $daemons = [
         {
-            name => 'zentyal.ocsmanager',
-            type => 'upstart',
-            precondtion => sub { return $self->_autodiscoverEnabled() },
-           }
-       ];
+            name         => 'zentyal.ocsmanager',
+            type         => 'upstart',
+            precondition => sub { return $self->_autodiscoverEnabled() },
+        },
+        {
+            name         => 'zentyal.zoc-migrate',
+            type         => 'upstart',
+            precondition => sub { return $self->isProvisioned() },
+        },
+    ];
+
     return $daemons;
 }
 
@@ -204,6 +218,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+    $self->_writeRewritePolicy();
 }
 
 sub _writeSOGoDefaultFile
@@ -322,6 +337,26 @@ sub _setAutodiscoverConf
     }
 }
 
+sub _writeRewritePolicy
+{
+    my ($self) = @_;
+
+    my $sysinfo = $self->global()->modInstance('sysinfo');
+    my $defaultDomain = $sysinfo->hostDomain();
+
+    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+
+    my @rewriteParams;
+    push @rewriteParams, ('defaultDomain' => $defaultDomain);
+    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+
+    $self->writeConfFile(REWRITE_POLICY_FILE,
+        'openchange/rewriteDomainPolicy.mas',
+        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+
+    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+}
+
 # Method: menu
 #
 #   Add an entry to the menu with this module.
@@ -341,12 +376,14 @@ sub menu
         order => $order);
     $folder->add(new EBox::Menu::Item(
         url       => 'OpenChange/View/Provision',
-        text      => __('Provision'),
+        text      => __('Setup'),
         order     => 0));
-    $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/Migration/Connect',
-        text      => __('MailBox Migration'),
-        order     => 1));
+    if ($self->isProvisioned()) {
+        $folder->add(new EBox::Menu::Item(
+            url       => 'OpenChange/Migration/Connect',
+            text      => __('MailBox Migration'),
+            order     => 1));
+    }
     $root->add($folder);
 }
 

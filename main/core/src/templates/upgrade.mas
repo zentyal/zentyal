@@ -1,0 +1,37 @@
+<%args>
+</%args>
+<%init>
+use EBox::Gettext;
+</%init>
+<script type="text/javascript" src="/data/js/jquery-1.9.1.js">//</script>
+<script type="text/javascript" src="/data/js/jquery-ui.js">//</script>
+<script type="text/javascript" src="/data/js/common.js">//</script>
+<script type="text/javascript" src="/data/js/dialog.js">//</script>
+<script>
+    function doReleaseUpgrade() {
+        $('#ok_button').hide();
+        $('#ajax_loader_upgrade').show();
+        $.ajax({ url: '/ReleaseUpgrade',
+            data: { upgrade: 1 },
+            success: function(response) {
+                window.location = '/ReleaseUpgrade?install=1';
+            }
+        });
+    }
+</script>
+
+<div class="note">
+<p>This will upgrade your Zentyal 3.2 to Zentyal 3.3 Community Edition.</p>
+<p>Close this dialog if you do not want to upgrade now.</p>
+</div>
+<div class="warning">
+<p>Zentyal 3.2 commercial editions will receive upgrades through the Service Packs available through our customers repository. Check the <a href="http://www.zentyal.com/zentyal-release-policy/"><b>Zentyal Release Policy</b></a> for more information.</p>
+<p>Before upgrading please read also carefully the <a target="_blank" href="http://trac.zentyal.org/wiki/Document/Announcement/3.3"><b>release notes</b>.</p>
+</div>
+
+<div>
+<center>
+<img id="ajax_loader_upgrade" style="display:none" src="/data/images/ajax-loader.gif" />
+<button id="ok_button" onclick="doReleaseUpgrade(); return false;">Continue</button>
+</center>
+</div>

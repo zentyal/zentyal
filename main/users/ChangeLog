@@ -1,5 +1,30 @@
+3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Fixed soap.conf for apache 2.4
+	+ Depend on apache2-utils, required to run htpasswd
+	+ Set version to 3.4
+	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
+	+ Fixed regression in LDAP info page for external AD mode
+	+ Print slave-sync output to zentyal.log instead of stdout
+	+ Fixed excesive restrictive validation of external AD password in wizard
 3.3
+	+ Forbid to create OUs inside Users, Groups or Computer OUs
+	  because we not support them when Samba is enabled
+	+ Forbid and print specific  error message when trying to put two
+	  objects with the same CN in the same container
 	+ Switch from Error to TryCatch for exception handling
+	+ Remove useless warning when deleting a user or group with offer 2013
+	+ Show system but not internal groups in user edition form
+	+ Allow unsafe characters for user and password in external AD mode.
+	+ Fixed bug in external AD connection. Reuse already estabished
+	  external AD connection.
+	+ The "sub ous" return the OUs hierarquically ordered
+	+ Check for defined uidNumber and gidNumber creating users and groups
+	+ Revert useless chown workaround
+	+ Wait for the services before ending the start daemon action to prevent
+	  its usage before being ready
+	+ Better error handling when the default group is not found
+	+ Fixed distribution group edition
 	+ Add error, errorText and errorDescription methods to
 	  EBox::Exceptions::LDAP
 	+ Added missing EBox::Exceptions uses

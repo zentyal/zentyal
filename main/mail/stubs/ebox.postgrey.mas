@@ -31,7 +31,7 @@ pre-start script
 # XXX commented out and replaced with workaround until
 #     https://bugs.launchpad.net/ubuntu/+source/postgrey/+bug/981789
 #     is fixed
-#    invoke-rc.d postgrey stop || true
+#    service postgrey stop || true
     start-stop-daemon --stop --oknodo --pidfile /var/run/postgrey.pid  || true
     rm -f /var/run/postgrey.pid
 end script

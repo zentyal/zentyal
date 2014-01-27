@@ -19,23 +19,28 @@ use Data::Dumper;
 
 <div class="item-block">
 <h3><% __('Log Domain') %></h3>
-        <form method="POST" action="Index">
-        <div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
-        <% __('Select available full reports') %>:
-        <select name='selected'>
-%       foreach my $domain (sort keys %logdomains){
-%               if ($selected eq $domain) {
-                        <option selected value='<% $domain %>'><% $logdomains{$domain} %></option>
-%               } else {
-                        <option value='<% $domain %>'><% $logdomains{$domain} %></option>
+        <form method="POST" action="Index" class="formDiv">
+            <div class='help'><% __('Last hour logs will be showed when selecting a component') %></div>
+            <div>
+        
+                <label><% __('Select available full reports') %></label>
+                <select name='selected'>
+%               foreach my $domain (sort keys %logdomains){
+%                   if ($selected eq $domain) {
+                            <option selected value='<% $domain %>'><% $logdomains{$domain} %></option>
+%                   } else {
+                            <option value='<% $domain %>'><% $logdomains{$domain} %></option>
+%                   }
 %               }
-%       }
-        </select>
-        <input  class='inputButton'
+                </select>
+            </div>
+            <div>
+                <input  class='inputButton'
                         type='submit'
                         name="<% __('View') %>"
                         value="<% __('View') %>"
                         alt="<% __('View') %>" />
+            </div>
         </form>
 </div>
 
@@ -45,145 +50,140 @@ use Data::Dumper;
 
 <div class="item-block">
 <h3><% __('Custom query') %></h3>
-<form action='Index' method='POST'>
-        <input type='hidden' name='selected' value='<% $selected %>'>
+<form action='Index' method='POST' class="formDiv"> 
+    <input type='hidden' name='selected' value='<% $selected %>'>
 
-        <table class="formTable">
-        <tr>
-        <td class='tright'><% __('From date:') %></td>
-        <td><select name="fromday">
-%                                       for (my $fd=1; $fd<=31; $fd++) {
-                                <option
-%                                                       if ($fd == $fromdate[0]) {
-                                                selected
+    <div class="inline-input">
+        <label><% __('From date:') %></label>
+        <select name="fromday">
+%              for (my $fd=1; $fd<=31; $fd++) {
+                    <option
+%                      if ($fd == $fromdate[0]) {
+                       selected
+%                                              }
+                        value='<%$fd%>'><%$fd%></option>
+%               }
+        </select>
+        <span>/</span>
+        <select name="frommonth">
+%               my @fmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
+%               my $fm=1;
+%               foreach my $fmonth(@fmonths) {
+                    <option
+%                       if ($fm == $fromdate[1]) {
+                        selected
+%                       }
+                        value='<%$fm%>' ><%$fmonth%></option>
+%                   $fm++; }
+        </select>
+        <span>/</span>
+        <select name="fromyear">
+%           for (my $fy=2000; $fy<=$currentyear; $fy++) {
+                <option
+%                   if ($fy == $fromdate[2]) {
+                        selected
+%                   }
+                    value='<%$fy%>' ><%$fy%></option>
+%           }
+        </select>
+        <span>-</span>
+        <select name="fromhour">
+%           for (my $fh=0; $fh<=23; $fh++) {
+                <option
+%                   if ($fh == $fromdate[3]) {
+                        selected
+%                       }
+                        value='<%$fh%>'><% sprintf ("%02d", $fh) %></option>
+%           }
+        </select>
+        <span>:</span>
+        <select name="frommin">
+%           for (my $fn=0; $fn<=59; $fn++) {
+                <option
+%                   if ($fn == $fromdate[4]) {
+                        selected
+%                   }
+                    value='<%$fn%>'><% sprintf ("%02d", $fn) %></option>
+
+%           }
+        </select>
+    </div>
+    <div>
+        <label>
+            <input type="checkbox" name="refresh" id="refresh" <% $refresh ? 'checked="checked" ' : '' %> />
+            <% __('Refresh logs')  %>
+        </label>
+    </div>
+    <div class="inline-input">
+        <label><% __('To date:') %></label>
+        <select name="today" id="today">
+%           for (my $td=1; $td<=31; $td++) {
+                <option
+%               if ($td == $todate[0]) {
+                    selected
 %                                                       }
-                                        value='<%$fd%>'><%$fd%></option>
-%                                       }
-                </select> /
+                    value='<%$td%>'><%$td%></option>
+%                   }
+        </select>
+        <span>/</span>
 
-                <select name="frommonth">
-%                                       my @fmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
-%                                       my $fm=1;
-%                                       foreach my $fmonth(@fmonths) {
-                                <option
-%                                               if ($fm == $fromdate[1]) {
-                                        selected
-%                                               }
-                                value='<%$fm%>' ><%$fmonth%></option>
-%                                               $fm++; }
-                </select> /
-
-                <select name="fromyear">
-%                                       for (my $fy=2000; $fy<=$currentyear; $fy++) {
-                                <option
-%                                               if ($fy == $fromdate[2]) {
-                                        selected
-%                                               }
-                                value='<%$fy%>' ><%$fy%></option>
-%                                       }
-                </select> -
-
-                <select name="fromhour">
-%                                       for (my $fh=0; $fh<=23; $fh++) {
-                                <option
-%                                       if ($fh == $fromdate[3]) {
-                                                selected
-%                                       }
-                                                value='<%$fh%>'><% sprintf ("%02d", $fh) %></option>
-
-%                                       }
-                </select> :
-
-                <select name="frommin">
-%                                       for (my $fn=0; $fn<=59; $fn++) {
-                                <option
-%                                       if ($fn == $fromdate[4]) {
-                                                selected
-%                                       }
-                                                value='<%$fn%>'><% sprintf ("%02d", $fn) %></option>
-
-%                                       }
-                </select></td>
-        </tr>
-
-
-        <tr>
-        <td class='tright'><% __('Refresh logs')  %>:</td>
-        <td>
-         <input type="checkbox" name="refresh" id="refresh" <% $refresh ? 'checked="checked" ' : '' %> />
-        </td>
-        </tr>
-
-        <tr>
-        <td class='tright'><% __('To date:') %></td>
-        <td><select name="today" id="today">
-%                                       for (my $td=1; $td<=31; $td++) {
-                                <option
-%                                                       if ($td == $todate[0]) {
-                                                selected
-%                                                       }
-                                        value='<%$td%>'><%$td%></option>
-%                                       }
-                </select> /
-
-                <select name="tomonth" id="tomonth">
-%                                       my @tmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
-%                                       my $tm=1;
-%                                       foreach my $tmonth(@tmonths) {
-                                <option
-%                                               if ($tm == $todate[1]) {
-                                        selected
-%                                               }
-                                value='<%$tm%>' ><%$tmonth%></option>
-%                                               $tm++; }
-                </select> /
-
-                <select name="toyear" id="toyear">
-%                                       for (my $ty=2000; $ty<=$currentyear; $ty++) {
-                                <option
-%                                               if ($ty == $todate[2]) {
-                                        selected
-%                                               }
-                                value='<%$ty%>' ><%$ty%></option>
-%                                       }
-                </select> -
-
-                <select name="tohour" id="tohour">
-%                                       for (my $th=0; $th<=23; $th++) {
-                                <option
-%                                       if ($th == $todate[3]) {
-                                                selected
-%                                       }
-                                                value='<%$th%>'><% sprintf ("%02d", $th) %></option>
-%                                       }
-                </select> :
-
-                <select name="tomin" id="tomin">
-%                                       for (my $tn=0; $tn<=59; $tn++) {
-                                <option
-%                                       if ($tn == $todate[4]) {
-                                                selected
-%                                       }
-                                                value='<%$tn%>'><% sprintf ("%02d", $tn) %></option>
-%                                       }
-                </select></td>
-
-        </tr>
+        <select name="tomonth" id="tomonth">
+%             my @tmonths = ( __('January') , __('February'), __('March'), __('April'), __('May'), __('June'), __('July'), __('August'), __('September'), __('October'), __('November'), __('December'));
+%             my $tm=1;
+%             foreach my $tmonth(@tmonths) {
+                <option
+%                   if ($tm == $todate[1]) {
+                        selected
+%                   }
+                value='<%$tm%>' ><%$tmonth%></option>
+%               $tm++; }
+        </select>
+        <span>/</span>
+        <select name="toyear" id="toyear">
+%           for (my $ty=2000; $ty<=$currentyear; $ty++) {
+                <option
+%                   if ($ty == $todate[2]) {
+                        selected
+%                   }
+                    value='<%$ty%>' ><%$ty%></option>
+%           }
+        </select>
+        <span>-</span>
+        <select name="tohour" id="tohour">
+%           for (my $th=0; $th<=23; $th++) {
+                <option
+%                   if ($th == $todate[3]) {
+                        selected
+%                   }
+                        value='<%$th%>'><% sprintf ("%02d", $th) %></option>
+%           }
+        </select>
+        <span>:</span>
+        <select name="tomin" id="tomin">
+%           for (my $tn=0; $tn<=59; $tn++) {
+                <option
+%                   if ($tn == $todate[4]) {
+                        selected
+%                   }
+                value='<%$tn%>'><% sprintf ("%02d", $tn) %></option>
+%           }
+        </select>
+    </div>
 
 %       foreach my $filter (@{$tableinfo->{'filter'}}) {
-<tr>
-        <td class='tright'><% $tableinfo->{'titles'}->{$filter} %>:</td>
+<div>
+        <label><% $tableinfo->{'titles'}->{$filter} %></label>
 %               if (exists $filters->{$filter}) {
-        <td><input type='text' class='inputText' value='<% $filters->{$filter} %>' name='filter-<% $filter %>'></td>
+        <label><input type='text' class='inputText' value='<% $filters->{$filter} %>' name='filter-<% $filter %>'></label>
 %               } else {
-        <td><input type='text' class='inputText' name='filter-<% $filter %>'></td>
+        <label><input type='text' class='inputText' name='filter-<% $filter %>'></label>
 %               }
-</tr>
+</div>
 %   }
 
-        <tr>
-        <td class='tright'><% __('Event') %>:</td>
-        <td><select name='filter-<% $tableinfo->{eventcol} %>'>
+<div>
+        <label><% __('Event') %></label>
+        <select name='filter-<% $tableinfo->{eventcol} %>'>
                 <option value=''><% __('Any') %></option>
 %       foreach my $ev (keys %{$tableinfo->{'events'}}) {
 %               if ($filters->{'event'} and $filters->{'event'} eq $ev) {
@@ -192,35 +192,27 @@ use Data::Dumper;
                         <option value='<% $ev %>'><% $tableinfo->{'events'}->{$ev} %></option>
 %               }
 %   }
-        </select></td>
-        </tr>
+        </select>
+</div>
 
+<div>
+      <span>
+         <input class='inputButton' type='submit' name='search'
+                value="<% __('Search') %>"
+                alt="<% __('Search') %>">
+      </span>
+      <span>
+        <input class='inputButton' type='submit' name='saveAsEvent'
+               value="<% __('Save as event') %>"
+               alt="<% __('Save as event') %>"
+               title="<% __('Save query as an event to be '
+                            . 'notified') %>">
+      </span>
+</div>
 
-
-        <tr>
-        <td></td>
-        <td>
-          <span>
-             <input class='inputButton' type='submit' name='search'
-                    value="<% __('Search') %>"
-                    alt="<% __('Search') %>">
-          </span>
-          <span>
-            <input class='inputButton' type='submit' name='saveAsEvent'
-                   value="<% __('Save as event') %>"
-                   alt="<% __('Save as event') %>"
-                   title="<% __('Save query as an event to be '
-                                . 'notified') %>">
-          </span>
-        </td>
-
-
-        </tr>
 
         <input type='hidden' name='tpages' value='<% $tpages %>'>
 </form>
-
-</table>
 
 %       if (@{$data}) {
                 <& logs/dbtable.mas , params => $tableinfo , data => $data ,

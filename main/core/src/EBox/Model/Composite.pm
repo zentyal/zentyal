@@ -1,4 +1,5 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2007 Warp Networks S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -22,7 +23,9 @@
 #      The possible components should be subclasses of:
 #
 #      - <EBox::Model::DataTable>
+#      - <EBox::Model::DataForm>
 #      - <EBox::Model::Composite>
+#      - <EBox::Model::Template>
 #
 #      The possible layout that it will implemented are the following:
 #
@@ -92,8 +95,9 @@ sub new
 # Returns:
 #
 #      array ref - containing the components which this composite
-#      comprises. The elements are <EBox::Model::DataTable> or
-#      <EBox::Model::Composite>.
+#      comprises. The elements are instances of classes which inherit
+#      from <EBox::Model::Component> such as <EBox::Model::DataTable>
+#      or <EBox::Model::Composite>.
 #
 sub components
 {
@@ -171,11 +175,10 @@ sub models
 
     my @models = ();
     foreach my $component (@{$self->components()}) {
-        # FIXME: Both should inherit from some EBox::Model::Base
-        if ($component->isa('EBox::Model::DataTable') or $component->isa('EBox::Model::TreeView')) {
+        if ($component->isa('EBox::Model::Base') and (ref($component) ne 'EBox::Model::Base')) {
             push (@models, $component);
             next;
-        } elsif ($recursive && $component->isa('EBox::Model::Composite')) {
+        } elsif ($recursive and $component->isa('EBox::Model::Composite')) {
             push (@models, @{$component->models($recursive)});
         }
     }
@@ -425,7 +428,7 @@ sub permanentMessageType
 
 # Method: compositeDomain
 #
-#     Get the domain where the model is handled. That is, the eBox
+#     Get the domain where the model is handled. That is, the Zentyal
 #     module which the composite belongs to
 #
 # Returns:
@@ -466,7 +469,7 @@ sub menuNamespace
 #
 #      Accessor to the URLs where the actions are published to
 #      run. In a composite type, two actions are possible:
-#      - view - show the composite type within the whole eBox menu
+#      - view - show the composite type within the whole Zentyal menu
 #      - changeView - show the composite type isolated. I.e. the HTML
 #                     dumped from the composite Viewer
 #

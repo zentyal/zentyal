@@ -40,7 +40,7 @@ for (my $ms = 0; $ms < 60; $ms++) {
 
 % my $id = $tableName . '_' . $data->fieldName();
 % if ( $data->editable() ) {
-<span id="<% $id %>" class="<% $cssClass %>">
+<span id="<% $id %>" class="<% $cssClass %> inline-input">
     <& /input/select.mas,
         'name'      => $id . '_hour' ,
         'options'   => \@hours,

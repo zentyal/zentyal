@@ -1,0 +1,10 @@
+#!/bin/bash
+
+case "$1" in
+    remove)
+        service zentyal remoteservices stop
+        /usr/share/zentyal-remoteservices/unsubscribe
+    ;;
+esac
+
+exit 0

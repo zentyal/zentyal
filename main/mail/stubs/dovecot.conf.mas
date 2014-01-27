@@ -69,14 +69,16 @@ userdb {
 }
 
 passdb {
-    driver = static
-    args = nopassword=y,allow_nets=127.0.0.1/32
-}
-
-passdb {
     driver = ldap
     args = /etc/dovecot/dovecot-ldap.conf
 }
+% if ($openchange) {
+
+passdb {
+    driver = static
+    args = nopassword=y allow_nets=127.0.0.1/32
+}
+% }
 
 disable_plaintext_auth = yes
 
@@ -186,6 +188,7 @@ plugin {
   sieve = <% $sieveDir %>/%d/%u/sieve-script
   sieve_global_path = <% $sieveDir %>/default.sieve
   sieve_storage = <% $sieveDir %>/%d/%u
+  sieve_dir     = <% $sieveDir %>/%d/%u
 
   autocreate = Trash
   autocreate2 = Spam

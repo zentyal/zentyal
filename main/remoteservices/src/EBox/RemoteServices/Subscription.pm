@@ -203,7 +203,7 @@ sub subscribeServer
 
         my $checker = new EBox::RemoteServices::Subscription::Check();
         # Check the available editions are suitable for this server
-        my @availables = grep { $checker->check($_->{subscription}, $_->{sb_comm_add_on}) } @{$availables};
+        my @availables = grep { $checker->check($_) } @{$availables};
 
         given ( scalar(@availables) ) {
             when (0) {
@@ -212,7 +212,7 @@ sub subscribeServer
                     # for the available options
                     throw EBox::RemoteServices::Exceptions::NotCapable(
                         __('None of the available bundles are valid for this server')
-                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError() )
+                        . '. ' . __x('Reason: {reason}', reason => $checker->lastError())
                        );
                 }
             }

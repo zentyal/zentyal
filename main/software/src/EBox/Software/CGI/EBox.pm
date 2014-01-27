@@ -80,7 +80,6 @@ sub _process
     push(@array, 'updateListError'    => $updateListError);
     push(@array, 'updateListErrorMsg'    => $updateListErrorMsg);
     push(@array, 'brokenPackages'     => $software->listBrokenPkgs());
-    push(@array, 'sb' => (EBox::Global->edition() eq 'sb'));
 
     $self->{params} = \@array;
 }

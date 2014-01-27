@@ -1,3 +1,4 @@
+# Copyright (C) 2004-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -112,7 +113,12 @@ sub objectMembers # (object)
     }
 
     my $object = $self->model('ObjectTable')->row($id);
-    return undef unless defined($object);
+    if (not $object) {
+        throw EBox::Exceptions::DataNotFound(
+                        data   => __('network object'),
+                        value  => $id
+           );
+    }
 
     return $object->subModel('members')->members();
 }
@@ -141,10 +147,6 @@ sub objectAddresses
     }
 
     my $members = $self->objectMembers($id);
-    if (not $members) {
-        return undef;
-    }
-
     return $members->addresses(@params);
 }
 

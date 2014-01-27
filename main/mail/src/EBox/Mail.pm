@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -411,6 +412,7 @@ sub _setMailConf
     push (@array, 'greylist',     $greylist->isEnabled() );
     push (@array, 'greylistAddr', $greylist->address());
     push (@array, 'greylistPort', $greylist->port());
+    push (@array, 'openchangeProvisioned', $self->openchangeProvisioned());
     $self->writeConfFile(MAILMAINCONFFILE, "mail/main.cf.mas", \@array);
 
     @array = ();
@@ -1805,6 +1807,19 @@ sub slaveSetupWarning
     }
 
     return __('The mail domains and its accounts will be removed when the slave setup is complete');
+}
+
+sub openchangeProvisioned
+{
+    my ($self) = @_;
+
+    my $globalInstance = $self->global();
+    if ( $globalInstance->modExists('openchange') ) {
+        my $openchange = $globalInstance->modInstance('openchange');
+        return ($openchange->isEnabled() and $openchange->isProvisioned());
+    }
+
+    return 0;
 }
 
 1;

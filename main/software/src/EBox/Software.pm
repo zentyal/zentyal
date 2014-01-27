@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -775,20 +776,12 @@ sub _getInfoEBoxPkgs
 {
     my ($self) = @_;
 
-    my %restricted;
-    if (EBox::Global->edition() eq 'sb') {
-        my $rs = EBox::Global->getInstance()->modInstance('remoteservices');
-        %restricted = map { $_ => 1 } @COMM_PKGS unless ( $rs->commAddOn() );
-    }
-
     my $cache = $self->_cache(1);
     my @list;
 
     my %seen; # XXX workaround launchpad bug 994509
     for my $pack (keys %$cache) {
         if ($pack =~ /^zentyal-.*/) {
-            next if $restricted{$pack};
-
             if ($seen{$pack}) {
                 next;
             } else {

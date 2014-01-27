@@ -30,16 +30,14 @@ foreach my $type (@{$data->subtypes()}) {
       # If there's no selected data, set one
       $data->setSelectedType($data->subtypes()->[0]->fieldName());
   }
-  foreach my $type (@{$data->{'subtypes'}})
-  {
-      my $cssClass = '';
+  foreach my $type (@{$data->{'subtypes'}})  {
+      my $displayNone = 0;
       if ( $type->fieldName() ne $data->selectedType() ) {
-          $cssClass = 'hidden';
+          $displayNone = 1;
       }
-      if ( defined ( $type->HTMLSetter() ))
-      {
+      if ( defined ( $type->HTMLSetter() ))  {
 </%perl>
-      <span id='<% "${id}_" . $type->fieldName() . '_container' %>' class='<% $cssClass %>'>
+      <span id='<% "${id}_" . $type->fieldName() . '_container' %>' <% $displayNone ? "style='display:none'": "" %> >
       <& $type->HTMLSetter(),
           'data' => $type,
           'tableName' => $tableName,

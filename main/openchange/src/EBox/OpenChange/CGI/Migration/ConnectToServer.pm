@@ -60,7 +60,7 @@ sub _process
 
         my $rpc = new EBox::OpenChange::MigrationRPCClient();
         my $request = {
-            command => 1,
+            command => EBox::OpenChange::MigrationRPCClient->RPC_COMMAND_CONNECT(),
             remote => {
                 address  => $server,
                 username => $usernameOrigin,

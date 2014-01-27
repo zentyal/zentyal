@@ -39,7 +39,7 @@ use EBox::Users::User;
 use EBox::Samba::Group;
 
 use Perl6::Junction qw(any);
-use Encode;
+use Encode qw(encode);
 use Net::LDAP::Control;
 use Net::LDAP::Entry;
 use Net::LDAP::Constant qw(LDAP_LOCAL_ERROR);
@@ -509,6 +509,28 @@ sub addToZentyal
 
         $self->_linkWithUsersObject($zentyalUser);
 
+        # Only set global roaming profiles and drive letter options
+        # if we are not replicating to another Windows Server to avoid
+        # overwritting already existing per-user settings. Also skip if
+        # unmanaged_home_directory config key is defined
+        unless ($sambaMod->mode() eq 'adc') {
+            EBox::info("Setting roaming profile for $uid...");
+            my $netbiosName = $sambaMod->netbiosName();
+            my $realmName = EBox::Global->modInstance('users')->kerberosRealm();
+            # Set roaming profiles
+            if ($sambaMod->roamingProfiles()) {
+                my $path = "\\\\$netbiosName.$realmName\\profiles";
+                $self->setRoamingProfile(1, $path, 1);
+            } else {
+                $self->setRoamingProfile(0, undef, 1);
+            }
+
+            # Mount user home on network drive
+            my $drivePath = "\\\\$netbiosName.$realmName";
+            my $unmanagedHomes = EBox::Config::boolean('unmanaged_home_directory');
+            $self->setHomeDrive($sambaMod->drive(), $drivePath, 1) unless $unmanagedHomes;
+            $self->save();
+        }
     }
 }
 

@@ -1,0 +1,1030 @@
+From 1f1810d2104d2b02a4910b21f59b46eba1cef91b Mon Sep 17 00:00:00 2001
+From: Samuel Cabrero <scabrero@zentyal.com>
+Date: Wed, 6 Nov 2013 01:06:12 +0100
+Subject: [PATCH] Add test for guest access to SMB and LDAP
+
+---
+ source3/selftest/tests.py     |   4 +-
+ source4/torture/unix/guest.c  | 953 ++++++++++++++++++++++++++++++++++++++++++
+ source4/torture/unix/unix.c   |   3 +-
+ source4/torture/wscript_build |   4 +-
+ 4 files changed, 960 insertions(+), 4 deletions(-)
+ create mode 100644 source4/torture/unix/guest.c
+
+diff --git a/source3/selftest/tests.py b/source3/selftest/tests.py
+index e5ae63e..01c5cae 100755
+--- a/source3/selftest/tests.py
++++ b/source3/selftest/tests.py
+@@ -284,7 +284,7 @@ idmap = [ "idmap.rfc2307" ]
+ 
+ rap = ["rap.basic", "rap.rpc", "rap.printing", "rap.sam"]
+ 
+-unix = ["unix.info2", "unix.whoami"]
++unix = ["unix.info2", "unix.whoami", "unix.guest"]
+ 
+ nbt = ["nbt.dgram" ]
+ 
+@@ -311,6 +311,8 @@ for t in tests:
+             plansmbtorture4testsuite(t, env, '//$SERVER/tmp -U$DC_USERNAME@$REALM%$DC_PASSWORD --option=torture:addc=$DC_SERVER')
+             plansmbtorture4testsuite(t, env, '//$SERVER/tmp -k yes -U$DC_USERNAME@$REALM%$DC_PASSWORD --option=torture:addc=$DC_SERVER', description='kerberos connection')
+             plansmbtorture4testsuite(t, env, '//$SERVER/tmpguest -U% --option=torture:addc=$DC_SERVER', description='anonymous connection')
++    elif t == "unix.guest":
++        plansmbtorture4testsuite(t, "plugin_s4_dc", '//$SERVER/tmpguest -U$USERNAME%$PASSWORD')
+     elif t == "raw.samba3posixtimedlock":
+         plansmbtorture4testsuite(t, "s3dc", '//$SERVER_IP/tmpguest -U$USERNAME%$PASSWORD --option=torture:localdir=$SELFTEST_PREFIX/s3dc/share')
+         plansmbtorture4testsuite(t, "plugin_s4_dc", '//$SERVER_IP/tmpguest -U$USERNAME%$PASSWORD --option=torture:localdir=$SELFTEST_PREFIX/plugin_s4_dc/share')
+diff --git a/source4/torture/unix/guest.c b/source4/torture/unix/guest.c
+new file mode 100644
+index 0000000..16f9617
+--- /dev/null
++++ b/source4/torture/unix/guest.c
+@@ -0,0 +1,953 @@
++/*
++   Test the guest SMB and LDAP access.
++
++   Copyright (C) 2013	Zentyal S.L.
++
++   This program is free software; you can redistribute it and/or modify
++   it under the terms of the GNU General Public License as published by
++   the Free Software Foundation; either version 3 of the License, or
++   (at your option) any later version.
++
++   This program is distributed in the hope that it will be useful,
++   but WITHOUT ANY WARRANTY; without even the implied warranty of
++   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
++   GNU General Public License for more details.
++
++   You should have received a copy of the GNU General Public License
++   along with this program.  If not, see <http://www.gnu.org/licenses/>.
++*/
++
++#include "includes.h"
++#include "torture/torture.h"
++#include "param/param.h"
++#include "ndr.h"
++#include "librpc/ndr/ndr_table.h"
++#include "librpc/gen_ndr/ndr_samr_c.h"
++#include "torture/rpc/torture_rpc.h"
++#include "rpc_client/init_lsa.h"
++#include "libcli/security/dom_sid.h"
++#include "librpc/gen_ndr/wkssvc.h"
++#include "libcli/auth/proto.h"
++#include "lib/crypto/arcfour.h"
++#include "libcli/libcli.h"
++#include "libcli/raw/raw_proto.h"
++#include "auth/credentials/credentials.h"
++#include "libcli/resolve/resolve.h"
++#include "ldb_wrap.h"
++#include "ldb.h"
++#include "gen_ndr/drsblobs.h"
++#include "dsdb/schema/schema.h"
++#include "dsdb/common/proto.h"
++
++/* Size (in bytes) of the required fields in the SMBwhoami response. */
++#define WHOAMI_REQUIRED_SIZE	40
++
++struct guest_test_context
++{
++	struct dom_sid *domain_sid;
++	struct dom_sid *domain_guest_sid;
++	struct dom_sid *domain_guests_sid;
++	struct dom_sid *builtin_guests_sid;
++	struct dom_sid *builtin_users_sid;
++};
++
++struct smb_whoami
++{
++	uint32_t	mapping_flags;
++	uint32_t	mapping_mask;
++	uint64_t	server_uid;
++	uint64_t	server_gid;
++	uint32_t	num_gids;
++	uint32_t	num_sids;
++	uint32_t	num_sid_bytes;
++	uint32_t	reserved; /* Must be zero */
++	uint64_t	*gid_list;
++	struct dom_sid	**sid_list;
++};
++
++static bool samr_Connect(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *handle)
++{
++	struct samr_Connect r;
++
++	torture_comment(tctx, "Connecting SAMR\n");
++
++	r.in.system_name = NULL;
++	r.in.access_mask = SAMR_ACCESS_CONNECT_TO_SERVER |
++			SAMR_ACCESS_LOOKUP_DOMAIN |
++			SAMR_ACCESS_ENUM_DOMAINS;
++	r.out.connect_handle = handle;
++
++	torture_assert_ntstatus_ok(tctx, dcerpc_samr_Connect_r(b, tctx, &r),
++		"Connect failed");
++
++	return true;
++}
++
++static bool samr_Close(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *handle)
++{
++	struct samr_Close r;
++
++	r.in.handle = handle;
++	r.out.handle = handle;
++
++	torture_assert_ntstatus_ok(tctx, dcerpc_samr_Close_r(b, tctx, &r),
++		"Close failed");
++	torture_assert_ntstatus_ok(tctx, r.out.result, "Close failed");
++
++	return true;
++}
++
++static bool samr_LookupDomain(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *handle,
++			const char *domain,
++			struct dom_sid2 **sid)
++{
++	struct samr_LookupDomain r;
++	struct lsa_String n1;
++
++	torture_comment(tctx, "Looking up domain(%s)\n", domain);
++
++	init_lsa_String(&n1, domain);
++
++	r.in.connect_handle = handle;
++	r.in.domain_name = &n1;
++	r.out.sid = sid;
++
++	torture_assert_ntstatus_ok(tctx,
++		dcerpc_samr_LookupDomain_r(b, tctx, &r),"LookupDomain failed");
++	torture_assert_ntstatus_ok(tctx, r.out.result, "LookupDomain");
++
++	return true;
++}
++
++static bool samr_OpenDomain(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *handle,
++			struct dom_sid2 *domain_sid,
++			struct policy_handle *domain_handle)
++{
++	struct samr_OpenDomain r;
++
++	torture_comment(tctx, "Opening domain %s\n",
++			dom_sid_string(tctx, domain_sid));
++
++	r.in.connect_handle = handle;
++	r.in.access_mask = SAMR_DOMAIN_ACCESS_OPEN_ACCOUNT;
++	r.in.sid = domain_sid;
++	r.out.domain_handle = domain_handle;
++
++	torture_assert_ntstatus_ok(tctx,
++			dcerpc_samr_OpenDomain_r(b, tctx, &r),
++			"OpenDomain failed");
++
++	return true;
++}
++
++static bool samr_OpenUser(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *domain_handle,
++			struct policy_handle *user_handle)
++{
++	struct samr_OpenUser r;
++
++	torture_comment(tctx, "Opening guest user\n");
++
++	r.in.domain_handle = domain_handle;
++	r.in.access_mask = SEC_FLAG_MAXIMUM_ALLOWED;
++	r.in.rid = DOMAIN_RID_GUEST;
++	r.out.user_handle = user_handle;
++
++	torture_assert_ntstatus_ok(tctx, dcerpc_samr_OpenUser_r(b, tctx, &r),
++		"OpenUser failed");
++
++	return true;
++}
++
++static bool samr_QueryUserInfo2(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *user_handle,
++			enum samr_UserInfoLevel level,
++			union samr_UserInfo **info)
++{
++	struct samr_QueryUserInfo2 r2;
++
++	torture_comment(tctx, "Getting guest user account control flags\n");
++
++	r2.in.user_handle = user_handle;
++	r2.in.level = level;
++	r2.out.info = info;
++	torture_assert_ntstatus_ok(tctx,
++			dcerpc_samr_QueryUserInfo2_r(b, tctx, &r2),
++			"QueryUserInfo2 failed");
++	return true;
++}
++
++static bool samr_SetUserInfo2(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *user_handle,
++			enum samr_UserInfoLevel level,
++			union samr_UserInfo *info)
++{
++	struct samr_SetUserInfo2 s2;
++
++	torture_comment(tctx, "Setting guest user account control flags\n");
++
++	s2.in.user_handle = user_handle;
++	s2.in.info = info;
++	s2.in.level = level;
++	torture_assert_ntstatus_ok(tctx,
++			dcerpc_samr_SetUserInfo2_r(b, tctx, &s2),
++			"SetUserInfo2 failed");
++	return true;
++}
++
++static bool guest_acct_toggle_enabled(struct torture_context *tctx,
++			struct dcerpc_pipe *p,
++			bool enable)
++{
++	struct dcerpc_binding_handle *b = p->binding_handle;
++	struct policy_handle server_handle;
++	struct policy_handle domain_handle;
++	struct policy_handle user_handle;
++	struct dom_sid2 *domain_sid = NULL;
++	union samr_UserInfo *info = NULL;
++	bool ret;
++
++	ZERO_STRUCT(server_handle);
++	ZERO_STRUCT(domain_handle);
++	ZERO_STRUCT(user_handle);
++
++	ret = samr_Connect(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR connect");
++
++	ret = samr_LookupDomain(tctx, b, &server_handle,
++			lpcfg_workgroup(tctx->lp_ctx), &domain_sid);
++	torture_assert(tctx, ret, "Failed SAMR domain lookup");
++
++	ret = samr_OpenDomain(tctx, b, &server_handle, domain_sid,
++			&domain_handle);
++	torture_assert(tctx, ret, "Failed SAMR open domain");
++
++	ret = samr_OpenUser(tctx, b, &domain_handle, &user_handle);
++	torture_assert(tctx, ret, "Failed SAMR open user");
++
++	ret = samr_QueryUserInfo2(tctx, b, &user_handle,
++			UserControlInformation, &info);
++	torture_assert(tctx, ret, "Failed SAMR query user info");
++
++	if (enable) {
++		info->info16.acct_flags &= ~ACB_DISABLED;
++	} else {
++		info->info16.acct_flags |= ACB_DISABLED;
++	}
++
++	ret = samr_SetUserInfo2(tctx, b, &user_handle,
++			UserControlInformation, info);
++	torture_assert(tctx, ret, "Failed SAMR set user info");
++
++	ret = samr_Close(tctx, b, &user_handle);
++	torture_assert(tctx, ret, "Failed SAMR close user handle");
++
++	ret = samr_Close(tctx, b, &domain_handle);
++	torture_assert(tctx, ret, "Failed SAMR close domain handle");
++
++	ret = samr_Close(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR close");
++
++	return true;
++}
++
++static bool samr_GetUserPwInfo(struct torture_context *tctx,
++			struct dcerpc_binding_handle *b,
++			struct policy_handle *user_handle,
++			struct samr_PwInfo *info)
++{
++	struct samr_GetUserPwInfo pwp;
++
++	pwp.in.user_handle = user_handle;
++	pwp.out.info = info;
++
++	torture_assert_ntstatus_ok(tctx,
++			dcerpc_samr_GetUserPwInfo_r(b, tctx, &pwp),
++			"GetUserPwInfo failed");
++	return true;
++}
++
++static char *samr_rand_pass_silent(TALLOC_CTX *mem_ctx, int min_len)
++{
++	size_t len = MAX(8, min_len);
++	char *s = generate_random_password(mem_ctx, len, len+6);
++	return s;
++}
++
++static char *samr_rand_pass(TALLOC_CTX *mem_ctx, int min_len)
++{
++	char *s = samr_rand_pass_silent(mem_ctx, min_len);
++	return s;
++
++}
++
++static bool guest_acct_set_password(struct torture_context *tctx,
++			struct dcerpc_pipe *p,
++			char **newpass)
++{
++	struct dcerpc_binding_handle *b = p->binding_handle;
++	struct policy_handle server_handle;
++	struct policy_handle domain_handle;
++	struct policy_handle user_handle;
++	struct dom_sid2 *domain_sid = NULL;
++	union samr_UserInfo user_info;
++	struct samr_PwInfo pw_info;
++	int policy_min_pw_len = 0;
++	DATA_BLOB session_key;
++	bool ret;
++
++	ZERO_STRUCT(server_handle);
++	ZERO_STRUCT(domain_handle);
++	ZERO_STRUCT(user_handle);
++
++	ret = samr_Connect(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR connect");
++
++	ret = samr_LookupDomain(tctx, b, &server_handle,
++			lpcfg_workgroup(tctx->lp_ctx), &domain_sid);
++	torture_assert(tctx, ret, "Failed SAMR domain lookup");
++
++	ret = samr_OpenDomain(tctx, b, &server_handle, domain_sid,
++			&domain_handle);
++	torture_assert(tctx, ret, "Failed SAMR open domain");
++
++	ret = samr_OpenUser(tctx, b, &domain_handle, &user_handle);
++	torture_assert(tctx, ret, "Failed SAMR open user");
++
++	if (newpass) {
++		ret = samr_GetUserPwInfo(tctx, b, &user_handle, &pw_info);
++		torture_assert(tctx, ret, "Failed SAMR get pw info");
++
++		policy_min_pw_len = pw_info.min_password_length;
++		*newpass = samr_rand_pass(tctx, policy_min_pw_len);
++		encode_pw_buffer(user_info.info24.password.data, *newpass,
++				STR_UNICODE);
++		user_info.info24.password_expired = 0;
++		torture_assert_ntstatus_ok(tctx,
++				dcerpc_fetch_session_key(p, &session_key),
++				"no session key");
++		arcfour_crypt_blob(user_info.info24.password.data, 516,
++				&session_key);
++
++		ret = samr_SetUserInfo2(tctx, b, &user_handle,
++				UserInternal5Information, &user_info);
++		torture_assert(tctx, ret, "Failed SAMR set user info");
++	} else {
++		encode_pw_buffer(user_info.info24.password.data, "",
++				STR_UNICODE);
++		user_info.info24.password_expired = 0;
++		torture_assert_ntstatus_ok(tctx,
++				dcerpc_fetch_session_key(p, &session_key),
++				"no session key");
++		arcfour_crypt_blob(user_info.info24.password.data, 516,
++				&session_key);
++
++
++		ret = samr_SetUserInfo2(tctx, b, &user_handle,
++				UserInternal5Information, &user_info);
++		torture_assert(tctx, ret, "Failed SAMR set user info");
++	}
++
++	ret = samr_Close(tctx, b, &user_handle);
++	torture_assert(tctx, ret, "Failed SAMR close user handle");
++
++	ret = samr_Close(tctx, b, &domain_handle);
++	torture_assert(tctx, ret, "Failed SAMR close domain handle");
++
++	ret = samr_Close(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR close");
++
++	return true;
++}
++
++static NTSTATUS connect_smb(struct torture_context *tctx,
++			TALLOC_CTX *mem_ctx,
++			struct cli_credentials *creds,
++			struct smbcli_state **cli)
++{
++	NTSTATUS status;
++
++	const char *host = torture_setting_string(tctx, "host", NULL);
++	const char *share = torture_setting_string(tctx, "share", NULL);
++	struct smbcli_options options;
++	struct smbcli_session_options session_options;
++
++	lpcfg_smbcli_options(tctx->lp_ctx, &options);
++	lpcfg_smbcli_session_options(tctx->lp_ctx, &session_options);
++
++	status = smbcli_full_connection(mem_ctx, cli, host,
++			lpcfg_smb_ports(tctx->lp_ctx),
++			share, NULL, lpcfg_socket_options(tctx->lp_ctx),
++			creds, lpcfg_resolve_context(tctx->lp_ctx),
++			tctx->ev, &options, &session_options,
++			lpcfg_gensec_settings(tctx, tctx->lp_ctx));
++	return status;
++}
++
++
++
++
++static struct cli_credentials *gen_creds(struct torture_context *tctx,
++			const char *domain, const char *username,
++			const char *password)
++{
++	struct cli_credentials *creds;
++
++	creds = cli_credentials_init(tctx);
++	cli_credentials_set_workstation(creds, "localhost", CRED_SPECIFIED);
++	if (domain) {
++		cli_credentials_set_domain(creds, domain, CRED_SPECIFIED);
++	}
++	if (username) {
++		cli_credentials_set_username(creds, username, CRED_SPECIFIED);
++	}
++	if (password) {
++		cli_credentials_set_password(creds, password, CRED_SPECIFIED);
++	}
++
++	return creds;
++}
++
++static bool whoami_sid_parse(void *mem_ctx,
++			struct torture_context *torture,
++			DATA_BLOB *data,
++			size_t *offset,
++			struct dom_sid **psid)
++{
++	size_t remain = data->length - *offset;
++	int i;
++
++	*psid = talloc_zero(mem_ctx, struct dom_sid);
++	torture_assert(torture, *psid != NULL, "out of memory");
++
++	torture_assert(torture, remain >= 8,
++			"invalid SID format");
++
++        (*psid)->sid_rev_num = CVAL(data->data, *offset);
++        (*psid)->num_auths = CVAL(data->data, *offset + 1);
++        memcpy((*psid)->id_auth, data->data + *offset + 2, 6);
++
++	(*offset) += 8;
++	remain = data->length - *offset;
++
++	torture_assert(torture, remain >= ((*psid)->num_auths * 4),
++			"invalid sub_auth byte count");
++	torture_assert(torture, (*psid)->num_auths >= 0,
++			"invalid sub_auth value");
++	torture_assert(torture, (*psid)->num_auths <= 15,
++			"invalid sub_auth value");
++
++        for (i = 0; i < (*psid)->num_auths; i++) {
++                (*psid)->sub_auths[i] = IVAL(data->data, *offset);
++		(*offset) += 4;
++	}
++
++	return true;
++}
++
++static bool smb_raw_query_posix_whoami(void *mem_ctx,
++				struct torture_context *tctx,
++				struct smbcli_state *cli,
++				struct smb_whoami *whoami)
++{
++	struct smb_trans2 tp;
++	NTSTATUS status;
++	size_t offset;
++	int i;
++
++	uint16_t setup = TRANSACT2_QFSINFO;
++	uint16_t info_level;
++
++	ZERO_STRUCTP(whoami);
++
++	tp.in.max_setup = 0;
++	tp.in.flags = 0;
++	tp.in.timeout = 0;
++	tp.in.setup_count = 1;
++	tp.in.max_param = 10;
++	tp.in.max_data = 0xFFFF;
++	tp.in.setup = &setup;
++	tp.in.trans_name = NULL;
++	SSVAL(&info_level, 0, SMB_QFS_POSIX_WHOAMI);
++	tp.in.params = data_blob_talloc(mem_ctx, &info_level, 2);
++	tp.in.data = data_blob_talloc(mem_ctx, NULL, 0);
++
++	status = smb_raw_trans2(cli->tree, mem_ctx, &tp);
++	torture_assert_ntstatus_equal(tctx, status, NT_STATUS_OK,
++			"doing SMB_QFS_POSIX_WHOAMI");
++
++	/* Make sure we got back all the required fields. */
++	torture_assert(tctx, tp.out.params.length == 0,
++			"trans2 params should be empty");
++	torture_assert(tctx, tp.out.data.length >= WHOAMI_REQUIRED_SIZE,
++			"checking for required response fields");
++
++	whoami->mapping_flags = IVAL(tp.out.data.data, 0);
++	whoami->mapping_mask = IVAL(tp.out.data.data, 4);
++	whoami->server_uid = BVAL(tp.out.data.data, 8);
++	whoami->server_gid = BVAL(tp.out.data.data, 16);
++	whoami->num_gids = IVAL(tp.out.data.data, 24);
++	whoami->num_sids = IVAL(tp.out.data.data, 28);
++	whoami->num_sid_bytes = IVAL(tp.out.data.data, 32);
++	whoami->reserved = IVAL(tp.out.data.data, 36);
++
++	/* The GID list and SID list are optional, depending on the count
++	 * and length fields.
++	 */
++	if (whoami->num_sids != 0) {
++		torture_assert(tctx, whoami->num_sid_bytes != 0,
++				"SID count does not match byte count");
++	}
++
++	torture_comment(tctx, "\tmapping_flags=0x%08x mapping_mask=0x%08x\n",
++			whoami->mapping_flags, whoami->mapping_mask);
++	torture_comment(tctx, "\tserver UID=%llu GID=%llu\n",
++	       (unsigned long long)whoami->server_uid,
++	       (unsigned long long)whoami->server_gid);
++	torture_comment(tctx, "\t%u GIDs, %u SIDs, %u SID bytes\n",
++			whoami->num_gids, whoami->num_sids,
++			whoami->num_sid_bytes);
++
++	offset = WHOAMI_REQUIRED_SIZE;
++
++	torture_assert_int_equal(tctx, whoami->reserved, 0,
++			"invalid reserved field");
++
++	if (tp.out.data.length == offset) {
++		/* No SIDs or GIDs returned */
++		torture_assert_int_equal(tctx, whoami->num_gids, 0,
++				"invalid GID count");
++		torture_assert_int_equal(tctx, whoami->num_sids, 0,
++				"invalid SID count");
++		torture_assert_int_equal(tctx, whoami->num_sid_bytes, 0,
++				"invalid SID byte count");
++		return true;
++	}
++
++	if (whoami->num_gids != 0) {
++		int remain = tp.out.data.length - offset;
++		int gid_bytes = whoami->num_gids * 8;
++
++		if (whoami->num_sids == 0) {
++			torture_assert_int_equal(tctx, remain, gid_bytes,
++				"GID count does not match data length");
++		} else {
++			torture_assert(tctx, remain > gid_bytes,
++						"invalid GID count");
++		}
++
++		whoami->gid_list = talloc_array(mem_ctx, uint64_t,
++				whoami->num_gids);
++		torture_assert(tctx, whoami->gid_list != NULL,
++				"out of memory");
++
++		torture_comment(tctx, "\tGIDs:\n");
++
++		for (i = 0; i < whoami->num_gids; ++i) {
++			whoami->gid_list[i] = BVAL(tp.out.data.data, offset);
++			offset += 8;
++			torture_comment(tctx, "\t\t%u\n",
++					(unsigned int)whoami->gid_list[i]);
++		}
++	}
++
++	/* Check if there should be data left for the SID list. */
++	if (tp.out.data.length == offset) {
++		torture_assert_int_equal(tctx, whoami->num_sids, 0,
++				"invalid SID count");
++		return true;
++	}
++
++	/* All the remaining bytes must be the SID list. */
++	torture_assert_int_equal(tctx,
++		whoami->num_sid_bytes, (tp.out.data.length - offset),
++		"invalid SID byte count");
++
++	if (whoami->num_sids != 0) {
++		whoami->sid_list = talloc_array(mem_ctx, struct dom_sid *,
++				whoami->num_sids);
++		torture_assert(tctx, whoami->sid_list != NULL,
++				"out of memory");
++		torture_comment(tctx, "\tSIDs:\n");
++		for (i = 0; i < whoami->num_sids; ++i) {
++			if (!whoami_sid_parse(mem_ctx, tctx,
++					&tp.out.data, &offset,
++					&whoami->sid_list[i])) {
++				return false;
++			}
++			torture_comment(tctx, "\t\t%s\n",
++				dom_sid_string(tctx, whoami->sid_list[i]));
++		}
++	}
++
++	/* We should be at the end of the response now. */
++	torture_assert_int_equal(tctx, tp.out.data.length, offset,
++			"trailing garbage bytes");
++
++	return true;
++}
++
++static bool connect_ldap(struct torture_context *tctx,
++			TALLOC_CTX *mem_ctx,
++			struct cli_credentials *creds,
++			struct ldb_context **ldap)
++{
++	const char *host = torture_setting_string(tctx, "host", NULL);
++	char *uri = talloc_asprintf(mem_ctx, "ldap://%s", host);
++
++	*ldap = ldb_wrap_connect(mem_ctx, tctx->ev, tctx->lp_ctx, uri, NULL,
++			creds, 0);
++	TALLOC_FREE(uri);
++
++	return (*ldap != NULL);
++}
++
++static bool check_guest_ldap(struct torture_context *tctx,
++			TALLOC_CTX *mem_ctx,
++			struct ldb_context *ldb,
++			bool is_dc,
++			struct smb_whoami *whoami)
++{
++	struct ldb_message *msg;
++	struct ldb_message_element *el;
++
++	const char *attrs[] = { "tokenGroups", NULL };
++	int i;
++
++	torture_assert_int_equal(tctx,
++			dsdb_search_one(ldb, mem_ctx, &msg, NULL,
++					LDB_SCOPE_BASE, attrs, 0, NULL),
++			LDB_SUCCESS, "searching for tokenGroups");
++	el = ldb_msg_find_element(msg, "tokenGroups");
++	torture_assert(tctx, el, "obtaining tokenGroups");
++	torture_assert(tctx, el->num_values > 0,
++			"Number of SIDs from LDAP needs to be more than 0");
++	torture_assert(tctx, whoami->num_sids > 0,
++			"Number of SIDs from LDAP needs to be more than 0");
++
++	if (is_dc) {
++		torture_assert_int_equal(tctx, el->num_values,
++				whoami->num_sids,
++				"Number of SIDs from LDAP and number of "
++				"SIDs from CIFS does not match!");
++
++		for (i = 0; i < el->num_values; i++) {
++			struct dom_sid *sid = talloc_zero(mem_ctx,
++					struct dom_sid);
++			torture_assert(tctx, sid != NULL, "talloc failed");
++
++			torture_assert(tctx,
++					sid_blob_parse(el->values[i], sid),
++					"sid parse failed");
++			torture_assert_str_equal(tctx,
++					dom_sid_string(sid, sid),
++					dom_sid_string(sid,
++					whoami->sid_list[i]),
++					"SID from LDAP and SID from "
++					"CIFS does not match!");
++			talloc_free(sid);
++		}
++	} else {
++//		unsigned int num_domain_sids_dc = 0, num_domain_sids_member = 0;
++//		struct dom_sid *user_sid = talloc(torture, struct dom_sid);
++//		struct dom_sid *dom_sid = talloc(torture, struct dom_sid);
++//		struct dom_sid *dc_sids = talloc_array(torture, struct dom_sid, el->num_values);
++//		struct dom_sid *member_sids = talloc_array(torture, struct dom_sid, whoami->num_sids);
++//		torture_assert(torture, user_sid != NULL, "talloc failed");
++//		torture_assert(torture, sid_blob_parse(el->values[0], user_sid), "sid parse failed");
++//		torture_assert_ntstatus_equal(torture, dom_sid_split_rid(torture, user_sid, &dom_sid, NULL), NT_STATUS_OK, "failed to split domain SID from user SID");
++//		for (i = 0; i < el->num_values; i++) {
++//			struct dom_sid *sid = talloc(dc_sids, struct dom_sid);
++//			torture_assert(torture, sid != NULL, "talloc failed");
++//
++//			torture_assert(torture, sid_blob_parse(el->values[i], sid), "sid parse failed");
++//			if (dom_sid_in_domain(dom_sid, sid)) {
++//				dc_sids[num_domain_sids_dc] = *sid;
++//				num_domain_sids_dc++;
++//			}
++//			talloc_free(sid);
++//		}
++//
++//		for (i = 0; i < whoami->num_sids; i++) {
++//			if (dom_sid_in_domain(dom_sid, whoami->sid_list[i])) {
++//				member_sids[num_domain_sids_member] = *whoami->sid_list[i];
++//				num_domain_sids_member++;
++//			}
++//		}
++//
++//		torture_assert_int_equal(torture, num_domain_sids_dc, num_domain_sids_member, "Number of Domain SIDs from LDAP DC and number of SIDs from CIFS member does not match!");
++//		for (i = 0; i < num_domain_sids_dc; i++) {
++//			torture_assert_str_equal(torture, dom_sid_string(dc_sids, &dc_sids[i]), dom_sid_string(member_sids, &member_sids[i]), "Domain SID from LDAP DC and SID from CIFS member server does not match!");
++//		}
++//		talloc_free(dc_sids);
++//		talloc_free(member_sids);
++	}
++	return true;
++}
++
++
++static bool check_guest_smb(struct torture_context *tctx,
++			struct guest_test_context *ctx,
++			struct smbcli_state *cli,
++			struct smb_whoami *whoami)
++{
++	struct dom_sid *user_sid;
++	struct dom_sid *primary_group_sid;
++	bool has_builtin_guests_token;
++	bool has_builtin_users_token;
++	bool ret;
++	int i;
++
++	ret = smb_raw_query_posix_whoami(tctx, tctx, cli, whoami);
++	torture_assert(tctx, ret, "Failed SMB_QFS_POSIX_WHOAMI");
++
++	/* The guest flag must be enabled */
++	torture_comment(tctx, "Checking SMB_WHOAMI_GUEST flag\n");
++	ret = whoami->mapping_mask & SMB_WHOAMI_GUEST;
++	torture_assert(tctx, ret, "SMB_WHOAMI_GUEST bit not present in mapping_mask");
++	ret = whoami->mapping_flags & SMB_WHOAMI_GUEST;
++	torture_assert(tctx, ret, "SMB_WHOAMI_GUEST bit not present in mapping_flags");
++
++	/* We have at least the user SID and the primary group SID */
++	torture_assert(tctx, (whoami->num_sids >= 2), "Invalid SID count");
++
++	/* The logged in user SID must be the guest SID */
++	torture_comment(tctx, "Checking logged in user SID\n");
++	user_sid = whoami->sid_list[0];
++	ret = dom_sid_equal(user_sid, ctx->domain_guest_sid);
++	torture_assert(tctx, ret, "Logged in user SID is not domain guest SID");
++
++	/* The primary group of the logged in user must be Guests */
++	torture_comment(tctx, "Checking logged in user primary group SID\n");
++	primary_group_sid = whoami->sid_list[1];
++	ret = dom_sid_equal(primary_group_sid, ctx->domain_guests_sid);
++	torture_assert(tctx, ret, "Logged in user primary group SID is not domain guests group SID");
++
++	/* The user must not be present in the Authenticated users group but in the builtin guests */
++	torture_comment(tctx, "Checking logged in user access tokens");
++	has_builtin_guests_token = false;
++	has_builtin_users_token = false;
++
++	for (i = 2; i < whoami->num_sids; ++i) {
++		struct dom_sid *s = whoami->sid_list[i];
++		if (dom_sid_equal(s, ctx->builtin_guests_sid)) {
++			has_builtin_guests_token = true;
++			continue;
++		}
++		if (dom_sid_equal(s, ctx->builtin_users_sid)) {
++			has_builtin_users_token = true;
++			continue;
++		}
++	}
++	torture_assert(tctx, has_builtin_guests_token,
++			"Logged in user does not have builtin guests access token");
++	torture_assert(tctx, !has_builtin_users_token,
++			"Logged in user have authenticated users access token");
++
++	return true;
++}
++
++static bool build_sids(struct torture_context *tctx, TALLOC_CTX *mem_ctx,
++			struct dcerpc_pipe *p,
++			struct guest_test_context *ctx)
++{
++	struct dcerpc_binding_handle *b = p->binding_handle;
++	struct policy_handle server_handle;
++	struct policy_handle domain_handle;
++	struct dom_sid2 *tmp = NULL;
++	bool ret;
++
++	ZERO_STRUCT(server_handle);
++	ZERO_STRUCT(domain_handle);
++
++	ret = samr_Connect(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR connect");
++
++	ret = samr_LookupDomain(tctx, b, &server_handle,
++			lpcfg_workgroup(tctx->lp_ctx), &tmp);
++	torture_assert(tctx, ret, "Failed SAMR domain lookup");
++
++	ret = samr_Close(tctx, b, &domain_handle);
++	torture_assert(tctx, ret, "Failed SAMR close domain handle");
++
++	ret = samr_Close(tctx, b, &server_handle);
++	torture_assert(tctx, ret, "Failed SAMR close");
++
++	ctx->domain_sid = dom_sid_dup(mem_ctx, tmp);
++	torture_assert(tctx, ctx->domain_sid, "Failed to get the domain SID");
++
++	ctx->domain_guest_sid = dom_sid_add_rid(mem_ctx,
++		ctx->domain_sid, DOMAIN_RID_GUEST);
++	torture_assert(tctx, ctx->domain_guest_sid,
++		"Failed to build the domain guest SID");
++
++	ctx->domain_guests_sid = dom_sid_add_rid(mem_ctx,
++		ctx->domain_sid, DOMAIN_RID_GUESTS);
++	torture_assert(tctx, ctx->domain_guests_sid,
++		"Failed to build the domain guests SID");
++
++	ctx->builtin_guests_sid = dom_sid_parse_talloc(mem_ctx,
++		SID_BUILTIN_GUESTS);
++	torture_assert(tctx, ctx->builtin_guests_sid,
++		"Failed to build the builtin guests SID");
++
++	ctx->builtin_users_sid = dom_sid_parse_talloc(mem_ctx,
++		SID_BUILTIN_USERS);
++	torture_assert(tctx, ctx->builtin_users_sid,
++		"Failed to build the builtin users SID");
++
++	return true;
++}
++
++static bool check_guest(struct torture_context *tctx,
++			TALLOC_CTX *mem_ctx,
++			struct guest_test_context *ctx,
++			struct cli_credentials *creds)
++{
++	NTSTATUS status;
++	struct smbcli_state *cli = NULL;
++	struct ldb_context *ldap = NULL;
++	struct smb_whoami *whoami = NULL;
++	bool ret;
++
++	status = connect_smb(tctx, mem_ctx, creds, &cli);
++	torture_assert_ntstatus_equal(tctx, status,
++			NT_STATUS_OK, "SMB connection failed");
++
++	whoami = talloc_zero(mem_ctx, struct smb_whoami);
++	ret = check_guest_smb(tctx, ctx, cli, whoami);
++	torture_assert(tctx, ret, "Failed guest access tokens check");
++
++	ret = connect_ldap(tctx, mem_ctx, creds, &ldap);
++	torture_assert(tctx, ret, "LDAP connection failed");
++
++	ret = check_guest_ldap(tctx, mem_ctx, ldap, true, whoami);
++	torture_assert(tctx, ret, "Failed LDAP token groups check");
++	TALLOC_FREE(ldap);
++	TALLOC_FREE(whoami);
++	TALLOC_FREE(cli);
++
++	return true;
++}
++
++bool torture_unix_guest(struct torture_context *tctx)
++{
++	struct dcerpc_pipe *p = NULL;
++	bool ret = true;
++	char *guest_password = NULL;
++	struct smbcli_state *cli = NULL;
++	struct cli_credentials *creds;
++	struct guest_test_context *ctx;
++	TALLOC_CTX *tmp_ctx = NULL;
++	NTSTATUS status;
++
++	ndr_table_init();
++
++	tmp_ctx = talloc_new(tctx);
++	torture_assert(tctx, tmp_ctx, "talloc_new failed");
++
++	ctx = talloc_zero(tmp_ctx, struct guest_test_context);
++	torture_assert(tctx, ctx, "talloc_zero failed");
++
++	torture_assert_ntstatus_ok(tctx,
++			torture_rpc_connection(tctx, &p, &ndr_table_samr),
++			"RPC connection failed");
++
++	/* Build necessary SIDs for the test */
++	ret = build_sids(tctx, tmp_ctx, p, ctx);
++	torture_assert(tctx, ret, "Failed to build SIDs");
++
++	/* Clear guest password and disable the account */
++	//ret = guest_acct_set_password(tctx, p, NULL);
++	//torture_assert(tctx, ret, "Failed to set guest account password");
++	ret = guest_acct_toggle_enabled(tctx, p, false);
++	torture_assert(tctx, ret, "Failed to disable guest account");
++
++	/* Try to login with an invalid user, must get logon failure */
++	creds = gen_creds(tctx, "UNKNOWN", "unknown", NULL);
++	status = connect_smb(tctx, tmp_ctx, creds, &cli);
++	torture_assert_ntstatus_equal(tctx, status,
++			NT_STATUS_LOGON_FAILURE, "Unexpected status code");
++	TALLOC_FREE(creds);
++	TALLOC_FREE(cli);
++
++	/* Try to login with guest user, must get account disabled */
++	creds = gen_creds(tctx, "UNKNOWN", "guest", NULL);
++	status = connect_smb(tctx, tmp_ctx, creds, &cli);
++	torture_assert_ntstatus_equal(tctx, status,
++			NT_STATUS_ACCOUNT_DISABLED, "Unexpected status code");
++	TALLOC_FREE(creds);
++	TALLOC_FREE(cli);
++
++	/* Enable the guest account */
++	ret = guest_acct_toggle_enabled(tctx, p, true);
++	torture_assert(tctx, ret, "Failed to enable guest account");
++
++	/* Try to login with an invalid user and check the tokens */
++	creds = gen_creds(tctx, "UNKNOWN", "FOO", NULL);
++	ret = check_guest(tctx, tmp_ctx, ctx, creds);
++	torture_assert(tctx, ret, "Failed guest test");
++	TALLOC_FREE(creds);
++
++	/* Try to login with guest user and check the tokens */
++	creds = gen_creds(tctx, lpcfg_workgroup(tctx->lp_ctx), "guest", NULL);
++	ret = check_guest(tctx, tmp_ctx, ctx, creds);
++	torture_assert(tctx, ret, "Failed guest test");
++	TALLOC_FREE(creds);
++
++	/* Set guest password */
++	ret = guest_acct_set_password(tctx, p, &guest_password);
++	torture_assert(tctx, ret, "Failed to set guest account password");
++
++	/* Try to login with an invalid user (bad pwd), get logon failure */
++	creds = gen_creds(tctx, "UNKNOWN", "unknown", "bad password");
++	status = connect_smb(tctx, tmp_ctx, creds, &cli);
++	torture_assert_ntstatus_equal(tctx, status,
++			NT_STATUS_LOGON_FAILURE, "Unexpected status code");
++	TALLOC_FREE(creds);
++	TALLOC_FREE(cli);
++
++	/* Try to login with guest user (bad pwd), get logon failure */
++	creds = gen_creds(tctx, "UNKNOWN", "guest", "bad password");
++	status = connect_smb(tctx, tmp_ctx, creds, &cli);
++	torture_assert_ntstatus_equal(tctx, status,
++			NT_STATUS_LOGON_FAILURE, "Unexpected status code");
++	TALLOC_FREE(creds);
++	TALLOC_FREE(cli);
++
++	/* Try to login with invalid user (good pwd), get ok, check guest */
++	creds = gen_creds(tctx, "UNKNOWN", "unknown", guest_password);
++	ret = check_guest(tctx, tmp_ctx, ctx, creds);
++	torture_assert(tctx, ret, "Failed guest test");
++	TALLOC_FREE(creds);
++
++	/* Try to login with guest user (good pwd), get ok, check guest */
++	creds = gen_creds(tctx, lpcfg_workgroup(tctx->lp_ctx),
++		"guest", guest_password);
++	ret = check_guest(tctx, tmp_ctx, ctx, creds);
++	torture_assert(tctx, ret, "Failed guest test");
++	TALLOC_FREE(creds);
++
++	/* Clear guest account password and disable it */
++	//ret = guest_acct_set_password(tctx, p, NULL);
++	//torture_assert(tctx, ret, "Failed to set guest account password");
++	ret = guest_acct_toggle_enabled(tctx, p, false);
++	torture_assert(tctx, ret, "Failed to disable guest account");
++
++	TALLOC_FREE(tmp_ctx);
++
++	return true;
++}
++
++/* vim: set sts=8 sw=8 : */
+diff --git a/source4/torture/unix/unix.c b/source4/torture/unix/unix.c
+index ec8afef..2fe45d0 100644
+--- a/source4/torture/unix/unix.c
++++ b/source4/torture/unix/unix.c
+@@ -33,8 +33,9 @@ NTSTATUS torture_unix_init(void)
+                         "whoami", torture_unix_whoami);
+ 	torture_suite_add_simple_test(suite,
+ 			"info2", unix_torture_unix_info2);
++	torture_suite_add_simple_test(suite,
++			"guest", torture_unix_guest);
+ 
+         return (torture_register_suite(suite)) ? NT_STATUS_OK
+                                         : NT_STATUS_UNSUCCESSFUL;
+-
+ }
+diff --git a/source4/torture/wscript_build b/source4/torture/wscript_build
+index c3c997a..5297f1c 100755
+--- a/source4/torture/wscript_build
++++ b/source4/torture/wscript_build
+@@ -98,11 +98,11 @@ bld.SAMBA_MODULE('TORTURE_NBENCH',
+ 
+ 
+ bld.SAMBA_MODULE('TORTURE_UNIX',
+-	source='unix/unix.c unix/whoami.c unix/unix_info2.c',
++	source='unix/unix.c unix/whoami.c unix/guest.c unix/unix_info2.c',
+ 	autoproto='unix/proto.h',
+ 	subsystem='smbtorture',
+ 	init_function='torture_unix_init',
+-	deps='TORTURE_UTIL',
++	deps='TORTURE_UTIL LIBCLI_SMB samdb ldbsamba',
+ 	internal_module=True
+ 	)
+ 
+-- 
+1.8.3.2
+

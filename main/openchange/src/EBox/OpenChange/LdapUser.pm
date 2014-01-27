@@ -46,15 +46,9 @@ sub _userAddOns
         return;
     }
 
-    # If the user does not have a mailbox in the AD domain, do not show
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
+    # If the user does not have a mailbox, do not show
     my $mail = $user->get('mail');
     unless (defined $mail and length $mail) {
-        return;
-    }
-    my (undef, $mailDomain) = split (/@/, $mail);
-    if (lc $mailDomain ne $adDomain) {
         return;
     }
 

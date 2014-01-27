@@ -79,6 +79,11 @@ sub mainObjectClass
     return 'posixAccount';
 }
 
+sub printableType
+{
+    return __('user');
+}
+
 # Clss method: defaultContainer
 #
 #   Parameters:
@@ -164,9 +169,13 @@ sub isInternal
 
 sub setInternal
 {
-    my ($self) = @_;
+    my ($self, $internal) = @_;
 
-    $self->set('title', 'internal');
+    if ($internal) {
+        $self->set('title', 'internal');
+    } else {
+        $self->set('title', undef);
+    }
 }
 
 # Catch some of the set ops which need special actions
@@ -222,60 +231,22 @@ sub save
     }
 }
 
-# Method: groups
-#
-#   Groups this user belongs to
-#
-#   Parameters:
-#
-#       system - return also system groups (default: false) *optional*
-#
-#   Returns:
-#
-#       array ref of EBox::Users::Group objects
-#
-sub groups
-{
-    my ($self, $system) = @_;
-
-    return $self->_groups($system);
-}
-
-# Method: groupsNotIn
-#
-#   Groups this user does not belong to
-#
-#   Parameters:
-#
-#       system - return also system groups (default: false) *optional*
-#
-#   Returns:
-#
-#       array ref of EBox::Users::Group objects
-#
-sub groupsNotIn
-{
-    my ($self, $system) = @_;
-
-    return $self->_groups($system, 1);
-}
-
 sub _groups
 {
-    my ($self, $system, $invert) = @_;
+    my ($self, %params) = @_;
 
-    my @groups = @{$self->SUPER::_groups($invert)};
+    my @groups = @{$self->SUPER::_groups(%params)};
 
-    return \@groups if ($system);
-
-    my @filteredGroups = ();
+    my $defaultGroup = EBox::Users->DEFAULTGROUP();
+    my $filteredGroups = [];
     for my $group (@groups) {
-        next if ($group->name() eq EBox::Users->DEFAULTGROUP);
-        next if ($group->isInternal());
+        next if ($group->name() eq $defaultGroup and not $params{internal});
+        next if ($group->isInternal() and not $params{internal});
+        next if ($group->isSystem() and not $params{system});
 
-        push (@filteredGroups, $group) if (not $group->isSystem());
+        push (@{$filteredGroups}, $group);
     }
-    return \@filteredGroups;
+    return $filteredGroups;
 }
 
 # Method: isSystem
@@ -465,23 +436,26 @@ sub create
     throw EBox::Exceptions::InvalidData(
         data => 'parent', value => $args{parent}->dn()) unless ($args{parent}->isContainer());
 
+    my $uid = $args{uid};
+    my $parent = $args{parent};
     my $isSystemUser = 0;
     if ($args{isSystemUser}) {
         $isSystemUser = 1;
     }
-
     my $isDisabled = 0; # All users are enabled by default.
     if ($args{isDisabled}) {
         $isDisabled = 1;
     }
+    my $ignoreMods   = $args{ignoreMods};
+    my $ignoreSlaves = $args{ignoreSlaves};
 
-    unless (_checkUserName($args{uid})) {
+    unless (_checkUserName($uid)) {
         my $advice = __('To avoid problems, the uid should consist only ' .
                         'of letters, digits, underscores, spaces, periods, ' .
                         'dashs, not start with a dash and not end with dot');
 
         throw EBox::Exceptions::InvalidData('data' => __('user name'),
-                                            'value' => $args{uid},
+                                            'value' => $uid,
                                             'advice' => $advice
                                            );
     }
@@ -494,8 +468,7 @@ sub create
         my $rs = EBox::Global->modInstance('remoteservices');
         if ($usersMod->master() eq 'cloud') {
             $max_users = $rs->maxCloudUsers();
-        }
-        else {
+        } else {
             $max_users = $rs->maxUsers();
         }
     }
@@ -509,44 +482,47 @@ sub create
         }
     }
 
-    if (length($args{uid}) > MAXUSERLENGTH) {
+    if (length($uid) > MAXUSERLENGTH) {
         throw EBox::Exceptions::External(
             __x("Username must not be longer than {maxuserlength} characters",
                 maxuserlength => MAXUSERLENGTH));
     }
 
     # Verify user exists
-    my $userExists = $usersMod->userExists($args{uid});
+    my $userExists = $usersMod->userExists($uid);
     if ($userExists and ($userExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
-        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $args{uid}));
+        throw EBox::Exceptions::External(__x('The user {uid} already exists as built-in Windows user', uid => $uid));
     } elsif ($userExists) {
         throw EBox::Exceptions::DataExists('data' => __('user name'),
-                                           'value' => $args{uid});
+                                           'value' => $uid);
     }
     # Verify that a group with the same name does not exists
-    my $groupExists =  $usersMod->groupExists($args{uid});
+    my $groupExists =  $usersMod->groupExists($uid);
     if ($groupExists and ($groupExists == EBox::Users::OBJECT_EXISTS_AND_HIDDEN_SID())) {
         throw EBox::Exceptions::External(
             __x(q{A built-in Windows group with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{uid})
+               name => $uid)
            );
     } elsif ($groupExists) {
         throw EBox::Exceptions::DataExists(text =>
             __x(q{A group account with the name '{name}' already exists. Users and groups cannot share names},
-               name => $args{uid})
+               name => $uid)
            );
     }
 
-    my $dn = 'uid=' . $args{uid} . ',' . $args{parent}->dn();
+    my $cn = $args{givenname} . ' ' . $args{surname};
+    $class->checkCN($parent, $cn);
 
-    my @userPwAttrs = getpwnam($args{uid});
+    my $dn = 'uid=' . $uid . ',' . $parent->dn();
+
+    my @userPwAttrs = getpwnam($uid);
     if (@userPwAttrs) {
         throw EBox::Exceptions::External(__("Username already exists on the system"));
     }
 
-    my $homedir = _homeDirectory($args{uid});
+    my $homedir = _homeDirectory($uid);
     if (-e $homedir) {
-        EBox::warn("Home directory $homedir already exists when creating user $args{uid}");
+        EBox::warn("Home directory $homedir already exists when creating user $uid");
     }
 
     # Check the password length if specified
@@ -555,12 +531,16 @@ sub create
         $class->_checkPwdLength($passwd);
     }
 
-    my $uidNumber = exists $args{uidNumber} ?
-                           $args{uidNumber} :
-                           $class->_newUserUidNumber($isSystemUser);
+    my $uidNumber = defined $args{uidNumber} ?
+                            $args{uidNumber} :
+                            $class->_newUserUidNumber($isSystemUser);
     $class->_checkUid($uidNumber, $isSystemUser);
 
     my $defaultGroup = $usersMod->groupByName(EBox::Users->DEFAULTGROUP);
+    unless ($defaultGroup) {
+        throw EBox::Exceptions::Internal(
+            __x("The default group '{defaultgroup}' cannot be found!", defaultgroup => EBox::Users->DEFAULTGROUP));
+    }
     if (not $defaultGroup->isSecurityGroup()) {
         throw EBox::Exceptions::InvalidData(
             'data' => __('default group'),
@@ -589,7 +569,7 @@ sub create
                 $parentRes->add('objectClass', $extraObjectClass, 1);
             }
         }
-        $parentRes->set('uid', $args{uid}, 1);
+        $parentRes->set('uid', $uid, 1);
         $parentRes->set('loginShell', $class->_loginShell(), 1);
         $parentRes->set('uidNumber', $uidNumber, 1);
         $parentRes->set('gidNumber', $gid, 1);
@@ -598,7 +578,7 @@ sub create
         if ($isDisabled) {
             $parentRes->set('shadowExpire', 0, 1);
         }
-        $parentRes->set('krb5PrincipalName', $args{uid} . '@' . $realm, 1);
+        $parentRes->set('krb5PrincipalName', $uid . '@' . $realm, 1);
         $parentRes->set('krb5KeyVersionNumber', 0, 1);
         $parentRes->set('krb5MaxLife', 86400, 1); # TODO
         $parentRes->set('krb5MaxRenew', 604800, 1); # TODO
@@ -609,7 +589,7 @@ sub create
         $entry = $parentRes->_entry();
         unless ($isSystemUser) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUser', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUser', [$entry, $parent], $ignoreMods, $ignoreSlaves);
         }
 
         my $result = $entry->update($class->_ldap->{ldap});
@@ -645,7 +625,7 @@ sub create
 
                 # Call modules initialization
                 $usersMod->notifyModsLdapUserBase(
-                    'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
+                    'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
             }
         } else {
             $usersMod->reloadNSCD();
@@ -654,7 +634,7 @@ sub create
 
             # Call modules initialization
             $usersMod->notifyModsLdapUserBase(
-                'addUser', [ $res, $passwd ], $args{ignoreMods}, $args{ignoreSlaves});
+                'addUser', [ $res, $passwd ], $ignoreMods, $ignoreSlaves);
         }
     } catch ($error) {
         EBox::error($error);
@@ -666,11 +646,11 @@ sub create
         #      make some cleanup if the transaction is aborted
         if (defined $res and $res->exists()) {
             $usersMod->notifyModsLdapUserBase(
-                'addUserFailed', [ $res ], $args{ignoreMods}, $args{ignoreSlaves});
+                'addUserFailed', [ $res ], $ignoreMods, $ignoreSlaves);
             $res->SUPER::deleteObject(@_);
         } elsif ($parentRes and $parentRes->exists()) {
             $usersMod->notifyModsPreLdapUserBase(
-                'preAddUserFailed', [$entry, $args{parent}], $args{ignoreMods}, $args{ignoreSlaves});
+                'preAddUserFailed', [$entry, $parent], $ignoreMods, $ignoreSlaves);
             $parentRes->deleteObject(@_);
         }
         $res = undef;
@@ -685,8 +665,8 @@ sub create
         $res->save();
     }
 
-    $defaultGroup->setIgnoredModules($args{ignoreMods});
-    $defaultGroup->setIgnoredSlaves($args{ignoreSlaves});
+    $defaultGroup->setIgnoredModules($ignoreMods);
+    $defaultGroup->setIgnoredSlaves($ignoreSlaves);
     $defaultGroup->addMember($res, 1);
     $defaultGroup->save();
 
@@ -695,8 +675,8 @@ sub create
 }
 
 sub _checkUserName
- {
-     my ($name) = @_;
+{
+    my ($name) = @_;
     if (not EBox::Users::checkNameLimitations($name)) {
         return undef;
     }

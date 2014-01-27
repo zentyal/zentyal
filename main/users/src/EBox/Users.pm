@@ -63,6 +63,7 @@ use File::Slurp;
 use File::Temp qw/tempfile/;
 use Perl6::Junction qw(any);
 use String::ShellQuote;
+use Time::HiRes;
 use Fcntl qw(:flock);
 
 
@@ -78,7 +79,6 @@ use constant LIBNSS_SECRETFILE => '/etc/ldap.secret';
 use constant DEFAULTGROUP   => '__USERS__';
 use constant JOURNAL_DIR    => EBox::Config::home() . 'syncjournal/';
 use constant AUTHCONFIGTMPL => '/etc/auth-client-config/profile.d/acc-zentyal';
-use constant MAX_SB_USERS   => 25;
 use constant CRONFILE       => '/etc/cron.d/zentyal-users';
 use constant CRONFILE_EXTERNAL_AD_MODE => '/etc/cron.daily/zentyal-users-external-ad';
 
@@ -407,9 +407,9 @@ sub setupKerberos
     EBox::info("Initializing kerberos realm '$realm'");
 
     my @cmds = ();
-    push (@cmds, 'invoke-rc.d heidmal-kdc stop || true');
+    push (@cmds, 'service heidmal-kdc stop || true');
     push (@cmds, 'stop zentyal.heimdal-kdc || true');
-    push (@cmds, 'invoke-rc.d kpasswdd stop || true');
+    push (@cmds, 'service kpasswdd stop || true');
     push (@cmds, 'stop zentyal.heimdal-kpasswd || true');
     push (@cmds, 'sudo sed -e "s/^kerberos-adm/#kerberos-adm/" /etc/inetd.conf -i') if EBox::Sudo::fileTest('-f', '/etc/inetd.conf');
     push (@cmds, "ln -sf /etc/heimdal-kdc/kadmind.acl /var/lib/heimdal-kdc/kadmind.acl");
@@ -520,7 +520,7 @@ sub _internalServerEnableActions
 
     # Stop slapd daemon
     EBox::Sudo::root(
-        'invoke-rc.d slapd stop || true',
+        'service slapd stop || true',
         'stop ebox.slapd        || true',
         'cp /usr/share/zentyal-users/slapd.default.no /etc/default/slapd'
     );
@@ -545,7 +545,7 @@ sub _internalServerEnableActions
     $self->_loadLDAP($dn, $LDIF_CONFIG, $LDIF_DB);
     $self->_manageService('start');
 
-    $self->ldap->clearConn();
+    $self->clearLdapConn();
 
     # Setup NSS (needed if some user is added before save changes)
     $self->_setConf(1);
@@ -606,6 +606,99 @@ sub enableService
     if ($status) {
         $self->_setConf(1);
     }
+}
+
+sub _startDaemon
+{
+    my ($self, $daemon, %params) = @_;
+
+    $self->SUPER::_startDaemon($daemon, %params);
+
+    my $services = $self->_services($daemon->{name});
+    foreach my $service (@{$services}) {
+        my $port = $service->{destinationPort};
+        next unless $port;
+
+        my $proto = $service->{protocol};
+        next unless $proto;
+
+        my $desc = $service->{description};
+        if ($proto eq 'tcp/udp') {
+            $self->_waitService('tcp', $port, $desc);
+            $self->_waitService('udp', $port, $desc);
+        } elsif (($proto eq 'tcp') or ($proto eq 'udp')) {
+            $self->_waitService($proto, $port, $desc);
+        }
+    }
+}
+
+# Method: _waitService
+#
+#   This function will block until service is listening or timed
+#   out (300 * 0.1 = 30 seconds)
+#
+sub _waitService
+{
+    my ($self, $proto, $port, $desc) = @_;
+
+    my $maxTries = 300;
+    my $sleepSeconds = 0.1;
+    my $listening = 0;
+
+    if (length ($desc)) {
+        EBox::debug("Wait users task '$desc'");
+    } else {
+        EBox::debug("Wait unknown users task");
+    }
+    while (not $listening and $maxTries > 0) {
+        my $sock = new IO::Socket::INET(PeerAddr => '127.0.0.1',
+                                        PeerPort => $port,
+                                        Proto    => $proto);
+        if ($sock) {
+            $listening = 1;
+            last;
+        }
+        $maxTries--;
+        Time::HiRes::sleep($sleepSeconds);
+    }
+
+    unless ($listening) {
+        EBox::warn("Timeout reached while waiting for users service '$desc' ($proto)");
+    }
+}
+
+sub _services
+{
+    my ($self, $daemon) = @_;
+    my @services = ();
+
+    if ($daemon eq 'ebox.slapd') {
+        # LDAP
+        push (@services, {
+            'protocol' => 'tcp',
+            'sourcePort' => 'any',
+            'destinationPort' => '390',
+            'description' => 'Lightweight Directory Access Protocol',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kdc') {
+        # KDC
+        push (@services, {
+            'protocol' => 'tcp/udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KERBEROS_PORT,
+            'description' => 'Kerberos Key Distribution Center',
+        });
+    } elsif ($daemon eq 'zentyal.heimdal-kpasswd') {
+        # KPASSWD
+        push (@services, {
+            'protocol' => 'udp',
+            'sourcePort' => 'any',
+            'destinationPort' => KPASSWD_PORT,
+            'description' => 'Kerberos Password Changing Server',
+        });
+    }
+
+    return \@services;
 }
 
 # Load LDAP from config + data files
@@ -894,7 +987,7 @@ sub _enforceServiceState
     $self->SUPER::_enforceServiceState();
 
     # Clear LDAP connection
-    $self->ldap->clearConn();
+    $self->clearLdapConn();
 }
 
 # Method: groupDn
@@ -936,24 +1029,8 @@ sub initUser
             push(@cmds, "cp -dR --preserve=mode /etc/skel $qhome");
             EBox::Sudo::root(@cmds);
 
-            # FIXME: workaroung against mysterious chown bug
             my $chownCmd = "chown -R $quser:$group $qhome";
-            my $chownTries = 10;
-            foreach my $cnt (1 .. $chownTries) {
-                my $chownOk = 0;
-                try {
-                    EBox::Sudo::root($chownCmd);
-                    $chownOk = 1;
-                } catch ($e) {
-                    if ($cnt < $chownTries) {
-                        EBox::warn("$chownCmd failed: $e . Attempt number $cnt");
-                        sleep 1;
-                    } else {
-                        $e->throw();
-                    }
-                }
-                last if $chownOk;
-            };
+            EBox::Sudo::root($chownCmd);
 
             my $dir_umask = oct(EBox::Config::configkey('dir_umask'));
             my $perms = sprintf("%#o", 00777 &~ $dir_umask);
@@ -966,9 +1043,9 @@ sub initUser
 # Reload nscd daemon if it's installed
 sub reloadNSCD
 {
-    if ( -f '/etc/init.d/nscd' ) {
+    if (-f '/etc/init.d/nscd') {
         try {
-            EBox::Sudo::root('/etc/init.d/nscd force-reload');
+            EBox::Sudo::root('service nscd force-reload');
         } catch {
         }
    }
@@ -976,38 +1053,41 @@ sub reloadNSCD
 
 # Method: ous
 #
-#       Returns an array containing all the OUs sorted by canonicalName
+#   Returns an array containing all the OUs. The array ir ordered in a
+#   hierarquical way. Parents before childs.
 #
 # Returns:
 #
-#       array ref - holding the OUs. Each user is represented by a
-#       EBox::Users::OU object
+#   array ref - holding the OUs. Each user is represented by a
+#   EBox::Users::OU object
 #
 sub ous
 {
-    my ($self) = @_;
+    my ($self, $baseDN) = @_;
 
     return [] if (not $self->isEnabled());
 
-    my $objectClass = $self->{ouClass}->mainObjectClass();
-    my %args = (
-        base => $self->ldap->dn(),
-        filter => "objectclass=$objectClass",
-        scope => 'sub',
-    );
-
-    my $result = $self->ldap->search(\%args);
-
-    my @ous = ();
-    foreach my $entry ($result->entries)
-    {
-        my $ou = $self->{ouClass}->new(entry => $entry);
-        push (@ous, $ou);
+    unless (defined $baseDN) {
+        $baseDN = $self->ldap->dn();
     }
 
-    my @sortedOUs = sort { $a->canonicalName(1) cmp $b->canonicalName(1) } @ous;
+    my $objectClass = $self->{ouClass}->mainObjectClass();
+    my $searchArgs = {
+        base => $baseDN,
+        filter => "objectclass=$objectClass",
+        scope => 'one',
+    };
 
-    return \@sortedOUs;
+    my $ous = [];
+    my $result = $self->ldap->search($searchArgs);
+    foreach my $entry ($result->entries()) {
+        my $ou = EBox::Users::OU->new(entry => $entry);
+        push (@{$ous}, $ou);
+        my $nested = $self->ous($ou->dn());
+        push (@{$ous}, @{$nested});
+    }
+
+    return $ous;
 }
 
 # Method: userByUID
@@ -1681,7 +1761,7 @@ sub allGroupAddOns
     return \@components;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #       Returns all the the warnings provided by the modules when a certain
 #       user, group is going to be deleted. Function _delUserWarning or
@@ -1702,15 +1782,6 @@ sub allWarnings
 
     # TODO: Extend it for ous and contacts.
     return [] unless (($object eq 'user') or ($object eq 'group'));
-
-    # Check for maximum users
-    if (EBox::Global->edition() eq 'sb') {
-        if (length(@{$self->users()}) >= MAX_SB_USERS) {
-            throw EBox::Exceptions::External(
-                __s('Please note that you have reached the maximum of users for this server edition. If you need to run Zentyal with more users please upgrade.'));
-
-        }
-    }
 
     my @modsFunc = @{$self->_modsLdapUserBase()};
     my @allWarns;
@@ -1981,7 +2052,7 @@ sub restoreBackupPreCheck
 
 sub restoreConfig
 {
-    my ($self, $dir) = @_;
+    my ($self, $dir, $ignoreUserInitialization) = @_;
     my $mode = $self->mode();
 
     File::Slurp::write_file($dir . '/' . BACKUP_MODE_FILE, $mode);
@@ -2013,10 +2084,12 @@ sub restoreConfig
     chmod(0600, "$dir/ldap.passwd", "$dir/ldap_ro.passwd");
 
     $self->_manageService('start');
-    $self->ldap->clearConn();
+    $self->clearLdapConn();
 
     # Save conf to enable NSS (and/or) PAM
     $self->_setConf();
+
+    return if $ignoreUserInitialization;
 
     for my $user (@{$self->users()}) {
 

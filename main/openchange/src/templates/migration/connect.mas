@@ -1,9 +1,23 @@
 <%args>
+  $openchangeMod
 </%args>
 <%init>
 use EBox::Gettext;
 </%init>
-<div id="messages"></div>
+% unless ($openchangeMod->isProvisioned()) {
+<div id="messages">
+<div class="note">
+  <% __x('You must provision the {x} module database before being able to use the migration.',
+         x => $openchangeMod->printableName()) %>
+</div>
+</div>
+% return
+% }
+<div id="messages">
+<div class="note">
+  <% __('The migration features provided as part of this technology preview only allow you to migrate one user at a time. Each migration requires the user to exist in Zentyal and its OpenChange account to be enabled prior the process starts.') %>
+</div>
+</div>
 <div class="item-block">
     <h3><% __('Select origin server') %></h3>
         <div class="full-width" style="margin-bottom:20px;">
@@ -17,32 +31,19 @@ use EBox::Gettext;
 
                     <div id="credentials">
                         <h4><% __('Credential for origin server') %></h4>
-                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
-                        <label for="username-origin"><% __('Admin user') %></label>
+                        <p><% __('You need either a user with Full privileges in Exchange with access to all mailboxes or the credentials of the user that is going to be migrated') %></p>
+                        <label for="username-origin"><% __('Origin user') %></label>
                         <input type="text" id="username-origin" placeholder="username">
-                        <label for="password-origin"><% __('Admin password') %></label>
+                        <label for="password-origin"><% __('Origin user password') %></label>
                         <input type="password" id="password-origin" placeholder="***">
                     </div>
             </div>
-            <div class="half-width">
-                <h4><% __('Available servers') %></h4>
-                <ul id="server-list" class="server-list">
-                    <li><span>Loading servers...</span></li>
-                </ul>
-                <script type="text/javascript" src="/data/js/openchange.js"></script>
-                <script>
-                    $(document).ready(
-                        function() {
-                            Zentyal.OpenChange.updateAjaxValue("/OpenChange/ServerList", "server-list");
-                        }
-                    );
-                </script>
                 <div id="credentials-local">
                         <h4><% __('Credential for local server') %></h4>
-                        <p><% __('You need Admin profile user and password to be able to access this server') %></p>
-                        <label for="username-local"><% __('Admin user') %></label>
+                        <p><% __('You need the user and password of the Zentyal user you want to migrate to') %></p>
+                        <label for="username-local"><% __('Zentyal user name') %></label>
                         <input type="text" id="username-local" placeholder="username">
-                        <label for="password-local"><% __('Admin password') %></label>
+                        <label for="password-local"><% __('Zentyal user password') %></label>
                         <input type="password" id="password-local" placeholder="***">
                 </div>
             </div>

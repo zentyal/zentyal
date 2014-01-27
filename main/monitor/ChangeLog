@@ -1,5 +1,9 @@
+3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
 3.3
 	+ Switch from Error to TryCatch for exception handling
+	+ Adapted strings to new offering
 	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2

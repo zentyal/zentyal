@@ -1,5 +1,14 @@
+3.4
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Set version to 3.4
+	+ Added openchange outgoing mail rewriting
+	+ Added sieve_dir plugin parameter
+	+ Nopass dovecot policy enabled only when Openchange provisioned
 3.3
+	+ Allow to use vdomains table when module is unconfigured
+	+ Dovecot passdb reordering and typo
 	+ Switch from Error to TryCatch for exception handling
+	+ Added required code to integrate with OpenChange
 	+ Added missing EBox::Exceptions uses
 	+ Delete migration code from old versions
 	+ Preservice and postservice hooks now should work properly

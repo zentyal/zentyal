@@ -1,0 +1,5 @@
+build/
+.lock-waf_linux2_build
+bin/.waf-*
+debian/files
+debian/zoctools*

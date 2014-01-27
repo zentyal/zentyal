@@ -35,7 +35,7 @@ for my $key (keys(%{$ref})) {
     }
 }
 
-$ref->{version} = '3.3';
+$ref->{version} = '3.4';
 $ref->{perlpath} = '/usr/share/perl5/';
 
 my @confFiles;
@@ -110,6 +110,19 @@ sub boolean
     my ($key) = @_;
 
     return (configkey($key) eq 'yes');
+}
+
+sub list
+{
+    my ($key) = @_;
+
+    my $val = configkey($key);
+    if ($val) {
+        my @values = split (' ', $val);
+        return \@values;
+    } else {
+        return [];
+    }
 }
 
 sub configkeys # (key)
@@ -385,6 +398,11 @@ sub perlPath
 sub hideExternalLinks
 {
     return configkey('custom_prefix');
+}
+
+sub urlEditions
+{
+    return 'http://bit.ly/1e83s5u';
 }
 
 1;

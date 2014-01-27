@@ -1,0 +1,9 @@
+<%args>
+$model
+</%args>
+%  my $disabledModuleWarning = $model->disabledModuleWarning();
+%  if ($disabledModuleWarning) {
+<div class="warning">
+  <% $disabledModuleWarning %>
+</div>
+%  }

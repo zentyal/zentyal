@@ -1,14 +1,78 @@
-3.3
+3.4
 	+ Use uWSGI instead of Apache mod_perl for running CGIs
+	+ Integration with HA module in save changes process
+	+ Added icon for new zentyal-ha module
+	+ Migrate rs_verify_servers in remoteservices.conf to
+	  rest_verify_servers core.conf
+	+ Include basic support to free-format Template models to be
+	  included in Composites
+	+ Move run-pending-ops script from remoteservices to core
+	+ Rename EBox::RemoteServices::RESTResult to EBox::RESTClient::Result
+	+ Move EBox::RemoteServices::RESTClient to EBox::RESTClient as it
+	  is used in ha and remoteservices module.
+	+ Adapt init.d and upstart running checks to Ubuntu 13.10
+	+ Use service instead of deprecated invoke-rc.d for init.d scripts
+	+ Adapted apache configuration to 2.4
+	+ Adapted EBox::Config::Redis to the new libredis-perl API
+	+ Adapted redis.conf to redis 2.6
+	+ Fixed regression in clone action
+	+ Decode to utf8 the MySQL database results
+	+ Create log database using utf8 charset
+	+ Better way to set MySQL password for all the root accounts
+	+ Use same JSON reply file for changeRowForm and dataInUse
+	+ Fixed regression in AJAX changes with raised error when a
+	  data in use exception was found
+	+ Fixed css error that hide information in the logs tables
+	+ Use sharedscripts in zentyal-core logrotate to avoid triggering
+	  in every log file
+	+ Take into account view customizer on audit logging
+	+ Show complex types (more than one field) in audit log
+	  while editing by storing the dump of the value
+	+ Fix EBox::Types::Composite::cmp to store changes when only last type
+	  is modified
+	+ Fixed general widget packages to avoid error on 'packages to
+	  upgrade' section
+	+ Fixed regression when table size is set to 'view all'
+	+ Set version to 3.4
+3.3.1
+	+ Fixed redirects in table/form JSON replies
+	+ Set automated ticket report milestone to 3.3.X
+3.3
+	+ Refactored module not enabled warning
+	+ Add version to header logo
+	+ HTML body can now have different styles based on the menu section
+	+ Hide close button on saving changes and backup progess
+	  dialogs. Don't allow to close it with esc key on those cases.
+	+ Fix error when pageSize parameter is not supplied to the model controller
+	+ Workaround against modules changed when saving all changes
+	+ Recover from widget function exceptions
+	+ Use the same Mason interpreter for most HTML templates
+	+ Use more granular AJAX for table actions
+	+ Use stand-alone AJAX call to refresh save changes button
 	+ Added missing use to EBox::CGI::Base
 	+ Allow to submit apport crash reports if debug=yes
 	+ Switch from Error to TryCatch for exception handling
+	+ Added new communityEdition() helper method in EBox::Global
+	+ Add version to header logo
+	+ Always reload page after saving changes
+	+ Use AJAX call to refresh save change buttons
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
+	+ Workaround against modules changed when saving all changes
+	+ Display remote services messages if they exist on Dashboard
+	+ Recover from widget function exceptions
+	+ Fixed mdstat output processing to remove "(auto-read-only)"
+	+ Fixed audit logging of delete actions
 	+ Fixed errors with row ID in ManageAdmins table
 	+ Added missing EBox::Exceptions uses
 	+ Fixed bug in selectSetter which hitted selects on DataForm with
 	  'unique' option enabled
 	+ EBox::WebServer::removeNginxInclude does not longer throws
 	  a exception if the path to remove is not included
+	+ Copy all the redis keys from 'conf' to 'ro' when saving changes of
+	  any module to prevent incoherences
+	+ Delete unused stopAllModules() and restartAllModules() in EBox::Global
 	+ Use printableName in Configure Module popup
 	+ Replace fork of Apache2::AuthCookie with libapache2-authcookie-perl
 	+ Added EBox::Types::IPRange::addressesFromBeginToEnd class method

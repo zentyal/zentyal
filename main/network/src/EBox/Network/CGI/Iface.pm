@@ -64,6 +64,8 @@ sub setIface
     my $ppp_user = '';
     my $ppp_pass = '';
     my $bridge = '';
+    my $bond = '';
+    my $bond_mode = '';
     my $external = undef;
     if (defined($self->param('external'))) {
         $external = 1;
@@ -120,10 +122,21 @@ sub setIface
             $net->setIfaceBridged($iface, $external, $bridge, $force);
 
             $audit->logAction('network', 'Interfaces', 'setIfaceBridged', "$iface, $bridge, $extStr", 1);
+        } elsif ($method eq 'bundled') {
+            $self->_requireParam('bond', __('bond'));
+            $bond = $self->param('bond');
+            $net->setIfaceBonded($iface, $external, $bond, $force);
+
+            $audit->logAction('network', 'Interfaces', 'setIfaceBonded', "$iface, $bond, $extStr", 1);
         } elsif ($method eq 'notset') {
             $net->unsetIface($iface, $force);
 
             $audit->logAction('network', 'Interfaces', 'unsetIface', $iface, 1);
+        }
+        if ($net->ifaceIsBond($iface)) {
+            $self->_requireParam('bond_mode', __('bonding mode'));
+            $bond_mode = $self->param('bond_mode');
+            $net->get_hash('interfaces')->{$iface}->{bond_mode} = $bond_mode;
         }
     } catch (EBox::Exceptions::DataInUse $e) {
         $self->{template} = 'network/confirm.mas';
@@ -137,6 +150,8 @@ sub setIface
         push(@array, 'ppp_pass' => $ppp_pass);
         push(@array, 'external' => $external);
         push(@array, 'bridge' => $bridge);
+        push(@array, 'bond' => $bond);
+        push(@array, 'bond_mode' => $bond_mode);
         $self->{params} = \@array;
     }
 }

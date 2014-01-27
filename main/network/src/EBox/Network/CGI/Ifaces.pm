@@ -55,7 +55,9 @@ sub masonParameters
 
     my @params = ();
     my @bridges = ();
+    my @bonds = ();
     my @ifaces = ();
+    my $vlans = [];
 
     foreach (@{$tmpifaces}) {
         my $ifinfo = {};
@@ -76,12 +78,17 @@ sub masonParameters
             $iface->{'netmask'} = $net->ifaceNetmask($_);
             $iface->{'virtual'} = $net->vifacesConf($_);
         } elsif ($net->ifaceMethod($_) eq 'trunk') {
-            push(@params, 'vlans' => $net->ifaceVlans($_));
+            $vlans = $net->ifaceVlans($_);
         } elsif ($net->ifaceMethod($_) eq 'bridged') {
             $iface->{'bridge'} = $net->ifaceBridge($_);
+        } elsif ($net->ifaceMethod($_) eq 'bundled') {
+            $iface->{'bond'} = $net->ifaceBond($_);
         } elsif ($net->ifaceMethod($_) eq 'ppp') {
             $iface->{'ppp_user'} = $net->ifacePPPUser($_);
             $iface->{'ppp_pass'} = $net->ifacePPPPass($_);
+        }
+        if ($net->ifaceIsBond($_)) {
+            $iface->{'bond_mode'} = $net->bondMode($_);
         }
     }
 
@@ -95,13 +102,26 @@ sub masonParameters
         $brinfo->{'id'} = $bridge;
         $brinfo->{'name'} = "br$bridge";
         $brinfo->{'alias'} = $net->ifaceAlias("br$bridge");
-        push(@bridges, $brinfo);
+        push (@bridges, $brinfo);
     }
 
-    push(@params, 'externalWarning' => $externalWarning);
-    push(@params, 'iface' => $iface);
-    push(@params, 'ifaces' => \@ifaces);
-    push(@params, 'bridges', => \@bridges);
+    foreach my $bond (@{$net->bonds()}) {
+        my $bondinfo = {};
+        $bondinfo->{'id'} = $bond;
+        $bondinfo->{'name'} = "bond$bond";
+        $bondinfo->{'alias'} = $net->ifaceAlias("bond$bond");
+        push (@bonds, $bondinfo);
+    }
+
+    @params = (
+        'network'         => $net,
+        'externalWarning' => $externalWarning,
+        'iface'           => $iface,
+        'ifaces'          => \@ifaces,
+        'bridges'         => \@bridges,
+        'bonds'           => \@bonds,
+        'vlans'           => $vlans
+    );
 
     return \@params;
 }

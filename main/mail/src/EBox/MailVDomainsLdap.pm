@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -257,7 +258,7 @@ sub _modsVDomainModule
     return \@modules;
 }
 
-# Method: allWarning
+# Method: allWarnings
 #
 #  Returns all the the warnings provided by the modules when a certain
 #  virtual domain is going to be deleted. Function _delVDomainWarning

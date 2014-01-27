@@ -1,4 +1,4 @@
-deb http://archive.ubuntu.com/ubuntu precise main restricted universe multiverse
-deb http://archive.ubuntu.com/ubuntu precise-updates main restricted universe multiverse
-deb http://security.ubuntu.com/ubuntu precise-security main restricted universe
-deb http://archive.zentyal.org/zentyal 3.3 main extra
+deb http://archive.ubuntu.com/ubuntu saucy main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu saucy-updates main restricted universe multiverse
+deb http://security.ubuntu.com/ubuntu saucy-security main restricted universe
+deb http://archive.zentyal.org/zentyal 3.4 main extra

@@ -1,0 +1,21 @@
+#!/bin/bash
+
+set -e
+
+case "$1" in
+    configure)
+
+        /usr/share/zentyal/initial-setup usercorner $2
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+    triggered)
+        #remove the usercorner menu cache
+        rm -f /var/lib/zentyal-usercorner/menucache || true
+
+        #restart the usercorner apache
+        service zentyal usercorner restart || true
+    ;;
+esac
+
+exit 0

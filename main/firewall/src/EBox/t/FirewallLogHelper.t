@@ -24,6 +24,7 @@ use Test::More tests => 16;
 use Test::MockObject;
 use Test::Exception;
 use Test::Differences;
+use POSIX qw/strftime/;
 
 sub setUpDBEngine : Test(startup)
 {
@@ -46,6 +47,7 @@ sub setUpDBEngine : Test(startup)
                                           });
 
     $self->{dbEngine} = $dbEngine;
+
 }
 
 
@@ -59,6 +61,7 @@ sub setUpLogHelper : Test(setup)
     my ($self) = @_;
 
     $self->{logHelper} = EBox::FirewallLogHelper->new();
+    $self->{year} = strftime('%Y', localtime());
 }
 
 sub test_drop : Test(6)
@@ -70,7 +73,7 @@ sub test_drop : Test(6)
             line =>
               'Jan 25 11:14:44 macostaserver kernel: [2470652.110434] zentyal-firewall drop IN=eth1 OUT= MAC=ff:ff:ff:ff:ff:ff:40:4a:03:82:33:14:08:00 SRC=192.168.1.254 DST=192.168.1.255 LEN=72 TOS=0x00 PREC=0x00 TTL=1 ID=25998 PROTO=UDP SPT=520 DPT=520 LEN=52 MARK=0x1',
             expected => {
-                timestamp => '2013-01-25 11:14:44',
+                timestamp => $self->{year}.'-01-25 11:14:44',
                 event => 'drop',
                 fw_in => 'eth1',
                 fw_out => undef,
@@ -86,7 +89,7 @@ sub test_drop : Test(6)
             line =>
               'Jan 25 11:14:52 macostaserver kernel: [2470659.768645] zentyal-firewall drop IN=tap0 OUT= MAC= SRC=192.168.160.1 DST=192.168.160.255 LEN=271 TOS=0x00 PREC=0x00 TTL=64 ID=0 DF PROTO=UDP SPT=631 DPT=631 LEN=251 MARK=0x1',
             expected => {
-                timestamp => '2013-01-25 11:14:52',
+                timestamp => $self->{year}.'-01-25 11:14:52',
                 event => 'drop',
                 fw_in => 'tap0',
                 fw_out => undef,
@@ -110,7 +113,7 @@ sub test_redirect : Test(6)
         {
             line => 'Sep 10 17:54:12 macostaserver kernel: [913784.855409] zentyal-firewall redirect IN=eth0 OUT=eth2 MAC=aa:ed:fc:ec:88:41:00:20:6f:1f:c0:41:08:00 SRC=77.163.8.2 DST=172.31.3.1 LEN=64 TOS=0x00 PREC=0x00 TTL=56 ID=13836 DF PROTO=TCP SPT=54669 DPT=443 WINDOW=65535 RES=0x00 SYN URGP=0 MARK=0x1',
             expected => {
-                timestamp => '2013-09-10 17:54:12',
+                timestamp => $self->{year}.'-09-10 17:54:12',
                 event     => 'redirect',
                 fw_in     => 'eth0',
                 fw_out    => 'eth2',
@@ -125,7 +128,7 @@ sub test_redirect : Test(6)
         {
             line => 'Sep 10 17:56:48 macostaserver kernel: [913940.939865] zentyal-firewall redirect IN=eth0 OUT=eth1 MAC=ad:ac:ef:ed:98:42:00:10:6f:1f:c0:41:08:00 SRC=77.74.9.6 DST=172.16.21.42 LEN=60 TOS=0x00 PREC=0x00 TTL=54 ID=26544 DF PROTO=TCP SPT=34571 DPT=80 WINDOW=5840 RES=0x00 SYN URGP=0 MARK=0x1',
             expected => {
-                timestamp => '2013-09-10 17:56:48',
+                timestamp => $self->{year}.'-09-10 17:56:48',
                 event     => 'redirect',
                 fw_in     => 'eth0',
                 fw_out    => 'eth1',
@@ -150,7 +153,7 @@ sub test_log : Test(3)
         {
             line => 'Sep 12 16:25:11 macostaserver kernel: [ 1661.128397] zentyal-firewall log IN=eth1 OUT= MAC=08:00:27:ee:e4:79:0a:00:27:00:00:00:08:00 SRC=192.168.56.1 DST=192.168.56.101 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=63662 DF PROTO=TCP SPT=38115 DPT=22 WINDOW=14600 RES=0x00 SYN URGP=0 MARK=0x10001',
             expected => {
-                timestamp => '2013-09-12 16:25:11',
+                timestamp => $self->{year}.'-09-12 16:25:11',
                 event     => 'log',
                 fw_in     => 'eth1',
                 fw_out    => undef,

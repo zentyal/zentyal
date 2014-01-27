@@ -1,5 +1,16 @@
+3.4
+	+ Remove useless initial-setup script
+	+ Set version to 3.4
+	+ Update install button when clicking select all checkbox
+	+ Send an alert if a restart is required after performing an automatic
+	  update with auto-updater
 3.3
+	+ Replace select/deselect all buttons with column checkbox
 	+ Switch from Error to TryCatch for exception handling
+	+ Updated installer slides
+	+ Remove style in zentyal package list when sb is set as it is not
+	  longer applied
+	+ Remove restricted modules to get info
 	+ Added missing EBox::Exceptions uses
 	+ Set version to 3.3
 3.2.1

@@ -82,9 +82,6 @@ use constant KEYTAB_FILE => '/etc/squid3/HTTP.keytab';
 use constant SQUID3_DEFAULT_FILE => '/etc/default/squid3';
 use constant CRONFILE => '/etc/cron.d/zentyal-squid';
 
-use constant SB_URL => 'https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=smallbusiness_edition';
-use constant ENT_URL => 'https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy&utm_campaign=enterprise_edition';
-
 use constant SQUID_ZCONF_FILE => '/etc/zentyal/squid.conf';
 use constant AUTH_MODE_KEY    => 'auth_mode';
 use constant AUTH_AD_ACL_TTL_KEY   => 'auth_ad_acl_ttl';
@@ -846,8 +843,14 @@ sub _writeCronFile
     my $times;
     my @cronTimes;
 
+    my $usingExternalAD = ($self->authenticationMode() eq $self->AUTH_MODE_EXTERNAL_AD());
+    my $usingExternalADGroups = 0;
+
     my $rules = $self->model('AccessRules');
     foreach my $profile (@{$rules->filterProfiles()}) {
+        if ($usingExternalAD and exists($profile->{users})) {
+            $usingExternalADGroups = 1;
+        }
         next unless $profile->{usesFilter} and $profile->{timePeriod};
         if ($profile->{policy} eq 'deny') {
             # this is managed in squid, we don't need to rewrite DG files for it
@@ -873,6 +876,11 @@ sub _writeCronFile
         my ($hour, $min) = split (':', $time);
         my $days = join (',', sort (keys %{$times->{$time}}));
         push (@cronTimes, { days => $days, hour => $hour, min => $min });
+    }
+
+    # Synchronise AD groups every 30min
+    if ($usingExternalADGroups) {
+        push(@cronTimes, { days => '*', hour => '*', min => '*/30' });
     }
 
     $self->writeConfFile(CRONFILE, 'squid/zentyal-squid.cron.mas', [ times => \@cronTimes ]);
@@ -962,10 +970,8 @@ sub _writeDgTemplates
     my $edition = $self->global()->edition();
 
     if (($edition eq 'community') or ($edition eq 'basic')) {
-        $extra_messages = __sx('This is an unsupported Community Edition. Get the fully supported {ohs}Small Business{ch} or {ohe}Enterprise Edition{ch} for automatic security updates.',
-                               ohs => '<a href="https://store.zentyal.com/small-business-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=smallbusiness_edition">',
-                               ohe => '<a href="https://store.zentyal.com/enterprise-edition.html/?utm_source=zentyal&utm_medium=proxy.blockpage&utm_campaign=enterprise_edition">',
-                               ch => '</a>');
+        $extra_messages = __sx('This is a Community Edition. Get one of the fully supported {oh}Commercial Editions{ch} for automatic security updates.',
+                               oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
     }
 
     EBox::Module::Base::writeConfFileNoCheck($file,
@@ -1303,10 +1309,8 @@ sub regenGatewaysFailover
 # Security Updates Add-On message
 sub _commercialMsg
 {
-    return __sx('Want to avoid threats such as malware, phishing and bots? Get the {ohs}Small Business{ch} or {ohe}Enterprise Edition {ch} that will keep your Content Filtering rules always up-to-date.',
-                ohs => '<a href="' . SB_URL . '" target="_blank">',
-                ohe => '<a href="' . ENT_URL . '" target="_blank">',
-                ch => '</a>');
+    return __sx('Want to avoid threats such as malware, phishing and bots? Get one of the {oh}Commercial Editions{ch} that will keep your Content Filtering rules always up-to-date.',
+                oh => '<a href="' . EBox::Config::urlEditions() . '" target="_blank">', ch => '</a>');
 }
 
 sub authenticationMode

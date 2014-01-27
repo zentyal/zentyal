@@ -1,3 +1,4 @@
+# Copyright (C) 2005-2007 Warp Networks S.L.
 # Copyright (C) 2008-2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -132,6 +133,19 @@ sub initialSetup
         $firewall->addServiceRules($self->_serviceRules());
         $firewall->saveConfigRecursive();
     }
+}
+
+#  mailfilter can be used without mail so this methods reflects that
+sub depends
+{
+    my ($self) = @_;
+    my @depends = ('firewall');
+    my $mail = $self->global()->modInstance('mail');
+    if ($mail and $mail->isEnabled()) {
+        push @depends, 'mail';
+    }
+
+    return \@depends;
 }
 
 sub _serviceRules
@@ -365,7 +379,7 @@ sub _enforceServiceState
 #FIXME    $self->popProxy()->doDaemon($enabled);
 
     # Workaround postfix amavis issue.
-    EBox::Sudo::root('/etc/init.d/postfix restart');
+    EBox::Sudo::root('service postfix restart');
 }
 
 #
