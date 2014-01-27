@@ -199,6 +199,15 @@ sub save
     my ($self) = @_;
 
     my $changetype = $self->_entry->changetype();
+    my $hasCoreChanges = $self->{core_changed};
+    my $passwd = delete $self->{core_changed_password};
+
+    if ($changetype ne 'delete') {
+        if ($hasCoreChanges or defined $passwd) {
+            my $usersMod = $self->_usersMod();
+            $usersMod->notifyModsLdapUserBase('preModifyUser', [ $self, $passwd ], $self->{ignoreMods}, $self->{ignoreSlaves});
+        }
+    }
 
     if ($self->{set_quota}) {
         my $quota = $self->get('quota');
@@ -207,12 +216,9 @@ sub save
         delete $self->{set_quota};
     }
 
-    my $passwd = delete $self->{core_changed_password};
     if (defined $passwd) {
         $self->_ldap->changeUserPassword($self->dn(), $passwd);
     }
-
-    my $hasCoreChanges = $self->{core_changed};
 
     shift @_;
     $self->SUPER::save(@_);
