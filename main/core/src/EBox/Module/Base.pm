@@ -1130,7 +1130,8 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     }
     $fh->close();
 
-    open(STDERR, ">&$old_stderr");
+    open(STDERR, ">&$old_stderr"); # mason workaround
+
     _writeFileSave($tmpfile, $file, $defaults);
 }
 
