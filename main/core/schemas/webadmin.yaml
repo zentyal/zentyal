@@ -1,4 +1,7 @@
 class: 'EBox::WebAdmin'
+
+bootdepends:
+    - haproxy
+
 models:
     - Language
-    - AdminPort

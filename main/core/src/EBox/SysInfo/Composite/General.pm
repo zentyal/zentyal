@@ -65,7 +65,7 @@ sub componentNames
     push (@components, 'webadmin/Language',
                        'sysinfo/TimeZone',
                        'sysinfo/DateTime',
-                       'webadmin/AdminPort',
+                       'haproxy/HAProxyServices',
                        'sysinfo/HostName');
 
     return \@components;
