@@ -1,3 +1,5 @@
+HEAD
+	+ Fixed mason component root for custom stubs
 3.3.3
 	+ Fixed regression in clone action
 	+ Decode to utf8 the MySQL database results

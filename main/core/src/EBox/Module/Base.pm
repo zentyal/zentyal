@@ -1071,34 +1071,48 @@ sub _writeFileSave # (tmpfile, file, defaults)
 #    params    - parameters for the mason component. Optional. Defaults to no parameters
 #    defaults  - a reference to hash with keys mode, uid, gid and force. Those values will be used when creating a new file. (If the file already exists and the force parameter is not set the existent values of these parameters will be left untouched)
 #
+
 sub writeConfFileNoCheck # (file, component, params, defaults)
 {
     my ($file, $compname, $params, $defaults) = @_;
 
     my ($fh, $tmpfile) = _writeFileCreateTmpFile();
 
-    my $interp = HTML::Mason::Interp->new(
-        comp_root => EBox::Config::stubs,
-        out_method => sub { $fh->print($_[0]) });
     my $comp;
+    my $customStubCompRoot =  EBox::Config::etc() . "stubs";
+    my $interp;
+    my $stub = EBox::Config::stubs() . $compname;
 
-    try {
-        my $stub = EBox::Config::stubs() . $compname;
-        my $customStub = EBox::Config::etc() . "stubs/$compname";
-        if (-f $customStub) {
-            try {
-                EBox::info("Using custom template for $file: $customStub");
-                $comp = $interp->make_component(comp_file => $customStub);
-            } catch ($e) {
-                EBox::error("Falling back to default $stub due to exception " .
-                            "processing custom template $customStub: $e");
-                $comp = $interp->make_component(comp_file => $stub);
-            };
-        } else {
+    # first try custom stub if it exists
+    my $customStub = $customStubCompRoot . '/' . $compname;
+    if (-f $customStub) {
+        $interp = HTML::Mason::Interp->new(
+            comp_root => [ [ custom => $customStubCompRoot],
+                           [ default => EBox::Config::stubs] ],
+            out_method => sub { $fh->print($_[0]) }
+           );
+        try {
+            EBox::info("Using custom template for $file: $customStub");
+            $comp = $interp->make_component(comp_file => $customStub);
+            $stub = $customStub;
+        } catch ($e) {
+            EBox::error("Falling back to default $stub due to exception " .
+                         "when processing custom template $customStub: $e");
+            $comp = undef;
+        };
+    }
+
+    if (not $comp) {
+        # using default stubs
+        $interp = HTML::Mason::Interp->new(
+            comp_root => EBox::Config::stubs,
+            out_method => sub { $fh->print($_[0]) }
+           );
+        try {
             $comp = $interp->make_component(comp_file => $stub);
+        }  catch ($e) {
+            throw EBox::Exceptions::Internal("Compilation of template $stub failed with $e");
         }
-    } catch ($e) {
-        throw EBox::Exceptions::Internal("Template $compname failed with $e");
     }
 
     # Workaround bogus mason warnings, redirect stderr to /dev/null to not
@@ -1108,10 +1122,15 @@ sub writeConfFileNoCheck # (file, component, params, defaults)
     open($old_stderr, ">&STDERR");
     open(STDERR, ">$tmpErr");
 
-    $interp->exec($comp, @{$params});
+    try {
+        $interp->exec($comp, @{$params});
+    } catch($e) {
+        $fh->close();
+        throw EBox::Exceptions::Internal("Execution of template $stub failed with $e");
+    }
     $fh->close();
 
-    open(STDERR, ">&$old_stderr");
+    open(STDERR, ">&$old_stderr"); # mason workaround
 
     _writeFileSave($tmpfile, $file, $defaults);
 }
