@@ -673,19 +673,6 @@ sub _writeSquidConf
     $self->writeConfFile(SQUID_LOGROTATE_CONF, 'squid/squid3.logrotate.mas', []);
 }
 
-sub _nameservers
-{
-    my ($self) = @_;
-    my $global = $self->global();
-    my $users = $global->modInstance('users');
-    if ($users->mode() eq $users->STANDALONE_MODE) {
-        return ['127.0.0.1']
-    }
-
-    my $network = $global->modInstance('network');
-    return $network->nameservers()
-}
-
 sub _writeSquidExternalConf
 {
     my ($self) = @_;
@@ -721,7 +708,7 @@ sub _writeSquidExternalConf
 
     my $cacheDirSize = $generalSettings->cacheDirSizeValue();
     push (@{$writeParam}, cacheDirSize => $cacheDirSize);
-    push (@{$writeParam}, nameservers => $self->_nameservers());
+    push (@{$writeParam}, nameservers => $network->nameservers());
 
     my $cache_host   = $network->model('Proxy')->serverValue();
     my $cache_port   = $network->model('Proxy')->portValue();
