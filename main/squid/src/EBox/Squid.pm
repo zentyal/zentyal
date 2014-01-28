@@ -686,26 +686,6 @@ sub _nameservers
     return $network->nameservers()
 }
 
-sub nameserversUpdated
-{
-    my ($self, $nameservers, $oldNameservers)= @_;
-    EBox::trace();
-    my $users = $self->global()->modInstance('users');
-    if ($users->mode() eq $users->STANDALONE_MODE) {
-        return;
-    }
-
-    my $busy = 0;
-    try {
-        $self->_lock();
-    } catch EBox::Exceptions::Lock with {
-        $busy = 1;
-    };
-    if (not $busy) {
-        $self->restartService();
-    }
-}
-
 sub _writeSquidExternalConf
 {
     my ($self) = @_;

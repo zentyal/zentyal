@@ -305,18 +305,4 @@ sub regenGatewaysFailover
 {
 }
 
-# Method: nameserversUpdated
-#
-#   Invoked when nameservers receive a dynamic update via resolvconf.
-#   This is not called when the update made no changes
-#
-#   Parameters:
-#      nameservers    - actual nameservers
-#      oldNameservers - nameservers before the updare
-#
-sub nameserversUpdated
-{
-    my ($self, $nameservers, $oldNameservers)= @_;
-}
-
 1;

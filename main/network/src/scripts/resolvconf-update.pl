@@ -49,12 +49,9 @@ if ($globalRO->modExists('dns')) {
     exit 0 if ($dnsModule->configured() and $dnsModule->isEnabled());
 }
 
-
 my $globalRW = EBox::Global->getInstance();
 my $networkModule = $globalRW->modInstance('network');
 my $model = $networkModule->model('DNSResolver');
-my $oldNameservers = $model->nameservers();
-my $changed = 0;
 
 if ($operation eq '-d') {
     my @toDelete;
@@ -63,14 +60,12 @@ if ($operation eq '-d') {
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
             push @toDelete, $id;
-            $changed = 1;
         }
     }
     foreach my $id (@toDelete) {
         $model->removeRow($id, 1);
     }
 }
-
 
 if ($operation eq '-a') {
     my $ifaceConfig = $model->getInterfaceResolvconfConfig($interface);
@@ -86,25 +81,12 @@ if ($operation eq '-a') {
                     $el->setValue($resolver);
                     $row->setReadOnly(1);
                     $row->store();
-                    $changed = 1;
                 }
             }
         }
     }
     foreach my $r (@resolvers) {
         $model->addRow(nameserver => $r, interface => $interface, readOnly => 1);
-        $changed = 1;
-    }
-}
-
-EBox::debug("changed $changed");
-if ($changed) {
-    # notify observers
-    my @observers = @{ $globalRW->modInstancesOfType('EBox::NetworkObserver') };
-    foreach my $obs (@observers) {
-        use Data::Dumper;
-        EBox::debug("notify $obs");
-        $obs->nameserversUpdated($model->nameservers(), $oldNameservers);
     }
 }
 
