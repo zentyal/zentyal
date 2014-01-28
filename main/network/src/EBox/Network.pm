@@ -3350,7 +3350,8 @@ sub _preSetConf
     }
 
     # Write DHCP client configuration
-    $self->writeConfFile(DHCLIENTCONF_FILE, 'network/dhclient.conf.mas', []);
+    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+    $self->writeConfFile(DHCLIENTCONF_FILE, 'network/dhclient.conf.mas', [ hostname =>  $hostname]);
 
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
