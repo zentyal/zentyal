@@ -1,3 +1,6 @@
+HEAD
+	+ Hide openchange service status from the dashboard and linked it status
+	  to the one from Samba
 3.2.3
 	+ Fixed a typo that makes openchange appear always off on Dashboard
 3.2.2
