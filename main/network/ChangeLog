@@ -1,4 +1,6 @@
 HEAD
+	+ nameservers() method always return 127.0.0.1 if DNS module is
+	  installed and enabled
 	+ Fixed dhclient configuration
 	+ Fixed some issues with showing of DHCP nameservers and removed
 	  related dead code
