@@ -26,9 +26,11 @@ package EBox::HA::Model::Nodes;
 use base 'EBox::Model::DataTable';
 
 use EBox::Gettext;
+use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::Types::Host;
 use EBox::Types::HostIP;
+use EBox::Types::MultiStateAction;
 use EBox::Types::Port;
 
 # Group: Public methods
@@ -135,19 +137,79 @@ sub _table
             fieldName     => 'webAdminPort',  # FIX the name?
             printableName => __('Port'),
            ),
-    );
+       );
+    my $customActions = [
+        new EBox::Types::MultiStateAction(
+            acquirer  => \&_acquireActive,
+            model     => $self,
+            states    => {
+                'active'  => {
+                    name           => 'demote',
+                    printableValue => __('Demote'),
+                    handler        => \&_doDemote,
+                    message        => __('Node demoted'),
+                    enabled        => \&_anyResource,
+                },
+                'passive' => {
+                    name           => 'promote',
+                    printableValue => __('Promote'),
+                    handler        => \&_doPromote,
+                    message        => __('Node promoted'),
+                    enabled        => \&_anyResource,
+                }
+               },
+           ),
+       ];
 
     my $dataTable =
     {
         tableName => 'Nodes',
         printableTableName => __('Node list for cluster'),
         defaultActions => [ 'changeView' ],
+        customActions  => $customActions,
         modelDomain => 'HA',
         tableDescription => \@fields,
         help => undef,
     };
 
     return $dataTable;
+}
+
+# Group: Subroutines handlers
+
+# Knowing if I'm the active/passive
+sub _acquireActive
+{
+    my ($self, $id) = @_;
+
+    unless ($self->{activeNode}) {
+        # Calculate and cache the active node
+        $self->{activeNode} = EBox::HA::CRMWrapper::activeNode();
+    }
+
+    return ($self->{activeNode} eq $id ? 'active' : 'passive');
+}
+
+# Knowing if any resource is available
+sub _anyResource
+{
+    return (EBox::HA::CRMWrapper::resourceNum() > 0);
+}
+
+# Do promote by moving all resources to the given node
+sub _doPromote
+{
+    my ($self, $actionType, $id, %params) = @_;
+
+    EBox::HA::CRMWrapper::promote($id);
+}
+
+# Do demote by moving out all resources from the given node
+sub _doPromote
+{
+    my ($self, $actionType, $id, %params) = @_;
+
+    EBox::HA::CRMWrapper::demote($id);
 }
 
 1;
