@@ -27,6 +27,8 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use Error qw(:try);
+use EBox::Exceptions::Lock;
 
 EBox::init();
 
@@ -53,6 +55,9 @@ my $globalRW = EBox::Global->getInstance();
 my $networkModule = $globalRW->modInstance('network');
 my $model = $networkModule->model('DNSResolver');
 
+my $alreadyChanged = $networkModule->changed();
+my $changed = 0;
+
 if ($operation eq '-d') {
     my @toDelete;
     foreach my $id (@{$model->ids()}) {
@@ -64,6 +69,7 @@ if ($operation eq '-d') {
     }
     foreach my $id (@toDelete) {
         $model->removeRow($id, 1);
+        $changed = 1;
     }
 }
 
@@ -81,13 +87,27 @@ if ($operation eq '-a') {
                     $el->setValue($resolver);
                     $row->setReadOnly(1);
                     $row->store();
+                    $changed = 1;
                 }
             }
         }
     }
+
     foreach my $r (@resolvers) {
         $model->addRow(nameserver => $r, interface => $interface, readOnly => 1);
+        $changed = 1;
     }
+}
+
+if ($changed and not $alreadyChanged) {
+    try {
+        $networkModule->_lock();
+        $networkModule->_saveConfig();
+        $networkModule->_unlock();
+    } catch EBox::Exceptions::Lock with {
+        # if locked, just mark as usnaved
+    };
+    $networkModule->setAsChanged(0);
 }
 
 exit 0;
