@@ -1,3 +1,5 @@
+HEAD
+	+ Implement _preModifyUser on LdapUserBase
 3.3.1
 	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
 	+ Fixed regression in LDAP info page for external AD mode

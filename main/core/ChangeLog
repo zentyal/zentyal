@@ -1,4 +1,5 @@
 HEAD
+	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Fixed mason component root for custom stubs
 3.3.3
 	+ Fixed regression in clone action

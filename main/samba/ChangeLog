@@ -1,3 +1,9 @@
+HEAD
+	+ Change user modification hook from _modifyUser to _preModifyUser
+	+ Throw DataExists exception if the user try to rename a user on a
+	  container and already exists
+	+ Check for duplicated DN on user creation and show a proper error, not
+	  an internal exception.
 3.3.1
 	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
 	  OpenLDAP. Those users are ignored on EBox::LDB::users method

@@ -218,7 +218,7 @@ ldap_user_certificate_attribute = userCertificate
 #   (objectCategory=Group)
 # For LDAP with posix groups, use:
 #   no need to set the search filter
-ldap_group_search_filter = (objectClass=zentyalDistributionGroup)
+ldap_group_search_filter = (&(objectClass=zentyalDistributionGroup)(!(internal=1)))
 
 # unique group id for find the group
 # Required

@@ -181,6 +181,26 @@ sub _daemons
     return $daemons;
 }
 
+# Method: isRunning
+#
+#   Links Openchange running status to Samba status.
+#
+# Overrides: <EBox::Module::Service::isRunning>
+#
+sub isRunning
+{
+    my ($self) = @_;
+
+    my $running = $self->SUPER::isRunning();
+
+    if ($running) {
+        my $sambaMod = $self->global()->modInstance('samba');
+        return $sambaMod->isRunning();
+    } else {
+        return $running;
+    }
+}
+
 sub _autodiscoverEnabled
 {
     my ($self) = @_;

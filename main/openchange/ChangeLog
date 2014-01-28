@@ -1,3 +1,6 @@
+HEAD
+	+ Hide openchange service status from the dashboard and linked it status
+	  to the one from Samba
 3.3.1
 	+ User addon - remove check that require AD domain to be the same as mail
 	  virtual domain

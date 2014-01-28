@@ -1,3 +1,5 @@
+HEAD
+	+ Hide internal groups from the Zarafa's global addressbook
 3.3
 	+ Available options correctly updated in user addon
 	+ Switch from Error to TryCatch for exception handling
