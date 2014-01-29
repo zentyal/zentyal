@@ -1,4 +1,4 @@
-HEAD
+3.3.2
 	+ Implement _preModifyUser on LdapUserBase
 3.3.1
 	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
