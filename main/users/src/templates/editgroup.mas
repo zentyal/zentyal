@@ -106,6 +106,13 @@ $(function() {
         noteDiv: '#note_editGroupForm',
         errorDiv: '#error_editGroupForm',
         submitButton: '#submitEditGroupForm',
+        success: function (response) {
+           if ('type' in response) {
+                var tree =  $("#tree_Manage");
+                var selected = tree.jstree("get_selected")[0];
+                $(selected).attr('rel', response.type);
+           }
+        }
    });
 
    var updateUserWidgets = function(data) {

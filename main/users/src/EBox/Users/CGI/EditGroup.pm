@@ -87,6 +87,7 @@ sub _process
         $group->save();
 
         $self->{json}->{success}  = 1;
+        $self->{json}->{type} = ($type eq 'security') ? 'group' : 'dgroup';
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };
