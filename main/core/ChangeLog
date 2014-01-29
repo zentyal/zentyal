@@ -1,4 +1,6 @@
 3.4
+	+ Pass model, type and id to enabled subroutine in
+	  EBox::Types::MultiStateAction to be ortoghonal to handler property
 	+ Integration with HA module in save changes process
 	+ Added icon for new zentyal-ha module
 	+ Migrate rs_verify_servers in remoteservices.conf to
