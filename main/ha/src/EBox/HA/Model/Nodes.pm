@@ -51,6 +51,21 @@ sub new
     return $self;
 }
 
+# Method: size
+#
+#      To optimise the command calls
+#
+# Overrides:
+#
+#     <EBox::Model::DataTable::size>
+#
+sub size
+{
+    my ($self) = @_;
+
+    return $self->{list}->size();
+}
+
 # Method: ids
 #
 #     Return the current list of node names
@@ -62,6 +77,10 @@ sub new
 sub ids
 {
     my ($self)  = @_;
+
+    # Calculate and cache the nodes status
+    $self->{nodesStatus} = EBox::HA::CRMWrapper::nodesStatus();
+    $self->{resourcesNum} = EBox::HA::CRMWrapper::resourceNum();
 
     my @names = map { $_->{name} } @{$self->{list}->list()};
     return \@names;
@@ -89,7 +108,13 @@ sub row
     my $tableDesc = $self->table()->{tableDescription};
     foreach my $type (@{$tableDesc}) {
         my $element = $type->clone();
-        $element->setValue($node->{$element->fieldName()});
+        # FIXME: Modify this to given stanza once replication status field is added
+        if ($type->fieldName() eq 'status') {
+            my $nodeOnline = EBox::HA::CRMWrapper::nodeOnline($id, $self->{nodesStatus});
+            $element->setValue($nodeOnline ? __('Online') : __('Offline'));
+        } else {
+            $element->setValue($node->{$element->fieldName()});
+        }
         $row->addElement($element);
     }
 
@@ -111,7 +136,6 @@ sub printableModelName
     my $clusterName = $self->parentModule()->model('Cluster')->nameValue();
     return __x('Node list for {name} cluster', name => $clusterName);
 }
-
 # Group: Protected methods
 
 # Method: _table
@@ -125,6 +149,10 @@ sub _table
     my ($self) = @_;
 
     my @fields = (
+        new EBox::Types::Text(
+            fieldName     => 'status',
+            printableName => __('Status'),
+           ),
         new EBox::Types::Host(
             fieldName     => 'name',
             printableName => __('Hostname'),
@@ -148,14 +176,14 @@ sub _table
                     printableValue => __('Demote'),
                     handler        => \&_doDemote,
                     message        => __('Node demoted'),
-                    enabled        => \&_anyResource,
+                    enabled        => \&_prodemoteContraints,
                 },
                 'passive' => {
                     name           => 'promote',
                     printableValue => __('Promote'),
                     handler        => \&_doPromote,
                     message        => __('Node promoted'),
-                    enabled        => \&_anyResource,
+                    enabled        => \&_prodemoteContraints,
                 }
                },
            ),
@@ -182,18 +210,25 @@ sub _acquireActive
 {
     my ($self, $id) = @_;
 
-    unless ($self->{activeNode}) {
-        # Calculate and cache the active node
-        $self->{activeNode} = EBox::HA::CRMWrapper::activeNode();
-    }
+    my $activeNode = EBox::HA::CRMWrapper::activeNode($self->{nodesStatus});
 
-    return ($self->{activeNode} eq $id ? 'active' : 'passive');
+    return ($activeNode eq $id ? 'active' : 'passive');
 }
 
-# Knowing if any resource is available
-sub _anyResource
+# The constraints to have promote/demote
+#   * Any resource is configured
+#   * More than node is online
+#   * The node is online
+sub _prodemoteContraints
 {
-    return (EBox::HA::CRMWrapper::resourceNum() > 0);
+    my ($self, $actionType, $id) = @_;
+
+    return 0 unless ($self->{resourcesNum} > 0);
+    my $nodesStatus = $self->{nodesStatus};
+    return 0 unless (exists $nodesStatus->{$id});
+    my $nOnline = grep { $_->{online} } values %{$nodesStatus};
+    return 0 unless ($nOnline > 1);
+    return $nodesStatus->{$id}->{online};
 }
 
 # Do promote by moving all resources to the given node
@@ -205,7 +240,7 @@ sub _doPromote
 }
 
 # Do demote by moving out all resources from the given node
-sub _doPromote
+sub _doDemote
 {
     my ($self, $actionType, $id, %params) = @_;
 

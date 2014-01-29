@@ -24,7 +24,7 @@ use warnings;
 package EBox::HA::CRMWrapper;
 
 use EBox::Sudo;
-use List::Util;
+use XML::LibXML;
 
 # Function: resourceNum
 #
@@ -37,7 +37,50 @@ sub resourceNum
     return scalar(@{_resources()});
 }
 
+# Function: nodesStatus
+#
+#     Get the current node status
+#
+# Returns:
+#
+#     Hash ref - containing the node indexed by name with the current
+#     status in a hash ref with the following keys:
+#
+#         - name : node name
+#         - id: node id
+#         - online: Boolean
+#         - standby: Boolean
+#         - resources_running: Int <number_rsc>
+#         - is_dc: Boolean
+#
+sub nodesStatus
+{
+    my $output = EBox::Sudo::root('crm_mon -X');
+    my $outputStr = join('', @{$output});
+    my $dom = XML::LibXML->load_xml(string => $outputStr);
+
+    my $nodeElms = $dom->findnodes('//nodes/node');
+    my %ret;
+    foreach my $nodeEl (@{$nodeElms}) {
+        my $name = $nodeEl->getAttribute('name');
+        $ret{$name} = { name    => $name,
+                        id      => $nodeEl->getAttribute('id'),
+                        online  => ($nodeEl->getAttribute('online') eq 'true'),
+                        standby => ($nodeEl->getAttribute('standby') eq 'true'),
+                        resources_running => $nodeEl->getAttribute('resources_running') + 0,
+                        is_dc   => ($nodeEl->getAttribute('is_dc') eq 'true')
+                      };
+    }
+
+    return \%ret;
+}
+
 # Function: activeNode
+#
+# Parameters:
+#
+#     nodesStatus - Hash ref *(Optional)* Default value: nodesStatus()
+#                   is called
 #
 # Returns:
 #
@@ -45,24 +88,41 @@ sub resourceNum
 #
 sub activeNode
 {
-    my @resources = @{_resources()};
+    my ($nodesStatus) = @_;
 
-    my %nodeCount;
-    foreach my $r (@resources) {
-        my $output = EBox::Sudo::root("crm_resource --resource '$r' --locate");
-        # If it not running, then the output is on STDERR
-        # Example: resource rsc_ip is NOT running
-        next if (@{$output} == 0);
-        my ($hostname) = $output->[0] =~ m/resource $r is running on: ([^\s]+)/;
-        if (exists $nodeCount{$hostname}) {
-            $nodeCount{$hostname}++;
-        } else {
-            $nodeCount{$hostname} = 1
-        }
+    unless (defined ($nodesStatus)) {
+        $nodesStatus = nodesStatus();
     }
-    my $maxKey = List::Util::reduce { $nodeCount{$a} > $nodeCount{$b} ? $a : $b } keys %nodeCount;
-    # It does not count if we have multiple maximums...
-    return $maxKey;
+
+    my @byRscRunning = sort { $b->{resources_running} <=> $a->{resources_running} } values %{$nodesStatus};
+
+    return $byRscRunning[0]->{name};
+}
+
+# Function: nodeOnline
+#
+#
+# Parameters:
+#
+#     nodeName    - String the node name to check its status
+#
+#     nodesStatus - Hash ref *(Optional)* Default value: nodesStatus()
+#                   is called
+#
+# Returns:
+#
+#     String - the node which owns as much resources
+#
+sub nodeOnline
+{
+    my ($nodeName, $nodesStatus) = @_;
+
+    unless (defined ($nodesStatus)) {
+        $nodesStatus = nodesStatus();
+    }
+
+    return 0 unless (exists $nodesStatus->{$nodeName});
+    return $nodesStatus->{$nodeName}->{online};
 }
 
 # Procedure: promote
