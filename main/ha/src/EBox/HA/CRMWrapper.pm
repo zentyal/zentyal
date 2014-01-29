@@ -23,8 +23,10 @@ use warnings;
 
 package EBox::HA::CRMWrapper;
 
+use EBox::Exceptions::Sudo::Command;
 use EBox::Sudo;
 use XML::LibXML;
+use TryCatch::Lite;
 
 # Function: resourceNum
 #
@@ -211,9 +213,14 @@ sub demote
 
 sub _resources
 {
-    my $output = EBox::Sudo::root('crm_resource -l');
-    my @rscs = map { chomp($_); $_ } @{$output};
-    return \@rscs;
+    try {
+        my $output = EBox::Sudo::root('crm_resource -l');
+        my @rscs = map { chomp($_); $_ } @{$output};
+        return \@rscs;
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        # Assuming no resources
+        return [];
+    }
 }
 
 1;
