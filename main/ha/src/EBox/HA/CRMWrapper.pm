@@ -75,6 +75,27 @@ sub nodesStatus
     return \%ret;
 }
 
+# Function: currentDCNode
+#
+#      Return the current Designated Controller node
+#
+# Returns:
+#
+#      String - the node name
+#
+sub currentDCNode
+{
+    my $output = EBox::Sudo::root('crm_mon -X');
+    my $outputStr = join('', @{$output});
+    my $dom = XML::LibXML->load_xml(string => $outputStr);
+
+    my ($dcElement) = $dom->findnodes('//summary/current_dc');
+    if ($dcElement and $dcElement->getAttribute('present') eq 'true') {
+        return $dcElement->getAttribute('name');
+    }
+    return undef;
+}
+
 # Function: activeNode
 #
 # Parameters:

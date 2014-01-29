@@ -4,6 +4,9 @@ This template is for showing the cluster metadata info
 <%args>
   %context
 </%args>
+<div class="help">
+  <% $context{help} %>
+</div>
 <div class="info-top item-block">
    <img class="info-block" src="/data/images/cluster.png">
 % foreach my $pair (@{$context{metadata}}) {
