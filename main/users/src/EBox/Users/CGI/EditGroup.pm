@@ -97,6 +97,7 @@ sub _process
         foreach my $us (@users) {
             $group->addMember(new EBox::Users::User(uid => $us));
         }
+        $self->{json}->{groupEmpty} = 0;
         $self->{json}->{success}  = 1;
     } elsif ($self->param('deluserfromgroup')) {
         $self->{json} = { success => 0 };
@@ -106,6 +107,7 @@ sub _process
         foreach my $us (@users) {
             $group->removeMember(new EBox::Users::User(uid => $us));
         }
+        $self->{json}->{groupEmpty} = @{ $group->users } > 0;
         $self->{json}->{success}  = 1;
     } elsif ($self->param('userInfo')) {
         $self->{json} = {

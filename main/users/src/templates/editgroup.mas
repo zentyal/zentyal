@@ -101,7 +101,16 @@ my $userDataJSON =  $json->encode({  member => \@member, noMember => \@noMember}
 <script src='/data/js/combobox.js' />
 <script>
 "use strict";
+
+
+
 $(function() {
+  Zentyal.namespace('tmp');
+  Zentyal.tmp.groupEmptyCallbacks = [];
+
+  $('.groupEmpty').toggle(<% @groupusers ? 'true' : 'false' %>);
+  $('.groupNotEmpty').toggle(<% @groupusers ? 'false' : 'true' %>);
+
    Zentyal.Form.setupAjaxSubmit('#editGroupForm', {
         noteDiv: '#note_editGroupForm',
         errorDiv: '#error_editGroupForm',
@@ -116,7 +125,8 @@ $(function() {
    });
 
    var updateUserWidgets = function(data) {
-      var user, i;
+      var user, i,
+          groupEmpty = true;
 
       var addUser = $('#adduser');
       addUser.detach();
@@ -141,11 +151,22 @@ $(function() {
                             'data-user-name="' + user + '" ' +
                             '>delete</span>' +   '</li>'
                            );
+         groupEmpty = false;
       }
       groupUsers.insertAfter('#error_removeUserFromGroup');
+
+     $('.groupEmpty').toggle(groupEmpty);
+     $('.groupNotEmpty').toggle(!groupEmpty);
+     if (groupEmpty) {
+           console.log("lopp " + Zentyal.tmp.groupEmptyCallbacks);
+        for(i=0; i < Zentyal.tmp.groupEmptyCallbacks.length; i++) {
+           console.log("Calling callback number " + i);
+           Zentyal.tmp.groupEmptyCallbacks[i].call();
+        }
+     }
   };
 
-   var refreshUsers = function (groupInfo) {
+   var refreshUsers = function () {
         $.getJSON('/Users/EditGroup', 'userInfo=1&dn=' + '<% $group->dn() %>', updateUserWidgets);
    };
 
@@ -174,7 +195,7 @@ $(function() {
              $('#error_removeUserFromGroup').html(response.error).show();
           }
        },
-       complete: function() {
+       complete: function(response) {
            refreshUsers();
        }
     });

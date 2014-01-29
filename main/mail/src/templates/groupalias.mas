@@ -9,6 +9,10 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
+<div class='warning groupEmpty'>
+<% __('No group aliases could be created for a group without users') %>
+</div>
+<div class='groupNotEmpty'>
    <div id='error_mailCreateAlias' class='error' style='display:none'></div>
    <div id='note_mailCreateAlias' class='note' style='display:none'></div>
    <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
@@ -31,6 +35,7 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
             </tbody>
         </table>
     </form>
+</div>
 <script>
 "use strict";
 $(function(){
@@ -40,25 +45,32 @@ $(function(){
       var tbody = $('tbody', aliasTable);
       tbody.detach();
       tbody.children('.aliasRow').remove();
-      for (i=0; i < aliases.length; i++) {
-          var alias = aliases[i];
-          var newRowHtml =  '<tr class="border aliasRow">'  +
-                            '<td>'  + alias + '</td>' +
-                             '<td class="tcenter">' +
-                                 '<a href="#">' +
-                                    '<img src="/data/images/delete.gif" ' +
-                                        'data-alias="' + alias +'" ' +
-                                        'title="<% __('Delete') %>" ' +
-                                        'alt="<% __('Delete') %>" ' +
-                                    '/>' +
-                                 '</a>' +
-                             '</td>' +
-                        '</tr>';
-         var newRow = $(newRowHtml);
-         tbody.append(newRow);
-      }
+      if(aliases) {
+         for (i=0; i < aliases.length; i++) {
+             var alias = aliases[i];
+             var newRowHtml =  '<tr class="border aliasRow">'  +
+                               '<td>'  + alias + '</td>' +
+                                '<td class="tcenter">' +
+                                    '<a href="#">' +
+                                       '<img src="/data/images/delete.gif" ' +
+                                           'data-alias="' + alias +'" ' +
+                                           'title="<% __('Delete') %>" ' +
+                                           'alt="<% __('Delete') %>" ' +
+                                       '/>' +
+                                    '</a>' +
+                                '</td>' +
+                           '</tr>';
+            var newRow = $(newRowHtml);
+            tbody.append(newRow);
+         }
+    }
     aliasTable.append(tbody);
   };
+
+  Zentyal.tmp.groupEmptyCallbacks.push(function() {
+      console.log("before refresh alias list");
+      refreshAliasList([]);
+  });
 
   Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
             noteDiv: '#note_mailCreateAlias',
