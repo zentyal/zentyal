@@ -133,10 +133,10 @@ sub _addUser
     my $mailUserModel = $mail->model('MailUser');
     return unless ($mailUserModel->enabledValue());
 
-    my $sambaModule = EBox::Global->modInstance('samba');
-    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
-    my $vDomain = $mailUserModel->domainValue();
-    return unless (lc $vDomain eq lc $adDomain);
+#    my $sambaModule = EBox::Global->modInstance('samba');
+#    my $adDomain = $sambaModule->getProvision->getADDomain('localhost');
+#    my $vDomain = $mailUserModel->domainValue();
+#    return unless (lc $vDomain eq lc $adDomain);
 
     $self->setAccountEnabled($user, 1);
 }
