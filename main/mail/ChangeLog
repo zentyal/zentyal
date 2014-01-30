@@ -1,3 +1,5 @@
+HEAD
+	+ Remove openchange account when removing mail account
 3.3.1
 	+ Added openchange outgoing mail rewriting
 	+ Added sieve_dir plugin parameter

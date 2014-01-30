@@ -160,6 +160,15 @@ sub delUserAccount
     push (@cmds, "/bin/rm -rf $sieveDir");
 
     EBox::Sudo::root(@cmds);
+
+    # disable openchange account if exists. We don't implement and observer
+    # notifier interface bz only one module is to be notifier
+    if (EBox::Global->modExists('openchange')) {
+        my $userOc = EBox::Global->modInstance('openchange')->_ldapModImplementation();
+        if ($userOc->enabled($user)) {
+            $userOc->setAccountEnabled($user, 0);
+        }
+    }
 }
 
 # Method: userAccount
