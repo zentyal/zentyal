@@ -46,6 +46,7 @@ sub unlock
     flock($LOCKS{$owner}, LOCK_UN);
     close($LOCKS{$owner});
     delete $LOCKS{$owner};
+    unlink($file);
 }
 
 sub _lockFile
