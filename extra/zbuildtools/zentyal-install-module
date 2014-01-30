@@ -47,6 +47,7 @@ $DIR{SQL} = "${DESTDIR}usr/share/zentyal-$MODULE_NAME/sql";
 $DIR{URLS} = "${DESTDIR}usr/share/zentyal/urls";
 $DIR{WWW} = "${DESTDIR}usr/share/zentyal/www";
 $DIR{CGI} = "${DESTDIR}usr/share/zentyal/cgi";
+$DIR{PSGI} = "${DESTDIR}usr/share/zentyal/apps";
 
 my %srcs;
 
@@ -71,6 +72,7 @@ add_if_exists('src/Zentyal', $DIR{PERL});
 add_if_exists('src/scripts', $DIR{DATA}, '*');
 add_if_exists('src/templates', $DIR{TEMPLATES}, '*');
 add_if_exists('src/cgi', $DIR{CGI}, '*.cgi');
+add_if_exists('src/apps', $DIR{PSGI}, '*.psgi');
 add_if_exists('stubs', $DIR{STUBS}, '*');
 add_if_exists('conf', $DIR{ETC}, '*');
 add_if_exists('migration', $DIR{MIGRATION}, '*');
