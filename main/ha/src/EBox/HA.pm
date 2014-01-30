@@ -552,8 +552,7 @@ sub _postServiceHook
 
     $self->SUPER::_postServiceHook($enabled);
 
-    # TODO: Wait the right time
-    sleep(60);
+    $self->_waitPacemaker();
 
     my $state = $self->get_state();
     if ($enabled and $state->{bootstraping}) {
@@ -680,6 +679,9 @@ sub _corosyncSetConf
         given ($clusterSettings->configurationValue()) {
             when ('create') {
                 $self->_bootstrap($localNodeAddr, $hostname);
+                my $state = $self->get_state();
+                $state->{bootstraping} = 1;
+                $self->set_state($state);
             }
             when ('join') {
                 $self->_join($clusterSettings, $localNodeAddr, $hostname);
@@ -913,6 +915,33 @@ sub _multicast
     my ($self) = @_;
 
     return ($self->get_state()->{cluster_conf}->{transport} eq 'udp');
+}
+
+# _waitPacemaker
+# Wait for 60s to have pacemaker running or time out
+sub _waitPacemaker
+{
+    my ($self) = @_;
+
+    my $maxTries = 60;
+    my $sleepSeconds = 1;
+    my $ready = 0;
+
+    while (not $ready and $maxTries > 0) {
+        my $output = EBox::Sudo::silentRoot('crm_mon -1 -s');
+        $output = $output->[0];
+        given ($output) {
+            when (/Ok/) { $ready = 1; }
+            when (/Warning:No DC/) { EBox::debug('waiting for quorum'); }
+            default { EBox::debug("No parse on $output"); }
+        }
+        $maxTries--;
+        sleep(1);
+    }
+
+    unless ($ready) {
+        EBox::warn('Timeout reached while waiting for pacemaker');
+    }
 }
 
 # Initial pacemaker related operations once the crmd is operational
