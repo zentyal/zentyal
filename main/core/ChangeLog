@@ -1,4 +1,6 @@
 HEAD
+	+ Updated nginx to server static files directly always so apache shouldn't 
+	  ever get this kind of requests
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Decode to utf8 the MySQL database results
 	+ Create log database using utf8 charset
