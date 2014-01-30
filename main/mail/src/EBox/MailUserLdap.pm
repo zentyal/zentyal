@@ -371,14 +371,25 @@ sub _groupAddOns
 
     my $mail = EBox::Global->modInstance('mail');
     my $aliases = $mail->{malias}->groupAliases($group);
-
     my @vd =  $mail->{vdomains}->vdomains();
+
+    my $groupEmpty    = 1;
+    my $usersWithMail = 0;
+    foreach my $user (@{ $group->members() }) {
+        $groupEmpty = 0;
+        if ($self->userAccount($user)) {
+            $usersWithMail = 1;
+            last;
+        }
+    }
 
     my $args = {
         'group'    => $group,
         'vdomains' => \@vd,
         'aliases'  => $aliases,
         'service'  => $mail->service(),
+        'groupEmpty' => $groupEmpty,
+        'usersWithMail' => $usersWithMail,
     };
 
     return {

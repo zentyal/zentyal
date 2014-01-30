@@ -9,10 +9,9 @@ my $aliasesJS =  JSON::XS->new()->encode($params->{aliases});
 % if (not $params->{service} ) {
   <& /mail/moduleDisabled.mas &>
 % }
-<div class='warning groupEmpty'>
-<% __('No group aliases could be created for a group without users') %>
+<div id='group_alias_not_ready' class='group_members_observer warning' style='display:none'>
 </div>
-<div class='groupNotEmpty'>
+<div id='group_alias_ready' class='group_members_observer' >
    <div id='error_mailCreateAlias' class='error' style='display:none'></div>
    <div id='note_mailCreateAlias' class='note' style='display:none'></div>
    <form id='mailCreateAlias' action='/Mail/CreateGroupAlias' method='POST'>
@@ -67,9 +66,25 @@ $(function(){
     aliasTable.append(tbody);
   };
 
-  Zentyal.tmp.groupEmptyCallbacks.push(function() {
-      console.log("before refresh alias list");
-      refreshAliasList([]);
+  $('#group_alias_not_ready').on('group_members_change', function(ev) {
+      + ev.usersWithMail);
+      if (ev.groupEmpty) {
+          $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
+      } else if (!ev.usersWithMail) {
+          $(this).show().text('<% __('Group aliases cannot be created because any user has mail account') %>');
+      } else {
+          $(this).hide();
+      }
+  });
+
+  $('#group_alias_ready').on('group_members_change', function(ev) {
+      if (!ev.groupEmpty && ev.usersWithMail) {
+          $(this).show();
+      } else {
+          $(this).hide();
+          $('#note_mailCreateAlias').html('').hide();
+          refreshAliasList([]);
+      }
   });
 
   Zentyal.Form.setupAjaxSubmit('#mailCreateAlias', {
@@ -108,6 +123,11 @@ $(function(){
   });
 
   refreshAliasList(<% $aliasesJS %>);
+
+  var members_change_event = jQuery.Event("group_members_change");
+  members_change_event.groupEmpty = <% $params->{groupEmpty} ? 'true' : 'false' %>;
+  members_change_event.usersWithMail =  <% $params->{usersWithMail} ? 'true' : 'false' %>;
+  $('.group_members_observer').trigger(members_change_event);
 });
 
 </script>
