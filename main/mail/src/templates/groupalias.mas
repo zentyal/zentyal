@@ -67,7 +67,6 @@ $(function(){
   };
 
   $('#group_alias_not_ready').on('group_members_change', function(ev) {
-      + ev.usersWithMail);
       if (ev.groupEmpty) {
           $(this).show().text('<% __('Group aliases cannot be created for a group without users') %>');
       } else if (!ev.usersWithMail) {
@@ -92,6 +91,7 @@ $(function(){
             errorDiv: '#error_mailCreateAlias',
             submitButton: '#mailCreateAlias_submit',
             success : function (response) {
+                $('#mailCreateAlias_lhs').val(' ');
                 refreshAliasList(response.aliases);
             }
   });
@@ -142,7 +142,7 @@ $group
     <input type="hidden" name="group" value="<% $group->dn() %>">
                         <tr>
                                 <td>
-                                        <input type='text' class='inputText' name='lhs'>
+                                        <input id='mailCreateAlias_lhs' type='text' class='inputText' name='lhs'>
                                         <select name="rhs" enabled>
 %                                       foreach my $vd (@vdomains) {
                                                 <option value= <% $vd %> > <% __($vd) %> </option>
@@ -150,10 +150,9 @@ $group
                                         </select>
                                 </td>
                                 <td class='tcenter'>
-                                        <input class='inputButton'
-                                               id='mailCreateAlias_submit'
-                                               type='image'
-                                               src='/data/images/add.gif'
+                                        <input id='mailCreateAlias_submit'
+                                               class='btn-only-icon btn-add'
+                                               type='submit'
                                                name='change'
                                                value="<% __('Create') %>"
                                                title="<% __('Create') %>"
