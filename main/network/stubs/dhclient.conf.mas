@@ -1,12 +1,13 @@
 <%args>
+$hostname
 </%args>
-send host-name = gethostname();
+send host-name = "<% $hostname %>";
 #send dhcp-client-identifier 1:0:a0:24:ab:fb:9c;
 #send dhcp-lease-time 3600;
 #prepend domain-name-servers 127.0.0.1;
 request subnet-mask, broadcast-address, time-offset, routers,
-	domain-name, domain-name-servers, domain-search, host-name,
-	netbios-name-servers, netbios-scope;
+        domain-name, domain-name-servers, domain-search, host-name,
+        netbios-name-servers, netbios-scope;
 #require subnet-mask, domain-name-servers;
 timeout 30;
 #retry 60;

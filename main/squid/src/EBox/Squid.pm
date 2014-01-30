@@ -631,7 +631,6 @@ sub _writeSquidConf
     push @writeParam, ('port'  => $self->port());
     push @writeParam, ('transparent'  => $self->transproxy());
 
-#    push @writeParam, ('https'  => $$self->https();
     push @writeParam, ('rules' => $rules);
     push @writeParam, ('filterProfiles' => $squidFilterProfiles);
 
