@@ -871,7 +871,7 @@ sub _multicast
 {
     my ($self) = @_;
 
-    return ($self->get_state()->{cluster_conf}->{transport} == 'udp');
+    return ($self->get_state()->{cluster_conf}->{transport} eq 'udp');
 }
 
 1;
