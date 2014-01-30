@@ -314,7 +314,7 @@ sub _preModifyUser
         my $entry = $sambaUser->_entry();
         my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
         if ($result->is_error()) {
-            if ($result->code() eq LDAP_ALREADY_EXISTS) {
+            if ($result->code() eq Net::LDAP::Constant::LDAP_ALREADY_EXISTS) {
                 my $name = $zentyalUser->get('cn');
                 throw EBox::Exceptions::DataExists(
                     text => __x('User name {x} already exists in the same container.',
@@ -330,7 +330,7 @@ sub _preModifyUser
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
         utf8::encode($displayName);
-        $sambaUser->ser('displayName', $displayName, 1);
+        $sambaUser->set('displayName', $displayName, 1);
     } else {
         $sambaUser->delete('displayName', 1);
     }

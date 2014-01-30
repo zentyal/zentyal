@@ -1,5 +1,5 @@
 HEAD
-	+ Fixed rethrown of exception in EBox::Module::Service::restartService method
+	+ Fixed rethrown of exception in restartService() method
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Fixed mason component root for custom stubs
 3.3.3
