@@ -96,7 +96,9 @@ sub stop
     my @mods = @{$serviceManager->modulesInDependOrder()};
     my @names = map { $_->{'name'} } @mods;
     @names = grep { $_ ne 'webadmin' } @names;
-    unshift(@names, 'webadmin');
+    @names = grep { $_ ne 'haproxy' } @names;
+    # haproxy is the last task to stop, or webadmin will not be available.
+    unshift(@names, 'webadmin', 'haproxy');
 
     EBox::info("Modules to stop: @names");
     foreach my $modname (reverse @names) {

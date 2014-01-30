@@ -286,80 +286,85 @@ sub _addUserFailed
     }
 }
 
-sub _modifyUser
+sub _preModifyUser
 {
     my ($self, $zentyalUser, $zentyalPwd) = @_;
     $self->_sambaReady() or
         return;
 
     my $dn = $zentyalUser->dn();
-    EBox::debug("Updating user '$dn'");
-    try {
-        my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
-        return unless $sambaUser->exists();
+    my $sambaUser = new EBox::Samba::User(samAccountName => $zentyalUser->get('uid'));
+    return unless $sambaUser->exists();
 
-        # Check if CN has changed. In this case, we have to change the user DN
-        if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
-            my $dn = ldap_explode_dn($sambaUser->_entry->dn());
-            my $rdn = shift (@{$dn});
-            foreach my $key (keys %{$rdn}) {
-                if ($key == 'CN') {
-                    $rdn->{CN} = $zentyalUser->get('cn');
-                    utf8::encode($rdn->{CN});
-                    last;
-                }
+    # Check if CN has changed. In this case, we have to change the user DN
+    if ($zentyalUser->get('cn') ne $sambaUser->get('cn')) {
+        my $dn = ldap_explode_dn($sambaUser->_entry->dn());
+        my $rdn = shift (@{$dn});
+        foreach my $key (keys %{$rdn}) {
+            if ($key == 'CN') {
+                $rdn->{CN} = $zentyalUser->get('cn');
+                utf8::encode($rdn->{CN});
+                last;
             }
-            unshift (@{$dn}, $rdn);
+        }
+        unshift (@{$dn}, $rdn);
 
-            my $newrdn = canonical_dn([ $rdn ]);
-            my $ldapCon = $sambaUser->_ldap->connection();
-            my $entry = $sambaUser->_entry();
-            my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
-            if ($result->is_error()) {
-                throw EBox::Exceptions::LDAP(
-                    message => __('There was an error updating LDAP:'),
-                    result =>   $result,
-                    opArgs   => "New RDN: $newrdn");
+        my $newrdn = canonical_dn([ $rdn ]);
+        my $ldapCon = $sambaUser->_ldap->connection();
+        my $entry = $sambaUser->_entry();
+        my $result = $ldapCon->moddn($entry, newrdn => $newrdn, deleteoldrdn => 1);
+        if ($result->is_error()) {
+            if ($result->code() eq Net::LDAP::Constant::LDAP_ALREADY_EXISTS) {
+                my $name = $zentyalUser->get('cn');
+                throw EBox::Exceptions::DataExists(
+                    text => __x('User name {x} already exists in the same container.',
+                                x => $name));
             }
-
-            $sambaUser = new EBox::Samba::User(dn => canonical_dn($dn));
-            return unless $sambaUser->exists();
+            throw EBox::Exceptions::LDAP(
+                message => __('There was an error updating LDAP:'),
+                result =>   $result,
+                opArgs   => "New RDN: $newrdn");
         }
-
-        my $gn = $zentyalUser->get('givenName');
-        utf8::encode($gn);
-        my $sn = $zentyalUser->get('sn');
-        utf8::encode($sn);
-        my $description = $zentyalUser->description();
-        my $mail = $zentyalUser->mail();
-        $sambaUser->set('givenName', $gn, 1);
-        $sambaUser->set('sn', $sn, 1);
-        if ($description) {
-            utf8::encode($description);
-            $sambaUser->set('description', $description, 1);
-        } else {
-            $sambaUser->delete('description', 1);
-        }
-        if ($mail) {
-            $sambaUser->set('mail', $mail, 1);
-        } else {
-            $sambaUser->delete('mail', 1);
-        }
-        if (defined($zentyalPwd)) {
-            $sambaUser->changePassword($zentyalPwd, 1);
-        } else {
-            my $keys = $zentyalUser->kerberosKeys();
-            $sambaUser->setCredentials($keys);
-        }
-        if ($zentyalUser->isDisabled()) {
-            $sambaUser->setAccountEnabled(0);
-        } else {
-            $sambaUser->setAccountEnabled(1);
-        }
-        $sambaUser->save();
-    } catch ($error) {
-        EBox::error("Error modifying user: $error");
     }
+
+    my $displayName = $zentyalUser->get('displayName');
+    if ($displayName) {
+        utf8::encode($displayName);
+        $sambaUser->set('displayName', $displayName, 1);
+    } else {
+        $sambaUser->delete('displayName', 1);
+    }
+    my $description = $zentyalUser->description();
+    my $mail = $zentyalUser->mail();
+    my $gn = $zentyalUser->get('givenName');
+    utf8::encode($gn);
+    my $sn = $zentyalUser->get('sn');
+    utf8::encode($sn);
+    $sambaUser->set('givenName', $gn, 1);
+    $sambaUser->set('sn', $sn, 1);
+    if ($description) {
+        utf8::encode($description);
+        $sambaUser->set('description', $description, 1);
+    } else {
+        $sambaUser->delete('description', 1);
+    }
+    if ($mail) {
+        $sambaUser->set('mail', $mail, 1);
+    } else {
+        $sambaUser->delete('mail', 1);
+    }
+    if (defined($zentyalPwd)) {
+        $sambaUser->changePassword($zentyalPwd, 1);
+    } else {
+        my $keys = $zentyalUser->kerberosKeys();
+        $sambaUser->setCredentials($keys);
+    }
+    if ($zentyalUser->isDisabled()) {
+        $sambaUser->setAccountEnabled(0);
+    } else {
+        $sambaUser->setAccountEnabled(1);
+    }
+    $sambaUser->save();
 }
 
 sub _delUser
