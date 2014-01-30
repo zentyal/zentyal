@@ -242,6 +242,7 @@ sub nodes
 #     * Send info to other members of the cluster
 #     * Write corosync conf
 #     * Dynamically add the new node
+#     * If the cluster has two nodes, then set to ignore in at quorum policy
 #
 # Parameters:
 #
@@ -279,6 +280,10 @@ sub addNode
     } catch ($e) {
         EBox::error("Notifying cluster conf change: $e");
     }
+
+    # Pacemaker changes
+    # In two-node we have to set no-quorum-policy to ignore
+    $self->_setNoQuorumPolicy($list->size());
 }
 
 # Method: deleteNode
@@ -289,6 +294,7 @@ sub addNode
 #    * Send cluster configuration to other members
 #    * Write corosync conf
 #    * Dynamically add the new node
+#    * If the cluster become two nodes, then set to ignore at no quorum policy
 #
 # Parameters:
 #
@@ -330,6 +336,10 @@ sub deleteNode
     } catch ($e) {
         EBox::error("Notifying cluster conf change: $e");
     }
+
+    # Pacemaker changes
+    # In two-node we have to set no-quorum-policy to ignore
+    $self->_setNoQuorumPolicy($list->size());
 }
 
 sub confReplicationStatus
@@ -1018,6 +1028,17 @@ sub _setFloatingIPRscs
     if (@rootCmds > 0) {
         EBox::Sudo::root(@rootCmds);
     }
+}
+
+# Set no-quorum-policy based on the node list size
+sub _setNoQuorumPolicy
+{
+    my ($self, $size) = @_;
+
+    # In two-node we have to set no-quorum-policy to ignore
+    my $noQuorumPolicy = 'stop';
+    $noQuorumPolicy = 'ignore' if ($size == 2);
+    EBox::Sudo::root("crm configure property no-quorum-policy=$noQuorumPolicy");
 }
 
 1;
