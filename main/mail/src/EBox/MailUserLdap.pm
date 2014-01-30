@@ -163,8 +163,9 @@ sub delUserAccount
 
     # disable openchange account if exists. We don't implement and observer
     # notifier interface bz only one module is to be notifier
-    if (EBox::Global->modExists('openchange')) {
-        my $userOc = EBox::Global->modInstance('openchange')->_ldapModImplementation();
+    if ($self->openchangeAccountEnabled($user)) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        my $userOc = $openchange->_ldapModImplementation();
         if ($userOc->enabled($user)) {
             $userOc->setAccountEnabled($user, 0);
         }
@@ -845,5 +846,20 @@ sub hiddenOUs
 {
     return [ 'postfix' ];
 }
+
+sub openchangeAccountEnabled
+{
+    my ($self, $user) = @_;
+    if (EBox::Global->modExists('openchange')) {
+        my $openchange =  EBox::Global->modInstance('openchange');
+        if ($openchange->configured() and $openchange->isProvisioned()) {
+            my $userOc = $openchange->_ldapModImplementation();
+            return $userOc->enabled($user);
+        }
+    }
+    return 0;
+}
+
+
 
 1;

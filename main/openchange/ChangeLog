@@ -1,5 +1,6 @@
 HEAD
-	+ Fixed bug with accounts of different mail domain than AD domain
+	+ Better user addon integration
+	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
 	+ Fixed migration form that is missing a .js file to work
 3.3.2
 	+ Hide openchange service status from the dashboard and linked it status
