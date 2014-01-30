@@ -472,8 +472,10 @@ sub start
     push(@commands, @{$self->_setStructure()});
 
     my @dns = @{$self->{net}->nameservers()};
-    foreach (@dns) {
-        push(@commands, @{$self->_setDNS($_)});
+    foreach my $ns (@dns) {
+        if ($ns ne '127.0.0.1') {
+            push(@commands, @{$self->_setDNS($ns)});
+        }
     }
 
     foreach my $object (@{$self->{objects}->objects}) {
@@ -498,10 +500,6 @@ sub start
 
         if ($self->{net}->ifaceMethod($ifc) eq any('dhcp', 'ppp')) {
             push(@commands, @{$self->_setDHCP($ifc)});
-            my $dnsSrvs = $self->{net}->DHCPNameservers($ifc);
-            foreach my $srv (@{$dnsSrvs}) {
-                push(@commands, @{$self->_setDNS($srv)});
-            }
         } else {
             # Anti-spoof rules only for static interfaces
             my $addrs = $self->{net}->ifaceAddresses($ifc);
