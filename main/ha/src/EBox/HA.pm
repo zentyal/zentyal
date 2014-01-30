@@ -530,6 +530,7 @@ sub _setConf
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->model('ClusterState')->setValue('leaveRequest', 0);
         $self->_notifyLeave();
+        $self->_destroyClusterInfo();
     }
 
     $self->_corosyncSetConf();
@@ -844,6 +845,17 @@ sub _notifyLeave
         }
         last if ($last);
     }
+}
+
+# Destroy any related information stored in cib
+sub _destroyClusterInfo
+{
+    my ($self) = @_;
+
+    EBox::debug("Destroying info from pacemaker");
+    my @stateFiles = qw(cib.xml* cib-* core.* hostcache cts.* pe*.bz2 cib.*);
+    my @rootCmds = map { qq{find /var/lib/pacemaker -name '$_' | xargs rm -f} } @stateFiles;
+    EBox::Sudo::root(@rootCmds);
 }
 
 # Notify cluster conf change
