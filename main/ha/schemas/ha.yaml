@@ -14,5 +14,5 @@ models:
     - Nodes
 
 composites:
-    Initial: [Cluster, FloatingIP]
+    Initial: [Cluster]
     Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]
