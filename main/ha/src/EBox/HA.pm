@@ -33,6 +33,7 @@ use feature qw(switch);
 
 use Data::Dumper;
 use EBox::Config;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
@@ -48,7 +49,8 @@ use TryCatch::Lite;
 use constant {
     COROSYNC_CONF_FILE    => '/etc/corosync/corosync.conf',
     COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
-    DEFAULT_MCAST_PORT => 5405,
+    DEFAULT_MCAST_PORT    => 5405,
+    RESOURCE_STICKINESS   => 100,
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
@@ -535,6 +537,35 @@ sub _setConf
     }
 }
 
+# Method: _postServiceHook
+#
+#       Override to set initial cluster operations once we are sure
+#       crmd is running
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_postServiceHook>
+#
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    $self->SUPER::_postServiceHook($enabled);
+
+    # TODO: Wait the right time
+    sleep(60);
+
+    my $state = $self->get_state();
+    if ($enabled and $state->{bootstraping}) {
+        $self->_initialClusterOperations();
+        delete $state->{bootstraping};
+        $self->set_state($state);
+    }
+
+    $self->_setFloatingIPRscs();
+
+}
+
 # Group: subroutines
 
 sub nodeListWidget
@@ -647,8 +678,12 @@ sub _corosyncSetConf
     unless ($self->clusterBootstraped()) {
         my $hostname = $self->global()->modInstance('sysinfo')->hostName();
         given ($clusterSettings->configurationValue()) {
-            when ('create') { $self->_bootstrap($localNodeAddr, $hostname); }
-            when ('join') { $self->_join($clusterSettings, $localNodeAddr, $hostname); }
+            when ('create') {
+                $self->_bootstrap($localNodeAddr, $hostname);
+            }
+            when ('join') {
+                $self->_join($clusterSettings, $localNodeAddr, $hostname);
+            }
         }
     }
 
@@ -781,7 +816,13 @@ sub _notifyLeave
     my ($self) = @_;
 
     my $nodeList = new EBox::HA::NodeList($self);
-    my $localNode = $nodeList->localNode();
+    my $localNode;
+    try {
+        $localNode = $nodeList->localNode();
+    } catch (EBox::Exceptions::DataNotFound $e) {
+        # Then something rotten in our conf
+        return;
+    }
     foreach my $node (@{$nodeList->list()}) {
         next if ($node->{localNode});
         # TODO: Check the node is on-line
@@ -872,6 +913,26 @@ sub _multicast
     my ($self) = @_;
 
     return ($self->get_state()->{cluster_conf}->{transport} eq 'udp');
+}
+
+# Initial pacemaker related operations once the crmd is operational
+#
+#  * Prevent resources from moving after recovery
+#  * Disable STONITH until something proper is implemented
+sub _initialClusterOperations
+{
+    my ($self) = @_;
+
+    EBox::Sudo::root('crm_attribute --type rsc_defaults --attr-name resource-stickiness --attr-value ' . RESOURCE_STICKINESS,
+                     'crm configure property stonith-enabled=false');
+}
+
+# Set the floating IP resources
+sub _setFloatingIPRscs
+{
+    my ($self) = @_;
+
+    # TODO
 }
 
 1;
