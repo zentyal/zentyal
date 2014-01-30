@@ -1,4 +1,4 @@
-HEAD
+3.3.3
 	+ Fix typo in SambaLdapUser that fixes error in change email
 3.3.2
 	+ Change user modification hook from _modifyUser to _preModifyUser
