@@ -44,6 +44,7 @@ use JSON::XS;
 use File::Temp;
 use File::Slurp;
 use TryCatch::Lite;
+use XML::LibXML;
 
 # Constants
 use constant {
@@ -957,11 +958,54 @@ sub _initialClusterOperations
 }
 
 # Set the floating IP resources
+#
+#  * Add new floating IP addresses
+#  * Remove floating IP addresses
+#  * Update IP address if applied
 sub _setFloatingIPRscs
 {
     my ($self) = @_;
 
-    # TODO
+    my $rsc = $self->floatingIPs();
+
+    # Get the resource configuration from the cib directly
+    my $output = EBox::Sudo::root('cibadmin --query --scope resources');
+    my $outputStr = join('', @{$output});
+    my $dom =  XML::LibXML->load_xml(string => $outputStr);
+    my @ipRscElems = $dom->findnodes('//primitive[@type="IPaddr2"]');
+
+    # For ease existence checking
+    my %currentRscs = map { $_->getAttribute('id') => $_->findnodes('//nvpair[@name="ip"]')->get_node(1)->getAttribute('value') } @ipRscElems;
+    my %finalRscs = map { $_->{name} => $_->{address} } @{$rsc};
+
+    my @rootCmds;
+
+    # Process first the deleted one to avoid problems in IP address clashing on renaming
+    my @deletedRscs = grep { not exists($finalRscs{$_}) } keys %currentRscs;
+    foreach my $rscName (@deletedRscs) {
+        push(@rootCmds,
+             "crm -w resource stop $rscName",
+             "crm configure delete $rscName");
+    }
+
+
+    while (my ($rscName, $rscAddr) = each(%finalRscs)) {
+        if (exists($currentRscs{$rscName})) {
+            # Update the IP, if required
+            if ($currentRscs{$rscName} ne $rscAddr) {
+                # Update it!
+                push(@rootCmds, "crm resource param $rscName set ip $rscAddr");
+            }
+        } else {
+            # Add it!
+            push(@rootCmds,
+                 "crm configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+        }
+    }
+
+    if (@rootCmds > 0) {
+        EBox::Sudo::root(@rootCmds);
+    }
 }
 
 1;
