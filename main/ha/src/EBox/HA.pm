@@ -953,8 +953,8 @@ sub _initialClusterOperations
 {
     my ($self) = @_;
 
-    EBox::Sudo::root('crm_attribute --type rsc_defaults --attr-name resource-stickiness --attr-value ' . RESOURCE_STICKINESS,
-                     'crm configure property stonith-enabled=false');
+    EBox::Sudo::root('crm configure property stonith-enabled=false',
+                     'crm_attribute --type rsc_defaults --attr-name resource-stickiness --attr-value ' . RESOURCE_STICKINESS);
 }
 
 # Set the floating IP resources
