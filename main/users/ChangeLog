@@ -1,3 +1,6 @@
+HEAD
+	+ Better integration of edit groups for mail group aliases
+	+ Update group icon when type of group changes
 3.3.2
 	+ Implement _preModifyUser on LdapUserBase
 3.3.1

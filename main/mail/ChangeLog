@@ -1,6 +1,7 @@
 HEAD
 	+ Better integration with openchange account addon
 	+ Remove openchange account when removing mail account
+	+ Better integration of group alias addon
 3.3.1
 	+ Added openchange outgoing mail rewriting
 	+ Added sieve_dir plugin parameter
