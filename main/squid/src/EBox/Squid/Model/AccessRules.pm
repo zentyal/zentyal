@@ -398,7 +398,7 @@ sub _rangeAttrSearch
                 }
                 foreach my $rangeEntry ($msg->entries()) {
                     ($rangeAttr) = grep { $_ =~ m/;range/ } $rangeEntry->attributes();
-                    push(@attrValues, $rangeEntry->get_values($rangeAttr));
+                    push(@attrValues, $rangeEntry->get_value($rangeAttr));
                 }
                 ($last) = $rangeAttr =~ m/range=\d+-(.*)$/;  # To calculate new range
             }

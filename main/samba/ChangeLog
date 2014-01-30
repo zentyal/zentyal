@@ -1,6 +1,12 @@
 3.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Fix typo in SambaLdapUser that fixes error in change email
+	+ Change user modification hook from _modifyUser to _preModifyUser
+	+ Throw DataExists exception if the user try to rename a user on a
+	  container and already exists
+	+ Check for duplicated DN on user creation and show a proper error, not
+	  an internal exception.
 	+ Fixed s4sync's breakage when tries to sync serviceprincipals to
 	  OpenLDAP. Those users are ignored on EBox::LDB::users method
 	+ Remove group share on group deletion
