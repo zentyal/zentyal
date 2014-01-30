@@ -14,6 +14,7 @@ use EBox::Gettext;
 % return
 % }
 <div id="messages">
+<script type="text/javascript" src="/data/js/openchange.js"></script>
 <div class="note">
   <% __('The migration features provided as part of this technology preview only allow you to migrate one user at a time. Each migration requires the user to exist in Zentyal and its OpenChange account to be enabled prior the process starts.') %>
 </div>
