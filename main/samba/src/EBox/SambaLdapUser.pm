@@ -330,7 +330,7 @@ sub _preModifyUser
     my $displayName = $zentyalUser->get('displayName');
     if ($displayName) {
         utf8::encode($displayName);
-        $sambaUser->ser('displayName', $displayName, 1);
+        $sambaUser->set('displayName', $displayName, 1);
     } else {
         $sambaUser->delete('displayName', 1);
     }

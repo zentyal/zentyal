@@ -1,3 +1,5 @@
+HEAD
+	+ Fix typo in SambaLdapUser that fixes error in change email
 3.3.2
 	+ Change user modification hook from _modifyUser to _preModifyUser
 	+ Throw DataExists exception if the user try to rename a user on a
