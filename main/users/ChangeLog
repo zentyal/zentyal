@@ -1,4 +1,5 @@
 HEAD
+	+ Better integration of edit groups for mail group aliases
 	+ Update group icon when type of group changes
 	+ Implement _preModifyUser on LdapUserBase
 	+ Throw exceptions on EBox::USers::LdapObject::get when entry not exists
