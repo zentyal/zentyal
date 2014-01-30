@@ -17,10 +17,11 @@
 use strict;
 use warnings;
 
-use CGI::Emulate::PSGI;
 use EBox::Gettext;
-use TryCatch::Lite;
+
+use CGI::Emulate::PSGI;
 use POSIX qw(:signal_h);
+use TryCatch::Lite;
 
 my $app = CGI::Emulate::PSGI->handler(\&run);
 
@@ -38,7 +39,11 @@ sub run
         EBox::init();
         binmode(STDOUT, ':utf8');
 
-        EBox::CGI::Run->run($ENV{'script'});
+        use Data::Dumper;
+        EBox::debug(Dumper(\%ENV));
+        my $url = $ENV{PATH_INFO};
+        $url =~ s/^\///s;
+        EBox::CGI::Run->run($url);
     } catch ($ex) {
         use Devel::StackTrace;
         use CGI qw/:standard/;
@@ -154,5 +159,3 @@ sub _brokenPackages
 
     return \@pkgs;
 }
-
-1;
