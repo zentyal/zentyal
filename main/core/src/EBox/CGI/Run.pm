@@ -28,6 +28,8 @@ use EBox::CGI::Controller::Modal;
 use EBox::CGI::View::DataTable;
 use EBox::CGI::View::Tree;
 use EBox::CGI::View::Composite;
+use EBox::Exceptions::Internal;
+use EBox::Exceptions::InvalidArgument;
 
 use TryCatch::Lite;
 use File::Slurp;
@@ -52,6 +54,10 @@ my %urlAlias;
 sub run
 {
     my ($self, $url, $htmlblocks) = @_;
+
+    unless (defined $url) {
+        throw EBox::Exceptions::InvalidArgument('url');
+    }
 
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
@@ -156,7 +162,9 @@ sub _parseModelUrl
 {
     my ($url) = @_;
 
-    defined ($url) or die "Not URL provided";
+    unless (defined ($url)) {
+        throw EBox::Exceptions::Internal("No URL provided");
+    }
 
     my ($namespace, $type, $model, $action) = split ('/', $url);
 
