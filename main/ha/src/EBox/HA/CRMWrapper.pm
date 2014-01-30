@@ -39,6 +39,21 @@ sub resourceNum
     return scalar(@{_resources()});
 }
 
+# Function: monDoc
+#
+#     Return the crm_mon -X output in a DOM XML document
+#
+# Returns:
+#
+#     <XML::LibXML::Document> - the crm_mon data
+#
+sub monDoc
+{
+    my $output = EBox::Sudo::root('crm_mon -X');
+    my $outputStr = join('', @{$output});
+    return XML::LibXML->load_xml(string => $outputStr);
+}
+
 # Function: nodesStatus
 #
 #     Get the current node status
@@ -57,10 +72,7 @@ sub resourceNum
 #
 sub nodesStatus
 {
-    my $output = EBox::Sudo::root('crm_mon -X');
-    my $outputStr = join('', @{$output});
-    my $dom = XML::LibXML->load_xml(string => $outputStr);
-
+    my $dom = monDoc();
     my $nodeElms = $dom->findnodes('//nodes/node');
     my %ret;
     foreach my $nodeEl (@{$nodeElms}) {
@@ -87,9 +99,7 @@ sub nodesStatus
 #
 sub currentDCNode
 {
-    my $output = EBox::Sudo::root('crm_mon -X');
-    my $outputStr = join('', @{$output});
-    my $dom = XML::LibXML->load_xml(string => $outputStr);
+    my $dom = monDoc();
 
     my ($dcElement) = $dom->findnodes('//summary/current_dc');
     if ($dcElement and $dcElement->getAttribute('present') eq 'true') {
