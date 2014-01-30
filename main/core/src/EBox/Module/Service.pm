@@ -1007,7 +1007,7 @@ sub restartService
     } catch ($e) {
         $log->error("Error restarting service: $e");
         $self->_unlock();
-        $e->throw();
+        EBox::Exceptions::Internal->throw("$e");
     }
     $self->_unlock();
 }
