@@ -1,0 +1,7 @@
+class: EBox::Quassel
+
+enabledepends:
+    - firewall
+
+models:
+    - Settings
