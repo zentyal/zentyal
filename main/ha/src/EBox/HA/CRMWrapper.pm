@@ -180,9 +180,14 @@ sub promote
     my ($nodeName) = @_;
 
     my @cmds = ();
-    foreach my $r (@{_resources()}) {
-        push(@cmds, qq{crm_resource --resource '$r' --move --host '$nodeName'});
-        push(@cmds, qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+    foreach my $r (@{_simpleResources()}) {
+        my $node = _locateResource($r);
+        if (not defined($node) or ($node ne $nodeName)) {
+            push(@cmds,
+                 qq{crm_resource --resource '$r' --move --host '$nodeName'},
+                 'sleep 3',
+                 qq{crm_resource --resource '$r' --clear --host '$nodeName'});
+        }
     }
 
     EBox::Sudo::root(@cmds);
@@ -211,8 +216,9 @@ sub demote
     my ($nodeName) = @_;
 
     my @cmds = ();
-    foreach my $r (@{_resources()}) {
+    foreach my $r (@{_simpleResources()}) {
         push(@cmds, qq{crm_resource --resource '$r' --ban --host '$nodeName'});
+        push(@cmds, qq{sleep 3});  # Wait for the resource to stop in the local node
         push(@cmds, qq{crm_resource --resource '$r' --clear --host '$nodeName'});
     }
 
@@ -221,6 +227,7 @@ sub demote
 
 # Group: Private functions
 
+# Raw resources
 sub _resources
 {
     try {
@@ -231,6 +238,33 @@ sub _resources
         # Assuming no resources
         return [];
     }
+}
+
+# Simple resources avoid M-S and clone ones
+# Return the list of resources names
+sub _simpleResources
+{
+    # Get the resource configuration from the cib directly
+    my $output = EBox::Sudo::root('cibadmin --query --scope resources');
+    my $outputStr = join('', @{$output});
+    my $dom =  XML::LibXML->load_xml(string => $outputStr);
+    my @primitivesElems = $dom->findnodes('/resources/primitive');
+
+    my @primitives = map { $_->getAttribute('id') } @primitivesElems;
+    return \@primitives;
+}
+
+# Locate a resource based on info from monDoc
+# Return undef if the resource is stopped
+sub _locateResource
+{
+    my ($rscName) = @_;
+    my $dom = monDoc();
+    my ($elem) = $dom->findnodes("//resource[\@id='$rscName']");
+    if (defined($elem) and $elem->getAttribute('role') eq 'Started') {
+        return $elem->childNodes()->get_node(2)->getAttribute('name');
+    }
+    return undef;
 }
 
 1;

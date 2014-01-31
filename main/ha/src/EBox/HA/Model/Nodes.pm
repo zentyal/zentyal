@@ -236,6 +236,7 @@ sub _doPromote
 {
     my ($self, $actionType, $id, %params) = @_;
 
+    # TODO: Do something if it fails
     EBox::HA::CRMWrapper::promote($id);
 }
 
@@ -244,6 +245,7 @@ sub _doDemote
 {
     my ($self, $actionType, $id, %params) = @_;
 
+    # TODO: Do something if it fails
     EBox::HA::CRMWrapper::demote($id);
 }
 
