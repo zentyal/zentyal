@@ -1,0 +1,9 @@
+<%args>
+$server
+$sogoDaemonPort
+</%args>
+location /Microsoft-Server-ActiveSync {
+    proxy_pass http://127.0.0.1:<% $sogoDaemonPort %>/SOGo/Microsoft-Server-ActiveSync;
+    proxy_set_header  X_FORWARDED_SERVER <% $server %>;
+    error_page 502 /50x.html;
+}

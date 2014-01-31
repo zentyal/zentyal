@@ -1,0 +1,10 @@
+class: 'EBox::ActiveSync'
+
+enabledepends:
+    - openchange
+
+bootdepends:
+    - openchange
+
+depends:
+    - openchange
