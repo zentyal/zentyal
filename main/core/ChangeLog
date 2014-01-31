@@ -1,3 +1,5 @@
+HEAD
+	+ More usable change administrator password model
 3.2.7
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Decode to utf8 the MySQL database results

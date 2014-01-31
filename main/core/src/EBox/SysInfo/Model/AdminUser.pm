@@ -26,10 +26,13 @@ use base 'EBox::Model::DataForm';
 use Error qw(:try);
 
 use EBox::Gettext;
+use EBox::Types::Select;
 use EBox::Types::Password;
 use EBox::Types::Action;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::External;
+
+use constant ADMIN_GROUP => 'sudo';
 
 sub new
 {
@@ -45,16 +48,11 @@ sub _table
 {
     my ($self) = @_;
 
-    my @tableHead = (new EBox::Types::Text( fieldName     => 'username',
-                                            printableName => __('User name'),
-                                            editable      => 1,
-                                            size          => 20,
-                                            defaultValue  => ''),
-                     new EBox::Types::Password( fieldName     => 'password',
-                                                printableName => __('Current password'),
-                                                editable      => 1,
-                                                disableAutocomplete => 1,
-                                                size          => 16),
+    my @tableHead = (new EBox::Types::Select( fieldName     => 'username',
+                                              printableName => __('Administrator user name'),
+                                              editable      => 1,
+                                              populate      => \&_populateAdmins,
+                                           ),
                      new EBox::Types::Password( fieldName     => 'newPassword',
                                                 printableName => __('New password'),
                                                 confirmPrintableName => __('Confirm Password'),
@@ -86,12 +84,26 @@ sub _table
     return $dataTable;
 }
 
+sub _adminUsers
+{
+    my ($name,$passwd,$gid,$members) = getgrnam(ADMIN_GROUP);
+    return [ split '\s', $members ];
+}
+
+sub _populateAdmins
+{
+    my @values = map {
+        { value => $_, printableValue => $_ }
+    } @{ _adminUsers() };
+
+    return \@values;
+}
+
 sub _doChangePassword
 {
     my ($self, $action, $id, %params) = @_;
 
     my $username = $params{'username'};
-    my $curpwd   = $params{'password'};
     my $newpwd1  = $params{'newPassword'};
     my $newpwd2  = $params{'newPassword_confirm'};
 
@@ -99,24 +111,20 @@ sub _doChangePassword
         throw EBox::Exceptions::DataMissing(data =>  __('Username'));
     }
 
-    unless (defined ($curpwd)) {
-        throw EBox::Exceptions::DataMissing(data =>  __('Password'));
-    }
-
     unless (defined ($newpwd1) and defined ($newpwd2)) {
         throw EBox::Exceptions::DataMissing(data => __('New password'));
     }
 
     unless ($newpwd1 eq $newpwd2) {
-        throw EBox::Exceptions::External(__('New passwords do not match.'));
+        throw EBox::Exceptions::External(__('Passwords does not match.'));
     }
-
     unless (length ($newpwd1) > 5) {
         throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
     }
 
-    unless (EBox::Auth->checkValidUser($username, $curpwd)) {
-        throw EBox::Exceptions::External(__('Incorrect current password.'));
+    my $userIsAdmin = grep { $_ eq $username } @{ _adminUsers() };
+    if (not $userIsAdmin) {
+        throw EBox::Exceptions::External(__x("The user {us} is not a administrator user", us => $username));
     }
 
     EBox::Auth->setPassword($username, $newpwd1);
