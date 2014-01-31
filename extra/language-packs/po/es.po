@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-01-10 05:02+0200\n"
-"Last-Translator: Exgard <lexahu@gmail.com>\n"
+"PO-Revision-Date: 2014-01-26 18:59+0200\n"
+"Last-Translator: Picholeiro <info@picholeiro.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -1158,9 +1158,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "El valor de insecure_rip_conf debe ser 'yes' o 'no'"
 
 #: ../../main/ha/src/EBox/HA.pm:55
-#, fuzzy
 msgid "High Availability"
-msgstr "Disponible"
+msgstr "Alta Disponibilidad"
 
 #: ../../main/ha/src/EBox/HA.pm:80
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
@@ -1176,9 +1175,8 @@ msgstr "Sistema"
 # #-#-#-#-#  es.po (ebox-network 0.12)  #-#-#-#-#
 # No sería simplemente: "Usuario"   ????
 #: ../../main/ha/src/EBox/HA.pm:106
-#, fuzzy
 msgid "Cluster nodes"
-msgstr "nombre de usuario"
+msgstr "Nodos del Cluster"
 
 #: ../../main/ha/src/EBox/HA.pm:162
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
@@ -1218,53 +1216,47 @@ msgid "IP address"
 msgstr "Dirección IP"
 
 #: ../../main/ha/src/EBox/HA.pm:170
-#, fuzzy
 msgid "Cluster is not configured"
-msgstr "La interfaz {iface} no está configurada"
+msgstr "El Clusterfaz no está configurado"
 
 #: ../../main/ha/src/EBox/HA/Composite/HA.pm:40
 msgid "High Availability Cluster"
-msgstr ""
+msgstr "Alta disponibilidad del Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:51
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "El nombre es demasiado largo. La longitud máxima es {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:54
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "El nombre es muy corto. La longitud mínima es {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:57
-#, fuzzy
 msgid "Name must only contain letters, numbers or underscores."
 msgstr "El nombre debe contener únicamente caracteres, digitos y barras bajas"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:84
-#, fuzzy
 msgid "Floating IP Address"
 msgstr "Direcciones IP del Dominio"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:93
-#, fuzzy
 msgid "Floating IP addresses"
 msgstr "Direcciones IP del Dominio"
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:97
-#, fuzzy
 msgid "floating IP address"
 msgstr "Dominio o dirección IP"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:54
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:91
-#, fuzzy
 msgid "Cluster configuration"
-msgstr "Configuración del equipo"
+msgstr "Configuración del Cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:59
 msgid "Start a new cluster"
-msgstr ""
+msgstr "iniciar un nuevo cluster"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:63
 msgid "Join to an existing cluster"
@@ -1276,12 +1268,10 @@ msgid "Zentyal host"
 msgstr "Máquina Zentyal"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:74
-#, fuzzy
 msgid "WebAdmin port"
-msgstr "Contraseña del AD"
+msgstr "puerto WebAdmin"
 
 #: ../../main/ha/src/EBox/HA/Model/Cluster.pm:82
-#, fuzzy
 msgid "Interface for communication"
 msgstr "Interfaz en la que escuchar"
 
@@ -1314,7 +1304,7 @@ msgstr "Número de alertas"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
 msgid "Alert details"
-msgstr "Detalles de alerta"
+msgstr "Detalles de la alerta"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
 msgid "alerts"
@@ -1326,7 +1316,7 @@ msgstr "Gráfico de alertas"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertGraph.pm:66
 msgid "Alert Graph"
-msgstr "Diagrama de alertas"
+msgstr "Gráfico de alertas"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:245
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:324
@@ -1369,7 +1359,7 @@ msgstr "Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
-msgstr "Registrar y Bloquear"
+msgstr "Registrar & Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
@@ -1463,11 +1453,11 @@ msgstr "IDS/IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:268
 msgid "Add rules to suricata configuration"
-msgstr "Añadir reglas a la configuración de Suricata"
+msgstr "Añadir reglas a la configuración del Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:273
 msgid "Enable start of suricata daemon"
-msgstr "Habilitar ejecución del demonio de Suricata"
+msgstr "Habilitar ejecución del demonio del Suricata"
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
@@ -1555,7 +1545,7 @@ msgstr "Alerta"
 
 #: ../../main/ips/src/EBox/IPS.pm:332
 msgid "IPS Rule Updates"
-msgstr "Actualizaciones de reglas del IPS"
+msgstr "Actualizaciones de las reglas del IPS"
 
 #: ../../main/ips/src/EBox/IPS.pm:335
 msgid "Failure reason"
@@ -1595,7 +1585,7 @@ msgstr "Configurar el puerto de escucha del servidor web."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:92
 msgid "To configure default virtual host."
-msgstr "Configurar el virtual host por defecto."
+msgstr "Configurar el host virtual por defecto."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:97
 msgid "To configure default SSL virtual host."
@@ -1607,11 +1597,11 @@ msgstr "Configurar el directorio public-html por usuario."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:127
 msgid "Enable Apache LDAP user module"
-msgstr "Habilitar módulo de usuarios LDAP de Apache"
+msgstr "Habilitar módulo de usuarios LDAP del Apache"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:129
 msgid "To fetch home directories from LDAP."
-msgstr "Obtener los directorios home desde LDAP."
+msgstr "Obtener los directorios home desde el LDAP."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:132
 msgid "Enable Apache SSL module"
@@ -1623,7 +1613,7 @@ msgstr "Servir páginas a través de HTTPS."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:137
 msgid "Remove apache2 init script link"
-msgstr "Borrar enlaces al script de inicio de apache2"
+msgstr "Borrar enlaces al script de inicio de Apache2"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:138
 #: ../../main/dns/src/EBox/DNS.pm:533 ../../main/squid/src/EBox/Squid.pm:327
@@ -1728,8 +1718,8 @@ msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
-"Permitir a los usuarios publicar documents web usando el directorio public-"
-"html en su /home."
+"Permitir a los usuarios publicar documentos web usando el directorio public-"
+"html en su carpeta personal."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:304
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
@@ -1756,7 +1746,7 @@ msgstr "La configuración general del servidor web ha sido actualizada."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:92
 msgid "Virtual host name"
-msgstr "Nombre del host virtual"
+msgstr "Nombre del virtual host"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
@@ -1821,7 +1811,7 @@ msgstr "Permitir SSL"
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:120
 msgid "Force SSL"
-msgstr "Forzar SSL"
+msgstr "Forzar conexión SSL"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:296
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
@@ -4722,13 +4712,13 @@ msgid "The group {name} already exists as built-in Windows group"
 msgstr "El grupo {name} ya existe como grupo predeterminado de Windows"
 
 #: ../../main/users/src/EBox/Users/Group.pm:540
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "A built-in Windows user with the name '{name}' already exists. Users and "
 "groups cannot share names"
 msgstr ""
 "Ya existe una cuenta de usuario con el nombre '{name}'. Los usuarios y "
-"grupos no pueden compartir nombre"
+"grupos no pueden compartir mismo nombre"
 
 #: ../../main/users/src/EBox/Users/Group.pm:545
 #, perl-brace-format
@@ -4785,7 +4775,6 @@ msgid ""
 msgstr ""
 
 #: ../../main/users/src/EBox/Users/Contact.pm:47
-#, fuzzy
 msgid "contact"
 msgstr "Contacto"
 
@@ -4861,13 +4850,13 @@ msgid "The user {uid} already exists as built-in Windows user"
 msgstr ""
 
 #: ../../main/users/src/EBox/Users/User.pm:503
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "A built-in Windows group with the name '{name}' already exists. Users and "
 "groups cannot share names"
 msgstr ""
 "Ya existe una cuenta de usuario con el nombre '{name}'. Los usuarios y "
-"grupos no pueden compartir nombre"
+"grupos no pueden compartir mismo nombre"
 
 #: ../../main/users/src/EBox/Users/User.pm:508
 #, perl-brace-format
@@ -4883,9 +4872,9 @@ msgid "Username already exists on the system"
 msgstr "El nombre de usuario ya existe en el sistema"
 
 #: ../../main/users/src/EBox/Users/User.pm:542
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid "The default group '{defaultgroup}' cannot be found!"
-msgstr "La página no pudo encontrarse"
+msgstr "La página del grupo '{defaultgroup}' no puede encontrarse"
 
 #: ../../main/users/src/EBox/Users/User.pm:546
 msgid "default group"
@@ -6872,7 +6861,6 @@ msgid "Renovation date"
 msgstr "Fecha de renovación"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/SubscriptionInfo.pm:117
-#, fuzzy
 msgid "Messages"
 msgstr "Mensaje"
 
@@ -7309,9 +7297,8 @@ msgid "Professional"
 msgstr "Profesional"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:98
-#, fuzzy
 msgid "Business"
-msgstr "Small Business"
+msgstr "Negocios "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:99
 msgid "Enterprise Trial"
@@ -7385,19 +7372,16 @@ msgstr ""
 "{path}"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1924
-#, fuzzy
 msgid "Standard 2 days"
-msgstr "Estándar"
+msgstr "Estándar 2 dias "
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1925
-#, fuzzy
 msgid "Standard 1 day"
-msgstr "Estándar"
+msgstr "Estándar 1 día"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1926
-#, fuzzy
 msgid "Standard 4 hours"
-msgstr "Estándar"
+msgstr "Estándar 4 Horas"
 
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1934
 #, perl-brace-format
@@ -7492,8 +7476,9 @@ msgid "bridge"
 msgstr "puente de red"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:126
+#, fuzzy
 msgid "bond"
-msgstr ""
+msgstr "exclavo"
 
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:137
 #, fuzzy
@@ -8132,7 +8117,6 @@ msgstr "Zentyal establecerá el orden de los servidores DNS"
 #: ../../main/network/src/EBox/Network.pm:176
 #: ../../main/network/src/EBox/Network.pm:181
 #: ../../main/network/src/EBox/Network.pm:186
-#, fuzzy
 msgid "Zentyal will set the resolvconf configuration"
 msgstr "Zentyal establecerá su configuración de red"
 
@@ -10058,7 +10042,7 @@ msgstr ""
 
 #: ../../main/core/src/EBox/CGI/ReleaseUpgrade.pm:31
 msgid "Upgrade to Zentyal 3.3"
-msgstr ""
+msgstr "Actualizar a Zentyal 3.3"
 
 #: ../../main/core/src/EBox/CGI/Progress.pm:83
 #: ../../main/core/src/EBox/CGI/Progress.pm:132
@@ -10229,7 +10213,7 @@ msgstr "Importar/Exportar configuración"
 #: ../../main/core/src/EBox/SysInfo.pm:119
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:46
 msgid "Debug"
-msgstr ""
+msgstr "Depurar"
 
 #: ../../main/core/src/EBox/SysInfo.pm:124
 msgid "Halt/Reboot"
@@ -11825,14 +11809,13 @@ msgid "Must be a valid regular expression"
 msgstr "Debe ser una expresión regular válida"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4640
-#, fuzzy
 msgid "Page 1"
-msgstr "Página"
+msgstr "Página 1"
 
 #: ../../main/core/src/EBox/Model/DataTable.pm:4642
 #, perl-brace-format
 msgid "Page {i} of {n}"
-msgstr ""
+msgstr "Página {i} de {n}"
 
 #: ../../main/core/src/EBox/Model/Composite.pm:218
 #, perl-brace-format
@@ -11934,10 +11917,9 @@ msgstr "Sesiones del administrador"
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:53
 #, perl-brace-format
 msgid "{user} mailbox discarded"
-msgstr ""
+msgstr "{user} Descartar buzón"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/DiscardMailbox.pm:54
-#, fuzzy
 msgid "Cancelled"
 msgstr "Cancelado"
 
@@ -11945,16 +11927,14 @@ msgstr "Cancelado"
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:68
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:162
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/Estimate.pm:60
-#, fuzzy
 msgid "Invalid RPC server state"
-msgstr "Valor inválido para la máquina"
+msgstr "Valor inválido para estado de la máquina"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:143
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/ActivateMailbox.pm:53
 #: ../../main/openchange/src/templates/migration/mailboxes_table.mas:28
-#, fuzzy
 msgid "Migrated"
-msgstr "tasa"
+msgstr "Migración con mejores funciones  {·_·}"
 
 #: ../../main/openchange/src/EBox/OpenChange/CGI/Migration/MailboxProgress.pm:143
 msgid "on going"

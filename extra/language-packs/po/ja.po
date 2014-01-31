@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2012-01-02 03:26+0200\n"
-"Last-Translator: shirayuki <shirayuking@gmail.com>\n"
+"PO-Revision-Date: 2014-01-23 08:31+0200\n"
+"Last-Translator: osakanataro <osakanataro@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
@@ -659,7 +659,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:246
 msgid "Installer is only available for Windows clients"
-msgstr ""
+msgstr "インストーラーはWindowsクライアント向けのみ提供されています"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:304
 msgid ""
@@ -19914,16 +19914,12 @@ msgid ""
 msgstr ""
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:4
-#, fuzzy
 msgid "Virtual mail domain"
-msgstr ""
-"#-#-#-#-#  ja.po (ebox-zarafa 0.12)  #-#-#-#-#\n"
-"#-#-#-#-#  ja.po (ebox-mail 0.12)  #-#-#-#-#\n"
-"バーチャルドメイン"
+msgstr "バーチャルメールドメイン"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 msgid "Set up the default virtual mail domain"
-msgstr ""
+msgstr "標準のバーチャルメールドメインを設定"
 
 #: ../../main/mail/src/templates/wizard/virtualdomain.mas:6
 #, fuzzy

@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-03-04 12:01+0100\n"
-"PO-Revision-Date: 2013-02-21 01:35+0200\n"
+"PO-Revision-Date: 2014-01-26 18:41+0200\n"
 "Last-Translator: Picholeiro <info@picholeiro.info>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: gl\n"
@@ -23,20 +23,20 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1382
 msgid "disabled"
-msgstr ""
+msgstr "deshabilitado"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Dirección do servidor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Debe proporcionar amenos unha direcion para o servidor {name}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
-msgstr ""
+msgstr "El nombre es muy corto. La longitud mínima es {min}."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator/EBoxToEBox.pm:140
 msgid ""

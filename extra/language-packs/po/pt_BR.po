@@ -9,8 +9,8 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-07-26 19:08+0200\n"
-"PO-Revision-Date: 2014-01-03 16:37+0200\n"
-"Last-Translator: FabioCA <fabioramirocarvalho@yahoo.com.br>\n"
+"PO-Revision-Date: 2014-01-28 03:41+0200\n"
+"Last-Translator: Evertton <e.everttonlima@gmail.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -442,9 +442,9 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Você precisa criar um certificado CA para usar este módulo. "
-"{closepar}{openpar}Por favor, vá até {openhref}Módulo de Autoridade de "
-"Certificação{closehref} e renove-o.{closepar}"
+"{openpar}Você precisa de um certificado CA válido para rodar servidores VPN. "
+"{closepar}{openpar}Por favor, vá para {openhref} módulo de autoridade de "
+"certificação {closehref} e renove-o.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
 #, perl-brace-format
@@ -1150,9 +1150,8 @@ msgid "You must set insecure_rip_conf to yes or no"
 msgstr "Você tem que definir insegure_rip_conf para sim ou não"
 
 #: ../../main/ha/src/EBox/HA.pm:55
-#, fuzzy
 msgid "High Availability"
-msgstr "Disponível"
+msgstr "Alta Disponibilidade"
 
 #: ../../main/ha/src/EBox/HA.pm:80
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
@@ -1216,12 +1215,12 @@ msgstr ""
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:51
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
-msgstr ""
+msgstr "O nome é muito longo. Tamanho máximo é {max}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:54
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
-msgstr ""
+msgstr "O nome é muito curto. Tamanho mínimo é {min}."
 
 #: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:57
 #, fuzzy
@@ -1281,6 +1280,8 @@ msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
 msgstr ""
+"Configurar o modo como este servidor irá iniciar um cluster, ou ele vai se "
+"juntar a um já existente"
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
 msgid "IPS Alerts report"
@@ -1300,10 +1301,12 @@ msgid "Number of alerts"
 msgstr "Número de alertas"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:66
+#, fuzzy
 msgid "Alert details"
-msgstr "Detalhe do alerta"
+msgstr "Detalhes do alerta"
 
 #: ../../main/ips/src/EBox/IPS/Model/AlertDetails.pm:73
+#, fuzzy
 msgid "alerts"
 msgstr "alertas"
 
@@ -1356,7 +1359,7 @@ msgstr "Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:264
 msgid "Log & Block"
-msgstr "Logar & Bloquear"
+msgstr "Registrar & Bloquear"
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:271
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:95
@@ -1493,6 +1496,7 @@ msgstr "Prioridade"
 #: ../../main/core/src/templates/confirm-backup.mas:48
 #: ../../main/software/src/templates/updates.mas:92
 #: ../../main/software/src/templates/ebox.mas:100
+#, fuzzy
 msgid "Description"
 msgstr "Descrição"
 
@@ -1565,7 +1569,7 @@ msgid ""
 "details and rule changelog at {url} ({name} rules)"
 msgstr ""
 "A última atualização de regras fez o daemon IDS/IPS parar. Verifique {log} "
-"para detalhes e alteração de regra em  {url} ({name} regras)"
+"para detalhes e registro de mudança de regra em  {url} ({name} regras)"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:69
 #: ../../main/webserver/src/EBox/WebServer.pm:163
@@ -1577,11 +1581,11 @@ msgstr "Servidor Web"
 
 #: ../../main/webserver/src/EBox/WebServer.pm:87
 msgid "To set webserver listening port."
-msgstr "Para definir a porta em que o servidor web irá rodar."
+msgstr "Para definir a porta de escuta do servidor web."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:92
 msgid "To configure default virtual host."
-msgstr "Para configurar o virtual host padrão."
+msgstr "Para configurar o host virtual padrão."
 
 #: ../../main/webserver/src/EBox/WebServer.pm:97
 msgid "To configure default SSL virtual host."
@@ -1647,7 +1651,7 @@ msgid ""
 "different virtual hosts."
 msgstr ""
 "O servidor web do Zentyal permite que você hospede páginas HTTP e HTTPS "
-"dentro de diferentes hosts virtuais."
+"dentro de diferentes hospedeiros virtuais."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:102
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:269
@@ -1687,9 +1691,8 @@ msgstr ""
 "habilite isto pelo menos uma vez."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:240
-#, fuzzy
 msgid "Configuration Settings saved."
-msgstr "Definições da configuração de cota"
+msgstr "Definições da configuração a salvo"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:241
 #, perl-brace-format
@@ -1698,6 +1701,9 @@ msgid ""
 "directory, and to provide www-data execution permissions over the involved /"
 "home/user directories."
 msgstr ""
+"Lembre-se que para ter UserDir funcionando, você deve criar o diretório {p}, "
+"e para obter permissões de execução www-data ao longo dos diretórios "
+"envolvidos / home/usuário."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:292
 #, perl-brace-format
@@ -1760,16 +1766,16 @@ msgstr ""
 "{chref} para permitir SSL em um host virtual."
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
 "its IP addresses. {noDnsWarning} "
 msgstr ""
-"Virtual host {vhost} adicionado. Um domínio {domain} foi criado com o "
-"mapeamento {name} - endereço IP {ip}. {noDnsWarning} "
+"Host virtual {vhost} acrescentou. Um domínio {domain} foi createdPlease, "
+"verifique seus endereços IP. {noDnsWarning}"
 
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:175
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
 "name {name}. Please, set the host IP address. {noDnsWarning} "
