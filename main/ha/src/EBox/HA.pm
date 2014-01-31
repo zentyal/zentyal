@@ -37,6 +37,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
@@ -955,7 +956,8 @@ sub _waitPacemaker
         $output = $output->[0];
         given ($output) {
             when (/Ok/) { $ready = 1; }
-            when (/Warning:No DC/) { EBox::debug('waiting for quorum'); }
+            when (/^Warning:No DC/) { EBox::debug('waiting for quorum'); }
+            when (/^Warning:offline node:/) { $ready = 1; }  # No worries warning
             default { EBox::debug("No parse on $output"); }
         }
         $maxTries--;
@@ -1010,7 +1012,9 @@ sub _setFloatingIPRscs
              "crm configure delete $rscName");
     }
 
-
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    my $activeNode = EBox::HA::CRMWrapper::activeNode();
     while (my ($rscName, $rscAddr) = each(%finalRscs)) {
         if (exists($currentRscs{$rscName})) {
             # Update the IP, if required
@@ -1021,7 +1025,13 @@ sub _setFloatingIPRscs
         } else {
             # Add it!
             push(@rootCmds,
-                 "crm configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+            if ($activeNode ne $localNode) {
+                push(@rootCmds,
+                     "crm_resource --resource '$rscName' --move --host '$activeNode'",
+                     "sleep 3",
+                     "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+            }
         }
     }
 
