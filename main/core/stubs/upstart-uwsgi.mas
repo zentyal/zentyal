@@ -15,4 +15,4 @@ respawn
 respawn limit 10 5
 
 # FIXME: Once finished the development the umask must be fixed!!!
-exec uwsgi --plugins 0:psgi --uid ebox --umask 000 -s <% $socket %> --psgi <% $script %>
+exec uwsgi --plugins 0:psgi --uid ebox --gid ebox --umask 000 -s <% $socket %> --psgi <% $script %>
