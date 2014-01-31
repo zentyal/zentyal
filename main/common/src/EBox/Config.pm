@@ -321,9 +321,9 @@ sub stubs
     return $ref->{datadir} . 'zentyal/stubs/';
 }
 
-sub apps
+sub psgi
 {
-    return $ref->{datadir} . 'zentyal/apps/';
+    return $ref->{datadir} . 'zentyal/psgi/';
 }
 
 sub cgi

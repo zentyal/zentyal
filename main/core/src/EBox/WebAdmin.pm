@@ -242,7 +242,7 @@ sub _writeNginxConfFile
     my $upstartFile = 'core/upstart-uwsgi.mas';
     @confFileParams = ();
     push @confFileParams, (socket => EBox::Config::tmp() . 'uwsgi.sock');
-    push @confFileParams, (script => EBox::Config::apps() . 'zentyal.psgi');
+    push @confFileParams, (script => EBox::Config::psgi() . 'zentyal.psgi');
     EBox::Module::Base::writeConfFileNoCheck($self->_uwsgiUpstartFile, 'core/upstart-uwsgi.mas', \@confFileParams, $permissions);
 }
 

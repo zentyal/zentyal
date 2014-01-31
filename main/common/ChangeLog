@@ -1,5 +1,5 @@
 3.4
-	+ Added EBox::Config::apps() to get the path where all PSGI applications
+	+ Added EBox::Config::psgi() to get the path where all PSGI applications
 	  are stored
 	+ Added EBox::Config::list() to parse space-separated values
 	+ Avoid undefined $Error::Depth warning in exceptions
