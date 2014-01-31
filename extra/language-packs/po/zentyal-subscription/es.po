@@ -37,7 +37,7 @@ msgstr ""
 "Las Actualizaciones de Seguridad Avanzadas te permiten tener {rules} reglas "
 "actualizadas diariamente"
 
-#: ../../main/users/src/EBox/Users/User.pm:479
+#: ../../main/users/src/EBox/Users/User.pm:485
 #, perl-brace-format
 msgid ""
 "Please note that the maximum number of users for your edition is {max} and "
@@ -354,7 +354,7 @@ msgstr ""
 "de las {oh}Ediciones Comerciales{ch} para activar todas las alertas "
 "automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:962
+#: ../../main/squid/src/EBox/Squid.pm:972
 #, perl-brace-format
 msgid ""
 "This is a Community Edition. Get one of the fully supported {oh}Commercial "
@@ -363,7 +363,7 @@ msgstr ""
 "Esta es una Edición Comunidad. Obtén una de las {oh}Ediciones Comerciales"
 "{ch} completamente soportada para actualizaciones de seguridad automáticas."
 
-#: ../../main/squid/src/EBox/Squid.pm:1301
+#: ../../main/squid/src/EBox/Squid.pm:1311
 #, perl-brace-format
 msgid ""
 "Want to avoid threats such as malware, phishing and bots? Get one of the {oh}"
