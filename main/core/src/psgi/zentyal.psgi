@@ -24,17 +24,15 @@ use EBox::Gettext;
 use Authen::Simple::PAM;
 use CGI::Emulate::PSGI;
 use Plack::Builder;
+use Plack::Session::Store::File;
 use POSIX qw(:signal_h);
-use TryCatch::Lite;
 
-# By now, the expiration time for session is hardcoded here
-use constant EXPIRE => 3600; #In seconds  1h
 use constant SESSIONS_PATH => '/var/lib/zentyal/tmp';
 
 my $app = sub {
     my $env = shift;
 
-    # Workaround to clear Apache2's process mask
+    # Clear process signals mask
     my $sigset = POSIX::SigSet->new();
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
@@ -44,6 +42,7 @@ my $app = sub {
 
     use Data::Dumper;
     EBox::debug(Dumper(\%ENV));
+
     my $url = $ENV{PATH_INFO};
     $url =~ s/^\///s;
     EBox::CGI::Run->run($url);
@@ -51,15 +50,11 @@ my $app = sub {
 
 builder {
     enable_if { $_[0]->{REMOTE_ADDR} eq '127.0.0.1' }
-        "Plack::Middleware::ReverseProxy";
-    enable "Plack::Middleware::Session",
+        "ReverseProxy";
+    enable "Session",
         state   => 'Plack::Session::State::Cookie',
-        store   => 'Plack::Session::Store::File',
-        expires => EXPIRE,
-        dir     => SESSIONS_PATH;
-    enable "Plack::Middleware::Auth::Form",
-        authenticator => Authen::Simple::PAM->new(
-        service       => 'zentyal',
-        log           => EBox::logger());
+        store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
+    enable "+EBox::Middleware::Auth";
     CGI::Emulate::PSGI->handler($app);
 };
+
