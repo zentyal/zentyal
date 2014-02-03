@@ -25,6 +25,9 @@ use MIME::Base64;
 use File::Slurp;
 use TryCatch::Lite;
 
+# Milestone must be in format 'x.y[.z]'. The first two version numbers as 
+# separated by dots are used to create the issue in the bug tracker.
+# Version MUST exist in bug tracker database AND zentyal-bug-interface service!
 use constant RPC_URL => 'http://bugreport.zentyal.org/bugreport/v1';
 use constant MILESTONE => '3.3.X';
 
