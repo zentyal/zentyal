@@ -882,7 +882,7 @@ sub upload
         unlink $filename;
         close $UPLOAD_FH;
         close $FH;
-        throw EBox::Exceptions::External($e);
+        EBox::Exceptions::Internal->throw($e);
     }
     close $UPLOAD_FH;
     close $FH;
