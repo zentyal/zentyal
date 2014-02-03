@@ -27,6 +27,8 @@ use warnings;
 
 use EBox;
 use EBox::Global;
+use Error qw(:try);
+use EBox::Exceptions::Lock;
 
 EBox::init();
 
@@ -41,45 +43,71 @@ exit 0 unless (defined $interface and length $interface);
 # set to "zentyal.<row id>"
 exit 0 if ($interface =~ m/zentyal\..+/);
 
-my $networkModule = EBox::Global->modInstance('network');
-exit 0 unless ($networkModule->configured() and $networkModule->isEnabled());
-
-if (EBox::Global->modExists('dns')) {
-    my $dnsModule = EBox::Global->modInstance('dns');
+my $globalRO = EBox::Global->getInstance(1);
+my $networkROModule = $globalRO->modInstance('network');
+exit 0 unless ($networkROModule->configured() and $networkROModule->isEnabled());
+if ($globalRO->modExists('dns')) {
+    my $dnsModule = $globalRO->modInstance('dns');
     exit 0 if ($dnsModule->configured() and $dnsModule->isEnabled());
 }
 
+my $globalRW = EBox::Global->getInstance();
+my $networkModule = $globalRW->modInstance('network');
 my $model = $networkModule->model('DNSResolver');
 
+my $alreadyChanged = $networkModule->changed();
+my $changed = 0;
+
 if ($operation eq '-d') {
+    my @toDelete;
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
-            $row->setDisabled(1);
-            $row->store();
+            push @toDelete, $id;
         }
+    }
+    foreach my $id (@toDelete) {
+        $model->removeRow($id, 1);
+        $changed = 1;
     }
 }
 
 if ($operation eq '-a') {
     my $ifaceConfig = $model->getInterfaceResolvconfConfig($interface);
+    my @resolvers = @{$ifaceConfig->{resolvers}};
     foreach my $id (@{$model->ids()}) {
         my $row = $model->row($id);
         my $modelInterface = $row->valueByName('interface');
         if ($modelInterface eq $interface) {
-            my $resolver = shift $ifaceConfig->{resolvers};
-            if (defined $resolver and length $resolver) {
-                my $e = $row->elementByName('nameserver');
-                $e->setValue($resolver);
-                $row->setDisabled(0);
-                $row->store();
+            my $resolver = shift @resolvers;
+            if ((defined $resolver) and length($resolver)) {
+                my $el = $row->elementByName('nameserver');
+                if ($el->value() ne $resolver) {
+                    $el->setValue($resolver);
+                    $row->setReadOnly(1);
+                    $row->store();
+                    $changed = 1;
+                }
             }
         }
     }
-    foreach my $r (@{$ifaceConfig->{resolvers}}) {
-        $model->addRow(nameserver => $r, interface => $interface);
+
+    foreach my $r (@resolvers) {
+        $model->addRow(nameserver => $r, interface => $interface, readOnly => 1);
+        $changed = 1;
     }
+}
+
+if ($changed and not $alreadyChanged) {
+    try {
+        $networkModule->_lock();
+        $networkModule->_saveConfig();
+        $networkModule->_unlock();
+    } catch EBox::Exceptions::Lock with {
+        # if locked, just mark as usnaved
+    };
+    $networkModule->setAsChanged(0);
 }
 
 exit 0;
