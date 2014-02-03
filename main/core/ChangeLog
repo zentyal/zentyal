@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 3.2.7
 	+ Remove lock file in EBox::Util::Lock::unlock()
