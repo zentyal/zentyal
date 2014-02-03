@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -39,8 +39,6 @@ use Data::Dumper;
 use Perl6::Junction qw(all);
 use File::Temp qw(tempfile);
 use File::Basename;
-use Apache2::Connection;
-use Apache2::RequestUtil;
 use JSON::XS;
 
 ## arguments
@@ -294,35 +292,20 @@ sub run
     }
 
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
-        my $request = Apache2::RequestUtil->request();
-        my $headers = $request->headers_in();
-        my $referer = $headers->{'Referer'};
+        my $referer = $ENV{HTTP_REFERER};
 
         my ($protocol, $port);
-
-        my $via = $headers->{'Via'};
-        my $host = $headers->{'Host'};
-        my $fwhost = $headers->{'X-Forwarded-Host'};
-        my $fwproto = $headers->{'X-Forwarded-Proto'};
-        # If the connection comes from a Proxy,
-        # redirects with the Proxy IP address
-        if (defined ($via) and defined ($fwhost)) {
-            $host = $fwhost;
-        }
-
         my $url;
+        my $host = $ENV{HTTP_HOST};
         if ($> == getpwnam('ebox')) {
             ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
-            if (defined ($fwproto)) {
-                $protocol = $fwproto;
-            }
             $url = "$protocol://${host}";
             if ($port) {
                 $url .= ":$port";
             }
             $url .= "/$self->{redirect}";
         } else {
-            if (((defined $fwproto) and ($fwproto eq 'https')) or $request->subprocess_env('https')) {
+            if ($ENV{HTTPS} eq 'ON') {
                 $protocol = 'https';
             } else {
                 $protocol = 'http';
