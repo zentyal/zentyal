@@ -239,6 +239,25 @@ sub _login
     return $self->app->($env);
 }
 
+sub _logout
+{
+    my ($self, $env) = @_;
+
+    if($env->{REQUEST_METHOD} eq 'POST') {
+        my $audit = $self->_global()->modInstance('audit');
+        my $ip = $env->{'REMOTE_ADDR'};
+        my $user = $env->{'psgix.session'}{user_id};
+        $audit->logSessionEvent($user, $ip, 'logout');
+        _cleansession($env);
+    }
+    my $redir_to = 'Login/Index';
+    return [
+        303,
+        [Location => $redir_to],
+        ["<html><body><a href=\"$redir_to\">Back</a></body></html>"]
+    ];
+}
+
 # Method: call
 #
 #   Handles validation of credentials to allow access to Zentyal.
@@ -252,7 +271,7 @@ sub call
     my $path = $env->{PATH_INFO};
 
     # Workaround to be able to use Plack Session middleware with our Login
-    # and Logout forms untile we are a real Plack application.
+    # and Logout forms until we are a real Plack application.
     $env->{'zentyal.session'} = $env->{'psgix.session'};
 
     if ($path eq '/Login/Index') {
@@ -276,43 +295,40 @@ sub call
     }
 }
 
-
+# Method: setPassword
 #
-#use Authen::Simple::PAM;
-#use Digest::MD5;
+#       Changes the password of the given username
+#
+# Parameters:
+#
+#       username - username to change the password
+#       password - string containing the plain password
+#
+# Exceptions:
+#
+#   <EBox::Exceptions::Internal> - when password cannot be changed
+#   <EBox::Exceptions::External> - when password length is no
+#                                  longer than 6 characters
+#
+# FIXME: Maybe this should be moved to some other place...
+sub setPassword
+{
+    my ($self, $username, $password) = @_;
+
+    unless (length($password) > 5) {
+        throw EBox::Exceptions::External('The password must be at least 6 characters long');
+    }
+
+    open(my $pipe, "|/usr/bin/sudo /usr/sbin/chpasswd") or
+        throw EBox::Exceptions::Internal("Could not change password: $!");
+
+    print $pipe "$username:$password\n";
+    close($pipe);
+}
 
 ## Remote access constants
 #use constant CC_USER => '__remote_access__';
 
-## Method: setPassword
-##
-##       Changes the password of the given username
-##
-## Parameters:
-##
-##       username - username to change the password
-##       password - string containing the plain password
-##
-## Exceptions:
-##
-##   <EBox::Exceptions::Internal> - when password cannot be changed
-##   <EBox::Exceptions::External> - when password length is no
-##                                  longer than 6 characters
-#sub setPassword
-#{
-#    my ($self, $username, $password) = @_;
-#
-#    unless (length($password) > 5) {
-#        throw EBox::Exceptions::External('The password must be at least 6 characters long');
-#    }
-#
-#    open(my $pipe, "|/usr/bin/sudo /usr/sbin/chpasswd") or
-#        throw EBox::Exceptions::Internal("Could not change password: $!");
-#
-#    print $pipe "$username:$password\n";
-#    close($pipe);
-#}
-#
 ## Method: loginCC
 ##
 ##      Login from Control Center, which is different if the
@@ -356,23 +372,6 @@ sub call
 #        return OK;
 #    }
 #}
-#
-## Method: logout
-##
-##       Overriden method from <Apache2::AuthCookie>.
-##
-#sub logout
-#{
-#    my ($self,$r) = @_;
-#
-#    $self->SUPER::logout($r);
-#
-#    my $audit = $self->_global()->modInstance('audit');
-#    my $ip = $r->headers_in->{'X-Real-IP'};
-#    my $user = $r->user();
-#    $audit->logSessionEvent($user, $ip, 'logout');
-#}
-#
 #
 
 1;
