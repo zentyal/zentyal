@@ -1,4 +1,4 @@
-HEAD
+3.0.9
 	+ Add a new confkey to open Virtual Console on a new window
 3.0.8
 	+ Do not check for r/rw perms on disks as libvirt automatically fixes them
