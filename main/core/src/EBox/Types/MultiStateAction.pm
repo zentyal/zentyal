@@ -17,9 +17,39 @@ use warnings;
 
 package EBox::Types::MultiStateAction;
 
+# Class: EBox::Types::MultiStateAction
+#
+#    This type has an action depending on the current state of the row
+#    it belongs to. You must set the set of states in the constructor
+#    using 'states' key.
+#
+
 use EBox::Types::Action;
 use EBox::Exceptions::MissingArgument;
 
+# Constructor:
+#
+# Specialised parameters:
+#
+#    acquirer - Code ref to a function which returns the current state
+#               and it receives the model and the id for the current
+#               row
+#
+#    defaultState - String the default initial state. If acquirer is
+#                   not defined, you *must* set this parameter
+#
+#    handler - Code ref to the subroutine which is in charge of
+#              performing the action. That function receives the
+#              following positional arguments:
+#              model, this type, the row id and remainder params.
+#
+#    enabled - Code ref to determine if the action is enabled. If it
+#              is not set, then the action is always enabled *(Optional)*
+#
+# Returns:
+#
+#    <EBox::Types::MultiStateAction>
+#
 sub new
 {
     my $class = shift;
@@ -40,6 +70,16 @@ sub new
     return $self;
 }
 
+# Method: state
+#
+# Parameters:
+#
+#     id - String the row id
+#
+# Returns:
+#
+#     String - the current action state
+#
 sub state
 {
     my ($self, $id) = @_;
@@ -56,12 +96,22 @@ sub state
     return $state;
 }
 
+# Method: action
+#
+# Parameters:
+#
+#     id - String the row id
+#
+# Returns:
+#
+#     <EBox::Types::Action> - the current action based on the current
+#     state
+#
 sub action
 {
     my ($self, $id) = @_;
 
     my $stateName = $self->state($id);
-    # XXX: Dependency cycle, Action inherits from MultiStateAction
     my $state = $self->{states}->{$stateName};
     my $action = new EBox::Types::Action(
         name => $state->{name},
@@ -100,11 +150,18 @@ sub handle
     $self->action($id)->{handler}->($self->{model}, $self, $id, %params);
 }
 
+# Method: image
+#
+# Returns:
+#
+#      String - URI path to the multistate action If undef, there is
+#               no image and printable value must be shown
+#
 sub image
 {
     my ($self, $id, %params) = @_;
     my $image = $self->action($id)->{image};
-    $image = '/data/images/run.gif' unless ($image);
+    #$image = '/data/images/run.gif' unless ($image);
     return $image;
 }
 
@@ -137,6 +194,12 @@ sub onclick
     return $onclick;
 }
 
+# Method: template
+#
+# Returns:
+#
+#      String - the template to use to display the action
+#
 sub template
 {
     my ($self) = @_;
