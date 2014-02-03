@@ -74,7 +74,9 @@ sub menuFolder
     my ($self) = @_;
 
     unless ($self->{menuFolder}) {
-        my @split = split ('/', $ENV{'script'});
+        my $url = $ENV{PATH_INFO};
+        $url =~ s/^\///s;
+        my @split = split ('/', $url);
         if (@split) {
             return $split[0];
         } else {
