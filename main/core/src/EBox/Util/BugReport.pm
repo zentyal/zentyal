@@ -25,15 +25,15 @@ use MIME::Base64;
 use File::Slurp;
 use TryCatch::Lite;
 
-use constant RPC_URL => 'http://trac.zentyal.org/jsonrpc';
+use constant RPC_URL => 'http://bugreport.zentyal.org/bugreport/v1';
 use constant MILESTONE => '3.3.X';
 
 use constant SOFTWARE_LOG => EBox::Config::log() . 'software.log';
 
 # Method: send
 #
-# Send a bug report to Zentyal trac. It will also attach
-# a generated log
+# Send a bug report to Zentyal automatic bug report interface. 
+# It will also attach a generated log
 #
 # Params:
 #   - author_email - Reporter's email
@@ -68,13 +68,13 @@ sub send
     my $res = $client->call(RPC_URL, $callobj);
     if ($res) {
         unless ($res->is_success) {
-            throw EBox::Exceptions::Internal('Error creating a new ticket in trac: ' . $res->error_message->{message});
+            throw EBox::Exceptions::Internal('Error creating a new ticket in bug tracker: ' . $res->error_message->{message});
             return;
         }
 
         # Get ticket number and upload log
         my $ticket = $res->result;
-        EBox::info('Created trac ticket #' . $ticket);
+        EBox::info('Created bug tracker ticket #' . $ticket);
 
         _attach($client, $ticket, 'zentyal.log', EBox::Util::BugReport::dumpLog());
 

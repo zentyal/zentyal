@@ -1,4 +1,5 @@
 3.4
+	+ Updated automatic bug report URL to new bug report endpoint.
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
