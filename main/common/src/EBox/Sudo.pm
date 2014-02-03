@@ -95,7 +95,7 @@ sub command # (command)
     my ($cmd) = @_;
     validate_pos(@_, 1);
 
-    my $procname = $ENV{script} ? "$0 $ENV{script}" : @ARGV ? "$0 @ARGV" : $0;
+    my $procname = _procname();
     EBox::debug("$procname (pid: $$) - $cmd");
     my @output = `$cmd 2> $STDERR_FILE`;
 
@@ -171,13 +171,20 @@ sub silentRoot
     _root(0, @_);
 }
 
+sub _procname
+{
+    $url = $ENV{PATH_INFO};
+    $url =~ s/^\///s;
+    return $url ? "$0 $url" : @ARGV ? "$0 @ARGV" : $0;
+}
+
 sub _root
 {
     my ($wantError, @cmds) = @_;
 
     unshift (@cmds, 'set -e') if (@cmds > 1);
     my $commands = join("\n", @cmds);
-    my $procname = $ENV{script} ? "$0 $ENV{script}" : @ARGV ? "$0 @ARGV" : $0;
+    my $procname = _procname();
     EBox::debug("$procname (pid: $$) - $commands");
 
     # Create a tempfile to run commands afterwards
