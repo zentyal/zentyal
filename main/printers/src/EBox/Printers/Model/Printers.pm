@@ -73,12 +73,6 @@ sub _table
             defaultValue  => 0,
             help          => __('This printer will not require authentication.'),
         ),
-        new EBox::Types::HasMany(
-            fieldName     => 'access',
-            printableName => __('Access control'),
-            foreignModel => 'PrinterPermissions',
-            view => '/Printers/View/PrinterPermissions'
-        ),
     );
 
     my $dataForm =
