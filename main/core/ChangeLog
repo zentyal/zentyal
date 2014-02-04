@@ -2,6 +2,10 @@ HEAD
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
+3.2.7
+	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Decode to utf8 the MySQL database results
 	+ Create log database using utf8 charset
 	+ Better way to set MySQL password for all the root accounts

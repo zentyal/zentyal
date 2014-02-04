@@ -183,6 +183,47 @@ sub _daemons
     return $daemons;
 }
 
+# Method: addModuleStatus
+#
+#   Hides Openchange from the Dashboard.
+#
+# Overrides: <EBox::Module::Service::addModuleStatus>
+#
+sub addModuleStatus
+{
+}
+
+# Method: showModuleStatus
+#
+#   Hides Openchange from the Dashboard.
+#
+# Overrides: <EBox::Module::Service::showModuleStatus>
+#
+sub showModuleStatus
+{
+    return 0;
+}
+
+# Method: isRunning
+#
+#   Links Openchange running status to Samba status.
+#
+# Overrides: <EBox::Module::Service::isRunning>
+#
+sub isRunning
+{
+    my ($self) = @_;
+
+    my $running = $self->SUPER::isRunning();
+
+    if ($running) {
+        my $sambaMod = $self->global()->modInstance('samba');
+        return $sambaMod->isRunning();
+    } else {
+        return $running;
+    }
+}
+
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
