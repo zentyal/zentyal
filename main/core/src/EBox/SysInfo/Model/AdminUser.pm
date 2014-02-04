@@ -116,7 +116,7 @@ sub _doChangePassword
     }
 
     unless ($newpwd1 eq $newpwd2) {
-        throw EBox::Exceptions::External(__('Passwords does not match.'));
+        throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
     unless (length ($newpwd1) > 5) {
         throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
@@ -124,7 +124,7 @@ sub _doChangePassword
 
     my $userIsAdmin = grep { $_ eq $username } @{ _adminUsers() };
     if (not $userIsAdmin) {
-        throw EBox::Exceptions::External(__x("The user {us} is not a administrator user", us => $username));
+        throw EBox::Exceptions::External(__x("The user {us} is not an administrator user", us => $username));
     }
 
     EBox::Auth->setPassword($username, $newpwd1);
