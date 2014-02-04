@@ -25,6 +25,7 @@ package EBox::HA::Model::Nodes;
 
 use base 'EBox::Model::DataTable';
 
+use EBox::Exceptions::External;
 use EBox::Gettext;
 use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
@@ -32,6 +33,7 @@ use EBox::Types::Host;
 use EBox::Types::HostIP;
 use EBox::Types::MultiStateAction;
 use EBox::Types::Port;
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -175,14 +177,12 @@ sub _table
                     name           => 'demote',
                     printableValue => __('Demote'),
                     handler        => \&_doDemote,
-                    message        => __('Node demoted'),
                     enabled        => \&_prodemoteContraints,
                 },
                 'passive' => {
                     name           => 'promote',
                     printableValue => __('Promote'),
                     handler        => \&_doPromote,
-                    message        => __('Node promoted'),
                     enabled        => \&_prodemoteContraints,
                 }
                },
@@ -236,8 +236,13 @@ sub _doPromote
 {
     my ($self, $actionType, $id, %params) = @_;
 
-    # TODO: Do something if it fails
-    EBox::HA::CRMWrapper::promote($id);
+    try {
+        EBox::HA::CRMWrapper::promote($id);
+        $self->setMessage(__x('Node {name} is now the active node', name => $id),
+                          'note');
+    } catch ($exc) {
+        throw EBox::Exceptions::External("Couldn't promote: $exc");
+    };
 }
 
 # Do demote by moving out all resources from the given node
@@ -245,8 +250,13 @@ sub _doDemote
 {
     my ($self, $actionType, $id, %params) = @_;
 
-    # TODO: Do something if it fails
-    EBox::HA::CRMWrapper::demote($id);
+    try {
+        EBox::HA::CRMWrapper::demote($id);
+        $self->setMessage(__x('Node {name} is now a passive node', name => $id),
+                          'note');
+    } catch ($exc) {
+        throw EBox::Exceptions::External("Couldn't promote: $exc");
+    };
 }
 
 1;
