@@ -262,8 +262,7 @@ sub _header
     my ($self) = @_;
 
     if (not $self->refresh()) {
-        $self->SUPER::_header();
-        return;
+        return $self->SUPER::_header();
     }
 
     my $destination = "/Logs/Index?";
@@ -285,14 +284,15 @@ sub _header
     my $global = EBox::Global->getInstance();
     my $favicon = $global->theme()->{'favicon'};
 
-    print($self->cgi()->header(-charset=>'utf-8'));
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     my $html = EBox::Html::makeHtml(
                                      'headerWithRefresh.mas',
                                      title => $self->{title},
                                      destination => $destination,
                                      favicon => $favicon,
                                     );
-    print $html;
+    return $html;
 }
 
 sub refresh

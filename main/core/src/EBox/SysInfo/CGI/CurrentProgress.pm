@@ -55,11 +55,12 @@ sub _print
     my $progressId = $self->param('progress');
     my $progress = EBox::ProgressIndicator->retrieve($progressId);
 
-    my $response = $progress->stateAsHash();
-    $response->{changed} = $self->modulesChangedStateAsHash();
+    my $responseContent = $progress->stateAsHash();
+    $responseContent->{changed} = $self->modulesChangedStateAsHash();
 
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print to_json($response);
+    my $response = $self->response();
+    $response->content_type('application/JSON; charset=utf-8');
+    $response->body(to_json($responseContent));
 }
 
 sub modulesChangedStateAsHash

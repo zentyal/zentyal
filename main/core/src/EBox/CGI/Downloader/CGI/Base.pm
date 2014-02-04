@@ -110,31 +110,21 @@ sub _print
         my $mm = new File::MMagic();
         my $mimeType = $mm->checktype_filename($file);
         my $size = -s $file;
-        $self->_printHeader($mimeType, $size);
 
-        binmode(STDOUT, ':raw');
-        open (my $downFile, '<', $file) or
-            throw EBox::Exceptions::Internal('Could open file ' .
-                                                 $self->{downfile} . " $!");
+        open (my $fh, "<:raw", $self->{downfile}) or
+            throw EBox::Exceptions::Internal('Could not open file ' . $self->{downfile} . " $!");
+        Plack::Util::set_io_path($fh, Cwd::realpath($self->{downfile}));
 
-        # Efficient way to print a whole file
-        print do { local $/; <$downFile> };
+        my $response = $self->response();
+        $response->status(200);
+        $response->content_type($mimeType);
+        $response->content_length($size);
+        $response->header('Content-Disposition' => 'attachment; filename="' . $self->{downfilename} . '"');
+        $response->body($fh);
 
-        close($downFile);
-        binmode(STDOUT, ':utf8');
     } else {
-            throw EBox::Exceptions::Internal('File does not exist, is not readable or is of a special type: ' .
-                                                 $file);
+        throw EBox::Exceptions::Internal("File does not exist, is not readable or is of a special type: $file");
     }
-}
-
-sub _printHeader
-{
-    my ($self, $mimeType, $size) = @_;
-    print($self->cgi()->header(-type => $mimeType,
-                               -attachment => $self->{downfilename},
-                               -Content_length => (-s $self->{downfile})),
-         );
 }
 
 1;

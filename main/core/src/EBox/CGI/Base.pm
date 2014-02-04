@@ -52,17 +52,24 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     my $class = shift;
     my %opts = @_;
     my $self = {};
+
+    unless (defined $opts{request}) {
+        throw EBox::Exceptions::MissingArgument('request');
+    }
+
     $self->{title} = delete $opts{title};
     $self->{crumbs} = delete $opts{crumbs};
     $self->{olderror} = delete $opts{error};
     $self->{msg} = delete $opts{msg};
     $self->{cgi} = delete $opts{cgi};
+    $self->{request} = delete $opts{request};
     $self->{template} = delete $opts{template};
     unless (defined($self->{cgi})) {
         CGI::initialize_globals();
         $self->{cgi} = new CGI;
     }
     $self->{paramsKept} = ();
+    $self->{response} = undef;
 
     bless($self, $class);
     return $self;
@@ -82,46 +89,54 @@ sub _menu
 
 sub _title
 {
-    my $self = shift;
+    my ($self) = @_;
 
     my $title = $self->{title};
     my $crumbs = $self->{crumbs};
 
     my $filename = 'title.mas';
     my @params = (title => $title, crumbs => $crumbs);
-    print EBox::Html::makeHtml($filename, @params);
+    return EBox::Html::makeHtml($filename, @params);
 }
 
 sub _print_error # (text)
 {
     my ($self, $text) = @_;
+
     $text or return;
     ($text ne "") or return;
     my $filename = 'error.mas';
     my @params = ('error' => $text);
-    print EBox::Html::makeHtml($filename, @params);
+    my $response = $self->response();
+    $response->body(EBox::Html::makeHtml($filename, @params));
 }
 
 sub _error #
 {
-    my $self = shift;
-    defined($self->{olderror}) and $self->_print_error($self->{olderror});
-    defined($self->{error}) and $self->_print_error($self->{error});
+    my ($self) = @_;
+
+    if (defined $self->{olderror}) {
+        $self->_print_error($self->{olderror});
+    }
+    if (defined $self->{error}) {
+        $self->_print_error($self->{error});
+    }
 }
 
 sub _msg
 {
-    my $self = shift;
+    my ($self) = @_;
+
     defined($self->{msg}) or return;
     my $filename = 'msg.mas';
     my @params = ('msg' => $self->{msg});
-    print EBox::Html::makeHtml($filename, @params);
+    return EBox::Html::makeHtml($filename, @params);
 }
 
 sub _body
 {
-    my $self = shift;
-    defined($self->{template}) or return;
+    my ($self) = @_;
+    return unless (defined $self->{template});
 
     my $filename = $self->{template};
     if (-f (EBox::Config::templates() . "/$filename.custom")) {
@@ -134,7 +149,7 @@ sub _body
         }
 
     }
-    print EBox::Html::makeHtml($filename, @{ $self->{params} });
+    return EBox::Html::makeHtml($filename, @{ $self->{params} });
 }
 
 sub _footer
@@ -151,36 +166,60 @@ sub _print
         return;
     }
 
-    $self->_header;
-    $self->_top;
-    $self->_menu;
-    print "<div id=\"content\">\n";
-    $self->_title;
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print "</div>\n";
-    $self->_footer;
+    my $header = $self->_header;
+    my $top = $self->_top;
+    my $menu = $self->_menu;
+    my $title = $self->_title;
+    my $error = $self->_error;
+    my $msg = $self->_msg;
+    my $body = $self->_body;
+    my $footer = $self->_footer;
+
+    my $output = '';
+    $output .= $header if ($header);
+    $output .= $top if ($top);
+    $output .= $menu if ($menu);
+    $output .= "<div id=\"content\">\n";
+    $output .= $title if ($title);
+    $output .= $error if ($error);
+    $output .= $msg if ($msg);
+    $output .= $body if ($body);
+    $output .= "</div>\n";
+    $output .= $footer if ($footer);
+
+    my $response = $self->response();
+    $response->body($output);
+
 }
 
 # alternative print for CGI runs in popup
-# it hs been to explicitly called instead of
+# it has been to explicitly called instead of
 # the regular print. For example, overlaoding print and calling this
 sub _printPopup
 {
     my ($self) = @_;
+
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
         return;
     }
 
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print '<div>';
-    $self->_error;
-    $self->_msg;
-    $self->_body;
-    print '</div>';
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+
+    my $error = $self->_error;
+    my $msg = $self->_msg;
+    my $body = $self->_body;
+
+    my $output = '';
+    $output .= '<div>';
+    $output .= $error if ($error);
+    $output .= $msg if ($msg);
+    $output .= $body if ($body);
+    $output .= '</div>';
+
+    $response->body($output);
 }
 
 sub _checkForbiddenChars
@@ -240,7 +279,7 @@ sub _requireParamAllowEmpty # (param, display)
 
 sub run
 {
-    my $self = shift;
+    my ($self) = @_;
 
     if (not $self->_loggedIn) {
         $self->{redirect} = "/Login/Index";
@@ -285,18 +324,20 @@ sub run
             }
             my $chain = $classname->new('error' => $self->{error},
                                         'msg' => $self->{msg},
-                                        'cgi' => $self->{cgi});
+                                        'cgi' => $self->{cgi},
+                                        'request' => $self->{request});
             $chain->run;
             return;
         }
     }
 
+    my $request = $self->request();
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
-        my $referer = $ENV{HTTP_REFERER};
+        my $referer = $request->referer();
 
         my ($protocol, $port);
         my $url;
-        my $host = $ENV{HTTP_HOST};
+        my $host = $request->env->{HTTP_HOST};
         if ($> == getpwnam('ebox')) {
             ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
             $url = "$protocol://${host}";
@@ -305,16 +346,11 @@ sub run
             }
             $url .= "/$self->{redirect}";
         } else {
-            if ($ENV{HTTPS} eq 'ON') {
-                $protocol = 'https';
-            } else {
-                $protocol = 'http';
-            }
-
+            $protocol = $request->scheme();
             $url = "$protocol://${host}/" . $self->{redirect};
         }
 
-        print ($self->cgi()->redirect($url));
+        $request->redirect($url);
         return;
     }
 
@@ -323,10 +359,11 @@ sub run
     } catch (EBox::Exceptions::Base $e) {
         $self->setErrorFromException($e);
         $self->_print_error($self->{error});
-    } catch (APR::Error $e) {
-        my $debug = EBox::Config::boolean('debug');
-        my $error = $debug ? $e->confess() : $e->strerror();
-        $self->_print_error($error);
+    # FIXME: Should we just remove this with Apache's mod_perl code removal?
+    #} catch (APR::Error $e) {
+    #    my $debug = EBox::Config::boolean('debug');
+    #    my $error = $debug ? $e->confess() : $e->strerror();
+    #    $self->_print_error($error);
     } catch ($e) {
         my $logger = EBox::logger;
         if (isa_mason_exception($e)) {
@@ -453,6 +490,23 @@ sub keepParam # (param)
 {
     my ($self, $param) = @_;
     push(@{$self->{paramsKept}}, $param);
+}
+
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
+}
+
+sub response
+{
+    my ($self) = @_;
+
+    unless ($self->{response}) {
+        $self->{response} = $self->request()->new_response(200);
+    }
+    return $self->{response};
 }
 
 sub cgi
@@ -666,8 +720,9 @@ sub _validateReferer
         return;
     }
 
-    my $referer = $ENV{HTTP_REFERER};
-    my $hostname = $ENV{HTTP_HOST};
+    my $request = $self->request();
+    my $referer = $request->referer();
+    my $hostname = $request->env->{HTTP_HOST};
 
     my $rshostname = undef;
     if (EBox::Global->modExists('remoteservices')) {
@@ -925,14 +980,16 @@ sub menuNamespace
 sub JSONReply
 {
     my ($self, $data_r) = @_;
-    print $self->cgi()->header(-charset=>'utf-8',
-                              -type => 'application/JSON',
-                             );
+
+    my $response = $self->response();
+    $response->content_type('application/JSON; charset=utf-8');
+
     my $error = $self->{error};
     if ($error and not $data_r->{error}) {
         $data_r->{error} = $error;
     }
-    print JSON::XS->new->encode($data_r);
+
+    $response->body(JSON::XS->new->encode($data_r));
 }
 
 1;

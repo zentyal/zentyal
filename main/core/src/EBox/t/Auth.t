@@ -12,7 +12,6 @@ use lib '../..';
 use EBox::TestStub;
 use EBox::Global::TestStub;
 use EBox::Config::TestStub;
-use Apache2::Connection;
 
 *EBox::Config::modules = sub { return 'core/schemas/'; };
 

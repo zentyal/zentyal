@@ -22,7 +22,6 @@ use EBox::CGI::Run;
 use EBox::Gettext;
 
 use Authen::Simple::PAM;
-use CGI::Emulate::PSGI;
 use Plack::Builder;
 use Plack::Session::Store::File;
 use POSIX qw(:signal_h);
@@ -41,11 +40,10 @@ my $app = sub {
     binmode(STDOUT, ':utf8');
 
     use Data::Dumper;
-    EBox::debug(Dumper(\%ENV));
+    EBox::debug(Dumper($env));
 
-    my $url = $ENV{PATH_INFO};
-    $url =~ s/^\///s;
-    EBox::CGI::Run->run($url);
+    my $req = Plack::Request->new($env);
+    return EBox::CGI::Run->run($req);
 };
 
 builder {
@@ -55,6 +53,6 @@ builder {
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
     enable "+EBox::Middleware::Auth";
-    CGI::Emulate::PSGI->handler($app);
+    $app;
 };
 

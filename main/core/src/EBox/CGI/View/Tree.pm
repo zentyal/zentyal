@@ -53,7 +53,7 @@ sub new
 
 # Method: _header
 #
-#      Overrides to print the page title in the HTML title if defined
+#      Overrides to dump the page title in the HTML title if defined
 #
 # Overrides:
 #
@@ -63,7 +63,8 @@ sub _header
 {
     my ($self) = @_;
 
-    print $self->cgi()->header(-charset=>'utf-8');
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     my $pageTitle;
     try {
         $pageTitle = $self->{model}->pageTitle();
@@ -71,7 +72,7 @@ sub _header
         EBox::error("Cannot get pageTitle for model");
         $pageTitle = '';
     }
-    print EBox::Html::header($pageTitle, $self->menuFolder());
+    return EBox::Html::header($pageTitle, $self->menuFolder());
 }
 
 sub _process

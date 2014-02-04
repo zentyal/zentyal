@@ -20,6 +20,7 @@ package EBox::CGI::ClientBase;
 
 use base 'EBox::CGI::Base';
 
+use EBox::CGI::Run;
 use EBox::Gettext;
 use EBox::Html;
 use EBox::HtmlBlocks;
@@ -74,8 +75,8 @@ sub menuFolder
     my ($self) = @_;
 
     unless ($self->{menuFolder}) {
-        my $url = $ENV{PATH_INFO};
-        $url =~ s/^\///s;
+        my $request = $self->request();
+        my $url = EBox::CGI::Run->urlFromRequest($request);
         my @split = split ('/', $url);
         if (@split) {
             return $split[0];
@@ -89,33 +90,39 @@ sub menuFolder
 
 sub _header
 {
-    my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print(EBox::Html::header($self->{title}, $self->menuFolder()));
+    my ($self) = @_;
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    return EBox::Html::header($self->{title}, $self->menuFolder());
 }
 
 sub _top
 {
-    my $self = shift;
-    print($self->{htmlblocks}->title());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->title();
 }
 
 sub _topNoAction
 {
-    my $self = shift;
-    print($self->{htmlblocks}->titleNoAction());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->titleNoAction();
 }
 
 sub _menu
 {
-    my $self = shift;
-    print($self->{htmlblocks}->menu($self->menuFolder(), $self->{originalUrl}));
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->menu($self->menuFolder(), $self->{originalUrl});
 }
 
 sub _footer
 {
-    my $self = shift;
-    print($self->{htmlblocks}->footer());
+    my ($self) = @_;
+
+    return $self->{htmlblocks}->footer();
 }
 
 1;

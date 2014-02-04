@@ -90,9 +90,9 @@ sub _menu
 
     if (EBox::Global->first()) {
         my $software = EBox::Global->modInstance('software');
-        $software->firstTimeMenu(0);
+        return $software->firstTimeMenu(0);
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
@@ -101,9 +101,9 @@ sub _top
     my ($self) = @_;
 
     if (EBox::Global->first()) {
-        $self->_topNoAction();
+        return $self->_topNoAction();
     } else {
-        $self->SUPER::_top(@_);
+        return $self->SUPER::_top(@_);
     }
 }
 

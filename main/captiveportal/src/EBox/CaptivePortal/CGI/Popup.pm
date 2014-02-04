@@ -43,9 +43,10 @@ sub _print
         $interval = 60;
     }
 
-    print($self->cgi()->header(-charset=>'utf-8'));
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
     $self->{params} = [ interval => $interval ];
-    $self->_body;
+    $response->body($self->_body);
 }
 
 sub _readInterval

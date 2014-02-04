@@ -59,14 +59,14 @@ sub _menu
     my ($self) = @_;
 
     my $software = EBox::Global->modInstance('software');
-    $software->firstTimeMenu(0);
+    return $software->firstTimeMenu(0);
 }
 
 sub _top
 {
     my ($self) = @_;
 
-    $self->_topNoAction();
+    return $self->_topNoAction();
 }
 
 1;

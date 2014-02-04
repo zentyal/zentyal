@@ -41,30 +41,29 @@ my %urlAlias;
 
 # Method: run
 #
-#    Run the given URL and prints out the returned HTML. This is the eBox
+#    Run the given URL and returns the HTML output. This is the Zentyal
 #    Web UI core indeed.
 #
 # Parameters:
 #
-#    url - String the URL to get the CGI from, it will transform
-#    slashes to double colons
-#
+#    request    - Plack::Request object.
 #    htmlblocks - *optional* Custom HtmlBlocks package
 #
 sub run
 {
-    my ($self, $url, $htmlblocks) = @_;
+    my ($self, $request, $htmlblocks) = @_;
 
-    unless (defined $url) {
-        throw EBox::Exceptions::InvalidArgument('url');
+    unless (defined $request) {
+        throw EBox::Exceptions::InvalidArgument('request');
     }
 
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
 
+    my $url = $self->urlFromRequest($request);
     try {
         my $effectiveUrl = _urlAlias($url);
-        my @extraParams;
+        my @extraParams = (request => $request);
         if ($htmlblocks) {
             push (@extraParams, htmlblocks => $htmlblocks);
         }
@@ -91,6 +90,7 @@ sub run
 
         $cgi->run();
         $redis->commit();
+        return $cgi->response()->finalize();
     } catch ($ex) {
         # Base exceptions are already logged, log the rest
         unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
@@ -186,6 +186,16 @@ sub _parseModelUrl
     }
 
     return undef;
+}
+
+sub urlFromRequest
+{
+    my ($self, $request) = @_;
+
+    my $url = $request->path_info();
+    $url =~ s/^\///s;
+
+    return $url;
 }
 
 sub _urlAlias

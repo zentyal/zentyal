@@ -40,14 +40,13 @@ package EBox::CGI::WizardPage;
 
 use base 'EBox::CGI::Base';
 
+use EBox::Exceptions::Base;
+use EBox::Exceptions::DataInUse;
 use EBox::Gettext;
 use EBox::Html;
+
 use HTML::Mason::Exceptions;
-use Apache2::RequestUtil;
 use TryCatch::Lite;
-use HTML::Mason::Exceptions;
-use EBox::Exceptions::DataInUse;
-use EBox::Exceptions::Base;
 
 use constant ERROR_STATUS => '500';
 
@@ -100,8 +99,6 @@ sub _print
 {
     my ($self) = @_;
 
-    $self->_header();
-
     my $json = $self->{json};
     if ($json) {
         $self->JSONReply($json);
@@ -109,7 +106,14 @@ sub _print
     }
 
     if ($self->{cgi}->request_method() eq 'GET') {
-        $self->_body();
+        my $header = $self->_header();
+        my $body = $self->_body();
+        my $output = '';
+        $output .= $header if ($header);
+        $output .= $body if ($body);
+
+        my $response = $self->response();
+        $response->body($output);
     }
 }
 
@@ -128,12 +132,12 @@ sub _print_error
     $text or return;
     ($text ne "") or return;
 
+    my $response = $self->response();
     # We send a ERROR_STATUS code. This is necessary in order to trigger
     # onFailure functions on Ajax code
-    my $r = Apache2::RequestUtil->request();
-    $r->status(ERROR_STATUS);
-    $r->subprocess_env('suppress-error-charset' => 1) ;
-    $r->custom_response(ERROR_STATUS, $text);
+    $response->status(ERROR_STATUS);
+    $response->header('suppress-error-charset' => 1);
+    $response->body($text);
 }
 
 sub run
@@ -182,7 +186,9 @@ sub _title
 sub _header
 {
     my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
 }
 
 sub _footer

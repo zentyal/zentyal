@@ -41,8 +41,9 @@ sub new # (error=?, msg=?, cgi=?)
 sub _print
 {
     my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->_body;
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process
@@ -52,8 +53,9 @@ sub _process
     my $authreason;
     my $session = {};
 
-    if (exists $ENV{'zentyal.session'}) {
-        $session = $ENV{'zentyal.session'};
+    my $request = $self->request();
+    if (exists $request->env->{'zentyal.session'}) {
+        $session = $request->env->{'zentyal.session'};
     }
     if (exists $session->{AuthReason}){
         $authreason = delete $session->{AuthReason};
