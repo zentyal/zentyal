@@ -1,4 +1,5 @@
 HEAD
+	+ Updated to use the new haproxy API
 	+ Removed code made dead by new managament of DHCP nameservers
 3.2.1
 	+ Added missing EBox::Exceptions uses
