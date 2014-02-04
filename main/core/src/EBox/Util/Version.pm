@@ -42,8 +42,12 @@ sub compare
 {
     my ($v1, $v2) = @_;
 
-    my @v1 = split(/\./, $v1);
-    my @v2 = split(/\./, $v2);
+    my @v1sub = split(/\~/, $v1);
+    my @v2sub = split(/\~/, $v2);
+
+    my @v1 = split(/\./, $v1sub[0]);
+    my @v2 = split(/\./, $v2sub[0]);
+
 
     my $min_len;
     if (scalar(@v1) < scalar(@v2)) {
@@ -54,9 +58,15 @@ sub compare
 
     for (my $i = 0; $i < $min_len; $i++) {
         my $cmp = ($v1[$i] <=> $v2[$i]);
-        $cmp and return $cmp;
+        return $cmp if ($cmp);
     }
-    return (scalar(@v1) <=> scalar(@v2));
+    if ((scalar(@v1sub) == 1) and (scalar(@v2sub) == 1)) {
+        return (scalar(@v1) <=> scalar(@v2));
+    } elsif (scalar(@v1sub) != scalar(@v2sub)) {
+        return (scalar(@v2sub) <=> scalar(@v1sub));
+    } else {
+        return ($v1sub[1] <=> $v2sub[1]);
+    }
 }
 
 1;

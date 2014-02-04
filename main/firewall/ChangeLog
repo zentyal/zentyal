@@ -1,4 +1,5 @@
 3.4
+	+ Updated to use the new haproxy API
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 	+ Removed code made dead by new managament of DHCP nameservers
