@@ -1,6 +1,8 @@
 3.4
 	+ Notify HA when a module which must have a single instance in the
 	  cluster is enabled/disabled.
+	+ Added enabled action to /etc/init.d/zentyal to display whether a
+	  module is enabled or disabled
 	+ Pass model, type and id to enabled subroutine in
 	  EBox::Types::MultiStateAction to be ortoghonal to handler property
 	+ Fixed JS error on showing errors in customActionClicked
