@@ -1,4 +1,6 @@
 3.4
+	+ Notify HA when a module which must have a single instance in the
+	  cluster is enabled/disabled.
 	+ Pass model, type and id to enabled subroutine in
 	  EBox::Types::MultiStateAction to be ortoghonal to handler property
 	+ Fixed JS error on showing errors in customActionClicked
