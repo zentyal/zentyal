@@ -1,3 +1,5 @@
+HEAD
+	+ Fix regression hiding from module status
 3.2.4
 	+ Hide openchange service status from the dashboard and linked it status
 	  to the one from Samba
