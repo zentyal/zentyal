@@ -56,6 +56,7 @@ use constant {
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
+my @SINGLE_INSTANCE_MODULES = qw(dhcp);
 
 # Constructor: _create
 #
@@ -149,6 +150,24 @@ sub usedFiles
          'reason' => __('To start corosync at boot'),
          'module' => 'ha' },
     ];
+}
+
+# Method: setIfSingleInstanceModule
+#
+#     Set the module as changed if the given module is in the list of
+#     modules which must have a single instance in the cluster
+#
+# Parameters:
+#
+#     moduleName - String the module name
+#
+sub setIfSingleInstanceModule
+{
+    my ($self, $moduleName) = @_;
+
+    if ($moduleName ~~ @SINGLE_INSTANCE_MODULES) {
+        $self->setAsChanged();
+    }
 }
 
 # Method: clusterBootstraped
@@ -575,7 +594,7 @@ sub _postServiceHook
     }
 
     $self->_setFloatingIPRscs();
-
+    $self->_setSingleInstanceInClusterModules();
 }
 
 # Group: subroutines
@@ -981,6 +1000,14 @@ sub _initialClusterOperations
                      'crm_attribute --type rsc_defaults --attr-name resource-stickiness --attr-value ' . RESOURCE_STICKINESS);
 }
 
+# Get the current resources configuration from cibadmin
+sub _rscsConf
+{
+    my $output = EBox::Sudo::root('cibadmin --query --scope resources');
+    my $outputStr = join('', @{$output});
+    return XML::LibXML->load_xml(string => $outputStr);
+}
+
 # Set the floating IP resources
 #
 #  * Add new floating IP addresses
@@ -993,12 +1020,10 @@ sub _setFloatingIPRscs
     my $rsc = $self->floatingIPs();
 
     # Get the resource configuration from the cib directly
-    my $output = EBox::Sudo::root('cibadmin --query --scope resources');
-    my $outputStr = join('', @{$output});
-    my $dom =  XML::LibXML->load_xml(string => $outputStr);
+    my $dom = $self->_rscsConf();
     my @ipRscElems = $dom->findnodes('//primitive[@type="IPaddr2"]');
 
-    # For ease existence checking
+    # For ease to existence checking
     my %currentRscs = map { $_->getAttribute('id') => $_->findnodes('//nvpair[@name="ip"]')->get_node(1)->getAttribute('value') } @ipRscElems;
     my %finalRscs = map { $_->{name} => $_->{address} } @{$rsc};
 
@@ -1035,6 +1060,50 @@ sub _setFloatingIPRscs
         }
     }
 
+    if (@rootCmds > 0) {
+        EBox::Sudo::root(@rootCmds);
+    }
+}
+
+# Set up and down the modules with a single instance in the cluster
+sub _setSingleInstanceInClusterModules
+{
+    my ($self) = @_;
+
+    my $dom = $self->_rscsConf();
+    my @zentyalRscElems = $dom->findnodes('//primitive[@type="Zentyal"]');
+
+    # For ease to existence checking
+    my %currentRscs = map { $_->getAttribute('id') => 1 } @zentyalRscElems;
+
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    my $activeNode = EBox::HA::CRMWrapper::activeNode();
+
+    my @rootCmds;
+    foreach my $modName (@SINGLE_INSTANCE_MODULES) {
+        my $mod = $self->global()->modInstance($modName);
+        if (defined($mod) and $mod->configured()) {
+            if ($mod->isEnabled()) {
+                unless (exists $currentRscs{$modName}) {
+                    push(@rootCmds,
+                         "crm -w configure primitive '$modName' ocf:zentyal:Zentyal params module_name='$modName'");
+                    if ($activeNode ne $localNode) {
+                        push(@rootCmds,
+                             "crm_resource --resource '$modName' --move --host '$activeNode'",
+                             "sleep 3",
+                             "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                    }
+                }
+            } else {
+                if (exists $currentRscs{$modName}) {
+                    push(@rootCmds,
+                         "crm -w resource stop '$modName'",
+                         "crm configure delete '$modName'");
+                }
+            }
+        }
+    }
     if (@rootCmds > 0) {
         EBox::Sudo::root(@rootCmds);
     }
