@@ -3,6 +3,8 @@
 	  EBox::Types::MultiStateAction to be ortoghonal to handler property
 	+ Fixed JS error on showing errors in customActionClicked
 	+ Fixed rethrown of exception in restartService() method
+	+ Give support to custom actions without image. Those actions will
+	  not appear in the legend.
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost

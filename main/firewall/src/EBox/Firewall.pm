@@ -104,7 +104,7 @@ sub initialSetup
 
     # Create default rules only if installing the first time
     unless ($version) {
-        $self->setInternalService('administration', 'accept');
+        $self->setInternalService('zentyal_webadmin', 'accept');
         $self->setInternalService('ssh', 'accept');
 
         my $services = EBox::Global->modInstance('services');
