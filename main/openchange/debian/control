@@ -13,7 +13,6 @@ Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
          openchange-ocsmanager (>= 1:2.0-2~20140205-1),
          openchange-rpcproxy, libstring-random-perl,
          sogo-openchange (>= 2.1.0-zentyal6),
-         sope4.9-gdl1-mysql (>= 4.9-zentyal1),
          libuuid-tiny-perl, libanyevent-perl,
          libanyevent-rabbitmq-perl, libnet-rabbitfoot-perl,
          librabbitmq1, rabbitmq-server, zoctools (>= 0.1-4), ${misc:Depends}
