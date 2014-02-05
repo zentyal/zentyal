@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::Configuration;
+package EBox::HA::Composite::General;
 
 use base 'EBox::Model::Composite';
 
@@ -36,10 +36,13 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        layout          => 'top-bottom',
-        printableName   => 'Cluster configuration',
+        components      => ['Configuration', 'Status'],
+        layout          => 'tabbed',
+        pageTitle       => __('High Availability'),
         compositeDomain => 'ha',
-        name            => 'Configuration',
+        name            => 'General',
+        help            => __('Here you can configure all the settings ' .
+                              'related to the HA Cluster configuration'),
     };
 
     return $description;
