@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::HA::Model::NodeStatus;
 
-# Class: EBox::HA::Model::Nodes
+# Class: EBox::HA::Model::NodeStatus
 #
 #     Model to show the state of the cluster's nodes
 #
@@ -42,7 +42,6 @@ sub new
     my $self = $class->SUPER::new(@_);
     bless($self, $class);
 
-    $self->{list} = new EBox::HA::NodeList($self->parentModule());
     $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->parentModule());
 
     return $self;
