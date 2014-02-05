@@ -93,6 +93,18 @@ sub _create
     return $self;
 }
 
+# Method: mailUser
+#
+#  returns the MailUser object
+#
+# Return:
+#   EBox::MailAliasLdap
+sub mailUser
+{
+    my ($self) = @_;
+    return $self->{musers};
+}
+
 # Method: greylist
 #
 #   return the greylist object

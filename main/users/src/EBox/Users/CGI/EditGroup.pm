@@ -87,21 +87,21 @@ sub _process
         $group->save();
 
         $self->{json}->{success}  = 1;
+        $self->{json}->{type} = ($type eq 'security') ? 'group' : 'dgroup';
         $self->{json}->{msg} = __('Group updated');
     } elsif ($self->param('addusertogroup')) {
         $self->{json} = { success => 0 };
         $self->_requireParam('adduser', __('user'));
         my @users = $self->unsafeParam('adduser');
-
-        foreach my $us (@users) {
-            $group->addMember(new EBox::Users::User(uid => $us));
+        foreach my $uid (@users) {
+            $group->addMember(EBox::Users::User->new(uid => $uid));
         }
         $self->{json}->{success}  = 1;
     } elsif ($self->param('deluserfromgroup')) {
         $self->{json} = { success => 0 };
+
         $self->_requireParam('deluser', __('user'));
         my @users = $self->unsafeParam('deluser');
-
         foreach my $us (@users) {
             $group->removeMember(new EBox::Users::User(uid => $us));
         }
@@ -111,9 +111,29 @@ sub _process
              success => 1,
              member =>   [ map { $_->name } @{ $grpusers }],
              noMember => [ map { $_->name } @{ $remainusers }],
+             groupEmpty => @{ $grpusers } == 0,
+             usersWithMail => $self->_usersWithMail($grpusers),
              groupDN => $dn,
            };
     }
+}
+
+sub _usersWithMail
+{
+    my ($self, $users) = @_;
+    my $mail =  EBox::Global->modInstance('mail');
+    if ((not $mail) or (not $mail->configured())) {
+        return 0;
+    }
+
+    my $mailUser = $mail->mailUser();
+    foreach my $user (@{ $users }) {
+        if ($mailUser->userAccount($user)) {
+            return 1;
+        }
+    }
+
+    return 0;
 }
 
 1;
