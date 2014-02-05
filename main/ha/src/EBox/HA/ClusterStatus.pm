@@ -94,6 +94,63 @@ sub getResources
     return $_resources;
 }
 
+# Function: nodeByName
+#
+# Parameters:
+#   name - The name of the node it will return
+#
+# Returns:
+#
+#   Hash - The cluster node
+#
+sub nodeByName
+{
+    my ($self, $name) = @_;
+
+    my %nodes = %{ $_nodes };
+    if (exists($nodes{$name})) {
+        return $nodes{$name};
+    }
+
+    throw EBox::Exceptions::Internal("There is no node with the name: $name");
+}
+
+# Function: nodeById
+#
+# Parameters:
+#   id - The id of the node it will return
+#
+# Returns:
+#
+#   Hash - The cluster node
+#
+sub nodeById
+{
+    my ($self, $id) = @_;
+
+    my %nodes = %{$_nodes};
+
+    foreach my $key (keys %nodes) {
+        if ($nodes{$key}{'id'} == $id) {
+            return $nodes{$key};
+        }
+    }
+
+    throw EBox::Exceptions::Internal("There is no node with the id: $id");
+}
+# Function: getResources
+#
+# Returns:
+#
+#   Hash ref - The cluster resources
+#
+sub getResources
+{
+    my ($self) = @_;
+
+    return $_resources;
+}
+
 # Function: numberOfResources
 #
 # Returns:

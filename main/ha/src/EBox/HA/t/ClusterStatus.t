@@ -110,6 +110,23 @@ sub test_status_summary : Test(7)
     cmp_ok($summary{'designated_controller_name'}, 'eq', 'perra-vieja', 'DC ( internal )');
 }
 
+sub test_status_search : Test(4)
+{
+    my ($self) = @_;
+
+    my $clusterStatus = $self->{clusterStatus};
+
+    my %node = %{ $clusterStatus->nodeByName('mega-cow') };
+    cmp_ok($node{'name'}, 'eq', 'mega-cow', 'Searching by name');
+    %node = %{ $clusterStatus->nodeByName('mini-fox') };
+    cmp_ok($node{'name'}, 'eq', 'mini-fox', 'Searching by name (2)');
+
+    %node = %{ $clusterStatus->nodeById(1) };
+    cmp_ok($node{'name'}, 'eq', 'mega-cow', 'Searching by id');
+    %node = %{ $clusterStatus->nodeById(2) };
+    cmp_ok($node{'name'}, 'eq', 'mini-fox', 'Searching by id (2)');
+}
+
 sub test_status_print : Test(2)
 {
     my ($self) = @_;
