@@ -248,14 +248,18 @@ sub _logout
         my $ip = $env->{'REMOTE_ADDR'};
         my $user = $env->{'psgix.session'}{user_id};
         $audit->logSessionEvent($user, $ip, 'logout');
+        my $ret = $self->app->($env);
         _cleansession($env);
+        return $ret;
+    } else {
+        # The workflow has been manipulated to reach this form, ignore it and redirect to the main page.
+        my $redir_to = '/';
+        return [
+            303,
+            [Location => $redir_to],
+            ["<html><body><a href=\"$redir_to\">Back</a></body></html>"]
+        ];
     }
-    my $redir_to = 'Login/Index';
-    return [
-        303,
-        [Location => $redir_to],
-        ["<html><body><a href=\"$redir_to\">Back</a></body></html>"]
-    ];
 }
 
 # Method: call
@@ -270,14 +274,11 @@ sub call
 
     my $path = $env->{PATH_INFO};
 
-    # Workaround to be able to use Plack Session middleware with our Login
-    # and Logout forms until we are a real Plack application.
-    $env->{'zentyal.session'} = $env->{'psgix.session'};
-
     if ($path eq '/Login/Index') {
         $self->_login($env);
-    } elsif ($path eq '/Logout/Index') {
     } elsif ($path eq '/Logout/Logout') {
+        # We get here from Logout/Index, once the logout is confirmed.
+        $self->_logout($env);
     } elsif ($self->_validateSession($env)) {
         delete $env->{'psgix.session'}{AuthReason};
         return $self->app->($env);
