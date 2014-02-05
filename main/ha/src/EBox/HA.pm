@@ -549,7 +549,7 @@ sub userSecret
     my ($self) = @_;
 
     if ($self->clusterBootstraped()) {
-        return $self->get_state()->{cluster_conf}->{secret};
+        return $self->model('Cluster')->secretValue();
     }
     return undef;
 }
@@ -754,7 +754,7 @@ sub _corosyncSetConf
                 $self->set_state($state);
             }
             when ('join') {
-                $self->_join($clusterSettings, $localNodeAddr, $hostname);
+                $self->_join($clusterSettings, $localNodeAddr, $hostname, $clusterSettings->secretValue());
             }
         }
     }
@@ -819,10 +819,11 @@ sub _bootstrap
     $state->{cluster_conf}->{transport} = $transport;
     $state->{cluster_conf}->{multicast} = $multicastConf;
 
-    $state->{cluster_conf}->{secret} = EBox::Util::Random::generate(8,
-                                                                    [split(//, 'abcdefghijklmnopqrstuvwxyz'
-                                                                             . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
-                                                                             . '0123456789')]);
+    $self->model('Cluster')->setValue('secret',
+                                      EBox::Util::Random::generate(8,
+                                                                   [split(//, 'abcdefghijklmnopqrstuvwxyz'
+                                                                            . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                                                                            . '0123456789')]));
 
     # Finally, store it in Redis
     $self->set_state($state);
@@ -839,6 +840,7 @@ sub _bootstrap
 #    clusterSettings : the cluster configuration settings model
 #    localNodeAddr: the local node address
 #    hostname: the local hostname
+#    userSecret: the user secret
 # Actions:
 #  * Get the configuration from the cluster
 #  * Notify for adding ourselves in the cluster
@@ -847,7 +849,7 @@ sub _bootstrap
 #  * Store cluster name and configuration
 sub _join
 {
-    my ($self, $clusterSettings, $localNodeAddr, $hostname) = @_;
+    my ($self, $clusterSettings, $localNodeAddr, $hostname, $userSecret) = @_;
 
     my $row = $clusterSettings->row();
     my $client = new EBox::RESTClient(server => $row->valueByName('zentyal_host'));
