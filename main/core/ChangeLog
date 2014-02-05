@@ -1,4 +1,5 @@
 3.4
+	+ EBox::Util::Random now accepts a set of chars to have a random string
 	+ Notify HA when a module which must have a single instance in the
 	  cluster is enabled/disabled.
 	+ Added enabled action to /etc/init.d/zentyal to display whether a
