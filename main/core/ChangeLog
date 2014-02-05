@@ -1,4 +1,5 @@
 HEAD
+	+ EBox::Util::Version support now '~' character as version separator
 	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 3.2.7

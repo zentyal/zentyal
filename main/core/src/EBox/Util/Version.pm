@@ -42,8 +42,8 @@ sub compare
 {
     my ($v1, $v2) = @_;
 
-    my @v1 = split(/\./, $v1);
-    my @v2 = split(/\./, $v2);
+    my @v1 = split(/[.~]/, $v1);
+    my @v2 = split(/[.~]/, $v2);
 
     my $min_len;
     if (scalar(@v1) < scalar(@v2)) {
