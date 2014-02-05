@@ -56,7 +56,7 @@ sub templateContext
         metadata => [
             # name => value
             [ __('Cluster name')   => $self->parentModule()->model('Cluster')->nameValue()],
-            [ __('Cluster secret') => 'raro'],
+            [ __('Cluster secret') => $self->parentModule()->userSecret()],
             [ __('Current DC')     => EBox::HA::CRMWrapper::currentDCNode()],
            ],
         help => __('DC is the Designated Controller to perform the operations in the cluster. This node may change and has no impact in the cluster.'),

@@ -34,6 +34,7 @@ use feature qw(switch);
 use Data::Dumper;
 use EBox::Config;
 use EBox::Exceptions::DataNotFound;
+use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
@@ -41,6 +42,7 @@ use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
+use EBox::Util::Random;
 use JSON::XS;
 use File::Temp;
 use File::Slurp;
@@ -51,6 +53,7 @@ use XML::LibXML;
 use constant {
     COROSYNC_CONF_FILE    => '/etc/corosync/corosync.conf',
     COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
+    COROSYNC_AUTH_FILE    => '/etc/corosync/authkey',
     DEFAULT_MCAST_PORT    => 5405,
     RESOURCE_STICKINESS   => 100,
 };
@@ -197,6 +200,7 @@ sub clusterBootstraped
 #        - transport: String 'udp' for multicast and 'udpu' for unicast
 #        - multicastConf: Hash ref with addr, port and expected_votes as keys
 #        - nodes: Array ref the node list including IP address, name and webadmin port
+#        - auth: String of bytes with the secret
 #
 #     Empty hash ref if the cluster is not bootstraped.
 #
@@ -214,11 +218,25 @@ sub clusterConfiguration
         } elsif ($transport eq 'udpu') {
             $multicastConf = {};
         }
+
+        # Auth is a set of bytes
+        my $auth;
+        try {
+            # Quickie & dirty
+            EBox::Sudo::root('chown ebox:ebox ' . COROSYNC_AUTH_FILE);
+            $auth = File::Slurp::read_file(COROSYNC_AUTH_FILE);
+        } catch ($e) {
+            EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
+            throw EBox::Exceptions::Internal("Cannot read auth file: $e");
+        }
+        EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
+
         return {
             name          => $self->model('Cluster')->nameValue(),
             transport     => $transport,
             multicastConf => $multicastConf,
-            nodes         => $nodeList
+            nodes         => $nodeList,
+            auth          => $auth,
         };
     } else {
         return {};
@@ -321,10 +339,6 @@ sub addNode
 #    params - <Hash::MultiValue> containing the node to delete in the
 #             key 'name'
 #
-# Returns:
-#
-#     Array ref - See <EBox::HA::NodeList::list> for details
-#
 sub deleteNode
 {
     my ($self, $params) = @_;
@@ -333,7 +347,13 @@ sub deleteNode
 
     # TODO: Check incoming data
     my $list = new EBox::HA::NodeList($self);
-    my $deletedNode = $list->node($params->{name});
+    my $deletedNode;
+    try {
+        $deletedNode = $list->node($params->{name});
+    } catch (EBox::Exceptions::DataNotFound $e) {
+        EBox::warn('Node ' . $params->{name} . ' is not in our list to delete it');
+        return;
+    }
     $list->remove($params->{name});
 
     # Write corosync conf
@@ -514,6 +534,24 @@ sub updateClusterConfiguration
             }
         }
     }
+}
+
+# Method: userSecret
+#
+# Returns:
+#
+#     String - the user secret to enter to join to this cluster
+#
+#     undef - if the cluster is not bootstraped
+#
+sub userSecret
+{
+    my ($self) = @_;
+
+    if ($self->clusterBootstraped()) {
+        return $self->get_state()->{cluster_conf}->{secret};
+    }
+    return undef;
 }
 
 # Group: Protected methods
@@ -781,8 +819,16 @@ sub _bootstrap
     $state->{cluster_conf}->{transport} = $transport;
     $state->{cluster_conf}->{multicast} = $multicastConf;
 
+    $state->{cluster_conf}->{secret} = EBox::Util::Random::generate(8,
+                                                                    [split(//, 'abcdefghijklmnopqrstuvwxyz'
+                                                                             . 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                                                                             . '0123456789')]);
+
     # Finally, store it in Redis
     $self->set_state($state);
+
+    # Create and store the private key in /etc/corosync/authfile
+    EBox::Sudo::root('corosync-keygen -l');
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
@@ -818,6 +864,8 @@ sub _join
                       addr => $localNodeAddr,
                       webAdminPort => 443 };
 
+    $self->_storeAuthFile($clusterConf->{auth});
+
     $response = $client->POST('/cluster/nodes',
                               query => $localNode);
 
@@ -841,6 +889,18 @@ sub _join
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Store the set of bytes to the auth file
+sub _storeAuthFile
+{
+    my ($self, $auth) = @_;
+
+    my $tmpFile = new File::Temp(DIR => EBox::Config::tmp());
+    print $tmpFile $auth;
+    close($tmpFile);
+    EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . $tmpFile->filename()
+                     . ' ' . COROSYNC_AUTH_FILE);
 }
 
 # Notify the leave to a member of the cluster

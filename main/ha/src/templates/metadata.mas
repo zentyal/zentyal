@@ -15,6 +15,6 @@ This template is for showing the cluster metadata info
      <span class="info-value"><% $pair->[1] %></span>
    </div>
 % }
-  <a href="/HA/LeaveCluster" class="btn btn-black force-right"
+    <a href="/HA/LeaveCluster" class="btn btn-black force-right"
      title="<% __('Leave Cluster') %>"><% __('Leave Cluster') %></a>
 </div>
