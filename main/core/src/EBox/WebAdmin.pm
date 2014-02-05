@@ -941,7 +941,7 @@ sub _migrateTo34
         my @keysToRemove = ('webadmin/conf/AdminPort/keys/form', 'webadmin/ro/AdminPort/keys/form');
         $redis->unset(@keysToRemove);
     } else {
-        # This case should not happen, but it's added just as a sanity help.
+        # This case happens when there is no modification on WebAdmin
         my @args = ();
         push (@args, modName        => $self->name);
         push (@args, sslPort        => $self->defaultHAProxySSLPort());
