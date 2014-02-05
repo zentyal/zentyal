@@ -54,8 +54,8 @@ sub _process
     my $session = {};
 
     my $request = $self->request();
-    if (exists $request->env->{'zentyal.session'}) {
-        $session = $request->env->{'zentyal.session'};
+    if (exists $request->env->{'psgix.session'}) {
+        $session = $request->env->{'psgix.session'};
     }
     if (exists $session->{AuthReason}){
         $authreason = delete $session->{AuthReason};
