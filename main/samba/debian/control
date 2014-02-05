@@ -10,7 +10,7 @@ Vcs-Git: git://git.zentyal.org/zentyal.git
 
 Package: zentyal-samba
 Architecture: all
-Pre-Depends: mysql-server, samba4
+Pre-Depends: mysql-server, samba
 Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
          zentyal-network, zentyal-firewall, zentyal-users, zentyal-dns,
          rsync, acl, libdate-calc-perl, libnet-dns-perl,
