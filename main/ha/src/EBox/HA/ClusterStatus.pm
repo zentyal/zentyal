@@ -94,6 +94,27 @@ sub getResources
     return $_resources;
 }
 
+# Function: resourceByName
+#
+# Parameters:
+#   name - The name of the resource it will return
+#
+# Returns:
+#
+#   Hash - The cluster resource
+#
+sub resourceByName
+{
+    my ($self, $name) = @_;
+
+    my %resources = %{ $_resources };
+    if (exists($resources{$name})) {
+        return $resources{$name};
+    }
+
+    throw EBox::Exceptions::Internal("There is no resource with the name: $name");
+}
+
 # Function: nodeByName
 #
 # Parameters:
