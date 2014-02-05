@@ -12,7 +12,11 @@ models:
     - ClusterMetadata
     - ClusterState
     - Nodes
+    - NodeStatus
+    - ResourceStatus
 
 composites:
     Initial: [Cluster, FloatingIP]
+    General: [Configuration, Status]
+    Status: [NodeStatus, ResourceStatus]
     Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]
