@@ -1,5 +1,5 @@
 HEAD
-	+ Add purge-module script to remove openchange.ldb archive
+	+ Clean all previous data before enabling the module
 3.2.5
 	+ Fix regression hiding from module status
 3.2.4
