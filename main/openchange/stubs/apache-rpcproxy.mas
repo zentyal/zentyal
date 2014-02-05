@@ -1,0 +1,19 @@
+<%args>
+  $rpcproxyAuthCacheDir
+</%args>
+## The extremely high timeout is required by outlook
+KeepAliveTimeout 120
+
+WSGILazyInitialization On
+WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
+
+<Directory /opt/samba4/lib/openchange/web/rpcproxy/>
+  SetEnv RPCPROXY_LOGLEVEL INFO
+  SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
+  SetEnv SAMBA_HOST 127.0.0.1
+  WSGIPassAuthorization On
+  WSGIProcessGroup %{GLOBAL}
+</Directory>
+
+WSGIScriptAlias /rpc/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi

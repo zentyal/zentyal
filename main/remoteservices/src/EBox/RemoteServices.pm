@@ -2073,7 +2073,7 @@ sub _reportAdminPort
     my $gl = EBox::Global->getInstance(1);
     my $webAdminMod = $gl->modInstance('webadmin');
 
-    $self->reportAdminPort($webAdminMod->port());
+    $self->reportAdminPort($webAdminMod->usedHAProxySSLPort());
 }
 
 # Method: extraSudoerUsers
