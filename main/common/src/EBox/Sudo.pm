@@ -173,8 +173,9 @@ sub silentRoot
 
 sub _procname
 {
-    $url = $ENV{PATH_INFO};
-    $url =~ s/^\///s;
+    # FIXME: We should stop using $ENV at some point...
+    my $url = $ENV{PATH_INFO};
+    $url =~ s/^\///s if ($url);
     return $url ? "$0 $url" : @ARGV ? "$0 @ARGV" : $0;
 }
 
