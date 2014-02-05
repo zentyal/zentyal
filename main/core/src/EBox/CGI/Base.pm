@@ -332,6 +332,7 @@ sub run
     }
 
     my $request = $self->request();
+    my $response = $self->response();
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
         my $referer = $request->referer();
 
@@ -350,7 +351,7 @@ sub run
             $url = "$protocol://${host}/" . $self->{redirect};
         }
 
-        $request->redirect($url);
+        $response->redirect($url);
         return;
     }
 
@@ -507,6 +508,25 @@ sub response
         $self->{response} = $self->request()->new_response(200);
     }
     return $self->{response};
+}
+
+# Method: user
+#
+#   Return the logged in user
+#
+# Returns:
+#   string - The user logged in the webadmin or undef.
+#
+sub user
+{
+    my ($self) = @_;
+
+    my $request = $self->request();
+    if (exists $env->{'psgix.session'}{user_id}) {
+        return $env->{'psgix.session'}{user_id}
+    } else {
+        return undef;
+    }
 }
 
 sub cgi

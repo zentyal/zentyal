@@ -2533,7 +2533,8 @@ sub pageSize
     my ($self) = @_;
 
     # if the user has selected a page size return it
-    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
+    my $user = $self->_mainController()->user();
+    my $pageSize = EBox::WebAdmin::UserConfiguration::get($user, $self->contextName() .'pageSize');
     if ($pageSize) {
         return $pageSize;
     }
@@ -2605,7 +2606,8 @@ sub setPageSize
                                            )
     }
 
-    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
+    my $user = $self->_mainController()->user();
+    EBox::WebAdmin::UserConfiguration::set($user, $self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS
