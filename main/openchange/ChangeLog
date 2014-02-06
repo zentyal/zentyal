@@ -1,4 +1,5 @@
 3.4
+	+ Remove obsolete sope dependency
 	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
