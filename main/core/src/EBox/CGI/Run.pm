@@ -68,9 +68,9 @@ sub run
             push (@extraParams, htmlblocks => $htmlblocks);
         }
 
-        my $cgi = $self->_instanceModelCGI($effectiveUrl, @extraParams);
+        my $handler = $self->_instanceModelCGI($effectiveUrl, @extraParams);
 
-        unless ($cgi) {
+        unless ($handler) {
             my $classname = $self->urlToClass($effectiveUrl);
             eval "use $classname";
 
@@ -78,19 +78,19 @@ sub run
                 my $log = EBox::logger();
                 $log->error("Unable to load CGI: URL=$effectiveUrl CLASS=$classname ERROR: $@");
 
-                my $error_cgi = 'EBox::SysInfo::CGI::PageNotFound';
-                eval "use $error_cgi";
-                $cgi = new $error_cgi(@extraParams);
+                my $error_handler = 'EBox::SysInfo::CGI::PageNotFound';
+                eval "use $error_handler";
+                $handler = new $error_handler(@extraParams);
             } else {
-                $cgi = new $classname(@extraParams);
+                $handler = new $classname(@extraParams);
             }
         }
 
-        $cgi->{originalUrl} = $url;
+        $handler->{originalUrl} = $url;
 
-        $cgi->run();
+        $handler->run();
         $redis->commit();
-        return $cgi->response()->finalize();
+        return $handler->response()->finalize();
     } catch ($ex) {
         # Base exceptions are already logged, log the rest
         unless (ref ($ex) and $ex->isa('EBox::Exceptions::Base')) {
@@ -192,7 +192,7 @@ sub urlFromRequest
 {
     my ($self, $request) = @_;
 
-    my $url = $request->path_info();
+    my $url = $request->path();
     $url =~ s/^\///s;
 
     return $url;
@@ -243,7 +243,7 @@ sub _instanceModelCGI
 {
     my ($self, $url, @extraParams) = @_;
 
-    my ($cgi, $menuNamespace) = (undef, undef);
+    my ($handler, $menuNamespace) = (undef, undef);
 
     my ($modelName, $namespace, $type, $action) = _parseModelUrl($url);
 
@@ -258,32 +258,34 @@ sub _instanceModelCGI
     if ($model) {
         $menuNamespace = $model->menuNamespace();
         if ($type eq 'View') {
-            $cgi = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
+            $handler = EBox::CGI::View::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Tree' or $type eq 'Template') {
-            $cgi = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace, @extraParams);
+            $handler = EBox::CGI::View::Tree->new('model' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Controller') {
-            $cgi = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
+            $handler = EBox::CGI::Controller::DataTable->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'ModalController') {
-            $cgi = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
+            $handler = EBox::CGI::Controller::Modal->new('tableModel' => $model, 'namespace' => $namespace, @extraParams);
         } elsif ($type eq 'Composite') {
             if (defined ($action)) {
-                $cgi = new EBox::CGI::Controller::Composite(composite => $model,
-                                                            action    => $action,
-                                                            namespace => $namespace,
-                                                            @extraParams);
+                $handler = new EBox::CGI::Controller::Composite(
+                    composite => $model,
+                    action    => $action,
+                    namespace => $namespace,
+                    @extraParams);
             } else {
-                $cgi = new EBox::CGI::View::Composite(composite => $model,
-                                                      namespace => $namespace,
-                                                      @extraParams);
+                $handler = new EBox::CGI::View::Composite(
+                    composite => $model,
+                    namespace => $namespace,
+                    @extraParams);
             }
         }
 
-        if (defined ($cgi) and defined ($menuNamespace)) {
-            $cgi->setMenuNamespace($menuNamespace);
+        if (defined ($handler) and defined ($menuNamespace)) {
+            $handler->setMenuNamespace($menuNamespace);
         }
     }
 
-    return $cgi;
+    return $handler;
 }
 
 1;
