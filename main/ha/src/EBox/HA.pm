@@ -44,6 +44,7 @@ use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
 use EBox::Util::Random;
+use EBox::Validate;
 use JSON::XS;
 use File::Temp;
 use File::Slurp;
@@ -280,13 +281,28 @@ sub nodes
 #     params - <Hash::MultiValue>, see <EBox::HA::NodeList::set> for details
 #     body   - Decoded content from JSON request
 #
+# Exceptions:
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any mandatory param is missing
+#     <EBox::Exceptions::InvalidData> - thrown if any params data is invalid
+#
 sub addNode
 {
     my ($self, $params, $body) = @_;
 
     EBox::info('Add node (params): ' . Dumper($params));
 
-    # TODO: Check incoming data
+    # Validation
+    foreach my $paramName (qw(name addr webAdminPort)) {
+        unless (exists $params->{$paramName}) {
+            throw EBox::Exceptions::MissingArgument($paramName);
+        }
+    }
+    EBox::Validate::checkDomainName($params->{name}, 'name');
+    EBox::Validate::checkIP($params->{addr}, 'addr');
+    EBox::Validate::checkPort($params->{webAdminPort}, 'webAdminPort');
+
+    # Start to add
     my $list = new EBox::HA::NodeList($self);
     $params->{localNode} = 0;  # Local node is always set manually
     $list->set(%{$params});
@@ -1008,7 +1024,6 @@ sub _notifyClusterConfChange
             $client->setPort(5000);  # TODO: Use real port
             # FIXME: Delete this line and not verify servers when using HAProxy
             $client->setScheme('http');
-            # TODO: Add secret
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
             my $JSONConf = new JSON::XS()->utf8()->encode($conf);
             my $response = $client->PUT('/cluster/configuration',

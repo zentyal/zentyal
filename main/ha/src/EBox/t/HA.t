@@ -202,6 +202,43 @@ sub test_update_cluster_configuration : Test(14)
 
 }
 
+sub test_add_node : Test(7)
+{
+    my ($self) = @_;
+
+    my $mod = $self->{mod};
+
+    throws_ok {
+        $mod->addNode();
+    } 'EBox::Exceptions::MissingArgument', 'Missing arguments to add a node';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1'});
+    } 'EBox::Exceptions::MissingArgument', 'Missing webAdminPort argument to add a node';
+
+    throws_ok {
+        $mod->addNode({name => '-foo', addr => '1.1.1.1', webAdminPort => 332});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node name';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => 'ad', webAdminPort => 332});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node addr';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 'a'});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node webadmin port';
+
+    # Mocking to test real environment
+    $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+    lives_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+    } 'Adding a node';
+
+    ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), 'The node was added');
+
+    $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+}
+
 1;
 
 END {

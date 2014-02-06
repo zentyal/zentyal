@@ -44,8 +44,6 @@ my $routes = {
                                      'POST'   => \&EBox::HA::replicateConf },
 };
 
-# FIXME: This copies Tie::RegexpHash
-
 # Function: routeExists
 #
 #     Return if a route exists
