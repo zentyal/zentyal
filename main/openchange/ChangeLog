@@ -1,4 +1,6 @@
 HEAD
+	+ Clean all previous data before enabling the module
+	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work
 3.3.2
 	+ Hide openchange service status from the dashboard and linked it status

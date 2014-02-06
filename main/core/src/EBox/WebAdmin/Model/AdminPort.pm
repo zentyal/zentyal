@@ -54,8 +54,13 @@ sub validateTypedRow
 {
     my ($self, $action, $changedValues, $allValues) = @_;
 
-    my $port = $changedValues->{port}->value();
-    $self->parentModule()->checkAdminPort($port);
+    if (exists $changedValues->{port}) {
+        my $actualPort = EBox::Global->getInstance(1)->modInstance('webadmin')->port();
+        my $port = $changedValues->{port}->value();
+        if ($port != $actualPort) {
+            $self->parentModule()->checkAdminPort($port);
+        }
+    }
 }
 
 sub updatedRowNotify
