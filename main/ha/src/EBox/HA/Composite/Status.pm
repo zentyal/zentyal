@@ -36,7 +36,7 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        components      => ['NodeStatus'],
+        components      => ['ClusterStatusSummary', 'NodeStatus', 'ResourceStatus'],
         layout          => 'top-bottom',
         printableName   => 'Cluster status',
         compositeDomain => 'ha',
