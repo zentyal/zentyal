@@ -41,8 +41,7 @@ sub _description
         pageTitle       => __('High Availability'),
         compositeDomain => 'ha',
         name            => 'General',
-        help            => __('Here you can configure all the settings ' .
-                              'related to the HA Cluster configuration'),
+        help            => undef,
     };
 
     return $description;

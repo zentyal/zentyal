@@ -41,7 +41,9 @@ sub _description
         printableName   => 'Cluster status',
         compositeDomain => 'ha',
         name            => 'Status',
-        help            => __('Here you can show the status of your cluster'),
+        help            => __('Here you can show the status of your cluster. ' .
+                              'If you want to see more info about the errors ' .
+                               'shown, please go to /var/log/syslog'),
     };
 
     return $description;
