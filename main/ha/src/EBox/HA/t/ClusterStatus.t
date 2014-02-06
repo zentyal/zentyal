@@ -72,7 +72,29 @@ sub setUpInstance : Test(setup)
             </resource>
         </resources>
         </crm_mon>";
-    $self->{clusterStatus} = new EBox::HA::ClusterStatus($ha, $self->{xml});
+    $self->{crm_mon_1} = "Last updated: Thu Feb  6 11:26:40 2014
+Last change: Thu Feb  6 11:26:39 2014 via cibadmin on perra-vieja
+Stack: corosync
+Current DC: perra-vieja (1) - partition WITHOUT quorum
+Version: 1.1.10-42f2063
+2 Nodes configured
+4 Resources configured
+
+
+Online: [ perra-vieja ]
+OFFLINE: [ vagrant-ubuntu-saucy-64 ]
+
+ ClusterIP      (ocf::heartbeat:IPaddr2):       Started perra-vieja 
+ ClusterIP2     (ocf::heartbeat:IPaddr2):       Started perra-vieja 
+
+Failed actions:
+    ClusterIP3_start_0 (node=perra-vieja, call=30, rc=1, status=complete, last-rc-change=Thu Feb  6 11:26:08 2014
+, queued=59ms, exec=0ms
+): unknown error
+    ClusterIP4_start_0 (node=perra-vieja, call=41, rc=1, status=complete, last-rc-change=Thu Feb  6 11:26:40 2014
+, queued=57ms, exec=0ms
+): unknown error";
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($ha, $self->{xml}, $self->{crm_mon_1});
 }
 
 sub test_isa_ok  : Test
@@ -127,17 +149,31 @@ sub test_status_search : Test(4)
     cmp_ok($node{'name'}, 'eq', 'mini-fox', 'Searching by id (2)');
 }
 
-sub test_status_print : Test(2)
+sub test_status_print : Test(3)
 {
     my ($self) = @_;
 
     my $clusterStatus = $self->{clusterStatus};
     ok($clusterStatus->getNodes(), 'Nodes retrieved');
     ok($clusterStatus->getResources(), 'Resources retrieved');
+    ok($clusterStatus->errors(), 'Errors retrieved');
 
     use Data::Dumper;
     diag(Dumper($clusterStatus->getNodes()));
     diag(Dumper($clusterStatus->getResources()));
+    diag(Dumper($clusterStatus->errors()));
+}
+
+sub test_errors : Test(3)
+{
+    my ($self) = @_;
+
+    my $clusterStatus = $self->{clusterStatus};
+    my @errors = @{$clusterStatus->errors()};
+
+    cmp_ok(@errors, '==', 2, 'Two errors retrieved');
+    cmp_ok($errors[0]{node}, 'eq', 'perra-vieja', 'Node of the error correct');
+    cmp_ok($errors[0]{info}, 'eq', 'ClusterIP4_start_0 - unknown error', 'Node of the error correct');
 }
 
 1;

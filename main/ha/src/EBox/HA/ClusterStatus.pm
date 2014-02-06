@@ -30,26 +30,18 @@ my $_resources = undef;
 my $_nodes = undef;
 my $_summary = undef;
 my $_xml_dom = undef;
+my $_errors = undef;
 
 sub new
 {
-    my ($class, $ha, $xml_dump) = @_;
+    my ($class, $ha, $xml_dump, $text_dump) = @_;
     my $self = { ha => $ha};
     bless($self, $class);
 
     $self->_parseCrmMon_X($xml_dump);
+    $self->_parseCrmMon_1($text_dump);
 
     return $self;
-}
-
-sub _parseCrmMon_X
-{
-    my ($self, $xml_dump) = @_;
-
-    $_xml_dom = $self->_getXmlOutput($xml_dump);
-    $_nodes = $self->_parseNodesStatus();
-    $_summary = $self->_parseSummary();
-    $_resources = $self->_parseResources();
 }
 
 sub getDesignatedController
@@ -98,6 +90,19 @@ sub getResources
     my ($self) = @_;
 
     return $_resources;
+}
+
+# Function: errors
+#
+# Returns:
+#
+#   Hash ref - The cluster errors
+#
+sub errors
+{
+    my ($self) = @_;
+
+    return $_errors;
 }
 
 # Function: resourceByName
@@ -240,6 +245,78 @@ sub nodeOnline
 }
 
 # Group: Private functions
+
+# Function: _parseCrmMon_X
+#
+# This function populates the class attributes with the information retrieved
+# after invoking the crm_mon -X command (or input string).
+#
+# Parameters:
+#   xml_dump    - XML formated string containing the output of the crm_mon -X
+#
+#
+sub _parseCrmMon_X
+{
+    my ($self, $xml_dump) = @_;
+
+    $_xml_dom = $self->_getXmlOutput($xml_dump);
+    $_nodes = $self->_parseNodesStatus();
+    $_summary = $self->_parseSummary();
+    $_resources = $self->_parseResources();
+}
+
+# Function: _parseCrmMon_1
+#
+# This function populates the class attributes with the information retrieved
+# after invoking the crm_mon -1 command (or input string).
+#
+# Parameters:
+#   text_dump    - String containing the output of the crm_mon -1
+#
+#
+sub _parseCrmMon_1
+{
+    my ($self, $text_dump) = @_;
+
+    my @reversedText = ();
+
+    if (! $text_dump) {
+        @reversedText = reverse(@{EBox::Sudo::root('crm_mon -1')});
+    } else {
+        @reversedText = reverse(split(/^/, $text_dump));
+    }
+
+    my $fullText = join(';', @reversedText);
+    if (index($fullText, "Failed actions") != -1) {
+        $_errors = $self->_parseErrors(\@reversedText);
+    }
+}
+
+sub _parseErrors
+{
+    my ($self, $text) = @_;
+
+    my @errors;
+    my @text = @{ $text };
+
+    while (my $error = shift(@text)) {
+        if (index($error, "Failed actions") == -1) {
+            my $info;
+            if (index(shift(@text), "Failed actions") != -1) { return \@errors };
+            if (index($info = shift(@text), "Failed actions") != -1) { return \@errors };
+
+            $info =~ s/ //g;
+            my @info = split(/=|\(|,/, $info);
+            $error = substr($error, 3);
+            $error = $info[0] . " - "  . $error;
+            push(@errors, { info => $error, node => $info[2]});
+        } else {
+            return \@errors;
+        }
+    }
+
+    return \@errors;
+}
 
 # Function: _getXmlOutput
 #
