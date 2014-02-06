@@ -412,7 +412,7 @@ sub unsafeParam # (param)
     my $scalar;
     if (wantarray) {
         @array = $parameters->get_all($param);
-        return undef unless (@array);
+        return () unless (@array);
         foreach my $v (@array) {
             utf8::decode($v);
         }
@@ -451,7 +451,7 @@ sub param # (param)
 
     if (wantarray) {
         my @unsafeValue = $self->unsafeParam($param);
-        return undef unless (@unsafeValue);
+        return () unless (@unsafeValue);
         my @ret = ();
         foreach my $v (@unsafeValue) {
             $v =~ s/\t/ /g;
