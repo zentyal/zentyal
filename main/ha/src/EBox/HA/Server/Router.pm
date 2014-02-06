@@ -30,6 +30,7 @@ use EBox::HA;
 
 # The URL dispatcher
 my $routes = {
+    qr{/cluster/auth$}          => { 'GET'    => sub { 1; } },
     qr{/cluster/configuration$} => { 'GET'    => \&EBox::HA::clusterConfiguration,
                                      'PUT'    => \&EBox::HA::updateClusterConfiguration },
 

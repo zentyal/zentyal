@@ -21,17 +21,16 @@ use warnings;
 
 use feature qw(switch);
 use EBox;
+use EBox::HA::Server::Auth;
 use EBox::HA::Server::Router;
 use Hash::MultiValue;
 use JSON::XS;
+use Plack::Builder;
 use Plack::Request;
 use Plack::Response;
 
 my $app = sub {
     my ($env) = @_;
-
-    # FIXME: Move to the daemon user
-    EBox::init();
 
     my $req = new Plack::Request($env);
     my $res = new Plack::Response();
@@ -75,3 +74,10 @@ my $app = sub {
     return $res->finalize();
 };
 
+# Turn into ebox user
+EBox::init();
+
+builder {
+    enable "Auth::Basic", authenticator => \&EBox::HA::Server::Auth::authenticate;
+    $app;
+};

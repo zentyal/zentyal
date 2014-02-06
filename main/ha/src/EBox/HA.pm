@@ -33,6 +33,7 @@ use feature qw(switch);
 
 use Data::Dumper;
 use EBox::Config;
+use EBox::Dashboard::Section;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
@@ -253,7 +254,7 @@ sub leaveCluster
 
     my $row = $self->model('ClusterState')->row();
     $row->elementByName('bootstraped')->setValue(0);
-    $row->elementByName('leaveRequest')->setValue(1);
+    $row->elementByName('leaveRequest')->setValue($self->model('Cluster')->secretValue());
     $row->store();
 }
 
@@ -333,6 +334,8 @@ sub addNode
 #    * Write corosync conf
 #    * Dynamically add the new node
 #    * If the cluster become two nodes, then set to ignore at no quorum policy
+#
+#    Ignore the intention of removing a non existing node.
 #
 # Parameters:
 #
@@ -596,8 +599,8 @@ sub _setConf
     my ($self) = @_;
 
     if ($self->model('ClusterState')->leaveRequestValue()) {
-        $self->model('ClusterState')->setValue('leaveRequest', 0);
         $self->_notifyLeave();
+        $self->model('ClusterState')->setValue('leaveRequest', "");
         $self->_destroyClusterInfo();
     }
 
@@ -852,11 +855,14 @@ sub _join
     my ($self, $clusterSettings, $localNodeAddr, $hostname, $userSecret) = @_;
 
     my $row = $clusterSettings->row();
-    my $client = new EBox::RESTClient(server => $row->valueByName('zentyal_host'));
+    my $client = new EBox::RESTClient(
+        credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
+        server => $row->valueByName('zentyal_host')
+       );
     $client->setPort($row->valueByName('zentyal_port'));
     # FIXME: Delete this line and not verify servers when using HAProxy
     $client->setScheme('http');
-    # TODO: Add secret
+    # This should not fail as we have a check in validateTypedRow
     my $response = $client->GET('/cluster/configuration');
 
     my $clusterConf = new JSON::XS()->decode($response->as_string());
@@ -917,17 +923,25 @@ sub _notifyLeave
         $localNode = $nodeList->localNode();
     } catch (EBox::Exceptions::DataNotFound $e) {
         # Then something rotten in our conf
+        EBox::warn('There is no local node in our configuration');
         return;
     }
     foreach my $node (@{$nodeList->list()}) {
         next if ($node->{localNode});
         # TODO: Check the node is on-line
         my $last = 0;
-        my $client = new EBox::RESTClient(server => $node->{addr});
+        # Read the user secret from leaveRequest
+        my $userSecret = $self->model('ClusterState')->leaveRequestValue();
+        my $client = new EBox::RESTClient(
+            credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                            password => $userSecret},
+            server => $node->{addr}
+           );
         $client->setPort(5000); # $node->{port});
         # FIXME: Delete this line and not verify servers when using HAProxy
         $client->setScheme('http');
         try {
+            EBox::debug($userSecret);
             EBox::info('Notify leaving cluster to ' . $node->{name});
             $client->DELETE('/cluster/nodes/' . $localNode->{name});
             $last = 1;
@@ -956,12 +970,17 @@ sub _notifyClusterConfChange
     my ($self, $list, $excludes) = @_;
 
     my $conf = $self->clusterConfiguration();
+    my $clusterSecret = $self->userSecret();
     foreach my $node (@{$list->list()}) {
         try {
             next if ($node->{localNode});
             next if ($node->{name} ~~ @{$excludes});
             EBox::info('Notifying cluster conf changes to ' . $node->{name});
-            my $client = new EBox::RESTClient(server => $node->{addr});
+            my $client = new EBox::RESTClient(
+                credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                                password => $clusterSecret},
+                server => $node->{addr}
+               );
             $client->setPort(5000);  # TODO: Use real port
             # FIXME: Delete this line and not verify servers when using HAProxy
             $client->setScheme('http');
