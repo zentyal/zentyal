@@ -84,6 +84,7 @@ sub _process
         push(@params, 'hasChanged' => $global->unsaved());
         push(@params, 'tpages' => 0);
         push(@params, 'page' => 0);
+        push(@params, 'user' => $self->user());
 
         $self->{'params'} = \@params;
     }

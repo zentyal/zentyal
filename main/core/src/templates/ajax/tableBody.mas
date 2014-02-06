@@ -22,6 +22,7 @@ use Perl6::Junction qw(any);
    model      => $model,
    hasChanged => $hasChanged,
    action     => $action,
+   user       => $user,
 &>
 
 

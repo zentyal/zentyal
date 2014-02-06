@@ -2525,6 +2525,10 @@ sub automaticRemoveMsg
 #
 #     Return the number of rows per page
 #
+# Parameters:
+#
+#     user - String the user name
+#
 # Returns:
 #
 #    int page size or '_all' for 'All pages' option
