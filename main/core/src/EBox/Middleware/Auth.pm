@@ -311,7 +311,6 @@ sub call
 #   <EBox::Exceptions::External> - when password length is no
 #                                  longer than 6 characters
 #
-# FIXME: Maybe this should be moved to some other place...
 sub setPassword
 {
     my ($self, $username, $password) = @_;
