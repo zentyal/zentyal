@@ -159,18 +159,6 @@ sub nodeById
 
     throw EBox::Exceptions::Internal("There is no node with the id: $id");
 }
-# Function: getResources
-#
-# Returns:
-#
-#   Hash ref - The cluster resources
-#
-sub getResources
-{
-    my ($self) = @_;
-
-    return $_resources;
-}
 
 # Function: numberOfResources
 #
