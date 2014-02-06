@@ -22,7 +22,8 @@ use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
-use EBox::Exceptions::NotImplemented;
+use EBox::Exceptions::DataInUse;
+use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::Internal;
 use EBox::Html;
 
@@ -79,8 +80,8 @@ sub _pageSize
 {
     my ($self) = @_;
     my $pageSize = $self->param('pageSize');
-    if (not $pageSize) {
-        $pageSize = $self->{tableModel}->pageSize();
+    unless ($pageSize) {
+        $pageSize = $self->{tableModel}->pageSize($self->user());
     }
     if ($pageSize eq '_all') {
         return INT_MAX; # could also be size but maximum int avoids the call
@@ -373,9 +374,10 @@ sub _paramsForRefreshTable
     my $action = $self->{'action'};
     my $filter = $self->unsafeParam('filter');
     my $page = defined $forcePage ? $forcePage : $self->param('page');
-    my $pageSizeParam = $self->param('pageSize');
-    if (defined ($pageSizeParam)) {
-        $model->setPageSize($pageSizeParam);
+
+    my $user = $self->user();
+    if ((defined $self->param('pageSize')) and $user) {
+        $model->setPageSize($user, $self->param('pageSize'));
     }
 
     my $editId;
@@ -393,6 +395,7 @@ sub _paramsForRefreshTable
     push(@params, 'hasChanged' => $global->unsaved());
     push(@params, 'filter' => $filter);
     push(@params, 'page' => $page);
+    push(@params, 'user' => $user);
 
     return \@params;
 }
@@ -848,6 +851,7 @@ sub _htmlForChangeRow
     my @params = (
         model  => $model,
         action => $action,
+        user => $self->user(),
 
         editid => $editId,
         filter => $filter,

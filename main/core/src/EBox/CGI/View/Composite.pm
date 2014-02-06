@@ -112,8 +112,9 @@ sub masonParameters
     my $global = EBox::Global->getInstance();
 
     return [
-             model      => $self->{composite},
-             hasChanged => $global->unsaved(),
+        model      => $self->{composite},
+        user       => $self->user(),
+        hasChanged => $global->unsaved(),
     ];
 }
 
