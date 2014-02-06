@@ -85,9 +85,6 @@ sub run
                 $handler = new $classname(@extraParams);
             }
         }
-
-        $handler->{originalUrl} = $url;
-
         $handler->run();
         $redis->commit();
         return $handler->response()->finalize();

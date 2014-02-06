@@ -115,7 +115,8 @@ sub _menu
 {
     my ($self) = @_;
 
-    return $self->{htmlblocks}->menu($self->menuFolder(), $self->{originalUrl});
+    my $request = $self->request();
+    return $self->{htmlblocks}->menu($self->menuFolder(), EBox::CGI::Run->urlFromRequest($request));
 }
 
 sub _footer
