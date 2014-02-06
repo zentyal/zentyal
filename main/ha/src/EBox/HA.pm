@@ -57,6 +57,8 @@ use constant {
     COROSYNC_AUTH_FILE    => '/etc/corosync/authkey',
     DEFAULT_MCAST_PORT    => 5405,
     RESOURCE_STICKINESS   => 100,
+    HA_CONF_DIR           => EBox::Config::conf() . 'ha',
+    ZENTYAL_AUTH_FILE     => EBox::Config::conf() . 'ha/authkey',
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
@@ -221,17 +223,7 @@ sub clusterConfiguration
         }
 
         # Auth is a set of bytes
-        my $auth;
-        try {
-            # Quickie & dirty
-            EBox::Sudo::root('chown ebox:ebox ' . COROSYNC_AUTH_FILE);
-            $auth = File::Slurp::read_file(COROSYNC_AUTH_FILE);
-        } catch ($e) {
-            EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
-            throw EBox::Exceptions::Internal("Cannot read auth file: $e");
-        }
-        EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
-
+        my $auth = File::Slurp::read_file(ZENTYAL_AUTH_FILE, binmode => ':raw');
         return {
             name          => $self->model('Cluster')->nameValue(),
             transport     => $transport,
@@ -832,10 +824,36 @@ sub _bootstrap
     $self->set_state($state);
 
     # Create and store the private key in /etc/corosync/authfile
-    EBox::Sudo::root('corosync-keygen -l');
+    $self->_createStoreAuthFile();
 
     # Set as bootstraped
     $self->model('ClusterState')->setValue('bootstraped', 1);
+}
+
+# Create and store the auth
+sub _createStoreAuthFile
+{
+    my ($self) = @_;
+
+    EBox::Sudo::root('corosync-keygen -l');
+    try {
+        # Quickie & dirty
+        EBox::Sudo::root('chown ebox:ebox ' . COROSYNC_AUTH_FILE);  # To read it
+        my $auth = File::Slurp::read_file(COROSYNC_AUTH_FILE, binmode => ':raw');
+        unless (-d HA_CONF_DIR) {
+            mkdir(HA_CONF_DIR);
+        }
+        if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
+            chmod(0600, ZENTYAL_AUTH_FILE);
+            unlink(ZENTYAL_AUTH_FILE);
+        }
+        File::Slurp::write_file(ZENTYAL_AUTH_FILE, {binmode => ':raw',
+                                                    perms   => 0400}, $auth);
+    } catch ($e) {
+        EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
+        throw EBox::Exceptions::Internal("Cannot read/write auth file: $e");
+    }
+    EBox::Sudo::root('chown root:root ' . COROSYNC_AUTH_FILE);
 }
 
 # Join to a existing cluster
@@ -904,10 +922,16 @@ sub _storeAuthFile
 {
     my ($self, $auth) = @_;
 
-    my $tmpFile = new File::Temp(DIR => EBox::Config::tmp());
-    print $tmpFile $auth;
-    close($tmpFile);
-    EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . $tmpFile->filename()
+    unless (-d HA_CONF_DIR) {
+        mkdir(HA_CONF_DIR);
+    }
+    if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
+        chmod(0600, ZENTYAL_AUTH_FILE);
+        unlink(ZENTYAL_AUTH_FILE);
+    }
+    File::Slurp::write_file(ZENTYAL_AUTH_FILE, {binmode => ':raw', perms => 0400},
+                            $auth);
+    EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . ZENTYAL_AUTH_FILE
                      . ' ' . COROSYNC_AUTH_FILE);
 }
 
