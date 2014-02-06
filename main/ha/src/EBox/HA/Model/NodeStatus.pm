@@ -59,7 +59,7 @@ sub ids
 {
     my ($self)  = @_;
 
-    my @names = keys %{$self->{clusterStatus}->getNodes()};
+    my @names = keys %{$self->{clusterStatus}->nodes()};
 
     return \@names;
 }
@@ -158,7 +158,7 @@ sub _parseNode_floating
 {
     my ($self, %node) = @_;
 
-    my %resources = %{ $self->{clusterStatus}->getResources() };
+    my %resources = %{ $self->{clusterStatus}->resources() };
     my $result = "";
 
     foreach my $key (keys %resources) {

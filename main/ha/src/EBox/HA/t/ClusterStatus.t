@@ -114,7 +114,7 @@ sub test_status_info : Test(6)
     ok(! $clusterStatus->nodeOnline('failed-doggie'), 'Testing an offline node');
     cmp_ok($clusterStatus->numberOfNodes(), '==', 3, 'Counting the nodes');
     cmp_ok($clusterStatus->numberOfResources(), '==', 2, 'Counting the resources');
-    cmp_ok($clusterStatus->getDesignatedController(), 'eq', 'perra-vieja', 'Getting the DC');
+    cmp_ok($clusterStatus->designatedController(), 'eq', 'perra-vieja', 'Getting the DC');
 }
 
 sub test_status_summary : Test(7)
@@ -122,7 +122,7 @@ sub test_status_summary : Test(7)
     my ($self) = @_;
 
     my $clusterStatus = $self->{clusterStatus};
-    my %summary = $clusterStatus->getSummary();
+    my %summary = $clusterStatus->summary();
     cmp_ok($summary{'number_of_nodes'}, '==', 3, 'Counting the nodes ( internal )');
     cmp_ok($summary{'number_of_resources'}, '==', 2, 'Counting the resources ( internal )');
     cmp_ok($summary{'last_update'}, 'eq', 'Thu Jan 30 10:34:32 2014', 'Cluster last update');
@@ -154,13 +154,13 @@ sub test_status_print : Test(3)
     my ($self) = @_;
 
     my $clusterStatus = $self->{clusterStatus};
-    ok($clusterStatus->getNodes(), 'Nodes retrieved');
-    ok($clusterStatus->getResources(), 'Resources retrieved');
+    ok($clusterStatus->nodes(), 'Nodes retrieved');
+    ok($clusterStatus->resources(), 'Resources retrieved');
     ok($clusterStatus->errors(), 'Errors retrieved');
 
     use Data::Dumper;
-    diag(Dumper($clusterStatus->getNodes()));
-    diag(Dumper($clusterStatus->getResources()));
+    diag(Dumper($clusterStatus->nodes()));
+    diag(Dumper($clusterStatus->resources()));
     diag(Dumper($clusterStatus->errors()));
 }
 

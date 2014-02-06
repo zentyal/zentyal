@@ -53,14 +53,14 @@ sub templateContext
 
     $self->{ha} = $self->parentModule();
     $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
-    my %summary = $self->{clusterStatus}->getSummary();
+    my %summary = $self->{clusterStatus}->summary();
 
     return {
         metadata => [
             # name => value
             [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
             [ __('Cluster secret') => 'raro'],
-            [ __('Current DC')     => $self->{clusterStatus}->getDesignatedController()],
+            [ __('Current DC')     => $self->{clusterStatus}->designatedController()],
             [ __('Last update')     => $summary{'last_update'}],
             [ __('Last modification')     => $summary{'last_change'}],
             [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],

@@ -44,7 +44,7 @@ sub new
     return $self;
 }
 
-sub getDesignatedController
+sub designatedController
 {
     my ($self) = @_;
 
@@ -53,39 +53,39 @@ sub getDesignatedController
     return $summary{'designated_controller_name'};
 }
 
-# Function: getSummary
+# Function: summary
 #
 # Returns:
 #
 #   Hash - The cluster status summary attributes
 #
-sub getSummary
+sub summary
 {
     my ($self) = @_;
 
     return %{ $_summary };
 }
 
-# Function: getNodes
+# Function: nodes
 #
 # Returns:
 #
 #   Hash ref - The cluster nodes
 #
-sub getNodes
+sub nodes
 {
     my ($self) = @_;
 
     return $_nodes;
 }
 
-# Function: getResources
+# Function: resources
 #
 # Returns:
 #
 #   Hash ref - The cluster resources
 #
-sub getResources
+sub resources
 {
     my ($self) = @_;
 

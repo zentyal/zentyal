@@ -58,7 +58,7 @@ sub ids
 {
     my ($self)  = @_;
 
-    my @names = keys %{$self->{clusterStatus}->getResources()};
+    my @names = keys %{$self->{clusterStatus}->resources()};
 
     return \@names;
 }
