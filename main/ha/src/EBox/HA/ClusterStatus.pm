@@ -34,16 +34,22 @@ my $_xml_dom = undef;
 sub new
 {
     my ($class, $ha, $xml_dump) = @_;
-
     my $self = { ha => $ha};
-
-    $_xml_dom = _getXmlOutput($self, $xml_dump);
-    $_nodes = _parseNodesStatus($self);
-    $_summary = _parseSummary($self);
-    $_resources = _parseResources($self);
-
     bless($self, $class);
+
+    $self->_parseCrmMon_X($xml_dump);
+
     return $self;
+}
+
+sub _parseCrmMon_X
+{
+    my ($self, $xml_dump) = @_;
+
+    $_xml_dom = $self->_getXmlOutput($xml_dump);
+    $_nodes = $self->_parseNodesStatus();
+    $_summary = $self->_parseSummary();
+    $_resources = $self->_parseResources();
 }
 
 sub getDesignatedController
