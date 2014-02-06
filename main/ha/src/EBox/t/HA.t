@@ -43,11 +43,23 @@ sub clearConfiguration : Test(shutdown)
     EBox::Module::Config::TestStub::setConfig();
 }
 
+
 sub get_module : Test(setup)
 {
     my ($self) = @_;
     my $redis = EBox::Test::RedisMock->new();
     $self->{mod} = EBox::HA->_create(redis => $redis);
+    # Mocking some methods :/ (no purist)
+    $self->{mod} = new Test::MockObject::Extends($self->{mod});
+    $self->{mod}->set_true('_createStoreAuthFile');
+}
+
+sub mock_file_slurp : Test(setup)
+{
+    my ($self) = @_;
+
+    $self->{mock_file_slurp} = new Test::MockModule('File::Slurp');
+    $self->{mock_file_slurp}->mock('read_file', 'bytes');
 }
 
 sub test_use_ok : Test(startup => 1)
@@ -77,7 +89,9 @@ sub test_cluster_configuration : Test(5)
                 'transport' => 'udpu',
                 'multicastConf' => {},
                 'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443,
-                             localNode => 1, nodeid => 1}]},
+                             localNode => 1, nodeid => 1}],
+                'auth'  => 'bytes',
+               },
                'Default unicast configuration');
 
     {
@@ -90,7 +104,9 @@ sub test_cluster_configuration : Test(5)
                    {'name' => 'my cluster',
                     'transport' => 'udp',
                     'multicastConf' => { addr => '239.255.1.1', port => 5405, expected_votes => 1 },
-                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}]},
+                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}],
+                    'auth'  => 'bytes',
+                   },
                    'Multicast configuration');
     }
 }
