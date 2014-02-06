@@ -328,7 +328,8 @@ sub run
                                         'msg' => $self->{msg},
                                         'cgi' => $self->{cgi},
                                         'request' => $self->{request});
-            $chain->run;
+            $chain->run();
+            $self->setResponse($chain->response());
             return;
         }
     }
@@ -512,6 +513,13 @@ sub request
     return $self->{request};
 }
 
+# Method: response
+#
+# Returns:
+#
+#    <Plack::Response> - the response from this handler. If there is
+#                        none, then a new response is created with 200
+#                        as status code based on the handler request.
 sub response
 {
     my ($self) = @_;
@@ -520,6 +528,31 @@ sub response
         $self->{response} = $self->request()->new_response(200);
     }
     return $self->{response};
+}
+
+# Method: setResponse
+#
+#     Set a new response for the handler
+#
+# Parameters:
+#
+#     newResponse - <Plack::Response> the new response for this
+#                   handler
+#
+# Exceptions:
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if the newResponse
+#     is not passed
+#
+sub setResponse
+{
+    my ($self, $newResponse) = @_;
+
+    unless ($newResponse) {
+        throw EBox::Exceptions::MissingArgument('newResponse');
+    }
+
+    $self->{response} = $newResponse;
 }
 
 # Method: user
@@ -997,6 +1030,14 @@ sub menuNamespace
     }
 }
 
+# Method: JSONReply
+#
+#     Set the body with JSON-encoded body
+#
+# Parameters:
+#
+#     data_r - Hash ref with the data to encode in JSON
+#
 sub JSONReply
 {
     my ($self, $data_r) = @_;
