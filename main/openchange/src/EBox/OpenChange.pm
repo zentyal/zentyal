@@ -30,7 +30,7 @@ use EBox::OpenChange::ExchOrganizationContainer;
 use String::Random;
 
 use constant SOGO_PORT => 20000;
-use constant SOGO_DEFAULT_PREFORK => 1;
+use constant SOGO_DEFAULT_PREFORK => 4;
 
 use constant SOGO_DEFAULT_FILE => '/etc/default/sogo';
 use constant SOGO_CONF_FILE => '/etc/sogo/sogo.conf';
@@ -151,8 +151,13 @@ sub _daemonsToDisable
         {
             name => 'openchange-ocsmanager',
             type => 'init.d',
+        },
+        {
+            name => 'sogo',
+            type => 'init.d',
+            pidfiles => '/var/run/sogo/sogo.pid',
         }
-       ];
+    ];
     return $daemons;
 }
 

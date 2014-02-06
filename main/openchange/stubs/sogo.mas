@@ -1,5 +1,5 @@
 <%args>
-    $prefork => 1
+    $prefork => 4
 </%args>
 <%init>
 </%init>

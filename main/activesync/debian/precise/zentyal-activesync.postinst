@@ -1,0 +1,15 @@
+#!/bin/bash
+
+case "$1" in
+    configure)
+
+        /usr/share/zentyal/initial-setup --no-restart activesync $2
+
+        # restart module
+        invoke-rc.d zentyal activesync restart || true
+
+        dpkg-trigger --no-await zentyal-core
+    ;;
+esac
+
+exit 0
