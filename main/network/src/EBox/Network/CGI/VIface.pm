@@ -58,7 +58,7 @@ sub _process
     my $audit = EBox::Global->modInstance('audit');
 
     my $request = $self->request();
-    $parameters = $request->parameters();
+    my $parameters = $request->parameters();
     $self->keepParam('iface');
     $parameters->set('iface', $iface);
     if ($ifaction eq 'add'){

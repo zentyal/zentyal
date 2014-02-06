@@ -79,7 +79,7 @@ sub setIface
     }
 
     my $request = $self->request();
-    $parameters = $request->parameters();
+    my $parameters = $request->parameters();
     $self->keepParam('iface');
     $parameters->set('iface', $iface);
 
