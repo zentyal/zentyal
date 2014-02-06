@@ -63,7 +63,8 @@ sub _process
         return;
     }
 
-    if ($self->{cgi}->request_method() eq 'POST') {
+    my $request = $self->request();
+    if ($request->method() eq 'POST') {
         $self->_processWizard();
     }
 }
