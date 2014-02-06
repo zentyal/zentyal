@@ -27,7 +27,6 @@ defaults
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
-  option httpclose
 %   foreach my $portNumber (keys %{$ports}) {
 <& .frontend, port => $portNumber,
               conf => $ports->{$portNumber},
@@ -116,12 +115,18 @@ backend bk_zentyal_<% $serviceNameWithPort %>
 </%def>
 <%def .rpcproxy>
 frontend fronted_rpcproxy
-  mode tcp
-%#  bind localhost:443 ssl crt /var/lib/zentyal/conf/ssl/ssl.pem  ciphers HIGH:MEDIUM
-  bind localhost:80
+  mode http
+  bind *:80
   default_backend bk_rpcproxy
+  # XXX logs
+  log /var/lib/haproxy/dev/log local0
+  option httplog
+  option logasap
 
 backend bk_rpcproxy
-   mode tcp
-   listen 127.0.0.1:7777
+   mode http
+   server srv_rpcproxy 127.0.0.1:7777
 </%def>
+
+
+
