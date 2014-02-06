@@ -54,14 +54,12 @@ sub _process
     my $session = {};
 
     my $request = $self->request();
-    if (exists $request->env->{'psgix.session'}) {
-        $session = $request->env->{'psgix.session'};
-    }
-    if (exists $session->{AuthReason}){
-        $authreason = delete $session->{AuthReason};
+    my %session = $request->session();
+    if (exists $session{AuthReason}){
+        $authreason = delete $session{AuthReason};
     }
 
-    my $destination = _requestDestination($session);
+    my $destination = _requestDestination(\%session);
 
     my $reason;
     if (defined $authreason) {
