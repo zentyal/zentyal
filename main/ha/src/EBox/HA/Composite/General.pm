@@ -41,7 +41,6 @@ sub _description
         pageTitle       => __('High Availability'),
         compositeDomain => 'ha',
         name            => 'General',
-        help            => undef,
     };
 
     return $description;

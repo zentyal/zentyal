@@ -37,7 +37,7 @@ sub _description
 {
     my $description = {
         layout          => 'top-bottom',
-        printableName   => 'Cluster configuration',
+        printableName   => __('Cluster configuration'),
         compositeDomain => 'ha',
         name            => 'Configuration',
     };
