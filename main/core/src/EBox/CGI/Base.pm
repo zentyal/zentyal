@@ -18,28 +18,29 @@ use warnings;
 
 package EBox::CGI::Base;
 
-use HTML::Mason;
-use HTML::Mason::Exceptions;
-use CGI;
 use EBox::Gettext;
 use EBox;
 use EBox::Global;
 use EBox::CGI::Run;
 use EBox::Html;
+use EBox::Exceptions::Base;
 use EBox::Exceptions::Error;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::DataMissing;
 use EBox::Exceptions::MissingArgument;
 use EBox::Util::GPG;
+
+use CGI;
+use Encode qw(:all);
+use File::Basename;
+use File::Temp qw(tempfile);
+use HTML::Mason;
+use HTML::Mason::Exceptions;
+use JSON::XS;
+use Perl6::Junction qw(all);
 use POSIX qw(setlocale LC_ALL);
 use TryCatch::Lite;
-use Encode qw(:all);
-use Data::Dumper;
-use Perl6::Junction qw(all);
-use File::Temp qw(tempfile);
-use File::Basename;
-use JSON::XS;
 
 ## arguments
 ##      title [optional]
@@ -65,7 +66,6 @@ sub new # (title=?, error=?, msg=?, cgi=?, template=?)
     $self->{request} = delete $opts{request};
     $self->{template} = delete $opts{template};
     unless (defined($self->{cgi})) {
-        CGI::initialize_globals();
         $self->{cgi} = new CGI;
     }
     $self->{paramsKept} = ();
@@ -192,7 +192,7 @@ sub _print
 
 }
 
-# alternative print for CGI runs in popup
+# alternative print for request runs in popup
 # it has been to explicitly called instead of
 # the regular print. For example, overlaoding print and calling this
 sub _printPopup
@@ -270,8 +270,8 @@ sub _requireParamAllowEmpty # (param, display)
 {
     my ($self, $param, $display) = @_;
 
-    foreach my $cgiparam (@{$self->params}){
-        return if ($cgiparam =~ /^$param$/);
+    foreach my $reqParam (@{$self->params}){
+        return if ($reqParam =~ /^$param$/);
     }
 
     throw EBox::Exceptions::DataMissing(data => $display);
@@ -300,12 +300,14 @@ sub run
         }
     }
 
+    my $request = $self->request();
     if (defined($self->{error})) {
         #only keep the parameters in paramsKept
+        my $reqParam = $request->parameters();
         my $params = $self->params;
         foreach my $param (@{$params}) {
             unless (grep /^$param$/, @{$self->{paramsKept}}) {
-                $self->{cgi}->delete($param);
+                $reqParam->remove($param);
             }
         }
         if (defined($self->{errorchain})) {
@@ -331,7 +333,6 @@ sub run
         }
     }
 
-    my $request = $self->request();
     my $response = $self->response();
     if (defined ($self->{redirect}) and not defined ($self->{error})) {
         my $referer = $request->referer();
@@ -340,7 +341,7 @@ sub run
         my $url;
         my $host = $request->env->{HTTP_HOST};
         if ($> == getpwnam('ebox')) {
-            ($protocol, $port) = $referer =~ m{(.+)://.+:(\d+)/};
+            ($protocol, $port) = $referer =~ m{(.+)://.+[:(\d+)|]/};
             $url = "$protocol://${host}";
             if ($port) {
                 $url .= ":$port";
@@ -384,7 +385,7 @@ sub run
 
 # Method: unsafeParam
 #
-#     Get the CGI parameter value in an unsafe way allowing all
+#     Get the request parameter value in an unsafe way allowing all
 #     character
 #
 #     This is a security risk and it must be used with caution
@@ -404,40 +405,55 @@ sub run
 sub unsafeParam # (param)
 {
     my ($self, $param) = @_;
-    my $cgi = $self->cgi;
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+
     my @array;
     my $scalar;
     if (wantarray) {
-        @array = $cgi->param($param);
-        (@array) or return undef;
+        @array = $parameters->get_all($param);
+        return undef unless (@array);
         foreach my $v (@array) {
             utf8::decode($v);
         }
         return @array;
     } else {
-        $scalar = $cgi->param($param);
+        $scalar = $parameters->{$param};
         #check if $param.x exists for input type=image
-        unless (defined($scalar)) {
-            $scalar = $cgi->param($param . ".x");
+        unless (defined $scalar) {
+            $scalar = $parameters->{$param . ".x"};
         }
-        defined($scalar) or return undef;
+        return undef unless (defined $scalar);
         utf8::decode($scalar);
         return $scalar;
     }
 }
 
+# Method: param
+#
+#     Get the request parameter value and sanitize it. It should be safe to used given it passed data validation.
+#
+# Parameters:
+#
+#     param - String the parameter's name to get the value from
+#
+# Returns:
+#
+#     string - the parameter's value that passed security check if the
+#     context is scalar
+#
+#     array - containing the string values for the given parameter if
+#     the context is an array
+#
 sub param # (param)
 {
     my ($self, $param) = @_;
-    my $cgi = $self->cgi;
-    my @array;
-    my $scalar;
+
     if (wantarray) {
-        @array = $cgi->param($param);
-        (@array) or return undef;
+        my @unsafeValue = $self->unsafeParam($param);
+        return undef unless (@unsafeValue);
         my @ret = ();
-        foreach my $v (@array) {
-            utf8::decode($v);
+        foreach my $v (@unsafeValue) {
             $v =~ s/\t/ /g;
             $v =~ s/^ +//;
             $v =~ s/ +$//;
@@ -446,13 +462,8 @@ sub param # (param)
         }
         return @ret;
     } else {
-        $scalar = $cgi->param($param);
-        #check if $param.x exists for input type=image
-        unless (defined($scalar)) {
-            $scalar = $cgi->param($param . ".x");
-        }
-        defined($scalar) or return undef;
-        utf8::decode($scalar);
+        my $scalar = $self->unsafeParam($param);
+        return undef unless (defined $scalar);
         $scalar =~ s/\t/ /g;
         $scalar =~ s/^ +//;
         $scalar =~ s/ +$//;
@@ -463,18 +474,19 @@ sub param # (param)
 
 # Method: params
 #
-#      Get the CGI parameters
+#      Get the request parameters
 #
 # Returns:
 #
-#      array ref - containing the CGI parameters
+#      array ref - containing the request parameters
 #
 sub params
 {
     my ($self) = @_;
 
-    my $cgi = $self->cgi;
-    my @names = $cgi->param;
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    my @names = keys %{$parameters};
 
     # Prototype adds a '_' empty param to Ajax POST requests when the agent is
     # webkit based
@@ -522,8 +534,9 @@ sub user
     my ($self) = @_;
 
     my $request = $self->request();
-    if (exists $env->{'psgix.session'}{user_id}) {
-        return $env->{'psgix.session'}{user_id}
+    my $session = $request->session();
+    if (exists $session->{user_id}) {
+        return $session->{user_id};
     } else {
         return undef;
     }
@@ -536,7 +549,7 @@ sub cgi
 }
 
 # Method: setTemplate
-#   set the html template used by the CGI. The template can also be set in the constructor/
+#   set the html template used by the request. The template can also be set in the constructor/
 #
 # Parameters:
 #   $template - the template path relative to the template root
@@ -551,16 +564,16 @@ sub setTemplate
 
 # Method: _process
 #
-#   Process the CGI
+#   Process the request
 #
 # Default behaviour:
 #
 #   The default behaviour is intended to standarize and ease some common
 #   operations so do not override it except for backward compability or special
 #   reasons.
-#   The default behaviour validate the peresence or absence or CGI parameters
+#   The default behaviour validate the peresence or absence or request parameters
 #   using requiredParameters and optionalParameters method, then it calls the
-#   method actuate, where the functionality of CGI resides,  and finally uses
+#   method actuate, where the functionality of request resides,  and finally uses
 #   masonParameters to get the parameters needed by the html template
 #   invocation.
 sub _process
@@ -644,17 +657,23 @@ sub setErrorFromException
 }
 
 # Method: setRedirect
-#    sets the redirect attribute. If redirect is set to some value, the parent class will do an HTTP redirect after the _process method returns.
 #
-# An HTTP redirect makes the browser issue a new HTTP request, so all the status data in the old request gets lost, but there are cases when you want to keep that data for the new CGI. This could be done using the setChain method instead
+#   Sets the redirect attribute. If redirect is set to some value, the parent class will do an HTTP redirect after
+#   the _process method returns.
 #
-# When an error happens you don't want redirects at all, as the error message would be lost. If an error happens and redirect has been set, then that value is used as if it was chain.
+#   An HTTP redirect makes the browser issue a new HTTP request, so all the status data in the old request gets lost,
+#   but there are cases when you want to keep that data for the new request. This could be done using the setChain
+#   method instead.
+#
+#   When an error happens you don't want redirects at all, as the error message would be lost. If an error happens
+#   and redirect has been set, then that value is used as if it was chain.
 #
 # Parameters:
 #   $redirect - value for the redirect attribute
 #
 # See also:
 #  setRedirect, setErrorchain
+#
 sub setRedirect
 {
     my ($self, $redirect) = @_;
@@ -662,16 +681,22 @@ sub setRedirect
 }
 
 # Method: setChain
-#    set the chain attribute. It works exactly the same way as redirect attribute but instead of sending an HTTP response to the browser, the parent class parses the url, instantiates the matching CGI, copies all data into it and runs it. Messages and errors are copied automatically, the parameters in the HTTP request are not, since an error caused by one of#  them could propagate to the next CGI.
 #
-# If you need to keep HTTP parameters you can use the keepParam method in the parent class. It takes the name of the parameter as an argument and adds it to the list of parameters that will be copied to the new CGI if a "chain" is performed.
+#   Set the chain attribute. It works exactly the same way as redirect attribute but instead of sending an HTTP
+#   response to the browser, the parent class parses the url, instantiates the matching request, copies all data into
+#   it and runs it. Messages and errors are copied automatically, the parameters in the HTTP request are not, since
+#   an error caused by one of them could propagate to the next request.
 #
+#   If you need to keep HTTP parameters you can use the keepParam method in the parent class. It takes the name of
+#   the parameter as an argument and adds it to the list of parameters that will be copied to the new request if a
+#   "chain" is performed.
 #
 # Parameters:
 #   $chain - value for the chain attribute
 #
 # See also:
 #  setRedirect, setErrorchain, keepParam
+#
 sub setChain
 {
     my ($self, $chain) = @_;
@@ -679,13 +704,18 @@ sub setChain
 }
 
 # Method: setErrorchain
-#    set the errorchain attribute. Sometimes you want to chain to a different CGI if there is an error, for example if the cause of the error is the absence of an input parameter necessary to show the page. If that's the case you can set the errorchain attribute, which will have a higher priority than chain and redirect if there's an error.
+#
+#   Set the errorchain attribute. Sometimes you want to chain to a different request if there is an error, for
+#   example if the cause of the error is the absence of an input parameter necessary to show the page. If that's the
+#   case you can set the errorchain attribute, which will have a higher priority than chain and redirect if there's
+#   an error.
 #
 # Parameters:
 #   $errorchain - value for the errorchain attribute
 #
 # See also:
 #  setChain, setRedirect
+#
 sub setErrorchain
 {
     my ($self, $errorchain) = @_;
@@ -694,7 +724,7 @@ sub setErrorchain
 
 # Method: paramsAsHash
 #
-# Returns: a reference to a hash which contains the CGI parameters and
+# Returns: a reference to a hash which contains the request parameters and
 #    its values as keys and values of the hash
 #
 # Possible implentation improvements:
@@ -724,7 +754,7 @@ sub _validateParams
 
     my @paramsLeft = @{ $params_r };
     if (@paramsLeft) {
-        EBox::error("Unallowed parameters found in CGI request: @paramsLeft");
+        EBox::error("Unallowed parameters found in the request: @paramsLeft");
         throw EBox::Exceptions::External( __('Your request could not be processed because it had some incorrect parameters'));
     }
 
@@ -768,7 +798,7 @@ sub _validateRequiredParams
     my $matchResult_r = _matchParams($self->requiredParameters(), $params_r);
     my @requiresWithoutMatch = @{ $matchResult_r->{targetsWithoutMatch} };
     if (@requiresWithoutMatch) {
-        EBox::error("Mandatory parameters not found in CGI request: @requiresWithoutMatch");
+        EBox::error("Mandatory parameters not found in the request: @requiresWithoutMatch");
         throw EBox::Exceptions::External ( __('Your request could not be processed because it lacked some required parameters'));
     } else {
         my $allMatches = all  @{ $matchResult_r->{matches} };
@@ -811,9 +841,8 @@ sub _matchParams
 
 # Method: optionalParameters
 #
-#       Get the optional CGI parameter list. Any
-#   parameter that match with this list may be present or absent
-#   in the CGI parameters.
+#   Get the optional request parameter list. Any parameter that match with this list may be present or absent
+#   in the request parameters.
 #
 # Returns:
 #
@@ -828,8 +857,8 @@ sub optionalParameters
 
 # Method: requiredParameters
 #
-#   Get the required CGI parameter list. Any
-#   parameter that match with this list must be present in the CGI
+#   Get the required request parameter list. Any
+#   parameter that match with this list must be present in the request
 #   parameters.
 #
 # Returns:
@@ -845,8 +874,8 @@ sub requiredParameters
 
 # Method:  actuate
 #
-#   This method is the workhouse of the CGI it must be overriden by the
-#   different CGIs to achieve their objectives
+#   This method is the workhouse of the request it must be overriden by the
+#   different request handlers to achieve their objectives
 #
 sub actuate
 {
@@ -881,7 +910,7 @@ sub masonParameters
 #
 # Parameters:
 #
-#   uploadParam - String CGI parameter name which contains the path to the
+#   uploadParam - String request parameter name which contains the path to the
 #   file which will be uploaded. It is usually obtained from a HTML
 #   file input
 #
@@ -892,7 +921,7 @@ sub masonParameters
 # Exceptions:
 #
 #   <EBox::Exceptions::Internal> - thrown if an error has happened
-#   within the CGI or it is impossible to read the upload file or the
+#   within the request or it is impossible to read the upload file or the
 #   parameter does not pass on the request
 #
 #   <EBox::Exceptions::External> - thrown if there is no file to
@@ -901,63 +930,34 @@ sub masonParameters
 sub upload
 {
     my ($self, $uploadParam) = @_;
-    defined $uploadParam or throw EBox::Exceptions::MissingArgument();
+    defined $uploadParam or throw EBox::Exceptions::MissingArgument('uploadParam');
 
-    # upload parameter..
-    my $uploadParamValue = $self->cgi->param($uploadParam);
-    if (not defined $uploadParamValue) {
-        if ($self->cgi->cgi_error) {
-            throw EBox::Exceptions::Internal('Upload error: ' . $self->cgi->cgi_error);
-        }
+    # upload parameter...
+    my $request = $self->request();
+    my $uploads = $request->uploads();
+    my $upload = $uploads->{$uploadParam};
+    if (not defined $upload) {
+        # FIXME: We should add upload error handling for Plack / PSGI.
         throw EBox::Exceptions::Internal("The upload parameter $uploadParam does not "
                 . 'pass on HTTP request');
     }
 
-    # get upload contents file handle
-    my $UPLOAD_FH = $self->cgi->upload($uploadParam);
-    if (not $UPLOAD_FH) {
+    # get upload contents temp file path
+    unless ($upload->path()) {
         throw EBox::Exceptions::External( __('Invalid uploaded file.'));
     }
 
-    # destination file handle and path
-    my ($FH, $filename) = tempfile("uploadXXXXX", DIR => EBox::Config::tmp());
-    if (not $FH) {
-        throw EBox::Exceptions::External( __('Cannot create a temporally file for the upload'));
-    }
-
-    try {
-        #copy the uploaded data to file..
-        my $readStatus;
-        my $readData;
-        my $readSize = 1024 * 8; # read in blocks of 8K
-            while ($readStatus = read $UPLOAD_FH, $readData, $readSize) {
-                print $FH $readData;
-            }
-
-        if (not defined $readStatus) {
-            throw EBox::Exceptions::Internal("Error reading uploaded data: $!");
-        }
-    } catch ($e) {
-        unlink $filename;
-        close $UPLOAD_FH;
-        close $FH;
-        $e->throw();
-    }
-    close $UPLOAD_FH;
-    close $FH;
-
-    # return the created file in tmp
-    return $filename;
+    return $upload->path();
 }
 
 # Method: setMenuNamespace
 #
 #   Set the menu namespace to help the menu code to find out
-#   within which namespace this cgi is running.
+#   within which namespace this request is running.
 #
-#   Note that, this is useful only if you are using base CGIs
+#   Note that, this is useful only if you are using base request handlers
 #   in modules different to ebox base. If you do not use this,
-#   the namespace used will be the one the base cgi belongs to.
+#   the namespace used will be the one the base request belongs to.
 #
 # Parameters:
 #
@@ -975,11 +975,11 @@ sub setMenuNamespace
 # Method: menuNamespace
 #
 #   Return menu namespace to help the menu code to find out
-#   within which namespace this cgi is running.
+#   within which namespace this request is running.
 #
-#   Note that, this is useful only if you are using base CGIs
+#   Note that, this is useful only if you are using base request handlers
 #   in modules different to ebox base. If you do not use this,
-#   the namespace used will be the one the base cgi belongs to.
+#   the namespace used will be the one the base request belongs to.
 #
 # Returns:
 #
