@@ -12,12 +12,13 @@ Parameters:
 </%doc>
 <%args>
     $bindaddress => '0.0.0.0'
-    $zentyalconfdir
     $caFile
     $ports
 </%args>
+<%init>
+my $dumpedServices = {};
+</%init>
 % if (%{$ports}) {
-% my %dumpedservices = ();
 global
   tune.ssl.lifetime 300
 
@@ -28,12 +29,30 @@ defaults
   option forwardfor
   option httpclose
 %   foreach my $portNumber (keys %{$ports}) {
-
-frontend ft_zentyal_<% $portNumber %>
+<& .frontend, port => $portNumber,
+              conf => $ports->{$portNumber},
+              caFile =>  $caFile,
+              bindaddress => $bindaddress
+&>
+<& .backend,  port => $portNumber,
+              conf => $ports->{$portNumber},
+              dumpedServices => $dumpedServices
+&>
+%   }
+% }
+<& .rpcproxy &>
+<%def .frontend>
+<%args>
+$port
+$conf
+$caFile
+$bindaddress
+</%args>
+frontend ft_zentyal_<% $port %>
   mode http
-%     if ($ports->{$portNumber}->{isSSL}) {
+%     if ($conf->{isSSL}) {
 %       my $certificates = '';
-%       foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       foreach my $service (@{$conf->{services}}) {
 %           my $newCrt = 'crt ' . $service->{pathSSLCert};
 %           if ($service->{isDefault}) {
 %               $certificates = "$newCrt $certificates";
@@ -42,14 +61,14 @@ frontend ft_zentyal_<% $portNumber %>
 %           }
 %       }
 %       if ($caFile) {
-  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+  bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
 %       } else {
-  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM
+  bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM
 %       }
 %     } else {
-  bind <% $bindaddress %>:<% $portNumber %>
+  bind <% $bindaddress %>:<% $port %>
 %     }
-%     if ($ports->{$portNumber}->{isSSL}) {
+%     if ($conf->{isSSL}) {
   http-request set-header X-Forwarded-Proto      https
   http-request set-header X-SSL                       %[ssl_fc]
   http-request set-header X-SSL-Client-Used           %[ssl_c_used]
@@ -63,10 +82,10 @@ frontend ft_zentyal_<% $portNumber %>
 %     } else {
   http-request set-header X-Forwarded-Proto      http
 %     }
-%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%     foreach my $service (@{$conf->{services}}) {
 %       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
 %       foreach my $domain (@{$service->{domains}}) {
-%         if ($ports->{$portNumber}->{isSSL}) {
+%         if ($conf->{isSSL}) {
   use_backend bk_zentyal_<% $serviceNameWithPort %> if { ssl_fc_sni <% $domain %> }
 %         } else {
   use_backend bk_zentyal_<% $serviceNameWithPort %> if { hdr(host) -i <% $domain %> }
@@ -76,17 +95,33 @@ frontend ft_zentyal_<% $portNumber %>
   default_backend bk_zentyal_<% $serviceNameWithPort %>
 %       }
 %     }
-%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
-%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
-%       if (exists $dumpedservices{$serviceNameWithPort}) {
-%         next;
-%       } else {
-%         $dumpedservices{$serviceNameWithPort} = 1;
-%       }
-
+</%def>
+<%def .backend>
+<%args>
+$port
+$conf
+%dumpedServices
+</%args>
+%  foreach my $service (@{$conf->{services}}) {
+%    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%    if (exists $dumpedServices{$serviceNameWithPort}) {
+%      next;
+%    } else {
+%      $dumpedServices{$serviceNameWithPort} = 1;
+%    }
 backend bk_zentyal_<% $serviceNameWithPort %>
  mode http
  server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
-%     }
-%   }
-% }
+%  }
+</%def>
+<%def .rpcproxy>
+frontend fronted_rpcproxy
+  mode tcp
+%#  bind localhost:443 ssl crt /var/lib/zentyal/conf/ssl/ssl.pem  ciphers HIGH:MEDIUM
+  bind localhost:80
+  default_backend bk_rpcproxy
+
+backend bk_rpcproxy
+   mode tcp
+   listen 127.0.0.1:7777
+</%def>
