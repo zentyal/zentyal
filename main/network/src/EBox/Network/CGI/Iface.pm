@@ -78,8 +78,10 @@ sub setIface
         $force = 1;
     }
 
+    my $request = $self->request();
+    $parameters = $request->parameters();
     $self->keepParam('iface');
-    $self->cgi()->param(-name=>'iface', -value=>$iface);
+    $parameters->set('iface', $iface);
 
     my $audit = EBox::Global->modInstance('audit');
 
