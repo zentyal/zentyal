@@ -18,13 +18,13 @@
 # If a module implements some wizard it will be shown by zentyal-software to
 # the user
 #
-# A wizard page CGI has 2 types of calls differentiated by HTTP request method:
+# A wizard page handler has 2 types of calls differentiated by HTTP request method:
 #
 #   - GET - The page will show a form that the user must fill
 #           This information is normally written in a template with the
 #           parameters returned by <_masonParameters> method.
 #
-#   - POST - That form will sent to this CGI for processing.
+#   - POST - That form will sent to this handler for processing.
 #            The <_processWizard> method should be overriden to perform
 #            the action. If form processing fails, POST request must
 #            response with an error code and print error messages
@@ -105,7 +105,8 @@ sub _print
         return;
     }
 
-    if ($self->{cgi}->request_method() eq 'GET') {
+    my $request = $self->request();
+    if ($request->method() eq 'GET') {
         my $header = $self->_header();
         my $body = $self->_body();
         my $output = '';
@@ -119,9 +120,12 @@ sub _print
 
 sub _process
 {
-    my $self = shift;
+    my ($self) = @_;
+
     $self->{params} = $self->_masonParameters();
-    if ($self->{cgi}->request_method() eq 'POST') {
+
+    my $request = $self->request();
+    if ($request->method() eq 'POST') {
         $self->_processWizard();
     }
 }

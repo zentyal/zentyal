@@ -350,12 +350,13 @@ sub menuFolder
 # Overrides: EBox::CGI::Base::params
 #
 # We need to override this because the name of a parameter could be
-# internaltionalized and thus contian unexpecteed characters
+# internaltionalized and thus contain unexpected characters
 sub params
 {
     my ($self) = @_;
-    my $cgi = $self->cgi;
-    my @names = $cgi->param;
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    my @names = keys %{$parameters};
 
     # Prototype adds a '_' empty param to Ajax POST requests when the agent is
     # webkit based
