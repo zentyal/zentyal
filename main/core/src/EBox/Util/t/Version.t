@@ -15,20 +15,33 @@
 use strict;
 use warnings;
 
-use Test::More tests => 7;
+use Test::More tests => 10;
+use Test::Exception;
 use TryCatch::Lite;
 
+use EBox::Exceptions::MissingArgument;
 use EBox::Util::Version;
 
 
-is (EBox::Util::Version::compare('1.2', '1.2'), 0, 'Equal version');
-is (EBox::Util::Version::compare('1.3', '1.3.1'), -1, 'Major version');
-is (EBox::Util::Version::compare('2.0', '1.9.9'), 1, 'Minor version');
+is (EBox::Util::Version::compare('1.2', '1.2'), 0, 'Same version (1.2 == 1.2)');
+is (EBox::Util::Version::compare('1.3', '1.3.1'), -1, 'Newer version (1.3.1 > 1.3)');
+is (EBox::Util::Version::compare('2.0', '1.9.9'), 1, 'Older version (1.9.9 < 2.0)');
 
 # New development versions
-is (EBox::Util::Version::compare('3.0~1', '3.0~1'), 0, 'Equal version');
-is (EBox::Util::Version::compare('3.0.4', '3.1~1'), -1, 'Major version');
-is (EBox::Util::Version::compare('3.1~2', '3.1'), -1, 'Major version');
-is (EBox::Util::Version::compare('3.1', '3.1~1'), 1, 'Minor version');
+is (EBox::Util::Version::compare('3.0~1', '3.0~1'), 0, 'Same version (3.0~1 == 3.0~1)');
+is (EBox::Util::Version::compare('3.0.4', '3.1~1'), -1, 'Newer version (3.1~1 > 3.0.4)');
+is (EBox::Util::Version::compare('3.1~2', '3.1'), -1, 'Newer version (3.1 > 3.1~2');
+is (EBox::Util::Version::compare('3.1', '3.1~1'), 1, 'Older version (3.1~1 < 3.1~1)');
+
+throws_ok {
+    EBox::Util::Version::compare('3.1');
+} 'EBox::Exceptions::MissingArgument', 'Missing second argument';
+throws_ok {
+    EBox::Util::Version::compare();
+} 'EBox::Exceptions::MissingArgument', 'Missing all arguments';
+throws_ok {
+    EBox::Util::Version::compare(undef, '3.1');
+} 'EBox::Exceptions::MissingArgument', 'Missing first argument';
+
 
 1;
