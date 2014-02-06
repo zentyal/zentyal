@@ -116,12 +116,20 @@ backend bk_zentyal_<% $serviceNameWithPort %>
 <%def .rpcproxy>
 frontend fronted_rpcproxy
   mode http
-  bind *:80
+  bind 0.0.0.0:443 ssl crt /var/lib/zentyal/conf/ssl/ssl.pem  ciphers HIGH:MEDIUM
+  http-request set-header X-Forwarded-Proto      https
+  http-request set-header X-SSL                       %[ssl_fc]
+  http-request set-header X-SSL-Client-Used           %[ssl_c_used]
+  http-request set-header X-SSL-Client-Verify         %[ssl_c_verify]
+  http-request set-header X-SSL-Client-SHA1           %{+Q}[ssl_c_sha1]
+  http-request set-header X-SSL-Client-DN             %{+Q}[ssl_c_s_dn]
+  http-request set-header X-SSL-Client-CN             %{+Q}[ssl_c_s_dn(cn)]
+  http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
+  http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
+  http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
   default_backend bk_rpcproxy
-  # XXX logs
-  log /var/lib/haproxy/dev/log local0
-  option httplog
-  option logasap
+
+
 
 backend bk_rpcproxy
    mode http
