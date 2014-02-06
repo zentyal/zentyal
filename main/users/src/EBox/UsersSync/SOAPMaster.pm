@@ -60,8 +60,10 @@ sub registerSlave
 {
     my ($self, $port, $cert) = @_;
 
-    my $req = Apache2::RequestUtil->request();
-    my $host = $req->headers_in()->{'X-Real-IP'};
+    # my $req = Apache2::RequestUtil->request();
+    # my $host = $req->headers_in()->{'X-Real-IP'};
+    # FIXME: PENDIENTE DE MIGRAR A PSGI
+    my $host = '127.0.0.1';
 
     my $users = EBox::Global->modInstance('users');
     my $master = $users->masterConf();

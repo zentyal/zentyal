@@ -29,7 +29,6 @@ use strict;
 use vars qw(@ISA);
 @ISA=qw(SOAP::Server::Parameters);
 
-use Apache2::RequestUtil;
 use Devel::StackTrace;
 use EBox::Exceptions::NotImplemented;
 use SOAP::Lite;
@@ -98,10 +97,12 @@ sub _cnFromRequest
 {
     my ($self) = @_;
 
-    my $r = Apache2::RequestUtil->request();
-    my $clientCN = $r->subprocess_env('SSL_CLIENT_S_DN_CN');
-    my @retVal = split('_', $clientCN);
-    return \@retVal;
+    return [];
+    # FIXME: FINISH MIGRATION TO PSGI.
+#    my $r = Apache2::RequestUtil->request();
+#    my $clientCN = $r->subprocess_env('SSL_CLIENT_S_DN_CN');
+#    my @retVal = split('_', $clientCN);
+#    return \@retVal;
 
 }
 
