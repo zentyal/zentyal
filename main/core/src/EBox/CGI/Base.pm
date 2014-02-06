@@ -822,9 +822,9 @@ sub _validateReferer
         } elsif ($rshostname and ($referer =~ m/^https:\/\/[^\/]*$rshostname(:[0-9]*)?\//)) {
             return; # allow remoteservices proxy access
         }
-    } else {
-        throw EBox::Exceptions::External(__("Wrong HTTP referer detected, operation cancelled for security reasons"));
     }
+
+    throw EBox::Exceptions::External(__("Wrong HTTP referer detected, operation cancelled for security reasons"));
 }
 
 sub _validateRequiredParams
