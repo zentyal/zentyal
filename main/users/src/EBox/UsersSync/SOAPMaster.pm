@@ -62,7 +62,7 @@ sub registerSlave
 
     # my $req = Apache2::RequestUtil->request();
     # my $host = $req->headers_in()->{'X-Real-IP'};
-    # FIXME: PENDIENTE DE MIGRAR A PSGI
+    # FIXME: FINISH THE MIGRATION TO PSGI
     my $host = '127.0.0.1';
 
     my $users = EBox::Global->modInstance('users');
