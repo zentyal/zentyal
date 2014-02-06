@@ -39,9 +39,6 @@ my $app = sub {
     EBox::init();
     binmode(STDOUT, ':utf8');
 
-    use Data::Dumper;
-    EBox::debug(Dumper($env));
-
     my $req = Plack::Request->new($env);
     return EBox::CGI::Run->run($req);
 };
