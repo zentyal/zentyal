@@ -2,6 +2,9 @@
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
 	+ Use uWSGI instead of Apache mod_perl for running CGIs
+	+ Updated automatic bug report URL to new bug report endpoint.
+	+ Give support to custom actions without image. Those actions will
+	  not appear in the legend.
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost

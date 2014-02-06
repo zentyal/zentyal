@@ -87,7 +87,7 @@ sub _daemons
 #               - $port:
 #                   - isSSL:               Boolean  - Whether this port requires SSL usage.
 #                   - services:            Array    - Array of services attached to this port:
-#                       - isDefault:       Boolean - Wether this service is the default for this port.
+#                       - isDefault:       Boolean - Whether this service is the default for this port.
 #                       - pathSSLCert:     String  - A full path to the certificate used by this service or undef.
 #                       - name:            String  - The name of this service (without spaces).
 #                       - domains:         List    - List of domain names that this service will handle. If it's

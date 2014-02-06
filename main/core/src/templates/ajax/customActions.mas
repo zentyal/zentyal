@@ -1,14 +1,20 @@
+<%doc>
+  This template display all custom actions in a <span>.
+</%doc>
 <%args>
     $model
     $id
-    $type => 'submit'
+    $origin => 'form'
 </%args>
 %  my $customActions = $model->customActions(undef, $id);
 %  if ($customActions)
 %  {
-<span class="customActions" id="customActions_<% $model->modelName() . '_' . $type . '_' . $id %>">
-%    foreach my $customAction ( @{$customActions} )
-%    {
+<span class="customActions" id="customActions_<% $model->modelName() . '_' . $origin . '_' . $id %>">
+%    foreach my $customAction ( @{$customActions} ) {
+%      my $type = 'submit';
+%      if ($origin eq 'row' and $customAction->action($id)->image()) {
+%          $type = 'image';
+%      }
        <& $customAction->template(),
          action => $customAction,
          id => $id,

@@ -434,6 +434,8 @@ $changeView
                 foreach my $keyname (keys %{$customAction->{'states'}} ) {
                     my $state = $customAction->{'states'}->{$keyname};
 </%perl>
+%                   # Show the custom action in the legend if an image is defined
+%                   if ($state->{'image'}) {
                     <td>
                     <img
                         title="<% $state->{'printableValue'} %>"
@@ -444,6 +446,7 @@ $changeView
                     <td class="legendName">
                     <% $state->{'printableValue'} %>
                     </td>
+%                   }
 <%perl>
                 }
             } else {
