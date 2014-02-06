@@ -350,13 +350,20 @@ sub addNode
 #    params - <Hash::MultiValue> containing the node to delete in the
 #             key 'name'
 #
+# Exceptions:
+#
+#     <EBox::Exceptions::MissingArgument> - thrown if any mandatory param is missing
+#
 sub deleteNode
 {
     my ($self, $params) = @_;
 
     EBox::info('delete node (params): ' . Dumper($params));
 
-    # TODO: Check incoming data
+    unless (exists $params->{name}) {
+        throw EBox::Exceptions::MissingArgument('name');
+    }
+
     my $list = new EBox::HA::NodeList($self);
     my $deletedNode;
     try {
@@ -476,15 +483,28 @@ sub askForReplicationInNode
 # Exceptions:
 #
 #    <EBox::Exceptions::Internal> - thrown if the cluster is not bootstraped
+#    <EBox::Exceptions::InvalidData> - thrown if any mandatory argument contains invalid data
+#    <EBox::Exceptions::MissingArgument> - thrown if the any mandatory argument is missing from BODY
+#
 sub updateClusterConfiguration
 {
     my ($self, $params, $body) = @_;
 
     EBox::info('Update cluster conf (body): ' . Dumper($body));
 
-    # TODO: Check incoming data
     unless ($self->clusterBootstraped()) {
         throw EBox::Exceptions::Internal('Cannot a non-bootstraped module');
+    }
+
+    foreach my $paramName (qw(name transport multicastConf nodes)) {
+        unless (exists $body->{$paramName}) {
+            throw EBox::Exceptions::MissingArgument($paramName);
+        }
+    }
+    EBox::Validate::checkDomainName($body->{name}, 'name');
+    unless ($body->{transport} ~~ ['udp', 'udpu']) {
+        throw EBox::Exceptions::InvalidData(data => 'transport', value => $body->{transport},
+                                            advice => 'udp or udpu');
     }
 
     my $state = $self->get_state();

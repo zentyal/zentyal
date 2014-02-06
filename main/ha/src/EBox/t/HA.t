@@ -111,11 +111,11 @@ sub test_cluster_configuration : Test(5)
     }
 }
 
-sub test_update_cluster_configuration : Test(14)
+sub test_update_cluster_configuration : Test(20)
 {
     my ($self) = @_;
 
-    my $mod = new Test::MockObject::Extends($self->{mod});
+    my $mod = $self->{mod};
     $mod->set_true('_corosyncSetConf', 'saveConfig');
     $mod->set_false('_isDaemonRunning');
 
@@ -124,6 +124,23 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration();
     } 'EBox::Exceptions::Internal', 'Update a non-bootstraped cluster';
     $mod->set_true('clusterBootstraped');
+
+    throws_ok { $mod->updateClusterConfiguration() } 'EBox::Exceptions::MissingArgument';
+    throws_ok { $mod->updateClusterConfiguration(undef, {name => 'foo'}); } 'EBox::Exceptions::MissingArgument';
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'foo', transport => 'udp'});
+    } 'EBox::Exceptions::MissingArgument';
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'foo', transport => 'udp', 'multicastConf' => undef});
+    } 'EBox::Exceptions::MissingArgument';
+
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => '-ffo', transport => 'udp', 'multicastConf' => undef, nodes => []});
+    } 'EBox::Exceptions::InvalidData', 'Invalid name parameter';
+
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'ffo', transport => 'xcf', 'multicastConf' => undef, nodes => []});
+    } 'EBox::Exceptions::InvalidData', 'Invalid transport parameter';
 
     # Test warns and name change
     {
@@ -235,6 +252,27 @@ sub test_add_node : Test(7)
     } 'Adding a node';
 
     ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), 'The node was added');
+
+    $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+}
+
+sub test_delete_node : Test(4)
+{
+    my ($self) = @_;
+    my $mod = $self->{mod};
+
+    throws_ok { $mod->deleteNode(); } 'EBox::Exceptions::MissingArgument';
+
+    lives_ok { $mod->deleteNode({name => 'node'}); } 'Delete a non-existing node';
+
+    # Mocking to test real environment
+    $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+    lives_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+        $mod->deleteNode({name => 'foo'});
+    } 'Adding and removing a node';
+
+    cmp_ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), '==', 0, 'The node was deleted');
 
     $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
 }
