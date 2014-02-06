@@ -51,15 +51,13 @@ sub _process
     my ($self) = @_;
 
     my $authreason;
-    my $session = {};
-
     my $request = $self->request();
-    my %session = $request->session();
-    if (exists $session{AuthReason}){
-        $authreason = delete $session{AuthReason};
+    my $session = $request->session();
+    if (exists $session->{AuthReason}){
+        $authreason = delete $session->{AuthReason};
     }
 
-    my $destination = _requestDestination(\%session);
+    my $destination = _requestDestination($session);
 
     my $reason;
     if (defined $authreason) {
