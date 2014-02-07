@@ -1,4 +1,6 @@
 3.4
+	+ Search and pagination forms can be omitted using showFilterForm
+	  and showPaginationForm properties
 	+ Updated automatic bug report URL to new bug report endpoint.
 	+ Give support to custom actions without image. Those actions will
 	  not appear in the legend.

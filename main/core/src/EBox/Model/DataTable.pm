@@ -2521,6 +2521,45 @@ sub automaticRemoveMsg
             br      => '<br>');
 }
 
+# Method: showFilterForm
+#
+# Returns:
+#
+#   Boolean - whether to show the filter form or not
+#
+sub showFilterForm
+{
+    my ($self) = @_;
+
+    my $table = $self->table();
+    if (defined($table->{'showFilterForm'})) {
+        return $table->{'showFilterForm'};
+    }
+
+    return 1;
+}
+
+# Method: showPaginationForm
+#
+# Returns:
+#
+#   Boolean - whether to show the form navigation or not
+#
+sub showPaginationForm
+{
+    my ($self) = @_;
+
+    my $table = $self->table();
+    if (defined($table->{'showPaginationForm'})) {
+        return $table->{'showPaginationForm'};
+    }
+
+    return 1;
+}
+
+
+
+
 # Method: pageSize
 #
 #     Return the number of rows per page
