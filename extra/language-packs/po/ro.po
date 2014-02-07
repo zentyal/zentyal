@@ -457,8 +457,8 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
-"{openpar}Aveți nevoie de un certificat CA valid pentru a utiliza servere "
-"VPN.{closepar}{openpar} Vă rugăm accesați Modulul autorității de certificare "
+"{openpar}Aveți nevoie de un certificat CA valid pentru a utiliza servere VPN."
+"{closepar}{openpar} Vă rugăm accesați Modulul autorității de certificare "
 "{openhref}  și reînnoiți certificatul {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
@@ -534,11 +534,11 @@ msgid ""
 msgstr ""
 "{openpar}Se pot configura servere OpenVPN pentru a accesa de la distanță "
 "rețeaua de la birou sau de acasă{closepar}{openpar} Click pe  {openit} "
-"Configurare {closeit} pentru a seta parametrii VPN  "
-"{closepar}{openpar}{openit}Rețelele promovate{closeit} permite alegerea "
-"rețelelor care vor putea fi accesate de la distanță. {openpar} După ce ați "
-"terminat de configurat, puteți descărca un pachet ce conține toate setările "
-"necesare pentru a accesul de la distanță."
+"Configurare {closeit} pentru a seta parametrii VPN  {closepar}{openpar}"
+"{openit}Rețelele promovate{closeit} permite alegerea rețelelor care vor "
+"putea fi accesate de la distanță. {openpar} După ce ați terminat de "
+"configurat, puteți descărca un pachet ce conține toate setările necesare "
+"pentru a accesul de la distanță."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
@@ -6653,7 +6653,7 @@ msgstr ""
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/network/src/templates/ifaces.mas:217
 #: ../../main/network/src/templates/ifaces.mas:292
-#: ../../main/core/src/templates/ajax/tableBody.mas:441
+#: ../../main/core/src/templates/ajax/tableBody.mas:444
 #: ../../main/core/src/templates/ajax/row.mas:96
 #: ../../main/core/src/templates/dataInUse.mas:32
 #: ../../main/software/src/templates/ebox.mas:334
@@ -17770,7 +17770,7 @@ msgid "Domain list"
 msgstr "Lista domeniu"
 
 #: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:439
+#: ../../main/core/src/templates/ajax/tableBody.mas:442
 #: ../../main/core/src/templates/ajax/row.mas:94
 #: ../../main/samba/src/templates/editgplink.mas:23
 msgid "Edit"
