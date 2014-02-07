@@ -20,5 +20,7 @@ models:
 composites:
     Initial: [Cluster, FloatingIP]
     General: [Configuration, Status]
-    Status: [ClusterStatusSummary, NodeStatus, ResourceStatus, Errors]
     Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]
+    Status: [StatusHalfTop, Errors]
+    StatusHalfTop: [ClusterStatusSummary, StatusHalfTopRight]
+    StatusHalfTopRight: [NodeStatus, ResourceStatus]

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::Status;
+package EBox::HA::Composite::StatusHalfTop;
 
 use base 'EBox::Model::Composite';
 
@@ -36,15 +36,11 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        components      => ['StatusHalfTop', 'Errors'],
-        layout          => 'top-bottom',
-        printableName   => 'Cluster status',
+        components      => ['ClusterStatusSummary', 'StatusHalfTopRight'],
+        layout          => 'left-right',
+        widths          => { 'ClusterStatusSummary' => '30%', 'StatusHalfTopRight' => '70%' },
         compositeDomain => 'ha',
-        name            => 'Status',
-        help            => __x('Here you can show the status of your cluster. ' .
-                              'If you want to see more info about the errors ' .
-                               'shown, please go to {logfile}',
-                                                logfile => '/var/log/syslog'),
+        name            => 'StatusHalfTop',
     };
 
     return $description;
