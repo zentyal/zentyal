@@ -65,11 +65,11 @@ Listen <% $bindaddress %>:<% $port %>
 user <% $user %>
 group <%group %>
 
-ErrorLog /var/log/zentyal/outlook-anywhere-error.log
+ErrorLog /var/log/zentyal/error-oa.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
-CustomLog /var/log/zentyal/outlook-anywhere-access.log combined
+CustomLog /var/log/zentyal/access-oa.log combined
 
 WSGILazyInitialization On
 WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
