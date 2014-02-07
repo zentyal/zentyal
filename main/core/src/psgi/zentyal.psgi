@@ -50,6 +50,8 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
+    enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
+      "+EBox::Middleware::NoAuth";
     enable "+EBox::Middleware::Auth";
     $app;
 };
