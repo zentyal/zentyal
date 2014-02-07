@@ -145,12 +145,6 @@ sub enableService
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
 
-        if ($global->modExists('webserver')) {
-            my $webserverMod = $global->modInstance("webserver");
-            # Mark webserver as changed to load the configuration of Outlook Anywhere.
-            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
-        }
-
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
@@ -250,19 +244,6 @@ sub usedFiles
 #        module => 'openchange'
 #    });
 #
-    my $global = EBox::Global->getInstance();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        if ($webserverMod->isEnabled()) {
-            my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-            push (@files, {
-                file => $rpcproxyConfFile,
-                reason => __('To configure Outlook Anywhere service'),
-                module => 'openchange'
-            });
-        }
-    }
-
     return \@files;
 }
 
@@ -398,46 +379,29 @@ sub _setRPCProxyConf
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-        if ($webserverMod->isEnabled()) {
-            if ($self->isProvisioned()) {
-                try {
-                    EBox::Sudo::root('a2enmod wsgi');
-                } catch EBox::Exceptions::Sudo::Command with {
-                    my ($exc) = @_;
-                    # Already enabled?
-                    if ( $exc->exitValue() != 1 ) {
-                        throw $exc;
-                    }
-                };
-                $self->writeConfFile(
-                    $rpcproxyConfFile, 'openchange/apache-rpcproxy.mas',
-                    [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+    if ($self->isProvisioned()) {
+        my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
 
-                my @cmds;
-                push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-                EBox::Sudo::root(@cmds);
-            } else {
-                EBox::Sudo::root('rm -f ' . $rpcproxyConfFile);
-                # Disable the module
-                try {
-                    EBox::Sudo::root('a2dismod wsgi');
-                } catch EBox::Exceptions::Sudo::Command with {
-                    my ($exc) = @_;
-                    # Already enabled?
-                    if ( $exc->exitValue() != 1 ) {
-                        throw $exc;
-                    }
-                };
-            }
-            # Force webserver reload
-            $webserverMod->setAsChanged();
-        }
+        my @params = ();
+        push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
+        push (@params, tmpdir => => EBox::Config::tmp());
+
+        $self->writeConfFile(
+            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+
+        my @cmds;
+        push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+        EBox::Sudo::root(@cmds);
+
+        @params = ();
+        push (@params, conf => $rpcproxyConfFile);
+        my $rpcproxyUpstartFile = '/etc/init/zentyal.oa.conf';
+        $self->writeConfFile(
+            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
     }
 }
 

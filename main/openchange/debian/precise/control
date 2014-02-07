@@ -8,7 +8,7 @@ Standards-Version: 3.9.2
 Package: zentyal-openchange
 Architecture: all
 Depends: zentyal-core (>= 3.2), zentyal-core (<< 3.3),
- zentyal-mail, zentyal-samba, zentyal-webserver,
+ zentyal-mail, zentyal-samba, libapache2-mod-wsgi
  openchangeserver (>= 2:2.0+zentyal1),
  openchange-rpcproxy,
  libstring-random-perl,
