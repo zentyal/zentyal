@@ -10,6 +10,7 @@
 <%args>
   $model
   $hasChanged
+  $user
 </%args>
 <%init>
   use EBox::Gettext;
@@ -35,6 +36,7 @@
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
+   user => $user,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
    directory  => $model->directory(),
@@ -43,6 +45,7 @@
 %       foreach my $component (@{$componentsRef}) {
 <& $component->Viewer(),
    model => $component,
+   user => $user,
    hasChanged => $hasChanged,
    action => 'view',
 &>
@@ -50,6 +53,7 @@
 %    } elsif ( $model->layout() eq 'select' )  {
 <& /ajax/selector.mas,
    composite => $model,
+   user => $user,
    hasChanged => $hasChanged,
 &>
 %    }

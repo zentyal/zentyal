@@ -1,4 +1,6 @@
 3.4
+	+ Migrated to use Plack / PSGI API instead of the CGI one
+	+ Remove obsolete sope dependency
 	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts

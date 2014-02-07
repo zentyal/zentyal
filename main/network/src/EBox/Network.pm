@@ -4380,12 +4380,13 @@ sub wakeonlan
 # Parameters:
 #
 #   iface - name of the iface to check
+#   request - Plack::Request reference.
 #
 sub externalConnectionWarning
 {
-    my ($self, $iface) =  @_;
+    my ($self, $iface, $request) =  @_;
 
-    my $remote = $ENV{HTTP_X_FORWARDED_FOR};
+    my $remote = $request->address();
     my $command = "/sbin/ip route get to $remote" . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
     my $routeIface = `$command`;
     return 0 unless ($? == 0);

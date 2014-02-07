@@ -3,6 +3,7 @@
 </%flags>
 <%args>
   $model
+  $user
   $action => 'view'
   $editid => ''
   $hasChanged => 1
@@ -21,6 +22,7 @@ use Perl6::Junction qw(any);
    model      => $model,
    hasChanged => $hasChanged,
    action     => $action,
+   user       => $user,
 &>
 
 
@@ -38,6 +40,7 @@ use Perl6::Junction qw(any);
 <%method _body>
 <%args>
   $model
+  $user
   $action => 'view'
   $editid => ''
   $hasChanged => 1
@@ -72,12 +75,13 @@ use Perl6::Junction qw(any);
   }
 
   my $movableRows = $model->movableRows($filter);
-  my $pageSize = $model->pageSizeIntValue();
+  my $pageSizeInt = $model->pageSizeIntValue($user);
+  my $pageSize = $model->pageSize($user);
   if (not $page) {
     $page = 0;
   } elsif ($page == -1) {
     # go to last page
-    $page = POSIX::floor(@ids/$pageSize);
+    $page = POSIX::floor(@ids/$pageSizeInt);
   }
 
 my %checkAllControls = %{ $model->checkAllControls()  };
@@ -132,9 +136,9 @@ my %checkAllControls = %{ $model->checkAllControls()  };
         }
       } else {
         $matches++;
-        unless ($matches > ($pageSize * $page)) { next;}
+        unless ($matches > ($pageSizeInt * $page)) { next;}
         $displayRows++;
-      if ($displayRows > $pageSize) { next; };
+      if ($displayRows > $pageSizeInt) { next; };
         $row = $model->row($ids[$idx]);
       }
 </%perl>
@@ -150,7 +154,7 @@ my %checkAllControls = %{ $model->checkAllControls()  };
          page           => $page,
          changeView     => $changeView
       &>
-%     if ($displayRows == $pageSize and not (defined($filter) and length($filter) > 0) ) {
+%     if ($displayRows == $pageSizeInt and not (defined($filter) and length($filter) > 0) ) {
 %       $matches = scalar(@ids);
 %       last;
 %     }
@@ -174,7 +178,8 @@ $(function() {
  <& /ajax/tablePager.mas,
    model => $model,
    page => $page,
-   tpages => POSIX::ceil($matches / $pageSize) - 1,
+   tpages => POSIX::ceil($matches / $pageSizeInt) - 1,
+   pageSize => $pageSize,
 &>
 </div>
 
@@ -187,7 +192,7 @@ $(function() {
 % } else {
 <input type="hidden"
   id="<% $tableName . '_pageSize' %>"
-  value="<% $model->pageSize() %>"
+  value="<% $pageSize %>"
 >
 % }
 

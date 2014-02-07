@@ -55,7 +55,7 @@ sub _process
 
     my $iface = $self->param('iface');
     if ($iface) {
-        if ($net->externalConnectionWarning($iface)) {
+        if ($net->externalConnectionWarning($iface, $self->request())) {
             $self->{json} = { success => 0, error =>__x('You are connecting to Zentyal through the {i} interface. If you set it as external the firewall will lock you out during the installation.', i => $iface) };
         } else {
             $self->{json} = { success => 1 };
@@ -63,7 +63,8 @@ sub _process
         return;
     }
 
-    if ($self->{cgi}->request_method() eq 'POST') {
+    my $request = $self->request();
+    if ($request->method() eq 'POST') {
         $self->_processWizard();
     }
 }

@@ -90,44 +90,45 @@ http {
 
         root /usr/share/zentyal/www;
 
-        location / {
-            # First attempt to serve request as file, then
-            # as directory, then fall back to proxy.
-            try_files $uri @proxy;
-        }
+        # First attempt to serve request as file, then
+        # as directory, then fall back to proxy.
+        try_files $uri @proxy;
 
         error_page 502 /errors/502.html;
         location = /errors/502.html {
            root /usr/share/zentyal/www;
         }
-        location = /js/jquery-1.9.1.js {
-           root /usr/share/zentyal/www;
-        }
-        location = /images/ajax-loader.gif {
-           root /usr/share/zentyal/www;
-        }
-        location = /favicon.ico {
-           root /usr/share/zentyal/www;
+
+        location /data/ {
+            root /usr/share/zentyal/www;
+            rewrite  ^/data/(.*)$  /$1  break;
+            return   403;
         }
 
+        location /dynamic-data/ {
+            root /var/lib/zentyal/dynamicwww/;
+            rewrite  ^/dynamic-data/(.*)$  /$1  break;
+            return   403;
+        }
 
         location @proxy {
-            proxy_pass http://localhost:60080;
+            uwsgi_pass unix:///var/lib/zentyal/tmp/uwsgi.sock;
 
-            proxy_next_upstream error timeout invalid_header http_500 http_502 http_503 http_504;
-
-            proxy_set_header        Accept-Encoding   "";
-            proxy_set_header        Host            $host;
-            proxy_set_header        X-Real-IP       $http_x_forwarded_for;
-            proxy_send_timeout      3600; # It is a quite high value because Apache should be the one giving the timeout always.
-            proxy_read_timeout      3600; # It is a quite high value because Apache should be the one giving the timeout always.
-
-            proxy_redirect     off;
+            uwsgi_param QUERY_STRING $query_string;
+            uwsgi_param REQUEST_METHOD $request_method;
+            uwsgi_param CONTENT_TYPE $content_type;
+            uwsgi_param CONTENT_LENGTH $content_length;
+            uwsgi_param REQUEST_URI $request_uri;
+            uwsgi_param PATH_INFO $document_uri;
+            uwsgi_param DOCUMENT_ROOT $document_root;
+            uwsgi_param SERVER_PROTOCOL $server_protocol;
+            uwsgi_param REMOTE_ADDR $remote_addr;
+            uwsgi_param REMOTE_PORT $remote_port;
+            uwsgi_param SERVER_ADDR $server_addr;
+            uwsgi_param SERVER_PORT $server_port;
+            uwsgi_param SERVER_NAME $server_name;
         }
 
-        location ~ /\.ht {
-           deny all;
-        }
 % foreach my $includeFile (@includes) {
 
         include <% $includeFile %>;
