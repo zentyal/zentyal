@@ -76,10 +76,10 @@ frontend ft_zentyal_<% $port %>
 % foreach my $service (@{$conf->{services}}) {
 %    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
 %    foreach my $domain (@{$service->{domains}}) {
-%      my @urls = $service->{urls} ? @{ $service->{urls} } : ();
-%      if (@urls) {
-%         foreach my $url (@urls) {
-  use_backend bk_zentyal_<% $serviceNameWithPort %> if { base <% $domain . $url %> }
+%      my @path = $service->{paths} ? @{ $service->{paths} } : ();
+%      if (@path) {
+%         foreach my $path (@path) {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { base <% $domain . $path %> }
 %         }
 %      } else {
 %          my $domainAcl = $conf->{isSSL} ? "ssl_fc_sni $domain " :  "hdr(host) -i $domain";

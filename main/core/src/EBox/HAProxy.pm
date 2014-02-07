@@ -195,7 +195,7 @@ sub _modsServices
         targetIP => '127.0.0.1',
         targetPort => 7777,
         domains    => ['z32a.zentyal-domain.lan'],
-        urls       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+        paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
         pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
         isSSL   => 1,
     };
