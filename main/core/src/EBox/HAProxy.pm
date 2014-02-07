@@ -189,7 +189,7 @@ sub _modsServices
     my ($self) = @_;
     my @services;
     my $rpcpService = {
-        name => 'oc_rpcproxy',
+        name => 'oc_rpcproxy_https',
         port => 443,
         printableName => __('OpenChange RPCProxy'),
         targetIP => '127.0.0.1',
@@ -201,9 +201,23 @@ sub _modsServices
     };
     push @services, $rpcpService;
 
+
+    my $httpRpcpService = {
+        name => 'oc_rpcproxy_http',
+        port => 80,
+        printableName => __('OpenChange RPCProxy'),
+        targetIP => '127.0.0.1',
+        targetPort => 7777,
+        domains    => ['z32a.zentyal-domain.lan'],
+        paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+        pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+        isSSL   => 0,
+    };
+    push @services, $httpRpcpService;
+
+
     return \@services;
 }
-
 
 # Method: _setConf
 #
@@ -244,7 +258,6 @@ sub _setConf
     };
 
     EBox::Module::Base::writeConfFileNoCheck(HAPROXY_CONF_FILE, 'core/haproxy.cfg.mas', \@params, $permissions);
-
 }
 
 # Method: isEnabled
