@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: zentyal 3.0\n"
 "Report-Msgid-Bugs-To: developers@zentyal.org\n"
 "POT-Creation-Date: 2012-08-07 18:26+0200\n"
-"PO-Revision-Date: 2014-01-28 23:06+0200\n"
+"PO-Revision-Date: 2014-02-02 16:59+0200\n"
 "Last-Translator: goggu <smbr2005@yahoo.com>\n"
 "Language-Team: zentyal-i18n@lists.zentyal.org\n"
 "Language: ro\n"
@@ -24,16 +24,16 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
 #: ../../main/mail/src/EBox/Mail.pm:1395
 msgid "disabled"
-msgstr ""
+msgstr "dezactivat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:48
 msgid "Server's address"
-msgstr ""
+msgstr "Adresa serverului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:56
 #, perl-brace-format
 msgid "You must provide at least one address for the server {name}"
-msgstr ""
+msgstr "Trebuie să specifici cel puţin o adresă pentru serverul {nume}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server/ClientBundleGenerator.pm:164
 msgid "The client certificate can't be the same than the server's one"
@@ -457,30 +457,38 @@ msgid ""
 "{openpar}Please, go to the {openhref} certification authority module"
 "{closehref} and renew it.{closepar}"
 msgstr ""
+"{openpar}Aveți nevoie de un certificat CA valid pentru a utiliza servere "
+"VPN.{closepar}{openpar} Vă rugăm accesați Modulul autorității de certificare "
+"{openhref}  și reînnoiți certificatul {closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:167
-#, fuzzy, perl-brace-format
+#, perl-brace-format
 msgid ""
 "{openpar}You need to create a CA certificate to run VPN servers. {closepar}"
 "{openpar}Please, go to the {openhref}certification authority module"
 "{closehref} and create it.{closepar}"
 msgstr ""
-"Întâi creați o autoritate de certificare. Pentru asta mergeți la {openhref}"
-"Autoritate de certificare{closehref} "
+"{openpar}Trebuie să creaţi un certificat al Autorităţii de Certificare (CA) "
+"pentru a utiliza servere VPN.{closepar}{openpar}Mergeți la modulul "
+"{openhref} Autoritate de certificare{closehref} şi creaţi-l.{closepar}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:185
 msgid "Server creation"
-msgstr ""
+msgstr "Creare server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:290
 msgid ""
 "Cannot activate the server because  is not fully configured; please edit the "
 "configuration and retry"
 msgstr ""
+"Serverul nu poate fi activat deoarece nu este configurat corespunzător. "
+"Revizuiți setările și reîncercați."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:298
 msgid "Cannot create a server because there is not a CA certificate"
 msgstr ""
+"Serverul nu poate fi creat deoarece nu există un certificat CA alocat pentru "
+"acesta."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:323
 #, perl-brace-format
@@ -488,21 +496,20 @@ msgid ""
 "{act} not possible because there aren't any available certificate. Please, "
 "go to the certificate authority module and create new certificates"
 msgstr ""
+"{act} nu este posibil deoarece nu există certificate disponibile, Creați "
+"certificate noi prin intermediul modulului de autoritate de certificare."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:340
-#, fuzzy
 msgid "revoked"
-msgstr "Revocat"
+msgstr "revocat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:342
-#, fuzzy
 msgid "expired"
-msgstr "Expirat"
+msgstr "expirat"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:344
-#, fuzzy
 msgid "invalid"
-msgstr "Valid"
+msgstr "invalid"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:349
 #, perl-brace-format
@@ -511,6 +518,9 @@ msgid ""
 "called {certName} with {state} state.<br/>Choose another name or reissue the "
 "{certName} certificate"
 msgstr ""
+"Serverul {name} nu poate fi creat deoarece există deja un certificat cu "
+"denumirea {certName} în faza de {state} .<br/> Redenumiți serverul sau "
+"regenerați certificatul  {certName} ."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:364
 #, perl-brace-format
@@ -522,6 +532,13 @@ msgid ""
 "remote users.{openpar}Once you are done with the configuration you can "
 "download a file bundle for your operating system to use in your clients."
 msgstr ""
+"{openpar}Se pot configura servere OpenVPN pentru a accesa de la distanță "
+"rețeaua de la birou sau de acasă{closepar}{openpar} Click pe  {openit} "
+"Configurare {closeit} pentru a seta parametrii VPN  "
+"{closepar}{openpar}{openit}Rețelele promovate{closeit} permite alegerea "
+"rețelelor care vor putea fi accesate de la distanță. {openpar} După ce ați "
+"terminat de configurat, puteți descărca un pachet ce conține toate setările "
+"necesare pentru a accesul de la distanță."
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:63
 #: ../../main/nut/src/EBox/NUT/Model/Mode.pm:65
@@ -536,50 +553,49 @@ msgstr "Server"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:64
 msgid "Server port"
-msgstr ""
+msgstr "Portul serverului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:73
 msgid "CA's certificate"
-msgstr ""
+msgstr "Certificatul CA"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:85
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:61
 msgid "Client's certificate"
-msgstr ""
+msgstr "Certificatul clientului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:97
 msgid "Client's private key"
-msgstr ""
+msgstr "Cheia privată a clientului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:109
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ServerConfiguration.pm:95
-#, fuzzy
 msgid "TUN interface"
 msgstr ""
 "#-#-#-#-#  ro.po (ebox-ids 1.1)  #-#-#-#-#\n"
 "interfaţa\n"
 "#-#-#-#-#  ro.po (ebox-printers 0.12.99)  #-#-#-#-#\n"
-"interfaţă"
+"interfaţă TUN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:115
 msgid "Server tunnel password"
-msgstr ""
+msgstr "Parolă tunel server"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:121
 msgid "Bind port for client"
-msgstr ""
+msgstr "Port de legătură pentru client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:129
 msgid "Bind address for client"
-msgstr ""
+msgstr "Adresă de legătură pentru client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:136
 msgid "Command to execute after routes are set"
-msgstr ""
+msgstr "Comanda care va fi executată după stabilirea rutelor"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:146
 msgid "Client configuration"
-msgstr ""
+msgstr "Configurație client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:152
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:112
@@ -592,46 +608,48 @@ msgstr "client"
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/ClientConfiguration.pm:236
 #, perl-brace-format
 msgid "No file supplied or already set for {f}"
-msgstr ""
+msgstr "Fișierul nu este specificat sau este deja stabilit pentru {f}"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:53
 msgid "Client's type"
-msgstr ""
+msgstr "Tipul clientului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:67
 msgid "Add OpenVPN's installer to bundle"
-msgstr ""
+msgstr "Include și aplicația OpenVPN în pachet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:69
 msgid "OpenVPN installer for Microsoft Windows"
-msgstr ""
+msgstr "Program de instalare OpenVPN pentru Microsoft Windows"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:73
 #, fuzzy
 msgid "Connection strategy"
-msgstr "Configuratia si status"
+msgstr "Caracteristici de conectare"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:79
 msgid "Server address"
-msgstr ""
+msgstr "Adresa serverului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:81
 msgid ""
 "This is the address that will be used by your clients to connect to the "
 "server. Typically, this will be a public IP or host name"
 msgstr ""
+"Aceasta este adresa care va fi folosită de clienţi pentru conectarea la "
+"server. În mod normal, aceasta este un IP public sau numele serverului"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:87
 msgid "Additional server address (optional)"
-msgstr ""
+msgstr "Adresa suplimentară pentru server (opţional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:93
 msgid "Second additional server address (optional)"
-msgstr ""
+msgstr "A doua adresă suplimentară pentru server (opţional)"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:102
 msgid "Download Client Bundle"
-msgstr ""
+msgstr "Descarcă pachet pentru Client"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:103
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/InterfaceRate.pm:107
@@ -643,32 +661,35 @@ msgstr "Descărcare"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:119
 msgid "Random"
-msgstr ""
+msgstr "Aleator"
 
 # Desi termenul de Failover explica cel mai bine, In romana o descriere ar fi redunanta / asigurare
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:120
-#, fuzzy
 msgid "Failover"
-msgstr "Asigurare WAN"
+msgstr "Redundanță WAN"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:134
 msgid "Zentyal to Zentyal tunnel"
-msgstr ""
+msgstr "Tunel de la Zentyal la Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:175
 msgid ""
 "Cannot make a bundle because the server  is not fully configured; please "
 "edit the configuration and retry"
 msgstr ""
+"Nu poate fi creat un pachet deoarece serverul nu este configurat integral, "
+"editați configurația și reîncercați"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:196
 msgid "Cannot use for the bundle the server's certificate"
-msgstr ""
+msgstr "Certificatul serverului nu poate fi folosit în pachet"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:212
 msgid ""
 "Invalid client type: the server does not allow Zentyal-to-Zentyal tunnels"
 msgstr ""
+"Tip client invalid: serverul nu poate gestiona un tunel de la Zentyal la "
+"Zentyal"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DownloadClientBundle.pm:220
 msgid ""
