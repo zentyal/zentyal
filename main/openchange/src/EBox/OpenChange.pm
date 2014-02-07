@@ -478,7 +478,7 @@ sub menu
             icon => 'openchange',
             text => $self->printableName(),
             separator => $separator,
-            url       => 'OpenChange/View/Provision',
+            url       => 'OpenChange/Composite/General',
             order     => $order)
     );
 }

@@ -14,4 +14,8 @@ depends:
 
 models:
     - Provision
+    - RPCProxy
     - OpenChangeUser
+
+composites:
+   General: [Provision, RPCProxy]
