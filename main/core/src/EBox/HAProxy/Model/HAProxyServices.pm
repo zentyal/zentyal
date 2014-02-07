@@ -371,17 +371,29 @@ sub validateTypedRow
                 if (EBox::Global->modExists('ca')) {
                     my $ca = EBox::Global->modInstance('ca');
                     my $certificates = $ca->model('Certificates');
-                    unless ($certificates->isEnabledService($module->printableName())) {
-                        throw EBox::Exceptions::External(__x(
-                            'You need to enable {module} on {ohref}Services Certificates{chref} to enable SSL for it.',
-                            module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
-                        ));
+                    unless ($certificates->isEnabledService($module->caServiceIdForHAProxy())) {
+                        my $errorMsg = __x(
+                            'You need to enable the certificate for {module} on {ohref}Services Certificates{chref}',
+                            service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
+                            chref => '</a>'
+                        );
+                        foreach my $certificate (@{$module->certificates}) {
+                            if ($certificate->{serviceId} eq $module->caServiceIdForHAProxy()) {
+                                my $serviceName = $certificate->{service};
+                                $errorMsg = __x(
+                                    'You need to enable the {serviceName} certificate for {module} on '.
+                                    '{ohref}Services Certificates{chref}',
+                                    serviceName => $serviceName, service => $module->displayName(),
+                                    ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
+                                );
+                                last;
+                            }
+                        }
+                        throw EBox::Exceptions::External($errorMsg);
                     }
                 } else {
-                    throw EBox::Exceptions::External(__x(
-                        'The SSL certificate {module} does not exists, you cannot enable SSL for this service.',
-                        module => $moduleName, ohref => '<a href="/CA/View/Certificates">', chref => '</a>'
-                    ));
+                    throw EBox::Exceptions::External(
+                        __('To enable SSL port you need the CA module installed and enabled.'));
                 }
             }
         }

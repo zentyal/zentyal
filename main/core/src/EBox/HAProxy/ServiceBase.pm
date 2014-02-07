@@ -221,6 +221,19 @@ sub pathHAProxySSLCertificate
     return undef;
 }
 
+# Method: caServiceForHAProxy
+#
+# Returns:
+#
+#   string - The CA SSL service name for HAProxy.
+#
+sub caServiceIdForHAProxy
+{
+    my ($self) = @_;
+
+    return 'zentyal_' . $self->name();
+}
+
 # Method: targetHAProxyDomains
 #
 # Returns:

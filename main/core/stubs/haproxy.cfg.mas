@@ -25,6 +25,9 @@ defaults
   timeout client 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout server 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
+  timeout http-keep-alive 3600s
+  timeout http-request 3600s
+  option http-no-delay
   option forwardfor
   option httpclose
 %   foreach my $portNumber (keys %{$ports}) {
