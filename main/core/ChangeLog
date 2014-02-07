@@ -34,7 +34,6 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
-3.3.4
 	+ Fixed rethrown of exception in restartService() method
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Fixed mason component root for custom stubs
