@@ -127,6 +127,9 @@ sub _table
         defaultActions => [ 'changeView' ],
         modelDomain => 'HA',
         tableDescription => \@fields,
+        withoutActions => 1,
+        showPaginationForm => 0,
+        showFilterForm => 0,
         help => undef,
     };
 
