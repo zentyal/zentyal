@@ -1,4 +1,8 @@
 3.4
+	+ Pass model, type and id to enabled subroutine in
+	  EBox::Types::MultiStateAction to be ortoghonal to handler property
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Fixed rethrown of exception in restartService() method
 	+ Added middleware to have auth based on a env variable
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests

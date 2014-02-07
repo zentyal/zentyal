@@ -33,9 +33,11 @@ use feature qw(switch);
 
 use Data::Dumper;
 use EBox::Config;
+use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
 use EBox::Sudo;
@@ -43,12 +45,14 @@ use JSON::XS;
 use File::Temp;
 use File::Slurp;
 use TryCatch::Lite;
+use XML::LibXML;
 
 # Constants
 use constant {
     COROSYNC_CONF_FILE    => '/etc/corosync/corosync.conf',
     COROSYNC_DEFAULT_FILE => '/etc/default/corosync',
-    DEFAULT_MCAST_PORT => 5405,
+    DEFAULT_MCAST_PORT    => 5405,
+    RESOURCE_STICKINESS   => 100,
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
@@ -239,6 +243,7 @@ sub nodes
 #     * Send info to other members of the cluster
 #     * Write corosync conf
 #     * Dynamically add the new node
+#     * If the cluster has two nodes, then set to ignore in at quorum policy
 #
 # Parameters:
 #
@@ -276,6 +281,10 @@ sub addNode
     } catch ($e) {
         EBox::error("Notifying cluster conf change: $e");
     }
+
+    # Pacemaker changes
+    # In two-node we have to set no-quorum-policy to ignore
+    $self->_setNoQuorumPolicy($list->size());
 }
 
 # Method: deleteNode
@@ -286,6 +295,7 @@ sub addNode
 #    * Send cluster configuration to other members
 #    * Write corosync conf
 #    * Dynamically add the new node
+#    * If the cluster become two nodes, then set to ignore at no quorum policy
 #
 # Parameters:
 #
@@ -327,6 +337,10 @@ sub deleteNode
     } catch ($e) {
         EBox::error("Notifying cluster conf change: $e");
     }
+
+    # Pacemaker changes
+    # In two-node we have to set no-quorum-policy to ignore
+    $self->_setNoQuorumPolicy($list->size());
 }
 
 sub confReplicationStatus
@@ -527,12 +541,41 @@ sub _setConf
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->model('ClusterState')->setValue('leaveRequest', 0);
         $self->_notifyLeave();
+        $self->_destroyClusterInfo();
     }
 
     $self->_corosyncSetConf();
     if (not $self->isReadOnly() and $self->global()->modIsChanged($self->name())) {
         $self->saveConfig();
     }
+}
+
+# Method: _postServiceHook
+#
+#       Override to set initial cluster operations once we are sure
+#       crmd is running
+#
+# Overrides:
+#
+#       <EBox::Module::Service::_postServiceHook>
+#
+sub _postServiceHook
+{
+    my ($self, $enabled) = @_;
+
+    $self->SUPER::_postServiceHook($enabled);
+
+    $self->_waitPacemaker();
+
+    my $state = $self->get_state();
+    if ($enabled and $state->{bootstraping}) {
+        $self->_initialClusterOperations();
+        delete $state->{bootstraping};
+        $self->set_state($state);
+    }
+
+    $self->_setFloatingIPRscs();
+
 }
 
 # Group: subroutines
@@ -647,8 +690,15 @@ sub _corosyncSetConf
     unless ($self->clusterBootstraped()) {
         my $hostname = $self->global()->modInstance('sysinfo')->hostName();
         given ($clusterSettings->configurationValue()) {
-            when ('create') { $self->_bootstrap($localNodeAddr, $hostname); }
-            when ('join') { $self->_join($clusterSettings, $localNodeAddr, $hostname); }
+            when ('create') {
+                $self->_bootstrap($localNodeAddr, $hostname);
+                my $state = $self->get_state();
+                $state->{bootstraping} = 1;
+                $self->set_state($state);
+            }
+            when ('join') {
+                $self->_join($clusterSettings, $localNodeAddr, $hostname);
+            }
         }
     }
 
@@ -781,7 +831,13 @@ sub _notifyLeave
     my ($self) = @_;
 
     my $nodeList = new EBox::HA::NodeList($self);
-    my $localNode = $nodeList->localNode();
+    my $localNode;
+    try {
+        $localNode = $nodeList->localNode();
+    } catch (EBox::Exceptions::DataNotFound $e) {
+        # Then something rotten in our conf
+        return;
+    }
     foreach my $node (@{$nodeList->list()}) {
         next if ($node->{localNode});
         # TODO: Check the node is on-line
@@ -800,6 +856,17 @@ sub _notifyLeave
         }
         last if ($last);
     }
+}
+
+# Destroy any related information stored in cib
+sub _destroyClusterInfo
+{
+    my ($self) = @_;
+
+    EBox::debug("Destroying info from pacemaker");
+    my @stateFiles = qw(cib.xml* cib-* core.* hostcache cts.* pe*.bz2 cib.*);
+    my @rootCmds = map { qq{find /var/lib/pacemaker -name '$_' | xargs rm -f} } @stateFiles;
+    EBox::Sudo::root(@rootCmds);
 }
 
 # Notify cluster conf change
@@ -871,7 +938,117 @@ sub _multicast
 {
     my ($self) = @_;
 
-    return ($self->get_state()->{cluster_conf}->{transport} == 'udp');
+    return ($self->get_state()->{cluster_conf}->{transport} eq 'udp');
+}
+
+# _waitPacemaker
+# Wait for 60s to have pacemaker running or time out
+sub _waitPacemaker
+{
+    my ($self) = @_;
+
+    my $maxTries = 60;
+    my $sleepSeconds = 1;
+    my $ready = 0;
+
+    while (not $ready and $maxTries > 0) {
+        my $output = EBox::Sudo::silentRoot('crm_mon -1 -s');
+        $output = $output->[0];
+        given ($output) {
+            when (/Ok/) { $ready = 1; }
+            when (/^Warning:No DC/) { EBox::debug('waiting for quorum'); }
+            when (/^Warning:offline node:/) { $ready = 1; }  # No worries warning
+            default { EBox::debug("No parse on $output"); }
+        }
+        $maxTries--;
+        sleep(1);
+    }
+
+    unless ($ready) {
+        EBox::warn('Timeout reached while waiting for pacemaker');
+    }
+}
+
+# Initial pacemaker related operations once the crmd is operational
+#
+#  * Prevent resources from moving after recovery
+#  * Disable STONITH until something proper is implemented
+sub _initialClusterOperations
+{
+    my ($self) = @_;
+
+    EBox::Sudo::root('crm configure property stonith-enabled=false',
+                     'crm_attribute --type rsc_defaults --attr-name resource-stickiness --attr-value ' . RESOURCE_STICKINESS);
+}
+
+# Set the floating IP resources
+#
+#  * Add new floating IP addresses
+#  * Remove floating IP addresses
+#  * Update IP address if applied
+sub _setFloatingIPRscs
+{
+    my ($self) = @_;
+
+    my $rsc = $self->floatingIPs();
+
+    # Get the resource configuration from the cib directly
+    my $output = EBox::Sudo::root('cibadmin --query --scope resources');
+    my $outputStr = join('', @{$output});
+    my $dom =  XML::LibXML->load_xml(string => $outputStr);
+    my @ipRscElems = $dom->findnodes('//primitive[@type="IPaddr2"]');
+
+    # For ease existence checking
+    my %currentRscs = map { $_->getAttribute('id') => $_->findnodes('//nvpair[@name="ip"]')->get_node(1)->getAttribute('value') } @ipRscElems;
+    my %finalRscs = map { $_->{name} => $_->{address} } @{$rsc};
+
+    my @rootCmds;
+
+    # Process first the deleted one to avoid problems in IP address clashing on renaming
+    my @deletedRscs = grep { not exists($finalRscs{$_}) } keys %currentRscs;
+    foreach my $rscName (@deletedRscs) {
+        push(@rootCmds,
+             "crm -w resource stop $rscName",
+             "crm configure delete $rscName");
+    }
+
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    my $activeNode = EBox::HA::CRMWrapper::activeNode();
+    while (my ($rscName, $rscAddr) = each(%finalRscs)) {
+        if (exists($currentRscs{$rscName})) {
+            # Update the IP, if required
+            if ($currentRscs{$rscName} ne $rscAddr) {
+                # Update it!
+                push(@rootCmds, "crm resource param $rscName set ip $rscAddr");
+            }
+        } else {
+            # Add it!
+            push(@rootCmds,
+                 "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
+            if ($activeNode ne $localNode) {
+                push(@rootCmds,
+                     "crm_resource --resource '$rscName' --move --host '$activeNode'",
+                     "sleep 3",
+                     "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+            }
+        }
+    }
+
+    if (@rootCmds > 0) {
+        EBox::Sudo::root(@rootCmds);
+    }
+}
+
+# Set no-quorum-policy based on the node list size
+sub _setNoQuorumPolicy
+{
+    my ($self, $size) = @_;
+
+    # In two-node we have to set no-quorum-policy to ignore
+    my $noQuorumPolicy = 'stop';
+    $noQuorumPolicy = 'ignore' if ($size == 2);
+    EBox::Sudo::root("crm configure property no-quorum-policy=$noQuorumPolicy");
 }
 
 1;

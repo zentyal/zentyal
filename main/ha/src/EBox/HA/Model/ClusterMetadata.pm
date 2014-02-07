@@ -27,6 +27,7 @@ package EBox::HA::Model::ClusterMetadata;
 use base 'EBox::Model::Template';
 
 use EBox::Gettext;
+use EBox::HA::CRMWrapper;
 
 # Group: Public methods
 
@@ -56,8 +57,9 @@ sub templateContext
             # name => value
             [ __('Cluster name')   => $self->parentModule()->model('Cluster')->nameValue()],
             [ __('Cluster secret') => 'raro'],
-            [ __('Current DC')     => 'local'],
+            [ __('Current DC')     => EBox::HA::CRMWrapper::currentDCNode()],
            ],
+        help => __('DC is the Designated Controller to perform the operations in the cluster. This node may change and has no impact in the cluster.'),
     };
 }
 
