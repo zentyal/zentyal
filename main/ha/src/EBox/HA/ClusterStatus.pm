@@ -63,7 +63,7 @@ sub summary
 {
     my ($self) = @_;
 
-    return %{ $_summary };
+    return $_summary;
 }
 
 # Function: nodes
@@ -114,6 +114,10 @@ sub errors
 #
 #   Hash - The cluster resource
 #
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if there is no resource with
+#                                   the given name
 sub resourceByName
 {
     my ($self, $name) = @_;
@@ -135,13 +139,16 @@ sub resourceByName
 #
 #   Hash - The cluster node
 #
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if there is no node with the given
+#                                   name
 sub nodeByName
 {
     my ($self, $name) = @_;
 
-    my %nodes = %{ $_nodes };
-    if (exists($nodes{$name})) {
-        return $nodes{$name};
+    if (exists($_nodes->{$name})) {
+        return $_nodes->{$name};
     }
 
     throw EBox::Exceptions::Internal("There is no node with the name: $name");
@@ -155,6 +162,10 @@ sub nodeByName
 # Returns:
 #
 #   Hash - The cluster node
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::Internal> - thrown if there is no node with the given id
 #
 sub nodeById
 {

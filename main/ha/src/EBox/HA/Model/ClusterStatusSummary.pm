@@ -53,7 +53,7 @@ sub templateContext
 
     $self->{ha} = $self->parentModule();
     $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
-    my %summary = $self->{clusterStatus}->summary();
+    my %summary = %{$self->{clusterStatus}->summary()};
 
     return {
         metadata => [

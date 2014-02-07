@@ -122,7 +122,7 @@ sub test_status_summary : Test(7)
     my ($self) = @_;
 
     my $clusterStatus = $self->{clusterStatus};
-    my %summary = $clusterStatus->summary();
+    my %summary = %{ $clusterStatus->summary() };
     cmp_ok($summary{'number_of_nodes'}, '==', 3, 'Counting the nodes ( internal )');
     cmp_ok($summary{'number_of_resources'}, '==', 2, 'Counting the resources ( internal )');
     cmp_ok($summary{'last_update'}, 'eq', 'Thu Jan 30 10:34:32 2014', 'Cluster last update');
