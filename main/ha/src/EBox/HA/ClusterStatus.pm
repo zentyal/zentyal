@@ -32,12 +32,29 @@ my $_summary = undef;
 my $_xml_dom = undef;
 my $_errors = undef;
 
+my $_timeCreation = undef;
+
+# If we have parsed the crm_mon commands before 5 seconds we won't
+# parse them again
 sub new
 {
     my ($class, $ha, $xml_dump, $text_dump) = @_;
+
     my $self = { ha => $ha};
     bless($self, $class);
 
+    if ((!defined $_timeCreation) or (time - $_timeCreation > 5) ) {
+        return $self->_parseCrmMonCommands($ha, $xml_dump, $text_dump);
+    } else {
+        return $self;
+    }
+}
+
+sub _parseCrmMonCommands
+{
+    my ($self, $ha, $xml_dump, $text_dump) = @_;
+
+    $_timeCreation = time;
     $self->_parseCrmMon_X($xml_dump);
     $self->_parseCrmMon_1($text_dump);
 
