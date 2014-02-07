@@ -466,11 +466,32 @@ sub setMultipleService
 # Returns:
 #   boolean - true if it's available, otherwise false
 #
+# Note:
+#    portUsedByService returns the information of what is using the port
 sub availablePort
 {
-    my ($self, %params) = @_;
+    my ($self, @params) = @_;
+    return not $self->portUsedByService(@params);
+}
 
-    return $self->model('ServiceTable')->availablePort(%params);
+# Method: portUsedByService
+#
+#       Checks if a port is configured to be used by a service
+#
+# Parameters:
+#
+#       proto - protocol
+#       port - port number
+#       interface - interface
+#
+# Returns:
+#
+#       false - if it is not used not empty string - if it is in use, the string
+#               contains the name of what is using it
+sub portUsedByService
+{
+    my ($self, @params) = @_;
+    return $self->model('ServiceTable')->portUsedByService(@params);
 }
 
 # Method: serviceFromPort

@@ -445,10 +445,12 @@ sub checkServicePort
     my $global = $self->global();
     if ($global->modExists('firewall')) {
         my $firewallMod = $global->modInstance('firewall');
-        unless ($firewallMod->availablePort("tcp", $port)) {
+        my $used = $firewallMod->portInUse('tcp', $port);
+        if ($used) {
             throw EBox::Exceptions::External(__x(
-                'Zentyal is already configured to use port {p} for another service. Choose another port or free it and retry.',
-                p => $port
+                'Zentyal is already configured to use port {p} for {use}. Choose another port or free it and retry.',
+                 p => $port,
+                 use => $used
             ));
         }
     }

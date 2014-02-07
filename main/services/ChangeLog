@@ -1,4 +1,5 @@
 HEAD
+	+ Added portUsedByService method
 	+ Updated to use the new haproxy API
 3.2.1
 	+ Added missing EBox::Exceptions uses
