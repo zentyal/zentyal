@@ -18,11 +18,8 @@ use warnings;
 package EBox::Logout::CGI::Logout;
 use base 'EBox::CGI::ClientBase';
 
-use mod_perl;
-
 use EBox::Gettext;
 use EBox::Global;
-use Apache2::RequestUtil;
 
 sub new
 {
@@ -36,8 +33,7 @@ sub _process
 {
     my ($self) = @_;
 
-    my $r = Apache2::RequestUtil->request;
-    my $auth_type = $r->auth_type;
+    my $request = $self->request();
 
     $self->{redirect} = "Login/Index";
     $self->{errorchain} = "Logout/Index";
@@ -47,9 +43,6 @@ sub _process
         my $global = EBox::Global->getInstance();
         $global->revokeAllModules;
     }
-
-    # Delete the cookie
-    $auth_type->logout($r);
 }
 
 1;

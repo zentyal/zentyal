@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -21,7 +21,6 @@ package EBox::Login::CGI::Index;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
-use Apache2::RequestUtil;
 
 use Readonly;
 Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
@@ -30,76 +29,69 @@ Readonly::Scalar my $RECOVERY_DESTINATION => '/RemoteServices/DisasterRecovery';
 
 sub new # (error=?, msg=?, cgi=?)
 {
-	my $class = shift;
-	my $self = $class->SUPER::new('title' => '',
-				      'template' => '/login/index.mas',
-				      @_);
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = $class->SUPER::new(
+        'title'    => '',
+        'template' => '/login/index.mas',
+        @_);
+    bless($self, $class);
+    return $self;
 }
 
 sub _print
 {
-	my $self = shift;
-	print($self->cgi()->header(-charset=>'utf-8'));
-	$self->_body;
+    my $self = shift;
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process
 {
-	my ($self) = @_;
+    my ($self) = @_;
 
-	my $r = Apache2::RequestUtil->request;
-	my $envre;
-	my $authreason;
+    my $authreason;
+    my $request = $self->request();
+    my $session = $request->session();
+    if (exists $session->{AuthReason}){
+        $authreason = delete $session->{AuthReason};
+    }
 
-	if ($r->prev){
-		$envre = $r->prev->subprocess_env("LoginReason");
-		$authreason = $r->prev->subprocess_env('AuthCookieReason');
-	}
+    my $destination = _requestDestination($session);
 
-	my $destination = _requestDestination($r);
-
-	my $reason;
-	if ( (defined ($envre) ) and ($envre eq 'Script active') ) {
-	  $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
-		       'Please, wait patiently until it is done');
-	}
-	elsif ((defined $authreason) and ($authreason  eq 'bad_credentials')){
-		$reason = __('Incorrect password');
-	}
-	elsif ((defined $envre) and ($envre eq 'Expired')){
-		$reason = __('For security reasons your session ' .
-			     'has expired due to inactivity');
-	}elsif ((defined $envre and $envre eq 'Already')){
-		$reason = __('You have been logged out because ' .
-			     'a new session has been opened');
-	}
+    my $reason;
+    if (defined $authreason) {
+        if ($authreason eq 'Script active') {
+            $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
+                         'Please, wait patiently until it is done');
+        } elsif ($authreason eq 'Invalid session'){
+            $reason = __('Your session was not valid anymore');
+        } elsif ($authreason  eq 'bad_credentials'){
+            $reason = __('Incorrect password');
+        } elsif ($authreason eq 'Expired'){
+            $reason = __('For security reasons your session has expired due to inactivity');
+        } elsif ($authreason eq 'Already'){
+            $reason = __('You have been logged out because a new session has been opened');
+        } else {
+            $reason = __x("Unknown error: '{error}'", error => $authreason);
+        }
+    }
 
     my $global = EBox::Global->getInstance();
 
-	my @htmlParams = (
-			  'destination'       => $destination,
-			  'reason'            => $reason,
-		          %{ $global->theme() }
-			 );
+    my @htmlParams = (
+        'destination'       => $destination,
+        'reason'            => $reason,
+        %{ $global->theme() }
+    );
 
-	$self->{params} = \@htmlParams;
+    $self->{params} = \@htmlParams;
 }
 
 sub _requestDestination
 {
-    my ($r) = @_;
+    my ($session) = @_;
 
-    if ($r->prev) {
-        return _requestDestination($r->prev);
-    }
-
-    my $request = $r->the_request;
-    my $method  = $r->method;
-    my $protocol = $r->protocol;
-
-    my ($destination) = ($request =~ m/$method\s*(.*?)\s*$protocol/);
 
     # redirect to disaster recovery or software selection on first install
     if (EBox::Global::disasterRecovery()) {
@@ -108,14 +100,16 @@ sub _requestDestination
         return $FIRSTTIME_DESTINATION;
     }
 
-    defined $destination or return $DEFAULT_DESTINATION;
+    unless (defined $session->{redir_to}) {
+        return $DEFAULT_DESTINATION;
+    }
 
-    if ($destination =~ m{^/*Login/+Index$}) {
+    if ($session->{redir_to} =~ m{^/*Login/+Index$}) {
         # /Login/Index is the standard location from login, his destination must be the default destination
         return $DEFAULT_DESTINATION;
     }
 
-    return $destination;
+    return $session->{redir_to};
 }
 
 sub _top
@@ -124,12 +118,12 @@ sub _top
 
 sub _loggedIn
 {
-	return 1;
+    return 1;
 }
 
 sub _menu
 {
-	return;
+    return;
 }
 
 1;

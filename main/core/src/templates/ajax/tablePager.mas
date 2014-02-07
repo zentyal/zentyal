@@ -2,6 +2,7 @@
         $model
         $page
         $tpages
+        $pageSize
 </%args>
 <%init>
     use EBox::Gettext;
@@ -44,7 +45,7 @@
 <div id='<% $tableName %>_pager'>
   <& /input/select.mas,
        'name'        => $tableName . '_pageSize',
-       'value'       => $model->pageSize(),
+       'value'       => $pageSize,
        'options'     => \@sizeOptions,
        'id'          => $tableName . '_pageSize',
        'onchange'    => qq{Zentyal.TableHelper.setLoading('$pageSizeId'); $changeViewJS;return false}

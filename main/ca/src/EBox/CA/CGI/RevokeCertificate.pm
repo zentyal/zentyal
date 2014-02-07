@@ -58,7 +58,9 @@ sub _process
     if (defined($self->param('cancel'))) {
         $self->setRedirect('CA/Index');
         $self->setMsg( __("The certificate has NOT been revoked.") );
-        $self->cgi()->delete_all();
+        my $request = $self->request();
+        my $parameters = $request->parameters();
+        $parameters->clear();
         return;
     }
 
@@ -135,7 +137,9 @@ sub _process
         $msg = __("The CA certificate has been revoked") if ($isCACert);
         $self->setMsg($msg);
         # No parameters to send to CA/Index
-        $self->cgi()->delete_all();
+        my $request = $self->request();
+        my $parameters = $request->parameters();
+        $parameters->clear();
     }
 }
 

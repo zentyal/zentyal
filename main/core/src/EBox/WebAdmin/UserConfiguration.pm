@@ -18,23 +18,8 @@ use warnings;
 
 package EBox::WebAdmin::UserConfiguration;
 
-use Apache2::RequestUtil;
 use EBox::Exceptions::Internal;
 use EBox::Config::Redis;
-
-sub user
-{
-    my $r = Apache2::RequestUtil->request;
-    my $user = $r->user;
-
-    # FIXME: workaround for ANSTE tests with login disabled
-    #        remove if proper fix is done
-    unless (defined $user) {
-        $user = 'ubuntu';
-    }
-
-    return $user;
-}
 
 sub _fullKey
 {
@@ -47,8 +32,7 @@ sub _fullKey
 
 sub get
 {
-    my ($key) = @_;
-    my $user = user();
+    my ($user, $key) = @_;
     if (not $user) {
         return undef;
     }
@@ -58,8 +42,7 @@ sub get
 
 sub set
 {
-    my ($key, $value) = @_;
-    my $user = user();
+    my ($user, $key, $value) = @_;
     unless ($user) {
         throw EBox::Exceptions::Internal("Cannot set user configuration values without a user logged in Zentyal");
     }

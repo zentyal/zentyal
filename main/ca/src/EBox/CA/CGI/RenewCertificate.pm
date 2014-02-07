@@ -57,7 +57,9 @@ sub _process
     if ($self->param('cancel')) {
         $self->setRedirect( 'CA/Index' );
         $self->setMsg( __("The certificate has NOT been renewed") );
-        $self->cgi()->delete_all();
+        my $request = $self->request();
+        my $parameters = $request->parameters();
+        $parameters->clear();
         return;
     }
 
@@ -137,7 +139,9 @@ sub _process
             my $msg = __("The certificate has been renewed");
             $msg = __("The new CA certificate has been renewed") if ($isCACert);
             $self->setMsg($msg);
-            $self->cgi()->delete_all();
+            my $request = $self->request();
+            my $parameters = $request->parameters();
+            $parameters->clear();
         }
     }
 }

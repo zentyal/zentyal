@@ -15,10 +15,19 @@ def binstall(pkgstr):
 
     The packages are separated by ;. For instance, binstall:"core;remoteservices"
     """
+    build(pkgstr)
     pkgs = pkgstr.split(';')
-    pbuild(pkgs)
     for pkg in pkgs:
         install(pkg)
+
+def build(pkgstr):
+    """
+    Build Zentyal packages and stored in ./debs-ppa directory
+
+    The packages are separated by ;. For instance, binstall:"core;remoteservices"
+    """
+    pkgs = pkgstr.split(';')
+    pbuild(pkgs)
 
 def copy(path):
     """
