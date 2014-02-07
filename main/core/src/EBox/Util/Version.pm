@@ -42,6 +42,13 @@ sub compare
 {
     my ($v1, $v2) = @_;
 
+    unless (defined $v1) {
+        throw EBox::Exceptions::MissingArgument("v1");
+    }
+    unless (defined $v2) {
+        throw EBox::Exceptions::MissingArgument("v2");
+    }
+
     my @v1sub = split(/\~/, $v1);
     my @v2sub = split(/\~/, $v2);
 

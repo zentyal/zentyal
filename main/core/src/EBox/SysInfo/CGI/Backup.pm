@@ -18,14 +18,18 @@ use warnings;
 package EBox::SysInfo::CGI::Backup;
 use base qw(EBox::CGI::ClientBase EBox::CGI::ProgressClient);
 
-
-use TryCatch::Lite;
 use EBox::Config;
 use EBox::Backup;
 use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+
+use Cwd qw(realpath);
+use HTTP::Date;
+use Plack::Util;
 use Sys::Hostname;
+use TryCatch::Lite;
+
 
 sub new # (error=?, msg=?, cgi=?)
 {
@@ -47,17 +51,19 @@ sub _print
 
     if (defined($self->{downfile}) and (not defined $self->{error})) {
         # file download
-        binmode(STDOUT, ':raw');
-        open(BACKUP,$self->{downfile}) or
-            throw EBox::Exceptions::Internal('Could not open backup file.');
-        print($self->cgi()->header(-type=>'application/octet-stream',
-                                   -attachment=>$self->{downfilename}));
-        while (<BACKUP>) {
-            print $_;
-        }
-        close(BACKUP);
-        binmode(STDOUT, ':utf8');
 
+        open (my $fh, "<:raw", $self->{downfile}) or
+            throw EBox::Exceptions::Internal('Could not open backup file.');
+        Plack::Util::set_io_path($fh, Cwd::realpath($self->{downfile}));
+
+        my $response = $self->response();
+        $response->status(200);
+        $response->content_type('application/octet-stream');
+        my @stat = stat $self->{downfile};
+        $response->content_length($stat[7]);
+        $response->header('Last-Modified' => HTTP::Date::time2str($stat[9]));
+        $response->header('Content-Disposition' => 'attachment; filename="' . $self->{downfilename} . '"');
+        $response->body($fh);
         return;
     }
 

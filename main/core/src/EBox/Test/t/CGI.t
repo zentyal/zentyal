@@ -99,10 +99,15 @@ sub muteHtmlOutputTest
 package EBox::CGI::DumbCGI;
 use base 'EBox::CGI::Base';
 
+use Plack::Request;
+
 sub new
 {
-    my ($class, @params) = @_;
-    my $self = $class->SUPER::new(@params);
+    my ($class, %params) = @_;
+    unless (defined $params{request}) {
+        $params{request} = new Plack::Request({});
+    }
+    my $self = $class->SUPER::new(%params);
     $self->{hasRun} = 0;
 
     bless $self, $class;

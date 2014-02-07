@@ -115,11 +115,11 @@ sub _doChangePassword
         throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
     }
 
-    unless (EBox::Auth->checkValidUser($username, $curpwd)) {
+    unless (EBox::Middleware::Auth->checkValidUser($username, $curpwd)) {
         throw EBox::Exceptions::External(__('Incorrect current password.'));
     }
 
-    EBox::Auth->setPassword($username, $newpwd1);
+    EBox::Middleware::Auth->setPassword($username, $newpwd1);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username);
 

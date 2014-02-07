@@ -46,16 +46,16 @@ sub _menu
 
     if (EBox::Global->first() and EBox::Global->modExists('software')) {
         my $software = EBox::Global->modInstance('software');
-        $software->firstTimeMenu(5);
+        return $software->firstTimeMenu(5);
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
 sub _top
 {
     my ($self)= @_;
-    $self->_topNoAction();
+    return $self->_topNoAction();
 }
 
 1;

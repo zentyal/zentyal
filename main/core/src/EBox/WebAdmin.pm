@@ -42,7 +42,6 @@ use POSIX qw(setsid setlocale LC_ALL);
 use TryCatch::Lite;
 
 # Constants
-use constant APACHE_INCLUDE_KEY => 'apacheIncludes';
 use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
@@ -75,6 +74,7 @@ sub serverroot
     return '/var/lib/zentyal';
 }
 
+# FIXME: is this still needed?
 # Method: cleanupForExec
 #
 #   It does the job to prepare a forked apache process to do an exec.
@@ -101,7 +101,6 @@ sub _daemon
     my ($self, $action) = @_;
 
     $self->_manageNginx($action);
-    $self->_manageApache($action);
 
     if ($action eq 'stop') {
         # Stop redis server
@@ -114,49 +113,8 @@ sub _manageNginx
 {
     my ($self, $action) = @_;
 
+    EBox::Service::manage($self->_uwsgiUpstartName(), $action);
     EBox::Service::manage($self->_nginxUpstartName(), $action);
-}
-
-# restarting apache from inside apache could be problematic, so we fork()
-sub _manageApache
-{
-    my ($self, $action) = @_;
-
-    my $conf = EBox::Config::conf();
-    my $ctl = "APACHE_CONFDIR=$conf apache2ctl";
-
-    # Sometimes apache is running but for some reason apache.pid does not
-    # exist, with this workaround we always ensure a successful restart
-    my $pidfile = EBox::Config::tmp() . 'apache.pid';
-    my $pid;
-    unless (-f $pidfile) {
-        $pid = `ps aux|grep 'apache2 -d $conf'|awk '/^root/{print \$2;exit}'`;
-        write_file($pidfile, $pid) if $pid;
-    }
-
-    my $hardRestart = $self->hardRestart();
-
-    if ($action eq 'stop') {
-        EBox::Sudo::root("$ctl stop");
-    } elsif ($action eq 'start') {
-        EBox::Sudo::root("$ctl start");
-    } elsif ($action eq 'restart') {
-        if ($hardRestart) {
-            EBox::info("Apache hard restart requested");
-            $self->_daemon('stop');
-            $self->_daemon('start');
-            return;
-        }
-        unless (defined($pid = fork())) {
-            throw EBox::Exceptions::Internal("Cannot fork().");
-        }
-        if ($pid) {
-            return; # parent returns inmediately
-        } else {
-            EBox::Sudo::root("$ctl restart");
-            exit ($?);
-        }
-    }
 }
 
 sub setHardRestart
@@ -188,7 +146,6 @@ sub _setConf
 
     $self->_setLanguage();
     $self->_writeNginxConfFile();
-    $self->_writeHttpdConfFile();
     $self->_writeCSSFiles();
     $self->_reportAdminPort();
     $self->enableRestartOnTrigger();
@@ -233,6 +190,19 @@ sub _nginxUpstartFile
     return "/etc/init/$nginxUpstartName.conf";
 }
 
+sub _uwsgiUpstartName
+{
+    return 'zentyal.webadmin-uwsgi';
+}
+
+sub _uwsgiUpstartFile
+{
+    my ($self) = @_;
+
+    my $uwsgiUpstartName = $self->_uwsgiUpstartName();
+    return "/etc/init/$uwsgiUpstartName.conf";
+}
+
 sub _writeNginxConfFile
 {
     my ($self) = @_;
@@ -256,8 +226,6 @@ sub _writeNginxConfFile
 
     EBox::Module::Base::writeConfFileNoCheck($nginxconf, $templateConf, \@confFileParams, $permissions);
 
-    my $upstartFile = 'core/upstart-nginx.mas';
-
     @confFileParams = ();
     push @confFileParams, (conf => $self->_nginxConfFile());
     push @confFileParams, (confDir => EBox::Config::conf());
@@ -269,37 +237,13 @@ sub _writeNginxConfFile
         force => 1,
     };
 
-    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, $upstartFile, \@confFileParams, $permissions);
-}
+    EBox::Module::Base::writeConfFileNoCheck($self->_nginxUpstartFile, 'core/upstart-nginx.mas', \@confFileParams, $permissions);
 
-sub _writeHttpdConfFile
-{
-    my ($self) = @_;
-
-    my $httpdconf = '/var/lib/zentyal/conf/apache2.conf';
-    my $template = 'core/apache.mas';
-
-    my @confFileParams = ();
-    push @confFileParams, ( user => EBox::Config::user());
-    push @confFileParams, ( group => EBox::Config::group());
-    push @confFileParams, ( serverroot => $self->serverroot());
-    push @confFileParams, ( tmpdir => EBox::Config::tmp());
-    push @confFileParams, ( eboxconfdir => EBox::Config::conf());
-
-    push @confFileParams, ( restrictedResources => $self->get_list('restricted_resources') );
-    push @confFileParams, ( includes => $self->_apacheIncludes(1) );
-
-    my $debugMode = EBox::Config::boolean('debug');
-    push @confFileParams, ( debug => $debugMode);
-
-    my $permissions = {
-        uid => EBox::Config::user(),
-        gid => EBox::Config::group(),
-        mode => '0644',
-        force => 1,
-    };
-
-    EBox::Module::Base::writeConfFileNoCheck($httpdconf, $template, \@confFileParams, $permissions);
+    my $upstartFile = 'core/upstart-uwsgi.mas';
+    @confFileParams = ();
+    push @confFileParams, (socket => EBox::Config::tmp() . 'uwsgi.sock');
+    push @confFileParams, (script => EBox::Config::psgi() . 'zentyal.psgi');
+    EBox::Module::Base::writeConfFileNoCheck($self->_uwsgiUpstartFile, 'core/upstart-uwsgi.mas', \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -378,7 +322,7 @@ sub logs
 {
     my @logs = ();
     my $log;
-    $log->{'module'} = 'apache';
+    $log->{'module'} = 'webadmin';
     $log->{'table'} = 'access';
     $log->{'file'} = EBox::Config::log . "/access.log";
     my @fields = qw{ host www_user date method url protocol code size referer ua };
@@ -388,127 +332,6 @@ sub logs
     $log->{'types'} = \@types;
     push(@logs, $log);
     return \@logs;
-}
-
-# Method: setRestrictedResource
-#
-#      Set a restricted resource to the Apache perl configuration
-#
-# Parameters:
-#
-#      resourceName - String the resource name to restrict
-#
-#      allowedIPs - Array ref the set of IPs which allow the
-#      restricted resource to be accessed in CIDR format or magic word
-#      'all' or 'nobody'. The former all sources are allowed to see
-#      that resourcename and the latter nobody is allowed to see this
-#      resource. 'all' value has more priority than 'nobody' value.
-#
-#      resourceType - String the resource type: It can be one of the
-#      following: 'file', 'directory' and 'location'.
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#      <EBox::Exceptions::InvalidType> - thrown if the resource type
-#      is invalid
-#
-#      <EBox::Exceptions::Internal> - thrown if any of the allowed IP
-#      addresses are not in CIDR format or no allowed IP is given
-#
-sub setRestrictedResource
-{
-    my ($self, $resourceName, $allowedIPs, $resourceType) = @_;
-
-    throw EBox::Exceptions::MissingArgument('resourceName')
-      unless defined ( $resourceName );
-    throw EBox::Exceptions::MissingArgument('allowedIPs')
-      unless defined ( $allowedIPs );
-    throw EBox::Exceptions::MissingArgument('resourceType')
-      unless defined ( $resourceType );
-
-    unless ( $resourceType eq 'file' or $resourceType eq 'directory'
-             or $resourceType eq 'location' ) {
-        throw EBox::Exceptions::InvalidType('resourceType',
-                                            'file, directory or location');
-    }
-
-    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
-    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
-    if ( $allFound ) {
-        $allowedIPs = ['all'];
-    } elsif ( $nobodyFound ) {
-        $allowedIPs = ['nobody'];
-    } else {
-        # Check the given list is a list of IPs
-        my $notIPs = grep { ! EBox::Validate::checkCIDR($_) } @{$allowedIPs};
-        if ( $notIPs > 0 ) {
-            throw EBox::Exceptions::Internal('Some of the given allowed IP'
-                                             . 'addresses are not in CIDR format');
-        }
-        if ( @{$allowedIPs} == 0 ) {
-            throw EBox::Exceptions::Internal('Some allowed IP must be set');
-        }
-    }
-
-    my $resources = $self->get_list('restricted_resources');
-    if ($self->_restrictedResourceExists($resourceName)) {
-        my @deleted = grep { $_->{name} ne $resourceName} @{$resources};
-        $resources = \@deleted;
-    }
-    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
-    $self->set('restricted_resources', $resources);
-}
-
-# Method: delRestrictedResource
-#
-#       Remove a restricted resource from the list
-#
-# Parameters:
-#
-#       resourcename - String the resource name which indexes which restricted
-#       resource is requested to be deleted
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#      <EBox::Exceptions::DataNotFound> - thrown if the given resource name is
-#      not in the list of restricted resources
-#
-sub delRestrictedResource
-{
-    my ($self, $resourcename) = @_;
-
-    throw EBox::Exceptions::MissingArgument('resourcename')
-        unless defined ($resourcename);
-
-    $resourcename =~ s:^/::;
-
-    my $resources = $self->get_list('restricted_resources');
-
-    unless ($self->_restrictedResourceExists($resourcename)) {
-        throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
-                                             value => $resourcename);
-    }
-
-    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
-    $self->set('restricted_resources', \@deleted);
-}
-
-sub _restrictedResourceExists
-{
-    my ($self, $resourcename) = @_;
-
-    foreach my $resource (@{$self->get_list('restricted_resources')}) {
-        if ($resource->{name} eq $resourcename) {
-            return 1;
-        }
-    }
-    return 0;
 }
 
 # Method: isEnabled
@@ -633,101 +456,7 @@ sub _nginxIncludes
         if ((-f $incPath) and (-r $incPath)) {
             push @includes, $incPath;
         } else {
-            EBox::warn("Ignoring apache include $incPath: cannot read the file or it is not a regular file");
-        }
-    }
-
-    return \@includes;
-}
-
-# Method: addApacheInclude
-#
-#      Add an "include" directive to the apache configuration
-#
-#      Added only in the main virtual host
-#
-# Parameters:
-#
-#      includeFilePath - String the configuration file path to include
-#      in apache configuration
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#      <EBox::Exceptions::Internal> - thrown if the given file does
-#      not exists
-#
-sub addApacheInclude
-{
-    my ($self, $includeFilePath) = @_;
-
-    unless(defined($includeFilePath)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
-    }
-    unless(-f $includeFilePath and -r $includeFilePath) {
-        throw EBox::Exceptions::Internal(
-            "File $includeFilePath cannot be read or it is not a file"
-           );
-    }
-    my @includes = @{$self->_apacheIncludes(0)};
-    unless ( grep { $_ eq $includeFilePath } @includes) {
-        push(@includes, $includeFilePath);
-        $self->set_list(APACHE_INCLUDE_KEY, 'string', \@includes);
-    }
-
-}
-
-# Method: removeApacheInclude
-#
-#      Remove an "include" directive to the apache configuration
-#
-# Parameters:
-#
-#      includeFilePath - String the configuration file path to remove
-#      from apache configuration
-#
-# Exceptions:
-#
-#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
-#      argument is missing
-#
-#      <EBox::Exceptions::Internal> - thrown if the given file has not
-#      been included previously
-#
-sub removeApacheInclude
-{
-    my ($self, $includeFilePath) = @_;
-
-    unless(defined($includeFilePath)) {
-        throw EBox::Exceptions::MissingArgument('includeFilePath');
-    }
-    my @includes = @{$self->_apacheIncludes(0)};
-    my @newIncludes = grep { $_ ne $includeFilePath } @includes;
-    if ( @newIncludes == @includes ) {
-        throw EBox::Exceptions::Internal("$includeFilePath has not been included previously",
-                                         silent => 1);
-    }
-    $self->set_list(APACHE_INCLUDE_KEY, 'string', \@newIncludes);
-
-}
-
-# Return those include files that has been added
-sub _apacheIncludes
-{
-    my ($self, $check) = @_;
-    my $includeList = $self->get_list(APACHE_INCLUDE_KEY);
-    if (not $check) {
-        return $includeList;
-    }
-
-    my @includes;
-    foreach my $incPath (@{ $includeList }) {
-        if ((-f $incPath) and (-r $incPath)) {
-            push @includes, $incPath;
-        } else {
-            EBox::warn("Ignoring apache include $incPath: cannot read the file or it is not a regular file");
+            EBox::warn("Ignoring nginx include $incPath: cannot read the file or it is not a regular file");
         }
     }
 
