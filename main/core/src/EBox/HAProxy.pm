@@ -153,8 +153,57 @@ sub ports
             $ports{$port}->{services}->[0]->{isDefault} = 1;
         }
     }
+
+    my @modsServices = @{ $self->_modsServices() };
+    foreach my $service (@modsServices) {
+        my $port  = $service->{port};
+        my $isSSL = $service->{isSSL};
+        if ($ports{$port}) {
+            if ($isSSL and not $ports{$port}->{isSSL}) {
+                EBox::Exceptions::External->throw(
+                    __x('Port {port} must be configured as SSL for {service}',
+                         port => $port,
+                        service => $service->{printableName},
+                       )
+                   );
+            } elsif (not $isSSL and $ports{$port}->{isSSL}) {
+                EBox::Exceptions::External->throw(
+                    __x('Port {port} must be configured as NOT SSL for {service}',
+                         port => $port,
+                        service => $service->{printableName},
+                       )
+                   );
+            }
+        } else {
+            $ports{$port}->{isSSL} = $isSSL;
+            $ports{$port}->{services} = [];
+        }
+        push @{ $ports{$port}->{services}  }, $service;
+    }
+
     return \%ports;
 }
+
+sub _modsServices
+{
+    my ($self) = @_;
+    my @services;
+    my $rpcpService = {
+        name => 'oc_rpcproxy',
+        port => 443,
+        printableName => __('OpenChange RPCProxy'),
+        targetIP => '127.0.0.1',
+        targetPort => 7777,
+        domains    => ['z32a.zentyal-domain.lan'],
+        urls       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+        pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+        isSSL   => 1,
+    };
+    push @services, $rpcpService;
+
+    return \@services;
+}
+
 
 # Method: _setConf
 #
@@ -175,6 +224,8 @@ sub _setConf
     my $webadminMod = $self->global()->modInstance('webadmin');
     # Prepare webadmin SSL certificates.
     $webadminMod->_writeCAFiles();
+
+    my $serviceByPort = $self->ports();
 
     @params = ();
     push (@params, zentyalconfdir => EBox::Config::conf());

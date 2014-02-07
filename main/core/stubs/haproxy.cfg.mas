@@ -39,7 +39,7 @@ defaults
 &>
 %   }
 % }
-<& .rpcproxy &>
+%#<& .rpcproxy &>
 <%def .frontend>
 <%args>
 $port
@@ -49,51 +49,47 @@ $bindaddress
 </%args>
 frontend ft_zentyal_<% $port %>
   mode http
-%     if ($conf->{isSSL}) {
+% if ($conf->{isSSL}) {
 %       my $certificates = '';
+%       my %certSeen;
 %       foreach my $service (@{$conf->{services}}) {
 %           my $newCrt = 'crt ' . $service->{pathSSLCert};
+%           my $seen = $certSeen{$newCrt};
 %           if ($service->{isDefault}) {
-%               $certificates = "$newCrt $certificates";
-%           } else {
+%                if ($seen) { $certificates =~ s/$newCrt//};
+%                $certificates = "$newCrt $certificates";
+%           } elsif (not $seen) {
 %               $certificates = "$certificates $newCrt";
 %           }
+%           $certSeen{$newCrt} = 1;
 %       }
 %       if ($caFile) {
   bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
 %       } else {
   bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM
 %       }
-%     } else {
+% } else {
   bind <% $bindaddress %>:<% $port %>
-%     }
-%     if ($conf->{isSSL}) {
-  http-request set-header X-Forwarded-Proto      https
-  http-request set-header X-SSL                       %[ssl_fc]
-  http-request set-header X-SSL-Client-Used           %[ssl_c_used]
-  http-request set-header X-SSL-Client-Verify         %[ssl_c_verify]
-  http-request set-header X-SSL-Client-SHA1           %{+Q}[ssl_c_sha1]
-  http-request set-header X-SSL-Client-DN             %{+Q}[ssl_c_s_dn]
-  http-request set-header X-SSL-Client-CN             %{+Q}[ssl_c_s_dn(cn)]
-  http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
-  http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
-  http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
-%     } else {
-  http-request set-header X-Forwarded-Proto      http
-%     }
-%     foreach my $service (@{$conf->{services}}) {
-%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
-%       foreach my $domain (@{$service->{domains}}) {
-%         if ($conf->{isSSL}) {
-  use_backend bk_zentyal_<% $serviceNameWithPort %> if { ssl_fc_sni <% $domain %> }
-%         } else {
-  use_backend bk_zentyal_<% $serviceNameWithPort %> if { hdr(host) -i <% $domain %> }
+%  }
+<& .frontendSetHeaders, isSSL => $conf->{isSSL} &>
+
+% foreach my $service (@{$conf->{services}}) {
+%    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%    foreach my $domain (@{$service->{domains}}) {
+%      my @urls = $service->{urls} ? @{ $service->{urls} } : ();
+%      my $domainAcl = $conf->{isSSL} ? "ssl_fc_sni $domain " :  "hdr(host) -i $domain";
+%      if (@urls) {
+%         foreach my $url (@urls) {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { <% $domainAcl %> path <% $url %> }
 %         }
-%       }
-%       if ($service->{isDefault}) {
+%      } else {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { <% $domainAcl %> }
+%      }
+%    }
+%    if ($service->{isDefault}) {
   default_backend bk_zentyal_<% $serviceNameWithPort %>
-%       }
-%     }
+%    }
+% }
 </%def>
 <%def .backend>
 <%args>
@@ -114,9 +110,33 @@ backend bk_zentyal_<% $serviceNameWithPort %>
 %  }
 </%def>
 <%def .rpcproxy>
-frontend fronted_rpcproxy
-  mode http
-  bind 0.0.0.0:443 ssl crt /var/lib/zentyal/conf/ssl/ssl.pem  ciphers HIGH:MEDIUM
+%#frontend fronted_rpcproxy
+%#  mode http
+%#  bind 0.0.0.0:443 ssl crt /var/lib/zentyal/conf/ssl/ssl.pem  ciphers HIGH:MEDIUM
+%#  http-request set-header X-Forwarded-Proto      https
+%#  http-request set-header X-SSL                       %[ssl_fc]
+%#  http-request set-header X-SSL-Client-Used           %[ssl_c_used]
+%#  http-request set-header X-SSL-Client-Verify         %[ssl_c_verify]
+%#  http-request set-header X-SSL-Client-SHA1           %{+Q}[ssl_c_sha1]
+%#  http-request set-header X-SSL-Client-DN             %{+Q}[ssl_c_s_dn]
+%#  http-request set-header X-SSL-Client-CN             %{+Q}[ssl_c_s_dn(cn)]
+%#  http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
+%#  http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
+%#  http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
+%#  default_backend bk_rpcproxy
+%#
+
+
+%#backend bk_rpcproxy
+%#   mode http
+%#   server srv_rpcproxy 127.0.0.1:7777
+</%def>
+
+<%def .frontendSetHeaders>
+<%args>
+$isSSL
+</%args>
+% if ($isSSL) {
   http-request set-header X-Forwarded-Proto      https
   http-request set-header X-SSL                       %[ssl_fc]
   http-request set-header X-SSL-Client-Used           %[ssl_c_used]
@@ -127,14 +147,7 @@ frontend fronted_rpcproxy
   http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
   http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
   http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
-  default_backend bk_rpcproxy
-
-
-
-backend bk_rpcproxy
-   mode http
-   server srv_rpcproxy 127.0.0.1:7777
+% } else {
+  http-request set-header X-Forwarded-Proto      http
+% }
 </%def>
-
-
-
