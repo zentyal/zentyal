@@ -122,7 +122,7 @@ sub _actionScriptSession
 #
 # Parameters:
 #
-#   - env: The PSGI enviroment dictionary.
+#   env - Hash ref the PSGI enviroment dictionary.
 #
 # Returns:
 #

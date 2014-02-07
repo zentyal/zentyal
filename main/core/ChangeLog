@@ -1,4 +1,5 @@
 3.4
+	+ Added middleware to have auth based on a env variable
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
 	+ Use uWSGI instead of Apache mod_perl for running CGIs
