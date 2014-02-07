@@ -1,4 +1,5 @@
 3.4
+	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties
 	+ Updated automatic bug report URL to new bug report endpoint.
