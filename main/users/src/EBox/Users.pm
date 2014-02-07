@@ -1666,15 +1666,18 @@ sub isUserCorner
 {
     my ($self) = @_;
 
-    my $auth_type = undef;
-    try {
-        my $r = Apache2::RequestUtil->request();
-        $auth_type = $r->auth_type;
-    } catch {
-    }
+    # FIXME: FINISH THE MIGRATION TO PSGI
+    return 0;
 
-    return (defined $auth_type and
-            $auth_type eq 'EBox::UserCorner::Auth');
+#    my $auth_type = undef;
+#    try {
+#        my $r = Apache2::RequestUtil->request();
+#        $auth_type = $r->auth_type;
+#    } catch {
+#    }
+#
+#    return (defined $auth_type and
+#            $auth_type eq 'EBox::UserCorner::Auth');
 }
 
 # Method: defaultUserModels

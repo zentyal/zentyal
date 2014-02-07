@@ -37,9 +37,11 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub _print
 {
-    my $self = shift;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    $self->_body;
+    my ($self) = @_;
+
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
 }
 
 sub _process

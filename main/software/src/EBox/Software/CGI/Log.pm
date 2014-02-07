@@ -50,11 +50,12 @@ sub _print
         return;
     }
 
-    print ($self->cgi()->header(-type=>'application/octet-stream',
-                                -attachment=>$self->{downfilename}));
-
+    my $response = $self->response();
+    $response->status(200);
+    $response->content_type('application/octet-stream');
+    $response->header('Content-Disposition' => 'attachment; filename="' . $self->{downfilename} . '"');
     my @brokenPackages = EBox::Util::BugReport::brokenPackagesList();
-    print EBox::Util::BugReport::dumpSoftwareLog(@brokenPackages);
+    $response->body(EBox::Util::BugReport::dumpSoftwareLog(@brokenPackages));
 }
 
 1;

@@ -6440,7 +6440,7 @@ msgstr "Prašome patvirtinti kad norite ištrinti sekančias nuotolines kopijas:
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/network/src/templates/ifaces.mas:217
 #: ../../main/network/src/templates/ifaces.mas:292
-#: ../../main/core/src/templates/ajax/tableBody.mas:441
+#: ../../main/core/src/templates/ajax/tableBody.mas:444
 #: ../../main/core/src/templates/ajax/row.mas:96
 #: ../../main/core/src/templates/dataInUse.mas:32
 #: ../../main/software/src/templates/ebox.mas:334
@@ -17505,7 +17505,7 @@ msgid "Domain list"
 msgstr "Sričių sąrašas"
 
 #: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:439
+#: ../../main/core/src/templates/ajax/tableBody.mas:442
 #: ../../main/core/src/templates/ajax/row.mas:94
 #: ../../main/samba/src/templates/editgplink.mas:23
 msgid "Edit"

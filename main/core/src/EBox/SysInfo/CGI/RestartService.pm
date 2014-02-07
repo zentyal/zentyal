@@ -26,7 +26,7 @@ use EBox::Gettext;
 use EBox::Exceptions::Internal;
 use TryCatch::Lite;
 
-sub new # (cgi=?)
+sub new
 {
     my $class = shift;
     my $self = $class->SUPER::new(@_);
@@ -63,7 +63,9 @@ sub _process
                            mod  => $name,
                            logs => EBox::Config::logfile());
     }
-    $self->cgi()->delete_all();
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    $parameters->clear();
 }
 
 1;

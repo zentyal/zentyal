@@ -2,6 +2,10 @@
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties
+	+ Added middleware to have auth based on a env variable
+	+ Updated nginx to server static files directly always so apache shouldn't
+	  ever get this kind of requests
+	+ Use uWSGI instead of Apache mod_perl for running CGIs
 	+ Updated automatic bug report URL to new bug report endpoint.
 	+ Give support to custom actions without image. Those actions will
 	  not appear in the legend.
