@@ -82,7 +82,7 @@
             IDFieldName = uid;
             UIDFieldName = uid;
             hostname = "<% $ldapHost %>";
-            baseDN = "<% $ldapBaseDN %>";
+            baseDN = "ou=Users,<% $ldapBaseDN %>";
             bindDN = "<% $ldapBindDN %>";
             bindPassword = "<% $ldapBindPwd %>";
             canAuthenticate = YES;

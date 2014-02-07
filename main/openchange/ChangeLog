@@ -1,4 +1,5 @@
 HEAD
+	+ Fix sogo auth adding ou=Users to base DN
 	+ Set sogod daemon options for activesync
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
