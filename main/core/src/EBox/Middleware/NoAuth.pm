@@ -36,7 +36,7 @@ sub call
 
     $env->{'psgix.session.options'}->{change_id}++;
     $env->{'psgix.session'}{last_time} = time();
-    $env->{'psgix.session'}{user_id} = 'anste';
+    $env->{'psgix.session'}{user_id} = $ENV{ZENTYAL_WEBADMIN_ENV};
 
     return $self->app->($env);
 }
