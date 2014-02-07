@@ -11,6 +11,7 @@
 <%args>
   $model
   $hasChanged
+  $user
   $action => 'view'
 </%args>
 <%attr>
@@ -19,7 +20,6 @@
 <& PARENT:view,
    model => $model,
    hasChanged => $hasChanged,
+   user       => $user,
    action     => $action,
 &>
-
-

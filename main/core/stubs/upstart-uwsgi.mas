@@ -1,0 +1,18 @@
+<%args>
+    $socket
+    $script
+</%args>
+
+description     "uWSGI daemon for Zentyal web admin"
+author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+start on (filesystem
+          and static-network-up
+          and runlevel [2345])
+stop on runlevel [016]
+
+respawn
+respawn limit 10 5
+
+# FIXME: Once finished the development the umask must be fixed!!!
+exec uwsgi --plugins 0:psgi --uid ebox --gid ebox --umask 000 -s <% $socket %> --psgi <% $script %>

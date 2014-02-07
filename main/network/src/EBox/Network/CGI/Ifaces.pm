@@ -94,7 +94,7 @@ sub masonParameters
 
     my $externalWarning = 0;
     if ($net->ifaceIsExternal($ifname)) {
-        $externalWarning = $net->externalConnectionWarning($ifname);
+        $externalWarning = $net->externalConnectionWarning($ifname, $self->request());
     }
 
     foreach my $bridge (@{$net->bridges()}) {

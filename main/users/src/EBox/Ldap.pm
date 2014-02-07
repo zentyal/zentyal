@@ -30,7 +30,6 @@ use Net::LDAP::LDIF;
 use Net::LDAP::Util qw(ldap_error_name);
 
 use TryCatch::Lite;
-use Apache2::RequestUtil;
 use Time::HiRes;
 
 use constant LDAPI         => "ldapi://%2fvar%2frun%2fslapd%2fldapi";
@@ -99,11 +98,12 @@ sub connection
 
         my ($dn, $pass);
         my $auth_type = undef;
-        try {
-            my $r = Apache2::RequestUtil->request();
-            $auth_type = $r->auth_type;
-        } catch {
-        }
+        # FIXME: FINISH MIGRATION TO PSGI
+#        try {
+#            my $r = Apache2::RequestUtil->request();
+#            $auth_type = $r->auth_type;
+#        } catch {
+#        }
 
         if (defined $auth_type and
             $auth_type eq 'EBox::UserCorner::Auth') {

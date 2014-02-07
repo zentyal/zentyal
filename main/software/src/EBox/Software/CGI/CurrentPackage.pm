@@ -44,10 +44,12 @@ sub _process($) {
 sub _print($) {
     my $self = shift;
 
+    my $response = $self->response();
+    $response->status(200);
+    $response->content_type('text/html; charset=utf-8');
     open(FD, EBox::Config::tmp . 'ebox-update-log') or return;
     my $package = <FD>;
-    print($self->cgi()->header(-charset=>'utf-8'));
-    print $package;
+    $response->body($package);
     close (FD);
 }
 
