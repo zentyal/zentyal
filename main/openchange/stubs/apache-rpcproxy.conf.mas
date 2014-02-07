@@ -9,14 +9,14 @@ Parameters:
                            Default value: 62080
     rpcproxyAuthCacheDir - The directory to use as the auth cache.
     tmpdir - String the path to the Apache temporary directory
-   group - String the group that must live apache-perl process
-           Default value: www-data
-   user  - String the user that the apache-perl process must be
-           Default value: www-data
+    group - String the group that must live apache-perl process
+            Default value: www-data
+    user  - String the user that the apache-perl process must be
+            Default value: www-data
 </%doc>
 <%args>
   $bindaddress => '127.0.0.1'
-  $port => 62080
+  $port => 63080
   $rpcproxyAuthCacheDir
   $tmpdir
   $group => 'www-data'
@@ -63,13 +63,13 @@ Include /etc/apache2/mods-available/wsgi.load
 Listen <% $bindaddress %>:<% $port %>
 
 user <% $user %>
-group <%group %>
+group <% $group %>
 
-ErrorLog /var/log/zentyal/error-oa.log
+ErrorLog /var/log/zentyal/error-rpcproxy.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
-CustomLog /var/log/zentyal/access-oa.log combined
+CustomLog /var/log/zentyal/access-rpcproxy.log combined
 
 WSGILazyInitialization On
 WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy

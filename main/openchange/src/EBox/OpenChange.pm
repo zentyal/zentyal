@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::HAProxy::ServiceBase);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -75,6 +75,7 @@ sub initialSetup
     my ($self, $version) = @_;
 
     $self->_migrateFormKeys();
+    $self->_setupDNS();
 }
 
 # Migration of form keys to better names (between development versions)
@@ -173,20 +174,25 @@ sub _daemonsToDisable
 sub _daemons
 {
     my ($self) = @_;
-    my $daemons = [
-        {
-            name         => 'zentyal.ocsmanager',
-            type         => 'upstart',
-            precondition => sub { return $self->_autodiscoverEnabled() },
-        },
-        {
-            name         => 'zentyal.zoc-migrate',
-            type         => 'upstart',
-            precondition => sub { return $self->isProvisioned() },
-        },
-    ];
 
-    return $daemons;
+    my @daemons = ();
+    push (@daemons, {
+        name => 'zentyal.rpcproxy',
+        type => 'upstart',
+        precondition => sub { return $self->isProvisioned() },
+    });
+    push (@daemons, {
+        name => 'zentyal.ocsmanager',
+        type => 'upstart',
+        precondition => sub { return $self->_autodiscoverEnabled() },
+    });
+    push (@daemons, {
+        name         => 'zentyal.zoc-migrate',
+        type         => 'upstart',
+        precondition => sub { return $self->isProvisioned() },
+    });
+
+    return \@daemons;
 }
 
 # Method: isRunning
@@ -372,12 +378,12 @@ sub _setRPCProxyConf
         my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
 
         my @params = ();
+        push (@params, bindaddress => $self->targetHAProxyIP());
+        push (@params, port        => $self->targetHAProxyPort());
         push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
-        push (@params, tmpdir => => EBox::Config::tmp());
+        push (@params, tmpdir => EBox::Config::tmp());
 
-        $self->writeConfFile(
-            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+        $self->writeConfFile($rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas', \@params);
 
         my @cmds;
         push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
@@ -387,10 +393,9 @@ sub _setRPCProxyConf
 
         @params = ();
         push (@params, conf => $rpcproxyConfFile);
-        my $rpcproxyUpstartFile = '/etc/init/zentyal.oa.conf';
-        $self->writeConfFile(
-            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+
+        my $rpcproxyUpstartFile = '/etc/init/zentyal.rpcproxy.conf';
+        $self->writeConfFile($rpcproxyUpstartFile, 'openchange/upstart-rpcproxy.mas', \@params);
     }
 }
 
@@ -554,10 +559,7 @@ sub _setupDNS
     my $hostDomain = $sysinfo->hostDomain();
     my $hostName   = $sysinfo->hostName();
     my $autodiscoverAlias = 'autodiscover';
-    if ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
-        # strangely the hostname is already the autodiscover name
-        return;
-    }
+    my $rpcproxyAlias = 'rpcproxy';
 
     my $dns = $self->global()->modInstance('dns');
 
@@ -582,12 +584,20 @@ sub _setupDNS
     }
 
     my $aliasModel = $hostRow->subModel('alias');
-    if ($aliasModel->find(alias => $autodiscoverAlias)) {
-        # already added, nothing to do
-        return;
+
+    unless ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
+        unless ($aliasModel->find(alias => $autodiscoverAlias)) {
+            # add the autodiscover alias
+            $aliasModel->addRow(alias => $autodiscoverAlias);
+        }
     }
-    # add the autodiscover alias
-    $aliasModel->addRow(alias => $autodiscoverAlias);
+
+    unless ("$rpcproxyAlias.$hostName"  eq $hostDomain) {
+        unless ($aliasModel->find(alias => $rpcproxyAlias)) {
+            # add the rpc proxy alias
+            $aliasModel->addRow(alias => $rpcproxyAlias);
+        }
+    }
 }
 
 
@@ -651,5 +661,164 @@ sub organizations
 
     return $list;
 }
+
+sub _defaultRPCProxyVHost
+{
+    my ($self) = @_;
+
+    my $sysinfo    = $self->global()->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
+
+    return "rpcproxy.$hostName.$hostDomain";
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+        {
+            serviceId => $self->caServiceIdForHAProxy(),
+            service   => __('RPC over HTTP Proxy'),
+            path      => $self->pathHAProxySSLCertificate(),
+            cn        => $self->_defaultRPCProxyVHost(),
+            user      => 'root',
+            group     => 'root',
+            mode      => '0400',
+        },
+    ];
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: HAProxyServiceId
+#
+# Returns:
+#
+#   string - A unique ID across Zentyal that identifies this HAProxy service.
+#
+sub HAProxyServiceId
+{
+    return 'rpcproxyHAProxyId';
+}
+
+# Method: defaultHAProxySSLPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#
+sub defaultHAProxySSLPort
+{
+    return 443;
+}
+
+# Method: targetHAProxyDomains
+#
+# Returns:
+#
+#   list - List of domains that the target service will handle. If empty, this service will be used as the default
+#          traffic destination for the configured ports.
+#
+sub targetHAProxyDomains
+{
+    my ($self) = @_;
+
+    return [$self->_defaultRPCProxyVHost()];
+}
+
+# Method: pathHAProxySSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHAProxySSLCertificate
+{
+    return '/var/lib/zentyal/conf/ssl/rpcproxy.pem';
+}
+
+# Method: caServiceIdForHAProxy
+#
+# Returns:
+#
+#   string - The CA SSL service name for HAProxy.
+#
+sub caServiceIdForHAProxy
+{
+    my ($self) = @_;
+
+    return 'zentyal_' . $self->name() . '_rpcproxy';
+}
+
+# Method: targetHAProxyIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#
+sub targetHAProxyIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHAProxyPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for nonSSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxyPort>
+#
+sub targetHAProxyPort
+{
+    return 63080;
+}
+
+# Method: targetHAProxySSLPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#
+sub targetHAProxySSLPort
+{
+    my ($self) = @_;
+
+    return $self->targetHAProxyPort();
+}
+
 
 1;

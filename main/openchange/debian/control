@@ -7,7 +7,6 @@ Standards-Version: 3.9.2
 
 Package: zentyal-openchange
 Architecture: all
-<<<<<<< HEAD:main/openchange/debian/control
 Depends: zentyal-core (>= 3.4~1), zentyal-core (<< 3.5),
          zentyal-mail, zentyal-samba, libapache2-mod-wsgi,
          openchangeserver (>= 1:2.0-2~20140205-1),

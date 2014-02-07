@@ -1,5 +1,5 @@
 3.4
-	+ Added rpcproxy service for Outlook Anywhere
+	+ Added rpcproxy service for Outlook Anywhere using HAProxy
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Remove obsolete sope dependency
 	+ Added rpcproxy service to zentyal-webserver for Outlook Anywhere
