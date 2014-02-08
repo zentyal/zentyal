@@ -138,7 +138,7 @@ Zentyal.SoftwareManagementUI.checkAll = function(table, value, buttonId) {
 
 Zentyal.SoftwareManagementUI.sendForm = function(action, container, popup, title) {
     var packages = [];
-    packages = $('#' + container + ' :checked').map(function() {
+    packages = $('#' + container + ' tbody :checked').map(function() {
          return 'pkg-' + this.getAttribute('data-pkg');
     }).get();
     Zentyal.SoftwareManagementUI._sendFormPackagesList(action, packages, popup, title);

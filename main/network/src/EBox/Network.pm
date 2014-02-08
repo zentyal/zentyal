@@ -3723,6 +3723,7 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+
                 EBox::Sudo::root(@cmds);
             } catch (EBox::Exceptions::Internal $e) {
             }
@@ -3780,7 +3781,6 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 
@@ -3832,6 +3832,8 @@ sub _enforceServiceState
         EBox::Util::Lock::unlock('ifup');
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
+
+    $self->_generateResolvconfConfig();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
