@@ -1,5 +1,6 @@
-3.3
+HEAD
 	+ Using STARTTLS instead of SSL by default
+3.3
 	+ Switch from Error to TryCatch for exception handling
 	+ Delete migration code from old versions
 	+ Set version to 3.3
