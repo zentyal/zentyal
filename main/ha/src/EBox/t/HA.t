@@ -111,7 +111,7 @@ sub test_cluster_configuration : Test(5)
     }
 }
 
-sub test_update_cluster_configuration : Test(20)
+sub test_update_cluster_configuration : Test(19)
 {
     my ($self) = @_;
 
@@ -133,10 +133,6 @@ sub test_update_cluster_configuration : Test(20)
     throws_ok {
         $mod->updateClusterConfiguration(undef, {name => 'foo', transport => 'udp', 'multicastConf' => undef});
     } 'EBox::Exceptions::MissingArgument';
-
-    throws_ok {
-        $mod->updateClusterConfiguration(undef, {name => '-ffo', transport => 'udp', 'multicastConf' => undef, nodes => []});
-    } 'EBox::Exceptions::InvalidData', 'Invalid name parameter';
 
     throws_ok {
         $mod->updateClusterConfiguration(undef, {name => 'ffo', transport => 'xcf', 'multicastConf' => undef, nodes => []});

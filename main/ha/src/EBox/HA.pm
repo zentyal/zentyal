@@ -501,7 +501,6 @@ sub updateClusterConfiguration
             throw EBox::Exceptions::MissingArgument($paramName);
         }
     }
-    EBox::Validate::checkDomainName($body->{name}, 'name');
     unless ($body->{transport} ~~ ['udp', 'udpu']) {
         throw EBox::Exceptions::InvalidData(data => 'transport', value => $body->{transport},
                                             advice => 'udp or udpu');
