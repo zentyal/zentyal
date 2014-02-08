@@ -239,7 +239,8 @@ sub clusterConfiguration
 
 # Method: leaveCluster
 #
-#    Leave the cluster by setting the cluster not boostraped
+#    Leave the cluster by setting the cluster not boostraped and store
+#    the current secret to notify the leave.
 #
 sub leaveCluster
 {
@@ -582,6 +583,26 @@ sub userSecret
         return $self->model('Cluster')->secretValue();
     }
     return undef;
+}
+
+# Method: destroyClusterConf
+#
+#    Destroy the cluster configuration leaving the module disabled
+#    with the modules stopped. Ready to start over again.
+#
+#    It saves the configuration.
+#
+sub destroyClusterConf
+{
+    my ($self) = @_;
+
+    $self->leaveCluster();
+    $self->_notifyLeave();
+    $self->model('ClusterState')->setValue('leaveRequest', "");
+    $self->_destroyClusterInfo();
+    $self->enableService(0);
+    $self->saveConfig();
+    $self->stopService();
 }
 
 # Group: Protected methods
@@ -1006,7 +1027,7 @@ sub _notifyLeave
             $last = 1;
         } catch ($e) {
             # Catch any exception
-            EBox::error($e->text());
+            EBox::error("Error notifying deletion: $e");
         }
         last if ($last);
     }
