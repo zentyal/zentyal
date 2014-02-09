@@ -586,23 +586,46 @@ sub _setVHosts
 
         if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
-            try {
-                EBox::Sudo::root("a2ensite $vhostfile");
-            } catch EBox::Exceptions::Sudo::Command with {
-                my ($exc) = @_;
-                # Already enabled?
-                if ( $exc->exitValue() != 1 ) {
-                    throw $exc;
-                }
-            };
+            $self->_enableVHost($vhostfile);
         }
+    }
 
+    # add additional vhost files
+    foreach my $vHostFilePath (@{ $self->internalVHosts() }) {
+        delete $sitesToRemove{$vHostFilePath};
+
+        my $vhostfileBasename = File::Basename::basename($vHostFilePath);
+        $self->_enableVHost($vhostfileBasename);
     }
 
     # Remove not used old dirs
     for my $dir (keys %sitesToRemove) {
         EBox::Sudo::root("rm -f $dir");
     }
+}
+
+sub internalVHosts
+{
+    my ($self) = @_;
+    # XXX hardcoded for now
+    my $confDir  = EBox::WebServer::PlatformPath::ConfDirPath()  . '/sites-available/';
+    my $rpcproxyConfFile = $confDir . 'zentyal-rpcproxy.conf';
+
+    return [$rpcproxyConfFile];
+}
+
+sub _enableVHost
+{
+    my ($self, $vhostfile) = @_;
+#    try {
+        EBox::Sudo::root("a2ensite $vhostfile");
+#    } catch EBox::Exceptions::Sudo::Command with {
+#        my ($exc) = @_;
+        # # Already enabled?
+        # if ( $exc->exitValue() != 1 ) {
+        #     throw $exc;
+        # }
+#    };
 }
 
 sub _createSiteDirs

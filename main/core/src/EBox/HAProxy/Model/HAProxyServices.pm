@@ -338,7 +338,7 @@ sub validateTypedRow
                 ));
             }
             unless ($force) {
-                $self->checkServicePort($port);
+                $self->checkServicePort($port, $params_r->{id});
             }
         }
         if ($enabledSSLPort) {
@@ -355,7 +355,7 @@ sub validateTypedRow
                 ));
             }
             unless ($force) {
-                $self->checkServicePort($sslPort);
+                $self->checkServicePort($sslPort, $params_r->{id});
             }
 
             # SSL certificate checking.
@@ -435,10 +435,23 @@ sub viewCustomizer
 #
 sub checkServicePort
 {
-    my ($self, $port) = @_;
+    my ($self, $port, $id) = @_;
 
-    if ($self->find(port => $port) or $self->find(sslPort => $port)) {
-        # This port is being used by us so can be shared.
+    my @idsSamePort = @{ $self->findAll(port => $port) };
+    push @idsSamePort, @{ $self->findAll(sslPort => $port) };
+    foreach my $rowId (@idsSamePort) {
+        if ($id and ($rowId ne $id)) {
+            my $row = $self->row($rowId);
+            EBox::Exceptions::External->throw(
+                __x('Port {port} is already used by reverse proxy for service {ser}',
+                    port => $port,
+                    ser  => $row->printableValueByName('service')
+                   )
+               );
+        }
+    }
+    if (@idsSamePort) {
+        # This port is already being used by us so can be shared.
         return;
     }
 
@@ -459,17 +472,21 @@ sub checkServicePort
     foreach my $line (@{ $netstatLines }) {
         my ($proto, $recvQ, $sendQ, $localAddr, $foreignAddr, $state, $PIDProgram) = split '\s+', $line, 7;
         if ($localAddr =~ m/:$port$/) {
+            $PIDProgram =~ s/\s*$//;
             my ($pid, $program) = split '/', $PIDProgram;
+                EBox::debug("program '$program' PID $pid");
             if ($program eq 'haproxy') {
                 # assumed we don't change daemon defintion to have more than one
-                # pidfule
-                my $pidFile = $self->parentModule()->_daemons()->{pidfiles}->[0];
-                my $haproxyPid = $self->pidFileRunning($pidFile);
+                # daemon nor pidfile
+                my $parentMod = $self->parentModule();
+                my $pidFile = $parentMod->_daemons()->[0]->{pidfiles}->[0];
+                my $haproxyPid = $parentMod->pidFileRunning($pidFile);
+                EBox::debug("file $pidFile hapid $haproxyPid");
                 if ($pid == $haproxyPid) {
                     # port used by itself
                     next;
                 } else {
-                    $program = __('Unmanaged isntance of haproxy');
+                    $program = __('Unmanaged instance of haproxy');
                 }
             }
             throw EBox::Exceptions::External(__x(

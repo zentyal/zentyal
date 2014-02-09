@@ -178,7 +178,7 @@ sub ports
             $ports{$port}->{isSSL} = $isSSL;
             $ports{$port}->{services} = [];
         }
-        push @{ $ports{$port}->{services}  }, $service;
+        unshift @{ $ports{$port}->{services}  }, $service;
     }
 
     return \%ports;
@@ -193,7 +193,7 @@ sub _modsServices
         port => 443,
         printableName => __('OpenChange RPCProxy'),
         targetIP => '127.0.0.1',
-        targetPort => 7777,
+        targetPort => 62080,
         domains    => ['z32a.zentyal-domain.lan'],
         paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
         pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
@@ -207,7 +207,7 @@ sub _modsServices
         port => 80,
         printableName => __('OpenChange RPCProxy'),
         targetIP => '127.0.0.1',
-        targetPort => 7777,
+        targetPort => 62080,
         domains    => ['z32a.zentyal-domain.lan'],
         paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
         pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',

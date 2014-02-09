@@ -1,5 +1,5 @@
 <%doc>
-    Template to set the apache configuration file for Outlook Anywhere service.
+    Template to set the apache configuration file for rpcproxy service.
 
 Parameters:
 
@@ -22,11 +22,9 @@ Parameters:
   $group => 'www-data'
   $user => 'www-data'
 </%args>
-
-
 Timeout 300
 KeepAlive On
-## The extremely high timeout is required by outlook
+## The extremely high timeout is required by clients
 KeepAliveTimeout 120
 MaxKeepAliveRequests 500
 AddDefaultCharset utf-8
@@ -62,20 +60,21 @@ Include /etc/apache2/mods-available/wsgi.load
 
 Listen <% $bindaddress %>:<% $port %>
 
-user <% $user %>
-group <%group %>
+user  <% $user %>
+group <% $group %>
 
-ErrorLog /var/log/zentyal/outlook-anywhere-error.log
+ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
-CustomLog /var/log/zentyal/outlook-anywhere-access.log combined
+CustomLog /var/log/apache2/rpcproxy-access.log combined
 
 WSGILazyInitialization On
 WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
 
 <Directory /opt/samba4/lib/openchange/web/rpcproxy/>
-  SetEnv RPCPROXY_LOGLEVEL INFO
+%#  SetEnv RPCPROXY_LOGLEVEL INFO
+  SetEnv RPCPROXY_LOGLEVEL DEBUG
   SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
   SetEnv SAMBA_HOST 127.0.0.1
   WSGIPassAuthorization On

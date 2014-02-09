@@ -141,6 +141,13 @@ sub enableService
         my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
 
+
+        if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
+            my $webserverMod = $global->modInstance("webserver");
+            # Mark webserver as changed to load the configuration of rpcproxy
+            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        }
+
         # Mark samba as changed to write smb.conf
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
@@ -149,6 +156,17 @@ sub enableService
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
     }
+}
+
+sub depends
+{
+    my ($self) = @_;
+    my $depends = $self->SUPER::depends();
+    # if rpcpproxy is enabled then it also depends on webserver
+    if ($self->_rpcProxyEnabled()) {
+        push @{ $depends }, 'webserver';
+    }
+    return $depends;
 }
 
 sub _daemonsToDisable
@@ -223,6 +241,17 @@ sub _autodiscoverEnabled
     my ($self) = @_;
     #return $self->isProvisioned();
     return 0;
+}
+
+sub _rpcProxyEnabled
+{
+    my ($self) = @_;
+    if (not $self->isProvisioned() or not $self->isEnabled()) {
+        return 0;
+    }
+
+    my $rpcpSettings = $self->model('RPCProxy');
+    return $rpcpSettings->enabled();
 }
 
 sub usedFiles
@@ -378,30 +407,28 @@ sub _setAutodiscoverConf
 sub _setRPCProxyConf
 {
     my ($self) = @_;
+    EBox::debug("_setrpcproxyconf");
+    if ($self->_rpcProxyEnabled()) {
 
-    if ($self->isProvisioned()) {
-        my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
-
+        # XXX
+        use EBox::WebServer::PlatformPath;
+        my $confDir  = EBox::WebServer::PlatformPath::ConfDirPath() . '/sites-available/';
+        my $rpcproxyConfFile = $confDir . 'zentyal-rpcproxy.conf';
+#        my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
+        EBox::debug("to write $rpcproxyConfFile");
         my @params = ();
         push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
-        push (@params, tmpdir => => EBox::Config::tmp());
+        push (@params, tmpdir => EBox::Config::tmp());
 
         $self->writeConfFile(
             $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+             \@params);
 
         my @cmds;
         push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
         EBox::Sudo::root(@cmds);
-
-        @params = ();
-        push (@params, conf => $rpcproxyConfFile);
-        my $rpcproxyUpstartFile = '/etc/init/zentyal.oa.conf';
-        $self->writeConfFile(
-            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
-            [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
     }
 }
 

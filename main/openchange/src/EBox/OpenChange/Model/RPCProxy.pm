@@ -69,7 +69,7 @@ sub _table
         tableName          => 'RPCProxy',
         printableTableName => __('HTTP/HTTPS proxy access'),
         modelDomain        => 'OpenChange',
-        #defaultActions     => [ 'editField' ],
+        defaultActions     => [ 'editField' ],
         tableDescription   => \@tableDesc,
         help               => __('Setup access to Openchange throught HTTP/HTTPS. Remember that HTTPS requires you import Zentyal certificate into your Windows account'),
     };
@@ -77,12 +77,58 @@ sub _table
     return $dataForm;
 }
 
-
 sub precondition
 {
     my ($self) = @_;
-    return $self->parentModule()->isProvisioned();
+    if (not $self->parentModule()->isProvisioned()) {
+        $self->{preconditionFailMsg} = '';
+        return 0;
+    } elsif (not $self->_webserverEnabled()) {
+        $self->{preconditionFailMsg} = __('Web Server module needs to be installed and enabled to use RPC proxy');
+        return 0;
+    }
+
+    return 1;
 }
 
+sub preconditionFailMessage
+{
+    my ($self) = @_;
+    return $self->{preconditionFailMsg};
+}
+
+sub _webserverEnabled
+{
+    my ($self) = @_;
+    my $webserver = $self->global()->modInstance('webserver');
+    if (not $webserver) {
+        return 0;
+    }
+    return $webserver->isEnabled();
+}
+
+sub enabled
+{
+    my ($self) = @_;
+    return $self->httpEnabled() or $self->httpsEnabled();
+}
+
+sub httpEnabled
+{
+    my ($self) = @_;
+    if (not $self->_webserverEnabled()) {
+        return 0;
+    }
+    return $self->value('http')
+}
+
+sub httpsEnabled
+{
+    my ($self) = @_;
+    if (not $self->_webserverEnabled()) {
+        return 0;
+    }
+    return $self->value('https')
+}
 
 1;
