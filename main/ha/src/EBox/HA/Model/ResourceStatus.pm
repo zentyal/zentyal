@@ -58,6 +58,10 @@ sub ids
 {
     my ($self)  = @_;
 
+    unless (defined($self->{clusterStatus}->resources())) {
+        return [];
+    }
+
     my @names = keys %{$self->{clusterStatus}->resources()};
 
     return \@names;
@@ -130,6 +134,7 @@ sub _table
         withoutActions => 1,
         showPaginationForm => 0,
         showFilterForm => 0,
+        noDataMsg => __('The cluster has not any resources defined.'),
         help => undef,
     };
 
