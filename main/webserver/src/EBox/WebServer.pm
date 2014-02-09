@@ -74,7 +74,7 @@ sub _create
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::usedFiles
+#       Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
