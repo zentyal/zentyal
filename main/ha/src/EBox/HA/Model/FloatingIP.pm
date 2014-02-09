@@ -61,7 +61,8 @@ sub validateTypedRow
     }
     # Check DHCP and network for every interface
     my $network = $self->parentModule()->global()->modInstance('network');
-    foreach my $iface (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()}) {
+    my @staticIfaces = grep { $network->ifaceMethod($_) eq 'static' } (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
+    foreach my $iface (@staticIfaces) {
         if (my $error_message = $self->_ipCollides($iface, $ip)) {
             throw EBox::Exceptions::External($error_message);
         }
