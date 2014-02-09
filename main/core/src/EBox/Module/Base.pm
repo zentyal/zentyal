@@ -870,6 +870,17 @@ sub pidRunning
 sub pidFileRunning
 {
     my ($self, $file) = @_;
+    my $pid = $self->pidFromFile($file);
+    if ($pid and $self->pidRunning($pid)) {
+        return $pid;
+    } else {
+        return undef;
+    }
+}
+
+sub pidFromFile
+{
+    my ($self, $file) = @_;
     my $pid;
     try {
         my $output = EBox::Sudo::silentRoot("cat $file");
@@ -879,11 +890,7 @@ sub pidFileRunning
     } otherwise {
         $pid = undef;
     };
-    if ($pid and $self->pidRunning($pid)) {
-        return $pid;
-    } else {
-        return undef;
-    }
+    return $pid;
 }
 
 # Method: _preSetConf
