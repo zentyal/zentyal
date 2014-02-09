@@ -74,6 +74,7 @@ sub syncRows
 
     my $haproxyMod = $self->parentModule();
     my @mods = @{$haproxyMod->modsWithHAProxyService()};
+    @mods = grep { not $_->HAProxyInternalService()  } @mods;
 
     my %currentSrvs = map {
         my $sid = $self->row($_)->valueByName('serviceId');

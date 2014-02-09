@@ -154,7 +154,7 @@ sub ports
         }
     }
 
-    my @modsServices = @{ $self->_modsServices() };
+    my @modsServices = @{ $self->_hiddenServices() };
     foreach my $service (@modsServices) {
         my $port  = $service->{port};
         my $isSSL = $service->{isSSL};
@@ -184,37 +184,16 @@ sub ports
     return \%ports;
 }
 
-sub _modsServices
+sub _hiddenServices
 {
     my ($self) = @_;
     my @services;
-    my $rpcpService = {
-        name => 'oc_rpcproxy_https',
-        port => 443,
-        printableName => __('OpenChange RPCProxy'),
-        targetIP => '127.0.0.1',
-        targetPort => 62080,
-        domains    => ['z32a.zentyal-domain.lan'],
-        paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-        pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
-        isSSL   => 1,
-    };
-    push @services, $rpcpService;
-
-
-    my $httpRpcpService = {
-        name => 'oc_rpcproxy_http',
-        port => 80,
-        printableName => __('OpenChange RPCProxy'),
-        targetIP => '127.0.0.1',
-        targetPort => 62080,
-        domains    => ['z32a.zentyal-domain.lan'],
-        paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-        pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
-        isSSL   => 0,
-    };
-    push @services, $httpRpcpService;
-
+    foreach my $mod (@{$self->modsWithHAProxyService()}) {
+        my $hidden = $mod->HAProxyInternalService();
+        if ($hidden) {
+            push @services, @{ $hidden };
+        }
+    }
 
     return \@services;
 }

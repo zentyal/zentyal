@@ -1,4 +1,6 @@
 HEAD
+	+ Added support for internal virtual domains (only for openchange
+	  for now)
 	+ Updated to use the new haproxy API
 3.2.1
 	+ Added missing EBox::Exceptions uses

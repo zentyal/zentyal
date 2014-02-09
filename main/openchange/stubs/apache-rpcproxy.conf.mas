@@ -16,7 +16,7 @@ Parameters:
 </%doc>
 <%args>
   $bindaddress => '127.0.0.1'
-  $port => 62081
+  $port
   $rpcproxyAuthCacheDir
   $tmpdir
   $group => 'www-data'

@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::HAProxy::ServiceBase);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -48,6 +48,8 @@ use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
+use constant RPCPROXY_PORT           => 62081;
+use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 # Method: _create
@@ -262,6 +264,12 @@ sub usedFiles
 #        module => 'openchange'
 #    });
 #
+    push (@files, {
+        file => RPCPROXY_STOCK_CONF_FILE,
+        reason => __('Remove stock file to avoid interference'),
+        module => 'openchange'
+    });
+
     return \@files;
 }
 
@@ -409,16 +417,25 @@ sub _rpcProxyConfFile
     return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
 }
 
+sub _rpcProxyPort
+{
+    return
+}
+
 sub _setRPCProxyConf
 {
     my ($self) = @_;
-    EBox::debug("_setrpcproxyconf");
+
+    # remove stock rpcproxy.conf file because it could interfere
+    EBox::Sudo::root('rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
+
     if ($self->_rpcProxyEnabled()) {
         my $rpcProxyConfFile = $self->_rpcProxyConfFile();
-        EBox::debug("to write $rpcProxyConfFile");
-        my @params = ();
-        push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
-        push (@params, tmpdir => EBox::Config::tmp());
+        my @params = (
+            rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
+            tmpdir => EBox::Config::tmp(),
+            port   => RPCPROXY_PORT
+           );
 
         $self->writeConfFile(
             $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
@@ -681,5 +698,51 @@ sub organizations
 
     return $list;
 }
+
+sub HAProxyInternalService
+{
+    my ($self) = @_;
+    my $RPCProxyModel = $self->model('RPCProxy');
+
+    # XXX for now only fqdn because we are tied to the certficiate issuer
+    my @domains;
+    push @domains, $self->global()->modInstance('sysinfo')->fqdn();
+
+    my @services;
+    if ($RPCProxyModel->httpEnabled()) {
+        my $rpcpService = {
+            name => 'oc_rpcproxy_https',
+            port => 443,
+            printableName => __('OpenChange RPCProxy'),
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            domains    => \@domains,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+            isSSL   => 1,
+        };
+        push @services, $rpcpService;
+    }
+
+    if ($RPCProxyModel->httpEnabled()) {
+        my $httpRpcpService = {
+            name => 'oc_rpcproxy_http',
+            port => 80,
+            printableName => __('OpenChange RPCProxy'),
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            domains    => \@domains,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+            isSSL   => 0,
+        };
+        push @services, $httpRpcpService;
+    }
+
+    return \@services;
+
+}
+
+
 
 1;
