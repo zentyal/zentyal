@@ -158,17 +158,6 @@ sub enableService
     }
 }
 
-sub depends
-{
-    my ($self) = @_;
-    my $depends = $self->SUPER::depends();
-    # if rpcpproxy is enabled then it also depends on webserver
-    if ($self->_rpcProxyEnabled()) {
-        push @{ $depends }, 'webserver';
-    }
-    return $depends;
-}
-
 sub _daemonsToDisable
 {
     my ($self) = @_;
@@ -404,24 +393,35 @@ sub _setAutodiscoverConf
     }
 }
 
+sub internalVHosts
+{
+    my ($self) = @_;
+    if ($self->_rpcProxyEnabled) {
+        return [ $self->_rpcProxyConfFile() ];
+    }
+
+    return [];
+}
+
+sub _rpcProxyConfFile
+{
+    my ($self) = @_;
+    return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
+}
+
 sub _setRPCProxyConf
 {
     my ($self) = @_;
     EBox::debug("_setrpcproxyconf");
     if ($self->_rpcProxyEnabled()) {
-
-        # XXX
-        use EBox::WebServer::PlatformPath;
-        my $confDir  = EBox::WebServer::PlatformPath::ConfDirPath() . '/sites-available/';
-        my $rpcproxyConfFile = $confDir . 'zentyal-rpcproxy.conf';
-#        my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
-        EBox::debug("to write $rpcproxyConfFile");
+        my $rpcProxyConfFile = $self->_rpcProxyConfFile();
+        EBox::debug("to write $rpcProxyConfFile");
         my @params = ();
         push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
         push (@params, tmpdir => EBox::Config::tmp());
 
         $self->writeConfFile(
-            $rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+            $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
              \@params);
 
         my @cmds;

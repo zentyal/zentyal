@@ -16,7 +16,7 @@ Parameters:
 </%doc>
 <%args>
   $bindaddress => '127.0.0.1'
-  $port => 62080
+  $port => 62081
   $rpcproxyAuthCacheDir
   $tmpdir
   $group => 'www-data'
@@ -36,6 +36,7 @@ MinSpareServers 5
 MaxSpareServers 10
 MaxClients 150
 MaxRequestsPerChild 0
+
 
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load
@@ -60,17 +61,18 @@ Include /etc/apache2/mods-available/wsgi.load
 
 Listen <% $bindaddress %>:<% $port %>
 
-user  <% $user %>
-group <% $group %>
+user  www-data
+group www-data
+
+WSGILazyInitialization On
+WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
+
 
 ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
 
 LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{forensic-id}n\"" combined
 CustomLog /var/log/apache2/rpcproxy-access.log combined
-
-WSGILazyInitialization On
-WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
 
 <Directory /opt/samba4/lib/openchange/web/rpcproxy/>
 %#  SetEnv RPCPROXY_LOGLEVEL INFO
@@ -83,3 +85,4 @@ WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
 
 WSGIScriptAlias /rpc/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
 WSGIScriptAlias /rpcwithcert/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+

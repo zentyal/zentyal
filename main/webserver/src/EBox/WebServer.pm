@@ -591,7 +591,7 @@ sub _setVHosts
     }
 
     # add additional vhost files
-    foreach my $vHostFilePath (@{ $self->internalVHosts() }) {
+    foreach my $vHostFilePath (@{ $self->_internalVHosts() }) {
         delete $sitesToRemove{$vHostFilePath};
 
         my $vhostfileBasename = File::Basename::basename($vHostFilePath);
@@ -604,28 +604,33 @@ sub _setVHosts
     }
 }
 
-sub internalVHosts
+sub _internalVHosts
 {
     my ($self) = @_;
-    # XXX hardcoded for now
-    my $confDir  = EBox::WebServer::PlatformPath::ConfDirPath()  . '/sites-available/';
-    my $rpcproxyConfFile = $confDir . 'zentyal-rpcproxy.conf';
+    my @vhosts;
 
-    return [$rpcproxyConfFile];
+    # for now only used by openchange/rpcproxy
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        push @vhosts, @{ $openchange->internalVHosts() }
+    }
+
+    return \@vhosts;
 }
 
 sub _enableVHost
 {
     my ($self, $vhostfile) = @_;
-#    try {
-        EBox::Sudo::root("a2ensite $vhostfile");
-#    } catch EBox::Exceptions::Sudo::Command with {
-#        my ($exc) = @_;
-        # # Already enabled?
-        # if ( $exc->exitValue() != 1 ) {
-        #     throw $exc;
-        # }
-#    };
+    try {
+       EBox::Sudo::root("a2ensite $vhostfile");
+    } catch EBox::Exceptions::Sudo::Command with {
+        my ($exc) = @_;
+       # Already enabled?
+        if ( $exc->exitValue() != 1 ) {
+            throw $exc;
+        }
+    };
+
 }
 
 sub _createSiteDirs
