@@ -1200,6 +1200,7 @@ sub _setFloatingIPRscs
     my $list = new EBox::HA::NodeList($self);
     my $localNode = $list->localNode();
     my $activeNode = EBox::HA::CRMWrapper::activeNode();
+    my @moves = ();
     while (my ($rscName, $rscAddr) = each(%finalRscs)) {
         if (exists($currentRscs{$rscName})) {
             # Update the IP, if required
@@ -1212,16 +1213,30 @@ sub _setFloatingIPRscs
             push(@rootCmds,
                  "crm -w configure primitive $rscName ocf:heartbeat:IPaddr2 params ip=$rscAddr");
             if ($activeNode ne $localNode) {
-                push(@rootCmds,
-                     "crm_resource --resource '$rscName' --move --host '$activeNode'",
-                     "sleep 3",
-                     "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+                push(@moves, $rscName);
             }
         }
     }
 
     if (@rootCmds > 0) {
         EBox::Sudo::root(@rootCmds);
+        if (@moves > 0) {
+            # Do the initial movements after adding new primitives
+            @rootCmds = ();
+            foreach my $rscName (@moves) {
+                # FIXME: Use new class for cluster status
+                my $currentNode = EBox::HA::CRMWrapper::_locateResource($rscName);
+                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                    push(@rootCmds,
+                         "crm_resource --resource '$rscName' --move --host '$activeNode'",
+                         "sleep 3",
+                         "crm_resource --resource '$rscName' --clear --host '$activeNode'");
+                }
+            }
+            if (@rootCmds > 0) {
+                EBox::Sudo::root(@rootCmds);
+            }
+        }
     }
 }
 
@@ -1241,6 +1256,7 @@ sub _setSingleInstanceInClusterModules
     my $activeNode = EBox::HA::CRMWrapper::activeNode();
 
     my @rootCmds;
+    my @moves = ();
     foreach my $modName (@SINGLE_INSTANCE_MODULES) {
         my $mod = $self->global()->modInstance($modName);
         if (defined($mod) and $mod->configured()) {
@@ -1249,10 +1265,7 @@ sub _setSingleInstanceInClusterModules
                     push(@rootCmds,
                          "crm -w configure primitive '$modName' ocf:zentyal:Zentyal params module_name='$modName'");
                     if ($activeNode ne $localNode) {
-                        push(@rootCmds,
-                             "crm_resource --resource '$modName' --move --host '$activeNode'",
-                             "sleep 3",
-                             "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                        push(@moves, $modName);
                     }
                 }
             } else {
@@ -1266,6 +1279,23 @@ sub _setSingleInstanceInClusterModules
     }
     if (@rootCmds > 0) {
         EBox::Sudo::root(@rootCmds);
+        if (@moves > 0) {
+            # Do the initial movements after adding new primitives
+            @rootCmds = ();
+            foreach my $modName (@moves) {
+                # FIXME: Use new class for cluster status
+                my $currentNode = EBox::HA::CRMWrapper::_locateResource($modName);
+                if (defined($currentNode) and ($currentNode ne $activeNode)) {
+                    push(@rootCmds,
+                         "crm_resource --resource '$modName' --move --host '$activeNode'",
+                         "sleep 3",
+                         "crm_resource --resource '$modName' --clear --host '$activeNode'");
+                }
+            }
+            if (@rootCmds > 0) {
+                EBox::Sudo::root(@rootCmds);
+            }
+        }
     }
 }
 
