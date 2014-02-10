@@ -467,7 +467,8 @@ sub askForReplicationInNode
 
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";
-    system ("curl -F file=\@$fullpath http://$addr:5000/conf/replication");
+    my $secret = $self->userSecret();
+    system ("curl -F file=\@$fullpath http://zentyal:$secret\@$addr:5000/conf/replication");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
