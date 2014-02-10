@@ -24,13 +24,15 @@ package EBox::Users::Model::Password;
 
 use base 'EBox::Model::DataForm';
 
-use EBox::Gettext;
-use EBox::Validate qw(:all);
-use EBox::Users::Types::Password;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
+use EBox::Gettext;
+use EBox::Middleware::Auth;
+use EBox::Users::Types::Password;
+use EBox::Validate qw(:all);
 
-use File::Temp qw/tempfile/;
 use Encode;
+use File::Temp qw/tempfile/;
 
 use constant SAMBA_LDAPI => "ldapi://%2fopt%2fsamba4%2fprivate%2fldapi" ;
 
@@ -166,10 +168,19 @@ sub setTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
-    eval 'use EBox::UserCorner::Auth';
-    my $auth = EBox::UserCorner::Auth->credentials();
-    my $user = $auth->{user};
-    my $pass = $auth->{pass};
+    my $request = $global->request();
+    unless ($request) {
+        throw EBox::Exceptions::Internal("There is no request available!");
+    }
+    my $session = $request->session();
+    unless (defined $session->{userDN}) {
+        throw EBox::Exceptions::Internal("There is no userDN information in the request object!");
+    }
+    my $user = $session->{userDN};
+    my $pass = EBox::Middleware::Auth->sessionPassword($request);
+    unless (defined $pass) {
+        throw EBox::Exceptions::Internal("There is password defined for this request object!");
+    }
 
     # Check we can instance the zentyal user
     my $zentyalUser = new EBox::Users::User(uid => $user);
@@ -184,7 +195,7 @@ sub setTypedRow
     # At this point, the password has been changed in samba
     $zentyalUser->changePassword($pass1->value());
 
-    EBox::UserCorner::Auth->updatePassword($user, $pass1->value(), $zentyalUser->dn());
+    EBox::Middleware::Auth->updateSessionPassword($request, $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }
