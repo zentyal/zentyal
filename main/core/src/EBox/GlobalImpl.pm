@@ -78,6 +78,7 @@ sub _new_instance
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
+    $self->{request} = undef;
     return $self;
 }
 
@@ -1124,6 +1125,34 @@ sub deleteDisasterRecovery
     if (-f DISASTER_RECOVERY_FILE) {
         unlink (DISASTER_RECOVERY_FILE);
     }
+}
+
+# Method: appName
+#
+# Returns:
+#
+#   String - The application name we are running as
+#
+sub appName
+{
+    my ($self) = @_;
+
+    my $request = $self->{request};
+    my $session = $request->session();
+    return $session->{app};
+}
+
+# Method: request
+#
+# Returns:
+#
+#   <Plack::Request> - The http request, undef if we are not in an http request
+#
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
 }
 
 # Method: saveMessages
