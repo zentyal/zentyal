@@ -196,17 +196,6 @@ sub addModuleStatus
 {
 }
 
-# Method: showModuleStatus
-#
-#   Hides Openchange from the Dashboard.
-#
-# Overrides: <EBox::Module::Service::showModuleStatus>
-#
-sub showModuleStatus
-{
-    return 0;
-}
-
 # Method: isRunning
 #
 #   Links Openchange running status to Samba status.
