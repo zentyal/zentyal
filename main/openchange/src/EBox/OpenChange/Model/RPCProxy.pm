@@ -53,16 +53,25 @@ sub _table
     my ($self) = @_;
 
     my @tableDesc = (
+        EBox::Types::Text->new(
+            fieldName => 'host',
+            printableName => __('Host name'),
+            volatile => 1,
+            filter => sub { return $self->_host },
+            editable => 0,
+        ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',
             printableName => __('Proxy HTTP access'),
             defaultValue  => 0,
-            editable      => 1),
+            editable      => 1
+           ),
         EBox::Types::Boolean->new(
             fieldName     => 'https',
             printableName => __('Proxy HTTPS access'),
             defaultValue  => 0,
-            editable      => 1),
+            editable      => 1
+           ),
         );
 
     my $dataForm = {
@@ -80,7 +89,8 @@ sub _table
 sub precondition
 {
     my ($self) = @_;
-    if (not $self->parentModule()->isProvisioned()) {
+    my $parentModule = $self->parentModule();
+    if (not $parentModule->isProvisioned()) {
         $self->{preconditionFailMsg} = '';
         return 0;
     } elsif (not $self->_webserverEnabled()) {
@@ -88,7 +98,19 @@ sub precondition
         return 0;
     }
 
-    return 1;
+    my $host;
+    try {
+        $host = $self->_host();
+        if (not  $host) {
+            $self->{preconditionFailMsg} = __x('Error when getingt host name for RPC proxy');
+        }
+    } otherwise {
+        my ($ex) = @_;
+        $self->{preconditionFailMsg} = __x('Error when getting host name for RPC proxy: {err}', err => "$ex");
+        $host = undef;
+    };
+
+    return defined $host;
 }
 
 sub preconditionFailMessage
@@ -96,6 +118,15 @@ sub preconditionFailMessage
     my ($self) = @_;
     return $self->{preconditionFailMsg};
 }
+
+sub _host
+{
+    my ($self) = @_;
+    my $hosts = $self->parentModule()->_rpcProxyHosts();
+    # for now we have only one host
+    return $hosts->[0];
+}
+
 
 sub _webserverEnabled
 {
