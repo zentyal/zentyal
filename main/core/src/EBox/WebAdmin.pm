@@ -241,9 +241,13 @@ sub _writeNginxConfFile
 
     my $upstartFile = 'core/upstart-uwsgi.mas';
     @confFileParams = ();
-    push @confFileParams, (socket => EBox::Config::tmp() . 'uwsgi.sock');
-    push @confFileParams, (script => EBox::Config::psgi() . 'zentyal.psgi');
-    EBox::Module::Base::writeConfFileNoCheck($self->_uwsgiUpstartFile, 'core/upstart-uwsgi.mas', \@confFileParams, $permissions);
+    push (@confFileParams, socket => EBox::Config::tmp() . 'webadmin.sock');
+    push (@confFileParams, script => EBox::Config::psgi() . 'zentyal.psgi');
+    push (@confFileParams, module => $self->printableName());
+    push (@confFileParams, user   => EBox::Config::user());
+    push (@confFileParams, group  => EBox::Config::group());
+    EBox::Module::Base::writeConfFileNoCheck(
+        $self->_uwsgiUpstartFile, $upstartFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -573,7 +577,7 @@ sub certificates
 
     return [
             {
-             serviceId =>  'Zentyal Administration Web Server',
+             serviceId =>  'zentyal_' . $self->name(),
              service =>  __('Zentyal Administration Web Server'),
              path    =>  $self->pathHAProxySSLCertificate(),
              user => EBox::Config::user(),
@@ -631,6 +635,17 @@ sub usesPort
 sub initialSetup
 {
     my ($self, $version) = @_;
+
+    # Register the service if installing the first time
+    unless ($version) {
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
