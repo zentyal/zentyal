@@ -18,7 +18,7 @@ models:
     - Errors
 
 composites:
-    Initial: [Cluster, FloatingIP]
+    Initial: [Cluster]
     General: [Configuration, Status]
     Configuration: [ClusterMetadata, Nodes, FloatingIP, Cluster]
     Status: [StatusHalfTop, Errors]

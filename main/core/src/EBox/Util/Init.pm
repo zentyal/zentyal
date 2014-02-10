@@ -1,4 +1,4 @@
-# Copyright (C) 2011-2013 Zentyal S.L.
+# Copyright (C) 2011-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -142,13 +142,34 @@ sub moduleAction
     printModuleMessage($modname, $actionName, $success, $errorMsg);
 }
 
+# Procedure: status
+#
+#    Print the status of a module.
+#
+#        - RUNNING (enabled and running)
+#        - STOPPED (enabled and not running)
+#        - RUNNING UNMANAGED (disabled and running)
+#        - DISABLED (disabled and not running)
+#
+#    It exits from the application.
+#
+# Parameters:
+#
+#    modname - String the module name
+#
+# Exits:
+#
+#    0 - If the module is enabled
+#    2 - If the module is not valid or it is not a service one
+#    3 - If the module is disabled
+#
 sub status
 {
-    my ($modname, $action, $actionName) = @_;
+    my ($modname) = @_;
 
     my $mod = checkModule($modname); #exits if module is not manageable
 
-    my $msg = "EBox: status module $modname:\t\t\t";
+    my $msg = "Zentyal: status module $modname:\t\t\t";
     my $enabled = $mod->isEnabled();
     my $running = $mod->isRunning();
     if ($enabled and $running) {
@@ -164,6 +185,39 @@ sub status
         print STDOUT $msg . "[ DISABLED ]\n";
         exit 3;
     }
+}
+
+# Procedure: enabled
+#
+#    Print if a module is enabled
+#
+#        - ENABLED
+#        - DISABLED
+#
+#    It exits from the application.
+#
+# Parameters:
+#
+#    modname - String the module name
+#
+# Exits:
+#
+#    0 - If the module is enabled or disabled
+#    2 - If the module is not valid or it is not a service one
+#
+sub enabled
+{
+    my ($modname) = @_;
+
+    my $mod = checkModule($modname);
+
+    my $msg = "Zentyal module $modname:\t\t\t";
+    if ($mod->isEnabled()) {
+        print STDOUT $msg . "[ ENABLED ]\n";
+    } else {
+        print STDOUT $msg . "[ DISABLED ]\n";
+    }
+    exit 0;
 }
 
 sub _logActionFunction

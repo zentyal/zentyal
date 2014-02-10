@@ -1217,7 +1217,7 @@ actions at the same time */
         $('#' + table).html(responseText);
     };
     var error = function(response) {
-        $('#error_' + table).html(response.responseText).show();
+        $('#' + table + '_error').html(response.responseText).show();
         $('#' + id + ' .customActions').each(function(index, element) {
             Zentyal.TableHelper.restoreHidden(element.id, table);
         });

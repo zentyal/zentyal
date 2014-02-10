@@ -28,6 +28,7 @@ package EBox::HA::Model::ClusterState;
 use base 'EBox::Model::DataForm';
 
 use EBox::Types::Boolean;
+use EBox::Types::Text;
 
 # Group: Protected methods
 
@@ -47,10 +48,10 @@ sub _table
             editable      => 1,
             defaultValue  => 0,
         ),
-        new EBox::Types::Boolean(
+        new EBox::Types::Text(
             fieldName     => 'leaveRequest',
             editable      => 1,
-            defaultValue  => 0,
+            defaultValue  => "",
         ),
     );
     my $dataTable =

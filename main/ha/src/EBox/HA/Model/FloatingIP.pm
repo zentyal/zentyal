@@ -49,10 +49,6 @@ sub validateTypedRow
     my $name = $newParams->{'name'}->value();
     my $ip = $newParams->{'floating_ip'}->value();
 
-    my $haModule = $self->parentModule();
-    my $clusterSettings = $haModule->model('Cluster');
-    my $iface = $clusterSettings->interfaceValue();
-
     my $nameLength = length ($name);
     if ($nameLength > MAX_NAME_LENGTH) {
         throw EBox::Exceptions::External(__x('Name is too long. Maximum length is {max}.', max => MAX_NAME_LENGTH));
@@ -63,8 +59,13 @@ sub validateTypedRow
     if ($name !~ m/^[a-zA-Z_0-9]+$/) {
         throw EBox::Exceptions::External(__('Name must only contain letters, numbers or underscores.'));
     }
-    if (my $error_message = $self->_ipCollides($iface, $ip)) {
-        throw EBox::Exceptions::External($error_message);
+    # Check DHCP and network for every interface
+    my $network = $self->parentModule()->global()->modInstance('network');
+    my @staticIfaces = grep { $network->ifaceMethod($_) eq 'static' } (@{$network->InternalIfaces()}, @{$network->ExternalIfaces()});
+    foreach my $iface (@staticIfaces) {
+        if (my $error_message = $self->_ipCollides($iface, $ip)) {
+            throw EBox::Exceptions::External($error_message);
+        }
     }
 }
 
@@ -80,7 +81,7 @@ sub _ipCollides
     my $ipCollisionReason = "";
 
     if ($self->_existsNetworkIpCollision($iface, $ip)) {
-        $ipCollisionReason = __('There is a a Network interface with the given IP address.');
+        $ipCollisionReason = __('There is a Network interface with the given IP address.');
     } elsif ($self->_existsDhcpFixedIpCollision($iface, $ip)) {
         $ipCollisionReason = __('There is a fixed DHCP object with the given IP address.');
     } elsif ($self->_existsDhcpRangesCollision($iface, $ip)) {
@@ -102,7 +103,7 @@ sub _existsNetworkIpCollision
 
     foreach my $ifaceIP (@netIPs) {
         $ifaceIP = new Net::IP($ifaceIP->{address});
-        if ($floatingIP->overlaps($ifaceIP)) {
+        if ($floatingIP->overlaps($ifaceIP) != $IP_NO_OVERLAP) {
             return 1;
         }
     }
@@ -129,7 +130,7 @@ sub _existsDhcpFixedIpCollision
         my $fixedAddresses = $dhcp->fixedAddresses($iface, 0);
         foreach my $fixedAddr (@{$fixedAddresses}) {
             my $fixedIP = new Net::IP($fixedAddr->{ip});
-            if ($floatingIP->overlaps($fixedIP)) {
+            if ($floatingIP->overlaps($fixedIP) != $IP_NO_OVERLAP) {
                 return 1;
             }
         }
@@ -146,17 +147,15 @@ sub _existsDhcpRangesCollision
 
     if ($global->modExists('dhcp') and $global->modInstance('dhcp')->isEnabled()) {
         my $dhcp = $global->modInstance('dhcp');
-        # FIXME: Move this code to DHCP
-        my $rangeModel = $dhcp->_getModel('RangeTable', $iface);
+        my $ranges = $dhcp->ranges($iface);
 
         my $floatingIP = new Net::IP($ip);
 
-        foreach my $id (@{$rangeModel->ids()}) {
-            my $rangeRow = $rangeModel->row($id);
-            my $from     = $rangeRow->valueByName('from');
-            my $to       = $rangeRow->valueByName('to');
+        foreach my $range (@{$ranges}) {
+            my $from     = $range->{from};
+            my $to       = $range->{to};
             my $range    = new Net::IP( $from . '-' . $to);
-            if ($floatingIP->overlaps($range)) {
+            if ($floatingIP->overlaps($range) != $IP_NO_OVERLAP) {
                 return 1;
             }
         }

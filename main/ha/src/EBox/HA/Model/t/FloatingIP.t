@@ -58,10 +58,6 @@ sub setUpInstance : Test(setup)
 
     $self->{model} = $ha->model('FloatingIP');
 
-    $self->{cl_model} = $ha->model('Cluster');
-    $self->{cl_model} = new Test::MockObject::Extends($self->{cl_model});
-    $self->{cl_model}->mock('interfaceValue', sub { 'eth0' });
-
     my $model = $self->{model};
 
     my ($nameElement) = grep { $_->{fieldName} eq 'name' } @{$model->table()->{'tableDescription'}};
@@ -70,22 +66,6 @@ sub setUpInstance : Test(setup)
     my ($floating_ipElement) = grep { $_->{fieldName} eq 'floating_ip' } @{$model->table()->{'tableDescription'}};
     $self->{floating_ipElement} = $floating_ipElement;
 
-    # Create DHCP module
-    my $dhcp = EBox::DHCP->_create(redis => $redis);
-    my $dhcpModel = $dhcp->model('RangeTable');
-    $dhcpModel = new Test::MockObject::Extends($dhcpModel);
-    # We are not testing DHCP code, so we skip any validation
-    $dhcpModel->set_true('validateTypedRow');
-    $self->{dhcpModel} = $dhcpModel;
-}
-
-sub test_mocking : Test(1)
-{
-    my ($self) = @_;
-
-    my $model = $self->{model};
-    cmp_ok($model->parentModule()->model('Cluster')->interfaceValue(), 'eq', 'eth0',
-           'Testing mocking');
 }
 
 sub test_validate_row_format_exceptions :  Test(3)
@@ -147,10 +127,16 @@ sub test_validate_row_collision_exceptions : Test(3)
             'name' => 'cow',
             'mac' => 'C0:C1:C0:12:E7:1C'
         }];
+    my $fakeRanges = [{
+        'name' => 'testRange',
+        'from' => '1.1.1.95',
+        'to'   => '1.1.1.105'}];
 
     EBox::TestStubs::fakeModule(
             name => 'network',
             subs => [
+                'InternalIfaces' => sub { [ 'eth0' ] },
+                'ExternalIfaces' => sub { [] },
                 'ifaceAddresses' => sub { return $fakeNetworkIPs; },
                 'ifaceMethod' => sub { return 'static'; }
             ]);
@@ -160,7 +146,8 @@ sub test_validate_row_collision_exceptions : Test(3)
             subs => [
                 'fixedAddresses' => sub { return $fakeFixedAddresses; },
                 'isEnabled' => sub { return 1; },
-                '_getModel' => sub {return $self->{dhcpModel}; }
+                '_getModel' => sub {return $self->{dhcpModel}; },
+                'ranges'    => sub { return $fakeRanges; },
             ]);
 
     $self->{nameElement}->setValue('testIP');
@@ -187,10 +174,6 @@ sub test_validate_row_collision_exceptions : Test(3)
     $self->{nameElement}->setValue('testIP');
     $self->{floating_ipElement}->setValue('1.1.1.100');
 
-    my $rowId = $self->{dhcpModel}->add(name => 'testRange',
-                                        from => '1.1.1.95',
-                                        to   => '1.1.1.105');
-
     throws_ok {
         $model->validateTypedRow('add', undef, {
             name => $self->{nameElement},
@@ -198,8 +181,6 @@ sub test_validate_row_collision_exceptions : Test(3)
            });
     } 'EBox::Exceptions::External', 'IP collides with DHCP ranges';
 
-    # To be consistent to the initial state
-    $self->{dhcpModel}->removeRow($rowId);
 }
 
 1;

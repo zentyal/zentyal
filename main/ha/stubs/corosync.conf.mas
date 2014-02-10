@@ -49,12 +49,8 @@ totem {
         # Limit generated nodeids to 31-bits (positive signed integers)
         clear_node_high_bit: yes
 
-        <%doc>
-        TODO: Auth
-        </%doc>
-        # Disable encryption
-        crypto_hash: none
-        crypto_cipher: none
+        crypto_hash: sha1
+        crypto_cipher: aes256
 
         # How many threads to use for encryption/decryption
         threads: 0

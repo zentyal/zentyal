@@ -2,6 +2,16 @@
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties
+	+ Show nice error when global-action fails using die + scalar
+	+ EBox::Util::Random now accepts a set of chars to have a random string
+	+ Notify HA when a module which must have a single instance in the
+	  cluster is enabled/disabled.
+	+ Added enabled action to /etc/init.d/zentyal to display whether a
+	  module is enabled or disabled
+	+ Pass model, type and id to enabled subroutine in
+	  EBox::Types::MultiStateAction to be ortoghonal to handler property
+	+ Fixed JS error on showing errors in customActionClicked
+	+ Fixed rethrown of exception in restartService() method
 	+ Added middleware to have auth based on a env variable
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
@@ -27,6 +37,10 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
+	+ Show nice error when global-action fails using die + scalar
+	+ Fixed JS error on showing errors in customActionClicked
 	+ Fixed rethrown of exception in restartService() method
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Fixed mason component root for custom stubs
