@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -612,11 +612,17 @@ sub enableService
 
     $self->set_bool('_serviceModuleStatus', $status);
 
+    # FIXME: Move this to an observer pattern
     my $audit = EBox::Global->modInstance('audit');
     if (defined ($audit)) {
         my $action = $status ? 'enableService' : 'disableService';
         $audit->logAction('global', 'Module Status', $action, $self->{name});
     }
+    my $ha = $self->global()->modInstance('ha');
+    if (defined($ha)) {
+        $ha->setIfSingleInstanceModule($self->name());
+    }
+
 }
 
 # Method: defaultStatus
