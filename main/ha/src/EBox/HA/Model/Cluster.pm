@@ -20,13 +20,17 @@ package EBox::HA::Model::Cluster;
 
 # Class: EBox::HA::Model::Cluster
 #
-#     Model to manage the cluster configuration. Start a new cluster or join to another one.
+#     Model to manage the cluster configuration. Start a new cluster
+#     or join to another one.
 #
 
 use base 'EBox::Model::DataForm';
 
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
+use EBox::RESTClient;
 use EBox::Types::Composite;
 use EBox::Types::Host;
 use EBox::Types::Port;
@@ -35,6 +39,7 @@ use EBox::Types::Text;
 use EBox::Types::Union;
 use EBox::Types::Union::Text;
 use EBox::View::Customizer;
+use TryCatch::Lite;
 
 # Group: Public methods
 
@@ -67,6 +72,48 @@ sub viewCustomizer
     $customizer->setInitHTMLStateOrder(['configuration']);
 
     return $customizer;
+}
+
+# Method: validateTypedRow
+#
+#    In case of joining, check the given data to join.
+#
+# Overrides:
+#
+#    <EBox::Model::DataTable::validateTypedRow>
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if the secret is not correct
+#
+sub validateTypedRow
+{
+    my ($self, $action, $changedParams, $allParams) = @_;
+
+    if ($allParams->{'configuration'}->value() eq 'join') {
+        # Check if there is changes in any join param
+        my $changeJoinParams = grep { $_ ~~ ['zentyal_host', 'zentyal_port', 'secret'] } keys %{$changedParams};
+        if ($changeJoinParams) {
+            # Check the given params
+            my $client = new EBox::RESTClient(
+                credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                                password => $allParams->{'secret'}->value() },
+                server => $allParams->{'zentyal_host'}->value()
+               );
+            $client->setPort($allParams->{'zentyal_port'}->value());
+            # FIXME: Delete this when using HAProxy
+            $client->setScheme('http');
+            try {
+                $client->GET('/cluster/auth');
+            } catch (EBox::Exceptions::Internal $e) {
+                # 500/400
+                throw EBox::Exceptions::External("$e");
+            } catch (EBox::Exceptions::External $e) {
+                # 401
+                throw EBox::Exceptions::External('Cluster secret is not valid');
+            }
+        }
+    }
 }
 
 # Group: Protected methods
