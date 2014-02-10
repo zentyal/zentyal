@@ -27,16 +27,40 @@ use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
 use EBox::Exceptions::Lock;
 
-use Authen::Simple::PAM;
+use Crypt::Rijndael;
+use Digest::MD5;
 use Fcntl qw(:flock);
+use MIME::Base64;
 use Plack::Request;
-use Plack::Util::Accessor qw( secure authenticator no_login_page after_logout ssl_port );
+use Plack::Util::Accessor qw( auth_type app_name store_passwd );
+use TryCatch::Lite;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
+use constant AUTH_PAM  => 1;
+use constant AUTH_LDAP => 2;
 
+
+sub prepare_app {
+    my ($self) = @_;
+
+    unless ($self->app_name) {
+        throw EBox::Exceptions::Internal('app_name must be set');
+    }
+    if ($self->auth_type) {
+        if (lc ($self->auth_type) eq 'pam') {
+            $self->{auth_type} = AUTH_PAM;
+        } elsif (lc ($self->auth_type) eq 'ldap') {
+            $self->{auth_type} = AUTH_LDAP;
+        } else {
+            throw EBox::Exceptions::Internal('Unknown auth_type: "' . $self->auth_type . '"');
+        }
+    } else {
+        $self->{auth_type} = AUTH_LDAP;
+    }
+}
 
 sub _cleansession # (env)
 {
@@ -176,6 +200,7 @@ sub _validateSession {
 #
 #       username - string containing the user name
 #       password - string containing the plain password
+#       env      - Plack enviroment (OPTIONAL). Used by the LDAP validation to store the user DN.
 #
 # Returns:
 #
@@ -183,11 +208,82 @@ sub _validateSession {
 #
 sub checkValidUser
 {
-    my ($self, $username, $password) = @_;
+    my ($self, $username, $password, $env) = @_;
 
-    my $pam = new Authen::Simple::PAM(service => 'zentyal');
+    my $auth;
+    if ($self->{auth_type} == AUTH_PAM) {
+        use Authen::Simple::PAM;
 
-    return $pam->authenticate($username, $password);
+        $auth = new Authen::Simple::PAM(
+            service => 'zentyal',
+            log     => EBox->logger()
+        );
+
+        return $auth->authenticate($username, $password);
+    } elsif ($self->{auth_type} == AUTH_LDAP) {
+        use Authen::Simple::LDAP;
+        use EBox::Ldap;
+
+        my $ldap = EBox::Ldap->instance();
+        my $baseDN = $ldap->dn();
+        $ldap->clearConn();
+
+        my $filter = "(&(objectclass=posixAccount)(uid=%s))";
+        my $scope = 'sub';
+        $auth = new Authen::Simple::LDAP(
+            host => $ldap->url(),
+            basedn => $baseDN,
+            filter => $filter,
+            scope  => $scope,
+            log    => EBox->logger()
+        );
+
+        if ($auth->authenticate($username, $password)) {
+            if (defined $env) {
+                my $args = {
+                    base => $baseDN,
+                    filter => sprintf ($filter, $username),
+                    scope => $sub,
+                };
+                my $search = $ldap->search($args);
+                my $userDN = $search->entry(0)->dn();
+                $env->{'psgix.session'}{userDN} = $userDN;
+            }
+            return 1;
+        } else {
+            return 0;
+        }
+    } else {
+        throw EBox::Exceptions::Internal("Don't know the auth_type to use");
+    }
+
+}
+
+sub _randomKey
+{
+    my $rndStr;
+    for my $i (1..64) {
+        $rndStr .= rand (2**32);
+    }
+
+    my $md5 = Digest::MD5->new();
+    $md5->add($rndStr);
+    return $md5->hexdigest();
+}
+
+sub _cipherPassword
+{
+    my ($passwd, $key) = @_;
+
+    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
+
+    my $len = length($passwd);
+    my $newlen = (int (($len - 1) / 16) + 1) * 16;
+
+    $passwd = $passwd . ("\0" x ($newlen - $len));
+
+    my $cryptedpass = $cipher->encrypt($passwd);
+    return MIME::Base64::encode($cryptedpass, '');
 }
 
 sub _login
@@ -211,9 +307,14 @@ sub _login
         my $user = $params->get('credential_0');
         my $password = $params->get('credential_1');
         # TODO: Expand to support Remote's SSL login.
-        if ($self->checkValidUser($user, $password)) {
+        if ($self->checkValidUser($user, $password, $env)) {
             $env->{'psgix.session.options'}->{change_id}++;
             $env->{'psgix.session'}{user_id} = $user;
+            if ($self->store_passwd) {
+                my $key = _randomKey();
+                $env->{'psgix.session'}{key} = $key;
+                $env->{'psgix.session'}{passwd} = _cipherPassword($password, $key);
+            }
             $env->{'psgix.session'}{last_time} = time();
             $audit->logSessionEvent($user, $ip, 'login');
             my $tmp_redir = delete $env->{'psgix.session'}{redir_to};
@@ -273,6 +374,7 @@ sub call
     my ($self, $env) = @_;
 
     my $path = $env->{PATH_INFO};
+    $env->{'psgix.session'}{app} = $self->app_name;
 
     if ($path eq '/Login/Index') {
         $self->_login($env);
@@ -294,6 +396,68 @@ sub call
             ["<html><body><a href=\"$login_url\">You need to authenticate first</a></body></html>"]
         ];
     }
+}
+
+# Method: sessionPassword
+#
+#   Return the stored password in the session if there is no password stored throws EBox::Exceptions::Internal
+#   exception.
+#
+# Arguments:
+#
+#   request  - Plack::Request The request object.
+#
+# Return:
+#   String - The clear text password provided for the login.
+#
+# Raises:
+#
+#   <EBox::Exceptions::Internal>: If there is no previous password stored in the session.
+#
+sub sessionPassword
+{
+    my ($self, $request) = @_;
+
+    my $session = $request->session();
+
+    unless ((defined $session->{key}) and (defined $session->{passwd})) {
+        throw EBox::Exceptions::Internal("There is no password stored");
+    }
+
+    my $cipher = Crypt::Rijndael->new($session->{key}, Crypt::Rijndael::MODE_CBC());
+
+    my $decodedcryptedpass = MIME::Base64::decode($session->{passwd});
+    my $pass = $cipher->decrypt($decodedcryptedpass);
+    $pass =~ tr/\x00//d;
+    return $pass;
+}
+
+# Method: updateSessionPassword
+#
+#   Update the stored password in the session if there is no password stored throws <EBox::Exceptions::Internal>
+#   exception.
+#
+# Arguments:
+#
+#   request  - Plack::Request The request object.
+#   password - String The new password to store in the session.
+#
+# Raises:
+#
+#   <EBox::Exceptions::Internal>: If there is no previous password stored in the session.
+#
+sub updateSessionPassword
+{
+    my ($self, $request, $password) = @_;
+
+    my $session = $request->session();
+
+    unless ((defined $session->{key}) and (defined $session->{passwd})) {
+        throw EBox::Exceptions::Internal("There is no previous password stored!");
+    }
+
+    my $key = $session->{key};
+    $session->{passwd} = _cipherPassword($password, $key);
 }
 
 # Method: setPassword
