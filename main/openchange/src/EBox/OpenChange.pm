@@ -689,12 +689,57 @@ sub organizations
 }
 
 
+sub _rpcProxyHostForDomain
+{
+    my ($self, $domain) = @_;
+    my $dns = $self->global()->modInstance('dns');
+    my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
+    if (not $domainExists) {
+        throw EBox::Exceptions::External(__x('Domain {dom} not configured in DNS module', dom => $domain));
+    }
+    my @hosts = @{ $dns->getHostnames($domain)  };
+
+    my @ips;
+    my $network = $self->global()->modInstance('network');
+    foreach my $iface (@{ $network->ExternalIfaces() }) {
+        my $addresses = $network->ifaceAddresses($iface);
+        push @ips, map { $_->{address} } @{  $addresses };
+    }
+
+    my $matchedHost;
+    my $matchedHostMatchs = 0;
+    foreach my $host (@hosts) {
+        my $matchs = 0;
+        foreach my $hostIp (@{ $host->{ip} }) {
+            foreach my $ip (@ips) {
+                if ($hostIp eq $ip) {
+                    $matchs += 1;
+                    last;
+                }
+            }
+            if ($matchs > $matchedHostMatchs) {
+                $matchedHost = $host->{name};
+                $matchedHostMatchs = $matchs;
+                if (@ips == $matchedHostMatchs) {
+                    last;
+                }
+            }
+        }
+    }
+
+    if (not $matchedHost) {
+        EBox::Exceptions::External->throw(__x('Cannot find this host in DNS domain {dom}', dom => $domain));
+    }
+    return $matchedHost . '.' . $domain;
+}
+
 sub _rpcProxyHosts
 {
     my ($self) = @_;
     # XXX for now only fqdn because we are tied to the certficiate issuer
     my @hosts;
-    push @hosts, $self->global()->modInstance('sysinfo')->fqdn();
+    my $domain = 'zentyal-domain.lan'; # XXX unhardcode
+    push @hosts, $self->_rpcProxyHostForDomain($domain);
     return \@hosts;
 }
 
@@ -736,7 +781,6 @@ sub HAProxyInternalService
     }
 
     return \@services;
-
 }
 
 
