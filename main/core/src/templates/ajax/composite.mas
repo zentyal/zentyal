@@ -61,6 +61,7 @@
 <div class='<% $class %>' style='width:<% $width %>;'>
 <& $component->Viewer(),
    model => $component,
+   user => $user,
    hasChanged => $hasChanged,
    action => 'view',
 &>
