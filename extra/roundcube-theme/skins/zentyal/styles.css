@@ -1401,7 +1401,8 @@ ul.proplist li {
 color: white;
 line-height: 50px;
 padding: 0px 20px;
-font-size: 12px;}
+font-size: 12px;
+float: right;}
 /*** toolbar ***/
 
 .toolbar .spacer {
@@ -1534,7 +1535,6 @@ font-size: 12px;}
 }
 
 .toolbar a.button.spellcheck {
-	min-width: 64px;
 	background-position: center -1135px;
 }
 

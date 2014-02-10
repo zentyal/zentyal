@@ -68,17 +68,15 @@
 
 #messagelistcontainer {
 	top: 0;
-	bottom: 30px;
+	bottom: 36px;
 	overflow: auto;
 }
 
 #messagelistfooter {
 	position: absolute;
-	bottom: 0;
+	bottom:3px;
 	left: 0;
 	right: 0;
-	height: 22px;
-	padding: 4px 8px;
 }
 
 #mailview-top.fullheight #messagelistfooter {
@@ -98,10 +96,6 @@
 	display: inline-block;
 	margin-right: 2em;
 	vertical-align: middle;
-}
-
-#messagelistfooter #listselectors .menuselector {
-	margin-top: -2px;
 }
 
 #listcontrols {
@@ -297,7 +291,7 @@ a.iconbutton.threadmode.selected {
 }
 
 #searchfilter select {
-	height: 35px;
+	height: 33px;
 }
 
 #mailview-left select.mailboxlist {
@@ -409,10 +403,6 @@ a.iconbutton.threadmode.selected {
 
 #messagelist tr.message {
 /*	background-color: #fff; */
-}
-
-#messagelist tr.thread.expanded td {
-	background-color: #ededed;
 }
 
 #messagelist tr.unread {
