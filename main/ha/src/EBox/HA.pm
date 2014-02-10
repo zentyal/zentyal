@@ -108,7 +108,7 @@ sub menu
 
     my $menuURL = 'HA/Composite/Initial';
     if ($self->clusterBootstraped()) {
-        $menuURL = 'HA/Composite/Configuration';
+        $menuURL = 'HA/Composite/General';
     }
 
     $system->add(new EBox::Menu::Item(

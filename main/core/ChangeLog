@@ -1,4 +1,7 @@
 3.4
+	+ Added a left-right composite layout
+	+ Search and pagination forms can be omitted using showFilterForm
+	  and showPaginationForm properties
 	+ Show nice error when global-action fails using die + scalar
 	+ EBox::Util::Random now accepts a set of chars to have a random string
 	+ Notify HA when a module which must have a single instance in the
