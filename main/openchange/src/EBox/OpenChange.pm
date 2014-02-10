@@ -688,14 +688,21 @@ sub organizations
     return $list;
 }
 
+
+sub _rpcProxyHosts
+{
+    my ($self) = @_;
+    # XXX for now only fqdn because we are tied to the certficiate issuer
+    my @hosts;
+    push @hosts, $self->global()->modInstance('sysinfo')->fqdn();
+    return \@hosts;
+}
+
 sub HAProxyInternalService
 {
     my ($self) = @_;
     my $RPCProxyModel = $self->model('RPCProxy');
-
-    # XXX for now only fqdn because we are tied to the certficiate issuer
-    my @domains;
-    push @domains, $self->global()->modInstance('sysinfo')->fqdn();
+    my $hosts  = $self->_rpcProxyHosts();
 
     my @services;
     if ($RPCProxyModel->httpEnabled()) {
@@ -705,7 +712,7 @@ sub HAProxyInternalService
             printableName => __('OpenChange RPCProxy'),
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
-            domains    => \@domains,
+            hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
             pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
             isSSL   => 1,
@@ -720,7 +727,7 @@ sub HAProxyInternalService
             printableName => __('OpenChange RPCProxy'),
             targetIP => '127.0.0.1',
             targetPort => RPCPROXY_PORT,
-            domains    => \@domains,
+            hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
             pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
             isSSL   => 0,
