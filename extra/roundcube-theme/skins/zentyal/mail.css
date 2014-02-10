@@ -117,25 +117,17 @@ a.iconbutton.threadmode {
 	background-position: 0 -497px;
 }
 
-a.iconbutton.listmode.selected {
-	background-position: -26px -477px;
-}
-
-a.iconbutton.threadmode.selected {
-	background-position: -26px -497px;
-}
-
 #mailboxlist li.mailbox {
 	position: relative;
 	background-repeat: no-repeat;
 	background-position: 6px 2px;
 }
 #mailboxlist li.mailbox a {
-	padding-left: 25px;
+	padding-left: 48px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	/*background-image: url(images/listicons.png);*/
+	background-image: url(images/listicons.png);
 	background-repeat: no-repeat;
 	background-position: 6px 6px;
 }
@@ -143,57 +135,23 @@ a.iconbutton.threadmode.selected {
 #mailboxlist li.mailbox.unread a {
 	padding-right: 36px;
 }
-
-#mailboxlist li.mailbox.selected > a {
-	background-position: 6px -18px;
-}
-
 #mailboxlist li.mailbox.inbox > a {
-	background-position: 6px -186px;
+	background-position: 20px -186px;
 }
-
-#mailboxlist li.mailbox.inbox.selected > a {
-	background-position: 6px -210px;
-}
-
 #mailboxlist li.mailbox.drafts > a {
-	background-position: 6px -235px;
+	background-position: 20px -235px;
 }
-
-#mailboxlist li.mailbox.drafts.selected > a {
-	background-position: 6px -259px;
-}
-
 #mailboxlist li.mailbox.sent > a {
-	background-position: 6px -283px;
+	background-position: 20px -283px;
 }
-
-#mailboxlist li.mailbox.sent.selected > a {
-	background-position: 6px -307px;
-}
-
 #mailboxlist li.mailbox.junk > a {
-	background-position: 6px -331px;
+	background-position: 20px -331px;
 }
-
-#mailboxlist li.mailbox.junk.selected > a {
-	background-position: 6px -355px;
-}
-
 #mailboxlist li.mailbox.trash > a {
-	background-position: 6px -379px;
+	background-position: 20px -379px;
 }
-
-#mailboxlist li.mailbox.trash.selected > a {
-	background-position: 6px -403px;
-}
-
 #mailboxlist li.mailbox.archive > a {
-	background-position: 6px -1696px;
-}
-
-#mailboxlist li.mailbox.archive.selected > a {
-	background-position: 6px -1720px;
+	background-position: 20px -1696px;
 }
 
 #mailboxlist li.unread {
@@ -219,11 +177,7 @@ a.iconbutton.threadmode.selected {
 }
 
 #mailboxlist li.mailbox ul li a {
-	background-position: 6px -93px;
-}
-
-#mailboxlist li.mailbox ul li.selected > a {
-	background-position: 6px -114px;
+	background-position: 20px -90px;
 }
 
 #mailboxlist li.mailbox ul li:last-child {
@@ -235,22 +189,14 @@ a.iconbutton.threadmode.selected {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	width: 25px;
+	width: 20px;
 	height: 33px;
-	background: url(images/listicons.png) 3px -133px no-repeat;
+	background: url(images/listicons.png) 1px -134px no-repeat;
 	cursor: pointer;
 }
 
 #mailboxlist li.mailbox div.expanded {
-	background-position: 3px -158px;
-}
-
-#mailboxlist li.mailbox.selected > div.collapsed {
-	background-position: -20px -133px;
-}
-
-#mailboxlist li.mailbox.selected > div.expanded {
-	background-position: -20px -158px;
+	background-position: 1px -159px;
 }
 
 #mailboxlist li.mailbox .unreadcount {
@@ -264,11 +210,6 @@ a.iconbutton.threadmode.selected {
 	text-align: center;
 	font-weight: bold;
 	text-shadow: none;
-}
-
-#mailboxlist li.mailbox.selected > a .unreadcount {
-	background: white;
-	color: #F15A24;
 }
 
 #mailboxlist li.mailbox.recent > a .unreadcount {

@@ -786,8 +786,7 @@ float: left;
 .listing tbody tr.unfocused td,
 .listing tbody tr.selected td,
 .listing li.selected > a{
-	color: white;
-	background-color: #888888;
+	background-color: #ccc;
 }
 
 ul.listing {
@@ -1020,10 +1019,10 @@ table.records-table {
 }
 .records-table tr.selected td {
 	/*color: #fff !important;*/
-	background: rgba(255,121,0,0.5);
+	background: rgba(0,0,0,0.1);
 }
 .records-table tr.selected:hover td{
-	background: rgba(255,121,0,0.6);
+	background: rgba(0,0,0,0.15);
 }
 .records-table tr.selected td a,
 .records-table tr.selected td span {

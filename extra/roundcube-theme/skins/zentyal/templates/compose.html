@@ -107,9 +107,6 @@
 			<a href="#reply-to" onclick="return UI.show_header_row('replyto')" id="replyto-link" class="iconlink add"><roundcube:label name="addreplyto" /></a>
 			<a href="#followup-to" onclick="return UI.show_header_row('followupto')" id="followupto-link" class="iconlink add"><roundcube:label name="addfollowupto" /></a>
 		</td>
-	</tr><tr>
-		<td class="title"><label for="compose-subject"><roundcube:label name="subject" /></label></td>
-		<td class="editfield"><roundcube:object name="composeSubject" id="compose-subject" form="form" tabindex="8" /></td>
 	</tr>
 </tbody>
 </table>
@@ -148,15 +145,20 @@
 
 <!-- message compose body -->
 <div id="composeview-bottom">
-	<div id="composebodycontainer">
-		<roundcube:object name="composeBody" id="composebody" form="form" cols="70" rows="20" tabindex="9" />
-	</div>
+	
 	<div id="compose-attachments" class="rightcol">
 		<div style="text-align:center; margin-bottom:20px">
 			<roundcube:button name="addattachment" type="input" class="button" classSel="button pressed" label="addattachment" onclick="UI.show_uploadform();return false" tabindex="10" />
 		</div>
 		<roundcube:object name="composeAttachmentList" id="attachment-list" class="attachmentslist" />
 	</div>
+	<div id="composebodycontainer">
+		<div>
+		<span><roundcube:label name="subject" /></span><roundcube:object name="composeSubject" id="compose-subject" form="form" tabindex="8" />
+	</div>
+		<roundcube:object name="composeBody" id="composebody" form="form" cols="70" rows="20" tabindex="9" />
+	</div>
+	
 </div>
 
 </form>
