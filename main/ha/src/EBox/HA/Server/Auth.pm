@@ -1,4 +1,4 @@
-# Copyright (C) 2014 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S. L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -16,33 +16,34 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::Configuration;
+package EBox::HA::Server::Auth;
 
-use base 'EBox::Model::Composite';
-
-use EBox::Gettext;
+use EBox;
 use EBox::Global;
 
-# Group: Public methods
+# Class: EBox::HA::Server::Auth
+#
+#     Package to do whatever auth requires
+#
 
-# Group: Protected methods
-
-# Method: _description
+# Function: authenticate
 #
-# Overrides:
+#    Function to determine if the given user/pass using HTTP auth basic
+#    scheme is valid or not
 #
-#     <EBox::Model::Composite::_description>
+# Parameters:
 #
-sub _description
+#    username - String
+#    password - String
+#    env      - PSGI environment
+#
+sub authenticate
 {
-    my $description = {
-        layout          => 'top-bottom',
-        printableName   => __('Cluster configuration'),
-        compositeDomain => 'ha',
-        name            => 'Configuration',
-    };
+    my ($username, $password, $env) = @_;
 
-    return $description;
+    my $roGlobal = EBox::Global->getInstance('readonly');
+    my $currentSecret = $roGlobal->modInstance('ha')->userSecret();
+    return ($currentSecret and ($password eq $currentSecret));
 }
 
 1;

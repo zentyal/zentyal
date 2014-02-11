@@ -12,37 +12,22 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
-package EBox::HA::Composite::Configuration;
+use Test::Exception;
+use Test::More tests => 4;
+use EBox::Util::Random;
 
-use base 'EBox::Model::Composite';
+throws_ok {
+    EBox::Util::Random::generate(-1);
+} 'EBox::Exceptions::Internal', 'Bad length argument';
 
-use EBox::Gettext;
-use EBox::Global;
+my $random = EBox::Util::Random::generate(10);
+cmp_ok(length($random), '==', 10, 'The length of the random string is set properly');
+ok($random =~ m{^[a-zA-Z0-9@/=]+$}g,
+   'The random strings have the proper values');
 
-# Group: Public methods
-
-# Group: Protected methods
-
-# Method: _description
-#
-# Overrides:
-#
-#     <EBox::Model::Composite::_description>
-#
-sub _description
-{
-    my $description = {
-        layout          => 'top-bottom',
-        printableName   => __('Cluster configuration'),
-        compositeDomain => 'ha',
-        name            => 'Configuration',
-    };
-
-    return $description;
-}
+ok(EBox::Util::Random::generate(8, [qw(a b)]) =~ m{^[ab]+$}, 'Only valid string is returned');
 
 1;

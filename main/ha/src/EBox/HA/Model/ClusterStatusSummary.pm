@@ -16,18 +16,17 @@
 use strict;
 use warnings;
 
-package EBox::HA::Model::ClusterMetadata;
+package EBox::HA::Model::ClusterStatusSummary;
 
-# Class: EBox::HA::Model::ClusterMetadata
+# Class: EBox::HA::Model::ClusterStatusSummary
 #
-#     Model to show the cluster metadata.
-#     It gives you the option to leave current cluster.
+#     Model to show the cluster summary status.
 #
 
 use base 'EBox::Model::Template';
 
 use EBox::Gettext;
-use EBox::HA::CRMWrapper;
+use EBox::HA::ClusterStatus;
 
 # Group: Public methods
 
@@ -39,7 +38,7 @@ use EBox::HA::CRMWrapper;
 #
 sub templateName
 {
-    return '/ha/metadata.mas';
+    return '/ha/summary.mas';
 }
 
 # Method: templateContext
@@ -52,14 +51,21 @@ sub templateContext
 {
     my ($self) = @_;
 
+    $self->{ha} = $self->parentModule();
+    $self->{clusterStatus} = new EBox::HA::ClusterStatus($self->{ha});
+    my %summary = %{$self->{clusterStatus}->summary()};
+
     return {
         metadata => [
-            # id, name, value
-            [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
-            [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
-            [ 'cluster_dc', __('Current DC'), EBox::HA::CRMWrapper::currentDCNode()],
+            # name => value
+            [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
+            [ __('Cluster secret') => 'raro'],
+            [ __('Current DC')     => $self->{clusterStatus}->designatedController()],
+            [ __('Last update')     => $summary{'last_update'}],
+            [ __('Last modification')     => $summary{'last_change'}],
+            [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],
+            [ __('Configurated resources')     => $self->{clusterStatus}->numberOfResources() . __(' resources')],
            ],
-        help => __('DC is the Designated Controller to perform the operations in the cluster. This node may change and has no impact in the cluster.'),
     };
 }
 

@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::HA::Composite::Configuration;
+package EBox::HA::Composite::StatusHalfTop;
 
 use base 'EBox::Model::Composite';
 
@@ -36,13 +36,15 @@ use EBox::Global;
 sub _description
 {
     my $description = {
-        layout          => 'top-bottom',
-        printableName   => __('Cluster configuration'),
+        components      => ['ClusterStatusSummary', 'StatusHalfTopRight'],
+        layout          => 'left-right',
+        widths          => { 'ClusterStatusSummary' => '30%', 'StatusHalfTopRight' => '70%' },
         compositeDomain => 'ha',
-        name            => 'Configuration',
+        name            => 'StatusHalfTop',
     };
 
     return $description;
 }
 
 1;
+
