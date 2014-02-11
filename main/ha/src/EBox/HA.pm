@@ -48,6 +48,7 @@ use EBox::Validate;
 use JSON::XS;
 use File::Temp;
 use File::Slurp;
+use MIME::Base64;
 use TryCatch::Lite;
 use XML::LibXML;
 
@@ -229,12 +230,13 @@ sub clusterConfiguration
 
         # Auth is a set of bytes
         my $auth = File::Slurp::read_file(ZENTYAL_AUTH_FILE, binmode => ':raw');
+        my $authStr = MIME::Base64::encode($auth, '');
         return {
             name          => $self->model('Cluster')->nameValue(),
             transport     => $transport,
             multicastConf => $multicastConf,
             nodes         => $nodeList,
-            auth          => $auth,
+            auth          => $authStr,
         };
     } else {
         return {};
@@ -471,7 +473,8 @@ sub askForReplicationInNode
 
     system ("cd $tmpdir; tar czf $tarfile *");
     my $fullpath = "$tmpdir/$tarfile";
-    system ("curl -F file=\@$fullpath http://$addr:5000/conf/replication");
+    # FIXME: Use port from node list
+    system ("curl -k -F file=\@$fullpath https://$addr:443/conf/replication");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
@@ -937,11 +940,10 @@ sub _join
     my $row = $clusterSettings->row();
     my $client = new EBox::RESTClient(
         credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
-        server => $row->valueByName('zentyal_host')
+        server => $row->valueByName('zentyal_host'),
+        verifyHostname => 0,
        );
     $client->setPort($row->valueByName('zentyal_port'));
-    # FIXME: Delete this line and not verify servers when using HAProxy
-    $client->setScheme('http');
     # This should not fail as we have a check in validateTypedRow
     my $response = $client->GET('/cluster/configuration');
 
@@ -991,8 +993,9 @@ sub _storeAuthFile
         chmod(0600, ZENTYAL_AUTH_FILE);
         unlink(ZENTYAL_AUTH_FILE);
     }
+    my $authBin = MIME::Base64::decode($auth);
     File::Slurp::write_file(ZENTYAL_AUTH_FILE, {binmode => ':raw', perms => 0400},
-                            $auth);
+                            $authBin);
     EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . ZENTYAL_AUTH_FILE
                      . ' ' . COROSYNC_AUTH_FILE);
 }
@@ -1064,11 +1067,11 @@ sub _notifyLeave
         my $client = new EBox::RESTClient(
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $userSecret},
-            server => $node->{addr}
+            server => $node->{addr},
+            verifyHostname => 0,
            );
-        $client->setPort(5000); # $node->{port});
-        # FIXME: Delete this line and not verify servers when using HAProxy
-        $client->setScheme('http');
+        # FIXME: Port
+        $client->setPort(443); # $node->{port});
         try {
             EBox::debug($userSecret);
             EBox::info('Notify leaving cluster to ' . $node->{name});
@@ -1108,11 +1111,10 @@ sub _notifyClusterConfChange
             my $client = new EBox::RESTClient(
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $clusterSecret},
-                server => $node->{addr}
+                server => $node->{addr},
+                verifyHostname => 0,
                );
-            $client->setPort(5000);  # TODO: Use real port
-            # FIXME: Delete this line and not verify servers when using HAProxy
-            $client->setScheme('http');
+            $client->setPort(443);  # FIXME: Use real port
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
             my $JSONConf = new JSON::XS()->utf8()->encode($conf);
             my $response = $client->PUT('/cluster/configuration',
