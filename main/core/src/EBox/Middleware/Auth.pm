@@ -24,7 +24,6 @@ use base qw(Plack::Middleware);
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::External;
 use EBox::Exceptions::Lock;
 
 use Crypt::Rijndael;
@@ -32,15 +31,13 @@ use Digest::MD5;
 use Fcntl qw(:flock);
 use MIME::Base64;
 use Plack::Request;
-use Plack::Util::Accessor qw( auth_type app_name store_passwd );
+use Plack::Util::Accessor qw( app_name );
 use TryCatch::Lite;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
 # By now, the expiration time for a script session
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
-use constant AUTH_PAM  => 1;
-use constant AUTH_LDAP => 2;
 
 
 sub prepare_app {
@@ -49,20 +46,17 @@ sub prepare_app {
     unless ($self->app_name) {
         throw EBox::Exceptions::Internal('app_name must be set');
     }
-    if ($self->auth_type) {
-        if (lc ($self->auth_type) eq 'pam') {
-            $self->{auth_type} = AUTH_PAM;
-        } elsif (lc ($self->auth_type) eq 'ldap') {
-            $self->{auth_type} = AUTH_LDAP;
-        } else {
-            throw EBox::Exceptions::Internal('Unknown auth_type: "' . $self->auth_type . '"');
-        }
-    } else {
-        $self->{auth_type} = AUTH_LDAP;
-    }
 }
 
-sub _cleansession # (env)
+# Method: _cleanSession
+#
+#   Cleans the session and invalidates any existing credentials from it.
+#
+# Parameters:
+#
+#   env - Hash ref the PSGI enviroment dictionary.
+#
+sub _cleanSession
 {
     my ($env) = @_;
 
@@ -170,7 +164,7 @@ sub _validateSession {
 
     if ($self->_actionScriptSession()) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
-        _cleansession($env);
+        _cleanSession($env);
     } elsif (not $expired) {
         # Increase the last time this session was valid.
         $env->{'psgix.session'}{last_time} = time();
@@ -183,7 +177,7 @@ sub _validateSession {
         $audit->logSessionEvent($user, $ip, 'expired');
 
         $env->{'psgix.session'}{AuthReason} = 'Expired';
-        _cleansession($env);
+        _cleanSession($env);
     } else {
         # XXX: Review this code path. Seems to be dead code...
         $env->{'psgix.session'}{AuthReason} = 'Already';
@@ -194,13 +188,14 @@ sub _validateSession {
 
 # Method: checkValidUser
 #
-#       Check with PAM if the user/password provided is of a valid admin
+#   Check whether the user/password provided is of a valid admin. This method should be overrided in a subclass
+#   to implement different kinds of user validation.
 #
 # Parameters:
 #
 #       username - string containing the user name
 #       password - string containing the plain password
-#       env      - Plack enviroment (OPTIONAL). Used by the LDAP validation to store the user DN.
+#       env      - Plack enviroment.
 #
 # Returns:
 #
@@ -210,80 +205,7 @@ sub checkValidUser
 {
     my ($self, $username, $password, $env) = @_;
 
-    my $auth;
-    if ($self->{auth_type} == AUTH_PAM) {
-        use Authen::Simple::PAM;
-
-        $auth = new Authen::Simple::PAM(
-            service => 'zentyal',
-            log     => EBox->logger()
-        );
-
-        return $auth->authenticate($username, $password);
-    } elsif ($self->{auth_type} == AUTH_LDAP) {
-        use Authen::Simple::LDAP;
-        use EBox::Ldap;
-
-        my $ldap = EBox::Ldap->instance();
-        my $baseDN = $ldap->dn();
-        $ldap->clearConn();
-
-        my $filter = "(&(objectclass=posixAccount)(uid=%s))";
-        my $scope = 'sub';
-        $auth = new Authen::Simple::LDAP(
-            host => $ldap->url(),
-            basedn => $baseDN,
-            filter => $filter,
-            scope  => $scope,
-            log    => EBox->logger()
-        );
-
-        if ($auth->authenticate($username, $password)) {
-            if (defined $env) {
-                my $args = {
-                    base => $baseDN,
-                    filter => sprintf ($filter, $username),
-                    scope => $sub,
-                };
-                my $search = $ldap->search($args);
-                my $userDN = $search->entry(0)->dn();
-                $env->{'psgix.session'}{userDN} = $userDN;
-            }
-            return 1;
-        } else {
-            return 0;
-        }
-    } else {
-        throw EBox::Exceptions::Internal("Don't know the auth_type to use");
-    }
-
-}
-
-sub _randomKey
-{
-    my $rndStr;
-    for my $i (1..64) {
-        $rndStr .= rand (2**32);
-    }
-
-    my $md5 = Digest::MD5->new();
-    $md5->add($rndStr);
-    return $md5->hexdigest();
-}
-
-sub _cipherPassword
-{
-    my ($passwd, $key) = @_;
-
-    my $cipher = Crypt::Rijndael->new($key, Crypt::Rijndael::MODE_CBC());
-
-    my $len = length($passwd);
-    my $newlen = (int (($len - 1) / 16) + 1) * 16;
-
-    $passwd = $passwd . ("\0" x ($newlen - $len));
-
-    my $cryptedpass = $cipher->encrypt($passwd);
-    return MIME::Base64::encode($cryptedpass, '');
+    return 0;
 }
 
 sub _login
@@ -310,11 +232,6 @@ sub _login
         if ($self->checkValidUser($user, $password, $env)) {
             $env->{'psgix.session.options'}->{change_id}++;
             $env->{'psgix.session'}{user_id} = $user;
-            if ($self->store_passwd) {
-                my $key = _randomKey();
-                $env->{'psgix.session'}{key} = $key;
-                $env->{'psgix.session'}{passwd} = _cipherPassword($password, $key);
-            }
             $env->{'psgix.session'}{last_time} = time();
             $audit->logSessionEvent($user, $ip, 'login');
             my $tmp_redir = delete $env->{'psgix.session'}{redir_to};
@@ -331,7 +248,7 @@ sub _login
             ];
         } else {
             $env->{'psgix.session'}{AuthReason} = 'Incorrect password';
-            _cleansession($env);
+            _cleanSession($env);
             $log->warn("Failed login from: $ip");
             $audit->logSessionEvent($user, $ip, 'fail');
         }
@@ -350,7 +267,7 @@ sub _logout
         my $user = $env->{'psgix.session'}{user_id};
         $audit->logSessionEvent($user, $ip, 'logout');
         my $ret = $self->app->($env);
-        _cleansession($env);
+        _cleanSession($env);
         return $ret;
     } else {
         # The workflow has been manipulated to reach this form, ignore it and redirect to the main page.
@@ -458,36 +375,6 @@ sub updateSessionPassword
 
     my $key = $session->{key};
     $session->{passwd} = _cipherPassword($password, $key);
-}
-
-# Method: setPassword
-#
-#       Changes the password of the given username
-#
-# Parameters:
-#
-#       username - username to change the password
-#       password - string containing the plain password
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - when password cannot be changed
-#   <EBox::Exceptions::External> - when password length is no
-#                                  longer than 6 characters
-#
-sub setPassword
-{
-    my ($self, $username, $password) = @_;
-
-    unless (length($password) > 5) {
-        throw EBox::Exceptions::External('The password must be at least 6 characters long');
-    }
-
-    open(my $pipe, "|/usr/bin/sudo /usr/sbin/chpasswd") or
-        throw EBox::Exceptions::Internal("Could not change password: $!");
-
-    print $pipe "$username:$password\n";
-    close($pipe);
 }
 
 ## Remote access constants

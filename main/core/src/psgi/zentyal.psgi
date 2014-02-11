@@ -52,10 +52,7 @@ builder {
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
     enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
       "+EBox::Middleware::NoAuth";
-    enable "+EBox::Middleware::Auth",
-        app_name     => 'webadmin',
-        auth_type    => 'PAM',
-        store_passwd => 0;
+    enable "+EBox::Middleware::AuthPAM", app_name => 'webadmin';
     $app;
 };
 

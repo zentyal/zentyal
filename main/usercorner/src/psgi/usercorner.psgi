@@ -57,10 +57,7 @@ builder {
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
     enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
       "+EBox::Middleware::NoAuth";
-    enable "+EBox::Middleware::Auth",
-        app_name     => 'usercorner',
-        auth_type    => 'LDAP',
-        store_passwd => 1;
+    enable "+EBox::Middleware::AuthLDAP", app_name => 'usercorner';
     $app;
 };
 
