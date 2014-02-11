@@ -5,6 +5,8 @@
 	+ Calendar invitations now sent via email by default
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
+	+ Better user addon integration
+	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work
