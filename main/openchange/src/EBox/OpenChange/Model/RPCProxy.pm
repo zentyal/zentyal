@@ -101,19 +101,22 @@ sub precondition
     my $host;
     try {
         $host = $self->_host();
-        if (not  $host) {
-            $self->{preconditionFailMsg} = __x('Error when getingt host name for RPC proxy');
+        if (not $host) {
+            $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name in {oh}DNS module{ch}>',
+                                               oh => '<a href="/DNS/Composite/Global"',
+                                               ch => '</a>'
+                                              );
         }
     } otherwise {
         my ($ex) = @_;
-        $self->{preconditionFailMsg} = __x('Error when getting host name for RPC proxy: {err}', err => "$ex");
+        $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name: {err}', err => "$ex");
         $host = undef;
     };
 
     return defined $host;
 }
 
-sub preconditionFailMessage
+sub preconditionFailMsg
 {
     my ($self) = @_;
     return $self->{preconditionFailMsg};
@@ -126,7 +129,6 @@ sub _host
     # for now we have only one host
     return $hosts->[0];
 }
-
 
 sub _webserverEnabled
 {

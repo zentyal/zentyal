@@ -406,11 +406,6 @@ sub _rpcProxyConfFile
     return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
 }
 
-sub _rpcProxyPort
-{
-    return
-}
-
 sub _setRPCProxyConf
 {
     my ($self) = @_;
@@ -435,7 +430,28 @@ sub _setRPCProxyConf
         push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
         push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
         EBox::Sudo::root(@cmds);
+
+        $self->_createRPCProxyCertificate();
     }
+}
+
+sub _createRPCProxyCertificate
+{
+    my ($self) = @_;
+    my $issuer;
+    try {
+        $issuer = $self->_rpcProxyHosts()->[0];
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
+    };
+    if (not $issuer) {
+        return;
+    }
+
+    # XXX check actual issuer
+    # XXX create certificate if it foes not match
+    # XXX reuse webadmin certificate if issuer == fqdn
 }
 
 sub _writeRewritePolicy
@@ -695,7 +711,11 @@ sub _rpcProxyHostForDomain
     my $dns = $self->global()->modInstance('dns');
     my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
     if (not $domainExists) {
-        throw EBox::Exceptions::External(__x('Domain {dom} not configured in DNS module', dom => $domain));
+        throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
+                                             dom => $domain,
+                                             oh => '<a href="/DNS/Composite/Global">',
+                                             ch => '</a>'
+                                            ));
     }
     my @hosts = @{ $dns->getHostnames($domain)  };
 
@@ -728,17 +748,25 @@ sub _rpcProxyHostForDomain
     }
 
     if (not $matchedHost) {
-        EBox::Exceptions::External->throw(__x('Cannot find this host in DNS domain {dom}', dom => $domain));
+        EBox::Exceptions::External->throw(__x('Cannot find this host in {oh}DNS domain {dom}{ch}',
+                                              dom => $domain,
+                                              oh => '<a href="/DNS/Composite/Global">',
+                                              ch => '</a>'
+                                             ));
     }
     return $matchedHost . '.' . $domain;
+}
+
+sub _rpcProxyDomain
+{
+    return 'zentyal-domain.lan'; # XXX unhardcode
 }
 
 sub _rpcProxyHosts
 {
     my ($self) = @_;
-    # XXX for now only fqdn because we are tied to the certficiate issuer
     my @hosts;
-    my $domain = 'zentyal-domain.lan'; # XXX unhardcode
+    my $domain = $self->_rpcProxyDomain();
     push @hosts, $self->_rpcProxyHostForDomain($domain);
     return \@hosts;
 }
@@ -748,7 +776,7 @@ sub HAProxyInternalService
     my ($self) = @_;
     my $RPCProxyModel = $self->model('RPCProxy');
     my $hosts;
-    try {
+     try {
         $hosts = $self->_rpcProxyHosts();
     } otherwise {
         my ($ex) = @_;
