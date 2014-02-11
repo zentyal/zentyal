@@ -2,6 +2,7 @@
 use strict;
 use warnings;
 use English '-no_match_vars';
+use EBox;
 use EBox::Util::Certificate;
 
 my ($destDir, $issuer) = @ARGV;
@@ -14,6 +15,7 @@ unless (defined $destDir) {
 }
 
 _checkCredentials();
+EBox::init();
 _checkPrograms();
 
 if (not -d $destDir) {

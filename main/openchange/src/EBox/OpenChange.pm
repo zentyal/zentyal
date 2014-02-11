@@ -795,8 +795,7 @@ sub _rpcProxyHostForDomain
 
 sub _rpcProxyDomain
 {
-    return 'example.org'; # XXX unhardcode
-#    return 'zentyal-domain.lan'; # XXX unhardcode
+    return 'zentyal-domain.lan'; # XXX unhardcode
 }
 
 sub _rpcProxyHosts

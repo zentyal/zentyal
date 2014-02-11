@@ -12,6 +12,7 @@ bootdepends:
 depends:
     - samba
     - mail
+    - dns
 
 models:
     - Provision

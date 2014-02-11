@@ -19,6 +19,8 @@ use warnings;
 package EBox::Util::Certificate;
 
 use Error qw(:try);
+use EBox::Sudo;
+use EBox::Exceptions::External;
 
 sub generateRSAKey
 {
@@ -33,13 +35,7 @@ sub generateRSAKey
               "openssl genrsa $length > $keyFile",
               "chmod 0400 $keyFile",
              );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of RSA key failed";
-    }
-  }
+  EBox::Sudo::root(@cmds);
 
   return wantarray ? ($keyFile, 1) : $keyFile;
 }
@@ -64,18 +60,10 @@ sub generateCert
               "openssl req -new -x509 -batch -subj $subject  -sha1 -days 3650 -key $keyFile > $certFile",
               "chmod 0400 $certFile",
              );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of CERT file failed";
-    }
-  }
-
+  EBox::Sudo::root(@cmds);
 
   return $certFile;
 }
-
 
 sub generatePem
 {
@@ -90,18 +78,10 @@ sub generatePem
               "cat $certFile $keyFile > $pemFile",
               "chmod 0400 $pemFile",
              );
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of PEM file failed";
-    }
-  }
+  EBox::Sudo::root(@cmds);
 
   return $pemFile;
-
 }
-
 
 sub _generateFileInfraestructure
 {
@@ -121,14 +101,7 @@ sub _generateFileInfraestructure
                 "touch $file",
                  "chmod 0600 $file",
                  );
-
-
-  foreach (@cmds) {
-    system $_;
-    if ($? != 0) {
-      die "Generation of $type file failed";
-    }
-  }
+  EBox::Sudo::root(@cmds);
 
   return ($file, 0);
 }
@@ -139,7 +112,9 @@ sub _sslDir
 
   my $sslDir = "$destDir";
   if (not -d $sslDir) {
-      mkdir $sslDir, 0700;
+      EBox::Sudo::root("mkdir '$sslDir'",
+                       "chmod 0700 '$sslDir'",
+                       );
   }
 
   return $sslDir;
