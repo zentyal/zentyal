@@ -62,13 +62,13 @@ sub _table
         ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',
-            printableName => __('Proxy HTTP access'),
+            printableName => __('Access without SSL'),
             defaultValue  => 0,
             editable      => 1
            ),
         EBox::Types::Boolean->new(
             fieldName     => 'https',
-            printableName => __('Proxy HTTPS access'),
+            printableName => __('Access with SSL'),
             defaultValue  => 0,
             editable      => 1
            ),

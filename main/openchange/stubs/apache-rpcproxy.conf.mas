@@ -75,8 +75,7 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{fore
 CustomLog /var/log/apache2/rpcproxy-access.log combined
 
 <Directory /opt/samba4/lib/openchange/web/rpcproxy/>
-%#  SetEnv RPCPROXY_LOGLEVEL INFO
-  SetEnv RPCPROXY_LOGLEVEL DEBUG
+  SetEnv RPCPROXY_LOGLEVEL INFO
   SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
   SetEnv SAMBA_HOST 127.0.0.1
   WSGIPassAuthorization On
