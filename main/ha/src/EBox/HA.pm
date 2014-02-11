@@ -412,6 +412,7 @@ sub replicateConf
 {
     my ($self, $params, $body, $uploads) = @_;
 
+    EBox::info("Received replication bundle");
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
     my $file = $uploads->get('file');
@@ -422,13 +423,16 @@ sub replicateConf
 
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
 
+    EBox::info("The following modules are going to be replicated: @{$modules}");
     foreach my $modname (@{$modules}) {
-        EBox::info("Replicating conf of module: $modname");
+        EBox::info("Restoring conf of module: $modname");
         my $mod = EBox::Global->modInstance($modname);
         $mod->restoreBackup("$tmpdir/$modname.bak");
     }
 
+    EBox::info("Configuration replicated, now saving changes...");
     EBox::Global->saveAllModules();
+    EBox::info("Changes saved after replication request");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
@@ -437,17 +441,7 @@ sub askForReplication
 {
     my ($self, $modules) = @_;
 
-    foreach my $node (@{$self->nodes()}) {
-        next if ($node->{localNode});
-        my $addr = $node->{addr};
-        $self->askForReplicationInNode($addr, $modules);
-    }
-}
-
-sub askForReplicationInNode
-{
-    my ($self, $addr, $modules) = @_;
-
+    EBox::info("Generating replication bundle of the following modules: @{$modules}");
     my $tarfile = 'bundle.tar.gz';
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
@@ -466,9 +460,17 @@ sub askForReplicationInNode
     }
 
     system ("cd $tmpdir; tar czf $tarfile *");
-    my $fullpath = "$tmpdir/$tarfile";
-    my $secret = $self->userSecret();
-    system ("curl -F file=\@$fullpath http://zentyal:$secret\@$addr:5000/conf/replication");
+    EBox::debug("Replication bundle generated");
+
+    my $path = "$tmpdir/$tarfile";
+
+    foreach my $node (@{$self->nodes()}) {
+        next if ($node->{localNode});
+        my $addr = $node->{addr};
+        $self->_uploadReplicationBundle($addr, $path);
+    }
+
+    EBox::info("Replication to the rest of nodes done");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
@@ -1309,6 +1311,15 @@ sub _setNoQuorumPolicy
     my $noQuorumPolicy = 'stop';
     $noQuorumPolicy = 'ignore' if ($size == 2);
     EBox::Sudo::root("crm configure property no-quorum-policy=$noQuorumPolicy");
+}
+
+sub _uploadReplicationBundle
+{
+    my ($self, $addr, $file) = @_;
+
+    my $secret = $self->userSecret();
+    system ("curl -F file=\@$file http://zentyal:$secret\@$addr:5000/conf/replication");
+    EBox::info("Replication bundle uploaded to $addr");
 }
 
 1;
