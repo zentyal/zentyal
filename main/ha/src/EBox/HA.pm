@@ -38,8 +38,10 @@ use EBox::Dashboard::Section;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::HA::ClusterStatus;
 use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
@@ -574,6 +576,64 @@ sub updateClusterConfiguration
                 }
             }
         }
+    }
+}
+
+# Method: checkAndUpdateClusterConfiguration
+#
+#     Check if any change happened in cluster configuration and update
+#     accordingly.
+#
+sub checkAndUpdateClusterConfiguration
+{
+    my ($self) = @_;
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    my $localNode;
+
+    try {
+        $localNode = $nodeList->localNode();
+    } catch (EBox::Exceptions::DataNotFound $e) {
+        # Then something rotten in our conf
+        EBox::warn('There is no local node in our configuration');
+        return;
+    }
+
+    my $clusterStatus;
+    try {
+        $clusterStatus = new EBox::HA::ClusterStatus($self);
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::warn('Cannot get the status from the cluster');
+    }
+    my $conf;
+
+    my $last = 0;
+    foreach my $node (@{$nodeList->list()}) {
+        next if ($node->{localNode});
+        next unless (not $clusterStatus or $clusterStatus->nodeOnline($node->{name}));
+
+        # Read the user secret from leaveRequest
+        my $client = new EBox::RESTClient(
+            credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                            password => $self->userSecret()},
+            server => $node->{addr},
+            verifyHostname => 0,
+           );
+        $client->setPort($node->{port});
+        try {
+            EBox::info('Read new cluster configuration from ' . $node->{name});
+            my $response = $client->GET('/cluster/configuration');
+            $conf = new JSON::XS()->decode($response->as_string());
+            $last = 1;
+        } catch ($e) {
+            # Catch any exception
+            EBox::error("Error getting new configuration: $e");
+        }
+        last if ($last);
+    }
+    if ($last) {
+        # TODO: Add versioning to cluster configuration
+        $self->updateClusterConfiguration(undef, $conf);
     }
 }
 
