@@ -23,19 +23,19 @@ use EBox::Gettext;
 
 sub new
 {
-	my $class = shift;
-	my $self = {};
-	bless($self, $class);
-	return $self;
+    my $class = shift;
+    my $self = {};
+    bless($self, $class);
+    return $self;
 }
 
 # Method: _addVdomain
 #
-# 	When a new virtual domain is created this method is called
+#       When a new virtual domain is created this method is called
 #
 # Parameters:
 #
-#   	vdomain - virtual domain name to be created
+#       vdomain - virtual domain name to be created
 sub _addVDomain($$) # (vdomain)
 {
 
@@ -43,11 +43,11 @@ sub _addVDomain($$) # (vdomain)
 
 # Method: _delVDomain
 #
-# 	When a virtual domain is deleted this method is called
+#       When a virtual domain is deleted this method is called
 #
 # Parameters:
 #
-#   	vdomain - virtual domain name to be deleted
+#       vdomain - virtual domain name to be deleted
 sub _delVDomain($$) # (vdomain)
 {
 
@@ -55,11 +55,11 @@ sub _delVDomain($$) # (vdomain)
 
 # Method: _modifyVDomain
 #
-#	 When a virtual domain is modified this method is called
+#        When a virtual domain is modified this method is called
 #
 # Parameters:
 #
-#   	vdomain - vdomain name to be modified
+#       vdomain - vdomain name to be modified
 sub _modifyVDomain($$) # (vdomain)
 {
 
@@ -67,18 +67,18 @@ sub _modifyVDomain($$) # (vdomain)
 
 # Method: _delVDomainWarning
 #
-# 	When a virtual domain is to be deleted, modules should warn the sort of data
-# 	(if any) is going to be removed
+#       When a virtual domain is to be deleted, modules should warn the sort of data
+#       (if any) is going to be removed
 #
 # Parameters:
 #
-#   	vdomain - virtual domain name
+#       vdomain - virtual domain name
 #
 # Returns:
 #
-#   	array ref - Each element must be a string describing the sort of data
-#   	is going to be removed if the virtual domain is deleted. If nothing is
-#   	going to removed you must not return anything
+#       array ref - Each element must be a string describing the sort of data
+#       is going to be removed if the virtual domain is deleted. If nothing is
+#       going to removed you must not return anything
 sub _delVDomainWarning($$) # (vdomain)
 {
 
