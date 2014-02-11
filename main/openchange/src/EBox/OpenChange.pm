@@ -456,12 +456,9 @@ sub _createRPCProxyCertificate
         return;
     }
 
-    EBox::debug("XXX issuer $issuer");
-
     my $certPath = $self->_rpcProxyCertificate();
     if ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath)) {
         # correct, nothing to do
-        EBox::debug("XXX certifcate in place, do nothing");
         return undef;
     }
 
@@ -476,13 +473,11 @@ sub _createRPCProxyCertificate
         if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
             # reuse webadmin certificate if issuer == fqdn
             my $webadminCertDir = dirname($webadminCert);
-            EBox::debug("XXX copyng webadmin cert");
             EBox::Sudo::root("cp -r $webadminCertDir $certDir");
             return;
         }
     }
 
-    EBox::debug("XXX create certifcate");
     # create certificate
     my $RSA_LENGTH = 1024;
     my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
@@ -795,7 +790,8 @@ sub _rpcProxyHostForDomain
 
 sub _rpcProxyDomain
 {
-    return 'zentyal-domain.lan'; # XXX unhardcode
+    my ($self) = @_;
+    return $self->model('Provision')->outgoingDomain();
 }
 
 sub _rpcProxyHosts
