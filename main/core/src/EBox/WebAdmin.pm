@@ -322,15 +322,13 @@ sub _writeCAFiles
    }
 }
 
-# Report the new TCP admin port to Zentyal Cloud
+# Report the new TCP admin port to the observer modules
 sub _reportAdminPort
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance(1);
-    if ($global->modExists('remoteservices')) {
-        my $rs = $global->modInstance('remoteservices');
-        $rs->reportAdminPort($self->usedHAProxySSLPort());
+    foreach my $mod (@{$self->global()->modInstancesOfType('EBox::WebAdmin::PortObserver')}) {
+        $mod->adminPortChanged($self->usedHAProxySSLPort());
     }
 }
 

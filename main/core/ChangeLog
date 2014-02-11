@@ -1,4 +1,6 @@
 3.4
+	+ Added EBox::WebAdmin::PortObserver to be used by ha and
+	  remoteservices modules by the moment
 	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
 	  after normal save changes process
 	+ Added a left-right composite layout
