@@ -7,7 +7,8 @@ Parameters:
     port - Int the listening port.
     tmpdir - String the path to the WebAdmin temporary directory.
     zentyalconfdir - String the path to the WebAdmin configuration folder.
-    includes - Array. The list of configuration files to include
+    includes - Array. The list of configuration files to include.
+    servers - Array The list of configuration files with servers definition.
 
 # FIXME: unhardcode paths passing them as args...
 </%doc>
@@ -17,6 +18,7 @@ Parameters:
     $tmpdir
     $zentyalconfdir
     @includes => ()
+    @servers => ()
 </%args>
 
 user www-data;
@@ -134,4 +136,9 @@ http {
         include <% $includeFile %>;
 % }
     }
+
+% foreach my $serverFile (@servers) {
+
+    include <% $serverFile %>;
+% }
 }

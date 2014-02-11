@@ -30,6 +30,7 @@ use EBox::Exceptions::External;
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
 use constant USERCORNER_UPSTART_NAME => 'zentyal.usercorner-uwsgi';
+use constant USERCORNER_NGINX_FILE => '/var/lib/zentyal-usercorner/conf/usercorner-nginx.conf';
 use constant USERCORNER_LDAP_PASS => '/var/lib/zentyal-usercorner/conf/ldap_ro.passwd';
 
 sub _create
@@ -290,6 +291,17 @@ sub _setConf
     EBox::Module::Base::writeConfFileNoCheck(
         $upstartFile, $upstartFileTemplate, \@confFileParams, $permissions);
 
+    my $nginxFileTemplate = 'usercorner/nginx.conf.mas';
+    @confFileParams = ();
+    push (@confFileParams, socket => EBox::Config::tmp() . 'usercorner.sock');
+    push (@confFileParams, bindaddress => $self->targetHAProxyIP());
+    push (@confFileParams, port  => $self->targetHAProxySSLPort());
+    EBox::Module::Base::writeConfFileNoCheck(
+        USERCORNER_NGINX_FILE, $nginxFileTemplate, \@confFileParams, $permissions);
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    $webadminMod->addNginxServer(USERCORNER_NGINX_FILE);
+
     # Write user corner redis file
     $self->{redis}->writeConfigFile(USERCORNER_USER);
 
@@ -441,7 +453,7 @@ sub defaultHAProxySSLPort
 
 # Method: blockHAProxyPort
 #
-#   Always return True to prevent that webadmin is served without SSL.
+#   Always return True to prevent that user corner is served without SSL.
 #
 # Returns:
 #
