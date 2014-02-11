@@ -457,6 +457,20 @@ sub replicateConf
     EBox::Sudo::root("rm -rf $tmpdir");
 }
 
+# Method: replicationExcludeKeys
+#
+#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#
+sub replicationExcludeKeys
+{
+    return [
+        'Cluster/keys/form',
+        'ClusterState/keys/form',
+        '_serviceModuleStatus',
+        'state'
+    ];
+}
+
 sub askForReplication
 {
     my ($self, $modules) = @_;
