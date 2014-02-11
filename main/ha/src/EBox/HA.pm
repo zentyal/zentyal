@@ -58,8 +58,12 @@ use constant {
     COROSYNC_AUTH_FILE    => '/etc/corosync/authkey',
     DEFAULT_MCAST_PORT    => 5405,
     RESOURCE_STICKINESS   => 100,
+    PSGI_UPSTART          => 'zentyal.ha-psgi',
     HA_CONF_DIR           => EBox::Config::conf() . 'ha',
-    ZENTYAL_AUTH_FILE     => EBox::Config::conf() . 'ha/authkey',
+};
+use constant {
+    NGINX_INCLUDE_FILE => HA_CONF_DIR . '/uwsgi.conf',
+    ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
@@ -628,8 +632,8 @@ sub _daemons
            pidfiles => ['/run/pacemakerd.pid']
        },
        {
-           name => 'zentyal.ha-psgi',
-           type => 'upstart'
+           name => PSGI_UPSTART,
+           type => 'upstart',
        },
     ];
 
@@ -645,6 +649,8 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
+
+    $self->_setPSGI();
 
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->_notifyLeave();
@@ -989,6 +995,49 @@ sub _storeAuthFile
                             $auth);
     EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . ZENTYAL_AUTH_FILE
                      . ' ' . COROSYNC_AUTH_FILE);
+}
+
+# Set the PSGI upstart script
+sub _setPSGI
+{
+    my ($self) = @_;
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    my $upstartJobFile =  '/etc/init/' . PSGI_UPSTART . '.conf';
+    if ($self->isEnabled()) {
+        my $socketPath = EBox::Config::tmp() . 'ha-uwsgi.sock';
+        my @params = (
+            (socket => $socketPath),
+            (script => EBox::Config::psgi() . 'ha.psgi'),
+            (module => $self->printableName()),
+            (user   => EBox::Config::user()),
+            (group  => EBox::Config::group()),
+           );
+        $self->writeConfFile($upstartJobFile,
+                             'core/upstart-uwsgi.mas',  # Use common UWSGI template
+                             \@params,
+                             { uid => 0, gid => 0, mode => '0644', force => 1 });
+
+        @params = (
+            (path   => '/cluster/'),
+            (socket => $socketPath),
+           );
+        $self->writeConfFile(NGINX_INCLUDE_FILE,
+                             'ha/nginx.conf.mas',
+                             \@params);
+
+        $webadminMod->addNginxInclude(NGINX_INCLUDE_FILE);
+    } else {
+        try {
+            $webadminMod->removeNginxInclude(NGINX_INCLUDE_FILE);
+        } catch (EBox::Exceptions::Internal $e) {
+            # Do nothing if the include has been already removed
+        }
+        EBox::Sudo::root("rm -f '$upstartJobFile'");
+    }
+    if (not $self->isReadOnly() and $self->global()->modIsChanged('webadmin')) {
+        $self->global()->addModuleToPostSave('webadmin');
+    }
 }
 
 # Notify the leave to a member of the cluster
