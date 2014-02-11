@@ -441,14 +441,14 @@ sub askForReplication
 {
     my ($self, $modules) = @_;
 
-    EBox::info("Generating replication bundle of the following modules: @{$modules}");
+    my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
+    EBox::info("Generating replication bundle of the following modules: @modules");
     my $tarfile = 'bundle.tar.gz';
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
     write_file("$tmpdir/modules.json", encode_json($modules));
 
-    foreach my $modname (@{$modules}) {
-        next unless $REPLICATE_MODULES{$modname};
+    foreach my $modname (@modules) {
         my $mod = EBox::Global->modInstance($modname);
         $mod->makeBackup($tmpdir);
     }
