@@ -450,6 +450,9 @@ sub replicateConf
         }
     }
 
+    # Avoid to save changes in ha module
+    EBox::Global->modRestarted('ha');
+
     EBox::info("Configuration replicated, now saving changes...");
     EBox::Global->saveAllModules();
     EBox::info("Changes saved after replication request");
