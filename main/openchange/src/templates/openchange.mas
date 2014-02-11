@@ -38,7 +38,6 @@
   </div>
 <script>
 $(function() {
-   console.log("LOAD openchange");
    Zentyal.Form.setupAjaxSubmit('#OpenChangeUserOptions', {
         noteDiv: '#note_OpenChangeUserOptions',
         errorDiv: '#error_OpenChangeUserOptions',
@@ -48,7 +47,6 @@ $(function() {
     });
 
     $('#OpenChangeUserOptions_ready').on('user_email_change', function(ev) {
-       console.log("ready callback");
        if (ev.mail) {
           $('#OpenChangeUserOptions_active').val(ev.ocEnabled ? 'yes' : 'no');
           $(this).show();
