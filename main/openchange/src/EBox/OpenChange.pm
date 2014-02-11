@@ -32,9 +32,11 @@ use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
 use EBox::Sudo;
+use EBox::Util::Certificate;
 
 use Error qw(:try);
 use String::Random;
+use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
@@ -435,6 +437,11 @@ sub _setRPCProxyConf
     }
 }
 
+sub _rpcProxyCertificate
+{
+    return EBox::Config::conf() . 'openchange/ssl/ssl.pem';
+}
+
 sub _createRPCProxyCertificate
 {
     my ($self) = @_;
@@ -449,9 +456,38 @@ sub _createRPCProxyCertificate
         return;
     }
 
-    # XXX check actual issuer
-    # XXX create certificate if it foes not match
-    # XXX reuse webadmin certificate if issuer == fqdn
+    EBox::debug("XXX issuer $issuer");
+
+    my $certPath = $self->_rpcProxyCertificate();
+    if ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath)) {
+        # correct, nothing to do
+        EBox::debug("XXX certifcate in place, do nothing");
+        return undef;
+    }
+
+    my $certDir = dirname($certPath);
+    my $parentCertDir = dirname($certDir);
+    EBox::Sudo::root("rm -rf '$certDir'",
+                     # create parent dir if it does not exists
+                     "mkdir -p '$parentCertDir'",
+                    );
+    if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
+        my $webadminCert = $self->global()->modInstance('webadmin')->pathHAProxySSLCertificate();
+        if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
+            # reuse webadmin certificate if issuer == fqdn
+            my $webadminCertDir = dirname($webadminCert);
+            EBox::debug("XXX copyng webadmin cert");
+            EBox::Sudo::root("cp -r $webadminCertDir $certDir");
+            return;
+        }
+    }
+
+    EBox::debug("XXX create certifcate");
+    # create certificate
+    my $RSA_LENGTH = 1024;
+    my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
+    my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
+    my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
 }
 
 sub _writeRewritePolicy
@@ -759,7 +795,8 @@ sub _rpcProxyHostForDomain
 
 sub _rpcProxyDomain
 {
-    return 'zentyal-domain.lan'; # XXX unhardcode
+    return 'example.org'; # XXX unhardcode
+#    return 'zentyal-domain.lan'; # XXX unhardcode
 }
 
 sub _rpcProxyHosts
@@ -796,7 +833,7 @@ sub HAProxyInternalService
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+            pathSSLCert => $self->_rpcProxyCertificate(),
             isSSL   => 1,
         };
         push @services, $rpcpService;
@@ -811,7 +848,7 @@ sub HAProxyInternalService
             targetPort => RPCPROXY_PORT,
             hosts    => $hosts,
             paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
-            pathSSLCert => '/var/lib/zentyal/conf/ssl/ssl.pem',
+            pathSSLCert => $self->_rpcProxyCertificate(),
             isSSL   => 0,
         };
         push @services, $httpRpcpService;

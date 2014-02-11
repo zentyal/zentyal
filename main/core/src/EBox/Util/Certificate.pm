@@ -18,6 +18,8 @@ use warnings;
 
 package EBox::Util::Certificate;
 
+use Error qw(:try);
+
 sub generateRSAKey
 {
   my ($destDir, $length) = @_;
@@ -145,7 +147,7 @@ sub _sslDir
 
 sub getCertIssuer
 {
-    my ($self, $certFile) = @_;
+    my ($certFile) = @_;
     my $cmd = "openssl x509 -in $certFile -issuer -noout";
     my $output;
     try {
