@@ -1,4 +1,8 @@
 HEAD
+	+ Avoid errors triggered on web administration port validation
+	+ ManageAdmins model now also add/removes lpadmin group
+	+ Show nice error when global-action fails using die + scalar
+	+ Fixed JS error on showing errors in customActionClicked
 	+ Fixed rethrown of exception in restartService() method
 3.3.4
 	+ Remove lock file in EBox::Util::Lock::unlock()

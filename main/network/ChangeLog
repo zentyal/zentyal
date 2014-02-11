@@ -1,4 +1,5 @@
 HEAD
+	+ Don't generate resolvconf file until all interfaces are up
 	+ nameservers() method always return 127.0.0.1 if DNS module is
 	  installed and enabled
 	+ Fixed dhclient configuration
