@@ -300,14 +300,14 @@ sub addNode
     EBox::info('Add node (params): ' . Dumper($params));
 
     # Validation
-    foreach my $paramName (qw(name addr webAdminPort)) {
+    foreach my $paramName (qw(name addr port)) {
         unless (exists $params->{$paramName}) {
             throw EBox::Exceptions::MissingArgument($paramName);
         }
     }
     EBox::Validate::checkDomainName($params->{name}, 'name');
     EBox::Validate::checkIP($params->{addr}, 'addr');
-    EBox::Validate::checkPort($params->{webAdminPort}, 'webAdminPort');
+    EBox::Validate::checkPort($params->{port}, 'port');
 
     # Start to add
     my $list = new EBox::HA::NodeList($self);
@@ -823,7 +823,7 @@ sub _corosyncSetConf
     my $localNode = $list->localNode();
     if ($localNodeAddr ne $localNode->{addr}) {
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
-                   webAdminPort => 443, localNode => 1);
+                   port => 443, localNode => 1);
         $self->_notifyClusterConfChange($list);
     }
 
@@ -857,7 +857,7 @@ sub _bootstrap
     my $nodeList = new EBox::HA::NodeList($self);
     # TODO: set port
     $nodeList->empty();
-    $nodeList->set(name => $hostname, addr => $localNodeAddr, webAdminPort => 443,
+    $nodeList->set(name => $hostname, addr => $localNodeAddr, port => 443,
                    localNode => 1, nodeid => 1);
 
     # Store the transport and its configuration in state
@@ -952,7 +952,7 @@ sub _join
     # TODO: set proper port
     my $localNode = { name => $hostname,
                       addr => $localNodeAddr,
-                      webAdminPort => 443 };
+                      port => 443 };
 
     $self->_storeAuthFile($clusterConf->{auth});
 

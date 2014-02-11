@@ -88,9 +88,9 @@ sub test_cluster_configuration : Test(5)
                {'name' => 'my cluster',
                 'transport' => 'udpu',
                 'multicastConf' => {},
-                'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443,
+                'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'port' => 443,
                              localNode => 1, nodeid => 1}],
-                'auth'  => 'bytes',
+                'auth'  => 'Ynl0ZXM=',
                },
                'Default unicast configuration');
 
@@ -104,8 +104,8 @@ sub test_cluster_configuration : Test(5)
                    {'name' => 'my cluster',
                     'transport' => 'udp',
                     'multicastConf' => { addr => '239.255.1.1', port => 5405, expected_votes => 1 },
-                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}],
-                    'auth'  => 'bytes',
+                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'port' => 443, localNode => 1, nodeid => 1}],
+                    'auth'  => 'Ynl0ZXM=',
                    },
                    'Multicast configuration');
     }
@@ -171,19 +171,19 @@ sub test_update_cluster_configuration : Test(19)
                                           transport => 'udpu',
                                           multicastConf => {},
                                           nodes => [
-                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443}
+                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, port => 443}
                                              ]});
     } 'Add a new node';
     cmp_deeply($mod->clusterConfiguration()->{nodes}, [{addr => '1.1.1.1', name => 'new', nodeid => 1,
-                                                        webAdminPort => 443, localNode => 0}]);
+                                                        port => 443, localNode => 0}]);
     lives_ok {
         $mod->updateClusterConfiguration(undef,
                                          {name => 'foo',
                                           transport => 'udpu',
                                           multicastConf => {},
                                           nodes => [
-                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, webAdminPort => 443},
-                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
+                                              {addr => '1.1.1.1', name => 'new', nodeid => 1, port => 443},
+                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, port => 443}
 
                                              ]});
     } 'Add another node';
@@ -194,8 +194,8 @@ sub test_update_cluster_configuration : Test(19)
                                           transport => 'udpu',
                                           multicastConf => {},
                                           nodes => [
-                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
-                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, webAdminPort => 443}
+                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, port => 443},
+                                              {addr => '1.1.1.2', name => 'new2', nodeid => 2, port => 443}
 
                                              ]});
     } 'Update a node';
@@ -206,12 +206,12 @@ sub test_update_cluster_configuration : Test(19)
                                           transport => 'udpu',
                                           multicastConf => {},
                                           nodes => [
-                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, webAdminPort => 443},
+                                              {addr => '1.1.1.3', name => 'new', nodeid => 1, port => 443},
 
                                              ]});
     } 'Remove a node';
     cmp_deeply($mod->clusterConfiguration()->{nodes}, [{addr => '1.1.1.3', name => 'new', nodeid => 1,
-                                                        webAdminPort => 443, localNode => 0}]);
+                                                        port => 443, localNode => 0}]);
 
 }
 
@@ -227,24 +227,24 @@ sub test_add_node : Test(7)
 
     throws_ok {
         $mod->addNode({name => 'foo', addr => '1.1.1.1'});
-    } 'EBox::Exceptions::MissingArgument', 'Missing webAdminPort argument to add a node';
+    } 'EBox::Exceptions::MissingArgument', 'Missing port argument to add a node';
 
     throws_ok {
-        $mod->addNode({name => '-foo', addr => '1.1.1.1', webAdminPort => 332});
+        $mod->addNode({name => '-foo', addr => '1.1.1.1', port => 332});
     } 'EBox::Exceptions::InvalidData', 'Invalid node name';
 
     throws_ok {
-        $mod->addNode({name => 'foo', addr => 'ad', webAdminPort => 332});
+        $mod->addNode({name => 'foo', addr => 'ad', port => 332});
     } 'EBox::Exceptions::InvalidData', 'Invalid node addr';
 
     throws_ok {
-        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 'a'});
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', port => 'a'});
     } 'EBox::Exceptions::InvalidData', 'Invalid node webadmin port';
 
     # Mocking to test real environment
     $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
     lives_ok {
-        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', port => 443});
     } 'Adding a node';
 
     ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), 'The node was added');
@@ -264,7 +264,7 @@ sub test_delete_node : Test(4)
     # Mocking to test real environment
     $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
     lives_ok {
-        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', port => 443});
         $mod->deleteNode({name => 'foo'});
     } 'Adding and removing a node';
 
