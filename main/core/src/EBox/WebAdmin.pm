@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -131,6 +131,22 @@ sub hardRestart
     my ($self) = @_;
     my $state = $self->get_state;
     return $state->{hardRestart};
+}
+
+# Method: listeningPort
+#
+#     Return the listening port for the webadmin.
+#
+#     Just call <EBox::HAProxy::ServiceBase::usedHAProxySSLPort>
+#
+# Returns:
+#
+#     Int - the listening port
+#
+sub listeningPort
+{
+    my ($self) = @_;
+    return $self->usedHAProxySSLPort();
 }
 
 sub _stopService
