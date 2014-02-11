@@ -21,11 +21,13 @@ if (not -d $destDir) {
 }
 
 my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($destDir, $RSA_LENGTH);
-print "New key file generated: '$keyFile'\n" if $keyUpdated;
-my $certFile = EBox::Util::Certificate::generateCert($destDir, $keyFile, $keyUpdated, $issuer);
-print "New certificate file generated: '$certFile'\n" if $keyUpdated;
-my $pemFile = EBox::Util::Certificate::generatePem($destDir, $certFile, $keyFile, $keyUpdated);
-print "New PEM file generated: '$pemFile'\n" if $keyUpdated;
+if ($keyUpdated) {
+    print "New key file generated: '$keyFile'\n";
+    my $certFile = EBox::Util::Certificate::generateCert($destDir, $keyFile, $keyUpdated, $issuer);
+    print "New certificate file generated: '$certFile'\n";
+    my $pemFile = EBox::Util::Certificate::generatePem($destDir, $certFile, $keyFile, $keyUpdated);
+    print "New PEM file generated: '$pemFile'\n";
+}
 print "All server's certificate files in place\n\n";
 
 sub _checkCredentials
