@@ -27,7 +27,8 @@ use warnings;
 
 package EBox::HA;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service
+            EBox::WebAdmin::PortObserver);
 
 use feature qw(switch);
 
@@ -533,12 +534,14 @@ sub updateClusterConfiguration
     }
 
     my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
     my ($equal, $diff) = $list->diff($body->{nodes});
     unless ($equal) {
         my %currentNodes = map { $_->{name} => $_ } @{$list->list()};
         my %nodes = map { $_->{name} => $_ } @{$body->{nodes}};
         # Update NodeList
         foreach my $nodeName (@{$diff->{new}}, @{$diff->{changed}}) {
+            next if ($nodeName eq $localNode->{name});  # Updates never come from self
             my $node = $nodes{$nodeName};
             $node->{localNode} = 0;  # Supposed the notifications
                                      # never comes from self
@@ -611,6 +614,33 @@ sub destroyClusterConf
     $self->saveConfig();
     $self->stopService();
 }
+
+# Method: adminPortChanged
+#
+#     Report to the cluster the port has changed.
+#
+# Parameters:
+#
+#     port - Int the new TCP port
+#
+# Overrides:
+#
+#     <EBox::WebAdmin::PortObserver::adminPortChanged>
+#
+sub adminPortChanged
+{
+    my ($self, $port) = @_;
+
+    my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
+    if ($localNode->{port} != $port) {
+        EBox::debug("Changing port to $port");
+        $list->set(name => $localNode->{name}, addr => $localNode->{addr},
+                   port => $port, localNode => 1);
+        $self->_notifyClusterConfChange($list);
+    }
+}
+
 
 # Group: Protected methods
 
@@ -855,9 +885,10 @@ sub _bootstrap
     my ($self, $localNodeAddr, $hostname) = @_;
 
     my $nodeList = new EBox::HA::NodeList($self);
-    # TODO: set port
+    my $webAdminMod = $self->global()->modInstance('webadmin');
     $nodeList->empty();
-    $nodeList->set(name => $hostname, addr => $localNodeAddr, port => 443,
+    $nodeList->set(name => $hostname, addr => $localNodeAddr,
+                   port => $webAdminMod->listeningPort(),
                    localNode => 1, nodeid => 1);
 
     # Store the transport and its configuration in state
@@ -949,10 +980,10 @@ sub _join
 
     my $clusterConf = new JSON::XS()->decode($response->as_string());
 
-    # TODO: set proper port
+    my $webAdminMod = $self->global()->modInstance('webadmin');
     my $localNode = { name => $hostname,
                       addr => $localNodeAddr,
-                      port => 443 };
+                      port => $webAdminMod->listeningPort() };
 
     $self->_storeAuthFile($clusterConf->{auth});
 
@@ -1070,8 +1101,7 @@ sub _notifyLeave
             server => $node->{addr},
             verifyHostname => 0,
            );
-        # FIXME: Port
-        $client->setPort(443); # $node->{port});
+        $client->setPort($node->{port});
         try {
             EBox::debug($userSecret);
             EBox::info('Notify leaving cluster to ' . $node->{name});
@@ -1114,7 +1144,7 @@ sub _notifyClusterConfChange
                 server => $node->{addr},
                 verifyHostname => 0,
                );
-            $client->setPort(443);  # FIXME: Use real port
+            $client->setPort($node->{port});
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
             my $JSONConf = new JSON::XS()->utf8()->encode($conf);
             my $response = $client->PUT('/cluster/configuration',

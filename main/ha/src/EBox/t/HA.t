@@ -24,6 +24,7 @@ use base 'Test::Class';
 
 use EBox::Config::TestStub;
 use EBox::Global::TestStub;
+use EBox::HA::NodeList;
 use EBox::Module::Config::TestStub;
 use EBox::Test::RedisMock;
 use Test::Deep;
@@ -271,6 +272,30 @@ sub test_delete_node : Test(4)
     cmp_ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), '==', 0, 'The node was deleted');
 
     $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+}
+
+sub test_admin_port_changed : Test(3)
+{
+    my ($self) = @_;
+    my $mod = $self->{mod};
+
+    $mod->set_false('_notifyClusterConfChange');
+    # Set local node
+    my $list = new EBox::HA::NodeList($mod);
+    $list->set(localNode => 1, name => 'local', port => 443, addr => '1.1.1.1');
+
+    lives_ok {
+        $mod->adminPortChanged(443);
+    } 'Do nothing if we are not changing the port';
+
+    lives_ok {
+        $mod->adminPortChanged(3443);
+    } 'Change the admin port';
+    cmp_deeply($list->localNode(),
+               {'localNode' => 1, name => 'local', port => 3443, addr => '1.1.1.1', nodeid => 2},
+               'The change is effective');
+
+    $list->empty();
 }
 
 1;
