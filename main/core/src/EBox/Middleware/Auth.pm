@@ -315,68 +315,6 @@ sub call
     }
 }
 
-# Method: sessionPassword
-#
-#   Return the stored password in the session if there is no password stored throws EBox::Exceptions::Internal
-#   exception.
-#
-# Arguments:
-#
-#   request  - Plack::Request The request object.
-#
-# Return:
-#   String - The clear text password provided for the login.
-#
-# Raises:
-#
-#   <EBox::Exceptions::Internal>: If there is no previous password stored in the session.
-#
-sub sessionPassword
-{
-    my ($self, $request) = @_;
-
-    my $session = $request->session();
-
-    unless ((defined $session->{key}) and (defined $session->{passwd})) {
-        throw EBox::Exceptions::Internal("There is no password stored");
-    }
-
-    my $cipher = Crypt::Rijndael->new($session->{key}, Crypt::Rijndael::MODE_CBC());
-
-    my $decodedcryptedpass = MIME::Base64::decode($session->{passwd});
-    my $pass = $cipher->decrypt($decodedcryptedpass);
-    $pass =~ tr/\x00//d;
-    return $pass;
-}
-
-# Method: updateSessionPassword
-#
-#   Update the stored password in the session if there is no password stored throws <EBox::Exceptions::Internal>
-#   exception.
-#
-# Arguments:
-#
-#   request  - Plack::Request The request object.
-#   password - String The new password to store in the session.
-#
-# Raises:
-#
-#   <EBox::Exceptions::Internal>: If there is no previous password stored in the session.
-#
-sub updateSessionPassword
-{
-    my ($self, $request, $password) = @_;
-
-    my $session = $request->session();
-
-    unless ((defined $session->{key}) and (defined $session->{passwd})) {
-        throw EBox::Exceptions::Internal("There is no previous password stored!");
-    }
-
-    my $key = $session->{key};
-    $session->{passwd} = _cipherPassword($password, $key);
-}
-
 ## Remote access constants
 #use constant CC_USER => '__remote_access__';
 
