@@ -18,7 +18,8 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule EBox::HAProxy::ServiceBase);
+use base qw(EBox::Module::Service EBox::LdapModule
+            EBox::HAProxy::ServiceBase EBox::VDomainModule);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -31,6 +32,7 @@ use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::OpenChange::VDomainsLdap;
 use EBox::Sudo;
 use EBox::Util::Certificate;
 
@@ -852,6 +854,11 @@ sub HAProxyInternalService
     return \@services;
 }
 
+sub _vdomainModImplementation
+{
+    my ($self) = @_;
+    return EBox::OpenChange::VDomainsLdap->new($self);
+}
 
 
 1;

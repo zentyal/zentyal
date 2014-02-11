@@ -1,4 +1,6 @@
 HEAD
+	+ Added _delVDomainAbort to LdapVDomain base to give the
+	  opportunity to abort vdomain removals
 	+ Better integration of group alias addon
 3.2.4
 	+ Added openchange outgoing mail rewriting

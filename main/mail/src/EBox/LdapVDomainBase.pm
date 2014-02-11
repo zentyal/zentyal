@@ -84,4 +84,12 @@ sub _delVDomainWarning($$) # (vdomain)
 
 }
 
+# Method: _delVDomainAbort
+#
+#  This method should raise a error to abort the removal of a given domain
+sub _delVDomainAbort
+{
+    my ($vdomain) = @_;
+}
+
 1;
