@@ -1,4 +1,6 @@
 3.4
+	+ Migrated to use Plack as the application server instead of mod_perl
+	+ Updated to use the new haproxy API.
 	+ Move run-pending-ops script to core
 	+ Move EBox::RemoteServices::RESTClient and RESTResult to core
 	  and uses it as base in specific behaviour

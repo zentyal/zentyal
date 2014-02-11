@@ -343,6 +343,9 @@ sub create
     my $name = $args{name};
     my $dn = "CN=$name," .  $args{parent}->dn();
 
+    # Check DN is unique (duplicated givenName and surname)
+    $class->_checkDnIsUnique($dn, $name);
+
     $class->_checkAccountNotExists($name);
     my $usersMod = EBox::Global->modInstance('users');
     my $realm = $usersMod->kerberosRealm();
@@ -431,6 +434,18 @@ sub _checkPwdLength
         throw EBox::Exceptions::External(
                 __x("Password must not be longer than {maxPwdLength} characters",
                     maxPwdLength => MAXPWDLENGTH));
+    }
+}
+
+sub _checkDnIsUnique
+{
+    my ($self, $dn, $name) = @_;
+
+    my $entry = new EBox::Samba::LdbObject(dn => $dn);
+    if ($entry->exists()) {
+        throw EBox::Exceptions::DataExists(
+            text => __x('User name {x} already exists in the same container.',
+                        x => $name));
     }
 }
 

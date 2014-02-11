@@ -43,11 +43,23 @@ sub clearConfiguration : Test(shutdown)
     EBox::Module::Config::TestStub::setConfig();
 }
 
+
 sub get_module : Test(setup)
 {
     my ($self) = @_;
     my $redis = EBox::Test::RedisMock->new();
     $self->{mod} = EBox::HA->_create(redis => $redis);
+    # Mocking some methods :/ (no purist)
+    $self->{mod} = new Test::MockObject::Extends($self->{mod});
+    $self->{mod}->set_true('_createStoreAuthFile');
+}
+
+sub mock_file_slurp : Test(setup)
+{
+    my ($self) = @_;
+
+    $self->{mock_file_slurp} = new Test::MockModule('File::Slurp');
+    $self->{mock_file_slurp}->mock('read_file', 'bytes');
 }
 
 sub test_use_ok : Test(startup => 1)
@@ -77,7 +89,9 @@ sub test_cluster_configuration : Test(5)
                 'transport' => 'udpu',
                 'multicastConf' => {},
                 'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443,
-                             localNode => 1, nodeid => 1}]},
+                             localNode => 1, nodeid => 1}],
+                'auth'  => 'bytes',
+               },
                'Default unicast configuration');
 
     {
@@ -90,16 +104,18 @@ sub test_cluster_configuration : Test(5)
                    {'name' => 'my cluster',
                     'transport' => 'udp',
                     'multicastConf' => { addr => '239.255.1.1', port => 5405, expected_votes => 1 },
-                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}]},
+                    'nodes' => [{'name' => 'local', 'addr' => '10.1.1.0', 'webAdminPort' => 443, localNode => 1, nodeid => 1}],
+                    'auth'  => 'bytes',
+                   },
                    'Multicast configuration');
     }
 }
 
-sub test_update_cluster_configuration : Test(14)
+sub test_update_cluster_configuration : Test(19)
 {
     my ($self) = @_;
 
-    my $mod = new Test::MockObject::Extends($self->{mod});
+    my $mod = $self->{mod};
     $mod->set_true('_corosyncSetConf', 'saveConfig');
     $mod->set_false('_isDaemonRunning');
 
@@ -108,6 +124,19 @@ sub test_update_cluster_configuration : Test(14)
         $mod->updateClusterConfiguration();
     } 'EBox::Exceptions::Internal', 'Update a non-bootstraped cluster';
     $mod->set_true('clusterBootstraped');
+
+    throws_ok { $mod->updateClusterConfiguration() } 'EBox::Exceptions::MissingArgument';
+    throws_ok { $mod->updateClusterConfiguration(undef, {name => 'foo'}); } 'EBox::Exceptions::MissingArgument';
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'foo', transport => 'udp'});
+    } 'EBox::Exceptions::MissingArgument';
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'foo', transport => 'udp', 'multicastConf' => undef});
+    } 'EBox::Exceptions::MissingArgument';
+
+    throws_ok {
+        $mod->updateClusterConfiguration(undef, {name => 'ffo', transport => 'xcf', 'multicastConf' => undef, nodes => []});
+    } 'EBox::Exceptions::InvalidData', 'Invalid transport parameter';
 
     # Test warns and name change
     {
@@ -184,6 +213,64 @@ sub test_update_cluster_configuration : Test(14)
     cmp_deeply($mod->clusterConfiguration()->{nodes}, [{addr => '1.1.1.3', name => 'new', nodeid => 1,
                                                         webAdminPort => 443, localNode => 0}]);
 
+}
+
+sub test_add_node : Test(7)
+{
+    my ($self) = @_;
+
+    my $mod = $self->{mod};
+
+    throws_ok {
+        $mod->addNode();
+    } 'EBox::Exceptions::MissingArgument', 'Missing arguments to add a node';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1'});
+    } 'EBox::Exceptions::MissingArgument', 'Missing webAdminPort argument to add a node';
+
+    throws_ok {
+        $mod->addNode({name => '-foo', addr => '1.1.1.1', webAdminPort => 332});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node name';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => 'ad', webAdminPort => 332});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node addr';
+
+    throws_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 'a'});
+    } 'EBox::Exceptions::InvalidData', 'Invalid node webadmin port';
+
+    # Mocking to test real environment
+    $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+    lives_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+    } 'Adding a node';
+
+    ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), 'The node was added');
+
+    $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+}
+
+sub test_delete_node : Test(4)
+{
+    my ($self) = @_;
+    my $mod = $self->{mod};
+
+    throws_ok { $mod->deleteNode(); } 'EBox::Exceptions::MissingArgument';
+
+    lives_ok { $mod->deleteNode({name => 'node'}); } 'Delete a non-existing node';
+
+    # Mocking to test real environment
+    $mod->set_false('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
+    lives_ok {
+        $mod->addNode({name => 'foo', addr => '1.1.1.1', webAdminPort => 443});
+        $mod->deleteNode({name => 'foo'});
+    } 'Adding and removing a node';
+
+    cmp_ok(scalar(grep { $_->{name} eq 'foo' } @{$mod->nodes()}), '==', 0, 'The node was deleted');
+
+    $mod->unmock('_corosyncSetConf', '_isDaemonRunning', '_notifyClusterConfChange', '_setNoQuorumPolicy');
 }
 
 1;

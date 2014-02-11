@@ -32,6 +32,7 @@ use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::External;
 
 my $ADMIN_GROUP = 'sudo';
+my $LPADMIN_GROUP = 'lpadmin';
 
 sub _table
 {
@@ -125,9 +126,11 @@ sub addTypedRow
 
     unless ($self->_userIsAdmin($user)) {
         EBox::Sudo::root("adduser $user $ADMIN_GROUP");
-
         my $audit = EBox::Global->modInstance('audit');
         $audit->logAction('System', 'General', 'addAdmin', $user, 0);
+    }
+    unless ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
+        EBox::Sudo::root("adduser $user $LPADMIN_GROUP");
     }
 
     my $id = getpwnam($user);
@@ -165,10 +168,12 @@ sub removeRow
     my $user = getpwuid($id);
 
     EBox::Sudo::root("deluser $user $ADMIN_GROUP");
+    if ($self->_userIsInGroup($user, $LPADMIN_GROUP)) {
+        EBox::Sudo::root("deluser $user $LPADMIN_GROUP");
+    }
 
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'delAdmin', $user, 0);
-
 }
 
 sub _changePassword
@@ -187,25 +192,30 @@ sub _changePassword
         throw EBox::Exceptions::External(__('The password must be at least 6 characters long'));
     }
 
-    EBox::Auth->setPassword($username, $password);
+    EBox::Middleware::Auth->setPassword($username, $password);
     my $audit = EBox::Global->modInstance('audit');
     $audit->logAction('System', 'General', 'changePassword', $username, 0);
+}
+
+sub _userIsInGroup
+{
+    my ($self, $user, $group) = @_;
+    my $groutput = `groups $user`;
+    chomp ($groutput);
+    my (undef, $groupsField) = split (':', $groutput);
+    my @groups = split (' ', $groupsField);
+    foreach my $gr (@groups) {
+        if ($gr eq $group) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 sub _userIsAdmin
 {
     my ($self, $user) = @_;
-
-    my $groutput = `groups $user`;
-    chomp ($groutput);
-    my (undef, $groupsField) = split (':', $groutput);
-    my @groups = split (' ', $groupsField);
-    foreach my $group (@groups) {
-        if ($group eq $ADMIN_GROUP) {
-            return 1;
-        }
-    }
-    return 0;
+    return $self->_userIsInGroup($ADMIN_GROUP);
 }
 
 1;

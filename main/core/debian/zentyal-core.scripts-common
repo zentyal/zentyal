@@ -2,8 +2,7 @@ PORT=443
 
 stop_ebox_processes() {
     stop ebox.redis 2>/dev/null || true
-    OLD_APACHE_PID=`ps aux | grep 'apache2.* -f /var/lib/ebox' | grep -v grep | awk '/^root/{print $2;exit}'`;
-    kill $OLD_APACHE_PID 2>/dev/null || true
+    stop zentyal.webadmin-nginx || true
     pkill -9 -u ebox || true
 }
 
@@ -21,7 +20,7 @@ fetch_ebox_port()
             EBox::init();
 
             my $webadmin = EBox::Global->modInstance('webadmin');
-            print $webadmin->port();
+            print $webadmin->usedHAProxySSLPort();
             exit 0;
             ' 2> /dev/null );
 
@@ -90,9 +89,15 @@ set_ebox_port()
             EBox::init();
             my $port = $ARGV[0];
             my $global = EBox::Global->getInstance();
-            my $webadmin = $global->modInstance('webadmin');
-            $webadmin->setPort($port);
-            $webadmin->saveConfig();
+            my $haproxy = $global->modInstance('haproxy');
+            my @args = ();
+            push (@args, modName        => 'webadmin');
+            push (@args, sslPort        => $port);
+            push (@args, enableSSLPort  => 1);
+            push (@args, defaultSSLPort => 1);
+            push (@args, force          => 1);
+            $haproxy->setHAProxyServicePorts(@args);
+            $haproxy->saveConfig();
             if ($global->modExists('services')) {
                 $global->modInstance('services')->saveConfig();
             }

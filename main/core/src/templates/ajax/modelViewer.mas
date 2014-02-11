@@ -8,6 +8,7 @@
      model - <EBox::Model::DataTable> the model to use its name
      hasChanged - Boolean indicating whether the model has changed or
                   not
+     user       - String the user name
      action     - String the action be performed. Only if action is
                   equal to 'view' the whole model viewer will be
                   loaded, any other action just the body will be
@@ -18,6 +19,7 @@
 <%args>
   $model
   $hasChanged
+  $user
   $action => 'view'
 </%args>
 <%init>
@@ -27,7 +29,8 @@
 % if ( $action eq 'view' or $action eq 'presetUpdate') {
 <& SELF:view,
    model => $model,
-   hasChanged => $hasChanged
+   hasChanged => $hasChanged,
+   user => $user,
 &>
 % } else {
 <& SELF:body,
@@ -49,12 +52,14 @@
 
      model - <EBox::Model::DataTable> the model to view
      hasChanged - Boolean indicating whether the model has changed or not
+     user - String the user name
 
 </%doc>
 <%method view>
 <%args>
   $model
   $hasChanged
+  $user
 </%args>
 <& SELF:header,
    model => $model
@@ -82,7 +87,6 @@
        <div class="item-block" id="<% $model->modelName() %>">
             <& SELF:body,
                model      => $model,
-
              &>
        </div>
 %   } elsif ($noDataMsg) {
@@ -135,6 +139,7 @@
   Parameters:
 
      model - <EBox::Model::DataTable> the model to view
+     user  - String the user name
      onlyBody - boolean indicating if just the body is updated
                 *(Optional)* Default value: false
 

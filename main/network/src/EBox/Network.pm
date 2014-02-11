@@ -2855,11 +2855,12 @@ sub ifaceBroadcast # (interface)
 sub nameservers
 {
     my ($self) = @_;
+    my $users = $self->global()->modInstance('users');
+    if ($users and ($users->mode() eq $users->STANDALONE_MODE)) {
+        return ['127.0.0.1']
+    }
 
-    my $resolverModel = $self->model('DNSResolver');
-    my $ids = $resolverModel->ids();
-    my @array = map { $resolverModel->row($_)->valueByName('nameserver') } @{$ids};
-    return \@array;
+    return $self->model('DNSResolver')->nameservers();
 }
 
 sub searchdomain
@@ -3695,7 +3696,8 @@ sub _preSetConf
     }
 
     # Write DHCP client configuration
-    $self->writeConfFile(DHCLIENTCONF_FILE, 'network/dhclient.conf.mas', []);
+    my $hostname = $self->global()->modInstance('sysinfo')->hostName();
+    $self->writeConfFile(DHCLIENTCONF_FILE, 'network/dhclient.conf.mas', [ hostname =>  $hostname]);
 
     # Bring down changed interfaces
     my $iflist = $self->allIfacesWithRemoved();
@@ -3721,6 +3723,7 @@ sub _preSetConf
                         push (@cmds, "/usr/sbin/brctl delbr $if");
                     }
                 }
+
                 EBox::Sudo::root(@cmds);
             } catch (EBox::Exceptions::Internal $e) {
             }
@@ -3778,7 +3781,6 @@ sub _setConf
     $self->generateInterfaces();
     $self->_generatePPPConfig();
     $self->_generateDDClient();
-    $self->_generateResolvconfConfig();
     $self->_generateProxyConfig();
 }
 
@@ -3830,6 +3832,8 @@ sub _enforceServiceState
         EBox::Util::Lock::unlock('ifup');
     }
     EBox::NetWrappers::clean_ifaces_list_cache();
+
+    $self->_generateResolvconfConfig();
 
     EBox::Sudo::silentRoot('/sbin/ip route del default table default',
                            '/sbin/ip route del default');
@@ -4278,58 +4282,6 @@ sub DHCPNetmask
     return $self->get_state()->{dhcp}->{$iface}->{mask};
 }
 
-# Method: DHCPNetmask
-#
-#   Sets the nameserver obtained from a DHCP configured interface
-#
-# Parameters:
-#
-#   interface - interface name
-#   nameservers - array ref holding the nameservers
-#
-# Returns:
-#
-#   string - network mask
-#
-sub setDHCPNameservers
-{
-    my ($self, $iface, $servers) = @_;
-
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
-    foreach (@{$servers}) {
-        checkIP($_, __("IP address"));
-    }
-
-    my $state = $self->get_state();
-    $state->{dhcp}->{$iface}->{nameservers} = $servers;
-    $self->set_state($state);
-}
-
-# Method: DHCPNameservers
-#
-#   Get the nameservers obtained from a DHCP configured interface
-#
-# Parameters:
-#
-#   interface - interface name
-#
-# Returns:
-#
-#   array ref - holding the nameservers
-#
-sub DHCPNameservers
-{
-    my ($self, $iface) = @_;
-
-    $self->ifaceExists($iface) or
-        throw EBox::Exceptions::DataNotFound(data => __('Interface'),
-                             value => $iface);
-
-    return $self->get_state()->{dhcp}->{$iface}->{nameservers};
-}
-
 # Method: ping
 #
 #   Performs a ping test and returns the output
@@ -4430,12 +4382,13 @@ sub wakeonlan
 # Parameters:
 #
 #   iface - name of the iface to check
+#   request - Plack::Request reference.
 #
 sub externalConnectionWarning
 {
-    my ($self, $iface) =  @_;
+    my ($self, $iface, $request) =  @_;
 
-    my $remote = $ENV{HTTP_X_FORWARDED_FOR};
+    my $remote = $request->address();
     my $command = "/sbin/ip route get to $remote" . ' | head -n 1 | sed -e "s/.*dev \(\w\+\).*/\1/" ';
     my $routeIface = `$command`;
     return 0 unless ($? == 0);

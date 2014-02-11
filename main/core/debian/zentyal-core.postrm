@@ -17,7 +17,7 @@ case "$1" in
 
         # delete webadmin certificates
         rm -f /var/lib/zentyal/conf/ssl.crt/ebox.cert /var/lib/zentyal/conf/ssl.key/ebox.key \
-            /var/lib/zentyal/conf/ssl.pem/ebox.pem
+            /var/lib/zentyal/conf/ssl/ssl.pem
 
         # delete logs
         rm -rf /var/log/zentyal

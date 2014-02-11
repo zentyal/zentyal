@@ -1040,7 +1040,7 @@ sub _installCronFile
 
 # Method: firstTimeMenu
 #
-#   Prints first time menu instead of Zentyal default menu.
+#   Returns first time menu instead of Zentyal default menu.
 #   This method is intended to be used by first time wizard pages
 #
 # Params:
@@ -1056,37 +1056,41 @@ sub firstTimeMenu
 
     my $dr = EBox::Global::disasterRecovery();
 
-    print "<div id='menu'><ul id='nav'>\n";
+    my $output = '';
 
-    print "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
+    $output .= "<div id='menu'><ul id='nav'>\n";
+
+    $output .= "<li><div class='separator'>" . __('Installation steps') . "</div></li>\n";
 
     if ($dr) {
-        $self->_printMenuItem(__('Choose Backup'), 0, $current);
+        $output .= $self->_dumpMenuItem(__('Choose Backup'), 0, $current);
     } else {
-        $self->_printMenuItem(__('Package Selection'), 0, $current);
+        $output .= $self->_dumpMenuItem(__('Package Selection'), 0, $current);
     }
-    $self->_printMenuItem(__('Confirmation'), 1, $current);
-    $self->_printMenuItem(__('Installation'), 2, $current);
+    $output .= $self->_dumpMenuItem(__('Confirmation'), 1, $current);
+    $output .= $self->_dumpMenuItem(__('Installation'), 2, $current);
     if ($dr) {
-        $self->_printMenuItem(__('Restore Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Restore Configuration'), 3, $current);
     } else {
-        $self->_printMenuItem(__('Initial Configuration'), 3, $current);
+        $output .= $self->_dumpMenuItem(__('Initial Configuration'), 3, $current);
     }
-    $self->_printMenuItem(__('Save Changes'), 4, $current);
-    $self->_printMenuItem(__('Finish'), 5, $current);
+    $output .= $self->_dumpMenuItem(__('Save Changes'), 4, $current);
+    $output .= $self->_dumpMenuItem(__('Finish'), 5, $current);
 
-    print "</ul></div>\n";
+    $output .= "</ul></div>\n";
+
+    return $output;
 }
 
-# Method: _printMenuItem
+# Method: _dumpMenuItem
 #
-#   Print a menu item for the firstTimeMenu
+#   Dumps a menu item for the firstTimeMenu
 #
 # Params:
 #   index - This item index inside the list
 #   current - Current item index
 #
-sub _printMenuItem
+sub _dumpMenuItem
 {
     my ($self, $text, $index, $current) = @_;
 
@@ -1100,7 +1104,7 @@ sub _printMenuItem
     else {
     }
 
-    print "<li><div style='$style'>$text</div></li>\n";
+    return "<li><div style='$style'>$text</div></li>\n";
 }
 
 # Is it QA the exclusive source?

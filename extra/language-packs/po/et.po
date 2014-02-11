@@ -21,7 +21,7 @@ msgstr ""
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Types/TlsRemote.pm:53
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1382
+#: ../../main/mail/src/EBox/Mail.pm:1395
 msgid "disabled"
 msgstr "keelatud"
 
@@ -138,10 +138,11 @@ msgstr "Klient {name}"
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:60
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:122
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:284
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:57
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/AdvancedSecurityUpdates.pm:164
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/QAUpdatesInfo.pm:124
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:188
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:217
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:388
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:164
 #: ../../main/core/src/EBox/Model/DataTable.pm:4307
@@ -164,8 +165,7 @@ msgstr "Lubatud"
 # kui tõlkida 'keelatud', siis tundub, et lävi on range. vt liides
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:554
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:894
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:279
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:270
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:272
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:101
 #: ../../main/users/src/EBox/Users/Model/AccountSettings.pm:64
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:85
@@ -175,7 +175,9 @@ msgstr "Lubatud"
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1888
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:79
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:161
-#: ../../main/core/src/EBox/SysInfo.pm:480
+#: ../../main/core/src/EBox/SysInfo.pm:501
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:184
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:213
 #: ../../main/squid/src/EBox/Squid/Model/ContentFilterThreshold.pm:65
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:100
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:118
@@ -223,10 +225,11 @@ msgstr ""
 #: ../../main/ca/src/EBox/CA/Model/Certificates.pm:289
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:147
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:197
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:280
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:286
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:172
 #: ../../main/core/src/EBox/Event/Watcher/Runit.pm:152
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:167
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:118
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:119
 msgid "Service"
 msgstr "Teenus"
 
@@ -235,13 +238,13 @@ msgstr "Teenus"
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:1931
-#: ../../main/core/src/EBox/SysInfo.pm:465
+#: ../../main/core/src/EBox/SysInfo.pm:486
 msgid "Running"
 msgstr "Töötab"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Client.pm:557
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:897
-#: ../../main/core/src/EBox/SysInfo.pm:470
+#: ../../main/core/src/EBox/SysInfo.pm:491
 msgid "Stopped"
 msgstr "Peatunud"
 
@@ -334,12 +337,13 @@ msgid "Local address"
 msgstr "Kohalik aadress"
 
 #: ../../main/openvpn/src/EBox/OpenVPN/Server.pm:912
+#: ../../main/ha/src/EBox/HA/Model/Nodes.pm:136
 #: ../../main/usercorner/src/EBox/UserCorner/Model/Settings.pm:55
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:100
 #: ../../main/users/src/EBox/Users/Model/Slaves.pm:59
 #: ../../main/radius/src/EBox/Radius.pm:343
 #: ../../main/core/src/EBox/Events/Model/JabberDispatcherConfiguration.pm:89
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:304
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:305
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:69
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:43
 #: ../../main/mail/src/templates/externalAccounts.mas:16
@@ -381,14 +385,14 @@ msgstr ""
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:68
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:51
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/DeletedDaemons.pm:44
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:77
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:303
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:185
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:305
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/DisasterRecoveryDomains.pm:125
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:169
 #: ../../main/objects/src/EBox/Objects/Model/ObjectTable.pm:66
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:65
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:45
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:172
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:202
 #: ../../main/core/src/EBox/Events/Model/ConfigureDispatchers.pm:178
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:49
@@ -416,7 +420,7 @@ msgstr "Nimi"
 # koodis: printableTableName  => __('Configuration'),
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Servers.pm:76
 #: ../../main/openvpn/src/EBox/OpenVPN/Model/Clients.pm:66
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:44
+#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:79
 #: ../../main/jabber/src/EBox/Jabber/Composite/General.pm:39
 #: ../../main/users/src/EBox/Users/Model/Mode.pm:189
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/POPProxyConfiguration.pm:93
@@ -1076,7 +1080,7 @@ msgstr "Üldine nimi"
 
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1315
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/TreeBuilder/HTB.pm:668
-#: ../../main/mail/src/EBox/Mail.pm:1399
+#: ../../main/mail/src/EBox/Mail.pm:1412
 msgid "Address"
 msgstr "Aadress"
 
@@ -1108,13 +1112,13 @@ msgstr "OpenVPN deemonid"
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:60
 #: ../../main/firewall/src/EBox/Firewall/Model/PacketTrafficDetails.pm:56
 #: ../../main/firewall/src/EBox/Firewall.pm:737
-#: ../../main/samba/src/EBox/Samba.pm:1551
-#: ../../main/samba/src/EBox/Samba.pm:1571
-#: ../../main/samba/src/EBox/Samba.pm:1582
-#: ../../main/squid/src/EBox/Squid.pm:1116
+#: ../../main/samba/src/EBox/Samba.pm:1557
+#: ../../main/samba/src/EBox/Samba.pm:1577
+#: ../../main/samba/src/EBox/Samba.pm:1588
+#: ../../main/squid/src/EBox/Squid.pm:1126
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:58
 #: ../../main/ipsec/src/EBox/IPsec.pm:365
-#: ../../main/mail/src/EBox/Mail.pm:1492
+#: ../../main/mail/src/EBox/Mail.pm:1505
 #: ../../main/mail/src/EBox/Mail/Model/TrafficDetails.pm:61
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:162
 #: ../../main/ca/src/templates/index.mas:99
@@ -1139,9 +1143,9 @@ msgstr "Kuupäev"
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:131
 #: ../../main/core/src/EBox/AuditLogging.pm:115
 #: ../../main/core/src/EBox/AuditLogging.pm:144
-#: ../../main/squid/src/EBox/Squid.pm:1123
+#: ../../main/squid/src/EBox/Squid.pm:1133
 #: ../../main/ipsec/src/EBox/IPsec.pm:366
-#: ../../main/mail/src/EBox/Mail.pm:1502
+#: ../../main/mail/src/EBox/Mail.pm:1515
 msgid "Event"
 msgstr "Sündmus"
 
@@ -1149,13 +1153,13 @@ msgstr "Sündmus"
 # tähendab ka "trükkimine" , kuid siin ilmselt "tüüp"
 #: ../../main/openvpn/src/EBox/OpenVPN.pm:1483
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:133
-#: ../../main/samba/src/EBox/Samba.pm:1576
+#: ../../main/samba/src/EBox/Samba.pm:1582
 #: ../../main/ipsec/src/EBox/IPsec/Model/Connections.pm:156
 #: ../../main/monitor/src/EBox/Monitor/Model/ThresholdConfiguration.pm:337
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteStatus.pm:158
 #: ../../main/ebackup/src/EBox/EBackup/Model/RemoteExcludes.pm:80
 #: ../../main/users/src/templates/addgroup.mas:10
-#: ../../main/users/src/templates/editgroup.mas:25
+#: ../../main/users/src/templates/editgroup.mas:26
 #: ../../main/core/src/templates/report/diskUsage.mas:63
 #: ../../main/core/src/templates/report/raid.mas:127
 msgid "Type"
@@ -1206,38 +1210,53 @@ msgstr "Serveriga ühendamine lõpetatud"
 msgid "You must set insecure_rip_conf to yes or no"
 msgstr "insecure_rip_conf väärtuseks peab määrama 'yes' või 'no'"
 
-#: ../../main/ha/src/EBox/HA.pm:55
+#: ../../main/ha/src/EBox/HA.pm:68
+#: ../../main/ha/src/EBox/HA/Composite/Initial.pm:40
+#: ../../main/ha/src/EBox/HA/Composite/Configuration.pm:40
 #, fuzzy
 msgid "High Availability"
 msgstr "Saadaval"
 
-#: ../../main/ha/src/EBox/HA.pm:80
+#: ../../main/ha/src/EBox/HA.pm:93
 #: ../../main/remoteservices/src/EBox/RemoteServices.pm:449
-#: ../../main/core/src/EBox/SysInfo.pm:106
+#: ../../main/core/src/EBox/SysInfo.pm:111
 #: ../../main/core/src/EBox/Report/DiskUsage.pm:182
 #: ../../main/ebackup/src/EBox/EBackup.pm:870
 msgid "System"
 msgstr "Süsteem"
 
-#: ../../main/ha/src/EBox/HA.pm:106
+#: ../../main/ha/src/EBox/HA.pm:124
 #, fuzzy
 msgid "Cluster nodes"
 msgstr "kasutajanimi"
 
-#: ../../main/ha/src/EBox/HA.pm:162
+# deemon sobib?
+#: ../../main/ha/src/EBox/HA.pm:142
+#, fuzzy
+msgid "To configure corosync daemon"
+msgstr "clamd deemoni seadistamiseks"
+
+#  
+#: ../../main/ha/src/EBox/HA.pm:145
+#, fuzzy
+msgid "To start corosync at boot"
+msgstr "Seiskamine või taaskäivitamine"
+
+#: ../../main/ha/src/EBox/HA.pm:546
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:175
 #: ../../main/dns/src/EBox/DNS/Model/MailExchanger.pm:186
 #: ../../main/dns/src/EBox/DNS/Model/NameServer.pm:206
 #: ../../main/dns/src/EBox/DNS/Model/Text.pm:142
-#: ../../main/network/src/EBox/Network.pm:4344
-#: ../../main/network/src/EBox/Network.pm:4365
+#: ../../main/network/src/EBox/Network.pm:4300
+#: ../../main/network/src/EBox/Network.pm:4321
 #: ../../main/dhcp/src/EBox/DHCP.pm:1064
 #: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:167
 #: ../../main/dns/src/templates/edit.mas:18
 msgid "Host name"
 msgstr "Masinanimi"
 
-#: ../../main/ha/src/EBox/HA.pm:162
+#: ../../main/ha/src/EBox/HA.pm:546
+#: ../../main/ha/src/EBox/HA/Model/Nodes.pm:132
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:83
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:89
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:120
@@ -1245,12 +1264,11 @@ msgstr "Masinanimi"
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:176
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:274
 #: ../../main/network/src/EBox/Network.pm:1108
-#: ../../main/network/src/EBox/Network.pm:1482
-#: ../../main/network/src/EBox/Network.pm:4031
-#: ../../main/network/src/EBox/Network.pm:4065
-#: ../../main/network/src/EBox/Network.pm:4096
-#: ../../main/network/src/EBox/Network.pm:4296
-#: ../../main/network/src/EBox/Network.pm:4508
+#: ../../main/network/src/EBox/Network.pm:1485
+#: ../../main/network/src/EBox/Network.pm:4039
+#: ../../main/network/src/EBox/Network.pm:4073
+#: ../../main/network/src/EBox/Network.pm:4104
+#: ../../main/network/src/EBox/Network.pm:4464
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:71
 #: ../../main/dhcp/src/EBox/DHCP.pm:1064
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:133
@@ -1261,82 +1279,134 @@ msgstr "Masinanimi"
 msgid "IP address"
 msgstr "IP aadress"
 
-#: ../../main/ha/src/EBox/HA.pm:170
+#: ../../main/ha/src/EBox/HA.pm:554
 #, fuzzy
 msgid "Cluster is not configured"
 msgstr "Liides {iface} ei ole seadistatud"
 
-#: ../../main/ha/src/EBox/HA/Composite/HA.pm:40
-msgid "High Availability Cluster"
+#: ../../main/ha/src/EBox/HA.pm:642
+#, perl-brace-format
+msgid "{iface} does not have IP address to use"
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:51
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:58
 #, perl-brace-format
 msgid "Name is too long. Maximum length is {max}."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:54
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:61
 #, perl-brace-format
 msgid "Name is too short. Minimum length is {min}."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:57
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:64
 msgid "Name must only contain letters, numbers or underscores."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:84
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:83
+#, fuzzy
+msgid "There is a a Network interface with the given IP address."
+msgstr "Sisemine staatiline liides veebiserveri IP aadressi määramiseks puudub"
+
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:85
+#, fuzzy
+msgid "There is a fixed DHCP object with the given IP address."
+msgstr "Sisemine staatiline liides veebiserveri IP aadressi määramiseks puudub"
+
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:87
+msgid "There is a DHCP range that include the given IP address."
+msgstr ""
+
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:192
 #, fuzzy
 msgid "Floating IP Address"
 msgstr "Domeen või IP aadress"
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:93
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:201
 #, fuzzy
 msgid "Floating IP addresses"
 msgstr "Domeen või IP aadress"
 
-#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:97
+#: ../../main/ha/src/EBox/HA/Model/FloatingIP.pm:205
 #, fuzzy
 msgid "floating IP address"
 msgstr "Domeen või IP aadress"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:54
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:91
+#: ../../main/ha/src/EBox/HA/Model/Nodes.pm:110
+#, perl-brace-format
+msgid "Node list for {name} cluster"
+msgstr ""
+
+#: ../../main/ha/src/EBox/HA/Model/Nodes.pm:128
+#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
+#: ../../main/core/src/EBox/SysInfo.pm:334
+#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
+msgid "Hostname"
+msgstr "Masinanimi"
+
+#: ../../main/ha/src/EBox/HA/Model/Nodes.pm:143
+msgid "Node list for cluster"
+msgstr ""
+
+#: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:57
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:114
+#, fuzzy
+msgid "Cluster name"
+msgstr "kasutajanimi"
+
+#: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:58
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:107
+#, fuzzy
+msgid "Cluster secret"
+msgstr "kasutajanimi"
+
+#: ../../main/ha/src/EBox/HA/Model/ClusterMetadata.pm:59
+#, fuzzy
+msgid "Current DC"
+msgstr "Aktiivne moodul"
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:87
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:136
 #, fuzzy
 msgid "Cluster configuration"
 msgstr "Kliendi seadistamine"
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:59
-msgid "Start a new cluster"
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:94
+#, fuzzy
+msgid "Cluster host"
+msgstr "kasutajanimi"
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:100
+#, fuzzy
+msgid "Cluster host port"
+msgstr "kasutajanimi"
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:122
+#, fuzzy
+msgid "Choose network interface"
+msgstr "võrguliides"
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:124
+msgid "It will be used as communication channel between the cluster members."
 msgstr ""
 
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:63
-msgid "Join to an existing cluster"
-msgstr ""
-
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:69
-#: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
-#, fuzzy
-msgid "Zentyal host"
-msgstr "eBoxi kodulehekülg"
-
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:74
-#, fuzzy
-msgid "WebAdmin port"
-msgstr "AD parool"
-
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:82
-#, fuzzy
-msgid "Interface for communication"
-msgstr "Kuulatav liides"
-
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:84
-msgid "Use a static configured interface is highly recommended"
-msgstr ""
-
-#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:95
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:128
 msgid ""
 "Configure how this server will start a cluster or it will join to an "
 "existing one"
+msgstr ""
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:130
+msgid "If you change any setting, you may suffer a service cluster disruption,"
+msgstr ""
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:151
+#, fuzzy
+msgid "Create a new cluster"
+msgstr "E-posti aliaste loomine"
+
+#: ../../main/ha/src/EBox/HA/Model/Cluster.pm:152
+msgid "Join this node to an existing cluster"
 msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Composite/AlertReport.pm:40
@@ -1385,14 +1455,14 @@ msgstr "Reeglid"
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesOptions.pm:67
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:182
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:132
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:401
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:407
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:73
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToInternalRuleTable.pm:77
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:165
 #: ../../main/firewall/src/EBox/Firewall/Model/InternalToEBoxRuleTable.pm:73
 #: ../../main/firewall/src/EBox/Firewall/Model/ToInternetRuleTable.pm:75
 #: ../../main/firewall/src/EBox/Firewall/Model/ExternalToEBoxRuleTable.pm:76
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:116
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:118
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:206
 msgid "rule"
 msgstr "reegel"
@@ -1404,8 +1474,8 @@ msgstr ""
 
 #: ../../main/ips/src/EBox/IPS/Model/Rules.pm:262
 #: ../../main/core/src/EBox/Event/Dispatcher/Log.pm:169
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:329
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:131
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:330
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:132
 msgid "Log"
 msgstr "Logi"
 
@@ -1435,43 +1505,41 @@ msgstr "Kommentaar"
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:183
 #: ../../main/network/src/EBox/Network/Model/DNSResolver.pm:108
 #: ../../main/network/src/EBox/Network/Model/SearchDomain.pm:76
-#: ../../main/network/src/EBox/Network.pm:1205
-#: ../../main/network/src/EBox/Network.pm:1237
-#: ../../main/network/src/EBox/Network.pm:1322
-#: ../../main/network/src/EBox/Network.pm:1361
-#: ../../main/network/src/EBox/Network.pm:1389
-#: ../../main/network/src/EBox/Network.pm:1479
-#: ../../main/network/src/EBox/Network.pm:1676
-#: ../../main/network/src/EBox/Network.pm:1768
-#: ../../main/network/src/EBox/Network.pm:1869
+#: ../../main/network/src/EBox/Network.pm:1208
+#: ../../main/network/src/EBox/Network.pm:1240
+#: ../../main/network/src/EBox/Network.pm:1325
+#: ../../main/network/src/EBox/Network.pm:1364
+#: ../../main/network/src/EBox/Network.pm:1392
+#: ../../main/network/src/EBox/Network.pm:1482
+#: ../../main/network/src/EBox/Network.pm:1682
+#: ../../main/network/src/EBox/Network.pm:1774
 #: ../../main/network/src/EBox/Network.pm:1875
-#: ../../main/network/src/EBox/Network.pm:1976
+#: ../../main/network/src/EBox/Network.pm:1881
 #: ../../main/network/src/EBox/Network.pm:1982
-#: ../../main/network/src/EBox/Network.pm:2434
-#: ../../main/network/src/EBox/Network.pm:2512
-#: ../../main/network/src/EBox/Network.pm:2552
-#: ../../main/network/src/EBox/Network.pm:2579
-#: ../../main/network/src/EBox/Network.pm:2606
-#: ../../main/network/src/EBox/Network.pm:2633
-#: ../../main/network/src/EBox/Network.pm:2660
-#: ../../main/network/src/EBox/Network.pm:2687
-#: ../../main/network/src/EBox/Network.pm:2750
-#: ../../main/network/src/EBox/Network.pm:2795
-#: ../../main/network/src/EBox/Network.pm:2828
-#: ../../main/network/src/EBox/Network.pm:4029
-#: ../../main/network/src/EBox/Network.pm:4067
-#: ../../main/network/src/EBox/Network.pm:4089
-#: ../../main/network/src/EBox/Network.pm:4114
-#: ../../main/network/src/EBox/Network.pm:4135
-#: ../../main/network/src/EBox/Network.pm:4164
-#: ../../main/network/src/EBox/Network.pm:4223
-#: ../../main/network/src/EBox/Network.pm:4246
-#: ../../main/network/src/EBox/Network.pm:4269
-#: ../../main/network/src/EBox/Network.pm:4293
-#: ../../main/network/src/EBox/Network.pm:4321
+#: ../../main/network/src/EBox/Network.pm:1988
+#: ../../main/network/src/EBox/Network.pm:2440
+#: ../../main/network/src/EBox/Network.pm:2518
+#: ../../main/network/src/EBox/Network.pm:2558
+#: ../../main/network/src/EBox/Network.pm:2585
+#: ../../main/network/src/EBox/Network.pm:2612
+#: ../../main/network/src/EBox/Network.pm:2639
+#: ../../main/network/src/EBox/Network.pm:2666
+#: ../../main/network/src/EBox/Network.pm:2693
+#: ../../main/network/src/EBox/Network.pm:2756
+#: ../../main/network/src/EBox/Network.pm:2801
+#: ../../main/network/src/EBox/Network.pm:2834
+#: ../../main/network/src/EBox/Network.pm:4037
+#: ../../main/network/src/EBox/Network.pm:4075
+#: ../../main/network/src/EBox/Network.pm:4097
+#: ../../main/network/src/EBox/Network.pm:4122
+#: ../../main/network/src/EBox/Network.pm:4143
+#: ../../main/network/src/EBox/Network.pm:4172
+#: ../../main/network/src/EBox/Network.pm:4231
+#: ../../main/network/src/EBox/Network.pm:4254
+#: ../../main/network/src/EBox/Network.pm:4277
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:413
 #: ../../main/trafficshaping/src/EBox/TrafficShaping.pm:852
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:273
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:279
 #: ../../main/trafficshaping/src/EBox/TC.pm:107
 #: ../../main/dhcp/src/EBox/DHCP.pm:346 ../../main/dhcp/src/EBox/DHCP.pm:382
 #: ../../main/dhcp/src/EBox/DHCP.pm:432 ../../main/dhcp/src/EBox/DHCP.pm:478
@@ -1488,7 +1556,7 @@ msgid "Interface"
 msgstr "Liides"
 
 #: ../../main/ips/src/EBox/IPS/Model/Interfaces.pm:131
-#: ../../main/network/src/EBox/Network.pm:4568
+#: ../../main/network/src/EBox/Network.pm:4524
 #: ../../main/dhcp/src/EBox/DHCP/Model/Interfaces.pm:142
 msgid "Interfaces"
 msgstr "Liidesed"
@@ -1521,7 +1589,7 @@ msgstr ""
 
 #: ../../main/ips/src/EBox/IPS.pm:308
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:143
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:354
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:360
 msgid "Priority"
 msgstr "Prioriteet"
 
@@ -1532,14 +1600,14 @@ msgstr "Prioriteet"
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:67
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:55
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:201
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:200
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:124
 #: ../../main/core/src/EBox/Events/Model/ConfigureWatchers.pm:210
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:336
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:337
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:178
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:138
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:139
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:132
 #: ../../main/users/src/templates/addgroup.mas:15
-#: ../../main/users/src/templates/editgroup.mas:37
+#: ../../main/users/src/templates/editgroup.mas:38
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/adduser.mas:23
 #: ../../main/users/src/templates/editcontact.mas:20
@@ -1562,15 +1630,15 @@ msgstr "Kirjeldus"
 #: ../../main/ips/src/EBox/IPS.pm:310
 #: ../../main/antivirus/src/EBox/AntiVirus.pm:397
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:94
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:299
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:305
 #: ../../main/core/src/EBox/Events.pm:437
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:46
 #: ../../main/core/src/EBox/Events/Model/EventsDetails.pm:66
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:274
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:275
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:108
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:71
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:72
 #: ../../main/firewall/src/EBox/Firewall.pm:740
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:53
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:55
 #, fuzzy
 msgid "Source"
 msgstr ""
@@ -1587,16 +1655,16 @@ msgstr ""
 
 #: ../../main/ips/src/EBox/IPS.pm:311
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:122
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:330
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:336
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:139
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:95
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:96
 #: ../../main/firewall/src/EBox/Firewall.pm:741
 msgid "Destination"
 msgstr "Sihtkoht"
 
 #: ../../main/ips/src/EBox/IPS.pm:312
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:137
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:255
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:256
 #: ../../main/firewall/src/EBox/Firewall.pm:742
 #: ../../main/mail/src/EBox/Mail/CGI/AddExternalAccount.pm:42
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:143
@@ -1647,10 +1715,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/webserver/src/EBox/WebServer.pm:69
-#: ../../main/webserver/src/EBox/WebServer.pm:163
-#: ../../main/webserver/src/EBox/WebServer.pm:616
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:45
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:181
+#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:80
 msgid "Web Server"
 msgstr "Veebiserver"
 
@@ -1707,33 +1772,34 @@ msgstr "ntp init skripti linkide eemaldamine"
 msgid "Zentyal will take care of starting and stopping the services."
 msgstr "eBox kannab hoolt teenuste käivitamise ja peatamise eest."
 
-#: ../../main/webserver/src/EBox/WebServer.pm:164
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:182
-#, fuzzy
-msgid "Zentyal Web Server"
-msgstr "Veebiserver"
-
-#: ../../main/webserver/src/EBox/WebServer.pm:549
+#: ../../main/webserver/src/EBox/WebServer.pm:604
 #, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host configuration. Please, move or "
 "remove it"
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer.pm:564
+#: ../../main/webserver/src/EBox/WebServer.pm:619
 #, perl-brace-format
 msgid ""
 "{dir} should be a directory for virtual host document root. Please, move or "
 "remove it"
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer.pm:807
+#: ../../main/webserver/src/EBox/WebServer.pm:861
 #, fuzzy
 msgid "Web server data"
 msgstr "Veebiserveri olek"
 
+#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:57
+#, perl-brace-format
+msgid ""
+"You must enable {module} ports on the Zentyal's reverse proxy configuration "
+"at {ohref}System's General configuration page{chref}."
+msgstr ""
+
 # lihttekstis, vormindamata tekstis
-#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:47
+#: ../../main/webserver/src/EBox/WebServer/Composite/General.pm:82
 #, fuzzy
 msgid ""
 "The Zentyal webserver allows you to host HTTP and HTTPS pages within "
@@ -1742,43 +1808,24 @@ msgstr ""
 "eBoxi veebiteenus lubab sul majutada veebilehti HTML avatekstis erinevates "
 "virtuaalhostides"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:102
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:269
-msgid "Listening port"
-msgstr "Kuulatav port"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:115
-#, perl-brace-format
-msgid ""
-"Zentyal Administration is running on this port, change it on {ohref}System -"
-"> General{chref}."
-msgstr ""
-
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:121
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:133
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:275
-#, fuzzy
-msgid "Listening SSL port"
-msgstr "Kuulatav port"
-
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:147
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:90
 msgid ""
 "Having installed and configured the Users and Groups module is required to "
 "allow HTML directories for users."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:153
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:96
 msgid ""
 "A properly configured Users and Groups module is required to allow HTML "
 "directories for users. To configure it, please enable it at least one time."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:240
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:133
 #, fuzzy
 msgid "Configuration Settings saved."
 msgstr "Üldine seadistamine"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:241
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:134
 #, perl-brace-format
 msgid ""
 "Remember that in order to have UserDir working, you should create the {p} "
@@ -1787,19 +1834,19 @@ msgid ""
 msgstr ""
 
 # ei osanud "per-user" tõlkida
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:292
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:159
 #, perl-brace-format
 msgid "Enable per user {dirName}"
 msgstr "Luba kasutajatele {dirName}"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:296
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:162
 msgid ""
 "Allow users to publish web documents using the public_html directory on "
 "their home."
 msgstr ""
 
 # või ka lihtsalt "üldised seadistused"
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:304
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:168
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:181
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:144
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:163
@@ -1807,18 +1854,19 @@ msgid "General configuration settings"
 msgstr "Üldised seadistused"
 
 #  
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:308
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:172
 #, fuzzy, perl-brace-format
 msgid ""
-"General Web server configuration. The listening port must not be used by "
-"another service. If you enable user to publish their own html pages, those "
-"should be loaded from {dirName} directory from their home directories."
+"General Web server configuration. If you enable user to publish their own "
+"html pages, those should be loaded from {dirName} directory from their home "
+"directories. If you want to change the public ports or enable/disable SSL, "
+"you can do it from the {ohref}System's General configuration page{chref}."
 msgstr ""
 "Veebiserveri üldine seadistamine. Kuulatav port ei tohi olla saadud teiselt "
 "teenuselt. Kui lubad kasutajatel avaldada oma html lehekülgi, laetakse "
 "leheküljed kataloogist {dirName}, mis asub samba kodukataloogis."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:314
+#: ../../main/webserver/src/EBox/WebServer/Model/GeneralSettings.pm:181
 #, fuzzy
 msgid "General Web server configuration settings updated."
 msgstr "Veebiserveri üldised seadistused on uuendatud"
@@ -1831,7 +1879,7 @@ msgstr "Virtuaalhosti nimi"
 # #-#-#-#-#  et.po (ebox-webserver 1.4)  #-#-#-#-#
 # Virtuaalhosting
 #: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:96
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:327
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:329
 #: ../../main/webmail/src/EBox/WebMail/Model/Options.pm:53
 #: ../../main/zarafa/src/EBox/Zarafa/Model/GeneralSettings.pm:131
 #, fuzzy
@@ -1843,19 +1891,19 @@ msgstr ""
 "Virtuaalhostid"
 
 #  
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:108
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:109
 #, fuzzy
 msgid "You need to enable Listening SSL port."
 msgstr "Veebiserveri portide kuulamiseks"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:113
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:114
 #, perl-brace-format
 msgid ""
-"You need to enable Web Server on {ohref}Services Certificates{chref} to "
-"enable SSL on a virtal host."
+"You need to enable {module} on {ohref}Services Certificates{chref} to enable "
+"SSL on a virtal host."
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:167
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:169
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been createdPlease, check "
@@ -1864,7 +1912,7 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Loodud domeen {domain} on seotud nimega "
 "{name} - IP aadressiga {ip}. {noDnsWarning} "
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:175
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:177
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A domain {domain} has been created with the host "
@@ -1873,7 +1921,7 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Loodud domeen {domain} on seotud nimega "
 "{name} - IP aadressiga {ip}. {noDnsWarning} "
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:197
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:199
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual host {vhost} added. A host {name} has been added to {domain} domain. "
@@ -1882,36 +1930,36 @@ msgstr ""
 "Virtuaalhost {vhost} on lisatud. Seotud nimi {name} - IP aadressiga {ip} on "
 "lisatud {domain} domeeni"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:205
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:207
 #, fuzzy, perl-brace-format
 msgid "Virtual host {vhost} added."
 msgstr "Virtuaalhost {vhost} lisatud"
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:271
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:273
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:102
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:119
 msgid "Allow SSL"
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:272
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:274
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:103
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:120
 msgid "Force SSL"
 msgstr ""
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:296
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:298
 #: ../../main/jabber/src/EBox/Jabber/Model/GeneralSettings.pm:129
 #: ../../main/ftp/src/EBox/FTP/Model/Options.pm:153
 msgid "SSL support"
 msgstr "SSLi tugi"
 
 # Virtuaalhosting
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:313
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:315
 msgid "Virtual hosts"
 msgstr "Virtuaalhostid"
 
 # pole päris sõna sõnalt tõlge, aga mõte peaks olema edasi antud
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:317
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:319
 #, fuzzy, perl-brace-format
 msgid ""
 "Virtual hosts are a form of web hosting service where many instances of the "
@@ -1927,12 +1975,12 @@ msgstr ""
 "lisada mingeid erilisi seadistusi, siis need tuleks paigutada {userConf} "
 "kataloogi."
 
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:333
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:335
 msgid "Virtual host deleted. The virtual host files will be left in place"
 msgstr ""
 
 # mapping - teisendus, transleerimine
-#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:351
+#: ../../main/webserver/src/EBox/WebServer/Model/VHostTable.pm:353
 #, fuzzy, perl-brace-format
 msgid ""
 "{open}The DNS module is disabled. The added mapping or domains will not have "
@@ -2023,8 +2071,8 @@ msgstr ""
 #: ../../main/dns/src/EBox/DNS/Model/DomainIpTable.pm:68
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:183
 #: ../../main/radius/src/EBox/Radius/Model/Clients.pm:110
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:240
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:103
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:241
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:104
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:147
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:82
 msgid "IP Address"
@@ -2043,7 +2091,7 @@ msgstr ""
 #: ../../main/nut/src/EBox/NUT/Model/UPS.pm:116
 #: ../../main/software/src/EBox/Software.pm:664
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:198
-#: ../../main/samba/src/EBox/Samba.pm:1200
+#: ../../main/samba/src/EBox/Samba.pm:1206
 #: ../../main/squid/src/EBox/Squid/Composite/FilterSettings.pm:57
 #: ../../main/mail/src/EBox/Mail/Model/VDomains.pm:66
 #: ../../main/software/src/templates/config.mas:14
@@ -2139,14 +2187,14 @@ msgstr "See domeen"
 #: ../../main/dhcp/src/EBox/DHCP/Model/DynamicDNS.pm:212
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:251
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsL2TP.pm:277
-#: ../../main/mail/src/EBox/Mail.pm:1397
+#: ../../main/mail/src/EBox/Mail.pm:1410
 msgid "Custom"
 msgstr "Kohandatud"
 
 #: ../../main/dns/src/EBox/DNS/Model/Services.pm:193
 #: ../../main/dns/src/EBox/DNS/Model/DomainTable.pm:585
 #: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:150
-#: ../../main/services/src/EBox/Services.pm:48
+#: ../../main/services/src/EBox/Services.pm:47
 msgid "Services"
 msgstr "Teenused"
 
@@ -2215,7 +2263,7 @@ msgstr ""
 
 #: ../../main/dns/src/EBox/DNS/Model/HostnameTable.pm:214
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:79
-#: ../../main/network/src/EBox/Network.pm:4385
+#: ../../main/network/src/EBox/Network.pm:4341
 msgid "host name"
 msgstr "masinanimi"
 
@@ -2286,8 +2334,8 @@ msgstr ""
 #: ../../main/core/src/EBox/Logs/Model/ConfigureLogs.pm:380
 #: ../../main/core/src/EBox/Events/Model/LogWatcherConfiguration.pm:188
 #: ../../main/samba/src/EBox/Samba/Model/GeneralSettings.pm:197
-#: ../../main/samba/src/EBox/Samba.pm:1194
-#: ../../main/squid/src/EBox/Squid.pm:1120
+#: ../../main/samba/src/EBox/Samba.pm:1200
+#: ../../main/squid/src/EBox/Squid.pm:1130
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:94
 #: ../../main/mail/src/EBox/Mail/Model/ExternalAliases.pm:61
 msgid "Domain"
@@ -2458,7 +2506,7 @@ msgstr ""
 #: ../../main/core/src/cgi/ebox.cgi:49
 #: ../../main/core/src/EBox/Event/Dispatcher/RSS.pm:317
 #: ../../main/core/src/EBox/Html.pm:139
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:237
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:238
 #: ../../main/core/src/templates/login/index.mas:15
 #: ../../main/core/src/templates/headerWithRefresh.mas:14
 #, fuzzy
@@ -2519,7 +2567,7 @@ msgstr "Aruande ajaperiood"
 #: ../../main/core/src/templates/input/dialogCancel.mas:6
 #: ../../main/core/src/templates/logout/index.mas:18
 #: ../../main/core/src/templates/confirm-backup.mas:58
-#: ../../main/core/src/templates/dataInUse.mas:36
+#: ../../main/core/src/templates/dataInUse.mas:37
 #: ../../main/openchange/src/templates/migration/progress.mas:26
 #: ../../main/software/src/templates/del.mas:86
 #: ../../main/mail/src/templates/warnvd.mas:27
@@ -2608,7 +2656,7 @@ msgid "Captive Portal"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal.pm:67
-#: ../../main/mail/src/EBox/Mail.pm:120
+#: ../../main/mail/src/EBox/Mail.pm:132
 #, fuzzy
 msgid "Add LDAP schemas"
 msgstr ""
@@ -2683,8 +2731,8 @@ msgstr "Sa ei ole sisse logitud"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/CGI/UserOptions.pm:43
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:173
 #: ../../main/jabber/src/EBox/Jabber/CGI/JabberUserOptions.pm:43
-#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:93
-#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:102
+#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:94
+#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:103
 #: ../../main/users/src/EBox/Users/User.pm:84
 #: ../../main/zarafa/src/EBox/Zarafa/CGI/ZarafaUserOptions.pm:42
 #: ../../main/openchange/src/EBox/OpenChange/CGI/OpenChangeUserOptions.pm:46
@@ -2827,7 +2875,7 @@ msgid ""
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Exceptions.pm:175
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:653
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:770
 #, perl-brace-format
 msgid "Object: {o}"
 msgstr "Objekt: {o}"
@@ -2839,7 +2887,7 @@ msgstr "Teenused"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:53
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:209
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:263
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:277
 #: ../../main/l7-protocols/src/EBox/L7Protocols/Model/Groups.pm:51
 #: ../../main/users/src/templates/addobject.mas:10
 #: ../../main/users/src/templates/adduser.mas:55
@@ -2866,17 +2914,19 @@ msgid "seconds"
 msgstr "sekundit"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:71
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:179
 #, fuzzy
 msgid "HTTP port"
 msgstr "suvaline TCP port"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:77
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:208
 #, fuzzy
 msgid "HTTPS port"
 msgstr "suvaline TCP port"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:86
-#: ../../main/squid/src/EBox/Squid.pm:1059
+#: ../../main/squid/src/EBox/Squid.pm:1069
 #: ../../main/squid/src/EBox/Squid/Model/GeneralSettings.pm:85
 #: ../../main/ntp/src/EBox/NTP/Model/Settings.pm:56
 #, fuzzy
@@ -2891,8 +2941,8 @@ msgstr "Sellel leheküljel saab määrata üldiseid Samba seadistusi"
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Settings.pm:103
 #: ../../main/radius/src/EBox/Radius/Model/Auth.pm:101
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:82
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:311
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:152
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:325
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:154
 msgid "All users"
 msgstr "Kõik kasutajad"
 
@@ -2965,11 +3015,11 @@ msgstr "Läbilaskevõime piiramine"
 #: ../../main/webmail/src/EBox/WebMail/Model/RemoteServerConfiguration.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:112
 #: ../../main/core/src/EBox/AuditLogging.pm:142
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:258
-#: ../../main/samba/src/EBox/Samba.pm:1553
-#: ../../main/samba/src/EBox/Samba.pm:1573
-#: ../../main/samba/src/EBox/Samba.pm:1584
-#: ../../main/squid/src/EBox/Squid.pm:1118
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
+#: ../../main/samba/src/EBox/Samba.pm:1559
+#: ../../main/samba/src/EBox/Samba.pm:1579
+#: ../../main/samba/src/EBox/Samba.pm:1590
+#: ../../main/squid/src/EBox/Squid.pm:1128
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:41
 #: ../../main/squid/src/EBox/Squid/Model/TrafficDetails.pm:62
 #: ../../main/ipsec/src/EBox/IPsec/Model/UsersFile.pm:70
@@ -2999,7 +3049,7 @@ msgstr ""
 "Kasutaja"
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:114
-#: ../../main/core/src/EBox/SysInfo.pm:312
+#: ../../main/core/src/EBox/SysInfo.pm:333
 #: ../../main/core/src/EBox/SysInfo/Model/DateTime.pm:56
 #, fuzzy
 msgid "Time"
@@ -3012,7 +3062,7 @@ msgstr ""
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Users.pm:125
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:95
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:103
-#: ../../main/network/src/EBox/Network.pm:4502
+#: ../../main/network/src/EBox/Network.pm:4458
 #: ../../main/objects/src/EBox/Objects/Model/MemberTable.pm:88
 #: ../../main/dhcp/src/EBox/DHCP.pm:973 ../../main/dhcp/src/EBox/DHCP.pm:1064
 #: ../../main/network/src/templates/diag.mas:33
@@ -3106,7 +3156,7 @@ msgid "Interface {if} set to {val} in bandwith monitor module"
 msgstr ""
 
 #: ../../main/captiveportal/src/EBox/CaptivePortal/Model/Interfaces.pm:93
-#: ../../main/mail/src/EBox/Mail.pm:1382
+#: ../../main/mail/src/EBox/Mail.pm:1395
 msgid "enabled"
 msgstr "lubatud"
 
@@ -3344,7 +3394,7 @@ msgstr "Printer"
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:124
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:199
 #: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:131
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:253
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:267
 msgid "User/Group"
 msgstr "Kasutaja/grupp"
 
@@ -3359,17 +3409,17 @@ msgid "Any access control is disabled if guest access is allowed."
 msgstr ""
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:219
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:272
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:286
 msgid "Permissions"
 msgstr "Õigused"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:227
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:281
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:295
 msgid "Access Control"
 msgstr "Ligipääsu kontroll"
 
 #: ../../main/printers/src/EBox/Printers/Model/PrinterPermissions.pm:234
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:288
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:302
 msgid "ACL"
 msgstr "Pääsuloend"
 
@@ -3570,9 +3620,9 @@ msgstr "Sertifitseerimiskeskus"
 #: ../../main/ca/src/EBox/CA/CGI/IssueCertificate.pm:100
 #: ../../main/ca/src/EBox/CA/TestStub.pm:158
 #: ../../main/ca/src/EBox/CA/TestStub.pm:258
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:64
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:73
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:345
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:65
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:74
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:347
 #: ../../main/ca/src/templates/createCA.mas:7
 #: ../../main/ca/src/templates/formRenew.mas:38
 #: ../../main/ca/src/templates/index.mas:22
@@ -3677,9 +3727,9 @@ msgstr "Selle üldise nimega {cn} sertifikaati EI ole SKs olemas"
 #: ../../main/ca/src/EBox/CA.pm:1743
 #: ../../main/mailfilter/src/EBox/MailFilter/Model/AmavisConfiguration.pm:100
 #: ../../main/zarafa/src/EBox/Zarafa.pm:763
-#: ../../main/core/src/EBox/SysInfo.pm:110
+#: ../../main/core/src/EBox/SysInfo.pm:115
 #: ../../main/ipsec/src/EBox/IPsec/Model/SettingsBase.pm:164
-#: ../../main/mail/src/EBox/Mail.pm:1433
+#: ../../main/mail/src/EBox/Mail.pm:1446
 #, fuzzy
 msgid "General"
 msgstr ""
@@ -3796,17 +3846,19 @@ msgstr ""
 #: ../../main/mailfilter/src/EBox/MailFilter.pm:605
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:628
 #: ../../main/core/src/EBox/Model/DataTable.pm:1760
-#: ../../main/core/src/EBox/Model/Composite.pm:495
-#: ../../main/core/src/EBox/Model/Composite.pm:510
+#: ../../main/core/src/EBox/Model/Composite.pm:497
+#: ../../main/core/src/EBox/Model/Composite.pm:512
+#: ../../main/core/src/EBox/Model/Template.pm:154
+#: ../../main/core/src/EBox/Model/Template.pm:173
 #: ../../main/core/src/EBox/AuditLogging.pm:126
-#: ../../main/samba/src/EBox/Samba.pm:1554
+#: ../../main/samba/src/EBox/Samba.pm:1560
 #: ../../main/dns/src/templates/index.mas:22
 #: ../../main/dns/src/templates/edit.mas:20
 #: ../../main/network/src/templates/ifaces.mas:194
 #: ../../main/network/src/templates/ifaces.mas:233
 #: ../../main/core/src/templates/ajax/tableBody.mas:322
 #: ../../main/core/src/templates/configureView.mas:38
-#: ../../main/mail/src/templates/groupalias.mas:21
+#: ../../main/mail/src/templates/groupalias.mas:24
 #: ../../main/mail/src/templates/externalAccounts.mas:166
 #: ../../main/mail/src/templates/alias.mas:32
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -4139,7 +4191,7 @@ msgstr "AD sünkroniseerimise seadistused"
 msgid "setting"
 msgstr "Seadistused"
 
-#: ../../main/nut/src/EBox/NUT.pm:47 ../../main/core/src/EBox/SysInfo.pm:129
+#: ../../main/nut/src/EBox/NUT.pm:47 ../../main/core/src/EBox/SysInfo.pm:134
 #: ../../main/core/src/EBox/Logs.pm:657 ../../main/core/src/EBox/Events.pm:137
 #: ../../main/monitor/src/EBox/Monitor.pm:148
 #, fuzzy
@@ -4182,16 +4234,16 @@ msgstr "Läbilaskevõime piiramine"
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:62
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:187
 #: ../../main/network/src/EBox/Network.pm:116
-#: ../../main/network/src/EBox/Network.pm:4563
-#: ../../main/objects/src/EBox/Objects.pm:316
-#: ../../main/services/src/EBox/Services.pm:631
+#: ../../main/network/src/EBox/Network.pm:4519
+#: ../../main/objects/src/EBox/Objects.pm:317
+#: ../../main/services/src/EBox/Services.pm:605
 msgid "Network"
 msgstr "Võrk"
 
 #: ../../main/bwmonitor/src/EBox/BWMonitor.pm:304
-#: ../../main/samba/src/EBox/Samba.pm:1552
-#: ../../main/samba/src/EBox/Samba.pm:1572
-#: ../../main/samba/src/EBox/Samba.pm:1583
+#: ../../main/samba/src/EBox/Samba.pm:1558
+#: ../../main/samba/src/EBox/Samba.pm:1578
+#: ../../main/samba/src/EBox/Samba.pm:1589
 msgid "Client address"
 msgstr "Kliendi aadress"
 
@@ -4770,8 +4822,8 @@ msgstr "grupi nimi"
 #: ../../main/users/src/EBox/Users/CGI/DeleteOU.pm:42
 #: ../../main/users/src/EBox/Users/CGI/DeleteContact.pm:41
 #: ../../main/users/src/EBox/Users/Model/Manage.pm:154
-#: ../../main/core/src/EBox/SysInfo.pm:318
-#: ../../main/users/src/templates/editgroup.mas:49
+#: ../../main/core/src/EBox/SysInfo.pm:339
+#: ../../main/users/src/templates/editgroup.mas:50
 msgid "Users"
 msgstr "Kasutajad"
 
@@ -4782,7 +4834,7 @@ msgstr "kvoot"
 #: ../../main/users/src/EBox/Users/CGI/EditUser.pm:76
 #: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:68
 #: ../../main/users/src/EBox/Users/CGI/AddContact.pm:56
-#: ../../main/users/src/templates/editgroup.mas:40
+#: ../../main/users/src/templates/editgroup.mas:41
 #: ../../main/users/src/templates/edituser.mas:44
 #: ../../main/users/src/templates/editcontact.mas:20
 #: ../../main/users/src/templates/addcontact.mas:28
@@ -4820,14 +4872,14 @@ msgstr "Gruppide redigeerimine"
 msgid "type"
 msgstr "tüüp"
 
-#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:90
+#: ../../main/users/src/EBox/Users/CGI/EditGroup.pm:91
 #, fuzzy
 msgid "Group updated"
 msgstr "{row} uuendatud"
 
 #: ../../main/users/src/EBox/Users/CGI/AddUser.pm:47
-#: ../../main/users/src/EBox/Users/User.pm:457
-#: ../../main/users/src/EBox/Users/User.pm:496
+#: ../../main/users/src/EBox/Users/User.pm:463
+#: ../../main/users/src/EBox/Users/User.pm:502
 #: ../../main/network/src/EBox/Network/CGI/Iface.pm:102
 msgid "user name"
 msgstr "kasutajanimi"
@@ -4857,7 +4909,7 @@ msgstr ""
 
 #: ../../main/users/src/EBox/Users/InetOrgPerson.pm:367
 #: ../../main/samba/src/EBox/Samba/Contact.pm:102
-#: ../../main/samba/src/EBox/Samba/User.pm:372
+#: ../../main/samba/src/EBox/Samba/User.pm:375
 msgid "Error on person LDAP entry creation:"
 msgstr ""
 
@@ -4882,13 +4934,13 @@ msgid ""
 msgstr "Seadistamisvalikud, mida kasutatakse uue kasutajakonto loomisel."
 
 #: ../../main/users/src/EBox/Users/Group.pm:114
-#: ../../main/users/src/EBox/Users/LdapObject.pm:381
+#: ../../main/users/src/EBox/Users/LdapObject.pm:388
 #: ../../main/users/src/EBox/Users/User.pm:129
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:107
 #: ../../main/samba/src/EBox/Samba/GPO.pm:143
 #: ../../main/samba/src/EBox/Samba/GPO.pm:157
-#: ../../main/samba/src/EBox/Samba/LdbObject.pm:234
-#: ../../main/samba/src/EBox/Samba.pm:2381
+#: ../../main/samba/src/EBox/Samba/LdbObject.pm:247
+#: ../../main/samba/src/EBox/Samba.pm:2387
 #, perl-brace-format
 msgid "Found {count} results for, expected only one."
 msgstr ""
@@ -4952,13 +5004,13 @@ msgstr "Grupi GID {gid} on vigane. GID peab olema võrdne või suurem kui {min}"
 msgid "Incorrect GID {gid} for a system group . GID must be lesser than {max}"
 msgstr "Systeemi grupi GID {gid} on vigane. GID peab olema väiksem kui {max}"
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:280
-#: ../../main/samba/src/EBox/Samba/LdbObject.pm:181
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:320
+#: ../../main/users/src/EBox/Users/LdapObject.pm:287
+#: ../../main/samba/src/EBox/Samba/LdbObject.pm:194
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:324
 msgid "There was an error updating LDAP:"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/LdapObject.pm:658
+#: ../../main/users/src/EBox/Users/LdapObject.pm:665
 #, perl-brace-format
 msgid ""
 "There exists already a object of type {type} with CN={cn} in this container"
@@ -4998,8 +5050,8 @@ msgid "Error on contact LDAP entry creation:"
 msgstr ""
 
 #: ../../main/users/src/EBox/Users/User.pm:188
-#: ../../main/users/src/EBox/Users/User.pm:301
-#: ../../main/users/src/EBox/Users/User.pm:311
+#: ../../main/users/src/EBox/Users/User.pm:307
+#: ../../main/users/src/EBox/Users/User.pm:317
 #, fuzzy
 msgid "user quota"
 msgstr "Kohandatud kvoot"
@@ -5008,102 +5060,102 @@ msgstr "Kohandatud kvoot"
 msgid "User quota must be an integer. To set an unlimited quota, enter zero."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:304
+#: ../../main/users/src/EBox/Users/User.pm:310
 #, fuzzy
 msgid ""
 "User quota must be a positive integer. To set an unlimited quota, enter zero."
 msgstr ""
 "Kvoot saab olla ainult positiivne number või null piiramatu kvoodi puhul"
 
-#: ../../main/users/src/EBox/Users/User.pm:313
+#: ../../main/users/src/EBox/Users/User.pm:319
 #, perl-brace-format
 msgid "The maximum value is {max} MB"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:332
+#: ../../main/users/src/EBox/Users/User.pm:338
 #, perl-brace-format
 msgid ""
 "Cannot set quota for uid {uid} to {userQuota}. Maybe your file system does "
 "not support quota?"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:453
+#: ../../main/users/src/EBox/Users/User.pm:459
 msgid ""
 "To avoid problems, the uid should consist only of letters, digits, "
 "underscores, spaces, periods, dashs, not start with a dash and not end with "
 "dot"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:487
+#: ../../main/users/src/EBox/Users/User.pm:493
 #, perl-brace-format
 msgid "Username must not be longer than {maxuserlength} characters"
 msgstr "Kasutajanimi ei tohi olla pikem kui {maxuserlength} märki"
 
-#: ../../main/users/src/EBox/Users/User.pm:494
+#: ../../main/users/src/EBox/Users/User.pm:500
 #, perl-brace-format
 msgid "The user {uid} already exists as built-in Windows user"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:503
+#: ../../main/users/src/EBox/Users/User.pm:509
 #, perl-brace-format
 msgid ""
 "A built-in Windows group with the name '{name}' already exists. Users and "
 "groups cannot share names"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:508
+#: ../../main/users/src/EBox/Users/User.pm:514
 #, perl-brace-format
 msgid ""
 "A group account with the name '{name}' already exists. Users and groups "
 "cannot share names"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:520
+#: ../../main/users/src/EBox/Users/User.pm:526
 msgid "Username already exists on the system"
 msgstr "Kasutajanimi on süsteemis juba olemas"
 
-#: ../../main/users/src/EBox/Users/User.pm:542
+#: ../../main/users/src/EBox/Users/User.pm:548
 #, fuzzy, perl-brace-format
 msgid "The default group '{defaultgroup}' cannot be found!"
 msgstr "Lehekülge ei leitud"
 
-#: ../../main/users/src/EBox/Users/User.pm:546
+#: ../../main/users/src/EBox/Users/User.pm:552
 #, fuzzy
 msgid "default group"
 msgstr "Grupi kustutamine"
 
-#: ../../main/users/src/EBox/Users/User.pm:548
+#: ../../main/users/src/EBox/Users/User.pm:554
 msgid "Default group must be a security group."
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:599
+#: ../../main/users/src/EBox/Users/User.pm:605
 msgid "Error on user LDAP entry creation:"
 msgstr ""
 
-#: ../../main/users/src/EBox/Users/User.pm:750
+#: ../../main/users/src/EBox/Users/User.pm:756
 msgid "Maximum number of system users reached"
 msgstr "Lubatud maksimaalne arv süsteemi kasutajaid on juba täis"
 
-#: ../../main/users/src/EBox/Users/User.pm:755
+#: ../../main/users/src/EBox/Users/User.pm:761
 #, fuzzy
 msgid "Maximum number of users reached"
 msgstr "Lubatud maksimaalne arv süsteemi kasutajaid on juba täis"
 
-#: ../../main/users/src/EBox/Users/User.pm:772
+#: ../../main/users/src/EBox/Users/User.pm:778
 #, perl-brace-format
 msgid ""
 "Incorrect UID {uid} for a user . UID must be equal or greater than {min}"
 msgstr ""
 "Kasutaja UID {uid} on vigane. UID peab olema võrdne või suurem kui {min}"
 
-#: ../../main/users/src/EBox/Users/User.pm:782
+#: ../../main/users/src/EBox/Users/User.pm:788
 #, perl-brace-format
 msgid "Incorrect UID {uid} for a system user . UID must be lesser than {max}"
 msgstr ""
 "Systeemi kasutaja UID {uid} on vigane. UID peab olema väiksem kui {max}"
 
-#: ../../main/users/src/EBox/Users/User.pm:802
-#: ../../main/samba/src/EBox/Samba/User.pm:432
+#: ../../main/users/src/EBox/Users/User.pm:808
+#: ../../main/samba/src/EBox/Samba/User.pm:435
 #, perl-brace-format
 msgid "Password must not be longer than {maxPwdLength} characters"
 msgstr "Parool ei tohi olla pikem kui {maxPwdLength} märki"
@@ -5358,12 +5410,7 @@ msgstr "Gruppide DN"
 msgid "LDAP information"
 msgstr "LDAP informatsioon"
 
-#: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:101
-#: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:102
-msgid "Not available in external AD mode"
-msgstr ""
-
-#: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:142
+#: ../../main/users/src/EBox/Users/Model/LdapInfo.pm:138
 #, fuzzy
 msgid ""
 "You must enable the Users and Groups module to access the LDAP information."
@@ -5511,9 +5558,9 @@ msgstr ""
 #: ../../main/antivirus/src/EBox/AntiVirus/Model/FreshclamStatus.pm:91
 #: ../../main/mailfilter/src/EBox/MailFilter/Amavis.pm:435
 #: ../../main/mailfilter/src/EBox/MailFilter/POPProxy.pm:318
-#: ../../main/network/src/EBox/Network.pm:4497
+#: ../../main/network/src/EBox/Network.pm:4453
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:53
-#: ../../main/mail/src/EBox/Mail.pm:1384 ../../main/mail/src/EBox/Mail.pm:1501
+#: ../../main/mail/src/EBox/Mail.pm:1397 ../../main/mail/src/EBox/Mail.pm:1514
 #: ../../main/core/src/templates/report/raid.mas:100
 #: ../../main/core/src/templates/moduleStatusTable.mas:52
 #: ../../main/mail/src/templates/qmanager.mas:17
@@ -6761,13 +6808,13 @@ msgstr "Palun kinnita, et sa tõesti tahad kustutada järgneva kaugvarunduse:"
 #: ../../main/dns/src/templates/edit.mas:71
 #: ../../main/network/src/templates/ifaces.mas:217
 #: ../../main/network/src/templates/ifaces.mas:292
-#: ../../main/core/src/templates/ajax/tableBody.mas:441
+#: ../../main/core/src/templates/ajax/tableBody.mas:444
 #: ../../main/core/src/templates/ajax/row.mas:96
-#: ../../main/core/src/templates/dataInUse.mas:28
+#: ../../main/core/src/templates/dataInUse.mas:32
 #: ../../main/software/src/templates/ebox.mas:334
 #: ../../main/samba/src/templates/samba.mas:30
 #: ../../main/samba/src/templates/delgplink.mas:20
-#: ../../main/mail/src/templates/groupalias.mas:48
+#: ../../main/mail/src/templates/groupalias.mas:53
 #: ../../main/mail/src/templates/warnvd.mas:25
 #: ../../main/mail/src/templates/alias.mas:16
 #: ../../main/mail/src/templates/alias.mas:76
@@ -6831,7 +6878,7 @@ msgstr "Varundus kustutatud"
 msgid "Connection error"
 msgstr "Ühenduse viga"
 
-#: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:369
+#: ../../main/remoteservices/src/EBox/RemoteServices/RESTClient.pm:84
 #, perl-brace-format
 msgid ""
 "User/email address and password do not match. Did you forget your password? "
@@ -7203,7 +7250,7 @@ msgid "Registration data retrieved correctly."
 msgstr "Tellimuse andmed edukalt hangitud."
 
 #: ../../main/remoteservices/src/EBox/RemoteServices/Model/Subscription.pm:165
-#: ../../main/core/src/EBox/Model/DataForm.pm:676
+#: ../../main/core/src/EBox/Model/DataForm.pm:688
 #: ../../main/core/src/templates/progress.mas:34
 msgid "Done"
 msgstr "Valmis"
@@ -7770,7 +7817,7 @@ msgstr "Võrgudiagnostika tööriistad"
 #: ../../main/network/src/EBox/Network/CGI/Diag.pm:72
 #: ../../main/network/src/EBox/Network/Model/WANFailoverRules.pm:96
 #: ../../main/dhcp/src/EBox/DHCP/Model/ThinClientOptions.pm:162
-#: ../../main/squid/src/EBox/Squid.pm:1117
+#: ../../main/squid/src/EBox/Squid.pm:1127
 #: ../../main/network/src/templates/diag.mas:14
 #: ../../main/network/src/templates/diag.mas:19
 msgid "Host"
@@ -7792,19 +7839,19 @@ msgid "virtual interface name"
 msgstr "virtuaalse liidese nimi"
 
 #: ../../main/network/src/EBox/Network/CGI/Ifaces.pm:29
-#: ../../main/network/src/EBox/Network.pm:4544
+#: ../../main/network/src/EBox/Network.pm:4500
 msgid "Network Interfaces"
 msgstr "Võrguliidesed"
 
 #: ../../main/network/src/EBox/Network/CGI/Vlan.pm:42
-#: ../../main/network/src/EBox/Network.pm:2079
-#: ../../main/network/src/EBox/Network.pm:2110
+#: ../../main/network/src/EBox/Network.pm:2085
+#: ../../main/network/src/EBox/Network.pm:2116
 #: ../../main/network/src/templates/ifaces.mas:194
 msgid "VLAN Id"
 msgstr "VLAN ID"
 
 #: ../../main/network/src/EBox/Network/Composite/WANFailover.pm:55
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:421
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:427
 msgid "WAN Failover"
 msgstr "WAN tõrkesiire"
 
@@ -7897,17 +7944,17 @@ msgstr ""
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:99
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:127
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:304
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:335
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:310
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:341
 #: ../../main/core/src/EBox/Types/Service.pm:183
 #: ../../main/core/src/EBox/Types/PortRange.pm:289
 #: ../../main/core/src/EBox/Events/Model/LogFiltering.pm:113
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:279
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:280
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:113
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:144
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:76
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:100
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:76
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:77
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:101
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:78
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:129
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase2.pm:138
 #: ../../main/ipsec/src/EBox/IPsec/Model/ConfPhase1.pm:129
@@ -7917,30 +7964,30 @@ msgid "Any"
 msgstr "Suvaline"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:102
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:307
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:282
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:313
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:283
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:116
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:79
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:80
 msgid "Source IP"
 msgstr "IP lähteaadress"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:107
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:319
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:286
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:325
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:287
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:124
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:83
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:84
 msgid "Source object"
 msgstr "Lähteobjekt"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:130
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:338
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:298
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:344
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:299
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:147
 msgid "Destination IP"
 msgstr "IP sihtaadress"
 
 #: ../../main/network/src/EBox/Network/Model/MultiGwRulesDataTable.pm:135
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:343
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:349
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:151
 msgid "Destination object"
 msgstr "Sihtobjekt"
@@ -7973,12 +8020,6 @@ msgstr ""
 msgid "Enable Dynamic DNS"
 msgstr "Dünaamilise DNSi lubamine"
 
-#: ../../main/network/src/EBox/Network/Model/DynDNS.pm:215
-#: ../../main/core/src/EBox/SysInfo.pm:313
-#: ../../main/core/src/EBox/SysInfo/Model/HostName.pm:48
-msgid "Hostname"
-msgstr "Masinanimi"
-
 #: ../../main/network/src/EBox/Network/Model/DynDNS.pm:229
 msgid ""
 "You should select your provider from the list and enter your account data. "
@@ -7990,7 +8031,7 @@ msgid "Auto"
 msgstr "Automaatne"
 
 #: ../../main/network/src/EBox/Network/Model/GatewayTable.pm:187
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:276
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:282
 msgid "Interface connected to this gateway"
 msgstr "Selle lüüsiga ühendatud liides"
 
@@ -8289,7 +8330,7 @@ msgid "Static Routes List"
 msgstr "Staatiliste marsruutide loend"
 
 #: ../../main/network/src/EBox/Network/Model/StaticRoute.pm:211
-#: ../../main/network/src/EBox/Network.pm:4580
+#: ../../main/network/src/EBox/Network.pm:4536
 msgid "Static Routes"
 msgstr "Staatilised marsruudid"
 
@@ -8430,8 +8471,8 @@ msgid "Virtual interface name"
 msgstr "Virtuaalse liidese nimi"
 
 #: ../../main/network/src/EBox/Network.pm:1108
-#: ../../main/network/src/EBox/Network.pm:1482
-#: ../../main/network/src/EBox/Network.pm:4031
+#: ../../main/network/src/EBox/Network.pm:1485
+#: ../../main/network/src/EBox/Network.pm:4039
 #: ../../main/network/src/templates/wizard/network.mas:48
 #: ../../main/network/src/templates/ifaces.mas:128
 #: ../../main/network/src/templates/ifaces.mas:233
@@ -8443,28 +8484,28 @@ msgstr "Võrgumask"
 msgid "Address {ip} is already in use by interface {iface}"
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
-#: ../../main/network/src/EBox/Network.pm:1277
+#: ../../main/network/src/EBox/Network.pm:1280
 #, perl-brace-format
 msgid "There is already an interface called {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1289
+#: ../../main/network/src/EBox/Network.pm:1292
 #, perl-brace-format
 msgid "There is already a interface with the alias {al}"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1297
+#: ../../main/network/src/EBox/Network.pm:1300
 msgid ""
 "Cannot set an alias with the character \":\". This character is reserved for "
 "virtual interfaces"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:1507
+#: ../../main/network/src/EBox/Network.pm:1510
 #, fuzzy, perl-brace-format
 msgid "The IP {ip} is already assigned to interface {iface}"
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
 
-#: ../../main/network/src/EBox/Network.pm:1647
+#: ../../main/network/src/EBox/Network.pm:1653
 #, fuzzy, perl-brace-format
 msgid ""
 "Cannot use the address {addr} because interface {if} has already an address "
@@ -8472,11 +8513,11 @@ msgid ""
 msgstr ""
 "Nime {n} ei ole võimalik kasutada, kuna sellise nimega klient on juba olemas"
 
-#: ../../main/network/src/EBox/Network.pm:1773
+#: ../../main/network/src/EBox/Network.pm:1779
 msgid "This interface cannot be put in trunk mode, it is an vlan interface."
 msgstr "Seda liidest ei saa kasutada trunk režiimis, sest see on vlan liides."
 
-#: ../../main/network/src/EBox/Network.pm:1831
+#: ../../main/network/src/EBox/Network.pm:1837
 msgid ""
 "This interface is in trunk mode, you should unconfigure all the vlan "
 "interfaces in this trunk before changing its configuration mode."
@@ -8484,12 +8525,12 @@ msgstr ""
 "See liides on trunk režiimis, sa peaksid kõik vlan liidesed selles trunkis "
 "uuesti seadistama, enne kui muudad seadistamise režiimi."
 
-#: ../../main/network/src/EBox/Network.pm:2089
+#: ../../main/network/src/EBox/Network.pm:2095
 msgid ""
 "Network interfaces need to be in trunk mode before adding vlans to them."
 msgstr "Võrguliidesed peavad olema trunk režiimis enne vlan liideste lisamist."
 
-#: ../../main/network/src/EBox/Network.pm:3937
+#: ../../main/network/src/EBox/Network.pm:3945
 #, fuzzy
 msgid ""
 "The requested operation will cause one of the configured gateways or static "
@@ -8499,12 +8540,12 @@ msgstr ""
 "Päritud operatsioon võib muuta ühe seadistatud lüüsi kättesaamatuks. Kui sa "
 "soovid seda muudatust teha, siis palun eemalda see esmalt."
 
-#: ../../main/network/src/EBox/Network.pm:4002
+#: ../../main/network/src/EBox/Network.pm:4010
 #, perl-brace-format
 msgid "Gateway {gw} must be in the same network that a static interface"
 msgstr ""
 
-#: ../../main/network/src/EBox/Network.pm:4005
+#: ../../main/network/src/EBox/Network.pm:4013
 #, fuzzy, perl-brace-format
 msgid ""
 "Gateway {gw} must be in the same network that static interface. Currently it "
@@ -8513,75 +8554,75 @@ msgstr ""
 "Lüüs {gw} peab olema kättesaadav staatilisele liidesele. Hetkel on see "
 "kättesaadav liidesele {iface}, mis ei ole staatiline"
 
-#: ../../main/network/src/EBox/Network.pm:4468
+#: ../../main/network/src/EBox/Network.pm:4424
 msgid "down"
 msgstr "ei tööta"
 
 # #-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#
 # tegemist olekuga, seega ei tea kas üleval sobib
-#: ../../main/network/src/EBox/Network.pm:4473
+#: ../../main/network/src/EBox/Network.pm:4429
 #: ../../main/core/src/templates/report/raid.mas:228
 msgid "up"
 msgstr "töötab"
 
-#: ../../main/network/src/EBox/Network.pm:4478
+#: ../../main/network/src/EBox/Network.pm:4434
 #, fuzzy
 msgid "external"
 msgstr "Väline (WAN)"
 
-#: ../../main/network/src/EBox/Network.pm:4480
+#: ../../main/network/src/EBox/Network.pm:4436
 msgid "internal"
 msgstr ""
 
 # või "link korras" ?
-#: ../../main/network/src/EBox/Network.pm:4486
+#: ../../main/network/src/EBox/Network.pm:4442
 msgid "link ok"
 msgstr "link on korras"
 
-#: ../../main/network/src/EBox/Network.pm:4488
+#: ../../main/network/src/EBox/Network.pm:4444
 msgid "no link"
 msgstr "link ei ole korras"
 
 # Tx baiti v Tx baite
-#: ../../main/network/src/EBox/Network.pm:4523
+#: ../../main/network/src/EBox/Network.pm:4479
 msgid "Tx bytes"
 msgstr "Tx baidid"
 
 # Rx baiti v Rx baite
-#: ../../main/network/src/EBox/Network.pm:4533
+#: ../../main/network/src/EBox/Network.pm:4489
 msgid "Rx bytes"
 msgstr "Rx baidid"
 
-#: ../../main/network/src/EBox/Network.pm:4572
+#: ../../main/network/src/EBox/Network.pm:4528
 msgid "Gateways"
 msgstr "Lüüsid"
 
-#: ../../main/network/src/EBox/Network.pm:4584
+#: ../../main/network/src/EBox/Network.pm:4540
 #, fuzzy
 msgid "Dynamic DNS"
 msgstr "Dünaamiline"
 
-#: ../../main/network/src/EBox/Network.pm:4588
+#: ../../main/network/src/EBox/Network.pm:4544
 msgid "Tools"
 msgstr ""
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:158
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:161
 #, fuzzy, perl-brace-format
 msgid "Gateway {gw} connected again."
 msgstr "Lüüs {gw} ühendatud"
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:170
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:173
 msgid ""
 "WARNING: These changes are not applied due to unsaved changes on the "
 "administration interface."
 msgstr ""
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:344
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:347
 #, fuzzy, perl-brace-format
 msgid "Gateway {gw} disconnected"
 msgstr "Lüüs {gw} ühendatud"
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:345
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:348
 #, fuzzy, perl-brace-format
 msgid ""
 "'{type}' test to host '{host}' has failed {failRatio}%, max={maxFailRatio}%."
@@ -8589,11 +8630,11 @@ msgstr ""
 "Lüüs {gw} on ühendamata. ({failRatio}% '{type}' testidest masinasse '{host}' "
 "nurjusid, max={maxFailRatio}%)"
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:348
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:351
 msgid "This gateway will be connected again if the test are passed."
 msgstr ""
 
-#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:436
+#: ../../main/network/src/EBox/Event/Watcher/Gateways.pm:442
 msgid "Check if gateways are connected or disconnected."
 msgstr "Kontrolli kas lüüsid on ühendatud või mitte."
 
@@ -8602,11 +8643,16 @@ msgstr "Kontrolli kas lüüsid on ühendatud või mitte."
 msgid "Objects"
 msgstr "Objektid"
 
-#: ../../main/objects/src/EBox/Objects.pm:177
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:193
+#: ../../main/objects/src/EBox/Objects.pm:118
+#, fuzzy
+msgid "network object"
+msgstr "Võrguobjekt"
+
+#: ../../main/objects/src/EBox/Objects.pm:178
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:117
 #: ../../main/core/src/EBox/Events/Model/RSSDispatcherConfiguration.pm:140
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:244
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:107
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:245
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:108
 #: ../../main/mail/src/EBox/Mail/Model/ObjectPolicy.pm:93
 msgid "Object"
 msgstr "Objekt"
@@ -8822,14 +8868,20 @@ msgid "Rules for external interfaces (upload)"
 msgstr "Kõik välised liidesed"
 
 #: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:124
+msgid ""
+"Changing rules interface is not supported. Remove the rule and add another "
+"for the desired interface"
+msgstr ""
+
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:130
 msgid "Guaranteed rate"
 msgstr "Tagatud kiirus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:128
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:134
 msgid "Limited rate"
 msgstr "Limiteeritud kiirus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:148
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:154
 #, perl-brace-format
 msgid ""
 "Object {object} has no members. Please add at least one to add rules using "
@@ -8838,52 +8890,52 @@ msgstr ""
 "Objektil {object} ei ole liikmeid. Palun lisa vähemalt üks, et lisada "
 "reeglid mis seda objekti kasutavad"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:165
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:171
 msgid "If service is any, some source or destination should be provided"
 msgstr "Kui teenus on suvaline, siis peab olema pakutud lähtekoht või sihtkoht"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:192
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:198
 #, perl-brace-format
 msgid ""
 "There is already an existing 'priorization of small packets' rule for "
 "'{iface}'"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:198
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:204
 msgid ""
 "There is already an existing 'priorization of small packets' for all "
 "interfaces"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:266
-#: ../../main/mail/src/EBox/Mail.pm:1396 ../../main/mail/src/EBox/Mail.pm:1403
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:272
+#: ../../main/mail/src/EBox/Mail.pm:1409 ../../main/mail/src/EBox/Mail.pm:1416
 msgid "Filter type"
 msgstr "Filtri tüüp"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:269
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:275
 msgid ""
 "Priorization of small control packages will affect small ACK, SYN, FIN and "
 "RST control packages"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:285
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:291
 msgid "Port based service"
 msgstr "Pordil põhinev teenus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:358
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:364
 msgid "Lowest priotiry: 7 Highest priority: 0"
 msgstr "Madalaim prioriteet: 7; kõrgeim prioriteet: 0"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:362
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:368
 msgid "Guaranteed Rate"
 msgstr "Tagatud kiirus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:365
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:379
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:371
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:385
 msgid "Kbit/s"
 msgstr "Kbit/s"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:367
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:373
 msgid ""
 "Note that The sum of all guaranteed rates cannot exceed your total "
 "bandwidth. 0 means unguaranteed rate."
@@ -8891,16 +8943,16 @@ msgstr ""
 "Pea meeles, et kõikide tagatud kiiruste summa ei saa ületada kogu "
 "läbilaskevõimet. 0 tähendab tagamatut kiirust."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:374
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:380
 msgid "Limited Rate"
 msgstr "Limiteeritud kiirus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:381
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:387
 msgid "Traffic will not exceed this rate. 0 means unlimited rate."
 msgstr "Liiklus ei ületa seda kiirust. 0 tähendab piiramatut kiirust"
 
 # "other way around" tõlkes pole kindel
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:396
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:402
 msgid ""
 "Note that if the interface is internal, the traffic flow comes from Internet "
 "to inside and the external is the other way around"
@@ -8908,12 +8960,12 @@ msgstr ""
 "Pea meeles, et sisemise liidese puhul tuleb liiklusvoog Internetist "
 "sissepoole ja välise liidese puhul on olukord vastupidi"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:430
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:436
 #, perl-brace-format
 msgid "Remove {num} rules at {modelName}"
 msgstr "Eemalda {num} reeglit {modelName}"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:481
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:487
 #, perl-brace-format
 msgid ""
 "Normalizing rates: {limitNum} rules have decreased its limit rate to "
@@ -8927,7 +8979,7 @@ msgstr ""
 "on kustutatud sellepärast, et selle tagatud kiirus oli väiksem kui lubatud "
 "miinimum"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:540
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:546
 msgid ""
 "Port based protocols use the port number to match a service, while "
 "Application based protocols are slower but more effective as they check the "
@@ -8937,26 +8989,26 @@ msgstr ""
 "rakendustel põhinevad protokollid on aeglasemad, kuid efektiivsemad kuna "
 "teenuse tuvastamiseks vaadatakse iga paketi sisu."
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:556
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:575
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:562
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:581
 msgid "Application based service"
 msgstr "Rakendusel põhinev teenus"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:565
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:583
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:571
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:589
 msgid "Application based service group"
 msgstr "Rakendusel põhinev teenuse grupp"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:598
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:604
 #, fuzzy
 msgid "Based on Firewall"
 msgstr "Tulemüür"
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:602
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:608
 msgid "Prioritize small control packets"
 msgstr ""
 
-#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:617
+#: ../../main/trafficshaping/src/EBox/TrafficShaping/Model/RuleTableBase.pm:623
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:209
 #: ../../main/core/src/EBox/Logs/Model/Details.pm:217
 msgid "All"
@@ -9303,7 +9355,7 @@ msgid "Groupware services (Zarafa)"
 msgstr ""
 
 #: ../../main/zarafa/src/EBox/Zarafa.pm:770
-#: ../../main/mail/src/EBox/Mail.pm:1440
+#: ../../main/mail/src/EBox/Mail.pm:1453
 msgid "Virtual Mail Domains"
 msgstr "Virtuaalsed e-posti domeenid"
 
@@ -9729,9 +9781,14 @@ msgid ""
 "{fixedIP}"
 msgstr "Vahemik {from}-{to} sisaldab fikseeritud aadressi '{name}': {fixedIP}"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:178
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:160
+#, fuzzy, perl-brace-format
+msgid "Range {from}-{to} includes the HA floating IP: \"{name}\" - {IP}"
+msgstr "Vahemik {from}-{to} sisaldab liidest IP addressiga: {ifaceIP}"
+
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:198
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:176
-#: ../../main/mail/src/EBox/Mail.pm:1494
+#: ../../main/mail/src/EBox/Mail.pm:1507
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:20
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:14
 #, fuzzy
@@ -9748,9 +9805,9 @@ msgstr ""
 "#-#-#-#-#  et.po (ebox-mail 1.4.1)  #-#-#-#-#\n"
 "Kellelt"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:184
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:204
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:182
-#: ../../main/mail/src/EBox/Mail.pm:1495
+#: ../../main/mail/src/EBox/Mail.pm:1508
 #: ../../main/mail/src/EBox/Mail/Model/MailDispatcherConfiguration.pm:99
 #: ../../main/core/src/templates/ajax/setter/portRangeSetter.mas:21
 #: ../../main/squid/src/templates/ajax/setter/timePeriod.mas:15
@@ -9769,12 +9826,12 @@ msgstr ""
 "Kellele"
 
 # vbla Aadressivahemikud
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:192
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:212
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:190
 msgid "Ranges"
 msgstr "Vahemikud"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:199
+#: ../../main/dhcp/src/EBox/DHCP/Model/RangeTable.pm:219
 #: ../../main/ipsec/src/EBox/IPsec/Model/RangeTable.pm:196
 msgid "range"
 msgstr "vahemik"
@@ -9956,26 +10013,26 @@ msgstr ""
 "seadistatud lüüsi. \"Otsingudomeeni\" väärtuseks võid valida ühe seadistatud "
 "DNS domeenidest eBoxis."
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:208
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:132
 msgid "Fixed addresses"
 msgstr "Fikseeritud aadressid"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:215
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:139
 msgid "fixed address"
 msgstr "fikseeritud aadress"
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:240
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:164
 msgid "Not object added for fixed addresses"
 msgstr ""
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:243
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:167
 msgid ""
 "Only those object members whose IP address is a host (/32), a valid MAC, the "
 "IP address is not used by the available range and whose name is unique as "
 "fixed address will be used"
 msgstr ""
 
-#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:246
+#: ../../main/dhcp/src/EBox/DHCP/Model/FixedAddressTable.pm:170
 msgid ""
 "Members whose name is not a valid hostname will be modified to become a "
 "valid domain name."
@@ -10411,36 +10468,17 @@ msgstr ""
 msgid "Revoking changes"
 msgstr "Muudatuste tühistamine"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:66
+#: ../../main/core/src/EBox/RESTClient.pm:399
+#, fuzzy
+msgid "User and password do not match."
+msgstr "Uued paroolid ei kattu."
+
+#: ../../main/core/src/EBox/WebAdmin.pm:65
 #, fuzzy
 msgid "Zentyal Webadmin"
 msgstr "Staatiline domeen"
 
-#: ../../main/core/src/EBox/WebAdmin.pm:405
-#: ../../main/services/src/EBox/Services.pm:467
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
-#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:742
-#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
-msgid "port"
-msgstr "port"
-
-#: ../../main/core/src/EBox/WebAdmin.pm:427
-#, perl-brace-format
-msgid ""
-"Zentyal is already configured to use port {p} for another service. Choose "
-"another port or free it and retry."
-msgstr ""
-
-#: ../../main/core/src/EBox/WebAdmin.pm:440
-#, perl-brace-format
-msgid ""
-"Port {p} is already in use by program '{pr}'. Choose another port or free it "
-"and retry."
-msgstr ""
-
-#: ../../main/core/src/EBox/WebAdmin.pm:930
-#: ../../main/services/src/EBox/Services.pm:121
-#: ../../main/services/src/EBox/Services.pm:472
+#: ../../main/core/src/EBox/WebAdmin.pm:848
 #, fuzzy
 msgid "Zentyal Administration Web Server"
 msgstr ""
@@ -10492,121 +10530,121 @@ msgstr "Mooduli {modName} salvestamine"
 msgid "Saving {modName} module"
 msgstr "Mooduli {modName} salvestamine"
 
-#: ../../main/core/src/EBox/GlobalImpl.pm:1232
+#: ../../main/core/src/EBox/GlobalImpl.pm:1240
 #, perl-brace-format
 msgid "running {scriptName} script"
 msgstr "Skripti {scriptName} käivitamine"
 
-#: ../../main/core/src/EBox/SysInfo.pm:53
+#: ../../main/core/src/EBox/SysInfo.pm:54
 msgid "System Information"
 msgstr "Süsteemi info"
 
 # paremat vastet eesti keeles ei osanud leida
-#: ../../main/core/src/EBox/SysInfo.pm:94
+#: ../../main/core/src/EBox/SysInfo.pm:99
 #: ../../main/core/src/EBox/Dashboard/CGI/Index.pm:38
 msgid "Dashboard"
 msgstr "Infotahvel"
 
-#: ../../main/core/src/EBox/SysInfo.pm:99
-#: ../../main/core/src/EBox/SysInfo.pm:224
+#: ../../main/core/src/EBox/SysInfo.pm:104
+#: ../../main/core/src/EBox/SysInfo.pm:245
 msgid "Module Status"
 msgstr "Mooduli olek"
 
-#: ../../main/core/src/EBox/SysInfo.pm:114
+#: ../../main/core/src/EBox/SysInfo.pm:119
 #: ../../main/core/src/EBox/SysInfo/CGI/Backup.pm:33
 #, fuzzy
 msgid "Import/Export Configuration"
 msgstr "Aktiivsed seadistused"
 
-#: ../../main/core/src/EBox/SysInfo.pm:119
+#: ../../main/core/src/EBox/SysInfo.pm:124
 #: ../../main/core/src/EBox/SysInfo/Model/Debug.pm:46
 msgid "Debug"
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo.pm:124
+#: ../../main/core/src/EBox/SysInfo.pm:129
 msgid "Halt/Reboot"
 msgstr "Seiskamine/taaskäivitamine"
 
-#: ../../main/core/src/EBox/SysInfo.pm:136
+#: ../../main/core/src/EBox/SysInfo.pm:141
 #: ../../main/core/src/EBox/Report/CGI/DiskUsage.pm:31
 msgid "Disk Usage"
 msgstr "Kettakasutus"
 
-#: ../../main/core/src/EBox/SysInfo.pm:140
+#: ../../main/core/src/EBox/SysInfo.pm:145
 msgid "RAID"
 msgstr "RAID"
 
-#: ../../main/core/src/EBox/SysInfo.pm:230
+#: ../../main/core/src/EBox/SysInfo.pm:251
 msgid "General Information"
 msgstr "Üldine informatsioon"
 
-#: ../../main/core/src/EBox/SysInfo.pm:236
+#: ../../main/core/src/EBox/SysInfo.pm:257
 msgid "Process List"
 msgstr "Protsesside loend"
 
-#: ../../main/core/src/EBox/SysInfo.pm:243
+#: ../../main/core/src/EBox/SysInfo.pm:264
 #, fuzzy
 msgid "Resources"
 msgstr "Ressurss"
 
-#: ../../main/core/src/EBox/SysInfo.pm:302
+#: ../../main/core/src/EBox/SysInfo.pm:323
 msgid "available"
 msgstr "saadaval"
 
 # Tuumversioon
-#: ../../main/core/src/EBox/SysInfo.pm:314
+#: ../../main/core/src/EBox/SysInfo.pm:335
 #, fuzzy
 msgid "Core version"
 msgstr "Tuuma versioon"
 
-#: ../../main/core/src/EBox/SysInfo.pm:315
+#: ../../main/core/src/EBox/SysInfo.pm:336
 #, fuzzy
 msgid "Software"
 msgstr "HTTP tarkvara"
 
-#: ../../main/core/src/EBox/SysInfo.pm:315
+#: ../../main/core/src/EBox/SysInfo.pm:336
 msgid "Checking updates..."
 msgstr ""
 
-#: ../../main/core/src/EBox/SysInfo.pm:316
+#: ../../main/core/src/EBox/SysInfo.pm:337
 #: ../../main/monitor/src/EBox/Monitor/Measure/Load.pm:55
 msgid "System load"
 msgstr "Süsteemi koormus"
 
 # Tööaeg
-#: ../../main/core/src/EBox/SysInfo.pm:317
+#: ../../main/core/src/EBox/SysInfo.pm:338
 #, fuzzy
 msgid "Uptime"
 msgstr "Töövõimeaeg"
 
-#: ../../main/core/src/EBox/SysInfo.pm:462
+#: ../../main/core/src/EBox/SysInfo.pm:483
 msgid "Start"
 msgstr "Alusta"
 
-#: ../../main/core/src/EBox/SysInfo.pm:463
+#: ../../main/core/src/EBox/SysInfo.pm:484
 #: ../../main/core/src/templates/dashboard/status.mas:13
 msgid "Restart"
 msgstr "Taaskäivita"
 
-#: ../../main/core/src/EBox/SysInfo.pm:466
+#: ../../main/core/src/EBox/SysInfo.pm:487
 msgid "The service is enabled and running"
 msgstr "Teenus on lubatud ja töötab"
 
-#: ../../main/core/src/EBox/SysInfo.pm:471
+#: ../../main/core/src/EBox/SysInfo.pm:492
 msgid "The service is enabled, but not running"
 msgstr "Teenus on lubatud, kuid ei tööta"
 
 # Käivitatud haldamata
-#: ../../main/core/src/EBox/SysInfo.pm:475
+#: ../../main/core/src/EBox/SysInfo.pm:496
 msgid "Running unmanaged"
 msgstr "Töötab haldamata"
 
-#: ../../main/core/src/EBox/SysInfo.pm:476
+#: ../../main/core/src/EBox/SysInfo.pm:497
 #, fuzzy
 msgid "The service is running, but not enabled in Zentyal"
 msgstr "Teenus töötab, kuid ei ole eBoxis lubatud"
 
-#: ../../main/core/src/EBox/SysInfo.pm:481
+#: ../../main/core/src/EBox/SysInfo.pm:502
 #, fuzzy
 msgid "The service is not enabled in Zentyal"
 msgstr "Teenus ei ole eBoxis lubatud"
@@ -10730,12 +10768,6 @@ msgstr "Keele valimine"
 #: ../../main/core/src/EBox/WebAdmin/Model/Language.pm:82
 msgid "New language selected, save changes to commit"
 msgstr ""
-
-# Administreerimis liidese TCP port
-#: ../../main/core/src/EBox/WebAdmin/Model/AdminPort.pm:44
-#, fuzzy
-msgid "Administration interface TCP port"
-msgstr "Haldusliidese TCP port"
 
 # #-#-#-#-#  et.po (ebox-software 1.4.1)  #-#-#-#-#
 #  
@@ -10959,13 +10991,13 @@ msgstr "Kehtiv parool"
 #: ../../main/core/src/EBox/Model/DataTable.pm:4134
 #: ../../main/captiveportal/src/templates/useraddon.mas:52
 #: ../../main/jabber/src/templates/jabber.mas:26
-#: ../../main/users/src/templates/editgroup.mas:44
+#: ../../main/users/src/templates/editgroup.mas:45
 #: ../../main/users/src/templates/edituser.mas:66
 #: ../../main/users/src/templates/editcontact.mas:23
 #: ../../main/network/src/templates/ifaces.mas:184
 #: ../../main/zarafa/src/templates/zarafa.mas:74
 #: ../../main/core/src/templates/enable.mas:23
-#: ../../main/core/src/templates/dataInUse.mas:23
+#: ../../main/core/src/templates/dataInUse.mas:29
 #: ../../main/openchange/src/templates/openchange.mas:24
 #: ../../main/samba/src/templates/samba.mas:29
 #: ../../main/mail/src/templates/warnusermdsize.mas:21
@@ -11078,6 +11110,115 @@ msgstr "Kettakasutuse jälgija"
 msgid "Configure Widgets"
 msgstr "Vidinate seadistamine"
 
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:196
+#, fuzzy
+msgid "Default for Non-SSL"
+msgstr "Vaikimisi kvoot"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:198
+msgid "Make this service the default for the non-SSL traffic"
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:225
+#, fuzzy
+msgid "Default for SSL"
+msgstr "Vaikimisi kvoot"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:227
+msgid "Make this service the default for the SSL traffic"
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:245
+#, fuzzy
+msgid "Zentyal Administration port and other reverse proxy service ports"
+msgstr ""
+"#-#-#-#-#  et.po (ebox-services 1.4)  #-#-#-#-#\n"
+"eBoxi haldamise veebiserver\n"
+"#-#-#-#-#  et.po (ebox-ebox 1.4.1)  #-#-#-#-#\n"
+"eBoxi veebiserver"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:246
+#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
+#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
+msgid "service"
+msgstr "teenus"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:252
+msgid "Here you may configure the services to be served from the reverse proxy"
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:274
+#, fuzzy
+msgid "This service does not allow to change the http port."
+msgstr "Serverile {name} ei ole sertifikaati omistatud"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:281
+#, fuzzy
+msgid "This service does not allow to change the https port."
+msgstr "Serverile {name} ei ole sertifikaati omistatud"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:291
+msgid "This service cannot have both ports disabled."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:317
+msgid "The port must be defined before enable it."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:320
+msgid "The SSL port must be defined before enable it."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:323
+msgid "Both SSL and non-SSL ports cannot be enabled with the same number."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:330
+#, perl-brace-format
+msgid ""
+"The port {port} is used already for SSL, you cannot use it as a non SSL port."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:337
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:354
+#, fuzzy, perl-brace-format
+msgid "The port {port} already has a default service defined."
+msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:347
+#, perl-brace-format
+msgid ""
+"The port {port} is used already for non-SSL, you cannot use it as a SSL port."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:376
+#, perl-brace-format
+msgid ""
+"You need to enable {module} on {ohref}Services Certificates{chref} to enable "
+"SSL for it."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:382
+#, perl-brace-format
+msgid ""
+"The SSL certificate {module} does not exists, you cannot enable SSL for this "
+"service."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:450
+#, perl-brace-format
+msgid ""
+"Zentyal is already configured to use port {p} for another service. Choose "
+"another port or free it and retry."
+msgstr ""
+
+#: ../../main/core/src/EBox/HAProxy/Model/HAProxyServices.pm:462
+#, perl-brace-format
+msgid ""
+"Port {p} is already in use by program '{pr}'. Choose another port or free it "
+"and retry."
+msgstr ""
+
 #: ../../main/core/src/EBox/Event/Watcher/DiskFreeSpace.pm:124
 #, perl-brace-format
 msgid "The partition {mp} has low free space available."
@@ -11136,17 +11277,17 @@ msgstr "Tarkvara automaatne uuendamine"
 msgid "Check if there is any security software update."
 msgstr ""
 
-#: ../../main/core/src/EBox/Event/Watcher/State.pm:109
+#: ../../main/core/src/EBox/Event/Watcher/State.pm:110
 #, fuzzy
 msgid "Zentyal UI is up and running"
 msgstr "eBox töötab"
 
-#: ../../main/core/src/EBox/Event/Watcher/State.pm:116
+#: ../../main/core/src/EBox/Event/Watcher/State.pm:117
 #, fuzzy
 msgid "Zentyal UI is critically down"
 msgstr "eBox ei ole töökorras"
 
-#: ../../main/core/src/EBox/Event/Watcher/State.pm:140
+#: ../../main/core/src/EBox/Event/Watcher/State.pm:141
 #: ../../main/ca/src/templates/createCA.mas:16
 #: ../../main/ca/src/templates/index.mas:47
 #: ../../main/ca/src/templates/index.mas:99
@@ -11154,7 +11295,7 @@ msgstr "eBox ei ole töökorras"
 msgid "State"
 msgstr "Olek"
 
-#: ../../main/core/src/EBox/Event/Watcher/State.pm:155
+#: ../../main/core/src/EBox/Event/Watcher/State.pm:156
 #, fuzzy
 msgid "Check if Zentyal is currently up or down"
 msgstr "Kontrolli, kas eBox on töökorras või mitte"
@@ -12069,7 +12210,19 @@ msgstr "Varunduste arhiivid"
 msgid "Try to back up again as the created backup is corrupted"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/DataForm.pm:534
+#: ../../main/core/src/EBox/HAProxy.pm:53
+#, fuzzy
+msgid "Reverse Proxy"
+msgstr "Läbipaistev puhverserver"
+
+#: ../../main/core/src/EBox/HAProxy.pm:316
+#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:700
+#: ../../main/ebackup/src/EBox/EBackup/Model/RemoteSettings.pm:742
+#: ../../main/core/src/templates/ajax/setter/serviceSetter.mas:20
+msgid "port"
+msgstr "port"
+
+#: ../../main/core/src/EBox/Model/DataForm.pm:546
 #, perl-brace-format
 msgid "Remove data from {model}{br}"
 msgstr "Eemalda andmed mudelist {model}{br}"
@@ -12148,13 +12301,14 @@ msgstr "Lehekülg"
 msgid "Page {i} of {n}"
 msgstr ""
 
-#: ../../main/core/src/EBox/Model/Composite.pm:218
+#: ../../main/core/src/EBox/Model/Composite.pm:220
 #, perl-brace-format
 msgid "It should be one of following values: {values}"
 msgstr "See peaks olema mõni järgnevatest väärtustest: {values}"
 
 # Lubatud toimingud on: {view} ja {cView}
-#: ../../main/core/src/EBox/Model/Composite.pm:497
+#: ../../main/core/src/EBox/Model/Composite.pm:499
+#: ../../main/core/src/EBox/Model/Template.pm:156
 #, perl-brace-format
 msgid "Actions to be taken allowed are: {view} and {cView}"
 msgstr "Lubatud toimingud on: {view} ja {cView}"
@@ -12339,38 +12493,53 @@ msgstr "Jabberi konto"
 msgid "OpenChange account disabled"
 msgstr "Jabberi konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:68
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:62
 #, fuzzy
 msgid "OpenChange Account"
 msgstr "Failide jagamise konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:97
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:91
 #, perl-brace-format
 msgid "Unknown value for msExchUserAccountControl: {x}"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:165
+#: ../../main/openchange/src/EBox/OpenChange/LdapUser.pm:159
 #, fuzzy
 msgid "This user has a openchange account."
 msgstr "Sellel kasutajal on e-posti konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:78
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:79
 #, fuzzy
 msgid "New One"
 msgstr "Server {name}"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:83
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:84
 msgid "Existing One"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:90
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:91
 #, fuzzy
 msgid "Enable OpenChange account for all existing users"
 msgstr "Failide jagamise konto"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:126
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:137
-#: ../../main/openchange/src/EBox/OpenChange.pm:355
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:106
+#, fuzzy
+msgid "Outgoing Mail Domain"
+msgstr "Virtuaalsed e-posti domeenid"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:120
+#, fuzzy
+msgid "Unconfigure"
+msgstr "Logide seadistamine"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:122
+#, fuzzy
+msgid "Database unconfigured"
+msgstr "Logide seadistamine"
+
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:127
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:139
+#: ../../main/openchange/src/EBox/OpenChange.pm:471
 msgid "Setup"
 msgstr ""
 
@@ -12379,16 +12548,16 @@ msgstr ""
 msgid "Database configured"
 msgstr "Logide seadistamine"
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:138
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:140
 msgid "OpenChange Server Provision"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:143
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:145
 msgid "Setup an OpenChange Groupware server."
 msgstr ""
 
 #  
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:208
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:210
 #, fuzzy, perl-brace-format
 msgid ""
 "You must enable the {x} module in the module status section before "
@@ -12397,7 +12566,7 @@ msgstr ""
 "Kasutajad mooduliga töötamiseks, pead sa selle mooduli oleku leheküljel "
 "lubama."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:226
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:228
 #, fuzzy, perl-brace-format
 msgid ""
 "The virtual domain {x} is not defined. You can add it in the {ohref}Virtual "
@@ -12406,7 +12575,7 @@ msgstr ""
 "Sellel serveril ei ole hallatavaid virtuaaldomeene. Neid saab luua "
 "leheküljel {openA}E-post -> Virtuaalsed e-posti domeenid{closeA}."
 
-#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:233
+#: ../../main/openchange/src/EBox/OpenChange/Model/Provision.pm:235
 #, fuzzy
 msgid "There are unsaved changes. Please save them before provision"
 msgstr "Sellel sessioonil ei ole salvestamata muudatusi."
@@ -12422,32 +12591,37 @@ msgid "OpenChange"
 msgstr "Muuda"
 
 # deemon sobib?
-#: ../../main/openchange/src/EBox/OpenChange.pm:192
+#: ../../main/openchange/src/EBox/OpenChange.pm:229
 #, fuzzy
 msgid "To configure sogo daemon"
 msgstr "clamd deemoni seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:197
+#: ../../main/openchange/src/EBox/OpenChange.pm:234
 #, fuzzy
 msgid "To configure sogo parameters"
 msgstr "Masina e-posti nime seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:202
+#: ../../main/openchange/src/EBox/OpenChange.pm:239
 #, fuzzy
 msgid "To configure autodiscovery service"
 msgstr "Dovecoti seadistamiseks"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:360
+#: ../../main/openchange/src/EBox/OpenChange.pm:250
+#, fuzzy
+msgid "To configure Outlook Anywhere service"
+msgstr "Dovecoti seadistamiseks"
+
+#: ../../main/openchange/src/EBox/OpenChange.pm:476
 #, fuzzy
 msgid "MailBox Migration"
 msgstr "Käsitsi seadistamine"
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:486
+#: ../../main/openchange/src/EBox/OpenChange.pm:602
 #, perl-brace-format
 msgid "The expected domain '{d}' could not be found in the dns module"
 msgstr ""
 
-#: ../../main/openchange/src/EBox/OpenChange.pm:495
+#: ../../main/openchange/src/EBox/OpenChange.pm:611
 #, perl-brace-format
 msgid ""
 "The required host record '{h}' could not be found in the domain '{d}'.<br/>"
@@ -12660,26 +12834,26 @@ msgstr "Tarkvara haldamine"
 msgid "Automatic software updates"
 msgstr "Tarkvara automaatne uuendamine"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:662
+#: ../../main/firewall/src/EBox/Iptables.pm:660
 msgid "Firewall failed to add rules for the following modules: "
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:665
+#: ../../main/firewall/src/EBox/Iptables.pm:663
 msgid ""
 "Probably this is caused by a lack of connectivity, check your configuration "
 "or disable those modules"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Iptables.pm:917
-#: ../../main/firewall/src/EBox/Iptables.pm:954
+#: ../../main/firewall/src/EBox/Iptables.pm:915
+#: ../../main/firewall/src/EBox/Iptables.pm:952
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:82
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:72
 msgid ""
 "You must set the iptables_log_limit variable in the ebox configuration file"
 msgstr "eBoxi seadistusfailis peab määrama iptables_log_limit muutuja"
 
-#: ../../main/firewall/src/EBox/Iptables.pm:923
-#: ../../main/firewall/src/EBox/Iptables.pm:960
+#: ../../main/firewall/src/EBox/Iptables.pm:921
+#: ../../main/firewall/src/EBox/Iptables.pm:958
 #: ../../main/firewall/src/EBox/Firewall/IptablesRedirectRule.pm:87
 #: ../../main/firewall/src/EBox/Firewall/IptablesRule/SNAT.pm:77
 msgid ""
@@ -12693,6 +12867,11 @@ msgstr "Paketiliikluse aruanne"
 #: ../../main/firewall/src/EBox/Firewall/Composite/PacketTrafficReport.pm:42
 msgid "Firewall packet traffic report"
 msgstr "Tulemüüri paketiliikluse aruanne"
+
+#: ../../main/firewall/src/EBox/Firewall/Model/RulesWithInterface.pm:46
+#, fuzzy, perl-brace-format
+msgid "{iface} (including {vifaces})"
+msgstr "{iface} (sisemine liides)"
 
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxOutputRuleTable.pm:64
 #, fuzzy
@@ -12756,7 +12935,7 @@ msgstr "Tingimus"
 #: ../../main/firewall/src/EBox/Firewall/Model/EBoxServicesRuleTable.pm:148
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:99
 #: ../../main/firewall/src/EBox/Firewall.pm:745
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:82
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:84
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilter.pm:43
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:161
 msgid "Decision"
@@ -12816,49 +12995,49 @@ msgstr "Paketiliikluse üksikasjad"
 msgid "Contradictory rule found. Remove it first"
 msgstr "Leiti vastuoluline reegel, palun eemalda see"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:232
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:233
 msgid "Original destination"
 msgstr "Algne sihtkoht"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:262
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:263
 msgid "Original destination port"
 msgstr "Algne sihtport"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:309
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:310
 msgid "Same"
 msgstr "Sama"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:312
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:313
 msgid "Other"
 msgstr "Muu"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:320
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:321
 #, fuzzy
 msgid "Replace source address"
 msgstr "Liidese IP aadress"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:323
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:324
 msgid ""
 "Replaces the original source address of the connection with the Zentyal's "
 "own address. This could be neccesary when the destination does not have a "
 "return route or has restrictive firewall rules"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:331
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:332
 #, fuzzy, perl-brace-format
 msgid "Log new forwarded connections to {log}"
 msgstr "Suunatud portide loend"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:353
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:354
 msgid "List of forwarded ports"
 msgstr "Suunatud portide loend"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:354
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:355
 #: ../../main/firewall/src/EBox/Firewall.pm:576
 msgid "Port Forwarding"
 msgstr "Portide suunamine"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:363
+#: ../../main/firewall/src/EBox/Firewall/Model/RedirectsTable.pm:364
 msgid "forwarding"
 msgstr "suunamine"
 
@@ -12900,7 +13079,7 @@ msgstr ""
 
 #  
 #: ../../main/firewall/src/EBox/Firewall/Model/BaseRuleTable.pm:172
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:123
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:124
 msgid ""
 "If inverse match is ticked, any service but the selected one will match this "
 "rule"
@@ -12932,22 +13111,22 @@ msgstr "VPN aadress"
 msgid "Outgoing interface"
 msgstr "Väljundliides"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:133
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:134
 #, fuzzy
 msgid "Log new forwarded connections"
 msgstr "Suunatud portide loend"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:154
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:155
 #, fuzzy
 msgid "Source Network Address Translation rules"
 msgstr "Võrguaadressi ümbernimetamine (NAT)"
 
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:155
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:156
 #: ../../main/firewall/src/EBox/Firewall.pm:578
 msgid "SNAT"
 msgstr ""
 
-#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:164
+#: ../../main/firewall/src/EBox/Firewall/Model/SNAT.pm:165
 #, fuzzy
 msgid "SNAT rule"
 msgstr "Testimisreeglid"
@@ -13036,7 +13215,7 @@ msgstr "Lehekülge ei leitud"
 
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:220
 #: ../../main/samba/src/EBox/Samba/GPO/Scripts.pm:236
-#: ../../main/samba/src/EBox/Samba/GPO.pm:577
+#: ../../main/samba/src/EBox/Samba/GPO.pm:559
 msgid "Bad grammar"
 msgstr ""
 
@@ -13085,7 +13264,7 @@ msgid "GPO DN"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Composite/General.pm:58
-#: ../../main/samba/src/EBox/Samba.pm:1209
+#: ../../main/samba/src/EBox/Samba.pm:1215
 msgid "File Sharing"
 msgstr "Failide jagamine"
 
@@ -13141,8 +13320,8 @@ msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Group.pm:359
 #: ../../main/samba/src/EBox/Samba/SecurityPrincipal.pm:193
-#: ../../main/samba/src/EBox/Samba/User.pm:413
-#: ../../main/samba/src/EBox/Samba/User.pm:419
+#: ../../main/samba/src/EBox/Samba/User.pm:416
+#: ../../main/samba/src/EBox/Samba/User.pm:422
 #: ../../main/mail/src/EBox/Mail/CGI/CreateGroupAlias.pm:46
 #: ../../main/mail/src/EBox/Mail/CGI/CreateAlias.pm:48
 msgid "account name"
@@ -13355,14 +13534,20 @@ msgid ""
 "The netBIOS name {x} could not be found. Please check the specified value."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:415
+#: ../../main/samba/src/EBox/Samba/User.pm:418
 msgid "Windows user names cannot be only spaces and dots."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/User.pm:421
+#: ../../main/samba/src/EBox/Samba/User.pm:424
 #, fuzzy
 msgid "Windows user names cannot contain the \"@\" character."
 msgstr "Netbiosi nimi ei tohi olla pikem kui 15 märki"
+
+#: ../../main/samba/src/EBox/Samba/User.pm:447
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:320
+#, fuzzy, perl-brace-format
+msgid "User name {x} already exists in the same container."
+msgstr "Kasutajanimi on süsteemis juba olemas"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOScripts.pm:45
 #, fuzzy
@@ -13462,7 +13647,7 @@ msgid "ACL changes replace all permissions on subfolders of this share."
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/SambaShares.pm:145
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:205
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:219
 msgid "Shares"
 msgstr "Jagamised"
 
@@ -13743,7 +13928,7 @@ msgid "Add exceptions to the default Recycle Bin settings"
 msgstr "Erandite lisamine vaikimisi prügikasti seadistustele"
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOLinks.pm:34
-#: ../../main/samba/src/EBox/Samba.pm:1206
+#: ../../main/samba/src/EBox/Samba.pm:1212
 #, fuzzy
 msgid "Group Policy Links"
 msgstr "Gruppide reegel"
@@ -13852,7 +14037,7 @@ msgid "GPO Editor"
 msgstr ""
 
 #: ../../main/samba/src/EBox/Samba/Model/GPOs.pm:65
-#: ../../main/samba/src/EBox/Samba.pm:1203
+#: ../../main/samba/src/EBox/Samba.pm:1209
 #, fuzzy
 msgid "Group Policy Objects"
 msgstr "Gruppide reegel"
@@ -13933,18 +14118,18 @@ msgstr "Lugemine ja kirjutamine"
 msgid "Administrator"
 msgstr "Administraator"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:215
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:229
 msgid "Any access control is disabled if the guest access is allowed."
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:232
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:246
 #, perl-brace-format
 msgid ""
 "Shares access control lists (ACLs) are in unmanaged mode. To change this "
 "mode, edit {file} and restart this module"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:298
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:312
 #, fuzzy
 msgid ""
 "Be careful if you grant <i>administrator</i> privileges.User will be able to "
@@ -13954,13 +14139,13 @@ msgstr ""
 "saab lugemis- ja kirjutamisõiguse jagatud kataloogi kõikidele failidele."
 
 # koodis 'maxusrsize'
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:308
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:322
 #, fuzzy, perl-brace-format
 msgid "User: {u}"
 msgstr "Kasutajakvoot ületatud"
 
-#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:313
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:655
+#: ../../main/samba/src/EBox/Samba/Model/SambaSharePermissions.pm:327
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:772
 #, perl-brace-format
 msgid "Group: {g}"
 msgstr "Grupp: {g}"
@@ -14012,12 +14197,12 @@ msgstr "Tarkvara automaatne uuendamine"
 msgid "No shares"
 msgstr "jagatav ressurss"
 
-#: ../../main/samba/src/EBox/Samba/GPO.pm:298
+#: ../../main/samba/src/EBox/Samba/GPO.pm:280
 #, perl-brace-format
 msgid "Error getting GPO entry from LDAP: {x}"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba/GPO.pm:605
+#: ../../main/samba/src/EBox/Samba/GPO.pm:587
 #, fuzzy, perl-brace-format
 msgid "GPO {x} is already linked to this container"
 msgstr "Port {port} on juba kasutusel {mod} mooduli poolt"
@@ -14028,17 +14213,17 @@ msgid "FATAL: Could not connect to samba LDAP server: {error}"
 msgstr ""
 
 #: ../../main/samba/src/EBox/SambaLdapUser.pm:144
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:538
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:543
 msgid "The object is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:377
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:790
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:382
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:795
 #, perl-brace-format
 msgid "The object {x} is a critical system object and can not be deleted."
 msgstr ""
 
-#: ../../main/samba/src/EBox/SambaLdapUser.pm:913
+#: ../../main/samba/src/EBox/SambaLdapUser.pm:922
 msgid "Sharing directory for this group"
 msgstr "Jagatud kataloog selle grupi jaoks"
 
@@ -14073,61 +14258,61 @@ msgstr ""
 msgid "File sharing (Samba) protocol"
 msgstr "Failijagamise (Samba) protokoll"
 
-#: ../../main/samba/src/EBox/Samba.pm:757
+#: ../../main/samba/src/EBox/Samba.pm:763
 #, fuzzy
 msgid "Filesystem shares"
 msgstr "Failisüsteemi kasutus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1455
+#: ../../main/samba/src/EBox/Samba.pm:1461
 msgid ""
 "Restore is only possible if the server is the unique domain controller of "
 "the forest"
 msgstr ""
 
-#: ../../main/samba/src/EBox/Samba.pm:1555
+#: ../../main/samba/src/EBox/Samba.pm:1561
 msgid "Resource"
 msgstr "Ressurss"
 
-#: ../../main/samba/src/EBox/Samba.pm:1559
+#: ../../main/samba/src/EBox/Samba.pm:1565
 msgid "Connect"
 msgstr "Ühenda"
 
-#: ../../main/samba/src/EBox/Samba.pm:1560
+#: ../../main/samba/src/EBox/Samba.pm:1566
 msgid "Access to directory"
 msgstr "Kataloogile ligipääs"
 
-#: ../../main/samba/src/EBox/Samba.pm:1561
+#: ../../main/samba/src/EBox/Samba.pm:1567
 msgid "Read file"
 msgstr "Loe faili"
 
-#: ../../main/samba/src/EBox/Samba.pm:1562
+#: ../../main/samba/src/EBox/Samba.pm:1568
 msgid "Write file"
 msgstr "Kirjuta faili"
 
-#: ../../main/samba/src/EBox/Samba.pm:1563
+#: ../../main/samba/src/EBox/Samba.pm:1569
 msgid "Disconnect"
 msgstr "Katkesta ühendus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1564
+#: ../../main/samba/src/EBox/Samba.pm:1570
 #: ../../main/core/src/templates/ajax/viewer/file.mas:22
 #: ../../main/mail/src/templates/qmanager.mas:37
 msgid "Remove"
 msgstr "Eemalda"
 
-#: ../../main/samba/src/EBox/Samba.pm:1565
+#: ../../main/samba/src/EBox/Samba.pm:1571
 msgid "Create directory"
 msgstr "Loo kataloog"
 
-#: ../../main/samba/src/EBox/Samba.pm:1566
+#: ../../main/samba/src/EBox/Samba.pm:1572
 msgid "Remove directory"
 msgstr "Eemalda kataloog"
 
-#: ../../main/samba/src/EBox/Samba.pm:1567
+#: ../../main/samba/src/EBox/Samba.pm:1573
 msgid "Rename"
 msgstr "Muuda nime"
 
-#: ../../main/samba/src/EBox/Samba.pm:1574
-#: ../../main/samba/src/EBox/Samba.pm:1585
+#: ../../main/samba/src/EBox/Samba.pm:1580
+#: ../../main/samba/src/EBox/Samba.pm:1591
 #, fuzzy
 msgid "File name"
 msgstr ""
@@ -14136,43 +14321,43 @@ msgstr ""
 "#-#-#-#-#  et.po (ebox-samba 1.4.1)  #-#-#-#-#\n"
 "Faili nimi"
 
-#: ../../main/samba/src/EBox/Samba.pm:1575
-#: ../../main/samba/src/EBox/Samba.pm:1579
+#: ../../main/samba/src/EBox/Samba.pm:1581
+#: ../../main/samba/src/EBox/Samba.pm:1585
 msgid "Virus"
 msgstr "Viirus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1586
+#: ../../main/samba/src/EBox/Samba.pm:1592
 msgid "Quarantined file name"
 msgstr "Karantiinis oleva faili nimi"
 
-#: ../../main/samba/src/EBox/Samba.pm:1587
-#: ../../main/samba/src/EBox/Samba.pm:1590
+#: ../../main/samba/src/EBox/Samba.pm:1593
+#: ../../main/samba/src/EBox/Samba.pm:1596
 msgid "Quarantine"
 msgstr "Karantiin"
 
-#: ../../main/samba/src/EBox/Samba.pm:1593
+#: ../../main/samba/src/EBox/Samba.pm:1599
 msgid "Samba access"
 msgstr "Samba ligipääs"
 
-#: ../../main/samba/src/EBox/Samba.pm:1604
+#: ../../main/samba/src/EBox/Samba.pm:1610
 msgid "Samba virus"
 msgstr "Samba viirus"
 
-#: ../../main/samba/src/EBox/Samba.pm:1615
+#: ../../main/samba/src/EBox/Samba.pm:1621
 msgid "Samba quarantine"
 msgstr "Samba karantiin"
 
-#: ../../main/samba/src/EBox/Samba.pm:2165
+#: ../../main/samba/src/EBox/Samba.pm:2171
 msgid ""
 "The hostname or domain cannot be changed if Zentyal is configured as "
 "additional domain controller."
 msgstr ""
 
 #: ../../main/squid/src/EBox/Squid.pm:96
-#: ../../main/squid/src/EBox/Squid.pm:1132
+#: ../../main/squid/src/EBox/Squid.pm:1142
 #: ../../main/squid/src/EBox/Squid/Composite/General.pm:68
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:72
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:107
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:109
 #: ../../main/squid/src/EBox/Squid/Model/DelayPools.pm:203
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:96
 msgid "HTTP Proxy"
@@ -14309,48 +14494,48 @@ msgid ""
 "You must set the max_object_size variable in the Zentyal configuration file"
 msgstr "Sa pead eboxi seadistusfailis määrama max_object_size muutuja"
 
-#: ../../main/squid/src/EBox/Squid.pm:1062
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:108
+#: ../../main/squid/src/EBox/Squid.pm:1072
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:110
 msgid "Access Rules"
 msgstr "Ligipääsu Reeglid"
 
-#: ../../main/squid/src/EBox/Squid.pm:1065
+#: ../../main/squid/src/EBox/Squid.pm:1075
 #: ../../main/squid/src/EBox/Squid/Composite/ProfileConfiguration.pm:52
 #: ../../main/squid/src/EBox/Squid/Model/FilterProfiles.pm:97
 msgid "Filter Profiles"
 msgstr "Filtrite profiilid"
 
-#: ../../main/squid/src/EBox/Squid.pm:1068
+#: ../../main/squid/src/EBox/Squid.pm:1078
 #: ../../main/squid/src/EBox/Squid/Model/CategorizedLists.pm:73
 msgid "Categorized Lists"
 msgstr "Kategoriseeritud Nimekirjad"
 
-#: ../../main/squid/src/EBox/Squid.pm:1071
+#: ../../main/squid/src/EBox/Squid.pm:1081
 msgid "Bandwidth Throttling"
 msgstr "Läbilaskevõime piiramine"
 
-#: ../../main/squid/src/EBox/Squid.pm:1119
+#: ../../main/squid/src/EBox/Squid.pm:1129
 msgid "URL"
 msgstr "URL"
 
 # või baidid?
-#: ../../main/squid/src/EBox/Squid.pm:1121
+#: ../../main/squid/src/EBox/Squid.pm:1131
 msgid "Bytes"
 msgstr "Baiti"
 
-#: ../../main/squid/src/EBox/Squid.pm:1122
+#: ../../main/squid/src/EBox/Squid.pm:1132
 msgid "Mime/type"
 msgstr "Mime/tüüp"
 
-#: ../../main/squid/src/EBox/Squid.pm:1128
+#: ../../main/squid/src/EBox/Squid.pm:1138
 msgid "Accepted"
 msgstr "Aktsepteeritud"
 
-#: ../../main/squid/src/EBox/Squid.pm:1129
+#: ../../main/squid/src/EBox/Squid.pm:1139
 msgid "Denied"
 msgstr "Tagasi lükatud"
 
-#: ../../main/squid/src/EBox/Squid.pm:1130
+#: ../../main/squid/src/EBox/Squid.pm:1140
 msgid "Filtered"
 msgstr "Filtreeritud"
 
@@ -14556,39 +14741,39 @@ msgstr ""
 "Pea meeles, et läbipaistvas puhverserveris ei saa kasutada HTTPSi. Pead "
 "lisama tulemüüri reegli, kui soovid režiimi lubada."
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:47
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:49
 msgid "Time period"
 msgstr "Ajaperiood"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:48
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:50
 msgid "Time period when the rule is applied"
 msgstr "Ajaperiood, mille jooksul see reegel kehtib"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:61
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:63
 #, fuzzy
 msgid "Network Object"
 msgstr "Võrguobjekt"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:67
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:69
 #: ../../main/ipsec/src/EBox/IPsec/Model/Users.pm:136
 msgid "Users Group"
 msgstr "Kasutajate grupp"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:87
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:89
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:193
 msgid "Allow All"
 msgstr "Luba kõik"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:91
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:93
 #: ../../main/squid/src/EBox/Squid/Model/DomainFilterCategories.pm:192
 msgid "Deny All"
 msgstr "Keela kõik"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:95
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:97
 msgid "Apply Filter Profile"
 msgstr "Rakenda Filtri Profiil"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:117
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:119
 msgid ""
 "Here you can filter, block or allow access by user group or network object. "
 "Rules are only applied during the selected time period."
@@ -14596,19 +14781,26 @@ msgstr ""
 "Siin sa saad filtreerida, keelata või lubada ligipääsu kasutajagruppide või "
 "võrguobjektide järgi. Reeglid kehtivad ainult valitud ajaperioodi jooksul."
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:129
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:131
 msgid ""
 "Group selection will not be available until you enable the HTTP proxy module"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:317
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:417
+#, perl-brace-format
+msgid ""
+"AD Error {error_name}: {error_desc}. If you think this error is temporary, "
+"please try again later"
+msgstr ""
+
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:434
 msgid ""
 "Source matching by user group is not compatible with transparent proxy mode"
 msgstr ""
 "Allika sobitamine kasutajagruppide järgi ei ole ühilduv läbipaistva proksi "
 "režiimiga"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:348
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:465
 msgid ""
 "You cannot add a 'Allow' or 'Profile' rule for an object or any address if "
 "you have group rules"
@@ -14616,7 +14808,7 @@ msgstr ""
 "Sa ei saa lisada 'Luba' või 'Profiil' reegleid objektile või ükskõik "
 "millisele aadressile, kui sul on grupi reeglid aktiivsed"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:353
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:470
 msgid ""
 "You cannot add a group-based rule if you have an 'Allow' or 'Profile' rule "
 "for objects or any address"
@@ -14624,21 +14816,21 @@ msgstr ""
 "Sa ei saa lisada grupipõhist reeglit, kui sul on 'Luba' või 'Profiil' reegel "
 "objektidele või mõnele aadressile"
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:363
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:480
 #, perl-brace-format
 msgid ""
 "The time period of the rule ({t1}) overlaps with the time period of ({t2}) "
 "other rule for the same {sourceType}"
 msgstr ""
 
-#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:666
+#: ../../main/squid/src/EBox/Squid/Model/AccessRules.pm:783
 #, perl-brace-format
 msgid "Apply '{p}' profile"
 msgstr "Rakenda profiil '{p}'"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:37
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:37
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:38
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:54
 msgid "Domain Name Address"
 msgstr "Domeen"
 
@@ -14654,7 +14846,7 @@ msgstr "Vahemälu vabastused"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:60
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:60
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:77
 msgid "domain name address"
 msgstr "domeen"
 
@@ -14665,19 +14857,19 @@ msgstr "Domeenide vabastamine vahemällu salvestamisest"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:63
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:63
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:64
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:80
 msgid "Address added"
 msgstr "Domeen lisatud"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:64
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:64
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:65
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:81
 msgid "Address removed"
 msgstr "Domeen eemaldatud"
 
 #: ../../main/squid/src/EBox/Squid/Model/NoAuthDomains.pm:65
 #: ../../main/squid/src/EBox/Squid/Model/NoCacheDomains.pm:65
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:66
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:82
 msgid "Address updated"
 msgstr "Domeen uuendatud"
 
@@ -15125,17 +15317,22 @@ msgstr "Domeenifiltri seadistused"
 msgid "Filtering settings changed"
 msgstr "Filtreerimise seadistused muudetud"
 
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:45
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:42
+#, fuzzy, perl-brace-format
+msgid "The domain '{domain}' could not be resolved."
+msgstr "Sertifikaat on uuendatud"
+
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:61
 #, fuzzy
 msgid "Skip Transparent Proxy"
 msgstr "Läbipaistev puhverserver"
 
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:53
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:69
 #, fuzzy
 msgid "Transparent Proxy Exemptions"
 msgstr "Läbipaistev puhverserver"
 
-#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:62
+#: ../../main/squid/src/EBox/Squid/Model/TransparentExceptions.pm:78
 #, fuzzy
 msgid "You can exempt some addresses from transparent proxy"
 msgstr "Domeenide vabastamine vahemällu salvestamisest"
@@ -15607,41 +15804,41 @@ msgstr "Smart host autentimise seadistamiseks"
 msgid "FTP"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:83 ../../main/mail/src/EBox/Mail.pm:1367
-#: ../../main/mail/src/EBox/Mail.pm:1527
+#: ../../main/mail/src/EBox/Mail.pm:83 ../../main/mail/src/EBox/Mail.pm:1380
+#: ../../main/mail/src/EBox/Mail.pm:1540
 #: ../../main/mail/src/EBox/Mail/Model/MailUser.pm:68
 #: ../../main/mail/src/EBox/Event/Dispatcher/Mail.pm:145
 msgid "Mail"
 msgstr "E-post"
 
-#: ../../main/mail/src/EBox/Mail.pm:113
+#: ../../main/mail/src/EBox/Mail.pm:125
 msgid "Generate mail aliases"
 msgstr "E-posti aliaste genereerimine"
 
-#: ../../main/mail/src/EBox/Mail.pm:115
+#: ../../main/mail/src/EBox/Mail.pm:127
 #, fuzzy, perl-brace-format
 msgid "Zentyal will execute {cmd}"
 msgstr "{cmd} käivitamine eBoxi poolt"
 
-#: ../../main/mail/src/EBox/Mail.pm:122
+#: ../../main/mail/src/EBox/Mail.pm:134
 #, fuzzy
 msgid "Zentyal will add two LDAP schemas: authldap.ldif and eboximail.ldif."
 msgstr "eBox lisab kaks LDAP skeemi: authldap.ldif ja eboximail.ldif"
 
-#: ../../main/mail/src/EBox/Mail.pm:128
+#: ../../main/mail/src/EBox/Mail.pm:140
 msgid "Create certificates"
 msgstr "Sertifikaatide loomine"
 
-#: ../../main/mail/src/EBox/Mail.pm:130
+#: ../../main/mail/src/EBox/Mail.pm:142
 #, fuzzy
 msgid "Zentyal will create certificates to use in mail services"
 msgstr "eBox loob sertifikaadid, mida kasutatakse e-posti teenuste poolt"
 
-#: ../../main/mail/src/EBox/Mail.pm:135
+#: ../../main/mail/src/EBox/Mail.pm:147
 msgid "Add fetchmail update cron job"
 msgstr "fetchmaili uuendamise töö lisamine croni"
 
-#: ../../main/mail/src/EBox/Mail.pm:137
+#: ../../main/mail/src/EBox/Mail.pm:149
 #, fuzzy
 msgid ""
 "Zentyal will schedule a cron job to update fetchmail configuration when the "
@@ -15650,65 +15847,65 @@ msgstr ""
 "eBox loob perioodilise croni töö fetchmaili seadistuste uuendamiseks, juhul "
 "kui kasutaja on lisanud väliskonto"
 
-#: ../../main/mail/src/EBox/Mail.pm:157
+#: ../../main/mail/src/EBox/Mail.pm:169
 msgid "To configure postfix"
 msgstr "Postfixi seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:163
+#: ../../main/mail/src/EBox/Mail.pm:175
 msgid "To define how client programs connect to services in  postfix"
 msgstr "Klientprogrammide postfixi teenustega ühendamise defineerimiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:170
+#: ../../main/mail/src/EBox/Mail.pm:182
 msgid "To configure host mail name"
 msgstr "Masina e-posti nime seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:175
+#: ../../main/mail/src/EBox/Mail.pm:187
 msgid "To configure postfix aliases"
 msgstr "Postfixi aliaste seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:180
+#: ../../main/mail/src/EBox/Mail.pm:192
 msgid "To configure dovecot"
 msgstr "Dovecoti seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:185
+#: ../../main/mail/src/EBox/Mail.pm:197
 msgid "To configure dovecot to authenticate against LDAP"
 msgstr "dovecoti LDAP vastu autentimise seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:190
+#: ../../main/mail/src/EBox/Mail.pm:202
 msgid "To configure smart host authentication"
 msgstr "Smart host autentimise seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:195
+#: ../../main/mail/src/EBox/Mail.pm:207
 #, fuzzy
 msgid "To configure mail transports"
 msgstr "Amavisi seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:200
+#: ../../main/mail/src/EBox/Mail.pm:212
 #, fuzzy
 msgid "To let dovecot authenticate users using PAM"
 msgstr "dovecoti LDAP vastu autentimise seadistamiseks"
 
-#: ../../main/mail/src/EBox/Mail.pm:237
+#: ../../main/mail/src/EBox/Mail.pm:249
 msgid "Outgoing Mail (SMTP protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:246
+#: ../../main/mail/src/EBox/Mail.pm:258
 msgid "Incoming Mail"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:247
+#: ../../main/mail/src/EBox/Mail.pm:259
 msgid "POP, IMAP and SIEVE protocols"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:256
+#: ../../main/mail/src/EBox/Mail.pm:268
 msgid "Mail Submission"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:257
+#: ../../main/mail/src/EBox/Mail.pm:269
 msgid "Outgoing Mail (Submission protocol)."
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:731
+#: ../../main/mail/src/EBox/Mail.pm:744
 msgid ""
 "Cannot use the hostname as mailname because it is not a fully qualified "
 "name. Please, define a custom server mailname"
@@ -15716,144 +15913,144 @@ msgstr ""
 "Masinanime ei saa e-posti nimena kasutada, kuna see ei ole täielikult "
 "kvalifitseeruv nimi. Palun defineeri kohandatud serveri e-posti nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:736
+#: ../../main/mail/src/EBox/Mail.pm:749
 msgid "The mail name must be a fully qualified name"
 msgstr "E-posti nimi peab olema täielikult kvalifitseeruv nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:740 ../../main/mail/src/EBox/Mail.pm:751
-#: ../../main/mail/src/EBox/Mail.pm:759
+#: ../../main/mail/src/EBox/Mail.pm:753 ../../main/mail/src/EBox/Mail.pm:764
+#: ../../main/mail/src/EBox/Mail.pm:772
 msgid "Host mail name"
 msgstr "Masina e-posti nimi"
 
-#: ../../main/mail/src/EBox/Mail.pm:754
+#: ../../main/mail/src/EBox/Mail.pm:767
 msgid "The mail name and virtual mail domain name are equal"
 msgstr "E-posti nimi ja virtuaalse e-posti domeeni nimi on võrdsed"
 
-#: ../../main/mail/src/EBox/Mail.pm:1313
+#: ../../main/mail/src/EBox/Mail.pm:1326
 msgid "SMTP service"
 msgstr "SMTP teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1320
+#: ../../main/mail/src/EBox/Mail.pm:1333
 msgid "POP3 service"
 msgstr "POP3 teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1326
+#: ../../main/mail/src/EBox/Mail.pm:1339
 msgid "POP3S service"
 msgstr "POP3S teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1332
+#: ../../main/mail/src/EBox/Mail.pm:1345
 msgid "IMAP service"
 msgstr "IMAP teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1338
+#: ../../main/mail/src/EBox/Mail.pm:1351
 msgid "IMAPS service"
 msgstr "IMAPS teenus"
 
-#: ../../main/mail/src/EBox/Mail.pm:1387
+#: ../../main/mail/src/EBox/Mail.pm:1400
 msgid "Mail server's filter"
 msgstr "E-posti serveri filter"
 
-#: ../../main/mail/src/EBox/Mail.pm:1446
+#: ../../main/mail/src/EBox/Mail.pm:1459
 msgid "Greylist"
 msgstr "Greylist"
 
-#: ../../main/mail/src/EBox/Mail.pm:1452
+#: ../../main/mail/src/EBox/Mail.pm:1465
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:34
 #: ../../main/mail/src/EBox/Mail/CGI/QueueManager.pm:51
 msgid "Queue Management"
 msgstr "Järjekorra haldamine"
 
-#: ../../main/mail/src/EBox/Mail.pm:1478
+#: ../../main/mail/src/EBox/Mail.pm:1491
 #: ../../main/mail/src/templates/externalAccounts.mas:24
 msgid "Mail retrieval from external accounts"
 msgstr "Kirjade hankimine välistelt kontodelt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1493
+#: ../../main/mail/src/EBox/Mail.pm:1506
 msgid "Message ID"
 msgstr "Sõnumi ID"
 
-#: ../../main/mail/src/EBox/Mail.pm:1496
+#: ../../main/mail/src/EBox/Mail.pm:1509
 msgid "From hostname"
 msgstr "Masinanimelt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1497
+#: ../../main/mail/src/EBox/Mail.pm:1510
 msgid "From host ip"
 msgstr "Masina IP aadressilt"
 
-#: ../../main/mail/src/EBox/Mail.pm:1498
+#: ../../main/mail/src/EBox/Mail.pm:1511
 #: ../../main/mail/src/templates/qmanager.mas:17
 msgid "Size (bytes)"
 msgstr "Suurus (baitides)"
 
-#: ../../main/mail/src/EBox/Mail.pm:1499
+#: ../../main/mail/src/EBox/Mail.pm:1512
 msgid "Relay"
 msgstr "Edastamine"
 
-#: ../../main/mail/src/EBox/Mail.pm:1500
+#: ../../main/mail/src/EBox/Mail.pm:1513
 msgid "Message type"
 msgstr "Sõnumi tüüp"
 
-#: ../../main/mail/src/EBox/Mail.pm:1503
+#: ../../main/mail/src/EBox/Mail.pm:1516
 msgid "Additional Info"
 msgstr "Lisainfo"
 
 # koodis 'msgsent'
-#: ../../main/mail/src/EBox/Mail.pm:1514
+#: ../../main/mail/src/EBox/Mail.pm:1527
 msgid "Successful messages"
 msgstr "Edukalt saadetud sõnumid"
 
-#: ../../main/mail/src/EBox/Mail.pm:1515
+#: ../../main/mail/src/EBox/Mail.pm:1528
 msgid "Maximum message size exceeded"
 msgstr "Maksimaalse suuruse ületanud sõnumid"
 
 # koodis 'maxusrsize'
-#: ../../main/mail/src/EBox/Mail.pm:1516
+#: ../../main/mail/src/EBox/Mail.pm:1529
 #, fuzzy
 msgid "User quota exceeded"
 msgstr "Kasutajakvoot ületatud"
 
 # Edastamise juurdepääs keelatud
-#: ../../main/mail/src/EBox/Mail.pm:1517
+#: ../../main/mail/src/EBox/Mail.pm:1530
 msgid "Relay access denied"
 msgstr "Edastamine keelatud"
 
-#: ../../main/mail/src/EBox/Mail.pm:1518
+#: ../../main/mail/src/EBox/Mail.pm:1531
 msgid "Account does not exist"
 msgstr "Kontot ei ole olemas"
 
-#: ../../main/mail/src/EBox/Mail.pm:1519
+#: ../../main/mail/src/EBox/Mail.pm:1532
 msgid "Host unreachable"
 msgstr "Masin kättesaamatu"
 
-#: ../../main/mail/src/EBox/Mail.pm:1520
+#: ../../main/mail/src/EBox/Mail.pm:1533
 msgid "Authentication error"
 msgstr "Autentimise viga"
 
-#: ../../main/mail/src/EBox/Mail.pm:1521
+#: ../../main/mail/src/EBox/Mail.pm:1534
 msgid "Greylisted"
 msgstr "Greylistis"
 
-#: ../../main/mail/src/EBox/Mail.pm:1522
+#: ../../main/mail/src/EBox/Mail.pm:1535
 msgid "Relay rejected by the smarthost"
 msgstr ""
 
-#: ../../main/mail/src/EBox/Mail.pm:1523
+#: ../../main/mail/src/EBox/Mail.pm:1536
 msgid "Other events"
 msgstr "Muud sündmused"
 
-#: ../../main/mail/src/EBox/Mail.pm:1656 ../../main/mail/src/EBox/Mail.pm:1763
+#: ../../main/mail/src/EBox/Mail.pm:1669 ../../main/mail/src/EBox/Mail.pm:1776
 msgid "Mailboxes"
 msgstr "Postkastid"
 
-#: ../../main/mail/src/EBox/Mail.pm:1683
+#: ../../main/mail/src/EBox/Mail.pm:1696
 msgid "Mail SMTP server"
 msgstr "SMTP server"
 
-#: ../../main/mail/src/EBox/Mail.pm:1691
+#: ../../main/mail/src/EBox/Mail.pm:1704
 msgid "Mail POP/IMAP server"
 msgstr "POP/IMAP server"
 
-#: ../../main/mail/src/EBox/Mail.pm:1808
+#: ../../main/mail/src/EBox/Mail.pm:1821
 msgid ""
 "The mail domains and its accounts will be removed when the slave setup is "
 "complete"
@@ -16668,11 +16865,11 @@ msgstr "E-posti konto loomine"
 msgid "Mail account settings"
 msgstr "E-posti konto seadistused"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:385
+#: ../../main/mail/src/EBox/MailUserLdap.pm:396
 msgid "Mail alias settings"
 msgstr "E-posti aliase seadistused"
 
-#: ../../main/mail/src/EBox/MailUserLdap.pm:681
+#: ../../main/mail/src/EBox/MailUserLdap.pm:692
 msgid "Quota can only be a positive number or zero for unlimited quota"
 msgstr ""
 "Kvoot saab olla ainult positiivne number või null piiramatu kvoodi puhul"
@@ -16689,11 +16886,6 @@ msgstr "See väli on tavaliselt määratud suvaliseks"
 #: ../../main/core/src/templates/enable.mas:9
 msgid "Service configuration"
 msgstr "Teenuse seadistamine"
-
-#: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:179
-#: ../../main/services/src/EBox/Services/Model/ServiceTable.pm:160
-msgid "service"
-msgstr "teenus"
 
 #: ../../main/services/src/EBox/Services/Model/ServiceConfigurationTable.pm:213
 #, perl-brace-format
@@ -16769,12 +16961,6 @@ msgstr "suvaline TCP"
 #, fuzzy
 msgid "Any ICMP packet"
 msgstr "suvaline TCP port"
-
-#: ../../main/services/src/EBox/Services.pm:120
-#: ../../main/services/src/EBox/Services.pm:471
-#, fuzzy
-msgid "Zentyal Administration"
-msgstr "eBoxi haldamise port"
 
 #: ../../main/services/src/EBox/Services.pm:129
 #, fuzzy
@@ -17354,12 +17540,12 @@ msgstr "Faili asukoht peab olema absoluutne"
 msgid "Error on regular expression: {err}"
 msgstr "Vigane regulaaravaldis"
 
-#: ../../main/common/src/EBox/Config.pm:158
+#: ../../main/common/src/EBox/Config.pm:171
 #, perl-brace-format
 msgid "Could not open the config file {file}."
 msgstr "Seadistusfaili {file} avamine nurjus"
 
-#: ../../main/common/src/EBox/Config.pm:168
+#: ../../main/common/src/EBox/Config.pm:181
 msgid "The ebox user has not been set in the config file."
 msgstr "Eboxi kasutajat ei ole seadistusfailis määratud."
 
@@ -18047,12 +18233,16 @@ msgstr "Tundmatu"
 msgid "File {f} not found in backup for {d}, try a later date"
 msgstr "Faili {f} ei leitud varukoopiast {d}, proovi hilisemat kuupäeva"
 
+#: ../../main/ha/src/templates/metadata.mas:13
+msgid "Leave Cluster"
+msgstr ""
+
 #: ../../main/dns/src/templates/index.mas:16
 msgid "Domain list"
 msgstr "Domeeniloend"
 
 #: ../../main/dns/src/templates/index.mas:41
-#: ../../main/core/src/templates/ajax/tableBody.mas:439
+#: ../../main/core/src/templates/ajax/tableBody.mas:442
 #: ../../main/core/src/templates/ajax/row.mas:94
 #: ../../main/samba/src/templates/editgplink.mas:23
 #, fuzzy
@@ -18161,7 +18351,7 @@ msgid "City"
 msgstr "Linn"
 
 #: ../../main/ca/src/templates/createCA.mas:27
-#: ../../main/mail/src/templates/groupalias.mas:119
+#: ../../main/mail/src/templates/groupalias.mas:147
 #: ../../main/mail/src/templates/alias.mas:53
 #: ../../main/mail/src/templates/createaccount.mas:33
 msgid "Create"
@@ -18397,8 +18587,8 @@ msgid "Add Group"
 msgstr "Grupi lisamine"
 
 #: ../../main/users/src/templates/addgroup.mas:10
-#: ../../main/users/src/templates/editgroup.mas:27
-#: ../../main/users/src/templates/editgroup.mas:32
+#: ../../main/users/src/templates/editgroup.mas:28
+#: ../../main/users/src/templates/editgroup.mas:33
 #, fuzzy
 msgid "Security Group"
 msgstr "Süsteemiuuendused"
@@ -18408,8 +18598,8 @@ msgstr "Süsteemiuuendused"
 # #-#-#-#-#  et.po (ebox-jabber 1.4.1)  #-#-#-#-#
 # Administreerimisõigused
 #: ../../main/users/src/templates/addgroup.mas:10
-#: ../../main/users/src/templates/editgroup.mas:28
-#: ../../main/users/src/templates/editgroup.mas:34
+#: ../../main/users/src/templates/editgroup.mas:29
+#: ../../main/users/src/templates/editgroup.mas:35
 #, fuzzy
 msgid "Distribution Group"
 msgstr "Administreerimise õigused"
@@ -18424,13 +18614,13 @@ msgstr "Grupi nimi"
 msgid "Optional value"
 msgstr "Valikväärtus"
 
-#: ../../main/users/src/templates/editgroup.mas:15
+#: ../../main/users/src/templates/editgroup.mas:16
 #, fuzzy
 msgid "Group "
 msgstr "Grupp"
 
 # vbla Grupi haldamiseks vajad sa vähemalt ühte kasutajat, kuid hetkel kasutajaid ei eksisteeri.
-#: ../../main/users/src/templates/editgroup.mas:19
+#: ../../main/users/src/templates/editgroup.mas:20
 msgid ""
 "There are no users at the moment. You need at least one to manage this group "
 "properly."
@@ -18439,8 +18629,8 @@ msgstr ""
 "kasutajat."
 
 # või "valikuline"
-#: ../../main/users/src/templates/editgroup.mas:37
-#: ../../main/users/src/templates/editgroup.mas:40
+#: ../../main/users/src/templates/editgroup.mas:38
+#: ../../main/users/src/templates/editgroup.mas:41
 #: ../../main/users/src/templates/edituser.mas:38
 #: ../../main/users/src/templates/edituser.mas:44
 #: ../../main/users/src/templates/adduser.mas:23
@@ -18454,19 +18644,19 @@ msgstr ""
 msgid "Optional"
 msgstr "Valikuline"
 
-#: ../../main/users/src/templates/editgroup.mas:58
+#: ../../main/users/src/templates/editgroup.mas:63
 #: ../../main/users/src/templates/edituser.mas:79
 #, fuzzy
 msgid "Modules configuration"
 msgstr "Mooduli oleku seadistamine"
 
 # või "e-posti teisik"
-#: ../../main/users/src/templates/editgroup.mas:114
+#: ../../main/users/src/templates/editgroup.mas:128
 #, fuzzy
 msgid "This group has not members"
 msgstr "Sellel grupil on e-posti alias"
 
-#: ../../main/users/src/templates/editgroup.mas:181
+#: ../../main/users/src/templates/editgroup.mas:201
 #, fuzzy
 msgid "Add user"
 msgstr "Kasutaja lisamine"
@@ -18761,6 +18951,11 @@ msgstr "Seadistuste varundamine"
 #: ../../main/core/src/templates/confirm-backup.mas:51
 msgid "Archive size"
 msgstr "Arhiivi suurus"
+
+#: ../../main/remoteservices/src/templates/Backup/proxy.mas:36
+#, fuzzy
+msgid "Zentyal host"
+msgstr "eBoxi kodulehekülg"
 
 #: ../../main/remoteservices/src/templates/Backup/proxy.mas:100
 #: ../../main/core/src/templates/backup.mas:138
@@ -19216,39 +19411,39 @@ msgstr ""
 msgid "show help"
 msgstr "abiteabe näitamine"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:67
+#: ../../main/core/src/templates/logs/dbtable.mas:69
 #: ../../main/core/src/templates/ajax/tablePager.mas:53
 #: ../../main/mail/src/templates/qmanager.mas:66
 msgid "first"
 msgstr "esimene"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:69
+#: ../../main/core/src/templates/logs/dbtable.mas:71
 #: ../../main/core/src/templates/ajax/tablePager.mas:57
 #: ../../main/mail/src/templates/qmanager.mas:68
 msgid "prev"
 msgstr "eelmine"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:75
-#: ../../main/core/src/templates/logs/dbtable.mas:76
+#: ../../main/core/src/templates/logs/dbtable.mas:77
+#: ../../main/core/src/templates/logs/dbtable.mas:78
 #: ../../main/mail/src/templates/qmanager.mas:70
 #: ../../main/mail/src/templates/qmanager.mas:71
 msgid "Page"
 msgstr "Lehekülg"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:76
+#: ../../main/core/src/templates/logs/dbtable.mas:78
 #: ../../main/openchange/src/templates/migration/progress.mas:19
 #: ../../main/openchange/src/templates/migration/progress.mas:21
 #: ../../main/mail/src/templates/qmanager.mas:71
 msgid "of"
 msgstr "/"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:85
+#: ../../main/core/src/templates/logs/dbtable.mas:87
 #: ../../main/core/src/templates/ajax/tablePager.mas:62
 #: ../../main/mail/src/templates/qmanager.mas:75
 msgid "next"
 msgstr "järgmine"
 
-#: ../../main/core/src/templates/logs/dbtable.mas:87
+#: ../../main/core/src/templates/logs/dbtable.mas:89
 #: ../../main/core/src/templates/ajax/tablePager.mas:67
 #: ../../main/mail/src/templates/qmanager.mas:77
 msgid "last"
@@ -19965,7 +20160,7 @@ msgid ""
 "migration."
 msgstr "Sa pead mooduli kasutajad lubama ülemrežiimis."
 
-#: ../../main/openchange/src/templates/migration/connect.mas:19
+#: ../../main/openchange/src/templates/migration/connect.mas:20
 msgid ""
 "The migration features provided as part of this technology preview only "
 "allow you to migrate one user at a time. Each migration requires the user to "
@@ -19974,62 +20169,62 @@ msgid ""
 msgstr ""
 
 # või ka "teisene server"
-#: ../../main/openchange/src/templates/migration/connect.mas:22
+#: ../../main/openchange/src/templates/migration/connect.mas:23
 #, fuzzy
 msgid "Select origin server"
 msgstr "Sekundaarne server"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:23
+#: ../../main/openchange/src/templates/migration/connect.mas:24
 msgid ""
 "This wizard helps you to migrate users data from any server to this zentyal "
 "server"
 msgstr ""
 
-#: ../../main/openchange/src/templates/migration/connect.mas:26
+#: ../../main/openchange/src/templates/migration/connect.mas:27
 #, fuzzy
 msgid "Enter origin server name"
 msgstr "Välise serveri ühendus"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:26
+#: ../../main/openchange/src/templates/migration/connect.mas:27
 msgid "Enter server Fully qualified domain name or IP address"
 msgstr ""
 
-#: ../../main/openchange/src/templates/migration/connect.mas:29
+#: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid "Credential for origin server"
 msgstr ""
 
-#: ../../main/openchange/src/templates/migration/connect.mas:29
+#: ../../main/openchange/src/templates/migration/connect.mas:30
 msgid ""
 "You need either a user with Full privileges in Exchange with access to all "
 "mailboxes or the credentials of the user that is going to be migrated"
 msgstr ""
 
-#: ../../main/openchange/src/templates/migration/connect.mas:29
+#: ../../main/openchange/src/templates/migration/connect.mas:30
 #, fuzzy
 msgid "Origin user"
 msgstr "kasutajanimi"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:30
+#: ../../main/openchange/src/templates/migration/connect.mas:31
 #, fuzzy
 msgid "Origin user password"
 msgstr "Kasutaja parool"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:34
+#: ../../main/openchange/src/templates/migration/connect.mas:35
 #, fuzzy
 msgid "Credential for local server"
 msgstr "väline e-posti server"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:34
+#: ../../main/openchange/src/templates/migration/connect.mas:35
 msgid ""
 "You need the user and password of the Zentyal user you want to migrate to"
 msgstr ""
 
-#: ../../main/openchange/src/templates/migration/connect.mas:34
+#: ../../main/openchange/src/templates/migration/connect.mas:35
 #, fuzzy
 msgid "Zentyal user name"
 msgstr "kasutajanimi"
 
-#: ../../main/openchange/src/templates/migration/connect.mas:35
+#: ../../main/openchange/src/templates/migration/connect.mas:36
 #, fuzzy
 msgid "Zentyal user password"
 msgstr "eBox salvestab sinu PPPoE paroolid"
@@ -20462,10 +20657,18 @@ msgstr "Nädalapäevadel"
 msgid "Welcome to Zentyal FTP service."
 msgstr "eBoxi e-posti teenus"
 
-#: ../../main/mail/src/templates/groupalias.mas:19
+#: ../../main/mail/src/templates/groupalias.mas:22
 #: ../../main/mail/src/templates/alias.mas:30
 msgid "Mail alias"
 msgstr "E-posti alias"
+
+#: ../../main/mail/src/templates/groupalias.mas:66
+msgid "Group aliases cannot be created for a group without users"
+msgstr ""
+
+#: ../../main/mail/src/templates/groupalias.mas:67
+msgid "Group aliases cannot be created because any user has mail account"
+msgstr ""
 
 # Virtuaalne meilidomeen?
 #: ../../main/mail/src/templates/warnvd.mas:12
@@ -20620,6 +20823,34 @@ msgstr "Sellel kasutajal on e-posti konto"
 msgid ""
 "The following settings only will take effect when the mail module is enabled"
 msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
+
+#, fuzzy
+#~ msgid "WebAdmin port"
+#~ msgstr "AD parool"
+
+#, fuzzy
+#~ msgid "Interface for communication"
+#~ msgstr "Kuulatav liides"
+
+#, fuzzy
+#~ msgid "Zentyal Web Server"
+#~ msgstr "Veebiserver"
+
+#~ msgid "Listening port"
+#~ msgstr "Kuulatav port"
+
+#, fuzzy
+#~ msgid "Listening SSL port"
+#~ msgstr "Kuulatav port"
+
+# Administreerimis liidese TCP port
+#, fuzzy
+#~ msgid "Administration interface TCP port"
+#~ msgstr "Haldusliidese TCP port"
+
+#, fuzzy
+#~ msgid "Zentyal Administration"
+#~ msgstr "eBoxi haldamise port"
 
 #, fuzzy
 #~ msgid ""
@@ -20814,10 +21045,6 @@ msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
 #, fuzzy
 #~ msgid "Remove virtual machine"
 #~ msgstr "virtuaaldomeen"
-
-#, fuzzy
-#~ msgid "Create a new disk"
-#~ msgstr "E-posti aliaste loomine"
 
 #, fuzzy
 #~ msgid "Drive Type"
@@ -21760,12 +21987,6 @@ msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
 #~ "Virtuaalhost {vhost} on lisatud aliasena {alias} masinasse {hostname}"
 
 #, fuzzy
-#~ msgid ""
-#~ "There is no static internal interface to set the Web server IP address."
-#~ msgstr ""
-#~ "Sisemine staatiline liides veebiserveri IP aadressi määramiseks puudub"
-
-#, fuzzy
 #~ msgid "Server Subscription"
 #~ msgstr "Telli"
 
@@ -22589,9 +22810,6 @@ msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
 #~ msgid "Name '{name}' is invalid"
 #~ msgstr "Nimi '{name}' on vigane"
 
-#~ msgid "{iface} (internal interface)"
-#~ msgstr "{iface} (sisemine liides)"
-
 #~ msgid "{iface} (external interface)"
 #~ msgstr "{iface} (väline liides)"
 
@@ -23284,11 +23502,6 @@ msgstr "Järgnevad seadistused jõustuvad siis, kui e-posti moodul on lubatud"
 #, fuzzy
 #~ msgid "FIXME configuration file"
 #~ msgstr "Ajavööndi seadistamine"
-
-#  
-#, fuzzy
-#~ msgid "Start on boot"
-#~ msgstr "Seiskamine või taaskäivitamine"
 
 #, fuzzy
 #~ msgid "There isn't any configurable option."

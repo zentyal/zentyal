@@ -112,10 +112,10 @@ sub _print
 {
     my ($self) = @_;
     if (not $self->param('raw')) {
-        return $self->SUPER::_print();
+        $self->SUPER::_print();
     }
 
-    return $self->_printPopup();
+    $self->_printPopup();
 }
 
 sub _menu
@@ -130,12 +130,12 @@ sub _menu
         # FIXME: workaround to show distinct menu for saving changes and installation proccess
         if ( $self->{title} and
              ( __('Saving changes') eq $self->{title}) ) {
-            $software->firstTimeMenu(4);
+            return $software->firstTimeMenu(4);
         } else {
-            $software->firstTimeMenu(2);
+            return $software->firstTimeMenu(2);
         }
     } else {
-        $self->SUPER::_menu(@_);
+        return $self->SUPER::_menu(@_);
     }
 }
 
@@ -148,8 +148,7 @@ sub _top
 
     my $global = EBox::Global->getInstance();
     my $img = $global->theme()->{'image_title'};
-    print "<div id='top'></div><div id='header'><img src='$img'/></div>";
-    return;
+    return "<div id='top'></div><div id='header'><img src='$img'/></div>";
 }
 
 sub _footer

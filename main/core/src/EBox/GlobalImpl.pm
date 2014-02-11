@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::GlobalImpl;
 
-use base qw(EBox::Module::Config Apache::Singleton::Process);
+use base qw(EBox::Module::Config Class::Singleton);
 
 use EBox;
 use EBox::Exceptions::Command;
@@ -56,7 +56,7 @@ use constant {
     DPKG_RUNNING_FILE => '/var/lib/zentyal/dpkg_running',
 };
 
-use constant CORE_MODULES => qw(sysinfo webadmin events global logs audit);
+use constant CORE_MODULES => qw(sysinfo haproxy webadmin events global logs audit);
 
 my $lastDpkgStatusMtime = undef;
 my $_cache = undef;

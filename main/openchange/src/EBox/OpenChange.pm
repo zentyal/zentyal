@@ -20,13 +20,20 @@ package EBox::OpenChange;
 
 use base qw(EBox::Module::Service EBox::LdapModule);
 
-use EBox::Gettext;
 use EBox::Config;
 use EBox::DBEngineFactory;
+use EBox::Exceptions::Sudo::Command;
+use EBox::Exceptions::External;
+use EBox::Gettext;
+use EBox::Global;
+use EBox::Menu::Item;
+use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::Sudo;
 
+use TryCatch::Lite;
 use String::Random;
 
 use constant SOGO_PORT => 20000;
@@ -40,6 +47,7 @@ use constant SOGO_LOG_FILE => '/var/log/sogo/sogo.log';
 use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
+use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 # Method: _create
@@ -137,6 +145,12 @@ sub enableService
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
 
+        if ($global->modExists('webserver')) {
+            my $webserverMod = $global->modInstance("webserver");
+            # Mark webserver as changed to load the configuration of Outlook Anywhere.
+            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        }
+
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
@@ -181,6 +195,26 @@ sub _daemons
     return $daemons;
 }
 
+# Method: isRunning
+#
+#   Links Openchange running status to Samba status.
+#
+# Overrides: <EBox::Module::Service::isRunning>
+#
+sub isRunning
+{
+    my ($self) = @_;
+
+    my $running = $self->SUPER::isRunning();
+
+    if ($running) {
+        my $sambaMod = $self->global()->modInstance('samba');
+        return $sambaMod->isRunning();
+    } else {
+        return $running;
+    }
+}
+
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
@@ -189,23 +223,35 @@ sub _autodiscoverEnabled
 
 sub usedFiles
 {
-    my @files = (
-        {
-            file => SOGO_DEFAULT_FILE,
-            reason => __('To configure sogo daemon'),
-            module => 'openchange'
-       },
-       {
-           file => SOGO_CONF_FILE,
-           reason => __('To configure sogo parameters'),
-           module => 'openchange'
-       },
-       {
-           file => OCSMANAGER_CONF_FILE,
-           reason => __('To configure autodiscovery service'),
-           module => 'openchange'
-       }
-      );
+    my @files = ();
+    push (@files, {
+        file => SOGO_DEFAULT_FILE,
+        reason => __('To configure sogo daemon'),
+        module => 'openchange'
+    });
+    push (@files, {
+        file => SOGO_CONF_FILE,
+        reason => __('To configure sogo parameters'),
+        module => 'openchange'
+    });
+    push (@files, {
+        file => OCSMANAGER_CONF_FILE,
+        reason => __('To configure autodiscovery service'),
+        module => 'openchange'
+    });
+
+    my $global = EBox::Global->getInstance();
+    if ($global->modExists('webserver')) {
+        my $webserverMod = $global->modInstance("webserver");
+        if ($webserverMod->isEnabled()) {
+            my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
+            push (@files, {
+                file => $rpcproxyConfFile,
+                reason => __('To configure Outlook Anywhere service'),
+                module => 'openchange'
+            });
+        }
+    }
 
     return \@files;
 }
@@ -218,6 +264,7 @@ sub _setConf
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
     $self->_setAutodiscoverConf();
+    $self->_setRPCProxyConf();
     $self->_writeRewritePolicy();
 }
 
@@ -334,6 +381,51 @@ sub _setAutodiscoverConf
         $webadmin->addNginxInclude(OCSMANAGER_INC_FILE);
     } else {
         $webadmin->removeNginxInclude(OCSMANAGER_INC_FILE);
+    }
+}
+
+sub _setRPCProxyConf
+{
+    my ($self) = @_;
+
+    my $global = $self->global();
+    if ($global->modExists('webserver')) {
+        my $webserverMod = $global->modInstance("webserver");
+        my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
+        if ($webserverMod->isEnabled()) {
+            if ($self->isProvisioned()) {
+                try {
+                    EBox::Sudo::root('a2enmod wsgi');
+                } catch (EBox::Exceptions::Sudo::Command $e) {
+                    # Already enabled?
+                    if ( $e->exitValue() != 1 ) {
+                        $e->throw();
+                    }
+                }
+                $self->writeConfFile(
+                    $rpcproxyConfFile, 'openchange/apache-rpcproxy.mas',
+                    [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+
+                my @cmds;
+                push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+                push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+                push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+                EBox::Sudo::root(@cmds);
+            } else {
+                EBox::Sudo::root('rm -f ' . $rpcproxyConfFile);
+                # Disable the module
+                try {
+                    EBox::Sudo::root('a2dismod wsgi');
+                } catch (EBox::Exceptions::Sudo::Command $e) {
+                    # Already enabled?
+                    if ( $e->exitValue() != 1 ) {
+                        $e->throw();
+                    }
+                }
+            }
+            # Force webserver reload
+            $webserverMod->setAsChanged();
+        }
     }
 }
 

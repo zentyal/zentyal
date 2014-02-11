@@ -57,8 +57,10 @@ sub _process
 
     my $audit = EBox::Global->modInstance('audit');
 
+    my $request = $self->request();
+    my $parameters = $request->parameters();
     $self->keepParam('iface');
-    $self->cgi()->param(-name=>'iface', -value=>$iface);
+    $parameters->set('iface', $iface);
     if ($ifaction eq 'add'){
         $self->_requireParam("vif_address", __("IP address"));
         $self->_requireParam("vif_netmask", __("netmask"));

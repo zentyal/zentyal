@@ -1,5 +1,5 @@
 # Copyright (C) 2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -44,7 +44,7 @@ use EBox::WebAdmin::UserConfiguration;
 use Clone::Fast;
 use Encode;
 use TryCatch::Lite;
-use POSIX qw(ceil);
+use POSIX qw(ceil INT_MAX);
 use Perl6::Junction qw(all any);
 use List::Util;
 
@@ -2152,9 +2152,9 @@ sub findAll
 #
 sub findValue
 {
-    my ($self, $fieldName, $value) = @_;
+    my ($self, $fieldName, $value, $nosync) = @_;
 
-    $self->findValueMultipleFields({ $fieldName => $value });
+    $self->findValueMultipleFields({ $fieldName => $value }, $nosync);
 }
 
 # Method: findValueMultipleFields
@@ -2184,9 +2184,9 @@ sub findValue
 #
 sub findValueMultipleFields
 {
-    my ($self, $fields) = @_;
+    my ($self, $fields, $nosync) = @_;
 
-    my @matched = @{$self->_find($fields, undef, 'value')};
+    my @matched = @{$self->_find($fields, undef, 'value', $nosync)};
 
     if (@matched) {
         return $self->row($matched[0]);
@@ -2521,21 +2521,65 @@ sub automaticRemoveMsg
             br      => '<br>');
 }
 
+# Method: showFilterForm
+#
+# Returns:
+#
+#   Boolean - whether to show the filter form or not
+#
+sub showFilterForm
+{
+    my ($self) = @_;
+
+    my $table = $self->table();
+    if (defined($table->{'showFilterForm'})) {
+        return $table->{'showFilterForm'};
+    }
+
+    return 1;
+}
+
+# Method: showPaginationForm
+#
+# Returns:
+#
+#   Boolean - whether to show the form navigation or not
+#
+sub showPaginationForm
+{
+    my ($self) = @_;
+
+    my $table = $self->table();
+    if (defined($table->{'showPaginationForm'})) {
+        return $table->{'showPaginationForm'};
+    }
+
+    return 1;
+}
+
+
+
+
 # Method: pageSize
 #
 #     Return the number of rows per page
+#
+# Parameters:
+#
+#     user - String the user name
 #
 # Returns:
 #
 #    int page size or '_all' for 'All pages' option
 sub pageSize
 {
-    my ($self) = @_;
+    my ($self, $user) = @_;
 
-    # if the user has selected a page size return it
-    my $pageSize = EBox::WebAdmin::UserConfiguration::get($self->contextName() .'pageSize');
-    if ($pageSize) {
-        return $pageSize;
+    if ($user) {
+        my $pageSize = EBox::WebAdmin::UserConfiguration::get($user, $self->contextName() .'pageSize');
+        if ($pageSize) {
+            return $pageSize;
+        }
     }
 
     return $self->defaultPageSize();
@@ -2547,10 +2591,11 @@ sub pageSize
 #  page
 sub pageSizeIntValue
 {
-    my ($self) = @_;
-    my $pageSize = $self->pageSize();
+    my ($self, $user) = @_;
+
+    my $pageSize = $self->pageSize($user);
     if ($pageSize eq '_all') {
-        return 2147483647; # POSIX MAX INT
+        return INT_MAX;
     }
     return $pageSize;
 }
@@ -2583,6 +2628,7 @@ sub defaultPageSize
 #
 # Parameters:
 #
+#     user - The user that requested this page size
 #     rows - number of rows per page
 #
 # Returns:
@@ -2590,22 +2636,23 @@ sub defaultPageSize
 #    int - page size
 sub setPageSize
 {
-    my ($self, $rows) = @_;
+    my ($self, $user, $rows) = @_;
 
+    unless (defined ($user)) {
+        throw EBox::Exceptions::MissingArgument("Missing user");
+    }
     unless (defined ($rows)) {
         throw EBox::Exceptions::MissingArgument("Missing field rows");
     }
 
     if ($rows < 0) {
         throw EBox::Exceptions::InvalidData(
-                                            data => __('Page size'),
-                                            value => $rows,
-                                            advice =>
-                                 __('Must be either a positive number or zero')
-                                           )
+            data => __('Page size'),
+            value => $rows,
+            advice => __('Must be either a positive number or zero')
+        );
     }
-
-    EBox::WebAdmin::UserConfiguration::set($self->contextName() . 'pageSize', $rows);
+    EBox::WebAdmin::UserConfiguration::set($user, $self->contextName() . 'pageSize', $rows);
 }
 
 # Method: changeViewJS

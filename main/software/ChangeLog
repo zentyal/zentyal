@@ -1,6 +1,8 @@
 3.4
+	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Remove useless initial-setup script
 	+ Set version to 3.4
+	+ Be able to update zentyal components when clicking select all checkbox
 	+ Update install button when clicking select all checkbox
 	+ Send an alert if a restart is required after performing an automatic
 	  update with auto-updater

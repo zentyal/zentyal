@@ -51,7 +51,9 @@ sub actuate
     # TODO: Kill migration process
 
     # No parameters to send to the chain
-    $self->cgi()->delete_all();
+    my $request = $self->request();
+    my $parameters = $request->parameters();
+    $parameters->clear();
 }
 
 1;

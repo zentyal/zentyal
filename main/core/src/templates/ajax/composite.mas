@@ -10,6 +10,7 @@
 <%args>
   $model
   $hasChanged
+  $user
 </%args>
 <%init>
   use EBox::Gettext;
@@ -35,6 +36,7 @@
 <& /ajax/tabMenu.mas,
    models => $componentsRef,
    selectedTab => 0,
+   user => $user,
    hasChanged => $hasChanged,
    tabName    => $model->name(),
    directory  => $model->directory(),
@@ -43,13 +45,34 @@
 %       foreach my $component (@{$componentsRef}) {
 <& $component->Viewer(),
    model => $component,
+   user => $user,
    hasChanged => $hasChanged,
    action => 'view',
 &>
 %       }
+%    } elsif ( $model->layout() eq 'left-right' ) {
+<div class='left-right-container'>
+%       my $i = 0;
+%       my $class = '';
+%       foreach my $component (@{$componentsRef}) {
+%           my $width = $model->width($component->name());
+%           if ($i == 0) { $class = 'half-left'; $i++; }
+%           else { $class = 'half-right'; $i++; }
+<div class='<% $class %>' style='width:<% $width %>;'>
+<& $component->Viewer(),
+   model => $component,
+   user => $user,
+   hasChanged => $hasChanged,
+   action => 'view',
+&>
+</div>
+%       }
+</div>
+<div style='clear:both;'></div>
 %    } elsif ( $model->layout() eq 'select' )  {
 <& /ajax/selector.mas,
    composite => $model,
+   user => $user,
    hasChanged => $hasChanged,
 &>
 %    }
