@@ -1,4 +1,6 @@
 3.4
+	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
+	  after normal save changes process
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties

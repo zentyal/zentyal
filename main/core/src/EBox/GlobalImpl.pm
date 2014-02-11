@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -1188,6 +1188,25 @@ sub communityEdition
     my $edition = $self->edition();
 
     return (($edition eq 'community') or ($edition eq 'basic'));
+}
+
+# Method: addModuleToPostSave
+#
+#      Add a module to be saved after single normal saving changes
+#
+# Parameters:
+#
+#      module - String the module name
+#
+sub addModuleToPostSave
+{
+    my ($self, $name) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    unless (grep { $_ eq $name} @postSaveModules) {
+        push (@postSaveModules, $name);
+        $self->set('post_save_modules', \@postSaveModules);
+    }
 }
 
 # Method: _runExecFromDir
