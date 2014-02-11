@@ -1,4 +1,6 @@
 HEAD
+	+ Created EBox::Util::Certificate, refactored create-certificate
+	  script
 	+ Changes in haproxy port validation and allow haproxy internal services
 	+ Added to findValueMultipleFields and findValue the nosync parameter
 	+ Added support for haproxy 1.5
