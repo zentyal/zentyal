@@ -883,5 +883,4 @@ sub _vdomainModImplementation
     return EBox::OpenChange::VDomainsLdap->new($self);
 }
 
-
 1;

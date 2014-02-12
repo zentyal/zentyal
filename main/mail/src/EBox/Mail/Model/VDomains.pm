@@ -177,7 +177,6 @@ sub validateRowRemoval
     my ($self, $row, $force) = @_;
     my $vdomain = $row->valueByName('vdomain');
     my $vdomainsLdap = $self->parentModule()->{vdomains};
-    EBox::debug("XXX validateRowRemoval $vdomain");
     $vdomainsLdap->validateDelVDomain($vdomain);
 }
 

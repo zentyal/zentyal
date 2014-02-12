@@ -45,6 +45,4 @@ sub _delVDomainAbort
 
 }
 
-
-
 1;
