@@ -1131,15 +1131,20 @@ sub deleteDisasterRecovery
 #
 # Returns:
 #
-#   String - The application name we are running as
+#   String - The application name we are running as or undef if unknown.
 #
 sub appName
 {
     my ($self) = @_;
 
     my $request = $self->{request};
-    my $session = $request->session();
-    return $session->{app};
+    if (defined $request) {
+        my $session = $request->session();
+        if (defined $session) {
+            return $session->{app};
+        }
+    }
+    return undef;
 }
 
 # Method: request
