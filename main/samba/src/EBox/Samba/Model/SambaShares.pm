@@ -314,7 +314,7 @@ sub createDirs
 
         my @cmds = ();
         push (@cmds, "mkdir -p '$path'");
-        push (@cmds, "setfacl -b '$path'"); # Clear POSIX ACLs
+        push (@cmds, "setfacl -R -b '$path'"); # Clear POSIX ACLs
         if ($guestAccess) {
            push (@cmds, 'chmod ' . GUEST_DEFAULT_MASK . " '$path'");
            push (@cmds, 'chown ' . GUEST_DEFAULT_USER . ':' . GUEST_DEFAULT_GROUP . " '$path'");
@@ -325,13 +325,23 @@ sub createDirs
         EBox::Sudo::root(@cmds);
 
         if ($guestAccess) {
+            # Posix ACL
+            my @posixACL;
+            push (@posixACL, 'u::rwx');
+            push (@posixACL, 'g::rwx');
+
             my $ntACL = '';
             $ntACL .= "O:$domainAdminsSid"; # Object's owner
             $ntACL .= "G:$domainUsersSid"; # Object's primary group
             my $aceString = '(A;OICI;0x001301BF;;;S-1-1-0)';
             $ntACL .= "D:$aceString";
-            my $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
             try {
+                my $cmd;
+                $cmd = 'setfacl -R -m ' . join(',', @posixACL) . " '$path'";
+                EBox::Sudo::root($cmd);
+                $cmd = 'setfacl -R -m d:' . join(',d:', @posixACL) ." '$path'";
+                EBox::Sudo::root($cmd);
+                $cmd = EBox::Samba::SAMBATOOL() . " ntacl set '$ntACL' '$path'";
                 EBox::Sudo::root($cmd);
             } otherwise {
                 my $error = shift;
