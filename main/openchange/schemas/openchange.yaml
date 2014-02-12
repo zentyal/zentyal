@@ -15,3 +15,7 @@ depends:
 models:
     - Provision
     - OpenChangeUser
+    - Configuration
+
+composites:
+    General: [Provision, Configuration]
