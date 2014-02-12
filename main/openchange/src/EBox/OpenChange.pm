@@ -611,6 +611,22 @@ sub _getMySQLPassword
     return $pwd;
 }
 
+# Method: isProvisionedWithMySQL
+#
+# Returns:
+#
+#   Whether OpenChange module has been provisioned using MySQL backends or not.
+#
+#   Since Zentyal 3.4 they are the default backends but on previous versions
+#   they didn't exist.
+#
+sub isProvisionedWithMySQL
+{
+    my ($self) = @_;
+
+    return $self->isProvisioned() and (-e OPENCHANGE_MYSQL_PASSWD_FILE);
+}
+
 # Method: connectionString
 #
 #   Return a connection string to be used for the different configurable backends of
@@ -620,6 +636,7 @@ sub _getMySQLPassword
 #
 #   string with the following format schema://user:password@host/table, schema will
 #   be, normally, mysql (because is the only one supported right now)
+#
 sub connectionString
 {
     my ($self) = @_;
