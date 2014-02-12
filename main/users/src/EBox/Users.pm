@@ -1604,7 +1604,7 @@ sub notifyModsLdapUserBase
     }
 
     # Save user corner operations for slave-sync daemon
-    if ($self->isUserCorner) {
+    if ($self->isUserCorner()) {
         my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
         mkdir ($dir) unless (-d $dir);
 
@@ -1666,18 +1666,9 @@ sub isUserCorner
 {
     my ($self) = @_;
 
-    # FIXME: FINISH THE MIGRATION TO PSGI
-    return 0;
+    my $global = EBox::Global->modInstance('global');
 
-#    my $auth_type = undef;
-#    try {
-#        my $r = Apache2::RequestUtil->request();
-#        $auth_type = $r->auth_type;
-#    } catch {
-#    }
-#
-#    return (defined $auth_type and
-#            $auth_type eq 'EBox::UserCorner::Auth');
+    return ($global->appName() eq 'usercorner');
 }
 
 # Method: defaultUserModels

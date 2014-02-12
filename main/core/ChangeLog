@@ -1,4 +1,6 @@
 3.4
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties
