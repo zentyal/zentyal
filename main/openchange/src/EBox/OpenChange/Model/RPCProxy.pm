@@ -63,8 +63,8 @@ sub _table
              acquirer => sub {
                  return '/Downloader/FromTempDir?filename=rpcproxy.cert';
              },
-            HTMLViewer     => '/ajax/viewer/linkRSS.mas',
-            HTMLSetter     => '/ajax/viewer/linkRSS.mas',
+            HTMLViewer     => '/ajax/viewer/downloadLink.mas',
+            HTMLSetter     => '/ajax/viewer/downloadLink.mas',
          ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',

@@ -1,0 +1,14 @@
+<%doc>
+   Template to show a link inside a download icon
+
+Parameters:
+
+   data - <EBox::Types::Link> the instanced type which contains the download link
+</%doc>
+<%args>
+$data
+</%args>
+<%init>
+  use EBox::Gettext;
+</%init>
+<a  class="btn btn-icon btn-download" href="<% $data->linkToView() %>"><% __('Download') %></a>
