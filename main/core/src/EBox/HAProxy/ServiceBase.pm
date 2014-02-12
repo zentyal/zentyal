@@ -162,7 +162,7 @@ sub _serviceId
 {
     my ($self) = @_;
 
-    return 'zentyal_' . $self->name();
+    return $self->name() . 'HAProxyId';
 }
 
 # Method: defaultHTTPSPort
