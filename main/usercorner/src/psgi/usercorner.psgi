@@ -41,7 +41,6 @@ my $app = sub {
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
-    EBox::init();
     binmode(STDOUT, ':utf8');
 
     my $req = Plack::Request->new($env);
@@ -55,8 +54,6 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
-      "+EBox::Middleware::NoAuth";
     enable "+EBox::Middleware::AuthLDAP", app_name => 'usercorner';
     $app;
 };
