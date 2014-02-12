@@ -60,7 +60,7 @@ sub templateContext
             # name => value
             [ __('Cluster name')   => $self->{ha}->model('Cluster')->nameValue()],
             [ __('Cluster secret') => 'raro'],
-            [ __('Current DC')     => $self->{clusterStatus}->designatedController()],
+            [ __('Current Designated Controller')     => $self->{clusterStatus}->designatedController()],
             [ __('Last update')     => $summary{'last_update'}],
             [ __('Last modification')     => $summary{'last_change'}],
             [ __('Configurated nodes')     => $self->{clusterStatus}->numberOfNodes() . __(' nodes')],

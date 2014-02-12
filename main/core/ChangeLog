@@ -1,4 +1,5 @@
 3.4
+	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Added EBox::WebAdmin::PortObserver to be used by ha and
 	  remoteservices modules by the moment
 	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules

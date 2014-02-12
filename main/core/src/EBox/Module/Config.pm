@@ -919,6 +919,15 @@ sub restoreFilesFromArchive
     EBox::Sudo::root($restoreCmd);
 }
 
+# Method: replicationExcludeKeys
+#
+#  Returns the list of keys that need to be excluded from HA conf replication
+#
+sub replicationExcludeKeys
+{
+    return [];
+}
+
 # Method: global
 #
 #  Gets an EBox::Global instance with the same read-only status as the module

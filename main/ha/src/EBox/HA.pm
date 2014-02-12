@@ -421,6 +421,7 @@ sub replicateConf
 {
     my ($self, $params, $body, $uploads) = @_;
 
+    EBox::info("Received replication bundle");
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
     my $file = $uploads->get('file');
@@ -431,39 +432,69 @@ sub replicateConf
 
     my $modules = decode_json(read_file("$tmpdir/modules.json"));
 
+    EBox::info("The following modules are going to be replicated: @{$modules}");
     foreach my $modname (@{$modules}) {
-        EBox::info("Replicating conf of module: $modname");
+        EBox::info("Restoring conf of module: $modname");
         my $mod = EBox::Global->modInstance($modname);
+        my %keysToReplace;
+        my @keysToDelete;
+
+        # TODO: need to differentiate conf/ro ?
+        foreach my $key (@{$mod->replicationExcludeKeys()}) {
+            my $value = $mod->get($key);
+            if (defined ($value)) {
+                $keysToReplace{$key} = $value;
+            } else {
+                push (@keysToDelete, $key);
+            }
+        }
+
         $mod->restoreBackup("$tmpdir/$modname.bak");
+
+        foreach my $key (keys %keysToReplace) {
+            $mod->set($key, $keysToReplace{$key});
+        }
+        foreach my $key (@keysToDelete) {
+            $mod->unset($key);
+        }
     }
 
+    # Avoid to save changes in ha module
+    EBox::Global->modRestarted('ha');
+
+    EBox::info("Configuration replicated, now saving changes...");
     EBox::Global->saveAllModules();
+    EBox::info("Changes saved after replication request");
 
     EBox::Sudo::root("rm -rf $tmpdir");
+}
+
+# Method: replicationExcludeKeys
+#
+#   Overrides: <EBox::Module::Config::replicationExcludeKeys>
+#
+sub replicationExcludeKeys
+{
+    return [
+        'Cluster/keys/form',
+        'ClusterState/keys/form',
+        '_serviceModuleStatus',
+        'state'
+    ];
 }
 
 sub askForReplication
 {
     my ($self, $modules) = @_;
 
-    foreach my $node (@{$self->nodes()}) {
-        next if ($node->{localNode});
-        my $addr = $node->{addr};
-        $self->askForReplicationInNode($addr, $modules);
-    }
-}
-
-sub askForReplicationInNode
-{
-    my ($self, $addr, $modules) = @_;
-
+    my @modules = grep { $REPLICATE_MODULES{$_} } @{$modules};
+    EBox::info("Generating replication bundle of the following modules: @modules");
     my $tarfile = 'bundle.tar.gz';
     my $tmpdir = mkdtemp(EBox::Config::tmp() . 'replication-bundle-XXXX');
 
     write_file("$tmpdir/modules.json", encode_json($modules));
 
-    foreach my $modname (@{$modules}) {
-        next unless $REPLICATE_MODULES{$modname};
+    foreach my $modname (@modules) {
         my $mod = EBox::Global->modInstance($modname);
         $mod->makeBackup($tmpdir);
     }
@@ -475,9 +506,17 @@ sub askForReplicationInNode
     }
 
     system ("cd $tmpdir; tar czf $tarfile *");
-    my $fullpath = "$tmpdir/$tarfile";
-    # FIXME: Use port from node list
-    system ("curl -k -F file=\@$fullpath https://$addr:443/conf/replication");
+    EBox::debug("Replication bundle generated");
+
+    my $path = "$tmpdir/$tarfile";
+
+    foreach my $node (@{$self->nodes()}) {
+        next if ($node->{localNode});
+        my $addr = $node->{addr};
+        $self->_uploadReplicationBundle($addr, $path);
+    }
+
+    EBox::info("Replication to the rest of nodes done");
 
     EBox::Sudo::root("rm -rf $tmpdir");
 }
@@ -1448,6 +1487,16 @@ sub _setNoQuorumPolicy
     my $noQuorumPolicy = 'stop';
     $noQuorumPolicy = 'ignore' if ($size == 2);
     EBox::Sudo::root("crm configure property no-quorum-policy=$noQuorumPolicy");
+}
+
+sub _uploadReplicationBundle
+{
+    my ($self, $addr, $file) = @_;
+
+    my $secret = $self->userSecret();
+    # FIXME: Use port from node list
+    system ("curl -k -F file=\@$file http://zentyal:$secret\@$addr:443/conf/replication");
+    EBox::info("Replication bundle uploaded to $addr");
 }
 
 1;
