@@ -98,11 +98,10 @@ sub validateTypedRow
             my $client = new EBox::RESTClient(
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $allParams->{'secret'}->value() },
-                server => $allParams->{'zentyal_host'}->value()
+                server => $allParams->{'zentyal_host'}->value(),
+                verifyHostname => 0,
                );
             $client->setPort($allParams->{'zentyal_port'}->value());
-            # FIXME: Delete this when using HAProxy
-            $client->setScheme('http');
             try {
                 $client->GET('/cluster/auth');
             } catch (EBox::Exceptions::Internal $e) {

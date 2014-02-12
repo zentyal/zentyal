@@ -348,10 +348,8 @@ sub provision
         throw EBox::Exceptions::External(__x('The mode {mode} is not supported'), mode => $mode);
     }
 
-    # dns needs to be restarted after save changes to write proper bind conf with the dlz
-    my @postSaveModules = @{$global->get_list('post_save_modules')};
-    push (@postSaveModules, 'dns');
-    $global->set('post_save_modules', \@postSaveModules);
+    # dns needs to be restarted after save changes to write proper bind conf with the DLZ
+    $global->addModuleToPostSave('dns');
 }
 
 sub resetSysvolACL

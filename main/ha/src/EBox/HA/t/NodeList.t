@@ -66,37 +66,37 @@ sub test_set : Test(9)
     my $nl = $self->{nodeList};
     cmp_deeply($nl->list(), [], 'list is empty');
     lives_ok {
-        $nl->set(addr => '10.1.1.1', name => 'a', webAdminPort => 443);
+        $nl->set(addr => '10.1.1.1', name => 'a', port => 443);
     } 'Add a new node';
     cmp_deeply($nl->list(),
-               [{addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0, nodeid => 1}],
+               [{addr => '10.1.1.1', name => 'a', port => 443, localNode => 0, nodeid => 1}],
                'list has this member');
     lives_ok {
-        $nl->set(addr => '10.1.1.3', name => 'b', webAdminPort => 443);
+        $nl->set(addr => '10.1.1.3', name => 'b', port => 443);
     } 'Adding another node';
     cmp_deeply($nl->list(),
                bag(
-        {addr => '10.1.1.1', name => 'a', webAdminPort => 443, localNode => 0, nodeid => 1 },
-        {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 }
+        {addr => '10.1.1.1', name => 'a', port => 443, localNode => 0, nodeid => 1 },
+        {addr => '10.1.1.3', name => 'b', port => 443, localNode => 0, nodeid => 2 }
        ),
                'list has this member');
     lives_ok {
-        $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1);
+        $nl->set(addr => '10.1.1.2', name => 'a', port => 443, localNode => 1);
     } 'Update a node';
     cmp_deeply($nl->list(),
                bag(
-      {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1, nodeid => 1 },
-      {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 }
+      {addr => '10.1.1.2', name => 'a', port => 443, localNode => 1, nodeid => 1 },
+      {addr => '10.1.1.3', name => 'b', port => 443, localNode => 0, nodeid => 2 }
      ),
                'list has an updated member');
     lives_ok {
-        $nl->set(addr => '10.1.1.5', name => 'c', webAdminPort => 443, nodeid => 23);
+        $nl->set(addr => '10.1.1.5', name => 'c', port => 443, nodeid => 23);
     } 'Set a node with id';
     cmp_deeply($nl->list(),
                bag(
-      {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 1, nodeid => 1 },
-      {addr => '10.1.1.3', name => 'b', webAdminPort => 443, localNode => 0, nodeid => 2 },
-      {addr => '10.1.1.5', name => 'c', webAdminPort => 443, localNode => 0, nodeid => 23}
+      {addr => '10.1.1.2', name => 'a', port => 443, localNode => 1, nodeid => 1 },
+      {addr => '10.1.1.3', name => 'b', port => 443, localNode => 0, nodeid => 2 },
+      {addr => '10.1.1.5', name => 'c', port => 443, localNode => 0, nodeid => 23}
      ),
                'list has a new member with custom nodeid');
 }
@@ -111,7 +111,7 @@ sub test_remove : Test(6)
         $nl->remove('a');
     } 'EBox::Exceptions::DataNotFound', 'Remove a non-existing node';
     lives_ok {
-        $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+        $nl->set(addr => '10.1.1.2', name => 'a', port => 443);
     } 'Add a new node';
     lives_ok {
        $nl->remove('a');
@@ -128,7 +128,7 @@ sub test_empty : Test(3)
 
     my $nl = $self->{nodeList};
     cmp_ok($nl->empty(), '==', 0);
-    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    $nl->set(addr => '10.1.1.2', name => 'a', port => 443);
     cmp_ok($nl->empty(), '==', 1);
     cmp_deeply($nl->list(), [], 'list is empty');
 }
@@ -141,9 +141,9 @@ sub test_node : Test(2)
     throws_ok {
         $nl->node('foobar');
     } 'EBox::Exceptions::DataNotFound', 'Node not found in empty list';
-    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    $nl->set(addr => '10.1.1.2', name => 'a', port => 443);
     cmp_deeply($nl->node('a'),
-               {addr => '10.1.1.2', name => 'a', webAdminPort => 443, localNode => 0,
+               {addr => '10.1.1.2', name => 'a', port => 443, localNode => 0,
                 nodeid => 1}, 'Node found');
     $nl->empty();
 
@@ -157,13 +157,13 @@ sub test_local_node : Test(3)
     throws_ok {
         $nl->localNode()
     } 'EBox::Exceptions::DataNotFound', 'Not local node in an empty list';
-    $nl->set(addr => '10.1.1.2', name => 'a', webAdminPort => 443);
+    $nl->set(addr => '10.1.1.2', name => 'a', port => 443);
     throws_ok {
         $nl->localNode()
     } 'EBox::Exceptions::DataNotFound', 'Not local node in a non-empty list';
-    $nl->set(addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1);
+    $nl->set(addr => '10.1.1.4', name => 'ab', port => 443, localNode => 1);
     cmp_deeply($nl->localNode(),
-               { addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1,
+               { addr => '10.1.1.4', name => 'ab', port => 443, localNode => 1,
                  nodeid => 2 });
     $nl->empty()
 }
@@ -184,22 +184,22 @@ sub test_diff : Test(7)
     cmp_deeply(\@diff, [0, {new => ['jetplane-landing'], old => [], changed => []}],
                'New node in arriving list');
 
-    $nl->set(addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1);
+    $nl->set(addr => '10.1.1.4', name => 'ab', port => 443, localNode => 1);
     @diff = $nl->diff([]);
     cmp_deeply(\@diff, [0, {new => [], old => ['ab'], changed => []}],
                'Old node in removed list');
 
-    @diff = $nl->diff([{addr => '10.1.1.4', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1}]);
+    @diff = $nl->diff([{addr => '10.1.1.4', name => 'ab', port => 443, localNode => 1, nodeid => 1}]);
     cmp_ok($diff[0], '==', 1, 'localNode attr is ignored');
 
-    @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1}]);
+    @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', port => 443, localNode => 1, nodeid => 1}]);
     cmp_deeply(\@diff, [0, {new => [], old => [], changed => ['ab']}],
                'Changed on node addr attribute');
 
     # Testing all together
-    $nl->set(addr => '10.1.1.232', name => 'old', webAdminPort => 443, localNode => 1);
-    @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', webAdminPort => 443, localNode => 1, nodeid => 1},
-                       {addr => '10.1.1.1', name => 'new', webAdminPort => 443, localNode => 0, nodeid => 3}]);
+    $nl->set(addr => '10.1.1.232', name => 'old', port => 443, localNode => 1);
+    @diff = $nl->diff([{addr => '10.1.1.44', name => 'ab', port => 443, localNode => 1, nodeid => 1},
+                       {addr => '10.1.1.1', name => 'new', port => 443, localNode => 0, nodeid => 3}]);
     cmp_deeply(\@diff, [0, {new => ['new'], old => ['old'], changed => ['ab']}],
                'Testing all together');
     $nl->empty();
@@ -212,9 +212,9 @@ sub test_size : Test(4)
     my $nl = $self->{nodeList};
     $nl->empty();
     cmp_ok($nl->size(), '==', 0, 'Empty list equals to 0');
-    $nl->set(addr => '10.1.1.2', name => 'graham', webAdminPort => 443, localNode => 1);
+    $nl->set(addr => '10.1.1.2', name => 'graham', port => 443, localNode => 1);
     cmp_ok($nl->size(), '==', 1, 'A list with 1 element');
-    $nl->set(addr => '10.1.1.3', name => 'coxon', webAdminPort => 443, localNode => 0);
+    $nl->set(addr => '10.1.1.3', name => 'coxon', port => 443, localNode => 0);
     cmp_ok($nl->size(), '==', 2, 'A list with 2 elements');
     $nl->remove('coxon');
     cmp_ok($nl->size(), '==', 1, 'A list after removal');

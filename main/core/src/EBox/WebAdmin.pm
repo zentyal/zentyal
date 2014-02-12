@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -132,6 +132,22 @@ sub hardRestart
     my ($self) = @_;
     my $state = $self->get_state;
     return $state->{hardRestart};
+}
+
+# Method: listeningPort
+#
+#     Return the listening port for the webadmin.
+#
+#     Just call <EBox::HAProxy::ServiceBase::usedHAProxySSLPort>
+#
+# Returns:
+#
+#     Int - the listening port
+#
+sub listeningPort
+{
+    my ($self) = @_;
+    return $self->usedHAProxySSLPort();
 }
 
 sub _stopService
@@ -313,15 +329,13 @@ sub _writeCAFiles
    }
 }
 
-# Report the new TCP admin port to Zentyal Cloud
+# Report the new TCP admin port to the observer modules
 sub _reportAdminPort
 {
     my ($self) = @_;
 
-    my $global = EBox::Global->getInstance(1);
-    if ($global->modExists('remoteservices')) {
-        my $rs = $global->modInstance('remoteservices');
-        $rs->reportAdminPort($self->usedHAProxySSLPort());
+    foreach my $mod (@{$self->global()->modInstancesOfType('EBox::WebAdmin::PortObserver')}) {
+        $mod->adminPortChanged($self->usedHAProxySSLPort());
     }
 }
 
