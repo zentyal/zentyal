@@ -361,20 +361,23 @@ sub _writeRewritePolicy
 {
     my ($self) = @_;
 
-    my $sysinfo = $self->global()->modInstance('sysinfo');
-    my $defaultDomain = $sysinfo->hostDomain();
+    if ($self->isProvisioned()) {
+        my $sysinfo = $self->global()->modInstance('sysinfo');
+        my $defaultDomain = $sysinfo->hostDomain();
 
-    my $rewriteDomain = $self->model('Provision')->row()->printableValueByName('outgoingDomain');
+        my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
+        EBox::debug("The outgoing email we have is: $rewriteDomain");
 
-    my @rewriteParams;
-    push @rewriteParams, ('defaultDomain' => $defaultDomain);
-    push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
+        my @rewriteParams;
+        push @rewriteParams, ('defaultDomain' => $defaultDomain);
+        push @rewriteParams, ('rewriteDomain' => $rewriteDomain);
 
-    $self->writeConfFile(REWRITE_POLICY_FILE,
-        'openchange/rewriteDomainPolicy.mas',
-        \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
+        $self->writeConfFile(REWRITE_POLICY_FILE,
+            'openchange/rewriteDomainPolicy.mas',
+            \@rewriteParams, { uid => 0, gid => 0, mode => '644' });
 
-    EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+        EBox::Sudo::root('/usr/sbin/postmap ' . REWRITE_POLICY_FILE);
+    }
 }
 
 # Method: menu
@@ -394,16 +397,19 @@ sub menu
         text => $self->printableName(),
         separator => $separator,
         order => $order);
+
     $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/View/Provision',
+        url       => 'OpenChange/Composite/General',
         text      => __('Setup'),
         order     => 0));
+
     if ($self->isProvisioned()) {
         $folder->add(new EBox::Menu::Item(
             url       => 'OpenChange/Migration/Connect',
             text      => __('MailBox Migration'),
             order     => 1));
     }
+
     $root->add($folder);
 }
 
