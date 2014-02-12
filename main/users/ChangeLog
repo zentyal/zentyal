@@ -1,5 +1,5 @@
 3.4
-	+ Updated to use Plack / PSGI instead of mod_perl.
+	+ Updated to use Plack / PSGI instead of mod_perl
 	+ Updated to use the new haproxy API
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Fixed soap.conf for apache 2.4
