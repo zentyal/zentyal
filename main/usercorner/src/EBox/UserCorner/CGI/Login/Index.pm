@@ -76,6 +76,7 @@ sub _process
     my $global = EBox::Global->getInstance();
 
     my @htmlParams = (
+        'title'             => __('User Corner'),
         'destination'       => $destination,
         'reason'            => $reason,
         %{ $global->theme() }

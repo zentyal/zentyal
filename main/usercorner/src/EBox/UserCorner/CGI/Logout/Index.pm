@@ -15,7 +15,7 @@
 use strict;
 use warnings;
 
-package EBox::Logout::CGI::Logout;
+package EBox::UserCorner::CGI::Logout::Index;
 use base 'EBox::CGI::ClientBase';
 
 use EBox::Gettext;
