@@ -116,6 +116,9 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+    # Execute initial-setup script
+    $self->SUPER::initialSetup($version);
+
     # Register the service if installing the first time
     unless ($version) {
         my @args = ();
@@ -124,6 +127,7 @@ sub initialSetup
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
+        my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
     }
 
@@ -131,9 +135,6 @@ sub initialSetup
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
         $self->_migrate34();
     }
-
-    # Execute initial-setup script
-    $self->SUPER::initialSetup($version);
 }
 
 # Migration to 3.4
@@ -258,10 +259,10 @@ sub _daemons
 {
     return [
         {
-            'name' => USERCORNER_UPSTART_NAME
+            name          => USERCORNER_UPSTART_NAME,
         },
         {
-            'name' => 'ebox.redis-usercorner'
+            name => 'ebox.redis-usercorner'
         }
     ];
 }
@@ -274,16 +275,19 @@ sub _setConf
 {
     my ($self) = @_;
 
-    $permissions = {
+    my $permissions = {
         uid => 0,
         gid => 0,
         mode => '0644',
         force => 1,
     };
+    my $socketPath = '/run/zentyal-' . $self->name();
+    my $socketName = 'usercorner.sock';
     my $upstartFileTemplate = 'core/upstart-uwsgi.mas';
-    my $upstartFile = USERCORNER_UPSTART_NAME . '.conf';
-    @confFileParams = ();
-    push (@confFileParams, socket => EBox::Config::tmp() . 'usercorner.sock');
+    my $upstartFile = '/etc/init/' . USERCORNER_UPSTART_NAME . '.conf';
+    my @confFileParams = ();
+    push (@confFileParams, socketpath => $socketPath);
+    push (@confFileParams, socketname => $socketName);
     push (@confFileParams, script => EBox::Config::psgi() . 'usercorner.psgi');
     push (@confFileParams, module => $self->printableName());
     push (@confFileParams, user   => USERCORNER_USER);
@@ -293,7 +297,7 @@ sub _setConf
 
     my $nginxFileTemplate = 'usercorner/nginx.conf.mas';
     @confFileParams = ();
-    push (@confFileParams, socket => EBox::Config::tmp() . 'usercorner.sock');
+    push (@confFileParams, socket => "$socketPath/$socketName");
     push (@confFileParams, bindaddress => $self->targetHAProxyIP());
     push (@confFileParams, port  => $self->targetHAProxySSLPort());
     EBox::Module::Base::writeConfFileNoCheck(
@@ -369,19 +373,14 @@ sub roRootDn
 #
 sub getRoPassword
 {
-    my ($self) = @_;
+    open(PASSWD, USERCORNER_LDAP_PASS) or
+        throw EBox::Exceptions::External('Could not get LDAP password');
 
-    unless (defined($self->{roPassword})) {
-        open(PASSWD, USERCORNER_LDAP_PASS) or
-            throw EBox::Exceptions::External('Could not get LDAP password');
+    my $pwd = <PASSWD>;
+    close(PASSWD);
 
-        my $pwd = <PASSWD>;
-        close(PASSWD);
-
-        $pwd =~ s/[\n\r]//g;
-        $self->{roPassword} = $pwd;
-    }
-    return $self->{roPassword};
+    $pwd =~ s/[\n\r]//g;
+    return $pwd;
 }
 
 sub userCredentials
