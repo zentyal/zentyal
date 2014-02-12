@@ -37,7 +37,7 @@ sub precondition
     my ($self) = @_;
 
     my $webserverMod = $self->parentModule();
-    unless ($webserverMod->isPortEnabledInHAProxy() or $webserverMod->isSSLPortEnabledInHAProxy()) {
+    unless ($webserverMod->isHTTPPortEnabled() or $webserverMod->isHTTPSPortEnabled()) {
         $self->{preconditionFail} = 'notEnabledInHAProxy';
         return undef;
     }

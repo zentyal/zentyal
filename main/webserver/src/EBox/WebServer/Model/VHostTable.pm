@@ -104,7 +104,7 @@ sub validateTypedRow
         my $ca = EBox::Global->modInstance('ca');
         my $certificates = $ca->model('Certificates');
         if ($changedFields->{ssl}->value() ne 'disabled') {
-            unless ($webserverMod->isSSLPortEnabledInHAProxy()) {
+            unless ($webserverMod->isHTTPSPortEnabled()) {
                 throw EBox::Exceptions::External(
                     __('You need to enable Listening SSL port.')
                 );
