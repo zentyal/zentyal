@@ -109,8 +109,7 @@ $(function() {
             if (!response.success) {
               return;
             }
-            var mail = response.mail;
-            Zentyal.MailUserAddon.accountChange(mail);
+            Zentyal.MailUserAddon.accountChange(response.mail, response.ocEnabled);
         }
     });
 

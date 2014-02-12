@@ -2,7 +2,7 @@
 
 Zentyal.namespace('MailUserAddon');
 
-Zentyal.MailUserAddon.accountChange = function(mail) {
+Zentyal.MailUserAddon.accountChange = function(mail, ocEnabled) {
     var hasAccount = (mail !== '');
     $('#userMailNoAccountDiv').toggle(!hasAccount);
     $('#userMailWithAccountDiv').toggle(hasAccount);
@@ -21,4 +21,10 @@ Zentyal.MailUserAddon.accountChange = function(mail) {
     $('#userMailAddExternalAccount_localmail').val(mail);
     $('#userMailExternalAccountsTable').children().remove();
     $('#note_userMailExternalAccount, #error_userMailExternalAccount').html('').hide();
+
+    // event for observer in other addons
+    var user_email_change_event = jQuery.Event("user_email_change");
+    user_email_change_event.mail = mail;
+    user_email_change_event.ocEnabled = ocEnabled;
+    $('.user_email_observer').trigger(user_email_change_event);
 };
