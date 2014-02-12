@@ -168,6 +168,7 @@ sub setTypedRow
         throw EBox::Exceptions::External(__('Passwords do not match.'));
     }
 
+    my $global = $self->global();
     my $request = $global->request();
     unless ($request) {
         throw EBox::Exceptions::Internal("There is no request available!");
