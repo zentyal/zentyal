@@ -80,41 +80,41 @@ sub syncRows
         $sid ? ($sid => 1) : ()
     } @{$currentRows};
 
-    my @srvsToAdd = grep { not exists $currentSrvs{$_->HAProxyServiceId()} } @mods;
+    my @srvsToAdd = grep { not exists $currentSrvs{$_->_serviceId()} } @mods;
 
     my $modified = 0;
     for my $srv (@srvsToAdd) {
         my $enabledPort = 0;
-        if (not $srv->allowDisableHAProxyService() and (defined $srv->defaultHAProxyPort())) {
+        if (not $srv->allowServiceDisabling() and (defined $srv->defaultHTTPPort())) {
             $enabledPort = 1;
         }
         my $enabledSSLPort = 0;
-        if (not $srv->allowDisableHAProxyService() and (defined $srv->defaultHAProxySSLPort())) {
+        if (not $srv->allowServiceDisabling() and (defined $srv->defaultHTTPSPort())) {
             $enabledSSLPort = 1;
         }
-        my $isDefaultPort = ($enabledPort and $srv->defaultHAProxyPort() and (not $srv->targetHAProxyDomains()));
-        my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHAProxySSLPort() and (not $srv->targetHAProxyDomains()));
+        my $isDefaultPort = ($enabledPort and $srv->defaultHTTPPort() and (not $srv->targetVHostDomains()));
+        my $isDefaultSSLPort = ($enabledSSLPort and $srv->defaultHTTPSPort() and (not $srv->targetVHostDomains()));
         my @args = ();
         push (@args, module           => $srv->name());
-        push (@args, serviceId        => $srv->HAProxyServiceId());
+        push (@args, serviceId        => $srv->_serviceId());
         push (@args, service          => $srv->printableName());
         if ($enabledPort) {
             push (@args, port_selected => 'port_number');
-            push (@args, port_number   => $srv->defaultHAProxyPort());
+            push (@args, port_number   => $srv->defaultHTTPPort());
         } else {
             push (@args, port_selected => 'port_disabled');
         }
-        push (@args, blockPort        => $srv->blockHAProxyPort());
+        push (@args, blockPort        => $srv->blockHTTPPortChange());
         push (@args, defaultPort      => $isDefaultPort);
         if ($enabledSSLPort) {
             push (@args, sslPort_selected => 'sslPort_number');
-            push (@args, sslPort_number   => $srv->defaultHAProxySSLPort());
+            push (@args, sslPort_number   => $srv->defaultHTTPSPort());
         } else {
             push (@args, sslPort_selected => 'sslPort_disabled');
         }
-        push (@args, blockSSLPort     => $srv->blockHAProxySSLPort());
+        push (@args, blockSSLPort     => $srv->blockHTTPSPortChange());
         push (@args, defaultSSLPort   => $isDefaultSSLPort);
-        push (@args, canBeDisabled    => $srv->allowDisableHAProxyService());
+        push (@args, canBeDisabled    => $srv->allowServiceDisabling());
 
         # Warn the validators that we are doing a forced edition / addition.
         $self->{force} = 1;
@@ -123,7 +123,7 @@ sub syncRows
         $modified = 1;
     }
 
-    my %srvsFromModules = map { $_->HAProxyServiceId() => $_ } @mods;
+    my %srvsFromModules = map { $_->_serviceId() => $_ } @mods;
     for my $id (@{$currentRows}) {
         my $row = $self->row($id);
 
@@ -361,24 +361,24 @@ sub validateTypedRow
             # SSL certificate checking.
             my $moduleName = $actual_r->{module}->value();
             my $module = EBox::Global->modInstance($moduleName);
-            unless ($module->pathHAProxySSLCertificate()) {
+            unless ($module->pathHTTPSSSLCertificate()) {
                 throw EBox::Exceptions::Internal(
                     'The module {module} cannot be used over SSL because it does not define a certificate.',
                     module => $module->name()
                 );
             }
-            unless (-e $module->pathHAProxySSLCertificate()) {
+            unless (-e $module->pathHTTPSSSLCertificate()) {
                 if (EBox::Global->modExists('ca')) {
                     my $ca = EBox::Global->modInstance('ca');
                     my $certificates = $ca->model('Certificates');
-                    unless ($certificates->isEnabledService($module->caServiceIdForHAProxy())) {
+                    unless ($certificates->isEnabledService($module->caServiceIdForHTTPS())) {
                         my $errorMsg = __x(
                             'You need to enable the certificate for {module} on {ohref}Services Certificates{chref}',
                             service => $module->displayName(), ohref => '<a href="/CA/View/Certificates">',
                             chref => '</a>'
                         );
                         foreach my $certificate (@{$module->certificates}) {
-                            if ($certificate->{serviceId} eq $module->caServiceIdForHAProxy()) {
+                            if ($certificate->{serviceId} eq $module->caServiceIdForHTTPS()) {
                                 my $serviceName = $certificate->{service};
                                 $errorMsg = __x(
                                     'You need to enable the {serviceName} certificate for {module} on '.
@@ -546,8 +546,8 @@ sub setServicePorts
     }
 
     my $module = $self->global()->modInstance($modName);
-    my $moduleRow = $self->find(serviceId => $module->HAProxyServiceId());
-    if ($module->blockHAProxyPort() and $port) {
+    my $moduleRow = $self->find(serviceId => $module->_serviceId());
+    if ($module->blockHTTPPortChange() and $port) {
         EBox::error("Tried to set the HTTP port of '$modName' to '$port' but it's not editable. Ignored...");
         if (defined $moduleRow) {
             my $item = $moduleRow->elementByName('port');
@@ -560,7 +560,7 @@ sub setServicePorts
             $port = undef;
         }
     }
-    if ($module->blockHAProxySSLPort() and $sslPort) {
+    if ($module->blockHTTPSPortChange() and $sslPort) {
         EBox::error("Tried to set the HTTPS port of '$modName' to '$sslPort' but it's not editable. Ignored...");
         if (defined $moduleRow) {
             my $item = $moduleRow->elementByName('sslPort');
@@ -577,7 +577,7 @@ sub setServicePorts
     if (defined $moduleRow) {
         my $portItem = $moduleRow->elementByName('port');
         if ($args{enablePort}) {
-            if (not $module->blockHAProxyPort()) {
+            if (not $module->blockHTTPPortChange()) {
                 $portItem->setValue({ port_number => $port });
             } else {
                 $portItem->setValue({ port_disabled => undef });
@@ -591,7 +591,7 @@ sub setServicePorts
         }
         my $sslPortItem = $moduleRow->elementByName('sslPort');
         if ($args{enableSSLPort}) {
-            if (not $module->blockHAProxySSLPort()) {
+            if (not $module->blockHTTPSPortChange()) {
                 $sslPortItem->setValue({ sslPort_number => $sslPort });
             } else {
                 $sslPortItem->setValue({ sslPort_disabled => undef });
@@ -606,15 +606,15 @@ sub setServicePorts
         $moduleRow->store();
     } else {
         # There isn't yet a definition for the module Service, we add it now.
-        if (not $module->blockHAProxyPort()) {
-            $port = $module->defaultHAProxyPort();
+        if (not $module->blockHTTPPortChange()) {
+            $port = $module->defaultHTTPPort();
         }
-        if (not $module->blockHAProxySSLPort()) {
-            $sslPort = $module->defaultHAProxySSLPort();
+        if (not $module->blockHTTPSPortChange()) {
+            $sslPort = $module->defaultHTTPSPort();
         }
         my @args = ();
         push (@args, module           => $module->name());
-        push (@args, serviceId        => $module->HAProxyServiceId());
+        push (@args, serviceId        => $module->_serviceId());
         push (@args, service          => $module->printableName());
         if ($args{enablePort}) {
             push (@args, port_selected => 'port_number');
@@ -622,7 +622,7 @@ sub setServicePorts
         } else {
             push (@args, port_selected => 'port_disabled');
         }
-        push (@args, blockPort        => $module->blockHAProxyPort());
+        push (@args, blockPort        => $module->blockHTTPPortChange());
         push (@args, defaultPort      => $args{defaultPort});
         if ($args{enableSSLPort}) {
             push (@args, sslPort_selected => 'sslPort_number');
@@ -630,9 +630,9 @@ sub setServicePorts
         } else {
             push (@args, sslPort_selected => 'sslPort_disabled');
         }
-        push (@args, blockSSLPort     => $module->blockHAProxySSLPort());
+        push (@args, blockSSLPort     => $module->blockHTTPSPortChange());
         push (@args, defaultSSLPort   => $args{defaultSSLPort});
-        push (@args, canBeDisabled    => $module->allowDisableHAProxyService());
+        push (@args, canBeDisabled    => $module->allowServiceDisabling());
 
         $self->addRow(@args);
     }

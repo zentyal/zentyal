@@ -20,7 +20,7 @@ fetch_ebox_port()
             EBox::init();
 
             my $webadmin = EBox::Global->modInstance('webadmin');
-            print $webadmin->usedHAProxySSLPort();
+            print $webadmin->listeningHTTPSPort();
             exit 0;
             ' 2> /dev/null );
 

@@ -138,7 +138,7 @@ sub hardRestart
 #
 #     Return the listening port for the webadmin.
 #
-#     Just call <EBox::HAProxy::ServiceBase::usedHAProxySSLPort>
+#     Just call <EBox::HAProxy::ServiceBase::listeningHTTPSPort>
 #
 # Returns:
 #
@@ -147,7 +147,7 @@ sub hardRestart
 sub listeningPort
 {
     my ($self) = @_;
-    return $self->usedHAProxySSLPort();
+    return $self->listeningHTTPSPort();
 }
 
 sub _stopService
@@ -228,8 +228,8 @@ sub _writeNginxConfFile
     my $templateConf = 'core/nginx.conf.mas';
 
     my @confFileParams = ();
-    push @confFileParams, (bindaddress => $self->targetHAProxyIP());
-    push @confFileParams, (port => $self->targetHAProxySSLPort());
+    push @confFileParams, (bindaddress => $self->targetIP());
+    push @confFileParams, (port => $self->targetHTTPSPort());
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
@@ -335,7 +335,7 @@ sub _reportAdminPort
     my ($self) = @_;
 
     foreach my $mod (@{$self->global()->modInstancesOfType('EBox::WebAdmin::PortObserver')}) {
-        $mod->adminPortChanged($self->usedHAProxySSLPort());
+        $mod->adminPortChanged($self->listeningHTTPSPort());
     }
 }
 
@@ -688,7 +688,7 @@ sub certificates
             {
              serviceId =>  'zentyal_' . $self->name(),
              service =>  __('Zentyal Administration Web Server'),
-             path    =>  $self->pathHAProxySSLCertificate(),
+             path    =>  $self->pathHTTPSSSLCertificate(),
              user => EBox::Config::user(),
              group => EBox::Config::group(),
              mode => '0600',
@@ -732,7 +732,7 @@ sub usesPort
     if ($proto ne 'tcp') {
         return 0;
     }
-    return $port == $self->usedHAProxySSLPort();
+    return $port == $self->listeningHTTPSPort();
 }
 
 # Method: initialSetup
@@ -749,7 +749,7 @@ sub initialSetup
     unless ($version) {
         my @args = ();
         push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, sslPort        => $self->defaultHTTPSPort());
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
@@ -798,7 +798,7 @@ sub _migrateTo34
         # This case happens when there is no modification on WebAdmin
         my @args = ();
         push (@args, modName        => $self->name);
-        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, sslPort        => $self->defaultHTTPSPort());
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
@@ -825,7 +825,7 @@ sub _migrateTo34
 # Implementation of EBox::HAProxy::ServiceBase
 #
 
-# Method: allowDisableHAProxyService
+# Method: allowServiceDisabling
 #
 #   Webadmin must be always on so users don't lose access to the web admin UI.
 #
@@ -833,25 +833,12 @@ sub _migrateTo34
 #
 #   boolean - Whether this service may be disabled from the reverse proxy.
 #
-sub allowDisableHAProxyService
+sub allowServiceDisabling
 {
-    return undef;
+    return 0;
 }
 
-# Method: HAProxyServiceId
-#
-#   This method must be always overrided by services implementing this interface.
-#
-# Returns:
-#
-#   string - A unique ID across Zentyal that identifies this HAProxy service.
-#
-sub HAProxyServiceId
-{
-    return 'webadminHAProxyId';
-}
-
-# Method: defaultHAProxySSLPort
+# Method: defaultHTTPSPort
 #
 # Returns:
 #
@@ -859,14 +846,14 @@ sub HAProxyServiceId
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
 #
-sub defaultHAProxySSLPort
+sub defaultHTTPSPort
 {
     return 443;
 }
 
-# Method: blockHAProxyPort
+# Method: blockHTTPPortChange
 #
 #   Always return True to prevent that webadmin is served without SSL.
 #
@@ -874,23 +861,23 @@ sub defaultHAProxySSLPort
 #
 #   boolean - Whether the port may be customised or not.
 #
-sub blockHAProxyPort
+sub blockHTTPPortChange
 {
     return 1;
 }
 
-# Method: pathHAProxySSLCertificate
+# Method: pathHTTPSSSLCertificate
 #
 # Returns:
 #
 #   string - The full path to the SSL certificate file to use by HAProxy.
 #
-sub pathHAProxySSLCertificate
+sub pathHTTPSSSLCertificate
 {
     return '/var/lib/zentyal/conf/ssl/ssl.pem';
 }
 
-# Method: targetHAProxyIP
+# Method: targetIP
 #
 # Returns:
 #
@@ -898,24 +885,24 @@ sub pathHAProxySSLCertificate
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#   <EBox::HAProxy::ServiceBase::targetIP>
 #
-sub targetHAProxyIP
+sub targetIP
 {
     return '127.0.0.1';
 }
 
-# Method: targetHAProxySSLPort
+# Method: targetHTTPSPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
 #
-sub targetHAProxySSLPort
+sub targetHTTPSPort
 {
     return 61443;
 }

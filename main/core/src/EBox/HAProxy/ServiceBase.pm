@@ -45,7 +45,7 @@ sub new
     return $self;
 }
 
-# Method: isPortEnabledInHAProxy
+# Method: isHTTPPortEnabled
 #
 #   Whether this service is enabled in haproxy for non SSL traffic.
 #
@@ -53,20 +53,20 @@ sub new
 #
 #   boolean - True if is enabled for non SSL traffice or False.
 #
-sub isPortEnabledInHAProxy
+sub isPortEnabled
 {
     my ($self) = @_;
 
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+    my $moduleRow = $services->find(serviceId => $self->_serviceId());
 
     my $portItem = $moduleRow->elementByName('port');
     return ($portItem->selectedType() eq 'port_number');
 }
 
-# Method: usedHAProxyPort
+# Method: listeningHTTPPort
 #
 #   Provides the HTTP port assigned to this service on the ha proxy
 #
@@ -74,23 +74,23 @@ sub isPortEnabledInHAProxy
 #
 #   integer - The HTTP port used by this service or undef if not active.
 #
-sub usedHAProxyPort
+sub listeningHTTPPort
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+    my $moduleRow = $services->find(serviceId => $self->_serviceId());
 
-    if ($self->isPortEnabledInHAProxy()) {
+    if ($self->isHTTPPortEnabled()) {
         return $moduleRow->valueByName('port');
     } else {
         return undef;
     }
 }
 
-# Method: isSSLPortEnabledInHAProxy
+# Method: isHTTPSPortEnabled
 #
 #   Whether this service is enabled in haproxy for SSL traffic.
 #
@@ -98,14 +98,14 @@ sub usedHAProxyPort
 #
 #   boolean - True if is enabled for SSL traffice or False.
 #
-sub isSSLPortEnabledInHAProxy
+sub isHTTPSPortEnabled
 {
     my ($self) = @_;
 
     my $global = $self->global();
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+    my $moduleRow = $services->find(serviceId => $self->_serviceId());
 
     unless ($moduleRow) {
         return undef;
@@ -115,7 +115,7 @@ sub isSSLPortEnabledInHAProxy
     return ($sslPortItem->selectedType() eq 'sslPort_number');
 }
 
-# Method: usedHAProxySSLPort
+# Method: listeningHTTPSPort
 #
 #   Provides the HTTPS port assigned to this service on the ha proxy
 #
@@ -123,23 +123,23 @@ sub isSSLPortEnabledInHAProxy
 #
 #   integer - The HTTPS port used by this service.
 #
-sub usedHAProxySSLPort
+sub listeningHTTPSPort
 {
     my ($self) = @_;
 
     my $global = EBox::Global->getInstance(1);
     my $haproxyMod = $global->modInstance('haproxy');
     my $services = $haproxyMod->model('HAProxyServices');
-    my $moduleRow = $services->find(serviceId => $self->HAProxyServiceId());
+    my $moduleRow = $services->find(serviceId => $self->_serviceId());
 
-    if ($self->isSSLPortEnabledInHAProxy()) {
+    if ($self->isHTTPSPortEnabled()) {
         return $moduleRow->valueByName('sslPort');
     } else {
         return undef;
     }
 }
 
-# Method: allowDisableHAProxyService
+# Method: allowServiceDisabling
 #
 #   Most services should be disableable from the reverse proxy, except for instance, webadmin which is a core service.
 #
@@ -147,87 +147,84 @@ sub usedHAProxySSLPort
 #
 #   boolean - Whether this service may be disabled from the reverse proxy.
 #
-sub allowDisableHAProxyService
+sub allowServiceDisabling
 {
     return 1;
 }
 
-# Method: HAProxyServiceId
-#
-#   This method must be always overrided by services implementing this interface.
+# Method: _serviceId
 #
 # Returns:
 #
 #   string - A unique ID across Zentyal that identifies this HAProxy service.
 #
-sub HAProxyServiceId
+sub _serviceId
 {
-    throw EBox::Exceptions::NotImplemented(
-        'All EBox::HAProxy::ServiceBase implementations MUST specify a unique ServiceId');
+    return 'zentyal_' . $self->name();
 }
 
-# Method: defaultHAProxySSLPort
+# Method: defaultHTTPSPort
 #
 # Returns:
 #
 #   integer - The default public port that should be used to publish this service over SSL or undef if unused.
 #
-sub defaultHAProxySSLPort
+sub defaultHTTPSPort
 {
     return undef;
 }
 
-# Method: blockHAProxySSLPort
+# Method: blockHTTPSPortChange
 #
 # Returns:
 #
 #   boolean - Whether the SSL port may be customised or not.
 #
-sub blockHAProxySSLPort
+sub blockHTTPSPortChange
 {
     return undef;
 }
 
-# Method: defaultHAProxyPort
+# Method: defaultHTTPPort
 #
 # Returns:
 #
 #   integer - The default public port that should be used to publish this service or undef if unused.
 #
-sub defaultHAProxyPort
+sub defaultHTTPPort
 {
     return undef;
 }
 
-# Method: blockHAProxyPort
+# Method: blockHTTPPortChange
 #
 # Returns:
 #
 #   boolean - Whether the port may be customised or not.
 #
-sub blockHAProxyPort
+sub blockHTTPPortChange
 {
     return undef;
 }
 
-# Method: pathHAProxySSLCertificate
+# Method: pathHTTPSSSLCertificate
 #
 # Returns:
 #
 #   string - The full path to the SSL certificate file to use by HAProxy or undef.
 #
-sub pathHAProxySSLCertificate
+sub pathHTTPSSSLCertificate
 {
     return undef;
 }
 
-# Method: caServiceForHAProxy
+# Method: caServiceIdForHTTPS
 #
 # Returns:
 #
 #   string - The CA SSL service name for HAProxy.
 #
-sub caServiceIdForHAProxy
+sub caServiceIdForHTTPS
 
 {
     my ($self) = @_;
@@ -235,19 +232,19 @@ sub caServiceIdForHAProxy
     return 'zentyal_' . $self->name();
 }
 
-# Method: targetHAProxyDomains
+# Method: targetVHostDomains
 #
 # Returns:
 #
 #   list - List of domains that the target service will handle. If empty, this service will be used as the default
 #          traffic destination for the configured ports.
 #
-sub targetHAProxyDomains
+sub targetVHostDomains
 {
     return [];
 }
 
-# Method: targetHAProxyIP
+# Method: targetIP
 #
 #   This method must be always overrided by services implementing this interface.
 #
@@ -255,47 +252,47 @@ sub targetHAProxyDomains
 #
 #   string - IP address where the service is listening, usually 127.0.0.1 .
 #
-sub targetHAProxyIP
+sub targetIP
 {
     throw EBox::Exceptions::NotImplemented(
         'All EBox::HAProxy::ServiceBase implementations MUST specify the target IP');
 }
 
-# Method: targetHAProxyPort
+# Method: targetHTTPPort
 #
-#   This method must be always overrided by services implementing this interface if defaultHAProxyPort is not undef
-#   or blockHAProxyPort is False.
+#   This method must be always overrided by services implementing this interface if defaultHTTPPort is not undef
+#   or blockHTTPPortChange is False.
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening.
 #
-sub targetHAProxyPort
+sub targetHTTPPort
 {
     my ($self) = @_;
 
-    if ($self->defaultHAProxyPort() or (not $self->blockHAProxyPort())) {
+    if ($self->defaultHTTPPort() or (not $self->blockHTTPPortChange())) {
         throw EBox::Exceptions::NotImplemented(
             'All EBox::HAProxy::ServiceBase implementations MUST specify the target port');
     }
 }
 
-# Method: targetHAProxySSLPort
+# Method: targetHTTPSPort
 #
-#   This method must be always overrided by services implementing this interface if defaultHAProxySSLPort is not
-#   undef or blockHAProxySSLPort is False.
+#   This method must be always overrided by services implementing this interface if defaultHTTPSPort is not
+#   undef or blockHTTPSPortChange is False.
 #
 #   This port should not be using SSL itself, HAProxy will decode all SSL traffic before redirecting it there.
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
 #
-sub targetHAProxySSLPort
+sub targetHTTPSPort
 {
     my ($self) = @_;
 
-    if ($self->defaultHAProxySSLPort() or (not $self->blockHAProxySSLPort())) {
+    if ($self->defaultHTTPSPort() or (not $self->blockHTTPSPortChange())) {
         throw EBox::Exceptions::NotImplemented(
             'All EBox::HAProxy::ServiceBase implementations MUST specify the target port');
     }
