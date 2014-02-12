@@ -52,16 +52,7 @@ sub validateTypedRow
         my $port = $changedValues->{port}->value();
         if ($port != $actualPort) {
             my $haProxyMod = $self->parentModule()->global()->modInstance('haproxy')->model('HAProxyServices');
-            # Check uniqueness in this model
-            foreach my $col (qw(port sslPort)) {
-                my $haProxyServ = $haProxyMod->findValue($col, $port, 1);
-                if ($haProxyServ) {
-                    throw EBox::Exceptions::External(__x(
-                        'The port {port} is already used by {row}',
-                        port => $port, row => $haProxyServ->printableValueByName('service')));
-                }
-            }
-            $haProxyMod->checkServicePort($port);
+            $haProxyMod->validateSSLPortChange($port);
         }
     }
 }

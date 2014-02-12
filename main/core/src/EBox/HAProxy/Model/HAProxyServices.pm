@@ -645,4 +645,42 @@ sub setServicePorts
     }
 }
 
+# Method: validateSSLPortChange
+#
+#     Helper method for models which implements a view of changing the
+#     port of a valid row from this model. It must check the following
+#     constraints:
+#
+#       * No other service using that port different from HAProxy
+#       * HTTPS and HTTP cannot be mixed with the same port
+#       * No service as default SSL with the same port
+#
+# Exceptions:
+#
+#    <EBox::Exceptions::External> - thrown if any of previous
+#    constraints is not matched
+#
+sub validateSSLPortChange
+{
+    my ($self, $port) = @_;
+
+    my $haProxyServ = $self->findValue('port' => $port);
+    if ($haProxyServ) {
+        throw EBox::Exceptions::External(__x(
+            'Port {port} is already used by {row} using plain HTTP.',
+            port => $port, row => $haProxyServ->printableValueByName('service')));
+    }
+    my $haProxyServs = $self->findAllValue('sslPort' => $port);
+    foreach my $srvId (@{$haProxyServs}) {
+        $haProxyServ = $self->row($srvId);
+        if ($haProxyServ->valueByName('defaultSSLPort')) {
+            throw EBox::Exceptions::External(__x(
+                'Port {port} is already used by {row} as default SSL service.',
+                port => $port,
+                row  => $haProxyServ->printableValueByName('service')));
+        }
+    }
+    $self->checkServicePort($port);
+}
+
 1;
