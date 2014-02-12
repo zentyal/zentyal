@@ -1100,9 +1100,10 @@ sub _setPSGI
     my $webadminMod = $self->global()->modInstance('webadmin');
     my $upstartJobFile =  '/etc/init/' . PSGI_UPSTART . '.conf';
     if ($self->isEnabled()) {
-        my $socketPath = EBox::Config::tmp() . 'ha-uwsgi.sock';
+        my $socketPath = '/run/zentyal-' . $self->name();
         my @params = (
-            (socket => $socketPath),
+            (socketpath => $socketPath),
+            (socketname => 'ha-uwsgi.sock'),
             (script => EBox::Config::psgi() . 'ha.psgi'),
             (module => $self->printableName()),
             (user   => EBox::Config::user()),
@@ -1215,7 +1216,6 @@ sub _notifyClusterConfChange
         }
     }
 }
-
 
 # Dynamically update a corosync node
 # Only update on addr is supported
