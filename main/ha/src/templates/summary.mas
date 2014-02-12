@@ -4,11 +4,13 @@ This template is for showing the cluster status summary info
 <%args>
   %context
 </%args>
-<div class="info-top item-block">
+<div class="cluster-info">
+<div class="wrapper">
 % foreach my $pair (@{$context{metadata}}) {
    <div class="info-block">
      <span class="info-label"><% $pair->[0] %></span>
      <span class="info-value"><% $pair->[1] %></span>
    </div>
 % }
+</div>
 </div>

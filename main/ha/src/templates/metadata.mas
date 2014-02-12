@@ -7,7 +7,7 @@ This template is for showing the cluster metadata info
 <div class="help">
   <% $context{help} %>
 </div>
-<div class="info-top item-block">
+<div class="info-top full-width">
    <img class="info-block" src="/data/images/cluster.png">
 % foreach my $pair (@{$context{metadata}}) {
    <div id="<% $pair->[0] %>" class="info-block">
