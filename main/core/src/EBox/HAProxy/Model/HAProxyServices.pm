@@ -517,6 +517,11 @@ sub setServicePorts
         throw EBox::Exceptions::MissingArgument('port | sslPort');
     }
 
+    if ($args{force}) {
+        # Warn the validators that we are doing a forced edition / addition.
+        $self->{force} = 1;
+    }
+
     # Do ports validation.
     my $modName = $args{modName};
     my $port = $args{port};
@@ -553,11 +558,6 @@ sub setServicePorts
         } else {
             $sslPort = undef;
         }
-    }
-
-    if ($args{force}) {
-        # Warn the validators that we are doing a forced edition / addition.
-        $self->{force} = 1;
     }
 
     if (defined $moduleRow) {
