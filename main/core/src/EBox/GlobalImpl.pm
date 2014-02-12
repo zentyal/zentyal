@@ -1160,6 +1160,23 @@ sub request
     return $self->{request};
 }
 
+# Method: setRequest
+#
+# Parameters:
+#
+#   <Plack::Request> - The http request.
+#
+sub setRequest
+{
+    my ($self, $request) = @_;
+
+    unless ($request) {
+        throw EBox::Exceptions::Internal("Missing argument 'request'");
+    }
+
+    $self->{request} = $request;
+}
+
 # Method: saveMessages
 #
 # Returns:
