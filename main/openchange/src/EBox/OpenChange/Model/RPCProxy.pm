@@ -19,14 +19,10 @@ use warnings;
 package EBox::OpenChange::Model::RPCProxy;
 use base 'EBox::Model::DataForm';
 
-use EBox::DBEngineFactory;
 use EBox::Gettext;
-use EBox::MailUserLdap;
-use EBox::Samba::User;
-use EBox::Types::MultiStateAction;
-use EBox::Types::Select;
 use EBox::Types::Text;
-use EBox::Types::Union;
+use EBox::Types::Link;
+use EBox::Types::Boolean;
 
 use Error qw(:try);
 
@@ -60,6 +56,16 @@ sub _table
             filter => sub { return $self->_host },
             editable => 0,
         ),
+        EBox::Types::Link->new(
+             fieldName => 'certificate',
+             printableName => __('Certificate'),
+             volatile  => 1,
+             acquirer => sub {
+                 return '/Downloader/FromTempDir?filename=rpcproxy.cert';
+             },
+            HTMLViewer     => '/ajax/viewer/linkRSS.mas',
+            HTMLSetter     => '/ajax/viewer/linkRSS.mas',
+         ),
         EBox::Types::Boolean->new(
             fieldName     => 'http',
             printableName => __('Access without SSL'),

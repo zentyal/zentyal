@@ -460,7 +460,8 @@ sub _createRPCProxyCertificate
 
     my $certPath = $self->_rpcProxyCertificate();
     if ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath)) {
-        # correct, nothing to do
+        # correct, nothing to do besides updating download version
+        $self->_updateDownloadableCert();
         return undef;
     }
 
@@ -468,7 +469,7 @@ sub _createRPCProxyCertificate
     my $parentCertDir = dirname($certDir);
     EBox::Sudo::root("rm -rf '$certDir'",
                      # create parent dir if it does not exists
-                     "mkdir -p '$parentCertDir'",
+                     "mkdir -p -m770 '$parentCertDir'",
                     );
     if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
         my $webadminCert = $self->global()->modInstance('webadmin')->pathHAProxySSLCertificate();
@@ -476,6 +477,7 @@ sub _createRPCProxyCertificate
             # reuse webadmin certificate if issuer == fqdn
             my $webadminCertDir = dirname($webadminCert);
             EBox::Sudo::root("cp -r $webadminCertDir $certDir");
+            $self->_updateDownloadableCert();
             return;
         }
     }
@@ -485,6 +487,18 @@ sub _createRPCProxyCertificate
     my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
     my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
     my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
+    $self->_updateDownloadableCert();
+}
+
+sub _updateDownloadableCert
+{
+    my ($self) = @_;
+    my $certPath = $self->_rpcProxyCertificate();
+    $certPath =~ s/pem$/cert/;
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.cert';
+    EBox::Sudo::root("cp '$certPath' '$downloadPath'",
+                     "chown ebox.ebox '$downloadPath'"
+                    );
 }
 
 sub _writeRewritePolicy
