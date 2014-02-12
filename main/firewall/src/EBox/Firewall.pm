@@ -223,7 +223,7 @@ sub removePortRedirectionsOnIface # (interface)
 
 # Method: availablePort
 #
-#       Checks if a port is not conmfigured to be used by any service
+#       Checks if a port is not configured to be used by any service
 #
 # Parameters:
 #
