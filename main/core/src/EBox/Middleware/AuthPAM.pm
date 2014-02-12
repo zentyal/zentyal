@@ -17,7 +17,7 @@ use strict;
 use warnings;
 
 package EBox::Middleware::AuthPAM;
-use base qw(EBox::MiddleWare::Auth);
+use base qw(EBox::Middleware::Auth);
 
 use EBox;
 use EBox::Exceptions::Internal;
