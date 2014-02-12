@@ -42,7 +42,7 @@ use File::Slurp qw(read_file);
 use Perl6::Junction qw(any);
 use Time::HiRes;
 
-use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba4%2fprivate%2fldap_priv%2fldapi" ;
+use constant LDAPI => "ldapi://%2fvar%2flib%2fsamba%2fprivate%2fldap_priv%2fldapi" ;
 
 # The LDB containers that will be ignored when quering for users stored in LDB
 use constant QUERY_IGNORE_CONTAINERS => (
