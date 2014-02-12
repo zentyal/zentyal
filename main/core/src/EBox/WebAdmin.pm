@@ -243,7 +243,8 @@ sub _writeNginxConfFile
 
     my $upstartFile = 'core/upstart-uwsgi.mas';
     @confFileParams = ();
-    push (@confFileParams, socket => EBox::Config::tmp() . 'webadmin.sock');
+    push (@confFileParams, socketpath => '/run/zentyal-' . $self->name());
+    push (@confFileParams, socketname => 'webadmin.sock');
     push (@confFileParams, script => EBox::Config::psgi() . 'zentyal.psgi');
     push (@confFileParams, module => $self->printableName());
     push (@confFileParams, user   => EBox::Config::user());
@@ -738,6 +739,7 @@ sub initialSetup
         push (@args, enableSSLPort  => 1);
         push (@args, defaultSSLPort => 1);
         push (@args, force          => 1);
+        my $haproxyMod = $self->global()->modInstance('haproxy');
         $haproxyMod->setHAProxyServicePorts(@args);
     }
 
