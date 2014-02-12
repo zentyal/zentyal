@@ -217,8 +217,6 @@ sub _setConf
     # Prepare webadmin SSL certificates.
     $webadminMod->_writeCAFiles();
 
-    my $serviceByPort = $self->ports();
-
     @params = ();
     push (@params, zentyalconfdir => EBox::Config::conf());
     push (@params, ports => $self->ports());
