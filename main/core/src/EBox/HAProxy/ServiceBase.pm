@@ -53,7 +53,7 @@ sub new
 #
 #   boolean - True if is enabled for non SSL traffice or False.
 #
-sub isPortEnabled
+sub isHTTPPortEnabled
 {
     my ($self) = @_;
 
