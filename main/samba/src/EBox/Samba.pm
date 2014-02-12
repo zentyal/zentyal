@@ -1108,9 +1108,10 @@ sub _daemons
 {
     return [
         {
-            name => 'samba',
-            type => 'init.d',
-            pidfiles => ['/var/run/samba/samba.pid'],
+            name => 'samba-ad-dc',
+        },
+        {
+            name => 'nmbd',
         },
         {
             name => 'zentyal.s4sync',
@@ -1137,8 +1138,6 @@ sub _daemonsToDisable
 {
     return [
         { 'name' => 'smbd', 'type' => 'upstart' },
-        { 'name' => 'nmbd', 'type' => 'upstart' },
-        { 'name' => 'samba-ad-dc', 'type' => 'upstart' },
     ];
 }
 
