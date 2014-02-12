@@ -1,0 +1,118 @@
+# Copyright (C) 2009-2014 Zentyal S.L.
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License, version 2, as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+use strict;
+use warnings;
+
+package EBox::UserCorner::CGI::Login::Index;
+
+use base 'EBox::CGI::ClientBase';
+
+use EBox::Gettext;
+
+use Readonly;
+Readonly::Scalar my $DEFAULT_DESTINATION => '/Dashboard/Index';
+
+sub new # (error=?, msg=?, cgi=?)
+{
+    my $class = shift;
+    my $self = $class->SUPER::new('title' => '',
+                      'template' => '/login/index.mas',
+                      @_);
+    bless($self, $class);
+    return $self;
+}
+
+sub _print
+{
+    my $self = shift;
+    my $response = $self->response();
+    $response->content_type('text/html; charset=utf-8');
+    $response->body($self->_body);
+}
+
+sub _process
+{
+    my ($self) = @_;
+
+    my $authreason;
+    my $request = $self->request();
+    my $session = $request->session();
+    if (exists $session->{AuthReason}){
+        $authreason = delete $session->{AuthReason};
+    }
+
+    my $destination = _requestDestination($session);
+
+    my $reason;
+    if (defined $authreason) {
+        if ($authreason eq 'Script active') {
+            $reason = __('There is a script which has asked to run in Zentyal exclusively. ' .
+                         'Please, wait patiently until it is done');
+        } elsif ($authreason eq 'Invalid session'){
+            $reason = __('Your session was not valid anymore');
+        } elsif ($authreason  eq 'bad_credentials'){
+            $reason = __('Incorrect password');
+        } elsif ($authreason eq 'Expired'){
+            $reason = __('For security reasons your session has expired due to inactivity');
+        } elsif ($authreason eq 'Already'){
+            $reason = __('You have been logged out because a new session has been opened');
+        } else {
+            $reason = __x("Unknown error: '{error}'", error => $authreason);
+        }
+    }
+
+    my $global = EBox::Global->getInstance();
+
+    my @htmlParams = (
+        'destination'       => $destination,
+        'reason'            => $reason,
+        %{ $global->theme() }
+    );
+
+    $self->{params} = \@htmlParams;
+}
+
+sub _requestDestination
+{
+    my ($session) = @_;
+
+
+    unless (defined $session->{redir_to}) {
+        return $DEFAULT_DESTINATION;
+    }
+
+    if ($session->{redir_to} =~ m{^/*Login/+Index$}) {
+        # /Login/Index is the standard location from login, his destination must be the default destination
+        return $DEFAULT_DESTINATION;
+    }
+
+    return $session->{redir_to};
+}
+
+sub _top
+{
+}
+
+sub _loggedIn
+{
+    return 1;
+}
+
+sub _menu
+{
+    return;
+}
+
+1;
