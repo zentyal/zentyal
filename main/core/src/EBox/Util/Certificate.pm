@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::Util::Certificate;
 
-use Error qw(:try);
+use TryCatch::Lite;
 use EBox::Sudo;
 use EBox::Exceptions::External;
 
@@ -127,7 +127,7 @@ sub getCertIssuer
     my $output;
     try {
         $output = EBox::Sudo::root($cmd);
-    } otherwise {
+    } catch {
         $output = undef;
     };
     if (not $output) {

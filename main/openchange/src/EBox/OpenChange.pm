@@ -451,8 +451,7 @@ sub _createRPCProxyCertificate
     my $issuer;
     try {
         $issuer = $self->_rpcProxyHosts()->[0];
-    } otherwise {
-        my ($ex) = @_;
+    } catch($ex) {
         EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
     };
     if (not $issuer) {
@@ -835,8 +834,7 @@ sub HAProxyInternalService
     my $hosts;
      try {
         $hosts = $self->_rpcProxyHosts();
-    } otherwise {
-        my ($ex) = @_;
+    } catch ($ex) {
         EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
     };
     if (not $hosts) {

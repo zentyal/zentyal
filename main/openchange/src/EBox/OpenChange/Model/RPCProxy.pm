@@ -23,8 +23,7 @@ use EBox::Gettext;
 use EBox::Types::Text;
 use EBox::Types::Link;
 use EBox::Types::Boolean;
-
-use Error qw(:try);
+use TryCatch::Lite;
 
 # Method: new
 #
@@ -118,8 +117,7 @@ sub precondition
                                                ch => '</a>'
                                               );
         }
-    } otherwise {
-        my ($ex) = @_;
+    } catch($ex) {
         $self->{preconditionFailMsg} = __x('Cannot use RPC Proxy because we cannot find this host name: {err}', err => "$ex");
         $host = undef;
     };
