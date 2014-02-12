@@ -997,9 +997,6 @@ sub _createStoreAuthFile
         # Quickie & dirty
         EBox::Sudo::root('chown ebox:ebox ' . COROSYNC_AUTH_FILE);  # To read it
         my $auth = File::Slurp::read_file(COROSYNC_AUTH_FILE, binmode => ':raw');
-        unless (-d HA_CONF_DIR) {
-            mkdir(HA_CONF_DIR);
-        }
         if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
             chmod(0600, ZENTYAL_AUTH_FILE);
             unlink(ZENTYAL_AUTH_FILE);
@@ -1078,9 +1075,6 @@ sub _storeAuthFile
 {
     my ($self, $auth) = @_;
 
-    unless (-d HA_CONF_DIR) {
-        mkdir(HA_CONF_DIR);
-    }
     if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
         chmod(0600, ZENTYAL_AUTH_FILE);
         unlink(ZENTYAL_AUTH_FILE);
