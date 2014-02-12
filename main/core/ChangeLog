@@ -1,4 +1,5 @@
 3.4
+	+ Restore AdminPort model for WebAdmin to improve usability
 	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Added EBox::WebAdmin::PortObserver to be used by ha and
 	  remoteservices modules by the moment
