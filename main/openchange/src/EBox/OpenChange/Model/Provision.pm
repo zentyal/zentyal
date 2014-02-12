@@ -101,33 +101,27 @@ sub _table
     }
 
     my $customActions = [
-#        new EBox::Types::MultiStateAction(
-#            acquirer => \&_acquireProvisioned,
-#            model => $self,
-#            states => {
-#                provisioned => {
-#                    name => 'deprovision',
-#                    printableValue => __('Unconfigure'),
-#                    handler => \&_doDeprovision,
-#                    message => __('Database unconfigured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#                notProvisioned => {
-#                    name => 'provision',
-#                    printableValue => __('Setup'),
-#                    handler => \&_doProvision,
-#                    message => __('Database configured'),
-#                    enabled => sub { $self->parentModule->isEnabled() },
-#                },
-#            }
-#        ),
-        new EBox::Types::Action(
-            name           => 'provision',
-            printableValue => __('Setup'),
-            model          => $self,
-            handler        => \&_doProvision,
-            message        => __('Database configured'),
-            enabled        => sub { not $self->parentModule->isProvisioned() },
+        new EBox::Types::MultiStateAction(
+            acquirer => \&_acquireProvisioned,
+            model => $self,
+            states => {
+                provisioned => {
+                    name => 'deprovision',
+                    printableValue => __('Unconfigure'),
+                    handler => \&_doDeprovision,
+                    message => __('Database unconfigured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { $self->parentModule->isProvisioned() },
+                },
+                notProvisioned => {
+                    name => 'provision',
+                    printableValue => __('Setup'),
+                    handler => \&_doProvision,
+                    message => __('Database configured'),
+                    image => '/data/images/reload-plus.png',
+                    enabled => sub { not $self->parentModule->isProvisioned() },
+                },
+            }
         ),
     ];
 
