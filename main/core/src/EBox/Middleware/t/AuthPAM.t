@@ -26,7 +26,7 @@ useOkTest();
 my %userPwds;
 my $loggedUser;
 
-*EBox::Middleware::Auth::setPassword = sub {
+*EBox::Middleware::AuthPAM::setPassword = sub {
     my ($self, $user, $pass) = @_;
 
     die if (length($pass) < 6);
@@ -48,7 +48,7 @@ setAndCheckPasswdTest();
 
 sub useOkTest
 {
-    eval 'use EBox::Middleware::Auth';
+    eval 'use EBox::Middleware::AuthPAM';
     ok !$@, 'Module use test';
 }
 
@@ -74,12 +74,12 @@ sub setAndCheckPasswdTest
     my $user = 'foo';
 
     # passwd too short
-    dies_ok { EBox::Middleware::Auth->setPassword($user, '12345')  } "Checking for error with a short password";
+    dies_ok { EBox::Middleware::AuthPAM->setPassword($user, '12345')  } "Checking for error with a short password";
 
     my @passwds = qw(pipadao macaco34 mandril34 ed463fg);
     foreach my $pass (@passwds) {
-        lives_ok { EBox::Middleware::Auth->setPassword($user, $pass) } 'Trying to set new password';
-        ok (EBox::Middleware::Auth->checkValidUser($user, $pass), 'Checking new password');
+        lives_ok { EBox::Middleware::AuthPAM->setPassword($user, $pass) } 'Trying to set new password';
+        ok (EBox::Middleware::AuthPAM->checkValidUser($user, $pass), 'Checking new password');
     }
 }
 
