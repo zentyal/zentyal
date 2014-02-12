@@ -96,13 +96,13 @@ sub connection
     if (not $self->connected()) {
         $self->{ldap} = $self->anonymousLdapCon();
 
-        my ($dn, $pass);
+        my ($user, $pass, $dn);
 
         my $usersMod = EBox::Global->modInstance('users');
         if ($usersMod->isUserCorner()) {
             my $userCornerMod = EBox::Global->modInstance('usercorner');
             try {
-                ($dn, $pass) = $userCornerMod->userCredentials();
+                ($user, $pass, $dn) = $userCornerMod->userCredentials();
             } catch (EBox::Exceptions::Internal $e) {
                 # The user is not yet authenticated, we fall back to the default credentials to allow LDAP searches.
                 $dn = $userCornerMod->roRootDn();

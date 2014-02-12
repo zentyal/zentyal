@@ -20,12 +20,14 @@ package EBox::UserCorner;
 use base qw(EBox::Module::Service EBox::HAProxy::ServiceBase);
 
 use EBox::Config;
+use EBox::Exceptions::External;
+use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
+use EBox::Middleware::AuthLDAP;
 use EBox::UserCorner;
 use EBox::Util::Version;
-use EBox::Exceptions::External;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
 use constant USERCORNER_GROUP => 'ebox-usercorner';
@@ -383,26 +385,36 @@ sub getRoPassword
     return $pwd;
 }
 
+# Method: userCredentials
+#
+#   Return a tuple of user, pass and userDN strings for the logged in user.
+#
+# Raises: <EBox::Exceptions::Internal> If there are no credentials available.
+#
 sub userCredentials
 {
     my ($self) = @_;
 
     my $global = $self->global();
     my $request = $global->request();
-    unless ($request) {
+    unless (defined $request) {
         throw EBox::Exceptions::Internal("There is no request available!");
     }
     my $session = $request->session();
+    unless (defined $session->{user_id}) {
+        throw EBox::Exceptions::Internal("There is no user_id information in the request object!");
+    }
+    my $user = $session->{user_id};
     unless (defined $session->{userDN}) {
         throw EBox::Exceptions::Internal("There is no userDN information in the request object!");
     }
-    my $user = $session->{userDN};
-    my $pass = EBox::Middleware::Auth->sessionPassword($request);
+    my $userDN = $session->{userDN};
+    my $pass = EBox::Middleware::AuthLDAP->sessionPassword($request);
     unless (defined $pass) {
         throw EBox::Exceptions::Internal("There is password defined for this request object!");
     }
 
-    return ($user, $pass);
+    return ($user, $pass, $userDN);
 }
 
 #

@@ -27,7 +27,7 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Middleware::Auth;
+use EBox::Middleware::AuthLDAP;
 use EBox::Users::Types::Password;
 use EBox::Validate qw(:all);
 
@@ -171,7 +171,7 @@ sub setTypedRow
     my $global = $self->global();
     # We don't need to check for usercorner because this form does it on its precondition check.
     my $usercornerMod = $global->modInstance('usercorner');
-    my ($user, $pass) = $usercornerMod->userCredentials();
+    my ($user, $pass, $userDN) = $usercornerMod->userCredentials();
 
     # Check we can instance the zentyal user
     my $zentyalUser = new EBox::Users::User(uid => $user);
@@ -187,7 +187,7 @@ sub setTypedRow
     $zentyalUser->changePassword($pass1->value());
 
     # FIXME: Hide this inside a method on EBox::UserCorner
-    EBox::Middleware::Auth->updateSessionPassword($global->request(), $pass1->value());
+    EBox::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }
