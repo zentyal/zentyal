@@ -1,4 +1,6 @@
 3.4
+	+ Use the new PortObserver to report a change in the webadmin
+	  listening port
 	+ Migrated to use Plack as the application server instead of mod_perl
 	+ Updated to use the new haproxy API.
 	+ Move run-pending-ops script to core

@@ -4,6 +4,7 @@
 <%init>
     use EBox::Gettext;
 </%init>
+  <div id='OpenChangeUserOptions_ready' class='user_email_observer' <% $params->{hasMail} ? '' : "style='display:none'"%> >
     <div id='note_OpenChangeUserOptions' class='note' style='display:none'></div>
     <div id='error_OpenChangeUserOptions' class='error' style='display:none'></div>
 
@@ -11,7 +12,7 @@
         <input type="hidden" name="user" value="<% $params->{user}->dn() %>">
         <div>
             <label><% __('Account status') %></label>
-            <select name="active" enabled>
+            <select name="active" id='OpenChangeUserOptions_active' enabled>
 % if ($params->{'active'}) {
                 <option value="no" ><% __('Disabled') %></option>
                 <option selected value="yes" ><% __('Enabled') %></option>
@@ -31,6 +32,10 @@
                 alt="<% __('Change') %>" />
         </div>
     </form>
+  </div>
+  <div id='OpenChangeUserOptions_not_ready' class='user_email_observer warning' <% $params->{hasMail} ? "style='display:none'" : ''%> >
+     <% __('OpenChange account could not enabled until the user has an email account') %>
+  </div>
 <script>
 $(function() {
    Zentyal.Form.setupAjaxSubmit('#OpenChangeUserOptions', {
@@ -39,6 +44,25 @@ $(function() {
         submitButton: '#OpenChangeUserOptions_submit',
         success: function(response) {
         }
+    });
+
+    $('#OpenChangeUserOptions_ready').on('user_email_change', function(ev) {
+       if (ev.mail) {
+          $('#OpenChangeUserOptions_active').val(ev.ocEnabled ? 'yes' : 'no');
+          $(this).show();
+       } else {
+          $('#note_OpenChangeUserOptions, #error_OpenChangeUserOptions').html('').hide();
+          $(this).hide();
+      }
+    });
+
+    $('#OpenChangeUserOptions_not_ready').on('user_email_change', function(ev) {
+      console.log("notready callback");
+       if (ev.mail) {
+          $(this).hide();
+       } else {
+          $(this).show();
+      }
     });
 });
 </script>

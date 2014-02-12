@@ -64,7 +64,8 @@ sub confSOAPService
     EBox::Module::Base::writeConfFileNoCheck($confSSLFile, 'users/soap-ssl.conf.mas');
 
     my $webAdminMod = EBox::Global->modInstance('webadmin');
-    $webAdminMod->addApacheInclude($confFile);
+# FIXME: this method no longer exists!!
+#    $webAdminMod->addApacheInclude($confFile);
     $webAdminMod->addNginxInclude($confSSLFile);
 
     $webAdminMod->addCA(MASTER_CERT) if (-f MASTER_CERT);

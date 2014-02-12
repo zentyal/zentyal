@@ -311,6 +311,9 @@ sub updateServicePorts
         my $servicesMod = $global->modInstance('services');
         my $module = $global->modInstance($modName);
 
+        # Set module as changed just in case it is needed
+        $module->setAsChanged();
+
         my @servicePorts = ();
         foreach my $port (@{$ports}) {
             EBox::Validate::checkPort($port, __("port"));

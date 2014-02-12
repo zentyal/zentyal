@@ -1,9 +1,13 @@
 <%args>
-    $socket
+    $socketpath
+    $socketname
     $script
+    $module
+    $user
+    $group
 </%args>
 
-description     "uWSGI daemon for Zentyal web admin"
+description     "uWSGI daemon for Zentyal <% $module %>"
 author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
 
 start on (filesystem
@@ -11,8 +15,12 @@ start on (filesystem
           and runlevel [2345])
 stop on runlevel [016]
 
+pre-start script
+    [ -d <% $socketpath %> ] || install -m 755 -o <% $user %> -g www-data -d <% $socketpath %>
+end script
+
 respawn
 respawn limit 10 5
 
 # FIXME: Once finished the development the umask must be fixed!!!
-exec uwsgi --plugins 0:psgi --uid ebox --gid ebox --umask 000 -s <% $socket %> --psgi <% $script %>
+exec uwsgi --plugins 0:psgi --uid <% $user %> --gid <% $group %> --umask 000 -s <% $socketpath %>/<% $socketname %> --psgi <% $script %>

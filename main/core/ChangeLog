@@ -1,5 +1,11 @@
 3.4
 	+ Added EBox::Module::Config::replicationExcludeKeys()
+	+ Added EBox::WebAdmin::PortObserver to be used by ha and
+	  remoteservices modules by the moment
+	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
+	  after normal save changes process
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties
@@ -12,7 +18,6 @@
 	+ Pass model, type and id to enabled subroutine in
 	  EBox::Types::MultiStateAction to be ortoghonal to handler property
 	+ Fixed JS error on showing errors in customActionClicked
-	+ Fixed rethrown of exception in restartService() method
 	+ Added middleware to have auth based on a env variable
 	+ Updated nginx to server static files directly always so apache shouldn't
 	  ever get this kind of requests
@@ -42,7 +47,8 @@
 	+ ManageAdmins model now also add/removes lpadmin group
 	+ Show nice error when global-action fails using die + scalar
 	+ Fixed JS error on showing errors in customActionClicked
-	+ Fixed rethrown of exception in restartService() method
+	+ Fixed rethrown of exception in restartService() and
+	  EBox::CGI::Base::upload methods
 	+ Remove lock file in EBox::Util::Lock::unlock()
 	+ Fixed mason component root for custom stubs
 	+ Fixed regression in clone action

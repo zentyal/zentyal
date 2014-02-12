@@ -1,5 +1,5 @@
 # Copyright (C) 2004-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2008-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -78,6 +78,7 @@ sub _new_instance
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
+    $self->{request} = undef;
     return $self;
 }
 
@@ -1126,6 +1127,56 @@ sub deleteDisasterRecovery
     }
 }
 
+# Method: appName
+#
+# Returns:
+#
+#   String - The application name we are running as or undef if unknown.
+#
+sub appName
+{
+    my ($self) = @_;
+
+    my $request = $self->{request};
+    if (defined $request) {
+        my $session = $request->session();
+        if (defined $session) {
+            return $session->{app};
+        }
+    }
+    return undef;
+}
+
+# Method: request
+#
+# Returns:
+#
+#   <Plack::Request> - The http request, undef if we are not in an http request
+#
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
+}
+
+# Method: setRequest
+#
+# Parameters:
+#
+#   <Plack::Request> - The http request.
+#
+sub setRequest
+{
+    my ($self, $request) = @_;
+
+    unless ($request) {
+        throw EBox::Exceptions::Internal("Missing argument 'request'");
+    }
+
+    $self->{request} = $request;
+}
+
 # Method: saveMessages
 #
 # Returns:
@@ -1188,6 +1239,25 @@ sub communityEdition
     my $edition = $self->edition();
 
     return (($edition eq 'community') or ($edition eq 'basic'));
+}
+
+# Method: addModuleToPostSave
+#
+#      Add a module to be saved after single normal saving changes
+#
+# Parameters:
+#
+#      module - String the module name
+#
+sub addModuleToPostSave
+{
+    my ($self, $name) = @_;
+
+    my @postSaveModules = @{$self->get_list('post_save_modules')};
+    unless (grep { $_ eq $name} @postSaveModules) {
+        push (@postSaveModules, $name);
+        $self->set('post_save_modules', \@postSaveModules);
+    }
 }
 
 # Method: _runExecFromDir

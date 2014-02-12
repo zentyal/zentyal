@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2014 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -12,31 +12,29 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
 use strict;
 use warnings;
 
-package EBox::UserCorner::CGI::Logout::Index;
-use base 'EBox::CGI::ClientBase';
+package EBox::WebAdmin::PortObserver;
 
-use EBox::Gettext;
-use EBox::Global;
+# Class: EBox::WebAdmin::PortObserver
+#
+#     Implement this port observer if you want to be notified when the
+#     admin port is changed
+#
 
-sub new
+# Method: adminPortChanged
+#
+#   Invoked after a change in admin port takes place.
+#
+# Parameters:
+#
+#   port - Int the new webadmin port
+#
+sub adminPortChanged
 {
-    my $class = shift;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return $self;
-}
-
-sub _process
-{
-    my ($self) = @_;
-
-    my $request = $self->request();
-
-    $self->{redirect} = "Login/Index";
-    $self->{errorchain} = "Logout/Index";
+    my ($self, $port) = @_;
 }
 
 1;

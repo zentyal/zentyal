@@ -27,7 +27,8 @@ use warnings;
 
 package EBox::HA;
 
-use base qw(EBox::Module::Service);
+use base qw(EBox::Module::Service
+            EBox::WebAdmin::PortObserver);
 
 use feature qw(switch);
 
@@ -37,8 +38,10 @@ use EBox::Dashboard::Section;
 use EBox::Exceptions::DataNotFound;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::External;
+use EBox::Exceptions::Sudo::Command;
 use EBox::Global;
 use EBox::Gettext;
+use EBox::HA::ClusterStatus;
 use EBox::HA::CRMWrapper;
 use EBox::HA::NodeList;
 use EBox::RESTClient;
@@ -48,6 +51,7 @@ use EBox::Validate;
 use JSON::XS;
 use File::Temp;
 use File::Slurp;
+use MIME::Base64;
 use TryCatch::Lite;
 use XML::LibXML;
 
@@ -58,8 +62,12 @@ use constant {
     COROSYNC_AUTH_FILE    => '/etc/corosync/authkey',
     DEFAULT_MCAST_PORT    => 5405,
     RESOURCE_STICKINESS   => 100,
+    PSGI_UPSTART          => 'zentyal.ha-psgi',
     HA_CONF_DIR           => EBox::Config::conf() . 'ha',
-    ZENTYAL_AUTH_FILE     => EBox::Config::conf() . 'ha/authkey',
+};
+use constant {
+    NGINX_INCLUDE_FILE => HA_CONF_DIR . '/uwsgi.conf',
+    ZENTYAL_AUTH_FILE  => HA_CONF_DIR . '/authkey',
 };
 
 my %REPLICATE_MODULES = map { $_ => 1 } qw(dhcp dns firewall ips network objects services squid trafficshaping ca openvpn);
@@ -225,12 +233,13 @@ sub clusterConfiguration
 
         # Auth is a set of bytes
         my $auth = File::Slurp::read_file(ZENTYAL_AUTH_FILE, binmode => ':raw');
+        my $authStr = MIME::Base64::encode($auth, '');
         return {
             name          => $self->model('Cluster')->nameValue(),
             transport     => $transport,
             multicastConf => $multicastConf,
             nodes         => $nodeList,
-            auth          => $auth,
+            auth          => $authStr,
         };
     } else {
         return {};
@@ -294,14 +303,14 @@ sub addNode
     EBox::info('Add node (params): ' . Dumper($params));
 
     # Validation
-    foreach my $paramName (qw(name addr webAdminPort)) {
+    foreach my $paramName (qw(name addr port)) {
         unless (exists $params->{$paramName}) {
             throw EBox::Exceptions::MissingArgument($paramName);
         }
     }
     EBox::Validate::checkDomainName($params->{name}, 'name');
     EBox::Validate::checkIP($params->{addr}, 'addr');
-    EBox::Validate::checkPort($params->{webAdminPort}, 'webAdminPort');
+    EBox::Validate::checkPort($params->{port}, 'port');
 
     # Start to add
     my $list = new EBox::HA::NodeList($self);
@@ -566,12 +575,14 @@ sub updateClusterConfiguration
     }
 
     my $list = new EBox::HA::NodeList($self);
+    my $localNode = $list->localNode();
     my ($equal, $diff) = $list->diff($body->{nodes});
     unless ($equal) {
         my %currentNodes = map { $_->{name} => $_ } @{$list->list()};
         my %nodes = map { $_->{name} => $_ } @{$body->{nodes}};
         # Update NodeList
         foreach my $nodeName (@{$diff->{new}}, @{$diff->{changed}}) {
+            next if ($nodeName eq $localNode->{name});  # Updates never come from self
             my $node = $nodes{$nodeName};
             $node->{localNode} = 0;  # Supposed the notifications
                                      # never comes from self
@@ -604,6 +615,64 @@ sub updateClusterConfiguration
                 }
             }
         }
+    }
+}
+
+# Method: checkAndUpdateClusterConfiguration
+#
+#     Check if any change happened in cluster configuration and update
+#     accordingly.
+#
+sub checkAndUpdateClusterConfiguration
+{
+    my ($self) = @_;
+
+    my $nodeList = new EBox::HA::NodeList($self);
+    my $localNode;
+
+    try {
+        $localNode = $nodeList->localNode();
+    } catch (EBox::Exceptions::DataNotFound $e) {
+        # Then something rotten in our conf
+        EBox::warn('There is no local node in our configuration');
+        return;
+    }
+
+    my $clusterStatus;
+    try {
+        $clusterStatus = new EBox::HA::ClusterStatus($self);
+    } catch (EBox::Exceptions::Sudo::Command $e) {
+        EBox::warn('Cannot get the status from the cluster');
+    }
+    my $conf;
+
+    my $last = 0;
+    foreach my $node (@{$nodeList->list()}) {
+        next if ($node->{localNode});
+        next unless (not $clusterStatus or $clusterStatus->nodeOnline($node->{name}));
+
+        # Read the user secret from leaveRequest
+        my $client = new EBox::RESTClient(
+            credentials => {realm => 'Zentyal HA', username => 'zentyal',
+                            password => $self->userSecret()},
+            server => $node->{addr},
+            verifyHostname => 0,
+           );
+        $client->setPort($node->{port});
+        try {
+            EBox::info('Read new cluster configuration from ' . $node->{name});
+            my $response = $client->GET('/cluster/configuration');
+            $conf = new JSON::XS()->decode($response->as_string());
+            $last = 1;
+        } catch ($e) {
+            # Catch any exception
+            EBox::error("Error getting new configuration: $e");
+        }
+        last if ($last);
+    }
+    if ($last) {
+        # TODO: Add versioning to cluster configuration
+        $self->updateClusterConfiguration(undef, $conf);
     }
 }
 
@@ -645,6 +714,38 @@ sub destroyClusterConf
     $self->stopService();
 }
 
+# Method: adminPortChanged
+#
+#     Report to the cluster the port has changed.
+#
+# Parameters:
+#
+#     port - Int the new TCP port
+#
+# Overrides:
+#
+#     <EBox::WebAdmin::PortObserver::adminPortChanged>
+#
+sub adminPortChanged
+{
+    my ($self, $port) = @_;
+
+    if ($self->isEnabled()) {
+        try {
+            my $list = new EBox::HA::NodeList($self);
+            my $localNode = $list->localNode();
+            if ($localNode->{port} != $port) {
+                EBox::debug("Changing port to $port");
+                $list->set(name => $localNode->{name}, addr => $localNode->{addr},
+                           port => $port, localNode => 1);
+                $self->_notifyClusterConfChange($list);
+            }
+        } catch (EBox::Exceptions::DataNotFound $e) {
+            EBox::error("Cannot locate local node, do not notify the change: $e");
+        }
+    }
+}
+
 # Group: Protected methods
 
 # Method: _daemons
@@ -668,8 +769,8 @@ sub _daemons
            pidfiles => ['/run/pacemakerd.pid']
        },
        {
-           name => 'zentyal.ha-psgi',
-           type => 'upstart'
+           name => PSGI_UPSTART,
+           type => 'upstart',
        },
     ];
 
@@ -685,6 +786,8 @@ sub _daemons
 sub _setConf
 {
     my ($self) = @_;
+
+    $self->_setPSGI();
 
     if ($self->model('ClusterState')->leaveRequestValue()) {
         $self->_notifyLeave();
@@ -854,7 +957,7 @@ sub _corosyncSetConf
     my $localNode = $list->localNode();
     if ($localNodeAddr ne $localNode->{addr}) {
         $list->set(name => $localNode->{name}, addr => $localNodeAddr,
-                   webAdminPort => 443, localNode => 1);
+                   port => 443, localNode => 1);
         $self->_notifyClusterConfChange($list);
     }
 
@@ -886,9 +989,10 @@ sub _bootstrap
     my ($self, $localNodeAddr, $hostname) = @_;
 
     my $nodeList = new EBox::HA::NodeList($self);
-    # TODO: set port
+    my $webAdminMod = $self->global()->modInstance('webadmin');
     $nodeList->empty();
-    $nodeList->set(name => $hostname, addr => $localNodeAddr, webAdminPort => 443,
+    $nodeList->set(name => $hostname, addr => $localNodeAddr,
+                   port => $webAdminMod->listeningPort(),
                    localNode => 1, nodeid => 1);
 
     # Store the transport and its configuration in state
@@ -936,9 +1040,6 @@ sub _createStoreAuthFile
         # Quickie & dirty
         EBox::Sudo::root('chown ebox:ebox ' . COROSYNC_AUTH_FILE);  # To read it
         my $auth = File::Slurp::read_file(COROSYNC_AUTH_FILE, binmode => ':raw');
-        unless (-d HA_CONF_DIR) {
-            mkdir(HA_CONF_DIR);
-        }
         if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
             chmod(0600, ZENTYAL_AUTH_FILE);
             unlink(ZENTYAL_AUTH_FILE);
@@ -971,20 +1072,19 @@ sub _join
     my $row = $clusterSettings->row();
     my $client = new EBox::RESTClient(
         credentials => {realm => 'Zentyal HA', username => 'zentyal', password => $userSecret},
-        server => $row->valueByName('zentyal_host')
+        server => $row->valueByName('zentyal_host'),
+        verifyHostname => 0,
        );
     $client->setPort($row->valueByName('zentyal_port'));
-    # FIXME: Delete this line and not verify servers when using HAProxy
-    $client->setScheme('http');
     # This should not fail as we have a check in validateTypedRow
     my $response = $client->GET('/cluster/configuration');
 
     my $clusterConf = new JSON::XS()->decode($response->as_string());
 
-    # TODO: set proper port
+    my $webAdminMod = $self->global()->modInstance('webadmin');
     my $localNode = { name => $hostname,
                       addr => $localNodeAddr,
-                      webAdminPort => 443 };
+                      port => $webAdminMod->listeningPort() };
 
     $self->_storeAuthFile($clusterConf->{auth});
 
@@ -1018,17 +1118,59 @@ sub _storeAuthFile
 {
     my ($self, $auth) = @_;
 
-    unless (-d HA_CONF_DIR) {
-        mkdir(HA_CONF_DIR);
-    }
     if (-e ZENTYAL_AUTH_FILE) {  # Delete previous version if it was there
         chmod(0600, ZENTYAL_AUTH_FILE);
         unlink(ZENTYAL_AUTH_FILE);
     }
+    my $authBin = MIME::Base64::decode($auth);
     File::Slurp::write_file(ZENTYAL_AUTH_FILE, {binmode => ':raw', perms => 0400},
-                            $auth);
+                            $authBin);
     EBox::Sudo::root('install -D --group=0 --owner=0 --mode=0400 ' . ZENTYAL_AUTH_FILE
                      . ' ' . COROSYNC_AUTH_FILE);
+}
+
+# Set the PSGI upstart script
+sub _setPSGI
+{
+    my ($self) = @_;
+
+    my $webadminMod = $self->global()->modInstance('webadmin');
+    my $upstartJobFile =  '/etc/init/' . PSGI_UPSTART . '.conf';
+    if ($self->isEnabled()) {
+        my $socketPath = '/run/zentyal-' . $self->name();
+        my @params = (
+            (socketpath => $socketPath),
+            (socketname => 'ha-uwsgi.sock'),
+            (script => EBox::Config::psgi() . 'ha.psgi'),
+            (module => $self->printableName()),
+            (user   => EBox::Config::user()),
+            (group  => EBox::Config::group()),
+           );
+        $self->writeConfFile($upstartJobFile,
+                             'core/upstart-uwsgi.mas',  # Use common UWSGI template
+                             \@params,
+                             { uid => 0, gid => 0, mode => '0644', force => 1 });
+
+        @params = (
+            (path   => '/cluster/'),
+            (socket => $socketPath),
+           );
+        $self->writeConfFile(NGINX_INCLUDE_FILE,
+                             'ha/nginx.conf.mas',
+                             \@params);
+
+        $webadminMod->addNginxInclude(NGINX_INCLUDE_FILE);
+    } else {
+        try {
+            $webadminMod->removeNginxInclude(NGINX_INCLUDE_FILE);
+        } catch (EBox::Exceptions::Internal $e) {
+            # Do nothing if the include has been already removed
+        }
+        EBox::Sudo::root("rm -f '$upstartJobFile'");
+    }
+    if (not $self->isReadOnly() and $self->global()->modIsChanged('webadmin')) {
+        $self->global()->addModuleToPostSave('webadmin');
+    }
 }
 
 # Notify the leave to a member of the cluster
@@ -1055,11 +1197,10 @@ sub _notifyLeave
         my $client = new EBox::RESTClient(
             credentials => {realm => 'Zentyal HA', username => 'zentyal',
                             password => $userSecret},
-            server => $node->{addr}
+            server => $node->{addr},
+            verifyHostname => 0,
            );
-        $client->setPort(5000); # $node->{port});
-        # FIXME: Delete this line and not verify servers when using HAProxy
-        $client->setScheme('http');
+        $client->setPort($node->{port});
         try {
             EBox::debug($userSecret);
             EBox::info('Notify leaving cluster to ' . $node->{name});
@@ -1099,11 +1240,10 @@ sub _notifyClusterConfChange
             my $client = new EBox::RESTClient(
                 credentials => {realm => 'Zentyal HA', username => 'zentyal',
                                 password => $clusterSecret},
-                server => $node->{addr}
+                server => $node->{addr},
+                verifyHostname => 0,
                );
-            $client->setPort(5000);  # TODO: Use real port
-            # FIXME: Delete this line and not verify servers when using HAProxy
-            $client->setScheme('http');
+            $client->setPort($node->{port});
             # Use JSON as there is more than one level of depth to use x-form-urlencoded
             my $JSONConf = new JSON::XS()->utf8()->encode($conf);
             my $response = $client->PUT('/cluster/configuration',
@@ -1113,7 +1253,6 @@ sub _notifyClusterConfChange
         }
     }
 }
-
 
 # Dynamically update a corosync node
 # Only update on addr is supported
@@ -1355,7 +1494,8 @@ sub _uploadReplicationBundle
     my ($self, $addr, $file) = @_;
 
     my $secret = $self->userSecret();
-    system ("curl -F file=\@$file http://zentyal:$secret\@$addr:5000/conf/replication");
+    # FIXME: Use port from node list
+    system ("curl -k -F file=\@$file http://zentyal:$secret\@$addr:443/conf/replication");
     EBox::info("Replication bundle uploaded to $addr");
 }
 

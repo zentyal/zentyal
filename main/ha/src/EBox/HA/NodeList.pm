@@ -58,7 +58,7 @@ sub new
 #
 #    addr - String the IP address
 #
-#    webAdminPort - Int the webadmin listening port
+#    port - Int the webadmin listening port
 #
 #    localNode - Boolean to indicate if it is a local node *(Optional)*
 #                Default value: False
@@ -88,7 +88,7 @@ sub set
 
     $state->{cluster_conf}->{nodes}->{$params{name}} = { name => $params{name},
                                                          addr => $params{addr},
-                                                         webAdminPort => $params{webAdminPort},
+                                                         port => $params{port},
                                                          localNode => $localNode,
                                                          nodeid => $nodeId
                                                         };
@@ -155,7 +155,7 @@ sub empty
 #
 #       addr - String the IP address
 #       name - String the node name
-#       webAdminPort - Int the web admin port
+#       port - Int the web admin port
 #       localNode - Boolean local node flag
 #       nodeid - Int the node identifier
 #
@@ -181,7 +181,7 @@ sub list
 #
 #       addr - String the IP address
 #       name - String the node name
-#       webAdminPort - Int the web admin port
+#       port - Int the web admin port
 #       localNode - Boolean local node flag
 #       nodeid - Int the node identifier
 #
@@ -211,7 +211,7 @@ sub node
 #
 #       addr - String the IP address
 #       name - String the node name
-#       webAdminPort - Int the web admin port
+#       port - Int the web admin port
 #       localNode - Boolean local node flag
 #       nodeid - Int the node identifier
 #

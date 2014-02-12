@@ -57,6 +57,9 @@ sub run
         throw EBox::Exceptions::InvalidArgument('request');
     }
 
+    my $global = EBox::Global->getInstance();
+    $global->setRequest($request);
+
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
 
