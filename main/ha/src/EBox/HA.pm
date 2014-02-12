@@ -1138,9 +1138,10 @@ sub _setPSGI
     my $upstartJobFile =  '/etc/init/' . PSGI_UPSTART . '.conf';
     if ($self->isEnabled()) {
         my $socketPath = '/run/zentyal-' . $self->name();
+        my $socketName = 'ha-uwsgi.sock';
         my @params = (
             (socketpath => $socketPath),
-            (socketname => 'ha-uwsgi.sock'),
+            (socketname => $socketName),
             (script => EBox::Config::psgi() . 'ha.psgi'),
             (module => $self->printableName()),
             (user   => EBox::Config::user()),
@@ -1153,7 +1154,7 @@ sub _setPSGI
 
         @params = (
             (path   => '/cluster/'),
-            (socket => $socketPath),
+            (socket => "$socketPath/$socketName"),
            );
         $self->writeConfFile(NGINX_INCLUDE_FILE,
                              'ha/nginx.conf.mas',
