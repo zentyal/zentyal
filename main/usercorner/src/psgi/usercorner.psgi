@@ -18,29 +18,33 @@ use strict;
 use warnings;
 
 use EBox;
-use EBox::CGI::Run;
 use EBox::Gettext;
+use EBox::UserCorner;
+use EBox::UserCorner::CGI::Run;
 
 use Authen::Simple::PAM;
 use Plack::Builder;
 use Plack::Session::Store::File;
-use POSIX qw(:signal_h);
+use POSIX qw(:signal_h setlocale LC_ALL LC_NUMERIC);
 
-use constant SESSIONS_PATH => '/var/lib/zentyal/tmp';
+use constant SESSIONS_PATH => EBox::UserCorner::usersessiondir();
 
 my $app = sub {
     my $env = shift;
+
+    EBox::initLogger('usercorner-log.conf');
+    POSIX::setlocale(LC_ALL, EBox::locale());
+    POSIX::setlocale(LC_NUMERIC, 'C');
 
     # Clear process signals mask
     my $sigset = POSIX::SigSet->new();
     $sigset->fillset();
     sigprocmask(SIG_UNBLOCK, $sigset);
 
-    EBox::init();
     binmode(STDOUT, ':utf8');
 
     my $req = Plack::Request->new($env);
-    return EBox::CGI::Run->run($req);
+    return EBox::UserCorner::CGI::Run->run($req, 'EBox::UserCorner::HtmlBlocks');
 };
 
 builder {
@@ -50,9 +54,7 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable_if { exists($ENV{ZENTYAL_WEBADMIN_ENV}) and ($ENV{ZENTYAL_WEBADMIN_ENV} eq 'anste') }
-      "+EBox::Middleware::NoAuth";
-    enable "+EBox::Middleware::AuthPAM", app_name => 'webadmin';
+    enable "+EBox::Middleware::AuthLDAP", app_name => 'usercorner';
     $app;
 };
 

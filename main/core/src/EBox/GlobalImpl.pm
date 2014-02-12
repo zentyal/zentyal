@@ -78,6 +78,7 @@ sub _new_instance
 
     # Messages produced during save changes process
     $self->{save_messages} = [];
+    $self->{request} = undef;
     return $self;
 }
 
@@ -1124,6 +1125,56 @@ sub deleteDisasterRecovery
     if (-f DISASTER_RECOVERY_FILE) {
         unlink (DISASTER_RECOVERY_FILE);
     }
+}
+
+# Method: appName
+#
+# Returns:
+#
+#   String - The application name we are running as or undef if unknown.
+#
+sub appName
+{
+    my ($self) = @_;
+
+    my $request = $self->{request};
+    if (defined $request) {
+        my $session = $request->session();
+        if (defined $session) {
+            return $session->{app};
+        }
+    }
+    return undef;
+}
+
+# Method: request
+#
+# Returns:
+#
+#   <Plack::Request> - The http request, undef if we are not in an http request
+#
+sub request
+{
+    my ($self) = @_;
+
+    return $self->{request};
+}
+
+# Method: setRequest
+#
+# Parameters:
+#
+#   <Plack::Request> - The http request.
+#
+sub setRequest
+{
+    my ($self, $request) = @_;
+
+    unless ($request) {
+        throw EBox::Exceptions::Internal("Missing argument 'request'");
+    }
+
+    $self->{request} = $request;
 }
 
 # Method: saveMessages

@@ -3,6 +3,8 @@
 	  remoteservices modules by the moment
 	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
 	  after normal save changes process
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used
 	+ Added a left-right composite layout
 	+ Search and pagination forms can be omitted using showFilterForm
 	  and showPaginationForm properties

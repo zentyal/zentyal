@@ -43,6 +43,7 @@ use TryCatch::Lite;
 
 # Constants
 use constant NGINX_INCLUDE_KEY => 'nginxIncludes';
+use constant NGINX_SERVER_KEY => 'nginxServers';
 use constant CAS_KEY => 'cas';
 use constant CA_CERT_PATH  => EBox::Config::conf() . 'ssl-ca/';
 use constant CA_CERT_FILE  => CA_CERT_PATH . 'nginx-ca.pem';
@@ -232,6 +233,7 @@ sub _writeNginxConfFile
     push @confFileParams, (tmpdir => EBox::Config::tmp());
     push @confFileParams, (zentyalconfdir => EBox::Config::conf());
     push @confFileParams, (includes => $self->_nginxIncludes(1));
+    push @confFileParams, (servers => $self->_nginxServers(1));
 
     my $permissions = {
         uid => EBox::Config::user(),
@@ -257,9 +259,14 @@ sub _writeNginxConfFile
 
     my $upstartFile = 'core/upstart-uwsgi.mas';
     @confFileParams = ();
-    push @confFileParams, (socket => EBox::Config::tmp() . 'uwsgi.sock');
-    push @confFileParams, (script => EBox::Config::psgi() . 'zentyal.psgi');
-    EBox::Module::Base::writeConfFileNoCheck($self->_uwsgiUpstartFile, 'core/upstart-uwsgi.mas', \@confFileParams, $permissions);
+    push (@confFileParams, socketpath => '/run/zentyal-' . $self->name());
+    push (@confFileParams, socketname => 'webadmin.sock');
+    push (@confFileParams, script => EBox::Config::psgi() . 'zentyal.psgi');
+    push (@confFileParams, module => $self->printableName());
+    push (@confFileParams, user   => EBox::Config::user());
+    push (@confFileParams, group  => EBox::Config::group());
+    EBox::Module::Base::writeConfFileNoCheck(
+        $self->_uwsgiUpstartFile, $upstartFile, \@confFileParams, $permissions);
 }
 
 sub _setLanguage
@@ -383,15 +390,107 @@ sub addModuleStatus
 {
 }
 
+# Method: addNginxServer
+#
+#      Add an "server" directive to the nginx configuration. If it is already
+#      added, it does nothing
+#
+# Parameters:
+#
+#      serverFilePath - String the configuration file path to include
+#      in nginx configuration with the server section
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#      <EBox::Exceptions::Internal> - thrown if the given file does
+#      not exists
+#
+sub addNginxServer
+{
+    my ($self, $serverFilePath) = @_;
+
+    unless(defined($serverFilePath)) {
+        throw EBox::Exceptions::MissingArgument('serverFilePath');
+    }
+    unless(-f $serverFilePath and -r $serverFilePath) {
+        throw EBox::Exceptions::Internal(
+            "File $serverFilePath cannot be read or it is not a file"
+        );
+    }
+    my @servers = @{$self->_nginxServers(0)};
+    unless ( grep { $_ eq $serverFilePath } @servers) {
+        push(@servers, $serverFilePath);
+        $self->set_list(NGINX_SERVER_KEY, 'string', \@servers);
+    }
+
+}
+
+# Method: removeNginxServer
+#
+#      Remove a "server" directive from the nginx configuration. If the
+#      "server" was not in the configuration, it does nothing
+#
+#
+# Parameters:
+#
+#      serverFilePath - String the configuration file path to remove
+#      from nginx configuration
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#
+sub removeNginxServer
+{
+    my ($self, $serverFilePath) = @_;
+
+    unless(defined($serverFilePath)) {
+        throw EBox::Exceptions::MissingArgument('serverFilePath');
+    }
+    my @servers = @{$self->_nginxServers(0)};
+    my @newServers = grep { $_ ne $serverFilePath } @servers;
+    if ( @newServers == @servers ) {
+        return;
+    }
+    $self->set_list(NGINX_SERVER_KEY, 'string', \@newServers);
+
+}
+
+# Return those server files that has been added
+sub _nginxServers
+{
+    my ($self, $check) = @_;
+    my $serverList = $self->get_list(NGINX_SERVER_KEY);
+    if (not $check) {
+        return $serverList;
+    }
+
+    my @servers;
+    foreach my $servPath (@{ $serverList }) {
+        if ((-f $servPath) and (-r $servPath)) {
+            push @servers, $servPath;
+        } else {
+            EBox::warn("Ignoring nginx include server $servPath: cannot read the file or it is not a regular file");
+        }
+    }
+
+    return \@servers;
+}
+
 # Method: addNginxInclude
 #
 #      Add an "include" directive to the nginx configuration. If it is already
 #      added, it does nothing
 #
-#      Added only in the main virtual host
+#      Added only in the webadmin server file
 #
 # Parameters:
 #
+#      serv
 #      includeFilePath - String the configuration file path to include
 #      in nginx configuration
 #
@@ -587,7 +686,7 @@ sub certificates
 
     return [
             {
-             serviceId =>  'Zentyal Administration Web Server',
+             serviceId =>  'zentyal_' . $self->name(),
              service =>  __('Zentyal Administration Web Server'),
              path    =>  $self->pathHAProxySSLCertificate(),
              user => EBox::Config::user(),
@@ -645,6 +744,18 @@ sub usesPort
 sub initialSetup
 {
     my ($self, $version) = @_;
+
+    # Register the service if installing the first time
+    unless ($version) {
+        my @args = ();
+        push (@args, modName        => $self->name);
+        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, enableSSLPort  => 1);
+        push (@args, defaultSSLPort => 1);
+        push (@args, force          => 1);
+        my $haproxyMod = $self->global()->modInstance('haproxy');
+        $haproxyMod->setHAProxyServicePorts(@args);
+    }
 
     # Upgrade from 3.3
     if (defined ($version) and (EBox::Util::Version::compare($version, '3.4') < 0)) {
