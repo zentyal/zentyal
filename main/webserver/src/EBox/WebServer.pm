@@ -256,6 +256,20 @@ sub initialSetup
                 $redis->set($key, $value);
             }
         }
+
+        # Migrate the existing zentyal haproxy definition to follow the new layout used by 3.4.
+        my @haproxyKeys = $redis->_keys('haproxy/*/HAProxyServices/keys/*');
+        foreach my $key (@haproxyKeys) {
+            my $value = $redis->get($key);
+            unless (ref $value eq 'HASH') {
+                next;
+            }
+            if ($value->{serviceId} eq 'webserverHAProxyId') {
+                # WebServer.
+                $value->{serviceId} = 'zentyal_' . $self->name();
+                $redis->set($key, $value);
+            }
+        }
     }
 }
 
