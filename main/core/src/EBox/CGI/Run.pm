@@ -59,6 +59,8 @@ sub run
 
     my $global = EBox::Global->getInstance();
     $global->{request} = $request;
+    my $roGlobal = EBox::Global->getInstance(1);
+    $roGlobal->{request} = $request;
 
     my $redis = EBox::Global->modInstance('global')->redis();
     $redis->begin();
