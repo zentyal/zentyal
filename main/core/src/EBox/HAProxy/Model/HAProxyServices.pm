@@ -339,7 +339,7 @@ sub validateTypedRow
                 ));
             }
             unless ($force) {
-                $self->checkServicePort($port, $params_r->{id});
+                $self->checkServicePort($port);
             }
         }
         if ($enabledSSLPort) {
@@ -356,7 +356,7 @@ sub validateTypedRow
                 ));
             }
             unless ($force) {
-                $self->checkServicePort($sslPort, $params_r->{id});
+                $self->checkServicePort($sslPort);
             }
 
             # SSL certificate checking.
@@ -450,7 +450,7 @@ sub viewCustomizer
 #
 sub checkServicePort
 {
-    my ($self, $port, $id) = @_;
+    my ($self, $port) = @_;
 
     if ($self->find(port => $port) or $self->find(sslPort => $port)) {
         # This port is being used by us so can be shared.
