@@ -1604,7 +1604,7 @@ sub notifyModsLdapUserBase
     }
 
     # Save user corner operations for slave-sync daemon
-    if ($self->isUserCorner) {
+    if ($self->isUserCorner()) {
         my $dir = '/var/lib/zentyal-usercorner/syncjournal/';
         mkdir ($dir) unless (-d $dir);
 
