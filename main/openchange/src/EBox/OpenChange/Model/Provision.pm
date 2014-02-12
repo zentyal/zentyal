@@ -111,6 +111,7 @@ sub _table
                     printableValue => __('Unconfigure'),
                     handler => \&_doDeprovision,
                     message => __('Database unconfigured'),
+                    image => '/data/images/reload-plus.png',
                     enabled => sub { $self->parentModule->isProvisioned() },
                 },
                 notProvisioned => {
@@ -118,6 +119,7 @@ sub _table
                     printableValue => __('Setup'),
                     handler => \&_doProvision,
                     message => __('Database configured'),
+                    image => '/data/images/reload-plus.png',
                     enabled => sub { not $self->parentModule->isProvisioned() },
                 },
             }
