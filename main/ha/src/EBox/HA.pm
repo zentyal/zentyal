@@ -691,16 +691,17 @@ sub adminPortChanged
 {
     my ($self, $port) = @_;
 
-    my $list = new EBox::HA::NodeList($self);
-    my $localNode = $list->localNode();
-    if ($localNode->{port} != $port) {
-        EBox::debug("Changing port to $port");
-        $list->set(name => $localNode->{name}, addr => $localNode->{addr},
-                   port => $port, localNode => 1);
-        $self->_notifyClusterConfChange($list);
+    if ($self->isEnabled()) {
+        my $list = new EBox::HA::NodeList($self);
+        my $localNode = $list->localNode();
+        if ($localNode->{port} != $port) {
+            EBox::debug("Changing port to $port");
+            $list->set(name => $localNode->{name}, addr => $localNode->{addr},
+                       port => $port, localNode => 1);
+            $self->_notifyClusterConfChange($list);
+        }
     }
 }
-
 
 # Group: Protected methods
 

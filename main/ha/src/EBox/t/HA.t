@@ -304,6 +304,7 @@ sub test_admin_port_changed : Test(3)
     my ($self) = @_;
     my $mod = $self->{mod};
 
+    $mod->set_true('isEnabled');
     $mod->set_false('_notifyClusterConfChange');
     # Set local node
     my $list = new EBox::HA::NodeList($mod);
