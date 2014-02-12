@@ -572,6 +572,21 @@ TABS options
     right: 10px;
     top: 7px;
 }
+
+/* Left-Right composite */
+.left-right-container {
+    clear: both;
+}
+
+.half-left {
+    clear: left;
+}
+
+.half-left, .half-right {
+    float: left;
+}
+/* END Left-Right composite */
+
 .insideTab {
     margin: 0px;
     padding: 15px;

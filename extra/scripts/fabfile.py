@@ -40,7 +40,7 @@ def copy(path):
     sudo('mv ~/%s %s' % (bname, perl_path))
     out = run('perl -c %s%s' % (perl_path, bname))
     if re.search('OK', out):
-        sudo('/etc/init.d/zentyal apache restart')
+        sudo('/etc/init.d/zentyal webadmin restart')
 
 def script_copy(path):
     """ Copy the script file to the target host """

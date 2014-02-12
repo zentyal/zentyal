@@ -107,7 +107,7 @@ use IO::Socket::INET;
 use constant SAMBA_DIR            => '/home/samba/';
 use constant SAMBATOOL            => '/usr/bin/samba-tool';
 use constant SAMBACONFFILE        => '/etc/samba/smb.conf';
-use constant PRIVATE_DIR          => '/opt/samba4/private/';
+use constant PRIVATE_DIR          => '/var/lib/samba/private/';
 use constant SAMBA_DNS_ZONE       => PRIVATE_DIR . 'named.conf';
 use constant SAMBA_DNS_POLICY     => PRIVATE_DIR . 'named.conf.update';
 use constant SAMBA_DNS_KEYTAB     => PRIVATE_DIR . 'dns.keytab';
@@ -115,7 +115,7 @@ use constant SECRETS_KEYTAB       => PRIVATE_DIR . 'secrets.keytab';
 use constant SAM_DB               => PRIVATE_DIR . 'sam.ldb';
 use constant SAMBA_PRIVILEGED_SOCKET => PRIVATE_DIR . '/ldap_priv';
 use constant FSTAB_FILE           => '/etc/fstab';
-use constant SYSVOL_DIR           => '/opt/samba4/var/locks/sysvol';
+use constant SYSVOL_DIR           => '/var/lib/samba/sysvol';
 use constant SHARES_DIR           => SAMBA_DIR . 'shares';
 use constant PROFILES_DIR         => SAMBA_DIR . 'profiles';
 use constant ANTIVIRUS_CONF       => '/var/lib/zentyal/conf/samba-antivirus.conf';
@@ -474,7 +474,7 @@ sub _startDaemon
 
     $self->SUPER::_startDaemon($daemon, %params);
 
-    if ($daemon->{name} eq 'samba4') {
+    if ($daemon->{name} eq 'samba') {
         my $services = $self->_services();
         foreach my $service (@{$services}) {
             my $port = $service->{destinationPort};
@@ -1108,9 +1108,9 @@ sub _daemons
 {
     return [
         {
-            name => 'samba4',
+            name => 'samba',
             type => 'init.d',
-            pidfiles => ['/opt/samba4/var/run/samba.pid'],
+            pidfiles => ['/var/run/samba/samba.pid'],
         },
         {
             name => 'zentyal.nmbd',

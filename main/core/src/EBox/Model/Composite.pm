@@ -31,6 +31,8 @@
 #
 #      - top-bottom - the components will be shown from top to the
 #      bottom in the given order
+#      - left-right - the components will be shown from left to
+#      right in the given order
 #      - tabbed     - the components will be shown in a tab way
 #
 
@@ -58,7 +60,7 @@ use TryCatch::Lite;
 use Perl6::Junction qw(any);
 
 # Constants
-use constant LAYOUTS => qw(top-bottom tabbed);
+use constant LAYOUTS => qw(top-bottom left-right tabbed);
 
 # Group: Public methods
 
@@ -197,6 +199,8 @@ sub models
 #
 #      - top-bottom - the elements will be shown sequentially
 #
+#      - left-right - the elements will be shown from left to right
+#
 #      - tabbed - every element will be shown in a tab
 #
 # Exceptions:
@@ -238,6 +242,26 @@ sub layout
     my ($self) = @_;
 
     return $self->{layout};
+}
+
+# Method: width
+#
+#      Get the component width from the composite
+#
+# Returns:
+#
+#      String - indicating the indicated component width
+#       This value will be inserted this way: <... style='width=<% $width %>;'>
+#
+sub width
+{
+    my ($self, $name) = @_;
+
+    if ($self->layout() eq 'left-right') {
+        return $self->{widths}->{$name};
+    }
+
+    return '100%';
 }
 
 # Method: name
@@ -550,7 +574,7 @@ sub Viewer
 #
 #       layout - String define the layout of the corresponding views
 #       of the models. It can be one of the following: 'top-bottom' or
-#       'tabbed' *(Optional)* Default value: 'top-bottom'
+#       or 'left-right' or 'tabbed' *(Optional)* Default value: 'top-bottom'
 #
 #       name - String the composite's name *(Optional)* Default value:
 #       class name
@@ -640,6 +664,20 @@ sub _setDescription
     }
 
     $self->{actions} = $description->{actions};
+
+    if (exists($description->{widths})) {
+        if ($self->{layout} ne 'left-right') {
+            throw EBox::Exceptions::InvalidData(
+                    data  => 'layout',
+                    value => $self->{layout},
+                    advice => __x('You cannot set the width property if the ' .
+                                  'composite has not a: {left_right} layout',
+                        left_right => 'left-right')
+                    );
+        }
+
+        $self->{widths} = delete($description->{widths});
+    }
 
     # Set the Composite actions, do not ovewrite the user-defined actions
     $self->_setDefaultActions();

@@ -172,7 +172,7 @@ sub enabled
     my $action = $self->action($id);
     my $enabled = $action->{enabled};
     if (ref $enabled) {
-        $enabled = &$enabled;
+        $enabled = &$enabled($self->{model}, $self, $id);
     }
     return $enabled;
 }
