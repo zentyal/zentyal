@@ -1,0 +1,36 @@
+From 77b0839497e20417b0d39916257c9fc838cf76de Mon Sep 17 00:00:00 2001
+From: Volker Lendecke <vl@samba.org>
+Date: Fri, 7 Feb 2014 16:37:38 +0100
+Subject: [PATCH] smbd: Fix memory overwrites
+
+SIVAL writes 32 bit, not 16
+
+Signed-off-by: Volker Lendecke <vl@samba.org>
+Reviewed-by: Michael Adam <obnox@samba.org>
+
+Autobuild-User(master): Michael Adam <obnox@samba.org>
+Autobuild-Date(master): Fri Feb  7 20:07:23 CET 2014 on sn-devel-104
+
+(cherry picked from commit 9088bde059e93a84745ec2158e2e640b5bb13844)
+---
+ source3/smbd/smb2_ioctl_network_fs.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/source3/smbd/smb2_ioctl_network_fs.c b/source3/smbd/smb2_ioctl_network_fs.c
+index cf87584..49c2715 100644
+--- a/source3/smbd/smb2_ioctl_network_fs.c
++++ b/source3/smbd/smb2_ioctl_network_fs.c
+@@ -409,8 +409,8 @@ static NTSTATUS fsctl_validate_neg_info(TALLOC_CTX *mem_ctx,
+ 
+ 	SIVAL(out_output->data, 0x00, conn->smb2.server.capabilities);
+ 	memcpy(out_output->data+0x04, out_guid_blob.data, 16);
+-	SIVAL(out_output->data, 0x14, conn->smb2.server.security_mode);
+-	SIVAL(out_output->data, 0x16, conn->smb2.server.dialect);
++	SSVAL(out_output->data, 0x14, conn->smb2.server.security_mode);
++	SSVAL(out_output->data, 0x16, conn->smb2.server.dialect);
+ 
+ 	return NT_STATUS_OK;
+ }
+-- 
+1.9.0.rc1.175.g0b1dcb5
+
