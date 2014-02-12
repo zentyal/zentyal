@@ -160,6 +160,8 @@ sub allowServiceDisabling
 #
 sub _serviceId
 {
+    my ($self) = @_;
+
     return 'zentyal_' . $self->name();
 }
 
