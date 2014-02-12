@@ -1113,10 +1113,6 @@ sub _daemons
             pidfiles => ['/var/run/samba/samba.pid'],
         },
         {
-            name => 'zentyal.nmbd',
-            precondition => \&_nmbdCond,
-        },
-        {
             name => 'zentyal.s4sync',
             precondition => \&_s4syncCond,
         },
@@ -1130,6 +1126,22 @@ sub _daemons
         },
     ];
 }
+
+# Method: _daemonsToDisable
+#
+# Overrides:
+#
+#   <EBox::Module::Service::_daemonsToDisable>
+#
+sub _daemonsToDisable
+{
+    return [
+        { 'name' => 'smbd', 'type' => 'upstart' },
+        { 'name' => 'nmbd', 'type' => 'upstart' },
+        { 'name' => 'samba-ad-dc', 'type' => 'upstart' },
+    ];
+}
+
 
 # Function: usesPort
 #
