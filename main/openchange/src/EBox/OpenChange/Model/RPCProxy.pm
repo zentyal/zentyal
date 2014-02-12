@@ -61,6 +61,10 @@ sub _table
              printableName => __('Certificate'),
              volatile  => 1,
              acquirer => sub {
+                 my $file = EBox::Config::downloads() . 'rpcproxy.cert';
+                 if (not -r $file) {
+                     return undef;
+                 }
                  return '/Downloader/FromTempDir?filename=rpcproxy.cert';
              },
             HTMLViewer     => '/ajax/viewer/downloadLink.mas',

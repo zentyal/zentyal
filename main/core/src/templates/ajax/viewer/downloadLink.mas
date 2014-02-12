@@ -9,6 +9,8 @@ Parameters:
 $data
 </%args>
 <%init>
-  use EBox::Gettext;
+ use EBox::Gettext;
+ my $link = $data->linkToView();
+ my $disabledClass = $link ? '' : 'btn-disabled';
 </%init>
-<a  class="btn btn-icon btn-download" href="<% $data->linkToView() %>"><% __('Download') %></a>
+<a class="btn btn-icon btn-download <% $disabledClass %>" href="<% $link %>"><% __('Download') %></a>

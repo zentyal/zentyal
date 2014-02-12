@@ -1,4 +1,5 @@
 HEAD
+	+ Added template for download link
 	+ Created EBox::Util::Certificate, refactored create-certificate
 	  script
 	+ Changes in haproxy port validation and allow haproxy internal services
