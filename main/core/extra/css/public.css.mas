@@ -2505,6 +2505,11 @@ NEW BUTTONS STYLES*/
 .btn-apply-w{ background-image: url('/data/images/apply-w.gif')}
 .btn-log{background-image: url('/data/images/log.gif')}
 
+/*** cluster layout ***/
+.cluster-info{
+    background-color: #F5F5FF;
+}
+
 /*** migration layout ***/
 .info-block{
     display: inline-block;
@@ -2659,7 +2664,7 @@ td.stopped .done-bar{
     margin-top: 10px;
     background-color: whitesmoke;
 }
-.migration-info .info-block{
+.migration-info .info-block, .cluster-info .info-block{
     display: block;
     margin-bottom: 10px;
     float: none;

@@ -1,6 +1,5 @@
 3.4
 	+ Migrated to use Plack as the application server instead of mod_perl
-	+ Adapt configuration to Apache 2.4
 	+ Use service instead of deprecated invoke-rc.d for init.d scripts
 	+ Set version to 3.4
 3.3

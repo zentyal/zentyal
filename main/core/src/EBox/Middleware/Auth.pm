@@ -24,13 +24,15 @@ use base qw(Plack::Middleware);
 use EBox;
 use EBox::Config;
 use EBox::Exceptions::Internal;
-use EBox::Exceptions::External;
 use EBox::Exceptions::Lock;
 
-use Authen::Simple::PAM;
+use Crypt::Rijndael;
+use Digest::MD5;
 use Fcntl qw(:flock);
+use MIME::Base64;
 use Plack::Request;
-use Plack::Util::Accessor qw( secure authenticator no_login_page after_logout ssl_port );
+use Plack::Util::Accessor qw( app_name );
+use TryCatch::Lite;
 
 # By now, the expiration time for session is hardcoded here
 use constant EXPIRE => 3600; #In seconds  1h
@@ -38,9 +40,25 @@ use constant EXPIRE => 3600; #In seconds  1h
 use constant MAX_SCRIPT_SESSION => 10; # In seconds
 
 
-sub _cleansession # (env)
+sub prepare_app {
+    my ($self) = @_;
+
+    unless ($self->app_name) {
+        throw EBox::Exceptions::Internal('app_name must be set');
+    }
+}
+
+# Method: _cleanSession
+#
+#   Cleans the session and invalidates any existing credentials from it.
+#
+# Parameters:
+#
+#   env - Hash ref the PSGI enviroment dictionary.
+#
+sub _cleanSession
 {
-    my ($env) = @_;
+    my ($class, $env) = @_;
 
     if (exists $env->{'psgix.session'}) {
         delete $env->{'psgix.session'}{user_id};
@@ -131,6 +149,10 @@ sub _actionScriptSession
 sub _validateSession {
     my ($self, $env) = @_;
 
+    unless (defined $env) {
+        throw EBox::Exceptions::MissingArgument("env");
+    }
+
     my $global = $self->_global();
 
     unless ((exists $env->{'psgix.session'}{last_time}) and
@@ -146,7 +168,7 @@ sub _validateSession {
 
     if ($self->_actionScriptSession()) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
-        _cleansession($env);
+        $self->_cleanSession($env);
     } elsif (not $expired) {
         # Increase the last time this session was valid.
         $env->{'psgix.session'}{last_time} = time();
@@ -159,7 +181,7 @@ sub _validateSession {
         $audit->logSessionEvent($user, $ip, 'expired');
 
         $env->{'psgix.session'}{AuthReason} = 'Expired';
-        _cleansession($env);
+        $self->_cleanSession($env);
     } else {
         # XXX: Review this code path. Seems to be dead code...
         $env->{'psgix.session'}{AuthReason} = 'Already';
@@ -170,12 +192,14 @@ sub _validateSession {
 
 # Method: checkValidUser
 #
-#       Check with PAM if the user/password provided is of a valid admin
+#   Check whether the user/password provided is of a valid admin. This method should be overrided in a subclass
+#   to implement different kinds of user validation.
 #
 # Parameters:
 #
 #       username - string containing the user name
 #       password - string containing the plain password
+#       env      - Plack enviroment.
 #
 # Returns:
 #
@@ -183,11 +207,9 @@ sub _validateSession {
 #
 sub checkValidUser
 {
-    my ($self, $username, $password) = @_;
+    my ($self, $username, $password, $env) = @_;
 
-    my $pam = new Authen::Simple::PAM(service => 'zentyal');
-
-    return $pam->authenticate($username, $password);
+    return 0;
 }
 
 sub _login
@@ -211,7 +233,7 @@ sub _login
         my $user = $params->get('credential_0');
         my $password = $params->get('credential_1');
         # TODO: Expand to support Remote's SSL login.
-        if ($self->checkValidUser($user, $password)) {
+        if ($self->checkValidUser($user, $password, $env)) {
             $env->{'psgix.session.options'}->{change_id}++;
             $env->{'psgix.session'}{user_id} = $user;
             $env->{'psgix.session'}{last_time} = time();
@@ -230,7 +252,7 @@ sub _login
             ];
         } else {
             $env->{'psgix.session'}{AuthReason} = 'Incorrect password';
-            _cleansession($env);
+            $self->_cleanSession($env);
             $log->warn("Failed login from: $ip");
             $audit->logSessionEvent($user, $ip, 'fail');
         }
@@ -249,7 +271,7 @@ sub _logout
         my $user = $env->{'psgix.session'}{user_id};
         $audit->logSessionEvent($user, $ip, 'logout');
         my $ret = $self->app->($env);
-        _cleansession($env);
+        $self->_cleanSession($env);
         return $ret;
     } else {
         # The workflow has been manipulated to reach this form, ignore it and redirect to the main page.
@@ -273,6 +295,7 @@ sub call
     my ($self, $env) = @_;
 
     my $path = $env->{PATH_INFO};
+    $env->{'psgix.session'}{app} = $self->app_name;
 
     if ($path eq '/Login/Index') {
         $self->_login($env);
@@ -294,36 +317,6 @@ sub call
             ["<html><body><a href=\"$login_url\">You need to authenticate first</a></body></html>"]
         ];
     }
-}
-
-# Method: setPassword
-#
-#       Changes the password of the given username
-#
-# Parameters:
-#
-#       username - username to change the password
-#       password - string containing the plain password
-#
-# Exceptions:
-#
-#   <EBox::Exceptions::Internal> - when password cannot be changed
-#   <EBox::Exceptions::External> - when password length is no
-#                                  longer than 6 characters
-#
-sub setPassword
-{
-    my ($self, $username, $password) = @_;
-
-    unless (length($password) > 5) {
-        throw EBox::Exceptions::External('The password must be at least 6 characters long');
-    }
-
-    open(my $pipe, "|/usr/bin/sudo /usr/sbin/chpasswd") or
-        throw EBox::Exceptions::Internal("Could not change password: $!");
-
-    print $pipe "$username:$password\n";
-    close($pipe);
 }
 
 ## Remote access constants

@@ -1,4 +1,4 @@
-# Copyright (C) 2008-2014 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -15,28 +15,27 @@
 use strict;
 use warnings;
 
-package EBox::UserCorner::CGI::Logout::Index;
-use base 'EBox::CGI::ClientBase';
+# XXX: Do we really need this handler for user corner? Maybe would be better change the template to prevent the
+# execution of the javascript code that calls this...
+package EBox::UserCorner::CGI::SysInfo::HasUnsavedChanges;
+use base 'EBox::CGI::ClientRawBase';
 
 use EBox::Gettext;
 use EBox::Global;
 
 sub new
 {
-    my $class = shift;
-    my $self = $class->SUPER::new(@_);
-    bless($self, $class);
-    return $self;
+        my ($class, @params) = @_;
+        my $self = $class->SUPER::new(@params);
+        bless($self, $class);
+        return  $self;
 }
 
 sub _process
 {
     my ($self) = @_;
-
-    my $request = $self->request();
-
-    $self->{redirect} = "Login/Index";
-    $self->{errorchain} = "Logout/Index";
+    $self->{json}->{changed} = 0;
 }
 
 1;
+

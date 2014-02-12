@@ -41,6 +41,7 @@ use JSON::XS;
 use Perl6::Junction qw(all);
 use POSIX qw(setlocale LC_ALL);
 use TryCatch::Lite;
+use URI;
 
 ## arguments
 ##      title [optional]
@@ -342,7 +343,9 @@ sub run
         my $url;
         my $host = $request->env->{HTTP_HOST};
         if ($> == getpwnam('ebox')) {
-            ($protocol, $port) = $referer =~ m{(.+)://.+[:(\d+)|]/};
+            my $parsedURL = new URI($referer);
+            $protocol = $parsedURL->scheme();
+            $port = $parsedURL->port();
             $url = "$protocol://${host}";
             if ($port) {
                 $url .= ":$port";
