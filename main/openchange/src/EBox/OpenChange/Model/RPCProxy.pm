@@ -60,6 +60,7 @@ sub _table
              fieldName => 'certificate',
              printableName => __('Certificate'),
              volatile  => 1,
+             optionalLabel => 0,
              acquirer => sub {
                  my $file = EBox::Config::downloads() . 'rpcproxy.cert';
                  if (not -r $file) {
