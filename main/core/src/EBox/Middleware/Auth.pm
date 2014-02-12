@@ -58,7 +58,7 @@ sub prepare_app {
 #
 sub _cleanSession
 {
-    my ($env) = @_;
+    my ($class, $env) = @_;
 
     if (exists $env->{'psgix.session'}) {
         delete $env->{'psgix.session'}{user_id};
@@ -149,6 +149,10 @@ sub _actionScriptSession
 sub _validateSession {
     my ($self, $env) = @_;
 
+    unless (defined $env) {
+        throw EBox::Exceptions::MissingArgument("env");
+    }
+
     my $global = $self->_global();
 
     unless ((exists $env->{'psgix.session'}{last_time}) and
@@ -164,7 +168,7 @@ sub _validateSession {
 
     if ($self->_actionScriptSession()) {
         $env->{'psgix.session'}{AuthReason} = 'Script active';
-        _cleanSession($env);
+        $self->_cleanSession($env);
     } elsif (not $expired) {
         # Increase the last time this session was valid.
         $env->{'psgix.session'}{last_time} = time();
@@ -177,7 +181,7 @@ sub _validateSession {
         $audit->logSessionEvent($user, $ip, 'expired');
 
         $env->{'psgix.session'}{AuthReason} = 'Expired';
-        _cleanSession($env);
+        $self->_cleanSession($env);
     } else {
         # XXX: Review this code path. Seems to be dead code...
         $env->{'psgix.session'}{AuthReason} = 'Already';
@@ -248,7 +252,7 @@ sub _login
             ];
         } else {
             $env->{'psgix.session'}{AuthReason} = 'Incorrect password';
-            _cleanSession($env);
+            $self->_cleanSession($env);
             $log->warn("Failed login from: $ip");
             $audit->logSessionEvent($user, $ip, 'fail');
         }
@@ -267,7 +271,7 @@ sub _logout
         my $user = $env->{'psgix.session'}{user_id};
         $audit->logSessionEvent($user, $ip, 'logout');
         my $ret = $self->app->($env);
-        _cleanSession($env);
+        $self->_cleanSession($env);
         return $ret;
     } else {
         # The workflow has been manipulated to reach this form, ignore it and redirect to the main page.

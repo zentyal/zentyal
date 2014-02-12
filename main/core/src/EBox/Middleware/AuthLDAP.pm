@@ -41,14 +41,14 @@ use MIME::Base64;
 #
 sub _cleanSession
 {
-    my ($env) = @_;
+    my ($class, $env) = @_;
 
     if (exists $env->{'psgix.session'}) {
         delete $env->{'psgix.session'}{userDN};
         delete $env->{'psgix.session'}{key};
         delete $env->{'psgix.session'}{passwd};
     }
-    $self->SUPER::_cleanSession();
+    $class->SUPER::_cleanSession();
 }
 
 # Method: _validateSession
@@ -68,13 +68,17 @@ sub _cleanSession
 sub _validateSession {
     my ($self, $env) = @_;
 
+    unless (defined $env) {
+        throw EBox::Exceptions::MissingArgument("env");
+    }
+
     unless ((exists $env->{'psgix.session'}{userDN}) and
             (exists $env->{'psgix.session'}{key}) and
             (exists $env->{'psgix.session'}{passwd})) {
         # The session is not valid.
         return 0;
     }
-    $self->SUPER::_validateSession();
+    $self->SUPER::_validateSession($env);
 }
 
 sub _randomKey
@@ -123,38 +127,34 @@ sub checkValidUser
 {
     my ($self, $username, $password, $env) = @_;
 
-    my $isValid = 0;
     my $ldap = EBox::Ldap->instance();
     my $baseDN = $ldap->dn();
+    my $binddn = EBox::UserCorner::roRootDn();
+    my $bindpw = EBox::UserCorner::getRoPassword();
 
     my $filter = "(&(objectclass=posixAccount)(uid=%s))";
     my $scope = 'sub';
     my $auth = new Authen::Simple::LDAP(
-        host => $ldap->url(),
+        binddn => $binddn,
+        bindpw => $bindpw,
+        host   => $ldap->url(),
         basedn => $baseDN,
         filter => $filter,
         scope  => $scope,
         log    => EBox->logger()
     );
 
-    if ($auth->authenticate($username, $password)) {
+    my $userDN = $auth->authenticate($username, $password);
+    if ($userDN) {
         if (defined $env) {
-            my $args = {
-                base => $baseDN,
-                filter => sprintf ($filter, $username),
-                scope => $sub,
-            };
-            my $search = $ldap->search($args);
-            my $userDN = $search->entry(0)->dn();
             $env->{'psgix.session'}{userDN} = $userDN;
             my $key = _randomKey();
             $env->{'psgix.session'}{key} = $key;
             $env->{'psgix.session'}{passwd} = _cipherPassword($password, $key);
         }
-        $isValid = 1;
     }
     $ldap->clearConn();
-    return $isValid;
+    return $userDN;
 }
 
 # Method: sessionPassword
