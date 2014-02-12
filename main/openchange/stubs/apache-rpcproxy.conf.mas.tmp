@@ -1,0 +1,68 @@
+
+Timeout 300
+KeepAlive On
+MaxKeepAliveRequests 500
+AddDefaultCharset utf-8
+
+
+PidFile //tmp//apache.pid
+
+#user ebox
+#group ebox
+user www-data
+group www-data
+
+StartServers          5
+MinSpareServers       5
+MaxSpareServers      10
+MaxClients          150
+ MaxRequestsPerChild   0
+
+ErrorLog /tmp/error.log
+
+Include /etc/apache2/mods-available/auth_basic.load
+Include /etc/apache2/mods-available/authn_file.load
+Include /etc/apache2/mods-available/authz_default.load
+Include /etc/apache2/mods-available/authz_groupfile.load
+Include /etc/apache2/mods-available/authz_host.load
+Include /etc/apache2/mods-available/authz_user.load
+Include /etc/apache2/mods-available/autoindex.load
+Include /etc/apache2/mods-available/cgi.load
+Include /etc/apache2/mods-available/deflate.conf
+Include /etc/apache2/mods-available/deflate.load
+Include /etc/apache2/mods-available/dir.conf
+Include /etc/apache2/mods-available/dir.load
+Include /etc/apache2/mods-available/env.load
+#Include /etc/apache2/mods-available/mime.load
+Include /etc/apache2/mods-available/negotiation.load
+Include /etc/apache2/mods-available/setenvif.load
+Include /etc/apache2/mods-available/rewrite.load
+Include /etc/apache2/mods-available/status.load
+Include /etc/apache2/mods-available/perl.load
+Include /etc/apache2/mods-available/expires.load
+Include /etc/apache2/mods-available/wsgi.load
+
+
+
+
+Listen 7777
+
+## The extremely high timeout is required by outlook
+KeepAliveTimeout 120
+
+WSGILazyInitialization On
+WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
+
+<Directory /opt/samba4/lib/openchange/web/rpcproxy/>
+  SetEnv RPCPROXY_LOGLEVEL INFO
+  SetEnv NTLMAUTHHANDLER_WORKDIR /var/cache/ntlmauthhandle
+  SetEnv SAMBA_HOST 127.0.0.1
+  WSGIPassAuthorization On
+  WSGIProcessGroup %{GLOBAL}
+</Directory>
+
+WSGIScriptAlias /rpc/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+
+
+#Include /etc/apache2/conf.d/rpcproxy.conf

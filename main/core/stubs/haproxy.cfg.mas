@@ -12,12 +12,13 @@ Parameters:
 </%doc>
 <%args>
     $bindaddress => '0.0.0.0'
-    $zentyalconfdir
     $caFile
     $ports
 </%args>
+<%init>
+my $dumpedServices = {};
+</%init>
 % if (%{$ports}) {
-% my %dumpedservices = ();
 global
   tune.ssl.lifetime 300
 
@@ -27,28 +28,92 @@ defaults
   timeout connect 3600s # It is a quite high value because Apache should be the one giving the timeout always.
   option forwardfor
 %   foreach my $portNumber (keys %{$ports}) {
-
-frontend ft_zentyal_<% $portNumber %>
+<& .frontend, port => $portNumber,
+              conf => $ports->{$portNumber},
+              caFile =>  $caFile,
+              bindaddress => $bindaddress
+&>
+<& .backend,  port => $portNumber,
+              conf => $ports->{$portNumber},
+              dumpedServices => $dumpedServices
+&>
+%   }
+% }
+<%def .frontend>
+<%args>
+$port
+$conf
+$caFile
+$bindaddress
+</%args>
+frontend ft_zentyal_<% $port %>
   mode http
-%     if ($ports->{$portNumber}->{isSSL}) {
+% if ($conf->{isSSL}) {
 %       my $certificates = '';
-%       foreach my $service (@{$ports->{$portNumber}->{services}}) {
+%       my %certSeen;
+%       foreach my $service (@{$conf->{services}}) {
 %           my $newCrt = 'crt ' . $service->{pathSSLCert};
+%           my $seen = $certSeen{$newCrt};
 %           if ($service->{isDefault}) {
-%               $certificates = "$newCrt $certificates";
-%           } else {
+%                if ($seen) { $certificates =~ s/$newCrt//};
+%                $certificates = "$newCrt $certificates";
+%           } elsif (not $seen) {
 %               $certificates = "$certificates $newCrt";
 %           }
+%           $certSeen{$newCrt} = 1;
 %       }
 %       if ($caFile) {
-  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
+  bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM verify optional ca-file <% $caFile %>
 %       } else {
-  bind <% $bindaddress %>:<% $portNumber %> ssl <% $certificates %> ciphers HIGH:MEDIUM
+  bind <% $bindaddress %>:<% $port %> ssl <% $certificates %> ciphers HIGH:MEDIUM
 %       }
-%     } else {
-  bind <% $bindaddress %>:<% $portNumber %>
+% } else {
+  bind <% $bindaddress %>:<% $port %>
+%  }
+<& .frontendSetHeaders, isSSL => $conf->{isSSL} &>
+
+% foreach my $service (@{$conf->{services}}) {
+%    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%    if (exists $service->{hosts}) {
+%     foreach my $host (@{$service->{hosts}}) {
+%        foreach my $path (@{ $service->{paths} }) {
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { base <% $host . $path %> }
+%        }
 %     }
-%     if ($ports->{$portNumber}->{isSSL}) {
+%   }
+%   foreach my $domain (@{$service->{domains}}) {
+%       my $domainAcl = $conf->{isSSL} ? "ssl_fc_sni $domain " :  "hdr(host) -i $domain";
+  use_backend bk_zentyal_<% $serviceNameWithPort %> if { <% $domainAcl %> }
+%   }
+%   if ($service->{isDefault}) {
+  default_backend bk_zentyal_<% $serviceNameWithPort %>
+%   }
+% }
+</%def>
+<%def .backend>
+<%args>
+$port
+$conf
+%dumpedServices
+</%args>
+%  foreach my $service (@{$conf->{services}}) {
+%    my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
+%    if (exists $dumpedServices{$serviceNameWithPort}) {
+%      next;
+%    } else {
+%      $dumpedServices{$serviceNameWithPort} = 1;
+%    }
+backend bk_zentyal_<% $serviceNameWithPort %>
+ mode http
+ server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
+%  }
+</%def>
+
+<%def .frontendSetHeaders>
+<%args>
+$isSSL
+</%args>
+% if ($isSSL) {
   http-request set-header X-Forwarded-Proto      https
   http-request set-header X-SSL                       %[ssl_fc]
   http-request set-header X-SSL-Client-Used           %[ssl_c_used]
@@ -59,33 +124,7 @@ frontend ft_zentyal_<% $portNumber %>
   http-request set-header X-SSL-Issuer                %{+Q}[ssl_c_i_dn]
   http-request set-header X-SSL-Client-Not-Before     %{+Q}[ssl_c_notbefore]
   http-request set-header X-SSL-Client-Not-After      %{+Q}[ssl_c_notafter]
-%     } else {
+% } else {
   http-request set-header X-Forwarded-Proto      http
-%     }
-%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
-%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
-%       foreach my $domain (@{$service->{domains}}) {
-%         if ($ports->{$portNumber}->{isSSL}) {
-  use_backend bk_zentyal_<% $serviceNameWithPort %> if { ssl_fc_sni <% $domain %> }
-%         } else {
-  use_backend bk_zentyal_<% $serviceNameWithPort %> if { hdr(host) -i <% $domain %> }
-%         }
-%       }
-%       if ($service->{isDefault}) {
-  default_backend bk_zentyal_<% $serviceNameWithPort %>
-%       }
-%     }
-%     foreach my $service (@{$ports->{$portNumber}->{services}}) {
-%       my $serviceNameWithPort = $service->{name} . '_' . $service->{targetPort};
-%       if (exists $dumpedservices{$serviceNameWithPort}) {
-%         next;
-%       } else {
-%         $dumpedservices{$serviceNameWithPort} = 1;
-%       }
-
-backend bk_zentyal_<% $serviceNameWithPort %>
- mode http
- server srv_zentyal_<% $service->{name} %> <% $service->{targetIP} %>:<% $service->{targetPort} %>
-%     }
-%   }
 % }
+</%def>

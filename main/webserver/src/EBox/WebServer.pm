@@ -74,7 +74,7 @@ sub _create
 
 # Method: usedFiles
 #
-#	Override EBox::Module::Service::usedFiles
+#       Override EBox::Module::Service::usedFiles
 #
 sub usedFiles
 {
@@ -573,21 +573,49 @@ sub _setVHosts
 
         if ( $vHost->{'enabled'} ) {
             my $vhostfile = VHOST_PREFIX . $vHostName;
-            try {
-                EBox::Sudo::root("a2ensite $vhostfile");
-            } catch (EBox::Exceptions::Sudo::Command $e) {
-                # Already enabled?
-                if ($e->exitValue() != 1) {
-                    $e->throw();
-                }
-            }
+            $self->_enableVHost($vhostfile);
         }
+    }
+
+    # add additional vhost files
+    foreach my $vHostFilePath (@{ $self->_internalVHosts() }) {
+        delete $sitesToRemove{$vHostFilePath};
+
+        my $vhostfileBasename = File::Basename::basename($vHostFilePath);
+        $self->_enableVHost($vhostfileBasename);
     }
 
     # Remove not used old dirs
     for my $dir (keys %sitesToRemove) {
         EBox::Sudo::root("rm -f $dir");
     }
+}
+
+sub _internalVHosts
+{
+    my ($self) = @_;
+    my @vhosts;
+
+    # for now only used by openchange/rpcproxy
+    my $openchange = $self->global()->modInstance('openchange');
+    if ($openchange) {
+        push @vhosts, @{ $openchange->internalVHosts() }
+    }
+
+    return \@vhosts;
+}
+
+sub _enableVHost
+{
+    my ($self, $vhostfile) = @_;
+    try {
+       EBox::Sudo::root("a2ensite $vhostfile");
+    } catch (EBox::Exceptions::Sudo::Command $exc) {
+       # Already enabled?
+        if ( $exc->exitValue() != 1 ) {
+            throw $exc;
+        }
+    };
 }
 
 sub _createSiteDirs

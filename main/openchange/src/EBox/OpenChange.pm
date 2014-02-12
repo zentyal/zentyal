@@ -18,7 +18,8 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule
+            EBox::HAProxy::ServiceBase EBox::VDomainModule);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -31,10 +32,13 @@ use EBox::Module::Base;
 use EBox::OpenChange::LdapUser;
 use EBox::OpenChange::ExchConfigurationContainer;
 use EBox::OpenChange::ExchOrganizationContainer;
+use EBox::OpenChange::VDomainsLdap;
 use EBox::Sudo;
+use EBox::Util::Certificate;
 
 use TryCatch::Lite;
 use String::Random;
+use File::Basename;
 
 use constant SOGO_PORT => 20000;
 use constant SOGO_DEFAULT_PREFORK => 1;
@@ -48,6 +52,8 @@ use constant OCSMANAGER_CONF_FILE => '/etc/ocsmanager/ocsmanager.ini';
 use constant OCSMANAGER_INC_FILE  => '/var/lib/zentyal/conf/openchange/ocsmanager.conf';
 
 use constant RPCPROXY_AUTH_CACHE_DIR => '/var/cache/ntlmauthhandler';
+use constant RPCPROXY_PORT           => 62081;
+use constant RPCPROXY_STOCK_CONF_FILE => '/etc/apache2/conf.d/rpcproxy.conf';
 use constant REWRITE_POLICY_FILE => '/etc/postfix/generic';
 
 # Method: _create
@@ -141,15 +147,16 @@ sub enableService
         my $mail = $global->modInstance('mail');
         $mail->setAsChanged();
 
+
+        if ($self->_rpcProxyEnabled() and  $global->modExists('webserver')) {
+            my $webserverMod = $global->modInstance("webserver");
+            # Mark webserver as changed to load the configuration of rpcproxy
+            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
+        }
+
         # Mark samba as changed to write smb.conf
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
-
-        if ($global->modExists('webserver')) {
-            my $webserverMod = $global->modInstance("webserver");
-            # Mark webserver as changed to load the configuration of Outlook Anywhere.
-            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
-        }
 
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
@@ -221,6 +228,17 @@ sub _autodiscoverEnabled
     return $self->isProvisioned();
 }
 
+sub _rpcProxyEnabled
+{
+    my ($self) = @_;
+    if (not $self->isProvisioned() or not $self->isEnabled()) {
+        return 0;
+    }
+
+    my $rpcpSettings = $self->model('RPCProxy');
+    return $rpcpSettings->enabled();
+}
+
 sub usedFiles
 {
     my @files = ();
@@ -234,24 +252,17 @@ sub usedFiles
         reason => __('To configure sogo parameters'),
         module => 'openchange'
     });
+#    push (@files, {
+#        file => OCSMANAGER_CONF_FILE,
+#        reason => __('To configure autodiscovery service'),
+#        module => 'openchange'
+#    });
+#
     push (@files, {
-        file => OCSMANAGER_CONF_FILE,
-        reason => __('To configure autodiscovery service'),
+        file => RPCPROXY_STOCK_CONF_FILE,
+        reason => __('Remove RPC Proxy stock file to avoid interference'),
         module => 'openchange'
     });
-
-    my $global = EBox::Global->getInstance();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        if ($webserverMod->isEnabled()) {
-            my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-            push (@files, {
-                file => $rpcproxyConfFile,
-                reason => __('To configure Outlook Anywhere service'),
-                module => 'openchange'
-            });
-        }
-    }
 
     return \@files;
 }
@@ -384,49 +395,111 @@ sub _setAutodiscoverConf
     }
 }
 
+sub internalVHosts
+{
+    my ($self) = @_;
+    if ($self->_rpcProxyEnabled) {
+        return [ $self->_rpcProxyConfFile() ];
+    }
+
+    return [];
+}
+
+sub _rpcProxyConfFile
+{
+    my ($self) = @_;
+    return EBox::WebServer::SITES_AVAILABLE_DIR() .'zentyaloc-rpcproxy.conf';
+}
+
 sub _setRPCProxyConf
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-        if ($webserverMod->isEnabled()) {
-            if ($self->isProvisioned()) {
-                try {
-                    EBox::Sudo::root('a2enmod wsgi');
-                } catch (EBox::Exceptions::Sudo::Command $e) {
-                    # Already enabled?
-                    if ( $e->exitValue() != 1 ) {
-                        $e->throw();
-                    }
-                }
-                $self->writeConfFile(
-                    $rpcproxyConfFile, 'openchange/apache-rpcproxy.mas',
-                    [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+    # remove stock rpcproxy.conf file because it could interfere
+    EBox::Sudo::root('rm -rf ' . RPCPROXY_STOCK_CONF_FILE);
 
-                my @cmds;
-                push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-                EBox::Sudo::root(@cmds);
-            } else {
-                EBox::Sudo::root('rm -f ' . $rpcproxyConfFile);
-                # Disable the module
-                try {
-                    EBox::Sudo::root('a2dismod wsgi');
-                } catch (EBox::Exceptions::Sudo::Command $e) {
-                    # Already enabled?
-                    if ( $e->exitValue() != 1 ) {
-                        $e->throw();
-                    }
-                }
-            }
-            # Force webserver reload
-            $webserverMod->setAsChanged();
+    if ($self->_rpcProxyEnabled()) {
+        my $rpcProxyConfFile = $self->_rpcProxyConfFile();
+        my @params = (
+            rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR,
+            tmpdir => EBox::Config::tmp(),
+            port   => RPCPROXY_PORT
+           );
+
+        $self->writeConfFile(
+            $rpcProxyConfFile, 'openchange/apache-rpcproxy.conf.mas',
+             \@params);
+
+        my @cmds;
+        push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+        EBox::Sudo::root(@cmds);
+
+        $self->_createRPCProxyCertificate();
+    }
+}
+
+sub _rpcProxyCertificate
+{
+    return EBox::Config::conf() . 'openchange/ssl/ssl.pem';
+}
+
+sub _createRPCProxyCertificate
+{
+    my ($self) = @_;
+    my $issuer;
+    try {
+        $issuer = $self->_rpcProxyHosts()->[0];
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error when getting host name for RPC proxy: $ex. \nCertificates for this service will be left untouched");
+    };
+    if (not $issuer) {
+        return;
+    }
+
+    my $certPath = $self->_rpcProxyCertificate();
+    if ($issuer eq EBox::Util::Certificate::getCertIssuer($certPath)) {
+        # correct, nothing to do besides updating download version
+        $self->_updateDownloadableCert();
+        return undef;
+    }
+
+    my $certDir = dirname($certPath);
+    my $parentCertDir = dirname($certDir);
+    EBox::Sudo::root("rm -rf '$certDir'",
+                     # create parent dir if it does not exists
+                     "mkdir -p -m770 '$parentCertDir'",
+                    );
+    if ($issuer eq $self->global()->modInstance('sysinfo')->fqdn()) {
+        my $webadminCert = $self->global()->modInstance('webadmin')->pathHAProxySSLCertificate();
+        if ($issuer eq EBox::Util::Certificate::getCertIssuer($webadminCert)) {
+            # reuse webadmin certificate if issuer == fqdn
+            my $webadminCertDir = dirname($webadminCert);
+            EBox::Sudo::root("cp -r $webadminCertDir $certDir");
+            $self->_updateDownloadableCert();
+            return;
         }
     }
+
+    # create certificate
+    my $RSA_LENGTH = 1024;
+    my ($keyFile, $keyUpdated)  = EBox::Util::Certificate::generateRSAKey($certDir, $RSA_LENGTH);
+    my $certFile = EBox::Util::Certificate::generateCert($certDir, $keyFile, $keyUpdated, $issuer);
+    my $pemFile = EBox::Util::Certificate::generatePem($certDir, $certFile, $keyFile, $keyUpdated);
+    $self->_updateDownloadableCert();
+}
+
+sub _updateDownloadableCert
+{
+    my ($self) = @_;
+    my $certPath = $self->_rpcProxyCertificate();
+    $certPath =~ s/pem$/cert/;
+    my $downloadPath = EBox::Config::downloads() . 'rpcproxy.cert';
+    EBox::Sudo::root("cp '$certPath' '$downloadPath'",
+                     "chown ebox.ebox '$downloadPath'"
+                    );
 }
 
 sub _writeRewritePolicy
@@ -467,7 +540,7 @@ sub menu
         separator => $separator,
         order => $order);
     $folder->add(new EBox::Menu::Item(
-        url       => 'OpenChange/View/Provision',
+        url       => 'OpenChange/Composite/General',
         text      => __('Setup'),
         order     => 0));
     if ($self->isProvisioned()) {
@@ -686,5 +759,129 @@ sub organizations
 
     return $list;
 }
+
+
+sub _rpcProxyHostForDomain
+{
+    my ($self, $domain) = @_;
+    my $dns = $self->global()->modInstance('dns');
+    my $domainExists = grep { $_->{name} eq $domain  } @{  $dns->domains() };
+    if (not $domainExists) {
+        throw EBox::Exceptions::External(__x('Domain {dom} not configured in {oh}DNS module{ch}',
+                                             dom => $domain,
+                                             oh => '<a href="/DNS/Composite/Global">',
+                                             ch => '</a>'
+                                            ));
+    }
+    my @hosts = @{ $dns->getHostnames($domain)  };
+
+    my @ips;
+    my $network = $self->global()->modInstance('network');
+    foreach my $iface (@{ $network->ExternalIfaces() }) {
+        my $addresses = $network->ifaceAddresses($iface);
+        push @ips, map { $_->{address} } @{  $addresses };
+    }
+
+    my $matchedHost;
+    my $matchedHostMatchs = 0;
+    foreach my $host (@hosts) {
+        my $matchs = 0;
+        foreach my $hostIp (@{ $host->{ip} }) {
+            foreach my $ip (@ips) {
+                if ($hostIp eq $ip) {
+                    $matchs += 1;
+                    last;
+                }
+            }
+            if ($matchs > $matchedHostMatchs) {
+                $matchedHost = $host->{name};
+                $matchedHostMatchs = $matchs;
+                if (@ips == $matchedHostMatchs) {
+                    last;
+                }
+            }
+        }
+    }
+
+    if (not $matchedHost) {
+        EBox::Exceptions::External->throw(__x('Cannot find this host in {oh}DNS domain {dom}{ch}',
+                                              dom => $domain,
+                                              oh => '<a href="/DNS/Composite/Global">',
+                                              ch => '</a>'
+                                             ));
+    }
+    return $matchedHost . '.' . $domain;
+}
+
+sub _rpcProxyDomain
+{
+    my ($self) = @_;
+    return $self->model('Provision')->outgoingDomain();
+}
+
+sub _rpcProxyHosts
+{
+    my ($self) = @_;
+    my @hosts;
+    my $domain = $self->_rpcProxyDomain();
+    push @hosts, $self->_rpcProxyHostForDomain($domain);
+    return \@hosts;
+}
+
+sub HAProxyInternalService
+{
+    my ($self) = @_;
+    my $RPCProxyModel = $self->model('RPCProxy');
+    my $hosts;
+     try {
+        $hosts = $self->_rpcProxyHosts();
+    } otherwise {
+        my ($ex) = @_;
+        EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
+    };
+    if (not $hosts) {
+        return [];
+    }
+
+    my @services;
+    if ($RPCProxyModel->httpEnabled()) {
+        my $rpcpService = {
+            name => 'oc_rpcproxy_https',
+            port => 443,
+            printableName => __('OpenChange RPCProxy'),
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            hosts    => $hosts,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            pathSSLCert => $self->_rpcProxyCertificate(),
+            isSSL   => 1,
+        };
+        push @services, $rpcpService;
+    }
+
+    if ($RPCProxyModel->httpEnabled()) {
+        my $httpRpcpService = {
+            name => 'oc_rpcproxy_http',
+            port => 80,
+            printableName => __('OpenChange RPCProxy'),
+            targetIP => '127.0.0.1',
+            targetPort => RPCPROXY_PORT,
+            hosts    => $hosts,
+            paths       => ['/rpc/rpcproxy.dll', '/rpcwithcert/rpcproxy.dll'],
+            pathSSLCert => $self->_rpcProxyCertificate(),
+            isSSL   => 0,
+        };
+        push @services, $httpRpcpService;
+    }
+
+    return \@services;
+}
+
+sub _vdomainModImplementation
+{
+    my ($self) = @_;
+    return EBox::OpenChange::VDomainsLdap->new($self);
+}
+
 
 1;

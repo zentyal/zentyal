@@ -1,5 +1,4 @@
-# Copyright (C) 2005-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -17,31 +16,37 @@
 use strict;
 use warnings;
 
-package EBox::VDomainModule;
+package EBox::OpenChange::Composite::General;
+use base 'EBox::Model::Composite';
 
 use EBox::Gettext;
-use EBox::Exceptions::NotImplemented;
 
 sub new
 {
-    my $class = shift;
-    my $self = {};
-    bless($self, $class);
+    my ($class, @params) = @_;
+
+    my $self = $class->SUPER::new(@params);
+
     return $self;
 }
 
-# Method: _vdomainModImplementation
+
+# Method: _description
 #
-#  All modules using any of the functions in LdapVDomainsBase.pm
-#  should override this method to return the implementation
-#       of that interface.
+# Overrides:
 #
-# Returns:
+#     <EBox::Model::Composite::_description>
 #
-#       An object implementing EBox::LdapVDomainsBase
-sub _vdomainModImplementation
+sub _description
 {
-    throw EBox::Exceptions::NotImplemented();
+    my $description = {
+        layout          => 'top-bottom',
+        name            => 'General',
+        pageTitle       => __('OpenChange'),
+        compositeDomain => 'OpenChange',
+    };
+
+    return $description;
 }
 
 1;

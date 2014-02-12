@@ -1,3 +1,6 @@
+HEAD
+	+ Added support for internal virtual domains (only for openchange
+	  for now)
 3.4
 	+ Updated to use the new haproxy API
 	+ Adapt configuration for Apache 2.4

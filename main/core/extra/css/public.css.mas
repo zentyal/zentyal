@@ -1962,7 +1962,8 @@ input[type='image']:hover
 button:disabled, button:disabled:hover,
 input[type='submit']:disabled, input[type='submit']:disabled:hover,
 input[type='button']:disabled, input[type='button']:disabled:hover,
-input[type='image']:disabled, input[type='image']:disabled:hover
+input[type='image']:disabled, input[type='image']:disabled:hover,
+.btn-disabled, .btn-disabled:hover
 {
     opacity: 0.4;
     box-shadow: none;

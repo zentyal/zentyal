@@ -172,6 +172,15 @@ __('The virtual domain name cannot be equal to the mailname')
     }
 }
 
+sub validateRowRemoval
+{
+    my ($self, $row, $force) = @_;
+    my $vdomain = $row->valueByName('vdomain');
+    my $vdomainsLdap = $self->parentModule()->{vdomains};
+    EBox::debug("XXX validateRowRemoval $vdomain");
+    $vdomainsLdap->validateDelVDomain($vdomain);
+}
+
 sub existsVDomain
 {
     my ($self, $vdomain) = @_;

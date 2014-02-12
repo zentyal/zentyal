@@ -355,6 +355,129 @@ sub logs
     return \@logs;
 }
 
+
+# Method: setRestrictedResource
+#
+#      Set a restricted resource to the Apache perl configuration
+#
+# Parameters:
+#
+#      resourceName - String the resource name to restrict
+#
+#      allowedIPs - Array ref the set of IPs which allow the
+#      restricted resource to be accessed in CIDR format or magic word
+#      'all' or 'nobody'. The former all sources are allowed to see
+#      that resourcename and the latter nobody is allowed to see this
+#      resource. 'all' value has more priority than 'nobody' value.
+#
+#      resourceType - String the resource type: It can be one of the
+#      following: 'file', 'directory' and 'location'.
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::InvalidType> - thrown if the resource type
+#      is invalid
+#
+#      <EBox::Exceptions::Internal> - thrown if any of the allowed IP
+#      addresses are not in CIDR format or no allowed IP is given
+#
+sub setRestrictedResource
+{
+    my ($self, $resourceName, $allowedIPs, $resourceType) = @_;
+
+    throw EBox::Exceptions::MissingArgument('resourceName')
+      unless defined ( $resourceName );
+    throw EBox::Exceptions::MissingArgument('allowedIPs')
+      unless defined ( $allowedIPs );
+    throw EBox::Exceptions::MissingArgument('resourceType')
+      unless defined ( $resourceType );
+
+    unless ( $resourceType eq 'file' or $resourceType eq 'directory'
+             or $resourceType eq 'location' ) {
+        throw EBox::Exceptions::InvalidType('resourceType',
+                                            'file, directory or location');
+    }
+
+    my $allFound = grep { $_ eq 'all' } @{$allowedIPs};
+    my $nobodyFound = grep { $_ eq 'nobody' } @{$allowedIPs};
+    if ( $allFound ) {
+        $allowedIPs = ['all'];
+    } elsif ( $nobodyFound ) {
+        $allowedIPs = ['nobody'];
+    } else {
+        # Check the given list is a list of IPs
+        my $notIPs = grep { ! EBox::Validate::checkCIDR($_) } @{$allowedIPs};
+        if ( $notIPs > 0 ) {
+            throw EBox::Exceptions::Internal('Some of the given allowed IP'
+                                             . 'addresses are not in CIDR format');
+        }
+        if ( @{$allowedIPs} == 0 ) {
+            throw EBox::Exceptions::Internal('Some allowed IP must be set');
+        }
+    }
+
+    my $resources = $self->get_list('restricted_resources');
+    if ($self->_restrictedResourceExists($resourceName)) {
+        my @deleted = grep { $_->{name} ne $resourceName} @{$resources};
+        $resources = \@deleted;
+    }
+    push (@{$resources}, { name => $resourceName, allowedIPs => $allowedIPs, type => $resourceType});
+    $self->set('restricted_resources', $resources);
+}
+
+# Method: delRestrictedResource
+#
+#       Remove a restricted resource from the list
+#
+# Parameters:
+#
+#       resourcename - String the resource name which indexes which restricted
+#       resource is requested to be deleted
+#
+# Exceptions:
+#
+#      <EBox::Exceptions::MissingArgument> - thrown if any compulsory
+#      argument is missing
+#
+#      <EBox::Exceptions::DataNotFound> - thrown if the given resource name is
+#      not in the list of restricted resources
+#
+sub delRestrictedResource
+{
+    my ($self, $resourcename) = @_;
+
+    throw EBox::Exceptions::MissingArgument('resourcename')
+        unless defined ($resourcename);
+
+    $resourcename =~ s:^/::;
+
+    my $resources = $self->get_list('restricted_resources');
+
+    unless ($self->_restrictedResourceExists($resourcename)) {
+        throw EBox::Exceptions::DataNotFound(data  => 'resourcename',
+                                             value => $resourcename);
+    }
+
+    my @deleted = grep { $_->{name} ne $resourcename} @{$resources};
+    $self->set('restricted_resources', \@deleted);
+}
+
+sub _restrictedResourceExists
+{
+    my ($self, $resourcename) = @_;
+
+    foreach my $resource (@{$self->get_list('restricted_resources')}) {
+        if ($resource->{name} eq $resourcename) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
 # Method: isEnabled
 #
 # Overrides:

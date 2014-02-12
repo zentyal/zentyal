@@ -473,4 +473,11 @@ sub _doDeprovision
     }
 }
 
+sub outgoingDomain
+{
+    my ($self) = @_;
+    my $domainElement = $self->row()->elementByName('outgoingDomain');
+    return $domainElement->printableValue();
+}
+
 1;

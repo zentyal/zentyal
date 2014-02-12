@@ -1,3 +1,6 @@
+HEAD
+	+ Don't allow to remove outgoing mail virtual domain
+	+ Added rpcproxy service
 3.4
 	+ Migrated to use Plack / PSGI API instead of the CGI one
 	+ Remove obsolete sope dependency

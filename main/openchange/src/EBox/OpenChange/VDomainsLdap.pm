@@ -1,5 +1,4 @@
-# Copyright (C) 2005-2007 Warp Networks S.L.
-# Copyright (C) 2008-2013 Zentyal S.L.
+# Copyright (C) 2013 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License, version 2, as
@@ -13,35 +12,39 @@
 # You should have received a copy of the GNU General Public License
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
-
 use strict;
 use warnings;
 
-package EBox::VDomainModule;
+package EBox::OpenChange::VDomainsLdap;
+use base qw(EBox::LdapVDomainBase);
 
 use EBox::Gettext;
-use EBox::Exceptions::NotImplemented;
 
 sub new
 {
-    my $class = shift;
-    my $self = {};
+    my ($class, $openchangeMod) = @_;
+    my $self  = { openchangeMod => $openchangeMod };
     bless($self, $class);
     return $self;
 }
 
-# Method: _vdomainModImplementation
-#
-#  All modules using any of the functions in LdapVDomainsBase.pm
-#  should override this method to return the implementation
-#       of that interface.
-#
-# Returns:
-#
-#       An object implementing EBox::LdapVDomainsBase
-sub _vdomainModImplementation
+sub _delVDomainAbort
 {
-    throw EBox::Exceptions::NotImplemented();
+    my ($self, $vdomain) = @_;
+    if (not $self->{openchangeMod}->isProvisioned()) {
+        # no outgoing domain really set
+        return;
+    }
+
+    my $outgoing  = $self->{openchangeMod}->model('Provision')->outgoingDomain();
+    if ($vdomain eq $outgoing) {
+        throw EBox::Exceptions::External(
+            __x('The virtual mail domain {dom} cannot  be removed because is openchange outgoing domain', dom => $vdomain)
+           );
+    }
+
 }
+
+
 
 1;

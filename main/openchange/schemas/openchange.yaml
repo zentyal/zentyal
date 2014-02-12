@@ -3,6 +3,7 @@ class: 'EBox::OpenChange'
 enabledepends:
     - samba
     - mail
+    - webserver
 
 bootdepends:
     - samba
@@ -11,7 +12,12 @@ bootdepends:
 depends:
     - samba
     - mail
+    - dns
 
 models:
     - Provision
+    - RPCProxy
     - OpenChangeUser
+
+composites:
+   General: [Provision, RPCProxy]

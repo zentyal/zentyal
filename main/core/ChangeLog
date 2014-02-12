@@ -1,3 +1,8 @@
+HEAD
+	+ Added template for download link
+	+ Created EBox::Util::Certificate, refactored create-certificate
+	  script
+	+ Changes in haproxy port validation and allow haproxy internal services
 3.4
 	+ Added EBox::Module::Config::replicationExcludeKeys()
 	+ Added EBox::WebAdmin::PortObserver to be used by ha and
