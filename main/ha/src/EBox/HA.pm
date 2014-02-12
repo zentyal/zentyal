@@ -692,13 +692,17 @@ sub adminPortChanged
     my ($self, $port) = @_;
 
     if ($self->isEnabled()) {
-        my $list = new EBox::HA::NodeList($self);
-        my $localNode = $list->localNode();
-        if ($localNode->{port} != $port) {
-            EBox::debug("Changing port to $port");
-            $list->set(name => $localNode->{name}, addr => $localNode->{addr},
-                       port => $port, localNode => 1);
-            $self->_notifyClusterConfChange($list);
+        try {
+            my $list = new EBox::HA::NodeList($self);
+            my $localNode = $list->localNode();
+            if ($localNode->{port} != $port) {
+                EBox::debug("Changing port to $port");
+                $list->set(name => $localNode->{name}, addr => $localNode->{addr},
+                           port => $port, localNode => 1);
+                $self->_notifyClusterConfChange($list);
+            }
+        } catch (EBox::Exceptions::DataNotFound $e) {
+            EBox::error("Cannot locate local node, do not notify the change: $e");
         }
     }
 }
