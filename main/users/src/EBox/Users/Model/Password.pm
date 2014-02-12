@@ -169,19 +169,9 @@ sub setTypedRow
     }
 
     my $global = $self->global();
-    my $request = $global->request();
-    unless ($request) {
-        throw EBox::Exceptions::Internal("There is no request available!");
-    }
-    my $session = $request->session();
-    unless (defined $session->{userDN}) {
-        throw EBox::Exceptions::Internal("There is no userDN information in the request object!");
-    }
-    my $user = $session->{userDN};
-    my $pass = EBox::Middleware::Auth->sessionPassword($request);
-    unless (defined $pass) {
-        throw EBox::Exceptions::Internal("There is password defined for this request object!");
-    }
+    # We don't need to check for usercorner because this form does it on its precondition check.
+    my $usercornerMod = $global->modInstance('usercorner');
+    my ($user, $pass) = $usercornerMod->userCredentials();
 
     # Check we can instance the zentyal user
     my $zentyalUser = new EBox::Users::User(uid => $user);
@@ -196,7 +186,8 @@ sub setTypedRow
     # At this point, the password has been changed in samba
     $zentyalUser->changePassword($pass1->value());
 
-    EBox::Middleware::Auth->updateSessionPassword($request, $pass1->value());
+    # FIXME: Hide this inside a method on EBox::UserCorner
+    EBox::Middleware::Auth->updateSessionPassword($global->request(), $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }
