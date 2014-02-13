@@ -160,7 +160,7 @@ sub initialSetup
         my $firewall = $global->modInstance('firewall');
 
         my $fallbackPort = 8080;
-        my $port = $firewall->requestAvailablePort('tcp', $self->defaultHAProxyPort(), $fallbackPort);
+        my $port = $firewall->requestAvailablePort('tcp', $self->defaultHTTPPort(), $fallbackPort);
 
         # Set port in reverse proxy
         my @args = ();
@@ -168,7 +168,7 @@ sub initialSetup
         push (@args, port           => $port);
         push (@args, enablePort     => 1);
         push (@args, defaultPort    => 1);
-        push (@args, sslPort        => $self->defaultHAProxySSLPort());
+        push (@args, sslPort        => $self->defaultHTTPSPort());
         push (@args, enableSSLPort  => 0);
         push (@args, defaultSSLPort => 0);
         push (@args, force          => 1);
@@ -200,8 +200,8 @@ sub initialSetup
             $key = 'webserver/ro/GeneralSettings/keys/form';
             $value = $redis->get($key);
         }
-        my $port = $self->defaultHAProxyPort();
-        my $sslPort = $self->defaultHAProxySSLPort();
+        my $port = $self->defaultHTTPPort();
+        my $sslPort = $self->defaultHTTPSPort();
         my $sslEnabled = 0;
         my $defaultSSLPort = 0;
         if ($value) {
@@ -411,9 +411,9 @@ sub _setPort
     my ($self) = @_;
 
     my @params = ();
-    push (@params, bindAddress => $self->targetHAProxyIP());
-    push (@params, port        => $self->targetHAProxyPort());
-    push (@params, sslPort     => $self->targetHAProxySSLPort());
+    push (@params, bindAddress => $self->targetIP());
+    push (@params, port        => $self->targetHTTPPort());
+    push (@params, sslPort     => $self->targetHTTPSPort());
 
     $self->writeConfFile(PORTS_FILE, "webserver/ports.conf.mas", \@params);
 }
@@ -426,8 +426,8 @@ sub _setDfltVhost
     my @params = ();
     push (@params, hostname      => $hostname);
     push (@params, hostnameVhost => $hostnameVhost);
-    push (@params, port          => $self->targetHAProxyPort());
-    push (@params, sslPort       => $self->targetHAProxySSLPort());
+    push (@params, port          => $self->targetHTTPPort());
+    push (@params, sslPort       => $self->targetHTTPSPort());
 
     # Overwrite the default vhost file
     $self->writeConfFile(VHOST_DFLT_FILE, "webserver/default.mas", \@params);
@@ -438,11 +438,11 @@ sub _setDfltSSLVhost
 {
     my ($self, $hostname, $hostnameVhost) = @_;
 
-    if ($self->usedHAProxySSLPort()) {
+    if ($self->listeningHTTPSPort()) {
         my @params = ();
         push (@params, hostname      => $hostname);
         push (@params, hostnameVhost => $hostnameVhost);
-        push (@params, sslPort       => $self->targetHAProxySSLPort());
+        push (@params, sslPort       => $self->targetHTTPSPort());
 
         # Overwrite the default-ssl vhost file
         $self->writeConfFile(VHOST_DFLTSSL_FILE, "webserver/default-ssl.mas", \@params);
@@ -564,8 +564,8 @@ sub _setVHosts
         my @params = ();
         push (@params, vHostName  => $vHostName);
         push (@params, hostname   => $self->_fqdn());
-        push (@params, port       => $self->targetHAProxyPort());
-        push (@params, sslPort    => $self->targetHAProxySSLPort());
+        push (@params, port       => $self->targetHTTPPort());
+        push (@params, sslPort    => $self->targetHTTPSPort());
         push (@params, sslSupport => $sslSupport);
 
         $self->writeConfFile($destFile, "webserver/vhost.mas", \@params);
@@ -669,7 +669,7 @@ sub certificates
         {
             serviceId =>  'zentyal_' . $self->name(),
             service   =>  $self->printableName(),
-            path      =>  $self->pathHAProxySSLCertificate(),
+            path      =>  $self->pathHTTPSSSLCertificate(),
             user      => 'root',
             group     => 'root',
             mode      => '0400',
@@ -770,7 +770,7 @@ sub _checkCertificate
 {
     my ($self) = @_;
 
-    return unless $self->usedHAProxySSLPort();
+    return unless $self->listeningHTTPSPort();
 
     my $ca = EBox::Global->modInstance('ca');
     my $certificates = $ca->model('Certificates');
@@ -865,20 +865,7 @@ sub recoveryDomainName
 # Implementation of EBox::HAProxy::ServiceBase
 #
 
-# Method: HAProxyServiceId
-#
-#   This method must be always overrided by services implementing this interface.
-#
-# Returns:
-#
-#   string - A unique ID across Zentyal that identifies this HAProxy service.
-#
-sub HAProxyServiceId
-{
-    return 'webserverHAProxyId';
-}
-
-# Method: defaultHAProxyPort
+# Method: defaultHTTPPort
 #
 # Returns:
 #
@@ -886,14 +873,14 @@ sub HAProxyServiceId
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::defaultHAProxyPort>
+#   <EBox::HAProxy::ServiceBase::defaultHTTPPort>
 #
-sub defaultHAProxyPort
+sub defaultHTTPPort
 {
     return 80;
 }
 
-# Method: defaultHAProxySSLPort
+# Method: defaultHTTPSPort
 #
 # Returns:
 #
@@ -901,21 +888,21 @@ sub defaultHAProxyPort
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::defaultHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
 #
-sub defaultHAProxySSLPort
+sub defaultHTTPSPort
 {
     return 443;
 }
 
-# Method: targetHAProxyDomains
+# Method: targetVHostDomains
 #
 # Returns:
 #
 #   list - List of domains that the target service will handle. If empty, this service will be used as the default
 #          traffic destination for the configured ports.
 #
-sub targetHAProxyDomains
+sub targetVHostDomains
 {
     my ($self) = @_;
 
@@ -932,18 +919,18 @@ sub targetHAProxyDomains
     return \@domains;
 }
 
-# Method: pathHAProxySSLCertificate
+# Method: pathHTTPSSSLCertificate
 #
 # Returns:
 #
 #   string - The full path to the SSL certificate file to use by HAProxy.
 #
-sub pathHAProxySSLCertificate
+sub pathHTTPSSSLCertificate
 {
     return '/etc/apache2/ssl/ssl.pem';
 }
 
-# Method: targetHAProxyIP
+# Method: targetIP
 #
 # Returns:
 #
@@ -951,39 +938,39 @@ sub pathHAProxySSLCertificate
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyIP>
+#   <EBox::HAProxy::ServiceBase::targetIP>
 #
-sub targetHAProxyIP
+sub targetIP
 {
     return '127.0.0.1';
 }
 
-# Method: targetHAProxyPort
+# Method: targetHTTPPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxyPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
 #
-sub targetHAProxyPort
+sub targetHTTPPort
 {
     return 62080;
 }
 
-# Method: targetHAProxySSLPort
+# Method: targetHTTPSPort
 #
 # Returns:
 #
-#   integer - Port on <EBox::HAProxy::ServiceBase::targetHAProxyIP> where the service is listening for SSL requests.
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
 #
 # Overrides:
 #
-#   <EBox::HAProxy::ServiceBase::targetHAProxySSLPort>
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
 #
-sub targetHAProxySSLPort
+sub targetHTTPSPort
 {
     return 62443;
 }

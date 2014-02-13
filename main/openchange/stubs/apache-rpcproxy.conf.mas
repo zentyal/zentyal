@@ -72,9 +72,9 @@ LogFormat "%h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\" \"%{fore
 CustomLog /var/log/zentyal/access-rpcproxy.log combined
 
 WSGILazyInitialization On
-WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
+WSGIPythonPath /var/lib/samba/openchange/web/rpcproxy
 
-<Directory /opt/samba4/lib/openchange/web/rpcproxy/>
+<Directory /var/lib/samba/openchange/web/rpcproxy/>
   SetEnv RPCPROXY_LOGLEVEL INFO
   SetEnv NTLMAUTHHANDLER_WORKDIR <% $rpcproxyAuthCacheDir %>
   SetEnv SAMBA_HOST 127.0.0.1
@@ -82,5 +82,5 @@ WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
   WSGIProcessGroup %{GLOBAL}
 </Directory>
 
-WSGIScriptAlias /rpc/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
-WSGIScriptAlias /rpcwithcert/rpcproxy.dll /opt/samba4/lib/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpc/rpcproxy.dll /var/lib/samba/openchange/web/rpcproxy/rpcproxy.wsgi
+WSGIScriptAlias /rpcwithcert/rpcproxy.dll /var/lib/samba/openchange/web/rpcproxy/rpcproxy.wsgi

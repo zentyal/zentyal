@@ -164,7 +164,7 @@ sub _table
             printableName => __('IP address'),
        ),
         new EBox::Types::Port(
-            fieldName     => 'webAdminPort',  # FIX the name?
+            fieldName     => 'port',
             printableName => __('Port'),
            ),
        );

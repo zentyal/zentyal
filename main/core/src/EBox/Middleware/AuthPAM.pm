@@ -36,7 +36,7 @@ use TryCatch::Lite;
 #
 #       username - string containing the user name
 #       password - string containing the plain password
-#       env      - Plack enviroment (OPTIONAL). Used by the LDAP validation to store the user DN.
+#       env      - Plack enviroment (OPTIONAL).
 #
 # Returns:
 #

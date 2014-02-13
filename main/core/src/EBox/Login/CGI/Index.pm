@@ -40,7 +40,8 @@ sub new # (error=?, msg=?, cgi=?)
 
 sub _print
 {
-    my $self = shift;
+    my ($self) = @_;
+
     my $response = $self->response();
     $response->content_type('text/html; charset=utf-8');
     $response->body($self->_body);

@@ -1,4 +1,10 @@
 3.4
+	+ Restore AdminPort model for WebAdmin to improve usability
+	+ Added EBox::Module::Config::replicationExcludeKeys()
+	+ Added EBox::WebAdmin::PortObserver to be used by ha and
+	  remoteservices modules by the moment
+	+ Added EBox::GlobalImpl::addModuleToPostSave to save modules
+	  after normal save changes process
 	+ Added a way for HAProxy to retrieve the CA certificate entry that should
 	  be used
 	+ Added a left-right composite layout

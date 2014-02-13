@@ -24,9 +24,11 @@ use EBox::Gettext;
 sub new # (error=?, msg=?, cgi=?)
 {
     my $class = shift;
-    my $self = $class->SUPER::new('title' => '',
-                      'template' => '/captiveportal/popupLaunch.mas',
-                      @_);
+    my $self = $class->SUPER::new(
+        'title' => '',
+        'template' => '/captiveportal/popupLaunch.mas',
+        @_
+    );
     bless($self, $class);
     return $self;
 }

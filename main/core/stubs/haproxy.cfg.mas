@@ -29,7 +29,6 @@ defaults
   timeout http-request 3600s
   option http-no-delay
   option forwardfor
-  option httpclose
 %   foreach my $portNumber (keys %{$ports}) {
 
 frontend ft_zentyal_<% $portNumber %>

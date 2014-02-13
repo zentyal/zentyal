@@ -1,4 +1,3 @@
-#!/usr/bin/perl
 # Copyright (C) 2010-2014 Zentyal S.L.
 #
 # This program is free software; you can redistribute it and/or modify
@@ -54,7 +53,7 @@ builder {
     enable "Session",
         state   => 'Plack::Session::State::Cookie',
         store   => new Plack::Session::Store::File(dir => SESSIONS_PATH);
-    enable "+EBox::Middleware::AuthLDAP", app_name => 'usercorner';
+    enable "+EBox::UserCorner::Middleware::AuthLDAP", app_name => 'usercorner';
     $app;
 };
 

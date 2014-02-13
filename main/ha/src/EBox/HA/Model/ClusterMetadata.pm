@@ -57,9 +57,9 @@ sub templateContext
             # id, name, value
             [ 'cluster_name', __('Cluster name'), $self->parentModule()->model('Cluster')->nameValue()],
             [ 'cluster_secret', __('Cluster secret'), $self->parentModule()->userSecret()],
-            [ 'cluster_dc', __('Current DC'), EBox::HA::CRMWrapper::currentDCNode()],
+            [ 'cluster_dc', __('Current Desginated Controller'), EBox::HA::CRMWrapper::currentDCNode()],
            ],
-        help => __('DC is the Designated Controller to perform the operations in the cluster. This node may change and has no impact in the cluster.'),
+        help => __('The current Designated Controller performs the operations in the cluster. This node may be changed without any impact in the cluster.'),
     };
 }
 

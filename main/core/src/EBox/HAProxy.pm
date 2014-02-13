@@ -108,40 +108,40 @@ sub ports
         my $serviceId = $row->valueByName('serviceId');
         my $module = $global->modInstance($row->valueByName('module'));
 
-        my $enabledPort = $module->isPortEnabledInHAProxy();
+        my $enabledPort = $module->isHTTPPortEnabled();
         my $port = undef;
         if ($enabledPort) {
             my $service = {};
             $service->{name} = $serviceId;
-            $service->{domains} = $module->targetHAProxyDomains();
-            $service->{targetIP} = $module->targetHAProxyIP();
+            $service->{domains} = $module->targetVHostDomains();
+            $service->{targetIP} = $module->targetIP();
 
-            $port = $module->usedHAProxyPort();
+            $port = $module->listeningHTTPPort();
             if (not exists ($ports{$port})) {
                 $ports{$port}->{isSSL} = 0;
                 $ports{$port}->{services} = [];
             }
             $service->{isDefault} = $row->valueByName('defaultPort');
-            $service->{targetPort} = $module->targetHAProxyPort();
+            $service->{targetPort} = $module->targetHTTPPort();
             push (@{$ports{$port}->{services}}, $service);
         }
 
-        my $enabledSSLPort = $module->isSSLPortEnabledInHAProxy();
+        my $enabledSSLPort = $module->isHTTPSPortEnabled();
         my $sslPort = undef;
         if ($enabledSSLPort) {
             my $service = {};
             $service->{name} = $serviceId;
-            $service->{domains} = $module->targetHAProxyDomains();
-            $service->{targetIP} = $module->targetHAProxyIP();
+            $service->{domains} = $module->targetVHostDomains();
+            $service->{targetIP} = $module->targetIP();
 
-            $sslPort = $module->usedHAProxySSLPort();
+            $sslPort = $module->listeningHTTPSPort();
             if (not exists ($ports{$sslPort})) {
                 $ports{$sslPort}->{isSSL} = 1;
                 $ports{$sslPort}->{services} = [];
             }
             $service->{isDefault} = $row->valueByName('defaultSSLPort');
-            $service->{pathSSLCert} = $module->pathHAProxySSLCertificate();
-            $service->{targetPort} = $module->targetHAProxySSLPort();
+            $service->{pathSSLCert} = $module->pathHTTPSSSLCertificate();
+            $service->{targetPort} = $module->targetHTTPSPort();
             push (@{$ports{$sslPort}->{services}}, $service);
         }
     }
@@ -234,6 +234,34 @@ sub addModuleStatus
 {
 }
 
+# Method: menu
+#
+#       Set HAProxy conf under System menu entry
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $system = new EBox::Menu::Folder(
+            'name' => 'SysInfo',
+            'text' => __('System'),
+            'order' => 30
+           );
+
+    $system->add(new EBox::Menu::Item(
+        url => 'HAProxy/View/HAProxyServices',
+        text => __('HTTP Services'),
+        separator => 'Core',
+        order => 60,
+    ));
+
+    $root->add($system);
+}
+
 # Method: _enforceServiceState
 #
 #   This method will restart always haproxy.
@@ -310,6 +338,9 @@ sub updateServicePorts
     if ($global->modExists('services')) {
         my $servicesMod = $global->modInstance('services');
         my $module = $global->modInstance($modName);
+
+        # Set module as changed just in case it is needed
+        $module->setAsChanged();
 
         my @servicePorts = ();
         foreach my $port (@{$ports}) {

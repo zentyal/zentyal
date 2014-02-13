@@ -16,7 +16,7 @@
 use strict;
 use warnings;
 
-package EBox::Middleware::AuthLDAP;
+package EBox::UserCorner::Middleware::AuthLDAP;
 use base qw(EBox::Middleware::Auth);
 
 use EBox;
