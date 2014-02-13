@@ -465,7 +465,7 @@ sub replicateConf
     EBox::Global->modRestarted('ha');
 
     EBox::info("Configuration replicated, now saving changes...");
-    EBox::Global->saveAllModules();
+    EBox::Global->saveAllModules(replicating => 1);
     EBox::info("Changes saved after replication request");
 
     EBox::Sudo::root("rm -rf $tmpdir");

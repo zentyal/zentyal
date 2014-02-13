@@ -720,7 +720,7 @@ sub saveAllModules
 
     if (not $failed) {
         # Replicate conf if there are more HA servers
-        if ($self->modExists('ha')) {
+        if ($self->modExists('ha') and not $options{replicating}) {
             my $ha = $self->modInstance(0, 'ha');
             if ($ha->isEnabled()) {
                 $ha->askForReplication(\@mods);
