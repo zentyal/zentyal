@@ -66,7 +66,24 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
+#FIXME: aqui hay cagada, esto es deprecated, o bien no deberia hacerse siempre o algo
     $self->_migrateFormKeys();
+
+    if (defined($version)
+            and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
+        $self->_migrateOutgoingDomain();
+    }
+}
+
+# Migration of form keys after extracting the rewrite rule for outgoing domain
+# from the provision form.
+#
+sub _migrateOutgoingDomain
+{
+  my ($self) = @_;
+
+  my $oldKeyValue = $self->get('Provision/keys/form');
+  $self->set('Configuration/keys/form', $oldKeyValue);
 }
 
 # Migration of form keys to better names (between development versions)
@@ -365,7 +382,6 @@ sub _writeRewritePolicy
         my $defaultDomain = $sysinfo->hostDomain();
 
         my $rewriteDomain = $self->model('Configuration')->row()->printableValueByName('outgoingDomain');
-        EBox::debug("The outgoing email we have is: $rewriteDomain");
 
         my @rewriteParams;
         push @rewriteParams, ('defaultDomain' => $defaultDomain);
