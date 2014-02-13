@@ -66,7 +66,7 @@ sub initialSetup
 {
     my ($self, $version) = @_;
 
-#FIXME: aqui hay cagada, esto es deprecated, o bien no deberia hacerse siempre o algo
+    #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
 
     if (defined($version)
