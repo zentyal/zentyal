@@ -234,6 +234,34 @@ sub addModuleStatus
 {
 }
 
+# Method: menu
+#
+#       Set HAProxy conf under System menu entry
+#
+# Overrides:
+#
+#       <EBox::Module::menu>
+#
+sub menu
+{
+    my ($self, $root) = @_;
+
+    my $system = new EBox::Menu::Folder(
+            'name' => 'SysInfo',
+            'text' => __('System'),
+            'order' => 30
+           );
+
+    $system->add(new EBox::Menu::Item(
+        url => 'HAProxy/View/HAProxyServices',
+        text => __('HTTP Services'),
+        separator => 'Core',
+        order => 60,
+    ));
+
+    $root->add($system);
+}
+
 # Method: _enforceServiceState
 #
 #   This method will restart always haproxy.
