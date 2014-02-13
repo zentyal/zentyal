@@ -237,14 +237,14 @@ sub currentSessions
     for my $sess_file (glob(EBox::CaptivePortal->SIDS_DIR . '*')) {
         my $sid = basename($sess_file);
         my $session = $store->fetch($sid);
-        if ($session) {
-            my @filteredSession = ();
-            push (@filteredSession, sid  => $sid);
-            push (@filteredSession, user => $session->{user_id}) if (defined ($session->{user_id}));
-            push (@filteredSession, ip   => $session->{ip}) if (defined ($session->{ip}));
-            push (@filteredSession, mac  => $session->{mac}) if (defined ($session->{mac}));
-            push (@filteredSession, time => $session->{last_time}) if (defined ($session->{last_time}));
-            push (@sessions, \@filteredSession);
+        if ($session and (defined ($session->{user_id}))) {
+            my %filteredSession = ();
+            $filteredSession{sid} = $sid;
+            $filteredSession{user} = $session->{user_id};
+            $filteredSession{ip} = $session->{ip} if (defined ($session->{ip}));
+            $filteredSession{mac} = $session->{mac} if (defined ($session->{mac}));
+            $filteredSession{time} = $session->{last_time} if (defined ($session->{last_time}));
+            push (@sessions, \%filteredSession);
         }
     }
     return \@sessions;
