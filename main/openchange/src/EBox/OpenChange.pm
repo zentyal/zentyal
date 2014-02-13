@@ -225,6 +225,7 @@ sub isRunning
 sub _autodiscoverEnabled
 {
     my ($self) = @_;
+    return 0; # XXX until ocsmanager pkg is ok
     return $self->isProvisioned();
 }
 
@@ -274,7 +275,7 @@ sub _setConf
     $self->_writeSOGoDefaultFile();
     $self->_writeSOGoConfFile();
     $self->_setupSOGoDatabase();
-    $self->_setAutodiscoverConf();
+#    $self->_setAutodiscoverConf(); # XXX until ocsmanager package is ok
     $self->_setRPCProxyConf();
     $self->_writeRewritePolicy();
 }

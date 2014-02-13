@@ -37,7 +37,7 @@ MaxSpareServers 10
 MaxClients 150
 MaxRequestsPerChild 0
 
-
+<%doc>
 Include /etc/apache2/mods-available/auth_basic.load
 Include /etc/apache2/mods-available/authn_file.load
 Include /etc/apache2/mods-available/authz_default.load
@@ -50,14 +50,17 @@ Include /etc/apache2/mods-available/deflate.conf
 Include /etc/apache2/mods-available/deflate.load
 Include /etc/apache2/mods-available/dir.conf
 Include /etc/apache2/mods-available/dir.load
-Include /etc/apache2/mods-available/env.load
+
 Include /etc/apache2/mods-available/negotiation.load
 Include /etc/apache2/mods-available/setenvif.load
 Include /etc/apache2/mods-available/rewrite.load
 Include /etc/apache2/mods-available/status.load
 Include /etc/apache2/mods-available/perl.load
 Include /etc/apache2/mods-available/expires.load
+</%doc>
+
 Include /etc/apache2/mods-available/wsgi.load
+Include /etc/apache2/mods-available/env.load
 
 Listen <% $bindaddress %>:<% $port %>
 
