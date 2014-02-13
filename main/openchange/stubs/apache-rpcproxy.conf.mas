@@ -48,7 +48,6 @@ group www-data
 WSGILazyInitialization On
 WSGIPythonPath /opt/samba4/lib/openchange/web/rpcproxy
 
-
 ErrorLog /var/log/apache2/rpcproxy-error.log
 LogLevel warn
 
