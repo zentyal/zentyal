@@ -392,6 +392,12 @@ sub _setConf
 {
     my ($self) = @_;
 
+    # adjust mpm modules
+    EBox::Sudo::root(
+        'a2dismod mpm_event',
+        'a2enmod mpm_prefork'
+       );
+
     my $vHostModel = $self->model('VHostTable');
     my $vhosts    = $vHostModel->virtualHosts();
     my $hostname      = $self->_fqdn();
