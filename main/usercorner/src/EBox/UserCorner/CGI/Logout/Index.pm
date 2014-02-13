@@ -33,8 +33,6 @@ sub _process
 {
     my ($self) = @_;
 
-    my $request = $self->request();
-
     $self->{redirect} = "Login/Index";
     $self->{errorchain} = "Logout/Index";
 }

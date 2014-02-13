@@ -261,7 +261,7 @@ sub _daemons
 {
     return [
         {
-            name          => USERCORNER_UPSTART_NAME,
+            name => USERCORNER_UPSTART_NAME,
         },
         {
             name => 'ebox.redis-usercorner'
