@@ -1,6 +1,8 @@
 HEAD
 	+ Extracted vdomain selection for outgoing mail to a new configuration
 	  model named Configuration
+	+ Better user addon integration
+	+ Fixed bug which not enabled new user accounts when using different mail domain than AD domain
 	+ Clean all previous data before enabling the module
 	+ Fix regression hiding from module status
 	+ Fixed migration form that is missing a .js file to work
