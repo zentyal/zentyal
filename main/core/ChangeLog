@@ -1,4 +1,5 @@
 HEAD
+	+ Avoid division by zero while using page navigation
 	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 	+ Show nice error when global-action fails using die + scalar
