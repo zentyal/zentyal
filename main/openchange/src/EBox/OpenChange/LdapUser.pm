@@ -99,7 +99,7 @@ sub setAccountEnabled
     my $samAccountName = $ldbUser->get('samAccountName');
     my $msExchUserAccountControl = $ldbUser->get('msExchUserAccountControl');
 
-    my $cmd = '/opt/samba4/sbin/openchange_newuser ';
+    my $cmd = 'openchange_newuser ';
     $cmd .= ' --create ' unless (defined $msExchUserAccountControl);
     if ($enabled) {
         $cmd .= ' --enable ';

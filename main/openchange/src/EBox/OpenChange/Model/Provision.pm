@@ -355,8 +355,7 @@ sub _doProvision
     }
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  "--firstorg='$organizationName' ";
+        my $cmd = "openchange_provision --firstorg='$organizationName' ";
 
         if ($additionalInstallation) {
             $cmd .= ' --additional ';
@@ -370,8 +369,7 @@ sub _doProvision
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
 
-        $cmd = '/opt/samba4/sbin/openchange_provision ' .
-               "--openchangedb " .
+        $cmd = "openchange_provision --openchangedb " .
                "--firstorg='$organizationName'";
         my $output2 = EBox::Sudo::root($cmd);
         $output .= "\n" . join('', @{$output2});
@@ -418,7 +416,7 @@ sub _doProvision
                 # Skip already enabled users
                 my $ac = $ldbUser->get('msExchUserAccountControl');
                 unless (defined $ac and $ac == 0) {
-                    my $cmd = "/opt/samba4/sbin/openchange_newuser ";
+                    my $cmd = 'openchange_newuser ';
                     $cmd .= " --create " if (not defined $ac);
                     $cmd .= " --enable '$samAccountName' ";
                     my $output = EBox::Sudo::root($cmd);
@@ -440,8 +438,7 @@ sub _doDeprovision
     my $organizationName = $params{organizationname};
 
     try {
-        my $cmd = '/opt/samba4/sbin/openchange_provision ' .
-                  '--deprovision ' .
+        my $cmd = 'openchange_provision --deprovision ' .
                   "--firstorg='$organizationName' ";
         my $output = EBox::Sudo::root($cmd);
         $output = join('', @{$output});
