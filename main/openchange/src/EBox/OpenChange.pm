@@ -831,8 +831,12 @@ sub HAProxyInternalService
 {
     my ($self) = @_;
     my $RPCProxyModel = $self->model('RPCProxy');
+    if (not $self->_rpcProxyEnabled()) {
+        return [];
+    }
+
     my $hosts;
-     try {
+    try {
         $hosts = $self->_rpcProxyHosts();
     } catch ($ex) {
         EBox::error("Error when getting host name for RPC proxy: $ex. \nThis feature will be disabled until the error is fixed");
