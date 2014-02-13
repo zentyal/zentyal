@@ -512,8 +512,7 @@ sub askForReplication
 
     foreach my $node (@{$self->nodes()}) {
         next if ($node->{localNode});
-        my $addr = $node->{addr};
-        $self->_uploadReplicationBundle($addr, $path);
+        $self->_uploadReplicationBundle($node, $path);
     }
 
     EBox::info("Replication to the rest of nodes done");
@@ -1492,11 +1491,12 @@ sub _setNoQuorumPolicy
 
 sub _uploadReplicationBundle
 {
-    my ($self, $addr, $file) = @_;
+    my ($self, $node, $file) = @_;
 
     my $secret = $self->userSecret();
-    # FIXME: Use port from node list
-    system ("curl -k -F file=\@$file http://zentyal:$secret\@$addr:443/conf/replication");
+    my $addr = $node->{addr};
+    my $port = $node->{port};
+    system ("curl -k -F file=\@$file https://zentyal:$secret\@$addr:$port/conf/replication");
     EBox::info("Replication bundle uploaded to $addr");
 }
 
