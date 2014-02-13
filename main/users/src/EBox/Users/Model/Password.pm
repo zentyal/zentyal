@@ -27,7 +27,6 @@ use base 'EBox::Model::DataForm';
 use EBox::Exceptions::External;
 use EBox::Exceptions::Internal;
 use EBox::Gettext;
-use EBox::Middleware::AuthLDAP;
 use EBox::Users::Types::Password;
 use EBox::Validate qw(:all);
 
@@ -187,7 +186,8 @@ sub setTypedRow
     $zentyalUser->changePassword($pass1->value());
 
     # FIXME: Hide this inside a method on EBox::UserCorner
-    EBox::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
+    use EBox::UserCorner::Middleware::AuthLDAP;
+    EBox::UserCorner::Middleware::AuthLDAP->updateSessionPassword($global->request(), $pass1->value());
 
     $self->setMessage(__('Password successfully updated'));
 }
