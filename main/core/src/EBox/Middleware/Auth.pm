@@ -26,10 +26,7 @@ use EBox::Config;
 use EBox::Exceptions::Internal;
 use EBox::Exceptions::Lock;
 
-use Crypt::Rijndael;
-use Digest::MD5;
 use Fcntl qw(:flock);
-use MIME::Base64;
 use Plack::Request;
 use Plack::Util::Accessor qw( app_name );
 use TryCatch::Lite;

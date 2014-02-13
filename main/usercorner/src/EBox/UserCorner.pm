@@ -25,8 +25,8 @@ use EBox::Exceptions::Internal;
 use EBox::Gettext;
 use EBox::Global;
 use EBox::Menu::Root;
-use EBox::Middleware::AuthLDAP;
 use EBox::UserCorner;
+use EBox::UserCorner::Middleware::AuthLDAP;
 use EBox::Util::Version;
 
 use constant USERCORNER_USER  => 'ebox-usercorner';
@@ -409,7 +409,7 @@ sub userCredentials
         throw EBox::Exceptions::Internal("There is no userDN information in the request object!");
     }
     my $userDN = $session->{userDN};
-    my $pass = EBox::Middleware::AuthLDAP->sessionPassword($request);
+    my $pass = EBox::UserCorner::Middleware::AuthLDAP->sessionPassword($request);
     unless (defined $pass) {
         throw EBox::Exceptions::Internal("There is password defined for this request object!");
     }
