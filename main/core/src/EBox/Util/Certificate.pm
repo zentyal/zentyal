@@ -97,10 +97,10 @@ sub _generateFileInfraestructure
     return ($file, 1);
   }
 
-  my  @cmds =  (
-                "touch $file",
-                 "chmod 0600 $file",
-                 );
+  my  @cmds = (
+      "touch $file",
+      "chmod 0600 $file",
+     );
   EBox::Sudo::root(@cmds);
 
   return ($file, 0);
@@ -112,7 +112,7 @@ sub _sslDir
 
   my $sslDir = "$destDir";
   if (not -d $sslDir) {
-      EBox::Sudo::root("mkdir '$sslDir'",
+      EBox::Sudo::root("mkdir -p '$sslDir'",
                        "chmod 0700 '$sslDir'",
                        );
   }
