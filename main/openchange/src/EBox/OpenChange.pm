@@ -18,7 +18,7 @@ use warnings;
 
 package EBox::OpenChange;
 
-use base qw(EBox::Module::Service EBox::LdapModule);
+use base qw(EBox::Module::Service EBox::LdapModule EBox::HAProxy::ServiceBase);
 
 use EBox::Config;
 use EBox::DBEngineFactory;
@@ -76,6 +76,7 @@ sub initialSetup
 
     #FIXME: is this deprecated (in 3.4)? needs to be done always? better to include a version check
     $self->_migrateFormKeys();
+    $self->_setupDNS();
 
     if (defined($version)
             and (EBox::Util::Version::compare($version, '3.3.3') < 0)) {
@@ -162,12 +163,6 @@ sub enableService
         my $samba = $global->modInstance('samba');
         $samba->setAsChanged();
 
-        if ($global->modExists('webserver')) {
-            my $webserverMod = $global->modInstance("webserver");
-            # Mark webserver as changed to load the configuration of Outlook Anywhere.
-            $webserverMod->setAsChanged() if $webserverMod->isEnabled();
-        }
-
         # Mark webadmin as changed so we are sure nginx configuration is
         # refreshed with the new includes
         $global->modInstance('webadmin')->setAsChanged();
@@ -196,20 +191,25 @@ sub _daemonsToDisable
 sub _daemons
 {
     my ($self) = @_;
-    my $daemons = [
-        {
-            name         => 'zentyal.ocsmanager',
-            type         => 'upstart',
-            precondition => sub { return $self->_autodiscoverEnabled() },
-        },
-        {
-            name         => 'zentyal.zoc-migrate',
-            type         => 'upstart',
-            precondition => sub { return $self->isProvisioned() },
-        },
-    ];
 
-    return $daemons;
+    my @daemons = ();
+    push (@daemons, {
+        name => 'zentyal.rpcproxy',
+        type => 'upstart',
+        precondition => sub { return $self->isProvisioned() },
+    });
+    push (@daemons, {
+        name => 'zentyal.ocsmanager',
+        type => 'upstart',
+        precondition => sub { return $self->_autodiscoverEnabled() },
+    });
+    push (@daemons, {
+        name         => 'zentyal.zoc-migrate',
+        type         => 'upstart',
+        precondition => sub { return $self->isProvisioned() },
+    });
+
+    return \@daemons;
 }
 
 # Method: isRunning
@@ -256,20 +256,6 @@ sub usedFiles
         reason => __('To configure autodiscovery service'),
         module => 'openchange'
     });
-
-    my $global = EBox::Global->getInstance();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        if ($webserverMod->isEnabled()) {
-            my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-            push (@files, {
-                file => $rpcproxyConfFile,
-                reason => __('To configure Outlook Anywhere service'),
-                module => 'openchange'
-            });
-        }
-    }
-
     return \@files;
 }
 
@@ -405,44 +391,28 @@ sub _setRPCProxyConf
 {
     my ($self) = @_;
 
-    my $global = $self->global();
-    if ($global->modExists('webserver')) {
-        my $webserverMod = $global->modInstance("webserver");
-        my $rpcproxyConfFile = $webserverMod->GLOBAL_CONF_DIR() . 'rpcproxy.conf';
-        if ($webserverMod->isEnabled()) {
-            if ($self->isProvisioned()) {
-                try {
-                    EBox::Sudo::root('a2enmod wsgi');
-                } catch (EBox::Exceptions::Sudo::Command $e) {
-                    # Already enabled?
-                    if ( $e->exitValue() != 1 ) {
-                        $e->throw();
-                    }
-                }
-                $self->writeConfFile(
-                    $rpcproxyConfFile, 'openchange/apache-rpcproxy.mas',
-                    [rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR]);
+    if ($self->isProvisioned()) {
+        my $rpcproxyConfFile = '/var/lib/zentyal/conf/apache-rpcproxy.conf';
 
-                my @cmds;
-                push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
-                push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
-                EBox::Sudo::root(@cmds);
-            } else {
-                EBox::Sudo::root('rm -f ' . $rpcproxyConfFile);
-                # Disable the module
-                try {
-                    EBox::Sudo::root('a2dismod wsgi');
-                } catch (EBox::Exceptions::Sudo::Command $e) {
-                    # Already enabled?
-                    if ( $e->exitValue() != 1 ) {
-                        $e->throw();
-                    }
-                }
-            }
-            # Force webserver reload
-            $webserverMod->setAsChanged();
-        }
+        my @params = ();
+        push (@params, bindaddress => $self->targetIP());
+        push (@params, port        => $self->targetHTTPPort());
+        push (@params, rpcproxyAuthCacheDir => RPCPROXY_AUTH_CACHE_DIR);
+        push (@params, tmpdir => EBox::Config::tmp());
+
+        $self->writeConfFile($rpcproxyConfFile, 'openchange/apache-rpcproxy.conf.mas', \@params);
+
+        my @cmds;
+        push (@cmds, 'mkdir -p ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chown -R www-data:www-data ' . RPCPROXY_AUTH_CACHE_DIR);
+        push (@cmds, 'chmod 0750 ' . RPCPROXY_AUTH_CACHE_DIR);
+        EBox::Sudo::root(@cmds);
+
+        @params = ();
+        push (@params, conf => $rpcproxyConfFile);
+
+        my $rpcproxyUpstartFile = '/etc/init/zentyal.rpcproxy.conf';
+        $self->writeConfFile($rpcproxyUpstartFile, 'openchange/upstart-rpcproxy.mas', \@params);
     }
 }
 
@@ -611,10 +581,7 @@ sub _setupDNS
     my $hostDomain = $sysinfo->hostDomain();
     my $hostName   = $sysinfo->hostName();
     my $autodiscoverAlias = 'autodiscover';
-    if ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
-        # strangely the hostname is already the autodiscover name
-        return;
-    }
+    my $rpcproxyAlias = 'rpcproxy';
 
     my $dns = $self->global()->modInstance('dns');
 
@@ -639,12 +606,20 @@ sub _setupDNS
     }
 
     my $aliasModel = $hostRow->subModel('alias');
-    if ($aliasModel->find(alias => $autodiscoverAlias)) {
-        # already added, nothing to do
-        return;
+
+    unless ("$autodiscoverAlias.$hostName"  eq $hostDomain) {
+        unless ($aliasModel->find(alias => $autodiscoverAlias)) {
+            # add the autodiscover alias
+            $aliasModel->addRow(alias => $autodiscoverAlias);
+        }
     }
-    # add the autodiscover alias
-    $aliasModel->addRow(alias => $autodiscoverAlias);
+
+    unless ("$rpcproxyAlias.$hostName"  eq $hostDomain) {
+        unless ($aliasModel->find(alias => $rpcproxyAlias)) {
+            # add the rpc proxy alias
+            $aliasModel->addRow(alias => $rpcproxyAlias);
+        }
+    }
 }
 
 
@@ -708,5 +683,153 @@ sub organizations
 
     return $list;
 }
+
+sub _defaultRPCProxyVHost
+{
+    my ($self) = @_;
+
+    my $sysinfo    = $self->global()->modInstance('sysinfo');
+    my $hostDomain = $sysinfo->hostDomain();
+    my $hostName   = $sysinfo->hostName();
+
+    return "rpcproxy.$hostName.$hostDomain";
+}
+
+# Method: certificates
+#
+#   This method is used to tell the CA module which certificates
+#   and its properties we want to issue for this service module.
+#
+# Returns:
+#
+#   An array ref of hashes containing the following:
+#
+#       service - name of the service using the certificate
+#       path    - full path to store this certificate
+#       user    - user owner for this certificate file
+#       group   - group owner for this certificate file
+#       mode    - permission mode for this certificate file
+#
+sub certificates
+{
+    my ($self) = @_;
+
+    return [
+        {
+            serviceId => $self->caServiceIdForHTTPS(),
+            service   => __('RPC over HTTP Proxy'),
+            path      => $self->pathHTTPSSSLCertificate(),
+            cn        => $self->_defaultRPCProxyVHost(),
+            user      => 'root',
+            group     => 'root',
+            mode      => '0400',
+        },
+    ];
+}
+
+#
+# Implementation of EBox::HAProxy::ServiceBase
+#
+
+# Method: defaultHTTPSPort
+#
+# Returns:
+#
+#   integer - The default public port that should be used to publish this service over SSL or undef if unused.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::defaultHTTPSPort>
+#
+sub defaultHTTPSPort
+{
+    return 443;
+}
+
+# Method: targetVHostDomains
+#
+# Returns:
+#
+#   list - List of domains that the target service will handle. If empty, this service will be used as the default
+#          traffic destination for the configured ports.
+#
+sub targetVHostDomains
+{
+    my ($self) = @_;
+
+    return [$self->_defaultRPCProxyVHost()];
+}
+
+# Method: pathHTTPSSSLCertificate
+#
+# Returns:
+#
+#   string - The full path to the SSL certificate file to use by HAProxy.
+#
+sub pathHTTPSSSLCertificate
+{
+    return '/var/lib/zentyal/conf/ssl/rpcproxy.pem';
+}
+
+# Method: caServiceIdForHTTPS
+#
+# Returns:
+#
+#   string - The CA SSL service name for HAProxy.
+#
+sub caServiceIdForHTTPS
+{
+    my ($self) = @_;
+
+    return 'zentyal_' . $self->name() . '_rpcproxy';
+}
+
+# Method: targetIP
+#
+# Returns:
+#
+#   string - IP address where the service is listening, usually 127.0.0.1 .
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetIP>
+#
+sub targetIP
+{
+    return '127.0.0.1';
+}
+
+# Method: targetHTTPPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for nonSSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPPort>
+#
+sub targetHTTPPort
+{
+    return 63080;
+}
+
+# Method: targetHTTPSPort
+#
+# Returns:
+#
+#   integer - Port on <EBox::HAProxy::ServiceBase::targetIP> where the service is listening for SSL requests.
+#
+# Overrides:
+#
+#   <EBox::HAProxy::ServiceBase::targetHTTPSPort>
+#
+sub targetHTTPSPort
+{
+    my ($self) = @_;
+
+    return $self->targetHTTPPort();
+}
+
 
 1;

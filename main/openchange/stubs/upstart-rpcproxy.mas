@@ -1,0 +1,22 @@
+<%args>
+    $conf
+</%args>
+# apache - Zentyal Outlook Anywhere service
+
+description     "Apache http daemon for Zentyal Outlook Anywhere"
+author          "Zentyal Packaging Maintainers <pkg-team@zentyal.com>"
+
+start on (filesystem
+          and static-network-up
+          and runlevel [2345])
+stop on runlevel [016]
+
+env DAEMON=/usr/sbin/apache2
+env CONF=<% $conf %>
+
+expect fork
+
+respawn
+respawn limit 10 5
+
+exec $DAEMON -f $CONF

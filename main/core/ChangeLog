@@ -27,6 +27,8 @@
 	+ Give support to custom actions without image. Those actions will
 	  not appear in the legend.
 	+ Added to findValueMultipleFields and findValue the nosync parameter
+	+ Added a way for HAProxy to retrieve the CA certificate entry that should
+	  be used.
 	+ Added support for haproxy 1.5
 	+ Moved nginx to listen on localhost
 	+ Integration with HA module in save changes process
