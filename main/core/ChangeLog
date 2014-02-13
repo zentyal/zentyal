@@ -46,6 +46,7 @@
 	+ Adapted apache configuration to 2.4
 	+ Adapted EBox::Config::Redis to the new libredis-perl API
 	+ Adapted redis.conf to redis 2.6
+	+ Avoid division by zero while using page navigation
 	+ Avoid errors triggered on web administration port validation
 	+ ManageAdmins model now also add/removes lpadmin group
 	+ Show nice error when global-action fails using die + scalar

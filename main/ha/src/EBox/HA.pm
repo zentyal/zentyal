@@ -449,7 +449,9 @@ sub replicateConf
             }
         }
 
-        $mod->restoreBackup("$tmpdir/$modname.bak");
+        my $backupDir = "$tmpdir/$modname.bak";
+        next unless (-d $backupDir);
+        $mod->restoreBackup($backupDir);
 
         foreach my $key (keys %keysToReplace) {
             $mod->set($key, $keysToReplace{$key});
